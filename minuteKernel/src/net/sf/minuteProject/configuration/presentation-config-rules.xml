@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE digester-rules PUBLIC 
+        "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+        "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+<digester-rules>
+  <pattern value="presentation">
+      <object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.Presentation"/>
+	  <set-next-rule methodname="setPresentation" paramtype="net.sf.minuteProject.configuration.bean.presentation.Presentation"/>
+	  <set-properties-rule/>
+	  <pattern value="presentation-block">
+   	      <set-properties-rule/>	
+		  <bean-property-setter-rule pattern="strategy"/>
+		  <object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationBlock"/>
+		  <set-next-rule methodname="addPresentationBlock" paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationBlock"/>	  
+		  <pattern value="entity-blocks">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.EntityBlocks"/>	  
+			<set-next-rule methodname="addEntityBlocks" paramtype="net.sf.minuteProject.configuration.bean.presentation.EntityBlocks"/>		  
+			<pattern value="entity-block">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.EntityBlock"/>		
+				<set-next-rule methodname="addEntityBlock" paramtype="net.sf.minuteProject.configuration.bean.presentation.EntityBlock"/>		
+				<set-properties-rule/>	
+				<bean-property-setter-rule pattern="strategy"/>			
+				<bean-property-setter-rule pattern="name"/>	
+				<bean-property-setter-rule pattern="type"/>	
+				<pattern value="field">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.Field"/>		
+					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.presentation.Field"/>		
+					<set-properties-rule/>	
+					<bean-property-setter-rule pattern="name"/>	
+				</pattern>						
+			</pattern>
+		  </pattern>
+	 </pattern>
+  </pattern>	  
+</digester-rules>
