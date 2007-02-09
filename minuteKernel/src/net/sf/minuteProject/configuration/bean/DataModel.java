@@ -8,7 +8,8 @@ import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.io.DatabaseIO;
 import org.apache.ddlutils.model.Database;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+//import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 
 public class DataModel {
 	
@@ -17,14 +18,14 @@ public class DataModel {
 	private DataSource datasource;
 	private FileSource fileSource;
 
-	private DriverManagerDataSource driverManagerDataSource;
+	private BasicDataSource basicDataSource;
 	
-	public DriverManagerDataSource getDriverManagerDataSource() {
-		return driverManagerDataSource;
+	public BasicDataSource getBasicDataSource() {
+		return basicDataSource;
 	}
 
-	public void setDriverManagerDataSource(DriverManagerDataSource driverManagerDataSource) {
-		this.driverManagerDataSource = driverManagerDataSource;
+	public void setBasicDataSource(BasicDataSource basicDataSource) {
+		this.basicDataSource = basicDataSource;
 	}
 
 	public DataSource getDatasource() {
@@ -39,8 +40,9 @@ public class DataModel {
 		/*if (isDatabaseOnFile())
 			database = new DatabaseIO().read(getFileSourceName());		
 		else */
-		if (driverManagerDataSource!=null) {
-			DataSource dataSource = driverManagerDataSource;
+		if (basicDataSource!=null) {
+			//basicDataSource.set
+			DataSource dataSource = basicDataSource;
 		    Platform platform = PlatformFactory.createNewPlatformInstance(dataSource);
 		    database = platform.readModelFromDatabase(null);
 		    writeDatabase(database);

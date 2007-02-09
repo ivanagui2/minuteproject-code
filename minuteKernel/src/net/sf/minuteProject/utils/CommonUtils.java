@@ -6,6 +6,8 @@ import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
+import net.sf.minuteProject.configuration.bean.Package;
+
 
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.ForeignKey;
@@ -15,6 +17,10 @@ public class CommonUtils {
 	
 	public static String getTableClassName (Table table) {
 		return FormatUtils.getJavaName(table.getName());
+	}
+	
+	public static String getPackageClassName (Package pack) {
+		return FormatUtils.getJavaName(pack.getName());
 	}
 	
 	public static String getTableVariableName (Table table){
@@ -27,12 +33,28 @@ public class CommonUtils {
 		return ModelUtils.getPackage(model, template, table);
 	}
 
+	public static String getPackageName (Model model, Template template, Package pack) {
+		if (model ==null || template==null || pack==null)
+			return "PACKAGENAME_ERROR";
+		return ModelUtils.getPackage(model, template, pack);
+	}
+
+	public static String getPackageName (Model model, Template template) {
+		if (model ==null || template==null)
+			return "PACKAGENAME_ERROR";
+		return ModelUtils.getPackage(model, template);
+	}
+	
 	public static String getPackageDirName (Model model, Template template, Table table) {
 		return FormatUtils.getDirFromPackage(getPackageName(model, template, table));
 	}	
 	
 	public static String getClassName (Table table, Template template) {
 		return template.getOutputFileMain(getTableClassName(table));
+	}
+	
+	public static String getClassName (Package pack, Template template) {
+		return template.getOutputFileMain(getPackageClassName(pack));
 	}
 	
 	public static String getClassName (Model model, Template template) {
@@ -47,40 +69,54 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(type);
 	}
 	
-	protected static String getClassName (Table table, Template template, String targetTemplateName) {
-		Template templateDomainObject = getTargetTemplate(template, targetTemplateName);
-		if (templateDomainObject==null) {
+	protected static String getTemplateClassName (Table table, Template template, String targetTemplateName) {
+		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		if (templateTarget==null) {
 			System.out.println("ConfigFile not ok");
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
-		return getClassName(table, templateDomainObject);
-	}	
+		return getClassName(table, templateTarget);
+	}
+
+	protected static String getTemplateClassName (Package pack, Template template, String targetTemplateName) {
+		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		if (templateTarget==null) {
+			System.out.println("ConfigFile not ok");
+			return "ERROR on config file : missing "+targetTemplateName;
+		}
+		return getClassName(pack, templateTarget);
+	}
+
+	protected static String getTemplateClassName (Model model, Template template, String targetTemplateName) {
+		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		if (templateTarget==null) {
+			System.out.println("ConfigFile not ok");
+			return "ERROR on config file : missing "+targetTemplateName;
+		}
+		return getClassName(model, templateTarget);
+	}
 	
 	protected static Template getTargetTemplate (Template template, String targetTemplateName) {
 		return template.getTemplateTarget().getTarget().getTemplate(targetTemplateName);
 		//return template.getTemplateTarget().getTemplate(targetTemplateName);
 	}
 	
+	// get all the package either for table, package or model
 	protected static String getPackageName (Model model, Table table, Template template, String targetTemplateName) {
 		return getPackageName(model, getTargetTemplate(template, targetTemplateName), table);
 	}
-		
+
+	protected static String getPackageName (Model model, Template template, String targetTemplateName) {
+		return getPackageName(model, getTargetTemplate(template, targetTemplateName));
+	}
+
+	protected static String getPackageName (Model model, Package pack, Template template, String targetTemplateName) {
+		return getPackageName(model, getTargetTemplate(template, targetTemplateName), pack);
+	}
+	
 	protected static String getBusinessPackage(Model model, Table table) {
 		return model.getBusinessModel().getBusinessPackage().getPackage(table.getName());
 	}
-	
-	/*protected static String getBusinessPackageName(Model model, Table table) {
-		return model.getName();
-		//return model.getBusinessModel().getBusinessPackage().getPackage(table.getName());
-	}
-	
-	public static String getPackageName (Model model, Table table, Template template, String targetTemplateName){
-		return getPackageName(model, template, targetTemplateName) + "." +getBusinessPackage(model, table);
-	}
-	
-	public static String getPackageName (Model model, Template template, Table table){
-		return getPackageName(model, template) + "." +getBusinessPackage(model, table);
-	}*/
 	
 	public static Template getTemplate (Configuration configuration, String name) {
 		Template template=null;

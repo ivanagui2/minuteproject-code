@@ -33,10 +33,17 @@ public class ModelUtils {
 		sb.append("."+CommonUtils.getBusinessPackage(model, table));
 		return sb.toString();		
 	}
-
+	
 	public static String getPackage(Model model, Template template, Package pack) {
 		StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
 		sb.append("."+pack.getName());
+		return sb.toString();		
+	}
+
+	public static String getPackage(Model model, Template template) {
+		StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
+		// no need to add the subpackage since it is the model level
+		//sb.append("."+model.getName());
 		return sb.toString();		
 	}
 
