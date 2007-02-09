@@ -30,12 +30,17 @@
 					<bean-property-setter-rule pattern="dir"/>		
 				</pattern>					
 				<pattern value="dataSource">
+				
+					<object-create-rule classname="org.apache.commons.dbcp.BasicDataSource"/>	
+					<set-next-rule methodname="setBasicDataSource" paramtype="org.apache.commons.dbcp.BasicDataSource"/>			
+<!-- 
 					<object-create-rule classname="org.springframework.jdbc.datasource.DriverManagerDataSource"/>	
 					<set-next-rule methodname="setDriverManagerDataSource" paramtype="org.springframework.jdbc.datasource.DriverManagerDataSource"/>			
+					 -->
 					<set-properties-rule/>		  
 					<bean-property-setter-rule pattern="driverClassName"/>			
 					<bean-property-setter-rule pattern="url"/>		
-					<bean-property-setter-rule pattern="method"/>		
+					<!-- <bean-property-setter-rule pattern="method"/>		 -->
 					<bean-property-setter-rule pattern="username"/>		
 					<bean-property-setter-rule pattern="password"/>				
 				</pattern>			

@@ -43,6 +43,7 @@ public class Pool
     	ds2.setConnectionProperties(prop);
     	
         DriverAdapterCPDS cpds = new DriverAdapterCPDS();
+        
         try {
 			cpds.setDriver("org.hsqldb.jdbcDriver");
 		} catch (ClassNotFoundException e) {

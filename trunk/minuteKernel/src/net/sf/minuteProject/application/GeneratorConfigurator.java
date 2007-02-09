@@ -62,7 +62,7 @@ public class GeneratorConfigurator {
 	private GeneratorConfig getGeneratorConfig(String configFileName) throws Exception {
 		GeneratorConfig generatorConfig = new GeneratorConfig();
         InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configFileName);
-        URL rules = getClass().getClassLoader().getResource("my/generatorDataCentric/configuration/generator-config-rules.xml");
+        URL rules = getClass().getClassLoader().getResource("net/sf/minuteProject/configuration/generator-config-rules.xml");
         Digester digester = DigesterLoader.createDigester(rules);
         digester.push(generatorConfig);
         digester.parse(input);
@@ -76,7 +76,7 @@ public class GeneratorConfigurator {
 	
     private void loadPresentation(Configuration configuration, String configFileName) throws Exception {
         InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configFileName);
-        URL rules = getClass().getClassLoader().getResource("my/generatorDataCentric/configuration/presentation-config-rules.xml");
+        URL rules = getClass().getClassLoader().getResource("net/sf/minuteProject/configuration/presentation-config-rules.xml");
         Digester digester = DigesterLoader.createDigester(rules);
         digester.push(configuration);
         digester.parse(input);

@@ -10,6 +10,9 @@ public class FormatUtils {
 		return StringUtils.replace(packageSt,".","/");
 	}
 	
+	public static String getDirToPackage (String packageSt) {
+		return StringUtils.replace(packageSt,"/",".");
+	}
 	
 	public static String getJavaName(String name) {
 		if (name==null)
