@@ -2,6 +2,8 @@ package net.sf.minuteProject.configuration.bean;
 
 import java.io.File;
 
+import net.sf.minuteProject.configuration.bean.view.Function;
+import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
@@ -21,6 +23,9 @@ public class Template extends TemplateTarget {
 	private String entitySpecific;
 	private String packageSpecific;
 	private String modelSpecific;
+	private String viewSpecific;
+	private String serviceSpecific;
+	private String functionSpecific;	
 	private String addModelName;
 	private TemplateTarget templateTarget;
 	
@@ -107,8 +112,12 @@ public class Template extends TemplateTarget {
 		super.setPackageRoot(packageRoot);
 	}
 	
+	private Model getModel (Template template) {
+		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
+	}
+	
     public String getGeneratorOutputFileName (Table table, Template template) {
-    	Model model = template.getTemplateTarget().getTarget().getConfiguration().getModel();
+    	Model model = getModel(template);
     	/*ModelUtils.getPackageDir(model, template,table);
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());	
 		if (getAddModelName()==null || !getAddModelName().equals("false"))
@@ -128,7 +137,7 @@ public class Template extends TemplateTarget {
 	}
 
     public String getGenOutputFileName (Package pack, Template template) {
-    	Model model = template.getTemplateTarget().getTarget().getConfiguration().getModel();
+    	Model model = getModel(template);
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	sb.append("//"+ModelUtils.getPackageDir(model, template,pack));
 		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
@@ -140,7 +149,7 @@ public class Template extends TemplateTarget {
 	}
     
     public String getGeneratorOutputFileNameForModel (Template template) {
-    	Model model = template.getTemplateTarget().getTarget().getConfiguration().getModel();
+    	Model model = getModel(template);
 		/*ModelUtils.getTechnicalPackage(model, template);
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());	
 		if (getAddModelName()==null || !getAddModelName().equals("false"))
@@ -160,10 +169,66 @@ public class Template extends TemplateTarget {
 		return outputFilename;
 	}
     
-	public String getAddModelName() {
+    public String getGeneratorOutputFileNameForView (View view, Template template) {
+    	StringBuffer sb = new StringBuffer(template.getOutputdir());
+    	sb.append("//"+ModelUtils.getTechnicalPackage(view, template));
+		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+		new File (outputFileDir.toString()).mkdirs();
+		String TemplateFileName = CommonUtils.getFileName(template,view.getName());
+		String outputFilename = outputFileDir+"//"+TemplateFileName;
+		return outputFilename;
+	}
+
+    public String getGeneratorOutputFileNameForFunction (Function function, Template template) {
+    	StringBuffer sb = new StringBuffer(template.getOutputdir());
+    	sb.append("//"+ModelUtils.getTechnicalPackage(function, template));
+		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+		new File (outputFileDir.toString()).mkdirs();
+		String TemplateFileName = CommonUtils.getFileName(template,function.getName());
+		String outputFilename = outputFileDir+"//"+TemplateFileName;
+		return outputFilename;
+	}
+    
+    public String getGeneratorOutputFileNameForConfigurationBean (AbstractConfiguration bean, Template template) {
+    	StringBuffer sb = new StringBuffer(template.getOutputdir());
+    	
+    	sb.append("//"+bean.getTechnicalPackage (template));
+		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+		new File (outputFileDir.toString()).mkdirs();
+		String TemplateFileName = CommonUtils.getFileName(template,bean.getName());
+		String outputFilename = outputFileDir+"//"+TemplateFileName;
+		return outputFilename;    	
+    }
+    
+    
+    public String getAddModelName() {
 		return addModelName;
 	}
 	public void setAddModelName(String addModelName) {
 		this.addModelName = addModelName;
+	}
+
+	public String getFunctionSpecific() {
+		return functionSpecific;
+	}
+
+	public void setFunctionSpecific(String functionSpecific) {
+		this.functionSpecific = functionSpecific;
+	}
+
+	public String getServiceSpecific() {
+		return serviceSpecific;
+	}
+
+	public void setServiceSpecific(String serviceSpecific) {
+		this.serviceSpecific = serviceSpecific;
+	}
+
+	public String getViewSpecific() {
+		return viewSpecific;
+	}
+
+	public void setViewSpecific(String viewSpecific) {
+		this.viewSpecific = viewSpecific;
 	}
 }

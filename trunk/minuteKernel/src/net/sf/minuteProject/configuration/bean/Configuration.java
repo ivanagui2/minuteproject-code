@@ -2,10 +2,9 @@ package net.sf.minuteProject.configuration.bean;
 
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 
-public class Configuration {
+public class Configuration extends AbstractConfigurationRoot{
 	
 	private Model model;
-	private Target target;
 	private Presentation presentation;
 
 	public Presentation getPresentation() {
@@ -17,14 +16,6 @@ public class Configuration {
 		this.presentation = presentation;
 	}
 
-	public Target getTarget() {
-		return target;
-	}
-
-	public void setTarget(Target target) {
-		target.setConfiguration(this);
-		this.target = target;
-	}
 
 	public Model getModel() {
 		return model;

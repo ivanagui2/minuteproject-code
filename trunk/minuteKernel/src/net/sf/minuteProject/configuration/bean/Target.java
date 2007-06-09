@@ -3,17 +3,23 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Target {
-	private ArchitectureTarget architectureTarget;
-	//private TemplateTarget templateTarget;
-	private List templateTargets;
-	private Configuration configuration;
+/**
+ * @author Florian Adler
+ *
+ */
+public class Target extends AbstractConfiguration{
 	
-	public Configuration getConfiguration() {
-		return configuration;
+	private ArchitectureTarget architectureTarget;
+	private List templateTargets;
+	private AbstractConfigurationRoot abstractConfigurationRoot;
+	private List <Target> dependency;
+
+	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
+		return abstractConfigurationRoot;
 	}
-	public void setConfiguration(Configuration configuration) {
-		this.configuration = configuration;
+	public void setAbstractConfigurationRoot(
+			AbstractConfigurationRoot abstractConfigurationRoot) {
+		this.abstractConfigurationRoot = abstractConfigurationRoot;
 	}
 	public ArchitectureTarget getArchitectureTarget() {
 		return architectureTarget;
@@ -21,12 +27,7 @@ public class Target {
 	public void setArchitectureTarget(ArchitectureTarget architectureTarget) {
 		this.architectureTarget = architectureTarget;
 	}
-	/*public TemplateTarget getTemplateTarget() {
-		return templateTarget;
-	}
-	public void setTemplateTarget(TemplateTarget templateTarget) {
-		this.templateTarget = templateTarget;
-	}*/
+
 	public Template getTemplate(String name) {
 		List list = getTemplateTargets();
 		for (int i = 0; i<list.size();i++) {
@@ -51,5 +52,20 @@ public class Target {
 	public void setTemplateTargets(List templateTargets) {
 		this.templateTargets = templateTargets;
 	}
+	
+	public void addDependency (String dependencies) {
+		if (getDependency()==null)
+			setDependency(new ArrayList<Target>());
+		//Target target = getTarget
+	}
+	
+	public List<Target> getDependency() {
+		return dependency;
+	}
+	
+	private void setDependency(List<Target> dependency) {
+		this.dependency = dependency;
+	}
+	
 	
 }

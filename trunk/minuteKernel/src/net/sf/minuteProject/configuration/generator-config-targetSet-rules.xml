@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE digester-rules PUBLIC 
+        "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+        "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+<digester-rules>
+  <pattern value="target">
+	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Target"/>		
+	<bean-property-setter-rule pattern="refname"/>	
+	<bean-property-setter-rule pattern="name"/>	
+	<bean-property-setter-rule pattern="description"/>	
+	<set-next-rule methodname="setTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>	
+		<pattern value="architecture-target">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.ArchitectureTarget"/>		
+			<set-next-rule methodname="setArchitectureTarget" paramtype="net.sf.minuteProject.configuration.bean.ArchitectureTarget"/>
+			<set-properties-rule>
+				<alias attr-name="name" prop-name="name" />
+			</set-properties-rule>
+		</pattern>	
+		<pattern value="template-target">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.TemplateTarget"/>		
+			<set-next-rule methodname="addTemplateTarget" paramtype="net.sf.minuteProject.configuration.bean.TemplateTarget"/>	
+			<set-properties-rule/>	
+				<set-properties-rule>
+					<alias attr-name="package-root" prop-name="packageRoot" />
+					<alias attr-name="dir" prop-name="dir" />
+					<alias attr-name="libdir" prop-name="libdir" />
+					<alias attr-name="outputdir" prop-name="outputdir" />
+					<alias attr-name="tool" prop-name="tool" />
+				</set-properties-rule> 					
+			<pattern value="template">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Template"/>		
+				<set-next-rule methodname="addTemplate" paramtype="net.sf.minuteProject.configuration.bean.Template"/>	
+				<set-properties-rule>
+					<alias attr-name="package-root" prop-name="packageRoot" />
+					<alias attr-name="add-model-name" prop-name="addModelName" />
+					<alias attr-name="templateFileName" prop-name="templateFileName" />
+					<alias attr-name="subdir" prop-name="subdir" />
+					<alias attr-name="outputsubdir" prop-name="outputsubdir" />
+					<alias attr-name="technicalPackage" prop-name="technicalPackage" />
+					<alias attr-name="file-extension" prop-name="fileExtension" />
+					<alias attr-name="file-prefix" prop-name="filePrefix" />
+					<alias attr-name="file-suffix" prop-name="fileSuffix" />
+					<alias attr-name="entity-specific" prop-name="entitySpecific" />
+					<alias attr-name="package-specific" prop-name="packageSpecific" />
+					<alias attr-name="model-specific" prop-name="modelSpecific" />
+					<alias attr-name="view-specific" prop-name="viewSpecific" />
+					<alias attr-name="service-specific" prop-name="serviceSpecific" />
+					<alias attr-name="function-specific" prop-name="functionSpecific" />
+				</set-properties-rule> 					
+			</pattern>
+		</pattern>				  
+  </pattern>
+</digester-rules>

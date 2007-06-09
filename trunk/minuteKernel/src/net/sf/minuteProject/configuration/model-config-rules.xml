@@ -9,8 +9,13 @@
 	  <set-next-rule methodname="add" paramtype="net.sf.minuteProject.configuration.bean.GeneratorConfig"/>
 	  <set-properties-rule/>-->
 	  <pattern value="generator-config/configuration">
+		  <!-- 
 		  <object-create-rule classname="net.sf.minuteProject.configuration.bean.Configuration"/>
 		  <set-next-rule methodname="addConfiguration" paramtype="net.sf.minuteProject.configuration.bean.Configuration"/>	  
+		   -->			
+		  <set-properties-rule>
+			<alias attr-name="name" prop-name="name" />
+		  </set-properties-rule>
 		  <pattern value="model">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.Model"/>	  
 			<set-next-rule methodname="setModel" paramtype="net.sf.minuteProject.configuration.bean.Model"/>
@@ -31,17 +36,11 @@
 					<bean-property-setter-rule pattern="dir"/>		
 				</pattern>					
 				<pattern value="dataSource">
-				
 					<object-create-rule classname="org.apache.commons.dbcp.BasicDataSource"/>	
 					<set-next-rule methodname="setBasicDataSource" paramtype="org.apache.commons.dbcp.BasicDataSource"/>			
-<!-- 
-					<object-create-rule classname="org.springframework.jdbc.datasource.DriverManagerDataSource"/>	
-					<set-next-rule methodname="setDriverManagerDataSource" paramtype="org.springframework.jdbc.datasource.DriverManagerDataSource"/>			
-					 -->
 					<set-properties-rule/>		  
 					<bean-property-setter-rule pattern="driverClassName"/>			
 					<bean-property-setter-rule pattern="url"/>		
-					<!-- <bean-property-setter-rule pattern="method"/>		 -->
 					<bean-property-setter-rule pattern="username"/>		
 					<bean-property-setter-rule pattern="password"/>				
 				</pattern>			
@@ -77,7 +76,8 @@
 							<alias attr-name="result" prop-name="result" />		
 						</set-properties-rule>							
 					</pattern>					
-				</pattern>				
+				</pattern>	
+				<!-- 			
 				<pattern value="tables/table">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.Table"/>		
 					<set-next-rule methodname="addTable" paramtype="net.sf.minuteProject.configuration.bean.Table"/>	
@@ -87,7 +87,7 @@
 					<call-method-rule pattern="reference-view-child" methodname="setReferenceViewChild" paramcount="0" />
 					<call-method-rule pattern="reference-view-parent" methodname="setReferenceViewParent" paramcount="0" />
 				</pattern>
-						
+					 -->	
 			</pattern>		
 		  </pattern>
 		  <pattern value="target">
@@ -97,51 +97,5 @@
 	    	<bean-property-setter-rule pattern="refname"/>	 
 	    	<bean-property-setter-rule pattern="name"/>	 
 	 	  </pattern>
-	 	  <!-- 
-		  <pattern value="target">
-			<object-create-rule classname="net.sf.minuteProject.configuration.bean.Target"/>		
-			<bean-property-setter-rule pattern="refname"/>	
-			<bean-property-setter-rule pattern="name"/>	
-			<bean-property-setter-rule pattern="description"/>	
-			<set-next-rule methodname="setTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>	
-				<pattern value="architecture-target">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.ArchitectureTarget"/>		
-					<set-next-rule methodname="setArchitectureTarget" paramtype="net.sf.minuteProject.configuration.bean.ArchitectureTarget"/>
-					<set-properties-rule>
-						<alias attr-name="name" prop-name="name" />
-					</set-properties-rule>
-				</pattern>	
-				<pattern value="template-target">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.TemplateTarget"/>		
-					<set-next-rule methodname="addTemplateTarget" paramtype="net.sf.minuteProject.configuration.bean.TemplateTarget"/>	
-					<set-properties-rule/>	
-						<set-properties-rule>
-							<alias attr-name="package-root" prop-name="packageRoot" />
-							<alias attr-name="dir" prop-name="dir" />
-							<alias attr-name="libdir" prop-name="libdir" />
-							<alias attr-name="outputdir" prop-name="outputdir" />
-							<alias attr-name="tool" prop-name="tool" />
-						</set-properties-rule> 					
-					<pattern value="template">
-						<object-create-rule classname="net.sf.minuteProject.configuration.bean.Template"/>		
-						<set-next-rule methodname="addTemplate" paramtype="net.sf.minuteProject.configuration.bean.Template"/>	
-						<set-properties-rule>
-							<alias attr-name="package-root" prop-name="packageRoot" />
-							<alias attr-name="add-model-name" prop-name="addModelName" />
-							<alias attr-name="templateFileName" prop-name="templateFileName" />
-							<alias attr-name="subdir" prop-name="subdir" />
-							<alias attr-name="outputsubdir" prop-name="outputsubdir" />
-							<alias attr-name="technicalPackage" prop-name="technicalPackage" />
-							<alias attr-name="file-extension" prop-name="fileExtension" />
-							<alias attr-name="file-prefix" prop-name="filePrefix" />
-							<alias attr-name="file-suffix" prop-name="fileSuffix" />
-							<alias attr-name="entity-specific" prop-name="entitySpecific" />
-							<alias attr-name="package-specific" prop-name="packageSpecific" />
-							<alias attr-name="model-specific" prop-name="modelSpecific" />
-						</set-properties-rule> 					
-					</pattern>
-				</pattern>				  
-		  </pattern> -->
 	 </pattern>
-  <!--</pattern>	  -->
 </digester-rules>
