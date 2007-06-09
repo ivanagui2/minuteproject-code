@@ -52,7 +52,7 @@ public class GeneratorConfigurator {
 			generatorConfigurator.log.info("set a configuration file");
 			System.exit(0);
 		}
-		generatorConfigurator.processFirstConfiguration();
+		generatorConfigurator.processFirstConfiguration(args[0]);
 	}
 
 	private GeneratorConfig getGeneratorConfig() throws Exception {
@@ -82,8 +82,8 @@ public class GeneratorConfigurator {
         digester.parse(input);
     }
     
-    private void processFirstConfiguration() throws Exception {
-    	GeneratorConfig generatorConfig = getGeneratorConfig();
+    private void processFirstConfiguration(String configFile) throws Exception {
+    	GeneratorConfig generatorConfig = getGeneratorConfig(configFile);
     	Configuration configuration= (Configuration)generatorConfig.getConfigurations().get(0);
     	loadPresentation (configuration);
     	loadModel(configuration);
@@ -162,7 +162,7 @@ public class GeneratorConfigurator {
     	}
     }
     
-    private void writeTemplateResult (VelocityContext context,  Model model, Table table, Template template) {
+    private void writeTemplateResult (VelocityContext context, Model model, Table table, Template template) {
     	try {
     		String outputFilename = template.getGeneratorOutputFileName(table, template);
     		putCommonContextObject(context);
