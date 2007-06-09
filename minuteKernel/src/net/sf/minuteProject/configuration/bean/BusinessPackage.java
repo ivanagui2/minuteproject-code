@@ -19,19 +19,22 @@ public class BusinessPackage extends AbstractConfiguration {
 	private String defaultPackage;
 	private List <Condition> conditions;
 	private List packages;
+	private List tables;
 	
 	void setPackages (Model model, Database database) {
 		packages = new ArrayList();
 		Hashtable ht = new Hashtable();
 		Table [] tables = database.getTables();
 		for (int i = 0; i < tables.length; i++) {
-			Table table = tables[i];
+			net.sf.minuteProject.configuration.bean.model.data.Table table = new net.sf.minuteProject.configuration.bean.model.data.Table(tables[i]);
+			table.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, table)) {
 				//String packageName = DBTemplateUtils.getSubPackage(table);
 				String packageName = CommonUtils.getBusinessPackageName(model, table);
 				Package pack = (Package)ht.get(packageName);
 				if (pack==null) {
 					pack = new Package();
+					pack.setBusinessPackage(this);
 					pack.setName(packageName);
 				}
 				pack.addTable(table);
@@ -42,6 +45,18 @@ public class BusinessPackage extends AbstractConfiguration {
 		while (enumeration.hasMoreElements()) {
 			packages.add(enumeration.nextElement());
 		}
+	}
+	
+	public List getTables () {
+		if (tables == null) {
+			tables = new ArrayList();
+			for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
+				for (Iterator<net.sf.minuteProject.configuration.bean.model.data.Table> iter2 = ((Package)iter.next()).getListOfTables().iterator(); iter2.hasNext(); ){
+					tables.add(iter2.next());
+				}
+			}
+		}
+		return tables;
 	}
 	
 	public List getPackages() {

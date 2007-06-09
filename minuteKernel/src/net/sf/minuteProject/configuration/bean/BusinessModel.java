@@ -11,7 +11,7 @@ public class BusinessModel {
 	private Model model;
 	private GenerationCondition generationCondition;
 	private BusinessPackage businessPackage; 
-	private List <Table> tables;
+	//private List <Table> tables;
 
 	public void complementDataModel () {
 		Database database = model.getDataModel().getDatabase();
@@ -20,7 +20,7 @@ public class BusinessModel {
 		}
 	}
 	
-	public void addTable (Table table){
+	/*public void addTable (Table table){
 		if (tables==null){
 			tables = new ArrayList();
 		}
@@ -33,7 +33,7 @@ public class BusinessModel {
 
 	public void setTables(List<Table> tables) {
 		this.tables = tables;
-	}
+	}*/
 
 	public GenerationCondition getGenerationCondition() {
 		return generationCondition;

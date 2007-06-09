@@ -42,4 +42,11 @@ public class Model  extends AbstractConfiguration{
 		this.packageRoot = packageRoot;
 	}
 	
+	public String getTechnicalPackage(Template template) {
+		StringBuffer sb = new StringBuffer(template.getPackageRoot());
+		sb.append("."+getConfiguration().getProjectname());
+		sb.append("."+template.getTechnicalPackage());
+		//sb.append("."+getName());
+		return sb.toString();	
+	}		
 }

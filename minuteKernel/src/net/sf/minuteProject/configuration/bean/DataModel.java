@@ -17,7 +17,8 @@ public class DataModel {
 	private Database database;
 	private DataSource datasource;
 	private FileSource fileSource;
-
+	private String schema;
+	
 	private BasicDataSource basicDataSource;
 	
 	public BasicDataSource getBasicDataSource() {
@@ -43,7 +44,9 @@ public class DataModel {
 		if (basicDataSource!=null) {
 			//basicDataSource.set
 			DataSource dataSource = basicDataSource;
+			//basicDataSource.set
 		    Platform platform = PlatformFactory.createNewPlatformInstance(dataSource);
+		    platform.getModelReader().setDefaultSchemaPattern(getSchema());
 		    database = platform.readModelFromDatabase(null);
 		    writeDatabase(database);
 		}
@@ -68,12 +71,14 @@ public class DataModel {
 	
 	private String getFileSourceName() {
 	    String filename = null;
+	    String filedir = null;
 	    if (fileSource!=null) {
 	    	filename = fileSource.getName();
-	    	if (fileSource.getDir()!=null)
-	    		filename = filename+"/"+fileSource.getDir()+".xml";
+	    	filedir = fileSource.getDir();
+	    	if (filename!=null)
+	    		filename = filedir+"/"+filename+".xml";
 	    	else 
-	    		filename = filename+"/"+model.getName()+".xml";
+	    		filename = filedir+"/"+model.getName()+".xml";
 	    }
 	    return filename;
 	}
@@ -97,6 +102,14 @@ public class DataModel {
 
 	public void setFileSource(FileSource filesource) {
 		this.fileSource = filesource;
+	}
+
+	public String getSchema() {
+		return schema;
+	}
+
+	public void setSchema(String schema) {
+		this.schema = schema;
 	}
 	
 }
