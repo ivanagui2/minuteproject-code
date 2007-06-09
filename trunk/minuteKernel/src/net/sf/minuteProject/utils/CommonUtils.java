@@ -2,11 +2,13 @@ package net.sf.minuteProject.utils;
 
 import java.util.Iterator;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.Package;
+import net.sf.minuteProject.configuration.bean.view.View;
 
 
 import org.apache.ddlutils.model.Column;
@@ -14,6 +16,11 @@ import org.apache.ddlutils.model.ForeignKey;
 import org.apache.ddlutils.model.Table;
 
 public class CommonUtils {
+	
+	// TODO refactor (4 times)
+	public static String getTableClassName (AbstractConfiguration bean) {
+		return FormatUtils.getJavaName(bean.getName());
+	}
 	
 	public static String getTableClassName (Table table) {
 		return FormatUtils.getJavaName(table.getName());
@@ -27,6 +34,14 @@ public class CommonUtils {
 		return FormatUtils.getJavaNameVariable(table.getName());
 	}
 
+	// 4 times (model, package, table, view) use hierachy instead
+	// TODO refactor
+	public static String getPackageName (AbstractConfiguration bean, Template template) {
+		if (bean ==null || template==null)
+			return "PACKAGENAME_ERROR";
+		return ModelUtils.getPackage(bean, template);
+	}
+	
 	public static String getPackageName (Model model, Template template, Table table) {
 		if (model ==null || template==null || table==null)
 			return "PACKAGENAME_ERROR";
@@ -44,10 +59,17 @@ public class CommonUtils {
 			return "PACKAGENAME_ERROR";
 		return ModelUtils.getPackage(model, template);
 	}
-	
+	//
 	public static String getPackageDirName (Model model, Template template, Table table) {
 		return FormatUtils.getDirFromPackage(getPackageName(model, template, table));
 	}	
+	public static String getPackageDirName (AbstractConfiguration bean, Template template) {
+		return FormatUtils.getDirFromPackage(getPackageName(bean, template));
+	}	
+	// TODO refactor 4 times
+	public static String getClassName (AbstractConfiguration bean, Template template) {
+		return template.getOutputFileMain(getTableClassName(bean));
+	}
 	
 	public static String getClassName (Table table, Template template) {
 		return template.getOutputFileMain(getTableClassName(table));
@@ -56,6 +78,7 @@ public class CommonUtils {
 	public static String getClassName (Package pack, Template template) {
 		return template.getOutputFileMain(getPackageClassName(pack));
 	}
+	///
 	
 	public static String getClassName (Model model, Template template) {
 		return template.getOutputFileMain(FormatUtils.getJavaName(model.getName()));
@@ -69,8 +92,28 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(type);
 	}
 	
+	// TODO refactor 4 times
+	protected static String getTemplateClassName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		if (templateTarget==null) {
+			System.out.println("ConfigFile not ok");
+			return "ERROR on config file : missing "+targetTemplateName;
+		}
+		return getClassName(bean, templateTarget);
+	}
+	
 	protected static String getTemplateClassName (Table table, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		if (templateTarget==null) {
+			System.out.println("ConfigFile not ok");
+			return "ERROR on config file : missing "+targetTemplateName;
+		}
+		return getClassName(table, templateTarget);
+	}
+	
+	protected static String getTemplateClassName (Table table, Model model, String targetTemplateName) {
+		//Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		Template templateTarget = getTargetTemplate(model, targetTemplateName);
 		if (templateTarget==null) {
 			System.out.println("ConfigFile not ok");
 			return "ERROR on config file : missing "+targetTemplateName;
@@ -96,16 +139,25 @@ public class CommonUtils {
 		return getClassName(model, templateTarget);
 	}
 	
-	protected static Template getTargetTemplate (Template template, String targetTemplateName) {
+	public static Template getTargetTemplate (Template template, String targetTemplateName) {
 		return template.getTemplateTarget().getTarget().getTemplate(targetTemplateName);
 		//return template.getTemplateTarget().getTemplate(targetTemplateName);
 	}
 	
+	public static Template getTargetTemplate (Model model, String targetTemplateName) {
+		return model.getConfiguration().getTarget().getTemplate(targetTemplateName);
+		//return template.getTemplateTarget().getTemplate(targetTemplateName);
+	}	
+	
 	// get all the package either for table, package or model
 	protected static String getPackageName (Model model, Table table, Template template, String targetTemplateName) {
-		return getPackageName(model, getTargetTemplate(template, targetTemplateName), table);
+		return getPackageName(model, getTargetTemplate(model, targetTemplateName), table);
 	}
 
+	protected static String getPackageName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		return getPackageName(bean, getTargetTemplate(template, targetTemplateName));
+	}
+	
 	protected static String getPackageName (Model model, Template template, String targetTemplateName) {
 		return getPackageName(model, getTargetTemplate(template, targetTemplateName));
 	}
@@ -148,6 +200,10 @@ public class CommonUtils {
     	}
 		return "";
 	}	
+
+	public static String getBusinessPackageName(Model model, net.sf.minuteProject.configuration.bean.model.data.Table table){
+		return getBusinessPackage(model, table.getTable());
+	}
 	
 	public static String getBusinessPackageName(Model model, Table table){
 		return getBusinessPackage(model, table);
@@ -163,9 +219,32 @@ public class CommonUtils {
 	public static String getPrimaryKey (Table table) {
 		return FormatUtils.getJavaName(TableUtils.getPrimaryKey(table));
 	}	
+
+	public static String getPrimaryKeyType (Table table) {
+		if (table.hasPrimaryKey())
+			return ConvertUtils.getJavaTypeFromDBType(TableUtils.getPrimaryFirstColumn(table).getType());
+		return "ERROR-NO PK found for table "+table.getName();
+	}	
 	
+	public static String getPrimaryKeyFullType (Table table) {
+		if (table.hasPrimaryKey())
+			return ConvertUtils.getJavaTypeFromDBFullType(TableUtils.getPrimaryFirstColumn(table).getType());
+		return "ERROR-NO PK found for table "+table.getName();
+	}		
+	
+	public static String getPK (Table table) {
+		return TableUtils.getPrimaryKey(table);
+	}	
 	public static boolean hasPrimaryKey (Table table) {
-		return table.getForeignKeyCount()>0;
+		return table.hasPrimaryKey();
+	}
+	
+	public static String getLevelTemplateFullPath (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		return getPackageName(bean, template, targetTemplateName) +"."+ getTemplateClassName (bean, template, targetTemplateName);
+	}
+
+	public static String getLevelTemplateFullClassPath (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		return FormatUtils.getDirFromPackage(getLevelTemplateFullPath(bean, template, targetTemplateName));
 	}
 	
 }

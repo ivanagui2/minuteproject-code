@@ -131,9 +131,11 @@ public class DBTemplateUtils implements Configuration {
 		ForeignKey [] foreignKeys = table.getForeignKeys();
 		for (int i = 0; i < foreignKeys.length; i++) {
 			ref = foreignKeys[i].getFirstReference();
+			String tablename = foreignKeys[i].getForeignTableName();
 			reference = new Reference();
-			reference.setTableName(foreignKeys[i].getForeignTableName());
+			reference.setTableName(tablename);
 			reference.setColumnName(ref.getLocalColumnName());
+			reference.setTable(TableUtils.getTable(database,tablename));
 			list.add(reference);				
 		}
 		return list;
