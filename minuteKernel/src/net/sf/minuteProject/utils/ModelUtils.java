@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Model;
@@ -14,6 +15,9 @@ import net.sf.minuteProject.configuration.bean.presentation.EntityBlock;
 import net.sf.minuteProject.configuration.bean.presentation.EntityBlocks;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.presentation.PresentationBlock;
+import net.sf.minuteProject.configuration.bean.view.Function;
+import net.sf.minuteProject.configuration.bean.view.Service;
+import net.sf.minuteProject.configuration.bean.view.View;
 
 import org.apache.ddlutils.model.Database;
 import org.apache.ddlutils.model.ForeignKey;
@@ -22,11 +26,18 @@ import org.apache.ddlutils.model.Table;
 
 public class ModelUtils {
 	
+	// deprecated
 	public static boolean isToGenerate(BusinessModel businessModel, Table table) {
 		if (businessModel.getGenerationCondition()!=null)
 			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
 		return true;
 	}
+	
+	public static boolean isToGenerate(BusinessModel businessModel, net.sf.minuteProject.configuration.bean.model.data.Table table) {
+		if (businessModel.getGenerationCondition()!=null)
+			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
+		return true;
+	}	
 	
 	public static String getPackage(Model model, Template template, Table table) {
 		StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
@@ -47,12 +58,38 @@ public class ModelUtils {
 		return sb.toString();		
 	}
 
+	public static String getPackage(AbstractConfiguration bean, Template template) {
+		StringBuffer sb = new StringBuffer(bean.getTechnicalPackage(template));
+		return sb.toString();		
+	}
+	
 	public static String getTechnicalPackage(Model model, Template template) {
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());
 		sb.append("."+model.getName());
-		sb.append("."+template.getTechnicalPackage());
+		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
+			sb.append("."+template.getTechnicalPackage());
 		return sb.toString();		
 	}
+	
+	public static String getTechnicalPackage(View view, Template template) {
+		StringBuffer sb = new StringBuffer(template.getPackageRoot());
+		sb.append("."+view.getProjectname());
+		sb.append("."+template.getTechnicalPackage());
+		sb.append("."+view.getName());
+		return sb.toString();		
+	}	
+	
+	public static String getTechnicalPackage(Service service, Template template) {
+		StringBuffer sb = new StringBuffer(getTechnicalPackage(service.getView(), template));
+		sb.append("."+service.getName());
+		return sb.toString();		
+	}		
+	//TODO getPackage and technicalPackage must be in the configuration bean interface
+	public static String getTechnicalPackage(Function function, Template template) {
+		StringBuffer sb = new StringBuffer(getTechnicalPackage(function.getService(), template));
+		sb.append("."+function.getName());
+		return sb.toString();		
+	}		
 	
 	public static String getPackageDir(Model model, Template template, Table table) {
 		return FormatUtils.getDirFromPackage(getPackage(model, template, table));		
@@ -66,6 +103,23 @@ public class ModelUtils {
 		return FormatUtils.getDirFromPackage(getTechnicalPackage(model, template));		
 	}	
 	
+	public static List getParents (Database database, Table table) {
+		List list = new ArrayList();
+		org.apache.ddlutils.model.Reference ref;
+		Reference reference;
+		ForeignKey [] foreignKeys = table.getForeignKeys();
+		for (int i = 0; i < foreignKeys.length; i++) {
+			ref = foreignKeys[i].getFirstReference();
+			String tablename = foreignKeys[i].getForeignTableName();
+			reference = new Reference();
+			reference.setTableName(tablename);
+			reference.setColumnName(ref.getLocalColumnName());
+			//reference.setTable(foreignKeys[i].getForeignTable());
+			reference.setTable(TableUtils.getTable(database,tablename));
+			list.add(reference);				
+		}
+		return list;
+	}	
 	public static List getParents (Table table) {
 		List list = new ArrayList();
 		org.apache.ddlutils.model.Reference ref;
@@ -73,14 +127,15 @@ public class ModelUtils {
 		ForeignKey [] foreignKeys = table.getForeignKeys();
 		for (int i = 0; i < foreignKeys.length; i++) {
 			ref = foreignKeys[i].getFirstReference();
+			String tablename = foreignKeys[i].getForeignTableName();
 			reference = new Reference();
-			reference.setTableName(foreignKeys[i].getForeignTableName());
+			reference.setTableName(tablename);
 			reference.setColumnName(ref.getLocalColumnName());
+			reference.setTable(foreignKeys[i].getForeignTable());
 			list.add(reference);				
 		}
 		return list;
-	}	
-	
+	}
 	public static List getChildren (Database database, Table table) {
 		List list = new ArrayList();
 		String columnRef;
