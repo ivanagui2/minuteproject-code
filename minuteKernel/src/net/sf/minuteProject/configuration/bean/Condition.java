@@ -11,10 +11,10 @@ public class Condition extends AbstractConfiguration {
 	public boolean isConditionTrue (String valueToTest) {
 		//TODO reformat to be more flexible
 		if (type.equals("exclude") && startsWith!=null){
-			return !org.springframework.util.StringUtils.startsWithIgnoreCase(valueToTest, startsWith);
+			return !net.sf.minuteProject.utils.StringUtils.startsWithIgnoreCase(valueToTest, startsWith);
 		}
 		if (type.equals("package") && startsWith!=null) {
-			return org.springframework.util.StringUtils.startsWithIgnoreCase(valueToTest, startsWith);
+			return net.sf.minuteProject.utils.StringUtils.startsWithIgnoreCase(valueToTest, startsWith);
 		}
 		return false;
 	}
