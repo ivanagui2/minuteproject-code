@@ -5,12 +5,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.presentation.EntityBlock;
 import net.sf.minuteProject.configuration.bean.presentation.EntityBlocks;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
@@ -18,10 +23,6 @@ import net.sf.minuteProject.configuration.bean.presentation.PresentationBlock;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
-
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.ForeignKey;
-import org.apache.ddlutils.model.Table;
 
 
 public class ModelUtils {
@@ -33,16 +34,17 @@ public class ModelUtils {
 		return true;
 	}
 	
-	public static boolean isToGenerate(BusinessModel businessModel, net.sf.minuteProject.configuration.bean.model.data.Table table) {
+	public static boolean isToGenerate(BusinessModel businessModel, net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils table) {
 		if (businessModel.getGenerationCondition()!=null)
 			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
 		return true;
 	}	
 	
 	public static String getPackage(Model model, Template template, Table table) {
-		StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
-		sb.append("."+CommonUtils.getBusinessPackage(model, table));
-		return sb.toString();		
+		return getPackage (table, template);
+		//StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
+		//sb.append("."+CommonUtils.getBusinessPackage(model, table));
+		//return sb.toString();		
 	}
 	
 	public static String getPackage(Model model, Template template, Package pack) {
@@ -58,7 +60,7 @@ public class ModelUtils {
 		return sb.toString();		
 	}
 
-	public static String getPackage(AbstractConfiguration bean, Template template) {
+	public static String getPackage(GeneratorBean bean, Template template) {
 		StringBuffer sb = new StringBuffer(bean.getTechnicalPackage(template));
 		return sb.toString();		
 	}
@@ -104,34 +106,40 @@ public class ModelUtils {
 	}	
 	
 	public static List getParents (Database database, Table table) {
+		//return getParents(table);
+		// Duplicated code
 		List list = new ArrayList();
-		org.apache.ddlutils.model.Reference ref;
+		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		ForeignKey [] foreignKeys = table.getForeignKeys();
 		for (int i = 0; i < foreignKeys.length; i++) {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
-			reference = new Reference();
-			reference.setTableName(tablename);
-			reference.setColumnName(ref.getLocalColumnName());
+			Table table2 = TableUtils.getTable(database,tablename);
+			reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
+			//reference.setTableName(tablename);
+			//reference.setColumnName(ref.getLocalColumnName());
 			//reference.setTable(foreignKeys[i].getForeignTable());
-			reference.setTable(TableUtils.getTable(database,tablename));
+			//reference.setTable(TableUtils.getTable(database,tablename));
 			list.add(reference);				
 		}
 		return list;
+		
 	}	
+	
+	// TODO duplicate method
 	public static List getParents (Table table) {
 		List list = new ArrayList();
-		org.apache.ddlutils.model.Reference ref;
+		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		ForeignKey [] foreignKeys = table.getForeignKeys();
 		for (int i = 0; i < foreignKeys.length; i++) {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
-			reference = new Reference();
-			reference.setTableName(tablename);
-			reference.setColumnName(ref.getLocalColumnName());
-			reference.setTable(foreignKeys[i].getForeignTable());
+			reference = new Reference(foreignKeys[i].getForeignTable(), ref.getLocalColumn(), tablename, ref.getLocalColumnName());
+			//reference.setTableName(tablename);
+			//reference.setColumnName(ref.getLocalColumnName());
+			//reference.setTable(foreignKeys[i].getForeignTable());
 			list.add(reference);				
 		}
 		return list;
@@ -139,7 +147,7 @@ public class ModelUtils {
 	public static List getChildren (Database database, Table table) {
 		List list = new ArrayList();
 		String columnRef;
-		org.apache.ddlutils.model.Reference ref;
+		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		Table [] tables = database.getTables();
     	for (int i = 0; i < tables.length; i++) {
@@ -151,10 +159,12 @@ public class ModelUtils {
 	        			columnRef = new String();
 	        			ref = fk[j].getReference(0);
 	        			columnRef = ref.getLocalColumnName();
-	        			reference = new Reference();
-	        			reference.setTableName(tables[i].getName());
-	        			reference.setColumnName(columnRef);
-	        			reference.setTable(tables[i]);
+	        			Column column2 = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
+	        			reference = new Reference(tables[i], column2, tables[i].getName(), ref.getLocalColumnName());
+	        			//reference = new Reference(tables[i], ref.getForeignColumn(), tables[i].getName(), ref.getForeignColumnName());
+	        			//reference.setTableName(tables[i].getName());
+	        			//reference.setColumnName(columnRef);
+	        			//reference.setTable(tables[i]);
 	        			list.add(reference);
 	        		}
         		}
