@@ -1,9 +1,12 @@
 package net.sf.minuteProject.utils;
 
-import org.apache.ddlutils.model.Column;
-import org.apache.ddlutils.model.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
+
 import org.apache.ddlutils.model.Index;
-import org.apache.ddlutils.model.Table;
+import org.apache.ddlutils.model.IndexColumn;
+
 
 public class TableUtils {
 
@@ -37,6 +40,18 @@ public class TableUtils {
 				return table;
 		}
 		return null;
+	}
+	
+	public static boolean isUnique (Table table, Column column) {
+		Index indexes [] = table.getUniqueIndices();
+		for (int i = 0; i < indexes.length; i++) {
+			IndexColumn[] indexColumn = indexes[i].getColumns();
+			for (int j = 0; j < indexColumn.length; j++) {
+				if (indexColumn.length==1 && indexColumn[j].getName().equals (column.getName()))
+					return true;
+			}
+		}
+		return false;
 	}
 	
 }
