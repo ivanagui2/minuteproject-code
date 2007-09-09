@@ -4,16 +4,16 @@ import java.util.Iterator;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.Package;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.view.View;
 
-
-import org.apache.ddlutils.model.Column;
-import org.apache.ddlutils.model.ForeignKey;
-import org.apache.ddlutils.model.Table;
 
 public class CommonUtils {
 	
@@ -36,7 +36,7 @@ public class CommonUtils {
 
 	// 4 times (model, package, table, view) use hierachy instead
 	// TODO refactor
-	public static String getPackageName (AbstractConfiguration bean, Template template) {
+	public static String getPackageName (GeneratorBean bean, Template template) {
 		if (bean ==null || template==null)
 			return "PACKAGENAME_ERROR";
 		return ModelUtils.getPackage(bean, template);
@@ -72,7 +72,13 @@ public class CommonUtils {
 	}
 	
 	public static String getClassName (Table table, Template template) {
-		return template.getOutputFileMain(getTableClassName(table));
+		String className = template.getOutputFileMain(getTableClassName(table));
+		return className;
+	}
+	
+	public static String getClassName2 (Table table, Template template) {
+		String className = template.getOutputFileMain(getTableClassName(table));
+		return className;
 	}
 	
 	public static String getClassName (Package pack, Template template) {
@@ -201,9 +207,10 @@ public class CommonUtils {
 		return "";
 	}	
 
-	public static String getBusinessPackageName(Model model, net.sf.minuteProject.configuration.bean.model.data.Table table){
+	/*
+	public static String getBusinessPackageName(Model model, net.sf.minuteProject.configuration.bean.Table table){
 		return getBusinessPackage(model, table.getTable());
-	}
+	}*/
 	
 	public static String getBusinessPackageName(Model model, Table table){
 		return getBusinessPackage(model, table);
