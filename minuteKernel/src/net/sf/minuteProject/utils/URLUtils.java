@@ -1,11 +1,10 @@
 package net.sf.minuteProject.utils;
 
-import org.apache.ddlutils.model.Table;
-
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.Entity;
 import net.sf.minuteProject.configuration.bean.model.Field;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.parameter.LogicalLink;
 
 public class URLUtils {
