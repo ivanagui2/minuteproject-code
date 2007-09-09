@@ -4,10 +4,8 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.Package;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.view.View;
-
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.Table;
 
 public class BslaLibraryUtils extends CommonUtils{
 	
