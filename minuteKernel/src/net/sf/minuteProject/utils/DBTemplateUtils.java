@@ -8,13 +8,13 @@ import java.util.StringTokenizer;
 
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Reference;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.*;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ddlutils.model.Column;
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.ForeignKey;
-import org.apache.ddlutils.model.Table;
 
 public class DBTemplateUtils implements Configuration {
 	
@@ -126,16 +126,19 @@ public class DBTemplateUtils implements Configuration {
 		//Table tableRef;
 		//table.getForeignKey(0).getReference(0).getLocalColumn();
 		String columnRef;
-		org.apache.ddlutils.model.Reference ref;
+		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		ForeignKey [] foreignKeys = table.getForeignKeys();
 		for (int i = 0; i < foreignKeys.length; i++) {
 			ref = foreignKeys[i].getFirstReference();
-			String tablename = foreignKeys[i].getForeignTableName();
-			reference = new Reference();
-			reference.setTableName(tablename);
-			reference.setColumnName(ref.getLocalColumnName());
-			reference.setTable(TableUtils.getTable(database,tablename));
+			String tableName = foreignKeys[i].getForeignTableName();
+			String columnName = ref.getLocalColumnName();
+		    Table table2 = TableUtils.getTable(database,tableName);
+		    Column column2 = ColumnUtils.getColumn (table2, columnName);
+			reference = new Reference(table2, column2, tableName, columnName);
+			//reference.setTableName(tablename);
+			//reference.setColumnName(ref.getLocalColumnName());
+			//reference.setTable(TableUtils.getTable(database,tablename));
 			list.add(reference);				
 		}
 		return list;
@@ -146,7 +149,7 @@ public class DBTemplateUtils implements Configuration {
 		//Table tableRef;
 		//table.getForeignKey(0).getReference(0).getLocalColumn();
 		String columnRef;
-		org.apache.ddlutils.model.Reference ref;
+		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		Table [] tables = database.getTables();
     	for (int i = 0; i < tables.length; i++) {
@@ -159,10 +162,10 @@ public class DBTemplateUtils implements Configuration {
 	        			columnRef = new String();
 	        			ref = fk[j].getReference(0);
 	        			columnRef = ref.getLocalColumnName();
-	        			reference = new Reference();
-	        			reference.setTableName(tables[i].getName());
-	        			reference.setColumnName(columnRef);
-	        			reference.setTable(tables[i]);
+	        			reference = new Reference(tables[i], ColumnUtils.getColumn(tables[i], columnRef),tables[i].getName(), columnRef);
+	        			//reference.setTableName(tables[i].getName());
+	        			//reference.setColumnName(columnRef);
+	        			//reference.setTable(tables[i]);
 	        			list.add(reference);
 	        		}
         		}
