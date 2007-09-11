@@ -4,10 +4,13 @@ import java.io.File;
 
 import javax.sql.DataSource;
 
+import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.io.DatabaseIO;
-import org.apache.ddlutils.model.Database;
+
 //import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -38,9 +41,11 @@ public class DataModel {
 	}
 	
 	public void loadDatabase () {
+		database = DataModelFactory.getInstance().getDatabase(this);
+		//database.loadDatabase(this);
 		/*if (isDatabaseOnFile())
 			database = new DatabaseIO().read(getFileSourceName());		
-		else */
+		else 
 		if (basicDataSource!=null) {
 			//basicDataSource.set
 			DataSource dataSource = basicDataSource;
@@ -49,9 +54,9 @@ public class DataModel {
 		    platform.getModelReader().setDefaultSchemaPattern(getSchema());
 		    database = platform.readModelFromDatabase(null);
 		    writeDatabase(database);
-		}
+		}*/
 	}
-	
+	/*
 	private void writeDatabase (Database database) {
 	    String filename = getFileSourceName();
 	    if (filename!= null)
@@ -81,7 +86,7 @@ public class DataModel {
 	    		filename = filedir+"/"+model.getName()+".xml";
 	    }
 	    return filename;
-	}
+	}*/
 	
 
 	public Database getDatabase() {

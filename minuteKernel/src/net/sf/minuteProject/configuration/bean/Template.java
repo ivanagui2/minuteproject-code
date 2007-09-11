@@ -8,7 +8,6 @@ import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
-import org.apache.ddlutils.model.Table;
 import org.apache.velocity.VelocityContext;
 
 public class Template extends TemplateTarget {
@@ -116,7 +115,7 @@ public class Template extends TemplateTarget {
 		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
 	}
 	
-    public String getGeneratorOutputFileName (Table table, Template template) {
+    public String getGeneratorOutputFileName (net.sf.minuteProject.configuration.bean.model.data.Table table, Template template) {
     	Model model = getModel(template);
     	/*ModelUtils.getPackageDir(model, template,table);
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());	
@@ -189,10 +188,13 @@ public class Template extends TemplateTarget {
 		return outputFilename;
 	}
     
-    public String getGeneratorOutputFileNameForConfigurationBean (AbstractConfiguration bean, Template template) {
-    	StringBuffer sb = new StringBuffer(template.getOutputdir());
+    public String getGeneratorOutputFileNameForConfigurationBean (GeneratorBean bean, Template template) {
     	
-    	sb.append("//"+bean.getTechnicalPackage (template));
+    	StringBuffer sb = new StringBuffer(template.getOutputdir());
+    	String sb1 = new String(CommonUtils.getPackageName(bean, template));
+    	String dir = FormatUtils.getDirFromPackage(sb1);
+    	sb.append("//");//+bean.getTechnicalPackage (template));
+    	sb.append(dir);
 		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
 		new File (outputFileDir.toString()).mkdirs();
 		String TemplateFileName = CommonUtils.getFileName(template,bean.getName());

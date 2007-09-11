@@ -6,12 +6,12 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.DBTemplateUtils;
 import net.sf.minuteProject.utils.ModelUtils;
-
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.Table;
 
 public class BusinessPackage extends AbstractConfiguration {
 	
@@ -24,9 +24,11 @@ public class BusinessPackage extends AbstractConfiguration {
 	void setPackages (Model model, Database database) {
 		packages = new ArrayList();
 		Hashtable ht = new Hashtable();
-		Table [] tables = database.getTables();
+		net.sf.minuteProject.configuration.bean.model.data.Table [] tables = database.getTables();
 		for (int i = 0; i < tables.length; i++) {
-			net.sf.minuteProject.configuration.bean.model.data.Table table = new net.sf.minuteProject.configuration.bean.model.data.Table(tables[i]);
+			//net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils table 
+			//= new net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils(tables[i]);
+			Table table = tables[i];
 			table.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, table)) {
 				//String packageName = DBTemplateUtils.getSubPackage(table);
@@ -51,7 +53,7 @@ public class BusinessPackage extends AbstractConfiguration {
 		if (tables == null) {
 			tables = new ArrayList();
 			for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-				for (Iterator<net.sf.minuteProject.configuration.bean.model.data.Table> iter2 = ((Package)iter.next()).getListOfTables().iterator(); iter2.hasNext(); ){
+				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfTables().iterator(); iter2.hasNext(); ){
 					tables.add(iter2.next());
 				}
 			}
