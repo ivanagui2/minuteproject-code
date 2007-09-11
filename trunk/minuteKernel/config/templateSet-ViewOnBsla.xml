@@ -133,8 +133,7 @@
 			file-extension="html" file-prefix="" file-suffix="SearchScreen" 
 			view-specific="false" service-specific="false" function-specific="true"
 			entity-specific="false" package-specific="false" model-specific="false">
-		</template>				
-		<!-- -->									
+		</template>													
 		<template  package-root="jspview"
 		    name="GenRender1SearchResultListScreen" templateFileName="GenRender1SearchResultListScreen.vm" 
 			subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
