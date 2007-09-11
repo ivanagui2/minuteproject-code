@@ -49,4 +49,10 @@ public class FormatUtils {
 	private static String firstLowerCase (String st) {
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length());
 	}	
+	
+	public static String remove_ID_patternFromColumnName(String input) {
+		input = StringUtils.removeStart(input, "ID_");
+		input = StringUtils.removeEnd(input, "_ID");
+		return input;
+	}
 }
