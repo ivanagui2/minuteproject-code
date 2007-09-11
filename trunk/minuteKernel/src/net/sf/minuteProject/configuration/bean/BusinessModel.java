@@ -3,7 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ddlutils.model.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 
 
 public class BusinessModel {

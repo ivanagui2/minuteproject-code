@@ -9,16 +9,17 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.Table;
 import org.apache.velocity.VelocityContext;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
@@ -167,19 +168,21 @@ public class ModelGenerator extends AbstractGenerator {
 
 	private void generateArtifactsByEntity(Template template) throws Exception {	
 		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
-			net.sf.minuteProject.configuration.bean.model.data.Table table = (net.sf.minuteProject.configuration.bean.model.data.Table) iter.next();
+			Table table = getDecoratedTable((Table) iter.next());
+			table.getParents();
 			writeTemplateResult(table, template);
 		}
 	}
 
-	private void writeTemplateResult(AbstractConfiguration bean,
+	private void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
-		String beanName = StringUtils.lowerCase(bean.getClass().getName());
-		beanName = StringUtils.substring(beanName,
-				beanName.lastIndexOf(".") + 1);
+		//String beanName = StringUtils.lowerCase(bean.getClass().getName());
+		// beanName = StringUtils.substring(beanName,
+		//		beanName.lastIndexOf(".") + 1);
+		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		context.put("template", template);
 		putCommonContextObject(context);

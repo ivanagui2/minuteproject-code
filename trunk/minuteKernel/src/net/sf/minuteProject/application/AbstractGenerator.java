@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
@@ -17,10 +18,13 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.GeneratorConfig;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
+import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 /**
  * @author Florian Adler
@@ -64,11 +68,6 @@ public abstract class AbstractGenerator implements Generator {
 	public final AbstractConfiguration load (String configuration, String rules) throws Exception{
 		AbstractConfiguration abstractConfiguration = getConfigurationRoot();
 		loadConfiguration(abstractConfiguration, configuration, rules);
-        /*InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configuration);
-        URL rulesURL = getClass().getClassLoader().getResource(rules);
-        Digester digester = DigesterLoader.createDigester(rulesURL);
-        digester.push(abstractConfiguration);
-        digester.parse(input);*/
         return abstractConfiguration;		
 	}
 	
@@ -85,7 +84,7 @@ public abstract class AbstractGenerator implements Generator {
 		if (refname.equals("ViewOnBsla"))
 			return "templateSet-ViewOnBsla.xml";
 		else if (refname.equals("BackendOnBsla"))
-			return "templateSet-BackendOnBsla.xml";
+			return "templateSet-BackendOnBsla.xml";//return "templateSet-BackendOnBsla.xml";
 		else 
 			return "templateSet-ViewOnBsla.xml";
 	}
@@ -164,6 +163,20 @@ public abstract class AbstractGenerator implements Generator {
        writer.close();    	
    }
 	
+   protected String getAbstractBeanName (GeneratorBean bean) {
+		String beanName = StringUtils.lowerCase(bean.getClass().getName());
+		beanName = StringUtils.substring(beanName,
+				beanName.lastIndexOf(".") + 1);
+		// TODO change
+		if (beanName.equals("tableddlutils") || beanName.equals("tableumlnotation"))
+			return "table";
+		if (beanName.equals("columnddltils"))
+			return "column";		
+		
+		return beanName;
+   }
 	
-	
+    protected Table getDecoratedTable (Table table) {
+    	return DataModelFactory.getTable(table);
+    }
 }

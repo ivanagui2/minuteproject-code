@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.Property;
 
-public class AbstractConfiguration {
+public class AbstractConfiguration implements GeneratorBean{
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
 	private String name;
@@ -57,6 +57,14 @@ public class AbstractConfiguration {
 	}
 	public void setRefname(String refname) {
 		this.refname = refname;
+	}
+	public Package getPackage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setPackage(Package pack) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

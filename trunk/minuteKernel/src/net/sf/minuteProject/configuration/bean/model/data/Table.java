@@ -1,159 +1,225 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
-import org.apache.ddlutils.model.Column;
-import org.apache.ddlutils.model.Database;
-import org.apache.ddlutils.model.ForeignKey;
 import org.apache.ddlutils.model.Index;
 
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 
-/**
- * @author Florian Adler
- *
- */
-public class Table extends AbstractConfiguration implements TableInt{
+
+public interface Table extends GeneratorBean{
 	
-	private org.apache.ddlutils.model.Table table;
-	private Database database;
-	private net.sf.minuteProject.configuration.bean.Package pack;
+	/**
+	 * Get the column that are not part primary key or foreign key 
+	 * @return
+	 */
+	public Column[] getNoPrimaryKeyNoForeignKeyColumns();
 	
-	public String getName () {
-		return table.getName();
-	}
 	
-	public net.sf.minuteProject.configuration.bean.Package getPackage() {
-		return pack;
-	}
-
-	public void setPackage(net.sf.minuteProject.configuration.bean.Package pack) {
-		this.pack = pack;
-	}
-
-	public Database getDatabase() {
-		return database;
-	}
-
-	public void setDatabase(Database database) {
-		this.database = database;
-	}
-
-	public Table (org.apache.ddlutils.model.Table table) {
-		setTable (table);
-	}
-
-	public org.apache.ddlutils.model.Table getTable() {
-		return table;
-	}
-
-	public void setTable(org.apache.ddlutils.model.Table table) {
-		this.table = table;
-	}
-
-	public Column findColumn(String name) {
-		// TODO Auto-generated method stub
-		return table.findColumn(name);
-	}
-
-	public Column findColumn(String name, boolean caseSensitive) {
-		// TODO Auto-generated method stub
-		return table.findColumn(name, caseSensitive);
-	}
-
-	public ForeignKey findForeignKey(ForeignKey key) {
-		// TODO Auto-generated method stub
-		return table.findForeignKey(key);
-	}
-
-	public ForeignKey findForeignKey(ForeignKey key, boolean caseSensitive) {
-		// TODO Auto-generated method stub
-		return table.findForeignKey(key, caseSensitive);
-	}
-
-	public Index findIndex(String name) {
-		// TODO Auto-generated method stub
-		return table.findIndex(name);
-	}
-
-	public Index findIndex(String name, boolean caseSensitive) {
-		// TODO Auto-generated method stub
-		return table.findIndex(name, caseSensitive);
-	}
-
-	public String getCatalog() {
-		// TODO Auto-generated method stub
-		return table.getCatalog();
-	}
-
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return table.getColumnCount();
-	}
-
-	public Column[] getColumns() {
-		// TODO Auto-generated method stub
-		return table.getColumns();
-	}
-
-	public ForeignKey getForeignKey(int idx) {
-		// TODO Auto-generated method stub
-		return table.getForeignKey(idx);
-	}
-
-	public int getForeignKeyCount() {
-		// TODO Auto-generated method stub
-		return table.getForeignKeyCount();
-	}
-
-	public ForeignKey[] getForeignKeys() {
-		// TODO Auto-generated method stub
-		return table.getForeignKeys();
-	}
-
-	public Index getIndex(int idx) {
-		// TODO Auto-generated method stub
-		return table.getIndex(idx);
-	}
-
-	public int getIndexCount() {
-		// TODO Auto-generated method stub
-		return table.getIndexCount();
-	}
-
-	public Index[] getIndices() {
-		// TODO Auto-generated method stub
-		return table.getIndices();
-	}
-
-	public Index[] getNonUniqueIndices() {
-		// TODO Auto-generated method stub
-		return table.getNonUniqueIndices();
-	}
-
-	public Column[] getPrimaryKeyColumns() {
-		// TODO Auto-generated method stub
-		return table.getPrimaryKeyColumns();
-	}
-
-	public String getSchema() {
-		// TODO Auto-generated method stub
-		return table.getSchema();
-	}
-
-	public Index[] getUniqueIndices() {
-		// TODO Auto-generated method stub
-		return table.getNonUniqueIndices();
-	}
-
-	public boolean hasPrimaryKey() {
-		// TODO Auto-generated method stub
-		return table.hasPrimaryKey();
-	}
 	
-	public String getTechnicalPackage(Template template) {
-		//StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
-		StringBuffer sb = new StringBuffer(getPackage().getTechnicalPackage(template));
-		//sb.append("."+getName());
-		return sb.toString();
-	}
+	// SQL standard method
+    /**
+     * Returns the catalog of this table as read from the database.
+     * 
+     * @return The catalog
+     */
+    public String getCatalog();
+
+    /**
+     * Returns the schema of this table as read from the database.
+     * 
+     * @return The schema
+     */
+    public String getSchema();
+
+    public String getName();
+    /**
+     * Sets the name of the table.
+     * 
+     * @param name The name
+     */
+    public void setName(String name);
+    
+    /**
+     * Returns the description of the table.
+     *
+     * @return The description
+     */
+    public void setDescription(String description);
+    
+    /**
+     * Returns the number of columns in this table.
+     * 
+     * @return The number of columns
+     */
+    public int getColumnCount();
+
+    /**
+     * Returns the columns in this table.
+     * 
+     * @return The columns
+     */
+    public Column[] getColumns();
+    
+    /**
+     * Returns the number of foreign keys.
+     * 
+     * @return The number of foreign keys
+     */
+    public int getForeignKeyCount();
+    
+    /**
+     * Returns the foreign key at the given position.
+     * 
+     * @param idx The foreign key index
+     * @return The foreign key
+     */
+    public ForeignKey getForeignKey(int idx);
+    
+    /**
+     * Returns the foreign keys of this table.
+     * 
+     * @return The foreign keys
+     */
+    public ForeignKey[] getForeignKeys();
+
+    /**
+     * Returns the number of indices.
+     * 
+     * @return The number of indices
+     */
+    public int getIndexCount();
+
+    /**
+     * Returns the index at the specified position.
+     * 
+     * @param idx The position
+     * @return The index
+     */
+    public Index getIndex(int idx);
+    
+    /**
+     * Returns the indices of this table.
+     * 
+     * @return The indices
+     */
+    public Index[] getIndices();
+
+    /**
+     * Gets a list of non-unique indices on this table.
+     * 
+     * @return The unique indices
+     */
+    public Index[] getNonUniqueIndices();
+    
+    /**
+     * Gets a list of unique indices on this table.
+     * 
+     * @return The unique indices
+     */
+    public Index[] getUniqueIndices();
+
+    // Helper methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Determines whether there is at least one primary key column on this table.
+     * 
+     * @return <code>true</code> if there are one or more primary key columns
+     */
+    public boolean hasPrimaryKey();
+    
+    /**
+     * Finds the column with the specified name, using case insensitive matching.
+     * Note that this method is not called getColumn(String) to avoid introspection
+     * problems.
+     * 
+     * @param name The name of the column
+     * @return The column or <code>null</code> if there is no such column
+     */
+    public Column findColumn(String name);
+
+    /**
+     * Finds the column with the specified name, using case insensitive matching.
+     * Note that this method is not called getColumn(String) to avoid introspection
+     * problems.
+     * 
+     * @param name          The name of the column
+     * @param caseSensitive Whether case matters for the names
+     * @return The column or <code>null</code> if there is no such column
+     */
+    public Column findColumn(String name, boolean caseSensitive);
+    
+    /**
+     * Returns the column at the specified position.
+     * 
+     * @param idx The column index
+     * @return The column at this position
+     */
+    public Column getColumn(int idx);
+    
+    /**
+     * Finds the index with the specified name, using case insensitive matching.
+     * Note that this method is not called getIndex to avoid introspection
+     * problems.
+     * 
+     * @param name The name of the index
+     * @return The index or <code>null</code> if there is no such index
+     */
+    
+    public Index findIndex(String name);
+
+    /**
+     * Finds the index with the specified name, using case insensitive matching.
+     * Note that this method is not called getIndex to avoid introspection
+     * problems.
+     * 
+     * @param name          The name of the index
+     * @param caseSensitive Whether case matters for the names
+     * @return The index or <code>null</code> if there is no such index
+     */
+    public Index findIndex(String name, boolean caseSensitive);
+    
+    /**
+     * Returns the primary key columns of this table.
+     * 
+     * @return The primary key columns
+     */
+    public Column[] getPrimaryKeyColumns();
+    
+    /**
+     * The column that are not Primary Key nor Foreign Key
+     * @return The column that are not Primary Key nor Foreign Key
+     */
+   
+    public String toVerboseString();
+    
+    public String getType();
+    
+    public void setDatabase (Database database);
+    
+    // Methods added
+    /**
+     * Returns the attribute
+     * @return Column
+     */
+    public Column [] getAttributes ();
+    
+    /**
+     * Get the Database for bidirection browsing
+     * @return Database
+     */
+    public Database getDatabase();
+    
+    /**
+     * Get the array of parents 
+     * @return Reference
+     */
+    public Reference [] getParents();
+    
+    /**
+     * Get the associated children
+     * @return Reference
+     */
+    public Reference [] getChildren();
+    
 }
