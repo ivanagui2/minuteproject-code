@@ -222,4 +222,10 @@ public interface Table extends GeneratorBean{
      */
     public Reference [] getChildren();
     
+    /**
+     * Indicates if it is a many to many table
+     * @return boolean
+     */
+    public boolean isManyToMany();
+    
 }

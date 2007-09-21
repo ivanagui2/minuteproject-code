@@ -2,6 +2,7 @@ package net.sf.minuteProject.utils;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 import org.apache.ddlutils.model.Index;
@@ -52,6 +53,17 @@ public class TableUtils {
 			}
 		}
 		return false;
+	}
+	
+	public static Table getOtherEnd (Table origin, Table many2many) {
+		if (many2many.isManyToMany()) {		
+			Reference [] references = many2many.getParents();
+			for (int i = 0; i < references.length; i++) {
+				if (references[i].getForeignTable().equals(origin))
+					return references[i].getForeignTable();
+			}
+		}
+		return null;
 	}
 	
 }

@@ -237,4 +237,20 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
     	return table.getChildren();
     }
     
+    /**
+     * Indicates if it is a many to many table
+     * A table is many to many if it contains 2 columns only and those colums are Foreign keys.
+     * @return boolean
+     */
+    public boolean isManyToMany() {
+    	return (getColumnCount() == 2) 
+    	        && (getParents().length == 2);
+    }
+    
+    public boolean equals (Object object) {
+    	if (!(object instanceof Table))
+    		return false;
+    	return this.getName().equals(((Table)object).getName());
+    }
+    
 }
