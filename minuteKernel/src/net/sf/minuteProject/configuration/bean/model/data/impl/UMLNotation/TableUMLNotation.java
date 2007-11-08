@@ -33,10 +33,7 @@ public class TableUMLNotation extends TableAbstract {
 		if (children == null) {
 			children = new ArrayList<Reference>();
 			for (int i = 0; i < super.getTable().getChildren().length; i++) {
-				Reference reference = super.getTable().getChildren()[i];
-				reference.get
 				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (super.getTable().getChildren()[i]);
-				
 				children.add(referenceUMLNotation);
 			}
 		}
