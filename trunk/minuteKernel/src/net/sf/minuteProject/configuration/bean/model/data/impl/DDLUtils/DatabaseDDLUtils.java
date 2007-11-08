@@ -54,16 +54,16 @@ public class DatabaseDDLUtils implements Database
 	}
 	
 	public Database loadDatabase(DataModel dataModel) {
-		if (isDatabaseOnFile(dataModel))
+		/*if (isDatabaseOnFile(dataModel))
 			database = new DatabaseIO().read(getFileSourceName(dataModel));		
 		else 
-		{				
+		{*/				
 		    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
 		    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
 		    setType(platform);
 		    database = platform.readModelFromDatabase("TEST");
 		    writeDatabase(database, dataModel);
-		}
+		//}
 	    return this;
 	}
 	
