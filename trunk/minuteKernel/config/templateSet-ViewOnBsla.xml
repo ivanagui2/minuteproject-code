@@ -1,10 +1,10 @@
 <target name="ViewOnBsla">		
 	<architecture-target name="bsla" description="basic springframework layer architecture"/>	
 				
-		<template-target dir="C:/dev/mySourceForge/minuteproject/trunk/minuteTemplate/template-bsla/view" 
+		<template-target dir="D:/DEV/MP/minuteTemplate/template-bsla/view" 
 			libdir="BslaViewLibrary.vm"
 			tool="velocity"
-			outputdir="C:/dev/mySourceForge/minuteproject/trunk/minuteArchitecture/project-bsla/src-generated-view"
+			outputdir="D:/DEV/MP/minuteArchitecture/project-bsla/src-generated-view"
 			package-root="be.fgov.minfin">
 			
 			<template name="BslaViewIbatisDaoSqlMapConfig" templateFileName="BslaViewIbatisDaoSqlMapConfig.vm" 
@@ -120,11 +120,11 @@
 
 		</template-target>			
 		
-	<template-target dir="C:/dev/mySourceForge/minuteproject/trunk/minuteTemplate/template-bsla/view" 
+	<template-target dir="D:/DEV/MP/minuteTemplate/template-bsla/view" 
 		libdir="BslaViewLibrary.vm"
 		lib="BslaViewLibrary.vm"
 		tool="velocity"
-		outputdir="C:/dev/mySourceForge/minuteproject/trunk/minuteArchitecture/project-bsla/src-generated-view"
+		outputdir="D:/DEV/MP/minuteArchitecture/project-bsla/src-generated-view"
 		package-root="htmlview">
 			
 		<template package-root="htmlview"
@@ -150,6 +150,5 @@
 		</template>
 		 
 	</template-target>
-			
  
 </target>	
