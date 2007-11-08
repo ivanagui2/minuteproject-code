@@ -116,11 +116,8 @@ public class ModelUtils {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
 			Table table2 = TableUtils.getTable(database,tablename);
-			reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
-			//reference.setTableName(tablename);
-			//reference.setColumnName(ref.getLocalColumnName());
-			//reference.setTable(foreignKeys[i].getForeignTable());
-			//reference.setTable(TableUtils.getTable(database,tablename));
+			//reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
+			reference = new Reference(table2, ref.getLocalColumn(), tablename, ref.getLocalColumnName());
 			list.add(reference);				
 		}
 		return list;
@@ -137,13 +134,11 @@ public class ModelUtils {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
 			reference = new Reference(foreignKeys[i].getForeignTable(), ref.getLocalColumn(), tablename, ref.getLocalColumnName());
-			//reference.setTableName(tablename);
-			//reference.setColumnName(ref.getLocalColumnName());
-			//reference.setTable(foreignKeys[i].getForeignTable());
 			list.add(reference);				
 		}
 		return list;
 	}
+	
 	public static List getChildren (Database database, Table table) {
 		List list = new ArrayList();
 		String columnRef;
@@ -161,10 +156,6 @@ public class ModelUtils {
 	        			columnRef = ref.getLocalColumnName();
 	        			Column column2 = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
 	        			reference = new Reference(tables[i], column2, tables[i].getName(), ref.getLocalColumnName());
-	        			//reference = new Reference(tables[i], ref.getForeignColumn(), tables[i].getName(), ref.getForeignColumnName());
-	        			//reference.setTableName(tables[i].getName());
-	        			//reference.setColumnName(columnRef);
-	        			//reference.setTable(tables[i]);
 	        			list.add(reference);
 	        		}
         		}

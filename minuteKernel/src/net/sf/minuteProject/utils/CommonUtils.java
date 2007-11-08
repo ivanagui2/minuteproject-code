@@ -23,6 +23,12 @@ public class CommonUtils {
 	}
 	
 	public static String getTableClassName (Table table) {
+		//System.out.println ("table name"+FormatUtils.getJavaName(table.getName()));
+		//return FormatUtils.getJavaName(table.getName());
+		return getTcn(table);
+	}
+	
+	public static String getTcn (Table table) {
 		return FormatUtils.getJavaName(table.getName());
 	}
 	
@@ -111,7 +117,7 @@ public class CommonUtils {
 	protected static String getTemplateClassName (Table table, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ConfigFile not ok");
+			System.out.println("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(table, templateTarget);
@@ -121,7 +127,7 @@ public class CommonUtils {
 		//Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		Template templateTarget = getTargetTemplate(model, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ConfigFile not ok");
+			System.out.println("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(table, templateTarget);
@@ -130,7 +136,7 @@ public class CommonUtils {
 	protected static String getTemplateClassName (Package pack, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ConfigFile not ok");
+			System.out.println("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(pack, templateTarget);
@@ -139,7 +145,7 @@ public class CommonUtils {
 	protected static String getTemplateClassName (Model model, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ConfigFile not ok");
+			System.out.println("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(model, templateTarget);
@@ -229,15 +235,23 @@ public class CommonUtils {
 
 	public static String getPrimaryKeyType (Table table) {
 		if (table.hasPrimaryKey())
-			return ConvertUtils.getJavaTypeFromDBType(TableUtils.getPrimaryFirstColumn(table).getType());
+			return getType(TableUtils.getPrimaryFirstColumn(table));
 		return "ERROR-NO PK found for table "+table.getName();
 	}	
 	
 	public static String getPrimaryKeyFullType (Table table) {
 		if (table.hasPrimaryKey())
-			return ConvertUtils.getJavaTypeFromDBFullType(TableUtils.getPrimaryFirstColumn(table).getType());
+			return getFullType(TableUtils.getPrimaryFirstColumn(table));
 		return "ERROR-NO PK found for table "+table.getName();
 	}		
+	
+	public static String getType (Column column) {
+		return ConvertUtils.getJavaTypeFromDBType(column.getType());
+	}	
+	
+	public static String getFullType (Column column) {
+		return ConvertUtils.getJavaTypeFromDBFullType(column.getType());
+	}	
 	
 	public static String getPK (Table table) {
 		return TableUtils.getPrimaryKey(table);
@@ -252,6 +266,12 @@ public class CommonUtils {
 
 	public static String getLevelTemplateFullClassPath (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		return FormatUtils.getDirFromPackage(getLevelTemplateFullPath(bean, template, targetTemplateName));
+	}
+	
+	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {
+		String classpathName = getPackageName(table, template);
+		String filename = getFileName(template, table.getName());
+		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
 	}
 	
 }

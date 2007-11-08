@@ -21,6 +21,12 @@ public interface Database extends Serializable, Cloneable
 	 */
 	public Database loadDatabase (DataModel dataModel) ;
 	
+	/**
+	 * get the type (Oracle, DB2, Sybase, Mysql ...) of the database
+	 * @return String
+	 */
+	public String getType();
+	
 	// Standard sql methods
     /**
      * Returns the name of this database model.

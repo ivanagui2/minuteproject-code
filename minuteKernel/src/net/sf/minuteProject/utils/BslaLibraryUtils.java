@@ -9,10 +9,15 @@ import net.sf.minuteProject.configuration.bean.view.View;
 
 public class BslaLibraryUtils extends CommonUtils{
 	
+	// TODO change the entire class so that the dependencies can be managed elsewhere
+	// TODO then clean the whole dirty stuff
 	// use introspection instead
 	public static final String BslaDomainObjectTemplateName = "BslaDomainObject";
+	public static final String BslaDomainObjectUMLTemplateName = "DomainObject";
 	public static final String BslaIbatisDaoSqlImplTemplateName = "BslaIbatisDaoSqlImpl";
+	public static final String BslaHiberateImplTemplateName = "BslaHibernateDaoImplUML";	
 	public static final String BslaDaoInterfaceTemplateName = "BslaDaoInterface";
+	public static final String BslaDaoInterfaceUMLTemplateName = "BslaDaoInterfaceUML";
 	
 	private static String getModelLevelTemplateFullPath (Model model, Template template, String targetTemplateName) {
 		return getPackageName(model, template, targetTemplateName) +"."+ getTemplateClassName (model, template, targetTemplateName);
@@ -41,6 +46,10 @@ public class BslaLibraryUtils extends CommonUtils{
 	public static String getDomainObjectImport (Model model, Table table, Template template) {
 		return getEntityLevelTemplateFullPath(model, table, template, BslaDomainObjectTemplateName);
 	}
+
+	public static String getDomainObjectUMLImport (Model model, Table table, Template template) {
+		return getEntityLevelTemplateFullPath(model, table, template, BslaDomainObjectUMLTemplateName);
+	}
 	
 	public static String getDomainObjectImport2 (Model model, Table table, Template template) {
 		if (table!=null)
@@ -52,9 +61,17 @@ public class BslaLibraryUtils extends CommonUtils{
 		return getTemplateClassName (table, template, BslaDaoInterfaceTemplateName);
 	}
 	
+	public static String getDaoInterfaceUMLName (Table table, Template template) {
+		return getTemplateClassName (table, template, BslaDaoInterfaceUMLTemplateName);
+	}	
+	
 	public static String getDaoInterfaceVariableName (Table table, Template template) {
 		return FormatUtils.getJavaNameVariableFirstLetter(getTemplateClassName (table, template, BslaDaoInterfaceTemplateName));
 	}	
+
+	public static String getDaoInterfaceVariableUMLName (Table table, Template template) {
+		return FormatUtils.getJavaNameVariableFirstLetter(getTemplateClassName (table, template, BslaDaoInterfaceUMLTemplateName));
+	}
 	
 	public static String getIbatisDaoSqlImplName (Table table, Template template) {
 		return getTemplateClassName (table, template, BslaIbatisDaoSqlImplTemplateName);
@@ -63,7 +80,15 @@ public class BslaLibraryUtils extends CommonUtils{
 		return getEntityLevelTemplateFullPath(model, table, template, BslaDaoInterfaceTemplateName);
 	}
 	
+	public static String getDaoInterfaceUMLImport (Model model, Table table, Template template) {
+		return getEntityLevelTemplateFullPath(model, table, template, BslaDaoInterfaceUMLTemplateName);
+	}
+	
 	public static String getIbatisDaoSqlImplImport (Model model, Table table, Template template) {
 		return getEntityLevelTemplateFullPath(model, table, template, BslaIbatisDaoSqlImplTemplateName);
+	}	
+	
+	public static String getHibernateImplNameImport (Model model, Table table, Template template) {
+		return getEntityLevelTemplateFullPath(model, table, template, BslaHiberateImplTemplateName);
 	}	
 }

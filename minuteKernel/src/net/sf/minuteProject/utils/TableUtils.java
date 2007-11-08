@@ -23,6 +23,10 @@ public class TableUtils {
 			return primaryKeyColumn.getName();
 		return "";
 	}
+	
+	public static String getPrimaryKeyType(Table table) {
+		return getPrimaryFirstColumn(table).getType();
+	}
 
 	public static String getUnique (Table table) {
 		Index indexes [] = table.getUniqueIndices();
@@ -54,7 +58,7 @@ public class TableUtils {
 		}
 		return false;
 	}
-	
+	/*
 	public static Table getOtherEnd (Table origin, Table many2many) {
 		if (many2many.isManyToMany()) {		
 			Reference [] references = many2many.getParents();
@@ -64,6 +68,6 @@ public class TableUtils {
 			}
 		}
 		return null;
-	}
+	}*/
 	
 }

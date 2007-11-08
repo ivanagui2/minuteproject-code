@@ -19,6 +19,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.io.DatabaseIO;
+import org.apache.ddlutils.platform.cloudscape.CloudscapePlatform;
+import org.apache.ddlutils.platform.db2.Db2Platform;
+import org.apache.ddlutils.platform.hsqldb.HsqlDbPlatform;
+import org.apache.ddlutils.platform.mssql.MSSqlPlatform;
+import org.apache.ddlutils.platform.mysql.MySqlPlatform;
+import org.apache.ddlutils.platform.oracle.Oracle8Platform;
+import org.apache.ddlutils.platform.postgresql.PostgreSqlPlatform;
+import org.apache.ddlutils.platform.sapdb.SapDbPlatform;
+import org.apache.ddlutils.platform.sybase.SybasePlatform;
 
 /**
  * Inspired by DDLUtils Database class
@@ -31,6 +40,7 @@ import org.apache.ddlutils.io.DatabaseIO;
 public class DatabaseDDLUtils implements Database
 {
 	private org.apache.ddlutils.model.Database database;
+	private String type;
 	private ArrayList tables;
 	private DataModel dataModel;
 	
@@ -44,11 +54,27 @@ public class DatabaseDDLUtils implements Database
 	}
 	
 	public Database loadDatabase(DataModel dataModel) {
-	    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
-	    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
-	    database = platform.readModelFromDatabase(null);
-	    writeDatabase(database, dataModel);
+		if (isDatabaseOnFile(dataModel))
+			database = new DatabaseIO().read(getFileSourceName(dataModel));		
+		else 
+		{				
+		    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
+		    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
+		    setType(platform);
+		    database = platform.readModelFromDatabase("TEST");
+		    writeDatabase(database, dataModel);
+		}
 	    return this;
+	}
+	
+	private boolean isDatabaseOnFile(DataModel dataModel) {
+	    String filename = getFileSourceName(dataModel);
+	    if (filename!= null) {
+	    	File file = new File (filename);
+	    	if (file.exists())
+	    		return true;
+	    }
+	    return false;
 	}
 	
 	private void writeDatabase (org.apache.ddlutils.model.Database database, DataModel dataModel) {
@@ -308,6 +334,42 @@ public class DatabaseDDLUtils implements Database
 		return dataModel;
 	}
 
+	/**
+	 * get the type (Oracle, DB2, Sybase, Mysql ...) of the database
+	 * @return String
+	 */
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * get the type (Oracle, DB2, Sybase, Mysql ...) of the database
+	 * @return String
+	 */
+	private void setType(String type) {
+		this.type = type;
+	}
+	
+	private void setType (Platform platform) {
+		if (platform instanceof Db2Platform) 
+			setType("DB2");
+		else if (platform instanceof Oracle8Platform)
+			setType("ORACLE");
+		else if (platform instanceof MySqlPlatform)
+			setType("MYSQL");
+		else if (platform instanceof SybasePlatform)
+			setType("SYBASE");
+		else if (platform instanceof PostgreSqlPlatform)
+			setType("POSTGRESQL");
+		else if (platform instanceof MSSqlPlatform)
+			setType("MSSQL");
+		else if (platform instanceof HsqlDbPlatform)
+			setType("HSQLDB");		
+		else if (platform instanceof SapDbPlatform)
+			setType("SAPDB");	
+		else if (platform instanceof CloudscapePlatform)
+			setType("CLOUDSCAPE");			
+	}
 
 }
 
