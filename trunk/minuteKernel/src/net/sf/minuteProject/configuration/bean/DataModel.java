@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
@@ -21,6 +22,7 @@ public class DataModel {
 	private DataSource datasource;
 	private FileSource fileSource;
 	private String schema;
+	private PrimaryKeyPolicy primaryKeyPolicy;
 	
 	private BasicDataSource basicDataSource;
 	
@@ -115,6 +117,14 @@ public class DataModel {
 
 	public void setSchema(String schema) {
 		this.schema = schema;
+	}
+
+	public PrimaryKeyPolicy getPrimaryKeyPolicy() {
+		return primaryKeyPolicy;
+	}
+
+	public void setPrimaryKeyPolicy(PrimaryKeyPolicy primaryKeyPolicy) {
+		this.primaryKeyPolicy = primaryKeyPolicy;
 	}
 	
 }

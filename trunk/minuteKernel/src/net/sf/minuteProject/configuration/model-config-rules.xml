@@ -44,6 +44,22 @@
 					<bean-property-setter-rule pattern="username"/>		
 					<bean-property-setter-rule pattern="password"/>				
 				</pattern>			
+				<pattern value="primaryKeyPolicy">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy"/>	
+					<set-next-rule methodname="setPrimaryKeyPolicy" paramtype="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy"/>			
+					<set-properties-rule/>		  
+					<bean-property-setter-rule pattern="oneGlobal"/>			
+					<bean-property-setter-rule pattern="oneForEachTable"/>		
+					<pattern value="primaryKeyPolicyPattern">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>		
+						<set-next-rule methodname="addPrimaryKeyPolicyPattern" paramtype="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>			  				
+						<set-properties-rule/>		  
+						<bean-property-setter-rule pattern="name"/>		
+						<bean-property-setter-rule pattern="prefix"/>	
+						<bean-property-setter-rule pattern="suffix"/>	
+						<bean-property-setter-rule pattern="sequenceName"/>		
+					</pattern>					
+				</pattern>
 			</pattern>
 			<pattern value="business-model">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.BusinessModel"/>		
