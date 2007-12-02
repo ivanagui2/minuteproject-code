@@ -4,8 +4,27 @@
 			<template-target dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
 				libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 				tool="velocity"
-				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-PDMURF"
-				package-root="org.efs.openreports">		
+				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla"
+				package-root=""
+				name="build" belongToPackage="false">		
+
+				<template package-root=""
+					name="AntBuildProperties" templateFileName="AntBuildProperties.vm" 
+					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+					file-extension="properties" file-prefix="build" file-suffix="" 
+					entity-specific="false" package-specific="false" model-specific="true"
+					application-specific="false">
+				</template>
+															
+			</template-target>	
+			
+			<template-target 
+			    dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
+				libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+				tool="velocity"
+				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-OPENREPORTS"
+				package-root="sf.net.minutetranslation"
+				belongToPackage="true">		
 
 				<template package-root="my.servlet"
 					name="MappingDomainDatabase" templateFileName="MappingDomainDatabase.vm" 
@@ -13,44 +32,51 @@
 					file-extension="map" file-prefix="" file-suffix="map" 
 					entity-specific="false" package-specific="false" model-specific="true">
 				</template>
-					 <!--			
-				<template package-root="my.servlet"
-					name="BslaWebSearchServlet" templateFileName="BslaWebSearchServlet.vm" 
-					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
-					file-extension="java" file-prefix="" file-suffix="SearchServlet" 
-					entity-specific="false" package-specific="false" model-specific="true">
-				</template>	
-				
-				<template package-root="my.servlet"
-					name="BslaWebSearchByIdServlet" templateFileName="BslaWebSearchByIdServlet.vm" 
-					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
-					file-extension="java" file-prefix="" file-suffix="SearchByIdServlet" 
-					entity-specific="false" package-specific="false" model-specific="true">
-				</template>
-				
-				 	-->		
+	
 				<template package-root="my.servlet"
 					name="GenCRUDServlet" templateFileName="GenCRUDServlet1.vm" 
 					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
 					file-extension="java" file-prefix="" file-suffix="CRUDServlet" 
 					entity-specific="false" package-specific="false" model-specific="true">
 				</template>		
-		<!--
-				<template package-root="my.servlet"
-					name="GenCRUDServlet" templateFileName="GenCRUDServlet2.vm" 
-					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
-					file-extension="java" file-prefix="" file-suffix="Controller" 
+
+				<template package-root="WEB-INF"
+					name="SitemeshMainLayout" templateFileName="SitemeshMainLayout.vm" 
+					subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+					file-extension="jsp" file-prefix="main" file-suffix="" 
 					entity-specific="false" package-specific="false" model-specific="true">
-				</template>
-				 		-->								
+				</template>	
+				
+				<template package-root="WEB-INF"
+					name="SitemeshDecoratorXml" templateFileName="SitemeshDecoratorXml.vm" 
+					subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+					file-extension="xml" file-prefix="decorator" file-suffix="" 
+					entity-specific="false" package-specific="false" model-specific="true">
+				</template>					
+
+				<template package-root="WEB-INF"
+					name="SitemeshBslaWebXml" templateFileName="SitemeshBslaWebXml.vm" 
+					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+					file-extension="xml" file-prefix="web" file-suffix="" 
+					entity-specific="false" package-specific="false" model-specific="true">
+				</template>		
+				
+				<template package-root="html"
+					name="WebDefaultHomePage" templateFileName="WebDefaultHomePage.vm" 
+					subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+					file-extension="html" file-prefix="" file-suffix="HomePage" 
+					entity-specific="false" package-specific="false" model-specific="true">
+				</template>	
+														
 			</template-target>	
 			
 <!-- -->
 			<template-target dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
 				libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 				tool="velocity"
-				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/srcWeb-generated-PDMURF"
-				package-root="jsp">
+				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/srcWeb-generated-OPENREPORTS"
+				package-root="jsp"
+				belongToPackage="true">
 				
 				<template package-root="html"
 					name="BslaWebSearchScreen" templateFileName="GenRender1EditScreen.vm" 
@@ -95,11 +121,18 @@
 					file-extension="jsp" file-prefix="" file-suffix="ResultOneBody" 
 					entity-specific="true" package-specific="false" model-specific="false">
 				</template>	
+				<!-- 
 				<template name="GenRender1SearchResultOneScreen" templateFileName="GenRender1SearchResultOneScreen.vm" 
 					subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
 					file-extension="jsp" file-prefix="" file-suffix="ResultOneScreen" 
 					entity-specific="true" package-specific="false" model-specific="false">
-				</template>											
+				</template>						
+				 -->
+				<template name="GenDojo1SearchResultOneScreen" templateFileName="GenDojo1SearchResultOneScreen.vm" 
+					subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
+					file-extension="jsp" file-prefix="" file-suffix="ResultOneScreen" 
+					entity-specific="true" package-specific="false" model-specific="false">
+				</template>							
 			</template-target>		
 			
 		
@@ -107,8 +140,9 @@
 			<template-target dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
 				libdir="lib/BslaLibrary.vm"
 				tool="velocity"
-				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-PDMURF"
-				package-root="eu.pdmurf">
+				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-OPENREPORTS"
+				package-root="sf.net.openreports"
+				belongToPackage="true">
 				
 				<!--  hibernate templates -->
 				<template name="DomainObject" templateFileName="DomainObjectUML.vm" 
@@ -214,4 +248,34 @@
 
 			</template-target>			
 			 
+			<template-target dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
+				libdir="lib/BslaLibrary.vm"
+				tool="velocity"
+				outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/test-generated-OPENREPORTS"
+				package-root="sf.net.openreports"
+				belongToPackage="true">
+				
+				<!--  Test templates -->
+				<template name="TestDao" templateFileName="iBatisDaoTest.vm" 
+					subdir="" outputsubdir="" technicalPackage="dao"
+					file-extension="java" file-prefix="" file-suffix="Test" 
+					entity-specific="true" package-specific="false" model-specific="false">
+				</template>
+
+			</template-target>			 
+			
+	<template-target dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-OPENREPORTS"
+		package-root="sf.net.openreports"
+		belongToPackage="true">
+
+		<!--  Resource templates -->
+		<template name="ResourceBundle" templateFileName="ResourceBundle.vm" 
+			subdir="" outputsubdir="" technicalPackage="resource"
+			file-extension="properties" file-prefix="" file-suffix="Resource" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>				
+	</template-target>			
 </target>	
