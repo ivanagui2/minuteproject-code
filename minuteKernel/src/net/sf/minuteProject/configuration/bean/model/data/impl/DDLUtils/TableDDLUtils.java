@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -263,6 +264,15 @@ public class TableDDLUtils extends TableAbstract {
 		return table.getType();
 	}
 
+	private void addReference (List list, Reference referenceToAdd) {
+		for (Iterator iter = list.iterator(); iter.hasNext();) {
+			ReferenceDDLUtils reference = (ReferenceDDLUtils)iter.next();
+			if (reference.equals(referenceToAdd))
+				return;
+		}
+		list.add(referenceToAdd);
+	}
+	
     /**
      * Get the array of parents 
      * @return Reference
@@ -290,7 +300,8 @@ public class TableDDLUtils extends TableAbstract {
 				reference.setForeignTable(table);
 				reference.setForeignTableName(table.getName());
 				if (!error)
-					parents.add(reference);
+					//parents.add(reference);
+					addReference(parents, reference);
 			}
     	}
     	return (Reference[])parents.toArray(new Reference[parents.size()]);	
@@ -328,7 +339,9 @@ public class TableDDLUtils extends TableAbstract {
 		        			//reference.setTableName(tables[i].getName());
 		        			//reference.setColumnName(columnRef);
 		        			//reference.setTable(tables[i]);
-		    				children.add(reference);
+		    				
+		    				//children.add(reference);
+		    				addReference(children, reference);
 		        		}
 	        		}
 	        	}    	

@@ -27,6 +27,8 @@
 					<alias attr-name="libdir" prop-name="libdir" />
 					<alias attr-name="outputdir" prop-name="outputdir" />
 					<alias attr-name="tool" prop-name="tool" />
+					<alias attr-name="name" prop-name="name" />
+					<alias attr-name="belongToPackage" prop-name="belongToPackage" />
 				</set-properties-rule> 					
 			<pattern value="template">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Template"/>		
@@ -47,6 +49,7 @@
 					<alias attr-name="view-specific" prop-name="viewSpecific" />
 					<alias attr-name="service-specific" prop-name="serviceSpecific" />
 					<alias attr-name="function-specific" prop-name="functionSpecific" />
+					<alias attr-name="application-specific" prop-name="applicationSpecific" />
 				</set-properties-rule> 					
 			</pattern>
 		</pattern>				  

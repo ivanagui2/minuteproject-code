@@ -12,7 +12,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	// TODO change list into a map to ensure uniqueness of template by name
 	private List <Template> templates;
 	private String packageRoot;
-	
+	private boolean belongToPackage;
 
 	public String getPackageRoot() {
 		return packageRoot;
@@ -84,4 +84,14 @@ public class TemplateTarget extends AbstractConfiguration{
 	public void setTarget(Target target) {
 		this.target = target;
 	}
+
+	public boolean isBelongToPackage() {
+		return belongToPackage;
+	}
+
+	public void setBelongToPackage(boolean belongToPackage) {
+		this.belongToPackage = belongToPackage;
+	}
+	
+	
 }

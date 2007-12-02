@@ -126,11 +126,15 @@ public abstract class AbstractGenerator implements Generator {
     protected VelocityContext getVelocityContext(Template template) {
 		Properties p = new Properties();
 		TemplateTarget templateTarget = template.getTemplateTarget();
+		Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);
+		Velocity.clearProperty(Velocity.VM_LIBRARY);
 		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,templateTarget.getDir());
 		p.setProperty(Velocity.VM_LIBRARY,templateTarget.getLibdir());
 		VelocityContext context = new VelocityContext();
 		try {
 			Velocity.init(p);
+			Velocity.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,templateTarget.getDir());
+			Velocity.setProperty(Velocity.VM_LIBRARY,templateTarget.getLibdir());			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -156,7 +160,7 @@ public abstract class AbstractGenerator implements Generator {
        BufferedWriter writer = new BufferedWriter(
            new OutputStreamWriter(new FileOutputStream(outputFilename)));
 
-       if ( template != null)
+       if ( velocityTemplate != null)
     	   velocityTemplate.merge(context, writer);
 
        writer.flush();

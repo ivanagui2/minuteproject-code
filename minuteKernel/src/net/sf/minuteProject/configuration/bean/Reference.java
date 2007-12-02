@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 
 
@@ -43,6 +45,22 @@ public class Reference {
 	public void setTable(net.sf.minuteProject.configuration.bean.model.data.Table table) {
 		this.table = table;
 	}
+
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Reference)
+        {
+            Reference other = (Reference)obj;
+
+            return new EqualsBuilder().append(tableName,   other.getTableName())
+                                      .append(columnName, other.getColumnName())
+                                      .isEquals();
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
 }
