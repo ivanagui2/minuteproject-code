@@ -19,9 +19,18 @@ public class FormatUtils {
 			return "JAVA_NAME_RETURNS_NULL";
 		StringTokenizer st = new StringTokenizer (name,"_");
 		StringBuffer sb = new StringBuffer();
-		while (st.hasMoreTokens()){
-			String token = firstUpperCaseOnly(st.nextToken());
-			sb.append(token);
+		String firstToken = st.nextToken();
+		if (firstToken.length()==1) {
+			sb.append(firstToken.toUpperCase());
+			while (st.hasMoreTokens()){
+				sb.append(st.nextToken().toUpperCase());
+			}			
+		} else {
+			sb.append(firstUpperCaseOnly(firstToken));
+			while (st.hasMoreTokens()){
+				String token = firstUpperCaseOnly(st.nextToken());
+				sb.append(token);
+			}
 		}
 		return sb.toString();
 		//return name.substring(0,1).toUpperCase() +name.substring(1,name.length()).toLowerCase();
@@ -32,7 +41,9 @@ public class FormatUtils {
 		if (name.equals(""))
 			return name;
 		String javaname = getJavaName(name);
-		return firstLowerCase(javaname);
+		if (isStandardBean(name))
+			return firstLowerCase(javaname);
+		return javaname;
 	}	
 	
 	public static String getJavaNameVariableFirstLetter(String name) {
@@ -54,5 +65,11 @@ public class FormatUtils {
 		input = StringUtils.removeStart(input, "ID_");
 		input = StringUtils.removeEnd(input, "_ID");
 		return input;
+	}
+	
+	private static boolean isStandardBean(String name){
+		if (name.indexOf("_")==1)
+			return false;
+		return true;
 	}
 }

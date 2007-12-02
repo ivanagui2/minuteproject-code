@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -118,7 +119,7 @@ public class ModelUtils {
 			Table table2 = TableUtils.getTable(database,tablename);
 			//reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
 			reference = new Reference(table2, ref.getLocalColumn(), tablename, ref.getLocalColumnName());
-			list.add(reference);				
+			addReference(list, reference);				
 		}
 		return list;
 		
@@ -134,9 +135,18 @@ public class ModelUtils {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
 			reference = new Reference(foreignKeys[i].getForeignTable(), ref.getLocalColumn(), tablename, ref.getLocalColumnName());
-			list.add(reference);				
+			addReference(list, reference);				
 		}
 		return list;
+	}
+	
+	private static void addReference (List list, Reference referenceToAdd) {
+		for (Iterator iter = list.iterator(); iter.hasNext();) {
+			Reference reference = (Reference)iter.next();
+			if (reference.equals(referenceToAdd))
+				return;
+		}
+		list.add(referenceToAdd);
 	}
 	
 	public static List getChildren (Database database, Table table) {
@@ -156,7 +166,7 @@ public class ModelUtils {
 	        			columnRef = ref.getLocalColumnName();
 	        			Column column2 = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
 	        			reference = new Reference(tables[i], column2, tables[i].getName(), ref.getLocalColumnName());
-	        			list.add(reference);
+	        			addReference(list, reference);
 	        		}
         		}
         	}    	

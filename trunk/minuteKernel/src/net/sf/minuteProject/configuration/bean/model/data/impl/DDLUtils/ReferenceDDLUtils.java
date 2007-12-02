@@ -18,6 +18,8 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -144,12 +146,26 @@ public class ReferenceDDLUtils implements Reference
 */
     /**
      * {@inheritDoc}
-     */
+     
     public boolean equals(Object obj)
     {
     	return reference.equals(obj);
-    }
+    }*/
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof ReferenceDDLUtils)
+        {
+        	ReferenceDDLUtils other = (ReferenceDDLUtils)obj;
 
+            return new EqualsBuilder().append(getLocalColumnName(),   other.getLocalColumnName())
+                                      .append(getForeignColumnName(), other.getForeignColumnName())
+                                      .isEquals();
+        }
+        else
+        {
+            return false;
+        }
+    }
     /**
      * {@inheritDoc}
      */
@@ -187,4 +203,12 @@ public class ReferenceDDLUtils implements Reference
     public String getForeignTableName () {
     	return foreignTableName;
     }    
+    
+    
+    /*public boolean equals (Object object) {
+    	if (object instanceof ReferenceDDLUtils) {
+    		
+    	}
+    	return false;
+    }*/
 }

@@ -6,6 +6,8 @@ public class ConvertUtils {
 	
 	public static String getJavaTypeFromDBFullType (String dBType) {
 		String retStr=null;
+		if (dBType.equals("BOOLEAN"))
+			return  "java.lang.Boolean";					
 		if (dBType.equals("BIGINT"))
 			return  "java.lang.Long";	
 		if (dBType.equals("DOUBLE"))
@@ -20,15 +22,25 @@ public class ConvertUtils {
 			return  "java.lang.String";	
 		if (dBType.equals("VARCHAR"))
 			return  "java.lang.String";	
+		if (dBType.equals("LONGVARCHAR"))
+			return  "java.lang.String";	
+		if (dBType.equals("VARCHAR2"))
+			return  "java.lang.String";		
+		if (dBType.equals("VARGRAPHIC"))
+			return  "java.lang.String";			
 		if (dBType.equals("CHAR"))
 			return  "java.lang.String";		
 		if (dBType.equals("INTEGER"))
 			return  "java.lang.Integer";	
+		if (dBType.equals("NUMERIC"))
+			return  "java.lang.Integer";		
 		if (dBType.equals("DATE"))
 			return  "java.lang.Date";
 		if (dBType.equals("TIMESTAMP"))
 			return  "java.sql.Timestamp";	
 		if (dBType.equals("BLOB"))
+			return  "java.sql.Blob";	
+		if (dBType.equals("BINARY"))
 			return  "java.sql.Blob";	
 		if (dBType.equals("CLOB"))
 			return  "java.sql.Clob";	
@@ -39,6 +51,8 @@ public class ConvertUtils {
 		//return StringUtils.
 		// TODO from getJavaTypeFromDBFullType
 		String retStr=null;
+		if (dBType.equals("BOOLEAN"))
+			return  "java.lang.Boolean";					
 		if (dBType.equals("BIGINT"))
 			return  "Long";	
 		if (dBType.equals("DOUBLE"))
@@ -53,16 +67,26 @@ public class ConvertUtils {
 			return  "String";	
 		if (dBType.equals("VARCHAR"))
 			return  "String";	
+		if (dBType.equals("LONGVARCHAR"))
+			return  "String";	
+		if (dBType.equals("VARCHAR2"))
+			return  "String";		
+		if (dBType.equals("VARGRAPHIC"))
+			return  "String";			
 		if (dBType.equals("CHAR"))
 			return  "String";		
 		if (dBType.equals("INTEGER"))
 			return  "Integer";	
+		if (dBType.equals("NUMERIC"))
+			return  "java.lang.Integer";		
 		if (dBType.equals("DATE"))
 			return  "Date";
 		if (dBType.equals("TIMESTAMP"))
 			return  "Timestamp";	
 		if (dBType.equals("BLOB"))
 			return  "Blob";	
+		if (dBType.equals("BINARY"))
+			return  "java.sql.Blob";	
 		if (dBType.equals("CLOB"))
 			return  "Clob";	
 		return retStr;		

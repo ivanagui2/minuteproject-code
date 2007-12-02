@@ -2,6 +2,7 @@ package net.sf.minuteProject.application;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ddlutils.model.Database;
+import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
@@ -30,8 +32,10 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.TestUtils;
 import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
+import net.sf.minuteProject.utils.WebUtils;
 
 /**
  * @author Florian Adler
@@ -39,6 +43,7 @@ import net.sf.minuteProject.utils.ViewUtils;
  */
 public class ModelGenerator extends AbstractGenerator {
 
+	private static Logger logger = Logger.getLogger(ModelGenerator.class);
 	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
 
 	private Model model;
@@ -78,6 +83,8 @@ public class ModelGenerator extends AbstractGenerator {
 			System.exit(1);
 		}
 		config = args[0];
+		Date startDate = new Date();
+	    logger.info("start time = "+new Date());
 		ModelGenerator generator = new ModelGenerator(config);
 		// Model model = (Model) generator.load();
 		Configuration configuration = (Configuration) generator.load();
@@ -87,6 +94,10 @@ public class ModelGenerator extends AbstractGenerator {
 		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
 				.getTarget().getRefname());
 		generator.generate(model.getConfiguration().getTarget());
+		Date endDate = new Date();
+		logger.info("start date = "+startDate.getTime());
+		logger.info("end date = "+endDate.getTime());
+		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
 	private void loadModel(Model model) {
@@ -179,14 +190,16 @@ public class ModelGenerator extends AbstractGenerator {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
-		//String beanName = StringUtils.lowerCase(bean.getClass().getName());
-		// beanName = StringUtils.substring(beanName,
-		//		beanName.lastIndexOf(".") + 1);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		context.put("template", template);
 		putCommonContextObject(context);
-		produce(context, template, outputFilename);
+		try {
+			produce(context, template, outputFilename);
+		} catch (Exception ex) {
+			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
+			throw ex;
+		}
 	}
 
 	private void putCommonContextObject(VelocityContext context) {
@@ -198,6 +211,8 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("databaseUtils", new DatabaseUtils());
 		context.put("modelUtils", new ModelUtils());
 		context.put("URLUtils", new URLUtils());
+		context.put("TestUtils", new TestUtils());
+		context.put("WebUtils", new WebUtils());
 	}
 
 }

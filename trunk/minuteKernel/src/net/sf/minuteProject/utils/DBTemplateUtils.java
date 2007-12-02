@@ -25,6 +25,8 @@ public class DBTemplateUtils implements Configuration {
 	
 	public static String getJavaTypeFromDBType (String dBType) {
 		String retStr=null;
+		if (dBType.equals("BOOLEAN"))
+			return  "Boolean";			
 		if (dBType.equals("BIGINT"))
 			return  "Long";	
 		if (dBType.equals("DOUBLE"))

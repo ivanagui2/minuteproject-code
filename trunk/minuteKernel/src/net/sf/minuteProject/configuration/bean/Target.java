@@ -10,7 +10,7 @@ import java.util.List;
 public class Target extends AbstractConfiguration{
 	
 	private ArchitectureTarget architectureTarget;
-	private List templateTargets;
+	private List <TemplateTarget> templateTargets;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List <Target> dependency;
 
@@ -41,7 +41,7 @@ public class Target extends AbstractConfiguration{
 	
 	public void addTemplateTarget (TemplateTarget templateTarget) {
 		if (templateTargets==null)
-			templateTargets = new ArrayList();
+			templateTargets = new ArrayList<TemplateTarget>();
 		templateTarget.setTarget(this);
 		templateTargets.add(templateTarget);
 	}

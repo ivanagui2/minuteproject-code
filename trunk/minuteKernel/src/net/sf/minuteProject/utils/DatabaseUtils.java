@@ -14,6 +14,8 @@ public class DatabaseUtils {
 			return "SELECT NEXTVAL FOR "+provideSequence(table)+" AS ID FROM SYSIBM.SYSDUMMY1";
 		} else if (database.getType().equals("ORACLE")){
 			return "SELECT "+provideSequence(table)+".NEXTVAL AS ID FROM DUAL";
+		} else if (database.getType().equals("MYSQL")){
+			return "SELECT LAST_INSERT_ID() AS value";
 		} else
 		return "ERROR_ON_LOOK_UP for PK";
 	}

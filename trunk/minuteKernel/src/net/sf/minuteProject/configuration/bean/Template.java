@@ -26,6 +26,7 @@ public class Template extends TemplateTarget {
 	private String serviceSpecific;
 	private String functionSpecific;	
 	private String addModelName;
+	private String applicationSpecific;
 	private TemplateTarget templateTarget;
 	
 	public Template () {}
@@ -233,4 +234,14 @@ public class Template extends TemplateTarget {
 	public void setViewSpecific(String viewSpecific) {
 		this.viewSpecific = viewSpecific;
 	}
+
+	public String getApplicationSpecific() {
+		return applicationSpecific;
+	}
+
+	public void setApplicationSpecific(String applicationSpecific) {
+		this.applicationSpecific = applicationSpecific;
+	}
+	
+	
 }
