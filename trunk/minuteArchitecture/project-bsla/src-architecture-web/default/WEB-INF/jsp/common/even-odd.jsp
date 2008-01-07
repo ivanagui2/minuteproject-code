@@ -1,0 +1,1 @@
+<c:choose><c:when test="${status.index % 2!=0}">class="oddLayout"</c:when><c:otherwise>class="evenLayout"</c:otherwise></c:choose>
