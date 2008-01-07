@@ -92,11 +92,11 @@ public class ModelGenerator extends AbstractGenerator {
 		generator.setModel(model);
 		generator.loadModel(model);
 		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
-				.getTarget().getRefname());
+				.getTarget());
 		generator.generate(model.getConfiguration().getTarget());
 		Date endDate = new Date();
-		logger.info("start date = "+startDate.getTime());
-		logger.info("end date = "+endDate.getTime());
+		//logger.info("start date = "+startDate.getTime());
+		//logger.info("end date = "+endDate.getTime());
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
@@ -105,7 +105,7 @@ public class ModelGenerator extends AbstractGenerator {
 		model.getBusinessModel().complementDataModel();
 	}
 
-	public View load2() throws Exception {
+	/*public View load2() throws Exception {
 		View view = new View();
 		InputStream input = getClass().getClassLoader()
 				.getSystemResourceAsStream(getConfigurationFile());
@@ -115,7 +115,7 @@ public class ModelGenerator extends AbstractGenerator {
 		digester.push(view);
 		digester.parse(input);
 		return view;
-	}
+	}*/
 
 	/*
 	 * (non-Javadoc)
@@ -131,6 +131,8 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByPackage(template);
 		else if (template.getModelSpecific().equals("true"))
 			generateArtifactsByModel(template);
+		else if (template.getApplicationSpecific().equals("true"))
+			generateArtifactsByApplication(template);
 	}
 
 	public Model getModel() throws Exception {
@@ -145,7 +147,7 @@ public class ModelGenerator extends AbstractGenerator {
 		this.model = model;
 	}
 
-	private void writeTemplateResultView(VelocityContext context,
+	/*private void writeTemplateResultView(VelocityContext context,
 			Template template) {
 		try {
 			String outputFilename = template
@@ -161,7 +163,7 @@ public class ModelGenerator extends AbstractGenerator {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}
+	}*/
 
 	private void generateArtifactsByModel(Template template) throws Exception {
 		writeTemplateResult(getModel(), template);
@@ -180,11 +182,15 @@ public class ModelGenerator extends AbstractGenerator {
 	private void generateArtifactsByEntity(Template template) throws Exception {	
 		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
 			Table table = getDecoratedTable((Table) iter.next());
-			table.getParents();
+			//table.getParents();
 			writeTemplateResult(table, template);
 		}
 	}
 
+	private void generateArtifactsByApplication(Template template) throws Exception {	
+		generateArtifactsByModel(template);
+	}
+	
 	private void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template

@@ -22,6 +22,8 @@
 			<set-next-rule methodname="addTemplateTarget" paramtype="net.sf.minuteProject.configuration.bean.TemplateTarget"/>	
 			<set-properties-rule/>	
 				<set-properties-rule>
+				    <alias attr-name="rootdir" prop-name="rootdir" />
+				    <alias attr-name="templatedir" prop-name="templatedir" />
 					<alias attr-name="package-root" prop-name="packageRoot" />
 					<alias attr-name="dir" prop-name="dir" />
 					<alias attr-name="libdir" prop-name="libdir" />

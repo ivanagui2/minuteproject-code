@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TemplateTarget extends AbstractConfiguration{
+	
+	private String rootdir;
+	private String templatedir;
 	private String dir;
 	private String outputdir;
 	private String tool;
@@ -39,7 +42,9 @@ public class TemplateTarget extends AbstractConfiguration{
 		this.templates = templates;
 	}
 	public String getDir() {
-		return dir;
+		if (getRootdir()==null && getTemplatedir()==null)
+			return dir;
+		return getRootdir();//+"/"+getTemplatedir();
 	}
 	public void setDir(String dir) {
 		this.dir = dir;
@@ -91,6 +96,26 @@ public class TemplateTarget extends AbstractConfiguration{
 
 	public void setBelongToPackage(boolean belongToPackage) {
 		this.belongToPackage = belongToPackage;
+	}
+
+	public String getRootdir() {
+		return rootdir;
+	}
+
+	public void setRootdir(String rootdir) {
+		this.rootdir = rootdir;
+	}
+
+	public String getTemplateFullDir() {
+		return getRootdir()+"/"+templatedir;
+	}
+
+	public void setTemplatedir(String templatedir) {
+		this.templatedir = templatedir;
+	}
+
+	public String getTemplatedir() {
+		return templatedir;
 	}
 	
 	

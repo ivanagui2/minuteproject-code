@@ -1,6 +1,8 @@
 package net.sf.minuteProject.application;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -11,6 +13,7 @@ import java.util.Properties;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
@@ -31,8 +34,10 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
  *
  */
 public abstract class AbstractGenerator implements Generator {
-
+	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;
+	private String templatePath;
+	private String templateLibPath;
 	
 	/**
 	 * The default constructor get the value of the configuration to which the generator is associated
@@ -67,35 +72,39 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public final AbstractConfiguration load (String configuration, String rules) throws Exception{
 		AbstractConfiguration abstractConfiguration = getConfigurationRoot();
-		loadConfiguration(abstractConfiguration, configuration, rules);
+		loadConfiguration(abstractConfiguration, getConfigurationInputStream(configuration), rules);
         return abstractConfiguration;		
 	}
 	
+	private InputStream getConfigurationInputStream (String configurationFileName) {
+		return getClass().getClassLoader().getSystemResourceAsStream(configurationFileName);
+	}
 	
-	/* (non-Javadoc)
-	 * @see net.sf.minuteProject.application.Generator#loadTarget(java.lang.String)
-	 */
-	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, String refname) throws Exception {
-		loadConfiguration(abstractConfigurationRoot, getTargetConfiguration(refname), GENERATOR_TARGET_RULES);
+	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
+		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(target), GENERATOR_TARGET_RULES);
 	}
 
-	private String getTargetConfiguration (String refname) {
+	private InputStream getTargetConfigurationInputStream (Target target) throws Exception{
 		//TODO now hardcoded to change when bean solutionPortfolio in place
+		return new FileInputStream (new File (target.getDir()+"/"+target.getFileName()));
+		
+		/*
 		if (refname.equals("ViewOnBsla"))
 			return "templateSet-ViewOnBsla.xml";
 		else if (refname.equals("BackendOnBsla"))
 			return "templateSet-BackendOnBsla.xml";//return "templateSet-BackendOnBsla.xml";
 		else 
 			return "templateSet-ViewOnBsla.xml";
+		//*/
 	}
 	
-	private void loadConfiguration (Object object, String configuration, String rules) throws Exception {
-        InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configuration);
+	private void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
+		//InputStream input = new FileInputStream (new File (configuration));
+		//InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configuration);
         URL rulesURL = getClass().getClassLoader().getResource(rules);
         Digester digester = DigesterLoader.createDigester(rulesURL);
         digester.push(object);
         digester.parse(input);
-		
 	}
 	
 	/**
@@ -112,8 +121,12 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public void generate (Target target) throws Exception {
     	for (Iterator iter= target.getTemplateTargets().iterator(); iter.hasNext(); ) {
-        	for (Iterator iter2= ((TemplateTarget)iter.next()).getTemplates().iterator(); iter2.hasNext(); ) {
-        		this.generate((Template)iter2.next());    		
+    		TemplateTarget templateTarget = (TemplateTarget)iter.next();
+    		logger.info("> generate template: "+templateTarget.getName());
+        	for (Iterator iter2= templateTarget.getTemplates().iterator(); iter2.hasNext(); ) {
+        		Template template= (Template)iter2.next();
+        		logger.info(">> generate template: "+template.getName());
+        		this.generate(template);    		
         		//generateArtifacts (configuration.getModel(),(Template)iter2.next());		
         	}     		
     	}  		
@@ -125,21 +138,53 @@ public abstract class AbstractGenerator implements Generator {
 	
     protected VelocityContext getVelocityContext(Template template) {
 		Properties p = new Properties();
-		TemplateTarget templateTarget = template.getTemplateTarget();
+		
 		Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);
 		Velocity.clearProperty(Velocity.VM_LIBRARY);
-		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,templateTarget.getDir());
-		p.setProperty(Velocity.VM_LIBRARY,templateTarget.getLibdir());
+		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
+		p.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
 		VelocityContext context = new VelocityContext();
 		try {
 			Velocity.init(p);
-			Velocity.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,templateTarget.getDir());
-			Velocity.setProperty(Velocity.VM_LIBRARY,templateTarget.getLibdir());			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return context;
     }  
+    
+    private String getTemplatePath (Template template) {
+    	TemplateTarget templateTarget = template.getTemplateTarget();
+    	Target target = templateTarget.getTarget();
+    	if (templatePath==null) {
+    		StringBuffer sb = new StringBuffer();
+    		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
+    			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
+    			sb.append(templateTarget.getRootdir());
+    			sb.append(",");
+    			sb.append(templateTarget.getTemplateFullDir());
+    			sb.append(",");
+    		}
+    		
+    		templatePath = sb.toString();
+    	}
+    	return templatePath;
+    }
+    
+    private String getTemplateRelativeLibPath (Template template) {
+    	TemplateTarget templateTarget = template.getTemplateTarget();
+    	Target target = templateTarget.getTarget();
+    	if (templateLibPath==null) {
+    		StringBuffer sb = new StringBuffer();
+    		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
+    			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
+    			sb.append(templateTarget.getLibdir());
+    			sb.append(",");
+    		}
+    		
+    		templateLibPath = sb.toString();
+    	}
+    	return templateLibPath;    	
+    }
     
 	protected void produce(VelocityContext context, Template template, String outputFilename) 
     throws Exception{
