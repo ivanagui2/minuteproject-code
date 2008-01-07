@@ -1,0 +1,21 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($tableClassName = $utils.getClassNameOnly($table.name))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<html>
+<head>
+	<title>$table.name search result list</title>
+</head>
+<body>
+$table.name
+#set ($itemsFirst = '${sessionScope.')
+#set ($itemsLast = 'SearchResultList}')
+#set ($items = "${itemsFirst}${tableJavaName}${itemsLast}")
+<jsp:include page="/jsp/$subPackage/${tableClassName}ResultListBody.jsp" />
+</body>
+</html>
+

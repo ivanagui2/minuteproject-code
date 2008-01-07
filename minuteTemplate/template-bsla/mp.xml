@@ -1,0 +1,300 @@
+<target name="BackendOnBsla">		
+	<architecture-target name="bsla" description="basic springframework layer architecture"/>	
+
+		<template-target rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+		    templatedir = "template-bsla" 
+			libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+			tool="velocity"
+			outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla"
+			package-root=""
+			name="build" belongToPackage="false">		
+	
+			<template package-root=""
+				name="AntBuildProperties" templateFileName="AntBuildProperties.vm" 
+				subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+				file-extension="properties" file-prefix="build" file-suffix="" 
+				entity-specific="false" package-specific="false" model-specific="false"
+				application-specific="true">
+			</template>
+														
+	</template-target>	
+		
+		<template-target 
+ 			    rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+		    templatedir = "template-bsla" 
+			libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+			tool="velocity"
+			outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-OPENREPORTS"
+			package-root="sf.net.minutetranslation"
+			belongToPackage="true">		
+
+			<template package-root="my.servlet"
+				name="MappingDomainDatabase" templateFileName="MappingDomainDatabase.vm" 
+				subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+				file-extension="map" file-prefix="" file-suffix="map" 
+				entity-specific="false" package-specific="false" model-specific="true">
+			</template>
+ 
+			<template package-root="my.servlet"
+				name="GenCRUDServlet" templateFileName="GenCRUDServlet1.vm" 
+				subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+				file-extension="java" file-prefix="" file-suffix="CRUDServlet" 
+				entity-specific="false" package-specific="false" model-specific="true">
+			</template>		
+<!--
+	<template package-root="WEB-INF"
+		name="SitemeshMainLayout" templateFileName="SitemeshMainLayout.vm" 
+		subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+		file-extension="jsp" file-prefix="main" file-suffix="" 
+		entity-specific="false" package-specific="false" model-specific="true">
+	</template>	
+	
+	<template package-root="WEB-INF"
+		name="SitemeshDecoratorXml" templateFileName="SitemeshDecoratorXml.vm" 
+		subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+		file-extension="xml" file-prefix="decorator" file-suffix="" 
+		entity-specific="false" package-specific="false" model-specific="true">
+	</template>					
+
+	<template package-root="WEB-INF"
+		name="SitemeshBslaWebXml" templateFileName="SitemeshBslaWebXml.vm" 
+		subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+		file-extension="xml" file-prefix="web" file-suffix="" 
+		entity-specific="false" package-specific="false" model-specific="true">
+	</template>		
+	
+	<template package-root="html"
+		name="WebDefaultHomePage" templateFileName="WebDefaultHomePage.vm" 
+		subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+		file-extension="html" file-prefix="" file-suffix="HomePage" 
+		entity-specific="false" package-specific="false" model-specific="true">
+	</template>	
+		-->									
+	</template-target>	
+			 
+<!-- -->
+<template-target 
+	rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+    templatedir = "template-bsla" 
+	libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+	tool="velocity"
+	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/srcWeb-generated-OPENREPORTS"
+	package-root="jsp"
+	belongToPackage="true">
+	
+	<!-- 
+	<template package-root="html"
+		name="BslaWebSearchScreen" templateFileName="GenRender1EditScreen.vm" 
+		subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+		file-extension="html" file-prefix="" file-suffix="EditScreen" 
+		entity-specific="true" package-specific="false" model-specific="false">
+	</template>	
+-->
+	 
+		<template package-root="jsp"
+			name="WebManageScreen" templateFileName="GenRender1ManageScreen.vm" 
+			subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="ManageScreen" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+<!--									
+	<template package-root="jsp"
+		name="WebManageScreen" templateFileName="GenScriptaculous1ManageScreen.vm" 
+		subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+		file-extension="jsp" file-prefix="" file-suffix="ManageScreen" 
+		entity-specific="true" package-specific="false" model-specific="false">
+	</template>	
+-->	
+		<template package-root="html"
+			name="BslaWebSearchScreen" templateFileName="BslaWebSearchScreen.vm" 
+			subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+			file-extension="html" file-prefix="" file-suffix="SearchScreen" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+		
+		<template package-root="html"
+			name="BslaWebMenu" templateFileName="BslaWebMenu.vm" 
+			subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+			file-extension="html" file-prefix="" file-suffix="Menu" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>													
+		<template name="GenRender1SearchResultListScreen" templateFileName="GenRender1SearchResultListScreen.vm" 
+			subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="ResultListScreen" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>		
+		<template name="GenRender1SearchResultListBody" templateFileName="GenRender1SearchResultListBody.vm" 
+			subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="ResultListBody" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+
+		<template name="GenRender1SearchResultOneBody" templateFileName="GenRender1SearchResultOneBody.vm" 
+			subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="ResultOneBody" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+				<!-- 
+	<template name="GenRender1SearchResultOneScreen" templateFileName="GenRender1SearchResultOneScreen.vm" 
+		subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
+		file-extension="jsp" file-prefix="" file-suffix="ResultOneScreen" 
+		entity-specific="true" package-specific="false" model-specific="false">
+	</template>						
+	 -->
+	<template name="GenDojo1SearchResultOneScreen" templateFileName="GenDojo1SearchResultOneScreen.vm" 
+		subdir="" outputsubdir="jsp" technicalPackage="" add-model-name="false"
+		file-extension="jsp" file-prefix="" file-suffix="ResultOneScreen" 
+		entity-specific="true" package-specific="false" model-specific="false">
+	</template>							
+</template-target>		
+
+
+		
+<template-target 
+	rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+    templatedir = "template-bsla" 
+	libdir="lib/BslaLibrary.vm"
+	tool="velocity"
+	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-OPENREPORTS"
+	package-root="sf.net.openreports"
+	belongToPackage="true">
+	
+		<!--  hibernate templates -->
+		<template name="DomainObject" templateFileName="DomainObjectUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="domainUML"
+			file-extension="java" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension="hbm.xml" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		<template name="HibernateConfig" templateFileName="Hibernate.cfg.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension="cfg.xml" file-prefix="" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+		
+		<!-- depends  DomainObjectUML, BslaHibernate architecture 	-->	
+		<template name="BslaDaoInterfaceUML" templateFileName="BslaDaoInterfaceUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="UML" file-suffix="Dao" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>				
+		
+		<!-- depends BslaDaoInterfaceUML, DomainObjectUML, BslaHibernate architecture		-->
+		<template name="BslaHibernateDaoImplUML" templateFileName="BslaHibernateDaoImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
+			file-extension="java" file-prefix="" file-suffix="HibernateImpl" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+	
+		<template name="BslaSpringConfigDaoHibernate" templateFileName="BslaSpringConfigDaoHibernate.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="dao-hibernate-" file-suffix="" 
+			entity-specific="false" package-specific="true" model-specific="false">
+		</template>									
+									
+		<template name="BslaSpringConfigDaoHibernate2" templateFileName="BslaSpringConfigDaoHibernate2.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-hibernate-" file-suffix="-dao" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+		<template name="BslaSpringConfigHibernate" templateFileName="BslaSpringConfigMainHibernate.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-Hibernate-BE-" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>								 
+		
+		<!-- bsla templates -->			
+		<template name="BslaDomainObject" templateFileName="BslaDomainObject.vm" 
+			subdir="" outputsubdir="" technicalPackage="domain"
+			file-extension="java" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+		
+		<template name="BslaDaoInterface" templateFileName="BslaDaoInterface.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="Dao" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+	
+		<template name="BslaIbatisDaoSqlImpl" templateFileName="BslaIbatisDaoSqlImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.implementation.ibatis"
+			file-extension="java" file-prefix="" file-suffix="SqlMapDaoImpl" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>		
+		<template name="BslaIbatisDaoSqlMapConfig" templateFileName="BslaIbatisDaoSqlMapConfig.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.implementation.ibatis.xml"
+			file-extension="xml" file-prefix="" file-suffix="SqlMapDaoImpl" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+		<template name="BslaIbatisDaoSqlMapXml" templateFileName="BslaIbatisDaoSqlMapXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.implementation.ibatis.xml"
+			file-extension="xml" file-prefix="" file-suffix="SqlMap" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+		<template name="BslaSpringConfigDaoIbatis" templateFileName="BslaSpringConfigDaoIbatis.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="dao-ibatis-" file-suffix="" 
+			entity-specific="false" package-specific="true" model-specific="false">
+		</template>																
+		<template name="BslaSpringConfigDaoIbatis2" templateFileName="BslaSpringConfigDaoIbatis2.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="-dao" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>					
+		<template name="BslaSpringConfig" templateFileName="BslaSpringConfig.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>					
+		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>			
+		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+
+	</template-target>			
+ 
+	<template-target 
+	rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+    templatedir = "template-bsla" 
+	libdir="lib/BslaLibrary.vm"
+	tool="velocity"
+	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/test-generated-OPENREPORTS"
+	package-root="sf.net.openreports"
+	belongToPackage="true">
+	
+		<!--  Test templates -->
+		<template name="TestDao" templateFileName="iBatisDaoTest.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao"
+			file-extension="java" file-prefix="" file-suffix="Test" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+	
+		</template-target>			 
+			
+	<template-target 
+	    rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+		templatedir = "template-bsla" 
+	    libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-OPENREPORTS"
+		package-root="sf.net.openreports"
+		belongToPackage="true">
+
+		<!--  Resource templates -->
+		<template name="ResourceBundle" templateFileName="ResourceBundle.vm" 
+			subdir="" outputsubdir="" technicalPackage="resource"
+			file-extension="properties" file-prefix="" file-suffix="Resource" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>				
+	</template-target>			
+</target>	

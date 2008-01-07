@@ -1,0 +1,111 @@
+#macro (putReferenceParams)
+#set ($linkclass = $utils.getJavaName(${reference.tableName}))
+#set ($link = $utils.getJavaNameVariable(${reference.tableName}))
+#set ($varclass = "${linkclass}_$utils.getJavaName(${reference.columnName})")
+#set ($var = "${link}_$utils.getJavaName(${reference.columnName})") 
+#end
+package my.servlet;
+
+import java.io.*;
+import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import javax.sql.DataSource;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import org.apache.struts.util.RequestUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import <your package>.factory.<your project>Factory;
+
+
+#foreach ($table in ${database.tables})
+#if ($utils.isToGenerate($table)) 
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set($subPackage = $utils.getSubPackage($table))
+<your package>.domain.$subPackage.$tableJavaName;
+#end
+#end
+
+#foreach ($table in ${database.tables})
+#if ($utils.isToGenerate($table)) 
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set($subPackage = $utils.getSubPackage($table))
+import <your package>.dao.face.$subPackage.${tableJavaName}Dao;
+import <your package>.dao.implementation.ibatis.$subPackage.${tableJavaName}SqlMapDaoImpl;
+#end
+#end
+   /**
+    * Handles a single guestbook request from the client.
+    */
+public class SearchByIdServlet extends HttpServlet {
+	
+	public void doGet (HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+    	doPost (req, res);
+    }
+    
+	public void doPost (HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        Long id = new Long(req.getParameter("pk"));
+#foreach ($table in ${database.tables})
+#if ($utils.isToGenerate($table)) 
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set($variable = $utils.getJavaNameVariable($table.name))
+#set($subPackage = $utils.getSubPackage($table))
+		if (req.getParameter("table").equals("$table.name")) {
+			System.out.println("search $table.name");
+			${tableJavaName}Dao dao = (${tableJavaName}Dao)${projectName}Factory.getBean("${variable}Dao");			
+			$tableJavaName entity  = dao.loadFullFirstLevel$tableJavaName(id);
+			List list = new ArrayList();
+			list.add(entity);					
+			session.setAttribute("${tableJavaName}SearchResultList",list);
+			session.setAttribute("${tableJavaName}SearchResultOne",entity);
+#set ($referenceList = $utils.getReference($database, $table))		
+#foreach ($reference in $referenceList)
+#set ($linkTableJavaName = $utils.getClassNameOnly($reference.table))
+#putReferenceParams()
+			if (entity.get${varclass}s().size()>0) {
+				session.setAttribute("${varclass}SearchResultList",entity.get${varclass}s());
+			System.out.println("filling ${varclass}SearchResultList with #"+entity.get${varclass}s().size());
+			}
+			else
+			   session.removeAttribute("${varclass}SearchResultList");
+#end						
+			forward("/jsp/$subPackage/${tableJavaName}SearchScreenResultOne.jsp",req,res);
+		}
+#end
+#end
+
+   }
+   
+    private static Map getParametersMap(HttpServletRequest request) {
+        Map parameters = new HashMap();
+        Enumeration e = request.getParameterNames();
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+        	String [] params = request.getParameterValues(key);
+        	if (params.length>0 && !params[0].equals("")) {
+            	parameters.put(key, params[0]);
+            	System.out.println("search param = "+key+", "+params[0]);            		
+        	}
+        }
+        return parameters;
+    }   
+    
+    public static void populate(Object bean, HttpServletRequest request)
+        throws IllegalAccessException, InvocationTargetException {
+        Map parameters = getParametersMap(request);
+        BeanUtilsBean.getInstance().populate(bean, parameters);
+    }    
+
+    private void forward(
+    	    String aDestination, 
+    	    HttpServletRequest aRequest, 
+    	    HttpServletResponse aResponse
+    	  ) throws ServletException, IOException {
+    	    
+    	    RequestDispatcher dispatcher = aRequest.getRequestDispatcher(aDestination);
+    	    dispatcher.forward(aRequest, aResponse);
+    }      
+}

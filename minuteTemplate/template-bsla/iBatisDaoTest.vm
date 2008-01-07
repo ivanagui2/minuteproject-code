@@ -1,0 +1,96 @@
+#exposeVariableEntitySpecific()
+#putImportParams()
+package $packageName;
+
+import $importDomainObject;
+import $importDaoInterface;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+
+public class $className extends AbstractTransactionalDataSourceSpringContextTests {
+
+	private BeanFactory beanFactory;
+	protected $daoInterfaceClassName $daoInterfaceVariableName;
+	
+	protected void init() {
+		beanFactory = new ClassPathXmlApplicationContext ("spring-myproject-config.xml");
+		$daoInterfaceVariableName = ($daoInterfaceClassName)beanFactory.getBean("$daoInterfaceVariableName");
+	}
+
+	public void testInsert$daoInterfaceClassName () {
+    	init();
+    $domainClassName ${domainVariableName} = populate$domainClassName ();
+    	${daoInterfaceVariableName}.insert${domainClassName}(${domainVariableName});
+	}
+
+public $domainClassName testLoad$daoInterfaceClassName () {
+    	init();
+    	$domainClassName ${domainVariableName};// = ${daoInterfaceVariableName}.load${domainClassName}($TestUtils.getTestLookUpMethod($primaryKeyJavaNameClass,10));
+	    return ${domainVariableName};
+	}
+	
+	public void testUpdate$daoInterfaceClassName () {
+    	init();
+    	$domainClassName ${domainVariableName} = testLoad$daoInterfaceClassName ();    	
+	    update$domainClassName (${domainVariableName});	
+	    	${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
+	}
+
+
+protected $domainClassName update$domainClassName ($domainClassName ${domainVariableName}) {
+#foreach ($column in ${table.columns})
+	#putColumnParams()
+	#if ($isMandatory)
+    ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
+#end
+#end
+
+       return $domainVariableName;
+    }
+    
+protected $domainClassName populate$domainClassName () {
+    $domainClassName $domainVariableName = new $domainClassName();
+#foreach ($column in ${table.columns})
+	#putColumnParams()
+	#if ($isMandatory)
+    ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
+#end
+#end
+
+       return $domainVariableName;
+    }
+    
+    protected String getString (int length) {
+       return StringUtils.substring ("This is a test string",0,length);
+    }
+
+    protected Integer getInteger () {
+       return new Integer (100);
+    }
+
+    protected Boolean getBoolean () {
+       return new Boolean (false);
+    }
+
+    protected Date getDate () {
+       return new Date();
+    }
+
+    protected Timestamp getTimestamp () {
+       return new Timestamp(getDate().getTime());
+    }
+
+    protected String[] getConfigLocations() {
+		// TODO Auto-generated method stub
+		       return new String [] {"spring-myproject-config.xml"};
+	    }
+        
+}

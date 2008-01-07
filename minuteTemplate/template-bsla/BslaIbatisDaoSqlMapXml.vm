@@ -1,0 +1,270 @@
+#exposeVariableEntitySpecific()
+#putImportParams()
+#exposeEnvironmentParams()
+#set ($selectSql = "select${tableClassName}Sql")
+#set ($selectSqlParentRef = "select${tableClassName}ParentRefSql")
+#set ($resultMap = "${tableClassName}Load")
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="${tableClassName}NameSpace">
+
+  <!-- Alias for the $tableClassName domain object -->
+  <typeAlias alias="$tableClassName" type="$importDomainObject"/>
+
+  <!-- Result map used for loading data into a ${tableClassName} domain object  -->
+  <resultMap id="$resultMap" class="${tableClassName}">
+#foreach ($column in ${table.columns})
+#putColumnParams()
+	<result property="$columnVar" column="$columnVar" />    
+#end
+  </resultMap>
+
+  <resultMap id="${tableClassName}LoadFullFirstLevel" class="${tableClassName}" >
+#foreach ($column in ${table.columns})
+	#putColumnParams()
+	<result property="$columnVar" column="$columnVar" />    
+	#end
+    <!-- load the parents -->	
+#foreach ($reference in $parentReferences)
+#putReferenceParams()
+    <result property="$var" column="$column" select="load$linkclass"/>   	
+#end
+    <!-- load the children -->
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#set ($loadQuery = "load${varclass}For${tableClassName}")
+    <result property="${var}s" column="$primaryKeyVariable" select="${loadQuery}"/>
+#end  
+  </resultMap>
+
+  <resultMap id="${tableClassName}LoadFull" class="${tableClassName}" >
+#foreach ($column in ${table.columns})
+		#putColumnParams()
+	    <result property="$columnVar" column="$columnVar" />    
+	#end
+#foreach ($reference in $parentReferences)
+#putReferenceParams()
+    <result property="$var" column="$column" select="load$linkclass"/>   	
+#end
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+    <!-- to change the primary key is not always id -->
+    <result property="${var}s" column="id" select="loadFull${varclass}For${tableClassName}"/>
+    <!--<result property="${var}s" column="$primaryKey" select="loadFull${varclass}For${tableClassName}"/>-->
+#end  
+  </resultMap>  
+
+  <sql id="${selectSql}">
+    SELECT
+#foreach ($column in ${table.columns})
+#putColumnParams()
+	${table.name}.${column.name} as $columnVar#if ($velocityCount!=$table.columnCount),#end
+	
+#end    
+    FROM ${table.name}
+  </sql>
+
+#if($hasParentRef)  
+  <sql id="${selectSqlParentRef}">
+  $entityBlock.columns.size
+    SELECT
+#foreach ($column in $entityBlock.columns)
+#putColumnParams()
+	${table.name}.${column.name} as $columnVar#if ($velocityCount!=$entityBlock.columns.size+1),#end
+	
+#end   
+    FROM ${table.name}
+  </sql>  
+#end
+
+  <select id="loadRange${tableClassName}" resultMap="${tableClassName}Load" parameterClass="range">
+    <include refid="${selectSql}"/>
+    WHERE
+     $pK &gt;= #firstId#
+    AND
+     $pK &lt; #lastId#
+  </select>
+  
+  <!-- this statement is still needed to load the parent via an indirect load 
+       It may leads to error if the parent primary key is on multiple column
+  -->
+  
+  <select id="load${tableClassName}" resultMap="${tableClassName}Load" parameterClass="$primaryKeyFullType">
+    <include refid="${selectSql}"/>
+    WHERE $pK = #value#
+  </select>
+  
+  <select id="loadFullFirstLevelAll${tableClassName}" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="${tableClassName}">
+    <include refid="${selectSql}"/>
+    <dynamic prepend="WHERE">
+#foreach ($column in $table.primaryKeyColumns) 
+#if($column.isPrimaryKey())
+#putColumnParams()
+        <isNotNull prepend="AND" property="$columnVar">
+            ${column.name}=#$columnVar#
+        </isNotNull>    
+#end
+#end 
+    </dynamic>   
+  </select>
+
+  <!-- Searches for all instances of ${tableClassName} matching any of the given criteria. -->
+  <!-- Any criterion which is not null is appended to the where clause -->
+  <select id="search${tableClassName}" resultMap="${tableClassName}Load" parameterClass="${tableClassName}">
+    <include refid="${selectSql}"/>
+    <dynamic prepend="WHERE">
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        <isNotNull prepend="AND" property="$columnVar">
+            ${column.name}=#$columnVar#
+        </isNotNull>	
+#end        
+    </dynamic>
+  </select>
+
+
+  <!-- Searches for all instances of ${tableClassName} matching any of the given criteria. -->
+  <!-- Any criterion which is not null is appended to the where clause -->
+<!--
+  <select id="searchPagination${tableClassName}" resultMap="${ClassName}Load" parameterClass="${ClassName}">
+    <include refid="${selectSql}"/>
+    <dynamic prepend="WHERE">
+#foreach ($column in ${table.columns})
+        <isNotNull prepend="AND" property="$utils.getJavaNameVariable($column.name)">
+            ${column.name}=#$utils.getJavaNameVariable($column.name)#
+        </isNotNull>	
+#end        
+    </dynamic>
+  </select>
+-->
+
+#foreach($reference in $parentReferences)
+#putReferenceParams()
+  <select id="load${tableClassName}_${columnclass}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}Load">
+    <include refid="${selectSql}"/>
+       WHERE $reference.columnName = #value#
+  </select>
+  
+  <select id="loadFull${className}_${columnclass}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}LoadFull">
+    <include refid="${selectSql}"/>
+       WHERE $reference.columnName = #value#
+  </select>
+  
+#end
+
+
+  <select id="loadFullFirstLevelRange${tableClassName}" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="range">
+    <include refid="${selectSql}"/>
+    WHERE
+     $pK &gt;= #firstId#
+    AND
+     $pK &lt; #lastId#
+  </select>
+
+  <select id="loadFullFirstLevel${tableClassName}" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="$primaryKeyFullType">
+    <include refid="${selectSql}"/>
+    WHERE
+     $pK = #value#
+  </select>
+
+  <select id="loadFullRange${tableClassName}" resultMap="${tableClassName}LoadFull" parameterClass="range">
+    <include refid="${selectSql}"/>
+    WHERE
+     $pK &gt;= #firstId#
+    AND
+     $pK &lt; #lastId#
+  </select>
+
+  <select id="loadFull${tableClassName}" resultMap="${tableClassName}LoadFull" parameterClass="$primaryKeyFullType">
+    <include refid="${selectSql}"/>
+    WHERE
+     $pK = #value#
+  </select>
+
+
+  <!-- Inserts a new instance of a ${tableClassName} domain object -->
+  <!-- It first retrieves the id from a sequence table-->
+  <!-- It sets the value for the creation date-->
+  <insert id="insert${tableClassName}" parameterClass="${tableClassName}">
+    <!-- change with real pk -->
+#if ($hasPrimaryKey)
+    <!--    <selectKey resultClass="long" keyProperty="id">-->
+    <selectKey resultClass="$primaryKeyFullType" keyProperty="$primaryKeyVariable">  
+        $PKLookUpString
+    </selectKey>
+#end    
+    INSERT INTO ${table.name}
+    (
+#foreach ($column in ${table.columns})
+	${column.name}#if ($velocityCount!=$table.columnCount),#end
+	
+#end    
+    ) VALUES
+    (
+#foreach ($column in ${table.columns})
+#putColumnParams()
+	#$columnVar:$column.type# #if ($velocityCount!=$table.columnCount),#end
+	
+#end    
+    )    
+  </insert>
+
+  <!-- Updates an existing instance of a ${tableClassName} domain object -->
+  <!-- It sets the value for the modification date-->
+  <update id="update${tableClassName}" parameterClass="${tableClassName}">
+    UPDATE ${table.name}
+        SET
+#foreach ($column in ${table.columns})
+#putColumnParams()
+		${column.name}=#$columnVar:$column.type# #if ($velocityCount!=$table.columnCount),#end
+	
+#end    
+        WHERE 
+#foreach($column in $table.columns)    
+#if($column.isPrimaryKey())
+#putColumnParams()
+    ${column.name} = #$columnVar#
+#end
+#end
+  </update>
+
+  <!-- Deletes an existing instance of a ${tableClassName} domain object -->
+  <delete id="delete${tableClassName}" parameterClass="${tableClassName}">
+    DELETE FROM ${table.name} WHERE 
+#foreach($column in $table.columns)    
+#if($column.isPrimaryKey())
+    ${column.name} = #$columnVar#
+#end
+#end
+  </delete>
+  
+##  <select id="loadPaginated$tableClassName" resultMap="${tableClassName}Load" parameterClass="paginationCriteria">
+##    <include refid="${selectSql}"/>
+##    <dynamic prepend="WHERE">
+## #foreach ($column in $table.columns)
+## #putColumnParams()
+##        <isNotNull prepend="AND" property="searchCriteria.$columnVar">
+##            ${column.name}=#searchCriteria.$columnVar#
+##        </isNotNull>	
+## #end    
+##        <isNotNull prepend="AND" property="startPosition">
+##        	   <isEqual property="direction" compareValue="+">
+##            $pK > #paginationCriteria.rowPosition#
+##            </isEqual>
+##            <isEqual property="direction" compareValue="-">
+##            $pK < #paginationCriteria.rowPosition#
+##            </isEqual>          
+##        </isNotNull>    
+##    </dynamic>
+##    ORDER BY $pK 
+##    <isEqual property="direction" compareValue="+">
+##      asc
+##     </isEqual>  
+##    <isEqual property="direction" compareValue="-">
+##      desc
+##     </isEqual>        
+##    FIRST #numberOfRowsReturned# ROWS ONLY;
+##  </select> 
+     
+</sqlMap>

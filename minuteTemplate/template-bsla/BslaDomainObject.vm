@@ -1,0 +1,78 @@
+#exposeVariableEntitySpecific()
+package $packageName;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
+import net.sf.minuteProject.architecture.bsla.domain.DomainObject;
+#foreach ($reference in $parentReferences)
+#putReferenceParams()
+	#exposeImportParams($reference.table)
+	import $importDomainObject;
+#end
+//TODO getAllPackage for the domain object in the import
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: Domain Object describing a ${className} entity</p>
+ *
+ */
+public class ${className} implements DomainObject {
+
+#foreach ($column in ${table.columns})
+	#putColumnParams()
+private $columnType $columnVar;
+#end
+
+#foreach ($reference in $parentReferences)
+#putReferenceParams()
+    private $linkclass $var;
+#end
+
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+	private List ${var}s;
+#end
+
+    public ${className}() {
+    }
+
+#foreach ($column in ${table.columns})
+#putColumnParams()
+    public $columnType get$columnClass() {
+        	return $columnVar;
+    }
+	
+    public void set$columnClass ($columnType $columnVar) {
+        this.$columnVar = $columnVar;
+    }	
+#end
+#foreach ($reference in $parentReferences)
+#putReferenceParams()
+    public $linkclass get$varclass () {
+    	    return $var;
+    }
+	
+    public void set$varclass ($linkclass $var) {
+    	    this.$var = $var;
+    }
+	#end
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+    public List get${varclass}s() {
+        if (${var}s == null){
+            ${var}s = new ArrayList();
+        }
+        return ${var}s;
+    }
+
+    public void set${varclass}s (List ${var}s) {
+        this.${var}s = ${var}s;
+    }	
+#end
+
+}

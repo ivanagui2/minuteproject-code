@@ -1,0 +1,38 @@
+#exposeVariableEntitySpecific()
+#putImportParams()
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false">
+	<class name="$importDomainObjectUML" table="${table.name}">
+		<!--<cache usage="read-write" />-->
+
+#if($hasPrimaryKey)
+	<id name="$primaryKey" column="$pK" type="$primaryKeyFullType">            
+    <generator class="native"/>            
+	</id>
+#end
+
+	<!-- map the fields of ${className} domain object  -->
+#foreach ($column in ${table.noPrimaryKeyNoForeignKeyColumns})
+#putColumnParams()
+	<property name="$columnVar" column="$column.name" #if($column.isRequired())not-null="true"#else not-null="false"#end #if($isColumnUnique)unique="	true"#else unique="false"#end/> #end
+
+#foreach ($reference in $parentReferences)
+#putReferenceParams()
+#exposeImportParams($reference.table)
+	<many-to-one name="$column" class="$importDomainObjectUML" column="$reference.columnName" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end cascade="all"/>	
+#end
+
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#exposeImportParams($reference.table)       <set name="${var}s">
+        <key column="$columnDB.name" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end/>
+        <one-to-many class="$importDomainObjectUML"/>
+    </set>		    
+#end  
+
+	</class>	</hibernate-mapping>

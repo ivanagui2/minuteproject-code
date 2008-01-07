@@ -1,0 +1,57 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<html>
+<body>
+$table.name
+#set ($itemsFirst = '${sessionScope.')
+#set ($itemsLast = 'SearchResultList}')
+#set ($items = "${itemsFirst}${tableJavaName}${itemsLast}")
+##<c:if test="${items.length > 1}">
+##list</br>
+##</c:if>
+<table>
+	<tr>
+#foreach ($column in ${table.columns})
+		<td>$column.name</td>
+#end
+	</tr>
+	<c:forEach var="entity" items="$items">
+	<tr>
+#foreach ($column in ${table.columns})
+#set ($columnVariable = $utils.getJavaNameVariable($column.name))
+#set ($entityFirst = '${entity.')
+#set ($entityLast = '}')
+#set ($entity = "${entityFirst}${columnVariable}${entityLast}")
+##if ($utils.isPrimaryKey($column, $table))
+#set ($linkedTableValue = $utils.getForeignKeyTableName($column, $table))
+#if ($column.isPrimaryKey())
+#set ($actionURL = $URLUtils.getSearchByIdURL($table.name, $column.name))
+		<td><a href="/DBView/$actionURL"><c:out value="$entity"/></a></td>
+#elseif ("$linkedTableValue"!="")
+#set ($actionURL = $URLUtils.getSearchByIdURL($linkedTableValue, $column.name))
+		<td><a href="/DBView/$actionURL"><c:out value="$entity"/></a></td>
+#else
+		<td><c:out value="$entity"/></td>
+#end
+#end
+	</tr>	
+	</c:forEach>
+</table>
+
+##foreach ($reference in $referenceList)
+##</br>
+##$utils.getJavaNameVariable($reference.tableName)
+##<table>
+##	<tr>
+##	</tr>
+##</table>
+##end
+</br>
+</body>
+</html>
+

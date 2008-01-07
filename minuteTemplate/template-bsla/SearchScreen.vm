@@ -1,0 +1,21 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+#set ($action = "Search${table.name}")
+#set ($actionURL = "Search.do")
+<html>
+<body>
+$table.name
+<form name="$table.name" action="/DBView/$actionURL">
+<input type="hidden" name="action" value="$action">
+<table>
+#foreach ($column in ${table.columns})
+<tr><td>$utils.getJavaNameVariable($column.name)</td><td> <input type="text" name="$utils.getJavaNameVariable($column.name)"></td></tr>
+#end
+<tr><td><input type="submit" value="Submit"></td><td></td></tr>
+</table>
+</form>
+</body>
+</html>
+
