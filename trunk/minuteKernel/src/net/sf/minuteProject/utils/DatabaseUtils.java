@@ -16,6 +16,9 @@ public class DatabaseUtils {
 			return "SELECT "+provideSequence(table)+".NEXTVAL AS ID FROM DUAL";
 		} else if (database.getType().equals("MYSQL")){
 			return "SELECT LAST_INSERT_ID() AS value";
+		}
+		else if (database.getType().equals("HSQLDB")){
+			return "SELECT NEXT VALUE FOR "+provideSequence(table)+" AS ID FROM DUAL";
 		} else
 		return "ERROR_ON_LOOK_UP for PK";
 	}

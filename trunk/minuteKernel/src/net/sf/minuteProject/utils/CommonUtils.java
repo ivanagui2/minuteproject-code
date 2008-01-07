@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils;
 
 import java.util.Iterator;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
@@ -284,26 +285,60 @@ public class CommonUtils {
 	}
 	
 	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {
+//		 TODO refactor may have side effect check with the Template implementation
 		String classpathName = getPackageName(table, template);
 		String filename = getFileName(template, table.getName());
 		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
 	}
 
-	public static String getArtifactRelativePathDirAndFullName(Model model, String templateName) {
-		return getLevelTemplateFullPath(model, getTemplate(model.getConfiguration(), templateName), templateName);
+	public static String getArtifactRelativePathDirAndFullName(Template template, Model model) {
+		// TODO refactor may have side effect check with the Template implementation
+		String classpathName = getPackageName(model, template);
+		String filename = getFileName(template, model.getName());
+		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
 	}
+	
+	public static String getArtifactRelativePathDirAndFullName(Table table, String templateName) {
+		Template template = getTemplate(table.getDatabase().getDataModel().getModel().getConfiguration(), templateName);
+		return getArtifactRelativePathDirAndFullName(template, table);
+	}
+	
+	public static String getArtifactRelativePathDirAndFullName(Model model, String templateName) {
+		Template template = getTemplate(model.getConfiguration(), templateName);
+		return getArtifactRelativePathDirAndFullName(template, model);
+	}
+	
+	public static String getArtifactFullClasspath(Table table, String templateName) {
+		Template template = getTemplate(getModel(table).getConfiguration(), templateName);
+		return getEntityLevelTemplateFullPath(getModel(table), table, template, templateName);
+	}	
+
 	public static String getArtifactFullClasspath(Model model, String templateName) {
 		return getLevelTemplateFullPath(model, getTemplate(model.getConfiguration(), templateName), templateName);
 	}	
+	
 	public static String getTemplateArtifactName (Model model, String templateName) {
 		Template template = getTemplate(model.getConfiguration(), templateName);
 		return getFileName(template, model.getName());
 	}
+	
+	public static String getTemplateArtifactName (Table table, String templateName) {
+		Template template = getTemplate(getModel(table).getConfiguration(), templateName);
+		return getFileName(template, table.getName());
+	}	
+	
 	public static String getTemplateArtifactDirName (Model model, String templateName) {
 		Template template = getTemplate(model.getConfiguration(), templateName);
 		return FormatUtils.getDirFromPackage(getPackageName(model, template));
 	}
 	
+	private static Model getModel(Table table) {
+		return table.getDatabase().getDataModel().getModel();
+	}
+	
+	protected static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
+		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
+	}
 	/**
 	 * comment utils mark the minute template the a minute comment
 	 */
@@ -331,5 +366,9 @@ public class CommonUtils {
 	
 	public static int getPrimaryKeyCount (Table table) {
 		return table.getPrimaryKeyColumns().length;
+	}
+	
+	public static List<TemplateTarget> getDistinctTemplateTargetList (Model model) {
+		return TemplateTargetUtils.getDistinctTemplateTargetDirs(model); 
 	}
 }

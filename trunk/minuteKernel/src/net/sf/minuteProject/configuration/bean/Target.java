@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class Target extends AbstractConfiguration{
 	
+	private String dir;
+	private String fileName;
 	private ArchitectureTarget architectureTarget;
 	private List <TemplateTarget> templateTargets;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
@@ -65,6 +67,19 @@ public class Target extends AbstractConfiguration{
 	
 	private void setDependency(List<Target> dependency) {
 		this.dependency = dependency;
+	}
+	
+	public String getDir() {
+		return dir;
+	}
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 	

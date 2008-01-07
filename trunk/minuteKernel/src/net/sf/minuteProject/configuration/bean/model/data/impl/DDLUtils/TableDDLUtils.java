@@ -1,7 +1,6 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -264,15 +263,6 @@ public class TableDDLUtils extends TableAbstract {
 		return table.getType();
 	}
 
-	private void addReference (List list, Reference referenceToAdd) {
-		for (Iterator iter = list.iterator(); iter.hasNext();) {
-			ReferenceDDLUtils reference = (ReferenceDDLUtils)iter.next();
-			if (reference.equals(referenceToAdd))
-				return;
-		}
-		list.add(referenceToAdd);
-	}
-	
     /**
      * Get the array of parents 
      * @return Reference
@@ -287,6 +277,7 @@ public class TableDDLUtils extends TableAbstract {
     			org.apache.ddlutils.model.Reference referenceddlutils = foreignKeyddlutils.getFirstReference();
 				Reference reference = new ReferenceDDLUtils (referenceddlutils);
 				// populate reference
+				/*
 				String tablename = foreignKeyddlutils.getForeignTableName();
 				Table table = TableUtils.getTable(database,tablename);
 				Column column = ColumnUtils.getColumn(table, reference.getLocalColumnName());
@@ -299,6 +290,18 @@ public class TableDDLUtils extends TableAbstract {
 				}
 				reference.setForeignTable(table);
 				reference.setForeignTableName(table.getName());
+				
+				*/
+    			//reference = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference ());
+				reference.setForeignColumn(new ColumnDDLUtils(referenceddlutils.getForeignColumn()));
+				reference.setForeignColumnName(referenceddlutils.getForeignColumnName());
+				reference.setForeignTable(TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName()));
+				reference.setForeignTableName(foreignKeyddlutils.getForeignTableName());
+				if (reference.getForeignColumnName()==null) {
+					System.out.println ("error in ref : no column on "+table.getName()+" - "+reference.getLocalColumnName());
+					error = true;
+				}
+					
 				if (!error)
 					//parents.add(reference);
 					addReference(parents, reference);
@@ -339,7 +342,6 @@ public class TableDDLUtils extends TableAbstract {
 		        			//reference.setTableName(tables[i].getName());
 		        			//reference.setColumnName(columnRef);
 		        			//reference.setTable(tables[i]);
-		    				
 		    				//children.add(reference);
 		    				addReference(children, reference);
 		        		}
@@ -348,5 +350,18 @@ public class TableDDLUtils extends TableAbstract {
 	        }		
     	}
     	return (Reference[])children.toArray(new Reference[children.size()]);	  	
+    }
+    
+    private void addReference (List list, Reference reference) {
+    	if (list==null) return;
+    	boolean isAlreadyPresent = false;
+    	for (Iterator<Reference> iter = list.iterator(); iter.hasNext();) {
+    		if (((Reference)iter.next()).equals(reference)) {
+    		    isAlreadyPresent = true;
+    		    break;
+    		}
+    	}
+    	if (!isAlreadyPresent)
+    		list.add(reference);
     }
 }

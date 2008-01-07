@@ -27,7 +27,7 @@ public interface Generator {
 	 * @param targetRefname
 	 * @throws Exception
 	 */
-	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, String targetRefname) throws Exception;
+	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception;
 
 	/**
 	 * generate the targets template artifacts

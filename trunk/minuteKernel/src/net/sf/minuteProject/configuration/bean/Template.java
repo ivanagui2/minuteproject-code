@@ -118,15 +118,6 @@ public class Template extends TemplateTarget {
 	
     public String getGeneratorOutputFileName (net.sf.minuteProject.configuration.bean.model.data.Table table, Template template) {
     	Model model = getModel(template);
-    	/*ModelUtils.getPackageDir(model, template,table);
-		StringBuffer sb = new StringBuffer(template.getPackageRoot());	
-		if (getAddModelName()==null || !getAddModelName().equals("false"))
-			sb.append("."+model.getName());
-		sb.append("."+template.getTechnicalPackage());
-		if (businessPackage!=null)
-			sb.append("."+model.getBusinessModel().getBusinessPackage().getPackage(businessPackage));
-		String packageSt = FormatUtils.getDirFromPackage(sb.toString());
-		*/
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	sb.append("//"+ModelUtils.getPackageDir(model, template,table));
 		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
@@ -150,20 +141,12 @@ public class Template extends TemplateTarget {
     
     public String getGeneratorOutputFileNameForModel (Template template) {
     	Model model = getModel(template);
-		/*ModelUtils.getTechnicalPackage(model, template);
-		StringBuffer sb = new StringBuffer(template.getPackageRoot());	
-		if (getAddModelName()==null || !getAddModelName().equals("false"))
-			sb.append("."+model.getName());
-		sb.append("."+template.getTechnicalPackage());
-		String packageSt = FormatUtils.getDirFromPackage(sb.toString());
-		*/
+
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	sb.append("//"+ModelUtils.getTechnicalPackage(model, template));
 		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
     	
-		//String outputFileDir = ModelUtils.getTechnicalPackage(model, template);//\\template.getTemplateTarget().getOutputdir()+"//"+packageSt;
 		new File (outputFileDir.toString()).mkdirs();
-		// TODO String TemplateFileName = template.getOutputFileName(FormatUtils.getJavaName(model.getName())); is redundant with the template
 		String TemplateFileName = CommonUtils.getFileName(template,model.getName());
 		String outputFilename = outputFileDir+"//"+TemplateFileName;
 		return outputFilename;

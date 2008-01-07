@@ -36,10 +36,6 @@ public class BslaLibraryUtils extends CommonUtils{
 		return FormatUtils.getDirFromPackage(getPackageLevelTemplateFullPath(model, pack, template, targetTemplateName));
 	}
 	
-	private static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
-		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
-	}
-	
 	private static String getEntityLevelTemplateFullPath(Table table, String targetTemplateName) {
 		return getPackageName(table.getDatabase().getDataModel().getModel(), table, targetTemplateName) +"."+ getTemplateClassName (table, table.getDatabase().getDataModel().getModel(), targetTemplateName);
 	}

@@ -70,7 +70,7 @@ public class ViewGenerator extends AbstractGenerator{
 		ViewGenerator viewGenerator = new ViewGenerator(viewConfig);
 		View view = (View) viewGenerator.load();
 		viewGenerator.setView(view);
-		viewGenerator.loadTarget(view, view.getTarget().getRefname()); 
+		viewGenerator.loadTarget(view, view.getTarget()); 
 		viewGenerator.generate(view.getTarget());
 	}
 
