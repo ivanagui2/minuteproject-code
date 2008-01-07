@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+
+    <!-- Dao ibatis -->
+    <import resource="classpath:eu/pdmurf/myProject/factory/configuration/spring-config-Myproject-dao.xml"/>
+    <!-- SqlMap setup for iBATIS Database Layer -->
+    
+
+    <!-- ibatis config to put in an appart config file-->
+    <bean id="sqlMapClientmyProject" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation"><value>eu/pdmurf/myProject/dao/implementation/ibatis/xml/MyprojectSqlMapDaoImpl.xml</value></property>
+    </bean>
+
+    <bean id="sqlMapClientmyProjectTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate" singleton="false">
+        <property name="sqlMapClient"><ref bean="sqlMapClientmyProject"/></property>
+        <property name="dataSource"><ref bean="myProjectDataSource"/></property>
+    </bean>
+    
+    <!-- Database -->
+    <import resource="classpath:spring-config-Myproject-database.xml"/>      
+    
+</beans>
