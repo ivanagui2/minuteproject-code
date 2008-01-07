@@ -1,0 +1,121 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+#set ($interface = "${JavaNameEntity}Dao")
+
+import java.util.List;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
+/**
+ *
+ * <p>Title: ${ClassName}</p>
+ *
+ * <p>Description: Interface of a Data access object dealing with ${ClassName}
+ * persistence. It offers a set of methods which allow for saving,
+ * deleting and searching ${ClassName} objects</p>
+ *
+ * <p>Copyleft</p>
+ *
+ * <p>Company: minuteProject</p>
+ *
+ * @author Generator
+ */
+public class $ClassName extends SqlMapClientDaoSupport implements $interface {
+
+	public $ClassName () {}
+
+    /**
+     * Inserts a $JavaNameEntity entity 
+     * @param $JavaNameEntity $JavaNameEntityVariable
+     */
+    public void insert$JavaNameEntity($JavaNameEntity $JavaNameEntityVariable) {
+      this.getSqlMapClientTemplate().insert("insert$JavaNameEntity", $JavaNameEntityVariable);
+    }
+
+    /**
+     * Updates a $JavaNameEntity entity 
+     * @param $JavaNameEntity $JavaNameEntityVariable
+     */
+    public void update$JavaNameEntity($JavaNameEntity $JavaNameEntityVariable) {
+      this.getSqlMapClientTemplate().update("update$JavaNameEntity", $JavaNameEntityVariable);
+    }
+    
+    /**
+     * Deletes a $JavaNameEntity entity 
+     * @param $JavaNameEntity $JavaNameEntityVariable
+     */
+    public void delete$JavaNameEntity($JavaNameEntity $JavaNameEntityVariable) {
+      this.getSqlMapClientTemplate().delete("delete$JavaNameEntity", $JavaNameEntityVariable);
+    }
+    
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName and its dependent one to many objects
+     * @param Long id
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFullFirstLevel$tableClassName(Long id) {
+    	return ($tableClassName) getSqlMapClientTemplate().queryForObject("load$tableClassName", id);
+    }
+
+    /**
+     * Loads a list of $JavaNameEntity entity which is related to an instance of that are within 
+     * a range of id
+     * @param Range range
+     * @return List
+     */
+    public List loadRange$JavaNameEntity(Range range) {
+    	return getSqlMapClientTemplate().queryForList("loadRange$JavaNameEntity", range);
+    }
+
+    /**
+     * Loads the $JavaNameEntity entity which is related to an instance of
+     * $JavaNameEntity and its dependent objects one to many at the first level
+     * @param Long id
+     * @return $JavaNameEntity The $JavaNameEntity entity
+     */
+    public $JavaNameEntity loadFullFirstLevel$JavaNameEntity(Long id) {
+    	return ($JavaNameEntity)getSqlMapClientTemplate().queryForObject("loadFullFirstLevel$JavaNameEntity", id);
+    }
+
+    /**
+     * Loads a list of $JavaNameEntity entity which is related to an instance of that are within 
+     * a range of id and its dependent objects one to many at the first level
+     * @param Range range
+     * @return List
+     */
+    public List loadFullFirstLevelRange$JavaNameEntity(Range range) {
+    	return getSqlMapClientTemplate().queryForList("loadFullFirstLevelRange$JavaNameEntity", range);
+    }
+    
+    /**
+     * Loads the $JavaNameEntity entity which is related to an instance of
+     * $JavaNameEntity and its dependent objects one to many
+     * @param Long id
+     * @return $JavaNameEntity The $JavaNameEntity entity
+     */
+    public $JavaNameEntity loadFull$JavaNameEntity(Long id) {
+    	return ($JavaNameEntity)getSqlMapClientTemplate().queryForObject("loadFull$JavaNameEntity", id);
+    }
+
+    /**
+     * Loads a list of $JavaNameEntity entity which is related to an instance of that are within 
+     * a range of id and its dependent objects one to many
+     * @param Range range
+     * @return List
+     */
+    public List loadFullRange$JavaNameEntity(Range range) {
+    	return getSqlMapClientTemplate().queryForList("loadFullRange$JavaNameEntity", range);
+    } 
+
+    /**
+     * Searches a list of $JavaNameEntity entity 
+     * @param $JavaNameEntity $JavaNameEntityVariable
+     * @return List
+     */
+    public List search$JavaNameEntity($JavaNameEntity $JavaNameEntityVariable) {
+    	return getSqlMapClientTemplate().queryForList("search$JavaNameEntity", $JavaNameEntityVariable);
+    }    
+    
+}

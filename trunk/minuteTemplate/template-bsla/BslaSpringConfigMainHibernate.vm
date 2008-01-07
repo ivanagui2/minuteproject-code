@@ -1,0 +1,29 @@
+#exposeVariableModelSpecific()
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+#set ($pathDaoHibernate = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringConfigDaoHibernate2") )
+#set ($pathHibernateConfig = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "HibernateConfig") )
+#set ($databaseConfig = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringDatabase") )
+
+    <!-- Dao hibernate -->
+    <import resource="classpath:${pathDaoHibernate}.xml"/>    
+
+    <!-- hibernate config to put in an appart config file-->
+    <bean id="sessionFactory" autowire="byName"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="configLocation" value="${pathHibernateConfig}.cfg.xml" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            </props>
+        </property>
+		<property name="dataSource"><ref bean="${model.name}DataSource"/></property>
+    </bean>
+    
+    <!-- Database -->
+    <import resource="${databaseConfig}.xml"/>    
+
+</beans>

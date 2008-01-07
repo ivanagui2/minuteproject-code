@@ -1,0 +1,154 @@
+#exposeVariableEntitySpecific()
+#putImportParams()
+package $packageName;
+
+import java.util.List;
+import net.sf.minuteProject.architecture.bsla.utils.Range;
+import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
+import $importDaoInterface;
+import $importDomainObject;
+
+/**
+ *
+ * <p>Title: $className</p>
+ *
+ * <p>Description: Interface of a Data access object dealing with $className
+ * persistence. It offers a set of methods which allow for saving,
+ * deleting and searching $className objects</p>
+ *
+ */
+
+public class $className extends SqlMapClientDaoSupport implements $daoInterfaceName {
+
+	public $className () {}
+
+    /**
+     * Inserts a $tableClassName entity 
+     * @param $tableClassName $tableVariableName
+     */
+    public void insert$tableClassName($tableClassName $tableVariableName) {
+      this.getSqlMapClientTemplate().insert("insert$tableClassName", $tableVariableName);
+    }
+
+    /**
+     * Updates a $tableClassName entity 
+     * @param $tableClassName $tableVariableName
+     */
+    public void update$tableClassName($tableClassName $tableVariableName) {
+      this.getSqlMapClientTemplate().update("update$tableClassName", $tableVariableName);
+    }
+ 
+     /**
+     * Saves a $tableClassName entity 
+     * @param $tableClassName $tableVariableName
+     */
+    public void save$tableClassName($tableClassName $tableVariableName) {
+#if ($hasPrimaryKey)    
+      if (${tableVariableName}.get${primaryKey}()!=null)
+      	   update$tableClassName($tableVariableName);
+      	else
+         insert$tableClassName($tableVariableName);	
+#else
+      insert$tableClassName($tableVariableName);
+#end
+    }
+       
+    /**
+     * Deletes a $tableClassName entity 
+     * @param $tableClassName $tableVariableName
+     */
+    public void delete$tableClassName($tableClassName $tableVariableName) {
+      this.getSqlMapClientTemplate().delete("delete$tableClassName", $tableVariableName);
+    }
+    
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName
+     * @param Long id
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName load$tableClassName(Long id) {
+    	return ($tableClassName)getSqlMapClientTemplate().queryForObject("load$tableClassName", id);
+    }
+    
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName
+     * @param $primaryKeyFullType $primaryKey
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFullFirstLevel$tableClassName($tableClassName $tableVariableName){
+    	   return ($tableClassName)getSqlMapClientTemplate().queryForObject("loadFullFirstLevelAll$tableClassName", $tableVariableName);
+    }
+    
+    /**
+     * Loads a list of $tableClassName entity which is related to an instance of that are within 
+     * a range of id
+     * @param Range range
+     * @return List
+     */
+    public List loadRange$tableClassName(Range range) {
+    	return getSqlMapClientTemplate().queryForList("loadRange$tableClassName", range);
+    }
+
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName and its dependent one to many objects
+     * @param Long id
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable) {
+    	return ($tableClassName) getSqlMapClientTemplate().queryForObject("loadFullFirstLevel$tableClassName", $primaryKeyVariable);
+    }
+
+    /**
+     * Loads a list of $tableClassName entity which is related to an instance of that are within 
+     * a range of id and its dependent one to many objects
+     * @param Range range
+     * @return List
+     */
+    public List loadFullFirstLevelRange$tableClassName(Range range) {
+    	return getSqlMapClientTemplate().queryForList("loadFullFirstLevelRange$tableClassName", range);
+    }
+    
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName and its dependent objects one to many
+     * @param Long id
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFull$tableClassName($primaryKeyFullType $primaryKeyVariable) {
+    	return ($tableClassName)getSqlMapClientTemplate().queryForObject("loadFull$tableClassName", $primaryKeyVariable);
+    }
+
+    /**
+     * Loads a list of $tableClassName entity which is related to an instance of that are within 
+     * a range of id and its dependent objects one to many
+     * @param Range range
+     * @return List
+     */
+    public List loadFullRange$tableClassName(Range range) {
+    	return getSqlMapClientTemplate().queryForList("loadFullRange$tableClassName", range);
+    } 
+
+    /**
+     * Searches a list of $tableClassName entity 
+     * @param $tableClassName $variableName
+     * @return List
+     */
+    public List search$tableClassName($tableClassName $tableVariableName) {
+    	return getSqlMapClientTemplate().queryForList("search$tableClassName", $tableVariableName);
+    } 
+    
+    /**
+     * Load a paginated list of $tableClassName entity dependent of pagination criteria
+     * @param PaginationCriteria paginationCriteria
+     * @return List
+     */
+    public List loadPaginated$tableClassName (PaginationCriteria paginationCriteria) {
+        return getSqlMapClientTemplate().queryForList("loadPaginated$tableClassName", paginationCriteria);
+    }       
+    
+}

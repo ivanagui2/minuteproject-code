@@ -1,0 +1,73 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+#set ($entityFirst = '${')
+#set ($entityLast = '}')
+#set ($entityInSession = "${tableJavaName}SearchResultOne")
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<html>
+<head>
+	<title>$table.name entity</title>
+</head>
+<body>
+$table.name
+
+##to remove
+#set ($itemsFirst = '${sessionScope.')
+#set ($itemsLast = 'SearchResultList}')
+#set ($items = "${itemsFirst}${tableJavaName}${itemsLast}")
+#set ($itemsFirst = '${sessionScope.')
+#set ($itemsLastOne = 'SearchResultOne}')
+#set ($item = "${itemsFirst}${tableJavaName}${itemsLastOne}")
+##<c:if test="${items.length > 1}">
+##list</br>
+##</c:if>
+##toremove above
+<table>
+	#foreach ($column in ${table.columns})
+	<tr>
+		<td>$column.name</td>
+#set ($columnVariable = $utils.getJavaNameVariable($column.name))
+#set ($entity = "${entityFirst}${entityInSession}.${columnVariable}${entityLast}")
+##if ($utils.isPrimaryKey($column, $table))
+#set ($linkedTableValue = $utils.getForeignKeyTableName($column, $table))
+#if ($column.isPrimaryKey())
+#set ($actionURL = $URLUtils.getSearchByIdURL($table.name, $column.name, $entityInSession))
+		<td><a href="/DBView/$actionURL"><c:out value="$entity"/></a></td>
+#elseif ("$linkedTableValue"!="")
+#set ($actionURL = $URLUtils.getSearchByIdURL($linkedTableValue, $column.name, $entityInSession))
+		<td><a href="/DBView/$actionURL"><c:out value="$entity"/></a></td>
+#else
+		<td><c:out value="$entity"/></td>
+#end
+	</tr>
+	#end	
+</table>
+
+#foreach ($foreignKey in ${table.foreignKeys})
+#foreach ($reference in ${foreignKey.references})
+#set ($parentTable = $utils.getClassNameOnly($foreignKey.foreignTableName))
+#set ($parentTableJavaNameVariable = $utils.getJavaNameVariable($parentTable)) 
+#set ($subpackage = $utils.getSubPackage($foreignKey.foreignTableName))
+#set ($entity = "${entityFirst}${entityInSession}.${parentTableJavaNameVariable}${entityLast}")
+</br>
+Associated parent $parentTable :
+<c:set scope="session" var="${parentTable}SearchResultOne" value="${entity}" />
+<jsp:include page="/jsp/$subpackage/${parentTable}ResultOneBody.jsp" />
+##    <result property="$utils.getJavaNameVariable($foreignKey.foreignTableName)" column="$utils.getJavaNameVariable($reference.localColumnName)" select="load$utils.getJavaName($foreignKey.foreignTableName)"/>   	
+#end
+#end
+
+#foreach ($reference in $referenceList)
+#set ($subpackage = $utils.getSubPackage($reference.table))
+#set ($linkTableClassName = $utils.getClassNameOnly($reference.table))
+</br>
+Associated children ${linkTableClassName} :
+<jsp:include page="/jsp/$subpackage/${linkTableClassName}ResultListBody.jsp" />
+#end
+
+</body>
+

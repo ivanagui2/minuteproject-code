@@ -1,0 +1,25 @@
+#exposeVariableModelSpecific()
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Disable the second-level cache  -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">false</property>
+		
+#foreach ($package in ${businessPackages})
+
+   <!-- $package.name -->
+#foreach ($table in ${package.listOfTables})
+#exposeVariableEntitySpecificHibernateMapConfig()
+   <sqlMap resource="$artifactRelativePathDirAndFullName"/>
+#end
+#end
+				
+	</session-factory>
+</hibernate-configuration>

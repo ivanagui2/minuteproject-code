@@ -1,0 +1,193 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+#set ($selectSql = "select${JavaNameEntity}Sql")
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="${JavaNameEntity}NameSpace">
+
+  <!-- Alias for the $JavaNameEntity domain object -->
+  <typeAlias alias="$ClassName" type="<your package>.domain.$subPackage.$JavaNameEntity"/>
+
+  <!-- Result map used for loading data into a ${JavaNameEntity} domain object  -->
+  <resultMap id="${ClassName}Load" class="${ClassName}">
+#foreach ($column in ${table.columns})
+	<result property="$utils.getJavaNameVariable($column.name)" column="$utils.getJavaNameVariable($column.name)" />    
+#end
+  </resultMap>
+
+  <resultMap id="${ClassName}LoadFullFirstLevel" class="${ClassName}" >
+#foreach ($column in ${table.columns})
+	<result property="$utils.getJavaNameVariable($column.name)" column="$utils.getJavaNameVariable($column.name)" />    
+#end
+#foreach ($foreignKey in ${table.foreignKeys})
+#foreach ($reference in ${foreignKey.references})
+    <result property="$utils.getJavaNameVariable($foreignKey.foreignTableName)" column="$utils.getJavaNameVariable($reference.localColumnName)" select="load$utils.getJavaName($foreignKey.foreignTableName)"/>   	
+#end
+#end
+#foreach ($reference in $referenceList)
+    <result property="$utils.getJavaNameVariable($reference.tableName)s" column="id" select="load$utils.getJavaName($reference.tableName)For${JavaNameEntity}"/>
+#end  
+  </resultMap>
+
+  <resultMap id="${ClassName}LoadFull" class="${ClassName}" >
+#foreach ($column in ${table.columns})
+	<result property="$utils.getJavaNameVariable($column.name)" column="$utils.getJavaNameVariable($column.name)" />    
+#end
+#foreach ($foreignKey in ${table.foreignKeys})
+#foreach ($reference in ${foreignKey.references})
+    <result property="$utils.getJavaNameVariable($foreignKey.foreignTableName)" column="$utils.getJavaNameVariable($reference.localColumnName)" select="load$utils.getJavaName($foreignKey.foreignTableName)"/>   	
+#end
+#end
+#foreach ($reference in $referenceList)
+    <result property="$utils.getJavaNameVariable($reference.tableName)s" column="id" select="loadFull$utils.getJavaName($reference.tableName)For${JavaNameEntity}"/>
+#end  
+  </resultMap>  
+
+  <sql id="${selectSql}">
+    SELECT
+#foreach ($column in ${table.columns})
+	${table.name}.${column.name} as $utils.getJavaNameVariable($column.name)#if ($velocityCount!=$utils.getColumLength($table.columns)),#end
+	
+#end    
+    FROM ${table.name}
+  </sql>
+
+  <select id="loadRange${JavaNameEntity}" resultMap="${ClassName}Load" parameterClass="range">
+    <include refid="${selectSql}"/>
+    WHERE
+     ID &gt;= #firstId#
+    AND
+     ID &lt; #lastId#
+  </select>
+
+  <select id="load${JavaNameEntity}" resultMap="${ClassName}Load" parameterClass="long">
+    <include refid="${selectSql}"/>
+    WHERE
+     ID = #value#
+  </select>
+
+  <!-- Searches for all instances of ${JavaNameEntity} matching any of the given criteria. -->
+  <!-- Any criterion which is not null is appended to the where clause -->
+  <select id="search${JavaNameEntity}" resultMap="${ClassName}Load" parameterClass="${ClassName}">
+    <include refid="${selectSql}"/>
+    <dynamic prepend="WHERE">
+#foreach ($column in ${table.columns})
+        <isNotNull prepend="AND" property="$utils.getJavaNameVariable($column.name)">
+            ${column.name}=#$utils.getJavaNameVariable($column.name)#
+        </isNotNull>	
+#end        
+    </dynamic>
+  </select>
+
+
+  <!-- Searches for all instances of ${JavaNameEntity} matching any of the given criteria. -->
+  <!-- Any criterion which is not null is appended to the where clause -->
+<!--
+  <select id="searchPagination${JavaNameEntity}" resultMap="${ClassName}Load" parameterClass="${ClassName}">
+    <include refid="${selectSql}"/>
+    <dynamic prepend="WHERE">
+#foreach ($column in ${table.columns})
+        <isNotNull prepend="AND" property="$utils.getJavaNameVariable($column.name)">
+            ${column.name}=#$utils.getJavaNameVariable($column.name)#
+        </isNotNull>	
+#end        
+    </dynamic>
+  </select>
+-->
+
+#foreach ($foreignKey in ${table.foreignKeys})
+#foreach ($reference in ${foreignKey.references})
+  <select id="load${ClassName}For$utils.getJavaName($foreignKey.foreignTableName)" parameterClass="long" resultMap="${ClassName}Load">
+    <include refid="${selectSql}"/>
+       WHERE $reference.localColumnName = #value#
+  </select>
+  
+  <select id="loadFull${ClassName}For$utils.getJavaName($foreignKey.foreignTableName)" parameterClass="long" resultMap="${ClassName}LoadFull">
+    <include refid="${selectSql}"/>
+       WHERE $reference.localColumnName = #value#
+  </select>
+    
+#end
+#end
+
+  <select id="loadFullFirstLevelRange${JavaNameEntity}" resultMap="${ClassName}LoadFullFirstLevel" parameterClass="range">
+    <include refid="${selectSql}"/>
+    WHERE
+     ID &gt;= #firstId#
+    AND
+     ID &lt; #lastId#
+  </select>
+
+  <select id="loadFullFirstLevel${JavaNameEntity}" resultMap="${ClassName}LoadFullFirstLevel" parameterClass="long">
+    <include refid="${selectSql}"/>
+    WHERE
+     ID = #value#
+  </select>
+
+  <select id="loadFullRange${JavaNameEntity}" resultMap="${ClassName}LoadFull" parameterClass="range">
+    <include refid="${selectSql}"/>
+    WHERE
+     ID &gt;= #firstId#
+    AND
+     ID &lt; #lastId#
+  </select>
+
+  <select id="loadFull${JavaNameEntity}" resultMap="${ClassName}LoadFull" parameterClass="long">
+    <include refid="${selectSql}"/>
+    WHERE
+     ID = #value#
+  </select>
+
+  <!-- Updates an existing instance of a ${ClassName} domain object -->
+  <!-- It sets the value for the modification date-->
+  <update id="update${ClassName}" parameterClass="${ClassName}">
+    UPDATE ${ClassName}
+        SET
+#foreach ($column in ${table.columns})
+		${column.name}=#$utils.getJavaNameVariable($column.name):$column.type# #if ($velocityCount!=$utils.getColumLength($table.columns)),#end
+	
+#end    
+        WHERE 
+#foreach($column in $table.columns)    
+#if($column.isPrimaryKey())
+    ${column.name} = #$utils.getJavaNameVariable($column.name)#
+#end
+#end        
+  </update>
+
+  <!-- Inserts a new instance of a ${ClassName} domain object -->
+  <!-- It first retrieves the id from a sequence table-->
+  <!-- It sets the value for the creation date-->
+  <insert id="insert${ClassName}" parameterClass="${ClassName}">
+    <selectKey resultClass="long" keyProperty="id">
+        SELECT NEXTVAL FOR ${table.name} AS ID FROM SYSIBM.SYSDUMMY1
+    </selectKey>
+    INSERT INTO ${table.name}
+    (
+#foreach ($column in ${table.columns})
+	${column.name}#if ($velocityCount!=$utils.getColumLength($table.columns)),#end
+	
+#end    
+    ) VALUES
+    (
+#foreach ($column in ${table.columns})
+	#$utils.getJavaNameVariable($column.name):$column.type# #if ($velocityCount!=$utils.getColumLength($table.columns)),#end
+	
+#end    
+    )    
+  </insert>
+
+  <!-- Deletes an existing instance of a ${JavaNameEntity} domain object -->
+  <delete id="delete${JavaNameEntity}" parameterClass="${JavaNameEntity}">
+    DELETE FROM ${table.name} WHERE 
+#foreach($column in $table.columns)    
+#if($column.isPrimaryKey())
+    ${column.name} = #$utils.getJavaNameVariable($column.name)#
+#end
+#end
+  </delete>
+      
+</sqlMap>
