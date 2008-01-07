@@ -1,0 +1,41 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration>
+		<model name="sample">
+			<data-model>
+			    <fileSource name="sample" dir="c:/data/generator">
+			    </fileSource>
+				<dataSource>
+				<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
+				<url>jdbc:hsqldb:hsql://127.0.0.1:9001/sample</url>
+				<username>sa</username>
+				<password></password>	
+				</dataSource>		
+				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="OPENREPORT_SEQ"></primaryKeyPolicyPattern>
+				</primaryKeyPolicy> 
+			</data-model>
+			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="DUAL"></condition>
+				</generation-condition>		
+				<business-package default="sample">
+					<condition type="package" startsWith="QRTZ" result="qrtz"></condition>
+				</business-package>							
+				<tables>
+					<table name="CODE_TABLE_TYPE">
+						<type>masterdata</type>
+						<reference-view-field>CODE</reference-view-field>
+						<reference-view-parent>no</reference-view-parent>
+						<reference-view-child>no</reference-view-child>
+					</table>						
+				</tables>
+			</business-model>
+		</model>
+		<target refname="BackendOnBsla" 
+		        name="default" 
+		        dir="C:/SET-YOUR-PATH/MP/minuteTemplate/template-bsla" 
+		        fileName="mp.xml">
+		</target> 	
+	</configuration>
+</generator-config>
