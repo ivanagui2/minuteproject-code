@@ -106,6 +106,8 @@ public class Template extends TemplateTarget {
 		return getOutputFileMain(input)+"."+fileExtension;
 	}	
 	public String getOutputFileMain (String input) {
+		if (addModelName!=null && addModelName.equals("false"))
+			return filePrefix+fileSuffix;
 		return filePrefix+input+fileSuffix;
 	}
 	public void setPackageRoot(String packageRoot) {

@@ -3,6 +3,9 @@ package net.sf.minuteProject.utils;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
@@ -17,6 +20,8 @@ import net.sf.minuteProject.configuration.bean.view.View;
 
 
 public class CommonUtils {
+	
+	private static Logger logger = Logger.getLogger(CommonUtils.class);
 	
 	// TODO refactor (4 times)
 	public static String getTableClassName (AbstractConfiguration bean) {
@@ -153,7 +158,7 @@ public class CommonUtils {
 		return getClassName(pack, templateTarget);
 	}
 
-	protected static String getTemplateClassName (Model model, Template template, String targetTemplateName) {
+	public static String getTemplateClassName (Model model, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
 			System.out.println("ERROR on config file : missing "+targetTemplateName);
@@ -262,6 +267,10 @@ public class CommonUtils {
 	}		
 	
 	public static String getType (Column column) {
+		if (column == null) {
+			logger.info("ERROR the column is null");
+			return "ERROR column is null";
+		}
 		return ConvertUtils.getJavaTypeFromDBType(column.getType());
 	}	
 	
@@ -371,4 +380,9 @@ public class CommonUtils {
 	public static List<TemplateTarget> getDistinctTemplateTargetList (Model model) {
 		return TemplateTargetUtils.getDistinctTemplateTargetDirs(model); 
 	}
+	
+	public static boolean isModelNull (Model model) {
+		return (model == null);
+	}
+	
 }

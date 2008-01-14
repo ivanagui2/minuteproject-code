@@ -12,8 +12,8 @@
 					name="AntBuildProperties" templateFileName="AntBuildProperties.vm" 
 					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
 					file-extension="properties" file-prefix="build" file-suffix="" 
-					entity-specific="false" package-specific="false" model-specific="true"
-					application-specific="false">
+					entity-specific="false" package-specific="false" model-specific="false"
+					application-specific="true">
 				</template>
 															
 			</template-target>	
@@ -32,14 +32,14 @@
 					file-extension="map" file-prefix="" file-suffix="map" 
 					entity-specific="false" package-specific="false" model-specific="true">
 				</template>
-	
+	 
 				<template package-root="my.servlet"
 					name="GenCRUDServlet" templateFileName="GenCRUDServlet1.vm" 
 					subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
 					file-extension="java" file-prefix="" file-suffix="CRUDServlet" 
 					entity-specific="false" package-specific="false" model-specific="true">
 				</template>		
-
+<!--
 				<template package-root="WEB-INF"
 					name="SitemeshMainLayout" templateFileName="SitemeshMainLayout.vm" 
 					subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
@@ -67,9 +67,9 @@
 					file-extension="html" file-prefix="" file-suffix="HomePage" 
 					entity-specific="false" package-specific="false" model-specific="true">
 				</template>	
-														
+					-->									
 			</template-target>	
-			
+			 
 <!-- -->
 			<template-target dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" 
 				libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
@@ -78,20 +78,29 @@
 				package-root="jsp"
 				belongToPackage="true">
 				
+				<!-- 
 				<template package-root="html"
 					name="BslaWebSearchScreen" templateFileName="GenRender1EditScreen.vm" 
 					subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
 					file-extension="html" file-prefix="" file-suffix="EditScreen" 
 					entity-specific="true" package-specific="false" model-specific="false">
 				</template>	
-
+ -->
+  	 
 				<template package-root="jsp"
 					name="WebManageScreen" templateFileName="GenRender1ManageScreen.vm" 
 					subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
 					file-extension="jsp" file-prefix="" file-suffix="ManageScreen" 
 					entity-specific="true" package-specific="false" model-specific="false">
 				</template>	
-												
+	<!--									
+				<template package-root="jsp"
+					name="WebManageScreen" templateFileName="GenScriptaculous1ManageScreen.vm" 
+					subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"
+					file-extension="jsp" file-prefix="" file-suffix="ManageScreen" 
+					entity-specific="true" package-specific="false" model-specific="false">
+				</template>	
+-->	
 				<template package-root="html"
 					name="BslaWebSearchScreen" templateFileName="BslaWebSearchScreen.vm" 
 					subdir="" outputsubdir="html" technicalPackage="" add-model-name="false"

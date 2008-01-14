@@ -91,6 +91,7 @@ public class DatabaseDDLUtils implements Database
 	    if (fileSource!=null) {
 	    	filename = fileSource.getName();
 	    	filedir = fileSource.getDir();
+	    	new File (filedir.toString()).mkdirs();
 	    	if (filename!=null)
 	    		filename = filedir+"/"+filename+".xml";
 	    	else 
