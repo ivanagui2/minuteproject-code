@@ -25,17 +25,17 @@ public class ${className} implements DomainObject {
 
 #foreach ($column in ${table.columns})
 	#putColumnParams()
-private $columnType $columnVar;
+private $columnType _$columnVar;
 #end
 
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    private $linkclass $var;
+    private $linkclass _$var;
 #end
 
 #foreach ($reference in $childReferences)
 #putReferenceParams()
-	private List ${var}s;
+	private List _${var}s;
 #end
 
     public ${className}() {
@@ -44,34 +44,39 @@ private $columnType $columnVar;
 #foreach ($column in ${table.columns})
 #putColumnParams()
     public $columnType get$columnClass() {
-        	return $columnVar;
+        	return _$columnVar;
     }
 	
-    public void set$columnClass ($columnType $columnVar) {
-        this.$columnVar = $columnVar;
+    public void set$columnClass ($columnType _$columnVar) {
+        this._$columnVar = _$columnVar;
     }	
 #end
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
     public $linkclass get$varclass () {
-    	    return $var;
+    	    return _$var;
     }
 	
-    public void set$varclass ($linkclass $var) {
-    	    this.$var = $var;
+    public void set$varclass ($linkclass _$var) {
+    	    this._$var = _$var;
     }
 	#end
 #foreach ($reference in $childReferences)
 #putReferenceParams()
+    
     public List get${varclass}s() {
-        if (${var}s == null){
-            ${var}s = new ArrayList();
+        if (_${var}s == null){
+            _${var}s = new ArrayList();
         }
-        return ${var}s;
+        return _${var}s;
     }
 
-    public void set${varclass}s (List ${var}s) {
-        this.${var}s = ${var}s;
+    public void set${varclass}s (List _${var}s) {
+        this._${var}s = _${var}s;
+    }
+    
+    public void add${varclass}s ($linkclass $link) {
+        get${varclass}s().add($link);
     }	
 #end
 
