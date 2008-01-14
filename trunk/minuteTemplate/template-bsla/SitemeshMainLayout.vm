@@ -1,4 +1,4 @@
-#exposeVariableModelSpecific()
+#exposeVariableApplicationSpecific()
 #exposeWebProperties()
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
@@ -33,7 +33,7 @@
 								<tr>
 									<td id="footer">
 										<b>Disclaimer:</b>
-										This site is an example site to demonstrate to use of MinuteProject for the project $project .
+										This site is an example site to demonstrate to use of MinuteProject for the project $model.name .
 									</td>
 								</tr>
 							</table>

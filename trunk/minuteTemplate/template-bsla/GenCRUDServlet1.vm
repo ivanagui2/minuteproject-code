@@ -77,13 +77,13 @@ public class $className extends HttpServlet {
 		}									
 #end
 #end
-}
+    }
 
-private void doExit(HttpServletRequest req, HttpServletResponse res, Object entity, String attribute, String path) throws ServletException, IOException{
+    private void doExit(HttpServletRequest req, HttpServletResponse res, Object entity, String attribute, String path) throws ServletException, IOException{
 					HttpSession session = req.getSession();
 					session.setAttribute(attribute,entity);
 						forward(path,req,res);
-}
+    }
 
 	public void doGet (HttpServletRequest req, HttpServletResponse res)
     throws ServletException, IOException {
@@ -92,19 +92,14 @@ private void doExit(HttpServletRequest req, HttpServletResponse res, Object enti
     
 	public void doPost (HttpServletRequest req, HttpServletResponse res)
     throws ServletException, IOException {
-        //ServletOutputStream out = res.getOutputStream();
         HttpSession session = req.getSession();
         String table = req.getParameter("table");
         String forward="";
         try {
-##importChunkSearchAction()
-doAction (req, res, req.getParameter("action"));
-		} catch (IllegalAccessException iae) {
-			forward("/jsp/error/SearchScreenResultError.jsp",req,res);
-			//out.println("exception ex = "+iae.getMessage());
-		} catch (InvocationTargetException ite) {
-			forward("/jsp/error/SearchScreenResultError.jsp",req,res);
-			//out.println("exception ex = "+ite.getMessage());
+        	doAction (req, res, req.getParameter("action"));
+		} catch (Exception ex) {
+			session.setAttribute("exception", ex);
+			forward("/jsp/error/errorPage.jsp",req,res);
 		}
    }
    
