@@ -1,0 +1,243 @@
+#macro (exposeVariableEntitySpecific)
+## model, table, reference (towards this table must be available), commonUtils, formatUtils, template
+#set ($database = $table.database)
+#set ($model = $table.package.businessPackage.businessModel.model)
+#set ($tableDB = $table)
+##set ($database = $model.dataModel.database)
+#set ($configuration = $model.configuration)
+#set ($tableVariableName = $commonUtils.getTableVariableName($table))
+#set ($packageName = $commonUtils.getPackageName($model, $template, $table))
+#set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $table))
+##set ($businessPackageName = $commonUtils.getBusinessPackage($model, $table))
+#set ($businessPackageName = $commonUtils.getBusinessPackageName($model, $table))
+#set ($className = $commonUtils.getClassName2($table, $template))
+#set ($tCN = $commonUtils.getTcn($table))
+#set ($tableClassName = $tCN)
+#set ($domainClassName = $tableClassName)
+#set ($domainVariableName = $tableVariableName)
+#set ($variableName = $commonUtils.getVariableName($tableDB, $template))
+##set ($parentReferences = $table.getParents())##$modelUtils.getParents($database, $table))
+##set ($childReferences = $table.getChildren())##$modelUtils.getChildren($database,$table))
+#set ($parentReferences = $modelUtils.getParents($database, $table))
+#set ($childReferences = $modelUtils.getChildren($database,$table))
+#set ($primaryKey = $commonUtils.getPrimaryKey($table))
+#set ($primaryKeyVariable = $formatUtils.getJavaNameVariable($commonUtils.getPK($table)))
+#set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($table)))
+#set ($primaryKeyFullType = $commonUtils.getPrimaryKeyFullType($table))
+#set ($pK = $commonUtils.getPK($table))
+#set ($hasPrimaryKey = $commonUtils.hasPrimaryKey($table))
+#set ($bundle = $bslaLibraryUtils.getBundle($table))
+#set ($primaryKeyCount = $commonUtils.getPrimaryKeyCount($table))
+#end
+#macro (exposeVariableModelSpecific)
+#exposeVariableModelDetailSpecific()
+#end
+
+#macro(exposeVariableModelDetailSpecific)
+#set ($database = $model.dataModel.database)
+#set ($configuration = $model.configuration)
+#set ($businessPackages = $model.businessModel.businessPackage.packages)
+#set ($className = $commonUtils.getClassName($model, $template))
+#set ($packageName = $commonUtils.getPackageName($model, $template))
+#end
+
+#macro(exposeVariablePackageSpecific)
+#set ($model = $package.businessPackage.businessModel.model)
+#exposeVariableModelSpecific()
+#end
+
+#macro (exposeVariableApplicationSpecific)
+#exposeVariableModelDetailSpecific()
+#set ($distinctTemplateTargetList = $commonUtils.getDistinctTemplateTargetList($model))
+#end
+
+#macro (putReferenceParams)
+#set ($linktable = ${reference.tableName})
+#set ($linktableDB = ${reference.table})
+#set ($linkclass = $formatUtils.getJavaName(${reference.tableName}))
+#set ($link = $formatUtils.getJavaNameVariable(${reference.tableName}))
+#set ($columnclass = $formatUtils.getJavaName(${reference.columnName}))
+#set ($column = $formatUtils.getJavaNameVariable(${reference.columnName}))
+#set ($columnType = $commonUtils.getType($reference.column))
+#set ($columnFullType = $commonUtils.getFullType($reference.column))
+#set ($columnDB = $reference.column)
+#set ($varclass = "${linkclass}_$columnclass")
+#set ($var = "${link}_$columnclass") 
+#set ($associatedPackageName = $commonUtils.getAssociatedBusinessPackageName($model, $reference.tableName))
+## resource bundle
+#set ($resource = "${table.name}.$var")
+#end
+
+#macro (putReferenceParams2old)
+#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
+#set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
+#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
+#set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
+#set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+#set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
+#end
+
+
+#macro (putReferenceParams2)
+#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
+#set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
+#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
+#set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
+#set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+#set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
+#end
+
+#macro (putColumnParams)
+#set ($columnType = $commonUtils.getJavaType($column.type))
+#set ($columnClass = $formatUtils.getJavaName($column.name))
+#set ($columnVar = $formatUtils.getJavaNameVariable($column.name))
+#set ($isColumnUnique = $TableUtils.isUnique($table, $column))
+#set ($isMandatory = $column.isRequired())
+#set ($resource = "${table.name}.$columnVar")
+#end
+
+#macro (putImportParams)
+#set ($tableDB = $table)
+#set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport($model, $tableDB, $template))
+##set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+#set ($daoInterfaceName = $bslaLibraryUtils.getDaoInterfaceName($tableDB, $template))
+##set ($daoInterfaceNameUML = $bslaLibraryUtils.getDaoInterfaceUMLName($tableDB, $template))
+#set ($daoInterfaceVariableName = $bslaLibraryUtils.getDaoInterfaceVariableName($tableDB, $template))
+##set ($daoInterfaceClassName = $bslaLibraryUtils.getDaoInterfaceClassName($tableDB, $template))
+##set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
+##set ($daoInterfaceClassNameUML = $bslaLibraryUtils.getDaoInterfaceClassUMLName($tableDB, $template))
+#set ($importDaoInterface = $bslaLibraryUtils.getDaoInterfaceImport($model, $tableDB, $template))
+##set ($importDaoInterfaceUML = $bslaLibraryUtils.getDaoInterfaceUMLImport($model, $tableDB, $template))
+#set ($importIbatisDaoSqlImplName = $bslaLibraryUtils.getIbatisDaoSqlImplImport($model, $tableDB, $template))
+##set ($importHibernateImplName = $bslaLibraryUtils.getHibernateImplNameImport($model, $tableDB, $template))
+#end
+
+#macro (putImportParamsUML)
+#set ($tableDB = $table)
+#set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport($model, $tableDB, $template))
+#set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+#set ($daoInterfaceName = $bslaLibraryUtils.getDaoInterfaceName($tableDB, $template))
+#set ($daoInterfaceNameUML = $bslaLibraryUtils.getDaoInterfaceUMLName($tableDB, $template))
+#set ($daoInterfaceVariableName = $bslaLibraryUtils.getDaoInterfaceVariableName($tableDB, $template))
+#set ($daoInterfaceClassName = $bslaLibraryUtils.getDaoInterfaceClassName($tableDB, $template))
+#set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
+#set ($daoInterfaceClassNameUML = $bslaLibraryUtils.getDaoInterfaceClassUMLName($tableDB, $template))
+#set ($importDaoInterface = $bslaLibraryUtils.getDaoInterfaceImport($model, $tableDB, $template))
+#set ($importDaoInterfaceUML = $bslaLibraryUtils.getDaoInterfaceUMLImport($model, $tableDB, $template))
+#set ($importIbatisDaoSqlImplName = $bslaLibraryUtils.getIbatisDaoSqlImplImport($model, $tableDB, $template))
+#set ($importHibernateImplName = $bslaLibraryUtils.getHibernateImplNameImport($model, $tableDB, $template))
+#end
+
+#macro (exposeImportParams $tableDB)
+#set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport2($model, $tableDB, $template))
+##set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+#end
+
+#macro (exposeImportParamsUML $tableDB)
+#set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport2($model, $tableDB, $template))
+#set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+#end
+
+
+#macro (exposeVariableEntitySpecificSqlMapConfig)
+#set ($template = $commonUtils.getTemplate($configuration,"BslaIbatisDaoSqlMapXml"))
+#exposeVariableEntitySpecific()
+##exposeFileName($template $tableClassName)
+#exposeFileName($template $table.name)
+#end
+
+#macro (exposeVariableEntitySpecificHibernateMapConfig)
+#set ($template = $commonUtils.getTemplate($configuration,"Hibernate.hbm.xml"))
+#exposeVariableEntitySpecific()
+#exposeArtifactRelativePathDirAndFullName($template $table)
+#end
+
+#macro (exposeArtifactRelativePathDirAndFullName $template $table)
+#set ($artifactRelativePathDirAndFullName = $commonUtils.getArtifactRelativePathDirAndFullName($template, $table))
+#end
+
+#macro (exposeVariableEntitySpecificBslaDaoIbatis)
+#set ($template = $commonUtils.getTemplate($configuration,"BslaIbatisDaoSqlImpl"))
+#putImportParams()
+#end
+
+#macro (exposeVariableEntitySpecificBslaDomainObject)
+#set ($template = $commonUtils.getTemplate($configuration,"BslaDomainObject"))
+#end
+
+#macro (exposeFileName $template $name)
+#set ($filename = $commonUtils.getFileName($template, $name))
+#set ($classpathName = $commonUtils.getclasspathName($template, $name))
+#end
+
+#macro (exposeEnvironmentParams)
+#set ($PKLookUpString = $databaseUtils.providePrimaryKeyLookUpString($table))
+#end
+
+#macro (exposeArchitectureParams)
+#set ($ibatisTemplateName = "sqlMapClient${model.name}Template")
+#set ($hibernateFactoryName = "hibernate${model.name}Factory")
+#end
+
+#macro (exposeJstlScopeItems $instance $attribute)
+#exposeJstlCombinaison($instance $attribute)
+#set($items = $combi)
+#end
+
+#macro (exposeJstlEntity $instance $attribute)
+#exposeJstlCombinaison($instance $attribute)
+#set($entity = $combi)
+#end
+
+#macro (exposeJstlSingle $element)
+#set ($itemsFirst = '${')
+#set ($itemsLast = '}')
+#set ($element = "${itemsFirst}${element}${itemsLast}")
+#end
+
+#macro (exposeJstlCombinaison $element1 $element2)
+#set ($itemsFirst = '${')
+#set ($itemsSeparator = '.')
+#set ($itemsLast = '}')
+#set ($combi = "${itemsFirst}${element1}${itemsSeparator}${element2}${itemsLast}")
+#end
+
+#macro (importBackEnd)
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#putImportParams()
+import $importDomainObject;
+import $importDaoInterface;
+#end
+	#end
+#end
+
+#macro (exposeJdbcParam $param)
+#set ($itemsFirst = '${')
+#set ($itemsLast = '}')
+#set ($paramResult = "${itemsFirst}${param}${itemsLast}")
+#end
+
+#macro(exposeJdbc)
+#set ($jdbc = "jdbc.${model.name}")
+#set ($jdbcDriverClassName = "${jdbc}.driverClassName")
+#set ($jdbcUrl = "${jdbc}.url")
+#set ($jdbcUsername = "${jdbc}.username")
+#set ($jdbcPassword = "${jdbc}.password")
+#end
+
+#macro (exposeWebProperties)
+#set ($defaultRootURLBeginner = $WebUtils.getDefaultRootURLBeginner($model))
+#set ($sitemeshMainDecoratorFile = $WebUtils.getSitemeshMainDecorator($model))
+#set ($sitemeshMainDecoratorDir = $WebUtils.getSitemeshMainDecoratorDir($model))
+#set ($projectDefaultServletName = $WebUtils.getProjectDefaultServletName($model))
+#set ($projectDefaultServletClasspath = $WebUtils.getProjectDefaultServletClasspath($model))
+#set ($defaultHomePageContent = $WebUtils.getDefaultHomePageContent($model))
+#set ($springConfigMain = $WebUtils.getSpringConfigMainInRootClassPath($model))
+#end
