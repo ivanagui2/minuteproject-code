@@ -104,7 +104,7 @@
                 <classpath refid="compile.classpath"/>
                 <src path="${business.src-generated.dir}"/>
                 <src path="${business.src-architecture.dir}"/>
-            	<src path="${business.properties.dir}"/>
+            	<!--<src path="${business.properties.dir}"/>-->
                 <include name="**/*.java"/>
             </javac>
         </sequential>
