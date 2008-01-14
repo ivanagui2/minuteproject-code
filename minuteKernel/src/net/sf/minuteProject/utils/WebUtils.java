@@ -7,6 +7,7 @@ public class WebUtils {
 	public static final String SITEMESHMAINLAYOUT_TEMPLATE = "SitemeshMainLayout";
 	public static final String GEN_CRUD_SERVLET_TEMPLATE = "GenCRUDServlet";
 	public static final String BSLASPRINGCONFIG_TEMPLATE = "BslaSpringConfig";
+	public static final String SITEMESH_MENU = "BslaWebMenu";
 	
 	public String getDefaultRootURLBeginner(Model model) {
 		return URLUtils.getDefaultRootURLBeginner();
@@ -29,7 +30,7 @@ public class WebUtils {
 	}
 	
 	public static String getDefaultHomePageContent(Model model) {
-		return CommonUtils.getArtifactRelativePathDirAndFullName (model, GEN_CRUD_SERVLET_TEMPLATE);						
+		return CommonUtils.getArtifactRelativePathDirAndFullName (model, SITEMESH_MENU);						
 	}
 	
 	public static String getSpringConfigMainInRootClassPath(Model model) {

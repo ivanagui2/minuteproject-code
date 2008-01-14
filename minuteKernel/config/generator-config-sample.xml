@@ -1,26 +1,26 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="sample">
+		<model name="conference">
 			<data-model>
-			    <fileSource name="sample" dir="c:/data/generator">
+			    <fileSource name="sample" dir="c:/MinuteProject/data">
 			    </fileSource>
 				<dataSource>
 				<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-				<url>jdbc:hsqldb:hsql://127.0.0.1:9001/sample</url>
+				<url>jdbc:hsqldb:hsql://127.0.0.1:9001/conference</url>
 				<username>sa</username>
 				<password></password>	
 				</dataSource>		
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
-					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="OPENREPORT_SEQ"></primaryKeyPolicyPattern>
+					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="SAMPLE_SEQ"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
 				</generation-condition>		
-				<business-package default="sample">
-					<condition type="package" startsWith="QRTZ" result="qrtz"></condition>
+				<business-package default="conference">
+					<condition type="package" startsWith="CONF" result="conference"></condition>
 				</business-package>							
 				<tables>
 					<table name="CODE_TABLE_TYPE">
@@ -32,10 +32,9 @@
 				</tables>
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" 
-		        name="default" 
-		        dir="C:/SET-YOUR-PATH/MP/minuteTemplate/template-bsla" 
-		        fileName="mp.xml">
+		<target refname="BackendOnBsla" name="default" dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" fileName="mp.xml">
+			<property name="web.artifacts.output.dir"></property>
+			<property name="backend.artifacts.output.dir"></property>
 		</target> 	
 	</configuration>
 </generator-config>

@@ -105,18 +105,6 @@ public class ModelGenerator extends AbstractGenerator {
 		model.getBusinessModel().complementDataModel();
 	}
 
-	/*public View load2() throws Exception {
-		View view = new View();
-		InputStream input = getClass().getClassLoader()
-				.getSystemResourceAsStream(getConfigurationFile());
-		URL rulesURL = getClass().getClassLoader().getResource(
-				getConfigurationRulesFile());
-		Digester digester = DigesterLoader.createDigester(rulesURL);
-		digester.push(view);
-		digester.parse(input);
-		return view;
-	}*/
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -188,7 +176,7 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	private void generateArtifactsByApplication(Template template) throws Exception {	
-		generateArtifactsByModel(template);
+		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
 	private void writeTemplateResult(GeneratorBean bean,
@@ -219,6 +207,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("URLUtils", new URLUtils());
 		context.put("TestUtils", new TestUtils());
 		context.put("WebUtils", new WebUtils());
+		context.put("model", model);
 	}
 
 }

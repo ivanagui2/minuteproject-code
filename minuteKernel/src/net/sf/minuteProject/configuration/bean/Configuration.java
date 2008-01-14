@@ -26,4 +26,13 @@ public class Configuration extends AbstractConfigurationRoot{
 		this.model = model;
 	}
 	
+	public String getTechnicalPackage(Template template) {
+		return template.getPackageRoot();
+	}
+	
+	public String getName () {
+		if (super.getName()==null)
+			return model.getName();
+		return getName();
+	}
 }
