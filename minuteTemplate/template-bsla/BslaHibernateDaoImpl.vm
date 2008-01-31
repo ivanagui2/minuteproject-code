@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-#putImportParams()
+#putImportParamsUML()
 package $packageName;
 
 import java.util.List;
@@ -59,11 +59,11 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * $tableClassName
      * @param Long id
      * @return $tableClassName The $tableClassName entity
-     */
+     
     public $tableClassName load$tableClassName(Long id) {
     	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, id);
     }
-
+*/
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName

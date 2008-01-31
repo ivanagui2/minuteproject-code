@@ -21,6 +21,13 @@
 #exposeJdbcParam($jdbcPassword)
         <property name="password"><value>$paramResult</value></property>
     </bean>
+    
+<!--    
+    <bean id="${model.name}DataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+#exposeJdbcParam($jdbcJNDI)
+        <property name="jndiName"><value>$paramResult</value></property>
+    </bean>
+-->        
 
     <bean id="${model.name}TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource"><ref bean="${model.name}DataSource"/></property>

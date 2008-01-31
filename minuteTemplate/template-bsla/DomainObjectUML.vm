@@ -5,12 +5,18 @@ import java.sql.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
 
 import net.sf.minuteProject.architecture.bsla.domain.DomainObject;
-#foreach ($reference in $parentReferences)
-#putReferenceParams()
-#exposeImportParams($reference.table)
-import $importDomainObject;
+#foreach ($reference in $table.children)
+#exposeImportParamsUML($reference.foreignTable)
+import $importDomainObjectUML;
+#end
+#foreach ($reference in $table.parents)
+#exposeImportParamsUML($reference.foreignTable)
+import $importDomainObjectUML;
 #end
 
 /**
@@ -32,16 +38,26 @@ public class ${className} implements DomainObject {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    private $linkedTableClass ${linkedTableVariable}${linkedColumnClass};
+    private $linkedTableClass ${linkedTableVariable}${linkedColumnClass}; //${linkedTableVariable}${linkedColumnClass}
 #end
 
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-    private List <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s;
+    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
 #end
 
     public ${className}() {
     }
+
+#if($hasPrimaryKey)
+	    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
+        return $primaryKey;
+    }
+	
+    public void set$primaryKeyJavaNameClass ($primaryKeyFullType $primaryKey) {
+        this.$primaryKey = $primaryKey;
+    }
+#end
 
 #foreach ($column in ${table.attributes})
 #putColumnParams()
@@ -67,14 +83,14 @@ public class ${className} implements DomainObject {
 
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-    public List get${linkedTableVariable}${linkedColumnClass}s() {
+    public Set get${linkedTableClass}${linkedColumnClass}s() {
         if (${linkedTableVariable}${linkedColumnClass}s == null){
-            ${linkedTableVariable}${linkedColumnClass}s = new ArrayList();
+            ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
         }
         return ${linkedTableVariable}${linkedColumnClass}s;
     }
 
-    public void set${linkedTableVariable}${linkedColumnClass}s (List ${linkedTableVariable}${linkedColumnClass}s) {
+    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s) {
         this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
     }	
     

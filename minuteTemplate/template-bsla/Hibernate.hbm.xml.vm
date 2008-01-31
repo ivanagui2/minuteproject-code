@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-#putImportParams()
+#putImportParamsUML()
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE hibernate-mapping PUBLIC
@@ -21,16 +21,22 @@
 #putColumnParams()
 	<property name="$columnVar" column="$column.name" #if($column.isRequired())not-null="true"#else not-null="false"#end #if($isColumnUnique)unique="	true"#else unique="false"#end/> #end
 
-#foreach ($reference in $parentReferences)
-#putReferenceParams()
-#exposeImportParams($reference.table)
-	<many-to-one name="$column" class="$importDomainObjectUML" column="$reference.columnName" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end cascade="all"/>	
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#exposeImportParamsUML($reference.foreignTable)
+	<many-to-one name="${linkedTableVariable}${linkedColumnClass}" 
+	 class="$importDomainObjectUML" 
+	 column="$reference.localColumnName" 
+	 #if($columnDB.isRequired())not-null="true"#else not-null="false"#end 
+	 cascade="all"
+	 insert="false"
+	 update="false"/>	
 #end
 
-#foreach ($reference in $childReferences)
-#putReferenceParams()
-#exposeImportParams($reference.table)       <set name="${var}s">
-        <key column="$columnDB.name" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end/>
+#foreach ($reference in $table.children)
+#putReferenceParams2()
+#exposeImportParamsUML($reference.foreignTable)      <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName">
+        <key column="$reference.foreignColumnName" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end/>
         <one-to-many class="$importDomainObjectUML"/>
     </set>		    
 #end  

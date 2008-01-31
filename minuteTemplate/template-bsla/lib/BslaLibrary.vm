@@ -153,7 +153,7 @@
 #end
 
 #macro (exposeVariableEntitySpecificHibernateMapConfig)
-#set ($template = $commonUtils.getTemplate($configuration,"Hibernate.hbm.xml"))
+#set ($template = $commonUtils.getTemplate($configuration,"HibernateMap"))
 #exposeVariableEntitySpecific()
 #exposeArtifactRelativePathDirAndFullName($template $table)
 #end
@@ -230,6 +230,7 @@ import $importDaoInterface;
 #set ($jdbcUrl = "${jdbc}.url")
 #set ($jdbcUsername = "${jdbc}.username")
 #set ($jdbcPassword = "${jdbc}.password")
+#set ($jdbcJNDI = "${jdbc}.jndi")
 #end
 
 #macro (exposeWebProperties)
