@@ -4,7 +4,7 @@
 <beans>
 
 #foreach ($table in ${package.listOfTables})
-#exposeVariableEntitySpecificBslaDaoIbatis()
+#putImportParamsUML()
 #exposeArchitectureParams()
     <bean id="$daoInterfaceVariableName" class="$importHibernateImplName" singleton="false">
         <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>

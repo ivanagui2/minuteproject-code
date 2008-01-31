@@ -1,4 +1,5 @@
 #exposeVariableModelSpecific()
+#exposeArchitectureParams()
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
@@ -12,7 +13,7 @@
     <import resource="classpath:${pathDaoHibernate}.xml"/>    
 
     <!-- hibernate config to put in an appart config file-->
-    <bean id="sessionFactory" autowire="byName"
+    <bean id="$hibernateFactoryName" autowire="byName"
         class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="configLocation" value="${pathHibernateConfig}.cfg.xml" />
         <property name="hibernateProperties">

@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-#putImportParams()
+#putImportParamsUML()
 package $packageName;
 
 import $importDomainObjectUML;
@@ -48,9 +48,9 @@ public interface $className extends DataAccessObject {
      * $tableClassName
      * @param Long id
      * @return $tableClassName The $tableClassName entity
-     */
+     
     public $tableClassName load$tableClassName(Long id);
-
+*/
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName

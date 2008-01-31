@@ -17,7 +17,7 @@
    <!-- $package.name -->
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecificHibernateMapConfig()
-   <sqlMap resource="$artifactRelativePathDirAndFullName"/>
+   <mapping resource="$artifactRelativePathDirAndFullName"/>
 #end
 #end
 				
