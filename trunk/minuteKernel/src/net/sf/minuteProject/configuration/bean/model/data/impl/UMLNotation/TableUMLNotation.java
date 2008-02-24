@@ -22,7 +22,7 @@ public class TableUMLNotation extends TableAbstract {
 		if (noPrimaryKeyNoForeignKeyColumnsName == null) {
 			noPrimaryKeyNoForeignKeyColumnsName = new ArrayList<Column>();
 			for (int i = 0; i < getNoPrimaryKeyNoForeignKeyColumns().length; i++) {
-				ColumnUMLNotation columnUMLNotation = new ColumnUMLNotation (getNoPrimaryKeyNoForeignKeyColumns()[i]);
+				ColumnUMLNotation columnUMLNotation = new ColumnUMLNotation (getNoPrimaryKeyNoForeignKeyColumns()[i], this);
 				noPrimaryKeyNoForeignKeyColumnsName.add(columnUMLNotation);
 			}
 		}

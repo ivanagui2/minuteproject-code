@@ -27,11 +27,14 @@ import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.SqlUtils;
+import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.TestUtils;
 import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
@@ -199,6 +202,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private void putCommonContextObject(VelocityContext context) {
 		context.put("convertUtils", new ConvertUtils());
 		context.put("commonUtils", new CommonUtils());
+		context.put("columnUtils", new ColumnUtils());
 		context.put("viewUtils", new ViewUtils());
 		context.put("formatUtils", new FormatUtils());
 		context.put("bslaLibraryUtils", new BslaLibraryUtils());
@@ -207,6 +211,9 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("URLUtils", new URLUtils());
 		context.put("TestUtils", new TestUtils());
 		context.put("WebUtils", new WebUtils());
+		context.put("sqlUtils", new SqlUtils());
+		context.put("tableUtils", new TableUtils());
+		context.put("testUtils", new TestUtils());
 		context.put("model", model);
 	}
 

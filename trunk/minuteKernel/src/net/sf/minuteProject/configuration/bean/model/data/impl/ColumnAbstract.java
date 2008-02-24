@@ -2,13 +2,16 @@ package net.sf.minuteProject.configuration.bean.model.data.impl;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 public abstract class ColumnAbstract extends AbstractConfiguration implements Column{
 
 	private Column column;
+	private Table table;
 	
-	public ColumnAbstract(Column column) {
+	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
+		this.table = table;
 	}
     /**
      * Returns the name of the column.
@@ -378,4 +381,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
     	return column.toVerboseString();
     }
 
+	public Table getTable() {
+		return table;
+	}
 }

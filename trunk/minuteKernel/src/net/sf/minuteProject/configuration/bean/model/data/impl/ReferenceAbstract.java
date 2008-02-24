@@ -132,4 +132,8 @@ public abstract class ReferenceAbstract implements Reference{
     	return reference.getForeignTableName();
     }    
 
+	public void setLocalColumn(Column localColumn) {
+		reference.setLocalColumn(localColumn);
+		
+	}
 }

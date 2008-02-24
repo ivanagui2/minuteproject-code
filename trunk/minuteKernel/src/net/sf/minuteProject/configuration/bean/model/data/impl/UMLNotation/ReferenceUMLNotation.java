@@ -9,11 +9,17 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 
 	TableUMLNotation foreignTable;
 	ColumnUMLNotation foreignColumn;
+	TableUMLNotation localTable;
+	ColumnUMLNotation localColumn;
+	
+	
 	
 	public ReferenceUMLNotation(Reference reference) {
 		super(reference);
 		foreignTable = new TableUMLNotation (reference.getForeignTable());
-		foreignColumn = new ColumnUMLNotation (reference.getForeignColumn());
+		foreignColumn = new ColumnUMLNotation (reference.getForeignColumn(), foreignTable);
+		localTable = new TableUMLNotation (reference.getLocalTable());
+		localColumn = new ColumnUMLNotation (reference.getLocalColumn(), localTable);
 	}
 
 	public Table getForeignTable () {
@@ -27,5 +33,34 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 	public String getForeignColumnName () {
 		return foreignColumn.getName();
 	}
+	
+	public Column getLocalColumn () {
+		return localColumn;
+	}
+	
+	public String getLocalColumnName () {
+		if (localColumn==null)
+			return "NULL_VALUE";
+		return localColumn.getName();
+	}
+
+	public String getLocalTableName() {
+		return localTable.getName();
+	}
+
+	public void setLocalTableName(String localTableName) {
+		
+	}
+
+	public TableUMLNotation getLocalTable() {
+		return localTable;
+	}
+
+	public void setLocalTable(Table localTable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }
