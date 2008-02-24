@@ -13,7 +13,7 @@ public class BslaLibraryUtils extends CommonUtils{
 	// TODO then clean the whole dirty stuff
 	// use introspection instead
 	public static final String BslaDomainObjectTemplateName = "BslaDomainObject";
-	public static final String BslaDomainObjectUMLTemplateName = "DomainObject";
+	public static final String BslaDomainObjectUMLTemplateName = "DomainObjectUML";
 	public static final String BslaIbatisDaoSqlImplTemplateName = "BslaIbatisDaoSqlImpl";
 	public static final String BslaHiberateImplTemplateName = "BslaHibernateDaoImplUML";	
 	public static final String BslaDaoInterfaceTemplateName = "BslaDaoInterface";

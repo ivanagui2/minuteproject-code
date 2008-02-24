@@ -52,7 +52,15 @@
 					<alias attr-name="service-specific" prop-name="serviceSpecific" />
 					<alias attr-name="function-specific" prop-name="functionSpecific" />
 					<alias attr-name="application-specific" prop-name="applicationSpecific" />
-				</set-properties-rule> 					
+				</set-properties-rule> 	
+				<pattern value="property">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+					<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="value" prop-name="value" />
+					</set-properties-rule>
+				</pattern>				
 			</pattern>
 		</pattern>				  
   </pattern>

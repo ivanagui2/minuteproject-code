@@ -73,12 +73,12 @@ public class TableDDLUtils extends TableAbstract {
 
 	public Column findColumn(String name) {
 		// TODO Auto-generated method stub
-		return new ColumnDDLUtils(table.findColumn(name));
+		return new ColumnDDLUtils(table.findColumn(name), this);
 	}
 
 	public Column findColumn(String name, boolean caseSensitive) {
 		// TODO Auto-generated method stub
-		return new ColumnDDLUtils(table.findColumn(name, caseSensitive));
+		return new ColumnDDLUtils(table.findColumn(name, caseSensitive), this);
 	}
 
 	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key) {
@@ -115,7 +115,7 @@ public class TableDDLUtils extends TableAbstract {
     	if (columns == null) {
     		columns = new ArrayList<Column>();
     		for (int i = 0; i < table.getColumnCount(); i++) {
-    			Column column = new ColumnDDLUtils (table.getColumn(i));
+    			Column column = new ColumnDDLUtils (table.getColumn(i), this);
     			columns.add(column);
     		}
     	}
@@ -129,7 +129,7 @@ public class TableDDLUtils extends TableAbstract {
      * @return The column at this position
      */
     public Column getColumn(int idx) {
-    	return new ColumnDDLUtils (table.getColumn(idx));
+    	return new ColumnDDLUtils (table.getColumn(idx), this);
     }
     
 	public ForeignKey getForeignKey(int idx) {
@@ -178,7 +178,7 @@ public class TableDDLUtils extends TableAbstract {
     		primaryKeys = new ArrayList<Column>();
     		org.apache.ddlutils.model.Column [] primaryKeyColumns = table.getPrimaryKeyColumns();
     		for (int i = 0; i < primaryKeyColumns.length; i++) {
-    			Column primaryKey = new ColumnDDLUtils (primaryKeyColumns[i]);
+    			Column primaryKey = new ColumnDDLUtils (primaryKeyColumns[i], this);
     			primaryKeys.add(primaryKey);
     		}
     	}
@@ -276,27 +276,14 @@ public class TableDDLUtils extends TableAbstract {
     			org.apache.ddlutils.model.ForeignKey foreignKeyddlutils = table.getForeignKeys()[i];
     			org.apache.ddlutils.model.Reference referenceddlutils = foreignKeyddlutils.getFirstReference();
 				Reference reference = new ReferenceDDLUtils (referenceddlutils);
-				// populate reference
-				/*
-				String tablename = foreignKeyddlutils.getForeignTableName();
-				Table table = TableUtils.getTable(database,tablename);
-				Column column = ColumnUtils.getColumn(table, reference.getLocalColumnName());
-				reference.setForeignColumn(column);
-				if (column != null)
-					reference.setForeignColumnName(column.getName());
-				else {
-					System.out.println ("error in ref : no column on "+table.getName()+" - "+reference.getLocalColumnName());
-					error = true;
-				}
-				reference.setForeignTable(table);
-				reference.setForeignTableName(table.getName());
-				
-				*/
-    			//reference = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference ());
-				reference.setForeignColumn(new ColumnDDLUtils(referenceddlutils.getForeignColumn()));
+
+				Table foreignTable = TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName());
+				reference.setForeignColumn(new ColumnDDLUtils(referenceddlutils.getForeignColumn(),foreignTable));
 				reference.setForeignColumnName(referenceddlutils.getForeignColumnName());
-				reference.setForeignTable(TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName()));
+				reference.setForeignTable(foreignTable);
 				reference.setForeignTableName(foreignKeyddlutils.getForeignTableName());
+				reference.setLocalColumn(new ColumnDDLUtils(referenceddlutils.getLocalColumn(), this));
+				reference.setLocalTable(new TableDDLUtils(table));
 				if (reference.getForeignColumnName()==null) {
 					System.out.println ("error in ref : no column on "+table.getName()+" - "+reference.getLocalColumnName());
 					error = true;
@@ -331,18 +318,18 @@ public class TableDDLUtils extends TableAbstract {
 		        			columnRef = ref.getLocalColumnName();
 		        			Column column = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
 		        			//reference = new Reference(tables[i], column2, tables[i].getName(), ref.getLocalColumnName());
-		        			
-		        			reference = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference ());
+
+		        			//org.apache.ddlutils.model.ForeignKey foreignKeyddlutils = tables[i].getForeignKeys()[j].getFirstReference();
+		        			//org.apache.ddlutils.model.Reference referenceddlutils = foreignKeyddlutils.getFirstReference();
+		    				reference = tables[i].getForeignKeys()[j].getFirstReference();
+		    				
+		        			//reference = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference ());
 		    				reference.setForeignColumn(column);
 		    				reference.setForeignColumnName(column.getName());
 		    				reference.setForeignTable(tables[i]);
 		    				reference.setForeignTableName(tables[i].getName());
-		    				
-		        			//reference = new Reference(tables[i], ref.getForeignColumn(), tables[i].getName(), ref.getForeignColumnName());
-		        			//reference.setTableName(tables[i].getName());
-		        			//reference.setColumnName(columnRef);
-		        			//reference.setTable(tables[i]);
-		    				//children.add(reference);
+		    				reference.setLocalColumn(TableUtils.getPrimaryFirstColumn(new TableDDLUtils(table)));
+		    				reference.setLocalTable(new TableDDLUtils(table));
 		    				addReference(children, reference);
 		        		}
 	        		}

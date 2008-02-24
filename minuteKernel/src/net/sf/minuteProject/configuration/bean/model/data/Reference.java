@@ -36,14 +36,31 @@ public interface Reference extends Cloneable, Serializable
      * @return The local column
      */
     public Column getLocalColumn();
+    
 
     /**
      * Sets the local column.
      *
      * @param localColumn The local column
-     
+   */  
     public void setLocalColumn(Column localColumn);
-*/
+    
+    /**
+     * Returns the local table.
+     *
+     * @return The local table
+     */
+    public String getLocalTableName();
+    
+
+    /**
+     * Sets the local table.
+     *
+     * @param localTable The local table
+   */  
+    public void setLocalTableName(String localTableName);
+    
+
     /**
      * Returns the foreign column.
      *
@@ -97,6 +114,11 @@ public interface Reference extends Cloneable, Serializable
 	public void setForeignTableName(String foreignTableName);
 	
 	public String getForeignTableName ();
+	
+	public void setLocalTable(Table localTable);
+	
+	public Table getLocalTable();
+
 }
 
 

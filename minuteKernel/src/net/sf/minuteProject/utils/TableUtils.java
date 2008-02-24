@@ -58,6 +58,10 @@ public class TableUtils {
 		}
 		return false;
 	}
+	
+	public static boolean isMany2Many (Table table) {
+		return table.isManyToMany();
+	}
 	/*
 	public static Table getOtherEnd (Table origin, Table many2many) {
 		if (many2many.isManyToMany()) {		

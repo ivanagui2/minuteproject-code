@@ -119,6 +119,7 @@ public class ModelUtils {
 			Table table2 = TableUtils.getTable(database,tablename);
 			//reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
 			reference = new Reference(table2, ref.getLocalColumn(), tablename, ref.getLocalColumnName());
+			//ref.get
 			addReference(list, reference);				
 		}
 		return list;

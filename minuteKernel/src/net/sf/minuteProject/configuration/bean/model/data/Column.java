@@ -233,5 +233,7 @@ public interface Column extends Cloneable, Serializable
     
     //added methods
     public String toVerboseString();
+    
+    public Table getTable ();
 }
 

@@ -139,7 +139,7 @@ public class CommonUtils {
 		return getClassName(table, templateTarget);
 	}
 	
-	protected static String getTemplateClassName (Table table, String targetTemplateName) {
+	public static String getTemplateClassName (Table table, String targetTemplateName) {
 		//Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		Template templateTarget = getTargetTemplate(table.getDatabase().getDataModel().getModel(), targetTemplateName);
 		if (templateTarget==null) {
@@ -262,7 +262,7 @@ public class CommonUtils {
 	
 	public static String getPrimaryKeyFullType (Table table) {
 		if (table.hasPrimaryKey())
-			return getFullType(TableUtils.getPrimaryFirstColumn(table));
+			return getFullType2(TableUtils.getPrimaryFirstColumn(table));
 		return "ERROR-NO PK found for table "+table.getName();
 	}		
 	
@@ -274,7 +274,11 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(column.getType());
 	}	
 	
-	public static String getFullType (Column column) {
+	public static String getFullType2 (Column column) {
+		if (column == null) {
+			logger.info("ERROR the column is null");
+			return "ERROR column is null";
+		}
 		return ConvertUtils.getJavaTypeFromDBFullType(column.getType());
 	}	
 	
@@ -283,6 +287,23 @@ public class CommonUtils {
 	}	
 	public static boolean hasPrimaryKey (Table table) {
 		return table.hasPrimaryKey();
+	}
+	/**
+	 * returns true if the table has a or more primary and all of the pk are user provided 
+	 * @param table
+	 * @return
+	 */
+	public static boolean isPkUserProvided (Table table) {
+		if (table.hasPrimaryKey()) {
+			Column [] columns = table.getPrimaryKeyColumns();
+			for (int i = 0; i < columns.length; i++) {
+				Column column = columns[i];
+				if (!ColumnUtils.isPkUserProvided(column))
+					return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public static String getLevelTemplateFullPath (AbstractConfiguration bean, Template template, String targetTemplateName) {
@@ -345,7 +366,7 @@ public class CommonUtils {
 		return table.getDatabase().getDataModel().getModel();
 	}
 	
-	protected static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
+	public static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
 		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
 	}
 	/**

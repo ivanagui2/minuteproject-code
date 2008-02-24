@@ -17,7 +17,7 @@ public class ConvertUtils {
 		if (dBType.equals("TIME"))
 			return  "java.lang.Timestamp";			
 		if (dBType.equals("DECIMAL"))
-			return  "java.math.BigDecimal";
+			return  "java.lang.Long";
 		if (dBType.equals("SMALLINT"))
 			return  "java.lang.String";	
 		if (dBType.equals("VARCHAR"))
@@ -34,6 +34,8 @@ public class ConvertUtils {
 			return  "java.lang.Integer";	
 		if (dBType.equals("NUMERIC"))
 			return  "java.lang.Integer";		
+		if (dBType.equals("NUMBER"))
+			return  "java.lang.Long";		
 		if (dBType.equals("DATE"))
 			return  "java.lang.Date";
 		if (dBType.equals("TIMESTAMP"))
@@ -62,7 +64,7 @@ public class ConvertUtils {
 		if (dBType.equals("TIME"))
 			return  "Timestamp";			
 		if (dBType.equals("DECIMAL"))
-			return  "java.math.BigDecimal";
+			return  "java.lang.Long";
 		if (dBType.equals("SMALLINT"))
 			return  "String";	
 		if (dBType.equals("VARCHAR"))
@@ -77,6 +79,8 @@ public class ConvertUtils {
 			return  "String";		
 		if (dBType.equals("INTEGER"))
 			return  "Integer";	
+		if (dBType.equals("NUMBER"))
+			return  "java.lang.Long";
 		if (dBType.equals("NUMERIC"))
 			return  "java.lang.Integer";		
 		if (dBType.equals("DATE"))

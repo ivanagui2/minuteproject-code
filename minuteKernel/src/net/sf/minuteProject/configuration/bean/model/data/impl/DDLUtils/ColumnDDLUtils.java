@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -24,9 +25,11 @@ public class ColumnDDLUtils implements Column
 {
 	
 	private org.apache.ddlutils.model.Column column;
+	private Table table;
 	
-	public ColumnDDLUtils(org.apache.ddlutils.model.Column column) {
+	public ColumnDDLUtils(org.apache.ddlutils.model.Column column, Table table) {
 		this.column = column;
+		this.table = table;
 	}
     /**
      * Returns the name of the column.
@@ -395,4 +398,12 @@ public class ColumnDDLUtils implements Column
     {
     	return column.toVerboseString();
     }
+    
+	public Table getTable() {
+		return table;
+	}
+	
+	public void setTable (Table table) {
+		this.table = table;
+	}
 }

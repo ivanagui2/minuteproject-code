@@ -37,6 +37,8 @@ public class ReferenceDDLUtils implements Reference
 	private String foreignColumnName;
 	private Table  foreignTable;
 	private String foreignTableName;
+	private Column localColumn;
+	private Table  localTable;
 	
     /**
      * Creates a new, empty reference.
@@ -75,7 +77,7 @@ public class ReferenceDDLUtils implements Reference
      */
     public Column getLocalColumn()
     {
-        return new ColumnDDLUtils (reference.getLocalColumn());
+        return new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
     }
 
     /**
@@ -150,7 +152,7 @@ public class ReferenceDDLUtils implements Reference
     public boolean equals(Object obj)
     {
     	return reference.equals(obj);
-    }*/
+    }
     public boolean equals(Object obj)
     {
         if (obj instanceof ReferenceDDLUtils)
@@ -165,7 +167,7 @@ public class ReferenceDDLUtils implements Reference
         {
             return false;
         }
-    }
+    }*/
     /**
      * {@inheritDoc}
      */
@@ -202,13 +204,44 @@ public class ReferenceDDLUtils implements Reference
 	
     public String getForeignTableName () {
     	return foreignTableName;
-    }    
+    }
+
+	public void setLocalColumn(Column localColumn) {
+		this.localColumn = localColumn;
+	}    
     
     
-    /*public boolean equals (Object object) {
+    public boolean equals (Object object) {
     	if (object instanceof ReferenceDDLUtils) {
-    		
+    		ReferenceDDLUtils toCompare = (ReferenceDDLUtils) object;
+    		if (toCompare.getForeignTableName().equals(getForeignTableName())
+    		    && toCompare.getForeignColumnName().equals(getForeignColumnName())
+    		    && toCompare.getLocalColumnName().equals(getLocalColumnName())
+    		    && toCompare.getLocalTableName().equals(getLocalTableName())
+    		    ) 
+    			return true;
+    		return false;
     	}
     	return false;
-    }*/
+    }
+
+	public String getLocalTableName() {
+		// TODO Auto-generated method stub
+		return localTable.getName();
+	}
+
+	public void setLocalTableName(String localTableName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Table getLocalTable() {
+		return localTable;
+	}
+
+	public void setLocalTable(Table localTable) {
+		this.localTable = localTable;
+	}
+
+
 }
