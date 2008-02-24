@@ -20,7 +20,8 @@ $table.name field values
 #foreach ($column in ${table.columns})
 	#putColumnParams()
 	#exposeJstlEntity($entityInSession $columnVar)
-#if(!$column.isPrimaryKey())
+
+#if(!$column.isPrimaryKey() || $columnUtils.isNaturalPk($column))
 		  <tr>
   <td>$columnVar #if($column.isRequired()) *#end</td>
 #if ($column.type=="VARCHAR" || $column.type=="CHAR")  
@@ -32,12 +33,21 @@ $table.name field values
 #end
 	  <td><span id="${columnVar}-error" class="error"></span></td>
   </tr>
-#else
+#end
+#if($column.isPrimaryKey())
 <input type="hidden" name="$columnVar" value="<c:out value="$entity"/>">
 #end
 #end
+<c:if test='${ _ManagementScreenPurpose == "manage"}'>
 <tr><td><input type="submit" value="Search" onclick="setAction('search');"></td></tr>
-<tr><td><input type="submit" value="Save" onclick="setAction('save');"></td></tr>
+<tr><td><input type="submit" value="Insert" onclick="setAction('insert');"></td></tr>
+</c:if>
+<c:if test='${ _ManagementScreenPurpose == "insert"}'>
+<tr><td><input type="submit" value="Insert" onclick="setAction('insert');"></td></tr>
+</c:if>
+<c:if test='${ _ManagementScreenPurpose == "update"}'>
+<tr><td><input type="submit" value="Update" onclick="setAction('update');"></td></tr>
+</c:if>
 </table>
 </form>
 </body>

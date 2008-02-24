@@ -21,13 +21,16 @@
 #set ($parentReferences = $modelUtils.getParents($database, $table))
 #set ($childReferences = $modelUtils.getChildren($database,$table))
 #set ($primaryKey = $commonUtils.getPrimaryKey($table))
+#set ($primaryKeyType = $commonUtils.getPrimaryKeyType($table))
 #set ($primaryKeyVariable = $formatUtils.getJavaNameVariable($commonUtils.getPK($table)))
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($table)))
 #set ($primaryKeyFullType = $commonUtils.getPrimaryKeyFullType($table))
 #set ($pK = $commonUtils.getPK($table))
 #set ($hasPrimaryKey = $commonUtils.hasPrimaryKey($table))
+#set ($isPkUserProvided = $commonUtils.isPkUserProvided($table))
 #set ($bundle = $bslaLibraryUtils.getBundle($table))
 #set ($primaryKeyCount = $commonUtils.getPrimaryKeyCount($table))
+#set ($isMany2Many = $tableUtils.isMany2Many($table))
 #end
 #macro (exposeVariableModelSpecific)
 #exposeVariableModelDetailSpecific()
@@ -59,7 +62,7 @@
 #set ($columnclass = $formatUtils.getJavaName(${reference.columnName}))
 #set ($column = $formatUtils.getJavaNameVariable(${reference.columnName}))
 #set ($columnType = $commonUtils.getType($reference.column))
-#set ($columnFullType = $commonUtils.getFullType($reference.column))
+#set ($columnFullType = $commonUtils.getFullType2($reference.column))
 #set ($columnDB = $reference.column)
 #set ($varclass = "${linkclass}_$columnclass")
 #set ($var = "${link}_$columnclass") 
@@ -74,9 +77,11 @@
 #set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
+#set ($localColumnType = $commonUtils.getType($reference.localColumn))
 #set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
 #set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+#set ($localColumnClass = $formatUtils.getJavaName(${reference.localColumn.name}))
+#set ($linkedParentVariable = '$linkedTableVariable$localColumnVariable')
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #end
 
@@ -84,20 +89,22 @@
 #macro (putReferenceParams2)
 #set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
 #set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
-#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
-#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
 #set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
 #set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+#set ($localColumnClass = $formatUtils.getJavaName(${reference.localColumnName}))
+#set ($localColumnType = $commonUtils.getType($reference.localColumn))
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
+#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumnName}))
+#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumnName}))
 #end
 
 #macro (putColumnParams)
+#set ($isForeignKey = $tableUtils.isForeignKey($column))
 #set ($columnType = $commonUtils.getJavaType($column.type))
 #set ($columnClass = $formatUtils.getJavaName($column.name))
 #set ($columnVar = $formatUtils.getJavaNameVariable($column.name))
-#set ($isColumnUnique = $TableUtils.isUnique($table, $column))
+#set ($isColumnUnique = $tableUtils.isUnique($table, $column))
 #set ($isMandatory = $column.isRequired())
 #set ($resource = "${table.name}.$columnVar")
 #end
@@ -109,8 +116,8 @@
 #set ($daoInterfaceName = $bslaLibraryUtils.getDaoInterfaceName($tableDB, $template))
 ##set ($daoInterfaceNameUML = $bslaLibraryUtils.getDaoInterfaceUMLName($tableDB, $template))
 #set ($daoInterfaceVariableName = $bslaLibraryUtils.getDaoInterfaceVariableName($tableDB, $template))
-##set ($daoInterfaceClassName = $bslaLibraryUtils.getDaoInterfaceClassName($tableDB, $template))
-##set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
+#set ($daoInterfaceClassName = $bslaLibraryUtils.getDaoInterfaceClassName($tableDB, $template))
+#set ($daoInterfaceVariableName = $bslaLibraryUtils.getDaoInterfaceVariableName($tableDB, $template))
 ##set ($daoInterfaceClassNameUML = $bslaLibraryUtils.getDaoInterfaceClassUMLName($tableDB, $template))
 #set ($importDaoInterface = $bslaLibraryUtils.getDaoInterfaceImport($model, $tableDB, $template))
 ##set ($importDaoInterfaceUML = $bslaLibraryUtils.getDaoInterfaceUMLImport($model, $tableDB, $template))
@@ -218,6 +225,16 @@ import $importDaoInterface;
 	#end
 #end
 
+#macro (importBackEndUML)
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#putImportParamsUML()
+import $importDomainObjectUML;
+import $importDaoInterfaceUML;
+#end
+	#end
+#end
+
 #macro (exposeJdbcParam $param)
 #set ($itemsFirst = '${')
 #set ($itemsLast = '}')
@@ -242,3 +259,14 @@ import $importDaoInterface;
 #set ($defaultHomePageContent = $WebUtils.getDefaultHomePageContent($model))
 #set ($springConfigMain = $WebUtils.getSpringConfigMainInRootClassPath($model))
 #end
+
+#macro (getTemplatePropertyValue $property)
+#set ($value = $template.getPropertyValue($property))
+#end
+
+
+#macro (getTestDependencies)
+#set ($importIbatisTestClass = $testUtils.getImportIbatisTestClass($model, $tableDB, $template, "iBatisDaoTest"));
+##set ($ibatisTestClass = $bslaLibraryUtils.getTemplateClassName($tableDB, $template, "iBatisDaoTest"));
+#end
+

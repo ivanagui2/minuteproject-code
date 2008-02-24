@@ -4,7 +4,7 @@
 <template-target 
 	rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
     templatedir = "template-bsla" 
-	libdir="lib/BslaLibrary.vm"
+	libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 	tool="velocity"
 	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE_HIB"
 	package-root="sf.net.openreports"
@@ -87,6 +87,24 @@
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>	
 
-	</template-target>				 
+	</template-target>	
+	<template-target 
+		rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+	    templatedir = "template-bsla" 
+		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+		tool="velocity"
+		outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE_HIB"
+		package-root="mp.example"
+		belongToPackage="true">		
+
+		<template package-root="my.servlet"
+			name="GenCRUDServlet" templateFileName="GenCRUDServlet1.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
+			file-extension="java" file-prefix="" file-suffix="CRUDServletHib" 
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="uml" value="true"/>
+		</template>		
+			
+	</template-target>					 
 			
 </target>	

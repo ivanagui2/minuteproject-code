@@ -11,8 +11,8 @@
 		<!--<cache usage="read-write" />-->
 
 #if($hasPrimaryKey)
-	<id name="$primaryKey" column="$pK" type="$primaryKeyFullType">            
-    <generator class="native"/>            
+	<id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
+    <generator class="sequence"/>            
 	</id>
 #end
 
@@ -24,18 +24,22 @@
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
-	<many-to-one name="${linkedTableVariable}${linkedColumnClass}" 
+<!-- readonly links -->
+	<property name="$localColumnVariable" column="${reference.localColumnName}" insert="false" update="false"/>
+
+	<many-to-one name="${linkedTableVariable}${localColumnClass}" 
 	 class="$importDomainObjectUML" 
 	 column="$reference.localColumnName" 
 	 #if($columnDB.isRequired())not-null="true"#else not-null="false"#end 
 	 cascade="all"
 	 insert="false"
-	 update="false"/>	
+	 update="false"
+	 />	
 #end
 
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-#exposeImportParamsUML($reference.foreignTable)      <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName">
+#exposeImportParamsUML($reference.foreignTable)      <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName" lazy="true">
         <key column="$reference.foreignColumnName" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end/>
         <one-to-many class="$importDomainObjectUML"/>
     </set>		    

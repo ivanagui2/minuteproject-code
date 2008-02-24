@@ -11,7 +11,12 @@ import javax.servlet.http.*;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import net.sf.minuteProject.architecture.bsla.factory.MyProjectFactory;
 
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
 #importBackEnd()
+#else
+#importBackEndUML()
+#end
 
    /**
     * Handles a single guestbook request from the client.
@@ -35,44 +40,61 @@ public class $className extends HttpServlet {
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecific()
-##putReferenceParams()
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
+#putImportParams()
+#else
+#putImportParamsUML()
+#end
 #exposeJSPPath()
         if (table.equals("$table.name")) {
-				$tableClassName entity = new $tableClassName();
-				populate(entity, req);
-				${tableClassName}Dao dao = (${tableClassName}Dao)MyProjectFactory.getBean("${tableVariableName}Dao");			
-				if (action.equals("insert")) {
-					dao.insert$tableClassName(entity);
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-				}
-				if (action.equals("manage")) {
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
-				}
-				if (action.equals("searchOnPk")) {
-					entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
-					List list = new ArrayList();
-					list.add(entity);					
-					session.setAttribute("${tableClassName}SearchResultList",list);
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-				}
-					if (action.equals("searchOnPkFull")) {
-					entity = dao.loadFullFirstLevel$tableClassName(entity);
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-				}
-				if (action.equals("edit")) {
-					entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
-				}
-				if (action.equals("add")) {
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
-				}
-				if (action.equals("save")) {
-					dao.save$tableClassName(entity);
-					doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-				}
-				if (action.equals("search")) {
-				List list = dao.search$tableClassName(entity);
-					doExit (req, res, list, "${tableClassName}SearchResultList", "$jspPath/${tableClassName}ResultListScreen.jsp");
+			$tableClassName entity = new $tableClassName();
+			populate(entity, req);
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
+			${daoInterfaceName} dao = (${daoInterfaceName})MyProjectFactory.getBean("${tableVariableName}Dao");			
+#else
+			${daoInterfaceNameUML} dao = (${daoInterfaceNameUML})MyProjectFactory.getBean("${tableVariableName}Dao");			
+#end			
+			if (action.equals("insert")) {
+				dao.insert$tableClassName(entity);
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+			}
+			if (action.equals("update")) {
+				dao.update$tableClassName(entity);
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+			}			
+			if (action.equals("manage")) {
+				session.setAttribute ("_ManagementScreenPurpose", "manage");
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
+			}
+			if (action.equals("searchOnPk")) {
+				entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
+				List list = new ArrayList();
+				list.add(entity);					
+				session.setAttribute("${tableClassName}SearchResultList",list);
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+			}
+			if (action.equals("searchOnPkFull")) {
+				entity = dao.loadFullFirstLevel$tableClassName(entity);
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+			}
+			if (action.equals("edit")) {
+			    session.setAttribute ("_ManagementScreenPurpose", "update");
+				entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
+			}
+			if (action.equals("add")) {
+				session.setAttribute ("_ManagementScreenPurpose", "insert");
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
+			}
+			if (action.equals("save")) {
+				dao.save$tableClassName(entity);
+				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+			}
+			if (action.equals("search")) {
+			    List list = dao.search$tableClassName(entity);
+				doExit (req, res, list, "${tableClassName}SearchResultList", "$jspPath/${tableClassName}ResultListScreen.jsp");
 			}
 		}									
 #end
