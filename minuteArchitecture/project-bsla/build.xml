@@ -15,8 +15,9 @@
 	
     <property name="home.dir" value="${migration.home.dir}"/>
 
-    <property name="business.dir" value="${project.src.dir}"/>	
-    <property name="project-bsla.dir" value="${business.dir}/project-bsla"/>	
+    <!--<property name="business.dir" value="${project.src.dir}"/>	-->
+	<property name="business.dir" value="."/>
+	<property name="project-bsla.dir" value="${business.dir}"/>	
 	<property name="business.properties.dir" value="${project-bsla.dir}/config"/>
 	<property name="business.lib.dir" value="${project-bsla.dir}/lib"/>
 	<property name="jdbc.driver.lib.dir" value="${project-bsla.dir}/lib-jdbc"/>
@@ -39,18 +40,6 @@
 
 	<property name="dependency.structure.default" value="${project-bsla.dir}/src-architecture-web/default"/>
 	
-	<!--
-    <property name="test.src.business.dir" value="${business.home.dir}/test"/>
-    <property name="generated.src.business.dir" value="${business.home.dir}/generated"/>
-    <property name="reports.dir" value="${common.reports.dir}"/>
-    <property name="dist.dir" value="${common.dist.dir}"/>
-    <property name="lib.dir" value="${common.lib.dir}"/>
-    <property name="doc.dir" value="${common.doc.dir}/migration"/>
-    <property name="config.basedir" value="${common.config.dir}/migration"/>
-    <property name="config.standalone.dir" value="${config.basedir}/standalone"/>
-    <property name="config.server.dir" value="${config.basedir}/server"/>
-     set local properties for the jar component -->
-	<!--<property name="archive.name" value="${package.migration.archive.basename}"/>-->
 	
 	<!-- ===================================================================== -->
     <!-- classpath definitions -->
@@ -99,8 +88,9 @@
     <macrodef name="macro_compile">
         <attribute name="debug"/>
         <attribute name="optimize"/>
+    	<attribute name="compile.dir"/>
         <sequential>
-            <javac debug="@{debug}" deprecation="false" destdir="${business.classes.dir}" optimize="@{optimize}" nowarn="false">
+            <javac debug="@{debug}" deprecation="false" destdir="@{compile.dir}" optimize="@{optimize}" nowarn="false">
                 <classpath refid="compile.classpath"/>
                 <src path="${business.src-generated.dir}"/>
                 <src path="${business.src-architecture.dir}"/>
@@ -118,6 +108,17 @@
                 <fileset dir="@{filesetDir}">
                     <include name="**/*.xml"/>
                     <include name="**/*.properties"/>
+                </fileset>
+            </copy>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="macro_copy">
+        <attribute name="todir"/>
+        <attribute name="filesetDir"/>
+        <sequential>
+            <copy todir="@{todir}" overwrite="true">
+                <fileset dir="@{filesetDir}">
                 </fileset>
             </copy>
         </sequential>
@@ -231,8 +232,8 @@
     <!-- target compile -->
     <target name="compile" depends="prepare">
         <title title="TASK compile" projectname="${project.name}" projectdir="${home.dir}"/>
-        <description>Compile the migration project</description>
-        <macro_compile debug="true" optimize="false"/>
+        <description>Compile the project</description>
+        <macro_compile debug="true" optimize="false" compile.dir="${business.classes.dir}"/>
     </target>
 	
     <!-- target archive -->
@@ -271,4 +272,25 @@
 	<!-- target testsuite -->
     <target name="build" depends="archive"/>
 		
+	<target name="compile-dev">
+        <title title="TASK compile dev" projectname="${project.name}" projectdir="${home.dir}"/>
+        <description>Compile the project</description>
+		<property file="build-dev.properties"/>
+        <macro_compile debug="true" optimize="false" compile.dir="${compile.dir}"/>
+	</target>
+	
+    <target name="resource-dev">
+        <title title="TASK resource dev" projectname="${project.name}" projectdir="${home.dir}"/>
+        <description>Copy all the properties and xml files to the working directory (classes.dir).</description>
+    	<macro_copy_resource todir="${compile.dir}" filesetDir="${business.src-generated.dir}"/>
+    	<macro_copy_resource todir="${compile.dir}" filesetDir="${business.src-architecture.dir}"/>
+    </target>	
+
+    <target name="frontend-dev">
+        <title title="TASK front end dev" projectname="${project.name}" projectdir="${home.dir}"/>
+        <description>Copy all the properties and xml files to the working directory (classes.dir).</description>
+    	<macro_copy todir="${dev.root.dir}" filesetDir="${src-generated-web.dir}"/>
+    </target>
+
+	<target name="dev" depends="compile-dev, resource-dev"/>
 </project>
