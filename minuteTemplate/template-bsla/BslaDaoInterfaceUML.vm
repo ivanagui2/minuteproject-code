@@ -65,7 +65,16 @@ public interface $className extends DataAccessObject {
      * @param Long id
      * @return $tableClassName The $tableClassName entity
      */
-    public $tableClassName loadFullFirstLevel$tableClassName(Long id);
+    public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable);
+    
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName
+     * @param $tableClassName $tableVariableName
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFullFirstLevel$tableClassName($tableClassName $tableVariableName);    
+    
     
     /**
      * Loads the $tableClassName entity which is related to an instance of

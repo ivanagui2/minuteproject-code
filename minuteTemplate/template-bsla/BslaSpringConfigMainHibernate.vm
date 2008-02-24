@@ -25,6 +25,6 @@
     </bean>
     
     <!-- Database -->
-    <import resource="${databaseConfig}.xml"/>    
+    <import resource="classpath:${databaseConfig}.xml"/>    
 
 </beans>

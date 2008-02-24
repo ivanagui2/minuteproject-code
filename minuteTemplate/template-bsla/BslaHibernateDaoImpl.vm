@@ -80,10 +80,53 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @param Long id
      * @return $tableClassName The $tableClassName entity
      */
-    public $tableClassName loadFullFirstLevel$tableClassName(Long id) {
-    	return null;//($tableClassName) getHibernateTemplate().queryForObject("loadFullFirstLevel$tableClassName", id);
+    public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable) {
+        List list = getHibernateTemplate().find(
+                     " FROM $tableClassName $tableVariableName "
+#foreach ($reference in $table.children)
+#putReferenceParams2()
+                     + " LEFT JOIN FETCH ${tableVariableName}.${linkedTableVariable}${linkedColumnClass}s "   
+#end                      
+                     + " WHERE ${tableVariableName}.${primaryKeyVariable} = "+$primaryKeyVariable
+               );
+         if (list!=null)
+            return ($tableClassName)list.get(0);
+         return null;
+    	//return null;//($tableClassName) getHibernateTemplate().queryForObject("loadFullFirstLevel$tableClassName", id);
     }
-    
+
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName
+     * @param $tableClassName $tableVariableName
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFullFirstLevel$tableClassName($tableClassName $tableVariableName) {
+        boolean isWhereSet = false;
+        StringBuffer query = new StringBuffer();
+        query.append ("FROM $tableClassName $tableVariableName ");
+#foreach ($reference in $table.children)
+#putReferenceParams2()
+        query.append (" LEFT JOIN FETCH ${tableVariableName}.${linkedTableVariable}${linkedColumnClass}s ");
+#end    
+#foreach ($column in $table.primaryKeyColumns)
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass() != null) {
+           query.append (getQueryWHERE_AND (isWhereSet));
+           isWhereSet = true;
+#if ($sqlUtils.isQuotedColumn($column))        
+           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
+#else
+           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
+#end
+         }
+	#end                   
+        	List list = getHibernateTemplate().find(query.toString());
+        if (list!=null)
+           return ($tableClassName)list.get(0);    
+        return null;
+    }  
+     
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName and its dependent objects one to many
@@ -100,7 +143,22 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return List
      */
     public List search$tableClassName($tableClassName $tableVariableName) {
-    return null;
+        boolean isWhereSet = false;
+        StringBuffer query = new StringBuffer();
+        query.append ("FROM $tableClassName $tableVariableName ");
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass() != null) {
+           query.append (getQueryWHERE_AND (isWhereSet));
+           isWhereSet = true;
+#if ($sqlUtils.isQuotedColumn($column))        
+           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
+#else
+           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
+#end
+         }
+	#end       
+	        	return getHibernateTemplate().find(query.toString());            
     //return getHibernateTemplate().queryForList("search$tableClassName", $tableVariableName);
     }    
     
@@ -113,6 +171,12 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
         return null;
     //return getHibernateTemplate().queryForList("loadPaginated$tableClassName", $tableVariableName);
     }   
+    
+    private String getQueryWHERE_AND (boolean isWhereSet) {
+       if (isWhereSet)
+          return " AND ";
+       return " WHERE ";
+    }
     
     
 }

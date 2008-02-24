@@ -28,17 +28,20 @@ import $importDomainObjectUML;
  */
 public class ${className} implements DomainObject {
 
-#if($hasPrimaryKey)
+#if($hasPrimaryKey && !$isMany2Many)
 	private $primaryKeyFullType $primaryKey;
 #end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-    private $columnType $columnVar; // $column.name
+    private $columnType _$columnVar; // $column.name
 #end
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    private $linkedTableClass ${linkedTableVariable}${linkedColumnClass}; //${linkedTableVariable}${linkedColumnClass}
+    private $localColumnType _$localColumnVariable;  
+    
+    private $linkedTableClass _${linkedTableVariable}${localColumnClass}; 
+    
 #end
 
 #foreach ($reference in $table.children)
@@ -49,7 +52,7 @@ public class ${className} implements DomainObject {
     public ${className}() {
     }
 
-#if($hasPrimaryKey)
+#if($hasPrimaryKey && !$isMany2Many)
 	    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
         return $primaryKey;
     }
@@ -62,23 +65,32 @@ public class ${className} implements DomainObject {
 #foreach ($column in ${table.attributes})
 #putColumnParams()
     public $columnType get$columnClass() {
-        return $columnVar;
+        return _$columnVar;
     }
 	
-    public void set$columnClass ($columnType $columnVar) {
-        this.$columnVar = $columnVar;
+    public void set$columnClass ($columnType _$columnVar) {
+        this._$columnVar = _$columnVar;
     }	
 #end
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    public $linkedTableClass get$linkedTableClass${linkedColumnClass} () {
-    	return ${linkedTableVariable}${linkedColumnClass};
+    public $localColumnType get$localColumnClass () {
+    	return _$localColumnVariable;
     }
 	
-    public void set$linkedTableClass${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}${linkedColumnClass}) {
-    	this.${linkedTableVariable}${linkedColumnClass} = ${linkedTableVariable}${linkedColumnClass};
+    public void set$localColumnClass ($localColumnType _$localColumnVariable) {
+    	this._$localColumnVariable = _$localColumnVariable;
     }
+    
+    public $linkedTableClass get$linkedTableClass${localColumnClass} () {
+    	return _${linkedTableVariable}${localColumnClass};
+    }
+	
+    public void set$linkedTableClass${localColumnClass} ($linkedTableClass _${linkedTableVariable}${localColumnClass}) {
+    	this._${linkedTableVariable}${localColumnClass} = _${linkedTableVariable}${localColumnClass};
+    }
+    
 #end
 
 #foreach ($reference in $table.children)

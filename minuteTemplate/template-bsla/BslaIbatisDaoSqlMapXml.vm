@@ -187,9 +187,7 @@
   <!-- It first retrieves the id from a sequence table-->
   <!-- It sets the value for the creation date-->
   <insert id="insert${tableClassName}" parameterClass="${tableClassName}">
-    <!-- change with real pk -->
-#if ($hasPrimaryKey)
-    <!--    <selectKey resultClass="long" keyProperty="id">-->
+#if (!$isPkUserProvided)
     <selectKey resultClass="$primaryKeyFullType" keyProperty="$primaryKeyVariable">  
         $PKLookUpString
     </selectKey>

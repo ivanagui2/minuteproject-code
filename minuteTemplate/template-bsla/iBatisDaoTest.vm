@@ -17,54 +17,72 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 
 public class $className extends AbstractTransactionalDataSourceSpringContextTests {
 
+#set ($springConfig = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringConfig") )
 	private BeanFactory beanFactory;
 	protected $daoInterfaceClassName $daoInterfaceVariableName;
+	private final String config = "${springConfig}.xml";
 	
+    protected String[] getConfigLocations() {
+	// TODO Auto-generated method stub
+	    return new String [] {config};
+    }
+	
+	/*
+	* Do the insert first.
+	* To do the insert do on all mandatory fields;
+	* If a mandatory field is a fk => insert the mandatory entity and give the entity value to populate the fk.
+	* Then perform load update, delete, loadfirstlevel
+	*/
 	protected void init() {
-		beanFactory = new ClassPathXmlApplicationContext ("spring-myproject-config.xml");
+		beanFactory = new ClassPathXmlApplicationContext (config);
 		$daoInterfaceVariableName = ($daoInterfaceClassName)beanFactory.getBean("$daoInterfaceVariableName");
 	}
 
-	public void testInsert$daoInterfaceClassName () {
+	public void testInsert$domainClassName () {
     	init();
-    $domainClassName ${domainVariableName} = populate$domainClassName ();
+        $domainClassName ${domainVariableName} = populate$domainClassName ();
     	${daoInterfaceVariableName}.insert${domainClassName}(${domainVariableName});
 	}
 
-public $domainClassName testLoad$daoInterfaceClassName () {
+    public $domainClassName testLoad$domainClassName () {
     	init();
-    	$domainClassName ${domainVariableName};// = ${daoInterfaceVariableName}.load${domainClassName}($TestUtils.getTestLookUpMethod($primaryKeyJavaNameClass,10));
+  #set ($method = $testUtils.getTestLookUpMethod($primaryKeyType)) 	
+    	$domainClassName ${domainVariableName} = ${daoInterfaceVariableName}.load${domainClassName}($method);
 	    return ${domainVariableName};
 	}
 	
-	public void testUpdate$daoInterfaceClassName () {
+	public void testUpdate$domainClassName () {
     	init();
-    	$domainClassName ${domainVariableName} = testLoad$daoInterfaceClassName ();    	
+    	$domainClassName ${domainVariableName} = testLoad$domainClassName ();    	
 	    update$domainClassName (${domainVariableName});	
-	    	${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
+	    ${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
 	}
 
-
-protected $domainClassName update$domainClassName ($domainClassName ${domainVariableName}) {
+    protected $domainClassName update$domainClassName ($domainClassName ${domainVariableName}) {
 #foreach ($column in ${table.columns})
-	#putColumnParams()
-	#if ($isMandatory)
-    ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
+#putColumnParams()
+#if ($!isPrimaryKey && $!isForeignKey)
+       ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
 #end
 #end
-
+#foreach ($reference in ${parentReferences})
+#putReferenceParams()
+#getTestDependencies()
+$importIbatisTestClass
+$ibatisTestClass
+       ${domainVariableName}.set$varclass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
+#end
        return $domainVariableName;
     }
     
-protected $domainClassName populate$domainClassName () {
-    $domainClassName $domainVariableName = new $domainClassName();
+    protected $domainClassName populate$domainClassName () {
+       $domainClassName $domainVariableName = new $domainClassName();
 #foreach ($column in ${table.columns})
-	#putColumnParams()
-	#if ($isMandatory)
-    ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
+#putColumnParams()
+#if ($isMandatory && !$isPrimaryKey && !$isForeignKey)
+       ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size));
 #end
 #end
-
        return $domainVariableName;
     }
     
@@ -74,6 +92,10 @@ protected $domainClassName populate$domainClassName () {
 
     protected Integer getInteger () {
        return new Integer (100);
+    }
+    
+    protected Long getLong () {
+       return new Long (100);
     }
 
     protected Boolean getBoolean () {
@@ -87,10 +109,5 @@ protected $domainClassName populate$domainClassName () {
     protected Timestamp getTimestamp () {
        return new Timestamp(getDate().getTime());
     }
-
-    protected String[] getConfigLocations() {
-		// TODO Auto-generated method stub
-		       return new String [] {"spring-myproject-config.xml"};
-	    }
         
 }
