@@ -32,8 +32,6 @@
 	 column="$reference.localColumnName" 
 	 #if($columnDB.isRequired())not-null="true"#else not-null="false"#end 
 	 cascade="all"
-	 insert="false"
-	 update="false"
 	 />	
 #end
 

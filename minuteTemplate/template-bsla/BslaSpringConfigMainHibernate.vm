@@ -15,7 +15,7 @@
     <!-- hibernate config to put in an appart config file-->
     <bean id="$hibernateFactoryName" autowire="byName"
         class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="configLocation" value="${pathHibernateConfig}.cfg.xml" />
+        <property name="configLocation" value="classpath:${pathHibernateConfig}.cfg.xml" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
