@@ -1,10 +1,20 @@
 #exposeVariableEntitySpecific()
+##putImportParams()
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
 #putImportParams()
+#else
+#putImportParamsUML()
+#end
 package $packageName;
 
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
 import $importDomainObject;
+#else
+import $importDomainObjectUML;
+#end
 import java.util.List;
-import net.sf.minuteProject.architecture.bsla.utils.Range;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
@@ -32,6 +42,13 @@ public interface $className extends DataAccessObject {
      */
     public void update$tableClassName($tableClassName $tableVariableName) ;
 
+    /**
+     * Updates a $tableClassName entity with only the attributes set into ${tableClassName}.
+     * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
+     * @param $tableClassName $tableVariableName
+     */
+    public void updateFilledOnly$tableClassName($tableClassName $tableVariableName) ;
+    
      /**
      * Saves a $tableClassName entity 
      * @param $tableClassName $tableVariableName
@@ -43,34 +60,22 @@ public interface $className extends DataAccessObject {
      * @param $tableClassName $tableVariableName
      */
     public void delete$tableClassName($tableClassName $tableVariableName) ;
- 
-    /**
-     * Loads the $tableClassName entity which is related to an instance of
-     * $tableClassName
-     * @param Long id
-     * @return $tableClassName The $tableClassName entity
-     */
-    public $tableClassName load$tableClassName(Long id);
     
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName
 #foreach ($column in $table.primaryKeyColumns) 
-#if($column.isPrimaryKey())
 #putColumnParams()
      * @param $columnType $columnVar
 #end
-#end
      * @return $tableClassName The $tableClassName entity
      */
-    //public $tableClassName load$tableClassName(
+     public $tableClassName load$tableClassName(
 #foreach ($column in $table.primaryKeyColumns) 
-#if($column.isPrimaryKey())
 #putColumnParams()
-     //$columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
+     $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
 #end
-#end
-    //);   
+    );   
         
     /**
      * Loads the $tableClassName entity which is related to an instance of
@@ -81,46 +86,21 @@ public interface $className extends DataAccessObject {
     public $tableClassName loadFullFirstLevel$tableClassName($tableClassName $tableVariableName);    
 
     /**
-     * Loads a list of $tableClassName entity which is related to an instance of that are within 
-     * a range of id
-     * @param Range range
-     * @return List
-     */
-    public List loadRange$tableClassName(Range range);
-
-    /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName and its dependent one to many objects
-     * @param Long id
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+     * @param $columnType $columnVar
+#end
      * @return $tableClassName The $tableClassName entity
      */
-    public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable);
-
-    /**
-     * Loads a list of $tableClassName entity which is related to an instance of that are within 
-     * a range of id and its dependent one to many objects
-     * @param Range range
-     * @return List
-     */
-    public List loadFullFirstLevelRange$tableClassName(Range range);
+    public $tableClassName loadFullFirstLevel$tableClassName(
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+     $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
+#end
+    );       
     
-    /**
-     * Loads the $tableClassName entity which is related to an instance of
-     * $tableClassName and its dependent objects one to many
-     * @param Long id
-     * @return $tableClassName The $tableClassName entity
-     */
-    public $tableClassName loadFull$tableClassName($primaryKeyFullType $primaryKeyVariable) ;
-
-    /**
-     * Loads a list of $tableClassName entity which is related to an instance of that are within 
-     * a range of id and its dependent objects one to many
-     * @param Range range
-     * @return List
-     */
-    public List loadFullRange$tableClassName(Range range) ;
-
-
     /**
      * Searches a list of $tableClassName entity 
      * @param $tableClassName $tableVariableName
