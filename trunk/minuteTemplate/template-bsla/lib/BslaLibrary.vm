@@ -55,6 +55,8 @@
 #end
 
 #macro (putReferenceParams)
+## this macro is used when accessing the entity reference via parentReferences or childReferences
+## this macro is deprecated used putReferenceParams2 instead
 #set ($linktable = ${reference.tableName})
 #set ($linktableDB = ${reference.table})
 #set ($linkclass = $formatUtils.getJavaName(${reference.tableName}))
@@ -72,21 +74,22 @@
 #end
 
 #macro (putReferenceParams2old)
-#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
-#set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
-#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
-#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
-#set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
-#set ($localColumnType = $commonUtils.getType($reference.localColumn))
-#set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-#set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-#set ($localColumnClass = $formatUtils.getJavaName(${reference.localColumn.name}))
-#set ($linkedParentVariable = '$linkedTableVariable$localColumnVariable')
+##set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
+##set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
+##set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
+##set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
+##set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
+##set ($localColumnType = $commonUtils.getType($reference.localColumn))
+##set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+##set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+##set ($localColumnClass = $formatUtils.getJavaName(${reference.localColumn.name}))
+##set ($linkedParentVariable = '$linkedTableVariable$localColumnVariable')
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #end
 
 
 #macro (putReferenceParams2)
+## this macro is use when a reference is accessed via parent.references or child.references
 #set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
 #set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
@@ -97,10 +100,11 @@
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumnName}))
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumnName}))
+#set ($linktableDB = ${reference.foreignTable})
 #end
 
 #macro (putColumnParams)
-#set ($isForeignKey = $tableUtils.isForeignKey($column))
+#set ($isForeignKey = $columnUtils.isForeignKey($column))
 #set ($columnType = $commonUtils.getJavaType($column.type))
 #set ($columnClass = $formatUtils.getJavaName($column.name))
 #set ($columnVar = $formatUtils.getJavaNameVariable($column.name))
@@ -265,8 +269,15 @@ import $importDaoInterfaceUML;
 #end
 
 
-#macro (getTestDependencies)
-#set ($importIbatisTestClass = $testUtils.getImportIbatisTestClass($model, $tableDB, $template, "iBatisDaoTest"));
-##set ($ibatisTestClass = $bslaLibraryUtils.getTemplateClassName($tableDB, $template, "iBatisDaoTest"));
+#macro (putDependencies)
+#set ($dependentImportTestDaoClass = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, "TestDao"))
+#set ($dependentTestDaoClass = $commonUtils.getTemplateClassName($linktableDB, $model, "TestDao"))
+#set ($dependentTestDaoVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, "TestDao"))
+#set ($dependentImportDaoInterface = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, "BslaDaoInterface"))
+#set ($dependentDaoInterfaceClassName = $commonUtils.getTemplateClassName($linktableDB, $model, "BslaDaoInterface"))
+#set ($dependentDaoInterfaceVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, "BslaDaoInterface"))
+#set ($dependentImportDomainClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, "BslaDomainObject"))
+#set ($dependentDomainClassName = $commonUtils.getTemplateClassName($linktableDB, $model, "BslaDomainObject"))
+#set ($dependentDomainVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, "BslaDomainObject"))
 #end
 
