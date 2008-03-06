@@ -43,7 +43,11 @@ public class CommonUtils {
 	}
 	
 	public static String getTableVariableName (Table table){
-		return FormatUtils.getJavaNameVariable(table.getName());
+		return getJavaVariableName(table.getName());
+	}
+	
+	public static String getJavaVariableName (String string) {
+		return FormatUtils.getJavaNameVariable(string);
 	}
 
 	// 4 times (model, package, table, view) use hierachy instead
@@ -129,7 +133,7 @@ public class CommonUtils {
 		return getClassName(table, templateTarget);
 	}
 	
-	protected static String getTemplateClassName (Table table, Model model, String targetTemplateName) {
+	public static String getTemplateClassName (Table table, Model model, String targetTemplateName) {
 		//Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		Template templateTarget = getTargetTemplate(model, targetTemplateName);
 		if (templateTarget==null) {
@@ -246,6 +250,8 @@ public class CommonUtils {
 	}
 	
 	public static String getAssociatedBusinessPackageName(Model model, String tableName){
+		if (tableName==null || model==null)
+			return "getAssociatedBusinessPackageName returns null";
 		String a= model.getBusinessModel().getBusinessPackage().getPackage(tableName);
 		return a;
 	}		
@@ -369,6 +375,12 @@ public class CommonUtils {
 	public static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
 		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
 	}
+	
+	public static String getTemplateJavaVariableName(Table table, Model model, String targetTemplateName) {
+		String result= getTemplateClassName(table, model, targetTemplateName);
+		return CommonUtils.getJavaVariableName(result);
+	}
+	
 	/**
 	 * comment utils mark the minute template the a minute comment
 	 */
