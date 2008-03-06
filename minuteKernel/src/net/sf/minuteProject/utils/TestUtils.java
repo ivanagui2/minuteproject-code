@@ -8,39 +8,39 @@ import org.apache.commons.lang.StringUtils;
 
 public class TestUtils {
 	
-	public String getTestPopulateFieldMethod (String dBType, String length) {
+	public String getTestPopulateFieldMethod (String dBType, String length, int number) {
 		String retStr=null;
 		dBType = StringUtils.upperCase(dBType);
 		if (dBType.equals("BOOLEAN"))
-			return  "getBoolean ()";					
+			return  "getBoolean"+number+"()";					
 		if (dBType.equals("BIGINT"))
-			return  "getLong ()";	
+			return  "getLong"+number+"()";	
 		if (dBType.equals("LONG"))
-			return  "getLong ()";	
+			return  "getLong"+number+"()";	
 		if (dBType.equals("DOUBLE"))
-			return  "getDouble ()";			
+			return  "getDouble"+number+"()";			
 		if (dBType.equals("INT"))
-			return  "getInteger()";		
+			return  "getInteger"+number+"()";		
 		if (dBType.equals("TIME"))
 			return  "getTimestamp ()";			
 		if (dBType.equals("DECIMAL"))
-			return  "getDecimal()";
+			return  "getDecimal"+number+"()";
 		if (dBType.equals("SMALLINT"))
-			return  "getString ("+length+")";	
+			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("VARCHAR"))
-			return  "getString ("+length+")";	
+			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("LONGVARCHAR"))
-			return  "getString ("+length+")";	
+			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("VARCHAR2"))
-			return  "getString ("+length+")";		
+			return  "getString"+number+"("+length+")";		
 		if (dBType.equals("VARGRAPHIC"))
-			return  "getString ("+length+")";			
+			return  "getString"+number+"("+length+")";			
 		if (dBType.equals("CHAR"))
-			return  "getString ("+length+")";		
+			return  "getString"+number+"("+length+")";		
 		if (dBType.equals("INTEGER"))
-			return  "getLong()";	
+			return  "getInteger"+number+"()";	
 		if (dBType.equals("NUMERIC"))
-			return  "getInteger()";		
+			return  "getInteger"+number+"()";		
 		if (dBType.equals("DATE"))
 			return  "getDate()";
 		if (dBType.equals("TIMESTAMP"))
@@ -54,16 +54,12 @@ public class TestUtils {
 		return retStr;			
 	}
 	
-	public String getTestLookUpMethod (String dBType, String length) {
-		return getTestPopulateFieldMethod(dBType, length);
+	public String getTestLookUpMethod (String dBType, String length, int number) {
+		return getTestPopulateFieldMethod(dBType, length, number);
 	}
 	
-	public String getTestLookUpMethod (String dBType) {
-		return getTestPopulateFieldMethod(dBType, "10");
-	}
-	
-	public static String importIbatisTestClass(Model model, Table table, Template template, String targetTemplateName) {
-		return CommonUtils.getEntityLevelTemplateFullPath(model, table, template, targetTemplateName);
+	public String getTestLookUpMethod (String dBType, int number) {
+		return getTestPopulateFieldMethod(dBType, "10", number);
 	}
 
 }
