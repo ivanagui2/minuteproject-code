@@ -19,7 +19,7 @@
 		
 		</template-target>		
 		
-		<template-target rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+		<template-target rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE"
 		    templatedir = "template-bsla" 
 			libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 			tool="velocity"
@@ -42,7 +42,7 @@
 		    templatedir = "template-bsla" 
 			libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 			tool="velocity"
-			outputdir="C:/MinuteProject/architecture/project-bsla/src-generated-SAMPLE"
+			outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE"
 			package-root="mp.example"
 			belongToPackage="true">		
 
@@ -67,7 +67,7 @@
     templatedir = "template-bsla" 
 	libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 	tool="velocity"
-	outputdir="C:/MinuteProject/architecture/project-bsla/srcWeb-generated-SAMPLE"
+	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE"
 	package-root="WEB-INF"
 	belongToPackage="true">
 
@@ -131,7 +131,7 @@
     templatedir = "template-bsla" 
 	libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 	tool="velocity"
-	outputdir="C:/MinuteProject/architecture/project-bsla/srcWeb-generated-SAMPLE"
+	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE"
 	package-root="jsp"
 	belongToPackage="true">
 			
@@ -208,7 +208,7 @@
     templatedir = "template-bsla" 
 	libdir="lib/BslaLibrary.vm"
 	tool="velocity"
-	outputdir="C:/MinuteProject/architecture/project-bsla/src-generated-SAMPLE"
+	outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE"
 	package-root="mp.example"
 	belongToPackage="true">
 		<!-- bsla templates -->			
@@ -222,6 +222,7 @@
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="" file-suffix="Dao" 
 			entity-specific="true" package-specific="false" model-specific="false">
+			<property name="uml" value="false"/>
 		</template>
 	
 		<template name="BslaIbatisDaoSqlImpl" templateFileName="BslaIbatisDaoSqlImpl.vm" 
@@ -272,7 +273,7 @@
 		templatedir = "template-bsla" 
 	    libdir="lib/BslaLibrary.vm"
 		tool="velocity"
-		outputdir="C:/MinuteProject/architecture/project-bsla/src-generated-SAMPLE"
+		outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE"
 		package-root="mp.example"
 		belongToPackage="true">
 
