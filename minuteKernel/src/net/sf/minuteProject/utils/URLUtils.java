@@ -34,7 +34,7 @@ public class URLUtils {
 	}
 	
 	public String getEditURL (String tableName, String field, String entity) {
-		return getDefaultRootURLBeginner()+"?table="+tableName+"&action=edit&pk=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";	
+		return getDefaultRootURLBeginner()+"?table="+tableName+"&action=edit&"+DBTemplateUtils.getJavaNameVariable(field)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";	
 	}	
 
 	public String getSearchByIdURL (LogicalLink link) {
@@ -43,10 +43,12 @@ public class URLUtils {
 	}
 	
 	public String getSearchByIdURL (String tableName, String field) {
+		//return getSearchByIdURL(TableUtils.getTable(database, tablename));
 		return getSearchByIdURL(tableName, field, "entity");
 	}
 	public String getSearchByIdURL (String tableName, String field, String entity) {
-		String url = getDefaultRootURLBeginner()+"?table="+tableName+"&action=searchOnPk&pk=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
+		//String url = getDefaultRootURLBeginner()+"?table="+tableName+"&action=searchOnPk&pk=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
+		String url = getDefaultRootURLBeginner()+"?table="+tableName+"&action=searchOnPkFull&"+DBTemplateUtils.getJavaNameVariable(field)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
 		return url;
 	}	
 	

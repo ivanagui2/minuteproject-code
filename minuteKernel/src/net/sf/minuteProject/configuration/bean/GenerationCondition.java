@@ -14,11 +14,13 @@ public class GenerationCondition extends AbstractConfiguration {
 	}
 
 	public List<Condition> getConditions() {
+		if (conditions== null)
+			conditions = new ArrayList<Condition>();
 		return conditions;
 	}
 	
 	public boolean areConditionsTrue(String valueToTest) {
-		for (Iterator iter = conditions.iterator(); iter.hasNext();){
+		for (Iterator iter = getConditions().iterator(); iter.hasNext();){
 			Condition condition = (Condition)iter.next();
 			if (!condition.isConditionTrue(valueToTest))
 				return false;

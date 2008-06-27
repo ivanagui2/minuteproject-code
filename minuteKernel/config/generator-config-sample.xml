@@ -1,7 +1,7 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="conference">
+		<model name="adriano">
 			<data-model>
 			    <fileSource name="sample" dir="c:/MinuteProject/data">
 			    </fileSource>
@@ -19,7 +19,7 @@
 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
 				</generation-condition>		
-				<business-package default="conference">
+				<business-package default="conf">
 					<condition type="package" startsWith="CONF" result="conference"></condition>
 				</business-package>							
 				<tables>
@@ -32,7 +32,7 @@
 				</tables>
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default" dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" fileName="mp.xml">
+		<target refname="BackendOnBsla" name="default" dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" fileName="mp-sample.xml">
 			<property name="web.artifacts.output.dir"></property>
 			<property name="backend.artifacts.output.dir"></property>
 		</target> 	

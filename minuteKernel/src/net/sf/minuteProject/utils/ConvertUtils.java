@@ -46,6 +46,14 @@ public class ConvertUtils {
 			return  "java.sql.Blob";	
 		if (dBType.equals("CLOB"))
 			return  "java.sql.Clob";	
+		if (dBType.equals("NVARCHAR2"))
+			return  "java.lang.String";	
+		if (dBType.equals("NVARCHAR"))
+			return  "java.lang.String";	
+		
+		// to re implement when externalizing the mapping
+		if (dBType.equals("OTHER"))
+			return  "java.lang.String";		
 		return retStr;		
 	}	
 	
@@ -93,6 +101,17 @@ public class ConvertUtils {
 			return  "java.sql.Blob";	
 		if (dBType.equals("CLOB"))
 			return  "Clob";	
+		if (dBType.equals("BIT"))
+			return  "Long";	
+		if (dBType.equals("NVARCHAR2"))
+			return  "String";	
+		if (dBType.equals("NVARCHAR"))
+			return  "String";	
+		
+		// to re implement when externalizing the mapping
+		if (dBType.equals("OTHER"))
+			return  "String";
+		
 		return retStr;		
 	}	
 

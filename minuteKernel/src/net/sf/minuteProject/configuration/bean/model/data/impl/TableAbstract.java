@@ -156,9 +156,9 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	
 	public String getTechnicalPackage(Template template) {
 		//StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
-		StringBuffer sb = new StringBuffer(getPackage().getTechnicalPackage(template));
+		//StringBuffer sb = new StringBuffer(getPackage().getTechnicalPackage(template));
 		//sb.append("."+getName());
-		return sb.toString();
+		return getPackage().getTechnicalPackage(template);
 	}
 
 	/**

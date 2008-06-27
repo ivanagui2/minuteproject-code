@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
@@ -12,8 +13,20 @@ import net.sf.minuteProject.utils.ModelUtils;
 public class Package extends AbstractConfiguration{
 
 	private List listOfTables;
+	private List listOfViews;
 	private String name;
 	private BusinessPackage businessPackage;
+
+	public List getListOfViews() {
+		return listOfViews;
+	}
+	
+	public void addView(View view) {
+		if (listOfViews==null)
+			listOfViews = new ArrayList();
+		view.setPackage(this);
+		listOfViews.add(view);
+	}
 	
 	public List getListOfTables() {
 		return listOfTables;
@@ -41,6 +54,8 @@ public class Package extends AbstractConfiguration{
 	}
 	
 	public String getTechnicalPackage(Template template) {
+		if (template.getAddModelDirName()!=null && template.getAddModelDirName().equals("false"))
+			return getName();
 		StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
 		sb.append("."+getName());
 		return sb.toString();

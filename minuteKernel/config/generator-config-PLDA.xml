@@ -1,0 +1,43 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration name="plda">
+		<model name="plda">
+			<data-model>
+			    <fileSource name="plda" dir="c:/data/generator">
+			    </fileSource>
+				<dataSource>
+					<driverClassName>com.ibm.db2.jcc.DB2Driver</driverClassName>
+					<url>jdbc:db2:PLDALOC8:currentSchema=DB2ADMIN;</url>
+					<username>db2admin</username>
+					<password>Password_1</password>
+				</dataSource>		
+				<schema>DB2ADMIN</schema> 			
+			</data-model>
+			
+			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="IMPORT"></condition>
+				</generation-condition>		
+				<business-package default="plda">
+					<condition type="package" startsWith="SUMMARY" result="GoodsFlow"></condition>
+					<condition type="package" startsWith="CODE" result="Masterdata"></condition>
+					<condition type="package" startsWith="IM7" result="im7"></condition>
+					<condition type="package" startsWith="LUCHT" result="lucht"></condition>
+				</business-package>							
+				<tables>
+					<table name="CODE_TABLE_TYPE">
+						<type>masterdata</type>
+						<reference-view-field>CODE</reference-view-field>
+						<reference-view-parent>no</reference-view-parent>
+						<reference-view-child>no</reference-view-child>
+					</table>						
+				</tables>
+			</business-model>
+		</model>
+		<target refname="BackendOnBsla" name="default"> 
+			<property name="package" value="be.fgov.minfin"/>
+		</target>
+		
+	</configuration>
+
+</generator-config>

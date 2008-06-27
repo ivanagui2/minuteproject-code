@@ -24,4 +24,11 @@ public class ReferenceUtils {
 		return reference;
 	}	
 	
+	public static String getParentLink (String foreignTableName, String localColumnName) {
+		return FormatUtils.getJavaName(foreignTableName)+"_"+FormatUtils.getJavaName(localColumnName);
+	}
+	
+	public static String getParentLinkUML (String foreignTableName, String localColumnName) {
+		return FormatUtils.getJavaName(foreignTableName)+"_"+FormatUtils.getJavaName(localColumnName);
+	}	
 }

@@ -17,6 +17,14 @@
 				<alias attr-name="name" prop-name="name" />
 			</set-properties-rule>
 		</pattern>	
+		<pattern value="plugin">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Plugin"/>		
+			<set-next-rule methodname="addPlugin" paramtype="net.sf.minuteProject.configuration.bean.system.Plugin"/>
+			<set-properties-rule>
+				<alias attr-name="name" prop-name="name" />
+				<alias attr-name="className" prop-name="className" />
+			</set-properties-rule>
+		</pattern>			
 		<pattern value="template-target">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.TemplateTarget"/>		
 			<set-next-rule methodname="addTemplateTarget" paramtype="net.sf.minuteProject.configuration.bean.TemplateTarget"/>	
@@ -38,6 +46,7 @@
 				<set-properties-rule>
 					<alias attr-name="package-root" prop-name="packageRoot" />
 					<alias attr-name="add-model-name" prop-name="addModelName" />
+					<alias attr-name="add-model-dir-name" prop-name="addModelDirName" />
 					<alias attr-name="templateFileName" prop-name="templateFileName" />
 					<alias attr-name="subdir" prop-name="subdir" />
 					<alias attr-name="outputsubdir" prop-name="outputsubdir" />
@@ -52,6 +61,8 @@
 					<alias attr-name="service-specific" prop-name="serviceSpecific" />
 					<alias attr-name="function-specific" prop-name="functionSpecific" />
 					<alias attr-name="application-specific" prop-name="applicationSpecific" />
+					<alias attr-name="file-name-builder-plugin" prop-name="fileNameBuilderPlugin" />
+					<alias attr-name="file-name-builder-method" prop-name="fileNameBuilderMethod" />
 				</set-properties-rule> 	
 				<pattern value="property">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		

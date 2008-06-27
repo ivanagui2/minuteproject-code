@@ -82,8 +82,13 @@ public abstract class AbstractGenerator implements Generator {
 	
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
 		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(target), GENERATOR_TARGET_RULES);
+		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
+	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
+		abstractConfigurationRoot.getTarget().setDir(target.getDir());
+	}
+	
 	private InputStream getTargetConfigurationInputStream (Target target) throws Exception{
 		//TODO now hardcoded to change when bean solutionPortfolio in place
 		return new FileInputStream (new File (target.getDir()+"/"+target.getFileName()));
@@ -158,7 +163,8 @@ public abstract class AbstractGenerator implements Generator {
     	if (templatePath==null) {
     		StringBuffer sb = new StringBuffer();
     		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
-    			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
+    			//TemplateTarget templateTarget2 = 
+    			iterator.next();
     			sb.append(templateTarget.getRootdir());
     			sb.append(",");
     			sb.append(templateTarget.getTemplateFullDir());
@@ -219,9 +225,10 @@ public abstract class AbstractGenerator implements Generator {
 		// TODO change
 		if (beanName.equals("tableddlutils") || beanName.equals("tableumlnotation"))
 			return "table";
-		if (beanName.equals("columnddltils"))
+		if (beanName.equals("columnddlutils"))
 			return "column";		
-		
+		if (beanName.equals("viewddlutils"))
+			return "view";			
 		return beanName;
    }
 	

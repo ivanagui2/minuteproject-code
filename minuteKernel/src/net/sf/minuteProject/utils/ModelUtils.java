@@ -42,10 +42,7 @@ public class ModelUtils {
 	}	
 	
 	public static String getPackage(Model model, Template template, Table table) {
-		return getPackage (table, template);
-		//StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
-		//sb.append("."+CommonUtils.getBusinessPackage(model, table));
-		//return sb.toString();		
+		return getPackage (table, template);	
 	}
 	
 	public static String getPackage(Model model, Template template, Package pack) {
@@ -55,15 +52,14 @@ public class ModelUtils {
 	}
 
 	public static String getPackage(Model model, Template template) {
-		StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
-		// no need to add the subpackage since it is the model level
-		//sb.append("."+model.getName());
-		return sb.toString();		
+		//StringBuffer sb = new StringBuffer(getTechnicalPackage(model, template));
+		return getTechnicalPackage(model, template);//sb.toString();		
 	}
 
 	public static String getPackage(GeneratorBean bean, Template template) {
-		StringBuffer sb = new StringBuffer(bean.getTechnicalPackage(template));
-		return sb.toString();		
+//		StringBuffer sb = new StringBuffer(bean.getTechnicalPackage(template));
+//		return sb.toString();		
+		return bean.getTechnicalPackage(template);
 	}
 	
 	public static String getTechnicalPackage(Model model, Template template) {
