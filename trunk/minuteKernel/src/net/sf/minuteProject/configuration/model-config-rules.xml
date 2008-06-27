@@ -92,7 +92,67 @@
 							<alias attr-name="result" prop-name="result" />		
 						</set-properties-rule>							
 					</pattern>					
-				</pattern>	
+				</pattern>
+				<pattern value="enrichment">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>		
+					<set-next-rule methodname="setEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>					
+					<pattern value="entity">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
+						<set-next-rule methodname="addEntity" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />	
+						</set-properties-rule>							
+						<pattern value="virtual-primary-key">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey"/>		
+							<set-next-rule methodname="setVirtualPrimaryKey" paramtype="net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey"/>		
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />	
+							</set-properties-rule>			
+											
+							<pattern value="property">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+								<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="value" prop-name="value" />
+								</set-properties-rule>
+							</pattern>						
+						</pattern>
+					</pattern>		
+							
+					</pattern>
+					<pattern value="service">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Service"/>		
+						<set-next-rule methodname="setService" paramtype="net.sf.minuteProject.configuration.bean.service.Service"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />	
+						</set-properties-rule>			
+										
+						<pattern value="scope">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Scope"/>		
+							<set-next-rule methodname="addScope" paramtype="net.sf.minuteProject.configuration.bean.service.Scope"/>	
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="entity" prop-name="entity" />
+							</set-properties-rule>
+							<pattern value="strategy">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Strategy"/>		
+								<set-next-rule methodname="addStrategy" paramtype="net.sf.minuteProject.configuration.bean.service.Strategy"/>	
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="entity" prop-name="entity" />
+								</set-properties-rule>
+								<pattern value="property">
+									<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+									<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+									<set-properties-rule>
+										<alias attr-name="name" prop-name="name" />
+									</set-properties-rule>
+								</pattern>	
+							</pattern>							
+						</pattern>
+														
+					</pattern>										
 				<!-- 			
 				<pattern value="tables/table">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.Table"/>		

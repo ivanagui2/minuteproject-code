@@ -1,0 +1,39 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration>
+		<model name="petstore">
+			<data-model>
+			    <fileSource name="petstore" dir="c:/data/generator">
+			    </fileSource>
+				<dataSource>
+				<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+				<url>jdbc:mysql://localhost:3306/petstore</url>
+				<username>root</username>
+				<password>admin</password>	
+				</dataSource>		 
+			</data-model>
+			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="IMPORT"></condition>
+				</generation-condition>		
+				<business-package default="petstore">
+					<condition type="package" startsWith="QRTZ" result="qrtz"></condition>
+					<condition type="package" startsWith="ZEE" result="zee"></condition>
+				</business-package>							
+				<tables>
+					<table name="CODE_TABLE_TYPE">
+						<type>masterdata</type>
+						<reference-view-field>CODE</reference-view-field>
+						<reference-view-parent>no</reference-view-parent>
+						<reference-view-child>no</reference-view-child>
+					</table>						
+				</tables>
+			</business-model>
+		</model>
+		<target refname="BackendOnBsla" name="default"
+		dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" fileName="mp-ibatis-demo-petstore.xml">
+			<property name="web.artifacts.output.dir"></property>
+			<property name="backend.artifacts.output.dir"></property>
+		</target> 	
+	</configuration>
+</generator-config>

@@ -22,6 +22,8 @@ import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.service.Scope;
+import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
@@ -33,6 +35,8 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.SqlUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.TestUtils;
@@ -49,6 +53,24 @@ public class ModelGenerator extends AbstractGenerator {
 	private static Logger logger = Logger.getLogger(ModelGenerator.class);
 	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
 
+	/*
+	 * context object 
+	 */
+	private CommonUtils commonUtils;
+	private ConvertUtils convertUtils;
+	private ColumnUtils columnUtils;
+	private ViewUtils viewUtils;
+	private FormatUtils formatUtils;
+	private BslaLibraryUtils bslaLibraryUtils;
+	private DatabaseUtils databaseUtils;
+	private ModelUtils modelUtils;
+	private URLUtils urlUtils;
+	private TestUtils testUtils;
+	private WebUtils webUtils;
+	private SqlUtils sqlUtils;
+	private TableUtils tableUtils;
+
+	
 	private Model model;
 
 	private String modelConfig;
@@ -103,9 +125,9 @@ public class ModelGenerator extends AbstractGenerator {
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
-	private void loadModel(Model model) {
+	protected void loadModel(Model model) {
 		model.getDataModel().loadDatabase();
-		model.getBusinessModel().complementDataModel();
+		model.getBusinessModel().complementDataModelWithTables();
 	}
 
 	/*
@@ -122,6 +144,8 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByPackage(template);
 		else if (template.getModelSpecific().equals("true"))
 			generateArtifactsByModel(template);
+		else if (template.getServiceSpecific().equals("true"))
+			generateArtifactsByService(template);
 		else if (template.getApplicationSpecific().equals("true"))
 			generateArtifactsByApplication(template);
 	}
@@ -138,44 +162,40 @@ public class ModelGenerator extends AbstractGenerator {
 		this.model = model;
 	}
 
-	/*private void writeTemplateResultView(VelocityContext context,
-			Template template) {
-		try {
-			String outputFilename = template
-					.getGeneratorOutputFileNameForConfigurationBean(getModel(),
-							template);
-			// String outputFilename =
-			// template.getGeneratorOutputFileNameForModel(template);
-			// TODO set as method in Generator
-			context.put("model", getModel());
-			context.put("template", template);
-			putCommonContextObject(context);
-			produce(context, template, outputFilename);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}*/
-
-	private void generateArtifactsByModel(Template template) throws Exception {
+	protected void generateArtifactsByModel(Template template) throws Exception {
 		writeTemplateResult(getModel(), template);
 	}
 
-	private void generateArtifactsByPackage(Template template) throws Exception {
-		List packages = model.getBusinessModel().getBusinessPackage()
+	protected void generateArtifactsByPackage(Template template) throws Exception {
+		List packages = getModel().getBusinessModel().getBusinessPackage()
 				.getPackages();
 		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-			// Package pack = new Package();
-			// pack.getBusinessPackage().getBusinessModel().getModel()
 			writeTemplateResult((Package) iter.next(), template);
 		}
 	}
 
-	private void generateArtifactsByEntity(Template template) throws Exception {	
-		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
+	protected void generateArtifactsByEntity(Template template) throws Exception {	
+		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
 			Table table = getDecoratedTable((Table) iter.next());
 			//table.getParents();
 			writeTemplateResult(table, template);
+			/*
+			 * 
+			 * 			Table table = (Table) iter.next();
+			if (ModelUtils.isToGenerate(model.getBusinessModel(), table)) {
+			   table = getDecoratedTable((Table) iter.next());
+			   //table.getParents();
+			   writeTemplateResult(table, template);
+			}
+			 */
 		}
+	}
+
+	protected void generateArtifactsByService(Template template) throws Exception {	
+		for (Scope scope : getModel().getBusinessModel().getService().getScopes()) {
+			if (ServiceUtils.isToGenerate(template, scope))
+				writeTemplateResult(scope, template);
+		}		
 	}
 
 	private void generateArtifactsByApplication(Template template) throws Exception {	
@@ -190,7 +210,7 @@ public class ModelGenerator extends AbstractGenerator {
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		context.put("template", template);
-		putCommonContextObject(context);
+		putCommonContextObject(context, template);
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
@@ -199,22 +219,130 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
-	private void putCommonContextObject(VelocityContext context) {
-		context.put("convertUtils", new ConvertUtils());
-		context.put("commonUtils", new CommonUtils());
-		context.put("columnUtils", new ColumnUtils());
-		context.put("viewUtils", new ViewUtils());
-		context.put("formatUtils", new FormatUtils());
-		context.put("bslaLibraryUtils", new BslaLibraryUtils());
-		context.put("databaseUtils", new DatabaseUtils());
-		context.put("modelUtils", new ModelUtils());
-		context.put("URLUtils", new URLUtils());
-		context.put("TestUtils", new TestUtils());
-		context.put("WebUtils", new WebUtils());
-		context.put("sqlUtils", new SqlUtils());
-		context.put("tableUtils", new TableUtils());
-		context.put("testUtils", new TestUtils());
+	private void putCommonContextObject(VelocityContext context, Template template) {
+		putStandardContextObject(context);
+		putPluginContextObject(context, template);
 		context.put("model", model);
 	}
+	
+	private void putPluginContextObject (VelocityContext context, Template template) {
+		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
+		for (Plugin plugin : plugins) {
+			ClassLoader cl = ClassLoader.getSystemClassLoader();
+			try {
+				Class clazz = cl.loadClass(plugin.getClassName());
+				Object velocityObject = clazz.newInstance();
+				context.put(plugin.getName(), velocityObject);
+			} catch (ClassNotFoundException e) {
+				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
+			} catch (IllegalAccessException e) {
+				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
+			}
+		}
+	}
+	
+	private void putStandardContextObject (VelocityContext context) {
+		context.put("convertUtils", getConvertUtils());
+		context.put("commonUtils", getCommonUtils());
+		context.put("columnUtils", getColumnUtils());
+		context.put("viewUtils", getViewUtils());
+		context.put("formatUtils", getFormatUtils());
+		context.put("bslaLibraryUtils", getBslaLibraryUtils());
+		context.put("databaseUtils", getDatabaseUtils());
+		context.put("modelUtils", getModelUtils());
+		context.put("URLUtils", getUrlUtils());
+		context.put("TestUtils", getTestUtils());
+		context.put("WebUtils", getWebUtils());
+		context.put("sqlUtils", getSqlUtils());
+		context.put("tableUtils", getTableUtils());
+		context.put("testUtils", getTestUtils());		
+	}
 
+	public BslaLibraryUtils getBslaLibraryUtils() {
+		if (bslaLibraryUtils==null)
+			bslaLibraryUtils = new BslaLibraryUtils();
+		return bslaLibraryUtils;
+	}
+
+	public ColumnUtils getColumnUtils() {
+		if (columnUtils==null)
+			columnUtils = new ColumnUtils();
+		return columnUtils;
+	}
+
+	public CommonUtils getCommonUtils() {
+		if (commonUtils==null)
+			commonUtils = new CommonUtils();
+		return commonUtils;
+	}
+
+	public ConvertUtils getConvertUtils() {
+		if (convertUtils == null)
+			convertUtils = new ConvertUtils();
+		return convertUtils;
+	}
+
+	public DatabaseUtils getDatabaseUtils() {
+		if (databaseUtils == null)
+			databaseUtils = new DatabaseUtils();
+		return databaseUtils;
+	}
+
+	public FormatUtils getFormatUtils() {
+		if (formatUtils == null)
+			formatUtils = new FormatUtils();
+		return formatUtils;
+	}
+
+	public ModelUtils getModelUtils() {
+		if (modelUtils == null)
+			modelUtils = new ModelUtils();
+		return modelUtils;
+	}
+
+	public SqlUtils getSqlUtils() {
+		if (sqlUtils == null)
+			sqlUtils = new SqlUtils();
+		return sqlUtils;
+	}
+
+	public TableUtils getTableUtils() {
+		if (tableUtils == null)
+			tableUtils = new TableUtils();
+		return tableUtils;
+	}
+
+	public TestUtils getTestUtils() {
+		if (testUtils == null)
+			testUtils = new TestUtils();
+		return testUtils;
+	}
+
+	public URLUtils getUrlUtils() {
+		if (urlUtils == null)
+			urlUtils = new URLUtils();
+		return urlUtils;
+	}
+
+	public ViewUtils getViewUtils() {
+		if (viewUtils == null)
+			viewUtils = new ViewUtils();
+		return viewUtils;
+	}
+
+	public WebUtils getWebUtils() {
+		if (webUtils == null)
+			webUtils = new WebUtils();
+		return webUtils;
+	}
+
+	/* 
+	 * private getter of the context object 
+	 */
+	
+	
+	
 }

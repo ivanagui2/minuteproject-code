@@ -49,7 +49,13 @@ public class BslaLibraryUtils extends CommonUtils{
 	}
 
 	public static String getDomainObjectUMLImport (Model model, Table table, Template template) {
-		return getEntityLevelTemplateFullPath(model, table, template, BslaDomainObjectUMLTemplateName);
+		try {
+			return getEntityLevelTemplateFullPath(model, table, template, BslaDomainObjectUMLTemplateName);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	public static String getDomainObjectImport2 (Model model, Table table, Template template) {
@@ -76,6 +82,7 @@ public class BslaLibraryUtils extends CommonUtils{
 
 	public static String getDaoInterfaceVariableUMLName (Table table, Template template) {
 		return FormatUtils.getJavaNameVariableFirstLetter(getTemplateClassName (table, template, BslaDaoInterfaceUMLTemplateName));
+		//return FormatUtils.getJavaNameVariable(getTemplateClassName (table, template, BslaDaoInterfaceUMLTemplateName));
 	}
 
 	public static String getDaoInterfaceClassUMLName (Table table, Template template) {

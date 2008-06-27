@@ -1,0 +1,34 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration>
+		<model name="myProject">
+			<data-model>
+			    <fileSource name="pdmurf" dir="d:/DATA/generator">
+			    </fileSource>
+				<dataSource>
+					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+					<url>jdbc:oracle:thin:@d02di0513299:1521:fp7urf</url>
+					<username>bordiko</username>
+					<password>bordiko</password>	
+				</dataSource>	
+				<schema>BORDIKO</schema> 	
+				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
+				</primaryKeyPolicy>
+			</data-model>
+			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="IMPORT"></condition>
+				</generation-condition>		
+				<business-package default="myPackage">
+					<condition type="package" startsWith="TB" result="pdmurf"></condition>
+					<condition type="package" startsWith="INDEX" result="compass"></condition>
+				</business-package>							
+			</business-model>
+		</model>
+		<target refname="BackendOnBsla" name="default">
+			<property name="web.artifacts.output.dir"></property>
+			<property name="backend.artifacts.output.dir"></property>
+		</target> 	
+	</configuration>
+</generator-config>

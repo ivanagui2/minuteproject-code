@@ -75,6 +75,29 @@ public interface Database extends Serializable, Cloneable
      * 
      * @return The number of tables
      */
+    
+    public int getViewCount();
+
+    /**
+     * Returns the views in this model.
+     * 
+     * @return The tables
+     */
+    public View[] getViews();
+
+
+    /**
+     * Adds a table.
+     * 
+     * @param table The table to add
+     */
+    public void addView(View view);
+
+    /**
+     * Returns the number of tables in this model.
+     * 
+     * @return The number of tables
+     */
     public int getTableCount();
 
     /**

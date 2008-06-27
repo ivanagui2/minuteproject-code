@@ -5,6 +5,7 @@ import java.util.List;
 
 public class TemplateTarget extends AbstractConfiguration{
 	
+	public static final String MP_GENERATION_OUTPUT = "MP-GENERATION-OUTPUT";
 	private String rootdir;
 	private String templatedir;
 	private String dir;
@@ -16,7 +17,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	private List <Template> templates;
 	private String packageRoot;
 	private boolean belongToPackage;
-
+	
 	public String getPackageRoot() {
 		return packageRoot;
 	}
@@ -50,6 +51,8 @@ public class TemplateTarget extends AbstractConfiguration{
 		this.dir = dir;
 	}
 	public String getOutputdir() {
+		if (outputdir==null)
+			outputdir = getDir()+"/"+MP_GENERATION_OUTPUT;
 		return outputdir;
 	}
 	public void setOutputdir(String outputdir) {
@@ -99,6 +102,8 @@ public class TemplateTarget extends AbstractConfiguration{
 	}
 
 	public String getRootdir() {
+		if (rootdir == null)
+			rootdir = getTarget().getDir();
 		return rootdir;
 	}
 

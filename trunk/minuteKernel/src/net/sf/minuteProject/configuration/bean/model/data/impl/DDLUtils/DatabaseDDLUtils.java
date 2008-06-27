@@ -3,19 +3,14 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-
-import javax.sql.DataSource;
 
 import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.FileSource;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.View;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.io.DatabaseIO;
@@ -42,6 +37,7 @@ public class DatabaseDDLUtils implements Database
 	private org.apache.ddlutils.model.Database database;
 	private String type;
 	private ArrayList tables;
+	private ArrayList views;
 	private DataModel dataModel;
 	
 	public DatabaseDDLUtils(org.apache.ddlutils.model.Database database) {
@@ -61,7 +57,7 @@ public class DatabaseDDLUtils implements Database
 		    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
 		    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
 		    setType(platform);
-		    database = platform.readModelFromDatabase("TEST");
+		    database = platform.readModelFromDatabase("TEST"); 
 		    writeDatabase(database, dataModel);
 		//}
 	    return this;
@@ -167,12 +163,12 @@ public class DatabaseDDLUtils implements Database
      * Returns the number of tables in this model.
      * 
      * @return The number of tables
-     */
+     
     public int getTableCount()
     {
         return database.getTableCount();
     }
-
+*/
     /**
      * Returns the tables in this model.
      * 
@@ -182,9 +178,17 @@ public class DatabaseDDLUtils implements Database
     {
     	if (tables == null) {
     		tables = new ArrayList<Table>();
-    		for (int i = 0; i < database.getTableCount(); i++) {
+    		//for (int i = 0; i < database.getTableCount(); i++) {
+    		/*for (int i = 0; i < getTableCount(); i++) {
     			Table table = new TableDDLUtils (database.getTable(i));
     			tables.add(table);
+    		}*/
+    		org.apache.ddlutils.model.Table tablez[] = database.getTables();
+    		for (int i = 0; i < tablez.length; i++) {
+    			if (tablez[i].getType().equals("TABLE")) {
+        			Table table = new TableDDLUtils (tablez[i]);
+        			tables.add(table);
+    			}
     		}
     	}
     	return (Table[])tables.toArray(new Table[tables.size()]);
@@ -370,6 +374,56 @@ public class DatabaseDDLUtils implements Database
 			setType("SAPDB");	
 		else if (platform instanceof CloudscapePlatform)
 			setType("CLOUDSCAPE");			
+	}
+
+	public void addView(View view) {
+    	if (views == null) {
+    		views = new ArrayList<View>();
+    	}
+		views.add(view);
+	}
+
+	public View[] getViews() {
+	    {
+	    	if (views == null) {
+	    		views = new ArrayList<View>();
+
+	    		org.apache.ddlutils.model.Table tablez[] = database.getTables();
+	    		for (int i = 0; i < tablez.length; i++) {
+	    			if (tablez[i].getType().equals("VIEW")) {
+	        			View view = new ViewDDLUtils (tablez[i]);
+	        			addView(view);
+	    			}
+	    		}
+	    	}
+	    	return (View[])views.toArray(new View[views.size()]);
+	    }
+
+	}
+	
+    /**
+     * Returns the number of tables in this model.
+     * 
+     * @return The number of tables
+     */
+	public int getTableCount() {
+		org.apache.ddlutils.model.Table tables[] = database.getTables();
+		int j=0;
+		for (int i = 0; i < tables.length; i++) {
+			if (tables[i].getType().equals("TABLE"))
+				j++;
+		}
+		return j;
+	}
+	
+	public int getViewCount() {
+		org.apache.ddlutils.model.Table tables[] = database.getTables();
+		int j=0;
+		for (int i = 0; i < tables.length; i++) {
+			if (tables[i].getType().equals("TABLE"))
+				j++;
+		}
+		return j;
 	}
 
 }

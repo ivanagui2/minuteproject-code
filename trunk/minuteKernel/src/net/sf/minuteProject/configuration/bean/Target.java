@@ -3,6 +3,8 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.system.Plugin;
+
 /**
  * @author Florian Adler
  *
@@ -15,6 +17,7 @@ public class Target extends AbstractConfiguration{
 	private List <TemplateTarget> templateTargets;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List <Target> dependency;
+	private List <Plugin> plugins;
 
 	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
 		return abstractConfigurationRoot;
@@ -80,6 +83,18 @@ public class Target extends AbstractConfiguration{
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public void addPlugin (Plugin plugin) {
+		getPlugins().add(plugin);
+	}
+	public List<Plugin> getPlugins() {
+		if (plugins==null)
+			setPlugins(new ArrayList<Plugin>());
+		return plugins;
+	}
+	public void setPlugins(List<Plugin> plugins) {
+		this.plugins = plugins;
 	}
 	
 	

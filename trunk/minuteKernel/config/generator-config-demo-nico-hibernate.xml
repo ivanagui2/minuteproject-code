@@ -1,0 +1,40 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration>
+		<model name="nico">
+			<data-model>
+			    <fileSource name="sample" dir="c:/MinuteProject/data">
+			    </fileSource>
+				<dataSource>
+				<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+				<url>jdbc:mysql://localhost:3306/xxy</url>
+				<username>root</username>
+				<password>admin</password>	
+				</dataSource>		
+				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="SAMPLE_SEQ"></primaryKeyPolicyPattern>
+				</primaryKeyPolicy> 
+			</data-model>
+			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="DUAL"></condition>
+				</generation-condition>		
+				<business-package default="demo">
+					<condition type="package" startsWith="CONF" result="conference"></condition>
+				</business-package>							
+				<tables>
+					<table name="CODE_TABLE_TYPE">
+						<type>masterdata</type>
+						<reference-view-field>CODE</reference-view-field>
+						<reference-view-parent>no</reference-view-parent>
+						<reference-view-child>no</reference-view-child>
+					</table>						
+				</tables>
+			</business-model>
+		</model>
+		<target refname="BackendOnBsla" name="default" dir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate/template-bsla" fileName="mp-hibernate-demo-nico.xml">
+			<property name="web.artifacts.output.dir"></property>
+			<property name="backend.artifacts.output.dir"></property>
+		</target> 	
+	</configuration>
+</generator-config>

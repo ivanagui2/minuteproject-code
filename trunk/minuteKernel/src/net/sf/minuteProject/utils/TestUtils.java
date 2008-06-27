@@ -51,6 +51,10 @@ public class TestUtils {
 			return  "getBlob"+length+")";	
 		if (dBType.equals("CLOB"))
 			return  "getClob"+length+")";	
+		if (dBType.equals("NVARCHAR2"))
+			return  "getString"+number+"("+length+")";	
+		if (dBType.equals("OTHER"))
+			return  "getString"+number+"("+length+")";
 		return retStr;			
 	}
 	

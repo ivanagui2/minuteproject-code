@@ -9,6 +9,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.DBTemplateUtils;
 import net.sf.minuteProject.utils.ModelUtils;
@@ -20,18 +21,94 @@ public class BusinessPackage extends AbstractConfiguration {
 	private List <Condition> conditions;
 	private List packages;
 	private List tables;
+	private List packageViews;
+	private List views;
+
+	private List packageServices;
+	private List services;
+	
+	void setPackageServices (Model model, Database database) {
+		packageServices = new ArrayList();
+		Hashtable ht = new Hashtable();
+		View [] views = database.getViews();
+		for (int i = 0; i < views.length; i++) {
+			View view = views[i];
+			view.setDatabase(database);
+			if (ModelUtils.isToGenerate(businessModel, view)) {
+				String packageName = CommonUtils.getBusinessPackageName(model, view);
+				Package pack = (Package)ht.get(packageName);
+				if (pack==null) {
+					pack = new Package();
+					pack.setBusinessPackage(this);
+					pack.setName(packageName);
+				}
+				pack.addView(view);
+				ht.put(packageName, pack);
+			}
+		}
+		Enumeration enumeration = ht.elements();
+		while (enumeration.hasMoreElements()) {
+			packageServices.add(enumeration.nextElement());
+		}
+	}
+	
+	public List getServices () {
+		if (views == null) {
+			views = new ArrayList();
+			for (Iterator<Package> iter = packageServices.iterator(); iter.hasNext();) {
+				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
+					views.add(iter2.next());
+				}
+			}
+		}
+		return views;
+	}
+
+	void setPackageViews (Model model, Database database) {
+		packageViews = new ArrayList();
+		Hashtable ht = new Hashtable();
+		View [] views = database.getViews();
+		for (int i = 0; i < views.length; i++) {
+			View view = views[i];
+			view.setDatabase(database);
+			if (ModelUtils.isToGenerate(businessModel, view)) {
+				String packageName = CommonUtils.getBusinessPackageName(model, view);
+				Package pack = (Package)ht.get(packageName);
+				if (pack==null) {
+					pack = new Package();
+					pack.setBusinessPackage(this);
+					pack.setName(packageName);
+				}
+				pack.addView(view);
+				ht.put(packageName, pack);
+			}
+		}
+		Enumeration enumeration = ht.elements();
+		while (enumeration.hasMoreElements()) {
+			packageViews.add(enumeration.nextElement());
+		}
+	}
+	
+	public List getViews () {
+		if (views == null) {
+			views = new ArrayList();
+			for (Iterator<Package> iter = packageViews.iterator(); iter.hasNext();) {
+				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
+					views.add(iter2.next());
+				}
+			}
+		}
+		return views;
+	}
 	
 	void setPackages (Model model, Database database) {
 		packages = new ArrayList();
 		Hashtable ht = new Hashtable();
-		net.sf.minuteProject.configuration.bean.model.data.Table [] tables = database.getTables();
+		Table [] tables = database.getTables();
 		for (int i = 0; i < tables.length; i++) {
-			//net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils table 
-			//= new net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils(tables[i]);
 			Table table = tables[i];
 			table.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, table)) {
-				//String packageName = DBTemplateUtils.getSubPackage(table);
 				String packageName = CommonUtils.getBusinessPackageName(model, table);
 				Package pack = (Package)ht.get(packageName);
 				if (pack==null) {
@@ -63,6 +140,10 @@ public class BusinessPackage extends AbstractConfiguration {
 	
 	public List getPackages() {
 		return packages;
+	}
+
+	public List getPackageViews() {
+		return packageViews;
 	}
 
 	public void addCondition (Condition condition) {

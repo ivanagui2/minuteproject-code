@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.View;
 
 import org.apache.ddlutils.model.Index;
 import org.apache.ddlutils.model.IndexColumn;
@@ -21,6 +22,11 @@ public class TableUtils {
 		Column primaryKeyColumn=getPrimaryFirstColumn(table);
 		if (primaryKeyColumn!=null)
 			return primaryKeyColumn.getName();
+			// check if there is a virtual primary key
+//		String virtualPrimaryKey = getVirtualPrimaryKey(table);
+//		if (virtualPrimaryKey!=null) {
+//			return virtualPrimaryKey;
+//		}
 		return "";
 	}
 	
@@ -47,6 +53,20 @@ public class TableUtils {
 		return null;
 	}
 	
+	private static String getVirtualPrimaryKey (Table table) {
+		if (table instanceof View) {
+			Column virtualPrimaryKey = getVirtualPrimaryKeyFirstColumn((View)table);
+			return getVirtualPrimaryKeyFirstColumn((View)table).getName();
+		}
+		return null;
+	}
+	private static Column getVirtualPrimaryKeyFirstColumn (View view) {
+		Column primaryKeyColumn [] = view.getVirtualPrimaryKeys();
+		if (primaryKeyColumn.length<1)
+			return null; //ID is the default pk
+		return primaryKeyColumn[0];				
+	}
+	
 	public static boolean isUnique (Table table, Column column) {
 		Index indexes [] = table.getUniqueIndices();
 		for (int i = 0; i < indexes.length; i++) {
@@ -62,6 +82,15 @@ public class TableUtils {
 	public static boolean isMany2Many (Table table) {
 		return table.isManyToMany();
 	}
+	
+	public static boolean isColumnPk (Column column, Table table) {
+		Column [] pks = table.getPrimaryKeyColumns();
+		for (int i = 0; i < pks.length; i++) {
+			if (pks[i].getName().equals(column.getName()))
+				return true;
+		}
+		return false;
+	}
 	/*
 	public static Table getOtherEnd (Table origin, Table many2many) {
 		if (many2many.isManyToMany()) {		
@@ -73,5 +102,16 @@ public class TableUtils {
 		}
 		return null;
 	}*/
+	//for view
+	public static View getView(Database database, String viewname){
+		int maxView = database.getViews().length;
+		for (int i = 0; i < maxView; i++) {
+			View view = database.getViews()[i];
+			if (view.getName().equals(viewname))
+				return view;
+		}
+		return null;
+	}
+
 	
 }

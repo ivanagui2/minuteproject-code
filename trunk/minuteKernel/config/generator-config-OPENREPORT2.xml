@@ -1,0 +1,41 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration name="openreport">
+		<model name="openreport">
+			<data-model>
+			    <fileSource name="openreport" dir="c:/data/generator">
+			    </fileSource>
+				 <dataSource>	
+					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/openreports</url>
+					<username>sa</username>
+					<password></password>	
+				</dataSource>	
+				<!-- <schema></schema> 		 --> 
+			</data-model>
+			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="IMPORT"></condition>
+				</generation-condition>		
+				<business-package default="myPackage">
+					<condition type="package" startsWith="CODE" result="common"></condition>
+					<condition type="package" startsWith="ZEE" result="zee"></condition>
+					<condition type="package" startsWith="IM7" result="im7"></condition>
+					<condition type="package" startsWith="LUCHT" result="lucht"></condition>
+				</business-package>							
+				<tables>
+					<table name="CODE_TABLE_TYPE">
+						<type>masterdata</type>
+						<reference-view-field>CODE</reference-view-field>
+						<reference-view-parent>no</reference-view-parent>
+						<reference-view-child>no</reference-view-child>
+					</table>						
+				</tables>
+			</business-model>
+		</model>
+		<target refname="BackendOnBsla" name="default">
+			<property name="web.artifacts.output.dir"></property>
+			<property name="backend.artifacts.output.dir"></property>
+		</target> 	
+	</configuration>
+</generator-config>

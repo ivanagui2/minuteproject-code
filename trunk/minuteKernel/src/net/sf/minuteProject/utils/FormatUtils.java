@@ -15,7 +15,7 @@ public class FormatUtils {
 	}
 	
 	public static String getJavaName(String name) {
-		if (name==null)
+		if (name==null || name.equals(""))
 			return "JAVA_NAME_RETURNS_NULL";
 		StringTokenizer st = new StringTokenizer (name,"_");
 		StringBuffer sb = new StringBuffer();
@@ -23,7 +23,8 @@ public class FormatUtils {
 		if (firstToken.length()==1) {
 			sb.append(firstToken.toUpperCase());
 			while (st.hasMoreTokens()){
-				sb.append(st.nextToken().toUpperCase());
+				//sb.append(st.nextToken().toUpperCase());
+				sb.append(firstUpperCaseOnly(st.nextToken()));
 			}			
 		} else {
 			sb.append(firstUpperCaseOnly(firstToken));
@@ -43,7 +44,12 @@ public class FormatUtils {
 		String javaname = getJavaName(name);
 		if (isStandardBean(name))
 			return firstLowerCase(javaname);
-		return javaname;
+		// trick java part
+		// this is due to have correct getter
+		// to create a correct getter apply the following rule
+		// if second letter is a Capital then the first one should also be a capital
+		//
+		return firstUpperCase(javaname);
 	}	
 	
 	public static String getJavaNameVariableFirstLetter(String name) {
@@ -59,6 +65,9 @@ public class FormatUtils {
 	}	
 	private static String firstLowerCase (String st) {
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length());
+	}	
+	private static String firstUpperCase (String st) {
+		return st.substring(0,1).toUpperCase() +st.substring(1,st.length());
 	}	
 	
 	public static String remove_ID_patternFromColumnName(String input) {

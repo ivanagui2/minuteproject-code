@@ -35,7 +35,11 @@ public class CommonUtils {
 	}
 	
 	public static String getTcn (Table table) {
-		return FormatUtils.getJavaName(table.getName());
+		return getJavaClassName(table.getName());
+	}
+	
+	public static String getJavaClassName (String entityName) {
+		return FormatUtils.getJavaName(entityName);
 	}
 	
 	public static String getPackageClassName (Package pack) {
@@ -48,8 +52,14 @@ public class CommonUtils {
 	
 	public static String getJavaVariableName (String string) {
 		return FormatUtils.getJavaNameVariable(string);
+		//return FormatUtils.getJavaNameVariableFirstLetter(string);
 	}
 
+	public static String getJavaNameVariableFirstLetter (String string) {
+		//return FormatUtils.getJavaNameVariable(string);
+		return FormatUtils.getJavaNameVariableFirstLetter(string);
+	}
+	
 	// 4 times (model, package, table, view) use hierachy instead
 	// TODO refactor
 	public static String getPackageName (GeneratorBean bean, Template template) {
@@ -83,29 +93,30 @@ public class CommonUtils {
 		return FormatUtils.getDirFromPackage(getPackageName(bean, template));
 	}	
 	// TODO refactor 4 times
-	public static String getClassName (AbstractConfiguration bean, Template template) {
-		return template.getOutputFileMain(getTableClassName(bean));
+	public static String getClassName (GeneratorBean bean, Template template) {
+		//return template.getOutputFileMain(getTableClassName(bean));
+		return template.getOutputFileMain(bean);
 	}
 	
-	public static String getClassName (Table table, Template template) {
-		String className = template.getOutputFileMain(getTableClassName(table));
-		return className;
-	}
-	
+//	public static String getClassName (Table table, Template template) {
+//		String className = template.getOutputFileMain(getTableClassName(table));
+//		return className;
+//	}
+//	
 	public static String getClassName2 (Table table, Template template) {
-		String className = template.getOutputFileMain(getTableClassName(table));
+		String className = template.getOutputFileMain(table);
 		return className;
 	}
-	
-	public static String getClassName (Package pack, Template template) {
-		return template.getOutputFileMain(getPackageClassName(pack));
-	}
-	///
-	
-	public static String getClassName (Model model, Template template) {
-		return template.getOutputFileMain(FormatUtils.getJavaName(model.getName()));
-	}	
-	
+//	
+//	public static String getClassName (Package pack, Template template) {
+//		return template.getOutputFileMain(getPackageClassName(pack));
+//	}
+//	///
+//	
+//	public static String getClassName (Model model, Template template) {
+//		return template.getOutputFileMain(FormatUtils.getJavaName(model.getName()));
+//	}	
+//	
 	public static String getVariableName(Table table, Template template) {
 		return FormatUtils.getJavaNameVariable(getClassName(table, template));
 	}
@@ -217,12 +228,16 @@ public class CommonUtils {
 		return template;
 	}
 	
-	public static String getFileName (Template template, String name) {
-		return template.getOutputFileName(FormatUtils.getJavaName(name));
+	public static String getFileName (Template template, GeneratorBean bean) {
+		return template.getOutputFileName(bean);
 	}
 	
-	public static String getClasspathName (Template template, String name) {
-		return template.getOutputFileName(FormatUtils.getJavaName(name));
+	public static String getFileMainName (Template template, GeneratorBean bean) {
+		return template.getOutputFileMain(bean);
+	}
+	
+	public static String getClasspathName (Template template, GeneratorBean bean) {
+		return template.getOutputFileName(bean);
 	}
 	
 	public static String getForeignKeyTableName (Column column, Table table) {
@@ -323,14 +338,14 @@ public class CommonUtils {
 	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {
 //		 TODO refactor may have side effect check with the Template implementation
 		String classpathName = getPackageName(table, template);
-		String filename = getFileName(template, table.getName());
+		String filename = getFileName(template, table);
 		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
 	}
 
 	public static String getArtifactRelativePathDirAndFullName(Template template, Model model) {
 		// TODO refactor may have side effect check with the Template implementation
 		String classpathName = getPackageName(model, template);
-		String filename = getFileName(template, model.getName());
+		String filename = getFileName(template, model);
 		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
 	}
 	
@@ -355,13 +370,18 @@ public class CommonUtils {
 	
 	public static String getTemplateArtifactName (Model model, String templateName) {
 		Template template = getTemplate(model.getConfiguration(), templateName);
-		return getFileName(template, model.getName());
+		return getFileName(template, model);
 	}
 	
 	public static String getTemplateArtifactName (Table table, String templateName) {
 		Template template = getTemplate(getModel(table).getConfiguration(), templateName);
-		return getFileName(template, table.getName());
-	}	
+		return getFileName(template, table);
+	}
+	
+	public static String getTemplateArtifactMainName (Table table, String templateName) {
+		Template template = getTemplate(getModel(table).getConfiguration(), templateName);
+		return getFileMainName(template, table);
+	}
 	
 	public static String getTemplateArtifactDirName (Model model, String templateName) {
 		Template template = getTemplate(model.getConfiguration(), templateName);
@@ -380,7 +400,11 @@ public class CommonUtils {
 		String result= getTemplateClassName(table, model, targetTemplateName);
 		return CommonUtils.getJavaVariableName(result);
 	}
-	
+
+	public static String getJavaNameVariableFirstLetter(Table table, Model model, String targetTemplateName) {
+		String result= getTemplateClassName(table, model, targetTemplateName);
+		return CommonUtils.getJavaNameVariableFirstLetter(result);
+	}
 	/**
 	 * comment utils mark the minute template the a minute comment
 	 */
