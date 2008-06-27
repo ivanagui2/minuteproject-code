@@ -8,6 +8,7 @@
 	
 	<property name="lib.dir" value="${home.dir}/lib"/>
     <property name="src.dir" value="${home.dir}/src"/>
+	<property name="src-plugin.dir" value="${home.dir}/src-plugin"/>
     <property name="test.dir" value="${home.dir}/test"/>	
     <property name="dist.dir" value="${application.dir}/java/lib"/>	
 	<property name="archive.name" value="${application.name}.jar"/>
@@ -33,7 +34,9 @@
             	optimize="@{optimize}" nowarn="false">
                 <classpath refid="compile.classpath"/>
                 <src path="${src.dir}"/>
-                <src path="${test.dir}"/>
+            	<src path="${src-plugin.dir}"/>
+                <!-- no test case yet :-(
+                <src path="${test.dir}"/>-->
                 <include name="**/*.java"/>
             </javac>
         </sequential>
