@@ -14,8 +14,14 @@
 
 #macro(exposeVariableEntitySpecificURL)
 #set ($tableDB = $table.table)
+#getTemplatePropertyValue("framework")
+#if ($value.equals("struts2Default"))
+#set ($URLSearchEntity = $struts2.getURLSearchEntity($model, $table))
+#set ($URLManageEntity = $struts2.getURLManageEntity($model, $table))
+#else
 #set ($URLSearchEntity = $URLUtils.getURLSearchEntity($model, $tableDB))
 #set ($URLManageEntity = $URLUtils.getURLManageEntity($model, $tableDB))
+#end
 #end
 
 #macro (exposeJstlCombinaison $element1 $element2)
@@ -159,4 +165,11 @@ function setAction(target) {
      document.forms[0].action.value=target;
 }
 </script>
+#end
+
+#macro (importFrontEndJSP)
+#getTemplateExtensionValue()
+#if ($value.equals("jsp"))
+<%@ include file="/WEB-INF/jsp/common/common-include.jsp"%>
+#end
 #end

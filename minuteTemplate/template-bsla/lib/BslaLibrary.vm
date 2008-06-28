@@ -40,6 +40,7 @@
 #set ($database = $model.dataModel.database)
 #set ($configuration = $model.configuration)
 #set ($businessPackages = $model.businessModel.businessPackage.packages)
+#set ($businessPackageViews = $model.businessModel.businessPackage.packageViews)
 #set ($className = $commonUtils.getClassName($model, $template))
 #set ($packageName = $commonUtils.getPackageName($model, $template))
 #end
@@ -53,6 +54,10 @@
 #exposeVariableModelDetailSpecific()
 #set ($distinctTemplateTargetList = $commonUtils.getDistinctTemplateTargetList($model))
 #end
+
+
+## -- put reference paramenters:
+## putReferenceParams goes with reference accessed via parentReferences, childReferences
 
 #macro (putReferenceParams)
 ## this macro is used when accessing the entity reference via parentReferences or childReferences
@@ -71,7 +76,9 @@
 #set ($associatedPackageName = $commonUtils.getAssociatedBusinessPackageName($model, $reference.tableName))
 ## resource bundle
 #set ($resource = "${table.name}.$var")
+#set ($parentLink = $referenceUtils.getParentLink(${reference.tableName},${reference.columnName}))
 #end
+
 
 #macro (putReferenceParams2old)
 ##set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
@@ -87,6 +94,7 @@
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #end
 
+## putReferenceParams2 goes with reference accessed via domainObjectUML.parents, domainObjectUML.childReferences
 
 #macro (putReferenceParams2)
 ## this macro is use when a reference is accessed via parent.references or child.references
@@ -94,15 +102,20 @@
 #set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
 #set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-#set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
+#set ($localTableClass = $formatUtils.getJavaName(${reference.localTableName}))
 #set ($localColumnClass = $formatUtils.getJavaName(${reference.localColumnName}))
 #set ($localColumnType = $commonUtils.getType($reference.localColumn))
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumnName}))
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumnName}))
 #set ($linktableDB = ${reference.foreignTable})
+##set ($parentLinkUML = $referenceUtils.getParentLinkUML(${reference.foreignTableName},${reference.localColumnName}))
+##set ($parentLink = $referenceUtils.getParentLink(${reference.tableName},${reference.columnName}))
+#set ($parentLinkUML = "${linkedTableClass}${localColumnClass}")
+#set ($parentLink = "${linkedTableClass}_${localColumnClass}")
 #end
 
+## putColumnParams are for the decorating the entity attribute 
 #macro (putColumnParams)
 #set ($isForeignKey = $columnUtils.isForeignKey($column))
 #set ($columnType = $commonUtils.getJavaType($column.type))
@@ -111,9 +124,15 @@
 #set ($isColumnUnique = $tableUtils.isUnique($table, $column))
 #set ($isMandatory = $column.isRequired())
 #set ($resource = "${table.name}.$columnVar")
+#set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
+#set ($columLengthPrecisionSize = $column.getSizeAsInt())
 #end
 
+## ----- import params
+## -- import params imports the params regarding the other template for a domainObject
+
 #macro (putImportParams)
+#distinctTemplateAlias()
 #set ($tableDB = $table)
 #set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport($model, $tableDB, $template))
 ##set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
@@ -128,6 +147,8 @@
 #set ($importIbatisDaoSqlImplName = $bslaLibraryUtils.getIbatisDaoSqlImplImport($model, $tableDB, $template))
 ##set ($importHibernateImplName = $bslaLibraryUtils.getHibernateImplNameImport($model, $tableDB, $template))
 #end
+
+## -- import params imports the params regarding the other template for a domainObjectUML
 
 #macro (putImportParamsUML)
 #set ($tableDB = $table)
@@ -160,13 +181,18 @@
 #set ($template = $commonUtils.getTemplate($configuration,"BslaIbatisDaoSqlMapXml"))
 #exposeVariableEntitySpecific()
 ##exposeFileName($template $tableClassName)
-#exposeFileName($template $table.name)
+#exposeFileName($template $table)
 #end
 
 #macro (exposeVariableEntitySpecificHibernateMapConfig)
 #set ($template = $commonUtils.getTemplate($configuration,"HibernateMap"))
-#exposeVariableEntitySpecific()
+##exposeVariableEntitySpecific()
 #exposeArtifactRelativePathDirAndFullName($template $table)
+#end
+
+#macro (exposeVariableEntityViewSpecificHibernateMapConfig)
+#set ($template = $commonUtils.getTemplate($configuration,"HibernateMap"))
+#exposeArtifactRelativePathDirAndFullName($template $view)
 #end
 
 #macro (exposeArtifactRelativePathDirAndFullName $template $table)
@@ -182,9 +208,9 @@
 #set ($template = $commonUtils.getTemplate($configuration,"BslaDomainObject"))
 #end
 
-#macro (exposeFileName $template $name)
-#set ($filename = $commonUtils.getFileName($template, $name))
-#set ($classpathName = $commonUtils.getclasspathName($template, $name))
+#macro (exposeFileName $template $table)
+#set ($filename = $commonUtils.getFileName($template, $table))
+#set ($classpathName = $commonUtils.getclasspathName($template, $table))
 #end
 
 #macro (exposeEnvironmentParams)
@@ -219,25 +245,7 @@
 #set ($combi = "${itemsFirst}${element1}${itemsSeparator}${element2}${itemsLast}")
 #end
 
-#macro (importBackEnd)
-#foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})
-#putImportParams()
-import $importDomainObject;
-import $importDaoInterface;
-#end
-	#end
-#end
 
-#macro (importBackEndUML)
-#foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})
-#putImportParamsUML()
-import $importDomainObjectUML;
-import $importDaoInterfaceUML;
-#end
-	#end
-#end
 
 #macro (exposeJdbcParam $param)
 #set ($itemsFirst = '${')
@@ -268,16 +276,85 @@ import $importDaoInterfaceUML;
 #set ($value = $template.getPropertyValue($property))
 #end
 
+#macro (getTemplateExtensionValue )
+#set ($value = $template.getFileExtension())
+#end
 
 #macro (putDependencies)
-#set ($dependentImportTestDaoClass = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, "TestDao"))
-#set ($dependentTestDaoClass = $commonUtils.getTemplateClassName($linktableDB, $model, "TestDao"))
-#set ($dependentTestDaoVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, "TestDao"))
-#set ($dependentImportDaoInterface = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, "BslaDaoInterface"))
-#set ($dependentDaoInterfaceClassName = $commonUtils.getTemplateClassName($linktableDB, $model, "BslaDaoInterface"))
-#set ($dependentDaoInterfaceVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, "BslaDaoInterface"))
-#set ($dependentImportDomainClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, "BslaDomainObject"))
-#set ($dependentDomainClassName = $commonUtils.getTemplateClassName($linktableDB, $model, "BslaDomainObject"))
-#set ($dependentDomainVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, "BslaDomainObject"))
+#distinctTemplateAlias()
+#set ($dependentImportTestDaoClass = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateTestBslaDaoInterfaceAlias))
+#set ($dependentTestDaoClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateTestBslaDaoInterfaceAlias))
+#set ($dependentTestDaoVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
+#set ($dependentImportDaoInterface = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoInterfaceAlias))
+#set ($dependentDaoInterfaceClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
+#set ($dependentDaoInterfaceVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
+#set ($dependentImportDomainClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateDomainObjectAlias))
+#set ($dependentDomainClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateDomainObjectAlias))
+#set ($dependentDomainVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateDomainObjectAlias))
 #end
+
+## distinct: distinguish between templates based on domainObject and 
+## template made for domainObjectUML
+
+#macro (distinctTemplateAlias)
+#templateDefinition()
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
+#set ($templateDomainObjectAlias = $templateDomainObject)
+#set ($templateBslaDaoInterfaceAlias = $templateBslaDaoInterface)
+#else
+#set ($templateDomainObjectAlias = $templateDomainObjectUML)
+#set ($templateBslaDaoInterfaceAlias = $templateBslaDaoInterfaceUML)
+#end
+#set ($templateTestBslaDaoInterfaceAlias = "TestDao")
+#end 
+
+## distinct Back end import
+
+#macro (distinctBEImport)
+#distinctTemplateAlias()
+#set ($importDomainObject = $bslaLibraryUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template,$templateDomainObjectAlias))
+#set ($importDaoInterface = $bslaLibraryUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template,$templateBslaDaoInterfaceAlias))
+#end 
+
+#macro (distinctEntityProperty)
+#distinctTemplateAlias()
+#set ($importDomainObject = $bslaLibraryUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template,$templateDomainObjectAlias))
+#set ($importDaoInterface = $bslaLibraryUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template,$templateBslaDaoInterfaceAlias))
+#set ($daoInterfaceClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateBslaDaoInterfaceAlias))
+#set ($daoInterfaceVariableName = $commonUtils.getJavaNameVariableFirstLetter($tableDB, $model, $templateBslaDaoInterfaceAlias))
+#set ($domainClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectAlias))
+#set ($domainVariableName = $commonUtils.getTemplateJavaVariableName($tableDB, $model, $templateDomainObjectAlias))
+#end 
+
+#macro (importBackEnd)
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#putImportParams()
+import $importDomainObject;
+import $importDaoInterface;
+#end
+	#end
+#end
+
+#macro (importBackEndUML)
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#putImportParamsUML()
+import $importDomainObjectUML;
+import $importDaoInterfaceUML;
+#end
+	#end
+#end
+
+## set the definition of the template against there logical fonction
+
+#macro (templateDefinition)
+#set ($templateDomainObject="BslaDomainObject")
+#set ($templateDomainObjectUML="DomainObjectUML")
+#set ($templateBslaDaoInterface="BslaDaoInterface")
+#set ($templateBslaDaoInterfaceUML="BslaDaoInterfaceUML")
+##set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
+#end
+
 
