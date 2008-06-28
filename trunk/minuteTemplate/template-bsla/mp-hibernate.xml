@@ -1,7 +1,9 @@
 <target name="BackendOnBsla-forhibernate">		
-	<architecture-target name="hibernate" description="basic springframework layer architecture"/>	
-		
-<template-target 
+	<architecture-target name="hibernate" description="basic springframework layer architecture">
+	</architecture-target>	
+    <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
+	
+	<template-target 
 	rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
     templatedir = "template-bsla" 
 	libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
@@ -10,11 +12,33 @@
 	package-root="sf.net.openreports"
 	belongToPackage="true">
 	
+		<!--  Test templates -->
+		<template name="TestDao" templateFileName="iBatisDaoTest.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="Test" 
+			entity-specific="true" package-specific="false" model-specific="false">
+			<property name="uml" value="true"/>
+			<property name="spring-config" value="BslaSpringConfigHibernate"/>
+		</template>
+	
+	</template-target>	
+				
+	<template-target 
+		rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
+	    templatedir = "template-bsla" 
+		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+		tool="velocity"
+		outputdir="C:/DEV/JAVA/mysourceforge/MP/minuteArchitecture/project-bsla/src-generated-SAMPLE_HIB"
+		package-root="sf.net.openreports"
+		belongToPackage="true">
+	
 		<!--  hibernate templates -->
-		<template name="DomainObject" templateFileName="DomainObjectUML.vm" 
+		<template name="DomainObjectUML" templateFileName="DomainObjectUML.vm" 
 			subdir="" outputsubdir="" technicalPackage="domainUML"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" package-specific="false" model-specific="false">
+			<property name="annotation" value="true"/>
+			<property name="annotationType" value="hibernate"/>
 		</template>
 		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="persistence"
@@ -58,7 +82,7 @@
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>								 
 		
-		<!-- bsla templates -->			
+		<!-- bsla templates 			
 		<template name="BslaDomainObject" templateFileName="BslaDomainObject.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
@@ -70,10 +94,11 @@
 			file-extension="java" file-prefix="" file-suffix="Dao" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>
+		-->
 	
-		<template name="BslaSpringConfig" templateFileName="BslaSpringConfig.vm" 
+		<template name="BslaSpringConfigHibernate" templateFileName="BslaSpringConfigMainHibernate.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
-			file-extension="xml" file-prefix="spring-config-" file-suffix="" 
+			file-extension="xml" file-prefix="spring-config-Hibernate-BE-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>					
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
@@ -85,6 +110,7 @@
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="hibernateDialect" value="true"></property>
 		</template>	
 
 	</template-target>	

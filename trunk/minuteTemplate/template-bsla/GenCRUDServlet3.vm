@@ -46,64 +46,70 @@ public class $className extends HttpServlet {
 #else
 #putImportParamsUML()
 #end
-#exposeJSPPath()
         if (table.equals("$table.name")) {
-			$tableClassName entity = new $tableClassName();
-			populate(entity, req);
-#distinctEntityProperty()
-			${daoInterfaceClassName} dao = (${daoInterfaceClassName})MyProjectFactory.getBean("${daoInterfaceVariableName}");			
-##getTemplatePropertyValue("uml")
-##if (!$value.equals("true"))
-##${daoInterfaceName} dao = (${daoInterfaceName})MyProjectFactory.getBean("${tableVariableName}Dao");			
-##else
-##${daoInterfaceNameUML} dao = (${daoInterfaceNameUML})MyProjectFactory.getBean("${tableVariableName}Dao");			
-##end			
-			if (action.equals("insert")) {
-				dao.insert$tableClassName(entity);
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-			}
-			if (action.equals("update")) {
-				dao.update$tableClassName(entity);
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-			}			
-			if (action.equals("manage")) {
-				session.setAttribute ("_ManagementScreenPurpose", "manage");
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
-			}
-			if (action.equals("searchOnPk")) {
-				##entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
-				entity  = dao.loadFullFirstLevel$tableClassName(entity);
-				List list = new ArrayList();
-				list.add(entity);					
-				session.setAttribute("${tableClassName}SearchResultList",list);
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-			}
-			if (action.equals("searchOnPkFull")) {
-				entity = dao.loadFullFirstLevel$tableClassName(entity);
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-			}
-			if (action.equals("edit")) {
-			    session.setAttribute ("_ManagementScreenPurpose", "update");
-			##entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
-				entity  = dao.loadFullFirstLevel$tableClassName(entity);
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
-			}
-			if (action.equals("add")) {
-				session.setAttribute ("_ManagementScreenPurpose", "insert");
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
-			}
-			if (action.equals("save")) {
-				dao.save$tableClassName(entity);
-				doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
-			}
-			if (action.equals("search")) {
-			    List list = dao.search$tableClassName(entity);
-				doExit (req, res, list, "${tableClassName}SearchResultList", "$jspPath/${tableClassName}ResultListScreen.jsp");
-			}
-		}									
+           perform${tableClassName}Action (req, res, action, session);
+        }
 #end
 #end
     }
+    
+// actions
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})  
+#exposeVariableEntitySpecific()
+#exposeJSPPath()
+    public void perform${tableClassName}Action (HttpServletRequest req, HttpServletResponse res, String action, HttpSession session) 
+    	   throws IllegalAccessException, InvocationTargetException, ServletException, IOException {
+	   $tableClassName entity = new $tableClassName();
+	   populate(entity, req);
+#distinctEntityProperty()
+	   ${daoInterfaceClassName} dao = (${daoInterfaceClassName})MyProjectFactory.getBean("${daoInterfaceVariableName}");			
+       if (action.equals("insert")) {
+		  dao.insert$tableClassName(entity);
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+	   }
+	   if (action.equals("update")) {
+		  dao.update$tableClassName(entity);
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+	   }			
+	   if (action.equals("manage")) {
+		  session.setAttribute ("_ManagementScreenPurpose", "manage");
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
+	   }
+	   if (action.equals("searchOnPk")) {
+##entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
+		  entity  = dao.loadFullFirstLevel$tableClassName(entity);
+		  List list = new ArrayList();
+		  list.add(entity);					
+		  session.setAttribute("${tableClassName}SearchResultList",list);
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+	   }
+	   if (action.equals("searchOnPkFull")) {
+		  entity = dao.loadFullFirstLevel$tableClassName(entity);
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+	   }
+	   if (action.equals("edit")) {
+		  session.setAttribute ("_ManagementScreenPurpose", "update");
+##entity  = dao.loadFullFirstLevel$tableClassName(new $primaryKeyFullType(pk));
+		  entity  = dao.loadFullFirstLevel$tableClassName(entity);
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
+	   }
+	   if (action.equals("add")) {
+		  session.setAttribute ("_ManagementScreenPurpose", "insert");
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ManageScreen.jsp");
+	   }
+	   if (action.equals("save")) {
+		  dao.save$tableClassName(entity);
+		  doExit (req, res, entity, "${tableClassName}SearchResultOne", "$jspPath/${tableClassName}ResultOneScreen.jsp");
+	   }
+	   if (action.equals("search")) {
+		  List list = dao.search$tableClassName(entity);
+		  doExit (req, res, list, "${tableClassName}SearchResultList", "$jspPath/${tableClassName}ResultListScreen.jsp");
+	   }
+    }	   
+#end
+
+#end
 
     private void doExit(HttpServletRequest req, HttpServletResponse res, Object entity, String attribute, String path) throws ServletException, IOException{
 					HttpSession session = req.getSession();

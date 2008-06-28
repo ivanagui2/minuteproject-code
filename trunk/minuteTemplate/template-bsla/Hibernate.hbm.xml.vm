@@ -1,4 +1,5 @@
 #exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
 #putImportParamsUML()
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -7,31 +8,38 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false">
-	<class name="$importDomainObjectUML" table="${table.name}">
+	<class name="$importDomainObjectUML" 
+	       table="${table.name}"
+	       lazy="true">
 		<!--<cache usage="read-write" />-->
 
 #if($hasPrimaryKey)
 	<id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
-    <generator class="sequence"/>            
+#if (!$isPkUserProvided)
+    <generator class="sequence">
+        <param name="sequence">hibernate_sequence</param>
+##       <param name="sequence">$PKLookUpString</param>
+    </generator>
+#end                
 	</id>
 #end
 
 	<!-- map the fields of ${className} domain object  -->
 #foreach ($column in ${table.noPrimaryKeyNoForeignKeyColumns})
 #putColumnParams()
-	<property name="$columnVar" column="$column.name" #if($column.isRequired())not-null="true"#else not-null="false"#end #if($isColumnUnique)unique="	true"#else unique="false"#end/> #end
+	<property name="$columnVar" column="$column.name" #if($column.isRequired())not-null="true"#else not-null="false"#end #if($isColumnUnique)unique="true"#else unique="false"#end/> #end
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#set ($isLocalColumnPK = $tableUtils.isColumnPk($reference.localColumn, $table))
 #exposeImportParamsUML($reference.foreignTable)
 <!-- readonly links -->
-	<property name="$localColumnVariable" column="${reference.localColumnName}" insert="false" update="false"/>
+	<property name="$localColumnVariable" column="${reference.localColumnName}" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end #if($isLocalColumnPK)insert="false" update="false"#end />
 
 	<many-to-one name="${linkedTableVariable}${localColumnClass}" 
 	 class="$importDomainObjectUML" 
 	 column="$reference.localColumnName" 
-	 #if($columnDB.isRequired())not-null="true"#else not-null="false"#end 
-	 cascade="all"
+	 insert="false" update="false"
 	 />	
 #end
 

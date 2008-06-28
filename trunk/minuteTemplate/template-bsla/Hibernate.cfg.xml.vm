@@ -20,6 +20,14 @@
    <mapping resource="$artifactRelativePathDirAndFullName"/>
 #end
 #end
-				
+				#foreach ($package in ${businessPackageViews})
+
+   <!-- $package.name -->
+#foreach ($view in ${package.listOfViews})
+#exposeVariableEntityViewSpecificHibernateMapConfig()
+   <mapping resource="$artifactRelativePathDirAndFullName"/>
+#end
+#end
+
 	</session-factory>
 </hibernate-configuration>

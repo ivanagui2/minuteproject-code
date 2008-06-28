@@ -15,6 +15,7 @@ import $importDomainObject;
 import $importDomainObjectUML;
 #end
 import java.util.List;
+import java.sql.*;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
@@ -47,7 +48,7 @@ public interface $className extends DataAccessObject {
      * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
      * @param $tableClassName $tableVariableName
      */
-    public void updateFilledOnly$tableClassName($tableClassName $tableVariableName) ;
+    public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
     
      /**
      * Saves a $tableClassName entity 
@@ -113,6 +114,6 @@ public interface $className extends DataAccessObject {
      * @param PaginationCriteria paginationCriteria
      * @return List
      */
-    public List loadPaginated$tableClassName (PaginationCriteria paginationCriteria) ;
+    public List loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) ;
             
 }

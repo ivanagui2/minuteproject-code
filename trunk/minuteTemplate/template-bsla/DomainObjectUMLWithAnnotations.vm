@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 
-import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
+import net.sf.minuteProject.architecture.bsla.domain.DomainObject;
 #foreach ($reference in $table.children)
 #exposeImportParamsUML($reference.foreignTable)
 import $importDomainObjectUML;
@@ -26,31 +26,11 @@ import $importDomainObjectUML;
  * <p>Description: Domain Object describing a ${className} entity</p>
  *
  */
-public class ${className} extends AbstractDomainObject {
+public class ${className} implements DomainObject {
 
-#foreach ($column in ${table.columns})
-#putColumnParams()
-#if($isLengthPrecisionColumn)    
-    public static final int     ${column.name}_FIELD_SIZE = $columLengthPrecisionSize;
-#end  
+#if($hasPrimaryKey && !$isMany2Many)
+	private $primaryKeyFullType $primaryKey;
 #end
-#foreach ($column in ${table.columns})
-#putColumnParams()
-    public static final boolean IS_${column.name}_MANDATORY = $isMandatory;
-#end
-
-## get pks 
-## if pk is not fk => add
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-// pk $column is also a fk? $isForeignKey
-#if(!$isForeignKey)
-	private $columnType _$columnVar; // pk not fk
-#end
-#end
-##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
-	##private $primaryKeyFullType $primaryKey;
-##end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
     private $columnType _$columnVar; // $column.name
@@ -59,59 +39,28 @@ public class ${className} extends AbstractDomainObject {
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
     private $localColumnType _$localColumnVariable;  
+    
     private $linkedTableClass _${linkedTableVariable}${localColumnClass}; 
     
 #end
+
 #foreach ($reference in $table.children)
 #putReferenceParams2()
     private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
-
 #end
-    /**
-    * Default constructor
-    */
+
     public ${className}() {
     }
-    
-    /**
-    * Constructor with all the attributes of the entity
-    */
-    public ${className}(
-#foreach ($column in ${table.columns})
-#putColumnParams()
-       $columnType _$columnVar#if ($velocityCount!=$table.columnCount),
-#end
-#end   
-) 
-    {
-#foreach ($column in ${table.columns})
-#putColumnParams()
-       set$columnClass (_$columnVar);
-#end
-    }
 
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#if(!$isForeignKey)
-	    public $columnType get$columnClass() {
-        return _$columnVar;
+#if($hasPrimaryKey && !$isMany2Many)
+	    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
+        return $primaryKey;
     }
 	
-    public void set$columnClass ($columnType _$columnVar) {
-        this._$columnVar = _$columnVar;
+    public void set$primaryKeyJavaNameClass ($primaryKeyFullType $primaryKey) {
+        this.$primaryKey = $primaryKey;
     }
-    
 #end
-#end
-##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
-	##    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
-##        return $primaryKey;
-##    }
-##	
-##    public void set$primaryKeyJavaNameClass ($primaryKeyFullType $primaryKey) {
-##        this.$primaryKey = $primaryKey;
-##    }
-###end
 
 #foreach ($column in ${table.attributes})
 #putColumnParams()
@@ -121,10 +70,9 @@ public class ${className} extends AbstractDomainObject {
 	
     public void set$columnClass ($columnType _$columnVar) {
         this._$columnVar = _$columnVar;
-    }
-    	
+    }	
 #end
-    // parent generation
+
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
     public $localColumnType get$localColumnClass () {
@@ -157,10 +105,6 @@ public class ${className} extends AbstractDomainObject {
     public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s) {
         this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
     }	
-    
-    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
-    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedTableVariable);
-    }
     
 #end
 
