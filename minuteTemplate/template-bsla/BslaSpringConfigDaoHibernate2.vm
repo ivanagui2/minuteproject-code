@@ -11,5 +11,10 @@
    <!-- $package.name -->
    <import resource="classpath:${path}.xml"/>
 #end
+#foreach ($package in ${businessPackageViews})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoHibernate") )
+   <!-- $package.name -->
+   <import resource="classpath:${path}.xml"/>
+#end
 
 </beans>

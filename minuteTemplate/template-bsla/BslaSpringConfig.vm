@@ -15,7 +15,7 @@
 
     <!-- ibatis config to put in an appart config file-->
     <bean id="sqlMapClient${model.name}" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-        <property name="configLocation"><value>${pathIbatisConfig}.xml</value></property>
+        <property name="configLocation"><value>classpath:${pathIbatisConfig}.xml</value></property>
     </bean>
 
     <bean id="sqlMapClient${model.name}Template" class="org.springframework.orm.ibatis.SqlMapClientTemplate" singleton="false">

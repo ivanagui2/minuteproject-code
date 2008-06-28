@@ -2,7 +2,10 @@
 #putImportParamsUML()
 package $packageName;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.sql.Timestamp;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import $importDaoInterfaceUML;
@@ -37,13 +40,23 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     public void update$tableClassName($tableClassName $tableVariableName) {
       getHibernateTemplate().update($tableVariableName);
     }
- 
+
+    /**
+     * Updates a $tableClassName entity with only the attributes set into ${tableClassName}.
+     * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
+     * @param $tableClassName $tableVariableName
+     */
+    public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) {
+      //return null;
+      //getHibernateTemplate().update("updateNotNullOnly$tableClassName", $tableVariableName);
+    }
+     
      /**
      * Saves a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
     public void save$tableClassName($tableClassName $tableVariableName) {
-      getHibernateTemplate().save($tableVariableName);
+      getHibernateTemplate().saveOrUpdate($tableVariableName);
     }
        
     /**
@@ -142,10 +155,17 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @param $tableClassName $tableVariableName
      * @return List
      */
-    public List search$tableClassName($tableClassName $tableVariableName) {
+    public List search$tableClassName($tableClassName $tableVariableName) {      
+	        	return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
+    }    
+    
+    /**
+    * return a hibernate hql search on a ${tableClassName} prototype
+    */
+    private String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append ("FROM $tableClassName $tableVariableName ");
+        query.append (" FROM $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #putColumnParams()
         if (${tableVariableName}.get$columnClass() != null) {
@@ -156,21 +176,71 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
-         }
-	#end       
-	        	return getHibernateTemplate().find(query.toString());            
-    //return getHibernateTemplate().queryForList("search$tableClassName", $tableVariableName);
-    }    
-    
+        }
+	#end      
+	        return query.toString();
+    }
     /**
      * Load a paginated list of $tableClassName entity dependent of pagination criteria
      * @param PaginationCriteria paginationCriteria
      * @return List
      */
-    public List loadPaginated$tableClassName (PaginationCriteria paginationCriteria) {
-        return null;
-    //return getHibernateTemplate().queryForList("loadPaginated$tableClassName", $tableVariableName);
-    }   
+    public List loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
+    	// this implementation is not the best for sure
+    	// but here pagination is done agains the database	
+    	List<Long> page = loadPaginated${tableClassName}IdentitiesFromStartPositionId($tableVariableName, paginationCriteria);
+    	
+    	if (page!=null && page.size()>0) {
+	       StringBuffer query = new StringBuffer();
+	       //query.append (" FROM $tableClassName $tableVariableName ");
+	       // throws an hibernate null pointer ex...
+	       query.append ("select new ${tableClassName}( ");
+#foreach ($column in ${table.columns})
+#putColumnParams()
+           query.append (" $columnVar #if ($velocityCount!=$table.columnCount),#end");
+#end   
+           query.append (") FROM $tableClassName $tableVariableName ");
+	          
+	       query.append(" where ${tableVariableName}.$primaryKeyVariable in (");
+	       // iterate on multiple pk column TODO
+	       for (Iterator iter = page.iterator(); iter.hasNext();) {
+		      $primaryKeyType My$primaryKeyVariable = ($primaryKeyType) iter.next(); ##My$primaryKeyVariable is for not entering in conflict with tablename
+#if ($sqlUtils.isPKQuotedColumn($table)) ## works only for one pk not multiple pk
+			  query.append("'");
+#end
+			  query.append(My${primaryKeyVariable}.toString());
+#if ($sqlUtils.isPKQuotedColumn($table)) ## works only for one pk not multiple pk
+			  query.append("'");
+#end              
+			  if (iter.hasNext())
+				 query.append(",");
+		   }
+	       query.append(") ");
+	       return getHibernateTemplate().find(query.toString()); 
+    	} else
+           return new ArrayList<$tableClassName>();
+    }      
+
+    private List<Long> loadPaginated${tableClassName}IdentitiesFromStartPositionId ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
+       boolean isWhereSet = false;
+       StringBuffer query = new StringBuffer();
+       query.append ("select ${tableVariableName}.$primaryKeyVariable ");
+       query.append (get${tableClassName}SearchEqualQuery ($tableVariableName));
+	       // the start position id
+	       if (paginationCriteria.getStartPositionIdentity() != null) {
+	          query.append (getQueryWHERE_AND (isWhereSet));
+	          isWhereSet = true;
+	          //TODO the primaryKey Type is to be strong typed
+	          query.append(" ${tableVariableName}.$primaryKeyVariable > "+ (($primaryKeyType)paginationCriteria.getStartPositionIdentity()) + " ");
+	       }
+       //
+	       if (paginationCriteria.getOrderList()!=null) {
+	    	      query.append(" order by "+paginationCriteria.getOrderList());
+	       }
+	       getHibernateTemplate().setMaxResults(paginationCriteria.getNumberOfRowsReturned());
+	       		List<Long> set = getHibernateTemplate().find(query.toString());
+	       		return set;
+    }
     
     private String getQueryWHERE_AND (boolean isWhereSet) {
        if (isWhereSet)

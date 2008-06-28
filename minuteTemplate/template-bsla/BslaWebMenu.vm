@@ -1,4 +1,6 @@
 #exposeVariableModelSpecific()
+#importFrontEndJSP()
+
 <html>
 <head>
 	<title>Menu</title>

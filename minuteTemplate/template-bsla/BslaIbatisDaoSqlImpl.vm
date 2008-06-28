@@ -3,6 +3,7 @@
 package $packageName;
 
 import java.util.List;
+import java.sql.*;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
@@ -45,8 +46,8 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
      * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
      * @param $tableClassName $tableVariableName
      */
-    public void updateFilledOnly$tableClassName($tableClassName $tableVariableName) {
-      this.getSqlMapClientTemplate().update("updateFilledOnly$tableClassName", $tableVariableName);
+    public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) {
+      this.getSqlMapClientTemplate().update("updateNotNullOnly$tableClassName", $tableVariableName);
     }
      
      /**
@@ -89,13 +90,13 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
 #end
     ) {
       // verify if it is needed to throw an illegal...Exception in case of a null value in the fk.
-      ${domainClassName} ${domainVariableName} = get${domainClassName} (
+      ${domainClassName} my${domainVariableName} = get${domainClassName} (
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
         $columnVar#if ($velocityCount!=$primaryKeyCount),#end
 #end      
       );
-    	return ($tableClassName)getSqlMapClientTemplate().queryForObject("load$tableClassName", ${domainVariableName});
+    	return ($tableClassName)getSqlMapClientTemplate().queryForObject("load$tableClassName", my${domainVariableName});
     }  
         
     /**
@@ -125,13 +126,13 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
 #end   
     ) {
       // verify if it is needed to throw an illegal...Exception in case of a null value in the fk.
-      ${domainClassName} ${domainVariableName} = get${domainClassName} (
+      ${domainClassName} my${domainVariableName} = get${domainClassName} (
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
         $columnVar#if ($velocityCount!=$primaryKeyCount),#end
 #end      
       );
-    	return ($tableClassName)getSqlMapClientTemplate().queryForObject("loadFullFirstLevel$tableClassName", ${domainVariableName});
+    	return ($tableClassName)getSqlMapClientTemplate().queryForObject("loadFullFirstLevel$tableClassName", my${domainVariableName});
     }
 
 
@@ -159,7 +160,7 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
      * @param PaginationCriteria paginationCriteria
      * @return List
      */
-    public List loadPaginated$tableClassName (PaginationCriteria paginationCriteria) {
+    public List loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
         return getSqlMapClientTemplate().queryForList("loadPaginated$tableClassName", paginationCriteria);
     }       
     
@@ -179,12 +180,12 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
         $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
 #end
      ) {
-        ${domainClassName} ${domainVariableName} = new ${domainClassName}();
+        ${domainClassName} my${domainVariableName} = new ${domainClassName}();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
-        ${domainVariableName}.set$columnClass($columnVar);
+        my${domainVariableName}.set$columnClass($columnVar);
 #end
-    	return ${domainVariableName};
+    	return my${domainVariableName};
     }      
     
 }

@@ -28,7 +28,7 @@
     <!-- load the parents -->	
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    <result property="$var" column="$column" select="load$linkclass"/>   	
+    <result property="$var" column="$column" select="load${linkclass}ByOnePK"/>   	
 #end
     <!-- load the children -->
 #foreach ($reference in $childReferences)
@@ -40,12 +40,12 @@
 
   <resultMap id="${tableClassName}LoadFull" class="${tableClassName}" >
 #foreach ($column in ${table.columns})
-		#putColumnParams()
+#putColumnParams()
 	    <result property="$columnVar" column="$columnVar" />    
-	#end
+#end
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    <result property="$var" column="$column" select="load$linkclass"/>   	
+    <result property="$var" column="$column" select="load${linkclass}ByOnePK"/>   	
 #end
 #foreach ($reference in $childReferences)
 #putReferenceParams()
@@ -94,6 +94,15 @@
     </dynamic>      
   </select>
   
+   <!-- this statement is still need for subqueries that take the column as a param and not the object -->
+   <select id="load${tableClassName}ByOnePK" resultMap="${tableClassName}Load" parameterClass="$primaryKeyFullType">
+    <include refid="${selectSql}"/>
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+            WHERE ${column.name}=#value#
+#end
+  </select>
+  
   <select id="loadFullFirstLevelAll${tableClassName}" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="${tableClassName}">
     <include refid="${selectSql}"/>
     <dynamic prepend="WHERE">
@@ -106,6 +115,16 @@
     </dynamic>   
   </select>
 
+   <!-- this statement is still need for subqueries that take the column as a param and not the object 
+   <select id="loadFullFirstLevelAll${tableClassName}ByOnePK" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="$primaryKeyFullType">
+    <include refid="${selectSql}"/>
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+            WHERE ${column.name}=#value#
+#end
+  </select>  
+  -->
+  
   <!-- Searches for all instances of ${tableClassName} matching any of the given criteria. -->
   <!-- Any criterion which is not null is appended to the where clause -->
   <select id="search${tableClassName}" resultMap="${tableClassName}Load" parameterClass="${tableClassName}">
@@ -191,7 +210,7 @@
 
   <!-- Updates only the fields that are not empty of an existing instance 
        of a ${tableClassName} domain object -->
-  <update id="updateFilledOnly${tableClassName}" parameterClass="${tableClassName}">
+  <update id="updateNotNullOnly${tableClassName}" parameterClass="${tableClassName}">
     UPDATE ${table.name}
     <dynamic prepend="SET">
 #foreach ($column in ${table.columns})
