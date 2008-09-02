@@ -5,6 +5,10 @@ import net.sf.minuteProject.configuration.bean.DataModel;
 
 public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 	
+	public static final String SEQUENCE = "sequencePattern";
+	public static final String IDENTITY = "identityPattern";
+	public static final String OTHER = "not defined";
+	
 	private PrimaryKeyPolicy primaryKeyPolicy;
 	private String suffix;
 	private String prefix;
@@ -34,7 +38,17 @@ public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 	public void setPrimaryKeyPolicy(PrimaryKeyPolicy primaryKeyPolicy) {
 		this.primaryKeyPolicy = primaryKeyPolicy;
 	}
-
+	
+	public PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicyPatternEnum () {
+		if (getName()!=null) {
+			if (getName().equals(SEQUENCE))
+				return PrimaryKeyPolicyPatternEnum.SEQUENCE;
+			if (getName().equals(IDENTITY))
+				return PrimaryKeyPolicyPatternEnum.IDENTITY;
+			return PrimaryKeyPolicyPatternEnum.OTHER;
+		}
+		return PrimaryKeyPolicyPatternEnum.OTHER;
+	}
 	
 	
 	

@@ -1,5 +1,7 @@
 package net.sf.minuteProject.utils;
 
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+
 import org.apache.commons.lang.StringUtils;
 
 public class ConvertUtils {
@@ -17,7 +19,7 @@ public class ConvertUtils {
 		if (dBType.equals("TIME"))
 			return  "java.lang.Timestamp";			
 		if (dBType.equals("DECIMAL"))
-			return  "java.lang.Long";
+			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
 			return  "java.lang.String";	
 		if (dBType.equals("VARCHAR"))
@@ -56,7 +58,22 @@ public class ConvertUtils {
 			return  "java.lang.String";		
 		return retStr;		
 	}	
+
+	public static String getJavaTypeFromDBFullType (Column column) {
+		return getJavaTypeFromDBFullType(column.getType(), column.getScale());
+	}
 	
+	public static String getJavaTypeFromDBFullType (String dBType, int scale) {
+		String retStr=getJavaTypeFromDBFullType (dBType);		
+		if (dBType.equals("DECIMAL")) {
+			if (scale==0)
+				return "java.lang.Long";
+			else
+				return  "java.math.BigDecimal";
+		}	
+		return retStr;		
+	}
+
 	public static String getJavaTypeFromDBType (String dBType) {
 		//return StringUtils.
 		// TODO from getJavaTypeFromDBFullType
@@ -72,7 +89,7 @@ public class ConvertUtils {
 		if (dBType.equals("TIME"))
 			return  "Timestamp";			
 		if (dBType.equals("DECIMAL"))
-			return  "java.lang.Long";
+			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
 			return  "String";	
 		if (dBType.equals("VARCHAR"))
@@ -115,6 +132,10 @@ public class ConvertUtils {
 		return retStr;		
 	}	
 
+	public static String getJavaTypeFromDBType (Column column) {
+		return getJavaTypeFromDBType(column.getType(), column.getScale());
+	}
+	
 	public static String getJavaTypeFromDBType (String dBType, int scale) {
 		String retStr=getJavaTypeFromDBType (dBType);		
 		if (dBType.equals("DECIMAL")) {

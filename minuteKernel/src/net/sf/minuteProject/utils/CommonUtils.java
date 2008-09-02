@@ -125,11 +125,15 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(type);
 	}
 	
+	public static String getJavaType (Column column) {
+		return ConvertUtils.getJavaTypeFromDBType(column);
+	}
+	
 	// TODO refactor 4 times
 	protected static String getTemplateClassName (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ConfigFile not ok");
+			logger.debug("ConfigFile not ok");
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(bean, templateTarget);
@@ -138,7 +142,7 @@ public class CommonUtils {
 	protected static String getTemplateClassName (Table table, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ERROR on config file : missing "+targetTemplateName);
+			logger.debug("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(table, templateTarget);
@@ -148,7 +152,7 @@ public class CommonUtils {
 		//Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		Template templateTarget = getTargetTemplate(model, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ERROR on config file : missing "+targetTemplateName);
+			logger.debug("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(table, templateTarget);
@@ -158,7 +162,7 @@ public class CommonUtils {
 		//Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		Template templateTarget = getTargetTemplate(table.getDatabase().getDataModel().getModel(), targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ERROR on config file : missing "+targetTemplateName);
+			logger.debug("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(table, templateTarget);
@@ -167,7 +171,7 @@ public class CommonUtils {
 	protected static String getTemplateClassName (Package pack, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ERROR on config file : missing "+targetTemplateName);
+			logger.debug("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(pack, templateTarget);
@@ -176,7 +180,7 @@ public class CommonUtils {
 	public static String getTemplateClassName (Model model, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
-			System.out.println("ERROR on config file : missing "+targetTemplateName);
+			logger.debug("ERROR on config file : missing "+targetTemplateName);
 			return "ERROR on config file : missing "+targetTemplateName;
 		}
 		return getClassName(model, templateTarget);
@@ -289,7 +293,7 @@ public class CommonUtils {
 	
 	public static String getType (Column column) {
 		if (column == null) {
-			logger.info("ERROR the column is null");
+			logger.debug("ERROR the column is null");
 			return "ERROR column is null";
 		}
 		return ConvertUtils.getJavaTypeFromDBType(column.getType());
@@ -297,15 +301,19 @@ public class CommonUtils {
 	
 	public static String getFullType2 (Column column) {
 		if (column == null) {
-			logger.info("ERROR the column is null");
+			logger.debug("ERROR the column is null");
 			return "ERROR column is null";
 		}
-		return ConvertUtils.getJavaTypeFromDBFullType(column.getType());
+		return ConvertUtils.getJavaTypeFromDBFullType(column);
 	}	
 	
 	public static String getPK (Table table) {
 		return TableUtils.getPrimaryKey(table);
 	}	
+	
+	public static Column getPrimaryKeyFirstColumn (Table table) {
+		return TableUtils.getPrimaryFirstColumn(table);
+	}
 	public static boolean hasPrimaryKey (Table table) {
 		return table.hasPrimaryKey();
 	}
