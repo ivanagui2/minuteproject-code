@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 
 public class DatabaseUtils {
 
@@ -23,7 +24,7 @@ public class DatabaseUtils {
 		return "ERROR_ON_LOOK_UP for PK";
 	}
 	
-	private static String provideSequence (Table table) {
+	public static String provideSequence (Table table) {
 		PrimaryKeyPolicy primaryKeyPolicy = table.getDatabase().getDataModel().getPrimaryKeyPolicy();
 		if (primaryKeyPolicy==null) {
 			//TODO log should provide a policy pattern
@@ -36,7 +37,18 @@ public class DatabaseUtils {
 		}
 		if (primaryKeyPolicy.isOneGlobal()) {
 			return primaryKeyPolicyPattern.getPrefix()+primaryKeyPolicyPattern.getSequenceName()+primaryKeyPolicyPattern.getSuffix();
-		} else
+		} else if (primaryKeyPolicy.isOneForEachTable()){
+			String seq = table.getName();
+			if (primaryKeyPolicyPattern.getPrefix()!=null || primaryKeyPolicyPattern.getSuffix()!=null) {
+				if (primaryKeyPolicyPattern.getPrefix()!=null)
+					seq = primaryKeyPolicyPattern.getPrefix() + seq;
+				if (primaryKeyPolicyPattern.getSuffix()!=null)
+				    seq = seq+primaryKeyPolicyPattern.getSuffix();
+				return seq;
+			} else
+				return seq + "_SEQ";
+		}
+		else
 			return table.getName()+"_SEQ";
 	}
 	
@@ -49,6 +61,32 @@ public class DatabaseUtils {
 			return true;
 		return false;
 			
+	}
+	
+//	public boolean 
+	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Table table) {
+		PrimaryKeyPolicy primaryKeyPolicy = table.getDatabase().getDataModel().getPrimaryKeyPolicy();
+		if (primaryKeyPolicy==null) {
+			//TODO log should provide a policy pattern
+			return null;
+		}
+		return  primaryKeyPolicy.getFirstPrimaryKeyPolicyPattern();
+	}
+	
+	public PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicyPatternEnum (Table table) {
+		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = getPrimaryKeyPolicyPattern (table);
+		if (primaryKeyPolicyPattern != null) {
+			return primaryKeyPolicyPattern.getPrimaryKeyPolicyPatternEnum();
+		}
+		return PrimaryKeyPolicyPatternEnum.OTHER;
+	}
+	
+	public boolean isPrimaryKeyPolicyIdentity(Table table) {
+		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.IDENTITY);
+	}
+	
+	public boolean isPrimaryKeyPolicySequence(Table table) {
+		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.SEQUENCE);
 	}
 	
 }

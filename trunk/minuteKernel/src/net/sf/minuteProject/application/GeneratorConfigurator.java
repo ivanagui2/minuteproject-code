@@ -36,8 +36,6 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
-import sun.util.logging.resources.logging;
-
 public class GeneratorConfigurator {
 	
 	private Logger log;
@@ -164,7 +162,8 @@ public class GeneratorConfigurator {
     
     private void writeTemplateResult (VelocityContext context, Model model, Table table, Template template) {
     	try {
-    		String outputFilename = template.getGeneratorOutputFileName(table, template);
+    		//Do not use anymore
+    		String outputFilename = new String();// template.getGeneratorOutputFileName(table, template);
     		putCommonContextObject(context);
     		context.put("configuration", model.getConfiguration());
     		context.put("model", model);
@@ -180,7 +179,8 @@ public class GeneratorConfigurator {
 
     private void writeTemplateResultPackage (VelocityContext context,  Model model, net.sf.minuteProject.configuration.bean.Package pack, Template template) {
     	try {
-    		String outputFilename = template.getGenOutputFileName(pack, template);
+    		//Do not use anymore
+    		String outputFilename = new String();// template.getGenOutputFileName(pack, template);
     		putCommonContextObject(context);
     		context.put("configuration", model.getConfiguration());
     		context.put("model", model);
@@ -196,7 +196,8 @@ public class GeneratorConfigurator {
     
     private void writeTemplateResultDB (VelocityContext context, Model model, Template template) {
     	try {
-    		String outputFilename = template.getGeneratorOutputFileNameForModel(template);
+    		//Do not use anymore
+    		String outputFilename = new String();//template.getGeneratorOutputFileNameForModel(template);
     		putCommonContextObject(context);
     		context.put("configuration", model.getConfiguration());
     		context.put("model", model);

@@ -77,7 +77,7 @@ public class ReferenceDDLUtils implements Reference
      */
     public Column getLocalColumn()
     {
-        return new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
+        return localColumn;//new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
     }
 
     /**
@@ -99,6 +99,8 @@ public class ReferenceDDLUtils implements Reference
     public String getLocalColumnName()
     {
         return reference.getLocalColumnName();
+        // should be replaced by
+        //return localColumnName();
     }
 
     /**

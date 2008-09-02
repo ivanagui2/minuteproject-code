@@ -127,10 +127,10 @@ public abstract class AbstractGenerator implements Generator {
 	public void generate (Target target) throws Exception {
     	for (Iterator iter= target.getTemplateTargets().iterator(); iter.hasNext(); ) {
     		TemplateTarget templateTarget = (TemplateTarget)iter.next();
-    		logger.info("> generate template: "+templateTarget.getName());
+    		logger.info("> generate template: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
         	for (Iterator iter2= templateTarget.getTemplates().iterator(); iter2.hasNext(); ) {
         		Template template= (Template)iter2.next();
-        		logger.info(">> generate template: "+template.getName());
+        		logger.info(">> generate template: "+template.getName()+" in "+template.getOutputdir());
         		this.generate(template);    		
         		//generateArtifacts (configuration.getModel(),(Template)iter2.next());		
         	}     		

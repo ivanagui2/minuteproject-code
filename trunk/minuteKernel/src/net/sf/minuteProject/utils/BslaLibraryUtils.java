@@ -16,6 +16,7 @@ public class BslaLibraryUtils extends CommonUtils{
 	public static final String BslaDomainObjectUMLTemplateName = "DomainObjectUML";
 	public static final String BslaIbatisDaoSqlImplTemplateName = "BslaIbatisDaoSqlImpl";
 	public static final String BslaHiberateImplTemplateName = "BslaHibernateDaoImplUML";	
+	public static final String BslaJPAImplTemplateName = "BslaJPADaoImplUML";	
 	public static final String BslaDaoInterfaceTemplateName = "BslaDaoInterface";
 	public static final String BslaDaoInterfaceUMLTemplateName = "BslaDaoInterfaceUML";
 	public static final String ResourceBundle = "ResourceBundle";
@@ -106,6 +107,10 @@ public class BslaLibraryUtils extends CommonUtils{
 	
 	public static String getHibernateImplNameImport (Model model, Table table, Template template) {
 		return getEntityLevelTemplateFullPath(model, table, template, BslaHiberateImplTemplateName);
+	}	
+	
+	public static String getJPAImplNameImport (Model model, Table table, Template template) {
+		return getEntityLevelTemplateFullPath(model, table, template, BslaJPAImplTemplateName);
 	}	
 	
 	public static String getBundle(Table table) {
