@@ -16,10 +16,14 @@
 #if($hasPrimaryKey)
 	<id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
 #if (!$isPkUserProvided)
+#if ($isPrimaryKeyPolicySequence)
     <generator class="sequence">
-        <param name="sequence">hibernate_sequence</param>
-##       <param name="sequence">$PKLookUpString</param>
+##        <param name="sequence">hibernate_sequence</param>
+       <param name="sequence">$PKSequence</param>
     </generator>
+#elseif ($isPrimaryKeyPolicyIdentity)
+    <generator class="identity">
+#end
 #end                
 	</id>
 #end

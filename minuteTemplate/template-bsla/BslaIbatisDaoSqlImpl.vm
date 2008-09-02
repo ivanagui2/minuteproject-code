@@ -151,7 +151,7 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
      * @param $tableClassName $variableName
      * @return List
      */
-    public List search$tableClassName($tableClassName $tableVariableName) {
+    public List<$tableClassName> search$tableClassName($tableClassName $tableVariableName) {
     	return getSqlMapClientTemplate().queryForList("search$tableClassName", $tableVariableName);
     } 
     

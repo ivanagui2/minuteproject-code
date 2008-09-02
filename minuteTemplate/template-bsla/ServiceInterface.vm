@@ -29,7 +29,28 @@ public interface $className {
 #set ($methodName = $serviceView.getStrategyMethod($strategy))
 #set ($methodInputParameters = $serviceView.getStrategyInputParam($strategy))
 #set ($methodOutputParameters = $serviceView.getStrategyOutputParam($strategy))
-    public $methodOutputParameters $methodName ($methodInputParameters);
-
+#set ($view = $serviceView.getView($strategy))
+##set ($table = $view)
+#exposeVariableEntitySpecific()
+#if ($strategy.name == 'SearchEntityOnLogicalIdBasedOnVirtualPrimaryKey')      
+    public $tableClassName $methodName (
+#foreach ($column in $view.virtualPrimaryKeys) 
+#putColumnParams()
+       $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
+#end    
+       );
+#end
+#if ($strategy.name == 'SearchEntityOnLogicalId')      
+#set ($strategyColumnCount = $serviceView.getCountStrategyLogicalIdColumns($strategy))
+    public $tableClassName $methodName (
+#foreach ($column in $serviceView.getStrategyLogicalIdColumns($strategy)) 
+#putColumnParams()
+       $columnType $columnVar#if ($velocityCount!=$strategyColumnCount),#end
+#end    
+       );
+#end
+#if ($strategy.name == 'SearchListBasedOnPrototype')      
+    public List <${tableClassName}> $methodName (${tableClassName} $tableVariableName);
+#end       
 #end
 }

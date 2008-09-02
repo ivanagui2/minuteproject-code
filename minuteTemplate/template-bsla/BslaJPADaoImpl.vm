@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.sql.Timestamp;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import javax.persistence.Query;
+import org.springframework.orm.jpa.support.JpaDaoSupport;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import $importDaoInterfaceUML;
 import $importDomainObjectUML;
@@ -21,7 +22,7 @@ import $importDomainObjectUML;
  *
  */
 
-public class $className extends HibernateDaoSupport implements $daoInterfaceNameUML {
+public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 
 	public $className () {}
 
@@ -30,7 +31,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @param $tableClassName $tableVariableName
      */
     public void insert$tableClassName($tableClassName $tableVariableName) {
-      getHibernateTemplate().save($tableVariableName);
+      getJpaTemplate().persist($tableVariableName);
     }
 
     /**
@@ -38,7 +39,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @param $tableClassName $tableVariableName
      */
     public void update$tableClassName($tableClassName $tableVariableName) {
-      getHibernateTemplate().update($tableVariableName);
+      getJpaTemplate().merge($tableVariableName);
     }
 
 	  /**
@@ -115,7 +116,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @param $tableClassName $tableVariableName
      */
     public void save$tableClassName($tableClassName $tableVariableName) {
-      getHibernateTemplate().saveOrUpdate($tableVariableName);
+      getJpaTemplate().persist($tableVariableName);
     }
        
     /**
@@ -123,7 +124,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @param $tableClassName $tableVariableName
      */
     public void delete$tableClassName($tableClassName $tableVariableName) {
-      getHibernateTemplate().delete($tableVariableName);
+      getJpaTemplate().remove($tableVariableName);
     }
     
     /**
@@ -133,7 +134,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return $tableClassName The $tableClassName entity
      
     public $tableClassName load$tableClassName(Long id) {
-    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, id);
+    	return ($tableClassName)getJpaTemplate().get(${tableClassName}.class, id);
     }
 */
     /**
@@ -143,7 +144,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
-    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
+    	return ($tableClassName)getJpaTemplate().find(${tableClassName}.class, $primaryKeyVariable);
     }    
 
     /**
@@ -153,18 +154,18 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable) {
-        List list = getHibernateTemplate().find(
-                     " FROM $tableClassName $tableVariableName "
+        List list = getJpaTemplate().find(
+                     "SELECT $tableVariableName FROM $tableClassName $tableVariableName "
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-                     + " LEFT JOIN FETCH ${tableVariableName}.${linkedTableVariable}${linkedColumnClass}s "   
+                     + " LEFT JOIN ${tableVariableName}.${linkedTableVariable}${linkedColumnClass}s "   
 #end                      
                      + " WHERE ${tableVariableName}.${primaryKeyVariable} = "+$primaryKeyVariable
                );
          if (list!=null && !list.isEmpty())
             return ($tableClassName)list.get(0);
          return null;
-    	//return null;//($tableClassName) getHibernateTemplate().queryForObject("loadFullFirstLevel$tableClassName", id);
+    	//return null;//($tableClassName) getJpaTemplate().queryForObject("loadFullFirstLevel$tableClassName", id);
     }
 
     /**
@@ -176,10 +177,10 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     public $tableClassName loadFullFirstLevel$tableClassName($tableClassName $tableVariableName) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append ("FROM $tableClassName $tableVariableName ");
+        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-        query.append (" LEFT JOIN FETCH ${tableVariableName}.${linkedTableVariable}${linkedColumnClass}s ");
+        query.append (" LEFT JOIN ${tableVariableName}.${linkedTableVariable}${linkedColumnClass}s ");
 #end    
 #foreach ($column in $table.primaryKeyColumns)
 #putColumnParams()
@@ -193,7 +194,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 #end
          }
 	#end                   
-        	List list = getHibernateTemplate().find(query.toString());
+        	List list = getJpaTemplate().find(query.toString());
         if (list!=null && !list.isEmpty())
            return ($tableClassName)list.get(0);    
         return null;
@@ -206,7 +207,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName loadFull$tableClassName(Long id) {
-    	return null;//($tableClassName)getHibernateTemplate().queryForObject("loadFull$tableClassName", id);
+    	return null;//($tableClassName)getJpaTemplate().queryForObject("loadFull$tableClassName", id);
     }
 
     /**
@@ -215,7 +216,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return List
      */
     public List<$tableClassName> search$tableClassName($tableClassName $tableVariableName) {      
-	   return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
+	   return getJpaTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
     }    
     
     /**
@@ -224,7 +225,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     private String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append (" FROM $tableClassName $tableVariableName ");
+        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #putColumnParams()
         if (${tableVariableName}.get$columnClass() != null) {
@@ -275,7 +276,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 				 query.append(",");
 		   }
 	       query.append(") ");
-	       return getHibernateTemplate().find(query.toString()); 
+	       return getJpaTemplate().find(query.toString()); 
     	} else
            return new ArrayList<$tableClassName>();
     }      
@@ -286,19 +287,20 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
        query.append ("select ${tableVariableName}.$primaryKeyVariable ");
        query.append (get${tableClassName}SearchEqualQuery ($tableVariableName));
 	       // the start position id
-	       if (paginationCriteria.getStartPositionIdentity() != null) {
-	          query.append (getQueryWHERE_AND (isWhereSet));
-	          isWhereSet = true;
-	          //TODO the primaryKey Type is to be strong typed
-	          query.append(" ${tableVariableName}.$primaryKeyVariable > "+ (($primaryKeyType)paginationCriteria.getStartPositionIdentity()) + " ");
-	       }
+       if (paginationCriteria.getStartPositionIdentity() != null) {
+          query.append (getQueryWHERE_AND (isWhereSet));
+          isWhereSet = true;
+          //TODO the primaryKey Type is to be strong typed
+          query.append(" ${tableVariableName}.$primaryKeyVariable > "+ (($primaryKeyType)paginationCriteria.getStartPositionIdentity()) + " ");
+       }
        //
-	       if (paginationCriteria.getOrderList()!=null) {
-	    	      query.append(" order by "+paginationCriteria.getOrderList());
-	       }
-	       getHibernateTemplate().setMaxResults(paginationCriteria.getNumberOfRowsReturned());
-	       		List<Long> set = getHibernateTemplate().find(query.toString());
-	       		return set;
+       if (paginationCriteria.getOrderList()!=null) {
+    	      query.append(" order by "+paginationCriteria.getOrderList());
+       }
+       Query jpaQuery = getJpaTemplate().getEntityManager().createQuery(query.toString());
+       jpaQuery.setMaxResults(paginationCriteria.getNumberOfRowsReturned()); 	       
+   	   List<Long> set = getJpaTemplate().find(query.toString());
+   	   return set;
     }
     
     private List<Long> loadPaginated${tableClassName}A ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
@@ -314,8 +316,9 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
        int rowPerPage = paginationCriteria.getNumberOfRowsReturned();
        int firstPagesNumberOfRowReturned = rowPerPage*pageNb;
        int maxNumberOfRowsReturned = rowPerPage*(1+pageNb);
-       getHibernateTemplate().setMaxResults(maxNumberOfRowsReturned);
-       List<Long> set = getHibernateTemplate().find(query.toString());
+       Query jpaQuery = getJpaTemplate().getEntityManager().createQuery(query.toString());
+       jpaQuery.setMaxResults(maxNumberOfRowsReturned);       
+       List<Long> set = getJpaTemplate().find(query.toString());
        // return subset from the nX position if exists
        int size = set.size();
        if (size < firstPagesNumberOfRowReturned)
@@ -337,8 +340,9 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
        int rowPerPage = paginationCriteria.getNumberOfRowsReturned();
        int firstPagesNumberOfRowReturned = rowPerPage*pageNb;
        int maxNumberOfRowsReturned = rowPerPage*(1+pageNb);
-       getHibernateTemplate().setMaxResults(maxNumberOfRowsReturned);
-       List<Long> set = getHibernateTemplate().find(query.toString());
+       Query jpaQuery = getJpaTemplate().getEntityManager().createQuery(query.toString());
+       jpaQuery.setMaxResults(maxNumberOfRowsReturned); 
+       List<Long> set = getJpaTemplate().find(query.toString());
        // return subset from the nX position if exists
        int size = set.size();
        if (size < firstPagesNumberOfRowReturned)
@@ -353,5 +357,9 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
        return " WHERE ";
     }
     
-    
+    private String getQueryCommaSet (boolean isWhereSet) {
+       if (isWhereSet)
+          return " , ";
+       return " set ";
+    }	    
 }

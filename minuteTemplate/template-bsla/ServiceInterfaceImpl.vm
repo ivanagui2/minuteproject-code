@@ -1,7 +1,8 @@
 #set ($table = $scope.modelEntity)
 #exposeVariableEntitySpecific()
-#putImportParams()
-#exposeVariableEntitySpecificBslaDaoIbatis()
+##distinctEntityProperty()
+##putImportParams()
+##exposeVariableEntitySpecificBslaDaoIbatis()
 #exposeArchitectureParams()
 package $packageName;
 
@@ -21,20 +22,67 @@ import java.util.List;
  */
 public class $className {
     
+    $daoInterfaceClassName $daoInterfaceVariableName;    
+    
 #foreach($strategy in $scope.strategies)
 #set ($methodName = $serviceView.getStrategyMethod($strategy))
 #set ($methodInputParameters = $serviceView.getStrategyInputParam($strategy))
 #set ($methodOutputParameters = $serviceView.getStrategyOutputParam($strategy))
 #set ($view = $serviceView.getView($strategy))
-#set ($table = $view)
+##set ($table = $view)
 #exposeVariableEntitySpecific()
-    public $methodOutputParameters $methodName ($methodInputParameters) {
-#if ($strategy.name == 'SearchOnLogicalIdBaseOnVirtualPrimaryKey')      
+#if ($strategy.name == 'SearchEntityOnLogicalIdBasedOnVirtualPrimaryKey')      
+    public $tableClassName $methodName (
+#foreach ($column in $view.virtualPrimaryKeys) 
+#putColumnParams()
+       $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
+#end    
+       ) {
+       $tableClassName $tableVariableName = new $tableClassName ();
 #foreach($column in $view.virtualPrimaryKeys)
 #putColumnParams()
-       $columnType $columnVar
-#end       
-#end
+       ${tableVariableName}.set$columnClass ($columnVar);
+#end  
+       List <${tableClassName}> list = ${daoInterfaceVariableName}.search$tableClassName(${tableVariableName});
+       if (!list.isEmpty()) 
+          return list.get(0);
+       return new $tableClassName ();
+
     }
 #end
+#if ($strategy.name == 'SearchEntityOnLogicalId')      
+#set ($strategyColumnCount = $serviceView.getCountStrategyLogicalIdColumns($strategy))
+    public $tableClassName $methodName (
+#foreach ($column in $serviceView.getStrategyLogicalIdColumns($strategy)) 
+#putColumnParams()
+       $columnType $columnVar#if ($velocityCount!=$strategyColumnCount),#end
+#end    
+       ) {
+       $tableClassName $tableVariableName = new $tableClassName ();
+#foreach ($column in $serviceView.getStrategyLogicalIdColumns($strategy))
+#putColumnParams()
+       ${tableVariableName}.set$columnClass ($columnVar);
+#end  
+       List <${tableClassName}> list = ${daoInterfaceVariableName}.search$tableClassName(${tableVariableName});
+       if (!list.isEmpty()) 
+          return list.get(0);
+       return new $tableClassName ();
+
+    }
+#end
+#if ($strategy.name == 'SearchListBasedOnPrototype')      
+    public List <${tableClassName}> $methodName (${tableClassName} $tableVariableName) {
+       return ${daoInterfaceVariableName}.search$tableClassName(${tableVariableName});
+    }
+#end
+#end
+
+    public void set$daoInterfaceClassName ($daoInterfaceClassName $daoInterfaceVariableName) {
+       this.$daoInterfaceVariableName = $daoInterfaceVariableName;
+    }
+    
+    public $daoInterfaceClassName get$daoInterfaceClassName () {
+       return $daoInterfaceVariableName;
+    }    
+    
 }
