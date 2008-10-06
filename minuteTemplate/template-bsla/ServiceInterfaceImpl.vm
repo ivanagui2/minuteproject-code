@@ -1,5 +1,6 @@
 #set ($table = $scope.modelEntity)
 #exposeVariableEntitySpecific()
+#exposeServiceParam()
 ##distinctEntityProperty()
 ##putImportParams()
 ##exposeVariableEntitySpecificBslaDaoIbatis()
@@ -9,6 +10,7 @@ package $packageName;
 #distinctEntityProperty()
 import $importDomainObject;
 import $importDaoInterface;
+import $importServiceInterface;
 import java.util.List;
 
 
@@ -20,7 +22,7 @@ import java.util.List;
  * </p>
  *
  */
-public class $className {
+public class $className implements $serviceInterfaceName {
     
     $daoInterfaceClassName $daoInterfaceVariableName;    
     
@@ -32,6 +34,7 @@ public class $className {
 ##set ($table = $view)
 #exposeVariableEntitySpecific()
 #if ($strategy.name == 'SearchEntityOnLogicalIdBasedOnVirtualPrimaryKey')      
+
     public $tableClassName $methodName (
 #foreach ($column in $view.virtualPrimaryKeys) 
 #putColumnParams()
@@ -52,6 +55,7 @@ public class $className {
 #end
 #if ($strategy.name == 'SearchEntityOnLogicalId')      
 #set ($strategyColumnCount = $serviceView.getCountStrategyLogicalIdColumns($strategy))
+    
     public $tableClassName $methodName (
 #foreach ($column in $serviceView.getStrategyLogicalIdColumns($strategy)) 
 #putColumnParams()
@@ -71,7 +75,24 @@ public class $className {
     }
 #end
 #if ($strategy.name == 'SearchListBasedOnPrototype')      
+    
     public List <${tableClassName}> $methodName (${tableClassName} $tableVariableName) {
+       return ${daoInterfaceVariableName}.search$tableClassName(${tableVariableName});
+    }
+#end
+#if ($strategy.name == 'SearchListBasedOnPrototypeInfo')      
+    
+    public List <${tableClassName}> $methodName (
+#foreach ($column in $serviceView.getStrategyLogicalIdColumns($strategy)) 
+#putColumnParams()
+       $columnType $columnVar#if ($velocityCount!=$strategyColumnCount),#end
+#end    
+    ) {
+       $tableClassName $tableVariableName = new $tableClassName ();
+#foreach($column in $serviceView.getStrategyLogicalIdColumns($strategy))
+#putColumnParams()
+       ${tableVariableName}.set$columnClass ($columnVar);
+#end      
        return ${daoInterfaceVariableName}.search$tableClassName(${tableVariableName});
     }
 #end

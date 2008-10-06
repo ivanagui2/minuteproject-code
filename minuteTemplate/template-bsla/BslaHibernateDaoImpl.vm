@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.sql.Timestamp;
+
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import $importDaoInterfaceUML;
@@ -352,6 +354,11 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
           return " AND ";
        return " WHERE ";
     }
-    
+
+    private String getQueryCommaSet (boolean isWhereSet) {
+       if (isWhereSet)
+          return " , ";
+       return " SET ";
+    }	    
     
 }

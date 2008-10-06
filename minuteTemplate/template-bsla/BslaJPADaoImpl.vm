@@ -6,8 +6,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.sql.Timestamp;
+
 import javax.persistence.Query;
+import javax.persistence.EntityManager;
+
+import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
+
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import $importDaoInterfaceUML;
 import $importDomainObjectUML;
@@ -42,18 +48,19 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
       getJpaTemplate().merge($tableVariableName);
     }
 
-	  /**
+	/**
      * Updates a $tableClassName entity with only the attributes set into $tableClassName.
-	   * The primary keys are to be set for this method to operate.
-	   * This is a performance friendly feature, which remove the udibiquous full load and full update when an
-	   * update is issued
+	 * The primary keys are to be set for this method to operate.
+	 * This is a performance friendly feature, which remove the udibiquous full load and full update when an
+	 * update is issued
      * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
      * @param $tableClassName $tableVariableName
-     */ 
+    */ 
+    @Transactional
     public void updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append (" update $tableClassName $tableVariableName ");
+        query.append (" Update $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #if (!$column.isPrimaryKey())
 #putColumnParams()
@@ -63,7 +70,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
            query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
         }
 #end    
-#end
+#end 		
 		isWhereSet = false; 
 #foreach ($column in $table.primaryKeyColumns)
 #putColumnParams()
@@ -72,15 +79,23 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
            isWhereSet = true;
 			query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
         }
-#end   		
-        Query hibernateQuery = getSession().createQuery(query.toString()).setProperties(${tableVariableName}); 
-		hibernateQuery.executeUpdate();
+#end   
+        Query jpaQuery = getEntityManager().createQuery(query.toString());
+        isWhereSet = false;
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass() != null) {
+           jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
+        }   
+#end         
+		jpaQuery.executeUpdate();
     }
 
     private class ${tableClassName}CriteriaValue {
 		   public $tableClassName $tableVariableName, prototypeCriteria;
 	  }
 	
+	@Transactional
     public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
 		${tableClassName}CriteriaValue ${tableVariableName}CriteriaValue = new ${tableClassName}CriteriaValue ();
 		${tableVariableName}CriteriaValue.$tableVariableName = $tableVariableName;
@@ -88,7 +103,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 		
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append (" update $tableClassName $tableVariableName ");
+        query.append (" Update $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #putColumnParams()
         if (${tableVariableName}.get$columnClass() != null) {
@@ -106,8 +121,17 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 		   query.append(" ${tableVariableName}.${columnVar} = :${tableVariableName}CriteriaValue.prototypeCriteria.${columnVar}");
         }
 #end   		
-        Query hibernateQuery = getSession().createQuery(query.toString()).setProperties(${tableVariableName}CriteriaValue); 
-		hibernateQuery.executeUpdate();
+        Query jpaQuery = getEntityManager().createQuery(query.toString());
+#foreach ($column in ${table.columns})        
+#if (!$column.isPrimaryKey())
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass() != null) {
+           jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
+           isWhereSet = true; 
+        }
+#end    
+#end             
+		jpaQuery.executeUpdate();
     }
 
      
@@ -360,6 +384,10 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     private String getQueryCommaSet (boolean isWhereSet) {
        if (isWhereSet)
           return " , ";
-       return " set ";
+       return " SET ";
     }	    
+    
+    private EntityManager getEntityManager () {
+        return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
+    }
 }
