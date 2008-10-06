@@ -51,6 +51,15 @@ public interface $className {
 #end
 #if ($strategy.name == 'SearchListBasedOnPrototype')      
     public List <${tableClassName}> $methodName (${tableClassName} $tableVariableName);
+#end
+#if ($strategy.name == 'SearchListBasedOnPrototypeInfo')      
+    
+    public List <${tableClassName}> $methodName (
+#foreach ($column in $serviceView.getStrategyLogicalIdColumns($strategy)) 
+#putColumnParams()
+       $columnType $columnVar#if ($velocityCount!=$strategyColumnCount),#end
+#end    
+    );
 #end       
 #end
 }

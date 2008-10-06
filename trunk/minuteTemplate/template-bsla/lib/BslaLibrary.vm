@@ -34,6 +34,11 @@
 #set ($isMany2Many = $tableUtils.isMany2Many($table))
 #end
 
+#macro(exposeVariableComponentSpecific)
+#set ($packageName = $commonUtils.getPackageName($component, $template))
+#set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $component))
+#end
+
 #macro (exposeVariableModelSpecific)
 #exposeVariableModelDetailSpecific()
 #end
@@ -65,14 +70,15 @@
 ## this macro is used when accessing the entity reference via parentReferences or childReferences
 ## this macro is deprecated used putReferenceParams2 instead
 #set ($linktable = ${reference.tableName})
+#set ($columnDB = $reference.column)
 #set ($linktableDB = ${reference.table})
 #set ($linkclass = $formatUtils.getJavaName(${reference.tableName}))
 #set ($link = $formatUtils.getJavaNameVariable(${reference.tableName}))
 #set ($columnclass = $formatUtils.getJavaName(${reference.columnName}))
 #set ($column = $formatUtils.getJavaNameVariable(${reference.columnName}))
-#set ($columnType = $commonUtils.getJavaType($reference.column))
-#set ($columnFullType = $commonUtils.getFullType2($reference.column))
-#set ($columnDB = $reference.column)
+#set ($columnType = $commonUtils.getJavaType($columnDB))
+#set ($columnFullType = $commonUtils.getFullType2($columnDB))
+#set ($localColumnName = $formatUtils.getJavaNameVariable(${reference.localColumn.name}))
 #set ($varclass = "${linkclass}_$columnclass")
 #set ($var = "${link}_$columnclass") 
 #set ($associatedPackageName = $commonUtils.getAssociatedBusinessPackageName($model, $reference.tableName))
@@ -394,4 +400,6 @@ import $importDaoInterfaceUML;
 ##set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
 #end
 
-
+#macro (exposeComponentSpecific)
+#set ($parentExist = $componentUtils.hasParent($component))
+#end

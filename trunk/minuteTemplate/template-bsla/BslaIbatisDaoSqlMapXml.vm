@@ -28,7 +28,7 @@
     <!-- load the parents -->	
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    <result property="$var" column="$column" select="load${linkclass}ByOnePK"/>   	
+    <result property="$var" column="$localColumnName" select="load${linkclass}ByOnePK"/>   	
 #end
     <!-- load the children -->
 #foreach ($reference in $childReferences)
@@ -45,13 +45,13 @@
 #end
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    <result property="$var" column="$column" select="load${linkclass}ByOnePK"/>   	
+    <result property="$var" column="$localColumnName" select="load${linkclass}ByOnePK"/>   	
 #end
 #foreach ($reference in $childReferences)
 #putReferenceParams()
     <!-- to change the primary key is not always id -->
-    <result property="${var}s" column="id" select="loadFull${varclass}For${tableClassName}"/>
-    <!--<result property="${var}s" column="$primaryKey" select="loadFull${varclass}For${tableClassName}"/>-->
+    <!--<result property="${var}s" column="id" select="loadFull${varclass}For${tableClassName}"/>-->
+    <result property="${var}s" column="$primaryKeyVariable" select="loadFull${varclass}For${tableClassName}"/>
 #end  
   </resultMap>  
 
@@ -162,23 +162,31 @@
        WHERE $reference.columnName = #value#
   </select>
   
-  <select id="loadFull${className}_${columnclass}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}LoadFull">
+  <select id="loadFull${tableClassName}_${columnclass}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}LoadFull">
     <include refid="${selectSql}"/>
        WHERE $reference.columnName = #value#
   </select>
   
 #end
 
-  <select id="loadFullFirstLevel${tableClassName}" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="$primaryKeyFullType">
+  <select id="loadFullFirstLevel${tableClassName}" resultMap="${tableClassName}LoadFullFirstLevel" parameterClass="$importDomainObject">
     <include refid="${selectSql}"/>
     WHERE
-     $pK = #value#
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        $column.name = #$columnVar# #if ($velocityCount!=$primaryKeyCount)AND#end
+#end     
+##     $pK = #value#
   </select>
 
-  <select id="loadFull${tableClassName}" resultMap="${tableClassName}LoadFull" parameterClass="$primaryKeyFullType">
+  <select id="loadFull${tableClassName}" resultMap="${tableClassName}LoadFull" parameterClass="$importDomainObject">
     <include refid="${selectSql}"/>
     WHERE
-     $pK = #value#
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        $column.name = #$columnVar# #if ($velocityCount!=$primaryKeyCount)
+        AND #end
+#end     
   </select>
 
 

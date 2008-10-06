@@ -19,8 +19,9 @@
 			    <column name="$column.name" #if($isLengthPrecisionColumn)length="$column.size"#end #if($column.isRequired())nullable="false"#else nullable="true"#end #if($isColumnUnique)unique="true"#else unique="false"#end />       
 #if (!$isPkUserProvided)
 #if ($isPrimaryKeyPolicySequence)
+#set ($sequenceName = $databaseUtils.provideSequence($table))
 				<generated-value strategy="AUTO"/>    
-				<table-generator table="${table.name}"/>     
+				<table-generator name="$sequenceName" table="$sequenceName"/>     
 #end	
 #elseif ($isPrimaryKeyPolicyIdentity)
                 <generated-value strategy="AUTO"/>
