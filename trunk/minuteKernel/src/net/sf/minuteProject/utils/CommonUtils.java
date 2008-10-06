@@ -126,6 +126,10 @@ public class CommonUtils {
 	}
 	
 	public static String getJavaType (Column column) {
+		if (column == null) {
+			logger.error("ERROR column is null");
+			return "ERROR column is null";
+		}
 		return ConvertUtils.getJavaTypeFromDBType(column);
 	}
 	
@@ -412,6 +416,22 @@ public class CommonUtils {
 	public static String getJavaNameVariableFirstLetter(Table table, Model model, String targetTemplateName) {
 		String result= getTemplateClassName(table, model, targetTemplateName);
 		return CommonUtils.getJavaNameVariableFirstLetter(result);
+	}
+	
+	private static String getPackageLevelTemplateFullPath(Model model, Package pack, Template template, String targetTemplateName) {
+		return getPackageName(model, pack, template, targetTemplateName) +"."+ getTemplateClassName (pack, template, targetTemplateName);
+	}
+
+	public static String getPackageLevelTemplateFullClassPath(Model model, Package pack, Template template, String targetTemplateName) {
+		return FormatUtils.getDirFromPackage(getPackageLevelTemplateFullPath(model, pack, template, targetTemplateName));
+	}
+
+	private static String getModelLevelTemplateFullPath(Model model, Template template, String targetTemplateName) {
+		return getPackageName(model, template, targetTemplateName) +"."+ getTemplateClassName (model, template, targetTemplateName);
+	}
+	
+	public static String getModelLevelTemplateFullClassPath(Model model, Template template, String targetTemplateName) {
+		return FormatUtils.getDirFromPackage(getModelLevelTemplateFullPath(model, template, targetTemplateName));
 	}
 	/**
 	 * comment utils mark the minute template the a minute comment

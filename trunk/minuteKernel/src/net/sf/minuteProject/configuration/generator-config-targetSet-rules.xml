@@ -60,6 +60,7 @@
 					<alias attr-name="view-specific" prop-name="viewSpecific" />
 					<alias attr-name="service-specific" prop-name="serviceSpecific" />
 					<alias attr-name="function-specific" prop-name="functionSpecific" />
+					<alias attr-name="component-specific" prop-name="componentSpecific" />
 					<alias attr-name="application-specific" prop-name="applicationSpecific" />
 					<alias attr-name="file-name-builder-plugin" prop-name="fileNameBuilderPlugin" />
 					<alias attr-name="file-name-builder-method" prop-name="fileNameBuilderMethod" />

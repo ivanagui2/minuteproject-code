@@ -228,4 +228,8 @@ public interface Table extends GeneratorBean{
      */
     public boolean isManyToMany();
     
+	
+	public String getAlias ();
+	
+	public void setAlias(String alias);
 }

@@ -123,58 +123,58 @@ public class DBTemplateUtils implements Configuration {
 	}	
 
 	
-	public static List getParents (Database database, Table table) {
-		List list = new ArrayList();
-		//Table tableRef;
-		//table.getForeignKey(0).getReference(0).getLocalColumn();
-		String columnRef;
-		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
-		Reference reference;
-		ForeignKey [] foreignKeys = table.getForeignKeys();
-		for (int i = 0; i < foreignKeys.length; i++) {
-			ref = foreignKeys[i].getFirstReference();
-			String tableName = foreignKeys[i].getForeignTableName();
-			String columnName = ref.getLocalColumnName();
-		    Table table2 = TableUtils.getTable(database,tableName);
-		    Column column2 = ColumnUtils.getColumn (table2, columnName);
-			reference = new Reference(table2, column2, tableName, columnName);
-			//reference.setTableName(tablename);
-			//reference.setColumnName(ref.getLocalColumnName());
-			//reference.setTable(TableUtils.getTable(database,tablename));
-			list.add(reference);				
-		}
-		return list;
-	}			
-	
-	public static List getReference (Database database, Table table) {
-		List list = new ArrayList();
-		//Table tableRef;
-		//table.getForeignKey(0).getReference(0).getLocalColumn();
-		String columnRef;
-		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
-		Reference reference;
-		Table [] tables = database.getTables();
-    	for (int i = 0; i < tables.length; i++) {
-    		ForeignKey [] fk = tables[i].getForeignKeys();
-    		//fk[j].get
-        	for (int j = 0; j < fk.length; j++) {
-        		String tableName = fk[j].getForeignTableName();
-        		if (tableName!=null) {
-	        		if (tableName.equals(table.getName())) {
-	        			columnRef = new String();
-	        			ref = fk[j].getReference(0);
-	        			columnRef = ref.getLocalColumnName();
-	        			reference = new Reference(tables[i], ColumnUtils.getColumn(tables[i], columnRef),tables[i].getName(), columnRef);
-	        			//reference.setTableName(tables[i].getName());
-	        			//reference.setColumnName(columnRef);
-	        			//reference.setTable(tables[i]);
-	        			list.add(reference);
-	        		}
-        		}
-        	}    	
-        }		
-    	return list;
-	}
+//	public static List getParents (Database database, Table table) {
+//		List list = new ArrayList();
+//		//Table tableRef;
+//		//table.getForeignKey(0).getReference(0).getLocalColumn();
+//		String columnRef;
+//		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
+//		Reference reference;
+//		ForeignKey [] foreignKeys = table.getForeignKeys();
+//		for (int i = 0; i < foreignKeys.length; i++) {
+//			ref = foreignKeys[i].getFirstReference();
+//			String tableName = foreignKeys[i].getForeignTableName();
+//			String columnName = ref.getLocalColumnName();
+//		    Table table2 = TableUtils.getTable(database,tableName);
+//		    Column column2 = ColumnUtils.getColumn (table2, columnName);
+//			reference = new Reference(table2, column2, tableName, columnName);
+//			//reference.setTableName(tablename);
+//			//reference.setColumnName(ref.getLocalColumnName());
+//			//reference.setTable(TableUtils.getTable(database,tablename));
+//			list.add(reference);				
+//		}
+//		return list;
+//	}			
+//	
+//	public static List getReference (Database database, Table table) {
+//		List list = new ArrayList();
+//		//Table tableRef;
+//		//table.getForeignKey(0).getReference(0).getLocalColumn();
+//		String columnRef;
+//		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
+//		Reference reference;
+//		Table [] tables = database.getTables();
+//    	for (int i = 0; i < tables.length; i++) {
+//    		ForeignKey [] fk = tables[i].getForeignKeys();
+//    		//fk[j].get
+//        	for (int j = 0; j < fk.length; j++) {
+//        		String tableName = fk[j].getForeignTableName();
+//        		if (tableName!=null) {
+//	        		if (tableName.equals(table.getName())) {
+//	        			columnRef = new String();
+//	        			ref = fk[j].getReference(0);
+//	        			columnRef = ref.getLocalColumnName();
+//	        			reference = new Reference(tables[i], ColumnUtils.getColumn(tables[i], columnRef),tables[i].getName(), columnRef);
+//	        			//reference.setTableName(tables[i].getName());
+//	        			//reference.setColumnName(columnRef);
+//	        			//reference.setTable(tables[i]);
+//	        			list.add(reference);
+//	        		}
+//        		}
+//        	}    	
+//        }		
+//    	return list;
+//	}
 	
 	public static boolean isPrimaryKey (Column column, Table table) {
 		Column [] columns = table.getPrimaryKeyColumns();

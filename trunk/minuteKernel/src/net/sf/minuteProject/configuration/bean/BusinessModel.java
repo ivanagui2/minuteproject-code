@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.application.ModelGenerator;
@@ -16,6 +17,8 @@ import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.service.Service;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.ComponentUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -87,6 +90,11 @@ public class BusinessModel {
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {
+		complementWithViewVirtualPrimaryKey(view, entity);
+		complementWithViewComponent(view, entity);
+	}
+	
+	private void complementWithViewVirtualPrimaryKey(View view, Entity entity) {
 		VirtualPrimaryKey virtualPrimaryKey = entity.getVirtualPrimaryKey();
 		if (virtualPrimaryKey!=null) {
 			for (Property property : virtualPrimaryKey.getProperties()) {
@@ -96,10 +104,18 @@ public class BusinessModel {
 						view.addVirtualPrimaryKey(column);					
 				}
 			}
-
 		}
 	}
 	
+	private void complementWithViewComponent(View view, Entity entity) {
+		String structure = entity.getStructure();
+		String alias = entity.getAlias();
+		if (alias!=null && !alias.equals(""))
+			view.setAlias(alias);
+		if (structure!=null && structure.equals("hierarchy")) {
+			view.setComponents(ComponentUtils.getComponent(view));
+		}
+	}
 	/*public void addTable (Table table){
 		if (tables==null){
 			tables = new ArrayList();

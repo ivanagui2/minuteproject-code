@@ -35,6 +35,7 @@ public class Template extends TemplateTarget {
 	private String addModelName;
 	private String addModelDirName;
 	private String applicationSpecific;
+	private String componentSpecific;
 	private TemplateTarget templateTarget;
 	private String fileNameBuilderPlugin;
 	private String fileNameBuilderMethod;
@@ -351,6 +352,14 @@ public class Template extends TemplateTarget {
 
 	public void setFileNameBuilderPlugin(String fileNameBuilderPlugin) {
 		this.fileNameBuilderPlugin = fileNameBuilderPlugin;
+	}
+
+	public String getComponentSpecific() {
+		return componentSpecific;
+	}
+
+	public void setComponentSpecific(String componentSpecific) {
+		this.componentSpecific = componentSpecific;
 	}
 	
 	

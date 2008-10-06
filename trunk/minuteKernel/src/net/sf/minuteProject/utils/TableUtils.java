@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ddlutils.model.Index;
 import org.apache.ddlutils.model.IndexColumn;
 
@@ -91,23 +92,14 @@ public class TableUtils {
 		}
 		return false;
 	}
-	/*
-	public static Table getOtherEnd (Table origin, Table many2many) {
-		if (many2many.isManyToMany()) {		
-			Reference [] references = many2many.getParents();
-			for (int i = 0; i < references.length; i++) {
-				if (references[i].getForeignTable().equals(origin))
-					return references[i].getForeignTable();
-			}
-		}
-		return null;
-	}*/
-	//for view
+
 	public static View getView(Database database, String viewname){
 		int maxView = database.getViews().length;
 		for (int i = 0; i < maxView; i++) {
 			View view = database.getViews()[i];
-			if (view.getName().equals(viewname))
+			viewname = StringUtils.upperCase(viewname);
+			String viewName = StringUtils.upperCase(view.getName());
+			if (viewName.equals(viewname))
 				return view;
 		}
 		return null;

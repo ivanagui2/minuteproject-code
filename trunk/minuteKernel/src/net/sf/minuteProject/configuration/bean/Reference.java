@@ -6,10 +6,11 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 
 
 public class Reference {
-	public String tableName;
-	public String columnName;
-	public net.sf.minuteProject.configuration.bean.model.data.Table table;
-	public Column column;
+	private String tableName;
+	private String columnName;
+	private net.sf.minuteProject.configuration.bean.model.data.Table table;
+	private Column column;
+	private Column localColumn;
 	
 	//Constructor
 	public Reference(net.sf.minuteProject.configuration.bean.model.data.Table table, Column column, String tableName, String columnName) {
@@ -17,6 +18,7 @@ public class Reference {
 		setColumnName(columnName);
 		setTable(table);
 		setColumn(column);
+		//setLocalColumn(localColumn);
 	}
 
 	public Reference(){}
@@ -61,6 +63,14 @@ public class Reference {
             return false;
         }
     }
+
+	public Column getLocalColumn() {
+		return localColumn;
+	}
+
+	public void setLocalColumn(Column localColumn) {
+		this.localColumn = localColumn;
+	}
 
 
 }

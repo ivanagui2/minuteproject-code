@@ -101,6 +101,8 @@
 						<set-next-rule methodname="addEntity" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
 						<set-properties-rule>
 							<alias attr-name="name" prop-name="name" />	
+							<alias attr-name="alias" prop-name="alias" />
+							<alias attr-name="structure" prop-name="structure" />		
 						</set-properties-rule>							
 						<pattern value="virtual-primary-key">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey"/>		

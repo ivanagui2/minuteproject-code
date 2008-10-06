@@ -77,7 +77,17 @@ public class ReferenceDDLUtils implements Reference
      */
     public Column getLocalColumn()
     {
-        return localColumn;//new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
+    	// By default the reference is view as absolute
+    	if (localColumn==null)
+    		return new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
+    	else
+    		// but this behavior can be overwrite especially for children of entities
+    		// a reference can be relative to the entity
+    		// the localColumn can be inserted and not taken from the default absolute
+    		return localColumn;
+        //return reference.getLocalColumn();//localColumn;//new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
+    	// for ibatis
+    	//return new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
     }
 
     /**
@@ -98,7 +108,8 @@ public class ReferenceDDLUtils implements Reference
      */
     public String getLocalColumnName()
     {
-        return reference.getLocalColumnName();
+    	return getLocalColumn().getName();
+        //return reference.getLocalColumnName();
         // should be replaced by
         //return localColumnName();
     }
@@ -121,7 +132,7 @@ public class ReferenceDDLUtils implements Reference
      */
     public String getForeignColumnName()
     {
-        return foreignColumnName;// reference.getForeignColumnName();
+        return reference.getForeignColumnName();
     }
     
     /**

@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 public abstract class TableAbstract extends AbstractConfiguration implements Table{
 	
 	private Table table;
+	private String alias;
 	
 	public TableAbstract () {
 	}
@@ -253,4 +254,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
     	return this.getName().equals(((Table)object).getName());
     }
     
+	public String getAlias() {
+		if (alias!=null && !alias.equals(""))
+			return alias;
+		else
+			return getName();
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
 }

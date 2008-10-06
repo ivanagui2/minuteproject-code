@@ -14,6 +14,7 @@ import org.apache.ddlutils.io.DatabaseIO;
 
 //import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.lang.StringUtils;
 
 public class DataModel {
 	
@@ -112,11 +113,15 @@ public class DataModel {
 	}
 
 	public String getSchema() {
+//		if (schema==null) {
+//			BasicDataSource bds = (org.apache.commons.dbcp.BasicDataSource)getDatasource();
+//			setSchema(bds.getUsername());
+//		}
 		return schema;
 	}
 
 	public void setSchema(String schema) {
-		this.schema = schema;
+		this.schema = StringUtils.upperCase(schema);
 	}
 
 	public PrimaryKeyPolicy getPrimaryKeyPolicy() {

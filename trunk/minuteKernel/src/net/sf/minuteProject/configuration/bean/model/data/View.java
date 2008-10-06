@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
+import java.util.List;
+
 public interface View extends Table {
 	
 	/**
@@ -25,4 +27,9 @@ public interface View extends Table {
 	public void addVirtualPrimaryKey(Column virtualPrimaryKey);
 	
 	public void addRealPrimaryKey(Column realPrimaryKey);
+	
+	public Component[] getComponents();
+	
+	public void setComponents(List<Component> components);
+
 }
