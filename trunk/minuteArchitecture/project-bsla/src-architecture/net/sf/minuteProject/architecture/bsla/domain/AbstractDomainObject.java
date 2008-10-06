@@ -10,4 +10,8 @@ public class AbstractDomainObject implements DomainObject {
 	public String toString() {
  	   return ToStringBuilder.reflectionToString(this);
     } 
+	
+	public String toXML () {
+	   return null;
+	}
 }

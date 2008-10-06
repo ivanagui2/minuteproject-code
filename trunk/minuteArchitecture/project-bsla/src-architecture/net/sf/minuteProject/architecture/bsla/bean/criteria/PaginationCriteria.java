@@ -8,9 +8,11 @@ public class PaginationCriteria {
 
 	private int startPosition;
 	private int numberOfRowsReturned;
+	private int pageNumber;
 	private String direction;
 	private List orderList;
 	private DomainObject searchCriteria;
+	private Object startPositionIdentity;
 	
 	public String getDirection() {
 		return direction;
@@ -41,6 +43,18 @@ public class PaginationCriteria {
 	}
 	public void setStartPosition(int startPosition) {
 		this.startPosition = startPosition;
+	}
+	public Object getStartPositionIdentity() {
+		return startPositionIdentity;
+	}
+	public void setStartPositionIdentity(Object startPositionIdentity) {
+		this.startPositionIdentity = startPositionIdentity;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	
 	

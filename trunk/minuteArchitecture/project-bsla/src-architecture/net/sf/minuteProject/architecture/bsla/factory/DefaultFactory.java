@@ -2,7 +2,6 @@ package net.sf.minuteProject.architecture.bsla.factory;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.apache.commons.logging.Log;
 
 public class DefaultFactory {
     private static BeanFactory beanFactory;
@@ -21,7 +20,6 @@ public class DefaultFactory {
     /**
      * Returns a bean factory
      * @return BeanFactory
-     * @throws SADBELException
      */
     private static BeanFactory getFactory() {
         if (!isLoaded) {
@@ -44,7 +42,6 @@ public class DefaultFactory {
 
     /**
      * Loads an configures a Bean Factory
-     * @throws SADBELException
      */
 
     private static void loadFactory() {

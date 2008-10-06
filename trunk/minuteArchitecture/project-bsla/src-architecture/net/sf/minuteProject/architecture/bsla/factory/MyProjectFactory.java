@@ -2,7 +2,6 @@ package net.sf.minuteProject.architecture.bsla.factory;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.apache.commons.logging.Log;
 
 public class MyProjectFactory {
     private static BeanFactory beanFactory;
@@ -22,7 +21,6 @@ public class MyProjectFactory {
 	/**
      * Returns a bean factory
      * @return BeanFactory
-     * @throws SADBELException
      */
     private static BeanFactory getFactory() {
         if (!isLoaded) {
@@ -45,7 +43,6 @@ public class MyProjectFactory {
 
     /**
      * Loads an configures a Bean Factory
-     * @throws SADBELException
      */
 
     private static void loadFactory() {
@@ -62,46 +59,4 @@ public class MyProjectFactory {
             System.out.println(ex.getMessage());
         }
     }
-
-    /**
-     * Returns a logger for a given category
-     *
-     * @param category String
-     * @return Log
-     
-    public static Log getLogger(String category) {
-        Log logger = null;
-        try {
-            SystemLoggerFactory sytemLoggerFactory = (SystemLoggerFactory)
-                getFactory().getBean(
-                    "systemLoggerFactory");
-            logger = sytemLoggerFactory.getLogger(category);
-        } catch (Exception ex) {
-            System.err.println("Unexpected exception caught when retrieving logger");
-            ex.printStackTrace();
-            throw new SystemSADBELException(
-                "Unexpected exception caught when retrieving logger",
-                "Unexpected exception caught when retrieving logger", ex);
-        }
-        return logger;
-    }
-*/
-    /**
-     * Returns a property reader
-     *
-     * @return PropertyReader
-    
-    public static PropertyReader getPropertyReader() {
-        PropertyReader reader = null;
-        try {
-            PropertyReaderFactory propertyReaderFactory = (PropertyReaderFactory) getFactory().getBean(
-                "propertyReaderFactory");
-            reader = propertyReaderFactory.getPropertyReader();
-        } catch (Exception ex) {
-            throw new SystemSADBELException(
-                "Unexpected exception caught when retrieving property reader",
-                "Unexpected exception caught when retrieving property reader", ex);
-        }
-        return reader;
-    } */
 }
