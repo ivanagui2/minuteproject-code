@@ -57,8 +57,6 @@ public class ModelUtils {
 	}
 
 	public static String getPackage(GeneratorBean bean, Template template) {
-//		StringBuffer sb = new StringBuffer(bean.getTechnicalPackage(template));
-//		return sb.toString();		
 		return bean.getTechnicalPackage(template);
 	}
 	
@@ -113,8 +111,11 @@ public class ModelUtils {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
 			Table table2 = TableUtils.getTable(database,tablename);
+			String columnName = ref.getForeignColumnName();
+			Column column2 = ColumnUtils.getColumn (table2, columnName);
 			//reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
-			reference = new Reference(table2, ref.getLocalColumn(), tablename, ref.getLocalColumnName());
+			reference = new Reference(table2, column2, tablename, columnName);
+			reference.setLocalColumn(ref.getLocalColumn());
 			//ref.get
 			addReference(list, reference);				
 		}
@@ -123,19 +124,19 @@ public class ModelUtils {
 	}	
 	
 	// TODO duplicate method
-	public static List getParents (Table table) {
-		List list = new ArrayList();
-		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
-		Reference reference;
-		ForeignKey [] foreignKeys = table.getForeignKeys();
-		for (int i = 0; i < foreignKeys.length; i++) {
-			ref = foreignKeys[i].getFirstReference();
-			String tablename = foreignKeys[i].getForeignTableName();
-			reference = new Reference(foreignKeys[i].getForeignTable(), ref.getLocalColumn(), tablename, ref.getLocalColumnName());
-			addReference(list, reference);				
-		}
-		return list;
-	}
+//	public static List getParents (Table table) {
+//		List list = new ArrayList();
+//		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
+//		Reference reference;
+//		ForeignKey [] foreignKeys = table.getForeignKeys();
+//		for (int i = 0; i < foreignKeys.length; i++) {
+//			ref = foreignKeys[i].getFirstReference();
+//			String tablename = foreignKeys[i].getForeignTableName();
+//			reference = new Reference(foreignKeys[i].getForeignTable(), ref.getLocalColumn(), tablename, ref.getLocalColumnName());
+//			addReference(list, reference);				
+//		}
+//		return list;
+//	}
 	
 	private static void addReference (List list, Reference referenceToAdd) {
 		for (Iterator iter = list.iterator(); iter.hasNext();) {

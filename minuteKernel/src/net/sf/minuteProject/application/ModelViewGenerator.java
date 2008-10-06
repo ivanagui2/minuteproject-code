@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
+import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
@@ -187,17 +188,33 @@ public class ModelViewGenerator extends ModelGenerator {
 		}
 	}
 
+	protected void generateArtifactsByComponent(Template template) throws Exception {
+		//for each view if structure=hierachy => getComponent => foreach component generate
+		List<View> views = model.getBusinessModel().getBusinessPackage().getViews();
+		for (View view : views) {
+			Component [] components = view.getComponents();
+			for (Component component : components) {
+				writeTemplateResult(component, template);
+			}
+		}
+	}
+	
 	private void generateArtifactsByApplication(Template template) throws Exception {	
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	private void writeTemplateResult(GeneratorBean bean,
+	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
+		if (bean instanceof Component) {
+			Component component = (Component)bean;
+			Table table = component.getTable();
+			context.put("table", table);
+		}
 		if (beanName.equals("view"))
 			context.put("table", bean);
 		context.put("template", template);

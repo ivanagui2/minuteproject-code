@@ -1,8 +1,10 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 
 public class ViewDDLUtils extends TableDDLUtils implements View{
@@ -10,6 +12,8 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	private ArrayList<Column> realPrimaryKeys;
 	private ArrayList<Column> virtualPrimaryKeys;
 	private ArrayList<Column> noVirtualPrimaryKeyColumns;
+	private ArrayList<Component> components;
+	
 	
 	public ViewDDLUtils (org.apache.ddlutils.model.Table table) {
 		super(table);
@@ -85,5 +89,20 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	public Column [] getNoPrimaryKeyNoForeignKeyColumns() {
 		return getAttributes();
 	}
+
+	public Component[] getComponents() {
+		// if nothing => the view itself is a component
+		if (components==null) {
+			components = new ArrayList<Component>();
+		}
+		return (Component[])components.toArray(new Component[components.size()]);
+	}
+	
+	public void setComponents(List<Component> components) {
+		this.components = new ArrayList<Component>(components);
+	}
+
+
+
 	
 }

@@ -130,6 +130,7 @@ public class ForeignKeyDDLUtils implements ForeignKey
     		references = new ArrayList<Reference>();
     		for (int i = 0; i < foreignKey.getReferenceCount(); i++) {
     			Reference reference = new ReferenceDDLUtils (foreignKey.getReference(i));
+    			//reference.setLocalColumn(reference.getLocalColumn());
     			references.add(reference);
     		}
     	}

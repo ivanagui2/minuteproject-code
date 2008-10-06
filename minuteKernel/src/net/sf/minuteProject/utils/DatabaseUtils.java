@@ -89,4 +89,6 @@ public class DatabaseUtils {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.SEQUENCE);
 	}
 	
+	
+	
 }

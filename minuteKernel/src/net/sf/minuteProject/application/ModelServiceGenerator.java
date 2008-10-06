@@ -181,7 +181,7 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	private void writeTemplateResult(GeneratorBean bean,
+	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);

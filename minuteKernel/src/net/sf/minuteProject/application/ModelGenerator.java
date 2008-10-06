@@ -148,6 +148,8 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByService(template);
 		else if (template.getApplicationSpecific().equals("true"))
 			generateArtifactsByApplication(template);
+		else if (template.getComponentSpecific().equals("true"))
+			generateArtifactsByComponent(template);
 	}
 
 	public Model getModel() throws Exception {
@@ -202,7 +204,11 @@ public class ModelGenerator extends AbstractGenerator {
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	private void writeTemplateResult(GeneratorBean bean,
+	protected void generateArtifactsByComponent(Template template) throws Exception {	
+		writeTemplateResult(getModel().getConfiguration(), template);
+	}
+	
+	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);

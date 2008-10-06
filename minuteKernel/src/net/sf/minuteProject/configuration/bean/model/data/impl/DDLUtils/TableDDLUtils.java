@@ -328,6 +328,8 @@ public class TableDDLUtils extends TableAbstract {
 		    				reference.setForeignColumnName(column.getName());
 		    				reference.setForeignTable(tables[i]);
 		    				reference.setForeignTableName(tables[i].getName());
+		    				ColumnDDLUtils localCol = (ColumnDDLUtils)TableUtils.getPrimaryFirstColumn(new TableDDLUtils(table));
+		    				//ColumnDDLUtils columnLoc = new ColumnDDLUtils(localCol, new TableDDLUtils(table));
 		    				reference.setLocalColumn(TableUtils.getPrimaryFirstColumn(new TableDDLUtils(table)));
 		    				reference.setLocalTable(new TableDDLUtils(table));
 		    				addReference(children, reference);

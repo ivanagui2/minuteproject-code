@@ -228,7 +228,9 @@ public abstract class AbstractGenerator implements Generator {
 		if (beanName.equals("columnddlutils"))
 			return "column";		
 		if (beanName.equals("viewddlutils"))
-			return "view";			
+			return "view";	
+		if (beanName.equals("componentddlutils"))
+			return "component";			
 		return beanName;
    }
 	
