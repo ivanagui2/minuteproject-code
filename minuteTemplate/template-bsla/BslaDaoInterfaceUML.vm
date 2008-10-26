@@ -32,14 +32,17 @@ public interface $className extends DataAccessObject {
     public void update$tableClassName($tableClassName $tableVariableName) ;
 
 	/**
-     * Updates a $tableClassName entity with only the attributes set into $tableClassName.
+     * Updates a TbParty entity with only the attributes set into TbParty.
 	 * The primary keys are to be set for this method to operate.
 	 * This is a performance friendly feature, which remove the udibiquous full load and full update when an
-	 * update is issued
-     * @param $tableClassName $tableVariableName
-    */ 
-    public void updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) ;
-
+	 * update is to be done
+     * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
+     * @param TbParty tbParty
+     */
+    public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
+	
+	public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
+	
      /**
      * Saves a $tableClassName entity 
      * @param $tableClassName $tableVariableName
@@ -98,7 +101,14 @@ public interface $className extends DataAccessObject {
      * @param $tableClassName $tableVariableName
      * @return List
      */
-    public List<$tableClassName> search$tableClassName($tableClassName $tableVariableName) ;
+    public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) ;
+	
+	/**
+     * Searches a list of $tableClassName entity 
+     * @param $tableClassName $tableVariableName
+     * @return List
+     */
+    public List<$tableClassName> searchPrototype$tableClassName($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) ;
         
     /**
      * Load a paginated list of $tableClassName entity dependent of pagination criteria

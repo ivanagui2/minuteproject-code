@@ -7,7 +7,7 @@
 
 <beans>
 
-    <!-- Dao hibernate -->
+    <!-- Dao JPA -->
     <import resource="classpath:${pathDaoJPA}.xml"/>    
 
     <!-- hibernate config to put in an appart config file-->
@@ -29,25 +29,3 @@
 
 </beans>
 
-##<!-- 
-		##<property name="jpaVendorAdapter">
-			##<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				##<property name="databasePlatform" value="${hibernate.dialect}"></property>
-##
-			##</bean>
-		##</property>		 
-		##
-		## 
-		##<property name="jpaVendorAdapter">
-			##<bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
-				##<property name="databasePlatform" value="${hibernate.dialect}"></property>
-##
-			##</bean>
-		##</property>
-				## 
-				## 
-		##<property name="loadTimeWeaver">
-			##<bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"></bean>
-		##</property>
-		##-->
-##

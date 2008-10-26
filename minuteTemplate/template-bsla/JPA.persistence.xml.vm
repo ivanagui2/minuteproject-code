@@ -19,7 +19,7 @@
 #end
 #end	
 
-#exposeJPAProviderInfo()
+##exposeJPAProviderInfo()
 
     </persistence-unit>
 	
