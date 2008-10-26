@@ -20,13 +20,13 @@
 #if (!$isPkUserProvided)
 #if ($isPrimaryKeyPolicySequence)
 #set ($sequenceName = $databaseUtils.provideSequence($table))
-				<generated-value strategy="AUTO"/>    
-				<table-generator name="$sequenceName" table="$sequenceName"/>     
-#end	
+				<generated-value generator="$sequenceName"/>    
+				<sequence-generator name="$sequenceName" sequence-name="$sequenceName"/>     
 #elseif ($isPrimaryKeyPolicyIdentity)
                 <generated-value strategy="AUTO"/>
                 <generator class="identity">
 #end			      
+#end
 			</id>
 #end		
             <!-- map the fields of ${className} domain object  -->

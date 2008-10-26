@@ -1,0 +1,53 @@
+#exposeVariableModelSpecific()
+#set ($pathSpringProperties = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringProperties") )
+#exposeJdbc()
+#exposeVariableModelSpecific()
+#exposeArchitectureParams()
+#exposeSpringJPAArchitectureParams()
+#exposeJPASpecifics()
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jndi="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+    <bean id="placeHolderCongif"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location"><value>classpath:${pathSpringProperties}.properties</value></property>
+    </bean>
+
+    <bean id="${model.name}DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+#exposeJdbcParam($jdbcDriverClassName)
+        <property name="driverClassName"><value>$paramResult</value></property>
+#exposeJdbcParam($jdbcUrl)        
+        <property name="url"><value>$paramResult</value></property>
+#exposeJdbcParam($jdbcUsername)        
+        <property name="username"><value>$paramResult</value></property>
+#exposeJdbcParam($jdbcPassword)
+        <property name="password"><value>$paramResult</value></property>
+    </bean>
+    
+<!--    
+    <bean id="${model.name}DataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+#exposeJdbcParam($jdbcJNDI)
+        <property name="jndiName"><value>$paramResult</value></property>
+    </bean>
+-->        
+
+    <!-- correct bean to effectively insert (and commit) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="$JPAFactoryName"/>
+        <property name="dataSource" ref="${model.name}DataSource"/>
+    </bean>
+
+    <!-- to get the entity manager -->
+    <tx:annotation-driven/>
+    
+</beans>

@@ -13,19 +13,25 @@
 	       lazy="true">
 		<!--<cache usage="read-write" />-->
 
-#if($hasPrimaryKey)
+#if($hasPrimaryKey && !$isMany2Many)
 	<id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
 #if (!$isPkUserProvided)
-#if ($isPrimaryKeyPolicySequence)
+#set ($sequenceName = $databaseUtils.provideSequence($table))
     <generator class="sequence">
-##        <param name="sequence">hibernate_sequence</param>
-       <param name="sequence">$PKSequence</param>
+          <param name="sequence">${sequenceName}</param>
     </generator>
-#elseif ($isPrimaryKeyPolicyIdentity)
-    <generator class="identity">
-#end
 #end                
 	</id>
+#end 
+#if ($isMany2Many)
+    <composite-id
+        name="$domainVariableName"
+        class="$importDomainObjectUML" >
+#foreach ($column in $table.primaryKeyColumns)
+#putColumnParams()  
+        <key-property name="${columnVar}" column="${column.name}" type="$columnFullType" />
+#end
+    </composite-id>
 #end
 
 	<!-- map the fields of ${className} domain object  -->

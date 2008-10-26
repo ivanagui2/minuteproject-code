@@ -51,6 +51,7 @@ public class ${className} extends AbstractDomainObject {
 ##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
 	##private $primaryKeyFullType $primaryKey;
 ##end
+
 #foreach ($column in ${table.attributes})
 #putColumnParams()
     private $columnType _$columnVar; 
@@ -72,7 +73,23 @@ public class ${className} extends AbstractDomainObject {
     */
     public ${className}() {
     }
-    
+
+##patch for hibernate
+#if ($isMany2Many)
+    public ${className} get${className} () {
+    	return this;
+    }
+
+    public void set${className} (${className} ${variableName}) {
+    	new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+       ${variableName}.get${columnClass}()#if ($velocityCount!=$table.columnCount),
+#end
+#end 		
+		);
+    }
+#end    
     /**
     * Constructor with all the attributes of the entity
     */
