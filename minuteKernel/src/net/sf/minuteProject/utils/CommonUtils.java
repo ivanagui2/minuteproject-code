@@ -327,6 +327,8 @@ public class CommonUtils {
 	 * @return
 	 */
 	public static boolean isPkUserProvided (Table table) {
+		if (table.isManyToMany())
+			return true;
 		if (table.hasPrimaryKey()) {
 			Column [] columns = table.getPrimaryKeyColumns();
 			for (int i = 0; i < columns.length; i++) {

@@ -89,6 +89,8 @@ public class DatabaseUtils {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.SEQUENCE);
 	}
 	
-	
+	public boolean isPrimaryKeyPolicyIncrement(Table table) {
+		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.INCREMENT);
+	}
 	
 }
