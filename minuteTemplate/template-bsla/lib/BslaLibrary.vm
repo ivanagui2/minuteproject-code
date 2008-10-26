@@ -140,6 +140,7 @@
 #set ($resource = "${table.name}.$columnVar")
 #set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
 #set ($columLengthPrecisionSize = $column.getSizeAsInt())
+#set ($columnFullType = $commonUtils.getFullType2($column))
 #largeFormat()
 #end
 
@@ -238,6 +239,7 @@
 #set ($PKSequence = $databaseUtils.provideSequence($table))
 #set ($isPrimaryKeyPolicySequence = $databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($isPrimaryKeyPolicyIdentity = $databaseUtils.isPrimaryKeyPolicyIdentity($table))
+#set ($isPrimaryKeyPolicyIncrement = $databaseUtils.isPrimaryKeyPolicyIncrement($table))
 #end
 
 #macro (exposeArchitectureParams)
