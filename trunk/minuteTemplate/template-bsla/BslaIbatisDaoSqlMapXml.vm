@@ -237,6 +237,30 @@
 #end
   
   </update>
+  
+    <!-- Updates only the fields that are not empty of an existing instance 
+       of a ${tableClassName} domain object against a prototype -->
+  <update id="updateNotNullOnlyPrototype${tableClassName}" parameterClass="java.util.Map">
+    UPDATE ${table.name}
+    <dynamic prepend="SET">
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#set($tableVar_colVar="${tableVariableName}_$columnVar")
+        <isNotNull prepend="," property="$tableVar_colVar">
+            ${column.name}=#$tableVar_colVar:$column.type#
+        </isNotNull>	
+#end        
+    </dynamic>     
+    <dynamic prepend="WHERE">
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        <isNotNull prepend="AND" property="prototypeCriteria_$columnVar">
+            ${column.name}=#prototypeCriteria_$columnVar:$column.type#
+        </isNotNull>	
+#end        
+    </dynamic> 
+  
+  </update>
 
   <!-- Updates an existing instance of a ${tableClassName} domain object -->
   <update id="update${tableClassName}" parameterClass="${tableClassName}">

@@ -3,6 +3,7 @@
 package $packageName;
 
 import java.util.List;
+import java.util.HashMap;
 import java.sql.*;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -47,7 +48,38 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
      * @param $tableClassName $tableVariableName
      */
     public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) {
-      this.getSqlMapClientTemplate().update("updateNotNullOnly$tableClassName", $tableVariableName);
+       this.getSqlMapClientTemplate().update("updateNotNullOnly$tableClassName", $tableVariableName);
+    }
+    
+    private class ${tableClassName}CriteriaValue {
+	       	public $tableClassName $tableVariableName, prototypeCriteria;
+	       	
+	       	public $tableClassName get$tableClassName() {
+	           return $tableVariableName;	
+	       	}
+	       	
+	       			public void set$tableClassName($tableClassName $tableVariableName) {
+	           this.$tableVariableName = $tableVariableName;	
+	       	}
+
+	       	public $tableClassName getPrototypeCriteria() {
+	           return prototypeCriteria;	
+	       	}
+	       	
+	       			public void setPrototypeCriteria($tableClassName prototypeCriteria) {
+	           this.prototypeCriteria = prototypeCriteria;	
+	       	}
+    	}
+    	
+    public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
+       HashMap<String, Object> map = new HashMap();
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#set($tableVar_colVar="${tableVariableName}_$columnVar")
+       map.put("$tableVar_colVar", ${tableVariableName}.get$columnClass());
+       map.put("prototypeCriteria_$columnVar", prototypeCriteria.get$columnClass());
+#end
+       this.getSqlMapClientTemplate().update("updateNotNullOnlyPrototype$tableClassName", map);
     }
      
      /**
