@@ -50,6 +50,8 @@ public interface $className extends DataAccessObject {
      */
     public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
     
+    public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
+    
      /**
      * Saves a $tableClassName entity 
      * @param $tableClassName $tableVariableName
