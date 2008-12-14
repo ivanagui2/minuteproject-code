@@ -217,51 +217,12 @@ public class Template extends TemplateTarget {
 	public void setAddModelDirName(String addModelDirName) {
 		this.addModelDirName = addModelDirName;
 	}
-/*
-	public String getGeneratorOutputFileName (net.sf.minuteProject.configuration.bean.model.data.Table table, Template template) {
-    	Model model = getModel(template);
-    	// first main dir
-    	StringBuffer sb = new StringBuffer(template.getOutputdir());
-    	// second package dir
-    	sb.append("//"+ModelUtils.getPackageDir(model, template,table));
-		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
-		new File (outputFileDir.toString()).mkdirs();
-		// third file itself
-		String TemplateFileName = CommonUtils.getFileName(template,table.getName());
-		String outputFilename = outputFileDir+"//"+TemplateFileName;
-		return outputFilename;
-	}
 
-    public String getGenOutputFileName (Package pack, Template template) {
-    	Model model = getModel(template);
-    	StringBuffer sb = new StringBuffer(template.getOutputdir());
-    	sb.append("//"+ModelUtils.getPackageDir(model, template,pack));
-		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
-    	//String outputFileDir = ModelUtils.getPackageDir(model, template, pack);
-		new File (outputFileDir.toString()).mkdirs();
-		String TemplateFileName = CommonUtils.getFileName(template,pack.getName());
-		String outputFilename = outputFileDir+"//"+TemplateFileName;
-		return outputFilename;
-	}
-	*/
-   /* 
-    public String getGeneratorOutputFileNameForModel (Template template) {
-    	Model model = getModel(template);
-
-    	StringBuffer sb = new StringBuffer(template.getOutputdir());
-    	sb.append("//"+ModelUtils.getTechnicalPackage(model, template));
-		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
-    	
-		new File (outputFileDir.toString()).mkdirs();
-		String TemplateFileName = CommonUtils.getFileName(template,model.getName());
-		String outputFilename = outputFileDir+"//"+TemplateFileName;
-		return outputFilename;
-	}
-    */
     public String getGeneratorOutputFileNameForView (View view, Template template) {
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	sb.append("//"+ModelUtils.getTechnicalPackage(view, template));
-		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+		//String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+    	String outputFileDir = sb.toString();
 		new File (outputFileDir.toString()).mkdirs();
 		String TemplateFileName = CommonUtils.getFileName(template,view);
 		String outputFilename = outputFileDir+"//"+TemplateFileName;
@@ -285,7 +246,8 @@ public class Template extends TemplateTarget {
     	String dir = FormatUtils.getDirFromPackage(sb1);
     	sb.append("//");//+bean.getTechnicalPackage (template));
     	sb.append(dir);
-		String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+		//String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+    	String outputFileDir = sb.toString();
 		new File (outputFileDir.toString()).mkdirs();
 		String TemplateFileName = CommonUtils.getFileName(template,bean);
 		String outputFilename = outputFileDir+"//"+TemplateFileName;
