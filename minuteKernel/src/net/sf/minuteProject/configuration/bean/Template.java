@@ -14,6 +14,7 @@ import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 
@@ -31,7 +32,10 @@ public class Template extends TemplateTarget {
 	private String modelSpecific;
 	private String viewSpecific;
 	private String serviceSpecific;
-	private String functionSpecific;	
+	private String functionSpecific;
+	private String nodeAttributeNameSpecific;
+	private String nodeNameValue;
+	private String nodeAttributeNameValue;
 	private String addModelName;
 	private String addModelDirName;
 	private String applicationSpecific;
@@ -39,6 +43,7 @@ public class Template extends TemplateTarget {
 	private TemplateTarget templateTarget;
 	private String fileNameBuilderPlugin;
 	private String fileNameBuilderMethod;
+	private String isTemplateToGenerateMethod;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -59,6 +64,26 @@ public class Template extends TemplateTarget {
 		if (entitySpecific==null)
 			entitySpecific="false";
 		return entitySpecific;
+	}
+	public String getNodeAttributeNameSpecific() {
+		if (nodeAttributeNameSpecific==null)
+			nodeAttributeNameSpecific="false";
+		return nodeAttributeNameSpecific;
+	}
+	public void setNodeAttributeNameSpecific(String nodeAttributeNameSpecific) {
+		this.nodeAttributeNameSpecific = nodeAttributeNameSpecific;
+	}
+	public String getNodeAttributeNameValue() {
+		return nodeAttributeNameValue;
+	}
+	public void setNodeAttributeNameValue(String nodeAttributeNameValue) {
+		this.nodeAttributeNameValue = nodeAttributeNameValue;
+	}
+	public String getNodeNameValue() {
+		return nodeNameValue;
+	}
+	public void setNodeNameValue(String nodeNameValue) {
+		this.nodeNameValue = nodeNameValue;
 	}
 	public void setEntitySpecific(String entitySpecific) {
 		this.entitySpecific = entitySpecific;
@@ -163,6 +188,67 @@ public class Template extends TemplateTarget {
 		return null;
 	}
 	
+	public boolean isToGenerate(GeneratorBean bean) {
+		boolean isToGenerate = 
+			getPluginIsToGenerate(
+				getFileBuilderPlugin(getIsTemplateToGenerateMethodPluginName()), 
+				getIsTemplateToGenerateMethodFunctionName(),
+				bean);
+		if (!isToGenerate)
+			return false;
+		return true;
+	}
+	
+	private String getIsTemplateToGenerateMethodPluginName () {
+		return StringUtils.substringBefore(getIsTemplateToGenerateMethod(), ".");
+	}
+	
+	private String getIsTemplateToGenerateMethodFunctionName () {
+		return StringUtils.substringAfterLast(getIsTemplateToGenerateMethod(), ".");
+	}
+	
+	private boolean getPluginIsToGenerate (Plugin plugin, String function, GeneratorBean bean) {
+		if (plugin==null || function==null)
+			return false;
+		if (plugin.equals(""))
+			return true;
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		try {
+			Class clazz = cl.loadClass(plugin.getClassName());
+			Object pluginObject = clazz.newInstance();
+			Class arg [] = new Class [2];
+			arg [0] = Template.class;
+			arg [1] = GeneratorBean.class;
+			Object obj [] = new Object [2];
+			obj [0] = this;
+			obj [1] = bean;
+			Method method = clazz.getMethod(function, arg);
+			Boolean result = (Boolean) method.invoke(pluginObject, obj);
+			return result;
+		} catch (ClassNotFoundException e) {
+			logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
+		} catch (IllegalAccessException e) {
+			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+//			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+		}
+		return false;
+	}
+
 	private String getPluginBuildFileName (Plugin plugin, String fileNameBuilderMethod, GeneratorBean bean) {
 		ClassLoader cl = ClassLoader.getSystemClassLoader();
 		try {
@@ -322,6 +408,14 @@ public class Template extends TemplateTarget {
 
 	public void setComponentSpecific(String componentSpecific) {
 		this.componentSpecific = componentSpecific;
+	}
+
+	public String getIsTemplateToGenerateMethod() {
+		return isTemplateToGenerateMethod;
+	}
+
+	public void setIsTemplateToGenerateMethod(String isTemplateToGenerateMethod) {
+		this.isTemplateToGenerateMethod = isTemplateToGenerateMethod;
 	}
 	
 	

@@ -29,17 +29,17 @@
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.TemplateTarget"/>		
 			<set-next-rule methodname="addTemplateTarget" paramtype="net.sf.minuteProject.configuration.bean.TemplateTarget"/>	
 			<set-properties-rule/>	
-				<set-properties-rule>
-				    <alias attr-name="rootdir" prop-name="rootdir" />
-				    <alias attr-name="templatedir" prop-name="templatedir" />
-					<alias attr-name="package-root" prop-name="packageRoot" />
-					<alias attr-name="dir" prop-name="dir" />
-					<alias attr-name="libdir" prop-name="libdir" />
-					<alias attr-name="outputdir" prop-name="outputdir" />
-					<alias attr-name="tool" prop-name="tool" />
-					<alias attr-name="name" prop-name="name" />
-					<alias attr-name="belongToPackage" prop-name="belongToPackage" />
-				</set-properties-rule> 					
+			<set-properties-rule>
+			    <alias attr-name="rootdir" prop-name="rootdir" />
+			    <alias attr-name="templatedir" prop-name="templatedir" />
+				<alias attr-name="package-root" prop-name="packageRoot" />
+				<alias attr-name="dir" prop-name="dir" />
+				<alias attr-name="libdir" prop-name="libdir" />
+				<alias attr-name="outputdir" prop-name="outputdir" />
+				<alias attr-name="tool" prop-name="tool" />
+				<alias attr-name="name" prop-name="name" />
+				<alias attr-name="belongToPackage" prop-name="belongToPackage" />
+			</set-properties-rule> 					
 			<pattern value="template">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Template"/>		
 				<set-next-rule methodname="addTemplate" paramtype="net.sf.minuteProject.configuration.bean.Template"/>	
@@ -64,6 +64,10 @@
 					<alias attr-name="application-specific" prop-name="applicationSpecific" />
 					<alias attr-name="file-name-builder-plugin" prop-name="fileNameBuilderPlugin" />
 					<alias attr-name="file-name-builder-method" prop-name="fileNameBuilderMethod" />
+					<alias attr-name="node-attribute-name-specific" prop-name="nodeAttributeNameSpecific" />
+					<alias attr-name="node-attribute-name-value" prop-name="nodeAttributeNameValue" />
+					<alias attr-name="node-name-value" prop-name="nodeNameValue" />
+					<alias attr-name="is-template-to-generate-method" prop-name="isTemplateToGenerateMethod" />
 				</set-properties-rule> 	
 				<pattern value="property">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
