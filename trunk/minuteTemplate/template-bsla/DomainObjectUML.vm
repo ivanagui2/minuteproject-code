@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 #foreach ($reference in $table.children)
@@ -45,7 +48,7 @@ public class ${className} extends AbstractDomainObject {
 #putColumnParams()
 ##// pk $column is also a fk? $isForeignKey
 #if(!$isForeignKey)
-	private $columnType _$columnVar; ##// pk not fk
+    private $columnType _$columnVar; ##// pk not fk
 #end
 #end
 ##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
@@ -107,10 +110,45 @@ public class ${className} extends AbstractDomainObject {
 #end
     }
 
+    /**
+    * toString implementation
+    */
+	public String toString(Object object) {
+	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+#foreach ($column in ${table.columns})
+#putColumnParams()
+     .append("$columnVar", _$columnVar)
+#end	 	
+	 	    .toString();
+	} 
+	
+	    /**
+    * hashCode implementation
+    */
+	public int hashCode() {
+		return super.toHashCode(flat());
+	}
+	
+	    /**
+    * equals implementation
+    */
+	public boolean equals(Object object) {
+		return super.toEquals(flat(), object);
+	}
+    
+	public ${className} flat() {
+			return new ${className}(
+		#foreach ($column in ${table.columns})
+#putColumnParams()
+get${className}
+#end		
+				);
+	}
+
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey)
-	    public $columnType get$columnClass() {
+	public $columnType get$columnClass() {
         return _$columnVar;
     }
 	
