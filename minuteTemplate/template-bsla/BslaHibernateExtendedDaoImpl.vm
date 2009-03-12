@@ -1,0 +1,156 @@
+#exposeVariableEntitySpecific()
+#putImportParamsUML()
+package $packageName;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import net.sf.minuteProject.architecture.filter.data.Criteria;
+import net.sf.minuteProject.architecture.filter.data.Criterion;
+import net.sf.minuteProject.architecture.filter.data.OrderCriteria;
+import $importDaoInterfaceExtendedUML;
+import $importDomainObjectUML;
+import $importHibernateImplName;
+
+/**
+ *
+ * <p>Title: $className</p>
+ *
+ * <p>Description: Interface of a Data access object dealing with $className
+ * persistence. It offers a set of methods which allow for saving,
+ * deleting and searching $className objects</p>
+ *
+ */
+
+public class $className extends $daoHibernateImplClassName implements $daoInterfaceExtendedNameUML {
+
+	public $className () {}
+
+    /**
+     * lookup $tableClassName entity $tCN, criteria and max result number
+     */
+    public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, int numberOfResult) {
+		boolean isWhereSet = false;
+        StringBuffer query = new StringBuffer();
+        query.append (" FROM $tableClassName $tableVariableName ");
+        for (Criterion criterion : criteria.getClauseCriterions()) {
+            query.append (getQueryWHERE_AND (isWhereSet));
+            isWhereSet = true;   
+            query.append(criterion.getExpression());			
+		}
+        OrderCriteria orderCriteria = criteria.getOrderCriteria();
+        if (criteria.getOrderCriteria()!=null)
+        	query.append(orderCriteria.getExpression());		
+        Query hquery = getSession().createQuery(query.toString());
+        hquery.setMaxResults(numberOfResult);
+        return hquery.list();
+    }
+	
+	/**
+	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
+	 * Blank criteria are mapped to null.
+	 * If no criteria is found, null is returned.
+	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
+	 */
+	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName) {
+		$tableVariableName = assignBlankToNull ($tableVariableName);
+		if (isAllNull($tableVariableName))
+			return null;
+		else {
+			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
+			if (list.isEmpty()) {
+				insert$tableClassName($tableVariableName);
+				return $tableVariableName;
+			}
+			else if (list.size()==1)
+				return list.get(0);
+			else 
+				//TODO log error
+				return list.get(0);	
+		}		
+	}
+	
+	public $tableClassName getFirst$tableClassName ($tableClassName $tableVariableName) {
+		if (isAllNull($tableVariableName))
+			return null;
+		else {
+			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
+			if (list.isEmpty()) {
+				return null;
+			}
+			else if (list.size()==1)
+				return list.get(0);
+			else 
+				//TODO log error
+				return list.get(0);	
+		}
+	}
+    
+	private $tableClassName assignBlankToNull ($tableClassName $tableVariableName) {
+	    if ($tableVariableName==null)
+			return null;
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
+           ${tableVariableName}.set$columnClass(null);
+#end	
+		return ${tableVariableName};
+	}
+	
+	private boolean isAllNull ($tableClassName $tableVariableName) {
+	    if ($tableVariableName==null)
+			return true;
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass()!=null) 
+            return false;
+#end
+		return true;
+	}
+    
+    /**
+    * partial load enables to specify the fields you want to load explicitly
+    */            
+    List<$tableClassName> partialLoad$tableClassName($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
+       //return null;
+       boolean isWhereSet = false;
+       StringBuffer query = new StringBuffer();
+       query.append (" from $tableClassName $tableVariableName ");
+#foreach ($column in ${table.columns})
+#putColumnParams()
+       if (${tableVariableName}.get$columnClass() != null) {
+          query.append (getQuerySelectComma (isWhereSet));
+          isWhereSet = true; 
+          query.append(" ${columnVar} ");
+       }
+#end    
+       query.append(get${tableClassName}SearchEqualQuery (${tableVariableName}Positive, ${tableVariableName}Negative));
+       // for each property (check in parent?) check if it belongs to the partialLoadSelection
+       //   if so
+       	//     add in select
+       	//  if partialLoad empty = select all
+       	//  append loadEntityString
+       	//  
+    }
+        
+    private String getQueryWHERE_AND (boolean isWhereSet) {
+       if (isWhereSet)
+          return " AND ";
+       return " WHERE ";
+    }
+
+    private String getQueryCommaSet (boolean isWhereSet) {
+       if (isWhereSet)
+          return " , ";
+       return " set ";
+    }
+    
+    private String getQuerySelectComma (boolean isSelectSet) {
+       if (isSelectSet)
+          return " , ";
+       return " select ";
+    }	
+}
