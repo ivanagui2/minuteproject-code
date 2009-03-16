@@ -68,6 +68,8 @@
 					<alias attr-name="node-attribute-name-value" prop-name="nodeAttributeNameValue" />
 					<alias attr-name="node-name-value" prop-name="nodeNameValue" />
 					<alias attr-name="is-template-to-generate-method" prop-name="isTemplateToGenerateMethod" />
+					<alias attr-name="scope-specific-value" prop-name="scopeSpecificValue" />
+					
 				</set-properties-rule> 	
 				<pattern value="property">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		

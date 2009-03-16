@@ -44,6 +44,7 @@ public class Template extends TemplateTarget {
 	private String fileNameBuilderPlugin;
 	private String fileNameBuilderMethod;
 	private String isTemplateToGenerateMethod;
+	private String scopeSpecificValue;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -234,17 +235,17 @@ public class Template extends TemplateTarget {
 			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
 //			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
 		}
 		return false;
 	}
@@ -416,6 +417,14 @@ public class Template extends TemplateTarget {
 
 	public void setIsTemplateToGenerateMethod(String isTemplateToGenerateMethod) {
 		this.isTemplateToGenerateMethod = isTemplateToGenerateMethod;
+	}
+
+	public String getScopeSpecificValue() {
+		return scopeSpecificValue;
+	}
+
+	public void setScopeSpecificValue(String scopeSpecificValue) {
+		this.scopeSpecificValue = scopeSpecificValue;
 	}
 	
 	

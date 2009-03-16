@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.digester.Digester;
@@ -28,6 +29,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.system.Plugin;
 
 /**
  * @author Florian Adler
@@ -89,7 +91,7 @@ public abstract class AbstractGenerator implements Generator {
 		abstractConfigurationRoot.getTarget().setDir(target.getDir());
 	}
 	
-	private InputStream getTargetConfigurationInputStream (Target target) throws Exception{
+	protected InputStream getTargetConfigurationInputStream (Target target) throws Exception{
 		//TODO now hardcoded to change when bean solutionPortfolio in place
 		return new FileInputStream (new File (target.getDir()+"/"+target.getFileName()));
 		
@@ -103,7 +105,7 @@ public abstract class AbstractGenerator implements Generator {
 		//*/
 	}
 	
-	private void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
+	protected void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
 		//InputStream input = new FileInputStream (new File (configuration));
 		//InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configuration);
         URL rulesURL = getClass().getClassLoader().getResource(rules);
@@ -157,7 +159,26 @@ public abstract class AbstractGenerator implements Generator {
 		return context;
     }  
     
-    private String getTemplatePath (Template template) {
+	protected void putPluginContextObject (VelocityContext context, Template template) {
+		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
+		for (Plugin plugin : plugins) {
+			ClassLoader cl = ClassLoader.getSystemClassLoader();
+			try {
+				Class clazz = cl.loadClass(plugin.getClassName());
+				Object velocityObject = clazz.newInstance();
+				context.put(plugin.getName(), velocityObject);
+			} catch (ClassNotFoundException e) {
+				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
+			} catch (IllegalAccessException e) {
+				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
+			}
+		}
+	}
+	
+    protected String getTemplatePath (Template template) {
     	TemplateTarget templateTarget = template.getTemplateTarget();
     	Target target = templateTarget.getTarget();
     	if (templatePath==null) {

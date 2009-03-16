@@ -10,6 +10,7 @@ import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey;
+import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.View;
@@ -31,8 +32,10 @@ public class BusinessModel {
 	private GenerationCondition generationCondition;
 	private BusinessPackage businessPackage; 
 	private Enrichment enrichment;
-	//private List <Table> tables;
-
+	
+	// for xml manipulation
+	private XmlEnrichment xmlEnrichment;
+	
 	public void complementDataModel () {
 		complementDataModelWithTables();
 		complementDataModelWithViews();
@@ -116,20 +119,6 @@ public class BusinessModel {
 			view.setComponents(ComponentUtils.getComponent(view));
 		}
 	}
-	/*public void addTable (Table table){
-		if (tables==null){
-			tables = new ArrayList();
-		}
-		tables.add(table);
-	}
-	
-	public List<Table> getTables() {
-		return tables;
-	}
-
-	public void setTables(List<Table> tables) {
-		this.tables = tables;
-	}*/
 
 	public GenerationCondition getGenerationCondition() {
 		return generationCondition;
@@ -171,6 +160,14 @@ public class BusinessModel {
 	public void setService(Service service) {
 		service.setBusinessModel(this);
 		this.service = service;
+	}
+
+	public XmlEnrichment getXmlEnrichment() {
+		return xmlEnrichment;
+	}
+
+	public void setXmlEnrichment(XmlEnrichment xmlEnrichment) {
+		this.xmlEnrichment = xmlEnrichment;
 	}
 	
 	

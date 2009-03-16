@@ -231,24 +231,24 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("model", model);
 	}
 	
-	private void putPluginContextObject (VelocityContext context, Template template) {
-		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
-		for (Plugin plugin : plugins) {
-			ClassLoader cl = ClassLoader.getSystemClassLoader();
-			try {
-				Class clazz = cl.loadClass(plugin.getClassName());
-				Object velocityObject = clazz.newInstance();
-				context.put(plugin.getName(), velocityObject);
-			} catch (ClassNotFoundException e) {
-				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
-			} catch (IllegalAccessException e) {
-				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
-			}
-		}
-	}
+//	protected void putPluginContextObject (VelocityContext context, Template template) {
+//		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
+//		for (Plugin plugin : plugins) {
+//			ClassLoader cl = ClassLoader.getSystemClassLoader();
+//			try {
+//				Class clazz = cl.loadClass(plugin.getClassName());
+//				Object velocityObject = clazz.newInstance();
+//				context.put(plugin.getName(), velocityObject);
+//			} catch (ClassNotFoundException e) {
+//				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
+//				e.printStackTrace();
+//			} catch (InstantiationException e) {
+//				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
+//			} catch (IllegalAccessException e) {
+//				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
+//			}
+//		}
+//	}
 	
 	private void putStandardContextObject (VelocityContext context) {
 		context.put("convertUtils", getConvertUtils());
