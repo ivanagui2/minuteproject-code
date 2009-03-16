@@ -1,6 +1,6 @@
 package net.sf.minuteProject.configuration.bean;
 
-public class AbstractConfigurationRoot extends AbstractConfiguration{
+public abstract class AbstractConfigurationRoot extends AbstractConfiguration{
 	
 	private Target target;
 	private String projectname;

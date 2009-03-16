@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.Property;
 
-public class AbstractConfiguration implements GeneratorBean{
+public abstract class AbstractConfiguration implements GeneratorBean{
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
 	private String name;
@@ -42,7 +42,8 @@ public class AbstractConfiguration implements GeneratorBean{
 		return null;
 	}
 	
-	public String getTechnicalPackage(Template template) {
+	public String getTechnicalPackage(Template template)
+	{
 		return "TO OVERWRITE in herited classes";
 	}
 	public String getDescription() {
