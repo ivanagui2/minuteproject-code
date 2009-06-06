@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.parameter.LogicalLink;
 
 public class URLUtils {
 
+	public static String ACTION_NAME = "action";
 	public static String defaultRootURLBeginner = "crud.do";
 	
 	public String getURLSearchEntity(Model model, Table table) {
@@ -21,12 +22,12 @@ public class URLUtils {
 	}
 	
 	public String getURLManageEntity(Model model, Table table) {
-		return getDefaultRootURLBeginner()+"?table="+table.getName()+"&action=manage";
+		return getDefaultRootURLBeginner()+"?table="+table.getName()+"&"+ACTION_NAME+"=manage";
 		//return "crud.do?service=routingService+&inputObject="+BslaLibraryUtils.getDomainObjectImport(model, table, new Template())+"&name="+table.getName()+"&method=manage";
 	}
 
 	public String getURLAddReferencedEntity(String tableName, String linkField, String entityInSession, String referenceTablePK ) {
-		return getDefaultRootURLBeginner()+"?table="+tableName+"&action=add&"+linkField+"=<c:out value=\"${"+entityInSession+"."+DBTemplateUtils.getJavaNameVariable(referenceTablePK)+"}\"/>";
+		return getDefaultRootURLBeginner()+"?table="+tableName+"&"+ACTION_NAME+"=add&"+linkField+"=<c:out value=\"${"+entityInSession+"."+DBTemplateUtils.getJavaNameVariable(referenceTablePK)+"}\"/>";
 	}	
 	
 	public String getEditURL (String tableName, String field) {
@@ -34,7 +35,7 @@ public class URLUtils {
 	}
 	
 	public String getEditURL (String tableName, String field, String entity) {
-		return getDefaultRootURLBeginner()+"?table="+tableName+"&action=edit&"+DBTemplateUtils.getJavaNameVariable(field)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";	
+		return getDefaultRootURLBeginner()+"?table="+tableName+"&"+ACTION_NAME+"=edit&"+DBTemplateUtils.getJavaNameVariable(field)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";	
 	}	
 
 	public String getSearchByIdURL (LogicalLink link) {
@@ -43,25 +44,29 @@ public class URLUtils {
 	}
 	
 	public String getSearchByIdURL (String tableName, String field) {
-		//return getSearchByIdURL(TableUtils.getTable(database, tablename));
 		return getSearchByIdURL(tableName, field, "entity");
 	}
+	//deprecated
 	public String getSearchByIdURL (String tableName, String field, String entity) {
-		//String url = getDefaultRootURLBeginner()+"?table="+tableName+"&action=searchOnPk&pk=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
-		String url = getDefaultRootURLBeginner()+"?table="+tableName+"&action=searchOnPkFull&"+DBTemplateUtils.getJavaNameVariable(field)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
+		String url = getDefaultRootURLBeginner()+"?table="+tableName+"&"+ACTION_NAME+"=searchOnPkFull&"+DBTemplateUtils.getJavaNameVariable(field)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
 		return url;
 	}	
+	
+	public String getSearchByIdURL (String tableName, String field, String primaryKey, String entity) {
+		String url = getDefaultRootURLBeginner()+"?table="+tableName+"&"+ACTION_NAME+"=searchOnPkFull&"+DBTemplateUtils.getJavaNameVariable(primaryKey)+"=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
+		return url;
+	}	
+	
 	
 	public String getSearchByIdURL (Table table) {
 		String tablename = table.getName();
 		StringBuffer sb = new StringBuffer();
-		sb.append(getDefaultRootURLBeginner()+"?table="+tablename+"&action=searchOnPkFull");
+		sb.append(getDefaultRootURLBeginner()+"?table="+tablename+"&"+ACTION_NAME+"=searchOnPkFull");
 		for (int i = 0; i < table.getPrimaryKeyColumns().length ; i++) {
 			String columnName = table.getPrimaryKeyColumns()[i].getName();
 			String columnVariable = DBTemplateUtils.getJavaNameVariable(columnName);
 			sb.append("&"+columnVariable+"=<c:out value=\"${entity."+columnVariable+"}\"/>");
 		}
-		//String url = getDefaultRootURLBeginner()+"?table="+tableName+"&action=searchOnPk&pk=<c:out value=\"${"+entity+"."+DBTemplateUtils.getJavaNameVariable(field)+"}\"/>";
 		return sb.toString();
 	}		
 	

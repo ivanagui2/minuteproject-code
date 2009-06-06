@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.utils.FormatUtils;
 
 public abstract class AbstractConfiguration implements GeneratorBean{
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
-	private String name;
+	protected String name;
 	private String refname;
 	private String description;
 	private List<Property> properties;
@@ -42,10 +43,25 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 		return null;
 	}
 	
+	public boolean getIsTrueProperty (String name) {
+		String value = getPropertyValue(name);
+		if (value==null)
+			return false;
+		return value.equals("true");
+	}	
+	
+	public boolean getIsFalseProperty (String name) {
+		String value = getPropertyValue(name);
+		if (value==null)
+			return true;
+		return value.equals("false");
+	}	
+	
 	public String getTechnicalPackage(Template template)
 	{
 		return "TO OVERWRITE in herited classes";
 	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -65,12 +81,13 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 		this.refname = refname;
 	}
 	public Package getPackage() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	public void setPackage(Package pack) {
-		// TODO Auto-generated method stub
-		
+
 	}
-	
+
+	public String getGeneratedBeanName() {
+		return FormatUtils.getJavaName(getName());
+	}
 }

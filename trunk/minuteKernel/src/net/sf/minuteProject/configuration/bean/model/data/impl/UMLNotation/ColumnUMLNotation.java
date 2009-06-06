@@ -16,7 +16,5 @@ public class ColumnUMLNotation extends ColumnAbstract{
     	return super.getName();
     	//return FormatUtils.remove_ID_patternFromColumnName(super.getName());
     }
-
-
     
 }

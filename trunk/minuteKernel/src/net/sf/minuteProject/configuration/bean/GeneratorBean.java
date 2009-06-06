@@ -24,5 +24,10 @@ public interface GeneratorBean {
 	
 	public String getName();
 
+	/**
+	 * Get the name of the formatted to be output.
+	 * @return String
+	 */
+	public String getGeneratedBeanName();
 	
 }

@@ -17,25 +17,54 @@ public class FormatUtils {
 	public static String getJavaName(String name) {
 		if (name==null || name.equals(""))
 			return "JAVA_NAME_RETURNS_NULL";
-		StringTokenizer st = new StringTokenizer (name,"_");
-		StringBuffer sb = new StringBuffer();
-		String firstToken = st.nextToken();
-		if (firstToken.length()==1) {
-			sb.append(firstToken.toUpperCase());
-			while (st.hasMoreTokens()){
-				//sb.append(st.nextToken().toUpperCase());
-				sb.append(firstUpperCaseOnly(st.nextToken()));
-			}			
-		} else {
-			sb.append(firstUpperCaseOnly(firstToken));
-			while (st.hasMoreTokens()){
-				String token = firstUpperCaseOnly(st.nextToken());
-				sb.append(token);
-			}
-		}
-		return sb.toString();
+		//String javaName = getJavaNameViaCharStrip(name, "-");
+		String underscoreName = StringUtils.replace(name, "-", "_");
+		return getJavaNameViaCharStrip(underscoreName, "_");
+//		StringTokenizer st = new StringTokenizer (name,"_");
+//		StringBuffer sb = new StringBuffer();
+//		String firstToken = st.nextToken();
+//		if (firstToken.length()==1) {
+//			sb.append(firstToken.toUpperCase());
+//			while (st.hasMoreTokens()){
+//				//sb.append(st.nextToken().toUpperCase());
+//				sb.append(firstUpperCaseOnly(st.nextToken()));
+//			}			
+//		} else {
+//			sb.append(firstUpperCaseOnly(firstToken));
+//			while (st.hasMoreTokens()){
+//				String token = firstUpperCaseOnly(st.nextToken());
+//				sb.append(token);
+//			}
+//		}
+//		return sb.toString();
 		//return name.substring(0,1).toUpperCase() +name.substring(1,name.length()).toLowerCase();
 	}	
+	
+	private static String getJavaNameViaCharStrip (String name, String charToStrip) {
+		StringTokenizer st = new StringTokenizer (name,charToStrip);
+		StringBuffer sb = new StringBuffer();
+		//String firstToken = st.nextToken();
+//		if (firstToken.length()==1) {
+//			sb.append(firstToken.toUpperCase());
+//			while (st.hasMoreTokens()){
+//				//sb.append(st.nextToken().toUpperCase());
+//				sb.append(firstUpperCaseOnly(st.nextToken()));
+//			}			
+//		} else {
+//			sb.append(firstUpperCaseOnly(firstToken));
+//			while (st.hasMoreTokens()){
+//				String token = firstUpperCaseOnly(st.nextToken());
+//				sb.append(token);
+//			}
+//		}
+		
+		//sb.append(firstToken.toUpperCase());
+		while (st.hasMoreTokens()){
+			//sb.append(st.nextToken().toUpperCase());
+			sb.append(firstUpperCaseOnly(st.nextToken()));
+		}		
+		return sb.toString();		
+	}
 	public static String getJavaNameVariable(String name) {
 		if (name==null)
 			return "ERROR_GET_JAVANAMEVARIABLE_WITH_NULL";
@@ -81,4 +110,22 @@ public class FormatUtils {
 			return false;
 		return true;
 	}
+	
+	public static String getShortNameFromVerbose(String name) {
+		name = getEachWordFirstLetterUpper(name, " ");
+		name = getEachWordFirstLetterUpper(name, "-");
+		return name;
+	}
+	
+	private static String getEachWordFirstLetterUpper (String name, String token) {
+		StringTokenizer st = new StringTokenizer(name, token);
+		StringBuffer sb = new StringBuffer();
+		while (st.hasMoreTokens()) {
+			String s = st.nextToken();
+			sb.append(firstUpperCase(s));
+		}
+		return sb.toString();
+	}
+	
+	
 }

@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -18,14 +19,14 @@ import org.apache.ddlutils.util.Jdbc3Utils;
 /**
  * Represents a column in the database model.
  * 
- * @author Thomas Dudziak
- * @version $Revision: 379948 $
+ * @author Florian Adler
  */
 public class ColumnDDLUtils implements Column
 {
 	
 	private org.apache.ddlutils.model.Column column;
 	private Table table;
+	private Boolean isLob;
 	
 	public ColumnDDLUtils(org.apache.ddlutils.model.Column column, Table table) {
 		this.column = column;
@@ -405,5 +406,18 @@ public class ColumnDDLUtils implements Column
 	
 	public void setTable (Table table) {
 		this.table = table;
+	}
+	
+	public boolean isLob() {
+		if (isLob==null)
+			isLob = getIsLob();
+		return isLob;
+	}
+
+	
+	private Boolean getIsLob() {
+		if (getType().equals("CLOB")||column.getType().equals("BLOB"))
+			return true;
+		return false;
 	}
 }

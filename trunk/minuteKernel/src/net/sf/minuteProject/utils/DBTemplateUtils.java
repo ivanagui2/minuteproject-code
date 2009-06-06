@@ -106,7 +106,7 @@ public class DBTemplateUtils implements Configuration {
 	}	
 	
 	public static String getJavaNameVariable(String name) {
-		if (name==null)
+		if (name==null || name.equals(""))
 			return "ERROR_GET_JAVANAMEVARIABLE_WITH_NULL";
 		String javaname = getJavaName(name);
 		return firstLowerCase(javaname);

@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Reference;
@@ -28,6 +31,7 @@ import net.sf.minuteProject.configuration.bean.view.View;
 
 public class ModelUtils {
 	
+	private static Logger logger = Logger.getLogger(ModelUtils.class);
 	// deprecated
 	public static boolean isToGenerate(BusinessModel businessModel, Table table) {
 		if (businessModel.getGenerationCondition()!=null)
@@ -35,11 +39,11 @@ public class ModelUtils {
 		return true;
 	}
 	
-	public static boolean isToGenerate(BusinessModel businessModel, net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils table) {
-		if (businessModel.getGenerationCondition()!=null)
-			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
-		return true;
-	}	
+//	public static boolean isToGenerate(BusinessModel businessModel, net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils table) {
+//		if (businessModel.getGenerationCondition()!=null)
+//			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
+//		return true;
+//	}	
 	
 	public static String getPackage(Model model, Template template, Table table) {
 		return getPackage (table, template);	
@@ -107,63 +111,59 @@ public class ModelUtils {
 		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		ForeignKey [] foreignKeys = table.getForeignKeys();
+		//logger.info("table = "+table.getName()+", count FK = "+foreignKeys.length);
 		for (int i = 0; i < foreignKeys.length; i++) {
 			ref = foreignKeys[i].getFirstReference();
 			String tablename = foreignKeys[i].getForeignTableName();
 			Table table2 = TableUtils.getTable(database,tablename);
-			String columnName = ref.getForeignColumnName();
+			String columnName = null;
+			if (ref!=null)
+				columnName = ref.getForeignColumnName();
 			Column column2 = ColumnUtils.getColumn (table2, columnName);
 			//reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
 			reference = new Reference(table2, column2, tablename, columnName);
 			reference.setLocalColumn(ref.getLocalColumn());
-			//ref.get
+			
+			//logger.info("table = "+tablename+", columnName = "+columnName);
 			addReference(list, reference);				
 		}
 		return list;
 		
 	}	
 	
-	// TODO duplicate method
-//	public static List getParents (Table table) {
-//		List list = new ArrayList();
-//		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
-//		Reference reference;
-//		ForeignKey [] foreignKeys = table.getForeignKeys();
-//		for (int i = 0; i < foreignKeys.length; i++) {
-//			ref = foreignKeys[i].getFirstReference();
-//			String tablename = foreignKeys[i].getForeignTableName();
-//			reference = new Reference(foreignKeys[i].getForeignTable(), ref.getLocalColumn(), tablename, ref.getLocalColumnName());
-//			addReference(list, reference);				
-//		}
-//		return list;
-//	}
-	
 	private static void addReference (List list, Reference referenceToAdd) {
-		for (Iterator iter = list.iterator(); iter.hasNext();) {
-			Reference reference = (Reference)iter.next();
-			if (reference.equals(referenceToAdd))
-				return;
-		}
+//		for (Iterator iter = list.iterator(); iter.hasNext();) {
+//			Reference reference = (Reference)iter.next();
+//			if (reference.equals(referenceToAdd))
+//				return;
+//		}
 		list.add(referenceToAdd);
 	}
+	
 	
 	public static List getChildren (Database database, Table table) {
 		List list = new ArrayList();
 		String columnRef;
 		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
-		Table [] tables = database.getTables();
+		//Table [] tables = database.getTables();
+		//replaced with entities to find enriched FK in the views
+		Table [] tables = database.getEntities();
     	for (int i = 0; i < tables.length; i++) {
     		ForeignKey [] fk = tables[i].getForeignKeys();
         	for (int j = 0; j < fk.length; j++) {
         		String tableName = fk[j].getForeignTableName();
-        		if (tableName!=null) {
+        		if (tableName!=null && fk[j].isBidirectional()) {
 	        		if (tableName.equals(table.getName())) {
 	        			columnRef = new String();
 	        			ref = fk[j].getReference(0);
 	        			columnRef = ref.getLocalColumnName();
+//	        			if (columnRef==null)
+//	        				logger.info("- no localcolumnName for tab");
 	        			Column column2 = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
 	        			reference = new Reference(tables[i], column2, tables[i].getName(), ref.getLocalColumnName());
+	        			reference.setLocalColumnName(ref.getLocalColumnName());
+	        			reference.setForeignColumnName(ref.getForeignColumnName());
 	        			addReference(list, reference);
 	        		}
         		}

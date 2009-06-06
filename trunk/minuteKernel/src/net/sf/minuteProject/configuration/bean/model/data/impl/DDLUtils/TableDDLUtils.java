@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.ddlutils.model.Index;
-
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
@@ -30,6 +29,12 @@ public class TableDDLUtils extends TableAbstract {
 	private ArrayList<Column> primaryKeys;
 	private ArrayList<Reference> parents;
 	private ArrayList<Reference> children;
+	
+	private Index [] nonUniqueIndices;
+	private Index [] uniqueIndices;
+	private Index [] indices;
+	
+	private Boolean hasLob, hasUniqueIndex;
 	
 	private net.sf.minuteProject.configuration.bean.Package pack;
 	private Column [] noPrimaryKeyNoForeignKeyColumns;
@@ -93,12 +98,12 @@ public class TableDDLUtils extends TableAbstract {
 
 	public Index findIndex(String name) {
 		// TODO Auto-generated method stub
-		return table.findIndex(name);
+		return new IndexDDLUtils(table.findIndex(name));
 	}
 
 	public Index findIndex(String name, boolean caseSensitive) {
 		// TODO Auto-generated method stub
-		return table.findIndex(name, caseSensitive);
+		return new IndexDDLUtils(table.findIndex(name, caseSensitive));
 	}
 
 	public String getCatalog() {
@@ -112,6 +117,11 @@ public class TableDDLUtils extends TableAbstract {
 	}
 
 	public Column[] getColumns() {
+		List<Column> columns = getColumnList();
+    	return (Column[])columns.toArray(new Column[columns.size()]);		
+	}
+	
+	private ArrayList<Column> getColumnList() {
     	if (columns == null) {
     		columns = new ArrayList<Column>();
     		for (int i = 0; i < table.getColumnCount(); i++) {
@@ -119,7 +129,7 @@ public class TableDDLUtils extends TableAbstract {
     			columns.add(column);
     		}
     	}
-    	return (Column[])columns.toArray(new Column[columns.size()]);		
+    	return columns;
 	}
 
     /**
@@ -153,26 +163,47 @@ public class TableDDLUtils extends TableAbstract {
     	return (ForeignKey[])foreignKeys.toArray(new ForeignKey[foreignKeys.size()]);		
 	}
 
+	protected List<ForeignKey> getForeignKeysList() {
+    	if (foreignKeys == null) {
+    		foreignKeys = new ArrayList<ForeignKey>();
+    	}
+    	return foreignKeys;
+	}
 	public Index getIndex(int idx) {
-		// TODO Auto-generated method stub
-		return table.getIndex(idx);
+		return new IndexDDLUtils(table.getIndex(idx));
 	}
 
 	public int getIndexCount() {
-		// TODO Auto-generated method stub
 		return table.getIndexCount();
 	}
 
 	public Index[] getIndices() {
-		// TODO Auto-generated method stub
-		return table.getIndices();
+		if (indices==null)
+			indices = getIndexDDLUtils(table.getIndices());
+		return indices;
 	}
 
 	public Index[] getNonUniqueIndices() {
-		// TODO Auto-generated method stub
-		return table.getNonUniqueIndices();
+		if (nonUniqueIndices==null)
+			nonUniqueIndices = getIndexDDLUtils(table.getNonUniqueIndices());
+		return nonUniqueIndices;
 	}
 
+	public Index[] getUniqueIndices() {
+		if (uniqueIndices==null)
+			uniqueIndices = getIndexDDLUtils(table.getUniqueIndices());
+		return uniqueIndices;
+	}
+
+	private Index[] getIndexDDLUtils(org.apache.ddlutils.model.Index [] indices) {
+		List<Index> returnIndices = new ArrayList<Index>();
+		for (int i = 0; i < indices.length; i++) {
+			Index index = new IndexDDLUtils(indices[i]);
+			returnIndices.add(index);
+		}
+		return (Index[])returnIndices.toArray(new Index[returnIndices.size()]);
+	}
+	
 	public Column[] getPrimaryKeyColumns() {
     	if (primaryKeys == null) {
     		primaryKeys = new ArrayList<Column>();
@@ -191,13 +222,7 @@ public class TableDDLUtils extends TableAbstract {
 		return table.getSchema();
 	}
 
-	public Index[] getUniqueIndices() {
-		// TODO Auto-generated method stub
-		return table.getNonUniqueIndices();
-	}
-
 	public boolean hasPrimaryKey() {
-		// TODO Auto-generated method stub
 		return table.hasPrimaryKey();
 	}
 	/*
@@ -353,4 +378,34 @@ public class TableDDLUtils extends TableAbstract {
     	if (!isAlreadyPresent)
     		list.add(reference);
     }
+
+	public boolean hasLob() {
+		if (hasLob==null)
+			hasLob = getHasLob();
+		return hasLob;
+	}
+
+	public boolean hasUniqueIndex() {
+		if (hasUniqueIndex==null)
+			hasUniqueIndex = getHasUniqueIndex();
+		return hasUniqueIndex;
+	}
+	
+	private Boolean getHasLob() {
+		List<Column> columns = getColumnList();
+		for (Column column : columns) {
+			if (column.isLob())//;getType().equals("CLOB")||column.getType().equals("BLOB"))
+				return true;
+		}
+		return false;
+	}
+	
+	private Boolean getHasUniqueIndex() {
+//		List<Column> columns = getColumnList();
+//		for (Column column : columns) {
+//			if (column.isUnique())//;getType().equals("CLOB")||column.getType().equals("BLOB"))
+//				return true;
+//		}
+		return false;
+	}
 }

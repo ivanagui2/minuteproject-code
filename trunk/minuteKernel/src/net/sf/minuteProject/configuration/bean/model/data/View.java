@@ -32,4 +32,6 @@ public interface View extends Table {
 	
 	public void setComponents(List<Component> components);
 
+	public void setForeignKey (ForeignKey foreignKey);
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 
 public class ViewDDLUtils extends TableDDLUtils implements View{
@@ -100,6 +101,11 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	
 	public void setComponents(List<Component> components) {
 		this.components = new ArrayList<Component>(components);
+	}
+
+	public void setForeignKey(ForeignKey foreignKey) {
+		getForeignKeysList().add(foreignKey);
+		
 	}
 
 

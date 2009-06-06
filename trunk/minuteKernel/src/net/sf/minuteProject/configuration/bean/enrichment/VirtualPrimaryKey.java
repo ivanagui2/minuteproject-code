@@ -11,6 +11,9 @@ public class VirtualPrimaryKey extends AbstractConfiguration{
 	private boolean isRealPrimaryKey;
 	private List<Property> properties;
 	
+	public void setProperty (Property property) {
+		addProperty(property);
+	}
 	public void addProperty (Property property) {
 		if (properties==null)
 			properties = new ArrayList<Property> ();
