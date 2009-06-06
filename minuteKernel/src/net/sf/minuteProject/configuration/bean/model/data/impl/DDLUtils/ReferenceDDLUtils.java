@@ -132,7 +132,11 @@ public class ReferenceDDLUtils implements Reference
      */
     public String getForeignColumnName()
     {
-        return reference.getForeignColumnName();
+    	if (foreignColumnName!=null)
+    		return foreignColumnName;
+    	if (reference!=null)
+    		return reference.getForeignColumnName();
+    	return null;
     }
     
     /**

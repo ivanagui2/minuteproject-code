@@ -110,44 +110,22 @@ public class ModelViewGenerator extends ModelGenerator {
 		Date startDate = new Date();
 	    logger.info("start time = "+new Date());
 		ModelViewGenerator generator = new ModelViewGenerator(config);
-		// Model model = (Model) generator.load();
 		Configuration configuration = (Configuration) generator.load();
 		Model model = configuration.getModel();
 		generator.setModel(model);
 		generator.loadModel(model);
-		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
-				.getTarget());
+		generator.loadTarget(model.getConfiguration(), model.getConfiguration().getTarget());
 		generator.generate(model.getConfiguration().getTarget());
 		Date endDate = new Date();
-		//logger.info("start date = "+startDate.getTime());
-		//logger.info("end date = "+endDate.getTime());
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
 	protected void loadModel(Model model) {
-		model.getDataModel().loadDatabase();
+		super.loadModel(model);
 		model.getBusinessModel().complementDataModelWithViews();
 		model.getBusinessModel().complementService();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
-	 
-	public void generate(Template template) throws Exception {
-		// TODO Auto-generated method stub
-		// getView();
-		if (template.getEntitySpecific().equals("true"))
-			generateArtifactsByEntity(template);
-		else if (template.getPackageSpecific().equals("true"))
-			generateArtifactsByPackage(template);
-		else if (template.getModelSpecific().equals("true"))
-			generateArtifactsByModel(template);
-		else if (template.getApplicationSpecific().equals("true"))
-			generateArtifactsByApplication(template);
-	}
-*/
 	public Model getModel() throws Exception {
 		if (model == null) {
 			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
@@ -160,20 +138,8 @@ public class ModelViewGenerator extends ModelGenerator {
 		this.model = model;
 	}
 
-	/*
-	protected void generateArtifactsByModel(Template template) throws Exception {
-		writeTemplateResult(getModel(), template);
-	}
-
 	protected void generateArtifactsByPackage(Template template) throws Exception {
-		List packages = model.getBusinessModel().getBusinessPackage()
-				.getPackages();
-		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-			writeTemplateResult((Package) iter.next(), template);
-		}
-	}
-	*/
-	protected void generateArtifactsByPackage(Template template) throws Exception {
+		super.generateArtifactsByPackage(template);
 		List packages = model.getBusinessModel().getBusinessPackage()
 				.getPackageViews();
 		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
@@ -182,6 +148,7 @@ public class ModelViewGenerator extends ModelGenerator {
 	}
 
 	protected void generateArtifactsByEntity(Template template) throws Exception {	
+		super.generateArtifactsByEntity(template);
 		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
 			View view = (View) iter.next();
 			writeTemplateResult(view, template);
@@ -190,6 +157,7 @@ public class ModelViewGenerator extends ModelGenerator {
 
 	protected void generateArtifactsByComponent(Template template) throws Exception {
 		//for each view if structure=hierachy => getComponent => foreach component generate
+		super.generateArtifactsByComponent(template);
 		List<View> views = model.getBusinessModel().getBusinessPackage().getViews();
 		for (View view : views) {
 			Component [] components = view.getComponents();
@@ -223,6 +191,7 @@ public class ModelViewGenerator extends ModelGenerator {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
 			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
+			ex.printStackTrace();
 			throw ex;
 		}
 	}
@@ -232,25 +201,6 @@ public class ModelViewGenerator extends ModelGenerator {
 		putPluginContextObject(context, template);
 		context.put("model", model);
 	}
-	
-//	private void putPluginContextObject (VelocityContext context, Template template) {
-//		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
-//		for (Plugin plugin : plugins) {
-//			ClassLoader cl = ClassLoader.getSystemClassLoader();
-//			try {
-//				Class clazz = cl.loadClass(plugin.getClassName());
-//				Object velocityObject = clazz.newInstance();
-//				context.put(plugin.getName(), velocityObject);
-//			} catch (ClassNotFoundException e) {
-//				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
-//				e.printStackTrace();
-//			} catch (InstantiationException e) {
-//				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
-//			} catch (IllegalAccessException e) {
-//				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
-//			}
-//		}
-//	}
 	
 	private void putStandardContextObject (VelocityContext context) {
 		context.put("convertUtils", getConvertUtils());

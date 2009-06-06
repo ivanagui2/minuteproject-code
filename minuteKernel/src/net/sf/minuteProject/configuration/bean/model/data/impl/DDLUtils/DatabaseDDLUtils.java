@@ -39,6 +39,7 @@ public class DatabaseDDLUtils implements Database
 	private ArrayList tables;
 	private ArrayList views;
 	private DataModel dataModel;
+	private ArrayList entities;
 	
 	public DatabaseDDLUtils(org.apache.ddlutils.model.Database database) {
 		this.database = database;
@@ -384,21 +385,18 @@ public class DatabaseDDLUtils implements Database
 	}
 
 	public View[] getViews() {
-	    {
-	    	if (views == null) {
-	    		views = new ArrayList<View>();
+    	if (views == null) {
+    		views = new ArrayList<View>();
 
-	    		org.apache.ddlutils.model.Table tablez[] = database.getTables();
-	    		for (int i = 0; i < tablez.length; i++) {
-	    			if (tablez[i].getType().equals("VIEW")) {
-	        			View view = new ViewDDLUtils (tablez[i]);
-	        			addView(view);
-	    			}
-	    		}
-	    	}
-	    	return (View[])views.toArray(new View[views.size()]);
-	    }
-
+    		org.apache.ddlutils.model.Table tablez[] = database.getTables();
+    		for (int i = 0; i < tablez.length; i++) {
+    			if (tablez[i].getType().equals("VIEW")) {
+        			View view = new ViewDDLUtils (tablez[i]);
+        			addView(view);
+    			}
+    		}
+    	}
+    	return (View[])views.toArray(new View[views.size()]);
 	}
 	
     /**
@@ -424,6 +422,15 @@ public class DatabaseDDLUtils implements Database
 				j++;
 		}
 		return j;
+	}
+
+	public Table[] getEntities() {
+    	if (entities == null) {
+    		entities = new ArrayList<Table>();
+    		entities.addAll(tables);
+    		entities.addAll(views);
+    	}
+    	return (Table[])entities.toArray(new Table[entities.size()]);
 	}
 
 }

@@ -83,4 +83,10 @@ public interface ForeignKey extends Cloneable
     public void removeReference(int idx);
 
     public String toVerboseString();
+    
+    public void setReference(Reference reference);
+    
+    public boolean isBidirectional();
+    
+    public void setBidirectional(boolean isBidirectional);
 }

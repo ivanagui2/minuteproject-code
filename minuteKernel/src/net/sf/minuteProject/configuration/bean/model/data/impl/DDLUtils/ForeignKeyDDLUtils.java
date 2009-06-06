@@ -21,6 +21,10 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.ddlutils.model.Column;
 
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
@@ -33,6 +37,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
  */
 public class ForeignKeyDDLUtils implements ForeignKey
 {
+	
+	private boolean isBidirectional=true;
 	
 	private org.apache.ddlutils.model.ForeignKey foreignKey;
 	
@@ -144,9 +150,19 @@ public class ForeignKeyDDLUtils implements ForeignKey
      */
     public Reference getFirstReference()
     {
-        return new ReferenceDDLUtils (foreignKey.getFirstReference());
+    	ReferenceDDLUtils ref = new ReferenceDDLUtils (foreignKey.getFirstReference());
+    	if (ref==null) {// case autoprovisioning in enrichment of views
+    		return getFirstReferenceFormReferencesList();
+    	}
+    	return ref;
+    		//        return new ReferenceDDLUtils (foreignKey.getFirstReference());
+        //TODO refactor
     }
 
+//    public void addReference (Reference reference) {
+//    	List <org.apache.ddlutils.model.Reference> references = Arrays.asList(foreignKey.getReferences());
+//    	references.add(reference.get);//.addReference(reference.get);
+//    }
     /**
      * Removes the indicated reference.
      * 
@@ -210,4 +226,45 @@ public class ForeignKeyDDLUtils implements ForeignKey
     {
         return foreignKey.toVerboseString();
     }
+
+    public List<Reference> getReferencesList()
+    {
+    	if (references == null) {
+    		references = new ArrayList<Reference>();
+    	}
+    	return references;
+    }
+	public void setReference(Reference reference) {
+		if (reference!=null) {
+			//org.apache.ddlutils.model.Reference ref = new org.apache.ddlutils.model.Reference();
+			getReferencesList().add(reference);
+			org.apache.ddlutils.model.Reference ref = new org.apache.ddlutils.model.Reference();
+			Column colFor = new Column();
+			colFor.setName(reference.getForeignColumnName());
+			Column colLoc = new Column();
+			colLoc.setName(reference.getLocalColumnName());
+			ref.setLocalColumn(colLoc);
+			ref.setLocalColumnName(reference.getLocalColumnName());
+			ref.setForeignColumn(colFor);
+			ref.setForeignColumnName(reference.getForeignColumnName());
+			//ref.setLocalColumn(localColumn)
+			foreignKey.addReference(ref);
+		}
+		
+	}
+	
+	public Reference getFirstReferenceFormReferencesList() {
+		if (references==null)
+			return null;
+		return references.get(0);
+	}
+
+	public boolean isBidirectional() {
+		return isBidirectional;
+	}
+
+	public void setBidirectional(boolean isBidirectional) {
+		this.isBidirectional = isBidirectional;
+	}
+	
 }

@@ -1,7 +1,5 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
-import org.apache.ddlutils.model.Index;
-
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 
@@ -228,6 +226,9 @@ public interface Table extends GeneratorBean{
      */
     public boolean isManyToMany();
     
+    public boolean hasLob();
+    
+    public boolean hasUniqueIndex();
 	
 	public String getAlias ();
 	

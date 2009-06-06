@@ -132,7 +132,15 @@ public class CommonUtils {
 		}
 		return ConvertUtils.getJavaTypeFromDBType(column);
 	}
-	
+
+	protected static String getTemplateFileName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		if (templateTarget==null) {
+			logger.debug("ConfigFile not ok");
+			return "ERROR on config file : missing "+targetTemplateName;
+		}
+		return getFileName(templateTarget, bean);
+	}
 	// TODO refactor 4 times
 	protected static String getTemplateClassName (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
@@ -347,6 +355,12 @@ public class CommonUtils {
 
 	public static String getLevelTemplateFullClassPath (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		return FormatUtils.getDirFromPackage(getLevelTemplateFullPath(bean, template, targetTemplateName));
+	}
+	
+	public static String getArtifactRelativePathDirAndFullName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		return FormatUtils.getDirFromPackage(getPackageName(bean, template, targetTemplateName)) +
+		       "/"+ getTemplateFileName(bean, template, targetTemplateName);
+		//return getLevelTemplateFullClassPath(bean, template, targetTemplateName)+"."+templa;
 	}
 	
 	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {

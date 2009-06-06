@@ -1,11 +1,17 @@
 package net.sf.minuteProject.configuration.bean.enrichment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 
-public class Entity extends AbstractConfiguration{
+public class Entity extends AbstractConfiguration {
+	
 	private String alias;
 	private String structure;
 	private VirtualPrimaryKey virtualPrimaryKey;
+	private List<Field> fields;
+	private Enrichment enrichment;
 
 	public VirtualPrimaryKey getVirtualPrimaryKey() {
 		return virtualPrimaryKey;
@@ -30,6 +36,34 @@ public class Entity extends AbstractConfiguration{
 	public void setStructure(String structure) {
 		this.structure = structure;
 	}
+
+	public void setField (Field field) {
+		addField(field);
+	}
 	
+	public void addField (Field field) {
+		field.setEntity(this);
+		getFields().add(field);
+	}
+	
+	public List<Field> getFields() {
+		if (fields==null)
+			fields = new ArrayList<Field> ();
+		return fields;
+	}
+
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
+
+	public Enrichment getEnrichment() {
+		return enrichment;
+	}
+
+	public void setEnrichment(Enrichment enrichment) {
+		this.enrichment = enrichment;
+	}
+
+
 	
 }

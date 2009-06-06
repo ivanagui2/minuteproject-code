@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -10,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
+import net.sf.minuteProject.utils.FormatUtils;
 
 public class ComponentDDLUtils implements Component{
 
@@ -109,6 +111,8 @@ public class ComponentDDLUtils implements Component{
 		return (parent!=null);
 	}
 
-
+	public String getGeneratedBeanName() {
+		return FormatUtils.getJavaName(getName());
+	}
 	
 }

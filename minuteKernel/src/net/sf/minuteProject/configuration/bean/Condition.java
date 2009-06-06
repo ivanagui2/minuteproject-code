@@ -16,6 +16,9 @@ public class Condition extends AbstractConfiguration {
 		if (type.equals("package") && startsWith!=null) {
 			return net.sf.minuteProject.utils.StringUtils.startsWithIgnoreCase(valueToTest, startsWith);
 		}
+		if (type.equals("include") && startsWith!=null){
+			return net.sf.minuteProject.utils.StringUtils.startsWithIgnoreCase(valueToTest, startsWith);
+		}
 		return false;
 	}
 	

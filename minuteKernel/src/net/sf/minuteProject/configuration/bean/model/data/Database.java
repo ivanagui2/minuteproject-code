@@ -177,5 +177,7 @@ public interface Database extends Serializable, Cloneable
     
     //Added method
     public DataModel getDataModel ();
+    
+    public Table[] getEntities();
 
 }

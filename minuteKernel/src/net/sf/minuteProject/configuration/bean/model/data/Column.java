@@ -235,5 +235,8 @@ public interface Column extends Cloneable, Serializable
     public String toVerboseString();
     
     public Table getTable ();
+    
+    public boolean isLob();
+    
 }
 

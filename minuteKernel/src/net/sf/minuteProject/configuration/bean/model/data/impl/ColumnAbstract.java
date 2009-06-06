@@ -8,6 +8,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 
 	private Column column;
 	private Table table;
+	private Boolean isLob;
 	
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
@@ -383,5 +384,18 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 
 	public Table getTable() {
 		return table;
+	}
+	
+	public boolean isLob() {
+		if (isLob==null)
+			isLob = getIsLob();
+		return isLob;
+	}
+
+	
+	private Boolean getIsLob() {
+		if (getType().equals("CLOB") || column.getType().equals("BLOB"))
+			return true;
+		return false;
 	}
 }

@@ -158,7 +158,8 @@ public class Template extends TemplateTarget {
 		if (pluginResult!=null)
 			return pluginResult;
 		
-		return getNonPluginFileMain(FormatUtils.getJavaName(bean.getName()));
+		//return getNonPluginFileMain(FormatUtils.getJavaName(bean.getName()));
+		return getNonPluginFileMain(bean.getGeneratedBeanName());
 	}
 	
 	public String getNonPluginFileMain (String input) {
