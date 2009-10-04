@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.xml.Document;
 import net.sf.minuteProject.configuration.bean.xml.Element;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -110,7 +111,8 @@ public class XmlSchemaUtils {
 	public static String getSequenceJavaVariableName (Element element) {
 		if (element==null)
 			return "ELEMENT must not be null!";
-		return element.getNameAttributeValue();
+		return FormatUtils.getJavaNameVariable(element.getNameAttributeValue());
+//		return element.getNameAttributeValue();
 	}
 	
 	public static boolean isBaseElement(Element baseElement, Element element) {
@@ -134,10 +136,17 @@ public class XmlSchemaUtils {
 	}
 
 	public static String getBaseElement (Configuration configuration) {
+		XmlEnrichment xmlEnrichment = getXmlEnrichment(configuration);
+		if (xmlEnrichment!=null)
+		   return xmlEnrichment.getBaseElement();
+		return null;
+	}
+	
+	private static XmlEnrichment getXmlEnrichment (Configuration configuration) {
 		BusinessModel businessModel = configuration.getModel().getBusinessModel();
 		if (businessModel!=null && businessModel.getXmlEnrichment()!=null)
-		   return businessModel.getXmlEnrichment().getBaseElement();
-		return null;
+		   return businessModel.getXmlEnrichment();
+		return null;		
 	}
 	
 	public static Element getBaseElement (Document document, Configuration configuration) {
@@ -198,4 +207,10 @@ public class XmlSchemaUtils {
 		return null;
 	}
 	
+	public static boolean isPackageNameAvailable(Configuration configuration) {
+		XmlEnrichment xmlEnrichment = getXmlEnrichment(configuration);
+		if (xmlEnrichment!=null)
+		   return xmlEnrichment.isPackageNameAvailable();
+		return false;
+	}
 }

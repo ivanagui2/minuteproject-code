@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dom4j.Attribute;
 
+import net.sf.minuteProject.application.XmlGenerator;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -134,7 +135,7 @@ $padding <object-create-rule classname="net.sf.minuteProject.configuration.bean.
 			prefix="set";
 		stringBuffer.append(appendLine(padding, " <set-next-rule methodname=\""+prefix+type+"\""+
 				" paramtype=\""+fullType+"\"/>"));
-		stringBuffer.append(appendLine(padding," <set-properties-rule/>"));
+		//stringBuffer.append(appendLine(padding," <set-properties-rule/>"));
 		return stringBuffer.toString();
 	}
 	
@@ -145,15 +146,24 @@ $padding <object-create-rule classname="net.sf.minuteProject.configuration.bean.
 	
 	private String formatDigesterObjectProperty(Element element, Configuration configuration, String padding) {
 		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append(appendLine(padding," <set-properties-rule>"));
 		List<Element> elements = element.getSequenceElement();
 		if (elements!=null) {
 			for (Element element2 : elements) {
 				if (!element2.isElementComplexType())
 					stringBuffer.append(appendLine(padding,
-							" <bean-property-setter-rule  propertyname=\""+FormatUtils.getJavaNameVariable(element2.getNameAttributeValue())+"\""
-							+" pattern=\""+element2.getNameAttributeValue()+"\"/>"));			
+//							" <alias attr-name="package-root" prop-name="packageRoot" />" 
+							"  <alias prop-name=\""+FormatUtils.getJavaNameVariable(element2.getNameAttributeValue())+"\""
+							+" attr-name=\""+element2.getNameAttributeValue()+"\"/>"));			
+
+//							" <bean-property-setter-rule  propertyname=\""+FormatUtils.getJavaNameVariable(element2.getNameAttributeValue())+"\""
+//							+" pattern=\""+element2.getNameAttributeValue()+"\"/>"));			
 			}
 		}
+		if (XmlSchemaUtils.isPackageNameAvailable(configuration)) {
+			stringBuffer.append(appendLine(padding,"  <alias prop-name=\"packageName\" attr-name=\"package-name\"/>"));
+		}
+		stringBuffer.append(appendLine(padding," </set-properties-rule>"));
 		return stringBuffer.toString();
 	}
 	
