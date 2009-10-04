@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE digester-rules PUBLIC 
+        "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+        "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+<digester-rules>
+  <pattern value="generator-config/configuration">		
+  <set-properties-rule>
+	<alias attr-name="name" prop-name="name" />
+  </set-properties-rule>
+  <pattern value="model">
+	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Model"/>	  
+	<set-next-rule methodname="setModel" paramtype="net.sf.minuteProject.configuration.bean.Model"/>
+	<set-properties-rule>
+		<alias attr-name="name" prop-name="name" />
+		<alias attr-name="packageRoot" prop-name="packageRoot" />
+	</set-properties-rule>
+	<set-properties-rule/>		  
+	<pattern value="data-model">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
+		<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
+		<bean-property-setter-rule pattern="schema"/>	
+		<pattern value="fileSource">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.FileSource"/>	
+			<set-next-rule methodname="setFileSource" paramtype="net.sf.minuteProject.configuration.bean.FileSource"/>			
+			<set-properties-rule/>		  
+			<bean-property-setter-rule pattern="name"/>			
+			<bean-property-setter-rule pattern="dir"/>		
+		</pattern>					
+		<pattern value="dataSource">
+			<object-create-rule classname="org.apache.commons.dbcp.BasicDataSource"/>	
+			<set-next-rule methodname="setBasicDataSource" paramtype="org.apache.commons.dbcp.BasicDataSource"/>			
+			<set-properties-rule/>		  
+			<bean-property-setter-rule pattern="driverClassName"/>			
+			<bean-property-setter-rule pattern="url"/>		
+			<bean-property-setter-rule pattern="username"/>		
+			<bean-property-setter-rule pattern="password"/>				
+		</pattern>			
+		<pattern value="primaryKeyPolicy">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy"/>	
+			<set-next-rule methodname="setPrimaryKeyPolicy" paramtype="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy"/>			
+			<set-properties-rule/>		  
+			<bean-property-setter-rule pattern="oneGlobal"/>			
+			<bean-property-setter-rule pattern="oneForEachTable"/>		
+			<pattern value="primaryKeyPolicyPattern">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>		
+				<set-next-rule methodname="addPrimaryKeyPolicyPattern" paramtype="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>			  				
+				<set-properties-rule/>		  
+				<bean-property-setter-rule pattern="name"/>		
+				<bean-property-setter-rule pattern="prefix"/>	
+				<bean-property-setter-rule pattern="suffix"/>	
+				<bean-property-setter-rule pattern="sequenceName"/>		
+			</pattern>					
+		</pattern>
+	</pattern>
+	<pattern value="business-model">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.BusinessModel"/>		
+		<set-next-rule methodname="setBusinessModel" paramtype="net.sf.minuteProject.configuration.bean.BusinessModel"/>	
+		<pattern value="generation-condition">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.GenerationCondition"/>		
+			<set-next-rule methodname="setGenerationCondition" paramtype="net.sf.minuteProject.configuration.bean.GenerationCondition"/>	
+			<set-properties-rule>
+				<alias attr-name="default-type" prop-name="defaultType" />
+			</set-properties-rule>	
+			<pattern value="condition">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Condition"/>		
+				<set-next-rule methodname="addCondition" paramtype="net.sf.minuteProject.configuration.bean.Condition"/>		
+				<set-properties-rule>
+					<alias attr-name="type" prop-name="type" />
+					<alias attr-name="startsWith" prop-name="startsWith" />
+					<alias attr-name="result" prop-name="result" />		
+				</set-properties-rule>							
+			</pattern>					
+		</pattern>	
+		<pattern value="business-package">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.BusinessPackage"/>		
+			<set-next-rule methodname="setBusinessPackage" paramtype="net.sf.minuteProject.configuration.bean.BusinessPackage"/>	
+			<set-properties-rule>
+				<alias attr-name="default" prop-name="defaultPackage" />
+			</set-properties-rule>					
+			<pattern value="condition">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Condition"/>		
+				<set-next-rule methodname="addCondition" paramtype="net.sf.minuteProject.configuration.bean.Condition"/>		
+				<set-properties-rule>
+					<alias attr-name="type" prop-name="type" />
+					<alias attr-name="startsWith" prop-name="startsWith" />
+					<alias attr-name="result" prop-name="result" />		
+				</set-properties-rule>							
+			</pattern>					
+		</pattern>
+		<pattern value="xml-enrichment">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment"/>		
+			<set-next-rule methodname="setXmlEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment"/>					
+			<set-properties-rule>
+				<alias attr-name="name" prop-name="name" />	
+				<alias attr-name="baseElement" prop-name="baseElement" />		
+			</set-properties-rule>
+		</pattern>
+		<pattern value="enrichment">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>		
+			<set-next-rule methodname="setEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>					
+			<pattern value="entity">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
+				<set-next-rule methodname="addEntity" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />	
+					<alias attr-name="alias" prop-name="alias" />
+					<alias attr-name="structure" prop-name="structure" />		
+				</set-properties-rule>		
+				<pattern value="property">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+					<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="value" prop-name="value" />
+					</set-properties-rule>
+				</pattern>										
+				<pattern value="virtual-primary-key">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey"/>		
+					<set-next-rule methodname="setVirtualPrimaryKey" paramtype="net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+					</set-properties-rule>			
+					<pattern value="property">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+						<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="value" prop-name="value" />
+						</set-properties-rule>
+					</pattern>						
+				</pattern>
+				<pattern value="field">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
+					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+					</set-properties-rule>		
+					<pattern value="property">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+						<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="value" prop-name="value" />
+						</set-properties-rule>
+					</pattern>							
+				</pattern>
+			</pattern>		
+					
+			</pattern>
+			<pattern value="service">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Service"/>		
+				<set-next-rule methodname="setService" paramtype="net.sf.minuteProject.configuration.bean.service.Service"/>		
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />	
+				</set-properties-rule>			
+								
+				<pattern value="scope">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Scope"/>		
+					<set-next-rule methodname="addScope" paramtype="net.sf.minuteProject.configuration.bean.service.Scope"/>	
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="entity" prop-name="entity" />
+					</set-properties-rule>
+					<pattern value="strategy">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Strategy"/>		
+						<set-next-rule methodname="addStrategy" paramtype="net.sf.minuteProject.configuration.bean.service.Strategy"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="entity" prop-name="entity" />
+						</set-properties-rule>
+						<pattern value="property">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+							<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+							</set-properties-rule>
+						</pattern>	
+					</pattern>							
+				</pattern>					
+			</pattern>		
+		    <pattern value="presentation">
+		      <object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.Presentation"/>		
+			  <set-next-rule methodname="setPresentation" paramtype="net.sf.minuteProject.configuration.bean.presentation.Presentation"/>	
+			  <set-properties-rule>
+				 <alias attr-name="name" prop-name="name" />
+			  </set-properties-rule>
+				
+			  <pattern value="presentation-entities">
+			    <object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationEntities"/>		
+				<set-next-rule methodname="setPresentationEntities" paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationEntities"/>	
+				<set-properties-rule>
+				   <alias attr-name="name" prop-name="name" />
+				</set-properties-rule>					  
+				<pattern value="presentation-entity">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationEntity"/>		
+					<set-next-rule methodname="addPresentationEntity" paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationEntity"/>	
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="entity" prop-name="entity" />
+						<alias attr-name="type" prop-name="type" />
+						<alias attr-name="roles" prop-name="roles" />
+					</set-properties-rule>
+					<pattern value="presentation-field">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationField"/>		
+						<set-next-rule methodname="addPresentationField" paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationField"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="refersToLinkField" prop-name="refersToLinkField" />
+							<alias attr-name="isVisible" prop-name="isVisible" />
+						</set-properties-rule>
+					</pattern>	
+					<pattern value="presentation-entity-inputs">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityInputs"/>		
+						<set-next-rule methodname="addPresentationEntityInputs" 
+						               paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityInputs"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+						</set-properties-rule>
+						<pattern value="presentation-entity-input">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityInput"/>		
+							<set-next-rule methodname="addPresentationEntityInput" 
+							               paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityInput"/>	
+							<set-properties-rule>
+								<alias attr-name="type" prop-name="type" />
+								<alias attr-name="name" prop-name="name" />
+							</set-properties-rule>
+							<pattern value="presentation-field">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationField"/>		
+								<set-next-rule methodname="addPresentationField" paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationField"/>	
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="refersToLinkField" prop-name="refersToLinkField" />
+									<alias attr-name="isVisible" prop-name="isVisible" />
+								</set-properties-rule>
+							</pattern>									
+						</pattern>
+					</pattern>	
+					<pattern value="presentation-entity-outputs">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityOutputs"/>		
+						<set-next-rule methodname="addPresentationEntityOutputs" 
+						               paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityOutputs"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+						</set-properties-rule>
+						<pattern value="presentation-entity-output">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityOutput"/>		
+							<set-next-rule methodname="addPresentationEntityOutput" 
+							               paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationEntityOutput"/>	
+							<set-properties-rule>
+								<alias attr-name="type" prop-name="type" />
+								<alias attr-name="name" prop-name="name" />
+							</set-properties-rule>
+							<pattern value="presentation-field">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.presentation.PresentationField"/>		
+								<set-next-rule methodname="addPresentationField" paramtype="net.sf.minuteProject.configuration.bean.presentation.PresentationField"/>	
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="refersToLinkField" prop-name="refersToLinkField" />
+									<alias attr-name="isVisible" prop-name="isVisible" />
+								</set-properties-rule>
+							</pattern>									
+						</pattern>
+					</pattern>															
+				</pattern>		
+				
+				<!--  -->
+			  </pattern>						
+		    </pattern>		
+	</pattern>		
+  </pattern>
+  <pattern value="target">
+	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Target"/>	  
+	<set-next-rule methodname="setTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>		  
+   	<set-properties-rule/>	
+   	<bean-property-setter-rule pattern="refname"/>	 
+   	<bean-property-setter-rule pattern="name"/>	 
+   	<bean-property-setter-rule pattern="dir"/>	 
+   	<bean-property-setter-rule pattern="fileName"/>	 
+  </pattern>
+ </pattern>
+</digester-rules>
