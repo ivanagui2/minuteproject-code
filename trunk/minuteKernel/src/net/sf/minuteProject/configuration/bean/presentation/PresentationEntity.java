@@ -2,13 +2,16 @@ package net.sf.minuteProject.configuration.bean.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 
 public class PresentationEntity extends AbstractConfiguration {
 
-	private Presentation presentation;
+	private PresentationEntities presentationEntities;
 	private String entity, type;
+	private List<String> roleList;
+	private String roles;
 	private List<PresentationField> presentationFields;
 	private List<PresentationEntityInputs> presentationEntityInputs;
 	private List<PresentationEntityOutputs> presentationEntityOutputs;
@@ -67,12 +70,15 @@ public class PresentationEntity extends AbstractConfiguration {
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
-	public Presentation getPresentation() {
-		return presentation;
+
+	public PresentationEntities getPresentationEntities() {
+		return presentationEntities;
 	}
-	public void setPresentation(Presentation presentation) {
-		this.presentation = presentation;
+
+	public void setPresentationEntities(PresentationEntities presentationEntities) {
+		this.presentationEntities = presentationEntities;
 	}
+
 	public List<PresentationField> getPresentationFields() {
 		return presentationFields;
 	}
@@ -93,6 +99,33 @@ public class PresentationEntity extends AbstractConfiguration {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+		StringTokenizer st = new StringTokenizer(roles,",");
+		roleList = new ArrayList<String>();
+		while (st.hasMoreElements()) {
+			String element = (String) st.nextElement();
+			this.roleList.add(element);
+		}
+	}
+
+	public List<String> getRoleList() {
+		if (roleList==null)
+			roleList = new ArrayList<String>();
+		return roleList;
+	}
+
+	public void setRoleList(List<String> roleList) {
+		this.roleList = roleList;
+	}
+	
+	
+	
 	
 	
 }

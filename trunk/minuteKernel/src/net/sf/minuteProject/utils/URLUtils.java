@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.Entity;
 import net.sf.minuteProject.configuration.bean.model.Field;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.parameter.LogicalLink;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
 public class URLUtils {
 
@@ -23,6 +24,11 @@ public class URLUtils {
 	
 	public String getURLManageEntity(Model model, Table table) {
 		return getDefaultRootURLBeginner()+"?table="+table.getName()+"&"+ACTION_NAME+"=manage";
+		//return "crud.do?service=routingService+&inputObject="+BslaLibraryUtils.getDomainObjectImport(model, table, new Template())+"&name="+table.getName()+"&method=manage";
+	}
+	
+	public String getURLSearchResultEntity(Model model, Table table) {
+		return getDefaultRootURLBeginner()+"?table="+table.getName()+"&"+ACTION_NAME+"=search";
 		//return "crud.do?service=routingService+&inputObject="+BslaLibraryUtils.getDomainObjectImport(model, table, new Template())+"&name="+table.getName()+"&method=manage";
 	}
 
@@ -96,6 +102,9 @@ public class URLUtils {
 		defaultRootURLBeginner = defaultRootURLBeginner1;
 	}	
 	
-	
+	public static boolean hasMenuLinkDirectResultAccess (Table table) {
+		return EnrichmentUtils.hasMenuLinkDirectResultAccess (table);
+		
+	}
 	
 }

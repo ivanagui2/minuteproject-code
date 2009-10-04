@@ -14,6 +14,7 @@ public class PresentationEntityOutput extends AbstractConfiguration{
 
 	private PresentationEntityOutputs presentationEntityOutputs;
 	private List<PresentationField> presentationFields;
+	private String type;
 
 	public List<PresentationField> getPresentationFields() {
 		if (presentationFields==null)
@@ -36,6 +37,14 @@ public class PresentationEntityOutput extends AbstractConfiguration{
 	public void setPresentationEntityOutputs(
 			PresentationEntityOutputs presentationEntityOutputs) {
 		this.presentationEntityOutputs = presentationEntityOutputs;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 

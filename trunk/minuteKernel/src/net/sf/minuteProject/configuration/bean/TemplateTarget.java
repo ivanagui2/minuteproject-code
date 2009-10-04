@@ -3,10 +3,12 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.utils.io.FileUtils;
+
 public class TemplateTarget extends AbstractConfiguration{
 	
 	public static final String MP_GENERATION_OUTPUT = "MP-GENERATION-OUTPUT";
-	private String rootdir;
+	private String rootdir, absoluteRootDir, canonicalDir;
 	private String templatedir;
 	private String dir;
 	private String outputdir;
@@ -42,19 +44,23 @@ public class TemplateTarget extends AbstractConfiguration{
 	public void setTemplates(List<Template> templates) {
 		this.templates = templates;
 	}
+	
 	public String getDir() {
 		if (getRootdir()==null && getTemplatedir()==null)
 			return dir;
 		return getRootdir();//+"/"+getTemplatedir();
 	}
+	
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
+	
 	public String getOutputdir() {
 		if (outputdir==null)
 			outputdir = getDir()+"/"+MP_GENERATION_OUTPUT;
 		return outputdir;
 	}
+	
 	public void setOutputdir(String outputdir) {
 		this.outputdir = outputdir;
 	}
@@ -103,8 +109,22 @@ public class TemplateTarget extends AbstractConfiguration{
 
 	public String getRootdir() {
 		if (rootdir == null)
-			rootdir = getTarget().getDir();
+			rootdir = getTarget().getCanonicalDir();
 		return rootdir;
+	}
+	
+	public String getAbsoluteRootDir() {
+		if (absoluteRootDir==null)
+			absoluteRootDir = getAbsoluteRootDir(getRootdir());
+		return absoluteRootDir;
+	}
+	
+	private String getAbsoluteRootDir(String rootDir) {
+		if (rootDir==null)
+			rootDir = getRootdir();
+		String targetDir = target.getDir();
+		absoluteRootDir = FileUtils.getAbsolutePathFromPath(rootDir, targetDir);		
+		return absoluteRootDir;
 	}
 
 	public void setRootdir(String rootdir) {
@@ -112,7 +132,9 @@ public class TemplateTarget extends AbstractConfiguration{
 	}
 
 	public String getTemplateFullDir() {
-		return getRootdir()+"/"+templatedir;
+		if (templatedir!=null)
+			return getRootdir()+"/"+templatedir;
+		return getRootdir();
 	}
 
 	public void setTemplatedir(String templatedir) {
@@ -121,6 +143,14 @@ public class TemplateTarget extends AbstractConfiguration{
 
 	public String getTemplatedir() {
 		return templatedir;
+	}
+
+	public String getCanonicalDir() {
+		return canonicalDir;
+	}
+
+	public void setCanonicalDir(String canonicalDir) {
+		this.canonicalDir = canonicalDir;
 	}
 	
 	

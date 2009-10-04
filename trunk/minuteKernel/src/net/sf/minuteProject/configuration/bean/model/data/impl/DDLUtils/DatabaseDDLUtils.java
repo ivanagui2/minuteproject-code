@@ -427,8 +427,10 @@ public class DatabaseDDLUtils implements Database
 	public Table[] getEntities() {
     	if (entities == null) {
     		entities = new ArrayList<Table>();
-    		entities.addAll(tables);
-    		entities.addAll(views);
+    		if (tables!=null)
+    			entities.addAll(tables);
+    		if (views!=null)
+    			entities.addAll(views);
     	}
     	return (Table[])entities.toArray(new Table[entities.size()]);
 	}

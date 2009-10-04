@@ -80,6 +80,10 @@ public class XmlGenerator extends AbstractGenerator {
 	public String getConfigurationRulesFile() {
 		return GENERATOR_MODEL_RULES;
 	}
+	
+	public String getPropertyConfigurationRulesFile() {
+		return null;
+	}
 
 	public static void main(String args[]) throws Exception {
 		String config;
@@ -165,10 +169,10 @@ public class XmlGenerator extends AbstractGenerator {
 	}
 
 	public Model getModel() throws Exception {
-		if (model == null) {
-			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
-			setModel((Model) modelGenerator.load());
-		}
+//		if (model == null) {
+//			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
+//			setModel((Model) modelGenerator.load());
+//		}
 		return model;
 	}
 

@@ -30,6 +30,7 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.utils.io.FileUtils;
 
 /**
  * @author Florian Adler
@@ -62,6 +63,11 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public abstract String getConfigurationRulesFile();
 	
+	/**
+	 * gets the configuration rule file that is to be loaded
+	 * @return
+	 */
+	public abstract String getPropertyConfigurationRulesFile();
 	
 	/**
 	 * gets the configuration root element 
@@ -74,6 +80,7 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public final AbstractConfiguration load (String configuration, String rules) throws Exception{
 		AbstractConfiguration abstractConfiguration = getConfigurationRoot();
+		abstractConfiguration.setConfigurationFileInClassPath(configuration);
 		loadConfiguration(abstractConfiguration, getConfigurationInputStream(configuration), rules);
         return abstractConfiguration;		
 	}
@@ -83,31 +90,78 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
-		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(target), GENERATOR_TARGET_RULES);
+		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
 		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
 	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
-		abstractConfigurationRoot.getTarget().setDir(target.getDir());
-	}
-	
-	protected InputStream getTargetConfigurationInputStream (Target target) throws Exception{
-		//TODO now hardcoded to change when bean solutionPortfolio in place
-		return new FileInputStream (new File (target.getDir()+"/"+target.getFileName()));
-		
+		Target target2 = abstractConfigurationRoot.getTarget();
+		target2.setDir(target.getDir());
+		target2.setCanonicalDir(target.getCanonicalDir());
+		//TODO add relative path for target and targetTemplate
 		/*
-		if (refname.equals("ViewOnBsla"))
-			return "templateSet-ViewOnBsla.xml";
-		else if (refname.equals("BackendOnBsla"))
-			return "templateSet-BackendOnBsla.xml";//return "templateSet-BackendOnBsla.xml";
-		else 
-			return "templateSet-ViewOnBsla.xml";
-		//*/
+		 * getTargetTemplate 
+		 * 	resolve file AbsolutePath
+		 */
+//		target.getTemplateTargets();
+//		String ta
+//		for (TemplateTarget templateTarget : target2.getTemplateTargets()) {
+//			// resolve getCanonicalDir
+//			templateTarget.setCanonicalDir(resolveFileAbsolutePath(abstractConfigurationRoot, target));
+//		}
+		
 	}
 	
+	protected InputStream getTargetConfigurationInputStream (
+			AbstractConfigurationRoot abstractConfigurationRoot, 
+			Target target) throws Exception{
+		String filePath = resolveFileAbsolutePath(abstractConfigurationRoot, target);
+		String dirPath = FileUtils.stripFileName(filePath);
+		target.setCanonicalDir(dirPath);
+		return new FileInputStream (new File (filePath));
+	}
+
+	private String resolvePathAbsolutePath(
+			AbstractConfigurationRoot abstractConfigurationRoot, 
+			Target target) {
+		return FileUtils.stripFileName(resolveFileAbsolutePath(abstractConfigurationRoot, target));
+	}
+	private String resolveFileAbsolutePath(
+			AbstractConfigurationRoot abstractConfigurationRoot, 
+			Target target) {
+		String dir = target.getDir();
+		if (dir!=null) { // absolute path provided
+			return dir+"/"+target.getFileName();
+		}
+		else {//relative path
+			String result = FileUtils.getFileFullPath(
+					abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
+			return result;
+		}
+	}
+	
+	private String resolveFileAbsolutePath(
+			AbstractConfigurationRoot abstractConfigurationRoot, 
+			TemplateTarget templateTarget) {
+//		String dir = templateTarget.getDir();
+//		if (dir!=null) { // absolute path provided
+//			return dir+"/"+templateTarget.getFileName();
+//		}
+//		else {//relative path
+//			String result = FileUtils.getFileFullPath(
+//					abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
+//			return result;
+//		}		
+		return null;
+	}
+	
+	private String resolveFileAbsolutePath(
+			AbstractConfigurationRoot abstractConfigurationRoot, 
+			Template template) {
+		return null;
+	}
+
 	protected void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
-		//InputStream input = new FileInputStream (new File (configuration));
-		//InputStream input = getClass().getClassLoader().getSystemResourceAsStream(configuration);
         URL rulesURL = getClass().getClassLoader().getResource(rules);
         Digester digester = DigesterLoader.createDigester(rulesURL);
         digester.push(object);
@@ -120,6 +174,8 @@ public abstract class AbstractGenerator implements Generator {
 	 * @throws Exception
 	 */
 	public final AbstractConfiguration load() throws Exception{
+		//load propertyStack
+		//load (getConfigurationFile(), getPropertyConfigurationRulesFile());
 		return load(getConfigurationFile(), getConfigurationRulesFile());
 	}
 	
@@ -179,32 +235,30 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
     protected String getTemplatePath (Template template) {
-    	TemplateTarget templateTarget = template.getTemplateTarget();
-    	Target target = templateTarget.getTarget();
     	if (templatePath==null) {
+        	TemplateTarget templateTarget = template.getTemplateTarget();
+        	Target target = templateTarget.getTarget();
     		StringBuffer sb = new StringBuffer();
     		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
-    			//TemplateTarget templateTarget2 = 
-    			iterator.next();
-    			sb.append(templateTarget.getRootdir());
+    			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
+    			sb.append(templateTarget2.getAbsoluteRootDir());
     			sb.append(",");
-    			sb.append(templateTarget.getTemplateFullDir());
+    			sb.append(templateTarget2.getTemplateFullDir());
     			sb.append(",");
     		}
-    		
     		templatePath = sb.toString();
     	}
     	return templatePath;
     }
     
     private String getTemplateRelativeLibPath (Template template) {
-    	TemplateTarget templateTarget = template.getTemplateTarget();
-    	Target target = templateTarget.getTarget();
     	if (templateLibPath==null) {
+        	TemplateTarget templateTarget = template.getTemplateTarget();
+        	Target target = templateTarget.getTarget();
     		StringBuffer sb = new StringBuffer();
     		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
     			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
-    			sb.append(templateTarget.getLibdir());
+    			sb.append(templateTarget2.getLibdir());
     			sb.append(",");
     		}
     		

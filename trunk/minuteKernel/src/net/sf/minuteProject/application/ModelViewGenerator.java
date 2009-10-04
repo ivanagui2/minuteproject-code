@@ -127,10 +127,10 @@ public class ModelViewGenerator extends ModelGenerator {
 	}
 
 	public Model getModel() throws Exception {
-		if (model == null) {
-			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
-			setModel((Model) modelGenerator.load());
-		}
+//		if (model == null) {
+//			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
+//			setModel((Model) modelGenerator.load());
+//		}
 		return model;
 	}
 

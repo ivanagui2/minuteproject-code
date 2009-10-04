@@ -86,7 +86,7 @@ public class FormatUtils {
 	}	
 	
 	
-	private static String firstUpperCaseOnly (String st) {
+	public static String firstUpperCaseOnly (String st) {
 		return st.substring(0,1).toUpperCase() +st.substring(1,st.length()).toLowerCase();
 	}
 	private static String firstLowerCaseOnly (String st) {
@@ -95,7 +95,7 @@ public class FormatUtils {
 	private static String firstLowerCase (String st) {
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length());
 	}	
-	private static String firstUpperCase (String st) {
+	public static String firstUpperCase (String st) {
 		return st.substring(0,1).toUpperCase() +st.substring(1,st.length());
 	}	
 	

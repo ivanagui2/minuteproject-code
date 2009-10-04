@@ -6,6 +6,9 @@ import net.sf.minuteProject.configuration.bean.Template;
 
 public interface Table extends GeneratorBean{
 	
+	public static final String TABLE = "TABLE";
+	public static final String VIEW  = "VIEW";
+	
 	/**
 	 * Get the column that are not part primary key or foreign key 
 	 * @return
@@ -233,4 +236,6 @@ public interface Table extends GeneratorBean{
 	public String getAlias ();
 	
 	public void setAlias(String alias);
+	
+	public boolean isManyToManyRecursive();
 }
