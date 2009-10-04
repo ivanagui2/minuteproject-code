@@ -8,7 +8,7 @@ import net.sf.minuteProject.configuration.bean.Configuration;
 
 public class Presentation extends AbstractConfiguration{
 	
-	private List <PresentationEntity> presentationEntitys;
+	private PresentationEntities presentationEntities;
 	private List <PresentationBlock> presentationBlocks;
 	
 	private PresentationEntityInputs presentationEntityInputs;
@@ -40,19 +40,23 @@ public class Presentation extends AbstractConfiguration{
 		return presentationBlocks;
 	}
 
-	public void addPresentationEntity (PresentationEntity presentationEntity) {
-		presentationEntity.setPresentation(this);
-		if (presentationEntitys==null)
-			presentationEntitys = new ArrayList<PresentationEntity>();
-		presentationEntitys.add(presentationEntity);
-	}
-	
-	public List<PresentationEntity> getPresentationEntitys() {
-		return presentationEntitys;
+	public PresentationEntityMappings getPresentationEntityMappings() {
+		return presentationEntityMappings;
 	}
 
-	public void setPresentationEntitys(List<PresentationEntity> presentationEntitys) {
-		this.presentationEntitys = presentationEntitys;
+	public void setPresentationEntityMappings(
+			PresentationEntityMappings presentationEntityMappings) {
+		this.presentationEntityMappings = presentationEntityMappings;
+	}
+
+
+
+	public PresentationEntities getPresentationEntities() {
+		return presentationEntities;
+	}
+
+	public void setPresentationEntities(PresentationEntities presentationEntities) {
+		this.presentationEntities = presentationEntities;
 	}
 
 	public PresentationEntityInputs getPresentationEntityInputs() {

@@ -33,6 +33,6 @@ public class Configuration extends AbstractConfigurationRoot{
 	public String getName () {
 		if (super.getName()==null)
 			return model.getName();
-		return getName();
+		return super.getName();
 	}
 }

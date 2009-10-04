@@ -14,12 +14,17 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 	private String description;
 	private List<Property> properties;
 	private AbstractConfiguration parent;
+	private String configurationFileInClassPath;
 	
 	public AbstractConfiguration getParent() {
 		return parent;
 	}
 	public void setParent(AbstractConfiguration parent) {
 		this.parent = parent;
+	}
+	
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
 	}
 	public List<Property> getProperties() {
 		if (properties == null) 
@@ -28,6 +33,10 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 	}
 	public void addProperty (Property property) {
 		getProperties().add(property);
+	}
+	public Property[] getPropertiesArray() {
+		properties = getProperties();
+		return (Property[]) properties.toArray(new Property[properties.size()]);
 	}
 	public String getPropertyValue (String name) {
 		// TODO browse recursively via the parent to see the first matching propertiesif (getProperties().)
@@ -90,4 +99,12 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 	public String getGeneratedBeanName() {
 		return FormatUtils.getJavaName(getName());
 	}
+	public String getConfigurationFileInClassPath() {
+		return configurationFileInClassPath;
+	}
+	public void setConfigurationFileInClassPath(String configurationFileInClassPath) {
+		this.configurationFileInClassPath = configurationFileInClassPath;
+	}
+	
+	
 }

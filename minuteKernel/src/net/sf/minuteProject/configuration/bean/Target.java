@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.utils.io.FileUtils;
 
 /**
  * @author Florian Adler
@@ -13,6 +14,8 @@ public class Target extends AbstractConfiguration{
 	
 	private String dir;
 	private String fileName;
+	private String canonicalDir;
+	private String canonicalFileName;	
 	private ArchitectureTarget architectureTarget;
 	private List <TemplateTarget> templateTargets;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
@@ -51,10 +54,10 @@ public class Target extends AbstractConfiguration{
 		templateTargets.add(templateTarget);
 	}
 	
-	public List getTemplateTargets() {
+	public List<TemplateTarget> getTemplateTargets() {
 		return templateTargets;
 	}
-	public void setTemplateTargets(List templateTargets) {
+	public void setTemplateTargets(List<TemplateTarget> templateTargets) {
 		this.templateTargets = templateTargets;
 	}
 	
@@ -73,12 +76,23 @@ public class Target extends AbstractConfiguration{
 	}
 	
 	public String getDir() {
+//		return FileUtils.getFileFullPathWithoutFileName(dir, fileName);
+		
+//		if (dir==null) {
+//			return FileUtils.getFileFullPathWithoutFileName()
+//			// if environment MP_HOME is available
+//			// -> 
+//			//get the configuration file in the classpath.
+//			// strip of the filename => root dir
+//			
+//		}
 		return dir;
 	}
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
 	public String getFileName() {
+//		return FileUtils.stripRelativePath(fileName);
 		return fileName;
 	}
 	public void setFileName(String fileName) {
@@ -95,6 +109,18 @@ public class Target extends AbstractConfiguration{
 	}
 	public void setPlugins(List<Plugin> plugins) {
 		this.plugins = plugins;
+	}
+	public String getCanonicalDir() {
+		return canonicalDir;
+	}
+	public void setCanonicalDir(String canonicalDir) {
+		this.canonicalDir = canonicalDir;
+	}
+	public String getCanonicalFileName() {
+		return canonicalFileName;
+	}
+	public void setCanonicalFileName(String canonicalFileName) {
+		this.canonicalFileName = canonicalFileName;
 	}
 	
 	

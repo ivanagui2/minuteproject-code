@@ -20,6 +20,11 @@ import org.apache.velocity.VelocityContext;
 
 public class Template extends TemplateTarget {
 
+	public static final String FORMAT_JAVA_CLASS = "FORMAT_JAVA_CLASS";
+	public static final String FORMAT_DB_OBJECT = "FORMAT_DB_OBJECT";
+	public static final String FORMAT_LOWER_CASE_JAVA_CLASS = "FORMAT_LOWER_CASE_JAVA_CLASS";
+	public static final String FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS = "FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS";
+	
 	private String templateFileName;
 	private String subdir;
 	private String outputsubdir; 
@@ -27,6 +32,7 @@ public class Template extends TemplateTarget {
 	private String fileExtension;
 	private String filePrefix; 
 	private String fileSuffix; 
+	private String fileNameFormat;
 	private String entitySpecific;
 	private String packageSpecific;
 	private String modelSpecific;
@@ -38,13 +44,20 @@ public class Template extends TemplateTarget {
 	private String nodeAttributeNameValue;
 	private String addModelName;
 	private String addModelDirName;
+	private String addTechnicalDirName;
+	private String addBusinessPackageDirName;
+	private String addEntityDirName;
+	private String entityDirNameFormat;
+	private String addScopeName;
 	private String applicationSpecific;
 	private String componentSpecific;
 	private TemplateTarget templateTarget;
 	private String fileNameBuilderPlugin;
 	private String fileNameBuilderMethod;
-	private String isTemplateToGenerateMethod;
+	private String isTemplateToGenerateMethod, checkTemplateToGenerate;
 	private String scopeSpecificValue;
+	private String entityDirNameSuffix;
+	private String entityDirNamePrefix;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -54,7 +67,9 @@ public class Template extends TemplateTarget {
 		this.setOutputdir(templateTarget.getOutputdir());
 		this.setDir(templateTarget.getDir());
 		this.setTemplateTarget(templateTarget);
+		this.setRootdir(templateTarget.getRootdir());
 	}
+	
 	public TemplateTarget getTemplateTarget() {
 		return templateTarget;
 	}
@@ -148,12 +163,25 @@ public class Template extends TemplateTarget {
 	public String getOutputFileName (GeneratorBean bean) {
 		return getOutputFileMain(bean)+"."+fileExtension;
 	}	
+
 	/**
 	 * Returns the name of the file without the extention
 	 * @param input
 	 * @return
 	 */
 	public String getOutputFileMain (GeneratorBean bean) {
+		return getFormatFileName(getOutputFileNameMain(bean));
+	}
+	
+	public String getFormatFileName (String fileName) {
+		if (fileNameFormat!=null && !fileNameFormat.equals("")) {
+			if (fileNameFormat.equals(FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS))
+				return FormatUtils.firstUpperCaseOnly(fileName);
+		}
+		return fileName;
+	}
+	
+	public String getOutputFileNameMain (GeneratorBean bean) {
 		String pluginResult = getPluginFileMain(bean);
 		if (pluginResult!=null)
 			return pluginResult;
@@ -163,7 +191,8 @@ public class Template extends TemplateTarget {
 	}
 	
 	public String getNonPluginFileMain (String input) {
-		if (addModelName!=null && addModelName.equals("false"))
+		if ((addModelName!=null && addModelName.equals("false")) ||
+			(addScopeName!=null && addScopeName.equals("false")) )
 			return filePrefix+fileSuffix;
 		return filePrefix+input+fileSuffix;
 	}
@@ -297,15 +326,6 @@ public class Template extends TemplateTarget {
 		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
 	}
 	
-	
-    public String getAddModelDirName() {
-		return addModelDirName;
-	}
-
-	public void setAddModelDirName(String addModelDirName) {
-		this.addModelDirName = addModelDirName;
-	}
-
     public String getGeneratorOutputFileNameForView (View view, Template template) {
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	sb.append("//"+ModelUtils.getTechnicalPackage(view, template));
@@ -332,14 +352,37 @@ public class Template extends TemplateTarget {
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	String sb1 = new String(CommonUtils.getPackageName(bean, template));
     	String dir = FormatUtils.getDirFromPackage(sb1);
-    	sb.append("//");//+bean.getTechnicalPackage (template));
+    	sb.append("//");
     	sb.append(dir);
-		//String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
+    	if (addEntityDirName!=null && addEntityDirName.equals("true")) {
+    		sb.append("//");
+    		sb.append(getEntityDirName(bean.getGeneratedBeanName()));
+    	}
     	String outputFileDir = sb.toString();
 		new File (outputFileDir.toString()).mkdirs();
 		String TemplateFileName = CommonUtils.getFileName(template,bean);
 		String outputFilename = outputFileDir+"//"+TemplateFileName;
 		return outputFilename;    	
+    }
+    
+    private String getEntityDirName (String input) {
+    	StringBuffer output = new StringBuffer();
+		if (entityDirNamePrefix!=null && !entityDirNamePrefix.equals("")) {
+			output.append(entityDirNamePrefix);
+		}
+    	output.append(getEntityDirNameFormat(input));
+		if (entityDirNameSuffix!=null && !entityDirNameSuffix.equals("")) {
+			output.append(entityDirNameSuffix);
+		}
+		return output.toString();
+    }
+    
+    private String getEntityDirNameFormat (String input) {
+		if (entityDirNameFormat!=null && !entityDirNameFormat.equals("")) {
+			if (entityDirNameFormat.equals(FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS))
+				return FormatUtils.firstUpperCaseOnly(input);
+		}
+		return input;
     }
     
     
@@ -428,6 +471,85 @@ public class Template extends TemplateTarget {
 		this.scopeSpecificValue = scopeSpecificValue;
 	}
 	
+    public String getAddModelDirName() {
+		return addModelDirName;
+	}
+
+	public void setAddModelDirName(String addModelDirName) {
+		this.addModelDirName = addModelDirName;
+	}
+
+	public String getAddTechnicalDirName() {
+		return addTechnicalDirName;
+	}
+
+	public void setAddTechnicalDirName(String addTechnicalDirName) {
+		this.addTechnicalDirName = addTechnicalDirName;
+	}
 	
-	
+	public String getAddEntityDirName() {
+		return addEntityDirName;
+	}
+
+	public void setAddEntityDirName(String addEntityDirName) {
+		this.addEntityDirName = addEntityDirName;
+	}
+
+	public String getAddScopeName() {
+		return addScopeName;
+	}
+
+	public void setAddScopeName(String addScopeName) {
+		this.addScopeName = addScopeName;
+	}
+
+	public String getAddBusinessPackageDirName() {
+		return addBusinessPackageDirName;
+	}
+
+	public void setAddBusinessPackageDirName(String addBusinessPackageDirName) {
+		this.addBusinessPackageDirName = addBusinessPackageDirName;
+	}
+
+	public String getFileNameFormat() {
+		return fileNameFormat;
+	}
+
+	public void setFileNameFormat(String fileNameFormat) {
+		this.fileNameFormat = fileNameFormat;
+	}
+
+	public String getEntityDirNameFormat() {
+		return entityDirNameFormat;
+	}
+
+	public void setEntityDirNameFormat(String entityDirNameFormat) {
+		this.entityDirNameFormat = entityDirNameFormat;
+	}
+
+	public String getEntityDirNamePrefix() {
+		return entityDirNamePrefix;
+	}
+
+	public void setEntityDirNamePrefix(String entityDirNamePrefix) {
+		this.entityDirNamePrefix = entityDirNamePrefix;
+	}
+
+	public String getEntityDirNameSuffix() {
+		return entityDirNameSuffix;
+	}
+
+	public void setEntityDirNameSuffix(String entityDirNameSuffix) {
+		this.entityDirNameSuffix = entityDirNameSuffix;
+	}
+
+	public String getCheckTemplateToGenerate() {
+		return checkTemplateToGenerate;
+	}
+
+	public void setCheckTemplateToGenerate(String checkTemplateToGenerate) {
+		this.checkTemplateToGenerate = checkTemplateToGenerate;
+	}
+
+
 }

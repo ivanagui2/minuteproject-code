@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
 
 public class ComponentDDLUtils implements Component{
@@ -113,6 +114,21 @@ public class ComponentDDLUtils implements Component{
 
 	public String getGeneratedBeanName() {
 		return FormatUtils.getJavaName(getName());
+	}
+
+	public List<Property> getProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setProperties(List<Property> properties) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Property[] getPropertiesArray() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

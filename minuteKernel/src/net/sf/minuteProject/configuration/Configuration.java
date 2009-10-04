@@ -1,12 +1,12 @@
 package net.sf.minuteProject.configuration;
 
 public interface Configuration {
-	public static String DaoInterfaceVm = "SadbelDaoInterface.vm";
-	public static String SqlDaoImplVm = "SadbelSqlDaoImpl.vm";
-	public static String DaoTestVm = "SadbelDaoTest.vm";
-	public static String DomainObjectVm = "SadbelDomainObject.vm";
-	public static String DaoXmlVm = "SadbelDaoXml.vm";
-	public static String SpringDaoVm = "SadbelSpringDaoIbatis.vm";
+	public static String DaoInterfaceVm = "DaoInterface.vm";
+	public static String SqlDaoImplVm = "SqlDaoImpl.vm";
+	public static String DaoTestVm = "DaoTest.vm";
+	public static String DomainObjectVm = "DomainObject.vm";
+	public static String DaoXmlVm = "DaoXml.vm";
+	public static String SpringDaoVm = "SpringDaoIbatis.vm";
 	// front end
 	public static String SearchScreenVm = "SearchScreen.vm";
 	public static String SearchResultScreenVm = "SearchResultScreen.vm";

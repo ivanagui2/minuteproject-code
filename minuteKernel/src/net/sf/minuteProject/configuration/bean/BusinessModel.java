@@ -15,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.service.Scope;
@@ -52,6 +53,7 @@ public class BusinessModel {
 		if (database!=null) {
 			businessPackage.setPackages(model, database);
 		}
+		complementDataModelWithTablesEnrichment();
 	}
 	
 	public void complementDataModelWithViews () {
@@ -63,6 +65,42 @@ public class BusinessModel {
 	}
 
 	private void complementDataModelWithViewsEnrichment () {
+	   complementDataModelWithEntitiesEnrichment(Table.VIEW);
+//		Database database = model.getDataModel().getDatabase();
+//		if (database!=null) {
+//			// for all the view
+//			// set virtual pk, realpk
+//			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+//			if (enrichment != null) {
+//				for (Entity entity : enrichment.getEntities()) {
+////					complementTable(entity,database);
+//					complementView(entity, database);
+////					View view = TableUtils.getView(database, entity.getName());
+////					if (view!=null){
+////						complementEntityWithProperties((Table)view, entity);
+////						complementDataModelWithViewEnrichment(view, entity);
+////					}
+//				}
+//			}
+//		}
+	}
+	
+	private void complementDataModelWithTablesEnrichment () {
+		complementDataModelWithEntitiesEnrichment(Table.TABLE);
+//		Database database = model.getDataModel().getDatabase();
+//		if (database!=null) {
+//			// for all the view
+//			// set virtual pk, realpk
+//			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+//			if (enrichment != null) {
+//				for (Entity entity : enrichment.getEntities()) {
+//					complementTable(entity,database);
+//				}
+//			}
+//		}
+	}
+
+	private void complementDataModelWithEntitiesEnrichment (String type) {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
 			// for all the view
@@ -70,13 +108,29 @@ public class BusinessModel {
 			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
 			if (enrichment != null) {
 				for (Entity entity : enrichment.getEntities()) {
-					View view = TableUtils.getView(database, entity.getName());
-					if (view!=null){
-						complementDataModelWithViewEnrichment(view, entity);
-					}
+					if (type.equals(Table.VIEW))
+						complementView(entity, database);
+					if (type.equals(Table.TABLE))
+					complementTable(entity,database);
 				}
 			}
 		}
+	}
+
+	private void complementView(Entity entity, Database database) {
+		View view = TableUtils.getView(database, entity.getName());
+		if (view!=null){
+			complementEntityWithProperties(view, entity);
+			complementDataModelWithViewEnrichment(view, entity);
+		}		
+	}
+	
+	private void complementTable(Entity entity, Database database) {
+		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTable(database, entity.getName());
+		if (table!=null){
+			complementEntityWithProperties(table, entity);
+//			complementDataModelWithViewEnrichment(view, entity);
+		}		
 	}
 	
 	public void complementService() {
@@ -102,6 +156,14 @@ public class BusinessModel {
 		}
 	}
 	
+	private void complementEntityWithProperties(net.sf.minuteProject.configuration.bean.model.data.Table table, Entity entity) {
+		table.setProperties(entity.getProperties());
+		table.setAlias(entity.getAlias());
+//		Column[] columns = table.getColumns();
+//		for (Column column : columns) {
+//			
+//		}
+	}
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {
 		complementWithViewVirtualPrimaryKey(view, entity);
 		complementWithViewField(view, entity);

@@ -54,10 +54,18 @@ public class Package extends AbstractConfiguration{
 	}
 	
 	public String getTechnicalPackage(Template template) {
-		if (template.getAddModelDirName()!=null && template.getAddModelDirName().equals("false"))
-			return getName();
-		StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
-		sb.append("."+getName());
+		StringBuffer sb = new StringBuffer();
+//		if (template.getAddModelDirName()!=null && template.getAddModelDirName().equals("false"))
+		if (template.getAddTechnicalDirName()!=null && template.getAddTechnicalDirName().equals("false")) {
+//			return getName();
+			sb.append(template.getPackageRoot());
+		}
+		else
+//		StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
+			sb.append(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
+		if (template.getAddBusinessPackageDirName()!=null && template.getAddBusinessPackageDirName().equals("false")) {}
+		else
+			sb.append("."+getName());
 		return sb.toString();
 	}
 	

@@ -27,6 +27,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	
 	public TableAbstract (Table table) {
 		setTable (table);
+		this.setAlias(table.getAlias());
+		this.setProperties(table.getProperties());
 	}
 	
 	public String getName () {
@@ -262,5 +264,13 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+	
+	public boolean isManyToManyRecursive() {
+		if (isManyToMany()) {
+		   Reference [] parents = getParents();
+		   return parents[0].getForeignTableName().equals(parents[1].getForeignTableName());
+		}
+		return false;
 	}
 }

@@ -1,5 +1,7 @@
 package net.sf.minuteProject.utils;
 
+import java.math.BigInteger;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -82,5 +84,27 @@ public class ColumnUtils {
 			sb.append(CommonUtils.getJavaVariableName(columns[i].getName()));
 		}
 		return sb.toString();
+	}
+	
+	public static String getDefaultStuffingForColumn (Column column) {
+		if (
+				column.getType().equals("CHAR") || 
+				column.getType().equals("CHAR2") ||
+				column.getType().equals("VARCHAR") ||
+				column.getType().equals("VARCHAR2") ||
+				column.getType().equals("VARGRAPHIC") ||
+				column.getType().equals("VARGRAPHIC2") ||
+				column.getType().equals("CLOB")
+				)
+			return "\"\"";
+		if (       column.getType().equals("INT") 
+				|| column.getType().equals("INTEGER")
+			    || column.getType().equals("NUMBER") ||
+				column.getType().equals("DECIMAL") )
+			return "Integer.valueOf(\"-1\")";
+		if (column.getType().equals("BIGINT") || 
+			column.getType().equals("LONG"))
+			return "Long.valueOf(\"-1\")";
+		return "\"\"";
 	}
 }

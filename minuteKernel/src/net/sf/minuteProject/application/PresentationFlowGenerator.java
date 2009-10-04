@@ -114,7 +114,7 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		return target;
 	}
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
-		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(target), GENERATOR_TARGET_RULES);
+		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
 		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
@@ -127,6 +127,10 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 	@Override
 	public String getConfigurationRulesFile() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public String getPropertyConfigurationRulesFile() {
 		return null;
 	}
 

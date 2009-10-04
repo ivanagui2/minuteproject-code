@@ -47,6 +47,15 @@
 					<alias attr-name="package-root" prop-name="packageRoot" />
 					<alias attr-name="add-model-name" prop-name="addModelName" />
 					<alias attr-name="add-model-dir-name" prop-name="addModelDirName" />
+					<alias attr-name="add-technical-dir-name" prop-name="addTechnicalDirName" />
+					<alias attr-name="add-business-package-dir-name" prop-name="addBusinessPackageDirName" />
+					<alias attr-name="add-entity-dir-name" prop-name="addEntityDirName" />
+					<alias attr-name="entity-dir-name-format" prop-name="entityDirNameFormat" />
+					<alias attr-name="entity-dir-name-prefix" prop-name="entityDirNamePrefix" />
+					<alias attr-name="entity-dir-name-suffix" prop-name="entityDirNameSuffix" />
+					
+					<alias attr-name="add-scope-name" prop-name="addScopeName" />
+					
 					<alias attr-name="templateFileName" prop-name="templateFileName" />
 					<alias attr-name="subdir" prop-name="subdir" />
 					<alias attr-name="outputsubdir" prop-name="outputsubdir" />
@@ -54,6 +63,7 @@
 					<alias attr-name="file-extension" prop-name="fileExtension" />
 					<alias attr-name="file-prefix" prop-name="filePrefix" />
 					<alias attr-name="file-suffix" prop-name="fileSuffix" />
+					<alias attr-name="file-name-format" prop-name="fileNameFormat" />
 					<alias attr-name="entity-specific" prop-name="entitySpecific" />
 					<alias attr-name="package-specific" prop-name="packageSpecific" />
 					<alias attr-name="model-specific" prop-name="modelSpecific" />
@@ -68,6 +78,7 @@
 					<alias attr-name="node-attribute-name-value" prop-name="nodeAttributeNameValue" />
 					<alias attr-name="node-name-value" prop-name="nodeNameValue" />
 					<alias attr-name="is-template-to-generate-method" prop-name="isTemplateToGenerateMethod" />
+					<alias attr-name="check-template-to-generate" prop-name="checkTemplateToGenerate" />
 					<alias attr-name="scope-specific-value" prop-name="scopeSpecificValue" />
 					
 				</set-properties-rule> 	

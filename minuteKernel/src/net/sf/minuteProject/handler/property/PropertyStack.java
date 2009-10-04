@@ -74,13 +74,6 @@ public class PropertyStack {
 		getProperties().setProperty(name, resolvePropertyValue(value));
 	}
 	
-//	private Prop resolveProperty (Prop prop) {
-//		Prop result = new Prop();
-//		result.name = prop.name;
-//		result.value = resolvePropertyValue(prop.value);
-//		return result;
-//	}
-	
 	public String resolvePropertyValue (String value) {
 		List<Chunk> props = parseValue(value);
 		return resolvePropertyValue (props);
@@ -93,15 +86,6 @@ public class PropertyStack {
 		}		
 		return stringBuffer.toString();
 	}
-	
-//	private String resolvePropertyValue (Prop prop) {
-//		StringBuffer stringBuffer = new StringBuffer();
-//		for (Iterator iter = getProperties().values().iterator(); iter.hasNext();) {
-//			String element = (String) iter.next();
-//			
-//		}
-//		return stringBuffer.toString();
-//	}
 	
 	/**
 	 * parse the input string into Substring called chunks.

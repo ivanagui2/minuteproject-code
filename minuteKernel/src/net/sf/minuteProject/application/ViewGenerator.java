@@ -64,6 +64,10 @@ public class ViewGenerator extends AbstractGenerator{
 	public String getConfigurationRulesFile() {
 		return GENERATOR_VIEW_RULES;
 	}
+	
+	public String getPropertyConfigurationRulesFile() {
+		return null;
+	}
 
 	public static void main (String args[]) throws Exception {
 		String viewConfig = "generator-view-config.xml";

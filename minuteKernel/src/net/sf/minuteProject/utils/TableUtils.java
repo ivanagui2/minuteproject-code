@@ -77,12 +77,23 @@ public class TableUtils {
 	}
 	
 	public static boolean isUnique (Table table, Column column) {
+		if (table==null)
+			return false;
+		if (column==null)
+			return false;
 		Index indexes [] = table.getUniqueIndices();
-		for (int i = 0; i < indexes.length; i++) {
-			Column[] indexColumn = indexes[i].getColumns();
-			for (int j = 0; j < indexColumn.length; j++) {
-				if (indexColumn.length==1 && indexColumn[j].getName().equals (column.getName()))
-					return true;
+		if (indexes!=null) {
+			for (int i = 0; i < indexes.length; i++) {
+				Column[] indexColumn = indexes[i].getColumns();
+				if (indexColumn!=null) {
+					for (int j = 0; j < indexColumn.length; j++) {
+						if (indexColumn.length==1 
+							&& indexColumn[j]!=null
+							&& indexColumn[j].getName()!=null
+							&& indexColumn[j].getName().equals (column.getName()))
+							return true;
+					}
+				}
 			}
 		}
 		return false;

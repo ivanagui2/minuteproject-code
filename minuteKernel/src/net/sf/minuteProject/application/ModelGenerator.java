@@ -52,6 +52,7 @@ public class ModelGenerator extends AbstractGenerator {
 
 	private static Logger logger = Logger.getLogger(ModelGenerator.class);
 	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
+	public static final String GENERATOR_MODEL_PROPERTY_RULES = "net/sf/minuteProject/configuration/model-property-config-rules.xml";
 
 	/*
 	 * context object 
@@ -102,6 +103,11 @@ public class ModelGenerator extends AbstractGenerator {
 		return GENERATOR_MODEL_RULES;
 	}
 
+	@Override
+	public String getPropertyConfigurationRulesFile() {
+		return GENERATOR_MODEL_PROPERTY_RULES;
+	}
+	
 	public static void main(String args[]) throws Exception {
 		String config;
 		if (args.length < 1) {
@@ -153,10 +159,10 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	public Model getModel() throws Exception {
-		if (model == null) {
-			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
-			setModel((Model) modelGenerator.load());
-		}
+//		if (model == null) {
+//			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
+//			setModel((Model) modelGenerator.load());
+//		}
 		return model;
 	}
 
@@ -180,7 +186,14 @@ public class ModelGenerator extends AbstractGenerator {
 		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
 			Table table = getDecoratedTable((Table) iter.next());
 			//table.getParents();
-			writeTemplateResult(table, template);
+			boolean isToGenerate = true;
+    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+    			if (!template.isToGenerate(table)) {
+    				isToGenerate =false;
+    			}
+    		} 
+    		if (isToGenerate)
+			   writeTemplateResult(table, template);
 			/*
 			 * 
 			 * 			Table table = (Table) iter.next();

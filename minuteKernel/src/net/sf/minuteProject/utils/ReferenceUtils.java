@@ -77,4 +77,14 @@ public class ReferenceUtils {
 		return null;
 		
 	}
+	
+	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Table origin, Table target) {
+		net.sf.minuteProject.configuration.bean.model.data.Reference [] refs = origin.getParents();
+		for (int i = 0; i < refs.length; i++) {
+			net.sf.minuteProject.configuration.bean.model.data.Reference ref = refs[i];
+			if (ref.getForeignTable().equals(target))
+				return ref;
+		}
+		return null;
+	}
 }

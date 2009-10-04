@@ -94,6 +94,8 @@ public class CommonUtils {
 	}	
 	// TODO refactor 4 times
 	public static String getClassName (GeneratorBean bean, Template template) {
+		if (bean==null || template==null)
+			return "CLASS_NAME_NOT_AVAILABLE";
 		//return template.getOutputFileMain(getTableClassName(bean));
 		return template.getOutputFileMain(bean);
 	}
@@ -421,6 +423,13 @@ public class CommonUtils {
 	}
 	
 	public static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
+		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
+	}
+	
+	public static String getEntityLevelTemplateFullPath(Model model, String tableName, Template template, String targetTemplateName) {
+		Table table = TableUtils.getTable(model.getDataModel().getDatabase(), tableName);
+		if (table==null)
+			return "";
 		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
 	}
 	

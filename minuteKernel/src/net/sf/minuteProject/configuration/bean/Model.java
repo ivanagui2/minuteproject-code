@@ -43,16 +43,14 @@ public class Model  extends AbstractConfiguration{
 	}
 	
 	public String getTechnicalPackage(Template template) {
-		//StringBuffer sb = new StringBuffer(template.getPackageRoot());
-		//sb.append("."+getConfiguration().getProjectname());
-		//sb.append("."+template.getTechnicalPackage());
-		//sb.append("."+getName());
-		//return sb.toString();	
-		
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());
-		sb.append("."+getName());
+		if (template.getAddModelDirName()==null 
+			|| template.getAddModelDirName().equals("")
+			|| template.getAddModelDirName().equals("true"))		
+			sb.append("."+getName());
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());
 		return sb.toString();
 	}		
+	
 }

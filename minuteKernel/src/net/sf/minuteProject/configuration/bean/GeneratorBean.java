@@ -1,5 +1,9 @@
 package net.sf.minuteProject.configuration.bean;
 
+import java.util.List;
+
+import net.sf.minuteProject.configuration.bean.system.Property;
+
 public interface GeneratorBean {
 
 	// Minute standard method
@@ -29,5 +33,11 @@ public interface GeneratorBean {
 	 * @return String
 	 */
 	public String getGeneratedBeanName();
+	
+	public void setProperties(List<Property> properties);
+	
+	public List<Property> getProperties();
+	
+	public Property[] getPropertiesArray();
 	
 }
