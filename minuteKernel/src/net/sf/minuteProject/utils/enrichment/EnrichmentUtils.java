@@ -1,0 +1,213 @@
+package net.sf.minuteProject.utils.enrichment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Reference;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.system.Property;
+
+public class EnrichmentUtils {
+	
+	public static boolean hasMenuLinkDirectResultAccess (GeneratorBean bean) {
+		if (hasTag(bean, "menuLinkDirectResultAccess"))
+			return true;
+		return false;
+	}
+	
+	public static boolean hasTag (GeneratorBean bean, String tag) {
+		for (Property property : bean.getProperties()) {
+			if (property.getName().equals(tag))
+				return true;
+		}
+		return false;
+	}
+
+	public static Property[] getProperties (GeneratorBean bean, String tag) {
+		for (Property property : bean.getProperties()) {
+			if (property.getName().equals(tag))
+				return property.getPropertiesArray();
+		}
+		return null;
+	}
+	
+	public static Table[] getLinkedEntityByForeignKeyForTag (Table table, String tag) {
+		List<Table> list = new ArrayList<Table>();
+		Reference[] reference = table.getParents();
+		for (int i = 0; i < reference.length; i++) {
+			Table linkedTable = reference[i].getForeignTable();
+			if (hasTag(linkedTable, tag))
+				list.add(linkedTable);
+		}
+		return (Table[]) list.toArray(new Table[list.size()]);
+	}
+	
+	public static Reference[] getLinkedReferenceByForeignKeyForTag (Table table, String tag) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] reference = table.getParents();
+		for (int i = 0; i < reference.length; i++) {
+			Table linkedTable = reference[i].getForeignTable();
+			if (hasTag(linkedTable, tag))
+				list.add(reference[i]);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
+	public static Table[] getLinkedMany2ManyEntityForTag (Table table, String tag) {
+		return getLinkedEntityByChildrenForTag(table, tag, true);
+	}
+
+	
+	public static Table[] getLinkedEntityByChildrenForTag (Table table, String tag) {
+		return getLinkedEntityByChildrenForTag(table, tag, false);
+	}
+	
+	/*
+	 * get linked ref for m2m => ref[] 
+	 *  :Reference[] getLinkedMany2ManyReferenceForTag (Table table, String tag)
+	 * for each ref
+	 *   get other side of the relationship ref input(ref)-> table,
+	 *   :Reference getTargetReferenceEntityByMany2ManyForTag (Reference origin, String tag)
+	 */
+	public static Table[] getLinkedEntityByChildrenForTag (Table table, String tag, boolean filterMany2Many) {
+		List<Table> list = new ArrayList<Table>();
+		Reference[] reference = table.getChildren();
+		for (int i = 0; i < reference.length; i++) {
+			Table child = reference[i].getForeignTable();
+			if (hasTag(child, tag))
+				if (filterMany2Many) {
+					if (child.isManyToMany())
+						list.add(child);
+				} else
+				list.add(child);
+		}
+		return (Table[]) list.toArray(new Table[list.size()]);
+	}
+	
+	public static Table getLinkedEntityByMany2ManyForTag (Table origin, Table many2many, String tag) {
+		if (many2many.isManyToMany()) {
+			Table[] m2mTables = getLinkedEntityByForeignKeyForTag(many2many, tag);
+			for (int i = 0; i < m2mTables.length; i++) {
+				if (!m2mTables[i].getName().equals(origin.getName()))
+					return m2mTables[i];
+			}
+		}
+		return null;
+	}
+
+	public static Reference getTargetReferenceEntityByMany2ManyForTag (Reference origin, String tag) {
+		Table m2m = origin.getForeignTable();
+//		System.out.println("m2m = "+m2m.getName());
+		return getTargetReferenceEntityByMany2ManyForTag(origin, m2m, tag);
+	}
+	
+	public static Reference getTargetReferenceEntityByMany2ManyForTag (Reference origin, Table many2many, String tag) {
+		if (many2many.isManyToMany()) {
+			Reference[] m2mReference = getLinkedReferenceByForeignKeyForTag(many2many, tag);
+			for (int i = 0; i < m2mReference.length; i++) {
+				Reference ref = m2mReference[i];
+//				System.out.println("origin = "+origin.getLocalColumnName()+"-"+origin.getLocalTableName()+"-"+origin.getForeignColumnName()+"-"+origin.getForeignTableName());
+//				System.out.println("ref = "+ref.getLocalColumnName()+"-"+ref.getLocalTableName()+"-"+ref.getForeignColumnName()+"-"+ref.getForeignTableName());
+				if (!isEqual(origin, ref))
+					return ref;
+//				if (!ref.getLocalColumnName().equals(origin.getForeignColumnName()) ||
+//					!ref.getLocalTableName().equals(origin.getForeignTableName()) ||
+//					!ref.getForeignColumnName().equals(origin.getLocalColumnName()) ||
+//					!ref.getForeignColumnName().equals(origin.getLocalColumnName()) )
+//				   return ref;
+			}
+		}
+		return null;
+	}
+	
+	private static boolean isEqual (Reference origin, Reference ref) {
+		if (!ref.getLocalColumnName().equals(origin.getForeignColumnName()) ||
+			!ref.getLocalTableName().equals(origin.getForeignTableName()) ||
+			!ref.getForeignColumnName().equals(origin.getLocalColumnName()) ||
+			!ref.getForeignColumnName().equals(origin.getLocalColumnName()) )
+			   return false;
+		return true;
+	}
+
+	private static boolean isEqualLocal (Reference origin, Reference ref) {
+		if (!ref.getLocalTableName().equals(origin.getLocalTableName()) )
+			   return false;
+		return true;
+	}
+	
+	public static Reference[] getLinkedRefenceByChildrenForTag (Table table, String tag, boolean filterMany2Many) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] reference = table.getChildren();
+		for (int i = 0; i < reference.length; i++) {
+			Table child = reference[i].getForeignTable();
+			if (hasTag(child, tag))
+				if (filterMany2Many) {
+					if (child.isManyToMany())
+						list.add(reference[i]);
+				} else
+				list.add(reference[i]);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
+	public static Reference[] getLinkedReferenceByChildrenForTag (Table table, String tag) {
+		return getLinkedRefenceByChildrenForTag(table, tag, false);
+	}
+	
+	public static Reference[] getLinkedMany2ManyReferenceForTag (Table table, String tag) {
+		return getLinkedRefenceByChildrenForTag(table, tag, true);
+	}
+
+	public static Reference[] getLinkedTargetReferenceByMany2ManyForTag (Table table, String tag) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] referenceOrigin = getLinkedMany2ManyReferenceForTag(table, tag);
+		for (int i = 0; i < referenceOrigin.length; i++) {
+			Reference ref = getTargetReferenceEntityByMany2ManyForTag(referenceOrigin[i], tag);
+			list.add(ref);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
+	public static Reference[] getDistinctLinkedTargetReferenceByMany2ManyForTag (Table table, String tag) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] referenceOrigin = getLinkedTargetReferenceByMany2ManyForTag (table, tag);
+		for (int i = 0; i < referenceOrigin.length; i++) {
+			boolean isToAdd = true;
+			for (Reference reference : list) {
+				if (isEqualLocal(referenceOrigin[i], reference))
+					isToAdd = false;
+			}
+			if (isToAdd)
+				list.add(referenceOrigin[i]);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
+	public static boolean isToGenerateBasedOnTag(Template template, GeneratorBean bean) {
+		List<Property> beanProp = bean.getProperties();
+		List<Property> templateProp = template.getProperties();
+		for (Property property : templateProp) {
+			if (property.getName().equals("generateForTag")) {
+				for (Property property2 : beanProp) {
+					if (property2.getName().equals(property.getValue()))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isToGenerateBasedOnTagAndNotMany2Many(Template template, GeneratorBean bean) {
+		if (bean instanceof Table) {
+			Table table = (Table) bean;
+			if (!table.isManyToMany()) {
+				return isToGenerateBasedOnTag(template, table);
+			}
+		} 
+		return false;
+	}
+}

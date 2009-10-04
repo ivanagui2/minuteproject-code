@@ -1,0 +1,96 @@
+
+<!DOCTYPE digester-rules PUBLIC 
+        "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
+        "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
+<digester-rules>
+ <pattern value="bean-map">
+  <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMap"/>
+  <set-next-rule methodname="setBeanMap" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMap"/>
+  <set-properties-rule>
+   <alias prop-name="name" attr-name="name"/>
+   <alias prop-name="id" attr-name="id"/>
+   <alias prop-name="packageName" attr-name="package-name"/>
+  </set-properties-rule>
+  <pattern value="mappings">
+   <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMappings"/>
+   <set-next-rule methodname="setMappings" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMappings"/>
+   <set-properties-rule>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="mapping">
+    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMapping"/>
+    <set-next-rule methodname="setMapping" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMapping"/>
+    <set-properties-rule>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="originBean" attr-name="origin-bean"/>
+     <alias prop-name="targetBean" attr-name="target-bean"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="map-properties">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMappingProperties"/>
+     <set-next-rule methodname="setMapProperties" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMappingProperties"/>
+     <set-properties-rule>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="map-property">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMappingProperty"/>
+      <set-next-rule methodname="setMapProperty" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMappingProperty"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="what" attr-name="what"/>
+       <alias prop-name="to" attr-name="to"/>
+       <alias prop-name="function" attr-name="function"/>
+       <alias prop-name="callMapping" attr-name="call-mapping"/>
+       <alias prop-name="isLoop" attr-name="is-loop"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
+   </pattern>
+  </pattern>
+  <pattern value="beans">
+   <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Beans"/>
+   <set-next-rule methodname="setBeans" paramtype="net.sf.minuteProject.loader.mapping.node.Beans"/>
+   <set-properties-rule>
+    <alias prop-name="type" attr-name="type"/>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="alias" attr-name="alias"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="bean">
+    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Bean"/>
+    <set-next-rule methodname="setBean" paramtype="net.sf.minuteProject.loader.mapping.node.Bean"/>
+    <set-properties-rule>
+     <alias prop-name="type" attr-name="type"/>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="alias" attr-name="alias"/>
+     <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="attribute">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanAttribute"/>
+     <set-next-rule methodname="setAttribute" paramtype="net.sf.minuteProject.loader.mapping.node.BeanAttribute"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="refType" attr-name="ref-type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="isList" attr-name="is-list"/>
+      <alias prop-name="listType" attr-name="list-type"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+    </pattern>
+   </pattern>
+  </pattern>
+ </pattern>
+
+</digester-rules>
