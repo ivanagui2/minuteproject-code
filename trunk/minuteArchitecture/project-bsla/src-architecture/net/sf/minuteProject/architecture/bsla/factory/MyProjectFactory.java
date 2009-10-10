@@ -47,7 +47,7 @@ public class MyProjectFactory {
 
     private static void loadFactory() {
         try {
-            String[] configLocations = new String[] {"classpath:spring-myproject-config.xml"};
+            String[] configLocations = new String[] {getConfig()};
             // Instantiate the object but do not process yet;
             beanFactory = new ClassPathXmlApplicationContext(configLocations, false);
             isLoaded = true;
