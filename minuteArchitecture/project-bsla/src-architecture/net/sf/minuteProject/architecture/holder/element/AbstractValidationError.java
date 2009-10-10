@@ -1,9 +1,12 @@
 package net.sf.minuteProject.architecture.holder.element;
 
-public class AbstractValidationError implements ValidationError{
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+public abstract class AbstractValidationError implements ValidationError{
 	
-	private String errorString;
-	private Object errorObject, errorValue, acceptedValue;
+	protected String errorString, path;
+	protected Object errorObject, errorValue, acceptedValue;
 	
 	public AbstractValidationError (){}
 	
@@ -19,6 +22,11 @@ public class AbstractValidationError implements ValidationError{
 		this.errorObject = errorObject;		
 	}
 
+	public String toString() {
+		ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
+	 	return  ToStringBuilder.reflectionToString(this);
+	} 
+	
 	public Object getAcceptedValue() {
 		return acceptedValue;
 	}
@@ -51,6 +59,7 @@ public class AbstractValidationError implements ValidationError{
 		this.errorValue = errorValue;
 	}
 
-	
-	
+	public abstract String getMessage() ;
+
+
 }
