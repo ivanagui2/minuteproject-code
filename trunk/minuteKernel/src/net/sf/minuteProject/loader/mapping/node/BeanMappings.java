@@ -81,6 +81,16 @@ public class BeanMappings extends AbstractConfiguration{
    public void addMapping (BeanMapping _mapping) {
       getMappings().add(_mapping);
    }
+   
+   public BeanMapping getFirstBeanMappingFromMappingByName (String name) {
+      if (name==null)
+         return null;
+      for (BeanMapping _mapping : getMappings()) {
+         if (_mapping.getName().equals(name))
+            return _mapping;
+      }
+      return null;
+   } 
 
 
 }

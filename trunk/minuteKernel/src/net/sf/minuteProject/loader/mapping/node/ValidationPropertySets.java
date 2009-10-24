@@ -8,7 +8,7 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class Bean extends AbstractConfiguration{
+public class ValidationPropertySets extends AbstractConfiguration{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,9 +16,9 @@ public class Bean extends AbstractConfiguration{
    private String _name;
    private String _alias;
    private String _id;
-   private List<BeanAttribute> _attributes;
+   private List<ValidationPropertySet> _validationPropertySets;
 
-   public Bean() {
+   public ValidationPropertySets() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -83,35 +83,35 @@ public class Bean extends AbstractConfiguration{
    }
    
    
-   public List<BeanAttribute> getAttributes() {
-      if (_attributes == null){
-         _attributes = new ArrayList<BeanAttribute>();
+   public List<ValidationPropertySet> getValidationPropertySets() {
+      if (_validationPropertySets == null){
+         _validationPropertySets = new ArrayList<ValidationPropertySet>();
       }
-      return _attributes;
+      return _validationPropertySets;
    }
    
-   public BeanAttribute[] getAttributesArray() {
-      return (BeanAttribute[])getAttributes().toArray(new BeanAttribute[getAttributes().size()]);
+   public ValidationPropertySet[] getValidationPropertySetsArray() {
+      return (ValidationPropertySet[])getValidationPropertySets().toArray(new ValidationPropertySet[getValidationPropertySets().size()]);
    }
       
-   public void setAttributes (List<BeanAttribute> _attributes) {
-      this._attributes = _attributes;
+   public void setValidationPropertySets (List<ValidationPropertySet> _validationPropertySets) {
+      this._validationPropertySets = _validationPropertySets;
    }
  
-   public void setAttribute (BeanAttribute _attribute) {
-      addAttribute(_attribute);
+   public void setValidationPropertySet (ValidationPropertySet _validationPropertySet) {
+      addValidationPropertySet(_validationPropertySet);
    }
 
-   public void addAttribute (BeanAttribute _attribute) {
-      getAttributes().add(_attribute);
+   public void addValidationPropertySet (ValidationPropertySet _validationPropertySet) {
+      getValidationPropertySets().add(_validationPropertySet);
    }
    
-   public BeanAttribute getFirstBeanAttributeFromAttributeByName (String name) {
+   public ValidationPropertySet getFirstValidationPropertySetFromValidationPropertySetByName (String name) {
       if (name==null)
          return null;
-      for (BeanAttribute _attribute : getAttributes()) {
-         if (_attribute.getName().equals(name))
-            return _attribute;
+      for (ValidationPropertySet _validationPropertySet : getValidationPropertySets()) {
+         if (_validationPropertySet.getName().equals(name))
+            return _validationPropertySet;
       }
       return null;
    } 

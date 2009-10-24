@@ -19,10 +19,10 @@ public class BusinessPackage extends AbstractConfiguration {
 	private BusinessModel businessModel;
 	private String defaultPackage;
 	private List <Condition> conditions;
-	private List packages;
-	private List tables;
+	private List <Package> packages;
+	private List <Table> tables;
 	private List packageViews;
-	private List views;
+	private List <View> views;
 
 	private List packageServices;
 	private List services;
@@ -52,16 +52,19 @@ public class BusinessPackage extends AbstractConfiguration {
 		}
 	}
 	
-	public List getServices () {
-		if (views == null) {
-			views = new ArrayList();
-			for (Iterator<Package> iter = packageServices.iterator(); iter.hasNext();) {
-				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
-					views.add(iter2.next());
-				}
-			}
-		}
-		return views;
+	public List<View> getServices () {
+		return getViews();
+//		FORMER packageServices
+		
+//		if (views == null) {
+//			views = new ArrayList<View>();
+//			for (Iterator<Package> iter = packageServices.iterator(); iter.hasNext();) {
+//				for (Iterator<View> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
+//					views.add(iter2.next());
+//				}
+//			}
+//		}
+//		return views;
 	}
 
 	void setPackageViews (Model model, Database database) {
@@ -89,11 +92,11 @@ public class BusinessPackage extends AbstractConfiguration {
 		}
 	}
 	
-	public List getViews () {
+	public List<View> getViews () {
 		if (views == null) {
-			views = new ArrayList();
+			views = new ArrayList<View>();
 			for (Iterator<Package> iter = packageViews.iterator(); iter.hasNext();) {
-				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
+				for (Iterator<View> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
 					views.add(iter2.next());
 				}
 			}
@@ -102,8 +105,8 @@ public class BusinessPackage extends AbstractConfiguration {
 	}
 	
 	void setPackages (Model model, Database database) {
-		packages = new ArrayList();
-		Hashtable ht = new Hashtable();
+		packages = new ArrayList<Package>();
+		Hashtable<String, Package> ht = new Hashtable<String, Package>();
 		Table [] tables = database.getTables();
 		for (int i = 0; i < tables.length; i++) {
 			Table table = tables[i];
@@ -120,15 +123,15 @@ public class BusinessPackage extends AbstractConfiguration {
 				ht.put(packageName, pack);
 			}
 		}
-		Enumeration enumeration = ht.elements();
+		Enumeration <Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
 			packages.add(enumeration.nextElement());
 		}
 	}
 	
-	public List getTables () {
+	public List <Table> getTables () {
 		if (tables == null) {
-			tables = new ArrayList();
+			tables = new ArrayList<Table>();
 			for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
 				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfTables().iterator(); iter2.hasNext(); ){
 					tables.add(iter2.next());
@@ -136,6 +139,18 @@ public class BusinessPackage extends AbstractConfiguration {
 			}
 		}
 		return tables;
+	}
+	
+	public List <Table> getEntities () {
+		List<Table> entities = new ArrayList<Table> ();
+		entities.addAll(getTables());
+		entities.addAll(getViews());
+		return entities;
+	}
+	
+	public Table[] getEntitiesArray () {
+		List<Table> tables = getEntities();
+		return (Table[]) tables.toArray(new Table[tables.size()]);
 	}
 	
 	public List getPackages() {

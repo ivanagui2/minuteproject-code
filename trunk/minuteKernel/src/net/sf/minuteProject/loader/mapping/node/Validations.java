@@ -8,15 +8,17 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class BeanMappingProperties extends AbstractConfiguration{
+public class Validations extends AbstractConfiguration{
 
     private String _packageName;
    private BeanMap _beanMap;
+   private String _type;
    private String _name;
+   private String _alias;
    private String _id;
-   private List<BeanMappingProperty> _mapPropertys;
+   private List<Validation> _validations;
 
-   public BeanMappingProperties() {
+   public Validations() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -37,6 +39,17 @@ public class BeanMappingProperties extends AbstractConfiguration{
       return MappingHolder.getBeanMap(); 
    }
 	
+   public String getType() {
+	  if (_type == null)
+	     _type = new String();
+      return _type;
+   }
+	
+   public void setType (String _type) {
+      this._type = _type;
+   }
+   
+   
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
@@ -45,6 +58,17 @@ public class BeanMappingProperties extends AbstractConfiguration{
 	
    public void setName (String _name) {
       this._name = _name;
+   }
+   
+   
+   public String getAlias() {
+	  if (_alias == null)
+	     _alias = new String();
+      return _alias;
+   }
+	
+   public void setAlias (String _alias) {
+      this._alias = _alias;
    }
    
    
@@ -59,35 +83,35 @@ public class BeanMappingProperties extends AbstractConfiguration{
    }
    
    
-   public List<BeanMappingProperty> getMapPropertys() {
-      if (_mapPropertys == null){
-         _mapPropertys = new ArrayList<BeanMappingProperty>();
+   public List<Validation> getValidations() {
+      if (_validations == null){
+         _validations = new ArrayList<Validation>();
       }
-      return _mapPropertys;
+      return _validations;
    }
    
-   public BeanMappingProperty[] getMapPropertysArray() {
-      return (BeanMappingProperty[])getMapPropertys().toArray(new BeanMappingProperty[getMapPropertys().size()]);
+   public Validation[] getValidationsArray() {
+      return (Validation[])getValidations().toArray(new Validation[getValidations().size()]);
    }
       
-   public void setMapPropertys (List<BeanMappingProperty> _mapPropertys) {
-      this._mapPropertys = _mapPropertys;
+   public void setValidations (List<Validation> _validations) {
+      this._validations = _validations;
    }
  
-   public void setMapProperty (BeanMappingProperty _mapProperty) {
-      addMapProperty(_mapProperty);
+   public void setValidation (Validation _validation) {
+      addValidation(_validation);
    }
 
-   public void addMapProperty (BeanMappingProperty _mapProperty) {
-      getMapPropertys().add(_mapProperty);
+   public void addValidation (Validation _validation) {
+      getValidations().add(_validation);
    }
    
-   public BeanMappingProperty getFirstBeanMappingPropertyFromMapPropertyByName (String name) {
+   public Validation getFirstValidationFromValidationByName (String name) {
       if (name==null)
          return null;
-      for (BeanMappingProperty _mapProperty : getMapPropertys()) {
-         if (_mapProperty.getName().equals(name))
-            return _mapProperty;
+      for (Validation _validation : getValidations()) {
+         if (_validation.getName().equals(name))
+            return _validation;
       }
       return null;
    } 

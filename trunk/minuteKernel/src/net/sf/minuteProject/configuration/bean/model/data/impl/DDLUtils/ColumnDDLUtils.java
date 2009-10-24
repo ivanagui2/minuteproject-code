@@ -8,8 +8,10 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnAbstract;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -21,7 +23,7 @@ import org.apache.ddlutils.util.Jdbc3Utils;
  * 
  * @author Florian Adler
  */
-public class ColumnDDLUtils implements Column
+public class ColumnDDLUtils extends AbstractConfiguration implements Column
 {
 	
 	private org.apache.ddlutils.model.Column column;

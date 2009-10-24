@@ -8,7 +8,7 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class Bean extends AbstractConfiguration{
+public class If extends AbstractConfiguration{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,9 +16,13 @@ public class Bean extends AbstractConfiguration{
    private String _name;
    private String _alias;
    private String _id;
-   private List<BeanAttribute> _attributes;
+   private String _what;
+   private String _condition;
+   private String _value;
+   private String _expression;
+   private List<Case> _cases;
 
-   public Bean() {
+   public If() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -83,35 +87,79 @@ public class Bean extends AbstractConfiguration{
    }
    
    
-   public List<BeanAttribute> getAttributes() {
-      if (_attributes == null){
-         _attributes = new ArrayList<BeanAttribute>();
-      }
-      return _attributes;
+   public String getWhat() {
+	  if (_what == null)
+	     _what = new String();
+      return _what;
+   }
+	
+   public void setWhat (String _what) {
+      this._what = _what;
    }
    
-   public BeanAttribute[] getAttributesArray() {
-      return (BeanAttribute[])getAttributes().toArray(new BeanAttribute[getAttributes().size()]);
+   
+   public String getCondition() {
+	  if (_condition == null)
+	     _condition = new String();
+      return _condition;
+   }
+	
+   public void setCondition (String _condition) {
+      this._condition = _condition;
+   }
+   
+   
+   public String getValue() {
+	  if (_value == null)
+	     _value = new String();
+      return _value;
+   }
+	
+   public void setValue (String _value) {
+      this._value = _value;
+   }
+   
+   
+   public String getExpression() {
+	  if (_expression == null)
+	     _expression = new String();
+      return _expression;
+   }
+	
+   public void setExpression (String _expression) {
+      this._expression = _expression;
+   }
+   
+   
+   public List<Case> getCases() {
+      if (_cases == null){
+         _cases = new ArrayList<Case>();
+      }
+      return _cases;
+   }
+   
+   public Case[] getCasesArray() {
+      return (Case[])getCases().toArray(new Case[getCases().size()]);
    }
       
-   public void setAttributes (List<BeanAttribute> _attributes) {
-      this._attributes = _attributes;
+   public void setCases (List<Case> _cases) {
+      this._cases = _cases;
    }
  
-   public void setAttribute (BeanAttribute _attribute) {
-      addAttribute(_attribute);
+   public void setCase (Case _case) {
+      addCase(_case);
    }
 
-   public void addAttribute (BeanAttribute _attribute) {
-      getAttributes().add(_attribute);
+   public void addCase (Case _case) {
+      getCases().add(_case);
    }
    
-   public BeanAttribute getFirstBeanAttributeFromAttributeByName (String name) {
+   public Case getFirstCaseFromCaseByName (String name) {
       if (name==null)
          return null;
-      for (BeanAttribute _attribute : getAttributes()) {
-         if (_attribute.getName().equals(name))
-            return _attribute;
+      for (Case _case : getCases()) {
+         if (_case.getName().equals(name))
+            return _case;
       }
       return null;
    } 

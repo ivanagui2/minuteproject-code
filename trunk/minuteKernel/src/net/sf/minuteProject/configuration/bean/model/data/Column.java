@@ -2,12 +2,14 @@ package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.io.Serializable;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+
 /**
  * Represents a column in the database model.
  * 
  * @author Florian Adler
  */
-public interface Column extends Cloneable, Serializable
+public interface Column extends GeneratorBean
 {
  
     /**
