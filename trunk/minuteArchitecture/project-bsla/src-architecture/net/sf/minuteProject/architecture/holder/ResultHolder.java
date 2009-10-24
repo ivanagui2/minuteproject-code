@@ -7,12 +7,20 @@ public class ResultHolder {
 	private ValidationHolder validationHolder;
 	private Object object;
 
+	public void complement (ResultHolder resultHolder) {
+		for (ValidationError validationError : resultHolder.getValidationHolder().getValidationErrors()) {
+			this.getValidationHolder().add(validationError);
+		}
+	}
+	
 	public void addValidationError (ValidationError validationError) {
 		getValidationHolder().add(validationError);
 	}
+	
 	public Object getObject() {
 		return object;
 	}
+	
 	public ResultHolder putObject(Object object) {
 		this.setObject(object);
 		return this;

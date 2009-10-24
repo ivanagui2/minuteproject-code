@@ -65,7 +65,6 @@ public abstract class DbTableFixture extends TableFixture {
 
 	protected void checkResultSet () {
 		int rowToCheck = getRowToCheck(ROW_VALUE_INDEX);
-		System.out.println("rowToCheck "+rowToCheck);
 		for (int i = 1; i <= rowToCheck; i++) {
 			checkResultSetRow (i+OUPUT_GENERAL_ROW_INDEX);
 		}		
@@ -77,11 +76,9 @@ public abstract class DbTableFixture extends TableFixture {
 		String previousText = new String();
 		while (i<100) {
 			String text = getText(i, 0);
-			System.out.println("text = "+text);
 			if (text.startsWith(ROW_VALUE_INDENTIFIER) && !previousText.equals(text))
 				rowToCheck++;
 			else {
-//				System.out.println("break text="+text+", previousText ="+previousText);
 				break;
 			}
 			previousText = text;
@@ -107,10 +104,8 @@ public abstract class DbTableFixture extends TableFixture {
 	
 	private void initColumnIndex() {
 		int size = getNumberOfRealColumn();
-//		System.out.println("size="+size);
 		for (int i = 1; i <= size; i++) {
 			String text = getText(FIELD_ROW_INDEX, i);
-//			System.out.println("text = '"+text+"'");
 			columnIndex.put(i, text);
 		}
 	}
@@ -149,7 +144,6 @@ public abstract class DbTableFixture extends TableFixture {
 
 	public Map<String, String> getColumnValue() {
 		if (columnValue==null) {
-//			System.out.println("new columnValue");
 			columnValue = new HashMap<String, String>(getNumberOfColumn());
 			setColumnValues(columnValue, VALUE_ROW_INDEX);
 		}
@@ -168,7 +162,6 @@ public abstract class DbTableFixture extends TableFixture {
 		Set<Entry<Integer, String>> set = getColumnIndex().entrySet();
 		for (Entry<Integer, String> entry : set) {
 			String text = getText(row, entry.getKey());
-//			System.out.println("text ="+text);
 			outputMap.put(entry.getValue(), text);
 		}
 	}
@@ -179,7 +172,6 @@ public abstract class DbTableFixture extends TableFixture {
 	 Map<String, String>  columnOrderValue) throws SQLException {
 		// call factory
 		String query = QueryUtils.buildQuery(getTable(), columnIndex, columnExpressionValue, columnValue,  columnOrderValue);
-//		System.out.println("query="+query);
 		Connection connection = DatabaseUtils.getConnection();
 		if (connection ==null)
 			System.out.println("connection is null");
@@ -189,8 +181,6 @@ public abstract class DbTableFixture extends TableFixture {
 		rs.last();
 		int size = rs.getRow();
 		rs.first();
-		
-//		System.out.println("size "+size+", len "+len);
 		Object [][] table = new Object [size][];
 		for (int i = 0; i < size; i++) {
 			Object [] row = new Object[len];
@@ -198,7 +188,6 @@ public abstract class DbTableFixture extends TableFixture {
 				Object o = rs.getObject(j+1);
 				if (o==null)
 					o = new String (">null value returned<");
-//				System.out.println("i="+i+",j="+j+",obj="+o.toString());		
 				row[j]=o;
 			}
 			table[i] = row;
@@ -214,10 +203,8 @@ public abstract class DbTableFixture extends TableFixture {
 		row = row-OUPUT_GENERAL_ROW_INDEX-1;
 		column = column - 1;
 		if (row < len) {
-			System.out.println("row = "+row);
 			int lenrow = resultSet[row].length;
 			if (column < lenrow) {
-				System.out.println("len = "+len+", row = "+row+", lenrow = "+lenrow+", column = "+column);
 				return resultSet [row] [column];
 			}
 		}
@@ -231,7 +218,6 @@ public abstract class DbTableFixture extends TableFixture {
 	protected int getNumberOfRealColumn() {
 		String previousColumnValue = null;
 		int size = 0;
-		System.out.println("getNumberOfColumn = "+getNumberOfColumn());
 		for (int i = 1; i <= getNumberOfColumn(); i++) {
 			size = i;
 			String text = getText(FIELD_ROW_INDEX, i);
@@ -246,7 +232,5 @@ public abstract class DbTableFixture extends TableFixture {
 	protected abstract int getNumberOfColumn();
 	
 	protected abstract String getTable();
-	
-//	protected abstract Object getResultSetObject(int row, int column);
 	
 }

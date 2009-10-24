@@ -16,7 +16,7 @@ public class AbstractDomainObject implements DomainObject {
 	
 	
 	public String toString(Object object) {
-		ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE); //SHORT_PREFIX_STYLE
+		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); //SHORT_PREFIX_STYLE
 	 	return  ToStringBuilder.reflectionToString(object);
 	} 
 	
