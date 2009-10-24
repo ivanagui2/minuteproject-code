@@ -19,8 +19,14 @@
 <div id="mainTabContainerParents" dojoType="TabContainer" doLayout="false" selectedChild="tab2">
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-#exposeJstlEntity(${entityInSession} ${var})
-	<div id="${var}" dojoType="ContentPane" label="<b><fmt:message key="$resource"/></b>" style="display:none;">
+##$tableDB.name - $linktableDB.name
+#if ($tableDB.name==$linktableDB.name) ## BUG when a table as circular reference 
+	<div id="${var2}" dojoType="ContentPane" label="<b><fmt:message key="$resource"/></b>" style="display:none;">
+		Access the ${linkclass} via the entity $tableDB.name directly
+	</div>
+#else
+#exposeJstlEntity(${entityInSession} ${var2})
+	<div id="${var2}" dojoType="ContentPane" label="<b><fmt:message key="$resource"/></b>" style="display:none;">
 		<c:set scope="session" var="${linkclass}SearchResultOne" value="${entity}" />
 		<c:choose>
 			<c:when test="${ not empty ${linkclass}SearchResultOne}">
@@ -31,6 +37,7 @@
 			</c:otherwise>
 		</c:choose>		
 	</div>
+#end
 #end
 </div>		
 

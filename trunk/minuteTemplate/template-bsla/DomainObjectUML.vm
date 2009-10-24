@@ -113,23 +113,27 @@ public class ${className} extends AbstractDomainObject {
     /**
     * toString implementation
     */
+	public String toString() {
+		return toString(this);
+	}
+	
 	public String toString(Object object) {
 	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 #foreach ($column in ${table.columns})
 #putColumnParams()
-     .append("$columnVar", _$columnVar)
+            .append("$columnVar", _$columnVar)
 #end	 	
 	 	    .toString();
 	} 
 	
-	    /**
+	/**
     * hashCode implementation
     */
 	public int hashCode() {
-		return super.toHashCode(flat());
+		return HashCodeBuilder.reflectionHashCode(flat());
 	}
 	
-	    /**
+	/**
     * equals implementation
     */
 	public boolean equals(Object object) {
@@ -137,14 +141,33 @@ public class ${className} extends AbstractDomainObject {
 	}
     
 	public ${className} flat() {
-			return new ${className}(
-		#foreach ($column in ${table.columns})
+	   return new ${className}(
+#foreach ($column in ${table.columns})
 #putColumnParams()
-get${className}
-#end		
-				);
+          get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+	   );
 	}
 
+	public ${className} clone() {
+    ${className} ${variableName} = new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+          get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+    );
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    if (get$linkedTableClass${localColumnClass}()!=null) 
+       ${variableName}.set$linkedTableClass${localColumnClass} (get$linkedTableClass${localColumnClass}().clone());   
+#end	   
+	  return ${variableName};
+	}
+	
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey)

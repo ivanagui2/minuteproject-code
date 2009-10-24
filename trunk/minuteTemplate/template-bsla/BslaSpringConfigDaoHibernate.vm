@@ -6,17 +6,17 @@
 #foreach ($table in ${package.listOfTables})
 #putImportParamsUML()
 #exposeArchitectureParams()
-    <bean id="$daoInterfaceVariableNameUML" class="$importHibernateImplName" singleton="false" >
+    <bean id="$daoInterfaceVariableNameUML" class="$importHibernateImplName" singleton="false">
         <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>
     </bean>
 #end
-#foreach ($view in ${package.listOfViews})
-#set ($table = $view)
+#foreach ($table in ${package.listOfViews})
 #putImportParamsUML()
 #exposeArchitectureParams()
-    <bean id="$daoInterfaceVariableNameUML" class="$importHibernateImplName" singleton="false" >
+    <bean id="$daoInterfaceVariableNameUML" class="$importHibernateImplName" singleton="false">
         <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>
     </bean>
 #end
+
 
 </beans>

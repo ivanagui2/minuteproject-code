@@ -14,6 +14,14 @@
    <sqlMap resource="${packageDirName}/${filename}"/>
 #end
 #end
+#foreach ($package in ${businessPackageViews})
+
+   <!-- $package.name -->
+#foreach ($table in ${package.listOfViews})
+#exposeVariableEntitySpecificSqlMapConfig()
+   <sqlMap resource="${packageDirName}/${filename}"/>
+#end
+#end
 	
 </sqlMapConfig>
 

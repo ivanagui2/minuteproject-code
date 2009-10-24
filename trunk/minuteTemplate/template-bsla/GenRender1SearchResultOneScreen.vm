@@ -14,7 +14,7 @@
 <!-parents-->
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-#exposeJstlEntity(${entityInSession} ${var})
+#exposeJstlEntity(${entityInSession} ${var2})
 <c:set scope="session" var="${linkclass}SearchResultOne" value="${entity}" />
 <c:if test="${ not empty ${linkclass}SearchResultOne}">
 </br>
@@ -31,11 +31,11 @@
 <!-- $entityInSession.${var}s-->
 <c:choose>
 	<c:when test="${ not empty ${linkclass}SearchResultList}">
-List of associated ${linkclass} via ${column} (${ fn:length(${linkclass}SearchResultList)})
+List of associated ${linkclass} via $localColumnClassName (${ fn:length(${linkclass}SearchResultList)})
 <jsp:include page="/jsp/$model.name/$associatedPackageName/${linkclass}ResultListBody.jsp" />
 </c:when>
 	<c:otherwise>
-No associated ${linkclass} via ${column}
+No associated ${linkclass} via $localColumnClassName
 	</c:otherwise>
 </c:choose>
 #if ($hasPrimaryKey)

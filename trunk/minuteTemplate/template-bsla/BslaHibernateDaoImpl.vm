@@ -82,10 +82,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 ##	}
 	
     public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
-##		${tableClassName}CriteriaValue ${tableVariableName}CriteriaValue = new ${tableClassName}CriteriaValue ();
-##		${tableVariableName}CriteriaValue.$tableVariableName = $tableVariableName;
-##		${tableVariableName}CriteriaValue.prototypeCriteria = prototypeCriteria;
-##		
+		
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
         query.append (" update $tableClassName $tableVariableName ");
@@ -153,9 +150,56 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
-    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
-    }    
+       return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
+    }   
 
+    /**
+     * Loads a list of $tableClassName entity 
+     * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
+     * @return List<$tableClassName> The $tableClassName entity
+     */
+    public List<$tableClassName> load${tableClassName}ListBy${tableClassName} (List<$tableClassName> ${tableVariableName}s) {
+       List<$primaryKeyFullType> ${primaryKeyVariable}s = new ArrayList <$primaryKeyFullType>();
+       for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
+          ${primaryKeyVariable}s.add (${tableVariableName}.get${primaryKeyJavaNameClass}());
+       }
+       return load${tableClassName}ListBy${primaryKeyJavaNameClass} (${primaryKeyVariable}s);
+    }
+        
+    /**
+     * Loads a list of $tableClassName entity 
+     * @param List<$primaryKeyFullType> ${primaryKeyVariable}s 
+     * @return List<$tableClassName> The $tableClassName entity
+     */
+    public List<$tableClassName> load${tableClassName}ListBy${primaryKeyJavaNameClass} (List<$primaryKeyFullType> ${primaryKeyVariable}s) {
+       StringBuffer query = new StringBuffer();
+       // ${tableVariableName}.${primaryKeyVariable} is added intentionally for the loop on Object[] to work correctly
+       // querySb.append(" SELECT $tableVariableName, ${tableVariableName}.${primaryKeyVariable} FROM $tableClassName $tableVariableName where ${primaryKeyVariable} in (");
+       query.append(" FROM $tableClassName $tableVariableName where ${primaryKeyVariable} in (");
+       Iterator<$primaryKeyType> iter = ${primaryKeyVariable}s.iterator();
+       while (iter.hasNext()) {
+          $primaryKeyType ${primaryKeyVariable} = ($primaryKeyType) iter.next();
+          query.append (${primaryKeyVariable});
+          if (iter.hasNext()) 
+             query.append(", ");
+       }
+       query.append(")");
+       List list = getHibernateTemplate().find(query.toString());
+       return list;
+//		  Query hquery = getSession().createQuery(querySb.toString());
+//		  return get${tableClassName}List(hquery.list());	        
+      // return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
+    }      
+/*
+    private List<$tableClassName> get${tableClassName}List (List<Object[]> list){
+       ArrayList<$tableClassName> resultList = new ArrayList<$tableClassName>();
+       for (Object[] row : list) {		
+          $tableClassName ${tableVariableName} = ($tableClassName) row[0];
+          resultList.add(${tableVariableName});
+       }
+       return resultList;
+    }
+*/    
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName and its dependent one to many objects
@@ -230,8 +274,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 
 	/**
      * Searches a list of $tableClassName entity 
-     * @param $tableClassName ${tableVariableName}Positive
-     * @param $tableClassName ${tableVariableName}Negative
+     * @param $tableClassName $tableVariableName
      * @return List
      */
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
