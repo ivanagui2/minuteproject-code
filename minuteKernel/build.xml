@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="archive" basedir="." name="minuteKernel">
-    <description>This build file will build all the business modules</description>
-    <property name="project.name" value="minuteProject"/>
+    <description>This build file will build all the minuteKernel modules</description>
+    <!-- ===================================================================== -->
+    <!-- import files -->
+    <!-- ===================================================================== -->
+	<property file="build.properties"/>
+    <!-- ===================================================================== -->
+    <!-- properties definitions -->
+    <!-- ===================================================================== -->
+    <!-- LOCAL PROPERTIES 	
+    <property name="project.name" value="minuteProject"/>-->
     <property name="home.dir" value="."/>
     <property name="application.dir" value="${home.dir}/application"/>
-	<property name="application.name" value="minuteKernel">	</property>
+	<property name="application.name" value="${project.name}"/>
+	<property name="application.version" value="${project.version}"/>
 	
 	<property name="lib.dir" value="${home.dir}/lib"/>
     <property name="src.dir" value="${home.dir}/src"/>
+	<property name="src-patch.dir" value="${home.dir}/src-patch"/>
 	<property name="src-plugin.dir" value="${home.dir}/src-plugin"/>
     <property name="test.dir" value="${home.dir}/test"/>	
     <property name="dist.dir" value="${application.dir}/java/lib"/>	
-	<property name="archive.name" value="${application.name}.jar"/>
+	<property name="archive.name" value="${application.name}-${application.version}.jar"/>
 	<property name="classes.dir" value="${home.dir}/classes"/>
 
 	
@@ -35,6 +45,7 @@
                 <classpath refid="compile.classpath"/>
                 <src path="${src.dir}"/>
             	<src path="${src-plugin.dir}"/>
+            	<src path="${src-patch.dir}"/>
                 <!-- no test case yet :-(
                 <src path="${test.dir}"/>-->
                 <include name="**/*.java"/>

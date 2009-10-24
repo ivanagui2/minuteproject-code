@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang.text.StrTokenizer;
 
+import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -57,7 +59,7 @@ public class ServiceView {
 		return CommonUtils.getJavaClassName(strategy.getScope().getName()) + " "+CommonUtils.getJavaVariableName(strategy.getScope().getName());
 	}
 	
-	private View getView (Strategy strategy) {
+	public View getView (Strategy strategy) {
 		String viewname = strategy.getScope().getEntity();
 		Database database = strategy.getScope().getService().getBusinessModel().getModel().getDataModel().getDatabase();
 		return TableUtils.getView(database, viewname);	
@@ -77,7 +79,7 @@ public class ServiceView {
 		return ColumnUtils.getMethodInputParameters(columns);
 	}
 	
-	private Column [] getStrategyLogicalIdColumns (Strategy strategy) {
+	public Column [] getStrategyLogicalIdColumns (Strategy strategy) {
 		Scope scope = strategy.getScope();
 		Database database = strategy.getScope().getService().getBusinessModel().getModel().getDataModel().getDatabase();
 		ArrayList<Column> list = new ArrayList<Column>();
@@ -85,9 +87,33 @@ public class ServiceView {
 			if (property.getName().equals("logicalIdField")) {
 				//TODO with tables also
 				Column column = ColumnUtils.getColumn(TableUtils.getView(database, scope.getName()), property.getValue());
-				list.add(column);
+				if (column!=null)
+					list.add(column);
 			}
 		}
 		return (Column[])list.toArray(new Column[list.size()]);
+	}
+	
+	public int getCountStrategyLogicalIdColumns(Strategy strategy) {
+		return getStrategyLogicalIdColumns (strategy).length;
+	}
+	
+	public String getDaoModelPath (Model model) {
+		// There are 3 possible implementations with different alias
+		Template daoModelPath = CommonUtils.getTemplate(model.getConfiguration(), "BslaSpringConfigMainHibernate");
+		if (daoModelPath!=null)
+			return getDaoModelPath (model,  daoModelPath, daoModelPath.getName());
+		daoModelPath = CommonUtils.getTemplate(model.getConfiguration(), "BslaSpringConfigMainJPA");
+		if (daoModelPath!=null)
+			return getDaoModelPath (model,  daoModelPath, daoModelPath.getName());
+		daoModelPath = CommonUtils.getTemplate(model.getConfiguration(), "BslaSpringConfig");
+		if (daoModelPath!=null)
+			return getDaoModelPath (model,  daoModelPath, daoModelPath.getName());
+		return null;
+
+	}
+	
+	private String getDaoModelPath (Model model, Template template, String targetTemplateName) {
+		return CommonUtils.getModelLevelTemplateFullClassPath (model,  template, targetTemplateName);
 	}
 }
