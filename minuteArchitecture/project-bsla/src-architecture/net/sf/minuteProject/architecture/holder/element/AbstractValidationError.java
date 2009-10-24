@@ -23,7 +23,7 @@ public abstract class AbstractValidationError implements ValidationError{
 	}
 
 	public String toString() {
-		ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
+		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
 	 	return  ToStringBuilder.reflectionToString(this);
 	} 
 	

@@ -155,17 +155,17 @@
     <macrodef name="macro_copy_dependency">
     	<attribute name="dependency.structure"/>
     	<sequential>
-    		<copy todir="${webapp.structure.project.dir}">
+    		<copy todir="${webapp.structure.project.dir}" overwrite="true">
                 <fileset dir="@{dependency.structure}">
                 </fileset>    			
     	    </copy>
     		<!-- to redo more generic -->
-            <copy todir="${webapp.structure.lib.dir}">
+            <copy todir="${webapp.structure.lib.dir}" overwrite="true">
                 <fileset dir="${business.lib.dir}">
                     <include name="*.jar"/>
                 </fileset>
             </copy>    	
-            <copy todir="${webapp.structure.lib.dir}">
+            <copy todir="${webapp.structure.lib.dir}" overwrite="true">
                 <fileset dir="${jdbc.driver.lib.dir}">
                     <include name="*.jar"/>
                 </fileset>
