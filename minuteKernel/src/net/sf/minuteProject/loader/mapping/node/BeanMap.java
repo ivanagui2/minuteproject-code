@@ -15,6 +15,7 @@ public class BeanMap extends AbstractConfiguration{
    private String _id;
    private BeanMappings _mappings;
    private Beans _beans;
+   private Validations _validations;
 
    public BeanMap() {
    }
@@ -74,6 +75,17 @@ public class BeanMap extends AbstractConfiguration{
 	
    public void setBeans (Beans _beans) {
       this._beans = _beans;
+   }
+   
+   
+   public Validations getValidations() {
+	  if (_validations == null)
+	     _validations = new Validations();
+      return _validations;
+   }
+	
+   public void setValidations (Validations _validations) {
+      this._validations = _validations;
    }
    
    

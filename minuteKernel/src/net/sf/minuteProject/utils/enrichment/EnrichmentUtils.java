@@ -4,18 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.loader.mapping.node.Variable;
 
 public class EnrichmentUtils {
 	
 	public static boolean hasMenuLinkDirectResultAccess (GeneratorBean bean) {
 		if (hasTag(bean, "menuLinkDirectResultAccess"))
 			return true;
+		return false;
+	}
+
+	// set caching in model map for entity tag
+	public static boolean hasEntityTag (Model model, String tag){
+		for (Table entity : model.getBusinessModel().getBusinessPackage().getEntities()) {
+			if (hasTag(entity, tag))
+				return true;
+		}
+		return false;
+	}
+	
+	// set caching in model map for field tag
+	public static boolean hasFieldTag (Model model, String tag){
+		for (Table entity : model.getBusinessModel().getBusinessPackage().getEntities()) {
+			if (hasFieldTag(entity, tag))
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean hasFieldTag (Table table, String tag) {
+		for (Column column : table.getColumns()) {
+			if (hasTag(column, tag))
+				return true;
+		}
 		return false;
 	}
 	
@@ -27,6 +55,26 @@ public class EnrichmentUtils {
 		return false;
 	}
 
+	//TODO caching
+	public static Table[] getTablesWithTag (Model model, String tag) {
+		List<Table> tables = new ArrayList<Table>();
+		for (Table entity : model.getBusinessModel().getBusinessPackage().getEntities()) {
+			if (hasFieldTag(entity, tag))
+				 tables.add(entity);
+		}
+		return (Table[]) tables.toArray(new Table[tables.size()]);		
+	}
+
+	//TODO caching
+	public static Column[] getColumnsWithTag (Table table, String tag) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Column column : table.getColumns()) {
+			if (hasTag(column, tag))
+				 columns.add(column);
+		}
+		return (Column[]) columns.toArray(new Column[columns.size()]);		
+	}
+	
 	public static Property[] getProperties (GeneratorBean bean, String tag) {
 		for (Property property : bean.getProperties()) {
 			if (property.getName().equals(tag))
@@ -187,6 +235,26 @@ public class EnrichmentUtils {
 		return (Reference[]) list.toArray(new Reference[list.size()]);
 	}
 	
+	public static boolean isToGenerateBasedOnModelEntityTag(Template template, Model model) {
+		List<Property> templateProp = template.getProperties();
+		for (Property property : templateProp) {
+			if (property.getName().equals("generateForTag")) {
+				return hasEntityTag(model, property.getName());
+			}
+		}
+		return false;
+	}
+
+	public static boolean isToGenerateBasedOnModelFieldTag(Template template, Model model) {
+		List<Property> templateProp = template.getProperties();
+		for (Property property : templateProp) {
+			if (property.getName().equals("generateForTag")) {
+				return hasFieldTag(model, property.getName());
+			}
+		}
+		return false;
+	}
+
 	public static boolean isToGenerateBasedOnTag(Template template, GeneratorBean bean) {
 		List<Property> beanProp = bean.getProperties();
 		List<Property> templateProp = template.getProperties();
@@ -210,4 +278,6 @@ public class EnrichmentUtils {
 		} 
 		return false;
 	}
+	
+
 }

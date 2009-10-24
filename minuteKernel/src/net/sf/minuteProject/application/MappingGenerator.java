@@ -20,6 +20,8 @@ import net.sf.minuteProject.loader.mapping.node.Bean;
 import net.sf.minuteProject.loader.mapping.node.BeanMapping;
 import net.sf.minuteProject.loader.mapping.node.BeanMappings;
 import net.sf.minuteProject.loader.mapping.node.Beans;
+import net.sf.minuteProject.loader.mapping.node.Validation;
+import net.sf.minuteProject.loader.mapping.node.Validations;
 import net.sf.minuteProject.loader.presentation.Presentation;
 import net.sf.minuteProject.loader.presentation.PresentationHolder;
 import net.sf.minuteProject.loader.presentation.node.Block;
@@ -145,10 +147,19 @@ public class MappingGenerator extends AbstractGenerator {
 			generateMapBeanSpecific(template);
 		if (template.getScopeSpecificValue().equals("bean"))
 			generateBeanSpecific(template);	
-//		if (template.getScopeSpecificValue().equals("block"))
-//			generateBlockSpecific(template);	
+		if (template.getScopeSpecificValue().equals("validation"))
+			generateValidationSpecific(template);	
 //		if (template.getScopeSpecificValue().equals("window"))
 //			generateWindowSpecific(template);			
+	}
+
+	private void generateValidationSpecific (Template template) throws Exception {	
+		Validations validations = mappingHolder.getBeanMap().getValidations();
+		if (validations != null) {
+			for (Validation validation : validations.getValidations()) {
+				writeTemplateResult(validation, template);
+			}
+		}
 	}
 	
 	private void generateMapBeanSpecific(Template template) throws Exception {	

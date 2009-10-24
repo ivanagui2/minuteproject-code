@@ -1,10 +1,11 @@
 package net.sf.minuteProject.configuration.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.Property;
 
-public interface GeneratorBean {
+public interface GeneratorBean extends Cloneable, Serializable{
 
 	// Minute standard method
 	/**

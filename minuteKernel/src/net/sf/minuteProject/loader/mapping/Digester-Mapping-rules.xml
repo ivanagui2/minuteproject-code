@@ -91,6 +91,115 @@
     </pattern>
    </pattern>
   </pattern>
+  <pattern value="validations">
+   <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Validations"/>
+   <set-next-rule methodname="setValidations" paramtype="net.sf.minuteProject.loader.mapping.node.Validations"/>
+   <set-properties-rule>
+    <alias prop-name="type" attr-name="type"/>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="alias" attr-name="alias"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="validation">
+    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Validation"/>
+    <set-next-rule methodname="setValidation" paramtype="net.sf.minuteProject.loader.mapping.node.Validation"/>
+    <set-properties-rule>
+     <alias prop-name="type" attr-name="type"/>
+     <alias prop-name="bean" attr-name="bean"/>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="alias" attr-name="alias"/>
+     <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="variables">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Variables"/>
+     <set-next-rule methodname="setVariables" paramtype="net.sf.minuteProject.loader.mapping.node.Variables"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="variable">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Variable"/>
+      <set-next-rule methodname="setVariable" paramtype="net.sf.minuteProject.loader.mapping.node.Variable"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="function" attr-name="function"/>
+       <alias prop-name="functionParam" attr-name="function-param"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
+    <pattern value="validation-properties">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.ValidationProperties"/>
+     <set-next-rule methodname="setValidationProperties" paramtype="net.sf.minuteProject.loader.mapping.node.ValidationProperties"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="validation-property">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.ValidationProperty"/>
+      <set-next-rule methodname="setValidationProperty" paramtype="net.sf.minuteProject.loader.mapping.node.ValidationProperty"/>
+      <set-properties-rule>
+       <alias prop-name="what" attr-name="what"/>
+       <alias prop-name="maxLength" attr-name="max-length"/>
+       <alias prop-name="lengthType" attr-name="length-type"/>
+       <alias prop-name="mandatory" attr-name="mandatory"/>
+       <alias prop-name="function" attr-name="function"/>
+       <alias prop-name="error" attr-name="error"/>
+       <alias prop-name="format" attr-name="format"/>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
+    <pattern value="validation-property-sets">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.ValidationPropertySets"/>
+     <set-next-rule methodname="setValidationPropertySets" paramtype="net.sf.minuteProject.loader.mapping.node.ValidationPropertySets"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="validation-property-set">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.ValidationPropertySet"/>
+      <set-next-rule methodname="setValidationPropertySet" paramtype="net.sf.minuteProject.loader.mapping.node.ValidationPropertySet"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+      <pattern value="validation-property-set-rule">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.ValidationPropertySetRule"/>
+       <set-next-rule methodname="setValidationPropertySetRule" paramtype="net.sf.minuteProject.loader.mapping.node.ValidationPropertySetRule"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+      </pattern>
+     </pattern>
+    </pattern>
+   </pattern>
+  </pattern>
  </pattern>
 
 </digester-rules>

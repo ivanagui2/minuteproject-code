@@ -111,7 +111,7 @@ public class BusinessModel {
 					if (type.equals(Table.VIEW))
 						complementView(entity, database);
 					if (type.equals(Table.TABLE))
-					complementTable(entity,database);
+						complementTable(entity,database);
 				}
 			}
 		}
@@ -159,11 +159,16 @@ public class BusinessModel {
 	private void complementEntityWithProperties(net.sf.minuteProject.configuration.bean.model.data.Table table, Entity entity) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
-//		Column[] columns = table.getColumns();
-//		for (Column column : columns) {
-//			
-//		}
+		List<Field> fields = entity.getFields();
+		Column[] columns = table.getColumns();	
+		for (Field field : fields) {
+			for (Column column : columns) {
+				if (field.getName().equals(column.getName()))
+					column.setProperties(field.getProperties());
+			}			
+		}
 	}
+	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {
 		complementWithViewVirtualPrimaryKey(view, entity);
 		complementWithViewField(view, entity);

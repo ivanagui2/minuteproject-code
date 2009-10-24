@@ -105,6 +105,16 @@ public class Beans extends AbstractConfiguration{
    public void addBean (Bean _bean) {
       getBeans().add(_bean);
    }
+   
+   public Bean getFirstBeanFromBeanByName (String name) {
+      if (name==null)
+         return null;
+      for (Bean _bean : getBeans()) {
+         if (_bean.getName().equals(name))
+            return _bean;
+      }
+      return null;
+   } 
 
 
 }
