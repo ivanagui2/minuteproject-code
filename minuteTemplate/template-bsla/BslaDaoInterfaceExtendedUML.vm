@@ -22,25 +22,27 @@ public interface $className extends DataAccessObject {
      */
     public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, int numberOfResult);
 	
-	/**
-	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
-	 * Blank criteria are mapped to null.
-	 * If no criteria is found, null is returned.
-	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
-	 */
-	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
+	  /**
+	   * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
+	   * Blank criteria are mapped to null.
+	   * If no criteria is found, null is returned.
+	   * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
+	   */
+	  public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
             
-	public $tableClassName getFirst$tableClassName ($tableClassName $tableVariableName);
+	  public $tableClassName getFirst$tableClassName ($tableClassName $tableVariableName);
 
     /**
     * partial load enables to specify the fields you want to load explicitly
     */            
-    List<$tableClassName> partialLoad$tableClassName($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
+    public List<$tableClassName> partialLoad$tableClassName($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
+
+    public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
 
     /**
     * search on prototype with cache
     */
-    List<$tableClassName> searchOnPrototypeWithCache($tableClassName $tableVariableName);
+    public List<$tableClassName> searchPrototypeWithCache$tableClassName ($tableClassName $tableVariableName);
     
 }
 

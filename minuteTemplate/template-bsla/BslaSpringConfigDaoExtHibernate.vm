@@ -10,5 +10,12 @@
         <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>
     </bean>
 #end
+#foreach ($table in ${package.listOfViews})
+#putImportParamsUML()
+#exposeArchitectureParams()
+    <bean id="$daoInterfaceExtendedVariableNameUML" class="$importDaoImplExtendedHibernateName" singleton="false">
+        <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>
+    </bean>
+#end
 
 </beans>

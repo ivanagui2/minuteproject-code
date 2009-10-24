@@ -10,7 +10,15 @@
 #set($tableClassName = $utils.getClassName($table))
 	   <sqlMap resource="<your package>/dao/implementation/ibatis/xml/$utils.getSubPackage($table)/${tableClassName}.xml"/>
 #end
-	#end
-	
+#end
+#foreach ($package in ${database.packageViews})
+   <!-- $package.name -->
+ 
+#foreach ($table in ${package.listOfViews})
+#set($tableClassName = $utils.getClassName($table))
+	   <sqlMap resource="<your package>/dao/implementation/ibatis/xml/$utils.getSubPackage($table)/${tableClassName}.xml"/>
+#end
+#end	
+
 </sqlMapConfig>
 

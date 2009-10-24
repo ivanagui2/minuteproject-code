@@ -72,6 +72,20 @@ public interface $className extends DataAccessObject {
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable);    
 
     /**
+     * Loads a list of $tableClassName entity 
+     * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
+     * @return List<$tableClassName> The $tableClassName entity
+     */
+    public List<$tableClassName> load${tableClassName}ListBy${tableClassName} (List<$tableClassName> ${tableVariableName}s);
+    
+    /**
+     * Loads a list of $tableClassName entity 
+     * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
+     * @return List<$tableClassName> The $tableClassName entity
+     */
+    public List<$tableClassName> load${tableClassName}ListBy${primaryKeyJavaNameClass}(List<$primaryKeyFullType> ${primaryKeyVariable}s);
+    
+    /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName and its dependent one to many objects
      * @param Long id

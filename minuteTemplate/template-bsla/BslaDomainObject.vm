@@ -35,7 +35,7 @@ private $columnType _$columnVar;
 
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    private $linkclass _$var;
+    private $linkclass _$var2;
 #end
 
 #foreach ($reference in $childReferences)
@@ -58,12 +58,12 @@ private $columnType _$columnVar;
 #end
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    public $linkclass get$varclass () {
-    	    return _$var;
+    public $linkclass get$varclass2 () {
+    	    return _$var2;
     }
 	
-    public void set$varclass ($linkclass _$var) {
-    	    this._$var = _$var;
+    public void set$varclass2 ($linkclass _$var2) {
+    	    this._$var2 = _$var2;
     }
 	#end
 #foreach ($reference in $childReferences)

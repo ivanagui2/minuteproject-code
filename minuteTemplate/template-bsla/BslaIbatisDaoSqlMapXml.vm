@@ -28,7 +28,7 @@
     <!-- load the parents -->	
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    <result property="$var" column="$localColumnName" select="load${linkclass}ByOnePK"/>   	
+    <result property="$var2" column="$localColumnName" select="load${linkclass}ByOnePK"/>   	
 #end
     <!-- load the children -->
 #foreach ($reference in $childReferences)
@@ -45,7 +45,7 @@
 #end
 #foreach ($reference in $parentReferences)
 #putReferenceParams()
-    <result property="$var" column="$localColumnName" select="load${linkclass}ByOnePK"/>   	
+    <result property="$var2" column="$localColumnName" select="load${linkclass}ByOnePK"/>   	
 #end
 #foreach ($reference in $childReferences)
 #putReferenceParams()
@@ -157,14 +157,16 @@
 
 #foreach($reference in $parentReferences)
 #putReferenceParams()
-  <select id="load${tableClassName}_${columnclass}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}Load">
+##>>>>>>>> $localColumnClassName >>>>>$localColumnName -- ${reference.localColumn.name} - $formatUtils.getJavaName($localColumnName) - 
+##>>>>>>>>>>>  $formatUtils.getJavaName(${reference.localColumn.name})
+  <select id="load${tableClassName}_${localColumnClassName}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}Load">
     <include refid="${selectSql}"/>
-       WHERE $reference.columnName = #value#
+       WHERE $reference.localColumn.name = #value#
   </select>
   
-  <select id="loadFull${tableClassName}_${columnclass}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}LoadFull">
+  <select id="loadFull${tableClassName}_${localColumnClassName}For${linkclass}" parameterClass="$columnFullType" resultMap="${tableClassName}LoadFull">
     <include refid="${selectSql}"/>
-       WHERE $reference.columnName = #value#
+       WHERE $reference.localColumn.name = #value#
   </select>
   
 #end
@@ -209,7 +211,11 @@
     (
 #foreach ($column in ${table.columns})
 #putColumnParams()
-	#$columnVar:$column.type# #if ($velocityCount!=$table.columnCount),#end
+#set ($DBType = $column.type)
+#if ($column.type=="BIGINT")
+#set ($DBType = "LONG")
+#end
+	#$columnVar:$DBType# #if ($velocityCount!=$table.columnCount),#end
 	
 #end    
     )    
@@ -223,8 +229,12 @@
     <dynamic prepend="SET">
 #foreach ($column in ${table.columns})
 #putColumnParams()
+#set ($DBType = $column.type)
+#if ($column.type=="BIGINT")
+#set ($DBType = "LONG")
+#end
         <isNotNull prepend="," property="$columnVar">
-            ${column.name}=#$columnVar:$column.type#
+            ${column.name}=#$columnVar:$DBType#
         </isNotNull>	
 #end        
     </dynamic>     
@@ -268,7 +278,11 @@
         SET
 #foreach ($column in ${table.columns})
 #putColumnParams()
-		${column.name}=#$columnVar:$column.type# #if ($velocityCount!=$table.columnCount),#end
+#set ($DBType = $column.type)
+#if ($column.type=="BIGINT")
+#set ($DBType = "LONG")
+#end
+		${column.name}=#$columnVar:$DBType# #if ($velocityCount!=$table.columnCount),#end
 	
 #end    
         WHERE 
