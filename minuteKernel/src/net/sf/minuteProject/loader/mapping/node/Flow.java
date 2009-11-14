@@ -8,7 +8,7 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class ValidationPropertySetRule extends AbstractConfigurationLoader{
+public class Flow extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,8 +16,9 @@ public class ValidationPropertySetRule extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
+   private Calls _calls;
 
-   public ValidationPropertySetRule() {
+   public Flow() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -79,6 +80,17 @@ public class ValidationPropertySetRule extends AbstractConfigurationLoader{
 	
    public void setId (String _id) {
       this._id = _id;
+   }
+   
+   
+   public Calls getCalls() {
+	  if (_calls == null)
+	     _calls = new Calls();
+	      return _calls;
+   }
+	
+   public void setCalls (Calls _calls) {
+      this._calls = _calls;
    }
    
    

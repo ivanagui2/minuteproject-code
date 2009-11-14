@@ -8,7 +8,7 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class If extends AbstractConfigurationLoader{
+public class CallSequence extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,13 +16,9 @@ public class If extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
-   private String _what;
-   private String _condition;
-   private String _value;
-   private String _expression;
-   private List<Case> _cases;
+   private List<CallEntryPoint> _callEntryPointss;
 
-   public If() {
+   public CallSequence() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -87,79 +83,35 @@ public class If extends AbstractConfigurationLoader{
    }
    
    
-   public String getWhat() {
-	  if (_what == null)
-	     _what = new String();
-	      return _what;
-   }
-	
-   public void setWhat (String _what) {
-      this._what = _what;
-   }
-   
-   
-   public String getCondition() {
-	  if (_condition == null)
-	     _condition = new String();
-	      return _condition;
-   }
-	
-   public void setCondition (String _condition) {
-      this._condition = _condition;
-   }
-   
-   
-   public String getValue() {
-	  if (_value == null)
-	     _value = new String();
-	      return _value;
-   }
-	
-   public void setValue (String _value) {
-      this._value = _value;
-   }
-   
-   
-   public String getExpression() {
-	  if (_expression == null)
-	     _expression = new String();
-	      return _expression;
-   }
-	
-   public void setExpression (String _expression) {
-      this._expression = _expression;
-   }
-   
-   
-   public List<Case> getCases() {
-      if (_cases == null){
-         _cases = new ArrayList<Case>();
+   public List<CallEntryPoint> getCallEntryPointss() {
+      if (_callEntryPointss == null){
+         _callEntryPointss = new ArrayList<CallEntryPoint>();
       }
-      return _cases;
+      return _callEntryPointss;
    }
    
-   public Case[] getCasesArray() {
-      return (Case[])getCases().toArray(new Case[getCases().size()]);
+   public CallEntryPoint[] getCallEntryPointssArray() {
+      return (CallEntryPoint[])getCallEntryPointss().toArray(new CallEntryPoint[getCallEntryPointss().size()]);
    }
       
-   public void setCases (List<Case> _cases) {
-      this._cases = _cases;
+   public void setCallEntryPointss (List<CallEntryPoint> _callEntryPointss) {
+      this._callEntryPointss = _callEntryPointss;
    }
  
-   public void setCase (Case _case) {
-      addCase(_case);
+   public void setCallEntryPoints (CallEntryPoint _callEntryPoints) {
+      addCallEntryPoints(_callEntryPoints);
    }
 
-   public void addCase (Case _case) {
-      getCases().add(_case);
+   public void addCallEntryPoints (CallEntryPoint _callEntryPoints) {
+      getCallEntryPointss().add(_callEntryPoints);
    }
    
-   public Case getFirstCaseFromCaseByName (String name) {
+   public CallEntryPoint getFirstCallEntryPointFromCallEntryPointsByName (String name) {
       if (name==null)
          return null;
-      for (Case _case : getCases()) {
-         if (_case.getName().equals(name))
-            return _case;
+      for (CallEntryPoint _callEntryPoints : getCallEntryPointss()) {
+         if (_callEntryPoints.getName().equals(name))
+            return _callEntryPoints;
       }
       return null;
    } 

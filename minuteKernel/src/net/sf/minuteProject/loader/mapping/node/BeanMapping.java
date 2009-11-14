@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class BeanMapping extends AbstractConfiguration{
+public class BeanMapping extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
    private String _name;
    private String _id;
+   private String _entryPoint;
    private String _originBean;
    private String _targetBean;
    private BeanMappingProperties _mapProperties;
@@ -42,7 +43,7 @@ public class BeanMapping extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -53,7 +54,7 @@ public class BeanMapping extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
@@ -61,10 +62,21 @@ public class BeanMapping extends AbstractConfiguration{
    }
    
    
+   public String getEntryPoint() {
+	  if (_entryPoint == null)
+	     _entryPoint = new String();
+	      return _entryPoint;
+   }
+	
+   public void setEntryPoint (String _entryPoint) {
+      this._entryPoint = _entryPoint;
+   }
+   
+   
    public String getOriginBean() {
 	  if (_originBean == null)
 	     _originBean = new String();
-      return _originBean;
+	      return _originBean;
    }
 	
    public void setOriginBean (String _originBean) {
@@ -75,7 +87,7 @@ public class BeanMapping extends AbstractConfiguration{
    public String getTargetBean() {
 	  if (_targetBean == null)
 	     _targetBean = new String();
-      return _targetBean;
+	      return _targetBean;
    }
 	
    public void setTargetBean (String _targetBean) {
@@ -86,7 +98,7 @@ public class BeanMapping extends AbstractConfiguration{
    public BeanMappingProperties getMapProperties() {
 	  if (_mapProperties == null)
 	     _mapProperties = new BeanMappingProperties();
-      return _mapProperties;
+	      return _mapProperties;
    }
 	
    public void setMapProperties (BeanMappingProperties _mapProperties) {

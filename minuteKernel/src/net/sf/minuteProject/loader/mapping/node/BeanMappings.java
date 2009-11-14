@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class BeanMappings extends AbstractConfiguration{
+public class BeanMappings extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -40,7 +40,7 @@ public class BeanMappings extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -51,7 +51,7 @@ public class BeanMappings extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {

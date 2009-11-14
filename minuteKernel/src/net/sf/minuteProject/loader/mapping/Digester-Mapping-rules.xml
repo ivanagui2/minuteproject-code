@@ -25,6 +25,7 @@
     <set-properties-rule>
      <alias prop-name="name" attr-name="name"/>
      <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="entryPoint" attr-name="entry-point"/>
      <alias prop-name="originBean" attr-name="origin-bean"/>
      <alias prop-name="targetBean" attr-name="target-bean"/>
      <alias prop-name="packageName" attr-name="package-name"/>
@@ -73,6 +74,8 @@
      <alias prop-name="name" attr-name="name"/>
      <alias prop-name="alias" attr-name="alias"/>
      <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="extendType" attr-name="extend-type"/>
+     <alias prop-name="isInPackage" attr-name="is-in-package"/>
      <alias prop-name="packageName" attr-name="package-name"/>
     </set-properties-rule>
     <pattern value="attribute">
@@ -110,6 +113,7 @@
      <alias prop-name="name" attr-name="name"/>
      <alias prop-name="alias" attr-name="alias"/>
      <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="entryPoint" attr-name="entry-point"/>
      <alias prop-name="packageName" attr-name="package-name"/>
     </set-properties-rule>
     <pattern value="variables">
@@ -195,6 +199,87 @@
         <alias prop-name="id" attr-name="id"/>
         <alias prop-name="packageName" attr-name="package-name"/>
        </set-properties-rule>
+      </pattern>
+     </pattern>
+    </pattern>
+   </pattern>
+  </pattern>
+  <pattern value="flows">
+   <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Flows"/>
+   <set-next-rule methodname="setFlows" paramtype="net.sf.minuteProject.loader.mapping.node.Flows"/>
+   <set-properties-rule>
+    <alias prop-name="type" attr-name="type"/>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="alias" attr-name="alias"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="flow">
+    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Flow"/>
+    <set-next-rule methodname="setFlow" paramtype="net.sf.minuteProject.loader.mapping.node.Flow"/>
+    <set-properties-rule>
+     <alias prop-name="type" attr-name="type"/>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="alias" attr-name="alias"/>
+     <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="calls">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Calls"/>
+     <set-next-rule methodname="setCalls" paramtype="net.sf.minuteProject.loader.mapping.node.Calls"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="call">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Call"/>
+      <set-next-rule methodname="setCall" paramtype="net.sf.minuteProject.loader.mapping.node.Call"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="method" attr-name="method"/>
+       <alias prop-name="transactional" attr-name="transactional"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+      <pattern value="call-entry-point">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
+       <set-next-rule methodname="setCallEntryPoint" paramtype="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="entryPoint" attr-name="entry-point"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+      </pattern>
+      <pattern value="sequence">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallSequence"/>
+       <set-next-rule methodname="setSequence" paramtype="net.sf.minuteProject.loader.mapping.node.CallSequence"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+       <pattern value="call-entry-points">
+        <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
+        <set-next-rule methodname="setCallEntryPoints" paramtype="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
+        <set-properties-rule>
+         <alias prop-name="type" attr-name="type"/>
+         <alias prop-name="name" attr-name="name"/>
+         <alias prop-name="alias" attr-name="alias"/>
+         <alias prop-name="id" attr-name="id"/>
+         <alias prop-name="entryPoint" attr-name="entry-point"/>
+         <alias prop-name="packageName" attr-name="package-name"/>
+        </set-properties-rule>
+       </pattern>
       </pattern>
      </pattern>
     </pattern>
