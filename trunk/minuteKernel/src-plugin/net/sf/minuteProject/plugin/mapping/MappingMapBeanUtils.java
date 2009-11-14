@@ -1,11 +1,15 @@
 package net.sf.minuteProject.plugin.mapping;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 
 import sun.security.action.GetBooleanAction;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.loader.mapping.node.Bean;
 import net.sf.minuteProject.loader.mapping.node.BeanAttribute;
@@ -25,6 +29,11 @@ public class MappingMapBeanUtils {
 	
 	public static final String DEFAULT_STRING_RETURN = "";
 	public static final String BEAN_OBJECT_TEMPLATE = "BeanObject";
+	public static final String NAME_INFO = "NAME";
+	public static final String PACKAGE_INFO = "PACKAGE";
+	public static final String DEFAULT_SUPER_CLASS = "DEFAULT_SUPER_CLASS";
+	public static final String DEFAULT_SUPER_CLASS_OTHERWISE_SPECIFIED = "DEFAULT_SUPER_CLASS_OTHERWISE_SPECIFIED";
+
 	
 	public String getTypeFormObjectVariable (String variable, String objectName, BeanMapping beanMapping) {
 		Bean bean = getBean(beanMapping, objectName);
@@ -169,19 +178,85 @@ public class MappingMapBeanUtils {
 		}
 		return null; 
 	}
+
+	public int getPathLevel (BeanMappingProperty beanMappingProperty) {
+		String what = beanMappingProperty.getWhat();
+		if (what!=null) {
+			return getPathLevel(what);
+		}
+		return 0;
+	}
+	
+	public int getPathLevel (String beanPath) {
+		StringTokenizer st = new StringTokenizer(beanPath, ".");
+		return st.countTokens();
+	}
+	
+	public String getAvoidNullPointerTest (BeanMapping beanMapping, BeanMappingProperty beanMappingProperty) {
+		String what = beanMappingProperty.getWhat();
+		String originBeanVariable = FormatUtils.getJavaNameVariable(beanMapping.getOriginBean());
+		return getAvoidNullPointerTest(originBeanVariable, what);
+	}
+	
+	public String getAvoidNullPointerTest (String rootVariable, String beanPath) {
+        List<String> distinctBeanPath = getDistinctBeanPath(beanPath);	
+        Iterator iter = distinctBeanPath.iterator();
+        StringBuffer sb = new StringBuffer("(");
+        while (iter.hasNext()) {
+			String element = (String) iter.next();
+			String javaPath = getJavaPathFromBeanPath(element);
+			sb.append(rootVariable);
+			sb.append(".");
+			sb.append(javaPath);
+			sb.append("!=null");
+			if (iter.hasNext()) {
+				sb.append(" && ");
+			}
+		}
+        sb.append(")");
+        return sb.toString();
+	}
+	
+	private List<String> getDistinctBeanPath (String beanPath) {
+		List<String> list = new ArrayList<String>();
+		StringTokenizer st = new StringTokenizer(beanPath, ".");
+		int i=0;
+		StringBuffer sb = new StringBuffer();
+		while (st.hasMoreTokens()) {
+			String token = st.nextToken();
+			sb.append(token);
+			list.add(sb.toString());
+			if (st.hasMoreTokens())
+				sb.append(".");
+		}
+		return list;
+	}
 	
 	public String getMappingPropertyMethodResult (BeanMapping beanMapping, BeanMappingProperty beanMappingProperty) {
-//		String whatVariable = getWhatVariable (beanMappingProperty);
-//		$formatUtils.getJavaName($mapProperty.what)
 		String function = beanMappingProperty.getFunction();
 		String what = beanMappingProperty.getWhat();
 		String originBeanVariable = FormatUtils.getJavaNameVariable(beanMapping.getOriginBean());
 		if (function.equals("")) {
-			String whatMappingMethod = FormatUtils.getJavaName(what);
-			return originBeanVariable+".get"+whatMappingMethod+"()";
+			String whatMappingMethod = getJavaPathFromBeanPath(what);
+			return originBeanVariable+"."+whatMappingMethod;
 		} else {
 			return getFunction (originBeanVariable, function, what);
 		}
+	}
+	
+	private String getJavaPathFromBeanPath (String beanPath) {
+		StringTokenizer st = new StringTokenizer(beanPath, ".");
+		StringBuffer sb = new StringBuffer();
+		while (st.hasMoreTokens()) {
+			String token = st.nextToken();
+			String tokenJavaName = FormatUtils.getJavaName(token);
+			sb.append("get");
+			sb.append(tokenJavaName);
+			sb.append("()");
+			if (st.hasMoreTokens())
+				sb.append(".");
+		}
+		return sb.toString();	
 	}
 	
 	public String getFunction (String originBeanVariable, String function, String what) {
@@ -285,5 +360,60 @@ public class MappingMapBeanUtils {
 		}
 		return sb.toString();
 	}
+
+	public String getBeanDefaultSuperOtherwiseSpecifiedInfo (BeanMap beanMap, Bean bean, String info) {
+		String superInfo = getBeanSuperInfo (beanMap, bean, info);
+		if (superInfo!=null && !superInfo.equals(DEFAULT_STRING_RETURN))
+			return superInfo;
+		return getBeanDefaultSuperInfo (info);
+	}
 	
+	private String getBeanSuperInfo (BeanMap beanMap, Bean bean, String info) {
+		if (!bean.getExtendType().equals(DEFAULT_STRING_RETURN)) {
+			Bean superBean = getBean(bean.getBeanMap(), bean.getExtendType());
+			if (superBean!=null) {
+				if (info.equals(NAME_INFO))
+				    return superBean.getName();
+				if (info.equals(PACKAGE_INFO))
+				    return superBean.getPackageName();				
+			}
+		}
+		return DEFAULT_STRING_RETURN;
+	}
+	
+	public String getBeanSuperName (Template template, BeanMap beanMap, Bean bean) {
+		return getBeanSuperInfo(template, beanMap, bean, NAME_INFO);
+	}
+	
+	public String getBeanSuperPackage (Template template, BeanMap beanMap, Bean bean) {
+		return getBeanSuperInfo(template, beanMap, bean, PACKAGE_INFO);
+	}
+	
+	private String getBeanSuperInfo (Template template, BeanMap beanMap, Bean bean, String info) {
+		if (template.getIsTrueProperty(DEFAULT_SUPER_CLASS_OTHERWISE_SPECIFIED)) 
+			return getBeanDefaultSuperOtherwiseSpecifiedInfo(beanMap, bean, info);
+		if (template.getIsTrueProperty(DEFAULT_SUPER_CLASS)) 
+			return getBeanDefaultSuperInfo (info);
+		return getBeanSuperInfo(beanMap, bean, info);
+	}
+	
+	private String getBeanDefaultSuperInfo (String info) {
+		if (info.equals(NAME_INFO))
+		    return "DataTransferObject";
+		if (info.equals(PACKAGE_INFO))
+		    return "net.sf.minuteProject.architecture.bsla.dto";		
+		return DEFAULT_STRING_RETURN;
+	}
+	
+	public boolean isToGenerateBasedOnIsNotInPackage(Template template, GeneratorBean generatorBean) {
+		return !isToGenerateBasedOnIsInPackage(template, generatorBean);
+	}
+	
+	public boolean isToGenerateBasedOnIsInPackage(Template template, GeneratorBean generatorBean) {
+	    if (generatorBean instanceof Bean) {
+	    	Bean bean = (Bean)generatorBean;
+	    	return bean.isInPackage();
+	    }
+	    return false;		
+	}
 }
