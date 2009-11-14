@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
@@ -144,7 +145,9 @@ public class ModelGenerator extends AbstractGenerator {
 	public void generate(Template template) throws Exception {
 		// TODO Auto-generated method stub
 		// getView();
-		if (template.getEntitySpecific().equals("true"))
+		if (template.getFieldSpecific().equals("true"))
+			generateArtifactsByField(template);		
+		else if (template.getEntitySpecific().equals("true"))
 			generateArtifactsByEntity(template);
 		else if (template.getPackageSpecific().equals("true"))
 			generateArtifactsByPackage(template);
@@ -182,6 +185,22 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
+	protected void generateArtifactsByField(Template template) throws Exception {	
+		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
+			Table table = getDecoratedTable((Table) iter.next());
+			for (Column column : table.getColumns()) {
+				boolean isToGenerate = true;
+	    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+	    			if (!template.isToGenerate(column)) {
+	    				isToGenerate =false;
+	    			}
+	    		} 
+	    		if (isToGenerate)
+				   writeTemplateResult(column, template);
+			}
+		}
+	}
+	
 	protected void generateArtifactsByEntity(Template template) throws Exception {	
 		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
 			Table table = getDecoratedTable((Table) iter.next());
@@ -194,15 +213,6 @@ public class ModelGenerator extends AbstractGenerator {
     		} 
     		if (isToGenerate)
 			   writeTemplateResult(table, template);
-			/*
-			 * 
-			 * 			Table table = (Table) iter.next();
-			if (ModelUtils.isToGenerate(model.getBusinessModel(), table)) {
-			   table = getDecoratedTable((Table) iter.next());
-			   //table.getParents();
-			   writeTemplateResult(table, template);
-			}
-			 */
 		}
 	}
 
@@ -234,7 +244,8 @@ public class ModelGenerator extends AbstractGenerator {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
 			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
-			throw ex;
+			logger.error("ERROR : "+ex.getMessage());
+//			throw ex;
 		}
 	}
 

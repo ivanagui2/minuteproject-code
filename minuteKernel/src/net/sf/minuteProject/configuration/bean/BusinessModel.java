@@ -66,38 +66,10 @@ public class BusinessModel {
 
 	private void complementDataModelWithViewsEnrichment () {
 	   complementDataModelWithEntitiesEnrichment(Table.VIEW);
-//		Database database = model.getDataModel().getDatabase();
-//		if (database!=null) {
-//			// for all the view
-//			// set virtual pk, realpk
-//			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
-//			if (enrichment != null) {
-//				for (Entity entity : enrichment.getEntities()) {
-////					complementTable(entity,database);
-//					complementView(entity, database);
-////					View view = TableUtils.getView(database, entity.getName());
-////					if (view!=null){
-////						complementEntityWithProperties((Table)view, entity);
-////						complementDataModelWithViewEnrichment(view, entity);
-////					}
-//				}
-//			}
-//		}
 	}
 	
 	private void complementDataModelWithTablesEnrichment () {
 		complementDataModelWithEntitiesEnrichment(Table.TABLE);
-//		Database database = model.getDataModel().getDatabase();
-//		if (database!=null) {
-//			// for all the view
-//			// set virtual pk, realpk
-//			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
-//			if (enrichment != null) {
-//				for (Entity entity : enrichment.getEntities()) {
-//					complementTable(entity,database);
-//				}
-//			}
-//		}
 	}
 
 	private void complementDataModelWithEntitiesEnrichment (String type) {

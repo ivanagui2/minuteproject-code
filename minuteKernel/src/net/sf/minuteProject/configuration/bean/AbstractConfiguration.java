@@ -31,13 +31,26 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 			properties = new ArrayList<Property>();
 		return properties;
 	}
+	
 	public void addProperty (Property property) {
 		getProperties().add(property);
 	}
+	
 	public Property[] getPropertiesArray() {
 		properties = getProperties();
 		return (Property[]) properties.toArray(new Property[properties.size()]);
 	}
+	
+	public boolean hasProperty (String name) {
+		if (getPropertyValue(name)!=null)
+			return true;
+		return false;
+	}
+	
+//	public Property getProperty (String name) {
+//		return getPropertyValue(name);
+//	}
+//	
 	public String getPropertyValue (String name) {
 		// TODO browse recursively via the parent to see the first matching propertiesif (getProperties().)
 		// set AOP advice on each setter method of AbstractConfiguration with at string like param

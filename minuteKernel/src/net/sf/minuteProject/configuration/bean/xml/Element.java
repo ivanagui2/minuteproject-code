@@ -39,4 +39,6 @@ public interface Element extends GeneratorBean{
 	public Element getFirstSequenceElement ();
 	
 	public void setParentElement(Element element);
+	
+	public String getDefault ();
 }

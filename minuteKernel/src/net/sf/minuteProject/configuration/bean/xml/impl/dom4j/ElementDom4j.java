@@ -264,6 +264,11 @@ public class ElementDom4j extends AbstractElement{
 	public String getPath() {
 		return element.getPath();
 	}
+
+	public String getDefault() {
+		// TODO Auto-generated method stub
+		return getAttributeValue ("default");
+	}
 	
 	// getter setter adder
 	

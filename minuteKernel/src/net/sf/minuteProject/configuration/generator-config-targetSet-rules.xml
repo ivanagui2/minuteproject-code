@@ -64,6 +64,7 @@
 					<alias attr-name="file-prefix" prop-name="filePrefix" />
 					<alias attr-name="file-suffix" prop-name="fileSuffix" />
 					<alias attr-name="file-name-format" prop-name="fileNameFormat" />
+					<alias attr-name="field-specific" prop-name="fieldSpecific" />
 					<alias attr-name="entity-specific" prop-name="entitySpecific" />
 					<alias attr-name="package-specific" prop-name="packageSpecific" />
 					<alias attr-name="model-specific" prop-name="modelSpecific" />

@@ -87,15 +87,26 @@ public class FormatUtils {
 	
 	
 	public static String firstUpperCaseOnly (String st) {
+		if (st==null)
+			return "INPUT_STRING_IS_NULL";
 		return st.substring(0,1).toUpperCase() +st.substring(1,st.length()).toLowerCase();
 	}
+	
 	private static String firstLowerCaseOnly (String st) {
+		if (st==null)
+			return "INPUT_STRING_IS_NULL";
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length()).toLowerCase();
 	}	
+	
 	private static String firstLowerCase (String st) {
+		if (st==null)
+			return "INPUT_STRING_IS_NULL";
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length());
 	}	
+	
 	public static String firstUpperCase (String st) {
+		if (st==null)
+			return "INPUT_STRING_IS_NULL";		
 		return st.substring(0,1).toUpperCase() +st.substring(1,st.length());
 	}	
 	
