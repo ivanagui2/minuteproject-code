@@ -8,7 +8,7 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class If extends AbstractConfigurationLoader{
+public class Flows extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,13 +16,9 @@ public class If extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
-   private String _what;
-   private String _condition;
-   private String _value;
-   private String _expression;
-   private List<Case> _cases;
+   private List<Flow> _flows;
 
-   public If() {
+   public Flows() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -87,79 +83,35 @@ public class If extends AbstractConfigurationLoader{
    }
    
    
-   public String getWhat() {
-	  if (_what == null)
-	     _what = new String();
-	      return _what;
-   }
-	
-   public void setWhat (String _what) {
-      this._what = _what;
-   }
-   
-   
-   public String getCondition() {
-	  if (_condition == null)
-	     _condition = new String();
-	      return _condition;
-   }
-	
-   public void setCondition (String _condition) {
-      this._condition = _condition;
-   }
-   
-   
-   public String getValue() {
-	  if (_value == null)
-	     _value = new String();
-	      return _value;
-   }
-	
-   public void setValue (String _value) {
-      this._value = _value;
-   }
-   
-   
-   public String getExpression() {
-	  if (_expression == null)
-	     _expression = new String();
-	      return _expression;
-   }
-	
-   public void setExpression (String _expression) {
-      this._expression = _expression;
-   }
-   
-   
-   public List<Case> getCases() {
-      if (_cases == null){
-         _cases = new ArrayList<Case>();
+   public List<Flow> getFlows() {
+      if (_flows == null){
+         _flows = new ArrayList<Flow>();
       }
-      return _cases;
+      return _flows;
    }
    
-   public Case[] getCasesArray() {
-      return (Case[])getCases().toArray(new Case[getCases().size()]);
+   public Flow[] getFlowsArray() {
+      return (Flow[])getFlows().toArray(new Flow[getFlows().size()]);
    }
       
-   public void setCases (List<Case> _cases) {
-      this._cases = _cases;
+   public void setFlows (List<Flow> _flows) {
+      this._flows = _flows;
    }
  
-   public void setCase (Case _case) {
-      addCase(_case);
+   public void setFlow (Flow _flow) {
+      addFlow(_flow);
    }
 
-   public void addCase (Case _case) {
-      getCases().add(_case);
+   public void addFlow (Flow _flow) {
+      getFlows().add(_flow);
    }
    
-   public Case getFirstCaseFromCaseByName (String name) {
+   public Flow getFirstFlowFromFlowByName (String name) {
       if (name==null)
          return null;
-      for (Case _case : getCases()) {
-         if (_case.getName().equals(name))
-            return _case;
+      for (Flow _flow : getFlows()) {
+         if (_flow.getName().equals(name))
+            return _flow;
       }
       return null;
    } 

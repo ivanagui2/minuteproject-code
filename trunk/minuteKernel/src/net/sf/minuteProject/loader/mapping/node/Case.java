@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class Case extends AbstractConfiguration{
+public class Case extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -39,7 +39,7 @@ public class Case extends AbstractConfiguration{
    public String getValue() {
 	  if (_value == null)
 	     _value = new String();
-      return _value;
+	      return _value;
    }
 	
    public void setValue (String _value) {
@@ -50,7 +50,7 @@ public class Case extends AbstractConfiguration{
    public ValidationProperties getValidationProperties() {
 	  if (_validationProperties == null)
 	     _validationProperties = new ValidationProperties();
-      return _validationProperties;
+	      return _validationProperties;
    }
 	
    public void setValidationProperties (ValidationProperties _validationProperties) {

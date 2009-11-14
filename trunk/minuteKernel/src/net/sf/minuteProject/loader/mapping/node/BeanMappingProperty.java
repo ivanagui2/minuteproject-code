@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class BeanMappingProperty extends AbstractConfiguration{
+public class BeanMappingProperty extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -45,7 +45,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getType() {
 	  if (_type == null)
 	     _type = new String();
-      return _type;
+	      return _type;
    }
 	
    public void setType (String _type) {
@@ -56,7 +56,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -67,7 +67,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
@@ -78,7 +78,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getWhat() {
 	  if (_what == null)
 	     _what = new String();
-      return _what;
+	      return _what;
    }
 	
    public void setWhat (String _what) {
@@ -89,7 +89,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getTo() {
 	  if (_to == null)
 	     _to = new String();
-      return _to;
+	      return _to;
    }
 	
    public void setTo (String _to) {
@@ -100,7 +100,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getFunction() {
 	  if (_function == null)
 	     _function = new String();
-      return _function;
+	      return _function;
    }
 	
    public void setFunction (String _function) {
@@ -111,7 +111,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getCallMapping() {
 	  if (_callMapping == null)
 	     _callMapping = new String();
-      return _callMapping;
+	      return _callMapping;
    }
 	
    public void setCallMapping (String _callMapping) {
@@ -122,7 +122,7 @@ public class BeanMappingProperty extends AbstractConfiguration{
    public String getIsLoop() {
 	  if (_isLoop == null)
 	     _isLoop = new String();
-      return _isLoop;
+	      return _isLoop;
    }
 	
    public void setIsLoop (String _isLoop) {

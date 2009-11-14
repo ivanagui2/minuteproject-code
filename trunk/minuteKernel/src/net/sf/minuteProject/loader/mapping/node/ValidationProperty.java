@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class ValidationProperty extends AbstractConfiguration{
+public class ValidationProperty extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -48,7 +48,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getWhat() {
 	  if (_what == null)
 	     _what = new String();
-      return _what;
+	      return _what;
    }
 	
    public void setWhat (String _what) {
@@ -59,7 +59,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getMaxLength() {
 	  if (_maxLength == null)
 	     _maxLength = new String();
-      return _maxLength;
+	      return _maxLength;
    }
 	
    public void setMaxLength (String _maxLength) {
@@ -70,7 +70,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getLengthType() {
 	  if (_lengthType == null)
 	     _lengthType = new String();
-      return _lengthType;
+	      return _lengthType;
    }
 	
    public void setLengthType (String _lengthType) {
@@ -81,7 +81,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getMandatory() {
 	  if (_mandatory == null)
 	     _mandatory = new String();
-      return _mandatory;
+	      return _mandatory;
    }
 	
    public void setMandatory (String _mandatory) {
@@ -92,7 +92,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getFunction() {
 	  if (_function == null)
 	     _function = new String();
-      return _function;
+	      return _function;
    }
 	
    public void setFunction (String _function) {
@@ -103,7 +103,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getError() {
 	  if (_error == null)
 	     _error = new String();
-      return _error;
+	      return _error;
    }
 	
    public void setError (String _error) {
@@ -114,7 +114,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getFormat() {
 	  if (_format == null)
 	     _format = new String();
-      return _format;
+	      return _format;
    }
 	
    public void setFormat (String _format) {
@@ -125,7 +125,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getType() {
 	  if (_type == null)
 	     _type = new String();
-      return _type;
+	      return _type;
    }
 	
    public void setType (String _type) {
@@ -136,7 +136,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -147,7 +147,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getAlias() {
 	  if (_alias == null)
 	     _alias = new String();
-      return _alias;
+	      return _alias;
    }
 	
    public void setAlias (String _alias) {
@@ -158,7 +158,7 @@ public class ValidationProperty extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {

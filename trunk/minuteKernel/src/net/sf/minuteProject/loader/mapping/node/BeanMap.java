@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class BeanMap extends AbstractConfiguration{
+public class BeanMap extends AbstractConfigurationLoader{
 
     private String _packageName;
    private String _name;
@@ -16,6 +16,7 @@ public class BeanMap extends AbstractConfiguration{
    private BeanMappings _mappings;
    private Beans _beans;
    private Validations _validations;
+   private Flows _flows;
 
    public BeanMap() {
    }
@@ -37,7 +38,7 @@ public class BeanMap extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -48,7 +49,7 @@ public class BeanMap extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
@@ -59,7 +60,7 @@ public class BeanMap extends AbstractConfiguration{
    public BeanMappings getMappings() {
 	  if (_mappings == null)
 	     _mappings = new BeanMappings();
-      return _mappings;
+	      return _mappings;
    }
 	
    public void setMappings (BeanMappings _mappings) {
@@ -70,7 +71,7 @@ public class BeanMap extends AbstractConfiguration{
    public Beans getBeans() {
 	  if (_beans == null)
 	     _beans = new Beans();
-      return _beans;
+	      return _beans;
    }
 	
    public void setBeans (Beans _beans) {
@@ -81,11 +82,22 @@ public class BeanMap extends AbstractConfiguration{
    public Validations getValidations() {
 	  if (_validations == null)
 	     _validations = new Validations();
-      return _validations;
+	      return _validations;
    }
 	
    public void setValidations (Validations _validations) {
       this._validations = _validations;
+   }
+   
+   
+   public Flows getFlows() {
+	  if (_flows == null)
+	     _flows = new Flows();
+	      return _flows;
+   }
+	
+   public void setFlows (Flows _flows) {
+      this._flows = _flows;
    }
    
    

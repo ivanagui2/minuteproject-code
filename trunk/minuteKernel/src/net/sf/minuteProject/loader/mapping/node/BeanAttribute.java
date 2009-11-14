@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class BeanAttribute extends AbstractConfiguration{
+public class BeanAttribute extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -44,7 +44,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getType() {
 	  if (_type == null)
 	     _type = new String();
-      return _type;
+	      return _type;
    }
 	
    public void setType (String _type) {
@@ -55,7 +55,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getRefType() {
 	  if (_refType == null)
 	     _refType = new String();
-      return _refType;
+	      return _refType;
    }
 	
    public void setRefType (String _refType) {
@@ -66,7 +66,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -77,7 +77,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getAlias() {
 	  if (_alias == null)
 	     _alias = new String();
-      return _alias;
+	      return _alias;
    }
 	
    public void setAlias (String _alias) {
@@ -88,7 +88,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
@@ -99,7 +99,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getIsList() {
 	  if (_isList == null)
 	     _isList = new String();
-      return _isList;
+	      return _isList;
    }
 	
    public void setIsList (String _isList) {
@@ -110,7 +110,7 @@ public class BeanAttribute extends AbstractConfiguration{
    public String getListType() {
 	  if (_listType == null)
 	     _listType = new String();
-      return _listType;
+	      return _listType;
    }
 	
    public void setListType (String _listType) {

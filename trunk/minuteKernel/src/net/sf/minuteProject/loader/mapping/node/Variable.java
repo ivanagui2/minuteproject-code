@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class Variable extends AbstractConfiguration{
+public class Variable extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -43,7 +43,7 @@ public class Variable extends AbstractConfiguration{
    public String getType() {
 	  if (_type == null)
 	     _type = new String();
-      return _type;
+	      return _type;
    }
 	
    public void setType (String _type) {
@@ -54,7 +54,7 @@ public class Variable extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -65,7 +65,7 @@ public class Variable extends AbstractConfiguration{
    public String getAlias() {
 	  if (_alias == null)
 	     _alias = new String();
-      return _alias;
+	      return _alias;
    }
 	
    public void setAlias (String _alias) {
@@ -76,7 +76,7 @@ public class Variable extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
@@ -87,7 +87,7 @@ public class Variable extends AbstractConfiguration{
    public String getFunction() {
 	  if (_function == null)
 	     _function = new String();
-      return _function;
+	      return _function;
    }
 	
    public void setFunction (String _function) {
@@ -98,7 +98,7 @@ public class Variable extends AbstractConfiguration{
    public String getFunctionParam() {
 	  if (_functionParam == null)
 	     _functionParam = new String();
-      return _functionParam;
+	      return _functionParam;
    }
 	
    public void setFunctionParam (String _functionParam) {

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class Bean extends AbstractConfiguration{
+public class Bean extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,6 +16,8 @@ public class Bean extends AbstractConfiguration{
    private String _name;
    private String _alias;
    private String _id;
+   private String _extendType;
+   private Boolean _isInPackage;
    private List<BeanAttribute> _attributes;
 
    public Bean() {
@@ -42,7 +44,7 @@ public class Bean extends AbstractConfiguration{
    public String getType() {
 	  if (_type == null)
 	     _type = new String();
-      return _type;
+	      return _type;
    }
 	
    public void setType (String _type) {
@@ -53,7 +55,7 @@ public class Bean extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -64,7 +66,7 @@ public class Bean extends AbstractConfiguration{
    public String getAlias() {
 	  if (_alias == null)
 	     _alias = new String();
-      return _alias;
+	      return _alias;
    }
 	
    public void setAlias (String _alias) {
@@ -75,11 +77,37 @@ public class Bean extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
       this._id = _id;
+   }
+   
+   
+   public String getExtendType() {
+	  if (_extendType == null)
+	     _extendType = new String();
+	      return _extendType;
+   }
+	
+   public void setExtendType (String _extendType) {
+      this._extendType = _extendType;
+   }
+   
+   
+   public Boolean isInPackage() {
+      return getIsInPackage();
+   }
+   
+   public Boolean getIsInPackage() {
+	  if (_isInPackage == null)
+	     _isInPackage = new Boolean(false);
+	      return _isInPackage;
+   }
+	
+   public void setIsInPackage (Boolean _isInPackage) {
+      this._isInPackage = _isInPackage;
    }
    
    

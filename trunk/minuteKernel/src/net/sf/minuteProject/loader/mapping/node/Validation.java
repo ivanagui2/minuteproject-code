@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.loader.mapping.MappingHolder;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class Validation extends AbstractConfiguration{
+public class Validation extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -17,6 +17,7 @@ public class Validation extends AbstractConfiguration{
    private String _name;
    private String _alias;
    private String _id;
+   private String _entryPoint;
    private Variables _variables;
    private ValidationProperties _validationProperties;
    private ValidationPropertySets _validationPropertySets;
@@ -45,7 +46,7 @@ public class Validation extends AbstractConfiguration{
    public String getType() {
 	  if (_type == null)
 	     _type = new String();
-      return _type;
+	      return _type;
    }
 	
    public void setType (String _type) {
@@ -56,7 +57,7 @@ public class Validation extends AbstractConfiguration{
    public String getBean() {
 	  if (_bean == null)
 	     _bean = new String();
-      return _bean;
+	      return _bean;
    }
 	
    public void setBean (String _bean) {
@@ -67,7 +68,7 @@ public class Validation extends AbstractConfiguration{
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
-      return _name;
+	      return _name;
    }
 	
    public void setName (String _name) {
@@ -78,7 +79,7 @@ public class Validation extends AbstractConfiguration{
    public String getAlias() {
 	  if (_alias == null)
 	     _alias = new String();
-      return _alias;
+	      return _alias;
    }
 	
    public void setAlias (String _alias) {
@@ -89,7 +90,7 @@ public class Validation extends AbstractConfiguration{
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
-      return _id;
+	      return _id;
    }
 	
    public void setId (String _id) {
@@ -97,10 +98,21 @@ public class Validation extends AbstractConfiguration{
    }
    
    
+   public String getEntryPoint() {
+	  if (_entryPoint == null)
+	     _entryPoint = new String();
+	      return _entryPoint;
+   }
+	
+   public void setEntryPoint (String _entryPoint) {
+      this._entryPoint = _entryPoint;
+   }
+   
+   
    public Variables getVariables() {
 	  if (_variables == null)
 	     _variables = new Variables();
-      return _variables;
+	      return _variables;
    }
 	
    public void setVariables (Variables _variables) {
@@ -111,7 +123,7 @@ public class Validation extends AbstractConfiguration{
    public ValidationProperties getValidationProperties() {
 	  if (_validationProperties == null)
 	     _validationProperties = new ValidationProperties();
-      return _validationProperties;
+	      return _validationProperties;
    }
 	
    public void setValidationProperties (ValidationProperties _validationProperties) {
@@ -122,7 +134,7 @@ public class Validation extends AbstractConfiguration{
    public ValidationPropertySets getValidationPropertySets() {
 	  if (_validationPropertySets == null)
 	     _validationPropertySets = new ValidationPropertySets();
-      return _validationPropertySets;
+	      return _validationPropertySets;
    }
 	
    public void setValidationPropertySets (ValidationPropertySets _validationPropertySets) {

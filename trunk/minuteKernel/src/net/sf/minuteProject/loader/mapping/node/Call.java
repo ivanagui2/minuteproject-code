@@ -8,7 +8,7 @@ import net.sf.minuteProject.loader.mapping.MappingHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
-public class If extends AbstractConfigurationLoader{
+public class Call extends AbstractConfigurationLoader{
 
     private String _packageName;
    private BeanMap _beanMap;
@@ -16,13 +16,12 @@ public class If extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
-   private String _what;
-   private String _condition;
-   private String _value;
-   private String _expression;
-   private List<Case> _cases;
+   private String _method;
+   private CallEntryPoint _callEntryPoint;
+   private String _transactional;
+   private CallSequence _sequence;
 
-   public If() {
+   public Call() {
    }
 
    public String getTechnicalPackage(Template template) {
@@ -87,83 +86,50 @@ public class If extends AbstractConfigurationLoader{
    }
    
    
-   public String getWhat() {
-	  if (_what == null)
-	     _what = new String();
-	      return _what;
+   public String getMethod() {
+	  if (_method == null)
+	     _method = new String();
+	      return _method;
    }
 	
-   public void setWhat (String _what) {
-      this._what = _what;
+   public void setMethod (String _method) {
+      this._method = _method;
    }
    
    
-   public String getCondition() {
-	  if (_condition == null)
-	     _condition = new String();
-	      return _condition;
+   public CallEntryPoint getCallEntryPoint() {
+	  if (_callEntryPoint == null)
+	     _callEntryPoint = new CallEntryPoint();
+	      return _callEntryPoint;
    }
 	
-   public void setCondition (String _condition) {
-      this._condition = _condition;
+   public void setCallEntryPoint (CallEntryPoint _callEntryPoint) {
+      this._callEntryPoint = _callEntryPoint;
    }
    
    
-   public String getValue() {
-	  if (_value == null)
-	     _value = new String();
-	      return _value;
+   public String getTransactional() {
+	  if (_transactional == null)
+	     _transactional = new String();
+	      return _transactional;
    }
 	
-   public void setValue (String _value) {
-      this._value = _value;
+   public void setTransactional (String _transactional) {
+      this._transactional = _transactional;
    }
    
    
-   public String getExpression() {
-	  if (_expression == null)
-	     _expression = new String();
-	      return _expression;
+   public CallSequence getSequence() {
+	  if (_sequence == null)
+	     _sequence = new CallSequence();
+	      return _sequence;
    }
 	
-   public void setExpression (String _expression) {
-      this._expression = _expression;
+   public void setSequence (CallSequence _sequence) {
+      this._sequence = _sequence;
    }
    
    
-   public List<Case> getCases() {
-      if (_cases == null){
-         _cases = new ArrayList<Case>();
-      }
-      return _cases;
-   }
-   
-   public Case[] getCasesArray() {
-      return (Case[])getCases().toArray(new Case[getCases().size()]);
-   }
-      
-   public void setCases (List<Case> _cases) {
-      this._cases = _cases;
-   }
- 
-   public void setCase (Case _case) {
-      addCase(_case);
-   }
-
-   public void addCase (Case _case) {
-      getCases().add(_case);
-   }
-   
-   public Case getFirstCaseFromCaseByName (String name) {
-      if (name==null)
-         return null;
-      for (Case _case : getCases()) {
-         if (_case.getName().equals(name))
-            return _case;
-      }
-      return null;
-   } 
-
 
 }
 
