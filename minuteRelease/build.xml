@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="release" basedir="." name="minuteKernel">
+    <description>This build file will build all the minuteKernel modules</description>
+    <!-- ===================================================================== -->
+    <!-- import files -->
+    <!-- ===================================================================== -->
+	<property file="build.properties"/>
+    <!-- ===================================================================== -->
+    <!-- properties definitions -->
+    <!-- ===================================================================== -->
+    <!-- LOCAL PROPERTIES 	-->
+    <property name="project.name" value="minuteProject"/>
+	<property name="dburl" value="jdbc:hsqldb:hsql://localhost:9001/${db.name}"/>
+	<!--
+	
+	MP_RELEASE
+./application/lib
+./config
+./config/template
+./target
+./target/bsla
+./target/fitnesse
+./sample
+README.txt
+comd.cmd
+cp.cmd
+	
+	-->
+	<target name="prepare-structure">
+	 <mkdir dir="${application.dir}"/>
+	 <mkdir dir="${application.lib.dir}"/>
+	 <mkdir dir="${config.dir}"/>	
+	 <!--<mkdir dir="${config.template.dir}"/>-->	
+	 <mkdir dir="${template.dir}"/>	
+	 <mkdir dir="${target.dir}"/>
+	 <mkdir dir="${sample.dir}"/>
+	</target>
+	
+	<target name="build-architecture-bsla">
+	  <ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
+	  	<property name="src.dir" value="src-architecture"></property>
+	  	<property name="project.name" value="${bsla}"></property>
+	  	<property name="distribute.dir" value="../${release.del.relpath}/${target.dir}/${bsla}"></property>
+	  </ant>
+	</target>
+	
+	<target name="copy-architecture-bsla-dependencies">
+	  <copy todir="${target.dir}/${bsla}/${dependencies.lib.dir}" overwrite="true">
+	 	<fileset dir="${architecture.bsla.dev.relpath}/lib">
+	 		<include name="**/*.jar"/>
+	 	</fileset>
+	  </copy>	
+		
+	 <!--<ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="archive" />-->
+	</target>
+	<target name="release-architecture-bsla" depends="build-architecture-bsla,copy-architecture-bsla-dependencies"></target>
+
+	<target name="build-architecture-fitnesse">
+	  <ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
+	  	<property name="src.dir" value="src-architecture-mp-fitnesse"></property>
+	  	<property name="project.name" value="${fitnesse}"></property>
+	  	<property name="distribute.dir" value="../${release.del.relpath}/${target.dir}/${fitnesse}"></property>	  	
+	  </ant>
+	</target>
+	<target name="copy-architecture-fitnesse-dependencies">
+		  <copy todir="${target.dir}/${fitnesse}/${dependencies.lib.dir}" overwrite="true">
+		 	<fileset dir="${architecture.fitnesse.dev.relpath}/lib-ext/fitnesse">
+		 		<include name="**/*.jar"/>
+		 	</fileset>
+		  	</copy>
+	</target>
+	<target name="release-architecture-fitnesse" depends="build-architecture-fitnesse,copy-architecture-fitnesse-dependencies"></target>
+	
+	<target name="copy-kernel-dependencies">
+	  <copy todir="${application.lib.dir}" overwrite="true">
+	 	<fileset dir="${kernel.dev.relpath}/lib">
+	 		<include name="**/*.jar"/>
+	 	</fileset>
+	  </copy>	  
+	  <copy todir="${application.lib.dir}" overwrite="true">
+	 	<fileset dir="${kernel.dev.relpath}/application/java/lib">
+	 		<include name="**/*.jar"/>
+	 	</fileset>
+	  </copy>	  		
+	</target>
+	
+	<target name="build-kernel-dependencies">
+	  <ant dir="${kernel.dev.relpath}" target="archive" />
+	</target>	
+	
+	<target name="release-kernel" depends="build-kernel-dependencies, copy-kernel-dependencies" >
+	</target>
+	
+	<target name="copy-template-dependencies">
+	  <copy todir="${template.dir}" overwrite="true">
+	 	<fileset dir="${template.dev.relpath}">
+	 		<include name="*.vm"/>
+	 		<include name="lib/*.vm"/>
+	 		<exclude name="**/*.xml"/>	 		
+	 	</fileset>
+	  </copy>
+	</target>
+	<target name="release-template" depends="copy-template-dependencies"></target>
+
+	<target name="copy-sample-dependencies">
+	  <copy todir="${sample.dir}" overwrite="true">
+	 	<fileset dir="${sample.dev.relpath}">
+	 		<include name="**/*.*"/>
+	 	</fileset>
+	  </copy>
+	</target>
+	<target name="release-sample" depends="copy-sample-dependencies" >
+	</target>
+
+	<target name="copy-demo-dependencies">
+	  <copy todir="${demo.dir}" overwrite="true">
+	 	<fileset dir="${demo.dev.relpath}">
+	 		<include name="**/*.*"/>
+	 	</fileset>
+	  </copy>
+	</target>
+	<target name="release-demo" depends="copy-demo-dependencies" >
+	</target>
+		
+	<target name="release-all" depends="prepare-structure">
+	 <antcall target="release-template"></antcall>
+	 <antcall target="release-kernel"></antcall>
+	 <antcall target="release-architecture-bsla"></antcall>
+     <antcall target="release-architecture-fitnesse"></antcall>	
+	 <antcall target="release-sample"></antcall>	
+	 <antcall target="release-demo"></antcall>		
+	</target>
+	
+	<target name="release" depends="release-all">
+	  <zip destfile="${release.dir}.zip" basedir="${release.dir}"></zip>
+	</target>
+	
+	<!--
+	    
+	-->
+	<!-- ===================================================================== -->
+    <!-- classpath definitions -->
+    <!-- ===================================================================== -->
+    <path id="hsqldb.library.path">
+        <fileset dir="${sample.dir}/hsql">
+            <include name="*.jar"/>
+        </fileset>   	
+    </path>
+	
+    <path id="mp.library.path">
+    	<pathelement location="${demo.dir}/config"/>    	
+        <fileset dir="${application.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>   	
+  	    	
+    </path>
+
+	<!-- ===================================================================== -->
+    <!-- ant task definitions -->
+    <!-- ===================================================================== -->	
+	<target name="hsqldb.start" description="Starts local HSQLDB server" >  
+	 <echo message="Starting HSQLDB" />  
+	  <java fork="true" dir="${sample.dir}" classname="org.hsqldb.Server" >  
+	   <classpath>  
+	    <path refid="hsqldb.library.path" />  
+	   </classpath>  
+	  	<arg line="-database.0 file:./hsql/${db.name} -dbname.0 ${db.name} -port 9001"/>	
+	  </java>  
+	</target> 
+	
+    <target name="hsqldb.stop" description="Stops HSQLDB server">
+      <java classname="org.hsqldb.util.ShutdownServer">
+       <classpath refid="hsqldb.library.path"/>
+       <arg line="-url ${dburl}"/>
+      </java>
+    </target>
+
+	<target name="mp-hibernate" description="MP Hibernate" >  
+	 <echo message="MP Hibernate" />  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
+	   <classpath>  
+	    <path refid="mp.library.path" />  
+	   </classpath>  
+	  	<arg line="mp-config-hibernate.xml"/>	
+	  </java>  
+	</target>
+	
+	<target name="mp-jpa" description="MP JPA">  
+	 <echo message="MP JPA" />  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
+	   <classpath>  
+	    <path refid="mp.library.path" />  
+	   </classpath>  
+	  	<arg line="mp-config-jpa.xml"/>	
+	  </java>  
+	</target>
+	
+	<target name="mp-ibatis" description="MP iBatis">  
+	 <echo message="MP iBatis" />  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
+	   <classpath>  
+	    <path refid="mp.library.path" />  
+	   </classpath>  
+	  	<arg line="mp-config-ibatis.xml"/>	
+	  </java>  
+	</target>
+	
+	<target name="mp-fitnesse" description="MP Fitnesse">  
+	 <echo message="MP Fitness" />  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
+	   <classpath>  
+	    <path refid="mp.library.path" />  
+	   </classpath>  
+	  	<arg line="mp-config-fitnesse.xml"/>	
+	  </java>  
+	</target>
+	
+</project>
