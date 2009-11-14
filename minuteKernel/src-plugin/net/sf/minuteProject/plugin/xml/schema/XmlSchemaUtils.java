@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.xml.Document;
@@ -213,4 +214,25 @@ public class XmlSchemaUtils {
 		   return xmlEnrichment.isPackageNameAvailable();
 		return false;
 	}
+//
+//	public static String getBooleanDefaultValue(Element element, String bool) {
+//		String def = getDefaultValue(element);
+//		if (def==null)
+//			return "false";
+//		return def;
+//	}
+	
+	public static String getBooleanDefaultValue(Element element) {
+		String def = getDefaultValue(element);
+		if (def==null)
+			return "false";
+		return def;
+	}
+	
+	public static String getDefaultValue(Element element) {
+		return element.getDefault();
+	}
+	
+
+	
 }
