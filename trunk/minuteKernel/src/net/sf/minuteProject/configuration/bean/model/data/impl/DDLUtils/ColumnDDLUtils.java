@@ -9,6 +9,7 @@ import java.sql.Types;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnAbstract;
@@ -29,6 +30,10 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	private org.apache.ddlutils.model.Column column;
 	private Table table;
 	private Boolean isLob;
+
+//	public ColumnDDLUtils(org.apache.ddlutils.model.Column column) {
+//		this.column = column;
+//	}
 	
 	public ColumnDDLUtils(org.apache.ddlutils.model.Column column, Table table) {
 		this.column = column;
@@ -421,5 +426,9 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 		if (getType().equals("CLOB")||column.getType().equals("BLOB"))
 			return true;
 		return false;
+	}
+	
+	public String getTechnicalPackage(Template template) {
+		return getTable().getPackage().getTechnicalPackage(template);
 	}
 }

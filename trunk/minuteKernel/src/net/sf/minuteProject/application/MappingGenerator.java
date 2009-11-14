@@ -20,14 +20,12 @@ import net.sf.minuteProject.loader.mapping.node.Bean;
 import net.sf.minuteProject.loader.mapping.node.BeanMapping;
 import net.sf.minuteProject.loader.mapping.node.BeanMappings;
 import net.sf.minuteProject.loader.mapping.node.Beans;
+import net.sf.minuteProject.loader.mapping.node.Flow;
+import net.sf.minuteProject.loader.mapping.node.Flows;
 import net.sf.minuteProject.loader.mapping.node.Validation;
 import net.sf.minuteProject.loader.mapping.node.Validations;
 import net.sf.minuteProject.loader.presentation.Presentation;
 import net.sf.minuteProject.loader.presentation.PresentationHolder;
-import net.sf.minuteProject.loader.presentation.node.Block;
-import net.sf.minuteProject.loader.presentation.node.Flow;
-import net.sf.minuteProject.loader.presentation.node.Page;
-import net.sf.minuteProject.loader.presentation.node.Window;
 import net.sf.minuteProject.plugin.xml.schema.XmlSchemaUtils;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -149,10 +147,19 @@ public class MappingGenerator extends AbstractGenerator {
 			generateBeanSpecific(template);	
 		if (template.getScopeSpecificValue().equals("validation"))
 			generateValidationSpecific(template);	
-//		if (template.getScopeSpecificValue().equals("window"))
-//			generateWindowSpecific(template);			
+		if (template.getScopeSpecificValue().equals("flow"))
+			generateFlowSpecific(template);			
 	}
 
+	private void generateFlowSpecific (Template template) throws Exception {	
+		Flows flows = mappingHolder.getBeanMap().getFlows();
+		if (flows != null) {
+			for (Flow flow : flows.getFlows()) {
+				writeTemplateResult(flow, template);
+			}
+		}
+	}
+	
 	private void generateValidationSpecific (Template template) throws Exception {	
 		Validations validations = mappingHolder.getBeanMap().getValidations();
 		if (validations != null) {
@@ -175,7 +182,14 @@ public class MappingGenerator extends AbstractGenerator {
 		Beans beans = mappingHolder.getBeanMap().getBeans();
 		if (beans!=null) {
 			for (Bean bean : beans.getBeans()) {
-				writeTemplateResult(bean, template);
+				boolean isToGenerate = true;
+	    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+	    			if (!template.isToGenerate(bean)) {
+	    				isToGenerate =false;
+	    			}
+	    		} 
+	    		if (isToGenerate)			
+				    writeTemplateResult(bean, template);
 			}
 		}
 	}

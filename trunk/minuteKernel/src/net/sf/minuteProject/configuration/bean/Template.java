@@ -24,7 +24,8 @@ public class Template extends TemplateTarget {
 	public static final String FORMAT_DB_OBJECT = "FORMAT_DB_OBJECT";
 	public static final String FORMAT_LOWER_CASE_JAVA_CLASS = "FORMAT_LOWER_CASE_JAVA_CLASS";
 	public static final String FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS = "FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS";
-	
+	public static final String FORMAT_UPPER_CASE_FIRST_LETTER = "FORMAT_UPPER_CASE_FIRST_LETTER";
+		
 	private String templateFileName;
 	private String subdir;
 	private String outputsubdir; 
@@ -39,6 +40,7 @@ public class Template extends TemplateTarget {
 	private String viewSpecific;
 	private String serviceSpecific;
 	private String functionSpecific;
+	private String fieldSpecific;
 	private String nodeAttributeNameSpecific;
 	private String nodeNameValue;
 	private String nodeAttributeNameValue;
@@ -137,6 +139,8 @@ public class Template extends TemplateTarget {
 		this.outputsubdir = outputsubdir;
 	}
 	public String getPackageSpecific() {
+		if (packageSpecific==null)
+			return "false";
 		return packageSpecific;
 	}
 	public void setPackageSpecific(String packageSpecific) {
@@ -177,6 +181,8 @@ public class Template extends TemplateTarget {
 		if (fileNameFormat!=null && !fileNameFormat.equals("")) {
 			if (fileNameFormat.equals(FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS))
 				return FormatUtils.firstUpperCaseOnly(fileName);
+			if (fileNameFormat.equals(FORMAT_UPPER_CASE_FIRST_LETTER))
+				return FormatUtils.firstUpperCase(fileName);			
 		}
 		return fileName;
 	}
@@ -265,17 +271,17 @@ public class Template extends TemplateTarget {
 			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
 //			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
 		}
 		return false;
 	}
@@ -448,6 +454,8 @@ public class Template extends TemplateTarget {
 	}
 
 	public String getComponentSpecific() {
+		if (componentSpecific==null)
+			return "false";
 		return componentSpecific;
 	}
 
@@ -549,6 +557,16 @@ public class Template extends TemplateTarget {
 
 	public void setCheckTemplateToGenerate(String checkTemplateToGenerate) {
 		this.checkTemplateToGenerate = checkTemplateToGenerate;
+	}
+
+	public String getFieldSpecific() {
+		if (fieldSpecific==null)
+			return "false";
+		return fieldSpecific;
+	}
+
+	public void setFieldSpecific(String fieldSpecific) {
+		this.fieldSpecific = fieldSpecific;
 	}
 
 

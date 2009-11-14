@@ -104,6 +104,21 @@ public class EnrichmentUtils {
 		}
 		return (Reference[]) list.toArray(new Reference[list.size()]);
 	}
+
+	public static Reference[] getLinkedReferenceByForeignKey (Table table) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] reference = table.getParents();
+		for (int i = 0; i < reference.length; i++) {
+			Table linkedTable = reference[i].getForeignTable();
+//			if (hasTag(linkedTable, tag))
+				list.add(reference[i]);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
+	public static Table[] getLinkedMany2ManyEntity (Table table) {
+		return getLinkedEntityByChildren (table, true);
+	}
 	
 	public static Table[] getLinkedMany2ManyEntityForTag (Table table, String tag) {
 		return getLinkedEntityByChildrenForTag(table, tag, true);
@@ -136,6 +151,21 @@ public class EnrichmentUtils {
 		return (Table[]) list.toArray(new Table[list.size()]);
 	}
 	
+	public static Table[] getLinkedEntityByChildren(Table table, boolean filterMany2Many) {
+		List<Table> list = new ArrayList<Table>();
+		Reference[] reference = table.getChildren();
+		for (int i = 0; i < reference.length; i++) {
+			Table child = reference[i].getForeignTable();
+//			if (hasTag(child, tag))
+			if (filterMany2Many) {
+				if (child.isManyToMany())
+					list.add(child);
+			} else
+			list.add(child);
+		}
+		return (Table[]) list.toArray(new Table[list.size()]);
+	}
+	
 	public static Table getLinkedEntityByMany2ManyForTag (Table origin, Table many2many, String tag) {
 		if (many2many.isManyToMany()) {
 			Table[] m2mTables = getLinkedEntityByForeignKeyForTag(many2many, tag);
@@ -153,6 +183,11 @@ public class EnrichmentUtils {
 		return getTargetReferenceEntityByMany2ManyForTag(origin, m2m, tag);
 	}
 	
+	public static Reference getTargetReferenceEntityByMany2Many (Reference origin) {
+		Table m2m = origin.getForeignTable();
+		return getTargetReferenceEntityByMany2Many(origin, m2m);
+	}
+	
 	public static Reference getTargetReferenceEntityByMany2ManyForTag (Reference origin, Table many2many, String tag) {
 		if (many2many.isManyToMany()) {
 			Reference[] m2mReference = getLinkedReferenceByForeignKeyForTag(many2many, tag);
@@ -167,6 +202,18 @@ public class EnrichmentUtils {
 //					!ref.getForeignColumnName().equals(origin.getLocalColumnName()) ||
 //					!ref.getForeignColumnName().equals(origin.getLocalColumnName()) )
 //				   return ref;
+			}
+		}
+		return null;
+	}
+	
+	public static Reference getTargetReferenceEntityByMany2Many (Reference origin, Table many2many) {
+		if (many2many.isManyToMany()) {
+			Reference[] m2mReference = getLinkedReferenceByForeignKey(many2many);
+			for (int i = 0; i < m2mReference.length; i++) {
+				Reference ref = m2mReference[i];
+				if (!isEqual(origin, ref))
+					return ref;
 			}
 		}
 		return null;
@@ -202,6 +249,21 @@ public class EnrichmentUtils {
 		return (Reference[]) list.toArray(new Reference[list.size()]);
 	}
 	
+	public static Reference[] getLinkedRefenceByChildren (Table table, boolean filterMany2Many) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] reference = table.getChildren();
+		for (int i = 0; i < reference.length; i++) {
+			Table child = reference[i].getForeignTable();
+//			if (hasTag(child, tag))
+				if (filterMany2Many) {
+					if (child.isManyToMany())
+						list.add(reference[i]);
+				} else
+				list.add(reference[i]);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
 	public static Reference[] getLinkedReferenceByChildrenForTag (Table table, String tag) {
 		return getLinkedRefenceByChildrenForTag(table, tag, false);
 	}
@@ -209,12 +271,26 @@ public class EnrichmentUtils {
 	public static Reference[] getLinkedMany2ManyReferenceForTag (Table table, String tag) {
 		return getLinkedRefenceByChildrenForTag(table, tag, true);
 	}
+	
+	public static Reference[] getLinkedMany2ManyReference (Table table) {
+		return getLinkedRefenceByChildren(table,  true);
+	}
 
 	public static Reference[] getLinkedTargetReferenceByMany2ManyForTag (Table table, String tag) {
 		List<Reference> list = new ArrayList<Reference>();
 		Reference[] referenceOrigin = getLinkedMany2ManyReferenceForTag(table, tag);
 		for (int i = 0; i < referenceOrigin.length; i++) {
 			Reference ref = getTargetReferenceEntityByMany2ManyForTag(referenceOrigin[i], tag);
+			list.add(ref);
+		}
+		return (Reference[]) list.toArray(new Reference[list.size()]);
+	}
+	
+	public static Reference[] getLinkedTargetReferenceByMany2Many (Table table) {
+		List<Reference> list = new ArrayList<Reference>();
+		Reference[] referenceOrigin = getLinkedMany2ManyReference(table);
+		for (int i = 0; i < referenceOrigin.length; i++) {
+			Reference ref = getTargetReferenceEntityByMany2Many(referenceOrigin[i]);
 			list.add(ref);
 		}
 		return (Reference[]) list.toArray(new Reference[list.size()]);
@@ -279,5 +355,14 @@ public class EnrichmentUtils {
 		return false;
 	}
 	
-
+	public static boolean isToGenerateBasedOnNotMany2Many(Template template, GeneratorBean bean) {
+		if (bean instanceof Table) {
+			Table table = (Table) bean;
+			if (!table.isManyToMany()) {
+//				return isToGenerateBasedOnTag(template, table);
+				return true;
+			}
+		} 
+		return false;
+	}
 }

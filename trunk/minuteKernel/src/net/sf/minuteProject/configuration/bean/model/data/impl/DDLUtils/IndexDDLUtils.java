@@ -1,14 +1,23 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ddlutils.model.IndexColumn;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Index;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 public class IndexDDLUtils implements Index{
 
 	private org.apache.ddlutils.model.Index index;
+	private Table table;
+	private List<Column> columns;
 	
-	public IndexDDLUtils(org.apache.ddlutils.model.Index index) {
+	public IndexDDLUtils(org.apache.ddlutils.model.Index index, Table table) {
 		this.index = index;
+		this.table = table;
 	}
 	
 	public void addColumn(Column column) {
@@ -17,38 +26,43 @@ public class IndexDDLUtils implements Index{
 	}
 
 	public boolean equalsIgnoreCase(Index otherIndex) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public Column getColumn(int idx) {
-		// TODO Auto-generated method stub
-		return null;
+		IndexColumnDDLUtils indexColumnDDLUtils = new IndexColumnDDLUtils (index.getColumn(idx), table);
+		return indexColumnDDLUtils.getColumn();
 	}
 
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return index.getColumnCount();
 	}
 
 	public Column[] getColumns() {
-		// TODO Auto-generated method stub
-		return null;
+		if (columns==null) {
+			columns = new ArrayList<Column>();
+			for (IndexColumn indexColumn : index.getColumns()) {
+				IndexColumnDDLUtils indexColumnDDLUtils = new IndexColumnDDLUtils (indexColumn, table);
+				columns.add(indexColumnDDLUtils.getColumn());
+			}
+		}
+		return (Column[]) columns.toArray(new Column[columns.size()]);
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return index.getName();
 	}
 
 	public boolean hasColumn(Column column) {
-		// TODO Auto-generated method stub
+		for (Column col : getColumns()) {
+			if (col.getName().equals(column.getName()))
+				return true;
+		}
 		return false;
 	}
 
 	public boolean isUnique() {
-		// TODO Auto-generated method stub
-		return false;
+		return index.isUnique();
 	}
 
 	public void removeColumn(Column column) {

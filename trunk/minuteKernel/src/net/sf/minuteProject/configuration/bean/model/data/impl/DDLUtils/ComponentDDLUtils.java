@@ -130,5 +130,10 @@ public class ComponentDDLUtils implements Component{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public boolean hasProperty(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

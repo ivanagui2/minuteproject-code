@@ -98,12 +98,12 @@ public class TableDDLUtils extends TableAbstract {
 
 	public Index findIndex(String name) {
 		// TODO Auto-generated method stub
-		return new IndexDDLUtils(table.findIndex(name));
+		return new IndexDDLUtils(table.findIndex(name), this);
 	}
 
 	public Index findIndex(String name, boolean caseSensitive) {
 		// TODO Auto-generated method stub
-		return new IndexDDLUtils(table.findIndex(name, caseSensitive));
+		return new IndexDDLUtils(table.findIndex(name, caseSensitive), this);
 	}
 
 	public String getCatalog() {
@@ -170,7 +170,7 @@ public class TableDDLUtils extends TableAbstract {
     	return foreignKeys;
 	}
 	public Index getIndex(int idx) {
-		return new IndexDDLUtils(table.getIndex(idx));
+		return new IndexDDLUtils(table.getIndex(idx), this);
 	}
 
 	public int getIndexCount() {
@@ -198,7 +198,7 @@ public class TableDDLUtils extends TableAbstract {
 	private Index[] getIndexDDLUtils(org.apache.ddlutils.model.Index [] indices) {
 		List<Index> returnIndices = new ArrayList<Index>();
 		for (int i = 0; i < indices.length; i++) {
-			Index index = new IndexDDLUtils(indices[i]);
+			Index index = new IndexDDLUtils(indices[i], this);
 			returnIndices.add(index);
 		}
 		return (Index[])returnIndices.toArray(new Index[returnIndices.size()]);
@@ -401,11 +401,9 @@ public class TableDDLUtils extends TableAbstract {
 	}
 	
 	private Boolean getHasUniqueIndex() {
-//		List<Column> columns = getColumnList();
-//		for (Column column : columns) {
-//			if (column.isUnique())//;getType().equals("CLOB")||column.getType().equals("BLOB"))
-//				return true;
-//		}
-		return false;
+		Index [] indices = getUniqueIndices();
+		if (indices==null || indices.length==0)
+			return false;
+		return true;
 	}
 }

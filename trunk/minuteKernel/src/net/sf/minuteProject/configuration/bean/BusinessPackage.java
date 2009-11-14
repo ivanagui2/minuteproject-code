@@ -21,7 +21,7 @@ public class BusinessPackage extends AbstractConfiguration {
 	private List <Condition> conditions;
 	private List <Package> packages;
 	private List <Table> tables;
-	private List packageViews;
+	private List <Package> packageViews;
 	private List <View> views;
 
 	private List packageServices;
@@ -68,7 +68,7 @@ public class BusinessPackage extends AbstractConfiguration {
 	}
 
 	void setPackageViews (Model model, Database database) {
-		packageViews = new ArrayList();
+		packageViews = new ArrayList<Package> ();
 		Hashtable ht = new Hashtable();
 		View [] views = database.getViews();
 		for (int i = 0; i < views.length; i++) {
@@ -86,7 +86,7 @@ public class BusinessPackage extends AbstractConfiguration {
 				ht.put(packageName, pack);
 			}
 		}
-		Enumeration enumeration = ht.elements();
+		Enumeration <Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
 			packageViews.add(enumeration.nextElement());
 		}
@@ -95,7 +95,7 @@ public class BusinessPackage extends AbstractConfiguration {
 	public List<View> getViews () {
 		if (views == null) {
 			views = new ArrayList<View>();
-			for (Iterator<Package> iter = packageViews.iterator(); iter.hasNext();) {
+			for (Iterator<Package> iter = getPackageViews().iterator(); iter.hasNext();) {
 				for (Iterator<View> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
 					views.add(iter2.next());
 				}
@@ -132,7 +132,7 @@ public class BusinessPackage extends AbstractConfiguration {
 	public List <Table> getTables () {
 		if (tables == null) {
 			tables = new ArrayList<Table>();
-			for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
+			for (Iterator<Package> iter = getPackages().iterator(); iter.hasNext();) {
 				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfTables().iterator(); iter2.hasNext(); ){
 					tables.add(iter2.next());
 				}
@@ -153,11 +153,15 @@ public class BusinessPackage extends AbstractConfiguration {
 		return (Table[]) tables.toArray(new Table[tables.size()]);
 	}
 	
-	public List getPackages() {
+	public List <Package> getPackages() {
+		if (packages==null)
+			packages = new ArrayList<Package>();		
 		return packages;
 	}
 
-	public List getPackageViews() {
+	public List <Package> getPackageViews() {
+		if (packageViews==null)
+			packageViews = new ArrayList<Package>();
 		return packageViews;
 	}
 
