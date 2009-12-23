@@ -27,6 +27,8 @@ cp.cmd
 	
 	-->
 	<target name="prepare-structure">
+	 <delete dir="${release.dir}" />
+	 <delete file="${release.dir}.zip" />	
 	 <mkdir dir="${application.dir}"/>
 	 <mkdir dir="${application.lib.dir}"/>
 	 <mkdir dir="${config.dir}"/>	
@@ -69,7 +71,7 @@ cp.cmd
 		 	</fileset>
 		  	</copy>
 	</target>
-	<target name="release-architecture-fitnesse" depends="build-architecture-fitnesse,copy-architecture-fitnesse-dependencies"></target>
+	<target name="release-architecture-fitnesse" depends="build-architecture-fitnesse,distribute-kernel,copy-architecture-fitnesse-dependencies"></target>
 	
 	<target name="copy-kernel-dependencies">
 	  <copy todir="${application.lib.dir}" overwrite="true">
@@ -84,8 +86,20 @@ cp.cmd
 	  </copy>	  		
 	</target>
 	
+	<target name="distribute-kernel">
+	  <copy todir="${application.dir}" overwrite="true">
+	 	<fileset dir="${kernel.dev.relpath}/application/java/lib">
+	 		<include name="**/*.jar"/>
+	 		<include name="**/*.zip"/>
+	 	</fileset>
+	  </copy>	  		
+	</target>	
+	
 	<target name="build-kernel-dependencies">
-	  <ant dir="${kernel.dev.relpath}" target="archive" />
+	  <ant dir="${kernel.dev.relpath}" target="archive" >
+	  	<property name="application.dir" value="./application"></property>
+	  	<property name="project.name" value="minuteKernel"></property>
+	  </ant>
 	</target>	
 	
 	<target name="release-kernel" depends="build-kernel-dependencies, copy-kernel-dependencies" >
@@ -121,6 +135,16 @@ cp.cmd
 	</target>
 	<target name="release-demo" depends="copy-demo-dependencies" >
 	</target>
+
+	<target name="copy-release-installation">
+	  <copy todir="${release.dir}" overwrite="true">
+	 	<fileset dir="${installation.dir}">
+	 		<include name="**/README.txt"/>
+	 	</fileset>
+	  </copy>
+	</target>
+	<target name="release-installation" depends="copy-release-installation" >
+	</target>
 		
 	<target name="release-all" depends="prepare-structure">
 	 <antcall target="release-template"></antcall>
@@ -129,6 +153,7 @@ cp.cmd
      <antcall target="release-architecture-fitnesse"></antcall>	
 	 <antcall target="release-sample"></antcall>	
 	 <antcall target="release-demo"></antcall>		
+	 <antcall target="release-installation"></antcall>		
 	</target>
 	
 	<target name="release" depends="release-all">
