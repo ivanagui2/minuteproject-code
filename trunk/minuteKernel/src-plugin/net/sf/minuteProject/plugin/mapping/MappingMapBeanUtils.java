@@ -19,6 +19,7 @@ import net.sf.minuteProject.loader.mapping.node.BeanMappingProperties;
 import net.sf.minuteProject.loader.mapping.node.BeanMappingProperty;
 import net.sf.minuteProject.loader.mapping.node.BeanMappings;
 import net.sf.minuteProject.loader.mapping.node.Beans;
+import net.sf.minuteProject.loader.mapping.node.Service;
 import net.sf.minuteProject.loader.mapping.node.Validation;
 import net.sf.minuteProject.loader.mapping.node.ValidationProperty;
 import net.sf.minuteProject.loader.mapping.node.Variable;
@@ -29,6 +30,7 @@ public class MappingMapBeanUtils {
 	
 	public static final String DEFAULT_STRING_RETURN = "";
 	public static final String BEAN_OBJECT_TEMPLATE = "BeanObject";
+	public static final String VALIDATION_WRAPPER_TEMPLATE = "ValidationWrapper";
 	public static final String NAME_INFO = "NAME";
 	public static final String PACKAGE_INFO = "PACKAGE";
 	public static final String DEFAULT_SUPER_CLASS = "DEFAULT_SUPER_CLASS";
@@ -83,15 +85,21 @@ public class MappingMapBeanUtils {
 			return "ATTRIBUTE_DOES_NOT_HAVE_PACKAGE";		
 		return attributeBean.getPackageName();
 	}
+	
 	public String getPackageName(BeanMapping beanMapping, Template template) {
 		return beanMapping.getPackageName();
 	}
+	
 	public String getPackageName (Bean bean) {
 		return getPackageForBean(bean);
 	}
 	
 	public String getPackageForBean (BeanMapping beanMapping, String beanName) {
 		return getPackageForBean(getBean(beanMapping, beanName));
+	}
+	
+	public String getPackageForBean (BeanMap beanMap, String beanName) {
+		return getPackageForBean(getBean(beanMap, beanName));
 	}
 	
 	public String getPackageForBean (Bean bean) {
@@ -240,7 +248,7 @@ public class MappingMapBeanUtils {
 			String whatMappingMethod = getJavaPathFromBeanPath(what);
 			return originBeanVariable+"."+whatMappingMethod;
 		} else {
-			return getFunction (originBeanVariable, function, what);
+			return getFunction (originBeanVariable, beanMappingProperty);//function, what);
 		}
 	}
 	
@@ -249,7 +257,7 @@ public class MappingMapBeanUtils {
 		StringBuffer sb = new StringBuffer();
 		while (st.hasMoreTokens()) {
 			String token = st.nextToken();
-			String tokenJavaName = FormatUtils.getJavaName(token);
+			String tokenJavaName = FormatUtils.firstUpperCase(token);
 			sb.append("get");
 			sb.append(tokenJavaName);
 			sb.append("()");
@@ -259,11 +267,20 @@ public class MappingMapBeanUtils {
 		return sb.toString();	
 	}
 	
-	public String getFunction (String originBeanVariable, String function, String what) {
+	public String getFunction (String originBeanVariable, BeanMappingProperty beanMappingProperty) {
+		String function = beanMappingProperty.getFunction();
+		String what = beanMappingProperty.getWhat();
 		if (function.equals("concat")) {
 			return getConcatFunction (originBeanVariable, what);
 		}
+		if (function.equals("defaultValue")) {
+			return " new "+getDefaultObjectConstructor(beanMappingProperty)+"(\""+beanMappingProperty.getValue()+"\") ";
+		}		
 		return "FUNCTION_NOT_AVAILABLE";
+	}
+	
+	private String getDefaultObjectConstructor (BeanMappingProperty beanMappingProperty) {
+		return " String ";
 	}
 	
 	private String getConcatFunction(String originBeanVariable, String what) {
@@ -414,6 +431,33 @@ public class MappingMapBeanUtils {
 	    	Bean bean = (Bean)generatorBean;
 	    	return bean.isInPackage();
 	    }
+	    if (generatorBean instanceof Service) {
+	    	Service service = (Service)generatorBean;
+	    	return service.isInPackage();
+	    }	    
 	    return false;		
+	}
+	
+	public Validation getValidator(ValidationProperty validationProperty) {
+		if (!validationProperty.getValidator().equals("")){
+		   return getValidatorFromValidationProperty(validationProperty);
+		}
+		return null;
+	}
+	
+	public Validation getValidatorFromValidationProperty(ValidationProperty validationProperty) {
+		for (Validation validation : validationProperty.getBeanMap().getValidations().getValidations()) {
+			if (validation.getName()!=null && validation.getName().equals(validationProperty.getValidator()))
+				return validation;
+		}
+		return null;
+	}
+	
+	public String getValidatorClassName (Validation validation, Template template) {
+		if (validation!=null) {
+			Template templateTarget = CommonUtils.getTargetTemplate(template, VALIDATION_WRAPPER_TEMPLATE);
+			return CommonUtils.getClassName(validation, templateTarget);
+		}
+		return "VALIDATION CANNOT BE NULL";
 	}
 }
