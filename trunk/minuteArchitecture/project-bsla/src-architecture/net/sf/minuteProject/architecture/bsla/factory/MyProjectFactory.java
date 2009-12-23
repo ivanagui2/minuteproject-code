@@ -11,11 +11,17 @@ public class MyProjectFactory {
     public static String getConfig() {
     	if (config==null)
     		return "classpath:spring-myproject-config.xml";
-		return "classpath:"+config;
+		return getConfig(config);
 	}
 
 	public static void setConfig(String config) {
 		MyProjectFactory.config = config;
+	}
+
+	protected static String getConfig (String config) {
+		if (config.startsWith("classpath:"))
+			return config;
+		return "classpath:"+config;
 	}
 
 	/**
@@ -48,10 +54,8 @@ public class MyProjectFactory {
     private static void loadFactory() {
         try {
             String[] configLocations = new String[] {getConfig()};
-            // Instantiate the object but do not process yet;
             beanFactory = new ClassPathXmlApplicationContext(configLocations, false);
             isLoaded = true;
-            // Process the configuration now so that no infinite loop happens
             ((ClassPathXmlApplicationContext) beanFactory).refresh();
             System.out.println("load of the spring factory done");
         } catch (Exception ex) {
