@@ -18,6 +18,7 @@ public class Validation extends AbstractConfigurationLoader{
    private String _alias;
    private String _id;
    private String _entryPoint;
+   private Boolean _isInPackage;
    private Variables _variables;
    private ValidationProperties _validationProperties;
    private ValidationPropertySets _validationPropertySets;
@@ -106,6 +107,21 @@ public class Validation extends AbstractConfigurationLoader{
 	
    public void setEntryPoint (String _entryPoint) {
       this._entryPoint = _entryPoint;
+   }
+   
+   
+   public Boolean isInPackage() {
+      return getIsInPackage();
+   }
+   
+   public Boolean getIsInPackage() {
+	  if (_isInPackage == null)
+	     _isInPackage = new Boolean(false);
+	      return _isInPackage;
+   }
+	
+   public void setIsInPackage (Boolean _isInPackage) {
+      this._isInPackage = _isInPackage;
    }
    
    

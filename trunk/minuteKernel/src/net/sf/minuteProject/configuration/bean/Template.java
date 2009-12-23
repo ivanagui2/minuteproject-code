@@ -60,6 +60,7 @@ public class Template extends TemplateTarget {
 	private String scopeSpecificValue;
 	private String entityDirNameSuffix;
 	private String entityDirNamePrefix;
+	private String appendEndPackageDir;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -167,6 +168,14 @@ public class Template extends TemplateTarget {
 	public String getOutputFileName (GeneratorBean bean) {
 		return getOutputFileMain(bean)+"."+fileExtension;
 	}	
+
+	public String getAppendEndPackageDir() {
+		return appendEndPackageDir;
+	}
+
+	public void setAppendEndPackageDir(String appendEndPackageDir) {
+		this.appendEndPackageDir = appendEndPackageDir;
+	}
 
 	/**
 	 * Returns the name of the file without the extention
@@ -363,6 +372,9 @@ public class Template extends TemplateTarget {
     	if (addEntityDirName!=null && addEntityDirName.equals("true")) {
     		sb.append("//");
     		sb.append(getEntityDirName(bean.getGeneratedBeanName()));
+    	}
+    	if (appendEndPackageDir!=null) {
+    		sb.append("//"+appendEndPackageDir);
     	}
     	String outputFileDir = sb.toString();
 		new File (outputFileDir.toString()).mkdirs();

@@ -38,14 +38,14 @@ public class Init {
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 	
-		public InitHolder load() throws Exception{
+	public InitHolder load() throws Exception{
 		return load(getConfig(), getDigesterRule());
 	}
 	
 	public InitHolder load (String configuration, String rules) throws Exception{
-		InitHolder Initholder = new InitHolder();
-		loadConfiguration(Initholder, getConfigurationInputStream(configuration), rules);
-        return Initholder;		
+		InitHolder initholder = new InitHolder();
+		loadConfiguration(initholder, getConfigurationInputStream(configuration), rules);
+        return initholder;		
 	}
 	
 	private InputStream getConfigurationInputStream (String configurationFileName) {

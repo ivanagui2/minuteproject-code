@@ -18,6 +18,7 @@ public class BeanMappingProperty extends AbstractConfigurationLoader{
    private String _what;
    private String _to;
    private String _function;
+   private String _value;
    private String _callMapping;
    private String _isLoop;
 
@@ -105,6 +106,17 @@ public class BeanMappingProperty extends AbstractConfigurationLoader{
 	
    public void setFunction (String _function) {
       this._function = _function;
+   }
+   
+   
+   public String getValue() {
+	  if (_value == null)
+	     _value = new String();
+	      return _value;
+   }
+	
+   public void setValue (String _value) {
+      this._value = _value;
    }
    
    

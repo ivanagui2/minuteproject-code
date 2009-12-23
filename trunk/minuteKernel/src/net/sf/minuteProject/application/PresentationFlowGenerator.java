@@ -177,7 +177,7 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		}
 	}
 	
-	private void writeTemplateResult(GeneratorBean bean, 
+	protected void writeTemplateResult(GeneratorBean bean, 
 			Template template) throws Exception {
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
@@ -188,12 +188,12 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		produce(context, template, outputFilename);
 	}
 	
-	private void putCommonContextObject(VelocityContext context, Template template) {
+	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 	}
 	
-	private void putStandardContextObject(VelocityContext context) {
+	protected void putStandardContextObject(VelocityContext context) {
 		context.put("convertUtils", new ConvertUtils());
 		context.put("commonUtils", new CommonUtils());
 		context.put("viewUtils", new ViewUtils());

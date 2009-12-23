@@ -196,13 +196,13 @@ public class ModelViewGenerator extends ModelGenerator {
 		}
 	}
 
-	private void putCommonContextObject(VelocityContext context, Template template) {
+	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", model);
 	}
 	
-	private void putStandardContextObject (VelocityContext context) {
+	protected void putStandardContextObject (VelocityContext context) {
 		context.put("convertUtils", getConvertUtils());
 		context.put("commonUtils", getCommonUtils());
 		context.put("columnUtils", getColumnUtils());

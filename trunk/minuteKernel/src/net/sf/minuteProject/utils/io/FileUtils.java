@@ -1,11 +1,26 @@
 package net.sf.minuteProject.utils.io;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+//import net.sf.minuteProject.configuration.bean.file.Line;
+//import net.sf.minuteProject.configuration.bean.file.Lines;
+import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.loader.implicitstructure.node.Line;
+import net.sf.minuteProject.loader.implicitstructure.node.Lines;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -45,32 +60,6 @@ public class FileUtils {
 				return null;
 			}
 		return null;
-//		try {
-//			// is the inputPathInFile abs?
-//			URL url = new URL ("file://"+inputPathInFile);
-//			if (url==null) {
-//				return null;
-//			}		
-//			else {
-//				try {
-//					URI uri = url.toURI();
-//					uri.getPath();
-//					File f  = new File(inputPathInFile);
-//					//File f = new File(uri);
-//					f.getAbsolutePath();
-//					f.exists();
-//					return new File(url.toURI()).getAbsolutePath();
-//				} catch (URISyntaxException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					return null;
-//				}				
-//			}
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return null;
-//		}
 	}
 	
 	public static String getRoot() {
@@ -124,5 +113,94 @@ public class FileUtils {
 		return root + "/" + relativePath;
 	}
 
+	public String readFirstLine (File file) {
+		String strLine = "";
+		if (file.exists()) {
+	      try{
+	    	    // Open the file that is the first 
+	    	    // command line parameter
+	    	    FileInputStream fstream = new FileInputStream(file);
+	    	    // Get the object of DataInputStream
+	    	    DataInputStream in = new DataInputStream(fstream);
+	    	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	    	    strLine = br.readLine(); 
+	    	    //Read File Line By Line
+//	    	    while ((strLine = br.readLine()) != null)   {
+//	    	      // Print the content on the console
+//	    	      System.out.println (strLine);
+//	    	    }
+	    	    //Close the input stream
+	    	    in.close();
+    	    }catch (Exception e){//Catch exception if any
+    	      System.err.println("Error: " + e.getMessage());
+    	    }			
+
+		}
+		return strLine;
+	}
 	
+	private Lines parseLines (File file, String separator, List<Property> properties) {
+		Lines lines = new Lines();
+		String strLine;
+	    try{
+    	    // Open the file that is the first 
+    	    // command line parameter
+    	    FileInputStream fstream = new FileInputStream(file);
+    	    // Get the object of DataInputStream
+    	    DataInputStream in = new DataInputStream(fstream);
+    	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+    	    //skip first line
+    	    strLine = br.readLine(); 
+    	    //Read File Line By Line
+    	    while ((strLine = br.readLine()) != null)   {
+    	      // Print the content on the console
+    	       lines.addLine(parseLine(strLine, separator, properties));
+//    	       System.out.println (strLine);
+    	    }
+    	    //Close the input stream
+    	    in.close();
+  	    }catch (Exception e){//Catch exception if any
+  	      System.err.println("Error: " + e.getMessage());
+  	    }	
+  	    return lines;
+	}
+	
+	private Line parseLine (String strLine, String separator, List<Property> properties) {
+	   Line line = new Line();
+	   StringTokenizer st = new StringTokenizer(strLine, separator);
+	   int size = properties.size();
+	   int i = 0;
+		while (st.hasMoreElements()) {
+			if (i<size) {
+				String token = st.nextToken();
+				Property prop = properties.get(i);
+				Property property = new Property();
+				property.setName(prop.getName());
+				property.setValue(token);
+				line.addProperty(property);
+				i++;
+			}
+		}
+	   return line;
+	}
+	
+	public Lines getLines (File file, String separator) {
+//		Lines lines = new Lines();
+		String definition = readFirstLine(file);
+		List<Property> properties = getProperties (definition, separator);
+//		lines.addLine(line);
+		return parseLines(file, separator, properties);
+	}
+	
+	private List<Property> getProperties (String definition, String separator) {
+		List<Property> properties = new ArrayList<Property>();
+		StringTokenizer st = new StringTokenizer(definition, separator);
+		while (st.hasMoreElements()) {
+			String token = st.nextToken();
+			Property property = new Property();
+			property.setName(token);
+			properties.add(property);
+		}
+		return properties;
+	}
 }

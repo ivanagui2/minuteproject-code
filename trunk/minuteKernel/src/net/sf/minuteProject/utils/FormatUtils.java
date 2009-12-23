@@ -98,7 +98,7 @@ public class FormatUtils {
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length()).toLowerCase();
 	}	
 	
-	private static String firstLowerCase (String st) {
+	public static String firstLowerCase (String st) {
 		if (st==null)
 			return "INPUT_STRING_IS_NULL";
 		return st.substring(0,1).toLowerCase() +st.substring(1,st.length());
@@ -114,6 +114,10 @@ public class FormatUtils {
 		input = StringUtils.removeStart(input, "ID_");
 		input = StringUtils.removeEnd(input, "_ID");
 		return input;
+	}
+	
+	public static String upperCase (String st) {
+		return StringUtils.upperCase(st);
 	}
 	
 	private static boolean isStandardBean(String name){

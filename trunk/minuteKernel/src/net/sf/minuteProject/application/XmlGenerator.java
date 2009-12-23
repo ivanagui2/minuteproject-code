@@ -215,7 +215,7 @@ public class XmlGenerator extends AbstractGenerator {
 		}
 	}
 	
-	private void writeTemplateResult(GeneratorBean bean, 
+	protected void writeTemplateResult(GeneratorBean bean, 
 			Template template) throws Exception {
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
@@ -235,7 +235,7 @@ public class XmlGenerator extends AbstractGenerator {
 		return beanName;
    }
 	   
-	private void putCommonContextObject(VelocityContext context) {
+	protected void putCommonContextObject(VelocityContext context) {
 		context.put("document", doc);
 		context.put("rootElement", rootElement);
 		context.put("baseElement", baseElement);
