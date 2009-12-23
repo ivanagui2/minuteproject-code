@@ -17,6 +17,7 @@ public class BeanMap extends AbstractConfigurationLoader{
    private Beans _beans;
    private Validations _validations;
    private Flows _flows;
+   private Services _services;
 
    public BeanMap() {
    }
@@ -98,6 +99,17 @@ public class BeanMap extends AbstractConfigurationLoader{
 	
    public void setFlows (Flows _flows) {
       this._flows = _flows;
+   }
+   
+   
+   public Services getServices() {
+	  if (_services == null)
+	     _services = new Services();
+	      return _services;
+   }
+	
+   public void setServices (Services _services) {
+      this._services = _services;
    }
    
    

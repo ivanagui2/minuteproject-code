@@ -30,6 +30,13 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.utils.BslaLibraryUtils;
+import net.sf.minuteProject.utils.CommonUtils;
+import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.DatabaseUtils;
+import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 
 /**
@@ -258,8 +265,11 @@ public abstract class AbstractGenerator implements Generator {
     		StringBuffer sb = new StringBuffer();
     		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
     			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
-    			sb.append(templateTarget2.getLibdir());
-    			sb.append(",");
+    			if (templateTarget2.getLibdir()!=null 
+    				&& !templateTarget2.getLibdir().equals("")) {
+	    			sb.append(templateTarget2.getLibdir());
+	    			sb.append(","); //TODO change for last element
+    			}
     		}
     		
     		templateLibPath = sb.toString();
@@ -312,4 +322,32 @@ public abstract class AbstractGenerator implements Generator {
     protected Table getDecoratedTable (Table table) {
     	return DataModelFactory.getTable(table);
     }
+    
+	protected void writeTemplateResult(GeneratorBean bean, 
+			Template template) throws Exception {
+		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+		VelocityContext context = getVelocityContext(template);
+		String beanName = getAbstractBeanName(bean);
+		context.put(beanName, bean);
+		context.put("template", template);
+		putCommonContextObject(context, template);
+		produce(context, template, outputFilename);
+	}
+	
+	protected void putCommonContextObject(VelocityContext context, Template template) {
+		putStandardContextObject(context);
+		putPluginContextObject(context, template);
+	}
+	
+	protected void putStandardContextObject(VelocityContext context) {
+		context.put("convertUtils", new ConvertUtils());
+		context.put("commonUtils", new CommonUtils());
+		context.put("viewUtils", new ViewUtils());
+		context.put("formatUtils", new FormatUtils());
+		context.put("bslaLibraryUtils", new BslaLibraryUtils());
+		context.put("databaseUtils", new DatabaseUtils());
+		context.put("modelUtils", new ModelUtils());
+	}
+
+    
 }

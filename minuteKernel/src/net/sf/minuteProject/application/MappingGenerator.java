@@ -22,6 +22,8 @@ import net.sf.minuteProject.loader.mapping.node.BeanMappings;
 import net.sf.minuteProject.loader.mapping.node.Beans;
 import net.sf.minuteProject.loader.mapping.node.Flow;
 import net.sf.minuteProject.loader.mapping.node.Flows;
+import net.sf.minuteProject.loader.mapping.node.Service;
+import net.sf.minuteProject.loader.mapping.node.Services;
 import net.sf.minuteProject.loader.mapping.node.Validation;
 import net.sf.minuteProject.loader.mapping.node.Validations;
 import net.sf.minuteProject.loader.presentation.Presentation;
@@ -65,7 +67,7 @@ public class MappingGenerator extends AbstractGenerator {
 	    logger.info("start time = "+new Date());
 
 		loadInit(args[0]);
-		loadPresentationDefinition(initholder);
+		loadDefinition(initholder);
 		loadTarget(initholder);
 		
 		generate(initholder.getConfiguration().getTarget());
@@ -84,14 +86,12 @@ public class MappingGenerator extends AbstractGenerator {
 		if (configuration!=null) {
 			Targetlocation target = configuration.getTargetlocation();
 			if (target!=null) {
-//				String filename = target.getFilename();
-//				String dir = target.getDir();
 				loadTarget (target);	
 			}
 		}
 	}
 	
-	private void loadPresentationDefinition(InitHolder initholder) throws Exception {
+	private void loadDefinition(InitHolder initholder) throws Exception {
 		Configuration configuration = initholder.getConfiguration();
 		if (configuration!=null) {
 			Definition definition = configuration.getDefinition();
@@ -149,6 +149,8 @@ public class MappingGenerator extends AbstractGenerator {
 			generateValidationSpecific(template);	
 		if (template.getScopeSpecificValue().equals("flow"))
 			generateFlowSpecific(template);			
+		if (template.getScopeSpecificValue().equals("service"))
+			generateServiceSpecific(template);
 	}
 
 	private void generateFlowSpecific (Template template) throws Exception {	
@@ -164,7 +166,15 @@ public class MappingGenerator extends AbstractGenerator {
 		Validations validations = mappingHolder.getBeanMap().getValidations();
 		if (validations != null) {
 			for (Validation validation : validations.getValidations()) {
-				writeTemplateResult(validation, template);
+				boolean isToGenerate = true;
+	    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+	    			if (!template.isToGenerate(validation)) {
+	    				isToGenerate =false;
+	    			}
+	    		} 
+	    		if (isToGenerate)			
+//				    writeTemplateResult(bean, template);				
+	    			writeTemplateResult(validation, template);
 			}
 		}
 	}
@@ -193,6 +203,22 @@ public class MappingGenerator extends AbstractGenerator {
 			}
 		}
 	}
+	
+	private void generateServiceSpecific(Template template) throws Exception {	
+		Services services = mappingHolder.getBeanMap().getServices();
+		if (services!=null) {
+			for (Service service : services.getServices()) {
+				boolean isToGenerate = true;
+	    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+	    			if (!template.isToGenerate(service)) {
+	    				isToGenerate =false;
+	    			}
+	    		} 
+	    		if (isToGenerate)			
+				    writeTemplateResult(service, template);
+			}
+		}
+	}
 //	
 //	private void generateBlockSpecific(Template template) throws Exception {	
 //		List<Block> blocks = presentationholder.getDictionary().getBlocks();
@@ -212,7 +238,7 @@ public class MappingGenerator extends AbstractGenerator {
 //		}
 //	}
 	
-	private void writeTemplateResult(GeneratorBean bean, 
+	protected void writeTemplateResult(GeneratorBean bean, 
 			Template template) throws Exception {
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
@@ -223,12 +249,12 @@ public class MappingGenerator extends AbstractGenerator {
 		produce(context, template, outputFilename);
 	}
 	
-	private void putCommonContextObject(VelocityContext context, Template template) {
+	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 	}
 	
-	private void putStandardContextObject(VelocityContext context) {
+	protected void putStandardContextObject(VelocityContext context) {
 		context.put("convertUtils", new ConvertUtils());
 		context.put("commonUtils", new CommonUtils());
 		context.put("viewUtils", new ViewUtils());

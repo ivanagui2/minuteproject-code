@@ -132,9 +132,14 @@ public class BusinessModel {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
 		List<Field> fields = entity.getFields();
-		Column[] columns = table.getColumns();	
+		Column[] columns = table.getColumns();
+		Column[] attributes = table.getAttributes();
 		for (Field field : fields) {
 			for (Column column : columns) {
+				if (field.getName().equals(column.getName()))
+					column.setProperties(field.getProperties());
+			}	
+			for (Column column : attributes) {
 				if (field.getName().equals(column.getName()))
 					column.setProperties(field.getProperties());
 			}			

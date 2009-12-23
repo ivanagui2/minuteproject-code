@@ -13,8 +13,10 @@ public class Variable extends AbstractConfigurationLoader{
     private String _packageName;
    private BeanMap _beanMap;
    private String _type;
+   private String _bean;
    private String _name;
    private String _alias;
+   private Boolean _isReturn;
    private String _id;
    private String _function;
    private String _functionParam;
@@ -51,6 +53,17 @@ public class Variable extends AbstractConfigurationLoader{
    }
    
    
+   public String getBean() {
+	  if (_bean == null)
+	     _bean = new String();
+	      return _bean;
+   }
+	
+   public void setBean (String _bean) {
+      this._bean = _bean;
+   }
+   
+   
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
@@ -70,6 +83,21 @@ public class Variable extends AbstractConfigurationLoader{
 	
    public void setAlias (String _alias) {
       this._alias = _alias;
+   }
+   
+   
+   public Boolean isReturn() {
+      return getIsReturn();
+   }
+   
+   public Boolean getIsReturn() {
+	  if (_isReturn == null)
+	     _isReturn = new Boolean(false);
+	      return _isReturn;
+   }
+	
+   public void setIsReturn (Boolean _isReturn) {
+      this._isReturn = _isReturn;
    }
    
    

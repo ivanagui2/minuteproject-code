@@ -16,9 +16,14 @@ public class Call extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
-   private String _method;
-   private CallEntryPoint _callEntryPoint;
-   private String _transactional;
+   private String _service;
+   private String _function;
+   private Boolean _isPreviousCallReturnAsInput;
+   private String _assign;
+   private String _validate;
+   private String _map;
+   private String _input;
+   private String _returnToVariable;
    private CallSequence _sequence;
 
    public Call() {
@@ -86,36 +91,95 @@ public class Call extends AbstractConfigurationLoader{
    }
    
    
-   public String getMethod() {
-	  if (_method == null)
-	     _method = new String();
-	      return _method;
+   public String getService() {
+	  if (_service == null)
+	     _service = new String();
+	      return _service;
    }
 	
-   public void setMethod (String _method) {
-      this._method = _method;
+   public void setService (String _service) {
+      this._service = _service;
    }
    
    
-   public CallEntryPoint getCallEntryPoint() {
-	  if (_callEntryPoint == null)
-	     _callEntryPoint = new CallEntryPoint();
-	      return _callEntryPoint;
-   }
-	
-   public void setCallEntryPoint (CallEntryPoint _callEntryPoint) {
-      this._callEntryPoint = _callEntryPoint;
-   }
-   
-   
-   public String getTransactional() {
-	  if (_transactional == null)
-	     _transactional = new String();
-	      return _transactional;
+   public String getFunction() {
+	  if (_function == null)
+	     _function = new String();
+	      return _function;
    }
 	
-   public void setTransactional (String _transactional) {
-      this._transactional = _transactional;
+   public void setFunction (String _function) {
+      this._function = _function;
+   }
+   
+   
+   public Boolean isPreviousCallReturnAsInput() {
+      return getIsPreviousCallReturnAsInput();
+   }
+   
+   public Boolean getIsPreviousCallReturnAsInput() {
+	  if (_isPreviousCallReturnAsInput == null)
+	     _isPreviousCallReturnAsInput = new Boolean(true);
+	      return _isPreviousCallReturnAsInput;
+   }
+	
+   public void setIsPreviousCallReturnAsInput (Boolean _isPreviousCallReturnAsInput) {
+      this._isPreviousCallReturnAsInput = _isPreviousCallReturnAsInput;
+   }
+   
+   
+   public String getAssign() {
+	  if (_assign == null)
+	     _assign = new String();
+	      return _assign;
+   }
+	
+   public void setAssign (String _assign) {
+      this._assign = _assign;
+   }
+   
+   
+   public String getValidate() {
+	  if (_validate == null)
+	     _validate = new String();
+	      return _validate;
+   }
+	
+   public void setValidate (String _validate) {
+      this._validate = _validate;
+   }
+   
+   
+   public String getMap() {
+	  if (_map == null)
+	     _map = new String();
+	      return _map;
+   }
+	
+   public void setMap (String _map) {
+      this._map = _map;
+   }
+   
+   
+   public String getInput() {
+	  if (_input == null)
+	     _input = new String();
+	      return _input;
+   }
+	
+   public void setInput (String _input) {
+      this._input = _input;
+   }
+   
+   
+   public String getReturnToVariable() {
+	  if (_returnToVariable == null)
+	     _returnToVariable = new String();
+	      return _returnToVariable;
+   }
+	
+   public void setReturnToVariable (String _returnToVariable) {
+      this._returnToVariable = _returnToVariable;
    }
    
    

@@ -23,6 +23,7 @@ public class ValidationProperty extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
+   private String _validator;
 
    public ValidationProperty() {
    }
@@ -163,6 +164,17 @@ public class ValidationProperty extends AbstractConfigurationLoader{
 	
    public void setId (String _id) {
       this._id = _id;
+   }
+   
+   
+   public String getValidator() {
+	  if (_validator == null)
+	     _validator = new String();
+	      return _validator;
+   }
+	
+   public void setValidator (String _validator) {
+      this._validator = _validator;
    }
    
    

@@ -53,6 +53,7 @@
 					<alias attr-name="entity-dir-name-format" prop-name="entityDirNameFormat" />
 					<alias attr-name="entity-dir-name-prefix" prop-name="entityDirNamePrefix" />
 					<alias attr-name="entity-dir-name-suffix" prop-name="entityDirNameSuffix" />
+					<alias attr-name="append-end-package-dir" prop-name="appendEndPackageDir" />
 					
 					<alias attr-name="add-scope-name" prop-name="addScopeName" />
 					

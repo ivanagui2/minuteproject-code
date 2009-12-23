@@ -48,6 +48,7 @@
        <alias prop-name="what" attr-name="what"/>
        <alias prop-name="to" attr-name="to"/>
        <alias prop-name="function" attr-name="function"/>
+       <alias prop-name="value" attr-name="value"/>
        <alias prop-name="callMapping" attr-name="call-mapping"/>
        <alias prop-name="isLoop" attr-name="is-loop"/>
        <alias prop-name="packageName" attr-name="package-name"/>
@@ -114,6 +115,7 @@
      <alias prop-name="alias" attr-name="alias"/>
      <alias prop-name="id" attr-name="id"/>
      <alias prop-name="entryPoint" attr-name="entry-point"/>
+     <alias prop-name="isInPackage" attr-name="is-in-package"/>
      <alias prop-name="packageName" attr-name="package-name"/>
     </set-properties-rule>
     <pattern value="variables">
@@ -131,8 +133,10 @@
       <set-next-rule methodname="setVariable" paramtype="net.sf.minuteProject.loader.mapping.node.Variable"/>
       <set-properties-rule>
        <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="bean" attr-name="bean"/>
        <alias prop-name="name" attr-name="name"/>
        <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="isReturn" attr-name="is-return"/>
        <alias prop-name="id" attr-name="id"/>
        <alias prop-name="function" attr-name="function"/>
        <alias prop-name="functionParam" attr-name="function-param"/>
@@ -165,6 +169,7 @@
        <alias prop-name="name" attr-name="name"/>
        <alias prop-name="alias" attr-name="alias"/>
        <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="validator" attr-name="validator"/>
        <alias prop-name="packageName" attr-name="package-name"/>
       </set-properties-rule>
      </pattern>
@@ -242,22 +247,16 @@
        <alias prop-name="name" attr-name="name"/>
        <alias prop-name="alias" attr-name="alias"/>
        <alias prop-name="id" attr-name="id"/>
-       <alias prop-name="method" attr-name="method"/>
-       <alias prop-name="transactional" attr-name="transactional"/>
+       <alias prop-name="service" attr-name="service"/>
+       <alias prop-name="function" attr-name="function"/>
+       <alias prop-name="isPreviousCallReturnAsInput" attr-name="is-previous-call-return-as-input"/>
+       <alias prop-name="assign" attr-name="assign"/>
+       <alias prop-name="validate" attr-name="validate"/>
+       <alias prop-name="map" attr-name="map"/>
+       <alias prop-name="input" attr-name="input"/>
+       <alias prop-name="returnToVariable" attr-name="return-to-variable"/>
        <alias prop-name="packageName" attr-name="package-name"/>
       </set-properties-rule>
-      <pattern value="call-entry-point">
-       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
-       <set-next-rule methodname="setCallEntryPoint" paramtype="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
-       <set-properties-rule>
-        <alias prop-name="type" attr-name="type"/>
-        <alias prop-name="name" attr-name="name"/>
-        <alias prop-name="alias" attr-name="alias"/>
-        <alias prop-name="id" attr-name="id"/>
-        <alias prop-name="entryPoint" attr-name="entry-point"/>
-        <alias prop-name="packageName" attr-name="package-name"/>
-       </set-properties-rule>
-      </pattern>
       <pattern value="sequence">
        <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallSequence"/>
        <set-next-rule methodname="setSequence" paramtype="net.sf.minuteProject.loader.mapping.node.CallSequence"/>
@@ -277,6 +276,155 @@
          <alias prop-name="alias" attr-name="alias"/>
          <alias prop-name="id" attr-name="id"/>
          <alias prop-name="entryPoint" attr-name="entry-point"/>
+         <alias prop-name="packageName" attr-name="package-name"/>
+        </set-properties-rule>
+       </pattern>
+      </pattern>
+     </pattern>
+    </pattern>
+   </pattern>
+  </pattern>
+  <pattern value="services">
+   <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Services"/>
+   <set-next-rule methodname="setServices" paramtype="net.sf.minuteProject.loader.mapping.node.Services"/>
+   <set-properties-rule>
+    <alias prop-name="type" attr-name="type"/>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="alias" attr-name="alias"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="service">
+    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Service"/>
+    <set-next-rule methodname="setService" paramtype="net.sf.minuteProject.loader.mapping.node.Service"/>
+    <set-properties-rule>
+     <alias prop-name="isInPackage" attr-name="is-in-package"/>
+     <alias prop-name="type" attr-name="type"/>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="alias" attr-name="alias"/>
+     <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="rootPackageName" attr-name="root-package-name"/>
+     <alias prop-name="technicalPackageName" attr-name="technical-package-name"/>
+     <alias prop-name="businessPackageName" attr-name="business-package-name"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="functions">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Functions"/>
+     <set-next-rule methodname="setFunctions" paramtype="net.sf.minuteProject.loader.mapping.node.Functions"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="function">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Function"/>
+      <set-next-rule methodname="setFunction" paramtype="net.sf.minuteProject.loader.mapping.node.Function"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="comment" attr-name="comment"/>
+       <alias prop-name="return" attr-name="return"/>
+       <alias prop-name="returnVariableName" attr-name="return-variable-name"/>
+       <alias prop-name="returnIfError" attr-name="return-if-error"/>
+       <alias prop-name="isExposed" attr-name="is-exposed"/>
+       <alias prop-name="isReturnPartOfInput" attr-name="is-return-part-of-input"/>
+       <alias prop-name="isReturnWrappedInHolder" attr-name="is-return-wrapped-in-holder"/>
+       <alias prop-name="holder" attr-name="holder"/>
+       <alias prop-name="input" attr-name="input"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+      <pattern value="transaction">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Transaction"/>
+       <set-next-rule methodname="setTransaction" paramtype="net.sf.minuteProject.loader.mapping.node.Transaction"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="readOnly" attr-name="read-only"/>
+        <alias prop-name="timeOut" attr-name="time-out"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+      </pattern>
+      <pattern value="calls">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Calls"/>
+       <set-next-rule methodname="setCalls" paramtype="net.sf.minuteProject.loader.mapping.node.Calls"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+       <pattern value="call">
+        <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Call"/>
+        <set-next-rule methodname="setCall" paramtype="net.sf.minuteProject.loader.mapping.node.Call"/>
+        <set-properties-rule>
+         <alias prop-name="type" attr-name="type"/>
+         <alias prop-name="name" attr-name="name"/>
+         <alias prop-name="alias" attr-name="alias"/>
+         <alias prop-name="id" attr-name="id"/>
+         <alias prop-name="service" attr-name="service"/>
+         <alias prop-name="function" attr-name="function"/>
+         <alias prop-name="isPreviousCallReturnAsInput" attr-name="is-previous-call-return-as-input"/>
+         <alias prop-name="assign" attr-name="assign"/>
+         <alias prop-name="validate" attr-name="validate"/>
+         <alias prop-name="map" attr-name="map"/>
+         <alias prop-name="input" attr-name="input"/>
+         <alias prop-name="returnToVariable" attr-name="return-to-variable"/>
+         <alias prop-name="packageName" attr-name="package-name"/>
+        </set-properties-rule>
+        <pattern value="sequence">
+         <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallSequence"/>
+         <set-next-rule methodname="setSequence" paramtype="net.sf.minuteProject.loader.mapping.node.CallSequence"/>
+         <set-properties-rule>
+          <alias prop-name="type" attr-name="type"/>
+          <alias prop-name="name" attr-name="name"/>
+          <alias prop-name="alias" attr-name="alias"/>
+          <alias prop-name="id" attr-name="id"/>
+          <alias prop-name="packageName" attr-name="package-name"/>
+         </set-properties-rule>
+         <pattern value="call-entry-points">
+          <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
+          <set-next-rule methodname="setCallEntryPoints" paramtype="net.sf.minuteProject.loader.mapping.node.CallEntryPoint"/>
+          <set-properties-rule>
+           <alias prop-name="type" attr-name="type"/>
+           <alias prop-name="name" attr-name="name"/>
+           <alias prop-name="alias" attr-name="alias"/>
+           <alias prop-name="id" attr-name="id"/>
+           <alias prop-name="entryPoint" attr-name="entry-point"/>
+           <alias prop-name="packageName" attr-name="package-name"/>
+          </set-properties-rule>
+         </pattern>
+        </pattern>
+       </pattern>
+      </pattern>
+      <pattern value="variables">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Variables"/>
+       <set-next-rule methodname="setVariables" paramtype="net.sf.minuteProject.loader.mapping.node.Variables"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+       <pattern value="variable">
+        <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Variable"/>
+        <set-next-rule methodname="setVariable" paramtype="net.sf.minuteProject.loader.mapping.node.Variable"/>
+        <set-properties-rule>
+         <alias prop-name="type" attr-name="type"/>
+         <alias prop-name="bean" attr-name="bean"/>
+         <alias prop-name="name" attr-name="name"/>
+         <alias prop-name="alias" attr-name="alias"/>
+         <alias prop-name="isReturn" attr-name="is-return"/>
+         <alias prop-name="id" attr-name="id"/>
+         <alias prop-name="function" attr-name="function"/>
+         <alias prop-name="functionParam" attr-name="function-param"/>
          <alias prop-name="packageName" attr-name="package-name"/>
         </set-properties-rule>
        </pattern>
