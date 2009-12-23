@@ -22,6 +22,7 @@
     <property name="test.dir" value="${home.dir}/test"/>	
     <property name="dist.dir" value="${application.dir}/java/lib"/>	
 	<property name="archive.name" value="${application.name}-${application.version}.jar"/>
+	<property name="archive.src.name" value="${application.name}-${application.version}-src.zip"/>
 	<property name="classes.dir" value="${home.dir}/classes"/>
 
 	
@@ -46,8 +47,6 @@
                 <src path="${src.dir}"/>
             	<src path="${src-plugin.dir}"/>
             	<src path="${src-patch.dir}"/>
-                <!-- no test case yet :-(
-                <src path="${test.dir}"/>-->
                 <include name="**/*.java"/>
             </javac>
         </sequential>
@@ -59,6 +58,21 @@
         <sequential>
             <copy todir="@{todir}">
                 <fileset dir="@{filesetDir}">
+                    <include name="**/*.xml"/>
+                    <include name="**/*.properties"/>
+                </fileset>
+            </copy>
+        </sequential>
+    </macrodef>
+	
+    <macrodef name="macro_copy_code">
+        <attribute name="todir"/>
+        <attribute name="filesetDir"/>
+        <sequential>
+        	<mkdir dir="@{filesetDir}"/>
+            <copy todir="@{todir}">
+                <fileset dir="@{filesetDir}">
+                	<include name="**/*.java"/>
                     <include name="**/*.xml"/>
                     <include name="**/*.properties"/>
                 </fileset>
@@ -127,11 +141,22 @@
         <title title="TASK resource" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Copy all the properties and xml files to the working directory (classes.dir).</description>
     	<macro_copy_resource todir="${classes.dir}" filesetDir="${src.dir}"/>
-    	<macro_copy_resource todir="${classes.dir}" filesetDir="${test.dir}"/>
+    	<!--<macro_copy_resource todir="${classes.dir}" filesetDir="${test.dir}"/>-->
     </target>	
 
+    <!-- target copy code -->
+    <target name="archive-code">
+        <title title="TASK copy code" projectname="${project.name}" projectdir="${home.dir}"/>
+        <description>Copy all the code.</description>
+    	<delete dir="${release.code.dir}" ></delete>
+    	<macro_copy_code filesetDir="${src.dir}" todir="${release.code.dir}"/>
+    	<macro_copy_code filesetDir="${src-plugin.dir}" todir="${release.code.dir}"/>
+    	<zip basedir="${release.code.dir}" destfile="${dist.dir}/${archive.src.name}"></zip>
+    	<delete dir="${release.code.dir}" ></delete>
+    </target>	
+	
     <!-- target archive -->
-    <target name="archive" depends="clean,compile,resource">
+    <target name="archive" depends="clean,compile,resource,archive-code">
         <title title="TASK archive" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Create an archive containing all the classes of the migration project</description>
         <macro_archive compress="true" destdir="${dist.dir}" destfile="${archive.name}" classesdir="${classes.dir}"/>
