@@ -1,0 +1,90 @@
+package test.dao;
+
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+
+import sf.net.openreports.conference.dao.face.conference.UMLConfSpeakerDao;
+import sf.net.openreports.conference.dao.face.conference.UMLParentDao;
+import sf.net.openreports.conference.dao.face.conference.UMLConfAttendeeDao;
+import sf.net.openreports.conference.dao.face.conference.UMLConfEventDao;
+import sf.net.openreports.conference.domainUML.conference.Parent;
+import sf.net.openreports.conference.domainUML.conference.ConfAttendee;
+import sf.net.openreports.conference.domainUML.conference.ConfEvent;
+
+public class HibernateTest  extends AbstractTransactionalDataSourceSpringContextTests {
+
+	private BeanFactory beanFactory;
+	protected UMLConfEventDao umlConfEventDao;
+	protected UMLConfAttendeeDao umlConfAttendeeDao;
+	private final String config = "spring-config-Hibernate-BE-Conference.xml";
+	
+	protected void init() {
+		beanFactory = new ClassPathXmlApplicationContext (config);
+	}
+	
+	public void testParent() {
+    	init();
+    	UMLParentDao parentDao = (UMLParentDao)beanFactory.getBean("parentDao");
+    	Parent parent = parentDao.loadParent(new Long(1));
+    	parent.toString();
+		
+	}
+    public void testLoad () {
+    	init();
+    	umlConfEventDao = (UMLConfEventDao)beanFactory.getBean("confEventDao");
+    	umlConfAttendeeDao = (UMLConfAttendeeDao)beanFactory.getBean("confAttendeeDao");
+    	ConfEvent confEvent = new ConfEvent();
+    	confEvent.setLocation("antwerpen");
+    	List<ConfEvent> list = umlConfEventDao.searchConfEvent(confEvent);
+    	
+    	assertTrue(list!=null);
+    	
+    	ConfAttendee confAttendee = new ConfAttendee();
+    	confAttendee.setEventId(1);
+    	List<ConfAttendee> list2 = umlConfAttendeeDao.searchConfAttendee(confAttendee);
+    	
+    	assertTrue(list2!=null);
+    	
+    	ConfEvent confEvent2 = (ConfEvent)umlConfEventDao.loadFullFirstLevelConfEvent(1);
+    	assertTrue(confEvent2!=null);
+    	
+    	
+    }
+    
+    public void testEvent () {
+    	init();
+    	umlConfEventDao = (UMLConfEventDao)beanFactory.getBean("confEventDao");
+    	ConfEvent confEvent = umlConfEventDao.loadConfEvent(1);
+    	Set<ConfAttendee> confEvents = confEvent.getConfAttendeeEventIds();
+    	for (Iterator iter = confEvents.iterator(); iter.hasNext();) {
+			ConfAttendee element = (ConfAttendee) iter.next();
+			element.toString();
+		}
+    	confEvent.setLocation("javapolis @ antwerpen");
+    	umlConfEventDao.updateConfEvent(confEvent);
+    	ConfEvent confEvent2 = umlConfEventDao.loadConfEvent(1);
+    	confEvent2.setId(null);
+    	umlConfEventDao.insertConfEvent(confEvent2);
+    	confEvent.toString();
+    	
+    }
+    
+    
+    public void testAttendee () {
+    	init();
+    	umlConfAttendeeDao= (UMLConfAttendeeDao)beanFactory.getBean("confAttendeeDao");
+    	ConfAttendee confAttendee = umlConfAttendeeDao.loadConfAttendee(2);
+    	confAttendee.toString();
+    }    
+    
+	protected String[] getConfigLocations() {
+		// TODO Auto-generated method stub
+		return new String [] {config};
+	}
+}

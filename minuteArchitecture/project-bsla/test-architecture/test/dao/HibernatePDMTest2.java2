@@ -1,0 +1,65 @@
+package test.dao;
+
+
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+
+import eu.europa.ec.digit.pdmurf.dao.face.pdmurf.TbErrorDao;
+import eu.europa.ec.digit.pdmurf.dao.face.pdmurf.TbPartyDao;
+import eu.europa.ec.digit.pdmurf.dao.face.pdmurf.TbRequestInDao;
+import eu.europa.ec.digit.pdmurf.domain.pdmurf.TbError;
+import eu.europa.ec.digit.pdmurf.domain.pdmurf.TbRequestIn;
+import eu.europa.ec.digit.pdmurf.domain.pdmurf.TbParty;
+
+
+public class HibernatePDMTest extends AbstractTransactionalDataSourceSpringContextTests {
+
+	private BeanFactory beanFactory;
+	protected TbPartyDao umlTbPartyDao;
+	protected TbRequestInDao umlTbRequestInDao;
+	protected TbErrorDao tbErrorDao;
+	private final String config = "eu/europa/ec/digit/pdmurf/factory/configuration/spring-config-Hibernate-BE-Pdmurf.xml";
+	
+	protected void init() {
+		beanFactory = new ClassPathXmlApplicationContext (config);
+	}
+
+    public void testLoad () {
+    	init();
+    	umlTbRequestInDao = (TbRequestInDao)beanFactory.getBean("tbRequestInDao");
+    	TbRequestIn tbRequestIn = umlTbRequestInDao.loadTbRequestIn(new Long(5055));
+    	
+    	TbRequestIn tbRequestIn2 = umlTbRequestInDao.loadFullFirstLevelTbRequestIn(new Long(5055));
+    	assertTrue(tbRequestIn2!=null);
+    	TbRequestIn tbRequestIn3 = new TbRequestIn();
+    	tbRequestIn3.setReiId(new Long(5055));
+    	List list = umlTbRequestInDao.searchTbRequestIn(tbRequestIn3);
+    	assertTrue(list.size()==1);
+    	
+    	TbError tbError = new TbError();
+    	tbError.setMsgDsc("this is a message");
+    	tbErrorDao = (TbErrorDao)beanFactory.getBean("tbErrorDao");
+    	tbErrorDao.insertTbError(tbError);
+    	
+    	umlTbPartyDao = (TbPartyDao)beanFactory.getBean("tbPartyDao");
+    	TbParty tbParty = umlTbPartyDao.loadFullFirstLevelTbParty(new Long(201233));
+    	TbParty tbParty2 = new TbParty();
+    	tbParty2.setParPartyId(new Long(201233));
+    	List <TbParty> list2 = umlTbPartyDao.searchTbParty(tbParty2);
+    	
+    	assertTrue(list2.size()==1);
+    	
+    }
+    
+    
+	protected String[] getConfigLocations() {
+		// TODO Auto-generated method stub
+		return new String [] {config};
+	}
+}

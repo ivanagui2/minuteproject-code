@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.utils.database.DatabaseUtils;
 import net.sf.minuteproject.utils.query.QueryUtils;
 import fit.ColumnFixture;
@@ -14,7 +15,7 @@ public abstract class DbInsertUpdateDeleteFixture extends ColumnFixture{
 
 	public String insert() {
 		
-		String query = QueryUtils.buildInsertStatement(getTable(), getColumnIndex(), getColumnValue());
+		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue());
 		return action(query);
 	}
 	
@@ -45,6 +46,8 @@ public abstract class DbInsertUpdateDeleteFixture extends ColumnFixture{
 	}
 	
 	protected abstract String getTable();
+	
+	protected abstract Map<Integer, Column> getColumns();
 	
 	protected abstract Map<Integer, String> getColumnIndex () ;
 	

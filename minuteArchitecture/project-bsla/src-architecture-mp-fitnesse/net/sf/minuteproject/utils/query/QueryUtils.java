@@ -5,15 +5,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import net.sf.minuteproject.model.db.Column;
+import net.sf.minuteproject.model.db.type.FieldType;
+
 public class QueryUtils {
 
 	public static String buildInsertStatement (
 			String table,
-			Map<Integer, String> columnIndex,
+			Map<Integer, Column> columns,
 			Map<String, String>  columnValue) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(getInsert(table, columnIndex, columnValue));
-		sb.append(getInsertValue(columnIndex, columnValue));
+		sb.append(getInsert(table, columns, columnValue));
+		sb.append(getInsertValue(columns, columnValue));
+//		sb.append(getInsert(table, columns, columnValue));
 		System.out.println("Insert query = "+sb.toString());
 		return sb.toString();
 	}
@@ -54,41 +58,42 @@ public class QueryUtils {
 		return sb.toString();		
 	}	
 
-	private static String getInsert(String table, Map<Integer, String>  columnIndex, Map<String, String>  columnValue) {
+	private static String getInsert(String table, Map<Integer, Column>  columns, Map<String, String>  columnValue) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("INSERT INTO "+table+" (");
-		sb.append(getColumnQuery2(columnIndex, columnValue));
+		sb.append(getColumnQuery2(columns, columnValue));
 		sb.append(") ");
 		return sb.toString();		
 	}
 	
-	private static String getInsertValue(Map<Integer, String>  columnIndex, Map<String, String>  columnValue) {
+	private static String getInsertValue(Map<Integer, Column>  columns, Map<String, String>  columnValue) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" VALUES (");
-		sb.append(getInsertValues(columnIndex, columnValue));
+		sb.append(getInsertValues(columns, columnValue));
 		sb.append(") ");
 		return sb.toString();		
 	}
 	
 	private static String getInsertValues (			 
-			 Map<Integer, String> columnIndex,
+			 Map<Integer, Column> columns,
 			 Map<String, String>  columnValue) {
-		int size = columnIndex.size();
+		int size = columns.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isBeginning = true;
-		for (int i = 0; i < size+1; i++) {
-			String columnName = columnIndex.get(Integer.valueOf(i));
+		for (int i = 0; i < size; i++) {
+			Column column = columns.get(Integer.valueOf(i));
+			String columnName = column.getName(); //columns.get(Integer.valueOf(i));
 			String value = columnValue.get(columnName);		
 			if (value!=null && !value.equals("")) {
 				if (isBeginning) {
 					isBeginning=false;
 				}else
 					sb.append(",");
-				if (isQuoted(columnName)){
+				if (isQuoted(column)){
 					sb.append("'"+value+"'");
+				} else {
+					sb.append(value);
 				}
-//				if (i<size)
-//					sb.append(",");
 			}
 		}
 		return sb.toString();		
@@ -179,13 +184,20 @@ public class QueryUtils {
 		}
 		return sb.toString();
 	}
+
+	private static String getColumnName(Map<Integer, Column> columns, int i) {
+		Column column = columns.get(Integer.valueOf(i));
+		return column.getName(); 
+	}
 	
-	private static String getColumnQuery2 (Map<Integer, String> columnIndex, Map<String, String>  columnValue) {
-		int size = columnIndex.size();
+	private static String getColumnQuery2 (Map<Integer, Column> columns, Map<String, String>  columnValue) {
+		int size = columns.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isBeginning = true;
 		for (int i = 0; i <size; i++) {
-			String columnName = columnIndex.get(Integer.valueOf(i));
+			String columnName = getColumnName(columns, i); 
+//			Column column = columns.get(Integer.valueOf(i));
+//			String columnName = column.getName(); 
 			String value = columnValue.get(columnName);
 			if (value!=null && !value.equals("")) {
 				if (isBeginning) {
@@ -255,8 +267,13 @@ public class QueryUtils {
 		return sb.toString();		
 	}
 	
-	public static boolean isQuoted (String columnName) {
+	public static boolean isQuoted (Column column) {
+		if (FieldType.TIMESTAMP.equals(column.getType()))
+			return false;
 		return true;
 	}
 	
+	public static boolean isQuoted (String name) {
+		return true;
+	}
 }
