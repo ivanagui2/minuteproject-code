@@ -27,6 +27,7 @@ public abstract class DbInsertFixture extends ColumnFixture{
 				System.out.println("connection is null");
 			Statement st = connection.createStatement();
 			st.executeUpdate(query);
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
