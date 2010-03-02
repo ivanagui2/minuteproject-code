@@ -5,10 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
-
-import sun.security.action.GetBooleanAction;
-
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.loader.mapping.node.Bean;
@@ -18,7 +14,6 @@ import net.sf.minuteProject.loader.mapping.node.BeanMapping;
 import net.sf.minuteProject.loader.mapping.node.BeanMappingProperties;
 import net.sf.minuteProject.loader.mapping.node.BeanMappingProperty;
 import net.sf.minuteProject.loader.mapping.node.BeanMappings;
-import net.sf.minuteProject.loader.mapping.node.Beans;
 import net.sf.minuteProject.loader.mapping.node.Service;
 import net.sf.minuteProject.loader.mapping.node.Validation;
 import net.sf.minuteProject.loader.mapping.node.ValidationProperty;
