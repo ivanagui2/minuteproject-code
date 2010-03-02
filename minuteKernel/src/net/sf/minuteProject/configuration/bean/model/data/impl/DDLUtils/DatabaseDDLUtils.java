@@ -1,15 +1,21 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.io.File;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.FileSource;
 import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.condition.CatalogGenerationCondition;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.utils.ConnectionUtils;
+import net.sf.minuteProject.utils.FunctionUtils;
 
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
@@ -23,6 +29,7 @@ import org.apache.ddlutils.platform.oracle.Oracle8Platform;
 import org.apache.ddlutils.platform.postgresql.PostgreSqlPlatform;
 import org.apache.ddlutils.platform.sapdb.SapDbPlatform;
 import org.apache.ddlutils.platform.sybase.SybasePlatform;
+import org.apache.log4j.Logger;
 
 /**
  * Inspired by DDLUtils Database class
@@ -34,12 +41,15 @@ import org.apache.ddlutils.platform.sybase.SybasePlatform;
  */
 public class DatabaseDDLUtils implements Database
 {
+	private static Logger logger = Logger.getLogger(DatabaseDDLUtils.class);
+
 	private org.apache.ddlutils.model.Database database;
 	private String type;
-	private ArrayList tables;
-	private ArrayList views;
+	private List<Table> tables;
+	private List<View> views;
 	private DataModel dataModel;
-	private ArrayList entities;
+	private List<Table> entities;
+	private List<Function> functions;
 	
 	public DatabaseDDLUtils(org.apache.ddlutils.model.Database database) {
 		this.database = database;
@@ -48,6 +58,13 @@ public class DatabaseDDLUtils implements Database
 	public DatabaseDDLUtils(DataModel dataModel) {
 		this.dataModel = dataModel;
 		loadDatabase(dataModel);
+		if (dataModel.getModel().hasFunctionModel()){
+			loadFunction(dataModel);
+		}
+	}
+	
+	private void loadFunction (DataModel dataModel) {
+		functions = FunctionUtils.getFunctions(dataModel);
 	}
 	
 	public Database loadDatabase(DataModel dataModel) {
@@ -55,11 +72,11 @@ public class DatabaseDDLUtils implements Database
 			database = new DatabaseIO().read(getFileSourceName(dataModel));		
 		else 
 		{*/				
-		    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
-		    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
-		    setType(platform);
-		    database = platform.readModelFromDatabase("TEST"); 
-		    writeDatabase(database, dataModel);
+	    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
+	    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
+	    setType(platform);
+	    database = platform.readModelFromDatabase("TEST"); 
+	    writeDatabase(database, dataModel);
 		//}
 	    return this;
 	}
@@ -435,5 +452,14 @@ public class DatabaseDDLUtils implements Database
     	return (Table[])entities.toArray(new Table[entities.size()]);
 	}
 
+	public List<Function> getFunctionArray() {
+		if (functions==null) functions = new ArrayList<Function>();
+		return functions;
+	}
+
+	public Function[] getFunctions() {
+		return (Function[]) getFunctionArray().toArray(new Function[getFunctionArray().size()]);
+	}
+	
 }
 

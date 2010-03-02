@@ -44,6 +44,9 @@ import net.sf.minuteProject.utils.io.FileUtils;
  *
  */
 public abstract class AbstractGenerator implements Generator {
+	
+	protected static final String SCOPE_DATAMODEL_FUNCTION = "function";
+	
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;
 	private String templatePath;
@@ -316,6 +319,8 @@ public abstract class AbstractGenerator implements Generator {
 			return "view";	
 		if (beanName.equals("componentddlutils"))
 			return "component";			
+		if (beanName.equals("functionddlutils"))
+			return "function";				
 		return beanName;
    }
 	

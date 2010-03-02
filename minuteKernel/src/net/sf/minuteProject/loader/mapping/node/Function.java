@@ -23,11 +23,14 @@ public class Function extends AbstractConfigurationLoader{
    private Boolean _isExposed;
    private Boolean _isReturnPartOfInput;
    private Boolean _isReturnWrappedInHolder;
+   private Boolean _isCollectionReturned;
+   private Boolean _isLastCallReturned;
    private String _holder;
    private String _input;
    private Transaction _transaction;
    private Calls _calls;
    private Variables _variables;
+   private Conditions _conditions;
 
    public Function() {
    }
@@ -183,6 +186,36 @@ public class Function extends AbstractConfigurationLoader{
    }
    
    
+   public Boolean isCollectionReturned() {
+      return getIsCollectionReturned();
+   }
+   
+   public Boolean getIsCollectionReturned() {
+	  if (_isCollectionReturned == null)
+	     _isCollectionReturned = new Boolean(false);
+	      return _isCollectionReturned;
+   }
+	
+   public void setIsCollectionReturned (Boolean _isCollectionReturned) {
+      this._isCollectionReturned = _isCollectionReturned;
+   }
+   
+   
+   public Boolean isLastCallReturned() {
+      return getIsLastCallReturned();
+   }
+   
+   public Boolean getIsLastCallReturned() {
+	  if (_isLastCallReturned == null)
+	     _isLastCallReturned = new Boolean(true);
+	      return _isLastCallReturned;
+   }
+	
+   public void setIsLastCallReturned (Boolean _isLastCallReturned) {
+      this._isLastCallReturned = _isLastCallReturned;
+   }
+   
+   
    public String getHolder() {
 	  if (_holder == null)
 	     _holder = new String();
@@ -235,6 +268,17 @@ public class Function extends AbstractConfigurationLoader{
 	
    public void setVariables (Variables _variables) {
       this._variables = _variables;
+   }
+   
+   
+   public Conditions getConditions() {
+	  if (_conditions == null)
+	     _conditions = new Conditions();
+	      return _conditions;
+   }
+	
+   public void setConditions (Conditions _conditions) {
+      this._conditions = _conditions;
    }
    
    

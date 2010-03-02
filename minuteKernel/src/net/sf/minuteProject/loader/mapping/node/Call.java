@@ -25,6 +25,7 @@ public class Call extends AbstractConfigurationLoader{
    private String _input;
    private String _returnToVariable;
    private CallSequence _sequence;
+   private DepencyCondition _depencyCondition;
 
    public Call() {
    }
@@ -191,6 +192,17 @@ public class Call extends AbstractConfigurationLoader{
 	
    public void setSequence (CallSequence _sequence) {
       this._sequence = _sequence;
+   }
+   
+   
+   public DepencyCondition getDepencyCondition() {
+	  if (_depencyCondition == null)
+	     _depencyCondition = new DepencyCondition();
+	      return _depencyCondition;
+   }
+	
+   public void setDepencyCondition (DepencyCondition _depencyCondition) {
+      this._depencyCondition = _depencyCondition;
    }
    
    

@@ -21,6 +21,8 @@ public class I18nUtils {
 	
 	public String getI18nFromDBNameStripPrefix (String input) {
 		String prefix = StringUtils.substringBefore(input, UNDERSCORE);
+		if (prefix.equals(input))
+			return input;
 		input = StringUtils.removeStart(input, prefix);
 		input = StringUtils.stripStart(input, UNDERSCORE);
 		return getI18nFromDBName(input);

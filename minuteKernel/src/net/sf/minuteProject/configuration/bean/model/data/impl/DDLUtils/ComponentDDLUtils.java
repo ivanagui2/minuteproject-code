@@ -135,5 +135,15 @@ public class ComponentDDLUtils implements Component{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public Property getPropertyByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Property getPropertyByTag(String tag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

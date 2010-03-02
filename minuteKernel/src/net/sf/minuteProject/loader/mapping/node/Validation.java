@@ -20,6 +20,7 @@ public class Validation extends AbstractConfigurationLoader{
    private String _entryPoint;
    private Boolean _isInPackage;
    private Variables _variables;
+   private Conditions _conditions;
    private ValidationProperties _validationProperties;
    private ValidationPropertySets _validationPropertySets;
 
@@ -133,6 +134,17 @@ public class Validation extends AbstractConfigurationLoader{
 	
    public void setVariables (Variables _variables) {
       this._variables = _variables;
+   }
+   
+   
+   public Conditions getConditions() {
+	  if (_conditions == null)
+	     _conditions = new Conditions();
+	      return _conditions;
+   }
+	
+   public void setConditions (Conditions _conditions) {
+      this._conditions = _conditions;
    }
    
    

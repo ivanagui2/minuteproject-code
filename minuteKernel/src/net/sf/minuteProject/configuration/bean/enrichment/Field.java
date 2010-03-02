@@ -7,6 +7,7 @@ public class Field extends AbstractConfiguration {
 	private Entity entity;
 	private String linkToTargetEntity, linkToTargetField;
 	private String bidirectional;
+	private Stereotype stereotype;
 
 	private boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -46,7 +47,13 @@ public class Field extends AbstractConfiguration {
 	public void setBidirectional(String bidirectional) {
 		this.bidirectional = bidirectional;
 	}
-	
-	
-	
+
+	public Stereotype getStereotype() {
+		return stereotype;
+	}
+
+	public void setStereotype(Stereotype stereotype) {
+		this.stereotype = stereotype;
+	}
+
 }

@@ -6,6 +6,7 @@ public class Model  extends AbstractConfiguration{
 	
 	private DataModel dataModel;
 	private BusinessModel businessModel;
+	private FunctionModel functionModel;
 	private Configuration configuration;
 
 	public Configuration getConfiguration() {
@@ -24,9 +25,30 @@ public class Model  extends AbstractConfiguration{
 		businessModel.setModel(this);
 		this.businessModel = businessModel;
 	}
+	
+	public boolean hasBusinessModel() {
+		if (businessModel!=null)
+			return true;
+		return false;
+	}
 
 	public DataModel getDataModel() {
 		return dataModel;
+	}
+
+	public FunctionModel getFunctionModel() {
+		return functionModel;
+	}
+
+	public void setFunctionModel(FunctionModel functionModel) {
+		functionModel.setModel(this);
+		this.functionModel = functionModel;
+	}
+	
+	public boolean hasFunctionModel() {
+		if (functionModel!=null)
+			return true;
+		return false;
 	}
 
 	public void setDataModel(DataModel dataModel) {

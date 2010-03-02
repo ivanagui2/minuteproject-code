@@ -25,6 +25,7 @@ public class Template extends TemplateTarget {
 	public static final String FORMAT_LOWER_CASE_JAVA_CLASS = "FORMAT_LOWER_CASE_JAVA_CLASS";
 	public static final String FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS = "FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS";
 	public static final String FORMAT_UPPER_CASE_FIRST_LETTER = "FORMAT_UPPER_CASE_FIRST_LETTER";
+	public static final String FORMAT_LOWER_CASE_FIRST_LETTER = "FORMAT_LOWER_CASE_FIRST_LETTER";
 		
 	private String templateFileName;
 	private String subdir;
@@ -191,7 +192,9 @@ public class Template extends TemplateTarget {
 			if (fileNameFormat.equals(FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS))
 				return FormatUtils.firstUpperCaseOnly(fileName);
 			if (fileNameFormat.equals(FORMAT_UPPER_CASE_FIRST_LETTER))
-				return FormatUtils.firstUpperCase(fileName);			
+				return FormatUtils.firstUpperCase(fileName);	
+			if (fileNameFormat.equals(FORMAT_LOWER_CASE_FIRST_LETTER))
+				return FormatUtils.firstLowerCase(fileName);			
 		}
 		return fileName;
 	}

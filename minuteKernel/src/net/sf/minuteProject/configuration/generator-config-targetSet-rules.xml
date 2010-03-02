@@ -17,6 +17,45 @@
 				<alias attr-name="name" prop-name="name" />
 			</set-properties-rule>
 		</pattern>	
+		<pattern value="target-params">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.target.TargetParams"/>		
+			<set-next-rule methodname="setTargetParams" paramtype="net.sf.minuteProject.configuration.bean.target.TargetParams"/>	
+			<pattern value="target-params">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.target.TargetParam"/>		
+				<set-next-rule methodname="setTargetParam" paramtype="net.sf.minuteProject.configuration.bean.target.TargetParam"/>	
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />
+					<alias attr-name="default-value" prop-name="defaultValue" />
+					<alias attr-name="required" prop-name="required" />
+					<alias attr-name="value" prop-name="value" />
+				</set-properties-rule>	
+			</pattern>	
+		</pattern>		
+		
+		<pattern value="import-targets">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.target.ImportTargets"/>		
+			<set-next-rule methodname="setImportTargets" paramtype="net.sf.minuteProject.configuration.bean.target.ImportTargets"/>	
+			<pattern value="import-target">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.target.ImportTarget"/>		
+				<set-next-rule methodname="addImportTarget" paramtype="net.sf.minuteProject.configuration.bean.target.ImportTarget"/>	
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />
+					<alias attr-name="action" prop-name="action" />
+					<alias attr-name="target-dir" prop-name="targetDir" />
+					<alias attr-name="target-name" prop-name="targetName" />
+				</set-properties-rule>				
+				<pattern value="target-params">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.target.TargetParam"/>		
+					<set-next-rule methodname="setTargetParam" paramtype="net.sf.minuteProject.configuration.bean.target.TargetParam"/>	
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="default-value" prop-name="defaultValue" />
+						<alias attr-name="required" prop-name="required" />
+						<alias attr-name="value" prop-name="value" />
+					</set-properties-rule>	
+				</pattern>	
+			</pattern>
+		</pattern>			
 		<pattern value="plugin">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Plugin"/>		
 			<set-next-rule methodname="addPlugin" paramtype="net.sf.minuteProject.configuration.bean.system.Plugin"/>

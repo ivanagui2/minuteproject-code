@@ -135,7 +135,7 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(column);
 	}
 
-	protected static String getTemplateFileName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+	public static String getTemplateFileName (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
 			logger.debug("ConfigFile not ok");
@@ -210,6 +210,11 @@ public class CommonUtils {
 		//return template.getTemplateTarget().getTemplate(targetTemplateName);
 	}	
 	
+	public static boolean hasTemplate (Model model, String targetTemplateName) {
+		if (getTargetTemplate(model, targetTemplateName)!=null)
+			return true;
+		return false;
+	}
 	// get all the package either for table, package or model
 	// TODO remove this method
 	protected static String getPackageName (Model model, Table table, Template template, String targetTemplateName) {

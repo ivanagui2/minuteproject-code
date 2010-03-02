@@ -11,6 +11,25 @@
    <alias prop-name="id" attr-name="id"/>
    <alias prop-name="packageName" attr-name="package-name"/>
   </set-properties-rule>
+  <pattern value="imports">
+   <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Imports"/>
+   <set-next-rule methodname="setImports" paramtype="net.sf.minuteProject.loader.mapping.node.Imports"/>
+   <set-properties-rule>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="mapping">
+    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Import"/>
+    <set-next-rule methodname="setMapping" paramtype="net.sf.minuteProject.loader.mapping.node.Import"/>
+    <set-properties-rule>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="id" attr-name="id"/>
+     <alias prop-name="location" attr-name="location"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+   </pattern>
+  </pattern>
   <pattern value="mappings">
    <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMappings"/>
    <set-next-rule methodname="setMappings" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMappings"/>
@@ -30,6 +49,57 @@
      <alias prop-name="targetBean" attr-name="target-bean"/>
      <alias prop-name="packageName" attr-name="package-name"/>
     </set-properties-rule>
+    <pattern value="variables">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Variables"/>
+     <set-next-rule methodname="setVariables" paramtype="net.sf.minuteProject.loader.mapping.node.Variables"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="variable">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Variable"/>
+      <set-next-rule methodname="setVariable" paramtype="net.sf.minuteProject.loader.mapping.node.Variable"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="bean" attr-name="bean"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="isReturn" attr-name="is-return"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="function" attr-name="function"/>
+       <alias prop-name="functionParam" attr-name="function-param"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
+    <pattern value="conditions">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Conditions"/>
+     <set-next-rule methodname="setConditions" paramtype="net.sf.minuteProject.loader.mapping.node.Conditions"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="condition">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Condition"/>
+      <set-next-rule methodname="setCondition" paramtype="net.sf.minuteProject.loader.mapping.node.Condition"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="variableRef" attr-name="variable-ref"/>
+       <alias prop-name="evaluator" attr-name="evaluator"/>
+       <alias prop-name="conditionListRef" attr-name="condition-list-ref"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
     <pattern value="map-properties">
      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.BeanMappingProperties"/>
      <set-next-rule methodname="setMapProperties" paramtype="net.sf.minuteProject.loader.mapping.node.BeanMappingProperties"/>
@@ -53,6 +123,16 @@
        <alias prop-name="isLoop" attr-name="is-loop"/>
        <alias prop-name="packageName" attr-name="package-name"/>
       </set-properties-rule>
+      <pattern value="depency-condition">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+       <set-next-rule methodname="setDepencyCondition" paramtype="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+       <set-properties-rule>
+        <alias prop-name="conditionRef" attr-name="condition-ref"/>
+        <alias prop-name="isToStoreAsVariable" attr-name="is-to-store-as-variable"/>
+        <alias prop-name="isSuccessfulOnTrueResult" attr-name="is-successful-on-true-result"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+      </pattern>
      </pattern>
     </pattern>
    </pattern>
@@ -144,6 +224,31 @@
       </set-properties-rule>
      </pattern>
     </pattern>
+    <pattern value="conditions">
+     <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Conditions"/>
+     <set-next-rule methodname="setConditions" paramtype="net.sf.minuteProject.loader.mapping.node.Conditions"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="alias" attr-name="alias"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="condition">
+      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Condition"/>
+      <set-next-rule methodname="setCondition" paramtype="net.sf.minuteProject.loader.mapping.node.Condition"/>
+      <set-properties-rule>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="alias" attr-name="alias"/>
+       <alias prop-name="variableRef" attr-name="variable-ref"/>
+       <alias prop-name="evaluator" attr-name="evaluator"/>
+       <alias prop-name="conditionListRef" attr-name="condition-list-ref"/>
+       <alias prop-name="id" attr-name="id"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
     <pattern value="validation-properties">
      <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.ValidationProperties"/>
      <set-next-rule methodname="setValidationProperties" paramtype="net.sf.minuteProject.loader.mapping.node.ValidationProperties"/>
@@ -172,6 +277,16 @@
        <alias prop-name="validator" attr-name="validator"/>
        <alias prop-name="packageName" attr-name="package-name"/>
       </set-properties-rule>
+      <pattern value="depency-condition">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+       <set-next-rule methodname="setDepencyCondition" paramtype="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+       <set-properties-rule>
+        <alias prop-name="conditionRef" attr-name="condition-ref"/>
+        <alias prop-name="isToStoreAsVariable" attr-name="is-to-store-as-variable"/>
+        <alias prop-name="isSuccessfulOnTrueResult" attr-name="is-successful-on-true-result"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+      </pattern>
      </pattern>
     </pattern>
     <pattern value="validation-property-sets">
@@ -280,6 +395,16 @@
         </set-properties-rule>
        </pattern>
       </pattern>
+      <pattern value="depency-condition">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+       <set-next-rule methodname="setDepencyCondition" paramtype="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+       <set-properties-rule>
+        <alias prop-name="conditionRef" attr-name="condition-ref"/>
+        <alias prop-name="isToStoreAsVariable" attr-name="is-to-store-as-variable"/>
+        <alias prop-name="isSuccessfulOnTrueResult" attr-name="is-successful-on-true-result"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+      </pattern>
      </pattern>
     </pattern>
    </pattern>
@@ -333,6 +458,8 @@
        <alias prop-name="isExposed" attr-name="is-exposed"/>
        <alias prop-name="isReturnPartOfInput" attr-name="is-return-part-of-input"/>
        <alias prop-name="isReturnWrappedInHolder" attr-name="is-return-wrapped-in-holder"/>
+       <alias prop-name="isCollectionReturned" attr-name="is-collection-returned"/>
+       <alias prop-name="isLastCallReturned" attr-name="is-last-call-returned"/>
        <alias prop-name="holder" attr-name="holder"/>
        <alias prop-name="input" attr-name="input"/>
        <alias prop-name="packageName" attr-name="package-name"/>
@@ -345,7 +472,7 @@
         <alias prop-name="name" attr-name="name"/>
         <alias prop-name="alias" attr-name="alias"/>
         <alias prop-name="id" attr-name="id"/>
-        <alias prop-name="readOnly" attr-name="read-only"/>
+        <alias prop-name="isReadOnly" attr-name="is-read-only"/>
         <alias prop-name="timeOut" attr-name="time-out"/>
         <alias prop-name="packageName" attr-name="package-name"/>
        </set-properties-rule>
@@ -401,6 +528,16 @@
           </set-properties-rule>
          </pattern>
         </pattern>
+        <pattern value="depency-condition">
+         <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+         <set-next-rule methodname="setDepencyCondition" paramtype="net.sf.minuteProject.loader.mapping.node.DepencyCondition"/>
+         <set-properties-rule>
+          <alias prop-name="conditionRef" attr-name="condition-ref"/>
+          <alias prop-name="isToStoreAsVariable" attr-name="is-to-store-as-variable"/>
+          <alias prop-name="isSuccessfulOnTrueResult" attr-name="is-successful-on-true-result"/>
+          <alias prop-name="packageName" attr-name="package-name"/>
+         </set-properties-rule>
+        </pattern>
        </pattern>
       </pattern>
       <pattern value="variables">
@@ -425,6 +562,31 @@
          <alias prop-name="id" attr-name="id"/>
          <alias prop-name="function" attr-name="function"/>
          <alias prop-name="functionParam" attr-name="function-param"/>
+         <alias prop-name="packageName" attr-name="package-name"/>
+        </set-properties-rule>
+       </pattern>
+      </pattern>
+      <pattern value="conditions">
+       <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Conditions"/>
+       <set-next-rule methodname="setConditions" paramtype="net.sf.minuteProject.loader.mapping.node.Conditions"/>
+       <set-properties-rule>
+        <alias prop-name="type" attr-name="type"/>
+        <alias prop-name="name" attr-name="name"/>
+        <alias prop-name="alias" attr-name="alias"/>
+        <alias prop-name="id" attr-name="id"/>
+        <alias prop-name="packageName" attr-name="package-name"/>
+       </set-properties-rule>
+       <pattern value="condition">
+        <object-create-rule classname="net.sf.minuteProject.loader.mapping.node.Condition"/>
+        <set-next-rule methodname="setCondition" paramtype="net.sf.minuteProject.loader.mapping.node.Condition"/>
+        <set-properties-rule>
+         <alias prop-name="type" attr-name="type"/>
+         <alias prop-name="name" attr-name="name"/>
+         <alias prop-name="alias" attr-name="alias"/>
+         <alias prop-name="variableRef" attr-name="variable-ref"/>
+         <alias prop-name="evaluator" attr-name="evaluator"/>
+         <alias prop-name="conditionListRef" attr-name="condition-list-ref"/>
+         <alias prop-name="id" attr-name="id"/>
          <alias prop-name="packageName" attr-name="package-name"/>
         </set-properties-rule>
        </pattern>

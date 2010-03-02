@@ -122,6 +122,7 @@ public class ModelViewGenerator extends ModelGenerator {
 
 	protected void loadModel(Model model) {
 		super.loadModel(model);
+//		model.getBusinessModel().complementDataModelWithTables();
 		model.getBusinessModel().complementDataModelWithViews();
 		model.getBusinessModel().complementService();
 	}
@@ -138,39 +139,39 @@ public class ModelViewGenerator extends ModelGenerator {
 		this.model = model;
 	}
 
-	protected void generateArtifactsByPackage(Template template) throws Exception {
-		super.generateArtifactsByPackage(template);
-		List packages = model.getBusinessModel().getBusinessPackage()
-				.getPackageViews();
-		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-			writeTemplateResult((Package) iter.next(), template);
-		}
-	}
-
-	protected void generateArtifactsByEntity(Template template) throws Exception {	
-		super.generateArtifactsByEntity(template);
-		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
-			View view = (View) iter.next();
-			writeTemplateResult(view, template);
-		}
-	}
-
-	protected void generateArtifactsByComponent(Template template) throws Exception {
-		//for each view if structure=hierachy => getComponent => foreach component generate
-		super.generateArtifactsByComponent(template);
-		List<View> views = model.getBusinessModel().getBusinessPackage().getViews();
-		for (View view : views) {
-			Component [] components = view.getComponents();
-			for (Component component : components) {
-				writeTemplateResult(component, template);
-			}
-		}
-	}
-	
-	private void generateArtifactsByApplication(Template template) throws Exception {	
-		writeTemplateResult(getModel().getConfiguration(), template);
-	}
-	
+//	protected void generateArtifactsByPackage(Template template) throws Exception {
+//		super.generateArtifactsByPackage(template);
+//		List packages = model.getBusinessModel().getBusinessPackage()
+//				.getPackageViews();
+//		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
+//			writeTemplateResult((Package) iter.next(), template);
+//		}
+//	}
+//
+//	protected void generateArtifactsByEntity(Template template) throws Exception {	
+//		super.generateArtifactsByEntity(template);
+//		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
+//			View view = (View) iter.next();
+//			writeTemplateResult(view, template);
+//		}
+//	}
+//
+//	protected void generateArtifactsByComponent(Template template) throws Exception {
+//		//for each view if structure=hierachy => getComponent => foreach component generate
+//		super.generateArtifactsByComponent(template);
+//		List<View> views = model.getBusinessModel().getBusinessPackage().getViews();
+//		for (View view : views) {
+//			Component [] components = view.getComponents();
+//			for (Component component : components) {
+//				writeTemplateResult(component, template);
+//			}
+//		}
+//	}
+//	
+//	private void generateArtifactsByApplication(Template template) throws Exception {	
+//		writeTemplateResult(getModel().getConfiguration(), template);
+//	}
+//	
 	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template

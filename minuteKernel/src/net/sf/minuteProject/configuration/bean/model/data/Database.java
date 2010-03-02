@@ -2,6 +2,8 @@ package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import net.sf.minuteProject.configuration.bean.DataModel;
@@ -179,5 +181,7 @@ public interface Database extends Serializable, Cloneable
     public DataModel getDataModel ();
     
     public Table[] getEntities();
+    
+    public Function[] getFunctions();
 
 }

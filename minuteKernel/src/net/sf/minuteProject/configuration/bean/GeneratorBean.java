@@ -43,6 +43,9 @@ public interface GeneratorBean extends Cloneable, Serializable{
 	
 	public boolean hasProperty (String name);
 	
+	public Property getPropertyByTag (String tag) ;
+	
+	public Property getPropertyByName (String name) ;
 //	public Property getProperty();
 	
 }

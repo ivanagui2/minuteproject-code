@@ -12,6 +12,7 @@ public class BeanMap extends AbstractConfigurationLoader{
 
     private String _packageName;
    private String _name;
+   private Imports _imports;
    private String _id;
    private BeanMappings _mappings;
    private Beans _beans;
@@ -47,6 +48,17 @@ public class BeanMap extends AbstractConfigurationLoader{
    }
    
    
+   public Imports getImports() {
+	  if (_imports == null)
+	     _imports = new Imports();
+	      return _imports;
+   }
+	
+   public void setImports (Imports _imports) {
+      this._imports = _imports;
+   }
+   
+   
    public String getId() {
 	  if (_id == null)
 	     _id = new String();
@@ -76,6 +88,8 @@ public class BeanMap extends AbstractConfigurationLoader{
    }
 	
    public void setBeans (Beans _beans) {
+	  if (this._beans!=null)
+		  return;
       this._beans = _beans;
    }
    

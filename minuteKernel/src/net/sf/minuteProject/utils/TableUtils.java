@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils;
 
+import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Index;
@@ -8,12 +9,14 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 
 import org.apache.commons.lang.StringUtils;
-//import org.apache.ddlutils.model.Index;
-//import org.apache.ddlutils.model.IndexColumn;
 
 
 public class TableUtils {
 
+	public static final String pseudoStaticDataContentType = "pseudo-static-data";
+	public static final String referenceDataContentType = "reference-data";
+	public static final String liveBusinessDataContentType = "live-business-data";
+	
 	public static Column getPrimaryFirstColumn (Table table) {
 		if (table==null)
 			return null;
@@ -143,4 +146,30 @@ public class TableUtils {
 	   return (view==null)?false:true;
 	}
 	
+	public static boolean isTableOfContentType(Table table, String contentType) {
+		if (table!=null && contentType.equals(table.getContentType()))
+			return true;
+		return false;
+	}
+	
+	public static boolean isReferenceDataContentType(Table table) {
+		return isTableOfContentType(table, referenceDataContentType);
+	}
+
+	public static boolean isPseudoStaticDataContentType(Table table) {
+		return isTableOfContentType(table, pseudoStaticDataContentType);
+	}
+	
+	public static boolean isLiveBusinessDataContentType(Table table) {
+		return isTableOfContentType(table, liveBusinessDataContentType);
+	}
+	
+	public static boolean hasCorrectSemanticReference (Table table) {
+		SemanticReference semanticReference = table.getSemanticReference();
+		if (semanticReference!=null) {
+			if (!semanticReference.getSemanticReferenceBeanPath().isEmpty())
+				return true;
+		}
+		return false;
+	}
 }

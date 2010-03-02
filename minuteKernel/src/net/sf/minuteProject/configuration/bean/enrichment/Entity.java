@@ -12,7 +12,9 @@ public class Entity extends AbstractConfiguration {
 	private VirtualPrimaryKey virtualPrimaryKey;
 	private List<Field> fields;
 	private Enrichment enrichment;
-
+	private String contentType; //pseudo-static, reference, life-business-data
+	private SemanticReference semanticReference;
+	
 	public VirtualPrimaryKey getVirtualPrimaryKey() {
 		return virtualPrimaryKey;
 	}
@@ -64,6 +66,21 @@ public class Entity extends AbstractConfiguration {
 		this.enrichment = enrichment;
 	}
 
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public SemanticReference getSemanticReference() {
+		return semanticReference;
+	}
+
+	public void setSemanticReference(SemanticReference semanticReference) {
+		this.semanticReference = semanticReference;
+	}
 
 	
 }

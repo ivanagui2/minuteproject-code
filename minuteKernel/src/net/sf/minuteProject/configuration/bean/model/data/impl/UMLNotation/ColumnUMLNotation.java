@@ -19,4 +19,8 @@ public class ColumnUMLNotation extends ColumnAbstract{
     	return super.getName();
     }
     
+//    public String getGeneratedBeanName() {
+//    	return super.getGeneratedBeanName();
+//    }
+    
 }

@@ -21,6 +21,7 @@ public class Mapping {
 	
 	private String config;
 	private String configDir;
+	private MappingHolder holder;
 	
 	public Mapping (String config) {
 	   setConfig(config);
@@ -52,17 +53,38 @@ public class Mapping {
 			return load(getConfig(), getDigesterRule());
 		return load(getConfigDir(), getConfig(), getDigesterRule());
 	}
+
+	public MappingHolder load (MappingHolder mappingHolder, String configuration, String rules) throws Exception{
+
+		loadDigester(mappingHolder, getInputStream(configuration), rules);
+		//TODO add multiple loader for import
+		loadDigester(mappingHolder, getInputStream(configuration), rules);
+        return mappingHolder;		
+	}
 	
 	public MappingHolder load (String configuration, String rules) throws Exception{
-		MappingHolder Mappingholder = new MappingHolder();
-		loadDigester(Mappingholder, getInputStream(configuration), rules);
-        return Mappingholder;		
+		holder = new MappingHolder();
+		holder = load(holder, configuration, rules);
+		holder = load(holder, configuration, rules);
+		return holder;
+//		MappingHolder Mappingholder = new MappingHolder();
+//		loadDigester(Mappingholder, getInputStream(configuration), rules);
+//		//TODO add multiple loader for import
+//		loadDigester(Mappingholder, getInputStream(configuration), rules);
+//        return Mappingholder;		
 	}
 	
 	public MappingHolder load (String fileDirName, String fileName, String rules) throws Exception{
-		MappingHolder Mappingholder = new MappingHolder();
-		loadDigester(Mappingholder, getInputStream(fileDirName, fileName), rules);
-        return Mappingholder;		
+		holder = new MappingHolder();
+//		holder = load(holder, configuration, rules);
+//		holder = load(holder, configuration, rules);
+//		return holder;
+//		MappingHolder Mappingholder = new MappingHolder();
+		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
+		loadDigester(holder, getInputStream(fileDirName, fileName), rules);		
+		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
+		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
+        return holder;		
 	}
 	
 	private InputStream getInputStream (String fileName) {

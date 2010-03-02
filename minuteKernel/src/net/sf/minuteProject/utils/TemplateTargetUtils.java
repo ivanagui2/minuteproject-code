@@ -32,4 +32,5 @@ public class TemplateTargetUtils {
     	if (!isAlreadyPresent)
     		list.add(templateTarget);
     }
+    
 }

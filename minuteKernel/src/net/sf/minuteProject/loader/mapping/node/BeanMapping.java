@@ -17,6 +17,8 @@ public class BeanMapping extends AbstractConfigurationLoader{
    private String _entryPoint;
    private String _originBean;
    private String _targetBean;
+   private Variables _variables;
+   private Conditions _conditions;
    private BeanMappingProperties _mapProperties;
 
    public BeanMapping() {
@@ -92,6 +94,28 @@ public class BeanMapping extends AbstractConfigurationLoader{
 	
    public void setTargetBean (String _targetBean) {
       this._targetBean = _targetBean;
+   }
+   
+   
+   public Variables getVariables() {
+	  if (_variables == null)
+	     _variables = new Variables();
+	      return _variables;
+   }
+	
+   public void setVariables (Variables _variables) {
+      this._variables = _variables;
+   }
+   
+   
+   public Conditions getConditions() {
+	  if (_conditions == null)
+	     _conditions = new Conditions();
+	      return _conditions;
+   }
+	
+   public void setConditions (Conditions _conditions) {
+      this._conditions = _conditions;
    }
    
    

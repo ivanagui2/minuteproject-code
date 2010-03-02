@@ -24,6 +24,7 @@ public class ValidationProperty extends AbstractConfigurationLoader{
    private String _alias;
    private String _id;
    private String _validator;
+   private DepencyCondition _depencyCondition;
 
    public ValidationProperty() {
    }
@@ -175,6 +176,17 @@ public class ValidationProperty extends AbstractConfigurationLoader{
 	
    public void setValidator (String _validator) {
       this._validator = _validator;
+   }
+   
+   
+   public DepencyCondition getDepencyCondition() {
+	  if (_depencyCondition == null)
+	     _depencyCondition = new DepencyCondition();
+	      return _depencyCondition;
+   }
+	
+   public void setDepencyCondition (DepencyCondition _depencyCondition) {
+      this._depencyCondition = _depencyCondition;
    }
    
    
