@@ -45,52 +45,7 @@ public class DataModel {
 	
 	public void loadDatabase () {
 		database = DataModelFactory.getInstance().getDatabase(this);
-		//database.loadDatabase(this);
-		/*if (isDatabaseOnFile())
-			database = new DatabaseIO().read(getFileSourceName());		
-		else 
-		if (basicDataSource!=null) {
-			//basicDataSource.set
-			DataSource dataSource = basicDataSource;
-			//basicDataSource.set
-		    Platform platform = PlatformFactory.createNewPlatformInstance(dataSource);
-		    platform.getModelReader().setDefaultSchemaPattern(getSchema());
-		    database = platform.readModelFromDatabase(null);
-		    writeDatabase(database);
-		}*/
-	}
-	/*
-	private void writeDatabase (Database database) {
-	    String filename = getFileSourceName();
-	    if (filename!= null)
-	    	new DatabaseIO().write(database, filename);
-	}
-	
-	
-	private boolean isDatabaseOnFile() {
-	    String filename = getFileSourceName();
-	    if (filename!= null) {
-	    	File file = new File (filename);
-	    	if (file.exists())
-	    		return true;
-	    }
-	    return false;
-	}
-	
-	private String getFileSourceName() {
-	    String filename = null;
-	    String filedir = null;
-	    if (fileSource!=null) {
-	    	filename = fileSource.getName();
-	    	filedir = fileSource.getDir();
-	    	if (filename!=null)
-	    		filename = filedir+"/"+filename+".xml";
-	    	else 
-	    		filename = filedir+"/"+model.getName()+".xml";
-	    }
-	    return filename;
-	}*/
-	
+	}	
 
 	public Database getDatabase() {
 		return database;

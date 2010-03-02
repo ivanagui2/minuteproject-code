@@ -22,10 +22,11 @@ import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
-import net.sf.minuteProject.configuration.bean.view.Function;
+
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
@@ -159,6 +160,8 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByApplication(template);
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
+		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION))
+			generateArtifactsByFunction(template);
 	}
 
 	public Model getModel() throws Exception {
@@ -229,6 +232,12 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByComponent(Template template) throws Exception {	
 		writeTemplateResult(getModel().getConfiguration(), template);
+	}
+	
+	protected void generateArtifactsByFunction(Template template) throws Exception {	
+		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
+			writeTemplateResult(function, template);
+		}
 	}
 	
 	protected void writeTemplateResult(GeneratorBean bean,

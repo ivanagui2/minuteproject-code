@@ -6,7 +6,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
@@ -15,29 +14,39 @@ import net.sf.minuteProject.utils.DBTemplateUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
 public class BusinessPackage extends AbstractConfiguration {
-	
+
 	private BusinessModel businessModel;
-	private String defaultPackage;
-	private List <Condition> conditions;
-	private List <Package> packages;
-	private List <Table> tables;
-	private List <Package> packageViews;
-	private List <View> views;
+
+	private String defaultPackage, defaultPackageType, autoPackageType;
+
+	private List<Condition> conditions;
+
+	private List<Package> packages;
+
+	private List<Table> tables;
+
+	private List<Package> packageViews;
+
+	private List<View> views;
+	
+	private List<Table> entities;
 
 	private List packageServices;
+
 	private List services;
-	
-	void setPackageServices (Model model, Database database) {
+
+	void setPackageServices(Model model, Database database) {
 		packageServices = new ArrayList();
 		Hashtable ht = new Hashtable();
-		View [] views = database.getViews();
+		View[] views = database.getViews();
 		for (int i = 0; i < views.length; i++) {
 			View view = views[i];
 			view.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, view)) {
-				String packageName = CommonUtils.getBusinessPackageName(model, view);
-				Package pack = (Package)ht.get(packageName);
-				if (pack==null) {
+				String packageName = CommonUtils.getBusinessPackageName(model,
+						view);
+				Package pack = (Package) ht.get(packageName);
+				if (pack == null) {
 					pack = new Package();
 					pack.setBusinessPackage(this);
 					pack.setName(packageName);
@@ -51,33 +60,37 @@ public class BusinessPackage extends AbstractConfiguration {
 			packageServices.add(enumeration.nextElement());
 		}
 	}
-	
-	public List<View> getServices () {
+
+	public List<View> getServices() {
 		return getViews();
-//		FORMER packageServices
-		
-//		if (views == null) {
-//			views = new ArrayList<View>();
-//			for (Iterator<Package> iter = packageServices.iterator(); iter.hasNext();) {
-//				for (Iterator<View> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
-//					views.add(iter2.next());
-//				}
-//			}
-//		}
-//		return views;
+		// FORMER packageServices
+
+		// if (views == null) {
+		// views = new ArrayList<View>();
+		// for (Iterator<Package> iter = packageServices.iterator();
+		// iter.hasNext();) {
+		// for (Iterator<View> iter2 =
+		// ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext();
+		// ){
+		// views.add(iter2.next());
+		// }
+		// }
+		// }
+		// return views;
 	}
 
-	void setPackageViews (Model model, Database database) {
-		packageViews = new ArrayList<Package> ();
+	void setPackageViews(Model model, Database database) {
+		packageViews = new ArrayList<Package>();
 		Hashtable ht = new Hashtable();
-		View [] views = database.getViews();
+		View[] views = database.getViews();
 		for (int i = 0; i < views.length; i++) {
 			View view = views[i];
 			view.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, view)) {
-				String packageName = CommonUtils.getBusinessPackageName(model, view);
-				Package pack = (Package)ht.get(packageName);
-				if (pack==null) {
+				String packageName = CommonUtils.getBusinessPackageName(model,
+						view);
+				Package pack = (Package) ht.get(packageName);
+				if (pack == null) {
 					pack = new Package();
 					pack.setBusinessPackage(this);
 					pack.setName(packageName);
@@ -86,35 +99,38 @@ public class BusinessPackage extends AbstractConfiguration {
 				ht.put(packageName, pack);
 			}
 		}
-		Enumeration <Package> enumeration = ht.elements();
+		Enumeration<Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
 			packageViews.add(enumeration.nextElement());
 		}
 	}
-	
-	public List<View> getViews () {
+
+	public List<View> getViews() {
 		if (views == null) {
 			views = new ArrayList<View>();
-			for (Iterator<Package> iter = getPackageViews().iterator(); iter.hasNext();) {
-				for (Iterator<View> iter2 = ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext(); ){
+			for (Iterator<Package> iter = getPackageViews().iterator(); iter
+					.hasNext();) {
+				for (Iterator<View> iter2 = ((Package) iter.next())
+						.getListOfViews().iterator(); iter2.hasNext();) {
 					views.add(iter2.next());
 				}
 			}
 		}
 		return views;
 	}
-	
-	void setPackages (Model model, Database database) {
+
+	void setPackages(Model model, Database database) {
 		packages = new ArrayList<Package>();
 		Hashtable<String, Package> ht = new Hashtable<String, Package>();
-		Table [] tables = database.getTables();
+		Table[] tables = database.getTables();
 		for (int i = 0; i < tables.length; i++) {
 			Table table = tables[i];
 			table.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, table)) {
-				String packageName = CommonUtils.getBusinessPackageName(model, table);
-				Package pack = (Package)ht.get(packageName);
-				if (pack==null) {
+				String packageName = CommonUtils.getBusinessPackageName(model,
+						table);
+				Package pack = (Package) ht.get(packageName);
+				if (pack == null) {
 					pack = new Package();
 					pack.setBusinessPackage(this);
 					pack.setName(packageName);
@@ -123,50 +139,54 @@ public class BusinessPackage extends AbstractConfiguration {
 				ht.put(packageName, pack);
 			}
 		}
-		Enumeration <Package> enumeration = ht.elements();
+		Enumeration<Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
 			packages.add(enumeration.nextElement());
 		}
 	}
-	
-	public List <Table> getTables () {
+
+	public List<Table> getTables() {
 		if (tables == null) {
 			tables = new ArrayList<Table>();
-			for (Iterator<Package> iter = getPackages().iterator(); iter.hasNext();) {
-				for (Iterator<Table> iter2 = ((Package)iter.next()).getListOfTables().iterator(); iter2.hasNext(); ){
+			for (Iterator<Package> iter = getPackages().iterator(); iter
+					.hasNext();) {
+				for (Iterator<Table> iter2 = ((Package) iter.next())
+						.getListOfTables().iterator(); iter2.hasNext();) {
 					tables.add(iter2.next());
 				}
 			}
 		}
 		return tables;
 	}
-	
-	public List <Table> getEntities () {
-		List<Table> entities = new ArrayList<Table> ();
-		entities.addAll(getTables());
-		entities.addAll(getViews());
+
+	public List<Table> getEntities() {
+		if (entities==null) {
+			entities = new ArrayList<Table>();
+			entities.addAll(getTables());
+			entities.addAll(getViews());
+		}
 		return entities;
 	}
-	
-	public Table[] getEntitiesArray () {
+
+	public Table[] getEntitiesArray() {
 		List<Table> tables = getEntities();
 		return (Table[]) tables.toArray(new Table[tables.size()]);
 	}
-	
-	public List <Package> getPackages() {
-		if (packages==null)
-			packages = new ArrayList<Package>();		
+
+	public List<Package> getPackages() {
+		if (packages == null)
+			packages = new ArrayList<Package>();
 		return packages;
 	}
 
-	public List <Package> getPackageViews() {
-		if (packageViews==null)
+	public List<Package> getPackageViews() {
+		if (packageViews == null)
 			packageViews = new ArrayList<Package>();
 		return packageViews;
 	}
 
-	public void addCondition (Condition condition) {
-		if (conditions==null)
+	public void addCondition(Condition condition) {
+		if (conditions == null)
 			conditions = new ArrayList<Condition>();
 		conditions.add(condition);
 	}
@@ -174,13 +194,15 @@ public class BusinessPackage extends AbstractConfiguration {
 	public List<Condition> getConditions() {
 		return conditions;
 	}
+
 	public String getPackage(String value) {
 		return getConditionsResult(value);
 	}
+
 	private String getConditionsResult(String valueToTest) {
-		for (Iterator iter = conditions.iterator(); iter.hasNext();){
-			Condition condition = (Condition)iter.next();
-			if (condition.getConditionResult(valueToTest)!=null) {
+		for (Iterator iter = conditions.iterator(); iter.hasNext();) {
+			Condition condition = (Condition) iter.next();
+			if (condition.getConditionResult(valueToTest) != null) {
 				return condition.getResult();
 			}
 		}
@@ -201,5 +223,22 @@ public class BusinessPackage extends AbstractConfiguration {
 
 	public void setBusinessModel(BusinessModel businessModel) {
 		this.businessModel = businessModel;
-	}	
+	}
+
+	public String getAutoPackageType() {
+		return autoPackageType;
+	}
+
+	public void setAutoPackageType(String autoPackageType) {
+		this.autoPackageType = autoPackageType;
+	}
+
+	public String getDefaultPackageType() {
+		return defaultPackageType;
+	}
+
+	public void setDefaultPackageType(String defaultPackageType) {
+		this.defaultPackageType = defaultPackageType;
+	}
+	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -21,6 +22,9 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	
 	private Table table;
 	private String alias;
+	private Reference [] distinctChildrenRef;
+	private SemanticReference semanticReference;
+	private String contentType;
 	
 	public TableAbstract () {
 	}
@@ -29,6 +33,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		setTable (table);
 		this.setAlias(table.getAlias());
 		this.setProperties(table.getProperties());
+		this.setContentType(table.getContentType());
+		this.setSemanticReference(table.getSemanticReference());
 	}
 	
 	public String getName () {
@@ -157,9 +163,6 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	}
 	
 	public String getTechnicalPackage(Template template) {
-		//StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
-		//StringBuffer sb = new StringBuffer(getPackage().getTechnicalPackage(template));
-		//sb.append("."+getName());
 		return getPackage().getTechnicalPackage(template);
 	}
 
@@ -273,4 +276,67 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		}
 		return false;
 	}
+	
+	public Reference [] getDistinctChildrenType() {
+		if (distinctChildrenRef==null)
+			distinctChildrenRef = getDistinctChildrenTypeArray();
+		return distinctChildrenRef;
+	}
+	
+	public Reference [] getDistinctChildrenTypeArray() {
+		List<Reference> distinctTypes = new ArrayList<Reference>();
+
+		Reference[] references = getChildren();
+		for (int i = 0; i < references.length; i++) {
+			boolean toAdd = true;
+			for (Reference reference : distinctTypes) {
+				if (   reference.getForeignTableName().equals(references[i].getForeignTableName())  
+					&& reference.getLocalTableName().equals(references[i].getLocalTableName())	
+					) {
+					toAdd = false;
+					break;
+				}
+			}	
+			if (toAdd)
+				distinctTypes.add(references[i]);
+		}
+		return (Reference []) distinctTypes.toArray(new Reference[distinctTypes.size()]);
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public SemanticReference getSemanticReference() {		
+		return semanticReference;
+	}
+
+	public void setSemanticReference(SemanticReference semanticReference) {
+		this.semanticReference = semanticReference;
+	}
+	
+//	public String getContentType() {
+//		return table.getContentType();
+//	}
+//
+//	public void setContentType(String contentType) {
+//		table.setContentType(contentType);
+//	}
+//
+//	public SemanticReference getSemanticReference() {
+//		return table.getSemanticReference();
+//	}
+//
+//	public void setSemanticReference(SemanticReference semanticReference) {
+//		table.setSemanticReference(semanticReference);
+//	}
+//	
+	public boolean hasVersion() {
+		return false;
+	}
+	
 }

@@ -9,6 +9,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 public abstract class AbstractConfiguration implements GeneratorBean{
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
+	private enum PropertyCriteria {NAME, TAG};
 	protected String name;
 	private String refname;
 	private String description;
@@ -47,9 +48,25 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 		return false;
 	}
 	
-//	public Property getProperty (String name) {
-//		return getPropertyValue(name);
-//	}
+	public Property getPropertyByName (String name) {
+		return getPropertyByCriteria(PropertyCriteria.NAME, name);
+	}
+
+	public Property getPropertyByTag (String tag) {
+		return getPropertyByCriteria(PropertyCriteria.TAG, tag);
+	}
+	
+	public Property getPropertyByCriteria (PropertyCriteria propertyCriteria, String value) {
+		for (Property property : getProperties()) {
+			if (propertyCriteria.equals(PropertyCriteria.NAME))
+				if (property.getName().equals(value))
+					return property;
+			if (propertyCriteria.equals(PropertyCriteria.TAG))
+				if (property.getTag().equals(value))
+					return property;			
+		}
+		return null;
+	}
 //	
 	public String getPropertyValue (String name) {
 		// TODO browse recursively via the parent to see the first matching propertiesif (getProperties().)
@@ -112,6 +129,7 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 	public String getGeneratedBeanName() {
 		return FormatUtils.getJavaName(getName());
 	}
+	
 	public String getConfigurationFileInClassPath() {
 		return configurationFileInClassPath;
 	}

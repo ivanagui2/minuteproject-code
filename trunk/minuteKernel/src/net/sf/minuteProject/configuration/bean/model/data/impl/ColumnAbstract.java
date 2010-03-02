@@ -1,19 +1,27 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.FormatUtils;
 
 public abstract class ColumnAbstract extends AbstractConfiguration implements Column{
 
 	private Column column;
 	private Table table;
 	private Boolean isLob;
+	private Stereotype stereotype;
+	private Boolean isVersion;
 	
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
 		this.table = table;
 	}
+	
+	public String getGeneratedBeanName() {
+		return FormatUtils.getJavaName(table.getName()+"_"+getName());
+	}	
     /**
      * Returns the name of the column.
      * 
@@ -391,11 +399,31 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 			isLob = getIsLob();
 		return isLob;
 	}
-
 	
 	private Boolean getIsLob() {
 		if (getType().equals("CLOB") || column.getType().equals("BLOB"))
 			return true;
 		return false;
 	}
+
+	public Stereotype getStereotype() {
+		return stereotype;
+	}
+
+	public void setStereotype(Stereotype stereotype) {
+		this.stereotype = stereotype;
+	}
+
+	public void setIsVersion(Boolean isVersion) {
+		this.isVersion = isVersion;
+	}
+	public boolean isVersion() {
+		return isVersion;
+	}
+
+	public void setVersion(boolean isVersion) {
+		this.isVersion = isVersion;
+	}	
+	
+	
 }

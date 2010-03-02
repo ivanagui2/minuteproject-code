@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.configuration.bean.target.ImportTargets;
+import net.sf.minuteProject.configuration.bean.target.TargetParams;
 import net.sf.minuteProject.utils.io.FileUtils;
 
 /**
@@ -21,7 +23,9 @@ public class Target extends AbstractConfiguration{
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List <Target> dependency;
 	private List <Plugin> plugins;
-
+	private TargetParams targetParams;
+	private ImportTargets importTargets;
+	
 	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
 		return abstractConfigurationRoot;
 	}
@@ -121,6 +125,18 @@ public class Target extends AbstractConfiguration{
 	}
 	public void setCanonicalFileName(String canonicalFileName) {
 		this.canonicalFileName = canonicalFileName;
+	}
+	public ImportTargets getImportTargets() {
+		return importTargets;
+	}
+	public void setImportTargets(ImportTargets importTargets) {
+		this.importTargets = importTargets;
+	}
+	public TargetParams getTargetParams() {
+		return targetParams;
+	}
+	public void setTargetParams(TargetParams targetParams) {
+		this.targetParams = targetParams;
 	}
 	
 	

@@ -21,6 +21,7 @@ public class BeanMappingProperty extends AbstractConfigurationLoader{
    private String _value;
    private String _callMapping;
    private String _isLoop;
+   private DepencyCondition _depencyCondition;
 
    public BeanMappingProperty() {
    }
@@ -139,6 +140,17 @@ public class BeanMappingProperty extends AbstractConfigurationLoader{
 	
    public void setIsLoop (String _isLoop) {
       this._isLoop = _isLoop;
+   }
+   
+   
+   public DepencyCondition getDepencyCondition() {
+	  if (_depencyCondition == null)
+	     _depencyCondition = new DepencyCondition();
+	      return _depencyCondition;
+   }
+	
+   public void setDepencyCondition (DepencyCondition _depencyCondition) {
+      this._depencyCondition = _depencyCondition;
    }
    
    

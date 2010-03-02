@@ -14,6 +14,7 @@ public class MappingHolder {
    }
 	
    public static void setBeanMap (BeanMap _beanMap2) {
+	   if (_beanMap!=null) return;
       _beanMap = _beanMap2;
    }
    

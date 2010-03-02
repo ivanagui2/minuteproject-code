@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.model.data;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 
 
 public interface Table extends GeneratorBean{
@@ -223,6 +224,8 @@ public interface Table extends GeneratorBean{
      */
     public Reference [] getChildren();
     
+    public Reference [] getDistinctChildrenType();
+    
     /**
      * Indicates if it is a many to many table
      * @return boolean
@@ -238,4 +241,15 @@ public interface Table extends GeneratorBean{
 	public void setAlias(String alias);
 	
 	public boolean isManyToManyRecursive();
+	
+	public void setContentType(String contentType);
+	
+	public String getContentType();
+	
+	public void setSemanticReference (SemanticReference semanticReference);
+	
+	public SemanticReference getSemanticReference();
+	
+	public boolean hasVersion();
+	
 }

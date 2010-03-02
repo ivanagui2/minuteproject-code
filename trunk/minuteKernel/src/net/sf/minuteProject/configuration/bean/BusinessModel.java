@@ -101,7 +101,6 @@ public class BusinessModel {
 		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTable(database, entity.getName());
 		if (table!=null){
 			complementEntityWithProperties(table, entity);
-//			complementDataModelWithViewEnrichment(view, entity);
 		}		
 	}
 	
@@ -129,21 +128,33 @@ public class BusinessModel {
 	}
 	
 	private void complementEntityWithProperties(net.sf.minuteProject.configuration.bean.model.data.Table table, Entity entity) {
-		table.setProperties(entity.getProperties());
-		table.setAlias(entity.getAlias());
+		convertEntityInfoIntoTable(entity, table);
 		List<Field> fields = entity.getFields();
 		Column[] columns = table.getColumns();
 		Column[] attributes = table.getAttributes();
 		for (Field field : fields) {
 			for (Column column : columns) {
 				if (field.getName().equals(column.getName()))
-					column.setProperties(field.getProperties());
+					//TODO set stereotype, contentType, semanticReference
+					convertFieldInfoToColumn(field, column);
 			}	
 			for (Column column : attributes) {
 				if (field.getName().equals(column.getName()))
-					column.setProperties(field.getProperties());
+					convertFieldInfoToColumn(field, column);
 			}			
 		}
+	}
+	
+	private void convertEntityInfoIntoTable(Entity entity, Table table) {
+		table.setProperties(entity.getProperties());
+		table.setAlias(entity.getAlias());
+		table.setContentType(entity.getContentType());
+		table.setSemanticReference(entity.getSemanticReference());
+	}
+	
+	private void convertFieldInfoToColumn (Field field, Column column) {
+		column.setProperties(field.getProperties());
+		column.setStereotype(field.getStereotype());
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {

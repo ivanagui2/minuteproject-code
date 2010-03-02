@@ -16,7 +16,7 @@ public class Transaction extends AbstractConfigurationLoader{
    private String _name;
    private String _alias;
    private String _id;
-   private String _readOnly;
+   private Boolean _isReadOnly;
    private String _timeOut;
 
    public Transaction() {
@@ -84,14 +84,18 @@ public class Transaction extends AbstractConfigurationLoader{
    }
    
    
-   public String getReadOnly() {
-	  if (_readOnly == null)
-	     _readOnly = new String();
-	      return _readOnly;
+   public Boolean isReadOnly() {
+      return getIsReadOnly();
+   }
+   
+   public Boolean getIsReadOnly() {
+	  if (_isReadOnly == null)
+	     _isReadOnly = new Boolean(false);
+	      return _isReadOnly;
    }
 	
-   public void setReadOnly (String _readOnly) {
-      this._readOnly = _readOnly;
+   public void setIsReadOnly (Boolean _isReadOnly) {
+      this._isReadOnly = _isReadOnly;
    }
    
    
