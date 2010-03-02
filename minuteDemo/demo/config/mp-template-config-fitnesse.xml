@@ -1,0 +1,136 @@
+<target name="BackendOnBsla-for-fitnesse">		
+	<architecture-target name="fitnesse" description="fitness templates">
+	</architecture-target>	
+
+	<template-target 
+	   name="fitness CRUD Wiki templates" 
+	   rootdir="../.."
+       templatedir = "template" 
+	   libdir="lib/BslaLibrary.vm"
+	   tool="velocity"
+	   outputdir="../output/petshopFitness"
+	   package-root="TestFitnesseCrud"
+	   belongToPackage="true">
+	
+		<!-- select fixture -->
+	    <!-- set a directory for the entity -->
+		<!-- change to content.txt-->
+		<template name="FitnesseWikiEntityCRUDSnippetContent" templateFileName="FitnesseWikiEntityCRUDSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.crud"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="true" package-specific="false" model-specific="false"
+      add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" 
+      entity-dir-name-prefix="Test">
+		</template>
+    
+		<!-- datasource snippet -->
+		<!-- set a directory for the entity -->
+		<!-- change to content.txt-->
+		<template name="FitnesseWikiDBConnectionSnippetContent" templateFileName="FitnesseWikiDBConnectionSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="DbConnection"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
+      >
+		</template>
+
+        
+		<template name="FitnesseWikiSiteSnippetContent" templateFileName="FitnesseWikiSiteSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      add-entity-dir-name="false" add-scope-name="false" 
+      add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
+		</template>
+  </template-target>	
+  
+
+	<template-target 
+	   name="fitness CRUD Wiki templates" 
+	   rootdir="../.."
+       templatedir = "template" 
+	   libdir="lib/BslaLibrary.vm"
+	   tool="velocity"
+	   outputdir="../output/petshopFitness"
+	   package-root="TestFitnesse"
+       belongToPackage="true">
+	
+		<!-- select fixture -->
+	    <!-- set a directory for the entity -->
+		<!-- change to content.txt-->
+		<template name="FitnesseWikiEntitySnippetContent" templateFileName="FitnesseWikiEntitySnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="true" package-specific="false" model-specific="false"
+      add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false"
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS"
+      entity-dir-name-prefix="Test">
+		</template>
+	
+		
+		<!-- set a directory for the entity -->
+		<!-- change to properties.xml 
+		<template name="FitnesseWikiEntitySnippetProperties" templateFileName="FitnesseWikiEntitySnippetProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			file-extension="xml" file-prefix="" file-suffix="properties" 
+			entity-specific="true" package-specific="false" model-specific="false"
+      add-entity-dir-name="true" add-scope-name="false" add-technical-dir-name="false" add-business-package-dir-name="false">
+		</template>-->
+    
+		<!-- datasource snippet -->
+		<!-- set a directory for the entity -->
+		<!-- change to content.txt-->
+		<template name="FitnesseWikiDBConnectionSnippetContent" templateFileName="FitnesseWikiDBConnectionSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="DbConnection"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS">
+		</template>
+		
+		<!-- set a directory for the entity -->
+		<!-- change to properties.xml 
+		<template name="FitnesseWikiDBConnectionSnippetProperties" templateFileName="FitnesseWikiDBConnectionSnippetProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			file-extension="txt" file-prefix="" file-suffix="TestSnippet" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+        -->
+        
+		<template name="FitnesseWikiSiteSnippetContent" templateFileName="FitnesseWikiSiteSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      add-entity-dir-name="false" add-scope-name="false" 
+      add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
+		</template>
+  </template-target>		
+	
+  <template-target 
+	   name="fitness fixture" 
+	   rootdir="../.."
+       templatedir = "template" 
+	   libdir="lib/BslaLibrary.vm"
+	   tool="velocity"
+	   outputdir="../output/petshopFitness/src-generated"
+	   package-root="sf.net.mp.demo"
+		belongToPackage="true">
+	
+		<!-- select fixture -->
+	
+		<template name="FitnesseSelectTableFixture" templateFileName="FitnesseSelectTableFixture.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			file-extension="java" file-prefix="" file-suffix="TableFixture" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>		
+
+		<template name="FitnesseEntityCRUDColumnFixture" templateFileName="FitnesseEntityCRUDColumnFixture.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.crud"
+			file-extension="java" file-prefix="" file-suffix="ColumnFixture" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+
+	</template-target>	
+				
+</target>	
