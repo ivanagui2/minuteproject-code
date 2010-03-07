@@ -3,6 +3,8 @@
 #set ($database = $table.database)
 #set ($model = $table.package.businessPackage.businessModel.model)
 #set ($tableDB = $table)
+#set ($isView = $tableUtils.isView($table))
+##set ($isView = $tableUtils.isView($database, $tableDB.name))
 ##set ($database = $model.dataModel.database)
 #set ($configuration = $model.configuration)
 #set ($tableVariableName = $commonUtils.getTableVariableName($table))
@@ -37,6 +39,7 @@
 #macro(exposeVariableComponentSpecific)
 #set ($packageName = $commonUtils.getPackageName($component, $template))
 #set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $component))
+#set ($modelEntities = $model.businessModel.businessPackage.getEntities())
 #end
 
 #macro (exposeVariableModelSpecific)
@@ -78,12 +81,16 @@
 #set ($column = $formatUtils.getJavaNameVariable(${reference.columnName}))
 #set ($columnType = $commonUtils.getJavaType($columnDB))
 #set ($columnFullType = $commonUtils.getFullType2($columnDB))
+#set ($localColumnDB = $reference.localColumn)
 #set ($localColumnName = $formatUtils.getJavaNameVariable(${reference.localColumn.name}))
+#set ($localColumnClassName = $formatUtils.getJavaName(${reference.localColumn.name}))
 #set ($varclass = "${linkclass}_$columnclass")
+#set ($varclass2 = "${linkclass}_${localColumnClassName}")
 #set ($var = "${link}_$columnclass") 
+#set ($var2 = "${link}_${localColumnClassName}") 
 #set ($associatedPackageName = $commonUtils.getAssociatedBusinessPackageName($model, $reference.tableName))
 ## resource bundle
-#set ($resource = "${table.name}.$var")
+#set ($resource = "${table.name}.$var2")
 #set ($parentLink = $referenceUtils.getParentLink(${reference.tableName},${reference.columnName}))
 #end
 
@@ -126,6 +133,7 @@
 #set ($parentLinkUML = "${linkedTableClass}${localColumnClass}")
 #set ($parentLink = "${linkedTableClass}_${localColumnClass}")
 #set ($importDomainObjectUMLForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $reference.foreignTable, $template))
+#set ($isMandatory = $localColumn.isRequired())
 #end
 
 ## putColumnParams are for the decorating the entity attribute 
@@ -185,6 +193,7 @@
 #set ($importIbatisDaoSqlImplName = $bslaLibraryUtils.getIbatisDaoSqlImplImport($model, $tableDB, $template))
 #set ($importHibernateImplName = $bslaLibraryUtils.getHibernateImplNameImport($model, $tableDB, $template))
 #set ($importJPAImplName = $bslaLibraryUtils.getJPAImplNameImport($model, $tableDB, $template))
+#set ($daoHibernateImplClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateBslaDaoImplHibernate))
 #end
 
 #macro (exposeImportParams $tableDB)
@@ -304,6 +313,9 @@
 #end
 
 #macro (exposeWebProperties)
+#templateDefinitionWeb()
+#exposeWebSecurityProperties()
+#exposeWebNature()
 #set ($defaultRootURLBeginner = $WebUtils.getDefaultRootURLBeginner($model))
 #set ($sitemeshMainDecoratorFile = $WebUtils.getSitemeshMainDecorator($model))
 #set ($sitemeshMainDecoratorDir = $WebUtils.getSitemeshMainDecoratorDir($model))
@@ -311,6 +323,43 @@
 #set ($projectDefaultServletClasspath = $WebUtils.getProjectDefaultServletClasspath($model))
 #set ($defaultHomePageContent = $WebUtils.getDefaultHomePageContent($model))
 #set ($springConfigMain = $WebUtils.getSpringConfigMainInRootClassPath($model))
+#set ($authenticationHomePath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, "WebSecurityAuthenticationPage"))
+#set ($loginPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateWebSecurityLoginPage))
+#set ($loginErrorPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateWebSecurityLoginErrorPage))
+#end
+
+#macro (exposeLobProperties)
+#getTemplatePropertyValue("convertClobToString")
+#set ($convertClobToString = $value)
+#if ($convertClobToString == "" && $column.type!="CLOB")
+#set ($convertClobToString = "false")
+#end
+#end
+
+#macro (exposeWebSecurityProperties)
+#getTemplatePropertyValue("securityAuthenticationType")
+#set ($securityAuthenticationType = $value)
+#if ($securityAuthenticationType == "")
+#set ($securityAuthenticationType = "none")
+#end
+#getTemplatePropertyValue("mpUserRole")
+#set ($mpUserRole = $value)
+#if ($mpUserRole == "")
+#set ($mpUserRole = "mpuser")
+#end
+#getTemplatePropertyValue("applicationRealm")
+#set ($applicationRealm = $value)
+#if ($applicationRealm == "")
+#set ($applicationRealm = "myrealm")
+#end
+#end
+
+#macro (exposeWebNature)
+#getTemplatePropertyValue("RSSNature")
+#set ($RSSNature = $value)
+#if ($RSSNature == "")
+#set ($RSSNature = "none")
+#end
 #end
 
 #macro (getTemplatePropertyValue $property)
@@ -378,7 +427,17 @@
 import $importDomainObject;
 import $importDaoInterface;
 #end
-	#end
+#end
+#end
+
+#macro (importBackEndView)
+#foreach ($package in ${businessPackageViews})
+#foreach ($table in ${package.listOfViews})
+#putImportParams()
+import $importDomainObject;
+import $importDaoInterface;
+#end
+#end
 #end
 
 #macro (importBackEndUML)
@@ -388,7 +447,17 @@ import $importDaoInterface;
 import $importDomainObjectUML;
 import $importDaoInterfaceUML;
 #end
-	#end
+#end
+#end
+
+#macro (importBackEndUMLView)
+#foreach ($package in ${businessPackageViews})
+#foreach ($table in ${package.listOfViews})
+#putImportParamsUML()
+import $importDomainObjectUML;
+import $importDaoInterfaceUML;
+#end
+#end
 #end
 
 ## set the definition of the template against there logical fonction
@@ -398,8 +467,17 @@ import $importDaoInterfaceUML;
 #set ($templateDomainObjectUML="DomainObjectUML")
 #set ($templateBslaDaoInterface="BslaDaoInterface")
 #set ($templateBslaDaoInterfaceUML="BslaDaoInterfaceUML")
+#set ($templateBslaDaoInterfaceExtendedUML="BslaDaoInterfaceExtendedUML")
 #set ($templateViewServiceInterface="ServiceInterface")
+#set ($templateBslaDaoExtImplHibernate = "BslaHibernateExtendedDaoImplUML")
+#set ($templateBslaDaoImplHibernate = "BslaHibernateDaoImplUML")
 ##set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
+#end
+
+#macro (templateDefinitionWeb)
+#set ($templateWebSecurityAuthenticationPage="WebSecurityAuthenticationPage")
+#set ($templateWebSecurityLoginPage="WebSecurityLoginPage")
+#set ($templateWebSecurityLoginErrorPage="WebSecurityLoginErrorPage")
 #end
 
 #macro (exposeComponentSpecific)

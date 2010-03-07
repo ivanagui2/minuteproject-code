@@ -20,11 +20,24 @@ import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 public interface $className extends DataAccessObject {
 
     /**
-     * Inserts a $tableClassName entity $tCN 
+     * Inserts a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
     public void insert$tableClassName($tableClassName $tableVariableName) ;
 
+    /**
+     * Inserts a $tableClassName entity with cascade of its children
+     * @param $tableClassName $tableVariableName
+     */
+    public void insert${tableClassName}WithCascade($tableClassName $tableVariableName) ;
+    
+    /**
+     * Inserts a list of $tableClassName entity 
+     * @param $tableClassName $tableVariableName
+     */
+    public void insert${tableClassName}s(List<$tableClassName> ${tableVariableName}s) ;
+    
+        
     /**
      * Updates a $tableClassName entity 
      * @param $tableClassName $tableVariableName

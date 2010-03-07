@@ -44,7 +44,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
      * Updates a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
-    public void update$tableClassName($tableClassName $tableVariableName) {
+    public $tableClassName update$tableClassName($tableClassName $tableVariableName) {
       getJpaTemplate().merge($tableVariableName);
     }
 
