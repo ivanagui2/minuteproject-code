@@ -19,14 +19,14 @@
 
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/$defaultRootURLBeginner</url-pattern>
     </filter-mapping>
     
 	<!-- The contextConfigLocation specifies all locations for the Spring bean factory to get its Spring bean definitions from. -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:${springConfigMain}.xml
+			classpath:${springConfigMain}
 		</param-value>
 	</context-param>
 	<servlet>
@@ -51,8 +51,48 @@
     
 
     <welcome-file-list>
+#if ($securityAuthenticationType!="none")
+	  <welcome-file>$defaultRootURLBeginner</welcome-file>
+#end
       <welcome-file>index.jsp</welcome-file>
       <welcome-file>index.html</welcome-file>
     </welcome-file-list>    
+	
+#if ($securityAuthenticationType!="none")
+	<security-constraint>
+       <web-resource-collection>
+           <web-resource-name>Administrative Area</web-resource-name>
+           <url-pattern>/*</url-pattern>
+       </web-resource-collection>
+       <auth-constraint>
+           <role-name>$adminRole</role-name>
+       </auth-constraint>
+   </security-constraint>
 
+#if ($securityAuthenticationType=="basic")   
+    <login-config>
+	   <auth-method>BASIC</auth-method>
+	   <realm-name>myrealm</realm-name>
+	</login-config>
+
+#end
+#if ($securityAuthenticationType=="form") 
+    <login-config>
+        <auth-method>FORM</auth-method>
+		<realm-name>myrealm</realm-name>
+        <form-login-config>
+           <form-login-page>/$loginPath</form-login-page>
+           <form-error-page>/$loginErrorPath</form-error-page>
+        </form-login-config>
+    </login-config>
+	
+#end
+	<!-- Security roles referenced by this web application -->
+	<security-role>
+	  <description>
+	    The role that is required to log in to the Manager Application
+	  </description>
+	  <role-name>$adminRole</role-name>
+	</security-role>
+#end
 </web-app>

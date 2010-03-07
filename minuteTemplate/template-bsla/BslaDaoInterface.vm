@@ -41,7 +41,7 @@ public interface $className extends DataAccessObject {
      * Updates a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
-    public void update$tableClassName($tableClassName $tableVariableName) ;
+    public $tableClassName update$tableClassName($tableClassName $tableVariableName) ;
 
     /**
      * Updates a $tableClassName entity with only the attributes set into ${tableClassName}.
