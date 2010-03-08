@@ -13,6 +13,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 	public ColumnUMLNotation (Column column, Table table) {
 		super(column, table);
 		setProperties(column.getProperties());
+		setStereotype(column.getStereotype());
 	}
 	
     public String getName() {

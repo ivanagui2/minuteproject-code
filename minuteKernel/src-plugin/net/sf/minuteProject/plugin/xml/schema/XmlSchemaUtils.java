@@ -171,6 +171,10 @@ public class XmlSchemaUtils {
 		return DigesterUtils.getFirstSequenceElementJavaNameImport(getBaseElement(document, configuration), configuration);
 	}
 	
+	public static String getLoaderBeanName  (Configuration configuration) {
+		return DigesterUtils.getLoaderBeanName(configuration);
+	}
+	
 	public static String getDigesterHolderBeanName (Configuration configuration) {
 		return DigesterUtils.getDigesterHolderBeanName(configuration);
 	}

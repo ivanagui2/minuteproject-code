@@ -16,13 +16,13 @@ public class Enrichment extends AbstractConfiguration {
 	}
 	
 	public void addEntity (Entity entity) {
-		if (entities==null)
-			entities = new ArrayList<Entity> ();
 		entity.setEnrichment(this);
-		entities.add(entity);
+		getEntities().add(entity);
 	}
 
 	public List<Entity> getEntities() {
+		if (entities==null)
+			entities = new ArrayList<Entity> ();
 		return entities;
 	}
 

@@ -19,6 +19,8 @@ public class DigesterFormat {
 	public static final String TEMPLATE_NODE_XML = "DigesterConfigBean";
 	public static final String TEMPLATE_DIGESTER_CONFIG_XML = "DigesterConfigXML";
 	public static final String TEMPLATE_DIGESTER_HOLDER_BEAN = "DigesterHolderBean";
+	public static final String TEMPLATE_LOADER_BEAN = "DigesterConfigBean";
+	
 	public int indent = 0;
 	public StringBuffer stringBuffer = new StringBuffer();
 
@@ -208,6 +210,15 @@ $padding <object-create-rule classname="net.sf.minuteProject.configuration.bean.
 
 	public static String getDigesterHolderBeanName (Configuration configuration) {
 		Template template = CommonUtils.getTemplate(configuration, TEMPLATE_DIGESTER_HOLDER_BEAN);
+		return CommonUtils.getClassName(configuration, template);
+	}
+	
+	public static String getLoaderBeanName (Configuration configuration) {
+		return getBeanName(configuration, TEMPLATE_LOADER_BEAN);
+	}
+	
+	private static String getBeanName (Configuration configuration, String templateName) {
+		Template template = CommonUtils.getTemplate(configuration, templateName);
 		return CommonUtils.getClassName(configuration, template);
 	}
 	

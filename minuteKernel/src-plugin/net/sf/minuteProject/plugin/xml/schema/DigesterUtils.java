@@ -29,6 +29,10 @@ public class DigesterUtils {
 		return DigesterFormat.getFirstSequenceElementJavaNameImport(element, configuration);
 	}
 	
+	public static String getLoaderBeanName (Configuration configuration) {
+		return DigesterFormat.getLoaderBeanName(configuration);
+	}
+	
 	public static String getDigesterHolderBeanName (Configuration configuration) {
 		return DigesterFormat.getDigesterHolderBeanName(configuration);
 	}

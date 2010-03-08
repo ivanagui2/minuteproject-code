@@ -114,6 +114,13 @@ public class ColumnUtils {
 	}
 	
 
+	public static boolean isTimeColumn (Column column) {
+		if (column.getType().equals("DATE") || 
+			column.getType().equals("TIMESTAMP") )
+			return true;		
+		return false;
+	}
+	
 	public static Property getCheckConstraintProperty (Column column) {
 		return column.getPropertyByTag(CHECK_CONSTRAINT_PROPERTY_TAG);
 	}
@@ -132,9 +139,15 @@ public class ColumnUtils {
 	}
 
 	public static boolean hasFormulaStereotype (Column column) {
-		if (column.getStereotype()!=null && column.getStereotype().getFormula()!=null)
+		if (hasStereotype(column) && column.getStereotype().getFormula()!=null)
 			return true;
 		return false;
+	}
+	
+	public static boolean hasStereotype (Column column) {
+		if (column.getStereotype()!=null)
+			return true;
+		return false;		
 	}
 	
 }
