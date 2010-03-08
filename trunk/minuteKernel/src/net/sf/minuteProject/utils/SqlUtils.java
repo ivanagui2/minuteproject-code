@@ -27,5 +27,9 @@ public class SqlUtils {
 	public static boolean isPKQuotedColumn (Table table) {
 		return isQuotedColumn (TableUtils.getPrimaryFirstColumn(table));
 	}
+	
+	public static String getTimeConversionExpression (String columnExpression, Column column) {
+		return "";
+	}
 
 }

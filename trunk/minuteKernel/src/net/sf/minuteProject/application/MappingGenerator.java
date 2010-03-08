@@ -42,7 +42,7 @@ import org.apache.velocity.VelocityContext;
 
 public class MappingGenerator extends AbstractGenerator {
 
-	private static Logger logger = Logger.getLogger(ModelGenerator.class);
+	private static Logger logger = Logger.getLogger(MappingGenerator.class);
 	
 	private MappingHolder mappingHolder;
 	private InitHolder initholder;

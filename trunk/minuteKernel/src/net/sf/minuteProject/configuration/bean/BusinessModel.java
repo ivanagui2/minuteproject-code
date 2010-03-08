@@ -78,7 +78,7 @@ public class BusinessModel {
 			// for all the view
 			// set virtual pk, realpk
 			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
-			if (enrichment != null) {
+			if (enrichment != null && enrichment.getEntities()!=null) {
 				for (Entity entity : enrichment.getEntities()) {
 					if (type.equals(Table.VIEW))
 						complementView(entity, database);
