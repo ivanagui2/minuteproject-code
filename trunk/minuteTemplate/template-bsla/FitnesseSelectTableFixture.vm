@@ -31,18 +31,6 @@ public class ${className} extends DbTableFixture{
 	
 	@Override
 	protected void doStaticTable(int arg0) {
-		System.out.println("-- value --");
-		for (String element : getColumnValue().values()) {
-			System.out.println(element);
-		}
-		System.out.println("-- expression --");
-		for (String element : getColumnExpressionValue().values()) {
-			System.out.println(element);
-		}
-		System.out.println("-- order --");
-		for (String element : getColumnOrderValue().values()) {
-			System.out.println(element);
-		}
 		try {
 			resultSet = executeQuery(getColumnIndex(), getColumnExpressionValue(), getColumnValue(),getColumnOrderValue() );
 		} catch (SQLException e) {

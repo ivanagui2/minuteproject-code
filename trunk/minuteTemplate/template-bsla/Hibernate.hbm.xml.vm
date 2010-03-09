@@ -1,6 +1,8 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
 #putImportParamsUML()
+#templateDefinition()
+#set($hasEhCache=$commonUtils.hasTemplate($model, $templateBslaEhCacheXml))
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE hibernate-mapping PUBLIC
@@ -11,17 +13,17 @@
 	<class name="$importDomainObjectUML" 
 	       table="${table.name}"
 	       lazy="true">
-		<!--<cache usage="read-write" />-->
-
+#if ($hasEhCache)       
+    <cache usage="read-write" />
+#end
 #if($hasPrimaryKey && !$isMany2Many)
-	<id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
+    <id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
 #if (!$isPkUserProvided)
-#set ($sequenceName = $databaseUtils.provideSequence($table))
-    <generator class="sequence">
-          <param name="sequence">${sequenceName}</param>
-    </generator>
+        <generator class="sequence">
+          <param name="sequence">${table.name}_SEQ</param>
+        </generator>
 #end                
-	</id>
+    </id>
 #end 
 #if ($isMany2Many)
     <composite-id
@@ -37,28 +39,32 @@
 	<!-- map the fields of ${className} domain object  -->
 #foreach ($column in ${table.noPrimaryKeyNoForeignKeyColumns})
 #putColumnParams()
-	<property name="$columnVar" column="$column.name" #if($column.isRequired())not-null="true"#else not-null="false"#end #if($isColumnUnique)unique="true"#else unique="false"#end/> #end
+	<property name="$columnVar" column="$column.name" #if($column.isRequired())not-null="true"#else not-null="false"#end #if($isColumnUnique)unique="true"#else unique="false"#end/> 
+#end
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#set ($isLocalColumnPK = $tableUtils.isColumnPk($reference.localColumn, $table))
 #exposeImportParamsUML($reference.foreignTable)
 <!-- readonly links -->
-	<property name="$localColumnVariable" column="${reference.localColumnName}" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end #if($isLocalColumnPK)insert="false" update="false"#end />
+	<property name="$localColumnVariable" column="${reference.localColumnName}" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end #if($isMany2Many) insert="false" update="false"#end/>
 
 	<many-to-one name="${linkedTableVariable}${localColumnClass}" 
 	 class="$importDomainObjectUML" 
 	 column="$reference.localColumnName" 
+	 #if($columnDB.isRequired())not-null="true"#else not-null="false"#end 
 	 insert="false" update="false"
 	 />	
 #end
 
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-#exposeImportParamsUML($reference.foreignTable)      <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName" lazy="true">
+#exposeImportParamsUML($reference.foreignTable)  
+    <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName" lazy="true">
         <key column="$reference.foreignColumnName" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end/>
         <one-to-many class="$importDomainObjectUML"/>
     </set>		    
 #end  
 
-	</class>	</hibernate-mapping>
+	</class>
+	
+</hibernate-mapping>

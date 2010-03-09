@@ -139,6 +139,7 @@
 ## putColumnParams are for the decorating the entity attribute 
 #macro (putColumnParams)
 #set ($isForeignKey = $columnUtils.isForeignKey($column))
+#set ($columnFullType = $commonUtils.getFullType2($column))
 #set ($columnType = $commonUtils.getJavaType($column))
 #set ($columnClass = $formatUtils.getJavaName($column.name))
 #set ($columnVar = $formatUtils.getJavaNameVariable($column.name))
@@ -148,12 +149,31 @@
 #set ($resource = "${table.name}.$columnVar")
 #set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
 #set ($columLengthPrecisionSize = $column.getSizeAsInt())
-#set ($columnFullType = $commonUtils.getFullType2($column))
+#timeColumn()
 #largeFormat()
+#end
+
+#macro (exposeTimeColumn)
+##works only for Oracle
+#if ($column.type == "DATE")
+#set ($DBTimeConverter = "TO_DATE")
+#set ($DBTimeFormat = "YYYY-MM-DD")
+#set ($javaTimeConvertionExpression = "getFormattedDate")
+#end
+#if ($column.type == "TIMESTAMP")
+#set ($DBTimeConverter = "TO_TIMESTAMP")
+#set ($DBTimeFormat = "YYYY-MM-DD H24:MI:SS")
+#set ($javaTimeConvertionExpression = "getFormattedTimeStamp")
+#end
+##set ($timeConversionExpression = ${DBTimeConverter} ('"+${javaTimeConvertionExpression} (${tableVariableName}.get${columnClass}())+"','${DBTimeFormat}')')
 #end
 
 #macro (largeFormat)
 #set ($isLargeFormat = ($column.type == "CLOB" || $column.type == "BLOB"))
+#end
+
+#macro (timeColumn)
+#set ($isTimeColumn = ($column.type == 'DATE' || $column.type == 'TIMESTAMP'))
 #end
 
 ## ----- import params
@@ -179,6 +199,7 @@
 ## -- import params imports the params regarding the other template for a domainObjectUML
 
 #macro (putImportParamsUML)
+#templateDefinition()
 #set ($tableDB = $table)
 #set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport($model, $tableDB, $template))
 #set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
@@ -190,6 +211,10 @@
 #set ($daoInterfaceClassNameUML = $bslaLibraryUtils.getDaoInterfaceClassUMLName($tableDB, $template))
 #set ($importDaoInterface = $bslaLibraryUtils.getDaoInterfaceImport($model, $tableDB, $template))
 #set ($importDaoInterfaceUML = $bslaLibraryUtils.getDaoInterfaceUMLImport($model, $tableDB, $template))
+#set ($importDaoInterfaceExtendedUML = $bslaLibraryUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template,$templateBslaDaoInterfaceExtendedUML))
+#set ($daoInterfaceExtendedNameUML = $commonUtils.getTemplateClassName($tableDB, $model, $templateBslaDaoInterfaceExtendedUML))
+#set ($daoInterfaceExtendedVariableNameUML = $commonUtils.getJavaNameVariableFirstLetter($daoInterfaceExtendedNameUML))
+#set ($importDaoImplExtendedHibernateName = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateBslaDaoExtImplHibernate))
 #set ($importIbatisDaoSqlImplName = $bslaLibraryUtils.getIbatisDaoSqlImplImport($model, $tableDB, $template))
 #set ($importHibernateImplName = $bslaLibraryUtils.getHibernateImplNameImport($model, $tableDB, $template))
 #set ($importJPAImplName = $bslaLibraryUtils.getJPAImplNameImport($model, $tableDB, $template))
@@ -372,6 +397,15 @@
 
 #macro (putDependencies)
 #distinctTemplateAlias()
+#putTemplateDependencies()
+#end
+
+#macro (putDependenciesUML)
+#distinctTemplateAliasUml()
+#putTemplateDependencies()
+#end
+
+#macro (putTemplateDependencies)
 #set ($dependentImportTestDaoClass = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateTestBslaDaoInterfaceAlias))
 #set ($dependentTestDaoClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateTestBslaDaoInterfaceAlias))
 #set ($dependentTestDaoVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
@@ -381,6 +415,12 @@
 #set ($dependentImportDomainClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateDomainObjectAlias))
 #set ($dependentDomainClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateDomainObjectAlias))
 #set ($dependentDomainVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateDomainObjectAlias))
+#set ($dependentDaoExtentedInterfaceClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoInterfaceExtendedAlias))
+#set ($dependentDaoExtentedInterfaceVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoInterfaceExtendedAlias))
+#set ($dependentDaoExtentedImportClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoInterfaceExtendedAlias))
+#set ($dependentDaoExtentedImplementationHibernateClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoImplExtHibernateAlias))
+#set ($dependentDaoExtentedImplementationHibernateVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoImplExtHibernateAlias))
+#set ($dependentDaoExtentedImportImplementationHibernateClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoImplExtHibernateAlias))
 #end
 
 ## distinct: distinguish between templates based on domainObject and 
@@ -398,6 +438,14 @@
 #end
 #set ($templateTestBslaDaoInterfaceAlias = "TestDao")
 #end 
+
+#macro (distinctTemplateAliasUml)
+#templateDefinition()
+#set ($templateDomainObjectAlias = $templateDomainObjectUML)
+#set ($templateBslaDaoInterfaceAlias = $templateBslaDaoInterfaceUML)
+#set ($templateBslaDaoInterfaceExtendedAlias = $templateBslaDaoInterfaceExtendedUML)
+#set ($templateBslaDaoImplExtHibernateAlias = $templateBslaDaoExtImplHibernate)
+#end
 
 ## distinct Back end import
 
@@ -471,7 +519,7 @@ import $importDaoInterfaceUML;
 #set ($templateViewServiceInterface="ServiceInterface")
 #set ($templateBslaDaoExtImplHibernate = "BslaHibernateExtendedDaoImplUML")
 #set ($templateBslaDaoImplHibernate = "BslaHibernateDaoImplUML")
-##set ($daoInterfaceVariableNameUML = $bslaLibraryUtils.getDaoInterfaceVariableUMLName($tableDB, $template))
+#set ($templateBslaEhCacheXml = "BslaEhCacheXml")
 #end
 
 #macro (templateDefinitionWeb)

@@ -1,5 +1,8 @@
 #exposeVariableModelSpecific()
 #exposeArchitectureParams()
+#templateDefinition()
+#set($hasEhCache=$commonUtils.hasTemplate($model, $templateBslaEhCacheXml))
+#set($ehCacheConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateBslaEhCacheXml))
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
@@ -19,6 +22,16 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+#if ($hasEhCache)
+                <!-- 2nd level cache  -->
+                <prop key="hibernate.cache.provider_class" >net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop>
+                <prop key="hibernate.cache.provider_configuration" >/$ehCacheConfig</prop>
+                <prop key="hibernate.cache.use_second_level_cache" >true</prop>
+                <prop key="hibernate.cache.use_query_cache" >true</prop>
+                <prop key="hibernate.cache.use_minimal_puts" >true</prop>
+                <prop key="hibernate.generate_statistics" >true</prop>
+                <prop key="hibernate.cache.use_structured_entries" >true</prop>
+#end                
             </props>
         </property>
 		<property name="dataSource"><ref bean="${model.name}DataSource"/></property>

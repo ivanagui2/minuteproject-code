@@ -135,11 +135,23 @@ public class ${className} extends AbstractDomainObject {
 	
 	/**
     * equals implementation
-    */
+
 	public boolean equals(Object object) {
 		return super.toEquals(flat(), object);
 	}
-    
+    */
+	public boolean equals(Object object) {
+		if (object == this) return true;
+		if (!(object instanceof ${className})) return false;
+		if (object == null) return false;
+		${className} ${variableName} = (${className}) object;
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+		if (${variableName}._${columnVar}==null || !${variableName}._${columnVar}.equals(_${columnVar})) return false;
+#end
+		return true;
+	}    
+        
 	public ${className} flat() {
 	   return new ${className}(
 #foreach ($column in ${table.columns})
