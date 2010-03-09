@@ -8,13 +8,25 @@
 
 #foreach ($package in ${businessPackages})
 #set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoHibernate") )
-   <!-- $package.name -->
+   <!-- $package.name standard dao -->
    <import resource="classpath:${path}.xml"/>
 #end
 #foreach ($package in ${businessPackageViews})
 #set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoHibernate") )
-   <!-- $package.name -->
+   <!-- $package.name standard dao-->
    <import resource="classpath:${path}.xml"/>
+#end
+#if ($commonUtils.hasTemplate($model, "BslaSpringConfigDaoExtHibernate"))
+#foreach ($package in ${businessPackages})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoExtHibernate") )
+   <!-- $package.name extended dao -->
+   <import resource="classpath:${path}.xml"/>
+#end
+#foreach ($package in ${businessPackageViews})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoExtHibernate") )
+   <!-- $package.name extended dao -->
+   <import resource="classpath:${path}.xml"/>
+#end
 #end
 
 </beans>

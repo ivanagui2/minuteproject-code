@@ -16,7 +16,19 @@ import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
  *
  */
 public interface $className extends DataAccessObject {
-
+     
+     /**
+     * Inserts a $tableClassName entity with cascade of its children
+     * @param $tableClassName $tableVariableName
+     */
+    public void insert${tableClassName}WithCascade($tableClassName ${tableVariableName}) ;
+    
+    /**
+     * Inserts a list of $tableClassName entity with cascade of its children
+     * @param List<$tableClassName> ${tableVariableName}s
+     */
+    public void insert${tableClassName}sWithCascade(List<$tableClassName> ${tableVariableName}s) ;        
+   
     /**
      * lookup $tableClassName entity $tCN, criteria and max result number
      */
@@ -28,9 +40,19 @@ public interface $className extends DataAccessObject {
 	 * If no criteria is found, null is returned.
 	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
 	 */
-	 public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
-            
-	 public $tableClassName getFirst$tableClassName ($tableClassName $tableVariableName);
+    public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
+         
+    /**
+    * return the first $tableClassName entity found
+    */           
+    public $tableClassName getFirst$tableClassName ($tableClassName $tableVariableName);
+    
+    /**
+    * checks if the $tableClassName entity exists
+    */           
+    public boolean exists$tableClassName ($tableClassName $tableVariableName);    
+    
+    public boolean exists${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName);
 
     /**
     * partial load enables to specify the fields you want to load explicitly
@@ -51,6 +73,7 @@ public interface $className extends DataAccessObject {
     /**
      * generic to move after in superclass
      */
-    public List<Object[]> getSQLQueryResult(String query);      
+    public List<Object[]> getSQLQueryResult(String query);     
+
 }
 

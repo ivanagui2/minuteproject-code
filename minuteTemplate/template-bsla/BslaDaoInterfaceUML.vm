@@ -24,37 +24,30 @@ public interface $className extends DataAccessObject {
      * @param $tableClassName $tableVariableName
      */
     public void insert$tableClassName($tableClassName $tableVariableName) ;
-
-    /**
-     * Inserts a $tableClassName entity with cascade of its children
-     * @param $tableClassName $tableVariableName
-     */
-    public void insert${tableClassName}WithCascade($tableClassName $tableVariableName) ;
-    
+ 
     /**
      * Inserts a list of $tableClassName entity 
-     * @param $tableClassName $tableVariableName
+     * @param List<$tableClassName> ${tableVariableName}s
      */
     public void insert${tableClassName}s(List<$tableClassName> ${tableVariableName}s) ;
-    
         
     /**
      * Updates a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
-    public void update$tableClassName($tableClassName $tableVariableName) ;
+    public $tableClassName update$tableClassName($tableClassName $tableVariableName) ;
 
-	/**
-     * Updates a TbParty entity with only the attributes set into TbParty.
+	 /**
+   * Updates a TbParty entity with only the attributes set into TbParty.
 	 * The primary keys are to be set for this method to operate.
 	 * This is a performance friendly feature, which remove the udibiquous full load and full update when an
 	 * update is to be done
-     * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
-     * @param TbParty tbParty
-     */
-    public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
+   * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
+   * @param TbParty tbParty
+   */
+    public int updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
 	
-	public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
+	  public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
 	
      /**
      * Saves a $tableClassName entity 

@@ -76,7 +76,7 @@ public class ${className} extends DbInsertUpdateDeleteFixture{
 	   int i = 0;
 #foreach ($column in ${table.columns})
 #putColumnParams()	   
-	   columnIndex.put(i++, new Column("$column.name", FieldType.$column.type, $isMandatory,#if ($isLengthPrecisionColumn) $columLengthPrecisionSize#else 0#end)); 
+	   columnIndex.put(i++, new Column("$column.name", FieldType.$column.type, $isMandatory,#if ($isLengthPrecisionColumn) $columLengthPrecisionSize#else 0#end)); //$columnFullType
 #end	   
 	   return columnIndex;
 	}		 
