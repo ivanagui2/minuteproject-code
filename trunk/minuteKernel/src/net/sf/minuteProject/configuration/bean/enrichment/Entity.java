@@ -14,6 +14,7 @@ public class Entity extends AbstractConfiguration {
 	private Enrichment enrichment;
 	private String contentType; //pseudo-static, reference, life-business-data
 	private SemanticReference semanticReference;
+	private boolean isLinkEntity;
 	
 	public VirtualPrimaryKey getVirtualPrimaryKey() {
 		return virtualPrimaryKey;
@@ -82,5 +83,12 @@ public class Entity extends AbstractConfiguration {
 		this.semanticReference = semanticReference;
 	}
 
+	public boolean isLinkEntity() {
+		return isLinkEntity;
+	}
+
+	public void setLinkEntity(boolean isLinkEntity) {
+		this.isLinkEntity = isLinkEntity;
+	}
 	
 }

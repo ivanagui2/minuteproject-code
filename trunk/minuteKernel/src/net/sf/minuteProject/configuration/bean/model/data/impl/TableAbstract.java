@@ -25,6 +25,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private Reference [] distinctChildrenRef;
 	private SemanticReference semanticReference;
 	private String contentType;
+	private boolean isLinkEntity;
 	
 	public TableAbstract () {
 	}
@@ -35,6 +36,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setProperties(table.getProperties());
 		this.setContentType(table.getContentType());
 		this.setSemanticReference(table.getSemanticReference());
+		this.setLinkEntity(table.isLinkEntity());
 	}
 	
 	public String getName () {
@@ -319,22 +321,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.semanticReference = semanticReference;
 	}
 	
-//	public String getContentType() {
-//		return table.getContentType();
-//	}
-//
-//	public void setContentType(String contentType) {
-//		table.setContentType(contentType);
-//	}
-//
-//	public SemanticReference getSemanticReference() {
-//		return table.getSemanticReference();
-//	}
-//
-//	public void setSemanticReference(SemanticReference semanticReference) {
-//		table.setSemanticReference(semanticReference);
-//	}
-//	
+	public boolean isLinkEntity() {
+		return isLinkEntity;
+	}
+
+	public void setLinkEntity(boolean isLinkEntity) {
+		this.isLinkEntity = isLinkEntity;
+	}
+	
 	public boolean hasVersion() {
 		return false;
 	}

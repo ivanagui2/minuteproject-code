@@ -1,5 +1,8 @@
 package net.sf.minuteProject.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -164,12 +167,50 @@ public class TableUtils {
 		return isTableOfContentType(table, liveBusinessDataContentType);
 	}
 	
-	public static boolean hasCorrectSemanticReference (Table table) {
+	public static boolean hasSemanticReference (Table table) {
 		SemanticReference semanticReference = table.getSemanticReference();
 		if (semanticReference!=null) {
 			if (!semanticReference.getSemanticReferenceBeanPath().isEmpty())
 				return true;
 		}
 		return false;
+	}
+	
+	public static List<Column> getSemanticReferenceColumns(Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		SemanticReference semanticReference = table.getSemanticReference();
+		if (semanticReference!=null) {
+			for (String sqlPath : semanticReference.getSemanticReferenceSqlPath()) {
+				Column column = ColumnUtils.getColumn(table, sqlPath);
+				if (column!=null)
+					columns.add(column);
+			}
+		}
+		return columns;
+	}
+	
+	public static List<Column> getLinkSemanticReferenceColumns(Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Table child : getParents(table)) {
+			List <Column> list = getSemanticReferenceColumns(child);
+			columns.addAll(list);
+		}
+		return columns;		
+	}
+	
+	public static List<Table> getChildren (Table table) {
+		List<Table> children = new ArrayList<Table> ();
+		for (Reference reference : table.getChildren()) {
+			children.add(reference.getForeignTable());
+		}
+		return children;
+	}
+	
+	public static List<Table> getParents (Table table) {
+		List<Table> parents = new ArrayList<Table> ();
+		for (Reference reference : table.getParents()) {
+			parents.add(reference.getForeignTable());
+		}
+		return parents;
 	}
 }
