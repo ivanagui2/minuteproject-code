@@ -77,42 +77,34 @@ public class TableDDLUtils extends TableAbstract {
 	}
 
 	public Column findColumn(String name) {
-		// TODO Auto-generated method stub
 		return new ColumnDDLUtils(table.findColumn(name), this);
 	}
 
 	public Column findColumn(String name, boolean caseSensitive) {
-		// TODO Auto-generated method stub
 		return new ColumnDDLUtils(table.findColumn(name, caseSensitive), this);
 	}
 
 	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key) {
-		// TODO Auto-generated method stub
 		return new ForeignKeyDDLUtils (table.findForeignKey(key));
 	}
 
 	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key, boolean caseSensitive) {
-		// TODO Auto-generated method stub
 		return new ForeignKeyDDLUtils (table.findForeignKey(key, caseSensitive));
 	}
 
 	public Index findIndex(String name) {
-		// TODO Auto-generated method stub
 		return new IndexDDLUtils(table.findIndex(name), this);
 	}
 
 	public Index findIndex(String name, boolean caseSensitive) {
-		// TODO Auto-generated method stub
 		return new IndexDDLUtils(table.findIndex(name, caseSensitive), this);
 	}
 
 	public String getCatalog() {
-		// TODO Auto-generated method stub
 		return table.getCatalog();
 	}
 
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
 		return table.getColumnCount();
 	}
 
@@ -143,12 +135,10 @@ public class TableDDLUtils extends TableAbstract {
     }
     
 	public ForeignKey getForeignKey(int idx) {
-		// TODO Auto-generated method stub
 		return new ForeignKeyDDLUtils (table.getForeignKey(idx));
 	}
 
 	public int getForeignKeyCount() {
-		// TODO Auto-generated method stub
 		return table.getForeignKeyCount();
 	}
 
@@ -218,21 +208,13 @@ public class TableDDLUtils extends TableAbstract {
 	}
 
 	public String getSchema() {
-		// TODO Auto-generated method stub
 		return table.getSchema();
 	}
 
 	public boolean hasPrimaryKey() {
 		return table.hasPrimaryKey();
 	}
-	/*
-	public String getTechnicalPackage(Template template) {
-		//StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
-		StringBuffer sb = new StringBuffer(getPackage().getTechnicalPackage(template));
-		//sb.append("."+getName());
-		return sb.toString();
-	}
-*/
+
 	private void setNoPrimaryKeyNoForeignKeyColumns() {
 		List<String> primaryKeyAndForeignKeyColumnsName = new ArrayList<String>();
 		List<Column> noPrimaryKeyNoForeignKeyColumnsName = new ArrayList<Column>();
