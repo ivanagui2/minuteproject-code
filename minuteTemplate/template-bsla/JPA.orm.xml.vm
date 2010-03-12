@@ -45,7 +45,7 @@
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
             <basic name="$localColumnVariable">
-                <column name="$localColumn.name" #if($isLengthPrecisionColumnLocalColumn)length="$localColumn.size"#end #if($column.isRequired())nullable="false"#else nullable="true"#end #if($isColumnUnique)unique="true"#else unique="false"#end />
+                <column name="$localColumn.name" #if($isLengthPrecisionColumnLocalColumn)length="$localColumn.size"#end #if($localColumn.isRequired())nullable="false"#else nullable="true"#end #if($isColumnUnique)unique="true"#else unique="false"#end />
             </basic>
 
 #end
@@ -56,7 +56,7 @@
 			<many-to-one name="${linkedTableVariable}${localColumnClass}" fetch="LAZY" target-entity="$importDomainObjectUMLForeignTable" >
 				<join-column name="${localColumnName}" 
 							 referenced-column-name="$linkedColumnName" 
-							 #if($columnDB.isRequired())nullable="false"#else nullable="true"#end #if($columnDB.isUnique())unique="true"#else unique="false"#end insertable="false" updatable="false" />
+							 #if($localColumn.isRequired())nullable="false"#else nullable="true"#end #if($columnDB.isUnique())unique="true"#else unique="false"#end insertable="false" updatable="false" />
 			</many-to-one>
 #end
 
