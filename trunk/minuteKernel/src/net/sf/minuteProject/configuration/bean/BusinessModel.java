@@ -80,9 +80,10 @@ public class BusinessModel {
 			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
 			if (enrichment != null && enrichment.getEntities()!=null) {
 				for (Entity entity : enrichment.getEntities()) {
-					if (type.equals(Table.VIEW))
+					String typeEntity = TableUtils.getTargetType(database, entity);
+					if (Table.VIEW.equals(type) && Table.VIEW.equals(typeEntity))
 						complementView(entity, database);
-					if (type.equals(Table.TABLE))
+					if (type.equals(Table.TABLE) && Table.TABLE.equals(typeEntity))
 						complementTable(entity,database);
 				}
 			}
@@ -92,8 +93,8 @@ public class BusinessModel {
 	private void complementView(Entity entity, Database database) {
 		View view = TableUtils.getView(database, entity.getName());
 		if (view!=null){
-			complementEntityWithProperties(view, entity);
 			complementDataModelWithViewEnrichment(view, entity);
+			complementEntityWithProperties(view, entity);
 		}		
 	}
 	

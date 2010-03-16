@@ -148,13 +148,13 @@ public class ModelViewGenerator extends ModelGenerator {
 //		}
 //	}
 //
-//	protected void generateArtifactsByEntity(Template template) throws Exception {	
-//		super.generateArtifactsByEntity(template);
-//		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
-//			View view = (View) iter.next();
-//			writeTemplateResult(view, template);
-//		}
-//	}
+	protected void generateArtifactsByEntity(Template template) throws Exception {	
+		super.generateArtifactsByEntity(template);
+		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
+			View view = (View) iter.next();
+			writeTemplateResult(view, template);
+		}
+	}
 //
 //	protected void generateArtifactsByComponent(Template template) throws Exception {
 //		//for each view if structure=hierachy => getComponent => foreach component generate

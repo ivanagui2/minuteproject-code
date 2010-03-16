@@ -3,6 +3,7 @@ package net.sf.minuteProject.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -130,6 +131,14 @@ public class TableUtils {
 		return null;
 	}
 
+	public static String getTargetType(Database database, Entity entity) {
+		if (getTableOnly(database, entity.getName())!=null)
+			return Table.TABLE;
+		else if (getView(database, entity.getName())!=null)
+			return Table.VIEW;
+		return "NO_TYPE";
+	}
+	
 	public static Table getEntity(Database database, String name) {
 		Table table = getTableOnly(database, name);
 		if (table==null)

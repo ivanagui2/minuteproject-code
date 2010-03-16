@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.mapping.node.Variable;
 
@@ -363,6 +364,8 @@ public class EnrichmentUtils {
 				return true;
 			}
 		} 
+		else if (bean instanceof View)
+			return true;
 		return false;
 	}
 }
