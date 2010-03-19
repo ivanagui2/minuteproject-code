@@ -150,9 +150,9 @@ public class ForeignKeyDDLUtils implements ForeignKey
      */
     public Reference getFirstReference()
     {
-    	ReferenceDDLUtils ref = new ReferenceDDLUtils (foreignKey.getFirstReference());
+    	Reference ref = getFirstReferenceFormReferencesList();//new ReferenceDDLUtils (foreignKey.getFirstReference());
     	if (ref==null) {// case autoprovisioning in enrichment of views
-    		return getFirstReferenceFormReferencesList();
+    		return new ReferenceDDLUtils (foreignKey.getFirstReference());//getFirstReferenceFormReferencesList();
     	}
     	return ref;
     		//        return new ReferenceDDLUtils (foreignKey.getFirstReference());
@@ -234,6 +234,7 @@ public class ForeignKeyDDLUtils implements ForeignKey
     	}
     	return references;
     }
+    
 	public void setReference(Reference reference) {
 		if (reference!=null) {
 			//org.apache.ddlutils.model.Reference ref = new org.apache.ddlutils.model.Reference();
@@ -248,7 +249,8 @@ public class ForeignKeyDDLUtils implements ForeignKey
 			ref.setForeignColumn(colFor);
 			ref.setForeignColumnName(reference.getForeignColumnName());
 			//ref.setLocalColumn(localColumn)
-			foreignKey.addReference(ref);
+			foreignKey.addReference(ref); // To make work getFirstReference method for view
+//			foreignKey.addReference(null);
 		}
 		
 	}
