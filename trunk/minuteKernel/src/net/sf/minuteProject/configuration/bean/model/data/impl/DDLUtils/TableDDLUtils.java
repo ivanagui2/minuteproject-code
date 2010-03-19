@@ -159,6 +159,32 @@ public class TableDDLUtils extends TableAbstract {
     	}
     	return foreignKeys;
 	}
+	
+	/*
+	
+	protected void addForeignKeys(ForeignKey foreignKey) {
+//		table.getColumns()[0]
+		table.addForeignKey(convertForeignKey(foreignKey));
+    	if (foreignKeys == null) {
+    		foreignKeys = new ArrayList<ForeignKey>();
+    	}
+    	return foreignKeys;
+	}
+	
+	private org.apache.ddlutils.model.ForeignKey convertForeignKey (ForeignKey foreignKey) {
+		org.apache.ddlutils.model.ForeignKey foreignKey2 = new org.apache.ddlutils.model.ForeignKey();
+		foreignKey2.setForeignTable(convertTable(foreignKey.getForeignTable()));
+		foreignKey2.setForeignTableName(this.getName());
+		return foreignKey2;
+	}
+	
+	private org.apache.ddlutils.model.Table convertTable (Table table) {
+		org.apache.ddlutils.model.Table table2 = new org.apache.ddlutils.model.Table();
+		table2.setName(table.getName());
+		return table2;
+	}
+	/**/	
+	
 	public Index getIndex(int idx) {
 		return new IndexDDLUtils(table.getIndex(idx), this);
 	}
@@ -299,6 +325,18 @@ public class TableDDLUtils extends TableAbstract {
 				if (!error)
 					//parents.add(reference);
 					addReference(parents, reference);
+			}
+    	}
+    	return (Reference[])parents.toArray(new Reference[parents.size()]);	
+    }
+    
+    protected Reference [] getParentsWithLocalForeignKey() {
+    	if (parents == null) {
+    		parents = new ArrayList<Reference>();
+    		for (int i = 0; i < getForeignKeys().length; i++) {
+    			ForeignKey foreignKey = getForeignKeys()[i];
+    			Reference reference = foreignKey.getFirstReference();
+				addReference(parents, reference);
 			}
     	}
     	return (Reference[])parents.toArray(new Reference[parents.size()]);	
