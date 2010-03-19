@@ -46,8 +46,8 @@ public interface $className extends DataAccessObject {
    * @param TbParty tbParty
    */
     public int updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
-	
-	  public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
+	 
+	public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
 	
      /**
      * Saves a $tableClassName entity 

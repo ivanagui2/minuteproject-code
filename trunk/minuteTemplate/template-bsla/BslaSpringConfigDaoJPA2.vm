@@ -17,4 +17,18 @@
    <import resource="classpath:${JPApath}.xml"/>
 #end
 
+#if ($commonUtils.hasTemplate($model, "BslaSpringConfigDaoExtJPA"))
+    <!-- Import Ext Dao definitions for business components -->
+#foreach ($package in ${businessPackages})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoExtJPA") )
+   <!-- $package.name extended dao -->
+   <import resource="classpath:${path}.xml"/>
+#end
+#foreach ($package in ${businessPackageViews})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoExtJPA") )
+   <!-- $package.name extended dao -->
+   <import resource="classpath:${path}.xml"/>
+#end
+#end
+
 </beans>

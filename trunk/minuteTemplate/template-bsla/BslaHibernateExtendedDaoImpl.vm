@@ -29,7 +29,6 @@ import $importDomainObjectUML;
 import $importHibernateImplName;
 
 #foreach ($reference in $table.parents)
-##exposeImportParamsUML($reference.foreignTable)
 #set ($importDaoImplExtendedHibernateName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaHibernateExtendedDaoImplUML"))
 import $importDaoImplExtendedHibernateName;
 #end

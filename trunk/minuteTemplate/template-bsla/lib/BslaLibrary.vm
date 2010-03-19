@@ -217,8 +217,10 @@
 #set ($importDaoImplExtendedHibernateName = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateBslaDaoExtImplHibernate))
 #set ($importIbatisDaoSqlImplName = $bslaLibraryUtils.getIbatisDaoSqlImplImport($model, $tableDB, $template))
 #set ($importHibernateImplName = $bslaLibraryUtils.getHibernateImplNameImport($model, $tableDB, $template))
-#set ($importJPAImplName = $bslaLibraryUtils.getJPAImplNameImport($model, $tableDB, $template))
 #set ($daoHibernateImplClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateBslaDaoImplHibernate))
+#set ($importJPAImplName = $bslaLibraryUtils.getJPAImplNameImport($model, $tableDB, $template))
+#set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateBslaDaoExtImplJPA))
+#set ($daoJPAImplClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateBslaDaoImplJPA))
 #end
 
 #macro (exposeImportParams $tableDB)
@@ -421,6 +423,9 @@
 #set ($dependentDaoExtentedImplementationHibernateClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoImplExtHibernateAlias))
 #set ($dependentDaoExtentedImplementationHibernateVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoImplExtHibernateAlias))
 #set ($dependentDaoExtentedImportImplementationHibernateClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoImplExtHibernateAlias))
+#set ($dependentDaoExtentedImplementationJPAClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoImplExtJPAAlias))
+#set ($dependentDaoExtentedImplementationJPAVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoImplExtJPAAlias))
+#set ($dependentDaoExtentedImportImplementationJPAClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoImplExtJPAAlias))
 #end
 
 ## distinct: distinguish between templates based on domainObject and 
@@ -445,6 +450,7 @@
 #set ($templateBslaDaoInterfaceAlias = $templateBslaDaoInterfaceUML)
 #set ($templateBslaDaoInterfaceExtendedAlias = $templateBslaDaoInterfaceExtendedUML)
 #set ($templateBslaDaoImplExtHibernateAlias = $templateBslaDaoExtImplHibernate)
+#set ($templateBslaDaoImplExtJPAAlias = $templateBslaDaoExtImplJPA)
 #end
 
 ## distinct Back end import
@@ -518,7 +524,9 @@ import $importDaoInterfaceUML;
 #set ($templateBslaDaoInterfaceExtendedUML="BslaDaoInterfaceExtendedUML")
 #set ($templateViewServiceInterface="ServiceInterface")
 #set ($templateBslaDaoExtImplHibernate = "BslaHibernateExtendedDaoImplUML")
+#set ($templateBslaDaoExtImplJPA = "BslaJPAExtendedDaoImplUML")
 #set ($templateBslaDaoImplHibernate = "BslaHibernateDaoImplUML")
+#set ($templateBslaDaoImplJPA = "BslaJPADaoImplUML")
 #set ($templateBslaEhCacheXml = "BslaEhCacheXml")
 #end
 
