@@ -5,6 +5,7 @@ package $packageName;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Query;
@@ -40,12 +41,22 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
       getJpaTemplate().persist($tableVariableName);
     }
 
+    protected void insert$tableClassName(EntityManager emForRecursiveDao, $tableClassName $tableVariableName) {
+      emForRecursiveDao.persist($tableVariableName);
+    } 
+    /**
+     * Inserts a list of $tableClassName entity 
+     * @param List<$tableClassName> ${tableVariableName}s
+     */
+    public void insert${tableClassName}s(List<$tableClassName> ${tableVariableName}s) {
+    	
+    }
     /**
      * Updates a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
     public $tableClassName update$tableClassName($tableClassName $tableVariableName) {
-      getJpaTemplate().merge($tableVariableName);
+       return getJpaTemplate().merge($tableVariableName);
     }
 
 	/**
@@ -57,7 +68,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
      * @param $tableClassName $tableVariableName
     */ 
     @Transactional
-    public void updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
+    public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
         query.append (" Update $tableClassName $tableVariableName ");
@@ -88,11 +99,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
            jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
         }   
 #end         
-		jpaQuery.executeUpdate();
+		return jpaQuery.executeUpdate();
     }
 	
 	@Transactional
-    public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
+    public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
         query.append (" update $tableClassName $tableVariableName ");
@@ -123,7 +134,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         }
 #end   		
         Query jpaQuery = getEntityManager().createQuery(query.toString());
-		jpaQuery.executeUpdate();
+		return jpaQuery.executeUpdate();
     }
      
      /**
@@ -131,7 +142,13 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
      * @param $tableClassName $tableVariableName
      */
     public void save$tableClassName($tableClassName $tableVariableName) {
-      getJpaTemplate().persist($tableVariableName);
+       //getJpaTemplate().persist($tableVariableName);
+       if (getJpaTemplate().contains($tableVariableName)) {
+          getJpaTemplate().merge($tableVariableName);
+       } else {
+          getJpaTemplate().persist($tableVariableName);
+       }
+       getJpaTemplate().flush(); 
     }
        
     /**
@@ -162,6 +179,24 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     	return ($tableClassName)getJpaTemplate().find(${tableClassName}.class, $primaryKeyVariable);
     }    
 
+    /**
+     * Loads a list of $tableClassName entity 
+     * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
+     * @return List<$tableClassName> The $tableClassName entity
+     */
+    public List<$tableClassName> load${tableClassName}ListBy${tableClassName} (List<$tableClassName> ${tableVariableName}s) {
+       return null;
+    }
+    
+    /**
+     * Loads a list of $tableClassName entity 
+     * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
+     * @return List<$tableClassName> The $tableClassName entity
+     */
+    public List<$tableClassName> load${tableClassName}ListBy${primaryKeyJavaNameClass}(List<$primaryKeyFullType> ${primaryKeyVariable}s){
+       return null;
+    }
+    
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName and its dependent one to many objects
@@ -230,11 +265,19 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
      * @param $tableClassName $tableVariableName
      * @return List
      */
+##    public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {      
+##	   return getJpaTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
+##    }    
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {      
-	   return getJpaTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
-    }    
+       return searchPrototype ($tableVariableName, null);            
+    }  
     
-    
+    protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) { 
+       Query hquery = getEntityManager().createQuery(get${tableClassName}SearchEqualQuery ($tableVariableName));
+       if (maxResults!=null)
+          hquery.setMaxResults(maxResults);
+       return hquery.getResultList();         
+    }         
 	/**
      * Searches a list of $tableClassName entity 
      * @param $tableClassName ${tableVariableName}Positive
@@ -248,7 +291,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     /**
     * return a hibernate hql search on a ${tableClassName} prototype
     */
-    private String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
+    protected String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
         query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
@@ -270,7 +313,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     /**
     * return a hibernate hql search on a ${tableClassName} prototype with positive and negative beans
     */
-    private String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
+    protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
         query.append (" SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
@@ -324,7 +367,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         return new ArrayList<$tableClassName>();
     }      
 
-    private List<$primaryKeyType> loadPaginated${tableClassName}IdentitiesFromStartPositionId ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
+    protected List<$primaryKeyType> loadPaginated${tableClassName}IdentitiesFromStartPositionId ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
        boolean isWhereSet = false;
        StringBuffer query = new StringBuffer();
        query.append ("select ${tableVariableName}.$primaryKeyVariable ");
@@ -339,19 +382,19 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 ##   	   //return set.subList(0, maxResult);
     }
 
-    private String getQueryWHERE_AND (boolean isWhereSet) {
+    protected String getQueryWHERE_AND (boolean isWhereSet) {
        if (isWhereSet)
           return " AND ";
        return " WHERE ";
     }
     
-    private String getQueryCommaSet (boolean isWhereSet) {
+    protected String getQueryCommaSet (boolean isWhereSet) {
        if (isWhereSet)
           return " , ";
        return " SET ";
     }	    
     
-    private EntityManager getEntityManager () {
+    protected EntityManager getEntityManager () {
         return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
     }
 }
