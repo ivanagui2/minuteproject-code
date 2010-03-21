@@ -218,7 +218,7 @@ cp.cmd
       </java>
     </target>
 
-	<target name="mp-bsla-hibernate-generation" description="MP Hibernate" depends="hsqldb.start">  
+	<target name="mp-bsla-hibernate-generation" description="MP Hibernate" >  
 	 <echo message="MP Hibernate" />  
 	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
 	   <classpath>  
@@ -248,7 +248,7 @@ cp.cmd
 	  </java>  
 	</target>
 	
-	<target name="mp-fitnesse" description="MP Fitnesse">  
+	<target name="mp-fitnesse-generation" description="MP Fitnesse">  
 	 <echo message="MP Fitness" />  
 	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
 	   <classpath>  
@@ -263,7 +263,7 @@ cp.cmd
 	  <antcall target="mp-bsla-hibernate-generation"/>
 	  <antcall target="mp-bsla-jpa-generation"/>	 
 	  <antcall target="mp-bsla-ibatis-generation"/>
-	  <antcall target="mp-bsla-fitnesse-generation"/>			
+	  <antcall target="mp-fitnesse-generation"/>			
 	  <antcall target="hsqldb.stop"/>
 	</target>
 </project>
