@@ -1,0 +1,190 @@
+#exposeVariableEntitySpecific()
+package $packageName;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
+import net.sf.minuteProject.model.data.criteria.order.OrderCriteria;
+import net.sf.minuteProject.model.data.criteria.join.JoinCriteria;
+
+import $importDomainObjectUML;
+
+#foreach ($reference in $table.parents)
+#exposeImportParamsUML($reference.foreignTable)
+import $importDomainObjectUML;
+#end
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: Domain Object What describes the order of the ${domainVariableName} entity fields</p>
+ *
+ */
+public class ${className} extends AbstractDomainObjectWhat {
+
+#foreach ($column in ${table.columns})
+#putColumnParams()
+    private OrderCriteria _${columnVar}Order; 
+#end
+
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    private $localColumnType _$localColumnVariable;  
+    private ${linkedTableClass} _${linkedTableVariable}${localColumnClass}; 
+    private JoinCriteria _${linkedTableVariable}${localColumnClass}JoinCriteria;
+    
+#end
+
+    /**
+    * Default constructor
+    */
+    public ${className}() {
+    }
+
+    /**
+    * toString implementation
+    */
+	public String toString() {
+		return toString(this);
+	}
+	
+	public String toString(Object object) {
+	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+#foreach ($column in ${table.columns})
+#putColumnParams()
+            .append("$columnVar", _$columnVar)
+#end	 	
+	 	    .toString();
+	} 
+	
+	/**
+    * hashCode implementation
+    */
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(flat());
+	}
+	
+	/**
+    * equals implementation
+
+	public boolean equals(Object object) {
+		return super.toEquals(flat(), object);
+	}
+    */
+	public boolean equals(Object object) {
+		if (object == this) return true;
+		if (!(object instanceof ${className})) return false;
+		if (object == null) return false;
+		${className} ${variableName} = (${className}) object;
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+		if (${variableName}._${columnVar}==null || !${variableName}._${columnVar}.equals(_${columnVar})) return false;
+#end
+		return true;
+	}    
+        
+	public ${className} flat() {
+	   return new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+          get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+	   );
+	}
+
+	public ${className} clone() {
+    ${className} ${variableName} = new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+          get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+    );
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    if (get$linkedTableClass${localColumnClass}()!=null) 
+       ${variableName}.set$linkedTableClass${localColumnClass} (get$linkedTableClass${localColumnClass}().clone());   
+#end	   
+	  return ${variableName};
+	}
+	
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if(!$isForeignKey)
+	public $columnType get$columnClass() {
+        return _$columnVar;
+    }
+	
+    public void set$columnClass ($columnType _$columnVar) {
+        this._$columnVar = _$columnVar;
+    }
+    
+#end
+#end
+##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
+	##    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
+##        return $primaryKey;
+##    }
+##	
+##    public void set$primaryKeyJavaNameClass ($primaryKeyFullType $primaryKey) {
+##        this.$primaryKey = $primaryKey;
+##    }
+###end
+
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+    public $columnType get$columnClass() {
+        return _$columnVar;
+    }
+	
+    public void set$columnClass ($columnType _$columnVar) {
+        this._$columnVar = _$columnVar;
+    }
+    	
+#end
+    // parent generation
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    public $localColumnType get$localColumnClass () {
+    	return _$localColumnVariable;
+    }
+	
+    public void set$localColumnClass ($localColumnType _$localColumnVariable) {
+    	this._$localColumnVariable = _$localColumnVariable;
+    }
+    
+    public $linkedTableClass get$linkedTableClass${localColumnClass} () {
+    	return _${linkedTableVariable}${localColumnClass};
+    }
+	
+    public void set$linkedTableClass${localColumnClass} ($linkedTableClass _${linkedTableVariable}${localColumnClass}) {
+    	this._${linkedTableVariable}${localColumnClass} = _${linkedTableVariable}${localColumnClass};
+    	this._${linkedTableVariable}${localColumnClass}JoinCriteria = new JoinCriteria(JoinCriteria.INNER);
+    }
+
+#if (!$localColumn.isRequired)    
+    public void set$linkedTableClass${localColumnClass} ($linkedTableClass _${linkedTableVariable}${localColumnClass}, JoinCriteria joinCriteria) {
+    	this._${linkedTableVariable}${localColumnClass} = _${linkedTableVariable}${localColumnClass};
+    	this._${linkedTableVariable}${localColumnClass}JoinCriteria = joinCriteria;
+    }
+#end        
+    public JoinCriteria get$linkedTableClass${localColumnClass}JoinCriteria ();
+       return _${linkedTableVariable}${localColumnClass}JoinCriteria;
+    }
+
+#end
+
+}
