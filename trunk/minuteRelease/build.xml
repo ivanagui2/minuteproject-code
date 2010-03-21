@@ -37,13 +37,27 @@ cp.cmd
 	 <mkdir dir="${target.dir}"/>
 	 <mkdir dir="${sample.dir}"/>
 	</target>
+
+	<target name="build-minuteFoundation">
+	   <ant dir="${minute.foundation.dev.relpath}" target="distribute" >
+	   	 <property name="project.name" value="${minuteFoundation}"></property>
+		 <property name="distribute.dir" value="${release.del.relpath}/${application.dir}"></property>
+	   </ant>	
+		<!---->
+	   <ant dir="${minute.foundation.dev.relpath}" target="distribute" >
+	   	 <property name="project.name" value="${minuteFoundation}"></property>
+		 <property name="distribute.dir" value="${release.del.relpath}/${target.dir}/${fitnesse}"></property>
+	   </ant>			
+	</target>
+
+	<target name="release-minuteFoundation" depends="build-minuteFoundation"></target>
+	
 	
 	<target name="build-architecture-bsla">
-	  <ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
-	  	<property name="src.dir" value="src-architecture"></property>
-	  	<property name="project.name" value="${bsla}"></property>
-	  	<property name="distribute.dir" value="../${release.del.relpath}/${target.dir}/${bsla}"></property>
-	  </ant>
+		  <ant dir="${architecture.bsla.dev.relpath}" target="distribute" >
+		  	<property name="project.name" value="${bsla}"></property>
+		  	<property name="distribute.dir" value="../../${release.del.relpath}/${target.dir}/${bsla}"></property>
+		  </ant>		
 	</target>
 	
 	<target name="copy-architecture-bsla-dependencies">
@@ -51,22 +65,25 @@ cp.cmd
 	 	<fileset dir="${architecture.bsla.dev.relpath}/lib">
 	 		<include name="**/*.jar"/>
 	 	</fileset>
-	  </copy>	
-		
-	 <!--<ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="archive" />-->
+	  </copy>			
 	</target>
+	
 	<target name="release-architecture-bsla" depends="build-architecture-bsla,copy-architecture-bsla-dependencies"></target>
 
 	<target name="build-architecture-fitnesse">
-	  <ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
+	  <!--<ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
 	  	<property name="src.dir" value="src-architecture-mp-fitnesse"></property>
 	  	<property name="project.name" value="${fitnesse}"></property>
 	  	<property name="distribute.dir" value="../${release.del.relpath}/${target.dir}/${fitnesse}"></property>	  	
-	  </ant>
+	  </ant>-->
+		  <ant dir="${architecture.bsla.dev.relpath}" target="distribute" >
+		  	<property name="project.name" value="${fitnesse}"></property>
+		  	<property name="distribute.dir" value="../../${release.del.relpath}/${target.dir}/${fitnesse}"></property>
+		  </ant>
 	</target>
 	<target name="copy-architecture-fitnesse-dependencies">
 		  <copy todir="${target.dir}/${fitnesse}/${dependencies.lib.dir}" overwrite="true">
-		 	<fileset dir="${architecture.fitnesse.dev.relpath}/lib-ext/fitnesse">
+		 	<fileset dir="${architecture.fitnesse.dev.relpath}/lib">
 		 		<include name="**/*.jar"/>
 		 	</fileset>
 		  	</copy>
@@ -147,6 +164,7 @@ cp.cmd
 	</target>
 		
 	<target name="release-all" depends="prepare-structure">
+	 <antcall target="release-minuteFoundation"></antcall>
 	 <antcall target="release-template"></antcall>
 	 <antcall target="release-kernel"></antcall>
 	 <antcall target="release-architecture-bsla"></antcall>
