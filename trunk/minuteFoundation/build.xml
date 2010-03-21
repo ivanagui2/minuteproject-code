@@ -15,7 +15,7 @@
 	<property name="application.name" value="${project.name}-${project.version}"/>	
 	
 	<property name="lib.dir" value="${home.dir}/lib"/>
-    <property name="dist.dir" value="${application.dir}/dist"/>	
+    <property name="dist.dir" value="dist"/>	
 	<property name="archive.name" value="${application.name}.jar"/>
 	<property name="archive.src.name" value="${application.name}-src.zip"/>
 	<property name="release.code.dir" value="release-code"/>
