@@ -1,5 +1,6 @@
 package net.sf.minuteProject.plugin.xml.schema;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -237,6 +238,19 @@ public class XmlSchemaUtils {
 		return element.getDefault();
 	}
 	
-
+	public List<Element> getComplexElement (List<Element> elements) {
+		List<Element> returnedElements = new ArrayList<Element>();
+		for (Element element : elements) {
+			if (element.isComplexType()) {
+				returnedElements.add(element);
+			}
+		}
+		return returnedElements;
+	}
+	
+	public static boolean isComplexType(Element element) {
+		return (element.isComplexType() 
+			|| (element.getName().equals("element") && element.isElementComplexType()));
+	}
 	
 }
