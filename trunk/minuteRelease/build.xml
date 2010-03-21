@@ -203,7 +203,7 @@ cp.cmd
     <!-- ===================================================================== -->	
 	<target name="hsqldb.start" description="Starts local HSQLDB server" >  
 	 <echo message="Starting HSQLDB" />  
-	  <java fork="true" dir="${sample.dir}" classname="org.hsqldb.Server" >  
+	  <java fork="true" dir="${sample.dir}" classname="org.hsqldb.Server" spawn="true">  
 	   <classpath>  
 	    <path refid="hsqldb.library.path" />  
 	   </classpath>  
@@ -218,7 +218,7 @@ cp.cmd
       </java>
     </target>
 
-	<target name="mp-hibernate" description="MP Hibernate" >  
+	<target name="mp-bsla-hibernate-generation" description="MP Hibernate" depends="hsqldb.start">  
 	 <echo message="MP Hibernate" />  
 	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
 	   <classpath>  
@@ -228,7 +228,7 @@ cp.cmd
 	  </java>  
 	</target>
 	
-	<target name="mp-jpa" description="MP JPA">  
+	<target name="mp-bsla-jpa-generation" description="MP JPA">  
 	 <echo message="MP JPA" />  
 	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
 	   <classpath>  
@@ -238,7 +238,7 @@ cp.cmd
 	  </java>  
 	</target>
 	
-	<target name="mp-ibatis" description="MP iBatis">  
+	<target name="mp-bsla-ibatis-generation" description="MP iBatis">  
 	 <echo message="MP iBatis" />  
 	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
 	   <classpath>  
@@ -258,4 +258,12 @@ cp.cmd
 	  </java>  
 	</target>
 	
+	<target name="generation-4-sample" >
+	  <antcall target="hsqldb.start"/>
+	  <antcall target="mp-bsla-hibernate-generation"/>
+	  <antcall target="mp-bsla-jpa-generation"/>	 
+	  <antcall target="mp-bsla-ibatis-generation"/>
+	  <antcall target="mp-bsla-fitnesse-generation"/>			
+	  <antcall target="hsqldb.stop"/>
+	</target>
 </project>
