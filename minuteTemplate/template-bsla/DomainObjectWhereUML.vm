@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
+import net.sf.minuteProject.model.data.criteria.AbstractDomainObjectWhere;
 
 #foreach ($reference in $table.parents)
 #exposeImportParamsUML($reference.foreignTable)
@@ -26,7 +26,7 @@ import $importDomainObjectUML;
  * <p>Description: Domain Object Where Criteria describing a ${domainVariableName} entity where criteria options</p>
  *
  */
-public class ${className} extends AbstractDomainObject {
+public class ${className} extends AbstractDomainObjectWhere {
 
 
 ## get pks 

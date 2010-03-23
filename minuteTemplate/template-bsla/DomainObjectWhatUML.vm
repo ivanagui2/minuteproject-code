@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
+import net.sf.minuteProject.model.data.criteria.AbstractDomainObjectWhat;
 import net.sf.minuteProject.model.data.criteria.order.OrderCriteria;
 import net.sf.minuteProject.model.data.criteria.join.JoinCriteria;
 
