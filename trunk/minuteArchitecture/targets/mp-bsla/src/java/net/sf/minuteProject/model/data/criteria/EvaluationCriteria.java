@@ -1,6 +1,6 @@
 package net.sf.minuteProject.model.data.criteria;
 
-public class EvaluationCriteria <T> {
+public class EvaluationCriteria <T> implements Criteria {
 
 	private T t;
 	
