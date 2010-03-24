@@ -7,6 +7,10 @@ public class JoinCriteria {
 	
 	private String join;
 	
+	public JoinCriteria(String join) {
+		this.join = join;
+	}
+
 	public void outer() {
 		join = INNER;
 	}
