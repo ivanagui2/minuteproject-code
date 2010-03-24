@@ -1,5 +1,5 @@
 package net.sf.minuteProject.model.data.criteria;
 
-public class AbstractDomainObjectWhat {
+public class AbstractDomainObjectWhere {
 
 }
