@@ -1,5 +1,13 @@
 package net.sf.minuteProject.model.data.criteria.type;
 
-public class DateCriteria {
+import java.util.Date;
 
+import net.sf.minuteProject.model.data.criteria.ComparisonCriteria;
+
+public class DateCriteria extends ComparisonCriteria{
+
+	
+	public DateCriteria between (Date startDate, Date endDate) {
+		return this;
+	}
 }
