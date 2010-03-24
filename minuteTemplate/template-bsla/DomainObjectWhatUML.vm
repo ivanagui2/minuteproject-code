@@ -16,32 +16,41 @@ import net.sf.minuteProject.model.data.criteria.AbstractDomainObjectWhat;
 import net.sf.minuteProject.model.data.criteria.order.OrderCriteria;
 import net.sf.minuteProject.model.data.criteria.join.JoinCriteria;
 
-import $importDomainObjectUML;
-
 #foreach ($reference in $table.parents)
-#exposeImportParamsUML($reference.foreignTable)
-import $importDomainObjectUML;
+#exposeParamsCriteriaAPI($reference.foreignTable)
+import $importDomainObjectWhat;
 #end
 
 /**
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: Domain Object What describes the order of the ${domainVariableName} entity fields</p>
+ * <p>Description: Domain Object What describes the attribute of the ${domainVariableName} and
+ * in which sorting order they have to be displayed.
+ * </p>
  *
  */
 public class ${className} extends AbstractDomainObjectWhat {
 
-#foreach ($column in ${table.columns})
+#foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
-    private OrderCriteria _${columnVar}Order; 
+##// pk $column is also a fk? $isForeignKey
+#if(!$isForeignKey)
+    private OrderCriteria _$columnVar; ##// pk not fk
+#end
+#end
+
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+    private OrderCriteria _${columnVar}; 
 #end
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#exposeParamsCriteriaAPI($reference.foreignTable)
     private $localColumnType _$localColumnVariable;  
-    private ${linkedTableClass} _${linkedTableVariable}${localColumnClass}; 
-    private JoinCriteria _${linkedTableVariable}${localColumnClass}JoinCriteria;
+    private ${domainObjectWhatClassName} _${domainObjectWhatVariableName}${localColumnClass}; 
+    private JoinCriteria _${domainObjectWhatVariableName}${localColumnClass}JoinCriteria;
     
 #end
 
@@ -71,14 +80,14 @@ public class ${className} extends AbstractDomainObjectWhat {
     * hashCode implementation
     */
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(flat());
+	   return super.hashCode();
 	}
 	
 	/**
     * equals implementation
 
 	public boolean equals(Object object) {
-		return super.toEquals(flat(), object);
+	   return super.equals(object);
 	}
     */
 	public boolean equals(Object object) {
@@ -92,65 +101,28 @@ public class ${className} extends AbstractDomainObjectWhat {
 #end
 		return true;
 	}    
-        
-	public ${className} flat() {
-	   return new ${className}(
-#foreach ($column in ${table.columns})
-#putColumnParams()
-          get$columnClass()#if ($velocityCount!=$table.columnCount),
-#end
-#end
-
-	   );
-	}
-
-	public ${className} clone() {
-    ${className} ${variableName} = new ${className}(
-#foreach ($column in ${table.columns})
-#putColumnParams()
-          get$columnClass()#if ($velocityCount!=$table.columnCount),
-#end
-#end
-
-    );
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-    if (get$linkedTableClass${localColumnClass}()!=null) 
-       ${variableName}.set$linkedTableClass${localColumnClass} (get$linkedTableClass${localColumnClass}().clone());   
-#end	   
-	  return ${variableName};
-	}
 	
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey)
-	public $columnType get$columnClass() {
+	public OrderCriteria get$columnClass() {
         return _$columnVar;
     }
 	
-    public void set$columnClass ($columnType _$columnVar) {
+    public void set$columnClass (OrderCriteria _$columnVar) {
         this._$columnVar = _$columnVar;
     }
     
 #end
 #end
-##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
-	##    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
-##        return $primaryKey;
-##    }
-##	
-##    public void set$primaryKeyJavaNameClass ($primaryKeyFullType $primaryKey) {
-##        this.$primaryKey = $primaryKey;
-##    }
-###end
 
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-    public $columnType get$columnClass() {
+    public OrderCriteria get$columnClass() {
         return _$columnVar;
     }
 	
-    public void set$columnClass ($columnType _$columnVar) {
+    public void set$columnClass (OrderCriteria _$columnVar) {
         this._$columnVar = _$columnVar;
     }
     	
@@ -158,6 +130,8 @@ public class ${className} extends AbstractDomainObjectWhat {
     // parent generation
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#exposeParamsCriteriaAPI($reference.foreignTable)
+##    private ${domainObjectWhatClassName} _${domainObjectWhatVariableName}${localColumnClass}; 
     public $localColumnType get$localColumnClass () {
     	return _$localColumnVariable;
     }
@@ -166,23 +140,24 @@ public class ${className} extends AbstractDomainObjectWhat {
     	this._$localColumnVariable = _$localColumnVariable;
     }
     
-    public $linkedTableClass get$linkedTableClass${localColumnClass} () {
-    	return _${linkedTableVariable}${localColumnClass};
+    public $domainObjectWhatClassName get$domainObjectWhatClassName${localColumnClass} () {
+    	return _${domainObjectWhatVariableName}${localColumnClass};
     }
 	
-    public void set$linkedTableClass${localColumnClass} ($linkedTableClass _${linkedTableVariable}${localColumnClass}) {
-    	this._${linkedTableVariable}${localColumnClass} = _${linkedTableVariable}${localColumnClass};
-    	this._${linkedTableVariable}${localColumnClass}JoinCriteria = new JoinCriteria(JoinCriteria.INNER);
+    public void set$domainObjectWhatClassName${localColumnClass} ($domainObjectWhatClassName _${domainObjectWhatVariableName}${localColumnClass}) {
+    	this._${domainObjectWhatVariableName}${localColumnClass} = _${domainObjectWhatVariableName}${localColumnClass};
+    	this._${domainObjectWhatVariableName}${localColumnClass}JoinCriteria = new JoinCriteria(JoinCriteria.INNER);
     }
 
 #if (!$localColumn.isRequired)    
-    public void set$linkedTableClass${localColumnClass} ($linkedTableClass _${linkedTableVariable}${localColumnClass}, JoinCriteria joinCriteria) {
-    	this._${linkedTableVariable}${localColumnClass} = _${linkedTableVariable}${localColumnClass};
-    	this._${linkedTableVariable}${localColumnClass}JoinCriteria = joinCriteria;
+    public void set$domainObjectWhatClassName${localColumnClass} ($domainObjectWhatClassName _${domainObjectWhatVariableName}${localColumnClass}, JoinCriteria joinCriteria) {
+    	this._${domainObjectWhatVariableName}${localColumnClass} = _${domainObjectWhatVariableName}${localColumnClass};
+    	this._${domainObjectWhatVariableName}${localColumnClass}JoinCriteria = joinCriteria;
     }
 #end        
-    public JoinCriteria get$linkedTableClass${localColumnClass}JoinCriteria ();
-       return _${linkedTableVariable}${localColumnClass}JoinCriteria;
+
+    public JoinCriteria get$domainObjectWhatClassName${localColumnClass}JoinCriteria () {
+       return _${domainObjectWhatVariableName}${localColumnClass}JoinCriteria;
     }
 
 #end
