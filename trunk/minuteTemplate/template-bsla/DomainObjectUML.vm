@@ -52,7 +52,7 @@ public class ${className} extends AbstractDomainObject {
 #end
 #end
 ##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
-	##private $primaryKeyFullType $primaryKey;
+##private $primaryKeyFullType $primaryKey;
 ##end
 
 #foreach ($column in ${table.attributes})

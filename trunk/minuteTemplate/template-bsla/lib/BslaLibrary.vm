@@ -223,6 +223,16 @@
 #set ($daoJPAImplClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateBslaDaoImplJPA))
 #end
 
+#macro (exposeParamsCriteriaAPI $tableDB)
+#templateDefinition()
+#set ($domainObjectWhereClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectWhereUML))
+#set ($domainObjectWhereVariableName = $commonUtils.getJavaNameVariableFirstLetter($domainObjectWhereClassName))
+#set ($importDomainObjectWhere = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectWhereUML))
+#set ($domainObjectWhatClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectWhatUML))
+#set ($domainObjectWhatVariableName = $commonUtils.getJavaNameVariableFirstLetter($domainObjectWhatClassName))
+#set ($importDomainObjectWhat = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectWhatUML))
+#end
+
 #macro (exposeImportParams $tableDB)
 #set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport2($model, $tableDB, $template))
 ##set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
@@ -528,6 +538,8 @@ import $importDaoInterfaceUML;
 #set ($templateBslaDaoImplHibernate = "BslaHibernateDaoImplUML")
 #set ($templateBslaDaoImplJPA = "BslaJPADaoImplUML")
 #set ($templateBslaEhCacheXml = "BslaEhCacheXml")
+#set ($templateDomainObjectWhereUML = "DomainObjectWhereUML")
+#set ($templateDomainObjectWhatUML  = "DomainObjectWhatUML")
 #end
 
 #macro (templateDefinitionWeb)
