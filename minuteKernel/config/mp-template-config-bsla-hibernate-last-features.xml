@@ -1,0 +1,133 @@
+<target name="BackendOnBsla-forhibernate">		
+	<architecture-target name="hibernate" description="basic springframework layer architecture"/>	
+	<plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
+	<plugin name="criteriaUtils" className="net.sf.minuteProject.utils.criteria.CriteriaUtils"></plugin>
+	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
+
+	<template-target 
+		rootdir="C:/MINUTEPROJECT/minuteTemplate/template-bsla"
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="../../DEV/output/petshopHibernate/src/test/java"
+		package-root="sf.net.mp.demo"
+		belongToPackage="true">
+		<template name="TestDaoInterface" templateFileName="BslaDaoInterfaceTest.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="DaoTest" 
+			entity-specific="true" package-specific="false" model-specific="false">
+			<property name="uml" value="true"></property>
+		</template>		
+		<template name="BslaDaoTestAdapter" templateFileName="BslaDaoTestAdapter.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="Adapter" file-suffix="DaoTest" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>				
+	</template-target>		
+	
+	<template-target 
+		rootdir="C:/MINUTEPROJECT/minuteTemplate/template-bsla"
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="../../DEV/output/petshopHibernate/src/main/java"
+		package-root="sf.net.mp.demo"
+		belongToPackage="true">
+	
+		<!--  hibernate templates -->
+		<template name="DomainObjectUML" templateFileName="DomainObjectUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="domain"
+			file-extension="java" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		
+		<!-- Criteria API -->
+		<template name="DomainObjectWhatUML" templateFileName="DomainObjectWhatUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="criteria.what"
+			file-extension="java" file-prefix="" file-suffix="What" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		
+		<template name="DomainObjectWhereUML" templateFileName="DomainObjectWhereUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="criteria.where"
+			file-extension="java" file-prefix="" file-suffix="Where" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+				
+		<!-- mapping -->
+		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension="hbm.xml" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		<template name="HibernateConfig" templateFileName="Hibernate.cfg.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension="cfg.xml" file-prefix="" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+		
+		<!-- depends  DomainObjectUML, BslaHibernate architecture 	-->	
+		<template name="BslaDaoInterfaceUML" templateFileName="BslaDaoInterfaceUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="Dao" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>				
+		
+		<!-- depends BslaDaoInterfaceUML, DomainObjectUML, BslaHibernate architecture		-->
+		<template name="BslaHibernateDaoImplUML" templateFileName="BslaHibernateDaoImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
+			file-extension="java" file-prefix="" file-suffix="HibernateImpl" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+	
+		<template name="BslaSpringConfigDaoHibernate" templateFileName="BslaSpringConfigDaoHibernate.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="dao-hibernate-" file-suffix="" 
+			entity-specific="false" package-specific="true" model-specific="false">
+		</template>									
+									
+		<template name="BslaSpringConfigDaoHibernate2" templateFileName="BslaSpringConfigDaoHibernate2.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-hibernate-" file-suffix="-dao" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+		<template name="BslaSpringConfigHibernate" templateFileName="BslaSpringConfigMainHibernate.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-Hibernate-BE-" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>								 
+				
+		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>			
+		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="hibernateDialect" value="true"></property>
+		</template>	
+
+	</template-target>	
+
+	<template-target 
+		rootdir="C:/MINUTEPROJECT/minuteTemplate/template-bsla"
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="../../DEV/output/petshopHibernate/src/main/script"
+		package-root=""
+		belongToPackage="true">
+		<template name="SequenceSQL" templateFileName="SequenceSQL.vm" 
+			subdir="" outputsubdir="" technicalPackage="sql"
+			file-extension="sql" file-prefix="" file-suffix="Sequence" 
+			model-specific="true">
+		</template>		
+		<template name="DBSchemaDeleteOrder" templateFileName="DBSchemaDeleteOrder.vm" 
+			subdir="" outputsubdir="" technicalPackage="sql"
+			file-extension="sql" file-prefix="" file-suffix="DeleteOrder" 
+			model-specific="true">
+		</template>				
+	</template-target>	
+</target>	

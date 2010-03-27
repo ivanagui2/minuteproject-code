@@ -1,4 +1,5 @@
 #exposeVariableModelSpecific()
+#exposeConnectionSpecific()
 #set ($pathSpringProperties = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringProperties") )
 #exposeJdbc()
 <?xml version="1.0" encoding="UTF-8"?>
@@ -30,7 +31,7 @@
 -->        
 
     <bean id="${model.name}TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource"><ref bean="${model.name}DataSource"/></property>
+        <property name="dataSource"><ref bean="${dataSourceName}"/></property>
     </bean>
 
 </beans>

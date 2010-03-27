@@ -1,6 +1,7 @@
 #exposeVariableModelSpecific()
 #exposeArchitectureParams()
 #templateDefinition()
+#exposeConnectionSpecific()
 #set($hasEhCache=$commonUtils.hasTemplate($model, $templateBslaEhCacheXml))
 #set($ehCacheConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateBslaEhCacheXml))
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,7 +35,7 @@
 #end                
             </props>
         </property>
-		<property name="dataSource"><ref bean="${model.name}DataSource"/></property>
+		<property name="dataSource"><ref bean="${dataSourceName}"/></property>
     </bean>
     
     <!-- Database -->

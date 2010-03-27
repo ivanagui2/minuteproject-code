@@ -19,9 +19,12 @@
 #if($hasPrimaryKey && !$isMany2Many)
     <id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
 #if (!$isPkUserProvided)
+#if ($isPrimaryKeyPolicySequence)
+#set ($sequenceName = $databaseUtils.provideSequence($table))
         <generator class="sequence">
-          <param name="sequence">${table.name}_SEQ</param>
+          <param name="sequence">${sequenceName}</param>
         </generator>
+#end
 #end                
     </id>
 #end 
