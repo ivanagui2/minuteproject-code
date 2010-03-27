@@ -65,7 +65,10 @@
 #set ($distinctTemplateTargetList = $commonUtils.getDistinctTemplateTargetList($model))
 #end
 
-
+#macro(exposeConnectionSpecific)
+#set ($transactionManagerName = "${model.name}TransactionManager")
+#set ($dataSourceName = "${model.name}DataSource")
+#end
 ## -- put reference paramenters:
 ## putReferenceParams goes with reference accessed via parentReferences, childReferences
 
@@ -438,6 +441,12 @@
 #set ($dependentDaoExtentedImportImplementationJPAClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoImplExtJPAAlias))
 #end
 
+
+#macro (exposeTestAdapter)
+#templateDefinition()
+#set ($testAdapterClassName = $commonUtils.getTemplateClassName($model, $template, $templateBslaDaoTestAdapter))
+#set ($testAdapterImport = $commonUtils.getLevelTemplateFullPath($model, $template, $templateBslaDaoTestAdapter))
+#end
 ## distinct: distinguish between templates based on domainObject and 
 ## template made for domainObjectUML
 
@@ -451,7 +460,7 @@
 #set ($templateDomainObjectAlias = $templateDomainObjectUML)
 #set ($templateBslaDaoInterfaceAlias = $templateBslaDaoInterfaceUML)
 #end
-#set ($templateTestBslaDaoInterfaceAlias = "TestDao")
+#set ($templateTestBslaDaoInterfaceAlias = "TestDaoInterface")
 #end 
 
 #macro (distinctTemplateAliasUml)
@@ -540,6 +549,8 @@ import $importDaoInterfaceUML;
 #set ($templateBslaEhCacheXml = "BslaEhCacheXml")
 #set ($templateDomainObjectWhereUML = "DomainObjectWhereUML")
 #set ($templateDomainObjectWhatUML  = "DomainObjectWhatUML")
+#set ($templateBslaSpringConfigHibBE = "BslaSpringConfigHibernate")
+#set ($templateBslaDaoTestAdapter = "BslaDaoTestAdapter")
 #end
 
 #macro (templateDefinitionWeb)

@@ -1,0 +1,185 @@
+#exposeVariableEntitySpecific()
+##putImportParams()
+#exposeConnectionSpecific()
+#exposeTestAdapter()
+#distinctEntityProperty()
+package $packageName;
+
+#distinctBEImport()
+import $importDomainObject;
+import $importDaoInterface;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Test;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import $testAdapterImport;
+#foreach ($reference in ${parentReferences})
+#putReferenceParams()
+#putDependencies()
+import $dependentImportTestDaoClass;
+import $dependentImportDomainClassName;
+import $dependentImportTestDaoClass;
+#end
+
+public class $className extends $testAdapterClassName {
+
+    @Autowired
+	protected $daoInterfaceClassName $daoInterfaceVariableName;
+    	
+	/*
+	* Do the insert first.
+	* To do the insert do on all mandatory fields;
+	* If a mandatory field is a fk => insert the mandatory entity and give the entity value to populate the fk.
+	* Then perform load update, delete, loadfirstlevel
+	*/
+    	
+    @Test
+	public void testInsert$domainClassName () {
+	    $domainClassName ${domainVariableName} = insert$domainClassName ();
+	    assertNotNull(${domainVariableName});
+	}
+	
+    @Test	
+    public void testLoad$domainClassName () {
+    	$domainClassName ${domainVariableName} = insert$domainClassName();
+    	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});
+       // assertion
+#foreach ($column in $table.columns) 
+#putColumnParams()
+     	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#end
+	}	
+		
+    @Test		
+	public void testDelete$domainClassName () {
+    	$domainClassName ${domainVariableName} = insert$domainClassName();
+    	${daoInterfaceVariableName}.delete$domainClassName(${domainVariableName});
+    	$domainClassName ${domainVariableName}2 = load${domainClassName}(${domainVariableName});
+        assertNull (${domainVariableName}2);
+    }
+	
+    @Test	
+	public void testUpdate$domainClassName () {
+    	$domainClassName ${domainVariableName} = insert$domainClassName();
+    	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#if (!$column.isPrimaryKey() && !$isForeignKey)
+        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,2));
+#end
+#end	
+	    ${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
+    	$domainClassName ${domainVariableName}3 = load${domainClassName}(${domainVariableName});
+        // assertion
+#foreach ($column in $table.columns) 
+#putColumnParams()
+     	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+#end
+	}
+/* updateNotNull is not on both interface	
+	public void testUpdateNotNull$domainClassName () {
+    	$domainClassName ${domainVariableName} = insert$domainClassName();
+    	//$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
+		$domainClassName ${domainVariableName}2 = new $domainClassName();
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        ${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
+#end
+#foreach ($column in $table.columns)
+#putColumnParams()
+#if (!$column.isPrimaryKey() && !$isForeignKey)
+#if ($velocityCount%2==0)
+        ${domainVariableName}2.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,2));
+#end
+#end
+#end	
+	    ${daoInterfaceVariableName}.updateNotNullOnly${domainClassName}(${domainVariableName}2);
+    	$domainClassName ${domainVariableName}3 = load${domainClassName}(${domainVariableName});
+        // assertion
+#foreach ($column in $table.columns) 
+#putColumnParams()
+#if (!$column.isPrimaryKey() && !$isForeignKey && $velocityCount%2==0)
+     	assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#else
+     	assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}.get$columnClass()));
+#end
+#end
+	}	
+*/   
+ 
+    @Test	
+    public void testPagination () {
+    	// set something to paginate
+    	// TODO
+    	$domainClassName ${domainVariableName} = populateFirstNonPkField$domainClassName ();
+    	PaginationCriteria paginationCriteria = new PaginationCriteria();
+    	paginationCriteria.setNumberOfRowsReturned(10);
+    	List<$domainClassName> list = ${daoInterfaceVariableName}.loadPaginated$domainClassName(${domainVariableName}, paginationCriteria);
+    	assertNotNull (list);
+    }
+ 
+    public $domainClassName insert$domainClassName () {
+        $domainClassName ${domainVariableName} = populate$domainClassName ();   	
+    	${daoInterfaceVariableName}.insert${domainClassName}(${domainVariableName});
+    	return ${domainVariableName};
+	}
+
+    public $domainClassName load$domainClassName ($domainClassName ${domainVariableName}) {
+    	return ${daoInterfaceVariableName}.load${domainClassName}(${domainVariableName}.get$primaryKeyJavaNameClass());
+/*    correct implementation but currently does not work with m2m
+    	return ${daoInterfaceVariableName}.load${domainClassName}(
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+     	   ${domainVariableName}.get$columnClass()#if ($velocityCount!=$primaryKeyCount),#end
+#end);*/
+	}	
+
+    public $domainClassName populate$domainClassName () {
+        $domainClassName $domainVariableName = new $domainClassName();
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#if (!$column.isPrimaryKey() && !$isForeignKey)
+        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+#end
+#end
+#foreach ($reference in ${table.parents})
+#putReferenceParams2()
+#putDependencies()
+#getTemplatePropertyValue("uml")
+#if (!$value.equals("true"))
+#set ($parentSetter = ${parentLink})
+#else
+#set ($parentSetter = ${parentLinkUML})
+#end
+        // fill associated parent $reference.foreignTableName via $parentSetter
+        $dependentTestDaoClass ${dependentTestDaoVariableName}_${localColumnClass} = new $dependentTestDaoClass();
+        $dependentDomainClassName ${dependentDomainVariableName}_${localColumnClass} = ${dependentTestDaoVariableName}_${localColumnClass}.insert$linkedTableClass();
+        ${domainVariableName}.set${parentSetter} (${dependentDomainVariableName}_${localColumnClass});
+        ${domainVariableName}.set$localColumnClass (${dependentDomainVariableName}_${localColumnClass}.get$linkedColumnClass());
+#end
+        return $domainVariableName;
+    }
+    
+    public $domainClassName populateFirstNonPkField$domainClassName () {
+       // works if the table does not contain only pk
+       $domainClassName $domainVariableName = new $domainClassName();
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#if (!$column.isPrimaryKey() && !($velocityCount>1))
+       ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+#end
+#end
+       return $domainVariableName;
+    }
+        
+}

@@ -24,7 +24,7 @@ public class TestUtils {
 		if (dBType.equals("TIME"))
 			return  "getTimestamp ()";			
 		if (dBType.equals("DECIMAL"))
-			return  "getDecimal"+number+"()";
+			return  "getBigDecimal"+number+"()";
 		if (dBType.equals("SMALLINT"))
 			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("VARCHAR"))
