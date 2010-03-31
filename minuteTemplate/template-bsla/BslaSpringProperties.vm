@@ -1,11 +1,14 @@
 #exposeVariableModelSpecific()
 #exposeJdbc()
 #set ($datasource = $model.dataModel.basicDataSource)
+#if ($templateUtils.hasTag("local"))
 $jdbcDriverClassName=$datasource.driverClassName
 $jdbcUrl=$datasource.url
 $jdbcUsername=$datasource.username
 $jdbcPassword=$datasource.password
+#else
 $jdbcJNDI=$datasource.jndi
+#end
 #getTemplatePropertyValue("hibernateDialect")
 #if ($value.equals("true"))
 hibernate.dialect=$hibernate3.getDialect($database)
