@@ -5,7 +5,7 @@
 	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
 
 	<template-target 
-		rootdir="C:/MINUTEPROJECT/minuteTemplate/template-bsla"
+		rootdir="../../minuteTemplate/template-bsla"
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
@@ -22,11 +22,25 @@
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="Adapter" file-suffix="DaoTest" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>				
+		</template>		
+				
+		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		  <property tag="local"/>
+		</template>			
+		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="hibernateDialect" value="true"></property>
+			<property tag="local"/>
+		</template>					
 	</template-target>		
 	
 	<template-target 
-		rootdir="C:/MINUTEPROJECT/minuteTemplate/template-bsla"
+		rootdir="../../minuteTemplate/template-bsla"
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
@@ -112,7 +126,7 @@
 	</template-target>	
 
 	<template-target 
-		rootdir="C:/MINUTEPROJECT/minuteTemplate/template-bsla"
+		rootdir="../../minuteTemplate/template-bsla"
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
@@ -130,4 +144,21 @@
 			model-specific="true">
 		</template>				
 	</template-target>	
+	
+	<template-target 
+		rootdir="../../minuteTemplate/template-bsla"
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="../../DEV/output/petshopHibernate"
+		package-root=""
+		belongToPackage="true">
+		<template name="pomXml" templateFileName="pomXml.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true">
+			<property tag="dependency" name="hibernate" value="groupId=,artifactId=,version=,scope="/>
+		</template>				
+	</template-target>		
+	
 </target>	
