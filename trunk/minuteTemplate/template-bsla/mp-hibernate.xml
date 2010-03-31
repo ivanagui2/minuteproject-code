@@ -40,6 +40,20 @@
 			<property name="annotation" value="true"/>
 			<property name="annotationType" value="hibernate"/>
 		</template>
+		
+		<!-- Criteria API -->
+		<template name="DomainObjectWhatUML" templateFileName="DomainObjectWhatUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="criteria.what"
+			file-extension="java" file-prefix="" file-suffix="What" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>		
+		<template name="DomainObjectWhereUML" templateFileName="DomainObjectWhereUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="criteria.where"
+			file-extension="java" file-prefix="" file-suffix="Where" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>		
+		
+		<!-- end criteria API -->		
 		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="persistence"
 			file-extension="hbm.xml" file-prefix="" file-suffix="" 
@@ -114,6 +128,8 @@
 		</template>	
 
 	</template-target>	
+	
+	<!-- 
 	<template-target 
 		rootdir="C:/DEV/JAVA/mysourceforge/MP/minuteTemplate"
 	    templatedir = "template-bsla" 
@@ -132,5 +148,5 @@
 		</template>		
 			
 	</template-target>					 
-			
+		 -->	
 </target>	
