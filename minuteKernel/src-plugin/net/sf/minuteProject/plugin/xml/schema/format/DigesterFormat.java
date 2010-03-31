@@ -36,7 +36,7 @@ public class DigesterFormat {
 		//schema2digesterConfigExploded(element, document, configuration);
 
 		if (element.getSequenceElement()!=null) {
-			boolean isComplexTyp = isComplexType(element);
+			boolean isComplexTyp = XmlSchemaUtils.isComplexType(element);
 			if (isComplexTyp) {
 				padding = XmlSchemaUtils.indent(indent);
 				stringBuffer.append(formatDigester(element, refName, configuration, padding));
@@ -44,7 +44,7 @@ public class DigesterFormat {
 			for (Element ele : element.getSequenceElement()) {
 				//padding = "";
 				boolean isComplexType = XmlSchemaUtils.isComplexType(ele.getTypeAttributeValue());
-				String fulltype = ele.getTypeAttributeValue();
+//				String fulltype = ele.getTypeAttributeValue();
 				String type = XmlSchemaUtils.getFlatType(ele.getTypeAttributeValue());
 				String name = ele.getNameAttributeValue();
 				System.out.println("type = "+type+"- name = "+name);
@@ -73,7 +73,7 @@ public class DigesterFormat {
 		indent++;
 		for (Element ele : element.getNodes()) {
 			String padding = "";
-			boolean isComplexType = isComplexType(ele);
+			boolean isComplexType = XmlSchemaUtils.isComplexType(ele);
 			if (isComplexType) {
 				padding = XmlSchemaUtils.indent(indent);
 				stringBuffer.append(formatDigester(ele, configuration, padding));
@@ -87,11 +87,6 @@ public class DigesterFormat {
 		return stringBuffer.toString();
 	}
 	
-	private boolean isComplexType(Element element) {
-		return (element.isComplexType() 
-				|| (element.getName().equals("element") && element.isElementComplexType()));
-		
-	}
 	private String getType (Element element) {
 		return FormatUtils.getJavaName(element.getNameAttributeValue());
 	}
