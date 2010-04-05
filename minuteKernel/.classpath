@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="config"/>
 	<classpathentry kind="src" path="src-plugin"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="config2"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-bean-collections-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-core-1.7.jar"/>
@@ -31,11 +30,12 @@
 	<classpathentry kind="lib" path="lib/xmlParserAPIs.jar"/>
 	<classpathentry kind="lib" path="lib/extra/db2jcc_license_cu.jar"/>
 	<classpathentry kind="lib" path="lib/extra/db2jcc.jar"/>
-	<classpathentry kind="lib" path="lib/extra/hsqldb-1.7.3.jar"/>
 	<classpathentry kind="lib" path="lib/extra/mysql.jar"/>
 	<classpathentry kind="lib" path="lib/extra/ojdbc14.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/minuteFoundation"/>
-	<classpathentry kind="lib" path="lib/junit-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-dep-4.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/extra/hsqldb-1.8.0.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
