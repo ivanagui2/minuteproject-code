@@ -13,7 +13,8 @@
 	<set-next-rule methodname="setModel" paramtype="net.sf.minuteProject.configuration.bean.Model"/>
 	<set-properties-rule>
 		<alias attr-name="name" prop-name="name" />
-		<alias attr-name="packageRoot" prop-name="packageRoot" />
+		<alias attr-name="version" prop-name="version" />
+		<alias attr-name="rootPackage" prop-name="rootPackage" />
 	</set-properties-rule>
 	<set-properties-rule/>		  
 	<pattern value="data-model">
@@ -26,7 +27,16 @@
 			<set-properties-rule/>		  
 			<bean-property-setter-rule pattern="name"/>			
 			<bean-property-setter-rule pattern="dir"/>		
-		</pattern>					
+		</pattern>	
+		<pattern value="driver">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.connection.Driver"/>	
+			<set-next-rule methodname="setBasicDataSource" paramtype="net.sf.minuteProject.configuration.bean.connection.Driver"/>			
+			<set-properties-rule/>		  
+			<bean-property-setter-rule pattern="name"/>			
+			<bean-property-setter-rule pattern="groupId"/>		
+			<bean-property-setter-rule pattern="artifactId"/>		
+			<bean-property-setter-rule pattern="version"/>				
+		</pattern>							
 		<pattern value="dataSource">
 			<object-create-rule classname="org.apache.commons.dbcp.BasicDataSource"/>	
 			<set-next-rule methodname="setBasicDataSource" paramtype="org.apache.commons.dbcp.BasicDataSource"/>			
@@ -111,8 +121,6 @@
 					<alias attr-name="type" prop-name="type" />
 					<alias attr-name="startsWith" prop-name="startsWith" />
 					<alias attr-name="result" prop-name="result" />	
-					
-						
 				</set-properties-rule>							
 			</pattern>					
 		</pattern>

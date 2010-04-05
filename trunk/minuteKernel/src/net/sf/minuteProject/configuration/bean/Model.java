@@ -2,7 +2,8 @@ package net.sf.minuteProject.configuration.bean;
 
 public class Model  extends AbstractConfiguration{
 	
-	private String packageRoot;
+	private String rootPackage;
+	private String version;
 	
 	private DataModel dataModel;
 	private BusinessModel businessModel;
@@ -56,13 +57,6 @@ public class Model  extends AbstractConfiguration{
 		this.dataModel = dataModel;
 	}
 
-	public String getPackageRoot() {
-		return packageRoot;
-	}
-
-	public void setPackageRoot(String packageRoot) {
-		this.packageRoot = packageRoot;
-	}
 	
 	public String getTechnicalPackage(Template template) {
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());
@@ -73,6 +67,24 @@ public class Model  extends AbstractConfiguration{
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());
 		return sb.toString();
+	}
+
+	
+	public String getRootPackage() {
+		return rootPackage;
+	}
+
+	public void setRootPackage(String rootPackage) {
+		this.rootPackage = rootPackage;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}		
+	
 	
 }
