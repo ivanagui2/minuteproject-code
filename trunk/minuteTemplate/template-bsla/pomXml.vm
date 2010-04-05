@@ -9,11 +9,84 @@
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>  
+        <groupId>$driver.groupId</groupId>
+        <artifactId>$driver.artifactId</artifactId>
+        <version>$driver.version</version>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.4</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring</artifactId>
+        <version>2.5.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>2.5.5</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>1.2.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate</artifactId>
+        <version>3.2.6.ga</version>
+        <exclusions>
+            <exclusion>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-tools</artifactId>
+        <version>3.2.0.ga</version>
+    </dependency>
+    <dependency>
+        <groupId>geronimo-spec</groupId>
+        <artifactId>geronimo-spec-jta</artifactId>
+        <version>1.0-M1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>3.0.0.ga</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+      <version>3.3.0.ga</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>3.3.2.GA</version>
+    </dependency>
+    
+  	<dependency>
+  		<groupId>net.sf.minuteproject</groupId>
+  		<artifactId>mp-bsla</artifactId>
+  		<version>0.4</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mod4j.org.apache.commons</groupId>
+  		<artifactId>lang</artifactId>
+  		<version>2.1.0</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>    
+  
 #foreach($dependency in $dependencies)
 #exposeMavenDepency()
     <dependency>
