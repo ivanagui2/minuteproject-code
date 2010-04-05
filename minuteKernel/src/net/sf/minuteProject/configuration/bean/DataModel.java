@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.sql.DataSource;
 
+import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
@@ -21,6 +22,7 @@ public class DataModel {
 	private Model model;
 	private Database database;
 	private DataSource datasource;
+	private Driver driver;
 	private FileSource fileSource;
 	private String schema;
 	private PrimaryKeyPolicy primaryKeyPolicy;
@@ -86,5 +88,14 @@ public class DataModel {
 	public void setPrimaryKeyPolicy(PrimaryKeyPolicy primaryKeyPolicy) {
 		this.primaryKeyPolicy = primaryKeyPolicy;
 	}
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+	
 	
 }

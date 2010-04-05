@@ -3,11 +3,33 @@ package net.sf.minuteProject.plugin.maven;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class MavenUtils {
 
+	public static Driver getDriver (Model model) {
+		return model.getDataModel().getDriver();
+	}
+	
+	public static String getModelVersion (Model model) {
+		return model.getVersion();
+	}
+	
+	public static String getGroupId (Model model) {
+		return model.getName()+"BackEnd";
+	}
+	
+	public static String getArtifactId (Model model) {
+		return getGroupId(model);
+	}
+	
+	public static String getVersion (Model model) {
+		return getModelVersion(model);
+	}
+	
 	public static MavenDependency getDependency(String stringFmtDep) {
 		return new MavenDependency();
 	}
