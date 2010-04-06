@@ -11,5 +11,8 @@ public interface Cache {
 	public void flush();
 
 	public void setRefreshDelay(Long delay);
+	
+	public Object get(String key);
+	
 }
 
