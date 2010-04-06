@@ -29,14 +29,14 @@
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		  <property tag="local"/>
+		  <property tag="environment" value="local"/>
 		</template>			
 		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="hibernateDialect" value="true"></property>
-			<property tag="local"/>
+			<property tag="environment" value="local"/>
 		</template>					
 	</template-target>		
 	
@@ -157,7 +157,7 @@
 		<template name="pomXml" templateFileName="pomXml.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
-			application-specific="true">
+			application-specific="true" add-model-name="false">
 			<property tag="dependency" name="hibernate" value="groupId=,artifactId=,version=,scope="/>
 		</template>				
 	</template-target>		
