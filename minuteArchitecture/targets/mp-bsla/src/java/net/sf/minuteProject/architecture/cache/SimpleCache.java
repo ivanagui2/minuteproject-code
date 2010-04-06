@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-public class SimpleCache implements Cache2 {
+public class SimpleCache implements Cache {
 	
 	private Long delay;
 	private long delayDefault = 1000*60;
