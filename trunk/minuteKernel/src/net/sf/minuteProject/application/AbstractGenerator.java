@@ -36,6 +36,7 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 
@@ -352,6 +353,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("bslaLibraryUtils", new BslaLibraryUtils());
 		context.put("databaseUtils", new DatabaseUtils());
 		context.put("modelUtils", new ModelUtils());
+		context.put("templateUtils", new TemplateUtils());
 	}
 
     

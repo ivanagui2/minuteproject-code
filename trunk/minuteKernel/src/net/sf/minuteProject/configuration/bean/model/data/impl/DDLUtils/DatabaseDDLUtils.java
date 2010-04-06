@@ -102,14 +102,19 @@ public class DatabaseDDLUtils implements Database
 		Model model = dataModel.getModel();
 	    String filename = null;
 	    String filedir = null;
+	    String version = dataModel.getModel().getVersion();
+	    String defaultName = model.getName();
+	    if (version==null)
+	    	defaultName = defaultName+"-"+version;
 	    if (fileSource!=null) {
 	    	filename = fileSource.getName();
 	    	filedir = fileSource.getDir();
 	    	new File (filedir.toString()).mkdirs();
 	    	if (filename!=null)
 	    		filename = filedir+"/"+filename+".xml";
-	    	else 
-	    		filename = filedir+"/"+model.getName()+".xml";
+	    	else {
+	    		filename = filedir+"/"+defaultName+".xml";
+	    	}
 	    }
 	    return filename;
 	}	

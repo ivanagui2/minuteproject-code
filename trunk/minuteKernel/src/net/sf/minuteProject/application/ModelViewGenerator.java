@@ -203,22 +203,23 @@ public class ModelViewGenerator extends ModelGenerator {
 		context.put("model", model);
 	}
 	
-	protected void putStandardContextObject (VelocityContext context) {
-		context.put("convertUtils", getConvertUtils());
-		context.put("commonUtils", getCommonUtils());
-		context.put("columnUtils", getColumnUtils());
-		context.put("viewUtils", getViewUtils());
-		context.put("formatUtils", getFormatUtils());
-		context.put("bslaLibraryUtils", getBslaLibraryUtils());
-		context.put("databaseUtils", getDatabaseUtils());
-		context.put("modelUtils", getModelUtils());
-		context.put("URLUtils", getUrlUtils());
-		context.put("TestUtils", getTestUtils());
-		context.put("WebUtils", getWebUtils());
-		context.put("sqlUtils", getSqlUtils());
-		context.put("tableUtils", getTableUtils());
-		context.put("testUtils", getTestUtils());		
-	}
+//	protected void putStandardContextObject (VelocityContext context) {
+//		super.putStandardContextObject(context);
+//		context.put("convertUtils", getConvertUtils());
+//		context.put("commonUtils", getCommonUtils());
+//		context.put("columnUtils", getColumnUtils());
+//		context.put("viewUtils", getViewUtils());
+//		context.put("formatUtils", getFormatUtils());
+//		context.put("bslaLibraryUtils", getBslaLibraryUtils());
+//		context.put("databaseUtils", getDatabaseUtils());
+//		context.put("modelUtils", getModelUtils());
+//		context.put("URLUtils", getUrlUtils());
+//		context.put("TestUtils", getTestUtils());
+//		context.put("WebUtils", getWebUtils());
+//		context.put("sqlUtils", getSqlUtils());
+//		context.put("tableUtils", getTableUtils());
+//		context.put("testUtils", getTestUtils());		
+//	}
 
 	public BslaLibraryUtils getBslaLibraryUtils() {
 		if (bslaLibraryUtils==null)
