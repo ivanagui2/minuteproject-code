@@ -10,6 +10,6 @@ public interface Cache {
 
 	public void flush();
 
-	public void setRefreshDelay(Long delay)
+	public void setRefreshDelay(Long delay);
 }
 
