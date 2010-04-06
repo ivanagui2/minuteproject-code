@@ -126,6 +126,18 @@ public class ${className} extends AbstractDomainObject {
 	 	    .toString();
 	} 
 	
+	public String toStringWithParents() {
+	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+#foreach ($column in ${table.columns})
+#putColumnParams()
+            .append("$columnVar", _$columnVar)
+#end	 	
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+            .append("${linkedTableVariable}${localColumnClass}", _${linkedTableVariable}${localColumnClass}.toStringWithParents())
+#end
+	 	    .toString();	
+	}
 	/**
     * hashCode implementation
     */

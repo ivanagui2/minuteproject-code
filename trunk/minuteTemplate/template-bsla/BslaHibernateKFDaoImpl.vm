@@ -24,6 +24,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectDistinctInit;
+import net.sf.minuteProject.architecture.cache.Cache;
 import net.sf.minuteProject.architecture.cache.SimpleCache;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.architecture.filter.data.Criterion;
@@ -61,6 +62,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 
     private Logger log = Logger.getLogger(this.getClass());
     
+    private SimpleCache simpleCache = new SimpleCache();
 #foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 #putDependenciesUML()
@@ -82,8 +84,8 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
      * generic to move after in superclass
      */
     public List<Object[]> getSQLQueryResult(String query) {
-		   Query hquery = getSession().createSQLQuery(query);
-		   return hquery.list();        
+		Query hquery = getSession().createSQLQuery(query);
+		return hquery.list();        
     }
 
 
@@ -258,10 +260,51 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
        return cpt;
 	}   
 
+    /**
+    * variation list
+    */
 	public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
-		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), null, false);
+		return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), null, false);
 	}	
-  
+
+	public List<$tableClassName> partialLoadWithParent${tableClassName}UseCache($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache) {
+		//return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), null, false);
+		//TODO
+		String key = getCacheKey(${tableVariableName}What, positive$tableClassName, negative$tableClassName, "partialLoadWithParent$tableClassName");
+		List<$tableClassName> list = (List<$tableClassName>)simpleCache.get(key);
+		if (list==null) {
+			list = partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName);
+			simpleCache.put(key, list);
+		}
+		return list;	
+	}	
+	
+	private String getCacheKey ($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, String queryKey) {
+	    StringBuffer sb = new StringBuffer();
+	    sb.append(queryKey);
+	    if (${tableVariableName}What!=null)
+	       sb.append(${tableVariableName}What.toStringWithParents());
+	    if (positive${tableClassName}!=null)
+	       sb.append(positive${tableClassName}.toStringWithParents());
+	    if (negative${tableClassName}!=null)
+	       sb.append(negative${tableClassName}.toStringWithParents());
+	    return sb.toString();
+	}
+	
+    /**
+    * variation first
+    */
+    public $tableClassName partialLoadWithParentFirst$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName){
+		List <$tableClassName> list = partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName);
+		return (!list.isEmpty())?($tableClassName)list.get(0):null;
+    }
+    
+    public $tableClassName partialLoadWithParentFirst${tableClassName}UseCache($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache){
+		List <$tableClassName> list = partialLoadWithParent${tableClassName}UseCache(${tableVariableName}What, positive$tableClassName, negative$tableClassName, useCache);
+		return (!list.isEmpty())?($tableClassName)list.get(0):null;
+    }
+	
+	//
 	protected List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Integer nbOfResult, Boolean useCache) {
 		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), nbOfResult, useCache);
 	}	  
@@ -664,7 +707,6 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     }
 	
 	public List<$tableClassName> searchPrototypeWithCache$tableClassName($tableClassName $tableVariableName) {
-		SimpleCache simpleCache = new SimpleCache();
 		List<$tableClassName> list = (List<$tableClassName>)simpleCache.get(${tableVariableName}.toString());
 		if (list==null) {
 			list = searchPrototype$tableClassName($tableVariableName);

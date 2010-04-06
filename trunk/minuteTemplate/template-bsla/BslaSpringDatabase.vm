@@ -2,6 +2,7 @@
 #exposeConnectionSpecific()
 #set ($pathSpringProperties = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringProperties") )
 #exposeJdbc()
+#exposeEnvironment()
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
@@ -12,23 +13,19 @@
         <property name="location"><value>classpath:${pathSpringProperties}.properties</value></property>
     </bean>
 
-    <bean id="${model.name}DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-#exposeJdbcParam($jdbcDriverClassName)
-        <property name="driverClassName"><value>$paramResult</value></property>
-#exposeJdbcParam($jdbcUrl)        
-        <property name="url"><value>$paramResult</value></property>
-#exposeJdbcParam($jdbcUsername)        
-        <property name="username"><value>$paramResult</value></property>
-#exposeJdbcParam($jdbcPassword)
-        <property name="password"><value>$paramResult</value></property>
-    </bean>
-    
-<!--    
-    <bean id="${model.name}DataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-#exposeJdbcParam($jdbcJNDI)
-        <property name="jndiName"><value>$paramResult</value></property>
-    </bean>
--->        
+#if ($hasEnvironmentTag)
+#if ($hasEnvironmentLocalTag)
+#parse("./snippet/bslaDatasourceLocal.vm")
+#else      
+#parse("./snippet/bslaDatasourceRemote.vm")
+#end  
+#else
+<!--
+#parse("./snippet/bslaDatasourceLocal.vm")
+-->
+
+#parse("./snippet/bslaDatasourceRemote.vm")
+#end    
 
     <bean id="${model.name}TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource"><ref bean="${dataSourceName}"/></property>

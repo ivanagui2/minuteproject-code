@@ -59,10 +59,28 @@ public interface $className extends DataAccessObject {
     */            
     public List<$tableClassName> partialLoad$tableClassName($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
 
+    /**
+    * partial load with parent entities
+    * variation (list, first, distinct decorator)
+    * variation2 (with cache)
+    */
     public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
 
+    public List<$tableClassName> partialLoadWithParent${tableClassName}UseCache($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
+
+    /**
+    * variation first
+    */
+    public $tableClassName partialLoadWithParentFirst$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
+    
+    public $tableClassName partialLoadWithParentFirst${tableClassName}UseCache($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
+
+    /**
+    * variation distinct
+    */
     public List<$tableClassName> getDistinct$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
 
+    //
     public List partialLoadWithParentForBean(Object bean, $tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
 
     /**

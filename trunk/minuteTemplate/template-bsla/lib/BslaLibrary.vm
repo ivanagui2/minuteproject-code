@@ -156,6 +156,11 @@
 #largeFormat()
 #end
 
+#macro (exposeEnvironment)
+#set ($hasEnvironmentTag=$templateUtils.hasTag("environment", $template))
+#set ($hasEnvironmentLocalTag=$templateUtils.hasTagValue("environment","local", $template))
+#end
+
 #macro (exposeTimeColumn)
 ##works only for Oracle
 #if ($column.type == "DATE")
