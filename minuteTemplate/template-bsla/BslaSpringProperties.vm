@@ -1,13 +1,16 @@
 #exposeVariableModelSpecific()
 #exposeJdbc()
+#exposeEnvironment()
 #set ($datasource = $model.dataModel.basicDataSource)
-#if ($templateUtils.hasTag("local"))
-$jdbcDriverClassName=$datasource.driverClassName
-$jdbcUrl=$datasource.url
-$jdbcUsername=$datasource.username
-$jdbcPassword=$datasource.password
+#if ($hasEnvironmentTag)
+#if ($hasEnvironmentLocalTag)
+#parse("./snippet/bslaDatasourceLocalProperties.vm")
 #else
-$jdbcJNDI=$datasource.jndi
+#parse("./snippet/bslaDatasourceRemoteProperties.vm")
+#end
+#else
+#parse("./snippet/bslaDatasourceLocalProperties.vm")
+#parse("./snippet/bslaDatasourceRemoteProperties.vm")
 #end
 #getTemplatePropertyValue("hibernateDialect")
 #if ($value.equals("true"))
