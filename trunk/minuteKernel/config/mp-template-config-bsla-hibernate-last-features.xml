@@ -3,11 +3,12 @@
 	<plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
 	<plugin name="criteriaUtils" className="net.sf.minuteProject.utils.criteria.CriteriaUtils"></plugin>
 	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
+	<plugin name="mavenUtils" className="net.sf.minuteProject.plugin.maven.MavenUtils"></plugin>
 
 	<template-target 
 		rootdir="../../minuteTemplate/template-bsla"
 	    templatedir = "template" 
-		libdir="lib/BslaLibrary.vm"
+		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
 		outputdir="../../DEV/output/petshopHibernate/src/test/java"
 		package-root="sf.net.mp.demo"

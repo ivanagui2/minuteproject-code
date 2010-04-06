@@ -14,7 +14,7 @@
 	<set-properties-rule>
 		<alias attr-name="name" prop-name="name" />
 		<alias attr-name="version" prop-name="version" />
-		<alias attr-name="rootPackage" prop-name="rootPackage" />
+		<alias attr-name="package-root" prop-name="packageRoot" />
 	</set-properties-rule>
 	<set-properties-rule/>		  
 	<pattern value="data-model">
@@ -30,7 +30,7 @@
 		</pattern>	
 		<pattern value="driver">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.connection.Driver"/>	
-			<set-next-rule methodname="setBasicDataSource" paramtype="net.sf.minuteProject.configuration.bean.connection.Driver"/>			
+			<set-next-rule methodname="setDriver" paramtype="net.sf.minuteProject.configuration.bean.connection.Driver"/>			
 			<set-properties-rule/>		  
 			<bean-property-setter-rule pattern="name"/>			
 			<bean-property-setter-rule pattern="groupId"/>		

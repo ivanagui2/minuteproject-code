@@ -10,6 +10,13 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class MavenUtils {
 
+	public static String getRootPackage(Template template, Model model) {
+		String packageRoot = model.getPackageRoot();
+		if (packageRoot==null)
+			return template.getTemplateTarget().getPackageRoot();
+		return packageRoot;
+	}
+	
 	public static Driver getDriver (Model model) {
 		return model.getDataModel().getDriver();
 	}
@@ -29,6 +36,10 @@ public class MavenUtils {
 	public static String getVersion (Model model) {
 		return getModelVersion(model);
 	}
+	
+	public static String getDbApiName (Model model) {
+		return getArtifactId(model);
+	}	
 	
 	public static MavenDependency getDependency(String stringFmtDep) {
 		return new MavenDependency();

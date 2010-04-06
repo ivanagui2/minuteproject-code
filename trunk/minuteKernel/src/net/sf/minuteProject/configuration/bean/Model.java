@@ -2,7 +2,7 @@ package net.sf.minuteProject.configuration.bean;
 
 public class Model  extends AbstractConfiguration{
 	
-	private String rootPackage;
+	private String packageRoot;
 	private String version;
 	
 	private DataModel dataModel;
@@ -70,12 +70,13 @@ public class Model  extends AbstractConfiguration{
 	}
 
 	
-	public String getRootPackage() {
-		return rootPackage;
+
+	public String getPackageRoot() {
+		return packageRoot;
 	}
 
-	public void setRootPackage(String rootPackage) {
-		this.rootPackage = rootPackage;
+	public void setPackageRoot(String packageRoot) {
+		this.packageRoot = packageRoot;
 	}
 
 	public String getVersion() {
