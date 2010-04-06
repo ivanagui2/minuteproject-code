@@ -284,6 +284,7 @@ public class ModelGenerator extends AbstractGenerator {
 //	}
 	
 	protected void putStandardContextObject (VelocityContext context) {
+		super.putStandardContextObject(context);
 		context.put("convertUtils", getConvertUtils());
 		context.put("commonUtils", getCommonUtils());
 		context.put("columnUtils", getColumnUtils());

@@ -65,10 +65,10 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 		List<Property> properties = new ArrayList<Property>();	
 		for (Property property : getProperties()) {
 			if (propertyCriteria.equals(PropertyCriteria.NAME))
-				if (property.getName().equals(value))
+				if (value.equals(property.getName()))
 					properties.add(property);
 			if (propertyCriteria.equals(PropertyCriteria.TAG))
-				if (property.getTag().equals(value))
+				if (value.equals(property.getTag()))
 					properties.add(property);			
 		}
 		return properties;
@@ -77,10 +77,10 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 	public Property getPropertyByCriteria (PropertyCriteria propertyCriteria, String value) {
 		for (Property property : getProperties()) {
 			if (propertyCriteria.equals(PropertyCriteria.NAME))
-				if (property.getName().equals(value))
+				if (value.equals(property.getName()))
 					return property;
 			if (propertyCriteria.equals(PropertyCriteria.TAG))
-				if (property.getTag().equals(value))
+				if (value.equals(property.getTag()))
 					return property;			
 		}
 		return null;
