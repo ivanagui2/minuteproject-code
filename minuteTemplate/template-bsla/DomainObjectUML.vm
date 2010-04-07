@@ -116,27 +116,28 @@ public class ${className} extends AbstractDomainObject {
 	public String toString() {
 		return toString(this);
 	}
-	
-	public String toString(Object object) {
+
+	public ToStringBuilder getToStringBuilder(Object object) {
 	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 #foreach ($column in ${table.columns})
 #putColumnParams()
             .append("$columnVar", _$columnVar)
 #end	 	
-	 	    .toString();
+	 	    ;
+	} 
+		
+	public String toString(Object object) {
+	 	return getToStringBuilder(object).toString();
 	} 
 	
 	public String toStringWithParents() {
-	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-#foreach ($column in ${table.columns})
-#putColumnParams()
-            .append("$columnVar", _$columnVar)
-#end	 	
+	    ToStringBuilder toStringBuilder = getToStringBuilder(this);
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-            .append("${linkedTableVariable}${localColumnClass}", _${linkedTableVariable}${localColumnClass}.toStringWithParents())
+        if (_${linkedTableVariable}${localColumnClass}!=null)
+             toStringBuilder.append("${linkedTableVariable}${localColumnClass}", _${linkedTableVariable}${localColumnClass}.toStringWithParents());
 #end
-	 	    .toString();	
+	 	return toStringBuilder.toString();	
 	}
 	/**
     * hashCode implementation
@@ -176,20 +177,20 @@ public class ${className} extends AbstractDomainObject {
 	}
 
 	public ${className} clone() {
-    ${className} ${variableName} = new ${className}(
+        ${className} ${variableName} = new ${className}(
 #foreach ($column in ${table.columns})
 #putColumnParams()
-          get$columnClass()#if ($velocityCount!=$table.columnCount),
+             get$columnClass()#if ($velocityCount!=$table.columnCount),
 #end
 #end
 
-    );
+        );
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    if (get$linkedTableClass${localColumnClass}()!=null) 
-       ${variableName}.set$linkedTableClass${localColumnClass} (get$linkedTableClass${localColumnClass}().clone());   
+        if (get$linkedTableClass${localColumnClass}()!=null) 
+            ${variableName}.set$linkedTableClass${localColumnClass} (get$linkedTableClass${localColumnClass}().clone());   
 #end	   
-	  return ${variableName};
+        return ${variableName};
 	}
 	
 #foreach($column in ${table.primaryKeyColumns})

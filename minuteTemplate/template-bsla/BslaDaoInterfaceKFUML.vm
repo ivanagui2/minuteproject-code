@@ -68,12 +68,16 @@ public interface $className extends DataAccessObject {
 
     public List<$tableClassName> partialLoadWithParent${tableClassName}UseCache($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
 
+    public List<$tableClassName> partialLoadWithParent${tableClassName}UseCacheOnResult($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
+
     /**
     * variation first
     */
     public $tableClassName partialLoadWithParentFirst$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
     
     public $tableClassName partialLoadWithParentFirst${tableClassName}UseCache($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
+
+	public $tableClassName partialLoadWithParentFirst${tableClassName}UseCacheOnResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
 
     /**
     * variation distinct
