@@ -17,11 +17,11 @@ public class TemplateTarget extends AbstractConfiguration{
 	private Target target;
 	// TODO change list into a map to ensure uniqueness of template by name
 	private List <Template> templates;
-	private String packageRoot;
+	protected String packageRoot;
 	private boolean belongToPackage;
 	
 	public String getPackageRoot() {
-		if (packageRoot==null){
+		if (packageRoot==null && getTarget()!=null){
 			Configuration configuration = (Configuration) getTarget().getAbstractConfigurationRoot();
 			setPackageRoot(configuration.getModel().getPackageRoot());
 		}
