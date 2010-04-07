@@ -21,6 +21,10 @@ public class TemplateTarget extends AbstractConfiguration{
 	private boolean belongToPackage;
 	
 	public String getPackageRoot() {
+		if (packageRoot==null){
+			Configuration configuration = (Configuration) getTarget().getAbstractConfigurationRoot();
+			setPackageRoot(configuration.getModel().getPackageRoot());
+		}
 		return packageRoot;
 	}
 
@@ -56,8 +60,17 @@ public class TemplateTarget extends AbstractConfiguration{
 	}
 	
 	public String getOutputdir() {
-		if (outputdir==null)
-			outputdir = getDir()+"/"+MP_GENERATION_OUTPUT;
+		if (outputdir==null) {
+			String name;
+			if (getTarget().getAbstractConfigurationRoot()!=null 
+				&& getTarget().getAbstractConfigurationRoot().getName()!=null) 
+				name = getTarget().getAbstractConfigurationRoot().getName();
+			else
+				name = "project";
+			outputdir = getDir()+"/"+MP_GENERATION_OUTPUT+"/"+name;
+		
+			
+		}
 		return outputdir;
 	}
 	
