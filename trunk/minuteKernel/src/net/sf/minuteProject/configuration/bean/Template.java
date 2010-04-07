@@ -583,6 +583,12 @@ public class Template extends TemplateTarget {
 	public void setFieldSpecific(String fieldSpecific) {
 		this.fieldSpecific = fieldSpecific;
 	}
-
-
+	
+	public String getPackageRoot() {
+		if (packageRoot==null && getTemplateTarget().getTarget()!=null){
+			Configuration configuration = (Configuration) getTemplateTarget().getTarget().getAbstractConfigurationRoot();
+			setPackageRoot(configuration.getModel().getPackageRoot());
+		}
+		return packageRoot;
+	}
 }

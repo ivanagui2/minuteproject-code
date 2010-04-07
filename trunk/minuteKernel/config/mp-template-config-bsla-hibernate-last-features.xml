@@ -11,7 +11,6 @@
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
 		outputdir="../../DEV/output/petshopHibernate/src/test/java"
-		package-root="sf.net.mp.demo"
 		belongToPackage="true">
 		<template name="TestDaoInterface" templateFileName="BslaDaoInterfaceTest.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
@@ -46,7 +45,6 @@
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir="../../DEV/output/petshopHibernate/src/main/java"
-		package-root="sf.net.mp.demo"
 		belongToPackage="true">
 	
 		<!--  hibernate templates -->
