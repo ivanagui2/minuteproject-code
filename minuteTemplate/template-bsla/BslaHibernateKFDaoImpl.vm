@@ -167,6 +167,16 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 		}		
 	}
 	
+   public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache) {
+	      String key = getCacheKey(null, $tableVariableName, null, "assign$tableClassName");
+      $tableClassName ${tableVariableName}Cache = ($tableClassName)simpleCache.get(key);
+      if (${tableVariableName}Cache==null) {
+         ${tableVariableName}Cache = assign${tableClassName}UseCache ($tableVariableName);
+         simpleCache.put(key, ${tableVariableName}Cache);
+      }
+      return ${tableVariableName}Cache;
+	   }
+	   
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
       List<$tableClassName> list = partialLoadWithParent$tableClassName(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);
       if (list.isEmpty()) {
@@ -177,7 +187,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
       else 
       //TODO log error
          return list.get(0);	
-	}
+   }
 
    private List getFirstResultWhereConditionsAre ($tableClassName $tableVariableName) {
       return  partialLoadWithParent${tableClassName}QueryResult(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);	

@@ -41,6 +41,8 @@ public interface $className extends DataAccessObject {
 	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
 	 */
     public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
+    
+    public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache);    
          
     /**
     * return the first $tableClassName entity found
@@ -77,7 +79,7 @@ public interface $className extends DataAccessObject {
     
     public $tableClassName partialLoadWithParentFirst${tableClassName}UseCache($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
 
-	public $tableClassName partialLoadWithParentFirst${tableClassName}UseCacheOnResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
+    public $tableClassName partialLoadWithParentFirst${tableClassName}UseCacheOnResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache);
 
     /**
     * variation distinct
