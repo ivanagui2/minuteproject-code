@@ -109,6 +109,7 @@ public abstract class AbstractGenerator implements Generator {
 		Target target2 = abstractConfigurationRoot.getTarget();
 		target2.setDir(target.getDir());
 		target2.setCanonicalDir(target.getCanonicalDir());
+		target2.setOutputdirRoot(target.getOutputdirRoot());
 		//TODO add relative path for target and targetTemplate
 		/*
 		 * getTargetTemplate 

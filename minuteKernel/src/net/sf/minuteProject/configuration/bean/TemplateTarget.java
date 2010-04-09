@@ -60,7 +60,10 @@ public class TemplateTarget extends AbstractConfiguration{
 	}
 	
 	public String getOutputdir() {
-		if (outputdir==null) {
+		String outputdirRoot = null;
+		if (getTarget()!=null)
+		   outputdirRoot = getTarget().getOutputdirRoot();	
+		if (outputdir==null && outputdirRoot==null) {
 			String name;
 			if (getTarget().getAbstractConfigurationRoot()!=null 
 				&& getTarget().getAbstractConfigurationRoot().getName()!=null) 
@@ -68,10 +71,8 @@ public class TemplateTarget extends AbstractConfiguration{
 			else
 				name = "project";
 			outputdir = getDir()+"/"+MP_GENERATION_OUTPUT+"/"+name;
-		
-			
 		}
-		return outputdir;
+		return (outputdirRoot!=null)?outputdirRoot+"/"+outputdir:outputdir;
 	}
 	
 	public void setOutputdir(String outputdir) {

@@ -25,6 +25,7 @@ public class Target extends AbstractConfiguration{
 	private List <Plugin> plugins;
 	private TargetParams targetParams;
 	private ImportTargets importTargets;
+	private String outputdirRoot;
 	
 	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
 		return abstractConfigurationRoot;
@@ -138,6 +139,11 @@ public class Target extends AbstractConfiguration{
 	public void setTargetParams(TargetParams targetParams) {
 		this.targetParams = targetParams;
 	}
-	
+	public String getOutputdirRoot() {
+		return outputdirRoot;
+	}
+	public void setOutputdirRoot(String outputdirRoot) {
+		this.outputdirRoot = outputdirRoot;
+	}	
 	
 }

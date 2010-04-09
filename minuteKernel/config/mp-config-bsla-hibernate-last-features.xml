@@ -26,7 +26,7 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default" fileName="mp-template-config-bsla-hibernate-last-features.xml">
+		<target refname="BackendOnBsla" name="default" fileName="mp-template-config-bsla-hibernate-last-features.xml" outputdir-root="../../DEV/output/petshopHibernate">
 	<!-- 		dir="C:/DEV/JAVA/eclipse/workspace-demo/minutePetshopHibernate/install" fileName="mp-hibernate.xml">
 		 -->
 		</target> 	
