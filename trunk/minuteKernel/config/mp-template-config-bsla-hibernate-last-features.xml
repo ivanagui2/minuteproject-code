@@ -10,7 +10,7 @@
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
-		outputdir="../../DEV/output/petshopHibernate/src/test/java"
+		outputdir="src/test/java"
 		belongToPackage="true">
 		<template name="TestDaoInterface" templateFileName="BslaDaoInterfaceTest.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
@@ -44,10 +44,11 @@
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
-		outputdir="../../DEV/output/petshopHibernate/src/main/java"
+		outputdir="src/main/java"
 		belongToPackage="true">
 	
-		<!--  hibernate templates -->
+	    <!-- ENTITY OBJECTs -->
+		<!-- templates -->
 		<template name="DomainObjectUML" templateFileName="DomainObjectUML.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
@@ -66,19 +67,10 @@
 			file-extension="java" file-prefix="" file-suffix="Where" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>
-				
-		<!-- mapping -->
-		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
-			subdir="" outputsubdir="" technicalPackage="persistence"
-			file-extension="hbm.xml" file-prefix="" file-suffix="" 
-			entity-specific="true" package-specific="false" model-specific="false">
-		</template>
-		<template name="HibernateConfig" templateFileName="Hibernate.cfg.xml.vm" 
-			subdir="" outputsubdir="" technicalPackage="persistence"
-			file-extension="cfg.xml" file-prefix="" file-suffix="" 
-			entity-specific="false" package-specific="false" model-specific="true">
-		</template>		
 		
+		<!-- ENTITY OBJECTs end -->		
+		
+		<!-- DAO -->
 		<!-- depends  DomainObjectUML, BslaHibernate architecture 	-->	
 		<template name="BslaDaoInterfaceUML" templateFileName="BslaDaoInterfaceUML.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
@@ -92,12 +84,61 @@
 			file-extension="java" file-prefix="" file-suffix="HibernateImpl" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>	
-	
+	    
+	    <!-- EXTENDED DAO -->
+	    <!-- extended dao depends BslaDaoInterfaceUML -->
+		<template name="BslaDaoInterfaceExtendedUML" templateFileName="BslaDaoInterfaceKFUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="ExtDao" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+			
+		<!-- depends BslaDaoInterfaceExtendedUML -->	
+		<template name="BslaHibernateExtendedDaoImplUML" templateFileName="BslaHibernateKFDaoImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
+			file-extension="java" file-prefix="" file-suffix="ExtendedHibernateImpl" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>				
+			
+		<!-- EXTENDED DAO end -->	
+		<!-- DAO end -->
+		
+	</template-target>	
+
+	<template-target 
+		rootdir="../../minuteTemplate/template-bsla"
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="src/main/resources"
+		belongToPackage="true">
+		
+		<!-- HIBERNATE CONFIGURATION -->
+		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension="hbm.xml" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		<template name="HibernateConfig" templateFileName="Hibernate.cfg.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension="cfg.xml" file-prefix="" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+		<!-- HIBERNATE CONFIGURATION end -->
+		
+		<!-- SPRING CONFIG -->
 		<template name="BslaSpringConfigDaoHibernate" templateFileName="BslaSpringConfigDaoHibernate.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
 			file-extension="xml" file-prefix="dao-hibernate-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
 		</template>									
+							
+		<!-- spring config extended -->
+		<template name="BslaSpringConfigDaoExtHibernate" templateFileName="BslaSpringConfigDaoExtHibernate.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			file-extension="xml" file-prefix="dao-ext-hibernate-" file-suffix="" 
+			entity-specific="false" package-specific="true" model-specific="false">
+		</template>	
 									
 		<template name="BslaSpringConfigDaoHibernate2" templateFileName="BslaSpringConfigDaoHibernate2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
@@ -122,6 +163,8 @@
 			<property name="hibernateDialect" value="true"></property>
 		</template>	
 
+		<!-- SPRING CONFIG end-->
+		
 	</template-target>	
 
 	<template-target 
@@ -129,7 +172,7 @@
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
-		outputdir="../../DEV/output/petshopHibernate/src/main/script"
+		outputdir="src/main/script"
 		package-root=""
 		belongToPackage="true">
 		<template name="SequenceSQL" templateFileName="SequenceSQL.vm" 
@@ -149,7 +192,7 @@
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
-		outputdir="../../DEV/output/petshopHibernate"
+		outputdir=""
 		package-root=""
 		belongToPackage="true">
 		<template name="pomXml" templateFileName="pomXml.vm" 

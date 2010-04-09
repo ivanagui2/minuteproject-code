@@ -591,4 +591,12 @@ public class Template extends TemplateTarget {
 		}
 		return packageRoot;
 	}
+	
+	public Target getTarget() {
+		return getTemplateTarget().getTarget();
+	}
+	
+	public String getOutputdir() {
+		return super.getOutputdir();
+	}
 }
