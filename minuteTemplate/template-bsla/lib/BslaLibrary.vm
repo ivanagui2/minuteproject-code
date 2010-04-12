@@ -148,6 +148,7 @@
 ## putColumnParams are for the decorating the entity attribute 
 #macro (putColumnParams)
 #set ($isForeignKey = $columnUtils.isForeignKey($column))
+#set ($isPkUserProvided = $commonUtils.isPkUserProvided($column))
 #set ($columnFullType = $commonUtils.getFullType2($column))
 #set ($columnType = $commonUtils.getJavaType($column))
 #set ($columnClass = $formatUtils.getJavaName($column.name))
@@ -437,7 +438,7 @@
 #set ($dependentTestDaoVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
 #set ($dependentImportDaoInterface = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoInterfaceAlias))
 #set ($dependentDaoInterfaceClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
-#set ($dependentDaoInterfaceVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateBslaDaoInterfaceAlias))
+#set ($dependentDaoInterfaceVariableName = $commonUtils.getJavaNameVariableFirstLetter($linktableDB, $model, $templateBslaDaoInterfaceAlias))
 #set ($dependentImportDomainClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateDomainObjectAlias))
 #set ($dependentDomainClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateDomainObjectAlias))
 #set ($dependentDomainVariableName = $commonUtils.getTemplateJavaVariableName($linktableDB, $model, $templateDomainObjectAlias))
@@ -452,6 +453,12 @@
 #set ($dependentDaoExtentedImportImplementationJPAClassName = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateBslaDaoImplExtJPAAlias))
 #end
 
+#macro (exposeEntityDependencies)
+#set ($distinctDependencies = $schemaUtils.getDistinctTransitiveDependencies($table))
+#end
+#macro (exposeLinkedEntityDependencies)
+#set ($distinctLinkedTableDependencies = $schemaUtils.getDistinctTransitiveDependencies($linktableDB))
+#end
 
 #macro (exposeTestAdapter)
 #templateDefinition()
