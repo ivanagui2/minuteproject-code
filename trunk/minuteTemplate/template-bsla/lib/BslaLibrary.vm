@@ -36,6 +36,12 @@
 #set ($isMany2Many = $tableUtils.isMany2Many($table))
 #end
 
+#macro(exposeTableMetadata)
+#set ($isReferenceData = $tableUtils.isReferenceDataContentType($table))
+#set ($isPseudoStaticData = $tableUtils.isPseudoStaticDataContentType($table))
+#set ($isLiveBusinessData = $tableUtils.isLiveBusinessDataContentType($table))
+#end
+
 #macro(exposeVariableComponentSpecific)
 #set ($packageName = $commonUtils.getPackageName($component, $template))
 #set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $component))

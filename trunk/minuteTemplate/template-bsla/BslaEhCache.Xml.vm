@@ -45,6 +45,8 @@
 
    <!-- package $package.name -->
 #foreach ($table in ${package.listOfTables})
+#exposeTableMetadata()
+#if($isReferenceData)
 #putImportParamsUML()
    <cache
     name="$importDomainObjectUML"
@@ -54,12 +56,14 @@
     timeToLiveSeconds="600"
     overflowToDisk="false"
    />
+#end
 #end
 #end
 				#foreach ($package in ${businessPackageViews})
 
    <!-- package $package.name -->
 #foreach ($table in ${package.listOfViews})
+#if($isReferenceData)
 #putImportParamsUML()
    <cache
     name="$importDomainObjectUML"
@@ -69,6 +73,7 @@
     timeToLiveSeconds="600"
     overflowToDisk="false"
    />
+#end
 #end
 #end
 
