@@ -1,13 +1,15 @@
 package net.sf.minuteProject.plugin.database;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
-
-import org.apache.commons.collections.map.ListOrderedMap;
+import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.TableUtils;
 
 /**
  * @author florian
@@ -15,11 +17,22 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
  */
 public class SchemaUtils {
 
+	private List<Table> deleteOrder;
+	private List<Table> insertOrder;
+	private Map<Table, List<Table>> distinctDependencies;
+	
 	/**
+	 * get the order of tables in delete order
 	 * @param database
 	 * @return List<Table>
 	 */
 	public List<Table> getTableDeleteOrder (Database database) {
+		if (deleteOrder==null)
+			deleteOrder = getTableDeleteOrderList(database);
+		return deleteOrder;
+	}
+	
+	private List<Table> getTableDeleteOrderList (Database database) {
 		List<Table> workingSet = getTables(database); //copy of the tables + ref
 		List<Table> deleteOrderList = getNonReferencedTable(workingSet);
 //		int nbInDeleteOrderList = deleteOrderList.size();
@@ -28,21 +41,55 @@ public class SchemaUtils {
 			deleteOrderListLastSize = deleteOrderList.size();
 			getTableDeleteOrder(workingSet, deleteOrderList);
 		}
-		/*
-		if (workingSet.size()==0) {
-			//done
-			return deleteOrderList;
-		} else {
-			//circular reference update the nullable fk to null
-			getTableDeleteOrder(workingSet, deleteOrderList);
-		}
-		*/
-		// in workingSet are only the referenced tables 
-		// remove the one whose child is in deleteOrderList
 		return deleteOrderList;
 	}
-
 	
+	/**
+	 * get the order of tables in insert order
+	 * @param database
+	 * @return List<Table>
+	 */
+	public List<Table> getTableInsertOrder (Database database) {
+		if (insertOrder==null)
+			insertOrder = getTableInsertOrderList(database);
+		return insertOrder;		
+	}
+	
+	private List<Table> getTableInsertOrderList (Database database) {
+		List<Table> deleteOrder = getTableDeleteOrderList(database);
+	    Collections.reverse(deleteOrder);
+	    return deleteOrder;
+	}	
+	
+	/**
+	 * the list of tables that an input tables depends on
+	 * @param table, database
+	 * @return List<Table>
+	 */
+	public List<Table> getDistinctTransitiveDependencies (Table table) {
+		if (table==null)
+			return new ArrayList<Table>();
+		if (!getDistinctDependencies().containsKey(table))
+			addDistinctDependencies(table, getDistinctTransitiveDependenciesForTable(table));
+		return getDistinctDependencies().get(table);
+	}
+	
+	private List<Table> getDistinctTransitiveDependenciesForTable (Table table) {
+		Map<String, Table> distinctDep = new Hashtable<String, Table>();
+		populateDistinctTransitiveDependencies(table, distinctDep);
+		return new ArrayList<Table>(distinctDep.values());
+	}
+	
+	private void populateDistinctTransitiveDependencies (Table table, Map<String, Table> distinctDep) {
+		List<Table> parents = TableUtils.getParents(table);
+		for (Table parent : parents) {
+			String parentName = parent.getName();
+			if (!parentName.equals(table.getName()) && !distinctDep.containsKey(parentName)) {
+				distinctDep.put(parentName, parent);
+				populateDistinctTransitiveDependencies(parent, distinctDep);
+			}
+		}
+	}
 	/**
 	 * @param workingSet
 	 * @param deleteOrderList
@@ -107,4 +154,15 @@ public class SchemaUtils {
 		
 		return nonReferencedTables;
 	}
+
+	public Map<Table, List<Table>> getDistinctDependencies() {
+		if (distinctDependencies==null)
+			distinctDependencies = new Hashtable<Table, List<Table>>();
+		return distinctDependencies;
+	}
+
+	public void addDistinctDependencies(Table table, List<Table> distinctDependencies) {
+		getDistinctDependencies().put(table, distinctDependencies);
+	}
+
 }

@@ -356,6 +356,10 @@ public class CommonUtils {
 		return false;
 	}
 	
+	public static boolean isPkUserProvided (Column column) {
+		return ColumnUtils.isPkUserProvided(column);
+	}
+	
 	public static String getLevelTemplateFullPath (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		return getPackageName(bean, template, targetTemplateName) +"."+ getTemplateClassName (bean, template, targetTemplateName);
 	}
