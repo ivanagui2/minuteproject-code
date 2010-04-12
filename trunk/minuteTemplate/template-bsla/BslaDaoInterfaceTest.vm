@@ -3,6 +3,7 @@
 #exposeConnectionSpecific()
 #exposeTestAdapter()
 #distinctEntityProperty()
+#exposeEntityDependencies()
 package $packageName;
 
 #distinctBEImport()
@@ -21,21 +22,25 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import $testAdapterImport;
-#foreach ($reference in ${parentReferences})
-#putReferenceParams()
+#foreach ($linktableDB in $distinctDependencies)
 #putDependencies()
-import $dependentImportTestDaoClass;
+import $dependentImportDaoInterface;
 import $dependentImportDomainClassName;
-import $dependentImportTestDaoClass;
 #end
 
 public class $className extends $testAdapterClassName {
 
-    @Autowired
+	@Autowired @Qualifier("$daoInterfaceVariableName")
 	protected $daoInterfaceClassName $daoInterfaceVariableName;
-    	
+#foreach ($linktableDB in $distinctDependencies)
+#putDependencies()
+	@Autowired @Qualifier("$dependentDaoInterfaceVariableName")
+	protected $dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName;
+#end    
+	
 	/*
 	* Do the insert first.
 	* To do the insert do on all mandatory fields;
@@ -43,13 +48,13 @@ public class $className extends $testAdapterClassName {
 	* Then perform load update, delete, loadfirstlevel
 	*/
     	
-    @Test
+	@Test
 	public void testInsert$domainClassName () {
 	    $domainClassName ${domainVariableName} = insert$domainClassName ();
 	    assertNotNull(${domainVariableName});
 	}
 	
-    @Test	
+	@Test	
     public void testLoad$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});
@@ -60,7 +65,7 @@ public class $className extends $testAdapterClassName {
 #end
 	}	
 		
-    @Test		
+	@Test		
 	public void testDelete$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	${daoInterfaceVariableName}.delete$domainClassName(${domainVariableName});
@@ -68,7 +73,7 @@ public class $className extends $testAdapterClassName {
         assertNull (${domainVariableName}2);
     }
 	
-    @Test	
+	@Test	
 	public void testUpdate$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
@@ -117,7 +122,7 @@ public class $className extends $testAdapterClassName {
 	}	
 */   
  
-    @Test	
+	//@Test	
     public void testPagination () {
     	// set something to paginate
     	// TODO
@@ -150,26 +155,75 @@ public class $className extends $testAdapterClassName {
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
         ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+#elseif ($column.isPrimaryKey() && $isPkUserProvided)
+        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
 #end
 #end
-#foreach ($reference in ${table.parents})
+##foreach ($reference in ${table.parents})
+##putReferenceParams2()
+##putDependencies()
+##getTemplatePropertyValue("uml")
+##if (!$value.equals("true"))
+##set ($parentSetter = ${parentLink})
+##else
+##set ($parentSetter = ${parentLinkUML})
+##end
+##        // fill associated parent $reference.foreignTableName via $parentSetter
+##        //$dependentTestDaoClass ${dependentTestDaoVariableName}_${localColumnClass} = new $dependentTestDaoClass();
+##        $dependentDomainClassName ${dependentDomainVariableName}_${localColumnClass} = ${dependentTestDaoVariableName}_${localColumnClass}.insert$linkedTableClass();
+##        ${domainVariableName}.set${parentSetter} (${dependentDomainVariableName}_${localColumnClass});
+##        ${domainVariableName}.set$localColumnClass (${dependentDomainVariableName}_${localColumnClass}.get$linkedColumnClass());
+##end
+
+##foreach ($linktableDB in $distinctDependencies)
+##putDependencies()
+##        inject$dependentDomainClassName();	
+##end  
+#foreach ($reference in $table.parents)
 #putReferenceParams2()
+#exposeLinkedEntityDependencies()
+#set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
 #putDependencies()
-#getTemplatePropertyValue("uml")
-#if (!$value.equals("true"))
-#set ($parentSetter = ${parentLink})
-#else
-#set ($parentSetter = ${parentLinkUML})
-#end
-        // fill associated parent $reference.foreignTableName via $parentSetter
-        $dependentTestDaoClass ${dependentTestDaoVariableName}_${localColumnClass} = new $dependentTestDaoClass();
-        $dependentDomainClassName ${dependentDomainVariableName}_${localColumnClass} = ${dependentTestDaoVariableName}_${localColumnClass}.insert$linkedTableClass();
-        ${domainVariableName}.set${parentSetter} (${dependentDomainVariableName}_${localColumnClass});
-        ${domainVariableName}.set$localColumnClass (${dependentDomainVariableName}_${localColumnClass}.get$linkedColumnClass());
-#end
+        $dependentDomainClassName $dependentDomainVariableName = inject$dependentDomainClassName();	
+        ${domainVariableName}.set$localColumnClass(${dependentDomainVariableName}.get$primaryKeyJavaNameClass());
+#end 
         return $domainVariableName;
     }
+
+#foreach ($linktableDB in $distinctDependencies)
+#putDependencies()
+#set ($masterDependentDomainVariableName = $dependentDomainVariableName)
+
+    // dependency $dependentDomainClassName injection
+    public $dependentDomainClassName inject$dependentDomainClassName () {
+        $dependentDomainClassName $dependentDomainVariableName = populate$dependentDomainClassName ();
+        ${dependentDaoInterfaceVariableName}.insert$dependentDomainClassName ($dependentDomainVariableName);
+        return $dependentDomainVariableName;
+    }
     
+    public $dependentDomainClassName populate$dependentDomainClassName () {
+        $dependentDomainClassName $dependentDomainVariableName = new $dependentDomainClassName();
+#foreach ($column in ${linktableDB.columns})
+#putColumnParams()
+#if (!$column.isPrimaryKey() && !$isForeignKey)
+        ${dependentDomainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+#elseif ($column.isPrimaryKey() && $isPkUserProvided)
+        ${dependentDomainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+#end
+#end
+##foreach ($linktableDB in $distinctLinkedTableDependencies)
+#foreach ($reference in $linktableDB.parents)
+#putReferenceParams2()
+#exposeLinkedEntityDependencies()
+#set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
+#putDependencies()
+        $dependentDomainClassName $dependentDomainVariableName = inject$dependentDomainClassName();	
+        ${masterDependentDomainVariableName}.set$localColumnClass(${dependentDomainVariableName}.get$primaryKeyJavaNameClass());
+#end  
+        return $masterDependentDomainVariableName;
+    }   
+#end
+     
     public $domainClassName populateFirstNonPkField$domainClassName () {
        // works if the table does not contain only pk
        $domainClassName $domainVariableName = new $domainClassName();
