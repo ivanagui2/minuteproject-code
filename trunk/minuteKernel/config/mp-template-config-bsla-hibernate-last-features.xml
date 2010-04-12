@@ -20,10 +20,18 @@
 		</template>		
 		<template name="BslaDaoTestAdapter" templateFileName="BslaDaoTestAdapter.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
-			file-extension="java" file-prefix="Adapter" file-suffix="DaoTest" 
+			file-extension="java" file-prefix="Adapter" file-suffix="TestDao" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>		
-				
+		</template>					
+	</template-target>		
+	
+	<template-target 
+		rootdir="../../minuteTemplate/template-bsla"
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
+		tool="velocity"
+		outputdir="src/test/resources"
+		belongToPackage="true">
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.configuration"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
