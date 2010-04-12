@@ -7,7 +7,7 @@ import java.util.Hashtable;
 public class SimpleCache implements Cache {
 	
 	private Long delay;
-	private final long delayDefault = 1000*60;
+	private final long delayDefault = 1000*300;
 	private final int  maxKeyDefault = 100;
 	private Integer  maxKeys;
 	
