@@ -72,10 +72,18 @@ public interface $className extends DataAccessObject {
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName
+#if($isMany2Many)
+     * @param $tableClassName ${tableVariableName}
+#else     
      * @param $primaryKeyFullType $primaryKey
+#end
      * @return $tableClassName The $tableClassName entity
      */
+#if($isMany2Many)
+    public $tableClassName load$tableClassName($tableClassName ${tableVariableName});
+#else      
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable);    
+#end
 
     /**
      * Loads a list of $tableClassName entity 

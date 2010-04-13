@@ -140,13 +140,11 @@ public class $className extends $testAdapterClassName {
 	}
 
     public $domainClassName load$domainClassName ($domainClassName ${domainVariableName}) {
+#if($isMany2Many)
+    	return ${daoInterfaceVariableName}.load${domainClassName}(${domainVariableName});
+#else     
     	return ${daoInterfaceVariableName}.load${domainClassName}(${domainVariableName}.get$primaryKeyJavaNameClass());
-/*    correct implementation but currently does not work with m2m
-    	return ${daoInterfaceVariableName}.load${domainClassName}(
-#foreach ($column in $table.primaryKeyColumns) 
-#putColumnParams()
-     	   ${domainVariableName}.get$columnClass()#if ($velocityCount!=$primaryKeyCount),#end
-#end);*/
+#end    
 	}	
 
     public $domainClassName populate$domainClassName () {

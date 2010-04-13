@@ -157,27 +157,55 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     public void delete$tableClassName($tableClassName $tableVariableName) {
       getHibernateTemplate().delete($tableVariableName);
     }
-    
+
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName
-     * @param Long id
+#if($isMany2Many)
+     * @param $tableClassName ${tableVariableName}
+#else     
+     * @param $primaryKeyFullType $primaryKey
+#end
      * @return $tableClassName The $tableClassName entity
      
-    public $tableClassName load$tableClassName(Long id) {
-    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, id);
+#if($isMany2Many)
+    public $tableClassName load$tableClassName($tableClassName ${tableVariableName}) {
+    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, ${tableVariableName});    
+#else      
+    public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
+    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
+#end    
     }
-*/
-    /**
+
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName
      * @param $primaryKeyFullType $primaryKey
      * @return $tableClassName The $tableClassName entity
-     */
+   
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
        return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
     }   
+*/
 
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName
+#if($isMany2Many)
+     * @param $tableClassName ${tableVariableName}
+#else     
+     * @param $primaryKeyFullType $primaryKey
+#end
+     * @return $tableClassName The $tableClassName entity
+     */
+#if($isMany2Many)
+    public $tableClassName load$tableClassName($tableClassName ${tableVariableName}) {
+    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, ${tableVariableName});    
+#else      
+    public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
+    	return ($tableClassName)getHibernateTemplate().get(${tableClassName}.class, $primaryKeyVariable);
+#end    
+    }
+    
     /**
      * Loads a list of $tableClassName entity 
      * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
