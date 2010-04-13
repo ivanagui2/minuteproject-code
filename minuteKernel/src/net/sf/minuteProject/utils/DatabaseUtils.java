@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils;
 
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
@@ -24,6 +25,15 @@ public class DatabaseUtils {
 		return "ERROR_ON_LOOK_UP for PK";
 	}
 	
+	public String provideSequence (Model model) {
+		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = getPrimaryKeyPolicyPattern(model);
+		return provideSequenceOneGlobal(primaryKeyPolicyPattern);
+	}
+	
+	public static String provideSequenceOneGlobal (PrimaryKeyPolicyPattern primaryKeyPolicyPattern) {
+		return primaryKeyPolicyPattern.getPrefix()+primaryKeyPolicyPattern.getSequenceName()+primaryKeyPolicyPattern.getSuffix();
+	}
+	
 	public static String provideSequence (Table table) {
 		PrimaryKeyPolicy primaryKeyPolicy = table.getDatabase().getDataModel().getPrimaryKeyPolicy();
 		if (primaryKeyPolicy==null) {
@@ -36,7 +46,7 @@ public class DatabaseUtils {
 			return "NO LOOK UP for PK : no pattern found";
 		}
 		if (primaryKeyPolicy.isOneGlobal()) {
-			return primaryKeyPolicyPattern.getPrefix()+primaryKeyPolicyPattern.getSequenceName()+primaryKeyPolicyPattern.getSuffix();
+			return provideSequenceOneGlobal(primaryKeyPolicyPattern);
 		} else if (primaryKeyPolicy.isOneForEachTable()){
 			String seq = table.getName();
 			if (primaryKeyPolicyPattern.getPrefix()!=null || primaryKeyPolicyPattern.getSuffix()!=null) {
@@ -63,14 +73,41 @@ public class DatabaseUtils {
 			
 	}
 	
+	//
+	public boolean isPrimaryKeyPolicyOneGlobal(Model model) {
+		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
+		return primaryKeyPolicy.isOneGlobal();
+	}
+	
+	public boolean isPrimaryKeyPolicyOneForEachTable(Model model) {
+		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
+		return primaryKeyPolicy.isOneForEachTable();
+	}
+	
+	private PrimaryKeyPolicy getPrimaryKeyPolicy (Table table) {
+		return table.getDatabase().getDataModel().getPrimaryKeyPolicy();
+	}
+	
+	private PrimaryKeyPolicy getPrimaryKeyPolicy (Model model) {
+		return model.getDataModel().getPrimaryKeyPolicy();
+	}
 //	public boolean 
-	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Table table) {
-		PrimaryKeyPolicy primaryKeyPolicy = table.getDatabase().getDataModel().getPrimaryKeyPolicy();
+	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (PrimaryKeyPolicy primaryKeyPolicy) {
 		if (primaryKeyPolicy==null) {
 			//TODO log should provide a policy pattern
 			return null;
 		}
 		return  primaryKeyPolicy.getFirstPrimaryKeyPolicyPattern();
+	}
+	
+	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Model model) {
+		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
+		return  getPrimaryKeyPolicyPattern(primaryKeyPolicy);
+	}
+	
+	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Table table) {
+		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(table);
+		return  getPrimaryKeyPolicyPattern(primaryKeyPolicy);
 	}
 	
 	public PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicyPatternEnum (Table table) {
