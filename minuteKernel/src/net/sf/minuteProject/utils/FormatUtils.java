@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 public class FormatUtils {
 	
 	public static String getDirFromPackage (String packageSt) {
-		return StringUtils.replace(packageSt,".","/");
+		return (packageSt!=null)? StringUtils.replace(packageSt,".","/"):"";
 	}
 	
 	public static String getDirToPackage (String packageSt) {
