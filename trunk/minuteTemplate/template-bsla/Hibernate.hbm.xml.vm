@@ -2,7 +2,7 @@
 #exposeEnvironmentParams()
 #putImportParamsUML()
 #templateDefinition()
-#set($hasEhCache=$commonUtils.hasTemplate($model, $templateBslaEhCacheXml))
+#exposeEntityCache()
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE hibernate-mapping PUBLIC
@@ -13,10 +13,12 @@
 	<class name="$importDomainObjectUML" 
 	       table="${table.name}"
 	       lazy="true">
-#if ($hasEhCache)       
-    <cache usage="read-write" />
+#if ($hasCache)   
+    
+    <cache usage="$cacheStrategy" />
 #end
 #if($hasPrimaryKey && !$isMany2Many)
+
     <id name="$primaryKeyVariable" column="$pK" type="$primaryKeyFullType">            
 #if (!$isPkUserProvided)
 #if ($isPrimaryKeyPolicySequence)

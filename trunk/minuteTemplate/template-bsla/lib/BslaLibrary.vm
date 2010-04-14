@@ -380,6 +380,17 @@
 #set ($loginErrorPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateWebSecurityLoginErrorPage))
 #end
 
+#macro (exposeModelCache)
+#set ($hasEhCache=$commonUtils.hasTemplate($model, $templateBslaEhCacheXml))
+#set ($hasCache = $hasEhCache)
+#set ($ehCacheConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model.configuration, $template, $templateBslaEhCacheXml))
+#end
+
+#macro (exposeEntityCache)
+#set ($hasCache = $cacheUtils.hasCache($table))
+#set ($cacheStrategy = $cacheUtils.getCacheStrategy($table))
+#end
+
 #macro (exposeLobProperties)
 #getTemplatePropertyValue("convertClobToString")
 #set ($convertClobToString = $value)
