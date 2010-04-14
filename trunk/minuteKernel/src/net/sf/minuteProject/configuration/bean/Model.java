@@ -60,9 +60,12 @@ public class Model  extends AbstractConfiguration{
 	
 	public String getTechnicalPackage(Template template) {
 		StringBuffer sb = new StringBuffer(template.getPackageRoot());
-		if (template.getAddModelDirName()==null 
+		if ((template.getAddModelDirName()==null 
 			|| template.getAddModelDirName().equals("")
-			|| template.getAddModelDirName().equals("true"))		
+			|| template.getAddModelDirName().equals("true"))	
+			&& 
+			!(template.getApplicationSpecific()!=null && template.getApplicationSpecific().equals("true"))
+			)
 			sb.append("."+getName());
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());

@@ -4,6 +4,8 @@
 	<plugin name="criteriaUtils" className="net.sf.minuteProject.utils.criteria.CriteriaUtils"></plugin>
 	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
 	<plugin name="mavenUtils" className="net.sf.minuteProject.plugin.maven.MavenUtils"></plugin>
+	<plugin name="cacheUtils" className="net.sf.minuteProject.utils.cache.CacheUtils"></plugin>
+	
 
 	<template-target 
 		rootdir="../../minuteTemplate/template-bsla"
@@ -135,13 +137,14 @@
 		<!-- HIBERNATE CONFIGURATION end -->
 		
 		<!-- CACHING CONFIGURATION -->
-		<template name="BslaEhCache" templateFileName="BslaEhCache.Xml.vm" 
-			subdir="" outputsubdir="" technicalPackage="persistence"
-			file-extension=".xml" file-prefix="ehcache" file-suffix="" 
-			entity-specific="false" package-specific="false" model-specific="true"
+		<template name="BslaEhCacheXml" templateFileName="BslaEhCache.Xml.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="ehcache" file-suffix="" 
+			application-specific="true" package-root=""
 			add-model-name="false">
 		</template>			
-		<!-- CACHING CONFIGURATION -->
+		
+		<!-- CACHING CONFIGURATION end -->
 		
 		<!-- SPRING CONFIGURATION -->
 		<template name="BslaSpringConfigDaoHibernate" templateFileName="BslaSpringConfigDaoHibernate.vm" 

@@ -6,7 +6,7 @@
 			    <!--  --><driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9012/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
@@ -23,12 +23,16 @@
 				</generation-condition>		
 				<business-package default="pet">
 					<condition type="package" startsWith="TB_" result="other"></condition>
-				</business-package>							
+				</business-package>		
+				<enrichment>
+					<entity name="CATEGORY" content-type="reference-data" />
+				</enrichment>					
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default" fileName="mp-template-config-bsla-hibernate-last-features.xml" outputdir-root="../../DEV/output/petshopHibernate">
-	<!-- 		dir="C:/DEV/JAVA/eclipse/workspace-demo/minutePetshopHibernate/install" fileName="mp-hibernate.xml">
-		 -->
+		<target refname="BackendOnBsla" 
+		   name="default" 
+		   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
+		   outputdir-root="../../DEV/output/petshopHibernate">
 		</target> 	
 	</configuration>
 </generator-config>

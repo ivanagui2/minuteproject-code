@@ -225,7 +225,7 @@ public class CommonUtils {
 		return getPackageName(model, getTargetTemplate(model, targetTemplateName), table);
 	}
 	
-	protected static String getPackageName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+	public static String getPackageName (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		return getPackageName(bean, getTargetTemplate(template, targetTemplateName));
 	}
 	
