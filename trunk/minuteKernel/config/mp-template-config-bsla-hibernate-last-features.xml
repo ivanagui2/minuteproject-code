@@ -33,13 +33,13 @@
 		outputdir="src/test/resources"
 		belongToPackage="true">
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		  <property tag="environment" value="local"/>
 		</template>			
 		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="hibernateDialect" value="true"></property>
@@ -134,38 +134,48 @@
 		</template>		
 		<!-- HIBERNATE CONFIGURATION end -->
 		
-		<!-- SPRING CONFIG -->
+		<!-- CACHING CONFIGURATION -->
+		<template name="BslaEhCache" templateFileName="BslaEhCache.Xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="persistence"
+			file-extension=".xml" file-prefix="ehcache" file-suffix="" 
+			entity-specific="false" package-specific="false" model-specific="true"
+			add-model-name="false">
+		</template>			
+		<!-- CACHING CONFIGURATION -->
+		
+		<!-- SPRING CONFIGURATION -->
 		<template name="BslaSpringConfigDaoHibernate" templateFileName="BslaSpringConfigDaoHibernate.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-hibernate-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
 		</template>									
 							
 		<!-- spring config extended -->
 		<template name="BslaSpringConfigDaoExtHibernate" templateFileName="BslaSpringConfigDaoExtHibernate.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-ext-hibernate-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
 		</template>	
 									
 		<template name="BslaSpringConfigDaoHibernate2" templateFileName="BslaSpringConfigDaoHibernate2.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-hibernate-" file-suffix="-dao" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>	
 		<template name="BslaSpringConfigHibernate" templateFileName="BslaSpringConfigMainHibernate.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-Hibernate-BE-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>								 
 				
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>			
+		
 		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
-			subdir="" outputsubdir="" technicalPackage="factory.configuration"
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="hibernateDialect" value="true"></property>
