@@ -127,7 +127,7 @@ public class DatabaseUtils {
 	}
 	
 	public boolean isPrimaryKeyPolicyIncrement(Table table) {
-		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.INCREMENT);
+		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.AUTOINCREMENT);
 	}
 	
 }
