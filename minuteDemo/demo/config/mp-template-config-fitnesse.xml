@@ -8,8 +8,8 @@
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
-	   outputdir="../output/petshopFitness"
 	   package-root="TestFitnesseCrud"
+	   outputdir=""
 	   belongToPackage="true">
 	
 		<!-- select fixture -->
@@ -52,7 +52,7 @@
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
-	   outputdir="../output/petshopFitness"
+	   outputdir=""
 	   package-root="TestFitnesse"
        belongToPackage="true">
 	
@@ -113,8 +113,7 @@
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
-	   outputdir="../output/petshopFitness/src-generated"
-	   package-root="sf.net.mp.demo"
+	   outputdir="src-generated"
 		belongToPackage="true">
 	
 		<!-- select fixture -->

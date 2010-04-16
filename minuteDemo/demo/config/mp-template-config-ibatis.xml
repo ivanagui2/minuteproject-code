@@ -7,8 +7,7 @@
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
-	    outputdir="../output/petshopIbatis/src-generated"
-	    package-root="sf.net.mp.demo"
+		outputdir=""
 		belongToPackage="true">
 		<!-- bsla templates -->			
 		<template name="BslaDomainObject" templateFileName="BslaDomainObject.vm" 

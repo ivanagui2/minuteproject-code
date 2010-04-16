@@ -2,10 +2,8 @@
 <generator-config>
     <property file="generator-config-pdmurf-hibernate.properties"/>
 	<configuration>
-		<model name="firstpetshop">
+		<model name="petshop" package-root="sf.net.mp.demo">
 			<data-model>
-			    <fileSource name="pdmurf" dir="C:/DATA/generator">
-			    </fileSource>
 				 <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
@@ -29,9 +27,7 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default"  fileName="mp-template-config-ibatis.xml">
-			<property name="web.artifacts.output.dir"></property>
-			<property name="backend.artifacts.output.dir"></property>		
+		<target refname="BackendOnBsla" name="default"  fileName="mp-template-config-ibatis.xml" outputdir-root="../output/petshopIbatis/src-generated">
 		</target> 	
 	</configuration>
 </generator-config>

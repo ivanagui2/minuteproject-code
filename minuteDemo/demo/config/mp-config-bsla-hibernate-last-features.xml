@@ -1,8 +1,9 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop" package-root="sf.net.mp.demo">
+		<model name="petshop" version="1.0" package-root="sf.net.mp.demo">
 			<data-model>
+			    <!--  --><driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
@@ -22,10 +23,16 @@
 				</generation-condition>		
 				<business-package default="pet">
 					<condition type="package" startsWith="TB_" result="other"></condition>
-				</business-package>							
+				</business-package>		
+				<enrichment>
+					<entity name="CATEGORY" content-type="reference-data" />
+				</enrichment>					
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default" fileName="mp-template-config-fitnesse.xml" outputdir-root="../output/petshopFitnesse">
+		<target refname="BackendOnBsla" 
+		   name="default" 
+		   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
+		   outputdir-root="../output/petshopLastFeature">
 		</target> 	
 	</configuration>
 </generator-config>

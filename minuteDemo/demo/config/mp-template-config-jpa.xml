@@ -6,13 +6,12 @@
 				
 
 	<template-target 
-        name="JPA set"
-	    templatedir = "template" 
-	    rootdir="../.."
+    name="JPA set"
+	  templatedir = "template" 
+	  rootdir="../.."
 		libdir="lib/BslaLibrary.vm,lib/JPA_LIB.vm"
 		tool="velocity"
-	    outputdir="../output/petshopJpa/src-generated"
-	    package-root="sf.net.mp.demo"
+		outputdir=""
 		belongToPackage="true">
 
 		<template name="DomainObjectUML" templateFileName="DomainObjectUML.vm" 

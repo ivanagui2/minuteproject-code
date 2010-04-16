@@ -2,10 +2,8 @@
 <generator-config>
     <property file="generator-config-pdmurf-hibernate.properties"/>
 	<configuration>
-		<model name="mypetshop">
+		<model name="petshop" package-root="sf.net.mp.demo">
 			<data-model>
-			    <fileSource name="mypetshop" dir="C:/DATA/generator">
-			    </fileSource>
 				 <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
@@ -22,16 +20,13 @@
 			<business-model>
 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
-					<!-- <condition type="exclude" startsWith="VW_"></condition>-->
 				</generation-condition>		
 				<business-package default="pet">
 					<condition type="package" startsWith="TB_" result="other"></condition>
 				</business-package>							
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default" fileName="mp-template-config-jpa.xml">
-			<property name="web.artifacts.output.dir"></property>
-			<property name="backend.artifacts.output.dir"></property>		
+		<target refname="BackendOnBsla" name="default" fileName="mp-template-config-jpa.xml" outputdir-root="../output/petshopJpa/src-generated">
 		</target> 	
 	</configuration>
 </generator-config>
