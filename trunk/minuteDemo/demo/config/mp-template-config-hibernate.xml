@@ -7,8 +7,7 @@
     templatedir = "template" 
 	libdir="lib/BslaLibrary.vm"
 	tool="velocity"
-	outputdir="../output/petshopHibernate/src-generated"
-	package-root="sf.net.mp.demo"
+	outputdir=""
 	belongToPackage="true">
 	
 		<!--  hibernate templates -->
