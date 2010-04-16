@@ -41,7 +41,7 @@ cp.cmd
 	<target name="build-minuteFoundation">
 	   <ant dir="${minute.foundation.dev.relpath}" target="distribute" >
 	   	 <property name="project.name" value="${minuteFoundation}"></property>
-		 <property name="distribute.dir" value="${release.del.relpath}/${application.dir}"></property>
+		 <property name="distribute.dir" value="${release.del.relpath}/${application.dir}/lib"></property>
 	   </ant>	
 		<!---->
 	   <ant dir="${minute.foundation.dev.relpath}" target="distribute" >
@@ -50,7 +50,16 @@ cp.cmd
 	   </ant>			
 	</target>
 
-	<target name="release-minuteFoundation" depends="build-minuteFoundation"></target>
+	<target name="distribute-minuteFoundation">
+	  <copy todir="${application.dir}" overwrite="true">
+	 	<fileset dir="${minute.foundation.dev.relpath}/dist">
+	 		<include name="**/*.jar"/>
+	 		<include name="**/*.zip"/>
+	 	</fileset>
+	  </copy>	  		
+	</target>
+	 			
+	<target name="release-minuteFoundation" depends="build-minuteFoundation, distribute-minuteFoundation"></target>
 	
 	
 	<target name="build-architecture-bsla">
@@ -127,6 +136,7 @@ cp.cmd
 	 	<fileset dir="${template.dev.relpath}">
 	 		<include name="*.vm"/>
 	 		<include name="lib/*.vm"/>
+	 		<include name="snippet/*.vm"/>
 	 		<exclude name="**/*.xml"/>	 		
 	 	</fileset>
 	  </copy>
