@@ -68,7 +68,13 @@ cp.cmd
 		  	<property name="distribute.dir" value="../../${release.del.relpath}/${target.dir}/${bsla}"></property>
 		  </ant>		
 	</target>
-	
+	<target name="copy-install-maven">
+		  <copy todir="${target.dir}/${bsla}" overwrite="true">
+		 	<fileset dir="${architecture.bsla.dev.relpath}/script">
+		 		<include name="*.*"/>
+		 	</fileset>
+		  </copy>		
+	</target>
 	<target name="copy-architecture-bsla-dependencies">
 	  <copy todir="${target.dir}/${bsla}/${dependencies.lib.dir}" overwrite="true">
 	 	<fileset dir="${architecture.bsla.dev.relpath}/lib">
@@ -77,7 +83,7 @@ cp.cmd
 	  </copy>			
 	</target>
 	
-	<target name="release-architecture-bsla" depends="build-architecture-bsla,copy-architecture-bsla-dependencies"></target>
+	<target name="release-architecture-bsla" depends="build-architecture-bsla,copy-install-maven,copy-architecture-bsla-dependencies"></target>
 
 	<target name="build-architecture-fitnesse">
 	  <!--<ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
