@@ -93,7 +93,22 @@ public interface $className extends DataAccessObject {
     * search on prototype with cache
     */
     public List<$tableClassName> searchPrototypeWithCache$tableClassName ($tableClassName $tableVariableName);
-            
+      
+#if ($hasUniqueKey) 
+   /**
+   * uk<->pk
+   */
+   public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName);
+
+   public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName);
+#if ($hasOnlyOnePrimaryKey)
+
+   public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName);
+
+   public $primaryKeyType load${tableClassName}PkFromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName);
+#end   
+#end
+     
     /**
      * generic to move after in superclass
      */

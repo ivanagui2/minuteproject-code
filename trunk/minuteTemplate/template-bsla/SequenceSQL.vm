@@ -5,7 +5,7 @@
 CREATE SEQUENCE ${sequenceName};
 #else
 #exposeVariableModelDetailSpecific()
-#exposePrimaryKeyPolicy()
+##exposePrimaryKeyPolicy()
 #foreach($package in $businessPackages)
 #foreach($table in $package.listOfTables)
 #set ($sequenceName = $databaseUtils.provideSequence($table))

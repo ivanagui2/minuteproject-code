@@ -34,6 +34,8 @@
 #set ($bundle = $bslaLibraryUtils.getBundle($table))
 #set ($primaryKeyCount = $commonUtils.getPrimaryKeyCount($table))
 #set ($isMany2Many = $tableUtils.isMany2Many($table))
+#set ($hasUniqueKey = $tableUtils.hasUniqueKey($table))
+#set ($hasOnlyOnePrimaryKey = $tableUtils.hasOnlyOnePrimaryKey($table))
 #end
 
 #macro(exposeTableMetadata)

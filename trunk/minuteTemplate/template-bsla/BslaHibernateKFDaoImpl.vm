@@ -736,6 +736,30 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 		}
 		return list;
 	}
+	    
+#if ($hasUniqueKey) 
+   /**
+   * uk<->pk
+   */
+   public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName) {
+      return null;
+   }
+
+   public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
+      return null;
+   }
+
+#if ($hasOnlyOnePrimaryKey)
+   public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName) {
+      return null;
+   }
+
+   public $primaryKeyType load${tableClassName}PkFromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
+      return null;
+   }
+   
+#end   
+#end
     
     protected static String getQuerySelectComma (boolean isSelectSet) {
        if (isSelectSet)
