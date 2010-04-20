@@ -61,7 +61,14 @@ public class $className extends $testAdapterClassName {
        // assertion
 #foreach ($column in $table.columns) 
 #putColumnParams()
+#if (!$isForeignKey)
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#else
+#set ($parentTable = $columnUtils.getForeignTable($column))
+#if (${parentTable.name}!=${table.name})
+     	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#end
+#end
 #end
 	}	
 		
@@ -86,9 +93,20 @@ public class $className extends $testAdapterClassName {
 	    ${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
     	$domainClassName ${domainVariableName}3 = load${domainClassName}(${domainVariableName});
         // assertion
+##foreach ($column in $table.columns) 
+##putColumnParams()
+##    	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+##end
 #foreach ($column in $table.columns) 
 #putColumnParams()
+#if (!$isForeignKey)
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+#else
+#set ($parentTable = $columnUtils.getForeignTable($column))
+#if (${parentTable.name}!=${table.name})
+     	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+#end
+#end
 #end
 	}
 /* updateNotNull is not on both interface	
@@ -157,41 +175,23 @@ public class $className extends $testAdapterClassName {
         ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
 #end
 #end
-##foreach ($reference in ${table.parents})
-##putReferenceParams2()
-##putDependencies()
-##getTemplatePropertyValue("uml")
-##if (!$value.equals("true"))
-##set ($parentSetter = ${parentLink})
-##else
-##set ($parentSetter = ${parentLinkUML})
-##end
-##        // fill associated parent $reference.foreignTableName via $parentSetter
-##        //$dependentTestDaoClass ${dependentTestDaoVariableName}_${localColumnClass} = new $dependentTestDaoClass();
-##        $dependentDomainClassName ${dependentDomainVariableName}_${localColumnClass} = ${dependentTestDaoVariableName}_${localColumnClass}.insert$linkedTableClass();
-##        ${domainVariableName}.set${parentSetter} (${dependentDomainVariableName}_${localColumnClass});
-##        ${domainVariableName}.set$localColumnClass (${dependentDomainVariableName}_${localColumnClass}.get$linkedColumnClass());
-##end
-
-##foreach ($linktableDB in $distinctDependencies)
-##putDependencies()
-##        inject$dependentDomainClassName();	
-##end  
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#if (${table}!=${linktableDB}) ##prevents recursivity
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
 #putDependencies()
         $dependentDomainClassName $dependentDomainVariableName = inject$dependentDomainClassName();	
         ${domainVariableName}.set$localColumnClass(${dependentDomainVariableName}.get$primaryKeyJavaNameClass());
 #end 
+#end
         return $domainVariableName;
     }
 
 #foreach ($linktableDB in $distinctDependencies)
 #putDependencies()
 #set ($masterDependentDomainVariableName = $dependentDomainVariableName)
-
+#set ($masterLinktableDB = $linktableDB)
     // dependency $dependentDomainClassName injection
     public $dependentDomainClassName inject$dependentDomainClassName () {
         $dependentDomainClassName $dependentDomainVariableName = populate$dependentDomainClassName ();
@@ -209,15 +209,16 @@ public class $className extends $testAdapterClassName {
         ${dependentDomainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
 #end
 #end
-##foreach ($linktableDB in $distinctLinkedTableDependencies)
 #foreach ($reference in $linktableDB.parents)
 #putReferenceParams2()
+#if (${masterLinktableDB}!=${linktableDB}) ##prevents recursivity
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
 #putDependencies()
         $dependentDomainClassName $dependentDomainVariableName = inject$dependentDomainClassName();	
         ${masterDependentDomainVariableName}.set$localColumnClass(${dependentDomainVariableName}.get$primaryKeyJavaNameClass());
-#end  
+#end 
+#end 
         return $masterDependentDomainVariableName;
     }   
 #end
