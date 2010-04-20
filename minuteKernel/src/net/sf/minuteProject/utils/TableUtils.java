@@ -83,6 +83,14 @@ public class TableUtils {
 		return primaryKeyColumn[0];				
 	}
 	
+	public static boolean hasOnlyOnePrimaryKey (Table table) { 
+		return (table.getPrimaryKeyColumns()!=null && table.getPrimaryKeyColumns().length==1)?true:false;
+	}
+	
+	public static boolean hasUniqueKey (Table table) {
+		return (table.getUniqueIndices()!=null && table.getUniqueIndices().length>0)?true:false;
+	}
+	
 	public static boolean isUnique (Table table, Column column) {
 		if (table==null)
 			return false;
