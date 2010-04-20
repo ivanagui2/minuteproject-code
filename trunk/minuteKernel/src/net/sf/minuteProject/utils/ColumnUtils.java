@@ -45,25 +45,26 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isForeignKey (Column column) {
-		//TODO for not to operate it each time put it in the Column implementation abstract class
 		Table table = column.getTable();
 		return isForeignKey(column, table);
-//		Reference[] reference = table.getParents();
-//		for (int i = 0; i < reference.length; i++) {
-//			if (reference[i].getLocalColumnName().equals(column.getName()))
-//				return true;
-//		}
-//		return false;
 	}
 
 	public static boolean isForeignKey (Column column, Table table) {
-		//TODO for not to operate it each time put it in the Column implementation abstract class
 		Reference[] reference = table.getParents();
 		for (int i = 0; i < reference.length; i++) {
 			if (reference[i].getLocalColumnName().equals(column.getName()))
 				return true;
 		}
 		return false;
+	}
+	
+	public static Table getForeignTable (Column column) {
+		Reference reference = getReference(column);
+		return (reference!=null)? reference.getForeignTable():null;
+	}
+
+	private static Reference getReference (Column column) {
+		return ReferenceUtils.getReference(column);
 	}
 	
 	public static boolean isLengthPrecisionColumn(Column column) {
