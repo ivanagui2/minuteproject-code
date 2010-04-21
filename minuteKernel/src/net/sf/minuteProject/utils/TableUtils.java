@@ -101,13 +101,13 @@ public class TableUtils {
 			for (int i = 0; i < indexes.length; i++) {
 				Column[] indexColumn = indexes[i].getColumns();
 				if (indexColumn!=null) {
-					for (int j = 0; j < indexColumn.length; j++) {
+//					for (int j = 0; j < indexColumn.length; j++) {
 						if (indexColumn.length==1 
-							&& indexColumn[j]!=null
-							&& indexColumn[j].getName()!=null
-							&& indexColumn[j].getName().equals (column.getName()))
+							&& indexColumn[0]!=null
+							&& indexColumn[0].getName()!=null
+							&& indexColumn[0].getName().equals (column.getName()))
 							return true;
-					}
+//					}
 				}
 			}
 		}
