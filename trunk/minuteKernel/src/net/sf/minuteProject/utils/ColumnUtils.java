@@ -44,6 +44,10 @@ public class ColumnUtils {
 		return isNaturalPk(column);
 	}
 	
+	public static boolean isUnique (Column column) {
+		return TableUtils.isUnique(column.getTable(), column);
+	}
+	
 	public static boolean isForeignKey (Column column) {
 		Table table = column.getTable();
 		return isForeignKey(column, table);
