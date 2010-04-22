@@ -116,6 +116,11 @@ public class FormatUtils {
 		return input;
 	}
 	
+	public static String formatToSQLSingleString (String input) {
+		input = StringUtils.replace(input, " ",	"_");
+		return upperCase(input);
+	}
+	
 	public static String upperCase (String st) {
 		return StringUtils.upperCase(st);
 	}
