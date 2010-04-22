@@ -20,7 +20,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	}
 	
 	public String getGeneratedBeanName() {
-		return FormatUtils.getJavaName(table.getName()+"_"+getName());
+		return FormatUtils.getJavaName(table.getAlias()+"_"+getName());
 	}	
     /**
      * Returns the name of the column.
