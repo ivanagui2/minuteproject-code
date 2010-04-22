@@ -13,7 +13,7 @@
         <groupId>$driver.groupId</groupId>
         <artifactId>$driver.artifactId</artifactId>
         <version>$driver.version</version>
-        <type>pom</type>        
+        <!--<type>pom</type>-->        
     </dependency>
     <dependency>
         <groupId>junit</groupId>

@@ -54,6 +54,11 @@
 #exposeVariableModelDetailSpecific()
 #end
 
+#macro (exposeColumnSpecific)
+#set ($packageName = $commonUtils.getPackageName($column, $template))
+#set ($className = $commonUtils.getClassName($column, $template))
+#end
+
 #macro(exposeVariableModelDetailSpecific)
 #set ($database = $model.dataModel.database)
 #set ($configuration = $model.configuration)
