@@ -5,6 +5,7 @@
 	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
 	<plugin name="mavenUtils" className="net.sf.minuteProject.plugin.maven.MavenUtils"></plugin>
 	<plugin name="cacheUtils" className="net.sf.minuteProject.utils.cache.CacheUtils"></plugin>
+	<plugin name="referenceDataUtils" className="net.sf.minuteProject.plugin.data.ReferenceDataUtils"></plugin>
 	
 
 	<template-target 
@@ -119,9 +120,9 @@
 			file-extension="java" file-prefix="" file-suffix="Enum" 
 			field-specific="true" 
             check-template-to-generate="true" 
-            is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnTag"
-		>
-			<property name="generateForTag" value="checkFromDatabase"></property>
+            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
+			>
+			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
 		
 	</template-target>	
