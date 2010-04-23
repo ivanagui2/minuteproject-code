@@ -587,6 +587,10 @@ import $importDaoInterfaceUML;
 #set ($templateDomainObjectWhatUML  = "DomainObjectWhatUML")
 #set ($templateBslaSpringConfigHibBE = "BslaSpringConfigHibernate")
 #set ($templateBslaDaoTestAdapter = "BslaDaoTestAdapter")
+#set ($templateDbProperties = "DatabaseConnectionProperties")
+#set ($templateDBSchemaDeleteOrder = "DBSchemaDeleteOrder")
+#set ($templateDBCommit = "DBCommit")
+#set ($templateDBInsertEnumeration = "InsertEnumerationSQL")
 #end
 
 #macro (templateDefinitionWeb)

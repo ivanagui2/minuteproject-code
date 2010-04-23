@@ -5,5 +5,10 @@
 	<classpathentry kind="lib" path="lib/fitlibrary.jar"/>
 	<classpathentry kind="lib" path="lib/fitnesse.jar"/>
 	<classpathentry kind="lib" path="lib/commons-dbcp-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-jexl.jar"/>
+	<classpathentry kind="lib" path="lib/scriptella-core.jar"/>
+	<classpathentry kind="lib" path="lib/scriptella-drivers.jar"/>
+	<classpathentry kind="lib" path="lib/scriptella-tools.jar"/>
+	<classpathentry kind="lib" path="lib/scriptella.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
