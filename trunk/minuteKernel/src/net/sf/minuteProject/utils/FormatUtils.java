@@ -156,6 +156,7 @@ public class FormatUtils {
 
 	public static final String convertToValidJava(String input, String regEx,
 			String replacement, boolean upperCase) {
+		input = input.trim();
 		String res = convertToValidJava(input, regEx, replacement);
 		if (upperCase)
 			res = res.toUpperCase();
@@ -164,7 +165,7 @@ public class FormatUtils {
 
 	public static final String convertToValidJava(String input, String regEx,
 			String replacement) {
-		String res = input;
+		String res = input.trim();
 		Pattern pattern = Pattern.compile(regEx);
 		java.util.regex.Matcher matcher = pattern.matcher(res);
 		while (matcher.find()) {
