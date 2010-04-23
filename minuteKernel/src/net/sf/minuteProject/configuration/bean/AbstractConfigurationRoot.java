@@ -20,7 +20,13 @@ public abstract class AbstractConfigurationRoot extends AbstractConfiguration{
 	}
 
 	public void setTarget(Target target) {
-		target.setAbstractConfigurationRoot(this);
+		setTarget(target, this);
+//		target.setAbstractConfigurationRoot(this);
+//		this.target = target;
+	}
+	
+	protected void setTarget(Target target, AbstractConfigurationRoot abstractConfigurationRoot) {
+		target.setAbstractConfigurationRoot(abstractConfigurationRoot);
 		this.target = target;
 	}
 
