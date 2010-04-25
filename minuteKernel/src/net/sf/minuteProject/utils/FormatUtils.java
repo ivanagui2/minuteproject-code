@@ -47,24 +47,7 @@ public class FormatUtils {
 			String charToStrip) {
 		StringTokenizer st = new StringTokenizer(name, charToStrip);
 		StringBuffer sb = new StringBuffer();
-		// String firstToken = st.nextToken();
-		// if (firstToken.length()==1) {
-		// sb.append(firstToken.toUpperCase());
-		// while (st.hasMoreTokens()){
-		// //sb.append(st.nextToken().toUpperCase());
-		// sb.append(firstUpperCaseOnly(st.nextToken()));
-		// }
-		// } else {
-		// sb.append(firstUpperCaseOnly(firstToken));
-		// while (st.hasMoreTokens()){
-		// String token = firstUpperCaseOnly(st.nextToken());
-		// sb.append(token);
-		// }
-		// }
-
-		// sb.append(firstToken.toUpperCase());
 		while (st.hasMoreTokens()) {
-			// sb.append(st.nextToken().toUpperCase());
 			sb.append(firstUpperCaseOnly(st.nextToken()));
 		}
 		return sb.toString();

@@ -50,37 +50,37 @@ import net.sf.minuteProject.utils.WebUtils;
 public class ModelViewGenerator extends ModelGenerator {
 
 	private static Logger logger = Logger.getLogger(ModelGenerator.class);
-	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
+//	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
 
 	/*
 	 * context object 
 	 */
-	private CommonUtils commonUtils;
-	private ConvertUtils convertUtils;
-	private ColumnUtils columnUtils;
-	private ViewUtils viewUtils;
-	private FormatUtils formatUtils;
-	private BslaLibraryUtils bslaLibraryUtils;
-	private DatabaseUtils databaseUtils;
-	private ModelUtils modelUtils;
-	private URLUtils urlUtils;
-	private TestUtils testUtils;
-	private WebUtils webUtils;
-	private SqlUtils sqlUtils;
-	private TableUtils tableUtils;
+//	private CommonUtils commonUtils;
+//	private ConvertUtils convertUtils;
+//	private ColumnUtils columnUtils;
+//	private ViewUtils viewUtils;
+//	private FormatUtils formatUtils;
+//	private BslaLibraryUtils bslaLibraryUtils;
+//	private DatabaseUtils databaseUtils;
+//	private ModelUtils modelUtils;
+//	private URLUtils urlUtils;
+//	private TestUtils testUtils;
+//	private WebUtils webUtils;
+//	private SqlUtils sqlUtils;
+//	private TableUtils tableUtils;
 
 	
 	private Model model;
 
-	private String modelConfig;
-
-	public String getModelConfig() {
-		return modelConfig;
-	}
-
-	public void setModelConfig(String modelConfig) {
-		this.modelConfig = modelConfig;
-	}
+//	private String modelConfig;
+//
+//	public String getModelConfig() {
+//		return modelConfig;
+//	}
+//
+//	public void setModelConfig(String modelConfig) {
+//		this.modelConfig = modelConfig;
+//	}
 
 	/**
 	 * Constructs the generator with its configuration
@@ -91,15 +91,15 @@ public class ModelViewGenerator extends ModelGenerator {
 		super(configurationFile);
 	}
 
-	@Override
-	public AbstractConfiguration getConfigurationRoot() {
-		return new Configuration();
-	}
-
-	@Override
-	public String getConfigurationRulesFile() {
-		return GENERATOR_MODEL_RULES;
-	}
+//	@Override
+//	public AbstractConfiguration getConfigurationRoot() {
+//		return new Configuration();
+//	}
+//
+//	@Override
+//	public String getConfigurationRulesFile() {
+//		return GENERATOR_MODEL_RULES;
+//	}
 
 	public static void main(String args[]) throws Exception {
 		String config;
@@ -220,89 +220,89 @@ public class ModelViewGenerator extends ModelGenerator {
 //		context.put("tableUtils", getTableUtils());
 //		context.put("testUtils", getTestUtils());		
 //	}
-
-	public BslaLibraryUtils getBslaLibraryUtils() {
-		if (bslaLibraryUtils==null)
-			bslaLibraryUtils = new BslaLibraryUtils();
-		return bslaLibraryUtils;
-	}
-
-	public ColumnUtils getColumnUtils() {
-		if (columnUtils==null)
-			columnUtils = new ColumnUtils();
-		return columnUtils;
-	}
-
-	public CommonUtils getCommonUtils() {
-		if (commonUtils==null)
-			commonUtils = new CommonUtils();
-		return commonUtils;
-	}
-
-	public ConvertUtils getConvertUtils() {
-		if (convertUtils == null)
-			convertUtils = new ConvertUtils();
-		return convertUtils;
-	}
-
-	public DatabaseUtils getDatabaseUtils() {
-		if (databaseUtils == null)
-			databaseUtils = new DatabaseUtils();
-		return databaseUtils;
-	}
-
-	public FormatUtils getFormatUtils() {
-		if (formatUtils == null)
-			formatUtils = new FormatUtils();
-		return formatUtils;
-	}
-
-	public ModelUtils getModelUtils() {
-		if (modelUtils == null)
-			modelUtils = new ModelUtils();
-		return modelUtils;
-	}
-
-	public SqlUtils getSqlUtils() {
-		if (sqlUtils == null)
-			sqlUtils = new SqlUtils();
-		return sqlUtils;
-	}
-
-	public TableUtils getTableUtils() {
-		if (tableUtils == null)
-			tableUtils = new TableUtils();
-		return tableUtils;
-	}
-
-	public TestUtils getTestUtils() {
-		if (testUtils == null)
-			testUtils = new TestUtils();
-		return testUtils;
-	}
-
-	public URLUtils getUrlUtils() {
-		if (urlUtils == null)
-			urlUtils = new URLUtils();
-		return urlUtils;
-	}
-
-	public ViewUtils getViewUtils() {
-		if (viewUtils == null)
-			viewUtils = new ViewUtils();
-		return viewUtils;
-	}
-
-	public WebUtils getWebUtils() {
-		if (webUtils == null)
-			webUtils = new WebUtils();
-		return webUtils;
-	}
-
-	/* 
-	 * private getter of the context object 
-	 */
-	
+//
+//	public BslaLibraryUtils getBslaLibraryUtils() {
+//		if (bslaLibraryUtils==null)
+//			bslaLibraryUtils = new BslaLibraryUtils();
+//		return bslaLibraryUtils;
+//	}
+//
+//	public ColumnUtils getColumnUtils() {
+//		if (columnUtils==null)
+//			columnUtils = new ColumnUtils();
+//		return columnUtils;
+//	}
+//
+//	public CommonUtils getCommonUtils() {
+//		if (commonUtils==null)
+//			commonUtils = new CommonUtils();
+//		return commonUtils;
+//	}
+//
+//	public ConvertUtils getConvertUtils() {
+//		if (convertUtils == null)
+//			convertUtils = new ConvertUtils();
+//		return convertUtils;
+//	}
+//
+//	public DatabaseUtils getDatabaseUtils() {
+//		if (databaseUtils == null)
+//			databaseUtils = new DatabaseUtils();
+//		return databaseUtils;
+//	}
+//
+//	public FormatUtils getFormatUtils() {
+//		if (formatUtils == null)
+//			formatUtils = new FormatUtils();
+//		return formatUtils;
+//	}
+//
+//	public ModelUtils getModelUtils() {
+//		if (modelUtils == null)
+//			modelUtils = new ModelUtils();
+//		return modelUtils;
+//	}
+//
+//	public SqlUtils getSqlUtils() {
+//		if (sqlUtils == null)
+//			sqlUtils = new SqlUtils();
+//		return sqlUtils;
+//	}
+//
+//	public TableUtils getTableUtils() {
+//		if (tableUtils == null)
+//			tableUtils = new TableUtils();
+//		return tableUtils;
+//	}
+//
+//	public TestUtils getTestUtils() {
+//		if (testUtils == null)
+//			testUtils = new TestUtils();
+//		return testUtils;
+//	}
+//
+//	public URLUtils getUrlUtils() {
+//		if (urlUtils == null)
+//			urlUtils = new URLUtils();
+//		return urlUtils;
+//	}
+//
+//	public ViewUtils getViewUtils() {
+//		if (viewUtils == null)
+//			viewUtils = new ViewUtils();
+//		return viewUtils;
+//	}
+//
+//	public WebUtils getWebUtils() {
+//		if (webUtils == null)
+//			webUtils = new WebUtils();
+//		return webUtils;
+//	}
+//
+//	/* 
+//	 * private getter of the context object 
+//	 */
+//	
 	
 	
 }
