@@ -123,7 +123,7 @@ public class TemplateTarget extends AbstractConfiguration{
 
 	public String getRootdir() {
 		if (rootdir == null)
-			rootdir = getTarget().getCanonicalDir();
+			rootdir = getTarget().getTemplatedirRoot();
 		return rootdir;
 	}
 	

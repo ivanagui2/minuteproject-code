@@ -403,6 +403,7 @@
 	<set-next-rule methodname="setTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>		  
 	<set-properties-rule>
 		<alias attr-name="outputdir-root" prop-name="outputdirRoot" />
+		<alias attr-name="templatedir-root" prop-name="templatedirRoot" />
 	</set-properties-rule>	
    	<bean-property-setter-rule pattern="refname"/>	 
    	<bean-property-setter-rule pattern="name"/>	 

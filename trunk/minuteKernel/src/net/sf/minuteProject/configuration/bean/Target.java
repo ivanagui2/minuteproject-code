@@ -26,6 +26,7 @@ public class Target extends AbstractConfiguration{
 	private TargetParams targetParams;
 	private ImportTargets importTargets;
 	private String outputdirRoot;
+	private String templatedirRoot;
 	
 	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
 		return abstractConfigurationRoot;
@@ -144,6 +145,12 @@ public class Target extends AbstractConfiguration{
 	}
 	public void setOutputdirRoot(String outputdirRoot) {
 		this.outputdirRoot = outputdirRoot;
+	}
+	public String getTemplatedirRoot() {
+		return templatedirRoot;
+	}
+	public void setTemplatedirRoot(String templatedirRoot) {
+		this.templatedirRoot = templatedirRoot;
 	}	
 	
 }
