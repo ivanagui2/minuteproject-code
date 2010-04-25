@@ -32,7 +32,8 @@
 		<target refname="BackendOnBsla" 
 		   name="default" 
 		   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-		   outputdir-root="../../DEV/output/petshopHibernate">
+		   outputdir-root="../../DEV/output/petshopHibernate"
+		   templatedir-root="../../minuteTemplate/template-bsla">
 		</target> 	
 	</configuration>
 </generator-config>

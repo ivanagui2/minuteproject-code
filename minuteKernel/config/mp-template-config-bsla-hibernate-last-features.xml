@@ -10,8 +10,6 @@
 	
 
 	<template-target 
-		rootdir="../../minuteTemplate/template-bsla"
-	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
 		outputdir="src/test/java"
@@ -30,8 +28,6 @@
 	</template-target>		
 	
 	<template-target 
-		rootdir="../../minuteTemplate/template-bsla"
-	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
 		outputdir="src/test/resources"
@@ -52,8 +48,6 @@
 	</template-target>		
 	
 	<template-target 
-		rootdir="../../minuteTemplate/template-bsla"
-	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir="src/main/java"
@@ -129,8 +123,6 @@
 	</template-target>	
 
 	<template-target 
-		rootdir="../../minuteTemplate/template-bsla"
-	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir="src/main/resources"
@@ -202,8 +194,6 @@
 	</template-target>	
 
 	<template-target 
-		rootdir="../../minuteTemplate/template-bsla"
-	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir="src/main/script"
@@ -227,7 +217,6 @@
 	</template-target>	
 	
 	<template-target 
-		rootdir="../../minuteTemplate/template-bsla"
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
