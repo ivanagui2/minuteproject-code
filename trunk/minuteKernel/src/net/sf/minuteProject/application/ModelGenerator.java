@@ -59,19 +59,19 @@ public class ModelGenerator extends AbstractGenerator {
 	/*
 	 * context object 
 	 */
-	private CommonUtils commonUtils;
-	private ConvertUtils convertUtils;
-	private ColumnUtils columnUtils;
-	private ViewUtils viewUtils;
-	private FormatUtils formatUtils;
-	private BslaLibraryUtils bslaLibraryUtils;
-	private DatabaseUtils databaseUtils;
-	private ModelUtils modelUtils;
-	private URLUtils urlUtils;
-	private TestUtils testUtils;
-	private WebUtils webUtils;
-	private SqlUtils sqlUtils;
-	private TableUtils tableUtils;
+	private CommonUtils commonUtils = new CommonUtils();
+	private ConvertUtils convertUtils = new ConvertUtils();
+	private ColumnUtils columnUtils = new ColumnUtils();
+	private ViewUtils viewUtils = new ViewUtils();
+	private FormatUtils formatUtils = new FormatUtils();
+	private BslaLibraryUtils bslaLibraryUtils = new BslaLibraryUtils();
+	private DatabaseUtils databaseUtils = new DatabaseUtils();
+	private ModelUtils modelUtils = new ModelUtils();
+	private URLUtils urlUtils = new URLUtils();
+	private TestUtils testUtils = new TestUtils();
+	private WebUtils webUtils = new WebUtils();
+	private SqlUtils sqlUtils = new SqlUtils();
+	private TableUtils tableUtils = new TableUtils();
 
 	
 	private Model model;

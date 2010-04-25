@@ -398,6 +398,22 @@
 		    </pattern>		
 	</pattern>		
   </pattern>
+  <pattern value="targets">
+	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Targets"/>	  
+	<set-next-rule methodname="setTargets" paramtype="net.sf.minuteProject.configuration.bean.Targets"/>
+	  <pattern value="target">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.Target"/>	  
+		<set-next-rule methodname="addTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>		  
+		<set-properties-rule>
+			<alias attr-name="outputdir-root" prop-name="outputdirRoot" />
+			<alias attr-name="templatedir-root" prop-name="templatedirRoot" />
+		</set-properties-rule>	
+	   	<bean-property-setter-rule pattern="refname"/>	 
+	   	<bean-property-setter-rule pattern="name"/>	 
+	   	<bean-property-setter-rule pattern="dir"/>	 
+	   	<bean-property-setter-rule pattern="fileName"/>	  
+	  </pattern>	
+  </pattern>    
   <pattern value="target">
 	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Target"/>	  
 	<set-next-rule methodname="setTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>		  

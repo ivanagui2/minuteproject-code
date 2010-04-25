@@ -1,6 +1,6 @@
 package net.sf.minuteProject.configuration.bean;
 
-public class Model  extends AbstractConfiguration{
+public class Model extends AbstractConfiguration{
 	
 	private String packageRoot;
 	private String version;
