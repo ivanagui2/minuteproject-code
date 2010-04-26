@@ -37,13 +37,21 @@ public class SchemaUtils {
 		List<Table> deleteOrderList = getNonReferencedTable(workingSet);
 //		int nbInDeleteOrderList = deleteOrderList.size();
 		int deleteOrderListLastSize = 0; //init
-		while (workingSet.size()>0 && deleteOrderList.size()>deleteOrderListLastSize) {
-			deleteOrderListLastSize = deleteOrderList.size();
-			getTableDeleteOrder(workingSet, deleteOrderList);
+		while (workingSet.size()>0) {
+			if (deleteOrderList.size()>deleteOrderListLastSize) {
+				deleteOrderListLastSize = deleteOrderList.size();
+				getTableDeleteOrder(workingSet, deleteOrderList);
+			} else // add the last elements
+				addLastTables (workingSet, deleteOrderList);
 		}
 		return deleteOrderList;
 	}
 	
+	private void addLastTables (List<Table> workingSet, List<Table> deleteOrderList) {
+		for (Table table : workingSet) {
+			deleteOrderList.add(table);
+		}
+	}
 	/**
 	 * get the order of tables in insert order
 	 * @param database
