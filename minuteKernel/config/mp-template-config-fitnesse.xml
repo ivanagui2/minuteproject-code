@@ -108,7 +108,35 @@
       add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
 		</template>
   </template-target>		
+
+	<template-target 
+	   name="fitness DB setup Wiki templates" 
+	   rootdir="../../minuteTemplate/template-bsla"
+       templatedir = "template" 
+	   libdir="lib/BslaLibrary.vm"
+	   tool="velocity"
+	   package-root="TestFitnesseSetup"
+	   outputdir=""
+	   belongToPackage="true">
 	
+		<!-- <template name="FitnesseWikiDBConnectionSnippetContent" templateFileName="FitnesseWikiDBConnectionSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="DbConnection"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS">
+		</template> -->
+		
+		<template name="FitnesseWikiDBSetupSnippetContent" templateFileName="FitnesseWikiDBSetupSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="Setup"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true" add-model-dir-name="false"
+      add-entity-dir-name="false" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" >
+		</template>
+    
+    </template-target>
+    	
   <template-target 
 	   name="fitness fixture" 
 	   rootdir="../../minuteTemplate/template-bsla"
