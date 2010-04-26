@@ -101,10 +101,33 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
+		boolean hasBaseTarget = false;
+		if (abstractConfigurationRoot.hasTarget())
+			hasBaseTarget = true;
 		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
-		complementWithTargetInfo(abstractConfigurationRoot, target);
+		if (hasBaseTarget)
+			complementWithTargetInfo(abstractConfigurationRoot, target);
+		else if (abstractConfigurationRoot.hasTargets())
+			copyAndComplementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
+	public void copyAndComplementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
+//		target = new Target();//(abstractConfigurationRoot, target);
+		Target target2 = abstractConfigurationRoot.getTarget();
+		target.setTemplateTargets(target2.getTemplateTargets());
+		target.setAbstractConfigurationRoot(target2.getAbstractConfigurationRoot());
+		target.setArchitectureTarget(target2.getArchitectureTarget());
+		target.setPlugins(target2.getPlugins());
+//		for (Target target2 : abstractConfigurationRoot.getTargets().getTargets()) {
+//			if (target2==target) {
+//				target2.setDir(target.getDir());
+//				target2.setCanonicalDir(target.getCanonicalDir());
+//				target2.setOutputdirRoot(target.getOutputdirRoot());
+//				target2.setTemplatedirRoot(target.getTemplatedirRoot());				
+//			}
+//		}
+	}
+	
 	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
 		Target target2 = abstractConfigurationRoot.getTarget();
 		target2.setDir(target.getDir());

@@ -12,9 +12,9 @@ import net.sf.minuteProject.utils.io.FileUtils;
  * @author Florian Adler
  *
  */
-public class Targets extends AbstractConfigurationRoot {
+public class Targets extends AbstractConfiguration {
 	
-	private Configuration configuration;
+	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
 
 	public List<Target> getTargets() {
@@ -27,18 +27,17 @@ public class Targets extends AbstractConfigurationRoot {
 		this.targets = targets;
 	}
 	
-	public void addTargets(Target target) {
-		setTarget(target, configuration);
-		getTargets().add(target);
+	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
+		return abstractConfigurationRoot;
 	}
-
-	public Configuration getConfiguration() {
-		return configuration;
-	}
-
-	public void setConfiguration(Configuration configuration) {
-		this.configuration = configuration;
+	public void setAbstractConfigurationRoot(
+			AbstractConfigurationRoot abstractConfigurationRoot) {
+		this.abstractConfigurationRoot = abstractConfigurationRoot;
 	}
 	
+	public void addTarget(Target target) {
+		target.setAbstractConfigurationRoot(getAbstractConfigurationRoot());
+		getTargets().add(target);
+	}
 	
 }

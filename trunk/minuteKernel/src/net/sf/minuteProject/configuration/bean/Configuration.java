@@ -8,8 +8,7 @@ public class Configuration extends AbstractConfigurationRoot{
 	
 	private Model model;
 	private Presentation presentation;
-	private Targets targets;
-
+	
 	public Presentation getPresentation() {
 		return presentation;
 	}
@@ -38,16 +37,5 @@ public class Configuration extends AbstractConfigurationRoot{
 		return super.getName();
 	}
 
-	public Targets getTargets() {
-		return targets;
-	}
 
-	public void setTargets(Targets targets) {
-		this.targets = targets;
-	}
-
-	public void addTarget(Target target) {
-		getTargets().addTargets(target);
-	}
-	
 }

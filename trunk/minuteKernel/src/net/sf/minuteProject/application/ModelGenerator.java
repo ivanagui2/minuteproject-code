@@ -19,6 +19,7 @@ import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Target;
+import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -124,15 +125,38 @@ public class ModelGenerator extends AbstractGenerator {
 		Model model = configuration.getModel();
 		generator.setModel(model);
 		generator.loadModel(model);
-		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
-				.getTarget());
-		generator.generate(model.getConfiguration().getTarget());
+//		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
+//				.getTarget());
+//		generator.generate(model.getConfiguration().getTarget());
+		if (generator.hasTarget())
+			generator.loadAndGenerate(model.getConfiguration().getTarget());
+		if (generator.hasTargets())
+			generator.loadAndGenerate(model.getConfiguration().getTargets());
 		Date endDate = new Date();
 		//logger.info("start date = "+startDate.getTime());
 		//logger.info("end date = "+endDate.getTime());
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
+	private boolean hasTarget () {
+		return model.getConfiguration().hasTarget();
+	}
+	
+	private boolean hasTargets () {
+		return model.getConfiguration().hasTargets();
+	}
+	
+	private void loadAndGenerate (Target target) throws Exception {
+		loadTarget(model.getConfiguration(), target);
+		generate(model.getConfiguration().getTarget());		
+	}
+
+	private void loadAndGenerate (Targets targets) throws Exception {
+		for (Target target : targets.getTargets()) {
+			loadAndGenerate(target);
+		}	
+	}
+	
 	protected void loadModel(Model model) {
 		model.getDataModel().loadDatabase();
 		model.getBusinessModel().complementDataModelWithTables();
