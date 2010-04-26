@@ -91,7 +91,7 @@ cp.cmd
 	  	<property name="project.name" value="${fitnesse}"></property>
 	  	<property name="distribute.dir" value="../${release.del.relpath}/${target.dir}/${fitnesse}"></property>	  	
 	  </ant>-->
-		  <ant dir="${architecture.bsla.dev.relpath}" target="distribute" >
+		  <ant dir="${architecture.fitnesse.dev.relpath}" target="distribute" >
 		  	<property name="project.name" value="${fitnesse}"></property>
 		  	<property name="distribute.dir" value="../../${release.del.relpath}/${target.dir}/${fitnesse}"></property>
 		  </ant>
@@ -103,7 +103,7 @@ cp.cmd
 		 	</fileset>
 		  	</copy>
 	</target>
-	<target name="release-architecture-fitnesse" depends="build-architecture-fitnesse,distribute-kernel,copy-architecture-fitnesse-dependencies"></target>
+	<target name="release-architecture-fitnesse" depends="build-architecture-fitnesse,copy-architecture-fitnesse-dependencies"></target>
 	
 	<target name="copy-kernel-dependencies">
 	  <copy todir="${application.lib.dir}" overwrite="true">
