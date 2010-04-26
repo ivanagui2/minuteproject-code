@@ -1,11 +1,2 @@
-#exposeVariableModelSpecific()
-#exposeJdbc()
-#set ($datasource = $model.dataModel.basicDataSource)
-!contents -R2 -g -p -f -h
-
-!3 Datasource connection information
-
-!|net.sf.minuteproject.fitnesse.fixture.DbConnectionFixture|
-|username| password| url| driverClassName|
-|$datasource.username| $datasource.password| $datasource.url | $datasource.driverClassName|
-
+#parse("./snippet/fitnesse/FitnesseHeader.vm")
+#parse("./snippet/fitnesse/FitnesseWikiDBConnection.vm")

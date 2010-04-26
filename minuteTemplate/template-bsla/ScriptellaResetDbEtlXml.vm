@@ -10,7 +10,7 @@
 
     <description>Database reset script</description>
     <properties>
-        <include href="$dbProperties"/>
+        <include href=".$dbProperties"/>
     </properties>
     <connection 
 #exposeJdbcParam($jdbcDriverClassName)    
@@ -22,9 +22,9 @@
 #exposeJdbcParam($jdbcPassword)    	
     	password="${paramResult}"/>
     <script>
-		<include href="$resetDbScript"/>
-		<include href="$insertReferenceDataScript"/>
-		<include href="$commitScript"/>
+		<include href=".$resetDbScript"/>
+		<include href=".$insertReferenceDataScript"/>
+		<include href=".$commitScript"/>
     </script>
 
 </etl>
