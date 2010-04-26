@@ -4,6 +4,7 @@ public abstract class AbstractConfigurationRoot extends AbstractConfiguration{
 	
 	private Target target;
 	private String projectname;
+	private Targets targets;
 	
 	public String getProjectname() {
 		if (this.projectname == null)
@@ -30,4 +31,24 @@ public abstract class AbstractConfigurationRoot extends AbstractConfiguration{
 		this.target = target;
 	}
 
+	public Targets getTargets() {
+		return targets;
+	}
+
+	public void setTargets(Targets targets) {
+		targets.setAbstractConfigurationRoot(this);
+		this.targets = targets;
+	}
+
+	public void addTarget(Target target) {
+		getTargets().addTarget(target);
+	}
+	
+	public boolean hasTarget () {
+		return (getTarget()==null)?false:true;
+	}
+	
+	public boolean hasTargets () {
+		return (getTargets()==null)?false:true;
+	}
 }
