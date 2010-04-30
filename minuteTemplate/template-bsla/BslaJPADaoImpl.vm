@@ -319,7 +319,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         query.append (" SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #putColumnParams()
-        if (${tableVariableName}Positive.get$columnClass() != null) {
+        if (${tableVariableName}Positive!=null && ${tableVariableName}Positive.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
 #if ($sqlUtils.isQuotedColumn($column))        
