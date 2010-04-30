@@ -1,8 +1,9 @@
 package net.sf.minuteProject.model.data.criteria.type;
 
 import net.sf.minuteProject.model.data.criteria.EvaluationCriteria;
+import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
-public class StringCriteria extends EvaluationCriteria{
+public class StringCriteria extends EvaluationCriteria<String>{
 
 	public static final String CONTAINS   = "CONTAINS";
 	public static final String STARTSWITH = "STARTSWITH";
@@ -11,6 +12,10 @@ public class StringCriteria extends EvaluationCriteria{
 	
 	private String value;
 	private String method;
+	
+	public StringCriteria (WhereFieldCollector wfc) {
+		super (new String(), wfc);
+	}
 	
 	public void contains(String value) {
 		setValueAndMethod (value, CONTAINS);
