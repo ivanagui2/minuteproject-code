@@ -150,6 +150,9 @@
 #set ($parentLink = "${linkedTableClass}_${localColumnClass}")
 #set ($importDomainObjectUMLForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $reference.foreignTable, $template))
 #set ($isMandatory = $localColumn.isRequired())
+#set ($localColumnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.localColumnName}))
+#set ($linkedColumnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignColumnName}))
+#set ($linkedTableVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignTableName}))
 #end
 
 ## putColumnParams are for the decorating the entity attribute 
@@ -166,6 +169,7 @@
 #set ($resource = "${table.name}.$columnVar")
 #set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
 #set ($columLengthPrecisionSize = $column.getSizeAsInt())
+#set ($columnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord($column.name))
 #timeColumn()
 #largeFormat()
 #end

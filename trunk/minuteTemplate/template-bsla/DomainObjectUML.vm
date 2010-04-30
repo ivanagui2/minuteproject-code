@@ -207,7 +207,7 @@ public class ${className} extends AbstractDomainObject {
 #end
 #end
 ##if($hasPrimaryKey && !$isMany2Many && !$isForeignKey)
-	##    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
+##    public $primaryKeyFullType get$primaryKeyJavaNameClass() {
 ##        return $primaryKey;
 ##    }
 ##	
@@ -222,8 +222,8 @@ public class ${className} extends AbstractDomainObject {
         return _$columnVar;
     }
 	
-    public void set$columnClass ($columnType _$columnVar) {
-        this._$columnVar = _$columnVar;
+    public void set$columnClass ($columnType $columnVarAsInput) {
+        this._$columnVar = $columnVarAsInput; 
     }
     	
 #end
@@ -234,16 +234,16 @@ public class ${className} extends AbstractDomainObject {
     	return _$localColumnVariable;
     }
 	
-    public void set$localColumnClass ($localColumnType _$localColumnVariable) {
-    	this._$localColumnVariable = _$localColumnVariable;
+    public void set$localColumnClass ($localColumnType $localColumnVarAsInput) {//_$localColumnVariable) {
+    	this._$localColumnVariable = $localColumnVarAsInput; //_$localColumnVariable;
     }
     
     public $linkedTableClass get$linkedTableClass${localColumnClass} () {
     	return _${linkedTableVariable}${localColumnClass};
     }
 	
-    public void set$linkedTableClass${localColumnClass} ($linkedTableClass _${linkedTableVariable}${localColumnClass}) {
-    	this._${linkedTableVariable}${localColumnClass} = _${linkedTableVariable}${localColumnClass};
+    public void set$linkedTableClass${localColumnClass} ($linkedTableClass $linkedTableVarAsInput) {//_${linkedTableVariable}${localColumnClass}) {
+    	this._${linkedTableVariable}${localColumnClass} = $linkedTableVarAsInput; //_${linkedTableVariable}${localColumnClass};
     }
     
 #end
@@ -261,8 +261,8 @@ public class ${className} extends AbstractDomainObject {
         this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
     }	
     
-    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
-    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedTableVariable);
+    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass $linkedColumnVarAsInput) {//${linkedTableVariable}) {
+    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedColumnVarAsInput); //$linkedTableVariable);
     }
     
 #end
