@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=mp-bsla-0.4.1.jar -DgroupId=net.sf.minuteproject -DartifactId=mp-bsla -Dversion=0.4.1 -Dpackaging=jar
