@@ -55,7 +55,7 @@ public class JavaUtils {
 		"super", 
 		"while" };
 
-	public boolean isReservedWord(String word) {
+	public static boolean isReservedWord(String word) {
 		if (word==null)
 			return false;
 		for (int i = 0; i < reservedWord.length; i++) {

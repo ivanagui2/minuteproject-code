@@ -3,44 +3,74 @@ package net.sf.minuteProject.utils;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import net.sf.minuteProject.utils.format.FormatCache;
+import net.sf.minuteProject.utils.format.FormatCacheEntry;
+import net.sf.minuteProject.utils.java.JavaUtils;
+
 import org.apache.commons.lang.StringUtils;
 
 public class FormatUtils {
 
+	public static final String CONVERT_TO_JAVA_NAME = "CONVERT_TO_JAVA_NAME";
+	public static final String CONVERT_TO_JAVA_VARIABLE_NAME = "CONVERT_TO_JAVA_VARIABLE_NAME";
+	public static final String CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD = "CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD";
+	
+//	private static String getResultOfInputConversion (String input, String converter) {
+//		
+//	}
+//	
+	/**/
+	public static String getJavaName(String name) {
+		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_NAME);
+		String value = FormatCache.getInstance().getCacheEntry(fce);
+		if (value==null) {
+			value = performGetJavaName (name);
+			FormatCache.getInstance().putCacheEntryValue(fce, value);
+		}
+		return value;
+	}
+	
+	public static String getJavaNameVariable(String name) {
+		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_VARIABLE_NAME);
+		String value = FormatCache.getInstance().getCacheEntry(fce);
+		if (value==null) {
+			value = performGetJavaNameVariable(name);
+			FormatCache.getInstance().putCacheEntryValue(fce, value);
+		}
+		return value;
+	}	
+	
+	public static String getJavaNameVariableConvertReservedWord(String name) {
+		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD);
+		String value = FormatCache.getInstance().getCacheEntry(fce);
+		if (value==null) {
+			value = performGetJavaNameVariableConvertReservedWord(name);
+			FormatCache.getInstance().putCacheEntryValue(fce, value);
+		}
+		return value;
+	}	
+	/*
+	public static String getJavaNameVariable(String name) {
+		return performGetJavaNameVariable(name);
+	}
+	
+	public static String getJavaName(String name) {
+		return performGetJavaName(name);
+	}
+	*/
 	public static String getDirFromPackage(String packageSt) {
-		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/")
-				: "";
+		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/"): "";
 	}
 
 	public static String getDirToPackage(String packageSt) {
 		return StringUtils.replace(packageSt, "/", ".");
 	}
 
-	public static String getJavaName(String name) {
+	private static String performGetJavaName(String name) {
 		if (name == null || name.equals(""))
 			return "JAVA_NAME_RETURNS_NULL";
-		// String javaName = getJavaNameViaCharStrip(name, "-");
 		String underscoreName = StringUtils.replace(name, "-", "_");
 		return getJavaNameViaCharStrip(underscoreName, "_");
-		// StringTokenizer st = new StringTokenizer (name,"_");
-		// StringBuffer sb = new StringBuffer();
-		// String firstToken = st.nextToken();
-		// if (firstToken.length()==1) {
-		// sb.append(firstToken.toUpperCase());
-		// while (st.hasMoreTokens()){
-		// //sb.append(st.nextToken().toUpperCase());
-		// sb.append(firstUpperCaseOnly(st.nextToken()));
-		// }
-		// } else {
-		// sb.append(firstUpperCaseOnly(firstToken));
-		// while (st.hasMoreTokens()){
-		// String token = firstUpperCaseOnly(st.nextToken());
-		// sb.append(token);
-		// }
-		// }
-		// return sb.toString();
-		// return name.substring(0,1).toUpperCase()
-		// +name.substring(1,name.length()).toLowerCase();
 	}
 
 	private static String getJavaNameViaCharStrip(String name,
@@ -53,7 +83,14 @@ public class FormatUtils {
 		return sb.toString();
 	}
 
-	public static String getJavaNameVariable(String name) {
+	private static String performGetJavaNameVariableConvertReservedWord(String name) {
+		String value = performGetJavaNameVariable(name);
+		if (JavaUtils.isReservedWord(name))
+			value = convertReservedWord (value);
+		return value;
+	}
+	
+	private static String performGetJavaNameVariable(String name) {
 		if (name == null)
 			return "ERROR_GET_JAVANAMEVARIABLE_WITH_NULL";
 		if (name.equals(""))
@@ -158,4 +195,7 @@ public class FormatUtils {
 		return res;
 	}
 
+	private static String convertReservedWord (String word) {
+		return "_"+word;
+	}
 }

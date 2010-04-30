@@ -36,13 +36,25 @@ public class SchemaUtils {
 		List<Table> workingSet = getTables(database); //copy of the tables + ref
 		List<Table> deleteOrderList = getNonReferencedTable(workingSet);
 //		int nbInDeleteOrderList = deleteOrderList.size();
-		int deleteOrderListLastSize = 0; //init
-		while (workingSet.size()>0) {
-			if (deleteOrderList.size()>deleteOrderListLastSize) {
-				deleteOrderListLastSize = deleteOrderList.size();
-				getTableDeleteOrder(workingSet, deleteOrderList);
-			} else // add the last elements
-				addLastTables (workingSet, deleteOrderList);
+		int deleteOrderListLastSize = 0;
+		int twiceDeleteOrderListLastSize = 0;//init
+		while (workingSet.size()>0 && deleteOrderList.size()>twiceDeleteOrderListLastSize) {
+			deleteOrderListLastSize = deleteOrderList.size();
+			getTableDeleteOrder(workingSet, deleteOrderList);
+			if (deleteOrderListLastSize == deleteOrderList.size()) {
+				// no further delete order where found for this pass 
+				if (twiceDeleteOrderListLastSize<deleteOrderListLastSize)
+					//so lets iterate again to be sure
+					twiceDeleteOrderListLastSize = deleteOrderList.size();
+				else
+					twiceDeleteOrderListLastSize++;
+			}
+//			} else ;// add the last elements
+				//addLastTables (workingSet, deleteOrderList);
+		}
+		if (workingSet.size()>0) {
+			//recursivity
+			
 		}
 		return deleteOrderList;
 	}
