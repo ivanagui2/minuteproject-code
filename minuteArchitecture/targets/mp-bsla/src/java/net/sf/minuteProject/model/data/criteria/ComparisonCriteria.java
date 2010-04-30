@@ -1,25 +1,27 @@
 package net.sf.minuteProject.model.data.criteria;
 
-public class ComparisonCriteria extends EvaluationCriteria {
+import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
-	protected void lt() {
+public class ComparisonCriteria<T> extends EvaluationCriteria<T> {
+
+	public ComparisonCriteria(T t, WhereFieldCollector wfc) {
+		super(t, wfc);
+	}
+	
+	protected void lt(T t) {
 		// with template
 	}
 	
-	protected void le() {
+	protected void le(T t) {
 		// with template
 	}
 	
-	protected void gt() {
+	protected void gt(T t) {
 		// with template
 	}
 	
-	protected void ge() {
+	protected void ge(T t) {
 		// with template
 	}
-	
-//	protected void between(T, T) {
-//		// with template
-//	}
 	
 }

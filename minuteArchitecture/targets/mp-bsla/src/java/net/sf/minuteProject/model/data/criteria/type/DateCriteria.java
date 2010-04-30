@@ -2,11 +2,17 @@ package net.sf.minuteProject.model.data.criteria.type;
 
 import java.util.Date;
 
-import net.sf.minuteProject.model.data.criteria.ComparisonCriteria;
+import net.sf.minuteProject.model.data.criteria.RangeCriteria;
+import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
-public class DateCriteria extends ComparisonCriteria{
+public class DateCriteria extends RangeCriteria <Date> {
 
-	public DateCriteria between (Date startDate, Date endDate) {
-		return this;
+//	public DateCriteria () {
+//		super(new Date());
+//	}
+	
+	public DateCriteria (WhereFieldCollector wfc) {
+		super(new Date(), wfc);
 	}
+	
 }
