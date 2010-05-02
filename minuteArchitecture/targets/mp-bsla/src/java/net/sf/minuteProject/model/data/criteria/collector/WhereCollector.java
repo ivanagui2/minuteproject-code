@@ -1,5 +1,6 @@
 package net.sf.minuteProject.model.data.criteria.collector;
 
+import java.util.Enumeration;
 import java.util.Stack;
 
 import net.sf.minuteProject.model.data.criteria.holder.WhereHolder;
@@ -33,8 +34,10 @@ public class WhereCollector <E> extends CriteriaCollector<E> {
 		s.add(wh);
 	}
 	
-	public WhereHolder<E> getElements () {
-		return s.pop();
+	public Enumeration<WhereHolder<E>> getElements () {
+		return s.elements();
+//		Enumeration<WhereHolder<E>> e = s.elements();
+//		return s.pop();
 	}
 
 	public String getEntityPath() {

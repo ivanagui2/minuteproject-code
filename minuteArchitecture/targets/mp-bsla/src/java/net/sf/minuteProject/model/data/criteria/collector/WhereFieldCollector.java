@@ -16,4 +16,11 @@ public class WhereFieldCollector extends WhereCollector{
 //		this.field = field;
 //	}
 //	
+	public WhereFieldCollector and (WhereFieldCollector wfc) {
+		return wfc;
+	}
+	
+	public WhereFieldCollector or (WhereFieldCollector wfc) {
+		return wfc;
+	}
 }

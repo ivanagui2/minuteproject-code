@@ -1,6 +1,7 @@
 package net.sf.minuteProject.model.data.criteria.collector;
 
 import java.util.Enumeration;
+import java.util.Iterator;
 
 import net.sf.minuteProject.model.data.criteria.AbstractDomainObjectWhere;
 import net.sf.minuteProject.model.data.criteria.holder.WhereHolder;
@@ -25,11 +26,11 @@ public class WhereDomainObjectCollector extends WhereCollector<AbstractDomainObj
 //	
 	public String popToString () {
 		StringBuffer sb = new StringBuffer();
-		System.out.println("wfc ref3 = "+wfc);
-		WhereHolder wh = wfc.getElements();
-//		while (e.hasMoreElements()) {
-//			sb.append(e.nextElement());
-//		}
-		return wh.toString();
+		Enumeration <WhereHolder> e = wfc.getElements();
+		while (e.hasMoreElements()) {
+			WhereHolder whereHolder = (WhereHolder) e.nextElement();
+			sb.append(whereHolder);
+		}
+		return sb.toString();
 	}
 }

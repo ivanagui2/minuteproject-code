@@ -3,6 +3,7 @@ package net.sf.minuteProject.model.data.criteria;
 import net.sf.minuteProject.model.data.DomainObjectCriteria;
 import net.sf.minuteProject.model.data.criteria.collector.WhereCollector;
 import net.sf.minuteProject.model.data.criteria.collector.WhereDomainObjectCollector;
+import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
 public class AbstractDomainObjectWhere {
 
@@ -34,5 +35,12 @@ public class AbstractDomainObjectWhere {
 		return wdoc.popToString();
 	}
 	
+	public void or (WhereFieldCollector wfc) {
+		
+	}
 
+	public void and (WhereFieldCollector wfc) {
+		
+	}
+	
 }

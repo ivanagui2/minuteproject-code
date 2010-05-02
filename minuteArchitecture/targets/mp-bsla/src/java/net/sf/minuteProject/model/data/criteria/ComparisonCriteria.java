@@ -4,24 +4,34 @@ import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
 public class ComparisonCriteria<T> extends EvaluationCriteria<T> {
 
+	public static final String LT = "LT";
+	public static final String LE = "LE";
+	public static final String GT = "GT";
+	public static final String GE = "GE";
+	
 	public ComparisonCriteria(WhereFieldCollector wfc) {
 		super(wfc);
 	}
 	
-	protected void lt(T t) {
+	public WhereFieldCollector lt(T t) {
 		// with template
+		wfc.addElement(LT, t);
+		return wfc;
 	}
 	
-	protected void le(T t) {
-		// with template
+	public WhereFieldCollector le(T t) {
+		wfc.addElement(LE, t);
+		return wfc;
 	}
 	
-	protected void gt(T t) {
-		// with template
+	public WhereFieldCollector gt(T t) {
+		wfc.addElement(GT, t);
+		return wfc;
 	}
 	
-	protected void ge(T t) {
-		// with template
+	public WhereFieldCollector ge(T t) {
+		wfc.addElement(GE, t);
+		return wfc;
 	}
 	
 }

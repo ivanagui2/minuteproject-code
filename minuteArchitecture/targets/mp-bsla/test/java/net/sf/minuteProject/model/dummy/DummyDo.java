@@ -6,14 +6,14 @@ import net.sf.minuteProject.model.data.criteria.type.DateCriteria;
 public class DummyDo extends AbstractDomainObjectWhere {
 
 	public DummyDo() {
-		super();
+		super("dummyDo");
 		setBeanPath("dummyDo"); //entity name
 	}
 
 	private DateCriteria birthdate;// = new DateCriteria();
 
 	public DateCriteria getBirthdate() {
-		birthdate = new DateCriteria(wdoc.getWfc());
+		birthdate = new DateCriteria(wdoc.getWfc("birthdate"));
 		return birthdate;
 	}
 
