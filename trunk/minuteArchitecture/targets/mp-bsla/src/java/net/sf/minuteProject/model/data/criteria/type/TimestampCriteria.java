@@ -6,9 +6,9 @@ import java.util.Date;
 import net.sf.minuteProject.model.data.criteria.ComparisonCriteria;
 import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
-public class TimestampCriteria {//extends ComparisonCriteria<Timestamp> {
+public class TimestampCriteria extends ComparisonCriteria<Timestamp> {
 
-//	public TimestampCriteria (WhereFieldCollector wfc) {
-//		super (Date., wfc);
-//	}
+	public TimestampCriteria (WhereFieldCollector wfc) {
+		super (wfc);
+	}
 }

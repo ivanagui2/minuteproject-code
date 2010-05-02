@@ -8,6 +8,6 @@ import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 public class IntegerCriteria extends ComparisonCriteria {
 
 	public IntegerCriteria (WhereFieldCollector wfc) {
-		super (-1, wfc);
+		super (wfc);
 	}
 }

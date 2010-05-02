@@ -14,7 +14,7 @@ public class StringCriteria extends EvaluationCriteria<String>{
 	private String method;
 	
 	public StringCriteria (WhereFieldCollector wfc) {
-		super (new String(), wfc);
+		super (wfc);
 	}
 	
 	public void contains(String value) {
