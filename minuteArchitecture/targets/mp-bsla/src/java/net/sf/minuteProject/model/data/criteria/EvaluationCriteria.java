@@ -9,8 +9,8 @@ public class EvaluationCriteria <T> implements Criteria {
 	private T t;
 	protected WhereFieldCollector wfc;
 	
-	public EvaluationCriteria(T t, WhereFieldCollector wfc) {
-		this.t = t;
+	public EvaluationCriteria(WhereFieldCollector wfc) {
+//		this.t = t;
 		this.wfc = wfc;
 	}
 	

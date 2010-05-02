@@ -6,7 +6,14 @@ import net.sf.minuteProject.model.data.criteria.Criteria;
 
 public class WhereFieldCollector extends WhereCollector{
 
-//	private List<Criteria> criterias;
-	
-	
+//	private String field;
+//
+//	public String getField() {
+//		return field;
+//	}
+//
+//	public void setField(String field) {
+//		this.field = field;
+//	}
+//	
 }

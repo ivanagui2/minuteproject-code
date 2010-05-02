@@ -7,7 +7,7 @@ import net.sf.minuteProject.model.data.criteria.holder.WhereHolder;
 public class WhereCollector <E> extends CriteriaCollector<E> {
 
 	private Stack<WhereHolder<E>> s;
-	private String entityPath;
+	private String entityPath, field;
 	
 	public WhereCollector() {
 		super();
@@ -20,6 +20,10 @@ public class WhereCollector <E> extends CriteriaCollector<E> {
 		this.entityPath = entityPath;
 	}
 
+	public void addElement (String operator, E... param){
+		addElement (field, operator, param);
+	}
+	
 	public void addElement (String field, String operator, E... param){
 		addElement (entityPath, field, operator, param);
 	}
@@ -40,9 +44,13 @@ public class WhereCollector <E> extends CriteriaCollector<E> {
 	public void setEntityPath(String entityPath) {
 		this.entityPath = entityPath;
 	}
+
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String field) {
+		this.field = field;
+	}
 	
-	
-//	public void push(WhereHolder<E> w) {
-//		stack.push(w);
-//	}
 }
