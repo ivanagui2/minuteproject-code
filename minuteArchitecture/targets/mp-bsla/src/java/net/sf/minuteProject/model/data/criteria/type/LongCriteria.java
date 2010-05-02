@@ -6,6 +6,6 @@ import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 public class LongCriteria extends ComparisonCriteria {
 
 	public LongCriteria (WhereFieldCollector wfc) {
-		super (-1, wfc);
+		super (wfc);
 	}
 }
