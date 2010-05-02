@@ -26,7 +26,7 @@ public class AbstractDomainObjectWhere {
 		this.wdoc = wdoc;
 	}
 
-	public AbstractDomainObjectWhere () {
+	public AbstractDomainObjectWhere (String beanPath) {
 		wdoc = new WhereDomainObjectCollector(beanPath);
 	}
 	

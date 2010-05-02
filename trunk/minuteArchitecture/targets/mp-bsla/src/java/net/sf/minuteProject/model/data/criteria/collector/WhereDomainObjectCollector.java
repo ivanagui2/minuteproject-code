@@ -11,16 +11,18 @@ public class WhereDomainObjectCollector extends WhereCollector<AbstractDomainObj
 	
 	public WhereDomainObjectCollector (String entityPath) {
 		wfc = new WhereFieldCollector();
+		wfc.setEntityPath(entityPath);
 	}
 
-	public WhereFieldCollector getWfc() {
+	public WhereFieldCollector getWfc(String field) {
+		wfc.setField(field);
 		return wfc;
 	}
 
-	public void setWfc(WhereFieldCollector wfc) {
-		this.wfc = wfc;
-	}
-	
+//	public void setWfc(WhereFieldCollector wfc) {
+//		this.wfc = wfc;
+//	}
+//	
 	public String popToString () {
 		StringBuffer sb = new StringBuffer();
 		System.out.println("wfc ref3 = "+wfc);

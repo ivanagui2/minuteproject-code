@@ -12,7 +12,7 @@ public class DateCriteria extends RangeCriteria <Date> {
 //	}
 	
 	public DateCriteria (WhereFieldCollector wfc) {
-		super(new Date(), wfc);
+		super(wfc);
 	}
 	
 }

@@ -4,8 +4,8 @@ import net.sf.minuteProject.model.data.criteria.collector.WhereFieldCollector;
 
 public class ComparisonCriteria<T> extends EvaluationCriteria<T> {
 
-	public ComparisonCriteria(T t, WhereFieldCollector wfc) {
-		super(t, wfc);
+	public ComparisonCriteria(WhereFieldCollector wfc) {
+		super(wfc);
 	}
 	
 	protected void lt(T t) {
