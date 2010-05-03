@@ -155,16 +155,15 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 			return null;
 		else {
 			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
-			if (list.isEmpty()) {
+			if (list.isEmpty()) 
 				insert$tableClassName($tableVariableName);
-				return $tableVariableName;
-			}
 			else if (list.size()==1)
-				return list.get(0);
+				${tableVariableName}.copy(list.get(0));
 			else 
 				//TODO log error
-				return list.get(0);	
-		}		
+				${tableVariableName}.copy(list.get(0));
+		}
+		return $tableVariableName;	
 	}
 	
    public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache) {
