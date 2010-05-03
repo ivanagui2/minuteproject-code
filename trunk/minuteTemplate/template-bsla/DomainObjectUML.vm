@@ -193,6 +193,13 @@ public class ${className} extends AbstractDomainObject {
         return ${variableName};
 	}
 	
+	public void copy (${className} ${variableName}) {
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+        set$columnClass (${variableName}.get$columnClass());
+#end	
+	}
+	
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey)
@@ -234,14 +241,28 @@ public class ${className} extends AbstractDomainObject {
     	return _$localColumnVariable;
     }
 	
-    public void set$localColumnClass ($localColumnType $localColumnVarAsInput) {//_$localColumnVariable) {
-    	this._$localColumnVariable = $localColumnVarAsInput; //_$localColumnVariable;
+    public void set$localColumnClass ($localColumnType $localColumnVarAsInput) {
+    	this._$localColumnVariable = $localColumnVarAsInput; 
     }
-    
+
+    public $linkedTableClass get${localColumnClass}Object () {
+    	return _${linkedTableVariable}${localColumnClass};
+    }
+	
+	public void set${localColumnClass}Object ($linkedTableClass $linkedTableVarAsInput) {
+	    set$localColumnClass ($linkedTableVarAsInput);
+	}
+	
+    public void set$localColumnClass ($linkedTableClass $linkedTableVarAsInput) {
+    	this._${linkedTableVariable}${localColumnClass} = $linkedTableVarAsInput;
+    }
+        
+    @Deprecated 
     public $linkedTableClass get$linkedTableClass${localColumnClass} () {
     	return _${linkedTableVariable}${localColumnClass};
     }
 	
+	@Deprecated 
     public void set$linkedTableClass${localColumnClass} ($linkedTableClass $linkedTableVarAsInput) {//_${linkedTableVariable}${localColumnClass}) {
     	this._${linkedTableVariable}${localColumnClass} = $linkedTableVarAsInput; //_${linkedTableVariable}${localColumnClass};
     }
