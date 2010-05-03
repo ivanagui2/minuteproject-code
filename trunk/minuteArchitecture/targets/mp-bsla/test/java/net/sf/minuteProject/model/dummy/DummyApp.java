@@ -15,7 +15,7 @@ public class DummyApp {
 //		Or(dummyDo.getBirthdate().lt(new Date()));
 		dummyDo.or(dummyDo.getBirthdate().lt(new Date()).and(dummyDo.getBirthdate().gt(new Date())));
 		String s = dummyDo.popWhereCriteria();
-		System.out.println(">>"+s);
+		System.out.println(">>>"+s);
 	}
 
 }
