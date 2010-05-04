@@ -194,7 +194,7 @@ public class ${className} extends AbstractDomainObject {
 	}
 	
 	public void copy (${className} ${variableName}) {
-#foreach ($column in ${table.attributes})
+#foreach ($column in ${table.columns})
 #putColumnParams()
         set$columnClass (${variableName}.get$columnClass());
 #end	
