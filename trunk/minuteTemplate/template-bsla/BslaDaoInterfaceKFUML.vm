@@ -42,6 +42,8 @@ public interface $className extends DataAccessObject {
 	 */
     public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
     
+    public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName);
+    
     public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache);    
          
     /**

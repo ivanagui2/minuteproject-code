@@ -166,14 +166,22 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 		return $tableVariableName;	
 	}
 	
-   public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache) {
+   public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName) {
 	  String key = getCacheKey(null, $tableVariableName, null, "assign$tableClassName");
       $tableClassName ${tableVariableName}Cache = ($tableClassName)simpleCache.get(key);
       if (${tableVariableName}Cache==null) {
          ${tableVariableName}Cache = assign${tableClassName} ($tableVariableName);
-         simpleCache.put(key, ${tableVariableName}Cache);
+         if (key!=null)
+         	simpleCache.put(key, ${tableVariableName}Cache);
       }
+      ${tableVariableName}.copy(${tableVariableName}Cache);
       return ${tableVariableName}Cache;
+   }	
+
+   public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache) {
+      if (useCache)
+         return assign${tableClassName}UseCache ($tableVariableName);
+      return assign${tableClassName} ($tableVariableName);
    }
 	   
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
