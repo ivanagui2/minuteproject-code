@@ -187,6 +187,7 @@
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="hibernateDialect" value="true"></property>
+			<property tag="environment" value="remote"/>
 		</template>	
 
 		<!-- SPRING CONFIG end-->
