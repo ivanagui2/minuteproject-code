@@ -55,8 +55,10 @@ public class SimpleCache implements Cache {
     }
     
     private void putEffective(String key, Object o) {
-    	timeTable.put(key, new Date());
-    	table.put(key, o);
+    	if (key!=null) {
+	    	timeTable.put(key, new Date());
+	    	table.put(key, o);
+    	}
     }
     /* (non-Javadoc)
 	 * @see net.sf.minuteProject.architecture.cache.Cache2#remove(java.lang.String)
