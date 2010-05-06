@@ -10,21 +10,22 @@ public enum $className {
 #set($propertyList=$property.getPropertiesArray())
 #foreach ($prop in $propertyList)
 #set($propName=$restrictedCodeUtils.convertToValidJavaWithUpperCase($prop.name))
-   $propName#if( $velocityHasNext ),
+    $propName#if( $velocityHasNext ),
 #end
 #end
 #end
 ;
 
-     /**
-     * Return a list that contains all the enumeration values      
-     * @return List<$className> the that contains all the enumeration values  
-     */     
-     public static List<$className> getList() {
-	     List<$className> res = new ArrayList<$className>();
-	     for ($className value : ${className}.values()) {
-		 	res.add(value);
-	 	 }
-	     return res;
-     }
+    /**
+    * Return a list that contains all the enumeration values      
+    * @return List<$className> the that contains all the enumeration values  
+    */     
+    public static List<$className> getList() {
+	    List<$className> list = new ArrayList<$className>();
+	    for ($className value : ${className}.values()) {
+		   list.add(value);
+	 	}
+	    return list;
+    }
+     
 }
