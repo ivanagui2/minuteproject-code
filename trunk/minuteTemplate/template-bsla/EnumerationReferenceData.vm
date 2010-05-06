@@ -1,6 +1,9 @@
 #exposeColumnSpecific()
 package $packageName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum $className {
 #if($columnUtils.hasCheckConstraint($column))
 #set($property=$columnUtils.getCheckConstraintProperty($column))
@@ -10,6 +13,18 @@ public enum $className {
    $propName#if( $velocityHasNext ),
 #end
 #end
-
 #end
+;
+
+     /**
+     * Return a list that contains all the enumeration values      
+     * @return List<$className> the that contains all the enumeration values  
+     */     
+     public static List<$className> getList() {
+	     List<$className> res = new ArrayList<$className>();
+	     for ($className value : ${className}.values()) {
+		 	res.add(value);
+	 	 }
+	     return res;
+     }
 }
