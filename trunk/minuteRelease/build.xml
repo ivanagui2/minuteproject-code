@@ -134,7 +134,7 @@ cp.cmd
 	  </ant>
 	</target>	
 	
-	<target name="release-kernel" depends="build-kernel-dependencies, copy-kernel-dependencies" >
+	<target name="release-kernel" depends="build-kernel-dependencies, distribute-kernel, copy-kernel-dependencies" >
 	</target>
 	
 	<target name="copy-template-dependencies">
@@ -142,7 +142,7 @@ cp.cmd
 	 	<fileset dir="${template.dev.relpath}">
 	 		<include name="*.vm"/>
 	 		<include name="lib/*.vm"/>
-	 		<include name="snippet/*.vm"/>
+	 		<include name="snippet/**/*.vm"/>
 	 		<exclude name="**/*.xml"/>	 		
 	 	</fileset>
 	  </copy>
