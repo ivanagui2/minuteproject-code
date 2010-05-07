@@ -79,7 +79,7 @@
     <dependency>
       <groupId>net.sf.minuteproject</groupId>
       <artifactId>mp-bsla</artifactId>
-      <version>0.4.1</version>
+      <version>0.4.2</version>
     </dependency>
 
     <dependency>
