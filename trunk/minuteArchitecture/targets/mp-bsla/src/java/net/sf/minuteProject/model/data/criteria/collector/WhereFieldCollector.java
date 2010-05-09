@@ -17,10 +17,12 @@ public class WhereFieldCollector extends WhereCollector{
 //	}
 //	
 	public WhereFieldCollector and (WhereFieldCollector wfc) {
+		wfc.addElement("AND");
 		return wfc;
 	}
 	
 	public WhereFieldCollector or (WhereFieldCollector wfc) {
+		wfc.addElement("OR");
 		return wfc;
 	}
 }

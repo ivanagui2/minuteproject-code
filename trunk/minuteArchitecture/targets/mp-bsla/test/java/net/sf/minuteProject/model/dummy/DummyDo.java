@@ -7,7 +7,7 @@ public class DummyDo extends AbstractDomainObjectWhere {
 
 	public DummyDo() {
 		super("dummyDo");
-		setBeanPath("dummyDo"); //entity name
+//		setBeanPath("dummyDo"); //entity name
 	}
 
 	private DateCriteria birthdate;// = new DateCriteria();

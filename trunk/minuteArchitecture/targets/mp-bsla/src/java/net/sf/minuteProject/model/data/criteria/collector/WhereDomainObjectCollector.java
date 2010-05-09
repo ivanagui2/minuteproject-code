@@ -30,6 +30,7 @@ public class WhereDomainObjectCollector extends WhereCollector<AbstractDomainObj
 		while (e.hasMoreElements()) {
 			WhereHolder whereHolder = (WhereHolder) e.nextElement();
 			sb.append(whereHolder);
+			sb.append("\n");
 		}
 		return sb.toString();
 	}

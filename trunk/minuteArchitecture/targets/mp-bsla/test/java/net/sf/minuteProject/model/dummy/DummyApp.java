@@ -13,9 +13,13 @@ public class DummyApp {
 		dummyDo.getBirthdate().between(new Date(), new Date());
 		dummyDo.getBirthdate().lt(new Date());
 //		Or(dummyDo.getBirthdate().lt(new Date()));
-		dummyDo.or(dummyDo.getBirthdate().lt(new Date()).and(dummyDo.getBirthdate().gt(new Date())));
+		dummyDo.or(dummyDo.getBirthdate().le(new Date()));
+		dummyDo.or(dummyDo.getBirthdate().le(new Date()).
+				and(dummyDo.getBirthdate().gt(new Date())).
+				and(dummyDo.getBirthdate().ge(new Date())));
 		String s = dummyDo.popWhereCriteria();
-		System.out.println(">>>"+s);
+		System.out.println(">>>\n"+s);
+		System.out.println(">>> TODO algo to correctly depile the stack: reverse polish notation!!!");
 	}
 
 }
