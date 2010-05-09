@@ -36,11 +36,12 @@ public class AbstractDomainObjectWhere {
 	}
 	
 	public void or (WhereFieldCollector wfc) {
-		
+		// disregard if or is the first condition
+		wfc.addElement("OR");
 	}
 
 	public void and (WhereFieldCollector wfc) {
-		
+		wfc.addElement("AND");
 	}
 	
 }
