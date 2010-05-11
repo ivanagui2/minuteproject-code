@@ -1,8 +1,6 @@
 package net.sf.minuteProject.architecture.holder.element;
 
-public interface ValidationError {
-	
-	public String getMessage();
+public interface ValidationError extends InformationMessage {
 	
 	public String getErrorString ();
 	
@@ -11,4 +9,5 @@ public interface ValidationError {
 	public Object getErrorObject();
 	
 	public String getPath();
+	
 }

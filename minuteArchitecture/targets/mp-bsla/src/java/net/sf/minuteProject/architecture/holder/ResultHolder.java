@@ -1,20 +1,30 @@
 package net.sf.minuteProject.architecture.holder;
 
+import net.sf.minuteProject.architecture.holder.element.InformationMessage;
 import net.sf.minuteProject.architecture.holder.element.ValidationError;
 
 public class ResultHolder {
 
 	private ValidationHolder validationHolder;
+	private InformationHolder informationHolder;
 	private Object object;
 
 	public void complement (ResultHolder resultHolder) {
 		for (ValidationError validationError : resultHolder.getValidationHolder().getValidationErrors()) {
-			this.getValidationHolder().add(validationError);
+//			this.getValidationHolder().add(validationError);
+			addValidationError(validationError);
 		}
+		for (InformationMessage informationMessage : resultHolder.getInformationHolder().getMessages()) {
+			addInformationMessage(informationMessage);
+		}		
 	}
 	
 	public void addValidationError (ValidationError validationError) {
 		getValidationHolder().add(validationError);
+	}
+	
+	public void addInformationMessage (InformationMessage informationMessage) {
+		getInformationHolder().add(informationMessage);
 	}
 	
 	public Object getObject() {
@@ -38,6 +48,16 @@ public class ResultHolder {
 
 	public void setValidationHolder(ValidationHolder validationHolder) {
 		this.validationHolder = validationHolder;
+	}
+
+	public InformationHolder getInformationHolder() {
+		if (informationHolder==null)
+			informationHolder = new InformationHolder();		
+		return informationHolder;
+	}
+
+	public void setInformationHolder(InformationHolder informationHolder) {
+		this.informationHolder = informationHolder;
 	}
 	
 	

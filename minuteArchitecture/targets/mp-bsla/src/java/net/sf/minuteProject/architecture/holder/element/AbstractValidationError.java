@@ -5,7 +5,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public abstract class AbstractValidationError implements ValidationError{
 	
-	protected String errorString, path;
+	protected String errorString, path, type;
 	protected Object errorObject, errorValue, acceptedValue;
 	
 	public AbstractValidationError (){}
@@ -57,6 +57,14 @@ public abstract class AbstractValidationError implements ValidationError{
 
 	public void setErrorValue(Object errorValue) {
 		this.errorValue = errorValue;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public abstract String getMessage() ;
