@@ -57,6 +57,7 @@
 #macro (exposeColumnSpecific)
 #set ($packageName = $commonUtils.getPackageName($column, $template))
 #set ($className = $commonUtils.getClassName($column, $template))
+#set ($classVariableName = $commonUtils.getJavaNameVariableFirstLetter($className))
 #end
 
 #macro(exposeVariableModelDetailSpecific)

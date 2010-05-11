@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum $className {
+
 #if($columnUtils.hasCheckConstraint($column))
 #set($property=$columnUtils.getCheckConstraintProperty($column))
 #set($propertyList=$property.getPropertiesArray())
@@ -27,5 +28,17 @@ public enum $className {
 	 	}
 	    return list;
     }
-     
+
+    /**
+    * @param value 
+    * @return boolean : true if the value exist in the enum
+    */
+    public static boolean contains (String value) {
+       for ($className $classVariableName : ${className}.values()) {
+          if (${classVariableName}.toString().equals(value))
+             return true;
+          }    	 
+       return false;
+    }     
+	     
 }
