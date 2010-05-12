@@ -60,6 +60,7 @@ public class ${className} extends AbstractDomainObjectWhere {
     * Default constructor
     */
     public ${className}() {
+       super("$tableVariableName");
     }
 
     /**

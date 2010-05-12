@@ -142,6 +142,19 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
         hquery.setMaxResults(numberOfResult);
         return hquery.list();
     }
+    
+    public Integer updateNotNullOnly$tableClassName ($tableClassName $tableVariableName, Criteria criteria) {
+        String queryWhat = getUpdateNotNullOnly${tableClassName}QueryChunkPrototype ($tableVariableName);
+        StringBuffer query = new StringBuffer (queryWhat);
+        boolean isWhereSet = false;
+        for (Criterion criterion : criteria.getClauseCriterions()) {
+            query.append (getQueryWHERE_AND (isWhereSet));
+            isWhereSet = true;   
+            query.append(criterion.getExpression());			
+        }    
+        Query hQuery = getSession().createQuery(query.toString()).setProperties($tableVariableName); 
+		return hQuery.executeUpdate();        
+    }
 	
 	/**
 	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
@@ -767,7 +780,53 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
    
 #end   
 #end
+	
+    /**
+    * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
+    * set in the list ${tableVariableName}Wheres
+    */
+    public List<$tableClassName> searchPrototype ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres) {
+	   Map beanPath = new Hashtable();
+	   String queryString = getSearchPrototypeQuery (${tableVariableName}What, ${tableVariableName}Wheres, beanPath);
+	   Query hquery = getQuery (queryString, null);
+	   List list = hquery.list();
+	   if (beanPath.size()==1) {
+	      return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What);
+	   }
+	   return handlePartialLoadWithParent${tableClassName}(list, beanPath, ${tableVariableName}What);		
+	}
+	
+	private String getSearchPrototypeQuery ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres, Map beanPath) {
+	   StringBuffer sb = new StringBuffer();
+	   $tableClassName [] ${tableVariableName}Where = ($tableClassName [])${tableVariableName}Wheres.toArray();
+	   for (int i = 0; i < ${tableVariableName}Where.length; i++) {
+		  beanPath.clear();
+		  String query = getPartialLoadWithParent${tableClassName}HsqlQuery (${tableVariableName}What, ${tableVariableName}Where[i], null, beanPath, new QuerySelectInit());
+		  sb.append(query);
+		  if (i<${tableVariableName}Where.length)
+			 sb.append(" union ");
+	   }		
+	   return sb.toString();
+	}
     
+	private Query getQuery (String queryString, Integer nbOfResult) {
+	   Query query = getSession().createQuery(queryString);
+	   if (nbOfResult!=null)
+	      query.setMaxResults(nbOfResult);
+	   return query;		
+	}
+
+    
+    /**
+    * search a list of $tableClassName  matching a list of where filter criteria prototypes
+    * set in the list ${tableVariableName}Wheres
+    */
+    public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres){
+       return searchPrototype(null, ${tableVariableName}Wheres);
+    }
+        
+    
+    // Methods to set in upper class
     protected static String getQuerySelectComma (boolean isSelectSet) {
        if (isSelectSet)
           return " , ";

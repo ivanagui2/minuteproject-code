@@ -34,6 +34,8 @@ public interface $className extends DataAccessObject {
      */
     public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, int numberOfResult);
 	
+	public Integer updateNotNullOnly$tableClassName ($tableClassName $tableVariableName, Criteria criteria);
+	
 	/**
 	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
 	 * Blank criteria are mapped to null.
@@ -110,7 +112,19 @@ public interface $className extends DataAccessObject {
    public $primaryKeyType load${tableClassName}PkFromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName);
 #end   
 #end
-     
+    
+    /**
+    * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
+    * set in the list ${tableVariableName}Wheres
+    */
+    public List<$tableClassName> searchPrototype ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres);
+    
+    /**
+    * search a list of $tableClassName  matching a list of where filter criteria prototypes
+    * set in the list ${tableVariableName}Wheres
+    */
+    public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres);
+
     /**
      * generic to move after in superclass
      */
