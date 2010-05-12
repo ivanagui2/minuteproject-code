@@ -52,11 +52,9 @@ public class CommonUtils {
 	
 	public static String getJavaVariableName (String string) {
 		return FormatUtils.getJavaNameVariable(string);
-		//return FormatUtils.getJavaNameVariableFirstLetter(string);
 	}
 
 	public static String getJavaNameVariableFirstLetter (String string) {
-		//return FormatUtils.getJavaNameVariable(string);
 		return FormatUtils.getJavaNameVariableFirstLetter(string);
 	}
 	
