@@ -1,0 +1,167 @@
+#exposeVariableEntitySpecific()
+#putImportParamsUML()
+package ${packageName};
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.validator.EmailValidator;
+import com.vaadin.data.validator.RegexpValidator;
+/*
+import com.vaadin.demo.tutorial.addressbook.AddressBookApplication;
+import com.vaadin.demo.tutorial.addressbook.data.Person;
+import com.vaadin.demo.tutorial.addressbook.data.PersonContainer;
+*/
+import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DefaultFieldFactory;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.Form;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+
+import ${importDomainObjectUML};
+
+@SuppressWarnings("serial")
+public class ${className} extends Form implements ClickListener {
+
+	public static final Object[] NATURAL_COL_ORDER = new Object[] {
+	#foreach ($column in ${table.attributes})
+#putColumnParams()
+	"$columnVar"#if ($velocityHasNext), 
+#end
+	#end
+	
+	};
+			
+	private Button save = new Button("Save", (ClickListener) this);
+	private Button cancel = new Button("Cancel", (ClickListener) this);
+	private Button edit = new Button("Edit", (ClickListener) this);
+
+//	private AddressBookApplication app;
+	private boolean new${domainClassName}Mode = false;
+	private $domainClassName $domainVariableName = null;
+
+	public ${className}() {
+		//this.app = app;
+
+		/*
+		 * Enable buffering so that commit() must be called for the form before
+		 * input is written to the data. (Form input is not written immediately
+		 * through to the underlying object.)
+		 */
+		setWriteThrough(false);
+
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.setSpacing(true);
+		footer.addComponent(save);
+		footer.addComponent(cancel);
+		footer.addComponent(edit);
+		footer.setVisible(false);
+
+		setFooter(footer);
+
+//TODO populate DD list
+
+		/*
+		 * Field factory for overriding how the component for city selection is
+		 * created
+		 */
+		setFormFieldFactory(new DefaultFieldFactory() {
+			@Override
+			public Field createField(Item item, Object propertyId,
+					Component uiContext) {
+				Field field = super.createField(item, propertyId, uiContext);
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
+					TextField tf = (TextField) field;
+					tf.setNullRepresentation("");
+#if($hasTypeValidator)
+					tf.addValidator(new RegexpValidator("[1-9][0-9]{4}", 									"Postal code must be a five digit number and cannot start with a zero."));
+#end
+#if($isMandatory)
+					tf.setRequired(true);
+#end													
+				}    
+#end
+				field.setWidth("200px");
+				return field;
+			}
+		});
+	}
+
+	public void buttonClick(ClickEvent event) {
+		Button source = event.getButton();
+
+		if (source == save) {
+			/* If the given input is not valid there is no point in continuing */
+			if (!isValid()) {
+				return;
+			}
+
+			commit();
+			if (new${domainClassName}Mode) {
+				/* We need to add the new person to the container */
+				//Item addedItem = app.getDataSource().addItem($domainVariableName);
+				/*
+				 * We must update the form to use the Item from our datasource
+				 * as we are now in edit mode (no longer in add mode)
+				 */
+				//setItemDataSource(addedItem);
+
+				new${domainClassName}Mode = false;
+			}
+			setReadOnly(true);
+		} else if (source == cancel) {
+			if (new${domainClassName}Mode) {
+				new${domainClassName}Mode = false;
+				/* Clear the form and make it invisible */
+				setItemDataSource(null);
+			} else {
+				discard();
+			}
+			setReadOnly(true);
+		} else if (source == edit) {
+			setReadOnly(false);
+		}
+	}
+
+	@Override
+	public void setItemDataSource(Item newDataSource) {
+		new${domainClassName}Mode = false;
+
+		if (newDataSource != null) {
+			List<Object> orderedProperties = Arrays.asList(NATURAL_COL_ORDER);
+			super.setItemDataSource(newDataSource, orderedProperties);
+
+			setReadOnly(true);
+			getFooter().setVisible(true);
+		} else {
+			super.setItemDataSource(null);
+			getFooter().setVisible(false);
+		}
+	}
+
+	@Override
+	public void setReadOnly(boolean readOnly) {
+		super.setReadOnly(readOnly);
+		save.setVisible(!readOnly);
+		cancel.setVisible(!readOnly);
+		edit.setVisible(readOnly);
+	}
+
+	public void add$domainClassName() {
+		$domainVariableName = new $domainClassName();
+		setItemDataSource(new BeanItem($domainVariableName));
+				new${domainClassName}Mode = true;
+		setReadOnly(false);
+	}
+
+}
