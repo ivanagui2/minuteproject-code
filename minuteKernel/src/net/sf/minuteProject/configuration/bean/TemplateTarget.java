@@ -11,7 +11,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	private String rootdir, absoluteRootDir, canonicalDir;
 	private String templatedir;
 	private String dir;
-	private String outputdir;
+	private String outputdir, outputdirRoot;
 	private String tool;
 	private String libdir;
 	private Target target;
@@ -59,14 +59,18 @@ public class TemplateTarget extends AbstractConfiguration{
 		this.dir = dir;
 	}
 	
+	public void setOutputdirRoot(String outputdirRoot) {
+		this.outputdirRoot = outputdirRoot;
+	}
+	
 	public String getOutputdir() {
-		String outputdirRoot = null;
-		if (getTarget()!=null)
-		   outputdirRoot = getTarget().getOutputdirRoot();	
+		String outputdirRoot = getOutputdirRoot();
+
 		if (outputdir==null && outputdirRoot==null) {
 			String name;
-			if (getTarget().getAbstractConfigurationRoot()!=null 
-				&& getTarget().getAbstractConfigurationRoot().getName()!=null) 
+			if (getTarget()!=null &&
+				getTarget().getAbstractConfigurationRoot()!=null && 
+				getTarget().getAbstractConfigurationRoot().getName()!=null) 
 				name = getTarget().getAbstractConfigurationRoot().getName();
 			else
 				name = "project";
@@ -75,6 +79,14 @@ public class TemplateTarget extends AbstractConfiguration{
 		return (outputdirRoot!=null)?outputdirRoot+"/"+outputdir:outputdir;
 	}
 	
+	private String getOutputdirRoot() {
+		if (outputdirRoot!=null)
+			return outputdirRoot;
+		if (getTarget()!=null)
+			return getTarget().getOutputdirRoot();	
+		return null;
+	}
+
 	public void setOutputdir(String outputdir) {
 		this.outputdir = outputdir;
 	}

@@ -15,7 +15,7 @@
 				 -->
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
-				</primaryKeyPolicy>
+				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
 				<generation-condition>
@@ -29,19 +29,25 @@
 				</enrichment>					
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" 
-		   name="default" 
-		   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-		   outputdir-root="../../DEV/output/petshopHibernate"
-		   templatedir-root="../../minuteTemplate/template-bsla">
-		</target> 		
-		<!--<targets>
-			<target refname="BackendOnBsla" 
-			   name="default" 
+					<!--<target refname="BackendOnBsla" 
+			   name="bsla-hibernate" 
 			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
 			   outputdir-root="../../DEV/output/petshopHibernate"
 			   templatedir-root="../../minuteTemplate/template-bsla">
-			</target> 		
-		</targets>-->
+			</target> -->
+		<targets>
+			<target refname="BackendOnBsla" 
+			   name="bsla-hibernate" 
+			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
+			   outputdir-root="../../DEV/output/petshopHibernate"
+			   templatedir-root="../../minuteTemplate/template-bsla">
+			</target> 	
+			<target refname="MpVaadin" 
+			   name="vaadin" 
+			   fileName="mp-template-config-vaadin-last-features.xml" 
+			   outputdir-root="../../DEV/output/petshopVaadin"
+			   templatedir-root="../../minuteTemplate/template/framework/vaadin">
+			</target> 				
+		</targets>
 	</configuration>
 </generator-config>

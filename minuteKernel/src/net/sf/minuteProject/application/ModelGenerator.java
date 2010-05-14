@@ -30,6 +30,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
+import net.sf.minuteProject.loader.target.TargetHolder;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -152,9 +153,26 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	private void loadAndGenerate (Targets targets) throws Exception {
+		Target targetFinal = new Target();
+		Configuration configuration = model.getConfiguration();
 		for (Target target : targets.getTargets()) {
-			loadAndGenerate(target);
+//			TargetHolder targetHolder = new TargetHolder();
+			loadTarget(configuration, target);
+//			generate(configuration.getTarget());
+//			targetHolder.setTarget(model.getConfiguration().getTarget());
+			
+			targetFinal.complement(configuration.getTarget());
+			configuration.setTarget(new Target());
 		}	
+		configuration.setTarget(targetFinal);
+		generate(configuration.getTarget());
+//		for (Target target : targets.getTargets()) {
+//			complementWithTargetInfo(configuration, target);
+//			System.out.println("---");
+//			generate(configuration.getTarget());
+//		}
+//		targets.getAbstractConfigurationRoot().setTarget(targetHolder);
+			
 	}
 	
 	protected void loadModel(Model model) {

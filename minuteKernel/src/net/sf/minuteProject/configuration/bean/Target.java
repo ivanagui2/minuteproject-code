@@ -28,6 +28,24 @@ public class Target extends AbstractConfiguration{
 	private String outputdirRoot;
 	private String templatedirRoot;
 	
+	public void complement (Target target) {
+		if (abstractConfigurationRoot==null)
+			abstractConfigurationRoot=target.getAbstractConfigurationRoot();	
+		List<TemplateTarget> input = target.getTemplateTargets();
+		for (TemplateTarget templateTarget : input) {
+			templateTarget.setTarget(this);
+			templateTarget.setRootdir(target.getTemplatedirRoot());
+//			templateTarget.setOutputdirRoot(target.getOutputdirRoot());
+			getTemplateTargets().add(templateTarget);
+			for (Template template : templateTarget.getTemplates()) {
+				template.setOutputdirRoot(target.getOutputdirRoot());
+//				template.setRootdir (target.getTemplatedirRoot());
+//				template.setPackageRoot(templateTarget.getPackageRoot());
+			}
+		}
+		getPlugins().addAll(target.getPlugins());
+	}
+	
 	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
 		return abstractConfigurationRoot;
 	}
@@ -54,13 +72,15 @@ public class Target extends AbstractConfiguration{
 	}
 	
 	public void addTemplateTarget (TemplateTarget templateTarget) {
-		if (templateTargets==null)
-			templateTargets = new ArrayList<TemplateTarget>();
+//		if (templateTargets==null)
+//			templateTargets = new ArrayList<TemplateTarget>();
 		templateTarget.setTarget(this);
-		templateTargets.add(templateTarget);
+		getTemplateTargets().add(templateTarget);
 	}
 	
 	public List<TemplateTarget> getTemplateTargets() {
+		if (templateTargets==null)
+			templateTargets = new ArrayList<TemplateTarget>();
 		return templateTargets;
 	}
 	public void setTemplateTargets(List<TemplateTarget> templateTargets) {

@@ -1,0 +1,85 @@
+<target name="Vaadin">	
+
+	<architecture-target name="Vaadin" description="Vaadin Front End Architecture">
+	</architecture-target>	
+
+    <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
+	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+<!-- 
+	<template-target 
+    	name="domain config"
+	    templatedir = "../../../../../../MP/minuteTemplate/template-bsla" 
+		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+		tool="velocity"
+		outputdir="C:\SOFT\vaadin-windows-6.0.1\vaadin-windows-6.0.1\WebContent\WEB-INF\src"
+		package-root="my.vaadin.first"
+		belongToPackage="true">	
+		
+		<template name="DomainObjectUML" templateFileName="DomainObjectUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="domain"
+			file-extension="java" file-prefix="" file-suffix="" 
+			entity-specific="true" package-specific="false" model-specific="false"
+            check-template-to-generate="false" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+
+		<template name="BslaDaoInterface" templateFileName="BslaDaoInterfaceUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="Dao" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>																
+														
+  	</template-target> 
+-->
+				
+	<template-target 
+        name="Vaadin front end set"
+	    templatedir = "" 
+		tool="velocity"
+		outputdir="src/main/java"
+		belongToPackage="true">
+	 
+		<template name="DomainObjectFormVaadin" templateFileName="DomainObjectFormVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="form"
+			file-extension="java" file-prefix="" file-suffix="Form" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+
+		<template name="DomainObjectContainerVaadin" templateFileName="DomainObjectContainerVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="container"
+			file-extension="java" file-prefix="" file-suffix="Container" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		
+		<template name="DomainObjectListVaadin" templateFileName="DomainObjectListVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="list"
+			file-extension="java" file-prefix="" file-suffix="List" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		
+
+    </template-target>	
+
+ 	
+	<template-target 
+    	name="web-inf config"
+		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
+		tool="velocity"
+		outputdir="src/main/java"
+		belongToPackage="true">			
+		
+		<template package-root="html"
+			name="Menu" templateFileName="MenuVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="menu" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+														
+  	</template-target> 
+		<!--  Menu home.jsp templates -->
+		
+<!--  Menu application.xml templates -->
+<!--  Menu config persistence.jdbc.jndi templates -->
+
+<!--  Menu config tomcat jndi templates -->
+
+</target>

@@ -101,14 +101,14 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
-		boolean hasBaseTarget = false;
-		if (abstractConfigurationRoot.hasTarget())
-			hasBaseTarget = true;
+//		boolean hasBaseTarget = false;
+//		if (abstractConfigurationRoot.hasTarget())
+//			hasBaseTarget = true;
 		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
-		if (hasBaseTarget)
-			complementWithTargetInfo(abstractConfigurationRoot, target);
-		else if (abstractConfigurationRoot.hasTargets())
-			copyAndComplementWithTargetInfo(abstractConfigurationRoot, target);
+//		if (hasBaseTarget)
+		complementWithTargetInfo(abstractConfigurationRoot, target);
+//		else if (abstractConfigurationRoot.hasTargets())
+//			copyAndComplementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
 	public void copyAndComplementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
@@ -145,11 +145,11 @@ public abstract class AbstractGenerator implements Generator {
 		return new FileInputStream (new File (filePath));
 	}
 
-	private String resolvePathAbsolutePath(
-			AbstractConfigurationRoot abstractConfigurationRoot, 
-			Target target) {
-		return FileUtils.stripFileName(resolveFileAbsolutePath(abstractConfigurationRoot, target));
-	}
+//	private String resolvePathAbsolutePath(
+//			AbstractConfigurationRoot abstractConfigurationRoot, 
+//			Target target) {
+//		return FileUtils.stripFileName(resolveFileAbsolutePath(abstractConfigurationRoot, target));
+//	}
 	private String resolveFileAbsolutePath(
 			AbstractConfigurationRoot abstractConfigurationRoot, 
 			Target target) {
@@ -164,26 +164,26 @@ public abstract class AbstractGenerator implements Generator {
 		}
 	}
 	
-	private String resolveFileAbsolutePath(
-			AbstractConfigurationRoot abstractConfigurationRoot, 
-			TemplateTarget templateTarget) {
-//		String dir = templateTarget.getDir();
-//		if (dir!=null) { // absolute path provided
-//			return dir+"/"+templateTarget.getFileName();
-//		}
-//		else {//relative path
-//			String result = FileUtils.getFileFullPath(
-//					abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
-//			return result;
-//		}		
-		return null;
-	}
+//	private String resolveFileAbsolutePath(
+//			AbstractConfigurationRoot abstractConfigurationRoot, 
+//			TemplateTarget templateTarget) {
+////		String dir = templateTarget.getDir();
+////		if (dir!=null) { // absolute path provided
+////			return dir+"/"+templateTarget.getFileName();
+////		}
+////		else {//relative path
+////			String result = FileUtils.getFileFullPath(
+////					abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
+////			return result;
+////		}		
+//		return null;
+//	}
 	
-	private String resolveFileAbsolutePath(
-			AbstractConfigurationRoot abstractConfigurationRoot, 
-			Template template) {
-		return null;
-	}
+//	private String resolveFileAbsolutePath(
+//			AbstractConfigurationRoot abstractConfigurationRoot, 
+//			Template template) {
+//		return null;
+//	}
 
 	protected void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
         URL rulesURL = getClass().getClassLoader().getResource(rules);
