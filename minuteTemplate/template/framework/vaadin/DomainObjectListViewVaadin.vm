@@ -1,0 +1,13 @@
+package com.vaadin.demo.tutorial.addressbook.ui;
+
+import com.vaadin.ui.SplitPanel;
+
+@SuppressWarnings("serial")
+public class $className extends SplitPanel {
+	public ListView($domainObjectListClass list, $domainObjectForm form) {
+		addStyleName("view");
+		setFirstComponent(list);
+		setSecondComponent(form);
+		setSplitPosition(40);
+	}
+}

@@ -1,0 +1,12 @@
+#macro (exposeVaadinDomainObject)
+#set ($domainObjectListClass = "")
+#set ($domainObjectForm = "")
+#set ($domainApplicationClass = "")
+#set ($domainObjectContainerClass = "")
+#set ($domainApplicationImport = "")
+#set ($domainObjectContainerImport = "")
+#end
+
+#macro (exposeVaadinTemplate)
+
+#end

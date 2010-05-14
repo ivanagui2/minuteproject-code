@@ -1,0 +1,69 @@
+#exposeVariableEntitySpecific()
+#putImportParamsUML()
+package ${packageName};
+
+import java.io.Serializable;
+import java.util.Random;
+import java.util.List;
+
+import com.vaadin.data.util.BeanItemContainer;
+
+import ${importDomainObjectUML};
+import ${importDaoInterfaceUML};
+
+@SuppressWarnings("serial")
+public class ${className} extends BeanItemContainer<${domainClassName}> implements Serializable {
+
+    private $daoInterfaceClassNameUML $daoInterfaceVariableNameUML;
+    
+	/**
+	 * Natural property order for Person bean. Used in tables and forms.
+	 */
+	public static final Object[] NATURAL_COL_ORDER = new Object[] {
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+	   "$columnVar"#if ($velocityHasNext), 
+#end
+#end
+	
+	};	 
+
+	/**
+	 * "Human readable" captions for properties in same order as in
+	 * NATURAL_COL_ORDER.
+	 */
+	public static final String[] COL_HEADERS_ENGLISH = new String[] {
+#foreach($column in $table.attributes)
+#putColumnParams()
+#set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
+       "$columnLabel"#if ($velocityHasNext), 
+#end
+#end
+	
+	};
+
+	public ${className}() {
+		super(${domainClassName}.class);
+	}
+
+	public ${className} getAll() {
+		${className} ${variableName} = new ${className}();
+		List<${domainClassName}> list = ${daoInterfaceVariableNameUML}.searchPrototype${domainClassName} (new ${domainClassName}());
+		// search${domainClassName}OnCriteria (DOCriteria, orderCriteria, limitCriteria);
+		/*
+		  orderCriteria within DOCriteria, asc/desc(position by default next)
+		
+		  handle projection query
+		   => convert projection into hql and not criteria api.
+		
+		  generation sp & 4 sp / trigger & 4 trigger (creation date field, update field, track user)
+		*/
+		for (${domainClassName} ${domainVariableName} : list) {
+		   ${variableName}.addItem(${domainVariableName});
+		}
+		return ${variableName};
+	}
+
+#parse("PARSER_daoInterfaceUMLGetterSetter.vm")
+    
+}
