@@ -5,36 +5,12 @@
 
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
-<!-- 
-	<template-target 
-    	name="domain config"
-	    templatedir = "../../../../../../MP/minuteTemplate/template-bsla" 
-		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
-		tool="velocity"
-		outputdir="C:\SOFT\vaadin-windows-6.0.1\vaadin-windows-6.0.1\WebContent\WEB-INF\src"
-		package-root="my.vaadin.first"
-		belongToPackage="true">	
 		
-		<template name="DomainObjectUML" templateFileName="DomainObjectUML.vm" 
-			subdir="" outputsubdir="" technicalPackage="domain"
-			file-extension="java" file-prefix="" file-suffix="" 
-			entity-specific="true" package-specific="false" model-specific="false"
-            check-template-to-generate="false" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-		</template>
-
-		<template name="BslaDaoInterface" templateFileName="BslaDaoInterfaceUML.vm" 
-			subdir="" outputsubdir="" technicalPackage="dao.face"
-			file-extension="java" file-prefix="" file-suffix="Dao" 
-			entity-specific="true" package-specific="false" model-specific="false">
-		</template>																
-														
-  	</template-target> 
--->
-				
 	<template-target 
         name="Vaadin front end set"
 	    templatedir = "" 
 		tool="velocity"
+		libdir="lib/VAADIN_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
 	 
@@ -56,7 +32,12 @@
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>
 		
-
+		<template name="DomainObjectListViewVaadin" templateFileName="DomainObjectListViewVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="list.view"
+			file-extension="java" file-prefix="" file-suffix="List" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		
     </template-target>	
 
  	
