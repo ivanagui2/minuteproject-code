@@ -1,6 +1,10 @@
-package com.vaadin.demo.tutorial.addressbook.ui;
+#exposeVariableEntitySpecific()
+#exposeVaadinDomainObject()
+package ${packageName};
 
 import com.vaadin.ui.SplitPanel;
+import $domainObjectListImport;
+import $domainObjectFormImport;
 
 @SuppressWarnings("serial")
 public class $className extends SplitPanel {
