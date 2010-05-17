@@ -785,7 +785,17 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
     * set in the list ${tableVariableName}Wheres
     */
+    // @TODO Ugly implementation but temporary (union does not work in Hibernate hql) has to shift to standard sql
+    // see searchPrototype2
     public List<$tableClassName> searchPrototype ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres) {
+    	List<$tableClassName> result = new ArrayList<$tableClassName>();
+    	for ($tableClassName ${tableVariableName}Where : ${tableVariableName}Wheres) {
+    		result.addAll(searchPrototype$tableClassName(${tableVariableName}Where));
+		}
+    	return result;
+    }
+        
+    public List<$tableClassName> searchPrototype2 ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres) {
 	   Map beanPath = new Hashtable();
 	   String queryString = getSearchPrototypeQuery (${tableVariableName}What, ${tableVariableName}Wheres, beanPath);
 	   Query hquery = getQuery (queryString, null);
@@ -798,12 +808,12 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	
 	private String getSearchPrototypeQuery ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres, Map beanPath) {
 	   StringBuffer sb = new StringBuffer();
-	   $tableClassName [] ${tableVariableName}Where = ($tableClassName [])${tableVariableName}Wheres.toArray();
-	   for (int i = 0; i < ${tableVariableName}Where.length; i++) {
+	   for (Iterator iterator = ${tableVariableName}Wheres.iterator(); iterator.hasNext();) {
+	      $tableClassName ${tableVariableName}Where = (${tableClassName}) iterator.next();
 		  beanPath.clear();
-		  String query = getPartialLoadWithParent${tableClassName}HsqlQuery (${tableVariableName}What, ${tableVariableName}Where[i], null, beanPath, new QuerySelectInit());
+		  String query = getPartialLoadWithParent${tableClassName}HsqlQuery (${tableVariableName}What, ${tableVariableName}Where, null, beanPath, new QuerySelectInit());
 		  sb.append(query);
-		  if (i<${tableVariableName}Where.length)
+		  if (iterator.hasNext())
 			 sb.append(" union ");
 	   }		
 	   return sb.toString();

@@ -6,6 +6,9 @@
 #set ($domainObjectListViewClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectListViewVaadin))
 #set ($domainObjectListViewVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectListViewClass))
 #set ($domainObjectListViewImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectListViewVaadin))
+#set ($domainObjectSearchViewClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectSearchViewVaadin))
+#set ($domainObjectSearchViewVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectListViewClass))
+#set ($domainObjectSearchViewImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectSearchViewVaadin))
 #set ($domainObjectFormClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectFormVaadin))
 #set ($domainObjectFormVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectFormClass))
 #set ($domainObjectFormImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectFormVaadin))
@@ -21,6 +24,15 @@
 #set ($templateDomainObjectFormVaadin = "DomainObjectFormVaadin")
 #set ($templateDomainObjectContainerVaadin = "DomainObjectContainerVaadin")
 #set ($templateDomainObjectListVaadin = "DomainObjectListVaadin")
-#set ($templateDomainObjectListViewVaadin = "DomainObjectFormViewVaadin")
+#set ($templateDomainObjectListViewVaadin = "DomainObjectListViewVaadin")
 #set ($templateDomainObjectApplicationVaadin = "DomainObjectApplicationVaadin")
+#set ($templateDomainObjectSearchViewVaadin = "DomainObjectSearchViewVaadin")
 #end
+
+#macro (putVaadinClassObjectAndPackage)
+#exposeVariableEntitySpecific()
+#exposeVaadinDomainObject()
+#putImportParamsUML()
+package ${packageName};
+#end
+

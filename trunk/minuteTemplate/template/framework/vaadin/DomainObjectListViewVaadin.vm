@@ -1,6 +1,4 @@
-#exposeVariableEntitySpecific()
-#exposeVaadinDomainObject()
-package ${packageName};
+#putVaadinClassObjectAndPackage()
 
 import com.vaadin.ui.SplitPanel;
 import $domainObjectListImport;

@@ -1,6 +1,6 @@
-package com.vaadin.demo.tutorial.addressbook.ui;
+#putVaadinClassObjectAndPackage()
 
-import $domainApplicationImport;
+import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 ##import com.vaadin.demo.tutorial.addressbook.data.SearchFilter;
 import com.vaadin.ui.Button;
@@ -20,9 +20,9 @@ public class SearchView extends Panel {
 	private NativeSelect fieldToSearch;
 	private CheckBox saveSearch;
 	private TextField searchName;
-	private $domainApplicationClass app;
+	private $domainObjectApplicationClass app;
 
-	public SearchView(final $domainApplicationClass app) {
+	public SearchView(final $domainObjectApplicationClass app) {
 		this.app = app;
 		addStyleName("view");
 
@@ -41,10 +41,10 @@ public class SearchView extends Panel {
 		Button search = new Button("Search");
 
 		/* Initialize fieldToSearch */
-		for (int i = 0; i < PersonContainer.NATURAL_COL_ORDER.length; i++) {
-			fieldToSearch.addItem(PersonContainer.NATURAL_COL_ORDER[i]);
-			fieldToSearch.setItemCaption(PersonContainer.NATURAL_COL_ORDER[i],
-					PersonContainer.COL_HEADERS_ENGLISH[i]);
+		for (int i = 0; i < $domainObjectContainerClass.NATURAL_COL_ORDER.length; i++) {
+			fieldToSearch.addItem($domainObjectContainerClass.NATURAL_COL_ORDER[i]);
+			fieldToSearch.setItemCaption($domainObjectContainerClass.NATURAL_COL_ORDER[i],
+					$domainObjectContainerClass.COL_HEADERS_ENGLISH[i]);
 		}
 
 		fieldToSearch.setValue("lastName");

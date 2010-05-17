@@ -1,6 +1,4 @@
-#exposeVariableEntitySpecific()
-#putImportParamsUML()
-package ${packageName};
+#putVaadinClassObjectAndPackage()
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,7 +24,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-import ${importDomainObjectUML};
+//import ${importDomainObjectUML};
 
 @SuppressWarnings("serial")
 public class ${className} extends Form implements ClickListener {
@@ -46,7 +44,7 @@ public class ${className} extends Form implements ClickListener {
 
 //	private AddressBookApplication app;
 	private boolean new${domainClassName}Mode = false;
-	private $domainClassName $domainVariableName = null;
+	private $importDomainObjectUML $domainVariableName = null;
 
 	public ${className}() {
 		//this.app = app;
@@ -158,7 +156,7 @@ public class ${className} extends Form implements ClickListener {
 	}
 
 	public void add$domainClassName() {
-		$domainVariableName = new $domainClassName();
+		$domainVariableName = new $importDomainObjectUML();
 		setItemDataSource(new BeanItem($domainVariableName));
 				new${domainClassName}Mode = true;
 		setReadOnly(false);
