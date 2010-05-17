@@ -1,10 +1,11 @@
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
 package ${packageName};
-
+/*
 import com.vaadin.demo.tutorial.addressbook.AddressBookApplication;
 import com.vaadin.demo.tutorial.addressbook.data.Person;
 import com.vaadin.demo.tutorial.addressbook.data.PersonContainer;
+*/
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Link;
@@ -19,8 +20,8 @@ public class ${className} extends Table {
 		setSizeFull();
 		setContainerDataSource(app.getDataSource());
 
-		setVisibleColumns(PersonContainer.NATURAL_COL_ORDER);
-		setColumnHeaders(PersonContainer.COL_HEADERS_ENGLISH);
+		setVisibleColumns($domainObjectContainerClass.NATURAL_COL_ORDER);
+		setColumnHeaders($domainObjectContainerClass.COL_HEADERS_ENGLISH);
 
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);
