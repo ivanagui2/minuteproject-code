@@ -33,10 +33,23 @@
 		</template>
 		
 		<template name="DomainObjectListViewVaadin" templateFileName="DomainObjectListViewVaadin.vm" 
-			subdir="" outputsubdir="" technicalPackage="list.view"
-			file-extension="java" file-prefix="" file-suffix="List" 
+			subdir="" outputsubdir="" technicalPackage="view.list"
+			file-extension="java" file-prefix="" file-suffix="ListView" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>
+
+		
+		<template name="DomainObjectSearchViewVaadin" templateFileName="DomainObjectSearchViewVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.search"
+			file-extension="java" file-prefix="" file-suffix="SearchView" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>
+		
+		<template name="DomainObjectApplicationVaadin" templateFileName="DomainObjectApplicationVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="application"
+			file-extension="java" file-prefix="" file-suffix="App" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>		
 		
     </template-target>	
 
