@@ -1,21 +1,18 @@
 #putVaadinClassObjectAndPackage()
 
-import com.vaadin.Application;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
+import net.sf.minuteproject.vaadin.navigation.NavigationTree;
+
 import $domainObjectContainerImport;
 import $domainObjectFormImport;
 import $domainObjectListViewImport;
 import $domainObjectListImport;
 import $domainObjectSearchViewImport;
-//import com.vaadin.demo.tutorial.addressbook.data.SearchFilter;
-//import com.vaadin.demo.tutorial.addressbook.ui.HelpWindow;
-//import com.vaadin.demo.tutorial.addressbook.ui.NavigationTree;
-//import com.vaadin.demo.tutorial.addressbook.ui.PersonList;
-//import com.vaadin.demo.tutorial.addressbook.ui.SearchView;
-//import com.vaadin.demo.tutorial.addressbook.ui.SharingOptions;
+
+import com.vaadin.Application;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.terminal.ThemeResource;
@@ -35,7 +32,7 @@ import com.vaadin.ui.Window.Notification;
 public class ${className} extends Application implements
 		ClickListener, ValueChangeListener, ItemClickListener {
 
-//	private NavigationTree tree = new NavigationTree(this);
+	private NavigationTree<${className}> tree = new NavigationTree(this);
 
 	private Button new${domainClassName} = new Button("Add ${domainClassName}");
 	private Button search = new Button("Search");
@@ -52,7 +49,7 @@ public class ${className} extends Application implements
 	//private HelpWindow helpWindow = null;
 	//private SharingOptions sharingOptions = null;
 
-	//private PersonContainer dataSource = PersonContainer.createWithTestData();
+	private $domainObjectContainerClass dataSource = new $domainObjectContainerClass ();
 
 	@Override
 	public void init() {
@@ -80,20 +77,14 @@ public class ${className} extends Application implements
 
 	private HorizontalLayout createToolbar() {
 		HorizontalLayout lo = new HorizontalLayout();
-		lo.addComponent(newContact);
+		lo.addComponent(new${domainClassName});
 		lo.addComponent(search);
-		lo.addComponent(share);
-		lo.addComponent(help);
-
+		
 		search.addListener((ClickListener) this);
-		share.addListener((ClickListener) this);
-		help.addListener((ClickListener) this);
-		newContact.addListener((ClickListener) this);
+		new${domainClassName}.addListener((ClickListener) this);
 
 		search.setIcon(new ThemeResource("icons/32/folder-add.png"));
-		share.setIcon(new ThemeResource("icons/32/users.png"));
-		help.setIcon(new ThemeResource("icons/32/help.png"));
-		newContact.setIcon(new ThemeResource("icons/32/document-add.png"));
+		new${domainClassName}.setIcon(new ThemeResource("icons/32/document-add.png"));
 
 		lo.setMargin(true);
 		lo.setSpacing(true);
@@ -121,20 +112,20 @@ public class ${className} extends Application implements
 	private $domainObjectListViewClass getListView() {
 		if (listView == null) {
 			${domainObjectListVariable} = new ${domainObjectListClass}(this);
-			${domainObjectFormVariable} = new ${domainObjectFormVariable}(this);
-			listView = new ListView(${domainObjectListVariable}, ${domainObjectFormVariable});
+			${domainObjectFormVariable} = new ${domainObjectFormClass}(this);
+			listView = new ${domainObjectListViewClass}(${domainObjectListVariable}, ${domainObjectFormVariable});
 		}
 		return listView;
 	}
 
 	private $domainObjectSearchViewClass getSearchView() {
 		if (searchView == null) {
-			searchView = new SearchView(this);
+			searchView = new $domainObjectSearchViewClass(this);
 		}
 		return searchView;
 	}
 
-	public PersonContainer getDataSource() {
+	public $domainObjectContainerClass getDataSource() {
 		return dataSource;
 	}
 
@@ -159,8 +150,8 @@ public class ${className} extends Application implements
 
 	public void valueChange(ValueChangeEvent event) {
 		Property property = event.getProperty();
-		if (property == ${domainObjectListClass}) {
-			Item item = ${domainObjectListClass}.getItem(${domainObjectListClass}.getValue());
+		if (property == ${domainObjectListVariable}) {
+			Item item = ${domainObjectListVariable}.getItem(${domainObjectListVariable}.getValue());
 			if (item != ${domainObjectFormVariable}.getItemDataSource()) {
 				${domainObjectFormVariable}.setItemDataSource(item);
 			}
@@ -177,8 +168,8 @@ public class ${className} extends Application implements
 					showListView();
 				} else if (itemId == NavigationTree.SEARCH) {
 					showSearchView();
-				} else if (itemId instanceof SearchFilter) {
-					search((SearchFilter) itemId);
+				//} else if (itemId instanceof SearchFilter) {
+					//search((SearchFilter) itemId);
 				}
 			}
 		}
@@ -189,6 +180,7 @@ public class ${className} extends Application implements
 		${domainObjectFormVariable}.add${domainClassName}();
 	}
 
+/*
 	public void search(SearchFilter searchFilter) {
 		// clear previous filters
 		getDataSource().removeAllContainerFilters();
@@ -214,5 +206,6 @@ public class ${className} extends Application implements
 		// select the saved search
 		tree.setValue(searchFilter);
 	}
+*/
 
 }
