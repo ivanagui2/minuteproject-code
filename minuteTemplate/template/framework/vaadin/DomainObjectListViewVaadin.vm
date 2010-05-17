@@ -8,7 +8,7 @@ import $domainObjectFormImport;
 
 @SuppressWarnings("serial")
 public class $className extends SplitPanel {
-	public ListView($domainObjectListClass list, $domainObjectForm form) {
+	public $className ($domainObjectListClass list, $domainObjectFormClass form) {
 		addStyleName("view");
 		setFirstComponent(list);
 		setSecondComponent(form);
