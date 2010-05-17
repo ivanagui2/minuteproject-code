@@ -1,6 +1,8 @@
-#exposeVariableEntitySpecific()
-#putImportParamsUML()
-package ${packageName};
+#putVaadinClassObjectAndPackage()
+
+import $domainObjectContainerImport;
+import $domainObjectApplicationImport;
+import ${importDomainObjectUML};
 /*
 import com.vaadin.demo.tutorial.addressbook.AddressBookApplication;
 import com.vaadin.demo.tutorial.addressbook.data.Person;
@@ -16,12 +18,12 @@ import ${importDomainObjectUML};
 @SuppressWarnings("serial")
 public class ${className} extends Table {
 
-	public ${className} (AddressBookApplication app) {
+	public ${className} ($domainObjectApplicationClass app) {
 		setSizeFull();
 		setContainerDataSource(app.getDataSource());
 
-		setVisibleColumns($domainObjectContainerClass.NATURAL_COL_ORDER);
-		setColumnHeaders($domainObjectContainerClass.COL_HEADERS_ENGLISH);
+		setVisibleColumns(${domainObjectContainerClass}.NATURAL_COL_ORDER);
+		setColumnHeaders(${domainObjectContainerClass}.COL_HEADERS_ENGLISH);
 
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);

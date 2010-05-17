@@ -14,7 +14,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window.Notification;
 
 @SuppressWarnings("serial")
-public class SearchView extends Panel {
+public class ${className} extends Panel {
 
 	private TextField tf;
 	private NativeSelect fieldToSearch;
@@ -22,7 +22,7 @@ public class SearchView extends Panel {
 	private TextField searchName;
 	private $domainObjectApplicationClass app;
 
-	public SearchView(final $domainObjectApplicationClass app) {
+	public ${className}(final $domainObjectApplicationClass app) {
 		this.app = app;
 		addStyleName("view");
 
@@ -41,10 +41,10 @@ public class SearchView extends Panel {
 		Button search = new Button("Search");
 
 		/* Initialize fieldToSearch */
-		for (int i = 0; i < $domainObjectContainerClass.NATURAL_COL_ORDER.length; i++) {
-			fieldToSearch.addItem($domainObjectContainerClass.NATURAL_COL_ORDER[i]);
-			fieldToSearch.setItemCaption($domainObjectContainerClass.NATURAL_COL_ORDER[i],
-					$domainObjectContainerClass.COL_HEADERS_ENGLISH[i]);
+		for (int i = 0; i < ${domainObjectContainerClass}.NATURAL_COL_ORDER.length; i++) {
+			fieldToSearch.addItem(${domainObjectContainerClass}.NATURAL_COL_ORDER[i]);
+			fieldToSearch.setItemCaption(${domainObjectContainerClass}.NATURAL_COL_ORDER[i],
+					${domainObjectContainerClass}.COL_HEADERS_ENGLISH[i]);
 		}
 
 		fieldToSearch.setValue("lastName");
@@ -81,7 +81,7 @@ public class SearchView extends Panel {
 					Notification.TYPE_WARNING_MESSAGE);
 			return;
 		}
-
+/*
 		SearchFilter searchFilter = new SearchFilter(fieldToSearch.getValue(),
 				searchTerm, (String) searchName.getValue());
 		if (saveSearch.booleanValue()) {
@@ -95,6 +95,7 @@ public class SearchView extends Panel {
 			app.saveSearch(searchFilter);
 		}
 		app.search(searchFilter);
+		*/
 	}
 
 }
