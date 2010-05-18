@@ -36,7 +36,7 @@ public enum $className {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        return null;
     }
 
 
