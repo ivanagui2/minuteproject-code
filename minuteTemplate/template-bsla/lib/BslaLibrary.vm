@@ -60,6 +60,11 @@
 #set ($classVariableName = $commonUtils.getJavaNameVariableFirstLetter($className))
 #end
 
+#macro (exposeEnumerationSpecific)
+#set ($enumName = $restrictedCodeUtils.convertToValidJavaWithUpperCase($prop.name))
+#set ($enumValue = $restrictedCodeUtils.convertToValidPlainTextFromXml($prop.name))
+#end
+
 #macro(exposeVariableModelDetailSpecific)
 #set ($database = $model.dataModel.database)
 #set ($configuration = $model.configuration)
