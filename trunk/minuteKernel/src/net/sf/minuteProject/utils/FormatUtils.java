@@ -14,52 +14,55 @@ public class FormatUtils {
 	public static final String CONVERT_TO_JAVA_NAME = "CONVERT_TO_JAVA_NAME";
 	public static final String CONVERT_TO_JAVA_VARIABLE_NAME = "CONVERT_TO_JAVA_VARIABLE_NAME";
 	public static final String CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD = "CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD";
-	
-//	private static String getResultOfInputConversion (String input, String converter) {
-//		
-//	}
-//	
+
+	// private static String getResultOfInputConversion (String input, String
+	// converter) {
+	//		
+	// }
+	//	
 	/**/
 	public static String getJavaName(String name) {
 		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_NAME);
 		String value = FormatCache.getInstance().getCacheEntry(fce);
-		if (value==null) {
-			value = performGetJavaName (name);
+		if (value == null) {
+			value = performGetJavaName(name);
 			FormatCache.getInstance().putCacheEntryValue(fce, value);
 		}
 		return value;
 	}
-	
+
 	public static String getJavaNameVariable(String name) {
-		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_VARIABLE_NAME);
+		FormatCacheEntry fce = new FormatCacheEntry(name,
+				CONVERT_TO_JAVA_VARIABLE_NAME);
 		String value = FormatCache.getInstance().getCacheEntry(fce);
-		if (value==null) {
+		if (value == null) {
 			value = performGetJavaNameVariable(name);
 			FormatCache.getInstance().putCacheEntryValue(fce, value);
 		}
 		return value;
-	}	
-	
+	}
+
 	public static String getJavaNameVariableConvertReservedWord(String name) {
-		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD);
+		FormatCacheEntry fce = new FormatCacheEntry(name,
+				CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD);
 		String value = FormatCache.getInstance().getCacheEntry(fce);
-		if (value==null) {
+		if (value == null) {
 			value = performGetJavaNameVariableConvertReservedWord(name);
 			FormatCache.getInstance().putCacheEntryValue(fce, value);
 		}
 		return value;
-	}	
+	}
+
 	/*
-	public static String getJavaNameVariable(String name) {
-		return performGetJavaNameVariable(name);
-	}
-	
-	public static String getJavaName(String name) {
-		return performGetJavaName(name);
-	}
-	*/
+	 * public static String getJavaNameVariable(String name) { return
+	 * performGetJavaNameVariable(name); }
+	 * 
+	 * public static String getJavaName(String name) { return
+	 * performGetJavaName(name); }
+	 */
 	public static String getDirFromPackage(String packageSt) {
-		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/"): "";
+		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/")
+				: "";
 	}
 
 	public static String getDirToPackage(String packageSt) {
@@ -83,13 +86,14 @@ public class FormatUtils {
 		return sb.toString();
 	}
 
-	private static String performGetJavaNameVariableConvertReservedWord(String name) {
+	private static String performGetJavaNameVariableConvertReservedWord(
+			String name) {
 		String value = performGetJavaNameVariable(name);
 		if (JavaUtils.isReservedWord(name))
-			value = convertReservedWord (value);
+			value = convertReservedWord(value);
 		return value;
 	}
-	
+
 	private static String performGetJavaNameVariable(String name) {
 		if (name == null)
 			return "ERROR_GET_JAVANAMEVARIABLE_WITH_NULL";
@@ -195,7 +199,50 @@ public class FormatUtils {
 		return res;
 	}
 
-	private static String convertReservedWord (String word) {
-		return "_"+word;
+	public static final String trimExpression(String inputExpression,
+			String trimmedValue) {
+		// TODO some validation needed
+		if (inputExpression.startsWith(trimmedValue)) {
+			int startIndex = inputExpression.indexOf(trimmedValue);
+			inputExpression = inputExpression.substring(startIndex
+					+ trimmedValue.length());
+		}
+		if (inputExpression.endsWith(trimmedValue)) {
+			int lastIndex = inputExpression.lastIndexOf(trimmedValue);
+			inputExpression = inputExpression.substring(0, lastIndex);
+		}
+		return inputExpression;
+	}
+
+	public static final String eliminateMultipleSequenceOfChar(
+			String inputExpression, char... seq) {
+		StringBuffer result = new StringBuffer();
+		char prevChar = 0;
+		for (int i = 0; i < inputExpression.length(); i++) {
+			char currentChar = inputExpression.charAt(i);
+			if (existCharInSequence(currentChar, seq)) {
+				if (i > 0 && currentChar != prevChar) {
+					result.append(currentChar);
+				}
+			} else {
+				result.append(currentChar);
+			}
+			if (i > 0)
+				prevChar = currentChar;
+		}
+		return result.toString();
+	}
+
+	private static boolean existCharInSequence(char c, char... seq) {
+		for (int i = 0; i < seq.length; i++) {
+			if (c == seq[i]) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static String convertReservedWord(String word) {
+		return "_" + word;
 	}
 }
