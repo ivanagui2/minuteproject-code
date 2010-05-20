@@ -24,13 +24,19 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-import ${importDomainObjectUML};
+//import ${importDomainObjectUML}; might enter in confict with vaadin class (ex: Item import)
 import $domainObjectApplicationImport;
 
 @SuppressWarnings("serial")
 public class ${className} extends Form implements ClickListener {
 
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+    "$columnVar",
+#end
+#end
 	#foreach ($column in ${table.attributes})
 #putColumnParams()
 	"$columnVar"#if ($velocityHasNext), 
@@ -43,12 +49,12 @@ public class ${className} extends Form implements ClickListener {
 	private Button cancel = new Button("Cancel", (ClickListener) this);
 	private Button edit = new Button("Edit", (ClickListener) this);
 
-private $domainObjectApplicationClass app;
+	private $domainObjectApplicationClass $domainObjectApplicationVariable;
 	private boolean new${domainClassName}Mode = false;
 	private $importDomainObjectUML $domainVariableName = null;
 
 	public ${className}($domainObjectApplicationClass $domainObjectApplicationVariable) {
-		this.app = app;
+		this.$domainObjectApplicationVariable = $domainObjectApplicationVariable;
 
 		/*
 		 * Enable buffering so that commit() must be called for the form before
@@ -77,13 +83,29 @@ private $domainObjectApplicationClass app;
 			public Field createField(Item item, Object propertyId,
 					Component uiContext) {
 				Field field = super.createField(item, propertyId, uiContext);
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+#putColumnParams()
+			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
+					TextField tf = (TextField) field;
+					tf.setNullRepresentation("");
+#if($hasTypeValidator)
+					//@TODO change it. 
+#end
+#if($isMandatory)
+					tf.setRequired(true);
+#end													
+				}    
+#end
+#end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 					TextField tf = (TextField) field;
 					tf.setNullRepresentation("");
 #if($hasTypeValidator)
-					tf.addValidator(new RegexpValidator("[1-9][0-9]{4}", 									"Postal code must be a five digit number and cannot start with a zero."));
+					//@TODO change it. tf.addValidator(new RegexpValidator("[1-9][0-9]{4}", 									"Postal code must be a five digit number and cannot start with a zero."));
 #end
 #if($isMandatory)
 					tf.setRequired(true);
@@ -159,7 +181,7 @@ private $domainObjectApplicationClass app;
 	public void add$domainClassName() {
 		$domainVariableName = new $importDomainObjectUML();
 		setItemDataSource(new BeanItem($domainVariableName));
-				new${domainClassName}Mode = true;
+		new${domainClassName}Mode = true;
 		setReadOnly(false);
 	}
 
