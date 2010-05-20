@@ -2,7 +2,11 @@
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.sql.*;
+import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
@@ -126,8 +130,10 @@ public class ${className} extends Form implements ClickListener {
 			if (!isValid()) {
 				return;
 			}
-
-			commit();
+			${importDomainObjectUML} $domainVariableName = get${domainClassName}FromForm ();
+	${domainObjectApplicationVariable}.getDataSource().save ($domainVariableName);
+		${domainObjectApplicationVariable}.refresh();
+									commit();
 			if (new${domainClassName}Mode) {
 				/* We need to add the new person to the container */
 				//Item addedItem = app.getDataSource().addItem($domainVariableName);
@@ -139,7 +145,7 @@ public class ${className} extends Form implements ClickListener {
 
 				new${domainClassName}Mode = false;
 			}
-			setReadOnly(true);
+			//setReadOnly(true);
 		} else if (source == cancel) {
 			if (new${domainClassName}Mode) {
 				new${domainClassName}Mode = false;
@@ -183,6 +189,21 @@ public class ${className} extends Form implements ClickListener {
 		setItemDataSource(new BeanItem($domainVariableName));
 		new${domainClassName}Mode = true;
 		setReadOnly(false);
+	}
+
+	private ${importDomainObjectUML} get${domainClassName}FromForm () {
+		$importDomainObjectUML $domainVariableName = new $importDomainObjectUML();
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+		${domainVariableName}.set${columnClass}(($columnType)getField("$columnVar").getValue());
+#end
+#end
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+		${domainVariableName}.set${columnClass}(($columnType)getField("$columnVar").getValue()); 
+#end
+		return $domainVariableName;
 	}
 
 }

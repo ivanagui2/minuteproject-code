@@ -19,7 +19,6 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 
     private $daoInterfaceClassNameUML $daoInterfaceVariableNameUML;
 
-
 	public ${className}() {
 		super(${domainClassName}.class);
 		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$springMainHibernatePath");
@@ -41,7 +40,6 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 	   "$columnVar"#if ($velocityHasNext), 
 #end
 #end
-	
 	};	 
 
 	/**
@@ -62,7 +60,6 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
        "$columnLabel"#if ($velocityHasNext), 
 #end
 #end
-	
 	};
 
 	public ${className} getAll() {
@@ -82,7 +79,15 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 		}
 		return ${variableName};
 	}
-
+	
+	public void saveAndUpdateList (${importDomainObjectUML} $domainVariableName) {
+	   save ($domainVariableName);
+	   getAll();
+	}
+	
+		public void save (${importDomainObjectUML} $domainVariableName) {
+	   ${daoInterfaceVariableNameUML}.save$domainClassName ($domainVariableName);
+	}
 #parse("PARSER_daoInterfaceUMLGetterSetter.vm")
     
 }
