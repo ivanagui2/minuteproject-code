@@ -110,11 +110,11 @@ public class ${className} extends Application implements
 	 * faster application startup time.
 	 */
 	private $domainObjectListViewClass getListView() {
-		if (listView == null) {
+		//if (listView == null) {
 			${domainObjectListVariable} = new ${domainObjectListClass}(this);
 			${domainObjectFormVariable} = new ${domainObjectFormClass}(this);
 			listView = new ${domainObjectListViewClass}(${domainObjectListVariable}, ${domainObjectFormVariable});
-		}
+		//}
 		return listView;
 	}
 
@@ -164,8 +164,7 @@ public class ${className} extends Application implements
 			if (itemId != null) {
 				if (itemId == NavigationTree.SHOW_ALL) {
 					// clear previous filters
-					getDataSource().removeAllContainerFilters();
-					showListView();
+					refresh();
 				} else if (itemId == NavigationTree.SEARCH) {
 					showSearchView();
 				//} else if (itemId instanceof SearchFilter) {
@@ -175,8 +174,13 @@ public class ${className} extends Application implements
 		}
 	}
 
+public void refresh() {
+					getDataSource().removeAllContainerFilters();
+					showListView();
+}
+
 	private void add${domainClassName}() {
-		showListView();
+		refresh();
 		${domainObjectFormVariable}.add${domainClassName}();
 	}
 
