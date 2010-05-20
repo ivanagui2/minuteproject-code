@@ -1,3 +1,4 @@
+#exposeSpringConfig()
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
 package ${packageName};
@@ -5,6 +6,8 @@ package ${packageName};
 import java.io.Serializable;
 import java.util.Random;
 import java.util.List;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.vaadin.data.util.BeanItemContainer;
 
@@ -15,11 +18,24 @@ import ${importDaoInterfaceUML};
 public class ${className} extends BeanItemContainer<${domainClassName}> implements Serializable {
 
     private $daoInterfaceClassNameUML $daoInterfaceVariableNameUML;
-    
+
+
+	public ${className}() {
+		super(${domainClassName}.class);
+		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$springMainHibernatePath");
+		$daoInterfaceVariableNameUML = ($daoInterfaceClassNameUML)bf.getBean("$daoInterfaceVariableNameUML");
+	}    
+	
 	/**
 	 * Natural property order for Person bean. Used in tables and forms.
 	 */
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+       "$columnVar",
+#end
+#end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 	   "$columnVar"#if ($velocityHasNext), 
@@ -33,6 +49,13 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 	 * NATURAL_COL_ORDER.
 	 */
 	public static final String[] COL_HEADERS_ENGLISH = new String[] {
+		#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+#set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
+    "$columnLabel",
+#end
+#end
 #foreach($column in $table.attributes)
 #putColumnParams()
 #set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
@@ -41,10 +64,6 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 #end
 	
 	};
-
-	public ${className}() {
-		super(${domainClassName}.class);
-	}
 
 	public ${className} getAll() {
 		${className} ${variableName} = new ${className}();

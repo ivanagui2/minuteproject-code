@@ -126,7 +126,7 @@ public class ${className} extends Application implements
 	}
 
 	public $domainObjectContainerClass getDataSource() {
-		return dataSource;
+		return dataSource.getAll();
 	}
 
 	public void buttonClick(ClickEvent event) {

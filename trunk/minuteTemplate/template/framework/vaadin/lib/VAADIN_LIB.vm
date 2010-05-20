@@ -13,7 +13,7 @@
 #set ($domainObjectFormVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectFormClass))
 #set ($domainObjectFormImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectFormVaadin))
 #set ($domainObjectApplicationClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectApplicationVaadin))
-#set ($domainObjectApplicationVariable = $commonUtils.getJavaNameVariableFirstLetter($domainApplicationClass))
+#set ($domainObjectApplicationVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectApplicationClass))
 #set ($domainObjectApplicationImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectApplicationVaadin))
 #set ($domainObjectContainerClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectContainerVaadin))
 #set ($domainObjectContainerVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectContainerClass))
