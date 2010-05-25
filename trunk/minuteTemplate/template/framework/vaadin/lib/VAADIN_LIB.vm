@@ -20,6 +20,27 @@
 #set ($domainObjectContainerImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectContainerVaadin))
 #end
 
+#macro (exposeVaadinApps)
+#set($vaadinApplications = $vaadinPlugin.getVaadinApplications($model))
+#end
+
+#macro (exposeFormParams)
+#putColumnParams()
+#if ($columnType=="java.math.BigDecimal")
+#set ($convertMethod = "getBigInteger")
+#else 
+#set ($convertMethod = "get${columnType}")
+#end
+#end
+
+#macro (exposeVaadinApp)
+#set ($table = $vaadinApp.entity)
+#exposeVariableEntitySpecific()
+#exposeVaadinDomainObject()
+#set ($vaadinAppName = $domainObjectApplicationClass)
+#set ($vaadinAppClass = $domainObjectApplicationImport)
+#end
+
 #macro (exposeVaadinTemplate)
 #set ($templateDomainObjectFormVaadin = "DomainObjectFormVaadin")
 #set ($templateDomainObjectContainerVaadin = "DomainObjectContainerVaadin")
