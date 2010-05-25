@@ -3,9 +3,27 @@
 	<architecture-target name="Vaadin" description="Vaadin Front End Architecture">
 	</architecture-target>	
 
+	<plugin name="vaadinPlugin" className="net.sf.minuteProject.plugin.vaadin.VaadinPlugin"></plugin>	
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+
+	<template-target 
+        name="Vaadin front end set"
+	    templatedir = "" 
+		tool="velocity"
+		package-root=""
+		libdir="lib/VAADIN_LIB.vm"
+		outputdir="src/main/resources"
+		belongToPackage="true">
+			 
+		<template name="WebXmlVaadin" templateFileName="WebXmlVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="web" file-suffix="" 
+			application-specific="true" add-model-name="false">			
+		</template>
 		
+	</template-target>		
+	
 	<template-target 
         name="Vaadin front end set"
 	    templatedir = "" 
@@ -13,7 +31,7 @@
 		libdir="lib/VAADIN_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
-	 
+			 
 		<template name="DomainObjectFormVaadin" templateFileName="DomainObjectFormVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="form"
 			file-extension="java" file-prefix="" file-suffix="Form" 
