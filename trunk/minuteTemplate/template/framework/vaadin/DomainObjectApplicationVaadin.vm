@@ -58,7 +58,7 @@ public class ${className} extends Application implements
 	}
 
 	private void buildMainLayout() {
-		setMainWindow(new Window("Address Book Demo application"));
+		setMainWindow(new Window("$model.name MinuteProject 4 Vaadin Demo application"));
 
 		setTheme("contacts");
 
