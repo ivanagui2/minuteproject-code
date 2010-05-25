@@ -47,11 +47,11 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 	 * NATURAL_COL_ORDER.
 	 */
 	public static final String[] COL_HEADERS_ENGLISH = new String[] {
-		#foreach($column in ${table.primaryKeyColumns})
+#foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
 #set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
-    "$columnLabel",
+       "$columnLabel",
 #end
 #end
 #foreach($column in $table.attributes)
@@ -85,9 +85,14 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 	   getAll();
 	}
 	
-		public void save (${importDomainObjectUML} $domainVariableName) {
+	public void save (${importDomainObjectUML} $domainVariableName) {
 	   ${daoInterfaceVariableNameUML}.save$domainClassName ($domainVariableName);
 	}
+
+	public void delete (${importDomainObjectUML} $domainVariableName) {
+	   ${daoInterfaceVariableNameUML}.delete$domainClassName ($domainVariableName);
+	}
+		
 #parse("PARSER_daoInterfaceUMLGetterSetter.vm")
     
 }
