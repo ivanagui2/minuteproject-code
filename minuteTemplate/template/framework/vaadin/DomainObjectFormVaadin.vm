@@ -12,11 +12,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.RegexpValidator;
-/*
-import com.vaadin.demo.tutorial.addressbook.AddressBookApplication;
-import com.vaadin.demo.tutorial.addressbook.data.Person;
-import com.vaadin.demo.tutorial.addressbook.data.PersonContainer;
-*/
+
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
@@ -37,7 +33,7 @@ public class ${className} extends Form implements ClickListener {
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
-#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+#if(!$isForeignKey)##&& $columnUtils.isPkUserProvided($column))
     "$columnVar",
 #end
 #end
@@ -89,7 +85,7 @@ public class ${className} extends Form implements ClickListener {
 				Field field = super.createField(item, propertyId, uiContext);
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
-#if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
+#if(!$isForeignKey )
 #putColumnParams()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 					TextField tf = (TextField) field;
@@ -99,7 +95,11 @@ public class ${className} extends Form implements ClickListener {
 #end
 #if($isMandatory)
 					tf.setRequired(true);
-#end													
+#end
+#if (!$columnUtils.isPkUserProvided($column))
+tf.setVisible(false);
+#end
+													
 				}    
 #end
 #end
@@ -200,10 +200,23 @@ public class ${className} extends Form implements ClickListener {
 #end
 #end
 #foreach ($column in ${table.attributes})
-#putColumnParams()
-		${domainVariableName}.set${columnClass}(($columnType)getField("$columnVar").getValue()); 
+#exposeFormParams()
+		${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue())); 
 #end
 		return $domainVariableName;
 	}
+
+protected String getString (Object stringObject) {
+   return (String) stringObject;
+}
+
+protected java.math.BigDecimal getBigInteger (Object stringObject) {
+   return java.math.BigDecimal.valueOf(getLong(stringObject));
+}
+
+protected Long getLong (Object stringObject) {
+   return Long.valueOf (getString(stringObject));
+}
+
 
 }
