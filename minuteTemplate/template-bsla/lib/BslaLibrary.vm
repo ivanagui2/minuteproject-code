@@ -101,7 +101,7 @@
 #set ($link = $formatUtils.getJavaNameVariable(${reference.tableName}))
 #set ($columnclass = $formatUtils.getJavaName(${reference.columnName}))
 #set ($column = $formatUtils.getJavaNameVariable(${reference.columnName}))
-#set ($columnType = $commonUtils.getJavaType($columnDB))
+#set ($columnType = $commonUtils.columnType($columnDB))
 #set ($columnFullType = $commonUtils.getFullType2($columnDB))
 #set ($localColumnDB = $reference.localColumn)
 #set ($localColumnName = $formatUtils.getJavaNameVariable(${reference.localColumn.name}))
@@ -178,6 +178,12 @@
 #set ($columnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord($column.name))
 #timeColumn()
 #largeFormat()
+#end
+
+#macro(exposeSpringConfig)
+#templateDefinition()
+#set ($springMainHibernatePath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringMainHibernateConfig))
+##$bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoHibernate") )
 #end
 
 #macro (exposeEnvironment)
@@ -601,6 +607,7 @@ import $importDaoInterfaceUML;
 #set ($templateDBSchemaDeleteOrder = "DBSchemaDeleteOrder")
 #set ($templateDBCommit = "DBCommit")
 #set ($templateDBInsertEnumeration = "InsertEnumerationSQL")
+#set ($templateSpringMainHibernateConfig = "BslaSpringConfigHibernate")
 #end
 
 #macro (templateDefinitionWeb)
