@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -365,9 +366,9 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 ##		List list = hquery.list();
 		List list = partialLoadWithParent${tableClassName}HibQueryResult (${tableVariableName}What, positive$tableClassName, negative$tableClassName, queryWhatInit, beanPath, nbOfResult, useCache);
 		if (beanPath.size()==1) {
-			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What);
+			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, true);
 		}
-		return handlePartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What);
+		return handlePartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What, true);
 	}	
 
 	private List partialLoadWithParent${tableClassName}QueryResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
@@ -391,59 +392,52 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	   return query;
   }
   
-	private List<$tableClassName> handlePartialLoadWithParent$tableClassName(List<Object[]> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What) {
+	private List<$tableClassName> handlePartialLoadWithParent$tableClassName(List<Object[]> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What, boolean isHql) {
 		try {
-			return convertPartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What);
+			return convertPartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What, isHql);
 		} catch (Exception ex) {
 			log.error("Error conversion list from handlePartialLoadWithParent$tableClassName, message:"+ex.getMessage());
 			return new ArrayList<$tableClassName>();
 		}
     }
 
-	private List<$tableClassName> handlePartialLoadWithParent${tableClassName}WithOneElementInRow(List<Object> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What) {
+	private List<$tableClassName> handlePartialLoadWithParent${tableClassName}WithOneElementInRow(List<Object> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What, boolean isHql) {
 		try {
-			return convertPartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What);
+			return convertPartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, isHql);
 		} catch (Exception ex) {
 			log.error("Error conversion list from handlePartialLoadWithParent${tableClassName}WithOneElementInRow, message:"+ex.getMessage());
 			return new ArrayList<$tableClassName>();
 		}
     }
     	
-	 private List<$tableClassName> convertPartialLoadWithParent$tableClassName(List<Object[]> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+	 private List<$tableClassName> convertPartialLoadWithParent$tableClassName(List<Object[]> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What, boolean isHql) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
 		 List<$tableClassName> resultList = new ArrayList<$tableClassName>();
-##		 //$tableClassName ${tableVariableName}Prototype = clone$tableClassName (${tableVariableName}What);
-##		 if (beanPath.size()==1) {
-##		   for (Object row : list) {		
-##			   $tableClassName ${tableVariableName} = clone$tableClassName (${tableVariableName}What);
-##			   Iterator<Entry<Integer, String>> iter = beanPath.entrySet().iterator();	
-##			   while (iter.hasNext()) {
-##				    Entry entry = iter.next();
-##				    populate$tableClassName (${tableVariableName}, row, (String)entry.getValue());
-##			   }
-##			   resultList.add(${tableVariableName});
-##		   }		 
-##		 } else {
 		 for (Object[] row : list) {		
 		    $tableClassName ${tableVariableName} = clone$tableClassName (${tableVariableName}What);
 		    Iterator<Entry<Integer, String>> iter = beanPath.entrySet().iterator();	
 		    while (iter.hasNext()) {
 		       Entry entry = iter.next();
-		       populate$tableClassName (${tableVariableName}, row[(Integer)entry.getKey()], (String)entry.getValue());
+		       if (isHql)
+		          populate$tableClassName (${tableVariableName}, row[(Integer)entry.getKey()], (String)entry.getValue());
+		       else
+		          populate${tableClassName}FromSQL (${tableVariableName}, row[(Integer)entry.getKey()], (String)entry.getValue());
 		    }
 		    resultList.add(${tableVariableName});
 		 }
-##		 }
 		 return resultList;		
 	 }	
     
-	 private List<$tableClassName> convertPartialLoadWithParent${tableClassName}WithOneElementInRow(List<Object> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+	 private List<$tableClassName> convertPartialLoadWithParent${tableClassName}WithOneElementInRow(List<Object> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What, boolean isHql) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
 		 List<$tableClassName> resultList = new ArrayList<$tableClassName>();
 		 for (Object row : list) {		
 		    $tableClassName ${tableVariableName} = clone$tableClassName (${tableVariableName}What);
 		    Iterator<Entry<Integer, String>> iter = beanPath.entrySet().iterator();	
 		    while (iter.hasNext()) {
 		       Entry entry = iter.next();
-		       populate$tableClassName (${tableVariableName}, row, (String)entry.getValue());
+		       if (isHql)
+		          populate$tableClassName (${tableVariableName}, row, (String)entry.getValue());
+		       else 
+		          populate${tableClassName}FromSQL (${tableVariableName}, row, (String)entry.getValue());
 		    }
 		    resultList.add(${tableVariableName});
 		 }		 
@@ -453,27 +447,31 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	public List partialLoadWithParentForBean(Object bean, $tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
 		Map beanPath = new Hashtable();
 		Query hquery = getPartialLoadWithParent${tableClassName}HibQuery (${tableVariableName}What, positive$tableClassName, negative$tableClassName, beanPath, new QuerySelectInit(), null);
-    List<Object[]> list = hquery.list();
-		return handlePartialLoadWithParentForBean(list, beanPath, bean);
+        List<Object[]> list = hquery.list();
+		return handlePartialLoadWithParentForBean(list, beanPath, bean, true);
     }	
-//	 to set in super class
-	private List handlePartialLoadWithParentForBean(List<Object[]> list, Map<Integer, String> beanPath, Object bean) {
+    
+    //	 to set in super class
+	private List handlePartialLoadWithParentForBean(List<Object[]> list, Map<Integer, String> beanPath, Object bean, boolean isHql) {
 		try {
-			return convertPartialLoadWithParentForBean(list, beanPath, bean);
+			return convertPartialLoadWithParentForBean(list, beanPath, bean, isHql);
 		} catch (Exception ex) {
 			//TODO log ex
 			return new ArrayList();
 		}
     }
 	// to set in super class
-	private List convertPartialLoadWithParentForBean(List<Object[]> list, Map<Integer, String> beanPath, Object bean) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+	private List convertPartialLoadWithParentForBean(List<Object[]> list, Map<Integer, String> beanPath, Object bean, boolean isHql) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
 		List resultList = new ArrayList();
 		for (Object[] row : list) {		
 		   Object result = getBeanObjectInstance(bean);
 		   Iterator<Entry<Integer, String>> iter = beanPath.entrySet().iterator();	
 		   while (iter.hasNext()) {
-			  Entry entry = iter.next();
-			  populateObject (result, row[(Integer)entry.getKey()], getFieldFromBeanPath((String)entry.getValue()));
+			   Entry entry = iter.next();
+			   if (isHql)
+			      populateObject (result, row[(Integer)entry.getKey()], getFieldFromBeanPath((String)entry.getValue()));
+			   else
+			      populateObjectFromSQL (result, row[(Integer)entry.getKey()], getFieldFromBeanPath((String)entry.getValue()));
 			}
 			resultList.add(result);
 		}
@@ -484,29 +482,37 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	
 	// to set in super class
 	private String getFieldFromBeanPath(String beanPath) {
-		 String result = StringUtils.substringAfterLast(beanPath, ".");
-		 if (result.equals(""))
-			  return beanPath;
-		 return result;
+	   String result = StringUtils.substringAfterLast(beanPath, ".");
+	   if (result.equals(""))
+	     return beanPath;
+		return result;
 	}
     
     	// to set in super class	
-	private void populate$tableClassName ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		 BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
+	protected void populate$tableClassName ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	   BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
+	}
+	
+	protected void populate${tableClassName}FromSQL ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	   BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
 	}
     	// to set in super class BEWARE: genericity is only one level!!!!! first level is a copy second level is a reference!!! change to ${tableVariableName}.clone() instead
 	private $tableClassName clone$tableClassName ($tableClassName ${tableVariableName}) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
 		//return ($tableClassName) BeanUtils.cloneBeanObject(${tableVariableName});
-		 return ${tableVariableName}.clone();
+	   return ${tableVariableName}.clone();
 	}
     
-    	// to set in super class
+    // to set in super class
 	private Object getBeanObjectInstance (Object bean) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-      return BeanUtils.getBeanObjectInstance(bean);	
+       return BeanUtils.getBeanObjectInstance(bean);	
 	}
 	// to set in super class
-	private void populateObject (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
-      BeanUtils.populateObject(bean, value, beanPath);
+	protected void populateObject (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
+       BeanUtils.populateObject(bean, value, beanPath);
+	}
+	
+	protected void populateObjectFromSQL (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
+       BeanUtils.populateObject(bean, value, beanPath);
 	}
    /**
 	  * 
@@ -517,6 +523,19 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 		String what = getPartialLoadWithParent${tableClassName}Query ($tableVariableName, null, aliasWhatHt, null, null, beanPath, "", queryWhatInit);
 		Hashtable aliasWhereHt = new Hashtable();
 		String where = getPartialLoadWithParentWhere${tableClassName}Query (positive$tableClassName, null, aliasWhatHt, aliasWhereHt, null, null);
+		String whereHow = reconciliateWherePath(aliasWhatHt, aliasWhereHt);
+		String how = reconciliateHowPath(aliasWhatHt, aliasWhereHt);
+		String whereConcat = "";
+		if (where!=null && !where.equals("") && whereHow!=null && !whereHow.equals(""))
+			whereConcat=" AND ";
+		return what+" FROM "+how +" WHERE "+whereHow+ whereConcat +where;
+	}
+	
+	public String getPartialLoadWithParent${tableClassName}SQLQuery ($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Map beanPath, QueryWhatInit queryWhatInit) {
+		Hashtable aliasWhatHt = new Hashtable();
+		String what = getPartialLoadWithParent${tableClassName}SQLQuery ($tableVariableName, null, aliasWhatHt, null, null, beanPath, "", queryWhatInit);
+		Hashtable aliasWhereHt = new Hashtable();
+		String where = getPartialLoadWithParentWhere${tableClassName}SQLQuery (positive$tableClassName, null, aliasWhatHt, aliasWhereHt, null, null);
 		String whereHow = reconciliateWherePath(aliasWhatHt, aliasWhereHt);
 		String how = reconciliateHowPath(aliasWhatHt, aliasWhereHt);
 		String whereConcat = "";
@@ -556,6 +575,50 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	    return returnList;
 	}
 
+	public static String getPartialLoadWithParentWhere${tableClassName}SQLQuery (
+	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, Hashtable aliasWhereHt, String childAlias, String childFKAlias) {
+	   if ($tableVariableName==null)
+	      return "";
+	   String alias = null;
+	   if (aliasWhereHt == null) {
+	      aliasWhereHt = new Hashtable();
+	   } 
+	   if (isLookedUp($tableVariableName)){
+	      alias = getNextAlias (aliasWhereHt, ${tableVariableName});
+		  aliasWhereHt.put (getAliasSQLKey(alias), getAliasConnection(alias, childAlias, childFKAlias));
+	   }
+	   if (isWhereSet == null)
+          isWhereSet = false;
+       StringBuffer query = new StringBuffer();
+#foreach ($column in ${table.columns})
+#putColumnParams()
+       if (${tableVariableName}.get$columnClass() != null) {
+           query.append (getQueryBLANK_AND (isWhereSet));
+		   isWhereSet = true;
+#if ($sqlUtils.isQuotedColumn($column))        
+           query.append(" "+alias+".${column.name} = '"+ ${tableVariableName}.get$columnClass()+"' ");
+#else
+           query.append(" "+alias+".${column.name} = "+ ${tableVariableName}.get$columnClass() + " ");
+#end		  
+       }
+#end     
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set ($importDaoImplExtendedHibernateName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaHibernateExtendedDaoImplUML"))
+#set ($linkedDaoImplExtendedHibernateName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaHibernateExtendedDaoImplUML"))
+       if (${tableVariableName}.get${linkedTableClass}${localColumnClass}()!=null) {
+	      String chunck = ${importDaoImplExtendedHibernateName}.getPartialLoadWithParentWhere${linkedTableClass}SQLQuery(
+		      ${tableVariableName}.get${linkedTableClass}${localColumnClass}(), 
+			  isWhereSet, aliasHt, aliasWhereHt, alias, "${localColumnVariable}");
+		  if (chunck!=null && !chunck.equals("")) {
+		     query.append(chunck);
+		     isWhereSet=true;
+		  }  	  
+	   }
+#end
+	   return query.toString(); 
+    }
+    
 	public static String getPartialLoadWithParentWhere${tableClassName}Query (
 	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, Hashtable aliasWhereHt, String childAlias, String childFKAlias) {
 	   if ($tableVariableName==null)
@@ -634,7 +697,46 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	protected static String getRootDomainName (String domainName) {
 		return StringUtils.substringBefore(domainName, "_");
 	}
-	
+
+    public static String getPartialLoadWithParent${tableClassName}SQLQuery (
+	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, String childAlias, String childFKAlias, Map beanPath, String rootPath, QueryWhatInit queryWhatInit) {
+	   String alias = null;
+	   if (aliasHt == null) {
+	      aliasHt = new Hashtable();
+	   } 
+	   if (isLookedUp($tableVariableName)){
+	      alias = getNextAlias (aliasHt, ${tableVariableName});
+		  aliasHt.put (getAliasSQLKey(alias), getAliasConnection(alias, childAlias, childFKAlias));
+	   }
+	   if (isWhereSet == null)
+          isWhereSet = false;
+       StringBuffer query = new StringBuffer();
+#foreach ($column in ${table.columns})
+#putColumnParams()
+       if (${tableVariableName}.get$columnClass() != null) {
+          query.append (queryWhatInit.getWhatInit (isWhereSet));
+          isWhereSet = true; 
+          beanPath.put(beanPath.size(), rootPath+"${columnVar}");
+          query.append(" "+alias+".${column.name} ");
+       }
+#end     
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set ($importDaoImplExtendedHibernateName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaHibernateExtendedDaoImplUML"))
+#set ($linkedDaoImplExtendedHibernateName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaHibernateExtendedDaoImplUML"))
+       if (${tableVariableName}.get${linkedTableClass}${localColumnClass}()!=null) {
+	      String chunck = ${importDaoImplExtendedHibernateName}.getPartialLoadWithParent${linkedTableClass}SQLQuery(
+		      ${tableVariableName}.get${linkedTableClass}${localColumnClass}(), 
+			  isWhereSet, aliasHt, alias, "${localColumnVariable}", beanPath, rootPath+"${linkedTableVariable}${localColumnClass}.", queryWhatInit);
+		  if (chunck!=null && !chunck.equals("")) {
+		     query.append(chunck);
+		     isWhereSet=true;
+		  } 
+	   }  
+#end
+	   return query.toString(); 
+    }
+    	
     public static String getPartialLoadWithParent${tableClassName}Query (
 	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, String childAlias, String childFKAlias, Map beanPath, String rootPath, QueryWhatInit queryWhatInit) {
 	   String alias = null;
@@ -685,6 +787,10 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	protected static String getAliasKey (String alias) {
 	  //TODO this is a temporary solution use a dedicated object in BslaHiberateDaoSupport
 		return "${tableClassName}|"+alias;
+	}
+	
+	protected static String getAliasSQLKey (String alias) {
+		return "${table.name}|"+alias;
 	}
 	
 	protected static String getAliasKeyAlias (String aliasKey) {
@@ -797,21 +903,21 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
         
     public List<$tableClassName> searchPrototype2 ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres) {
 	   Map beanPath = new Hashtable();
-	   String queryString = getSearchPrototypeQuery (${tableVariableName}What, ${tableVariableName}Wheres, beanPath);
-	   Query hquery = getQuery (queryString, null);
-	   List list = hquery.list();
+	   String queryString = getSearchPrototypeSQLQuery (${tableVariableName}What, ${tableVariableName}Wheres, beanPath);
+	   SQLQuery sqlQuery = getSQLQuery (queryString, null);
+	   List list = sqlQuery.list();
 	   if (beanPath.size()==1) {
-	      return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What);
+	      return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, false);
 	   }
-	   return handlePartialLoadWithParent${tableClassName}(list, beanPath, ${tableVariableName}What);		
+	   return handlePartialLoadWithParent${tableClassName}(list, beanPath, ${tableVariableName}What, false);		
 	}
 	
-	private String getSearchPrototypeQuery ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres, Map beanPath) {
+	private String getSearchPrototypeSQLQuery ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres, Map beanPath) {
 	   StringBuffer sb = new StringBuffer();
 	   for (Iterator iterator = ${tableVariableName}Wheres.iterator(); iterator.hasNext();) {
 	      $tableClassName ${tableVariableName}Where = (${tableClassName}) iterator.next();
 		  beanPath.clear();
-		  String query = getPartialLoadWithParent${tableClassName}HsqlQuery (${tableVariableName}What, ${tableVariableName}Where, null, beanPath, new QuerySelectInit());
+		  String query = getPartialLoadWithParent${tableClassName}SQLQuery (${tableVariableName}What, ${tableVariableName}Where, null, beanPath, new QuerySelectInit());
 		  sb.append(query);
 		  if (iterator.hasNext())
 			 sb.append(" union ");
@@ -826,13 +932,18 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	   return query;		
 	}
 
-    
+    private SQLQuery getSQLQuery (String queryString, Integer nbOfResult) {
+	   SQLQuery query = getSession().createSQLQuery(queryString);
+	   if (nbOfResult!=null)
+	      query.setMaxResults(nbOfResult);
+	   return query;		
+	}
     /**
     * search a list of $tableClassName  matching a list of where filter criteria prototypes
     * set in the list ${tableVariableName}Wheres
     */
     public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres){
-       return searchPrototype(null, ${tableVariableName}Wheres);
+       return searchPrototype(${tableClassName}.fullMask(), ${tableVariableName}Wheres);
     }
         
     
