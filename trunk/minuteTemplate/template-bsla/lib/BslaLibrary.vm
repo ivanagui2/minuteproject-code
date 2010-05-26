@@ -180,6 +180,11 @@
 #largeFormat()
 #end
 
+#macro (putDefaultMaskColumnValue)
+#putColumnParams()
+#set ($defaultMask = $commonUtils.getJavaDefaultMask($column))
+#end
+
 #macro(exposeSpringConfig)
 #templateDefinition()
 #set ($springMainHibernatePath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringMainHibernateConfig))
