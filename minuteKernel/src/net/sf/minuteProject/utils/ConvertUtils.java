@@ -6,56 +6,68 @@ import org.apache.commons.lang.StringUtils;
 
 public class ConvertUtils {
 	
+	public static final String JAVA_BOOLEAN_TYPE 				=   "java.lang.Boolean";					
+	public static final String JAVA_LONG_TYPE 					=   "java.lang.Long";	
+	public static final String JAVA_DOUBLE_TYPE 				=   "java.lang.Double";			
+	public static final String JAVA_INTEGER_TYPE 				=   "java.lang.Integer";		
+	public static final String JAVA_TIMESTAMP_TYPE 				=   "java.lang.Timestamp";			
+	public static final String JAVA_BIGDECIMAL_TYPE 			=   "java.math.BigDecimal";
+	public static final String JAVA_STRING_TYPE 				=   "java.lang.String";						
+	public static final String JAVA_DATE_TYPE 					=   "java.lang.Date";
+	public static final String JAVA_BLOB_TYPE 					=   "java.sql.Blob";	
+	public static final String JAVA_CLOB_TYPE 					=   "java.sql.Clob";	
+
+	
 	public static String getJavaTypeFromDBFullType (String dBType) {
 		String retStr=null;
 		if (dBType.equals("BOOLEAN"))
-			return  "java.lang.Boolean";					
+			return  JAVA_BOOLEAN_TYPE;					
 		if (dBType.equals("BIGINT"))
-			return  "java.lang.Long";	
+			return  JAVA_LONG_TYPE;	
 		if (dBType.equals("DOUBLE"))
-			return  "java.lang.Double";			
+			return  JAVA_DOUBLE_TYPE;			
 		if (dBType.equals("INT"))
-			return  "java.lang.Integer";		
+			return  JAVA_INTEGER_TYPE;		
 		if (dBType.equals("TIME"))
-			return  "java.lang.Timestamp";			
+			return  JAVA_TIMESTAMP_TYPE;			
 		if (dBType.equals("DECIMAL"))
-			return  "java.math.BigDecimal";
+			return  JAVA_BIGDECIMAL_TYPE;
 		if (dBType.equals("SMALLINT"))
-			return  "java.lang.String";	
+			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("VARCHAR"))
-			return  "java.lang.String";	
+			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("LONGVARCHAR"))
-			return  "java.lang.String";	
+			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("VARCHAR2"))
-			return  "java.lang.String";		
+			return  JAVA_STRING_TYPE;		
 		if (dBType.equals("VARGRAPHIC"))
-			return  "java.lang.String";			
+			return  JAVA_STRING_TYPE;			
 		if (dBType.equals("CHAR"))
-			return  "java.lang.String";		
+			return  JAVA_STRING_TYPE;		
 		if (dBType.equals("INTEGER"))
-			return  "java.lang.Integer";	
+			return  JAVA_INTEGER_TYPE;	
 		if (dBType.equals("NUMERIC"))
-			return  "java.lang.Integer";		
+			return  JAVA_INTEGER_TYPE;		
 		if (dBType.equals("NUMBER"))
-			return  "java.lang.Long";		
+			return  JAVA_LONG_TYPE;		
 		if (dBType.equals("DATE"))
-			return  "java.lang.Date";
+			return  JAVA_DATE_TYPE;
 		if (dBType.equals("TIMESTAMP"))
-			return  "java.sql.Timestamp";	
+			return  JAVA_TIMESTAMP_TYPE;	
 		if (dBType.equals("BLOB"))
-			return  "java.sql.Blob";	
+			return  JAVA_BLOB_TYPE;	
 		if (dBType.equals("BINARY"))
-			return  "java.sql.Blob";	
+			return  JAVA_BLOB_TYPE;	
 		if (dBType.equals("CLOB"))
-			return  "java.sql.Clob";	
+			return  JAVA_CLOB_TYPE;	
 		if (dBType.equals("NVARCHAR2"))
-			return  "java.lang.String";	
+			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("NVARCHAR"))
-			return  "java.lang.String";	
+			return  JAVA_STRING_TYPE;	
 		
 		// to re implement when externalizing the mapping
 		if (dBType.equals("OTHER"))
-			return  "java.lang.String";		
+			return  JAVA_STRING_TYPE;		
 		return retStr;		
 	}	
 
@@ -63,13 +75,28 @@ public class ConvertUtils {
 		return getJavaTypeFromDBFullType(column.getType(), column.getScale());
 	}
 	
+	public static String getJavaDefaultMask (Column column) {
+		String type = getJavaTypeFromDBFullType(column);
+		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean(\"false\")";					
+		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf(-1)";
+		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf(-1)";	
+		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf(-1)";	
+		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
+		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf(-1)";
+		if (JAVA_STRING_TYPE.equals(type)) return "new String()";				
+		if (JAVA_DATE_TYPE.equals(type)) return "new Date()";
+		if (JAVA_BLOB_TYPE.equals(type)) return "null";	
+		if (JAVA_CLOB_TYPE.equals(type)) return "null";
+		return "";
+	}
+	
 	public static String getJavaTypeFromDBFullType (String dBType, int scale) {
 		String retStr=getJavaTypeFromDBFullType (dBType);		
 		if (dBType.equals("DECIMAL")) {
 			if (scale==0)
-				return "java.lang.Long";
+				return JAVA_LONG_TYPE;
 			else
-				return  "java.math.BigDecimal";
+				return  JAVA_BIGDECIMAL_TYPE;
 		}	
 		return retStr;		
 	}

@@ -502,4 +502,8 @@ public class CommonUtils {
 		return (model == null);
 	}
 	
+	public static String getJavaDefaultMask (Column column) {
+		return ConvertUtils.getJavaDefaultMask(column);
+	}
+	
 }
