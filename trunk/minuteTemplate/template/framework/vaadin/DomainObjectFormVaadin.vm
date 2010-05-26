@@ -203,12 +203,14 @@ public class ${className} extends Form implements ClickListener {
 #foreach($column in ${table.primaryKeyColumns})
 #exposeFormParams()
 ##if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
-		${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue()));
+        if (getField("$columnVar").getValue()!=null)
+   		   ${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue()));
 ##end
 #end
 #foreach ($column in ${table.attributes})
 #exposeFormParams()
-		${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue())); 
+        if (getField("$columnVar").getValue()!=null)
+   		   ${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue())); 
 #end
 		return $domainVariableName;
 	}
