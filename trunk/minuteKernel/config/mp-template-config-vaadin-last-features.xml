@@ -68,7 +68,13 @@
 			file-extension="java" file-prefix="" file-suffix="App" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>		
-		
+
+		<template name="MenuVaadin" templateFileName="MenuVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="application"
+			file-extension="java" file-prefix="" file-suffix="MenuApp" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+				
     </template-target>	
 
  	
