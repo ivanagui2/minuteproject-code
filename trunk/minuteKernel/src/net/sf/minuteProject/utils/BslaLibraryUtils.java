@@ -21,9 +21,9 @@ public class BslaLibraryUtils extends CommonUtils{
 	public static final String BslaDaoInterfaceUMLTemplateName = "BslaDaoInterfaceUML";
 	public static final String ResourceBundle = "ResourceBundle";
 	
-	private static String getModelLevelTemplateFullPath (Model model, Template template, String targetTemplateName) {
-		return getPackageName(model, template, targetTemplateName) +"."+ getTemplateClassName (model, template, targetTemplateName);
-	}
+//	private static String getModelLevelTemplateFullPath (Model model, Template template, String targetTemplateName) {
+//		return getPackageName(model, template, targetTemplateName) +"."+ getTemplateClassName (model, template, targetTemplateName);
+//	}
 
 	public static String getModelLevelTemplateFullClassPath (Model model, Template template, String targetTemplateName) {
 		return FormatUtils.getDirFromPackage(getModelLevelTemplateFullPath(model, template, targetTemplateName));
