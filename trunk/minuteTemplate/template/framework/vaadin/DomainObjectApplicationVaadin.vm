@@ -7,6 +7,7 @@ import $domainObjectFormImport;
 import $domainObjectListViewImport;
 import $domainObjectListImport;
 import $domainObjectSearchViewImport;
+import $menuImport;
 
 import com.vaadin.Application;
 import com.vaadin.data.Item;
@@ -77,8 +78,10 @@ public class ${className} extends Application implements
 
 	private HorizontalLayout createToolbar() {
 		HorizontalLayout lo = new HorizontalLayout();
+		$menuClass menu = new $menuClass();
 		lo.addComponent(new${domainClassName});
 		lo.addComponent(search);
+		lo.addComponent(menu.getMenubar());
 		
 		search.addListener((ClickListener) this);
 		new${domainClassName}.addListener((ClickListener) this);
