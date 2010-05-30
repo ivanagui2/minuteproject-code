@@ -458,7 +458,7 @@ public class CommonUtils {
 		return FormatUtils.getDirFromPackage(getPackageLevelTemplateFullPath(model, pack, template, targetTemplateName));
 	}
 
-	private static String getModelLevelTemplateFullPath(Model model, Template template, String targetTemplateName) {
+	public static String getModelLevelTemplateFullPath(Model model, Template template, String targetTemplateName) {
 		return getPackageName(model, template, targetTemplateName) +"."+ getTemplateClassName (model, template, targetTemplateName);
 	}
 	
