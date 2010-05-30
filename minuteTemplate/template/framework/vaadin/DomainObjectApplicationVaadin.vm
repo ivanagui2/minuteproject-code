@@ -80,8 +80,8 @@ public class ${className} extends Application implements
 		HorizontalLayout lo = new HorizontalLayout();
 		$menuClass menu = new $menuClass();
 		lo.addComponent(new${domainClassName});
-		lo.addComponent(search);
-		lo.addComponent(menu.getMenubar());
+		//lo.addComponent(search);
+		lo.addComponent(menu);
 		
 		search.addListener((ClickListener) this);
 		new${domainClassName}.addListener((ClickListener) this);
