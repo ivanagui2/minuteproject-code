@@ -8,15 +8,13 @@ import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
 @SuppressWarnings("serial")
-public class $className extends VerticalLayout {
-
-    private MenuBar menubar = new MenuBar();
+public class $className extends MenuBar {
 
     public $className () {
 
 #foreach ($package in ${businessPackages})
 #set($packageLabel=$formatUtils.getJavaNameVariable(${package.name}))
-        final MenuBar.MenuItem ${packageLabel} = menubar.addItem("${packageLabel}", null);
+        final MenuBar.MenuItem ${packageLabel} = addItem("${packageLabel}", null);
 #foreach ($table in ${package.listOfTables})
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
@@ -26,7 +24,7 @@ public class $className extends VerticalLayout {
 #end
 #end
 #end
-        addComponent(menubar);
+
     }
 
     private Command menuCommand = new Command() {
