@@ -1,5 +1,8 @@
 #macro (exposeVaadinDomainObject)
 #exposeVaadinTemplate()
+#set ($modelApplicationClass = $commonUtils.getTemplateClassName($model, $template, $templateModelApplicationVaadin))
+#set ($modelApplicationVariable = $commonUtils.getJavaNameVariableFirstLetter($menuClass))
+#set ($modelApplicationImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelApplicationVaadin))
 #set ($menuClass = $commonUtils.getTemplateClassName($model, $template, $templateMenuVaadin))
 #set ($menuVariable = $commonUtils.getJavaNameVariableFirstLetter($menuClass))
 #set ($menuImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateMenuVaadin))
@@ -21,6 +24,9 @@
 #set ($domainObjectContainerClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectContainerVaadin))
 #set ($domainObjectContainerVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectContainerClass))
 #set ($domainObjectContainerImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectContainerVaadin))
+#set ($domainObjectComponentClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectComponentVaadin))
+#set ($domainObjectComponentVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectComponentClass))
+#set ($domainObjectComponentImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectComponentVaadin))
 #end
 
 #macro (exposeVaadinApps)
@@ -49,8 +55,10 @@
 #set ($templateDomainObjectContainerVaadin = "DomainObjectContainerVaadin")
 #set ($templateDomainObjectListVaadin = "DomainObjectListVaadin")
 #set ($templateMenuVaadin = "MenuVaadin")
+#set ($templateModelApplicationVaadin = "ModelApplicationVaadin")
 #set ($templateDomainObjectListViewVaadin = "DomainObjectListViewVaadin")
 #set ($templateDomainObjectApplicationVaadin = "DomainObjectApplicationVaadin")
+#set ($templateDomainObjectComponentVaadin = "DomainObjectComponentVaadin")
 #set ($templateDomainObjectSearchViewVaadin = "DomainObjectSearchViewVaadin")
 #end
 
