@@ -70,30 +70,12 @@
 		</template>		
 
 		<template name="MenuVaadin" templateFileName="MenuVaadin.vm" 
-			subdir="" outputsubdir="" technicalPackage="application"
-			file-extension="java" file-prefix="" file-suffix="MenuApp" 
+			subdir="" outputsubdir="" technicalPackage="vaadin.snippet.menu"
+			file-extension="java" file-prefix="" file-suffix="Menu" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>		
 				
     </template-target>	
-
- 	
-	<template-target 
-    	name="web-inf config"
-		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
-		tool="velocity"
-		outputdir="src/main/java"
-		belongToPackage="true">			
-		
-		<template package-root="html"
-			name="Menu" templateFileName="MenuVaadin.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
-			file-extension="jsp" file-prefix="" file-suffix="menu" 
-			entity-specific="false" package-specific="false" model-specific="true">
-		</template>	
-														
-  	</template-target> 
-		<!--  Menu home.jsp templates -->
 		
 <!--  Menu application.xml templates -->
 <!--  Menu config persistence.jdbc.jndi templates -->
