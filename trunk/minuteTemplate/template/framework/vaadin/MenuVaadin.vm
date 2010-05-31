@@ -15,6 +15,7 @@ public class $className extends MenuBar {
 #foreach ($package in ${businessPackages})
 #set($packageLabel=$formatUtils.getJavaNameVariable(${package.name}))
         final MenuBar.MenuItem ${packageLabel} = addItem("${packageLabel}", null);
+        addAction(${packageLabel});
 #foreach ($table in ${package.listOfTables})
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
@@ -33,4 +34,12 @@ public class $className extends MenuBar {
         }
     };
 
+    private void addAction (MenuItem menuItem){
+        MenuBar.MenuItem search = menuItem.addItem("Search", null);
+        search.addItem("All", menuCommand);
+        search.addItem("Filter", menuCommand);
+        search.addItem("Form", menuCommand);
+        menuItem.addSeparator();
+        menuItem.addItem("Add", menuCommand);    	
+    }
 }
