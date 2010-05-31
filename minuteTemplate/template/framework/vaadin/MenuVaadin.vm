@@ -15,13 +15,13 @@ public class $className extends MenuBar {
 #foreach ($package in ${businessPackages})
 #set($packageLabel=$formatUtils.getJavaNameVariable(${package.name}))
         final MenuBar.MenuItem ${packageLabel} = addItem("${packageLabel}", null);
-        addAction(${packageLabel});
 #foreach ($table in ${package.listOfTables})
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table.name))
 #set($tableLabelVariable=$formatUtils.getJavaNameVariable(${tableLabel}))
-        final MenuBar.MenuItem $tableLabelVariable = ${packageLabel}.addItem("${tableLabelVariable}", menuCommand);        
+        final MenuBar.MenuItem $tableLabelVariable = ${packageLabel}.addItem("${tableLabelVariable}", menuCommand);
+        addAction(${tableLabelVariable});
 #end
 #end
 #end
