@@ -256,4 +256,6 @@ public interface Table extends GeneratorBean{
 
 	public void setLinkEntity(boolean isLinkEntity);
 	
+	public boolean hasAttribute ();
+	
 }

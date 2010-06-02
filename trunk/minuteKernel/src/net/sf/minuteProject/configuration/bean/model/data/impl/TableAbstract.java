@@ -333,4 +333,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		return false;
 	}
 	
+	public boolean hasAttribute () {
+		return (getAttributes()!=null && getAttributes().length > 0)?true:false;
+	}
+	
 }

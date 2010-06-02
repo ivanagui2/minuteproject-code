@@ -70,7 +70,7 @@ public class ModelViewGenerator extends ModelGenerator {
 //	private TableUtils tableUtils;
 
 	
-	private Model model;
+//	private Model model;
 
 //	private String modelConfig;
 //
@@ -114,8 +114,12 @@ public class ModelViewGenerator extends ModelGenerator {
 		Model model = configuration.getModel();
 		generator.setModel(model);
 		generator.loadModel(model);
-		generator.loadTarget(model.getConfiguration(), model.getConfiguration().getTarget());
-		generator.generate(model.getConfiguration().getTarget());
+		if (generator.hasTarget())
+			generator.loadAndGenerate(model.getConfiguration().getTarget());
+		if (generator.hasTargets())
+			generator.loadAndGenerate(model.getConfiguration().getTargets());
+//		generator.loadTarget(model.getConfiguration(), model.getConfiguration().getTarget());
+//		generator.generate(model.getConfiguration().getTarget());
 		Date endDate = new Date();
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
@@ -127,16 +131,16 @@ public class ModelViewGenerator extends ModelGenerator {
 		model.getBusinessModel().complementService();
 	}
 
-	public Model getModel() throws Exception {
+	public Model getModel() {
 //		if (model == null) {
 //			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
 //			setModel((Model) modelGenerator.load());
 //		}
-		return model;
+		return super.getModel();
 	}
 
 	public void setModel(Model model) {
-		this.model = model;
+		super.setModel(model);
 	}
 
 //	protected void generateArtifactsByPackage(Template template) throws Exception {
@@ -150,7 +154,7 @@ public class ModelViewGenerator extends ModelGenerator {
 //
 	protected void generateArtifactsByEntity(Template template) throws Exception {	
 		super.generateArtifactsByEntity(template);
-		for (Iterator iter =  model.getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
+		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
 			View view = (View) iter.next();
 			writeTemplateResult(view, template);
 		}
@@ -200,7 +204,7 @@ public class ModelViewGenerator extends ModelGenerator {
 	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
-		context.put("model", model);
+		context.put("model", getModel());
 	}
 	
 //	protected void putStandardContextObject (VelocityContext context) {

@@ -139,20 +139,20 @@ public class ModelGenerator extends AbstractGenerator {
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
-	private boolean hasTarget () {
+	protected boolean hasTarget () {
 		return model.getConfiguration().hasTarget();
 	}
 	
-	private boolean hasTargets () {
+	protected boolean hasTargets () {
 		return model.getConfiguration().hasTargets();
 	}
 	
-	private void loadAndGenerate (Target target) throws Exception {
+	protected void loadAndGenerate (Target target) throws Exception {
 		loadTarget(model.getConfiguration(), target);
 		generate(model.getConfiguration().getTarget());		
 	}
 
-	private void loadAndGenerate (Targets targets) throws Exception {
+	protected void loadAndGenerate (Targets targets) throws Exception {
 		Target targetFinal = new Target();
 		Configuration configuration = model.getConfiguration();
 		for (Target target : targets.getTargets()) {
@@ -206,7 +206,7 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByFunction(template);
 	}
 
-	public Model getModel() throws Exception {
+	public Model getModel() {
 //		if (model == null) {
 //			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
 //			setModel((Model) modelGenerator.load());

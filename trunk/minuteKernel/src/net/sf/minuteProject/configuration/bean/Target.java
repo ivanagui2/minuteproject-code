@@ -37,10 +37,12 @@ public class Target extends AbstractConfiguration{
 			templateTarget.setRootdir(target.getTemplatedirRoot());
 //			templateTarget.setOutputdirRoot(target.getOutputdirRoot());
 			getTemplateTargets().add(templateTarget);
-			for (Template template : templateTarget.getTemplates()) {
-				template.setOutputdirRoot(target.getOutputdirRoot());
-//				template.setRootdir (target.getTemplatedirRoot());
-//				template.setPackageRoot(templateTarget.getPackageRoot());
+			if (templateTarget!=null && templateTarget.getTemplates()!=null) {
+				for (Template template : templateTarget.getTemplates()) {
+					template.setOutputdirRoot(target.getOutputdirRoot());
+	//				template.setRootdir (target.getTemplatedirRoot());
+	//				template.setPackageRoot(templateTarget.getPackageRoot());
+				}
 			}
 		}
 		getPlugins().addAll(target.getPlugins());
