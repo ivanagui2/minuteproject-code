@@ -1,0 +1,82 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration>
+		<model name="websy" version="1.0" package-root="sf.net">
+			<data-model>
+			    <fileSource name="websy" dir="c:/MinuteProject/data">
+			    </fileSource>
+				<dataSource>
+				<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+				<url>jdbc:oracle:thin:@devora4.cc.cec.eu.int:1586:EX1URTDD</url>
+				<username>IAM_DEV</username>
+				<password>4Iam_dEv</password>
+				</dataSource>	
+				<schema>IAM_DEV</schema>				
+				<primaryKeyPolicy oneGlobal="false" oneForEachTable="true">
+					<primaryKeyPolicyPattern prefix="" suffix="_SEQ" name="sequencePattern"></primaryKeyPolicyPattern>
+				</primaryKeyPolicy> 
+			</data-model>
+			<business-model>
+				<generation-condition default-type="exclude">
+					<condition type="include" startsWith="WSDEF_"></condition>
+				</generation-condition>		
+				<business-package default="websy">
+					<condition type="package" startsWith="WSDEF_" result="websy"></condition>
+				</business-package>	
+				<enrichment>
+					<entity name="WSDEF_SERVICE" alias="" structure="hierarchy">
+						<field name="URL">
+              <stereotype stereotype="WEBURL">
+              </stereotype>
+						</field>
+          </entity>			
+					<entity name="WSDEF_SECURITY" alias="" structure="hierarchy">
+						<field name="TYPE">
+							<property tag="checkconstraint" name="checkconstraint" >
+								<property name="DIGESTER" value="DIGESTER" description="DIGESTER" />
+								<property name="DIGESTER NONCE CREATETIME" value="DIGESTER NONCE CREATETIME" description="DIGESTER" />
+							</property>
+						</field>	
+						<field name="PASSWORD">
+              <stereotype stereotype="FORMULA">
+                <formula name="encrypt" action="encrypt" />
+              </stereotype>
+						</field>            					
+					</entity>
+					<entity name="WSDEF_COMPONENT" content-type="reference-data" >
+					   <semantic-reference>
+					     <sql-path path="NAME"/>
+					   </semantic-reference>
+          </entity>	
+					<entity name="WSDEF_ENVIRONMENT" content-type="reference-data" alias="env">
+					   <semantic-reference>
+					     <sql-path path="NAME"/>
+					   </semantic-reference>
+          </entity>
+          <!--
+					<entity name="WSDEF_SERVICE" >
+					   <semantic-reference>
+					     <sql-path path="NAME"/>
+					     <sql-path path="NAME"/>
+					     <sql-path path="NAME"/>
+					   </semantic-reference>
+          </entity>   
+          -->                 
+				</enrichment>				
+			</business-model>
+		</model>	
+		<targets>
+			<target refname="LIB" 
+			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   outputdir-root="../../DEV/output/petshopHibernate"
+			   templatedir-root="../../minuteTemplate/template-bsla">
+			</target> 	
+			<target refname="OpenXava" 
+			   name="OpenXava" 
+			   fileName="mp-template-config-openxava-last-features.xml" 
+			   outputdir-root="D:/SRC/java/openxava/openxava-4m4/workspace/websy"
+			   templatedir-root="../../minuteTemplate/template/framework/openxava">
+			</target> 			
+		</targets>
+	</configuration>
+</generator-config>
