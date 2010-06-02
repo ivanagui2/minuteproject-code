@@ -43,33 +43,7 @@ public abstract class DbCRUDFixture extends TableFixture {
 	
 	protected Object[][] resultSet;
 	
-	public final String NOT_PRESENT = "NOT_PRESENT";
 	
-//	protected void check (int row, int column, String actual) {
-//		if (actual!=null){
-//			if (actual.equals(getText(row, column)))
-//				right(row, column);
-//			else
-//				wrong(row, column, actual);
-//		} else {
-//			if (getText(row, column).equals(NOT_PRESENT))
-//				right(row, column);
-//			else
-//				wrong (row, column, NOT_PRESENT);
-//		}
-//	}
-	
-//	protected void checkCount (String actual) {
-//		check (OUPUT_GENERAL_ROW_INDEX, ROW_COUNT_COLUMN_INDEX, actual);
-//	}
-
-//	protected void checkResultSet () {
-//		int rowToCheck = getRowToCheck(ROW_VALUE_INDEX);
-//		System.out.println("rowToCheck "+rowToCheck);
-//		for (int i = 1; i <= rowToCheck; i++) {
-//			checkResultSetRow (i+OUPUT_GENERAL_ROW_INDEX);
-//		}		
-//	}
 	
 	protected int getRowToCheck(int row) {
 		int rowToCheck = 0;
@@ -77,11 +51,9 @@ public abstract class DbCRUDFixture extends TableFixture {
 		String previousText = new String();
 		while (i<100) {
 			String text = getText(i, 0);
-			System.out.println("text = "+text);
 			if (text.startsWith(ROW_VALUE_INDENTIFIER) && !previousText.equals(text))
 				rowToCheck++;
 			else {
-//				System.out.println("break text="+text+", previousText ="+previousText);
 				break;
 			}
 			previousText = text;
@@ -89,12 +61,7 @@ public abstract class DbCRUDFixture extends TableFixture {
 		}
 		return rowToCheck;
 	}
-//	protected void checkResultSetRow (int row) {
-//		int length = getColumnIndex().size();
-//		for (int i = 1; i <= length; i++) {
-//			check (row, i, getResultSetCell(row, i));
-//		}		
-//	}
+
 	
 	protected String getResultSetCell (int row, int column) {
 		return getResultSetObject(row, column).toString();
@@ -107,10 +74,8 @@ public abstract class DbCRUDFixture extends TableFixture {
 	
 	private void initColumnIndex() {
 		int size = getNumberOfRealColumn();
-//		System.out.println("size="+size);
 		for (int i = 1; i <= size; i++) {
 			String text = getText(FIELD_ROW_INDEX, i);
-//			System.out.println("text = '"+text+"'");
 			columnIndex.put(i, text);
 		}
 	}
@@ -149,7 +114,6 @@ public abstract class DbCRUDFixture extends TableFixture {
 
 	public Map<String, String> getColumnValue() {
 		if (columnValue==null) {
-//			System.out.println("new columnValue");
 			columnValue = new HashMap<String, String>(getNumberOfColumn());
 			setColumnValues(columnValue, VALUE_ROW_INDEX);
 		}
@@ -168,7 +132,6 @@ public abstract class DbCRUDFixture extends TableFixture {
 		Set<Entry<Integer, String>> set = getColumnIndex().entrySet();
 		for (Entry<Integer, String> entry : set) {
 			String text = getText(row, entry.getKey());
-//			System.out.println("text ="+text);
 			outputMap.put(entry.getValue(), text);
 		}
 	}
@@ -181,7 +144,6 @@ public abstract class DbCRUDFixture extends TableFixture {
 		throws SQLException {
 		// call factory
 		String query = QueryUtils.buildQuery(getTable(), columnIndex, columnExpressionValue, columnValue,  columnOrderValue);
-//		System.out.println("query="+query);
 		Connection connection = DatabaseUtils.getConnection();
 		if (connection ==null)
 			System.out.println("connection is null");
@@ -192,15 +154,13 @@ public abstract class DbCRUDFixture extends TableFixture {
 		int size = rs.getRow();
 		rs.first();
 		
-//		System.out.println("size "+size+", len "+len);
 		Object [][] table = new Object [size][];
 		for (int i = 0; i < size; i++) {
 			Object [] row = new Object[len];
 			for (int j = 0; j < len; j++) {
 				Object o = rs.getObject(j+1);
 				if (o==null)
-					o = new String (">null value returned<");
-//				System.out.println("i="+i+",j="+j+",obj="+o.toString());		
+					o = new String (FixtureCode.NULL_VALUE_RETURNED);	
 				row[j]=o;
 			}
 			table[i] = row;
@@ -218,10 +178,8 @@ public abstract class DbCRUDFixture extends TableFixture {
 		row = row-OUPUT_GENERAL_ROW_INDEX-1;
 		column = column - 1;
 		if (row < len) {
-			System.out.println("row = "+row);
 			int lenrow = resultSet[row].length;
 			if (column < lenrow) {
-				System.out.println("len = "+len+", row = "+row+", lenrow = "+lenrow+", column = "+column);
 				return resultSet [row] [column];
 			}
 		}
@@ -235,7 +193,6 @@ public abstract class DbCRUDFixture extends TableFixture {
 	protected int getNumberOfRealColumn() {
 		String previousColumnValue = null;
 		int size = 0;
-		System.out.println("getNumberOfColumn = "+getNumberOfColumn());
 		for (int i = 1; i <= getNumberOfColumn(); i++) {
 			size = i;
 			String text = getText(FIELD_ROW_INDEX, i);
@@ -251,6 +208,5 @@ public abstract class DbCRUDFixture extends TableFixture {
 	
 	protected abstract String getTable();
 	
-//	protected abstract Object getResultSetObject(int row, int column);
 	
 }

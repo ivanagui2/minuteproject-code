@@ -18,7 +18,7 @@ public class QueryUtils {
 		sb.append(getInsert(table, columns, columnValue));
 		sb.append(getInsertValue(columns, columnValue));
 //		sb.append(getInsert(table, columns, columnValue));
-		System.out.println("Insert query = "+sb.toString());
+//		System.out.println("Insert query = "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -31,7 +31,7 @@ public class QueryUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getUpdate(table, columnIndex, columnValue));
 		sb.append(getWhereQuery(columnWhereIndex, columnWhereValue));		
-		System.out.println("Update query = "+sb.toString());
+//		System.out.println("Update query = "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -42,7 +42,7 @@ public class QueryUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getDelete(table));
 		sb.append(getWhereQuery(columnWhereIndex, columnWhereValue));		
-		System.out.println("Delete query = "+sb.toString());
+//		System.out.println("Delete query = "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -117,15 +117,8 @@ public class QueryUtils {
 	
 
 	private static String getWhatQuery (Map<Integer, String> columnIndex) {
-//		int size = columnIndex.size();
 		StringBuffer sb = new StringBuffer("SELECT ");
 		sb.append(getColumnQuery(columnIndex));
-//		for (int i = 1; i <= size; i++) {
-//			String s = columnIndex.get(Integer.valueOf(i));
-//			sb.append(s);
-//			if (i!=size)
-//				sb.append(", ");
-//		}
 		return sb.toString();
 	}
 	
@@ -196,8 +189,6 @@ public class QueryUtils {
 		boolean isBeginning = true;
 		for (int i = 0; i <size; i++) {
 			String columnName = getColumnName(columns, i); 
-//			Column column = columns.get(Integer.valueOf(i));
-//			String columnName = column.getName(); 
 			String value = columnValue.get(columnName);
 			if (value!=null && !value.equals("")) {
 				if (isBeginning) {

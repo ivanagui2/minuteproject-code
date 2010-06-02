@@ -9,10 +9,10 @@ public abstract class DbQueryFixture extends DbCRUDFixture{
 			else
 				wrong(row, column, actual);
 		} else {
-			if (getText(row, column).equals(NOT_PRESENT))
+			if (getText(row, column).equals(FixtureCode.NOT_PRESENT))
 				right(row, column);
 			else
-				wrong (row, column, NOT_PRESENT);
+				wrong (row, column, FixtureCode.NOT_PRESENT);
 		}
 	}
 
