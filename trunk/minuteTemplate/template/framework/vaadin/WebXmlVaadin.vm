@@ -34,6 +34,15 @@
 	</servlet>
 #end
 #end
+    <servlet>
+		<servlet-name>$modelApplicationClass</servlet-name>
+		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+		<init-param>
+			<param-name>application</param-name>
+			<param-value>$modelApplicationImport</param-value>
+		</init-param>
+	</servlet>
+
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #if ($vaadinPlugin.isVaadinApplication($table))
 #exposeVariableEntitySpecific()
@@ -44,6 +53,10 @@
 	</servlet-mapping>	
 #end
 #end
+	<servlet-mapping>
+		<servlet-name>$modelApplicationClass</servlet-name>
+		<url-pattern>/$modelApplicationClass/*</url-pattern>
+	</servlet-mapping>
 		
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
