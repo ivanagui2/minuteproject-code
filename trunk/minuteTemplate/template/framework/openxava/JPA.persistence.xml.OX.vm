@@ -1,0 +1,21 @@
+#exposeVariableModelSpecific()
+#exposeJdbc()
+#exposeJPASpecifics()
+#set ($applicationOX=$configuration.name)
+#set ($hibernateDialect = $hibernate3.getDialect($database))
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
+             
+    <!-- Tomcat + Hypersonic -->
+    <persistence-unit name="default">
+    	<non-jta-data-source>java:comp/env/jdbc/${applicationOX}DS</non-jta-data-source>
+    	<class>org.openxava.session.GalleryImage</class>
+        <properties>
+            <property name="hibernate.dialect" value="$hibernateDialect"/>
+        </properties>
+    </persistence-unit>       
+    
+    
+</persistence>
