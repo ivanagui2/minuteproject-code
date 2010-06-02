@@ -67,13 +67,25 @@
 			subdir="" outputsubdir="" technicalPackage="application"
 			file-extension="java" file-prefix="" file-suffix="App" 
 			entity-specific="true" package-specific="false" model-specific="false">
-		</template>		
+		</template>	
+		
+		<template name="DomainObjectComponentVaadin" templateFileName="DomainObjectComponentVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="component"
+			file-extension="java" file-prefix="" file-suffix="Comp" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
 
 		<template name="MenuVaadin" templateFileName="MenuVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="vaadin.snippet.menu"
 			file-extension="java" file-prefix="" file-suffix="Menu" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>		
+		
+		<template name="ModelApplicationVaadin" templateFileName="ModelApplicationVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="application"
+			file-extension="java" file-prefix="" file-suffix="App" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>				
 				
     </template-target>	
 		
