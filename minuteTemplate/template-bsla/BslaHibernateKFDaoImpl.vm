@@ -262,7 +262,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 #putColumnParams()
 #if ($columnType=="String")
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
-           ${tableVariableName}.set$columnClass(null);
+           ${tableVariableName}.set$columnClass((String)null);
 #end
 #end	
 		return ${tableVariableName};
