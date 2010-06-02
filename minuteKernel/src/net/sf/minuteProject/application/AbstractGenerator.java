@@ -39,6 +39,7 @@ import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 /**
  * @author Florian Adler
@@ -210,12 +211,14 @@ public abstract class AbstractGenerator implements Generator {
     	for (Iterator iter= target.getTemplateTargets().iterator(); iter.hasNext(); ) {
     		TemplateTarget templateTarget = (TemplateTarget)iter.next();
     		logger.info("> generate template: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
-        	for (Iterator iter2= templateTarget.getTemplates().iterator(); iter2.hasNext(); ) {
-        		Template template= (Template)iter2.next();
-        		logger.info(">> generate template: "+template.getName()+" in "+template.getOutputdir());
-        		this.generate(template);    		
-        		//generateArtifacts (configuration.getModel(),(Template)iter2.next());		
-        	}     		
+    		if (templateTarget!=null && templateTarget.getTemplates()!=null) {
+	    		for (Iterator iter2= templateTarget.getTemplates().iterator(); iter2.hasNext(); ) {
+	        		Template template= (Template)iter2.next();
+	        		logger.info(">> generate template: "+template.getName()+" in "+template.getOutputdir());
+	        		this.generate(template);    		
+	        		//generateArtifacts (configuration.getModel(),(Template)iter2.next());		
+	        	} 
+    		}
     	}  		
 	}
 	
@@ -367,6 +370,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("databaseUtils", new DatabaseUtils());
 		context.put("modelUtils", new ModelUtils());
 		context.put("templateUtils", new TemplateUtils());
+		context.put("propertyUtils", new PropertyUtils());
 	}
 
     

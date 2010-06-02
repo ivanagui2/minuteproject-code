@@ -147,7 +147,7 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 			generateArtifactsByApplication(template);
 	}
 
-	public Model getModel() throws Exception {
+	public Model getModel() {
 //		if (model == null) {
 //			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
 //			setModel((Model) modelGenerator.load());
