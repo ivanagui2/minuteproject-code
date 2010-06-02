@@ -29,6 +29,7 @@ import $importDomainObjectUML;
  * <p>Description: Domain Object describing a ${className} entity</p>
  *
  */
+@SuppressWarnings("serial") 
 public class ${className} extends AbstractDomainObject {
 
 #foreach ($column in ${table.columns})
