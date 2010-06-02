@@ -1,0 +1,41 @@
+#macro (columnJavaNaming)
+#if ($javaUtils.isReservedWord($columnVar))
+#set($columnVar="${columnVar}_Name")
+#set($columnClass="${columnClass}_Name")
+#end
+#end
+
+#macro (putColumnInfo)
+#set ($editorComboListFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($column, $template, "OXComboListJSP"))
+#set ($editorComboListName=$commonUtils.getTemplateFileName($column, $template, "OXComboListJSP"))
+#end
+
+#macro (writeTabParentSemanticReference)
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set($semanticReference = $linktableDB.semanticReference)
+#if ($tableUtils.isReferenceDataContentType($linktableDB))   
+#if($table.hasAttribute())
+      +", "+
+#end
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
+       "${linkedTableVariable}.$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+#else "
+#end 
+#end 
+#end
+#end
+#end
+
+#macro (writeTabDefaultProperties)
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$column.isLob())
+     " $columnVar #if ($velocityCount!=$table.attributes.size()), "+
+#else "
+#end 	
+#end
+#end
+#end
+

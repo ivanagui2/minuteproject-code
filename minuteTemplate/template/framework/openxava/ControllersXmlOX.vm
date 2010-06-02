@@ -1,0 +1,72 @@
+#exposeVariableModelSpecific() 
+#set ($applicationOX=$configuration.name)
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
+
+<!-- OpenXavaTest -->
+
+<controllers> 
+
+	<controller name="MpTypical">
+	
+	  <extends controller="Typical" />
+    
+    <action  name="new" 
+			class="net.sf.mp.ox.view.CreateAction"
+			image="images/new.gif"
+			keystroke="Control N">
+			<set property="restoreModel" value="true"/>			
+		</action>
+		
+    <action name="searchByViewKey"
+        by-default="if-possible" hidden="true"
+        class="net.sf.mp.ox.view.UpdateAction"
+        keystroke="F8" >
+    </action>
+      
+	</controller>		
+
+	<controller name="MpSearchAndPrint">
+		<extends controller="Print" />
+		<extends controller="MpSearchOnly" />
+	</controller>
+  	
+	<controller name="MpSearchOnly">
+
+		<action name="search" mode="detail"
+			class="org.openxava.actions.SearchAction" image="images/find.gif"
+			keystroke="control B">
+		</action>
+
+		<action name="searchByViewKey" hidden="true" 
+			class="org.openxava.actions.SearchByViewKeyAction">
+			<use-object name="xava_view" />
+		</action>
+
+		<action name="searchReadOnly" hidden="true" 
+			class="org.openxava.actions.SearchReadOnlyAction">
+			<use-object name="xava_view" />
+		</action>
+		
+	</controller>
+
+#exposeVariableModelDetailSpecific()
+#foreach($table in $model.businessModel.businessPackage.getEntities())
+#exposeVariableEntitySpecific()
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#if ($columnUtils.hasFormulaStereotype($column))
+#set ($formula = $column.stereotype.formula)
+#set ($formulaName = $formatUtils.getJavaName($formula.name))
+	<controller name="${columnVar}${formulaName}Controller">
+		<action name="${columnVar}${formulaName}"  mode="detail"
+			class="net.sf.mp.ox.action.DummyAction">
+			<use-object name="xava_view" />
+		</action>	
+	</controller>
+#end
+#end
+#end
+
+</controllers>

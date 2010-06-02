@@ -1,0 +1,364 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+#putImportParamsUML()
+#macro (exposeM2MSpecific)
+#set ($linkedTableDBName = $linkReference.localTableName)
+#set ($linkTableName = $formatUtils.getJavaName($$linkedTableDBName))
+#set ($linkTableVariableName = $formatUtils.getJavaNameVariable($linkCacheTable.name))
+#set ($targetTable = $linkReference.foreignTable)
+#set ($targetTableName = $formatUtils.getJavaName($targetTable.name))
+#set ($targetTableVariableName = $formatUtils.getJavaNameVariable($targetTable.name))
+#set ($targetColumnClass = $formatUtils.getJavaName($linkReference.localColumnName))
+#set ($linkLocalColumnClass = $formatUtils.getJavaName($linkReference.localColumnName))
+#set ($localColumnName = $formatUtils.getJavaName($linkReference.localColumnName))
+#end
+#set($defaultViewExt="DEFAULT_VIEW")
+##set($attributes=$table.attributes)
+#set($attributecount=$attributes.length)
+package $packageName;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+//import org.apache.commons.lang.builder.HashCodeBuilder;
+//import org.apache.commons.lang.builder.ToStringBuilder;
+//import org.apache.commons.lang.builder.ToStringStyle;
+
+import javax.persistence.*;
+import org.openxava.annotations.*;
+
+#foreach ($reference in $table.children)
+#set ($thisTable = $reference.foreignTable)
+#exposeImportParamsUML($reference.foreignTable)
+#if(!$thisTable.isManyToMany())
+import $importDomainObjectUML;
+#end
+#end
+#foreach ($reference in $table.parents)
+#exposeImportParamsUML($reference.foreignTable)
+#set ($thisTable = $reference.foreignTable)
+#if(!$thisTable.isManyToMany())
+import $importDomainObjectUML;
+#end
+#end
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#if($linktableDB.isManyToMany())
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeImportParamsUML($targetTable)
+import $importDomainObjectUML;
+#end
+#end
+#end
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: Domain Object describing a ${className} entity</p>
+ *
+ */
+@Entity (name="${className}")
+@Table (name="${table.name}")
+@Views({
+	@View(
+			name="base",
+			members=
+        "" 
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+        + " $columnVar ;" 	
+#end	
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+	    + "${linkedTableVariable};" //+ "${linkedTableVariable};"  //+ "${localColumnVariable};" 
+#end		
+		),
+	@View(
+		name="Create", 
+		extendsView="base"
+	),
+	@View(
+		name="Update", 
+		extendsView="base",
+		members=
+        ""  	
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#if(!$linktableDB.isManyToMany())
+	    + "${link}${columnclass}s { ${link}${columnclass}s };" 
+#end
+#end
+	),
+	@View(extendsView="base",
+        members=
+        "" 	
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#if(!$linktableDB.isManyToMany())
+	    + "${link}${columnclass}s { ${link}${columnclass}s };" 
+#end
+#end
+	),
+    @View(name="${domainVariableName}${defaultViewExt}", 
+	      members=
+        "#foreach ($column in ${table.primaryKeyColumns}) #putColumnParams()$columnVar ;#end" 	
+#foreach ($column in ${table.attributes})
+#if (!$column.isLob())
+#putColumnParams()
+#columnJavaNaming()
+        + " $columnVar ;" 
+#end
+#end	
+	)
+})
+
+@Tabs({
+@Tab(properties=
+#writeTabDefaultProperties()
+#writeTabParentSemanticReference()	
+)#if($table.hasAttribute()),
+@Tab(
+name = "${className}Tab",
+properties=
+#writeTabDefaultProperties()
+)
+#end
+,
+@Tab(
+name = "${className}TabWithRef",
+properties=
+#writeTabDefaultProperties()
+#writeTabParentSemanticReference()	
+)
+})
+
+public class ${className} {
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#if($isLengthPrecisionColumn)    
+    public static final int     ${column.name}_FIELD_SIZE = $columLengthPrecisionSize;
+#end  
+#end
+#foreach ($column in ${table.columns})
+#putColumnParams()
+    public static final boolean IS_${column.name}_MANDATORY = $isMandatory;
+#end
+
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many)
+#if (!$isPkUserProvided)
+#set ($sequenceName = $databaseUtils.provideSequence($table))
+    @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
+#end
+#end
+    @Hidden @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+#if (!$isMany2Many)
+#if (!$isPkUserProvided)
+#set ($sequenceName = $databaseUtils.provideSequence($table))
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
+#end
+#end
+    private $columnType $columnVar; ##// pk not fk
+
+#end
+
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+#if ($isView)
+    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+#else
+    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false#end)
+#end
+#if ($isMandatory)
+    @Required
+#end
+#foreach ($property in $column.getPropertiesArray())
+#if($property.tag=="checkconstraint")
+    @Editor(forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}ComboEditor")
+#end
+#end
+#if ($column.isLob())
+    @Lob
+    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
+#exposeLobProperties()
+#if ($convertClobToString=="true")
+#set($columnType="String")
+#end
+#end
+#if ($columnUtils.hasStereotype($column))
+    @Stereotype ("$column.stereotype.stereotype")
+#end
+    private $columnType $columnVar; 
+#end
+
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    @ManyToOne (fetch=FetchType.LAZY)
+#if ($isView)
+    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+#else
+#if(!$isMany2Many)
+    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false#end )
+#else
+    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+#end
+#end  
+#if ($isMandatory)
+    @Required
+#end 
+    @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
+#set($semanticReference = $linktableDB.semanticReference)
+#if ($tableUtils.isReferenceDataContentType($linktableDB))    
+    @DescriptionsList(
+       descriptionProperties=
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
+       "$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+#else "
+#end 
+#end       
+    )
+    @NoCreate
+    @NoModify	
+#end    
+    private $linkedTableClass ${linkedTableVariable}; //$linkedTableVariable; //${localColumnVariable}; 
+    
+#end
+
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#if(!$linktableDB.isManyToMany())
+#set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
+#set ($targetEntityClass="${importDomainObjectForeignTable}.class")
+    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY)
+    @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
+    private Set <$linkclass> ${link}${columnclass}s = new HashSet();
+
+#else
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+    @ManyToMany
+    @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
+        joinColumns=@JoinColumn(name="$columnDB.name"), //$columnDB.name
+        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
+    )
+    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+
+#end    
+#end
+#end
+
+    /**
+    * Default constructor
+    */
+    public ${className}() {
+    }
+
+##patch for hibernate
+#if ($isMany2Many)
+    public ${className} get${className} () {
+    	return this;
+    }
+
+    public void set${className} (${className} ${variableName}) {
+    	new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+       ${variableName}.get_${columnVar}()#if ($velocityCount!=$table.columnCount),
+#end
+#end 		
+		);
+    }
+#end    
+
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if(!$isForeignKey)
+    public $columnType get$columnClass() {
+        return $columnVar;
+    }
+	
+    public void set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+    }
+    
+#end
+#end
+
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+#if ($column.isLob())
+#exposeLobProperties()
+#if ($convertClobToString=="true")
+#set($columnType="String")
+#end
+#end
+    public $columnType get$columnClass() {
+        return $columnVar;
+    }
+	
+    public void set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+    }
+#end
+
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    public $linkedTableClass get${linkedTableClass} () {  //get$linkedTableVariable
+    	return ${linkedTableVariable};//${localColumnVariable};
+    }
+	
+    public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
+    	this.${linkedTableVariable} = ${linkedTableVariable};//this.${localColumnVariable} = ${linkedTableVariable};
+    }
+    
+#end
+
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#if(!$linktableDB.isManyToMany())
+    public Set<$linkclass> get${linkclass}${columnclass}s() {
+        if (${link}${columnclass}s == null){
+            ${link}${columnclass}s = new HashSet();
+        }
+        return ${link}${columnclass}s;
+    }
+
+    public void set${linkclass}${columnclass}s (Set<$linkclass> ${link}${columnclass}s) {
+        this.${link}${columnclass}s = ${link}${columnclass}s;
+    }	
+    
+    public void add${linkclass}${columnclass} ($linkclass ${link}) {
+    	    get${linkclass}${columnclass}s().add($link);
+    }
+    
+#else
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific() 
+    public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
+        if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
+            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+        }
+        return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+    }
+
+    public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
+        this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+    }	
+        
+#end
+#end    
+#end
+
+}
