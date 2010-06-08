@@ -3,6 +3,7 @@ package net.sf.minuteProject.application;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -101,15 +102,14 @@ public abstract class AbstractGenerator implements Generator {
 		return getClass().getClassLoader().getSystemResourceAsStream(configurationFileName);
 	}
 	
-	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
-//		boolean hasBaseTarget = false;
-//		if (abstractConfigurationRoot.hasTarget())
-//			hasBaseTarget = true;
-		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
-//		if (hasBaseTarget)
+	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
+		try {
+			loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
+			
+		} catch (Exception e) {
+			exit ("CANNOT LOAD FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH");
+		}
 		complementWithTargetInfo(abstractConfigurationRoot, target);
-//		else if (abstractConfigurationRoot.hasTargets())
-//			copyAndComplementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
 	public void copyAndComplementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
@@ -129,7 +129,7 @@ public abstract class AbstractGenerator implements Generator {
 //		}
 	}
 	
-	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
+	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
 		Target target2 = abstractConfigurationRoot.getTarget();
 		target2.setDir(target.getDir());
 		target2.setCanonicalDir(target.getCanonicalDir());
@@ -139,7 +139,7 @@ public abstract class AbstractGenerator implements Generator {
 	
 	protected InputStream getTargetConfigurationInputStream (
 			AbstractConfigurationRoot abstractConfigurationRoot, 
-			Target target) throws Exception{
+			Target target) throws FileNotFoundException {
 		String filePath = resolveFileAbsolutePath(abstractConfigurationRoot, target);
 		String dirPath = FileUtils.stripFileName(filePath);
 		target.setCanonicalDir(dirPath);
@@ -198,10 +198,14 @@ public abstract class AbstractGenerator implements Generator {
 	 * @return AbstractConfiguration
 	 * @throws Exception
 	 */
-	public final AbstractConfiguration load() throws Exception{
-		//load propertyStack
-		//load (getConfigurationFile(), getPropertyConfigurationRulesFile());
-		return load(getConfigurationFile(), getConfigurationRulesFile());
+	public final AbstractConfiguration load() {
+		AbstractConfiguration abstractConfiguration = null;
+		try {
+			abstractConfiguration = load(getConfigurationFile(), getConfigurationRulesFile());
+		} catch (Exception e) {
+			exit("CANNOT LOAD FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
+		}
+		return abstractConfiguration;
 	}
 	
 	/* (non-Javadoc)
@@ -373,5 +377,8 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("propertyUtils", new PropertyUtils());
 	}
 
-    
+    protected void exit (String message) {
+		logger.error(message);
+		System.exit(-1);
+    }
 }

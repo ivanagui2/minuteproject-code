@@ -113,10 +113,10 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		target.setFileName(initTarget.getFilename());
 		return target;
 	}
-	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
-		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
-		complementWithTargetInfo(abstractConfigurationRoot, target);
-	}
+//	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
+//		loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
+//		complementWithTargetInfo(abstractConfigurationRoot, target);
+//	}
 
 	@Override
 	public AbstractConfiguration getConfigurationRoot() {

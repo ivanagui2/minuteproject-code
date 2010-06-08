@@ -34,7 +34,6 @@ public class FileUtils {
 			try {
 				return new File(url.toURI()).getAbsolutePath();
 			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return filePathInClassPath;
 			}
@@ -49,16 +48,16 @@ public class FileUtils {
 	}
 	
 	public static String getAbsolutePathFromPath(String inputPathInFile) {
-		File file = new File (inputPathInFile);
-//		file.getAbsolutePath();
-		if (file.exists())
-			try {
-				return file.getCanonicalPath();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
+		if (inputPathInFile!=null) {
+			File file = new File (inputPathInFile);
+			if (file.exists())
+				try {
+					return file.getCanonicalPath();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+		}
 		return null;
 	}
 	
