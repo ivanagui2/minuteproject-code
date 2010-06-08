@@ -69,30 +69,29 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     */ 
     @Transactional
     public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
-        boolean isWhereSet = false;
-        StringBuffer query = new StringBuffer();
-        query.append (" Update $tableClassName $tableVariableName ");
-#foreach ($column in ${table.columns})
-#if (!$column.isPrimaryKey())
-#putColumnParams()
-        if (${tableVariableName}.get$columnClass() != null) {
-           query.append (getQueryCommaSet (isWhereSet));
-           isWhereSet = true; 
-           query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
-        }
-#end    
-#end 		
-		isWhereSet = false; 
-#foreach ($column in $table.primaryKeyColumns)
-#putColumnParams()
-        if (${tableVariableName}.get$columnClass() != null) {
-           query.append (getQueryWHERE_AND (isWhereSet));
-           isWhereSet = true;
-			query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
-        }
-#end   
-        Query jpaQuery = getEntityManager().createQuery(query.toString());
-        isWhereSet = false;
+##        boolean isWhereSet = false;
+##        StringBuffer query = new StringBuffer();
+##        query.append (" Update $tableClassName $tableVariableName ");
+###foreach ($column in ${table.columns})
+###if (!$column.isPrimaryKey())
+###putColumnParams()
+##        if (${tableVariableName}.get$columnClass() != null) {
+##           query.append (getQueryCommaSet (isWhereSet));
+##           isWhereSet = true; 
+##           query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
+##        }
+###end    
+###end 		
+##		isWhereSet = false; 
+###foreach ($column in $table.primaryKeyColumns)
+###putColumnParams()
+##        if (${tableVariableName}.get$columnClass() != null) {
+##           query.append (getQueryWHERE_AND (isWhereSet));
+##           isWhereSet = true;
+##			query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
+##        }
+###end   
+        Query jpaQuery = getEntityManager().createQuery(getUpdateNotNullOnly${tableClassName}QueryChunk(${tableVariableName}));
 #foreach ($column in ${table.columns})
 #putColumnParams()
         if (${tableVariableName}.get$columnClass() != null) {
@@ -101,6 +100,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 #end         
 		return jpaQuery.executeUpdate();
     }
+
+#parse("./snippet/orm/dao/updateNotNullOnlySnippet.vm") 
 	
 	@Transactional
     public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
@@ -169,16 +170,26 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     	return ($tableClassName)getJpaTemplate().get(${tableClassName}.class, id);
     }
 */
+  
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName
+#if($isMany2Many)
+     * @param $tableClassName ${tableVariableName}
+#else     
      * @param $primaryKeyFullType $primaryKey
+#end
      * @return $tableClassName The $tableClassName entity
      */
+#if($isMany2Many)
+    public $tableClassName load$tableClassName($tableClassName ${tableVariableName}) {
+    	return ($tableClassName)getJpaTemplate().find(${tableClassName}.class, ${tableVariableName});    
+#else      
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
     	return ($tableClassName)getJpaTemplate().find(${tableClassName}.class, $primaryKeyVariable);
-    }    
-
+#end    
+    }
+    
     /**
      * Loads a list of $tableClassName entity 
      * @param List<$primaryKeyFullType> ${primaryKeyVariable}s
@@ -277,7 +288,22 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
        if (maxResults!=null)
           hquery.setMaxResults(maxResults);
        return hquery.getResultList();         
-    }         
+    }        
+    
+    public List<$tableClassName> searchPrototype$tableClassName (List<$tableClassName> ${tableVariableName}s) {
+       return searchPrototype (${tableVariableName}s, null);  
+    }
+
+    protected List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}s, Integer maxResults) {    
+       //TODO convert setMaxResults in JPA if (maxResults!=null)
+       //   getJpaTemplate().setMaxResults(maxResults);
+       return getJpaTemplate().find(get${tableClassName}SearchEqualQuery (null, ${tableVariableName}s));            
+    }    
+
+    public List<$tableClassName> searchDistinctPrototype$tableClassName ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
+        return getJpaTemplate().find(get${tableClassName}SearchEqualQuery (${tableVariableName}Mask, ${tableVariableName}s));    
+    }
+         
 	/**
      * Searches a list of $tableClassName entity 
      * @param $tableClassName ${tableVariableName}Positive
@@ -287,31 +313,83 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
 	    return getJpaTemplate().find(get${tableClassName}SearchEqualQuery (${tableVariableName}Positive, ${tableVariableName}Negative));  
     }
-    
+
     /**
     * return a hibernate hql search on a ${tableClassName} prototype
     */
     protected String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
-        boolean isWhereSet = false;
+##        boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
+        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName WHERE ");
+        query.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));
+##foreach ($column in ${table.columns})
+##putColumnParams()
+##        if (${tableVariableName}.get$columnClass() != null) {
+##           query.append (getQueryWHERE_AND (isWhereSet));
+##           isWhereSet = true;
+##if ($sqlUtils.isQuotedColumn($column))        
+##           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
+##else
+##           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
+##end
+##        }
+##	#end      
+	    return query.toString();
+    }
+
+
+    /**
+    * return a jql search for a list of ${tableClassName} prototype
+    */
+    protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
+        boolean isOrSet = false;
+        StringBuffer query = new StringBuffer();
+        if (${tableVariableName}Mask !=null)
+           query.append (get${tableClassName}MaskWhat (${tableVariableName}Mask));
+        query.append (" FROM $tableClassName $tableVariableName WHERE ");
+        for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
+           query.append (getQueryOR (isOrSet));
+           isOrSet = true;        
+           query.append (" ("+get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false)+") ");
+        }
+	    return query.toString();
+    }	
+    
+    protected String get${tableClassName}MaskWhat ($tableClassName ${tableVariableName}Mask) {
+        boolean isCommaSet = false;
+        StringBuffer query = new StringBuffer("SELECT DISTINCT ");
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}Mask.get$columnClass() != null) {
+           query.append (getQueryComma (isCommaSet));
+           isCommaSet = true;
+           query.append(" ${columnVar} ");
+        }
+#end      
+        if (!isCommaSet)
+           return "";
+	    return query.toString();        
+    }
+    
+    protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
+        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
 #putColumnParams()
         if (${tableVariableName}.get$columnClass() != null) {
-           query.append (getQueryWHERE_AND (isWhereSet));
-           isWhereSet = true;
+           query.append (getQueryAND (isAndSet));
+           isAndSet = true;
 #if ($sqlUtils.isQuotedColumn($column))        
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
         }
-	#end      
+#end      
 	    return query.toString();
-    }
-    
+    }   
+     
     /**
-    * return a hibernate hql search on a ${tableClassName} prototype with positive and negative beans
+    * return a jql search on a ${tableClassName} prototype with positive and negative beans
     */
     protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
         boolean isWhereSet = false;
@@ -382,18 +460,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 ##   	   //return set.subList(0, maxResult);
     }
 
-    protected String getQueryWHERE_AND (boolean isWhereSet) {
-       if (isWhereSet)
-          return " AND ";
-       return " WHERE ";
-    }
-    
-    protected String getQueryCommaSet (boolean isWhereSet) {
-       if (isWhereSet)
-          return " , ";
-       return " SET ";
-    }	    
-    
+#parse("./snippet/orm/dao/queryBuilderUtils.vm")   
+   
     protected EntityManager getEntityManager () {
         return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
     }
