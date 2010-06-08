@@ -33,7 +33,7 @@ public class $className extends Application {
 #if ($vaadinPlugin.isVaadinApplication($table))
 #exposeVariableEntitySpecific()
 #exposeVaadinDomainObject()
-    public static final String _screen$domainObjectComponentClass = "$domainObjectComponentClass";
+    public static final String _$domainObjectComponentClass = "$domainObjectComponentClass";
 #end
 #end    
     public static final String _uriHash = "#";
@@ -94,16 +94,20 @@ public class $className extends Application {
             url = getURL();
         }
        
-        Link homeLink = new Link("Home",new ExternalResource(url+"#"+_mainScreen)); 
-        hLayout.addComponent(homeLink);      
+        Link homeLink = new Link("Home",new ExternalResource(url+"#"+_mainScreen));  
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #if ($vaadinPlugin.isVaadinApplication($table))
 #exposeVariableEntitySpecific()
 #exposeVaadinDomainObject()
-        Link screen${domainObjectComponentClass}Link = new Link("$domainObjectComponentClass",new ExternalResource(url+"#"+_screen$domainObjectComponentClass));
-        hLayout.addComponent(screen${domainObjectComponentClass}Link);        
+        Link screen1Link = new Link("Screen1",new ExternalResource(url+"#"+_screen1));
+    public static final String _$domainObjectComponentClass = "$domainObjectComponentClass";
 #end
 #end 
+        Link screen1Link = new Link("Screen1",new ExternalResource(url+"#"+_screen1));
+        Link screen2Link = new Link("Screen2",new ExternalResource(url+"#"+_screen2));
+        hLayout.addComponent(homeLink);
+        hLayout.addComponent(screen1Link);
+        hLayout.addComponent(screen2Link);
         return hLayout;
     }
    
@@ -113,19 +117,20 @@ public class $className extends Application {
         vLayout.addComponent(l);       
         return vLayout;
     }
-
-#foreach ($table in $model.businessModel.businessPackage.entities)
-#if ($vaadinPlugin.isVaadinApplication($table))
-#exposeVariableEntitySpecific()
-#exposeVaadinDomainObject()
-    private Component buildScreen${domainObjectComponentClass}(){
+   
+    private Component buildScreen1(){
         VerticalLayout vLayout = new VerticalLayout();
-        Label l = new Label("This is the ${domainObjectComponentClass} content");
+        Label l = new Label("This is the SCREEN 1 content");
         vLayout.addComponent(l);       
         return vLayout;
     }
-#end
-#end    
+   
+    private Component buildScreen2(){
+        VerticalLayout vLayout = new VerticalLayout();
+        Label l = new Label("This is the SCREEN 2 content");
+        vLayout.addComponent(l);       
+        return vLayout;
+    }
    
     class MyAppWindow extends Window {       
         VerticalLayout mainView = new VerticalLayout();
@@ -136,35 +141,28 @@ public class $className extends Application {
             this.addComponent(mainView);       
 
             /*
-             * Setting content here causes problems:
-             * -BAD: http://localhost:8080/VaadinHistoryTest#screen2 initially renders with Main content and then replaces it with Screen 1 content.
-             * It only happens with new tabs, not when http://localhost:8080/VaadinHistoryTest#screen2 is the first tab of the session
-             */            
+132             * Setting content here causes problems:
+133             * -BAD: http://localhost:8080/VaadinHistoryTest#screen2 initially renders with Main content and then replaces it with Screen 1 content.
+134             * It only happens with new tabs, not when http://localhost:8080/VaadinHistoryTest#screen2 is the first tab of the session
+135             */            
             //setMainContent(buildMainScreen());
             
             uriUtil.addListener(new FragmentChangedListener() {
                 public void fragmentChanged(FragmentChangedEvent source) {
                         String frag = source.getUriFragmentUtility().getFragment();
+                        System.out.println("*** In Window-level UriFragmentUtility, fragmentChanged to "+frag);
                         
                         // Actually manipulate the contents of the Window here                        
                         if (frag!=null && !"".equals(frag.trim())){                           
                             String[] params = frag.split("/");
                             String currentScreen = params[0];
                             removeSubwindows();
-#foreach ($table in $model.businessModel.businessPackage.entities)
-#if ($velocityCount != 1 )
-#set ($linkWord = "else")
-#else
-#set ($linkWord = "")
-#end
-#if ($vaadinPlugin.isVaadinApplication($table))
-#exposeVariableEntitySpecific()
-#exposeVaadinDomainObject()
-                            $linkWord if (_screen${domainObjectComponentClass}.equals(currentScreen)){
-                                setMainContent(buildScreen${domainObjectComponentClass}());
-                            }  
-#end
-#end    
+                            if (_screen1.equals(currentScreen)){
+                                setMainContent(buildScreen1());
+                            }
+                            else if (_screen2.equals(currentScreen)){
+                                setMainContent(buildScreen2());
+                            }
                             else{
                                 setMainContent(buildMainScreen());
                             }
@@ -200,6 +198,7 @@ public class $className extends Application {
             
             
             this.addComponent(uriUtil);
+            System.out.println("CREATED A NEW WINDOW");
         }
             
         public UriFragmentUtility getUriFragmentUtility(){

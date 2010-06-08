@@ -59,6 +59,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 
     private Logger log = Logger.getLogger(this.getClass());
     
+    private SimpleCache simpleCache = new SimpleCache();
 #foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 #putDependenciesUML()
@@ -140,30 +141,33 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
         hquery.setMaxResults(numberOfResult);
         return hquery.getResultList();
     }
+
+    public Integer updateNotNullOnly$tableClassName ($tableClassName $tableVariableName, Criteria criteria) {
+        String queryWhat = getUpdateNotNullOnly${tableClassName}QueryChunkPrototype ($tableVariableName);
+        StringBuffer query = new StringBuffer (queryWhat);
+        boolean isWhereSet = false;
+        for (Criterion criterion : criteria.getClauseCriterions()) {
+            query.append (getQueryWHERE_AND (isWhereSet));
+            isWhereSet = true;   
+            query.append(criterion.getExpression());			
+        }  
+##        //Query query = getEntityManager().createQuery(query.toString());//.setProperties($tableVariableName);   
+        Query jpaQuery = getEntityManager().createQuery(query.toString());
+        isWhereSet = false;
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass() != null) {
+           jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
+        }   
+#end         
+		return jpaQuery.executeUpdate();           
+##		return query.executeUpdate();        
+    }
 	
-	/**
-	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
-	 * Blank criteria are mapped to null.
-	 * If no criteria is found, null is returned.
-	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
-	 */
-	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName) {
-		$tableVariableName = assignBlankToNull ($tableVariableName);
-		if (isAllNull($tableVariableName))
-			return null;
-		else {
-			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
-			if (list.isEmpty()) 
-				insert$tableClassName($tableVariableName);
-			else if (list.size()==1)
-				${tableVariableName}.copy(list.get(0));
-			else 
-				//TODO log error
-				${tableVariableName}.copy(list.get(0));
-		}
-		return $tableVariableName;	
-	}
+#parse("./snippet/orm/dao/referAssignAffectSnippet.vm") 
 	
+#parse("./snippet/orm/dao/partialLoadSnippet.vm")    
+		
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
       List<$tableClassName> list = partialLoadWithParent$tableClassName(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);
       if (list.isEmpty()) {
@@ -221,30 +225,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        return true;  
     }
         
-                
-	private $tableClassName assignBlankToNull ($tableClassName $tableVariableName) {
-	    if ($tableVariableName==null)
-			return null;
-#foreach ($column in ${table.columns})
-#putColumnParams()
-#if ($columnType=="String")
-        if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
-           ${tableVariableName}.set$columnClass(null);
-#end
-#end	
-		return ${tableVariableName};
-	}
-	
-	private boolean isAllNull ($tableClassName $tableVariableName) {
-	    if ($tableVariableName==null)
-			return true;
-#foreach ($column in ${table.columns})
-#putColumnParams()
-        if (${tableVariableName}.get$columnClass()!=null) 
-            return false;
-#end
-		return true;
-	}
+#parse("./snippet/orm/dao/domainObjectManipulation.vm")
 	
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;
@@ -256,22 +237,6 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end 		
        return cpt;
 	}   
-
-	public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
-		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), null, false);
-	}	
-  
-	protected List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Integer nbOfResult, Boolean useCache) {
-		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), nbOfResult, useCache);
-	}	  
-
-	protected List partialLoadWithParent${tableClassName}QueryResult ($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Integer nbOfResult, Boolean useCache) {
-		 return partialLoadWithParent${tableClassName}QueryResult (${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), nbOfResult, useCache);
-	}	
-    
-  public List<$tableClassName> getDistinct$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
-		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectDistinctInit(), null, false);
-	}
   	
 	public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
 		Map beanPath = new Hashtable();
@@ -672,26 +637,32 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		}
 		return list;
 	}
+
+#if ($hasUniqueKey) 
+   /**
+   * uk<->pk
+   */
+   public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName) {
+      return null;
+   }
+
+   public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
+      return null;
+   }
+
+#if ($hasOnlyOnePrimaryKey)
+   public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName) {
+      return null;
+   }
+
+   public $primaryKeyType load${tableClassName}PkFromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
+      return null;
+   }
+   
+#end   
+#end
     
-    protected static String getQuerySelectComma (boolean isSelectSet) {
-       if (isSelectSet)
-          return " , ";
-       return " select ";
-    }	
-	    
-    protected static String getQueryBLANK_AND (boolean isBlankSet) {
-       if (isBlankSet)
-          return " AND ";
-       return " ";
-    }
-	
-	protected static String getQueryBLANK_COMMA (boolean isBlankSet) {
-       if (isBlankSet)
-          return " , ";
-       return " ";
-    }
-  
-  public EntityManager getEntityManagerForRecursiveDao() {
+    public EntityManager getEntityManagerForRecursiveDao() {
 		return emForRecursiveDao;
 	}
 

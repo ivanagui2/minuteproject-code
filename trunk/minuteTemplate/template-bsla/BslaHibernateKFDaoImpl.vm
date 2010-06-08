@@ -156,7 +156,11 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
         Query hQuery = getSession().createQuery(query.toString()).setProperties($tableVariableName); 
 		return hQuery.executeUpdate();        
     }
-	
+
+	public $tableClassName affect$tableClassName ($tableClassName $tableVariableName) {
+	    return refer$tableClassName ($tableVariableName, false);		    
+	}
+		
 	/**
 	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
 	 * Blank criteria are mapped to null.
@@ -164,27 +168,57 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
 	 */
 	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName) {
+	    return refer$tableClassName ($tableVariableName, true);
+##		$tableVariableName = assignBlankToNull ($tableVariableName);
+##		if (isAllNull($tableVariableName))
+##			return null;
+##		else {
+##			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
+##			if (list.isEmpty()) 
+##				insert$tableClassName($tableVariableName);
+##			else if (list.size()==1)
+##				${tableVariableName}.copy(list.get(0));
+##			else 
+##				//TODO log error
+##				${tableVariableName}.copy(list.get(0));
+##		}
+##		return $tableVariableName;	
+	}
+	
+	public $tableClassName refer$tableClassName ($tableClassName $tableVariableName, boolean isAssign) {
 		$tableVariableName = assignBlankToNull ($tableVariableName);
 		if (isAllNull($tableVariableName))
 			return null;
 		else {
 			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
-			if (list.isEmpty()) 
-				insert$tableClassName($tableVariableName);
+			if (list.isEmpty()) {
+			    if (isAssign)
+			       insert$tableClassName($tableVariableName);
+			    else
+				   return null;
+			}
 			else if (list.size()==1)
 				${tableVariableName}.copy(list.get(0));
 			else 
 				//TODO log error
 				${tableVariableName}.copy(list.get(0));
 		}
-		return $tableVariableName;	
+		return $tableVariableName;		    
 	}
-	
+
    public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName) {
+      return refer${tableClassName}UseCache ($tableVariableName, true);
+   }
+      		
+   public $tableClassName affect${tableClassName}UseCache ($tableClassName $tableVariableName) {
+      return refer${tableClassName}UseCache ($tableVariableName, false);
+   }
+      		
+   public $tableClassName refer${tableClassName}UseCache ($tableClassName $tableVariableName, boolean isAssign) {
 	  String key = getCacheKey(null, $tableVariableName, null, "assign$tableClassName");
       $tableClassName ${tableVariableName}Cache = ($tableClassName)simpleCache.get(key);
       if (${tableVariableName}Cache==null) {
-         ${tableVariableName}Cache = assign${tableClassName} ($tableVariableName);
+         ${tableVariableName}Cache = refer${tableClassName} ($tableVariableName, isAssign);
          if (key!=null)
          	simpleCache.put(key, ${tableVariableName}Cache);
       }
@@ -192,11 +226,6 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
       return ${tableVariableName}Cache;
    }	
 
-   public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache) {
-      if (useCache)
-         return assign${tableClassName}UseCache ($tableVariableName);
-      return assign${tableClassName} ($tableVariableName);
-   }
 	   
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
       List<$tableClassName> list = partialLoadWithParent$tableClassName(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);
@@ -255,29 +284,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
        return true;  
     }      
                 
-	private $tableClassName assignBlankToNull ($tableClassName $tableVariableName) {
-	    if ($tableVariableName==null)
-			return null;
-#foreach ($column in ${table.columns})
-#putColumnParams()
-#if ($columnType=="String")
-        if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
-           ${tableVariableName}.set$columnClass((String)null);
-#end
-#end	
-		return ${tableVariableName};
-	}
-	
-	private boolean isAllNull ($tableClassName $tableVariableName) {
-	    if ($tableVariableName==null)
-			return true;
-#foreach ($column in ${table.columns})
-#putColumnParams()
-        if (${tableVariableName}.get$columnClass()!=null) 
-            return false;
-#end
-		return true;
-	}
+#parse("./snippet/orm/dao/domainObjectManipulation.vm") 
 	
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;
@@ -333,32 +340,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     /**
     * variation first
     */
-    public $tableClassName partialLoadWithParentFirst$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName){
-		List <$tableClassName> list = partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName);
-		return (!list.isEmpty())?($tableClassName)list.get(0):null;
-    }
-    
-    public $tableClassName partialLoadWithParentFirst${tableClassName}UseCache($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache){
-		List <$tableClassName> list = partialLoadWithParent${tableClassName}UseCache(${tableVariableName}What, positive$tableClassName, negative$tableClassName, useCache);
-		return (!list.isEmpty())?($tableClassName)list.get(0):null;
-    }
-	
-	public $tableClassName partialLoadWithParentFirst${tableClassName}UseCacheOnResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Boolean useCache){
-		List <$tableClassName> list = partialLoadWithParent${tableClassName}UseCacheOnResult(${tableVariableName}What, positive$tableClassName, negative$tableClassName, useCache);
-		return (!list.isEmpty())?($tableClassName)list.get(0):null;
-    }
-	//
-	protected List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Integer nbOfResult, Boolean useCache) {
-		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), nbOfResult, useCache);
-	}	  
-
-	protected List partialLoadWithParent${tableClassName}QueryResult ($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Integer nbOfResult, Boolean useCache) {
-		 return partialLoadWithParent${tableClassName}QueryResult (${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectInit(), nbOfResult, useCache);
-	}	
-    
-  public List<$tableClassName> getDistinct$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
-		 return partialLoadWithParent$tableClassName(${tableVariableName}What, positive$tableClassName, negative$tableClassName, new QuerySelectDistinctInit(), null, false);
-	}
+#parse("./snippet/orm/dao/partialLoadSnippet.vm")    
   	
 	public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
 		Map beanPath = new Hashtable();
@@ -945,28 +927,8 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres){
        return searchPrototype(${tableClassName}.fullMask(), ${tableVariableName}Wheres);
     }
-        
-    
-    // Methods to set in upper class
-    protected static String getQuerySelectComma (boolean isSelectSet) {
-       if (isSelectSet)
-          return " , ";
-       return " select ";
-    }	
-	    
-    protected static String getQueryBLANK_AND (boolean isBlankSet) {
-       if (isBlankSet)
-          return " AND ";
-       return " ";
-    }
-	
-	protected static String getQueryBLANK_COMMA (boolean isBlankSet) {
-       if (isBlankSet)
-          return " , ";
-       return " ";
-    }
   
-  public Session getSessionForRecursiveDao() {
+    public Session getSessionForRecursiveDao() {
 		return sessionForRecursiveDao;
 	}
 

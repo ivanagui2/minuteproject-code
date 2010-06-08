@@ -45,8 +45,6 @@ public interface $className extends DataAccessObject {
     public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
     
     public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName);
-    
-    public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName, Boolean useCache);    
          
     /**
     * return the first $tableClassName entity found
@@ -113,18 +111,18 @@ public interface $className extends DataAccessObject {
 #end   
 #end
     
-    /**
-    * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
-    * set in the list ${tableVariableName}Wheres
-    */
-    public List<$tableClassName> searchPrototype ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres);
-    
-    /**
-    * search a list of $tableClassName  matching a list of where filter criteria prototypes
-    * set in the list ${tableVariableName}Wheres
-    */
-    public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres);
-
+##    /**
+##    * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
+##    * set in the list ${tableVariableName}Wheres
+##    */
+##    //public List<$tableClassName> searchPrototype ($tableClassName ${tableVariableName}What, List<$tableClassName> ${tableVariableName}Wheres);
+## ##   
+##    /**
+##    * search a list of $tableClassName  matching a list of where filter criteria prototypes
+##    * set in the list ${tableVariableName}Wheres
+##    */
+##    //public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres);
+##
     /**
      * generic to move after in superclass
      */
