@@ -5,66 +5,31 @@
 			<data-model>
 			    <fileSource name="websy" dir="c:/MinuteProject/data">
 			    </fileSource>
-				<dataSource>
-				<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
-				<url>jdbc:oracle:thin:@devora4.cc.cec.eu.int:1586:EX1URTDD</url>
-				<username>IAM_DEV</username>
-				<password>4Iam_dEv</password>
-				</dataSource>	
-				<schema>IAM_DEV</schema>				
-				<primaryKeyPolicy oneGlobal="false" oneForEachTable="true">
-					<primaryKeyPolicyPattern prefix="" suffix="_SEQ" name="sequencePattern"></primaryKeyPolicyPattern>
+			    <dataSource>	
+					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<username>sa</username>
+					<password></password>	
+				</dataSource>
+				<!-- for Oracle and DB2 please set the schema 
+				<schema> </schema>
+				 -->
+				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
-				<generation-condition default-type="exclude">
-					<condition type="include" startsWith="WSDEF_"></condition>
+				<generation-condition>
+					<condition type="exclude" startsWith="DUAL"></condition>
 				</generation-condition>		
-				<business-package default="websy">
-					<condition type="package" startsWith="WSDEF_" result="websy"></condition>
-				</business-package>	
+				<business-package default="pet">
+					<condition type="package" startsWith="TB_" result="other"></condition>
+				</business-package>		
 				<enrichment>
-					<entity name="WSDEF_SERVICE" alias="" structure="hierarchy">
-						<field name="URL">
-              <stereotype stereotype="WEBURL">
-              </stereotype>
-						</field>
-          </entity>			
-					<entity name="WSDEF_SECURITY" alias="" structure="hierarchy">
-						<field name="TYPE">
-							<property tag="checkconstraint" name="checkconstraint" >
-								<property name="DIGESTER" value="DIGESTER" description="DIGESTER" />
-								<property name="DIGESTER NONCE CREATETIME" value="DIGESTER NONCE CREATETIME" description="DIGESTER" />
-							</property>
-						</field>	
-						<field name="PASSWORD">
-              <stereotype stereotype="FORMULA">
-                <formula name="encrypt" action="encrypt" />
-              </stereotype>
-						</field>            					
-					</entity>
-					<entity name="WSDEF_COMPONENT" content-type="reference-data" >
-					   <semantic-reference>
-					     <sql-path path="NAME"/>
-					   </semantic-reference>
-          </entity>	
-					<entity name="WSDEF_ENVIRONMENT" content-type="reference-data" alias="env">
-					   <semantic-reference>
-					     <sql-path path="NAME"/>
-					   </semantic-reference>
-          </entity>
-          <!--
-					<entity name="WSDEF_SERVICE" >
-					   <semantic-reference>
-					     <sql-path path="NAME"/>
-					     <sql-path path="NAME"/>
-					     <sql-path path="NAME"/>
-					   </semantic-reference>
-          </entity>   
-          -->                 
-				</enrichment>				
+					<entity name="CATEGORY" content-type="reference-data" />
+				</enrichment>					
 			</business-model>
-		</model>	
+			</model>	
 		<targets>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
