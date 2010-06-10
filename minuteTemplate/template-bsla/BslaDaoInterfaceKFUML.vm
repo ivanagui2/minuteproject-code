@@ -35,7 +35,16 @@ public interface $className extends DataAccessObject {
     public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, int numberOfResult);
 	
 	public Integer updateNotNullOnly$tableClassName ($tableClassName $tableVariableName, Criteria criteria);
-	
+
+	/**
+	 * Affect the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
+	 * Blank criteria are mapped to null.
+	 * If no criteria is found, null is returned.
+	 */
+    public $tableClassName affect$tableClassName ($tableClassName $tableVariableName);
+    
+    public $tableClassName affect${tableClassName}UseCache ($tableClassName $tableVariableName);
+    	
 	/**
 	 * Assign the first $tableVariableName retrieved corresponding to the $tableVariableName criteria.
 	 * Blank criteria are mapped to null.

@@ -31,7 +31,7 @@ public enum $className {
     
     
     public static ${className} fromValue(String v) {
-        for (${className} c: ${className}.values()) {
+        for (${className} c : ${className}.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
@@ -46,8 +46,8 @@ public enum $className {
     */     
     public static List<$className> getList() {
 	    List<$className> list = new ArrayList<$className>();
-	    for ($className value : ${className}.values()) {
-		   list.add(value);
+	    for ($className c : ${className}.values()) {
+		   list.add(c);
 	 	}
 	    return list;
     }
@@ -57,11 +57,19 @@ public enum $className {
     * @return boolean : true if the value exist in the enum
     */
     public static boolean contains (String value) {
-       for ($className $classVariableName : ${className}.values()) {
-          if (${classVariableName}.toString().equals(value))
+       for ($className c : ${className}.values()) {
+          if (c.toString().equals(value))
              return true;
           }    	 
        return false;
     }     
-	     
+
+    public static boolean containsValue (String value) {
+        for ($className c : ${className}.values()) {
+           if (c.value().equals(value))
+              return true;
+           }    	 
+        return false;
+    }
+    	     
 }

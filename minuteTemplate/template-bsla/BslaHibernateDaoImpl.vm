@@ -97,7 +97,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 		return hibernateQuery.executeUpdate();
     }
 
-#parse("./snippet/orm/dao/partialLoadSnippet.vm") 
+#parse("./snippet/orm/dao/updateNotNullOnlySnippet.vm") 
 
 ##	private class ${tableClassName}CriteriaValue {
 ##		public $tableClassName $tableVariableName, prototypeCriteria;
