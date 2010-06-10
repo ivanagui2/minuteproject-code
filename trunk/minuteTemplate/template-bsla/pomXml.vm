@@ -76,6 +76,15 @@
       <version>3.3.2.GA</version>
     </dependency>
 
+    <!-- for JPA -->
+     <dependency>
+        <groupId>javax.persistence</groupId>
+        <artifactId>persistence-api</artifactId>
+        <version>1.0</version>
+        <scope>provided</scope>
+     </dependency>
+    <!-- for JPA end -->    
+    
     <dependency>
       <groupId>net.sf.minuteproject</groupId>
       <artifactId>mp-bsla</artifactId>

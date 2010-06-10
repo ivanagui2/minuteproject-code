@@ -1,4 +1,5 @@
 #exposeVariableModelSpecific()
+#templateDefinition()
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
@@ -16,15 +17,29 @@
    <!-- $package.name standard dao-->
    <import resource="classpath:${path}.xml"/>
 #end
-#if ($commonUtils.hasTemplate($model, "BslaSpringConfigDaoExtHibernate"))
+
+#if ($commonUtils.hasTemplate($model, $templateBslaSpringConfigDaoExtHibernate))
 #foreach ($package in ${businessPackages})
-#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoExtHibernate") )
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, $templateBslaSpringConfigDaoExtHibernate) )
    <!-- $package.name extended dao -->
    <import resource="classpath:${path}.xml"/>
 #end
 #foreach ($package in ${businessPackageViews})
-#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, "BslaSpringConfigDaoExtHibernate") )
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, $templateBslaSpringConfigDaoExtHibernate) )
    <!-- $package.name extended dao -->
+   <import resource="classpath:${path}.xml"/>
+#end
+#end
+
+#if ($commonUtils.hasTemplate($model, $templateBslaSpringConfigDaoIncHibernate))
+#foreach ($package in ${businessPackages})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, $templateBslaSpringConfigDaoIncHibernate) )
+   <!-- $package.name incubator dao -->
+   <import resource="classpath:${path}.xml"/>
+#end
+#foreach ($package in ${businessPackageViews})
+#set ($path = $bslaLibraryUtils.getPackageLevelTemplateFullClassPath($model, $package, $template, $templateBslaSpringConfigDaoIncHibernate) )
+   <!-- $package.name incubator dao -->
    <import resource="classpath:${path}.xml"/>
 #end
 #end

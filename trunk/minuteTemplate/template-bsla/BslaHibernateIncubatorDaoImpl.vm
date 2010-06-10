@@ -1,0 +1,41 @@
+#exposeVariableEntitySpecific()
+#putImportParamsUML()
+package $packageName;
+
+import $importDomainObjectUML;
+import $importDaoIncubatorNameUML;
+import java.util.List;
+import java.sql.*;
+import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+
+
+
+public class $className implements $daoInterfaceIncubatorNameUML {
+
+	/**
+	* returns the list of $tableClassName. Each $tableClassName has its corresponding mask attribute filled with value
+	* corresponding to duplicates
+	*/
+    public List<$tableClassName> searchDuplicateValues ($tableClassName ${tableVariableName}Mask){
+       return null;
+    }
+    
+    public List<$tableClassName> searchDuplicateEntities ($tableClassName ${tableVariableName}Prototype){
+       return null;
+    }
+    
+    public List<$tableClassName> searchDuplicateValueWithEntities ($tableClassName ${tableVariableName}Mask){
+       return null;
+    } 
+
+	public $tableClassName loadGraph ($tableClassName ${tableVariableName}Mask, $tableClassName ${tableVariableName}Where){
+       return null;
+    }
+	
+	public $tableClassName loadGraph ($tableClassName ${tableVariableName}Where, int depth){
+       return null;
+    }
+	
+	
+}

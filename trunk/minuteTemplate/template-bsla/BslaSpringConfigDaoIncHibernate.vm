@@ -6,15 +6,15 @@
 #foreach ($table in ${package.listOfTables})
 #putImportParamsUML()
 #exposeArchitectureParams()
-    <bean id="$daoInterfaceExtendedVariableNameUML" class="$importDaoImplExtendedJPAName" singleton="false" >
-        <property name="entityManagerFactory"><ref bean="$JPAFactoryName"/></property>
+    <bean id="$daoInterfaceIncubatorVariableNameUML" class="$importDaoImplIncubatorHibernateName" singleton="false">
+        <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>
     </bean>
 #end
 #foreach ($table in ${package.listOfViews})
 #putImportParamsUML()
 #exposeArchitectureParams()
-    <bean id="$daoInterfaceExtendedVariableNameUML" class="$importDaoImplExtendedJPAName" singleton="false" >
-        <property name="entityManagerFactory"><ref bean="$JPAFactoryName"/></property>
+    <bean id="$daoInterfaceIncubatorVariableNameUML" class="$importDaoImplIncubatorHibernateName" singleton="false">
+        <property name="sessionFactory"><ref bean="$hibernateFactoryName"/></property>
     </bean>
 #end
 

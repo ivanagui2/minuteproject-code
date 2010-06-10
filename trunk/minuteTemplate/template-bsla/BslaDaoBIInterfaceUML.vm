@@ -21,7 +21,7 @@ public interface $className extends DataAccessObject {
 
     /**
      * search all the duplicates for entity $tableClassName, based on the entity mask. 
-     * @param $tableClassName ${tableVariableName}M	ask
+     * @param $tableClassName ${tableVariableName}Mask
      */
    public List<$tableClassName> searchDuplicates ($tableClassName ${tableVariableName}Mask) ;
       // duplicate key

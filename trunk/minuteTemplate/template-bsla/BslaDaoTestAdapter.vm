@@ -22,7 +22,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 #distinctEntityProperty()
 #templateDefinition()
-#set ($springConfig = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateBslaSpringConfigHibBE) )
+#set ($springConfig = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateBslaSpringConfig) )
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
