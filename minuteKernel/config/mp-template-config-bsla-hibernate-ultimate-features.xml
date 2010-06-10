@@ -104,9 +104,24 @@
 			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
 			file-extension="java" file-prefix="" file-suffix="ExtendedHibernateImpl" 
 			entity-specific="true" package-specific="false" model-specific="false">
-		</template>				
+		</template>		
+		
+	    <!-- INCUBATOR DAO -->
+	    <!-- extended dao depends BslaDaoInterfaceUML -->
+		<template name="BslaDaoInterfaceIncubatorUML" templateFileName="BslaDaoInterfaceIncubatorUML.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="IncDao" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
 			
-		<!-- EXTENDED DAO end -->	
+		<!-- depends BslaDaoInterfaceExtendedUML -->	
+		<template name="BslaHibernateIncubatorDaoImplUML" templateFileName="BslaHibernateIncubatorDaoImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
+			file-extension="java" file-prefix="" file-suffix="IncHibernateImpl" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>						
+			
+		<!-- INCUBATOR DAO end -->	
 		<!-- DAO end -->
 		
 		<!-- enumeration for reference data -->
@@ -164,6 +179,13 @@
 			file-extension="xml" file-prefix="dao-ext-hibernate-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
 		</template>	
+
+		<template name="BslaSpringConfigDaoIncHibernate" templateFileName="BslaSpringConfigDaoIncHibernate.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
+			file-extension="xml" file-prefix="dao-inc-hibernate-" file-suffix="" 
+			entity-specific="false" package-specific="true" model-specific="false">
+		</template>	
+		
 									
 		<template name="BslaSpringConfigDaoHibernate2" templateFileName="BslaSpringConfigDaoHibernate2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
