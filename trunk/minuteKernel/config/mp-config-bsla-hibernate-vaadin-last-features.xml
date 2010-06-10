@@ -45,7 +45,7 @@
 			<target refname="MpVaadin" 
 			   name="vaadin" 
 			   fileName="mp-template-config-vaadin-last-features.xml" 
-			   outputdir-root="D:\SOFT\Java\VAADIN\vaadin-6.3.3\vaadin-6.3.3"
+			   outputdir-root="C:\SOFT\JAVA\VAADIN\vaadin-6.3.2\vaadin-6.3.2"
 			   templatedir-root="../../minuteTemplate/template/framework/vaadin">
 			</target> 				
 		</targets>
