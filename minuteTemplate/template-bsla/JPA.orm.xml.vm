@@ -53,7 +53,7 @@
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
-			<many-to-one name="${linkedTableVariable}${localColumnClass}" fetch="LAZY" target-entity="$importDomainObjectUMLForeignTable" >
+			<many-to-one name="${localColumnVariable}Object" fetch="LAZY" target-entity="$importDomainObjectUMLForeignTable" >
 				<join-column name="${localColumnName}" 
 							 referenced-column-name="$linkedColumnName" 
 							 #if($localColumn.isRequired())nullable="false"#else nullable="true"#end #if($columnDB.isUnique())unique="true"#else unique="false"#end insertable="false" updatable="false" />
@@ -70,7 +70,11 @@
 							 #if($columnDB.isRequired())nullable="false"#else nullable="true"#end #if($columnDB.isUnique())unique="true"#else unique="false"#end insertable="false" updatable="false" />
 			</one-to-many>    
 #end  
-
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#exposeImportParamsUML($reference.foreignTable)
+            <transient name="${linkedTableVariable}${localColumnClass}"/>
+#end
         </attributes>
     </entity>
 

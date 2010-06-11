@@ -18,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import $importDaoInterfaceUML;
 import $importDomainObjectUML;
+#foreach ($reference in $table.parents)
+#exposeImportParamsUML($reference.foreignTable)
+import $importDomainObjectUML;
+#end
 
 /**
  *
@@ -38,24 +42,26 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
      * @param $tableClassName $tableVariableName
      */
     public void insert$tableClassName($tableClassName $tableVariableName) {
-      getJpaTemplate().persist($tableVariableName);
+       convertTransientReferenceToNull ($tableVariableName);
+       getJpaTemplate().persist($tableVariableName);
     }
 
     protected void insert$tableClassName(EntityManager emForRecursiveDao, $tableClassName $tableVariableName) {
-      emForRecursiveDao.persist($tableVariableName);
+       emForRecursiveDao.persist($tableVariableName);
     } 
     /**
      * Inserts a list of $tableClassName entity 
      * @param List<$tableClassName> ${tableVariableName}s
      */
     public void insert${tableClassName}s(List<$tableClassName> ${tableVariableName}s) {
-    	
+    	//TODO
     }
     /**
      * Updates a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
     public $tableClassName update$tableClassName($tableClassName $tableVariableName) {
+       convertTransientReferenceToNull ($tableVariableName);
        return getJpaTemplate().merge($tableVariableName);
     }
 
@@ -144,6 +150,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
      */
     public void save$tableClassName($tableClassName $tableVariableName) {
        //getJpaTemplate().persist($tableVariableName);
+       convertTransientReferenceToNull ($tableVariableName);
        if (getJpaTemplate().contains($tableVariableName)) {
           getJpaTemplate().merge($tableVariableName);
        } else {
@@ -464,5 +471,13 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
    
     protected EntityManager getEntityManager () {
         return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
+    }
+    
+    protected void convertTransientReferenceToNull ($tableClassName $tableVariableName) {
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#exposeImportParamsUML($reference.foreignTable)
+	   ${tableVariableName}.set${localColumnClass}Object (($linkedTableClass)null);
+#end       
     }
 }
