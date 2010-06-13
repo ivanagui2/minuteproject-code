@@ -1,0 +1,120 @@
+#exposeVariableModelDetailSpecific()
+package $packageName;
+
+import com.vaadin.event.MouseEvents.ClickEvent;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
+
+import eu.livotov.tpt.gui.widgets.TPTMultiView;
+import eu.livotov.tpt.gui.widgets.TPTSizer;
+
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#if(!$table.isManyToMany())
+import $domainViewImport;
+#end
+#end
+#end
+
+public class $className extends Window {
+
+	private VerticalLayout root = new VerticalLayout();
+	private TPTMultiView controller = new TPTMultiView(true);
+
+	public SizerDemoWindow() {
+		super("TPTMultiView Demo");
+		initUI();
+	}
+
+	private void initUI() {
+		setSizeFull();
+		root.setSizeFull();
+		root.setMargin(true);
+		root.setSpacing(true);
+		setContent(root);
+
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#if(!$table.isManyToMany())
+#exposeVariableEntitySpecific()
+		controller.addView("$tableVariableName", new $domainViewClass());
+#end
+#end
+#end
+
+		controller.setSizeFull();
+		root.addComponent(controller);
+
+		HorizontalLayout h = new HorizontalLayout();
+		h.setWidth("100%");
+
+		Button b1 = new Button("Go to view 1");
+		Button b2 = new Button("Go to view 2");
+		Button b3 = new Button("Go to view 3");
+		Button b4 = new Button("Go to view address");
+
+		b1.setStyleName(Button.STYLE_LINK);
+		b2.setStyleName(Button.STYLE_LINK);
+		b3.setStyleName(Button.STYLE_LINK);
+		b4.setStyleName(Button.STYLE_LINK);
+
+		b1.addListener(new Button.ClickListener() {
+
+			public void buttonClick(ClickEvent event) {
+				controller.switchView("view1");
+			}
+
+			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+				controller.switchView("view1");
+
+			}
+		});
+
+		b2.addListener(new Button.ClickListener() {
+
+			public void buttonClick(ClickEvent event) {
+				controller.switchView("view2");
+			}
+
+			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+				controller.switchView("view2");
+
+			}
+		});
+
+		b3.addListener(new Button.ClickListener() {
+
+			public void buttonClick(ClickEvent event) {
+				controller.switchView("view3");
+			}
+
+			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+				controller.switchView("view3");
+
+			}
+		});
+
+		b4.addListener(new Button.ClickListener() {
+
+			public void buttonClick(ClickEvent event) {
+				controller.switchView("addressView");
+			}
+
+			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+				controller.switchView("addressView");
+
+			}
+		});
+
+		h.addComponent(b1);
+		h.addComponent(b2);
+		h.addComponent(b3);
+		h.addComponent(b4);
+		h.addComponent(new TPTSizer("100%", null));
+
+		root.addComponent(h);
+		root.setExpandRatio(controller, 1.0f);
+	}
+}
