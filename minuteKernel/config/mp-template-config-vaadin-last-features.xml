@@ -69,18 +69,20 @@
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>	
 		
+		<!-- 
 		<template name="DomainObjectComponentVaadin" templateFileName="DomainObjectComponentVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="component"
 			file-extension="java" file-prefix="" file-suffix="Comp" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>	
+		 
 
 		<template name="DomainObjectComponentVaadin" templateFileName="DomainObjectComponentVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="component"
 			file-extension="java" file-prefix="" file-suffix="Comp" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>	
-		
+		-->
 		<template name="MenuVaadin" templateFileName="MenuVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="vaadin.snippet.menu"
 			file-extension="java" file-prefix="" file-suffix="Menu" 
@@ -89,10 +91,22 @@
 		
 		<template name="ModelApplicationVaadin" templateFileName="ModelApplicationVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="application"
-			file-extension="java" file-prefix="" file-suffix="App" 
+			file-extension="java" file-prefix="" file-suffix="Appl" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>				
 				
+		<template name="ModelWindowVaadin" templateFileName="ModelWindowVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="window"
+			file-extension="java" file-prefix="" file-suffix="Win" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+		
+		<template name="DomainObjectViewVaadin" templateFileName="DomainObjectViewVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.main"
+			file-extension="java" file-prefix="" file-suffix="Main" 
+			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+		
     </template-target>	
 		
 <!--  Menu application.xml templates -->
