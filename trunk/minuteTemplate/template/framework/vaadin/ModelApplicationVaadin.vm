@@ -1,6 +1,8 @@
 #exposeVariableModelDetailSpecific()
+#exposeVaadinModel()
 package $packageName;
 
+import $modelWindowImport;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;

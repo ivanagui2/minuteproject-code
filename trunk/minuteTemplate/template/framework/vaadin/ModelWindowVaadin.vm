@@ -11,9 +11,10 @@ import eu.livotov.tpt.gui.widgets.TPTMultiView;
 import eu.livotov.tpt.gui.widgets.TPTSizer;
 
 #foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})
-#if(!$table.isManyToMany())
-import $domainViewImport;
+#foreach ($tableDB in ${package.listOfTables})
+#if(!$tableDB.isManyToMany())
+#exposeVaadinDomainObject()
+import $domainObjectViewImport;
 #end
 #end
 #end
@@ -23,7 +24,7 @@ public class $className extends Window {
 	private VerticalLayout root = new VerticalLayout();
 	private TPTMultiView controller = new TPTMultiView(true);
 
-	public SizerDemoWindow() {
+	public $className () {
 		super("TPTMultiView Demo");
 		initUI();
 	}
@@ -37,9 +38,10 @@ public class $className extends Window {
 
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
-#if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
-		controller.addView("$tableVariableName", new $domainViewClass());
+#if(!$table.isManyToMany())
+#exposeVaadinDomainObject()
+		controller.addView("$tableVariableName", new $domainObjectViewClass());
 #end
 #end
 #end
@@ -50,68 +52,25 @@ public class $className extends Window {
 		HorizontalLayout h = new HorizontalLayout();
 		h.setWidth("100%");
 
-		Button b1 = new Button("Go to view 1");
-		Button b2 = new Button("Go to view 2");
-		Button b3 = new Button("Go to view 3");
-		Button b4 = new Button("Go to view address");
-
-		b1.setStyleName(Button.STYLE_LINK);
-		b2.setStyleName(Button.STYLE_LINK);
-		b3.setStyleName(Button.STYLE_LINK);
-		b4.setStyleName(Button.STYLE_LINK);
-
-		b1.addListener(new Button.ClickListener() {
-
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeVariableEntitySpecific()
+#if(!$table.isManyToMany())
+		Button ${tableVariableName}Button = new Button("Go to view $tableVariableName");
+		${tableVariableName}Button.setStyleName(Button.STYLE_LINK);
+		${tableVariableName}Button.addListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				controller.switchView("view1");
+				controller.switchView("$tableVariableName");
 			}
-
 			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				controller.switchView("view1");
-
+				controller.switchView("$tableVariableName");
 			}
-		});
+		});		
+		h.addComponent(${tableVariableName}Button);
+#end
+#end
+#end
 
-		b2.addListener(new Button.ClickListener() {
-
-			public void buttonClick(ClickEvent event) {
-				controller.switchView("view2");
-			}
-
-			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				controller.switchView("view2");
-
-			}
-		});
-
-		b3.addListener(new Button.ClickListener() {
-
-			public void buttonClick(ClickEvent event) {
-				controller.switchView("view3");
-			}
-
-			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				controller.switchView("view3");
-
-			}
-		});
-
-		b4.addListener(new Button.ClickListener() {
-
-			public void buttonClick(ClickEvent event) {
-				controller.switchView("addressView");
-			}
-
-			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				controller.switchView("addressView");
-
-			}
-		});
-
-		h.addComponent(b1);
-		h.addComponent(b2);
-		h.addComponent(b3);
-		h.addComponent(b4);
 		h.addComponent(new TPTSizer("100%", null));
 
 		root.addComponent(h);
