@@ -1,5 +1,5 @@
 #putVaadinClassObjectAndPackage()
-
+#exposeVaadinModel()
 import net.sf.minuteproject.vaadin.navigation.NavigationTree;
 
 import $domainObjectContainerImport;
@@ -177,10 +177,10 @@ public class ${className} extends Application implements
 		}
 	}
 
-public void refresh() {
-					getDataSource().removeAllContainerFilters();
-					showListView();
-}
+    public void refresh() {
+		getDataSource().removeAllContainerFilters();
+		showListView();
+    }
 
 	private void add${domainClassName}() {
 		refresh();

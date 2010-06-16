@@ -41,3 +41,12 @@
 	protected String getQueryAND(boolean isAndSet) {
 		return (isAndSet) ? " AND " : "";
 	}
+
+	protected String getHQuery (String what, String where) {
+        String whereWord = getWhere (where);
+	    return what+whereWord+where;
+    }
+    
+    protected String getWhere (String where) {
+        return (where==null || where.trim().equals("") || where.trim()==null)?"":" WHERE ";
+    }

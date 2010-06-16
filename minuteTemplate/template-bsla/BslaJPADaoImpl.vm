@@ -322,26 +322,14 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     }
 
     /**
-    * return a hibernate hql search on a ${tableClassName} prototype
+    * return a jql query search on a ${tableClassName} prototype
     */
     protected String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
-##        boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName WHERE ");
-        query.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));
-##foreach ($column in ${table.columns})
-##putColumnParams()
-##        if (${tableVariableName}.get$columnClass() != null) {
-##           query.append (getQueryWHERE_AND (isWhereSet));
-##           isWhereSet = true;
-##if ($sqlUtils.isQuotedColumn($column))        
-##           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
-##else
-##           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
-##end
-##        }
-##	#end      
-	    return query.toString();
+        StringBuffer queryWhere = new StringBuffer();
+        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
+        queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));   
+	    return getHQuery(query.toString(), queryWhere.toString());
     }
 
 
@@ -353,13 +341,14 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         StringBuffer query = new StringBuffer();
         if (${tableVariableName}Mask !=null)
            query.append (get${tableClassName}MaskWhat (${tableVariableName}Mask));
-        query.append (" FROM $tableClassName $tableVariableName WHERE ");
+        query.append (" FROM $tableClassName $tableVariableName ");
+        StringBuffer queryWhere = new StringBuffer();
         for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
-           query.append (getQueryOR (isOrSet));
+           queryWhere.append (getQueryOR (isOrSet));
            isOrSet = true;        
-           query.append (" ("+get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false)+") ");
+           queryWhere.append (" ("+get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false)+") ");
         }
-	    return query.toString();
+	    return getHQuery(query.toString(), queryWhere.toString());
     }	
     
     protected String get${tableClassName}MaskWhat ($tableClassName ${tableVariableName}Mask) {

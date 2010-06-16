@@ -618,7 +618,7 @@ import $importDaoInterfaceUML;
 #set ($templateDBSchemaDeleteOrder = "DBSchemaDeleteOrder")
 #set ($templateDBCommit = "DBCommit")
 #set ($templateDBInsertEnumeration = "InsertEnumerationSQL")
-#set ($templateSpringMainHibernateConfig = "BslaSpringConfigHibernate")
+#set ($templateSpringMainHibernateConfig = "BslaSpringConfigMainBackend")
 #set ($templateBslaSpringConfigDaoExtHibernate = "BslaSpringConfigDaoExtHibernate")
 #set ($templateBslaSpringConfigDaoIncHibernate = "BslaSpringConfigDaoIncHibernate")
 #set ($templateBslaDaoIncImplHibernate = "BslaHibernateIncubatorDaoImplUML")

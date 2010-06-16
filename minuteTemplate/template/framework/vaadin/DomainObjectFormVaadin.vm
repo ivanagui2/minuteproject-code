@@ -26,6 +26,7 @@ import com.vaadin.ui.Button.ClickListener;
 
 //import ${importDomainObjectUML}; might enter in confict with vaadin class (ex: Item import)
 import $domainObjectApplicationImport;
+import $domainObjectContainerImport;
 
 @SuppressWarnings("serial")
 public class ${className} extends Form implements ClickListener {
@@ -34,15 +35,18 @@ public class ${className} extends Form implements ClickListener {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey)##&& $columnUtils.isPkUserProvided($column))
-       "$columnVar",
+       #if ($velocityCount!=1),#end"$columnVar"
 #end
 #end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-	   "$columnVar"#if ($velocityHasNext), 
+	   ,"$columnVar"
 #end
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+	   ,"$localColumnVariable"
 #end
-	
+
 	};
 			
 	private Button save = new Button("Save", (ClickListener) this);
@@ -53,10 +57,14 @@ public class ${className} extends Form implements ClickListener {
 	private $domainObjectApplicationClass $domainObjectApplicationVariable;
 	private boolean new${domainClassName}Mode = false;
 	private $importDomainObjectUML $domainVariableName = null;
+	private $domainObjectContainerClass $domainObjectContainerVariable = new $domainObjectContainerClass();
 
 	public ${className}($domainObjectApplicationClass $domainObjectApplicationVariable) {
+	    this();
 		this.$domainObjectApplicationVariable = $domainObjectApplicationVariable;
-
+	}
+	
+	public ${className}() {
 		/*
 		 * Enable buffering so that commit() must be called for the form before
 		 * input is written to the data. (Form input is not written immediately
@@ -74,7 +82,7 @@ public class ${className} extends Form implements ClickListener {
 
 		setFooter(footer);
 
-//TODO populate DD list
+        //TODO populate DD list
 
 		/*
 		 * Field factory for overriding how the component for city selection is
@@ -118,6 +126,19 @@ public class ${className} extends Form implements ClickListener {
 #end													
 				}    
 #end
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$localColumnVariable")) {
+					TextField tf = (TextField) field;
+					tf.setNullRepresentation("");
+#if($hasTypeValidator)
+					//@TODO change it. tf.addValidator(new RegexpValidator("[1-9][0-9]{4}", 									"Postal code must be a five digit number and cannot start with a zero."));
+#end
+#if($isMandatory)
+					tf.setRequired(true);
+#end													
+				}    
+#end
 				field.setWidth("200px");
 				return field;
 			}
@@ -133,8 +154,8 @@ public class ${className} extends Form implements ClickListener {
 				return;
 			}
 			${importDomainObjectUML} $domainVariableName = get${domainClassName}FromForm ();
-	        ${domainObjectApplicationVariable}.getDataSource().save ($domainVariableName);
-		    ${domainObjectApplicationVariable}.refresh();
+	        ${domainObjectContainerVariable}.saveAndUpdateList ($domainVariableName);
+		    //${domainObjectApplicationVariable}.refresh();
 			//commit();
 			if (new${domainClassName}Mode) {
 				/* We need to add the new person to the container */
@@ -161,8 +182,8 @@ public class ${className} extends Form implements ClickListener {
 			setReadOnly(false);
 		} else if (source == delete) {
 			${importDomainObjectUML} $domainVariableName = get${domainClassName}FromForm ();
-	        ${domainObjectApplicationVariable}.getDataSource().delete ($domainVariableName);
-		    ${domainObjectApplicationVariable}.refresh();
+	        ${domainObjectContainerVariable}.delete ($domainVariableName);
+		    //${domainObjectApplicationVariable}.refresh();
 		}
 	}
 
@@ -211,6 +232,11 @@ public class ${className} extends Form implements ClickListener {
 #exposeFormParams()
         if (getField("$columnVar").getValue()!=null)
    		   ${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue())); 
+#end
+#foreach ($reference in $table.parents)
+#exposeFormParentParams()
+        if (getField("$localColumnVariable").getValue()!=null)
+   		   ${domainVariableName}.set${localColumnClass}($convertMethod(getField("$localColumnVariable").getValue())); 
 #end
 		return $domainVariableName;
 	}
