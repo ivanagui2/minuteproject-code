@@ -5,7 +5,7 @@
 			<data-model>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9003/petshop</url>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
