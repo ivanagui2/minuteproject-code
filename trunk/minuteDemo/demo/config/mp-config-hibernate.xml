@@ -5,7 +5,7 @@
 			<data-model>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9003/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
@@ -26,8 +26,8 @@
 			</business-model>
 		</model>
 		<target refname="BackendOnBsla" name="default" 
-      fileName="mp-template-config-hibernate.xml"
-      outputdir-root="../output/petshopHibernate/src-generated">
+      		fileName="mp-template-config-hibernate.xml"
+      		outputdir-root="../output/petshopHibernate/src-generated">
 		</target> 	
 	</configuration>
 </generator-config>
