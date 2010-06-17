@@ -85,12 +85,12 @@
 		</template>				
 		
 		<!-- depends BslaDaoInterfaceUML, DomainObjectUML, BslaHibernate architecture		-->
-		<template name="BslaHibernateDaoImplUML" templateFileName="BslaHibernateDaoImpl.vm" 
-			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
-			file-extension="java" file-prefix="" file-suffix="HibernateImpl" 
+		<template name="BslaJPADaoImplUML" templateFileName="BslaJPADaoImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl.jpa"
+			file-extension="java" file-prefix="" file-suffix="JPAImpl" 
 			entity-specific="true" package-specific="false" model-specific="false">
-		</template>	
-	    
+		</template>
+			    
 	    <!-- EXTENDED DAO -->
 	    <!-- extended dao depends BslaDaoInterfaceUML -->
 		<template name="BslaDaoInterfaceExtendedUML" templateFileName="BslaDaoInterfaceKFUML.vm" 
@@ -100,11 +100,11 @@
 		</template>	
 			
 		<!-- depends BslaDaoInterfaceExtendedUML -->	
-		<template name="BslaHibernateExtendedDaoImplUML" templateFileName="BslaHibernateKFDaoImpl.vm" 
-			subdir="" outputsubdir="" technicalPackage="dao.impl.hibernate3"
-			file-extension="java" file-prefix="" file-suffix="ExtendedHibernateImpl" 
+		<template name="BslaJPAExtendedDaoImplUML" templateFileName="BslaJPAKFDaoImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl.jpa"
+			file-extension="java" file-prefix="" file-suffix="ExtendedJPAImpl" 
 			entity-specific="true" package-specific="false" model-specific="false">
-		</template>				
+		</template>		
 			
 		<!-- EXTENDED DAO end -->	
 		<!-- DAO end -->
@@ -123,24 +123,26 @@
 	</template-target>	
 
 	<template-target 
-		libdir="lib/BslaLibrary.vm"
+		libdir="lib/BslaLibrary.vm,lib/JPA_LIB.vm"
 		tool="velocity"
 		outputdir="src/main/resources"
 		belongToPackage="true">
-		
-		<!-- HIBERNATE CONFIGURATION -->
-		<template name="HibernateMap" templateFileName="Hibernate.hbm.xml.vm" 
+
+		<!-- JPA CONFIGURATION -->
+
+		<template name="JPAMapping" templateFileName="JPA.orm.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="persistence"
-			file-extension="hbm.xml" file-prefix="" file-suffix="" 
+			file-extension="orm.xml" file-prefix="" file-suffix="" 
 			entity-specific="true" package-specific="false" model-specific="false">
+			<property name="jpa-provider" value="KODO"/>
 		</template>
-		<template name="HibernateConfig" templateFileName="Hibernate.cfg.xml.vm" 
+		<template name="JPAPersistenceConfig" templateFileName="JPA.persistence.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="persistence"
-			file-extension="cfg.xml" file-prefix="" file-suffix="" 
+			file-extension="xml" file-prefix="" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>		
-		<!-- HIBERNATE CONFIGURATION end -->
-		
+		<!-- JPA CONFIGURATION end -->
+				
 		<!-- CACHING CONFIGURATION -->
 		<template name="BslaEhCacheXml" templateFileName="BslaEhCache.Xml.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
@@ -152,42 +154,40 @@
 		<!-- CACHING CONFIGURATION end -->
 		
 		<!-- SPRING CONFIGURATION -->
-		<template name="BslaSpringConfigDaoHibernate" templateFileName="BslaSpringConfigDaoHibernate.vm" 
+		
+		<template name="BslaSpringConfigDaoJPA" templateFileName="BslaSpringConfigDaoJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
-			file-extension="xml" file-prefix="dao-hibernate-" file-suffix="" 
+			file-extension="xml" file-prefix="dao-JPA-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
-		</template>									
-							
+		</template>		
+
 		<!-- spring config extended -->
-		<template name="BslaSpringConfigDaoExtHibernate" templateFileName="BslaSpringConfigDaoExtHibernate.vm" 
+		<template name="BslaSpringConfigDaoExtJPA" templateFileName="BslaSpringConfigDaoExtJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
-			file-extension="xml" file-prefix="dao-ext-hibernate-" file-suffix="" 
+			file-extension="xml" file-prefix="dao-ext-JPA-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
 		</template>	
-									
-		<template name="BslaSpringConfigDaoHibernate2" templateFileName="BslaSpringConfigDaoHibernate2.vm" 
+																		
+		<template name="BslaSpringConfigDaoJPA2" templateFileName="BslaSpringConfigDaoJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
-			file-extension="xml" file-prefix="spring-config-hibernate-" file-suffix="-dao" 
+			file-extension="xml" file-prefix="spring-config-JPA-" file-suffix="-dao" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>	
-		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainHibernate.vm" 
+		</template>					
+		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>								 
-				
-		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
+		</template>					
+		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>			
-		
 		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="hibernateDialect" value="true"></property>
-			<property tag="environment" value="remote"/>
 		</template>	
 
 		<!-- SPRING CONFIG end-->

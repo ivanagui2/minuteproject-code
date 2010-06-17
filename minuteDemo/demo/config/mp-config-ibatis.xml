@@ -6,7 +6,7 @@
 			<data-model>
 				 <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9003/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
@@ -27,7 +27,10 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default"  fileName="mp-template-config-ibatis.xml" outputdir-root="../output/petshopIbatis/src-generated">
+		<target refname="BackendOnBsla" name="default"  
+			fileName="mp-template-config-ibatis.xml" 
+			outputdir-root="../output/petshopIbatis/src-generated"
+			templatedir-root="../../template">
 		</target> 	
 	</configuration>
 </generator-config>
