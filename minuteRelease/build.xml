@@ -146,6 +146,11 @@ cp.cmd
 	 		<exclude name="**/*.xml"/>	 		
 	 	</fileset>
 	  </copy>
+	  <copy todir="${template.framework.dir}" overwrite="true">
+	 	<fileset dir="${template2.dev.relpath.framework}">
+	 		<include name="**/*.vm"/>		
+	 	</fileset>
+	  </copy>		
 	</target>
 	<target name="release-template" depends="copy-template-dependencies"></target>
 
