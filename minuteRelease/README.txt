@@ -18,6 +18,7 @@ Commit;
 from another src
  
 1) package
+check java_home, java -version in 1.6
 - in minuteRelease 
 -- > ant
 - check the generation
@@ -39,4 +40,6 @@ Upload on sf
 Download and test
 
 Publish release note
+
+
 
