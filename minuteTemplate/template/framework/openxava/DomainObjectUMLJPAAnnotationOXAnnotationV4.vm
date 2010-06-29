@@ -1,17 +1,6 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
 #putImportParamsUML()
-#macro (exposeM2MSpecific)
-#set ($linkedTableDBName = $linkReference.localTableName)
-#set ($linkTableName = $formatUtils.getJavaName($$linkedTableDBName))
-#set ($linkTableVariableName = $formatUtils.getJavaNameVariable($linkCacheTable.name))
-#set ($targetTable = $linkReference.foreignTable)
-#set ($targetTableName = $formatUtils.getJavaName($targetTable.name))
-#set ($targetTableVariableName = $formatUtils.getJavaNameVariable($targetTable.name))
-#set ($targetColumnClass = $formatUtils.getJavaName($linkReference.localColumnName))
-#set ($linkLocalColumnClass = $formatUtils.getJavaName($linkReference.localColumnName))
-#set ($localColumnName = $formatUtils.getJavaName($linkReference.localColumnName))
-#end
 #set($defaultViewExt="DEFAULT_VIEW")
 ##set($attributes=$table.attributes)
 #set($attributecount=$attributes.length)
@@ -67,8 +56,8 @@ import $importDomainObjectUML;
 @Table (name="${table.name}")
 @Views({
 	@View(
-			name="base",
-			members=
+		name="base",
+		members=
         "" 
 #foreach ($column in ${table.attributes})
 #putColumnParams()
@@ -78,7 +67,11 @@ import $importDomainObjectUML;
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 	    + "${linkedTableVariable};" //+ "${linkedTableVariable};"  //+ "${localColumnVariable};" 
-#end		
+#end	
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+	    + "${targetTableVariableName}Via${linkTableName}By${localColumnName}s;"
+#end
 		),
 	@View(
 		name="Create", 

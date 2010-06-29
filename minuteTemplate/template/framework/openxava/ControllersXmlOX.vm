@@ -13,7 +13,7 @@
 	  <extends controller="Typical" />
     
     <action  name="new" 
-			class="net.sf.mp.ox.view.CreateAction"
+			class="net.sf.minuteproject.openxava.view.CreateAction"
 			image="images/new.gif"
 			keystroke="Control N">
 			<set property="restoreModel" value="true"/>			
@@ -21,7 +21,7 @@
 		
     <action name="searchByViewKey"
         by-default="if-possible" hidden="true"
-        class="net.sf.mp.ox.view.UpdateAction"
+        class="net.sf.minuteproject.openxava.view.UpdateAction"
         keystroke="F8" >
     </action>
       
