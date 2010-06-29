@@ -1,4 +1,4 @@
-package net.sf.mp.ox.view;
+package net.sf.minuteproject.openxava.view;
 
 public class CreateAction extends org.openxava.actions.NewAction{
 
