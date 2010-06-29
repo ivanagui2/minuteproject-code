@@ -180,6 +180,19 @@
 #largeFormat()
 #end
 
+#macro (exposeM2MSpecific)
+#set ($linkedTableDB = $linkReference.localTable)
+#set ($linkedTableDBName = $linkReference.localTableName)
+#set ($linkTableName = $formatUtils.getJavaName($linkedTableDBName))
+#set ($linkTableVariableName = $formatUtils.getJavaNameVariable($linkCacheTable.name))
+#set ($targetTable = $linkReference.foreignTable)
+#set ($targetTableName = $formatUtils.getJavaName($targetTable.name))
+#set ($targetTableVariableName = $formatUtils.getJavaNameVariable($targetTable.name))
+#set ($targetColumnClass = $formatUtils.getJavaName($linkReference.localColumnName))
+#set ($linkLocalColumnClass = $formatUtils.getJavaName($linkReference.localColumnName))
+#set ($localColumnName = $formatUtils.getJavaName($linkReference.localColumnName))
+#end
+
 #macro (putDefaultMaskColumnValue)
 #putColumnParams()
 #set ($defaultMask = $commonUtils.getJavaDefaultMask($column))
