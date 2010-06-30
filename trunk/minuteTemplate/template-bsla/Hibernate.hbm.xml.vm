@@ -27,6 +27,9 @@
           <param name="sequence">${sequenceName}</param>
         </generator>
 #end
+#if ($isPrimaryKeyPolicyIdentity)
+     <generator class="identity"/>            
+#end
 #end                
     </id>
 #end 
