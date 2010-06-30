@@ -181,8 +181,8 @@ public class $className extends $testAdapterClassName {
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
 #putDependencies()
-        $dependentDomainClassName $dependentDomainVariableName = inject$dependentDomainClassName();	
-        ${domainVariableName}.set$localColumnClass(${dependentDomainVariableName}.get$primaryKeyJavaNameClass());
+        $dependentDomainClassName $localColumnVariable = inject$dependentDomainClassName();	
+        ${domainVariableName}.set$localColumnClass(${localColumnVariable}.get$primaryKeyJavaNameClass());
 #end 
 #end
         return $domainVariableName;
