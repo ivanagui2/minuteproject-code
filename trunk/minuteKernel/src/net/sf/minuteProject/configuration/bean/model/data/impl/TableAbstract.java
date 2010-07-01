@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
+import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -26,6 +27,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private SemanticReference semanticReference;
 	private String contentType;
 	private boolean isLinkEntity;
+	private EntitySecuredAccess entitySecuredAccess;
 	
 	public TableAbstract () {
 	}
@@ -336,5 +338,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	public boolean hasAttribute () {
 		return (getAttributes()!=null && getAttributes().length > 0)?true:false;
 	}
+
+	public EntitySecuredAccess getEntitySecuredAccess() {
+		return entitySecuredAccess;
+	}
+
+	public void setEntitySecuredAccess(EntitySecuredAccess entitySecuredAccess) {
+		this.entitySecuredAccess = entitySecuredAccess;
+	}
+	
 	
 }
