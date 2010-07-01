@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.data;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
+import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 
 
 public interface Table extends GeneratorBean{
@@ -257,5 +258,9 @@ public interface Table extends GeneratorBean{
 	public void setLinkEntity(boolean isLinkEntity);
 	
 	public boolean hasAttribute ();
+	
+	public void setEntitySecuredAccess (EntitySecuredAccess entitySecuredAccess);
+	
+	public EntitySecuredAccess getEntitySecuredAccess();
 	
 }

@@ -152,6 +152,7 @@ public class BusinessModel {
 		table.setContentType(entity.getContentType());
 		table.setSemanticReference(entity.getSemanticReference());
 		table.setLinkEntity(entity.isLinkEntity());
+		table.setEntitySecuredAccess(entity.getEntitySecuredAccess());
 	}
 	
 	private void convertFieldInfoToColumn (Field field, Column column) {
