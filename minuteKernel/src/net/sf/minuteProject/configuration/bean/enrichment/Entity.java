@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 
 public class Entity extends AbstractConfiguration {
 	
@@ -15,7 +16,16 @@ public class Entity extends AbstractConfiguration {
 	private String contentType; //pseudo-static, reference, life-business-data
 	private SemanticReference semanticReference;
 	private boolean isLinkEntity;
+	private EntitySecuredAccess entitySecuredAccess;
 	
+	public EntitySecuredAccess getEntitySecuredAccess() {
+		return entitySecuredAccess;
+	}
+
+	public void setEntitySecuredAccess(EntitySecuredAccess entitySecuredAccess) {
+		this.entitySecuredAccess = entitySecuredAccess;
+	}
+
 	public VirtualPrimaryKey getVirtualPrimaryKey() {
 		return virtualPrimaryKey;
 	}

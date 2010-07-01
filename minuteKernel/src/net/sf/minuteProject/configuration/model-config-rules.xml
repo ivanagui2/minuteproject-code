@@ -181,6 +181,16 @@
 					<alias attr-name="content-type" prop-name="contentType" />	
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
 				</set-properties-rule>	
+				<pattern value="entity-secured-access">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess"/>		
+					<set-next-rule methodname="setEntitySecuredAccess" paramtype="net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="roles" prop-name="roles" />
+						<alias attr-name="profiles" prop-name="profiles" />		
+						<alias attr-name="filters" prop-name="filters" />	
+					</set-properties-rule>	
+				</pattern>				
 				<pattern value="semantic-reference">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.SemanticReference"/>		
 					<set-next-rule methodname="setSemanticReference" paramtype="net.sf.minuteProject.configuration.bean.enrichment.SemanticReference"/>	
