@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific() 
 #set ($applicationOX=$configuration.name) 
+<%@ taglib prefix="mp" tagdir="/WEB-INF/tags/common" %>
 <%
  request.setAttribute("ctx", request.getContextPath()); 
  %>
@@ -31,7 +32,14 @@
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table.name))
+#if($entitySecurityUtils.isEntityRoleSecured($table))
+#set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
+<mp:isUserInRole role="${roles}">
+#end
         <li><a href="home.jsp?application=${applicationOX}&module=${tableClassName}">$tableLabel</a></li>
+#if($entitySecurityUtils.isEntityRoleSecured($table))
+</mp:isUserInRole>
+#end
 #end
 #end
 	  </ul>
