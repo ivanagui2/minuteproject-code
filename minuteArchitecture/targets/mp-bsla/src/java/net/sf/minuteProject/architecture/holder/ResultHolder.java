@@ -11,7 +11,7 @@ public class ResultHolder {
 	private ValidationHolder validationHolder;
 	private InformationHolder informationHolder;
 	private Object object;
-	private List<Object> resultHolderObjectList = new ArrayList<Object>();
+	
 
 	public void complement(ResultHolder resultHolder) {
 		for (ValidationError validationError : resultHolder.getValidationHolder().getValidationErrors()) {
@@ -64,12 +64,5 @@ public class ResultHolder {
 		this.informationHolder = informationHolder;
 	}
 
-	public List<Object> getResultHolderObjectList() {
-		return resultHolderObjectList;
-	}
-
-	public void setResultHolderObjectList(List<Object> resultHolderObjectList) {
-		this.resultHolderObjectList = resultHolderObjectList;
-	}
 
 }
