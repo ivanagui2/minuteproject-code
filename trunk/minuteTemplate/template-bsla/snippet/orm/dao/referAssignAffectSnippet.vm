@@ -9,21 +9,7 @@
 	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
 	 */
 	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName) {
-	    return refer$tableClassName ($tableVariableName, true);
-##		$tableVariableName = assignBlankToNull ($tableVariableName);
-##		if (isAllNull($tableVariableName))
-##			return null;
-##		else {
-##			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
-##			if (list.isEmpty()) 
-##				insert$tableClassName($tableVariableName);
-##			else if (list.size()==1)
-##				${tableVariableName}.copy(list.get(0));
-##			else 
-##				//TODO log error
-##				${tableVariableName}.copy(list.get(0));
-##		}
-##		return $tableVariableName;	
+	    return refer$tableClassName ($tableVariableName, true);	
 	}
 	
 	public $tableClassName refer$tableClassName ($tableClassName $tableVariableName, boolean isAssign) {
