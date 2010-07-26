@@ -34,7 +34,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
      * Inserts a $tableClassName entity 
      * @param $tableClassName $tableVariableName
      */
-    public void insert$tableClassName($tableClassName $tableVariableName) {
+    public void insert$tableClassName($tableClassName $tableVariableName) {      
       getHibernateTemplate().save($tableVariableName);
     }
     
@@ -61,48 +61,21 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
       return $tableVariableName;
     }
 
-	/**
-     * Updates a $tableClassName entity with only the attributes set into $tableClassName.
-	 * The primary keys are to be set for this method to operate.
-	 * This is a performance friendly feature, which remove the udibiquous full load and full update when an
-	 * update is issued
-     * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
-     * @param $tableClassName $tableVariableName
-     */ 
+	    /**
+    * Updates a $tableClassName entity with only the attributes set into $tableClassName.
+	    * The primary keys are to be set for this method to operate.
+	    * This is a performance friendly feature, which remove the udibiquous full load and full update when an
+	    * update is issued
+    * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
+    * @param $tableClassName $tableVariableName
+    */ 
     public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
-##        boolean isWhereSet = false;
-##        StringBuffer query = new StringBuffer();
-##        query.append (" update $tableClassName $tableVariableName ");
-###foreach ($column in ${table.columns})
-###if (!$column.isPrimaryKey())
-###putColumnParams()
-##        if (${tableVariableName}.get$columnClass() != null) {
-##           query.append (getQueryCommaSet (isWhereSet));
-##           isWhereSet = true; 
-##           query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
-##        }
-###end    
-###end
-##		    isWhereSet = false; 
-###foreach ($column in $table.primaryKeyColumns)
-###putColumnParams()
-##        if (${tableVariableName}.get$columnClass() != null) {
-##           query.append (getQueryWHERE_AND (isWhereSet));
-##           isWhereSet = true;
-##			     query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
-##        }
-###end   		
-##        Query hibernateQuery = getSession().createQuery(query.toString()).setProperties(${tableVariableName}); 
         Query hibernateQuery = getSession().createQuery(getUpdateNotNullOnly${tableClassName}QueryChunk(${tableVariableName})).setProperties(${tableVariableName}); 
 		return hibernateQuery.executeUpdate();
     }
 
 #parse("./snippet/orm/dao/updateNotNullOnlySnippet.vm") 
 
-##	private class ${tableClassName}CriteriaValue {
-##		public $tableClassName $tableVariableName, prototypeCriteria;
-##	}
-	
     public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
 		
         boolean isWhereSet = false;
