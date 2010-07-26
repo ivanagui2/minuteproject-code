@@ -32,9 +32,7 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$column.isLob())
-     " $columnVar #if ($velocityCount!=$table.attributes.size()), "+
-#else "
-#end 	
+     #if ($velocityCount!=1)+", #else "#end $columnVar "
 #end
 #end
 #end
