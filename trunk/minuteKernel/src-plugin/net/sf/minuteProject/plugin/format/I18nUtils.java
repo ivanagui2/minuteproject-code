@@ -12,14 +12,15 @@ public class I18nUtils {
 	public static final String ONE_SPACE = " ";
 	public static final String UNDERSCORE = "_";
 
-	public String getI18nFromDBName (String input) {
+	public static String getI18nFromDBName (String input) {
 		input = StringUtils.replace(input, UNDERSCORE, ONE_SPACE);
 //		input = StringUtils.lowerCase(input);
 		input = FormatUtils.firstUpperCaseOnly(input);
 		return input;
 	}
 	
-	public String getI18nFromDBNameStripPrefix (String input) {
+	public static String getI18nFromDBNameStripPrefix (String input) {
+		if (input==null) return null;
 		String prefix = StringUtils.substringBefore(input, UNDERSCORE);
 		if (prefix.equals(input))
 			return input;
@@ -28,18 +29,19 @@ public class I18nUtils {
 		return getI18nFromDBName(input);
 	}
 
-	public String getI18nFromDBNameStripSufix (String input) {
+	public static String getI18nFromDBNameStripSufix (String input) {
 		String sufix = StringUtils.substringBeforeLast(input, UNDERSCORE);
-		input = StringUtils.removeEnd(input, sufix);
+		if (!sufix.equals(input))
+			input = StringUtils.removeEnd(input, sufix);
 		input = StringUtils.stripStart(input, UNDERSCORE);
 		return getI18nFromDBName(input);
 	}
 	
-	public String getI18nFromDBObject (Table table) {
+	public static String getI18nFromDBObject (Table table) {
 		return getI18nFromDBNameStripPrefix(table.getAlias());
 	}
 	
-	public String getI18nFromDBObject (Column column) {
+	public static String getI18nFromDBObject (Column column) {
 		if (ColumnUtils.isForeignKey(column)){
 			return getI18nFromDBNameStripSufix(column.getName());
 		}
