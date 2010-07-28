@@ -13,3 +13,4 @@ call demo-last-features-spring-jpa.cmd
 @rem standard
 echo "incubator generations"
 call demo-draft-features-vaadin-spring-hibernate.cmd
+call demo-last-features-openxava.cmd
