@@ -1,9 +1,9 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="websy" version="1.0" package-root="sf.net">
+		<model name="petshop" version="1.0" package-root="sf.net.mp.demo.ox">
 			<data-model>
-			    <fileSource name="websy" dir="c:/MinuteProject/data">
+			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
@@ -29,7 +29,7 @@
 					<entity name="CATEGORY" content-type="reference-data" />
 				</enrichment>					
 			</business-model>
-			</model>	
+		</model>	
 		<targets>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
@@ -39,7 +39,7 @@
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="D:/SRC/java/openxava/openxava-4m4/workspace/websy"
+			   outputdir-root="D:/SRC/java/openxava/openxava-4m4/workspace/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
 			</target> 			
 		</targets>

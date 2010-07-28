@@ -12,7 +12,12 @@ public class FormatUtilsTest extends TestCase {
 
 	private String expressionToTrim1 = "____bbbbbbbasdasd____dasdsa___daddddddsd__";
 
-	
+	public void testFirstUpperCaseOnly () {
+		String s = FormatUtils.firstUpperCaseOnly("s");
+		assertTrue ("S".equals(s));
+		s = FormatUtils.firstUpperCaseOnly("PRODUCTID");
+		assertTrue ("Productid".equals(s));
+	}	
 
 	public void testGetShortNameFromVerbose() {
 		String resultName1 = FormatUtils.getShortNameFromVerbose(name1);
@@ -33,5 +38,6 @@ public class FormatUtilsTest extends TestCase {
 		result = FormatUtils.trimExpression(result, "_");
 		assertTrue(result.equals("basdasd_dasdsa_dadsd"));
 	}
+
 
 }
