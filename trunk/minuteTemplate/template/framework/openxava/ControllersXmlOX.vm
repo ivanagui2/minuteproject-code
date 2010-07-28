@@ -61,7 +61,7 @@
 #set ($formulaName = $formatUtils.getJavaName($formula.name))
 	<controller name="${columnVar}${formulaName}Controller">
 		<action name="${columnVar}${formulaName}"  mode="detail"
-			class="net.sf.mp.ox.action.DummyAction">
+			class="net.sf.minuteproject.openxava.action.DummyAction">
 			<use-object name="xava_view" />
 		</action>	
 	</controller>
