@@ -83,7 +83,10 @@ public class AuthorizationUtils {
 	
 	public static String getColor (Table table) {
 		// to change to allow multiple colors
-		if (table!=null && table.getPackage()!=null && table.getPackage().getSecurityColor()!=null)
+		if (table!=null 
+				&& table.getPackage()!=null 
+				&& table.getPackage().getSecurityColor()!=null
+				&& table.getPackage().getSecurityColor().getRoles()!=null)
 			return table.getPackage().getSecurityColor().getRoles();
 		return "";
 	}
