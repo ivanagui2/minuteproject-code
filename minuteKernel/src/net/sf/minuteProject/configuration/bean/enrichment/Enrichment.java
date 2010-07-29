@@ -10,6 +10,7 @@ public class Enrichment extends AbstractConfiguration {
 	
 	private BusinessModel businessModel;
 	private List <Entity> entities;
+	private List <Package> packages;
 	
 	public void setEntity (Entity entity) {
 		addEntity(entity);
@@ -30,6 +31,25 @@ public class Enrichment extends AbstractConfiguration {
 		this.entities = entities;
 	}
 
+	public void setPackage (Package pack) {
+		addPackage(pack);
+	}
+	
+	public void addPackage (Package pack) {
+		pack.setEnrichment(this);
+		getPackages().add(pack);
+	}
+
+	public List<Package> getPackages() {
+		if (packages==null)
+			packages = new ArrayList<Package> ();
+		return packages;
+	}
+
+	public void setPackages(List<Package> packages) {
+		this.packages = packages;
+	}
+	
 	public BusinessModel getBusinessModel() {
 		return businessModel;
 	}

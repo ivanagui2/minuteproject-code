@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -16,6 +17,7 @@ public class Package extends AbstractConfiguration{
 	private List listOfViews;
 	private String name;
 	private BusinessPackage businessPackage;
+	private SecurityColor securityColor;
 
 	public List getListOfViews() {
 		return listOfViews;
@@ -68,5 +70,14 @@ public class Package extends AbstractConfiguration{
 			sb.append("."+getName());
 		return sb.toString();
 	}
+
+	public SecurityColor getSecurityColor() {
+		return securityColor;
+	}
+
+	public void setSecurityColor(SecurityColor securityColor) {
+		this.securityColor = securityColor;
+	}
+	
 	
 }

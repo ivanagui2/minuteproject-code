@@ -252,6 +252,8 @@ public class EnrichmentUtils {
 	
 	public static Reference[] getLinkedRefenceByChildren (Table table, boolean filterMany2Many) {
 		List<Reference> list = new ArrayList<Reference>();
+//		System.out.println(">>table="+table);
+//		System.out.println(">>table="+table.getName());
 		Reference[] reference = table.getChildren();
 		for (int i = 0; i < reference.length; i++) {
 			Table child = reference[i].getForeignTable();
@@ -289,10 +291,12 @@ public class EnrichmentUtils {
 	
 	public static Reference[] getLinkedTargetReferenceByMany2Many (Table table) {
 		List<Reference> list = new ArrayList<Reference>();
-		Reference[] referenceOrigin = getLinkedMany2ManyReference(table);
-		for (int i = 0; i < referenceOrigin.length; i++) {
-			Reference ref = getTargetReferenceEntityByMany2Many(referenceOrigin[i]);
-			list.add(ref);
+		if(table!=null) {
+			Reference[] referenceOrigin = getLinkedMany2ManyReference(table);
+			for (int i = 0; i < referenceOrigin.length; i++) {
+				Reference ref = getTargetReferenceEntityByMany2Many(referenceOrigin[i]);
+				list.add(ref);
+			}
 		}
 		return (Reference[]) list.toArray(new Reference[list.size()]);
 	}

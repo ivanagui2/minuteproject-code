@@ -171,6 +171,22 @@
 		<pattern value="enrichment">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>		
 			<set-next-rule methodname="setEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>					
+			<pattern value="package">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Package"/>		
+				<set-next-rule methodname="addPackage" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Package"/>		
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />	
+					<alias attr-name="alias" prop-name="alias" />
+				</set-properties-rule>	
+				<pattern value="security-color">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor"/>		
+					<set-next-rule methodname="setSecurityColor" paramtype="net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="roles" prop-name="roles" />
+					</set-properties-rule>	
+	            </pattern>				
+            </pattern>
 			<pattern value="entity">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
 				<set-next-rule methodname="addEntity" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		
@@ -181,6 +197,14 @@
 					<alias attr-name="content-type" prop-name="contentType" />	
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
 				</set-properties-rule>	
+				<pattern value="security-color">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor"/>		
+					<set-next-rule methodname="setSecurityColor" paramtype="net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="right" prop-name="right" />
+					</set-properties-rule>	
+	            </pattern>	
 				<pattern value="entity-secured-access">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess"/>		
 					<set-next-rule methodname="setEntitySecuredAccess" paramtype="net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess"/>		
