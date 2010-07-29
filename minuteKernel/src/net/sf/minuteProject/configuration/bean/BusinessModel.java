@@ -102,7 +102,8 @@ public class BusinessModel {
 
 	private void complementPackage(Package pack, Model model) {
 		for (net.sf.minuteProject.configuration.bean.Package p : model.getBusinessModel().getBusinessPackage().getPackages()) {
-			complementPackage (p, pack);
+			if (p.getName().equals(pack.getName()))
+				complementPackage (p, pack);
 		}
 	}
 
