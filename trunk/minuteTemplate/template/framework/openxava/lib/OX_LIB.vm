@@ -16,10 +16,10 @@
 #set($semanticReference = $linktableDB.semanticReference)
 #if ($tableUtils.isReferenceDataContentType($linktableDB))   
 #if($table.hasAttribute())
-      +", "+
+     +", "+
 #end
 #foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
-       "${linkedTableVariable}.$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+      "${linkedTableVariable}.$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
 #else "
 #end 
 #end 
@@ -36,4 +36,18 @@
 #end
 #end
 #end
+
+#macro (writeViewChildrenMember)
+        members=
+        "" 	
+#if(!$tableUtils.isReferenceDataContentType($table))        
+#foreach ($reference in $childReferences)
+#putReferenceParams()
+#if(!$linktableDB.isManyToMany())
+	    + "${link}${columnclass}s { ${link}${columnclass}s };" 
+#end
+#end
+#end
+#end
+
 

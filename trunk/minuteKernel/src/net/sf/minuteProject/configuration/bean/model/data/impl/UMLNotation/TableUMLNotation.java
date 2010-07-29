@@ -52,6 +52,10 @@ public class TableUMLNotation extends TableAbstract {
 		return (Reference[])parents.toArray(new Reference[parents.size()]);//(ColumnUMLNotation[])getNoPrimaryKeyNoForeignKeyColumns();
 	}
 
+	public String getContentType() {
+		return super.getContentType();
+	}
+	
 	public boolean hasLob() {
 		// TODO Auto-generated method stub
 		return false;

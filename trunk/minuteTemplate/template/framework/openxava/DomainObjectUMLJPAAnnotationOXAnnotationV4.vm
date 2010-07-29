@@ -80,24 +80,10 @@ import $importDomainObjectUML;
 	@View(
 		name="Update", 
 		extendsView="base",
-		members=
-        ""  	
-#foreach ($reference in $childReferences)
-#putReferenceParams()
-#if(!$linktableDB.isManyToMany())
-	    + "${link}${columnclass}s { ${link}${columnclass}s };" 
-#end
-#end
+#writeViewChildrenMember()
 	),
 	@View(extendsView="base",
-        members=
-        "" 	
-#foreach ($reference in $childReferences)
-#putReferenceParams()
-#if(!$linktableDB.isManyToMany())
-	    + "${link}${columnclass}s { ${link}${columnclass}s };" 
-#end
-#end
+#writeViewChildrenMember()
 	),
     @View(name="${domainVariableName}${defaultViewExt}", 
 	      members=
