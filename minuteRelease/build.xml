@@ -85,6 +85,15 @@ cp.cmd
 	
 	<target name="release-architecture-bsla" depends="build-architecture-bsla,copy-install-maven,copy-architecture-bsla-dependencies"></target>
 
+	<target name="build-architecture-openxava">
+		  <ant dir="${architecture.openxava.dev.relpath}" target="distribute" >
+		  	<property name="project.name" value="${openxava}"></property>
+		  	<property name="distribute.dir" value="../../${release.del.relpath}/${target.dir}/${openxava}"></property>
+		  </ant>		
+	</target>
+	
+	<target name="release-architecture-openxava" depends="build-architecture-openxava"></target>
+
 	<target name="build-architecture-fitnesse">
 	  <!--<ant dir="${architecture.dev.relpath}" antfile="build-architecture-package.xml" target="distribute" >
 	  	<property name="src.dir" value="src-architecture-mp-fitnesse"></property>
@@ -189,6 +198,7 @@ cp.cmd
 	 <antcall target="release-template"></antcall>
 	 <antcall target="release-kernel"></antcall>
 	 <antcall target="release-architecture-bsla"></antcall>
+	 <antcall target="release-architecture-openxava"></antcall>
      <antcall target="release-architecture-fitnesse"></antcall>	
 	 <antcall target="release-sample"></antcall>	
 	 <antcall target="release-demo"></antcall>		
