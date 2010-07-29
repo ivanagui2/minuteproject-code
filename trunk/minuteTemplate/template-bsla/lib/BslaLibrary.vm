@@ -392,8 +392,6 @@
 #set ($combi = "${itemsFirst}${element1}${itemsSeparator}${element2}${itemsLast}")
 #end
 
-
-
 #macro (exposeJdbcParam $param)
 #set ($itemsFirst = '${')
 #set ($itemsLast = '}')
@@ -407,6 +405,11 @@
 #set ($jdbcUsername = "${jdbc}.username")
 #set ($jdbcPassword = "${jdbc}.password")
 #set ($jdbcJNDI = "${jdbc}.jndi")
+#end
+
+
+#macro (exposeCheckConstraintProperties $property)
+#set($checkConstraintPropertyValue = $propertyUtils.getConstraintPropertyValue($property))
 #end
 
 #macro (exposeWebProperties)
