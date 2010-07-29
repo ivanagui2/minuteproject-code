@@ -10,6 +10,7 @@ import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.enrichment.Package;
 import net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey;
 import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -23,6 +24,7 @@ import net.sf.minuteProject.configuration.bean.service.Service;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ComponentUtils;
+import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.ForeignKeyUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ServiceUtils;
@@ -78,16 +80,34 @@ public class BusinessModel {
 			// for all the view
 			// set virtual pk, realpk
 			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
-			if (enrichment != null && enrichment.getEntities()!=null) {
-				for (Entity entity : enrichment.getEntities()) {
-					String typeEntity = TableUtils.getTargetType(database, entity);
-					if (Table.VIEW.equals(type) && Table.VIEW.equals(typeEntity))
-						complementView(entity, database);
-					if (type.equals(Table.TABLE) && Table.TABLE.equals(typeEntity))
-						complementTable(entity,database);
+			if (enrichment != null) {
+				if (enrichment.getEntities()!=null) {
+					for (Entity entity : enrichment.getEntities()) {
+						String typeEntity = TableUtils.getTargetType(database, entity);
+						if (Table.VIEW.equals(type) && Table.VIEW.equals(typeEntity))
+							complementView(entity, database);
+						if (type.equals(Table.TABLE) && Table.TABLE.equals(typeEntity))
+							complementTable(entity,database);
+					}
+				}
+				if (enrichment.getPackages()!=null) {
+					for (Package pack : enrichment.getPackages()) {
+						complementPackage (pack, model);
+					}
 				}
 			}
+			
 		}
+	}
+
+	private void complementPackage(Package pack, Model model) {
+		for (net.sf.minuteProject.configuration.bean.Package p : model.getBusinessModel().getBusinessPackage().getPackages()) {
+			complementPackage (p, pack);
+		}
+	}
+
+	private void complementPackage(net.sf.minuteProject.configuration.bean.Package p, Package pack) {
+		p.setSecurityColor (pack.getSecurityColor());
 	}
 
 	private void complementView(Entity entity, Database database) {
