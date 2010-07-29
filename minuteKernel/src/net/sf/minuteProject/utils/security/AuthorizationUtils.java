@@ -15,7 +15,7 @@ import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.presentation.PresentationEntities;
 import net.sf.minuteProject.configuration.bean.presentation.PresentationEntity;
 
-public class AutorizationUtils {
+public class AuthorizationUtils {
 
 	/**
 	 * returns null or blank if access is for all
@@ -75,5 +75,16 @@ public class AutorizationUtils {
 				sb.append(",");
 		}
 		return sb.toString();
+	}
+	
+	public static boolean hasSameColor (Table t1, Table t2){
+		return (getColor(t1).equals(getColor(t2)))?true:false;
+	}
+	
+	public static String getColor (Table table) {
+		// to change to allow multiple colors
+		if (table!=null && table.getPackage()!=null && table.getPackage().getSecurityColor()!=null)
+			return table.getPackage().getSecurityColor().getRoles();
+		return "";
 	}
 }
