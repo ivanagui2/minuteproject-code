@@ -222,7 +222,11 @@ public class ${className} {
     )
     @NoCreate
     @NoModify	
-#end    
+#end 
+#if (!$authorizationUtils.hasSameColor($table, $linktableDB) && !$tableUtils.isReferenceDataContentType($linktableDB))    
+    @NoCreate
+    @NoModify	
+#end
     private $linkedTableClass ${linkedTableVariable}; //$linkedTableVariable; //${localColumnVariable}; 
     
 #end
