@@ -6,6 +6,7 @@
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
+	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
 	 
 	<template-target 
     	name="JPA set"
@@ -17,11 +18,11 @@
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" package-specific="false" model-specific="false"
-      check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-      <property name="convertClobToString" value="true"/>
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="convertClobToString" value="true"/>
 		</template>
 
-  </template-target>		
+    </template-target>		
   
     <template-target 
     	name="editor"
@@ -45,7 +46,7 @@
 	 </template-target>
    	
   	<template-target 
-    name="JPA set"
+    	name="JPA set"
 		outputdir="i18n"
 		package-root=""
 		belongToPackage="true">
@@ -65,7 +66,7 @@
 		<!--  Menu OX templates -->
 	
 	<template-target 
-    name="web-inf config"
+    	name="web-inf config"
 		outputdir="web"
 		belongToPackage="true">			
 
