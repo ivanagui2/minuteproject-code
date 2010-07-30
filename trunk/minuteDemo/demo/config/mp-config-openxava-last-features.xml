@@ -21,27 +21,45 @@
 			<business-model>
 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
+					<condition type="exclude" startsWith="ID_GEN"></condition>
 				</generation-condition>		
 				<business-package default="pet">
-					<condition type="package" startsWith="TB_" result="other"></condition>
 				</business-package>		
 				<enrichment>
-					<entity name="CATEGORY" content-type="reference-data" />
-				</enrichment>					
+					<entity name="CATEGORY" content-type="reference-data" >
+					   <semantic-reference>
+					     <sql-path path="NAME"/>
+					   </semantic-reference>					
+					</entity>
+				</enrichment>						
 			</business-model>
 		</model>	
 		<targets>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   outputdir-root="../../output/petshopHibernate"
-			   templatedir-root="../../minuteTemplate/template-bsla">
+			   outputdir-root="../output/openxava/petshopDummy"
+			   templatedir-root="../../template">
 			</target> 	
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="../../output/petshopOpenXava"
-			   templatedir-root="../../minuteTemplate/template/framework/openxava">
-			</target> 			
+			   outputdir-root="../output/openxava/petshopOpenXava"
+			   templatedir-root="../../template/framework/openxava">
+			</target> 
+      <!--
+			<target refname="BackendOnBsla" 
+			   name="bsla-hibernate" 
+			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
+			   outputdir-root="../../output/petshopHibernate"
+			   templatedir-root="../../template">
+			</target> 	
+			<target refname="MpVaadin" 
+			   name="vaadin" 
+			   fileName="mp-template-config-vaadin-last-features.xml" 
+			   outputdir-root="../../output/petshopVaadin"
+			   templatedir-root="../../template/framework/vaadin">
+			</target>    
+      --> 			
 		</targets>
 	</configuration>
 </generator-config>
