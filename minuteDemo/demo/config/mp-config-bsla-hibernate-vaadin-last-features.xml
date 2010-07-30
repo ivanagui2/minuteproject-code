@@ -33,13 +33,13 @@
 			<target refname="BackendOnBsla" 
 			   name="bsla-hibernate" 
 			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-			   outputdir-root="../../output/petshopHibernate"
+			   outputdir-root="../output/vaadin/petshopHibernate"
 			   templatedir-root="../../template">
 			</target> 	
 			<target refname="MpVaadin" 
 			   name="vaadin" 
 			   fileName="mp-template-config-vaadin-last-features.xml" 
-			   outputdir-root="../../output/petshopVaadin"
+			   outputdir-root="../output/vaadin/petshopVaadin"
 			   templatedir-root="../../template/framework/vaadin">
 			</target> 				
 		</targets>

@@ -32,7 +32,7 @@ It will later be change when using maven.
 
 C) test the generated code
 1) If you generate for against BSLA
-TODO more information soon on http://minuteproject.blogspot.com
+More information on http://minuteproject.wikispaces.com
 
     // main spring configuration
 	private final String config = "classpath:sf/net/mp/demo/petshop/factory/configuration/spring-config-Hibernate-BE-Petshop.xml";
@@ -44,7 +44,7 @@ TODO more information soon on http://minuteproject.blogspot.com
 	}
 
 2) If you generate for against FitNesse
-TODO more information soon on http://minuteproject.blogspot.com
+More information on http://minuteproject.wikispaces.com
 
 It generates 2 FitNesse wiki snippet (one for Insert/Update/Delete; one for Select) and their associated fixtures.
 
