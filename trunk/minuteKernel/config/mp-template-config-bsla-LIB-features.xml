@@ -8,7 +8,6 @@
 	<plugin name="referenceDataUtils" className="net.sf.minuteProject.plugin.data.ReferenceDataUtils"></plugin>
 	<plugin name="restrictedCodeUtils" 	className="net.sf.minuteProject.utils.code.RestrictedCodeUtils"></plugin>
 	
-
 	<template-target 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"

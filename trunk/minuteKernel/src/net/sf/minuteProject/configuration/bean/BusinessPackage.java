@@ -200,10 +200,11 @@ public class BusinessPackage extends AbstractConfiguration {
 	}
 
 	private String getConditionsResult(String valueToTest) {
-		for (Iterator iter = conditions.iterator(); iter.hasNext();) {
-			Condition condition = (Condition) iter.next();
-			if (condition.getConditionResult(valueToTest) != null) {
-				return condition.getResult();
+		if (conditions!=null) {
+			for (Condition condition : conditions) {
+				if (condition.getConditionResult(valueToTest) != null) {
+					return condition.getResult();
+				}
 			}
 		}
 		return defaultPackage;
