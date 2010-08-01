@@ -39,7 +39,7 @@
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="D:/SRC/java/openxava/openxava-4m4/workspace/petshop"
+			   outputdir-root="C:/SRC/java/openxava/openxava-4m5/workspace/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
 			</target> 
 			<target refname="LIB" 

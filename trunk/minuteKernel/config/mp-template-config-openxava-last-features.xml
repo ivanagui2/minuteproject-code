@@ -220,7 +220,38 @@
 			file-extension="css" file-prefix="" file-suffix="mp" 
 			model-specific="true">
 		</template>			
-				
+			
+	</template-target>	
+	
+	<template-target 
+    	name="portal portlets"
+    	outputdir=""
+		package-root=""
+		belongToPackage="true">	
+		
+		<template package-root="web.WEB-INF"
+			name="liferay-display" templateFileName="LiferayDisplay.xml.OX.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="liferay-display" 
+			model-specific="true">
+		</template>	
+		
+		<template package-root="web.WEB-INF"
+			name="portlet" templateFileName="Portlet.xml.OX.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="portlet" 
+			model-specific="true">
+		</template>		
+
+		<template package-root="src" 
+		    name="PortletProperties" templateFileName="Portlet.properties.OX.vm" 
+			subdir="" outputsubdir="" technicalPackage="portlets"
+			file-extension="properties" file-prefix="" file-suffix="" 
+			entity-specific="true" add-model-dir-name="false" add-business-package-dir-name="false"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+						
 	</template-target>
+	
 	
 </target>
