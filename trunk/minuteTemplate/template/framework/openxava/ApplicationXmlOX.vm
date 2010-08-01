@@ -15,7 +15,7 @@
 		<controller name="Typical"/>		
 	</default-module>
 	
-#exposeVariableModelDetailSpecific()
+##exposeVariableModelDetailSpecific()
 #foreach($table in $model.businessModel.businessPackage.getEntities())
 <!-- entity : $table.name -->
 #exposeVariableEntitySpecific()
