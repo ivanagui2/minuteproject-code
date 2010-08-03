@@ -1,0 +1,19 @@
+#macro (putRooColumnParams)
+#putColumnParams()
+#set($minSizeChunk="")
+#if($isMandatory)
+#set($notNullChunk="--notNull")
+#else
+#set($notNullChunk="")
+#end
+#if($isLengthPrecisionColumn)
+#set($sizeMaxChunk="--sizeMax$columLengthPrecisionSize")
+#else
+#set($sizeMaxChunk="")
+#end
+#set($rooConsoleType=$rooUtils.getRooConsoleType($column))
+#end
+
+#macro (putRooReferenceParams)
+#putReferenceParams2()
+#end

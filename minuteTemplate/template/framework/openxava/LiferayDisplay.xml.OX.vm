@@ -9,7 +9,9 @@
 	<category name="category.$applicationOX"> 
 #foreach($table in $model.businessModel.businessPackage.getEntities())
 #exposeVariableEntitySpecific()	
+#if (!$isMany2Many)
 		<portlet id="$domainClassName" /> 
+#end
 #end
 	</category>
 </display>

@@ -9,6 +9,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd"> 
 #foreach($table in $model.businessModel.businessPackage.getEntities())
 #exposeVariableEntitySpecific()
+#if (!$isMany2Many)
 	<portlet id="$domainClassName">
 		<description>$applicationOX - $domainClassName</description>       
 		<description xml:lang="en">$applicationOX - $domainClassName</description>         
@@ -32,5 +33,6 @@
 		<supported-locale>en</supported-locale> 
     	<resource-bundle>portlets/$domainClassName</resource-bundle>
 	</portlet> 
+#end
 #end
 </portlet-app>
