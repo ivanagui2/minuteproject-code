@@ -7,7 +7,7 @@
 #set($notNullChunk="")
 #end
 #if($isLengthPrecisionColumn)
-#set($sizeMaxChunk="--sizeMax$columLengthPrecisionSize")
+#set($sizeMaxChunk="--sizeMax $columLengthPrecisionSize")
 #else
 #set($sizeMaxChunk="")
 #end
@@ -16,4 +16,9 @@
 
 #macro (putRooReferenceParams)
 #putReferenceParams2()
+#if($isMandatory)
+#set($notNullChunk="--notNull")
+#else
+#set($notNullChunk="")
+#end
 #end
