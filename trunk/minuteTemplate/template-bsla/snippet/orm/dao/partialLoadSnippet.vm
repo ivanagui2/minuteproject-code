@@ -49,4 +49,11 @@
 		}
 		return list;	
 	}	
-	  
+	
+	private List<$tableClassName> handleLoadWithParent$tableClassName(Map beanPath, List list, $tableClassName ${tableVariableName}What, boolean isHql) {
+		if (beanPath.size()==1) {
+			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, isHql);
+		}
+		return handlePartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What, isHql);	
+	}
+		  

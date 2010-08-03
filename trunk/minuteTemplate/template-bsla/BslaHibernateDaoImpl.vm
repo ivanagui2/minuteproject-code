@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -314,12 +315,8 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     protected List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}s, Integer maxResults) {    
        if (maxResults!=null)
           getHibernateTemplate().setMaxResults(maxResults);
-       return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery (null, ${tableVariableName}s));            
+       return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery (null, ${tableVariableName}s, null));            
     }    
-        
-    public List<$tableClassName> searchDistinctPrototype$tableClassName ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
-        return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery (${tableVariableName}Mask, ${tableVariableName}s));    
-    }
     
 	/**
      * Searches a list of $tableClassName entity based on positive and negative $tableClassName prototypes
@@ -356,11 +353,11 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     /**
     * return a hibernate hql search for a list of ${tableClassName} prototype
     */
-    protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
+    protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s, Map beanPath) {
         boolean isOrSet = false;
         StringBuffer query = new StringBuffer();
         if (${tableVariableName}Mask !=null)
-           query.append (get${tableClassName}MaskWhat (${tableVariableName}Mask));
+           query.append (get${tableClassName}DistinctMaskWhat (${tableVariableName}Mask, beanPath));
         query.append (" FROM $tableClassName $tableVariableName ");
         StringBuffer queryWhere = new StringBuffer();
         for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
@@ -371,7 +368,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 	    return getHQuery(query.toString(), queryWhere.toString());
     }	
     
-    protected String get${tableClassName}MaskWhat ($tableClassName ${tableVariableName}Mask) {
+    protected String get${tableClassName}DistinctMaskWhat ($tableClassName ${tableVariableName}Mask, Map beanPath) {
         boolean isCommaSet = false;
         StringBuffer query = new StringBuffer("SELECT DISTINCT ");
 #foreach ($column in ${table.columns})
@@ -379,6 +376,7 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
         if (${tableVariableName}Mask.get$columnClass() != null) {
            query.append (getQueryComma (isCommaSet));
            isCommaSet = true;
+           beanPath.put(beanPath.size(), "${columnVar}");
            query.append(" ${columnVar} ");
         }
 #end      

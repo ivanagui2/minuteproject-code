@@ -23,7 +23,7 @@ If you need them, please add them in your main configuration (in order to get th
 >> $velocityCount) table name is $table.name , the class name is $tableClassName .
 >>> fields:
 >>>> primary keys:
-	#foreach($column in ${table.primaryKeyColumns})
+#foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #if(!$isForeignKey)
      type $columnType, variable $columnClass $columnVar; 
@@ -40,9 +40,9 @@ If you need them, please add them in your main configuration (in order to get th
      foreign table ${reference.foreignTableName} - link via field ${reference.localColumnName}.
 #end
 >>>> references : (children)
-		#foreach ($reference in $table.children)
+#foreach ($reference in $table.children)
 #putReferenceParams2()
      child table ${reference.foreignTableName} - link via child field ${reference.foreignColumnName}.
 #end
 #end
-	#end
+#end

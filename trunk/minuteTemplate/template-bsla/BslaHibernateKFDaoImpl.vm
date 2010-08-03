@@ -312,7 +312,13 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	       sb.append(negative${tableClassName}.toStringWithParents());
 	    return sb.toString();
 	}
-	
+   
+    public List<$tableClassName> searchDistinctPrototype$tableClassName ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
+        Map beanPath = new Hashtable();
+        List list = getHibernateTemplate().find(get${tableClassName}SearchEqualQuery (${tableVariableName}Mask, ${tableVariableName}s, beanPath));
+        return handleLoadWithParent$tableClassName(beanPath, list, ${tableVariableName}Mask, true);    
+    }
+    	
     /**
     * variation first
     */
@@ -323,10 +329,11 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 ##		Query hquery = getPartialLoadWithParent${tableClassName}HibQuery (${tableVariableName}What, positive$tableClassName, negative$tableClassName, beanPath, queryWhatInit, nbOfResult);
 ##		List list = hquery.list();
 		List list = partialLoadWithParent${tableClassName}HibQueryResult (${tableVariableName}What, positive$tableClassName, negative$tableClassName, queryWhatInit, beanPath, nbOfResult, useCache);
-		if (beanPath.size()==1) {
-			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, true);
-		}
-		return handlePartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What, true);
+		return handleLoadWithParent$tableClassName (beanPath, list, ${tableVariableName}What, true); 
+##		if (beanPath.size()==1) {
+##			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, true);
+##		}
+##		return handlePartialLoadWithParent$tableClassName(beanPath, list, ${tableVariableName}What, true);
 	}	
 
 	private List partialLoadWithParent${tableClassName}QueryResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {

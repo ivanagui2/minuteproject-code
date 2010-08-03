@@ -133,9 +133,18 @@ public interface $className extends DataAccessObject {
 ##    //public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres);
 ##
     /**
+     * Searches a list of distinct $tableClassName entity based on a $tableClassName mask and a list of $tableClassName containing $tableClassName matching criteria
+     * @param $tableClassName $tableVariableName
+     * @param List<$tableClassName> ${tableVariableName}s
+     * @return List<$tableClassName>
+     */
+    public List<$tableClassName> searchDistinctPrototype$tableClassName($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) ;    
+
+    /**
      * generic to move after in superclass
      */
     public List<Object[]> getSQLQueryResult(String query);     
 
+	
 }
 

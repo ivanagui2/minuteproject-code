@@ -16,7 +16,7 @@ Expression contains for each columns the search filter operand. ('=','>','<','>=
 |General Info Input|table|$tableDB.name|count|3|
 |Fields |#foreach ($column in ${table.columns}) #putColumnParams() $column.name | #end 
 
- |Expression |#foreach ($column in ${table.columns}) null | #end 
+ |Expression |#foreach ($column in ${table.columns}) | #end 
  
 |Value |#foreach ($column in ${table.columns}) | #end 
 

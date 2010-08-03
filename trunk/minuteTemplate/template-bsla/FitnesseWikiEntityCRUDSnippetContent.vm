@@ -16,7 +16,7 @@
 !3 Insert into $tableDB.name snippet
 
 !|${importEntityCrudFixtureClass}|
-|#foreach ($column in ${table.columns}) #putColumnParams() ${column.name} #if ($isMandatory)*#end| #end insert? |
+|#foreach ($column in ${table.columns}) #putColumnParams() ${column.name} #if ($isMandatory)#end| #end insert? |
 |#foreach ($column in ${table.columns}) | #end OK |
 
 !3 Update into $tableDB.name snippet
