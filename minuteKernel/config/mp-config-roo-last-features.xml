@@ -35,12 +35,11 @@
 			</business-model>
 		</model>	
 		<targets>
- 	
-			<target refname="OpenXava" 
-			   name="OpenXava" 
-			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="D:/SRC/java/openxava/openxava-4m5/openxava-4m5/workspace/petshop"
-			   templatedir-root="../../minuteTemplate/template/framework/openxava">
+			<target refname="Roo" 
+			   name="Roo" 
+			   fileName="mp-template-config-roo-last-features.xml" 
+			   outputdir-root="../../DEV/output/roo"
+			   templatedir-root="../../minuteTemplate/template/framework/roo">
 			</target> 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
