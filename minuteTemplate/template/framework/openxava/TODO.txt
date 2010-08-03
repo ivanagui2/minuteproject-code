@@ -1,0 +1,5 @@
+graphic for dashboard
+model report query
+
+Extract stats / to report trend: trenny
+jumps.

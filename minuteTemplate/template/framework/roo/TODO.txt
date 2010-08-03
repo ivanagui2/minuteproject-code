@@ -1,0 +1,8 @@
+Comment on the roo console
+give a .roo file as input of the console: stop first error otherwise at end.
+primary key policy?
+enum?
+many2many intermediary table?
+Explicit name of table for mapping.
+roo console field type (mapping to DB type), exhaustive list.
+

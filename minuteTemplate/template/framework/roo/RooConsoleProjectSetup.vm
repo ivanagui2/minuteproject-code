@@ -6,39 +6,38 @@ persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecific()
+#if(!$isMany2Many)
 entity --class ~.domain.${package.name}.${tableClassName} --testAutomatically
+#end
 #end
 #end
 	
 #foreach ($package in ${businessPackages})
-##> package name is $package.name
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecific()
+#if(!$isMany2Many)
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 -- question what to do with primary key $columnType $columnVar
 #end
+#end
 
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
-field $rooConsoleType --fieldName firstName ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
+field $rooConsoleType --fieldName $columnVar ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
 #end
 
 #end
 #end	
 	
 #foreach ($package in ${businessPackages})
-##> package name is $package.name
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecific()
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-field set --class ~.domain.${localTableVariable} --fieldName ${localColumnVar} --element ~.domain.${foreignTableVariable} --mappedBy owner --notNull false --cardinality MANY_TO_ONE
-#end
+#if(!$isMany2Many)
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-field set --class ~.domain.Owner --fieldName pets --element ~.domain.Pet --mappedBy owner --notNull false --cardinality ONE_TO_MANY
-     child table ${reference.foreignTableName} - link via child field ${reference.foreignColumnName}.
+field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --element ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality MANY_TO_ONE
+#end
 #end
 #end
 #end
