@@ -6,7 +6,7 @@
 			    <!--  --><driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9003/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
@@ -45,7 +45,7 @@
 			<target refname="MpVaadin" 
 			   name="vaadin" 
 			   fileName="mp-template-config-vaadin-last-features.xml" 
-			   outputdir-root="C:\SOFT\JAVA\VAADIN\vaadin-6.3.2\vaadin-6.3.2"
+			   outputdir-root="D:\SOFT\Java\VAADIN\vaadin-6.3.3\vaadin-6.3.3"
 			   templatedir-root="../../minuteTemplate/template/framework/vaadin">
 			</target> 				
 		</targets>
