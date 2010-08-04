@@ -1,7 +1,7 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.ox">
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.roo">
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
