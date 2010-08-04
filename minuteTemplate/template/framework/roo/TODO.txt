@@ -6,3 +6,11 @@ many2many intermediary table?
 Explicit name of table for mapping.
 roo console field type (mapping to DB type), exhaustive list.
 
+Conventions to resolve ambiguities:
+resolve ambiguity for dependencies. Entity A has two ONE_TO_MANY link with Entity B. 
+It is not possible to have twice the same variable 'bs' twice. (Compilation uniqueness issue).
+
+is ONE_TO_MANY bidirectional always. (implicit MANY_TO_ONE trigger).
+what if we just want unidirectional?
+
+

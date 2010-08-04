@@ -1,5 +1,5 @@
 #exposeVariableModelSpecific()
-project --topLevelPackage com.springsource.petclinic
+project --topLevelPackage $model.packageRoot
 
 persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
 
@@ -18,15 +18,14 @@ entity --class ~.domain.${package.name}.${tableClassName} --testAutomatically
 #if(!$isMany2Many)
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
+
 -- question what to do with primary key $columnType $columnVar
 #end
-#end
-
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
 field $rooConsoleType --fieldName $columnVar ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
 #end
-
+#end
 #end
 #end	
 	
