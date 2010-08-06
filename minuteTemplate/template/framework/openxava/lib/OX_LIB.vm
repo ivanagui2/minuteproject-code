@@ -50,4 +50,9 @@
 #end
 #end
 
+#macro (exposeOXhelp)
+#set($OXhelpDirectory=$openXavaUtils.getHelpDirectory())
+#set($OXhelpFileExtension=$openXavaUtils.getHelpFileExtension())
+#end
+
 
