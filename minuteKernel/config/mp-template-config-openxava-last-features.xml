@@ -253,5 +253,46 @@
 						
 	</template-target>
 	
+	<template-target 
+    	name="commands"
+    	outputdir=""
+		package-root="">	
+		
+		<template package-root=""
+			name="OXProjectSetupScript" templateFileName="OXProjectSetupScript.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
+			file-extension="sh" file-prefix="ant-setup-" file-suffix="" 
+			application-specific="true">
+		</template>	
+
+		<template package-root=""
+			name="OXProjectSetupScript" templateFileName="OXProjectSetupScript.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
+			file-extension="cmd" file-prefix="ant-setup-" file-suffix="" 
+			application-specific="true">
+		</template>	
+								
+	</template-target>	
 	
+	<template-target 
+    	name="OpenXava configurations"
+    	outputdir="web.xava"
+		package-root="">	
+		
+		<template package-root=""
+			name="OXHelper" templateFileName="OXHelper.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="Helper" file-suffix="" 
+			entity-specific="true">
+		</template>	
+
+		<template package-root=""
+			name="OpenXavaProperties" templateFileName="OpenXavaProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
+			file-extension="properties" file-prefix="xava" file-suffix="" 
+			application-specific="true">
+		</template>	
+								
+	</template-target>	
+		
 </target>
