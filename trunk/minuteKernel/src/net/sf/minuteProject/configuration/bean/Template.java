@@ -588,7 +588,8 @@ public class Template extends TemplateTarget {
 		if (packageRoot==null && getTemplateTarget().getTarget()!=null){
 			Configuration configuration = (Configuration) getTemplateTarget().getTarget().getAbstractConfigurationRoot();
 			setPackageRoot(configuration.getModel().getPackageRoot());
-		}
+		} //else
+			//setPackageRoot("");
 		return packageRoot;
 	}
 	

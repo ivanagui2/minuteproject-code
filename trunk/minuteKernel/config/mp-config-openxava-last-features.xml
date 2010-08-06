@@ -35,7 +35,6 @@
 			</business-model>
 		</model>	
 		<targets>
- 	
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
