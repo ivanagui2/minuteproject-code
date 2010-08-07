@@ -1,3 +1,4 @@
+#exposeOXhelp()
 # Look at OpenXavaTest/properties/xava.properties for more options
 
 readOnlyAsLabel=false
@@ -75,7 +76,7 @@ mapFacadeAsEJB=false
 #mapFacadeAsEJB=true
 
 helpPrefix=$OXhelpDirectory
-helpSuffix=$OXhelpFileExtension
+helpSuffix=.$OXhelpFileExtension
 helpInNewWindow=true
 
 

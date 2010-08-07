@@ -1,0 +1,20 @@
+#set ($applicationOX=$configuration.name)
+##create OX project
+%OX_HOME%\workspace\OpenXavaTemplate\ant -f CreateNewProject.xml -Dproject=$applicationOX
+
+##copy generated artifacts into $applicationOX workspace
+copy *.* %OX_HOME%\workspace\$applicationOX
+
+##overwrite tomcat context.xml
+copy other/tomcat/context.xml %OX_HOME%\tomcat\conf
+
+##add jdbc driver dep in tomcat\lib
+
+## start tomcat in appart process
+start %OX_HOME%\start-tomcat.cmd
+
+call %OX_HOME%\workspace\ant
+
+call %OX_HOME%\workspace\ant generatePortlets
+
+explorer http://localhost:8080/$applicationOX/xava/homeMenu.jsp

@@ -55,4 +55,7 @@
 #set($OXhelpFileExtension=$openXavaUtils.getHelpFileExtension())
 #end
 
+#macro (exposeOXSpecific)
+#set ($applicationOX=$configuration.name)
+#end
 
