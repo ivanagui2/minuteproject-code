@@ -1,2 +1,10 @@
 #exposeVariableEntitySpecific()
+	<div id="menu">
+		<%@ include file="../mp/menu.jsp"%>
+	</div>
+	<div id="content">
 Help file for entity $domainClassName.
+	</div>
+	<div id="content">
+		<%@ include file="../mp/footer.jsp"%>
+	</div>

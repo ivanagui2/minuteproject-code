@@ -1,5 +1,5 @@
 #exposeVariableModelSpecific() 
-#set ($applicationOX=$configuration.name)
+#exposeOXSpecific()
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <portlet-app id="$applicationOX"
