@@ -8,3 +8,4 @@ i18n helper
 minsize
 view navigation with arrow
 helper correct css.
+.sh buildcommandUnix
