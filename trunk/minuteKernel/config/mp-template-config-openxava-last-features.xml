@@ -7,6 +7,7 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
+	<plugin name="openXavaUtils" className="net.sf.minuteProject.plugin.openxava.OpenXavaUtils"></plugin>
 	 
 	<template-target 
     	name="JPA set"
@@ -125,12 +126,20 @@
 		belongToPackage="true">			
 
 		<!--  Menu config tomcat jndi templates -->
-		<template package-root="snippet"
+		<template package-root="tomcat.snippet"
 			name="TomcatJndiConnectionPoolSnippet" templateFileName="TomcatJndiConnectionPoolSnippet.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
 			file-extension="txt" file-prefix="" file-suffix="_jndi_for_tomcat_snippet" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>				
+		</template>		
+		
+		<template package-root="tomcat.snippet"
+			name="TomcatContextXml" templateFileName="TomcatContextXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="context" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
 
 		<template name="CheckConstraintSQL" templateFileName="CheckConstraintSQL.vm" 
 		    package-root="sql"
@@ -271,28 +280,59 @@
 			file-extension="cmd" file-prefix="ant-setup-" file-suffix="" 
 			application-specific="true">
 		</template>	
-								
+				
+		<template package-root=""
+			name="BuildCommandWindows" templateFileName="BuildCommandWindows.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="build-" file-suffix="" 
+			application-specific="true">
+		</template>	
+		
+		<template package-root=""
+			name="OXBuildXml" templateFileName="OXBuildXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			add-model-dir-name="false"
+			file-extension="xml" file-prefix="mp4openxava-build" file-suffix="" 
+			application-specific="true">
+		</template>			
+						
 	</template-target>	
 	
 	<template-target 
-    	name="OpenXava configurations"
-    	outputdir="web.xava"
+    	name="OpenXava helper"
+    	outputdir="web"
 		package-root="">	
-		
+		<!-- 
 		<template package-root=""
 			name="OXHelper" templateFileName="OXHelper.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="Helper" file-suffix="" 
 			entity-specific="true">
 		</template>	
+ -->
+		<template name="OXHelper" templateFileName="OXHelper.vm" 
+			subdir="" outputsubdir="" technicalPackage="xava.help"
+			file-extension="jsp" file-prefix="" file-suffix="_en" 
+			add-model-dir-name="false" add-business-package-dir-name="false"
+			entity-specific="true" package-specific="false" model-specific="false"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+				
+	</template-target>	
+	
+	<template-target 
+    	name="OpenXava properties"
+    	outputdir="properties"
+		package-root="">	
 
 		<template package-root=""
 			name="OpenXavaProperties" templateFileName="OpenXavaProperties.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="properties" file-prefix="xava" file-suffix="" 
 			application-specific="true">
 		</template>	
 								
-	</template-target>	
+	</template-target>		
 		
 </target>
