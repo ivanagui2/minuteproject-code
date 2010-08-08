@@ -77,6 +77,6 @@ mapFacadeAsEJB=false
 
 helpPrefix=$OXhelpDirectory
 helpSuffix=.$OXhelpFileExtension
-helpInNewWindow=true
+#helpInNewWindow=true
 
 
