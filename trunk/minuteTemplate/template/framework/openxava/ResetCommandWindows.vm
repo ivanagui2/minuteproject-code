@@ -1,0 +1,15 @@
+#exposeOXSpecific()
+set currentdir=%cd%
+
+##create OX project
+cd %OX_HOME%\workspace
+del $applicationOX
+
+cd %OX_HOME%\tomcat\webapp
+del $applicationOX
+
+## start tomcat in appart process
+cd %OX_HOME%
+call stop-tomcat.bat
+
+cd %currentdir%
