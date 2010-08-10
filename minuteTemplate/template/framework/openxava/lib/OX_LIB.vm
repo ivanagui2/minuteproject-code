@@ -32,7 +32,8 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$column.isLob())
-     #if ($velocityCount!=1)+", #else "#end $columnVar "
+##     +#if ($velocityCount!=1)+", #else "#end $columnVar "
+     +", $columnVar "
 #end
 #end
 #end
@@ -59,3 +60,46 @@
 #set ($applicationOX=$configuration.name)
 #end
 
+#macro (exposeTabAll)
+#set ($hasTabAll = $openXavaUtils.hasTabAll($table))
+#set ($tabinfos = $openXavaUtils.getTabAll($table))
+#end
+
+#macro (exposeTabSimple)
+#set ($hasTabSimple = $openXavaUtils.hasTabSimple($table))
+#set ($tabinfos = $openXavaUtils.getTabSimple($table))
+#end
+
+#macro (exposeTabWithRef)
+#set ($hasTabWithRef = $openXavaUtils.hasTabWithRef($table))
+#set ($tabinfos = $openXavaUtils.getTabWithRef($table))
+#end
+
+#macro (exposeTabProperties)
+properties=
+#foreach($chunk in $tabinfos)
+    #if ($velocityCount!=1)+", #else "#end $chunk "
+#end
+#end
+
+#macro (oldTab)
+@Tabs({
+@Tab(properties=""
+#writeTabDefaultProperties()
+#writeTabParentSemanticReference()	
+)#if($table.hasAttribute()),
+@Tab(
+name = "${className}Tab",
+properties=""
+#writeTabDefaultProperties()
+)
+#end
+,
+@Tab(
+name = "${className}TabWithRef",
+properties=""
+#writeTabDefaultProperties()
+#writeTabParentSemanticReference()	
+)
+})
+#end
