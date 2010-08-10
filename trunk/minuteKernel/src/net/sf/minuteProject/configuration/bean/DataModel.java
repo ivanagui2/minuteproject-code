@@ -97,5 +97,8 @@ public class DataModel {
 		this.driver = driver;
 	}
 	
+	public boolean hasSchema () {
+		return (getSchema()!=null && !"".equals(getSchema()))?true:false;
+	}
 	
 }

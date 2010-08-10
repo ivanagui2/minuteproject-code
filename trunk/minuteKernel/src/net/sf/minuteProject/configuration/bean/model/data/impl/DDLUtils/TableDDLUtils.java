@@ -426,4 +426,9 @@ public class TableDDLUtils extends TableAbstract {
 			return false;
 		return true;
 	}
+
+	@Override
+	public void setType(String type) {
+		table.setType(type);		
+	}
 }

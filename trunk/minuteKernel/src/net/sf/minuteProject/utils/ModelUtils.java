@@ -65,11 +65,15 @@ public class ModelUtils {
 	}
 	
 	public static String getTechnicalPackage(Model model, Template template) {
-		StringBuffer sb = new StringBuffer(template.getPackageRoot());
+		StringBuffer sb = new StringBuffer(getPackageRoot(template));
 		sb.append("."+model.getName());
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());
 		return sb.toString();		
+	}
+	
+	public static String getPackageRoot (Template template) {
+		return (template.getPackageRoot()!=null)?template.getPackageRoot():"defaultroot";
 	}
 	
 	public static String getTechnicalPackage(View view, Template template) {

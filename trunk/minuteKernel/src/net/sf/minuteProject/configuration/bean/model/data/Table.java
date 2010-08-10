@@ -263,4 +263,6 @@ public interface Table extends GeneratorBean{
 	
 	public EntitySecuredAccess getEntitySecuredAccess();
 	
+	public void setType (String type);
+	
 }

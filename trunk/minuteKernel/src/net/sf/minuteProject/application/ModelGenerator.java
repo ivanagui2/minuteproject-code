@@ -177,6 +177,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void loadModel(Model model) {
 		model.getDataModel().loadDatabase();
+		model.getBusinessModel().secureEntityType();
 		model.getBusinessModel().complementDataModelWithTables();
 	}
 
