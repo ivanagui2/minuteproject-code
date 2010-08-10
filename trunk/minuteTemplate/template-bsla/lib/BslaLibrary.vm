@@ -367,6 +367,8 @@
 
 #macro(exposeJPASpecifics)
 #set ($persistenceUnitName = $model.name)
+#set ($hasSchema = $model.dataModel.hasSchema())
+#set ($schemaName = $model.dataModel.schema)
 #end
 
 #macro (exposeJstlScopeItems $instance $attribute)
