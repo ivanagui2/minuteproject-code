@@ -290,6 +290,14 @@
 		</template>	
 		
 		<template package-root=""
+			name="ResetCommandWindows" templateFileName="ResetCommandWindows.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="reset-" file-suffix="" 
+			application-specific="true">
+		</template>			
+		
+		<template package-root=""
 			name="OXBuildXml" templateFileName="OXBuildXml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
 			add-model-dir-name="false"
