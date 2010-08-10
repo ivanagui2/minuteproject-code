@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean;
 
+import net.sf.minuteProject.utils.ModelUtils;
+
 public class Model extends AbstractConfiguration{
 	
 	private String packageRoot;
@@ -59,7 +61,7 @@ public class Model extends AbstractConfiguration{
 
 	
 	public String getTechnicalPackage(Template template) {
-		StringBuffer sb = new StringBuffer(template.getPackageRoot());
+		StringBuffer sb = new StringBuffer(ModelUtils.getPackageRoot(template));
 		if ((template.getAddModelDirName()==null 
 			|| template.getAddModelDirName().equals("")
 			|| template.getAddModelDirName().equals("true"))	

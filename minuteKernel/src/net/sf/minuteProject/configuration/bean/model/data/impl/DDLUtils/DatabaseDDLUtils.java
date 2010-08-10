@@ -409,7 +409,6 @@ public class DatabaseDDLUtils implements Database
 	public View[] getViews() {
     	if (views == null) {
     		views = new ArrayList<View>();
-
     		org.apache.ddlutils.model.Table tablez[] = database.getTables();
     		for (int i = 0; i < tablez.length; i++) {
     			if (tablez[i].getType().equals("VIEW")) {
@@ -464,6 +463,37 @@ public class DatabaseDDLUtils implements Database
 
 	public Function[] getFunctions() {
 		return (Function[]) getFunctionArray().toArray(new Function[getFunctionArray().size()]);
+	}
+
+	@Override
+	public View addView(Table table) {
+		View view = null;
+		table.setType(Table.VIEW);
+		org.apache.ddlutils.model.Table tablez[] = database.getTables();
+		for (int i = 0; i < tablez.length; i++) {
+			if (tablez[i].getName().equals(table.getName())) {
+				tablez[i].setType(Table.VIEW);
+				view = new ViewDDLUtils (tablez[i]);
+				//TODO remove form tables
+    			//tables.add(table);
+				//addView(view);
+				tables.remove(table);
+				moveToView (tablez[i]);
+				return view;
+			}
+		}
+		return view;
+		
+	}
+
+	private void moveToView (org.apache.ddlutils.model.Table table) {
+		org.apache.ddlutils.model.Table tablez[] = database.getTables();
+		for (int i = 0; i < tablez.length; i++) {
+			if (tablez[i].getName().equals(table.getName())) {
+				tablez[i].setType(Table.VIEW);
+				return;
+			}
+		}	
 	}
 	
 }

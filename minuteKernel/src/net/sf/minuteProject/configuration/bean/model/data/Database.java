@@ -184,4 +184,5 @@ public interface Database extends Serializable, Cloneable
     
     public Function[] getFunctions();
 
+    public View addView(Table table);
 }

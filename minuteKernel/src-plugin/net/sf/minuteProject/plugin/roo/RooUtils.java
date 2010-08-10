@@ -13,5 +13,4 @@ public class RooUtils {
 		return StringUtils.lowerCase(ConvertUtils.getJavaTypeFromDBType(column));
 	}
 	
-	
 }

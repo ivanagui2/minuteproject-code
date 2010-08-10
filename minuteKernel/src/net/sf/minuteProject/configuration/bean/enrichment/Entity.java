@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 public class Entity extends AbstractConfiguration {
 	
@@ -17,6 +18,7 @@ public class Entity extends AbstractConfiguration {
 	private SemanticReference semanticReference;
 	private boolean isLinkEntity;
 	private EntitySecuredAccess entitySecuredAccess;
+	private String type;
 	
 	public EntitySecuredAccess getEntitySecuredAccess() {
 		return entitySecuredAccess;
@@ -99,6 +101,14 @@ public class Entity extends AbstractConfiguration {
 
 	public void setLinkEntity(boolean isLinkEntity) {
 		this.isLinkEntity = isLinkEntity;
+	}
+
+	public String getType() {
+		return (type==null)?Table.TABLE:type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

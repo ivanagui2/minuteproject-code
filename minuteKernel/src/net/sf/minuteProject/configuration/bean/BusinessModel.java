@@ -84,10 +84,11 @@ public class BusinessModel {
 				if (enrichment.getEntities()!=null) {
 					for (Entity entity : enrichment.getEntities()) {
 						String typeEntity = TableUtils.getTargetType(database, entity);
-						if (Table.VIEW.equals(type) && Table.VIEW.equals(typeEntity))
+						if ((Table.VIEW.equals(type) && Table.VIEW.equals(typeEntity)))
 							complementView(entity, database);
 						if (type.equals(Table.TABLE) && Table.TABLE.equals(typeEntity))
-							complementTable(entity,database);
+//						else
+							complementTable(entity,database); 
 					}
 				}
 				if (enrichment.getPackages()!=null) {
@@ -98,6 +99,29 @@ public class BusinessModel {
 			}
 			
 		}
+	}
+	
+	public void secureEntityType () {
+		Database database = model.getDataModel().getDatabase();
+		if (database!=null) {
+			// for all the view
+			// set virtual pk, realpk
+			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			if (enrichment != null) {
+				if (enrichment.getEntities()!=null) {
+					for (Entity entity : enrichment.getEntities()) {
+						String typeEntity = TableUtils.getTargetType(database, entity);
+						if (Table.VIEW.equals(entity.getType())&& Table.TABLE.equals(typeEntity))
+							convertTableToView(database, TableUtils.getTable(database, entity.getName()));
+					}
+				}
+			}
+			
+		}
+	}
+
+	private void convertTableToView(Database database, Table table) {
+		database.addView(table);
 	}
 
 	private void complementPackage(Package pack, Model model) {
@@ -113,10 +137,11 @@ public class BusinessModel {
 
 	private void complementView(Entity entity, Database database) {
 		View view = TableUtils.getView(database, entity.getName());
+//		if (view==null) view = TableUtils.getTable(database, entity.getName());
 		if (view!=null){
 			complementDataModelWithViewEnrichment(view, entity);
 			complementEntityWithProperties(view, entity);
-		}		
+		} 
 	}
 	
 	private void complementTable(Entity entity, Database database) {
@@ -207,8 +232,11 @@ public class BusinessModel {
 		List<Field> fields = entity.getFields();
 		for (Field field : fields) {
 			ForeignKey foreignKey = getForeignKey(field);
-			if (field.getLinkToTargetEntity()!=null && foreignKey!=null)
+			if (field.getLinkToTargetEntity()!=null && foreignKey!=null) {
 				view.setForeignKey (foreignKey);
+				// remove it from attribute
+				//view.getAttributes()
+			}
 		}
 	}
 	

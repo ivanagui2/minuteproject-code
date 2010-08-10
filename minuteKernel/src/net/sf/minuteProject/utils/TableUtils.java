@@ -62,7 +62,7 @@ public class TableUtils {
 		int maxTable = database.getTables().length;
 		for (int i = 0; i < maxTable; i++) {
 			Table table = database.getTables()[i];
-			if (table.getName().equals(tablename))
+			if (table.getName().equals(tablename) && table.getType().equals(Table.TABLE))
 				return table;
 		}
 		return null;
@@ -129,14 +129,20 @@ public class TableUtils {
 
 	public static View getView(Database database, String viewname){
 		int maxView = database.getViews().length;
+		View view = null;
 		for (int i = 0; i < maxView; i++) {
-			View view = database.getViews()[i];
+			view = database.getViews()[i];
 			viewname = StringUtils.upperCase(viewname);
 			String viewName = StringUtils.upperCase(view.getName());
 			if (viewName.equals(viewname))
 				return view;
 		}
 		return null;
+		//return convertTableToView(database, getTable(database, viewname));
+	}
+	
+	private static View convertTableToView (Database database, Table table) {
+		return database.addView(table);
 	}
 
 	public static String getTargetType(Database database, Entity entity) {

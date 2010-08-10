@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.utils.ForeignKeyUtils;
 
 public class ViewDDLUtils extends TableDDLUtils implements View{
 
@@ -80,6 +81,14 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 						present=true;
 						break;
 					}
+				}
+				if (!present) {
+					for (Reference parent: getParents()) {
+						if (parent.getLocalColumnName().equals(column.getName())) {
+							present=true;
+							break;
+						}
+					}					
 				}
 				if (!present)
 					noVirtualPrimaryKeyColumns.add(column);

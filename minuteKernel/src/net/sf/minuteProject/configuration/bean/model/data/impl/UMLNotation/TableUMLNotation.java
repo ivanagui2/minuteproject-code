@@ -65,6 +65,12 @@ public class TableUMLNotation extends TableAbstract {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void setType(String type) {
+		
+		
+	}
 	
 //	public List<Property> getProperties() {
 //	   return super.getProperties();

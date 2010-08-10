@@ -193,6 +193,7 @@
 				<set-properties-rule>
 					<alias attr-name="name" prop-name="name" />	
 					<alias attr-name="alias" prop-name="alias" />
+					<alias attr-name="type" prop-name="type" />
 					<alias attr-name="structure" prop-name="structure" />		
 					<alias attr-name="content-type" prop-name="contentType" />	
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
