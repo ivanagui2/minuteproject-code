@@ -326,7 +326,15 @@
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
-				
+
+		<template name="OXHelper" templateFileName="OXHelper.vm" 
+			subdir="" outputsubdir="" technicalPackage="xava.help"
+			file-extension="jsp" file-prefix="" file-suffix="_fr" 
+			add-model-dir-name="false" add-business-package-dir-name="false"
+			entity-specific="true" package-specific="false" model-specific="false"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+						
 	</template-target>	
 	
 	<template-target 
