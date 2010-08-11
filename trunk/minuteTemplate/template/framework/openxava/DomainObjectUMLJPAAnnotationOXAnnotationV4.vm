@@ -13,10 +13,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-//import org.apache.commons.lang.builder.HashCodeBuilder;
-//import org.apache.commons.lang.builder.ToStringBuilder;
-//import org.apache.commons.lang.builder.ToStringStyle;
-
 import javax.persistence.*;
 import org.openxava.annotations.*;
 
@@ -212,7 +208,13 @@ public class ${className} {
     @NoCreate
     @NoModify	
 #end
-    private $linkedTableClass ${localColumnVariable}; //$linkedTableVariable; //${localColumnVariable}; 
+#exposeEnrichedPk($localColumn)
+#if (!$isEnrichedPk)
+#set($colVar = ${localColumnVariable})
+#else
+#set($colVar = ${linkedTableVariable})
+#end
+    private $linkedTableClass ${colVar}; //$linkedTableVariable; //${localColumnVariable}; 
     
 #end
 
@@ -221,7 +223,13 @@ public class ${className} {
 #if(!$linktableDB.isManyToMany())
 #set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
 #set ($targetEntityClass="${importDomainObjectForeignTable}.class")
-    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY)
+#exposeEnrichedPk(${reference.column})
+#if (!$isEnrichedPk)
+#set ($foreignColumnVar = $formatUtils.getJavaNameVariable($columnDB.name))
+#else
+#set ($foreignColumnVar = $domainVariableName)
+#end
+    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar")
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
     private Set <$linkclass> ${link}${columnclass}s = new HashSet();
 
@@ -265,7 +273,7 @@ public class ${className} {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
-#if(!$isForeignKey)
+##if(!$isForeignKey)
     public $columnType get$columnClass() {
         return $columnVar;
     }
@@ -274,7 +282,7 @@ public class ${className} {
         this.$columnVar =  $columnVar;
     }
     
-#end
+##end
 #end
 
 #foreach ($column in ${table.attributes})
@@ -308,6 +316,8 @@ public class ${className} {
 ##end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#exposeEnrichedPk($localColumn)
+#if (!$isEnrichedPk)
     public $linkedTableClass get$localColumnClass () {  //
     	return ${localColumnVariable};
     }
@@ -315,7 +325,16 @@ public class ${className} {
     public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
     	this.${localColumnVariable} = ${localColumnVariable};//this.${localColumnVariable} = ${linkedTableVariable};
     }
+#else
+    public $linkedTableClass get${linkedTableClass} () {  //get$linkedTableVariable
+    	return ${linkedTableVariable};//${localColumnVariable};
+    }
+	
+   public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
+    	this.${linkedTableVariable} = ${linkedTableVariable};//this.${localColumnVariable} = ${linkedTableVariable};
+    }
     
+#end 
 #end
 
 #foreach ($reference in $childReferences)
