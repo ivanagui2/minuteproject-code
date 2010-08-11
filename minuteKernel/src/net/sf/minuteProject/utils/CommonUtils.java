@@ -465,6 +465,19 @@ public class CommonUtils {
 	public static String getModelLevelTemplateFullClassPath(Model model, Template template, String targetTemplateName) {
 		return FormatUtils.getDirFromPackage(getModelLevelTemplateFullPath(model, template, targetTemplateName));
 	}
+	
+	public static boolean isEnrichedPrimaryKey (Column column) {
+		if (column!=null) {
+			if (column.isPrimaryKey()) return true;
+			Table table = column.getTable();
+			for (Column col : table.getPrimaryKeyColumns()) {
+				if (col.getName().equals(column.getName()))
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * comment utils mark the minute template the a minute comment
 	 */
