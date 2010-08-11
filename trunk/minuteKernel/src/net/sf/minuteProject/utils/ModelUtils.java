@@ -39,6 +39,18 @@ public class ModelUtils {
 		return true;
 	}
 	
+	public static boolean isSchemaNeeded(Model model) {
+		if (model.getDataModel().hasSchema()) {
+			String schemaName = model.getDataModel().getSchema();
+			String username = model.getDataModel().getBasicDataSource().getUsername();
+			if (schemaName!=null && username!=null && schemaName.equals(username))
+				return false;
+			else 
+				return true;
+		}
+		return false;
+	}
+	
 //	public static boolean isToGenerate(BusinessModel businessModel, net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils table) {
 //		if (businessModel.getGenerationCondition()!=null)
 //			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
