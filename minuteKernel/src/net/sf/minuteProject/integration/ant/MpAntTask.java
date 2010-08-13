@@ -9,7 +9,6 @@ public class MpAntTask extends Task {
 	
     public void execute() {
 	   log("MinuteProject generator", Project.MSG_INFO);
-	   
 	}
 
 	public String getSchema() {
