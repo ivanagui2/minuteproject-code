@@ -368,6 +368,7 @@
 #macro(exposeJPASpecifics)
 #set ($persistenceUnitName = $model.name)
 #set ($hasSchema = $model.dataModel.hasSchema())
+#set ($isSchemaNeeded = $modelUtils.isSchemaNeeded($model))
 #set ($schemaName = $model.dataModel.schema)
 #end
 
@@ -650,4 +651,8 @@ import $importDaoInterfaceUML;
 
 #macro (exposeComponentSpecific)
 #set ($parentExist = $componentUtils.hasParent($component))
+#end
+
+#macro (exposeEnrichedPk $column)
+#set ($isEnrichedPk=$commonUtils.isEnrichedPrimaryKey($column))
 #end
