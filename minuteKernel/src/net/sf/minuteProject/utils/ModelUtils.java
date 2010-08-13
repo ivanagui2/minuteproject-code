@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.application.ModelGenerator;
@@ -43,10 +44,14 @@ public class ModelUtils {
 		if (model.getDataModel().hasSchema()) {
 			String schemaName = model.getDataModel().getSchema();
 			String username = model.getDataModel().getBasicDataSource().getUsername();
-			if (schemaName!=null && username!=null && schemaName.equals(username))
-				return false;
-			else 
-				return true;
+			if (schemaName!=null && username!=null) {
+				schemaName = StringUtils.lowerCase(schemaName);
+				username = StringUtils.lowerCase(username);
+				if (schemaName.equals(username))
+					return false;
+				else 
+					return true;
+			}
 		}
 		return false;
 	}
