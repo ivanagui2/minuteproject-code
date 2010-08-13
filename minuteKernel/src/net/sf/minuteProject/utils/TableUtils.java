@@ -68,9 +68,9 @@ public class TableUtils {
 		return null;
 	}
 	
-	private static String getVirtualPrimaryKey (Table table) {
+	public static String getVirtualPrimaryKey (Table table) {
 		if (table instanceof View) {
-			Column virtualPrimaryKey = getVirtualPrimaryKeyFirstColumn((View)table);
+//			Column virtualPrimaryKey = getVirtualPrimaryKeyFirstColumn((View)table);
 			return getVirtualPrimaryKeyFirstColumn((View)table).getName();
 		}
 		return null;
