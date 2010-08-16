@@ -5,10 +5,24 @@ import org.apache.tools.ant.Task;
 
 public class MpAntTask extends Task {
 
-	private String schema, driver, url, username, password, primaryKeyPolicy, target, database;
+	private String schema, 
+		driver, 
+		url, 
+		username, 
+		password, 
+		primaryKeyPolicy, 
+		target, 
+		database, 
+		rootpackage,
+		businesspackage,
+		version,
+		configuration;
 	
     public void execute() {
 	   log("MinuteProject generator", Project.MSG_INFO);
+	   //load DB matrix for default
+	   //load target matrix (ex: openxava, granity...)
+	   //
 	}
 
 	public String getSchema() {
@@ -75,4 +89,13 @@ public class MpAntTask extends Task {
 		this.database = database;
 	}
 
+	public String getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(String configuration) {
+		this.configuration = configuration;
+	}
+
+	
 }
