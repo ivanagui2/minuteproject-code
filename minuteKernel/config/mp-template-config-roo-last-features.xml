@@ -8,6 +8,7 @@
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
    	<plugin name="rooUtils" className="net.sf.minuteProject.plugin.roo.RooUtils"/>
+   	<plugin name="referenceUtils" className="net.sf.minuteProject.utils.ReferenceUtils"/>
    	
   	<template-target 
     	name="Roo Console"

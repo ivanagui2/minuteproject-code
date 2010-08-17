@@ -47,4 +47,12 @@ public class RooColumn {
 		this.typeChunk = typeChunk;
 	}
 
+	@Override
+	public String toString() {
+		return "RooColumn [minSizeChunk=" + minSizeChunk + ", notNullChunk="
+				+ notNullChunk + ", rooConsoleType=" + rooConsoleType
+				+ ", sizeMaxChunk=" + sizeMaxChunk + ", typeChunk=" + typeChunk
+				+ "]";
+	}
+
 }
