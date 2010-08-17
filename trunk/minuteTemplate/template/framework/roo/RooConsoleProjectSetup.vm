@@ -5,22 +5,21 @@ persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
 
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
-#exposeVariableEntitySpecific()
+#putRooEntityParams()
 #if(!$isMany2Many)
-entity --class ~.domain.${package.name}.${tableClassName} --testAutomatically
+entity --class ~.domain.${package.name}.${tableClassName} --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
 #end
 #end
 #end
 	
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
+
 #exposeVariableEntitySpecific()
 #if(!$isMany2Many)
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-
--- question what to do with primary key $columnType $columnVar
-#end
+##foreach($column in ${table.primaryKeyColumns})
+##putColumnParams()
+##end
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
 field $rooConsoleType --fieldName $columnVar ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
