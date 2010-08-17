@@ -1,7 +1,7 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.ox">
+		<model name="petshop2" version="1.0" package-root="net.sf.mp.demo.ox">
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
@@ -38,7 +38,7 @@
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="../../dev/openxava/petshop"
+			   outputdir-root="../../dev/openxava/petshop2"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
 			</target> 
 			<target refname="LIB" 
