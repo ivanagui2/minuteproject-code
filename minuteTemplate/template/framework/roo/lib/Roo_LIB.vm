@@ -8,6 +8,14 @@
 #set($notNullChunk=$rooColumn.notNullChunk)
 #end
 
+#macro (putRooEntityParams)
+#exposeVariableEntitySpecific()
+#set($identifierField=$primaryKeyVariable)
+#set($identifierColumn=$primaryKeyFirstColumn.name)
+##set($column=$primaryKeyFirstColumn)
+#set($identifierType=$primaryKeyFullType)
+#end
+
 #macro(oldRoo)
 #set($minSizeChunk="")
 #if($isMandatory)
