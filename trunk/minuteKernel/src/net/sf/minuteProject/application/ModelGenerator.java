@@ -75,7 +75,6 @@ public class ModelGenerator extends AbstractGenerator {
 	private SqlUtils sqlUtils = new SqlUtils();
 	private TableUtils tableUtils = new TableUtils();
 
-	
 	private Model model;
 
 	private String modelConfig;

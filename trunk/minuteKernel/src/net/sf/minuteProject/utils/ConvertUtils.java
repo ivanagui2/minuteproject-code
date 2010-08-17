@@ -188,13 +188,13 @@ public class ConvertUtils {
 	}
 	
 	public static boolean isDateType (String dBType) {
-		return (FieldType.DATE.equals(dBType) ||
-				FieldType.TIMESTAMP.equals(dBType))?true:false;
+		return (FieldType.DATE.toString().equals(dBType) ||
+				FieldType.TIMESTAMP.toString().equals(dBType))?true:false;
 	}	
 
 	public static boolean isNumberType (String dBType) {
-		return (FieldType.BIGINT.equals(dBType) ||
-				FieldType.DECIMAL.equals(dBType) ||
-				FieldType.INTEGER.equals(dBType))?true:false;
+		return (FieldType.BIGINT.toString().equals(dBType) ||
+				FieldType.DECIMAL.toString().equals(dBType) ||
+				FieldType.INTEGER.toString().equals(dBType))?true:false;
 	}
 }

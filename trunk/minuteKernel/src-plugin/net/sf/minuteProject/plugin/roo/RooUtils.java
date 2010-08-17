@@ -23,6 +23,7 @@ public class RooUtils {
 	public static RooColumn getRooColumn (Column column) {
 		RooColumn rooColumn = new RooColumn();
 		String type = column.getType();
+//		System.out.println(">>> type = "+type+" for "+column.getName()+" isString? "+isStringType (type));
 		if (isStringType (type)) {
 		   rooColumn.setRooConsoleType("string");
 		   rooColumn.setTypeChunk("");
@@ -32,7 +33,8 @@ public class RooUtils {
 	    } else if (isNumberType (type)) {
 			rooColumn.setRooConsoleType("number");
 			rooColumn.setTypeChunk(getNumberType(type));
-	    }
+	    } else 
+	    	System.out.println(">> untreated type "+type);
 		// mandatory value
 		rooColumn.setNotNullChunk ((column.isRequired())?"--notNull":"");
 		rooColumn.setMinSizeChunk("");//TODO with enrichment
