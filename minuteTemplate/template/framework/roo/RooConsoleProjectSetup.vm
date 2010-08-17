@@ -1,13 +1,18 @@
 #exposeVariableModelSpecific()
 project --topLevelPackage $model.packageRoot
 
-persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY
+persistence setup --provider HIBERNATE --database $database.type
+database properties list
+database properties set --key database.url --value $url
+database properties set --key database.username --value $username
+database properties set --key database.password --value $password
+database properties list
 
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #putRooEntityParams()
 #if(!$isMany2Many)
-entity --class ~.domain.${package.name}.${tableClassName} --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
+entity --class ~.domain.${tableClassName} --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
 #end
 #end
 #end
@@ -22,7 +27,15 @@ entity --class ~.domain.${package.name}.${tableClassName} --identifierField $ide
 ##end
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
+#if(!$column.isPrimaryKey())
+#if(!$columnUtils.isForeignKey($column))
 field $rooConsoleType --fieldName $columnVar ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
+#else
+#set($reference=$referenceUtils.getReference($column))
+#set($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
+field reference --fieldName $columnVar --type ~.domain.$linkedTableClass ${notNullChunk}
+#end
+#end
 #end
 #end
 #end
