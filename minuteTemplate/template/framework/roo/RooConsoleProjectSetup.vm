@@ -23,7 +23,7 @@ entity --class ~.domain.${package.name}.${tableClassName} --testAutomatically
 #end
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
-field $rooConsoleType --fieldName $columnVar ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
+field $rooConsoleType --fieldName $columnVar ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
 #end
 #end
 #end
