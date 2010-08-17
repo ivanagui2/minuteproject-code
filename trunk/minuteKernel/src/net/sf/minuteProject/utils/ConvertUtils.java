@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -182,4 +183,18 @@ public class ConvertUtils {
 		return "no type found";
 	}
 
+	public static boolean isStringType (String dBType) {
+		return (getJavaTypeFromDBType(dBType).equals("String"))?true:false;
+	}
+	
+	public static boolean isDateType (String dBType) {
+		return (FieldType.DATE.equals(dBType) ||
+				FieldType.TIMESTAMP.equals(dBType))?true:false;
+	}	
+
+	public static boolean isNumberType (String dBType) {
+		return (FieldType.BIGINT.equals(dBType) ||
+				FieldType.DECIMAL.equals(dBType) ||
+				FieldType.INTEGER.equals(dBType))?true:false;
+	}
 }
