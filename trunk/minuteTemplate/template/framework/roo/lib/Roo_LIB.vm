@@ -1,5 +1,14 @@
 #macro (putRooColumnParams)
 #putColumnParams()
+#set($rooColumn=$rooUtils.getRooColumn($column))
+#set($minSizeChunk=$rooColumn.minSizeChunk)
+#set($sizeMaxChunk=$rooColumn.sizeMaxChunk)
+#set($rooConsoleType=$rooColumn.rooConsoleType)
+#set($typeChunk=$rooColumn.typeChunk)
+#set($notNullChunk=$rooColumn.notNullChunk)
+#end
+
+#macro(oldRoo)
 #set($minSizeChunk="")
 #if($isMandatory)
 #set($notNullChunk="--notNull")
@@ -12,6 +21,7 @@
 #set($sizeMaxChunk="")
 #end
 #set($rooConsoleType=$rooUtils.getRooConsoleType($column))
+#set($typeChunk=$rooUtils.getRooTypeChunk($column))
 #end
 
 #macro (putRooReferenceParams)
