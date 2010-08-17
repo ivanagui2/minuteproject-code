@@ -1,11 +1,8 @@
-<%@ tag import="org.apache.commons.lang.StringUtils" %>
-
 <%@ attribute name="role" required="true" %>
 
 <%
-     java.lang.String [] roles = StringUtils.split(role, ",");
-     int length = StringUtils.countMatches(role, ",");
-     length++;
+     String [] roles = role.split(",");
+     int length = roles.length;
      boolean isInRole = false;
      for (int i = 0; i < length;i++) {
          if(((javax.servlet.http.HttpServletRequest)((PageContext)jspContext).getRequest()).isUserInRole(roles[i])) {
