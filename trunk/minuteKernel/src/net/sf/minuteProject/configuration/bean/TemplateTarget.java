@@ -109,11 +109,12 @@ public class TemplateTarget extends AbstractConfiguration{
 	
 	public Template getTemplate(String name) {
 		List list = getTemplates();
-		for (int i = 0; i<list.size();i++) {
-			Template template = (Template)list.get(i);
-			if (template.getName().equals(name))
-				return template;
-		}
+		if (list!=null)
+			for (int i = 0; i<list.size();i++) {
+				Template template = (Template)list.get(i);
+				if (template.getName().equals(name))
+					return template;
+			}
 		return null;
 	}
 

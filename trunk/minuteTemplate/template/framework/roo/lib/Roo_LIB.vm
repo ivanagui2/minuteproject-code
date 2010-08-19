@@ -16,20 +16,17 @@
 #set($identifierType=$primaryKeyFullType)
 #end
 
-#macro(oldRoo)
-#set($minSizeChunk="")
-#if($isMandatory)
-#set($notNullChunk="--notNull")
+#macro(rooCommand)
+#getTemplatePropertyValue("showShellCommand")
+#if ($value.equals("true"))
+#if ($template.fileExtension=="cmd")
+#set ($shell = "call roo ")
 #else
-#set($notNullChunk="")
+#set ($shell = "roo ")
 #end
-#if($isLengthPrecisionColumn)
-#set($sizeMaxChunk="--sizeMax $columLengthPrecisionSize")
 #else
-#set($sizeMaxChunk="")
+#set ($shell = "")
 #end
-#set($rooConsoleType=$rooUtils.getRooConsoleType($column))
-#set($typeChunk=$rooUtils.getRooTypeChunk($column))
 #end
 
 #macro (putRooReferenceParams)

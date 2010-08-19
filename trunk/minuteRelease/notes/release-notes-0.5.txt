@@ -1,0 +1,8 @@
+- Roo first implementation
+-- generation of the console script
+-- limitations: does not handle m2m
+- FitNesse new templates
+-- setup fixture that reset the DB and populates back with reference data
+- OpenXava
+-- add templates to handle helper
+-- add shell + ant script to reduce to two the number of steps to generate, build, deploy and test the application
