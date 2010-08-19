@@ -3,8 +3,6 @@
 	<configuration>
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.roo">
 			<data-model>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
-			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
@@ -43,7 +41,6 @@
 			</target> 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   outputdir-root="../../DEV/output/petshopHibernate"
 			   templatedir-root="../../minuteTemplate/template-bsla">
 			</target>
 		</targets>
