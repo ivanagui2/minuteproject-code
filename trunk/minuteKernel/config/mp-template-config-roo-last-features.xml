@@ -18,13 +18,27 @@
 		belongToPackage="true">
 			 
 		<template name="RooConsoleProjectSetup" templateFileName="RooConsoleProjectSetup.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
 			add-model-dir-name="false"
 			file-extension="roo" file-prefix="" file-suffix="" 
 			model-specific="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
 		</template>
 
+		<template name="RooConsoleProjectSetup" templateFileName="RooConsoleProjectSetup.vm" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="" file-suffix="-roo" 
+			model-specific="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="showShellCommand" value="true"/>
+		</template>
+		
+		<template name="RooConsoleProjectSetup" templateFileName="RooConsoleProjectSetup.vm" 
+			add-model-dir-name="false"
+			file-extension="sh" file-prefix="" file-suffix="-roo" 
+			model-specific="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="showShellCommand" value="true"/>
+		</template>		
 	</template-target>
 	
 </target>

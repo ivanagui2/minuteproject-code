@@ -3,8 +3,6 @@
 	<configuration>
 		<model name="petshop" version="1.0" package-root="sf.net.mp.demo.ox">
 			<data-model>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
-			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
@@ -37,7 +35,6 @@
 		<targets>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   outputdir-root="../output/openxava/petshopDummy"
 			   templatedir-root="../../template">
 			</target> 	
 			<target refname="OpenXava" 
@@ -45,21 +42,7 @@
 			   fileName="mp-template-config-openxava-last-features.xml" 
 			   outputdir-root="../output/openxava/petshopOpenXava"
 			   templatedir-root="../../template/framework/openxava">
-			</target> 
-      <!--
-			<target refname="BackendOnBsla" 
-			   name="bsla-hibernate" 
-			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-			   outputdir-root="../../output/petshopHibernate"
-			   templatedir-root="../../template">
-			</target> 	
-			<target refname="MpVaadin" 
-			   name="vaadin" 
-			   fileName="mp-template-config-vaadin-last-features.xml" 
-			   outputdir-root="../../output/petshopVaadin"
-			   templatedir-root="../../template/framework/vaadin">
-			</target>    
-      --> 			
+			</target> 		
 		</targets>
 	</configuration>
 </generator-config>

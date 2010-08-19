@@ -43,7 +43,6 @@
 			</target> 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   outputdir-root="../../DEV/output/petshopHibernate"
 			   templatedir-root="../../minuteTemplate/template-bsla">
 			</target>
 		</targets>
