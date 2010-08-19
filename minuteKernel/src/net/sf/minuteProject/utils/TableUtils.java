@@ -115,6 +115,7 @@ public class TableUtils {
 	}
 	
 	public static boolean isMany2Many (Table table) {
+		if (table==null) return false;
 		return table.isManyToMany();
 	}
 	

@@ -1,18 +1,23 @@
+#rooCommand()
 #exposeVariableModelSpecific()
-project --topLevelPackage $model.packageRoot
+#set ($datasource = $model.dataModel.basicDataSource)
+#exposeJdbc()
+${shell}project --topLevelPackage $model.packageRoot
 
-persistence setup --provider HIBERNATE --database $database.type
-database properties list
-database properties set --key database.url --value $url
-database properties set --key database.username --value $username
-database properties set --key database.password --value $password
-database properties list
+${shell}persistence setup --provider HIBERNATE --database $database.type
+${shell}database properties list
+${shell}database properties set --key database.url --value $datasource.url
+${shell}database properties set --key database.username --value $datasource.username
+#if($datasource.password!="")
+${shell}database properties set --key database.password --value $datasource.password
+#end
+${shell}database properties list
 
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #putRooEntityParams()
 #if(!$isMany2Many)
-entity --class ~.domain.${tableClassName} --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
+${shell}entity --class ~.domain.${tableClassName} --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
 #end
 #end
 #end
@@ -22,18 +27,15 @@ entity --class ~.domain.${tableClassName} --identifierField $identifierField --i
 
 #exposeVariableEntitySpecific()
 #if(!$isMany2Many)
-##foreach($column in ${table.primaryKeyColumns})
-##putColumnParams()
-##end
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
 #if(!$column.isPrimaryKey())
 #if(!$columnUtils.isForeignKey($column))
-field $rooConsoleType --fieldName $columnVar ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${package.name}.${tableClassName}
+${shell}field $rooConsoleType --fieldName $columnVar ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${tableClassName}
 #else
 #set($reference=$referenceUtils.getReference($column))
 #set($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
-field reference --fieldName $columnVar --type ~.domain.$linkedTableClass ${notNullChunk}
+${shell}field reference --fieldName $columnVar --type ~.domain.$linkedTableClass ${notNullChunk}
 #end
 #end
 #end
@@ -47,11 +49,14 @@ field reference --fieldName $columnVar --type ~.domain.$linkedTableClass ${notNu
 #if(!$isMany2Many)
 #foreach ($reference in $table.children)
 #putReferenceParams2()
-field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --element ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality MANY_TO_ONE
+##m2m not supported. Check if link table is m2m.
+#if(!$tableUtils.isMany2Many(${linktableDB}))
+${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --element ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality MANY_TO_ONE
+#end
 #end
 #end
 #end
 #end
 	
-perform eclipse
-perform assembly	
+${shell}perform eclipse
+${shell}perform assembly	
