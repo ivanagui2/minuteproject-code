@@ -97,5 +97,29 @@ public class MpAntTask extends Task {
 		this.configuration = configuration;
 	}
 
+	public String getRootpackage() {
+		return rootpackage;
+	}
+
+	public void setRootpackage(String rootpackage) {
+		this.rootpackage = rootpackage;
+	}
+
+	public String getBusinesspackage() {
+		return businesspackage;
+	}
+
+	public void setBusinesspackage(String businesspackage) {
+		this.businesspackage = businesspackage;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
 	
 }
