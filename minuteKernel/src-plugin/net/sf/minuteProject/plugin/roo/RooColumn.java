@@ -1,11 +1,13 @@
 package net.sf.minuteProject.plugin.roo;
 
 public class RooColumn {
+	
 	private String rooConsoleType, 
 	               minSizeChunk,
 	               sizeMaxChunk,
 	               notNullChunk,
-	               typeChunk;
+	               typeChunk,
+	               columnVariableName;
 
 	public String getRooConsoleType() {
 		return rooConsoleType;
@@ -47,12 +49,23 @@ public class RooColumn {
 		this.typeChunk = typeChunk;
 	}
 
+	public String getColumnVariableName() {
+		return columnVariableName;
+	}
+
+	public void setColumnVariableName(String columnVariableName) {
+		this.columnVariableName = columnVariableName;
+	}
+
 	@Override
 	public String toString() {
-		return "RooColumn [minSizeChunk=" + minSizeChunk + ", notNullChunk="
+		return "RooColumn [columnVariableName=" + columnVariableName
+				+ ", minSizeChunk=" + minSizeChunk + ", notNullChunk="
 				+ notNullChunk + ", rooConsoleType=" + rooConsoleType
 				+ ", sizeMaxChunk=" + sizeMaxChunk + ", typeChunk=" + typeChunk
 				+ "]";
 	}
+
+	
 
 }
