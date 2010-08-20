@@ -1,11 +1,11 @@
 #rooCommand()
 #exposeVariableModelSpecific()
+#rooModel()
 #set ($datasource = $model.dataModel.basicDataSource)
 #exposeJdbc()
 ${shell}project --topLevelPackage $model.packageRoot
 
-${shell}persistence setup --provider HIBERNATE --database $database.type
-${shell}database properties list
+${shell}persistence setup --provider HIBERNATE --database $rooDatabase
 ${shell}database properties set --key database.url --value $datasource.url
 ${shell}database properties set --key database.username --value $datasource.username
 #if($datasource.password!="")
@@ -23,7 +23,7 @@ ${shell}entity --class ~.domain.${tableClassName} --identifierField $identifierF
 #end
 	
 #foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})
+#foreach ($table in ${package.listOfTables})	
 
 #exposeVariableEntitySpecific()
 #if(!$isMany2Many)
@@ -31,11 +31,11 @@ ${shell}entity --class ~.domain.${tableClassName} --identifierField $identifierF
 #putRooColumnParams()
 #if(!$column.isPrimaryKey())
 #if(!$columnUtils.isForeignKey($column))
-${shell}field $rooConsoleType --fieldName $columnVar ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${tableClassName}
+${shell}field $rooConsoleType --fieldName ${rooColumnVariableName} ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${tableClassName}
 #else
 #set($reference=$referenceUtils.getReference($column))
 #set($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
-${shell}field reference --fieldName $columnVar --type ~.domain.$linkedTableClass ${notNullChunk}
+${shell}field reference --fieldName ${rooColumnVariableName} ${notNullChunk} --type ~.domain.$linkedTableClass --class ~.domain.$linkedTableClass
 #end
 #end
 #end
@@ -51,7 +51,7 @@ ${shell}field reference --fieldName $columnVar --type ~.domain.$linkedTableClass
 #putReferenceParams2()
 ##m2m not supported. Check if link table is m2m.
 #if(!$tableUtils.isMany2Many(${linktableDB}))
-${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --element ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality MANY_TO_ONE
+${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --element ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality ONE_TO_MANY
 #end
 #end
 #end

@@ -6,6 +6,7 @@
 #set($rooConsoleType=$rooColumn.rooConsoleType)
 #set($typeChunk=$rooColumn.typeChunk)
 #set($notNullChunk=$rooColumn.notNullChunk)
+#set($rooColumnVariableName=$rooColumn.columnVariableName)
 #end
 
 #macro (putRooEntityParams)
@@ -35,5 +36,12 @@
 #set($notNullChunk="--notNull")
 #else
 #set($notNullChunk="")
+#end
+#end
+
+#macro(rooModel)
+#set ($rooDatabase=$database.type)
+#if ($rooDatabase=="HSQLDB")
+#set ($rooDatabase="HYPERSONIC_IN_MEMORY")
 #end
 #end
