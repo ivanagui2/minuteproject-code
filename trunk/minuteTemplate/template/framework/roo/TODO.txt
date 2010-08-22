@@ -13,4 +13,7 @@ It is not possible to have twice the same variable 'bs' twice. (Compilation uniq
 is ONE_TO_MANY bidirectional always. (implicit MANY_TO_ONE trigger).
 what if we just want unidirectional?
 
+Roo class without version
+
+pom.xml version of hsqldb
 

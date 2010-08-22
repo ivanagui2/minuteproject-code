@@ -31,11 +31,11 @@ ${shell}entity --class ~.domain.${tableClassName} --identifierField $identifierF
 #putRooColumnParams()
 #if(!$column.isPrimaryKey())
 #if(!$columnUtils.isForeignKey($column))
-${shell}field $rooConsoleType --fieldName ${rooColumnVariableName} ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${tableClassName}
+${shell}field $rooConsoleType --fieldName ${rooColumnVariableName} --column $column.name ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${tableClassName}
 #else
 #set($reference=$referenceUtils.getReference($column))
 #set($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
-${shell}field reference --fieldName ${rooColumnVariableName} ${notNullChunk} --type ~.domain.$linkedTableClass --class ~.domain.$linkedTableClass
+${shell}field reference --fieldName ${rooColumnVariableName} --column $column.name ${notNullChunk} --type ~.domain.$linkedTableClass --class ~.domain.$tableClassName
 #end
 #end
 #end
@@ -59,4 +59,4 @@ ${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableV
 #end
 	
 ${shell}perform eclipse
-${shell}perform assembly	
+${shell}perform assembly
