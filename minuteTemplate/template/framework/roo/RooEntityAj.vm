@@ -1,0 +1,102 @@
+package $packageName;
+
+import java.lang.Integer;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Version;
+import ${packageName}.${domainEntityClass};
+import org.springframework.transaction.annotation.Transactional;
+
+privileged aspect $className {
+    
+    @PersistenceContext
+    transient EntityManager ${domainEntityClass}.entityManager;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "${domainEntityClass}ID")
+    private Integer ${domainEntityClass}.${domainEntityClass}id;
+    
+    @Version
+    @Column(name = "version")
+    private Integer ${domainEntityClass}.version;
+    
+    public Integer ${domainEntityClass}.get${domainEntityClass}id() {
+        return this.${domainEntityClass}id;
+    }
+    
+    public void ${domainEntityClass}.set${domainEntityClass}id(Integer id) {
+        this.${domainEntityClass}id = id;
+    }
+    
+    public Integer ${domainEntityClass}.getVersion() {
+        return this.version;
+    }
+    
+    public void ${domainEntityClass}.setVersion(Integer version) {
+        this.version = version;
+    }
+    
+    @Transactional
+    public void ${domainEntityClass}.persist() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.persist(this);
+    }
+    
+    @Transactional
+    public void ${domainEntityClass}.remove() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        if (this.entityManager.contains(this)) {
+            this.entityManager.remove(this);
+        } else {
+            ${domainEntityClass} attached = this.entityManager.find(this.getClass(), this.${domainEntityClass}id);
+            this.entityManager.remove(attached);
+        }
+    }
+    
+    @Transactional
+    public void ${domainEntityClass}.flush() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.flush();
+    }
+    
+    @Transactional
+    public ${domainEntityClass} ${domainEntityClass}.merge() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        ${domainEntityClass} merged = this.entityManager.merge(this);
+        this.entityManager.flush();
+        return merged;
+    }
+    
+    public static final EntityManager ${domainEntityClass}.entityManager() {
+        EntityManager em = new ${domainEntityClass}().entityManager;
+        if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+        return em;
+    }
+    
+    public static long ${domainEntityClass}.count${domainEntityClass}es() {
+        return ((Number) entityManager().createQuery("select count(o) from ${domainEntityClass} o").getSingleResult()).longValue();
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static List<${domainEntityClass}> ${domainEntityClass}.findAll${domainEntityClass}es() {
+        return entityManager().createQuery("select o from ${domainEntityClass} o").getResultList();
+    }
+    
+    public static ${domainEntityClass} ${domainEntityClass}.find${domainEntityClass}(Integer id) {
+        if (id == null) return null;
+        return entityManager().find(${domainEntityClass}.class, id);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static List<${domainEntityClass}> ${domainEntityClass}.find${domainEntityClass}Entries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from ${domainEntityClass} o").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+}
