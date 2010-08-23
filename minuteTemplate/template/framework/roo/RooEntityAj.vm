@@ -8,16 +8,17 @@ import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Version;
-import ${packageName}.${domainEntityClass};
+import ${packageName}.${domainClassName};
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect $className {
-    
+ 
     @PersistenceContext
-    transient EntityManager ${domainEntityClass}.entityManager;
+    transient EntityManager ${domainClassName}.entityManager;
 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -40,7 +41,7 @@ privileged aspect $className {
 #end
 #end
 #end    
-    private $columnType ${domainEntityClass}.$columnVar; ##// pk not fk
+    private $columnType ${domainClassName}.$columnVar; ##// pk not fk
 
 #end
 
@@ -49,81 +50,81 @@ privileged aspect $className {
 #putColumnParams() 
     @Version
     @Column(name = "version")
-    private $columnType ${domainEntityClass}.$columnVar;
+    private $columnType ${domainClassName}.$columnVar;
 #end
     
-    public Integer ${domainEntityClass}.get${domainEntityClass}id() {
-        return this.${domainEntityClass}id;
+    public $primaryKeyType ${domainClassName}.get$primaryKeyJavaNameClass() {
+        return this.$primaryKeyVariable;
     }
     
-    public void ${domainEntityClass}.set${domainEntityClass}id(Integer id) {
-        this.${domainEntityClass}id = id;
+    public void ${domainClassName}.set$primaryKeyJavaNameClass($primaryKeyType id) {
+        this.$primaryKeyVariable = id;
     }
 
 #if ($table.hasVersion())        
-    public $columnType ${domainEntityClass}.get$columnClass() {
+    public $columnType ${domainClassName}.get$columnClass() {
         return this.$columnVar;
     }
     
-    public void ${domainEntityClass}.set$columnClass($columnType $columnVar) {
+    public void ${domainClassName}.set$columnClass($columnType $columnVar) {
         this.$columnVar = $columnVar;
     }
-#end
     
+#end
     @Transactional
-    public void ${domainEntityClass}.persist() {
+    public void ${domainClassName}.persist() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.persist(this);
     }
     
     @Transactional
-    public void ${domainEntityClass}.remove() {
+    public void ${domainClassName}.remove() {
         if (this.entityManager == null) this.entityManager = entityManager();
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            ${domainEntityClass} attached = this.entityManager.find(this.getClass(), this.${domainEntityClass}id);
+            ${domainClassName} attached = this.entityManager.find(this.getClass(), this.$primaryKeyVariable);
             this.entityManager.remove(attached);
         }
     }
     
     @Transactional
-    public void ${domainEntityClass}.flush() {
+    public void ${domainClassName}.flush() {
         if (this.entityManager == null) this.entityManager = entityManager();
         this.entityManager.flush();
     }
     
     @Transactional
-    public ${domainEntityClass} ${domainEntityClass}.merge() {
+    public ${domainClassName} ${domainClassName}.merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        ${domainEntityClass} merged = this.entityManager.merge(this);
+        ${domainClassName} merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }
     
-    public static final EntityManager ${domainEntityClass}.entityManager() {
-        EntityManager em = new ${domainEntityClass}().entityManager;
+    public static final EntityManager ${domainClassName}.entityManager() {
+        EntityManager em = new ${domainClassName}().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
     
-    public static long ${domainEntityClass}.count${domainEntityClass}es() {
-        return ((Number) entityManager().createQuery("select count(o) from ${domainEntityClass} o").getSingleResult()).longValue();
+    public static long ${domainClassName}.count${domainClassName}es() {
+        return ((Number) entityManager().createQuery("select count(o) from ${domainClassName} o").getSingleResult()).longValue();
     }
     
     @SuppressWarnings("unchecked")
-    public static List<${domainEntityClass}> ${domainEntityClass}.findAll${domainEntityClass}es() {
-        return entityManager().createQuery("select o from ${domainEntityClass} o").getResultList();
+    public static List<${domainClassName}> ${domainClassName}.findAll${domainClassName}es() {
+        return entityManager().createQuery("select o from ${domainClassName} o").getResultList();
     }
     
-    public static ${domainEntityClass} ${domainEntityClass}.find${domainEntityClass}(Integer id) {
+    public static ${domainClassName} ${domainClassName}.find${domainClassName}(Integer id) {
         if (id == null) return null;
-        return entityManager().find(${domainEntityClass}.class, id);
+        return entityManager().find(${domainClassName}.class, id);
     }
     
     @SuppressWarnings("unchecked")
-    public static List<${domainEntityClass}> ${domainEntityClass}.find${domainEntityClass}Entries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from ${domainEntityClass} o").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<${domainClassName}> ${domainClassName}.find${domainClassName}Entries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from ${domainClassName} o").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
 }

@@ -11,6 +11,8 @@
 
 #macro (putRooEntityParams)
 #exposeVariableEntitySpecific()
+#rooTemplateDefinition()
+#set($entityAfterRootPackage=$tableUtils.getEntityAfterRootPackage($table, $template, $templateRooDomainObject))
 #set($identifierField=$primaryKeyVariable)
 #set($identifierColumn=$primaryKeyFirstColumn.name)
 ##set($column=$primaryKeyFirstColumn)
@@ -40,8 +42,14 @@
 #end
 
 #macro(rooModel)
+#set ($modelRootPackage=$modelUtils.getModelRootPackage($model))
 #set ($rooDatabase=$database.type)
 #if ($rooDatabase=="HSQLDB")
 #set ($rooDatabase="HYPERSONIC_IN_MEMORY")
 #end
+#end
+
+#macro (rooTemplateDefinition)
+#set($templateRooEntityAj="RooEntityAj")
+#set($templateRooDomainObject="RooDomainObject")
 #end

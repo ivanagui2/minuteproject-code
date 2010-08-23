@@ -3,6 +3,8 @@ package net.sf.minuteProject.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -249,4 +251,12 @@ public class TableUtils {
 		}
 		return null;	
 	}
+	
+	public static String getEntityAfterRootPackage (Table table, Template template, String targetTemplateName) {
+		Model model = table.getDatabase().getDataModel().getModel();
+		String modelRootPackage = ModelUtils.getModelRootPackage(model);
+		String packageName = CommonUtils.getEntityLevelTemplateFullPath(model, table, template, targetTemplateName);
+		return StringUtils.removeStart(packageName, modelRootPackage+".");
+	}
+	
 }

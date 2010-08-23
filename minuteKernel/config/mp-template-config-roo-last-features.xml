@@ -52,7 +52,17 @@
 			file-extension="aj" file-suffix="_Roo_Entity" technicalPackage="domain"
 			entity-specific="true">
 		</template>
-					
+
+		<template name="RooDomainObject" templateFileName="RooDomainObject.vm" 
+			file-extension="java" file-suffix="" technicalPackage="domain"
+			entity-specific="true" is-to-generate="false" check-template-to-generate="true">
+		</template>		
+		
+		<template name="RooEntityToStringAj" templateFileName="RooEntityToStringAj.vm" 
+			file-extension="aj" file-suffix="_Roo_ToString" technicalPackage="domain"
+			entity-specific="true">
+		</template>	
+							
 	</template-target>	
 	
 </target>
