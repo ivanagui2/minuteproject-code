@@ -237,4 +237,16 @@ public class TableUtils {
 		}
 		return parents;
 	}
+	
+	public static Column getVersionColumn (Table table) {
+		return getFirstVersionColumn (table);
+	}
+	private static Column getFirstVersionColumn(Table table) {
+		for (Column column : table.getColumns()) {
+			if (column.isVersion() && !column.isPrimaryKey()) {
+				return column;
+			}
+		}
+		return null;	
+	}
 }

@@ -38,7 +38,21 @@
 			model-specific="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="showShellCommand" value="true"/>
-		</template>		
+		</template>	
+					
 	</template-target>
+	
+  	<template-target 
+    	name="Roo backend"
+		outputdir="roo/src-overwritten"
+		libdir="lib/Roo_LIB.vm"
+		belongToPackage="true">
+			 
+		<template name="RooEntityAj" templateFileName="RooEntityAj.vm" 
+			file-extension="aj" file-suffix="_Roo_Entity" technicalPackage="domain"
+			entity-specific="true">
+		</template>
+					
+	</template-target>	
 	
 </target>

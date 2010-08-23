@@ -259,10 +259,17 @@ public class EnrichmentUtils {
 			Table child = reference[i].getForeignTable();
 //			if (hasTag(child, tag))
 				if (filterMany2Many) {
-					if (child.isManyToMany())
-						list.add(reference[i]);
+					if (child.isManyToMany()) {
+						boolean present = false;
+						for (Reference ref : list) {
+							if (ref==reference[i]) present = true;
+							break;
+						}
+						if (!present) 
+							list.add(reference[i]);
+					}
 				} else
-				list.add(reference[i]);
+					list.add(reference[i]);
 		}
 		return (Reference[]) list.toArray(new Reference[list.size()]);
 	}

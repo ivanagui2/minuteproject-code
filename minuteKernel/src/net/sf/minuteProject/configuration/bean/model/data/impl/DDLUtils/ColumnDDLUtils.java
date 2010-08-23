@@ -449,6 +449,7 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	}
 
 	public boolean isVersion() {
+		if (isVersion==null) return false;
 		return isVersion;
 	}
 

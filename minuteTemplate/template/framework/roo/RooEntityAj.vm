@@ -1,3 +1,4 @@
+#exposeVariableEntitySpecific()
 package $packageName;
 
 import java.lang.Integer;
@@ -17,15 +18,39 @@ privileged aspect $className {
     
     @PersistenceContext
     transient EntityManager ${domainEntityClass}.entityManager;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "${domainEntityClass}ID")
-    private Integer ${domainEntityClass}.${domainEntityClass}id;
-    
+
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many)
+#if (!$isPkUserProvided)
+#if ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+#elseif ($databaseUtils.isPrimaryKeyPolicySequence($table))
+#set ($sequenceName = $databaseUtils.provideSequence($table))
+    @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
+#end
+#end
+    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+#if (!$isMany2Many)
+#if (!$isPkUserProvided)
+#set ($sequenceName = $databaseUtils.provideSequence($table))
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
+#end
+#end
+#end    
+    private $columnType ${domainEntityClass}.$columnVar; ##// pk not fk
+
+#end
+
+#if ($table.hasVersion())
+#set ($column = $tableUtils.getVersion($table))
+#putColumnParams() 
     @Version
     @Column(name = "version")
-    private Integer ${domainEntityClass}.version;
+    private $columnType ${domainEntityClass}.$columnVar;
+#end
     
     public Integer ${domainEntityClass}.get${domainEntityClass}id() {
         return this.${domainEntityClass}id;
@@ -34,14 +59,16 @@ privileged aspect $className {
     public void ${domainEntityClass}.set${domainEntityClass}id(Integer id) {
         this.${domainEntityClass}id = id;
     }
-    
-    public Integer ${domainEntityClass}.getVersion() {
-        return this.version;
+
+#if ($table.hasVersion())        
+    public $columnType ${domainEntityClass}.get$columnClass() {
+        return this.$columnVar;
     }
     
-    public void ${domainEntityClass}.setVersion(Integer version) {
-        this.version = version;
+    public void ${domainEntityClass}.set$columnClass($columnType $columnVar) {
+        this.$columnVar = $columnVar;
     }
+#end
     
     @Transactional
     public void ${domainEntityClass}.persist() {
