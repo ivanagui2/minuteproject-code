@@ -63,6 +63,7 @@ public class Template extends TemplateTarget {
 	private String entityDirNameSuffix;
 	private String entityDirNamePrefix;
 	private String appendEndPackageDir;
+	private String isToGenerate;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -241,6 +242,7 @@ public class Template extends TemplateTarget {
 	}
 	
 	public boolean isToGenerate(GeneratorBean bean) {
+		if (!isToGenerate()) return false;
 		boolean isToGenerate = 
 			getPluginIsToGenerate(
 				getFileBuilderPlugin(getIsTemplateToGenerateMethodPluginName()), 
@@ -249,6 +251,12 @@ public class Template extends TemplateTarget {
 		if (!isToGenerate)
 			return false;
 		return true;
+	}
+	
+	public boolean isToGenerate () {
+		if (isToGenerate!=null && isToGenerate.equals("false")) return false;
+		if (getCheckTemplateToGenerate()!=null && getCheckTemplateToGenerate().equals("false")) return false;
+		else return true;
 	}
 	
 	private String getIsTemplateToGenerateMethodPluginName () {
@@ -343,9 +351,9 @@ public class Template extends TemplateTarget {
 		super.setPackageRoot(packageRoot);
 	}
 	
-	private Model getModel (Template template) {
-		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
-	}
+//	private Model getModel (Template template) {
+//		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
+//	}
 	
     public String getGeneratorOutputFileNameForView (View view, Template template) {
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
@@ -489,6 +497,14 @@ public class Template extends TemplateTarget {
 		this.isTemplateToGenerateMethod = isTemplateToGenerateMethod;
 	}
 
+	public String getIsToGenerate() {
+		return isToGenerate;
+	}
+
+	public void setIsToGenerate(String isToGenerate) {
+		this.isToGenerate = isToGenerate;
+	}
+
 	public String getScopeSpecificValue() {
 		return scopeSpecificValue;
 	}
@@ -603,4 +619,6 @@ public class Template extends TemplateTarget {
 	public String getOutputdir() {
 		return super.getOutputdir();
 	}
+	
+	
 }

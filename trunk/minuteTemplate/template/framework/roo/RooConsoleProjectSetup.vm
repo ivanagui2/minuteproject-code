@@ -3,7 +3,7 @@
 #rooModel()
 #set ($datasource = $model.dataModel.basicDataSource)
 #exposeJdbc()
-${shell}project --topLevelPackage $model.packageRoot
+${shell}project --topLevelPackage $modelRootPackage
 
 ${shell}persistence setup --provider HIBERNATE --database $rooDatabase
 ${shell}database properties set --key database.url --value $datasource.url
@@ -17,7 +17,7 @@ ${shell}database properties list
 #foreach ($table in ${package.listOfTables})
 #putRooEntityParams()
 #if(!$isMany2Many)
-${shell}entity --class ~.domain.${tableClassName} --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
+${shell}entity --class ~.$entityAfterRootPackage --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
 #end
 #end
 #end

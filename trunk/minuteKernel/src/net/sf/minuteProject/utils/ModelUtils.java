@@ -220,4 +220,8 @@ public class ModelUtils {
 		return null;
 	}
 	
+	public static String getModelRootPackage (Model model) {
+		return model.getPackageRoot()+"."+model.getName();
+	}
+	
 }

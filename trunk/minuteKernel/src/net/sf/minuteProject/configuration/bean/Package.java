@@ -66,8 +66,11 @@ public class Package extends AbstractConfiguration{
 //		StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
 			sb.append(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
 		if (template.getAddBusinessPackageDirName()!=null && template.getAddBusinessPackageDirName().equals("false")) {}
-		else
-			sb.append("."+getName());
+		else {
+			String name = getName();
+			if (name!=null && !name.equals(""))
+				sb.append("."+name);
+		}
 		return sb.toString();
 	}
 

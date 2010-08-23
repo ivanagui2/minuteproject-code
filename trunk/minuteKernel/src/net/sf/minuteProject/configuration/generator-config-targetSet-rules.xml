@@ -121,6 +121,7 @@
 					<alias attr-name="is-template-to-generate-method" prop-name="isTemplateToGenerateMethod" />
 					<alias attr-name="check-template-to-generate" prop-name="checkTemplateToGenerate" />
 					<alias attr-name="scope-specific-value" prop-name="scopeSpecificValue" />
+					<alias attr-name="is-to-generate" prop-name="isToGenerateMethod" />
 					
 				</set-properties-rule> 	
 				<pattern value="property">
