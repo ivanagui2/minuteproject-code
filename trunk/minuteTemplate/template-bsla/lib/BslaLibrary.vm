@@ -180,6 +180,13 @@
 #largeFormat()
 #end
 
+#macro (columnJavaNaming)
+#if ($javaUtils.isReservedWord($columnVar))
+#set($columnVar="${columnVar}_Name")
+#set($columnClass="${columnClass}_Name")
+#end
+#end
+
 #macro (exposeM2MSpecific)
 #set ($linkedTableDB = $linkReference.localTable)
 #set ($linkedTableDBName = $linkReference.localTableName)

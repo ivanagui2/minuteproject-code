@@ -21,7 +21,7 @@
 					<condition type="exclude" startsWith="DUAL"></condition>
 					<condition type="exclude" startsWith="ID_GEN"></condition>
 				</generation-condition>		
-				<business-package default="pet">
+				<business-package default="">
 				</business-package>		
 				<enrichment>
 					<entity name="CATEGORY" content-type="reference-data" >

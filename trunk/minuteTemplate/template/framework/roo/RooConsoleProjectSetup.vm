@@ -29,7 +29,7 @@ ${shell}entity --class ~.domain.${tableClassName} --identifierField $identifierF
 #if(!$isMany2Many)
 #foreach ($column in ${table.attributes})
 #putRooColumnParams()
-#if(!$column.isPrimaryKey())
+#if(!$column.isPrimaryKey() && !$column.isVersion())
 #if(!$columnUtils.isForeignKey($column))
 ${shell}field $rooConsoleType --fieldName ${rooColumnVariableName} --column $column.name ${typeChunk} ${minSizeChunk} ${notNullChunk} ${sizeMaxChunk} --class ~.domain.${tableClassName}
 #else

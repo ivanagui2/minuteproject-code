@@ -26,6 +26,7 @@ public class Template extends TemplateTarget {
 	public static final String FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS = "FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS";
 	public static final String FORMAT_UPPER_CASE_FIRST_LETTER = "FORMAT_UPPER_CASE_FIRST_LETTER";
 	public static final String FORMAT_LOWER_CASE_FIRST_LETTER = "FORMAT_LOWER_CASE_FIRST_LETTER";
+	public static final String BLANK = "";
 		
 	private String templateFileName;
 	private String subdir;
@@ -115,12 +116,14 @@ public class Template extends TemplateTarget {
 		this.fileExtension = fileExtension;
 	}
 	public String getFilePrefix() {
+		if (filePrefix==null) return BLANK;
 		return filePrefix;
 	}
 	public void setFilePrefix(String filePrefix) {
 		this.filePrefix = filePrefix;
 	}
 	public String getFileSuffix() {
+		if (fileSuffix==null) return BLANK;
 		return fileSuffix;
 	}
 	public void setFileSuffix(String fileSuffix) {
@@ -211,8 +214,8 @@ public class Template extends TemplateTarget {
 	public String getNonPluginFileMain (String input) {
 		if ((addModelName!=null && addModelName.equals("false")) ||
 			(addScopeName!=null && addScopeName.equals("false")) )
-			return filePrefix+fileSuffix;
-		return filePrefix+input+fileSuffix;
+			return getFilePrefix()+getFileSuffix();
+		return getFilePrefix()+input+getFileSuffix();
 	}
 	
 	private String getPluginFileMain (GeneratorBean bean) {

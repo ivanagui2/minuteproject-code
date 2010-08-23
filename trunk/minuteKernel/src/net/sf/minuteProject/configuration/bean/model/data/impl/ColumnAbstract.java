@@ -417,6 +417,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	public void setIsVersion(Boolean isVersion) {
 		this.isVersion = isVersion;
 	}
+	
 	public boolean isVersion() {
 		return isVersion;
 	}

@@ -130,6 +130,10 @@ public class ${className} {
 #columnJavaNaming()
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
+#if ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
+    @Hidden @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+#elseif ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
@@ -139,6 +143,7 @@ public class ${className} {
 #if (!$isPkUserProvided)
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
+#end
 #end
 #end
     private $columnType $columnVar; ##// pk not fk
@@ -233,19 +238,36 @@ public class ${className} {
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
     private Set <$linkclass> ${link}${columnclass}s = new HashSet();
 
-#else
+##else
+##foreach ($linkReference in $enrichmentUtils.getLinkedMany2ManyReference($table))
+##exposeM2MSpecific()
+##    @ManyToMany
+##    @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
+##        joinColumns=@JoinColumn(name="$columnDB.name"), //$columnDB.name
+##        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
+##    )
+##    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+##
+##end    
+#end
+#end
+
+##foreach ($reference in $childReferences)
+##putReferenceParams()
+##if($linktableDB.isManyToMany())
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
+#exposeImportParamsUML($targetTable)
     @ManyToMany
     @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
-        joinColumns=@JoinColumn(name="$columnDB.name"), //$columnDB.name
+        joinColumns=@JoinColumn(name="$linkReference.foreignColumnName"), //$columnDB.name
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
     )
     private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
 
-#end    
 #end
-#end
+##end
+##end
 
     /**
     * Default constructor
@@ -355,9 +377,25 @@ public class ${className} {
     	    get${linkclass}${columnclass}s().add($link);
     }
     
-#else
+##else
+##foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+##exposeM2MSpecific() 
+##    public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
+##        if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
+##            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+##        }
+##        return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+##    }
+##
+##    public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
+##        this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+##    }	
+##        
+##end
+#end    
+#end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
-#exposeM2MSpecific() 
+#exposeM2MSpecific()
     public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
         if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
             ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
@@ -368,9 +406,6 @@ public class ${className} {
     public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
         this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
     }	
-        
-#end
-#end    
-#end
 
+#end
 }
