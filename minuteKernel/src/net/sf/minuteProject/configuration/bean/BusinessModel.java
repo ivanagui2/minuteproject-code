@@ -216,16 +216,24 @@ public class BusinessModel {
 	private void complementWithViewVirtualPrimaryKey(View view, Entity entity) {
 		VirtualPrimaryKey virtualPrimaryKey = entity.getVirtualPrimaryKey();
 		if (virtualPrimaryKey!=null) {
-			for (Property property : virtualPrimaryKey.getProperties()) {
-				if (property.getName().equals("virtualPrimaryKey")) {
-					Column column = ColumnUtils.getColumn(view, property.getValue());
-					if (column!=null) {
-						//Column col = column.
-						view.addVirtualPrimaryKey(column);
+			if (virtualPrimaryKey.getColumnName()!=null) {
+				addVirtualPrimaryKey(view, virtualPrimaryKey.getColumnName());
+			}
+			if (virtualPrimaryKey.getProperties()!=null)
+				for (Property property : virtualPrimaryKey.getProperties()) {
+					if (property.getName().equals("virtualPrimaryKey")) {
+						addVirtualPrimaryKey(view, property.getValue());
 					}
 				}
-			}
 		}
+	}
+	
+	private void addVirtualPrimaryKey(View view, String columnName) {
+		Column column = ColumnUtils.getColumn(view, columnName);
+		if (column!=null) {
+			//Column col = column.
+			view.addVirtualPrimaryKey(column);
+		}		
 	}
 	
 	private void complementWithViewField(View view, Entity entity) {

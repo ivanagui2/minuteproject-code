@@ -245,6 +245,7 @@
 					<set-next-rule methodname="setVirtualPrimaryKey" paramtype="net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey"/>		
 					<set-properties-rule>
 						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="column-name" prop-name="columnName" />
 					</set-properties-rule>			
 					<pattern value="property">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		

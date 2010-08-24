@@ -10,6 +10,7 @@ public class VirtualPrimaryKey extends AbstractConfiguration{
 
 	private boolean isRealPrimaryKey;
 	private List<Property> properties;
+	private String columnName;
 	
 	public void setProperty (Property property) {
 		addProperty(property);
@@ -34,6 +35,12 @@ public class VirtualPrimaryKey extends AbstractConfiguration{
 
 	public void setProperties(List<Property> properties) {
 		this.properties = properties;
+	}
+	public String getColumnName() {
+		return columnName;
+	}
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}	
 	
 	
