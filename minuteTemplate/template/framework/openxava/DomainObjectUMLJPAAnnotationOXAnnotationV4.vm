@@ -187,7 +187,8 @@ public class ${className} {
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
 #if(!$isMany2Many)
-    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false#end )
+#OxJPAFKisPK()
+    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false#end $insertableUpdatable )
 #else
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
@@ -219,7 +220,7 @@ public class ${className} {
 #else
 #set($colVar = ${linkedTableVariable})
 #end
-    private $linkedTableClass ${colVar}; //$linkedTableVariable; //${localColumnVariable}; 
+    private $linkedTableClass ${colVar}; 
     
 #end
 
@@ -237,37 +238,22 @@ public class ${className} {
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar")
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
     private Set <$linkclass> ${link}${columnclass}s = new HashSet();
-
-##else
-##foreach ($linkReference in $enrichmentUtils.getLinkedMany2ManyReference($table))
-##exposeM2MSpecific()
-##    @ManyToMany
-##    @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
-##        joinColumns=@JoinColumn(name="$columnDB.name"), //$columnDB.name
-##        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
-##    )
-##    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
-##
-##end    
+   
 #end
 #end
 
-##foreach ($reference in $childReferences)
-##putReferenceParams()
-##if($linktableDB.isManyToMany())
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeImportParamsUML($targetTable)
+#set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
     @ManyToMany
     @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
-        joinColumns=@JoinColumn(name="$linkReference.foreignColumnName"), //$columnDB.name
+        joinColumns=@JoinColumn(name="$targetColumn.name"), //$columnDB.name $targetColumn
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
     )
     private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
 
 #end
-##end
-##end
 
     /**
     * Default constructor

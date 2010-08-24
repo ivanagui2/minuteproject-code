@@ -379,4 +379,12 @@ public class EnrichmentUtils {
 			return true;
 		return false;
 	}
+	
+	public static Column getOtherColumn (Table table, Column column) {
+		for (Column col : table.getColumns()) {
+			if (!col.getName().equals(column.getName()))
+				return col;
+		}
+		return null;
+	}
 }
