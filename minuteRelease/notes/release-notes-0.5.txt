@@ -6,3 +6,6 @@
 - OpenXava
 -- add templates to handle helper
 -- add shell + ant script to reduce to two the number of steps to generate, build, deploy and test the application
+
+- sh commands for demos
+- concept entity-order (scope (detail-one, detail-list, reference-one, reference-many), type(remove-not-specified, append-rest-default-order), order-field)
