@@ -48,9 +48,9 @@ public class TestUtils {
 		if (dBType.equals("BLOB"))
 			return  "getBlob("+length+")";	
 		if (dBType.equals("BINARY"))
-			return  "getBlob"+length+")";	
+			return  "getBlob("+length+")";	
 		if (dBType.equals("CLOB"))
-			return  "getClob"+length+")";	
+			return  "getClob("+length+")";	
 		if (dBType.equals("NVARCHAR2"))
 			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("OTHER"))
