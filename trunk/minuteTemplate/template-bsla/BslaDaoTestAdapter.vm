@@ -94,4 +94,11 @@ public class $className extends AbstractTransactionalJUnit4SpringContextTests {
        return new Timestamp(getDate().getTime());
     }
         
+    protected String getBlob(int size) {
+       return new String (new String[size].toString());
+    }
+    
+    protected String getClob(int size) {
+       return new String (new String[size].toString());    
+    }
 }
