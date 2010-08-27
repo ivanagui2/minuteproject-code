@@ -130,10 +130,8 @@ public class ${className} {
 #columnJavaNaming()
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
-#if ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
-    @Hidden @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
-#elseif ($databaseUtils.isPrimaryKeyPolicySequence($table))
+##    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+#if ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
@@ -141,8 +139,12 @@ public class ${className} {
     #if (!$isPkUserProvided)@Hidden #end@Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
+#if ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
+#elseif ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
+    @GeneratedValue(strategy = GenerationType.AUTO)
+#end
 #end
 #end
 #end
@@ -235,7 +237,7 @@ public class ${className} {
 #else
 #set ($foreignColumnVar = $domainVariableName)
 #end
-    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar")
+    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar", cascade=CascadeType.ALL)
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
     private Set <$linkclass> ${link}${columnclass}s = new HashSet();
    
