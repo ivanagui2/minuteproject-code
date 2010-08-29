@@ -44,16 +44,7 @@ public class OpenXavaUtils {
 	public static boolean hasTabWithRef (Table table) {
 		return (getTabWithRef(table).isEmpty())?false:true;
 	}
-//	#macro (writeTabDefaultProperties)
-//	#foreach ($column in ${table.attributes})
-//	#putColumnParams()
-//	#columnJavaNaming()
-//	#if (!$column.isLob())
-//	##     +#if ($velocityCount!=1)+", #else "#end $columnVar "
-//	     +", $columnVar "
-//	#end
-//	#end
-//	#end
+	
 	private static List<String> getTabDefaultProperties (Table table) {
 		List<String> list = new ArrayList<String>();
 		for (Column column : table.getAttributes()) {
@@ -62,23 +53,7 @@ public class OpenXavaUtils {
 		}
 		return list;
 	}
-	
-//	#macro (writeTabParentSemanticReference)
-//	#foreach ($reference in $table.parents)
-//	#putReferenceParams2()
-//	#set($semanticReference = $linktableDB.semanticReference)
-//	#if ($tableUtils.isReferenceDataContentType($linktableDB))   
-//	#if($table.hasAttribute())
-//	     +", "+
-//	#end
-//	#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
-//	      "${linkedTableVariable}.$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
-//	#else "
-//	#end 
-//	#end 
-//	#end
-//	#end
-//	#end	
+		
 	private static List<String> getTabParentSemanticReference (Table table) {
 		List<String> list = new ArrayList<String>();
 		for (Reference reference : table.getParents()) {
@@ -94,4 +69,5 @@ public class OpenXavaUtils {
 		}
 		return list;
 	}
+
 }
