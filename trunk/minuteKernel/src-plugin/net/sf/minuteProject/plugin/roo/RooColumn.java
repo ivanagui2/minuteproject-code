@@ -7,7 +7,8 @@ public class RooColumn {
 	               sizeMaxChunk,
 	               notNullChunk,
 	               typeChunk,
-	               columnVariableName;
+	               columnVariableName,
+	               columnClassName;
 
 	public String getRooConsoleType() {
 		return rooConsoleType;
@@ -55,6 +56,14 @@ public class RooColumn {
 
 	public void setColumnVariableName(String columnVariableName) {
 		this.columnVariableName = columnVariableName;
+	}
+
+	public String getColumnClassName() {
+		return columnClassName;
+	}
+
+	public void setColumnClassName(String columnClassName) {
+		this.columnClassName = columnClassName;
 	}
 
 	@Override

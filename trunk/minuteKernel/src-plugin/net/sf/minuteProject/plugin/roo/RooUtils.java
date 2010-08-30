@@ -43,6 +43,7 @@ public class RooUtils {
 		rooColumn.setMinSizeChunk("");//TODO with enrichment
 		rooColumn.setSizeMaxChunk (isLengthPrecisionColumn(column)?"--sizeMax "+column.getSizeAsInt():"");
 		rooColumn.setColumnVariableName (getRooEntityFieldVariable(column));
+		rooColumn.setColumnClassName(getRooEntityClassName(column));
 		return rooColumn;
 	}
 
@@ -60,6 +61,18 @@ public class RooUtils {
 		return getRooEntityFieldVariable(column.getName());
 	}
 
+	public static String getRooEntityClassName (Column column) {
+		return getRooEntityClassName(column.getName());
+	}
+
+	private static String getRooEntityClassName(String name) {
+		String nameLC = StringUtils.lowerCase(name);
+		String s = FormatUtils.getJavaName(name);
+		if (SqlUtils.isReservedWord(nameLC) || JavaUtils.isReservedWord(nameLC))
+			return s+"_";
+		return s;
+	}
+	
 	private static String getRooEntityFieldVariable(String name) {
 		String nameLC = StringUtils.lowerCase(name);
 		String s = FormatUtils.getJavaNameVariable(name);

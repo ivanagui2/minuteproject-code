@@ -44,13 +44,14 @@
 	
   	<template-target 
     	name="Roo backend"
-		outputdir="roo/src-overwritten"
+		outputdir="roo/src-overwritten/main/java"
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
 			 
 		<template name="RooEntityAj" templateFileName="RooEntityAj.vm" 
 			file-extension="aj" file-suffix="_Roo_Entity" technicalPackage="domain"
-			entity-specific="true">
+			entity-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
 		<template name="RooDomainObject" templateFileName="RooDomainObject.vm" 
@@ -60,7 +61,32 @@
 		
 		<template name="RooEntityToStringAj" templateFileName="RooEntityToStringAj.vm" 
 			file-extension="aj" file-suffix="_Roo_ToString" technicalPackage="domain"
-			entity-specific="true">
+			entity-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+							
+	</template-target>	
+	
+  	<template-target 
+    	name="Roo backend"
+		outputdir="roo/src-overwritten/test/java"
+		libdir="lib/Roo_LIB.vm"
+		belongToPackage="true">
+			 
+		<template name="RooIntegrationTestAj" templateFileName="RooIntegrationTestAj.vm" 
+			file-extension="aj" file-suffix="IntegrationTest_Roo_IntegrationTest" technicalPackage="domain"
+			entity-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+
+		<template name="RooDomainDataOnDemand" templateFileName="RooDomainDataOnDemand.vm" 
+			file-extension="java" file-suffix="DataOnDemand" technicalPackage="domain"
+			entity-specific="true" is-to-generate="false" check-template-to-generate="true">
+		</template>			
+		
+		<template name="RooIntegrationTest" templateFileName="RooIntegrationTest.vm" 
+			file-extension="java" file-suffix="IntegrationTest" technicalPackage="domain"
+			entity-specific="true" is-to-generate="false" check-template-to-generate="true">
 		</template>	
 							
 	</template-target>	
