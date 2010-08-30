@@ -8,8 +8,8 @@ privileged aspect $className {
     public String ${domainClassName}.toString() {
         StringBuilder sb = new StringBuilder();
 #foreach($column in $table.columns)
-#putColumnParams()
-        sb.append("$columnVar: ").append(get$columnClass()).append(", ");
+#putRooColumnParams()
+        sb.append("$columnVar: ").append(get$rooColumnClassName()).append(", ");
 #end        
         return sb.toString();
     }

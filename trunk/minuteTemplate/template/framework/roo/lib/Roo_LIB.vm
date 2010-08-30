@@ -7,6 +7,7 @@
 #set($typeChunk=$rooColumn.typeChunk)
 #set($notNullChunk=$rooColumn.notNullChunk)
 #set($rooColumnVariableName=$rooColumn.columnVariableName)
+#set($rooColumnClassName=$rooColumn.columnClassName)
 #end
 
 #macro (putRooEntityParams)
@@ -52,4 +53,16 @@
 #macro (rooTemplateDefinition)
 #set($templateRooEntityAj="RooEntityAj")
 #set($templateRooDomainObject="RooDomainObject")
+#set($templateRooIntegrationTestAj="RooIntegrationTestAj")
+#set($templateRooIntegrationTest="RooIntegrationTest")
+#set($templateRooDomainDataOnDemand="RooDomainDataOnDemand")
 #end
+
+#macro (exposeRooTestSpecific)
+#rooTemplateDefinition
+#set($importRooDomainDataOnDemand=$commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateRooDomainDataOnDemand))
+#set($rooDomainDataOnDemand = $commonUtils.getTemplateClassName($tableDB, $model, $templateRooDomainDataOnDemand))
+#set($rooIntegrationTestClassName=$commonUtils.getTemplateClassName($tableDB, $model, $templateRooIntegrationTest))
+#set($importDomainObject = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateRooDomainObject))
+#end
+

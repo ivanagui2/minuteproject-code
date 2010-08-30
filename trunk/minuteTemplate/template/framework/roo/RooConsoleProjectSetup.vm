@@ -59,4 +59,4 @@ ${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableV
 #end
 	
 ${shell}perform eclipse
-${shell}perform assembly
+
