@@ -26,8 +26,7 @@ privileged aspect $className {
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 #elseif ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
@@ -35,7 +34,7 @@ privileged aspect $className {
 #end
     @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if (!$isMany2Many)
-#if (!$isPkUserProvided)
+#if (!$isPkUserProvided && $databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
 #end

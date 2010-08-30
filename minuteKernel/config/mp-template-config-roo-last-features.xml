@@ -44,7 +44,7 @@
 	
   	<template-target 
     	name="Roo backend"
-		outputdir="roo/src-overwritten/main/java"
+		outputdir="roo/src-generated/main/java"
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
 			 
@@ -69,7 +69,7 @@
 	
   	<template-target 
     	name="Roo backend"
-		outputdir="roo/src-overwritten/test/java"
+		outputdir="roo/src-generated/test/java"
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
 			 
