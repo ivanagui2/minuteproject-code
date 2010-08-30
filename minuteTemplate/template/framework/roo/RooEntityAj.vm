@@ -117,7 +117,7 @@ privileged aspect $className {
         return entityManager().createQuery("select o from ${domainClassName} o").getResultList();
     }
     
-    public static ${domainClassName} ${domainClassName}.find${domainClassName}(Integer id) {
+    public static ${domainClassName} ${domainClassName}.find${domainClassName}($primaryKeyFullType id) {
         if (id == null) return null;
         return entityManager().find(${domainClassName}.class, id);
     }

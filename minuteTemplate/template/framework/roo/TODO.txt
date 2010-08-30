@@ -17,3 +17,16 @@ Roo class without version
 
 pom.xml version of hsqldb
 
+--
+steps:
+>generate (put mvn jdbc jar)
+>open roo console inject .roo file
+rem: the output is nearly correct (pk policy is to be overwritten, same as version)
+>copy src-overwritten into src
+
+>persistence.xml remove hibernate.autoddl...
+>change pom.xml to correct hsqldb.jar, version
+>mvn package
+
+Not taken into account:
+>m2m

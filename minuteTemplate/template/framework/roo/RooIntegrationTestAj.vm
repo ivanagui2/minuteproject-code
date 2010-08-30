@@ -1,6 +1,8 @@
+#exposeVariableEntitySpecific()
+#exposeRooTestSpecific()
 package ${packageName};
 
-import ${rooDomainDataOnDemand};
+import ${importRooDomainDataOnDemand};
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,38 +20,38 @@ privileged aspect ${className} {
     private ${rooDomainDataOnDemand} ${rooIntegrationTestClassName}.dod;
     
     @Test
-    public void ${rooIntegrationTestClassName}.testCountAddresses() {
+    public void ${rooIntegrationTestClassName}.testCount${domainClassName}ses() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        long count = ${importDomainObject}.countAddresses();
+        long count = ${importDomainObject}.count${domainClassName}es();
         org.junit.Assert.assertTrue("Counter for '${domainClassName}' incorrectly reported there were no entries", count > 0);
     }
     
     @Test
     public void ${rooIntegrationTestClassName}.testFind${domainClassName}() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        java.lang.Integer id = dod.getRandom${domainClassName}().getAddressid();
+        $primaryKeyFullType id = dod.getRandom${domainClassName}().get$primaryKeyJavaNameClass();
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to provide an identifier", id);
-        ${importDomainObject} obj = ${importDomainObject}.findAddress(id);
+        ${importDomainObject} obj = ${importDomainObject}.find${domainClassName}(id);
         org.junit.Assert.assertNotNull("Find method for '${domainClassName}' illegally returned null for id '" + id + "'", obj);
-        org.junit.Assert.assertEquals("Find method for '${domainClassName}' returned the incorrect identifier", id, obj.getAddressid());
+        org.junit.Assert.assertEquals("Find method for '${domainClassName}' returned the incorrect identifier", id, obj.get$primaryKeyJavaNameClass());
     }
     
     @Test
-    public void ${rooIntegrationTestClassName}.testFindAllAddresses() {
+    public void ${rooIntegrationTestClassName}.testFindAll${domainClassName}es() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        long count = ${importDomainObject}.countAddresses();
+        long count = ${importDomainObject}.count${domainClassName}es();
         org.junit.Assert.assertTrue("Too expensive to perform a find all test for '${domainClassName}', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
-        java.util.List<${importDomainObject}> result = ${importDomainObject}.findAllAddresses();
+        java.util.List<${importDomainObject}> result = ${importDomainObject}.findAll${domainClassName}es();
         org.junit.Assert.assertNotNull("Find all method for '${domainClassName}' illegally returned null", result);
         org.junit.Assert.assertTrue("Find all method for '${domainClassName}' failed to return any data", result.size() > 0);
     }
     
     @Test
-    public void ${rooIntegrationTestClassName}.testFindAddressEntries() {
+    public void ${rooIntegrationTestClassName}.testFind${domainClassName}Entries() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        long count = ${importDomainObject}.countAddresses();
+        long count = ${importDomainObject}.count${domainClassName}es();
         if (count > 20) count = 20;
-        java.util.List<${importDomainObject}> result = ${importDomainObject}.findAddressEntries(0, (int)count);
+        java.util.List<${importDomainObject}> result = ${importDomainObject}.find${domainClassName}Entries(0, (int)count);
         org.junit.Assert.assertNotNull("Find entries method for '${domainClassName}' illegally returned null", result);
         org.junit.Assert.assertEquals("Find entries method for '${domainClassName}' returned an incorrect number of entries", count, result.size());
     }
@@ -58,53 +60,60 @@ privileged aspect ${className} {
     @Transactional
     public void ${rooIntegrationTestClassName}.testFlush() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        java.lang.Integer id = dod.getRandom${domainClassName}().getAddressid();
+        $primaryKeyFullType id = dod.getRandom${domainClassName}().get$primaryKeyJavaNameClass();
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to provide an identifier", id);
-        ${importDomainObject} obj = ${importDomainObject}.findAddress(id);
+        ${importDomainObject} obj = ${importDomainObject}.find${domainClassName}(id);
         org.junit.Assert.assertNotNull("Find method for '${domainClassName}' illegally returned null for id '" + id + "'", obj);
-        boolean modified =  dod.modifyAddress(obj);
-        java.lang.Integer currentVersion = obj.getVersion();
+        boolean modified =  dod.modify${domainClassName}(obj);
+//        java.lang.Integer currentVersion = obj.getVersion();
         obj.flush();
-        org.junit.Assert.assertTrue("Version for '${domainClassName}' failed to increment on flush directive", obj.getVersion() > currentVersion || !modified);
+//       org.junit.Assert.assertTrue("Version for '${domainClassName}' failed to increment on flush directive", obj.getVersion() > currentVersion || !modified);
     }
     
     @Test
     @Transactional
     public void ${rooIntegrationTestClassName}.testMerge() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        java.lang.Integer id = dod.getRandom${domainClassName}().getAddressid();
+        $primaryKeyFullType id = dod.getRandom${domainClassName}().get$primaryKeyJavaNameClass();
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to provide an identifier", id);
-        ${importDomainObject} obj = ${importDomainObject}.findAddress(id);
+        ${importDomainObject} obj = ${importDomainObject}.find${domainClassName}(id);
         org.junit.Assert.assertNotNull("Find method for '${domainClassName}' illegally returned null for id '" + id + "'", obj);
-        boolean modified =  dod.modifyAddress(obj);
-        java.lang.Integer currentVersion = obj.getVersion();
+        boolean modified =  dod.modify${domainClassName}(obj);
+//        java.lang.Integer currentVersion = obj.getVersion();
         obj.merge();
         obj.flush();
-        org.junit.Assert.assertTrue("Version for '${domainClassName}' failed to increment on merge and flush directive", obj.getVersion() > currentVersion || !modified);
+//        org.junit.Assert.assertTrue("Version for '${domainClassName}' failed to increment on merge and flush directive", obj.getVersion() > currentVersion || !modified);
     }
     
     @Test
     @Transactional
     public void ${rooIntegrationTestClassName}.testPersist() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        ${importDomainObject} obj = dod.getNewTransientAddress(Integer.MAX_VALUE);
+        ${importDomainObject} obj = dod.getNewTransient${domainClassName}(Integer.MAX_VALUE);
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to provide a new transient entity", obj);
-        org.junit.Assert.assertNull("Expected '${domainClassName}' identifier to be null", obj.getAddressid());
+        org.junit.Assert.assertNull("Expected '${domainClassName}' identifier to be null", obj.get$primaryKeyJavaNameClass());
+#if ($isPkUserProvided)
+        String id = "${primaryKeyVariable}_" + Integer.MAX_VALUE;
+        if (id.length() > $primaryKeyFirstColumn.size) {
+            id = id.substring(0, $primaryKeyFirstColumn.size);
+        }
+        obj.set$primaryKeyJavaNameClass(id);
+#end  
         obj.persist();
         obj.flush();
-        org.junit.Assert.assertNotNull("Expected '${domainClassName}' identifier to no longer be null", obj.getAddressid());
+        org.junit.Assert.assertNotNull("Expected '${domainClassName}' identifier to no longer be null", obj.get$primaryKeyJavaNameClass());
     }
     
     @Test
     @Transactional
     public void ${rooIntegrationTestClassName}.testRemove() {
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to initialize correctly", dod.getRandom${domainClassName}());
-        java.lang.Integer id = dod.getRandom${domainClassName}().getAddressid();
+        $primaryKeyFullType id = dod.getRandom${domainClassName}().get$primaryKeyJavaNameClass();
         org.junit.Assert.assertNotNull("Data on demand for '${domainClassName}' failed to provide an identifier", id);
-        ${importDomainObject} obj = ${importDomainObject}.findAddress(id);
+        ${importDomainObject} obj = ${importDomainObject}.find${domainClassName}(id);
         org.junit.Assert.assertNotNull("Find method for '${domainClassName}' illegally returned null for id '" + id + "'", obj);
         obj.remove();
-        org.junit.Assert.assertNull("Failed to remove '${domainClassName}' with identifier '" + id + "'", ${importDomainObject}.findAddress(id));
+        org.junit.Assert.assertNull("Failed to remove '${domainClassName}' with identifier '" + id + "'", ${importDomainObject}.find${domainClassName}(id));
     }
     
 }
