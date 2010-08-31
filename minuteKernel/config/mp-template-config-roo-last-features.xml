@@ -12,7 +12,7 @@
    	
   	<template-target 
     	name="Roo Console"
-		outputdir="roo"
+		outputdir="roo-with-console"
 		package-root=""
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
@@ -44,7 +44,7 @@
 	
   	<template-target 
     	name="Roo backend"
-		outputdir="roo/src-generated/main/java"
+		outputdir="roo-with-console/src-generated/main/java"
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
 			 
@@ -63,13 +63,43 @@
 			file-extension="aj" file-suffix="_Roo_ToString" technicalPackage="domain"
 			entity-specific="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-		</template>	
-							
+		</template>
+											
 	</template-target>	
-	
+
   	<template-target 
     	name="Roo backend"
-		outputdir="roo/src-generated/test/java"
+		outputdir="roo-with-console/src-generated/main/resources"
+		libdir="lib/Roo_LIB.vm"
+		belongToPackage="true">
+			
+		<template package-root="META-INF"
+			name="RooPersistenceXml" templateFileName="RooPersistenceXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="persistence" 
+			model-specific="true">
+		</template>	
+									
+	</template-target>	
+
+  	<template-target 
+    	name="Roo backend"
+		outputdir="roo-with-console/"
+		libdir="lib/Roo_LIB.vm"
+		belongToPackage="true">
+			
+		<template package-root=""
+			name="RooPomXml" templateFileName="RooPomXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="pom" file-suffix="-generated" 
+			model-specific="true">
+		</template>	
+									
+	</template-target>	
+			
+  	<template-target 
+    	name="Roo backend"
+		outputdir="roo-with-console/src-generated/test/java"
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
 			 
