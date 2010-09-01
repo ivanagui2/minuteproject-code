@@ -1,0 +1,74 @@
+#exposeVariableEntitySpecific()
+package $packageName;
+
+import java.lang.*;
+import java.util.Set;
+import net.sf.mp.demo.roo.petshop.domain.Item;
+
+privileged aspect $className {
+    
+    public String Address.getStreet1() {
+        return this.street1;
+    }
+    
+    public void Address.setStreet1(String street1) {
+        this.street1 = street1;
+    }
+    
+    public String Address.getStreet2() {
+        return this.street2;
+    }
+    
+    public void Address.setStreet2(String street2) {
+        this.street2 = street2;
+    }
+    
+    public String Address.getCity() {
+        return this.city;
+    }
+    
+    public void Address.setCity(String city) {
+        this.city = city;
+    }
+    
+    public String Address.getState_() {
+        return this.state_;
+    }
+    
+    public void Address.setState_(String state_) {
+        this.state_ = state_;
+    }
+    
+    public String Address.getZip() {
+        return this.zip;
+    }
+    
+    public void Address.setZip(String zip) {
+        this.zip = zip;
+    }
+    
+    public Double Address.getLatitude() {
+        return this.latitude;
+    }
+    
+    public void Address.setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+    
+    public Double Address.getLongitude() {
+        return this.longitude;
+    }
+    
+    public void Address.setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+    
+    public Set<Item> Address.getItemAddressAddressids() {
+        return this.itemAddressAddressids;
+    }
+    
+    public void Address.setItemAddressAddressids(Set<Item> itemAddressAddressids) {
+        this.itemAddressAddressids = itemAddressAddressids;
+    }
+    
+}

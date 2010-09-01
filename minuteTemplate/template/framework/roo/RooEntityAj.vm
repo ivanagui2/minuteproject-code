@@ -1,8 +1,7 @@
 #exposeVariableEntitySpecific()
 package $packageName;
 
-import java.lang.Integer;
-import java.lang.SuppressWarnings;
+import java.lang.*;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
@@ -12,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Version;
-import ${packageName}.${domainClassName};
+//import ${packageName}.${domainClassName};
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect $className {
