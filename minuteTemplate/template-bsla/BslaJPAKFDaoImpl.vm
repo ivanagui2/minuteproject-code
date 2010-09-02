@@ -244,9 +244,9 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 ##		List list = hquery.list();
 		List list = partialLoadWithParent${tableClassName}JPAQueryResult (${tableVariableName}What, positive$tableClassName, negative$tableClassName, queryWhatInit, beanPath, nbOfResult, useCache);
 		if (beanPath.size()==1) {
-			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What);
+			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, true);
 		}
-		return handlePartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What);
+		return handlePartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What, true);
 	}	
 
 	private List partialLoadWithParent${tableClassName}QueryResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
@@ -270,7 +270,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	   return query;
   }
   
-	private List<$tableClassName> handlePartialLoadWithParent$tableClassName(List<Object[]> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What) {
+	private List<$tableClassName> handlePartialLoadWithParent$tableClassName(List<Object[]> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What, boolean isJql) {
 		try {
 			return convertPartialLoadWithParent$tableClassName(list, beanPath, ${tableVariableName}What);
 		} catch (Exception ex) {
@@ -279,7 +279,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		}
     }
 
-	private List<$tableClassName> handlePartialLoadWithParent${tableClassName}WithOneElementInRow(List<Object> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What) {
+	private List<$tableClassName> handlePartialLoadWithParent${tableClassName}WithOneElementInRow(List<Object> list, Map<Integer, String> beanPath, $tableClassName ${tableVariableName}What, boolean isJql) {
 		try {
 			return convertPartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What);
 		} catch (Exception ex) {

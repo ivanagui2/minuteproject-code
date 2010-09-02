@@ -30,6 +30,9 @@
 #if ($isPrimaryKeyPolicyIdentity)
      <generator class="identity"/>            
 #end
+#if ($isPrimaryKeyPolicyIncrement)
+        <generator class="increment"/>        
+#end
 #end                
     </id>
 #end 

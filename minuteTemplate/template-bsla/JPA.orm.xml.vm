@@ -25,6 +25,8 @@
 #elseif ($isPrimaryKeyPolicyIdentity)
                 <generated-value strategy="AUTO"/>
                 <generator class="identity">
+#elseif ($isPrimaryKeyPolicyIncrement)
+                <generated-value strategy="AUTO"/>
 #end			      
 #end
 			</id>
