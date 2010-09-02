@@ -108,7 +108,7 @@ public class $className extends AbstractTransactionalDataSourceSpringContextBsla
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
-        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,2));
+        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,2));
 #end
 #end	
 	    ${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
@@ -133,7 +133,7 @@ public class $className extends AbstractTransactionalDataSourceSpringContextBsla
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
 #if ($velocityCount%2==0)
-        ${domainVariableName}2.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,2));
+        ${domainVariableName}2.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,2));
 #end
 #end
 #end	
@@ -170,7 +170,7 @@ public class $className extends AbstractTransactionalDataSourceSpringContextBsla
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
-        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
 #end
 #end
 #foreach ($reference in ${table.parents})
@@ -197,7 +197,7 @@ public class $className extends AbstractTransactionalDataSourceSpringContextBsla
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !($velocityCount>1))
-       ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column.type,$column.size,1));
+       ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
 #end
 #end
        return $domainVariableName;
