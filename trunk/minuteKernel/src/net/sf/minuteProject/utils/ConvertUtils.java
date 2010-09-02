@@ -88,7 +88,7 @@ public class ConvertUtils {
 		if (JAVA_DATE_TYPE.equals(type)) return "new Date()";
 		if (JAVA_BLOB_TYPE.equals(type)) return "null";	
 		if (JAVA_CLOB_TYPE.equals(type)) return "null";
-		return "";
+		return "null";
 	}
 	
 	public static String getJavaTypeFromDBFullType (String dBType, int scale) {
