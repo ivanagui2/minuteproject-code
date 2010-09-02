@@ -32,12 +32,23 @@
 		tool="velocity"
 		outputdir="src/test/resources"
 		belongToPackage="true">
+		
+		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property tag="environment" value="local"/>
+		</template>			
+		
+		<!-- 
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringDatabase.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		  <property tag="environment" value="local"/>
-		</template>			
+		</template>		
+			 -->
+			 
 		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
