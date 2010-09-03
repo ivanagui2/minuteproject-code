@@ -61,7 +61,7 @@
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>
 		
-		<!-- Criteria API -->
+		<!-- Criteria API 
 		<template name="DomainObjectWhatUML" templateFileName="DomainObjectWhatUML.vm" 
 			subdir="" outputsubdir="" technicalPackage="criteria.what"
 			file-extension="java" file-prefix="" file-suffix="What" 
@@ -73,7 +73,7 @@
 			file-extension="java" file-prefix="" file-suffix="Where" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>
-		
+		-->
 		<!-- ENTITY OBJECTs end -->		
 		
 		<!-- DAO -->
