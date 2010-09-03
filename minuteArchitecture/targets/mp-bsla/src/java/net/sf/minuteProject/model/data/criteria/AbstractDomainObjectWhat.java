@@ -40,7 +40,7 @@ public class AbstractDomainObjectWhat {
 	}
 	
 	protected final WhatFieldCollector addElement (String function) {
-		wdoc.getWfc(getBeanPath()).addElement(function);
-		return wdoc.getWfc(getBeanPath());
+		wdoc.setWfc(getBeanPath()).addElement(function);
+		return wdoc.setWfc(getBeanPath());
 	}
 }

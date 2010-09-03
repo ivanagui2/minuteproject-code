@@ -1,9 +1,11 @@
 package net.sf.minuteProject.model.dummy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import net.sf.minuteProject.model.data.criteria.order.OrderCriteria;
+import net.sf.minuteProject.model.data.criteria.value.IntegerValue;
 
 public class DummyApp {
 
@@ -38,16 +40,23 @@ public class DummyApp {
 		
 		for (DummyWhatDo dummyWhatDo2 : list) {
 			// we know the output type.
-			dummyWhatDo2.getSalary().value();
-//			dummyWhatDo2.getSalary().avg().value();
-			
+			System.out.println(dummyWhatDo2.getSalary().value());
+//			System.out.println(dummyWhatDo2.getSalary().avg().value());
 		}
 	}
 
 	private static List<DummyWhatDo> getDummyWhatDo(DummyWhatDo dummyWhatDo,
 			DummyDo dummyDo) {
 		// TODO Auto-generated method stub
-		return null;
+		List<DummyWhatDo> list = new ArrayList<DummyWhatDo>();
+		list.add(new DummyWhatDo(new IntegerValue(2)));
+		list.add(new DummyWhatDo(new IntegerValue(3)));
+		
+		IntegerValue sal = new IntegerValue(Integer.valueOf("12335"));
+//		sal.avg().setValue(Integer.valueOf("135"));
+		DummyWhatDo do1 = new DummyWhatDo(sal);
+		list.add(do1);
+		return list;
 	}
 
 }

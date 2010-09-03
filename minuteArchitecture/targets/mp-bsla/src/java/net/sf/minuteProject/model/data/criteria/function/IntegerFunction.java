@@ -9,4 +9,10 @@ public class IntegerFunction extends DigitFunctionCriteria<Integer>{
 		super(wfc);
 	}
 
+	@Override
+	protected void setDefaultValue() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

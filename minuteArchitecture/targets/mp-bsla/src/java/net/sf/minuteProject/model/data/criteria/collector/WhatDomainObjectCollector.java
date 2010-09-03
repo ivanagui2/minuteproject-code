@@ -17,15 +17,15 @@ public class WhatDomainObjectCollector extends WhatCollector<AbstractDomainObjec
 		wfc.setEntityPath(entityPath);
 	}
 
-	public WhatFieldCollector getWfc(String field) {
+	public WhatFieldCollector setWfc(String field) {
 		wfc.setField(field);
 		return wfc;
 	}
 
-//	public void setWfc(WhereFieldCollector wfc) {
-//		this.wfc = wfc;
-//	}
-//	
+	public WhatFieldCollector getWfc(String field) {
+		return wfc;
+	}
+	
 	public String popToString () {
 		StringBuffer sb = new StringBuffer();
 		Enumeration <WhatHolder> e = wfc.getElements();
