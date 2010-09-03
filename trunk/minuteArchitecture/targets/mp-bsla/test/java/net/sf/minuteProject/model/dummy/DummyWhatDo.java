@@ -2,6 +2,7 @@ package net.sf.minuteProject.model.dummy;
 
 import net.sf.minuteProject.model.data.criteria.AbstractDomainObjectWhat;
 import net.sf.minuteProject.model.data.criteria.function.IntegerFunction;
+import net.sf.minuteProject.model.data.criteria.value.IntegerValue;
 
 public class DummyWhatDo extends AbstractDomainObjectWhat{
 
@@ -9,16 +10,26 @@ public class DummyWhatDo extends AbstractDomainObjectWhat{
 		super("dummyDo");
 	}
 
+	public DummyWhatDo(IntegerValue salaryV) {
+		super("dummyDo");
+		this.salaryV = salaryV;
+	}
+	
 	private IntegerFunction salary;
+	private IntegerValue salaryV;
 
-	public IntegerFunction getSalary() {
-		//salary = new IntegerFunction(getWdoc().getWfc("salary"));
-		return salary;
+	public IntegerValue getSalary() {
+//		return setSalary();
+//		salaryV = new IntegerValue(getWdoc().getWfc("salary"));
+		return salaryV;
 	}
 
 	public IntegerFunction setSalary() {
-		salary = new IntegerFunction(getWdoc().getWfc("salary"));
+		salary = new IntegerFunction(getWdoc().setWfc("salary"));
 		return salary;
 	}
 	
+	public void setSalaryValue(IntegerValue salaryV) {
+		this.salaryV = salaryV;
+	}
 }

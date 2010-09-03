@@ -2,7 +2,7 @@ package net.sf.minuteProject.model.data.criteria;
 
 import net.sf.minuteProject.model.data.criteria.collector.WhatFieldCollector;
 
-public class FunctionCriteria<T> implements Criteria{
+public abstract class FunctionCriteria<T> implements Criteria{
 
 	public static final String MASK 		= "MASK";
 	
@@ -24,6 +24,8 @@ public class FunctionCriteria<T> implements Criteria{
 	protected void setValue (T t) {
 		this.t = t;
 	}
+	
+	abstract protected void setDefaultValue () ;
 	
 	protected final WhatFieldCollector addElement (String function, T... t) {
 		wfc.addElement(function, t);
