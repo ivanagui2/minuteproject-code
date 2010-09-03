@@ -47,15 +47,5 @@ To customize your generation you can processed the following:
         ...
        </business-model>
         
-2)2) in your (renamed) mp-template-xx.xml
-  * Adapt the outputdir tag in template-target node to match you generation target
-  * Adapt the package-root tag in template-target node to match your business structure  
-  
-  * If you do not like the naming convention of the generated structure modify the template tag with your own naming convention
-  (Ex: prefix, suffix, technical package)
-  Rem: the structure is the following <package-root>/<model-name>/<technicalPage>/<business-package>/<fileName>
-  You can act on any of those parameter.
-     
-     
      
       
