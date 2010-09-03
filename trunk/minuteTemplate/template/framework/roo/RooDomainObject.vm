@@ -14,41 +14,7 @@ import javax.persistence.*;
 @Entity
 @RooJavaBean
 @RooToString
-@RooEntity(identifierField = "addressid", identifierColumn = "ADDRESSID", identifierType = Integer.class)
+@RooEntity(identifierField = "", identifierColumn = "", identifierType = Integer.class)
 public class Address {
-
-    @NotNull
-    @Column(name = "STREET1")
-    @Size(max = 55)
-    private String street1;
-
-    @Column(name = "STREET2")
-    @Size(max = 55)
-    private String street2;
-
-    @NotNull
-    @Column(name = "CITY")
-    @Size(max = 55)
-    private String city;
-
-    @NotNull
-    @Column(name = "STATE")
-    @Size(max = 25)
-    private String state_;
-
-    @NotNull
-    @Column(name = "ZIP")
-    @Size(max = 5)
-    private String zip;
-
-    @NotNull
-    @Column(name = "LATITUDE")
-    private Double latitude;
-
-    @NotNull
-    @Column(name = "LONGITUDE")
-    private Double longitude;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressAddressid")
-    private Set<net.sf.mp.demo.roo.petshop.domain.Item> itemAddressAddressids = new java.util.HashSet<net.sf.mp.demo.roo.petshop.domain.Item>();
+//TODO
 }
