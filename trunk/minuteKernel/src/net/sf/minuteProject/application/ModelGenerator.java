@@ -204,13 +204,11 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByComponent(template);
 		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION))
 			generateArtifactsByFunction(template);
+		else if (template.getScopeSpecificValue().equals(SCOPE_TARGET_TEMPLATE))
+			generateArtifactsByTargetTemplate(template);		
 	}
 
 	public Model getModel() {
-//		if (model == null) {
-//			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
-//			setModel((Model) modelGenerator.load());
-//		}
 		return model;
 	}
 
@@ -218,6 +216,10 @@ public class ModelGenerator extends AbstractGenerator {
 		this.model = model;
 	}
 
+	protected void generateArtifactsByTargetTemplate(Template template) throws Exception {
+		writeTemplateResult(getModel().getConfiguration(), template);
+	}
+	
 	protected void generateArtifactsByModel(Template template) throws Exception {
 		writeTemplateResult(getModel(), template);
 	}

@@ -49,6 +49,7 @@ import net.sf.minuteProject.utils.property.PropertyUtils;
 public abstract class AbstractGenerator implements Generator {
 	
 	protected static final String SCOPE_DATAMODEL_FUNCTION = "function";
+	protected static final String SCOPE_TARGET_TEMPLATE = "target";
 	
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;
@@ -164,27 +165,6 @@ public abstract class AbstractGenerator implements Generator {
 			return result;
 		}
 	}
-	
-//	private String resolveFileAbsolutePath(
-//			AbstractConfigurationRoot abstractConfigurationRoot, 
-//			TemplateTarget templateTarget) {
-////		String dir = templateTarget.getDir();
-////		if (dir!=null) { // absolute path provided
-////			return dir+"/"+templateTarget.getFileName();
-////		}
-////		else {//relative path
-////			String result = FileUtils.getFileFullPath(
-////					abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
-////			return result;
-////		}		
-//		return null;
-//	}
-	
-//	private String resolveFileAbsolutePath(
-//			AbstractConfigurationRoot abstractConfigurationRoot, 
-//			Template template) {
-//		return null;
-//	}
 
 	protected void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
         URL rulesURL = getClass().getClassLoader().getResource(rules);
