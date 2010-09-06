@@ -132,10 +132,6 @@ public class ModelViewGenerator extends ModelGenerator {
 	}
 
 	public Model getModel() {
-//		if (model == null) {
-//			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
-//			setModel((Model) modelGenerator.load());
-//		}
 		return super.getModel();
 	}
 
@@ -143,39 +139,14 @@ public class ModelViewGenerator extends ModelGenerator {
 		super.setModel(model);
 	}
 
-//	protected void generateArtifactsByPackage(Template template) throws Exception {
-//		super.generateArtifactsByPackage(template);
-//		List packages = model.getBusinessModel().getBusinessPackage()
-//				.getPackageViews();
-//		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-//			writeTemplateResult((Package) iter.next(), template);
+//	protected void generateArtifactsByEntity(Template template) throws Exception {	
+//		super.generateArtifactsByEntity(template);
+//		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
+//			View view = (View) iter.next();
+//			writeTemplateResult(view, template);
 //		}
 //	}
-//
-	protected void generateArtifactsByEntity(Template template) throws Exception {	
-		super.generateArtifactsByEntity(template);
-		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
-			View view = (View) iter.next();
-			writeTemplateResult(view, template);
-		}
-	}
-//
-//	protected void generateArtifactsByComponent(Template template) throws Exception {
-//		//for each view if structure=hierachy => getComponent => foreach component generate
-//		super.generateArtifactsByComponent(template);
-//		List<View> views = model.getBusinessModel().getBusinessPackage().getViews();
-//		for (View view : views) {
-//			Component [] components = view.getComponents();
-//			for (Component component : components) {
-//				writeTemplateResult(component, template);
-//			}
-//		}
-//	}
-//	
-//	private void generateArtifactsByApplication(Template template) throws Exception {	
-//		writeTemplateResult(getModel().getConfiguration(), template);
-//	}
-//	
+
 	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template
@@ -206,107 +177,6 @@ public class ModelViewGenerator extends ModelGenerator {
 		putPluginContextObject(context, template);
 		context.put("model", getModel());
 	}
-	
-//	protected void putStandardContextObject (VelocityContext context) {
-//		super.putStandardContextObject(context);
-//		context.put("convertUtils", getConvertUtils());
-//		context.put("commonUtils", getCommonUtils());
-//		context.put("columnUtils", getColumnUtils());
-//		context.put("viewUtils", getViewUtils());
-//		context.put("formatUtils", getFormatUtils());
-//		context.put("bslaLibraryUtils", getBslaLibraryUtils());
-//		context.put("databaseUtils", getDatabaseUtils());
-//		context.put("modelUtils", getModelUtils());
-//		context.put("URLUtils", getUrlUtils());
-//		context.put("TestUtils", getTestUtils());
-//		context.put("WebUtils", getWebUtils());
-//		context.put("sqlUtils", getSqlUtils());
-//		context.put("tableUtils", getTableUtils());
-//		context.put("testUtils", getTestUtils());		
-//	}
-//
-//	public BslaLibraryUtils getBslaLibraryUtils() {
-//		if (bslaLibraryUtils==null)
-//			bslaLibraryUtils = new BslaLibraryUtils();
-//		return bslaLibraryUtils;
-//	}
-//
-//	public ColumnUtils getColumnUtils() {
-//		if (columnUtils==null)
-//			columnUtils = new ColumnUtils();
-//		return columnUtils;
-//	}
-//
-//	public CommonUtils getCommonUtils() {
-//		if (commonUtils==null)
-//			commonUtils = new CommonUtils();
-//		return commonUtils;
-//	}
-//
-//	public ConvertUtils getConvertUtils() {
-//		if (convertUtils == null)
-//			convertUtils = new ConvertUtils();
-//		return convertUtils;
-//	}
-//
-//	public DatabaseUtils getDatabaseUtils() {
-//		if (databaseUtils == null)
-//			databaseUtils = new DatabaseUtils();
-//		return databaseUtils;
-//	}
-//
-//	public FormatUtils getFormatUtils() {
-//		if (formatUtils == null)
-//			formatUtils = new FormatUtils();
-//		return formatUtils;
-//	}
-//
-//	public ModelUtils getModelUtils() {
-//		if (modelUtils == null)
-//			modelUtils = new ModelUtils();
-//		return modelUtils;
-//	}
-//
-//	public SqlUtils getSqlUtils() {
-//		if (sqlUtils == null)
-//			sqlUtils = new SqlUtils();
-//		return sqlUtils;
-//	}
-//
-//	public TableUtils getTableUtils() {
-//		if (tableUtils == null)
-//			tableUtils = new TableUtils();
-//		return tableUtils;
-//	}
-//
-//	public TestUtils getTestUtils() {
-//		if (testUtils == null)
-//			testUtils = new TestUtils();
-//		return testUtils;
-//	}
-//
-//	public URLUtils getUrlUtils() {
-//		if (urlUtils == null)
-//			urlUtils = new URLUtils();
-//		return urlUtils;
-//	}
-//
-//	public ViewUtils getViewUtils() {
-//		if (viewUtils == null)
-//			viewUtils = new ViewUtils();
-//		return viewUtils;
-//	}
-//
-//	public WebUtils getWebUtils() {
-//		if (webUtils == null)
-//			webUtils = new WebUtils();
-//		return webUtils;
-//	}
-//
-//	/* 
-//	 * private getter of the context object 
-//	 */
-//	
-	
+
 	
 }

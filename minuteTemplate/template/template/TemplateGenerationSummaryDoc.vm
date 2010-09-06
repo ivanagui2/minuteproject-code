@@ -1,0 +1,22 @@
+$configuration
+
+$configuration.targets
+
+--
+$configuration.target.templateTarget
+
+$configuration.getTargets()
+
+$configuration.targets
+$configuration.targets.targets
+
+#foreach ($target in $configuration.targets.targets)
+-target $target
+$target.getTemplateTargets()
+#foreach ($templateTarget in $target.templateTargets)
+--$templateTarget
+#foreach ($tpl in $templateTarget.templates)
+--$tpl
+#end
+#end
+#end

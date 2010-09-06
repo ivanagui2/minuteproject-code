@@ -3,6 +3,9 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
 
@@ -113,6 +116,11 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 			return true;
 		return value.equals("false");
 	}	
+
+	public String toString() {
+		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); 
+	 	return  ToStringBuilder.reflectionToString(this);
+	}
 	
 	public String getTechnicalPackage(Template template)
 	{
