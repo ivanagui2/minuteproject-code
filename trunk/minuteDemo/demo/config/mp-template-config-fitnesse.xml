@@ -1,10 +1,12 @@
 <target name="BackendOnBsla-for-fitnesse">		
 	<architecture-target name="fitnesse" description="fitness templates">
 	</architecture-target>	
-
+	<plugin name="restrictedCodeUtils" 	className="net.sf.minuteProject.utils.code.RestrictedCodeUtils"></plugin>
+	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
+	
 	<template-target 
 	   name="fitness CRUD Wiki templates" 
-	   rootdir="../.."
+	   rootdir="../../minuteTemplate/template-bsla"
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
@@ -48,7 +50,7 @@
 
 	<template-target 
 	   name="fitness CRUD Wiki templates" 
-	   rootdir="../.."
+	   rootdir="../../minuteTemplate/template-bsla"
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
@@ -106,10 +108,38 @@
       add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
 		</template>
   </template-target>		
+
+	<template-target 
+	   name="fitness DB setup Wiki templates" 
+	   rootdir="../../minuteTemplate/template-bsla"
+       templatedir = "template" 
+	   libdir="lib/BslaLibrary.vm"
+	   tool="velocity"
+	   package-root="TestFitnesseSetup"
+	   outputdir=""
+	   belongToPackage="true">
 	
+		<!-- <template name="FitnesseWikiDBConnectionSnippetContent" templateFileName="FitnesseWikiDBConnectionSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="DbConnection"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS">
+		</template> -->
+		
+		<template name="FitnesseWikiDBSetupSnippetContent" templateFileName="FitnesseWikiDBSetupSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage="Setup"
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true" add-model-dir-name="false"
+      add-entity-dir-name="false" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
+      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" >
+		</template>
+    
+    </template-target>
+    	
   <template-target 
 	   name="fitness fixture" 
-	   rootdir="../.."
+	   rootdir="../../minuteTemplate/template-bsla"
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
@@ -131,5 +161,48 @@
 		</template>	
 
 	</template-target>	
+	
+    <template-target 
+	   name="database setup" 
+	   rootdir="../../minuteTemplate/template-bsla"
+       templatedir = "template" 
+	   libdir="lib/BslaLibrary.vm"
+	   tool="velocity"
+	   outputdir="src-generated"
+	   package-root=""
+		belongToPackage="true">
+	
+		<template name="ScriptellaResetDbEtlXml" templateFileName="ScriptellaResetDbEtlXml.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="etl" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>		
+		
+		<!-- db properties -->
+		<template name="DatabaseConnectionProperties" templateFileName="DatabaseConnectionProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="properties" file-prefix="db" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>	
+		
+		<template name="DBSchemaDeleteOrder" templateFileName="DBSchemaDeleteOrder.vm" 
+			subdir="" outputsubdir="" technicalPackage="sql"
+			file-extension="sql" file-prefix="reset_db" file-suffix="" 
+			model-specific="true" add-model-name="false" add-model-dir-name="false">
+		</template>	
+
+		<template name="InsertEnumerationSQL" templateFileName="InsertEnumerationSQL.vm" 
+			subdir="" outputsubdir="" technicalPackage="sql"
+			file-extension="sql" file-prefix="insert_reference_data" file-suffix="" 
+			model-specific="true" add-model-name="false" add-model-dir-name="false">
+		</template>	
+
+		<template name="DBCommit" templateFileName="DBCommit.vm" 
+			subdir="" outputsubdir="" technicalPackage="sql"
+			file-extension="sql" file-prefix="commit" file-suffix="" 
+			model-specific="true" add-model-name="false" add-model-dir-name="false">
+		</template>	
 				
+	</template-target>	
+
 </target>	
