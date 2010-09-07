@@ -1,22 +1,17 @@
-$configuration
+##$configuration
 
-$configuration.targets
+##$configuration.targets
 
---
-$configuration.target.templateTarget
+What is generated:
 
-$configuration.getTargets()
-
-$configuration.targets
-$configuration.targets.targets
-
-#foreach ($target in $configuration.targets.targets)
--target $target
-$target.getTemplateTargets()
-#foreach ($templateTarget in $target.templateTargets)
---$templateTarget
+#foreach ($templateTarget in $configuration.target.getTemplateTargets())
 #foreach ($tpl in $templateTarget.templates)
---$tpl
+--
+$tpl.name
+$tpl.templateFileName
+$tpl.outputdir $tpl.templateTarget.outputdir
+$tpl.fileExtension
+
 #end
 #end
-#end
+

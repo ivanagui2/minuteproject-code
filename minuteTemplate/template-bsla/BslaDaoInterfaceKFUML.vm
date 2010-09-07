@@ -140,6 +140,8 @@ public interface $className extends DataAccessObject {
      */
     public List<$tableClassName> searchDistinctPrototype$tableClassName($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) ;    
 
+	public List<$tableClassName> countDistinct ($tableClassName whatMask, $tableClassName whereEqCriteria);
+	
     /**
      * generic to move after in superclass
      */

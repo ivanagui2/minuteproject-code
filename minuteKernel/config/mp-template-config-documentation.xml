@@ -14,7 +14,7 @@
 			 
 		<template name="TemplateGenerationSummaryDoc" templateFileName="TemplateGenerationSummaryDoc.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
-			file-extension="txt" file-prefix="-doc" file-suffix="" 
+			file-extension="txt" file-prefix="" file-suffix="-doc" 
 			application-specific="true" add-model-name="true">			
 		</template>
 		

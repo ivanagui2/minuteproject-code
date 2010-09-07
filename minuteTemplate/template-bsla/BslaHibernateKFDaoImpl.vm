@@ -22,7 +22,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import static net.sf.minuteProject.architecture.utils.DataAccessObjectUtils.*;
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
+import net.sf.minuteProject.architecture.query.impl.QueryBlankInit;
+import net.sf.minuteProject.architecture.query.impl.QuerySelectCountInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectDistinctInit;
 import net.sf.minuteProject.architecture.cache.Cache;
@@ -325,15 +328,9 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 #parse("./snippet/orm/dao/partialLoadSnippet.vm")    
   	
 	public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
-		Map beanPath = new Hashtable();
-##		Query hquery = getPartialLoadWithParent${tableClassName}HibQuery (${tableVariableName}What, positive$tableClassName, negative$tableClassName, beanPath, queryWhatInit, nbOfResult);
-##		List list = hquery.list();
+		Map beanPath = getBeanPath(queryWhatInit);
 		List list = partialLoadWithParent${tableClassName}HibQueryResult (${tableVariableName}What, positive$tableClassName, negative$tableClassName, queryWhatInit, beanPath, nbOfResult, useCache);
 		return handleLoadWithParent$tableClassName (beanPath, list, ${tableVariableName}What, true); 
-##		if (beanPath.size()==1) {
-##			return handlePartialLoadWithParent${tableClassName}WithOneElementInRow(list, beanPath, ${tableVariableName}What, true);
-##		}
-##		return handlePartialLoadWithParent$tableClassName(beanPath, list, ${tableVariableName}What, true);
 	}	
 
 	private List partialLoadWithParent${tableClassName}QueryResult($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
@@ -485,16 +482,19 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     */
 	public String getPartialLoadWithParent${tableClassName}HsqlQuery ($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Map beanPath, QueryWhatInit queryWhatInit) {
 		Hashtable aliasWhatHt = new Hashtable();
-		String what = getPartialLoadWithParent${tableClassName}Query ($tableVariableName, null, aliasWhatHt, null, null, beanPath, "", queryWhatInit);
+##		String what = getPartialLoadWithParent${tableClassName}Query ($tableVariableName, null, aliasWhatHt, null, null, beanPath, "", queryWhatInit);
+        String what = getPartialLoadWithParent${tableClassName}Query ($tableVariableName, null, aliasWhatHt, null, null, beanPath, "", new QueryBlankInit());
+		String whatStart = getWhatStart(queryWhatInit, what);
 		Hashtable aliasWhereHt = new Hashtable();
 		String where = getPartialLoadWithParentWhere${tableClassName}Query (positive$tableClassName, null, aliasWhatHt, aliasWhereHt, null, null);
 		String whereHow = reconciliateWherePath(aliasWhatHt, aliasWhereHt);
 		String how = reconciliateHowPath(aliasWhatHt, aliasWhereHt);
-		String whereConcat = "";
-		if (where!=null && !where.equals("") && whereHow!=null && !whereHow.equals(""))
-			whereConcat=" AND ";
-		return what+" FROM "+how +" WHERE "+whereHow+ whereConcat +where;
-	}
+##		String whereConcat = "";
+##		if (where!=null && !where.equals("") && whereHow!=null && !whereHow.equals(""))
+##			whereConcat=" AND ";
+##		return what+" FROM "+how +" WHERE "+whereHow+ whereConcat +where;
+		return getQueryMain(whatStart, what, how, whereHow, where, queryWhatInit.isProjectionQuery());
+	}	
 	
 	public String getPartialLoadWithParent${tableClassName}SQLQuery ($tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, Map beanPath, QueryWhatInit queryWhatInit) {
 		Hashtable aliasWhatHt = new Hashtable();
@@ -851,7 +851,12 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
    
 #end   
 #end
-	
+
+	    
+    public List<$tableClassName> countDistinct ($tableClassName whatMask, $tableClassName whereEqCriteria) {
+        return partialLoadWithParent$tableClassName(whatMask, whereEqCriteria, null, new QuerySelectCountInit("${tableVariableName}"), null, false);
+    }   
+    	
     /**
     * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
     * set in the list ${tableVariableName}Wheres
