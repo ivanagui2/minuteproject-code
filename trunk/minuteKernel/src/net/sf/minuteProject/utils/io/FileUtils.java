@@ -97,8 +97,9 @@ public class FileUtils {
 	
 	public static String stripFileName(String filename) {
 //		return getAbsolutePathFromPath(filename);
-		filename = StringUtils.replace(filename, "/", "\\");
-		int i = StringUtils.lastIndexOf(filename, "\\");
+//		filename = StringUtils.replace(filename, "/", "\\");
+//		int i = StringUtils.lastIndexOf(filename, "\\");
+		int i = StringUtils.lastIndexOf(filename, "/");
 		return StringUtils.substring(filename, 0, i);
 	}
 	
