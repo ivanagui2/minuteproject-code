@@ -11,21 +11,7 @@
     <!-- LOCAL PROPERTIES 	-->
     <property name="project.name" value="minuteProject"/>
 	<property name="dburl" value="jdbc:hsqldb:hsql://localhost:9001/${db.name}"/>
-	<!--
 	
-	MP_RELEASE
-./application/lib
-./config
-./config/template
-./target
-./target/bsla
-./target/fitnesse
-./sample
-README.txt
-comd.cmd
-cp.cmd
-	
-	-->
 	<target name="prepare-structure">
 	 <delete dir="${release.dir}" />
 	 <delete file="${release.dir}.zip" />	
@@ -179,6 +165,7 @@ cp.cmd
 	 		<include name="**/*.*"/>
 	 	</fileset>
 	  </copy>
+	  <chmod dir="${demo.dir}" perm="777" includes="**/*.sh"/>
 	</target>
 	<target name="release-demo" depends="copy-demo-dependencies" >
 	</target>
