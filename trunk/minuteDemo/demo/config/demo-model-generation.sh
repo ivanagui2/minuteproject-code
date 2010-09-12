@@ -2,7 +2,6 @@
 
 CURRENTDIR=$(cd `dirname $0`;pwd)
 PROGDIR=$(cd `dirname $0`/../..;pwd)  
-echo CURRENTDIR = $CURRENTDIR
 
 #MP_LIB=$PROGDIR/minuteKernel/lib
 #MP_CLASSES=$PROGDIR/minuteKernel/bin
