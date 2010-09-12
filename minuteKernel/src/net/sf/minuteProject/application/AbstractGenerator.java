@@ -250,12 +250,17 @@ public abstract class AbstractGenerator implements Generator {
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
     		StringBuffer sb = new StringBuffer();
-    		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
-    			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
-    			sb.append(templateTarget2.getAbsoluteRootDir());
-    			sb.append(",");
-    			sb.append(templateTarget2.getTemplateFullDir());
-    			sb.append(",");
+    		for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
+    			String absoluteRootDir = templateTarget2.getAbsoluteRootDir();
+    			if (absoluteRootDir!=null) {
+	    			sb.append(absoluteRootDir);
+	    			sb.append(",");
+    			}
+    			String templateFullDir = templateTarget2.getTemplateFullDir();
+    			if (templateFullDir!=null) {
+	    			sb.append(templateTarget2.getTemplateFullDir());
+	    			sb.append(",");
+    			}
     		}
     		templatePath = sb.toString();
     	}
@@ -267,8 +272,7 @@ public abstract class AbstractGenerator implements Generator {
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
     		StringBuffer sb = new StringBuffer();
-    		for (Iterator iterator = target.getTemplateTargets().iterator(); iterator.hasNext();) {
-    			TemplateTarget templateTarget2 = (TemplateTarget)iterator.next();
+    		for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
     			if (templateTarget2.getLibdir()!=null 
     				&& !templateTarget2.getLibdir().equals("")) {
 	    			sb.append(templateTarget2.getLibdir());
