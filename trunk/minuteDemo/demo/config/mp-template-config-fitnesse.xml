@@ -5,9 +5,7 @@
 	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
 	
 	<template-target 
-	   name="fitness CRUD Wiki templates" 
-	   rootdir="../../minuteTemplate/template-bsla"
-       templatedir = "template" 
+	   name="fitnesse CRUD Wiki templates" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
 	   package-root="TestFitnesseCrud"
@@ -139,7 +137,6 @@
     	
   <template-target 
 	   name="fitness fixture" 
-	   rootdir="../../minuteTemplate/template-bsla"
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
@@ -164,7 +161,6 @@
 	
     <template-target 
 	   name="database setup" 
-	   rootdir="../../minuteTemplate/template-bsla"
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"
 	   tool="velocity"
