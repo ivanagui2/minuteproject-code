@@ -1,4 +1,6 @@
 #exposeOXSpecific()
+#!/bin/sh
+
 GENDIR=$(cd `dirname $0`;pwd)
 
 ##create OX project
