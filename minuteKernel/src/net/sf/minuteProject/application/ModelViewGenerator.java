@@ -139,14 +139,6 @@ public class ModelViewGenerator extends ModelGenerator {
 		super.setModel(model);
 	}
 
-//	protected void generateArtifactsByEntity(Template template) throws Exception {	
-//		super.generateArtifactsByEntity(template);
-//		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
-//			View view = (View) iter.next();
-//			writeTemplateResult(view, template);
-//		}
-//	}
-
 	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws Exception {
 		String outputFilename = template

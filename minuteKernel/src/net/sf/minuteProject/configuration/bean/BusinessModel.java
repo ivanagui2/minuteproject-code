@@ -13,6 +13,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.Package;
 import net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey;
 import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -319,6 +320,14 @@ public class BusinessModel {
 
 	public void setPresentation(Presentation presentation) {
 		this.presentation = presentation;
+	}
+
+	public void applyConvention() {
+		if (enrichment!=null && enrichment.getConventions()!=null) {
+			for (Convention convention : enrichment.getConventions().getConventions()) {
+				convention.apply (this);
+			}
+		}		
 	}
 	
 	

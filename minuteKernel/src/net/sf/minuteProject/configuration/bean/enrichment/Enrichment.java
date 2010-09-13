@@ -5,10 +5,12 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
 
 public class Enrichment extends AbstractConfiguration {
 	
 	private BusinessModel businessModel;
+	private Conventions conventions;
 	private List <Entity> entities;
 	private List <Package> packages;
 	
@@ -57,7 +59,13 @@ public class Enrichment extends AbstractConfiguration {
 	public void setBusinessModel(BusinessModel businessModel) {
 		this.businessModel = businessModel;
 	}
-	
-	
+
+	public Conventions getConventions() {
+		return conventions;
+	}
+
+	public void setConventions(Conventions conventions) {
+		this.conventions = conventions;
+	}
 
 }
