@@ -171,6 +171,30 @@
 		<pattern value="enrichment">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>		
 			<set-next-rule methodname="setEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>					
+			<pattern value="conventions">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
+				<set-next-rule methodname="setConventions" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />	
+					<alias attr-name="alias" prop-name="alias" />
+				</set-properties-rule>	
+				<pattern value="view-primary-key-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+					</set-properties-rule>	
+	            </pattern>				
+				<pattern value="view-foreign-key-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewForeignKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewForeignKeyConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+					</set-properties-rule>	
+	            </pattern>
+            </pattern>
 			<pattern value="package">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Package"/>		
 				<set-next-rule methodname="addPackage" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Package"/>		
