@@ -50,37 +50,38 @@ import net.sf.minuteProject.utils.WebUtils;
 public class ModelViewGenerator extends ModelGenerator {
 
 	private static Logger logger = Logger.getLogger(ModelGenerator.class);
-//	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
+
+	// public static final String GENERATOR_MODEL_RULES =
+	// "net/sf/minuteProject/configuration/model-config-rules.xml";
 
 	/*
-	 * context object 
+	 * context object
 	 */
-//	private CommonUtils commonUtils;
-//	private ConvertUtils convertUtils;
-//	private ColumnUtils columnUtils;
-//	private ViewUtils viewUtils;
-//	private FormatUtils formatUtils;
-//	private BslaLibraryUtils bslaLibraryUtils;
-//	private DatabaseUtils databaseUtils;
-//	private ModelUtils modelUtils;
-//	private URLUtils urlUtils;
-//	private TestUtils testUtils;
-//	private WebUtils webUtils;
-//	private SqlUtils sqlUtils;
-//	private TableUtils tableUtils;
+	// private CommonUtils commonUtils;
+	// private ConvertUtils convertUtils;
+	// private ColumnUtils columnUtils;
+	// private ViewUtils viewUtils;
+	// private FormatUtils formatUtils;
+	// private BslaLibraryUtils bslaLibraryUtils;
+	// private DatabaseUtils databaseUtils;
+	// private ModelUtils modelUtils;
+	// private URLUtils urlUtils;
+	// private TestUtils testUtils;
+	// private WebUtils webUtils;
+	// private SqlUtils sqlUtils;
+	// private TableUtils tableUtils;
 
-	
-//	private Model model;
+	// private Model model;
 
-//	private String modelConfig;
-//
-//	public String getModelConfig() {
-//		return modelConfig;
-//	}
-//
-//	public void setModelConfig(String modelConfig) {
-//		this.modelConfig = modelConfig;
-//	}
+	// private String modelConfig;
+	//
+	// public String getModelConfig() {
+	// return modelConfig;
+	// }
+	//
+	// public void setModelConfig(String modelConfig) {
+	// this.modelConfig = modelConfig;
+	// }
 
 	/**
 	 * Constructs the generator with its configuration
@@ -91,15 +92,15 @@ public class ModelViewGenerator extends ModelGenerator {
 		super(configurationFile);
 	}
 
-//	@Override
-//	public AbstractConfiguration getConfigurationRoot() {
-//		return new Configuration();
-//	}
-//
-//	@Override
-//	public String getConfigurationRulesFile() {
-//		return GENERATOR_MODEL_RULES;
-//	}
+	// @Override
+	// public AbstractConfiguration getConfigurationRoot() {
+	// return new Configuration();
+	// }
+	//
+	// @Override
+	// public String getConfigurationRulesFile() {
+	// return GENERATOR_MODEL_RULES;
+	// }
 
 	public static void main(String args[]) throws Exception {
 		String config;
@@ -108,25 +109,30 @@ public class ModelViewGenerator extends ModelGenerator {
 		}
 		config = args[0];
 		Date startDate = new Date();
-	    logger.info("start time = "+new Date());
+		logger.info("start time = " + new Date());
 		ModelViewGenerator generator = new ModelViewGenerator(config);
 		Configuration configuration = (Configuration) generator.load();
-		Model model = configuration.getModel();
-		generator.setModel(model);
-		generator.loadModel(model);
-		if (generator.hasTarget())
-			generator.loadAndGenerate(model.getConfiguration().getTarget());
-		if (generator.hasTargets())
-			generator.loadAndGenerate(model.getConfiguration().getTargets());
-//		generator.loadTarget(model.getConfiguration(), model.getConfiguration().getTarget());
-//		generator.generate(model.getConfiguration().getTarget());
+
+		generator.generate(configuration);
+		// Model model = configuration.getModel();
+		// generator.setModel(model);
+		// generator.loadModel(model);
+		// if (generator.hasTarget())
+		// generator.loadAndGenerate(model.getConfiguration().getTarget());
+		// if (generator.hasTargets())
+		// generator.loadAndGenerate(model.getConfiguration().getTargets());
+
+		// generator.loadTarget(model.getConfiguration(),
+		// model.getConfiguration().getTarget());
+		// generator.generate(model.getConfiguration().getTarget());
 		Date endDate = new Date();
-		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
+		logger.info("time taken : " + (endDate.getTime() - startDate.getTime())
+				/ 1000 + "s.");
 	}
 
 	protected void loadModel(Model model) {
 		super.loadModel(model);
-//		model.getBusinessModel().complementDataModelWithTables();
+		// model.getBusinessModel().complementDataModelWithTables();
 		model.getBusinessModel().complementDataModelWithViews();
 		model.getBusinessModel().complementService();
 	}
@@ -139,15 +145,15 @@ public class ModelViewGenerator extends ModelGenerator {
 		super.setModel(model);
 	}
 
-	protected void writeTemplateResult(GeneratorBean bean,
-			Template template) throws Exception {
+	protected void writeTemplateResult(GeneratorBean bean, Template template)
+			throws Exception {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		if (bean instanceof Component) {
-			Component component = (Component)bean;
+			Component component = (Component) bean;
 			Table table = component.getTable();
 			context.put("table", table);
 		}
@@ -158,17 +164,18 @@ public class ModelViewGenerator extends ModelGenerator {
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
-			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
+			logger.error("ERROR on template " + template.getName()
+					+ " - on bean " + bean.getName());
 			ex.printStackTrace();
 			throw ex;
 		}
 	}
 
-	protected void putCommonContextObject(VelocityContext context, Template template) {
+	protected void putCommonContextObject(VelocityContext context,
+			Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", getModel());
 	}
 
-	
 }

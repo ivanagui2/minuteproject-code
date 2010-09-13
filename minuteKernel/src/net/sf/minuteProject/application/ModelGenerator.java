@@ -122,22 +122,34 @@ public class ModelGenerator extends AbstractGenerator {
 		ModelGenerator generator = new ModelGenerator(config);
 		// Model model = (Model) generator.load();
 		Configuration configuration = (Configuration) generator.load();
-		Model model = configuration.getModel();
-		generator.setModel(model);
-		generator.loadModel(model);
-//		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
-//				.getTarget());
-//		generator.generate(model.getConfiguration().getTarget());
-		if (generator.hasTarget())
-			generator.loadAndGenerate(model.getConfiguration().getTarget());
-		if (generator.hasTargets())
-			generator.loadAndGenerate(model.getConfiguration().getTargets());
+		generator.generate(configuration);
+//		Model model = configuration.getModel();
+//		generator.setModel(model);
+//		generator.loadModel(model);
+////		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
+////				.getTarget());
+////		generator.generate(model.getConfiguration().getTarget());
+//		if (generator.hasTarget())
+//			generator.loadAndGenerate(model.getConfiguration().getTarget());
+//		if (generator.hasTargets())
+//			generator.loadAndGenerate(model.getConfiguration().getTargets());
 		Date endDate = new Date();
 		//logger.info("start date = "+startDate.getTime());
 		//logger.info("end date = "+endDate.getTime());
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
+
+	protected void generate(Configuration configuration) throws Exception {
+		Model model = configuration.getModel();
+		setModel(model);
+		loadModel(model);
+		if (hasTarget())
+			loadAndGenerate(model.getConfiguration().getTarget());
+		if (hasTargets())
+			loadAndGenerate(model.getConfiguration().getTargets());
+	}
+	
 	protected boolean hasTarget () {
 		return model.getConfiguration().hasTarget();
 	}

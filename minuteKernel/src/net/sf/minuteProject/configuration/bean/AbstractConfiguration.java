@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
 
-public abstract class AbstractConfiguration implements GeneratorBean{
+public abstract class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
 	private enum PropertyCriteria {NAME, TAG};
@@ -117,10 +117,10 @@ public abstract class AbstractConfiguration implements GeneratorBean{
 		return value.equals("false");
 	}	
 
-	public String toString() {
-		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); 
-	 	return  ToStringBuilder.reflectionToString(this);
-	}
+//	public String toString() {
+//		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); 
+//	 	return  ToStringBuilder.reflectionToString(this);
+//	}
 	
 	public String getTechnicalPackage(Template template)
 	{
