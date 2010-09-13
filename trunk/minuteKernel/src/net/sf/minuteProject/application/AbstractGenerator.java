@@ -113,6 +113,7 @@ public abstract class AbstractGenerator implements Generator {
 		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
+
 	public void copyAndComplementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws Exception {
 //		target = new Target();//(abstractConfigurationRoot, target);
 		Target target2 = abstractConfigurationRoot.getTarget();

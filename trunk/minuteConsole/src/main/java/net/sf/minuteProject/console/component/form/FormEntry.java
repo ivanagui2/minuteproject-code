@@ -1,6 +1,7 @@
 package net.sf.minuteProject.console.component.form;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -25,12 +26,22 @@ public class FormEntry extends JPanel {
 		add(label = new JLabel(l));
 		add(combo = new JComboBox(new DefaultComboBoxModel(array)));
 	}
-
-	public String getText() {
-		return text.getText();
+	
+	public FormEntry (JButton button) {
+		((FlowLayout) getLayout()).setAlignment(0);
+		add(label = new JLabel(" "));
+		add(button);
 	}
 
-	public void settext(String s) {
+	public String getText() {
+		if (text!=null)
+			return text.getText();
+		if (combo!=null)
+			return combo.getSelectedItem().toString();
+		return null;
+	}
+
+	public void setText(String s) {
 		text.setText(s);
 	}
 

@@ -6,19 +6,24 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+import net.sf.minuteProject.console.face.FillBasicConfiguration;
+import net.sf.minuteProject.console.panel.ConsolePanel;
 import net.sf.minuteProject.console.panel.ModelAccessPanel;
 import net.sf.minuteProject.console.panel.ModelCommonPanel;
 import net.sf.minuteProject.console.panel.TargetPanel;
+import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 
 /**
  * 
  * @author florian
  */
-public class Console extends JFrame {
+public class Console extends JFrame{
 
-	private ModelAccessPanel modelAccessPanel;
-	private ModelCommonPanel modelCommonPanel;
-	private TargetPanel targetPanel;
+//	private ModelAccessPanel modelAccessPanel;
+//	private ModelCommonPanel modelCommonPanel;
+//	private TargetPanel targetPanel;
+//	
+	private ConsolePanel consolePanel;
 
 	/** Creates new form TestFrame */
 	public Console() {
@@ -26,22 +31,12 @@ public class Console extends JFrame {
 	}
 
 	private void initComponents() {
-//		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		setLayout(new GridLayout(0,1));
-		modelAccessPanel = new ModelAccessPanel();
-		modelCommonPanel = new ModelCommonPanel();
-		targetPanel = new TargetPanel();
-
-		System.out.println("size modelAccessPanel "+modelAccessPanel.getSize().width);
-		System.out.println("size modelCommonPanel "+modelCommonPanel.getSize().width);
-		System.out.println("size targetPanel "+targetPanel.getSize().width);
-
-		getContentPane().add(modelAccessPanel);
-		getContentPane().add(modelCommonPanel);
-		add(targetPanel);
-
+		consolePanel = new ConsolePanel();
+		BoxLayout bl = new BoxLayout(consolePanel, BoxLayout.Y_AXIS);
+		consolePanel.setLayout(bl);
+		getContentPane().add(consolePanel);
 		pack();
-	}// </editor-fold>
+	}
 
 	/**
 	 * @param args
@@ -54,5 +49,7 @@ public class Console extends JFrame {
 			}
 		});
 	}
+
+
 
 }

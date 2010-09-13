@@ -62,7 +62,7 @@ public class Form extends JPanel {
 
 	public void setTextAt(String s, int i) {
 		if (i < getComponentCount())
-			((FormEntry) this.getComponent(i)).settext(s);
+			((FormEntry) this.getComponent(i)).setText(s);
 	}
 
 	public String getTextAt(int i) {
@@ -80,7 +80,7 @@ public class Form extends JPanel {
 		for (int i = 0; i < getComponentCount(); i++)
 			if (((FormEntry) this.getComponent(i)).getLabelText().equals(
 					labelName)) {
-				((FormEntry) getComponent(i)).settext(text);
+				((FormEntry) getComponent(i)).setText(text);
 				return;
 			}
 	}
@@ -95,7 +95,7 @@ public class Form extends JPanel {
 	public void getTextAt(String text, JLabel l) {
 		for (int i = 0; i < getComponentCount(); i++)
 			if (((FormEntry) this.getComponent(i)).equals(l)) {
-				((FormEntry) getComponent(i)).settext(text);
+				((FormEntry) getComponent(i)).setText(text);
 				return;
 			}
 	}
