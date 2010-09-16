@@ -7,7 +7,7 @@ PROGDIR=$(cd `dirname $0`/../..;pwd)
 #MP_CLASSES=$PROGDIR/minuteKernel/bin
 MP_LIB=$PROGDIR/application/lib
 LOCALCLASSPATH=
-for i in `ls $MP_LIB/*.jar` `ls $MP_LIB/*.jar` `ls $MP_LIB/**/*.jar`
+for i in `ls $MP_LIB/minuteKernel*.jar` `ls $MP_LIB/*.jar` `ls $MP_LIB/**/*.jar`
 do
   LOCALCLASSPATH=${LOCALCLASSPATH}:"${i}"
 done
