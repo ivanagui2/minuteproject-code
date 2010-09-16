@@ -2,32 +2,38 @@ package net.sf.minuteProject.architecture.query.impl;
 
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
 
-public class QuerySelectInit implements QueryWhatInit {
+public class QuerySelectCountInit implements QueryWhatInit {
 
+	private String entity;
+	
+	public QuerySelectCountInit (String entity) {
+		this.entity = entity;
+	}
+	
 	public String getWhatInit(boolean isComma) {
        if (isComma)
            return " , ";
-        return " select ";
+        return " select count("+entity+") as "+getWhatAlias()+" ";
 	}
 
 	@Override
 	public boolean isToSeparateInit() {
-		return false;
+		return true;
 	}
-	
+
+	@Override
 	public boolean isProjectionQuery() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public String getWhatAlias() {
-		// TODO Auto-generated method stub
-		return null;
+		return "count__";
 	}
 
 	@Override
 	public String getWhatProperty() {
-		// TODO Auto-generated method stub
-		return null;
+		return getWhatAlias();
 	}
+
 }

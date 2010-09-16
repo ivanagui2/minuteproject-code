@@ -171,6 +171,14 @@ public class ModelViewGenerator extends ModelGenerator {
 		}
 	}
 
+	protected void generateArtifactsByEntity(Template template) throws Exception {	
+		super.generateArtifactsByEntity(template);
+		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
+			View view = (View) iter.next();
+			writeTemplateResult(view, template);
+		}
+	}
+	
 	protected void putCommonContextObject(VelocityContext context,
 			Template template) {
 		putStandardContextObject(context);

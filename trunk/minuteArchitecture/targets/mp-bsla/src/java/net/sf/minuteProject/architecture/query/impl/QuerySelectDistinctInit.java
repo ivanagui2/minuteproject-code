@@ -9,5 +9,26 @@ public class QuerySelectDistinctInit implements QueryWhatInit {
            return " , ";
         return " select distinct ";
 	}
+	
+	@Override
+	public boolean isToSeparateInit() {
+		return false;
+	}
+	
+	public boolean isProjectionQuery() {
+		return false;
+	}
+
+	@Override
+	public String getWhatAlias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getWhatProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

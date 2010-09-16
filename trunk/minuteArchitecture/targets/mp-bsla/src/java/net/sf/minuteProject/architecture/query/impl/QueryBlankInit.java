@@ -2,20 +2,24 @@ package net.sf.minuteProject.architecture.query.impl;
 
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
 
-public class QuerySelectInit implements QueryWhatInit {
+public class QueryBlankInit implements QueryWhatInit{
 
+	@Override
 	public String getWhatInit(boolean isComma) {
-       if (isComma)
-           return " , ";
-        return " select ";
+	       if (isComma)
+	           return " , ";
+	        return " ";
+	}
+
+	@Override
+	public boolean isProjectionQuery() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean isToSeparateInit() {
-		return false;
-	}
-	
-	public boolean isProjectionQuery() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -30,4 +34,5 @@ public class QuerySelectInit implements QueryWhatInit {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
