@@ -25,7 +25,7 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" 
+		<target refname="FitNesse" 
 		   name="default" 
 		   fileName="mp-template-config-fitnesse.xml" 
 		   outputdir-root="../output/petshopFitnesse"
