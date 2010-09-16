@@ -182,7 +182,8 @@
 	 		<include name="model-generation*"/>
 	 		<include name="mp-config-sample*"/>
 	 	</fileset>
-	  </copy>			
+	  </copy>	
+	   <chmod dir="${release.dir}/mywork/config" perm="777" includes="**/*.sh"/>		
 	</target>
 	
 	<target name="release-installation" depends="copy-release-installation" >

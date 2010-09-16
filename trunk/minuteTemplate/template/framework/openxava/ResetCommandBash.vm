@@ -1,16 +1,17 @@
 #exposeOXSpecific()
-set currentdir=%cd%
+#!/bin/sh
+
+GENDIR=$(cd `dirname $0`;pwd)
 
 ## stop tomcat in appart process
-cd %OX_HOME%
-call stop-tomcat.bat
+cd $OX_HOME
+./stop-tomcat.bat
 
 ## remove OX project
-cd %OX_HOME%\workspace
-del $applicationOX /s /q
+cd $OX_HOME/workspace
+rm -r $applicationOX 
 
-cd %OX_HOME%\tomcat\webapps 
-del $applicationOX /s /q
+cd $OX_HOME/tomcat/webapps 
+rm -r $applicationOX 
 
-
-cd %currentdir%
+cd $GENDIR
