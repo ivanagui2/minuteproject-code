@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./demo-model-generation.sh mp-config-openxava-last-features.xml
+./model-generation.sh mp-config-openxava-last-features.xml
