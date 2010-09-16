@@ -64,6 +64,7 @@ public class Template extends TemplateTarget {
 	private String entityDirNamePrefix;
 	private String appendEndPackageDir;
 	private String isToGenerate;
+	private String chmod;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -619,6 +620,13 @@ public class Template extends TemplateTarget {
 	public String getOutputdir() {
 		return super.getOutputdir();
 	}
-	
-	
+
+	public String getChmod() {
+		return chmod;
+	}
+
+	public void setChmod(String chmod) {
+		this.chmod = chmod;
+	}
+
 }

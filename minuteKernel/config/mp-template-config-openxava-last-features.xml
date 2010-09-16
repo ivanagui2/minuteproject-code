@@ -291,6 +291,7 @@
 				
 		<template package-root=""
 			name="BuildCommandBash" templateFileName="BuildCommandBash.vm" 
+			chmod = "777"
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="sh" file-prefix="build-" file-suffix="" 
@@ -307,6 +308,7 @@
 
 		<template package-root=""
 			name="ResetCommandBash" templateFileName="ResetCommandBash.vm" 
+			chmod = "777"
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="sh" file-prefix="reset-" file-suffix="" 
