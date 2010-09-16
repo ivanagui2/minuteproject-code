@@ -176,7 +176,15 @@
 	 		<include name="**/README.txt"/>
 	 	</fileset>
 	  </copy>
+	  <copy todir="${release.dir}/mywork/config" overwrite="true">
+	 	<fileset dir="${demo.config.dev.relpath}">
+	 		<include name="mp-template-config*"/>
+	 		<include name="model-generation*"/>
+	 		<include name="mp-config-sample*"/>
+	 	</fileset>
+	  </copy>			
 	</target>
+	
 	<target name="release-installation" depends="copy-release-installation" >
 	</target>
 		
