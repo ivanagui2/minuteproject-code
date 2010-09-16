@@ -122,7 +122,7 @@
 					<alias attr-name="check-template-to-generate" prop-name="checkTemplateToGenerate" />
 					<alias attr-name="scope-specific-value" prop-name="scopeSpecificValue" />
 					<alias attr-name="is-to-generate" prop-name="isToGenerateMethod" />
-					
+					<alias attr-name="chmod" prop-name="chmod" />
 				</set-properties-rule> 	
 				<pattern value="property">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		

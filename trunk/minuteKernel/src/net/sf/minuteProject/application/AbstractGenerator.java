@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -286,10 +287,28 @@ public abstract class AbstractGenerator implements Generator {
     	return templateLibPath;    	
     }
     
-	protected void produce(VelocityContext context, Template template, String outputFilename) 
-    throws Exception{
-	   	org.apache.velocity.Template velocityTemplate =  null;
-	   	try 
+	protected void produce(VelocityContext context, Template template, String outputFilename) throws Exception{
+
+		 org.apache.velocity.Template velocityTemplate = getVelocityTemplate(template, outputFilename);
+       writeFile(context, velocityTemplate, outputFilename);
+       writeFilePostProcessing (template, outputFilename);
+   }
+	
+	private void writeFilePostProcessing(Template template, String outputFilename) {
+		String chmod = template.getChmod();
+		if (chmod!=null && !chmod.equals("")) {
+			File file = new File(outputFilename);
+			try {
+				Runtime.getRuntime().exec("chmod "+chmod+" "+file.getCanonicalPath());
+			} catch (IOException e) {
+				//do nothing example on windows chmod does not exist
+			}
+		}
+	}
+	
+	private org.apache.velocity.Template getVelocityTemplate (Template template, String outputFilename) throws Exception {
+	   org.apache.velocity.Template velocityTemplate =  null;
+	   try 
 	       {
 	   			velocityTemplate = Velocity.getTemplate(template.getTemplateFileName());
 	       }
@@ -300,17 +319,21 @@ public abstract class AbstractGenerator implements Generator {
        catch( ParseErrorException pee )
        {
            System.out.println("Example : Syntax error in template " + template.getTemplateFileName() + ":" + pee );
-       } 
+       }
+       return velocityTemplate;
+	}
+	
+	private void writeFile (VelocityContext context, org.apache.velocity.Template velocityTemplate, String outputFilename) throws Exception {
+		FileOutputStream fos = new FileOutputStream(outputFilename);
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
 
-       BufferedWriter writer = new BufferedWriter(
-           new OutputStreamWriter(new FileOutputStream(outputFilename)));
+      if ( velocityTemplate != null)
+     	   velocityTemplate.merge(context, writer);
 
-       if ( velocityTemplate != null)
-    	   velocityTemplate.merge(context, writer);
-
-       writer.flush();
-       writer.close();    	
-   }
+      writer.flush();
+      writer.close();  
+      
+	}
 	
    protected String getAbstractBeanName (GeneratorBean bean) {
 		String beanName = StringUtils.lowerCase(bean.getClass().getName());
