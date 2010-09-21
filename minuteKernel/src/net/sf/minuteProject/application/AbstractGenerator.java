@@ -22,6 +22,8 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
+import sun.security.action.GetBooleanAction;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
@@ -32,6 +34,7 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
@@ -56,6 +59,7 @@ public abstract class AbstractGenerator implements Generator {
 	private String configurationFile;
 	private String templatePath;
 	private String templateLibPath;
+	private BasicIntegrationConfiguration bic; 
 	
 	/**
 	 * The default constructor get the value of the configuration to which the generator is associated
@@ -63,6 +67,9 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public AbstractGenerator (String configurationFile) {
 		this.configurationFile = configurationFile;
+	}
+	public AbstractGenerator(BasicIntegrationConfiguration bic) {
+		this.bic = bic;
 	}
 	/**
 	 * gets the configuration file that is to be loaded
@@ -181,13 +188,28 @@ public abstract class AbstractGenerator implements Generator {
 	 * @throws Exception
 	 */
 	public final AbstractConfiguration load() {
+		if (getConfigurationFile()!=null)
+			return loadFromConfigurationFile();
+		return loadFromObject();
+	}
+	
+	public final AbstractConfiguration loadFromConfigurationFile() {
 		AbstractConfiguration abstractConfiguration = null;
 		try {
 			abstractConfiguration = load(getConfigurationFile(), getConfigurationRulesFile());
 		} catch (Exception e) {
 			exit("CANNOT LOAD FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
 		}
-		return abstractConfiguration;
+		return abstractConfiguration;		
+	}
+	
+	public final AbstractConfiguration loadFromObject() {
+		AbstractConfiguration abstractConfiguration = null;
+		if (bic!=null)
+			abstractConfiguration = bic.getConfiguration();
+		else
+			exit ("NO CONFIGURATION PROVIDED");
+		return abstractConfiguration;	
 	}
 	
 	/* (non-Javadoc)

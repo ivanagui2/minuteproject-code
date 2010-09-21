@@ -30,6 +30,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
+import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.target.TargetHolder;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
@@ -94,6 +95,10 @@ public class ModelGenerator extends AbstractGenerator {
 	 */
 	public ModelGenerator(String configurationFile) {
 		super(configurationFile);
+	}
+
+	public ModelGenerator(BasicIntegrationConfiguration bic) {
+		super(bic);
 	}
 
 	@Override

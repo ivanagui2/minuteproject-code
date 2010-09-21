@@ -27,6 +27,7 @@ import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
+import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -101,6 +102,10 @@ public class ModelViewGenerator extends ModelGenerator {
 	// public String getConfigurationRulesFile() {
 	// return GENERATOR_MODEL_RULES;
 	// }
+
+	public ModelViewGenerator(BasicIntegrationConfiguration bic) {
+		super(bic);
+	}
 
 	public static void main(String args[]) throws Exception {
 		String config;

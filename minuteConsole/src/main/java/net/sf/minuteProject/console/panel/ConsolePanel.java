@@ -1,5 +1,8 @@
 package net.sf.minuteProject.console.panel;
 
+import static net.sf.minuteProject.console.utils.UIUtils.addSeparator;
+import static net.sf.minuteProject.console.utils.UIUtils.createTabPanel;
+
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -8,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import net.miginfocom.swing.MigLayout;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 
@@ -36,6 +40,24 @@ public class ConsolePanel extends JPanel implements FillBasicConfiguration{
 		add(p2);
 		add(p3);
 	}
+	
+//	public ConsolePanel() {
+//		MigLayout lm = new MigLayout("ins 20", "[para]0[][100lp, fill][60lp][95lp, fill]", "");
+//		JPanel panel = createTabPanel(lm);
+//	
+//		addSeparator(panel, "Model Access");
+//	
+//		fillModelAccessPanel(panel);
+//	
+//	
+//		addSeparator(panel, "Common configuration");
+//	
+//		fillModelCommonPanel (panel);
+//	
+//		addSeparator(panel, "Ship");
+//	
+//		TargetPanel tp = new TargetPanel(this);
+//	}
 	
 	public void fill(BasicIntegrationConfiguration bic) {
 		modelAccessPanel.fill(bic);
