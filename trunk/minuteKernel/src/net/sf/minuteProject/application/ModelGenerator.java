@@ -145,6 +145,11 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 
+	public void generate() throws Exception {
+		Configuration configuration = (Configuration) load();
+		generate(configuration);		
+	}
+	
 	protected void generate(Configuration configuration) throws Exception {
 		Model model = configuration.getModel();
 		setModel(model);

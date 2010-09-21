@@ -7,7 +7,9 @@
 			    <!-- driver properties are given for mvn pom integration  -->
 			    <!-- TODO oracle, mysql, db2 -->
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
-			 
+                <!-- 
+                <driver name="mysql" version="5.0.5" groupId="mysql" artifactId="mysql-connector-java"></driver>     			 
+			     -->
 			    <dataSource>	
 			        <!-- driver class name from your jdbc provider jar -->
 			        <!-- TODO oracle, mysql, db2 -->
@@ -16,6 +18,14 @@
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
+				<!-- example of mysql connection 
+                <dataSource>
+	                <driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
+	                <url>jdbc:mysql://localhost:3306/petshop</url>
+	                <username>root</username>
+	                <password></password>
+                </dataSource>			
+                -->	
 				<!-- for Oracle and DB2 please set the schema 
 				<schema> </schema>
 				 -->
