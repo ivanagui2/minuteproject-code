@@ -54,7 +54,7 @@ public class BusinessModel {
 	public void complementDataModelWithTables () {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
-			businessPackage.setPackages(model, database);
+			getBusinessPackage().setPackages(model, database);
 		}
 		complementDataModelWithTablesEnrichment();
 	}
@@ -62,7 +62,7 @@ public class BusinessModel {
 	public void complementDataModelWithViews () {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
-			businessPackage.setPackageViews(model, database);
+			getBusinessPackage().setPackageViews(model, database);
 		}
 		complementDataModelWithViewsEnrichment();
 	}
@@ -272,6 +272,10 @@ public class BusinessModel {
 	}
 
 	public BusinessPackage getBusinessPackage() {
+		if (businessPackage==null) {
+			businessPackage=new BusinessPackage();
+			businessPackage.setBusinessModel(this);
+		}
 		return businessPackage;
 	}
 

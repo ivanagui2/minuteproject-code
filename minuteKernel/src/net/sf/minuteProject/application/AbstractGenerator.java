@@ -26,6 +26,7 @@ import sun.security.action.GetBooleanAction;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
+import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.GeneratorConfig;
 import net.sf.minuteProject.configuration.bean.Target;
@@ -78,7 +79,7 @@ public abstract class AbstractGenerator implements Generator {
 	public String getConfigurationFile() {
 		return this.configurationFile;
 	}
-	
+		
 	/**
 	 * gets the configuration rule file that is to be loaded
 	 * @return
@@ -97,6 +98,7 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public abstract AbstractConfiguration getConfigurationRoot();
 	
+//	protected abstract void generate(Configuration configuration) throws Exception;
 	/* (non-Javadoc)
 	 * @see net.sf.minuteProject.application.Generator#load(java.lang.String, java.lang.String)
 	 */

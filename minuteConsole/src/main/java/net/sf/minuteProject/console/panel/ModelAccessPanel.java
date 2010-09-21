@@ -41,6 +41,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		bic.setPassword(passwordTf.getText());
 		bic.setSchema(schemaTf.getText());
 		bic.setDatabase(databaseCb.getSelectedItem().toString());
+		bic.setDriver(driverClassNameTf.getText());
 		
 		
 //		bic.setUrl(f.getTextAt(url));

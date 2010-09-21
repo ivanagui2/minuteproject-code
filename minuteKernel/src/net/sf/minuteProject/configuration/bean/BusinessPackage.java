@@ -127,8 +127,7 @@ public class BusinessPackage extends AbstractConfiguration {
 			Table table = tables[i];
 			table.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, table)) {
-				String packageName = CommonUtils.getBusinessPackageName(model,
-						table);
+				String packageName = CommonUtils.getBusinessPackageName(model, table);
 				Package pack = (Package) ht.get(packageName);
 				if (pack == null) {
 					pack = new Package();
@@ -207,10 +206,12 @@ public class BusinessPackage extends AbstractConfiguration {
 				}
 			}
 		}
-		return defaultPackage;
+		return getDefaultPackage();
 	}
 
 	public String getDefaultPackage() {
+		if (defaultPackage==null)
+			return businessModel.getModel().getName();
 		return defaultPackage;
 	}
 

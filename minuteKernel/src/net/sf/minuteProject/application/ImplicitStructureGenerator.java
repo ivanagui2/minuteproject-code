@@ -151,4 +151,5 @@ public class ImplicitStructureGenerator extends AbstractGenerator {
 		context.put("fileUtils", new FileUtils());
 		context.put("lines", fileUtils.getLines( file, implicitstructureHolder.getBaseStructure().getSeparator()));
 	}
+
 }

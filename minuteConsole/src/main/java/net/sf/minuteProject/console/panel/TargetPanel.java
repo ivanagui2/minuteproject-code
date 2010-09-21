@@ -61,6 +61,13 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 				System.out.println(bic);
 				
 				ModelViewGenerator mvg = new ModelViewGenerator(bic);
+				try {
+					mvg.generate();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//				mvg.gene)
 
 			}
 		}

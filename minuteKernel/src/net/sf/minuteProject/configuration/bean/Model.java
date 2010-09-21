@@ -21,6 +21,10 @@ public class Model extends AbstractConfiguration{
 	}
 
 	public BusinessModel getBusinessModel() {
+		if (businessModel==null) {
+			businessModel=new BusinessModel();
+			businessModel.setModel(this);
+		}
 		return businessModel;
 	}
 

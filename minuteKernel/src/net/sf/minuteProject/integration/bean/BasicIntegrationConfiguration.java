@@ -41,8 +41,15 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	}
 
 	private Target getTargetTechnology() {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO redo it entirely it's just for test
+		Target target = new Target();
+		if (target.equals("openxava")) {
+			target.setFileName("mp-template-config-openxava-last-features.xml");
+			target.setTemplatedirRoot("../../template/framework/openxava");
+		}
+			
+		target.setOutputdirRoot(targetDir);
+		return target;
 	}
 
 	private Model getModel() {
