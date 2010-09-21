@@ -1,7 +1,15 @@
 package net.sf.minuteProject.integration.bean;
 
+import org.apache.commons.dbcp.BasicDataSource;
+
 import net.sf.minuteProject.configuration.bean.BeanCommon;
 import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Target;
+import net.sf.minuteProject.configuration.bean.Targets;
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
 
 public class BasicIntegrationConfiguration extends BeanCommon{
 
@@ -16,14 +24,70 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	rootpackage,
 	businesspackage,
 	version,
-	modelName;
+	modelName,
+	targetDir;
 
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
-//		configuration.setm
+		configuration.setModel(getModel());
+		configuration.setTargets(getTargets());
 		return configuration;
 	}
 	
+	private Targets getTargets() {
+		Targets targets = new Targets();
+		targets.addTarget(getTargetTechnology());
+		return targets;
+	}
+
+	private Target getTargetTechnology() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Model getModel() {
+		Model model = new Model();
+		model.setDataModel(getDataModel());
+		model.setName(modelName);
+		model.setPackageRoot(rootpackage);
+		return model;
+	}
+
+	private DataModel getDataModel() {
+		DataModel dataModel = new DataModel();
+		dataModel.setBasicDataSource(getBasicDataSource());
+		dataModel.setSchema(schema);
+		dataModel.setPrimaryKeyPolicy(getPrimaryKeyPolicyConfig());
+		return dataModel;
+	}
+
+	private PrimaryKeyPolicy getPrimaryKeyPolicyConfig() {
+		PrimaryKeyPolicy primaryKeyPolicy = new PrimaryKeyPolicy();
+		primaryKeyPolicy.setOneForEachTable(true);
+		primaryKeyPolicy.addPrimaryKeyPolicyPattern(getPrimaryKeyPolicyPattern());
+		return primaryKeyPolicy;
+	}
+
+	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern() {
+		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = new PrimaryKeyPolicyPattern();
+		if (primaryKeyPolicy.equals("sequence")) {
+			primaryKeyPolicyPattern.setSuffix("_SEQ");
+			primaryKeyPolicyPattern.setName("sequencePattern");
+		}
+		else if (primaryKeyPolicy.equals("autoincrement"))
+			primaryKeyPolicyPattern.setName("autoincrementPattern");
+		return primaryKeyPolicyPattern;
+	}
+
+	private BasicDataSource getBasicDataSource() {
+		BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setUrl(url);
+		basicDataSource.setUsername(username);
+		basicDataSource.setPassword(password);
+		basicDataSource.setDriverClassName(driver);
+		return basicDataSource;
+	}
+
 	public String getSchema() {
 		return schema;
 	}
@@ -118,6 +182,14 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
+	}
+
+	public String getTargetDir() {
+		return targetDir;
+	}
+
+	public void setTargetDir(String targetDir) {
+		this.targetDir = targetDir;
 	}
 	
 	
