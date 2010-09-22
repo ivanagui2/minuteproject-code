@@ -1,0 +1,142 @@
+#exposeVariableModelSpecific()
+package $packageName;
+
+import java.io.*;
+import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import javax.sql.DataSource;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import org.apache.struts.util.RequestUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import net.sf.minuteProject.architecture.bsla.factory.MyProjectFactory;
+import net.sf.minuteProject.architecture.web.controller.DefaultController;
+#importBackEnd()
+
+   /**
+    * Handles a single guestbook request from the client.
+    */
+public class $className implements DefaultController {
+	
+	public String 			getForward(String inputObject, String method){
+					System.out.println(method + inputObject);
+					if (method.equals("insert") || method.equals("save")) {
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "$jspPath/${tableClassName}ResultOneScreen.jsp";
+																																										}
+#end
+#end
+}
+
+					if (method.equals("manage") || method.equals("add")){
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "$jspPath/${tableClassName}ManageScreen.jsp";
+																																										}
+#end
+#end
+}
+
+					if (method.equals("searchOnPk")) {
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "/jsp/$model.name/$businessPackageName/${tableClassName}ResultOneScreen.jsp";
+																																										}
+#end
+#end
+}
+
+					if (method.equals("edit")) {
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "$jspPath/${tableClassName}ManageScreen.jsp";
+																																										}
+#end
+#end
+}
+return null;
+}
+
+	public String getAttributeName(String inputObject, String method){
+					System.out.println(method + inputObject);
+					if (method.equals("insert") || method.equals("save")) {
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "${tableClassName}SearchResultOne";
+																																										}
+#end
+#end
+}
+
+					if (method.equals("manage") || method.equals("add")){
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "${tableClassName}SearchResultOne";
+																																										}
+#end
+#end
+}
+
+					if (method.equals("searchOnPk")) {
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "${tableClassName}SearchResultList";
+																																										}
+#end
+#end
+}
+
+					if (method.equals("edit")) {
+	#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeImportParams()
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+			if (inputObject.equals("$importDomainObject")) {
+return "${tableClassName}SearchResultOne";
+																																										}
+#end
+#end
+}
+
+}
+return null;
+	}

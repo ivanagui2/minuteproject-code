@@ -1,0 +1,34 @@
+#set ($ClassName = $utils.getClassName($table))
+#set ($JavaNameEntity = $utils.getJavaName($table.name))
+#set($tableJavaName = $utils.getJavaName($table.name))
+#set ($JavaNameEntityVariable = $utils.getJavaNameVariable($table.name))
+#set ($subPackage = $table.description)
+#set ($entityFirst = '${')
+#set ($entityLast = '}')
+#set ($entityInSession = "${tableJavaName}SearchResultOne")
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<table>
+	#foreach ($column in ${table.columns})
+	<tr>
+		<td>$column.name</td>
+#set ($columnVariable = $utils.getJavaNameVariable($column.name))
+#set ($entity = "${entityFirst}${entityInSession}.${columnVariable}${entityLast}")
+##if ($utils.isPrimaryKey($column, $table))
+#set ($linkedTableValue = $utils.getForeignKeyTableName($column, $table))
+#if ($column.isPrimaryKey())
+#set ($actionURL = $URLUtils.getSearchByIdURL($table.name, $column.name, $entityInSession))
+		<td><a href="/DBView/$actionURL"><c:out value="$entity"/></a></td>
+#elseif ("$linkedTableValue"!="")
+#set ($actionURL = $URLUtils.getSearchByIdURL($linkedTableValue, $column.name, $entityInSession))
+## to set the test 
+##if(!$utils.isConfigurationCodeTable($linkedTableValue))
+		<td><a href="/DBView/$actionURL"><c:out value="$entity"/></a></td>
+		## end
+		## else display ConfigurationTable.getentityToDisplay
+#else
+		<td><c:out value="$entity"/></td>
+#end
+	</tr>
+	#end	
+	</table>

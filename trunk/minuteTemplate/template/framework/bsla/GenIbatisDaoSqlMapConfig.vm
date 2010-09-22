@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+
+#foreach ($package in ${database.packages})
+   <!-- $package.name -->
+ 
+#foreach ($table in ${package.listOfTables})
+#set($tableClassName = $utils.getClassName($table))
+	   <sqlMap resource="<your package>/dao/implementation/ibatis/xml/$utils.getSubPackage($table)/${tableClassName}.xml"/>
+#end
+#end
+#foreach ($package in ${database.packageViews})
+   <!-- $package.name -->
+ 
+#foreach ($table in ${package.listOfViews})
+#set($tableClassName = $utils.getClassName($table))
+	   <sqlMap resource="<your package>/dao/implementation/ibatis/xml/$utils.getSubPackage($table)/${tableClassName}.xml"/>
+#end
+#end	
+
+</sqlMapConfig>
+

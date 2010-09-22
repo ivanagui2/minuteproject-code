@@ -1,0 +1,11 @@
+#exposeVariableModelSpecific()
+#exposeWebProperties()
+<html>
+<head>
+<title>
+homepage of $model.name
+</title>
+<body>
+Welcome to $model.name
+</body>
+</html>

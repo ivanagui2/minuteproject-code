@@ -1,0 +1,98 @@
+#exposeVariableApplicationSpecific()
+#exposeWebProperties()
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+	<display-name>application</display-name>
+
+	<description></description>
+
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+    </filter>
+
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/$defaultRootURLBeginner</url-pattern>
+    </filter-mapping>
+    
+	<!-- The contextConfigLocation specifies all locations for the Spring bean factory to get its Spring bean definitions from. -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:${springConfigMain}
+		</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>context</servlet-name>
+		<servlet-class>
+			org.springframework.web.context.ContextLoaderServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+    
+    <servlet>
+        <servlet-name>$projectDefaultServletName</servlet-name>
+        <servlet-class>$projectDefaultServletClasspath</servlet-class>
+    </servlet>
+
+ 
+    <servlet-mapping>
+        <servlet-name>$projectDefaultServletName</servlet-name>
+        <url-pattern>/$defaultRootURLBeginner</url-pattern>
+    </servlet-mapping> 
+    
+
+    <welcome-file-list>
+#if ($securityAuthenticationType!="none")
+	  <welcome-file>$defaultRootURLBeginner</welcome-file>
+#end
+      <welcome-file>index.jsp</welcome-file>
+      <welcome-file>index.html</welcome-file>
+    </welcome-file-list>    
+	
+#if ($securityAuthenticationType!="none")
+	<security-constraint>
+       <web-resource-collection>
+           <web-resource-name>Administrative Area</web-resource-name>
+           <url-pattern>/*</url-pattern>
+       </web-resource-collection>
+       <auth-constraint>
+           <role-name>$adminRole</role-name>
+       </auth-constraint>
+   </security-constraint>
+
+#if ($securityAuthenticationType=="basic")   
+    <login-config>
+	   <auth-method>BASIC</auth-method>
+	   <realm-name>myrealm</realm-name>
+	</login-config>
+
+#end
+#if ($securityAuthenticationType=="form") 
+    <login-config>
+        <auth-method>FORM</auth-method>
+		<realm-name>myrealm</realm-name>
+        <form-login-config>
+           <form-login-page>/$loginPath</form-login-page>
+           <form-error-page>/$loginErrorPath</form-error-page>
+        </form-login-config>
+    </login-config>
+	
+#end
+	<!-- Security roles referenced by this web application -->
+	<security-role>
+	  <description>
+	    The role that is required to log in to the Manager Application
+	  </description>
+	  <role-name>$adminRole</role-name>
+	</security-role>
+#end
+</web-app>

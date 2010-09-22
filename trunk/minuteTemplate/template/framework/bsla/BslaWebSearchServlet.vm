@@ -1,0 +1,100 @@
+#exposeVariableModelSpecific()
+package $packageName;
+
+import java.io.*;
+import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import javax.sql.DataSource;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import org.apache.struts.util.RequestUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import net.sf.minuteProject.architecture.bsla.factory.MyProjectFactory;
+
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#putImportParams()
+import $importDomainObject;
+import $importDaoInterface;
+#end
+	#end
+	
+   /**
+    * Handles a single guestbook request from the client.
+    */
+public class $className extends HttpServlet {
+	
+	public void doGet (HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+    	doPost (req, res);
+    }
+    
+	public void doPost (HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        try {
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#exposeVariableEntitySpecific()
+			#putReferenceParams()
+			#exposeJSPPath()
+		if (req.getParameter("action").equals("Search$table.name")) {
+				String forward = "";
+				System.out.println("search $table.name");
+				$tableClassName entity = new $tableClassName();
+				${tableClassName}Dao dao = (${tableClassName}Dao)MyProjectFactory.getBean("${tableVariableName}Dao");			
+				populate(entity, req);
+				List list = dao.search$tableClassName(entity);
+				if (list.size()==0) {
+					System.out.println("no result");
+					forward = "$jspPath/${tableClassName}ResultListScreen.jsp";
+				}
+				if (list.size()>0) {
+					System.out.println("multiple result");
+					forward = "$jspPath/${tableClassName}ResultListScreen.jsp";
+				}
+					session.setAttribute("${tableClassName}SearchResultList",list);
+				forward(forward,req,res);
+			}
+#end        
+#end
+			} catch (IllegalAccessException iae) {
+			forward("/jsp/error/SearchScreenResultError.jsp",req,res);
+			//out.println("exception ex = "+iae.getMessage());
+		} catch (InvocationTargetException ite) {
+			forward("/jsp/error/SearchScreenResultError.jsp",req,res);
+			//out.println("exception ex = "+ite.getMessage());
+		}
+   }
+   
+    private static Map getParametersMap(HttpServletRequest request) {
+        Map parameters = new HashMap();
+        Enumeration e = request.getParameterNames();
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+        	String [] params = request.getParameterValues(key);
+        	if (params.length>0 && !params[0].equals("")) {
+            	parameters.put(key, params[0]);
+            	System.out.println("search param = "+key+", "+params[0]);            		
+        	}
+        }
+        return parameters;
+    }   
+    
+    public static void populate(Object bean, HttpServletRequest request)
+        throws IllegalAccessException, InvocationTargetException {
+        Map parameters = getParametersMap(request);
+        BeanUtilsBean.getInstance().populate(bean, parameters);
+    }    
+
+    private void forward(
+    	    String aDestination, 
+    	    HttpServletRequest aRequest, 
+    	    HttpServletResponse aResponse
+    	  ) throws ServletException, IOException {
+    	    
+    	    RequestDispatcher dispatcher = aRequest.getRequestDispatcher(aDestination);
+    	    dispatcher.forward(aRequest, aResponse);
+    }      
+}

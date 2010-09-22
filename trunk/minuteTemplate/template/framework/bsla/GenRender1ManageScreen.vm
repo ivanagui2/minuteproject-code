@@ -1,0 +1,58 @@
+#exposeVariableEntitySpecific()
+#set ($action = "insert")
+#set ($actionURL = "crud.do")
+#set ($htmlFormName = $table.name)
+#getTemplatePropertyValue("displayPk")
+#set ($displayPk = $value)
+#exposeJSPElement()
+#set ($entityInSession = "${tableClassName}SearchResultOne")
+<%@ include file="/WEB-INF/jsp/common/common-include.jsp"%>
+<html>
+<head>
+	<title>$table.name edit screen</title>
+</head>	
+<body>
+#includeAction()
+##includeCRUD()
+$table.name field values
+<form name="$htmlFormName" action="${ctx}/$actionURL" onSubmit="return isToSubmit();">
+<input type="hidden" name="action" value="$action">
+<input type="hidden" name="table" value="$table.name">
+<table>
+#foreach ($column in ${table.columns})
+	#putColumnParams()
+	#exposeJstlEntity($entityInSession $columnVar)
+
+#if(!$column.isPrimaryKey() || $columnUtils.isNaturalPk($column) || $displayPk=="true")
+  <tr>
+  <td>$columnVar #if($column.isRequired() && !$isView) *#end</td>
+#if ($column.type=="VARCHAR" || $column.type=="CHAR")  
+  <td> <input type="text" name="$columnVar" size="#columnSize()" onchange="check${columnVar}()" value="<c:out value="$entity"/>"/></td>
+#elseif($column.type=="INT" || $column.type=="BIGINT" || $column.type=="INTEGER")
+  <td> <input type="text" name="$columnVar" size="$column.size" onchange="check${columnVar}()" value="<c:out value="$entity"/>"/></td>
+#else
+  <td> <input type="text" name="$columnVar" onchange="check${columnVar}()" value="<c:out value="$entity"/>"/></td>
+#end
+	  <td><span id="${columnVar}-error" class="error"></span></td>
+  </tr>
+#end
+#if($column.isPrimaryKey())
+<input type="hidden" name="$columnVar" value="<c:out value="$entity"/>">
+#end
+#end
+<c:if test='${ _ManagementScreenPurpose == "manage"}'>
+<tr><td><input type="submit" value="Search" onclick="setAction('search');"></td></tr>
+#if(!$isView)
+<tr><td><input type="submit" value="Insert" onclick="setAction('insert');"></td></tr>
+#end
+</c:if>
+<c:if test='${ _ManagementScreenPurpose == "insert"}'>
+<tr><td><input type="submit" value="Insert" onclick="setAction('insert');"></td></tr>
+</c:if>
+<c:if test='${ _ManagementScreenPurpose == "update"}'>
+<tr><td><input type="submit" value="Update" onclick="setAction('update');"></td></tr>
+</c:if>
+</table>
+</form>
+</body>
+</html>
