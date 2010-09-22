@@ -2,9 +2,12 @@ package net.sf.minuteProject.console.panel;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import net.sf.minuteProject.application.ModelViewGenerator;
 import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
@@ -69,7 +72,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		panel.add(schemaTf,      "wrap");
 		
 		panel.add(createLabel(database_type), "skip");
-		databaseCb = createCombo(new String[] {"oracle", "db2", "mysql", "hsqldb"});
+		databaseCb = createCombo(new String[] {"oracle", "db2", "mysql", "hsqldb"}, new DatabaseChangeListener());
 		panel.add(databaseCb);
 		panel.add(createLabel("driver"),  "center");
 		driverClassNameTf = createTextField(25);
@@ -77,4 +80,21 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 
 	}
 
+	private class DatabaseChangeListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == databaseCb) {
+				String databaseType = databaseCb.getSelectedItem().toString();
+				if (databaseType.equals("oracle")) {
+					driverClassNameTf.setText("oracle.jdbc.OracleDriver");
+				} else if (databaseType.equals("mysql")) {
+					driverClassNameTf.setText("org.gjt.mm.mysql.Driver");
+				} else if (databaseType.equals("hsqldb")) {
+					driverClassNameTf.setText("org.hsqldb.jdbcDriver");
+				}
+				//org.hsqldb.jdbcDriver
+					
+			}
+		}
+	}
 }

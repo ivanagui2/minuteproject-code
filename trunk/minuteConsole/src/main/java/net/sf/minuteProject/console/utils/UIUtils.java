@@ -70,6 +70,11 @@ public class UIUtils {
 
 		return b;
 	}
+	public static JComboBox createCombo(String[] items, ActionListener actionListener) {
+		JComboBox jComboBox = createCombo(items);
+		jComboBox.addActionListener(actionListener);
+		return jComboBox;
+	}
 	public static JComboBox createCombo(String[] items)
 	{
 		JComboBox combo = new JComboBox(items);
