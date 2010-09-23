@@ -36,14 +36,16 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 //		return (Column[])virtualPrimaryKeys.toArray();
 	}
 
-	public void setVirtualPrimaryKeys(Column[] virtualPrimaryKeys) {
-		// TODO Auto-generated method stub
-		//this.virtualPrimaryKeys = virtualPrimaryKeys;
+	public void setVirtualPrimaryKeys(Column[] virtualPks) {
+		for (Column column : virtualPks) {
+			addVirtualPrimaryKey(column);
+		}
 	}
 
 	public void setRealPrimaryKeys(Column[] realPrimaryKeys) {
-		// TODO Auto-generated method stub
-		//this.realPrimaryKeys = realPrimaryKeys;
+		for (Column column : realPrimaryKeys) {
+			addRealPrimaryKey(column);
+		}
 	}
 
 	public void addRealPrimaryKey(Column realPrimaryKey) {

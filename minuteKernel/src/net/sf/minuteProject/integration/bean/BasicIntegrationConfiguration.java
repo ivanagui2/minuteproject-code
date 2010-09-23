@@ -19,7 +19,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	username, 
 	password, 
 	primaryKeyPolicy, 
-	target, 
+	targetTechnology, 
 	database, 
 	rootpackage,
 	businesspackage,
@@ -36,16 +36,26 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	
 	private Targets getTargets() {
 		Targets targets = new Targets();
-		targets.addTarget(getTargetTechnology());
+		if (targetTechnology.equals("openxava")) {
+			targets.addTarget(getTargetTechnology());
+			targets.addTarget(getLibTarget());
+		}
 		return targets;
+	}
+
+	private Target getLibTarget() {
+		Target target = new Target();
+		target.setFileName("catalog/mp-template-config-bsla-LIB-features.xml");
+		target.setTemplatedirRoot("../../minuteTemplate/template-bsla");		
+		return target;
 	}
 
 	private Target getTargetTechnology() {
 		//TODO redo it entirely it's just for test
 		Target target = new Target();
-		if (target.equals("openxava")) {
-			target.setFileName("mp-template-config-openxava-last-features.xml");
-			target.setTemplatedirRoot("../../template/framework/openxava");
+		if (targetTechnology.equals("openxava")) {
+			target.setFileName("catalog/mp-template-config-openxava-last-features.xml");
+			target.setTemplatedirRoot("../../minuteTemplate/template/framework/openxava");
 		}
 			
 		target.setOutputdirRoot(targetDir);
@@ -143,12 +153,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		this.primaryKeyPolicy = primaryKeyPolicy;
 	}
 
-	public String getTarget() {
-		return target;
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
+	public void setTargetTechnology(String targetTechnology) {
+		this.targetTechnology = targetTechnology;
 	}
 
 	public String getDatabase() {

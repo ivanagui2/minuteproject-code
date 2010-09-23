@@ -30,6 +30,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.target.TargetHolder;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
@@ -116,7 +117,7 @@ public class ModelGenerator extends AbstractGenerator {
 		return GENERATOR_MODEL_PROPERTY_RULES;
 	}
 	
-	public static void main(String args[]) throws Exception {
+	public static void main(String args[]) {
 		String config;
 		if (args.length < 1) {
 			System.exit(1);
@@ -125,9 +126,14 @@ public class ModelGenerator extends AbstractGenerator {
 		Date startDate = new Date();
 	    logger.info("start time = "+new Date());
 		ModelGenerator generator = new ModelGenerator(config);
+//		Configuration configuration;
 		// Model model = (Model) generator.load();
-		Configuration configuration = (Configuration) generator.load();
-		generator.generate(configuration);
+//		Configuration configuration = (Configuration) generator.load();
+		try {
+			generator.generate();
+		} catch (MinuteProjectException e) {
+			generator.exit ("");
+		}
 //		Model model = configuration.getModel();
 //		generator.setModel(model);
 //		generator.loadModel(model);
@@ -145,19 +151,29 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 
-	public void generate() throws Exception {
+	public void generate() throws MinuteProjectException {
 		Configuration configuration = (Configuration) load();
 		generate(configuration);		
 	}
 	
-	protected void generate(Configuration configuration) throws Exception {
+	protected void generate (Configuration configuration) throws MinuteProjectException {
 		Model model = configuration.getModel();
 		setModel(model);
 		loadModel(model);
+		applyConventions(model);
+		applyLimitations(model);
 		if (hasTarget())
 			loadAndGenerate(model.getConfiguration().getTarget());
 		if (hasTargets())
 			loadAndGenerate(model.getConfiguration().getTargets());
+	}
+	
+	private void applyLimitations(Model model) {
+		model.getBusinessModel().applyLimitations();
+	}
+
+	protected void applyConventions (Model model) {
+		model.getBusinessModel().applyConventions();
 	}
 	
 	protected boolean hasTarget () {
@@ -168,12 +184,12 @@ public class ModelGenerator extends AbstractGenerator {
 		return model.getConfiguration().hasTargets();
 	}
 	
-	protected void loadAndGenerate (Target target) throws Exception {
+	protected void loadAndGenerate (Target target) throws MinuteProjectException {
 		loadTarget(model.getConfiguration(), target);
 		generate(model.getConfiguration().getTarget());		
 	}
 
-	protected void loadAndGenerate (Targets targets) throws Exception {
+	protected void loadAndGenerate (Targets targets) throws MinuteProjectException {
 		Target targetFinal = new Target();
 		Configuration configuration = model.getConfiguration();
 		for (Target target : targets.getTargets()) {
@@ -198,7 +214,6 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void loadModel(Model model) {
 		model.getDataModel().loadDatabase();
-		model.getBusinessModel().applyConvention();
 		model.getBusinessModel().secureEntityType();
 		model.getBusinessModel().complementDataModelWithTables();
 	}
@@ -208,7 +223,7 @@ public class ModelGenerator extends AbstractGenerator {
 	 * 
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
-	public void generate(Template template) throws Exception {
+	public void generate(Template template) throws MinuteProjectException {
 		// TODO Auto-generated method stub
 		// getView();
 		if (template.getFieldSpecific().equals("true"))
@@ -239,15 +254,15 @@ public class ModelGenerator extends AbstractGenerator {
 		this.model = model;
 	}
 
-	protected void generateArtifactsByTargetTemplate(Template template) throws Exception {
+	protected void generateArtifactsByTargetTemplate(Template template) throws MinuteProjectException {
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	protected void generateArtifactsByModel(Template template) throws Exception {
+	protected void generateArtifactsByModel(Template template) throws MinuteProjectException {
 		writeTemplateResult(getModel(), template);
 	}
 
-	protected void generateArtifactsByPackage(Template template) throws Exception {
+	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
 		List packages = getModel().getBusinessModel().getBusinessPackage()
 				.getPackages();
 		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
@@ -255,7 +270,7 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
-	protected void generateArtifactsByField(Template template) throws Exception {	
+	protected void generateArtifactsByField(Template template) throws MinuteProjectException {	
 		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
 			Table table = getDecoratedTable((Table) iter.next());
 			for (Column column : table.getColumns()) {
@@ -271,7 +286,7 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 	
-	protected void generateArtifactsByEntity(Template template) throws Exception {	
+	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
 			Table table = getDecoratedTable((Table) iter.next());
 			//table.getParents();
@@ -286,31 +301,30 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
-	protected void generateArtifactsByService(Template template) throws Exception {	
+	protected void generateArtifactsByService(Template template) throws MinuteProjectException {	
 		for (Scope scope : getModel().getBusinessModel().getService().getScopes()) {
 			if (ServiceUtils.isToGenerate(template, scope))
 				writeTemplateResult(scope, template);
 		}		
 	}
 
-	private void generateArtifactsByApplication(Template template) throws Exception {	
+	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	protected void generateArtifactsByComponent(Template template) throws Exception {	
+	protected void generateArtifactsByComponent(Template template) throws MinuteProjectException {	
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	protected void generateArtifactsByFunction(Template template) throws Exception {	
+	protected void generateArtifactsByFunction(Template template) throws MinuteProjectException {	
 		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
 			writeTemplateResult(function, template);
 		}
 	}
 	
 	protected void writeTemplateResult(GeneratorBean bean,
-			Template template) throws Exception {
-		String outputFilename = template
-				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+			Template template) throws MinuteProjectException {
+		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
@@ -320,7 +334,8 @@ public class ModelGenerator extends AbstractGenerator {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
 			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
-			logger.error("ERROR : "+ex.getMessage());
+			throwException(ex, "ERROR : "+ex.getMessage());
+//			logger.error("ERROR : "+ex.getMessage());
 //			throw ex;
 		}
 	}

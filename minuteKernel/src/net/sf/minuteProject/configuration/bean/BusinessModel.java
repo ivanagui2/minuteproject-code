@@ -14,6 +14,8 @@ import net.sf.minuteProject.configuration.bean.enrichment.Package;
 import net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey;
 import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
+import net.sf.minuteProject.configuration.bean.limitation.Limitation;
+import net.sf.minuteProject.configuration.bean.limitation.LimitationExcludeEntityWithoutPk;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -326,12 +328,23 @@ public class BusinessModel {
 		this.presentation = presentation;
 	}
 
-	public void applyConvention() {
+	public void applyConventions() {
 		if (enrichment!=null && enrichment.getConventions()!=null) {
 			for (Convention convention : enrichment.getConventions().getConventions()) {
 				convention.apply (this);
 			}
 		}		
+	}
+
+	public void applyLimitations() {
+		//limitation: exclude-entity-without-pk
+//		Limitation limitation = LimitationUtils.getLimitations (this);
+		Limitation limitation = new LimitationExcludeEntityWithoutPk();
+		limitation.apply(this);
+		//limitation: exclude-view
+		
+		//limitation: exclude-table
+		
 	}
 	
 	

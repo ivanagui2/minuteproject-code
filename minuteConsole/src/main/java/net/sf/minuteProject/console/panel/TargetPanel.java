@@ -14,15 +14,20 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
+import net.sf.minuteProject.application.AbstractGenerator;
 import net.sf.minuteProject.application.ModelViewGenerator;
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 
 @SuppressWarnings("serial")
 public class TargetPanel extends JPanel implements FillBasicConfiguration{
 
+	private static Logger logger = Logger.getLogger(TargetPanel.class);
 	private Form f;
 	private JButton button;
 	public static String targetL = "choose target";
@@ -63,9 +68,8 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 				ModelViewGenerator mvg = new ModelViewGenerator(bic);
 				try {
 					mvg.generate();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (MinuteProjectException mpe) {
+					logger.info("error generating : "+mpe.getError());
 				}
 //				mvg.gene)
 
@@ -75,7 +79,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 
 	public void fill(BasicIntegrationConfiguration bic) {
 //		bic.setTarget(f.getTextAt(target));
-		bic.setTarget(targetCb.getSelectedItem().toString());
+		bic.setTargetTechnology(targetCb.getSelectedItem().toString());
 	}
 
 	public void fillTargetPanel (JPanel panel) {

@@ -27,6 +27,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -101,7 +102,7 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 //		return GENERATOR_MODEL_RULES;
 //	}
 
-	public static void main(String args[]) throws Exception {
+	public static void main(String args[]) {
 		String config;
 		if (args.length < 1) {
 			System.exit(1);
@@ -111,13 +112,22 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 	    logger.info("start time = "+new Date());
 		ModelGenerator generator = new ModelGenerator(config);
 		// Model model = (Model) generator.load();
-		Configuration configuration = (Configuration) generator.load();
-		Model model = configuration.getModel();
-		generator.setModel(model);
-		generator.loadModel(model);
-		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
-				.getTarget());
-		generator.generate(model.getConfiguration().getTarget());
+		try {
+			generator.generate();
+		} catch (MinuteProjectException e) {
+			generator.exit ("");
+		}
+		
+		
+//		Configuration configuration = (Configuration) generator.load();
+//		Model model = configuration.getModel();
+//		generator.setModel(model);
+//		generator.loadModel(model);
+//		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
+//				.getTarget());
+//		generator.generate(model.getConfiguration().getTarget());
+		
+		
 		Date endDate = new Date();
 		//logger.info("start date = "+startDate.getTime());
 		//logger.info("end date = "+endDate.getTime());
@@ -134,7 +144,7 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 	 * 
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
-	public void generate(Template template) throws Exception {
+	public void generate(Template template) throws MinuteProjectException {
 		// TODO Auto-generated method stub
 		// getView();
 		if (template.getEntitySpecific().equals("true"))
@@ -159,11 +169,11 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 		this.model = model;
 	}
 
-	protected void generateArtifactsByModel(Template template) throws Exception {
+	protected void generateArtifactsByModel(Template template) throws MinuteProjectException {
 		writeTemplateResult(getModel(), template);
 	}
 
-	protected void generateArtifactsByPackage(Template template) throws Exception {
+	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
 		List packages = model.getBusinessModel().getBusinessPackage()
 				.getPackages();
 		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
@@ -171,18 +181,17 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 		}
 	}
 
-	protected void generateArtifactsByEntity(Template template) throws Exception {	
+	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		for (Scope scope : model.getBusinessModel().getService().getScopes() ) {
 			writeTemplateResult(scope, template);
 		}		
 	}
 
-	private void generateArtifactsByApplication(Template template) throws Exception {	
+	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
-	protected void writeTemplateResult(GeneratorBean bean,
-			Template template) throws Exception {
+	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
@@ -193,8 +202,7 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
-			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
-			throw ex;
+			throwException(ex, "ERROR on template "+template.getName()+" - on bean "+bean.getName());
 		}
 	}
 

@@ -35,6 +35,7 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -113,12 +114,12 @@ public abstract class AbstractGenerator implements Generator {
 		return getClass().getClassLoader().getSystemResourceAsStream(configurationFileName);
 	}
 	
-	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
+	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws MinuteProjectException {
 		try {
 			loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
 			
 		} catch (Exception e) {
-			exit ("CANNOT LOAD FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH");
+			throwException(e, "CANNOT LOAD TARGET FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH");
 		}
 		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}
@@ -187,44 +188,45 @@ public abstract class AbstractGenerator implements Generator {
 	/**
 	 * load the configuration root element
 	 * @return AbstractConfiguration
+	 * @throws Exception 
 	 * @throws Exception
 	 */
-	public final AbstractConfiguration load() {
+	public final AbstractConfiguration load() throws MinuteProjectException {
 		if (getConfigurationFile()!=null)
 			return loadFromConfigurationFile();
 		return loadFromObject();
 	}
 	
-	public final AbstractConfiguration loadFromConfigurationFile() {
+	public final AbstractConfiguration loadFromConfigurationFile() throws MinuteProjectException {
 		AbstractConfiguration abstractConfiguration = null;
 		try {
 			abstractConfiguration = load(getConfigurationFile(), getConfigurationRulesFile());
 		} catch (Exception e) {
-			exit("CANNOT LOAD FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
+			throwException(e, "CANNOT LOAD CONFIGURATION FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
 		}
 		return abstractConfiguration;		
 	}
 	
-	public final AbstractConfiguration loadFromObject() {
+	public final AbstractConfiguration loadFromObject() throws MinuteProjectException {
 		AbstractConfiguration abstractConfiguration = null;
 		if (bic!=null)
 			abstractConfiguration = bic.getConfiguration();
 		else
-			exit ("NO CONFIGURATION PROVIDED");
+			throwException("NO CONFIGURATION PROVIDED");
 		return abstractConfiguration;	
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.AbstractConfiguration, net.sf.minuteProject.configuration.bean.Target)
 	 */
-	public void generate (Target target) throws Exception {
+	public void generate (Target target) throws MinuteProjectException {
     	for (Iterator iter= target.getTemplateTargets().iterator(); iter.hasNext(); ) {
     		TemplateTarget templateTarget = (TemplateTarget)iter.next();
-    		logger.info("> generate template: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
+    		logger.info(">template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
     		if (templateTarget!=null && templateTarget.getTemplates()!=null) {
 	    		for (Iterator iter2= templateTarget.getTemplates().iterator(); iter2.hasNext(); ) {
 	        		Template template= (Template)iter2.next();
-	        		logger.info(">> generate template: "+template.getName()+" in "+template.getOutputdir());
+	        		logger.info(">>template: "+template.getName()+" in "+template.getOutputdir());
 	        		this.generate(template);    		
 	        		//generateArtifacts (configuration.getModel(),(Template)iter2.next());		
 	        	} 
@@ -381,15 +383,20 @@ public abstract class AbstractGenerator implements Generator {
     	return DataModelFactory.getTable(table);
     }
     
-	protected void writeTemplateResult(GeneratorBean bean, 
-			Template template) throws Exception {
+	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException{
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		context.put("template", template);
 		putCommonContextObject(context, template);
-		produce(context, template, outputFilename);
+		try {
+			produce(context, template, outputFilename);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
+			throwException(e, e.getMessage());
+		}
 	}
 	
 	protected void putCommonContextObject(VelocityContext context, Template template) {
@@ -410,7 +417,20 @@ public abstract class AbstractGenerator implements Generator {
 	}
 
     protected void exit (String message) {
-		logger.error(message);
+//		logger.error(message);
 		System.exit(-1);
+    }
+    
+    protected void throwException (Exception e, String error) throws MinuteProjectException {
+		logger.error(error);
+		MinuteProjectException mpe = new MinuteProjectException();
+		mpe.setError(error);
+		if (e!=null)
+			mpe.setMessage(e.getMessage());
+		throw mpe;
+    }
+    
+    protected void throwException (String error) throws MinuteProjectException {
+    	throwException(null, error);
     }
 }
