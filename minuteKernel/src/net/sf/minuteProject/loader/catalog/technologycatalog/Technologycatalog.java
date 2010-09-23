@@ -1,4 +1,4 @@
-package net.sf.minuteProject.loader.databasecatalog;
+package net.sf.minuteProject.loader.catalog.technologycatalog;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,29 +10,29 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.log4j.Logger;
 
-import net.sf.minuteProject.loader.databasecatalog.DatabasecatalogHolder;
+import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 
 /**
  * @author Florian Adler
  *
  */
-public class Databasecatalog {
-	private static Logger logger = Logger.getLogger(Databasecatalog.class);
+public class Technologycatalog {
+	private static Logger logger = Logger.getLogger(Technologycatalog.class);
 	
 	private String config;
 	private String configDir;
 	
-	public Databasecatalog (String config) {
+	public Technologycatalog (String config) {
 	   setConfig(config);
 	}
 	
-	public Databasecatalog (String configDir, String config) {
+	public Technologycatalog (String configDir, String config) {
 		setConfig(config);
 		setConfigDir(configDir);
 	}
 	
 	public String getDigesterRule() {
-		return "net/sf/minuteProject/loader/databasecatalog/Digester-Databasecatalog-rules.xml";
+		return "net/sf/minuteProject/loader/catalog/technologycatalog/Digester-Technologycatalog-rules.xml";
 	}
 	
 	public static void main(String args[]) throws Exception {
@@ -41,28 +41,28 @@ public class Databasecatalog {
 		}
 		Date startDate = new Date();
 	    logger.info("start time = "+new Date());
-	    Databasecatalog loader = new Databasecatalog(args[0]);
-		DatabasecatalogHolder Databasecatalogholder = loader.load();
+	    Technologycatalog loader = new Technologycatalog(args[0]);
+		TechnologycatalogHolder Technologycatalogholder = loader.load();
 		Date endDate = new Date();
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 	
-	public DatabasecatalogHolder load() throws Exception{
+	public TechnologycatalogHolder load() throws Exception{
 		if (getConfigDir()==null)
 			return load(getConfig(), getDigesterRule());
 		return load(getConfigDir(), getConfig(), getDigesterRule());
 	}
 	
-	public DatabasecatalogHolder load (String configuration, String rules) throws Exception{
-		DatabasecatalogHolder Databasecatalogholder = new DatabasecatalogHolder();
-		loadDigester(Databasecatalogholder, getInputStream(configuration), rules);
-        return Databasecatalogholder;		
+	public TechnologycatalogHolder load (String configuration, String rules) throws Exception{
+		TechnologycatalogHolder Technologycatalogholder = new TechnologycatalogHolder();
+		loadDigester(Technologycatalogholder, getInputStream(configuration), rules);
+        return Technologycatalogholder;		
 	}
 	
-	public DatabasecatalogHolder load (String fileDirName, String fileName, String rules) throws Exception{
-		DatabasecatalogHolder Databasecatalogholder = new DatabasecatalogHolder();
-		loadDigester(Databasecatalogholder, getInputStream(fileDirName, fileName), rules);
-        return Databasecatalogholder;		
+	public TechnologycatalogHolder load (String fileDirName, String fileName, String rules) throws Exception{
+		TechnologycatalogHolder Technologycatalogholder = new TechnologycatalogHolder();
+		loadDigester(Technologycatalogholder, getInputStream(fileDirName, fileName), rules);
+        return Technologycatalogholder;		
 	}
 	
 	private InputStream getInputStream (String fileName) {

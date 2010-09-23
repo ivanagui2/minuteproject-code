@@ -1,15 +1,16 @@
-package net.sf.minuteProject.loader.databasecatalog.node; //schema database
+package net.sf.minuteProject.loader.catalog.databasecatalog.node; //schema database-catalog
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.minuteProject.loader.databasecatalog.DatabasecatalogHolder;
+import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationLoader;
 import net.sf.minuteProject.configuration.bean.Template;
 
 public class Database extends AbstractConfigurationLoader{
 
+   private DatabaseCatalog _databaseCatalog;
    private String _name;
    private PrimaryKeyPolicy _primaryKeyPolicy;
    private String _version;
@@ -24,6 +25,10 @@ public class Database extends AbstractConfigurationLoader{
       return template.getTechnicalPackage();
    }
    
+   public DatabaseCatalog getDatabaseCatalog() {
+      return DatabasecatalogHolder.getDatabaseCatalog(); 
+   }
+	
    public String getName() {
 	  if (_name == null)
 	     _name = new String();
@@ -74,7 +79,7 @@ public class Database extends AbstractConfigurationLoader{
    
    public Boolean getUseSchema() {
 	  if (_useSchema == null)
-	     _useSchema = new Boolean("false");
+	     _useSchema = new Boolean(true);
 	      return _useSchema;
    }
 	
