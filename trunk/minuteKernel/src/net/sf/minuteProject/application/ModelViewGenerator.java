@@ -27,6 +27,7 @@ import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
@@ -107,7 +108,7 @@ public class ModelViewGenerator extends ModelGenerator {
 		super(bic);
 	}
 
-	public static void main(String args[]) throws Exception {
+	public static void main(String args[]) {
 		String config;
 		if (args.length < 1) {
 			System.exit(1);
@@ -116,9 +117,14 @@ public class ModelViewGenerator extends ModelGenerator {
 		Date startDate = new Date();
 		logger.info("start time = " + new Date());
 		ModelViewGenerator generator = new ModelViewGenerator(config);
-		Configuration configuration = (Configuration) generator.load();
+//		Configuration configuration = (Configuration) generator.load();
 
-		generator.generate(configuration);
+		try {
+			generator.generate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Model model = configuration.getModel();
 		// generator.setModel(model);
 		// generator.loadModel(model);
@@ -150,8 +156,7 @@ public class ModelViewGenerator extends ModelGenerator {
 		super.setModel(model);
 	}
 
-	protected void writeTemplateResult(GeneratorBean bean, Template template)
-			throws Exception {
+	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
 		String outputFilename = template
 				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
@@ -169,14 +174,14 @@ public class ModelViewGenerator extends ModelGenerator {
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
-			logger.error("ERROR on template " + template.getName()
-					+ " - on bean " + bean.getName());
+//			logger.error("ERROR on template " + template.getName()
+//					+ " - on bean " + bean.getName());
 			ex.printStackTrace();
-			throw ex;
+			throwException(ex, "ERROR on template " + template.getName() + " - on bean " + bean.getName());
 		}
 	}
 
-	protected void generateArtifactsByEntity(Template template) throws Exception {	
+	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		super.generateArtifactsByEntity(template);
 		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
 			View view = (View) iter.next();

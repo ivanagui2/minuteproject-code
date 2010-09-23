@@ -18,6 +18,7 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -92,7 +93,7 @@ public class ViewGenerator extends AbstractGenerator{
 	/* (non-Javadoc)
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
-	public void generate (Template template) throws Exception{
+	public void generate (Template template) throws MinuteProjectException{
 		// TODO Auto-generated method stub
 		//getView();
 		if (template.getViewSpecific().equals("true"))
@@ -104,7 +105,7 @@ public class ViewGenerator extends AbstractGenerator{
 		
 	}
 
-	public View getView() throws Exception {
+	public View getView() throws MinuteProjectException {
 		if (view==null) {
 			ViewGenerator viewGenerator = new ViewGenerator(getViewConfig());
 			setView ((View) viewGenerator.load());			
@@ -131,17 +132,17 @@ public class ViewGenerator extends AbstractGenerator{
         }
     }  
 
-    private void generateArtifactsByView (Template template) throws Exception{
+    private void generateArtifactsByView (Template template) throws MinuteProjectException{
    		writeTemplateResult (getView(), template);
     }
     
-    private void generateArtifactsByService (Template template) throws Exception{
+    private void generateArtifactsByService (Template template) throws MinuteProjectException{
     	for (Iterator<Service> iter = getView().getServices().iterator(); iter.hasNext();) {
     		writeTemplateResult ((Service)iter.next(), template);
     	}
     }
 
-    private void generateArtifactsByFunction (Template template) throws Exception{
+    private void generateArtifactsByFunction (Template template) throws MinuteProjectException{
     	for (Iterator<Service> iter = getView().getServices().iterator(); iter.hasNext();) {
         	for (Iterator<Function> iter2 = ((Service)iter.next()).getFunctions().iterator(); iter2.hasNext();) {
         		writeTemplateResult ((Function)iter2.next(), template);
@@ -149,7 +150,7 @@ public class ViewGenerator extends AbstractGenerator{
         }
     }
     
-    private void writeTemplateResult (AbstractConfiguration bean, Template template) throws Exception{
+    private void writeTemplateResult (AbstractConfiguration bean, Template template) throws MinuteProjectException{
     	String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = StringUtils.lowerCase(bean.getClass().getName());
@@ -157,7 +158,12 @@ public class ViewGenerator extends AbstractGenerator{
     	context.put(beanName, bean);
 		context.put("template", template);
 		putCommonContextObject(context);
-    	produce (context, template, outputFilename);     	
+    	try {
+			produce (context, template, outputFilename);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throwException(e, "ERROR on template " + template.getName() + " - on bean " + bean.getName());
+		}     	
     }
     
     private void writeTemplateResultFunction (VelocityContext context, Function function, Template template) {

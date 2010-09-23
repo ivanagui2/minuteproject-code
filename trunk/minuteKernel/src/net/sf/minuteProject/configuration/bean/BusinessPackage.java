@@ -166,6 +166,10 @@ public class BusinessPackage extends AbstractConfiguration {
 		}
 		return entities;
 	}
+	
+	public void resetEntities () {
+		entities=null;
+	}
 
 	public Table[] getEntitiesArray() {
 		List<Table> tables = getEntities();

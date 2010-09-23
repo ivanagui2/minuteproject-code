@@ -9,6 +9,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.loader.init.Init;
 import net.sf.minuteProject.loader.init.InitHolder;
 import net.sf.minuteProject.loader.init.node.Configuration;
@@ -134,7 +135,7 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		return null;
 	}
 
-	public void generate(Template template) throws Exception {
+	public void generate(Template template) throws MinuteProjectException {
 		if (template.getScopeSpecificValue().equals("page"))
 			generatePageSpecific(template);
 		if (template.getScopeSpecificValue().equals("flow"))
@@ -145,21 +146,21 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 			generateWindowSpecific(template);			
 	}
 	
-	private void generatePageSpecific(Template template) throws Exception {	
+	private void generatePageSpecific(Template template) throws MinuteProjectException {	
 		List<Page> pages = presentationholder.getDictionary().getPages();
 		for (Page page : pages) {
 			writeTemplateResult(page, template);
 		}
 	}
 	
-	private void generateFlowSpecific(Template template) throws Exception {	
+	private void generateFlowSpecific(Template template) throws MinuteProjectException {	
 		List<Flow> flows = presentationholder.getDictionary().getFlows();
 		for (Flow flow : flows) {
 			writeTemplateResult(flow, template);
 		}
 	}
 	
-	private void generateBlockSpecific(Template template) throws Exception {	
+	private void generateBlockSpecific(Template template) throws MinuteProjectException {	
 		List<Block> blocks = presentationholder.getDictionary().getBlocks();
 		for (Block block : blocks) {
 			if (template.isToGenerate(block)) {
@@ -168,7 +169,7 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		}
 	}
 
-	private void generateWindowSpecific(Template template) throws Exception {	
+	private void generateWindowSpecific(Template template) throws MinuteProjectException {	
 		List<Window> windows = presentationholder.getDictionary().getWindows();
 		for (Window window : windows) {
 			if (template.isToGenerate(window)) {
@@ -177,16 +178,15 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 		}
 	}
 	
-	protected void writeTemplateResult(GeneratorBean bean, 
-			Template template) throws Exception {
-		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
-		VelocityContext context = getVelocityContext(template);
-		String beanName = getAbstractBeanName(bean);
-		context.put(beanName, bean);
-		context.put("template", template);
-		putCommonContextObject(context, template);
-		produce(context, template, outputFilename);
-	}
+//	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
+//		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+//		VelocityContext context = getVelocityContext(template);
+//		String beanName = getAbstractBeanName(bean);
+//		context.put(beanName, bean);
+//		context.put("template", template);
+//		putCommonContextObject(context, template);
+//		produce(context, template, outputFilename);
+//	}
 	
 	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);

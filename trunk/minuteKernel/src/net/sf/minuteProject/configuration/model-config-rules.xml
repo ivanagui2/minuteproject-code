@@ -180,7 +180,7 @@
 				</set-properties-rule>	
 				<pattern value="view-primary-key-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
-					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
 					<set-properties-rule>
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />

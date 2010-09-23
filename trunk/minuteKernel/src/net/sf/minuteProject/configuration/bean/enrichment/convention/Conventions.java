@@ -29,5 +29,7 @@ public class Conventions extends AbstractConfiguration{
 		getConventions().add(convention);
 	}
 	
-	
+//	public void addConvention (ViewPrimaryKeyConvention convention) {
+//		getConventions().add(convention);
+//	}	
 }

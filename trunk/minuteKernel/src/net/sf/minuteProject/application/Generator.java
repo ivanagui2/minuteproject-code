@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.exception.MinuteProjectException;
 
 /**
  * @author Florian Adler
@@ -39,7 +40,7 @@ public interface Generator {
 	 * generate the template's artifacts
 	 * @param template
 	 */
-	public void generate (Template template) throws Exception;
+	public void generate (Template template) throws MinuteProjectException;
 		
 	public void getSolutionPortfolio (String solutionPortfolioFileName);
 	

@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.exception.MinuteProjectException;
 //import net.sf.minuteProject.configuration.bean.file.Lines;
 import net.sf.minuteProject.loader.implicitstructure.Implicitstructure;
 import net.sf.minuteProject.loader.implicitstructure.ImplicitstructureHolder;
@@ -132,14 +133,14 @@ public class ImplicitStructureGenerator extends AbstractGenerator {
 		return null;
 	}
 
-	public void generate(Template template) throws Exception {
+	public void generate(Template template) throws MinuteProjectException {
 		if (template.getScopeSpecificValue().equals("document"))
 			generateDocumentSpecific(template);
 //		if (template.getScopeSpecificValue().equals("line"))
 //			generateBeanSpecific(template);	
 	}
 
-	private void generateDocumentSpecific (Template template) throws Exception {	
+	private void generateDocumentSpecific (Template template) throws MinuteProjectException {	
 		BaseStructure baseStructure = implicitstructureHolder.getBaseStructure();
 		writeTemplateResult(baseStructure, template);
 	}

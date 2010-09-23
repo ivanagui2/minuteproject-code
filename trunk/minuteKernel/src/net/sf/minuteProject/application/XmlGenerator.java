@@ -33,6 +33,7 @@ import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.configuration.bean.xml.impl.dom4j.DocumentDom4j;
 import net.sf.minuteProject.configuration.bean.xml.impl.dom4j.ElementDom4j;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.plugin.xml.schema.XmlSchemaUtils;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
@@ -155,7 +156,7 @@ public class XmlGenerator extends AbstractGenerator {
 	 * 
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
-	public void generate(Template template) throws Exception {
+	public void generate(Template template) throws MinuteProjectException {
 		if (template.getEntitySpecific().equals("true"))
 			generateArtifactsByEntity(template);
 		else if (template.getEntitySpecific().equals("true"))
@@ -168,7 +169,7 @@ public class XmlGenerator extends AbstractGenerator {
 			generateArtifactsByNodeAttributeName(template);		
 	}
 
-	public Model getModel() throws Exception {
+	public Model getModel() {
 //		if (model == null) {
 //			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
 //			setModel((Model) modelGenerator.load());
@@ -181,25 +182,25 @@ public class XmlGenerator extends AbstractGenerator {
 	}
 
 
-	private void generateArtifactsByModel(Template template) throws Exception {
+	private void generateArtifactsByModel(Template template) throws MinuteProjectException {
 		writeTemplateResult(getModel(), template);
 	}
 
-	private void generateArtifactsByPackage(Template template) throws Exception {
+	private void generateArtifactsByPackage(Template template) throws MinuteProjectException {
 		List packages = model.getBusinessModel().getBusinessPackage().getPackages();
 		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
 			writeTemplateResult((Package) iter.next(), template);
 		}
 	}
 
-	private void generateArtifactsByEntity(Template template) throws Exception {	
+	private void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		for (Iterator iter =  getElements().iterator(); iter.hasNext(); ) {
 			net.sf.minuteProject.configuration.bean.xml.Element element = (net.sf.minuteProject.configuration.bean.xml.Element)iter.next();
 			writeTemplateResult(element, template);
 		}
 	}
 
-	private void generateArtifactsByNodeAttributeName(Template template) throws Exception {	
+	private void generateArtifactsByNodeAttributeName(Template template) throws MinuteProjectException {	
 		for (Iterator iter =  getElements().iterator(); iter.hasNext(); ) {
 			String nodeName = template.getNodeNameValue();
 			net.sf.minuteProject.configuration.bean.xml.Element element = (net.sf.minuteProject.configuration.bean.xml.Element)iter.next();
@@ -215,16 +216,15 @@ public class XmlGenerator extends AbstractGenerator {
 		}
 	}
 	
-	protected void writeTemplateResult(GeneratorBean bean, 
-			Template template) throws Exception {
-		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
-		VelocityContext context = getVelocityContext(template);
-		String beanName = getAbstractBeanName(bean);
-		context.put(beanName, bean);
-		context.put("template", template);
-		putCommonContextObject(context);
-		produce(context, template, outputFilename);
-	}
+//	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
+//		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+//		VelocityContext context = getVelocityContext(template);
+//		String beanName = getAbstractBeanName(bean);
+//		context.put(beanName, bean);
+//		context.put("template", template);
+//		putCommonContextObject(context);
+//		produce(context, template, outputFilename);
+//	}
 
    protected String getAbstractBeanName (GeneratorBean bean) {
 		String beanName = StringUtils.lowerCase(bean.getClass().getName());
