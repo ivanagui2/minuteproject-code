@@ -7,11 +7,12 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.utils.ColumnUtils;
 
 @SuppressWarnings("serial")
-public class ViewPrimaryKeyConvention extends Convention {
+public class TableDefaultPrimaryKeyConvention extends Convention {
 
 	public static final String APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK = "apply-default-primary-key-otherwise-first-one";
 	public String defaultPrimaryKeyNames;
@@ -26,37 +27,38 @@ public class ViewPrimaryKeyConvention extends Convention {
 	@Override
 	public void apply(BusinessModel model) {
 		if (model.getBusinessPackage()!=null) {
-			for (View view : model.getBusinessPackage().getViews()) {
-				if (view.getPrimaryKeyColumns().length==0)
-					apply (view);
+			for (Table table : model.getBusinessPackage().getTables()) {
+				if (table.getPrimaryKeyColumns().length==0)
+					apply (table);
 			}
 		}
 	}
-	private void apply(View view) {
-		view.setVirtualPrimaryKeys(getVirtualPrimaryKey(view));
+	
+	protected void apply(Table table) {
+		table.setPrimaryKeys(getVirtualPrimaryKey(table));
 	}
 	
-	private Column[] getVirtualPrimaryKey(View view) {
-		List<Column> pks = getPksByDefaultPrimaryKeyNames(view);
+	protected Column[] getVirtualPrimaryKey(Table table) {
+		List<Column> pks = getPksByDefaultPrimaryKeyNames(table);
 		if (pks==null || pks.isEmpty())
-			pks = getPksByFirstColumn(view);
+			pks = getPksByFirstColumn(table);
 		return (Column[])pks.toArray(new Column[pks.size()]);
 	}
 	
-	private List<Column> getPksByFirstColumn(View view) {
+	protected List<Column> getPksByFirstColumn(Table table) {
 		List<Column> pks = new ArrayList<Column>();
-		Column column = view.getColumn(0);
+		Column column = table.getColumn(0);
 		if (column!=null)
 			pks.add(column);		
 		return pks;
 	}
 	
-	private List<Column> getPksByDefaultPrimaryKeyNames(View view) {
+	protected List<Column> getPksByDefaultPrimaryKeyNames(Table table) {
 		List<Column> pks = new ArrayList<Column>();
 		String pk = getDefaultPrimaryKeyNames();
 		pk = StringUtils.remove(pk, " ");
 		for (String columnName : getDefaultPrimaryKeyNames().split(",")) {
-			Column column = ColumnUtils.getColumn(view, columnName);
+			Column column = ColumnUtils.getColumn(table, columnName);
 			if (column!=null)
 				pks.add(column);
 		}

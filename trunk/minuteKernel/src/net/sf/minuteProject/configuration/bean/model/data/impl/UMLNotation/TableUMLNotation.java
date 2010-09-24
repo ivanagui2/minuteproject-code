@@ -71,6 +71,12 @@ public class TableUMLNotation extends TableAbstract {
 		
 		
 	}
+
+	@Override
+	public void setPrimaryKeys(Column[] virtualPrimaryKey) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 //	public List<Property> getProperties() {
 //	   return super.getProperties();

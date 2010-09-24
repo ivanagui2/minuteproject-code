@@ -159,7 +159,25 @@ public class TableDDLUtils extends TableAbstract {
     	}
     	return foreignKeys;
 	}
-	
+
+	public void setPrimaryKeys(Column[] virtualPrimaryKey) {
+		//reset primaryKeys
+		primaryKeys = null;
+		columns = null;
+		for (Column column : getColumnList()) {
+			for (Column column2 : virtualPrimaryKey) {
+				if (column.getName().equals(column2.getName()))
+					column.setPrimaryKey(true);
+			}			
+		}
+		resetNoPrimaryKeyNoForeignKeyColumns();
+	}
+	private void resetNoPrimaryKeyNoForeignKeyColumns() {
+		noPrimaryKeyNoForeignKeyColumns = null;
+		setNoPrimaryKeyNoForeignKeyColumns();
+		
+	}
+
 	/*
 	
 	protected void addForeignKeys(ForeignKey foreignKey) {
