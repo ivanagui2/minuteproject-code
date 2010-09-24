@@ -185,7 +185,15 @@
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
 					</set-properties-rule>	
-	            </pattern>				
+	            </pattern>		
+				<pattern value="table-default-primary-key-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.TableDefaultPrimaryKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+					</set-properties-rule>	
+	            </pattern>		            		
 				<pattern value="view-foreign-key-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewForeignKeyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewForeignKeyConvention"/>		
