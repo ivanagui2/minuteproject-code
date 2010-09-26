@@ -11,12 +11,18 @@
   <pattern value="technologies">
    <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology"/>
    <set-next-rule methodname="setTechnologies" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology"/>
-   <set-properties-rule/>
-   <bean-property-setter-rule  propertyname="name" pattern="name"/>
+   <set-properties-rule>
+		<alias attr-name="name" prop-name="name" />
+		<alias attr-name="version" prop-name="version" />
+		<alias attr-name="template-config-file-name" prop-name="templateConfigFileName" />
+		<alias attr-name="template-dir" prop-name="templateDir" />
+		<alias attr-name="depends-on-targets" prop-name="dependsOnTargets" />
+   </set-properties-rule>
+   <!--<bean-property-setter-rule  propertyname="name" pattern="name"/>
    <bean-property-setter-rule  propertyname="version" pattern="version"/>
    <bean-property-setter-rule  propertyname="templateConfigFileName" pattern="template-config-file-name"/>
    <bean-property-setter-rule  propertyname="templateDir" pattern="template-dir"/>
-   <bean-property-setter-rule  propertyname="dependsOnTargets" pattern="depends-on-targets"/>
+   <bean-property-setter-rule  propertyname="dependsOnTargets" pattern="depends-on-targets"/>-->
    <pattern value="limitations">
     <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitation"/>
     <set-next-rule methodname="setLimitations" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitation"/>
