@@ -8,6 +8,8 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,6 +25,8 @@ import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
+import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
 
 @SuppressWarnings("serial")
 public class TargetPanel extends JPanel implements FillBasicConfiguration{
@@ -34,20 +38,16 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	private ConsolePanel consolePanel;
 	private ConsoleSample consoleSample;
 	private JComboBox targetCb;
+	private List<Technology> technologies;
 	
-	public TargetPanel(ConsolePanel consolePanel) {
-		this.consolePanel = consolePanel;
-		f = new Form("Target part");
-		f.add(targetL, new String[] { "spring/hibernate", "roo", "openxava" });
-		f.add(getGenerateButton());
-		//f.synchronZones();
-		setLayout(new FlowLayout());
-		setAlignmentX(Component.LEFT_ALIGNMENT);
-		add(f);
-	}
+//	public TargetPanel(TechnologycatalogHolder technologycatalogHolder) {
+//		technologies = technologycatalogHolder.getTechnologyCatalog().getTechnologiess();
+//	}
 	
 	public TargetPanel(ConsoleSample consoleSample) {
 		this.consoleSample = consoleSample;
+		technologies = consoleSample.getTechnologycatalogHolder().getTechnologyCatalog().getTechnologiess();
+		
 	}	
 
 	private JButton getGenerateButton() {
@@ -71,21 +71,39 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 				} catch (MinuteProjectException mpe) {
 					logger.info("error generating : "+mpe.getError());
 				}
-//				mvg.gene)
-
 			}
 		}
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
-//		bic.setTarget(f.getTextAt(target));
-		bic.setTargetTechnology(targetCb.getSelectedItem().toString());
+		bic.setTargetTechnology(getTargetTechnology());
+	}
+
+	private String getTargetTechnology() {
+		String technologyName = targetCb.getSelectedItem().toString();
+		return getTechnology(technologyName).getTemplateConfigFileName();
 	}
 
 	public void fillTargetPanel (JPanel panel) {
 		panel.add(createLabel(targetL), "skip");
-		targetCb = createCombo(new String[] { "spring/hibernate", "roo", "openxava" });
+		targetCb = createCombo(getTechnologyNames());
 		panel.add(targetCb);		
 		panel.add(getGenerateButton());
+	}
+
+	private String[] getTechnologyNames() {
+		List<String> list = new ArrayList<String>();
+		for (Technology technology : technologies) {
+			list.add(technology.getName());
+		}
+		return (String[])list.toArray(new String[list.size()]);
+	}
+	
+	private Technology getTechnology(String name) {
+		for (Technology technology : technologies) {
+			if (technology.getName().equals(name))
+				return technology;
+		}		
+		return null;
 	}
 }
