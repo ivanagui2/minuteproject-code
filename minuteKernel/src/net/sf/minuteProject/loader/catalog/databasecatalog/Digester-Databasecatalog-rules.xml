@@ -11,13 +11,19 @@
   <pattern value="databases">
    <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.Database"/>
    <set-next-rule methodname="setDatabases" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.Database"/>
-   <set-properties-rule/>
+   <set-properties-rule>
+		<alias attr-name="name" prop-name="name" />
+		<alias attr-name="version" prop-name="version" />
+		<alias attr-name="hibernate-dialect" prop-name="hibernateDialect" />
+		<alias attr-name="use-schema" prop-name="useSchema" />
+		<alias attr-name="driverClassName" prop-name="driverclassname" />
+   </set-properties-rule><!--   
    <bean-property-setter-rule  propertyname="name" pattern="name"/>
    <bean-property-setter-rule  propertyname="version" pattern="version"/>
    <bean-property-setter-rule  propertyname="hibernateDialect" pattern="hibernate-dialect"/>
    <bean-property-setter-rule  propertyname="useSchema" pattern="use-schema"/>
    <bean-property-setter-rule  propertyname="driverclassname" pattern="driverClassName"/>
-   <pattern value="primary-key-policy">
+   --><pattern value="primary-key-policy">
     <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.PrimaryKeyPolicy"/>
     <set-next-rule methodname="setPrimaryKeyPolicy" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.PrimaryKeyPolicy"/>
     <set-properties-rule/>
