@@ -12,11 +12,12 @@ import javax.swing.JTextField;
 import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 
 @SuppressWarnings("serial")
 public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 
-	private Form f;
+//	private Form f;
 	public static final String root_package = "root package";
 	public static final String model_name = "model name";
 	public static final String primary_key_policy = "primary key policy";
@@ -24,14 +25,6 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	private JTextField rootPackageTf, modelNameTf, targetDirTf;
 	private JComboBox pkPolicyCb;
 	public ModelCommonPanel() {
-		f = new Form("Model common part");
-		f.add(root_package, 50);
-		f.add(model_name, 15);
-		f.add(primary_key_policy, new String[] { "sequence", "autoincrement" });
-		f.synchronZones();
-		setLayout(new FlowLayout());
-		setAlignmentX(Component.LEFT_ALIGNMENT);
-		add(f);
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
@@ -42,7 +35,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		
 //		bic.setRootpackage(f.getTextAt(root_package));
 //		bic.setModelName(f.getTextAt(model_name));
-		bic.setPrimaryKeyPolicy(f.getTextAt(primary_key_policy));		
+//		bic.setPrimaryKeyPolicy(f.getTextAt(primary_key_policy));		
 	}
 	
 	public void fillModelCommonPanel (JPanel panel) {
@@ -59,7 +52,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		panel.add(pkPolicyCb, "wrap");
 		
 		panel.add(createLabel("target dir"),   "skip");
-	    targetDirTf = createTextField("");
+	   targetDirTf = createTextField("");
 		panel.add(targetDirTf,      "span, growx, wrap para");		
 	}	
 	

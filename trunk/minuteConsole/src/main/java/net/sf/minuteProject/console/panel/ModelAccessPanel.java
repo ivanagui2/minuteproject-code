@@ -4,6 +4,10 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -11,31 +15,32 @@ import net.sf.minuteProject.application.ModelViewGenerator;
 import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
+import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import static net.sf.minuteProject.console.utils.UIUtils.*;
 
 @SuppressWarnings("serial")
 public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 
-    private Form f;
+    private List<Database> databases;
+    private List<String> databaseNames;
     public static final String url = "url";
     public static final String username = "username";
     public static final String password = "password";
     public static final String schema = "schema";
     public static final String database_type = "database type";
     
+    private JLabel schemaL;
     private JComboBox databaseCb;
     private JTextField urlTf, usernameTf, passwordTf, schemaTf, driverClassNameTf;
     
-    public ModelAccessPanel() {
-   	f = new Form("Model Access");
-     	f.add(url,50);
-    	f.add(username,15);
-    	f.add(password,15);
-    	f.add(schema,15);
-    	f.add(database_type,new String[] {"oracle", "db2", "mysql", "hsqldb"});
-    	f.synchronZones();
-    	setLayout(new FlowLayout());  	
-    	add(f);
+    public ModelAccessPanel(DatabasecatalogHolder databasecatalogHolder) {
+//   	 this.databasecatalogHolder = databasecatalogHolder;
+   	 databases = databasecatalogHolder.getDatabaseCatalog().getDatabasess();
+ 		 databaseNames = new ArrayList<String>();
+		 for (Database database : databases) {
+			 databaseNames.add(database.getName());
+		 }
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
@@ -45,56 +50,107 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		bic.setSchema(schemaTf.getText());
 		bic.setDatabase(databaseCb.getSelectedItem().toString());
 		bic.setDriver(driverClassNameTf.getText());
-		
-		
-//		bic.setUrl(f.getTextAt(url));
-//		bic.setUsername(f.getTextAt(username));
-//		bic.setPassword(f.getTextAt(password));
-//		bic.setSchema(f.getTextAt(schema));
-//		bic.setDatabase(f.getTextAt(database_type));
 	}
 	
 	public void fillModelAccessPanel (JPanel panel) {
+		panel.add(createLabel(database_type), "skip");
+		databaseCb = createCombo(getTechnologies(), new DatabaseChangeListener());
+		panel.add(databaseCb);
+		panel.add(createLabel("driver"),  "center");
+		driverClassNameTf = createTextField(25);
+		driverClassNameTf.setText(getDefaultDriverClassNameTf());
+		panel.add(driverClassNameTf,   "span, growx");	
+		
 		panel.add(createLabel(url),   "skip");
 		urlTf = createTextField("");
 		panel.add(urlTf,      "span, growx");
 		
 		panel.add(createLabel(username),   "skip");
 		usernameTf = createTextField("");
-		panel.add(usernameTf,      "span, growx");
+		usernameTf.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (getCurrentDatabase().useSchema() && schemaTf.getText().equals("")) {
+					schemaTf.setText(usernameTf.getText());
+				}
+			}
+			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+			}
+		});
+		panel.add(usernameTf);
 		
-		panel.add(createLabel(password),   "skip");
+		panel.add(createLabel(password),   "center");
 		passwordTf = createTextField("");
-		panel.add(passwordTf,      "span, growx");		
+		panel.add(passwordTf,      "wrap");		
 		
-		panel.add(createLabel(schema),  "skip");
+		schemaL = createLabel(schema);
+		schemaL.setVisible(isSchemaVisible());
+		panel.add(schemaL,  "skip");
 		schemaTf = createTextField(15);
-		panel.add(schemaTf,      "wrap");
-		
-		panel.add(createLabel(database_type), "skip");
-		databaseCb = createCombo(new String[] {"oracle", "db2", "mysql", "hsqldb"}, new DatabaseChangeListener());
-		panel.add(databaseCb);
-		panel.add(createLabel("driver"),  "center");
-		driverClassNameTf = createTextField(25);
-		panel.add(driverClassNameTf,   "wrap para");	
+		schemaTf.setVisible(isSchemaVisible());
+		panel.add(schemaTf,      "wrap para");
+	}
 
+	private boolean isSchemaVisible() {
+		return getDefaultDatabase().getUseSchema();
+	}
+
+	private Database getDefaultDatabase() {
+		return databases.get(0);
+	}
+	
+	private Database getCurrentDatabase() {
+		String databaseType = databaseCb.getSelectedItem().toString();
+		return getDatabase(databaseType);
+	}
+
+	private String getDefaultDriverClassNameTf() {
+		return databases.get(0).getDriverclassname();
+	}
+
+	private String[] getTechnologies() {
+		return (String[])databaseNames.toArray(new String[databaseNames.size()]);
 	}
 
 	private class DatabaseChangeListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == databaseCb) {
-				String databaseType = databaseCb.getSelectedItem().toString();
-				if (databaseType.equals("oracle")) {
-					driverClassNameTf.setText("oracle.jdbc.OracleDriver");
-				} else if (databaseType.equals("mysql")) {
-					driverClassNameTf.setText("org.gjt.mm.mysql.Driver");
-				} else if (databaseType.equals("hsqldb")) {
-					driverClassNameTf.setText("org.hsqldb.jdbcDriver");
-				}
-				//org.hsqldb.jdbcDriver
+				Database database = getCurrentDatabase();
+				driverClassNameTf.setText(database.getDriverclassname());
+				if (database.getUseSchema())
+					applySchema();
+				else 
+					removeSchema();
 					
 			}
 		}
+
+
 	}
+	
+	private void applySchema() {
+		schemaL.setVisible(true);
+		schemaTf.setVisible(true);
+	}
+	
+	private void removeSchema() {
+		schemaL.setVisible(false);
+		schemaTf.setVisible(false);
+	}
+	
+	private String getDriver(String databaseType) {
+		return getDatabase(databaseType).getDriverclassname();
+	}
+
+	private Database getDatabase(String databaseType) {
+		for (Database database : databases) {
+			if (database.getName().equals(databaseType))
+				return database;
+		}
+		return null;
+	}	
 }
