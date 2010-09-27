@@ -63,7 +63,6 @@ public class Model extends AbstractConfiguration{
 		this.dataModel = dataModel;
 	}
 
-	
 	public String getTechnicalPackage(Template template) {
 		StringBuffer sb = new StringBuffer(ModelUtils.getPackageRoot(template));
 		if ((template.getAddModelDirName()==null 
@@ -78,8 +77,6 @@ public class Model extends AbstractConfiguration{
 			sb.append("."+template.getTechnicalPackage());
 		return sb.toString();
 	}
-
-	
 
 	private boolean isValidPackageName() {
 		if (getName().trim().equals(""))
