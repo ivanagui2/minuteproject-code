@@ -70,11 +70,12 @@ public class Model extends AbstractConfiguration{
 			|| template.getAddModelDirName().equals("true"))	
 			&& 
 			!(template.getApplicationSpecific()!=null && template.getApplicationSpecific().equals("true"))
-			)
-		if (isValidPackageName())
-			sb.append("."+getName());
-		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
-			sb.append("."+template.getTechnicalPackage());
+			) {
+			if (isValidPackageName())
+				sb.append("."+getName());
+			if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
+				sb.append("."+template.getTechnicalPackage());
+		}
 		return sb.toString();
 	}
 
