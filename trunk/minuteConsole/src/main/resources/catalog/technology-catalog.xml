@@ -2,8 +2,6 @@
  <technologies name="OPENXAVA" 
              template-config-file-name="mp-template-config-openxava-last-features.xml" 
              default-outputdir="../output/openxava"
-             templatedir="../framework/openxava" >
+             template-dir="../../minuteTemplate/template/framework/openxava" >
  </technologies>
- 
- 
 </technology-catalog>

@@ -1,7 +1,9 @@
 package net.sf.minuteProject.console.panel;
 
-import java.awt.Component;
-import java.awt.FlowLayout;
+import static net.sf.minuteProject.console.utils.UIUtils.createCombo;
+import static net.sf.minuteProject.console.utils.UIUtils.createLabel;
+import static net.sf.minuteProject.console.utils.UIUtils.createTextField;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -9,15 +11,15 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import net.sf.minuteProject.application.ModelViewGenerator;
-import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
-import static net.sf.minuteProject.console.utils.UIUtils.*;
 
 @SuppressWarnings("serial")
 public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
@@ -36,11 +38,11 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
     
     public ModelAccessPanel(DatabasecatalogHolder databasecatalogHolder) {
 //   	 this.databasecatalogHolder = databasecatalogHolder;
-   	 databases = databasecatalogHolder.getDatabaseCatalog().getDatabasess();
- 		 databaseNames = new ArrayList<String>();
-		 for (Database database : databases) {
-			 databaseNames.add(database.getName());
-		 }
+   	   databases = databasecatalogHolder.getDatabaseCatalog().getDatabasess();
+ 	   databaseNames = new ArrayList<String>();
+	   for (Database database : databases) {
+		  databaseNames.add(database.getName());
+	   }
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
@@ -67,19 +69,8 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		
 		panel.add(createLabel(username),   "skip");
 		usernameTf = createTextField("");
-		usernameTf.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				if (getCurrentDatabase().useSchema() && schemaTf.getText().equals("")) {
-					schemaTf.setText(usernameTf.getText());
-				}
-			}
-			
-			@Override
-			public void focusGained(FocusEvent arg0) {
-			}
-		});
+		usernameTf.addFocusListener(new UserNameListener());
+		
 		panel.add(usernameTf);
 		
 		panel.add(createLabel(password),   "center");
@@ -115,6 +106,18 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		return (String[])databaseNames.toArray(new String[databaseNames.size()]);
 	}
 
+	private class UserNameListener implements FocusListener {
+
+		public void focusLost(FocusEvent arg0) {
+			if (getCurrentDatabase().useSchema() && schemaTf.getText().equals("")) {
+				schemaTf.setText(usernameTf.getText());
+			}
+		}
+		
+		public void focusGained(FocusEvent arg0) {
+		}
+	}
+	
 	private class DatabaseChangeListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -128,8 +131,6 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 					
 			}
 		}
-
-
 	}
 	
 	private void applySchema() {

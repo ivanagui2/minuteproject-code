@@ -24,6 +24,7 @@ import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.technologycatalog.Technologycatalog;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
+import net.sf.minuteProject.utils.catalog.CatalogUtils;
 import static net.sf.minuteProject.console.utils.UIUtils.*;
 import static net.sf.minuteProject.console.panel.ModelAccessPanel.*;
 import static net.sf.minuteProject.console.panel.ModelCommonPanel.*;
@@ -70,22 +71,8 @@ public class ConsoleSample extends JFrame{
 	}
 	
 	private void initCatalogs() {
-		if (databasecatalogHolder==null) {
-			Databasecatalog loader = new Databasecatalog("catalog/database-catalog.xml");
-			try {
-				databasecatalogHolder = loader.load();
-			} catch (Exception e) {
-				System.out.println("CANNOT LOAD DATABASE CATALOG");
-			}
-		}
-		if (technologycatalogHolder==null) {
-			Technologycatalog loader = new Technologycatalog("catalog/technology-catalog.xml");
-			try {
-				technologycatalogHolder = loader.load();
-			} catch (Exception e) {
-				System.out.println("CANNOT LOAD TECHNOLOGY CATALOG");
-			}
-		}		
+		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder();
+		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder();		
 	}
 
 	public static void main(String args[]) {

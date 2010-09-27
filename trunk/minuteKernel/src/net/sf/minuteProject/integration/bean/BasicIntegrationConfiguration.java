@@ -10,6 +10,10 @@ import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
+import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
+import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
+import net.sf.minuteProject.utils.catalog.CatalogUtils;
+import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 
 public class BasicIntegrationConfiguration extends BeanCommon{
 
@@ -26,7 +30,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	version,
 	modelName,
 	targetDir;
-
+	private TechnologycatalogHolder technologycatalogHolder;
+	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
 		configuration.setModel(getModel());
@@ -36,10 +41,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	
 	private Targets getTargets() {
 		Targets targets = new Targets();
-		if (targetTechnology.equals("openxava")) {
-			targets.addTarget(getTargetTechnology());
-			targets.addTarget(getLibTarget());
-		}
+		targets.addTarget(getTargetTechnology());
+		targets.addTarget(getLibTarget());
 		return targets;
 	}
 
@@ -51,13 +54,16 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	}
 
 	private Target getTargetTechnology() {
-		//TODO redo it entirely it's just for test
+		Technology technology = TechnologyCatalogUtils.getPublishedTechnology(targetTechnology);	
 		Target target = new Target();
-		if (targetTechnology.equals("openxava")) {
-			target.setFileName("catalog/mp-template-config-openxava-last-features.xml");
-			target.setTemplatedirRoot("../../minuteTemplate/template/framework/openxava");
-		}
-			
+		target.setFileName("catalog/"+technology.getTemplateConfigFileName());
+		target.setTemplatedirRoot(technology.getTemplateDir());
+//		
+//		if (targetTechnology.equals("openxava")) {
+//			target.setFileName("catalog/mp-template-config-openxava-last-features.xml");
+//			target.setTemplatedirRoot("../../minuteTemplate/template/framework/openxava");
+//		}
+//			
 		target.setOutputdirRoot(targetDir);
 		return target;
 	}
