@@ -72,6 +72,7 @@ public class Model extends AbstractConfiguration{
 			&& 
 			!(template.getApplicationSpecific()!=null && template.getApplicationSpecific().equals("true"))
 			)
+		if (isValidPackageName())
 			sb.append("."+getName());
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());
@@ -79,6 +80,12 @@ public class Model extends AbstractConfiguration{
 	}
 
 	
+
+	private boolean isValidPackageName() {
+		if (getName().trim().equals(""))
+			return false;
+		return true;
+	}
 
 	public String getPackageRoot() {
 		return packageRoot;
