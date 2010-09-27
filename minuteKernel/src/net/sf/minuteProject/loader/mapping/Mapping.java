@@ -58,14 +58,14 @@ public class Mapping {
 
 		loadDigester(mappingHolder, getInputStream(configuration), rules);
 		//TODO add multiple loader for import
-		loadDigester(mappingHolder, getInputStream(configuration), rules);
+//		loadDigester(mappingHolder, getInputStream(configuration), rules);
         return mappingHolder;		
 	}
 	
 	public MappingHolder load (String configuration, String rules) throws Exception{
 		holder = new MappingHolder();
 		holder = load(holder, configuration, rules);
-		holder = load(holder, configuration, rules);
+//		holder = load(holder, configuration, rules);
 		return holder;
 //		MappingHolder Mappingholder = new MappingHolder();
 //		loadDigester(Mappingholder, getInputStream(configuration), rules);
@@ -81,9 +81,9 @@ public class Mapping {
 //		return holder;
 //		MappingHolder Mappingholder = new MappingHolder();
 		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
-		loadDigester(holder, getInputStream(fileDirName, fileName), rules);		
-		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
-		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
+//		loadDigester(holder, getInputStream(fileDirName, fileName), rules);		
+//		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
+//		loadDigester(holder, getInputStream(fileDirName, fileName), rules);
         return holder;		
 	}
 	

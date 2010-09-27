@@ -27,6 +27,7 @@ import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
+import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 
 @SuppressWarnings("serial")
 public class TargetPanel extends JPanel implements FillBasicConfiguration{
@@ -80,8 +81,8 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	}
 
 	private String getTargetTechnology() {
-		String technologyName = targetCb.getSelectedItem().toString();
-		return getTechnology(technologyName).getTemplateConfigFileName();
+		return targetCb.getSelectedItem().toString();
+//		return getTechnology(technologyName).getTemplateConfigFileName();
 	}
 
 	public void fillTargetPanel (JPanel panel) {
@@ -92,18 +93,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	}
 
 	private String[] getTechnologyNames() {
-		List<String> list = new ArrayList<String>();
-		for (Technology technology : technologies) {
-			list.add(technology.getName());
-		}
-		return (String[])list.toArray(new String[list.size()]);
+		return TechnologyCatalogUtils.getPublishedTechnologyNames();
 	}
 	
-	private Technology getTechnology(String name) {
-		for (Technology technology : technologies) {
-			if (technology.getName().equals(name))
-				return technology;
-		}		
-		return null;
-	}
 }

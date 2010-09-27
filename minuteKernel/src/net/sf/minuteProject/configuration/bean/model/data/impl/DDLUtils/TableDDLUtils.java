@@ -172,10 +172,10 @@ public class TableDDLUtils extends TableAbstract {
 		}
 		resetNoPrimaryKeyNoForeignKeyColumns();
 	}
+	
 	private void resetNoPrimaryKeyNoForeignKeyColumns() {
 		noPrimaryKeyNoForeignKeyColumns = null;
 		setNoPrimaryKeyNoForeignKeyColumns();
-		
 	}
 
 	/*
