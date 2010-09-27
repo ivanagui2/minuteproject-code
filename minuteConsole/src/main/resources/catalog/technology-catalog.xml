@@ -4,4 +4,10 @@
              default-outputdir="../output/openxava"
              template-dir="../../minuteTemplate/template/framework/openxava" >
  </technologies>
+ <technologies name="Maven Spring Hibernate" 
+             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
+             default-outputdir="../output/bsla"
+             template-dir="../../minuteTemplate/template/bsla" >
+ </technologies> 
+
 </technology-catalog>
