@@ -3,6 +3,8 @@ package net.sf.minuteProject.console.utils;
 import java.awt.Color;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -57,6 +59,12 @@ public class UIUtils {
 		return createTextField("", cols);
 	}
 
+	public static JTextField createTextField(String text, FocusListener focusListener) {
+		JTextField jTextField = createTextField(text);
+		jTextField.addFocusListener(focusListener);
+		return jTextField;
+	}
+	
 	public static JTextField createTextField(String text)
 	{
 		return createTextField(text, 0);
@@ -70,6 +78,13 @@ public class UIUtils {
 
 		return b;
 	}
+	
+	public static JComboBox createCombo(String[] items, ItemListener itemListener) {
+		JComboBox jComboBox = createCombo(items);
+		jComboBox.addItemListener(itemListener);
+		return jComboBox;
+	}
+	
 	public static JComboBox createCombo(String[] items, ActionListener actionListener) {
 		JComboBox jComboBox = createCombo(items);
 		jComboBox.addActionListener(actionListener);

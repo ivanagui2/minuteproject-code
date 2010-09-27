@@ -29,7 +29,7 @@ public class ConsolePanel extends JPanel implements FillBasicConfiguration{
 	    JPanel p2 = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
 	    JPanel p3 = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
 //		modelAccessPanel = new ModelAccessPanel();
-		modelCommonPanel = new ModelCommonPanel();
+//		modelCommonPanel = new ModelCommonPanel();
 //		targetPanel = new TargetPanel();
 
 		p1.add(modelAccessPanel);

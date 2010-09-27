@@ -13,6 +13,12 @@
 			    <dataSource>	
 			        <!-- driver class name from your jdbc provider jar -->
 			        <!-- TODO oracle, mysql, db2 -->
+				    <!-- mysql
+				    <driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
+				     -->
+				     <!-- oracle
+				     <driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+				      -->			        
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>

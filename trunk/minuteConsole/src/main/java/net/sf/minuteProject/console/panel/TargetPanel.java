@@ -8,6 +8,10 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +40,6 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	private Form f;
 	private JButton button;
 	public static String targetL = "choose target";
-	private ConsolePanel consolePanel;
 	private ConsoleSample consoleSample;
 	private JComboBox targetCb;
 	private List<Technology> technologies;
@@ -76,18 +79,27 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		}
 	}
 
+	private class TargetNameListener implements ItemListener {
+
+		public void itemStateChanged(ItemEvent e) {
+			consoleSample.getModelCommonPanel().rebuildDefaultTargetDir();
+		}
+	}
+	
 	public void fill(BasicIntegrationConfiguration bic) {
 		bic.setTargetTechnology(getTargetTechnology());
 	}
 
-	private String getTargetTechnology() {
+	public String getTargetTechnology() {
+		if (targetCb==null || targetCb.getSelectedItem()==null)
+			return getTechnologyNames()[0];
 		return targetCb.getSelectedItem().toString();
 //		return getTechnology(technologyName).getTemplateConfigFileName();
 	}
 
 	public void fillTargetPanel (JPanel panel) {
 		panel.add(createLabel(targetL), "skip");
-		targetCb = createCombo(getTechnologyNames());
+		targetCb = createCombo(getTechnologyNames(), new TargetNameListener());
 		panel.add(targetCb);		
 		panel.add(getGenerateButton());
 	}

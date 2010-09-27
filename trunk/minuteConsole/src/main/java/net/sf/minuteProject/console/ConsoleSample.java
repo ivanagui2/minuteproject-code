@@ -42,7 +42,7 @@ public class ConsoleSample extends JFrame{
 		tabbedPane = new JTabbedPane();
 		
 		modelAccessPanel = new ModelAccessPanel(databasecatalogHolder);
-		modelCommonPanel = new ModelCommonPanel();
+		modelCommonPanel = new ModelCommonPanel(this);
 		targetPanel = new TargetPanel(this);
 
 		MigLayout lm = new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
@@ -105,11 +105,17 @@ public class ConsoleSample extends JFrame{
 	public void setDatabasecatalogHolder(DatabasecatalogHolder databasecatalogHolder) {
 		this.databasecatalogHolder = databasecatalogHolder;
 	}
-	
-	
-	
-	
-	
-	
+
+	public ModelAccessPanel getModelAccessPanel() {
+		return modelAccessPanel;
+	}
+
+	public ModelCommonPanel getModelCommonPanel() {
+		return modelCommonPanel;
+	}
+
+	public TargetPanel getTargetPanel() {
+		return targetPanel;
+	}
 
 }
