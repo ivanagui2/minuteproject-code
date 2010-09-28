@@ -50,7 +50,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	
 	public TargetPanel(ConsoleSample consoleSample) {
 		this.consoleSample = consoleSample;
-		technologies = consoleSample.getTechnologycatalogHolder().getTechnologyCatalog().getTechnologiess();
+		technologies = TechnologyCatalogUtils.getPublishedTechnologies();
 		
 	}	
 
