@@ -1,23 +1,26 @@
 <database-catalog>
- <databases name="ORACLE" 
-            hibernate-dialect="org.hibernate.dialect.Oracle9Dialect" 
-            use-schema="true" 
-            driverclassname="oracle.jdbc.OracleDriver"
-            mvn-artifact-id="" >
- </databases>
- <databases name="DB2" 
-            hibernate-dialect="org.hibernate.dialect.DB2Dialect" 
-            use-schema="true" 
-            driverclassname="com.ibm.db2.jcc.DB2Driver" >
- </databases>
-  <databases name="MYSQL" 
-            hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
-            use-schema="false" 
-            driverclassname="org.gjt.mm.mysql.Driver" >
- </databases>
-  <databases name="HSQLDB" 
-            hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
-            use-schema="false" 
-            driverclassname="org.hsqldb.jdbcDriver" >
- </databases> 
+  <databases>
+	 <database name="ORACLE" 
+	            hibernate-dialect="org.hibernate.dialect.Oracle9Dialect" 
+	            use-schema="true" 
+	            driverclassname="oracle.jdbc.OracleDriver"
+	            mvn-artifact-id="" >
+	 </database>
+	 <database name="DB2" 
+	            hibernate-dialect="org.hibernate.dialect.DB2Dialect" 
+	            use-schema="true" 
+	            driverclassname="com.ibm.db2.jcc.DB2Driver" >
+	 </database>
+	  <database name="MYSQL" 
+	            hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
+	            use-schema="false" 
+	            driverclassname="org.gjt.mm.mysql.Driver" >
+	 </database>
+	  <database name="HSQLDB" 
+	            hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
+	            use-schema="false" 
+	            driverclassname="org.hsqldb.jdbcDriver" >
+	 </database>  
+  </databases>
+
 </database-catalog>

@@ -20,6 +20,7 @@ import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
+import net.sf.minuteProject.utils.catalog.DatabaseCatalogUtils;
 
 @SuppressWarnings("serial")
 public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
@@ -38,7 +39,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
     
     public ModelAccessPanel(DatabasecatalogHolder databasecatalogHolder) {
 //   	 this.databasecatalogHolder = databasecatalogHolder;
-   	   databases = databasecatalogHolder.getDatabaseCatalog().getDatabasess();
+   	   databases = DatabaseCatalogUtils.getPublishedDatabases();
  	   databaseNames = new ArrayList<String>();
 	   for (Database database : databases) {
 		  databaseNames.add(database.getName());

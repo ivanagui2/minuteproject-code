@@ -1,13 +1,22 @@
-<technology-catalog>
- <technologies name="OPENXAVA" 
-             template-config-file-name="mp-template-config-openxava-last-features.xml" 
-             default-outputdir="../output/openxava"
-             template-dir="../../minuteTemplate/template/framework/openxava" >
- </technologies>
- <technologies name="Maven Spring Hibernate" 
-             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
-             default-outputdir="../output/bsla"
-             template-dir="../../minuteTemplate/template/bsla" >
- </technologies> 
-
+<!--<technology-catalog 
+xmlns="http://minuteproject.sf.net/schemas/technology-catalog_1_0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://minuteprojec.sf.net/schemas/technology-catalog_1_0 http://minuteprojec.sf.net/schemas/technology-catalog_1_0.xsd"
+version="1.0">
+--><technology-catalog>
+   <technologies>
+   
+	 <technology name="OPENXAVA" 
+	             template-config-file-name="mp-template-config-openxava-last-features.xml" 
+	             default-outputdir="../output/openxava"
+	             template-dir="../../minuteTemplate/template/framework/openxava" >
+	             
+	 </technology>
+	 <technology name="Maven Spring Hibernate" 
+	             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
+	             default-outputdir="../output/bsla"
+	             template-dir="../../minuteTemplate/template/bsla" >
+	             
+	 </technology>   
+   </technologies>
 </technology-catalog>
