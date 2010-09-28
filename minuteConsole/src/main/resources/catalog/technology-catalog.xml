@@ -9,14 +9,94 @@ version="1.0">
 	 <technology name="OPENXAVA" 
 	             template-config-file-name="mp-template-config-openxava-last-features.xml" 
 	             default-outputdir="../output/openxava"
-	             template-dir="../../minuteTemplate/template/framework/openxava" >
+	             template-dir="../../minuteTemplate/template/framework/openxava" 
+	             status="released"
+	             comment=""
+	             description="">
 	             
 	 </technology>
-	 <technology name="Maven Spring Hibernate" 
+	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
 	             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
 	             default-outputdir="../output/bsla"
 	             template-dir="../../minuteTemplate/template/bsla" >
 	             
-	 </technology>   
+	 </technology>  
+	 <technology name="VAADIN" 
+			   fileName="mp-template-config-vaadin-last-features.xml" 
+			   outputdir-root="../output/vaadin/myworkVaadin"
+			   templatedir-root="../../template/framework/vaadin"
+			   depends-on-target="MVN_SPRING_HIBERNATE_LAST" 
+			   status="beta">
+	 </technology>	
+	 
+	<technology refname="Maven Spring JPA/Hibernate" 
+	   fileName="mp-template-config-bsla-JPA-last-features.xml" 
+	   outputdir-root="../output/myworkJpaLastFeature"
+	   templatedir-root="../../template">
+	</technology> 	 			
+	
+	<technology
+	   name="FitNesse" 
+	   fileName="mp-template-config-fitnesse.xml" 
+	   outputdir-root="../output/myworkFitnesse"
+	   templatedir-root="../../template">
+	</technology> 				  
+			<!-- uncomment this to have a fitnesse wiki + fixture 
+			<target refname="FitNesse" 
+			   name="default" 
+			   fileName="mp-template-config-fitnesse.xml" 
+			   outputdir-root="../output/myworkFitnesse"
+			   templatedir-root="../../template">
+			</target> 			
+			 -->		
+			 
+			 <!-- uncomment this to have a spring hibernate backend
+			<target refname="BackendOnBsla" name="default" 
+	      		fileName="mp-template-config-hibernate.xml"
+	      		outputdir-root="../output/myworkHibernate/src-generated">
+			</target> 			 
+			  -->
+			  
+			 <!-- uncomment this to have a spring iBatis backend
+			<target refname="BackendOnBsla" name="default"  
+				fileName="mp-template-config-ibatis.xml" 
+				outputdir-root="../output/myworkIbatis/src-generated"
+				templatedir-root="../../template">
+			</target> 			 
+			  -->		
+			  
+			 <!-- uncomment this to have a spring JPA backend
+			<target refname="BackendOnBsla" name="default" 
+				fileName="mp-template-config-jpa.xml" 
+				outputdir-root="../output/myworkJpa/src-generated"
+				templatedir-root="../../template">
+			</target> 			 
+			  -->	
+			  
+			  <!-- uncomment this to have an OpenXava web application
+				<target refname="LIB" 
+				   fileName="mp-template-config-bsla-LIB-features.xml" 
+				   templatedir-root="../../template">
+				</target> 	
+				<target refname="OpenXava" 
+				   name="OpenXava" 
+				   fileName="mp-template-config-openxava-last-features.xml" 
+				   outputdir-root="../output/openxava/petshopOpenXava"
+				   templatedir-root="../../template/framework/openxava">
+				</target>			  
+			   -->	
+			   
+			 <!-- uncomment this to have a Roo backend
+				<target refname="Roo" 
+				   name="Roo" 
+				   fileName="mp-template-config-roo-last-features.xml" 
+				   outputdir-root="../output/roo/petshopRoo"
+				   templatedir-root="../../template/framework/roo">
+				</target> 
+				<target refname="LIB" 
+				   fileName="mp-template-config-bsla-LIB-features.xml" 
+				   templatedir-root="../../template">
+				</target> 			 
+			  -->		  
    </technologies>
 </technology-catalog>
