@@ -10,14 +10,25 @@ import net.sf.minuteProject.configuration.bean.Template;
 
 public class TechnologyCatalog extends AbstractConfigurationLoader{
 
+    private String _packageName;
    private String _name;
-   private List<Technology> _technologiess;
+   private Technologies _technologies;
 
    public TechnologyCatalog() {
    }
 
    public String getTechnicalPackage(Template template) {
-      return template.getTechnicalPackage();
+      return getPackageName();
+   }
+
+   public String getPackageName() {
+      if (_packageName == null)
+         _packageName = new String();
+      return _packageName;
+   }
+
+   public void setPackageName(String _packageName) {
+      this._packageName = _packageName;
    }
    
    public String getName() {
@@ -31,39 +42,17 @@ public class TechnologyCatalog extends AbstractConfigurationLoader{
    }
    
    
-   public List<Technology> getTechnologiess() {
-      if (_technologiess == null){
-         _technologiess = new ArrayList<Technology>();
-      }
-      return _technologiess;
+   public Technologies getTechnologies() {
+	  if (_technologies == null)
+	     _technologies = new Technologies();
+	      return _technologies;
+   }
+	
+   public void setTechnologies (Technologies _technologies) {
+      this._technologies = _technologies;
    }
    
-   public Technology[] getTechnologiessArray() {
-      return (Technology[])getTechnologiess().toArray(new Technology[getTechnologiess().size()]);
-   }
-      
-   public void setTechnologiess (List<Technology> _technologiess) {
-      this._technologiess = _technologiess;
-   }
- 
-   public void setTechnologies (Technology _technologies) {
-      addTechnologies(_technologies);
-   }
-
-   public void addTechnologies (Technology _technologies) {
-      getTechnologiess().add(_technologies);
-   }
    
-   public Technology getFirstTechnologyFromTechnologiesByName (String name) {
-      if (name==null)
-         return null;
-      for (Technology _technologies : getTechnologiess()) {
-         if (_technologies.getName().equals(name))
-            return _technologies;
-      }
-      return null;
-   } 
-
 
 }
 

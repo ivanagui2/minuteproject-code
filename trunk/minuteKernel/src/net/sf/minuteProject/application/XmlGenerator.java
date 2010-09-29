@@ -235,7 +235,7 @@ public class XmlGenerator extends AbstractGenerator {
 		return beanName;
    }
 	   
-	protected void putCommonContextObject(VelocityContext context) {
+	protected void putCommonContextObject(VelocityContext context, Template template) {
 		context.put("document", doc);
 		context.put("rootElement", rootElement);
 		context.put("baseElement", baseElement);
