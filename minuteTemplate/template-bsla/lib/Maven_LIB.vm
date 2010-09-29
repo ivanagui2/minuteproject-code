@@ -1,7 +1,0 @@
-#macro (exposeMaven)
-#set($driver=$mavenUtils.getDriver($model))
-#set($version=$mavenUtils.getVersion($model))
-#set($rootPackage=$mavenUtils.getRootPackage($template, $model))
-#set($DbApiName=$mavenUtils.getDbApiName($model))
-#set($resourcesDir="src/main/resources")
-#end
