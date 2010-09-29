@@ -26,8 +26,15 @@ import $importHolderElementClass;
  *
  */
 public class ${className} {
+
 	private static Logger logger = Logger.getLogger(${className}.class);
-	
+
+#foreach ($element in $elements)
+#if($element.isComplexType())
+--->--$element 
+$element.name
+#end
+#end	
 	private String config;
 	private String configDir;
 	
@@ -35,7 +42,7 @@ public class ${className} {
 	   setConfig(config);
 	}
 	
-	public ${className} (String configDir, String config) {
+	public Presentation (String configDir, String config) {
 		setConfig(config);
 		setConfigDir(configDir);
 	}
