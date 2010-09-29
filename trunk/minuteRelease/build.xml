@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="release" basedir="." name="minuteKernel">
+<project default="release" basedir="." name="release">
     <description>This build file will build all the minuteKernel modules</description>
     <!-- ===================================================================== -->
     <!-- import files -->
@@ -133,12 +133,9 @@
 	</target>
 	
 	<target name="copy-template-dependencies">
-	  <copy todir="${template.dir}" overwrite="true">
-	 	<fileset dir="${template.dev.relpath}">
-	 		<include name="*.vm"/>
-	 		<include name="lib/*.vm"/>
-	 		<include name="snippet/**/*.vm"/>
-	 		<exclude name="**/*.xml"/>	 		
+	  <copy todir="${catalog.dir}" overwrite="true">
+	 	<fileset dir="${catalog.dev.relpath}">
+	 		<include name="**/*.xml"/>	 		
 	 	</fileset>
 	  </copy>
 	  <copy todir="${template.framework.dir}" overwrite="true">
