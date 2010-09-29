@@ -1,11 +1,11 @@
 #set ($packageName = $xmlSchemaUtils.getPackageName($element, $template))
 #set ($className = $commonUtils.getClassName($element, $template))
-#macro(putSequenceSpecifics)
-#set ($sequenceType = $xmlSchemaUtils.getSequenceJavaType($sequence))
-#set ($sequenceVariableName = $xmlSchemaUtils.getSequenceJavaVariableName($sequence))
-#set ($sequenceClassName = $xmlSchemaUtils.getSequenceJavaClassName($sequence))
-#set ($isCollection = $xmlSchemaUtils.isCollection($sequence))
-#end
+##macro(putSequenceSpecifics)
+##set ($sequenceType = $xmlSchemaUtils.getSequenceJavaType($sequence))
+##set ($sequenceVariableName = $xmlSchemaUtils.getSequenceJavaVariableName($sequence))
+##set ($sequenceClassName = $xmlSchemaUtils.getSequenceJavaClassName($sequence))
+##set ($isCollection = $xmlSchemaUtils.isCollection($sequence))
+##end
 package $packageName;
 
 import java.math.BigDecimal;
