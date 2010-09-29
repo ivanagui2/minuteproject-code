@@ -42,16 +42,11 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	public static String targetL = "choose target";
 	private ConsoleSample consoleSample;
 	private JComboBox targetCb;
-	private List<Technology> technologies;
-	
-//	public TargetPanel(TechnologycatalogHolder technologycatalogHolder) {
-//		technologies = technologycatalogHolder.getTechnologyCatalog().getTechnologiess();
-//	}
+//	private List<Technology> technologies;
 	
 	public TargetPanel(ConsoleSample consoleSample) {
 		this.consoleSample = consoleSample;
-		technologies = TechnologyCatalogUtils.getPublishedTechnologies();
-		
+//		technologies = TechnologyCatalogUtils.getPublishedTechnologies();
 	}	
 
 	private JButton getGenerateButton() {

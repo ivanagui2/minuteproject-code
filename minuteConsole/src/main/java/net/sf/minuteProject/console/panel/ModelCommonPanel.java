@@ -70,7 +70,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 			value = targetDirTf.getText();
 			if (previousValue!=null && value!=null) {
 				if (!isTargetDirTouched)
-					isTargetDirTouched=previousValue!=value;
+					isTargetDirTouched=!(previousValue.equals(value));
 			}
 		}
 		
