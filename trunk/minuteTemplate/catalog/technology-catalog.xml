@@ -1,0 +1,82 @@
+<!--<technology-catalog 
+xmlns="http://minuteproject.sf.net/schemas/technology-catalog_1_0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://minuteprojec.sf.net/schemas/technology-catalog_1_0 http://minuteprojec.sf.net/schemas/technology-catalog_1_0.xsd"
+version="1.0">
+-->
+<technology-catalog>
+
+   <technologies>
+   
+	 <technology name="OPENXAVA" 
+	             template-config-file-name="mp-template-config-openxava-last-features.xml" 
+	             default-outputdir="../output/openxava"
+	             template-dir="../template/framework/openxava" 
+	             depends-on-targets="BSLA_LIB" 
+	             status="released"
+	             comment=""
+	             description="">           
+	 </technology>
+	 
+	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
+	             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
+	             default-outputdir="../output/bsla"
+	             template-dir="../template/framework/bsla" >
+	             
+	 </technology>  
+	 
+	 <technology name="VAADIN" 
+			   template-config-file-name="mp-template-config-vaadin-last-features.xml" 
+			   outputdir-root="../output/vaadin/myworkVaadin"
+			   templatedir-root="../template/framework/vaadin"
+			   depends-on-targets="MVN_SPRING_HIBERNATE_LAST" 
+			   status="beta">
+	 </technology>	
+	 
+	<technology name="Maven Spring JPA/Hibernate" 
+	   template-config-file-name="mp-template-config-bsla-JPA-last-features.xml" 
+	   outputdir-root="../output/myworkJpaLastFeature"
+	   templatedir-root="../template/framework/bsla">
+	</technology> 	 			
+	
+	<technology
+	   name="FitNesse" 
+	   template-config-file-name="mp-template-config-fitnesse.xml" 
+	   outputdir-root="../output/myworkFitnesse"
+	   templatedir-root="../template/framework/bsla">
+	</technology> 	
+
+	<technology name="BSLA_LIB" target-name="BSLA_LIB"
+	   template-config-file-name="mp-template-config-bsla-LIB-features.xml" 
+	   template-dir="../template/framework/bsla"
+	   is-generable="false">
+	</technology> 	
+
+	<technology name="Spring Hibernate Standard" 
+     		template-config-file-name="mp-template-config-hibernate.xml"
+     		template-dir="../template/framework/bsla"
+     		outputdir-root="../output/myworkHibernate/src-generated">
+	</technology> 			 
+
+	<technology name="Spring iBatis Standard"  
+		template-config-file-name="mp-template-config-ibatis.xml" 
+		outputdir-root="../output/myworkIbatis/src-generated"
+		template-dir="../template/framework/bsla">
+	</technology> 			 
+		  
+	<technology name="Spring JPA Standard" 
+		template-config-file-name="mp-template-config-jpa.xml" 
+		outputdir-root="../output/myworkJpa/src-generated"
+		template-dir="../template/framework/bsla">
+	</technology> 			 
+		   
+	<technology 
+	   name="Roo" 
+	   template-config-file-name="mp-template-config-roo-last-features.xml" 
+	   outputdir-root="../output/roo/petshopRoo"
+	   template-dir="../template/framework/roo">
+	</technology> 
+		 
+   </technologies>
+   
+</technology-catalog>
