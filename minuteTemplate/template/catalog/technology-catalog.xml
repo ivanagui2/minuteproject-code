@@ -1,9 +1,0 @@
-<technology-catalog>
- <technology name="OPENXAVA" 
-             template-config="mp-template-config-openxava-last-features.xml" 
-             default-outputdir="../output/openxava"
-             templatedir="../framework/openxava" >
- </technology>
- 
- 
-</technology-catalog>
