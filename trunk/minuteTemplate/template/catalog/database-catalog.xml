@@ -1,9 +1,0 @@
-<database-catalog>
-
- <database name="ORACLE" >
-   <primary-key-policy type="sequence"></primary-key-policy>
-   <hibernate-dialect></hibernate-dialect>
- </database>
- 
- 
-</database-catalog>
