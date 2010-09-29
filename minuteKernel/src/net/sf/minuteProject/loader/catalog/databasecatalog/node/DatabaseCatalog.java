@@ -10,14 +10,25 @@ import net.sf.minuteProject.configuration.bean.Template;
 
 public class DatabaseCatalog extends AbstractConfigurationLoader{
 
+    private String _packageName;
    private String _name;
-   private List<Database> _databasess;
+   private Databases _databases;
 
    public DatabaseCatalog() {
    }
 
    public String getTechnicalPackage(Template template) {
-      return template.getTechnicalPackage();
+      return getPackageName();
+   }
+
+   public String getPackageName() {
+      if (_packageName == null)
+         _packageName = new String();
+      return _packageName;
+   }
+
+   public void setPackageName(String _packageName) {
+      this._packageName = _packageName;
    }
    
    public String getName() {
@@ -31,39 +42,17 @@ public class DatabaseCatalog extends AbstractConfigurationLoader{
    }
    
    
-   public List<Database> getDatabasess() {
-      if (_databasess == null){
-         _databasess = new ArrayList<Database>();
-      }
-      return _databasess;
+   public Databases getDatabases() {
+	  if (_databases == null)
+	     _databases = new Databases();
+	      return _databases;
+   }
+	
+   public void setDatabases (Databases _databases) {
+      this._databases = _databases;
    }
    
-   public Database[] getDatabasessArray() {
-      return (Database[])getDatabasess().toArray(new Database[getDatabasess().size()]);
-   }
-      
-   public void setDatabasess (List<Database> _databasess) {
-      this._databasess = _databasess;
-   }
- 
-   public void setDatabases (Database _databases) {
-      addDatabases(_databases);
-   }
-
-   public void addDatabases (Database _databases) {
-      getDatabasess().add(_databases);
-   }
    
-   public Database getFirstDatabaseFromDatabasesByName (String name) {
-      if (name==null)
-         return null;
-      for (Database _databases : getDatabasess()) {
-         if (_databases.getName().equals(name))
-            return _databases;
-      }
-      return null;
-   } 
-
 
 }
 

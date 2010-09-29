@@ -10,20 +10,37 @@ import net.sf.minuteProject.configuration.bean.Template;
 
 public class Technology extends AbstractConfigurationLoader{
 
+    private String _packageName;
    private TechnologyCatalog _technologyCatalog;
    private String _name;
    private String _version;
    private String _templateConfigFileName;
    private String _templateDir;
    private String _dependsOnTargets;
-   private List<Limitation> _limitationss;
-   private List<Convention> _conventionss;
+   private String _comment;
+   private String _description;
+   private String _helper;
+   private String _status;
+   private String _targetName;
+   private Boolean _isGenerable;
+   private Limitations _limitations;
+   private Conventions _conventions;
 
    public Technology() {
    }
 
    public String getTechnicalPackage(Template template) {
-      return template.getTechnicalPackage();
+      return getPackageName();
+   }
+
+   public String getPackageName() {
+      if (_packageName == null)
+         _packageName = new String();
+      return _packageName;
+   }
+
+   public void setPackageName(String _packageName) {
+      this._packageName = _packageName;
    }
    
    public TechnologyCatalog getTechnologyCatalog() {
@@ -85,72 +102,98 @@ public class Technology extends AbstractConfigurationLoader{
    }
    
    
-   public List<Limitation> getLimitationss() {
-      if (_limitationss == null){
-         _limitationss = new ArrayList<Limitation>();
-      }
-      return _limitationss;
+   public String getComment() {
+	  if (_comment == null)
+	     _comment = new String();
+	      return _comment;
+   }
+	
+   public void setComment (String _comment) {
+      this._comment = _comment;
    }
    
-   public Limitation[] getLimitationssArray() {
-      return (Limitation[])getLimitationss().toArray(new Limitation[getLimitationss().size()]);
+   
+   public String getDescription() {
+	  if (_description == null)
+	     _description = new String();
+	      return _description;
    }
-      
-   public void setLimitationss (List<Limitation> _limitationss) {
-      this._limitationss = _limitationss;
-   }
- 
-   public void setLimitations (Limitation _limitations) {
-      addLimitations(_limitations);
-   }
-
-   public void addLimitations (Limitation _limitations) {
-      getLimitationss().add(_limitations);
+	
+   public void setDescription (String _description) {
+      this._description = _description;
    }
    
-   public Limitation getFirstLimitationFromLimitationsByName (String name) {
-      if (name==null)
-         return null;
-      for (Limitation _limitations : getLimitationss()) {
-         if (_limitations.getName().equals(name))
-            return _limitations;
-      }
-      return null;
-   } 
-
-   public List<Convention> getConventionss() {
-      if (_conventionss == null){
-         _conventionss = new ArrayList<Convention>();
-      }
-      return _conventionss;
+   
+   public String getHelper() {
+	  if (_helper == null)
+	     _helper = new String();
+	      return _helper;
+   }
+	
+   public void setHelper (String _helper) {
+      this._helper = _helper;
    }
    
-   public Convention[] getConventionssArray() {
-      return (Convention[])getConventionss().toArray(new Convention[getConventionss().size()]);
+   
+   public String getStatus() {
+	  if (_status == null)
+	     _status = new String();
+	      return _status;
    }
-      
-   public void setConventionss (List<Convention> _conventionss) {
-      this._conventionss = _conventionss;
-   }
- 
-   public void setConventions (Convention _conventions) {
-      addConventions(_conventions);
-   }
-
-   public void addConventions (Convention _conventions) {
-      getConventionss().add(_conventions);
+	
+   public void setStatus (String _status) {
+      this._status = _status;
    }
    
-   public Convention getFirstConventionFromConventionsByName (String name) {
-      if (name==null)
-         return null;
-      for (Convention _conventions : getConventionss()) {
-         if (_conventions.getName().equals(name))
-            return _conventions;
-      }
-      return null;
-   } 
-
+   
+   public String getTargetName() {
+	  if (_targetName == null)
+	     _targetName = new String();
+	      return _targetName;
+   }
+	
+   public void setTargetName (String _targetName) {
+      this._targetName = _targetName;
+   }
+   
+   
+   public Boolean isGenerable() {
+      return getIsGenerable();
+   }
+   
+   public Boolean getIsGenerable() {
+	  if (_isGenerable == null)
+	     _isGenerable = new Boolean(true);
+	      return _isGenerable;
+   }
+	
+   public void setIsGenerable (Boolean _isGenerable) {
+      this._isGenerable = _isGenerable;
+   }
+   
+   
+   public Limitations getLimitations() {
+	  if (_limitations == null)
+	     _limitations = new Limitations();
+	      return _limitations;
+   }
+	
+   public void setLimitations (Limitations _limitations) {
+      this._limitations = _limitations;
+   }
+   
+   
+   public Conventions getConventions() {
+	  if (_conventions == null)
+	     _conventions = new Conventions();
+	      return _conventions;
+   }
+	
+   public void setConventions (Conventions _conventions) {
+      this._conventions = _conventions;
+   }
+   
+   
 
 }
 

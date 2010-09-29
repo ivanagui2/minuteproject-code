@@ -6,30 +6,39 @@
  <pattern value="database-catalog">
   <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.DatabaseCatalog"/>
   <set-next-rule methodname="setDatabaseCatalog" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.DatabaseCatalog"/>
-  <set-properties-rule/>
-  <bean-property-setter-rule  propertyname="name" pattern="name"/>
+  <set-properties-rule>
+   <alias prop-name="name" attr-name="name"/>
+   <alias prop-name="packageName" attr-name="package-name"/>
+  </set-properties-rule>
   <pattern value="databases">
-   <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.Database"/>
-   <set-next-rule methodname="setDatabases" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.Database"/>
+   <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.Databases"/>
+   <set-next-rule methodname="setDatabases" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.Databases"/>
    <set-properties-rule>
-		<alias attr-name="name" prop-name="name" />
-		<alias attr-name="version" prop-name="version" />
-		<alias attr-name="hibernate-dialect" prop-name="hibernateDialect" />
-		<alias attr-name="use-schema" prop-name="useSchema" />
-		<alias attr-name="driverClassName" prop-name="driverclassname" />
-   </set-properties-rule><!--   
-   <bean-property-setter-rule  propertyname="name" pattern="name"/>
-   <bean-property-setter-rule  propertyname="version" pattern="version"/>
-   <bean-property-setter-rule  propertyname="hibernateDialect" pattern="hibernate-dialect"/>
-   <bean-property-setter-rule  propertyname="useSchema" pattern="use-schema"/>
-   <bean-property-setter-rule  propertyname="driverclassname" pattern="driverClassName"/>
-   --><pattern value="primary-key-policy">
-    <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.PrimaryKeyPolicy"/>
-    <set-next-rule methodname="setPrimaryKeyPolicy" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.PrimaryKeyPolicy"/>
-    <set-properties-rule/>
-    <bean-property-setter-rule  propertyname="type" pattern="type"/>
-    <bean-property-setter-rule  propertyname="suffix" pattern="suffix"/>
-    <bean-property-setter-rule  propertyname="prefix" pattern="prefix"/>
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
+   </set-properties-rule>
+   <pattern value="database">
+    <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.Database"/>
+    <set-next-rule methodname="setDatabase" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.Database"/>
+    <set-properties-rule>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="version" attr-name="version"/>
+     <alias prop-name="hibernateDialect" attr-name="hibernate-dialect"/>
+     <alias prop-name="useSchema" attr-name="use-schema"/>
+     <alias prop-name="driverclassname" attr-name="driverClassName"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="primary-key-policy">
+     <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.PrimaryKeyPolicy"/>
+     <set-next-rule methodname="setPrimaryKeyPolicy" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.PrimaryKeyPolicy"/>
+     <set-properties-rule>
+      <alias prop-name="type" attr-name="type"/>
+      <alias prop-name="suffix" attr-name="suffix"/>
+      <alias prop-name="prefix" attr-name="prefix"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+    </pattern>
    </pattern>
   </pattern>
  </pattern>

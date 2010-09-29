@@ -1,5 +1,8 @@
 package net.sf.minuteProject.integration.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.dbcp.BasicDataSource;
 
 import net.sf.minuteProject.configuration.bean.BeanCommon;
@@ -30,7 +33,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	version,
 	modelName,
 	targetDir;
-	private TechnologycatalogHolder technologycatalogHolder;
+//	private TechnologycatalogHolder technologycatalogHolder;
+	private Technology choosenTechnology;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
@@ -41,31 +45,51 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	
 	private Targets getTargets() {
 		Targets targets = new Targets();
-		targets.addTarget(getTargetTechnology());
-		targets.addTarget(getLibTarget());
+		Target target = getChoosenTarget();
+		targets.addTarget(target);
+		for (Target target2 : getDependentTargetTechnologies()) {
+			targets.addTarget(target2);
+		}
+//		targets.addTarget(getLibTarget());
 		return targets;
 	}
 
-	private Target getLibTarget() {
+	private List<Target> getDependentTargetTechnologies() {
+		List<Target> list = new ArrayList<Target>();
+		List<Technology> technologies = TechnologyCatalogUtils.getDependentTechnologies(getChoosenTechnology());
+		for (Technology technology : technologies) {
+			list.add(getTarget(technology));
+		}
+		return list;
+	}
+
+	private Target getTarget(Technology technology) {
 		Target target = new Target();
-		target.setFileName("catalog/mp-template-config-bsla-LIB-features.xml");
-		target.setTemplatedirRoot("../../minuteTemplate/template-bsla");		
+		target.setFileName("catalog/"+technology.getTemplateConfigFileName());
+		target.setTemplatedirRoot(technology.getTemplateDir());		
+		target.setOutputdirRoot(targetDir);
 		return target;
 	}
 
-	private Target getTargetTechnology() {
-		Technology technology = TechnologyCatalogUtils.getPublishedTechnology(targetTechnology);	
-		Target target = new Target();
-		target.setFileName("catalog/"+technology.getTemplateConfigFileName());
-		target.setTemplatedirRoot(technology.getTemplateDir());
-//		
-//		if (targetTechnology.equals("openxava")) {
-//			target.setFileName("catalog/mp-template-config-openxava-last-features.xml");
-//			target.setTemplatedirRoot("../../minuteTemplate/template/framework/openxava");
-//		}
-//			
-		target.setOutputdirRoot(targetDir);
+//	private Target getLibTarget() {
+//		Target target = new Target();
+//		target.setFileName("catalog/mp-template-config-bsla-LIB-features.xml");
+//		target.setTemplatedirRoot("../../minuteTemplate/template-bsla");		
+//		return target;
+//	}
+
+	private Target getChoosenTarget() {
+		Technology technology = getChoosenTechnology(); 	
+		Target target = getTarget(technology);
+//		target.setFileName("catalog/"+technology.getTemplateConfigFileName());
+//		target.setTemplatedirRoot(technology.getTemplateDir());	
 		return target;
+	}
+
+	private Technology getChoosenTechnology() {
+		if (choosenTechnology==null)
+			choosenTechnology = TechnologyCatalogUtils.getPublishedTechnology(targetTechnology);
+		return choosenTechnology;
 	}
 
 	private Model getModel() {

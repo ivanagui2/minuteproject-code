@@ -6,36 +6,73 @@
  <pattern value="technology-catalog">
   <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.TechnologyCatalog"/>
   <set-next-rule methodname="setTechnologyCatalog" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.TechnologyCatalog"/>
-  <set-properties-rule/>
-  <bean-property-setter-rule  propertyname="name" pattern="name"/>
+  <set-properties-rule>
+   <alias prop-name="name" attr-name="name"/>
+   <alias prop-name="packageName" attr-name="package-name"/>
+  </set-properties-rule>
   <pattern value="technologies">
-   <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology"/>
-   <set-next-rule methodname="setTechnologies" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology"/>
+   <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technologies"/>
+   <set-next-rule methodname="setTechnologies" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technologies"/>
    <set-properties-rule>
-		<alias attr-name="name" prop-name="name" />
-		<alias attr-name="version" prop-name="version" />
-		<alias attr-name="template-config-file-name" prop-name="templateConfigFileName" />
-		<alias attr-name="template-dir" prop-name="templateDir" />
-		<alias attr-name="depends-on-targets" prop-name="dependsOnTargets" />
+    <alias prop-name="name" attr-name="name"/>
+    <alias prop-name="id" attr-name="id"/>
+    <alias prop-name="packageName" attr-name="package-name"/>
    </set-properties-rule>
-   <!--<bean-property-setter-rule  propertyname="name" pattern="name"/>
-   <bean-property-setter-rule  propertyname="version" pattern="version"/>
-   <bean-property-setter-rule  propertyname="templateConfigFileName" pattern="template-config-file-name"/>
-   <bean-property-setter-rule  propertyname="templateDir" pattern="template-dir"/>
-   <bean-property-setter-rule  propertyname="dependsOnTargets" pattern="depends-on-targets"/>-->
-   <pattern value="limitations">
-    <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitation"/>
-    <set-next-rule methodname="setLimitations" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitation"/>
-    <set-properties-rule/>
-    <bean-property-setter-rule  propertyname="name" pattern="name"/>
-    <bean-property-setter-rule  propertyname="type" pattern="type"/>
-   </pattern>
-   <pattern value="conventions">
-    <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Convention"/>
-    <set-next-rule methodname="setConventions" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Convention"/>
-    <set-properties-rule/>
-    <bean-property-setter-rule  propertyname="name" pattern="name"/>
-    <bean-property-setter-rule  propertyname="type" pattern="type"/>
+   <pattern value="technology">
+    <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology"/>
+    <set-next-rule methodname="setTechnology" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology"/>
+    <set-properties-rule>
+     <alias prop-name="name" attr-name="name"/>
+     <alias prop-name="version" attr-name="version"/>
+     <alias prop-name="templateConfigFileName" attr-name="template-config-file-name"/>
+     <alias prop-name="templateDir" attr-name="template-dir"/>
+     <alias prop-name="dependsOnTargets" attr-name="depends-on-targets"/>
+     <alias prop-name="comment" attr-name="comment"/>
+     <alias prop-name="description" attr-name="description"/>
+     <alias prop-name="helper" attr-name="helper"/>
+     <alias prop-name="status" attr-name="status"/>
+     <alias prop-name="targetName" attr-name="target-name"/>
+     <alias prop-name="isGenerable" attr-name="is-generable"/>
+     <alias prop-name="packageName" attr-name="package-name"/>
+    </set-properties-rule>
+    <pattern value="limitations">
+     <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitations"/>
+     <set-next-rule methodname="setLimitations" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitations"/>
+     <set-properties-rule>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="limitation">
+      <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitation"/>
+      <set-next-rule methodname="setLimitation" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Limitation"/>
+      <set-properties-rule>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="isApplied" attr-name="is-applied"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
+    <pattern value="conventions">
+     <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Conventions"/>
+     <set-next-rule methodname="setConventions" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Conventions"/>
+     <set-properties-rule>
+      <alias prop-name="name" attr-name="name"/>
+      <alias prop-name="id" attr-name="id"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+     <pattern value="convention">
+      <object-create-rule classname="net.sf.minuteProject.loader.catalog.technologycatalog.node.Convention"/>
+      <set-next-rule methodname="setConvention" paramtype="net.sf.minuteProject.loader.catalog.technologycatalog.node.Convention"/>
+      <set-properties-rule>
+       <alias prop-name="name" attr-name="name"/>
+       <alias prop-name="type" attr-name="type"/>
+       <alias prop-name="isApplied" attr-name="is-applied"/>
+       <alias prop-name="packageName" attr-name="package-name"/>
+      </set-properties-rule>
+     </pattern>
+    </pattern>
    </pattern>
   </pattern>
  </pattern>

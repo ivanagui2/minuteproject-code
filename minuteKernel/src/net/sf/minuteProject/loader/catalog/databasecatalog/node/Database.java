@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 
 public class Database extends AbstractConfigurationLoader{
 
+    private String _packageName;
    private DatabaseCatalog _databaseCatalog;
    private String _name;
    private PrimaryKeyPolicy _primaryKeyPolicy;
@@ -22,7 +23,17 @@ public class Database extends AbstractConfigurationLoader{
    }
 
    public String getTechnicalPackage(Template template) {
-      return template.getTechnicalPackage();
+      return getPackageName();
+   }
+
+   public String getPackageName() {
+      if (_packageName == null)
+         _packageName = new String();
+      return _packageName;
+   }
+
+   public void setPackageName(String _packageName) {
+      this._packageName = _packageName;
    }
    
    public DatabaseCatalog getDatabaseCatalog() {
