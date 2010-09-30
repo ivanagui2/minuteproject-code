@@ -1,8 +1,6 @@
 package net.sf.minuteProject.console.panel;
 
-import static net.sf.minuteProject.console.utils.UIUtils.createCombo;
-import static net.sf.minuteProject.console.utils.UIUtils.createLabel;
-import static net.sf.minuteProject.console.utils.UIUtils.createTextField;
+import static net.sf.minuteProject.console.utils.UIUtils.*;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -17,8 +15,10 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.apache.log4j.Logger;
 
@@ -37,28 +37,43 @@ import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 public class TargetPanel extends JPanel implements FillBasicConfiguration{
 
 	private static Logger logger = Logger.getLogger(TargetPanel.class);
-	private Form f;
-	private JButton button;
+	private JButton generateButton, detailButton;
 	public static String targetL = "choose target";
+	public static String statusL = "status";
+	public static String descriptionL = "description";
+	public static String showDetailL = "Show details";
+	public static String hideDetailL = "Hide details";
+	private boolean showDetail;
 	private ConsoleSample consoleSample;
 	private JComboBox targetCb;
+	private JLabel statusJL, statusDetailJL, descriptionJL;
+	private JScrollPane descriptionJSP;
+	private JPanel panel, detailPanel;
 //	private List<Technology> technologies;
 	
 	public TargetPanel(ConsoleSample consoleSample) {
 		this.consoleSample = consoleSample;
+		statusJL = createLabel(statusL);
+		descriptionJL = createLabel(descriptionL);
 //		technologies = TechnologyCatalogUtils.getPublishedTechnologies();
 	}	
 
 	private JButton getGenerateButton() {
-		button = new JButton("Generate");
-		button.addActionListener(new ClickListener());
-		return button;
+		generateButton = new JButton("Generate");
+		generateButton.addActionListener(new ClickListener());
+		return generateButton;
 	}
 
+	private JButton getDetailButton() { 
+		detailButton = new JButton(showDetailL);
+		detailButton.addActionListener(new ClickListener());
+		return detailButton;
+	}
+	
 	private class ClickListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == button) {
+			if (e.getSource() == generateButton) {
 				BasicIntegrationConfiguration bic = new BasicIntegrationConfiguration();
 				consoleSample.fill(bic);
 
@@ -71,6 +86,15 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 					logger.info("error generating : "+mpe.getError());
 				}
 			}
+//			else if (e.getSource() == detailButton) {
+//				if (detailButton.getText().equals(showDetailL)) {
+//					detailButton.setText(hideDetailL);
+//					showDetails(panel);
+//				} else {
+//					detailButton.setText(showDetailL);
+//					hideDetails(panel);
+//				}
+//			}
 		}
 	}
 
@@ -93,11 +117,53 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	}
 
 	public void fillTargetPanel (JPanel panel) {
+		this.panel = panel;
 		panel.add(createLabel(targetL), "skip");
 		targetCb = createCombo(getTechnologyNames(), new TargetNameListener());
-		panel.add(targetCb);		
-		panel.add(getGenerateButton());
+		panel.add(targetCb);	
+//		panel.add(getDetailButton(),"center");
+		panel.add(getGenerateButton(), "wrap");
+		if (true) {
+			showDetails(panel);
+		}
 	}
+	
+//	private void showDetails (JPanel panel) {
+//		detailPanel = new JPanel();
+//		Technology technology = getChoosenTechnology();
+//		detailPanel.add(statusJL, "skip");
+//		statusDetailJL = createLabel(technology.getStatus());
+//		detailPanel.add(statusDetailJL, "wrap");
+//		detailPanel.add(descriptionJL, "skip");
+//		descriptionJSP = createTextAreaScroll(technology.getDescription(), 10, 50, true, false);
+//		detailPanel.add(descriptionJSP, "span, growx");	
+//		panel.add(detailPanel);
+//	}
+//	
+	private void showDetails (JPanel panel) {
+		Technology technology = getChoosenTechnology();
+		panel.add(statusJL, "skip");
+		statusDetailJL = createLabel(technology.getStatus());
+		panel.add(statusDetailJL, "wrap");
+		panel.add(descriptionJL, "skip");
+		descriptionJSP = createTextAreaScroll(technology.getDescription(), 5, 40, true, false);
+		panel.add(descriptionJSP, "span, growx");	
+	}	
+	
+	private void hideDetails (JPanel panel) {
+		panel.remove(detailPanel);
+//		panel.remove(statusJL);
+//		panel.remove(statusDetailJL);
+//		panel.remove(descriptionJL);
+//		panel.remove(descriptionJSP);	
+//		dispo
+//		repaint();
+//		pack();
+	}
+	
+	private Technology getChoosenTechnology() {
+		return TechnologyCatalogUtils.getPublishedTechnology(targetCb.getSelectedItem().toString());
+	}	
 
 	private String[] getTechnologyNames() {
 		return TechnologyCatalogUtils.getPublishedTechnologyNames();

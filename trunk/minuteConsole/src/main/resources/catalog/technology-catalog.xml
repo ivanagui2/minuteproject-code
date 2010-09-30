@@ -15,7 +15,7 @@ version="1.0">
 	             depends-on-targets="BSLA_LIB" 
 	             status="released"
 	             comment=""
-	             description="">           
+	             description="test\ntest again">           
 	 </technology>
 	 
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
@@ -30,7 +30,8 @@ version="1.0">
 			   outputdir-root="../output/vaadin/myworkVaadin"
 			   templatedir-root="../../template/framework/vaadin"
 			   depends-on-targets="MVN_SPRING_HIBERNATE_LAST" 
-			   status="beta">
+			   status="beta"
+			   decription="test\ntest again">
 	 </technology>	
 	 
 	<technology name="Maven Spring JPA/Hibernate" 
