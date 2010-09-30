@@ -11,9 +11,13 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import net.miginfocom.layout.PlatformDefaults;
 
@@ -78,6 +82,21 @@ public class UIUtils {
 
 		return b;
 	}
+	
+	public static JScrollPane createTextAreaScroll(String text, int rows, int cols, boolean hasVerScroll, boolean isEditable)
+	{
+		JTextArea ta = new JTextArea(text, rows, cols);
+		ta.setFont(UIManager.getFont("TextField.font"));
+		ta.setWrapStyleWord(true);
+		ta.setLineWrap(true);
+		ta.setEditable(isEditable);
+		JScrollPane scroll = new JScrollPane(
+			    ta,
+			    hasVerScroll ? ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED : ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+			    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		return scroll;
+	}	
 	
 	public static JComboBox createCombo(String[] items, ItemListener itemListener) {
 		JComboBox jComboBox = createCombo(items);

@@ -13,6 +13,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import net.miginfocom.layout.PlatformDefaults;
 import net.miginfocom.swing.MigLayout;
@@ -38,7 +40,29 @@ public class ConsoleSample extends JFrame{
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
 	
+	public ConsoleSample (String title) {
+		super(title);
+		init();
+	}
+	
+	public ConsoleSample() {
+		init();
+	}
+	
 	private void initComponents() {
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+
 		tabbedPane = new JTabbedPane();
 		
 		modelAccessPanel = new ModelAccessPanel(databasecatalogHolder);
@@ -60,12 +84,14 @@ public class ConsoleSample extends JFrame{
 
 		targetPanel.fillTargetPanel(panel);
 
-		tabbedPane.addTab("MinuteProject console", panel);	
+		tabbedPane.addTab("Data model reverse-engineering", panel);	
 		getContentPane().add(tabbedPane);
 		pack();		
 	}
 	
-	public ConsoleSample() {
+
+	
+	public void init() {
 		initCatalogs();
 		initComponents();
 	}
@@ -78,7 +104,7 @@ public class ConsoleSample extends JFrame{
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample().setVisible(true);
+				new ConsoleSample("MinuteProject console (beta)").setVisible(true);
 			}
 		});
 	}
