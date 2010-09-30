@@ -10,8 +10,11 @@ import java.util.List;
 import java.util.Date;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import $importDaoInterfaceUML;
@@ -305,7 +308,8 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) {    
        if (maxResults!=null)
           getHibernateTemplate().setMaxResults(maxResults);
-       return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
+       return getPrototypeCriteria($tableVariableName).list();
+//       return getHibernateTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
     }     
 
     public List<$tableClassName> searchPrototype$tableClassName (List<$tableClassName> ${tableVariableName}s) {
@@ -334,21 +338,10 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
         StringBuffer query = new StringBuffer();
         StringBuffer queryWhere = new StringBuffer();
         query.append (" FROM $tableClassName $tableVariableName ");
-        queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));
-##foreach ($column in ${table.columns})
-##putColumnParams()
-##        if (${tableVariableName}.get$columnClass() != null) {
-##           query.append (getQueryWHERE_AND (isWhereSet));
-##           isWhereSet = true;
-##if ($sqlUtils.isQuotedColumn($column))        
-##           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
-##else
-##           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
-##end
-##        }
-##end      
+        queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));    
 	    return getHQuery(query.toString(), queryWhere.toString());
     }
+
 	
     /**
     * return a hibernate hql search for a list of ${tableClassName} prototype
@@ -384,7 +377,18 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
            return "";
 	    return query.toString();        
     }
-    
+
+    protected Criteria getPrototypeCriteria($tableClassName $tableVariableName) {
+        Criteria criteria = getSession().createCriteria(${tableClassName}.class);
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass() != null) {
+           criteria.add(Restrictions.eq("${columnVar}", ${tableVariableName}.get$columnClass()));
+        }
+#end
+	    return criteria;
+	}
+	    
     protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
         StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
