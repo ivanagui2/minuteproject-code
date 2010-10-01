@@ -14,6 +14,7 @@ public class Database extends AbstractConfigurationLoader{
    private DatabaseCatalog _databaseCatalog;
    private String _name;
    private PrimaryKeyPolicy _primaryKeyPolicy;
+   private MavenArtifact _mavenArtifact;
    private String _version;
    private String _hibernateDialect;
    private Boolean _useSchema;
@@ -59,6 +60,17 @@ public class Database extends AbstractConfigurationLoader{
 	
    public void setPrimaryKeyPolicy (PrimaryKeyPolicy _primaryKeyPolicy) {
       this._primaryKeyPolicy = _primaryKeyPolicy;
+   }
+   
+   
+   public MavenArtifact getMavenArtifact() {
+	  if (_mavenArtifact == null)
+	     _mavenArtifact = new MavenArtifact();
+	      return _mavenArtifact;
+   }
+	
+   public void setMavenArtifact (MavenArtifact _mavenArtifact) {
+      this._mavenArtifact = _mavenArtifact;
    }
    
    

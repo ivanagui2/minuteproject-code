@@ -14,4 +14,12 @@ public class DatabaseCatalogUtils extends CatalogUtils{
 			databases = getPublishedDatabaseCatalogHolder().getDatabaseCatalog().getDatabases().getDatabases();
 		return databases;		
 	}
+	
+	public static Database getPublishedDatabase(String name) {
+		for (Database database : getPublishedDatabases ()) {
+			if (database.getName().equals(name))
+				return database;
+		}		
+		return null;
+	}	
 }
