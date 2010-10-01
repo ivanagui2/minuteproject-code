@@ -40,7 +40,7 @@
 			   name="bsla-hibernate" 
 			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
 			   outputdir-root="../../DEV/output/petshopHibernate"
-			   templatedir-root="../../minuteTemplate/template-bsla">
+			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 			</target> 	
 			<target refname="MpVaadin" 
 			   name="vaadin" 
