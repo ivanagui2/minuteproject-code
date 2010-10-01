@@ -1,3 +1,9 @@
+BSLA:
+replace query builder by hibernate criteria API
+LINUX scripts
+CONSOLE first version
+
+================================
 - Roo first implementation
 -- generation of the console script
 -- limitations: does not handle m2m
