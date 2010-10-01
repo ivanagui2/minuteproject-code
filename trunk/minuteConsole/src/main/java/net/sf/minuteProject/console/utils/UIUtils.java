@@ -1,6 +1,7 @@
 package net.sf.minuteProject.console.utils;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -96,7 +98,20 @@ public class UIUtils {
 			    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		return scroll;
-	}	
+	}
+	
+	public static void updateTextAreaScroll (JScrollPane pane, String text) {
+		JViewport jview = (JViewport)pane.getComponent(0);
+		Component comp = jview.getView();
+		JTextArea jTextArea = null;
+		if (comp instanceof JTextArea) {
+			jTextArea = (JTextArea) comp;
+		} else {
+			System.out.println("comp = "+comp);
+		}
+		if (jTextArea!=null)
+			jTextArea.setText(text);
+	}
 	
 	public static JComboBox createCombo(String[] items, ItemListener itemListener) {
 		JComboBox jComboBox = createCombo(items);

@@ -86,7 +86,8 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 					logger.info("error generating : "+mpe.getError());
 				}
 			}
-//			else if (e.getSource() == detailButton) {
+			else if (e.getSource() == detailButton) {
+				updateDetails(panel);
 //				if (detailButton.getText().equals(showDetailL)) {
 //					detailButton.setText(hideDetailL);
 //					showDetails(panel);
@@ -94,7 +95,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 //					detailButton.setText(showDetailL);
 //					hideDetails(panel);
 //				}
-//			}
+			}
 		}
 	}
 
@@ -102,6 +103,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 
 		public void itemStateChanged(ItemEvent e) {
 			consoleSample.getModelCommonPanel().rebuildDefaultTargetDir();
+			updateDetails(panel);
 		}
 	}
 	
@@ -123,9 +125,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		panel.add(targetCb);	
 //		panel.add(getDetailButton(),"center");
 		panel.add(getGenerateButton(), "wrap");
-		if (true) {
-			showDetails(panel);
-		}
+		showDetails(panel);
 	}
 	
 //	private void showDetails (JPanel panel) {
@@ -149,6 +149,15 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		descriptionJSP = createTextAreaScroll(technology.getDescription(), 5, 40, true, false);
 		panel.add(descriptionJSP, "span, growx");	
 	}	
+	
+	private void updateDetails (JPanel panel) {
+		Technology technology = getChoosenTechnology();
+		statusDetailJL.setText(technology.getStatus());
+		updateTextAreaScroll(descriptionJSP,technology.getDescription());
+//		descriptionJSP.getViewport().removeAll();
+//		descriptionJSP.getViewport().add(new JLabel(technology.getDescription()));
+//		descriptionJSP.repaint();
+	}
 	
 	private void hideDetails (JPanel panel) {
 		panel.remove(detailPanel);

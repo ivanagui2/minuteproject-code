@@ -3,23 +3,42 @@
 	 <database name="ORACLE" 
 	            hibernate-dialect="org.hibernate.dialect.Oracle9Dialect" 
 	            use-schema="true" 
-	            driverclassname="oracle.jdbc.OracleDriver"
-	            mvn-artifact-id="" >
+	            driverclassname="oracle.jdbc.OracleDriver">
+	            <maven-artifact 
+	            	mvn-artifact-id="ojdbc14" 
+	                mvn-group-id="com.oracle"
+	                mvn-version="10.0.2.0.0">
+	            </maven-artifact>	            
 	 </database>
 	 <database name="DB2" 
 	            hibernate-dialect="org.hibernate.dialect.DB2Dialect" 
 	            use-schema="true" 
 	            driverclassname="com.ibm.db2.jcc.DB2Driver" >
+	            <maven-artifact
+	               mvn-artifact-id="db2jcc" 
+	               mvn-group-id="com.ibm"
+	               mvn-version="3.50.152" >
+	            </maven-artifact>
 	 </database>
 	  <database name="MYSQL" 
 	            hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
 	            use-schema="false" 
 	            driverclassname="org.gjt.mm.mysql.Driver" >
+	            <maven-artifact
+	               mvn-artifact-id="mysql-connector-java" 
+	               mvn-group-id="mysql"
+	               mvn-version="5.0.5" >
+	            </maven-artifact>	            
 	 </database>
 	  <database name="HSQLDB" 
 	            hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
 	            use-schema="false" 
 	            driverclassname="org.hsqldb.jdbcDriver" >
+	            <maven-artifact
+	               mvn-artifact-id="hsqldb" 
+	               mvn-group-id="hsqldb"
+	               mvn-version="1.8.0.7">
+	            </maven-artifact>	            
 	 </database>  
   </databases>
 
