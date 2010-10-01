@@ -11,11 +11,15 @@ import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
+import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
+import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
+import net.sf.minuteProject.loader.catalog.databasecatalog.node.MavenArtifact;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
 import net.sf.minuteProject.utils.catalog.CatalogUtils;
+import net.sf.minuteProject.utils.catalog.DatabaseCatalogUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 
 public class BasicIntegrationConfiguration extends BeanCommon{
@@ -35,6 +39,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	targetDir;
 //	private TechnologycatalogHolder technologycatalogHolder;
 	private Technology choosenTechnology;
+	private Database choosenDatabase;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
@@ -71,6 +76,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return target;
 	}
 
+	private Database getChoosenDatabase() {
+		if (choosenDatabase==null)
+			choosenDatabase = DatabaseCatalogUtils.getPublishedDatabase(getDatabase());
+		return choosenDatabase;		
+	}
 //	private Target getLibTarget() {
 //		Target target = new Target();
 //		target.setFileName("catalog/mp-template-config-bsla-LIB-features.xml");
@@ -105,7 +115,17 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		dataModel.setBasicDataSource(getBasicDataSource());
 		dataModel.setSchema(schema);
 		dataModel.setPrimaryKeyPolicy(getPrimaryKeyPolicyConfig());
+		dataModel.setDriver(getDriverMaven());
 		return dataModel;
+	}
+
+	private Driver getDriverMaven() {
+		Driver driver = new Driver();
+		MavenArtifact mavenArtifact = getChoosenDatabase().getMavenArtifact();
+		driver.setArtifactId(mavenArtifact.getMvnArtifactId());
+		driver.setGroupId(mavenArtifact.getMvnGroupId());
+		driver.setVersion(mavenArtifact.getMvnVersion());
+		return driver;
 	}
 
 	private PrimaryKeyPolicy getPrimaryKeyPolicyConfig() {

@@ -39,6 +39,16 @@
       <alias prop-name="packageName" attr-name="package-name"/>
      </set-properties-rule>
     </pattern>
+    <pattern value="maven-artifact">
+     <object-create-rule classname="net.sf.minuteProject.loader.catalog.databasecatalog.node.MavenArtifact"/>
+     <set-next-rule methodname="setMavenArtifact" paramtype="net.sf.minuteProject.loader.catalog.databasecatalog.node.MavenArtifact"/>
+     <set-properties-rule>
+      <alias prop-name="mvnArtifactId" attr-name="mvn-artifact-id"/>
+      <alias prop-name="mvnGroupId" attr-name="mvn-group-id"/>
+      <alias prop-name="mvnVersion" attr-name="mvn-version"/>
+      <alias prop-name="packageName" attr-name="package-name"/>
+     </set-properties-rule>
+    </pattern>
    </pattern>
   </pattern>
  </pattern>
