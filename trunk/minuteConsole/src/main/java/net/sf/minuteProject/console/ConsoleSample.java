@@ -24,6 +24,7 @@ import net.sf.minuteProject.console.panel.TargetPanel;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
+import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import net.sf.minuteProject.loader.catalog.technologycatalog.Technologycatalog;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.utils.catalog.CatalogUtils;
@@ -39,15 +40,16 @@ public class ConsoleSample extends JFrame{
 	private TargetPanel targetPanel;
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
+	private static String catalogDir;
 	
-	public ConsoleSample (String title) {
+	public ConsoleSample (String title, String catalogDir) {
 		super(title);
-		init();
+		init(catalogDir);
 	}
 	
-	public ConsoleSample() {
-		init();
-	}
+//	public ConsoleSample() {
+//		init();
+//	}
 	
 	private void initComponents() {
 		
@@ -65,7 +67,7 @@ public class ConsoleSample extends JFrame{
 
 		tabbedPane = new JTabbedPane();
 		
-		modelAccessPanel = new ModelAccessPanel(databasecatalogHolder);
+		modelAccessPanel = new ModelAccessPanel(this);
 		modelCommonPanel = new ModelCommonPanel(this);
 		targetPanel = new TargetPanel(this);
 
@@ -91,20 +93,22 @@ public class ConsoleSample extends JFrame{
 	
 
 	
-	public void init() {
-		initCatalogs();
+	public void init(String catalogDir) {
+		initCatalogs(catalogDir);
 		initComponents();
 	}
 	
-	private void initCatalogs() {
-		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder();
-		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder();		
+	private void initCatalogs(String catalogDir) {
+		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder(catalogDir);
+		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);		
 	}
 
 	public static void main(String args[]) {
+		if (args.length>0)
+			catalogDir=args[0];
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample("MinuteProject console (beta)").setVisible(true);
+				new ConsoleSample("MinuteProject console - beta -", catalogDir).setVisible(true);
 			}
 		});
 	}
@@ -113,6 +117,7 @@ public class ConsoleSample extends JFrame{
 		modelAccessPanel.fill(bic);
 		modelCommonPanel.fill(bic);
 		targetPanel.fill(bic);
+		bic.setCatalogDir(catalogDir);
 	}
 
 	public TechnologycatalogHolder getTechnologycatalogHolder() {
@@ -142,6 +147,18 @@ public class ConsoleSample extends JFrame{
 
 	public TargetPanel getTargetPanel() {
 		return targetPanel;
+	}
+
+	public void applyCurrentPrimaryKeyPolicy(Database database) {
+		modelCommonPanel.applyCurrentPrimaryKeyPolicy(database);
+	}
+
+	public static String getCatalogDir() {
+		return catalogDir;
+	}
+
+	public static void setCatalogDir(String catalogDir) {
+		ConsoleSample.catalogDir = catalogDir;
 	}
 
 }

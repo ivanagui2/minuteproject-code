@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
@@ -36,14 +37,15 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
     private JLabel schemaL;
     private JComboBox databaseCb;
     private JTextField urlTf, usernameTf, passwordTf, schemaTf, driverClassNameTf;
+    private ConsoleSample consoleSample;
     
-    public ModelAccessPanel(DatabasecatalogHolder databasecatalogHolder) {
-//   	 this.databasecatalogHolder = databasecatalogHolder;
-   	   databases = DatabaseCatalogUtils.getPublishedDatabases();
- 	   databaseNames = new ArrayList<String>();
-	   for (Database database : databases) {
-		  databaseNames.add(database.getName());
-	   }
+    public ModelAccessPanel(ConsoleSample consoleSample) {
+   	 this.consoleSample = consoleSample;
+   	 databases = DatabaseCatalogUtils.getPublishedDatabases(consoleSample.getCatalogDir());
+ 	    databaseNames = new ArrayList<String>();
+	    for (Database database : databases) {
+		    databaseNames.add(database.getName());
+	    }
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
@@ -117,6 +119,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		
 		public void focusGained(FocusEvent arg0) {
 		}
+		
 	}
 	
 	private class DatabaseChangeListener implements ActionListener {
@@ -129,10 +132,14 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 					applySchema();
 				else 
 					removeSchema();
-					
+				applyCurrentPrimaryKeyPolicy(database);
 			}
 		}
 	}
+	
+	private void applyCurrentPrimaryKeyPolicy(Database database) {
+		consoleSample.applyCurrentPrimaryKeyPolicy(database);
+	}	
 	
 	private void applySchema() {
 		schemaL.setVisible(true);

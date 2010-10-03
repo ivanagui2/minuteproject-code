@@ -15,6 +15,7 @@ import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
 
@@ -30,6 +31,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	private boolean isTargetDirTouched = false;
 	private JTextField rootPackageTf, modelNameTf, targetDirTf;
 	private JComboBox pkPolicyCb;
+	
 	public ModelCommonPanel(ConsoleSample consoleSample) {
 		this.consoleSample = consoleSample;
 	}
@@ -38,7 +40,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		bic.setRootpackage(rootPackageTf.getText());
 		bic.setModelName(modelNameTf.getText());
 		bic.setPrimaryKeyPolicy(pkPolicyCb.getSelectedItem().toString());
-		bic.setTargetDir(targetDirTf.getText());
+		bic.setOutputDir(targetDirTf.getText());
 		
 //		bic.setRootpackage(f.getTextAt(root_package));
 //		bic.setModelName(f.getTextAt(model_name));
@@ -48,7 +50,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	public void fillModelCommonPanel (JPanel panel) {
 		panel.add(createLabel(root_package),   "skip");
 		rootPackageTf = createTextField("");
-		panel.add(rootPackageTf,      "span, growx");
+		panel.add(rootPackageTf,      "span, wrap");
 		
 		panel.add(createLabel(model_name),   "skip");
 		modelNameTf = createTextField("",new ModelNameListener());
@@ -125,6 +127,11 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 
 	private String getJavaFormattedName(String text) {
 		return RestrictedCodeUtils.convertToValidJava(text);
+	}
+
+	public void applyCurrentPrimaryKeyPolicy(Database database) {
+		pkPolicyCb.setSelectedItem(database.getPrimaryKeyPolicy().getType());
+		
 	}	
 	
 	
