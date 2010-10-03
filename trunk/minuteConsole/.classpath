@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/minuteKernel"/>
 	<classpathentry kind="lib" path="lib/miglayout-3.7.3.1.jar"/>
@@ -9,5 +8,10 @@
 	<classpathentry kind="lib" path="/minuteKernel/lib/commons-logging-api-1.0.3.jar"/>
 	<classpathentry kind="lib" path="/minuteKernel/lib/commons-lang-2.2.jar"/>
 	<classpathentry kind="lib" path="/minuteKernel/lib/log4j-1.2.12.jar"/>
+	<classpathentry kind="lib" path="/minuteKernel/lib/extra/db2jcc_license_cu.jar"/>
+	<classpathentry kind="lib" path="/minuteKernel/lib/extra/db2jcc.jar"/>
+	<classpathentry kind="lib" path="/minuteKernel/lib/extra/hsqldb-1.8.0.7.jar"/>
+	<classpathentry kind="lib" path="/minuteKernel/lib/extra/mysql.jar"/>
+	<classpathentry kind="lib" path="/minuteKernel/lib/extra/ojdbc14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
