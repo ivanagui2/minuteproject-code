@@ -117,7 +117,6 @@ public abstract class AbstractGenerator implements Generator {
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws MinuteProjectException {
 		try {
 			loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
-			
 		} catch (Exception e) {
 			throwException(e, "CANNOT LOAD TARGET FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH");
 		}
@@ -335,11 +334,11 @@ public abstract class AbstractGenerator implements Generator {
 	       }
        catch( ResourceNotFoundException rnfe )
        {
-           System.out.println("Example : error : cannot find template " + template.getTemplateFileName() );
+           System.out.println("Error : cannot find template " + template.getTemplateFileName() );
        }
        catch( ParseErrorException pee )
        {
-           System.out.println("Example : Syntax error in template " + template.getTemplateFileName() + ":" + pee );
+           System.out.println("Error : Syntax error in template " + template.getTemplateFileName() + ":" + pee );
        }
        return velocityTemplate;
 	}

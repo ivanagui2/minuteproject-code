@@ -81,24 +81,24 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return target;
 	}
 
-	private String getTargetFilePathAndName(String catalogDir, Technology technology) {
-		return getCatalogAbsoluteDir()+getCatalogToTemplateSetRelativeDir()+getTemplateSetName(technology);
-	}
-	
-	private String getTemplateSetName(Technology technology) {
-		return technology.getTemplateConfigFileName();
-	}
-
-	private String getCatalogAbsoluteDir() {
-		return "";
-	}
-
-	private String getCatalogToTemplateSetRelativeDir() {
-		return "";
-	}
+//	private String getTargetFilePathAndName(String catalogDir, Technology technology) {
+//		return getCatalogAbsoluteDir()+getCatalogToTemplateSetRelativeDir()+getTemplateSetName(technology);
+//	}
+//	
+//	private String getTemplateSetName(Technology technology) {
+//		return technology.getTemplateConfigFileName();
+//	}
+//
+//	private String getCatalogAbsoluteDir() {
+//		return "";
+//	}
+//
+//	private String getCatalogToTemplateSetRelativeDir() {
+//		return "";
+//	}
 
 	private String getTemplateSetFullPathAndFileName(String fileName) {
-		return FileUtils.getFileFullPath(null,getCatalogDir()+"/"+ fileName);
+		return FileUtils.getFileFullPathFromFileInRootClassPath(getCatalogDir()+"/"+ fileName);
 	}
 	
 	private String getTemplateSetFullPath(String fileName) {
@@ -106,11 +106,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return StringUtils.removeEnd(canonicalFileName, fileName);
 	}
 
-	private String getClassPath(String fileName) {
-		if (catalogDir==null)
-			catalogDir=CatalogUtils.getDefaultCatalogDir();
-		return catalogDir+"/"+fileName;
-	}
+//	private String getClassPath(String fileName) {
+//		if (catalogDir==null)
+//			catalogDir=CatalogUtils.getDefaultCatalogDir();
+//		return catalogDir+"/"+fileName;
+//	}
 
 	private Database getChoosenDatabase() {
 		if (choosenDatabase==null)
