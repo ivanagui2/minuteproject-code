@@ -171,11 +171,11 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	}
 	
 	private Technology getChoosenTechnology() {
-		return TechnologyCatalogUtils.getPublishedTechnology(targetCb.getSelectedItem().toString());
+		return TechnologyCatalogUtils.getPublishedTechnology(targetCb.getSelectedItem().toString(), consoleSample.getCatalogDir());
 	}	
 
 	private String[] getTechnologyNames() {
-		return TechnologyCatalogUtils.getPublishedTechnologyNames();
+		return TechnologyCatalogUtils.getPublishedTechnologyNames(consoleSample.getCatalogDir());
 	}
 	
 }
