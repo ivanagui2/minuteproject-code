@@ -150,9 +150,7 @@ public abstract class AbstractGenerator implements Generator {
 		target2.setTemplatedirRoot(target.getTemplatedirRoot());
 	}
 	
-	protected InputStream getTargetConfigurationInputStream (
-			AbstractConfigurationRoot abstractConfigurationRoot, 
-			Target target) throws FileNotFoundException {
+	protected InputStream getTargetConfigurationInputStream (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws FileNotFoundException {
 		String filePath = resolveFileAbsolutePath(abstractConfigurationRoot, target);
 		String dirPath = FileUtils.stripFileName(filePath);
 		target.setCanonicalDir(dirPath);
@@ -164,16 +162,13 @@ public abstract class AbstractGenerator implements Generator {
 //			Target target) {
 //		return FileUtils.stripFileName(resolveFileAbsolutePath(abstractConfigurationRoot, target));
 //	}
-	private String resolveFileAbsolutePath(
-			AbstractConfigurationRoot abstractConfigurationRoot, 
-			Target target) {
+	private String resolveFileAbsolutePath(AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
 		String dir = target.getDir();
 		if (dir!=null) { // absolute path provided
 			return dir+"/"+target.getFileName();
 		}
 		else {//relative path
-			String result = FileUtils.getFileFullPath(
-					abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
+			String result = FileUtils.getFileFullPath(abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
 			return result;
 		}
 	}

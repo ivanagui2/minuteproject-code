@@ -11,9 +11,11 @@ public class CatalogUtils {
 	private static DatabasecatalogHolder databasecatalogHolder;
 
 	
-	public static TechnologycatalogHolder getPublishedTechnologyCatalogHolder() {
+	public static TechnologycatalogHolder getPublishedTechnologyCatalogHolder(String catalogDir) {
+		if (catalogDir==null)
+			catalogDir=getDefaultCatalogDir();		
 		if (technologycatalogHolder==null)
-			technologycatalogHolder = loadTechnologyCatalogHolder("catalog/technology-catalog.xml");
+			technologycatalogHolder = loadTechnologyCatalogHolder(catalogDir+"/technology-catalog.xml");
 		return technologycatalogHolder;
 	}
 	
@@ -29,9 +31,11 @@ public class CatalogUtils {
 		return new Technologycatalog(name);
 	}
 	
-	public static DatabasecatalogHolder getPublishedDatabaseCatalogHolder() {
+	public static DatabasecatalogHolder getPublishedDatabaseCatalogHolder(String catalogDir) {
+		if (catalogDir==null)
+			catalogDir=getDefaultCatalogDir();
 		if (databasecatalogHolder==null)
-			databasecatalogHolder = loadDatabaseCatalogHolder("catalog/database-catalog.xml");
+			databasecatalogHolder = loadDatabaseCatalogHolder(catalogDir+"/database-catalog.xml");
 		return databasecatalogHolder;
 	}
 	
@@ -47,5 +51,8 @@ public class CatalogUtils {
 		return new Databasecatalog(name);
 	}
 
+	public static String getDefaultCatalogDir () {
+		return "catalog";
+	}
 
 }
