@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BeanCommon;
 import net.sf.minuteProject.configuration.bean.Configuration;
@@ -21,22 +22,25 @@ import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
 import net.sf.minuteProject.utils.catalog.CatalogUtils;
 import net.sf.minuteProject.utils.catalog.DatabaseCatalogUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
+import net.sf.minuteProject.utils.io.FileUtils;
 
 public class BasicIntegrationConfiguration extends BeanCommon{
 
-	private String schema, 
-	driver, 
-	url, 
-	username, 
-	password, 
-	primaryKeyPolicy, 
-	targetTechnology, 
-	database, 
-	rootpackage,
-	businesspackage,
-	version,
-	modelName,
-	targetDir;
+	private String 
+	   schema, 
+		driver, 
+		url, 
+		username, 
+		password, 
+		primaryKeyPolicy, 
+		targetTechnology, 
+		database, 
+		rootpackage,
+		businesspackage,
+		version,
+		modelName,
+		outputDir,
+		catalogDir;
 //	private TechnologycatalogHolder technologycatalogHolder;
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
@@ -61,7 +65,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private List<Target> getDependentTargetTechnologies() {
 		List<Target> list = new ArrayList<Target>();
-		List<Technology> technologies = TechnologyCatalogUtils.getDependentTechnologies(getChoosenTechnology());
+		List<Technology> technologies = TechnologyCatalogUtils.getDependentTechnologies(getChoosenTechnology(), getCatalogDir());
 		for (Technology technology : technologies) {
 			list.add(getTarget(technology));
 		}
@@ -70,23 +74,49 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private Target getTarget(Technology technology) {
 		Target target = new Target();
-		target.setFileName("catalog/"+technology.getTemplateConfigFileName());
+		target.setFileName(technology.getTemplateConfigFileName());
+		target.setDir(getTemplateSetFullPath(technology.getTemplateConfigFileName()));
 		target.setTemplatedirRoot(technology.getTemplateDir());		
-		target.setOutputdirRoot(targetDir);
+		target.setOutputdirRoot(outputDir);
 		return target;
+	}
+
+	private String getTargetFilePathAndName(String catalogDir, Technology technology) {
+		return getCatalogAbsoluteDir()+getCatalogToTemplateSetRelativeDir()+getTemplateSetName(technology);
+	}
+	
+	private String getTemplateSetName(Technology technology) {
+		return technology.getTemplateConfigFileName();
+	}
+
+	private String getCatalogAbsoluteDir() {
+		return "";
+	}
+
+	private String getCatalogToTemplateSetRelativeDir() {
+		return "";
+	}
+
+	private String getTemplateSetFullPathAndFileName(String fileName) {
+		return FileUtils.getFileFullPath(null,getCatalogDir()+"/"+ fileName);
+	}
+	
+	private String getTemplateSetFullPath(String fileName) {
+		String canonicalFileName = getTemplateSetFullPathAndFileName(fileName);
+		return StringUtils.removeEnd(canonicalFileName, fileName);
+	}
+
+	private String getClassPath(String fileName) {
+		if (catalogDir==null)
+			catalogDir=CatalogUtils.getDefaultCatalogDir();
+		return catalogDir+"/"+fileName;
 	}
 
 	private Database getChoosenDatabase() {
 		if (choosenDatabase==null)
-			choosenDatabase = DatabaseCatalogUtils.getPublishedDatabase(getDatabase());
+			choosenDatabase = DatabaseCatalogUtils.getPublishedDatabase(getDatabase(), getCatalogDir());
 		return choosenDatabase;		
 	}
-//	private Target getLibTarget() {
-//		Target target = new Target();
-//		target.setFileName("catalog/mp-template-config-bsla-LIB-features.xml");
-//		target.setTemplatedirRoot("../../minuteTemplate/template-bsla");		
-//		return target;
-//	}
 
 	private Target getChoosenTarget() {
 		Technology technology = getChoosenTechnology(); 	
@@ -98,7 +128,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private Technology getChoosenTechnology() {
 		if (choosenTechnology==null)
-			choosenTechnology = TechnologyCatalogUtils.getPublishedTechnology(targetTechnology);
+			choosenTechnology = TechnologyCatalogUtils.getPublishedTechnology(targetTechnology, getCatalogDir());
 		return choosenTechnology;
 	}
 
@@ -247,13 +277,22 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		this.modelName = modelName;
 	}
 
-	public String getTargetDir() {
-		return targetDir;
+	public String getOutputDir() {
+		return outputDir;
 	}
 
-	public void setTargetDir(String targetDir) {
-		this.targetDir = targetDir;
+	public void setOutputDir(String outputDir) {
+		this.outputDir = outputDir;
 	}
-	
+
+	public String getCatalogDir() {
+		if (catalogDir==null)
+			catalogDir=CatalogUtils.getDefaultCatalogDir();
+		return catalogDir;
+	}
+
+	public void setCatalogDir(String catalogDir) {
+		this.catalogDir = catalogDir;
+	}
 	
 }

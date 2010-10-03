@@ -9,14 +9,14 @@ public class DatabaseCatalogUtils extends CatalogUtils{
 
 	private static List<Database> databases;
 	
-	public static List<Database> getPublishedDatabases() {
+	public static List<Database> getPublishedDatabases(String catalogDir) {
 		if (databases==null)
-			databases = getPublishedDatabaseCatalogHolder().getDatabaseCatalog().getDatabases().getDatabases();
+			databases = getPublishedDatabaseCatalogHolder(catalogDir).getDatabaseCatalog().getDatabases().getDatabases();
 		return databases;		
 	}
 	
-	public static Database getPublishedDatabase(String name) {
-		for (Database database : getPublishedDatabases ()) {
+	public static Database getPublishedDatabase(String name, String catalogDir) {
+		for (Database database : getPublishedDatabases (catalogDir)) {
 			if (database.getName().equals(name))
 				return database;
 		}		
