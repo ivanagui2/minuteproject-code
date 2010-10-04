@@ -131,7 +131,35 @@
 	
 	<target name="release-kernel" depends="build-kernel-dependencies, distribute-kernel, copy-kernel-dependencies" >
 	</target>
+
 	
+	<target name="copy-console-dependencies"> 
+	  <copy todir="${application.lib.dir}" overwrite="true">
+	 	<fileset dir="${console.dev.relpath}/lib">
+	 		<include name="miglayout-3.7.3.1.jar"/>
+	 	</fileset>
+	  </copy>	  		
+	</target>
+	
+	<target name="distribute-console">
+	  <copy todir="${application.lib.dir}" overwrite="true">
+	 	<fileset dir="${console.dev.relpath}/dist">
+	 		<include name="**/*.jar"/>
+	 		<include name="**/*.zip"/>
+	 	</fileset>
+	  </copy>	  		
+	</target>	
+	
+	<target name="build-console-dependencies">
+	  <ant dir="${console.dev.relpath}" target="archive" >
+	  	<property name="application.dir" value="./application"></property>
+	  	<property name="project.name" value="minuteConsole"></property>
+	  </ant>
+	</target>
+	  		
+	<target name="release-console" depends="build-console-dependencies, distribute-console, copy-console-dependencies" >
+	</target>
+		
 	<target name="copy-template-dependencies">
 	  <copy todir="${catalog.dir}" overwrite="true">
 	 	<fileset dir="${catalog.dev.relpath}">
@@ -179,7 +207,12 @@
 	 		<include name="model-generation*"/>
 	 		<include name="mp-config-sample*"/>
 	 	</fileset>
-	  </copy>	
+	  </copy>
+	  <copy todir="${release.dir}/mywork" overwrite="true">
+	 	<fileset dir="${mywork.dev.relpath}">
+	 		<include name="*.*"/>
+	 	</fileset>
+	  </copy>		
 	   <chmod dir="${release.dir}/mywork/config" perm="777" includes="**/*.sh"/>		
 	</target>
 	
@@ -190,6 +223,7 @@
 	 <antcall target="release-minuteFoundation"></antcall>
 	 <antcall target="release-template"></antcall>
 	 <antcall target="release-kernel"></antcall>
+	 <antcall target="release-console"></antcall>
 	 <antcall target="release-architecture-bsla"></antcall>
 	 <antcall target="release-architecture-openxava"></antcall>
      <antcall target="release-architecture-fitnesse"></antcall>	

@@ -13,22 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.xmlrules.DigesterLoader;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
-
-import sun.security.action.GetBooleanAction;
-
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
-import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
-import net.sf.minuteProject.configuration.bean.GeneratorConfig;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
@@ -47,6 +34,15 @@ import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
+
+import org.apache.commons.digester.Digester;
+import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 /**
  * @author Florian Adler
