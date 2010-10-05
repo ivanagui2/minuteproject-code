@@ -3,6 +3,7 @@ package net.sf.minuteProject.console.panel;
 import static net.sf.minuteProject.console.utils.UIUtils.createCombo;
 import static net.sf.minuteProject.console.utils.UIUtils.createLabel;
 import static net.sf.minuteProject.console.utils.UIUtils.createTextField;
+import static net.sf.minuteProject.console.utils.UIUtils.createPasswordField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import net.sf.minuteProject.console.ConsoleSample;
@@ -36,7 +38,8 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
     
     private JLabel schemaL;
     private JComboBox databaseCb;
-    private JTextField urlTf, usernameTf, passwordTf, schemaTf, driverClassNameTf;
+    private JTextField urlTf, usernameTf, schemaTf, driverClassNameTf;
+    private JPasswordField passwordTf;
     private ConsoleSample consoleSample;
     
     public ModelAccessPanel(ConsoleSample consoleSample) {
@@ -77,7 +80,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		panel.add(usernameTf);
 		
 		panel.add(createLabel(password),   "center");
-		passwordTf = createTextField("");
+		passwordTf = createPasswordField("");
 		panel.add(passwordTf,      "wrap");		
 		
 		schemaL = createLabel(schema);
@@ -148,6 +151,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 	
 	private void removeSchema() {
 		schemaL.setVisible(false);
+//		schemaTf.setText("");
 		schemaTf.setVisible(false);
 	}
 	

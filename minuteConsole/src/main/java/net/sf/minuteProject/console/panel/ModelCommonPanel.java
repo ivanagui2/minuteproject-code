@@ -50,11 +50,11 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	public void fillModelCommonPanel (JPanel panel) {
 		panel.add(createLabel(root_package),   "skip");
 		rootPackageTf = createTextField("");
-		panel.add(rootPackageTf,      "span, wrap");
+		panel.add(rootPackageTf,      "wrap");
 		
 		panel.add(createLabel(model_name),   "skip");
 		modelNameTf = createTextField("",new ModelNameListener());
-		panel.add(modelNameTf,      "span, growx");
+		panel.add(modelNameTf,      "wrap");
 		
 		panel.add(createLabel(primary_key_policy),   "skip");
 		pkPolicyCb = createCombo(new String[] {"sequence", "autoincrement"});

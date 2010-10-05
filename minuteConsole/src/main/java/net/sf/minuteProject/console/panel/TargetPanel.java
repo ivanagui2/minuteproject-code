@@ -80,6 +80,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 				System.out.println(bic);
 				
 				ModelViewGenerator mvg = new ModelViewGenerator(bic);
+				mvg.resetTemplatePath();
 				try {
 					mvg.generate();
 				} catch (MinuteProjectException mpe) {

@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
@@ -75,7 +76,17 @@ public class UIUtils {
 	{
 		return createTextField(text, 0);
 	}
+	
+	public static JPasswordField createPasswordField(String text)
+	{
+		return createPasswordField(text, 0);
+	}
 
+	public static JPasswordField createPasswordField(String text, int i) {
+		final JPasswordField p = new JPasswordField(text, i);
+		return p;
+	}
+	
 	public static JTextField createTextField(String text, int cols)
 	{
 		final JTextField b = new JTextField(text, cols);

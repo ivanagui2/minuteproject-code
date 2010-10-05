@@ -143,7 +143,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private DataModel getDataModel() {
 		DataModel dataModel = new DataModel();
 		dataModel.setBasicDataSource(getBasicDataSource());
-		dataModel.setSchema(schema);
+		if (getChoosenDatabase().useSchema())
+			dataModel.setSchema(schema);
 		dataModel.setPrimaryKeyPolicy(getPrimaryKeyPolicyConfig());
 		dataModel.setDriver(getDriverMaven());
 		return dataModel;
