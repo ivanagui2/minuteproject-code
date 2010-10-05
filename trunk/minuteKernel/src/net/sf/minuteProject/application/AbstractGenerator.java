@@ -57,6 +57,8 @@ public abstract class AbstractGenerator implements Generator {
 	private String configurationFile;
 	private String templatePath;
 	private String templateLibPath;
+	private Boolean isTemplateLibPathToReset = true;
+	private Boolean isTemplatePathToReset = true;
 	private BasicIntegrationConfiguration bic; 
 	
 	/**
@@ -65,9 +67,11 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public AbstractGenerator (String configurationFile) {
 		this.configurationFile = configurationFile;
+		resetTemplatePath();
 	}
 	public AbstractGenerator(BasicIntegrationConfiguration bic) {
 		this.bic = bic;
+		resetTemplatePath();
 	}
 	/**
 	 * gets the configuration file that is to be loaded
@@ -264,7 +268,8 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
     protected String getTemplatePath (Template template) {
-    	if (templatePath==null) {
+    	if (templatePath==null && isTemplatePathToReset) {
+    		isTemplatePathToReset = false;
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
     		StringBuffer sb = new StringBuffer();
@@ -286,7 +291,8 @@ public abstract class AbstractGenerator implements Generator {
     }
     
     private String getTemplateRelativeLibPath (Template template) {
-    	if (templateLibPath==null) {
+    	if (templateLibPath==null && isTemplateLibPathToReset) {
+    		isTemplateLibPathToReset = false;
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
     		StringBuffer sb = new StringBuffer();
@@ -423,4 +429,10 @@ public abstract class AbstractGenerator implements Generator {
     protected void throwException (String error) throws MinuteProjectException {
     	throwException(null, error);
     }
+    
+    public void resetTemplatePath() {
+    	isTemplateLibPathToReset = true;
+    	isTemplatePathToReset = true;
+    }
+
 }
