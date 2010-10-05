@@ -192,7 +192,7 @@ public class $className extends SqlMapClientDaoSupport implements $daoInterfaceN
      * @param PaginationCriteria paginationCriteria
      * @return List
      */
-    public List loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
+    public List<$tableClassName> loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) {
         return getSqlMapClientTemplate().queryForList("loadPaginated$tableClassName", paginationCriteria);
     }       
     
