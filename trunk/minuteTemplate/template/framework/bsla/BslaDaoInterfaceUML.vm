@@ -150,6 +150,6 @@ public interface $className extends DataAccessObject {
      * @param PaginationCriteria paginationCriteria
      * @return List
      */
-    public List loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) ;
+    public List<$tableClassName> loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) ;
             
 }

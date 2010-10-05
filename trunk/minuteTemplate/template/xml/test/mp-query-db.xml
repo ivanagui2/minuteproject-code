@@ -18,7 +18,7 @@
 			</template>
 			
 			<template 
-				name="DigesterConfigBean" templateFileName="DigesterAdapterConfigGeneratorBean.vm" 
+				name="DigesterConfigBean" templateFileName="DigesterConfigGeneratorBean.vm" 
 				subdir="" outputsubdir="" technicalPackage="node" add-model-name="true"
 				file-extension="java" file-prefix="" file-suffix="" 
 				node-attribute-name-specific="true"
@@ -44,7 +44,24 @@
 				is-template-to-generate-method="xmlSchemaUtils.isTrue"
 				/>				
 				<!-- depends on templateDocumentXML -->
-
+				<!-- 
+			<template 
+				name="DigesterConfigBean" templateFileName="DigesterConfigBean.vm" 
+				subdir="" outputsubdir="" technicalPackage="node" add-model-name="true"
+				file-extension="java" file-prefix="" file-suffix="" 
+				node-attribute-name-specific="true"
+				node-name-value="element"
+				node-attribute-name-value="name"
+				entity-specific="false" 
+				package-specific="false" 
+				model-specific="false"
+				application-specific="false"
+				is-template-to-generate-method="xmlSchemaUtils.isComplexElement"
+				>
+				
+				
+			</template>
+			 -->
 
 			<template 
 				name="DigesterHolderBean" templateFileName="DigesterHolderBean.vm" 
