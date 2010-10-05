@@ -35,6 +35,7 @@ import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
 
+import org.apache.commons.collections.ExtendedProperties;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.lang.StringUtils;
@@ -233,21 +234,30 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
     protected VelocityContext getVelocityContext(Template template) {
-		Properties p = new Properties();
+//		Properties p = new Properties();
 		
-		Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);
-		Velocity.clearProperty(Velocity.VM_LIBRARY);
-		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
-		p.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+//		Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);
+//		Velocity.clearProperty(Velocity.VM_LIBRARY);
+//		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
+//		p.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
 		VelocityContext context = new VelocityContext();
 		try {
-			Velocity.init(p);
+			Velocity.setExtendedProperties(getExtendedProperties(template));
+//			Velocity.addProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
+//			Velocity.addProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+//			Velocity.init(p);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return context;
     }  
     
+	private ExtendedProperties getExtendedProperties(Template template) {
+		ExtendedProperties extendedProperties = new ExtendedProperties();
+		extendedProperties.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
+		extendedProperties.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+		return extendedProperties;
+	}
 	protected void putPluginContextObject (VelocityContext context, Template template) {
 		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
 		for (Plugin plugin : plugins) {
