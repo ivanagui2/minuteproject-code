@@ -10,6 +10,13 @@ public class CatalogUtils {
 	private static TechnologycatalogHolder technologycatalogHolder;
 	private static DatabasecatalogHolder databasecatalogHolder;
 
+	public static void resetTechnologycatalogHolder () {
+		technologycatalogHolder = null;
+	}
+	
+	public static void resetDatabasecatalogHolder () {
+		databasecatalogHolder = null;
+	}
 	
 	public static TechnologycatalogHolder getPublishedTechnologyCatalogHolder(String catalogDir) {
 		if (catalogDir==null)

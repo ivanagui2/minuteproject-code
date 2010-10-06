@@ -16,6 +16,7 @@ public class Technology extends AbstractConfigurationLoader{
    private String _version;
    private String _templateConfigFileName;
    private String _templateDir;
+   private String _defaultOutputdir;
    private String _dependsOnTargets;
    private String _comment;
    private String _description;
@@ -23,6 +24,7 @@ public class Technology extends AbstractConfigurationLoader{
    private String _status;
    private String _targetName;
    private Boolean _isGenerable;
+   private Frameworks _frameworks;
    private Limitations _limitations;
    private Conventions _conventions;
 
@@ -88,6 +90,17 @@ public class Technology extends AbstractConfigurationLoader{
 	
    public void setTemplateDir (String _templateDir) {
       this._templateDir = _templateDir;
+   }
+   
+   
+   public String getDefaultOutputdir() {
+	  if (_defaultOutputdir == null)
+	     _defaultOutputdir = new String();
+	      return _defaultOutputdir;
+   }
+	
+   public void setDefaultOutputdir (String _defaultOutputdir) {
+      this._defaultOutputdir = _defaultOutputdir;
    }
    
    
@@ -169,6 +182,17 @@ public class Technology extends AbstractConfigurationLoader{
 	
    public void setIsGenerable (Boolean _isGenerable) {
       this._isGenerable = _isGenerable;
+   }
+   
+   
+   public Frameworks getFrameworks() {
+	  if (_frameworks == null)
+	     _frameworks = new Frameworks();
+	      return _frameworks;
+   }
+	
+   public void setFrameworks (Frameworks _frameworks) {
+      this._frameworks = _frameworks;
    }
    
    

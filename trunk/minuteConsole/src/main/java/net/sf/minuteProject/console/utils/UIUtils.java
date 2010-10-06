@@ -2,6 +2,7 @@ package net.sf.minuteProject.console.utils;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -15,12 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import net.miginfocom.layout.PlatformDefaults;
 
@@ -122,6 +126,24 @@ public class UIUtils {
 		}
 		if (jTextArea!=null)
 			jTextArea.setText(text);
+	}
+	
+	public static void updateTableScroll (JScrollPane pane, String [][]data, String[] title) {
+		JViewport jview = (JViewport)pane.getComponent(0);
+		Component comp = jview.getView();
+		JTable jtable = null;
+		if (comp instanceof JTable) {
+			jtable = (JTable) comp;
+		} else {
+			System.out.println("comp = "+comp);
+		}
+		if (jtable!=null) {
+			TableModel dataModel = new DefaultTableModel(data, title);
+			jtable.setModel(dataModel);
+			Dimension size = jtable.getPreferredScrollableViewportSize();
+			jtable.setPreferredScrollableViewportSize
+			    (new Dimension(Math.min(jtable.getPreferredSize().width, size.width), 50));
+		}
 	}
 	
 	public static JComboBox createCombo(String[] items, ItemListener itemListener) {

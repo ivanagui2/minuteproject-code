@@ -195,6 +195,7 @@ public class ModelGenerator extends AbstractGenerator {
 		for (Target target : targets.getTargets()) {
 //			TargetHolder targetHolder = new TargetHolder();
 			loadTarget(configuration, target);
+			configuration.getTarget().setIsGenerable(target.isGenerable());
 //			generate(configuration.getTarget());
 //			targetHolder.setTarget(model.getConfiguration().getTarget());
 			

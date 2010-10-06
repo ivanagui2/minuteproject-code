@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -157,11 +159,6 @@ public abstract class AbstractGenerator implements Generator {
 		return new FileInputStream (new File (filePath));
 	}
 
-//	private String resolvePathAbsolutePath(
-//			AbstractConfigurationRoot abstractConfigurationRoot, 
-//			Target target) {
-//		return FileUtils.stripFileName(resolveFileAbsolutePath(abstractConfigurationRoot, target));
-//	}
 	private String resolveFileAbsolutePath(AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
 		String dir = target.getDir();
 		if (dir!=null) { // absolute path provided
@@ -215,18 +212,19 @@ public abstract class AbstractGenerator implements Generator {
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.AbstractConfiguration, net.sf.minuteProject.configuration.bean.Target)
 	 */
 	public void generate (Target target) throws MinuteProjectException {
-    	for (Iterator iter= target.getTemplateTargets().iterator(); iter.hasNext(); ) {
-    		TemplateTarget templateTarget = (TemplateTarget)iter.next();
-    		logger.info(">template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
-    		if (templateTarget!=null && templateTarget.getTemplates()!=null) {
-	    		for (Iterator iter2= templateTarget.getTemplates().iterator(); iter2.hasNext(); ) {
-	        		Template template= (Template)iter2.next();
-	        		logger.info(">>template: "+template.getName()+" in "+template.getOutputdir());
-	        		this.generate(template);    		
-	        		//generateArtifacts (configuration.getModel(),(Template)iter2.next());		
-	        	} 
-    		}
-    	}  		
+		if (target.isGenerable()) {
+	    	for (TemplateTarget templateTarget : target.getTemplateTargets()) {
+	    		if (templateTarget.isGenerable()) {
+		    		logger.info(">template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
+		    		if (templateTarget!=null && templateTarget.getTemplates()!=null) {
+			    		for (Template template : templateTarget.getTemplates()) {
+			        		logger.info(">>template: "+template.getName()+" in "+template.getOutputdir());
+			        		this.generate(template);    		
+			        	} 
+		    		}
+	    		}
+	    	} 
+		}
 	}
 	
 	public void getSolutionPortfolio (String solutionPortfolioFileName) {
@@ -258,6 +256,7 @@ public abstract class AbstractGenerator implements Generator {
 		extendedProperties.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
 		return extendedProperties;
 	}
+	
 	protected void putPluginContextObject (VelocityContext context, Template template) {
 		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
 		for (Plugin plugin : plugins) {
@@ -280,22 +279,26 @@ public abstract class AbstractGenerator implements Generator {
     protected String getTemplatePath (Template template) {
     	if (templatePath==null && isTemplatePathToReset) {
     		isTemplatePathToReset = false;
+    		Hashtable<String, String> ht = new Hashtable<String, String>();
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
-    		StringBuffer sb = new StringBuffer();
+    		
     		for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
     			String absoluteRootDir = templateTarget2.getAbsoluteRootDir();
     			if (absoluteRootDir!=null) {
-	    			sb.append(absoluteRootDir);
-	    			sb.append(",");
+    				ht.put(absoluteRootDir, absoluteRootDir);
+//	    			sb.append(absoluteRootDir);
+//	    			sb.append(",");
     			}
     			String templateFullDir = templateTarget2.getTemplateFullDir();
     			if (templateFullDir!=null) {
-	    			sb.append(templateTarget2.getTemplateFullDir());
-	    			sb.append(",");
+    				ht.put(templateFullDir, templateFullDir);
+//	    			sb.append(templateTarget2.getTemplateFullDir());
+//	    			sb.append(",");
     			}
     		}
-    		templatePath = sb.toString();
+
+    		templatePath = getVelocityPath(ht);
     	}
     	return templatePath;
     }
@@ -303,28 +306,40 @@ public abstract class AbstractGenerator implements Generator {
     private String getTemplateRelativeLibPath (Template template) {
     	if (templateLibPath==null && isTemplateLibPathToReset) {
     		isTemplateLibPathToReset = false;
+    		Hashtable<String, String> ht = new Hashtable<String, String>();
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
-    		StringBuffer sb = new StringBuffer();
+//    		StringBuffer sb = new StringBuffer();
     		for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
-    			if (templateTarget2.getLibdir()!=null 
-    				&& !templateTarget2.getLibdir().equals("")) {
-	    			sb.append(templateTarget2.getLibdir());
-	    			sb.append(","); //TODO change for last element
+    			String libdir = templateTarget2.getLibdir();
+    			if (libdir!=null && !libdir.equals("")) {
+    				ht.put(libdir, libdir);
+//	    			sb.append(templateTarget2.getLibdir());
+//	    			sb.append(","); //TODO change for last element
     			}
     		}
     		
-    		templateLibPath = sb.toString();
+    		templateLibPath = getVelocityPath(ht);
     	}
     	return templateLibPath;    	
     }
     
+    private String getVelocityPath (Hashtable<String, String> ht) {
+    	StringBuffer sb = new StringBuffer();
+		Enumeration<String> e = ht.elements();
+		while (e.hasMoreElements()) {
+			sb.append(e.nextElement());
+			if (e.hasMoreElements())
+				sb.append(",");
+		}
+		return sb.toString();
+    }
+    
 	protected void produce(VelocityContext context, Template template, String outputFilename) throws Exception{
-
-		 org.apache.velocity.Template velocityTemplate = getVelocityTemplate(template, outputFilename);
+       org.apache.velocity.Template velocityTemplate = getVelocityTemplate(template, outputFilename);
        writeFile(context, velocityTemplate, outputFilename);
        writeFilePostProcessing (template, outputFilename);
-   }
+    }
 	
 	private void writeFilePostProcessing(Template template, String outputFilename) {
 		String chmod = template.getChmod();
@@ -340,10 +355,9 @@ public abstract class AbstractGenerator implements Generator {
 	
 	private org.apache.velocity.Template getVelocityTemplate (Template template, String outputFilename) throws Exception {
 	   org.apache.velocity.Template velocityTemplate =  null;
-	   try 
-	       {
-	   			velocityTemplate = Velocity.getTemplate(template.getTemplateFileName());
-	       }
+	   try {
+	   		velocityTemplate = Velocity.getTemplate(template.getTemplateFileName());
+	   }
        catch( ResourceNotFoundException rnfe )
        {
            System.out.println("Error : cannot find template " + template.getTemplateFileName() );
