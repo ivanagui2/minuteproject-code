@@ -27,7 +27,7 @@ import net.sf.minuteProject.utils.io.FileUtils;
 public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private String 
-	   schema, 
+	    schema, 
 		driver, 
 		url, 
 		username, 
@@ -41,7 +41,6 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		modelName,
 		outputDir,
 		catalogDir;
-//	private TechnologycatalogHolder technologycatalogHolder;
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
 	
@@ -54,12 +53,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	
 	private Targets getTargets() {
 		Targets targets = new Targets();
-		Target target = getChoosenTarget();
-		targets.addTarget(target);
-		for (Target target2 : getDependentTargetTechnologies()) {
+//		Target target = getChoosenTarget();
+//		targets.addTarget(target);
+		for (Target target2 : getAllRelatedTechnologies()) {
 			targets.addTarget(target2);
 		}
-//		targets.addTarget(getLibTarget());
 		return targets;
 	}
 
@@ -67,35 +65,44 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		List<Target> list = new ArrayList<Target>();
 		List<Technology> technologies = TechnologyCatalogUtils.getDependentTechnologies(getChoosenTechnology(), getCatalogDir());
 		for (Technology technology : technologies) {
-			list.add(getTarget(technology));
+			list.add(getTarget(technology, false));
+		}
+		return list;
+	}
+	
+	private List<Target> getAllRelatedTechnologies() {
+		boolean isDefaultOutputToAppend = false;
+		List<Target> list = new ArrayList<Target>();
+		List<Technology> technologies = TechnologyCatalogUtils.getAllRelatedTechnologies(getChoosenTechnology(), getCatalogDir());
+		if (isDefaultOutputToAppend(technologies)) 
+			isDefaultOutputToAppend = true;
+		for (Technology technology : technologies) {
+			list.add(getTarget(technology, isDefaultOutputToAppend));
 		}
 		return list;
 	}
 
-	private Target getTarget(Technology technology) {
+	private boolean isDefaultOutputToAppend(List<Technology> technologies) {
+		int i = 0;
+		for (Technology technology : technologies) {
+			if (technology.isGenerable())
+				i++;
+			if (i>1)
+				return true;
+		}
+		return false;
+	}
+
+	private Target getTarget(Technology technology, boolean isDefaultOutputToAppend) {
 		Target target = new Target();
+		target.setName(technology.getName());
 		target.setFileName(technology.getTemplateConfigFileName());
 		target.setDir(getTemplateSetFullPath(technology.getTemplateConfigFileName()));
 		target.setTemplatedirRoot(technology.getTemplateDir());		
-		target.setOutputdirRoot(outputDir);
+		target.setOutputdirRoot(getOutputDir(technology, isDefaultOutputToAppend));
+		target.setIsGenerable(technology.isGenerable());
 		return target;
 	}
-
-//	private String getTargetFilePathAndName(String catalogDir, Technology technology) {
-//		return getCatalogAbsoluteDir()+getCatalogToTemplateSetRelativeDir()+getTemplateSetName(technology);
-//	}
-//	
-//	private String getTemplateSetName(Technology technology) {
-//		return technology.getTemplateConfigFileName();
-//	}
-//
-//	private String getCatalogAbsoluteDir() {
-//		return "";
-//	}
-//
-//	private String getCatalogToTemplateSetRelativeDir() {
-//		return "";
-//	}
 
 	private String getTemplateSetFullPathAndFileName(String fileName) {
 		return FileUtils.getFileFullPathFromFileInRootClassPath(getCatalogDir()+"/"+ fileName);
@@ -106,25 +113,17 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return StringUtils.removeEnd(canonicalFileName, fileName);
 	}
 
-//	private String getClassPath(String fileName) {
-//		if (catalogDir==null)
-//			catalogDir=CatalogUtils.getDefaultCatalogDir();
-//		return catalogDir+"/"+fileName;
-//	}
-
 	private Database getChoosenDatabase() {
 		if (choosenDatabase==null)
 			choosenDatabase = DatabaseCatalogUtils.getPublishedDatabase(getDatabase(), getCatalogDir());
 		return choosenDatabase;		
 	}
 
-	private Target getChoosenTarget() {
-		Technology technology = getChoosenTechnology(); 	
-		Target target = getTarget(technology);
-//		target.setFileName("catalog/"+technology.getTemplateConfigFileName());
-//		target.setTemplatedirRoot(technology.getTemplateDir());	
-		return target;
-	}
+//	private Target getChoosenTarget() {
+//		Technology technology = getChoosenTechnology(); 	
+//		Target target = getTarget(technology);
+//		return target;
+//	}
 
 	private Technology getChoosenTechnology() {
 		if (choosenTechnology==null)
@@ -137,6 +136,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		model.setDataModel(getDataModel());
 		model.setName(modelName);
 		model.setPackageRoot(rootpackage);
+		model.setVersion(getVersion());
 		return model;
 	}
 
@@ -263,6 +263,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	}
 
 	public String getVersion() {
+		if (version==null)
+			version = "1.0";
 		return version;
 	}
 
@@ -277,7 +279,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
 	}
-
+	public String getOutputDir(Technology technology, boolean isDefaultOutputToAppend) {
+		if (isDefaultOutputToAppend)
+			return outputDir+"/"+technology.getDefaultOutputdir();
+		return outputDir;
+	}
 	public String getOutputDir() {
 		return outputDir;
 	}

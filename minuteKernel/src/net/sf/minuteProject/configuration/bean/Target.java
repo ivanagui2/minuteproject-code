@@ -27,6 +27,7 @@ public class Target extends AbstractConfiguration{
 	private ImportTargets importTargets;
 	private String outputdirRoot;
 	private String templatedirRoot;
+	private Boolean isGenerable;
 	
 	public void complement (Target target) {
 		if (abstractConfigurationRoot==null)
@@ -34,6 +35,7 @@ public class Target extends AbstractConfiguration{
 		List<TemplateTarget> input = target.getTemplateTargets();
 		for (TemplateTarget templateTarget : input) {
 			templateTarget.setTarget(this);
+			templateTarget.setIsGenerable(target.isGenerable());
 			templateTarget.setRootdir(target.getTemplatedirRoot());
 //			templateTarget.setOutputdirRoot(target.getOutputdirRoot());
 			getTemplateTargets().add(templateTarget);
@@ -173,6 +175,14 @@ public class Target extends AbstractConfiguration{
 	}
 	public void setTemplatedirRoot(String templatedirRoot) {
 		this.templatedirRoot = templatedirRoot;
+	}
+
+	public boolean isGenerable() {
+		if (isGenerable==null) isGenerable = true;
+		return isGenerable;
 	}	
-	
+
+	public void setIsGenerable(Boolean isGenerable) {
+		this.isGenerable = isGenerable;
+	}
 }

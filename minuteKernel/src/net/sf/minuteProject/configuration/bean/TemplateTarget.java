@@ -19,6 +19,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	private List <Template> templates;
 	protected String packageRoot;
 	private boolean belongToPackage;
+	private Boolean isGenerable;
 	
 	public String getPackageRoot() {
 		if (packageRoot==null && getTarget()!=null){
@@ -179,6 +180,13 @@ public class TemplateTarget extends AbstractConfiguration{
 	public void setCanonicalDir(String canonicalDir) {
 		this.canonicalDir = canonicalDir;
 	}
-	
+	public boolean isGenerable() {
+		if (isGenerable==null) isGenerable = true;
+		return isGenerable;
+	}	
+
+	public void setIsGenerable(Boolean isGenerable) {
+		this.isGenerable = isGenerable;
+	}
 	
 }

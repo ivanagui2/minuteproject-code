@@ -25,11 +25,12 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 //	private Form f;
 	public static final String root_package = "root package";
 	public static final String model_name = "model name";
+	public static final String version_name = "version";
 	public static final String primary_key_policy = "primary key policy";
 	private ConsoleSample consoleSample;
 	
 	private boolean isTargetDirTouched = false;
-	private JTextField rootPackageTf, modelNameTf, targetDirTf;
+	private JTextField rootPackageTf, modelNameTf, targetDirTf, versionNameTf;
 	private JComboBox pkPolicyCb;
 	
 	public ModelCommonPanel(ConsoleSample consoleSample) {
@@ -41,6 +42,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		bic.setModelName(modelNameTf.getText());
 		bic.setPrimaryKeyPolicy(pkPolicyCb.getSelectedItem().toString());
 		bic.setOutputDir(targetDirTf.getText());
+		bic.setVersion(versionNameTf.getText());
 		
 //		bic.setRootpackage(f.getTextAt(root_package));
 //		bic.setModelName(f.getTextAt(model_name));
@@ -54,7 +56,11 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		
 		panel.add(createLabel(model_name),   "skip");
 		modelNameTf = createTextField("",new ModelNameListener());
-		panel.add(modelNameTf,      "wrap");
+		panel.add(modelNameTf);
+
+		panel.add(createLabel(version_name),   "center");
+		versionNameTf = createTextField("1.0");
+		panel.add(versionNameTf,      "wrap");
 		
 		panel.add(createLabel(primary_key_policy),   "skip");
 		pkPolicyCb = createCombo(new String[] {"sequence", "autoincrement"});
