@@ -8,10 +8,10 @@
 <display>
 	<category name="category.$applicationOX"> 
 #foreach($table in $model.businessModel.businessPackage.getEntities())
-#(!$table.isMany2Many)
+#if(!$table.isMany2Many)
 #exposeVariableEntitySpecific()	
 		<portlet id="$domainClassName" /> 
 #end
-
+#end
 	</category>
 </display>
