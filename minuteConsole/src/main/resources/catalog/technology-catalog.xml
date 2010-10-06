@@ -11,38 +11,39 @@
 	             comment=""
 	             description="Generates JPA and OX specific annotation as well as a web site to navigate your datamodel.">           
 	 </technology>
-	 
+
+		 
+	 <technology name="VAADIN" 
+			   template-config-file-name="mp-template-config-vaadin-last-features.xml" 
+			   outputdir-root="../output/vaadin"
+			   template-dir="../../minuteTemplate/template/framework/vaadin"
+			   depends-on-targets="MVN_SPRING_HIBERNATE_LAST" 
+			   status="beta"
+			   description="Generates Vaadin Front end on top of a Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
+	 </technology>	
+	 	 
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
 	             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
 	             default-outputdir="../output/bsla"
 	             template-dir="../../minuteTemplate/template/framework/bsla" 
 	             status="released"
 	             description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
-	             
 	 </technology>  
 
 	<technology name="Maven Spring JPA/Hibernate" 
 	   template-config-file-name="mp-template-config-bsla-JPA-last-features.xml" 
 	   outputdir-root="../output/myworkJpaLastFeature"
-	   templatedir-root="../../minuteTemplate/template/framework/bsla"
+	   template-dir="../../minuteTemplate/template/framework/bsla"
 	   status="released"
 	   description="Generates Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 	</technology> 	 
-		 
-	 <technology name="VAADIN" 
-			   template-config-file-name="mp-template-config-vaadin-last-features.xml" 
-			   outputdir-root="../output/vaadin/myworkVaadin"
-			   templatedir-root="../../template/framework/vaadin"
-			   depends-on-targets="MVN_SPRING_HIBERNATE_LAST" 
-			   status="beta"
-			   description="Generates Vaadin Front end on top of a Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
-	 </technology>	
+
 	 
 	<technology
 	   name="FitNesse" 
 	   template-config-file-name="mp-template-config-fitnesse.xml" 
 	   outputdir-root="../output/myworkFitnesse"
-	   templatedir-root="../../minuteTemplate/template/framework/bsla"
+	   template-dir="../../minuteTemplate/template/framework/bsla"
 	   status="released"
 	   description="Generates FitNesse fixtures and wiki artifacts to perform CRUD operation on your backend.">
 	</technology> 	
