@@ -73,9 +73,9 @@ public class Model extends AbstractConfiguration{
 			) {
 			if (isValidPackageName())
 				sb.append("."+getName());
-			if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
-				sb.append("."+template.getTechnicalPackage());
 		}
+		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
+			sb.append("."+template.getTechnicalPackage());		
 		return sb.toString();
 	}
 

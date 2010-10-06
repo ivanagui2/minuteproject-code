@@ -87,8 +87,7 @@ public class BusinessPackage extends AbstractConfiguration {
 			View view = views[i];
 			view.setDatabase(database);
 			if (ModelUtils.isToGenerate(businessModel, view)) {
-				String packageName = CommonUtils.getBusinessPackageName(model,
-						view);
+				String packageName = CommonUtils.getBusinessPackageName(model, view);
 				Package pack = (Package) ht.get(packageName);
 				if (pack == null) {
 					pack = new Package();
