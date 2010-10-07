@@ -4,7 +4,8 @@
 	 <database name="ORACLE" 
         hibernate-dialect="org.hibernate.dialect.Oracle9Dialect" 
         use-schema="true" 
-        driverclassname="oracle.jdbc.OracleDriver">
+        driverclassname="oracle.jdbc.OracleDriver"
+        default-url-structure="jdbc:oracle:thin:@{server-name}:{port-number}:{SID}" >
         <maven-artifact 
         	mvn-artifact-id="ojdbc14" 
             mvn-group-id="com.oracle"
@@ -26,7 +27,8 @@
 	 <database name="DB2" 
         hibernate-dialect="org.hibernate.dialect.DB2Dialect" 
         use-schema="true" 
-        driverclassname="com.ibm.db2.jcc.DB2Driver" >
+        driverclassname="com.ibm.db2.jcc.DB2Driver" 
+        default-url-structure="jdbc:db2://{server-name}:${port-number}/{database-name}">
         <maven-artifact
            mvn-artifact-id="db2jcc" 
            mvn-group-id="com.ibm"
@@ -38,7 +40,8 @@
 	 <database name="MYSQL" 
         hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
         use-schema="false" 
-        driverclassname="org.gjt.mm.mysql.Driver" >
+        driverclassname="org.gjt.mm.mysql.Driver" 
+        default-url-structure="jdbc:mysql://{server-name}:${port-number}/{database-name}" >
         <maven-artifact
            mvn-artifact-id="mysql-connector-java" 
            mvn-group-id="mysql"
@@ -50,7 +53,8 @@
 	 <database name="HSQLDB" 
         hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
         use-schema="false" 
-        driverclassname="org.hsqldb.jdbcDriver" >
+        driverclassname="org.hsqldb.jdbcDriver"
+        default-url-structure="jdbc:hsqldb:hsql://{server-name}:${port-number}/{database-name}" >
         <maven-artifact
            mvn-artifact-id="hsqldb" 
            mvn-group-id="hsqldb"

@@ -3,8 +3,6 @@
 	<plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
 		
 <template-target 
-	rootdir="../.."
-    templatedir = "template" 
 	libdir="lib/BslaLibrary.vm"
 	tool="velocity"
 	outputdir=""

@@ -6,9 +6,7 @@
 				
 
 	<template-target 
-    name="JPA set"
-	  templatedir = "template" 
-	  rootdir="../.."
+        name="JPA set"
 		libdir="lib/BslaLibrary.vm,lib/JPA_LIB.vm"
 		tool="velocity"
 		outputdir=""

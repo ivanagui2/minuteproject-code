@@ -29,7 +29,7 @@
 		   name="default" 
 		   fileName="mp-template-config-fitnesse.xml" 
 		   outputdir-root="../output/petshopFitnesse"
-		   templatedir-root="../../template">
+		   templatedir-root="../../template/framework/bsla">
 		</target> 				
 	</configuration>
 </generator-config>

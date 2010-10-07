@@ -35,7 +35,7 @@
 		<targets>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../template">
+			   templatedir-root="../../template/framework/bsla">
 			</target> 	
 			<target refname="OpenXava" 
 			   name="OpenXava" 
