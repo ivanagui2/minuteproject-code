@@ -24,9 +24,11 @@
     <set-properties-rule>
      <alias prop-name="name" attr-name="name"/>
      <alias prop-name="version" attr-name="version"/>
+     <alias prop-name="entityNameMaxLength" attr-name="entity-name-max-length"/>
      <alias prop-name="hibernateDialect" attr-name="hibernate-dialect"/>
      <alias prop-name="useSchema" attr-name="use-schema"/>
      <alias prop-name="driverclassname" attr-name="driverClassName"/>
+     <alias prop-name="defaultUrlStructure" attr-name="default-url-structure"/>
      <alias prop-name="packageName" attr-name="package-name"/>
     </set-properties-rule>
     <pattern value="primary-key-policy">
