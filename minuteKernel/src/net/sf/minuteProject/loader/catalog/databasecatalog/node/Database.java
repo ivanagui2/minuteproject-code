@@ -16,9 +16,11 @@ public class Database extends AbstractConfigurationLoader{
    private PrimaryKeyPolicy _primaryKeyPolicy;
    private MavenArtifact _mavenArtifact;
    private String _version;
+   private String _entityNameMaxLength;
    private String _hibernateDialect;
    private Boolean _useSchema;
    private String _driverclassname;
+   private String _defaultUrlStructure;
 
    public Database() {
    }
@@ -85,6 +87,17 @@ public class Database extends AbstractConfigurationLoader{
    }
    
    
+   public String getEntityNameMaxLength() {
+	  if (_entityNameMaxLength == null)
+	     _entityNameMaxLength = new String();
+	      return _entityNameMaxLength;
+   }
+	
+   public void setEntityNameMaxLength (String _entityNameMaxLength) {
+      this._entityNameMaxLength = _entityNameMaxLength;
+   }
+   
+   
    public String getHibernateDialect() {
 	  if (_hibernateDialect == null)
 	     _hibernateDialect = new String();
@@ -119,6 +132,17 @@ public class Database extends AbstractConfigurationLoader{
 	
    public void setDriverclassname (String _driverclassname) {
       this._driverclassname = _driverclassname;
+   }
+   
+   
+   public String getDefaultUrlStructure() {
+	  if (_defaultUrlStructure == null)
+	     _defaultUrlStructure = new String();
+	      return _defaultUrlStructure;
+   }
+	
+   public void setDefaultUrlStructure (String _defaultUrlStructure) {
+      this._defaultUrlStructure = _defaultUrlStructure;
    }
    
    
