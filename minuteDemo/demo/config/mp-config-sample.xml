@@ -112,7 +112,7 @@
 			   name="default" 
 			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
 			   outputdir-root="../output/myworkHibernateLastFeature"
-			   templatedir-root="../../template">
+			   templatedir-root="../../template/framework/bsla">
 			</target> 
 			-->
 
@@ -121,7 +121,7 @@
 			   name="bsla-hibernate" 
 			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
 			   outputdir-root="../output/vaadin/myworkHibernate"
-			   templatedir-root="../../template">
+			   templatedir-root="../../template/framework/bsla">
 			</target> 	
 			<target refname="MpVaadin" 
 			   name="vaadin" 
@@ -136,7 +136,7 @@
 			   name="default" 
 			   fileName="mp-template-config-bsla-JPA-last-features.xml" 
 			   outputdir-root="../output/myworkJpaLastFeature"
-			   templatedir-root="../../template">
+			   templatedir-root="../../template/framework/bsla">
 			</target> 			 
 			  -->		
 			  
@@ -145,14 +145,15 @@
 			   name="default" 
 			   fileName="mp-template-config-fitnesse.xml" 
 			   outputdir-root="../output/myworkFitnesse"
-			   templatedir-root="../../template">
+			   templatedir-root="../../template/framework/bsla">
 			</target> 			
 			 -->		
 			 
 			 <!-- uncomment this to have a spring hibernate backend
 			<target refname="BackendOnBsla" name="default" 
 	      		fileName="mp-template-config-hibernate.xml"
-	      		outputdir-root="../output/myworkHibernate/src-generated">
+	      		outputdir-root="../output/myworkHibernate/src-generated"
+	      		templatedir-root="../../template/framework/bsla">
 			</target> 			 
 			  -->
 			  
@@ -160,7 +161,7 @@
 			<target refname="BackendOnBsla" name="default"  
 				fileName="mp-template-config-ibatis.xml" 
 				outputdir-root="../output/myworkIbatis/src-generated"
-				templatedir-root="../../template">
+				templatedir-root="../../template/framework/bsla">
 			</target> 			 
 			  -->		
 			  
@@ -168,14 +169,14 @@
 			<target refname="BackendOnBsla" name="default" 
 				fileName="mp-template-config-jpa.xml" 
 				outputdir-root="../output/myworkJpa/src-generated"
-				templatedir-root="../../template">
+				templatedir-root="../../template/framework/bsla">
 			</target> 			 
 			  -->	
 			  
 			  <!-- uncomment this to have an OpenXava web application
 				<target refname="LIB" 
 				   fileName="mp-template-config-bsla-LIB-features.xml" 
-				   templatedir-root="../../template">
+				   templatedir-root="../../template/framework/bsla">
 				</target> 	
 				<target refname="OpenXava" 
 				   name="OpenXava" 
@@ -194,7 +195,7 @@
 				</target> 
 				<target refname="LIB" 
 				   fileName="mp-template-config-bsla-LIB-features.xml" 
-				   templatedir-root="../../template">
+				   templatedir-root="../../template/framework/bsla">
 				</target> 			 
 			  -->	  	  
 		</targets>

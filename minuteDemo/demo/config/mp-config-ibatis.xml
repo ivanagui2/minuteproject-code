@@ -30,7 +30,7 @@
 		<target refname="BackendOnBsla" name="default"  
 			fileName="mp-template-config-ibatis.xml" 
 			outputdir-root="../output/petshopIbatis/src-generated"
-			templatedir-root="../../template">
+			templatedir-root="../../template/framework/bsla">
 		</target> 	
 	</configuration>
 </generator-config>

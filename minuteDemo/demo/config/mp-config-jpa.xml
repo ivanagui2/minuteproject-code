@@ -29,7 +29,7 @@
 		<target refname="BackendOnBsla" name="default" 
 			fileName="mp-template-config-jpa.xml" 
 			outputdir-root="../output/petshopJpa/src-generated"
-			templatedir-root="../../template">
+			templatedir-root="../../template/framework/bsla">
 		</target> 	
 	</configuration>
 </generator-config>

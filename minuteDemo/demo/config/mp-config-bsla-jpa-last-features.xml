@@ -33,7 +33,7 @@
 		   name="default" 
 		   fileName="mp-template-config-bsla-JPA-last-features.xml" 
 		   outputdir-root="../output/petshopJpaLastFeature"
-		   templatedir-root="../../template">
+		   templatedir-root="../../template/framework/bsla">
 		</target> 	
 	</configuration>
 </generator-config>

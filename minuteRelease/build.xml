@@ -64,7 +64,7 @@
 	<target name="copy-architecture-bsla-dependencies">
 	  <copy todir="${target.dir}/${bsla}/${dependencies.lib.dir}" overwrite="true">
 	 	<fileset dir="${architecture.bsla.dev.relpath}/lib">
-	 		<include name="**/*.jar"/>
+	 		<include name="**/README.txt"/>
 	 	</fileset>
 	  </copy>			
 	</target>
@@ -186,12 +186,13 @@
 
 	<target name="copy-demo-dependencies">
 	  <copy todir="${demo.dir}" overwrite="true">
-	 	<fileset dir="${demo.dev.relpath}">
+	 	<fileset dir="${demo.dev.relpath}/demo">
 	 		<include name="**/*.*"/>
 	 	</fileset>
 	  </copy>
 	  <chmod dir="${demo.dir}" perm="777" includes="**/*.sh"/>
 	</target>
+	
 	<target name="release-demo" depends="copy-demo-dependencies" >
 	</target>
 
@@ -208,12 +209,13 @@
 	 		<include name="mp-config-sample*"/>
 	 	</fileset>
 	  </copy>
-	  <copy todir="${release.dir}/mywork" overwrite="true">
-	 	<fileset dir="${mywork.dev.relpath}">
+	  <copy todir="${release.dir}/bin" overwrite="true">
+	 	<fileset dir="${installation.dir}/bin">
 	 		<include name="*.*"/>
 	 	</fileset>
 	  </copy>		
-	   <chmod dir="${release.dir}/mywork/config" perm="777" includes="**/*.sh"/>		
+	   <chmod dir="${release.dir}/mywork/config" perm="777" includes="**/*.sh"/>	
+	   <chmod dir="${release.dir}/bin" perm="777" includes="**/*.sh"/>	
 	</target>
 	
 	<target name="release-installation" depends="copy-release-installation" >
