@@ -117,7 +117,6 @@
     <target name="clean">
         <title title="clean" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Clean the business project</description>
-        <!--<delete failonerror="false" file="${generatorBusiness.dist.dir}/${application.name}"/>-->
         <delete failonerror="false" includeemptydirs="true">
             <fileset dir="${classes.dir}"/>
         	<fileset dir="${dist.dir}"/>
