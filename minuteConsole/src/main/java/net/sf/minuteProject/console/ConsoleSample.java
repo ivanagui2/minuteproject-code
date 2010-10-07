@@ -18,6 +18,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import net.miginfocom.layout.PlatformDefaults;
 import net.miginfocom.swing.MigLayout;
+import net.sf.minuteProject.console.panel.CommonPanel;
 import net.sf.minuteProject.console.panel.ModelAccessPanel;
 import net.sf.minuteProject.console.panel.ModelCommonPanel;
 import net.sf.minuteProject.console.panel.TargetPanel;
@@ -34,10 +35,11 @@ import static net.sf.minuteProject.console.panel.ModelCommonPanel.*;
 
 public class ConsoleSample extends JFrame{
 
-	private JTabbedPane tabbedPane;
+	private JTabbedPane tabbedPane;//, tabbedCommon;
 	private ModelAccessPanel modelAccessPanel;
 	private ModelCommonPanel modelCommonPanel;
 	private TargetPanel targetPanel;
+	private CommonPanel commonPanel; 
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
 	private static String catalogDir;
@@ -73,21 +75,24 @@ public class ConsoleSample extends JFrame{
 
 		MigLayout lm = new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
 		JPanel panel = createTabPanel(lm);
-
 		addSeparator(panel, "Model Access");
-
 		modelAccessPanel.fillModelAccessPanel(panel);
-
 		addSeparator(panel, "Common configuration");
-
 		modelCommonPanel.fillModelCommonPanel (panel);
-
 		addSeparator(panel, "Target technology");
-
 		targetPanel.fillTargetPanel(panel);
-
 		tabbedPane.addTab("Data model reverse-engineering", panel);	
+
+		MigLayout lm2 = new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
+		JPanel common = createTabPanel(lm2);
+		addSeparator(common, "Restrictions");
+		commonPanel = new CommonPanel(common);
+		commonPanel.fillCommonPanel();
+		
+		tabbedPane.addTab("Information", common);	
+		
 		getContentPane().add(tabbedPane);
+		
 		pack();		
 	}
 	
@@ -108,7 +113,7 @@ public class ConsoleSample extends JFrame{
 			catalogDir=args[0];
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample("MinuteProject console - beta -", catalogDir).setVisible(true);
+				new ConsoleSample("MinuteProject console 0.5 - beta -", catalogDir).setVisible(true);
 			}
 		});
 	}
