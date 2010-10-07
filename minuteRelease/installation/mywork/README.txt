@@ -1,6 +1,7 @@
 Edit your configuration:
 ------------------------
 
+In config:
 Take a copy of mp-config-sample.xml to <my-model-config.xml>
 In this configuration there are 2 parts:
 One is related to the model, its properties and enrichment.
