@@ -70,7 +70,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		panel.add(driverClassNameTf,   "span, growx");	
 		
 		panel.add(createLabel(url),   "skip");
-		urlTf = createTextField("");
+		urlTf = createTextField(getDefaultUrlStructureTf());
 		panel.add(urlTf,      "span, growx");
 		
 		panel.add(createLabel(username),   "skip");
@@ -89,6 +89,11 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		schemaTf = createTextField(15);
 		schemaTf.setVisible(isSchemaVisible());
 		panel.add(schemaTf,      "wrap para");
+	}
+
+	private String getDefaultUrlStructureTf() {
+		// TODO Auto-generated method stub
+		return databases.get(0).getDefaultUrlStructure();
 	}
 
 	private boolean isSchemaVisible() {
@@ -135,6 +140,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 					applySchema();
 				else 
 					removeSchema();
+				urlTf.setText(database.getDefaultUrlStructure());
 				applyCurrentPrimaryKeyPolicy(database);
 			}
 		}
