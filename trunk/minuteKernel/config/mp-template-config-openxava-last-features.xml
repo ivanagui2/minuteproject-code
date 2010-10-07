@@ -291,7 +291,6 @@
 				
 		<template package-root=""
 			name="BuildCommandBash" templateFileName="BuildCommandBash.vm" 
-			chmod = "777"
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="sh" file-prefix="build-" file-suffix="" 
@@ -308,7 +307,6 @@
 
 		<template package-root=""
 			name="ResetCommandBash" templateFileName="ResetCommandBash.vm" 
-			chmod = "777"
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="sh" file-prefix="reset-" file-suffix="" 
@@ -364,6 +362,20 @@
 			name="OpenXavaProperties" templateFileName="OpenXavaProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="properties" file-prefix="xava" file-suffix="" 
+			application-specific="true">
+		</template>	
+								
+	</template-target>	
+		
+	<template-target 
+    	name="OpenXava 4.m5 patches"
+    	outputdir="web/xava"
+		package-root="">	
+
+		<template package-root=""
+			name="OXReferenceJsp" templateFileName="OXReferenceJsp.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="reference" file-suffix="" 
 			application-specific="true">
 		</template>	
 								
