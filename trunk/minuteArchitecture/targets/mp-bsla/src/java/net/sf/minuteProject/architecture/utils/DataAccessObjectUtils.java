@@ -55,12 +55,12 @@ public class DataAccessObjectUtils {
 	
 	public static String getQueryMainHaving (String whatStart, String what, String how, String whereHow, String where) {
 		String whereConcat = " AND ";
-		String whereWord = " HAVING ";
+		String whereWord = " WHERE ";
 		if (where!=null && !where.equals(""))
 			if (whereHow!=null && !whereHow.equals(""))
-				return whatStart+" FROM "+how +" GROUP BY "+what + whereWord +whereHow+ whereConcat +where;
+				return whatStart+" FROM "+how + whereWord +whereHow+ whereConcat +where +" GROUP BY "+what ;
 			else
-				return whatStart+" FROM "+how +" GROUP BY "+what + whereWord +where;
+				return whatStart+" FROM "+how + whereWord +where +" GROUP BY "+what ;
 		else 
 			return whatStart+" FROM "+how;
 	}
