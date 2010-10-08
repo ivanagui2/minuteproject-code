@@ -55,7 +55,7 @@ public class SimpleCache implements Cache {
     }
     
     private void putEffective(String key, Object o) {
-    	if (key!=null) {
+    	if (key!=null && o!=null) {
 	    	timeTable.put(key, new Date());
 	    	table.put(key, o);
     	}
