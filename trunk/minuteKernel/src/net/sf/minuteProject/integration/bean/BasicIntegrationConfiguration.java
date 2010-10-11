@@ -15,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.MavenArtifact;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
@@ -32,7 +33,6 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		url, 
 		username, 
 		password, 
-		primaryKeyPolicy, 
 		targetTechnology, 
 		database, 
 		rootpackage,
@@ -40,7 +40,12 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		version,
 		modelName,
 		outputDir,
-		catalogDir;
+		catalogDir,
+		sequencePattern,
+		sequenceGlobalName,
+		sequenceEntitySuffix
+		;
+	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
 	
@@ -168,12 +173,17 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern() {
 		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = new PrimaryKeyPolicyPattern();
-		if (primaryKeyPolicy.equals("sequence")) {
-			primaryKeyPolicyPattern.setSuffix("_SEQ");
-			primaryKeyPolicyPattern.setName("sequencePattern");
+		if (primaryKeyPolicy.equals(PrimaryKeyPolicyPatternEnum.SEQUENCE)) {
+			if (sequencePattern.equals("global sequence")) {
+				primaryKeyPolicyPattern.setSequenceName(getSequenceGlobalName());
+				primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.SEQUENCE);					
+			} else {
+				primaryKeyPolicyPattern.setSuffix(getSequenceEntitySuffix());
+				primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.SEQUENCE);	
+			}
 		}
 		else if (primaryKeyPolicy.equals("autoincrement"))
-			primaryKeyPolicyPattern.setName("autoincrementPattern");
+			primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.AUTOINCREMENT);
 		return primaryKeyPolicyPattern;
 	}
 
@@ -226,11 +236,13 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		this.password = password;
 	}
 
-	public String getPrimaryKeyPolicy() {
+
+
+	public PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicy() {
 		return primaryKeyPolicy;
 	}
 
-	public void setPrimaryKeyPolicy(String primaryKeyPolicy) {
+	public void setPrimaryKeyPolicy(PrimaryKeyPolicyPatternEnum primaryKeyPolicy) {
 		this.primaryKeyPolicy = primaryKeyPolicy;
 	}
 
@@ -300,6 +312,30 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setCatalogDir(String catalogDir) {
 		this.catalogDir = catalogDir;
+	}
+
+	public String getSequencePattern() {
+		return sequencePattern;
+	}
+
+	public void setSequencePattern(String sequencePattern) {
+		this.sequencePattern = sequencePattern;
+	}
+
+	public String getSequenceGlobalName() {
+		return sequenceGlobalName;
+	}
+
+	public void setSequenceGlobalName(String sequenceGlobalName) {
+		this.sequenceGlobalName = sequenceGlobalName;
+	}
+
+	public String getSequenceEntitySuffix() {
+		return sequenceEntitySuffix;
+	}
+
+	public void setSequenceEntitySuffix(String sequenceEntitySuffix) {
+		this.sequenceEntitySuffix = sequenceEntitySuffix;
 	}
 	
 }
