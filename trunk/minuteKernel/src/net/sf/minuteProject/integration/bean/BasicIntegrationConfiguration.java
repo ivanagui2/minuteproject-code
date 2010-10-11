@@ -166,9 +166,19 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private PrimaryKeyPolicy getPrimaryKeyPolicyConfig() {
 		PrimaryKeyPolicy primaryKeyPolicy = new PrimaryKeyPolicy();
-		primaryKeyPolicy.setOneForEachTable(true);
+		boolean isGlobalForEach = getOneForEach();
+		primaryKeyPolicy.setOneForEachTable(isGlobalForEach);
+		primaryKeyPolicy.setOneGlobal(!isGlobalForEach);
 		primaryKeyPolicy.addPrimaryKeyPolicyPattern(getPrimaryKeyPolicyPattern());
 		return primaryKeyPolicy;
+	}
+
+	private boolean getOneForEach() {
+		if (primaryKeyPolicy.equals(PrimaryKeyPolicyPatternEnum.SEQUENCE)) {
+			if (sequencePattern.equals("global sequence")) return false;
+			else return true;
+		}
+		return false;
 	}
 
 	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern() {
