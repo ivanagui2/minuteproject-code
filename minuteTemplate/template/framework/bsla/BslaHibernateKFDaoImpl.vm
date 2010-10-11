@@ -25,6 +25,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import static net.sf.minuteProject.architecture.utils.DataAccessObjectUtils.*;
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
 import net.sf.minuteProject.architecture.query.impl.QueryBlankInit;
+import net.sf.minuteProject.architecture.query.impl.QueryCountInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectCountInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectDistinctInit;
@@ -107,7 +108,6 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #putDependenciesUML()
-##       $dependentDaoExtentedImplementationHibernateClassName $dependentDaoExtentedImplementationHibernateVariableName = null;
        if (!${tableVariableName}.get${linkedTableClass}${linkedColumnClass}s().isEmpty()) {
           $dependentDaoExtentedImplementationHibernateClassName $dependentDaoExtentedImplementationHibernateVariableName = new $dependentDaoExtentedImplementationHibernateClassName (session);
           for (${linkedTableClass} _${linkedTableVariable}${linkedColumnClass} : ${tableVariableName}.get${linkedTableClass}${linkedColumnClass}s()) {
@@ -172,20 +172,6 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 	 */
 	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName) {
 	    return refer$tableClassName ($tableVariableName, true);
-##		$tableVariableName = assignBlankToNull ($tableVariableName);
-##		if (isAllNull($tableVariableName))
-##			return null;
-##		else {
-##			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
-##			if (list.isEmpty()) 
-##				insert$tableClassName($tableVariableName);
-##			else if (list.size()==1)
-##				${tableVariableName}.copy(list.get(0));
-##			else 
-##				//TODO log error
-##				${tableVariableName}.copy(list.get(0));
-##		}
-##		return $tableVariableName;	
 	}
 	
 	public $tableClassName refer$tableClassName ($tableClassName $tableVariableName, boolean isAssign) {
@@ -450,32 +436,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 		return result;
 	}
     
-    	// to set in super class	
-	protected void populate$tableClassName ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-	   BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
-	}
-	
-	protected void populate${tableClassName}FromSQL ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-	   BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
-	}
-    	// to set in super class BEWARE: genericity is only one level!!!!! first level is a copy second level is a reference!!! change to ${tableVariableName}.clone() instead
-	private $tableClassName clone$tableClassName ($tableClassName ${tableVariableName}) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
-		//return ($tableClassName) BeanUtils.cloneBeanObject(${tableVariableName});
-	   return ${tableVariableName}.clone();
-	}
-    
-    // to set in super class
-	private Object getBeanObjectInstance (Object bean) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-       return BeanUtils.getBeanObjectInstance(bean);	
-	}
-	// to set in super class
-	protected void populateObject (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
-       BeanUtils.populateObject(bean, value, beanPath);
-	}
-	
-	protected void populateObjectFromSQL (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
-       BeanUtils.populateObject(bean, value, beanPath);
-	}
+
    /**
 	  * 
     * partial on entity and its parents load enables to specify the fields you want to load explicitly
@@ -704,6 +665,8 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     	
     public static String getPartialLoadWithParent${tableClassName}Query (
 	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, String childAlias, String childFKAlias, Map beanPath, String rootPath, QueryWhatInit queryWhatInit) {
+	   if ($tableVariableName==null)
+	      return "";
 	   String alias = null;
 	   if (aliasHt == null) {
 	      aliasHt = new Hashtable();
@@ -851,12 +814,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
    
 #end   
 #end
-
 	    
-    public List<$tableClassName> countDistinct ($tableClassName whatMask, $tableClassName whereEqCriteria) {
-        return partialLoadWithParent$tableClassName(whatMask, whereEqCriteria, null, new QuerySelectCountInit("${tableVariableName}"), null, false);
-    }   
-    	
     /**
     * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
     * set in the list ${tableVariableName}Wheres
@@ -927,7 +885,6 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 #foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 #putDependenciesUML()
-##$dependentDaoExtentedImplementationHibernateClassName $dependentDaoExtentedImplementationHibernateVariableName;
     public void set$dependentDaoExtentedImplementationHibernateClassName ($dependentDaoExtentedImplementationHibernateClassName $dependentDaoExtentedImplementationHibernateVariableName) {
        this.$dependentDaoExtentedImplementationHibernateVariableName = $dependentDaoExtentedImplementationHibernateVariableName;
     }
@@ -935,15 +892,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     public $dependentDaoExtentedImplementationHibernateClassName get$dependentDaoExtentedImplementationHibernateClassName () {
        return $dependentDaoExtentedImplementationHibernateVariableName;
     }
-    
-##    public void set$dependentDaoInterfaceClassName ($dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName) {
-##       this.$dependentDaoInterfaceVariableName = $dependentDaoInterfaceVariableName;
-##    }
-##    
-##    public $dependentDaoInterfaceClassName get$dependentDaoInterfaceClassName () {
-##       return $dependentDaoInterfaceVariableName;
-##    }
-##    
+       
 #end  
     
 }

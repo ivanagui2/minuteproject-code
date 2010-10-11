@@ -21,6 +21,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityManager;
 
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
+import net.sf.minuteProject.architecture.query.impl.QueryCountInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectDistinctInit;
 import net.sf.minuteProject.architecture.cache.SimpleCache;
@@ -368,25 +369,26 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		 return beanPath;
 	   return result;
 	}
-    
-    	// to set in super class	
-	private void populate$tableClassName ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-	   BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
-	}
-    	// to set in super class BEWARE: genericity is only one level!!!!! first level is a copy second level is a reference!!! change to ${tableVariableName}.clone() instead
-	private $tableClassName clone$tableClassName ($tableClassName ${tableVariableName}) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
-		//return ($tableClassName) BeanUtils.cloneBeanObject(${tableVariableName});
-	   return ${tableVariableName}.clone();
-	}
-    
-    	// to set in super class
-	private Object getBeanObjectInstance (Object bean) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-       return BeanUtils.getBeanObjectInstance(bean);	
-	}
-	// to set in super class
-	private void populateObject (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
-      BeanUtils.populateObject(bean, value, beanPath);
-	}
+
+## has been moved to partialLoad    
+##    	// to set in super class	
+##	private void populate$tableClassName ($tableClassName ${tableVariableName}, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+##	   BeanUtils.populateBeanObject(${tableVariableName}, beanPath, value);
+##	}
+##    	// to set in super class BEWARE: genericity is only one level!!!!! first level is a copy second level is a reference!!! change to ${tableVariableName}.clone() instead
+##	private $tableClassName clone$tableClassName ($tableClassName ${tableVariableName}) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+##		//return ($tableClassName) BeanUtils.cloneBeanObject(${tableVariableName});
+##	   return ${tableVariableName}.clone();
+##	}
+##    
+##    	// to set in super class
+##	private Object getBeanObjectInstance (Object bean) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+##       return BeanUtils.getBeanObjectInstance(bean);	
+##	}
+##	// to set in super class
+##	private void populateObject (Object bean, Object value, String beanPath) throws IllegalAccessException, InvocationTargetException {
+##      BeanUtils.populateObject(bean, value, beanPath);
+##	}
    /**
 	  * 
     * partial on entity and its parents load enables to specify the fields you want to load explicitly
@@ -517,6 +519,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	
     public static String getPartialLoadWithParent${tableClassName}Query (
 	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, String childAlias, String childFKAlias, Map beanPath, String rootPath, QueryWhatInit queryWhatInit) {
+	   if ($tableVariableName==null)
+	      return "";
 	   String alias = null;
 	   if (aliasHt == null) {
 	      aliasHt = new Hashtable();

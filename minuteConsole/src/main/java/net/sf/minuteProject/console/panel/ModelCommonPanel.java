@@ -6,11 +6,15 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
@@ -27,22 +31,42 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	public static final String model_name = "model name";
 	public static final String version_name = "version";
 	public static final String primary_key_policy = "primary key policy";
+	public static final String sequence_pattern = "pattern";
+	public static final String global_sequence_name = "name";
+	public static final String entity_attached_sequence_suffix =  "suffix";
 	private ConsoleSample consoleSample;
+	public static final String SEQUENCE = "sequence";
+	public static final String AUTOINCREMENT = "autoincrement";
+	public static final String GLOBAL_SEQUENCE = "global sequence";
+	public static final String ENTITY_ASSOCIATED_SEQUENCE = "entity linked sequence";
 	
 	private boolean isTargetDirTouched = false;
-	private JTextField rootPackageTf, modelNameTf, targetDirTf, versionNameTf;
-	private JComboBox pkPolicyCb;
+	private JTextField rootPackageTf, modelNameTf, targetDirTf, versionNameTf, sequencePatternTf;
+	private JComboBox pkPolicyCb, sequencePatternCb;
+	private JLabel sequencePatternL, sequenceL, globalSequenceNameL, entityAttachedSequenceSuffixL;
 	
 	public ModelCommonPanel(ConsoleSample consoleSample) {
 		this.consoleSample = consoleSample;
+		globalSequenceNameL = createLabel(global_sequence_name);
+		entityAttachedSequenceSuffixL = createLabel(entity_attached_sequence_suffix);
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
 		bic.setRootpackage(rootPackageTf.getText());
 		bic.setModelName(modelNameTf.getText());
-		bic.setPrimaryKeyPolicy(pkPolicyCb.getSelectedItem().toString());
+		String pkPolicy = pkPolicyCb.getSelectedItem().toString();
+		bic.setPrimaryKeyPolicy(PrimaryKeyPolicyPatternEnum.getPrimaryKeyPolicy(pkPolicy));
 		bic.setOutputDir(targetDirTf.getText());
 		bic.setVersion(versionNameTf.getText());
+		if (pkPolicy.equals(SEQUENCE)) {
+			String sequencePattern = sequencePatternCb.getSelectedItem().toString();
+			bic.setSequencePattern(sequencePattern);
+			if (sequencePattern.equals(GLOBAL_SEQUENCE)) 
+				bic.setSequenceGlobalName(sequencePatternTf.toString());
+			else
+				bic.setSequenceEntitySuffix(sequencePatternTf.toString());
+			
+		}
 		
 //		bic.setRootpackage(f.getTextAt(root_package));
 //		bic.setModelName(f.getTextAt(model_name));
@@ -60,19 +84,76 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 
 		panel.add(createLabel(version_name),   "center");
 		versionNameTf = createTextField("1.0");
-		panel.add(versionNameTf,      "wrap");
+		panel.add(versionNameTf,      "wrap para");
 		
 		panel.add(createLabel(primary_key_policy),   "skip");
-		pkPolicyCb = createCombo(new String[] {"sequence", "autoincrement"});
-		panel.add(pkPolicyCb, "wrap");
+		pkPolicyCb = createCombo(new String[] {SEQUENCE, AUTOINCREMENT}, new PkPolicyItemListener());
+		panel.add(pkPolicyCb);
+		
+		// sequence specific
+		sequenceL = createLabel(sequence_pattern);
+		panel.add(sequenceL,   "center");
+		sequencePatternCb = createCombo(new String[] {GLOBAL_SEQUENCE, ENTITY_ASSOCIATED_SEQUENCE}, new SequencePatternItemListener());
+		sequencePatternCb.setOpaque(true);
+		sequencePatternCb.setEditable(false);
+		panel.add(sequencePatternCb, "wrap");
+		
+		panel.add(createLabel(""),   "skip");
+		setSequencePatternLable();
+		panel.add(sequencePatternL,   "skip, center");
+		sequencePatternTf = createTextField("");
+		panel.add(sequencePatternTf,      "wrap para");
+		//
 		
 		panel.add(createLabel("target dir"),   "skip");
 	    targetDirTf = createTextField(getDefaultTargetDir(), new TargetDirListener());
 		panel.add(targetDirTf,      "span, growx, wrap para");		
 	}
 
-	private class TargetDirListener implements FocusListener {
+	private void setSequencePatternLable() {
+		if (sequencePatternL==null)
+			sequencePatternL = createLabel("");
+		if (sequencePatternCb.getSelectedItem().toString().equals(GLOBAL_SEQUENCE))
+			sequencePatternL.setText(global_sequence_name); 
+		else 
+			sequencePatternL.setText(entity_attached_sequence_suffix); 
+	}
 
+	private class PkPolicyItemListener implements ItemListener {
+		public void itemStateChanged(ItemEvent e) {
+			if (e.getStateChange()==ItemEvent.SELECTED) {
+				if (e.getItem().toString().equals(SEQUENCE)) {
+					showSequenceDetails();
+				} else {
+					hideSequenceDetails();
+				}
+			}
+		}
+	}
+
+	private class SequencePatternItemListener implements ItemListener {
+		public void itemStateChanged(ItemEvent e) {
+			if (e.getStateChange()==ItemEvent.SELECTED) {
+				setSequencePatternLable();
+			}
+		}
+	}
+	private void hideSequenceDetails() {
+		sequenceL.setVisible(false);
+		sequencePatternCb.setVisible(false);
+		sequencePatternL.setVisible(false);
+		sequencePatternTf.setVisible(false);
+	}
+	
+	private void showSequenceDetails() {
+		sequenceL.setVisible(true);
+		sequencePatternCb.setVisible(true);
+		setSequencePatternLable();
+		sequencePatternL.setVisible(true);
+		sequencePatternTf.setVisible(true);
+		
+	}
+	private class TargetDirListener implements FocusListener {
 		String value, previousValue;
 		public void focusLost(FocusEvent arg0) {
 			value = targetDirTf.getText();

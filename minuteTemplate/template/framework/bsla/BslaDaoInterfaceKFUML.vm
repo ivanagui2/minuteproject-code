@@ -142,6 +142,7 @@ public interface $className extends DataAccessObject {
 
 	public List<$tableClassName> countDistinct ($tableClassName whatMask, $tableClassName whereEqCriteria);
 	
+	public Long count ($tableClassName whereEqCriteria);
     /**
      * generic to move after in superclass
      */
