@@ -15,3 +15,12 @@ CONSOLE first version
 
 - sh commands for demos
 - concept entity-order (scope (detail-one, detail-list, reference-one, reference-many), type(remove-not-specified, append-rest-default-order), order-field)
+
+================================
+Console
+filter (views, table)
+exclude/include start with
+
+package
+
+convention: pk for view
