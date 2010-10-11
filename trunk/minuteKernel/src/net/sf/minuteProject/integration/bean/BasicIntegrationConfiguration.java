@@ -174,12 +174,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern() {
 		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = new PrimaryKeyPolicyPattern();
 		if (primaryKeyPolicy.equals(PrimaryKeyPolicyPatternEnum.SEQUENCE)) {
+			primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.SEQUENCE);
 			if (sequencePattern.equals("global sequence")) {
-				primaryKeyPolicyPattern.setSequenceName(getSequenceGlobalName());
-				primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.SEQUENCE);					
+				primaryKeyPolicyPattern.setSequenceName(getSequenceGlobalName());		
 			} else {
 				primaryKeyPolicyPattern.setSuffix(getSequenceEntitySuffix());
-				primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.SEQUENCE);	
 			}
 		}
 		else if (primaryKeyPolicy.equals("autoincrement"))
