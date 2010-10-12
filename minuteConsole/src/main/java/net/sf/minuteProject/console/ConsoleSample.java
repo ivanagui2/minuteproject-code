@@ -19,8 +19,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 import net.miginfocom.layout.PlatformDefaults;
 import net.miginfocom.swing.MigLayout;
 import net.sf.minuteProject.console.panel.CommonPanel;
+import net.sf.minuteProject.console.panel.ConventionPanel;
+import net.sf.minuteProject.console.panel.EnrichmentPanel;
+import net.sf.minuteProject.console.panel.FilterPanel;
 import net.sf.minuteProject.console.panel.ModelAccessPanel;
 import net.sf.minuteProject.console.panel.ModelCommonPanel;
+import net.sf.minuteProject.console.panel.PackagePanel;
 import net.sf.minuteProject.console.panel.TargetPanel;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
@@ -40,6 +44,10 @@ public class ConsoleSample extends JFrame{
 	private ModelCommonPanel modelCommonPanel;
 	private TargetPanel targetPanel;
 	private CommonPanel commonPanel; 
+	private FilterPanel filterPanel;
+	private ConventionPanel conventionPanel;
+	private EnrichmentPanel enrichmentPanel;
+	private PackagePanel packagePanel;
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
 	private static String catalogDir;
@@ -48,13 +56,31 @@ public class ConsoleSample extends JFrame{
 		super(title);
 		init(catalogDir);
 	}
-	
-//	public ConsoleSample() {
-//		init();
-//	}
-	
+
 	private void initComponents() {
 		
+		setLookAndFeel();
+
+		tabbedPane = new JTabbedPane();
+		
+		modelAccessPanel = new ModelAccessPanel(this);
+		modelCommonPanel = new ModelCommonPanel(this);
+		targetPanel = new TargetPanel(this);
+		filterPanel = new FilterPanel();
+		conventionPanel = new ConventionPanel();
+		enrichmentPanel = new EnrichmentPanel();
+		packagePanel = new PackagePanel();
+
+		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
+		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringEnrichmentPanel());	
+		tabbedPane.addTab("Information", getInformationPanel());	
+		
+		getContentPane().add(tabbedPane);
+		
+		pack();		
+	}
+	
+	private void setLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -66,37 +92,44 @@ public class ConsoleSample extends JFrame{
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+	}
 
-		tabbedPane = new JTabbedPane();
-		
-		modelAccessPanel = new ModelAccessPanel(this);
-		modelCommonPanel = new ModelCommonPanel(this);
-		targetPanel = new TargetPanel(this);
+	private Component getDataModelReverseEngineeringEnrichmentPanel() {
+		JPanel panel = createTabPanel(getDefaultMigLayout());
+		addSeparator(panel, "Filter");
+		filterPanel.fillPanel(panel);
+		addSeparator(panel, "Package");
+		packagePanel.fillPanel (panel);
+		addSeparator(panel, "Convention");
+		conventionPanel.fillPanel(panel);
+		addSeparator(panel, "Enrichment");
+		enrichmentPanel.fillPanel(panel);		
+		return panel;
+	}
 
-		MigLayout lm = new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
-		JPanel panel = createTabPanel(lm);
-		addSeparator(panel, "Model Access");
-		modelAccessPanel.fillModelAccessPanel(panel);
-		addSeparator(panel, "Common configuration");
-		modelCommonPanel.fillModelCommonPanel (panel);
-		addSeparator(panel, "Target technology");
-		targetPanel.fillTargetPanel(panel);
-		tabbedPane.addTab("Data model reverse-engineering", panel);	
-
-		MigLayout lm2 = new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
-		JPanel common = createTabPanel(lm2);
+	private Component getInformationPanel() {
+		JPanel common = createTabPanel(getDefaultMigLayout());
 		addSeparator(common, "Restrictions");
 		commonPanel = new CommonPanel(common);
 		commonPanel.fillCommonPanel();
-		
-		tabbedPane.addTab("Information", common);	
-		
-		getContentPane().add(tabbedPane);
-		
-		pack();		
+		return common;
+	}
+
+	private Component getDataModelReverseEngineeringMainPanel() {
+		JPanel panel = createTabPanel(getDefaultMigLayout());
+		addSeparator(panel, "Model Access");
+		modelAccessPanel.fillPanel(panel);
+		addSeparator(panel, "Common configuration");
+		modelCommonPanel.fillPanel (panel);
+		addSeparator(panel, "Target technology");
+		targetPanel.fillPanel(panel);
+		return panel;
+	}
+
+	private MigLayout getDefaultMigLayout() {
+		return new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
 	}
 	
-
 	
 	public void init(String catalogDir) {
 		initCatalogs(catalogDir);
@@ -113,7 +146,7 @@ public class ConsoleSample extends JFrame{
 			catalogDir=args[0];
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample("MinuteProject console 0.5 - beta -", catalogDir).setVisible(true);
+				new ConsoleSample("MinuteProject console 0.5.1 - beta -", catalogDir).setVisible(true);
 			}
 		});
 	}
@@ -122,6 +155,7 @@ public class ConsoleSample extends JFrame{
 		modelAccessPanel.fill(bic);
 		modelCommonPanel.fill(bic);
 		targetPanel.fill(bic);
+		filterPanel.fill(bic);
 		bic.setCatalogDir(catalogDir);
 	}
 

@@ -47,9 +47,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	       modelNameTf, 
 	       targetDirTf, 
 	       versionNameTf, 
-	       sequencePatternTf,
-	       filterExcludeTf,
-	       filterIncludeTf;
+	       sequencePatternTf;
 	private JComboBox pkPolicyCb, sequencePatternCb;
 	private JLabel sequencePatternL, sequenceL, globalSequenceNameL, entityAttachedSequenceSuffixL;
 	
@@ -70,9 +68,9 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 			String sequencePattern = sequencePatternCb.getSelectedItem().toString();
 			bic.setSequencePattern(sequencePattern);
 			if (sequencePattern.equals(GLOBAL_SEQUENCE)) 
-				bic.setSequenceGlobalName(sequencePatternTf.toString());
+				bic.setSequenceGlobalName(sequencePatternTf.getText());
 			else
-				bic.setSequenceEntitySuffix(sequencePatternTf.toString());
+				bic.setSequenceEntitySuffix(sequencePatternTf.getText());
 			
 		}
 		
@@ -81,7 +79,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 //		bic.setPrimaryKeyPolicy(f.getTextAt(primary_key_policy));		
 	}
 	
-	public void fillModelCommonPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) {
 		panel.add(createLabel(root_package),   "skip");
 		rootPackageTf = createTextField("");
 		panel.add(rootPackageTf,      "wrap");
@@ -110,38 +108,9 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		sequencePatternTf = createTextField("");
 		panel.add(sequencePatternTf,      "wrap para");
 		//sequence end
-		//filter
-		panel.add(createLabel("filter:"),"skip,wrap");
-		panel.add(createLabel(""));
-	   JRadioButton filterIncludeButton = new JRadioButton("includes all entities except those starting with ");
-	   filterIncludeButton.setActionCommand("filterInclude");
-	   filterIncludeButton.setSelected(true);
-		panel.add(filterIncludeButton, "skip");
-		filterIncludeTf = createTextField("", 10);
-		panel.add(filterIncludeTf,"span, growx, wrap");
-		
-		panel.add(createLabel(""));
-	   JRadioButton filterExcludeButton = new JRadioButton("excludes all entities except those starting with ");
-	   filterExcludeButton.setActionCommand("filterExclude");
-		panel.add(filterExcludeButton, "skip");
-		filterExcludeTf = createTextField("", 10);
-		filterExcludeTf.setOpaque(true);
-		filterExcludeTf.setEditable(false);
-		panel.add(filterExcludeTf,"span, growx, wrap para");
-		
-		ButtonGroup group = new ButtonGroup();
-	   group.add(filterIncludeButton);
-	   group.add(filterExcludeButton);
-		
-	   panel.add(createLabel("package:"),"skip,wrap para");
-	   
-	   panel.add(createLabel("conventions:"),"skip,wrap para");
-	   
-	   panel.add(createLabel("enrichment:"),"skip,wrap para");
-	   // content type
 	   
 		panel.add(createLabel("target dir"),   "skip");
-	   targetDirTf = createTextField(getDefaultTargetDir(), new TargetDirListener());
+	    targetDirTf = createTextField(getDefaultTargetDir(), new TargetDirListener());
 		panel.add(targetDirTf,      "span, growx, wrap para");		
 	}
 

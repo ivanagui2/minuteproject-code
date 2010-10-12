@@ -105,7 +105,7 @@ public class BusinessPackage extends AbstractConfiguration {
 	}
 
 	public List<View> getViews() {
-		if (views == null) {
+		if (views == null || views.isEmpty()) {
 			views = new ArrayList<View>();
 			for (Iterator<Package> iter = getPackageViews().iterator(); iter
 					.hasNext();) {

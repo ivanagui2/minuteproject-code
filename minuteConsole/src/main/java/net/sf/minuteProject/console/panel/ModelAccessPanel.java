@@ -60,7 +60,7 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
 		bic.setDriver(driverClassNameTf.getText());
 	}
 	
-	public void fillModelAccessPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) {
 		panel.add(createLabel(database_type), "skip");
 		databaseCb = createCombo(getTechnologies(), new DatabaseChangeListener());
 		panel.add(databaseCb);
