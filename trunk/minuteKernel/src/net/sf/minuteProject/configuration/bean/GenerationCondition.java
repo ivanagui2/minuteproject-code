@@ -5,6 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GenerationCondition extends AbstractConfiguration {
+	
+	public static final String FILTER_FILE_TYPE_EXCLUDE = "exclude";
+	public static final String FILTER_FILE_TYPE_INCLUDE = "include";
+	
 	private String defaultType;
 	private List<Condition> conditions;
 	
@@ -21,14 +25,14 @@ public class GenerationCondition extends AbstractConfiguration {
 	}
 	
 	public boolean isAddable (String valueToTest) {
-		if (defaultType==null || !defaultType.equals("exclude"))
+		if (defaultType==null || !defaultType.equals(FILTER_FILE_TYPE_EXCLUDE))
 			return areConditionsTrueInclude(valueToTest);
 		else
 			return areConditionsTrueExclude(valueToTest);		
 	}
 	
 	public boolean areConditionsTrue(String valueToTest) {
-		if (defaultType==null || !defaultType.equals("exclude"))
+		if (defaultType==null || !defaultType.equals(FILTER_FILE_TYPE_EXCLUDE))
 			return areConditionsTrueInclude(valueToTest);
 		else
 			return areConditionsTrueExclude(valueToTest);
@@ -37,7 +41,7 @@ public class GenerationCondition extends AbstractConfiguration {
 	public boolean areConditionsTrueInclude(String valueToTest) {
 		for (Iterator iter = getConditions().iterator(); iter.hasNext();){
 			Condition condition = (Condition)iter.next();
-			if (condition.getType().equals("exclude") && !condition.isConditionTrue(valueToTest))
+			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE) && !condition.isConditionTrue(valueToTest))
 				return false;
 		}
 		return true;
@@ -46,7 +50,7 @@ public class GenerationCondition extends AbstractConfiguration {
 	public boolean areConditionsTrueExclude(String valueToTest) {
 		for (Iterator iter = getConditions().iterator(); iter.hasNext();){
 			Condition condition = (Condition)iter.next();
-			if (condition.getType().equals("include") && condition.isConditionTrue(valueToTest))
+			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) && condition.isConditionTrue(valueToTest))
 				return true;
 		}
 		return false;

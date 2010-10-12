@@ -7,8 +7,11 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BeanCommon;
+import net.sf.minuteProject.configuration.bean.BusinessModel;
+import net.sf.minuteProject.configuration.bean.Condition;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.GenerationCondition;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
@@ -24,6 +27,7 @@ import net.sf.minuteProject.utils.catalog.CatalogUtils;
 import net.sf.minuteProject.utils.catalog.DatabaseCatalogUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class BasicIntegrationConfiguration extends BeanCommon{
 
@@ -43,7 +47,9 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		catalogDir,
 		sequencePattern,
 		sequenceGlobalName,
-		sequenceEntitySuffix
+		sequenceEntitySuffix,
+		filterFile,
+		filterFileType
 		;
 	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
@@ -142,7 +148,38 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		model.setName(modelName);
 		model.setPackageRoot(rootpackage);
 		model.setVersion(getVersion());
+		model.setBusinessModel(getBusinessModel());
 		return model;
+	}
+
+	private BusinessModel getBusinessModel() {
+		BusinessModel businessModel = new BusinessModel();
+		businessModel.setGenerationCondition(getGenerationCondition());
+		return businessModel;
+	}
+
+	private GenerationCondition getGenerationCondition() {
+		GenerationCondition generationCondition = new GenerationCondition();
+		generationCondition.setDefaultType(getFilterFileType());
+		List<String> filenames = ParserUtils.getList(getFilterFile());
+		String conditionType = getConditionType();
+		for (String filename : filenames) {
+			generationCondition.addCondition(getCondition(filename, conditionType));
+		}	
+		return generationCondition;
+	}
+
+	private String getConditionType() {
+		if (filterFileType==null)
+			return GenerationCondition.FILTER_FILE_TYPE_INCLUDE;
+		return (filterFileType.equals(GenerationCondition.FILTER_FILE_TYPE_EXCLUDE))? GenerationCondition.FILTER_FILE_TYPE_INCLUDE: GenerationCondition.FILTER_FILE_TYPE_EXCLUDE;
+	}
+
+	private Condition getCondition(String filename, String type) {
+		Condition condition = new Condition();
+		condition.setType(type);
+		condition.setStartsWith(filename);
+		return condition;
 	}
 
 	private DataModel getDataModel() {
@@ -345,6 +382,22 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setSequenceEntitySuffix(String sequenceEntitySuffix) {
 		this.sequenceEntitySuffix = sequenceEntitySuffix;
+	}
+
+	public String getFilterFile() {
+		return filterFile;
+	}
+
+	public void setFilterFile(String filterFile) {
+		this.filterFile = filterFile;
+	}
+
+	public String getFilterFileType() {
+		return filterFileType;
+	}
+
+	public void setFilterFileType(String filterFileType) {
+		this.filterFileType = filterFileType;
 	}
 	
 }

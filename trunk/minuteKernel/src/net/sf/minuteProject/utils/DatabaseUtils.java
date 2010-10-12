@@ -31,7 +31,13 @@ public class DatabaseUtils {
 	}
 	
 	public static String provideSequenceOneGlobal (PrimaryKeyPolicyPattern primaryKeyPolicyPattern) {
-		return primaryKeyPolicyPattern.getPrefix()+primaryKeyPolicyPattern.getSequenceName()+primaryKeyPolicyPattern.getSuffix();
+		StringBuffer sb = new StringBuffer();
+		if (primaryKeyPolicyPattern.getPrefix()!=null)
+			sb.append(primaryKeyPolicyPattern.getPrefix());
+		sb.append(primaryKeyPolicyPattern.getSequenceName());
+		if (primaryKeyPolicyPattern.getSuffix()!=null)
+			sb.append(primaryKeyPolicyPattern.getSuffix());
+		return sb.toString();
 	}
 	
 	public static String provideSequence (Table table) {

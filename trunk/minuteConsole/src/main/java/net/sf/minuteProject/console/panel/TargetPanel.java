@@ -127,7 +127,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 //		return getTechnology(technologyName).getTemplateConfigFileName();
 	}
 
-	public void fillTargetPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) {
 		this.panel = panel;
 		panel.add(createLabel(targetL), "skip");
 		targetCb = createCombo(getTechnologyNames(), new TargetNameListener());
