@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BeanCommon;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
+import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.Condition;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.DataModel;
@@ -54,6 +55,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
+	private List<Condition> conditions;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
@@ -155,7 +157,15 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private BusinessModel getBusinessModel() {
 		BusinessModel businessModel = new BusinessModel();
 		businessModel.setGenerationCondition(getGenerationCondition());
+		businessModel.setBusinessPackage(getBusinessPackage());
 		return businessModel;
+	}
+
+	private BusinessPackage getBusinessPackage() {
+		BusinessPackage businessPackage = new BusinessPackage();
+		businessPackage.setDefaultPackage(getModelName());
+		businessPackage.setConditions(conditions);
+		return businessPackage;
 	}
 
 	private GenerationCondition getGenerationCondition() {
@@ -398,6 +408,10 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setFilterFileType(String filterFileType) {
 		this.filterFileType = filterFileType;
+	}
+
+	public void setPackageConditions(List<Condition> conditions) {
+		this.conditions = conditions;		
 	}
 	
 }

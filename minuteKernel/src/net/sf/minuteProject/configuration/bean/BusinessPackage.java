@@ -197,6 +197,10 @@ public class BusinessPackage extends AbstractConfiguration {
 		return conditions;
 	}
 
+	public void setConditions(List<Condition> conditions) {
+		this.conditions = conditions;
+	}
+	
 	public String getPackage(String value) {
 		return getConditionsResult(value);
 	}

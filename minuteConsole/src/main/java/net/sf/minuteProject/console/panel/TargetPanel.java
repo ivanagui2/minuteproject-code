@@ -1,43 +1,36 @@
 package net.sf.minuteProject.console.panel;
 
-import static net.sf.minuteProject.console.utils.UIUtils.*;
+import static net.sf.minuteProject.console.utils.UIUtils.createCombo;
+import static net.sf.minuteProject.console.utils.UIUtils.createLabel;
+import static net.sf.minuteProject.console.utils.UIUtils.createTextAreaScroll;
+import static net.sf.minuteProject.console.utils.UIUtils.updateTableScroll;
+import static net.sf.minuteProject.console.utils.UIUtils.updateTextAreaScroll;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import net.sf.minuteProject.application.AbstractGenerator;
 import net.sf.minuteProject.application.ModelViewGenerator;
 import net.sf.minuteProject.console.ConsoleSample;
-import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
-import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
-import net.sf.minuteProject.utils.catalog.CatalogUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 @SuppressWarnings("serial")
 public class TargetPanel extends JPanel implements FillBasicConfiguration{
@@ -50,12 +43,11 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	public static String descriptionL = "description";
 	public static String showDetailL = "Show details";
 	public static String hideDetailL = "Hide details";
-	private boolean showDetail;
 	private ConsoleSample consoleSample;
 	private JComboBox targetCb;
 	private JLabel statusJL, statusDetailJL, descriptionJL, dependencyJL;
 	private JScrollPane descriptionJSP;
-	private JPanel panel, detailPanel;
+	private JPanel panel;
 	private String[][] dependentFrameworks;
 	private JScrollPane dependentFrameworksJSP;
 //	private List<Technology> technologies;
