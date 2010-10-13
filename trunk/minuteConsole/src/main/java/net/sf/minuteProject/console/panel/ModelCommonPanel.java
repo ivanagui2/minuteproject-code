@@ -72,11 +72,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 			else
 				bic.setSequenceEntitySuffix(sequencePatternTf.getText());
 			
-		}
-		
-//		bic.setRootpackage(f.getTextAt(root_package));
-//		bic.setModelName(f.getTextAt(model_name));
-//		bic.setPrimaryKeyPolicy(f.getTextAt(primary_key_policy));		
+		}	
 	}
 	
 	public void fillPanel (JPanel panel) {
