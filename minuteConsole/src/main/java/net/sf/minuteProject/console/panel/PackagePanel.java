@@ -94,12 +94,10 @@ public class PackagePanel extends JPanel implements FillBasicConfiguration{
 			}
 			else if (e.getSource() == removePackageLinesButton) {
 				int [] rows = table.getSelectedRows();
-				System.out.println(rows);
-				for (int i : rows) {
-					dataModel.removeRow(i);
+				int s = rows.length;
+				for (int i = s-1; i > -1; i--) {
+					dataModel.removeRow(rows[i]);
 				}
-				
-//				updateDetails();
 			}
 		}
 	}	
