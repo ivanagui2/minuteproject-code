@@ -1,5 +1,7 @@
 package net.sf.minuteProject.console.panel;
 
+import static net.sf.minuteProject.console.utils.UIUtils.createLabel;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,16 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import net.sf.minuteProject.application.ModelViewGenerator;
-import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.Condition;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
-import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
-import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
-import static net.sf.minuteProject.console.utils.UIUtils.*;
 
 public class PackagePanel extends JPanel implements FillBasicConfiguration{
 
