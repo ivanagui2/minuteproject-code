@@ -1,7 +1,5 @@
 package net.sf.minuteProject.configuration.bean;
 
-import java.util.ArrayList;
-
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 
 public class Configuration extends AbstractConfigurationRoot{
@@ -37,5 +35,8 @@ public class Configuration extends AbstractConfigurationRoot{
 		return super.getName();
 	}
 
-
+	public String getGeneratedBeanName() {
+		return getName();
+	}
+	
 }
