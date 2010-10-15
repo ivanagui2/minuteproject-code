@@ -8,6 +8,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -22,7 +23,8 @@ public class FilterPanel extends JPanel implements FillBasicConfiguration{
     	filterExcludeTf,
     	filterIncludeTf;
 	private FilterItemListener filterItemListener;
-	private ButtonGroup group;
+	private ButtonGroup group, entityFilterG;
+	private JCheckBox tableCBButton, viewCBButton;
 	
 	public static final String filterExclude = "filterExclude";
 	public static final String filterInclude = "filterInclude";
@@ -39,6 +41,9 @@ public class FilterPanel extends JPanel implements FillBasicConfiguration{
 			bic.setFilterFile(filterIncludeTf.getText());
 			bic.setFilterFileType (GenerationCondition.FILTER_FILE_TYPE_INCLUDE);
 		}
+		
+		bic.setAreTablesIncluded(tableCBButton.isSelected());
+		bic.setAreViewsIncluded(viewCBButton.isSelected());
 	}
 	
 
@@ -66,6 +71,25 @@ public class FilterPanel extends JPanel implements FillBasicConfiguration{
 		group = new ButtonGroup();
 	    group.add(filterIncludeButton);
 	    group.add(filterExcludeButton);		
+	    
+		panel.add(createLabel("entity type"),"skip,wrap");
+		
+		tableCBButton = new JCheckBox("Tables");
+		tableCBButton.setSelected(true);
+		viewCBButton = new JCheckBox("Views");
+		viewCBButton.setSelected(true);		
+		
+		panel.add(createLabel(""));
+		panel.add(tableCBButton, "skip, wrap");
+		panel.add(createLabel(""));
+		panel.add(viewCBButton, "skip,wrap para");
+		
+//		entityFilterG = new ButtonGroup();
+//		entityFilterG.add(tableCBButton);
+//		entityFilterG.add(viewCBButton);
+		
+		
+		
 	}
 	
     private class FilterItemListener implements ItemListener {
