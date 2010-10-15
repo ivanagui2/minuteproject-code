@@ -56,6 +56,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
 	private List<Condition> conditions;
+	private Boolean areTablesIncluded, areViewsIncluded;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
@@ -412,6 +413,22 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setPackageConditions(List<Condition> conditions) {
 		this.conditions = conditions;		
+	}
+
+	public Boolean getAreTablesIncluded() {
+		return areTablesIncluded;
+	}
+
+	public void setAreTablesIncluded(Boolean areTablesIncluded) {
+		this.areTablesIncluded = areTablesIncluded;
+	}
+
+	public Boolean getAreViewsIncluded() {
+		return areViewsIncluded;
+	}
+
+	public void setAreViewsIncluded(Boolean areViewsIncluded) {
+		this.areViewsIncluded = areViewsIncluded;
 	}
 	
 }
