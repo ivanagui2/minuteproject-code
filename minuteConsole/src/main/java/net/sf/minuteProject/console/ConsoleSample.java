@@ -20,7 +20,8 @@ import net.miginfocom.layout.PlatformDefaults;
 import net.miginfocom.swing.MigLayout;
 import net.sf.minuteProject.console.panel.CommonPanel;
 import net.sf.minuteProject.console.panel.ConventionPanel;
-import net.sf.minuteProject.console.panel.EnrichmentPanel;
+import net.sf.minuteProject.console.panel.EnrichmentFieldPanel;
+import net.sf.minuteProject.console.panel.EnrichmentEntityPanel;
 import net.sf.minuteProject.console.panel.FilterPanel;
 import net.sf.minuteProject.console.panel.ModelAccessPanel;
 import net.sf.minuteProject.console.panel.ModelCommonPanel;
@@ -46,7 +47,8 @@ public class ConsoleSample extends JFrame{
 	private CommonPanel commonPanel; 
 	private FilterPanel filterPanel;
 	private ConventionPanel conventionPanel;
-	private EnrichmentPanel enrichmentPanel;
+	private EnrichmentEntityPanel enrichmentEntityPanel;
+	private EnrichmentFieldPanel enrichmentFieldPanel;
 	private PackagePanel packagePanel;
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
@@ -68,11 +70,13 @@ public class ConsoleSample extends JFrame{
 		targetPanel = new TargetPanel(this);
 		filterPanel = new FilterPanel();
 		conventionPanel = new ConventionPanel();
-		enrichmentPanel = new EnrichmentPanel();
+		enrichmentEntityPanel = new EnrichmentEntityPanel();
+		enrichmentFieldPanel = new EnrichmentFieldPanel();
 		packagePanel = new PackagePanel();
 
 		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
-		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringEnrichmentPanel());	
+		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringCustomisationPanel());	
+		tabbedPane.addTab("Enrichment", getDataModelReverseEngineeringEnrichmentPanel());			
 		tabbedPane.addTab("Information", getInformationPanel());	
 		
 		getContentPane().add(tabbedPane);
@@ -96,14 +100,21 @@ public class ConsoleSample extends JFrame{
 
 	private Component getDataModelReverseEngineeringEnrichmentPanel() {
 		JPanel panel = createTabPanel(getDefaultMigLayout());
+		addSeparator(panel, "Entity");
+		enrichmentEntityPanel.fillPanel(panel);		
+		addSeparator(panel, "Field");
+		enrichmentFieldPanel.fillPanel(panel);			
+		return panel;
+	}
+	
+	private Component getDataModelReverseEngineeringCustomisationPanel() {
+		JPanel panel = createTabPanel(getDefaultMigLayout());
 		addSeparator(panel, "Filter");
 		filterPanel.fillPanel(panel);
 		addSeparator(panel, "Package");
 		packagePanel.fillPanel (panel);
 		addSeparator(panel, "Convention");
-		conventionPanel.fillPanel(panel);
-		addSeparator(panel, "Enrichment");
-		enrichmentPanel.fillPanel(panel);		
+		conventionPanel.fillPanel(panel);		
 		return panel;
 	}
 

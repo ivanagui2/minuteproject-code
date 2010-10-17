@@ -16,7 +16,7 @@ public class I18nUtilsTest extends TestCase {
 		assertTrue("result = "+s+" while input = "+nameWithUnderscore,test.equals(s));
 		s = I18nUtils.getI18nFromDBNameStripPrefix(nameWithoutUnderscore);
 		assertTrue(nameWithoutUnderscore.equals(s));
-		s = I18nUtils.getI18nFromDBNameStripPrefix(null);
+		s = I18nUtils.getI18nFromDBNameStripPrefix((String)null);
 	}
 	
 	

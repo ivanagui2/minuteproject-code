@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
+import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -14,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.Index;
+import net.sf.minuteProject.utils.ColumnUtils;
 
 /**
  * @author Florian Adler
@@ -28,6 +30,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private String contentType;
 	private boolean isLinkEntity;
 	private EntitySecuredAccess entitySecuredAccess;
+	private List<List<Column>> fieldGroupsList;
+	private List<FieldGroup> fieldGroups;
 	
 	public TableAbstract () {
 	}
@@ -39,6 +43,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setContentType(table.getContentType());
 		this.setSemanticReference(table.getSemanticReference());
 		this.setLinkEntity(table.isLinkEntity());
+		this.setFieldGroups(table.getFieldGroups());
 	}
 	
 	public String getName () {
@@ -307,6 +312,63 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		return (Reference []) distinctTypes.toArray(new Reference[distinctTypes.size()]);
 	}
 
+	public void setFieldGroups(List<FieldGroup> fieldGroups) {
+		this.fieldGroups = fieldGroups;
+	}
+	
+	public List<List<Column>> getFieldGroupsList () {
+		//TODO add order with Hashtable
+		if (fieldGroupsList==null) {
+			fieldGroupsList = new ArrayList<List<Column>>();
+			List<Column> cols = new ArrayList<Column>();
+			for (Column column : getColumns()) {
+				if (!contains(cols, column)) {
+					List<Column> columnsFromFieldGroup = getColumnsFromFieldGroup(column);
+					fieldGroupsList.add(columnsFromFieldGroup);
+					// add group column in cols
+					cols.addAll(columnsFromFieldGroup);
+				}
+			}
+		}
+		return fieldGroupsList;
+	}
+
+	private boolean contains(List<Column> cols, Column column) {
+		for (Column col : cols) {
+			if (col.getName().equals(column.getName()))
+				return true;
+		}
+		return false;
+	}
+
+	private List<Column> getColumnsFromFieldGroup(Column column) {
+		List<Column> columns = new ArrayList<Column>();
+		for (FieldGroup fieldGroup : getFieldGroups()) {
+			if (fieldGroupContainsColumn(fieldGroup, column)) {
+				return convertFieldGroup(fieldGroup);
+			}
+		}
+		columns.add(column);
+		return columns;
+	}
+
+	private List<Column> convertFieldGroup(FieldGroup fieldGroup) {
+		List<Column> columns = new ArrayList<Column>();
+		for (String element : fieldGroup.getFieldList()) {
+			columns.add(ColumnUtils.getColumn(table, element));
+		}
+		return columns;
+	}
+
+	private boolean fieldGroupContainsColumn(FieldGroup fieldGroup, Column column) {
+		for (String element : fieldGroup.getFieldList()) {
+			if (element.equals(column.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public String getContentType() {
 		return contentType;
 	}
@@ -346,6 +408,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	public void setEntitySecuredAccess(EntitySecuredAccess entitySecuredAccess) {
 		this.entitySecuredAccess = entitySecuredAccess;
 	}
-	
+
+	public List<FieldGroup> getFieldGroups() {
+		if (fieldGroups==null) fieldGroups = new ArrayList<FieldGroup>();
+		return fieldGroups;
+	}
+
+//	public void setFieldGroups(List<FieldGroup> fieldGroups) {
+//		this.fieldGroupsInput = fieldGroupsInput;
+//	}
 	
 }

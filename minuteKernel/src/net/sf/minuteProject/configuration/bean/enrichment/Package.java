@@ -7,6 +7,7 @@ public class Package extends AbstractConfiguration {
 
 	private SecurityColor securityColor;
 	private Enrichment enrichment;
+	private String alias;
 	
 	public SecurityColor getSecurityColor() {
 		return securityColor;
@@ -22,6 +23,14 @@ public class Package extends AbstractConfiguration {
 
 	public void setEnrichment(Enrichment enrichment) {
 		this.enrichment = enrichment;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 	
 }

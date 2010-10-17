@@ -206,6 +206,9 @@ public interface BaseColumn extends GeneratorBean{
     
     public Stereotype getStereotype();
     
+    public int minLength();
+    
+    public void setMinLength(int minLength);
 //    public void setDefault(String defaultValue);
 //    
 //    public void getDefault ();

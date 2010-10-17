@@ -18,6 +18,7 @@ public class Package extends AbstractConfiguration{
 	private String name;
 	private BusinessPackage businessPackage;
 	private SecurityColor securityColor;
+	private String alias;
 
 	public List getListOfViews() {
 		return listOfViews;
@@ -81,6 +82,17 @@ public class Package extends AbstractConfiguration{
 	public void setSecurityColor(SecurityColor securityColor) {
 		this.securityColor = securityColor;
 	}
+
+	public String getAlias() {
+		if (alias==null)
+			alias = getName();
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	
 	
 	
 }
