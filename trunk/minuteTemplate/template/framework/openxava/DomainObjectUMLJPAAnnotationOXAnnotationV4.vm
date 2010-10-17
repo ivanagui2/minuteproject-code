@@ -61,10 +61,17 @@ import $importDomainObjectUML;
 #columnJavaNaming()
         + " $columnVar ;" 	
 #end	
-#foreach ($reference in $table.parents)
+#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))##$table.parents)
 #putReferenceParams2()
-	    + "${localColumnVariable};" //+ "${linkedTableVariable};"  //+ "${localColumnVariable};" 
+	    + "${localColumnVariable};"  
 #end	
+#foreach ($columnGroup in ${table.fieldGroupsList})
+//[
+#foreach ($column in $columnGroup)
+//$column.name
+#end
+//]
+#end
 		),
 	@View(
 		name="Create", 
@@ -87,7 +94,9 @@ import $importDomainObjectUML;
 #columnJavaNaming()
         + " $columnVar ;" 
 #end
-#end	
+#end
+#exposeViewParentSemanticRef()
+#exposeViewParentSemanticRefProperty()	
 	)
 })
 
@@ -192,12 +201,12 @@ public class ${className} {
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
 #end  
-#if ($isMandatory)
+#if ($isMandatory && !$table.isLinkEntity())
     @Required
 #end 
     @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
 #set($semanticReference = $linktableDB.semanticReference)
-#if ($tableUtils.isReferenceDataContentType($linktableDB))    
+#if ($openXavaUtils.hasDescriptionList($linktableDB))    
     @DescriptionsList(
        descriptionProperties=
 #foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
@@ -209,7 +218,7 @@ public class ${className} {
     @NoCreate
     @NoModify	
 #end 
-#if (!$authorizationUtils.hasSameColor($table, $linktableDB) && !$tableUtils.isReferenceDataContentType($linktableDB))    
+#if (!$authorizationUtils.hasSameColor($table, $linktableDB) && !$openXavaUtils.hasDescriptionList($linktableDB))    
     @NoCreate
     @NoModify	
 #end
@@ -234,7 +243,7 @@ public class ${className} {
 #else
 #set ($foreignColumnVar = $domainVariableName)
 #end
-    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar"#if (!$reference.column.isRequired()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
+    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
     private Set <$linkclass> ${link}${columnclass}s = new HashSet();
    

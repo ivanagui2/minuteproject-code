@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 
@@ -19,6 +20,7 @@ public class Entity extends AbstractConfiguration {
 	private boolean isLinkEntity;
 	private EntitySecuredAccess entitySecuredAccess;
 	private String type;
+	private List<FieldGroup> fieldGroups;
 	
 	public EntitySecuredAccess getEntitySecuredAccess() {
 		return entitySecuredAccess;
@@ -109,6 +111,15 @@ public class Entity extends AbstractConfiguration {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<FieldGroup> getFieldGroups() {
+		if (fieldGroups==null) fieldGroups = new ArrayList<FieldGroup>();
+		return fieldGroups;
+	}
+	
+	public void addFieldGroup (FieldGroup fieldGroup) {
+		getFieldGroups().add(fieldGroup);
 	}
 	
 }

@@ -50,18 +50,18 @@ public class FilterPanel extends JPanel implements FillBasicConfiguration{
 	public void fillPanel (JPanel panel) {
 		panel.add(createLabel("entities"),"skip,wrap");
 		panel.add(createLabel(""));
-	    JRadioButton filterIncludeButton = new JRadioButton("includes all entities except those starting with ");
-	    filterIncludeButton.setActionCommand(filterInclude);
-	    filterIncludeButton.setSelected(true);
-	    filterIncludeButton.addItemListener(filterItemListener);
+	   JRadioButton filterIncludeButton = new JRadioButton("includes all entities except those starting with ");
+	   filterIncludeButton.setActionCommand(filterInclude);
+	   filterIncludeButton.setSelected(true);
+	   filterIncludeButton.addItemListener(filterItemListener);
 		panel.add(filterIncludeButton, "skip");
 		filterIncludeTf = createTextField("", 10);
 		panel.add(filterIncludeTf,"span, growx, wrap");
 		
 		panel.add(createLabel(""));
-	    JRadioButton filterExcludeButton = new JRadioButton("excludes all entities except those starting with ");
-	    filterExcludeButton.setActionCommand(filterExclude);
-	    filterExcludeButton.addItemListener(filterItemListener);
+	   JRadioButton filterExcludeButton = new JRadioButton("excludes all entities except those starting with ");
+	   filterExcludeButton.setActionCommand(filterExclude);
+	   filterExcludeButton.addItemListener(filterItemListener);
 		panel.add(filterExcludeButton, "skip");
 		filterExcludeTf = createTextField("", 10);
 		filterExcludeTf.setOpaque(true);
@@ -69,14 +69,14 @@ public class FilterPanel extends JPanel implements FillBasicConfiguration{
 		panel.add(filterExcludeTf,"span, growx, wrap para");
 		
 		group = new ButtonGroup();
-	    group.add(filterIncludeButton);
-	    group.add(filterExcludeButton);		
+	   group.add(filterIncludeButton);
+	   group.add(filterExcludeButton);		
 	    
 		panel.add(createLabel("entity type"),"skip,wrap");
 		
-		tableCBButton = new JCheckBox("Tables");
+		tableCBButton = new JCheckBox("include tables");
 		tableCBButton.setSelected(true);
-		viewCBButton = new JCheckBox("Views");
+		viewCBButton = new JCheckBox("include views");
 		viewCBButton.setSelected(true);		
 		
 		panel.add(createLabel(""));

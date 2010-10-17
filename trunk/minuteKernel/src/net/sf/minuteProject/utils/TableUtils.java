@@ -21,6 +21,7 @@ public class TableUtils {
 
 	public static final String pseudoStaticDataContentType = "pseudo-static-data";
 	public static final String referenceDataContentType = "reference-data";
+	public static final String masterDataContentType = "master-data"; //immutable data
 	public static final String liveBusinessDataContentType = "live-business-data";
 	
 	public static Column getPrimaryFirstColumn (Table table) {
@@ -259,4 +260,18 @@ public class TableUtils {
 		return StringUtils.removeStart(packageName, modelRootPackage+".");
 	}
 	
+	public static List<Reference> getParentOrderByReferenceData(Table table) {
+		List<Reference> parentsOrder = new ArrayList<Reference>();
+		List<Reference> parentsLeft = new ArrayList<Reference>();
+		Reference [] parents = table.getParents();
+		for (Reference reference : parents) {
+			if (hasSemanticReference(reference.getForeignTable())) {
+				parentsOrder.add(reference);
+			} else {
+				parentsLeft.add(reference);
+			}
+		}
+		parentsOrder.addAll(parentsLeft);
+		return parentsOrder;
+	}
 }

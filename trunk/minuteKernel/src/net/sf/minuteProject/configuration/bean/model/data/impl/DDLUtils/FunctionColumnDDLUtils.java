@@ -3,7 +3,6 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
-import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -17,6 +16,7 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
 	private Stereotype stereotype;
 	private String defaultValue, size, type;
 	private boolean isRequired;
+	private Integer minLength;
 	
 	public Direction getDirection() {
 		return direction;
@@ -158,6 +158,16 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
 	public String getTechnicalPackage(Template template) {
 		return getPackage().getTechnicalPackage(template);
 	}
-
+	
+   public int minLength() {
+   	if (minLength==null)
+   		minLength = 0;
+   	return minLength;
+   }
+   
+   public void setMinLength(int minLength) {
+   	this.minLength = minLength;
+   }
+   
 
 }

@@ -18,6 +18,10 @@ public class I18nUtils {
 		input = FormatUtils.firstUpperCaseOnly(input);
 		return input;
 	}
+
+	public static String getI18nFromDBNameStripPrefix (Table table) {
+		return getI18nFromDBName(table.getAlias());
+	}
 	
 	public static String getI18nFromDBNameStripPrefix (String input) {
 		if (input==null) return null;

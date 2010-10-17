@@ -39,8 +39,9 @@ public class CommonPanel extends JPanel {
 	private String getConventions() {
 		return "When generating for ORM framework the following conventions are applied:\n"+
 		       "- Tables without primary key are excluded from the generation;\n"+
-		       "- Views are enriched with a virtual primary key: the first field serves as primary key.\n\n"+
-		       "When using sequence the sequence name is the concatenation of the table name and _SEQ.";
+		       "- Views are enriched with a virtual primary key: the first field serves as primary key.\n\n"
+//		       +"When using sequence the sequence name is the concatenation of the table name and _SEQ."
+		       ;
 	}
 
 

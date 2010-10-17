@@ -1,25 +1,11 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.util.List;
-
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnAbstract;
 import net.sf.minuteProject.utils.FormatUtils;
-
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.ddlutils.util.Jdbc3Utils;
 
 /**
  * Represents a column in the database model.
@@ -33,10 +19,8 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	private Table table;
 	private Boolean isLob, isVersion;
 	private Stereotype stereotype;
+	private Integer minLength;
 
-//	public ColumnDDLUtils(org.apache.ddlutils.model.Column column) {
-//		this.column = column;
-//	}
 	protected ColumnDDLUtils() {}
 	
 	public ColumnDDLUtils(org.apache.ddlutils.model.Column column, Table table) {
@@ -456,5 +440,14 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	public void setVersion(boolean isVersion) {
 		this.isVersion = isVersion;
 	}	
-	
+   public int minLength() {
+   	if (minLength==null)
+   		minLength = 0;
+   	return minLength;
+   }
+   
+   public void setMinLength(int minLength) {
+   	this.minLength = minLength;
+   }
+   
 }

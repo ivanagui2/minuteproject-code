@@ -79,10 +79,20 @@
 #set ($tabinfos = $openXavaUtils.getTabWithRef($table))
 #end
 
+#macro (exposeViewParentSemanticRef)
+#set ($tabinfos = $openXavaUtils.getParentSemanticReferenceEntityVariable($table))
+#end
+
 #macro (exposeTabProperties)
 properties=
 #foreach($chunk in $tabinfos)
     #if ($velocityCount!=1)+", #else "#end $chunk "
+#end
+#end
+
+#macro (exposeViewParentSemanticRefProperty)
+#foreach($chunk in $tabinfos)
+        + "$chunk ;"
 #end
 #end
 

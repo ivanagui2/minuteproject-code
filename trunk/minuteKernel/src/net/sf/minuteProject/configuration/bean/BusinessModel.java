@@ -136,6 +136,7 @@ public class BusinessModel {
 
 	private void complementPackage(net.sf.minuteProject.configuration.bean.Package p, Package pack) {
 		p.setSecurityColor (pack.getSecurityColor());
+		p.setAlias(pack.getAlias());
 	}
 
 	private void complementView(Entity entity, Database database) {
@@ -179,6 +180,10 @@ public class BusinessModel {
 	
 	private void complementEntityWithProperties(net.sf.minuteProject.configuration.bean.model.data.Table table, Entity entity) {
 		convertEntityInfoIntoTable(entity, table);
+		convertEntityFields(entity, table);
+	}
+	
+	private void convertEntityFields(Entity entity, Table table) {
 		List<Field> fields = entity.getFields();
 		Column[] columns = table.getColumns();
 		Column[] attributes = table.getAttributes();
@@ -194,7 +199,7 @@ public class BusinessModel {
 			}			
 		}
 	}
-	
+
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
@@ -202,6 +207,7 @@ public class BusinessModel {
 		table.setSemanticReference(entity.getSemanticReference());
 		table.setLinkEntity(entity.isLinkEntity());
 		table.setEntitySecuredAccess(entity.getEntitySecuredAccess());
+		table.setFieldGroups(entity.getFieldGroups());
 	}
 	
 	private void convertFieldInfoToColumn (Field field, Column column) {

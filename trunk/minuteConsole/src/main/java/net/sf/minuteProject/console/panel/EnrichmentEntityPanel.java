@@ -23,33 +23,36 @@ import net.sf.minuteProject.configuration.bean.Condition;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 
-public class EnrichmentPanel extends JPanel implements FillBasicConfiguration{
+public class EnrichmentEntityPanel extends JPanel implements FillBasicConfiguration{
 
-	private JLabel packageJL;
-	private JScrollPane packageJSP;
+	private JLabel entityJL, fieldJL;
+	private JScrollPane entityJSP, fieldJSP;
 	private JButton addPackageLineButton, removePackageLinesButton;
 	private ClickListener clickListener;
-	private DefaultTableModel dataModel;
-	private JTable table;
+	private DefaultTableModel dataEntityModel, dataFieldModel;
+	private JTable tableEntity, tableField;
 	
-	public EnrichmentPanel() {
-		packageJL = createLabel("entities");
+	public EnrichmentEntityPanel() {
+		entityJL = createLabel("entities");
 		clickListener = new ClickListener();
 		addPackageLineButton = getAddPackageLineButton();
 		removePackageLinesButton = getRemovePackageLinesButton();
-		dataModel = new DefaultTableModel(new String[][]{{"",""},{"",""}}, new String[] {"entity ","enrichment"});
-		table = new JTable(dataModel);
-		
-		TableColumn entityEnrichment = table.getColumnModel().getColumn(1);
-
+		dataEntityModel = new DefaultTableModel(new String[][]{{"",""},{"",""}}, new String[] {"entity ","enrichment"});
+		tableEntity = new JTable(dataEntityModel);
+		TableColumn entityEnrichment = tableEntity.getColumnModel().getColumn(1);
 		entityEnrichment.setCellEditor(new DefaultCellEditor(getEntityEnrichment()));
-
-	}
 	
+	}
+
 	private JComboBox getEntityEnrichment() {
 		JComboBox comboBox = new JComboBox();
 		comboBox.addItem("");
-		comboBox.addItem("is reference entity");
+		comboBox.addItem("is master entity"); // immutable add semantic ref (one field OX), add enum
+		comboBox.addItem("is reference entity"); // add semantic ref
+		comboBox.addItem("is linked entity");
+		comboBox.addItem("");
+		comboBox.addItem("add comment...");
+		comboBox.addItem("add alias...");
 		return comboBox;
 	}
 
@@ -58,7 +61,7 @@ public class EnrichmentPanel extends JPanel implements FillBasicConfiguration{
 	}
 
 	public List<Condition> getConditions() {
-		int nbRow = dataModel.getRowCount();
+		int nbRow = dataEntityModel.getRowCount();
 		List<Condition> conditions = new ArrayList<Condition>();
 		for (int i = 0; i < nbRow; i++) {
 
@@ -67,17 +70,18 @@ public class EnrichmentPanel extends JPanel implements FillBasicConfiguration{
 	}
 	
 	public void fillPanel (JPanel panel) {
-		panel.add(packageJL,"skip");
-		packageJSP = getPackageJSP ();
-		panel.add(packageJSP, "span, growx");
+		panel.add(entityJL,"skip");
+		entityJSP = getJSP (tableEntity);
+		panel.add(entityJSP, "span, growx, wrap");
 		
 		panel.add(createLabel(""),   "skip");
 		panel.add(addPackageLineButton,"skip");
-		panel.add(removePackageLinesButton,"wrap para");
+		panel.add(removePackageLinesButton,"wrap para");	
+
 	}
 
-	private JScrollPane getPackageJSP() {
-		Dimension size = table.getPreferredScrollableViewportSize();
+	private JScrollPane getJSP(JTable table) {
+		Dimension size = tableEntity.getPreferredScrollableViewportSize();
 		table.setPreferredScrollableViewportSize (new Dimension(Math.min(getPreferredSize().width, size.width), 50));
 		return new JScrollPane(table);
 	}
@@ -98,13 +102,13 @@ public class EnrichmentPanel extends JPanel implements FillBasicConfiguration{
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == addPackageLineButton) {
-				dataModel.addRow(new String[]{"",""});
+				dataEntityModel.addRow(new String[]{"",""});
 			}
 			else if (e.getSource() == removePackageLinesButton) {
-				int [] rows = table.getSelectedRows();
+				int [] rows = tableEntity.getSelectedRows();
 				int s = rows.length;
 				for (int i = s-1; i > -1; i--) {
-					dataModel.removeRow(rows[i]);
+					dataEntityModel.removeRow(rows[i]);
 				}
 			}
 		}

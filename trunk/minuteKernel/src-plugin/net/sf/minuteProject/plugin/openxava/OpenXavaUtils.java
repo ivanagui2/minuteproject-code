@@ -3,6 +3,7 @@ package net.sf.minuteProject.plugin.openxava;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
@@ -23,7 +24,7 @@ public class OpenXavaUtils {
 	public static List<String> getTabAll (Table table) {
 		List<String> list = new ArrayList<String>();
 		list.addAll(getTabDefaultProperties(table));
-		list.addAll(getTabParentSemanticReference(table));
+		list.addAll(getParentSemanticReference(table));
 		return list;
 	}
 	public static List<String> getTabSimple (Table table) {
@@ -54,20 +55,40 @@ public class OpenXavaUtils {
 		return list;
 	}
 		
-	private static List<String> getTabParentSemanticReference (Table table) {
+	public static List<String> getParentSemanticReference (Table table) {
+		return getParentSemanticReference(table, true);
+	}
+	
+	public static List<String> getParentSemanticReferenceEntityVariable (Table table) {
+		return getParentSemanticReference(table, false);
+	}
+	
+	public static List<String> getParentSemanticReference (Table table, boolean addChunk) {
 		List<String> list = new ArrayList<String>();
 		for (Reference reference : table.getParents()) {
 			Table parent = reference.getForeignTable();
-			if (TableUtils.isReferenceDataContentType(parent)) {
+			if (TableUtils.hasSemanticReference(parent)) {
 				SemanticReference sr = reference.getForeignTable().getSemanticReference();
 				for (String chunk : sr.getSemanticReferenceBeanPath()) {
-					//String c = FormatUtils.getJavaNameVariable(parent.getName())+"."+chunk;
-					String c = FormatUtils.getJavaNameVariable(reference.getLocalColumnName())+"."+chunk;
+					String c = FormatUtils.getJavaNameVariable(reference.getLocalColumnName());
+					if (addChunk) c = c+"."+chunk;
 					list.add(c);
 				}
 			}
 		}
 		return list;
+	}
+	
+	public static boolean hasDescriptionList (Table table) {
+		if (TableUtils.hasSemanticReference(table) && 
+			(TableUtils.isReferenceDataContentType(table) || TableUtils.isPseudoStaticDataContentType(table)))
+			return true;
+		return false;
+	}
+	
+	public static String getPackageName(Package pack) {
+		//formatUtils.getJavaName(${package.name})
+		return FormatUtils.getJavaName(pack.getAlias());
 	}
 
 }

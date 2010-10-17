@@ -13,6 +13,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	private Boolean isLob;
 	private Stereotype stereotype;
 	private Boolean isVersion;
+	private Integer minLength;
 	
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
@@ -426,5 +427,14 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 		this.isVersion = isVersion;
 	}	
 	
-	
+   public int minLength() {
+   	if (minLength==null)
+   		minLength = 0;
+   	return minLength;
+   }
+   
+   public void setMinLength(int minLength) {
+   	this.minLength = minLength;
+   }
+   
 }
