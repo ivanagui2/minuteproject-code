@@ -277,7 +277,7 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
     protected String getTemplatePath (Template template) {
-    	if (templatePath==null && isTemplatePathToReset) {
+    	if ((templatePath==null || templatePath.equals("")) && isTemplatePathToReset) {
     		isTemplatePathToReset = false;
     		Hashtable<String, String> ht = new Hashtable<String, String>();
         	TemplateTarget templateTarget = template.getTemplateTarget();
