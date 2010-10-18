@@ -36,14 +36,15 @@ public class ImplicitStructureGenerator extends AbstractGenerator {
 	
 	public ImplicitStructureGenerator(String configurationFile) {
 		super(configurationFile);
+		resetTemplatePath();
 	}
 	
 	public static void main(String args[]) throws Exception {
 		if (args.length < 1) {
 			System.exit(1);
 		}
-		ImplicitStructureGenerator mappingGenerator = new ImplicitStructureGenerator(args[0]);
-		mappingGenerator.init(args);
+		ImplicitStructureGenerator implicitGenerator = new ImplicitStructureGenerator(args[0]);
+		implicitGenerator.init(args);
 
 	}
 	

@@ -21,9 +21,9 @@
 			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.crud"
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="true" package-specific="false" model-specific="false"
-      add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
-      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" 
-      entity-dir-name-prefix="Test">
+      		add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
+      		entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" 
+      		entity-dir-name-prefix="Test">
 		</template>
     
 		<!-- datasource snippet -->
@@ -33,8 +33,8 @@
 			subdir="" outputsubdir="" technicalPackage="DbConnection"
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="false" package-specific="false" model-specific="true"
-      add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
-      >
+      		add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
+      		>
 		</template>
 
         
@@ -42,8 +42,8 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="false" package-specific="false" model-specific="true"
-      add-entity-dir-name="false" add-scope-name="false" 
-      add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
+      		add-entity-dir-name="false" add-scope-name="false" 
+      		add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
 		</template>
   </template-target>	
   
@@ -65,9 +65,9 @@
 			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="true" package-specific="false" model-specific="false"
-      add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false"
-      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS"
-      entity-dir-name-prefix="Test">
+      		add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false"
+      		entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS"
+      		entity-dir-name-prefix="Test">
 		</template>
 	
 		
@@ -87,8 +87,8 @@
 			subdir="" outputsubdir="" technicalPackage="DbConnection"
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="false" package-specific="false" model-specific="true"
-      add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
-      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS">
+      		add-technical-dir-name="true" add-business-package-dir-name="false" add-model-dir-name="false" add-scope-name="false" 
+      		entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS">
 		</template>
 		
 		<!-- set a directory for the entity -->
@@ -104,8 +104,8 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="false" package-specific="false" model-specific="true"
-      add-entity-dir-name="false" add-scope-name="false" 
-      add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
+      		add-entity-dir-name="false" add-scope-name="false" 
+      		add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false">
 		</template>
   </template-target>		
 
@@ -131,8 +131,8 @@
 			subdir="" outputsubdir="" technicalPackage="Setup"
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			entity-specific="false" package-specific="false" model-specific="true" add-model-dir-name="false"
-      add-entity-dir-name="false" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
-      entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" >
+      		add-entity-dir-name="false" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false" 
+      		entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS" >
 		</template>
     
     </template-target>
