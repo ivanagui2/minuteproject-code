@@ -25,6 +25,8 @@
 <div class="menustyle" id="menu">
   <ul class="menubar" id="dmenu">
 #foreach ($package in ${businessPackages})
+#if (!$package.listOfTables.isEmpty())
+<!-- $package.listOfTables.size() - $package.listOfTables.isEmpty() -->
 #set($packageLabel=$openXavaUtils.getPackageName($package))
     <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
 	  <ul class="submenu">
@@ -42,6 +44,7 @@
 #end
 #end
 #end
+#end
 	  </ul>
 	</li>
 #end
@@ -50,9 +53,11 @@
     <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
 	  <ul class="submenu">
 #foreach ($table in ${package.listOfViews})
+#if (!$package.listOfTables.isEmpty())
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table))
         <li><a href="home.jsp?application=${applicationOX}&module=${tableClassName}">$tableLabel</a></li>
+#end
 #end
 	  </ul>
 	</li>
