@@ -355,7 +355,9 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<Column> convertFieldGroup(FieldGroup fieldGroup) {
 		List<Column> columns = new ArrayList<Column>();
 		for (String element : fieldGroup.getFieldList()) {
-			columns.add(ColumnUtils.getColumn(table, element));
+			Column column = ColumnUtils.getColumn(table, element);
+			if (column!=null)
+				columns.add(column);
 		}
 		return columns;
 	}

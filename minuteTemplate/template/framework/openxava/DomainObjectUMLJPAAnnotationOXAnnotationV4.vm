@@ -56,22 +56,22 @@ import $importDomainObjectUML;
 		name="base",
 		members=
         "" 
-#foreach ($column in ${table.attributes})
+##foreach ($column in ${table.attributes})
+##putColumnParams()
+##columnJavaNaming()
+##        + " $columnVar ;" 	
+##end	
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-        + " $columnVar ;" 	
-#end	
+        + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
+#end
+#end
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))##$table.parents)
 #putReferenceParams2()
 	    + "${localColumnVariable};"  
 #end	
-#foreach ($columnGroup in ${table.fieldGroupsList})
-//[
-#foreach ($column in $columnGroup)
-//$column.name
-#end
-//]
-#end
 		),
 	@View(
 		name="Create", 
@@ -86,13 +86,20 @@ import $importDomainObjectUML;
 #writeViewChildrenMember()
 	),
     @View(name="${domainVariableName}${defaultViewExt}", 
-	      members=
-        "#foreach ($column in ${table.primaryKeyColumns}) #putColumnParams()$columnVar ;#end" 	
-#foreach ($column in ${table.attributes})
-#if (!$column.isLob())
+	   members=
+          "#foreach ($column in ${table.primaryKeyColumns}) #putColumnParams()$columnVar ;#end" 	
+##foreach ($column in ${table.attributes})
+##if (!$column.isLob())
+##putColumnParams()
+##columnJavaNaming()
+##        + " $columnVar ;" 
+##end
+##end
+#foreach ($columnGroup in $tableUtils.extractFieldGroup($tableUtils.getDisplayableAttributes($table), $table))
+#foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-        + " $columnVar ;" 
+        + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
 #end
 #exposeViewParentSemanticRef()
