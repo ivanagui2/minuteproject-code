@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
+import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Index;
@@ -273,5 +274,45 @@ public class TableUtils {
 		}
 		parentsOrder.addAll(parentsLeft);
 		return parentsOrder;
+	}
+	
+	public static List<List<Column>> extractFieldGroup (Column[] columns, Table table) {
+		List<List<Column>> tableFg = table.getFieldGroupsList();
+		List<List<Column>> fgs = new ArrayList<List<Column>>();
+		for (Column column : columns) {
+			List<Column> fg = extractFieldGroup (column, tableFg);
+			if (fg!=null && !fgs.contains(fg)) {
+				fgs.add(fg);
+			}
+		}
+		return fgs;
+	}
+	
+	private static List<Column> extractFieldGroup(Column column, List<List<Column>> tableFg) {
+		for (List<Column> cols : tableFg) {
+			if (isColumnInFieldGroup(column, cols))
+				return cols;
+		}
+		List<Column> retList = new ArrayList<Column>();
+		retList.add(column);
+		return retList;
+	}
+	
+	private static boolean isColumnInFieldGroup(Column column, List<Column> cols) {
+		for (Column col : cols) {
+			if (col!=null && col.getName()!=null && col.getName().equals(column.getName()))
+				return true;
+		}
+		return false;
+	}
+	
+	public static Column [] getDisplayableAttributes (Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Column column : table.getAttributes()) {
+			if (!column.isLob()) {
+				columns.add(column);
+			}
+		}
+		return (Column[])columns.toArray(new Column[columns.size()]);
 	}
 }
