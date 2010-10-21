@@ -25,15 +25,14 @@
 <div class="menustyle" id="menu">
   <ul class="menubar" id="dmenu">
 #foreach ($package in ${businessPackages})
-#if (!$package.listOfTables.isEmpty())
-<!-- $package.listOfTables.size() - $package.listOfTables.isEmpty() -->
+#set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
+#if(!$displayableEntities.isEmpty())
 #set($packageLabel=$openXavaUtils.getPackageName($package))
     <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
 	  <ul class="submenu">
-#foreach ($table in ${package.listOfTables})
-#if(!$table.isManyToMany() && !$table.isLinkEntity())
+#foreach ($table in ${displayableEntities})
 #exposeVariableEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table))
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #if($entitySecurityUtils.isEntityRoleSecured($table))
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
 <mp:isUserInRole role="${roles}">
@@ -55,7 +54,7 @@
 #foreach ($table in ${package.listOfViews})
 #if (!$package.listOfTables.isEmpty())
 #exposeVariableEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table))
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
         <li><a href="home.jsp?application=${applicationOX}&module=${tableClassName}">$tableLabel</a></li>
 #end
 #end
