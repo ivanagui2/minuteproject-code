@@ -6,38 +6,37 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
 import net.sf.minuteProject.configuration.bean.model.data.View;
-import net.sf.minuteProject.utils.CommonUtils;
-import net.sf.minuteProject.utils.FormatUtils;
-import net.sf.minuteProject.utils.ModelUtils;
-
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 public class Package extends AbstractConfiguration{
 
-	private List listOfTables;
-	private List listOfViews;
+	private List<Table> listOfTables;
+	private List<View> listOfViews;
 	private String name;
 	private BusinessPackage businessPackage;
 	private SecurityColor securityColor;
 	private String alias;
 
-	public List getListOfViews() {
+	public List<View> getListOfViews() {
+		if (listOfViews==null) listOfViews = new ArrayList<View>();
 		return listOfViews;
 	}
 	
 	public void addView(View view) {
 		if (listOfViews==null)
-			listOfViews = new ArrayList();
+			listOfViews = new ArrayList<View>();
 		view.setPackage(this);
 		listOfViews.add(view);
 	}
 	
-	public List getListOfTables() {
+	public List<net.sf.minuteProject.configuration.bean.model.data.Table> getListOfTables() {
+		if (listOfTables==null) listOfTables = new ArrayList<Table>();
 		return listOfTables;
 	}
 	
 	public void addTable(net.sf.minuteProject.configuration.bean.model.data.Table table) {
 		if (listOfTables==null)
-			listOfTables = new ArrayList();
+			listOfTables = new ArrayList<Table>();
 		table.setPackage(this);
 		listOfTables.add(table);
 	}

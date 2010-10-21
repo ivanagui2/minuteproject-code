@@ -1,7 +1,12 @@
 package net.sf.minuteProject.plugin.presentation;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.loader.presentation.node.Block;
 import net.sf.minuteProject.loader.presentation.node.Window;
 
@@ -27,4 +32,16 @@ public class PresentationUtils {
 		return block.getIsform();
 	}
 
+	public static List<Table> getDisplayableEntityFromPackage (net.sf.minuteProject.configuration.bean.Package pack) {
+		List<Table> list = new ArrayList<Table>();
+		for (Table table : pack.getListOfTables()) {
+			if (!table.isManyToMany() && !table.isLinkEntity()) 
+				list.add(table);
+		}
+		for (Table table : pack.getListOfViews()) {
+			if (!table.isManyToMany() && !table.isLinkEntity()) 
+				list.add(table);
+		}
+		return list;
+	}
 }

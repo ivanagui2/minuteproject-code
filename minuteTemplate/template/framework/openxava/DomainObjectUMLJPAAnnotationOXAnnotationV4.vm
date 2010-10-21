@@ -213,7 +213,8 @@ public class ${className} {
 #end 
     @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
 #set($semanticReference = $linktableDB.semanticReference)
-#if ($openXavaUtils.hasDescriptionList($linktableDB))    
+#if ($openXavaUtils.hasDescriptionList($linktableDB)) 
+#if ($semanticReference.semanticReferenceBeanPath.size()<2)
     @DescriptionsList(
        descriptionProperties=
 #foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
@@ -222,6 +223,19 @@ public class ${className} {
 #end 
 #end       
     )
+#else
+    @DescriptionsLists({
+       @DescriptionsList(
+         forTabs="${className}TabWithRef", 
+         descriptionProperties=
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
+            "$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+#else "
+#end 
+#end       
+    )         
+    })  
+#end    
     @NoCreate
     @NoModify	
 #end 

@@ -16,13 +16,21 @@ public class I18nUtils {
 		input = StringUtils.replace(input, UNDERSCORE, ONE_SPACE);
 //		input = StringUtils.lowerCase(input);
 		input = FormatUtils.firstUpperCaseOnly(input);
+		//input = plurialize (input);
 		return input;
 	}
-
-	public static String getI18nFromDBNameStripPrefix (Table table) {
-		return getI18nFromDBName(table.getAlias());
-	}
 	
+	public static String plurialize(String input) {
+		if (input!=null) {
+			String lastChar = StringUtils.substring(input, input.length()-1);
+			String strippedInput = input.substring(0, input.length()-1);
+			if (lastChar.equals("y")) return strippedInput + "ies";
+			if (lastChar.equals("s")) return strippedInput + "ses";
+			return strippedInput + "s";
+		}
+		return null;
+	}
+
 	public static String getI18nFromDBNameStripPrefix (String input) {
 		if (input==null) return null;
 		String prefix = StringUtils.substringBefore(input, UNDERSCORE);
@@ -42,7 +50,10 @@ public class I18nUtils {
 	}
 	
 	public static String getI18nFromDBObject (Table table) {
-		return getI18nFromDBNameStripPrefix(table.getAlias());
+		String alias = table.getAlias();
+		if (table.getName().equals(alias))
+			return getI18nFromDBNameStripPrefix(alias);
+		return getI18nFromDBName(alias);
 	}
 	
 	public static String getI18nFromDBObject (Column column) {
@@ -51,4 +62,5 @@ public class I18nUtils {
 		}
 		return getI18nFromDBName(column.getName());
 	}
+	
 }

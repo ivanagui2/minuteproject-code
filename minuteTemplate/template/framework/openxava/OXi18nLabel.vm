@@ -1,7 +1,7 @@
 #exposeVariableComponentSpecific()
 #foreach ($table in $modelEntities)
 #exposeVariableEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table))
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 //$table.name
 #if ($tableUtils.isReferenceDataContentType($linktableDB))  
 #set ($entityPrefix="${tableLabel} ")

@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.presentation.PresentationEntities;
 import net.sf.minuteProject.configuration.bean.presentation.PresentationEntity;
@@ -48,7 +49,7 @@ public class AuthorizationUtils {
 		if (getPresentationEntityPackageAccessRoles(tables, map, model)==null)
 			return null;
 		
-		List<Table> views = pack.getListOfViews();
+		List views = pack.getListOfViews();
 		String roles = getPresentationEntityPackageAccessRoles(views, map, model);
 		if (roles==null)
 			return null;

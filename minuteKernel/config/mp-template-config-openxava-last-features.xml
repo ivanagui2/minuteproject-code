@@ -8,7 +8,8 @@
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
 	<plugin name="openXavaUtils" className="net.sf.minuteProject.plugin.openxava.OpenXavaUtils"></plugin>
-	 
+	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
+	
 	<template-target 
     	name="JPA set"
 		libdir="lib/OX_LIB.vm"
