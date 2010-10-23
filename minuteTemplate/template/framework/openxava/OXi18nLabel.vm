@@ -16,18 +16,23 @@ $tableClassName=$tableLabel
 #columnJavaNaming()
 #set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
 $tableVariableName.$columnVar=${entityPrefix}${columnLabel}
+$tableVariableName.$columnVar[description]=${entityPrefix}${columnLabel}
 #end
 #foreach ($reference in $childReferences)
 #putReferenceParams()
 #columnJavaNaming()
 #set($linkTableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
-$tableVariableName.${link}${columnclass}s=${linkTableLabel}s
+#set($linkTableLabels=$i18nUtils.plurialize(${linkTableLabel}))
+$tableVariableName.${link}${columnclass}s=$linkTableLabels
+$tableVariableName.${link}${columnclass}s[description]=$linkTableLabels
 #end
 #end
 #foreach ($table in $modelEntities)
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #set($linkTableLabel=$i18nUtils.getI18nFromDBObject($linkReference.foreignTable))
-${targetTableVariableName}Via${linkTableName}By${localColumnName}s=${linkTableLabel}s
+#set($linkTableLabels=$i18nUtils.plurialize(${linkTableLabel}))
+${targetTableVariableName}Via${linkTableName}By${localColumnName}s=$linkTableLabels
+${targetTableVariableName}Via${linkTableName}By${localColumnName}s[description]=$linkTableLabels
 #end
 #end
