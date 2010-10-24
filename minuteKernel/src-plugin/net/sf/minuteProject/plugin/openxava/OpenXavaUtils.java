@@ -76,6 +76,7 @@ public class OpenXavaUtils {
 						String c = FormatUtils.getJavaNameVariable(reference.getLocalColumnName());
 						if (addChunk) c = c+"."+chunk;
 						list.add(c);
+						break; // only the first is added
 					}
 				}
 			}
@@ -108,4 +109,7 @@ public class OpenXavaUtils {
 		return getParentSemanticReference (linkTable, reference, true);
 	}
 
+	public static String getColumnDescription(Column column) {
+		return (column.getDescription()!=null)?column.getDescription():"";
+	}
 }

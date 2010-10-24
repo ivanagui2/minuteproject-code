@@ -135,6 +135,7 @@
 					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
 					<set-properties-rule>
 						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="description" prop-name="description" />	
 					</set-properties-rule>		
 					<pattern value="property">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		

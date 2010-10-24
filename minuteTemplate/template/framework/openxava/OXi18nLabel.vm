@@ -16,7 +16,12 @@ $tableClassName=$tableLabel
 #columnJavaNaming()
 #set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
 $tableVariableName.$columnVar=${entityPrefix}${columnLabel}
+#set($columnDescription=$openXavaUtils.getColumnDescription($column))
+#if($columnDescription!="")
+$tableVariableName.$columnVar[description]=$column.description
+#else
 $tableVariableName.$columnVar[description]=${entityPrefix}${columnLabel}
+#end
 #end
 #foreach ($reference in $childReferences)
 #putReferenceParams()
