@@ -1,6 +1,7 @@
 package net.sf.minuteProject.plugin.openxava;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.Package;
@@ -9,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 public class OpenXavaUtils {
@@ -56,23 +58,25 @@ public class OpenXavaUtils {
 	}
 		
 	public static List<String> getParentSemanticReference (Table table) {
-		return getParentSemanticReference(table, true);
+		return getParentSemanticReference(table, null, true);
 	}
 	
 	public static List<String> getParentSemanticReferenceEntityVariable (Table table) {
-		return getParentSemanticReference(table, false);
+		return getParentSemanticReference(table, null, false);
 	}
 	
-	public static List<String> getParentSemanticReference (Table table, boolean addChunk) {
+	public static List<String> getParentSemanticReference (Table table, Reference removeReference, boolean addChunk) {
 		List<String> list = new ArrayList<String>();
 		for (Reference reference : table.getParents()) {
-			Table parent = reference.getForeignTable();
-			if (TableUtils.hasSemanticReference(parent)) {
-				SemanticReference sr = reference.getForeignTable().getSemanticReference();
-				for (String chunk : sr.getSemanticReferenceBeanPath()) {
-					String c = FormatUtils.getJavaNameVariable(reference.getLocalColumnName());
-					if (addChunk) c = c+"."+chunk;
-					list.add(c);
+			if (!ReferenceUtils.isSimilarReference(reference, removeReference)) {
+				Table parent = reference.getForeignTable();
+				if (TableUtils.hasSemanticReference(parent)) {
+					SemanticReference sr = reference.getForeignTable().getSemanticReference();
+					for (String chunk : sr.getSemanticReferenceBeanPath()) {
+						String c = FormatUtils.getJavaNameVariable(reference.getLocalColumnName());
+						if (addChunk) c = c+"."+chunk;
+						list.add(c);
+					}
 				}
 			}
 		}
@@ -89,6 +93,19 @@ public class OpenXavaUtils {
 	public static String getPackageName(Package pack) {
 		//formatUtils.getJavaName(${package.name})
 		return FormatUtils.getJavaName(pack.getAlias());
+	}
+	
+	public static List<String> getListProperties (Reference reference) {
+		List<String> list = new ArrayList<String>();
+		Table linkTable = reference.getForeignTable();
+		list.addAll(getTabDefaultProperties(linkTable));
+		list.addAll(getParentChildRelativeSemanticReference(reference, linkTable));
+		return list;
+	}
+
+	private static Collection<? extends String> getParentChildRelativeSemanticReference(
+			Reference reference, Table linkTable) {
+		return getParentSemanticReference (linkTable, reference, true);
 	}
 
 }

@@ -253,8 +253,8 @@ public class ${className} {
     
 #end
 
-#foreach ($reference in $childReferences)
-#putReferenceParams()
+#foreach ($reference in $table.children)##$childReferences)
+#putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 #set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
 #set ($targetEntityClass="${importDomainObjectForeignTable}.class")
@@ -264,9 +264,14 @@ public class ${className} {
 #else
 #set ($foreignColumnVar = $domainVariableName)
 #end
-    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$foreignColumnVar"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
+    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
-    private Set <$linkclass> ${link}${columnclass}s = new HashSet();
+#set($listProperties=$openXavaUtils.getListProperties($reference))
+    @ListProperties(""+
+       "#foreach ($chunk in $listProperties)   
+$chunk #if ($velocityCount!=$listProperties.size()),#else #end
+#end ")
+    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet(); 
    
 #end
 #end
@@ -374,39 +379,24 @@ public class ${className} {
 #end 
 #end
 
-#foreach ($reference in $childReferences)
-#putReferenceParams()
+#foreach ($reference in $table.children)##$childReferences)
+#putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-    public Set<$linkclass> get${linkclass}${columnclass}s() {
-        if (${link}${columnclass}s == null){
-            ${link}${columnclass}s = new HashSet();
+    public Set<$linkedTableClass> get${linkedTableClass}${linkedColumnClass}s() {
+        if (${linkedTableVariable}${linkedColumnClass}s == null){
+            ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
         }
-        return ${link}${columnclass}s;
+        return ${linkedTableVariable}${linkedColumnClass}s;
     }
 
-    public void set${linkclass}${columnclass}s (Set<$linkclass> ${link}${columnclass}s) {
-        this.${link}${columnclass}s = ${link}${columnclass}s;
+    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${link}${linkedColumnClass}s) {
+        this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
     }	
     
-    public void add${linkclass}${columnclass} ($linkclass ${link}) {
-    	    get${linkclass}${columnclass}s().add($link);
+    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
+    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedTableVariable);
     }
     
-##else
-##foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
-##exposeM2MSpecific() 
-##    public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
-##        if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
-##            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
-##        }
-##        return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
-##    }
-##
-##    public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
-##        this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
-##    }	
-##        
-##end
 #end    
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
