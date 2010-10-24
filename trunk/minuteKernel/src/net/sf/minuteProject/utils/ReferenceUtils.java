@@ -97,4 +97,25 @@ public class ReferenceUtils {
 		}
 		return null;
 	}
+
+	public static boolean isSimilarReference(
+			net.sf.minuteProject.configuration.bean.model.data.Reference reference,
+			net.sf.minuteProject.configuration.bean.model.data.Reference otherReference) {
+		if (reference!=null && otherReference!=null) {
+			return (reference.getForeignTableName().equals(otherReference.getForeignTableName()) &&
+					  reference.getForeignColumnName().equals(otherReference.getForeignColumnName()) && 
+					  reference.getLocalTableName().equals(otherReference.getLocalTableName()) &&
+					  reference.getLocalColumnName().equals(otherReference.getLocalColumnName()) 
+					  )
+					  ||
+					  (reference.getForeignTableName().equals(otherReference.getLocalTableName()) &&
+						reference.getForeignColumnName().equals(otherReference.getLocalColumnName()) && 
+						reference.getForeignTableName().equals(otherReference.getLocalTableName()) &&
+						reference.getForeignColumnName().equals(otherReference.getLocalColumnName()) 
+							  
+					  )
+					  ;
+		}
+		return false;
+	}
 }
