@@ -24,6 +24,18 @@
 #set ($domainObjectComponentClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectComponentVaadin))
 #set ($domainObjectComponentVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectComponentClass))
 #set ($domainObjectComponentImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectComponentVaadin))
+#set ($containerServiceInterfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateVaadinContainerServiceInterface))
+#set ($containerServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($containerServiceInterfaceClass))
+#set ($containerServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateVaadinContainerServiceInterface))
+#set ($containerServiceImplClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateVaadinContainerServiceImpl))
+#set ($containerServiceImplVariable = $commonUtils.getJavaNameVariableFirstLetter($containerServiceImplClass))
+#set ($containerServiceImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateVaadinContainerServiceImpl))
+#end
+
+#macro (exposeVaadinSpringConfig)
+#exposeVaadinTemplate()
+#set ($vaadinSpringContainerConfigFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $templateVaadinSpringContainerConfig))
+#set ($vaadinSpringApplicationContextFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $templateVaadinSpringApplicationContext))
 #end
 
 #macro (exposeVaadinModel)
@@ -81,6 +93,10 @@
 #set ($templateDomainObjectSearchViewVaadin = "DomainObjectSearchViewVaadin")
 #set ($templateModelWindowVaadin = "ModelWindowVaadin")
 #set ($templateDomainObjectViewVaadin = "DomainObjectViewVaadin")
+#set ($templateVaadinContainerServiceInterface = "VaadinContainerServiceInterface")
+#set ($templateVaadinContainerServiceImpl = "VaadinContainerServiceImpl")
+#set ($templateVaadinSpringContainerConfig = "VaadinSpringContainerConfig")
+#set ($templateVaadinSpringApplicationContext = "VaadinSpringApplicationContext")
 #end
 
 #macro (putVaadinClassObjectAndPackage)
