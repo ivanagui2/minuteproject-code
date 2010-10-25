@@ -267,10 +267,12 @@ public class ${className} {
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
 #set($listProperties=$openXavaUtils.getListProperties($reference))
+#if(!$listProperties.isEmpty())
     @ListProperties(""+
        "#foreach ($chunk in $listProperties)   
 $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end ")
+#end
     private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet(); 
    
 #end
@@ -389,7 +391,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
         return ${linkedTableVariable}${linkedColumnClass}s;
     }
 
-    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${link}${linkedColumnClass}s) {
+    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s) {
         this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
     }	
     
