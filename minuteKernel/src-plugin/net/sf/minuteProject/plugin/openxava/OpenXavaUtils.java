@@ -99,12 +99,15 @@ public class OpenXavaUtils {
 	public static List<String> getListProperties (Reference reference) {
 		List<String> list = new ArrayList<String>();
 		Table linkTable = reference.getForeignTable();
-		list.addAll(getTabDefaultProperties(linkTable));
-		list.addAll(getParentChildRelativeSemanticReference(reference, linkTable));
+		List<String> relativeChildSR = getParentChildRelativeSemanticReference(reference, linkTable);
+		if (!relativeChildSR.isEmpty()) {
+			list.addAll(getTabDefaultProperties(linkTable));
+			list.addAll(relativeChildSR);
+		}
 		return list;
 	}
 
-	private static Collection<? extends String> getParentChildRelativeSemanticReference(
+	private static List<String> getParentChildRelativeSemanticReference(
 			Reference reference, Table linkTable) {
 		return getParentSemanticReference (linkTable, reference, true);
 	}
