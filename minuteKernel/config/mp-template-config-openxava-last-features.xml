@@ -23,6 +23,13 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
 		</template>
+		
+		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
+			subdir="" outputsubdir="" technicalPackage="dto"
+			file-extension="java" file-prefix="" file-suffix="" 
+			scope-specific-value="transfer-entity" >
+      		<property name="convertClobToString" value="true"/>
+		</template>		
 
     </template-target>		
   

@@ -8,6 +8,8 @@ public class Field extends AbstractConfiguration {
 	private String linkToTargetEntity, linkToTargetField;
 	private String bidirectional;
 	private Stereotype stereotype;
+	private String type, length;
+	private boolean isMandatory, isId;
 
 	private boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -56,4 +58,43 @@ public class Field extends AbstractConfiguration {
 		this.stereotype = stereotype;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getLength() {
+		return length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
+	}
+
+	public boolean isMandatory() {
+		return isMandatory;
+	}
+
+	public void setMandatory(boolean isMandatory) {
+		this.isMandatory = isMandatory;
+	}
+	
+	public void setIsMandatory(boolean isMandatory) {
+		this.isMandatory = isMandatory;
+	}
+
+	public boolean isId() {
+		return isId;
+	}
+
+	public void setId(boolean isId) {
+		this.isId = isId;
+	}
+
+	public void setIsId(boolean isId) {
+		this.isId = isId;
+	}
 }

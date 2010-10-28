@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
@@ -215,8 +216,10 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void loadModel(Model model) {
 		model.getDataModel().loadDatabase();
-		model.getBusinessModel().secureEntityType();
-		model.getBusinessModel().complementDataModelWithTables();
+		BusinessModel businessModel = model.getBusinessModel();
+		businessModel.secureEntityType();
+		businessModel.complementDataModelWithTables();
+		businessModel.complementDataModelWithTransferEntitiesEnrichment();
 	}
 
 	/*
@@ -244,7 +247,9 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION))
 			generateArtifactsByFunction(template);
 		else if (template.getScopeSpecificValue().equals(SCOPE_TARGET_TEMPLATE))
-			generateArtifactsByTargetTemplate(template);		
+			generateArtifactsByTargetTemplate(template);	
+		else if (template.getScopeSpecificValue().equals(SCOPE_TRANSFER_ENTITY_TEMPLATE))
+			generateArtifactsByTransferEntity(template);		
 	}
 
 	public Model getModel() {
@@ -286,20 +291,38 @@ public class ModelGenerator extends AbstractGenerator {
 			}
 		}
 	}
+
+	protected void generateArtifactsByTransferEntity(Template template) throws MinuteProjectException {	
+		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
+			generateArtifactsByEntity (table, template);
+		}
+	}
 	
 	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
-		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
-			Table table = getDecoratedTable((Table) iter.next());
-			//table.getParents();
-			boolean isToGenerate = true;
-    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-    			if (!template.isToGenerate(table)) {
-    				isToGenerate =false;
-    			}
-    		} 
-    		if (isToGenerate)
-			   writeTemplateResult(table, template);
+		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
+			generateArtifactsByEntity (table, template);
+//			table = getDecoratedTable(table);
+//			boolean isToGenerate = true;
+//    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+//    			if (!template.isToGenerate(table)) {
+//    				isToGenerate =false;
+//    			}
+//    		} 
+//    		if (isToGenerate)
+//			   writeTemplateResult(table, template);
 		}
+	}
+	
+	protected void generateArtifactsByEntity(Table table, Template template) throws MinuteProjectException {	
+		table = getDecoratedTable(table);
+		boolean isToGenerate = true;
+		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+			if (!template.isToGenerate(table)) {
+				isToGenerate =false;
+			}
+		} 
+		if (isToGenerate)
+		   writeTemplateResult(table, template);		
 	}
 
 	protected void generateArtifactsByService(Template template) throws MinuteProjectException {	

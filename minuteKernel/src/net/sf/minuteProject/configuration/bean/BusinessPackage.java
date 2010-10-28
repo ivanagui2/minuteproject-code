@@ -20,40 +20,31 @@ public class BusinessPackage extends AbstractConfiguration {
 	private String defaultPackage, defaultPackageType, autoPackageType;
 
 	private List<Condition> conditions;
-
-	private List<Package> packages;
-
-	private List<Table> tables;
-
-	private List<Package> packageViews;
-
-	private List<View> views;
-	
-	private List<Table> entities;
-
+	private List<Package> packages, packageViews, packageTransferEntities;
+	private List<Table> tables, entities, transferEntities;
+	private List<View> views;	
 	private List packageServices;
-
 	private List services;
 
 	void setPackageServices(Model model, Database database) {
 		packageServices = new ArrayList();
-		Hashtable ht = new Hashtable();
+		Hashtable<String, Package> ht = new Hashtable();
 		View[] views = database.getViews();
 		for (int i = 0; i < views.length; i++) {
 			View view = views[i];
 			view.setDatabase(database);
-			if (ModelUtils.isToGenerate(businessModel, view)) {
-				String packageName = CommonUtils.getBusinessPackageName(model,
-						view);
-				Package pack = (Package) ht.get(packageName);
-				if (pack == null) {
-					pack = new Package();
-					pack.setBusinessPackage(this);
-					pack.setName(packageName);
-				}
-				pack.addView(view);
-				ht.put(packageName, pack);
-			}
+			store (ht, model, view);
+//			if (ModelUtils.isToGenerate(businessModel, view)) {
+//				String packageName = CommonUtils.getBusinessPackageName(model,	view);
+//				Package pack = (Package) ht.get(packageName);
+//				if (pack == null) {
+//					pack = new Package();
+//					pack.setBusinessPackage(this);
+//					pack.setName(packageName);
+//				}
+//				pack.addView(view);
+//				ht.put(packageName, pack);
+//			}
 		}
 		Enumeration enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
@@ -63,40 +54,27 @@ public class BusinessPackage extends AbstractConfiguration {
 
 	public List<View> getServices() {
 		return getViews();
-		// FORMER packageServices
-
-		// if (views == null) {
-		// views = new ArrayList<View>();
-		// for (Iterator<Package> iter = packageServices.iterator();
-		// iter.hasNext();) {
-		// for (Iterator<View> iter2 =
-		// ((Package)iter.next()).getListOfViews().iterator(); iter2.hasNext();
-		// ){
-		// views.add(iter2.next());
-		// }
-		// }
-		// }
-		// return views;
 	}
 
 	void setPackageViews(Model model, Database database) {
 		packageViews = new ArrayList<Package>();
-		Hashtable ht = new Hashtable();
+		Hashtable<String, Package> ht = new Hashtable();
 		View[] views = database.getViews();
 		for (int i = 0; i < views.length; i++) {
 			View view = views[i];
 			view.setDatabase(database);
-			if (ModelUtils.isToGenerate(businessModel, view)) {
-				String packageName = CommonUtils.getBusinessPackageName(model, view);
-				Package pack = (Package) ht.get(packageName);
-				if (pack == null) {
-					pack = new Package();
-					pack.setBusinessPackage(this);
-					pack.setName(packageName);
-				}
-				pack.addView(view);
-				ht.put(packageName, pack);
-			}
+			store (ht, model, view);
+//			if (ModelUtils.isToGenerate(businessModel, view)) {
+//				String packageName = CommonUtils.getBusinessPackageName(model, view);
+//				Package pack = (Package) ht.get(packageName);
+//				if (pack == null) {
+//					pack = new Package();
+//					pack.setBusinessPackage(this);
+//					pack.setName(packageName);
+//				}
+//				pack.addView(view);
+//				ht.put(packageName, pack);
+//			}
 		}
 		Enumeration<Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
@@ -107,10 +85,8 @@ public class BusinessPackage extends AbstractConfiguration {
 	public List<View> getViews() {
 		if (views == null || views.isEmpty()) {
 			views = new ArrayList<View>();
-			for (Iterator<Package> iter = getPackageViews().iterator(); iter
-					.hasNext();) {
-				for (Iterator<View> iter2 = ((Package) iter.next())
-						.getListOfViews().iterator(); iter2.hasNext();) {
+			for (Iterator<Package> iter = getPackageViews().iterator(); iter.hasNext();) {
+				for (Iterator<View> iter2 = ((Package) iter.next()).getListOfViews().iterator(); iter2.hasNext();) {
 					views.add(iter2.next());
 				}
 			}
@@ -119,37 +95,74 @@ public class BusinessPackage extends AbstractConfiguration {
 	}
 
 	void setPackages(Model model, Database database) {
-		packages = new ArrayList<Package>();
+//		packages = new ArrayList<Package>();
 		Hashtable<String, Package> ht = new Hashtable<String, Package>();
 		Table[] tables = database.getTables();
 		for (int i = 0; i < tables.length; i++) {
 			Table table = tables[i];
 			table.setDatabase(database);
-			if (ModelUtils.isToGenerate(businessModel, table)) {
-				String packageName = CommonUtils.getBusinessPackageName(model, table);
-				Package pack = (Package) ht.get(packageName);
-				if (pack == null) {
-					pack = new Package();
-					pack.setBusinessPackage(this);
-					pack.setName(packageName);
-				}
-				pack.addTable(table);
-				ht.put(packageName, pack);
-			}
+			store (ht, model, table);
+//			if (ModelUtils.isToGenerate(businessModel, table)) {
+//				String packageName = CommonUtils.getBusinessPackageName(model, table);
+//				Package pack = (Package) ht.get(packageName);
+//				if (pack == null) {
+//					pack = new Package();
+//					pack.setBusinessPackage(this);
+//					pack.setName(packageName);
+//				}
+//				pack.addTable(table);
+//				ht.put(packageName, pack);
+//			}
 		}
 		Enumeration<Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
-			packages.add(enumeration.nextElement());
+			getPackages().add(enumeration.nextElement());
 		}
+	}
+
+	private void store (Hashtable<String, Package> ht, Model model, Table table) {
+		if (ModelUtils.isToGenerate(businessModel, table)) {
+			String packageName = CommonUtils.getBusinessPackageName(model, table);
+			Package pack = (Package) ht.get(packageName);
+			if (pack == null) {
+				pack = new Package();
+				pack.setBusinessPackage(this);
+				pack.setName(packageName);
+			}
+			pack.addTable(table);
+			ht.put(packageName, pack);
+		}		
+	}
+	
+    public void addTransferEntity (Model model, Table table) {
+    	getTransferEntities().add(table);
+    	String packageName = CommonUtils.getBusinessPackageName(model, table);
+    	boolean isTableAddedToPackage = false;
+    	for (Package pack : getPackageTransferEntities()) {
+    		if (pack.getName().equals(packageName)) {
+    			fillTableIntoPackage (table, pack, packageName);
+    			isTableAddedToPackage = true;
+    		}
+    	}
+    	if (isTableAddedToPackage==false) {
+    		Package pack = new Package();
+    		fillTableIntoPackage (table, pack, packageName);
+    		getPackageTransferEntities().add(pack);
+    	}
+    }
+	
+	private void fillTableIntoPackage(Table table, Package pack, String packageName) {
+		table.setPackage(pack);
+		pack.setName(packageName);
+		pack.addTable(table);
+		pack.setBusinessPackage(this);
 	}
 
 	public List<Table> getTables() {
 		if (tables == null) {
 			tables = new ArrayList<Table>();
-			for (Iterator<Package> iter = getPackages().iterator(); iter
-					.hasNext();) {
-				for (Iterator<Table> iter2 = ((Package) iter.next())
-						.getListOfTables().iterator(); iter2.hasNext();) {
+			for (Iterator<Package> iter = getPackages().iterator(); iter.hasNext();) {
+				for (Iterator<Table> iter2 = ((Package) iter.next()).getListOfTables().iterator(); iter2.hasNext();) {
 					tables.add(iter2.next());
 				}
 			}
@@ -220,7 +233,22 @@ public class BusinessPackage extends AbstractConfiguration {
 		if (defaultPackage==null)
 			return businessModel.getModel().getName();
 		return defaultPackage;
+	}	
+	
+	public List<Table> getTransferEntities() {
+		if (transferEntities==null) transferEntities = new ArrayList<Table>();
+		return transferEntities;
 	}
+
+	public void addTransferEntity(Table transferEntity) {
+		getTransferEntities().add(transferEntity);
+	}
+
+	public List<Package> getPackageTransferEntities() {
+		if (packageTransferEntities==null) packageTransferEntities = new ArrayList<Package>();
+		return packageTransferEntities;
+	}
+
 
 	public void setDefaultPackage(String defaultPackage) {
 		this.defaultPackage = defaultPackage;

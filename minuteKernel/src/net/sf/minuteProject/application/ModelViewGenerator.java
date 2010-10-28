@@ -183,9 +183,9 @@ public class ModelViewGenerator extends ModelGenerator {
 
 	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		super.generateArtifactsByEntity(template);
-		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getViews().iterator(); iter.hasNext(); ) {
-			View view = (View) iter.next();
-			writeTemplateResult(view, template);
+		for (View view :  getModel().getBusinessModel().getBusinessPackage().getViews()) {
+			generateArtifactsByEntity (view, template);
+//			writeTemplateResult(view, template);
 		}
 	}
 	

@@ -158,10 +158,6 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 	}
 
 	public Model getModel() {
-//		if (model == null) {
-//			ModelGenerator modelGenerator = new ModelGenerator(getModelConfig());
-//			setModel((Model) modelGenerator.load());
-//		}
 		return model;
 	}
 
@@ -174,10 +170,10 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 	}
 
 	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
-		List packages = model.getBusinessModel().getBusinessPackage()
+		List<Package> packages = model.getBusinessModel().getBusinessPackage()
 				.getPackages();
-		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-			writeTemplateResult((Package) iter.next(), template);
+		for (Package pack : packages) {
+			writeTemplateResult(pack, template);
 		}
 	}
 
@@ -210,126 +206,6 @@ public class ModelServiceGenerator extends ModelViewGenerator {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", model);
-	}
-	
-//	private void putPluginContextObject (VelocityContext context, Template template) {
-//		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
-//		for (Plugin plugin : plugins) {
-//			ClassLoader cl = ClassLoader.getSystemClassLoader();
-//			try {
-//				Class clazz = cl.loadClass(plugin.getClassName());
-//				Object velocityObject = clazz.newInstance();
-//				context.put(plugin.getName(), velocityObject);
-//			} catch (ClassNotFoundException e) {
-//				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
-//				e.printStackTrace();
-//			} catch (InstantiationException e) {
-//				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
-//			} catch (IllegalAccessException e) {
-//				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
-//			}
-//		}
-//	}
-	
-//	protected void putStandardContextObject (VelocityContext context) {
-//		context.put("convertUtils", getConvertUtils());
-//		context.put("commonUtils", getCommonUtils());
-//		context.put("columnUtils", getColumnUtils());
-//		context.put("viewUtils", getViewUtils());
-//		context.put("formatUtils", getFormatUtils());
-//		context.put("bslaLibraryUtils", getBslaLibraryUtils());
-//		context.put("databaseUtils", getDatabaseUtils());
-//		context.put("modelUtils", getModelUtils());
-//		context.put("URLUtils", getUrlUtils());
-//		context.put("TestUtils", getTestUtils());
-//		context.put("WebUtils", getWebUtils());
-//		context.put("sqlUtils", getSqlUtils());
-//		context.put("tableUtils", getTableUtils());
-//		context.put("testUtils", getTestUtils());		
-//	}
-
-//	public BslaLibraryUtils getBslaLibraryUtils() {
-//		if (bslaLibraryUtils==null)
-//			bslaLibraryUtils = new BslaLibraryUtils();
-//		return bslaLibraryUtils;
-//	}
-//
-//	public ColumnUtils getColumnUtils() {
-//		if (columnUtils==null)
-//			columnUtils = new ColumnUtils();
-//		return columnUtils;
-//	}
-//
-//	public CommonUtils getCommonUtils() {
-//		if (commonUtils==null)
-//			commonUtils = new CommonUtils();
-//		return commonUtils;
-//	}
-//
-//	public ConvertUtils getConvertUtils() {
-//		if (convertUtils == null)
-//			convertUtils = new ConvertUtils();
-//		return convertUtils;
-//	}
-//
-//	public DatabaseUtils getDatabaseUtils() {
-//		if (databaseUtils == null)
-//			databaseUtils = new DatabaseUtils();
-//		return databaseUtils;
-//	}
-//
-//	public FormatUtils getFormatUtils() {
-//		if (formatUtils == null)
-//			formatUtils = new FormatUtils();
-//		return formatUtils;
-//	}
-//
-//	public ModelUtils getModelUtils() {
-//		if (modelUtils == null)
-//			modelUtils = new ModelUtils();
-//		return modelUtils;
-//	}
-//
-//	public SqlUtils getSqlUtils() {
-//		if (sqlUtils == null)
-//			sqlUtils = new SqlUtils();
-//		return sqlUtils;
-//	}
-//
-//	public TableUtils getTableUtils() {
-//		if (tableUtils == null)
-//			tableUtils = new TableUtils();
-//		return tableUtils;
-//	}
-//
-//	public TestUtils getTestUtils() {
-//		if (testUtils == null)
-//			testUtils = new TestUtils();
-//		return testUtils;
-//	}
-//
-//	public URLUtils getUrlUtils() {
-//		if (urlUtils == null)
-//			urlUtils = new URLUtils();
-//		return urlUtils;
-//	}
-//
-//	public ViewUtils getViewUtils() {
-//		if (viewUtils == null)
-//			viewUtils = new ViewUtils();
-//		return viewUtils;
-//	}
-//
-//	public WebUtils getWebUtils() {
-//		if (webUtils == null)
-//			webUtils = new WebUtils();
-//		return webUtils;
-//	}
-//
-//	/* 
-//	 * private getter of the context object 
-//	 */
-	
-	
+	}	
 	
 }

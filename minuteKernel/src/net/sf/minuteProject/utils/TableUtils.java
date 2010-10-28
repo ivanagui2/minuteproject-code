@@ -61,12 +61,21 @@ public class TableUtils {
 	public static Table getTable(Database database, String tablename){
 		return getEntity(database, tablename);
 	}
+
+	public static Table getTransferEntity(Database database, String tablename){
+		for (Table table : database.getDataModel().getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
+			if (tablename.equals(table.getName())) return table;
+		}
+		return null;
+	}
+	
 	
 	public static Table getTableOnly(Database database, String tablename){
 		int maxTable = database.getTables().length;
 		for (int i = 0; i < maxTable; i++) {
 			Table table = database.getTables()[i];
-			if (table.getName().equals(tablename) && table.getType().equals(Table.TABLE))
+			if (table.getName()!=null && table.getType()!=null && 
+				table.getName().equals(tablename) && table.getType().equals(Table.TABLE))
 				return table;
 		}
 		return null;
