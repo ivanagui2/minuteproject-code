@@ -18,6 +18,19 @@ public class ConvertUtils {
 	public static final String JAVA_BLOB_TYPE 					=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 					=   "java.sql.Clob";	
 
+	public static final String DB_STRING_TYPE 					=   "VARCHAR";	
+	public static final String DB_INTEGER_TYPE 					=   "INTEGER";	
+	
+	public static final String UML_STRING_TYPE 					=   "string";	
+	public static final String UML_INTEGER_TYPE 				=   "integer";	
+	
+	public static String getDBFullTypeFromUMLType (String type) {
+		if (type==null) return DB_STRING_TYPE;
+		type = StringUtils.lowerCase(type);
+		if (UML_STRING_TYPE.equals(type)) return DB_STRING_TYPE;
+		if (UML_INTEGER_TYPE.equals(type)) return DB_INTEGER_TYPE;
+		return DB_STRING_TYPE;
+	}
 	
 	public static String getJavaTypeFromDBFullType (String dBType) {
 		String retStr=null;
@@ -106,6 +119,7 @@ public class ConvertUtils {
 		//return StringUtils.
 		// TODO from getJavaTypeFromDBFullType
 		String retStr=null;
+		if (dBType==null) return "String";
 		if (dBType.equals("BOOLEAN"))
 			return  "java.lang.Boolean";					
 		if (dBType.equals("BIGINT"))
@@ -165,7 +179,8 @@ public class ConvertUtils {
 	}
 	
 	public static String getJavaTypeFromDBType (String dBType, int scale) {
-		String retStr=getJavaTypeFromDBType (dBType);		
+		String retStr=getJavaTypeFromDBType (dBType);	
+		if (dBType==null) return retStr;
 		if (dBType.equals("DECIMAL")) {
 			if (scale==0)
 				return "Long";

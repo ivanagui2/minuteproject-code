@@ -72,6 +72,7 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isLengthPrecisionColumn(Column column) {
+		if (column==null || column.getType()==null) return false;
 		if (
 			column.getType().equals("CHAR") || 
 			column.getType().equals("CHAR2") ||

@@ -21,12 +21,14 @@ import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.service.Service;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ComponentUtils;
+import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.ForeignKeyUtils;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -47,11 +49,11 @@ public class BusinessModel {
 	// for xml manipulation
 	private XmlEnrichment xmlEnrichment;
 	
-	public void complementDataModel () {
-		complementDataModelWithTables();
-		complementDataModelWithViews();
-		complementService();
-	}
+//	public void complementDataModel () {
+//		complementDataModelWithTables();
+//		complementDataModelWithViews();
+//		complementService();
+//	}
 
 	public void complementDataModelWithTables () {
 		Database database = model.getDataModel().getDatabase();
@@ -59,6 +61,7 @@ public class BusinessModel {
 			getBusinessPackage().setPackages(model, database);
 		}
 		complementDataModelWithTablesEnrichment();
+		complementDataModelWithPackageEnrichment();
 	}
 	
 	public void complementDataModelWithViews () {
@@ -67,6 +70,7 @@ public class BusinessModel {
 			getBusinessPackage().setPackageViews(model, database);
 		}
 		complementDataModelWithViewsEnrichment();
+		complementDataModelWithPackageEnrichment();
 	}
 
 	private void complementDataModelWithViewsEnrichment () {
@@ -89,21 +93,54 @@ public class BusinessModel {
 						String typeEntity = TableUtils.getTargetType(database, entity);
 						if ((Table.VIEW.equals(type) && Table.VIEW.equals(typeEntity)))
 							complementView(entity, database);
-						if (type.equals(Table.TABLE) && Table.TABLE.equals(typeEntity))
-//						else
+						else if (type.equals(Table.TABLE) && Table.TABLE.equals(typeEntity))
 							complementTable(entity,database); 
 					}
 				}
+			}
+		}
+	}
+
+	public void complementDataModelWithTransferEntitiesEnrichment () {
+		Database database = model.getDataModel().getDatabase();
+		if (database!=null) {
+			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			if (enrichment != null) {
+				if (enrichment.getEntities()!=null) {
+					for (Entity entity : enrichment.getEntities()) {
+						if (entity.isTransferEntity())
+							createTransferEntity (entity, database);
+						complementTransferEntity(entity, database);
+					}
+//					for (Entity entity : enrichment.getEntities()) {
+//						if (entity.isTransferEntity())
+//							complementTransferEntity(entity, database);
+//					}					
+				}
+			}
+		}
+	}
+	
+	private void complementDataModelWithPackageEnrichment () {
+		Database database = model.getDataModel().getDatabase();
+		if (database!=null) {
+			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			if (enrichment != null) {
 				if (enrichment.getPackages()!=null) {
 					for (Package pack : enrichment.getPackages()) {
 						complementPackage (pack, model);
 					}
 				}
 			}
-			
 		}
 	}
-	
+	private void createTransferEntity(Entity entity, Database database) {
+		net.sf.minuteProject.configuration.bean.model.data.Table table = entity.getTable(database);
+		database.addTable(table);
+		table.setDatabase(database);
+		businessPackage.addTransferEntity(model, table);
+	}
+
 	public void secureEntityType () {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
@@ -150,6 +187,13 @@ public class BusinessModel {
 	
 	private void complementTable(Entity entity, Database database) {
 		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTable(database, entity.getName());
+		if (table!=null){
+			complementEntityWithProperties(table, entity);
+		}		
+	}
+	
+	private void complementTransferEntity(Entity entity, Database database) {
+		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTransferEntity(database, entity.getName());
 		if (table!=null){
 			complementEntityWithProperties(table, entity);
 		}		

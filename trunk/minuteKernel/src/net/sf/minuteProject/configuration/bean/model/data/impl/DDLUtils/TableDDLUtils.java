@@ -84,13 +84,13 @@ public class TableDDLUtils extends TableAbstract {
 		return new ColumnDDLUtils(table.findColumn(name, caseSensitive), this);
 	}
 
-	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key) {
-		return new ForeignKeyDDLUtils (table.findForeignKey(key));
-	}
-
-	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key, boolean caseSensitive) {
-		return new ForeignKeyDDLUtils (table.findForeignKey(key, caseSensitive));
-	}
+//	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key) {
+//		return new ForeignKeyDDLUtils (table.findForeignKey(key));
+//	}
+//
+//	private ForeignKey findForeignKey(org.apache.ddlutils.model.ForeignKey key, boolean caseSensitive) {
+//		return new ForeignKeyDDLUtils (table.findForeignKey(key, caseSensitive));
+//	}
 
 	public Index findIndex(String name) {
 		return new IndexDDLUtils(table.findIndex(name), this);
