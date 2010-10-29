@@ -38,6 +38,18 @@
 	</module>	
 #end
 	
+#foreach ($table in $model.businessModel.businessPackage.transferEntities)
+#exposeVariableEntitySpecific()
+	<module name="$tableClassName" >
+	    <model name="$tableClassName"/>
+	    <view name="base"/>   
+#foreach ($action in $tableUtils.getActions($table))	    
+	    <controller name="$action.name"/>
+#end	    
+	    <mode-controller name="DetailOnly"/>
+	</module>
+#end
+		
 </application>
 
 
