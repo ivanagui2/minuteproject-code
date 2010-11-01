@@ -23,6 +23,7 @@ import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
+import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -249,7 +250,17 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (template.getScopeSpecificValue().equals(SCOPE_TARGET_TEMPLATE))
 			generateArtifactsByTargetTemplate(template);	
 		else if (template.getScopeSpecificValue().equals(SCOPE_TRANSFER_ENTITY_TEMPLATE))
-			generateArtifactsByTransferEntity(template);		
+			generateArtifactsByTransferEntity(template);	
+		else if (template.getScopeSpecificValue().equals(SCOPE_ACTION_TEMPLATE))
+			generateArtifactsByAction(template);			
+	}
+
+	private void generateArtifactsByAction(Template template) throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
+			for (Action action : table.getActions()) {
+				writeTemplateResult(action, template);
+			}
+		}
 	}
 
 	public Model getModel() {
@@ -277,8 +288,8 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	protected void generateArtifactsByField(Template template) throws MinuteProjectException {	
-		for (Iterator iter =  getModel().getBusinessModel().getBusinessPackage().getTables().iterator(); iter.hasNext(); ) {
-			Table table = getDecoratedTable((Table) iter.next());
+		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
+			table = getDecoratedTable(table);
 			for (Column column : table.getColumns()) {
 				boolean isToGenerate = true;
 	    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {

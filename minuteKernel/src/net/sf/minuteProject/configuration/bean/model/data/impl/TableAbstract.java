@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
@@ -32,6 +33,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private EntitySecuredAccess entitySecuredAccess;
 	private List<List<Column>> fieldGroupsList;
 	private List<FieldGroup> fieldGroups;
+	private List<Action> actions;
 	
 	public TableAbstract () {
 	}
@@ -44,8 +46,9 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setSemanticReference(table.getSemanticReference());
 		this.setLinkEntity(table.isLinkEntity());
 		this.setFieldGroups(table.getFieldGroups());
+		this.setActions(table.getActions());
 	}
-	
+
 	public String getName () {
 		return table.getName();
 	}
@@ -416,8 +419,20 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		return fieldGroups;
 	}
 
-//	public void setFieldGroups(List<FieldGroup> fieldGroups) {
-//		this.fieldGroupsInput = fieldGroupsInput;
-//	}
+	public void addFieldGroup (FieldGroup fieldGroup) {
+		getFieldGroups().add(fieldGroup);
+	}
 	
+	public List<Action> getActions() {
+		if (actions==null) actions = new ArrayList<Action>();
+		return actions;
+	}
+	
+	public void addAction (Action action) {
+		getActions().add(action);
+	}	
+	
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
+	}
 }

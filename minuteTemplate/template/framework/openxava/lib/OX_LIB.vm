@@ -137,3 +137,13 @@ properties=""
 #end
 #end
 
+#macro (exposeOXActionSpecific)
+#exposeOXTemplate()
+#set ($actionClass = $commonUtils.getTemplateClassName($action, $template, $templateActionOpenXava))
+#set ($actionVariable = $commonUtils.getJavaNameVariableFirstLetter($actionClass))
+#set ($actionImport = $commonUtils.getEntityLevelTemplateFullPath($action, $template, $templateActionOpenXava))
+#end
+
+#macro (exposeOXTemplate)
+#set ($templateActionOpenXava = "ActionOX")
+#end

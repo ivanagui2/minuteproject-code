@@ -17,13 +17,13 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	private String refname;
 	private String description;
 	private List<Property> properties;
-	private AbstractConfiguration parent;
+	private GeneratorBean parent;
 	private String configurationFileInClassPath;
 	
-	public AbstractConfiguration getParent() {
+	public GeneratorBean getParent() {
 		return parent;
 	}
-	public void setParent(AbstractConfiguration parent) {
+	public void setParent(GeneratorBean parent) {
 		this.parent = parent;
 	}
 	

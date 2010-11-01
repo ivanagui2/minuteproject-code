@@ -23,6 +23,7 @@ public class Entity extends AbstractConfiguration {
 	private String structure;
 	private VirtualPrimaryKey virtualPrimaryKey;
 	private List<Field> fields;
+	private List<Action> actions;
 	private Enrichment enrichment;
 	private String contentType; //pseudo-static, reference, life-business-data
 	private SemanticReference semanticReference;
@@ -139,8 +140,22 @@ public class Entity extends AbstractConfiguration {
 		getFieldGroups().add(fieldGroup);
 	}
 	
+	public List<Action> getActions() {
+		if (actions==null) actions = new ArrayList<Action>();
+		return actions;
+	}
+	
+	public void addAction (Action action) {
+		getActions().add(action);
+	}
+		
 	public Table getTable (Database database) {
 		Table table = new TableDDLUtils(getTable(this, database));
+		for (Action action : this.getActions()) {
+			action.setParent(table);
+		}
+		table.setActions (this.getActions());
+		table.setFieldGroups(this.getFieldGroups());
 		return table;
 	}
 	

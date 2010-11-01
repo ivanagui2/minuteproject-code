@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
@@ -324,4 +325,9 @@ public class TableUtils {
 		}
 		return (Column[])columns.toArray(new Column[columns.size()]);
 	}
+	
+//	public static List<Action> getActions (Table table) {
+//		List<Action> actions = new ArrayList<Action>();
+//		return actions;
+//	}
 }

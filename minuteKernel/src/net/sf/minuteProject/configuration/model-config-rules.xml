@@ -231,6 +231,13 @@
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
 					<alias attr-name="is-transfer-entity" prop-name="transferEntity" />
 				</set-properties-rule>	
+				<pattern value="action">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+					<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+					</set-properties-rule>	
+	            </pattern>				
 				<pattern value="field-group">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup"/>		
 					<set-next-rule methodname="addFieldGroup" paramtype="net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup"/>		

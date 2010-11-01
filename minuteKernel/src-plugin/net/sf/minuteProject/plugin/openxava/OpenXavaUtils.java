@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.Package;
+import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
@@ -12,6 +14,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
 
 public class OpenXavaUtils {
 
@@ -115,4 +118,13 @@ public class OpenXavaUtils {
 	public static String getColumnDescription(Column column) {
 		return (column.getDescription()!=null)?column.getDescription():"";
 	}
+	
+	public static String getActionClassName (Action action) {
+		return RestrictedCodeUtils.convertToValidJava(action.getName());
+	}
+	
+	public static String getControllerName (Table table) {
+		return FormatUtils.getJavaName(table.getName())+"Controller";
+	}
+	
 }
