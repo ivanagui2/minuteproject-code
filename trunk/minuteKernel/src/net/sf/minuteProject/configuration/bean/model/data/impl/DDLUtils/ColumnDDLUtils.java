@@ -420,8 +420,6 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 		return getTable().getPackage().getTechnicalPackage(template);
 	}
 
-	
-	
 	public Stereotype getStereotype() {
 		return stereotype;
 	}

@@ -440,6 +440,10 @@ public class CommonUtils {
 		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
 	}
 	
+	public static String getEntityLevelTemplateFullPath(AbstractConfiguration bean, Template template, String targetTemplateName) {
+		return getPackageName(bean, template, targetTemplateName) +"."+ getTemplateClassName (bean, template, targetTemplateName);
+	}	
+	
 	public static String getTemplateJavaVariableName(Table table, Model model, String targetTemplateName) {
 		String result= getTemplateClassName(table, model, targetTemplateName);
 		return CommonUtils.getJavaVariableName(result);

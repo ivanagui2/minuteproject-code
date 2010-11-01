@@ -4,13 +4,10 @@
 #set ($model = $table.package.businessPackage.businessModel.model)
 #set ($tableDB = $table)
 #set ($isView = $tableUtils.isView($table))
-##set ($isView = $tableUtils.isView($database, $tableDB.name))
-##set ($database = $model.dataModel.database)
 #set ($configuration = $model.configuration)
 #set ($tableVariableName = $commonUtils.getTableVariableName($table))
 #set ($packageName = $commonUtils.getPackageName($model, $template, $table))
 #set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $table))
-##set ($businessPackageName = $commonUtils.getBusinessPackage($model, $table))
 #set ($businessPackageName = $commonUtils.getBusinessPackageName($model, $table))
 #set ($className = $commonUtils.getClassName2($table, $template))
 #set ($tCN = $commonUtils.getTcn($table))
@@ -18,8 +15,6 @@
 #set ($domainClassName = $tableClassName)
 #set ($domainVariableName = $tableVariableName)
 #set ($variableName = $commonUtils.getVariableName($tableDB, $template))
-##set ($parentReferences = $table.getParents())##$modelUtils.getParents($database, $table))
-##set ($childReferences = $table.getChildren())##$modelUtils.getChildren($database,$table))
 #set ($parentReferences = $modelUtils.getParents($database, $table))
 #set ($childReferences = $modelUtils.getChildren($database,$table))
 #set ($primaryKey = $commonUtils.getPrimaryKey($table))
@@ -36,6 +31,11 @@
 #set ($isMany2Many = $tableUtils.isMany2Many($table))
 #set ($hasUniqueKey = $tableUtils.hasUniqueKey($table))
 #set ($hasOnlyOnePrimaryKey = $tableUtils.hasOnlyOnePrimaryKey($table))
+#end
+
+#macro (exposeVariableActionSpecific)
+#set ($className = $commonUtils.getClassName($action, $template))
+#set ($packageName = $commonUtils.getPackageName($action, $template))
 #end
 
 #macro(exposeTableMetadata)

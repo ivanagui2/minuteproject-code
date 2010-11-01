@@ -1,0 +1,10 @@
+#exposeVariableActionSpecific()
+package $packageName;
+
+public class ${className} extends org.openxava.actions.BaseAction{
+
+	public void execute() throws Exception {
+		//super.execute();
+		//TODO
+	}
+}

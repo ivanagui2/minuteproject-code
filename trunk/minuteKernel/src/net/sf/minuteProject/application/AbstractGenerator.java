@@ -56,6 +56,7 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SCOPE_DATAMODEL_FUNCTION = "function";
 	protected static final String SCOPE_TARGET_TEMPLATE = "target";
 	protected static final String SCOPE_TRANSFER_ENTITY_TEMPLATE = "transfer-entity";
+	protected static final String SCOPE_ACTION_TEMPLATE="action";
 	
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;

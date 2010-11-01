@@ -374,6 +374,19 @@
 		</template>	
 								
 	</template-target>	
+	
+	<template-target 
+    	name="OpenXava action"
+    	outputdir="src-to-implement">	
+
+		<template
+			name="ActionOX" templateFileName="ActionOX.vm" 
+			subdir="" outputsubdir="" technicalPackage="action" 
+			file-extension="java" file-prefix="" file-suffix="Action" 
+			scope-specific-value="action">
+		</template>	
+								
+	</template-target>	
 		
 	<template-target 
     	name="OpenXava 4.m5 patches"
