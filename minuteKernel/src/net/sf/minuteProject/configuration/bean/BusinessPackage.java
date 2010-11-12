@@ -129,7 +129,10 @@ public class BusinessPackage extends AbstractConfiguration {
 				pack.setBusinessPackage(this);
 				pack.setName(packageName);
 			}
-			pack.addTable(table);
+			if (table.getType().equals(Table.TABLE))
+				pack.addTable(table);
+			if (table.getType().equals(Table.VIEW))
+				pack.addView((View)table);			
 			ht.put(packageName, pack);
 		}		
 	}

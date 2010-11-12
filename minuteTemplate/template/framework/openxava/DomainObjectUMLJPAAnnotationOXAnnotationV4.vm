@@ -265,7 +265,7 @@ public class ${className} {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    @JoinColumn (name="$columnDB.name", referencedColumnName="$pK")
+//    @JoinColumn (name="$columnDB.name", referencedColumnName="$pK") commented since hibernate 3.6.0
 #set($listProperties=$openXavaUtils.getListProperties($reference))
 #if(!$listProperties.isEmpty())
     @ListProperties(""+

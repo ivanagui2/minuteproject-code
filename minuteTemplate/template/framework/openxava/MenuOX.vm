@@ -8,7 +8,7 @@
 
 <div id="menuheader">
   	<span id="menutitle">Menu 
-      <a href="homeMenu.jsp" ><img src="images/home.gif"></a>
+      <a href="/$applicationOX/xava/homeMenu.jsp" ><img src="/$applicationOX/xava/images/home.gif"></a>
     </span>
   	<span id="menuPowerByMP">
       <a href="http://minuteproject.wikispaces.com" >powered by minuteProject</a>
@@ -32,12 +32,12 @@
 	  <ul class="submenu">
 #foreach ($table in ${displayableEntities})
 #exposeVariableEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#exposeOXEntitySpecific()
 #if($entitySecurityUtils.isEntityRoleSecured($table))
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
 <mp:isUserInRole role="${roles}">
 #end
-        <li><a href="home.jsp?application=${applicationOX}&module=${tableClassName}">$tableLabel</a></li>
+        <li><a href="$url">$tableLabel</a></li>
 #if($entitySecurityUtils.isEntityRoleSecured($table))
 </mp:isUserInRole>
 #end
@@ -52,10 +52,10 @@
     <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
 	  <ul class="submenu">
 #foreach ($table in ${package.listOfViews})
-#if (!$package.listOfTables.isEmpty())
+#if (!$package.listOfViews.isEmpty())
 #exposeVariableEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        <li><a href="home.jsp?application=${applicationOX}&module=${tableClassName}">$tableLabel</a></li>
+#exposeOXEntitySpecific()
+        <li><a href="$url">$tableLabel</a></li>
 #end
 #end
 	  </ul>
