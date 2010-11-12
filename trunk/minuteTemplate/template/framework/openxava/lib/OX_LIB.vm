@@ -64,6 +64,11 @@
 #set ($applicationOX=$configuration.name)
 #end
 
+#macro (exposeOXEntitySpecific)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($url=$openXavaUtils.getModuleUrl(${applicationOX},${tableClassName}))
+#end
+
 #macro (exposeTabAll)
 #set ($hasTabAll = $openXavaUtils.hasTabAll($table))
 #set ($tabinfos = $openXavaUtils.getTabAll($table))

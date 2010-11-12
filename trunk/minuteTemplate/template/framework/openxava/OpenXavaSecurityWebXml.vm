@@ -13,6 +13,14 @@
 	<description>$applicationOX generated application by MinuteProject</description>
 
 	<servlet>
+		<servlet-name>moduleHome</servlet-name>
+		<servlet-class>net.sf.minuteproject.openxava.web.servlet.ModuleHomeServlet</servlet-class>
+	</servlet>	
+	<servlet>
+		<servlet-name>module</servlet-name>
+		<servlet-class>org.openxava.web.servlets.ModuleServlet</servlet-class>
+	</servlet>	
+	<servlet>
 		<servlet-name>images</servlet-name>
 		<servlet-class>org.openxava.web.servlets.ImagesServlet</servlet-class>
 	</servlet>
@@ -48,6 +56,16 @@
 		<load-on-startup>12</load-on-startup>
 	</servlet>
 	
+	
+	<servlet-mapping>
+		<servlet-name>moduleHome</servlet-name>
+		<url-pattern>/modulesHome/*</url-pattern>
+	</servlet-mapping>	
+		
+	<servlet-mapping>
+		<servlet-name>module</servlet-name>
+		<url-pattern>/modules/*</url-pattern>
+	</servlet-mapping>		
 	<servlet-mapping>
 		<servlet-name>images</servlet-name>
 		<url-pattern>/xava/ximage</url-pattern>
@@ -81,14 +99,15 @@
 		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>	
 	
-  <mime-mapping>
-    <extension>
-        jnlp
-    </extension>
-    <mime-type>
-        application/x-java-jnlp-file
-    </mime-type>
-  </mime-mapping>	
+    <mime-mapping>
+        <extension>
+            jnlp
+        </extension>
+        <mime-type>
+            application/x-java-jnlp-file
+        </mime-type>
+    </mime-mapping>	
+	
 
   <!-- Define a Security Constraint on this Application -->
 #if ($securityAuthenticationType!="none")

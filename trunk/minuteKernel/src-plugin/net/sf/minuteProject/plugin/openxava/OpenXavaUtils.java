@@ -127,4 +127,15 @@ public class OpenXavaUtils {
 		return FormatUtils.getJavaName(table.getName())+"Controller";
 	}
 	
+	public static String getModuleUrlRelativeViaParameter (String application, String module) {
+		return "home.jsp?application="+application+"&module="+module;
+	}
+	
+	public static String getModuleUrlAbsoluteViaSlash (String application, String module) {
+		return "/"+application+"/modulesHome/"+module;
+	}	
+	
+	public static String getModuleUrl (String application, String module) {
+		return getModuleUrlAbsoluteViaSlash(application, module);
+	}	
 }
