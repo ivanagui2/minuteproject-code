@@ -58,6 +58,10 @@ public class CommonUtils {
 		return FormatUtils.getJavaNameVariableFirstLetter(string);
 	}
 	
+	public static String getPackageName (GeneratorBean bean, Template template, String targetTemplateName) {
+		Template templateTarget = getTargetTemplate(template, targetTemplateName);
+		return getPackageName(bean, templateTarget);
+	}
 	// 4 times (model, package, table, view) use hierachy instead
 	// TODO refactor
 	public static String getPackageName (GeneratorBean bean, Template template) {
@@ -87,6 +91,7 @@ public class CommonUtils {
 	public static String getPackageDirName (Model model, Template template, Table table) {
 		return FormatUtils.getDirFromPackage(getPackageName(model, template, table));
 	}	
+	
 	public static String getPackageDirName (AbstractConfiguration bean, Template template) {
 		return FormatUtils.getDirFromPackage(getPackageName(bean, template));
 	}	

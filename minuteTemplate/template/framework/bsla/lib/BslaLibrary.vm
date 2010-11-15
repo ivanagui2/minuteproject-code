@@ -266,6 +266,7 @@
 #set ($tableDB = $table)
 #set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport($model, $tableDB, $template))
 #set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+#set ($importDomainObjectPackageNameUML = $commonUtils.getPackageName($tableDB, $template, $templateDomainObjectUML))
 #set ($daoInterfaceName = $bslaLibraryUtils.getDaoInterfaceName($tableDB, $template))
 #set ($daoInterfaceNameUML = $bslaLibraryUtils.getDaoInterfaceUMLName($tableDB, $template))
 #set ($daoInterfaceVariableName = $bslaLibraryUtils.getDaoInterfaceVariableName($tableDB, $template))
