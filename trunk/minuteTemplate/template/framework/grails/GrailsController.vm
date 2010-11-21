@@ -1,0 +1,9 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+#exposeGrailsDomainSpecific()
+#putImportParamsUML()
+package $packageName
+
+class ${className} {
+     def scaffold = $domainObjectUMLClass
+}
