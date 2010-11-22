@@ -1,0 +1,43 @@
+<target name="Grails">		
+	<architecture-target name="openxava" description="openxava architecture">
+	</architecture-target>	
+    <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
+    <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
+	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
+	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
+	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
+   	<plugin name="grailsUtils" className="net.sf.minuteProject.plugin.grails.GrailsUtils"/>
+   	<plugin name="referenceUtils" className="net.sf.minuteProject.utils.ReferenceUtils"/>
+   	
+  	<template-target 
+    	name="Grails"
+		outputdir="grails-app/domain"
+		libdir="lib/Grails_LIB.vm"
+		belongToPackage="true">
+			 
+		<template name="DomainObjectUML" templateFileName="GrailsGorm.vm" 
+			file-extension="groovy"
+			entity-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			>
+		</template>	
+					
+	</template-target>
+	
+  	<template-target 
+    	name="Grails"
+		outputdir="grails-app/controllers"
+		libdir="lib/Grails_LIB.vm"
+		belongToPackage="true">
+			 
+		<template name="GrailsController" templateFileName="GrailsController.vm" 
+			file-extension="groovy"
+			entity-specific="true" file-suffix="Controller" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			>
+		</template>	
+					
+	</template-target>
+		
+</target>

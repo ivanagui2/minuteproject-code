@@ -1,0 +1,6 @@
+#macro (exposeGrailsDomainSpecific)
+#end
+
+#macro (exposeGrailsApplicationSpecific)
+#set($runtimeDatabaseDriverDependency=$grailsUtils.getRuntimeDatabaseDriverDependency($database))
+#end

@@ -14,7 +14,7 @@ class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    static belongsTo = [${colVar}: $linkedTableClass]  
+    static belongsTo = [${columnVar}: $linkedTableClass]  
 #end
 
 #foreach ($reference in $table.children)
@@ -25,18 +25,24 @@ class ${className} {
 #end
 
 	static mapping = {
+	    table '$table.name'
 #foreach($column in ${table.primaryKeyColumns})	
 #putColumnParams()
 #columnJavaNaming()
 		id column: "$column.name"
-#end		
+#end
+#if(!$table.hasVersion)
+		version false
+#end
 	}
 
 	static constraints = {
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-        ${colVar} unique: #if($isColumnUnique) true#else false#end, nullable: #if($column.isRequired())true #else false#end, #if($isLengthPrecisionColumn)maxSize: $column.size#end
+        ${columnVar} unique: #if($isColumnUnique) true#else false#end, nullable: #if($column.isRequired())true #else false#end #if($isLengthPrecisionColumn),maxSize: $column.size#end
+
 #end	
+
 	}
 	
 }
