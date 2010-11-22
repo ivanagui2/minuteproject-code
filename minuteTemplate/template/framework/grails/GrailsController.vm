@@ -4,6 +4,8 @@
 #putImportParamsUML()
 package $packageName
 
+import $importDomainObjectUML
+
 class ${className} {
-     def scaffold = $domainObjectUMLClass
+     def scaffold = $domainClassName
 }
