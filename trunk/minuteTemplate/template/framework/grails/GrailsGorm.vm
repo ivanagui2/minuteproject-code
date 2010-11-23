@@ -2,47 +2,93 @@
 #exposeEnvironmentParams()
 #exposeGrailsDomainSpecific()
 #putImportParamsUML()
+#set ($hasChild = $tableUtils.hasChild($table))
+#set ($hasParent = $tableUtils.hasParent($table))
 package $packageName;
 
 class ${className} {
 
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many)
+#if ($isPkUserProvided)
+    $columnType id
+#end
+#end
+#end
+
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
-	$columnType $columnVar
+    $columnType ${columnVar}
 #end
 
+#if ($hasParent)
+    static belongsTo = [
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    static belongsTo = [${columnVar}: $linkedTableClass]  
+        #if($velocityCount!=1), #end${localColumnVariable}: $linkedTableClass
+#end
+    ]
 #end
 
+#if ($hasChild)
+    static hasMany = [
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-	static hasMany = [${linkedTableVariable}${linkedColumnClass}s: $linkedTableClass]
+##	static hasMany = [${linkedTableVariable}${linkedColumnClass}s: $linkedTableClass]
+        #if($velocityCount==0), #end${linkedTableVariable}${linkedColumnClass}s: $linkedTableClass
+##else
+##        #if($velocityCount!=1), #end${linkedColumnClass}s: $linkedTableClass ##not correct todo
 #end
+#end
+    ]
 #end
 
-	static mapping = {
-	    table '$table.name'
+    static mapping = {
+        table '$table.name'
 #foreach($column in ${table.primaryKeyColumns})	
 #putColumnParams()
 #columnJavaNaming()
-		id column: "$column.name"
+        id (column: "$column.name" 
+#if ($isPkUserProvided)
+                     ,generator: 'assigned'
+#elseif($databaseUtils.isPrimaryKeyPolicySequence($table))
+#set ($sequenceName = $databaseUtils.provideSequence($table))        
+                     ,generator:'sequence',params:[name:'$sequenceName'] 
+#end
+        )
 #end
 #if(!$table.hasVersion)
-		version false
+        version false
 #end
-	}
 
-	static constraints = {
+#if ($hasParent)
+        columns {
+#foreach ($reference in $table.parents)
+#putReferenceParams2()				
+             ${localColumnVariable} column : "$localColumnName" #if($columnUtils.isPkUserProvided(${reference.foreignColumn})), sqltype:'text' #end
+
+#end
+        }
+#end
+    }
+
+    static constraints = {
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#if ($isPkUserProvided) 
+        id (maxSize: $column.size)
+#end
+#end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
         ${columnVar} unique: #if($isColumnUnique) true#else false#end, nullable: #if($column.isRequired())true #else false#end #if($isLengthPrecisionColumn),maxSize: $column.size#end
 
 #end	
 
-	}
+    }
 	
 }
