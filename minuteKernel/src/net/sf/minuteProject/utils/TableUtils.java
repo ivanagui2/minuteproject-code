@@ -244,12 +244,20 @@ public class TableUtils {
 		return children;
 	}
 	
+	public static boolean hasChild (Table table) {
+		return getChildren(table).size()>0;
+	}
+	
 	public static List<Table> getParents (Table table) {
 		List<Table> parents = new ArrayList<Table> ();
 		for (Reference reference : table.getParents()) {
 			parents.add(reference.getForeignTable());
 		}
 		return parents;
+	}
+	
+	public static boolean hasParent (Table table) {
+		return getParents(table).size()>0;
 	}
 	
 	public static Column getVersionColumn (Table table) {
