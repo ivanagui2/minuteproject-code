@@ -32,8 +32,7 @@ public class FormatUtils {
 	}
 
 	public static String getJavaNameVariable(String name) {
-		FormatCacheEntry fce = new FormatCacheEntry(name,
-				CONVERT_TO_JAVA_VARIABLE_NAME);
+		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_VARIABLE_NAME);
 		String value = FormatCache.getInstance().getCacheEntry(fce);
 		if (value == null) {
 			value = performGetJavaNameVariable(name);
@@ -43,8 +42,7 @@ public class FormatUtils {
 	}
 
 	public static String getJavaNameVariableConvertReservedWord(String name) {
-		FormatCacheEntry fce = new FormatCacheEntry(name,
-				CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD);
+		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD);
 		String value = FormatCache.getInstance().getCacheEntry(fce);
 		if (value == null) {
 			value = performGetJavaNameVariableConvertReservedWord(name);
@@ -61,8 +59,7 @@ public class FormatUtils {
 	 * performGetJavaName(name); }
 	 */
 	public static String getDirFromPackage(String packageSt) {
-		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/")
-				: "";
+		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/"): "";
 	}
 
 	public static String getDirToPackage(String packageSt) {

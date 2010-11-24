@@ -85,10 +85,12 @@ class ${className} {
 #end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-        ${columnVar} unique: #if($isColumnUnique) true#else false#end, nullable: #if($column.isRequired())true #else false#end #if($isLengthPrecisionColumn),maxSize: $column.size#end
-
+        ${columnVar} (unique: #if($isColumnUnique) true#else false#end, blank: #if($column.isRequired())false #else true#end #if($isLengthPrecisionColumn),maxSize: $column.size#end)
 #end	
 
     }
-	
+    
+    String toString(){
+       return $grailsUtils.getToString($table)
+    }
 }
