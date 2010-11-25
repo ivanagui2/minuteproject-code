@@ -11,10 +11,10 @@
    	<plugin name="referenceUtils" className="net.sf.minuteProject.utils.ReferenceUtils"/>
    	
   	<template-target 
-    	name="Grails"
+    	name="Grails domain"
 		outputdir="grails-app/domain"
 		libdir="lib/Grails_LIB.vm"
-		belongToPackage="true">
+		>
 			 
 		<template name="DomainObjectUML" templateFileName="GrailsGorm.vm" 
 			file-extension="groovy"
@@ -26,10 +26,9 @@
 	</template-target>
 	
   	<template-target 
-    	name="Grails"
+    	name="Grails controllers"
 		outputdir="grails-app/controllers"
-		libdir="lib/Grails_LIB.vm"
-		belongToPackage="true">
+		>
 			 
 		<template name="GrailsController" templateFileName="GrailsController.vm" 
 			file-extension="groovy"
@@ -40,4 +39,45 @@
 					
 	</template-target>
 		
+  	<template-target 
+    	name="Grails config"
+		outputdir="grails-app/conf" >
+			
+		<template package-root=""
+			name="GrailsBuildConfig" templateFileName="GrailsBuildConfig.vm" 
+			add-model-name="false" add-model-dir-name="false"
+			file-extension="groovy" file-prefix="BuildConfig"
+			model-specific="true">
+		</template>	
+
+		<template package-root=""
+			name="GrailsDataSource" templateFileName="GrailsDataSource.vm" 
+			add-model-name="false" add-model-dir-name="false"
+			file-extension="groovy" file-prefix="DataSource"
+			model-specific="true">
+		</template>	
+											
+	</template-target>	
+			
+  	<template-target 
+    	name="Grails config"
+		outputdir="" >
+			
+		<template package-root=""
+			name="GrailsBuildCommandWindows" templateFileName="GrailsBuildCommandWindows.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="build-" file-suffix="" 
+			application-specific="true">
+		</template>	
+				
+		<template package-root=""
+			name="GrailsBuildCommandBash" templateFileName="GrailsBuildCommandBash.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="sh" file-prefix="build-" file-suffix="" 
+			application-specific="true">
+		</template>
+											
+	</template-target>				
 </target>
