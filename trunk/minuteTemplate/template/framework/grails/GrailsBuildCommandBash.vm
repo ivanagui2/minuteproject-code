@@ -1,0 +1,10 @@
+#exposeGrailsSpecific()
+#!/bin/sh
+
+GENDIR=$(cd `dirname $0`;pwd)
+
+grails create-app $applicationGrails
+cp -R grails-app $applicationGrails/grails-app 
+cd $applicationGrails
+
+grails run-app
