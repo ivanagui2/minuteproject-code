@@ -78,6 +78,30 @@
 			file-extension="sh" file-prefix="build-" file-suffix="" 
 			application-specific="true">
 		</template>
+		
+		<template package-root=""
+			name="GrailsBuildGrailsREPluginCommandWindows" templateFileName="GrailsBuildGrailsREPluginCommandWindows.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="execute-grails-plugin-reverse-4-" file-suffix="" 
+			application-specific="true">
+		</template>	
+				
+		<template package-root=""
+			name="GrailsBuildGrailsREPluginCommandBash" templateFileName="GrailsBuildGrailsREPluginCommandBash.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="sh" file-prefix="execute-grails-plugin-reverse-4-" file-suffix="" 
+			application-specific="true">
+		</template>		
+		
+		<template package-root=""
+			name="GrailsInstallReadMe" templateFileName="GrailsInstallReadMe.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			add-model-dir-name="false"
+			file-extension="txt" file-prefix="README" file-suffix="" 
+			application-specific="true">
+		</template>			
 											
 	</template-target>				
 </target>
