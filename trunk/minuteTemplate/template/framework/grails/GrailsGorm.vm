@@ -6,6 +6,8 @@
 #set ($hasParent = $tableUtils.hasParent($table))
 package $packageName;
 
+#printGrailsDomainImport()
+
 class ${className} {
 
 #foreach($column in ${table.primaryKeyColumns})
