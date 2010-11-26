@@ -86,7 +86,7 @@
 	      </frameworks> 		
 	</technology> 			 
 
-	 <technology name="OPENXAVA" 
+	 <technology name="OpenXava" 
 	             template-config-file-name="mp-template-config-openxava-last-features.xml" 
 	             default-outputdir="openxava"
 	             template-dir="../template/framework/openxava" 
@@ -99,7 +99,24 @@
 	      </frameworks>        
 	 </technology>
 	 		 
-	 <technology name="VAADIN" 
+	 <technology name="Grails" 
+	             template-config-file-name="mp-template-config-grails-last-features.xml" 
+	             default-outputdir="grails"
+	             template-dir="../template/framework/grails" 
+	             depends-on-targets="BSLA_LIB" 
+	             status="released"
+	             comment=""
+	             description="Generates groovy file for grails:\gorm\controllers\and misc config.">   
+	      <conventions>
+	        <convention name="version-convention" is-applied="true" description="Apply version for entities having the version column" helper="" defaultValue="version">
+	        </convention>
+	      </conventions>
+	      <frameworks>
+	        <framework name="Grails" version="1.3.5"></framework>
+	      </frameworks>        
+	 </technology>
+	 	 		 
+	 <technology name="Vaadin" 
 	   template-config-file-name="mp-template-config-vaadin-last-features.xml" 
 	   default-outputdir="vaadin"
 	   template-dir="../template/framework/vaadin"
