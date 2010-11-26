@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.BusinessModel;
 public abstract class Convention extends AbstractConfiguration{
 
 	public String type;
+	public String defaultValue;
 
 	public String getType() {
 		return type;
@@ -15,6 +16,10 @@ public abstract class Convention extends AbstractConfiguration{
 		this.type = type;
 	}
 
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+	
 	public abstract void apply(BusinessModel model) ;
 	
 }
