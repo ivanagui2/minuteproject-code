@@ -1,28 +1,24 @@
 package net.sf.minuteProject.console.panel;
 
-import static net.sf.minuteProject.console.utils.UIUtils.*;
+import static net.sf.minuteProject.console.utils.UIUtils.createCombo;
+import static net.sf.minuteProject.console.utils.UIUtils.createLabel;
+import static net.sf.minuteProject.console.utils.UIUtils.createTextField;
 
-import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 import net.sf.minuteProject.console.ConsoleSample;
-import net.sf.minuteProject.console.component.form.Form;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
-import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
 
 @SuppressWarnings("serial")
