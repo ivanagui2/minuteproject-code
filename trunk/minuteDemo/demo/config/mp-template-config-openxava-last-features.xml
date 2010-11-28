@@ -367,6 +367,7 @@
 								
 	</template-target>	
 		
+	<!-- no more needed 
 	<template-target 
     	name="OpenXava 4.m5 patches"
     	outputdir="web/xava"
@@ -380,5 +381,6 @@
 		</template>	
 								
 	</template-target>		
+		-->		
 		
 </target>
