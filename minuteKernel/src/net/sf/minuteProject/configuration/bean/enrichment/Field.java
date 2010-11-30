@@ -9,7 +9,7 @@ public class Field extends AbstractConfiguration {
 	private String bidirectional;
 	private Stereotype stereotype;
 	private String type, length;
-	private boolean isMandatory, isId;
+	private boolean isMandatory, isId, isSearchable;
 
 	private boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -97,4 +97,13 @@ public class Field extends AbstractConfiguration {
 	public void setIsId(boolean isId) {
 		this.isId = isId;
 	}
+
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+
+	public void setSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
+	}
+	
 }

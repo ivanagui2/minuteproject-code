@@ -6,13 +6,13 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
 
-public abstract class ColumnAbstract extends AbstractConfiguration implements Column{
+public abstract class ColumnAbstract extends AbstractConfiguration implements Column {
 
 	private Column column;
 	private Table table;
 	private Boolean isLob;
 	private Stereotype stereotype;
-	private Boolean isVersion;
+	private Boolean isVersion, isSearchable;
 	private Integer minLength;
 	
 	public ColumnAbstract(Column column, Table table) {
@@ -437,4 +437,11 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
    	this.minLength = minLength;
    }
    
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+
+	public void setSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
+	}
 }

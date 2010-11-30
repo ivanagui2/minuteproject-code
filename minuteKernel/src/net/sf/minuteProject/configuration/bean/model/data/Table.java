@@ -281,4 +281,8 @@ public interface Table extends GeneratorBean{
 	
 	public void setActions(List<Action> actions);
 	
+	public void setSearchable(boolean isSearchable);
+	
+	public boolean isSearchable();
+
 }

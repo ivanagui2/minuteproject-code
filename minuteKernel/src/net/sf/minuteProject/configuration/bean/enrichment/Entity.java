@@ -27,7 +27,7 @@ public class Entity extends AbstractConfiguration {
 	private Enrichment enrichment;
 	private String contentType; //pseudo-static, reference, life-business-data
 	private SemanticReference semanticReference;
-	private boolean isLinkEntity, isTransferEntity;
+	private boolean isLinkEntity, isTransferEntity, isSearchable;
 	private EntitySecuredAccess entitySecuredAccess;
 	private String type;
 	private List<FieldGroup> fieldGroups;
@@ -121,6 +121,14 @@ public class Entity extends AbstractConfiguration {
 
 	public void setTransferEntity(boolean isTransferEntity) {
 		this.isTransferEntity = isTransferEntity;
+	}
+
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+
+	public void setSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
 	}
 
 	public String getType() {

@@ -17,7 +17,8 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	
 	private org.apache.ddlutils.model.Column column;
 	private Table table;
-	private Boolean isLob, isVersion;
+	private Boolean isLob, isVersion; 
+	private boolean isSearchable;
 	private Stereotype stereotype;
 	private Integer minLength;
 
@@ -448,4 +449,11 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
    	this.minLength = minLength;
    }
    
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+
+	public void setSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
+	}
 }
