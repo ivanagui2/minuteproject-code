@@ -38,12 +38,12 @@ public interface $className extends DataAccessObject {
     public $tableClassName update$tableClassName($tableClassName $tableVariableName) ;
 
 	 /**
-   * Updates a TbParty entity with only the attributes set into TbParty.
+     * Updates a $tableClassName entity with only the attributes set into $tableClassName.
 	 * The primary keys are to be set for this method to operate.
 	 * This is a performance friendly feature, which remove the udibiquous full load and full update when an
 	 * update is to be done
    * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
-   * @param TbParty tbParty
+   * @param $tableClassName $tableVariableName
    */
     public int updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
 	 
