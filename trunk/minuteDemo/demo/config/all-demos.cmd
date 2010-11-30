@@ -15,3 +15,4 @@ call demo-last-features-spring-jpa.cmd
 echo "incubator generations"
 call demo-draft-features-vaadin-spring-hibernate.cmd
 call demo-last-features-roo.cmd
+call demo-last-features-grails.cmd

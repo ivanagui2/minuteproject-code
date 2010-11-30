@@ -15,3 +15,4 @@ echo "last feature generations"
 echo "incubator generations"
 ./demo-draft-features-vaadin-spring-hibernate.sh
 ./demo-last-features-roo.sh
+./demo-last-features-grails.sh

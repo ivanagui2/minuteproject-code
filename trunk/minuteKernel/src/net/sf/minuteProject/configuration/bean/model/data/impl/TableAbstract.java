@@ -29,7 +29,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private Reference [] distinctChildrenRef;
 	private SemanticReference semanticReference;
 	private String contentType;
-	private boolean isLinkEntity;
+	private boolean isLinkEntity, isSearchable;
 	private EntitySecuredAccess entitySecuredAccess;
 	private List<List<Column>> fieldGroupsList;
 	private List<FieldGroup> fieldGroups;
@@ -47,6 +47,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setLinkEntity(table.isLinkEntity());
 		this.setFieldGroups(table.getFieldGroups());
 		this.setActions(table.getActions());
+		this.setSearchable(table.isSearchable());
 	}
 
 	public String getName () {
@@ -435,4 +436,13 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	public void setActions(List<Action> actions) {
 		this.actions = actions;
 	}
+	
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+
+	public void setSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
+	}
+	
 }

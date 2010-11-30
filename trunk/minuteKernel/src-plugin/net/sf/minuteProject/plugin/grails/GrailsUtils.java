@@ -39,4 +39,15 @@ public class GrailsUtils {
 		}
 		return sb.toString();
 	}
+	
+	public static String getM2MVariableName (Table table, String targetTableName, String linkTableName, String localColumnName) {
+		//${targetTableVariableName}Via${linkTableName}By${localColumnName}s
+		String targetTableVariableName = FormatUtils.getJavaNameVariable(targetTableName);
+		String linkTableClassName = FormatUtils.getJavaName(linkTableName);
+		String localColumnClassName = FormatUtils.getJavaName(localColumnName);
+		if (TableUtils.hasChild(table, targetTableName)) {
+			return targetTableVariableName+"Via"+linkTableClassName+"By"+localColumnClassName+"s";
+		}
+		return targetTableVariableName+"s";
+	}
 }

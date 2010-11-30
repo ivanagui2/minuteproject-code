@@ -10,6 +10,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		super(column, table);
 		setProperties(column.getProperties());
 		setStereotype(column.getStereotype());
+		setSearchable(column.isSearchable());
 	}
 	
     public String getName() {

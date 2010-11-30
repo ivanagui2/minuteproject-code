@@ -46,5 +46,8 @@ public interface Column extends BaseColumn
     
     public void setVersion(boolean isVersion);
     
+	public void setSearchable(boolean isSearchable);
+	
+	public boolean isSearchable();
 }
 

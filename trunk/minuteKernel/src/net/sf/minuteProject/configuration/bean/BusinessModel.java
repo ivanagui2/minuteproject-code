@@ -252,12 +252,14 @@ public class BusinessModel {
 		table.setLinkEntity(entity.isLinkEntity());
 		table.setEntitySecuredAccess(entity.getEntitySecuredAccess());
 		table.setFieldGroups(entity.getFieldGroups());
+		table.setSearchable(entity.isSearchable());
 	}
 	
 	private void convertFieldInfoToColumn (Field field, Column column) {
 		column.setProperties(field.getProperties());
 		column.setStereotype(field.getStereotype());
 		column.setDescription(field.getDescription());
+		column.setSearchable(field.isSearchable());
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {

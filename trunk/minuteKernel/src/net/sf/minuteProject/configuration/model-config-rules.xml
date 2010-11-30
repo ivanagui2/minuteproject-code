@@ -228,6 +228,7 @@
 					<alias attr-name="type" prop-name="type" />
 					<alias attr-name="structure" prop-name="structure" />		
 					<alias attr-name="content-type" prop-name="contentType" />	
+					<alias attr-name="is-searchable" prop-name="searchable" />
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
 					<alias attr-name="is-transfer-entity" prop-name="transferEntity" />
 				</set-properties-rule>	
@@ -324,6 +325,7 @@
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="length" prop-name="length" />	
 						<alias attr-name="is-mandatory" prop-name="isMandatory" />	
+						<alias attr-name="is-searchable" prop-name="searchable" />
 						<alias attr-name="stereotype" prop-name="stereotype" />													
 					</set-properties-rule>
 					<pattern value="stereotype">

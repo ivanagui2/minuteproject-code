@@ -32,6 +32,14 @@ class ${className} {
 #putReferenceParams2()
         #if($velocityCount!=1), #end${localColumnVariable}: $linkedTableClass
 #end
+// m2m
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeImportParamsUML($targetTable)
+#set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
+#set($m2mVar = $grailsUtils.getM2MVariableName($table, $targetTable.name, $linkedTableDB.name, $linkReference.localColumn.name))
+//      ${targetTableVariableName}Via${linkTableName}By${localColumnName}s  : $targetTableName //m2mVar = $m2mVar
+#end
     ]
 #end
 
@@ -46,6 +54,14 @@ class ${className} {
 ##        #if($velocityCount!=1), #end${linkedColumnClass}s: $linkedTableClass ##not correct todo
 #end
 #end
+//m2m
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeImportParamsUML($targetTable)
+#set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
+//        ,${targetTableVariableName}Via${linkTableName}By${localColumnName}s : $targetTableName // the name is a bit long but the variable has to be unique to prevent ambiguity
+#end
+
     ]
 #end
 
@@ -66,6 +82,14 @@ class ${className} {
 #if(!$table.hasVersion)
         version false
 #end
+// m2m
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeImportParamsUML($targetTable)
+#set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
+//      ${targetTableVariableName}Via${linkTableName}By${localColumnName}s  joinTable: [name:'$linkedTableDBName', column:'$targetColumn.name', key:'$linkReference.localColumnName'] 
+#end
+
 
 #if ($hasParent)
         columns {
