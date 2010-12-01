@@ -76,7 +76,8 @@ public class ConsoleSample extends JFrame{
 
 		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
 		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringCustomisationPanel());	
-		tabbedPane.addTab("Enrichment", getDataModelReverseEngineeringEnrichmentPanel());			
+		//tabbedPane.addTab("Enrichment", getDataModelReverseEngineeringEnrichmentPanel());		
+		//tabbedPane.addTab("Enrichment", getEnrichmentTab());	
 		tabbedPane.addTab("Information", getInformationPanel());	
 		
 		getContentPane().add(tabbedPane);
@@ -98,7 +99,7 @@ public class ConsoleSample extends JFrame{
 		}
 	}
 
-	private Component getDataModelReverseEngineeringEnrichmentPanel() {
+	private Component getEnrichmentTab() {
 		JPanel panel = createTabPanel(getDefaultMigLayout());
 		addSeparator(panel, "Entity");
 		enrichmentEntityPanel.fillPanel(panel);		
@@ -167,6 +168,7 @@ public class ConsoleSample extends JFrame{
 		modelCommonPanel.fill(bic);
 		targetPanel.fill(bic);
 		filterPanel.fill(bic);
+		packagePanel.fill(bic);
 		bic.setCatalogDir(catalogDir);
 	}
 
