@@ -171,6 +171,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private GenerationCondition getGenerationCondition() {
 		GenerationCondition generationCondition = new GenerationCondition();
+		generationCondition.setExcludeTables(!getAreTablesIncluded());
+		generationCondition.setExcludeViews(!getAreViewsIncluded());
 		generationCondition.setDefaultType(getFilterFileType());
 		List<String> filenames = ParserUtils.getList(getFilterFile());
 		String conditionType = getConditionType();

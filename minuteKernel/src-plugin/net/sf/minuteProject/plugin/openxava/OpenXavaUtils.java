@@ -136,6 +136,7 @@ public class OpenXavaUtils {
 	}	
 	
 	public static String getModuleUrl (String application, String module) {
-		return getModuleUrlAbsoluteViaSlash(application, module);
+		return getModuleUrlRelativeViaParameter(application, module);
+//		return getModuleUrlAbsoluteViaSlash(application, module);
 	}	
 }

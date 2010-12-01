@@ -111,6 +111,10 @@
 	        <convention name="version-convention" is-applied="true" description="Apply version for entities having the version column" helper="" defaultValue="version">
 	        </convention>
 	      </conventions>
+	      <limitations>
+	        <limitation name="many-two-many" is-applied="true" description="not applied" helper="" defaultValue="version">
+	        </limitation>
+	      </limitations>	      
 	      <frameworks>
 	        <framework name="Grails" version="1.3.5"></framework>
 	      </frameworks>        
