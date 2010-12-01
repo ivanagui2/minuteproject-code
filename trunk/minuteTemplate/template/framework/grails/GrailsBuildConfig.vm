@@ -26,7 +26,9 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        runtime '$driver.groupId:$driver.artifactId:$driver.version'
-        // runtime 'mysql:mysql-connector-java:5.1.5'
+
+        // to uncomment
+        // runtime '$driver.groupId:$driver.artifactId:$driver.version'
+
     }
 }

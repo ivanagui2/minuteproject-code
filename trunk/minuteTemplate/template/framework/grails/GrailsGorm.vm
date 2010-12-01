@@ -4,7 +4,7 @@
 #putImportParamsUML()
 #set ($hasChild = $tableUtils.hasChild($table))
 #set ($hasParent = $tableUtils.hasParent($table))
-package $packageName;
+package $packageName
 
 import java.sql.*
 #printGrailsDomainImport()
