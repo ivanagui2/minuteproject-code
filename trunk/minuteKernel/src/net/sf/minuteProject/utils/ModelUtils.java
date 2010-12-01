@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.GenerationCondition;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
@@ -33,11 +34,19 @@ import net.sf.minuteProject.configuration.bean.view.View;
 public class ModelUtils {
 	
 	private static Logger logger = Logger.getLogger(ModelUtils.class);
-	// deprecated
+
 	public static boolean isToGenerate(BusinessModel businessModel, Table table) {
 		if (businessModel.getGenerationCondition()!=null)
-			return businessModel.getGenerationCondition().areConditionsTrue(table.getName());
+			return isToGenerate(businessModel.getGenerationCondition(), table);//.areConditionsTrue(table.getName());
 		return true;
+	}
+	
+	private static boolean isToGenerate(GenerationCondition generationCondition, Table table) {
+		if (table.TABLE.equals(table.getType()) && generationCondition.isExcludeTables())
+			return false;
+		if (table.VIEW.equals(table.getType()) && generationCondition.isExcludeViews())
+			return false;		
+		return generationCondition.areConditionsTrue(table.getName());
 	}
 	
 	public static boolean isSchemaNeeded(Model model) {

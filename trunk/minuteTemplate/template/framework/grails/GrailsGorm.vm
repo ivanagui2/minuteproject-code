@@ -6,6 +6,7 @@
 #set ($hasParent = $tableUtils.hasParent($table))
 package $packageName;
 
+import java.sql.*
 #printGrailsDomainImport()
 
 class ${className} {
@@ -45,11 +46,13 @@ class ${className} {
 
 #if ($hasChild)
     static hasMany = [
+#set($cpt=0)
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
+#set($cpt=$cpt+1)
 ##	static hasMany = [${linkedTableVariable}${linkedColumnClass}s: $linkedTableClass]
-        #if($velocityCount==0), #end${linkedTableVariable}${linkedColumnClass}s: $linkedTableClass
+        #if($cpt!=1), #end${linkedTableVariable}${linkedColumnClass}s: $linkedTableClass
 ##else
 ##        #if($velocityCount!=1), #end${linkedColumnClass}s: $linkedTableClass ##not correct todo
 #end
@@ -102,6 +105,17 @@ class ${className} {
 #end
     }
 
+	static mappedBy = [
+#set($cpt=0)
+#foreach ($reference in $table.children)
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+#set($cpt=$cpt+1)
+        #if($cpt!=1), #end${linkedTableVariable}${linkedColumnClass}s: '$linkedColumnVariable'
+#end
+#end	
+    ]
+		
     static constraints = {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()

@@ -11,6 +11,7 @@ public class GenerationCondition extends AbstractConfiguration {
 	
 	private String defaultType;
 	private List<Condition> conditions;
+	private boolean excludeTables=false, excludeViews=false;
 	
 	public void addCondition (Condition condition) {
 		if (conditions==null)
@@ -56,7 +57,22 @@ public class GenerationCondition extends AbstractConfiguration {
 		return false;
 	}
 
-	
+
+	public boolean isExcludeTables() {
+		return excludeTables;
+	}
+
+	public void setExcludeTables(boolean excludeTables) {
+		this.excludeTables = excludeTables;
+	}
+
+	public boolean isExcludeViews() {
+		return excludeViews;
+	}
+
+	public void setExcludeViews(boolean excludeViews) {
+		this.excludeViews = excludeViews;
+	}
 
 	public String getDefaultType() {
 		return defaultType;
