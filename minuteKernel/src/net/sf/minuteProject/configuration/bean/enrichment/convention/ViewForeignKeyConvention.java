@@ -10,6 +10,9 @@ public class ViewForeignKeyConvention extends Convention {
 	public String getDefaultSuffix() {
 		return defaultSuffix;
 	}
+	public void setDefaultValue(String defaultValue) {
+		this.defaultSuffix = defaultValue;
+	}
 	public void setDefaultSuffix(String defaultSuffix) {
 		this.defaultSuffix = defaultSuffix;
 	}

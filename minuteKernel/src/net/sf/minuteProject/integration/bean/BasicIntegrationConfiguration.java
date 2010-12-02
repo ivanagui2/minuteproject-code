@@ -17,6 +17,11 @@ import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.connection.Driver;
+import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.TableDefaultPrimaryKeyConvention;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
@@ -50,7 +55,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		sequenceGlobalName,
 		sequenceEntitySuffix,
 		filterFile,
-		filterFileType
+		filterFileType,
+		virtualPrimaryKey
 		;
 	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
@@ -159,7 +165,33 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		BusinessModel businessModel = new BusinessModel();
 		businessModel.setGenerationCondition(getGenerationCondition());
 		businessModel.setBusinessPackage(getBusinessPackage());
+		businessModel.setEnrichment(getEnrichment());
 		return businessModel;
+	}
+
+	private Enrichment getEnrichment() {
+		Enrichment enrichment = new Enrichment();
+		enrichment.setConventions(getConventions());
+		return enrichment;
+	}
+
+	private Conventions getConventions() {
+		Conventions conventions = new Conventions();
+		conventions.addConvention(getPkForTableConvention());
+		conventions.addConvention(getPkForViewConvention());
+		return conventions;
+	}
+
+	private Convention getPkForTableConvention() {
+		Convention convention = new TableDefaultPrimaryKeyConvention ();
+		convention.setDefaultValue(getVirtualPrimaryKey());
+		return convention;
+	}
+	
+	private Convention getPkForViewConvention() {
+		Convention convention = new ViewPrimaryKeyConvention ();
+		convention.setDefaultValue(getVirtualPrimaryKey());
+		return convention;
 	}
 
 	private BusinessPackage getBusinessPackage() {
@@ -431,6 +463,14 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setAreViewsIncluded(Boolean areViewsIncluded) {
 		this.areViewsIncluded = areViewsIncluded;
+	}
+
+	public String getVirtualPrimaryKey() {
+		return virtualPrimaryKey;
+	}
+
+	public void setVirtualPrimaryKey(String virtualPrimaryKey) {
+		this.virtualPrimaryKey = virtualPrimaryKey;
 	}
 	
 }

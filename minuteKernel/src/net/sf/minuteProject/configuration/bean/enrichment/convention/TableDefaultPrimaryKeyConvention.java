@@ -24,6 +24,10 @@ public class TableDefaultPrimaryKeyConvention extends Convention {
 		this.defaultPrimaryKeyNames = defaultPrimaryKeyNames;
 	}
 	
+	public void setDefaultValue(String defaultValue) {
+		this.defaultPrimaryKeyNames = defaultValue;
+	}
+	
 	@Override
 	public void apply(BusinessModel model) {
 		if (model.getBusinessPackage()!=null) {
@@ -56,11 +60,13 @@ public class TableDefaultPrimaryKeyConvention extends Convention {
 	protected List<Column> getPksByDefaultPrimaryKeyNames(Table table) {
 		List<Column> pks = new ArrayList<Column>();
 		String pk = getDefaultPrimaryKeyNames();
-		pk = StringUtils.remove(pk, " ");
-		for (String columnName : getDefaultPrimaryKeyNames().split(",")) {
-			Column column = ColumnUtils.getColumn(table, columnName);
-			if (column!=null)
-				pks.add(column);
+		if (pk!=null) {
+			pk = StringUtils.remove(pk, " ");
+			for (String columnName : getDefaultPrimaryKeyNames().split(",")) {
+				Column column = ColumnUtils.getColumn(table, columnName);
+				if (column!=null)
+					pks.add(column);
+			}
 		}
 		return pks;
 	}
