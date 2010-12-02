@@ -115,6 +115,28 @@ public class ConvertUtils {
 		return retStr;		
 	}
 
+	public static String getJavaTypeClassFromDBType (Column column) {
+		return getJavaTypeClassFromDBType(column.getType());
+	}
+	
+	public static String getJavaTypeClassFromDBType (String dBType) {
+		if (dBType.equals("BOOLEAN"))
+			return  "Boolean";	
+		if (dBType.equals("DECIMAL"))
+			return  "BigDecimal";
+		if (dBType.equals("NUMBER"))
+			return  "Long";
+		if (dBType.equals("NUMERIC"))
+			return  "Integer";		
+		if (dBType.equals("BLOB"))
+			return  "String";	
+		if (dBType.equals("BINARY"))
+			return  "String";	
+		if (dBType.equals("CLOB"))
+			return  "String";			
+		return getJavaTypeFromDBType (dBType);
+	}
+	
 	public static String getJavaTypeFromDBType (String dBType) {
 		//return StringUtils.
 		// TODO from getJavaTypeFromDBFullType

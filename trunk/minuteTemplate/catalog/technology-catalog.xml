@@ -9,7 +9,7 @@
 	             status="released"
 	             description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
 	      <frameworks>
-	        <framework name="Spring" version="1.2.5+"></framework>
+	        <framework name="Spring" version="2.5+"></framework>
 	        <framework name="Hibernate" version="3.2+"></framework>
 	        <framework name="ehCache" version=""></framework>
 	      </frameworks>  	             

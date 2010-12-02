@@ -141,8 +141,8 @@ public class $className extends HibernateDaoSupport implements $daoInterfaceName
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if(!$column.isLob())
-        if (${tableVariableName}.get$columnClass()!=null) hibernateQuery.set$columnType ("${tableVariableName}_${columnVar}", ${tableVariableName}.get$columnClass());
-        if (prototypeCriteria.get$columnClass()!=null) hibernateQuery.set$columnType ("prototypeCriteria_${columnVar}", prototypeCriteria.get$columnClass());
+        if (${tableVariableName}.get$columnClass()!=null) hibernateQuery.set$columnTypeOnly ("${tableVariableName}_${columnVar}", ${tableVariableName}.get$columnClass());
+        if (prototypeCriteria.get$columnClass()!=null) hibernateQuery.set$columnTypeOnly ("prototypeCriteria_${columnVar}", prototypeCriteria.get$columnClass());
 #else
         if (${tableVariableName}.get$columnClass()!=null) hibernateQuery.setString ("${tableVariableName}_${columnVar}", ${tableVariableName}.get$columnClass().toString());
         if (prototypeCriteria.get$columnClass()!=null) hibernateQuery.setString ("prototypeCriteria_${columnVar}", prototypeCriteria.get$columnClass().toString());

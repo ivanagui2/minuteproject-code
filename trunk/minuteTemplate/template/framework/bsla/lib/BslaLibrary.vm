@@ -167,6 +167,7 @@
 #set ($isPkUserProvided = $commonUtils.isPkUserProvided($column))
 #set ($columnFullType = $commonUtils.getFullType2($column))
 #set ($columnType = $commonUtils.getJavaType($column))
+#set ($columnTypeOnly = $commonUtils.getJavaTypeOnly($column))
 #set ($columnClass = $formatUtils.getJavaName($column.name))
 #set ($columnVar = $formatUtils.getJavaNameVariable($column.name))
 #set ($isColumnUnique = $tableUtils.isUnique($table, $column))

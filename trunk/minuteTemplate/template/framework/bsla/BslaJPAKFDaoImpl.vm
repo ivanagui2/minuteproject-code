@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
 import net.sf.minuteProject.architecture.query.impl.QueryCountInit;
+import net.sf.minuteProject.architecture.query.impl.QuerySelectCountInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectDistinctInit;
 import net.sf.minuteProject.architecture.cache.SimpleCache;
