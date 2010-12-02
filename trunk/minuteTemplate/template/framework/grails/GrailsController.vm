@@ -1,7 +1,6 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
-#exposeGrailsDomainSpecific()
-##putImportParamsUML()
+#putGrailsTemplateDefinition()
 #exposeImportGrailsParamParamsUML ($table)
 package $packageName
 

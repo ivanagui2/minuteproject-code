@@ -169,6 +169,7 @@ public class ConsoleSample extends JFrame{
 		targetPanel.fill(bic);
 		filterPanel.fill(bic);
 		packagePanel.fill(bic);
+		conventionPanel.fill(bic);
 		bic.setCatalogDir(catalogDir);
 	}
 
