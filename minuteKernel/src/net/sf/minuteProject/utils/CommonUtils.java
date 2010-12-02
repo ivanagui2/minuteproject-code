@@ -130,6 +130,14 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(type);
 	}
 	
+	public static String getJavaTypeOnly (Column column) {
+		if (column == null) {
+			logger.error("ERROR column is null");
+			return "ERROR column is null";
+		}	
+		return ConvertUtils.getJavaTypeClassFromDBType(column);
+	}
+	
 	public static String getJavaType (Column column) {
 		if (column == null) {
 			logger.error("ERROR column is null");
