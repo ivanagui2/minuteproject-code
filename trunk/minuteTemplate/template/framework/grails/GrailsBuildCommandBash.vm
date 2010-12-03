@@ -3,8 +3,8 @@
 
 grails create-app $applicationGrails
 
-cp -R grails-app $applicationGrails/grails-app 
-cp $MP_HOME/application/lib/extra/*.jar $applicationGrails/grails-app/lib
+cp -R grails-app $applicationGrails
+cp $MP_HOME/application/lib/extra/*.jar $applicationGrails/lib
 
 cd $applicationGrails
 
