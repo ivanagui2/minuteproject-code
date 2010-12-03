@@ -88,7 +88,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 				}
 			}
 			else if (e.getSource() == detailButton) {
-				updateDetails(panel);
+				updateTechnologyDetails();
 //				if (detailButton.getText().equals(showDetailL)) {
 //					detailButton.setText(hideDetailL);
 //					showDetails(panel);
@@ -104,7 +104,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 
 		public void itemStateChanged(ItemEvent e) {
 			consoleSample.getModelCommonPanel().rebuildDefaultTargetDir();
-			updateDetails(panel);
+			updateTechnologyDetails();
 		}
 	}
 	
@@ -163,11 +163,12 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		return new String[] {"Framework","Version"};
 	}
 
-	private void updateDetails (JPanel panel) {
+	private void updateTechnologyDetails () {
 		Technology technology = getChoosenTechnology();
 		statusDetailJL.setText(technology.getStatus());
 		updateTextAreaScroll(descriptionJSP,getTechnologyDescription(technology));
 		updateTableScroll(dependentFrameworksJSP, TechnologyCatalogUtils.getFrameworkDependency(technology, consoleSample.getCatalogDir()), getDependentFrameworksTitle());
+		updateTextAreaScroll(consoleSample.getTechnologyInfoPanel().getLimitationsJSP(), consoleSample.getTechnologyInfoPanel().getLimitations());
 	}
 	
 //	private void hideDetails (JPanel panel) {
@@ -175,7 +176,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 //
 //	}
 	
-	private Technology getChoosenTechnology() {
+	public Technology getChoosenTechnology() {
 		return TechnologyCatalogUtils.getPublishedTechnology(targetCb.getSelectedItem().toString(), consoleSample.getCatalogDir());
 	}	
 
