@@ -22,7 +22,7 @@
 	   status="released"
 	   description="Generates Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 	      <frameworks>
-	        <framework name="Spring" version="1.2.5+"></framework>
+	        <framework name="Spring" version="2.5+"></framework>
 	        <framework name="Hibernate" version="3.2+"></framework>
 	        <framework name="JPA" version="1.0"></framework>
 	        <framework name="ehCache" version=""></framework>
@@ -93,7 +93,7 @@
 	             depends-on-targets="BSLA_LIB" 
 	             status="released"
 	             comment=""
-	             description="Generates JPA and OX specific annotation as well as a web site to navigate your datamodel.">   
+	             description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">   
 	      <frameworks>
 	        <framework name="OpenXava" version="4.m5"></framework>
 	      </frameworks>        
@@ -112,8 +112,9 @@
 	        </convention>
 	      </conventions>
 	      <limitations>
-	        <limitation name="many-two-many" is-applied="true" description="not applied" helper="" defaultValue="version">
-	        </limitation>
+	        <limitation name="Many-two-many" is-applied="true" description="Not applied: code generated for m2m relationships is commented" helper="" defaultValue="version"/>
+	        <limitation name="ID column not primary key" is-applied="true" description="compilation error of gorm will result" helper="" defaultValue="version"/>
+	        <limitation name="Version" is-applied="true" description="version column not handled for optimistic locking in this release" helper="" defaultValue="version"/>
 	      </limitations>	      
 	      <frameworks>
 	        <framework name="Grails" version="1.3.5"></framework>

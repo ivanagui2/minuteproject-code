@@ -27,6 +27,7 @@ import net.sf.minuteProject.console.panel.ModelAccessPanel;
 import net.sf.minuteProject.console.panel.ModelCommonPanel;
 import net.sf.minuteProject.console.panel.PackagePanel;
 import net.sf.minuteProject.console.panel.TargetPanel;
+import net.sf.minuteProject.console.panel.TechnologyConventionPanel;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
@@ -47,6 +48,7 @@ public class ConsoleSample extends JFrame{
 	private CommonPanel commonPanel; 
 	private FilterPanel filterPanel;
 	private ConventionPanel conventionPanel;
+	private TechnologyConventionPanel technologyInfoPanel;
 	private EnrichmentEntityPanel enrichmentEntityPanel;
 	private EnrichmentFieldPanel enrichmentFieldPanel;
 	private PackagePanel packagePanel;
@@ -70,15 +72,18 @@ public class ConsoleSample extends JFrame{
 		targetPanel = new TargetPanel(this);
 		filterPanel = new FilterPanel();
 		conventionPanel = new ConventionPanel();
+		technologyInfoPanel = new TechnologyConventionPanel(this);
 		enrichmentEntityPanel = new EnrichmentEntityPanel();
 		enrichmentFieldPanel = new EnrichmentFieldPanel();
 		packagePanel = new PackagePanel();
 
 		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
 		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringCustomisationPanel());	
-		//tabbedPane.addTab("Enrichment", getDataModelReverseEngineeringEnrichmentPanel());		
-		//tabbedPane.addTab("Enrichment", getEnrichmentTab());	
-		tabbedPane.addTab("Information", getInformationPanel());	
+
+		tabbedPane.addTab("Technology information", getTechConventionsTab());			
+//		tabbedPane.addTab("Enrichment", getEnrichmentTab());			
+
+		tabbedPane.addTab("General information", getInformationPanel());	
 		
 		getContentPane().add(tabbedPane);
 		
@@ -117,6 +122,17 @@ public class ConsoleSample extends JFrame{
 		addSeparator(panel, "Convention");
 		conventionPanel.fillPanel(panel);		
 		return panel;
+	}
+	
+	private Component getTechConventionsTab() {
+		JPanel panel = createTabPanel(getDefaultMigLayout());
+		addSeparator(panel, getTargetConventionTitle());
+		technologyInfoPanel.fillPanel(panel);	
+		return panel;
+	}	
+
+	private String getTargetConventionTitle() {
+		return "Restrictions";
 	}
 
 	private Component getInformationPanel() {
@@ -214,4 +230,9 @@ public class ConsoleSample extends JFrame{
 		ConsoleSample.catalogDir = catalogDir;
 	}
 
+	public TechnologyConventionPanel getTechnologyInfoPanel() {
+		return technologyInfoPanel;
+	}
+
+	
 }
