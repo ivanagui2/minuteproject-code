@@ -2,7 +2,13 @@
 #exposeConnectionSpecific()
 package $packageName;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.math.BigDecimal;
+import java.sql.Clob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -98,7 +104,80 @@ public class $className extends AbstractTransactionalJUnit4SpringContextTests {
        return new String (new String[size].toString());
     }
     
-    protected String getClob(int size) {
+    
+    protected String getClobString(int size) {
        return new String (new String[size].toString());    
     }
+    
+    protected Clob getClob(int size) {
+    	Clob c = new Clob() {
+			
+			public void truncate(long len) throws SQLException {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			public int setString(long pos, String str, int offset, int len)
+					throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			public int setString(long pos, String str) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			public Writer setCharacterStream(long pos) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public OutputStream setAsciiStream(long pos) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public long position(Clob searchstr, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			public long position(String searchstr, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			public long length() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			public String getSubString(long pos, int length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public Reader getCharacterStream(long pos, long length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public Reader getCharacterStream() throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public InputStream getAsciiStream() throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public void free() throws SQLException {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+        return c;    
+     }
 }
