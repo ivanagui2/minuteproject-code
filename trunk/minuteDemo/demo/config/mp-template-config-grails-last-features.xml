@@ -16,7 +16,7 @@
 		libdir="lib/Grails_LIB.vm"
 		>
 			 
-		<template name="DomainObjectUML" templateFileName="GrailsGorm.vm" 
+		<template name="GromDomainObject" templateFileName="GrailsGorm.vm" 
 			file-extension="groovy"
 			entity-specific="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
