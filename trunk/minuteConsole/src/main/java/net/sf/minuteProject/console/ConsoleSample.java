@@ -28,6 +28,7 @@ import net.sf.minuteProject.console.panel.ModelCommonPanel;
 import net.sf.minuteProject.console.panel.PackagePanel;
 import net.sf.minuteProject.console.panel.TargetPanel;
 import net.sf.minuteProject.console.panel.TechnologyConventionPanel;
+import net.sf.minuteProject.console.panel.TechnologyLimitationPanel;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
@@ -48,12 +49,14 @@ public class ConsoleSample extends JFrame{
 	private CommonPanel commonPanel; 
 	private FilterPanel filterPanel;
 	private ConventionPanel conventionPanel;
-	private TechnologyConventionPanel technologyInfoPanel;
+	private TechnologyLimitationPanel technologyLimitationPanel;
+	private TechnologyConventionPanel technologyConventionPanel;
 	private EnrichmentEntityPanel enrichmentEntityPanel;
 	private EnrichmentFieldPanel enrichmentFieldPanel;
 	private PackagePanel packagePanel;
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
+	private JPanel technologyInfoTab;
 	private static String catalogDir;
 	
 	public ConsoleSample (String title, String catalogDir) {
@@ -72,7 +75,8 @@ public class ConsoleSample extends JFrame{
 		targetPanel = new TargetPanel(this);
 		filterPanel = new FilterPanel();
 		conventionPanel = new ConventionPanel();
-		technologyInfoPanel = new TechnologyConventionPanel(this);
+		technologyLimitationPanel = new TechnologyLimitationPanel(this);
+		technologyConventionPanel = new TechnologyConventionPanel(this);
 		enrichmentEntityPanel = new EnrichmentEntityPanel();
 		enrichmentFieldPanel = new EnrichmentFieldPanel();
 		packagePanel = new PackagePanel();
@@ -80,8 +84,7 @@ public class ConsoleSample extends JFrame{
 		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
 		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringCustomisationPanel());	
 
-		tabbedPane.addTab("Technology information", getTechConventionsTab());			
-//		tabbedPane.addTab("Enrichment", getEnrichmentTab());			
+		tabbedPane.addTab("Technology information", getTechConventionsTab());				
 
 		tabbedPane.addTab("General information", getInformationPanel());	
 		
@@ -125,10 +128,12 @@ public class ConsoleSample extends JFrame{
 	}
 	
 	private Component getTechConventionsTab() {
-		JPanel panel = createTabPanel(getDefaultMigLayout());
-		addSeparator(panel, getTargetConventionTitle());
-		technologyInfoPanel.fillPanel(panel);	
-		return panel;
+		technologyInfoTab = createTabPanel(getDefaultMigLayout());
+		addSeparator(technologyInfoTab, getTargetConventionTitle());
+		technologyLimitationPanel.fillPanel(technologyInfoTab);	
+		addSeparator(technologyInfoTab, "conventions");
+		technologyConventionPanel.fillPanel(technologyInfoTab);			
+		return technologyInfoTab;
 	}	
 
 	private String getTargetConventionTitle() {
@@ -230,9 +235,24 @@ public class ConsoleSample extends JFrame{
 		ConsoleSample.catalogDir = catalogDir;
 	}
 
-	public TechnologyConventionPanel getTechnologyInfoPanel() {
-		return technologyInfoPanel;
+	public TechnologyLimitationPanel getTechnologyLimitationPanel() {
+		return technologyLimitationPanel;
 	}
 
+	public TechnologyConventionPanel getTechnologyConventionPanel() {
+		return technologyConventionPanel;
+	}
+
+	public JPanel getTechnologyInfoTab() {
+		return technologyInfoTab;
+	}
+
+	public void rebuildPanel(JPanel panel) {
+		technologyInfoTab.removeAll();
+		getTechConventionsTab ();
+		technologyInfoTab.repaint();
+	}
+	
+	
 	
 }

@@ -151,7 +151,6 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		dependentFrameworks = TechnologyCatalogUtils.getFrameworkDependency(getChoosenTechnology(), consoleSample.getCatalogDir());
 		TableModel dataModel = new DefaultTableModel(dependentFrameworks, getDependentFrameworksTitle());
 		JTable table = new JTable(dataModel);
-//		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		Dimension size = table.getPreferredScrollableViewportSize();
 		table.setPreferredScrollableViewportSize
 		    (new Dimension(Math.min(getPreferredSize().width, size.width), 50));
@@ -168,14 +167,11 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		statusDetailJL.setText(technology.getStatus());
 		updateTextAreaScroll(descriptionJSP,getTechnologyDescription(technology));
 		updateTableScroll(dependentFrameworksJSP, TechnologyCatalogUtils.getFrameworkDependency(technology, consoleSample.getCatalogDir()), getDependentFrameworksTitle());
-		updateTextAreaScroll(consoleSample.getTechnologyInfoPanel().getLimitationsJSP(), consoleSample.getTechnologyInfoPanel().getLimitations());
+		updateTextAreaScroll(consoleSample.getTechnologyLimitationPanel().getLimitationsJSP(), consoleSample.getTechnologyLimitationPanel().getLimitations());
+		consoleSample.getTechnologyConventionPanel().rebuildPanel(consoleSample.getTechnologyInfoTab());
+//		consoleSample.rebuildTechnologyPanelTab();
 	}
-	
-//	private void hideDetails (JPanel panel) {
-//		panel.remove(detailPanel);
-//
-//	}
-	
+
 	public Technology getChoosenTechnology() {
 		return TechnologyCatalogUtils.getPublishedTechnology(targetCb.getSelectedItem().toString(), consoleSample.getCatalogDir());
 	}	
