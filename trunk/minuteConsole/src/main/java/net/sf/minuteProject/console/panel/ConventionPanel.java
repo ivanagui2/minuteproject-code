@@ -23,7 +23,7 @@ public class ConventionPanel extends JPanel implements FillBasicConfiguration{
 	}
 
 	public void fillPanel (JPanel panel) {
-		virtualPkForViewsConvention = new JCheckBox("add 'virtual' primary key columns (comma separated)");
+		virtualPkForViewsConvention = new JCheckBox("add 'virtual' primary key columns");
 		virtualPkForViewsConvention.setToolTipText("When no primary key is provided for an entity, a default one is provided from the ones retrieved in the list");
 		virtualPkForViewsConvention.setSelected(true);
 		virtualPkForViewsConvention.setOpaque(true);
