@@ -131,7 +131,7 @@ public class ConsoleSample extends JFrame{
 		technologyInfoTab = createTabPanel(getDefaultMigLayout());
 		addSeparator(technologyInfoTab, getTargetConventionTitle());
 		technologyLimitationPanel.fillPanel(technologyInfoTab);	
-		addSeparator(technologyInfoTab, "conventions");
+		addSeparator(technologyInfoTab, "Conventions");
 		technologyConventionPanel.fillPanel(technologyInfoTab);			
 		return technologyInfoTab;
 	}	

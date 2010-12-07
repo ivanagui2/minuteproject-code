@@ -52,8 +52,8 @@ public class TechnologyLimitationPanel extends JPanel implements FillBasicConfig
 		limitationsJSP = createTextAreaScroll(getLimitations(), 10, 40, true, false);
 		panel.add(limitationsJSP, "span, growx");	
 
-		conventionsL = createLabel(limitations);
-		panel.add(conventionsL, "skip");
+//		conventionsL = createLabel(limitations);
+//		panel.add(conventionsL, "skip");
 		
 	}
 
