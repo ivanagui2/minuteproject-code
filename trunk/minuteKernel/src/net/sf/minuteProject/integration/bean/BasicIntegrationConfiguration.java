@@ -62,7 +62,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
 	private List<Condition> conditions;
-	private Boolean areTablesIncluded, areViewsIncluded;
+	private List<Convention> conventions;
+	private Boolean areTablesIncluded, areViewsIncluded, isPkConventionSet=false;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
@@ -177,9 +178,22 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private Conventions getConventions() {
 		Conventions conventions = new Conventions();
-		conventions.addConvention(getPkForTableConvention());
-		conventions.addConvention(getPkForViewConvention());
+		fillPkConventions();
+		conventions.setConventions(getConventionList());
 		return conventions;
+	}
+
+	private List<Convention> getConventionList() {
+		if (conventions==null)
+		   conventions = new ArrayList<Convention>();
+		return conventions;
+	}
+	
+	private void fillPkConventions() {
+		if (isPkConventionSet) {
+			getConventionList().add(getPkForTableConvention());
+			getConventionList().add(getPkForViewConvention());
+		}
 	}
 
 	private Convention getPkForTableConvention() {
@@ -471,6 +485,19 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setVirtualPrimaryKey(String virtualPrimaryKey) {
 		this.virtualPrimaryKey = virtualPrimaryKey;
+	}
+
+	public Boolean getIsPkConventionSet() {
+		return isPkConventionSet;
+	}
+
+	public void setIsPkConventionSet(Boolean isPkConventionSet) {
+		this.isPkConventionSet = isPkConventionSet;
+	}
+
+	
+	public void addConvention(Convention convention) {
+		getConventionList().add(convention);		
 	}
 	
 }
