@@ -1,0 +1,23 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+#putGrailsTemplateDefinition()
+#exposeImportPlayParamParamsUML ($table)
+package $packageName
+
+import models.*;
+import play.mvc.*;
+
+import $importDomainObjectUML;
+
+class ${className} {
+     def scaffold = $domainClassName
+}
+
+@CRUD.For(${domainClassName}.class)
+public class ${className} extends CRUD {
+
+//    public static void show(Long id) {
+//        parent();
+//    }
+}
+
