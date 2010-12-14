@@ -1,0 +1,5 @@
+#macro (exposePlaySpecific)
+#set ($applicationPlay=$configuration.name)
+#exposeVariableModelSpecific()
+#set ($datasource = $model.dataModel.basicDataSource)
+#end

@@ -30,3 +30,11 @@ provider to set
             <property name="openjpa.ConnectionPassword" value="$datasource.password"/>
         </properties>
 #end
+
+#macro (exposeJPAFKisPKAnnotation)
+#if($localColumn.isPrimaryKey())
+#set($insertableUpdatable=", insertable=false, updatable=false")
+#else
+#set($insertableUpdatable="")
+#end
+#end
