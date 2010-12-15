@@ -102,7 +102,7 @@ public class ${className} {
 #set($columnType="String")
 #end
 #end
->> stereotype
+
 #if ($playUtils.hasStereotype($column))
     @${$playUtils.getStereotype($column)}
 #end

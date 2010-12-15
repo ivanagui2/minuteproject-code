@@ -7,7 +7,7 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
-   	<plugin name="playUtils" className="net.sf.minuteProject.plugin.grails.PlayUtils"/>
+   	<plugin name="playUtils" className="net.sf.minuteProject.plugin.play.PlayUtils"/>
    	<plugin name="referenceUtils" className="net.sf.minuteProject.utils.ReferenceUtils"/>
    	
   	<template-target 
@@ -22,7 +22,7 @@
 		</template>	
 
 		<template name="PlayController" templateFileName="PlayController.vm" 
-			file-extension="Play"
+			file-extension="java"
 			entity-specific="true" file-suffix="Controller" 
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	

@@ -4,8 +4,8 @@
 ##exposeEnvironment()
 # This is the main configuration file for the application.
 # ~~~~~
-#
-application.name=$applicationPlay
+# 
+application.name=$configuration.name
 
 
 # Administration tokens
