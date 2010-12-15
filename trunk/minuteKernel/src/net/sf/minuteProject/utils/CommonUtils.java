@@ -15,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.view.View;
 
@@ -252,6 +253,10 @@ public class CommonUtils {
 		return model.getBusinessModel().getBusinessPackage().getPackage(table.getName());
 	}
 	
+	protected static String getFunctionPackage(Model model, Function function) {
+		return model.getFunctionModel().getFunctionPackage().getPackage(function.getName());
+	}
+	
 	public static Template getTemplate (Configuration configuration, String name) {
 		Template template=null;
 		for (Iterator iter = configuration.getTarget().getTemplateTargets().iterator(); iter.hasNext(); ) {
@@ -291,6 +296,10 @@ public class CommonUtils {
 	public static String getBusinessPackageName(Model model, net.sf.minuteProject.configuration.bean.Table table){
 		return getBusinessPackage(model, table.getTable());
 	}*/
+	
+	public static String getFunctionPackageName(Model model, Function function){
+		return getFunctionPackage(model, function);
+	}
 	
 	public static String getBusinessPackageName(Model model, Table table){
 		return getBusinessPackage(model, table);

@@ -1,5 +1,5 @@
 package net.sf.minuteProject.configuration.bean.model.data.constant;
 
 public enum Direction {
-	IN, OUT, INOUT;
+	IN, OUT, INOUT, NONE;
 }

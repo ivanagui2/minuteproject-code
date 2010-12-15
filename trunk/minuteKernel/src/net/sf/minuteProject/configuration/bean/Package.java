@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 
@@ -14,6 +15,9 @@ public class Package extends AbstractConfiguration{
 	private List<View> listOfViews;
 	private String name;
 	private BusinessPackage businessPackage;
+	private FunctionPackage functionPackage;
+	private List<Function> listOfFunctions;
+	
 	private SecurityColor securityColor;
 	private String alias;
 
@@ -48,6 +52,14 @@ public class Package extends AbstractConfiguration{
 		this.name = name;
 	}
 	
+	public FunctionPackage getFunctionPackage() {
+		return functionPackage;
+	}
+
+	public void setFunctionPackage(FunctionPackage functionPackage) {
+		this.functionPackage = functionPackage;
+	}
+
 	public BusinessPackage getBusinessPackage() {
 		return businessPackage;
 	}
@@ -64,7 +76,7 @@ public class Package extends AbstractConfiguration{
 		}
 		else
 //		StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
-			sb.append(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
+			sb.append(getTechPackage(template));
 		if (template.getAddBusinessPackageDirName()!=null && template.getAddBusinessPackageDirName().equals("false")) {}
 		else {
 			String name = getName();
@@ -72,6 +84,12 @@ public class Package extends AbstractConfiguration{
 				sb.append("."+name);
 		}
 		return sb.toString();
+	}
+
+	private String getTechPackage(Template template) {
+		if (getBusinessPackage()!=null) return getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template);
+		if (getFunctionPackage()!=null) return getFunctionPackage().getFunctionModel().getModel().getTechnicalPackage(template);
+		return "";
 	}
 
 	public SecurityColor getSecurityColor() {
@@ -90,6 +108,13 @@ public class Package extends AbstractConfiguration{
 
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	public void addFunction(Function function) {
+		if (listOfFunctions==null)
+			listOfFunctions = new ArrayList<Function>();
+		function.setPackage(this);
+		listOfFunctions.add(function);
 	}
 	
 	

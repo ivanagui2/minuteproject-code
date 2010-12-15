@@ -18,19 +18,42 @@ public class ConvertUtils {
 	public static final String JAVA_BLOB_TYPE 					=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 					=   "java.sql.Clob";	
 
+	public static final String DB_STRING_CHAR_TYPE 				=   "CHAR";	
+	public static final String DB_STRING2_CHAR_TYPE 			=   "CHAR2";	
 	public static final String DB_STRING_TYPE 					=   "VARCHAR";	
+	public static final String DB_STRING2_TYPE 					=   "VARCHAR2";	
 	public static final String DB_INTEGER_TYPE 					=   "INTEGER";	
+	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";	
+	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
 	
 	public static final String UML_STRING_TYPE 					=   "string";	
 	public static final String UML_INTEGER_TYPE 				=   "integer";	
+	public static final String UML_LONG_TYPE 					=   "decimal";	
 	
 	public static String getDBFullTypeFromUMLType (String type) {
 		if (type==null) return DB_STRING_TYPE;
 		type = StringUtils.lowerCase(type);
 		if (UML_STRING_TYPE.equals(type)) return DB_STRING_TYPE;
 		if (UML_INTEGER_TYPE.equals(type)) return DB_INTEGER_TYPE;
+		if (UML_LONG_TYPE.equals(type)) return DB_DECIMAL_TYPE;
 		return DB_STRING_TYPE;
 	}
+	
+	public static String getUMLTypeFromDBFullType (String type) {
+		if (type==null) return DB_STRING_TYPE;
+		type = StringUtils.lowerCase(type);
+		if (DB_STRING_TYPE.equals(type)) return UML_STRING_TYPE;
+		if (DB_STRING2_TYPE.equals(type)) return UML_STRING_TYPE;
+		if (DB_STRING_CHAR_TYPE.equals(type)) return UML_STRING_TYPE;
+		if (DB_STRING2_CHAR_TYPE.equals(type)) return UML_STRING_TYPE;
+		if (DB_INTEGER_TYPE.equals(type)) return UML_INTEGER_TYPE;
+		if (DB_DECIMAL_TYPE.equals(type)) return UML_LONG_TYPE;
+		return UML_STRING_TYPE;
+	}
+	
+	public static String getDDLUtilsTypeFromDBType (String type) {
+		return getDBFullTypeFromUMLType(getUMLTypeFromDBFullType(type));
+	}	
 	
 	public static String getJavaTypeFromDBFullType (String dBType) {
 		String retStr=null;

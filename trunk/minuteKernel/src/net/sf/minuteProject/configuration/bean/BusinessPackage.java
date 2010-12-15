@@ -13,14 +13,11 @@ import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.DBTemplateUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
-public class BusinessPackage extends AbstractConfiguration {
+public class BusinessPackage extends PackageAdapter {
 
-	private BusinessModel businessModel;
-
-	private String defaultPackage, defaultPackageType, autoPackageType;
-
-	private List<Condition> conditions;
-	private List<Package> packages, packageViews, packageTransferEntities;
+	protected BusinessModel businessModel;
+	protected List<Package> packages, packageViews, packageTransferEntities;
+	
 	private List<Table> tables, entities, transferEntities;
 	private List<View> views;	
 	private List packageServices;
@@ -190,7 +187,109 @@ public class BusinessPackage extends AbstractConfiguration {
 		List<Table> tables = getEntities();
 		return (Table[]) tables.toArray(new Table[tables.size()]);
 	}
+	
+	public List<Table> getTransferEntities() {
+		if (transferEntities==null) transferEntities = new ArrayList<Table>();
+		return transferEntities;
+	}
+	
 
+	public void addTransferEntity(Table transferEntity) {
+		getTransferEntities().add(transferEntity);
+	}
+//	public List<Package> getPackages() {
+//		if (packages == null)
+//			packages = new ArrayList<Package>();
+//		return packages;
+//	}
+//
+//	public List<Package> getPackageViews() {
+//		if (packageViews == null)
+//			packageViews = new ArrayList<Package>();
+//		return packageViews;
+//	}
+//
+//	public void addCondition(Condition condition) {
+//		if (conditions == null)
+//			conditions = new ArrayList<Condition>();
+//		conditions.add(condition);
+//	}
+//
+//	public List<Condition> getConditions() {
+//		return conditions;
+//	}
+//
+//	public void setConditions(List<Condition> conditions) {
+//		this.conditions = conditions;
+//	}
+//	
+//	public String getPackage(String value) {
+//		return getConditionsResult(value);
+//	}
+//
+//	private String getConditionsResult(String valueToTest) {
+//		if (conditions!=null) {
+//			for (Condition condition : conditions) {
+//				if (condition.getConditionResult(valueToTest) != null) {
+//					return condition.getResult();
+//				}
+//			}
+//		}
+//		return getDefaultPackage();
+//	}
+//
+//	public String getDefaultPackage() {
+//		if (defaultPackage==null)
+//			return businessModel.getModel().getName();
+//		return defaultPackage;
+//	}	
+//	
+//	public List<Table> getTransferEntities() {
+//		if (transferEntities==null) transferEntities = new ArrayList<Table>();
+//		return transferEntities;
+//	}
+//
+//	public void addTransferEntity(Table transferEntity) {
+//		getTransferEntities().add(transferEntity);
+//	}
+//
+//	public List<Package> getPackageTransferEntities() {
+//		if (packageTransferEntities==null) packageTransferEntities = new ArrayList<Package>();
+//		return packageTransferEntities;
+//	}
+//
+//
+//	public void setDefaultPackage(String defaultPackage) {
+//		this.defaultPackage = defaultPackage;
+//	}
+//
+//	public BusinessModel getBusinessModel() {
+//		return businessModel;
+//	}
+//
+//	public void setBusinessModel(BusinessModel businessModel) {
+//		this.businessModel = businessModel;
+//	}
+//
+//	public String getAutoPackageType() {
+//		return autoPackageType;
+//	}
+//
+//	public void setAutoPackageType(String autoPackageType) {
+//		this.autoPackageType = autoPackageType;
+//	}
+//
+//	public String getDefaultPackageType() {
+//		return defaultPackageType;
+//	}
+//
+//	public void setDefaultPackageType(String defaultPackageType) {
+//		this.defaultPackageType = defaultPackageType;
+//	}
+//	
+	
+
+	
 	public List<Package> getPackages() {
 		if (packages == null)
 			packages = new ArrayList<Package>();
@@ -203,59 +302,17 @@ public class BusinessPackage extends AbstractConfiguration {
 		return packageViews;
 	}
 
-	public void addCondition(Condition condition) {
-		if (conditions == null)
-			conditions = new ArrayList<Condition>();
-		conditions.add(condition);
-	}
-
-	public List<Condition> getConditions() {
-		return conditions;
-	}
-
-	public void setConditions(List<Condition> conditions) {
-		this.conditions = conditions;
-	}
-	
-	public String getPackage(String value) {
-		return getConditionsResult(value);
-	}
-
-	private String getConditionsResult(String valueToTest) {
-		if (conditions!=null) {
-			for (Condition condition : conditions) {
-				if (condition.getConditionResult(valueToTest) != null) {
-					return condition.getResult();
-				}
-			}
-		}
-		return getDefaultPackage();
-	}
-
 	public String getDefaultPackage() {
 		if (defaultPackage==null)
 			return businessModel.getModel().getName();
 		return defaultPackage;
 	}	
-	
-	public List<Table> getTransferEntities() {
-		if (transferEntities==null) transferEntities = new ArrayList<Table>();
-		return transferEntities;
-	}
-
-	public void addTransferEntity(Table transferEntity) {
-		getTransferEntities().add(transferEntity);
-	}
 
 	public List<Package> getPackageTransferEntities() {
 		if (packageTransferEntities==null) packageTransferEntities = new ArrayList<Package>();
 		return packageTransferEntities;
 	}
 
-
-	public void setDefaultPackage(String defaultPackage) {
-		this.defaultPackage = defaultPackage;
-	}
 
 	public BusinessModel getBusinessModel() {
 		return businessModel;
@@ -264,21 +321,4 @@ public class BusinessPackage extends AbstractConfiguration {
 	public void setBusinessModel(BusinessModel businessModel) {
 		this.businessModel = businessModel;
 	}
-
-	public String getAutoPackageType() {
-		return autoPackageType;
-	}
-
-	public void setAutoPackageType(String autoPackageType) {
-		this.autoPackageType = autoPackageType;
-	}
-
-	public String getDefaultPackageType() {
-		return defaultPackageType;
-	}
-
-	public void setDefaultPackageType(String defaultPackageType) {
-		this.defaultPackageType = defaultPackageType;
-	}
-	
 }

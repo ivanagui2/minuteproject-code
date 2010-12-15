@@ -1,34 +1,32 @@
 package net.sf.minuteProject.utils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import net.sf.minuteProject.application.ModelGenerator;
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.BusinessModel;
+import net.sf.minuteProject.configuration.bean.FunctionModel;
 import net.sf.minuteProject.configuration.bean.GenerationCondition;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
-import net.sf.minuteProject.configuration.bean.Reference;
-import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
-import net.sf.minuteProject.configuration.bean.Target;
+import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.condition.FunctionGenerationCondition;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.presentation.EntityBlock;
 import net.sf.minuteProject.configuration.bean.presentation.EntityBlocks;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.presentation.PresentationBlock;
-import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.configuration.bean.view.View;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 public class ModelUtils {
@@ -41,6 +39,18 @@ public class ModelUtils {
 		return true;
 	}
 	
+	public static boolean isToGenerate(FunctionModel functionModel, Function function) {
+		FunctionGenerationCondition functionGC = functionModel.getFunctionGenerationCondition();
+		if (functionGC!=null) {
+			return isToGenerate (functionGC, function);
+		}
+		return true;
+	}
+	
+	private static boolean isToGenerate(FunctionGenerationCondition functionGC, Function function) {
+		return functionGC.areConditionsTrue(function.getName());
+	}
+
 	private static boolean isToGenerate(GenerationCondition generationCondition, Table table) {
 		if (table.TABLE.equals(table.getType()) && generationCondition.isExcludeTables())
 			return false;
@@ -116,7 +126,7 @@ public class ModelUtils {
 		return sb.toString();		
 	}		
 	//TODO getPackage and technicalPackage must be in the configuration bean interface
-	public static String getTechnicalPackage(Function function, Template template) {
+	public static String getTechnicalPackage(net.sf.minuteProject.configuration.bean.view.Function function, Template template) {
 		StringBuffer sb = new StringBuffer(getTechnicalPackage(function.getService(), template));
 		sb.append("."+function.getName());
 		return sb.toString();		

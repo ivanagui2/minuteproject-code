@@ -134,6 +134,7 @@ public class BusinessModel {
 			}
 		}
 	}
+	
 	private void createTransferEntity(Entity entity, Database database) {
 		net.sf.minuteProject.configuration.bean.model.data.Table table = entity.getTable(database);
 		database.addTable(table);
