@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
@@ -15,17 +18,18 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.Function
 
 public class FunctionUtils {
 	
-	public static List<Function> getFunctions(DataModel dataModel) {
+	private static Logger log = Logger.getLogger(FunctionUtils.class);
+	public static List<Function> getFunctions(DataModel dataModel, Database database) {
 		
 		Connection connection = ConnectionUtils.getConnection(dataModel);
 		if (connection!=null) {
 			String schema = dataModel.getSchema();
-			return getFunctions (connection, schema);
+			return getFunctions (connection, schema, database);
 		}
 		return new ArrayList<Function>();
 	}
 	
-	public static List<Function> getFunctions(Connection connection, String schema) {
+	public static List<Function> getFunctions(Connection connection, String schema, Database database) {
 		Function function = null;
 		try {
 			List<Function> functions = new ArrayList<Function>();
@@ -50,9 +54,8 @@ public class FunctionUtils {
 		      short  columnRadix          = rs.getShort(11);
 		      short  columnNullable       = rs.getShort(12);
 		      String columnRemarks        = rs.getString(13);
-	
-		      
-		      if (!procedureCatalog.equals(previousProcedureCatalog) || !procedureName.equals(previousProcedureName)) {
+   
+		      if (procedureCatalog==null  || !procedureCatalog.equals(previousProcedureCatalog) || !procedureName.equals(previousProcedureName)) {
 		    	 if (function!=null)
 		    		 functions.add(function);
 		    	 function = new FunctionDDLUtils();
@@ -73,17 +76,15 @@ public class FunctionUtils {
 		      functionColumn.setPrecision(columnPrecision);
 		      functionColumn.setRequired((columnNullable==0)?true:false);
 		      functionColumn.setDescription(columnRemarks);
-		      
 		      function.addColumn(functionColumn);
 		      
-//		      System.out.println("procedureCatalog =" + procedureCatalog +" - "+"procedureName =" + procedureName +" - "+columnName);
+		      function.setDatabase(database);
 		    }
 		    functions.add(function);
 		    connection.close();
 		    return functions;
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+			log.error("Problem handling store procedures "+e.getMessage());
 		}
 		return new ArrayList<Function>();
 	}

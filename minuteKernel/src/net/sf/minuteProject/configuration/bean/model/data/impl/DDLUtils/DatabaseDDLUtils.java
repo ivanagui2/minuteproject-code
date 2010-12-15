@@ -1,7 +1,6 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.io.File;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -9,12 +8,10 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.FileSource;
 import net.sf.minuteProject.configuration.bean.Model;
-import net.sf.minuteProject.configuration.bean.condition.CatalogGenerationCondition;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
-import net.sf.minuteProject.utils.ConnectionUtils;
 import net.sf.minuteProject.utils.FunctionUtils;
 
 import org.apache.ddlutils.Platform;
@@ -64,7 +61,7 @@ public class DatabaseDDLUtils implements Database
 	}
 	
 	private void loadFunction (DataModel dataModel) {
-		functions = FunctionUtils.getFunctions(dataModel);
+		functions = FunctionUtils.getFunctions(dataModel, this);
 	}
 	
 	public Database loadDatabase(DataModel dataModel) {

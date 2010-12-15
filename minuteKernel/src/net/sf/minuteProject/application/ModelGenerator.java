@@ -16,6 +16,7 @@ import org.apache.velocity.VelocityContext;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.FunctionModel;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
@@ -27,6 +28,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 
@@ -221,6 +223,10 @@ public class ModelGenerator extends AbstractGenerator {
 		businessModel.secureEntityType();
 		businessModel.complementDataModelWithTables();
 		businessModel.complementDataModelWithTransferEntitiesEnrichment();
+		if (model.hasFunctionModel()) {
+			FunctionModel functionModel = model.getFunctionModel();
+			functionModel.complementFunctionWithFunctionEntity();
+		}
 	}
 
 	/*
@@ -245,6 +251,10 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByApplication(template);
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
+		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION_INPUT))
+			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT);
+		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION_OUTPUT))
+			generateArtifactsByFunction(template, Direction.OUT, Direction.INOUT);		
 		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION))
 			generateArtifactsByFunction(template);
 		else if (template.getScopeSpecificValue().equals(SCOPE_TARGET_TEMPLATE))
@@ -357,12 +367,27 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 	
+	protected void generateArtifactsByFunction(Template template, Direction... direction) throws MinuteProjectException {	
+		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
+			Direction functionDirection = function.getDirection();
+			for (Direction dir : direction) { // dir has to be put in the correct order IN or OUT before NONE, INOUT
+				if (dir.equals(functionDirection)) {
+					writeTemplateResult(function.getEntity(dir), template);
+					break;
+				}
+			}
+		}
+	}
+		
 	protected void writeTemplateResult(GeneratorBean bean,
 			Template template) throws MinuteProjectException {
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
+		if (bean instanceof Function) {
+			context.put("table", bean);
+		}			
 		context.put("template", template);
 		putCommonContextObject(context, template);
 		try {

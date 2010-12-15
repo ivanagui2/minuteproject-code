@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 
 public interface Function extends GeneratorBean{
 
@@ -18,4 +19,11 @@ public interface Function extends GeneratorBean{
 	
 	public FunctionColumn [] getFunctionColumns ();
 	
+	public Direction getDirection();
+	
+	public Table getEntity (Direction direction);
+	
+	public void setDatabase (Database database);
+	
+
 }

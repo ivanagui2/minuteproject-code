@@ -1,49 +1,19 @@
 package net.sf.minuteProject.application;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.xmlrules.DigesterLoader;
-import org.apache.commons.lang.StringUtils;
-import org.apache.ddlutils.model.Database;
-import org.apache.log4j.Logger;
-import org.apache.velocity.VelocityContext;
-
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
-import net.sf.minuteProject.configuration.bean.Package;
-import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
-import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
-import net.sf.minuteProject.configuration.bean.system.Plugin;
-import net.sf.minuteProject.configuration.bean.view.Function;
-import net.sf.minuteProject.configuration.bean.view.Service;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
-import net.sf.minuteProject.utils.BslaLibraryUtils;
-import net.sf.minuteProject.utils.BslaViewLibraryUtils;
-import net.sf.minuteProject.utils.ColumnUtils;
-import net.sf.minuteProject.utils.CommonUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteProject.utils.DatabaseUtils;
-import net.sf.minuteProject.utils.FormatUtils;
-import net.sf.minuteProject.utils.ModelUtils;
-import net.sf.minuteProject.utils.ReferenceUtils;
-import net.sf.minuteProject.utils.SqlUtils;
-import net.sf.minuteProject.utils.TableUtils;
-import net.sf.minuteProject.utils.TestUtils;
-import net.sf.minuteProject.utils.URLUtils;
-import net.sf.minuteProject.utils.ViewUtils;
-import net.sf.minuteProject.utils.WebUtils;
+
+import org.apache.log4j.Logger;
+import org.apache.velocity.VelocityContext;
 
 /**
  * @author Florian Adler
@@ -167,6 +137,9 @@ public class ModelViewGenerator extends ModelGenerator {
 			Table table = component.getTable();
 			context.put("table", table);
 		}
+		if (bean instanceof Function) {
+			context.put("table", bean);
+		}		
 		if (beanName.equals("view"))
 			context.put("table", bean);
 		context.put("template", template);
