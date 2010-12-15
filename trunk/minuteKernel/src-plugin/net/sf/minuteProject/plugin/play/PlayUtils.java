@@ -15,9 +15,11 @@ public class PlayUtils {
 	}
 
 	private boolean isPlayStereotype(Stereotype stereotype) {
-		String stereo = stereotype.getStereotype();
-		if (getStereotype(stereo)!=null)
-			return true;
+		if (stereotype!=null) {
+			String stereo = stereotype.getStereotype();
+			if (getStereotype(stereo)!=null)
+				return true;
+		}
 		return false;
 	}
 

@@ -1,7 +1,7 @@
 <!DOCTYPE root>
 <generator-config>
-	<configuration>
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.grails">
+	<configuration name="petshop">
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.play">
 			<data-model>
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
