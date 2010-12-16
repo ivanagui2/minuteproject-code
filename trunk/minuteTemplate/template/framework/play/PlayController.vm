@@ -1,17 +1,14 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
-#putGrailsTemplateDefinition()
+#putPlayTemplateDefinition()
 #exposeImportPlayParamParamsUML ($table)
-package $packageName
+package $packageName;
 
-import models.*;
+import controllers.CRUD; //check if it can be generated under the same package
+import play.*;
 import play.mvc.*;
 
 import $importDomainObjectUML;
-
-class ${className} {
-     def scaffold = $domainClassName
-}
 
 @CRUD.For(${domainClassName}.class)
 public class ${className} extends CRUD {

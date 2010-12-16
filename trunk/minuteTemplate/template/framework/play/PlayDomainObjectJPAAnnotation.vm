@@ -1,8 +1,7 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
-##exposeOXDomainSpecific()
+#putPlayTemplateDefinition()
 #putImportParamsUML()
-##set($attributes=$table.attributes)
 #set($attributecount=$attributes.length)
 package $packageName;
 
@@ -15,30 +14,7 @@ import play.mvc.Scope.*;
 
 import javax.persistence.*;
 
-#foreach ($reference in $table.children)
-#set ($thisTable = $reference.foreignTable)
-#exposeImportParamsUML($reference.foreignTable)
-#if(!$thisTable.isManyToMany())
-import $importDomainObjectUML;
-#end
-#end
-#foreach ($reference in $table.parents)
-#exposeImportParamsUML($reference.foreignTable)
-#set ($thisTable = $reference.foreignTable)
-#if(!$thisTable.isManyToMany())
-import $importDomainObjectUML;
-#end
-#end
-#foreach ($reference in $childReferences)
-#putReferenceParams()
-#if($linktableDB.isManyToMany())
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
-#exposeM2MSpecific()
-#exposeImportParamsUML($targetTable)
-import $importDomainObjectUML;
-#end
-#end
-#end
+#printPlayDomainImport()
 
 /**
  *
@@ -49,7 +25,7 @@ import $importDomainObjectUML;
  */
 @Entity (name="${className}")
 @Table (name="${table.name}")
-public class ${className} {
+public class ${className} extends GenericModel {
 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -62,7 +38,7 @@ public class ${className} {
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
 #end
-    #if (!$isPkUserProvided)@Hidden #end@Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
@@ -89,14 +65,9 @@ public class ${className} {
 #if ($isMandatory)
     @Required
 #end
-#foreach ($property in $column.getPropertiesArray())
-#if($property.tag=="checkconstraint")
-    @Editor(forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}ComboEditor")
-#end
-#end
+
 #if ($column.isLob())
     @Lob
-    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
 #exposeLobProperties()
 #if ($convertClobToString=="true")
 #set($columnType="String")
@@ -125,38 +96,7 @@ public class ${className} {
 #if ($isMandatory && !$table.isLinkEntity())
     @Required
 #end 
-    @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
-#set($semanticReference = $linktableDB.semanticReference)
-#if ($openXavaUtils.hasDescriptionList($linktableDB)) 
-#if ($semanticReference.semanticReferenceBeanPath.size()<2)
-    @DescriptionsList(
-       descriptionProperties=
-#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
-       "$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
-#else "
-#end 
-#end       
-    )
-#else
-    @DescriptionsLists({
-       @DescriptionsList(
-         forTabs="${className}TabWithRef", 
-         descriptionProperties=
-#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
-            "$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
-#else "
-#end 
-#end       
-    )         
-    })  
-#end    
-    @NoCreate
-    @NoModify	
-#end 
-#if (!$authorizationUtils.hasSameColor($table, $linktableDB) && !$openXavaUtils.hasDescriptionList($linktableDB))    
-    @NoCreate
-    @NoModify	
-#end
+
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
 #set($colVar = ${localColumnVariable})
@@ -167,11 +107,13 @@ public class ${className} {
     
 #end
 
-#foreach ($reference in $table.children)##$childReferences)
+#foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-#set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
-#set ($targetEntityClass="${importDomainObjectForeignTable}.class")
+#exposeDOPlayParamParamsUML($linktableDB)
+##set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
+##set ($targetEntityClass="${importDomainObjectForeignTable}.class")
+#set ($targetEntityClass="${domainObjectPlayUML}.class")
 #exposeEnrichedPk(${reference.column})
 #if (!$isEnrichedPk)
 #set ($foreignColumnVar = $formatUtils.getJavaNameVariable($columnDB.name))
@@ -179,13 +121,6 @@ public class ${className} {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-#set($listProperties=$openXavaUtils.getListProperties($reference))
-#if(!$listProperties.isEmpty())
-    @ListProperties(""+
-       "#foreach ($chunk in $listProperties)   
-$chunk #if ($velocityCount!=$listProperties.size()),#else #end
-#end ")
-#end
     private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet(); 
    
 #end
@@ -210,7 +145,6 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
     public ${className}() {
     }
 
-##patch for hibernate
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;
@@ -284,7 +218,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end 
 #end
 
-#foreach ($reference in $table.children)##$childReferences)
+#foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
     public Set<$linkedTableClass> get${linkedTableClass}${linkedColumnClass}s() {

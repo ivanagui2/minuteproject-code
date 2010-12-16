@@ -12,17 +12,17 @@
    	
   	<template-target 
     	name="Play application"
-		outputdir="app"
+		outputdir="play-app/app"
 		libdir="lib/Play_LIB.vm">
 			 
 		<template name="PlayDomainObject" templateFileName="PlayDomainObjectJPAAnnotation.vm" 
-			file-extension="java"
+			file-extension="java" technicalPackage="model"
 			entity-specific="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 
 		<template name="PlayController" templateFileName="PlayController.vm" 
-			file-extension="java"
+			file-extension="java" technicalPackage="" add-model-dir-name="false" add-package-name="false" package-root="controllers" 
 			entity-specific="true" file-suffix="Controller" 
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
@@ -31,7 +31,7 @@
 	
   	<template-target 
     	name="Play HTML"
-		outputdir="crud/views/CRUD/" >
+		outputdir="play-app/crud/views/CRUD/" >
 			
 		<template package-root=""
 			name="PlayIndexHtml" templateFileName="PlayIndexHtml.vm" 
@@ -44,7 +44,7 @@
 		
   	<template-target 
     	name="Play configuration"
-		outputdir="conf" >
+		outputdir="play-app/conf" >
 
 		<template package-root=""
 			name="PlayApplicationConf" templateFileName="PlayApplicationConf.vm" 
