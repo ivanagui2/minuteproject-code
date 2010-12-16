@@ -1,0 +1,5 @@
+#exposePlaySpecific()
+call play new $applicationPlay
+xcopy play-app $applicationPlay /y /s
+call play eclipsify $applicationPlay
+call play run $applicationPlay
