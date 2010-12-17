@@ -16,3 +16,4 @@ echo "incubator generations"
 call demo-draft-features-vaadin-spring-hibernate.cmd
 call demo-last-features-roo.cmd
 call demo-last-features-grails.cmd
+call demo-last-features-play.cmd

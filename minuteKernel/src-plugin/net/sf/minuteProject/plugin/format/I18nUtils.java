@@ -26,7 +26,7 @@ public class I18nUtils {
 		if (input!=null) {
 			String lastChar = StringUtils.substring(input, input.length()-1);
 			String strippedInput = input.substring(0, input.length()-1);
-			if (lastChar.equals("ty")) return strippedInput + "ties";
+			if (lastChar.equals("y")) return strippedInput + "ies";
 			if (lastChar.equals("s")) return strippedInput + "ses";
 			return input + "s";
 		}

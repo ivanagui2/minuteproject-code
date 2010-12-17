@@ -22,8 +22,7 @@
 		</template>	
 
 		<template name="PlayController" templateFileName="PlayController.vm" 
-			file-extension="java" technicalPackage="" add-model-dir-name="false" add-package-name="false" add-business-package-dir-name="false"
-			package-root="controllers" 
+			file-extension="java" technicalPackage="" add-model-dir-name="false" add-package-name="false" package-root="controllers" 
 			entity-specific="true" 
 			file-name-builder-plugin="playUtils"
 			file-name-builder-method="getControllerName"
