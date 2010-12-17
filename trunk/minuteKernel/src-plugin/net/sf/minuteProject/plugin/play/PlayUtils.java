@@ -1,9 +1,13 @@
 package net.sf.minuteProject.plugin.play;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.plugin.grails.GrailsUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 
 public class PlayUtils {
 
@@ -25,13 +29,26 @@ public class PlayUtils {
 		return false;
 	}
 
-	private String getStereotype(String stereo) {
+	public String getStereotype(Column column) {
+		Stereotype stereotype = column.getStereotype();
+		if (isPlayStereotype(stereotype)) {
+			return getStereotype(stereotype.getStereotype());
+		}
+		return null;
+	}
+	public String getStereotype(String stereo) {
+		stereo = stereo.toLowerCase();
 		if ("url".equals(stereo)) return "URL";
 		if ("email".equals(stereo)) return "Email";
 		return null;
 	}
 	
 	public static String getToString (Table table) {
-		return GrailsUtils.getToString(table);
+		return GrailsUtils.getToString(table)+"+\"\"";
 	}
+	
+	public static String getControllerName (Template template, GeneratorBean bean) {
+		Table table = (Table)bean;
+		return I18nUtils.plurialize(FormatUtils.getJavaName(table.getAlias()));
+	}	
 }

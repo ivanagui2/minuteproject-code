@@ -1,5 +1,5 @@
 #exposePlaySpecific()
-##exposeConnectionSpecific()
+#set ($hibernateDialect = $hibernate3.getDialect($database))
 ##exposeJdbc()
 ##exposeEnvironment()
 # This is the main configuration file for the application.
@@ -92,6 +92,7 @@ db.url=$datasource.url
 db.driver=$datasource.driverClassName
 db.user=$datasource.username
 db.pass=$datasource.password
+jpa.dialect=${hibernateDialect}
 #
 # Connections pool configuration :
 #

@@ -1,4 +1,5 @@
 #exposePlaySpecific()
+mkdir $applicationPlay
 call play new $applicationPlay
 xcopy play-app $applicationPlay /y /s
 call play run $applicationPlay

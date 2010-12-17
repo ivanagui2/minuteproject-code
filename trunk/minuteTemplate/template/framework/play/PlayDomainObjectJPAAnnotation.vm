@@ -7,6 +7,8 @@ package $packageName;
 
 import java.util.*;
 
+import java.sql.*;
+import java.util.Date;
 import play.db.jpa.*;
 import play.data.validation.*;
 import play.templates.*;
@@ -65,7 +67,6 @@ public class ${className} extends GenericModel {
 #if ($isMandatory)
     @Required
 #end
-
 #if ($column.isLob())
     @Lob
 #exposeLobProperties()
@@ -73,11 +74,11 @@ public class ${className} extends GenericModel {
 #set($columnType="String")
 #end
 #end
-
 #if ($playUtils.hasStereotype($column))
-    @${$playUtils.getStereotype($column)}
+    @$playUtils.getStereotype($column)
 #end
     private $columnType $columnVar; 
+    
 #end
 
 #foreach ($reference in $table.parents)
@@ -96,7 +97,6 @@ public class ${className} extends GenericModel {
 #if ($isMandatory && !$table.isLinkEntity())
     @Required
 #end 
-
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
 #set($colVar = ${localColumnVariable})
@@ -106,7 +106,6 @@ public class ${className} extends GenericModel {
     private $linkedTableClass ${colVar}; 
     
 #end
-
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
