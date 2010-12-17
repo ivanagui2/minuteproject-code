@@ -252,4 +252,7 @@ public class ${className} extends GenericModel {
     }	
 
 #end
+    public String toString(){
+       return $playUtils.getToString($table);
+    }
 }
