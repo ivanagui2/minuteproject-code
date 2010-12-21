@@ -2,7 +2,7 @@
   <databases>
   
 	 <database name="ORACLE" 
-        hibernate-dialect="org.hibernate.dialect.Oracle9Dialect" 
+        hibernate-dialect="org.hibernate.dialect.Oracle9iDialect" 
         use-schema="true" 
         driverclassname="oracle.jdbc.OracleDriver"
         default-url-structure="jdbc:oracle:thin:@{server-name}:{port-number}:{SID}" >
