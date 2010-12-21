@@ -50,4 +50,8 @@ public class GrailsUtils {
 		}
 		return targetTableVariableName+"s";
 	}
+	
+	public String getVersionField (Table table) {
+		return FormatUtils.getJavaNameVariable(TableUtils.getVersionColumn(table).getName());
+	}
 }

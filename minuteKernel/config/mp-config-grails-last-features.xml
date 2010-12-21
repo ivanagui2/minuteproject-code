@@ -30,6 +30,10 @@
 					     <sql-path path="NAME"/>
 					   </semantic-reference>					
 					</entity>
+					<conventions>
+					    <version-convention default-value="VERSION" >
+					    </version-convention>				    
+					</conventions>					
 				</enrichment>					
 			</business-model>
 		</model>	

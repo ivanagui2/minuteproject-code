@@ -66,7 +66,7 @@
 	</template-target>	
 			
   	<template-target 
-    	name="Grails config"
+    	name="Play config"
 		outputdir="" >
 			
 		<template package-root=""

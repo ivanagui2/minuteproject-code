@@ -34,6 +34,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<List<Column>> fieldGroupsList;
 	private List<FieldGroup> fieldGroups;
 	private List<Action> actions;
+	private Boolean hasVersion;
 	
 	public TableAbstract () {
 	}
@@ -400,9 +401,18 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	}
 	
 	public boolean hasVersion() {
-		return false;
+		if (hasVersion==null)
+			hasVersion = getHasVersion();
+		return hasVersion;
 	}
 	
+	private Boolean getHasVersion() {
+		for(Column column : getColumns()) {
+			if (column.isVersion()) return true;
+		}
+		return false;
+	}
+
 	public boolean hasAttribute () {
 		return (getAttributes()!=null && getAttributes().length > 0)?true:false;
 	}
