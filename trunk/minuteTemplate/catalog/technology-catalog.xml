@@ -114,7 +114,7 @@
 	      <limitations>
 	        <limitation name="Many-two-many" is-applied="true" description="Not applied: code generated for m2m relationships is commented" helper="" defaultValue="version"/>
 	        <limitation name="ID column not primary key" is-applied="true" description="compilation error of gorm will result" helper="" defaultValue="version"/>
-	        <limitation name="Version" is-applied="true" description="version column not handled for optimistic locking in this release" helper="" defaultValue="version"/>
+	        <!-- <limitation name="Version" is-applied="true" description="version column not handled for optimistic locking in this release" helper="" defaultValue="version"/>-->
 	      </limitations>	      
 	      <frameworks>
 	        <framework name="Grails" version="1.3.5"></framework>
