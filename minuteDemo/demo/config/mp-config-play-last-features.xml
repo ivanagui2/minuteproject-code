@@ -43,7 +43,7 @@
 			<target
 			   name="Play" 
 			   fileName="mp-template-config-play-last-features.xml" 
-			   outputdir-root="../../DEV/output/play"
+			   outputdir-root="../output/play"
 			   templatedir-root="../../template/framework/play">
 			</target> 
 			<target refname="LIB" 
