@@ -1,0 +1,96 @@
+<target name="Grails">		
+	<architecture-target name="openxava" description="openxava architecture">
+	</architecture-target>	
+    <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
+    <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
+	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
+	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
+	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
+   	<plugin name="playUtils" className="net.sf.minuteProject.plugin.play.PlayUtils"/>
+   	<plugin name="referenceUtils" className="net.sf.minuteProject.utils.ReferenceUtils"/>
+   	
+  	<template-target 
+    	name="Play application"
+		outputdir="play-app/app"
+		libdir="lib/Play_LIB.vm">
+			 
+		<template name="PlayDomainObject" templateFileName="PlayDomainObjectJPAAnnotation.vm" 
+			file-extension="java" technicalPackage="model"
+			entity-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+
+		<template name="PlayController" templateFileName="PlayController.vm" 
+			file-extension="java" technicalPackage="" add-model-dir-name="false" add-package-name="false" package-root="controllers" 
+			entity-specific="true" 
+			file-name-builder-plugin="playUtils"
+			file-name-builder-method="getControllerName"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+							
+	</template-target>
+	
+  	<template-target 
+    	name="Play HTML"
+		outputdir="play-app/crud/views/CRUD/" >
+			
+		<template package-root=""
+			name="PlayIndexHtml" templateFileName="PlayIndexHtml.vm" 
+			add-model-name="false" add-model-dir-name="false" 
+			file-extension="html" file-prefix="menu"
+			model-specific="true">
+		</template>	
+					
+	</template-target>		
+		
+  	<template-target 
+    	name="Play configuration"
+		outputdir="play-app/conf" >
+
+		<template package-root=""
+			name="PlayApplicationConf" templateFileName="PlayApplicationConf.vm" 
+			add-model-name="false" add-model-dir-name="false"
+			file-extension="conf" file-prefix="application"
+			model-specific="true">
+		</template>	
+
+		<template package-root=""
+			name="PlayRoutes" templateFileName="PlayRoutes.vm" 
+			add-model-name="false" add-model-dir-name="false"
+			file-extension="" file-prefix="routes"
+			model-specific="true">
+		</template>	
+													
+	</template-target>	
+			
+  	<template-target 
+    	name="Grails config"
+		outputdir="" >
+			
+		<template package-root=""
+			name="PlayBuildCommandWindows" templateFileName="PlayBuildCommandWindows.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="build-" file-suffix="" 
+			application-specific="true">
+		</template>	
+				
+		<template package-root=""
+			name="PlayBuildCommandBash" templateFileName="PlayBuildCommandBash.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="sh" file-prefix="build-" file-suffix="" 
+			application-specific="true">
+		</template>
+		
+		<template package-root=""
+			name="PlayInstallReadMe" templateFileName="PlayInstallReadMe.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			add-model-dir-name="false"
+			file-extension="txt" file-prefix="README" file-suffix="" 
+			application-specific="true">
+		</template>			
+											
+	</template-target>				
+</target>

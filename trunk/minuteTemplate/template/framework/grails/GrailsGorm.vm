@@ -22,9 +22,11 @@ class ${className} {
 #end
 
 #foreach ($column in ${table.attributes})
+#if(!$column.isVersion())
 #putColumnParams()
 #columnJavaNaming()
     $columnType ${columnVar}
+#end
 #end
 
 #if ($hasParent)
@@ -82,8 +84,11 @@ class ${className} {
 #end
         )
 #end
-#if(!$table.hasVersion)
+#if(!$table.hasVersion())
         version false
+#else
+#set($versionField=$grailsUtils.getVersionField($table))
+        version "$versionField"
 #end
 // m2m
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))

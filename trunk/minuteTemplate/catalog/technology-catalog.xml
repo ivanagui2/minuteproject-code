@@ -120,7 +120,22 @@
 	        <framework name="Grails" version="1.3.5"></framework>
 	      </frameworks>        
 	 </technology>
-	 	 		 
+
+	 <technology name="Play" 
+	             template-config-file-name="mp-template-config-play-last-features.xml" 
+	             default-outputdir="play"
+	             template-dir="../template/framework/play" 
+	             depends-on-targets="BSLA_LIB" 
+	             status="released"
+	             comment=""
+	             description="Generates play artifacts:\Domain model extending GenericModel\Controllers\Routes, application conf\Misc script.">   
+	      <limitations>
+	      </limitations>	      
+	      <frameworks>
+	        <framework name="Play" version="1.1"></framework>
+	      </frameworks>        
+	 </technology>
+	 	 	 		 
 	 <technology name="Vaadin" 
 	   template-config-file-name="mp-template-config-vaadin-last-features.xml" 
 	   default-outputdir="vaadin"

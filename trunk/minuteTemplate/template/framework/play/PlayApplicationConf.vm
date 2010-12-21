@@ -92,7 +92,7 @@ db.url=$datasource.url
 db.driver=$datasource.driverClassName
 db.user=$datasource.username
 db.pass=$datasource.password
-jpa.dialect=${hibernateDialect}
+
 #
 # Connections pool configuration :
 #
@@ -112,7 +112,8 @@ jpa.dialect=${hibernateDialect}
 #
 # Debug SQL statements :
 # jpa.debugSQL=true
-
+jpa.ddl=none
+jpa.dialect=${hibernateDialect}
 # Memcached configuration
 # ~~~~~ 
 # Enable memcached if needed. Otherwise a local cache is used.

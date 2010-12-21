@@ -68,6 +68,7 @@ public class ${className} extends GenericModel {
     @Required
 #end
 #if ($column.isLob())
+#set($columnType="java.sql.$columnType")
     @Lob
 #exposeLobProperties()
 #if ($convertClobToString=="true")
@@ -179,6 +180,7 @@ public class ${className} extends GenericModel {
 #putColumnParams()
 #columnJavaNaming()
 #if ($column.isLob())
+#set($columnType="java.sql.$columnType")
 #exposeLobProperties()
 #if ($convertClobToString=="true")
 #set($columnType="String")
