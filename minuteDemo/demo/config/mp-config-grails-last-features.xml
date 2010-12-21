@@ -42,11 +42,11 @@
 			   name="Grails" 
 			   fileName="mp-template-config-grails-last-features.xml" 
 			   outputdir-root="../../DEV/output/grails"
-			   templatedir-root="../../minuteTemplate/template/framework/grails">
+			   templatedir-root="../../template/framework/grails">
 			</target> 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			   templatedir-root="../../template/framework/bsla">
 			</target>
 		</targets>
 	</configuration>
