@@ -47,7 +47,7 @@ public class TechnologyConventionPanel extends JPanel implements FillBasicConfig
 
 	private net.sf.minuteProject.configuration.bean.enrichment.convention.Convention getConvention(CheckBoxField cbf) {
 		net.sf.minuteProject.configuration.bean.enrichment.convention.Convention convention = null;
-		if ("version".equals(cbf.getName())) {
+		if ("version-convention".equals(cbf.getName())) {
 			convention=new VersionConvention();
 		}
 		if (convention!=null) {

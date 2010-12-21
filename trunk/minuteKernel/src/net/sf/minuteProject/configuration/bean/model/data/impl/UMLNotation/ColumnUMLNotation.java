@@ -11,6 +11,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setProperties(column.getProperties());
 		setStereotype(column.getStereotype());
 		setSearchable(column.isSearchable());
+		setVersion(column.isVersion());
 	}
 	
     public String getName() {

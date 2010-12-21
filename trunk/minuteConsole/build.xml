@@ -124,9 +124,9 @@
     <target name="clean">
         <title title="TASK clean" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Clean the business project</description>
-        <delete failonerror="false" file="${generatorBusiness.dist.dir}/${archive.name}"/>
         <delete failonerror="false" includeemptydirs="true">
             <fileset dir="${classes.dir}"/>
+        	<fileset dir="${dist.dir}"/>
         </delete>
         <delete failonerror="false" dir="${reports.dir}"/>
     </target>	

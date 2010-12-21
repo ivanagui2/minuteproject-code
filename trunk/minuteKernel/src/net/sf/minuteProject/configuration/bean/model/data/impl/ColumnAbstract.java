@@ -420,7 +420,9 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	}
 	
 	public boolean isVersion() {
-		return isVersion;
+		if (isVersion!=null)
+			return isVersion;
+		return false;
 	}
 
 	public void setVersion(boolean isVersion) {
