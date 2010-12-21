@@ -41,7 +41,7 @@
 			<target refname="Grails" 
 			   name="Grails" 
 			   fileName="mp-template-config-grails-last-features.xml" 
-			   outputdir-root="../../DEV/output/grails"
+			   outputdir-root="../output/grails"
 			   templatedir-root="../../template/framework/grails">
 			</target> 
 			<target refname="LIB" 
