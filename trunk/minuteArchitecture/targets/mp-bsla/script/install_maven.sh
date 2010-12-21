@@ -1,1 +1,1 @@
-mvn install:install-file -Dfile=mp-bsla-0.5.1.jar -DgroupId=net.sf.minuteproject -DartifactId=mp-bsla -Dversion=0.5.1 -Dpackaging=jar
+mvn install:install-file -Dfile=mp-bsla-0.5.2.jar -DgroupId=net.sf.minuteproject -DartifactId=mp-bsla -Dversion=0.5.2 -Dpackaging=jar
