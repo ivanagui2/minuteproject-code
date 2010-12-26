@@ -197,7 +197,7 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    @ManyToOne (fetch=FetchType.LAZY)
+    @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()),optional=false#end)
 #if ($isView)
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
@@ -208,9 +208,9 @@ public class ${className} {
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
 #end  
-#if ($isMandatory && !$table.isLinkEntity())
-    @Required
-#end 
+##if ($isMandatory && !$table.isLinkEntity())
+##    @Required
+##end 
     @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
 #set($semanticReference = $linktableDB.semanticReference)
 #if ($openXavaUtils.hasDescriptionList($linktableDB)) 
