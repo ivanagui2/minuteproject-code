@@ -24,12 +24,25 @@ public class I18nUtils {
 	
 	public static String plurialize(String input) {
 		if (input!=null) {
-			String lastChar = StringUtils.substring(input, input.length()-1);
-			String strippedInput = input.substring(0, input.length()-1);
-			if (lastChar.equals("y")) return strippedInput + "ies";
-			if (lastChar.equals("s")) return strippedInput + "ses";
-			return input + "s";
+			String lastChar = getLastChar (input, 1);//StringUtils.substring(input, input.length()-1);
+			if (lastChar!=null) {
+				String strippedInput = input.substring(0, input.length()-1);
+				if (lastChar.equals("y")) {
+					String last2Char = getLastChar (input, 2);
+					if ("ay".equals(last2Char) || "uy".equals(last2Char) || "oy".equals(last2Char)|| "ey".equals(last2Char))
+						return input+"s";
+					return strippedInput + "ies";
+				}
+				if (lastChar.equals("s")) return strippedInput + "ses";
+				return input + "s";
+			}
 		}
+		return null;
+	}
+
+	private static String getLastChar(String input, int i) {
+		if (input!=null && input.length()>=i)
+			return StringUtils.substring(input, input.length()-i);
 		return null;
 	}
 
