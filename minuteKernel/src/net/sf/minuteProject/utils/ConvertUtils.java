@@ -146,7 +146,7 @@ public class ConvertUtils {
 		if (dBType.equals("BOOLEAN"))
 			return  "Boolean";	
 		if (dBType.equals("DECIMAL"))
-			return  "BigDecimal";
+			return  "Long";
 		if (dBType.equals("NUMBER"))
 			return  "Long";
 		if (dBType.equals("NUMERIC"))
