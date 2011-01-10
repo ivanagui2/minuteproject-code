@@ -1,12 +1,12 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
 #exposeRailsDomainSpecific()
-#putImportParamsUML()
+##putImportParamsUML()
 #set ($hasChild = $tableUtils.hasChild($table))
 #set ($hasParent = $tableUtils.hasParent($table))
-package $packageName
+##package $packageName
 
-#printRailsDomainImport()
+##printRailsDomainImport()
 
 class ${className} < ActiveRecord::Base 
 #foreach($column in ${table.primaryKeyColumns})
