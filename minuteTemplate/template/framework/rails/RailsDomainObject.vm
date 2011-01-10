@@ -1,36 +1,32 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
-#exposeGrailsDomainSpecific()
+#exposeRailsDomainSpecific()
 #putImportParamsUML()
 #set ($hasChild = $tableUtils.hasChild($table))
 #set ($hasParent = $tableUtils.hasParent($table))
 package $packageName
 
-import java.sql.*
-#printGrailsDomainImport()
+#printRailsDomainImport()
 
-class ${className} {
-
+class ${className} < ActiveRecord::Base 
 #foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnRuby()
 #if (!$isMany2Many)
 #if ($isPkUserProvided)
-    $columnType id
+    set_primary_key : $columnVariable
 #end
 #end
 #end
-
-#foreach ($column in ${table.attributes})
-#if(!$column.isVersion())
-#putColumnParams()
-#columnJavaNaming()
-    $columnType ${columnVar}
-#end
-#end
+##no need of table column in rails at datamodel level
+##foreach ($column in ${table.attributes})
+##if(!$column.isVersion())
+##putColumnRuby()
+##    $columnType $columnVariable
+##end
+##end
 
 #if ($hasParent)
-    static belongsTo = [
+    belongs_to 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
         #if($velocityCount!=1), #end${localColumnVariable}: $linkedTableClass
@@ -40,14 +36,14 @@ class ${className} {
 #exposeM2MSpecific()
 #exposeImportParamsUML($targetTable)
 #set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
-#set($m2mVar = $grailsUtils.getM2MVariableName($table, $targetTable.name, $linkedTableDB.name, $linkReference.localColumn.name))
+#set($m2mVar = $railsUtils.getM2MVariableName($table, $targetTable.name, $linkedTableDB.name, $linkReference.localColumn.name))
 //      ${targetTableVariableName}Via${linkTableName}By${localColumnName}s  : $targetTableName //m2mVar = $m2mVar
 #end
     ]
 #end
 
 #if ($hasChild)
-    static hasMany = [
+    has_many 
 #set($cpt=0)
 #foreach ($reference in $table.children)
 #putReferenceParams2()
@@ -138,4 +134,4 @@ class ${className} {
     String toString(){
        return $grailsUtils.getToString($table)
     }
-}
+end
