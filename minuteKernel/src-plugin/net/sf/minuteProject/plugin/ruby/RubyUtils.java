@@ -5,15 +5,16 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 public class RubyUtils {
 
 	public static final String RUBY_BOOLEAN_TYPE 				=   "boolean";					
-	public static final String RUBY_LONG_TYPE 					=   "long";	
+	public static final String RUBY_LONG_TYPE 					=   "decimal";	
 	public static final String RUBY_DOUBLE_TYPE 				=   "double";			
 	public static final String RUBY_INTEGER_TYPE 				=   "integer";		
-	public static final String RUBY_TIMESTAMP_TYPE 				=   "timestamp";			
-	public static final String RUBY_BIGDECIMAL_TYPE 			=   "long";
+	public static final String RUBY_TIMESTAMP_TYPE 				=   "datetime";			
+	public static final String RUBY_BIGDECIMAL_TYPE 			=   "decimal";
 	public static final String RUBY_STRING_TYPE 				=   "string";						
 	public static final String RUBY_DATE_TYPE 					=   "date";
-	public static final String RUBY_BLOB_TYPE 					=   "blob";	
-	public static final String RUBY_CLOB_TYPE 					=   "clob";
+	public static final String RUBY_BLOB_TYPE 					=   "binary";	
+	public static final String RUBY_CLOB_TYPE 					=   "text";
+	public static final String RUBY_FLOAT_TYPE 					=   "float";
 	
 	public static String getRubyType (Column column) {
 		return RubyUtils.getRubyType(column.getType());
@@ -21,7 +22,8 @@ public class RubyUtils {
 
 	private static String getRubyType(String dBType) {
 		String retStr=null;
-		if (dBType.equals("BOOLEAN"))
+		dBType = dBType.toUpperCase();
+		if (dBType.equals("BOOLEAN") || dBType.equals("TINYINT") )
 			return  RUBY_BOOLEAN_TYPE;					
 		if (dBType.equals("BIGINT"))
 			return  RUBY_LONG_TYPE;	
@@ -37,6 +39,8 @@ public class RubyUtils {
 			return  RUBY_STRING_TYPE;	
 		if (dBType.equals("VARCHAR"))
 			return  RUBY_STRING_TYPE;	
+		if (dBType.equals("FLOAT"))
+			return  RUBY_FLOAT_TYPE;	
 		if (dBType.equals("LONGVARCHAR"))
 			return  RUBY_STRING_TYPE;	
 		if (dBType.equals("VARCHAR2"))
@@ -45,7 +49,7 @@ public class RubyUtils {
 			return  RUBY_STRING_TYPE;			
 		if (dBType.equals("CHAR"))
 			return  RUBY_STRING_TYPE;		
-		if (dBType.equals("INTEGER"))
+		if (dBType.equals("INTEGER") || dBType.equals("INT"))
 			return  RUBY_INTEGER_TYPE;	
 		if (dBType.equals("NUMERIC"))
 			return  RUBY_INTEGER_TYPE;		
@@ -59,7 +63,7 @@ public class RubyUtils {
 			return  RUBY_BLOB_TYPE;	
 		if (dBType.equals("BINARY"))
 			return  RUBY_BLOB_TYPE;	
-		if (dBType.equals("CLOB"))
+		if (dBType.equals("CLOB") || dBType.equals("TEXT"))
 			return  RUBY_CLOB_TYPE;	
 		if (dBType.equals("NVARCHAR2"))
 			return  RUBY_STRING_TYPE;	
