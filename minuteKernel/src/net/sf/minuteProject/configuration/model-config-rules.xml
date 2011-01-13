@@ -227,7 +227,16 @@
 						<alias attr-name="name" prop-name="name" />	
 						<alias attr-name="roles" prop-name="roles" />
 					</set-properties-rule>	
-	            </pattern>				
+	            </pattern>	
+	            <pattern value="entity-group">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.group.EntityGroup"/>		
+					<set-next-rule methodname="addEntityGroup" paramtype="net.sf.minuteProject.configuration.bean.enrichment.group.EntityGroup"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="entities" prop-name="entities" />	
+						<alias attr-name="is-visible" prop-name="isVisible" />
+					</set-properties-rule>	
+	            </pattern>	
             </pattern>
 			<pattern value="entity">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Entity"/>		

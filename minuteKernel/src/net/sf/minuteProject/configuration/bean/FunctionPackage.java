@@ -1,19 +1,18 @@
 package net.sf.minuteProject.configuration.bean;
 
-
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enrichment.group.Group;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
-public class FunctionPackage extends PackageAdapter {
+public class FunctionPackage extends BusinessPackageAdapter {
 
 	private FunctionModel functionModel;
 	private List<Package> functions;
@@ -63,8 +62,5 @@ public class FunctionPackage extends PackageAdapter {
 		return functions;
 	}
 
-//	public void setFunctions(List<Package> functions) {
-//		this.functions = functions;
-//	}
 
 }

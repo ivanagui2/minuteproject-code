@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific() 
 #set ($applicationOX=$configuration.name) 
+#set ($applicationLabel=$formatUtils.getJavaName($applicationOX))
 <%@ taglib prefix="mp" tagdir="/WEB-INF/tags/common" %>
 <%
  request.setAttribute("ctx", request.getContextPath()); 
@@ -7,7 +8,7 @@
 <div class='portlet' style='margin: 4px'>
 
 <div id="menuheader">
-  	<span id="menutitle">Menu 
+  	<span id="menutitle">$applicationLabel menu 
       <a href="/$applicationOX/xava/homeMenu.jsp" ><img src="/$applicationOX/xava/images/home.gif"></a>
     </span>
   	<span id="menuPowerByMP">
@@ -26,20 +27,32 @@
   <ul class="menubar" id="dmenu">
 #foreach ($package in ${businessPackages})
 #set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
+#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
 #if(!$displayableEntities.isEmpty())
 #set($packageLabel=$openXavaUtils.getPackageName($package))
-    <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
+    <li class="topitem">
+      <a href="#" onclick="return false;">
+#if ($displayUtils.hasIcon($package))
+      <img class="link" border="0" src="$displayUtils.getIcon($package)"/>
+#end      
+      ${packageLabel}
+      </a>
 	  <ul class="submenu">
-#foreach ($table in ${displayableEntities})
+#foreach ($groups in $displayableEntityGroups)
+#if ($velocityCount>1)
+        <li><hr color="black"></li>
+#end
+#foreach ($table in ${groups})
 #exposeVariableEntitySpecific()
 #exposeOXEntitySpecific()
 #if($entitySecurityUtils.isEntityRoleSecured($table))
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
 <mp:isUserInRole role="${roles}">
 #end
-        <li><a href="$url">$tableLabel</a></li>
+        <li><a href="$url" #if($displayUtils.hasAlt($table)) alt="$displayUtils.getAlt($table)"#end>$tableLabel</a></li>
 #if($entitySecurityUtils.isEntityRoleSecured($table))
 </mp:isUserInRole>
+#end
 #end
 #end
 #end
@@ -55,7 +68,7 @@
 #if (!$package.listOfViews.isEmpty())
 #exposeVariableEntitySpecific()
 #exposeOXEntitySpecific()
-        <li><a href="$url">$tableLabel</a></li>
+        <li><a href="$url" #if($displayUtils.hasAlt($table)) alt="$displayUtils.getAlt($table)"#end>$tableLabel</a></li>
 #end
 #end
 	  </ul>
@@ -73,3 +86,4 @@
 </div>
 
 </div>
+
