@@ -191,6 +191,8 @@ public class ${className} {
 #end
 #if ($columnUtils.hasStereotype($column))
     @Stereotype ("$column.stereotype.stereotype")
+#elseif ($column.size>100)
+    @Stereotype ("TEXT_AREA")
 #end
     private $columnType $columnVar; 
 #end

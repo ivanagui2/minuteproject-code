@@ -9,8 +9,6 @@ div#content {
 	}
 
 #menuheader {
-	/*bc background: #FDE3B5 url(/template-context/assets/banner.png) top left no-repeat; */
-	/*bc background: #000066 url(/template-context/assets/banner.png) top left no-repeat; */
 	background: #cccccc url(/template-context/assets/banner.png) top left no-repeat;
 	border-bottom: 1px solid #707070;
 	height: 50px;
@@ -19,8 +17,6 @@ div#content {
 }
 
 #menufooter {
-	/*bc background: #FDE3B5 url(/template-context/assets/banner.png) top left no-repeat; */
-	/*bc background: #000066 url(/template-context/assets/banner.png) top left no-repeat; */
 	background: #cccccc url(/template-context/assets/banner.png) top left no-repeat;
 	border-bottom: 1px solid #707070;
 	position: relative;
@@ -94,7 +90,7 @@ div#content {
     /*bc
     color: #000; */
     color: black;
-    
+    list-style-type: none; 
     padding-left: 12px; 
     padding-right: 12px; 
     padding-top: 4px; 
@@ -139,6 +135,7 @@ div#content {
     padding: 0; 
     margin: 0; 
     font-size: 11px;
+    list-style-type: none; 
 } 
 .menustyle ul.submenu li a, .menustyle ul.submenu li a:visited {
     vertical-align: middle;

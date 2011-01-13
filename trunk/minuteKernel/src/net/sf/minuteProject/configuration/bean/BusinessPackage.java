@@ -6,14 +6,18 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enrichment.group.Group;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.DBTemplateUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.TableUtils;
 
-public class BusinessPackage extends PackageAdapter {
+public class BusinessPackage extends BusinessPackageAdapter {
 
 	protected BusinessModel businessModel;
 	protected List<Package> packages, packageViews, packageTransferEntities;
@@ -313,7 +317,22 @@ public class BusinessPackage extends PackageAdapter {
 		return packageTransferEntities;
 	}
 
-
+//	@Override
+//	protected List<GeneratorBean> convertGroupToElement(Group t) {
+//		List<GeneratorBean> tables = new ArrayList<GeneratorBean>();
+//		for (String element : t.getList()) {
+//			Table table = TableUtils.getTable(getBusinessModel().getModel().getDataModel().getDatabase(), element);
+//			if (table!=null)
+//				tables.add(table);
+//		}
+//		return tables;
+//	}
+//
+//	@Override
+//	public List<GeneratorBean> getElements() {
+//		return null;
+//	}
+	
 	public BusinessModel getBusinessModel() {
 		return businessModel;
 	}
@@ -321,4 +340,5 @@ public class BusinessPackage extends PackageAdapter {
 	public void setBusinessModel(BusinessModel businessModel) {
 		this.businessModel = businessModel;
 	}
+
 }

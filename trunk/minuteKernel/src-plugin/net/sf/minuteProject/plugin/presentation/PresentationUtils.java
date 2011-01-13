@@ -34,14 +34,43 @@ public class PresentationUtils {
 
 	public static List<Table> getDisplayableEntityFromPackage (net.sf.minuteProject.configuration.bean.Package pack) {
 		List<Table> list = new ArrayList<Table>();
-		for (Table table : pack.getListOfTables()) {
-			if (!table.isManyToMany() && !table.isLinkEntity()) 
+		for (Table table : pack.getListOfEntities()) {
+			if (isDisplayable(table)) 
 				list.add(table);
 		}
-		for (Table table : pack.getListOfViews()) {
-			if (!table.isManyToMany() && !table.isLinkEntity()) 
-				list.add(table);
-		}
+//		for (Table table : pack.getListOfViews()) {
+//			if (!table.isManyToMany() && !table.isLinkEntity()) 
+//				list.add(table);
+//		}
 		return list;
+	}
+	
+	public static List<List<GeneratorBean>> getDisplayableGroups (net.sf.minuteProject.configuration.bean.Package pack) {
+		return pack.getGroupsList();
+	}
+	
+	public static List<List<Table>> getDisplayableEntityGroups (net.sf.minuteProject.configuration.bean.Package pack) {
+		List<List<GeneratorBean>> groups = getDisplayableGroups(pack);
+		List<List<Table>> entityGroup = new ArrayList<List<Table>>();
+		for (List<GeneratorBean> group: groups) {
+			List<Table> entities = new ArrayList<Table>();
+			for (GeneratorBean generatorBean : group) {
+				if (generatorBean instanceof Table) {
+					Table t = (Table)generatorBean;
+					if (isDisplayable(t))
+						entities.add(t);
+				}
+			}
+			if (!entities.isEmpty()) {
+				entityGroup.add(entities);
+			}
+		}
+		return entityGroup;
+	}
+
+	private static boolean isDisplayable(Table table) {
+		if (!table.isManyToMany() && !table.isLinkEntity()) 
+			return true;
+		return false;
 	}
 }

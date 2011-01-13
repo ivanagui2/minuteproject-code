@@ -3,64 +3,79 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enrichment.group.Group;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.ColumnUtils;
 
-public abstract class PackageAdapter extends AbstractConfiguration{
+public abstract class PackageAdapter<T extends Group, E extends GeneratorBean> extends AbstractConfiguration{
 
-	protected String defaultPackage, defaultPackageType, autoPackageType;
-
-	protected List<Condition> conditions;
-
-	public void addCondition(Condition condition) {
-		if (conditions == null)
-			conditions = new ArrayList<Condition>();
-		conditions.add(condition);
-	}
-
-	public List<Condition> getConditions() {
-		return conditions;
-	}
-
-	public void setConditions(List<Condition> conditions) {
-		this.conditions = conditions;
+	protected List<T> groups;
+	private List<List<E>> groupsList;
+	
+	public void setGroups(List<T> groups) {
+		this.groups = groups;
 	}
 	
-	public String getPackage(String value) {
-		return getConditionsResult(value);
+	public void setDefaultGroup (T group) {
+		getGroups().add(group);
 	}
-
-	private String getConditionsResult(String valueToTest) {
-		if (conditions!=null) {
-			for (Condition condition : conditions) {
-				if (condition.getConditionResult(valueToTest) != null) {
-					return condition.getResult();
+	
+	public abstract T getDefaultGroup ();
+	
+//	public abstract List<T> getGroups();
+	public List<T> getGroups() {
+		if (groups==null) 
+			groups=new ArrayList<T>();
+		return groups;
+	}
+	
+	public List<List<E>> getGroupsList () {
+		if (groupsList==null) {
+			groupsList = new ArrayList<List<E>>();
+			List<E> es = new ArrayList<E>();
+			for (E e : getElements()) {
+				if (!contains(es, e)) {
+					List<E> eGroup = getElementGroup(e);
+					groupsList.add(eGroup);
+					es.addAll(eGroup);
 				}
 			}
 		}
-		return getDefaultPackage();
+		return groupsList;
 	}
 
-	protected abstract String getDefaultPackage();
-	
-	public void setDefaultPackage(String defaultPackage) {
-		this.defaultPackage = defaultPackage;
-	}
+	public abstract List<E> getElements() ;
 
-	public String getAutoPackageType() {
-		return autoPackageType;
-	}
-
-	public void setAutoPackageType(String autoPackageType) {
-		this.autoPackageType = autoPackageType;
-	}
-
-	public String getDefaultPackageType() {
-		return defaultPackageType;
-	}
-
-	public void setDefaultPackageType(String defaultPackageType) {
-		this.defaultPackageType = defaultPackageType;
+	private List<E> getElementGroup(E e) {
+		List<E> es = new ArrayList<E>();
+		for (T t : getGroups()) {
+			if (groupContainsElement(t, e)) {
+				return convertGroupToElement(t);
+			}
+		}
+		es.add(e);
+		return es;
 	}
 	
+	protected abstract List<E> convertGroupToElement(T t); 
+	
+	private boolean groupContainsElement(T t, E e) {
+		for (String element : t.getList()) {
+			if (element.equals(e.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean contains(List<E> es, E e) {
+		for (E ee : es) {
+			if (ee.getName().equals(e.getName()))
+				return true;
+		}
+		return false;
+	}
 	
 }
