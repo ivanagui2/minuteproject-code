@@ -2,10 +2,86 @@
 #exposeEnvironmentParams()
 #putGrailsTemplateDefinition()
 #exposeImportGrailsParamParamsUML ($table)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject(${domainClassName}))
+#set($tableLabels=$i18nUtils.plurialize(${tableLabel}))
 package $packageName
 
 import $importDomainObjectUML
 
 class ${className} {
+
      def scaffold = $domainClassName
+     
+	 def xmlShow = {
+		 def $domainVariableName = ${domainClassName}.get(params.id)
+		 if ($domainVariableName)
+		 	renderXml$domainClassName ($domainVariableName)
+		 else {
+		    response.status = 404 //Not Found
+		    render "${params.id} not found."
+	 	 }
+	 }
+	 
+	 def jsonShow = {
+		 def $domainVariableName = ${domainClassName}.get(params.id)
+		 if ($domainVariableName)
+		 	renderJson$domainClassName ($domainVariableName)
+		 else {
+		    response.status = 404 //Not Found
+		    render "${params.id} not found."
+	 	 }
+	 }
+	 	 
+	 def xmlList = {
+		 def list = ${domainClassName}.list()
+		 render(contentType:"text/xml"){
+		   "$tableLabels"{
+			 for($domainVariableName in list){
+			   renderXml${domainClassName} $domainVariableName
+			 }
+		   }
+		}
+	 }
+	   
+	 def jsonList = {
+		 def list = ${domainClassName}.list()
+		 render(contentType:"text/json"){
+		   "$tableLabels"{
+			 for($domainVariableName in list){
+			   renderJson${domainClassName} $domainVariableName
+			 }
+		   }
+		}
+	 }	   
+	 private String renderXml${domainClassName}($domainClassName $domainVariableName) {
+		 render(contentType:"text/xml"){
+			"$tableLabel" (
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}.id
+#end
+             ){
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+                "$columnVar"(${domainVariableName}.${columnVar})
+#end			
+			 }
+		 }
+	 }  
+	 
+	 private String renderJson${domainClassName}($domainClassName $domainVariableName) {
+		 render(contentType:"text/json"){
+			"$tableLabel" (
+#foreach($column in ${table.columns})
+#putColumnParams()
+#if ($isPrimaryKey)
+                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}.id
+#else
+                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}.${columnVar}
+#end
+#end
+             )
+		 }
+	 }  
+	 
 }

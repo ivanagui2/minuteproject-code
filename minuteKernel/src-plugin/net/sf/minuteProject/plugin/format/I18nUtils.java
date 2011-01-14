@@ -77,6 +77,10 @@ public class I18nUtils {
 		return getI18nFromDBName(input);
 	}
 	
+	public static String getI18nFromDBObject (String name) {
+		return getI18nFromDBName(name);
+	}
+	
 	public static String getI18nFromDBObject (Table table) {
 		String alias = table.getAlias();
 		if (table.getName().equals(alias))
