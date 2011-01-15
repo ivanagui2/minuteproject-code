@@ -11,14 +11,21 @@
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username> <password></password> </dataSource> for
 					Oracle and DB2 please set the schema <schema> </schema>
-				-->
+				
 				<dataSource>
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 					<url>jdbc:mysql://localhost:3306/petshop</url>
 					<username>root</username>
 					<password></password>
 				</dataSource>
-				<schema></schema>
+				-->
+				<dataSource>
+					<driverClassName>org.sqlite.JDBC</driverClassName>
+					<url>jdbc:sqlite:C:/DATA/SQLITE/petshop.db</url>
+					<username></username>
+					<password></password>
+				</dataSource>				
+				<schema>petshop</schema>
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix=""
 						name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>

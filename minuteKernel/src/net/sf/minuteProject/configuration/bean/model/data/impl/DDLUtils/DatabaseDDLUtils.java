@@ -25,6 +25,7 @@ import org.apache.ddlutils.platform.mysql.MySqlPlatform;
 import org.apache.ddlutils.platform.oracle.Oracle8Platform;
 import org.apache.ddlutils.platform.postgresql.PostgreSqlPlatform;
 import org.apache.ddlutils.platform.sapdb.SapDbPlatform;
+import org.apache.ddlutils.platform.sqlite.Sqlite3Platform;
 import org.apache.ddlutils.platform.sybase.SybasePlatform;
 import org.apache.log4j.Logger;
 
@@ -393,7 +394,9 @@ public class DatabaseDDLUtils implements Database
 		else if (platform instanceof SapDbPlatform)
 			setType("SAPDB");	
 		else if (platform instanceof CloudscapePlatform)
-			setType("CLOUDSCAPE");			
+			setType("CLOUDSCAPE");		
+		else if (platform instanceof Sqlite3Platform)
+			setType("SQLITE");			
 	}
 
 	public void addView(View view) {
