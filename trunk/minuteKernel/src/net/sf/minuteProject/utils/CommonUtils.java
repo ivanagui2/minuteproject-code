@@ -68,7 +68,8 @@ public class CommonUtils {
 	public static String getPackageName (GeneratorBean bean, Template template) {
 		if (bean ==null || template==null)
 			return "PACKAGENAME_ERROR";
-		return ModelUtils.getPackage(bean, template);
+		String pluginPackageName = template.getPluginPackageMain(bean);
+		return (pluginPackageName!=null)?pluginPackageName:ModelUtils.getPackage(bean, template);
 	}
 	
 	public static String getPackageName (Model model, Template template, Table table) {

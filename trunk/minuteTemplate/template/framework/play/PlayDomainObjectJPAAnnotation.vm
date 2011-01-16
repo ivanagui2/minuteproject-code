@@ -110,7 +110,7 @@ public class ${className} extends GenericModel {
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-#exposeDOPlayParamParamsUML($linktableDB)
+#exposeDOPlayParamsUML($linktableDB)
 ##set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
 ##set ($targetEntityClass="${importDomainObjectForeignTable}.class")
 #set ($targetEntityClass="${domainObjectPlayUML}.class")

@@ -33,7 +33,7 @@ public class I18nUtilsTest extends TestCase {
 	
 	
 	public void testGetI18nFromDBNameStripSufix () {
-		String s = I18nUtils.getI18nFromDBNameStripSufix(nameWithoutUnderscore);
+		String s = I18nUtils.getI18nFromDBNameStripSufix(nameWithoutUnderscore, true);
 		assertTrue("result = "+s+" while input = "+nameWithoutUnderscore, testtest.equals(s));
 	}
 }

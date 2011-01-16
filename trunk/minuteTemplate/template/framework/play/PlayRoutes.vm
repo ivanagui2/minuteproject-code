@@ -9,10 +9,9 @@
 # Map static resources from the /app/public folder to the /public path
 GET			/public/					staticDir:public
 
-#foreach ($table in $businessPackages.entities)
+#foreach ($table in $model.businessModel.businessPackage.entities)
 #exposeVariableEntitySpecific()
-#exposeDOPlayParamParamsUML($table)
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-GET         /rest/xml/$tableLabel/{id}      ${playControllerClassName}.show${domainClassName}(format:'xml')
-GET         /rest/json/$tableLabel/{id}     ${playControllerClassName}.show${domainClassName}(format:'json')
+#exposeDOPlayParamsUML($table)
+GET         /rest/xml/$controllerLabel/{$primaryKeyVariable}      ${playControllerClassName}.show${domainClassName}(format:'xml')
+GET         /rest/json/$controllerLabel/{$primaryKeyVariable}     ${playControllerClassName}.show${domainClassName}(format:'json')
 #end
