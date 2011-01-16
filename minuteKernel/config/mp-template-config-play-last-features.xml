@@ -29,7 +29,21 @@
 			file-name-builder-method="getControllerName"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
-							
+
+		<template name="PlayDomainObjectXml" templateFileName="PlayDomainObjectXml.vm" 
+			file-extension="xml" technicalPackage="" add-model-dir-name="false" add-package-name="false" add-business-package-dir-name="false"
+			package-root="views" 
+			entity-specific="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+		
+		<template name="PlayDomainObjectJson" templateFileName="PlayDomainObjectJson.vm" 
+			file-extension="json" technicalPackage="" add-model-dir-name="false" add-package-name="false" add-business-package-dir-name="false"
+			package-root="views" 
+			entity-specific="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+		
 	</template-target>
 	
   	<template-target 

@@ -1,0 +1,15 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+#putPlayTemplateDefinition()
+#putImportParamsUML()
+#set($attributecount=$attributes.length)
+<$domainVariableName>
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+ <$columnVar>${${domainVariableName}.${columnVar}</$columnVar>
+#end
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+ <$columnVar>${${domainVariableName}.${columnVar}</$columnVar>
+#end
+</$domainVariableName>

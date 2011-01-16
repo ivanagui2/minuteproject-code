@@ -49,7 +49,7 @@
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
 <mp:isUserInRole role="${roles}">
 #end
-        <li><a href="$url" #if($displayUtils.hasAlt($table)) alt="$displayUtils.getAlt($table)"#end>$tableLabel</a></li>
+        <li><a href="$url" #if($presentationUtils.hasAlt($table)) alt="$presentationUtils.getAlt($table)"#end>$tableLabel</a></li>
 #if($entitySecurityUtils.isEntityRoleSecured($table))
 </mp:isUserInRole>
 #end

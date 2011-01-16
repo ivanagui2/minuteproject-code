@@ -1,3 +1,5 @@
+#exposeVariableModelSpecific() 
+#putPlayTemplateDefinition()
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
@@ -6,3 +8,11 @@
 *			/admin						module:crud
 # Map static resources from the /app/public folder to the /public path
 GET			/public/					staticDir:public
+
+#foreach ($table in $businessPackages.entities)
+#exposeVariableEntitySpecific()
+#exposeDOPlayParamParamsUML($table)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+GET         /rest/xml/$tableLabel/{id}      ${playControllerClassName}.show${domainClassName}(format:'xml')
+GET         /rest/json/$tableLabel/{id}     ${playControllerClassName}.show${domainClassName}(format:'json')
+#end

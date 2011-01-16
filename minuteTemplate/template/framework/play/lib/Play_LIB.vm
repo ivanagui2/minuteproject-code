@@ -10,10 +10,12 @@
 
 #macro (exposeDOPlayParamParamsUML $tableDB)
 #set ($domainObjectPlayUML = $commonUtils.getTemplateClassName($tableDB, $model, $templatePlayDomainObject))
+#set ($playControllerClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templatePlayController))
 #end
 
 #macro (putPlayTemplateDefinition)
 #set ($templatePlayDomainObject="PlayDomainObject")
+#set ($templatePlayController="PlayController")
 #end
 
 #macro (printPlayDomainImport)
