@@ -51,4 +51,10 @@ public class PlayUtils {
 		Table table = (Table)bean;
 		return I18nUtils.plurialize(FormatUtils.getJavaName(table.getAlias()));
 	}	
+
+	public static String getRenderingPackageName (Template template, GeneratorBean bean) {
+		String root = template.getPackageRoot()==null ? "":template.getPackageRoot()+".";
+		return  root+ getControllerName (template, bean);
+	}
+	
 }

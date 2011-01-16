@@ -56,8 +56,8 @@ public class Template extends TemplateTarget {
 	private String applicationSpecific;
 	private String componentSpecific;
 	private TemplateTarget templateTarget;
-	private String fileNameBuilderPlugin;
-	private String fileNameBuilderMethod;
+	private String fileNameBuilderPlugin, packageNameBuilderPlugin;
+	private String fileNameBuilderMethod, packageNameBuilderMethod;
 	private String isTemplateToGenerateMethod, checkTemplateToGenerate;
 	private String scopeSpecificValue;
 	private String entityDirNameSuffix;
@@ -233,6 +233,18 @@ public class Template extends TemplateTarget {
 		return null;
 	}
 	
+	public String getPluginPackageMain (GeneratorBean bean) {
+		if (packageNameBuilderPlugin!=null && packageNameBuilderMethod!=null) {
+			// lookup builder in the plugin
+			Plugin plugin = getFileBuilderPlugin(packageNameBuilderPlugin);
+			if (plugin!=null) {
+				String result = getPluginBuildFileName (plugin, packageNameBuilderMethod, bean);
+				if (result != null)
+					return result;
+			}
+		}	
+		return null;
+	}	
 	private Plugin getFileBuilderPlugin (String fileNameBuilderPlugin) {
 		List<Plugin> plugins = this.getTemplateTarget().getTarget().getPlugins();
 		for (Plugin plugin : plugins) {
@@ -627,6 +639,22 @@ public class Template extends TemplateTarget {
 
 	public void setChmod(String chmod) {
 		this.chmod = chmod;
+	}
+
+	public String getPackageNameBuilderPlugin() {
+		return packageNameBuilderPlugin;
+	}
+
+	public void setPackageNameBuilderPlugin(String packageNameBuilderPlugin) {
+		this.packageNameBuilderPlugin = packageNameBuilderPlugin;
+	}
+
+	public String getPackageNameBuilderMethod() {
+		return packageNameBuilderMethod;
+	}
+
+	public void setPackageNameBuilderMethod(String packageNameBuilderMethod) {
+		this.packageNameBuilderMethod = packageNameBuilderMethod;
 	}
 
 }

@@ -49,7 +49,7 @@
   
 
 	<template-target 
-	   name="fitness CRUD Wiki templates" 
+	   name="fitnesse CRUD Wiki templates" 
 	   rootdir="../../minuteTemplate/template-bsla"
        templatedir = "template" 
 	   libdir="lib/BslaLibrary.vm"

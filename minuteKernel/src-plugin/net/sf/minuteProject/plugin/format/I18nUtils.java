@@ -15,10 +15,15 @@ public class I18nUtils {
 	public static final String UNDERSCORE = "_";
 
 	public static String getI18nFromDBName (String input) {
+		return getI18nFromDBName(input, true);
+	}
+	
+	public static String getI18nFromDBName (String input, boolean firstUpperCase) {
 		input = StringUtils.replace(input, UNDERSCORE, ONE_SPACE);
-//		input = StringUtils.lowerCase(input);
-		input = FormatUtils.firstUpperCaseOnly(input);
-		//input = plurialize (input);
+		if (firstUpperCase)
+			input = FormatUtils.firstUpperCaseOnly(input);
+		else 
+			input = FormatUtils.firstLowerCaseOnly(input);
 		return input;
 	}
 	
@@ -69,16 +74,20 @@ public class I18nUtils {
 		return input;
 	}
 	
-	public static String getI18nFromDBNameStripSufix (String input) {
+	public static String getI18nFromDBNameStripSufix (String input, boolean firstUpperCase) {
 		String sufix = StringUtils.substringAfterLast(input, UNDERSCORE);
 		if (!sufix.equals(input))
 			input = StringUtils.removeEnd(input, sufix);
 		input = StringUtils.stripStart(input, UNDERSCORE);
-		return getI18nFromDBName(input);
+		return getI18nFromDBName(input, firstUpperCase);
 	}
 	
 	public static String getI18nFromDBObject (String name) {
-		return getI18nFromDBName(name);
+		return getI18nFromDBObject(name, true);
+	}
+	
+	public static String getI18nFromDBObject (String name, boolean firstUpperCase) {
+		return getI18nFromDBName(name, firstUpperCase);
 	}
 	
 	public static String getI18nFromDBObject (Table table) {
@@ -89,10 +98,14 @@ public class I18nUtils {
 	}
 	
 	public static String getI18nFromDBObject (Column column) {
+		return getI18nFromDBObject (column, true);
+	}
+	
+	public static String getI18nFromDBObject (Column column, boolean firstUpperCase) {
 		if (ColumnUtils.isForeignKey(column)){
-			return getI18nFromDBNameStripSufix(column.getName());
+			return getI18nFromDBNameStripSufix(column.getName(), firstUpperCase);
 		}
-		return getI18nFromDBName(column.getName());
+		return getI18nFromDBName(column.getName(), firstUpperCase);
 	}
 	
 }
