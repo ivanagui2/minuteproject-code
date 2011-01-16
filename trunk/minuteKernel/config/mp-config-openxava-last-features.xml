@@ -1,19 +1,26 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop2" version="1.0" package-root="net.sf.mp.demo.ox">
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.ox">
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
-			    <dataSource>	
+			    <!--<dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
-				<!-- for Oracle and DB2 please set the schema 
+				 for Oracle and DB2 please set the schema 
 				<schema> </schema>
 				 -->
+				<dataSource>
+					<driverClassName>org.sqlite.JDBC</driverClassName>
+					<url>jdbc:sqlite:C:/DATA/SQLITE/petshop.db</url>
+					<username></username>
+					<password></password>
+				</dataSource>				
+				<schema>petshop</schema>				 
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
@@ -44,7 +51,7 @@
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="../../dev/openxava/petshop2"
+			   outputdir-root="../../dev/openxava/petshop-sqlite"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
 			</target> 
 			<target refname="LIB" 

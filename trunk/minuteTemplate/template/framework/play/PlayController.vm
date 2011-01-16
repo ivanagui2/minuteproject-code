@@ -16,5 +16,7 @@ public class ${className} extends CRUD {
 //    public static void show(Long id) {
 //        parent();
 //    }
+
+
 }
 
