@@ -12,6 +12,8 @@ GET			/public/					staticDir:public
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #exposeVariableEntitySpecific()
 #exposeDOPlayParamsUML($table)
-GET         /rest/xml/$controllerLabel/{$primaryKeyVariable}      ${playControllerClassName}.show${domainClassName}(format:'xml')
-GET         /rest/json/$controllerLabel/{$primaryKeyVariable}     ${playControllerClassName}.show${domainClassName}(format:'json')
+GET         $restXmlServerUrl/{$primaryKeyVariable}      ${playControllerClassName}.show${domainClassName}(format:'xml')
+GET         $restJsonServerUrl/{$primaryKeyVariable}     ${playControllerClassName}.show${domainClassName}(format:'json')
+GET         $restXmlClientUrl      ${playControllerClassName}.search${domainClassName}(format:'html')
+GET         $restJsonClientUrl     ${playControllerClassName}.search${domainClassName}(format:'html')
 #end

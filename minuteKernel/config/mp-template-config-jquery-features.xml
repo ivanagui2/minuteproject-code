@@ -1,0 +1,12 @@
+<target name="JQuery">		
+	<architecture-target name="jquery" description="jquery architecture">
+	</architecture-target>	
+   	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
+  	<template-target 
+    	name="Play application REST client"
+		outputdir=""
+		libdir="lib/REST_LIB.vm">
+
+											
+	</template-target>				
+</target>
