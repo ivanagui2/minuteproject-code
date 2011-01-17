@@ -11,8 +11,7 @@
 #macro (exposeDOPlayParamsUML $tableDB)
 #set ($domainObjectPlayUML = $commonUtils.getTemplateClassName($tableDB, $model, $templatePlayDomainObject))
 #set ($playControllerClassName = $commonUtils.getTemplateClassName($tableDB, $model, $templatePlayController))
-#set ($tableLabel=$i18nUtils.getI18nFromDBObject($formatUtils.getJavaNameVariable($table.alias), false))
-#set ($controllerLabel=$i18nUtils.plurialize(${tableLabel}))
+#exposeRESTURL()
 #end
 
 #macro (putPlayTemplateDefinition)

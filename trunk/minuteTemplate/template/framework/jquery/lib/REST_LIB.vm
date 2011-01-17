@@ -1,0 +1,6 @@
+#macro (exposeRESTURL)
+#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($table))
+#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($table))
+#set ($restJsonClientUrl = $restUtils.getRestUrlClientJson($table))
+#set ($restXmlClientUrl = $restUtils.getRestUrlClientXml($table))
+#end
