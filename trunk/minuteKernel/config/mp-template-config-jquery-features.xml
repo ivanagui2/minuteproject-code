@@ -5,8 +5,6 @@
   	<template-target 
     	name="Play application REST client"
 		outputdir=""
-		libdir="lib/REST_LIB.vm">
-
-											
+		libdir="lib/jQuery_LIB.vm,lib/REST_LIB.vm">								
 	</template-target>				
 </target>

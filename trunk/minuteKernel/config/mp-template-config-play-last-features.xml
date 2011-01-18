@@ -55,12 +55,25 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="views" 
 			entity-specific="true" 
-			file-prefix="search"
+			file-prefix="searchXml"
 			package-name-builder-plugin="playUtils"
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="REST_EXCHANGE_FORMAT" value="xml"/>
 		</template>	
-				
+
+		<template name="PlayJQuerySearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
+			file-extension="html" technicalPackage="" add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="views" 
+			entity-specific="true" 
+			file-prefix="searchJson"
+			package-name-builder-plugin="playUtils"
+			package-name-builder-method="getRenderingPackageName"				
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="REST_EXCHANGE_FORMAT" value="json"/>
+		</template>	
+						
 	</template-target>
 	
   	<template-target 
