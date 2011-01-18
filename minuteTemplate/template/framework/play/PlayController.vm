@@ -25,9 +25,13 @@ public class ${className} extends CRUD {
         render (${domainVariableName}s);
     }
     
-    public static void search${domainClassName} () {
+    public static void searchXml${domainClassName} () {
         render();
     }
+    
+    public static void searchJson${domainClassName} () {
+        render();
+    }    
     
 }
 

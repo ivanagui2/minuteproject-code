@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-#exposeRESTURL()
+#exposeRestExchangeFormat()
 #set ($cpt = 0)
 <!DOCTYPE html PUBLIC "-//W3C//  DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
  <html>
@@ -12,35 +12,19 @@
          $('#search${domainClassName} a').click(function() {
              jQuery.ajax({
                  type: "GET",
-                 dataType: "xml",
-				 url : "$restXmlServerUrl/"+$('#${primaryKeyVariable}').val(),
-                 success: function(xml) {
-                    $(xml).find('${domainVariableName}').each(function(){
-                         var name_text = $(this).find('name').text()
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-						 var ${columnVar}_text = $(this).find('${columnVar}').text()							 
-#end
-#foreach ($column in ${table.attributes})
-#putColumnParams()
-						 var ${columnVar}_text = $(this).find('${columnVar}').text()
-#end                          
-                         $('<li></li>')
-                             .html(
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-								 #if($cpt>0)+" - "+#else #end${columnVar}_text
-#set ($cpt=$cpt+1)								 
-#end
-#foreach ($column in ${table.attributes})
-#putColumnParams()
-								 #if($cpt>0)+" - "+#else #end${columnVar}_text
-#set ($cpt=$cpt+1)	
-#end                             
-                             )
-                             .appendTo('#search${domainClassName} ol')
-                     })
-                 }
+                 dataType: "$restExchangeFormat",
+				 url : "$restServerUrl/"+$('#${primaryKeyVariable}').val(),
+                 success: function(data) {
+#if ($restExchangeFormat == "xml")
+#jQuerySearchXmlList($table) 
+#else
+#jQuerySearchJsonList($table) 
+#end              
+                 },
+                error:function (xhr, ajaxOptions, thrownError){
+                    alert("Error status :"+xhr.status +
+                          "Error exception :"+thrownError);
+                }                 
              })
          })
  
