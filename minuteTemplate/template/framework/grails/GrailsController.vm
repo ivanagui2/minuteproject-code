@@ -53,31 +53,32 @@ class ${className} {
 		   }
 		}
 	 }	   
-	 private String renderXml${domainClassName}($domainClassName $domainVariableName) {
+	 
+	 private String renderXml${domainClassName}($domainClassName ${domainVariableName}ToRender) {
 		 render(contentType:"text/xml"){
-			"$tableLabel" (
+			"${domainVariableName}" (
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
-                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}.id
+                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}ToRender.id
 #end
              ){
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-                "$columnVar"(${domainVariableName}.${columnVar})
+                "$columnVar"(${domainVariableName}ToRender.${columnVar})
 #end			
 			 }
 		 }
 	 }  
 	 
-	 private String renderJson${domainClassName}($domainClassName $domainVariableName) {
-		 render(contentType:"text/json"){
-			"$tableLabel" (
+	 private String renderJson${domainClassName}($domainClassName ${domainVariableName}ToRender) { // unfortunately can not use variable $domainVariableName use ${domainVariableName}ToRender instead (Grails 1.3.5) 
+		 render(contentType:"text/json"){                                                // otherwise error for rendering 
+			"${domainVariableName}" (                                                    // this line
 #foreach($column in ${table.columns})
 #putColumnParams()
 #if ($isPrimaryKey)
-                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}.id
+                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}ToRender.id
 #else
-                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}.${columnVar}
+                #if ($velocityCount>1),#end"$columnVar":${domainVariableName}ToRender.${columnVar}
 #end
 #end
              )

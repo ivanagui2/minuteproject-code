@@ -21,10 +21,10 @@
 #jQuerySearchJsonList($table) 
 #end              
                  },
-                error:function (xhr, ajaxOptions, thrownError){
+                 error:function (xhr, ajaxOptions, thrownError){
                     alert("Error status :"+xhr.status +
                           "Error exception :"+thrownError);
-                }                 
+                 }                 
              })
          })
  

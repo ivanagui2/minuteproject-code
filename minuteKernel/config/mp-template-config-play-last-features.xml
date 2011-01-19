@@ -56,7 +56,7 @@
 			package-root="views" 
 			entity-specific="true" 
 			file-prefix="searchXml"
-			package-name-builder-plugin="playUtils"
+			package-name-builder-plugin="restUtils"
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="xml"/>
@@ -68,7 +68,7 @@
 			package-root="views" 
 			entity-specific="true" 
 			file-prefix="searchJson"
-			package-name-builder-plugin="playUtils"
+			package-name-builder-plugin="restUtils"
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>

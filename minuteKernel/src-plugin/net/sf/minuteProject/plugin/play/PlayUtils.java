@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.plugin.grails.GrailsUtils;
+import net.sf.minuteProject.plugin.rest.RestUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 
 public class PlayUtils {
@@ -46,15 +47,9 @@ public class PlayUtils {
 	public static String getToString (Table table) {
 		return GrailsUtils.getToString(table)+"+\"\"";
 	}
-	
-	public static String getControllerName (Template template, GeneratorBean bean) {
-		Table table = (Table)bean;
-		return I18nUtils.plurialize(FormatUtils.getJavaName(table.getAlias()));
-	}	
 
 	public static String getRenderingPackageName (Template template, GeneratorBean bean) {
-		String root = template.getPackageRoot()==null ? "":template.getPackageRoot()+".";
-		return  root+ getControllerName (template, bean);
+		return RestUtils.getRenderingPackageName(template, bean);
 	}
 	
 }

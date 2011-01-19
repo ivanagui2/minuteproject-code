@@ -1,3 +1,4 @@
+#exposeVariableModelSpecific()
 class $className {
 	static mappings = {
 #foreach ($table in $model.businessModel.businessPackage.entities)
@@ -5,6 +6,6 @@ class $className {
 #exposeRESTURL()
 	  "$restXmlServerUrl/$id?" {controller = "$domainVariableName"; action = "xmlShow"}
 	  "$restJsonServerUrl/$id?" {controller = "$domainVariableName"; action = "jsonShow"}	  
-  	} 
 #end
+  	} 
 }
