@@ -56,7 +56,15 @@
 			file-extension="groovy" file-prefix="DataSource"
 			model-specific="true">
 		</template>	
-											
+
+		<template package-root=""
+			name="GrailsUrlMappings" templateFileName="GrailsUrlMappings.vm" 
+			add-model-name="true" add-model-dir-name="false"
+			file-extension="groovy" file-prefix="UrlMappings"
+			model-specific="true">
+		</template>					
+		
+								
 	</template-target>	
 			
   	<template-target 
