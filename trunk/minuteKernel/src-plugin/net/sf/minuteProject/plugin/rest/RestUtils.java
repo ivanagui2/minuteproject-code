@@ -1,5 +1,7 @@
 package net.sf.minuteProject.plugin.rest;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -32,6 +34,17 @@ public class RestUtils {
 	private static String getTableLable(Table table) {
 		String tableLabel=I18nUtils.getI18nFromDBObject(FormatUtils.getJavaNameVariable(table.getAlias()), false);
 		return I18nUtils.plurialize(tableLabel);
+	}
+
+	
+	public static String getControllerName (Template template, GeneratorBean bean) {
+		Table table = (Table)bean;
+		return I18nUtils.plurialize(FormatUtils.getJavaName(table.getAlias()));
+	}	
+
+	public static String getRenderingPackageName(Template template, GeneratorBean bean) {
+		String root = template.getPackageRoot()==null ? "":template.getPackageRoot()+".";
+		return  root+ getControllerName (template, bean);
 	}
 
 }
