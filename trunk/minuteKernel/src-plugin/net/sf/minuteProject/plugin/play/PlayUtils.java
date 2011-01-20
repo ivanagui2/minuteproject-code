@@ -48,6 +48,10 @@ public class PlayUtils {
 		return GrailsUtils.getToString(table)+"+\"\"";
 	}
 
+	public static String getControllerName (Template template, GeneratorBean bean) {
+		return RestUtils.getControllerName (template, bean);
+	}
+	
 	public static String getRenderingPackageName (Template template, GeneratorBean bean) {
 		return RestUtils.getRenderingPackageName(template, bean);
 	}
