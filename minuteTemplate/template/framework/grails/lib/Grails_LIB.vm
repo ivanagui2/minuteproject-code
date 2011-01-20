@@ -43,5 +43,7 @@ import $importDomainObjectUML
 
 #macro (putGrailsTemplateDefinition)
 #set ($templateGrailsDomainObject="GromDomainObject")
+#set ($templateGrailsJQueryJsonSearchDOHtml="GrailsJQueryJsonSearchDOHtml")
+#set ($templateGrailsJQueryXmlSearchDOHtml="GrailsJQueryXmlSearchDOHtml")
 #end
 

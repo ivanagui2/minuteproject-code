@@ -53,9 +53,11 @@
 #end
 
 #macro (exposeRestExchangeFormat)
-#exposeRESTURLServer()
 #getTemplatePropertyValue("REST_EXCHANGE_FORMAT")
 #set ($restExchangeFormat = $value)
+#getTemplatePropertyValue("REST_TECHNOLOGY")
+#set ($restTechnology = $value)
+#exposeRESTURLServer($restTechnology)
 #if ($restExchangeFormat == "xml")
 #set ($restServerUrl = $restXmlServerUrl)
 #else

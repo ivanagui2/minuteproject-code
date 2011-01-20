@@ -39,7 +39,7 @@
     	name="Grails views"
 		outputdir="grails-app/views">
 				
-		<template name="PlayJQuerySearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
+		<template name="GrailsJQueryJsonSearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
 			file-extension="gsp" technicalPackage="" add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			entity-specific="true" 
@@ -49,9 +49,10 @@
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
+			<property name="REST_TECHNOLOGY" value="grails"></property>			
 		</template>	
 		 
-		<template name="PlayJQuerySearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
+		<template name="GrailsJQueryXmlSearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
 			file-extension="gsp" technicalPackage="" add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			entity-specific="true" 
@@ -61,6 +62,7 @@
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="xml"/>
+			<property name="REST_TECHNOLOGY" value="grails"></property>				
 		</template>	
 							
 	</template-target>		

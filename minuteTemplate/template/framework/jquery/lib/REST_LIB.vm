@@ -1,14 +1,16 @@
-#macro (exposeRESTURL)
-#exposeRESTURLServer()
-#exposeRESTURLClient()
+#macro (exposeRESTURL $techno)
+#exposeRESTURLServer($techno)
+#exposeRESTURLClient($techno)
 #end
 
-#macro (exposeRESTURLClient)
-#set ($restXmlClientUrl = $restUtils.getRestUrlClientXml($table))
-#set ($restJsonClientUrl = $restUtils.getRestUrlClientJson($table))
+#macro (exposeRESTURLClient $techno)
+#set ($restXmlClientUrl = $restUtils.getRestUrlClientXml($table, $techno))
+#set ($restJsonClientUrl = $restUtils.getRestUrlClientJson($table, $techno))
 #end
 
-#macro (exposeRESTURLServer)
-#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($table))
-#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($table))
+#macro (exposeRESTURLServer $techno)
+#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($table, $techno))
+#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($table, $techno))
 #end
+
+

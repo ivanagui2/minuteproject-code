@@ -9,6 +9,7 @@
 # Map static resources from the /app/public folder to the /public path
 GET			/public/					staticDir:public
 
+GET         /rest                       Rest.rest
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #exposeVariableEntitySpecific()
 #exposeDOPlayParamsUML($table)

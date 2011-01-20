@@ -21,6 +21,16 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 
+		<template name="PlayRestEmptyController" templateFileName="PlayRestEmptyController.vm" 
+			add-model-name="false" add-model-dir-name="false" package-root="controllers" 
+			file-extension="java" file-prefix="Rest" technicalPackage="" add-package-name="false" add-business-package-dir-name="false"
+			model-specific="true"	>	
+		
+			<!-- file-extension="java" technicalPackage="" add-model-dir-name="false" add-package-name="false" add-business-package-dir-name="false"
+			package-root="controllers" 
+			entity-specific="true"  -->
+		</template>	
+
 		<template name="PlayController" templateFileName="PlayController.vm" 
 			file-extension="java" technicalPackage="" add-model-dir-name="false" add-package-name="false" add-business-package-dir-name="false"
 			package-root="controllers" 
@@ -29,7 +39,7 @@
 			file-name-builder-method="getControllerName"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
-
+		
 		<template name="PlayDomainObjectXml" templateFileName="PlayDomainObjectXml.vm" 
 			file-extension="xml" technicalPackage="" add-model-dir-name="false" add-package-name="false" add-business-package-dir-name="false"
 			package-root="views" 
@@ -60,6 +70,7 @@
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="xml"/>
+			<property name="REST_TECHNOLOGY" value="play"></property>
 		</template>	
 
 		<template name="PlayJQuerySearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
@@ -72,6 +83,7 @@
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
+			<property name="REST_TECHNOLOGY" value="play"></property>
 		</template>	
 						
 	</template-target>
