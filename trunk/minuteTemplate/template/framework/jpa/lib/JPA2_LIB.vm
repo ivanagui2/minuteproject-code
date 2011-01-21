@@ -1,0 +1,10 @@
+#macro (putJPA2TemplateDefinition)
+#set ($templateJPA2DomainObject="DomainEntityJPA2Annotation")
+#end
+
+#macro (exposeJPA2DomainObject $tableDB)
+#putJPA2TemplateDefinition()
+#set ($domainObjectClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2DomainObject))
+#set ($domainObjectVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectClass))
+#set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
+#end
