@@ -139,16 +139,12 @@ public class ConvertUtils {
 	}
 
 	public static String getJavaTypeClassFromDBType (Column column) {
-		return getJavaTypeClassFromDBType(column.getType());
+		return getJavaTypeClassFromDBType(column.getType(), column.getScale());
 	}
 	
-	public static String getJavaTypeClassFromDBType (String dBType) {
+	public static String getJavaTypeClassFromDBType (String dBType, int scale) {
 		if (dBType.equals("BOOLEAN"))
 			return  "Boolean";	
-		if (dBType.equals("DECIMAL"))
-			return  "Long";
-		if (dBType.equals("NUMBER"))
-			return  "Long";
 		if (dBType.equals("NUMERIC"))
 			return  "Integer";		
 		if (dBType.equals("BLOB"))
@@ -157,7 +153,7 @@ public class ConvertUtils {
 			return  "String";	
 		if (dBType.equals("CLOB"))
 			return  "String";			
-		return getJavaTypeFromDBType (dBType);
+		return getJavaTypeFromDBTypeOnly (dBType, scale);
 	}
 	
 	public static String getJavaTypeFromDBType (String dBType) {
@@ -221,6 +217,18 @@ public class ConvertUtils {
 
 	public static String getJavaTypeFromDBType (Column column) {
 		return getJavaTypeFromDBType(column.getType(), column.getScale());
+	}
+
+	public static String getJavaTypeFromDBTypeOnly (String dBType, int scale) {
+		String retStr=getJavaTypeFromDBType (dBType);	
+		if (dBType==null) return retStr;
+		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC") ) {
+			if (scale==0)
+				return "Long";
+			else
+				return  "BigDecimal";
+		}	
+		return retStr;		
 	}
 	
 	public static String getJavaTypeFromDBType (String dBType, int scale) {
