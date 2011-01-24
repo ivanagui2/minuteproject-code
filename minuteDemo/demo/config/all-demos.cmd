@@ -5,6 +5,7 @@ call demo-hibernate.cmd
 call demo-ibatis.cmd
 call demo-jpa.cmd
 call demo-last-features-openxava.cmd
+call demo-JPA2.cmd
 
 @rem last feature generations
 echo "last feature generations"
@@ -17,3 +18,4 @@ call demo-draft-features-vaadin-spring-hibernate.cmd
 call demo-last-features-roo.cmd
 call demo-last-features-grails.cmd
 call demo-last-features-play.cmd
+
