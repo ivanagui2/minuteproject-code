@@ -5,6 +5,7 @@ echo "standard generations"
 ./demo-ibatis.sh
 ./demo-jpa.sh
 ./demo-last-features-openxava.sh
+./demo-JPA2.sh
 
 #rem last feature generations
 echo "last feature generations"
