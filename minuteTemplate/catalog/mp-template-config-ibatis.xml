@@ -3,8 +3,6 @@
 
 		
 	<template-target 
-		rootdir="../.."
-	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir=""

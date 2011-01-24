@@ -2,6 +2,17 @@
 
    <technologies>
 
+	 <technology name="JPA2" target-name="JPA2"
+	             template-config-file-name="mp-template-config-JPA2.xml" 
+	             default-outputdir="JPA2"
+	             template-dir="../template/framework/bsla" 
+	             status="released"
+	             description="Generates:\nJPA2 Domain entities with annotation\nJPA2 metamodel for compilable criteria API">
+	      <frameworks>
+	        <framework name="JPA" version="2"></framework>
+	      </frameworks>  	             
+	 </technology>  
+	 
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
 	             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
 	             default-outputdir="bslaSpringHibernate"

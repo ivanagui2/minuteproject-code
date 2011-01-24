@@ -93,7 +93,13 @@
 			subdir="" outputsubdir="" technicalPackage="application"
 			file-extension="java" file-prefix="" file-suffix="Appl" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>				
+		</template>		
+		
+		<template name="ModelWindowVaadin" templateFileName="ModelWindowVaadin.vm" 
+			subdir="" outputsubdir="" technicalPackage="window"
+			file-extension="java" file-prefix="" file-suffix="Window" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>						
 				
 		<template name="ModelWindowVaadin" templateFileName="ModelWindowVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="window"
