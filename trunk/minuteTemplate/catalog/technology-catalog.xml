@@ -7,7 +7,7 @@
 	             default-outputdir="JPA2"
 	             template-dir="../template/framework/bsla" 
 	             status="released"
-	             description="Generates:\nJPA2 Domain entities with annotation\nJPA2 metamodel for compilable criteria API">
+	             description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
 	      <frameworks>
 	        <framework name="JPA" version="2"></framework>
 	      </frameworks>  	             
