@@ -63,10 +63,14 @@ public class TestUtils {
 		if (dBType.equals("CLOB"))
 			return  "getClob("+length+")";	
 		if (dBType.equals("NVARCHAR2"))
-			return  "getString"+number+"("+length+")";	
+			return  "getString"+number+"("+length+")";
+		if (dBType.equals("BIT"))
+			return  "getLong("+length+")";		//TINYINT
+		if (dBType.equals("TINYINT"))
+			return  "getString"+number+"("+length+")";		
 		if (dBType.equals("OTHER"))
 			return  "getString"+number+"("+length+")";
-		return retStr;			
+		return ""+dBType+" - not converted";//retStr;			
 	}
 	
 //	public String getTestLookUpMethod (String dBType, String length, int number) {

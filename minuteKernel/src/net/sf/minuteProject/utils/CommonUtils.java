@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -324,6 +325,12 @@ public class CommonUtils {
 			return getType(TableUtils.getPrimaryFirstColumn(table));
 		return "ERROR-NO PK found for table "+table.getName();
 	}	
+	
+	public static String getPrimaryKeyTypeOnly (Table table) {
+		if (table.hasPrimaryKey())
+			return getJavaTypeOnly(TableUtils.getPrimaryFirstColumn(table));
+		return "ERROR-NO PK found for table "+table.getName();
+	}
 	
 	public static String getPrimaryKeyFullType (Table table) {
 		if (table.hasPrimaryKey())
