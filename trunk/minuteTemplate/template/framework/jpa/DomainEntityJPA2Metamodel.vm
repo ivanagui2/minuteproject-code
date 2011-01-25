@@ -2,12 +2,13 @@
 #exposeEnvironmentParams()
 package $packageName;
 
-import javax.persistence.StaticMetamodel;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+import javax.persistence.metamodel.SetAttribute;
 
 #exposeJPA2Import()
 
 @StaticMetamodel(${domainClassName}.class)
-
 public class $className {
 
 #foreach($column in ${table.primaryKeyColumns})
