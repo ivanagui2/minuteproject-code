@@ -36,10 +36,12 @@ public class $className extends $testAdapterClassName {
 	@Autowired @Qualifier("$daoInterfaceVariableName")
 	protected $daoInterfaceClassName $daoInterfaceVariableName;
 #foreach ($linktableDB in $distinctDependencies)
+#if ($linktableDB.name!=$table.name)
 #putDependencies()
 	@Autowired @Qualifier("$dependentDaoInterfaceVariableName")
 	protected $dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName;
 #end    
+#end
 	
 	/*
 	* Do the insert first.
@@ -87,7 +89,7 @@ public class $className extends $testAdapterClassName {
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
-        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,2));
+        ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,2));
 #end
 #end	
 	    ${daoInterfaceVariableName}.update${domainClassName}(${domainVariableName});
@@ -122,7 +124,7 @@ public class $className extends $testAdapterClassName {
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
 #if ($velocityCount%2==0)
-        ${domainVariableName}2.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,2));
+        ${domainVariableName}2.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,2));
 #end
 #end
 #end	
@@ -170,9 +172,9 @@ public class $className extends $testAdapterClassName {
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
-        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
+        ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
 #elseif ($column.isPrimaryKey() && $isPkUserProvided)
-        ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
+        ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
 #end
 #end
 #foreach ($reference in $table.parents)
@@ -180,9 +182,17 @@ public class $className extends $testAdapterClassName {
 #if (${table}!=${linktableDB}) ##prevents recursivity
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
+#set ($primaryKeyJavaNameTypeOnly = $commonUtils.getPrimaryKeyTypeOnly($linktableDB))
 #putDependencies()
-        $dependentDomainClassName $localColumnVariable = inject$dependentDomainClassName();	
-        ${domainVariableName}.set$localColumnClass(${localColumnVariable}.get$primaryKeyJavaNameClass());
+#set ($nb = $velocityCount)
+        $dependentDomainClassName $localColumnVariable$nb = inject$dependentDomainClassName();	
+        //$localColumnTypeOnly $primaryKeyJavaNameTypeOnly
+#if ($localColumnTypeOnly==$primaryKeyJavaNameTypeOnly)
+        ${domainVariableName}.set$localColumnClass(${localColumnVariable}${nb}.get$primaryKeyJavaNameClass());
+#else
+        ${domainVariableName}.set$localColumnClass(convert${primaryKeyJavaNameTypeOnly}To${localColumnTypeOnly}(${localColumnVariable}${nb}.get$primaryKeyJavaNameClass()));
+#end
+
 #end 
 #end
         return $domainVariableName;
@@ -198,15 +208,16 @@ public class $className extends $testAdapterClassName {
         ${dependentDaoInterfaceVariableName}.insert$dependentDomainClassName ($dependentDomainVariableName);
         return $dependentDomainVariableName;
     }
-    
+
+#if ($linktableDB.name!=$table.name)  
     public $dependentDomainClassName populate$dependentDomainClassName () {
         $dependentDomainClassName $dependentDomainVariableName = new $dependentDomainClassName();
 #foreach ($column in ${linktableDB.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !$isForeignKey)
-        ${dependentDomainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
+        ${dependentDomainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
 #elseif ($column.isPrimaryKey() && $isPkUserProvided)
-        ${dependentDomainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
+        ${dependentDomainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
 #end
 #end
 #foreach ($reference in $linktableDB.parents)
@@ -214,13 +225,21 @@ public class $className extends $testAdapterClassName {
 #if (${masterLinktableDB}!=${linktableDB}) ##prevents recursivity
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
+#set ($primaryKeyJavaNameTypeOnly = $commonUtils.getPrimaryKeyTypeOnly($linktableDB))
 #putDependencies()
-        $dependentDomainClassName $dependentDomainVariableName = inject$dependentDomainClassName();	
-        ${masterDependentDomainVariableName}.set$localColumnClass(${dependentDomainVariableName}.get$primaryKeyJavaNameClass());
+#set ($nb = $velocityCount)
+        $dependentDomainClassName $dependentDomainVariableName$nb = inject$dependentDomainClassName();
+        //$localColumnTypeOnly $primaryKeyTypeOnly    $primaryKeyJavaNameTypeOnly    	
+#if ($localColumnTypeOnly==$primaryKeyJavaNameTypeOnly)
+        ${masterDependentDomainVariableName}.set$localColumnClass(${dependentDomainVariableName}${nb}.get$primaryKeyJavaNameClass());
+#else
+        ${masterDependentDomainVariableName}.set$localColumnClass(convert${primaryKeyJavaNameTypeOnly}To${localColumnTypeOnly}(${dependentDomainVariableName}${nb}.get$primaryKeyJavaNameClass()));
+#end
 #end 
 #end 
         return $masterDependentDomainVariableName;
     }   
+#end
 #end
      
     public $domainClassName populateFirstNonPkField$domainClassName () {
@@ -229,7 +248,7 @@ public class $className extends $testAdapterClassName {
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #if (!$column.isPrimaryKey() && !($velocityCount>1))
-       ${domainVariableName}.set$columnClass ($TestUtils.getTestPopulateFieldMethod($column,1));
+       ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
 #end
 #end
        return $domainVariableName;

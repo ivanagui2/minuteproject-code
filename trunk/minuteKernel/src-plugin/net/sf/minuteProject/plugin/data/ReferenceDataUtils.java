@@ -18,7 +18,8 @@ public class ReferenceDataUtils {
 //		tag enum 
 		if (bean instanceof Column) {
 			Column column = (Column)bean;
-			if (ColumnUtils.isUnique(column) && EnrichmentUtils.isToGenerateBasedOnTag(template, bean))
+			//if (ColumnUtils.isUnique(column) && EnrichmentUtils.isToGenerateBasedOnTag(template, bean))
+			if (EnrichmentUtils.isToGenerateBasedOnTag(template, bean))
 				return true;
 		}
 		return false;

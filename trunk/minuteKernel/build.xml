@@ -16,6 +16,7 @@
 	<property name="application.version" value="${project.version}"/>
 	
 	<property name="lib.dir" value="${home.dir}/lib"/>
+	<property name="libextra.dir" value="${lib.dir}/extra"/>
     <property name="src.dir" value="${home.dir}/src"/>
 	<property name="src-patch.dir" value="${home.dir}/src-patch"/>
 	<property name="src-plugin.dir" value="${home.dir}/src-plugin"/>
@@ -33,6 +34,9 @@
         <fileset dir="${lib.dir}">
             <include name="*.jar"/>
         </fileset>
+            <fileset dir="${libextra.dir}">
+                <include name="*.jar"/>
+            </fileset>    	
         <fileset dir="${deplib.dir}">
             <include name="*.jar"/>
         </fileset>    	
