@@ -21,6 +21,14 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 
+		<template name="PlayDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
+			subdir="" outputsubdir="" technicalPackage="model"
+			file-extension="java" file-prefix="" file-suffix="_" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="DomainEntityUMLTemplate" value="PlayDomainObject" ></property>
+		</template>	
+		
 		<template name="PlayRestEmptyController" templateFileName="PlayRestEmptyController.vm" 
 			add-model-name="false" add-model-dir-name="false" package-root="controllers" 
 			file-extension="java" file-prefix="Rest" technicalPackage="" add-package-name="false" add-business-package-dir-name="false"
