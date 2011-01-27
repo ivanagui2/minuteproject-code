@@ -5,22 +5,21 @@
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
-			    <!--<dataSource>	
+			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
-				 for Oracle and DB2 please set the schema 
-				<schema> </schema>
-				 -->
+				<!-- 
 				<dataSource>
 					<driverClassName>org.sqlite.JDBC</driverClassName>
 					<url>jdbc:sqlite:C:/DATA/SQLITE/petshop.db</url>
 					<username></username>
 					<password></password>
 				</dataSource>				
-				<schema>petshop</schema>				 
+				<schema>petshop</schema>	
+				-->			 
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
@@ -54,6 +53,10 @@
 			   outputdir-root="../../dev/openxava/petshop-sqlite"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
 			</target> 
+			<target refname="JPA2-LIB" 
+			   fileName="mp-template-config-JPA2-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/jpa">
+			</target>			
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
