@@ -36,7 +36,11 @@
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
-			</target> 	
+			</target> 
+			<target refname="JPA2-LIB" 
+			   fileName="mp-template-config-JPA2-LIB.xml" 
+			   templatedir-root="../../template/framework/jpa">
+			</target>					
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 

@@ -3,23 +3,23 @@
    <technologies>
 
 	 <technology name="JPA2" target-name="JPA2"
-	             template-config-file-name="mp-template-config-JPA2.xml" 
-	             default-outputdir="JPA2"
-	             depends-on-targets="BSLA_LIB" 
-	             template-dir="../template/framework/jpa" 
-	             status="released"
-	             description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
+         template-config-file-name="mp-template-config-JPA2.xml" 
+         default-outputdir="JPA2"
+         depends-on-targets="BSLA_LIB" 
+         template-dir="../template/framework/jpa" 
+         status="released"
+         description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
 	      <frameworks>
 	        <framework name="JPA" version="2"></framework>
 	      </frameworks>  	             
 	 </technology>  
 	 
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
-	             template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
-	             default-outputdir="bslaSpringHibernate"
-	             template-dir="../template/framework/bsla" 
-	             status="released"
-	             description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
+         template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
+         default-outputdir="bslaSpringHibernate"
+         template-dir="../template/framework/bsla" 
+         status="released"
+         description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
 	      <frameworks>
 	        <framework name="Spring" version="2.5+"></framework>
 	        <framework name="Hibernate" version="3.2+"></framework>
@@ -61,11 +61,17 @@
 	   is-generable="false">
 	</technology> 	
 	
-	<technology name="JQUERY" target-name="JQUERY"
+	<technology name="JQUERY_LIB" target-name="JQUERY_LIB"
 	   template-config-file-name="mp-template-config-jquery-features.xml" 
 	   template-dir="../template/framework/jquery"
 	   is-generable="false">
 	</technology> 	
+	
+	<technology name="JPA2_LIB" target-name="JPA2_LIB"
+	   template-config-file-name="mp-template-config-jquery-features.xml" 
+	   template-dir="../template/framework/jpa"
+	   is-generable="false">
+	</technology> 		
 
 	<technology name="Spring Hibernate Standard" 
      		template-config-file-name="mp-template-config-hibernate.xml"
@@ -105,29 +111,29 @@
 	</technology> 			 
 
 	 <technology name="OpenXava" 
-	             template-config-file-name="mp-template-config-openxava-last-features.xml" 
-	             default-outputdir="openxava"
-	             template-dir="../template/framework/openxava" 
-	             depends-on-targets="BSLA_LIB" 
-	             status="released"
-	             comment=""
-	             description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">   
+         template-config-file-name="mp-template-config-openxava-last-features.xml" 
+         default-outputdir="openxava"
+         template-dir="../template/framework/openxava" 
+         depends-on-targets="BSLA_LIB,JPA2_LIB" 
+         status="released"
+         comment=""
+         description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">   
 	      <frameworks>
 	        <framework name="OpenXava" version="4.m5"></framework>
 	      </frameworks>        
 	 </technology>
 	 		 
 	 <technology name="Grails" 
-	             template-config-file-name="mp-template-config-grails-last-features.xml" 
-	             default-outputdir="grails"
-	             template-dir="../template/framework/grails" 
-	             depends-on-targets="BSLA_LIB" 
-	             status="released"
-	             comment=""
-	             description="Generates grails artifacts:
-	             \gorm groovy files\controllers standard and serving rest URL (json, xml)
-	             \jQuery sample client
-	             \Configs:\UrlMapping, DataSouce, BuildConfig\Misc scripts.">   
+        template-config-file-name="mp-template-config-grails-last-features.xml" 
+        default-outputdir="grails"
+        template-dir="../template/framework/grails" 
+        depends-on-targets="BSLA_LIB,JPA2_LIB,JQUERY_LIB" 
+        status="released"
+        comment=""
+        description="Generates grails artifacts:
+        \gorm groovy files\controllers standard and serving rest URL (json, xml)
+        \jQuery sample client
+        \Configs:\UrlMapping, DataSouce, BuildConfig\Misc scripts.">   
 	      <conventions>
 	        <convention name="version-convention" is-applied="true" description="Apply version for entities having the version column" helper="" defaultValue="version">
 	        </convention>
@@ -143,17 +149,17 @@
 	 </technology>
 
 	 <technology name="Play" 
-	             template-config-file-name="mp-template-config-play-last-features.xml" 
-	             default-outputdir="play"
-	             template-dir="../template/framework/play" 
-	             depends-on-targets="BSLA_LIB" 
-	             status="released"
-	             comment=""
-	             description="Generates play artifacts:
-	             \Domain model extending GenericModel
-	             \Controllers standard and serving rest URL (json, xml)
-	             \jQuery sample client
-	             \Routes, application conf\Misc scripts.">   
+         template-config-file-name="mp-template-config-play-last-features.xml" 
+         default-outputdir="play"
+         template-dir="../template/framework/play" 
+         depends-on-targets="BSLA_LIB,JPA2_LIB,JQUERY_LIB" 
+         status="released"
+         comment=""
+         description="Generates play artifacts:
+         \Domain model extending GenericModel
+         \Controllers standard and serving rest URL (json, xml)
+         \jQuery sample client
+         \Routes, application conf\Misc scripts.">   
 	      <limitations>
 	      </limitations>	      
 	      <frameworks>

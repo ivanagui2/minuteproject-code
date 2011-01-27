@@ -24,6 +24,14 @@
       		<property name="convertClobToString" value="true"/>
 		</template>
 		
+		<template name="PlayDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
+			subdir="" outputsubdir="" technicalPackage="domain"
+			file-extension="java" file-prefix="" file-suffix="_" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="DomainEntityUMLTemplate" value="DomainObjectUML" ></property>
+		</template>	
+				
 		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="dto"
 			file-extension="java" file-prefix="" file-suffix="" 
