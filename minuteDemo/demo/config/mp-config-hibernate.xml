@@ -28,7 +28,7 @@
 		<target refname="BackendOnBsla" name="default" 
       		fileName="mp-template-config-hibernate.xml"
       		templatedir-root="../../template/framework/bsla"
-      		outputdir-root="../output/petshopHibernate/src-generated">
+      		outputdir-root="../output/StandardSpringHibernate/src-generated">
 		</target> 	
 	</configuration>
 </generator-config>

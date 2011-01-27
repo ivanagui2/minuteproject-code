@@ -33,7 +33,7 @@
 			<target refname="BackendOnBsla" 
 			   name="bsla-hibernate" 
 			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-			   outputdir-root="../output/vaadin/petshopHibernate"
+			   outputdir-root="../output/vaadin/MvnSpringHibernate"
 			   templatedir-root="../../template/framework/bsla">
 			</target> 	
 			<target refname="MpVaadin" 

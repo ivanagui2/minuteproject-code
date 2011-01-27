@@ -28,7 +28,7 @@
 		<target refname="FitNesse" 
 		   name="default" 
 		   fileName="mp-template-config-fitnesse.xml" 
-		   outputdir-root="../output/petshopFitnesse"
+		   outputdir-root="../output/Fitnesse"
 		   templatedir-root="../../template/framework/bsla">
 		</target> 				
 	</configuration>
