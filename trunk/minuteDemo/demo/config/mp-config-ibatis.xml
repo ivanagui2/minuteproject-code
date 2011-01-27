@@ -29,7 +29,7 @@
 		</model>
 		<target refname="BackendOnBsla" name="default"  
 			fileName="mp-template-config-ibatis.xml" 
-			outputdir-root="../output/petshopIbatis/src-generated"
+			outputdir-root="../output/StandardSpringIbatis/src-generated"
 			templatedir-root="../../template/framework/bsla">
 		</target> 	
 	</configuration>
