@@ -1,5 +1,10 @@
 #macro (putJPA2TemplateDefinition)
+#getTemplatePropertyValue("DomainEntityUMLTemplate")
+#if (!$value.equals(""))
+#set ($templateJPA2DomainObject=$value)
+#else
 #set ($templateJPA2DomainObject="DomainEntityJPA2Annotation")
+#end
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
