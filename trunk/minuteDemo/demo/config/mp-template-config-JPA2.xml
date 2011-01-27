@@ -19,6 +19,7 @@
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
+      		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>     		
 		</template>
 		
 		<template name="DomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
