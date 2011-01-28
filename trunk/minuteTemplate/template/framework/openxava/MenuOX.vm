@@ -40,7 +40,7 @@
 	  <ul class="submenu">
 #foreach ($groups in $displayableEntityGroups)
 #if ($velocityCount>1)
-        <li><hr color="black"></li>
+        <!--<li><hr color="black"></li>-->
 #end
 #foreach ($table in ${groups})
 #exposeVariableEntitySpecific()
