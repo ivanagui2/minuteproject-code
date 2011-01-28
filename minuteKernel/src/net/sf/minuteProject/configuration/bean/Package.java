@@ -118,7 +118,7 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	}
 
 	public String getAlias() {
-		if (alias==null)
+		if (alias==null  || alias.equals(""))
 			alias = getName();
 		return alias;
 	}
