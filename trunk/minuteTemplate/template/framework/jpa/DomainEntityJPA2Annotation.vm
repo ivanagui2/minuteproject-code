@@ -35,6 +35,7 @@ public class ${className} {
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
 #end
+    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
@@ -76,7 +77,7 @@ public class ${className} {
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
-    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false #end)
+    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false #end) 
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
 #set($colVar = ${localColumnVariable})
