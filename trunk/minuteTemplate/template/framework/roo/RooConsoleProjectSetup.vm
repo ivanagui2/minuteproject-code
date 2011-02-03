@@ -35,7 +35,7 @@ ${shell}field $rooConsoleType --fieldName ${rooColumnVariableName} --column $col
 #else
 #set($reference=$referenceUtils.getReference($column))
 #set($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
-${shell}field reference --fieldName ${rooColumnVariableName} --column $column.name ${notNullChunk} --type ~.domain.$linkedTableClass --class ~.domain.$tableClassName
+${shell}field reference --fieldName ${rooColumnVariableName} --joinColumnName $column.name ${notNullChunk} --type ~.domain.$linkedTableClass --class ~.domain.$tableClassName
 #end
 #end
 #end
@@ -51,7 +51,7 @@ ${shell}field reference --fieldName ${rooColumnVariableName} --column $column.na
 #putReferenceParams2()
 ##m2m not supported. Check if link table is m2m.
 #if(!$tableUtils.isMany2Many(${linktableDB}))
-${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --element ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality ONE_TO_MANY
+${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableVariable}${linkedColumnClass}s --type ~.domain.${linkedTableClass} --mappedBy $linkedColumnVariable ${notNullChunk} --cardinality ONE_TO_MANY
 #end
 #end
 #end
