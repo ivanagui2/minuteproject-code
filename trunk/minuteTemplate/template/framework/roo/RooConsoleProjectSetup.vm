@@ -17,7 +17,7 @@ ${shell}database properties list
 #foreach ($table in ${package.listOfTables})
 #putRooEntityParams()
 #if(!$isMany2Many)
-${shell}entity --class ~.$entityAfterRootPackage --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically
+${shell}entity --class ~.$entityAfterRootPackage --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically --permitReservedWords
 #end
 #end
 #end
