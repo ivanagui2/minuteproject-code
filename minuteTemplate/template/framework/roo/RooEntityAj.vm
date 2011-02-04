@@ -4,6 +4,7 @@ package $packageName;
 import java.lang.*;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,9 @@ import javax.persistence.Version;
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect $className {
- 
+
+    declare @type: ${domainClassName}: @Entity;
+     
     @PersistenceContext
     transient EntityManager ${domainClassName}.entityManager;
 
