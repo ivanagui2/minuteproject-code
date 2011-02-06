@@ -1,0 +1,6 @@
+#rooCommand()
+#exposeVariableModelSpecific()
+#rooModel()
+${shell}${model.name}-roo.cmd
+${shell}${model.name}-roo-vaadin.cmd
+call mvn compile

@@ -37,7 +37,7 @@
 			<target refname="Roo" 
 			   name="Roo" 
 			   fileName="mp-template-config-roo-last-features.xml" 
-			   outputdir-root="../../DEV/output/roo"
+			   outputdir-root="../../DEV/output/roo4"
 			   templatedir-root="../../minuteTemplate/template/framework/roo">
 			</target> 
 			<target refname="LIB" 
