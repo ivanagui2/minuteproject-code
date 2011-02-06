@@ -110,9 +110,18 @@ privileged aspect $className {
     }
     
     public static long ${domainClassName}.count${domainClassName}es() {
-        return ((Number) entityManager().createQuery("select count(o) from ${domainClassName} o").getSingleResult()).longValue();
+        return count${domainClassName}s();
     }
     
+    public static long ${domainClassName}.count${domainClassName}s() {
+        return ((Number) entityManager().createQuery("select count(o) from ${domainClassName} o").getSingleResult()).longValue();
+    }    
+
+    @SuppressWarnings("unchecked")
+    public static List<${domainClassName}> ${domainClassName}.findAll${domainClassName}s() {
+        return findAll${domainClassName}es();
+    }
+        
     @SuppressWarnings("unchecked")
     public static List<${domainClassName}> ${domainClassName}.findAll${domainClassName}es() {
         return entityManager().createQuery("select o from ${domainClassName} o").getResultList();
