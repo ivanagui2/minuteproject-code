@@ -39,6 +39,7 @@ public class ReferenceDDLUtils implements Reference
 	private String foreignTableName;
 	private Column localColumn;
 	private Table  localTable;
+	private String localColumnName;
 	
     /**
      * Creates a new, empty reference.
@@ -108,6 +109,8 @@ public class ReferenceDDLUtils implements Reference
      */
     public String getLocalColumnName()
     {
+    	if (localColumnName!=null)
+    		return localColumnName;
     	return getLocalColumn().getName();
         //return reference.getLocalColumnName();
         // should be replaced by
@@ -198,7 +201,9 @@ public class ReferenceDDLUtils implements Reference
      */
     public String toString()
     {
-        return reference.toString();
+        //return reference.toString();
+    	return localTable.getName()+"."+getLocalColumnName()+"->"+foreignTableName+"."+getForeignColumnName()+
+    	     " -- "+localTable.getName()+"."+localColumn.getName()+"->"+foreignTable.getName()+"."+foreignColumn.getName();
     }
     
     // Added methods
