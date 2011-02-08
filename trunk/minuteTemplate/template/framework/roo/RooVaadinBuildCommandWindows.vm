@@ -3,5 +3,5 @@
 #rooModel()
 call roo script --file ${model.name}.roo
 call ${model.name}-roo-vaadin.cmd
-xcopy src-generate src /y /s
+xcopy src-generated src /y /s
 call mvn compile
