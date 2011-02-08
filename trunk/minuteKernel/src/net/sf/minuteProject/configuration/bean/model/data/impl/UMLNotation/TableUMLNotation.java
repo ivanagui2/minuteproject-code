@@ -33,10 +33,14 @@ public class TableUMLNotation extends TableAbstract {
 	public Reference [] getChildren() {
 		if (children == null) {
 			children = new ArrayList<Reference>();
-			for (int i = 0; i < super.getTable().getChildren().length; i++) {
-				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (super.getTable().getChildren()[i]);
+//			for (int i = 0; i < super.getTable().getChildren().length; i++) {
+//				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (super.getTable().getChildren()[i]);
+//				children.add(referenceUMLNotation);
+//			}
+			for (Reference reference : super.getTable().getChildren()) {
+				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (reference);
 				children.add(referenceUMLNotation);
-			}
+			}			
 		}
 		return (Reference[])children.toArray(new Reference[children.size()]);//(ColumnUMLNotation[])getNoPrimaryKeyNoForeignKeyColumns();
 	}
@@ -44,8 +48,8 @@ public class TableUMLNotation extends TableAbstract {
 	public Reference [] getParents() {
 		if (parents == null) {
 			parents = new ArrayList<Reference>();
-			for (int i = 0; i < super.getTable().getParents().length; i++) {
-				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (super.getTable().getParents()[i]);
+			for (int i = 0; i < super.getParents().length; i++) {
+				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (super.getParents()[i]);
 				parents.add(referenceUMLNotation);
 			}
 		}

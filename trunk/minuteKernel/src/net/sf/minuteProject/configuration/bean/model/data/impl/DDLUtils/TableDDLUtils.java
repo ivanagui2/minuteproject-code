@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -22,7 +24,8 @@ import net.sf.minuteProject.utils.TableUtils;
  */
 public class TableDDLUtils extends TableAbstract {
 	
-	private org.apache.ddlutils.model.Table table;
+	private Logger log = Logger.getLogger(this.getClass());
+	protected org.apache.ddlutils.model.Table table;
 	private Database database;
 	private ArrayList<Column> columns;
 	private ArrayList<ForeignKey> foreignKeys;
@@ -348,17 +351,34 @@ public class TableDDLUtils extends TableAbstract {
     	return (Reference[])parents.toArray(new Reference[parents.size()]);	
     }
     
-    protected Reference [] getParentsWithLocalForeignKey() {
-    	if (parents == null) {
-    		parents = new ArrayList<Reference>();
-    		for (int i = 0; i < getForeignKeys().length; i++) {
-    			ForeignKey foreignKey = getForeignKeys()[i];
-    			Reference reference = foreignKey.getFirstReference();
-				addReference(parents, reference);
-			}
-    	}
-    	return (Reference[])parents.toArray(new Reference[parents.size()]);	
-    }
+//    protected Reference [] getParentsWithLocalForeignKey() {
+//    	if (parents == null) {
+//    		parents = new ArrayList<Reference>();
+//    		for (int i = 0; i < getForeignKeys().length; i++) {
+//    			ForeignKey foreignKey = getForeignKeys()[i];
+//    			Reference reference = foreignKey.getFirstReference();
+//    			//reverse reference view: reference comes from enrichment
+//    			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
+//    			ref.setForeignColumn(reference.getLocalColumn());
+//    			ref.setForeignColumnName(reference.getLocalColumnName());
+//    			ref.setForeignTable(reference.getLocalTable());
+//    			ref.setForeignTableName(reference.getLocalTableName());
+//    			ref.setLocalColumn(reference.getForeignColumn());
+//    			ref.setLocalColumnName(reference.getForeignColumnName());
+//    			ref.setLocalTable(reference.getForeignTable());
+//    			ref.setLocalTableName(reference.getForeignTableName());
+//    			addReference(parents, reference);
+//    			log.info("reference "+reference);
+////    			log.info("ref       "+ref);
+//////${localColumnVariable} ${linkedTableVariable} ${linkedColumnVariable}
+//    			log.info("localColumnVariable = "+reference.getLocalColumnName());
+//    			log.info("linkedTableVariable = "+reference.getLocalTableName());
+//    			log.info("linkedColumnVariable = "+reference.getForeignColumnName());
+////    			addReference(parents, ref);
+//			}
+//    	}
+//    	return (Reference[])parents.toArray(new Reference[parents.size()]);	
+//    }
     
     /**
      * Get the associated children
@@ -370,7 +390,7 @@ public class TableDDLUtils extends TableAbstract {
 			String columnRef;
 			Reference ref;
 			Reference reference;
-			Table [] tables = database.getTables();
+			Table [] tables = database.getEntities();
 	    	for (int i = 0; i < tables.length; i++) {
 	    		ForeignKey [] fk = tables[i].getForeignKeys();
 	        	for (int j = 0; j < fk.length; j++) {
@@ -391,10 +411,12 @@ public class TableDDLUtils extends TableAbstract {
 		    				reference.setForeignColumnName(column.getName());
 		    				reference.setForeignTable(tables[i]);
 		    				reference.setForeignTableName(tables[i].getName());
-		    				ColumnDDLUtils localCol = (ColumnDDLUtils)TableUtils.getPrimaryFirstColumn(new TableDDLUtils(table));
+		    				//ColumnDDLUtils localCol = (ColumnDDLUtils)TableUtils.getPrimaryFirstColumn(new TableDDLUtils(table));
 		    				//ColumnDDLUtils columnLoc = new ColumnDDLUtils(localCol, new TableDDLUtils(table));
 		    				reference.setLocalColumn(TableUtils.getPrimaryFirstColumn(new TableDDLUtils(table)));
 		    				reference.setLocalTable(new TableDDLUtils(table));
+		    				//reference.setLocalColumn(localCol);
+
 		    				addReference(children, reference);
 		        		}
 	        		}
@@ -404,7 +426,7 @@ public class TableDDLUtils extends TableAbstract {
     	return (Reference[])children.toArray(new Reference[children.size()]);	  	
     }
     
-    private void addReference (List list, Reference reference) {
+    protected void addReference (List<Reference> list, Reference reference) {
     	if (list==null) return;
     	boolean isAlreadyPresent = false;
     	for (Iterator<Reference> iter = list.iterator(); iter.hasNext();) {

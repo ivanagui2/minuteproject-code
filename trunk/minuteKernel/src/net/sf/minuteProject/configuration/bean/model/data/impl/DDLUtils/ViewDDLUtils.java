@@ -3,6 +3,8 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -12,9 +14,11 @@ import net.sf.minuteProject.utils.ForeignKeyUtils;
 
 public class ViewDDLUtils extends TableDDLUtils implements View{
 
+	private Logger log = Logger.getLogger(this.getClass());
 	private ArrayList<Column> realPrimaryKeys;
 	private ArrayList<Column> virtualPrimaryKeys;
 	private ArrayList<Column> noVirtualPrimaryKeyColumns;
+	private ArrayList<Reference> parents;
 	private ArrayList<Component> components;
 	
 	
@@ -58,6 +62,10 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 		if (virtualPrimaryKeys==null)
 			virtualPrimaryKeys = new ArrayList<Column>();
 		virtualPrimaryKeys.add(virtualPrimaryKey);	
+		for (org.apache.ddlutils.model.Column column : table.getColumns()) {
+			if (column.getName().equals(virtualPrimaryKey.getName()))
+				column.setPrimaryKey(true);
+		}
 	}
 	
 	public boolean hasPrimaryKey () {
@@ -120,6 +128,46 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	}
 	
 	public Reference [] getParents() {
+//		return super.getParents();
 		return getParentsWithLocalForeignKey();
 	}
+	
+    protected Reference [] getParentsWithLocalForeignKey() {
+    	if (parents == null) {
+    		parents = new ArrayList<Reference>();
+    		for (int i = 0; i < getForeignKeys().length; i++) {
+    			ForeignKey foreignKey = getForeignKeys()[i];
+    			Reference reference = foreignKey.getFirstReference();
+//    			//reverse reference view: reference comes from enrichment
+//    			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
+//    			ref.setForeignColumn(reference.getLocalColumn());
+//    			ref.setForeignColumnName(reference.getLocalColumnName());
+//    			ref.setForeignTable(reference.getLocalTable());
+//    			ref.setForeignTableName(reference.getLocalTableName());
+//    			ref.setLocalColumn(reference.getForeignColumn());
+//    			ref.setLocalColumnName(reference.getForeignColumnName());
+//    			ref.setLocalTable(reference.getForeignTable());
+//    			ref.setLocalTableName(reference.getForeignTableName());
+    			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
+    			ref.setForeignColumn(reference.getForeignColumn());
+    			ref.setForeignColumnName(reference.getForeignColumnName());
+    			ref.setForeignTable(reference.getForeignTable());
+    			ref.setForeignTableName(reference.getForeignTableName());
+    			ref.setLocalColumn(reference.getLocalColumn());
+    			ref.setLocalColumnName(reference.getLocalColumnName());
+    			ref.setLocalTable(reference.getLocalTable());
+    			ref.setLocalTableName(reference.getLocalTableName());    			
+//    			addReference(parents, reference);
+//    			log.info("reference "+reference);
+//    			log.info("ref       "+ref);
+////${localColumnVariable} ${linkedTableVariable} ${linkedColumnVariable}
+//    			log.info("localColumnVariable = "+reference.getLocalColumnName());
+//    			log.info("linkedTableVariable = "+reference.getLocalTableName());
+//    			log.info("linkedColumnVariable = "+reference.getForeignColumnName());
+    			addReference(parents, ref);
+			}
+    	}
+//    	log.info("object "+getName()+"- parents : "+parents);
+    	return (Reference[])parents.toArray(new Reference[parents.size()]);	
+    }	
 }

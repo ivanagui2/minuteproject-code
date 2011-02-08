@@ -12,11 +12,12 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setStereotype(column.getStereotype());
 		setSearchable(column.isSearchable());
 		setVersion(column.isVersion());
+		setName(column.getName());
 	}
-	
-    public String getName() {
-    	return super.getName();
-    }
+//	
+//    public String getName() {
+//    	return super.getName();
+//    }
     
 //    public String getGeneratedBeanName() {
 //    	return super.getGeneratedBeanName();
