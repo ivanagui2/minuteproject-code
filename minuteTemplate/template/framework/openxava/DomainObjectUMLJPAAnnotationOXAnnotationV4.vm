@@ -183,7 +183,7 @@ public class ${className} {
 #end
 #if ($column.isLob())
     @Lob
-    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
+//    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
 #exposeLobProperties()
 #if ($convertClobToString=="true")
 #set($columnType="String")
@@ -191,8 +191,10 @@ public class ${className} {
 #end
 #if ($columnUtils.hasStereotype($column))
     @Stereotype ("$column.stereotype.stereotype")
-#elseif ($column.size>100)
-    @Stereotype ("TEXT_AREA")
+##elseif ($presentationUtils.isTextArea($column))
+##    @Stereotype ("TEXT_AREA")
+#elseif ($presentationUtils.isRichText($column))
+    @Stereotype ("HTML_TEXT")
 #end
     private $columnType $columnVar; 
 #end
@@ -255,7 +257,7 @@ public class ${className} {
     
 #end
 
-#foreach ($reference in $table.children)##$childReferences)
+#foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 #set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
@@ -267,7 +269,6 @@ public class ${className} {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-//    @JoinColumn (name="$columnDB.name", referencedColumnName="$pK") commented since hibernate 3.6.0
 #set($listProperties=$openXavaUtils.getListProperties($reference))
 #if(!$listProperties.isEmpty())
     @ListProperties(""+
@@ -285,9 +286,9 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #exposeImportParamsUML($targetTable)
 #set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
     @ManyToMany
-    @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
-        joinColumns=@JoinColumn(name="$targetColumn.name"), //$columnDB.name $targetColumn
-        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
+    @JoinTable(name="$linkedTableDBName",
+        joinColumns=@JoinColumn(name="$targetColumn.name"), 
+        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
     private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
 
