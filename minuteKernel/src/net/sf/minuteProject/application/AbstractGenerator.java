@@ -125,7 +125,7 @@ public abstract class AbstractGenerator implements Generator {
 		try {
 			loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
 		} catch (Exception e) {
-			throwException(e, "CANNOT LOAD TARGET FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH");
+			throwException(e, "CANNOT LOAD TARGET FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH AND WELL FORMATTED");
 		}
 		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}

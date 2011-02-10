@@ -6,12 +6,21 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.loader.presentation.node.Block;
 import net.sf.minuteProject.loader.presentation.node.Window;
 
 public class PresentationUtils {
 
+	public static Boolean isTextArea (Column column) {
+		return (column.getSizeAsInt()>100 && !column.isLob())? true:false;
+	}
+	
+	public static Boolean isRichText (Column column) {
+		return (column.getSizeAsInt()>100 && column.getType().equals("CLOB"))? true:false;
+	}	
+	
 	public static Boolean isForm(Template template, GeneratorBean generatorBean) {
 		if (generatorBean instanceof Window)
 			return isForm((Window)generatorBean);
