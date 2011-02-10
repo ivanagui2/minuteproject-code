@@ -1,4 +1,4 @@
-<target name="Grails">		
+<target name="Rails">		
 	<architecture-target name="openxava" description="openxava architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
