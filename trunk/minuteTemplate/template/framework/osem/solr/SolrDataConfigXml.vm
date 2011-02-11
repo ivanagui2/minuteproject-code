@@ -1,0 +1,58 @@
+#exposeVariableModelSpecific()
+#set ($datasource = $model.dataModel.basicDataSource)
+<dataConfig>
+##todo with embedded cp or jndi
+    <dataSource driver="$datasource.driverClassName" url="$datasource.url" user="$datasource.username" password="$datasource.password"/>
+    <document name="$model.name" >
+#foreach ($table in $osemUtils.getRootTables($database))
+#exposeVariableEntitySpecific()
+            <entity name="$domainVariableName"  
+                    query="select * from $table.name"
+#if($osemUtils.hasDeltaQuery($table))
+                    deltaQuery="select ITEM_ID from FEATURE where last_modified > '${dataimporter.last_index_time}'"
+#end
+#if($osemUtils.hasParentDeltaQuery($table))
+                    parentDeltaQuery="select ID from item where ID=${feature.ITEM_ID}"
+#end                
+                    >
+#foreach($column in $table.attributes)
+#putColumnParams()
+                <field name="$columnVar" column="$column.name" />
+#end
+            </entity>
+#end
+            <entity name="$"  
+                    query="select DESCRIPTION from FEATURE where ITEM_ID='${item.ID}'"
+                    deltaQuery="select ITEM_ID from FEATURE where last_modified > '${dataimporter.last_index_time}'"
+                    parentDeltaQuery="select ID from item where ID=${feature.ITEM_ID}">
+                <field name="features" column="DESCRIPTION" />
+            </entity>
+            
+#end 
+            <entity name="item" query="select * from item"
+                deltaQuery="select id from item where last_modified > '${dataimporter.last_index_time}'">
+            <field column="NAME" name="name" />
+            <field column="NAME" name="nameSort" />
+            <field column="NAME" name="alphaNameSort" />
+
+            <entity name="feature"  
+                    query="select DESCRIPTION from FEATURE where ITEM_ID='${item.ID}'"
+                    deltaQuery="select ITEM_ID from FEATURE where last_modified > '${dataimporter.last_index_time}'"
+                    parentDeltaQuery="select ID from item where ID=${feature.ITEM_ID}">
+                <field name="features" column="DESCRIPTION" />
+            </entity>
+            
+            <entity name="item_category"
+                    query="select CATEGORY_ID from item_category where ITEM_ID='${item.ID}'"
+                    deltaQuery="select ITEM_ID, CATEGORY_ID from item_category where last_modified > '${dataimporter.last_index_time}'"
+                    parentDeltaQuery="select ID from item where ID=${item_category.ITEM_ID}">
+                <entity name="category"
+                        query="select DESCRIPTION from category where ID = '${item_category.CATEGORY_ID}'"
+                        deltaQuery="select ID from category where last_modified > '${dataimporter.last_index_time}'"
+                        parentDeltaQuery="select ITEM_ID, CATEGORY_ID from item_category where CATEGORY_ID=${category.ID}">
+                    <field column="description" name="cat" />
+                </entity>
+            </entity>
+        </entity>
+    </document>
+</dataConfig>
