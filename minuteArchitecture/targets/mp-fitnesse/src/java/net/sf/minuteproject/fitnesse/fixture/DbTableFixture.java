@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.log4j.Logger;
 
 import net.sf.minuteproject.utils.database.DatabaseUtils;
 import net.sf.minuteproject.utils.query.QueryUtils;
@@ -20,6 +21,8 @@ import fitnesse.fixtures.TableFixture;
 
 public abstract class DbTableFixture extends TableFixture {
 
+	Logger log = Logger.getLogger(this.getClass());
+	
 	public static int GENERAL_ROW_INDEX = 0;
 	public static int FIELD_ROW_INDEX = GENERAL_ROW_INDEX + 1;
 	public static int EXPRESSION_ROW_INDEX = FIELD_ROW_INDEX + 1;
@@ -209,7 +212,7 @@ public abstract class DbTableFixture extends TableFixture {
 			System.out.println("row = "+row);
 			int lenrow = resultSet[row].length;
 			if (column < lenrow) {
-				System.out.println("len = "+len+", row = "+row+", lenrow = "+lenrow+", column = "+column);
+//				System.out.println("len = "+len+", row = "+row+", lenrow = "+lenrow+", column = "+column);
 				return resultSet [row] [column];
 			}
 		}
@@ -223,7 +226,7 @@ public abstract class DbTableFixture extends TableFixture {
 	protected int getNumberOfRealColumn() {
 		String previousColumnValue = null;
 		int size = 0;
-		System.out.println("getNumberOfColumn = "+getNumberOfColumn());
+		log.debug("getNumberOfColumn = "+getNumberOfColumn());
 		for (int i = 1; i <= getNumberOfColumn(); i++) {
 			String text = getText(FIELD_ROW_INDEX, i);
 			if (text.equals(previousColumnValue)) {
