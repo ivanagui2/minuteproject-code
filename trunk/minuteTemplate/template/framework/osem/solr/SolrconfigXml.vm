@@ -1,3 +1,4 @@
+#exposeVariableModelSpecific()
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -27,7 +28,7 @@
 
    <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
-    	<str name="config">$model.name-data-config.xml</str>
+    	<str name="config">${model.name}-data-config.xml</str>##TODO change by correct import of dataconfig file
     </lst>
   </requestHandler>
    
