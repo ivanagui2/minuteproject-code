@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/scriptella-drivers.jar"/>
 	<classpathentry kind="lib" path="lib/scriptella-tools.jar"/>
 	<classpathentry kind="lib" path="lib/scriptella.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

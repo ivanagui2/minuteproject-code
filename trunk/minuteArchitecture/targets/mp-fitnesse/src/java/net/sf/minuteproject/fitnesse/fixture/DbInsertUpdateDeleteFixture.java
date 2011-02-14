@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.utils.database.DatabaseUtils;
 import net.sf.minuteproject.utils.query.QueryUtils;
@@ -13,19 +15,25 @@ import fit.ColumnFixture;
 
 public abstract class DbInsertUpdateDeleteFixture extends ColumnFixture{
 
+	Logger log = Logger.getLogger(this.getClass());
+	
 	public String insert() {
-		
 		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue());
+		log.debug("insert query = "+query);
+//		System.out.println("insert query = "+query);
+		
 		return action(query);
 	}
 	
 	public String update() {
 		String query = QueryUtils.buildUpdateStatement(getTable(), getColumnIndex(), getColumnValue(), getColumnWhereIndex(), getColumnWhereValue());
+		log.debug("update query = "+query);
 		return action(query);
 	}
 	
 	public String delete() {
 		String query = QueryUtils.buildDeleteStatement(getTable(), getColumnWhereIndex(), getColumnWhereValue());
+		log.debug("delete query = "+query);
 		return action(query);
 	}
 	
