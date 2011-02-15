@@ -17,7 +17,7 @@ public class RubyUtils {
 	public static final String RUBY_FLOAT_TYPE 					=   "float";
 	
 	public static String getRubyType (Column column) {
-		return RubyUtils.getRubyType(column.getType());
+		return getRubyType(column.getType());
 	}
 
 	private static String getRubyType(String dBType) {

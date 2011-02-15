@@ -1,6 +1,7 @@
 <target name="SOLR engine">		
 	<architecture-target name="solr"></architecture-target>	
 	<plugin name="osemUtils" className="net.sf.minuteProject.plugin.osem.OsemUtils"></plugin>
+	<plugin name="solrUtils" className="net.sf.minuteProject.plugin.osem.SolrUtils"></plugin>
 	
   	<template-target 
     	name="SOLR config"
@@ -31,7 +32,14 @@
 			file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER" >
 		</template>
 						
-								
+		<template name="SolrSchemaXml" templateFileName="SolrSchemaXml.vm" 
+			add-model-name="false" package-root=""
+			add-model-dir-name="true"		
+			subdir="" outputsubdir="" technicalPackage="conf"
+			file-extension="xml" file-suffix="schema" 
+			model-specific="true">
+		</template>
+										
 	</template-target>	
 
 </target>
