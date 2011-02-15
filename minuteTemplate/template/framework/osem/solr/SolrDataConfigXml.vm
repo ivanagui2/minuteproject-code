@@ -9,10 +9,10 @@
             <entity name="$domainVariableName"  
                     query="select * from $table.name"
 #if($osemUtils.hasDeltaQuery($table))
-                    deltaQuery="select ITEM_ID from FEATURE where last_modified > '${dataimporter.last_index_time}'"
+##TODO                    deltaQuery="select ITEM_ID from FEATURE where last_modified > '${dataimporter.last_index_time}'"
 #end
 #if($osemUtils.hasParentDeltaQuery($table))
-                    parentDeltaQuery="select ID from item where ID=${feature.ITEM_ID}"
+##TODO                    parentDeltaQuery="select ID from item where ID=${feature.ITEM_ID}"
 #end                
                     >
 ##end
@@ -26,18 +26,19 @@
 #end
 #foreach($reference in $osemUtils.getSearchableChildren($table))
 #putReferenceParams2()
-                <entity name="${linkedTableVariable}${linkedColumnClass}s"
+#set($link="${linkedTableVariable}s") ##${linkedTableVariable}${linkedColumnClass}s
+                <entity name="${link}"
                         query="select * from $reference.foreignTableName where $reference.localColumnName = '${${reference.foreignTableName}.${reference.foreignColumnName}}'"
 ##                        deltaQuery="select ID from category where last_modified > '${dataimporter.last_index_time}'"
 ##                        parentDeltaQuery="select ITEM_ID, CATEGORY_ID from item_category where CATEGORY_ID=${category.ID}">
                  >
 #foreach($column in $reference.foreignTable.primaryKeyColumns)
 #putColumnParams()
-                    <field name="$columnVar" column="$column.name" />
+##NOPK for subquery                    <field name="$columnVar" column="$column.name" />
 #end                 
 #foreach($column in $reference.foreignTable.attributes)
 #putColumnParams()
-                    <field name="$columnVar" column="$column.name" />
+                    <field name="${link}.$columnVar" column="$column.name" />
 #end
                 </entity>
 #end
