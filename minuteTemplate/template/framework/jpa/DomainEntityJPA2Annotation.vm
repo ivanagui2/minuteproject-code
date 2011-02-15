@@ -59,11 +59,6 @@ public class ${className} {
 #else
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
 #end
-#foreach ($property in $column.getPropertiesArray())
-#if($property.tag=="checkconstraint")
-    @Editor(forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}ComboEditor")
-#end
-#end
 #if ($column.isLob())
     @Lob
 #exposeLobProperties()
@@ -100,7 +95,7 @@ public class ${className} {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet(); 
+    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet<$linkedTableClass>(); 
    
 #end
 #end
