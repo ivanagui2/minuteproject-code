@@ -150,6 +150,7 @@
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumnName}))
 #set ($linkedColumnName = ${reference.foreignColumnName})
+#set ($linkedColumn = ${reference.foreignColumn})
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumnName}))
 #set ($linktableDB = ${reference.foreignTable})
 ##set ($parentLinkUML = $referenceUtils.getParentLinkUML(${reference.foreignTableName},${reference.localColumnName}))
@@ -205,7 +206,7 @@
 
 #macro (putDefaultMaskColumnValue)
 #putColumnParams()
-#set ($defaultMask = $commonUtils.getJavaDefaultMask($column))
+#set ($defaultMask = $bslaLibraryUtils.getJavaDefaultMask($column))
 #end
 
 #macro(exposeSpringConfig)

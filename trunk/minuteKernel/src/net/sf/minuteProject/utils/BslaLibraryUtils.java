@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.Package;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.view.View;
 
@@ -115,5 +116,18 @@ public class BslaLibraryUtils extends CommonUtils{
 	
 	public static String getBundle(Table table) {
 		return getEntityLevelTemplateFullPath (table, ResourceBundle);
+	}
+	
+	public static String getJavaDefaultMask (Column column) {
+		String type = ConvertUtils.getJavaTypeFromDBFullType(column);
+		if (type!=null) {
+			if (ConvertUtils.JAVA_TIMESTAMP_TYPE.equals(type))  return "timestampMask__";
+			if (ConvertUtils.JAVA_STRING_TYPE.equals(type))     return "stringMask__";
+			if (ConvertUtils.JAVA_BIGDECIMAL_TYPE.equals(type)) return "bigDecimalMask__";
+			if (ConvertUtils.JAVA_BIGINTEGER_TYPE.equals(type)) return "bigIntegerMask__";
+			if (ConvertUtils.JAVA_LONG_TYPE.equals(type))       return "longMask__";
+			if (ConvertUtils.JAVA_INTEGER_TYPE.equals(type))    return "integerMask__";	
+		}
+		return CommonUtils.getJavaDefaultMask(column);
 	}
 }

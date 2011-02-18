@@ -1,5 +1,10 @@
 package net.sf.minuteProject.architecture.bsla.domain;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -36,5 +41,13 @@ public class AbstractDomainObject implements DomainObject {
 	public void setCount__(long count) {
 		this.count__ = count;
 	}
+	
+	public final static Timestamp     timestampMask__    = new java.sql.Timestamp(new java.util.Date().getTime());
+	public final static String        stringMask__       = new String();
+	public final static Long          longMask__         = Long.valueOf(-1);
+	public final static Integer       integerMask__      = Integer.valueOf(-1);
+	public final static BigInteger    bigIntegerMask__   = BigInteger.valueOf(-1);
+	public final static BigDecimal    bigDecimalMask__   = BigDecimal.valueOf(-1);
+	public final static Date          dateMask__         = new Date(new java.util.Date().getTime());
 	
 }	

@@ -290,10 +290,9 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
-		List packages = getModel().getBusinessModel().getBusinessPackage()
-				.getPackages();
-		for (Iterator<Package> iter = packages.iterator(); iter.hasNext();) {
-			writeTemplateResult((Package) iter.next(), template);
+		List<Package> packages = getModel().getBusinessModel().getBusinessPackage().getPackages();
+		for (Package pack : packages) {
+			writeTemplateResult(pack, template);
 		}
 	}
 

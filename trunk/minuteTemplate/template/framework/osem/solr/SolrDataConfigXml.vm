@@ -27,8 +27,9 @@
 #foreach($reference in $osemUtils.getSearchableChildren($table))
 #putReferenceParams2()
 #set($link="${linkedTableVariable}s") ##${linkedTableVariable}${linkedColumnClass}s
+#set($refVar=$formatUtils.getJavaVariableName($reference.localColumnName))
                 <entity name="${link}"
-                        query="select * from $reference.foreignTableName where $reference.localColumnName = '${${reference.foreignTableName}.${reference.foreignColumnName}}'"
+                        query="select * from $reference.foreignTableName where ${reference.foreignColumnName} = '${${refVar}.${reference.localColumnName}}'"
 ##                        deltaQuery="select ID from category where last_modified > '${dataimporter.last_index_time}'"
 ##                        parentDeltaQuery="select ITEM_ID, CATEGORY_ID from item_category where CATEGORY_ID=${category.ID}">
                  >

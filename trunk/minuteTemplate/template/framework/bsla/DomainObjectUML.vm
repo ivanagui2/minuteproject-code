@@ -202,14 +202,14 @@ public class ${className} extends AbstractDomainObject {
 	}
 	
 	public static ${className} fullMask() {
-        return new ${className}(
+		return new ${className}(
 #foreach ($column in ${table.columns})
 #putDefaultMaskColumnValue()
-             $defaultMask #if ($velocityCount!=$table.columnCount),
+			$defaultMask #if ($velocityCount!=$table.columnCount),
 #end
 #end
 
-        );	    
+		);	    
 	}
 	
 #foreach($column in ${table.primaryKeyColumns})

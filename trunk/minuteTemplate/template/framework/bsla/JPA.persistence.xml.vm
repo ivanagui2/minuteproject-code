@@ -19,6 +19,14 @@
 #end
 #end	
 
+#foreach ($package in ${businessPackageViews})
+   <!-- $package.name -->
+#foreach ($table in ${package.listOfViews})
+#exposeVariableEntitySpecificJPAMapConfig()
+		<mapping-file>$artifactRelativePathDirAndFullName</mapping-file>
+#end
+
+#end
 ##exposeJPAProviderInfo()
 
     </persistence-unit>
