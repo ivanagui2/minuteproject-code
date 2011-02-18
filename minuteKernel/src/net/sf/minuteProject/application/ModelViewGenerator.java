@@ -1,9 +1,11 @@
 package net.sf.minuteProject.application;
 
 import java.util.Date;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
@@ -159,6 +161,14 @@ public class ModelViewGenerator extends ModelGenerator {
 		for (View view :  getModel().getBusinessModel().getBusinessPackage().getViews()) {
 			generateArtifactsByEntity (view, template);
 //			writeTemplateResult(view, template);
+		}
+	}
+	
+	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
+		super.generateArtifactsByPackage(template);
+		List<Package> packages = getModel().getBusinessModel().getBusinessPackage().getPackageViews();
+		for (Package pack : packages) {
+			writeTemplateResult(pack, template);
 		}
 	}
 	

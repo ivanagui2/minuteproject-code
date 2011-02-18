@@ -56,6 +56,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	public void fill(BasicIntegrationConfiguration bic) {
 		bic.setRootpackage(rootPackageTf.getText());
 		bic.setModelName(modelNameTf.getText());
+//		bic.setDefaultBusinesspackage(modelNameTf.getText());
 		String pkPolicy = pkPolicyCb.getSelectedItem().toString();
 		bic.setPrimaryKeyPolicy(PrimaryKeyPolicyPatternEnum.getPrimaryKeyPolicy(pkPolicy));
 		bic.setOutputDir(targetDirTf.getText());
@@ -67,7 +68,6 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 				bic.setSequenceGlobalName(sequencePatternTf.getText());
 			else
 				bic.setSequenceEntitySuffix(sequencePatternTf.getText());
-			
 		}	
 	}
 	

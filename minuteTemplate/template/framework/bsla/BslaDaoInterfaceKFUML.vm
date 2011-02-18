@@ -32,7 +32,7 @@ public interface $className extends DataAccessObject {
     /**
      * lookup $tableClassName entity $tCN, criteria and max result number
      */
-    public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, int numberOfResult);
+    public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, Integer numberOfResult);
 	
 	public Integer updateNotNullOnly$tableClassName ($tableClassName $tableVariableName, Criteria criteria);
 
@@ -143,6 +143,11 @@ public interface $className extends DataAccessObject {
 	public List<$tableClassName> countDistinct ($tableClassName whatMask, $tableClassName whereEqCriteria);
 	
 	public Long count ($tableClassName whereEqCriteria);
+	
+	public List<$tableClassName> loadGraph($tableClassName graphMaskWhat, List<$tableClassName> whereMask);  
+	
+	public List<$tableClassName> loadGraphFromParentKey ($tableClassName graphMaskWhat, List<$tableClassName> parents); 
+	
     /**
      * generic to move after in superclass
      */

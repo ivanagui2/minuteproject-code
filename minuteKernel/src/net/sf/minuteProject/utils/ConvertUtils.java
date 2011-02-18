@@ -13,6 +13,7 @@ public class ConvertUtils {
 	public static final String JAVA_INTEGER_TYPE 				=   "java.lang.Integer";		
 	public static final String JAVA_TIMESTAMP_TYPE 				=   "java.lang.Timestamp";			
 	public static final String JAVA_BIGDECIMAL_TYPE 			=   "java.math.BigDecimal";
+	public static final String JAVA_BIGINTEGER_TYPE 			=   "java.math.BigInteger";
 	public static final String JAVA_STRING_TYPE 				=   "java.lang.String";						
 	public static final String JAVA_DATE_TYPE 					=   "java.lang.Date";
 	public static final String JAVA_BLOB_TYPE 					=   "java.sql.Blob";	
@@ -23,7 +24,9 @@ public class ConvertUtils {
 	public static final String DB_STRING_TYPE 					=   "VARCHAR";	
 	public static final String DB_STRING2_TYPE 					=   "VARCHAR2";	
 	public static final String DB_INTEGER_TYPE 					=   "INTEGER";	
-	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";	
+	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
+	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
+	public static final String DB_DATE_TYPE 					=   "DATE";
 	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
 	
 	public static final String UML_STRING_TYPE 					=   "string";	
