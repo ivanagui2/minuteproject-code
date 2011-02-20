@@ -214,8 +214,9 @@ public class ConvertUtils {
 		// to re implement when externalizing the mapping
 		if (dBType.equals("OTHER"))
 			return  "String";
-		
-		return retStr;		
+		if (dBType.equals("BIT")) //mysql
+			return  "Boolean";		
+		return "String";		
 	}	
 
 	public static String getJavaTypeFromDBType (Column column) {
@@ -267,5 +268,10 @@ public class ConvertUtils {
 		return (FieldType.BIGINT.toString().equals(dBType) ||
 				FieldType.DECIMAL.toString().equals(dBType) ||
 				FieldType.INTEGER.toString().equals(dBType))?true:false;
+	}
+	
+	public static boolean isBooleanType (String dBType) {
+		return (FieldType.BOOLEAN.toString().equals(dBType)||
+				  FieldType.BIT.toString().equals(dBType))?true:false;
 	}
 }
