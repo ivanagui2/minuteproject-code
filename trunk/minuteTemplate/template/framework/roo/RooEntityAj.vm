@@ -3,6 +3,9 @@ package $packageName;
 
 import java.lang.*;
 import java.util.List;
+import java.sql.Timestamp;
+import java.sql.Clob;
+import java.sql.Blob;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -22,29 +25,28 @@ privileged aspect $className {
     @PersistenceContext
     transient EntityManager ${domainClassName}.entityManager;
 
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many)
-#if (!$isPkUserProvided)
-#if ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
-    @GeneratedValue(strategy = GenerationType.AUTO)
-#elseif ($databaseUtils.isPrimaryKeyPolicySequence($table))
-#set ($sequenceName = $databaseUtils.provideSequence($table))
-    @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
-#end
-#end
-    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
-#if (!$isMany2Many)
-#if (!$isPkUserProvided && $databaseUtils.isPrimaryKeyPolicySequence($table))
-#set ($sequenceName = $databaseUtils.provideSequence($table))
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
-#end
-#end
-#end    
-    private $columnType ${domainClassName}.$columnVar; ##// pk not fk
-
-#end
+##foreach($column in ${table.primaryKeyColumns})
+##putColumnParams()
+##columnJavaNaming()
+##if (!$isMany2Many)
+##if (!$isPkUserProvided)
+##if ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
+##    @GeneratedValue(strategy = GenerationType.AUTO)
+##elseif ($databaseUtils.isPrimaryKeyPolicySequence($table))
+##set ($sequenceName = $databaseUtils.provideSequence($table))
+##    @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
+##end
+##end
+##    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+##if (!$isMany2Many)
+##if (!$isPkUserProvided && $databaseUtils.isPrimaryKeyPolicySequence($table))
+##set ($sequenceName = $databaseUtils.provideSequence($table))
+##    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
+##end
+##end
+##end    
+##    private $columnType ${domainClassName}.$columnVar; ##// pk not fk
+##end
 
 #if ($table.hasVersion())
 #set ($column = $tableUtils.getVersion($table))
@@ -54,13 +56,13 @@ privileged aspect $className {
     private $columnType ${domainClassName}.$columnVar;
 #end
     
-    public $primaryKeyType ${domainClassName}.get$primaryKeyJavaNameClass() {
-        return this.$primaryKeyVariable;
-    }
-    
-    public void ${domainClassName}.set$primaryKeyJavaNameClass($primaryKeyType id) {
-        this.$primaryKeyVariable = id;
-    }
+##    public $primaryKeyType ${domainClassName}.get$primaryKeyJavaNameClass() {
+##        return this.$primaryKeyVariable;
+##    }
+##    
+##    public void ${domainClassName}.set$primaryKeyJavaNameClass($primaryKeyType id) {
+##        this.$primaryKeyVariable = id;
+##    }
 
 #if ($table.hasVersion())        
     public $columnType ${domainClassName}.get$columnClass() {

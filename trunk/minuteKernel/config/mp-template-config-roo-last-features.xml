@@ -72,12 +72,12 @@
 		libdir="lib/Roo_LIB.vm"
 		belongToPackage="true">
 			 
-		<!--<template name="RooEntityAj" templateFileName="RooEntityAj.vm" 
+		<template name="RooEntityAj" templateFileName="RooEntityAj.vm" 
 			file-extension="aj" file-suffix="_Roo_Entity" technicalPackage="domain"
 			entity-specific="true"
 			check-template-to-generate="true" 
 			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-		</template>-->
+		</template>
 
       
 		<template name="RooDomainObject" templateFileName="RooDomainObject.vm" 

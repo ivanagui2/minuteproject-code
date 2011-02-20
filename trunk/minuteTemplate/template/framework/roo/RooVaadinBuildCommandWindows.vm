@@ -2,6 +2,6 @@
 #exposeVariableModelSpecific()
 #rooModel()
 call roo script --file ${model.name}.roo
-call ${model.name}-roo-vaadin.cmd
 xcopy src-generated src /y /s
+call ${model.name}-roo-vaadin.cmd
 call mvn compile
