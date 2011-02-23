@@ -31,8 +31,10 @@ import net.sf.minuteProject.architecture.query.impl.QuerySelectInit;
 import net.sf.minuteProject.architecture.query.impl.QuerySelectDistinctInit;
 import net.sf.minuteProject.architecture.cache.Cache;
 import net.sf.minuteProject.architecture.cache.SimpleCache;
+import net.sf.minuteProject.architecture.filter.data.ClauseCriterion;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.architecture.filter.data.Criterion;
+import net.sf.minuteProject.architecture.filter.data.InCriterion;
 import net.sf.minuteProject.architecture.filter.data.OrderCriteria;
 import net.sf.minuteProject.architecture.utils.BeanUtils;
 import $importDaoInterfaceExtendedUML;
@@ -130,7 +132,7 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     /**
      * lookup $tableClassName entity $tCN, criteria and max result number
      */
-    public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, int numberOfResult) {
+    public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, Integer numberOfResult, Session session) {
 		boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
         query.append (" FROM $tableClassName $tableVariableName ");
@@ -142,9 +144,14 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
         OrderCriteria orderCriteria = criteria.getOrderCriteria();
         if (criteria.getOrderCriteria()!=null)
         	query.append(orderCriteria.getExpression());		
-        Query hquery = getSession().createQuery(query.toString());
-        hquery.setMaxResults(numberOfResult);
+        Query hquery = session.createQuery(query.toString());
+        if (numberOfResult!=null)
+            hquery.setMaxResults(numberOfResult);
         return hquery.list();
+    }
+         
+    public List<$tableClassName> lookup$tableClassName($tableClassName $tableVariableName, Criteria criteria, Integer numberOfResult) {
+        return lookup$tableClassName($tableVariableName, criteria, numberOfResult, getSession());
     }
     
     public Integer updateNotNullOnly$tableClassName ($tableClassName $tableVariableName, Criteria criteria) {
@@ -790,6 +797,8 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
 		}
 		return list;
 	}
+#set($beImplementation="hibernate")
+#parse("./snippet/orm/dao/loadGraphSnippet.vm")
 	    
 #if ($hasUniqueKey) 
    /**
