@@ -1,4 +1,4 @@
-	private $tableClassName assignBlankToNull ($tableClassName $tableVariableName) {
+	protected $tableClassName assignBlankToNull ($tableClassName $tableVariableName) {
 	    if ($tableVariableName==null)
 			return null;
 #foreach ($column in ${table.columns})
@@ -11,7 +11,7 @@
 		return ${tableVariableName};
 	}
 	
-	private boolean isAllNull ($tableClassName $tableVariableName) {
+	protected boolean isAllNull ($tableClassName $tableVariableName) {
 	    if ($tableVariableName==null)
 			return true;
 #foreach ($column in ${table.columns})

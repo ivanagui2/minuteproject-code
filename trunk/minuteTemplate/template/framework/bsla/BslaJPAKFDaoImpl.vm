@@ -1,4 +1,5 @@
 #exposeVariableEntitySpecific()
+#set($beImplementation="JPA")        
 #putImportParamsUML()
 package $packageName;
 
@@ -234,8 +235,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        return true;  
     }
 
-#set($beImplementation="JPA")        
-#parse("./snippet/orm/dao/domainObjectManipulation.vm")
+
 	
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;

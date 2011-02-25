@@ -108,6 +108,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     }
 
 #parse("./snippet/orm/dao/updateNotNullOnlySnippet.vm") 
+                
+#parse("./snippet/orm/dao/domainObjectManipulation.vm") 
 	
 	@Transactional
     public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
@@ -344,9 +346,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         query.append (" FROM $tableClassName $tableVariableName ");
         StringBuffer queryWhere = new StringBuffer();
         for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
-           queryWhere.append (getQueryOR (isOrSet));
-           isOrSet = true;        
-           queryWhere.append (" ("+get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false)+") ");
+           if (!isAllNull(${tableVariableName})) {        
+	           queryWhere.append (getQueryOR (isOrSet));
+	           isOrSet = true;        
+	           queryWhere.append (" ("+get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false)+") ");
+           }
         }
 	    return getHQuery(query.toString(), queryWhere.toString());
     }	

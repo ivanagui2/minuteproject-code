@@ -17,10 +17,9 @@ public class ReferenceDataUtils {
 //		if field tag contains checkconstraint => take from db
 //		tag enum 
 		if (bean instanceof Column) {
-			Column column = (Column)bean;
+//			Column column = (Column)bean;
 			//if (ColumnUtils.isUnique(column) && EnrichmentUtils.isToGenerateBasedOnTag(template, bean))
-			if (EnrichmentUtils.isToGenerateBasedOnTag(template, bean))
-				return true;
+			return EnrichmentUtils.isToGenerateBasedOnTag(template, bean);
 		}
 		return false;
 	}

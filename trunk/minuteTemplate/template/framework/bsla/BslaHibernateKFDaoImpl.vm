@@ -279,8 +279,6 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
           return false;
        return true;  
     }      
-                
-#parse("./snippet/orm/dao/domainObjectManipulation.vm") 
 	
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;

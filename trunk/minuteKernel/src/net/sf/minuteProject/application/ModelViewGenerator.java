@@ -163,6 +163,13 @@ public class ModelViewGenerator extends ModelGenerator {
 //			writeTemplateResult(view, template);
 		}
 	}
+
+	protected void generateArtifactsByField(Template template) throws MinuteProjectException {	
+		super.generateArtifactsByField(template);
+		for (View view :  getModel().getBusinessModel().getBusinessPackage().getViews()) {
+			generateArtifactsByField(template, view);
+		}
+	}
 	
 	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
 		super.generateArtifactsByPackage(template);
