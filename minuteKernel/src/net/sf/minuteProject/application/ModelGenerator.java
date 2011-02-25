@@ -298,17 +298,22 @@ public class ModelGenerator extends AbstractGenerator {
 
 	protected void generateArtifactsByField(Template template) throws MinuteProjectException {	
 		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
-			table = getDecoratedTable(table);
-			for (Column column : table.getColumns()) {
-				boolean isToGenerate = true;
-	    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-	    			if (!template.isToGenerate(column)) {
-	    				isToGenerate =false;
-	    			}
-	    		} 
-	    		if (isToGenerate)
-				   writeTemplateResult(column, template);
-			}
+			generateArtifactsByField(template, table);
+		}
+	}
+	
+
+	protected void generateArtifactsByField(Template template, Table table) throws MinuteProjectException{
+		table = getDecoratedTable(table);
+		for (Column column : table.getColumns()) {
+			boolean isToGenerate = true;
+    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+    			if (!template.isToGenerate(column)) {
+    				isToGenerate =false;
+    			}
+    		} 
+    		if (isToGenerate)
+			   writeTemplateResult(column, template);
 		}
 	}
 
