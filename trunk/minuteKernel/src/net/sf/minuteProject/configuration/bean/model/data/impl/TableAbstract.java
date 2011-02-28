@@ -177,7 +177,10 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	}
 	
 	public String getTechnicalPackage(Template template) {
-		return getPackage().getTechnicalPackage(template);
+		net.sf.minuteProject.configuration.bean.Package p = getPackage();
+		if(p==null) 
+			return "ERROR_PACKAGE_IS_NULL";
+		return p.getTechnicalPackage(template);
 	}
 
 	/**
