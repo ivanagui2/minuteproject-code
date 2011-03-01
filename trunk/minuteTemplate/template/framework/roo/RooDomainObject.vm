@@ -2,6 +2,11 @@
 package ${packageName};
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Id;
+
 import java.sql.Timestamp;
 import java.sql.Clob;
 import java.sql.Blob;
@@ -40,7 +45,7 @@ public class ${className} {
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
 #end
-    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+    @Id 
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
@@ -52,6 +57,7 @@ public class ${className} {
 #end
 #end
 #end
+    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
     private $columnType $columnVar;
 
 #end
