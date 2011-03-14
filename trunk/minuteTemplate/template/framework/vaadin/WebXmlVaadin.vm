@@ -21,7 +21,7 @@
 		<description>Vaadin production mode</description>
 	</context-param>
 
-
+<!--
 	<listener>
     	<listener-class>
         	org.springframework.web.context.ContextLoaderListener
@@ -33,7 +33,7 @@
     	<param-name>contextConfigLocation</param-name>
     	<param-value>/$applicationContextXml</param-value>
 	</context-param>
-
+-->
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #if ($vaadinPlugin.isVaadinApplication($table))
 #exposeVariableEntitySpecific()
