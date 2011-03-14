@@ -15,18 +15,19 @@ ${shell}database properties set --key database.password --value $datasource.pass
 #end
 ${shell}database properties list
 
-#foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})
+##foreach ($package in ${businessPackages})
+##foreach ($table in ${package.listOfTables})
+#foreach ($table in $entities)
 #putRooEntityParams()
 #if(!$isMany2Many)
 ${shell}entity --class ~.$entityAfterRootPackage --identifierField $identifierField --identifierColumn $identifierColumn --identifierType $identifierType --testAutomatically --permitReservedWords
 #end
-#end
+##end
 #end
 	
-#foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})	
-
+##foreach ($package in ${businessPackages})
+##foreach ($table in ${package.listOfTables})	
+#foreach ($table in $entities)
 #exposeVariableEntitySpecific()
 #if(!$isMany2Many)
 #foreach ($column in ${table.attributes})
@@ -43,10 +44,11 @@ ${shell}field reference --fieldName ${rooColumnVariableName} --joinColumnName $c
 #end
 #end
 #end
-#end	
+##end	
 	
-#foreach ($package in ${businessPackages})
-#foreach ($table in ${package.listOfTables})
+##foreach ($package in ${businessPackages})
+##foreach ($table in ${package.listOfTables})
+#foreach ($table in $entities)
 #exposeVariableEntitySpecific()
 #if(!$isMany2Many)
 #foreach ($reference in $table.children)
@@ -58,7 +60,7 @@ ${shell}field set --class ~.domain.${localTableClass} --fieldName ${linkedTableV
 #end
 #end
 #end
-#end
+##end
 	
 ${shell}perform eclipse
 

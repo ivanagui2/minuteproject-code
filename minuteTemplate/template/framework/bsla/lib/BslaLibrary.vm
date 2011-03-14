@@ -71,6 +71,7 @@
 #set ($configuration = $model.configuration)
 #set ($businessPackages = $model.businessModel.businessPackage.packages)
 #set ($businessPackageViews = $model.businessModel.businessPackage.packageViews)
+#set ($entities = $model.businessModel.businessPackage.entities)
 #set ($className = $commonUtils.getClassName($model, $template))
 #set ($packageName = $commonUtils.getPackageName($model, $template))
 #end
