@@ -3,6 +3,7 @@ package net.sf.minuteProject.plugin.roo;
 import static net.sf.minuteProject.utils.ConvertUtils.isDateType;
 import static net.sf.minuteProject.utils.ConvertUtils.isNumberType;
 import static net.sf.minuteProject.utils.ConvertUtils.isStringType;
+import static net.sf.minuteProject.utils.ConvertUtils.isBooleanType;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import static net.sf.minuteProject.utils.ColumnUtils.isLengthPrecisionColumn;
 import net.sf.minuteProject.utils.ConvertUtils;
@@ -12,9 +13,12 @@ import net.sf.minuteProject.utils.sql.SqlUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 public class RooUtils {
 
+	static Logger log = Logger.getLogger(RooUtils.class);
+	
 	public static String getRooConsoleType (Column column){
 	   return StringUtils.lowerCase(ConvertUtils.getJavaTypeFromDBType(column));
 	}
@@ -36,8 +40,12 @@ public class RooUtils {
 	    } else if (isNumberType (type)) {
 			rooColumn.setRooConsoleType("number");
 			rooColumn.setTypeChunk(getRooColumnTypeChunck(getNumberType(type)));
-	    } else 
-	    	System.out.println(">> untreated type "+type);
+	    }  else if (isBooleanType (type)) {
+				rooColumn.setRooConsoleType("boolean");
+				rooColumn.setTypeChunk(getRooColumnTypeChunck("java.lang.Boolean"));
+		 }else {
+	    	log.error(">> untreated type "+type +" add th");
+	    }
 		// mandatory value
 		rooColumn.setNotNullChunk ((column.isRequired())?"--notNull":"");
 		rooColumn.setMinSizeChunk("");//TODO with enrichment

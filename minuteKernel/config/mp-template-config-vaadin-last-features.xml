@@ -8,12 +8,26 @@
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 
 	<template-target 
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir=""
+		package-root=""
+		belongToPackage="true">
+		<template name="pomXml" templateFileName="VaadinPomXml.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>				
+	</template-target>	
+	
+	<template-target 
         name="Vaadin front end set"
 	    templatedir = "" 
 		tool="velocity"
 		package-root=""
 		libdir="lib/VAADIN_LIB.vm"
-		outputdir="src/main/resources"
+		outputdir="src/main/webapp/WEB-INF"
 		belongToPackage="true">
 			 
 		<template name="WebXmlVaadin" templateFileName="WebXmlVaadin.vm" 
@@ -35,38 +49,44 @@
 		<template name="DomainObjectFormVaadin" templateFileName="DomainObjectFormVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="form"
 			file-extension="java" file-prefix="" file-suffix="Form" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
 		<template name="DomainObjectContainerVaadin" templateFileName="DomainObjectContainerVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="container"
 			file-extension="java" file-prefix="" file-suffix="Container" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 		
 		<template name="DomainObjectListVaadin" templateFileName="DomainObjectListVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="list"
 			file-extension="java" file-prefix="" file-suffix="List" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 		
 		<template name="DomainObjectListViewVaadin" templateFileName="DomainObjectListViewVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.list"
 			file-extension="java" file-prefix="" file-suffix="ListView" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
 		
 		<template name="DomainObjectSearchViewVaadin" templateFileName="DomainObjectSearchViewVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.search"
 			file-extension="java" file-prefix="" file-suffix="SearchView" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 		
 		<template name="DomainObjectApplicationVaadin" templateFileName="DomainObjectApplicationVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="application"
 			file-extension="java" file-prefix="" file-suffix="App" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 		
 		<!-- 
@@ -110,7 +130,8 @@
 		<template name="DomainObjectViewVaadin" templateFileName="DomainObjectViewVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.main"
 			file-extension="java" file-prefix="" file-suffix="Main" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 		
     </template-target>	

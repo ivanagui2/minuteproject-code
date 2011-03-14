@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 
 public class Configuration extends AbstractConfigurationRoot{
 	
+	private String catalogDir;
 	private Model model;
 	private Presentation presentation;
 	
@@ -37,6 +38,14 @@ public class Configuration extends AbstractConfigurationRoot{
 
 	public String getGeneratedBeanName() {
 		return getName();
+	}
+
+	public String getCatalogDir() {
+		return catalogDir;
+	}
+
+	public void setCatalogDir(String catalogDir) {
+		this.catalogDir = catalogDir;
 	}
 	
 }

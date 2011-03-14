@@ -69,6 +69,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		Configuration configuration = new Configuration();
 		configuration.setModel(getModel());
 		configuration.setTargets(getTargets());
+		configuration.setCatalogDir(getCatalogDir());
 		return configuration;
 	}
 	
