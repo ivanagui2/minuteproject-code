@@ -18,7 +18,7 @@ public class $className extends MenuBar {
 #foreach ($table in ${package.listOfTables})
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBNameStripPrefix($table))
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($tableLabelVariable=$formatUtils.getJavaNameVariable(${tableLabel}))
         final MenuBar.MenuItem $tableLabelVariable = ${packageLabel}.addItem("${tableLabelVariable}", menuCommand);
         addAction(${tableLabelVariable});
