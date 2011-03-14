@@ -17,6 +17,7 @@ import java.util.Properties;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
+import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -154,6 +155,7 @@ public abstract class AbstractGenerator implements Generator {
 		target2.setCanonicalDir(target.getCanonicalDir());
 		target2.setOutputdirRoot(target.getOutputdirRoot());
 		target2.setTemplatedirRoot(target.getTemplatedirRoot());
+		target.setAbstractConfigurationRoot(abstractConfigurationRoot);
 	}
 	
 	protected InputStream getTargetConfigurationInputStream (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws FileNotFoundException {
@@ -283,6 +285,7 @@ public abstract class AbstractGenerator implements Generator {
     protected String getTemplatePath (Template template) {
     	if ((templatePath==null || templatePath.equals("")) && isTemplatePathToReset) {
     		isTemplatePathToReset = false;
+    		Configuration c = (Configuration)template.getTemplateTarget().getTarget().getAbstractConfigurationRoot();
     		Hashtable<String, String> ht = new Hashtable<String, String>();
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
@@ -302,7 +305,7 @@ public abstract class AbstractGenerator implements Generator {
     			}
     		}
 
-    		templatePath = getVelocityPath(ht);
+    		templatePath = getVelocityPath(ht,null);//getVelocityPath(ht, c.getCatalogDir());
     	}
     	return templatePath;
     }
@@ -310,6 +313,7 @@ public abstract class AbstractGenerator implements Generator {
     private String getTemplateRelativeLibPath (Template template) {
     	if (templateLibPath==null && isTemplateLibPathToReset) {
     		isTemplateLibPathToReset = false;
+    		Configuration c = (Configuration)template.getTemplateTarget().getTarget().getAbstractConfigurationRoot();
     		Hashtable<String, String> ht = new Hashtable<String, String>();
         	TemplateTarget templateTarget = template.getTemplateTarget();
         	Target target = templateTarget.getTarget();
@@ -323,15 +327,17 @@ public abstract class AbstractGenerator implements Generator {
     			}
     		}
     		
-    		templateLibPath = getVelocityPath(ht);
+    		templateLibPath = getVelocityPath(ht, null);
     	}
     	return templateLibPath;    	
     }
     
-    private String getVelocityPath (Hashtable<String, String> ht) {
+    private String getVelocityPath (Hashtable<String, String> ht, String prefix) {
     	StringBuffer sb = new StringBuffer();
 		Enumeration<String> e = ht.elements();
 		while (e.hasMoreElements()) {
+			if (prefix!=null)
+				sb.append(prefix+"/");
 			sb.append(e.nextElement());
 			if (e.hasMoreElements())
 				sb.append(",");
