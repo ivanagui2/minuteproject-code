@@ -12,6 +12,18 @@
 	<template-target 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
+		outputdir="src-overwritten/main/resources"
+		belongToPackage="true">	
+		<template name="MavenOverwrittenReadMe" templateFileName="MavenOverwrittenReadMe.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="txt" file-prefix="" file-suffix="README" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>					
+	</template-target>
+	
+	<template-target 
+		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
+		tool="velocity"
 		outputdir="src/test/java"
 		belongToPackage="true">
 		<template name="TestDaoInterface" templateFileName="BslaDaoInterfaceTest.vm" 

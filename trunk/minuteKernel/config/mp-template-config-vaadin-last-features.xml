@@ -14,7 +14,7 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
-		<template name="pomXml" templateFileName="VaadinPomXml.vm" 
+		<template name="VaadinPomXml" templateFileName="VaadinPomXml.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
