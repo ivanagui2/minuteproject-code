@@ -9,7 +9,7 @@
             <version></version>
     </parent>-->
     <groupId>${rootPackage}.${model.name}</groupId>
-    <artifactId>${className}VaadinWeb</artifactId>
+    <artifactId>${model.name}VaadinWeb</artifactId>
     <version>${version}-SNAPSHOT</version>
     <name>$DbApiName Vaadin Web Application</name>  
     <packaging>war</packaging>
@@ -48,6 +48,22 @@
         </resource>
     </resources>    
     <plugins>
+	  <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-war-plugin</artifactId>
+	    <version>2.1.1</version>
+	    <configuration>
+	      <webResources>
+	        <resource>
+	          <!-- this is relative to the pom.xml directory -->
+	          <directory>${env.VAADIN_HOME}/WebContent</directory>
+	          <includes>
+	            <include>VAADIN/**</include>
+	          </includes>
+	        </resource>
+	      </webResources>
+	    </configuration>
+	  </plugin>    
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
