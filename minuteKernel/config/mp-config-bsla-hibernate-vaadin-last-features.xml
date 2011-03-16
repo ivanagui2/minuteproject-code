@@ -29,12 +29,6 @@
 				</enrichment>					
 			</business-model>
 		</model>
-					<!--<target refname="BackendOnBsla" 
-			   name="bsla-hibernate" 
-			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-			   outputdir-root="../../DEV/output/petshopHibernate"
-			   templatedir-root="../../minuteTemplate/template-bsla">
-			</target> -->
 		<targets>
 			<target refname="BackendOnBsla" 
 			   name="bsla-hibernate" 
@@ -47,7 +41,13 @@
 			   fileName="mp-template-config-vaadin-last-features.xml" 
 			   outputdir-root="../../DEV/output/vaadin/petshopVaadin"
 			   templatedir-root="../../minuteTemplate/template/framework/vaadin">
-			</target> 				
+			</target> 
+			<target refname="MavenMaster" 
+			   name="maven" 
+			   fileName="mp-template-config-maven.xml" 
+			   outputdir-root="../../DEV/output/vaadin"
+			   templatedir-root="../../minuteTemplate/template/framework/maven">
+			</target> 
 		</targets>
 	</configuration>
 </generator-config>
