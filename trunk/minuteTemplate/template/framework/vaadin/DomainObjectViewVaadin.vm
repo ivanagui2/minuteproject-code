@@ -30,12 +30,13 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Label;
 
 import eu.livotov.tpt.gui.widgets.TPTMultiView.TPTView;
 
-public class $className extends VerticalLayout implements TPTView, ClickListener, ValueChangeListener, ItemClickListener {
+import $menuImport;
 
-	private NavigationTree<$modelApplicationClass> tree = new NavigationTree(this);
+public class $className extends VerticalLayout implements TPTView, ClickListener, ValueChangeListener, ItemClickListener {
 
 	private Button newEntity = new Button("Add $table.name");
 	private Button search = new Button("Search");
@@ -58,7 +59,7 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		setExpandRatio(horizontalSplit, 1);
 
 		horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
-		horizontalSplit.setFirstComponent(tree);
+		horizontalSplit.setFirstComponent(new $menuClass());
 
 		horizontalSplit.setSecondComponent(getSplitPanel());
 		horizontalSplit.setSizeFull();
@@ -66,17 +67,12 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 	
 	private HorizontalLayout createToolbar() {
 		HorizontalLayout lo = new HorizontalLayout();
-		$menuClass menu = new $menuClass();
-		lo.addComponent(newEntity);
+		//$menuClass menu = new $menuClass();
+		//lo.addComponent(newEntity);
 		//lo.addComponent(search);
-		lo.addComponent(menu);
+		lo.addComponent(new Label("powered by minuteproject"));
+		//lo.addComponent(menu);
 		
-		search.addListener((ClickListener) this);
-		newEntity.addListener((ClickListener) this);
-
-		search.setIcon(new ThemeResource("icons/32/folder-add.png"));
-		newEntity.setIcon(new ThemeResource("icons/32/document-add.png"));
-
 		lo.setMargin(true);
 		lo.setSpacing(true);
 
@@ -149,11 +145,11 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 	public void buttonClick(ClickEvent event) {
 		final Button source = event.getButton();
 
-		if (source == search) {
+//		if (source == search) {
 //			showSearchView();
-		} else if (source == newEntity) {
+//		} else if (source == newEntity) {
 //			addAddress();
-		}
+//		}
 	}
 
 
@@ -168,19 +164,19 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 	}
 
 	public void itemClick(ItemClickEvent event) {
-		if (event.getSource() == tree) {
-			Object itemId = event.getItemId();
-			if (itemId != null) {
-				if (itemId == NavigationTree.SHOW_ALL) {
-					// clear previous filters
+//		if (event.getSource() == tree) {
+//			Object itemId = event.getItemId();
+//			if (itemId != null) {
+//				if (itemId == NavigationTree.SHOW_ALL) {
+//					// clear previous filters
 //					refresh();
-				} else if (itemId == NavigationTree.SEARCH) {
+//				} else if (itemId == NavigationTree.SEARCH) {
 //					showSearchView();
-				//} else if (itemId instanceof SearchFilter) {
-					//search((SearchFilter) itemId);
-				}
-			}
-		}
+//				//} else if (itemId instanceof SearchFilter) {
+//					//search((SearchFilter) itemId);
+//				}
+//			}
+//		}
 	}
 
 //public void refresh() {
