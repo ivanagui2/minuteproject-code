@@ -103,6 +103,12 @@
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>	
 		-->
+		<template name="VaadinApplicationController" templateFileName="VaadinApplicationController.vm" 
+			subdir="" outputsubdir="" technicalPackage="controller"
+			file-extension="java" file-prefix="" file-suffix="Controller" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+				
 		<template name="MenuVaadin" templateFileName="MenuVaadin.vm" 
 			subdir="" outputsubdir="" technicalPackage="vaadin.snippet.menu"
 			file-extension="java" file-prefix="" file-suffix="Menu" 

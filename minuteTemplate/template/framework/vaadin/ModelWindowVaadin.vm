@@ -1,4 +1,5 @@
 #exposeVariableModelDetailSpecific()
+#exposeVaadinModel()
 package $packageName;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
@@ -10,6 +11,7 @@ import com.vaadin.ui.Window;
 import eu.livotov.tpt.gui.widgets.TPTMultiView;
 import eu.livotov.tpt.gui.widgets.TPTSizer;
 
+/*
 #foreach ($package in ${businessPackages})
 #foreach ($tableDB in ${package.listOfTables})
 #if(!$tableDB.isManyToMany())
@@ -18,55 +20,49 @@ import $domainObjectViewImport;
 #end
 #end
 #end
+*/
+
+import $applicationControllerImport;
 
 public class $className extends Window {
 
 	private VerticalLayout root = new VerticalLayout();
-	private TPTMultiView controller = new TPTMultiView(true);
+	private $applicationControllerClass controller = ${applicationControllerClass}.getController();
 
 	public $className () {
-		super("TPTMultiView Demo");
-		initUI();
+		super("$model.name Demo");
+		init();
 	}
 
-	private void initUI() {
+	private void init() {
 		setSizeFull();
 		root.setSizeFull();
 		root.setMargin(true);
 		root.setSpacing(true);
 		setContent(root);
-
+/*
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecific()
 #if(!$table.isManyToMany())
 #exposeVaadinDomainObject()
-		controller.addView("$tableVariableName", new $domainObjectViewClass());
+#exposeVariableEntitySpecific()
+		controller.addView("$tableVariableName", new $domainObjectViewClass());//
 #end
 #end
 #end
-
+*/
 		controller.setSizeFull();
 		root.addComponent(controller);
-
+/*
 		HorizontalLayout h = new HorizontalLayout();
 		h.setWidth("100%");
 
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #exposeVariableEntitySpecific()
-#if(!$table.isManyToMany())
-		Button ${tableVariableName}Button = new Button("Go to view $tableVariableName");
-		${tableVariableName}Button.setStyleName(Button.STYLE_LINK);
-		${tableVariableName}Button.addListener(new Button.ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				controller.switchView("$tableVariableName");
-			}
-			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				controller.switchView("$tableVariableName");
-			}
-		});		
-		h.addComponent(${tableVariableName}Button);
+#if(!$table.isManyToMany())	
+		h.addComponent(addMenuNavigation ("${tableVariableName}"));
 #end
 #end
 #end
@@ -75,5 +71,6 @@ public class $className extends Window {
 
 		root.addComponent(h);
 		root.setExpandRatio(controller, 1.0f);
+*/		
 	}
 }

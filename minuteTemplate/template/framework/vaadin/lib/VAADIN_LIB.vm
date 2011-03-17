@@ -49,6 +49,9 @@
 #set ($menuClass = $commonUtils.getTemplateClassName($model, $template, $templateMenuVaadin))
 #set ($menuVariable = $commonUtils.getJavaNameVariableFirstLetter($menuClass))
 #set ($menuImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateMenuVaadin))
+#set ($applicationControllerClass = $commonUtils.getTemplateClassName($model, $template, $templateVaadinApplicationController))
+#set ($applicationControllerVariable = $commonUtils.getJavaNameVariableFirstLetter($applicationControllerClass))
+#set ($applicationControllerImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateVaadinApplicationController))
 #end
 
 #macro (exposeVaadinApps)
@@ -97,6 +100,7 @@
 #set ($templateVaadinContainerServiceImpl = "VaadinContainerServiceImpl")
 #set ($templateVaadinSpringContainerConfig = "VaadinSpringContainerConfig")
 #set ($templateVaadinSpringApplicationContext = "VaadinSpringApplicationContext")
+#set ($templateVaadinApplicationController = "VaadinApplicationController")
 #end
 
 #macro (putVaadinClassObjectAndPackage)

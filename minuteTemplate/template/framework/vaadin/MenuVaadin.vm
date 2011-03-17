@@ -1,17 +1,25 @@
 #exposeVariableModelDetailSpecific()
+#exposeVaadinModel()
 package $packageName;
 
+import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.terminal.ExternalResource;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import eu.livotov.tpt.gui.widgets.TPTSizer;
+
+import $applicationControllerImport;
 
 @SuppressWarnings("serial")
-public class $className extends MenuBar {
+public class $className extends VerticalLayout{ //MenuBar {
 
     public $className () {
-
+        super();
+        initUI();
+/*        
 #foreach ($package in ${businessPackages})
 #set($packageLabel=$formatUtils.getJavaNameVariable(${package.name}))
         final MenuBar.MenuItem ${packageLabel} = addItem("${packageLabel}", null);
@@ -25,9 +33,48 @@ public class $className extends MenuBar {
 #end
 #end
 #end
-
+*/
     }
 
+    private Button addMenuNavigation (final String entityName) {
+        Button b = new Button(entityName);
+        b.setStyleName(Button.STYLE_LINK);
+        b.addListener(new Button.ClickListener() {
+                public void buttonClick(ClickEvent event) {
+                        PetshopController.getController().switchView(entityName);
+                }
+                public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+                        PetshopController.getController().switchView(entityName);
+                }
+        });
+        return b;
+    }
+    
+	private void initUI() {
+		setSizeFull();
+		setMargin(true);
+		setSpacing(true);
+
+		VerticalLayout v = new VerticalLayout();
+		v.setWidth("100%");
+
+#foreach ($package in ${businessPackages})
+#foreach ($table in ${package.listOfTables})
+#if(!$table.isManyToMany())
+#exposeVariableEntitySpecific()
+		v.addComponent(addMenuNavigation ("$tableVariableName"));
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($tableLabelVariable=$formatUtils.getJavaNameVariable(${tableLabel}))
+##        final MenuBar.MenuItem $tableLabelVariable = ${packageLabel}.addItem("${tableLabelVariable}", menuCommand);
+##        addAction(${tableLabelVariable});
+#end
+#end
+#end
+		v.addComponent(new TPTSizer("100%", null));
+		addComponent(v);
+//		setExpandRatio(controller, 1.0f);
+	}
+/*	
     private Command menuCommand = new Command() {
         public void menuSelected(MenuItem selectedItem) {
             getWindow().showNotification("Action " + selectedItem.getText());
@@ -42,4 +89,5 @@ public class $className extends MenuBar {
         menuItem.addSeparator();
         menuItem.addItem("Add", menuCommand);    	
     }
+*/    
 }
