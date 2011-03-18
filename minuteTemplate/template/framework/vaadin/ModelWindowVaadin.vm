@@ -31,14 +31,15 @@ public class $className extends Window {
 
 	public $className () {
 		super("$model.name Demo");
+		setTheme("$model.name");
 		init();
 	}
 
 	private void init() {
 		setSizeFull();
 		root.setSizeFull();
-		root.setMargin(true);
-		root.setSpacing(true);
+		root.setMargin(false);
+		root.setSpacing(false);
 		setContent(root);
 /*
 #foreach ($package in ${businessPackages})

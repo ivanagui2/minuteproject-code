@@ -38,16 +38,16 @@ import $menuImport;
 
 public class $className extends VerticalLayout implements TPTView, ClickListener, ValueChangeListener, ItemClickListener {
 
-	private Button newEntity = new Button("Add $table.name");
-	private Button search = new Button("Search");
+	//private Button newEntity = new Button("Add $table.name");
+	//private Button search = new Button("Search");
 	//private Button share = new Button("Share");
 	//private Button help = new Button("Help");
 	private SplitPanel horizontalSplit = new SplitPanel(SplitPanel.ORIENTATION_HORIZONTAL);
 
 	// Lazyly created ui references
-	private $domainObjectListViewClass listView = null;
-	private $domainObjectSearchViewClass searchView = null;
-	private $domainObjectListClass list = null;
+	//private $domainObjectListViewClass listView = null;
+	//private $domainObjectSearchViewClass searchView = null;
+	//private $domainObjectListClass list = null;
 	private $domainObjectFormClass form = null;
 	private Table table = null;
 	
@@ -76,7 +76,7 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		lo.setMargin(true);
 		lo.setSpacing(true);
 
-		lo.setStyleName("toolbar");
+		lo.setStyleName("sidebar");
 
 		lo.setWidth("100%");
 

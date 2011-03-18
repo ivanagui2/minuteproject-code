@@ -52,8 +52,8 @@ public class $className extends VerticalLayout{ //MenuBar {
     
 	private void initUI() {
 		setSizeFull();
-		setMargin(true);
-		setSpacing(true);
+		setMargin(false);
+		setSpacing(false);
 
 		VerticalLayout v = new VerticalLayout();
 		v.setWidth("100%");
