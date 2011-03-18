@@ -32,6 +32,7 @@ public class TableDDLUtils extends TableAbstract {
 	private ArrayList<Column> primaryKeys;
 	private ArrayList<Reference> parents;
 	private ArrayList<Reference> children;
+	private String name;
 	
 	private Index [] nonUniqueIndices;
 	private Index [] uniqueIndices;
@@ -52,7 +53,13 @@ public class TableDDLUtils extends TableAbstract {
 	}
 	
 	public String getName () {
+		if (name!=null)
+			return name;
 		return table.getName();
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public net.sf.minuteProject.configuration.bean.Package getPackage() {

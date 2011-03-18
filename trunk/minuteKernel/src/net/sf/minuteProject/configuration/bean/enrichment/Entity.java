@@ -20,6 +20,7 @@ import net.sf.minuteProject.utils.TableUtils;
 public class Entity extends AbstractConfiguration {
 	
 	private String alias;
+	private boolean replaceNameWithAlias=false;
 	private String structure;
 	private VirtualPrimaryKey virtualPrimaryKey;
 	private List<Field> fields;
@@ -156,7 +157,15 @@ public class Entity extends AbstractConfiguration {
 	public void addAction (Action action) {
 		getActions().add(action);
 	}
-		
+			
+	public boolean isReplaceNameWithAlias() {
+		return replaceNameWithAlias;
+	}
+
+	public void setReplaceNameWithAlias(boolean replaceNameWithAlias) {
+		this.replaceNameWithAlias = replaceNameWithAlias;
+	}
+
 	public Table getTable (Database database) {
 		Table table = new TableDDLUtils(getTable(this, database));
 		for (Action action : this.getActions()) {
