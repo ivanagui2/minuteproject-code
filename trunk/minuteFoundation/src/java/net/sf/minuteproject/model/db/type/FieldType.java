@@ -13,6 +13,7 @@ public enum FieldType {
 	CLOB,
 	BIGINT,
 	DECIMAL,
+	BOOLEAN,
 	OTHER;
 	
 }
