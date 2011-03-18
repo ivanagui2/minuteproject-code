@@ -14,6 +14,7 @@ public enum FieldType {
 	BIGINT,
 	DECIMAL,
 	BOOLEAN,
+	BIT,
 	OTHER;
 	
 }
