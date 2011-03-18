@@ -112,6 +112,8 @@ public class ConvertUtils {
 	}	
 
 	public static String getJavaTypeFromDBFullType (Column column) {
+		if (column==null)
+			return null;
 		return getJavaTypeFromDBFullType(column.getType(), column.getScale());
 	}
 	
