@@ -257,6 +257,8 @@ public class BusinessModel {
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
+		if (entity.isReplaceNameWithAlias())
+			table.setName(entity.getAlias());
 		table.setContentType(entity.getContentType());
 		table.setSemanticReference(entity.getSemanticReference());
 		table.setLinkEntity(entity.isLinkEntity());

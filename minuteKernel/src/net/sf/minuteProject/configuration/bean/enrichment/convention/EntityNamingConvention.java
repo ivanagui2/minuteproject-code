@@ -4,6 +4,8 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
@@ -42,6 +44,7 @@ public class EntityNamingConvention extends Convention {
 		if (name.startsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeStart(table.getName(), s);
 			table.setName(newName);
+			performReferenceUpdate(table, name, newName);
 			return true;
 		}
 		return false;
@@ -52,9 +55,21 @@ public class EntityNamingConvention extends Convention {
 		if (name.endsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeEnd(table.getName(), s);
 			table.setName(newName);
+			performReferenceUpdate(table, name, newName);
 			return true;
 		}
 		return false;
 	}
 
+	//TODO check + apply for replace-name-with-alias
+	private void performReferenceUpdate(Table table, String name, String newName) {
+		for (ForeignKey fk : table.getForeignKeys()) {
+			for (Reference ref : fk.getReferences()) {
+				if (newName.equals(ref.getLocalTable().getName())) 
+					ref.setLocalTableName(newName);
+				//break;
+			}
+		}
+		
+	}
 }
