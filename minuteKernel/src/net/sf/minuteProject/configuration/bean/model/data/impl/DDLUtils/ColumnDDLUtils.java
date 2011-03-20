@@ -456,4 +456,8 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	public void setSearchable(boolean isSearchable) {
 		this.isSearchable = isSearchable;
 	}
+	
+	public String getAlias () {
+		return super.getAlias();
+	}
 }

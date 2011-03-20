@@ -5,6 +5,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,8 +28,26 @@ public class ColumnNamingConvention extends Convention {
 
 	private void apply(Table table) {
 		for (Column column : table.getColumns()) {
-			apply (column);
+			if (isConventionApplicable(column))
+				apply (column);
 		}
+		for (Column column : table.getPrimaryKeyColumns()) {
+			if (isConventionApplicable(column))
+				apply (column);			
+		}
+		for (Column column : table.getAttributes()) {
+			if (isConventionApplicable(column))
+				apply (column);			
+		}	
+		for (Column column : table.getNoPrimaryKeyNoForeignKeyColumns()) {
+			if (isConventionApplicable(column))
+				apply (column);			
+		}		
+		
+	}
+
+	private boolean isConventionApplicable(Column column) {
+		return (column.getAlias().equals(column.getName()));
 	}
 
 	private void apply(Column column) {
@@ -49,8 +68,8 @@ public class ColumnNamingConvention extends Convention {
 		String name = column.getName();
 		if (name.startsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeStart(column.getName(), s);
-			column.setName(newName);
-			performReferenceUpdate(column, name, newName);
+			column.setAlias(newName);
+			setReferenceColumnAlias(column, name, newName);
 			return true;
 		}
 		return false;
@@ -60,14 +79,27 @@ public class ColumnNamingConvention extends Convention {
 		String name = column.getName();
 		if (name.endsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeEnd(column.getName(), s);
-			column.setName(newName);
-			performReferenceUpdate(column, name, newName);
+			column.setAlias(newName);
+			setReferenceColumnAlias(column, name, newName);
 			return true;
 		}
 		return false;
 	}
 
-	private void performReferenceUpdate(Column column, String name, String newName) {
+	
+	private void setReferenceColumnAlias(Column column, String name, String newName) {
+		ReferenceUtils.setReferenceColumnAlias(column, name, newName);
+////		for (ForeignKey fk : column.getTable().getForeignKeys()) {
+//			for (Reference ref : column.getTable().getParents()) {
+//				if (name.equals(ref.getLocalColumn().getName())) 
+//					ref.getLocalColumn().setAlias(newName);
+////					ref.setLocalColumnName(newName);
+//				//break;
+//			}
+////		}
+	}
+	
+	private void performReferenceUpdate2(Column column, String name, String newName) {
 		for (ForeignKey fk : column.getTable().getForeignKeys()) {
 			for (Reference ref : fk.getReferences()) {
 				if (newName.equals(ref.getLocalColumn().getName())) 
@@ -75,7 +107,6 @@ public class ColumnNamingConvention extends Convention {
 				//break;
 			}
 		}
-		
 	}
 
 }

@@ -28,10 +28,17 @@
 					<condition type="package" startsWith="ITEM" result="product"></condition>
 				</business-package>	
 				<enrichment>
+				   <conventions>
+				      <column-naming-convention type="apply-strip-column-name-suffix" default-value="ID">
+				      </column-naming-convention>
+				   </conventions>
 				    <package name="product">
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
+					<entity name="ITEM" >
+						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCTID" ></field>					
+					</entity>				    
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
 					     <sql-path path="NAME"/>

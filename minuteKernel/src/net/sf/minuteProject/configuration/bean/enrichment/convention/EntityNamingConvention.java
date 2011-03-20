@@ -19,10 +19,15 @@ public class EntityNamingConvention extends Convention {
 		if (APPLY_STRIP_TABLE_NAME_SUFFIX.equals(type) || APPLY_STRIP_TABLE_NAME_PREFIX.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
-					apply (table);
+					if (isConventionApplicable (table))
+						apply (table);
 				}
 			}
 		}
+	}
+
+	private boolean isConventionApplicable(Table table) {
+		return (table.getAlias().equals(table.getName()));
 	}
 
 	private void apply(Table table) {

@@ -13,6 +13,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setSearchable(column.isSearchable());
 		setVersion(column.isVersion());
 		setName(column.getName());
+		setAlias(column.getAlias());
 	}
 //	
 //    public String getName() {

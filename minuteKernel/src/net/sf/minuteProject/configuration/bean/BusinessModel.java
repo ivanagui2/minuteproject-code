@@ -32,6 +32,7 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.ForeignKeyUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -241,19 +242,39 @@ public class BusinessModel {
 		List<Field> fields = entity.getFields();
 		Column[] columns = table.getColumns();
 		Column[] attributes = table.getAttributes();
+		Column[] pks = table.getPrimaryKeyColumns();
+		Column[] others = table.getNoPrimaryKeyNoForeignKeyColumns();
 		for (Field field : fields) {
-			for (Column column : columns) {
-				if (field.getName().equals(column.getName()))
-					//TODO set stereotype, contentType, semanticReference
-					convertFieldInfoToColumn(field, column);
-			}	
-			for (Column column : attributes) {
-				if (field.getName().equals(column.getName()))
-					convertFieldInfoToColumn(field, column);
-			}			
+			convertEntityFields(columns, field);
+			convertEntityFields(attributes, field);
+			convertEntityFields(pks, field);
+			convertEntityFields(others, field);
+			if (field.getAlias()!=null && !field.getAlias().equals("")) {
+					for (Column column : columns) {
+					if (field.getName().equals(column.getName()))
+						ReferenceUtils.setReferenceColumnAlias(column, column.getName(), field.getAlias());
+				}					
+				
+			}
+//			for (Column column : columns) {
+//				if (field.getName().equals(column.getName()))
+//					//TODO set stereotype, contentType, semanticReference
+//					convertFieldInfoToColumn(field, column);
+//			}	
+//			for (Column column : attributes) {
+//				if (field.getName().equals(column.getName()))
+//					convertFieldInfoToColumn(field, column);
+//			}			
 		}
 	}
-
+	
+	private void convertEntityFields (Column[] columns, Field field) {
+		for (Column column : columns) {
+			if (field.getName().equals(column.getName()))
+				//TODO set stereotype, contentType, semanticReference
+				convertFieldInfoToColumn(field, column);
+		}			
+	}
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
@@ -272,6 +293,7 @@ public class BusinessModel {
 		column.setStereotype(field.getStereotype());
 		column.setDescription(field.getDescription());
 		column.setSearchable(field.isSearchable());
+		column.setAlias(field.getAlias());
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {

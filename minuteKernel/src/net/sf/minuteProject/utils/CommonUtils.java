@@ -29,11 +29,17 @@ public class CommonUtils {
 	public static String getTableClassName (AbstractConfiguration bean) {
 		return FormatUtils.getJavaName(bean.getName());
 	}
+
+	public static String getJavaClassName (GeneratorBean bean) {
+		return getJavaClassName(bean.getAlias());
+	}
 	
 	public static String getTableClassName (Table table) {
-		//System.out.println ("table name"+FormatUtils.getJavaName(table.getName()));
-		//return FormatUtils.getJavaName(table.getName());
 		return getTcn(table);
+	}
+
+	public static String getColumnClassName (Column column) {
+		return getJavaClassName(column);
 	}
 	
 	public static String getTcn (Table table) {
@@ -47,9 +53,23 @@ public class CommonUtils {
 	public static String getPackageClassName (Package pack) {
 		return FormatUtils.getJavaName(pack.getName());
 	}
-	
+
 	public static String getTableVariableName (Table table){
-		return getJavaVariableName(table.getName());
+		return getJavaVariableName(table);
+//		return getJavaVariableName(table.getAlias());
+	}
+	
+	public static String getColumnVariableName (Column column){
+		return getJavaVariableName(column);
+	}
+	
+	public static String getJavaVariableName (GeneratorBean bean){
+		return getJavaVariableName(bean.getAlias());
+	}
+	
+
+	public static String getJavaNameVariableConvertReservedWord(GeneratorBean bean) {
+		return FormatUtils.getJavaNameVariable(bean.getAlias());
 	}
 	
 	public static String getJavaVariableName (String string) {
