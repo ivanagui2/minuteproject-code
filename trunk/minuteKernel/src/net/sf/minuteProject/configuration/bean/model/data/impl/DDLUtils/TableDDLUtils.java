@@ -478,4 +478,8 @@ public class TableDDLUtils extends TableAbstract {
 	public void setType(String type) {
 		table.setType(type);		
 	}
+	
+	public String getAlias () {
+		return super.getAlias();
+	}
 }

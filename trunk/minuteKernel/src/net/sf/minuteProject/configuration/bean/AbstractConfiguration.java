@@ -12,6 +12,8 @@ import net.sf.minuteProject.utils.FormatUtils;
 public abstract class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
+	
+	private String alias;
 	private enum PropertyCriteria {NAME, TAG};
 	protected String name;
 	private String refname;
@@ -161,6 +163,16 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	}
 	public void setConfigurationFileInClassPath(String configurationFileInClassPath) {
 		this.configurationFileInClassPath = configurationFileInClassPath;
+	}
+	
+	public String getAlias() {
+		if (alias==null || alias.equals(""))
+			alias = getName();
+		return alias;
+	}
+	
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 	
 }

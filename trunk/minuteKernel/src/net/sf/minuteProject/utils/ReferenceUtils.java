@@ -9,6 +9,13 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.Referenc
 
 public class ReferenceUtils {
 
+	public static void setReferenceColumnAlias(Column column, String name, String newName) {
+		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref : column.getTable().getParents()) {
+			if (name.equals(ref.getLocalColumn().getName())) 
+				ref.getLocalColumn().setAlias(newName);
+		}
+	}
+	
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Column column) {
 		Table table = column.getTable();
 		net.sf.minuteProject.configuration.bean.model.data.Reference[] reference = table.getParents();

@@ -25,7 +25,7 @@ import net.sf.minuteProject.utils.ColumnUtils;
 public abstract class TableAbstract extends AbstractConfiguration implements Table{
 	
 	private Table table;
-	private String alias;
+//	private String alias;
 	private Reference [] distinctChildrenRef;
 	private SemanticReference semanticReference;
 	private String contentType;
@@ -275,16 +275,16 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
     	return this.getName().equals(((Table)object).getName());
     }
     
-	public String getAlias() {
-		if (alias!=null && !alias.equals(""))
-			return alias;
-		else
-			return getName();
-	}
-
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
+//	public String getAlias() {
+//		if (alias!=null && !alias.equals(""))
+//			return alias;
+//		else
+//			return getName();
+//	}
+//
+//	public void setAlias(String alias) {
+//		this.alias = alias;
+//	}
 	
 	public boolean isManyToManyRecursive() {
 		if (isManyToMany()) {

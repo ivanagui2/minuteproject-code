@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -14,7 +15,7 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
 
-public class ComponentDDLUtils implements Component{
+public class ComponentDDLUtils extends AbstractConfigurationRoot implements Component{
 
 	private List<Column> columns;
 	private Component parent;

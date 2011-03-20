@@ -79,7 +79,7 @@ public class ${className} {
 #else
 #set($colVar = ${linkedTableVariable})
 #end
-    private $linkedTableClass ${colVar}; 
+    private $linkedTableClass ${colVar};
     
 #end
 
