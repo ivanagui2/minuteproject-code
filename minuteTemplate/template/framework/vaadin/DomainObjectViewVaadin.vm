@@ -2,8 +2,6 @@
 #exposeVaadinDomainObject()
 #exposeVaadinModel()
 
-import net.sf.minuteproject.vaadin.navigation.NavigationTree;
-
 import $modelApplicationImport;
 import $menuImport;
 import $domainObjectContainerImport;

@@ -20,7 +20,36 @@
 			application-specific="true" add-model-name="false">
 		</template>				
 	</template-target>	
-	
+
+	<template-target 
+        name="Vaadin CSS"
+	    templatedir = "" 
+		tool="velocity"
+		package-root=""
+		libdir="lib/VAADIN_LIB.vm"
+		outputdir="src/main/webapp/VAADIN/themes"
+		belongToPackage="true">
+			 
+		<template name="VaadinDefaultCss" templateFileName="VaadinDefaultCss.vm" 
+			subdir="" outputsubdir="" technicalPackage="entityviews"
+			file-extension="css" file-prefix="entitymanagerview" file-suffix="" 
+			model-specific="true" add-model-name="false">			
+		</template>
+		
+		<template name="VaadinCustomCss" templateFileName="VaadinCustomCss.vm" 
+			subdir="" outputsubdir="" technicalPackage="entityviews"
+			file-extension="css" file-prefix="entityviews" file-suffix="" 
+			model-specific="true" add-model-name="false">			
+		</template>		
+		
+		<template name="VaadinMainCss" templateFileName="VaadinMainCss.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="css" file-prefix="styles" file-suffix="" 
+			model-specific="true" add-model-name="false">			
+		</template>		
+				
+	</template-target>	
+		
 	<template-target 
         name="Vaadin front end set"
 	    templatedir = "" 
