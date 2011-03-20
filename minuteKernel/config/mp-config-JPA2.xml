@@ -29,7 +29,7 @@
 				</business-package>	
 				<enrichment>
 				   <conventions>
-				      <column-naming-convention type="apply-strip-column-name-suffix" default-value="ID">
+				      <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID">
 				      </column-naming-convention>
 				   </conventions>
 				    <package name="product">

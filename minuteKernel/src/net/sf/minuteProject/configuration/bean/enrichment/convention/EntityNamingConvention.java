@@ -25,6 +25,10 @@ public class EntityNamingConvention extends Convention {
 			}
 		}
 	}
+	
+	public void patternToStrip (String s) {
+		setDefaultValue(s);
+	}
 
 	private boolean isConventionApplicable(Table table) {
 		return (table.getAlias().equals(table.getName()));

@@ -109,7 +109,7 @@ public class ${className} {
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet <$targetTableName> ();
 
 #end
 
@@ -175,7 +175,7 @@ public class ${className} {
     }
 	
     public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
-    	this.${localColumnVariable} = ${localColumnVariable};//this.${localColumnVariable} = ${linkedTableVariable};
+    	this.${localColumnVariable} = ${localColumnVariable};
     }
 #else
     public $linkedTableClass get${linkedTableClass} () { 
@@ -183,7 +183,7 @@ public class ${className} {
     }
 	
    public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
-    	this.${linkedTableVariable} = ${linkedTableVariable};//this.${localColumnVariable} = ${linkedTableVariable};
+    	this.${linkedTableVariable} = ${linkedTableVariable};
     }
     
 #end 

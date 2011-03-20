@@ -26,24 +26,22 @@ public class ColumnNamingConvention extends Convention {
 		}
 	}
 
+	public void setPatternToStrip (String s) {
+		setDefaultValue(s);
+	}
+	
 	private void apply(Table table) {
-		for (Column column : table.getColumns()) {
+		apply(table.getColumns());
+		apply(table.getPrimaryKeyColumns());
+		apply(table.getAttributes());
+		apply(table.getNoPrimaryKeyNoForeignKeyColumns());
+	}
+
+	private void apply(Column[] columns) {
+		for (Column column : columns) {
 			if (isConventionApplicable(column))
 				apply (column);
 		}
-		for (Column column : table.getPrimaryKeyColumns()) {
-			if (isConventionApplicable(column))
-				apply (column);			
-		}
-		for (Column column : table.getAttributes()) {
-			if (isConventionApplicable(column))
-				apply (column);			
-		}	
-		for (Column column : table.getNoPrimaryKeyNoForeignKeyColumns()) {
-			if (isConventionApplicable(column))
-				apply (column);			
-		}		
-		
 	}
 
 	private boolean isConventionApplicable(Column column) {
