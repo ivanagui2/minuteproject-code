@@ -10,7 +10,7 @@
     <artifactId>${model.name}App</artifactId>
     <version>${version}-SNAPSHOT</version>
     <name>${model.name}App</name>  
-    	
+    <packaging>pom</packaging>	
 	<description>${model.name} Application</description>
 	<modules>
 #foreach ($module in $mavenUtils.getModules($template))	

@@ -1,6 +1,5 @@
 #putVaadinClassObjectAndPackage()
 #exposeVaadinModel()
-import net.sf.minuteproject.vaadin.navigation.NavigationTree;
 
 import $domainObjectContainerImport;
 import $domainObjectFormImport;
@@ -33,7 +32,7 @@ import com.vaadin.ui.Window.Notification;
 public class ${className} extends Application implements
 		ClickListener, ValueChangeListener, ItemClickListener {
 
-	private NavigationTree<${className}> tree = new NavigationTree(this);
+	//private NavigationTree<${className}> tree = new NavigationTree(this);
 
 	private Button new${domainClassName} = new Button("Add ${domainClassName}");
 	private Button search = new Button("Search");
@@ -71,7 +70,7 @@ public class ${className} extends Application implements
 		layout.setExpandRatio(horizontalSplit, 1);
 
 		horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
-		horizontalSplit.setFirstComponent(tree);
+		//horizontalSplit.setFirstComponent(tree);
 
 		getMainWindow().setContent(layout);
 	}
@@ -162,7 +161,7 @@ public class ${className} extends Application implements
 	}
 
 	public void itemClick(ItemClickEvent event) {
-		if (event.getSource() == tree) {
+/*		if (event.getSource() == tree) {
 			Object itemId = event.getItemId();
 			if (itemId != null) {
 				if (itemId == NavigationTree.SHOW_ALL) {
@@ -174,7 +173,7 @@ public class ${className} extends Application implements
 					//search((SearchFilter) itemId);
 				}
 			}
-		}
+		}*/
 	}
 
     public void refresh() {
