@@ -1,6 +1,9 @@
 #putVaadinClassObjectAndPackage()
 #exposeVaadinDomainObject()
 #exposeVaadinModel()
+#exposeVariableEntitySpecific()
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($tableLabelVariable=$formatUtils.getJavaNameVariable(${tableLabel}))
 
 import $modelApplicationImport;
 import $menuImport;
@@ -57,7 +60,7 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		setExpandRatio(horizontalSplit, 1);
 
 		horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
-		horizontalSplit.setFirstComponent(new $menuClass());
+		horizontalSplit.setFirstComponent(new $menuClass("${tableLabelVariable}"));
 
 		horizontalSplit.setSecondComponent(getSplitPanel());
 		horizontalSplit.setSizeFull();
@@ -77,11 +80,6 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		lo.setStyleName("sidebar");
 
 		lo.setWidth("100%");
-
-		Embedded em = new Embedded("", new ThemeResource("images/logo.png"));
-		lo.addComponent(em);
-		lo.setComponentAlignment(em, Alignment.MIDDLE_RIGHT);
-		lo.setExpandRatio(em, 1);
 
 		return lo;
 	}
