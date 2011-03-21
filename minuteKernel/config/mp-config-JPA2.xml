@@ -36,7 +36,7 @@
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
-					<entity name="ITEM" >
+					<entity name="ITEM" alias="MY_GOOD_ITEMS">
 						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCTID" ></field>					
 					</entity>				    
 					<entity name="CATEGORY" content-type="reference-data" >

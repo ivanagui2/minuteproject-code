@@ -155,7 +155,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	}
 
 	public String getGeneratedBeanName() {
-		return FormatUtils.getJavaName(getName());
+		return FormatUtils.getJavaName(getAlias());
 	}
 	
 	public String getConfigurationFileInClassPath() {
