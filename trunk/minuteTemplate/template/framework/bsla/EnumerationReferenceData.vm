@@ -71,5 +71,10 @@ public enum $className {
            }    	 
         return false;
     }
-    	     
+
+    public boolean equals (String s) {
+    	if (s==null) return false;
+    	return s.equals(value);
+    }   	     
+    
 }
