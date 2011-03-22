@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.io.Serializable;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.utils.ColumnUtils;
 
 /**
@@ -10,7 +11,7 @@ import net.sf.minuteProject.utils.ColumnUtils;
  * 
  * @author Florian Adler
  */
-public interface Reference extends Cloneable, Serializable
+public interface Reference extends GeneratorBean
 {
 
 

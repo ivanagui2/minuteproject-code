@@ -21,6 +21,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.terminal.ThemeResource;
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
@@ -32,6 +33,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Link;
 
 import eu.livotov.tpt.gui.widgets.TPTMultiView.TPTView;
 
@@ -39,16 +41,7 @@ import $menuImport;
 
 public class $className extends VerticalLayout implements TPTView, ClickListener, ValueChangeListener, ItemClickListener {
 
-	//private Button newEntity = new Button("Add $table.name");
-	//private Button search = new Button("Search");
-	//private Button share = new Button("Share");
-	//private Button help = new Button("Help");
 	private SplitPanel horizontalSplit = new SplitPanel(SplitPanel.ORIENTATION_HORIZONTAL);
-
-	// Lazyly created ui references
-	//private $domainObjectListViewClass listView = null;
-	//private $domainObjectSearchViewClass searchView = null;
-	//private $domainObjectListClass list = null;
 	private $domainObjectFormClass form = null;
 	private Table table = null;
 	
@@ -68,19 +61,12 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 	
 	private HorizontalLayout createToolbar() {
 		HorizontalLayout lo = new HorizontalLayout();
-		//$menuClass menu = new $menuClass();
-		//lo.addComponent(newEntity);
-		//lo.addComponent(search);
-		lo.addComponent(new Label("powered by minuteproject"));
-		//lo.addComponent(menu);
-		
+		Link l = new Link("powered by minuteproject", new ExternalResource("http://minuteproject.sf.net"));
+		l.setStyleName("mp-style");
 		lo.setMargin(true);
 		lo.setSpacing(true);
-
 		lo.setStyleName("sidebar");
-
 		lo.setWidth("100%");
-
 		return lo;
 	}
 
@@ -175,13 +161,4 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 //		}
 	}
 
-//public void refresh() {
-//					getDataSource().removeAllContainerFilters();
-//					showListView();
-//}
-
-//	private void addAddress() {
-//		refresh();
-//		addressForm.addAddress();
-//	}
 }

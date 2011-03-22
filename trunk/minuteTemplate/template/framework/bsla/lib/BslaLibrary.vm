@@ -123,7 +123,7 @@
 #macro (putReferenceParams2)
 ## this macro is use when a reference is accessed via parent.references or child.references
 #set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
-#set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
+#set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTable.alias}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumn.alias}))
 #set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTable.alias}))
 #set ($localTableClass = $formatUtils.getJavaName(${reference.localTableName}))
@@ -146,8 +146,10 @@
 #set ($importDomainObjectUMLForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $reference.foreignTable, $template))
 #set ($isMandatory = $localColumn.isRequired())
 #set ($localColumnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.localColumn.alias}))
-#set ($linkedColumnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignColumnName}))
-#set ($linkedTableVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignTableName}))
+#set ($linkedColumnVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignColumn.alias}))
+#set ($linkedTableVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignTable.alias}))
+#set ($childrenListVariable = $referenceUtils.getChildrenListVariable($reference))##${linkedTableVariable}${linkedColumnClass}s)
+#set ($childrenListClass = $referenceUtils.getChildrenListClass($reference))##${linkedTableVariable}${linkedColumnClass}s)
 #end
 
 ## putColumnParams are for the decorating the entity attribute 
