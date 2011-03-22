@@ -27,6 +27,10 @@ public class I18nUtils {
 		return input;
 	}
 	
+	public static String plurializeUppercase(String input) {
+		return plurialize(input.toLowerCase()).toUpperCase();
+	}
+	
 	public static String plurialize(String input) {
 		if (input!=null) {
 			String lastChar = getLastChar (input, 1);//StringUtils.substring(input, input.length()-1);
