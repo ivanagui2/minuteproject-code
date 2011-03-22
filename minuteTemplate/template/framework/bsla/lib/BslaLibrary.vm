@@ -190,6 +190,8 @@
 #set ($targetColumnClass = $formatUtils.getJavaName($linkReference.localColumn.alias))
 #set ($linkLocalColumnClass = $formatUtils.getJavaName($linkReference.localColumn.alias))
 #set ($localColumnName = $formatUtils.getJavaName($linkReference.localColumn.alias))
+#set ($childrenListVariable = $referenceUtils.getChildrenListVariable($linkReference))## ${targetTableVariableName}Via${linkTableName}By${localColumnName}s)
+#set ($childrenListClass = $referenceUtils.getChildrenListClass($linkReference))
 #end
 
 #macro (putDefaultMaskColumnValue)

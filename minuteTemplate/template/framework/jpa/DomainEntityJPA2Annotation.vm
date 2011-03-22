@@ -50,7 +50,6 @@ public class ${className} {
     private $columnType $columnVar;
 
 #end
-
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
@@ -82,7 +81,6 @@ public class ${className} {
     private $linkedTableClass ${colVar};
     
 #end
-
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
@@ -95,11 +93,10 @@ public class ${className} {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); //${linkedTableVariable}${linkedColumnClass}s
+    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
 #end
 #end
-
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeImportParamsUML($targetTable)
@@ -109,10 +106,9 @@ public class ${className} {
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet <$targetTableName> ();
+    private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
-
     /**
     * Default constructor
     */
@@ -133,8 +129,8 @@ public class ${className} {
 #end 		
 		);
     }
+    
 #end    
-
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -147,7 +143,6 @@ public class ${className} {
     }
     
 #end
-
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
@@ -164,8 +159,8 @@ public class ${className} {
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
+    
 #end
-
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeEnrichedPk($localColumn)
@@ -177,9 +172,10 @@ public class ${className} {
     public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
     	this.${localColumnVariable} = ${localColumnVariable};
     }
+    
 #else
     public $linkedTableClass get${linkedTableClass} () { 
-    	return ${linkedTableVariable};//${localColumnVariable};
+    	return ${linkedTableVariable};
     }
 	
    public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
@@ -188,7 +184,6 @@ public class ${className} {
     
 #end 
 #end
-
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
@@ -203,7 +198,7 @@ public class ${className} {
         this.${childrenListVariable} = ${childrenListVariable};
     }	
     
-    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
+    public void add${childrenListClass} ($linkedTableClass ${linkedTableVariable}) {
     	    get${childrenListClass}().add($linkedTableVariable);
     }
     
@@ -211,16 +206,20 @@ public class ${className} {
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-    public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
-        if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
-            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet<$targetTableName>();
+    public Set<$targetTableName> get${childrenListClass}() {
+        if (${childrenListVariable} == null){
+            ${childrenListVariable} = new HashSet<$targetTableName>();
         }
-        return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+        return ${childrenListVariable};
     }
 
-    public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
-        this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
-    }	
-
+    public void set${childrenListClass} (Set<$targetTableName> ${childrenListVariable}) {
+        this.${childrenListVariable} = ${childrenListVariable};
+    }
+    	
+    public void add${childrenListClass} ($linkedTableClass ${linkedTableVariable}) {
+        get${childrenListClass}().add($linkedTableVariable);
+    }
+    
 #end
 }
