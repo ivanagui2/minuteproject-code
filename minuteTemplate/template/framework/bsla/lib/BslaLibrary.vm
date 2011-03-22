@@ -118,26 +118,11 @@
 #set ($parentLink = $referenceUtils.getParentLink(${reference.tableName},${reference.columnName}))
 #end
 
-
-#macro (putReferenceParams2old)
-##set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
-##set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
-##set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.name}))
-##set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.name}))
-##set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumnName}))
-##set ($localColumnType = $commonUtils.getType($reference.localColumn))
-##set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-##set ($localTableClass = $formatUtils.getJavaNameVariable(${reference.localTableName}))
-##set ($localColumnClass = $formatUtils.getJavaName(${reference.localColumn.name}))
-##set ($linkedParentVariable = '$linkedTableVariable$localColumnVariable')
-##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
-#end
-
 ## putReferenceParams2 goes with reference accessed via domainObjectUML.parents, domainObjectUML.childReferences
 
 #macro (putReferenceParams2)
 ## this macro is use when a reference is accessed via parent.references or child.references
-#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTableName}))
+#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
 #set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTableName}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumn.alias}))
 #set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTableName}))
