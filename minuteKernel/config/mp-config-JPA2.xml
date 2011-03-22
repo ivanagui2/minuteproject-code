@@ -31,6 +31,7 @@
 				   <conventions>
 				      <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID">
 				      </column-naming-convention>
+				      <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
 				   </conventions>
 				    <package name="product">
 				    	<entity-group entities="PRODUCT"></entity-group>

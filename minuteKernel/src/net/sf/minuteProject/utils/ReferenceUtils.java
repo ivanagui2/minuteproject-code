@@ -6,9 +6,18 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ReferenceDDLUtils;
+import net.sf.minuteProject.plugin.format.I18nUtils;
 
 public class ReferenceUtils {
 
+	public static String getChildrenListVariable(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		return FormatUtils.getJavaNameVariable(reference.getAlias());
+	}
+	
+	public static String getChildrenListClass(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		return FormatUtils.getJavaName(reference.getAlias());
+	}
+	
 	public static void setReferenceColumnAlias(Column column, String name, String newName) {
 		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref : column.getTable().getParents()) {
 			if (name.equals(ref.getLocalColumn().getName())) 

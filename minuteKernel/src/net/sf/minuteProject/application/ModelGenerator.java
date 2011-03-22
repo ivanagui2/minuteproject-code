@@ -80,6 +80,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private WebUtils webUtils = new WebUtils();
 	private SqlUtils sqlUtils = new SqlUtils();
 	private TableUtils tableUtils = new TableUtils();
+	private ReferenceUtils referenceUtils = new ReferenceUtils();
 
 	private Model model;
 
@@ -444,9 +445,10 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("WebUtils", getWebUtils());
 		context.put("sqlUtils", getSqlUtils());
 		context.put("tableUtils", getTableUtils());
-		context.put("testUtils", getTestUtils());		
+		context.put("testUtils", getTestUtils());	
+		context.put("referenceUtils", referenceUtils);
 	}
-
+	
 	public BslaLibraryUtils getBslaLibraryUtils() {
 		if (bslaLibraryUtils==null)
 			bslaLibraryUtils = new BslaLibraryUtils();

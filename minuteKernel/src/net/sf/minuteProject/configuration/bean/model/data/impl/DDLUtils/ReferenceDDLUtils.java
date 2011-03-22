@@ -20,6 +20,7 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -29,7 +30,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
  * 
  * @author Florian Adler
  */
-public class ReferenceDDLUtils implements Reference
+public class ReferenceDDLUtils extends AbstractConfiguration implements Reference
 {
 	private org.apache.ddlutils.model.Reference reference;
 	
@@ -40,6 +41,7 @@ public class ReferenceDDLUtils implements Reference
 	private Column localColumn;
 	private Table  localTable;
 	private String localColumnName;
+	private String alias;
 	
     /**
      * Creates a new, empty reference.
@@ -265,5 +267,14 @@ public class ReferenceDDLUtils implements Reference
 		this.localTable = localTable;
 	}
 
+	public String getAlias() {
+		if (alias==null || alias.equals(""))
+			alias= foreignTable.getAlias()+"_"+localColumn.getAlias();
+		return alias;
+	}
+	
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
 
 }

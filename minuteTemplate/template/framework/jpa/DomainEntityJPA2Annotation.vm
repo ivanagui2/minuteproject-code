@@ -95,7 +95,7 @@ public class ${className} {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet<$linkedTableClass>(); 
+    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); //${linkedTableVariable}${linkedColumnClass}s
    
 #end
 #end
@@ -192,19 +192,19 @@ public class ${className} {
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-    public Set<$linkedTableClass> get${linkedTableClass}${linkedColumnClass}s() {
-        if (${linkedTableVariable}${linkedColumnClass}s == null){
-            ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
+    public Set<$linkedTableClass> get${childrenListClass}() {
+        if (${childrenListVariable} == null){
+            ${childrenListVariable} = new HashSet<$linkedTableClass>();
         }
-        return ${linkedTableVariable}${linkedColumnClass}s;
+        return ${childrenListVariable};
     }
 
-    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s) {
-        this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
+    public void set${childrenListClass} (Set<$linkedTableClass> ${childrenListVariable}) {
+        this.${childrenListVariable} = ${childrenListVariable};
     }	
     
     public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
-    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedTableVariable);
+    	    get${childrenListClass}().add($linkedTableVariable);
     }
     
 #end    
@@ -213,7 +213,7 @@ public class ${className} {
 #exposeM2MSpecific()
     public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
         if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
-            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet<$targetTableName>();
         }
         return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
     }

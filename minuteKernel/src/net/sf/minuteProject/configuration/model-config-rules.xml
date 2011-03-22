@@ -220,6 +220,15 @@
 						<alias attr-name="pattern-to-strip" prop-name="patternToStrip" />
 					</set-properties-rule>	
 	            </pattern>	
+				<pattern value="reference-naming-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ReferenceNamingConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ReferenceNamingConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="is-to-plurialize" prop-name="isToPlurialize" />	
+						<alias attr-name="default-value" prop-name="defaultValue" />
+					</set-properties-rule>	
+	            </pattern>		            
 				<pattern value="entity-naming-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityNamingConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityNamingConvention"/>		
