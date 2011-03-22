@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
 public class ReferenceNamingConvention extends Convention {
 
@@ -27,30 +28,72 @@ public class ReferenceNamingConvention extends Convention {
 	}
 
 	private void apply(Table table) {
-		List<Reference> fks = getApplicableReference(table);
-		for (Reference reference : fks) {
-			reference.setAlias(getFinalName(table));
-		}
+//		List<Reference> fks = getApplicableReferenceNotMany2Many(table);
+//		for (Reference reference : fks) {
+//			reference.setAlias(getFinalName(table));
+//		}
+		applyNotMany2ManyReference(table);
+		applyMany2ManyReference(table);
 	}
 
-	private String getFinalName(Table table) {
-		return (isToPlurialize)?table.getAlias():I18nUtils.plurialize(table.getAlias());
-	}
-
-	private List<Reference> getApplicableReference(Table table) {
-		//TODO remove ref when similar
+	private void applyMany2ManyReference (Table table) {
 		List<Reference> list = new ArrayList<Reference>();
-		List<Reference> returnList = new ArrayList<Reference>();
+		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
+			list.add(reference);
+		}	
+		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
+			if (!reference.getForeignTable().isManyToMany()) {
+				if (isNoAmbiguityReference(reference, list))
+					reference.setAlias(getNameForUnambiguiousCaseAndMany2Many(table, reference));
+				else
+					reference.setAlias(getNameForAmbiguiousCaseAndMany2Many(table, reference));
+			} 
+		}	
+//		
+//		for (Reference ref : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
+//			ref.setAlias(ref.getForeignTable().getAlias());
+////			return
+//		}
+	}
+
+	private void applyNotMany2ManyReference(Table table) {
+		List<Reference> list = new ArrayList<Reference>();
 		for (Reference reference : table.getChildren()) {
 			list.add(reference);
 		}	
 		for (Reference reference : table.getChildren()) {
-			if (isNoAmbiguityReference(reference, list))
-				returnList.add(reference);
+			if (!reference.getForeignTable().isManyToMany()) {
+				if (isNoAmbiguityReference(reference, list))
+					reference.setAlias(getNameForUnambiguiousCaseAndNotMany2Many(table));
+				else
+					reference.setAlias(getNameForAmbiguiousCaseAndNotMany2Many(table, reference));
+			} 
 		}		
-		return returnList;
 	}
 
+	private String getNameForUnambiguiousCaseAndNotMany2Many(Table table) {
+		return getFinalName(table.getAlias());
+	}
+
+	private String getNameForAmbiguiousCaseAndNotMany2Many(Table table, Reference reference) {
+		String name = table.getAlias()+"_"+reference.getLocalColumn().getAlias();
+		return getFinalName(name);
+	}
+
+	private String getNameForUnambiguiousCaseAndMany2Many(Table table, Reference reference) {
+		String name = reference.getForeignTable().getAlias();
+		return getFinalName(name);
+	}
+
+	private String getNameForAmbiguiousCaseAndMany2Many(Table table, Reference reference) {
+		//{targetTableVariableName}Via${linkTableName}By${localColumnName}s
+		String name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getLocalColumn().getAlias();
+		return getFinalName(name);
+	}
+	
+	private String getFinalName(String name) {
+		return (!isToPlurialize)?name:I18nUtils.plurializeUppercase(name);
+	}
 	private boolean isNoAmbiguityReference (Reference reference, List<Reference> list) {
 		int cpt = 0;
 		for (Reference ref : list) {
@@ -66,7 +109,7 @@ public class ReferenceNamingConvention extends Convention {
 		return isToPlurialize;
 	}
 
-	public void setToPlurialize(boolean isToPlurialize) {
+	public void setIsToPlurialize(boolean isToPlurialize) {
 		this.isToPlurialize = isToPlurialize;
 	}
 
