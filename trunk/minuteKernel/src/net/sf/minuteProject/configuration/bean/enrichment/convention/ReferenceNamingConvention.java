@@ -38,11 +38,28 @@ public class ReferenceNamingConvention extends Convention {
 	}
 
 	private List<Reference> getApplicableReference(Table table) {
+		//TODO remove ref when similar
 		List<Reference> list = new ArrayList<Reference>();
+		List<Reference> returnList = new ArrayList<Reference>();
 		for (Reference reference : table.getChildren()) {
 			list.add(reference);
+		}	
+		for (Reference reference : table.getChildren()) {
+			if (isNoAmbiguityReference(reference, list))
+				returnList.add(reference);
 		}		
-		return list;
+		return returnList;
+	}
+
+	private boolean isNoAmbiguityReference (Reference reference, List<Reference> list) {
+		int cpt = 0;
+		for (Reference ref : list) {
+			if (ref.getForeignTableName().equals(reference.getForeignTableName()))
+				cpt++;
+		}
+		if (cpt>1)
+			return false;
+		return true;
 	}
 
 	public boolean isToPlurialize() {
