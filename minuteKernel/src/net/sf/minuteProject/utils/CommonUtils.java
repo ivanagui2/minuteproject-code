@@ -43,7 +43,7 @@ public class CommonUtils {
 	}
 	
 	public static String getTcn (Table table) {
-		return getJavaClassName(table.getName());
+		return getJavaClassName(table.getAlias());
 	}
 	
 	public static String getJavaClassName (String entityName) {
