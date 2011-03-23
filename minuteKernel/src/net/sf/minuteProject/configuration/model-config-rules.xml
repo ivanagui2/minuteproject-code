@@ -275,7 +275,7 @@
 					<alias attr-name="is-searchable" prop-name="searchable" />
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
 					<alias attr-name="is-transfer-entity" prop-name="transferEntity" />
-					<alias attr-name="replace-name-with-alias" prop-name="replaceNameWithAlias" />
+					<!-- <alias attr-name="replace-name-with-alias" prop-name="replaceNameWithAlias" /> -->
 				</set-properties-rule>	
 				<pattern value="action">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
@@ -365,7 +365,8 @@
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
 					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
 					<set-properties-rule>
-					    <alias attr-name="is-id" prop-name="isId" />	
+					    <alias attr-name="is-id" prop-name="isId" />
+					    <alias attr-name="alias" prop-name="alias" />	
 						<alias attr-name="name" prop-name="name" />	
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="length" prop-name="length" />	
