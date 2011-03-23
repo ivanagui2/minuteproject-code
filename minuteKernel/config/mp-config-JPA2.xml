@@ -29,6 +29,7 @@
 				</business-package>	
 				<enrichment>
 				   <conventions>
+				      <entity-naming-convention type="apply-strip-table-name-prefix" pattern-to-strip="SYS,FIN"/>
 				      <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID">
 				      </column-naming-convention>
 				      <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
@@ -40,7 +41,7 @@
 					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
 					</entity>				    
 					<entity name="ITEM" alias="MY_GOOD_ITEM">
-						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCTID" ></field>					
+						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" ></field>					
 					</entity>				    
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
