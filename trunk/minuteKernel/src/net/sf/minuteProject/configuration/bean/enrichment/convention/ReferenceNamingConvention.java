@@ -64,7 +64,7 @@ public class ReferenceNamingConvention extends Convention {
 		for (Reference reference : table.getChildren()) {
 			if (!reference.getForeignTable().isManyToMany()) {
 				if (isNoAmbiguityReference(reference, list))
-					reference.setAlias(getNameForUnambiguiousCaseAndNotMany2Many(table));
+					reference.setAlias(getNameForUnambiguiousCaseAndNotMany2Many(reference.getForeignTable()));
 				else
 					reference.setAlias(getNameForAmbiguiousCaseAndNotMany2Many(table, reference));
 			} 
