@@ -70,7 +70,7 @@
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)  
-    <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName" lazy="true">
+    <set name="${linkedTableVariable}${linkedColumnClass}s" table="$reference.foreignTableName" lazy="true" inverse="true" >
         <key column="$reference.foreignColumnName" #if($columnDB.isRequired())not-null="true"#else not-null="false"#end/>
         <one-to-many class="$importDomainObjectUML"/>
     </set>		    

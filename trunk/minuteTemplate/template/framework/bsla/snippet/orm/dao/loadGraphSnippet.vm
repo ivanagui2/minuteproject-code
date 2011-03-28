@@ -58,7 +58,7 @@
 		return parents;
 	}
 	
-#foreach ($reference in $table.children)
+#foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 	private void reassemble${linkedTableClass} (List<${linkedTableClass}> children, List<$tableClassName> parents) {
 		for (${linkedTableClass} child : children) {
