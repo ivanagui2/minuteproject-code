@@ -275,7 +275,8 @@
 					<alias attr-name="is-searchable" prop-name="searchable" />
 					<alias attr-name="is-link-entity" prop-name="linkEntity" />
 					<alias attr-name="is-transfer-entity" prop-name="transferEntity" />
-					<!-- <alias attr-name="replace-name-with-alias" prop-name="replaceNameWithAlias" /> -->
+					<alias attr-name="comment" prop-name="comment" />
+					<alias attr-name="description" prop-name="description" />
 				</set-properties-rule>	
 				<pattern value="action">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
@@ -372,7 +373,9 @@
 						<alias attr-name="length" prop-name="length" />	
 						<alias attr-name="is-mandatory" prop-name="isMandatory" />	
 						<alias attr-name="is-searchable" prop-name="searchable" />
-						<alias attr-name="stereotype" prop-name="stereotype" />													
+						<alias attr-name="stereotype" prop-name="stereotype" />		
+						<alias attr-name="comment" prop-name="comment" />
+						<alias attr-name="description" prop-name="description" />																	
 					</set-properties-rule>
 					<pattern value="stereotype">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		

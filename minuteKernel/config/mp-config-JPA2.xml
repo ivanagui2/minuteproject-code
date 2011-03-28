@@ -40,8 +40,8 @@
 				    </package>
 					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
 					</entity>				    
-					<entity name="ITEM" alias="MY_GOOD_ITEM">
-						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" ></field>					
+					<entity name="ITEM" alias="MY_GOOD_ITEM" comment="my item table">
+						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" comment="my product field reference"></field>					
 					</entity>				    
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
