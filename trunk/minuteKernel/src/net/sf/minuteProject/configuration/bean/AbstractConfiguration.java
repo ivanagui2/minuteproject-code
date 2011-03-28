@@ -13,7 +13,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
 	
-	private String alias;
+	protected String alias, comment;
 	private enum PropertyCriteria {NAME, TAG};
 	protected String name;
 	private String refname;
@@ -173,6 +173,14 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 }

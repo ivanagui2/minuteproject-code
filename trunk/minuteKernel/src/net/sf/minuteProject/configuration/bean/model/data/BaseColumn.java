@@ -37,20 +37,6 @@ public interface BaseColumn extends GeneratorBean{
     public void setJavaName(String javaName);
 
     /**
-     * Returns the description of the column.
-     *
-     * @return The description
-     */
-    public String getDescription();
-
-    /**
-     * Sets the description of the column.
-     *
-     * @param description The description
-     */
-    public void setDescription(String description);
-
-    /**
      * Returns the code (one of the constants in {@link java.sql.Types}) of the
      * JDBC type of the column.
      * 
@@ -212,4 +198,6 @@ public interface BaseColumn extends GeneratorBean{
 //    public void setDefault(String defaultValue);
 //    
 //    public void getDefault ();
+
+    
 }

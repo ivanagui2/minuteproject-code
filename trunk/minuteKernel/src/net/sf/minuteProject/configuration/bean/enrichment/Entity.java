@@ -19,7 +19,6 @@ import net.sf.minuteProject.utils.TableUtils;
 
 public class Entity extends AbstractConfiguration {
 	
-	private String alias;
 	private String structure;
 	private VirtualPrimaryKey virtualPrimaryKey;
 	private List<Field> fields;
@@ -46,14 +45,6 @@ public class Entity extends AbstractConfiguration {
 
 	public void setVirtualPrimaryKey(VirtualPrimaryKey virtualPrimaryKey) {
 		this.virtualPrimaryKey = virtualPrimaryKey;
-	}
-
-	public String getAlias() {
-		return alias;
-	}
-
-	public void setAlias(String alias) {
-		this.alias = alias;
 	}
 
 	public String getStructure() {

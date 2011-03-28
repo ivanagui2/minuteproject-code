@@ -49,6 +49,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setFieldGroups(table.getFieldGroups());
 		this.setActions(table.getActions());
 		this.setSearchable(table.isSearchable());
+		this.setComment(table.getComment());
+		this.setDescription(table.getDescription());		
 	}
 
 	public String getName () {

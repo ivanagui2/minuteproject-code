@@ -50,4 +50,21 @@ public interface GeneratorBean extends Cloneable, Serializable{
 	public String getAlias();
 	
 	public void setAlias(String alias);
+	
+    public void setComment (String comment);
+    
+    public String getComment();
+    /**
+     * Returns the description of the column.
+     *
+     * @return The description
+     */
+    public String getDescription();
+
+    /**
+     * Sets the description of the column.
+     *
+     * @param description The description
+     */
+    public void setDescription(String description);    
 }
