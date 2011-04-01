@@ -63,6 +63,7 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		HorizontalLayout lo = new HorizontalLayout();
 		Link l = new Link("powered by minuteproject", new ExternalResource("http://minuteproject.sf.net"));
 		l.setStyleName("mp-style");
+		lo.addComponent(l);
 		lo.setMargin(true);
 		lo.setSpacing(true);
 		lo.setStyleName("sidebar");
