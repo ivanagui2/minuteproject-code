@@ -26,7 +26,7 @@ public class EntityNamingConvention extends Convention {
 		}
 	}
 	
-	public void patternToStrip (String s) {
+	public void setPatternToStrip (String s) {
 		setDefaultValue(s);
 	}
 
@@ -52,7 +52,7 @@ public class EntityNamingConvention extends Convention {
 		String name = table.getName();
 		if (name.startsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeStart(table.getName(), s);
-			table.setName(newName);
+			table.setAlias(newName);
 			performReferenceUpdate(table, name, newName);
 			return true;
 		}
@@ -74,8 +74,8 @@ public class EntityNamingConvention extends Convention {
 	private void performReferenceUpdate(Table table, String name, String newName) {
 		for (ForeignKey fk : table.getForeignKeys()) {
 			for (Reference ref : fk.getReferences()) {
-				if (newName.equals(ref.getLocalTable().getName())) 
-					ref.setLocalTableName(newName);
+				if (ref.getLocalTable()!=null && name.equals(ref.getLocalTable().getName())) 
+					ref.getLocalTable().setAlias(newName);
 				//break;
 			}
 		}

@@ -211,7 +211,15 @@
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="default-value" prop-name="defaultValue" />
 					</set-properties-rule>	
-	            </pattern>	  
+	            </pattern>	
+				<pattern value="entity-naming-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityNamingConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityNamingConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="pattern-to-strip" prop-name="patternToStrip" />
+					</set-properties-rule>	
+	            </pattern>		              
 				<pattern value="column-naming-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ColumnNamingConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ColumnNamingConvention"/>		
@@ -229,14 +237,7 @@
 						<alias attr-name="default-value" prop-name="defaultValue" />
 					</set-properties-rule>	
 	            </pattern>		            
-				<pattern value="entity-naming-convention">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityNamingConvention"/>		
-					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityNamingConvention"/>		
-					<set-properties-rule>
-						<alias attr-name="type" prop-name="type" />	
-						<alias attr-name="pattern-to-strip" prop-name="patternToStrip" />
-					</set-properties-rule>	
-	            </pattern>	            	                      
+            	                      
             </pattern>
 			<pattern value="package">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Package"/>		
