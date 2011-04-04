@@ -55,12 +55,7 @@ import $importDomainObjectUML;
 	@View(
 		name="base",
 		members=
-        "" 
-##foreach ($column in ${table.attributes})
-##putColumnParams()
-##columnJavaNaming()
-##        + " $columnVar ;" 	
-##end	
+        "" 	
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
@@ -88,13 +83,6 @@ import $importDomainObjectUML;
     @View(name="${domainVariableName}${defaultViewExt}", 
 	   members=
           "#foreach ($column in ${table.primaryKeyColumns}) #putColumnParams()$columnVar ;#end" 	
-##foreach ($column in ${table.attributes})
-##if (!$column.isLob())
-##putColumnParams()
-##columnJavaNaming()
-##        + " $columnVar ;" 
-##end
-##end
 #foreach ($columnGroup in $tableUtils.extractFieldGroup($tableUtils.getDisplayableAttributes($table), $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
@@ -143,7 +131,6 @@ public class ${className} {
 #columnJavaNaming()
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
-##    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
@@ -191,8 +178,6 @@ public class ${className} {
 #end
 #if ($columnUtils.hasStereotype($column))
     @Stereotype ("$column.stereotype.stereotype")
-##elseif ($presentationUtils.isTextArea($column))
-##    @Stereotype ("TEXT_AREA")
 #elseif ($presentationUtils.isRichText($column))
     @Stereotype ("HTML_TEXT")
 #end
@@ -212,9 +197,6 @@ public class ${className} {
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
 #end  
-##if ($isMandatory && !$table.isLinkEntity())
-##    @Required
-##end 
     @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
 #set($semanticReference = $linktableDB.semanticReference)
 #if ($openXavaUtils.hasDescriptionList($linktableDB)) 
@@ -276,7 +258,7 @@ public class ${className} {
 $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end ")
 #end
-    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet(); 
+    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
 #end
 #end
@@ -290,7 +272,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+    private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
 
@@ -350,17 +332,6 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
     }
 #end
 
-###foreach ($reference in $table.parents)
-###putReferenceParams2()
-##    public $linkedTableClass get${linkedTableClass} () {  //get$linkedTableVariable
-##    	return ${linkedTableVariable};//${localColumnVariable};
-##    }
-##	
-##   public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
-##    	this.${linkedTableVariable} = ${linkedTableVariable};//this.${localColumnVariable} = ${linkedTableVariable};
-##    }
-##    
-##end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeEnrichedPk($localColumn)
@@ -384,37 +355,41 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end 
 #end
 
-#foreach ($reference in $table.children)##$childReferences)
+#foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-    public Set<$linkedTableClass> get${linkedTableClass}${linkedColumnClass}s() {
-        if (${linkedTableVariable}${linkedColumnClass}s == null){
-            ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
+    public Set<$linkedTableClass> get${childrenListClass}() {
+        if (${childrenListVariable} == null){
+            ${childrenListVariable} = new HashSet<$linkedTableClass>();
         }
-        return ${linkedTableVariable}${linkedColumnClass}s;
+        return ${childrenListVariable};
     }
 
-    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s) {
-        this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
+    public void set${childrenListClass} (Set<$linkedTableClass> ${childrenListVariable}) {
+        this.${childrenListVariable} = ${childrenListVariable};
     }	
     
-    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
-    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedTableVariable);
+    public void add${childrenListClass} ($linkedTableClass ${linkedTableVariable}) {
+    	    get${childrenListClass}().add($linkedTableVariable);
     }
     
 #end    
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-    public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
-        if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
-            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+    public Set<$targetTableName> get${childrenListClass}() {
+        if (${childrenListVariable} == null){
+            ${childrenListVariable} = new HashSet<$targetTableName>();
         }
-        return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+        return ${childrenListVariable};
     }
 
-    public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
-        this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+    public void set${childrenListClass} (Set<$targetTableName> ${childrenListVariable}) {
+        this.${childrenListVariable} = ${childrenListVariable};
+    }
+    	
+    public void add${childrenListClass} ($targetTableName ${childrenListVariable}) {
+        get${childrenListClass}().add($childrenListVariable);
     }	
 
 #end

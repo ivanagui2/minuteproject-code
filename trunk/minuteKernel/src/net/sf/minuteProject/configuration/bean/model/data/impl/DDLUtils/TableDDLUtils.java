@@ -479,7 +479,7 @@ public class TableDDLUtils extends TableAbstract {
 		table.setType(type);		
 	}
 	
-	public String getAlias () {
-		return super.getAlias();
-	}
+//	public String getAlias () {
+//		return super.getAlias();
+//	}
 }
