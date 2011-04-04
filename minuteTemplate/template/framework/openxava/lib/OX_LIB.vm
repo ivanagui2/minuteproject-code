@@ -42,16 +42,16 @@
         members=
           "" 	
 #if(!$tableUtils.isReferenceDataContentType($table))        
-#foreach ($reference in $childReferences)
-#putReferenceParams()
+#foreach ($reference in $table.children)
+#putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-	    + "${link}${columnclass}s { ${link}${columnclass}s };" 
+	    + "${childrenListVariable} { ${childrenListVariable} };" //+ "${link}${columnclass}s { ${link}${columnclass}s };" 
 #end
 #end
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-	    + "${targetTableVariableName}Via${linkTableName}By${localColumnName}s;"
+	    + "${childrenListVariable};"
 #end
 #end
 

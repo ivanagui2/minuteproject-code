@@ -217,9 +217,8 @@ public class ${className} {
         this.${childrenListVariable} = ${childrenListVariable};
     }
     	
-    public void add${childrenListClass} ($linkedTableClass ${linkedTableVariable}) {
-        get${childrenListClass}().add($linkedTableVariable);
-    }
-    
+    public void add${childrenListClass} ($targetTableName ${childrenListVariable}) {
+        get${childrenListClass}().add($childrenListVariable);
+    }	    
 #end
 }

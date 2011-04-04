@@ -4,9 +4,11 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ddlutils.Platform;
 
 public class ConvertUtils {
 	
+	public static final String DB_TYPE_ORACLE                =   "ORACLE";
 	public static final String JAVA_BOOLEAN_TYPE 				=   "java.lang.Boolean";					
 	public static final String JAVA_LONG_TYPE 					=   "java.lang.Long";	
 	public static final String JAVA_DOUBLE_TYPE 				=   "java.lang.Double";			
@@ -58,7 +60,7 @@ public class ConvertUtils {
 		return getDBFullTypeFromUMLType(getUMLTypeFromDBFullType(type));
 	}	
 	
-	public static String getJavaTypeFromDBFullType (String dBType) {
+	public static String getJavaTypeFromDBFullType (String dBType, int size, String databaseType) {
 		String retStr=null;
 		if (dBType.equals("BOOLEAN"))
 			return  JAVA_BOOLEAN_TYPE;					
@@ -88,8 +90,11 @@ public class ConvertUtils {
 			return  JAVA_INTEGER_TYPE;	
 		if (dBType.equals("NUMERIC"))
 			return  JAVA_INTEGER_TYPE;		
-		if (dBType.equals("NUMBER"))
-			return  JAVA_LONG_TYPE;		
+		if (dBType.equals("NUMBER")) {
+			if (databaseType.equals(DB_TYPE_ORACLE) && size==1 )
+				return JAVA_BOOLEAN_TYPE;
+			return  JAVA_LONG_TYPE;
+		}
 		if (dBType.equals("DATE"))
 			return  JAVA_DATE_TYPE;
 		if (dBType.equals("TIMESTAMP"))
@@ -114,7 +119,7 @@ public class ConvertUtils {
 	public static String getJavaTypeFromDBFullType (Column column) {
 		if (column==null)
 			return null;
-		return getJavaTypeFromDBFullType(column.getType(), column.getScale());
+		return getJavaTypeFromDBFullType(column.getType(), column.getSizeAsInt(), column.getScale(), column.getTable().getDatabase().getType());
 	}
 	
 	public static String getJavaDefaultMask (Column column) {
@@ -132,8 +137,8 @@ public class ConvertUtils {
 		return "null";
 	}
 	
-	public static String getJavaTypeFromDBFullType (String dBType, int scale) {
-		String retStr=getJavaTypeFromDBFullType (dBType);		
+	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
+		String retStr=getJavaTypeFromDBFullType (dBType, size, databaseType);		
 		if (dBType.equals("DECIMAL")) {
 			if (scale==0)
 				return JAVA_LONG_TYPE;

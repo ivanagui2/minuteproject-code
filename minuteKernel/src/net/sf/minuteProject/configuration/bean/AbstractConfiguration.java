@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -21,6 +22,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	private List<Property> properties;
 	private GeneratorBean parent;
 	private String configurationFileInClassPath;
+	private boolean isAliasFormatted;
 	
 	public GeneratorBean getParent() {
 		return parent;
@@ -168,7 +170,15 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	public String getAlias() {
 		if (alias==null || alias.equals(""))
 			alias = getName();
+		if (!isAliasFormatted) {
+			isAliasFormatted = true;
+			alias = formatAlias(alias);
+		}
 		return alias;
+	}
+	
+	private String formatAlias(String alias) {
+		return StringUtils.upperCase(alias.replace(" ", "_"));
 	}
 	
 	public void setAlias(String alias) {
