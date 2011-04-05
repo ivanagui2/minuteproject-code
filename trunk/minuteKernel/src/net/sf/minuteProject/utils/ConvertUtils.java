@@ -108,7 +108,9 @@ public class ConvertUtils {
 		if (dBType.equals("NVARCHAR2"))
 			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("NVARCHAR"))
-			return  JAVA_STRING_TYPE;	
+			return  JAVA_STRING_TYPE;
+		if (dBType.equals("REAL"))
+			return  JAVA_LONG_TYPE;
 		
 		// to re implement when externalizing the mapping
 		if (dBType.equals("OTHER"))
