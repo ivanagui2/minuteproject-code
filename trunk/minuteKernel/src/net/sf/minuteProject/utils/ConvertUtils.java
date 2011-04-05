@@ -90,7 +90,7 @@ public class ConvertUtils {
 			return  JAVA_INTEGER_TYPE;	
 		if (dBType.equals("NUMERIC"))
 			return  JAVA_INTEGER_TYPE;		
-		if (dBType.equals("NUMBER")) {
+		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
 			if (databaseType.equals(DB_TYPE_ORACLE) && size==1 )
 				return JAVA_BOOLEAN_TYPE;
 			return  JAVA_LONG_TYPE;
@@ -109,8 +109,6 @@ public class ConvertUtils {
 			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("NVARCHAR"))
 			return  JAVA_STRING_TYPE;
-		if (dBType.equals("REAL"))
-			return  JAVA_LONG_TYPE;
 		
 		// to re implement when externalizing the mapping
 		if (dBType.equals("OTHER"))
