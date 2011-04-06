@@ -186,7 +186,7 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()),optional=false#end)
+    @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$linktableDB.isLinkEntity()),optional=false#end) //remove optional=false to aggragate
 #if ($isView)
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
