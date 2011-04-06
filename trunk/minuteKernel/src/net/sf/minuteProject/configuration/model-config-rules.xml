@@ -376,7 +376,7 @@
 						<alias attr-name="is-searchable" prop-name="searchable" />
 						<alias attr-name="stereotype" prop-name="stereotype" />		
 						<alias attr-name="comment" prop-name="comment" />
-						<alias attr-name="description" prop-name="description" />																	
+						<alias attr-name="description" prop-name="description" />																							
 					</set-properties-rule>
 					<pattern value="stereotype">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -384,6 +384,8 @@
 						<set-properties-rule>
 							<alias attr-name="name" prop-name="name" />
 							<alias attr-name="stereotype" prop-name="stereotype" />
+							<alias attr-name="is-calculated" prop-name="isCalculated" />
+							<alias attr-name="is-explicit" prop-name="isExplicit" />
 						</set-properties-rule>
 						<pattern value="formula">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Formula"/>		
