@@ -186,7 +186,7 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-    @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$linktableDB.isLinkEntity()),optional=false#end) //remove optional=false to aggragate
+    @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$linktableDB.isLinkEntity()),optional=false#end) //remove optional=false to aggragate but leads to a side effect when going directly to the entity: required check is not performed=> if no set DB check constraint is raised...
 #if ($isView)
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
@@ -205,6 +205,11 @@ public class ${className} {
        descriptionProperties=
 #foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
        "$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+#else "
+#end 
+       ,order=
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
+       "${$chunk} desc#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
 #else "
 #end 
 #end       
