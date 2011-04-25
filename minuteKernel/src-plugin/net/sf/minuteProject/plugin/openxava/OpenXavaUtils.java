@@ -55,7 +55,7 @@ public class OpenXavaUtils {
 		List<String> list = new ArrayList<String>();
 		for (Column column : table.getAttributes()) {
 			if (!column.isLob())
-				list.add(FormatUtils.getJavaNameVariable(column.getName()));
+				list.add(FormatUtils.getJavaNameVariable(column.getAlias()));
 		}
 		return list;
 	}
@@ -76,7 +76,7 @@ public class OpenXavaUtils {
 				if (TableUtils.hasSemanticReference(parent)) {
 					SemanticReference sr = reference.getForeignTable().getSemanticReference();
 					for (String chunk : sr.getSemanticReferenceBeanPath()) {
-						String c = FormatUtils.getJavaNameVariable(reference.getLocalColumnName());
+						String c = FormatUtils.getJavaNameVariable(reference.getLocalColumn().getAlias());
 						if (addChunk) c = c+"."+chunk;
 						list.add(c);
 						break; // only the first is added
@@ -124,7 +124,7 @@ public class OpenXavaUtils {
 	}
 	
 	public static String getControllerName (Table table) {
-		return FormatUtils.getJavaName(table.getName())+"Controller";
+		return FormatUtils.getJavaName(table.getAlias())+"Controller";
 	}
 	
 	public static String getModuleUrlRelativeViaParameter (String application, String module) {
