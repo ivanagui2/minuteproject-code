@@ -206,15 +206,16 @@ public class ${className} {
 #foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
        "$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
 #else "
+#end
 #end 
        ,order=
-#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
-       "${$chunk} desc#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+#foreach ($chunk in $semanticReference.semanticReferenceSqlPath) 
+       "$chunk desc #if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
 #else "
-#end 
+#end
 #end       
     )
-#else
+#else 
     @DescriptionsLists({
        @DescriptionsList(
          forTabs="${className}TabWithRef", 
@@ -397,5 +398,9 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
         get${childrenListClass}().add($childrenListVariable);
     }	
 
+#end
+
+#if ($tableUtils.hasTrigger($table))
+//   @Prepersist
 #end
 }
