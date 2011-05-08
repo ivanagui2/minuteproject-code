@@ -334,17 +334,21 @@ public class TableUtils {
 		}
 		return (Column[])columns.toArray(new Column[columns.size()]);
 	}
+
 	public static boolean hasChild(Table table, String targetTableName) {
 		for (Reference reference : table.getChildren()) {
-//			System.out.println("reference.getForeignTableName()="+reference.getForeignTableName()+" for table "+table.getName()+ " - "+targetTableName);
 			if (reference.getForeignTableName().equals(targetTableName))
 				return true;
 		}
 		return false;
 	}
 	
-//	public static List<Action> getActions (Table table) {
-//		List<Action> actions = new ArrayList<Action>();
-//		return actions;
-//	}
+	public static boolean hasTrigger(Table table) {
+		for (Column column : table.getColumns()) {
+			if (ColumnUtils.hasTrigger(column))
+				return true;
+		}
+		return false;
+	}
+
 }

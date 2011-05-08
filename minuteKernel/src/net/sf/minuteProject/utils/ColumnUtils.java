@@ -156,5 +156,9 @@ public class ColumnUtils {
 			return true;
 		return false;		
 	}
+
+	public static boolean hasTrigger(Column column) {
+		return column.getTriggers()!=null && column.getTriggers().size()>0;
+	}
 	
 }

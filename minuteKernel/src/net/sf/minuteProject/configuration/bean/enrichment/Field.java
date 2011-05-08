@@ -1,5 +1,8 @@
 package net.sf.minuteProject.configuration.bean.enrichment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 
 public class Field extends AbstractConfiguration {
@@ -9,9 +12,10 @@ public class Field extends AbstractConfiguration {
 	private String bidirectional;
 	private Stereotype stereotype;
 	private String type, length;
-	private boolean isMandatory, isId, isSearchable;
+	private boolean isMandatory, isId, isSearchable, isEditable;
+	private List<Trigger> triggers;
 
-	private boolean isBidirectional () {
+	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
 			return true;
 		return false;
@@ -104,6 +108,27 @@ public class Field extends AbstractConfiguration {
 
 	public void setSearchable(boolean isSearchable) {
 		this.isSearchable = isSearchable;
+	}
+
+	public boolean isEditable() {
+		return isEditable;
+	}
+
+	public void setEditable(boolean isEditable) {
+		this.isEditable = isEditable;
+	}
+
+	public List<Trigger> getTriggers() {
+		if (triggers==null) triggers = new ArrayList<Trigger>();
+		return triggers;
+	}
+
+	public void setTriggers(List<Trigger> triggers) {
+		this.triggers = triggers;
+	}
+	
+	public void addTrigger (Trigger trigger) {
+		getTriggers().add(trigger);
 	}
 	
 }

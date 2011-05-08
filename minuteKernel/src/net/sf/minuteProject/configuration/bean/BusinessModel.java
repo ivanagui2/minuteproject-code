@@ -295,6 +295,7 @@ public class BusinessModel {
 		column.setComment(field.getComment());
 		column.setSearchable(field.isSearchable());
 		column.setAlias(field.getAlias());
+		column.setTriggers(field.getTriggers());
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {
