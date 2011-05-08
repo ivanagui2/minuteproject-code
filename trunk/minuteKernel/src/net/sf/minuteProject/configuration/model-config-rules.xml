@@ -373,7 +373,8 @@
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="length" prop-name="length" />	
 						<alias attr-name="is-mandatory" prop-name="isMandatory" />	
-						<alias attr-name="is-searchable" prop-name="searchable" />
+						<alias attr-name="is-searchable" prop-name="isSearchable" />
+						<alias attr-name="is-editable" prop-name="isEditable" />
 						<alias attr-name="stereotype" prop-name="stereotype" />		
 						<alias attr-name="comment" prop-name="comment" />
 						<alias attr-name="description" prop-name="description" />																							
@@ -397,7 +398,33 @@
 							</set-properties-rule>
 						</pattern>
 					</pattern>
-							
+					<pattern value="triggers/trigger">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Trigger"/>		
+						<set-next-rule methodname="addTrigger" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Trigger"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="action" prop-name="action" />
+							<alias attr-name="className" prop-name="className" />
+						</set-properties-rule>
+						<pattern value="property">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+							<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="tag" prop-name="tag" />
+								<alias attr-name="value" prop-name="value" />
+							</set-properties-rule>
+							<pattern value="property">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+								<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="value" prop-name="value" />
+									<alias attr-name="tag" prop-name="tag" />
+								</set-properties-rule>
+							</pattern>							
+						</pattern>
+					</pattern>							
 					<pattern value="property">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
 						<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	

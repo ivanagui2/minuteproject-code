@@ -1,7 +1,11 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
+import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -14,6 +18,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	private Stereotype stereotype;
 	private Boolean isVersion, isSearchable;
 	private Integer minLength;
+	private List<Trigger> triggers;
 	
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
@@ -446,4 +451,14 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	public void setSearchable(boolean isSearchable) {
 		this.isSearchable = isSearchable;
 	}
+	
+	public List<Trigger> getTriggers() {
+		if (triggers==null) triggers = new ArrayList<Trigger>();
+		return triggers;
+	}
+
+	public void setTriggers(List<Trigger> triggers) {
+		this.triggers = triggers;
+	}
+	
 }

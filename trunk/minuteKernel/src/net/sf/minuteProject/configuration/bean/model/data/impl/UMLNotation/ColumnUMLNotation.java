@@ -16,14 +16,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setAlias(column.getAlias());
 		setComment(column.getComment());
 		setDescription(column.getDescription());
+		setTriggers(column.getTriggers());
 	}
-//	
-//    public String getName() {
-//    	return super.getName();
-//    }
-    
-//    public String getGeneratedBeanName() {
-//    	return super.getGeneratedBeanName();
-//    }
-    
+
 }

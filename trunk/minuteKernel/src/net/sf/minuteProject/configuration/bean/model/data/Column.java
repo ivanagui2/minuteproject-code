@@ -1,8 +1,10 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.io.Serializable;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 
 /**
  * Represents a column in the database model.
@@ -46,8 +48,13 @@ public interface Column extends BaseColumn
     
     public void setVersion(boolean isVersion);
     
-	public void setSearchable(boolean isSearchable);
+	 public void setSearchable(boolean isSearchable);
 	
-	public boolean isSearchable();
+	 public boolean isSearchable();
+	 
+	 public List<Trigger> getTriggers();
+	 
+	 public  void setTriggers(List<Trigger> triggers);
+	 
 }
 
