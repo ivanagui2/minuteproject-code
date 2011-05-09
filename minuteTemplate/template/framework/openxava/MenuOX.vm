@@ -12,6 +12,10 @@
       <a href="/$applicationOX/xava/homeMenu.jsp" ><img src="/$applicationOX/xava/images/home.gif"></a>
     </span>
   	<span id="menuPowerByMP">
+#getTemplatePropertyValue("add-spring-security")
+#if ($value.equals("true"))  	
+  	  <span id="logout"><a href="../j_spring_security_logout">Logoff</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+#end
       <a href="http://minuteproject.wikispaces.com" >powered by minuteProject</a>
     </span>		
 </div>
@@ -30,6 +34,10 @@
 #set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
 #if(!$displayableEntities.isEmpty())
 #set($packageLabel=$openXavaUtils.getPackageName($package))
+#if($entitySecurityUtils.isEntityRoleSecured($package))
+#set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
+<mp:isUserInRole role="${roles}">
+#end
     <li class="topitem">
       <a href="#" onclick="return false;">
 #if ($displayUtils.hasIcon($package))
@@ -59,9 +67,16 @@
 ##end
 	  </ul>
 	</li>
+#if($entitySecurityUtils.isEntityRoleSecured($package))	
+</mp:isUserInRole>	
+#end
 #end
 #foreach ($package in ${businessPackageViews})
 #set($packageLabel=$formatUtils.getJavaName(${package.name}))
+#if($entitySecurityUtils.isEntityRoleSecured($package))
+#set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
+<mp:isUserInRole role="${roles}">
+#end
     <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
 	  <ul class="submenu">
 #foreach ($table in ${package.listOfViews})
@@ -73,6 +88,9 @@
 #end
 	  </ul>
 	</li>
+#if($entitySecurityUtils.isEntityRoleSecured($package))	
+</mp:isUserInRole>	
+#end
 #end
   </ul>
   </div>
