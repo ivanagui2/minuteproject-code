@@ -357,6 +357,10 @@ public class EnrichmentUtils {
 		return false;
 	}
 	
+	public static boolean isToGenerateBasedOnTargetPresence(Template template, GeneratorBean bean) {
+		return (template.getPropertyValue(template.getPropertyValue("target-presence"))!=null)?true:false;
+	}
+	
 	public static boolean isToGenerateBasedOnTagAndNotMany2Many(Template template, GeneratorBean bean) {
 		if (bean instanceof Table) {
 			Table table = (Table) bean;

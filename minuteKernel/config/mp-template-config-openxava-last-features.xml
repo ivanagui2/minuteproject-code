@@ -410,19 +410,22 @@
 								
 	</template-target>	
 	
-	<!-- no more needed 
 	<template-target 
-    	name="OpenXava 4.m5 patches"
-    	outputdir="web/xava"
-		package-root="">	
+    	name="Spring security integration"
+		outputdir="web/WEB-INF"
+		package-root=""
+		belongToPackage="true">			
 
-		<template package-root=""
-			name="OXReferenceJsp" templateFileName="OXReferenceJsp.vm" 
+		<template 
+			name="OXservletSpringSecurityXml" templateFileName="OXservletSpringSecurityXml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
-			file-extension="jsp" file-prefix="reference" file-suffix="" 
-			application-specific="true">
+			file-extension="xml" file-prefix="" file-suffix="servlets" 
+			entity-specific="false" package-specific="false" model-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnTargetPresence">
+			>
+			<property name="target-presence" value="add-spring-security"></property>
 		</template>	
-								
+
 	</template-target>		
-		-->	
+
 </target>

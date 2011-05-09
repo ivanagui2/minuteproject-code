@@ -155,6 +155,7 @@ public abstract class AbstractGenerator implements Generator {
 		target2.setCanonicalDir(target.getCanonicalDir());
 		target2.setOutputdirRoot(target.getOutputdirRoot());
 		target2.setTemplatedirRoot(target.getTemplatedirRoot());
+		target2.getProperties().addAll(target.getProperties());
 		target.setAbstractConfigurationRoot(abstractConfigurationRoot);
 	}
 	
