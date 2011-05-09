@@ -76,6 +76,11 @@ public class Template extends TemplateTarget {
 		this.setTemplateTarget(templateTarget);
 		this.setRootdir(templateTarget.getRootdir());
 	}
+
+	public String getPropertyValue(String name) {
+		String s = super.getPropertyValue(name);
+		return (s!=null)?s:templateTarget.getPropertyValue(name);
+	}
 	
 	public TemplateTarget getTemplateTarget() {
 		return templateTarget;

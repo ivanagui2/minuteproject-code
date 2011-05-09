@@ -581,7 +581,15 @@
 	   	<bean-property-setter-rule pattern="refname"/>	 
 	   	<bean-property-setter-rule pattern="name"/>	 
 	   	<bean-property-setter-rule pattern="dir"/>	 
-	   	<bean-property-setter-rule pattern="fileName"/>	  
+	   	<bean-property-setter-rule pattern="fileName"/>	
+		<pattern value="property">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+			<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+			<set-properties-rule>
+				<alias attr-name="name" prop-name="name" />
+				<alias attr-name="value" prop-name="value" />
+			</set-properties-rule>
+		</pattern>		   	  
 	  </pattern>	
   </pattern>    
   <pattern value="target">
@@ -594,7 +602,15 @@
    	<bean-property-setter-rule pattern="refname"/>	 
    	<bean-property-setter-rule pattern="name"/>	 
    	<bean-property-setter-rule pattern="dir"/>	 
-   	<bean-property-setter-rule pattern="fileName"/>	  
+   	<bean-property-setter-rule pattern="fileName"/>	 
+	<pattern value="property">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+		<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+		<set-properties-rule>
+			<alias attr-name="name" prop-name="name" />
+			<alias attr-name="value" prop-name="value" />
+		</set-properties-rule>
+	</pattern>		   	 
   </pattern>
  </pattern>
 </digester-rules>

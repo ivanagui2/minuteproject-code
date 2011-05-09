@@ -47,6 +47,7 @@ public class Target extends AbstractConfiguration{
 				}
 			}
 		}
+		getProperties().addAll(target.getProperties());
 		getPlugins().addAll(target.getPlugins());
 	}
 	

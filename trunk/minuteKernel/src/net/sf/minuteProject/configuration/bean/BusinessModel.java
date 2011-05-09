@@ -167,17 +167,25 @@ public class BusinessModel {
 	}
 
 	private void complementPackage(Package pack, Model model) {
-		for (net.sf.minuteProject.configuration.bean.Package p : model.getBusinessModel().getBusinessPackage().getPackages()) {
+		complementPackage(pack, model.getBusinessModel().getBusinessPackage().getPackages());
+		complementPackage(pack, model.getBusinessModel().getBusinessPackage().getPackageViews());
+	}
+
+	private void complementPackage(Package pack, List<net.sf.minuteProject.configuration.bean.Package> packs) {
+		for (net.sf.minuteProject.configuration.bean.Package p : packs) {
 			if (p.getName().equals(pack.getName()))
 				complementPackage (p, pack);
 			complementPackageGroup(p, pack);
 		}
 	}
-
+	
 	private void complementPackage(net.sf.minuteProject.configuration.bean.Package p, Package pack) {
-		p.setSecurityColor (pack.getSecurityColor());
 		p.setAlias(pack.getAlias());
 		p.setGroups(pack.getEntityGroups());
+		p.setSecurityColor (pack.getSecurityColor());
+		for (Table table : p.getListOfEntities()) {
+			table.setEntitySecuredAccess(pack.getSecurityColor());
+		}
 	}
 	
 	private void complementPackageGroup (net.sf.minuteProject.configuration.bean.Package p, Package pack) {

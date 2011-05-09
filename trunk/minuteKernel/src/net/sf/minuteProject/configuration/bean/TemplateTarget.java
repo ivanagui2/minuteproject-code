@@ -21,6 +21,13 @@ public class TemplateTarget extends AbstractConfiguration{
 	private boolean belongToPackage;
 	private Boolean isGenerable;
 	
+	public String getPropertyValue(String name) {
+		String s = super.getPropertyValue(name);
+		if (s!=null) return s;
+		if (target!=null) return target.getPropertyValue(name);
+		return null;
+	}
+	
 	public String getPackageRoot() {
 		if (packageRoot==null && getTarget()!=null){
 			Configuration configuration = (Configuration) getTarget().getAbstractConfigurationRoot();

@@ -287,7 +287,8 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 	
 	protected void generateArtifactsByModel(Template template) throws MinuteProjectException {
-		writeTemplateResult(getModel(), template);
+		if (isToGenerate(getModel(), template))
+			writeTemplateResult(getModel(), template);
 	}
 
 	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
@@ -307,13 +308,13 @@ public class ModelGenerator extends AbstractGenerator {
 	protected void generateArtifactsByField(Template template, Table table) throws MinuteProjectException{
 		table = getDecoratedTable(table);
 		for (Column column : table.getColumns()) {
-			boolean isToGenerate = true;
-    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-    			if (!template.isToGenerate(column)) {
-    				isToGenerate =false;
-    			}
-    		} 
-    		if (isToGenerate)
+//			boolean isToGenerate = true;
+//    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+//    			if (!template.isToGenerate(column)) {
+//    				isToGenerate =false;
+//    			}
+//    		} 
+    		if (isToGenerate(table, template))
 			   writeTemplateResult(column, template);
 		}
 	}
@@ -341,14 +342,24 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByEntity(Table table, Template template) throws MinuteProjectException {	
 		table = getDecoratedTable(table);
-		boolean isToGenerate = true;
-		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-			if (!template.isToGenerate(table)) {
-				isToGenerate =false;
-			}
-		} 
-		if (isToGenerate)
+//		boolean isToGenerate = true;
+//		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+//			if (!template.isToGenerate(table)) {
+//				isToGenerate =false;
+//			}
+//		} 
+//		if (isToGenerate)
+		if (isToGenerate(table, template))
 		   writeTemplateResult(table, template);		
+	}
+	
+	private boolean isToGenerate (GeneratorBean bean, Template template) {
+		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+			if (!template.isToGenerate(bean)) {
+				return false;
+			}
+		} 	
+		return true;
 	}
 
 	protected void generateArtifactsByService(Template template) throws MinuteProjectException {	
