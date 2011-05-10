@@ -165,7 +165,7 @@ public class ${className} {
 #end
 #foreach ($property in $column.getPropertiesArray())
 #if($property.tag=="checkconstraint")
-    @Editor(forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}ComboEditor")
+    @Editor(forViews="base,Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}ComboEditor")
 #end
 #end
 #if ($column.isLob())

@@ -73,7 +73,7 @@
 #if(!$table.actions.isEmpty())
 #exposeVariableEntitySpecific()
 #set($controllerName=$openXavaUtils.getControllerName($table))
-	<controller name="$controllerName"/>
+	<controller name="$controllerName">
 #foreach ($action in $table.actions)
 #exposeOXActionSpecific()	
 #set($actionName=$openXavaUtils.getActionClassName($action))
