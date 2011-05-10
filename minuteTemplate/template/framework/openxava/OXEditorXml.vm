@@ -1,11 +1,5 @@
-<?xml version = "1.0" encoding = "ISO-8859-1"?>
- 
-<!DOCTYPE editors SYSTEM "dtds/editors.dtd">
- 
-<editors>
-#exposeVariableModelDetailSpecific()
-#foreach($package in $businessPackages)
-#foreach($table in $package.listOfTables)
+#macro (editor $list)
+#foreach($table in $list)
 #exposeVariableEntitySpecific()
 #foreach($column in $table.columns)
 #putColumnParams()
@@ -23,4 +17,23 @@
 #end
 #end
 #end
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+ 
+<!DOCTYPE editors SYSTEM "dtds/editors.dtd">
+ 
+<editors>
+
+#exposeVariableModelDetailSpecific()
+#foreach($package in $businessPackages)
+#editor($package.listOfTables)
+#end
+
+#foreach($package in $businessPackageViews)
+#editor($package.listOfViews)
+#end
+
+#foreach($package in $businessPackageTranferEntities)
+#editor($package.listOfTables)
+#end
+
 </editors>

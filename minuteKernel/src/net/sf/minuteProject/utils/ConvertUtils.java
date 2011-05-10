@@ -5,6 +5,7 @@ import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ddlutils.Platform;
+import org.apache.log4j.Logger;
 
 public class ConvertUtils {
 	
@@ -34,6 +35,8 @@ public class ConvertUtils {
 	public static final String UML_STRING_TYPE 					=   "string";	
 	public static final String UML_INTEGER_TYPE 				=   "integer";	
 	public static final String UML_LONG_TYPE 					=   "decimal";	
+	
+	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	
 	public static String getDBFullTypeFromUMLType (String type) {
 		if (type==null) return DB_STRING_TYPE;
@@ -153,6 +156,11 @@ public class ConvertUtils {
 	}
 	
 	public static String getJavaTypeClassFromDBType (String dBType, int scale) {
+		if (dBType==null){
+			String s = "ERROR column dBType is null";
+			logger.error(s);
+			return s;
+		}
 		if (dBType.equals("BOOLEAN"))
 			return  "Boolean";	
 		if (dBType.equals("NUMERIC"))

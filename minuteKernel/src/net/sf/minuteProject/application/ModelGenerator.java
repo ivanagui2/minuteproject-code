@@ -302,6 +302,9 @@ public class ModelGenerator extends AbstractGenerator {
 		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
 			generateArtifactsByField(template, table);
 		}
+		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
+			generateArtifactsByField (template, table);
+		}		
 	}
 	
 
@@ -314,7 +317,7 @@ public class ModelGenerator extends AbstractGenerator {
 //    				isToGenerate =false;
 //    			}
 //    		} 
-    		if (isToGenerate(table, template))
+    		if (isToGenerate(column, template))
 			   writeTemplateResult(column, template);
 		}
 	}
