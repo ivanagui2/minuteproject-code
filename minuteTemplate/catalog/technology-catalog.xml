@@ -6,7 +6,7 @@
          template-config-file-name="mp-template-config-JPA2.xml" 
          default-outputdir="JPA2"
          depends-on-targets="BSLA_LIB" 
-         template-dir="../template/framework/jpa" 
+         template-dir="@templateRoot@/framework/jpa" 
          status="released"
          description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
 	      <frameworks>
@@ -17,7 +17,7 @@
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
          template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
          default-outputdir="bslaSpringHibernate"
-         template-dir="../template/framework/bsla" 
+         template-dir="@templateRoot@/framework/bsla" 
          status="released"
          description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
 	      <frameworks>
@@ -30,7 +30,7 @@
 	<technology name="Maven Spring JPA/Hibernate" 
 	   template-config-file-name="mp-template-config-bsla-JPA-last-features.xml" 
 	   default-outputdir="bslaSpringJPAHibernate"
-	   template-dir="../template/framework/bsla"
+	   template-dir="@templateRoot@/framework/bsla"
 	   status="released"
 	   description="Generates Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 	      <frameworks>
@@ -44,7 +44,7 @@
 	<technology name="FitNesse" 
 	   template-config-file-name="mp-template-config-fitnesse.xml" 
 	   default-outputdir="fitnesse"
-	   template-dir="../template/framework/bsla"
+	   template-dir="@templateRoot@/framework/bsla"
 	   status="released"
 	   description="Generates FitNesse fixtures and wiki artifacts to perform CRUD operations on your backend. 
 	   \Generates setup fixture to set the connection pool and reset database data.">
@@ -57,25 +57,25 @@
 
 	<technology name="BSLA_LIB" target-name="BSLA_LIB"
 	   template-config-file-name="mp-template-config-bsla-LIB-features.xml" 
-	   template-dir="../template/framework/bsla"
+	   template-dir="@templateRoot@/framework/bsla"
 	   is-generable="false">
 	</technology> 	
 	
 	<technology name="JQUERY_LIB" target-name="JQUERY_LIB"
 	   template-config-file-name="mp-template-config-jquery-features.xml" 
-	   template-dir="../template/framework/jquery"
+	   template-dir="@templateRoot@/framework/jquery"
 	   is-generable="false">
 	</technology> 	
 	
 	<technology name="JPA2_LIB" target-name="JPA2_LIB"
 	   template-config-file-name="mp-template-config-jquery-features.xml" 
-	   template-dir="../template/framework/jpa"
+	   template-dir="@templateRoot@/framework/jpa"
 	   is-generable="false">
 	</technology> 		
 
 	<technology name="Spring Hibernate Standard" 
      		template-config-file-name="mp-template-config-hibernate.xml"
-     		template-dir="../template/framework/bsla"
+     		template-dir="@templateRoot@/framework/bsla"
      		default-outputdir="springHibernate"
      		status="released"
      		description="Generates Spring Hibernate backend and DAO layer.">
@@ -88,7 +88,7 @@
 	<technology name="Spring iBatis Standard"  
 		template-config-file-name="mp-template-config-ibatis.xml" 
 		default-outputdir="springIbatis"
-		template-dir="../template/framework/bsla"
+		template-dir="@templateRoot@/framework/bsla"
 		status="released"
 		description="Generates Spring iBatis backend and DAO layer.">
 	      <frameworks>
@@ -100,7 +100,7 @@
 	<technology name="Spring JPA Standard" 
 		template-config-file-name="mp-template-config-jpa.xml" 
 		default-outputdir="springJpa"
-		template-dir="../template/framework/bsla"
+		template-dir="@templateRoot@/framework/bsla"
 		status="released"
 		description="Generates Spring JPA/Hibernate backend and DAO layer.">
 	      <frameworks>
@@ -113,7 +113,7 @@
 	 <technology name="OpenXava" 
          template-config-file-name="mp-template-config-openxava-last-features.xml" 
          default-outputdir="openxava"
-         template-dir="../template/framework/openxava" 
+         template-dir="@templateRoot@/framework/openxava" 
          depends-on-targets="BSLA_LIB,JPA2_LIB" 
          status="released"
          comment=""
@@ -126,7 +126,7 @@
 	 <technology name="Grails" 
         template-config-file-name="mp-template-config-grails-last-features.xml" 
         default-outputdir="grails"
-        template-dir="../template/framework/grails" 
+        template-dir="@templateRoot@/framework/grails" 
         depends-on-targets="BSLA_LIB,JPA2_LIB,JQUERY_LIB" 
         status="released"
         comment=""
@@ -151,7 +151,7 @@
 	 <technology name="Play" 
          template-config-file-name="mp-template-config-play-last-features.xml" 
          default-outputdir="play"
-         template-dir="../template/framework/play" 
+         template-dir="@templateRoot@/framework/play" 
          depends-on-targets="BSLA_LIB,JPA2_LIB,JQUERY_LIB" 
          status="released"
          comment=""
@@ -170,7 +170,7 @@
 	 <technology name="Vaadin" 
 	   template-config-file-name="mp-template-config-vaadin-last-features.xml" 
 	   default-outputdir="vaadin"
-	   template-dir="../template/framework/vaadin"
+	   template-dir="@templateRoot@/framework/vaadin"
 	   depends-on-targets="MVN_SPRING_HIBERNATE_LAST" 
 	   status="draft"
 	   description="Generates Vaadin Front end on top of a Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
@@ -184,7 +184,7 @@
 	   name="Roo" 
 	   template-config-file-name="mp-template-config-roo-last-features.xml" 
 	   default-outputdir="roo"
-	   template-dir="../template/framework/roo"
+	   template-dir="@templateRoot@/framework/roo"
 	   status="draft"
 	   description="Generates Roo backend artifacts">
 	      <frameworks>
