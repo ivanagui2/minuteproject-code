@@ -1,5 +1,5 @@
-<target name="Grails">		
-	<architecture-target name="openxava" description="openxava architecture">
+<target name="Play">		
+	<architecture-target name="play" description="play architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>

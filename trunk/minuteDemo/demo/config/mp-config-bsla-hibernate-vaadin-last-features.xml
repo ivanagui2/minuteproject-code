@@ -42,6 +42,12 @@
 			   outputdir-root="../output/vaadin/petshopVaadin"
 			   templatedir-root="../../template/framework/vaadin">
 			</target> 				
+			<target refname="MavenMaster" 
+			   name="maven" 
+			   fileName="mp-template-config-maven.xml" 
+			   outputdir-root="../output/vaadin"
+			   templatedir-root="../../template/framework/maven">
+			</target> 
 		</targets>
 	</configuration>
 </generator-config>
