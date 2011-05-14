@@ -7,8 +7,20 @@
 	<plugin name="cacheUtils" className="net.sf.minuteProject.utils.cache.CacheUtils"></plugin>
 	<plugin name="referenceDataUtils" className="net.sf.minuteProject.plugin.data.ReferenceDataUtils"></plugin>
 	<plugin name="restrictedCodeUtils" 	className="net.sf.minuteProject.utils.code.RestrictedCodeUtils"></plugin>
-	
+	<plugin name="testUtils" 	className="net.sf.minuteProject.utils.TestUtils"></plugin>	
 
+	<template-target 
+		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
+		tool="velocity"
+		outputdir="src-overwritten/main/resources"
+		package-root="">	
+		<template name="MavenOverwrittenReadMe" templateFileName="MavenOverwrittenReadMe.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="txt" file-prefix="" file-suffix="README" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>					
+	</template-target>
+	
 	<template-target 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
