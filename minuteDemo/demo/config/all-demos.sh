@@ -18,3 +18,4 @@ echo "incubator generations"
 ./demo-last-features-roo.sh
 ./demo-last-features-grails.sh
 ./demo-last-features-play.sh
+./demo-solr.sh

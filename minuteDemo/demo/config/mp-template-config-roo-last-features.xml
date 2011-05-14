@@ -1,4 +1,4 @@
-<target name="OpenXava">		
+<target name="Roo">		
 	<architecture-target name="openxava" description="openxava architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
@@ -39,7 +39,31 @@
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="showShellCommand" value="true"/>
 		</template>	
-					
+
+		<template name="RooVaadinBuildCommandWindows" templateFileName="RooVaadinBuildCommandWindows.vm" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="build-" file-suffix="-roo-vaadin" 
+			model-specific="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="showShellCommand" value="true"/>
+		</template>	
+		
+		<template name="RooVaadinCommand" templateFileName="RooVaadinCommand.vm" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="" file-suffix="-roo-vaadin" 
+			model-specific="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="showShellCommand" value="true"/>
+		</template>	
+		
+		<template name="RooVaadinCommand" templateFileName="RooVaadinCommand.vm" 
+			add-model-dir-name="false"
+			file-extension="sh" file-prefix="" file-suffix="-roo-vaadin" 
+			model-specific="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="showShellCommand" value="true"/>
+		</template>	
+							
 	</template-target>
 	
   	<template-target 
@@ -51,12 +75,15 @@
 		<template name="RooEntityAj" templateFileName="RooEntityAj.vm" 
 			file-extension="aj" file-suffix="_Roo_Entity" technicalPackage="domain"
 			entity-specific="true"
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			check-template-to-generate="true" 
+			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
+      
 		<template name="RooDomainObject" templateFileName="RooDomainObject.vm" 
 			file-extension="java" file-suffix="" technicalPackage="domain"
-			entity-specific="true" is-to-generate="false" check-template-to-generate="true">
+			entity-specific="true" is-to-generate="false" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>		
 		
 		<template name="RooEntityToStringAj" templateFileName="RooEntityToStringAj.vm" 
@@ -67,7 +94,6 @@
 											
 	</template-target>	
 
-<!--
   	<template-target 
     	name="Roo backend"
 		outputdir="roo-with-console/src-generated/main/resources"
@@ -82,7 +108,7 @@
 		</template>	
 									
 	</template-target>	
--->
+
   	<template-target 
     	name="Roo backend"
 		outputdir="roo-with-console/"
