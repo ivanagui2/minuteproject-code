@@ -161,12 +161,13 @@
 	</target>
 		
 	<target name="copy-template-dependencies">
-	  <copy todir="${catalog.dir}" overwrite="true">
+	  <filter token="templateRoot" value="${templateRoot}"/>
+	  <copy todir="${catalog.dir}" overwrite="true" filtering="true">
 	 	<fileset dir="${catalog.dev.relpath}">
 	 		<include name="**/*.xml"/>	 		
 	 	</fileset>
 	  </copy>
-	  <copy todir="${template.framework.dir}" overwrite="true">
+	  <copy todir="${template.framework.dir}" overwrite="true" >
 	 	<fileset dir="${template2.dev.relpath.framework}">
 	 		<include name="**/*.vm"/>		
 	 	</fileset>
