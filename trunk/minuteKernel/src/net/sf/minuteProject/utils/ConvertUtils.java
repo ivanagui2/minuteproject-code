@@ -29,6 +29,7 @@ public class ConvertUtils {
 	public static final String DB_INTEGER_TYPE 					=   "INTEGER";	
 	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
 	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
+	public static final String DB_TIMESTAMPZ_TYPE 				=   "TIMESTAMPZ";
 	public static final String DB_DATE_TYPE 					=   "DATE";
 	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
 	
@@ -102,6 +103,8 @@ public class ConvertUtils {
 			return  JAVA_DATE_TYPE;
 		if (dBType.equals("TIMESTAMP"))
 			return  JAVA_TIMESTAMP_TYPE;	
+		if (dBType.equals("TIMESTAMPZ"))
+			return  JAVA_TIMESTAMP_TYPE;		
 		if (dBType.equals("BLOB"))
 			return  JAVA_BLOB_TYPE;	
 		if (dBType.equals("BINARY"))
