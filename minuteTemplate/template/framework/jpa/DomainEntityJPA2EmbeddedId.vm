@@ -1,0 +1,66 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+package $packageName;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+import javax.persistence.*;
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: Embedded Id describing a ${className} entity primary key</p>
+ *
+ */
+@Embeddable
+public class ${className} {
+
+#foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
+#putColumnParams()
+#columnJavaNaming()
+    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end ,#if($column.isRequired())nullable=false#else nullable=true#end)
+    private $columnType $columnVar;
+
+#end
+#foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
+#putColumnParams()
+#columnJavaNaming()
+    public $columnType get$columnClass() {
+        return $columnVar;
+    }
+	
+    public void set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+    }
+    
+#end
+#foreach($column in $tableUtils.getPrimaryKeyAndForeignKeyColumnsAndNotPartOfCompositeForeignKey($table))
+#putColumnParams()
+#columnJavaNaming()
+    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end ,#if($column.isRequired())nullable=false#else nullable=true#end)
+    private $columnType $columnVar;
+
+#end
+#foreach($column in $tableUtils.getPrimaryKeyAndForeignKeyColumnsAndNotPartOfCompositeForeignKey($table))
+#putColumnParams()
+#columnJavaNaming()
+    public $columnType get$columnClass() {
+        return $columnVar;
+    }
+	
+    public void set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+    }
+    
+#end
+#foreach ($foreignkey in $tableUtils.getParentCompositeForeignInPrimaryKey($table))
+//pattern not implemented yet $foreignkey
+#end
+
+}

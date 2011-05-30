@@ -24,6 +24,11 @@ import javax.persistence.*;
 @Table (name="${table.name}")
 public class ${className} {
 
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    @EmbeddedId
+    private ${embeddedIdClass} $embeddedIdVariable;
+    
+#else
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -50,6 +55,7 @@ public class ${className} {
     private $columnType $columnVar;
 
 #end
+#end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
@@ -70,8 +76,12 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#if ($referenceUtils.isReferenceInPrimaryKey($reference))
+    @MapsId ("$localColumnName")
+## @MapsId
+#end
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
-    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false #end) 
+    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false #end) 
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
 #set($colVar = ${localColumnVariable})
@@ -130,7 +140,17 @@ public class ${className} {
 		);
     }
     
-#end    
+#end   
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    public $embeddedIdClass get$embeddedIdClass() {
+        return $embeddedIdVariable;
+    }
+	
+    public void set$embeddedIdClass ($embeddedIdClass $embeddedIdVariable) {
+        this.$embeddedIdVariable =  $embeddedIdVariable;
+    }
+    
+#else 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -142,6 +162,7 @@ public class ${className} {
         this.$columnVar =  $columnVar;
     }
     
+#end
 #end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
