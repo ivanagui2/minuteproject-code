@@ -3,6 +3,7 @@ package net.sf.minuteProject.utils;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ForeignKeyDDLUtils;
@@ -26,5 +27,15 @@ public class ForeignKeyUtils {
 		}
 		logger.info("no correct fk found for "+field.getEntity().getName()+" - "+field.getName()+" - pointing towards "+field.getLinkToTargetEntity()+" - "+field.getLinkToTargetField());
 		return null;
+	}
+
+
+
+	public static boolean containsLocalColumn(ForeignKey fk, Column column) {
+		for (Reference ref : fk.getReferences()) {
+			if (ref.getLocalColumnName().equals(column.getName()))
+				return true;
+		}
+		return false;
 	}
 }
