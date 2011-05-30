@@ -11,12 +11,14 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 public class TableUtils {
@@ -25,6 +27,7 @@ public class TableUtils {
 	public static final String referenceDataContentType = "reference-data";
 	public static final String masterDataContentType = "master-data"; //immutable data
 	public static final String liveBusinessDataContentType = "live-business-data";
+	public static Logger log = Logger.getLogger(TableUtils.class);
 	
 	public static Column getPrimaryFirstColumn (Table table) {
 		if (table==null)
@@ -69,7 +72,6 @@ public class TableUtils {
 		}
 		return null;
 	}
-	
 	
 	public static Table getTableOnly(Database database, String tablename){
 		int maxTable = database.getTables().length;
@@ -350,5 +352,58 @@ public class TableUtils {
 		}
 		return false;
 	}
+	
+	public static List<Column> getPrimaryKeyNotForeignKeyColumns (Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Column column : table.getPrimaryKeyColumns()) {
+			if (!ColumnUtils.isForeignKey(column))
+				columns.add(column);
+		}
+		return columns;
+	}
 
+	public static List<Column> getPrimaryKeyAndForeignKeyColumns (Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Column column : table.getPrimaryKeyColumns()) {
+			if (ColumnUtils.isForeignKey(column))
+				columns.add(column);
+		}
+		return columns;
+	}
+	
+	public static List<Column> getPrimaryKeyAndForeignKeyColumnsAndNotPartOfCompositeForeignKey (Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Column column : table.getPrimaryKeyColumns()) {
+			if (ColumnUtils.isForeignKeyAndNotPartOfCompositeForeignKey(column))
+				columns.add(column);
+		}
+		return columns;
+	}
+	
+	public static List<ForeignKey> getParentCompositeForeignInPrimaryKey(Table table) {
+		List<ForeignKey> fks = new ArrayList<ForeignKey>();
+		for (ForeignKey fk : table.getForeignKeys()) {
+			if (fk.getReferenceCount()>1) {
+				log.error(">>>> composite FK pattern not supported for table "+table.getName());				
+				for (Column column : table.getPrimaryKeyColumns()) {
+					if (ForeignKeyUtils.containsLocalColumn(fk, column))
+						fks.add(fk);
+					//TODO
+					//Take care we do not check if all columns in FK belongs PK
+					log.error(">>>> getParentCompositeForeignInPrimaryKey pattern not supported for table "+table.getName());
+					break;
+				}
+			}
+			
+		}
+		return fks;
+	}
+	
+	public static boolean isCompositePrimaryKeyNotMany2Many (Table table) {
+		if (!table.isManyToMany() && table.getPrimaryKeyColumns().length>1) {
+			return true;
+		}
+		return false;
+	}
+	
 }

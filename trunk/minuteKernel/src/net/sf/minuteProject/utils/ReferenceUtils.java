@@ -134,4 +134,13 @@ public class ReferenceUtils {
 		}
 		return false;
 	}
+	
+	public static boolean isReferenceInPrimaryKey (net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		for (Column column : reference.getLocalTable().getPrimaryKeyColumns()) {
+			if (column.getName().equals(reference.getLocalColumnName()))
+				return true;
+		}
+		return false;
+	}
+	
 }

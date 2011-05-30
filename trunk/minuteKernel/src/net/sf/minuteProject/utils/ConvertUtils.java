@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 public class ConvertUtils {
 	
-	public static final String DB_TYPE_ORACLE                =   "ORACLE";
+	public static final String DB_TYPE_ORACLE                   =   "ORACLE";
 	public static final String JAVA_BOOLEAN_TYPE 				=   "java.lang.Boolean";					
 	public static final String JAVA_LONG_TYPE 					=   "java.lang.Long";	
 	public static final String JAVA_DOUBLE_TYPE 				=   "java.lang.Double";			
@@ -214,7 +214,7 @@ public class ConvertUtils {
 			return  "java.lang.Integer";		
 		if (dBType.equals("DATE"))
 			return  "Date";
-		if (dBType.equals("TIMESTAMP"))
+		if (dBType.equals("TIMESTAMP") || DB_TIMESTAMPZ_TYPE.equals(dBType))
 			return  "Timestamp";	
 		if (dBType.equals("BLOB"))
 			return  "Blob";	

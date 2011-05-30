@@ -13,6 +13,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.mapping.node.Variable;
+import net.sf.minuteProject.utils.TableUtils;
 
 public class EnrichmentUtils {
 	
@@ -365,10 +366,19 @@ public class EnrichmentUtils {
 		if (bean instanceof Table) {
 			Table table = (Table) bean;
 			if (!table.isManyToMany()) {
-				return isToGenerateBasedOnTag(template, table);
+				//return isToGenerateBasedOnTag(template, table);
+				return true;
 			}
 		} 
 		return false;
+	}
+	
+	public static boolean isToGenerateBasedOnCompositePKNotMany2Many (Template template, GeneratorBean bean) {
+		if (bean instanceof Table) {
+			Table table = (Table) bean;
+			return TableUtils.isCompositePrimaryKeyNotMany2Many(table);
+		} 
+		return false;		
 	}
 	
 	public static boolean isToGenerateBasedOnNotMany2Many(Template template, GeneratorBean bean) {

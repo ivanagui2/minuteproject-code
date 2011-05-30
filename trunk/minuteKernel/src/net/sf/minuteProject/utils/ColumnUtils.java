@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.velocity.texen.util.PropertiesUtil;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
@@ -159,6 +160,17 @@ public class ColumnUtils {
 
 	public static boolean hasTrigger(Column column) {
 		return column.getTriggers()!=null && column.getTriggers().size()>0;
+	}
+
+	public static boolean isForeignKeyAndNotPartOfCompositeForeignKey(Column column) {
+		return (isForeignKey(column) && !isPartOfCompositeForeignKey(column));
+	}
+
+	private static boolean isPartOfCompositeForeignKey(Column column) {
+		for (ForeignKey fk : column.getTable().getForeignKeys()) {
+			return ForeignKeyUtils.containsLocalColumn(fk, column);
+		}
+		return false;
 	}
 	
 }
