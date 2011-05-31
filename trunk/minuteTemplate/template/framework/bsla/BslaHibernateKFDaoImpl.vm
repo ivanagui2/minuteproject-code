@@ -4,6 +4,7 @@ package $packageName;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Clob;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ArrayList;
