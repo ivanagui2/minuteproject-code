@@ -67,4 +67,7 @@ public interface GeneratorBean extends Cloneable, Serializable{
      * @param description The description
      */
     public void setDescription(String description);    
+    
+    public void enableCache();
+    
 }

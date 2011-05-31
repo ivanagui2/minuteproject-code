@@ -29,7 +29,15 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>		
-							
+
+		<template name="DomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="java" file-prefix="" file-suffix="Id" 
+			entity-specific="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
+      		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
+		</template>		
+									
     </template-target>		
          		
 </target>

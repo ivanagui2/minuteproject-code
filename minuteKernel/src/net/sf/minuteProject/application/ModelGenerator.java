@@ -398,8 +398,10 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 		
-	protected void writeTemplateResult(GeneratorBean bean,
-			Template template) throws MinuteProjectException {
+	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
+		// enable cache
+		bean.enableCache();
+		//velocity bean manipulation
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);

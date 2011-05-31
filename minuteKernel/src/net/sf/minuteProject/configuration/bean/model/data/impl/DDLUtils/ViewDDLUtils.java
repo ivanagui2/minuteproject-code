@@ -33,11 +33,9 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	}
 
 	public Column[] getVirtualPrimaryKeys() {
-		// TODO Auto-generated method stub
 		if (virtualPrimaryKeys==null)
 			virtualPrimaryKeys = new ArrayList<Column>();
 		return (Column[])virtualPrimaryKeys.toArray(new Column[virtualPrimaryKeys.size()]);
-//		return (Column[])virtualPrimaryKeys.toArray();
 	}
 
 	public void setVirtualPrimaryKeys(Column[] virtualPks) {
@@ -65,7 +63,7 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 		for (org.apache.ddlutils.model.Column column : table.getColumns()) {
 			if (column.getName().equals(virtualPrimaryKey.getName()))
 				column.setPrimaryKey(true);
-		}
+		}	
 	}
 	
 	public boolean hasPrimaryKey () {
@@ -81,7 +79,7 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	}
 	
 	private Column [] getNoVirtualPrimaryKeyColumns() {
-		if (noVirtualPrimaryKeyColumns==null) {
+		if (noVirtualPrimaryKeyColumns==null || !isCacheEnabled) {
 			noVirtualPrimaryKeyColumns = new ArrayList<Column>();
 			boolean present;
 			for (Column column : super.getAttributes()) {
