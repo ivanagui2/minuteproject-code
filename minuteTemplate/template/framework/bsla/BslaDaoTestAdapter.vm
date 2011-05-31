@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.sql.Clob;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -104,17 +105,20 @@ public class $className extends AbstractTransactionalJUnit4SpringContextTests {
        return new Timestamp(getDate().getTime());
     }
         
-    protected String getBlob(int size) {
+    protected String getBlobString(int size) {
        return new String (new String[size].toString());
     }
-    
     
     protected String getClobString(int size) {
        return new String (new String[size].toString());    
     }
     
+    protected Long convertStringToLong (String s) {
+       return Long.valueOf(s);
+    }
+    
     protected Long convertIntegerToLong (Integer i) {
-       return Long.valueOf(i+"");
+       return convertStringToLong(i+"");
     }
 
     protected BigDecimal convertIntegerToBigDecimal (Integer i) {
@@ -132,7 +136,7 @@ public class $className extends AbstractTransactionalJUnit4SpringContextTests {
     protected Integer convertLongToInteger (Long l) {
     	return Integer.valueOf(l+"");
     }
-                 
+                      
     protected Clob getClob(int size) {
     	Clob c = new Clob() {
 			
@@ -204,4 +208,75 @@ public class $className extends AbstractTransactionalJUnit4SpringContextTests {
 		};
         return c;    
      }
+     
+    protected Blob getBlob(int size) {
+    	Blob b = new Blob() {
+			
+			byte[] bytes = null;
+
+			public java.io.InputStream getBinaryStream()
+			   throws java.sql.SQLException
+			{
+			   return new java.io.ByteArrayInputStream(bytes);
+			}
+
+			public long length() throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			public byte[] getBytes(long pos, int length) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			public long position(byte[] pattern, long start)
+					throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			public long position(Blob pattern, long start) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			public int setBytes(long pos, byte[] bytes) throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			public int setBytes(long pos, byte[] bytes, int offset, int len)
+					throws SQLException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			public OutputStream setBinaryStream(long pos) throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			public void truncate(long len) throws SQLException {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void free() throws SQLException {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public InputStream getBinaryStream(long pos, long length)
+					throws SQLException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+    			
+
+		};
+        return b;    
+     }    
+
+     
 }
