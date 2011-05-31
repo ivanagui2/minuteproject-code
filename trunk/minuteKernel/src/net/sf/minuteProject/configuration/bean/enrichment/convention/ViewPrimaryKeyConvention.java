@@ -25,6 +25,7 @@ public class ViewPrimaryKeyConvention extends Convention {
 	public void setDefaultValue(String defaultValue) {
 		this.defaultPrimaryKeyNames = defaultValue;
 	}
+	
 	@Override
 	public void apply(BusinessModel model) {
 		if (model.getBusinessPackage()!=null) {

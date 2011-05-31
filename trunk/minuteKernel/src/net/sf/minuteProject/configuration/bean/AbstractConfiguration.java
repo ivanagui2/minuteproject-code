@@ -14,6 +14,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
 	
+	protected boolean isCacheEnabled;
 	protected String alias, comment;
 	private enum PropertyCriteria {NAME, TAG};
 	protected String name;
@@ -194,4 +195,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 		this.comment = comment;
 	}
 	
+	public void enableCache() {
+		isCacheEnabled = true;
+	}
 }
