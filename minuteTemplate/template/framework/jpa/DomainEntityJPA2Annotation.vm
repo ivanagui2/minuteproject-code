@@ -12,6 +12,7 @@ import java.util.HashSet;
 import javax.persistence.*;
 
 #exposeJPA2Import()
+#exposeJPA2CompositeKeyImport()
 
 /**
  *

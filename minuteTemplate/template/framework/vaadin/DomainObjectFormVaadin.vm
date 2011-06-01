@@ -32,21 +32,27 @@ import $domainObjectContainerImport;
 public class ${className} extends Form implements ClickListener {
 
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
-#foreach($column in ${table.primaryKeyColumns})
+	
+#foreach($column in ${table.columns})
 #putColumnParams()
-#if(!$isForeignKey)##&& $columnUtils.isPkUserProvided($column))
        #if ($velocityCount!=1),#end"$columnVar"
 #end
-#end
-#foreach ($column in ${table.attributes})
-#putColumnParams()
-	   ,"$columnVar"
-#end
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-	   ,"$localColumnVariable"
-#end
-
+##	
+##foreach($column in ${table.primaryKeyColumns})
+##putColumnParams()
+##if(!$isForeignKey)
+##       #if ($velocityCount!=1),#end"$columnVar"
+##end
+##end
+##foreach ($column in ${table.attributes})
+##putColumnParams()
+##	   ,"$columnVar"
+##end
+##foreach ($reference in $table.parents)
+##putReferenceParams2()
+##	   ,"$localColumnVariable"
+##end
+##
 	};
 			
 	private Button save = new Button("Save", (ClickListener) this);
@@ -93,9 +99,7 @@ public class ${className} extends Form implements ClickListener {
 			public Field createField(Item item, Object propertyId,
 					Component uiContext) {
 				Field field = super.createField(item, propertyId, uiContext);
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#if(!$isForeignKey )
+#foreach($column in ${table.columns})
 #putColumnParams()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 					TextField tf = (TextField) field;
@@ -106,39 +110,11 @@ public class ${className} extends Form implements ClickListener {
 #if($isMandatory && !$columnUtils.isPkUserProvided($column))
 					tf.setRequired(true);
 #end
-#if (!$columnUtils.isPkUserProvided($column))
-                    tf.setVisible(false);
-#end
-													
-				}    
-#end
-#end
-#foreach ($column in ${table.attributes})
-#putColumnParams()
-			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
-					TextField tf = (TextField) field;
-					tf.setNullRepresentation("");
-#if($hasTypeValidator)
-					//@TODO change it. tf.addValidator(new RegexpValidator("[1-9][0-9]{4}", 									"Postal code must be a five digit number and cannot start with a zero."));
-#end
-#if($isMandatory)
-					tf.setRequired(true);
-#end													
-				}    
-#end
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$localColumnVariable")) {
-					TextField tf = (TextField) field;
-					tf.setNullRepresentation("");
-#if($hasTypeValidator)
-					//@TODO change it. tf.addValidator(new RegexpValidator("[1-9][0-9]{4}", 									"Postal code must be a five digit number and cannot start with a zero."));
-#end
-#if($isMandatory)
-					tf.setRequired(true);
-#end													
-				}    
-#end
+#if ($column.isPrimaryKey && !$columnUtils.isPkUserProvided($column))
+					tf.setVisible(false);
+#end									
+				}    			
+#end				
 				field.setWidth("200px");
 				return field;
 			}
@@ -260,5 +236,17 @@ public class ${className} extends Form implements ClickListener {
 	protected Double getDouble (Object stringObject) {
 	   return Double.valueOf (getString(stringObject));
 	}
+
+	protected Date getDate (Object stringObject) {
+	   return new Date();
+	}
+	
+	protected Blob getBlob (Object stringObject) {
+	   return null;//TODO
+	}	
+	
+	protected Clob getClob (Object stringObject) {
+	   return null;//TODO
+	}	
 
 }
