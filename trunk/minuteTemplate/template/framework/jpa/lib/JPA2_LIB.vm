@@ -22,11 +22,14 @@
 #set ($importDomainObjectUMLEmbeddedId = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2EmbeddedId))
 #end
 
-#macro (exposeJPA2Import)
+#macro (exposeJPA2CompositeKeyImport)
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #exposeEmbeddedId($table)
 import $importDomainObjectUMLEmbeddedId;
 #end
+#end
+
+#macro (exposeJPA2Import)
 #foreach ($reference in $table.children)
 #set ($thisTable = $reference.foreignTable)
 #exposeJPA2DomainObject($reference.foreignTable)
