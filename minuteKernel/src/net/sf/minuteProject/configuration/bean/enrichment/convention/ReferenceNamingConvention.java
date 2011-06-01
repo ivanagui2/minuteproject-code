@@ -75,8 +75,8 @@ public class ReferenceNamingConvention extends Convention {
 		return getFinalName(table.getAlias());
 	}
 
-	private String getNameForAmbiguiousCaseAndNotMany2Many(Table table, Reference reference) {
-		String name = table.getAlias()+"_"+reference.getLocalColumn().getAlias();
+	public String getNameForAmbiguiousCaseAndNotMany2Many(Table table, Reference reference) {
+		String name = reference.getForeignTable().getAlias()+"_"+reference.getForeignColumn().getAlias();
 		return getFinalName(name);
 	}
 
@@ -85,9 +85,9 @@ public class ReferenceNamingConvention extends Convention {
 		return getFinalName(name);
 	}
 
-	private String getNameForAmbiguiousCaseAndMany2Many(Table table, Reference reference) {
+	public String getNameForAmbiguiousCaseAndMany2Many(Table table, Reference reference) {
 		//{targetTableVariableName}Via${linkTableName}By${localColumnName}s
-		String name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getLocalColumn().getAlias();
+		String name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getForeignColumn().getAlias();
 		return getFinalName(name);
 	}
 	
