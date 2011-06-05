@@ -63,14 +63,14 @@
 #end
 #end
 #end
-#end
-##end
 	  </ul>
 	</li>
 #if($entitySecurityUtils.isEntityRoleSecured($package))	
 </mp:isUserInRole>	
 #end
 #end
+#end
+<!-- views -->
 #foreach ($package in ${businessPackageViews})
 #set($packageLabel=$formatUtils.getJavaName(${package.name}))
 #if($entitySecurityUtils.isEntityRoleSecured($package))

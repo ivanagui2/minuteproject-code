@@ -21,6 +21,7 @@ public class $className {
 #foreach($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
+// comment $column.comment
     public static volatile SingularAttribute<${domainClassName}, $columnType> $columnVar;
 #end
 
