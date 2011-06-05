@@ -78,7 +78,7 @@ public class TableUtils {
 		for (int i = 0; i < maxTable; i++) {
 			Table table = database.getTables()[i];
 			if (table.getName()!=null && table.getType()!=null && 
-				table.getName().equals(tablename) && table.getType().equals(Table.TABLE))
+				table.getName().toUpperCase().equals(tablename.toUpperCase()) && table.getType().equals(Table.TABLE))
 				return table;
 		}
 		return null;

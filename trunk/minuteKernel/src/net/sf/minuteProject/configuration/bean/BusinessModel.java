@@ -259,30 +259,29 @@ public class BusinessModel {
 			convertEntityFields(others, field);
 			if (field.getAlias()!=null && !field.getAlias().equals("")) {
 					for (Column column : columns) {
-					if (field.getName().equals(column.getName()))
+					//if (field.getName().toUpperCase().equals(column.getName().toUpperCase()))
+					if (match (field, column))
 						ReferenceUtils.setReferenceColumnAlias(column, column.getName(), field.getAlias());
-				}					
-				
-			}
-//			for (Column column : columns) {
-//				if (field.getName().equals(column.getName()))
-//					//TODO set stereotype, contentType, semanticReference
-//					convertFieldInfoToColumn(field, column);
-//			}	
-//			for (Column column : attributes) {
-//				if (field.getName().equals(column.getName()))
-//					convertFieldInfoToColumn(field, column);
-//			}			
+				}						
+			}		
 		}
 	}
 	
 	private void convertEntityFields (Column[] columns, Field field) {
 		for (Column column : columns) {
-			if (field.getName().equals(column.getName()))
+			if (match (field,column))
 				//TODO set stereotype, contentType, semanticReference
 				convertFieldInfoToColumn(field, column);
 		}			
 	}
+	
+	private boolean match (Field field, Column column) {
+		if (field!=null && column!=null && field.getName()!=null && column.getName()!=null
+			&& field.getName().toUpperCase().equals(column.getName().toUpperCase()))
+			return true;
+		return false;
+	}
+	
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
