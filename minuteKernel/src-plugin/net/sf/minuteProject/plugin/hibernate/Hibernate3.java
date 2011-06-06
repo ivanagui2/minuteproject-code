@@ -12,7 +12,7 @@ public class Hibernate3 {
 	public static String getDialect (Database database) {
 		String type = database.getType();
 		if (type.equals("ORACLE")) 
-			return "org.hibernate.dialect.Oracle9Dialect";
+			return "org.hibernate.dialect.Oracle10gDialect";
 		else if (type.equals("HSQLDB"))
 			return "org.hibernate.dialect.HSQLDialect";
 		else if (type.equals("MYSQL"))

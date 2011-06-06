@@ -10,7 +10,7 @@
 	<template-target 
     	name="JPA set"
 		libdir="lib/JPA2_LIB.vm"
-		outputdir="src"
+		outputdir="src/main/java"
 		belongToPackage="true">
 			 
 		<template name="DomainEntityJPA2Annotation" templateFileName="DomainEntityJPA2Annotation.vm" 
@@ -39,5 +39,38 @@
 		</template>		
 									
     </template-target>		
-         		
+
+	<template-target 
+    	name="web-inf config"
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="src/main/resources"
+		belongToPackage="true">			
+
+		<template package-root="META-INF"
+			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="persistence" 
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
+		</template>		
+											
+  	</template-target>
+  	
+	<template-target 
+	    templatedir = "template" 
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir=""
+		package-root=""
+		belongToPackage="true">
+		
+		<template name="PomXml.JPA2" templateFileName="PomXml.JPA2.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>	
+					
+	</template-target>	  	
+  	         		
 </target>
