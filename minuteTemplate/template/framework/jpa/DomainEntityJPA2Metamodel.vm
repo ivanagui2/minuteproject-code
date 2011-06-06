@@ -12,10 +12,12 @@ import javax.persistence.metamodel.SetAttribute;
 @StaticMetamodel(${domainClassName}.class)
 public class $className {
 
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
     public static volatile SingularAttribute<${domainClassName}, $columnType> $columnVar;
+#end
 #end
 
 #foreach($column in ${table.attributes})

@@ -2,6 +2,7 @@
 #exposeEnvironmentParams()
 package $packageName;
 
+import java.io.*;
 import java.sql.*;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.persistence.*;
  *
  */
 @Embeddable
-public class ${className} {
+public class ${className} implements Serializable{
 
 #foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
 #putColumnParams()
