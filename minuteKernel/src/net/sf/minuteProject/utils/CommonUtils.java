@@ -522,12 +522,12 @@ public class CommonUtils {
 	
 	public static boolean isEnrichedPrimaryKey (Column column) {
 		if (column!=null) {
-			if (column.isPrimaryKey()) return true;
-			Table table = column.getTable();
-			for (Column col : table.getPrimaryKeyColumns()) {
-				if (col.getName().equals(column.getName()))
-					return true;
-			}
+			if (column.isPrimaryKey() && column.getTable().getPrimaryKeyColumns().length==1) return true;
+//			Table table = column.getTable();
+//			for (Column col : table.getPrimaryKeyColumns()) {
+//				if (col.getName().equals(column.getName()))
+//					return true;
+//			}
 		}
 		return false;
 	}
