@@ -17,6 +17,8 @@ import net.sf.minuteProject.utils.TableUtils;
 
 public class EnrichmentUtils {
 	
+	public static final String generateForTag = "generateForTag";
+	
 	public static boolean hasMenuLinkDirectResultAccess (GeneratorBean bean) {
 		if (hasTag(bean, "menuLinkDirectResultAccess"))
 			return true;
@@ -327,7 +329,7 @@ public class EnrichmentUtils {
 	public static boolean isToGenerateBasedOnModelEntityTag(Template template, Model model) {
 		List<Property> templateProp = template.getProperties();
 		for (Property property : templateProp) {
-			if (property.getName().equals("generateForTag")) {
+			if (property.getName().equals(generateForTag)) {
 				return hasEntityTag(model, property.getName());
 			}
 		}
@@ -337,7 +339,7 @@ public class EnrichmentUtils {
 	public static boolean isToGenerateBasedOnModelFieldTag(Template template, Model model) {
 		List<Property> templateProp = template.getProperties();
 		for (Property property : templateProp) {
-			if (property.getName().equals("generateForTag")) {
+			if (property.getName().equals(generateForTag)) {
 				return hasFieldTag(model, property.getName());
 			}
 		}
@@ -345,17 +347,40 @@ public class EnrichmentUtils {
 	}
 
 	public static boolean isToGenerateBasedOnTag(Template template, GeneratorBean bean) {
+//		List<Property> beanProp = bean.getProperties();
+//		List<Property> templateProp = template.getProperties();
+//		for (Property property : templateProp) {
+//			if (property.getName().equals(generateForTag) || property.getTag().equals(generateForTag)) {
+//				for (Property property2 : beanProp) {
+//					if (property2.getName().equals(property.getValue()))
+//						return true;
+//				}
+//			}
+//		}
+		return (getPropertyGenerateBasedOnTag(template, bean)==null)?false:true;
+	}
+
+	public static String getGenerateBasedOnTagAlias(Template template,
+			GeneratorBean bean) {
+		// TODO Auto-generated method stub
+		Property p =getPropertyGenerateBasedOnTag(template, bean);
+		if (p!=null) {
+			return p.getAlias();
+		}			
+		return null;
+	}
+	public static Property getPropertyGenerateBasedOnTag(Template template, GeneratorBean bean) {
 		List<Property> beanProp = bean.getProperties();
 		List<Property> templateProp = template.getProperties();
 		for (Property property : templateProp) {
-			if (property.getName().equals("generateForTag")) {
+			if (property.getName().equals(generateForTag)) {
 				for (Property property2 : beanProp) {
-					if (property2.getName().equals(property.getValue()))
-						return true;
+					if (property2.getTag().equals(property.getValue()))
+						return property2;
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public static boolean isToGenerateBasedOnTargetPresence(Template template, GeneratorBean bean) {
@@ -402,4 +427,5 @@ public class EnrichmentUtils {
 			}
 		return null;
 	}
+
 }

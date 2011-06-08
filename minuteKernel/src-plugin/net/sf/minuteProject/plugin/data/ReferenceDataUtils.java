@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
 public class ReferenceDataUtils {
@@ -23,4 +24,16 @@ public class ReferenceDataUtils {
 		}
 		return false;
 	}
+	
+	public static String getEnumName(Template template, GeneratorBean bean) {
+		String s = EnrichmentUtils.getGenerateBasedOnTagAlias(template, bean);
+		if (s!=null) return FormatUtils.getJavaName(s);
+		return bean.getGeneratedBeanName();
+	}	
+	
+//	public static String getEnumName(Template template, GeneratorBean bean) {
+//		String s = EnrichmentUtils.getGenerateBasedOnTagAlias(template, bean);
+//		if (s!=null) return s;
+//		return bean.getGeneratedBeanName();
+//	}		
 }

@@ -16,6 +16,7 @@ public class Property extends AbstractConfiguration{
 	}
 
 	public String getTag() {
+		if (tag==null) tag="";
 		return tag;
 	}
 
