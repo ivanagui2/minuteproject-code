@@ -56,9 +56,11 @@
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
+#if (!$referenceUtils.isReferenceInPrimaryKey($reference))
 <!-- readonly links -->
 	<property name="$localColumnVariable" column="${reference.localColumnName}" #if($localColumn.isRequired())not-null="true"#else not-null="false"#end #if($isMany2Many) insert="false" update="false"#end/>
 
+#end
 	<many-to-one name="${linkedTableVariable}${localColumnClass}" 
 	 class="$importDomainObjectUML" 
 	 column="$reference.localColumnName" 

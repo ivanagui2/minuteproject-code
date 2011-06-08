@@ -69,8 +69,7 @@
 		      is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnTag"
 		      add-business-package-dir-name="false"
 		      add-model-dir-name="false"
-		      add-technical-dir-name="false"
-				>
+		      add-technical-dir-name="false" >
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
     		

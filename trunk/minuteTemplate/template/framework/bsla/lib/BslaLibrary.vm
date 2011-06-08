@@ -63,7 +63,7 @@
 
 #macro (exposeEnumerationSpecific)
 #set ($enumName = $restrictedCodeUtils.convertToValidJavaWithUpperCase($prop.name))
-#set ($enumValue = $restrictedCodeUtils.convertToValidPlainTextFromXml($prop.name))
+#set ($enumValue = $restrictedCodeUtils.convertToValidPlainTextFromXml($prop.value))
 #end
 
 #macro(exposeVariableModelDetailSpecific)
