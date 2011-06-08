@@ -26,7 +26,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	}
 	
 	public String getGeneratedBeanName() {
-		return FormatUtils.getJavaName(table.getAlias()+"_"+getName());
+		return FormatUtils.getJavaName(getTable().getAlias()+"_"+getAlias());
 	}	
     /**
      * Returns the name of the column.
@@ -397,7 +397,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
     }
 
 	public Table getTable() {
-		return table;
+		return column.getTable();
 	}
 	
 	public boolean isLob() {
