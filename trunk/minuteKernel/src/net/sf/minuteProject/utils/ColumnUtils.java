@@ -17,10 +17,11 @@ public class ColumnUtils {
 	
 	public static Column getColumn(Table table, String columnName) {
 		if (table!=null) {
+			columnName = columnName.toUpperCase();
 			int maxColumn = table.getColumns().length;
 			for (int i = 0; i < maxColumn; i++) {
 				Column column = table.getColumns()[i];
-				if (column.getName().equals(columnName))
+				if (column.getName().toUpperCase().equals(columnName))
 					return column;
 			}
 		}
