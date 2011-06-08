@@ -46,10 +46,12 @@
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
+#if (!$referenceUtils.isReferenceInPrimaryKey($reference))
             <basic name="$localColumnVariable">
                 <column name="$localColumn.name" #if($isLengthPrecisionColumnLocalColumn)length="$localColumn.size"#end #if($localColumn.isRequired())nullable="false"#else nullable="true"#end #if($isColumnUnique)unique="true"#else unique="false"#end />
             </basic>
 
+#end
 #end
             <!-- parent object links -->
 #foreach ($reference in $table.parents)
