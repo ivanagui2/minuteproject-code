@@ -174,10 +174,11 @@
 #end
 
 #macro (columnJavaNaming)
-#if ($javaUtils.isReservedWord($columnVar))
-#set($columnVar="${columnVar}_Name")
-#set($columnClass="${columnClass}_Name")
-#end
+##if ($javaUtils.isReservedWord($columnVar))
+#set($columnVar=$javaUtils.getJavaVariableNaming(${columnVar}))
+#set($columnClass=$javaUtils.getJavaClassNaming(${columnClass}))
+##set($columnClass="${columnClass}Name")
+##end
 #end
 
 #macro (exposeM2MSpecific)
