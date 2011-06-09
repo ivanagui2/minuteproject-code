@@ -64,6 +64,15 @@ public class JavaUtils {
 		}
 		return false;
 	}
+	
+	public static String getJavaVariableNaming (String javaVar) {
+		return (isReservedWord(javaVar))?javaVar+"Name":javaVar;
+	}
+	
+	public static String getJavaClassNaming (String javaClass) {
+		return (isReservedWord(javaClass.toLowerCase()))?javaClass+"Name":javaClass;
+	}
+	
 }
 	
 	
