@@ -37,7 +37,18 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>		
-									
+
+		<!-- enumeration for reference data -->
+		<template name="EnumerationReferenceData" templateFileName="EnumerationReferenceData.vm" 
+			subdir="" outputsubdir="" technicalPackage="enumeration"
+			file-extension="java" file-prefix="" file-suffix="Enum" 
+			field-specific="true" 
+            check-template-to-generate="true" 
+            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
+			>
+			<property name="generateForTag" value="checkconstraint"></property>
+		</template>
+											
     </template-target>		
 
 	<template-target 
