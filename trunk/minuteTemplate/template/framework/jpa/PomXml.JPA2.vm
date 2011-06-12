@@ -1,4 +1,7 @@
 #exposeMaven()
+#set($isQuerydslPowered=$template.hasProperty("add-querydsl"))
+#set($querydslVersion=$template.getPropertyValue("add-querydsl"))
+#set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>    
   	<groupId>${rootPackage}.${model.name}</groupId>
@@ -9,6 +12,13 @@
     <url>http://maven.apache.org</url>
     
     <dependencies>
+        <!-- JDBC driver -->    
+        <dependency>
+            <groupId>$driver.groupId</groupId>
+            <artifactId>$driver.artifactId</artifactId>
+            <version>$driver.version</version>        
+        </dependency>    
+        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -16,20 +26,14 @@
             <scope>test</scope>
         </dependency>
 
+#if($jpa2Implementation=="hibernate")
         <!-- JPA2 provider -->
 	    <dependency>
 	      <groupId>org.hibernate</groupId>
 	      <artifactId>hibernate-entitymanager</artifactId>
 	      <version>3.5.1-Final</version>
 	    </dependency>
-
-        <!-- JDBC driver -->
-	    <dependency>
-	        <groupId>com.oracle</groupId>
-	        <artifactId>ojdbc14</artifactId>
-	        <version>10.0.2.0.0</version>        
-	    </dependency>
-
+	    
 	    <!-- Logging -->
 	    <dependency>
 	      <groupId>org.slf4j</groupId>
@@ -50,14 +54,35 @@
 		    <version>4.0.2.GA</version>
 		    <scope>runtime</scope>
 		</dependency>
-	    
+ 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
         </dependency>
-    </dependencies>
+#end        	
+#if($isQuerydslPowered)	
+	    <!-- querydsl integration -->
+        <dependency>
+          <groupId>com.mysema.querydsl</groupId>
+          <artifactId>querydsl-apt</artifactId>
+          <version>${querydsl.version}</version>
+          <scope>provided</scope>
+        </dependency>    
     
+        <dependency>
+          <groupId>com.mysema.querydsl</groupId>
+          <artifactId>querydsl-jpa</artifactId>
+          <version>${querydsl.version}</version>
+        </dependency>
+#end	
+
+    </dependencies>
+#if($isQuerydslPowered)	
+    <properties>
+        <querydsl.version>$querydslVersion</querydsl.version>
+    </properties>
+#end     
     <build>
         <plugins>
             <plugin>
@@ -70,6 +95,25 @@
                     <!--<encoding>utf-8</encoding>-->
                 </configuration>
             </plugin>
+#if($isQuerydslPowered)	            
+            <!-- querydsl integration -->
+            <plugin>
+                  <groupId>com.mysema.maven</groupId>
+                  <artifactId>maven-apt-plugin</artifactId>
+                  <version>1.0</version>
+                  <executions>
+                    <execution>
+                      <goals>
+                        <goal>process</goal>
+                      </goals>
+                      <configuration>
+                        <outputDirectory>target/generated-sources/java</outputDirectory>
+                        <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                      </configuration>
+                    </execution>
+                  </executions>
+            </plugin> 
+#end           
         </plugins>
     </build>
   
