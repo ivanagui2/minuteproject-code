@@ -22,6 +22,16 @@
 #set ($importDomainObjectUMLEmbeddedId = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2EmbeddedId))
 #end
 
+#macro (exposeJPA2EnumImport)
+#foreach ($column in $table.columns)
+#putColumnParams()
+##-$column.name - $isEnum - $enumImport - $enumClassName
+#if($isEnum)
+import $enumImport;
+#end
+#end
+#end
+
 #macro (exposeJPA2CompositeKeyImport)
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #exposeEmbeddedId($table)
