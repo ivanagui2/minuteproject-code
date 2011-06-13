@@ -63,7 +63,8 @@ public class ${className} {
 #columnJavaNaming()
 #if($isEnum)
 #set($columnType=$enumClassName)
-    @Enumerated
+    @Enumerated #if($convertUtils.isStringType($column.type))(EnumType.STRING)#end
+    
 #else
 #if ($isView)
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
