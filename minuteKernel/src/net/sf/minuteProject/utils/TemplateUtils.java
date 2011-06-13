@@ -5,11 +5,11 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class TemplateUtils {
 
-	public boolean hasTag(String tag, Template template) {
+	public static boolean hasTag(String tag, Template template) {
 		return template.getPropertyByTag(tag)!=null;		
 	}
 	
-	public boolean hasTagValue(String tag, String value, Template template) {
+	public static boolean hasTagValue(String tag, String value, Template template) {
 		Property property = template.getPropertyByTag(tag);
 		if (property!=null)
 		   return value.equals(property.getValue());

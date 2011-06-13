@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.Package;
@@ -169,7 +170,7 @@ public class CommonUtils {
 		return ConvertUtils.getJavaTypeFromDBType(column);
 	}
 
-	public static String getTemplateFileName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+	public static String getTemplateFileName (GeneratorBean bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
 			logger.debug("ConfigFile not ok");
@@ -178,7 +179,7 @@ public class CommonUtils {
 		return getFileName(templateTarget, bean);
 	}
 	// TODO refactor 4 times
-	protected static String getTemplateClassName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+	protected static String getTemplateClassName (GeneratorBean bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
 			logger.debug("ConfigFile not ok");
@@ -280,14 +281,24 @@ public class CommonUtils {
 	}
 	
 	public static Template getTemplate (Configuration configuration, String name) {
-		Template template=null;
-		for (Iterator iter = configuration.getTarget().getTemplateTargets().iterator(); iter.hasNext(); ) {
-			template = ((TemplateTarget)iter.next()).getTemplate(name);
-			if (template != null) 
-				break;
-		}
-		return template;
+		return getTemplate(configuration.getTarget(), name);
+//		Template template=null;
+//		for (Iterator iter = configuration.getTarget().getTemplateTargets().iterator(); iter.hasNext(); ) {
+//			template = ((TemplateTarget)iter.next()).getTemplate(name);
+//			if (template != null) 
+//				break;
+//		}
+//		return template;
 	}
+	
+	public static Template getTemplate (Target target, String name) {
+		for (TemplateTarget templateTarget : target.getTemplateTargets()) {
+			Template template = templateTarget.getTemplate(name);
+			if (template != null) 
+				return template;
+		}
+		return null;
+	}	
 	
 	public static String getFileName (Template template, GeneratorBean bean) {
 		return template.getOutputFileName(bean);
@@ -445,11 +456,12 @@ public class CommonUtils {
 		Template template = getTemplate(model.getConfiguration(), templateName);
 		return getArtifactRelativePathDirAndFullName(template, model);
 	}
-	
+
 	public static String getArtifactFullClasspath(Table table, String templateName) {
 		Template template = getTemplate(getModel(table).getConfiguration(), templateName);
 		return getEntityLevelTemplateFullPath(getModel(table), table, template, templateName);
-	}	
+	}
+
 
 	public static String getArtifactFullClasspath(Model model, String templateName) {
 		return getLevelTemplateFullPath(model, getTemplate(model.getConfiguration(), templateName), templateName);
@@ -490,7 +502,7 @@ public class CommonUtils {
 		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
 	}
 	
-	public static String getEntityLevelTemplateFullPath(AbstractConfiguration bean, Template template, String targetTemplateName) {
+	public static String getEntityLevelTemplateFullPath(GeneratorBean bean, Template template, String targetTemplateName) {
 		return getPackageName(bean, template, targetTemplateName) +"."+ getTemplateClassName (bean, template, targetTemplateName);
 	}	
 	
