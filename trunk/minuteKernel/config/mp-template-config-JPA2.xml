@@ -19,7 +19,8 @@
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
-      		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>     		
+      		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property> 
+      		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    		
 		</template>
 		
 		<template name="DomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
@@ -28,6 +29,7 @@
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
+      		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>
 		</template>		
 
 		<template name="DomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
@@ -39,7 +41,7 @@
 		</template>		
 
 		<!-- enumeration for reference data -->
-		<template name="EnumerationReferenceData" templateFileName="EnumerationReferenceData.vm" 
+		<template name="EnumerationReferenceDataJPA2" templateFileName="EnumerationReferenceData.vm" 
 			subdir="" outputsubdir="" technicalPackage="enumeration"
 			file-extension="java" file-prefix="" file-suffix="Enum" 
 			field-specific="true" 

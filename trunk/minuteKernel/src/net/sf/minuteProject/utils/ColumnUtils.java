@@ -173,5 +173,10 @@ public class ColumnUtils {
 		}
 		return false;
 	}
+
+	public static boolean isEnumColumn(Column column) {
+		// TODO implement for string && int column
+		return true;
+	}
 	
 }

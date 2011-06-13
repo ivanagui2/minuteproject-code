@@ -43,6 +43,7 @@ import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
+import net.sf.minuteProject.utils.EnumUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
@@ -81,6 +82,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private SqlUtils sqlUtils = new SqlUtils();
 	private TableUtils tableUtils = new TableUtils();
 	private ReferenceUtils referenceUtils = new ReferenceUtils();
+	private EnumUtils enumUtils = new EnumUtils();
 
 	private Model model;
 
@@ -463,6 +465,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("tableUtils", getTableUtils());
 		context.put("testUtils", getTestUtils());	
 		context.put("referenceUtils", referenceUtils);
+		context.put("enumUtils", enumUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
