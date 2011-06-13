@@ -15,6 +15,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
+import net.sf.minuteProject.utils.java.JavaUtils;
 
 public class OpenXavaUtils {
 
@@ -55,7 +56,7 @@ public class OpenXavaUtils {
 		List<String> list = new ArrayList<String>();
 		for (Column column : table.getAttributes()) {
 			if (!column.isLob())
-				list.add(FormatUtils.getJavaNameVariable(column.getAlias()));
+				list.add(JavaUtils.getJavaVariableNaming(FormatUtils.getJavaNameVariable(column.getAlias())));
 		}
 		return list;
 	}
