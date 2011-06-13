@@ -168,7 +168,10 @@
 #set ($resource = "${table.name}.$columnVar")
 #set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
 #set ($columLengthPrecisionSize = $column.getSizeAsInt())
-#set ($columnVarAsInput = $commonUtils.getJavaNameVariableConvertReservedWord($column))##$formatUtils.getJavaNameVariableConvertReservedWord($column.name))
+#set ($columnVarAsInput = $commonUtils.getJavaNameVariableConvertReservedWord($column))
+#set ($isEnum = $enumUtils.isEnumType($template,$column))
+#set ($enumImport = $enumUtils.getEnumImport($template,$column))
+#set ($enumClassName = $enumUtils.getEnumType($template,$column))
 #timeColumn()
 #largeFormat()
 #end
@@ -192,7 +195,7 @@
 #set ($targetColumnClass = $formatUtils.getJavaName($linkReference.localColumn.alias))
 #set ($linkLocalColumnClass = $formatUtils.getJavaName($linkReference.localColumn.alias))
 #set ($localColumnName = $formatUtils.getJavaName($linkReference.localColumn.alias))
-#set ($childrenListVariable = $referenceUtils.getChildrenListVariable($linkReference))## ${targetTableVariableName}Via${linkTableName}By${localColumnName}s)
+#set ($childrenListVariable = $referenceUtils.getChildrenListVariable($linkReference))
 #set ($childrenListClass = $referenceUtils.getChildrenListClass($linkReference))
 #end
 

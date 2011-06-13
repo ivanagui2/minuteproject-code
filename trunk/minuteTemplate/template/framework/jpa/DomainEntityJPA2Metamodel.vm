@@ -9,6 +9,7 @@ import javax.persistence.metamodel.SetAttribute;
 
 #exposeJPA2Import()
 #exposeJPA2CompositeKeyImport()
+#exposeJPA2EnumImport()
 
 @StaticMetamodel(${domainClassName}.class)
 public class $className {
@@ -26,6 +27,9 @@ public class $className {
 #foreach($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
+#if($isEnum)
+#set($columnType=$enumClassName)
+#end
     public static volatile SingularAttribute<${domainClassName}, $columnType> $columnVar;
 #end
 

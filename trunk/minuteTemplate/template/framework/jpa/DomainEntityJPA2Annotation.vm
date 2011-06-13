@@ -13,6 +13,7 @@ import javax.persistence.*;
 
 #exposeJPA2Import()
 #exposeJPA2CompositeKeyImport()
+#exposeJPA2EnumImport()
 
 /**
  *
@@ -60,6 +61,10 @@ public class ${className} {
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
+#if($isEnum)
+#set($columnType=$enumClassName)
+    @Enumerated
+#else
 #if ($isView)
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
@@ -70,6 +75,7 @@ public class ${className} {
 #exposeLobProperties()
 #if ($convertClobToString=="true")
 #set($columnType="String")
+#end
 #end
 #end
     private $columnType $columnVar; 
@@ -172,6 +178,9 @@ public class ${className} {
 #if ($convertClobToString=="true")
 #set($columnType="String")
 #end
+#end
+#if($isEnum)
+#set($columnType=$enumClassName)
 #end
     public $columnType get$columnClass() {
         return $columnVar;
