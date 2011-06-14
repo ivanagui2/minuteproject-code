@@ -1,5 +1,11 @@
 #macro (putJPA2TemplateDefinition)
+##set ($templateJPA2EmbeddedId="DomainEntityJPA2EmbeddedId")
+#getTemplatePropertyValue("DomainEntityJPA2EmbeddedId")
+#if (!$value.equals(""))
+#set ($templateJPA2EmbeddedId=$value)
+#else
 #set ($templateJPA2EmbeddedId="DomainEntityJPA2EmbeddedId")
+#end
 #getTemplatePropertyValue("DomainEntityUMLTemplate")
 #if (!$value.equals(""))
 #set ($templateJPA2DomainObject=$value)

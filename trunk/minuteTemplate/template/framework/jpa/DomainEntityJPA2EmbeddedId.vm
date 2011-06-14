@@ -20,7 +20,7 @@ import javax.persistence.*;
  *
  */
 @Embeddable
-public class ${className} implements Serializable{
+public class ${className} implements Serializable {
 
 #foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
 #putColumnParams()
@@ -61,7 +61,34 @@ public class ${className} implements Serializable{
     
 #end
 #foreach ($foreignkey in $tableUtils.getParentCompositeForeignInPrimaryKey($table))
-//pattern not implemented yet $foreignkey
+//ParentCompositeForeignInPrimaryKey pattern not implemented yet $foreignkey
 #end
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        return obj.toString().equals(this.toString());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+ 
+    @Override
+    public String toString() {
+        return "${className}:" 
+#foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))  
+#putColumnParams()
+#columnJavaNaming()      
+        + ":" + $columnVar
+#end
+#foreach($column in $tableUtils.getPrimaryKeyAndForeignKeyColumnsAndNotPartOfCompositeForeignKey($table))  
+#putColumnParams()
+#columnJavaNaming()      
+        + ":" + $columnVar
+#end
+        ;
+    }
+    
 }
