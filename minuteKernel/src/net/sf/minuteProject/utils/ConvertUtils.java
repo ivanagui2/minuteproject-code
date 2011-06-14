@@ -150,15 +150,28 @@ public class ConvertUtils {
 				return JAVA_LONG_TYPE;
 			else
 				return  JAVA_BIGDECIMAL_TYPE;
-		}	
+		}
+		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
+			if (databaseType.equals(DB_TYPE_ORACLE) && size==1 )
+				return JAVA_BOOLEAN_TYPE;
+			return  JAVA_LONG_TYPE;
+		}		
 		return retStr;		
 	}
 
 	public static String getJavaTypeClassFromDBType (Column column) {
-		return getJavaTypeClassFromDBType(column.getType(), column.getScale());
+		return getJavaTypeClassFromDBType(column.getType(), column.getScale(), getDatabaseType(column));
 	}
 	
-	public static String getJavaTypeClassFromDBType (String dBType, int scale) {
+	private static String getDatabaseType (Column column) {
+		String databaseType=null;
+		if (column.getTable()!=null &&
+			column.getTable().getDatabase() != null)
+			databaseType = column.getTable().getDatabase().getType();
+		return databaseType;
+	}
+	
+	public static String getJavaTypeClassFromDBType (String dBType, int scale, String databaseType) {
 		if (dBType==null){
 			String s = "ERROR column dBType is null";
 			logger.error(s);
@@ -166,6 +179,10 @@ public class ConvertUtils {
 		}
 		if (dBType.equals("BOOLEAN"))
 			return  "Boolean";	
+		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
+			if (DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
+				return "Boolean";
+		}
 		if (dBType.equals("NUMERIC"))
 			return  "Integer";		
 		if (dBType.equals("BLOB"))
@@ -222,8 +239,8 @@ public class ConvertUtils {
 			return  "java.sql.Blob";	
 		if (dBType.equals("CLOB"))
 			return  "Clob";	
-		if (dBType.equals("BIT"))
-			return  "Long";	
+//		if (dBType.equals("BIT"))
+//			return  "Long";	
 		if (dBType.equals("NVARCHAR2"))
 			return  "String";	
 		if (dBType.equals("NVARCHAR"))
@@ -238,7 +255,7 @@ public class ConvertUtils {
 	}	
 
 	public static String getJavaTypeFromDBType (Column column) {
-		return getJavaTypeFromDBType(column.getType(), column.getScale());
+		return getJavaTypeFromDBType(column.getType(), column.getScale(), getDatabaseType(column));
 	}
 
 	public static String getJavaTypeFromDBTypeOnly (String dBType, int scale) {
@@ -253,7 +270,7 @@ public class ConvertUtils {
 		return retStr;		
 	}
 	
-	public static String getJavaTypeFromDBType (String dBType, int scale) {
+	public static String getJavaTypeFromDBType (String dBType, int scale, String databaseType) {
 		String retStr=getJavaTypeFromDBType (dBType);	
 		if (dBType==null) return retStr;
 		if (dBType.equals("DECIMAL")) {
@@ -262,6 +279,10 @@ public class ConvertUtils {
 			else
 				return  "java.math.BigDecimal";
 		}	
+		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
+			if (DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
+				return "Boolean";
+		}		
 		return retStr;		
 	}
 	
