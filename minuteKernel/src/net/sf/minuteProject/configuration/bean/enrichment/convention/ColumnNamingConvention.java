@@ -14,6 +14,7 @@ public class ColumnNamingConvention extends Convention {
 
 	public final String APPLY_STRIP_COLUMN_NAME_SUFFIX="apply-strip-column-name-suffix";
 	public final String APPLY_STRIP_COLUMN_NAME_PREFIX="apply-strip-column-name-prefix";
+	public final String APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY="apply-fix-primary-key-column-name-when-no-ambiguity";
 	
 	@Override
 	public void apply(BusinessModel model) {
@@ -23,7 +24,26 @@ public class ColumnNamingConvention extends Convention {
 					apply (table);
 				}
 			}
+		} else if (APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY.equals(type))  {
+			if (model.getBusinessPackage()!=null) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
+					applyFixPk (table);
+				}
+			}			
 		}
+		
+	}
+
+	private void applyFixPk(Table table) {
+		if (defaultValue==null) return;
+		if (table.getPrimaryKeyColumns().length>1) return;
+		for (Column column : table.getColumns()) {
+			if (column.getAlias().toLowerCase().equals(defaultValue.toLowerCase()))
+				return;
+		}		
+		for (Column column : table.getPrimaryKeyColumns()) {
+			applyFixPk (column);
+		}		
 	}
 
 	public void setPatternToStrip (String s) {
@@ -48,6 +68,10 @@ public class ColumnNamingConvention extends Convention {
 		return (column.getAlias().equals(column.getName()));
 	}
 
+	private void applyFixPk(Column column) {
+		setNewColumnValue (column, column.getName(), defaultValue);
+	}
+	
 	private void apply(Column column) {
 		for (String s : ParserUtils.getList(defaultValue)) {
 			if (apply (column, s)) return;
@@ -66,8 +90,9 @@ public class ColumnNamingConvention extends Convention {
 		String name = column.getName();
 		if (name.startsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeStart(column.getName(), s);
-			column.setAlias(newName);
-			setReferenceColumnAlias(column, name, newName);
+			setNewColumnValue(column, name, newName);
+//			column.setAlias(newName);
+//			setReferenceColumnAlias(column, name, newName);
 			return true;
 		}
 		return false;
@@ -77,13 +102,18 @@ public class ColumnNamingConvention extends Convention {
 		String name = column.getName();
 		if (name.endsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeEnd(column.getName(), s);
-			column.setAlias(newName);
-			setReferenceColumnAlias(column, name, newName);
+			setNewColumnValue(column, name, newName);
+//			column.setAlias(newName);
+//			setReferenceColumnAlias(column, name, newName);
 			return true;
 		}
 		return false;
 	}
 
+	private void setNewColumnValue (Column column, String name, String newName) {
+		column.setAlias(newName);
+		setReferenceColumnAlias(column, name, newName);		
+	}
 	
 	private void setReferenceColumnAlias(Column column, String name, String newName) {
 		ReferenceUtils.setReferenceColumnAlias(column, name, newName);

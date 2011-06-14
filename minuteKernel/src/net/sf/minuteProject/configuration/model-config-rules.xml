@@ -226,6 +226,7 @@
 					<set-properties-rule>
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="pattern-to-strip" prop-name="patternToStrip" />
+						<alias attr-name="default-value" prop-name="defaultValue" />
 					</set-properties-rule>	
 	            </pattern>	
 				<pattern value="reference-naming-convention">
