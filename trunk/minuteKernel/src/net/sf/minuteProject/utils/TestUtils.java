@@ -65,7 +65,7 @@ public class TestUtils {
 		if (dBType.equals("NVARCHAR2"))
 			return  "getString"+number+"("+length+")";
 		if (dBType.equals("BIT"))
-			return  "getLong("+length+")";		//TINYINT
+			return  "getBoolean"+number+"()";		//TINYINT
 		if (dBType.equals("TINYINT"))
 			return  "getString"+number+"("+length+")";		
 		if (dBType.equals("OTHER"))

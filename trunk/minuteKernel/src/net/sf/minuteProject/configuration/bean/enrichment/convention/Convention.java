@@ -18,7 +18,7 @@ public abstract class Convention extends AbstractConfiguration{
 
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
-	}
+	}	
 	
 	public abstract void apply(BusinessModel model) ;
 	
