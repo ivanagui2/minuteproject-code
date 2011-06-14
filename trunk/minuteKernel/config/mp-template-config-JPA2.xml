@@ -21,6 +21,7 @@
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property> 
       		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    		
+      		<property name="DomainEntityJPA2EmbeddedId" value="DomainEntityJPA2EmbeddedId" ></property>   		
 		</template>
 		
 		<template name="DomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
@@ -30,6 +31,7 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
       		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>
+		    <property name="DomainEntityJPA2EmbeddedId" value="DomainEntityJPA2EmbeddedId" ></property> 
 		</template>		
 
 		<template name="DomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 

@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
@@ -54,6 +55,10 @@ public class OpenXavaUtils {
 	
 	private static List<String> getTabDefaultProperties (Table table) {
 		List<String> list = new ArrayList<String>();
+		for (Column column : table.getPrimaryKeyColumns()) {
+			if (ColumnUtils.isNaturalPk(column))
+				list.add(JavaUtils.getJavaVariableNaming(FormatUtils.getJavaNameVariable(column.getAlias())));
+		}
 		for (Column column : table.getAttributes()) {
 			if (!column.isLob())
 				list.add(JavaUtils.getJavaVariableNaming(FormatUtils.getJavaNameVariable(column.getAlias())));
