@@ -41,6 +41,7 @@ import $importDomainObjectUML;
 #end
 #end
 #end
+#exposeJPA2CompositeKeyImport()
 
 /**
  *
@@ -126,6 +127,11 @@ properties=""
 
 public class ${className} {
 
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    @EmbeddedId
+    private ${embeddedIdClass} $embeddedIdVariable;
+    
+#else
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -150,6 +156,7 @@ public class ${className} {
 #end
     private $columnType $columnVar; ##// pk not fk
 
+#end
 #end
 
 #foreach ($column in ${table.attributes})
@@ -181,11 +188,14 @@ public class ${className} {
 #elseif ($presentationUtils.isRichText($column))
     @Stereotype ("HTML_TEXT")
 #end
-    private $columnType $columnVar; 
+    private $columnType $columnVar;
 #end
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#if ($referenceUtils.isReferenceInPrimaryKey($reference))
+    @MapsId ("$localColumnName")
+#end
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$linktableDB.isLinkEntity()),optional=false#end) //remove optional=false to aggragate but leads to a side effect when going directly to the entity: required check is not performed=> if no set DB check constraint is raised...
 #if ($isView)
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
@@ -305,6 +315,16 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
     }
 #end    
 
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    public $embeddedIdClass get$embeddedIdClass() {
+        return $embeddedIdVariable;
+    }
+	
+    public void set$embeddedIdClass ($embeddedIdClass $embeddedIdVariable) {
+        this.$embeddedIdVariable =  $embeddedIdVariable;
+    }
+    
+#else 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -317,7 +337,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
         this.$columnVar =  $columnVar;
     }
     
-##end
+#end
 #end
 
 #foreach ($column in ${table.attributes})
