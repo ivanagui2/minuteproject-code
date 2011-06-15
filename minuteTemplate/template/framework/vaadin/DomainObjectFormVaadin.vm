@@ -240,7 +240,11 @@ public class ${className} extends Form implements ClickListener {
 	protected Date getDate (Object stringObject) {
 	   return new Date();
 	}
-	
+
+	protected Boolean getBoolean (Object stringObject) {
+	   return Boolean.valueOf(getString(stringObject));
+	}
+		
 	protected Blob getBlob (Object stringObject) {
 	   return null;//TODO
 	}	
