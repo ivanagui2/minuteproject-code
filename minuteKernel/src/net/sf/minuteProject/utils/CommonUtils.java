@@ -353,7 +353,7 @@ public class CommonUtils {
 
 	public static String getPrimaryKeyType (Table table) {
 		if (table.hasPrimaryKey())
-			return getType(TableUtils.getPrimaryFirstColumn(table));
+			return getJavaType(TableUtils.getPrimaryFirstColumn(table));
 		return "ERROR-NO PK found for table "+table.getName();
 	}	
 	
