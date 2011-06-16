@@ -127,10 +127,15 @@ public class ${className} extends Application implements
 		return searchView;
 	}
 
-	public $domainObjectContainerClass getDataSource() {
-		return dataSource.getAll();
+	public $domainObjectContainerClass getElements(Integer size) {
+		return dataSource.getAll(size);
 	}
 
+
+	public $domainObjectContainerClass getDatasource() {
+		return dataSource;
+	}
+	
 	public void buttonClick(ClickEvent event) {
 		final Button source = event.getButton();
 
@@ -177,7 +182,7 @@ public class ${className} extends Application implements
 	}
 
     public void refresh() {
-		getDataSource().removeAllContainerFilters();
+		getElements(100).removeAllContainerFilters();
 		showListView();
     }
 
@@ -189,16 +194,16 @@ public class ${className} extends Application implements
 /*
 	public void search(SearchFilter searchFilter) {
 		// clear previous filters
-		getDataSource().removeAllContainerFilters();
+		getElements(100).removeAllContainerFilters();
 		// filter contacts with given filter
-		getDataSource().addContainerFilter(searchFilter.getPropertyId(),
+		getElements(100).addContainerFilter(searchFilter.getPropertyId(),
 				searchFilter.getTerm(), true, false);
 		showListView();
 
 		getMainWindow().showNotification(
 				"Searched for " + searchFilter.getPropertyId() + "=*"
 						+ searchFilter.getTerm() + "*, found "
-						+ getDataSource().size() + " item(s).",
+						+ getElements(100).size() + " item(s).",
 				Notification.TYPE_TRAY_NOTIFICATION);
 	}
 

@@ -193,7 +193,7 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#if ($referenceUtils.isReferenceInPrimaryKey($reference))
+#if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @MapsId ("$localColumnName")
 #end
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$linktableDB.isLinkEntity()),optional=false#end) //remove optional=false to aggragate but leads to a side effect when going directly to the entity: required check is not performed=> if no set DB check constraint is raised...

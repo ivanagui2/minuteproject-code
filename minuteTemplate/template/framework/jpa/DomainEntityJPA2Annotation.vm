@@ -84,7 +84,7 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#if ($referenceUtils.isReferenceInPrimaryKey($reference))
+#if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @MapsId ("$localColumnName")
 #end
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)

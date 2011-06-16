@@ -16,7 +16,10 @@ import play.mvc.Scope.*;
 
 import javax.persistence.*;
 
-#printPlayDomainImport()
+##printPlayDomainImport()
+#exposeJPA2Import()
+#exposeJPA2CompositeKeyImport()
+#exposeJPA2EnumImport()
 
 /**
  *
@@ -29,6 +32,11 @@ import javax.persistence.*;
 @Table (name="${table.name}")
 public class ${className} extends GenericModel {
 
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    @EmbeddedId
+    private ${embeddedIdClass} $embeddedIdVariable;
+    
+#else
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -55,10 +63,15 @@ public class ${className} extends GenericModel {
     private $columnType $columnVar;
 
 #end
-
+#end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
+#if($isEnum)
+#set($columnType=$enumClassName)
+    @Enumerated #if($convertUtils.isStringType($column.type))(EnumType.STRING)#end
+    
+#else
 #if ($isView)
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
@@ -78,11 +91,14 @@ public class ${className} extends GenericModel {
 #if ($playUtils.hasStereotype($column))
     @$playUtils.getStereotype($column)
 #end
+#end
     private $columnType $columnVar; 
     
 #end
-
 #foreach ($reference in $table.parents)
+#if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    @MapsId ("$localColumnName")
+#end
 #putReferenceParams2()
     @ManyToOne (fetch=FetchType.LAZY)
 #if ($isView)
@@ -110,10 +126,8 @@ public class ${className} extends GenericModel {
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-#exposeDOPlayParamsUML($linktableDB)
-##set ($importDomainObjectForeignTable = $bslaLibraryUtils.getDomainObjectUMLImport($model, $linktableDB, $template))
-##set ($targetEntityClass="${importDomainObjectForeignTable}.class")
-#set ($targetEntityClass="${domainObjectPlayUML}.class")
+#set ($importDomainObjectForeignTable = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateJPA2DomainObject))
+#set ($targetEntityClass="${importDomainObjectForeignTable}.class")
 #exposeEnrichedPk(${reference.column})
 #if (!$isEnrichedPk)
 #set ($foreignColumnVar = $formatUtils.getJavaNameVariable($columnDB.name))
@@ -121,24 +135,22 @@ public class ${className} extends GenericModel {
 #set ($foreignColumnVar = $domainVariableName)
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    private Set <$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s = new HashSet(); 
+    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
 #end
 #end
-
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeImportParamsUML($targetTable)
 #set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
     @ManyToMany
-    @JoinTable(name="$linkedTableDBName", //$linkedTableDBName
-        joinColumns=@JoinColumn(name="$targetColumn.name"), //$columnDB.name $targetColumn
-        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") //$linkReference.localColumnName
+    @JoinTable(name="$linkedTableDBName", 
+        joinColumns=@JoinColumn(name="$targetColumn.name"), 
+        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    private Set <$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+    private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
-
     /**
     * Default constructor
     */
@@ -161,10 +173,19 @@ public class ${className} extends GenericModel {
     }
 #end    
 
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    public $embeddedIdClass get$embeddedIdClass() {
+        return $embeddedIdVariable;
+    }
+	
+    public void set$embeddedIdClass ($embeddedIdClass $embeddedIdVariable) {
+        this.$embeddedIdVariable =  $embeddedIdVariable;
+    }
+    
+#else 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
-##if(!$isForeignKey)
     public $columnType get$columnClass() {
         return $columnVar;
     }
@@ -173,9 +194,8 @@ public class ${className} extends GenericModel {
         this.$columnVar =  $columnVar;
     }
     
-##end
 #end
-
+#end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
@@ -186,6 +206,9 @@ public class ${className} extends GenericModel {
 #set($columnType="String")
 #end
 #end
+#if($isEnum)
+#set($columnType=$enumClassName)
+#end
     public $columnType get$columnClass() {
         return $columnVar;
     }
@@ -193,67 +216,69 @@ public class ${className} extends GenericModel {
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
+    
 #end
-
-
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
-    public $linkedTableClass get$localColumnClass () {  //
+    public $linkedTableClass get$localColumnClass () {
     	return ${localColumnVariable};
     }
 	
     public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
-    	this.${localColumnVariable} = ${localColumnVariable};//this.${localColumnVariable} = ${linkedTableVariable};
+    	this.${localColumnVariable} = ${localColumnVariable};
     }
+    
 #else
-    public $linkedTableClass get${linkedTableClass} () {  //get$linkedTableVariable
-    	return ${linkedTableVariable};//${localColumnVariable};
+    public $linkedTableClass get${linkedTableClass} () { 
+    	return ${linkedTableVariable};
     }
 	
    public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
-    	this.${linkedTableVariable} = ${linkedTableVariable};//this.${localColumnVariable} = ${linkedTableVariable};
+    	this.${linkedTableVariable} = ${linkedTableVariable};
     }
     
 #end 
 #end
-
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-    public Set<$linkedTableClass> get${linkedTableClass}${linkedColumnClass}s() {
-        if (${linkedTableVariable}${linkedColumnClass}s == null){
-            ${linkedTableVariable}${linkedColumnClass}s = new HashSet();
+    public Set<$linkedTableClass> get${childrenListClass}() {
+        if (${childrenListVariable} == null){
+            ${childrenListVariable} = new HashSet<$linkedTableClass>();
         }
-        return ${linkedTableVariable}${linkedColumnClass}s;
+        return ${childrenListVariable};
     }
 
-    public void set${linkedTableClass}${linkedColumnClass}s (Set<$linkedTableClass> ${linkedTableVariable}${linkedColumnClass}s) {
-        this.${linkedTableVariable}${linkedColumnClass}s = ${linkedTableVariable}${linkedColumnClass}s;
+    public void set${childrenListClass} (Set<$linkedTableClass> ${childrenListVariable}) {
+        this.${childrenListVariable} = ${childrenListVariable};
     }	
     
-    public void add${linkedTableClass}${linkedColumnClass} ($linkedTableClass ${linkedTableVariable}) {
-    	    get${linkedTableClass}${linkedColumnClass}s().add($linkedTableVariable);
+    public void add${childrenListClass} ($linkedTableClass ${linkedTableVariable}) {
+    	    get${childrenListClass}().add($linkedTableVariable);
     }
     
 #end    
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-    public Set<$targetTableName> get${targetTableName}Via${linkTableName}By${localColumnName}s() {
-        if (${targetTableVariableName}Via${linkTableName}By${localColumnName}s == null){
-            ${targetTableVariableName}Via${linkTableName}By${localColumnName}s = new HashSet();
+    public Set<$targetTableName> get${childrenListClass}() {
+        if (${childrenListVariable} == null){
+            ${childrenListVariable} = new HashSet<$targetTableName>();
         }
-        return ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
+        return ${childrenListVariable};
     }
 
-    public void set${targetTableName}Via${linkTableName}By${localColumnName}s (Set<$targetTableName> ${targetTableVariableName}Via${linkTableName}By${localColumnName}s) {
-        this.${targetTableVariableName}Via${linkTableName}By${localColumnName}s = ${targetTableVariableName}Via${linkTableName}By${localColumnName}s;
-    }	
-
+    public void set${childrenListClass} (Set<$targetTableName> ${childrenListVariable}) {
+        this.${childrenListVariable} = ${childrenListVariable};
+    }
+    	
+    public void add${childrenListClass} ($targetTableName ${childrenListVariable}) {
+        get${childrenListClass}().add($childrenListVariable);
+    }	    
 #end
     public String toString(){
-       return $playUtils.getToString($table);
+       return $playUtils.getToString($table, $embeddedIdVariable);
     }
 }

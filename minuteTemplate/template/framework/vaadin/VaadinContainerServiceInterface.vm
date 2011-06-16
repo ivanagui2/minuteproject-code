@@ -51,7 +51,7 @@ public class ${className} {
 #end
 	};
 
-	public BeanItemContainer<${domainClassName}> getAll();
+	public BeanItemContainer<${domainClassName}> getAll(Integer size);
 	
 	public BeanItemContainer<${domainClassName}> saveAndUpdateList (${importDomainObjectUML} $domainVariableName);
     

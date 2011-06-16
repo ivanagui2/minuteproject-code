@@ -44,8 +44,12 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 	private SplitPanel horizontalSplit = new SplitPanel(SplitPanel.ORIENTATION_HORIZONTAL);
 	private $domainObjectFormClass form = null;
 	private Table table = null;
-	
+
 	public $className () {
+		this(0);
+	}
+		
+	public $className (Integer size) {
 		setSizeFull();
 
 		addComponent(createToolbar());
@@ -55,7 +59,7 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
 		horizontalSplit.setFirstComponent(new $menuClass("${tableLabelVariable}"));
 
-		horizontalSplit.setSecondComponent(getSplitPanel());
+		horizontalSplit.setSecondComponent(getSplitPanel(size));
 		horizontalSplit.setSizeFull();
 	}
 	
@@ -71,12 +75,16 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		return lo;
 	}
 
-	public SplitPanel getSplitPanel() {
+	public SplitPanel getSplitPanel(Integer size) {
 		SplitPanel splitPanel = new SplitPanel();
 		table = new Table();
 		table.setSizeFull();
 		$domainObjectApplicationClass app  = new $domainObjectApplicationClass();
-		table.setContainerDataSource(app.getDataSource());
+		
+		if (size==0)
+			table.setContainerDataSource(app.getDatasource());
+		else
+			table.setContainerDataSource(app.getElements(100));
 
 		table.setVisibleColumns(${domainObjectContainerClass}.NATURAL_COL_ORDER);
 		table.setColumnHeaders (${domainObjectContainerClass}.COL_HEADERS_ENGLISH);

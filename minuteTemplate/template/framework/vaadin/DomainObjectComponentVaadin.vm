@@ -122,8 +122,8 @@ public class ${className} extends Application implements
 		return searchView;
 	}
 
-	public $domainObjectContainerClass getDataSource() {
-		return dataSource.getAll();
+	public $domainObjectContainerClass getElements(Integer size) {
+		return dataSource.getElements(size);
 	}
 
 	public void buttonClick(ClickEvent event) {
@@ -158,11 +158,11 @@ public class ${className} extends Application implements
 	public void itemClick(ItemClickEvent event) {
 	}
 
-public void refresh() {
-					getDataSource().removeAllContainerFilters();
-					showListView();
-}
-
+	public void refresh() {
+		getElements(100).removeAllContainerFilters();
+		showListView();
+	}
+	
 	private void add${domainClassName}() {
 		refresh();
 		${domainObjectFormVariable}.add${domainClassName}();
