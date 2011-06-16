@@ -102,7 +102,7 @@ class ${className} {
 #if ($hasParent)
         columns {
 #foreach ($reference in $table.parents)
-#putReferenceParams2()				
+#putReferenceParams2()			
              ${localColumnVariable} column : "$localColumnName" #if($columnUtils.isPkUserProvided(${reference.foreignColumn})), sqltype:'text' #end
 
 #end
@@ -130,6 +130,7 @@ class ${className} {
 #end
 #foreach ($column in ${table.attributes})
 #putColumnParams()
+#columnJavaNaming()
         ${columnVar} (unique: #if($isColumnUnique) true#else false#end, blank: #if($column.isRequired())false #else true#end #if($isLengthPrecisionColumn),maxSize: $column.size#end)
 #end	
 

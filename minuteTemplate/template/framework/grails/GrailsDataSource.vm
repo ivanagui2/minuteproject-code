@@ -6,9 +6,9 @@
 #exposeEnvironment()
 dataSource {
     pooled = true
-    driverClassName = "$datasource.driverClassName"
-    username = "$datasource.username"
-    password = "$datasource.password"
+    driverClassName = '$datasource.driverClassName'
+    username = '$datasource.username'
+    password = '$datasource.password'
 }
 hibernate {
     cache.use_second_level_cache = true
