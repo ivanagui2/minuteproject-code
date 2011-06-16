@@ -43,9 +43,13 @@ public class PlayUtils {
 		if ("email".equals(stereo)) return "Email";
 		return null;
 	}
-	
+
 	public static String getToString (Table table) {
-		return GrailsUtils.getToString(table)+"+\"\"";
+		return getToString(table, null);
+	}
+	
+	public static String getToString (Table table, String def) {
+		return GrailsUtils.getToString(table, def)+"+\"\"";
 	}
 
 	public static String getControllerName (Template template, GeneratorBean bean) {

@@ -11,15 +11,21 @@ import net.sf.minuteProject.utils.TableUtils;
 public class GrailsUtils {
 
 	public static String getToString (Table table) {
+		return getToString (table, null);
+	}
+	public static String getToString (Table table, String def) {
+		if (def!=null) {
+			return def;
+		}
 		String semanticRef = getToStringFromSemanticReferenceTable(table);
 		return (semanticRef!=null)?semanticRef:getGrailsToString (table);
 	}
 
 	private static String getGrailsToString(Table table) {
 		for (Column column: table.getAttributes()) {
-			return FormatUtils.getJavaNameVariable(column.getName());
+			return FormatUtils.getJavaNameVariable(column.getAlias());
 		}
-		return FormatUtils.getJavaNameVariable(table.getName());
+		return FormatUtils.getJavaNameVariable(table.getAlias());
 	}
 
 	private static String getToStringFromSemanticReferenceTable(Table table) {
@@ -33,7 +39,7 @@ public class GrailsUtils {
 		StringBuffer sb = new StringBuffer();
 		List<Column> columns = TableUtils.getSemanticReferenceColumns(table);
 		for (int i = 0; i < columns.size(); i++) {
-			sb.append(FormatUtils.getJavaNameVariable(columns.get(i).getName()));
+			sb.append(FormatUtils.getJavaNameVariable(columns.get(i).getAlias()));
 			if (i+1!=columns.size())
 				sb.append(" - ");
 		}
@@ -52,6 +58,6 @@ public class GrailsUtils {
 	}
 	
 	public String getVersionField (Table table) {
-		return FormatUtils.getJavaNameVariable(TableUtils.getVersionColumn(table).getName());
+		return FormatUtils.getJavaNameVariable(TableUtils.getVersionColumn(table).getAlias());
 	}
 }
