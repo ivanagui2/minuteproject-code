@@ -20,7 +20,7 @@ public class ${className} extends Table {
 
 	public ${className} ($domainObjectApplicationClass app) {
 		setSizeFull();
-		setContainerDataSource(app.getDataSource());
+		setContainerDataSource(app.getElements(100));
 
 		setVisibleColumns(${domainObjectContainerClass}.NATURAL_COL_ORDER);
 		setColumnHeaders(${domainObjectContainerClass}.COL_HEADERS_ENGLISH);

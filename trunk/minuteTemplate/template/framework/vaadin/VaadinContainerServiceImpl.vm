@@ -20,7 +20,7 @@ public class ${className} implements $vaadinContainerServiceClass, Serializable 
 
     private $daoInterfaceClassNameUML $daoInterfaceVariableNameUML;
 
-	public BeanItemContainer<${domainClassName}> getAll() {
+	public BeanItemContainer<${domainClassName}> getAll(Integer size) {
 	   ${className} ${variableName} = new ${className}();
 	   List<${domainClassName}> list = ${daoInterfaceVariableNameUML}.searchPrototype${domainClassName} (new ${domainClassName}());
 	   for (${domainClassName} ${domainVariableName} : list) {
@@ -31,7 +31,7 @@ public class ${className} implements $vaadinContainerServiceClass, Serializable 
 	
 	public BeanItemContainer<${domainClassName}> saveAndUpdateList (${importDomainObjectUML} $domainVariableName) {
 	   save ($domainVariableName);
-	   return getAll();
+	   return getAll(100);
 	}
 	
 	public void save (${importDomainObjectUML} $domainVariableName) {

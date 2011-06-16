@@ -155,9 +155,9 @@ public class ${className} extends AbstractDomainObject {
 	}
     */
 	public boolean equals(Object object) {
+		if (object == null) return false;	
 		if (object == this) return true;
 		if (!(object instanceof ${className})) return false;
-		if (object == null) return false;
 		${className} ${variableName} = (${className}) object;
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
