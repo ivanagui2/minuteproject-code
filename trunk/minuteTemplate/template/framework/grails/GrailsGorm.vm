@@ -84,6 +84,11 @@ class ${className} {
 #end
         )
 #end
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+        ${columnVar} column:'$column.name'
+#end
 #if(!$table.hasVersion())
         version false
 #else
