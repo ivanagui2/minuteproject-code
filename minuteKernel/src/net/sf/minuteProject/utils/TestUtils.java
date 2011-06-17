@@ -56,7 +56,7 @@ public class TestUtils {
 			return  "getDate()";
 		if (dBType.equals("TIMESTAMP"))
 			return  "getTimestamp()";	
-		if (dBType.equals("BLOB"))
+		if (dBType.equals("BLOB") )
 			return  "getBlob("+length+")";	
 		if (dBType.equals("BINARY"))
 			return  "getBlob("+length+")";	
@@ -68,7 +68,7 @@ public class TestUtils {
 			return  "getBoolean"+number+"()";		//TINYINT
 		if (dBType.equals("TINYINT"))
 			return  "getString"+number+"("+length+")";		
-		if (dBType.equals("OTHER"))
+		if (dBType.equals("OTHER") || "LONGVARBINARY".equals(dBType))
 			return  "getString"+number+"("+length+")";
 		return ""+dBType+" - not converted";//retStr;			
 	}
