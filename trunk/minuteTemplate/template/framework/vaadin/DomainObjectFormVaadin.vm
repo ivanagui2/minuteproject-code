@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.sql.*;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -253,4 +254,8 @@ public class ${className} extends Form implements ClickListener {
 	   return null;//TODO
 	}	
 
+	protected Timestamp getTimestamp (Object date) {
+       return new Timestamp(Calendar.getInstance().getTimeInMillis());
+	}
+        
 }
