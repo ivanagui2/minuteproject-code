@@ -84,11 +84,11 @@ public class ${className} extends AbstractDomainObject {
     	return this;
     }
 
-    public void set${className} (${className} ${variableName}) {
+    public void set${className} (${className} _${variableName}) {
     	new ${className}(
 #foreach ($column in ${table.columns})
 #putColumnParams()
-       ${variableName}.get${columnClass}()#if ($velocityCount!=$table.columnCount),
+       _${variableName}.get${columnClass}()#if ($velocityCount!=$table.columnCount),
 #end
 #end 		
 		);
@@ -241,8 +241,8 @@ public class ${className} extends AbstractDomainObject {
         return _$columnVar;
     }
 	
-    public void set$columnClass ($columnType $columnVarAsInput) {
-        this._$columnVar = $columnVarAsInput; 
+    public void set$columnClass ($columnType _$columnVarAsInput) {
+        this._$columnVar = _$columnVarAsInput; 
     }
     	
 #end
