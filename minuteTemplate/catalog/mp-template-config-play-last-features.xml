@@ -19,6 +19,9 @@
 			file-extension="java" technicalPackage="model"
 			entity-specific="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="DomainEntityJPA2EmbeddedId" value="PlayDomainEntityJPA2EmbeddedId" ></property>
+      		<property name="DomainEntityUMLTemplate" value="PlayDomainObject" ></property>
+      		<property name="EnumerationReferenceData" value="PlayEnumerationReferenceDataJPA2" ></property>
 		</template>	
 
 		<template name="PlayDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
@@ -27,8 +30,31 @@
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="PlayDomainObject" ></property>
+      		<property name="DomainEntityJPA2EmbeddedId" value="PlayDomainEntityJPA2EmbeddedId" ></property>
+      		<property name="EnumerationReferenceData" value="PlayEnumerationReferenceDataJPA2" ></property>
 		</template>	
-		
+
+		<template name="PlayDomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
+			subdir="" outputsubdir="" technicalPackage="model"
+			file-extension="java" file-prefix="" file-suffix="Id" 
+			entity-specific="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
+      		<property name="DomainEntityUMLTemplate" value="PlayDomainObject" ></property>
+		</template>			
+
+		<!-- enumeration for reference data -->
+		<template name="PlayEnumerationReferenceDataJPA2" templateFileName="EnumerationReferenceData.vm" 
+			subdir="" outputsubdir="" technicalPackage="model"
+			file-extension="java" file-prefix="" file-suffix="Enum" 
+			field-specific="true" 
+			file-name-builder-plugin="referenceDataUtils"
+			file-name-builder-method="getEnumName"				
+            check-template-to-generate="true" 
+            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
+			>
+			<property name="generateForTag" value="checkconstraint"></property>
+		</template>				
+						
 		<template name="PlayRestEmptyController" templateFileName="PlayRestEmptyController.vm" 
 			add-model-name="false" add-model-dir-name="false" package-root="controllers" 
 			file-extension="java" file-prefix="Rest" technicalPackage="" add-package-name="false" add-business-package-dir-name="false"

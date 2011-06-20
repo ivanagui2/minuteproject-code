@@ -16,21 +16,31 @@
 		outputdir="src"
 		belongToPackage="true">
 			 
-		<template name="DomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
+		<template name="OpenxavaDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
+      		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
 		</template>
 		
-		<template name="PlayDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
+		<template name="OpenXavaDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="_" 
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-      		<property name="DomainEntityUMLTemplate" value="DomainObjectUML" ></property>
+      		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
+      		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
 		</template>	
+		
+		<template name="OpenxavaDomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
+			subdir="" outputsubdir="" technicalPackage="domain"
+			file-extension="java" file-prefix="" file-suffix="Id" 
+			entity-specific="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
+      		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
+		</template>			
 				
 		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="dto"
@@ -69,7 +79,8 @@
 		      is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnTag"
 		      add-business-package-dir-name="false"
 		      add-model-dir-name="false"
-		      add-technical-dir-name="false" >
+		      add-technical-dir-name="false"
+				>
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
     		
