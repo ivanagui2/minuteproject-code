@@ -48,6 +48,10 @@ public class MavenUtils {
 	public static Driver getDriver (Model model) {
 		return model.getDataModel().getDriver();
 	}
+
+	public static Boolean hasDriver (Model model) {
+		return getDriver(model)!=null;
+	}
 	
 	public static String getModelVersion (Model model) {
 		return model.getVersion();

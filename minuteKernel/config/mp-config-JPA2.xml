@@ -57,8 +57,9 @@
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../../dev/JPA2/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
-			</target> 
-			 			
+               <property name="add-querydsl" value="2.1.2"></property>
+               <property name="add-jpa2-implementation" value="hibernate"></property>			   			   
+			</target> 	
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
