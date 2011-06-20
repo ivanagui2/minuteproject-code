@@ -30,8 +30,7 @@
 				<enrichment>
 				   <conventions>
 				      <entity-naming-convention type="apply-strip-table-name-prefix" pattern-to-strip="SYS,FIN"/>
-				      <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID">
-				      </column-naming-convention>
+				      <column-naming-convention type="apply-fix-primary-key-column-name-when-no-ambiguity" default-value="ID"/>
 				      <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
 				   </conventions>
 				    <package name="product">
