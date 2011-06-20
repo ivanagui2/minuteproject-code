@@ -126,6 +126,8 @@
 			subdir="" outputsubdir="" technicalPackage="enumeration"
 			file-extension="java" file-prefix="" file-suffix="Enum" 
 			field-specific="true" 
+			file-name-builder-plugin="referenceDataUtils"
+			file-name-builder-method="getEnumName"	
             check-template-to-generate="true" 
             is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
 			>

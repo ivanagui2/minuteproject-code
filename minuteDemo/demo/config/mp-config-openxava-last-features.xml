@@ -22,14 +22,20 @@
 					<condition type="exclude" startsWith="ID_GEN"></condition>
 				</generation-condition>		
 				<business-package default="pet">
-				</business-package>		
+					<condition type="package" startsWith="PRODUCT" result="product"></condition>
+					<condition type="package" startsWith="ITEM" result="product"></condition>
+				</business-package>	
 				<enrichment>
+				    <package name="product">
+				    	<entity-group entities="PRODUCT"></entity-group>
+				    	<entity-group entities="ITEM"></entity-group>
+				    </package>
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
 					     <sql-path path="NAME"/>
 					   </semantic-reference>					
 					</entity>
-				</enrichment>						
+				</enrichment>					
 			</business-model>
 		</model>	
 		<targets>
