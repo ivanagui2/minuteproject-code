@@ -12,13 +12,16 @@
     <url>http://maven.apache.org</url>
     
     <dependencies>
-        <!-- JDBC driver -->    
+        <!-- JDBC driver --> 
+#if($hasDriver)		
         <dependency>
             <groupId>$driver.groupId</groupId>
             <artifactId>$driver.artifactId</artifactId>
             <version>$driver.version</version>        
         </dependency>    
-        
+#else
+	    <!-- add jdbc driver : it is not provided in the configuration -->
+#end		
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
