@@ -1,0 +1,28 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+package $packageName;
+
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.ejb.Remote;
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: remote interface for ${className} service </p>
+ *
+ */
+@Remote
+public class ${className} <T> {
+
+    public List<$tableClassName> find (T t);
+	
+	public $tableClassName create ($tableClassName $tableVariableName);	
+
+	public $tableClassName update ($tableClassName $tableVariableName);
+	
+	public void delete ($tableClassName $tableVariableName);
+	
+}
