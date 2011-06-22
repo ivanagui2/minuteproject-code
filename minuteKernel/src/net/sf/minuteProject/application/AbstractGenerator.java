@@ -350,6 +350,7 @@ public abstract class AbstractGenerator implements Generator {
        org.apache.velocity.Template velocityTemplate = getVelocityTemplate(template, outputFilename);
        writeFile(context, velocityTemplate, outputFilename);
        writeFilePostProcessing (template, outputFilename);
+       template.increaseNumberOfGeneratedArtifacts ();
     }
 	
 	private void writeFilePostProcessing(Template template, String outputFilename) {

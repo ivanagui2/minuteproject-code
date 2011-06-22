@@ -65,6 +65,7 @@ public class Template extends TemplateTarget {
 	private String appendEndPackageDir;
 	private String isToGenerate;
 	private String chmod;
+	private int numberOfGeneratedArtifacts;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
@@ -662,4 +663,11 @@ public class Template extends TemplateTarget {
 		this.packageNameBuilderMethod = packageNameBuilderMethod;
 	}
 
+	public void increaseNumberOfGeneratedArtifacts() {
+		numberOfGeneratedArtifacts++;
+	}
+
+	public int getNumberOfGeneratedArtifacts() {
+		return numberOfGeneratedArtifacts;
+	}
 }
