@@ -83,6 +83,11 @@ public class Template extends TemplateTarget {
 		return (s!=null)?s:templateTarget.getPropertyValue(name);
 	}
 	
+	public String getPropertyValue(String name, String defaultValue) {
+		String s = getPropertyValue(name);
+		return (s!=null)?s:defaultValue;
+	}
+	
 	public TemplateTarget getTemplateTarget() {
 		return templateTarget;
 	}
