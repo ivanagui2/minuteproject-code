@@ -1,5 +1,4 @@
-#exposeVariableEntitySpecific()
-#exposeEnvironmentParams()
+#exposeEJBDomainObjectSpecific()
 package $packageName;
 
 import java.util.Date;
@@ -9,12 +8,17 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
+
+import $importDomainObjectUML;
+import $EJBDaoRemoteInterfaceImport;
+import $EJBFacadeRemoteInterfaceImport;
 /**
  *
  * <p>Title: ${className}</p>
@@ -23,13 +27,13 @@ import javax.transaction.UserTransaction;
  *
  */
 @Stateless
-public class ${className} <$tableClassName> implements $remoteInterface {
+public class ${className} implements $EJBFacadeRemoteInterfaceClass {
     
 	@EJB
-    private $daoEJBInterface dao;
+    private $EJBDaoRemoteInterfaceClass dao;
 	
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
-		return dao.findAll();
+		return dao.findAll($tableVariableName);
 	}
 
 #if ($hasOnlyOnePrimaryKey)

@@ -1,5 +1,4 @@
-#exposeVariableEntitySpecific()
-#exposeEnvironmentParams()
+#exposeEJBDomainObjectSpecific()
 package $packageName;
 
 import java.util.Date;
@@ -7,6 +6,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.ejb.Remote;
+
+import $importDomainObjectUML;
 /**
  *
  * <p>Title: ${className}</p>
@@ -15,10 +16,14 @@ import javax.ejb.Remote;
  *
  */
 @Remote
-public class ${className} <T> {
+public interface ${className} {
 
-	public List<$tableClassName> find (T t);
+    public List<$tableClassName> findAll ($tableClassName $tableVariableName);
+		
+#if ($hasOnlyOnePrimaryKey)
+	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable);
 	
+#end
 	public $tableClassName create ($tableClassName $tableVariableName);	
 
 	public $tableClassName update ($tableClassName $tableVariableName);
