@@ -1,4 +1,4 @@
-#macro (putJPA2TemplateDefinition)
+#macro (putJPA2TemplateDefinitionOld)
 ##set ($templateJPA2EmbeddedId="DomainEntityJPA2EmbeddedId")
 #getTemplatePropertyValue("DomainEntityJPA2EmbeddedId")
 #if (!$value.equals(""))
@@ -12,6 +12,11 @@
 #else
 #set ($templateJPA2DomainObject="DomainEntityJPA2Annotation")
 #end
+#end
+
+#macro (putJPA2TemplateDefinition)
+#set($templateJPA2EmbeddedId=$template.getPropertyValue("DomainEntityJPA2EmbeddedId","DomainEntityJPA2EmbeddedId"))
+#set($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainEntityJPA2Annotation"))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
