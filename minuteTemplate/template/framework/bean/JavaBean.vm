@@ -1,0 +1,44 @@
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+package $packageName;
+
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: Java Bean ${className} </p>
+ *
+ */
+public class ${className} {
+
+#foreach($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()
+    private $columnType $columnVar;
+
+#end
+
+    /**
+    * Default constructor
+    */
+    public ${className}() {
+    }
+	
+#foreach($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()
+    public $columnType get$columnClass() {
+        return $columnVar;
+    }
+	
+    public void set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+    }
+    
+#end
+
+}
