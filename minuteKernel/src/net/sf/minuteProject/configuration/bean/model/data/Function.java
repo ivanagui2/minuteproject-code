@@ -19,6 +19,8 @@ public interface Function extends GeneratorBean{
 	
 	public FunctionColumn [] getFunctionColumns ();
 	
+	public FunctionColumn [] getColumns ();
+	
 	public Direction getDirection();
 	
 	public Table getEntity (Direction direction);

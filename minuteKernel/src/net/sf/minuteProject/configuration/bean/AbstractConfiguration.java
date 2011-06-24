@@ -172,7 +172,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	public String getAlias() {
 		if (alias==null || alias.equals(""))
 			alias = getName();
-		if (!isAliasFormatted) {
+		else if (!isAliasFormatted) {
 			isAliasFormatted = true;
 			alias = formatAlias(alias);
 		}

@@ -26,6 +26,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
@@ -255,9 +256,9 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
 		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION_INPUT))
-			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT);
+			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT, Direction.NONE);
 		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION_OUTPUT))
-			generateArtifactsByFunction(template, Direction.OUT, Direction.INOUT);		
+			generateArtifactsByFunction(template, Direction.OUT);		
 		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION))
 			generateArtifactsByFunction(template);
 		else if (template.getScopeSpecificValue().equals(SCOPE_TARGET_TEMPLATE))
@@ -408,9 +409,16 @@ public class ModelGenerator extends AbstractGenerator {
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
+		if (bean instanceof Component) {
+			Component component = (Component) bean;
+			Table table = component.getTable();
+			context.put("table", table);
+		}		
 		if (bean instanceof Function) {
 			context.put("table", bean);
-		}			
+		}		
+		if (beanName.equals("view"))
+			context.put("table", bean);		
 		context.put("template", template);
 		putCommonContextObject(context, template);
 		try {
@@ -422,6 +430,7 @@ public class ModelGenerator extends AbstractGenerator {
 //			throw ex;
 		}
 	}
+
 
 	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);
