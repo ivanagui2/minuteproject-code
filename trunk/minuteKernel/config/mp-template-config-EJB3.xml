@@ -1,11 +1,8 @@
-<target name="OpenXava">		
-	<architecture-target name="openxava" description="openxava architecture">
+<target name="EBJ3">		
+	<architecture-target name="EBJ3" description="EBJ3 architecture">
 	</architecture-target>	
-    <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
-	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
-	<plugin name="jpaUtils" className="net.sf.minuteProject.plugin.jpa.JpaUtils"/>
 
 	<template-target 
     	name="EJB set"
@@ -38,6 +35,11 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="add-ws-annotation" value="stateless"></property>
 		</template>	
+		<!-- stored proc -->
+		<template name="EJB3StoredProcedureDaoImpl" templateFileName="EJB3StoredProcedureDaoImpl.vm" 
+			file-extension="java" technicalPackage="dao.impl" file-suffix="SPDaoEJB" 
+			model-specific="true">
+		</template>		
 		
     </template-target>		
   	

@@ -1,5 +1,5 @@
-<target name="OpenXava">		
-	<architecture-target name="openxava" description="openxava architecture">
+<target name="JPA2">		
+	<architecture-target name="JPA2" description="JPA2 architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
@@ -54,7 +54,7 @@
 			>
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
-											
+									
     </template-target>		
 
 	<template-target 

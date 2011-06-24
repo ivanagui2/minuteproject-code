@@ -128,33 +128,33 @@ public class ModelViewGenerator extends ModelGenerator {
 		super.setModel(model);
 	}
 
-	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
-		String outputFilename = template
-				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
-		VelocityContext context = getVelocityContext(template);
-		String beanName = getAbstractBeanName(bean);
-		context.put(beanName, bean);
-		if (bean instanceof Component) {
-			Component component = (Component) bean;
-			Table table = component.getTable();
-			context.put("table", table);
-		}
-		if (bean instanceof Function) {
-			context.put("table", bean);
-		}		
-		if (beanName.equals("view"))
-			context.put("table", bean);
-		context.put("template", template);
-		putCommonContextObject(context, template);
-		try {
-			produce(context, template, outputFilename);
-		} catch (Exception ex) {
-//			logger.error("ERROR on template " + template.getName()
-//					+ " - on bean " + bean.getName());
-			ex.printStackTrace();
-			throwException(ex, "ERROR on template " + template.getName() + " - on bean " + bean.getName());
-		}
-	}
+//	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
+//		String outputFilename = template
+//				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+//		VelocityContext context = getVelocityContext(template);
+//		String beanName = getAbstractBeanName(bean);
+//		context.put(beanName, bean);
+//		if (bean instanceof Component) {
+//			Component component = (Component) bean;
+//			Table table = component.getTable();
+//			context.put("table", table);
+//		}
+//		if (bean instanceof Function) {
+//			context.put("table", bean);
+//		}		
+//		if (beanName.equals("view"))
+//			context.put("table", bean);
+//		context.put("template", template);
+//		putCommonContextObject(context, template);
+//		try {
+//			produce(context, template, outputFilename);
+//		} catch (Exception ex) {
+////			logger.error("ERROR on template " + template.getName()
+////					+ " - on bean " + bean.getName());
+//			ex.printStackTrace();
+//			throwException(ex, "ERROR on template " + template.getName() + " - on bean " + bean.getName());
+//		}
+//	}
 
 	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		super.generateArtifactsByEntity(template);

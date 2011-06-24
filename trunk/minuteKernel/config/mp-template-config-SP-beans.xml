@@ -1,0 +1,26 @@
+<target name="Stored procedures beans">		
+	<architecture-target name="Stored procedures beans" description="Stored procedures beans architecture">
+	</architecture-target>	
+
+	<template-target 
+    	name="beans set"
+		libdir=""
+		outputdir="src/main/java"
+		belongToPackage="true">
+
+		<!-- stored proc -->	
+		<template name="StoredProcedureInputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="function.in"
+			file-extension="java" file-prefix="" file-suffix="" 
+			scope-specific-value="function-input-entity" >
+		</template>	
+
+		<template name="StoredProcedureOutputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="function.out"
+			file-extension="java" file-prefix="" file-suffix="" 
+			scope-specific-value="function-output-entity" >
+		</template>	
+									
+    </template-target>		
+
+</target>
