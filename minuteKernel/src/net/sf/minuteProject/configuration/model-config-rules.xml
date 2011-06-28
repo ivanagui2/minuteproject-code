@@ -179,7 +179,23 @@
 				<set-properties-rule>
 					<alias attr-name="name" prop-name="name" />	
 					<alias attr-name="alias" prop-name="alias" />
-				</set-properties-rule>	
+				</set-properties-rule>
+				<pattern value="global-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.GlobalConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.GlobalConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+					</set-properties-rule>	
+	            </pattern>					
+				<pattern value="entity-content-type-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityContentTypeConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityContentTypeConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="pattern" prop-name="pattern" />
+						<alias attr-name="content-type" prop-name="contentType" />
+					</set-properties-rule>	
+	            </pattern>				
 				<pattern value="view-primary-key-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
