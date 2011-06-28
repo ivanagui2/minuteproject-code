@@ -12,12 +12,23 @@ import org.apache.commons.lang.StringUtils;
 
 public class ColumnNamingConvention extends Convention {
 
-	public final String APPLY_STRIP_COLUMN_NAME_SUFFIX="apply-strip-column-name-suffix";
-	public final String APPLY_STRIP_COLUMN_NAME_PREFIX="apply-strip-column-name-prefix";
-	public final String APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY="apply-fix-primary-key-column-name-when-no-ambiguity";
+	public final static String APPLY_STRIP_COLUMN_NAME_SUFFIX="apply-strip-column-name-suffix";
+	public final static String APPLY_STRIP_COLUMN_NAME_PREFIX="apply-strip-column-name-prefix";
+	public final static String APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY="apply-fix-primary-key-column-name-when-no-ambiguity";
+	public final static String APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_NAME  ="apply-strip-field-name-prefix-when-matching-entity-name";
+	public final static String APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_ALIAS ="apply-strip-field-name-prefix-when-matching-entity-alias";
+
+
 	
 	@Override
 	public void apply(BusinessModel model) {
+		if (APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_NAME.equals(type) || APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_ALIAS.equals(type)) {
+			if (model.getBusinessPackage()!=null) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
+					applyMatch (table);
+				}
+			}
+		}		
 		if (APPLY_STRIP_COLUMN_NAME_SUFFIX.equals(type) || APPLY_STRIP_COLUMN_NAME_PREFIX.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
@@ -34,6 +45,28 @@ public class ColumnNamingConvention extends Convention {
 		
 	}
 
+	private void applyMatch (Table table) {
+		for (Column column : table.getColumns())
+			apply (table, column);	
+	}
+
+	private void apply(Table table, Column column) {
+		if (APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_NAME.equals(type))
+			applyMatchEntityName(table, column);
+		else
+			applyMatchEntityAlias(table, column);
+	}
+
+	private void applyMatchEntityName(Table table, Column column) {
+//		if (column.getAlias().toLowerCase().startsWith(table.getName().toLowerCase()))
+		column.setAlias(StringUtils.removeStart(column.getAlias().toLowerCase(), table.getName().toLowerCase()).toUpperCase());
+	}
+
+	private void applyMatchEntityAlias(Table table, Column column) {
+//		if (column.getAlias().toLowerCase().startsWith(table.getName().toLowerCase()))
+		column.setAlias(StringUtils.removeStart(column.getAlias().toLowerCase(), table.getAlias().toLowerCase()).toUpperCase());
+	}
+	
 	private void applyFixPk(Table table) {
 		if (defaultValue==null) return;
 		if (table.getPrimaryKeyColumns().length>1) return;

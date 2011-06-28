@@ -31,7 +31,7 @@ public class EntityNamingConvention extends Convention {
 	}
 
 	private boolean isConventionApplicable(Table table) {
-		return (table.getAlias().equals(table.getName()));
+		return (table.getAlias().toLowerCase().equals(table.getName().toLowerCase()));
 	}
 
 	private void apply(Table table) {

@@ -40,6 +40,7 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
      */
     public String getName()
     {
+    	if (column==null) return null;
     	return column.getName();
     }
 
