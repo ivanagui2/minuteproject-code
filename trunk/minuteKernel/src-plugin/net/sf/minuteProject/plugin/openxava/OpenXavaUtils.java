@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
@@ -122,7 +123,7 @@ public class OpenXavaUtils {
 	}
 
 	public static String getColumnDescription(Column column) {
-		return (column.getDescription()!=null)?column.getDescription():"";
+		return I18nUtils.getColumnDescription(column); 
 	}
 	
 	public static String getActionClassName (Action action) {
