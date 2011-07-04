@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+<ui:composition template="/_decorator.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{i18n.listTitle}" />
+	</ui:define>
+	<ui:define name="heading">
+		<h:outputText value="#{i18n.listHeading}" />
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:commandButton title="#{i18n.newArticle}"
+				value="#{i18n.newArticle}" action="create" />
+			<br />
+			<hr />
+			<br />
+			<p:panel
+				header="#{blogEntryBean.getBlogEntries().size()} #{i18n.amountEntries}" 
+				toggleable="true" closable="true" toggleSpeed="500">
+				<ui:repeat value="#{blogEntryBean.getBlogEntries()}" var="entry">
+					<h:panelGrid columns="2" cellpadding="10">
+						<f:facet name="header">
+							<h:outputText value="#{entry.title}" />
+						</f:facet>
+						<h:outputText value="#{i18n.author}: #{entry.author}" />
+						<h:panelGroup id="pGroup">
+							<h:outputText value="#{entry.content}" />
+							<p:contextMenu  for="pGroup">
+								<p:menuitem value="#{i18n.delete}"
+									actionListener="#{blogEntryBean.delete(entry)}" update="@form" />
+							</p:contextMenu>
+						</h:panelGroup>
+						<f:facet name="footer">
+							<h:outputText value="#{i18n.created}: #{entry.created}" />
+						</f:facet>
+					</h:panelGrid>
+					<hr />
+				</ui:repeat>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

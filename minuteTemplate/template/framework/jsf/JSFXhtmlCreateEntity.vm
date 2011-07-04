@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+<ui:composition template="/_decorator.xhtml">
+	<ui:define name="title">#{i18n.createTitle}</ui:define>
+	<ui:define name="heading">#{i18n.createHeading}</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<p:panel id="createPnl" header="#{i18n.newArticle}"
+				toggleable="true" closable="false" toggleSpeed="500"
+				onCloseUpdate="growl" closeSpeed="2000" onToggleUpdate="growl"
+				widgetVar="panel">
+				<h:panelGrid columns="3" cellpadding="10">
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($column in $columnGroup)
+#putColumnParams()
+#columnJavaNaming()
+#putJSFColumnSnippet()
+#end
+#end
+#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
+#putReferenceParams2()
+#putJSFColumnSnippet()
+#end					
+					<h:commandButton title="#{i18n.save}" value="#{i18n.save}"
+						action="#{blogEntryBean.saveBlogEntry()}" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

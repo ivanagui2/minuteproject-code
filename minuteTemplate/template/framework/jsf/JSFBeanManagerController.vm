@@ -1,0 +1,57 @@
+#exposeEJBDomainObjectSpecific()
+package $packageName;
+
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import $importDomainObjectUML;
+import $EJBDaoRemoteInterfaceImport;
+##import $EJBFacadeRemoteInterfaceImport;
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: remote interface for ${className} service </p>
+ *
+ */
+@Named(value = "blogEntryBean")
+@RequestScoped
+public class ${className} {
+    
+	@Inject
+    private $EJBDaoRemoteInterfaceClass dao;
+	
+    public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
+		return dao.findAll($tableVariableName);
+	}
+
+#if ($hasOnlyOnePrimaryKey)
+	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
+		return dao.findById($primaryKeyVariable);
+	}
+
+#end
+#if ($hasSemanticReference)
+	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
+		return em.find (${tableClassName}.class, $primaryKeyVariable);
+	}
+	
+#end
+	public $tableClassName create ($tableClassName $tableVariableName) {
+		return dao.create($tableVariableName);
+	}
+	
+	public $tableClassName update ($tableClassName $tableVariableName) {
+		return dao.update (${tableVariableName});
+	}
+	
+	public void delete ($tableClassName $tableVariableName) {
+		dao.delete (${tableVariableName});
+	}
+		
+}
