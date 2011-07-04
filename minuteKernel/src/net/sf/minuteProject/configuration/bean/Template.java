@@ -216,6 +216,7 @@ public class Template extends TemplateTarget {
 	}
 	
 	public String getOutputFileNameMain (GeneratorBean bean) {
+		if (bean==null) return "ERROR NO FILE NAME";
 		String pluginResult = getPluginFileMain(bean);
 		if (pluginResult!=null)
 			return pluginResult;

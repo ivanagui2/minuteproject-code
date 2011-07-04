@@ -425,7 +425,8 @@ public class ModelGenerator extends AbstractGenerator {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
 			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
-			throwException(ex, "ERROR : "+ex.getMessage());
+			ex.printStackTrace();
+			throwException(ex, "ERROR : "+ex.getMessage());		
 //			logger.error("ERROR : "+ex.getMessage());
 //			throw ex;
 		}
