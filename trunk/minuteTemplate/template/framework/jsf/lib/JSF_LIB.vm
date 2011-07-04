@@ -1,0 +1,26 @@
+#macro (putJSFColumnSnippet)
+<label>#{i18n.$columnVar}</label>
+<h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="true" />
+<h:message for="lbl${columnClass}" class="errorMsg"/>
+#end
+
+#macro (exposeJSFEntitySpecific)
+#exposeJSFTemplate()
+#set ($entityCreateJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityCreateJSF))
+#set ($entityCreateJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityCreateJSF))
+#set ($entityCreateJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityCreateJSF))	
+#set ($entityCreateJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityCreateJSF))
+#set ($entityListJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityListJSF))
+#set ($entityListJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityListJSFClass))
+#set ($entityListJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityListJSF))	
+#set ($entityListJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListJSF))
+#set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
+#set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
+#set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
+#end
+
+#macro (exposeJSFTemplate)
+#set ($templateEntityCreateJSF = "JSFXhtmlCreateEntity")
+#set ($templateEntityListJSF = "JSFXhtmlListEntity")
+#set ($templateEntityControllerJSF = "JSFBeanManagerController")
+#end
