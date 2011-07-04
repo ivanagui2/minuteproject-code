@@ -14,6 +14,10 @@ public class I18nUtils {
 	public static final String ONE_SPACE = " ";
 	public static final String UNDERSCORE = "_";
 
+	public static String getColumnDescription(Column column) {
+		return (column.getDescription()!=null)?column.getDescription():"";
+	}
+	
 	public static String getI18nFromDBName (String input) {
 		return getI18nFromDBName(input, true);
 	}
