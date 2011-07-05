@@ -55,7 +55,7 @@
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/EJB3/petshop/JPA2"
+			   outputdir-root="../../dev/JSF/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="add-jpa2-implementation" value="hibernate"></property>			   			   
@@ -69,22 +69,32 @@
 			<target refname="EJB3" 
 			   name="EJB3" 
 			   fileName="mp-template-config-EJB3.xml" 
-			   outputdir-root="../../dev/EJB3/petshop/EJB3"
+			   outputdir-root="../../dev/JSF/petshop/EJB3"
 			   templatedir-root="../../minuteTemplate/template/framework/ejb">			   			   
 			</target> 		
 			
+			<target refname="JSF" 
+			   name="JSF" 
+			   fileName="mp-template-config-JSF.xml" 
+			   outputdir-root="../../dev/JSF/petshop/JSF"
+			   templatedir-root="../../minuteTemplate/template/framework/jsf"
+			   templatedir-ref="../../minuteTemplate/template/framework/i18n">
+			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
+			</target> 
+
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../dev/EJB3/petshop"
+			   outputdir-root="../../dev/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
-						
+									
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
 			   outputdir-root="../../dev/EJB3/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>	
+			
 		</targets>
 	</configuration>
 </generator-config>
