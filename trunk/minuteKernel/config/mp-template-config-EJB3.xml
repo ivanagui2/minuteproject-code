@@ -35,12 +35,12 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="add-ws-annotation" value="stateless"></property>
 		</template>	
-		<!-- stored proc -->
+		<!-- stored proc 
 		<template name="EJB3StoredProcedureDaoImpl" templateFileName="EJB3StoredProcedureDaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="SPDaoEJB" 
 			model-specific="true">
 		</template>		
-		
+		-->
     </template-target>		
   	
 	<template-target 
