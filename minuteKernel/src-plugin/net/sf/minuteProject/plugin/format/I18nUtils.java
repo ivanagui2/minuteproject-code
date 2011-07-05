@@ -100,8 +100,8 @@ public class I18nUtils {
 	
 	public static String getI18nFromDBObject (Table table) {
 		String alias = table.getAlias();
-		if (table.getName().equals(alias))
-			return getI18nFromDBNameStripPrefix(alias);
+//		if (table.getName().equals(alias))
+//			return getI18nFromDBNameStripPrefix(alias);
 		return getI18nFromDBName(alias);
 	}
 	
