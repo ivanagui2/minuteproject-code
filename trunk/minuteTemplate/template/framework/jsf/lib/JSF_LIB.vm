@@ -19,8 +19,18 @@
 #set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
 #end
 
+#macro (exposeJSFModelSpecific)
+#exposeJSFTemplate()
+#set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
+#set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
+#set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelI18nJSF))
+#end
+
 #macro (exposeJSFTemplate)
 #set ($templateEntityCreateJSF = "JSFXhtmlCreateEntity")
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
+#set ($templateModelI18nJSF = "JSFI18nProperties")
 #end
+
+
