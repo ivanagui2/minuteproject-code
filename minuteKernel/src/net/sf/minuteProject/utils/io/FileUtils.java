@@ -26,6 +26,11 @@ import org.apache.commons.lang.StringUtils;
 
 public class FileUtils {
 
+	public static String getAbsoluteDir(String relDir, String defDir, String targetDir) {
+		if (relDir==null) relDir = defDir;
+		return FileUtils.getAbsolutePathFromPath(relDir, targetDir);		
+	}
+	
 	public static String getFileFullPathFromFileInRootClassPath(String filePathInClassPath) {
 		URL url = Thread.currentThread().getContextClassLoader().getResource(filePathInClassPath);
 		if (url==null)

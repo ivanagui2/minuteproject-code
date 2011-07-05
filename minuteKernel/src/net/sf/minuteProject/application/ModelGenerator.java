@@ -208,6 +208,7 @@ public class ModelGenerator extends AbstractGenerator {
 //			targetHolder.setTarget(model.getConfiguration().getTarget());
 			
 			targetFinal.complement(configuration.getTarget());
+			targetFinal.complementAdditional (target);
 			configuration.setTarget(new Target());
 		}	
 		configuration.setTarget(targetFinal);

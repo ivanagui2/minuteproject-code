@@ -594,6 +594,7 @@
 		<set-properties-rule>
 			<alias attr-name="outputdir-root" prop-name="outputdirRoot" />
 			<alias attr-name="templatedir-root" prop-name="templatedirRoot" />
+			<alias attr-name="templatedir-ref" prop-name="templatedirRef" />
 		</set-properties-rule>	
 	   	<bean-property-setter-rule pattern="refname"/>	 
 	   	<bean-property-setter-rule pattern="name"/>	 
@@ -615,6 +616,7 @@
 	<set-properties-rule>
 		<alias attr-name="outputdir-root" prop-name="outputdirRoot" />
 		<alias attr-name="templatedir-root" prop-name="templatedirRoot" />
+		<alias attr-name="templatedir-ref" prop-name="templatedirRef" />
 	</set-properties-rule>	
    	<bean-property-setter-rule pattern="refname"/>	 
    	<bean-property-setter-rule pattern="name"/>	 

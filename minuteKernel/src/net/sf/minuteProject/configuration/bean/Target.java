@@ -26,8 +26,9 @@ public class Target extends AbstractConfiguration{
 	private TargetParams targetParams;
 	private ImportTargets importTargets;
 	private String outputdirRoot;
-	private String templatedirRoot;
+	private String templatedirRoot, templatedirRef;
 	private Boolean isGenerable;
+	private List<String> templatedirRefs;
 	
 	public void complement (Target target) {
 		if (abstractConfigurationRoot==null)
@@ -37,7 +38,7 @@ public class Target extends AbstractConfiguration{
 			templateTarget.setTarget(this);
 			templateTarget.setIsGenerable(target.isGenerable());
 			templateTarget.setRootdir(target.getTemplatedirRoot());
-//			templateTarget.setOutputdirRoot(target.getOutputdirRoot());
+			templateTarget.getTemplatedirRefs().addAll(target.getTemplatedirRefs());
 			getTemplateTargets().add(templateTarget);
 			if (templateTarget!=null && templateTarget.getTemplates()!=null) {
 				for (Template template : templateTarget.getTemplates()) {
@@ -104,6 +105,10 @@ public class Target extends AbstractConfiguration{
 	
 	private void setDependency(List<Target> dependency) {
 		this.dependency = dependency;
+	}
+	
+	public String getAbsoluteRootDir(String rootDir) {
+		return FileUtils.getAbsoluteDir(rootDir, rootDir, getTemplatedirRoot());
 	}
 	
 	public String getDir() {
@@ -177,6 +182,25 @@ public class Target extends AbstractConfiguration{
 	public void setTemplatedirRoot(String templatedirRoot) {
 		this.templatedirRoot = templatedirRoot;
 	}
+	public String getTemplatedirRef() {
+		return templatedirRef;
+	}
+	public List<String> getTemplatedirRefs() {
+		if (templatedirRefs==null) {
+			templatedirRefs = new ArrayList<String>();
+			if (templatedirRef!=null)
+				templatedirRefs.add(templatedirRef);
+		}
+		return templatedirRefs;
+	}
+
+	public void addTemplatedirRef(String templatedirRef) {
+		if (templatedirRef!=null)
+			getTemplatedirRefs().add(templatedirRef);
+	}
+	public void setTemplatedirRef(String templatedirRef) {
+		this.templatedirRef = templatedirRef;
+	}
 
 	public boolean isGenerable() {
 		if (isGenerable==null) isGenerable = true;
@@ -185,5 +209,9 @@ public class Target extends AbstractConfiguration{
 
 	public void setIsGenerable(Boolean isGenerable) {
 		this.isGenerable = isGenerable;
+	}
+
+	public void complementAdditional(Target target) {
+		getTemplatedirRefs().addAll(target.getTemplatedirRefs());
 	}
 }
