@@ -295,17 +295,16 @@ public abstract class AbstractGenerator implements Generator {
     			String absoluteRootDir = templateTarget2.getAbsoluteRootDir();
     			if (absoluteRootDir!=null) {
     				ht.put(absoluteRootDir, absoluteRootDir);
-//	    			sb.append(absoluteRootDir);
-//	    			sb.append(",");
     			}
     			String templateFullDir = templateTarget2.getTemplateFullDir();
     			if (templateFullDir!=null) {
     				ht.put(templateFullDir, templateFullDir);
-//	    			sb.append(templateTarget2.getTemplateFullDir());
-//	    			sb.append(",");
     			}
     		}
-
+			for (String templateAssociated : target.getTemplatedirRefs()) {
+				String absoluteRootDir = target.getAbsoluteRootDir(templateAssociated);
+				ht.put(absoluteRootDir, absoluteRootDir);
+			}
     		templatePath = getVelocityPath(ht,null);//getVelocityPath(ht, c.getCatalogDir());
     	}
     	return templatePath;

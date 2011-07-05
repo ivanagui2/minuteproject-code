@@ -10,12 +10,12 @@ public class TemplateTarget extends AbstractConfiguration{
 	public static final String MP_GENERATION_OUTPUT = "MP-GENERATION-OUTPUT";
 	private String rootdir, absoluteRootDir, canonicalDir;
 	private String templatedir;
+	private List<String> templatedirRefs;
 	private String dir;
 	private String outputdir, outputdirRoot;
 	private String tool;
 	private String libdir;
 	private Target target;
-	// TODO change list into a map to ensure uniqueness of template by name
 	private List <Template> templates;
 	protected String packageRoot;
 	private boolean belongToPackage;
@@ -155,11 +155,12 @@ public class TemplateTarget extends AbstractConfiguration{
 	}
 	
 	private String getAbsoluteRootDir(String rootDir) {
-		if (rootDir==null)
-			rootDir = getRootdir();
-		String targetDir = target.getDir();
-		absoluteRootDir = FileUtils.getAbsolutePathFromPath(rootDir, targetDir);		
-		return absoluteRootDir;
+		return FileUtils.getAbsoluteDir(rootDir, getRootdir(), target.getDir());
+//		if (rootDir==null)
+//			rootDir = getRootdir();
+//		String targetDir = target.getDir();
+//		absoluteRootDir = FileUtils.getAbsolutePathFromPath(rootDir, targetDir);		
+//		return absoluteRootDir;
 	}
 
 	public void setRootdir(String rootdir) {
@@ -178,6 +179,17 @@ public class TemplateTarget extends AbstractConfiguration{
 
 	public String getTemplatedir() {
 		return templatedir;
+	}
+
+	public List<String> getTemplatedirRefs() {
+		if (templatedirRefs==null)
+			templatedirRefs = new ArrayList<String>();
+		return templatedirRefs;
+	}
+
+	public void addTemplatedirRef(String templatedirRef) {
+		if (templatedirRef!=null)
+			getTemplatedirRefs().add(templatedirRef);
 	}
 
 	public String getCanonicalDir() {
