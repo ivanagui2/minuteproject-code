@@ -4,6 +4,11 @@
 <h:message for="lbl${columnClass}" class="errorMsg"/>
 #end
 
+#macro(exposeSeparator)
+#exposeJSFTemplate()
+#set($separator=$i18nUtils.getSeparator($templateModelI18nJSF))
+#end
+
 #macro (exposeJSFEntitySpecific)
 #exposeVariableEntitySpecific()
 #exposeJSFTemplate()
