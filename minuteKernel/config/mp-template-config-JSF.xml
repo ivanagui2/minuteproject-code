@@ -23,15 +23,15 @@
 
   	<template-target 
     	name="i18n set"
-		outputdir="src/main/java"
+		outputdir="src/main/resources"
 		belongToPackage="true">
 			 
 		<template name="JSFI18nProperties" templateFileName="I18nProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="i18n"
-			add-model-dir-name="false"
 			file-extension="properties" file-prefix="" file-suffix="" 
 			model-specific="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="separator" value="_"/>
 		</template>
 
 	</template-target>
