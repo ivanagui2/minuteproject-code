@@ -1,4 +1,5 @@
 #exposeVariableComponentSpecific()
+#set($separator=$template.getPropertyValue("separator","."))
 #foreach ($table in $modelEntities)
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
@@ -15,12 +16,12 @@ $tableClassName=$tableLabel
 #putColumnParams()
 #columnJavaNaming()
 #set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
-$tableVariableName.$columnVar=${entityPrefix}${columnLabel}
+$tableVariableName$separator$columnVar=${entityPrefix}${columnLabel}
 #set($columnDescription=$i18nUtils.getColumnDescription($column))
 #if($columnDescription!="")
-$tableVariableName.$columnVar[description]=$column.description
+$tableVariableName$separator$columnVar[description]=$column.description
 #else
-$tableVariableName.$columnVar[description]=${entityPrefix}${columnLabel}
+$tableVariableName$separator$columnVar[description]=${entityPrefix}${columnLabel}
 #end
 #end
 #foreach ($reference in $childReferences)
@@ -28,8 +29,8 @@ $tableVariableName.$columnVar[description]=${entityPrefix}${columnLabel}
 #columnJavaNaming()
 #set($linkTableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
 #set($linkTableLabels=$i18nUtils.plurialize(${linkTableLabel}))
-$tableVariableName.${link}${columnclass}s=$linkTableLabels
-$tableVariableName.${link}${columnclass}s[description]=$linkTableLabels
+$tableVariableName$separator${link}${columnclass}s=$linkTableLabels
+$tableVariableName$separator${link}${columnclass}s[description]=$linkTableLabels
 #end
 #end
 #foreach ($table in $modelEntities)
