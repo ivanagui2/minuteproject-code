@@ -1,10 +1,11 @@
 #macro (putJSFColumnSnippet)
-<label>#{i18n.$columnVar}</label>
+<label>#{i18n.$tableVariableName.$columnVar}</label>
 <h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="true" />
 <h:message for="lbl${columnClass}" class="errorMsg"/>
 #end
 
 #macro (exposeJSFEntitySpecific)
+#exposeVariableEntitySpecific()
 #exposeJSFTemplate()
 #set ($entityCreateJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityCreateJSF))
 #set ($entityCreateJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityCreateJSF))
@@ -20,6 +21,7 @@
 #end
 
 #macro (exposeJSFModelSpecific)
+#exposeVariableModelSpecific()
 #exposeJSFTemplate()
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
