@@ -2,10 +2,13 @@ package net.sf.minuteProject.plugin.format;
 
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.TemplateUtils;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -13,6 +16,8 @@ public class I18nUtils {
 	public static final String BLANK = "";
 	public static final String ONE_SPACE = " ";
 	public static final String UNDERSCORE = "_";
+	public static final String SEPARATOR_WORD= ".";
+	public static final String DEFAULT_SEPARATOR="_";
 
 	public static String getColumnDescription(Column column) {
 		return (column.getDescription()!=null)?column.getDescription():"";
@@ -116,4 +121,13 @@ public class I18nUtils {
 		return getI18nFromDBName(column.getName(), firstUpperCase);
 	}
 	
+	public static String getSeparator (Template template) {
+		return getSeparator(template, template.getName());
+	}
+	
+	public static String getSeparator (Template template, String i18nTemplateName) {
+		if (!i18nTemplateName.equals(template.getName()))
+			template = CommonUtils.getTemplate(template.getTarget(), i18nTemplateName);
+		return template.getPropertyValue(SEPARATOR_WORD, DEFAULT_SEPARATOR);
+	}
 }

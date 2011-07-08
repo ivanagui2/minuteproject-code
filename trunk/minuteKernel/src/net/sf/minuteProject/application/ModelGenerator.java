@@ -256,17 +256,17 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByApplication(template);
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
-		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION_INPUT))
+		else if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(template.getScopeSpecificValue()))
 			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT, Direction.NONE);
-		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION_OUTPUT))
+		else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(template.getScopeSpecificValue()))
 			generateArtifactsByFunction(template, Direction.OUT);		
-		else if (template.getScopeSpecificValue().equals(SCOPE_DATAMODEL_FUNCTION))
+		else if (SCOPE_DATAMODEL_FUNCTION.equals(template.getScopeSpecificValue()))
 			generateArtifactsByFunction(template);
-		else if (template.getScopeSpecificValue().equals(SCOPE_TARGET_TEMPLATE))
+		else if (SCOPE_TARGET_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByTargetTemplate(template);	
-		else if (template.getScopeSpecificValue().equals(SCOPE_TRANSFER_ENTITY_TEMPLATE))
+		else if (SCOPE_TRANSFER_ENTITY_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByTransferEntity(template);	
-		else if (template.getScopeSpecificValue().equals(SCOPE_ACTION_TEMPLATE))
+		else if (SCOPE_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByAction(template);			
 	}
 
