@@ -16,6 +16,11 @@
 #foreach ($table in $model.businessModel.businessPackage.entities)	
 #exposeVariableEntitySpecific()	
 #exposeJSFEntitySpecific()	
+    <managed-bean>
+        <managed-bean-name>$entityControllerJSFVariable</managed-bean-name>
+        <managed-bean-class>$entityControllerJSFImport</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 	<navigation-rule>
 		<from-view-id>${entityListJSFLocation}</from-view-id>
 		<navigation-case>

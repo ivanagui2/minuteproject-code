@@ -1,12 +1,12 @@
 #macro (putJSFColumnSnippet)
-<label>#{i18n.$tableVariableName.$columnVar}</label>
+<label>#{i18n.$tableVariableName$separator$columnVar}</label>
 <h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="true" />
 <h:message for="lbl${columnClass}" class="errorMsg"/>
 #end
 
 #macro(exposeSeparator)
 #exposeJSFTemplate()
-#set($separator=$i18nUtils.getSeparator($templateModelI18nJSF))
+#set($separator=$i18nUtils.getSeparator($template, $templateModelI18nJSF))
 #end
 
 #macro (exposeJSFEntitySpecific)
@@ -31,6 +31,7 @@
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
 #set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelI18nJSF))
+#set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
 #end
 
 #macro (exposeJSFTemplate)
@@ -38,6 +39,7 @@
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateModelI18nJSF = "JSFI18nProperties")
+#set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")
 #end
 
 

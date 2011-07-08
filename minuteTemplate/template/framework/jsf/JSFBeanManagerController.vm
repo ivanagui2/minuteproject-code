@@ -1,4 +1,5 @@
 #exposeEJBDomainObjectSpecific()
+#exposeJSFEntitySpecific()
 package $packageName;
 
 import java.util.Date;
@@ -19,14 +20,16 @@ import $EJBDaoRemoteInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Named(value = "blogEntryBean")
+@Named(value = "$entityControllerJSFVariable")
 @RequestScoped
 public class ${className} {
     
 	@Inject
     private $EJBDaoRemoteInterfaceClass dao;
 	
-    public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
+	private $tableClassName $tableVariableName = new $tableClassName();
+	
+    public List<$tableClassName> findAll () {
 		return dao.findAll($tableVariableName);
 	}
 
@@ -42,16 +45,24 @@ public class ${className} {
 	}
 	
 #end
-	public $tableClassName create ($tableClassName $tableVariableName) {
+	public $tableClassName create () {
 		return dao.create($tableVariableName);
 	}
 	
-	public $tableClassName update ($tableClassName $tableVariableName) {
+	public $tableClassName update () {
 		return dao.update (${tableVariableName});
 	}
 	
-	public void delete ($tableClassName $tableVariableName) {
+	public void delete () {
 		dao.delete (${tableVariableName});
 	}
+	
+	public $tableClassName get$tableClassName() {
+	    return $tableVariableName;
+	}
+	
+	public void set$tableClassName ($tableClassName $tableVariableName) {
+	    this.$tableVariableName = $tableVariableName;
+	}	
 		
 }

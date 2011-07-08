@@ -1,5 +1,7 @@
 #exposeVariableComponentSpecific()
-#set($separator=$template.getPropertyValue("separator","."))
+##set($separator=$template.getPropertyValue("separator","."))
+#set($separator=$i18nUtils.getSeparator($template))
+#parse("I18nStaticProperties.vm")
 #foreach ($table in $modelEntities)
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
