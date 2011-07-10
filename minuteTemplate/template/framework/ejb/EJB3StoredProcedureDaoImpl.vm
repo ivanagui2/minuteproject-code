@@ -1,4 +1,5 @@
 ##exposeEJBDomainObjectSpecific()
+#exposeJPASpecifics()
 package $packageName;
 
 import java.util.Date;
