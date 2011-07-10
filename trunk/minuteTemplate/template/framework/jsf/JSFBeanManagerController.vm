@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import $importDomainObjectUML;
 import $EJBDaoRemoteInterfaceImport;
+import $EJBDaoImplImport;
 ##import $EJBFacadeRemoteInterfaceImport;
 /**
  *
@@ -24,37 +25,38 @@ import $EJBDaoRemoteInterfaceImport;
 @RequestScoped
 public class ${className} {
     
-	@Inject
-    private $EJBDaoRemoteInterfaceClass dao;
+	@Inject @Named("$EJBDaoImplVariable")
+##    private $EJBDaoRemoteInterfaceClass $EJBDaoRemoteInterfaceVariable;
+    private $EJBDaoImplClass $EJBDaoImplVariable;
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
 	
     public List<$tableClassName> findAll () {
-		return dao.findAll($tableVariableName);
+		return ${EJBDaoImplVariable}.findAll($tableVariableName);
 	}
 
 #if ($hasOnlyOnePrimaryKey)
 	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
-		return dao.findById($primaryKeyVariable);
+		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
 	}
 
 #end
 #if ($hasSemanticReference)
 	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
-		return em.find (${tableClassName}.class, $primaryKeyVariable);
+		return ${EJBDaoImplVariable}.findBySemanticReference (${tableClassName}.class, $primaryKeyVariable);
 	}
 	
 #end
 	public $tableClassName create () {
-		return dao.create($tableVariableName);
+		return ${EJBDaoImplVariable}.create($tableVariableName);
 	}
 	
 	public $tableClassName update () {
-		return dao.update (${tableVariableName});
+		return ${EJBDaoImplVariable}.update (${tableVariableName});
 	}
 	
 	public void delete () {
-		dao.delete (${tableVariableName});
+		${EJBDaoImplVariable}.delete (${tableVariableName});
 	}
 	
 	public $tableClassName get$tableClassName() {

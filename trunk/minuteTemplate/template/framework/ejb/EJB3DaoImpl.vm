@@ -1,4 +1,5 @@
 #exposeEJBDomainObjectSpecific()
+#exposeJPASpecifics()
 package $packageName;
 
 import java.util.Date;
@@ -25,10 +26,10 @@ import $EJBDaoRemoteInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Stateless
+@Stateless (name="$EJBDaoImplVariable")
 public class ${className} implements $EJBDaoRemoteInterfaceClass {
     
-	@PersistenceContext(unitName = "$unitName", type = PersistenceContextType.EXTENDED)
+	@PersistenceContext(unitName = "$persistenceUnitName", type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 	
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
