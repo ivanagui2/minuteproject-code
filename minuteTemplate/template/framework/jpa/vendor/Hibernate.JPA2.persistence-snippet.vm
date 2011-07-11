@@ -1,4 +1,5 @@
 #set ($datasource = $model.dataModel.basicDataSource)
+##		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<properties>
 		
 			<property name="hibernate.show_sql" value="true" />

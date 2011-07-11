@@ -26,10 +26,10 @@ import $EJBDaoRemoteInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Stateless (name="$EJBDaoImplVariable")
+@Stateless ##(name="$EJBDaoImplVariable")
 public class ${className} implements $EJBDaoRemoteInterfaceClass {
     
-	@PersistenceContext(unitName = "$persistenceUnitName", type = PersistenceContextType.EXTENDED)
+	@PersistenceContext(unitName = "$persistenceUnitName")
     private EntityManager em;
 	
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -22,10 +23,12 @@ import $EJBDaoImplImport;
  *
  */
 @Named(value = "$entityControllerJSFVariable")
+@Default
 @RequestScoped
 public class ${className} {
     
-	@Inject @Named("$EJBDaoImplVariable")
+	@Inject 
+##	@Named("$EJBDaoImplVariable")
 ##    private $EJBDaoRemoteInterfaceClass $EJBDaoRemoteInterfaceVariable;
     private $EJBDaoImplClass $EJBDaoImplVariable;
 	
