@@ -3,6 +3,7 @@
 	<configuration>
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
 			<data-model>
+			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
 			    <dataSource>	
