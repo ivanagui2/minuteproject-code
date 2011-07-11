@@ -80,7 +80,12 @@
 			file-extension="xml" technicalPackage="" file-suffix="faces-config" 
 			application-specific="true" add-model-name="false" >
 		</template>
-				
+
+		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="beans" 
+			application-specific="true" add-model-name="false" >
+		</template>
+						
     </template-target>
       	
 	<template-target 
