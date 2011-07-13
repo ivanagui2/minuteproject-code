@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import $importDomainObjectUML;
-import $EJBDaoRemoteInterfaceImport;
+##import $EJBDaoRemoteInterfaceImport;
 import $EJBDaoImplImport;
 ##import $EJBFacadeRemoteInterfaceImport;
 /**
@@ -50,8 +50,9 @@ public class ${className} {
 	}
 	
 #end
-	public $tableClassName create () {
-		return ${EJBDaoImplVariable}.create($tableVariableName);
+	public String create () {
+		${EJBDaoImplVariable}.create($tableVariableName);
+		return "success";
 	}
 	
 	public $tableClassName update () {
