@@ -302,8 +302,8 @@ public abstract class AbstractGenerator implements Generator {
     			}
     		}
 			for (String templateAssociated : target.getTemplatedirRefs()) {
-				String absoluteRootDir = target.getAbsoluteRootDir(templateAssociated);
-				ht.put(absoluteRootDir, absoluteRootDir);
+				for (String absoluteRootDir :target.getAbsoluteRootDirs(templateAssociated))
+					ht.put(absoluteRootDir, absoluteRootDir);
 			}
     		templatePath = getVelocityPath(ht,null);//getVelocityPath(ht, c.getCatalogDir());
     	}
