@@ -8,7 +8,11 @@
              version="1.0">
 
     <persistence-unit name="$persistenceUnitName" transaction-type="JTA">
+#if($jpaImplementation=="eclipselink")
+		<provider>oracle.toplink.essentials.PersistenceProvider</provider>
+#else
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+#end		
 #foreach ($package in ${businessPackages})
         <!-- $package.name -->	
 #foreach ($table in ${package.listOfTables})
@@ -28,8 +32,9 @@
 
 #end
 
+#if($jpaImplementation=="hibernate")
 #parse("./vendor/Hibernate.JPA2.persistence-snippet.vm")
-
+#end
     </persistence-unit>
 	
 </persistence>

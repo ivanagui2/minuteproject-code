@@ -19,7 +19,7 @@
 	<dependencies>
         <dependency>
             <groupId>${rootPackage}.${model.name}</groupId>
-            <artifactId>${model.name}EJB</artifactId>
+            <artifactId>${DbApiName}</artifactId>
             <version>${version}-SNAPSHOT</version>
         </dependency>		
       <!-- CDI (JSR-299) -->
@@ -51,7 +51,13 @@
           <artifactId>jsf-impl</artifactId>
           <version>2.0.3</version>
           <scope>runtime</scope>
-      </dependency>		
+      </dependency>	
+	   <dependency>
+	     <groupId>javax</groupId>
+	     <artifactId>javaee-api</artifactId>
+	     <version>6.0</version>
+	     <scope>provided</scope>
+	   </dependency>	  
 	</dependencies>
 
 	<build>

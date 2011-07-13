@@ -18,7 +18,9 @@ import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
 
 import $importDomainObjectUML;
+#if($implementInterface)
 import $EJBDaoRemoteInterfaceImport;
+#end
 /**
  *
  * <p>Title: ${className}</p>
@@ -27,7 +29,7 @@ import $EJBDaoRemoteInterfaceImport;
  *
  */
 @Stateless ##(name="$EJBDaoImplVariable")
-public class ${className} implements $EJBDaoRemoteInterfaceClass {
+public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
     
 	@PersistenceContext(unitName = "$persistenceUnitName")
     private EntityManager em;
