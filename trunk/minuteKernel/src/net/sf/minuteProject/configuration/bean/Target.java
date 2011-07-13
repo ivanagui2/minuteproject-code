@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.target.ImportTargets;
 import net.sf.minuteProject.configuration.bean.target.TargetParams;
 import net.sf.minuteProject.utils.io.FileUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 /**
  * @author Florian Adler
@@ -106,22 +107,19 @@ public class Target extends AbstractConfiguration{
 	private void setDependency(List<Target> dependency) {
 		this.dependency = dependency;
 	}
+
+	public List<String> getAbsoluteRootDirs(String rootDir) {
+		List<String> l = new ArrayList<String>();
+		for (String s:ParserUtils.getList(rootDir))
+			l.add(FileUtils.getAbsoluteDir(s, s, getTemplatedirRoot()));
+		return l;
+	}
 	
 	public String getAbsoluteRootDir(String rootDir) {
 		return FileUtils.getAbsoluteDir(rootDir, rootDir, getTemplatedirRoot());
 	}
 	
 	public String getDir() {
-//		return FileUtils.getFileFullPathWithoutFileName(dir, fileName);
-		
-//		if (dir==null) {
-//			return FileUtils.getFileFullPathWithoutFileName()
-//			// if environment MP_HOME is available
-//			// -> 
-//			//get the configuration file in the classpath.
-//			// strip of the filename => root dir
-//			
-//		}
 		return dir;
 	}
 	public void setDir(String dir) {

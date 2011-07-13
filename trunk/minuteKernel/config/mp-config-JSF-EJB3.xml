@@ -6,12 +6,20 @@
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
 			    <dataSource>	
+					<driverClassName>org.apache.derby.jdbc.ClientDriver</driverClassName>
+					<url>jdbc:derby://localhost:1527/sun-appserv-samples</url>
+					<username>sa</username>
+					<password>test</password>	
+				</dataSource>
+				<schema>sa</schema>			    
+			    <!--
+			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
-				<!-- for Oracle and DB2 please set the schema 
+				 for Oracle and DB2 please set the schema 
 				<schema> </schema>
 				 -->														 
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
@@ -55,10 +63,10 @@
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JPA2"
+			   outputdir-root="../../dev/JSF2/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
-               <property name="add-jpa2-implementation" value="hibernate"></property>			   			   
+               <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
 			</target>
 							
 			<target refname="LIB" 
@@ -66,32 +74,32 @@
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 			</target>
 			
-			<target refname="EJB3" 
+			<!--<target refname="EJB3" 
 			   name="EJB3" 
 			   fileName="mp-template-config-EJB3.xml" 
-			   outputdir-root="../../dev/JSF/petshop/EJB3"
+			   outputdir-root="../../dev/JSF2/petshop/EJB3"
 			   templatedir-root="../../minuteTemplate/template/framework/ejb">			   			   
-			</target> 		
+			</target>--> 		
 			
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JSF"
+			   outputdir-root="../../dev/JSF2/petshop/JSF"
 			   templatedir-root="../../minuteTemplate/template/framework/jsf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n">
+			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
 			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
 			</target> 
 
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../dev/JSF/petshop"
+			   outputdir-root="../../dev/JSF2/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
 									
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../../dev/EJB3/petshop"
+			   outputdir-root="../../dev/JSF2/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>	
 			

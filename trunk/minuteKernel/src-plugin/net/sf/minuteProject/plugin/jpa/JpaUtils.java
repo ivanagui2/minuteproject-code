@@ -7,7 +7,6 @@ public class JpaUtils {
 
 	public static final String JPA2_IMPLEMENTATION_HIBERNATE = "hibernate";
 	public static final String JPA2_IMPLEMENTATION_ECLIPSELINK = "eclipselink";
-	public static final String JPA2_IMPLEMENTATION_TOPLINK = "toplink";
 	
 	public static String getMetamodelVolatileObjects (Table table) {
 		return "";

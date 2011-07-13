@@ -7,7 +7,7 @@
 
 	<template-target 
     	name="JSF java set"
-		libdir="lib/JSF_LIB.vm"
+		libdir="lib/JSF_LIB.vm,lib/EJB_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
@@ -18,7 +18,14 @@
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
-		
+
+		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
+			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
+			entity-specific="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="implement-interface" value="false"></property>
+		</template>		
+				
 	</template-target>
 
   	<template-target 
