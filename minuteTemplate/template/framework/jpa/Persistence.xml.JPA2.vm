@@ -1,6 +1,6 @@
 #exposeVariableModelSpecific()
 #exposeJdbc()
-#exposeJPASpecifics()
+#exposeJPA2Specifics()
 <?xml version="1.0"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -8,7 +8,7 @@
              version="1.0">
 
     <persistence-unit name="$persistenceUnitName" transaction-type="JTA">
-#if($jpaImplementation=="eclipselink")
+#if($jpa2ImplementationIsEclipseLink)
 		<provider>oracle.toplink.essentials.PersistenceProvider</provider>
 #else
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
@@ -32,7 +32,7 @@
 
 #end
 
-#if($jpaImplementation=="hibernate")
+#if($jpa2ImplementationIsHibernate)
 #parse("./vendor/Hibernate.JPA2.persistence-snippet.vm")
 #end
     </persistence-unit>

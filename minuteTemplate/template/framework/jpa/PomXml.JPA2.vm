@@ -1,7 +1,8 @@
 #exposeMaven()
+#exposeJPA2Specifics()
 #set($isQuerydslPowered=$template.hasProperty("add-querydsl"))
 #set($querydslVersion=$template.getPropertyValue("add-querydsl"))
-#set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
+##set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>    
   	<groupId>${rootPackage}.${model.name}</groupId>
@@ -30,13 +31,13 @@
             <scope>test</scope>
         </dependency>
 		<!-- JPA2 provider -->
-#if($jpa2Implementation=="eclipselink")
+#if($jpa2ImplementationIsEclipseLink)
         <dependency>
           <groupId>org.eclipse.persistence</groupId>
           <artifactId>eclipselink</artifactId>
           <version>2.0.0</version>
         </dependency>
-#elseif($jpa2Implementation=="hibernate")
+#elseif($jpa2ImplementationIsHibernate)
 	    <dependency>
 	      <groupId>org.hibernate</groupId>
 	      <artifactId>hibernate-entitymanager</artifactId>

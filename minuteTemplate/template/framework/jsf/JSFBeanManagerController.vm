@@ -59,6 +59,10 @@ public class ${className} {
 		return ${EJBDaoImplVariable}.update (${tableVariableName});
 	}
 	
+	public void delete ($tableClassName ${tableVariableName}) {
+		${EJBDaoImplVariable}.delete (${tableVariableName});
+	}
+
 	public void delete () {
 		${EJBDaoImplVariable}.delete (${tableVariableName});
 	}

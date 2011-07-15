@@ -377,6 +377,7 @@
 #set ($hasSchema = $model.dataModel.hasSchema())
 #set ($isSchemaNeeded = $modelUtils.isSchemaNeeded($model))
 #set ($schemaName = $model.dataModel.schema)
+#set ($jpaImplementation = $jpaUtils.getJpa2Implementation($template))
 #end
 
 #macro (exposeJstlScopeItems $instance $attribute)
