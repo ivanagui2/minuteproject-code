@@ -16,15 +16,15 @@
 	</ui:define>
 	<ui:define name="body">
 		<h:form>
-			<h:commandButton title="#{i18n.newArticle}"
-				value="#{i18n.newArticle}" action="create" />
+			<h:commandButton title="New #{i18n.$tableVariableName}"
+				value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.create}" />
 			<br />
 			<hr />
 			<br />
 			<p:panel
-				header="#{blogEntryBean.getBlogEntries().size()} #{i18n.amountEntries}" 
+				header="#{${entityControllerJSFVariable}.findAll().size()} #{i18n.amountEntries}" 
 				toggleable="true" closable="true" toggleSpeed="500">
-				<ui:repeat value="#{blogEntryBean.getBlogEntries()}" var="entry">
+				<ui:repeat value="#{${entityControllerJSFVariable}.findAll()}" var="entry">
 					<h:panelGrid columns="2" cellpadding="10">
 						<f:facet name="header">
 							<h:outputText value="#{entry.title}" />

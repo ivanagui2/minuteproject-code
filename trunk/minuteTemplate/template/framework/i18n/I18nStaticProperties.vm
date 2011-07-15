@@ -1,4 +1,8 @@
 createTitle=Create
 createHeading=Create
 save=Save
+delete=Delete
+listTitle=List
+listHeading=List
+amountEntries=Amount entries
 

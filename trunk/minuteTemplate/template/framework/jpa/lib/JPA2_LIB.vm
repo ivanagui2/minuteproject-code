@@ -76,3 +76,10 @@ import $importDomainObjectUML;
 #end
 #end
 #end
+
+#macro(exposeJPA2Specifics)
+#exposeJPASpecifics()
+#set ($jpa2Implementation = $jpa2Utils.getJpa2Implementation($template))
+#set ($jpa2ImplementationIsHibernate = ($jpa2Implementation=="hibernate"))
+#set ($jpa2ImplementationIsEclipseLink = ($jpa2Implementation=="eclipselink"))
+#end
