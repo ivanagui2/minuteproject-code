@@ -2,6 +2,7 @@ package net.sf.minuteProject.plugin.maven;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +16,23 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 public class MavenUtils {
 
 	public static List<MavenModule> getModules (Template template) {
-		//ideally:
-		// check each target to see if there is a pom.xml generated
-		// and add a module whose name is the directory
-
 		// The current implementation imposes to masterpom template as the last generated artifact)
 		List<MavenModule> list = new ArrayList<MavenModule>();
 		String s =template.getOutputdir();
 		File dir = new File(s);
 		FileFilter fileFilter = new FileFilter() {
 		    public boolean accept(File file) {
-		    	//TODO add a check that the dir below contains a pom.xml
-		        return file.isDirectory();
+		        return file.isDirectory() && directoryContainsPom(file);
 		    }
+
+			private boolean directoryContainsPom(File file) {
+				try {
+					File pom = new File(file.getCanonicalPath()+"/"+"pom.xml");
+					return pom.isFile();
+				} catch (IOException e) {
+					return false;
+				}
+			}
 		};
 
 		for (File child : dir.listFiles(fileFilter)) {
