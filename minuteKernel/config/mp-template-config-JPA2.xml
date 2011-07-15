@@ -6,6 +6,7 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="jpaUtils" className="net.sf.minuteProject.plugin.jpa.JpaUtils"/>
+	<plugin name="jpa2Utils" className="net.sf.minuteProject.plugin.jpa.Jpa2Utils"/>
 
 	<template-target 
     	name="JPA set"

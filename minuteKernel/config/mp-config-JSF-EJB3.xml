@@ -22,8 +22,9 @@
 				 for Oracle and DB2 please set the schema 
 				<schema> </schema>
 				 -->														 
-				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
-					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
+				<primaryKeyPolicy oneGlobal="true">
+					<primaryKeyPolicyPattern name="autoincrementPattern"/>
+					<!--<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>-->
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
