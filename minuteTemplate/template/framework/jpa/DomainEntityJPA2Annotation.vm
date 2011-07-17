@@ -10,7 +10,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 import javax.persistence.*;
-
+#if($addXml)
+import javax.xml.bind.annotation.*;
+#end
 #exposeJPA2Import()
 #exposeJPA2CompositeKeyImport()
 #exposeJPA2EnumImport()
@@ -24,8 +26,27 @@ import javax.persistence.*;
  */
 @Entity (name="${className}")
 @Table (name="${table.name}")
-public class ${className} {
+@NamedQueries({
+#set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
+     @NamedQuery(name="${className}.findAll", query="$selectChunk")
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE c.$columnVar = :$columnVar")
+#if($convertUtils.isStringType($column.type))
+	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE c.$columnVar like $columnVar")
+#end
+#end
+}) 
+#if($addXml)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace="$package", name = "${className}")
+@XmlRootElement(namespace="$package")
+#end
+public class ${className} implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+	
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
     private ${embeddedIdClass} $embeddedIdVariable;
@@ -36,7 +57,6 @@ public class ${className} {
 #columnJavaNaming()
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
-##    @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
@@ -53,6 +73,9 @@ public class ${className} {
 #end
 #end
 #end
+#end
+#if($addXml)
+    @XmlElement
 #end
     private $columnType $columnVar;
 
@@ -78,6 +101,9 @@ public class ${className} {
 #set($columnType="String")
 #end
 #end
+#end
+#if($addXml)
+    @XmlElement
 #end
     private $columnType $columnVar; 
 #end
