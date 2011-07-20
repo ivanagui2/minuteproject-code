@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
+import java.io.Serializable;
 import javax.persistence.*;
 #if($addXml)
 import javax.xml.bind.annotation.*;
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.*;
 @Table (name="${table.name}")
 @NamedQueries({
 #set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
-     @NamedQuery(name="${className}.findAll", query="$selectChunk")
+	 @NamedQuery(name="${className}.findAll", query="$selectChunk")
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
@@ -46,6 +47,17 @@ import javax.xml.bind.annotation.*;
 public class ${className} implements Serializable {
 
     private static final long serialVersionUID = 1L;
+	
+    private static final String FIND_ALL = "${className}.findAll";
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+#set($columnCap = $formatUtils.upperCase(${columnClass}))
+    private static final String FIND_BY_$columnCap = "${className}.findBy$columnClass";
+#if($convertUtils.isStringType($column.type))
+    private static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
+#end
+#end	
 	
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
