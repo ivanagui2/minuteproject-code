@@ -16,6 +16,7 @@ cp -R * ${OX_HOME}/workspace/$applicationOX
 cp other/tomcat/snippet/context.xml $OX_HOME/tomcat/conf
 
 ##add jdbc driver dep in tomcat\lib
+cp $MP_HOME/application/lib/extra/*.jar $OX_HOME/tomcat/lib
 
 ## start tomcat in appart process
 cd $OX_HOME

@@ -1,6 +1,7 @@
 <%@ include file="imports.jsp"%>
 
 <%@page import="java.io.File"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="org.openxava.util.XavaResources"%>
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Users"%>
@@ -36,10 +37,7 @@
 	}%>
 
 <%
-	if (request.getAttribute("style") == null) {
-		request.setAttribute("style", org.openxava.web.style.Style
-				.getInstance());
-	}
+	request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
 %>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
@@ -51,10 +49,7 @@
 			request.getRemoteUser());
 	Users.setCurrent(request); 
 	String app = request.getParameter("application");
-	String module = (String) context.get(app, request
-			.getParameter("module"), "xava_currentModule");
-	if (Is.empty(module))
-		module = request.getParameter("module");
+	String module = context.getCurrentModule(request);
 
 	org.openxava.controller.ModuleManager managerHome = (org.openxava.controller.ModuleManager) context
 			.get(request, "manager",
@@ -73,30 +68,27 @@
 	}
 	else {
 		Module.restoreLastMessages(request, app, module); 
-	}
-	String browser = request.getHeader("user-agent");
-	style.setBrowser(browser);
+	}	
 	boolean isPortlet = (session.getAttribute(Ids.decorate(app, request
 			.getParameter("module"), "xava.portlet.uploadActionURL")) != null);
 
 	Module.setPortlet(isPortlet);
-	Module.setStyle(style);
 	String version = org.openxava.controller.ModuleManager.getVersion();
 	String realPath = request.getSession().getServletContext()
-			.getRealPath("/");
-	boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0;	
+			.getRealPath("/");			
 %>
 <jsp:include page="execute.jsp"/>
 <%
 	if (!isPortlet) {
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
+ 
+<!DOCTYPE html>
 
 <head>
 	<title><%=managerHome.getModuleDescription()%></title>
-	<link href="<%=request.getContextPath()%>/xava/style/<%=style.getCssFile()%>?ox=<%=version%>" rel="stylesheet" type="text/css"> 
+	
+	<%=style.getMetaTags()%>
+	
 	<%
  		String[] jsFiles = style.getNoPortalModuleJsFiles();
  			if (jsFiles != null) {
@@ -104,7 +96,7 @@
  	%>
 	<script src="<%=request.getContextPath()%>/xava/style/<%=jsFiles[i]%>?ox=<%=version%>" type="text/javascript"></script>
 	<%
-		}
+				}
 			}
 	%>
 
@@ -120,7 +112,8 @@
 	<%
 		}
 	%> 
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/xava/style/mp.css" />	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/xava/style/mp.css" />		
+	<link href="<%=request.getContextPath()%>/xava/style/<%=style.getCssFile()%>?ox=<%=version%>" rel="stylesheet" type="text/css">
 	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/util.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Module.js?ox=<%=version%>'></script>
@@ -151,11 +144,11 @@
 	</script>				
 	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery.js?ox=<%=version%>"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery-ui.js?ox=<%=version%>"></script>	
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery.qtip.js?ox=<%=version%>"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery.bgiframe.min.js?ox=<%=version%>"></script>
 	<%
-		File jsEditorsFolder = new File(realPath + "/xava/editors/js");
+		File jsEditorsFolder = new File(realPath + "/xava/editors/js");		
 		String[] jsEditors = jsEditorsFolder.list();
+		Arrays.sort(jsEditors);
 		for (int i = 0; i < jsEditors.length; i++) {
 	%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/editors/js/<%=jsEditors[i]%>?ox=<%=version%>"></script>
@@ -171,7 +164,7 @@
 <%
 	if (!isPortlet) {
 %>
-</head>
+</head> 
 <body bgcolor="#ffffff">
 	<%-- layer for menu--%>
 	<div id="menu">
@@ -182,14 +175,21 @@
 						.getModuleDescription())%>
 <%
 	}
-%>	
+%> 
+<% 
+boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions(); 
+
+if (manager.isResetFormPostNeeded()) {	
+%>		
+	<form id="xava_reset_form"></form>
+<% } else  { %>	
 	<input id="xava_last_module_change" type="hidden" value=""/>
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>
 	<input id="<xava:id name='loaded_parts'/>" type="hidden" value=""/>
 	<input id="<xava:id name='view_member'/>" type="hidden" value=""/>
 		
 	<%-- Layer for progress bar --%>
-	<div id='xava_processing_layer' style='position:absolute;top:100px;left:150px;display:none'>
+	<div id='xava_processing_layer' style='position:absolute;top:100px;left:150px;display:none; z-index: 9999'>
 	<table cellspacing='0'>
 	   <tr class='<%=style.getProcessing()%>'>
 	       <td align='center' valign='middle' style='line-height:1.4;padding:25px 80px;border:2px solid #000'>
@@ -198,20 +198,33 @@
 	       </td>
 	   </tr>
 	</table>
-	</div>	
-	<div id="<xava:id name='core'/>" style="display: inline;">
-		<%
+	</div>	 
+	<%=style.getCoreStartDecoration()%>
+	<div id="<xava:id name='core'/>" style="display: inline;" class="<%=style.getModule()%>">
+		<%			
 			if (!coreViaAJAX) {
 		%>
 		<jsp:include page="core.jsp"/>
 		<%
 			}
-		%>
-		
-	</div>	
-	<div id="xava_console">
+		%>		
 	</div>
-
+	<%=style.getCoreEndDecoration()%>
+	
+<% } %>			
+	<div id="xava_console" >
+	</div>
+	<% String loadingImage=!style.getLoadingImage().startsWith("/")?request.getContextPath() + "/" + style.getLoadingImage():style.getLoadingImage();%>
+	<div id="xava_loading">				
+		<img src="<%=loadingImage%>" style="vertical-align: middle"/>
+		&nbsp;<xava:message key="loading"/>...		 
+	</div>
+	<% if (!style.isFixedPositionSupported()) { %>
+	<div id="xava_loading2">		
+		<img src="<%=loadingImage%>" style="vertical-align: middle"/>
+		&nbsp;<xava:message key="loading"/>...
+	</div>	
+	<% } %>	
 <%
 	if (!isPortlet) {
 %>
@@ -226,6 +239,17 @@
 	}
 %>
 
+<% 
+if (manager.isResetFormPostNeeded()) {  
+	manager.setResetFormPostNeeded(false);		
+%>		
+	<script type="text/javascript">
+	$("#xava_reset_form").submit();
+	</script>		
+<% } else  { 
+		String browser = request.getHeader("user-agent"); 
+%>
+
 <script type="text/javascript">
 <%String prefix = Strings.change(manager.getApplicationName(), "-",
 					"_")
@@ -236,12 +260,13 @@
 	if (openxava != null && openxava.<%=initiated%> == null) {
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
-		openxava.loadingMessage = '<xava:message key="loading"/>';
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';
 		openxava.currentRowClass = '<%=style.getCurrentRow()%>';
-		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>'; 
+		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>';
+		openxava.closeDialogOnEscape = <%=browser != null && browser.indexOf("Firefox") >= 0 ? "false":"true"%>;		  
 		openxava.calendarAlign = '<%=browser != null && browser.indexOf("MSIE 6") >= 0 ? "tr"
 					: "Br"%>';
+		openxava.setHtml = <%=style.getSetHtmlFunction()%>;			
 		<%String initThemeScript = style.getInitThemeScript();
 			if (initThemeScript != null) {%>
 		openxava.initTheme = function () { <%=style.getInitThemeScript()%> }; 
@@ -257,3 +282,4 @@ window.onload = <%=onLoadFunction%>;
 setTimeout('<%=onLoadFunction%>()', 1000);
 document.additionalParameters="<%=getAdditionalParameters(request)%>";
 </script>
+<% } %>
