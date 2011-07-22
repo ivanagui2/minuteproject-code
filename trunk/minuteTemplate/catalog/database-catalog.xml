@@ -63,6 +63,33 @@
         <primary-key-policy type="sequence"/>
 	 </database>  
 	 
+	 <database name="DERBY" 
+        hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
+        use-schema="true" 
+        driverclassname="org.apache.derby.jdbc.ClientDriver"
+        default-url-structure="jdbc:derby://{server-name}:${port-number}/{database-name}" >
+        <maven-artifact
+           mvn-artifact-id="derbyclient" 
+           mvn-group-id="org.apache.derby"
+           mvn-version="10.4.2.0">
+        </maven-artifact>
+        <primary-key-policy type="autoincrement"/>
+	 </database>
+	 
+	 <!--  
+	 <database name="POSTGRES" 
+        hibernate-dialect="org.hibernate.dialect.PostgreSQLDialect" 
+        use-schema="true" 
+        driverclassname="org.postgresql.Driver"
+        default-url-structure="jdbc:postgresql://{server-name}:${port-number}:{database-name}" >
+        <maven-artifact
+           mvn-artifact-id="postgresql" 
+           mvn-group-id="postgresql"
+           mvn-version="9.0-801.jdbc4">
+        </maven-artifact>
+        <primary-key-policy type="autoincrement"/>
+	 </database>
+	 -->
   </databases>
 
 </database-catalog>
