@@ -18,7 +18,9 @@ public class Hibernate3 {
 		else if (type.equals("MYSQL"))
 			return "org.hibernate.dialect.MySQLDialect";		
 		else if (type.equals("POSTGRESQL"))
-			return "org.hibernate.dialect.PostgreSQLDialect";			
+			return "org.hibernate.dialect.PostgreSQLDialect";		
+		else if (type.equals("DERBY"))
+			return "org.apache.derby.jdbc.ClientDriver";			
 		return "wrongDialect";
 	}
 
