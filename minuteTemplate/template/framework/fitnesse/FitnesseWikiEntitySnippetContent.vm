@@ -19,7 +19,7 @@ Field row represents the columns to search on.
 Expression contains for each columns the search filter operand. ('=','>','<','>=','<=','contains','startWith' are supported)
 
 !|${importSelectFixtureClass}|
-|General Info Input|table|$tableDB.name|count|3|
+|General Info Input|table|$tableDB.name|
 |Fields |#foreach ($column in ${table.columns}) #putColumnParams() $column.name | #end 
 
 |Expression |#foreach ($column in ${table.columns}) null | #end 
