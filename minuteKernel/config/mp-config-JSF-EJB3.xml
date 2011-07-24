@@ -5,6 +5,7 @@
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
+			    <!--
 			    <dataSource>	
 					<driverClassName>org.apache.derby.jdbc.ClientDriver</driverClassName>
 					<url>jdbc:derby://localhost:1527/sun-appserv-samples</url>
@@ -12,16 +13,13 @@
 					<password>test</password>	
 				</dataSource>
 				<schema>sa</schema>			    
-			    <!--
+			    -->
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>
 					<password></password>	
-				</dataSource>
-				 for Oracle and DB2 please set the schema 
-				<schema> </schema>
-				 -->														 
+				</dataSource>									 
 				<primaryKeyPolicy oneGlobal="true">
 					<primaryKeyPolicyPattern name="autoincrementPattern"/>
 					<!--<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>-->
