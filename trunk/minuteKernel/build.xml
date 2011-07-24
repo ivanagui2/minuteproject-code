@@ -116,7 +116,24 @@
     <!-- ===================================================================== -->
     <!-- target definitions -->
     <!-- ===================================================================== -->
-    
+
+	<target name="compileGroovy" depends="compile">  
+		<taskdef name="groovyc"
+		  classname="org.codehaus.groovy.ant.Groovyc"
+		  classpath="${lib.dir}/groovy-all-1.8.0.jar"/>	
+
+		<groovyc destdir="${classes.dir}"> 
+            <src path="${src.dir}"/>
+        	<src path="${src-plugin.dir}"/>
+        	<src path="${src-patch.dir}"/>
+			<classpath refid="compile.classpath"/>
+			<classpath> 				
+				<pathelement path="${classes.dir}"/>
+			</classpath> 
+
+		</groovyc>  		
+	</target>	    
+
 	<!-- target clean -->
     <target name="clean">
         <title title="clean" projectname="${project.name}" projectdir="${home.dir}"/>
@@ -163,7 +180,7 @@
     </target>	
 	
     <!-- target archive -->
-    <target name="archive" depends="clean,compile,resource,archive-code">
+    <target name="archive" depends="clean,compileGroovy,resource,archive-code">
         <title title="TASK archive" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Create an archive containing all the classes of the migration project</description>
         <macro_archive compress="true" destdir="${dist.dir}" destfile="${archive.name}" classesdir="${classes.dir}"/>
