@@ -44,7 +44,8 @@
 	<technology name="FitNesse" 
 	   template-config-file-name="mp-template-config-fitnesse.xml" 
 	   default-outputdir="fitnesse"
-	   template-dir="@templateRoot@/framework/bsla"
+	   template-dir="@templateRoot@/framework/fitnesse"
+	   depends-on-targets="BSLA_LIB" 
 	   status="released"
 	   description="Generates FitNesse fixtures and wiki artifacts to perform CRUD operations on your backend. 
 	   \Generates setup fixture to set the connection pool and reset database data.">

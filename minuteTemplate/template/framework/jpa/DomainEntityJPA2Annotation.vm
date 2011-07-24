@@ -33,9 +33,9 @@ import javax.xml.bind.annotation.*;
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
-	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE c.$columnVar = :$columnVar")
+	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE ${domainVariableName}.$columnVar = :$columnVar")
 #if($convertUtils.isStringType($column.type))
-	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE c.$columnVar like $columnVar")
+	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${domainVariableName}.$columnVar like :$columnVar")
 #end
 #end
 }) 
@@ -48,7 +48,7 @@ public class ${className} implements Serializable {
 
     private static final long serialVersionUID = 1L;
 	
-    private static final String FIND_ALL = "${className}.findAll";
+    public  static final String FIND_ALL = "${className}.findAll";
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
