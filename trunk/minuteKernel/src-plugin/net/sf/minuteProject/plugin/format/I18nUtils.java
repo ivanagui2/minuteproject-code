@@ -2,6 +2,7 @@ package net.sf.minuteProject.plugin.format;
 
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -129,5 +130,9 @@ public class I18nUtils {
 		if (!i18nTemplateName.equals(template.getName()))
 			template = CommonUtils.getTemplate(template.getTarget(), i18nTemplateName);
 		return template.getPropertyValue(SEPARATOR_WORD, DEFAULT_SEPARATOR);
+	}
+	
+	public static String getPackageName(Package pack) {
+		return FormatUtils.getJavaName(pack.getAlias());
 	}
 }

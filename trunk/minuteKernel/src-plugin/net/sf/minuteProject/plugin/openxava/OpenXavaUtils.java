@@ -102,8 +102,7 @@ public class OpenXavaUtils {
 	}
 	
 	public static String getPackageName(Package pack) {
-		//formatUtils.getJavaName(${package.name})
-		return FormatUtils.getJavaName(pack.getAlias());
+		return I18nUtils.getPackageName(pack);
 	}
 	
 	public static List<String> getListProperties (Reference reference) {
