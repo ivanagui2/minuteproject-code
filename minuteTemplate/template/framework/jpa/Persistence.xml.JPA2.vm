@@ -9,16 +9,19 @@
 
     <persistence-unit name="$persistenceUnitName" transaction-type="JTA">
 #if($jpa2ImplementationIsEclipseLink)
-		<provider>oracle.toplink.essentials.PersistenceProvider</provider>
+        <provider>oracle.toplink.essentials.PersistenceProvider</provider>
 #else
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-#end		
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+#end
+        <!--
+        <jta-data-source>jdbc/${model.name}</jta-data-source>	
+		-->
 #foreach ($package in ${businessPackages})
         <!-- $package.name -->	
 #foreach ($table in ${package.listOfTables})
 #if (!$table.isManyToMany())
 #exposeJPA2DomainObject($table)
-		<class>$importDomainObjectUML</class>
+        <class>$importDomainObjectUML</class>
 #end
 #end
 
@@ -27,7 +30,7 @@
         <!-- $package.name -->
 #foreach ($table in ${package.listOfViews})
 #exposeJPA2DomainObject($table)
-		<class>$importDomainObjectUML</class>
+        <class>$importDomainObjectUML</class>
 #end
 
 #end

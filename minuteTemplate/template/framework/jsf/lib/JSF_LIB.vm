@@ -31,7 +31,11 @@
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
 #set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelI18nJSF))
+#set ($modelBeanManagerMenuJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelBeanManagerMenuJSF))
+#set ($modelBeanManagerMenuJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerMenuJSFClass))
+#set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
+#set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
 #end
 
 #macro (exposeJSFTemplate)
@@ -40,6 +44,8 @@
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateModelI18nJSF = "JSFI18nProperties")
 #set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")
+#set ($templateModelXhtmlMenuJSF = "JSFXhtmlMenu")
+#set ($templateModelBeanManagerMenuJSF = "JSFBeanManagerMenu")
 #end
 
 
