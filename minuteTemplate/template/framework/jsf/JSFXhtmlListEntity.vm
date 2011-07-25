@@ -19,7 +19,7 @@
  <h:form>  
   
     <p:dataTable var="address" value="#{${entityControllerJSFVariable}.findAll()}" paginator="true" rows="10"  
-                selection="#{${entityControllerJSFVariable}.selectedAddress}" selectionMode="single"  
+                selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single"  
                 onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()"
                 >  
   
