@@ -4,6 +4,7 @@
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
 
 	<template-target 
     	name="JSF java set"
@@ -11,7 +12,12 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
-					 
+
+		<template name="JSFBeanManagerMenu" templateFileName="JSFPrimefacesMenuBean.vm" 
+			file-extension="java" technicalPackage="menu" file-suffix="Menu" 
+			model-specific="true" add-model-name="true" >
+		</template>	
+							 
 		<template name="JSFBeanManagerController" templateFileName="JSFBeanManagerController.vm" 
 			subdir="" outputsubdir="" technicalPackage="controller"
 			file-extension="java" file-prefix="" file-suffix="Controller" 
@@ -68,6 +74,12 @@
 			application-specific="true" add-model-name="false" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
+		
+		<template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
+			application-specific="true" add-model-name="false" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>		
 						
     </template-target>		
 
