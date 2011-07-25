@@ -1,42 +1,55 @@
 #exposeJSFModelSpecific()
+#set ($applicationJSF=$configuration.name) 
+#set ($applicationLabel=$formatUtils.getJavaName($applicationJSF))
 package $packageName;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-@Named(value = "$classVar")
-private class ${className} {
+import org.primefaces.model.*;
+import org.primefaces.component.menuitem.*;
+import org.primefaces.component.submenu.Submenu;
+
+@Named(value = "$modelBeanManagerMenuJSFVariable")
+@Default
+@RequestScoped
+public class ${className} {
 
     private MenuModel model;  
   
     public ${className}() {  
         model = new DefaultMenuModel();  
           
-        //First submenu  
-        Submenu submenu = new Submenu();  
-        submenu.setLabel("Dynamic Submenu 1");  
-          
-        MenuItem item = new MenuItem();  
-        item.setValue("Dynamic Menuitem 1.1");  
-        item.setUrl("#");  
-        submenu.getChildren().add(item);  
-          
-        model.addSubmenu(submenu);  
-          
-        //Second submenu  
-        submenu = new Submenu();  
-        submenu.setLabel("Dynamic Submenu 2");  
-          
-        item = new MenuItem();  
-        item.setValue("Dynamic Menuitem 2.1");  
-        item.setUrl("#");  
-        submenu.getChildren().add(item);  
-          
-        item = new MenuItem();  
-        item.setValue("Dynamic Menuitem 2.2");  
-        item.setUrl("#");  
-        submenu.getChildren().add(item);  
-          
-        model.addSubmenu(submenu);  
+#foreach ($package in ${businessPackages})
+#set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
+#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
+#set($packageLabel=$i18nUtils.getPackageName($package))
+#set($subMenuVar = "submenu${package.name}")
+#if(!$displayableEntities.isEmpty())
+        Submenu ${subMenuVar} = new Submenu();  
+        ${subMenuVar}.setLabel("${packageLabel}"); 	
+		
+#if($entitySecurityUtils.isEntityRoleSecured($package))
+#set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
+## <mp:isUserInRole role="${roles}"> if(!tx.isCallerInRole ("${roles}")
+#end
+#foreach ($groups in $displayableEntityGroups)	
+#foreach ($table in ${groups})
+#exposeJSFEntitySpecific()
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+        MenuItem item${domainClassName} = new MenuItem();  
+        item${domainClassName}.setValue("$tableLabel");  
+        item${domainClassName}.setUrl("${entityListJSFLocation}");  
+        ${subMenuVar}.getChildren().add(item${domainClassName}); 
+		
+#end
+#end
+        model.addSubmenu(${subMenuVar});
+#end
+#end
+
     }  
       
     public MenuModel getModel() {  

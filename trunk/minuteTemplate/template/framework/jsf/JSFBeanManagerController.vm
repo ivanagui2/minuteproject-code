@@ -33,6 +33,7 @@ public class ${className} {
     private $EJBDaoImplClass $EJBDaoImplVariable;
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
+	private $tableClassName selected$tableClassName;
 	
     public List<$tableClassName> findAll () {
 		return ${EJBDaoImplVariable}.findAll($tableVariableName);
@@ -73,6 +74,19 @@ public class ${className} {
 	
 	public void set$tableClassName ($tableClassName $tableVariableName) {
 	    this.$tableVariableName = $tableVariableName;
+	}	
+	
+	public $tableClassName getSelected$tableClassName() {
+	    return selected$tableClassName;
+	}
+	
+	public void setSelected$tableClassName ($tableClassName $tableVariableName) {
+	    this.selected$tableClassName = $tableVariableName;
+	}		
+	
+	//TODO put in upperclass
+    public String displayInput () {
+		return "success";
 	}	
 		
 }

@@ -14,37 +14,48 @@
 	<ui:define name="heading">
 		<h:outputText value="#{i18n.listHeading}" />
 	</ui:define>
-	<ui:define name="body">
-		<h:form>
-			<h:commandButton title="New #{i18n.$tableVariableName}"
-				value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.create}" />
-			<br />
-			<hr />
-			<br />
-			<p:panel
-				header="#{${entityControllerJSFVariable}.findAll().size()} #{i18n.amountEntries}" 
-				toggleable="true" closable="true" toggleSpeed="500">
-				<ui:repeat value="#{${entityControllerJSFVariable}.findAll()}" var="entry">
-					<h:panelGrid columns="2" cellpadding="10">
-						<f:facet name="header">
-							<h:outputText value="#{entry.title}" />
-						</f:facet>
-						<h:outputText value="#{i18n.author}: #{entry.author}" />
-						<h:panelGroup id="pGroup">
-							<h:outputText value="#{entry.content}" />
-							<p:contextMenu  for="pGroup">
-								<p:menuitem value="#{i18n.delete}"
-									actionListener="#{blogEntryBean.delete(entry)}" update="@form" />
-							</p:contextMenu>
-						</h:panelGroup>
-						<f:facet name="footer">
-							<h:outputText value="#{i18n.created}: #{entry.created}" />
-						</f:facet>
-					</h:panelGrid>
-					<hr />
-				</ui:repeat>
-			</p:panel>
-		</h:form>
-	</ui:define>
+<ui:define name="body">
+		
+ <h:form>  
+  
+    <p:dataTable var="address" value="#{${entityControllerJSFVariable}.findAll()}" paginator="true" rows="10"  
+                selection="#{${entityControllerJSFVariable}.selectedAddress}" selectionMode="single"  
+                onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()"
+                >  
+  
+        <f:facet name="header">  
+            List of $domainVariableName  
+        </f:facet>  
+#foreach ($column in $table.attributes)
+#putColumnParams()
+#columnJavaNaming()	
+        <p:column sortBy="#{${domainVariableName}.${columnVar}}" filterBy="#{${domainVariableName}.${columnVar}}">  
+            <f:facet name="header">  
+                <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+            </f:facet>  
+            <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
+        </p:column>  
+#end
+    </p:dataTable>  
+  
+    <p:dialog header="$domainVariableName Detail" widgetVar="${domainVariableName}Dialog" resizable="false"  
+              width="200" showEffect="explode" hideEffect="explode">  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4">  
+  
+#foreach ($column in $table.attributes)
+#putColumnParams()
+#columnJavaNaming()	
+            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
+            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
+#end
+
+        </h:panelGrid>  
+    </p:dialog>  
+	<h:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
+  
+</h:form> 
+
+</ui:define>
 </ui:composition>
 </html>
