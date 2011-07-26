@@ -1,18 +1,20 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
+		<model name="product" version="1.0" package-root="net.sf.mp.demo">
+			
 			<data-model>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
+			    <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
+			    <fileSource name="product" dir="c:/MinuteProject/data">
 			    </fileSource>
 			    <!--
 			    <dataSource>	
 					<driverClassName>org.apache.derby.jdbc.ClientDriver</driverClassName>
-					<url>jdbc:derby://localhost:1527/sun-appserv-samples</url>
-					<username>sa</username>
-					<password>test</password>	
+					<url>jdbc:derby://localhost:1527/sample</url>
+					<username>app</username>
+					<password>app</password>	
 				</dataSource>
-				<schema>sa</schema>			    
+				<schema>app</schema>			    
 			    -->
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
