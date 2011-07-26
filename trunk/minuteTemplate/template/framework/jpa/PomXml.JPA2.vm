@@ -92,8 +92,24 @@
     <properties>
         <querydsl.version>$querydslVersion</querydsl.version>
     </properties>
-#end     
+#end   
     <build>
+        <!--<finalName>$DbApiName</finalName>-->
+        <resources>
+          <!-- overwrite generated artifacts for packaging: for example by providing another jndi name ... -->
+    	  <resource>
+    		<directory>src-overwritten/main/resources</directory>
+            <excludes>
+              <exclude>**/*.java</exclude>
+            </excludes>
+    	  </resource>    
+    	  <resource>
+    		<directory>$resourcesDir</directory>
+            <excludes>
+              <exclude>**/*.java</exclude>
+            </excludes>
+    	  </resource>
+    	</resources> 		
         <plugins>
             <plugin>
                 <!-- Force UTF-8 & Java-Version 1.6 -->

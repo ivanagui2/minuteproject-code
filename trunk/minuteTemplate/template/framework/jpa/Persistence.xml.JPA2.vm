@@ -13,9 +13,9 @@
 #else
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 #end
-        <!--
-        <jta-data-source>jdbc/${model.name}</jta-data-source>	
-		-->
+#if(!$isEnvironmentLocal)
+        <jta-data-source>$datasourceName</jta-data-source>	
+#end
 #foreach ($package in ${businessPackages})
         <!-- $package.name -->	
 #foreach ($table in ${package.listOfTables})
