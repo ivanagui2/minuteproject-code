@@ -1,0 +1,1 @@
+asadmin create-jdbc-connection-pool --datasourceclassname oracle.jdbc.pool.OracleDataSource --restype javax.sql.DataSource --property user="dbuser":password="dbpassword":url="jdbc:oracle\:thin\:@localhost\:1521\:ORCL" $datasourceName

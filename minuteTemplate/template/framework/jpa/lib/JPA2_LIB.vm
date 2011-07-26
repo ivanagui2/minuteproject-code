@@ -17,6 +17,8 @@
 #macro (putJPA2TemplateDefinition)
 #set($templateJPA2EmbeddedId=$template.getPropertyValue("DomainEntityJPA2EmbeddedId","DomainEntityJPA2EmbeddedId"))
 #set($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainEntityJPA2Annotation"))
+#set($templateEnvironment=$template.getPropertyValue("environment","local"))
+#set($isEnvironmentLocal=($templateEnvironment=="local"))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
@@ -82,4 +84,5 @@ import $importDomainObjectUML;
 #set ($jpa2Implementation = $jpa2Utils.getJpa2Implementation($template))
 #set ($jpa2ImplementationIsHibernate = ($jpa2Implementation=="hibernate"))
 #set ($jpa2ImplementationIsEclipseLink = ($jpa2Implementation=="eclipselink"))
+#set ($datasourceName=$persistenceUtils.getDatasourceName($model))
 #end
