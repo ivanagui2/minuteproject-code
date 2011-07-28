@@ -26,6 +26,18 @@
         <f:facet name="header">  
             List of $domainVariableName  
         </f:facet>  
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+        <p:column sortBy="#{${domainVariableName}.${columnVar}}" filterBy="#{${domainVariableName}.${columnVar}}">  
+            <f:facet name="header">  
+                <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+            </f:facet>  
+            <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
+        </p:column> 
+#end
+#end		
 #foreach ($column in $table.attributes)
 #putColumnParams()
 #columnJavaNaming()	
@@ -42,7 +54,14 @@
               width="200" showEffect="explode" hideEffect="explode">  
   
         <h:panelGrid id="display" columns="2" cellpadding="4">  
-  
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
+            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
+#end
+#end  
 #foreach ($column in $table.attributes)
 #putColumnParams()
 #columnJavaNaming()	

@@ -49,6 +49,7 @@
 #set ($packageName = $commonUtils.getPackageName($component, $template))
 #set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $component))
 #set ($modelEntities = $model.businessModel.businessPackage.getEntities())
+##set ($modelEntities = $model.businessModel.businessPackage.refreshEntities())
 #end
 
 #macro (exposeVariableModelSpecific)
