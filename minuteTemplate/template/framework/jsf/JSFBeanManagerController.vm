@@ -28,8 +28,6 @@ import $EJBDaoImplImport;
 public class ${className} {
     
 	@Inject 
-##	@Named("$EJBDaoImplVariable")
-##    private $EJBDaoRemoteInterfaceClass $EJBDaoRemoteInterfaceVariable;
     private $EJBDaoImplClass $EJBDaoImplVariable;
 	
 	private $tableClassName $tableVariableName = new $tableClassName();

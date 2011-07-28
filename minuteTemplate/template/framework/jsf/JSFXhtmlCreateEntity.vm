@@ -17,6 +17,14 @@
 				onCloseUpdate="growl" closeSpeed="2000" onToggleUpdate="growl"
 				widgetVar="panel">
 				<h:panelGrid columns="3" cellpadding="10">
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+#putJSFColumnSnippet()
+##$columnVar =  $column.alias
+#end
+#end
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
