@@ -183,6 +183,13 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		return entities;
 	}
 	
+	public List<Table> refreshEntities() {
+		List <Table> entities = new ArrayList<Table>();
+		entities.addAll(getTables());
+		entities.addAll(getViews());
+		return entities;
+	}
+	
 	public void resetEntities () {
 		entities=null;
 	}

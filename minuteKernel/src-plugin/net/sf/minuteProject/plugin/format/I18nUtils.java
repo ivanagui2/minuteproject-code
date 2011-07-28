@@ -117,9 +117,9 @@ public class I18nUtils {
 	
 	public static String getI18nFromDBObject (Column column, boolean firstUpperCase) {
 		if (ColumnUtils.isForeignKey(column)){
-			return getI18nFromDBNameStripSufix(column.getName(), firstUpperCase);
+			return getI18nFromDBNameStripSufix(column.getAlias(), firstUpperCase);
 		}
-		return getI18nFromDBName(column.getName(), firstUpperCase);
+		return getI18nFromDBName(column.getAlias(), firstUpperCase);
 	}
 	
 	public static String getSeparator (Template template) {
