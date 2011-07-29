@@ -1,11 +1,11 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="product" version="1.0" package-root="net.sf.mp.demo">
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
 			
 			<data-model>
 			    <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
-			    <fileSource name="product" dir="c:/MinuteProject/data">
+			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
 			    <!--
 			    <dataSource>	
@@ -15,22 +15,23 @@
 					<password>app</password>	
 				</dataSource>
 				<schema>app</schema>			    
-			    -->
+			    -->	
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
 					<username>sa</username>
 					<password></password>	
-				</dataSource>									 
+				</dataSource>	
+											 
 				<primaryKeyPolicy oneGlobal="true">
 					<primaryKeyPolicyPattern name="autoincrementPattern"/>
-					<!--<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>-->
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
 					<condition type="exclude" startsWith="ID_GEN"></condition>
+					<condition type="exclude" startsWith="SEQUENCE"></condition>
 				</generation-condition>		
 				<business-package default="pet">
 					<condition type="package" startsWith="PRODUCT" result="product"></condition>
@@ -39,7 +40,6 @@
 				<enrichment>
 				   <conventions>
 				      <entity-naming-convention type="apply-strip-table-name-prefix" pattern-to-strip="SYS,FIN"/>
-				      <column-naming-convention type="apply-fix-primary-key-column-name-when-no-ambiguity" default-value="ID"/>
 				      <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
 				   </conventions>
 				    <package name="product">
@@ -64,7 +64,7 @@
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/JSF2/petshop/JPA2"
+			   outputdir-root="../../dev/JSF/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
@@ -85,7 +85,7 @@
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF.xml" 
-			   outputdir-root="../../dev/JSF2/petshop/JSF"
+			   outputdir-root="../../dev/JSF/petshop/JSF"
 			   templatedir-root="../../minuteTemplate/template/framework/jsf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
 			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
@@ -94,13 +94,13 @@
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../dev/JSF2/petshop"
+			   outputdir-root="../../dev/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
 									
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../../dev/JSF2/petshop"
+			   outputdir-root="../../dev/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>	
 			
