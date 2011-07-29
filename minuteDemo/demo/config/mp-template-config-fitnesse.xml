@@ -6,8 +6,6 @@
 	
 	<template-target 
 	   name="fitnesse CRUD Wiki templates" 
-	   libdir="lib/BslaLibrary.vm"
-	   tool="velocity"
 	   package-root="TestFitnesseCrud"
 	   outputdir=""
 	   belongToPackage="true">
@@ -48,10 +46,6 @@
 
 	<template-target 
 	   name="fitnesse CRUD Wiki templates" 
-	   rootdir="../../minuteTemplate/template-bsla"
-       templatedir = "template" 
-	   libdir="lib/BslaLibrary.vm"
-	   tool="velocity"
 	   outputdir=""
 	   package-root="TestFitnesse"
        belongToPackage="true">
@@ -136,10 +130,7 @@
     </template-target>
     	
   <template-target 
-	   name="fitness fixture" 
-       templatedir = "template" 
-	   libdir="lib/BslaLibrary.vm"
-	   tool="velocity"
+	   name="fitnesse fixture" 
 	   outputdir="src-generated"
 		belongToPackage="true">
 	
@@ -161,9 +152,6 @@
 	
     <template-target 
 	   name="database setup" 
-       templatedir = "template" 
-	   libdir="lib/BslaLibrary.vm"
-	   tool="velocity"
 	   outputdir="src-generated"
 	   package-root=""
 		belongToPackage="true">

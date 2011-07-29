@@ -1,12 +1,13 @@
-<target name="OpenXava">		
-	<architecture-target name="openxava" description="openxava architecture">
+<target name="JPA2">		
+	<architecture-target name="JPA2" description="JPA2 architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
-	<plugin name="jpaUtils" className="net.sf.minuteProject.plugin.jpa.JpaUtils"/>
-
+	<plugin name="jpa2Utils" className="net.sf.minuteProject.plugin.jpa.Jpa2Utils"/>
+	<plugin name="persistenceUtils" className="net.sf.minuteProject.plugin.persistence.PersistenceUtils"/>
+	
 	<template-target 
     	name="JPA set"
 		libdir="lib/JPA2_LIB.vm"
@@ -54,7 +55,7 @@
 			>
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
-											
+									
     </template-target>		
 
 	<template-target 
@@ -69,11 +70,42 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" 
 			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="environment" value="remote"/>
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>		
 											
   	</template-target>
-  	
+
+	<template-target 
+    	name="web-inf config"
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="src/test/resources"
+		belongToPackage="true">			
+
+		<template package-root="META-INF"
+			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="persistence" 
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="environment" value="local"/>
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
+		</template>		
+											
+  	</template-target>
+
+	<template-target 
+		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
+		tool="velocity"
+		outputdir="src-overwritten/main/resources"
+		package-root="">	
+		<template name="MavenOverwrittenReadMe" templateFileName="MavenOverwrittenReadMe.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="txt" file-prefix="" file-suffix="README" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>					
+	</template-target>
+	  	  	
 	<template-target 
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
