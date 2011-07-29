@@ -34,6 +34,9 @@
 #end
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
 #putReferenceParams2()
+#set ($column=$localColumn)
+#putColumnParams()
+#columnJavaNaming()
 #putJSFColumnSnippet()
 #end					
 					<h:commandButton title="#{i18n.save}" value="#{i18n.save}"
