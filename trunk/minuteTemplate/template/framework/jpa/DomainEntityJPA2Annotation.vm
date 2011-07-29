@@ -53,9 +53,9 @@ public class ${className} implements Serializable {
 #putColumnParams()
 #columnJavaNaming()
 #set($columnCap = $formatUtils.upperCase(${columnClass}))
-    private static final String FIND_BY_$columnCap = "${className}.findBy$columnClass";
+    public static final String FIND_BY_$columnCap = "${className}.findBy$columnClass";
 #if($convertUtils.isStringType($column.type))
-    private static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
+    public static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
 #end
 #end	
 	
