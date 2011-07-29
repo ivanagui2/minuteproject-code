@@ -1,4 +1,27 @@
 #exposeVariableModelDetailSpecific()
+#foreach ($table in $model.businessModel.businessPackage.tables)
+# $table.name
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()	
+# $column.name $column.alias $columnVar
+	
+#end
+#end
+----
+#foreach ($package in ${businessPackages})
+	//$package.name
+#foreach ($table in ${package.listOfTables})
+	//$table.name
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()	
+>>$column.name $column.alias $columnVar
+#end	
+#end
+#end
+----
+#exposeVariableModelDetailSpecific()
 ##set($separator=$template.getPropertyValue("separator","."))
 #set($separator=$i18nUtils.getSeparator($template))
 #parse("I18nStaticProperties.vm")
