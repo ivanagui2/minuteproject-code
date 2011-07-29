@@ -14,6 +14,27 @@
 	      </frameworks>  	             
 	 </technology>  
 	 
+	 <technology name="JSF-primefaces" target-name="JSF-primefaces"
+         template-config-file-name="mp-template-config-JSF.xml" 
+         default-outputdir="JSF-primefaces"
+         depends-on-targets="BSLA_LIB,JPA2,MavenMaster"
+         templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb" 
+         template-dir="@templateRoot@/framework/jsf" 
+         status="released"
+         description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
+	      <frameworks>
+	      	<framework name="primefaces" version="2.2"></framework>
+	        <framework name="JSF" version="2"></framework>
+	        <framework name="JPA" version="2"></framework>
+	      </frameworks>  	             
+	 </technology> 
+	
+	<technology name="MavenMaster" target-name="MavenMaster"
+	   template-config-file-name="mp-template-config-maven.xml" 
+	   template-dir="@templateRoot@/framework/maven"
+	   is-generable="false">
+	</technology> 	
+	 	 
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
          template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
          default-outputdir="bslaSpringHibernate"

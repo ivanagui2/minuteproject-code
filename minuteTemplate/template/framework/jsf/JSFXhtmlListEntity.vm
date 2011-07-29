@@ -24,7 +24,7 @@
                 >  
   
         <f:facet name="header">  
-            List of $domainVariableName  
+            List of #{i18n.${tableVariableName}s}  
         </f:facet>  
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()

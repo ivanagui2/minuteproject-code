@@ -1,22 +1,22 @@
 #exposeVariableModelDetailSpecific()
 #foreach ($table in $model.businessModel.businessPackage.tables)
-# $table.name
+## $table.name
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #columnJavaNaming()	
-# $column.name $column.alias $columnVar
-	
+## $column.name $column.alias $columnVar
+##	
 #end
 #end
 ----
 #foreach ($package in ${businessPackages})
-	//$package.name
+##	//$package.name
 #foreach ($table in ${package.listOfTables})
-	//$table.name
+##	//$table.name
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #columnJavaNaming()	
->>$column.name $column.alias $columnVar
+##>>$column.name $column.alias $columnVar
 #end	
 #end
 #end
@@ -28,14 +28,19 @@
 #foreach ($table in $entities)
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-//$table.name
+#set($tableLabelVar=$commonUtils.getJavaNameVariableFirstLetter($tableLabel))
+# $table.name
 #if ($tableUtils.isReferenceDataContentType($linktableDB))  
 #set ($entityPrefix="${tableLabel} ")
 #else
 #set ($entityPrefix="")
 #end
-$tableVariableName=$tableLabel
+$tableVariableName=$tableLabelVar
 $tableClassName=$tableLabel
+#set ($tableVariableNames=$i18nUtils.plurialize($tableLabelVar))
+#set ($tableClassNames=$i18nUtils.plurialize($tableLabel))
+${tableVariableName}s=$tableVariableNames
+${tableClassName}s=$tableClassNames
 ##$tableVariableName
 #foreach($column in $table.columns)
 #putColumnParams()
