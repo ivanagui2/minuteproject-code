@@ -17,7 +17,7 @@
 	 <technology name="JSF-primefaces" target-name="JSF-primefaces"
          template-config-file-name="mp-template-config-JSF.xml" 
          default-outputdir="JSF-primefaces"
-         depends-on-targets="BSLA_LIB,JPA2,MavenMaster"
+         depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
          templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb" 
          template-dir="@templateRoot@/framework/jsf" 
          status="released"
@@ -34,7 +34,19 @@
 	   template-dir="@templateRoot@/framework/maven"
 	   is-generable="false">
 	</technology> 	
-	 	 
+
+	<technology name="i18n_LIB" target-name="i18n_LIB"
+	   template-config-file-name="mp-template-config-i18n-LIB.xml" 
+	   template-dir="@templateRoot@/framework/i18n"
+	   is-generable="false">
+	</technology> 
+	
+	<technology name="EJB3_LIB" target-name="EJB3_LIB"
+	   template-config-file-name="mp-template-config-EJB3-LIB.xml" 
+	   template-dir="@templateRoot@/framework/ejb"
+	   is-generable="false">
+	</technology> 
+			 	 
 	 <technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
          template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml" 
          default-outputdir="bslaSpringHibernate"
