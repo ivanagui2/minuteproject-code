@@ -64,7 +64,7 @@
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JPA2"
+			   outputdir-root="../output/JSF/petshop/JPA2"
 			   templatedir-root="../../template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
@@ -85,7 +85,7 @@
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JSF"
+			   outputdir-root="../output/JSF/petshop/JSF"
 			   templatedir-root="../../template/framework/jsf"
 			   templatedir-ref="../../template/framework/i18n,../../template/framework/ejb">
 			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
@@ -94,13 +94,13 @@
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../dev/JSF/petshop"
+			   outputdir-root="../output/JSF/petshop"
 			   templatedir-root="../../template/framework/maven">
 			</target> 
 									
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../../dev/JSF/petshop"
+			   outputdir-root="../output/JSF/petshop"
 			   templatedir-root="../../template/template">
 			</target>	
 			
