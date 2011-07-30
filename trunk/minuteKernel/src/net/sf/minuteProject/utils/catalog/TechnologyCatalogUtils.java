@@ -77,8 +77,13 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 	}
 
 	private static Technology getDependentTechnology(Technology technology2, boolean isGenerable) {
-		if (technology2.isGenerable() && !isGenerable)
+//
+//		if (technology2.isGenerable() && !isGenerable)
+//			technology2.setIsGenerable(false);		
+		if (!isGenerable)
 			technology2.setIsGenerable(false);
+		else
+			technology2.setIsGenerable(true);
 		return technology2;
 	}
 	

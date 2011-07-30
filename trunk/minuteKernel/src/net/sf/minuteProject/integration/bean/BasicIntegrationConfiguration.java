@@ -96,7 +96,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		boolean isDefaultOutputToAppend = false;
 		List<Target> list = new ArrayList<Target>();
 		List<Technology> technologies = TechnologyCatalogUtils.getAllRelatedTechnologies(getChoosenTechnology(), getCatalogDir());
-		if (isDefaultOutputToAppend(technologies)) 
+//		if (isDefaultOutputToAppend(technologies)) 
 			isDefaultOutputToAppend = true;
 		for (Technology technology : technologies) {
 			list.add(getTarget(technology, isDefaultOutputToAppend));
