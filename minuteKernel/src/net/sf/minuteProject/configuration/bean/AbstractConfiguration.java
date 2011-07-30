@@ -103,6 +103,8 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 		//return null;
 		if (name==null) return null;
 		for (Property property : getProperties()) {
+			if (property.getName()==null)
+				return null;
 			if (property.getName().equals(name))
 				return property.getValue();
 		}
