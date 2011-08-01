@@ -179,7 +179,7 @@ public class ConsoleSample extends JFrame{
 			catalogDir=args[0];
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample("MinuteProject console 0.5.4 - beta -", catalogDir).setVisible(true);
+				new ConsoleSample("MinuteProject console 0.5.6 - beta -", catalogDir).setVisible(true);
 			}
 		});
 	}
