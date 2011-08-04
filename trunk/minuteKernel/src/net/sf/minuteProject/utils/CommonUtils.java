@@ -85,6 +85,13 @@ public class CommonUtils {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		return getPackageName(bean, templateTarget);
 	}
+	
+	public static String getRootAndTechnicalPackageName (Model model, String templateName) {
+		if (model ==null || templateName==null)
+			return "PACKAGENAME_ERROR";		
+		Template template = getTemplate(model.getConfiguration(), templateName);
+		return getPackageName (model, template);
+	}
 	// 4 times (model, package, table, view) use hierachy instead
 	// TODO refactor
 	public static String getPackageName (GeneratorBean bean, Template template) {

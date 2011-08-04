@@ -79,20 +79,11 @@
 			<target 
 			   name="REST" 
 			   fileName="mp-template-config-REST.xml" 
-			   outputdir-root="../../dev/REST2/petshop/REST"
+			   outputdir-root="../../dev/REST/petshop/REST"
 			   templatedir-root="../../minuteTemplate/template/framework/rest"
 			   templatedir-ref="../../minuteTemplate/template/framework/ejb">	
-			   <property name="add-rest-implementation" value="jersey"></property>		   			   
+      		<property name="add-rest-implementation-jersey-version" value="0.8-ea-SNAPSHOT"></property>		   			   
 			</target>		
-			
-			<target refname="JSF" 
-			   name="JSF" 
-			   fileName="mp-template-config-JSF.xml" 
-			   outputdir-root="../../dev/REST/petshop/JSF"
-			   templatedir-root="../../minuteTemplate/template/framework/jsf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
-			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
-			</target> 
 
 			<target refname="MavenMaster" 
 			   name="maven" 
