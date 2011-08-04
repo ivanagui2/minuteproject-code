@@ -13,12 +13,11 @@
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
 
-		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
+		<template name="EJB3ResourceREST" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="Resource" 
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
-      		<property name="add-rest-implementation-jersey-version" value="0.8-ea-SNAPSHOT"></property>
       		<property name="add-message-format" value="message-format"></property>
 		</template>		
 
@@ -30,8 +29,8 @@
 	</template-target>
 
 	<template-target 
-    	name="JSF set"
-		libdir="lib/JSF_LIB.vm"
+    	name="REST web.xml config"
+		libdir="lib/REST_LIB.vm"
 		outputdir="src/main/webapp/WEB-INF"
 		package-root=""
 		belongToPackage="true">
