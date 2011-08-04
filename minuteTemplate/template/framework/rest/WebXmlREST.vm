@@ -1,3 +1,6 @@
+#exposeMaven()
+#exposeRESTModelSpecific()
+
 <!DOCTYPE web-app PUBLIC
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
@@ -13,14 +16,24 @@
         </init-param>
         <init-param>
           <param-name>com.sun.jersey.config.property.packages</param-name>
-          <param-value>$packageRoot</param-value>
+          <param-value>$modelResourceJerseyImport</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>$model.name Jersey Web Application</servlet-name>
-        <url-pattern>/\*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ServletAdaptor</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.WadlGeneratorConfig</param-name>
+            <param-value>$modelWadlGeneratorJerseyImport</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+	
 </web-app>

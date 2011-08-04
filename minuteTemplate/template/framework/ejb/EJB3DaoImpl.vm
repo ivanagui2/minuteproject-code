@@ -1,5 +1,6 @@
 #exposeEJBDomainObjectSpecific()
 #exposeJPASpecifics()
+#exposeEJBProperties()
 package $packageName;
 
 import java.util.Date;
@@ -17,6 +18,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
 
+#if($isRestified)
+import javax.ws.rs.POST;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+#end
+
 import $importDomainObjectUML;
 #if($implementInterface)
 import $EJBDaoRemoteInterfaceImport;
@@ -28,12 +38,24 @@ import $EJBDaoRemoteInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
+#if($isRestified)
+@Path ("$path")
+@Produces ({"application/xml", "application/json"})
+@Consumes ({"application/xml", "application/json"})
+#end
 @Stateless ##(name="$EJBDaoImplVariable")
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
-    
+ 
+#if($isRestified)
+	@Context
+	private UriInfo uriInfo;
+#end
 	@PersistenceContext(unitName = "$persistenceUnitName")
     private EntityManager em;
-	
+
+#if($isRestified)
+	@GET
+#end
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
 		Query query = em.createQuery("select $tableVariableName from $tableClassName $tableVariableName");
 		return query.getResultList();
@@ -50,6 +72,9 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return em.find (${tableClassName}.class, $primaryKeyVariable);
 	}
 	
+#end
+#if($isRestified)
+	@POST
 #end
 	public $tableClassName create ($tableClassName $tableVariableName) {
 		em.persist (${tableVariableName});

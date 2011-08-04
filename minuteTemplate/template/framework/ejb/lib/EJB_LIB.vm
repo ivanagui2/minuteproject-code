@@ -28,3 +28,8 @@
 #set ($templateDomainObjectEJBFacadeRemoteInterface = "EJB3FacadeRemoteInterface")
 #end
 
+#macro (exposeEJBProperties)
+#set ($isRestified=$template.getPropertyValue("rest","false"))
+#set ($isWebservice=$template.getPropertyValue("webservice","false"))
+#set ($messageFormat=$template.getPropertyValue("message-format","message-format"))##java-variable-format, java-class-format, database-format
+#end
