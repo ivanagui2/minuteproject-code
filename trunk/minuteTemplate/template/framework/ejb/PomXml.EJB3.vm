@@ -1,8 +1,5 @@
 ##manage the dependency with JPA2 backend
 #exposeMaven()
-#set($isQuerydslPowered=$template.hasProperty("add-querydsl"))
-#set($querydslVersion=$template.getPropertyValue("add-querydsl"))
-#set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>    
   	<groupId>${rootPackage}.${model.name}</groupId>
@@ -11,6 +8,7 @@
   	<version>${version}-SNAPSHOT</version>
   	<name>$DbApiName EJB3 Facade, EJB DAO specification and implementation</name>
     <url>http://maven.apache.org</url>
+	
     <dependencies>
         <dependency>
             <groupId>${rootPackage}.${model.name}</groupId>
