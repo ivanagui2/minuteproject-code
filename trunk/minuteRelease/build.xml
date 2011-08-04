@@ -218,7 +218,7 @@
 	 	<fileset dir="${installation.dir}/bin">
 	 		<include name="*.*"/>
 	 	</fileset>
-	  </copy>		
+	  </copy>	
 	   <chmod dir="${release.dir}/mywork/config" perm="777" includes="**/*.sh"/>	
 	   <chmod dir="${release.dir}/bin" perm="777" includes="**/*.sh"/>	
 	</target>
