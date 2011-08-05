@@ -82,7 +82,7 @@
 			   outputdir-root="../../dev/REST/petshop/REST"
 			   templatedir-root="../../minuteTemplate/template/framework/rest"
 			   templatedir-ref="../../minuteTemplate/template/framework/ejb">	
-      		<property name="add-rest-implementation-jersey-version" value="0.8-ea-SNAPSHOT"></property>		   			   
+      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
 			</target>		
 
 			<target refname="MavenMaster" 

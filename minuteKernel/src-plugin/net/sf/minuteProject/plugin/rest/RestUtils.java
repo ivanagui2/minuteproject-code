@@ -10,6 +10,7 @@ public class RestUtils {
 	
 	public static final String GRAILS_TECHNO = "grails";
 	public static final String PLAY_TECHNO = "play";
+	public static final String JERSEY_TECHNO = "jersey";
 	public static final String RESTXMLURL_ROOT = "/rest";
 	public static final String RESTXMLURL_SERVERROOT = "/xml";
 	public static final String RESTJSONURL_SERVERROOT = "/json";
