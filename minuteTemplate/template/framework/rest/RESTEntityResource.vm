@@ -1,0 +1,103 @@
+#exposeEJBDomainObjectSpecific()
+#exposeJPASpecifics()
+#exposeEJBProperties()
+package $packageName;
+
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.annotation.Resource;
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.transaction.UserTransaction;
+
+#exposeRESTURLServer()
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.JAXBElement;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import $importDomainObjectUML;
+import $EJBDaoImplImport;
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: remote interface for ${className} service </p>
+ *
+ */
+@Path ("$restXmlServerUrl")
+@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Stateless
+public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
+ 
+	@Inject 
+    private $EJBDaoImplClass $EJBDaoImplVariable;
+	@Context
+	private UriInfo uriInfo;
+
+	@PersistenceContext(unitName = "$persistenceUnitName")
+    private EntityManager em;
+
+    public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
+		return ${EJBDaoImplVariable}.findAll($tableVariableName);
+	}
+
+	@GET
+	@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
+    public List<$tableClassName> findAll () {
+		return ${EJBDaoImplVariable}.findAll();
+	}
+	
+#if ($hasOnlyOnePrimaryKey)
+	@GET
+	@Path("{$primaryKeyVariable}")
+	@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
+	public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
+		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
+	}
+
+#end
+#if ($hasSemanticReference)
+	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
+		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
+	}
+	
+#end
+	@POST
+	public $tableClassName create ($tableClassName $tableVariableName) {
+		return ${EJBDaoImplVariable}.create($tableVariableName);
+	}
+	
+	public $tableClassName update ($tableClassName $tableVariableName) {
+		return ${EJBDaoImplVariable}.update($tableVariableName);
+	}
+	
+	public void delete ($tableClassName $tableVariableName) {
+		${EJBDaoImplVariable}.delete($tableVariableName);
+	}
+		
+}

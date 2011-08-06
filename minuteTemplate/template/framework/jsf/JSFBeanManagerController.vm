@@ -12,9 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import $importDomainObjectUML;
-##import $EJBDaoRemoteInterfaceImport;
 import $EJBDaoImplImport;
-##import $EJBFacadeRemoteInterfaceImport;
+
 /**
  *
  * <p>Title: ${className}</p>
