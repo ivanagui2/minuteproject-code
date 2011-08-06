@@ -18,24 +18,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
 
-#if($isRestified)
-#exposeRESTURLServer()
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import javax.xml.bind.JAXBElement;
-#end
-
 import $importDomainObjectUML;
 #if($implementInterface)
 import $EJBDaoRemoteInterfaceImport;
@@ -47,18 +29,10 @@ import $EJBDaoRemoteInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-#if($isRestified)
-@Path ("$restXmlServerUrl")
-@Produces ({"application/xml", "application/json"})
-@Consumes ({"application/xml", "application/json"})
-#end
+
 @Stateless ##(name="$EJBDaoImplVariable")
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
  
-#if($isRestified)
-	@Context
-	private UriInfo uriInfo;
-#end
 	@PersistenceContext(unitName = "$persistenceUnitName")
     private EntityManager em;
 
@@ -67,22 +41,13 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return query.getResultList();
 	}
 
-#if($isRestified)
-	@GET
-	@Produces (MediaType.APPLICATION_XML)	
-#end
     public List<$tableClassName> findAll () {
 		Query query = em.createQuery("select $tableVariableName from $tableClassName $tableVariableName");
 		return query.getResultList();
 	}
 	
-#if ($hasOnlyOnePrimaryKey)
-#if($isRestified)
-	@GET
-	@Path("{$primaryKeyVariable}")
-	@Produces (MediaType.APPLICATION_XML)	
-#end	
-	public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
+#if ($hasOnlyOnePrimaryKey)	
+	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
 		return em.find (${tableClassName}.class, $primaryKeyVariable);
 	}
 
@@ -93,9 +58,7 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 	}
 	
 #end
-#if($isRestified)
-	@POST
-#end
+
 	public $tableClassName create ($tableClassName $tableVariableName) {
 		em.persist (${tableVariableName});
 		return $tableVariableName;
