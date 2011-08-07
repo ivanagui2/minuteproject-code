@@ -165,12 +165,13 @@
 	  <copy todir="${catalog.dir}" overwrite="true" filtering="true">
 	 	<fileset dir="${catalog.dev.relpath}">
 	 		<include name="**/*.xml"/>	 		
-	 	</fileset>
+	 	</fileset>	  	
+	  </copy>
+	  <copy todir="${catalog.dir}" overwrite="true" filtering="true">
 	 	<fileset dir="${demo.dev.relpath}/demo/config">
 	 		<include name="mp-template-config*.*"/>
 	 	</fileset>	  	
-	  </copy>
-		
+	  </copy>		
 	  <copy todir="${template.framework.dir}" overwrite="true" >
 	 	<fileset dir="${template2.dev.relpath.framework}">
 	 		<include name="**/*.vm"/>		
