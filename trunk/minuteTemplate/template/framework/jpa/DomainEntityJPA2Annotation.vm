@@ -171,6 +171,51 @@ public class ${className} implements Serializable {
     public ${className}() {
     }
 
+    public ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()
+       $columnType $columnVar#if ($velocityCount!=$table.columnCount),
+#end
+#end	
+) {
+	     //primary keys
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+        $embeddedIdVariable = new ${embeddedIdClass}();  	
+#end
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+        ${embeddedIdVariable}.set$columnClass ($columnVar);
+#else
+        set$columnClass ($columnVar);
+#end
+#end	
+	    //attributes
+#foreach ($column in ${table.attributes})
+#putColumnParams()
+#columnJavaNaming()
+       set$columnClass ($columnVar);
+#end
+        //parents
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#exposeEnrichedPk($localColumn)
+#if (!$isEnrichedPk)
+#set($colVar = ${localColumnVariable})
+#else
+#set($colVar = ${linkedTableVariable})
+#end
+       this.${colVar} = new $linkedTableClass();
+#if($localColumnType==$linkedColumnType)   
+       this.${colVar}.set$linkedColumnClass($localColumnVariable);
+#else
+	   // the datamodel type of foreignkey and primary are not equals, please adapt
+#end
+#end
+    }
+	
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;

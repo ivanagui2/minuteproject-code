@@ -138,6 +138,7 @@
 ##set ($linkedList = ${linkedTableVariable}${linkedColumnClass}s)
 #set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.alias}))
 #set ($linkedColumnName = ${reference.foreignColumn.alias})
+#set ($linkedColumnType = $commonUtils.getJavaType($reference.foreignColumn))
 #set ($linkedColumn = ${reference.foreignColumn})
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))
 #set ($linktableDB = ${reference.foreignTable})
