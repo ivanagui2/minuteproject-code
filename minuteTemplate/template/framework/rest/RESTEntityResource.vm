@@ -6,6 +6,7 @@ package $packageName;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.*;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateful;
@@ -18,9 +19,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
 
+import javax.servlet.http.*;
+
 #exposeRESTURLServer()
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
@@ -41,6 +45,7 @@ import javax.inject.Named;
 
 import $importDomainObjectUML;
 import $EJBDaoImplImport;
+
 /**
  *
  * <p>Title: ${className}</p>
@@ -92,10 +97,43 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return ${EJBDaoImplVariable}.create($tableVariableName);
 	}
 	
-	public $tableClassName update ($tableClassName $tableVariableName) {
+    @POST
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public $tableClassName create (
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()
+        @FormParam("$columnVar") $columnType $columnVar,
+#end	
+		@Context HttpServletResponse servletResponse
+        ) throws IOException {
+        $tableClassName _$tableVariableName = new $tableClassName (
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()
+           $columnVar#if ($velocityCount!=$table.columnCount),
+#end
+#end	   
+);
+	    return ${EJBDaoImplVariable}.create(_$tableVariableName);
+    }
+	
+    @PUT
+    @Consumes(MediaType.APPLICATION_XML)
+    public $tableClassName putContact(JAXBElement<$tableClassName> jaxb$tableClassName) {
+	    $tableClassName _$tableVariableName = jaxb${tableClassName}.getValue();
+	    return ${EJBDaoImplVariable}.create(_$tableVariableName);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_XML)
+    public $tableClassName update(JAXBElement<$tableClassName> jaxb$tableClassName) {
+	    $tableClassName _$tableVariableName = jaxb${tableClassName}.getValue();
 		return ${EJBDaoImplVariable}.update($tableVariableName);
 	}
 	
+	@DELETE
 	public void delete ($tableClassName $tableVariableName) {
 		${EJBDaoImplVariable}.delete($tableVariableName);
 	}
