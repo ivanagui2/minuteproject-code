@@ -85,6 +85,13 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
 	}
 
+	@DELETE
+	@Path("{$primaryKeyVariable}")
+	public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
+	    $tableClassName $tableVariableName = new $tableClassName ();
+		${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+		${EJBDaoImplVariable}.delete($tableVariableName);
+	}
 #end
 #if ($hasSemanticReference)
 	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
@@ -92,7 +99,7 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 	}
 	
 #end
-	@POST
+
 	public $tableClassName create ($tableClassName $tableVariableName) {
 		return ${EJBDaoImplVariable}.create($tableVariableName);
 	}
@@ -116,26 +123,17 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 #end
 #end	   
 );
-	    return ${EJBDaoImplVariable}.create(_$tableVariableName);
-    }
-	
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public $tableClassName putContact(JAXBElement<$tableClassName> jaxb$tableClassName) {
-	    $tableClassName _$tableVariableName = jaxb${tableClassName}.getValue();
-	    return ${EJBDaoImplVariable}.create(_$tableVariableName);
+	    return create(_$tableVariableName);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_XML)
-    public $tableClassName update(JAXBElement<$tableClassName> jaxb$tableClassName) {
-	    $tableClassName _$tableVariableName = jaxb${tableClassName}.getValue();
-		return ${EJBDaoImplVariable}.update($tableVariableName);
+    public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
+	    $tableClassName $tableVariableName = jaxb${tableClassName}.getValue();
+		if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
+		    return ${EJBDaoImplVariable}.update($tableVariableName);
+		return create($tableVariableName);
 	}
-	
-	@DELETE
-	public void delete ($tableClassName $tableVariableName) {
-		${EJBDaoImplVariable}.delete($tableVariableName);
-	}
+
 		
 }
