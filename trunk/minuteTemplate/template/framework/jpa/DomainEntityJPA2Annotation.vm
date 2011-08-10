@@ -302,6 +302,9 @@ public class ${className} implements Serializable {
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
+#if($addXmlBinding)
+    @XmlElement(name="$childrenListVariable")
+#end
     public Set<$linkedTableClass> get${childrenListClass}() {
         if (${childrenListVariable} == null){
             ${childrenListVariable} = new HashSet<$linkedTableClass>();
