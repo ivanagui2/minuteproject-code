@@ -56,53 +56,53 @@ import $EJBDaoImplImport;
 @Path ("$restXmlServerUrl")
 @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Stateless
+@RequestScoped 
+//@Named
+//@Default 
+//@Stateless
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
  
-	@Inject 
+    @Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
-	@Context
-	private UriInfo uriInfo;
-
-	@PersistenceContext(unitName = "$persistenceUnitName")
-    private EntityManager em;
+//    @Context
+//    private UriInfo uriInfo;
 
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
-		return ${EJBDaoImplVariable}.findAll($tableVariableName);
-	}
+        return ${EJBDaoImplVariable}.findAll($tableVariableName);
+    }
 
-	@GET
-	@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
+    @GET
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
     public List<$tableClassName> findAll () {
-		return ${EJBDaoImplVariable}.findAll();
-	}
+        return ${EJBDaoImplVariable}.findAll();
+    }
 	
 #if ($hasOnlyOnePrimaryKey)
-	@GET
-	@Path("{$primaryKeyVariable}")
-	@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
-	public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
-		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
-	}
+    @GET
+    @Path("{$primaryKeyVariable}")
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
+    public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
+        return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
+    }
 
-	@DELETE
-	@Path("{$primaryKeyVariable}")
-	public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
-	    $tableClassName $tableVariableName = new $tableClassName ();
-		${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
-		${EJBDaoImplVariable}.delete($tableVariableName);
-	}
+    @DELETE
+    @Path("{$primaryKeyVariable}")
+    public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
+        $tableClassName $tableVariableName = new $tableClassName ();
+        ${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+        ${EJBDaoImplVariable}.delete($tableVariableName);
+    }
 #end
 #if ($hasSemanticReference)
-	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
-		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
-	}
+    public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
+        return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
+    }
 	
 #end
 
-	public $tableClassName create ($tableClassName $tableVariableName) {
-		return ${EJBDaoImplVariable}.create($tableVariableName);
-	}
+    public $tableClassName create ($tableClassName $tableVariableName) {
+        return ${EJBDaoImplVariable}.create($tableVariableName);
+    }
 	
     @POST
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
@@ -113,7 +113,7 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 #columnJavaNaming()
         @FormParam("$columnVar") $columnType $columnVar,
 #end	
-		@Context HttpServletResponse servletResponse
+        @Context HttpServletResponse servletResponse
         ) throws IOException {
         $tableClassName _$tableVariableName = new $tableClassName (
 #foreach ($column in ${table.columns})
@@ -123,17 +123,17 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 #end
 #end	   
 );
-	    return create(_$tableVariableName);
+        return create(_$tableVariableName);
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
-	    $tableClassName $tableVariableName = jaxb${tableClassName}.getValue();
-		if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
-		    return ${EJBDaoImplVariable}.update($tableVariableName);
-		return create($tableVariableName);
-	}
+        $tableClassName $tableVariableName = jaxb${tableClassName}.getValue();
+        if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
+            return ${EJBDaoImplVariable}.update($tableVariableName);
+        return create($tableVariableName);
+    }
 
 		
 }
