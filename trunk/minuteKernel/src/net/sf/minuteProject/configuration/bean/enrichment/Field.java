@@ -26,7 +26,7 @@ public class Field extends AbstractConfiguration {
 	}
 
 	public void setLinkToTargetEntity(String linkToTargetEntity) {
-		this.linkToTargetEntity = linkToTargetEntity;
+		this.linkToTargetEntity = linkToTargetEntity.toUpperCase();
 	}
 
 	public String getLinkToTargetField() {
@@ -34,7 +34,7 @@ public class Field extends AbstractConfiguration {
 	}
 
 	public void setLinkToTargetField(String linkToTargetField) {
-		this.linkToTargetField = linkToTargetField;
+		this.linkToTargetField = linkToTargetField.toUpperCase();
 	}
 
 	public Entity getEntity() {
