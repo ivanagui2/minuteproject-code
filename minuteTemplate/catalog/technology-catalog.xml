@@ -13,7 +13,22 @@
 	        <framework name="JPA" version="2"></framework>
 	      </frameworks>  	             
 	 </technology>  
-	 
+
+	 <technology name="REST-JEE" target-name="REST-JEE"
+         template-config-file-name="mp-template-config-REST.xml" 
+         default-outputdir="REST-JEE"
+         depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster"
+         templatedir-ref="@templateRoot@/framework/ejb" 
+         template-dir="@templateRoot@/framework/rest" 
+         status="released"
+         description="Generates:\REST CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
+	      <frameworks>
+	      	<framework name="jersey" version="1.9"></framework>
+	      </frameworks> 
+	      <property name="add-xmlbinding" value="true"></property> 
+	      <property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>	             
+	 </technology> 
+	 	 
 	 <technology name="JSF-primefaces" target-name="JSF-primefaces"
          template-config-file-name="mp-template-config-JSF.xml" 
          default-outputdir="JSF-primefaces"
@@ -25,7 +40,6 @@
 	      <frameworks>
 	      	<framework name="primefaces" version="2.2"></framework>
 	        <framework name="JSF" version="2"></framework>
-	        <framework name="JPA" version="2"></framework>
 	      </frameworks>  	             
 	 </technology> 
 	
