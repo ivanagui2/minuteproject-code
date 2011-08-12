@@ -57,7 +57,7 @@ public class ConsoleSample extends JFrame{
 	private TechnologycatalogHolder technologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
 	private JPanel technologyInfoTab;
-	private static String catalogDir;
+	private static String catalogDir, templateRootDir;
 	
 	public ConsoleSample (String title, String catalogDir) {
 		super(title);
@@ -171,12 +171,14 @@ public class ConsoleSample extends JFrame{
 	
 	private void initCatalogs(String catalogDir) {
 		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder(catalogDir);
-		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);		
+		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);	
 	}
 
 	public static void main(String args[]) {
 		if (args.length>0)
-			catalogDir=args[0];
+			templateRootDir=args[0];
+		if (args.length>1)
+			catalogDir=args[1];		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new ConsoleSample("MinuteProject console 0.5.7 - beta -", catalogDir).setVisible(true);
@@ -185,6 +187,7 @@ public class ConsoleSample extends JFrame{
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
+		bic.setTemplateRootDir(templateRootDir);
 		modelAccessPanel.fill(bic);
 		modelCommonPanel.fill(bic);
 		targetPanel.fill(bic);
