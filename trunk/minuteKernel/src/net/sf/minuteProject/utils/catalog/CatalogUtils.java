@@ -50,6 +50,7 @@ public class CatalogUtils {
 		try {
 			return getDatabaseCatalogLoader(name).load();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new DatabasecatalogHolder();
 		}
 	}
