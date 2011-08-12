@@ -57,15 +57,10 @@ import $EJBDaoImplImport;
 @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @RequestScoped 
-//@Named
-//@Default 
-//@Stateless
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
  
     @Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
-//    @Context
-//    private UriInfo uriInfo;
 
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
         return ${EJBDaoImplVariable}.findAll($tableVariableName);
