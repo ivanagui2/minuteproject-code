@@ -34,6 +34,7 @@ import net.sf.minuteProject.utils.catalog.DatabaseCatalogUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
+import net.sf.minuteProject.utils.technology.TechnologyUtils;
 
 public class BasicIntegrationConfiguration extends BeanCommon{
 
@@ -56,7 +57,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		sequenceEntitySuffix,
 		filterFile,
 		filterFileType,
-		virtualPrimaryKey
+		virtualPrimaryKey,
+		templateRootDir
 		;
 	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
@@ -118,9 +120,10 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private Target getTarget(Technology technology, boolean isDefaultOutputToAppend) {
 		Target target = new Target();
 		target.setName(technology.getName());
+		target.setProperties(technology.getProperties());
 		target.setFileName(technology.getTemplateConfigFileName());
 		target.setDir(getTemplateSetFullPath(technology.getTemplateConfigFileName()));
-		target.setTemplatedirRoot(technology.getTemplateDir());		
+		target.setTemplatedirRoot(TechnologyUtils.getTechnologyTemplateDir(technology, templateRootDir));		
 		target.setOutputdirRoot(getOutputDir(technology, isDefaultOutputToAppend));
 		target.setIsGenerable(technology.isGenerable());
 		return target;
@@ -499,6 +502,14 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	
 	public void addConvention(Convention convention) {
 		getConventionList().add(convention);		
+	}
+
+	public String getTemplateRootDir() {
+		return templateRootDir;
+	}
+
+	public void setTemplateRootDir(String templateRootDir) {
+		this.templateRootDir = templateRootDir;
 	}
 	
 }
