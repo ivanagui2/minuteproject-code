@@ -28,7 +28,7 @@ public class Entity extends AbstractConfiguration {
 	private SemanticReference semanticReference;
 	private boolean isLinkEntity, isTransferEntity, isSearchable;
 	private EntitySecuredAccess entitySecuredAccess;
-	private String type;
+	private String type, masterRelationshipField;
 	private List<FieldGroup> fieldGroups;
 	
 	public EntitySecuredAccess getEntitySecuredAccess() {
@@ -146,6 +146,15 @@ public class Entity extends AbstractConfiguration {
 	
 	public void addAction (Action action) {
 		getActions().add(action);
+	}
+
+	//use for m2m in grails, jpa2 xml rootnavigation
+	public String getMasterRelationshipField() {
+		return masterRelationshipField;
+	}
+
+	public void setMasterRelationshipField(String masterRelationshipField) {
+		this.masterRelationshipField = masterRelationshipField;
 	}
 
 	public Table getTable (Database database) {

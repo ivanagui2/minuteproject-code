@@ -16,7 +16,7 @@ public class ColumnUtils {
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
 	public static Column getColumn(Table table, String columnName) {
-		if (table!=null) {
+		if (table!=null && columnName!=null) {
 			columnName = columnName.toUpperCase();
 			int maxColumn = table.getColumns().length;
 			for (int i = 0; i < maxColumn; i++) {

@@ -65,6 +65,8 @@ public class CommonUtils {
 	}
 	
 	public static String getJavaVariableName (GeneratorBean bean){
+		if (bean==null)
+			return "SEARCH ON A NULL bean!";
 		return getJavaVariableName(bean.getAlias());
 	}
 	

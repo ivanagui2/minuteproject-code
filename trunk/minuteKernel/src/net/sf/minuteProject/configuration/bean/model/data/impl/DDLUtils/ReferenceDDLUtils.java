@@ -42,7 +42,9 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	private Table  localTable;
 	private String localColumnName;
 	private String alias;
-	
+//	private boolean isMasterRelationship, isAggregateRelationship;
+	private enum Owner {MASTER, AGGREGATE, NONE};
+	private Owner relationshipOwnership = Owner.NONE;
     /**
      * Creates a new, empty reference.
      */
@@ -275,6 +277,24 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	@Override
+	public boolean isMasterRelationship() {
+		return relationshipOwnership==Owner.MASTER;
+	}
+
+	public boolean isAggregateRelationship() {
+		return relationshipOwnership==Owner.NONE || relationshipOwnership==Owner.AGGREGATE;
+	}
+	
+	public void setMasterRelationship() {
+		relationshipOwnership = Owner.MASTER;
+	}
+
+	@Override
+	public void setAggregateRelationship() {
+		relationshipOwnership = Owner.AGGREGATE;
 	}
 
 }

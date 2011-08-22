@@ -12,8 +12,6 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 	TableUMLNotation localTable;
 	ColumnUMLNotation localColumn;
 	
-	
-	
 	public ReferenceUMLNotation(Reference reference) {
 		super(reference);
 		foreignTable = new TableUMLNotation (reference.getForeignTable());
@@ -21,6 +19,7 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 		localTable = new TableUMLNotation (reference.getLocalTable());
 		localColumn = new ColumnUMLNotation (reference.getLocalColumn(), localTable);
 		setAlias(reference.getAlias());
+//		setMasterRelationship(reference.isMasterRelationship());
 	}
 
 	public Table getForeignTable () {
@@ -61,6 +60,8 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 
 	

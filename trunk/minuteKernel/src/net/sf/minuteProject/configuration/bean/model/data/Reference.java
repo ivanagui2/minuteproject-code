@@ -120,6 +120,14 @@ public interface Reference extends GeneratorBean
 	
 	public Table getLocalTable();
 
+	public boolean isMasterRelationship();
+	
+	public void setMasterRelationship();
+
+	public void setAggregateRelationship();
+	
+	public boolean isAggregateRelationship();
+	
 }
 
 

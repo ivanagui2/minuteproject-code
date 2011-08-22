@@ -135,6 +135,23 @@ public abstract class ReferenceAbstract extends AbstractConfiguration implements
 
 	public void setLocalColumn(Column localColumn) {
 		reference.setLocalColumn(localColumn);
+	}
+	
+	@Override
+	public boolean isMasterRelationship() {
+		// TODO Auto-generated method stub
+		return reference.isMasterRelationship();
+	}	
+	
+	@Override
+	public void setMasterRelationship() {
+		// TODO Auto-generated method stub
 		
 	}
+
+	public void setAggregateRelationship(){}
+	
+	public boolean isAggregateRelationship(){
+		return reference.isAggregateRelationship();
+	}	
 }

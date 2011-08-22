@@ -59,12 +59,36 @@ public class I18nUtils {
 		return null;
 	}
 
+	public static String singularize (String input) {
+		if (input!=null) {
+			String lastChar = getLastChar (input, 1);
+			if (lastChar!=null) {				
+				if (lastChar.equals("s")) {
+//					String strippedInput = input.substring(0, input.length()-1);
+					String last3Char = getLastChar (input, 3);
+					if ("ies".equals(last3Char))
+						return getBeforeLastChar(input,3)+"y";
+					if ("ses".equals(last3Char))
+						return getBeforeLastChar(input,2);
+					return getBeforeLastChar(input,1);
+				}
+			}
+		}
+		return null;		
+	}
+	
 	private static String getLastChar(String input, int i) {
 		if (input!=null && input.length()>=i)
 			return StringUtils.substring(input, input.length()-i);
 		return null;
 	}
 
+	private static String getBeforeLastChar(String input, int i) {
+		if (input!=null && input.length()>=i)
+			return input.substring(0, input.length()-i);
+		return null;
+	}
+	
 	public static String getI18nFromDBNameStripPrefix (String input) {
 		if (input==null) return null;
 		String prefix = StringUtils.substringBefore(input, UNDERSCORE);

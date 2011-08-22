@@ -51,6 +51,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setSearchable(table.isSearchable());
 		this.setComment(table.getComment());
 		this.setDescription(table.getDescription());		
+		this.setDatabase(table.getDatabase());
 	}
 
 	public String getName () {

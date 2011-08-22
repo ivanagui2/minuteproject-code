@@ -295,6 +295,7 @@
 					<alias attr-name="is-transfer-entity" prop-name="transferEntity" />
 					<alias attr-name="comment" prop-name="comment" />
 					<alias attr-name="description" prop-name="description" />
+					<alias attr-name="master-relationship-field" prop-name="masterRelationshipField" />
 				</set-properties-rule>	
 				<pattern value="action">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
