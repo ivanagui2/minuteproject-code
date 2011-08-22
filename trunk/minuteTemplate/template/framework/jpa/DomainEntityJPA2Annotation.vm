@@ -87,7 +87,7 @@ public class ${className} implements Serializable {
 #end
 #end
 #end
-#if($addXml)
+#if($addXmlBinding)
     @XmlElement
 #end
     private $columnType $columnVar;
@@ -115,7 +115,7 @@ public class ${className} implements Serializable {
 #end
 #end
 #end
-#if($addXml)
+#if($addXmlBinding)
     @XmlElement
 #end
     private $columnType $columnVar; 
@@ -135,7 +135,17 @@ public class ${className} implements Serializable {
 #set($colVar = ${linkedTableVariable})
 #end
     private $linkedTableClass ${colVar};
-    
+
+#if($addXmlBinding)
+## for attribute
+#set($column = $reference.localColumn)
+#putColumnParams()
+#columnJavaNaming()
+    @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+    @XmlAttribute (name="${columnVar}")
+    private $columnType ${columnVar}_;
+	
+#end	
 #end
 #foreach ($reference in $table.children)
 #putReferenceParams2()
@@ -148,6 +158,9 @@ public class ${className} implements Serializable {
 #else
 #set ($foreignColumnVar = $domainVariableName)
 #end
+#if($addXmlBinding)
+    @XmlElement (name="$childrenListVariable")
+#end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
@@ -157,6 +170,13 @@ public class ${className} implements Serializable {
 #exposeM2MSpecific()
 #exposeImportParamsUML($targetTable)
 #set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
+#if($addXmlBinding)
+#if($isMasterRelationship)
+    @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
+#else
+	@XmlTransient
+#end
+#end
     @ManyToMany
     @JoinTable(name="$linkedTableDBName", 
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
@@ -299,6 +319,20 @@ public class ${className} implements Serializable {
     }
     
 #end 
+#if($addXmlBinding)
+## for attribute
+#set($column = $reference.localColumn)
+#putColumnParams()
+#columnJavaNaming()
+    public $columnType get${columnClass}_() {
+        return ${columnVar}_;
+    }
+	
+    public void set${columnClass}_ ($columnType $columnVar) {
+        this.${columnVar}_ =  $columnVar;
+    }
+	
+#end
 #end
 #foreach ($reference in $table.children)
 #putReferenceParams2()

@@ -199,6 +199,8 @@
 #set ($localColumnName = $formatUtils.getJavaName($linkReference.localColumn.alias))
 #set ($childrenListVariable = $referenceUtils.getChildrenListVariable($linkReference))
 #set ($childrenListClass = $referenceUtils.getChildrenListClass($linkReference))
+##set ($isMasterRelationship = $referenceUtils.isMasterRelationship($table, $linkReference))
+#set ($isMasterRelationship = $linkReference.isAggregateRelationship())
 #end
 
 #macro (putDefaultMaskColumnValue)
