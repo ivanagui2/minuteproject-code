@@ -4,12 +4,29 @@ import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ReferenceDDLUtils;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 
 public class ReferenceUtils {
 
+//	public static boolean isMasterRelationship
+//	    (Table table, net.sf.minuteProject.configuration.bean.model.data.Reference linkReference) {
+//		
+////		Table m2m = linkReference.getLocalTable();
+////		if (!m2m.isManyToMany()) return false;
+//		net.sf.minuteProject.configuration.bean.model.data.Reference ref =getFirstChildReference(linkReference.getLocalTableName(), linkReference.getLocalColumnName(), table);
+//		if (ref!=null && ref.isMasterRelationship())
+//			return true;		
+////		for (ForeignKey fk : m2m.getForeignKeys()) {
+////			net.sf.minuteProject.configuration.bean.model.data.Reference ref = fk.getFirstReference();
+////			if (!ref.equals(linkReference) && ref.isMasterRelationship())
+////				return true;
+////		}
+//		return false;
+//	}
+	
 	public static String getChildrenListVariable(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
 		return FormatUtils.getJavaNameVariable(reference.getAlias());
 	}
@@ -25,7 +42,13 @@ public class ReferenceUtils {
 		}
 	}
 	
+	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Table table, String columnName) {
+		Column column = ColumnUtils.getColumn(table, columnName);
+		return getReference(column);
+	}
+	
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Column column) {
+		if (column==null) return null;
 		Table table = column.getTable();
 		net.sf.minuteProject.configuration.bean.model.data.Reference[] reference = table.getParents();
 		for (int i = 0; i < reference.length; i++) {
@@ -102,6 +125,17 @@ public class ReferenceUtils {
 		}
 		return null;
 		
+	}
+
+	public static net.sf.minuteProject.configuration.bean.model.data.Reference getFirstChildReference 
+	    (String originTable, String originField, Table target) {
+		net.sf.minuteProject.configuration.bean.model.data.Reference [] refs = target.getChildren();
+		for (int i = 0; i < refs.length; i++) {
+			net.sf.minuteProject.configuration.bean.model.data.Reference ref = refs[i];
+			if (ref.getForeignTableName().equals(originTable) && ref.getForeignColumnName().equals(originField))
+				return ref;
+		}
+		return null;
 	}
 	
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Table origin, Table target) {

@@ -216,8 +216,11 @@ public class EnrichmentUtils {
 			Reference[] m2mReference = getLinkedReferenceByForeignKey(many2many);
 			for (int i = 0; i < m2mReference.length; i++) {
 				Reference ref = m2mReference[i];
-				if (!isEqual(origin, ref))
+				if (!isEqual(origin, ref)) {
+					if (origin.isMasterRelationship()) 
+						ref.setAggregateRelationship();
 					return ref;
+				}
 			}
 		}
 		return null;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
@@ -17,6 +18,7 @@ public class TableUMLNotation extends TableAbstract {
 	
 	public TableUMLNotation (Table table) {
 		super (table);
+		setDatabase(table.getDatabase()); 
 	}
 
 	public Column [] getAttributes () {

@@ -243,9 +243,10 @@ public class BusinessModel {
 	
 	private void complementEntityWithProperties(net.sf.minuteProject.configuration.bean.model.data.Table table, Entity entity) {
 		convertEntityInfoIntoTable(entity, table);
+		convertEntityReferenceIntoReference(entity,table);
 		convertEntityFields(entity, table);
 	}
-	
+
 	private void convertEntityFields(Entity entity, Table table) {
 		List<Field> fields = entity.getFields();
 		Column[] columns = table.getColumns();
@@ -281,7 +282,14 @@ public class BusinessModel {
 			return true;
 		return false;
 	}
+
 	
+	private void convertEntityReferenceIntoReference(Entity entity, Table table) {
+		net.sf.minuteProject.configuration.bean.model.data.Reference reference =ReferenceUtils.getReference(table, entity.getMasterRelationshipField());
+		if (reference!=null) 
+			reference.setMasterRelationship();
+	}
+
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
