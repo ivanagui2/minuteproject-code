@@ -52,5 +52,27 @@
 		</template>	
 
 	</template-target>
-	
+
+	<template-target 
+    	name="Spring security webxml"
+		outputdir="web/WEB-INF"
+		package-root=""
+		belongToPackage="true">			
+
+		<template 
+			name="OXSpringWebXmlListenerContextSnippet" templateFileName="SpringWebXmlListenerContextSnippet.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="listeners" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+    		
+		<template 
+			name="OXSpringWebXmlServletSnippet" templateFileName="SpringWebXmlServletSnippet.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="servlets" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>			
+		
+
+	</template-target>	
 </target>
