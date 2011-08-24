@@ -191,6 +191,7 @@ public class ${className} implements Serializable {
     public ${className}() {
     }
 
+	/*
     public ${className}(
 #foreach ($column in ${table.columns})
 #putColumnParams()
@@ -236,7 +237,7 @@ public class ${className} implements Serializable {
 #end
 #end
     }
-	
+*/	
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;
