@@ -98,7 +98,8 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
     public $tableClassName create ($tableClassName $tableVariableName) {
         return ${EJBDaoImplVariable}.create($tableVariableName);
     }
-	
+
+	/*
     @POST
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -120,7 +121,7 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 );
         return create(_$tableVariableName);
     }
-
+*/
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
