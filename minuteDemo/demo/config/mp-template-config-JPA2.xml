@@ -7,6 +7,7 @@
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="jpa2Utils" className="net.sf.minuteProject.plugin.jpa.Jpa2Utils"/>
 	<plugin name="persistenceUtils" className="net.sf.minuteProject.plugin.persistence.PersistenceUtils"/>
+	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	
 	<template-target 
     	name="JPA set"
