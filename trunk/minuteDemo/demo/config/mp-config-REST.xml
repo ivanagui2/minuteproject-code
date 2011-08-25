@@ -46,6 +46,7 @@
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
+				    <entity name="TAG_ITEM" master-relationship-field="ITEMID"/>
 					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
 					</entity>				    
 					<entity name="ITEM" alias="MY_GOOD_ITEM" comment="my item table">
