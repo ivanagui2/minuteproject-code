@@ -88,6 +88,11 @@ public class Template extends TemplateTarget {
 		return (s!=null)?s:defaultValue;
 	}
 	
+	public Boolean getPropertyValue(String name, boolean defaultValue) {
+		String s = getPropertyValue(name);
+		return (s!=null)?Boolean.valueOf(s):defaultValue;
+	}
+	
 	public TemplateTarget getTemplateTarget() {
 		return templateTarget;
 	}
