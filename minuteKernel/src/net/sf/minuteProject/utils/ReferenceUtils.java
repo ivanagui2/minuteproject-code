@@ -11,6 +11,25 @@ import net.sf.minuteProject.plugin.format.I18nUtils;
 
 public class ReferenceUtils {
 
+	public static String getLocalColumnVariableName (Database database, Column column) {
+		Column c = getLocalColumnFromPackage(database, column);
+		if (column==null) return "COLUMN should not be null!";
+		return FormatUtils.getJavaNameVariable(c.getAlias());
+	}
+	public static String getLocalColumnClassNameForLinkTable(Database database, Column column) {
+		Column c = getLocalColumnFromPackage(database, column);
+		if (column==null) return "COLUMN should not be null!";
+		return FormatUtils.getJavaName(c.getAlias());
+	}
+	
+	public static Column getLocalColumnFromPackage(Database database, Column column) {
+		if (column==null) return null;
+		Table table = TableUtils.getTableFromBusinessPackage(database, column.getTable().getName());
+		if (table!=null) {
+			return ColumnUtils.getColumn(table, column.getName());
+		}
+		return null;
+	}
 //	public static boolean isMasterRelationship
 //	    (Table table, net.sf.minuteProject.configuration.bean.model.data.Reference linkReference) {
 //		
@@ -36,7 +55,9 @@ public class ReferenceUtils {
 	}
 	
 	public static void setReferenceColumnAlias(Column column, String name, String newName) {
-		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref : column.getTable().getParents()) {
+		Database database = column.getTable().getDatabase();
+		Table table = TableUtils.getTableFromBusinessPackage(database, column.getTable().getName());
+		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref : table.getParents()) {
 			if (name.equals(ref.getLocalColumn().getName())) 
 				ref.getLocalColumn().setAlias(newName);
 		}
