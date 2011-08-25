@@ -19,7 +19,7 @@
 #set($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainEntityJPA2Annotation"))
 #set($templateEnvironment=$template.getPropertyValue("environment","local"))
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
-#set($addXmlBinding=$template.getPropertyValue("add-xmlbinding","false"))
+#set($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)

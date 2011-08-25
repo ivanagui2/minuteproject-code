@@ -13,7 +13,7 @@
 	        <framework name="JPA" version="2"></framework>
 	      </frameworks>  	             
 	 </technology>  
-
+<!-- 
 	 <technology name="REST-JEE" target-name="REST-JEE"
          template-config-file-name="mp-template-config-REST.xml" 
          default-outputdir="REST-JEE"
@@ -28,7 +28,7 @@
 	      <property name="add-xmlbinding" value="true"></property> 
 	      <property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>	             
 	 </technology> 
-	 	 
+ -->	 	 
 	 <technology name="JSF-primefaces" target-name="JSF-primefaces"
          template-config-file-name="mp-template-config-JSF.xml" 
          default-outputdir="JSF-primefaces"

@@ -174,7 +174,7 @@ public class ${className} implements Serializable {
 #if($isMasterRelationship)
     @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #else
-	@XmlTransient
+    @XmlTransient
 #end
 #end
     @ManyToMany
