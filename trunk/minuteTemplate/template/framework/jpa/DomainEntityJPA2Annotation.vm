@@ -159,7 +159,7 @@ public class ${className} implements Serializable {
 #set ($foreignColumnVar = $domainVariableName)
 #end
 #if($addXmlBinding)
-    @XmlElement (name="$childrenListVariable")
+    @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
@@ -191,16 +191,21 @@ public class ${className} implements Serializable {
     public ${className}() {
     }
 
-	/*
+	/**
+	* All field constructor 
+	*/
     public ${className}(
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #columnJavaNaming()
+#if ($column.isLob() && $convertClobToString=="true")
+#set($columnType="String")
+#end
        $columnType $columnVar#if ($velocityCount!=$table.columnCount),
 #end
 #end	
 ) {
-	     //primary keys
+       //primary keys
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
         $embeddedIdVariable = new ${embeddedIdClass}();  	
 #end
@@ -208,18 +213,18 @@ public class ${className} implements Serializable {
 #putColumnParams()
 #columnJavaNaming()
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-        ${embeddedIdVariable}.set$columnClass ($columnVar);
+       ${embeddedIdVariable}.set$columnClass ($columnVar);
 #else
-        set$columnClass ($columnVar);
+       set$columnClass ($columnVar);
 #end
 #end	
-	    //attributes
+       //attributes
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
        set$columnClass ($columnVar);
 #end
-        //parents
+       //parents
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #columnJavaNaming()
@@ -231,13 +236,17 @@ public class ${className} implements Serializable {
 #end
        this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
-       this.${colVar}.set$linkedColumnClass($localColumnVariable);
+## setter is the one of the linked table
+#set($columnClass=$referenceUtils.getLocalColumnClassNameForLinkTable($database, $linkedColumn))
+#set($columnVar=$referenceUtils.getLocalColumnVariableName($database, $reference.localColumn))
+#columnJavaNaming()
+       this.${colVar}.set$columnClass($columnVar);
 #else
-	   // the datamodel type of foreignkey and primary are not equals, please adapt
+       // the datamodel type of foreignkey and primary are not equals, please adapt
 #end
 #end
     }
-*/	
+	
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;

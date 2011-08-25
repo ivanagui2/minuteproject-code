@@ -8,17 +8,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.*;
 
-import javax.annotation.Resource;
-import javax.ejb.Stateful;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.transaction.UserTransaction;
-
 import javax.servlet.http.*;
 
 #exposeRESTURLServer()
@@ -99,7 +88,6 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
         return ${EJBDaoImplVariable}.create($tableVariableName);
     }
 
-	/*
     @POST
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -121,7 +109,7 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 );
         return create(_$tableVariableName);
     }
-*/
+
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
