@@ -73,6 +73,13 @@ public class TableUtils {
 		return null;
 	}
 	
+	public static Table getTableFromBusinessPackage(Database database, String tablename){
+		for (Table table : database.getDataModel().getModel().getBusinessModel().getBusinessPackage().getEntities()) {
+			if (tablename.equals(table.getName())) return table;
+		}
+		return null;
+	}
+	
 	public static Table getTableOnly(Database database, String tablename){
 		int maxTable = database.getTables().length;
 		for (int i = 0; i < maxTable; i++) {
