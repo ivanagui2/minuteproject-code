@@ -95,12 +95,6 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	}
 //	
 	public String getPropertyValue (String name) {
-		// TODO browse recursively via the parent to see the first matching propertiesif (getProperties().)
-		// set AOP advice on each setter method of AbstractConfiguration with at string like param
-		// parse that String, look up in property within ${}for the first matching one
-		// if found => replace with the correct value;
-		// else let the current reference
-		//return null;
 		if (name==null) return null;
 		for (Property property : getProperties()) {
 			if (property.getName()==null)

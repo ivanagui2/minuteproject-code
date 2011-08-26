@@ -217,8 +217,8 @@ public class EnrichmentUtils {
 			for (int i = 0; i < m2mReference.length; i++) {
 				Reference ref = m2mReference[i];
 				if (!isEqual(origin, ref)) {
-					if (origin.isMasterRelationship()) 
-						ref.setAggregateRelationship();
+//					if (origin.isMasterRelationship()) 
+//						ref.setAggregateRelationship();
 					return ref;
 				}
 			}

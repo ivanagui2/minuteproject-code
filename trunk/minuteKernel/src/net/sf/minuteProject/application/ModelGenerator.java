@@ -315,12 +315,6 @@ public class ModelGenerator extends AbstractGenerator {
 	protected void generateArtifactsByField(Template template, Table table) throws MinuteProjectException{
 		table = getDecoratedTable(table);
 		for (Column column : table.getColumns()) {
-//			boolean isToGenerate = true;
-//    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-//    			if (!template.isToGenerate(column)) {
-//    				isToGenerate =false;
-//    			}
-//    		} 
     		if (isToGenerate(column, template))
 			   writeTemplateResult(column, template);
 		}
@@ -335,27 +329,11 @@ public class ModelGenerator extends AbstractGenerator {
 	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
 		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
 			generateArtifactsByEntity (table, template);
-//			table = getDecoratedTable(table);
-//			boolean isToGenerate = true;
-//    		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-//    			if (!template.isToGenerate(table)) {
-//    				isToGenerate =false;
-//    			}
-//    		} 
-//    		if (isToGenerate)
-//			   writeTemplateResult(table, template);
 		}
 	}
 	
 	protected void generateArtifactsByEntity(Table table, Template template) throws MinuteProjectException {	
 		table = getDecoratedTable(table);
-//		boolean isToGenerate = true;
-//		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-//			if (!template.isToGenerate(table)) {
-//				isToGenerate =false;
-//			}
-//		} 
-//		if (isToGenerate)
 		if (isToGenerate(table, template))
 		   writeTemplateResult(table, template);		
 	}

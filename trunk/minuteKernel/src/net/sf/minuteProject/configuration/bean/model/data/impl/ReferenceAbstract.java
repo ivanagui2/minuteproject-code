@@ -145,11 +145,12 @@ public abstract class ReferenceAbstract extends AbstractConfiguration implements
 	
 	@Override
 	public void setMasterRelationship() {
-		// TODO Auto-generated method stub
-		
+		reference.setMasterRelationship();
 	}
 
-	public void setAggregateRelationship(){}
+	public void setAggregateRelationship(){
+		reference.setAggregateRelationship();
+	}
 	
 	public boolean isAggregateRelationship(){
 		return reference.isAggregateRelationship();

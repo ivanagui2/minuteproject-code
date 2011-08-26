@@ -285,7 +285,7 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	}
 
 	public boolean isAggregateRelationship() {
-		return relationshipOwnership==Owner.NONE || relationshipOwnership==Owner.AGGREGATE;
+		return relationshipOwnership==Owner.AGGREGATE;
 	}
 	
 	public void setMasterRelationship() {

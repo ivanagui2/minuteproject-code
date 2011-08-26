@@ -59,6 +59,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		List<Technology> dependentTechnologies = getDependentTechnologies (technologyRoot, catalogDir);
 		for (Technology technology2 : allTechnos) {
 			if (isDependent(technologyRoot, technology2, dependentTechnologies)) {
+				technology2.getProperties().addAll(technologyRoot.getProperties());
 				list.add(getDependentTechnology(technology2, true));
 			} else {
 				list.add(getDependentTechnology(technology2, false));
