@@ -40,16 +40,21 @@ public class Target extends AbstractConfiguration{
 			templateTarget.setIsGenerable(target.isGenerable());
 			templateTarget.setRootdir(target.getTemplatedirRoot());
 			templateTarget.getTemplatedirRefs().addAll(target.getTemplatedirRefs());
+			
+			templateTarget.getProperties().addAll(target.getProperties());
+						
 			getTemplateTargets().add(templateTarget);
-			if (templateTarget!=null && templateTarget.getTemplates()!=null) {
+
+			if (templateTarget.getTemplates()!=null) {
 				for (Template template : templateTarget.getTemplates()) {
 					template.setOutputdirRoot(target.getOutputdirRoot());
+					template.getProperties().addAll(target.getProperties());
 	//				template.setRootdir (target.getTemplatedirRoot());
 	//				template.setPackageRoot(templateTarget.getPackageRoot());
 				}
 			}
 		}
-		getProperties().addAll(target.getProperties());
+//		getProperties().addAll(target.getProperties());
 		getPlugins().addAll(target.getPlugins());
 	}
 	

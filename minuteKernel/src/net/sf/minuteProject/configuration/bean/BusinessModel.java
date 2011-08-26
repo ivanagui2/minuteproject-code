@@ -271,7 +271,6 @@ public class BusinessModel {
 	private void convertEntityFields (Column[] columns, Field field) {
 		for (Column column : columns) {
 			if (match (field,column))
-				//TODO set stereotype, contentType, semanticReference
 				convertFieldInfoToColumn(field, column);
 		}			
 	}
@@ -288,6 +287,9 @@ public class BusinessModel {
 		net.sf.minuteProject.configuration.bean.model.data.Reference reference =ReferenceUtils.getReference(table, entity.getMasterRelationshipField());
 		if (reference!=null) 
 			reference.setMasterRelationship();
+		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref: 
+			ReferenceUtils.getAllOtherReferences(table, entity.getMasterRelationshipField()))
+			ref.setAggregateRelationship();
 	}
 
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {

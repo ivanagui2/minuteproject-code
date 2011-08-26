@@ -101,6 +101,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 //		if (isDefaultOutputToAppend(technologies)) 
 			isDefaultOutputToAppend = true;
 		for (Technology technology : technologies) {
+//			//add properties
+//			technology.getProperties().addAll(getChoosenTechnology().getProperties());
 			list.add(getTarget(technology, isDefaultOutputToAppend));
 		}
 		return list;

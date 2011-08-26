@@ -80,7 +80,7 @@ public class Template extends TemplateTarget {
 
 	public String getPropertyValue(String name) {
 		String s = super.getPropertyValue(name);
-		return (s!=null)?s:templateTarget.getPropertyValue(name);
+		return (s!=null)?s:templateTarget.getTemplateTargetPropertyValue(name);
 	}
 	
 	public String getPropertyValue(String name, String defaultValue) {

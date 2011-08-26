@@ -1,5 +1,8 @@
 package net.sf.minuteProject.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -66,6 +69,16 @@ public class ReferenceUtils {
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Table table, String columnName) {
 		Column column = ColumnUtils.getColumn(table, columnName);
 		return getReference(column);
+	}
+
+	public static List<net.sf.minuteProject.configuration.bean.model.data.Reference> getAllOtherReferences(Table table, String masterRelationshipField) {
+		List<net.sf.minuteProject.configuration.bean.model.data.Reference> references = new ArrayList<net.sf.minuteProject.configuration.bean.model.data.Reference>();
+		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref: table.getParents()) {
+			if (!ref.getForeignColumnName().equals(masterRelationshipField)) {
+				references.add(ref);
+			}
+		}
+		return references;
 	}
 	
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Column column) {
@@ -197,5 +210,6 @@ public class ReferenceUtils {
 		}
 		return false;
 	}
+
 	
 }
