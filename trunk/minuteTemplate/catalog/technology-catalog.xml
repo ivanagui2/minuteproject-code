@@ -26,6 +26,7 @@
 	      	<framework name="jersey" version="1.9"></framework>
 	      </frameworks> 
 	      <property name="add-xmlbinding" value="true"></property> 
+	      <property name="use-temporal" value="true"></property> 
 	      <property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>	             
 	 </technology> 
 	 	 
