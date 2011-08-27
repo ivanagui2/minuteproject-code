@@ -73,10 +73,10 @@ public class TableUtils {
 		return null;
 	}
 	
-	public static Table getTableFromBusinessPackage(Database database, String tablename){
-		for (Table table : database.getDataModel().getModel().getBusinessModel().getBusinessPackage().getEntities()) {
-			if (tablename.equals(table.getName())) return table;
-		}
+	public static Table getEntityFromBusinessPackage(Database database, String tablename){
+		for (Table table : database.getDataModel().getModel().getBusinessModel().getBusinessPackage().refreshEntities()) {
+			if (tablename.toLowerCase().equals(table.getName().toLowerCase())) return table;
+		}	
 		return null;
 	}
 	

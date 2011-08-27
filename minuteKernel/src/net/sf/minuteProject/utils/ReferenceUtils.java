@@ -3,6 +3,8 @@ package net.sf.minuteProject.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -13,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.Referenc
 import net.sf.minuteProject.plugin.format.I18nUtils;
 
 public class ReferenceUtils {
+	public static Logger log = Logger.getLogger(ReferenceUtils.class);
 
 	public static String getLocalColumnVariableName (Database database, Column column) {
 		Column c = getLocalColumnFromPackage(database, column);
@@ -27,7 +30,7 @@ public class ReferenceUtils {
 	
 	public static Column getLocalColumnFromPackage(Database database, Column column) {
 		if (column==null) return null;
-		Table table = TableUtils.getTableFromBusinessPackage(database, column.getTable().getName());
+		Table table = TableUtils.getEntityFromBusinessPackage(database, column.getTable().getName());
 		if (table!=null) {
 			return ColumnUtils.getColumn(table, column.getName());
 		}
@@ -59,7 +62,11 @@ public class ReferenceUtils {
 	
 	public static void setReferenceColumnAlias(Column column, String name, String newName) {
 		Database database = column.getTable().getDatabase();
-		Table table = TableUtils.getTableFromBusinessPackage(database, column.getTable().getName());
+		Table table = TableUtils.getEntityFromBusinessPackage(database, column.getTable().getName());
+		if (table==null) {
+			log.error("> table : "+column.getTable().getName()+", column : "+column.getName()+" not found");
+			return;
+		}
 		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref : table.getParents()) {
 			if (name.equals(ref.getLocalColumn().getName())) 
 				ref.getLocalColumn().setAlias(newName);
