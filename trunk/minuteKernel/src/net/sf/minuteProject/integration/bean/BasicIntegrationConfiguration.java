@@ -490,6 +490,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	}
 
 	public void setVirtualPrimaryKey(String virtualPrimaryKey) {
+		this.isPkConventionSet=true;
 		this.virtualPrimaryKey = virtualPrimaryKey;
 	}
 
