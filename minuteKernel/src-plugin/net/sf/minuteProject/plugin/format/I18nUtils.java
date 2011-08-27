@@ -73,6 +73,7 @@ public class I18nUtils {
 					return getBeforeLastChar(input,1);
 				}
 			}
+			return input;
 		}
 		return null;		
 	}

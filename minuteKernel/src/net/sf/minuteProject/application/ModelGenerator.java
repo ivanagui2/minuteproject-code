@@ -38,6 +38,7 @@ import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.target.TargetHolder;
+import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.BslaViewLibraryUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -84,6 +85,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private TableUtils tableUtils = new TableUtils();
 	private ReferenceUtils referenceUtils = new ReferenceUtils();
 	private EnumUtils enumUtils = new EnumUtils();
+	private I18nUtils i18nUtils = new I18nUtils();
 
 	private Model model;
 
@@ -455,6 +457,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("testUtils", getTestUtils());	
 		context.put("referenceUtils", referenceUtils);
 		context.put("enumUtils", enumUtils);
+		context.put("i18nUtils", i18nUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
