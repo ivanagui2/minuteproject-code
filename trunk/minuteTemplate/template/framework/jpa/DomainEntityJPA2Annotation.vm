@@ -99,8 +99,9 @@ public class ${className} implements Serializable {
 #columnJavaNaming()
 #if($isEnum)
 #set($columnType=$enumClassName)
-    @Enumerated #if($convertUtils.isStringType($column.type))(EnumType.STRING)#end
-    
+    @Enumerated #if($convertUtils.isStringType($column.type))(EnumType.STRING)
+    @Column(name="$column.name")
+#end    
 #else
 #if ($isView)
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
@@ -117,6 +118,10 @@ public class ${className} implements Serializable {
 #end
 #if($addXmlBinding)
     @XmlElement
+#end
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+    @Temporal(TemporalType.${column.type})
 #end
     private $columnType $columnVar; 
 #end
@@ -222,7 +227,11 @@ public class ${className} implements Serializable {
 #foreach ($column in ${table.attributes})
 #putColumnParams()
 #columnJavaNaming()
+#if($isEnum)
+       set$columnClass (${enumClassName}.fromValue($columnVar));
+#else
        set$columnClass ($columnVar);
+#end
 #end
        //parents
 #foreach ($reference in $table.parents)
@@ -297,6 +306,9 @@ public class ${className} implements Serializable {
 #end
 #if($isEnum)
 #set($columnType=$enumClassName)
+#end
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
 #end
     public $columnType get$columnClass() {
         return $columnVar;

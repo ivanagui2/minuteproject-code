@@ -13,4 +13,15 @@
 #set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($table, $techno))
 #end
 
+#macro (exposeRESTModelSpecific)
+#exposeVariableModelSpecific()
+#exposeRESTTemplate()
+#set ($modelWadlGeneratorJerseyImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelWadlGeneratorJersey))	
+#set ($modelResourceJerseyImport = $commonUtils.getRootAndTechnicalPackageName($model, $templateEntityResourceJersey))	
+#end
+
+#macro (exposeRESTTemplate)
+#set ($templateModelWadlGeneratorJersey = "JerseyWadlGenerator")
+#set ($templateEntityResourceJersey = "EJB3ResourceREST")
+#end
 
