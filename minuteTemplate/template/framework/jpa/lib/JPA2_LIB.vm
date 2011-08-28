@@ -20,6 +20,7 @@
 #set($templateEnvironment=$template.getPropertyValue("environment","local"))
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
+#set($useTemporal=$template.getPropertyValue("use-temporal",false))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
