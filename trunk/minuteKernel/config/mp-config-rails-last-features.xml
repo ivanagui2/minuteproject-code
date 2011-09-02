@@ -18,14 +18,21 @@
 					<username>root</username>
 					<password></password>
 				</dataSource>
-				-->
+				
 				<dataSource>
 					<driverClassName>org.sqlite.JDBC</driverClassName>
 					<url>jdbc:sqlite:C:/DATA/SQLITE/petshop.db</url>
 					<username></username>
 					<password></password>
-				</dataSource>				
-				<schema>petshop</schema>
+				</dataSource>
+				-->
+			    <dataSource>	
+					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<username>sa</username>
+					<password></password>	
+				</dataSource>								
+
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix=""
 						name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>

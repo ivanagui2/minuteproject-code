@@ -3,6 +3,7 @@ package net.sf.minuteProject.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
@@ -16,6 +17,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -28,6 +30,12 @@ public class TableUtils {
 	public static final String masterDataContentType = "master-data"; //immutable data
 	public static final String liveBusinessDataContentType = "live-business-data";
 	public static Logger log = Logger.getLogger(TableUtils.class);
+
+	public boolean isTable (Template template, GeneratorBean bean) {
+		if (bean instanceof View) return false;
+		if (bean instanceof Table) return true;
+		return false;
+	}
 	
 	public static Column getPrimaryFirstColumn (Table table) {
 		if (table==null)
