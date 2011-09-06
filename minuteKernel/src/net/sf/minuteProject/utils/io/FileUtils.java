@@ -100,14 +100,6 @@ public class FileUtils {
 		return System.getenv("MP_HOME");
 	}
 	
-//	public static String stripFileNameOKWin(String filename) {
-////		return getAbsolutePathFromPath(filename);
-////		filename = StringUtils.replace(filename, "/", "\\");
-//		int i = StringUtils.lastIndexOf(filename, "\\");
-////		int i = StringUtils.lastIndexOf(filename, "/");
-//		return StringUtils.substring(filename, 0, i);
-//	}
-	
 	public static String stripFileName(String filename) {
 //		return getAbsolutePathFromPath(filename);
 		filename = StringUtils.replace(filename, "\\", "/");
@@ -126,6 +118,32 @@ public class FileUtils {
 		return root + "/" + relativePath;
 	}
 
+	private List<String> getAddedArea (File file) {
+		Lines lines = new Lines();
+		String strLine;
+	    try{
+    	    // Open the file that is the first 
+    	    // command line parameter
+    	    FileInputStream fstream = new FileInputStream(file);
+    	    // Get the object of DataInputStream
+    	    DataInputStream in = new DataInputStream(fstream);
+    	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+    	    //skip first line
+    	    strLine = br.readLine(); 
+    	    //Read File Line By Line
+    	    while ((strLine = br.readLine()) != null)   {
+    	      // Print the content on the console
+    	       lines.addLine(parseLine(strLine));
+//    	       System.out.println (strLine);
+    	    }
+    	    //Close the input stream
+    	    in.close();
+  	    }catch (Exception e){//Catch exception if any
+  	      System.err.println("Error: " + e.getMessage());
+  	    }	
+  	    return lines;
+	}
+	
 	public String readFirstLine (File file) {
 		String strLine = "";
 		if (file.exists()) {
@@ -137,17 +155,10 @@ public class FileUtils {
 	    	    DataInputStream in = new DataInputStream(fstream);
 	    	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
 	    	    strLine = br.readLine(); 
-	    	    //Read File Line By Line
-//	    	    while ((strLine = br.readLine()) != null)   {
-//	    	      // Print the content on the console
-//	    	      System.out.println (strLine);
-//	    	    }
-	    	    //Close the input stream
 	    	    in.close();
     	    }catch (Exception e){//Catch exception if any
     	      System.err.println("Error: " + e.getMessage());
     	    }			
-
 		}
 		return strLine;
 	}
