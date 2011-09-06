@@ -63,8 +63,10 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	}
 	
 	public String getName() {
-		return name;
+		if (name!=null  && !name.equals("")) return name;
+		return getBusinessPackage().getBusinessModel().getModel().getAlias();
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

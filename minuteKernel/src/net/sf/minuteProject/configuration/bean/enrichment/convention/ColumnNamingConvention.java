@@ -5,6 +5,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
@@ -74,9 +75,15 @@ public class ColumnNamingConvention extends Convention {
 			if (column.getAlias().toLowerCase().equals(defaultValue.toLowerCase()))
 				return;
 		}		
+		String firstColumn = null;
 		for (Column column : table.getPrimaryKeyColumns()) {
 			applyFixPk (column);
-		}		
+			firstColumn=column.getName();
+			continue; //only one
+		}	
+		// also of the column in attribute
+		Column column = ColumnUtils.getColumn(table, firstColumn) ;
+		column.setAlias(defaultValue);	
 	}
 
 	public void setPatternToStrip (String s) {
