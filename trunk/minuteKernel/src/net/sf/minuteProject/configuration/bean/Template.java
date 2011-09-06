@@ -64,6 +64,8 @@ public class Template extends TemplateTarget {
 	private String entityDirNamePrefix;
 	private String appendEndPackageDir;
 	private String isToGenerate;
+	private boolean isUpdatable = false;
+	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;
 	
@@ -681,4 +683,13 @@ public class Template extends TemplateTarget {
 	public int getNumberOfGeneratedArtifacts() {
 		return numberOfGeneratedArtifacts;
 	}
+
+	public boolean isUpdatable() {
+		return isUpdatable;
+	}
+
+	public void setUpdatable (boolean isUpdatable) {
+		this.isUpdatable = isUpdatable;
+	}
+	
 }
