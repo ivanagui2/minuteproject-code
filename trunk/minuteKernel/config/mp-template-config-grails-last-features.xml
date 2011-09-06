@@ -34,7 +34,22 @@
 		</template>	
 					
 	</template-target>
+
+  	<template-target 
+    	name="Grails revisited gsp"
+		outputdir="grails-app/views/layouts">
 		
+		<template name="GrailsMainGsp" templateFileName="GrailsMainGsp.vm" 
+			file-extension="gsp" technicalPackage="" add-model-dir-name="false" 
+			add-model-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			model-specific="true" 
+			file-prefix="main"
+			package-root="">		
+		</template>	
+		
+	</template-target>
+			
   	<template-target 
     	name="Grails views"
 		outputdir="grails-app/views">
