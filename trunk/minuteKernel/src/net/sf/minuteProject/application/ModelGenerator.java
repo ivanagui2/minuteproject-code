@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
@@ -52,10 +53,12 @@ import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.SqlUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.TestUtils;
 import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
+import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 
 /**
  * @author Florian Adler
@@ -86,6 +89,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private ReferenceUtils referenceUtils = new ReferenceUtils();
 	private EnumUtils enumUtils = new EnumUtils();
 	private I18nUtils i18nUtils = new I18nUtils();
+	private UpdatedAreaUtils updatedAreaUtils = new UpdatedAreaUtils();
 
 	private Model model;
 
@@ -136,27 +140,12 @@ public class ModelGenerator extends AbstractGenerator {
 		Date startDate = new Date();
 	    logger.info("start time = "+new Date());
 		ModelGenerator generator = new ModelGenerator(config);
-//		Configuration configuration;
-		// Model model = (Model) generator.load();
-//		Configuration configuration = (Configuration) generator.load();
 		try {
 			generator.generate();
 		} catch (MinuteProjectException e) {
 			generator.exit ("");
 		}
-//		Model model = configuration.getModel();
-//		generator.setModel(model);
-//		generator.loadModel(model);
-////		generator.loadTarget(model.getConfiguration(), model.getConfiguration()
-////				.getTarget());
-////		generator.generate(model.getConfiguration().getTarget());
-//		if (generator.hasTarget())
-//			generator.loadAndGenerate(model.getConfiguration().getTarget());
-//		if (generator.hasTargets())
-//			generator.loadAndGenerate(model.getConfiguration().getTargets());
 		Date endDate = new Date();
-		//logger.info("start date = "+startDate.getTime());
-		//logger.info("end date = "+endDate.getTime());
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
@@ -387,6 +376,7 @@ public class ModelGenerator extends AbstractGenerator {
 		bean.enableCache();
 		//velocity bean manipulation
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+		//context
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
@@ -402,6 +392,10 @@ public class ModelGenerator extends AbstractGenerator {
 			context.put("table", bean);		
 		context.put("template", template);
 		putCommonContextObject(context, template);
+		Map<String,String> updatedAreas = TemplateUtils.getUpdatedAreas(template, bean);
+		if (updatedAreas!=null)
+			context.put("updatedAreas", updatedAreas);
+		//
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
@@ -458,6 +452,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("referenceUtils", referenceUtils);
 		context.put("enumUtils", enumUtils);
 		context.put("i18nUtils", i18nUtils);
+		context.put("updatedAreaUtils", updatedAreaUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
