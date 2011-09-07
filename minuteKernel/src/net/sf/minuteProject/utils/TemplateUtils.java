@@ -35,6 +35,7 @@ public class TemplateUtils {
 	}
 	
 	public static Map<String,String> getAddedAreas (File file) {
+		if (!file.exists()) return null;
 		return FileUtils.getAddedArea(file);
 	}
 	
