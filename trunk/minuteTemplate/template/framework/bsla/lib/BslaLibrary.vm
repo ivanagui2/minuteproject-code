@@ -669,3 +669,13 @@ import $importDaoInterfaceUML;
 #macro (exposeEnrichedPk $column)
 #set ($isEnrichedPk=$commonUtils.isEnrichedPrimaryKey($column))
 #end
+
+#macro (addedAreas)
+#set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($updatedAreas));
+#set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($updatedAreas));
+#end
+
+#macro (updatedAreas)
+#set ($updatedAreaColumnBegin=$updatedAreaUtils.getColumnBegin($updatedAreas));
+#set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($updatedAreas));
+#end
