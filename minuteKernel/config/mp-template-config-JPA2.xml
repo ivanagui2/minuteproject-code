@@ -18,7 +18,8 @@
 		<template name="DomainEntityJPA2Annotation" templateFileName="DomainEntityJPA2Annotation.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="java" file-prefix="" file-suffix="" 
-			entity-specific="true" package-specific="false" model-specific="false"
+			entity-specific="true" package-specific="false" 
+			model-specific="false" updatable="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property> 

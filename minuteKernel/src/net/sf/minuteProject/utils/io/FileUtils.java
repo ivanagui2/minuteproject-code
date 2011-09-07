@@ -1,6 +1,8 @@
 package net.sf.minuteProject.utils.io;
 
 import java.io.BufferedInputStream;
+import static net.sf.minuteProject.utils.io.UpdatedAreaUtils.*;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -13,7 +15,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 //import net.sf.minuteProject.configuration.bean.file.Line;
@@ -26,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class FileUtils {
 
+	
 	public static String getAbsoluteDir(String relDir, String defDir, String targetDir) {
 		if (relDir==null) relDir = defDir;
 		return FileUtils.getAbsolutePathFromPath(relDir, targetDir);		
@@ -118,8 +123,8 @@ public class FileUtils {
 		return root + "/" + relativePath;
 	}
 
-	private List<String> getAddedArea (File file) {
-		Lines lines = new Lines();
+	public static Map<String,String> getAddedArea (File file) {
+		Map<String,String> areas = new HashMap<String, String>();
 		String strLine;
 	    try{
     	    // Open the file that is the first 
@@ -129,19 +134,61 @@ public class FileUtils {
     	    DataInputStream in = new DataInputStream(fstream);
     	    BufferedReader br = new BufferedReader(new InputStreamReader(in));
     	    //skip first line
-    	    strLine = br.readLine(); 
+    	    strLine = br.readLine();
+    	    boolean isWithinAddedArea = false;
+    	    String key=null;
+    	    StringBuffer sb = null;
     	    //Read File Line By Line
     	    while ((strLine = br.readLine()) != null)   {
     	      // Print the content on the console
-    	       lines.addLine(parseLine(strLine));
-//    	       System.out.println (strLine);
+    	       if (!isWithinAddedArea) {
+    	    	   if (isBeginning(strLine)) {
+    	    		   isWithinAddedArea=true;
+    	    		   key = getKey(strLine);
+    	    		   if (key!=null)
+    	    			   sb = new StringBuffer();
+    	    	   }
+    	       }else { 
+    	    	   if (isEnding(strLine)) {
+    	    		   isWithinAddedArea=false;
+    	    		   if (key!=null && sb.length()>0) {
+    	    			   sb.append(strLine+"\n");
+    	    			   areas.put(key, sb.toString());
+    	    		   }
+    	    		   key=null;
+    	    	   } 
+    	       }
+    	       if (isWithinAddedArea) {
+    	    	   if (strLine!=null && sb!=null)
+    	    		   sb.append(strLine+"\n");
+    	       }
     	    }
     	    //Close the input stream
     	    in.close();
   	    }catch (Exception e){//Catch exception if any
-  	      System.err.println("Error: " + e.getMessage());
+  	      e.printStackTrace();
+  	      System.err.println("Error in retrieving updatable areas: " + e.getMessage());
   	    }	
-  	    return lines;
+  	    return areas;
+	}
+
+	private static String getKey(String strLine) {
+		if (isMpManagedAdded())
+		return StringUtils.substringBetween(strLine, MP_MANAGED_REFERENCE_MARKER, MP_MANAGED_REFERENCE_MARKER);
+	}
+
+	private static boolean isEnding(String strLine) {
+		return contains(strLine, MP_MANAGED_ADDED_AREA_ENDING)
+		    || contains(strLine, MP_MANAGED_UPDATABLE_ENDING);
+	}
+	
+	private static boolean isBeginning(String strLine) {
+		return contains(strLine, MP_MANAGED_ADDED_AREA_BEGINNING) 
+		    || contains(strLine, MP_MANAGED_UPDATABLE_BEGINNING_ENABLE);
+	}
+
+	private static boolean contains(String strLine, String search) {
+		return StringUtils.contains(strLine, search);
 	}
 	
 	public String readFirstLine (File file) {

@@ -2,10 +2,12 @@ package net.sf.minuteProject.utils;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.utils.io.FileUtils;
 
 public class TemplateUtils {
 
@@ -20,13 +22,20 @@ public class TemplateUtils {
 		return false;
 	}
 	
-	public static boolean isUpdatable (Template template, GeneratorBean bean) {
-		if (!template.isUpdatable()) return false;
+//	public static boolean isUpdatable (Template template, GeneratorBean bean) {
+//		if (!template.isUpdatable()) return false;
+//		File file = new File(template.getGeneratorOutputFileNameForConfigurationBean(bean, template));
+//		return file.exists();
+//	}
+
+	public static Map<String,String> getUpdatedAreas (Template template, GeneratorBean bean) {
+		if (!template.isUpdatable()) return null;
 		File file = new File(template.getGeneratorOutputFileNameForConfigurationBean(bean, template));
-		return file.exists();
+		return getAddedAreas (file);
 	}
 	
-	public static List <String> getAddedAreas (File file) {
-		// if java get import & inner
+	public static Map<String,String> getAddedAreas (File file) {
+		return FileUtils.getAddedArea(file);
 	}
+	
 }
