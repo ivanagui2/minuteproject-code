@@ -148,7 +148,7 @@ public class FileUtils {
     	    		   if (key!=null)
     	    			   sb = new StringBuffer();
     	    	   }
-    	       }else { 
+    	       } else { 
     	    	   if (isEnding(strLine)) {
     	    		   isWithinAddedArea=false;
     	    		   if (key!=null && sb.length()>0) {
@@ -173,8 +173,15 @@ public class FileUtils {
 	}
 
 	private static String getKey(String strLine) {
-		if (isMpManagedAdded())
-		return StringUtils.substringBetween(strLine, MP_MANAGED_REFERENCE_MARKER, MP_MANAGED_REFERENCE_MARKER);
+//		if (isMpManagedAdded(strLine))
+			return StringUtils.substringBetween(strLine, MP_MANAGED_REFERENCE_MARKER, MP_MANAGED_REFERENCE_MARKER);
+//		else {//isMpManagedUpdatable
+//			StringUtils.
+//		}
+	}
+
+	private static boolean isMpManagedAdded(String strLine) {
+		return StringUtils.contains(strLine, MP_MANAGED_ADDED_AREA_BEGINNING);
 	}
 
 	private static boolean isEnding(String strLine) {

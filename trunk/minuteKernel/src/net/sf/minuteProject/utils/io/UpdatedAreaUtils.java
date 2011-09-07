@@ -41,6 +41,7 @@ public class UpdatedAreaUtils {
 	}
 	
 	private static String getChunk(Map<String, String> updatedAreas, String key) {
+		if (updatedAreas==null || key==null) return null;
 		return updatedAreas.get(key);
 	}
 
