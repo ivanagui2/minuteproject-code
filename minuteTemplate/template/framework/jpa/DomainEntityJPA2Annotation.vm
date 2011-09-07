@@ -1,7 +1,10 @@
 #exposeVariableEntitySpecific()
 #putJPA2TemplateDefinition()
 #exposeEnvironmentParams()
+#addedAreas()
 package $packageName;
+
+$updatedAreaImport
 
 import java.sql.*;
 import java.util.Date;
@@ -296,6 +299,8 @@ public class ${className} implements Serializable {
 #end
 #end
 #foreach ($column in ${table.attributes})
+#updatedAreas
+$updatedAreaColumnBegin
 #putColumnParams()
 #columnJavaNaming()
 #if ($column.isLob())
@@ -396,4 +401,7 @@ public class ${className} implements Serializable {
         get${childrenListClass}().add($childrenListVariable);
     }	    
 #end
+
+$updatedAreaImplementation
+
 }
