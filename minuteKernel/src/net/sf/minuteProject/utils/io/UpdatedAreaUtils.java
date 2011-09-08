@@ -2,6 +2,8 @@ package net.sf.minuteProject.utils.io;
 
 import java.util.Map;
 
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+
 public class UpdatedAreaUtils {
 
 	public static final String MP_MANAGED_ADDED_AREA = "MP-MANAGED-ADDED-AREA";
@@ -25,19 +27,19 @@ public class UpdatedAreaUtils {
 	public static String getImplementationSnippet (Map<String, String> updatedAreas) {
 		String s = getSnippet (updatedAreas, IMPLEMENTATION);
 		if (s!=null) return s;
-		return getSnippet (IMPLEMENTATION);
+		return getAddedAreaSnippet (IMPLEMENTATION);
 	}
 	
 	public static String getImportSnippet (Map<String, String> updatedAreas) {
 		String s = getSnippet (updatedAreas, IMPORT);
 		if (s!=null) return s;
-		return getSnippet (IMPORT);
+		return getAddedAreaSnippet (IMPORT);
 	}
 
 	public static String getSnippet (Map<String, String> updatedAreas, String key) {
 		String s = getChunk (updatedAreas, key);
 		if (s!=null) return s;
-		return getSnippet (key);
+		return getAddedAreaSnippet (key);
 	}
 	
 	private static String getChunk(Map<String, String> updatedAreas, String key) {
@@ -45,11 +47,31 @@ public class UpdatedAreaUtils {
 		return updatedAreas.get(key);
 	}
 
-	public static String getSnippet(String s) {
+	public static String getAddedAreaSnippet(String s) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("// "+MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER+"\n\n");
 		sb.append("// "+MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER+"\n");
 		return sb.toString();
 	}
 
+	public static String getUpdatedAreaBeginSnippet(String s) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("// "+MP_MANAGED_UPDATABLE_BEGINNING_ENABLE+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER+"\n\n");
+		return sb.toString();
+	}
+	
+	public static String getUpdatedAreaEndSnippet(String s) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("// "+MP_MANAGED_UPDATABLE_ENDING+"\n");
+		return sb.toString();
+	}	
+	
+	public static String getColumnBeginSnippet(Column column, Map<String, String> updatedAreas) {
+		return getUpdatedAreaBeginSnippet(column.getName());
+	}
+	
+	public static String getColumnEndSnippet(Column column) {
+		return getUpdatedAreaEndSnippet(column.getName());
+	}
+	
 }
