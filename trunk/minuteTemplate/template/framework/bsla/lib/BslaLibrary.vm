@@ -676,6 +676,6 @@ import $importDaoInterfaceUML;
 #end
 
 #macro (updatedAreas)
-#set ($updatedAreaColumnBegin=$updatedAreaUtils.getColumnBegin($updatedAreas));
-#set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($updatedAreas));
+#set ($updatedAreaColumnBegin=$updatedAreaUtils.getColumnBeginSnippet($column, $updatedAreas));
+#set ($updatedAreaColumnEnd=$updatedAreaUtils.getColumnEndSnippet($column));
 #end

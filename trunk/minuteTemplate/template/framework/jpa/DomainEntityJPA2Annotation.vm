@@ -299,7 +299,7 @@ public class ${className} implements Serializable {
 #end
 #end
 #foreach ($column in ${table.attributes})
-#updatedAreas
+#updatedAreas()
 $updatedAreaColumnBegin
 #putColumnParams()
 #columnJavaNaming()
