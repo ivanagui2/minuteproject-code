@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class FileUtils {
 
+	private enum ModificationType {ADDED, UPDATED};
 	
 	public static String getAbsoluteDir(String relDir, String defDir, String targetDir) {
 		if (relDir==null) relDir = defDir;
