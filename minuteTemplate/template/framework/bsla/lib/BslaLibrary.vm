@@ -671,11 +671,22 @@ import $importDaoInterfaceUML;
 #end
 
 #macro (addedAreas)
-#set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($updatedAreas));
-#set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($updatedAreas));
+#set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($template, $updatedAreas))
+#set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($template, $updatedAreas))
 #end
 
-#macro (updatedAreas)
-#set ($updatedAreaColumnBegin=$updatedAreaUtils.getColumnBeginSnippet($column, $updatedAreas));
-#set ($updatedAreaColumnEnd=$updatedAreaUtils.getColumnEndSnippet($column));
+#macro (updatedColumnGetterSetterAreas)
+#set ($updatedAreaColumn=$updatedAreaUtils.getColumnGetterSetterBeginSnippet($template, $column, $updatedAreas))
+#updatedColumnAreasCommon()
+#end
+
+#macro (updatedColumnAttributeAreas)
+#set ($updatedAreaColumn=$updatedAreaUtils.getColumnAttributeBeginSnippet($template, $column, $updatedAreas))
+#updatedColumnAreasCommon()
+#end
+
+#macro (updatedColumnAreasCommon)
+#set ($updatedAreaColumnBegin=$updatedAreaColumn.beginSnippet)
+#set ($isUpdated=$updatedAreaColumn.isUpdated())
+#set ($updatedAreaColumnEnd=$updatedAreaUtils.getColumnEndSnippet($template, $column))
 #end
