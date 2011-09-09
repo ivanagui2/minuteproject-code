@@ -179,8 +179,7 @@ public class ModelViewGenerator extends ModelGenerator {
 		}
 	}
 	
-	protected void putCommonContextObject(VelocityContext context,
-			Template template) {
+	protected void putCommonContextObject(VelocityContext context, Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", getModel());
