@@ -378,6 +378,11 @@ public class ModelGenerator extends AbstractGenerator {
 		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		//context
 		VelocityContext context = getVelocityContext(template);
+		Map<String,String> updatedAreas = TemplateUtils.getUpdatedAreas(template, bean);
+		if (updatedAreas!=null)
+			if (updatedAreas.containsKey(UpdatedAreaUtils.MP_MANAGED_STOP_GENERATING))
+				return; //stop generating directive
+			context.put("updatedAreas", updatedAreas);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		if (bean instanceof Component) {
@@ -392,10 +397,7 @@ public class ModelGenerator extends AbstractGenerator {
 			context.put("table", bean);		
 		context.put("template", template);
 		putCommonContextObject(context, template);
-		Map<String,String> updatedAreas = TemplateUtils.getUpdatedAreas(template, bean);
-		if (updatedAreas!=null)
-			context.put("updatedAreas", updatedAreas);
-		//
+        //
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {

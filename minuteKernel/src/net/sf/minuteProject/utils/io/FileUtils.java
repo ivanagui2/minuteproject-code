@@ -142,6 +142,10 @@ public class FileUtils {
     	    //Read File Line By Line
     	    while ((strLine = br.readLine()) != null)   {
     	      // Print the content on the console
+    	       if (artifactIsNotPartOfTheGeneration(strLine)) {
+    	    	   areas.put(MP_MANAGED_STOP_GENERATING, MP_MANAGED_STOP_GENERATING);
+    	    	   return areas;
+    	       }
     	       if (!isWithinAddedArea) {
     	    	   if (isBeginning(strLine)) {
     	    		   isWithinAddedArea=true;
@@ -171,6 +175,10 @@ public class FileUtils {
   	      System.err.println("Error in retrieving updatable areas: " + e.getMessage());
   	    }	
   	    return areas;
+	}
+
+	private static boolean artifactIsNotPartOfTheGeneration(String strLine) {
+		return StringUtils.contains(strLine, MP_MANAGED_STOP_GENERATING);
 	}
 
 	private static String getKey(String strLine) {

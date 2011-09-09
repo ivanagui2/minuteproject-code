@@ -68,8 +68,11 @@ public class Template extends TemplateTarget {
 	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;
+	private String beginningCommentSnippet, endingCommentSnippet;
 	
 	private static Logger logger = Logger.getLogger(Template.class);
+	
+	private enum Extension {java, xml, xsd, properties, sql};
 	
 	public Template () {}
 	
@@ -690,6 +693,34 @@ public class Template extends TemplateTarget {
 
 	public void setUpdatable (boolean isUpdatable) {
 		this.isUpdatable = isUpdatable;
+	}
+
+	public String getBeginningCommentSnippet() {
+		if (beginningCommentSnippet==null)
+			beginningCommentSnippet=getBeginningCommentSnippetFromExtension();
+		return beginningCommentSnippet;
+	}
+
+	public String getEndingCommentSnippet() {
+		if (endingCommentSnippet==null)
+			endingCommentSnippet=getEndingCommentSnippetFromExtension();
+		return endingCommentSnippet;
+	}
+	
+	private String getBeginningCommentSnippetFromExtension() {
+		if (Extension.java.toString().equals(fileExtension)) return "//";
+		if (Extension.xml.toString().equals(fileExtension)) return "<!--";
+		if (Extension.sql.toString().equals(fileExtension)) return "--";
+		if (Extension.properties.toString().equals(fileExtension)) return "#";
+		return "//missing extension";
+	}	
+	
+	private String getEndingCommentSnippetFromExtension() {
+		if (Extension.java.toString().equals(fileExtension)) return "";
+		if (Extension.xml.toString().equals(fileExtension)) return "-->";
+		if (Extension.sql.toString().equals(fileExtension)) return "";
+		if (Extension.properties.toString().equals(fileExtension)) return "";
+		return "";
 	}
 	
 }
