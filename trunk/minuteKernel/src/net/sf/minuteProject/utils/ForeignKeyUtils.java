@@ -4,16 +4,25 @@ import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ForeignKeyDDLUtils;
 
 public class ForeignKeyUtils {
 
 	private static Logger logger = Logger.getLogger(ForeignKeyUtils.class);
+
+	public static void setForeignKey (Table table, Field field) {
+		//field.getEntity().getEnrichment().getBusinessModel().getModel().getDataModel().getDatabase();
+		ForeignKey foreignKey = getForeignKey(field, table.getDatabase());
+		if (field.getLinkToTargetEntity()!=null && foreignKey!=null) 
+			table.setForeignKey (foreignKey);		
+	}
 	
-	public static ForeignKey getForeignKey (Field field) {
-		Reference reference = ReferenceUtils.getReference(field);
+	public static ForeignKey getForeignKey (Field field, Database database) {
+		Reference reference = ReferenceUtils.getReference(field, database);
 		if (reference!=null) {
 			org.apache.ddlutils.model.ForeignKey foreignKeyMp = new org.apache.ddlutils.model.ForeignKey();
 			foreignKeyMp.setName(field.getName());

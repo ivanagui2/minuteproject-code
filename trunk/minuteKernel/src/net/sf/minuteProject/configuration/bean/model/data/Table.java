@@ -284,5 +284,7 @@ public interface Table extends GeneratorBean{
 	public void setSearchable(boolean isSearchable);
 	
 	public boolean isSearchable();
+	
+	public void setForeignKey(ForeignKey foreignKey);
 
 }

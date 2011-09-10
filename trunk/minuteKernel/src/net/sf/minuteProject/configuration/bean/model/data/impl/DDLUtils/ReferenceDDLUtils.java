@@ -271,7 +271,8 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 
 	public String getAlias() {
 		if (alias==null || alias.equals(""))
-			alias= foreignTable.getAlias()+"_"+foreignColumn.getAlias();
+//			alias= foreignTable.getAlias()+"_"+foreignColumn.getAlias();
+		   alias= foreignTable.getAlias()+"_"+localTable.getAlias()+"_Via_"+localColumn.getAlias();
 		return alias;
 	}
 	

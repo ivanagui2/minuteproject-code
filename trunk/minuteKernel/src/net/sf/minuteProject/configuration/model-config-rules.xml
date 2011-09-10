@@ -212,11 +212,14 @@
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
 					</set-properties-rule>	
 	            </pattern>		            		
-				<pattern value="view-foreign-key-convention">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewForeignKeyConvention"/>		
-					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewForeignKeyConvention"/>		
+				<pattern value="foreign-key-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ForeignKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ForeignKeyConvention"/>		
 					<set-properties-rule>
 						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="column-ending" prop-name="columnEnding" />	
+						<alias attr-name="column-starting" prop-name="columnStarting" />	
+						<alias attr-name="column-body" prop-name="columnBody" />	
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
 					</set-properties-rule>	
 	            </pattern>

@@ -122,7 +122,7 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 	}
 
 	public void setForeignKey(ForeignKey foreignKey) {
-		getForeignKeysList().add(foreignKey);
+		getForeignKeyList().add(foreignKey);
 	}
 	
 	public Reference [] getParents() {
