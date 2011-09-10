@@ -125,7 +125,7 @@ public class ReferenceUtils {
 		return FormatUtils.getJavaName(foreignTableName)+"_"+FormatUtils.getJavaName(localColumnName);
 	}
 	
-	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference(Field field) {
+	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference(Field field, Database database) {
 		org.apache.ddlutils.model.Reference referenceDDLUtils = new org.apache.ddlutils.model.Reference();
 //		referenceDDLUtils.setForeignColumn(foreignColu)
 		net.sf.minuteProject.configuration.bean.model.data.Reference reference = new ReferenceDDLUtils(referenceDDLUtils);
@@ -133,7 +133,7 @@ public class ReferenceUtils {
 		String columnName = field.getName();
 		String foreignTableName = field.getLinkToTargetEntity();
 
-		Database database = field.getEntity().getEnrichment().getBusinessModel().getModel().getDataModel().getDatabase();
+//		Database database = field.getEntity().getEnrichment().getBusinessModel().getModel().getDataModel().getDatabase();
 		
 		// is it a view ?
 		Table table= TableUtils.getTable(database, tableName);

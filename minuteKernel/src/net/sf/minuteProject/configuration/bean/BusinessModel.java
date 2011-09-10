@@ -348,18 +348,25 @@ public class BusinessModel {
 	private void complementWithViewField(View view, Entity entity) {
 		List<Field> fields = entity.getFields();
 		for (Field field : fields) {
-			ForeignKey foreignKey = getForeignKey(field);
-			if (field.getLinkToTargetEntity()!=null && foreignKey!=null) {
-				view.setForeignKey (foreignKey);
-				// remove it from attribute
-				//view.getAttributes()
-			}
+			ForeignKeyUtils.setForeignKey(view, field);
+//			ForeignKey foreignKey = getForeignKey(field);
+//			if (field.getLinkToTargetEntity()!=null && foreignKey!=null) {
+//				view.setForeignKey (foreignKey);
+//				// remove it from attribute
+//				//view.getAttributes()
+//			}
 		}
 	}
 	
-	private ForeignKey getForeignKey (Field field) {
-		return ForeignKeyUtils.getForeignKey (field);
-	}
+//	public static void setForeignKey (Table table, Field field) {
+//		ForeignKey foreignKey = getForeignKey(field);
+//		if (field.getLinkToTargetEntity()!=null && foreignKey!=null) 
+//			table.setForeignKey (foreignKey);		
+//	}
+//	
+//	private static ForeignKey getForeignKey (Field field) {
+//		return ForeignKeyUtils.getForeignKey (field);
+//	}
 	
 	private void complementWithViewComponent(View view, Entity entity) {
 		String structure = entity.getStructure();

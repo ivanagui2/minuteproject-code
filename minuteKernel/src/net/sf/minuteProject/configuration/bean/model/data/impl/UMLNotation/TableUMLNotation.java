@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
@@ -80,6 +81,12 @@ public class TableUMLNotation extends TableAbstract {
 
 	@Override
 	public void setPrimaryKeys(Column[] virtualPrimaryKey) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setForeignKey(ForeignKey foreignKey) {
 		// TODO Auto-generated method stub
 		
 	}

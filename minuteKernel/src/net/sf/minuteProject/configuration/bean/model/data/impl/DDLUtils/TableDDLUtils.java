@@ -152,7 +152,7 @@ public class TableDDLUtils extends TableAbstract {
 		return table.getForeignKeyCount();
 	}
 
-	public ForeignKey[] getForeignKeys() {
+	public List<ForeignKey> getForeignKeyList() {
     	if (foreignKeys == null) {
     		foreignKeys = new ArrayList<ForeignKey>();
     		for (int i = 0; i < table.getForeignKeyCount(); i++) {
@@ -160,15 +160,19 @@ public class TableDDLUtils extends TableAbstract {
     			foreignKeys.add(foreignKey);
     		}
     	}
-    	return (ForeignKey[])foreignKeys.toArray(new ForeignKey[foreignKeys.size()]);		
-	}
-
-	protected List<ForeignKey> getForeignKeysList() {
-    	if (foreignKeys == null) {
-    		foreignKeys = new ArrayList<ForeignKey>();
-    	}
     	return foreignKeys;
 	}
+	
+	public ForeignKey[] getForeignKeys() {
+    	return (ForeignKey[])getForeignKeyList().toArray(new ForeignKey[getForeignKeyList().size()]);		
+	}
+
+//	protected List<ForeignKey> getForeignKeysList() {
+//    	if (foreignKeys == null) {
+//    		foreignKeys = new ArrayList<ForeignKey>();
+//    	}
+//    	return foreignKeys;
+//	}
 
 	public void setPrimaryKeys(Column[] virtualPrimaryKey) {
 		//reset primaryKeys
@@ -324,11 +328,14 @@ public class TableDDLUtils extends TableAbstract {
 		return table.getType();
 	}
 
+	public Reference [] getParents() {
+		return (Reference[])getParentList().toArray(new Reference[getParentList().size()]);
+	}
     /**
      * Get the array of parents 
      * @return Reference
      */
-    public Reference [] getParents() {
+    public List<Reference> getParentList() {
     	if (parents == null) {
     		parents = new ArrayList<Reference>();
     		boolean error = false;
@@ -355,7 +362,7 @@ public class TableDDLUtils extends TableAbstract {
 					addReference(parents, reference);
 			}
     	}
-    	return (Reference[])parents.toArray(new Reference[parents.size()]);	
+    	return parents;	
     }
     
 //    protected Reference [] getParentsWithLocalForeignKey() {
@@ -386,6 +393,14 @@ public class TableDDLUtils extends TableAbstract {
 //    	}
 //    	return (Reference[])parents.toArray(new Reference[parents.size()]);	
 //    }
+
+	public void setForeignKey(ForeignKey foreignKey) {
+		getForeignKeyList().add(foreignKey);
+		getParentList().add(foreignKey.getFirstReference());
+		children = null;
+		columns = null;
+		resetNoPrimaryKeyNoForeignKeyColumns();
+	}
     
     /**
      * Get the associated children
@@ -403,7 +418,7 @@ public class TableDDLUtils extends TableAbstract {
 	        	for (int j = 0; j < fk.length; j++) {
 	        		String tableName = fk[j].getForeignTableName();
 	        		if (tableName!=null) {
-		        		if (tableName.equals(table.getName())) {
+		        		if (tableName.toLowerCase().equals(table.getName().toLowerCase())) {
 		        			ref = fk[j].getReference(0);
 		        			columnRef = ref.getLocalColumnName();
 		        			Column column = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
@@ -461,7 +476,7 @@ public class TableDDLUtils extends TableAbstract {
 	private Boolean getHasLob() {
 		List<Column> columns = getColumnList();
 		for (Column column : columns) {
-			if (column.isLob())//;getType().equals("CLOB")||column.getType().equals("BLOB"))
+			if (column.isLob())
 				return true;
 		}
 		return false;
