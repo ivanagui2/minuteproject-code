@@ -143,13 +143,15 @@ $updatedAreaColumnEnd
 #end
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
     @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true #else unique=false #end) 
-#exposeEnrichedPk($localColumn)
-#if (!$isEnrichedPk)
+##exposeEnrichedPk($localColumn)
+#exposeRelationship($table, $reference)
+#if (!$isParentRelationshipSimplificable)
 #set($colVar = ${localColumnVariable})
 #else
 #set($colVar = ${linkedTableVariable})
 #end
-    private $linkedTableClass ${colVar};
+##exposeRelationship($table, $reference)
+    private $linkedTableClass ${colVar}; //$linkedTableClass $linkedColumn - local $localTableClass $localColumn
 
 #if($addXmlBinding)
 ## for attribute
@@ -247,8 +249,8 @@ $updatedAreaColumnEnd
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #columnJavaNaming()
-#exposeEnrichedPk($localColumn)
-#if (!$isEnrichedPk)
+#exposeRelationship($table, $reference)
+#if (!$isParentRelationshipSimplificable)
 #set($colVar = ${localColumnVariable})
 #else
 #set($colVar = ${linkedTableVariable})
@@ -257,9 +259,12 @@ $updatedAreaColumnEnd
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
 #set($columnClass=$referenceUtils.getLocalColumnClassNameForLinkTable($database, $linkedColumn))
-#set($columnVar=$referenceUtils.getLocalColumnVariableName($database, $reference.localColumn))
+##set($columnVar=$referenceUtils.getLocalColumnVariableName($database, $reference.localColumn))
+##set($columnVar=$referenceUtils.getLocalColumnClassName($database, $reference.localColumn))
+#set($columnVar=$columnClass.toLowerCase())
+#set($columnClass=$referenceUtils.getLocalColumnClassNameForLinkTable($database, $localColumn))
 #columnJavaNaming()
-       this.${colVar}.set$columnClass($columnVar);
+       this.${colVar}.set$columnClass($columnVar); //$linkedTableClass $linkedColumn - local $localTableClass $localColumn
 #else
        // the datamodel type of foreignkey and primary are not equals, please adapt
 #end
@@ -338,8 +343,8 @@ $updatedAreaColumnEnd
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#exposeEnrichedPk($localColumn)
-#if (!$isEnrichedPk)
+#exposeRelationship($table, $reference)
+#if (!$isParentRelationshipSimplificable)
     public $linkedTableClass get$localColumnClass () {
     	return ${localColumnVariable};
     }
