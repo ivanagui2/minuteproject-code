@@ -78,6 +78,7 @@ public class ForeignKeyConvention extends Convention {
 		}
 		return list;
 	}
+	
 	private Field getForeignKeyField(Column column, Table table) {
 		if (column.isPrimaryKey() && !table.isManyToMany()) return null;
 		String tablename = getTargetEntityName (column);
