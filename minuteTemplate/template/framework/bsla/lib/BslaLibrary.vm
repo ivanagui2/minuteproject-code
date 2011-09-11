@@ -670,6 +670,11 @@ import $importDaoInterfaceUML;
 #set ($isEnrichedPk=$commonUtils.isEnrichedPrimaryKey($column))
 #end
 
+
+#macro (exposeRelationship $table $reference)
+#set ($isParentRelationshipSimplificable=$commonUtils.isParentRelationshipSimplificable($table, $reference))
+#end
+
 #macro (addedAreas)
 #set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($template, $updatedAreas))
 #set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($template, $updatedAreas))
