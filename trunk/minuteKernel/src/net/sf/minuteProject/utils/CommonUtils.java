@@ -18,6 +18,7 @@ import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
+import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.view.View;
 
@@ -549,6 +550,33 @@ public class CommonUtils {
 //				if (col.getName().equals(column.getName()))
 //					return true;
 //			}
+		}
+		return false;
+	}
+	public static boolean isParentRelationshipSimplificable (Table table, Reference reference) {
+		Table child = reference.getForeignTable();
+		//check no that there is no other reference towards this parent
+		int cpt=0;
+		for (Reference ref : table.getParents()) {
+			if (ref.getForeignTableName().toLowerCase().equals(reference.getForeignTableName().toLowerCase()))
+				cpt++;
+		}
+		if (cpt==1) 
+			return true;
+		return false;
+	}
+	
+	public static boolean isParentRelationshipSimplificable2 (Reference reference) {
+		if (isEnrichedPrimaryKey(reference.getLocalColumn())) {
+			Table child = reference.getLocalTable();
+			//check no that there is no other reference towards this parent
+			int cpt=0;
+			for (Reference ref : child.getParents()) {
+				if (ref.getLocalTableName().toLowerCase().equals(child.getName().toLowerCase()))
+					cpt++;
+			}
+			if (cpt==1) 
+				return true;
 		}
 		return false;
 	}

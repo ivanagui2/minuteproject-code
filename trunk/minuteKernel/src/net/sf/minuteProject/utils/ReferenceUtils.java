@@ -17,6 +17,12 @@ import net.sf.minuteProject.plugin.format.I18nUtils;
 public class ReferenceUtils {
 	public static Logger log = Logger.getLogger(ReferenceUtils.class);
 
+	public static String getLocalColumnClassName (Database database, Column column) {
+		Column c = getLocalColumnFromPackage(database, column);
+		if (column==null) return "COLUMN should not be null!";
+		return FormatUtils.getJavaName(c.getAlias());
+	}
+	
 	public static String getLocalColumnVariableName (Database database, Column column) {
 		Column c = getLocalColumnFromPackage(database, column);
 		if (column==null) return "COLUMN should not be null!";
@@ -27,7 +33,11 @@ public class ReferenceUtils {
 		if (column==null) return "COLUMN should not be null!";
 		return FormatUtils.getJavaName(c.getAlias());
 	}
-	
+	public static String getLocalColumnClassNameForLinkTable2(Database database, Column column) {
+		Column c = getLocalColumnFromPackage(database, column);
+		if (column==null) return "COLUMN should not be null!";
+		return FormatUtils.getJavaName(c.getAlias());
+	}
 	public static Column getLocalColumnFromPackage(Database database, Column column) {
 		if (column==null) return null;
 		Table table = TableUtils.getEntityFromBusinessPackage(database, column.getTable().getName());
