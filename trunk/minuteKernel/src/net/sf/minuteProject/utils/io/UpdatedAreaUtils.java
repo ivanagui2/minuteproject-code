@@ -29,6 +29,7 @@ public class UpdatedAreaUtils {
 	private static final String CONNECTOR = "-";
 	private static final String GETTER_SETTER = "GETTER-SETTER";
 	private static final String ATTRIBUTE = "ATTRIBUTE";
+	private static final String CONSTRUCTOR_WITH_FIELDS = "CONSTRUCTOR-WITH-FIELDS";
 
 	public static String getImplementationSnippet (Template template, Map<String, String> updatedAreas) {
 		String s = getSnippet (template, updatedAreas, IMPLEMENTATION);
@@ -75,6 +76,14 @@ public class UpdatedAreaUtils {
 		sb.append("// "+MP_MANAGED_UPDATABLE_ENDING+"\n");
 		return sb.toString();
 	}	
+
+	public static UpdatedAreaHolder getConstructorWithFieldSnippet(Template template, Map<String, String> updatedAreas) {
+		return getBeginSnippet (template, getConstructorWithFieldSnippet(), updatedAreas);
+	}
+	
+	private static String getConstructorWithFieldSnippet() {
+		return CONSTRUCTOR_WITH_FIELDS;
+	}
 
 	public static UpdatedAreaHolder getColumnAttributeBeginSnippet(Template template, Column column, Map<String, String> updatedAreas) {
 		return getBeginSnippet (template, getColumnAttribute(column), updatedAreas);
