@@ -690,6 +690,11 @@ import $importDaoInterfaceUML;
 #updatedColumnAreasCommon()
 #end
 
+#macro (updatedConstructorWithFieldAreas)
+#set ($updatedAreaColumn=$updatedAreaUtils.getConstructorWithFieldSnippet($template, $updatedAreas))
+#updatedColumnAreasCommon()
+#end
+
 #macro (updatedColumnAreasCommon)
 #set ($updatedAreaColumnBegin=$updatedAreaColumn.beginSnippet)
 #set ($isUpdated=$updatedAreaColumn.isUpdated())
