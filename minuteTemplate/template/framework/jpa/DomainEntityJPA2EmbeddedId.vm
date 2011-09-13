@@ -23,6 +23,7 @@ import javax.persistence.*;
 public class ${className} implements Serializable {
 
 #foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
+##foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
     @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end ,#if($column.isRequired())nullable=false#else nullable=true#end)
@@ -30,6 +31,7 @@ public class ${className} implements Serializable {
 
 #end
 #foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
+##foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
     public $columnType get$columnClass() {

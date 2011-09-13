@@ -225,13 +225,13 @@ $updatedAreaColumnEnd
        //primary keys
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
         $embeddedIdVariable = new ${embeddedIdClass}();  	
+#foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
+        ${embeddedIdVariable}.set$columnClass ($columnVar);
 #end
+#else
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
-#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-       ${embeddedIdVariable}.set$columnClass ($columnVar);
-#else
        set$columnClass ($columnVar);
 #end
 #end	
