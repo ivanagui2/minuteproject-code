@@ -148,10 +148,10 @@ $updatedAreaColumnEnd
 #if (!$isParentRelationshipSimplificable)
 #set($colVar = ${localColumnVariable})
 #else
-#set($colVar = ${linkedTableVariable})	
+#set($colVar = ${linkedTableVariable})
 #end
 ##exposeRelationship($table, $reference)
-    private $linkedTableClass ${colVar}; //$linkedTableClass $linkedColumn - local $localTableClass $localColumn
+    private $linkedTableClass ${colVar}; 
 
 #if($addXmlBinding)
 ## for attribute
@@ -211,11 +211,6 @@ $updatedAreaColumnEnd
 	/**
 	* All field constructor 
 	*/
-#updatedConstructorWithFieldAreas()
-#if($isUpdated)
-$updatedAreaColumnBegin
-#else
-$updatedAreaColumnBegin	
     public ${className}(
 #foreach ($column in ${table.columns})
 #putColumnParams()
@@ -263,20 +258,18 @@ $updatedAreaColumnBegin
        this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
-#set($columnClass=$referenceUtils.getLocalColumnClassNameForLinkTable($database, $linkedColumn))
-#set($columnVar=$referenceUtils.getLocalColumnVariableName($database, $reference.localColumn))
+#set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
+##set($columnVar=$referenceUtils.getLocalColumnVariableName($database, $reference.localColumn))
 ##set($columnVar=$referenceUtils.getLocalColumnClassName($database, $reference.localColumn))
-##set($columnVar=$columnClass.toLowerCase())
+#set($columnVar=$referenceUtils.getColumnNameVariableForLinkTable($database, $localColumn))##$formatUtils.getJavaNameVariable($localColumnName.toLowerCase()))
 ##set($columnClass=$referenceUtils.getLocalColumnClassNameForLinkTable($database, $localColumn))
 #columnJavaNaming()
-       this.${colVar}.set$columnClass($columnVar); ##//$linkedTableClass $linkedColumn - local $localTableClass $localColumn
+       this.${colVar}.set$columnClass($columnVar); //$linkedTableClass $linkedColumn - local $localTableClass $localColumn
 #else
        // the datamodel type of foreignkey and primary are not equals, please adapt
 #end
 #end
     }
-$updatedAreaColumnEnd  	
-#end
 	
 #if ($isMany2Many)
     public ${className} get${className} () {
