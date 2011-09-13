@@ -135,7 +135,7 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
     		parents = new ArrayList<Reference>();
     		for (int i = 0; i < getForeignKeys().length; i++) {
     			ForeignKey foreignKey = getForeignKeys()[i];
-    			Reference reference = foreignKey.getFirstReference();
+//    			Reference reference = foreignKey.getFirstReference();
 //    			//reverse reference view: reference comes from enrichment
 //    			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
 //    			ref.setForeignColumn(reference.getLocalColumn());
@@ -146,15 +146,16 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 //    			ref.setLocalColumnName(reference.getForeignColumnName());
 //    			ref.setLocalTable(reference.getForeignTable());
 //    			ref.setLocalTableName(reference.getForeignTableName());
-    			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
-    			ref.setForeignColumn(reference.getForeignColumn());
-    			ref.setForeignColumnName(reference.getForeignColumnName());
-    			ref.setForeignTable(reference.getForeignTable());
-    			ref.setForeignTableName(reference.getForeignTableName());
-    			ref.setLocalColumn(reference.getLocalColumn());
-    			ref.setLocalColumnName(reference.getLocalColumnName());
-    			ref.setLocalTable(reference.getLocalTable());
-    			ref.setLocalTableName(reference.getLocalTableName());    			
+    			Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference());
+
+//    			ref.setForeignColumn(reference.getForeignColumn());
+//    			ref.setForeignColumnName(reference.getForeignColumnName());
+//    			ref.setForeignTable(reference.getForeignTable());
+//    			ref.setForeignTableName(reference.getForeignTableName());
+//    			ref.setLocalColumn(reference.getLocalColumn());
+//    			ref.setLocalColumnName(reference.getLocalColumnName());
+//    			ref.setLocalTable(reference.getLocalTable());
+//    			ref.setLocalTableName(reference.getLocalTableName());    			
 //    			addReference(parents, reference);
 //    			log.info("reference "+reference);
 //    			log.info("ref       "+ref);
