@@ -80,9 +80,11 @@ public class ForeignKeyConvention extends Convention {
 	}
 	
 	private Field getForeignKeyField(Column column, Table table) {
-		if (column.isPrimaryKey() && !table.isManyToMany()) return null;
+//		if (column.isPrimaryKey() && !table.isManyToMany()) return null;
 		String tablename = getTargetEntityName (column);
 		Table target = TableUtils.getTable(table.getDatabase(), tablename);
+		if (target==null)
+			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
 		if (target!=null) {
 			Field f = new Field();
 			f.setName(column.getName());

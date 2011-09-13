@@ -17,24 +17,26 @@ public class ForeignKeyUtils {
 	public static void setForeignKey (Table table, Field field) {
 		//field.getEntity().getEnrichment().getBusinessModel().getModel().getDataModel().getDatabase();
 		ForeignKey foreignKey = getForeignKey(field, table.getDatabase());
-		if (field.getLinkToTargetEntity()!=null && foreignKey!=null) 
+		if (foreignKey!=null) 
 			table.setForeignKey (foreignKey);		
 	}
 	
 	public static ForeignKey getForeignKey (Field field, Database database) {
-		Reference reference = ReferenceUtils.getReference(field, database);
-		if (reference!=null) {
-			org.apache.ddlutils.model.ForeignKey foreignKeyMp = new org.apache.ddlutils.model.ForeignKey();
-			foreignKeyMp.setName(field.getName());
-			ForeignKey foreignKey = new ForeignKeyDDLUtils (foreignKeyMp);
-			foreignKey.setForeignTableName(field.getLinkToTargetEntity());
-			foreignKey.setReference (reference);
-			// bidirection
-			if (field.getBidirectional()!=null && field.getBidirectional().equals("false"))
-				foreignKey.setBidirectional(false);
-			return foreignKey;
+		if (field.getLinkToTargetEntity()!=null && field.getLinkToTargetField()!=null) {
+			Reference reference = ReferenceUtils.getReference(field, database);
+			if (reference!=null) {
+				org.apache.ddlutils.model.ForeignKey foreignKeyMp = new org.apache.ddlutils.model.ForeignKey();
+				foreignKeyMp.setName(field.getName());
+				ForeignKey foreignKey = new ForeignKeyDDLUtils (foreignKeyMp);
+				foreignKey.setForeignTableName(field.getLinkToTargetEntity());
+				foreignKey.setReference (reference);
+				// bidirection
+				if (field.getBidirectional()!=null && field.getBidirectional().equals("false"))
+					foreignKey.setBidirectional(false);
+				return foreignKey;
+			}
+			logger.info("no correct fk found for "+field.getEntity().getName()+" - "+field.getName()+" - pointing towards "+field.getLinkToTargetEntity()+" - "+field.getLinkToTargetField());
 		}
-		logger.info("no correct fk found for "+field.getEntity().getName()+" - "+field.getName()+" - pointing towards "+field.getLinkToTargetEntity()+" - "+field.getLinkToTargetField());
 		return null;
 	}
 

@@ -74,6 +74,10 @@ public class TableUtils {
 		return getEntity(database, tablename);
 	}
 
+	public static Table getTableFromAlias(Database database, String tablename){
+		return getEntityFromAlias(database, tablename);
+	}
+	
 	public static Table getTransferEntity(Database database, String tablename){
 		for (Table table : database.getDataModel().getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
 			if (tablename.equals(table.getName())) return table;
@@ -92,8 +96,25 @@ public class TableUtils {
 		int maxTable = database.getTables().length;
 		for (int i = 0; i < maxTable; i++) {
 			Table table = database.getTables()[i];
-			if (table.getName()!=null && table.getType()!=null && 
-				table.getName().toUpperCase().equals(tablename.toUpperCase()) && table.getType().equals(Table.TABLE))
+			if (table.getName()!=null 
+				&& table.getType()!=null 
+				&& tablename!=null
+				&& table.getName().toUpperCase().equals(tablename.toUpperCase()) 
+				&& table.getType().equals(Table.TABLE))
+				return table;
+		}
+		return null;
+	}
+
+	public static Table getTableOnlyFromAlias(Database database, String tablename){
+		int maxTable = database.getTables().length;
+		for (int i = 0; i < maxTable; i++) {
+			Table table = database.getTables()[i];
+			if (table.getAlias()!=null 
+				&& table.getType()!=null 
+				&& tablename!=null
+				&& table.getAlias().toUpperCase().equals(tablename.toUpperCase()) 
+				&& table.getType().equals(Table.TABLE))
 				return table;
 		}
 		return null;
@@ -175,6 +196,19 @@ public class TableUtils {
 		//return convertTableToView(database, getTable(database, viewname));
 	}
 	
+	public static View getViewFromAlias(Database database, String viewname){
+		int maxView = database.getViews().length;
+		View view = null;
+		for (int i = 0; i < maxView; i++) {
+			view = database.getViews()[i];
+			viewname = StringUtils.upperCase(viewname);
+			String viewAlias = StringUtils.upperCase(view.getAlias());
+			if (viewAlias.equals(viewname))
+				return view;
+		}
+		return null;
+		//return convertTableToView(database, getTable(database, viewname));
+	}	
 	private static View convertTableToView (Database database, Table table) {
 		return database.addView(table);
 	}
@@ -191,6 +225,13 @@ public class TableUtils {
 		Table table = getTableOnly(database, name);
 		if (table==null)
 			table = (Table) getView(database, name);
+		return table;
+	}
+	
+	public static Table getEntityFromAlias(Database database, String name) {
+		Table table = getTableOnlyFromAlias(database, name);
+		if (table==null)
+			table = (Table) getViewFromAlias(database, name);
 		return table;
 	}
 	

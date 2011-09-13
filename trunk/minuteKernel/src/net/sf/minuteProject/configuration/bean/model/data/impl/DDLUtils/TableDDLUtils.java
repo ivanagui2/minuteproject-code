@@ -396,7 +396,18 @@ public class TableDDLUtils extends TableAbstract {
 
 	public void setForeignKey(ForeignKey foreignKey) {
 		getForeignKeyList().add(foreignKey);
-		getParentList().add(foreignKey.getFirstReference());
+		Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference());
+//		Reference reference = foreignKey.getFirstReference();
+//			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
+// 			ref.setForeignColumn(reference.getForeignColumn());
+// 			ref.setForeignColumnName(reference.getForeignColumnName());
+// 			ref.setForeignTable(reference.getForeignTable());
+// 			ref.setForeignTableName(reference.getForeignTableName());
+// 			ref.setLocalColumn(reference.getLocalColumn());
+// 			ref.setLocalColumnName(reference.getLocalColumnName());
+// 			ref.setLocalTable(reference.getLocalTable());
+// 			ref.setLocalTableName(reference.getLocalTableName()); 		
+		getParentList().add(ref);
 		children = null;
 		columns = null;
 		resetNoPrimaryKeyNoForeignKeyColumns();
@@ -493,7 +504,13 @@ public class TableDDLUtils extends TableAbstract {
 	public void setType(String type) {
 		table.setType(type);		
 	}
-	
+
+   public boolean isManyToMany() {
+   	table.getColumnCount();
+    	return (getColumnCount() == 2) 
+    	        && (getParents().length == 2);
+    }
+
 //	public String getAlias () {
 //		return super.getAlias();
 //	}

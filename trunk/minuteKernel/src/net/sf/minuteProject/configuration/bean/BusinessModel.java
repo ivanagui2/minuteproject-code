@@ -207,6 +207,7 @@ public class BusinessModel {
 	private void complementTable(Entity entity, Database database) {
 		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTable(database, entity.getName());
 		if (table!=null){
+			complementDataModelWithTableEnrichment(table, entity);
 			complementEntityWithProperties(table, entity);
 		}		
 	}
@@ -317,9 +318,13 @@ public class BusinessModel {
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {
 		complementWithViewVirtualPrimaryKey(view, entity);
-		complementWithViewField(view, entity);
+		complementWithEntityField(view, entity);
 		// there is a bug in complementWithViewComponent => change the column name of the view .
 		//complementWithViewComponent(view, entity);
+	}
+	
+	private void complementDataModelWithTableEnrichment (Table table, Entity entity) {
+		complementWithEntityField(table, entity);
 	}
 	
 	private void complementWithViewVirtualPrimaryKey(View view, Entity entity) {
@@ -345,10 +350,10 @@ public class BusinessModel {
 		}		
 	}
 	
-	private void complementWithViewField(View view, Entity entity) {
+	private void complementWithEntityField(Table table, Entity entity) {
 		List<Field> fields = entity.getFields();
 		for (Field field : fields) {
-			ForeignKeyUtils.setForeignKey(view, field);
+			ForeignKeyUtils.setForeignKey(table, field);
 //			ForeignKey foreignKey = getForeignKey(field);
 //			if (field.getLinkToTargetEntity()!=null && foreignKey!=null) {
 //				view.setForeignKey (foreignKey);
