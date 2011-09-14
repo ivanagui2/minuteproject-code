@@ -24,7 +24,7 @@
 		</template>		
 
 		<template name="EJB3FacadeRemoteInterface" templateFileName="EJB3FacadeRemoteInterface.vm" 
-			file-extension="java" technicalPackage="ws.face" file-suffix="FacadeRemoteEJB" 
+			file-extension="java" technicalPackage="ws.face" file-suffix="Service" 
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
