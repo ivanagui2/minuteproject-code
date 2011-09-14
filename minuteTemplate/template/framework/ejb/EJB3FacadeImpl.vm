@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
+import javax.jws.WebService;
 
 import $importDomainObjectUML;
 import $EJBDaoRemoteInterfaceImport;
@@ -27,6 +28,8 @@ import $EJBFacadeRemoteInterfaceImport;
  *
  */
 @Stateless
+@WebService(endpointInterface = "${EJBFacadeRemoteInterfaceImport}"
+           ,serviceName="${className}")
 public class ${className} implements $EJBFacadeRemoteInterfaceClass {
     
 	@EJB
