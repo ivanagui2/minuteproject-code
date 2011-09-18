@@ -1,5 +1,7 @@
 package net.sf.minuteProject.utils.io;
 
+import groovyjarjarasm.asm.ClassAdapter;
+
 import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.Template;
@@ -26,23 +28,39 @@ public class UpdatedAreaUtils {
 	public static final String MP_MANAGED_UPDATABLE_BEGINNING_DISABLE = MP_MANAGED_UPDATABLE_BEGINNING+STATUS_DISABLE_APPENDIX;
 	private static final String IMPORT = "import";
 	private static final String IMPLEMENTATION = "implementation";
+	private static final String CLASS_ANNOTATION = "class-annotation";
+	private static final String FIELD_ANNOTATION = "field-annotation";
 	private static final String CONNECTOR = "-";
 	private static final String GETTER_SETTER = "GETTER-SETTER";
 	private static final String ATTRIBUTE = "ATTRIBUTE";
 	private static final String CONSTRUCTOR_WITH_FIELDS = "CONSTRUCTOR-WITH-FIELDS";
 
+	public static String getFieldAnnotationSnippet (Template template, Column column, Map<String, String> updatedAreas) {
+		return getAddedAreaSnippet(template, updatedAreas, getColumnAnnotation(column));
+	}
+	
+	private static String getColumnAnnotation(Column column) {
+		return column.getName()+CONNECTOR+FIELD_ANNOTATION;
+	}
+
+	public static String getClassAnnotationSnippet (Template template, Map<String, String> updatedAreas) {
+		return getAddedAreaSnippet(template, updatedAreas, CLASS_ANNOTATION);
+	}
+	
 	public static String getImplementationSnippet (Template template, Map<String, String> updatedAreas) {
-		String s = getSnippet (template, updatedAreas, IMPLEMENTATION);
-		if (s!=null) return s;
-		return getAddedAreaSnippet (template, IMPLEMENTATION);
+		return getAddedAreaSnippet(template, updatedAreas, IMPLEMENTATION);
 	}
 	
 	public static String getImportSnippet (Template template, Map<String, String> updatedAreas) {
-		String s = getSnippet (template, updatedAreas, IMPORT);
-		if (s!=null) return s;
-		return getAddedAreaSnippet (template, IMPORT);
+		return getAddedAreaSnippet(template, updatedAreas, IMPORT);
 	}
 
+	public static String getAddedAreaSnippet (Template template, Map<String, String> updatedAreas, String key) {
+		String s = getSnippet (template, updatedAreas, key);
+		if (s!=null) return s;
+		return getAddedAreaSnippet (template, key);
+	}
+	
 	public static String getSnippet (Template template, Map<String, String> updatedAreas, String key) {
 		String s = getChunk (updatedAreas, key);
 		if (s!=null) return s;

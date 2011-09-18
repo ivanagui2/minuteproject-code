@@ -387,8 +387,10 @@ public class TableUtils {
 	
 	public static Column [] getDisplayableAttributes (Table table) {
 		List<Column> columns = new ArrayList<Column>();
-		for (Column column : table.getAttributes()) {
-			if (!column.isLob()) {
+		for (Column column : table.getColumns()) {
+			if (column.isPrimaryKey() && ColumnUtils.isPkUserProvided(column))
+				columns.add(column);
+			else if (!column.isLob()) {
 				columns.add(column);
 			}
 		}
