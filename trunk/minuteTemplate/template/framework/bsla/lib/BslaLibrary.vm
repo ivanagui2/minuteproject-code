@@ -678,6 +678,7 @@ import $importDaoInterfaceUML;
 #macro (addedAreas)
 #set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($template, $updatedAreas))
 #set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($template, $updatedAreas))
+#set ($updatedAreaClassAnnotation=$updatedAreaUtils.getClassAnnotationSnippet($template, $updatedAreas))
 #end
 
 #macro (updatedColumnGetterSetterAreas)
@@ -693,6 +694,10 @@ import $importDaoInterfaceUML;
 #macro (updatedConstructorWithFieldAreas)
 #set ($updatedAreaColumn=$updatedAreaUtils.getConstructorWithFieldSnippet($template, $updatedAreas))
 #updatedColumnAreasCommon()
+#end
+
+#macro (fieldAnnotationAddedAreas)
+$updatedAreaUtils.getFieldAnnotationSnippet($template, $column, $updatedAreas)
 #end
 
 #macro (updatedColumnAreasCommon)
