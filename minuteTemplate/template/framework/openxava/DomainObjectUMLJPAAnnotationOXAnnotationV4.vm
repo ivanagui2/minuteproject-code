@@ -2,10 +2,13 @@
 #exposeEnvironmentParams()
 #exposeOXDomainSpecific()
 #putImportParamsUML()
+#addedAreas()
 #set($defaultViewExt="DEFAULT_VIEW")
 ##set($attributes=$table.attributes)
 #set($attributecount=$attributes.length)
 package $packageName;
+
+$updatedAreaImport
 
 import java.sql.*;
 import java.util.Date;
@@ -35,7 +38,7 @@ import org.openxava.annotations.*;
 		name="base",
 		members=
         "" 	
-#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($columnGroup in $tableUtils.extractFieldGroup($tableUtils.getDisplayableAttributes($table), $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
@@ -62,7 +65,7 @@ import org.openxava.annotations.*;
     @View(name="${domainVariableName}${defaultViewExt}", 
 	   members=
           "#foreach ($column in ${table.primaryKeyColumns}) #putColumnParams()$columnVar ;#end" 	
-#foreach ($columnGroup in $tableUtils.extractFieldGroup($tableUtils.getDisplayableAttributes($table), $table))
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
@@ -102,7 +105,7 @@ properties=""
 #end
 )
 })
-
+$updatedAreaClassAnnotation
 public class ${className} {
 
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
@@ -138,6 +141,10 @@ public class ${className} {
 #end
 
 #foreach ($column in ${table.attributes})
+#fieldAnnotationAddedAreas
+#updatedColumnAttributeAreas()
+$updatedAreaColumnBegin
+#if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
 #if ($isView)
@@ -167,6 +174,8 @@ public class ${className} {
     @Stereotype ("HTML_TEXT")
 #end
     private $columnType $columnVar;
+$updatedAreaColumnEnd	
+#end
 #end
 
 #foreach ($reference in $table.parents)
@@ -319,6 +328,9 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end
 
 #foreach ($column in ${table.attributes})
+#updatedColumnGetterSetterAreas()
+$updatedAreaColumnBegin
+#if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
 #if ($column.isLob())
@@ -334,6 +346,8 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
+$updatedAreaColumnEnd 
+#end
 #end
 
 #foreach ($reference in $table.parents)
@@ -401,4 +415,6 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #if ($tableUtils.hasTrigger($table))
 //   @Prepersist
 #end
+
+$updatedAreaImplementation
 }

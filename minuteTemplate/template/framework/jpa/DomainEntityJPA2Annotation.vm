@@ -98,11 +98,10 @@ public class ${className} implements Serializable {
 #end
 #end
 #foreach ($column in ${table.attributes})
+#fieldAnnotationAddedAreas
 #updatedColumnAttributeAreas()
-#if($isUpdated)
 $updatedAreaColumnBegin
-#else
-$updatedAreaColumnBegin	
+#if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
 #if($isEnum)
@@ -312,10 +311,8 @@ $updatedAreaColumnEnd
 #end
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
-#if($isUpdated)
 $updatedAreaColumnBegin
-#else
-$updatedAreaColumnBegin
+#if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
 #if ($column.isLob())
