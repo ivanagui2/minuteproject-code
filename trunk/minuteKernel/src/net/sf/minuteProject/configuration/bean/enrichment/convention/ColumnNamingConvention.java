@@ -11,7 +11,7 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 
 import org.apache.commons.lang.StringUtils;
 
-public class ColumnNamingConvention extends Convention {
+public class ColumnNamingConvention extends ModelConvention {
 
 	public final static String APPLY_STRIP_COLUMN_NAME_SUFFIX="apply-strip-column-name-suffix";
 	public final static String APPLY_STRIP_COLUMN_NAME_PREFIX="apply-strip-column-name-prefix";

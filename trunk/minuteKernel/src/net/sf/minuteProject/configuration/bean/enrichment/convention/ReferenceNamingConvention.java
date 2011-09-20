@@ -10,7 +10,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
-public class ReferenceNamingConvention extends Convention {
+public class ReferenceNamingConvention extends ModelConvention {
 
 	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY="apply-referenced-alias-when-no-ambiguity";
 	

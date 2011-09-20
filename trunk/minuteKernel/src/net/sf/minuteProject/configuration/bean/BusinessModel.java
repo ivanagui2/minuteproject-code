@@ -14,6 +14,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Package;
 import net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey;
 import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.ModelConvention;
 import net.sf.minuteProject.configuration.bean.limitation.Limitation;
 import net.sf.minuteProject.configuration.bean.limitation.LimitationExcludeEntityWithoutPk;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -448,7 +449,7 @@ public class BusinessModel {
 
 	public void applyConventions() {
 		if (enrichment!=null && enrichment.getConventions()!=null) {
-			for (Convention convention : enrichment.getConventions().getConventions()) {
+			for (ModelConvention convention : enrichment.getConventions().getModelConventions()) {
 				convention.apply (this);
 			}
 		}		

@@ -5,7 +5,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 import static net.sf.minuteProject.utils.TableUtils.*;
 
-public class EntityContentTypeConvention extends Convention {
+public class EntityContentTypeConvention extends ModelConvention {
 
 	public static final String APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH = "apply-content-type-to-entity-starting-with";
 	public static final String APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH   = "apply-content-type-to-entity-ending-with";

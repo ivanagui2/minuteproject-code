@@ -12,7 +12,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
-public class GlobalConvention extends Convention {
+public class GlobalConvention extends ModelConvention {
 
 	public final static String ELIMINATE_NO_SELECTED_ENTITY_FOREIGN_KEY ="eliminate-no-selected-entity-foreign-key";
 

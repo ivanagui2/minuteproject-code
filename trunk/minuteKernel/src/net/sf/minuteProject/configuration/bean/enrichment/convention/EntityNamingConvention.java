@@ -9,7 +9,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
-public class EntityNamingConvention extends Convention {
+public class EntityNamingConvention extends ModelConvention {
 
 	public final String APPLY_STRIP_TABLE_NAME_SUFFIX="apply-strip-table-name-suffix";
 	public final String APPLY_STRIP_TABLE_NAME_PREFIX="apply-strip-table-name-prefix";

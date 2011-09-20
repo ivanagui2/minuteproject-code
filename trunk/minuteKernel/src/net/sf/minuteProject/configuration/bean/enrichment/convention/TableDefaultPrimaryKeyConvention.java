@@ -12,7 +12,7 @@ import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.utils.ColumnUtils;
 
 @SuppressWarnings("serial")
-public class TableDefaultPrimaryKeyConvention extends Convention {
+public class TableDefaultPrimaryKeyConvention extends ModelConvention {
 
 	public static final String APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK = "apply-default-primary-key-otherwise-first-one";
 	public String defaultPrimaryKeyNames;

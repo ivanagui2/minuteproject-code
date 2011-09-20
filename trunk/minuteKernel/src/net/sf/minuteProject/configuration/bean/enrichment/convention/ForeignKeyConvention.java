@@ -14,7 +14,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ForeignKeyUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
-public class ForeignKeyConvention extends Convention {
+public class ForeignKeyConvention extends ModelConvention {
 
 	public static final String APPLY_DEFAULT_FK_BY_ENTITY_NAME_AND_SUFFIX = "apply-default-foreign-key-by-entity-name-and-suffix";
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP = "autodetect-foreign-key-based-on-similarity-and-map";
