@@ -24,6 +24,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.ReferenceUtils;
 
 /**
  * Represents a reference between a column in the local table and a column in another table.
@@ -272,9 +273,11 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	public String getAlias() {
 		if (alias==null || alias.equals(""))
 //			alias= foreignTable.getAlias()+"_"+foreignColumn.getAlias();
-		   alias= foreignTable.getAlias()+"_"+localTable.getAlias()+"_Via_"+localColumn.getAlias();
+		   alias= ReferenceUtils.getDefaultAlias(this);
 		return alias;
 	}
+	
+
 	
 	public void setAlias(String alias) {
 		this.alias = alias;

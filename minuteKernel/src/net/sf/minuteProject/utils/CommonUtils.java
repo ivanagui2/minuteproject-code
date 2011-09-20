@@ -554,7 +554,7 @@ public class CommonUtils {
 		return false;
 	}
 	public static boolean isParentRelationshipSimplificable (Table table, Reference reference) {
-		Table child = reference.getForeignTable();
+		//Table child = reference.getForeignTable();
 		//check no that there is no other reference towards this parent
 		int cpt=0;
 		for (Reference ref : table.getParents()) {
@@ -564,6 +564,22 @@ public class CommonUtils {
 		if (cpt==1) 
 			return true;
 		return false;
+	}
+
+	public static String getColumnNameClass (Table table, Reference reference) {
+		return FormatUtils.getJavaName(getColumnName(table, reference));
+	}
+	
+	public static String getColumnNameVariable (Table table, Reference reference) {
+		return FormatUtils.getJavaNameVariable(getColumnName(table, reference));
+	}
+	
+	public static String getColumnName (Table table, Reference reference) {
+		if (!ColumnUtils.isUsingDefaultAlias(reference.getLocalColumn()))
+			return reference.getLocalColumn().getAlias();
+		if (isParentRelationshipSimplificable(table, reference))
+			return reference.getForeignTable().getAlias();
+		return reference.getLocalColumn().getAlias();
 	}
 	
 	public static boolean isParentRelationshipSimplificable2 (Reference reference) {
