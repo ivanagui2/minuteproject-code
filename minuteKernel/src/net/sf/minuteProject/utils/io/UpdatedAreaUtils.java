@@ -56,6 +56,7 @@ public class UpdatedAreaUtils {
 	}
 
 	public static String getAddedAreaSnippet (Template template, Map<String, String> updatedAreas, String key) {
+		if (!template.isUpdatable()) return "";
 		String s = getSnippet (template, updatedAreas, key);
 		if (s!=null) return s;
 		return getAddedAreaSnippet (template, key);
@@ -74,14 +75,15 @@ public class UpdatedAreaUtils {
 
 	public static String getAddedAreaSnippet(Template template, String s) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(comment(template, MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER+"\n"));
-		sb.append(comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER+"\n"));
+		sb.append(comment(template, MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER)+"\n");
+		sb.append(comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER));
 		return sb.toString();
 	}
 
 	public static String getUpdatedAreaBeginSnippet(Template template, String s) {
+		if (!template.isUpdatable()) return "";
 		StringBuffer sb = new StringBuffer();	
-		sb.append(MP_MANAGED_UPDATABLE_BEGINNING_DISABLE+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER+"\n");
+		sb.append(MP_MANAGED_UPDATABLE_BEGINNING_DISABLE+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER);
 		return comment(template, sb.toString());
 	}
 	
@@ -90,6 +92,7 @@ public class UpdatedAreaUtils {
 	}
 
 	public static String getUpdatedAreaEndSnippet(Template template, String s) {
+		if (!template.isUpdatable()) return "";
 		StringBuffer sb = new StringBuffer();
 		sb.append("// "+MP_MANAGED_UPDATABLE_ENDING+"\n");
 		return sb.toString();
@@ -134,7 +137,6 @@ public class UpdatedAreaUtils {
 	
 
 	public static String getColumnEndSnippet(Template template, Column column) {
-		
 		return getUpdatedAreaEndSnippet(template, column.getName());
 	}
 	

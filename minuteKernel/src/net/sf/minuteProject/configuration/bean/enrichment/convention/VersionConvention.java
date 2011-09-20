@@ -10,7 +10,7 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 
 import org.apache.commons.lang.StringUtils;
 
-public class VersionConvention extends Convention {
+public class VersionConvention extends ModelConvention {
 
 	public static final String defaultVersionColumnName = "version";
 	

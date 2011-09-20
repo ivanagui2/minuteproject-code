@@ -20,6 +20,6 @@ public abstract class Convention extends AbstractConfiguration{
 		this.defaultValue = defaultValue;
 	}	
 	
-	public abstract void apply(BusinessModel model) ;
+	
 	
 }

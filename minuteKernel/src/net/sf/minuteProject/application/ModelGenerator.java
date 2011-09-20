@@ -185,7 +185,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void loadAndGenerate (Target target) throws MinuteProjectException {
 		loadTarget(model.getConfiguration(), target);
-		generate(model.getConfiguration().getTarget());		
+		applyTargetConventionAndGenerate(model.getConfiguration().getTarget());		
 	}
 
 	protected void loadAndGenerate (Targets targets) throws MinuteProjectException {
@@ -203,7 +203,7 @@ public class ModelGenerator extends AbstractGenerator {
 			configuration.setTarget(new Target());
 		}	
 		configuration.setTarget(targetFinal);
-		generate(configuration.getTarget());
+		applyTargetConventionAndGenerate(configuration.getTarget());
 //		for (Target target : targets.getTargets()) {
 //			complementWithTargetInfo(configuration, target);
 //			System.out.println("---");
@@ -213,6 +213,15 @@ public class ModelGenerator extends AbstractGenerator {
 			
 	}
 	
+	private void applyTargetConventionAndGenerate (Target target) throws MinuteProjectException {
+		applyTargetConvention(target);
+		generate(target);
+	}
+	
+	private void applyTargetConvention(Target target) {
+		model.getConfiguration().applyConventions();
+	}
+
 	protected void loadModel(Model model) {
 		model.getDataModel().loadDatabase();
 		BusinessModel businessModel = model.getBusinessModel();

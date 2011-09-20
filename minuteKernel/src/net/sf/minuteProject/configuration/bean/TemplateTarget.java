@@ -58,6 +58,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	}
 	
 	public List<Template> getTemplates() {
+		if (templates==null) templates = new ArrayList<Template>();
 		return templates;
 	}
 	public void setTemplates(List<Template> templates) {

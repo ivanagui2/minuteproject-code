@@ -5,9 +5,24 @@
         "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
 <digester-rules>
   <pattern value="generator-config/configuration">		
-  <set-properties-rule>
-	<alias attr-name="name" prop-name="name" />
-  </set-properties-rule>
+  	<set-properties-rule>
+		<alias attr-name="name" prop-name="name" />
+	</set-properties-rule>
+	<pattern value="conventions">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
+		<set-next-rule methodname="setConventions" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
+		<set-properties-rule>
+			<alias attr-name="name" prop-name="name" />	
+			<alias attr-name="alias" prop-name="alias" />
+		</set-properties-rule>
+		<pattern value="target-convention">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.TargetConvention"/>		
+			<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.TargetConvention"/>		
+			<set-properties-rule>
+				<alias attr-name="type" prop-name="type" />	
+			</set-properties-rule>	
+	    </pattern>
+	</pattern>					
   <pattern value="model">
 	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Model"/>	  
 	<set-next-rule methodname="setModel" paramtype="net.sf.minuteProject.configuration.bean.Model"/>

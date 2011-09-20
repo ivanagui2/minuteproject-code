@@ -1,5 +1,10 @@
 package net.sf.minuteProject.configuration.bean;
 
+import java.util.ArrayList;
+
+import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 
 public class Configuration extends AbstractConfigurationRoot{
@@ -7,6 +12,7 @@ public class Configuration extends AbstractConfigurationRoot{
 	private String catalogDir;
 	private Model model;
 	private Presentation presentation;
+	private Conventions conventions;
 	
 	public Presentation getPresentation() {
 		return presentation;
@@ -46,6 +52,21 @@ public class Configuration extends AbstractConfigurationRoot{
 
 	public void setCatalogDir(String catalogDir) {
 		this.catalogDir = catalogDir;
+	}
+
+	public void applyConventions() {
+		for (KernelConvention convention : getConventions().getKernelConventions()) {
+			convention.apply (this);
+		}
+	}
+
+	public Conventions getConventions() {
+		if (conventions==null) conventions = new Conventions();
+		return conventions;
+	}
+
+	public void setConventions(Conventions conventions) {
+		this.conventions = conventions;
 	}
 	
 }
