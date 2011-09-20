@@ -147,8 +147,9 @@ $updatedAreaColumnEnd
 #else
 #set($colVar = ${linkedTableVariable})
 #end
+#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
 ##exposeRelationship($table, $reference)
-    private $linkedTableClass ${colVar}; 
+    private $linkedTableClass ${colVar}; //${localColumnVariable} - ${linkedTableVariable}
 
 #if($addXmlBinding)
 ## for attribute
@@ -252,6 +253,7 @@ $updatedAreaColumnEnd
 #else
 #set($colVar = ${linkedTableVariable})
 #end
+#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
        this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
@@ -339,7 +341,8 @@ $updatedAreaColumnEnd
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeRelationship($table, $reference)
-#if (!$isParentRelationshipSimplificable)
+#set($localColumnVariable = $commonUtils.getColumnNameVariable($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
     public $linkedTableClass get$localColumnClass () {
     	return ${localColumnVariable};
     }
@@ -347,17 +350,26 @@ $updatedAreaColumnEnd
     public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
     	this.${localColumnVariable} = ${localColumnVariable};
     }
-    
-#else
-    public $linkedTableClass get${linkedTableClass} () { 
-    	return ${linkedTableVariable};
-    }
-	
-   public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
-    	this.${linkedTableVariable} = ${linkedTableVariable};
-    }
-    
-#end 
+##    
+###if (!$isParentRelationshipSimplificable)
+##    public $linkedTableClass get$localColumnClass () {
+##    	return ${localColumnVariable};
+####    }
+##	
+##    public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
+##    	this.${localColumnVariable} = ${localColumnVariable};
+##    }
+##    
+###else
+##    public $linkedTableClass get${linkedTableClass} () { 
+##    	return ${linkedTableVariable};
+##    }
+##	
+##   public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
+##    	this.${linkedTableVariable} = ${linkedTableVariable};
+##    }
+##    
+##end 
 #if($addXmlBinding)
 ## for attribute
 #set($column = $reference.localColumn)
