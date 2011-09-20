@@ -230,5 +230,12 @@ public class ReferenceUtils {
 		return false;
 	}
 
-	
+	public static boolean isUsingDefaultAlias(
+			net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		return (reference.getAlias().equals(getDefaultAlias(reference)));
+	}
+
+	public static String getDefaultAlias(net.sf.minuteProject.configuration.bean.model.data.Reference ref) {
+		return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getLocalColumn().getAlias();
+	}
 }

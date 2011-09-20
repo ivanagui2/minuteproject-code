@@ -179,5 +179,11 @@ public class ColumnUtils {
 		// TODO implement for string && int column
 		return true;
 	}
+
+	public static boolean isUsingDefaultAlias(Column column) {
+		// TODO Auto-generated method stub
+		return (column.getName().toLowerCase().equals(column.getAlias().toLowerCase()));
+	}
+
 	
 }
