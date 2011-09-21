@@ -575,10 +575,12 @@ public class CommonUtils {
 	}
 	
 	public static String getColumnName (Table table, Reference reference) {
-		if (!ColumnUtils.isUsingDefaultAlias(reference.getLocalColumn()))
-			return reference.getLocalColumn().getAlias();
-		if (isParentRelationshipSimplificable(table, reference))
-			return reference.getForeignTable().getAlias();
+		//simplification of parent reference should happen at convention time an not at template 
+		// generation time
+//		if (!ColumnUtils.isUsingDefaultAlias(reference.getLocalColumn()))
+//			return reference.getLocalColumn().getAlias();
+////		if (isParentRelationshipSimplificable(table, reference))
+////			return reference.getForeignTable().getAlias();
 		return reference.getLocalColumn().getAlias();
 	}
 	

@@ -69,13 +69,20 @@
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 			</target>
 			
-			<target refname="WS-JEE" 
-			   name="WS-JEE" 
-			   fileName="mp-template-config-WS-JEE.xml" 
+			<target refname="WS-JEE-ejb" 
+			   name="WS-JEE-ejb" 
+			   fileName="mp-template-config-WS-JEE-ejb.xml" 
 			   outputdir-root="../../dev/EJB3/petshop/EJB3"
 			   templatedir-root="../../minuteTemplate/template/framework/ejb">			   			   
 			</target> 		
-			
+
+			<target refname="WS-JEE-war" 
+			   name="WS-JEE-war" 
+			   fileName="mp-template-config-WS-JEE-war.xml" 
+			   outputdir-root="../../dev/EJB3/petshop/WS"
+			   templatedir-root="../../minuteTemplate/template/framework/webservice">			   			   
+			</target>
+						
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
