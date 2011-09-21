@@ -176,6 +176,8 @@ $updatedAreaColumnEnd
 #if($addXmlBinding)
     @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #end
+#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+//$colVar
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    

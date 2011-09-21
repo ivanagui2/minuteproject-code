@@ -17,8 +17,10 @@ import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
 import javax.jws.WebService;
 
+import javax.inject.Inject;
+
 import $importDomainObjectUML;
-import $EJBDaoRemoteInterfaceImport;
+import $EJBDaoImplImport;
 import $EJBFacadeRemoteInterfaceImport;
 /**
  *
@@ -27,13 +29,13 @@ import $EJBFacadeRemoteInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Stateless
+
 @WebService(endpointInterface = "${EJBFacadeRemoteInterfaceImport}"
            ,serviceName="${className}")
 public class ${className} implements $EJBFacadeRemoteInterfaceClass {
     
-	@EJB
-    private $EJBDaoRemoteInterfaceClass dao;
+	@Inject
+    private $EJBDaoImplClass dao;
 	
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
 		return dao.findAll($tableVariableName);
