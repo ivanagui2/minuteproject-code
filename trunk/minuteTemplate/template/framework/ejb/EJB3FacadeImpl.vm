@@ -30,7 +30,7 @@ import $EJBFacadeRemoteInterfaceImport;
  *
  */
 
-@WebService(endpointInterface = "${EJBFacadeRemoteInterfaceImport}"
+@WebService(endpointInterface = "${EJBFacadeImplImport}"
            ,serviceName="${className}")
 public class ${className} implements $EJBFacadeRemoteInterfaceClass {
     
