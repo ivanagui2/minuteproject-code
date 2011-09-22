@@ -30,7 +30,7 @@ import $EJBDaoRemoteInterfaceImport;
  *
  */
 
-@Stateless ##(name="$EJBDaoImplVariable")
+@Stateless ##(name="$EJBDaoImplVariable") 
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
  
     @PersistenceContext(unitName = "$persistenceUnitName")

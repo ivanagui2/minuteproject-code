@@ -3,6 +3,7 @@
 #exposeEnvironmentParams()
 #exposeJPA2DomainObject($tableDB)
 #exposeEJBDomainObject()
+#set($implementInterface=$template.getPropertyValue("implement-interface",false))
 #end
 
 #macro (exposeEJBDomainObject)
