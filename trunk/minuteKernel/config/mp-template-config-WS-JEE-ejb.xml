@@ -11,16 +11,17 @@
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
 			 
-		<!--<template name="EJB3DaoRemoteInterface" templateFileName="EJB3DaoRemoteInterface.vm" 
+		<template name="EJB3DaoRemoteInterface" templateFileName="EJB3DaoRemoteInterface.vm" 
 			file-extension="java" technicalPackage="dao.face" file-suffix="DaoRemoteEJB" 
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-		</template>-->
+		</template>
 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<!--<property name="implement-interface" value="true"></property>-->
 		</template>		
 
 		<template name="EJB3FacadeRemoteInterface" templateFileName="EJB3FacadeRemoteInterface.vm" 
