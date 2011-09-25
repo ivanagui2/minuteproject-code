@@ -62,8 +62,6 @@ public class ${className} implements Serializable {
 #end
 #end	
 	
-//teest
-//$tableUtils.getPrimaryKeyAndForeignKeyColumnsAndNotPartOfCompositeForeignKey($table).size()
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
     private ${embeddedIdClass} $embeddedIdVariable;
@@ -178,8 +176,8 @@ $updatedAreaColumnEnd
 #if($addXmlBinding)
     @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #end
-#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
-//$colVar
+##set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+//$foreignColumnVar $columnDB $columnDB.name $domainVariableName ${reference.column}
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
@@ -228,6 +226,8 @@ $updatedAreaColumnEnd
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
         $embeddedIdVariable = new ${embeddedIdClass}();  	
 #foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
+#putColumnParams()
+#columnJavaNaming()	
         ${embeddedIdVariable}.set$columnClass ($columnVar);
 #end
 #else
