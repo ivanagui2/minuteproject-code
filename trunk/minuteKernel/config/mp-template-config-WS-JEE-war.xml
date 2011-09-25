@@ -33,11 +33,6 @@
 			application-specific="true" add-model-name="false">
 		</template>
 
-		<template name="WS-JEE.BeanXml" templateFileName="WS-JEE.BeanXml.vm" 
-			file-extension="xml" technicalPackage="" file-suffix="beans" 
-			application-specific="true" add-model-name="false" >
-		</template>
-				
 	</template-target>	
   	         		
 </target>

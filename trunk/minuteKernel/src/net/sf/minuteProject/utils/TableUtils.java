@@ -440,6 +440,7 @@ public class TableUtils {
 		return columns;
 	}
 	
+	
 	public static List<ForeignKey> getParentCompositeForeignInPrimaryKey(Table table) {
 		List<ForeignKey> fks = new ArrayList<ForeignKey>();
 		for (ForeignKey fk : table.getForeignKeys()) {
@@ -460,7 +461,9 @@ public class TableUtils {
 	}
 	
 	public static boolean isCompositePrimaryKeyNotMany2Many (Table table) {
-		if (!table.isManyToMany() && table.getPrimaryKeyColumns().length>1) {
+		if (!table.isManyToMany() && 
+			(table.getPrimaryKeyColumns().length>1
+			 || getPrimaryKeyAndForeignKeyColumns(table).size()>0)) {
 			return true;
 		}
 		return false;

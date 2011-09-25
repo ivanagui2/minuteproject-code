@@ -61,7 +61,8 @@
 			   outputdir-root="../../dev/WS-JEE/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
-               <property name="add-jpa2-implementation" value="hibernate"></property>			   			   
+               <property name="add-jpa2-implementation" value="eclipselink"></property>	
+               <!--<property name="add-xmlbinding" value="true"></property>-->			   			   
 			</target>
 							
 			<target refname="LIB" 
