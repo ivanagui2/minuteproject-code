@@ -71,7 +71,9 @@ public class ConvertUtils {
 		if (dBType.equals("BIGINT"))
 			return  JAVA_LONG_TYPE;	
 		if (dBType.equals("DOUBLE"))
-			return  JAVA_DOUBLE_TYPE;			
+			return  JAVA_BIGDECIMAL_TYPE;	
+		if (dBType.equals("FLOAT"))
+			return  JAVA_BIGDECIMAL_TYPE;		
 		if (dBType.equals("INT"))
 			return  JAVA_INTEGER_TYPE;		
 		if (dBType.equals("TIME"))
@@ -79,7 +81,7 @@ public class ConvertUtils {
 		if (dBType.equals("DECIMAL"))
 			return  JAVA_BIGDECIMAL_TYPE;
 		if (dBType.equals("SMALLINT"))
-			return  JAVA_STRING_TYPE;	
+			return  JAVA_INTEGER_TYPE;	
 		if (dBType.equals("VARCHAR"))
 			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("LONGVARCHAR"))
@@ -204,7 +206,9 @@ public class ConvertUtils {
 		if (dBType.equals("BIGINT"))
 			return  "Long";	
 		if (dBType.equals("DOUBLE"))
-			return  "Double";			
+			return  "java.math.BigDecimal";	
+		if (dBType.equals("FLOAT"))
+			return  "java.math.BigDecimal";			
 		if (dBType.equals("INT"))
 			return  "Integer";		
 		if (dBType.equals("TIME"))
@@ -212,7 +216,7 @@ public class ConvertUtils {
 		if (dBType.equals("DECIMAL"))
 			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
-			return  "String";	
+			return  "Integer";	
 		if (dBType.equals("VARCHAR"))
 			return  "String";	
 		if (dBType.equals("LONGVARCHAR"))
