@@ -62,6 +62,8 @@ public class ${className} implements Serializable {
 #end
 #end	
 	
+//teest
+//$tableUtils.getPrimaryKeyAndForeignKeyColumnsAndNotPartOfCompositeForeignKey($table).size()
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
     private ${embeddedIdClass} $embeddedIdVariable;
