@@ -59,5 +59,18 @@
 		</template>	
 					
 	</template-target>	  	
-  	         		
+
+	 <template-target 
+    	name="EJB set"
+		libdir="lib/EJB_LIB.vm"
+		outputdir="src/main/resources/META-INF"
+		package-root=""
+		belongToPackage="true">
+
+		<template name="WS-JEE.BeanXml" templateFileName="WS-JEE.BeanXml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="beans" 
+			application-specific="true" add-model-name="false" >
+		</template>
+				
+	</template-target>	  	         		
 </target>
