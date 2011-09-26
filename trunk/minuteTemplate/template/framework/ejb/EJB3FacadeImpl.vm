@@ -1,6 +1,7 @@
 #exposeEJBDomainObjectSpecific()
 package $packageName;
 
+$!updatedAreaImport
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -64,5 +65,6 @@ public class ${className} implements $EJBFacadeRemoteInterfaceClass {
 	public void delete ($tableClassName $tableVariableName) {
 		dao.delete (${tableVariableName});
 	}
-		
+	
+$!updatedAreaImplementation
 }
