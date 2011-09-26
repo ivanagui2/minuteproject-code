@@ -3,6 +3,7 @@
 #exposeEJBProperties()
 package $packageName;
 
+$!updatedAreaImport
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -51,12 +52,19 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
         return em.find (${tableClassName}.class, $primaryKeyVariable);
     }
 
+    public $tableClassName find ($primaryKeyFullType $primaryKeyVariable) {
+		Query query = em.createQuery("select $tableVariableName from $tableClassName $tableVariableName where $primaryKeyVariable:=$primaryKeyVariable");
+		query.setParameter("$primaryKeyVariable", $primaryKeyVariable);
+		$tableClassName var = ($tableClassName)query.getSingleResult();
+		return var.flat();
+    }	
+
 #end
 #if ($hasSemanticReference)
     public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
         return em.find (${tableClassName}.class, $primaryKeyVariable);
     }
-	
+
 #end
     public $tableClassName create ($tableClassName $tableVariableName) {
         em.persist (${tableVariableName});
@@ -72,5 +80,6 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
         if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
             em.remove (findById(${tableVariableName}.get${primaryKeyJavaNameClass}()));
     }
-		
+
+$!updatedAreaImplementation
 }

@@ -1,6 +1,7 @@
 #exposeEJBDomainObjectSpecific()
 package $packageName;
 
+$!updatedAreaImport
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -35,5 +36,6 @@ public interface ${className} {
 	public $tableClassName update ($tableClassName $tableVariableName);
 	
 	public void delete ($tableClassName $tableVariableName);
-	
+
+$!updatedAreaImplementation
 }

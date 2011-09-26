@@ -151,17 +151,16 @@ $updatedAreaColumnEnd
 ##exposeRelationship($table, $reference)
     private $linkedTableClass ${colVar}; //${localColumnVariable} - ${linkedTableVariable}
 
-#if($addXmlBinding)
-## for attribute
 #set($column = $reference.localColumn)
 #putColumnParams()
 #columnJavaNaming()
-    @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+#if($addXmlBinding)
     @XmlAttribute (name="${columnVar}")
+#end
+    @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
     private $columnType ${columnVar}_;
 	
 #end	
-#end
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
@@ -177,7 +176,6 @@ $updatedAreaColumnEnd
     @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #end
 ##set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
-//$foreignColumnVar $columnDB $columnDB.name $domainVariableName ${reference.column}
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
@@ -273,7 +271,22 @@ $updatedAreaColumnEnd
 #end
 #end
     }
-	
+
+	public ${className} flat() {
+	   return new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#columnJavaNaming()
+#if($columnUtils.isForeignKey($column))
+#set($columnClass="${columnClass}_")
+#end
+          get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+	   );
+	}
+
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;
@@ -374,7 +387,7 @@ $updatedAreaColumnEnd
 ##    }
 ##    
 ##end 
-#if($addXmlBinding)
+##if($addXmlBinding)
 ## for attribute
 #set($column = $reference.localColumn)
 #putColumnParams()
@@ -388,7 +401,7 @@ $updatedAreaColumnEnd
     }
 	
 #end
-#end
+##end
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
@@ -430,6 +443,6 @@ $updatedAreaColumnEnd
     }	    
 #end
 
-$updatedAreaImplementation
+$!updatedAreaImplementation
 
 }
