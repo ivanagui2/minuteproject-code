@@ -149,7 +149,7 @@ $updatedAreaColumnEnd
 #end
 #set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
 ##exposeRelationship($table, $reference)
-    private $linkedTableClass ${colVar}; //${localColumnVariable} - ${linkedTableVariable}
+    private $linkedTableClass ${colVar}; ##//${localColumnVariable} - ${linkedTableVariable} 
 
 #set($column = $reference.localColumn)
 #putColumnParams()
@@ -277,10 +277,15 @@ $updatedAreaColumnEnd
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #columnJavaNaming()
+#if ($columnUtils.belongsToCompositePrimaryKeyNotMany2Many($column))
+		  get${embeddedIdClass}().get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#else
 #if($columnUtils.isForeignKey($column))
 #set($columnClass="${columnClass}_")
 #end
           get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
 #end
 #end
 
@@ -305,6 +310,7 @@ $updatedAreaColumnEnd
 #end   
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     public $embeddedIdClass get$embeddedIdClass() {
+		if ($embeddedIdVariable==null) $embeddedIdVariable = new $embeddedIdClass();
         return $embeddedIdVariable;
     }
 	
