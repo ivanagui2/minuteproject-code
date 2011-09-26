@@ -44,7 +44,7 @@ public class ${className} implements $EJBFacadeRemoteInterfaceClass {
 
 #if ($hasOnlyOnePrimaryKey)
 	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
-		return dao.findById($primaryKeyVariable);
+		return dao.find($primaryKeyVariable);
 	}
 
 #end
