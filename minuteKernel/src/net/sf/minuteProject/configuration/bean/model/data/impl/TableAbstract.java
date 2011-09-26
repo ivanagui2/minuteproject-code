@@ -268,8 +268,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
      * @return boolean
      */
     public boolean isManyToMany() {
-    	return (getColumnCount() == 2) 
-    	        && (getParents().length == 2);
+     	return (getPrimaryKeyColumns().length == 2) 
+       && (getParents().length == 2);
     }
     
     public boolean equals (Object object) {
