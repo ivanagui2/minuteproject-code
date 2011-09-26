@@ -72,14 +72,14 @@ public class ForeignKeyConvention extends ModelConvention {
 	}
 
 	private void apply(Table table) {
-		for (Field field : getForeignKeyFieldsNotInPrimaryKey(table))
+		for (Field field : getForeignKeyFieldsNotInSelfReferencedPrimaryKey(table))
 			ForeignKeyUtils.setForeignKey(table, field);
 	}
 
-	private List<Field> getForeignKeyFieldsNotInPrimaryKey(Table table) {
+	private List<Field> getForeignKeyFieldsNotInSelfReferencedPrimaryKey(Table table) {
 		List<Field> list = new ArrayList<Field>();
 		for (Column column : table.getColumns()) {
-			if (!column.isPrimaryKey()) { // 
+			if (!isSelfReferencePrimaryKey(column)) { // 
 				Field f = getForeignKeyField(column, table);
 				if (f != null) {
 					list.add(f);
@@ -90,12 +90,33 @@ public class ForeignKeyConvention extends ModelConvention {
 		return list;
 	}
 
-	private Field getForeignKeyField(Column column, Table table) {
-		// if (column.isPrimaryKey() && !table.isManyToMany()) return null;
+	private boolean isSelfReferencePrimaryKey(Column column) {
+		if (column.isPrimaryKey()) {
+			Table target = getTarget(column);
+			if (target!=null && 
+				 target.getName().toLowerCase().equals(column.getTable().getName().toLowerCase()))
+				return true;
+		}
+		return false;
+	}
+
+	
+	private Table getTarget(Column column) {
+		Table table = column.getTable();
 		String tablename = getTargetEntityName(column);
 		Table target = TableUtils.getTable(table.getDatabase(), tablename);
 		if (target == null)
 			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
+		return target;
+	}
+
+	private Field getForeignKeyField(Column column, Table table) {
+		// if (column.isPrimaryKey() && !table.isManyToMany()) return null;
+//		String tablename = getTargetEntityName(column);
+//		Table target = TableUtils.getTable(table.getDatabase(), tablename);
+//		if (target == null)
+//			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
+		Table target = getTarget(column);
 		if (target != null) {
 			Field f = new Field();
 			f.setName(column.getName());

@@ -164,6 +164,19 @@ public class ColumnUtils {
 		return column.getTriggers()!=null && column.getTriggers().size()>0;
 	}
 
+	public static boolean belongsToCompositePrimaryKeyNotMany2Many(Column column) {
+		return TableUtils.isCompositePrimaryKeyNotMany2Many(column.getTable()) &&
+			 isPartOfCompositePrimaryKey(column);
+	}
+	
+	private static boolean isPartOfCompositePrimaryKey(Column column) {
+		for (Column col : column.getTable().getPrimaryKeyColumns()) {
+			if (col.getName().toLowerCase().equals(column.getName().toLowerCase()))
+				return true;
+		}
+		return false;
+	}
+
 	public static boolean isForeignKeyAndNotPartOfCompositeForeignKey(Column column) {
 		return (isForeignKey(column) && !isPartOfCompositeForeignKey(column));
 	}
