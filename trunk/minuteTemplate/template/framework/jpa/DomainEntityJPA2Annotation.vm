@@ -90,7 +90,8 @@ public class ${className} implements Serializable {
 #end
 #end
 #if($addXmlBinding)
-    @XmlElement
+#exposeXmlElementValue()
+    @XmlElement $!xmlElementValue
 #end
     private $columnType $columnVar;
 
@@ -123,7 +124,8 @@ public class ${className} implements Serializable {
 #end
 #end
 #if($addXmlBinding)
-    @XmlElement
+#exposeXmlElementValue()
+    @XmlElement $!xmlElementValue
 #end
 #if($useTemporal && $isTimeColumn)
 #set($columnType="java.util.Date")
@@ -155,7 +157,8 @@ $updatedAreaColumnEnd
 #putColumnParams()
 #columnJavaNaming()
 #if($addXmlBinding)
-    @XmlAttribute (name="${columnVar}")
+#exposeXmlElementValue()
+    @XmlAttribute $!xmlElementValue
 #end
     @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
     private $columnType ${columnVar}_;
