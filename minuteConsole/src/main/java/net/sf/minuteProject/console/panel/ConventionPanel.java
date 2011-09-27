@@ -15,43 +15,50 @@ import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 public class ConventionPanel extends JPanel implements FillBasicConfiguration{
 
 	private JCheckBox virtualPkForViewsConvention;
-	private JTextField virtualPkForViewsConventionListTf;
+//	private JTextField virtualPkForViewsConventionListTf;
 	
 	private JCheckBox enableUpdatableAreaConvention;
-	private JTextField enableUpdatableAreaConventionListTf;
+//	private JTextField enableUpdatableAreaConventionListTf;
 	
 	public void fill(BasicIntegrationConfiguration bic) {
 		if (virtualPkForViewsConvention.isSelected())
 			bic.setVirtualPrimaryKey(virtualPkForViewsConvention.getText());
-		if (enableUpdatableAreaConvention.isSelected())
-			bic.setEnableUpdatableAreaConvention(enableUpdatableAreaConvention.getText());		
+		bic.setEnableUpdatableAreaConvention(enableUpdatableAreaConvention.isSelected());		
 	}
 
 	public void fillPanel (JPanel panel) {
-		virtualPkForViewsConvention = new JCheckBox("add 'virtual' primary key columns");
-		virtualPkForViewsConvention.setToolTipText("When no primary key is provided for an entity, a default one is provided from the ones retrieved in the list");
-		virtualPkForViewsConvention.setSelected(true);
-		virtualPkForViewsConvention.setOpaque(true);
-		panel.add(createLabel(""));
-		panel.add(virtualPkForViewsConvention, "skip");
+//		virtualPkForViewsConvention = new JCheckBox("add 'virtual' primary key columns");
+//		virtualPkForViewsConvention.setToolTipText("When no primary key is provided for an entity, a default one is provided from the ones retrieved in the list");
+//		virtualPkForViewsConvention.setSelected(true);
+//		virtualPkForViewsConvention.setOpaque(true);
+//		panel.add(createLabel(""));
+//		panel.add(virtualPkForViewsConvention, "skip");
+//
+//		virtualPkForViewsConventionListTf = createTextField("");
+//		panel.add(virtualPkForViewsConventionListTf,"growx, span, wrap para");
 
-		virtualPkForViewsConventionListTf = createTextField("");
-		panel.add(virtualPkForViewsConventionListTf,"growx, span, wrap para");
-		
 		fillConvention(panel, 
-				       enableUpdatableAreaConvention, 
-				       "enable updatable areas",
-				       "Add and Modify generated code in specific areas without losing benefit of consecutive generations");
+			 virtualPkForViewsConvention, 
+			 true,				
+			 new JTextField(),
+	       "add 'virtual' primary key columns",
+	       "When no primary key is provided for an entity, a default one is provided from the ones retrieved in the list");
+
+		fillConvention(panel, 
+	       enableUpdatableAreaConvention, 
+	       false,
+	       "enable updatable areas",
+	       "Add and Modify generated code in specific areas without losing benefit of consecutive generations");
 	}
 
-	private void fillConvention (JPanel panel, JCheckBox jcb, String label, String tip) {
-		fillConvention(panel, jcb, null, label, tip);	
+	private void fillConvention (JPanel panel, JCheckBox jcb, boolean selected, String label, String tip) {
+		fillConvention(panel, jcb, selected, null, label, tip);	
 	}
 	
-	private void fillConvention (JPanel panel, JCheckBox jcb, JTextField jtf, String label, String tip) {
+	private void fillConvention (JPanel panel, JCheckBox jcb, boolean selected, JTextField jtf, String label, String tip) {
 		jcb = new JCheckBox(label);
 		jcb.setToolTipText(tip);
-		jcb.setSelected(true);
+		jcb.setSelected(selected);
 		jcb.setOpaque(true);
 		panel.add(createLabel(""));
 		panel.add(jcb, "skip");
