@@ -8,6 +8,7 @@
 	<plugin name="jpa2Utils" className="net.sf.minuteProject.plugin.jpa.Jpa2Utils"/>
 	<plugin name="persistenceUtils" className="net.sf.minuteProject.plugin.persistence.PersistenceUtils"/>
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+	<plugin name="jaxbUtils" className="net.sf.minuteProject.utils.binding.JaxbUtils"></plugin>	
 	
 	<template-target 
     	name="JPA set"
@@ -19,7 +20,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" package-specific="false" 
-			model-specific="false" updatable="true"
+			model-specific="false" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property> 

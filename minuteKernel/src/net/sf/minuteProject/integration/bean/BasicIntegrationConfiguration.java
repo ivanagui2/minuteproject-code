@@ -58,7 +58,8 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		filterFile,
 		filterFileType,
 		virtualPrimaryKey,
-		templateRootDir
+		templateRootDir,
+		enableUpdatableAreaConvention
 		;
 	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
@@ -347,8 +348,6 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		this.password = password;
 	}
 
-
-
 	public PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicy() {
 		return primaryKeyPolicy;
 	}
@@ -513,6 +512,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	public void setTemplateRootDir(String templateRootDir) {
 		this.templateRootDir = templateRootDir;
+	}
+
+	public void setEnableUpdatableAreaConvention(String text) {
+		this.enableUpdatableAreaConvention = text;
+		
 	}
 	
 }
