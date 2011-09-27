@@ -17,9 +17,14 @@ public class ConventionPanel extends JPanel implements FillBasicConfiguration{
 	private JCheckBox virtualPkForViewsConvention;
 	private JTextField virtualPkForViewsConventionListTf;
 	
+	private JCheckBox enableUpdatableAreaConvention;
+	private JTextField enableUpdatableAreaConventionListTf;
+	
 	public void fill(BasicIntegrationConfiguration bic) {
 		if (virtualPkForViewsConvention.isSelected())
-			bic.setVirtualPrimaryKey(virtualPkForViewsConvention.getText());	
+			bic.setVirtualPrimaryKey(virtualPkForViewsConvention.getText());
+		if (enableUpdatableAreaConvention.isSelected())
+			bic.setEnableUpdatableAreaConvention(enableUpdatableAreaConvention.getText());		
 	}
 
 	public void fillPanel (JPanel panel) {
@@ -33,5 +38,26 @@ public class ConventionPanel extends JPanel implements FillBasicConfiguration{
 		virtualPkForViewsConventionListTf = createTextField("");
 		panel.add(virtualPkForViewsConventionListTf,"growx, span, wrap para");
 		
+		fillConvention(panel, 
+				       enableUpdatableAreaConvention, 
+				       "enable updatable areas",
+				       "Add and Modify generated code in specific areas without losing benefit of consecutive generations");
+	}
+
+	private void fillConvention (JPanel panel, JCheckBox jcb, String label, String tip) {
+		fillConvention(panel, jcb, null, label, tip);	
+	}
+	
+	private void fillConvention (JPanel panel, JCheckBox jcb, JTextField jtf, String label, String tip) {
+		jcb = new JCheckBox(label);
+		jcb.setToolTipText(tip);
+		jcb.setSelected(true);
+		jcb.setOpaque(true);
+		panel.add(createLabel(""));
+		panel.add(jcb, "skip");
+		if (jtf!=null) {
+			jtf = createTextField("");
+			panel.add(jtf,"growx, span, wrap para");
+		} 
 	}
 }
