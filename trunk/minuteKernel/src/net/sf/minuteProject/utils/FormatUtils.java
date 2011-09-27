@@ -15,12 +15,6 @@ public class FormatUtils {
 	public static final String CONVERT_TO_JAVA_VARIABLE_NAME = "CONVERT_TO_JAVA_VARIABLE_NAME";
 	public static final String CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD = "CONVERT_TO_JAVA_VARIABLE_NAME_CONVERTING_RESERVED_WORD";
 
-	// private static String getResultOfInputConversion (String input, String
-	// converter) {
-	//		
-	// }
-	//	
-	/**/
 	public static String getJavaName(String name) {
 		FormatCacheEntry fce = new FormatCacheEntry(name, CONVERT_TO_JAVA_NAME);
 		String value = FormatCache.getInstance().getCacheEntry(fce);
@@ -51,13 +45,14 @@ public class FormatUtils {
 		return value;
 	}
 
-	/*
-	 * public static String getJavaNameVariable(String name) { return
-	 * performGetJavaNameVariable(name); }
-	 * 
-	 * public static String getJavaName(String name) { return
-	 * performGetJavaName(name); }
-	 */
+	public static String getUppercaseUnderscore (String name) {
+		return name.toUpperCase();
+	}
+	
+	public static String getLowcaseHyphen (String name) {
+		name = name.toLowerCase();
+		return StringUtils.replace(name, "_", "-");
+	}	
 	public static String getDirFromPackage(String packageSt) {
 		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/"): "";
 	}

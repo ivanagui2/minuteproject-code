@@ -65,6 +65,7 @@ public class Template extends TemplateTarget {
 	private String appendEndPackageDir;
 	private String isToGenerate;
 	private boolean isUpdatable = false;
+	private boolean hasUpdatableNature = false;
 	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;
@@ -688,11 +689,19 @@ public class Template extends TemplateTarget {
 	}
 
 	public boolean isUpdatable() {
-		return isUpdatable;
+		return isUpdatable && hasUpdatableNature;
 	}
 
 	public void setUpdatable (boolean isUpdatable) {
 		this.isUpdatable = isUpdatable;
+	}
+
+	public boolean hasUpdatableNature() {
+		return hasUpdatableNature;
+	}
+
+	public void setHasUpdatableNature(boolean hasUpdatableNature) {
+		this.hasUpdatableNature = hasUpdatableNature;
 	}
 
 	public String getBeginningCommentSnippet() {

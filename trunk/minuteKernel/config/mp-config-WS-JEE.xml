@@ -1,9 +1,9 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<!--<conventions>
-			<target-convention type="disable-updatable-code-feature" />
-		</conventions>-->
+		<conventions>
+			<target-convention type="enable-updatable-code-feature" />
+		</conventions>
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
@@ -63,7 +63,7 @@
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>
-                 <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
                <!---->			   			   
 			</target>
 							
