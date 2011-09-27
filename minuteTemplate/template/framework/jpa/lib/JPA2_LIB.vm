@@ -21,6 +21,7 @@
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
 #set($useTemporal=$template.getPropertyValue("use-temporal",false))
+#set($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
@@ -87,4 +88,8 @@ import $importDomainObjectUML;
 #set ($jpa2ImplementationIsHibernate = ($jpa2Implementation=="hibernate"))
 #set ($jpa2ImplementationIsEclipseLink = ($jpa2Implementation=="eclipselink"))
 #set ($datasourceName=$persistenceUtils.getDatasourceName($model))
+#end
+
+#macro(exposeXmlElementValue)
+#set($xmlElementValue=$jaxbUtils.getXmlElementValue($column, $xmlFormat))
 #end
