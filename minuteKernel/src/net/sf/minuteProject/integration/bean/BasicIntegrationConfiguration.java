@@ -20,7 +20,9 @@ import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.TableDefaultPrimaryKeyConvention;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.TargetConvention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
@@ -58,21 +60,21 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		filterFile,
 		filterFileType,
 		virtualPrimaryKey,
-		templateRootDir,
-		enableUpdatableAreaConvention
+		templateRootDir
 		;
 	private PrimaryKeyPolicyPatternEnum primaryKeyPolicy;
 	private Technology choosenTechnology;
 	private Database choosenDatabase;
 	private List<Condition> conditions;
-	private List<Convention> conventions;
-	private Boolean areTablesIncluded, areViewsIncluded, isPkConventionSet=false;
+	private List<Convention> conventions, kernelConventions;
+	private Boolean areTablesIncluded, areViewsIncluded, enableUpdatableAreaConvention, isPkConventionSet=false;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
 		configuration.setModel(getModel());
 		configuration.setTargets(getTargets());
 		configuration.setCatalogDir(getCatalogDir());
+		configuration.setConventions(getKernelConventions());
 		return configuration;
 	}
 	
@@ -183,6 +185,13 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return enrichment;
 	}
 
+	private Conventions getKernelConventions() {
+		Conventions conventions = new Conventions();
+		fillKernelConventions();
+		conventions.setConventions(getKernelConventionList());
+		return conventions;
+	}
+	
 	private Conventions getConventions() {
 		Conventions conventions = new Conventions();
 		fillPkConventions();
@@ -196,11 +205,29 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return conventions;
 	}
 	
+	private List<Convention> getKernelConventionList() {
+		if (kernelConventions==null)
+			kernelConventions = new ArrayList<Convention>();
+		return kernelConventions;
+	}
+	
 	private void fillPkConventions() {
 		if (isPkConventionSet) {
 			getConventionList().add(getPkForTableConvention());
 			getConventionList().add(getPkForViewConvention());
 		}
+	}
+	
+	private void fillKernelConventions() {
+		if (isEnableUpdatableAreaConvention()) {
+			getKernelConventionList().add(getEnableUpdatableAreaConvention());
+		}
+	}
+
+	private Convention getEnableUpdatableAreaConvention() {
+		Convention convention = new TargetConvention();
+		convention.setType(TargetConvention.ENABLE_UPDATABLE_CODE);
+		return convention;		
 	}
 
 	private Convention getPkForTableConvention() {
@@ -514,9 +541,11 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		this.templateRootDir = templateRootDir;
 	}
 
-	public void setEnableUpdatableAreaConvention(String text) {
-		this.enableUpdatableAreaConvention = text;
-		
+	public void setEnableUpdatableAreaConvention(boolean value) {
+		this.enableUpdatableAreaConvention = value;
 	}
 	
+	public boolean isEnableUpdatableAreaConvention() {
+		return enableUpdatableAreaConvention;
+	}
 }
