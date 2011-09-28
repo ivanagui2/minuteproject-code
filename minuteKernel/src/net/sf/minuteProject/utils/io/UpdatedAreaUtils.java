@@ -4,8 +4,10 @@ import groovyjarjarasm.asm.ClassAdapter;
 
 import java.util.Map;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 public class UpdatedAreaUtils {
 
@@ -64,7 +66,8 @@ public class UpdatedAreaUtils {
 	
 	public static String getSnippet (Template template, Map<String, String> updatedAreas, String key) {
 		String s = getChunk (updatedAreas, key);
-		if (s!=null) return s;
+		if (s!=null) 
+			return s+comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER);
 		return getAddedAreaSnippet (template, key);
 	}
 	
@@ -94,12 +97,12 @@ public class UpdatedAreaUtils {
 	public static String getUpdatedAreaEndSnippet(Template template, String s) {
 		if (!template.isUpdatable()) return "";
 		StringBuffer sb = new StringBuffer();
-		sb.append("// "+MP_MANAGED_UPDATABLE_ENDING+"\n");
-		return sb.toString();
+		sb.append(MP_MANAGED_UPDATABLE_ENDING);
+		return comment(template, sb.toString());
 	}	
 
 	public static UpdatedAreaHolder getConstructorWithFieldSnippet(Template template, Map<String, String> updatedAreas) {
-		return getBeginSnippet (template, getConstructorWithFieldSnippet(), updatedAreas);
+		return getUpdatedAreaHolder (template, getConstructorWithFieldSnippet(), updatedAreas);
 	}
 	
 	private static String getConstructorWithFieldSnippet() {
@@ -107,22 +110,34 @@ public class UpdatedAreaUtils {
 	}
 
 	public static UpdatedAreaHolder getColumnAttributeBeginSnippet(Template template, Column column, Map<String, String> updatedAreas) {
-		return getBeginSnippet (template, getColumnAttribute(column), updatedAreas);
+		return getUpdatedAreaHolder (template, getColumnAttribute(column), updatedAreas);
 	}
 	
 	public static UpdatedAreaHolder getColumnGetterSetterBeginSnippet(Template template, Column column, Map<String, String> updatedAreas) {
-		return getBeginSnippet (template, getColumnGetterSetter(column), updatedAreas);
+		return getUpdatedAreaHolder (template, getColumnGetterSetter(column), updatedAreas);
 	}
 
+	public static UpdatedAreaHolder getColumnSnippet(Template template, Column column, Map<String, String> updatedAreas, String area) {
+		return getUpdatableSnippet (template, column, updatedAreas, area);
+	}
+	
+	public static UpdatedAreaHolder getUpdatableSnippet(Template template, GeneratorBean bean, Map<String, String> updatedAreas, String area) {
+		return getUpdatedAreaHolder (template, getUpdatableAreaKey(bean, area), updatedAreas);
+	}	
+	
 	private static String getColumnAttribute(Column column) {
-		return ATTRIBUTE+CONNECTOR+column.getName();
+		return getUpdatableAreaKey(column, ATTRIBUTE);
 	}
 	
 	private static String getColumnGetterSetter(Column column) {
-		return GETTER_SETTER+CONNECTOR+column.getName();
+		return getUpdatableAreaKey(column, GETTER_SETTER);
+	}
+	
+	private static String getUpdatableAreaKey(GeneratorBean bean, String area) {
+		return area+CONNECTOR+bean.getName();
 	}
 
-	public static UpdatedAreaHolder getBeginSnippet(Template template, String key, Map<String, String> updatedAreas) {
+	public static UpdatedAreaHolder getUpdatedAreaHolder(Template template, String key, Map<String, String> updatedAreas) {
 		UpdatedAreaHolder updatedAreaHolder = new UpdatedAreaHolder();
 		String s = getChunk (updatedAreas, key);
 		if (s!=null) {
@@ -132,13 +147,13 @@ public class UpdatedAreaUtils {
 			updatedAreaHolder.setUpdated(false);
 			updatedAreaHolder.setBeginSnippet(getUpdatedAreaBeginSnippet(template, key));
 		}
+		updatedAreaHolder.setEndSnippet(getUpdatedAreaEndSnippet(template, key));
 		return updatedAreaHolder;
 	}
-	
 
-	public static String getColumnEndSnippet(Template template, Column column) {
-		return getUpdatedAreaEndSnippet(template, column.getName());
-	}
+//	public static String getColumnEndSnippet(Template template, Column column) {
+//		return getUpdatedAreaEndSnippet(template, column.getName());
+//	}
 	
 
 }

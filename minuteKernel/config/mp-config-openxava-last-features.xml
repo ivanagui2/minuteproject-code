@@ -1,6 +1,9 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
+		<conventions>
+			<target-convention type="enable-updatable-code-feature" />
+		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.ox">
 			<data-model>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
