@@ -143,7 +143,7 @@ public class ${className} {
 #foreach ($column in ${table.attributes})
 #fieldAnnotationAddedAreas
 #updatedColumnAttributeAreas()
-$updatedAreaColumnBegin
+$!updatedAreaBegin
 #if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
@@ -173,9 +173,9 @@ $updatedAreaColumnBegin
 #elseif ($presentationUtils.isRichText($column))
     @Stereotype ("HTML_TEXT")
 #end
-    private $columnType $columnVar;
-$updatedAreaColumnEnd	
+    private $columnType $columnVar;	
 #end
+$!updatedAreaEnd
 #end
 
 #foreach ($reference in $table.parents)
@@ -329,7 +329,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
-$updatedAreaColumnBegin
+$!updatedAreaBegin
 #if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
@@ -346,7 +346,7 @@ $updatedAreaColumnBegin
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
-$updatedAreaColumnEnd 
+$!updatedAreaEnd 
 #end
 #end
 

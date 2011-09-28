@@ -132,7 +132,7 @@ public class ${className} implements Serializable {
     @Temporal(TemporalType.${column.type})
 #end
     private $columnType $columnVar; 
-$updatedAreaColumnEnd	
+$!updatedAreaEnd	
 #end
 #end
 #foreach ($reference in $table.parents)
@@ -337,7 +337,7 @@ $updatedAreaColumnEnd
 #end
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
-$updatedAreaColumnBegin
+$!updatedAreaBegin
 #if(!$isUpdated)
 #putColumnParams()
 #columnJavaNaming()
@@ -360,7 +360,7 @@ $updatedAreaColumnBegin
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
-$updatedAreaColumnEnd    
+$!updatedAreaEnd    
 #end
 #end
 

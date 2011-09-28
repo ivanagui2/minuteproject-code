@@ -675,25 +675,43 @@ import $importDaoInterfaceUML;
 #set ($isParentRelationshipSimplificable=$commonUtils.isParentRelationshipSimplificable($table, $reference))
 #end
 
+
+######## UPDATED AREAS
+
 #macro (addedAreas)
 #set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($template, $updatedAreas))
 #set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($template, $updatedAreas))
 #set ($updatedAreaClassAnnotation=$updatedAreaUtils.getClassAnnotationSnippet($template, $updatedAreas))
 #end
 
+#macro (exposeEntityUpdatedAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $table, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
+#macro (updatedColumnAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getColumnSnippet($template, $column, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
+#macro (updatedColumnAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getColumnSnippet($template, $column, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
 #macro (updatedColumnGetterSetterAreas)
-#set ($updatedAreaColumn=$updatedAreaUtils.getColumnGetterSetterBeginSnippet($template, $column, $updatedAreas))
-#updatedColumnAreasCommon()
+#set ($updatedArea=$updatedAreaUtils.getColumnGetterSetterBeginSnippet($template, $column, $updatedAreas))
+#updatedAreasCommon()
 #end
 
 #macro (updatedColumnAttributeAreas)
-#set ($updatedAreaColumn=$updatedAreaUtils.getColumnAttributeBeginSnippet($template, $column, $updatedAreas))
-#updatedColumnAreasCommon()
+#set ($updatedArea=$updatedAreaUtils.getColumnAttributeBeginSnippet($template, $column, $updatedAreas))
+#updatedAreasCommon()
 #end
 
 #macro (updatedConstructorWithFieldAreas)
-#set ($updatedAreaColumn=$updatedAreaUtils.getConstructorWithFieldSnippet($template, $updatedAreas))
-#updatedColumnAreasCommon()
+#set ($updatedArea=$updatedAreaUtils.getConstructorWithFieldSnippet($template, $updatedAreas))
+#updatedAreasCommon()
 #end
 
 #macro (fieldAnnotationAddedAreas)
@@ -703,14 +721,20 @@ $fieldAnnotationSnippet
 #end
 #end
 
-#macro (updatedColumnAreasCommon)
-#set ($updatedAreaColumnBegin=$updatedAreaColumn.beginSnippet)
-#set ($isUpdated=$updatedAreaColumn.isUpdated())
-#set ($updatedAreaColumnEnd=$updatedAreaUtils.getColumnEndSnippet($template, $column))
+##macro (updatedColumnAreasCommon)
+##set ($updatedAreaColumnBegin=$updatedAreaColumn.beginSnippet)
+##set ($isUpdated=$updatedAreaColumn.isUpdated())
+##set ($updatedAreaColumnEnd=$updatedAreaColumn.endSnippet)
+##end
+
+#macro (updatedAreasCommon)
+#set ($updatedAreaBegin=$updatedArea.beginSnippet)
+#set ($isUpdated=$updatedArea.isUpdated())
+#set ($updatedAreaEnd=$updatedArea.endSnippet)
 #end
 
 #macro (updatedAreaColumnBegin)
-#if($updatedAreaColumnBegin!="")
-$updatedAreaColumnBegin
+#if($updatedAreaBegin!="")
+$!updatedAreaBegin
 #end
 #end

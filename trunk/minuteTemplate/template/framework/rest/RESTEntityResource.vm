@@ -3,6 +3,7 @@
 #exposeEJBProperties()
 package $packageName;
 
+$!updatedAreaImport
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -52,9 +53,14 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
     @Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
 
+#exposeEntityUpdatedAreas("FINDALL")
+$!updatedAreaBegin
+#if(!$isUpdated)
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
         return ${EJBDaoImplVariable}.findAll($tableVariableName);
     }
+#end
+$!updatedAreaEnd
 
     @GET
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
@@ -120,5 +126,6 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
         return create($tableVariableName);
     }
 
+$!updatedAreaImplementation
 		
 }
