@@ -139,6 +139,7 @@ public class FileUtils {
     	    boolean isWithinAddedArea = false;
     	    String key=null;
     	    StringBuffer sb = null;
+    	    int cpt=0;
     	    //Read File Line By Line
     	    while ((strLine = br.readLine()) != null)   {
     	      // Print the content on the console
@@ -147,6 +148,7 @@ public class FileUtils {
     	    	   return areas;
     	       }
     	       if (!isWithinAddedArea) {
+    	    	   cpt=0;
     	    	   if (isBeginning(strLine)) {
     	    		   isWithinAddedArea=true;
     	    		   key = getKey(strLine);
@@ -157,15 +159,19 @@ public class FileUtils {
     	    	   if (isEnding(strLine)) {
     	    		   isWithinAddedArea=false;
     	    		   if (key!=null && sb.length()>0) {
-    	    			   sb.append(strLine+"\n");
+    	    			   //sb.append(strLine+"\n");
     	    			   areas.put(key, sb.toString());
     	    		   }
     	    		   key=null;
     	    	   } 
     	       }
     	       if (isWithinAddedArea) {
-    	    	   if (strLine!=null && sb!=null)
-    	    		   sb.append(strLine+"\n");
+    	    	   cpt++;
+    	    	   if (strLine!=null && sb!=null) {
+    	    		   if (cpt>1)
+    	    			   sb.append("\n");
+    	    		   sb.append(strLine);
+    	    	   }
     	       }
     	    }
     	    //Close the input stream
