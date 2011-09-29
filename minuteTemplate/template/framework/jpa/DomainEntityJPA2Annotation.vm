@@ -100,8 +100,10 @@ public class ${className} implements Serializable {
 #foreach ($column in ${table.attributes})
 #fieldAnnotationAddedAreas()
 #updatedColumnAttributeAreas()
-#updatedAreaColumnBegin()
-#if(!$isUpdated)
+$!updatedAreaBegin
+#if($isUpdated)
+$updatedAreaSnippet
+#else
 #putColumnParams()
 #columnJavaNaming()
 #if($isEnum)
@@ -132,8 +134,9 @@ public class ${className} implements Serializable {
     @Temporal(TemporalType.${column.type})
 #end
     private $columnType $columnVar; 
-$!updatedAreaEnd	
 #end
+$!updatedAreaEnd
+
 #end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
@@ -338,7 +341,9 @@ $!updatedAreaEnd
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
 $!updatedAreaBegin
-#if(!$isUpdated)
+#if($isUpdated)
+$updatedAreaSnippet
+#else
 #putColumnParams()
 #columnJavaNaming()
 #if ($column.isLob())
@@ -359,9 +364,10 @@ $!updatedAreaBegin
 	
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
-    }
-$!updatedAreaEnd    
+    }    
 #end
+$!updatedAreaEnd
+
 #end
 
 #foreach ($reference in $table.parents)

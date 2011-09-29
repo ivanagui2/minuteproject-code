@@ -717,7 +717,7 @@ import $importDaoInterfaceUML;
 #macro (fieldAnnotationAddedAreas)
 #set ($fieldAnnotationSnippet = $updatedAreaUtils.getFieldAnnotationSnippet($template, $column, $updatedAreas))
 #if ($fieldAnnotationSnippet!="")
-$fieldAnnotationSnippet
+$!fieldAnnotationSnippet
 #end
 #end
 
@@ -731,10 +731,23 @@ $fieldAnnotationSnippet
 #set ($updatedAreaBegin=$updatedArea.beginSnippet)
 #set ($isUpdated=$updatedArea.isUpdated())
 #set ($updatedAreaEnd=$updatedArea.endSnippet)
+#set ($updatedAreaSnippet=$updatedArea.snippet)
 #end
 
-#macro (updatedAreaColumnBegin)
+#macro (updatedAreaBegin)
 #if($updatedAreaBegin!="")
 $!updatedAreaBegin
+#end
+#end
+
+#macro (updatedAreaEnd)
+#if($updatedAreaEnd!="")
+$!updatedAreaEnd
+#end
+#end
+
+#macro (updatedAreaContent)
+#if($updatedAreaSnippet!="")
+$!updatedAreaSnippet
 #end
 #end
