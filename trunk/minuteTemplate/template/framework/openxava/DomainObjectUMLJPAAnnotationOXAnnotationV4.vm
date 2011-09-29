@@ -8,8 +8,7 @@
 #set($attributecount=$attributes.length)
 package $packageName;
 
-$updatedAreaImport
-
+$!updatedAreaImport
 import java.sql.*;
 import java.util.Date;
 import java.util.List;
@@ -105,7 +104,7 @@ properties=""
 #end
 )
 })
-$updatedAreaClassAnnotation
+$!updatedAreaClassAnnotation
 public class ${className} {
 
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
@@ -143,8 +142,10 @@ public class ${className} {
 #foreach ($column in ${table.attributes})
 #fieldAnnotationAddedAreas
 #updatedColumnAttributeAreas()
-$!updatedAreaBegin
-#if(!$isUpdated)
+#updatedAreaBegin()
+#if($isUpdated)
+#updatedAreaContent()	
+#else
 #putColumnParams()
 #columnJavaNaming()
 #if ($isView)
@@ -175,7 +176,8 @@ $!updatedAreaBegin
 #end
     private $columnType $columnVar;	
 #end
-$!updatedAreaEnd
+#updatedAreaEnd()
+
 #end
 
 #foreach ($reference in $table.parents)
@@ -330,7 +332,9 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
 $!updatedAreaBegin
-#if(!$isUpdated)
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 #putColumnParams()
 #columnJavaNaming()
 #if ($column.isLob())
@@ -345,9 +349,10 @@ $!updatedAreaBegin
 	
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
-    }
-$!updatedAreaEnd 
+    } 
 #end
+$!updatedAreaEnd
+
 #end
 
 #foreach ($reference in $table.parents)
@@ -416,5 +421,6 @@ $!updatedAreaEnd
 //   @Prepersist
 #end
 
-$updatedAreaImplementation
+$!updatedAreaImplementation
+
 }
