@@ -53,28 +53,37 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
     @Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
 
-#exposeEntityUpdatedAreas("FINDALL")
-$!updatedAreaBegin
-#if(!$isUpdated)
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
         return ${EJBDaoImplVariable}.findAll($tableVariableName);
     }
-#end
-$!updatedAreaEnd
 
+#exposeEntityUpdatedAreas("FIND_ALL")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
     @GET
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
     public List<$tableClassName> findAll () {
         return ${EJBDaoImplVariable}.findAll();
     }
-	
+#end
+$!updatedAreaEnd
+
 #if ($hasOnlyOnePrimaryKey)
+#exposeEntityUpdatedAreas("FIND_BY_ID")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else	
     @GET
     @Path("{$primaryKeyVariable}")
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
     public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
         return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
     }
+#end
+$!updatedAreaEnd
 
     @DELETE
     @Path("{$primaryKeyVariable}")
