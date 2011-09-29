@@ -2,7 +2,7 @@ package net.sf.minuteProject.utils.io;
 
 public class UpdatedAreaHolder {
 	
-	private String beginSnippet, endSnippet;
+	private String beginSnippet, endSnippet, snippet;
 	private boolean isUpdated;
 	
 	public UpdatedAreaHolder(){}
@@ -23,6 +23,21 @@ public class UpdatedAreaHolder {
 	}
 	public void setEndSnippet(String endSnippet) {
 		this.endSnippet = endSnippet;
+	}
+	public String getSnippet() {
+		return snippet;
+	}
+	public void setSnippet(String snippet) {
+		this.snippet = snippet;
 	} 
 	
+	String getContent () {
+//		if (isUpdated==false) return null;
+		StringBuffer sb = new StringBuffer();
+		sb.append(beginSnippet+"\n");
+		if (snippet!=null && !"".equals(snippet))
+			sb.append(snippet+"\n");
+		sb.append(endSnippet);
+		return sb.toString();
+	}
 }

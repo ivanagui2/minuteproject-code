@@ -28,14 +28,14 @@ public class UpdatedAreaUtils {
 
 	public static final String MP_MANAGED_UPDATABLE_BEGINNING_ENABLE = MP_MANAGED_UPDATABLE_BEGINNING+STATUS_ENABLE_APPENDIX;
 	public static final String MP_MANAGED_UPDATABLE_BEGINNING_DISABLE = MP_MANAGED_UPDATABLE_BEGINNING+STATUS_DISABLE_APPENDIX;
-	private static final String IMPORT = "import";
-	private static final String IMPLEMENTATION = "implementation";
-	private static final String CLASS_ANNOTATION = "class-annotation";
-	private static final String FIELD_ANNOTATION = "field-annotation";
-	private static final String CONNECTOR = "-";
-	private static final String GETTER_SETTER = "GETTER-SETTER";
-	private static final String ATTRIBUTE = "ATTRIBUTE";
-	private static final String CONSTRUCTOR_WITH_FIELDS = "CONSTRUCTOR-WITH-FIELDS";
+	public static final String IMPORT = "import";
+	public static final String IMPLEMENTATION = "implementation";
+	public static final String CLASS_ANNOTATION = "class-annotation";
+	public static final String FIELD_ANNOTATION = "field-annotation";
+	public static final String CONNECTOR = "-";
+	public static final String GETTER_SETTER = "GETTER-SETTER";
+	public static final String ATTRIBUTE = "ATTRIBUTE";
+	public static final String CONSTRUCTOR_WITH_FIELDS = "CONSTRUCTOR-WITH-FIELDS";
 
 	public static String getFieldAnnotationSnippet (Template template, Column column, Map<String, String> updatedAreas) {
 		return getAddedAreaSnippet(template, updatedAreas, getColumnAnnotation(column));
@@ -58,17 +58,16 @@ public class UpdatedAreaUtils {
 	}
 
 	public static String getAddedAreaSnippet (Template template, Map<String, String> updatedAreas, String key) {
-		if (!template.isUpdatable()) return "";
+		if (!template.isUpdatable()) return null;
 		String s = getSnippet (template, updatedAreas, key);
-		if (s!=null) return s;
-		return getAddedAreaSnippet (template, key);
+		return getAddedAreaSnippet (template, key, s).getContent();
 	}
 	
 	public static String getSnippet (Template template, Map<String, String> updatedAreas, String key) {
-		String s = getChunk (updatedAreas, key);
-		if (s!=null) 
-			return s+comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER);
-		return getAddedAreaSnippet (template, key);
+		return getChunk (updatedAreas, key);
+//		if (s!=null) 
+//			return s;//+comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER);
+//		return getAddedAreaSnippet (template, key);
 	}
 	
 	private static String getChunk(Map<String, String> updatedAreas, String key) {
@@ -76,17 +75,23 @@ public class UpdatedAreaUtils {
 		return updatedAreas.get(key);
 	}
 
-	public static String getAddedAreaSnippet(Template template, String s) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(comment(template, MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER)+"\n");
-		sb.append(comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER));
-		return sb.toString();
+	public static UpdatedAreaHolder getAddedAreaSnippet(Template template, String key, String snippet) {
+		UpdatedAreaHolder updatedAreaHolder = new UpdatedAreaHolder();
+		updatedAreaHolder.setBeginSnippet(comment(template, MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER));
+		updatedAreaHolder.setSnippet(snippet);
+		updatedAreaHolder.setEndSnippet(comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER));
+		return updatedAreaHolder;
 	}
 
-	public static String getUpdatedAreaBeginSnippet(Template template, String s) {
+	public static String getUpdatedAreaBeginSnippet(Template template, String s, boolean isUpdated) {
+		String directive = (isUpdated)?MP_MANAGED_UPDATABLE_BEGINNING_ENABLE:MP_MANAGED_UPDATABLE_BEGINNING_DISABLE;
+		return getManagedUpdatedAreaCommentSnippet(template, directive, s);
+	}
+	
+	public static String getManagedUpdatedAreaCommentSnippet(Template template, String directive, String key) {
 		if (!template.isUpdatable()) return "";
 		StringBuffer sb = new StringBuffer();	
-		sb.append(MP_MANAGED_UPDATABLE_BEGINNING_DISABLE+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER);
+		sb.append(directive+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER);
 		return comment(template, sb.toString());
 	}
 	
@@ -142,11 +147,14 @@ public class UpdatedAreaUtils {
 		String s = getChunk (updatedAreas, key);
 		if (s!=null) {
 			updatedAreaHolder.setUpdated(true);
-			updatedAreaHolder.setBeginSnippet(s);
+			updatedAreaHolder.setSnippet(s);
+			updatedAreaHolder.setBeginSnippet(getUpdatedAreaBeginSnippet(template, key, true));
 		} else {
 			updatedAreaHolder.setUpdated(false);
-			updatedAreaHolder.setBeginSnippet(getUpdatedAreaBeginSnippet(template, key));
+			updatedAreaHolder.setBeginSnippet(getUpdatedAreaBeginSnippet(template, key, false));
+//			updatedAreaHolder.setBeginSnippet(getUpdatedAreaBeginSnippet(template, key));
 		}
+		
 		updatedAreaHolder.setEndSnippet(getUpdatedAreaEndSnippet(template, key));
 		return updatedAreaHolder;
 	}
