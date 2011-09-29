@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.application.ModelGenerator;
@@ -640,4 +641,7 @@ public class CommonUtils {
 		return ConvertUtils.getJavaDefaultMask(column);
 	}
 	
+	public static boolean isEmpty(String s) {
+		return StringUtils.isEmpty(s);
+	}
 }
