@@ -140,7 +140,7 @@ public class FileUtils {
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			// skip first line
-			strLine = br.readLine();
+//			strLine = br.readLine();
 			boolean isWithinAddedArea = false;
 			String key = null;
 			StringBuffer sb = null;

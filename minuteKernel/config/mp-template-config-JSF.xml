@@ -11,23 +11,23 @@
 		libdir="lib/JSF_LIB.vm,lib/EJB_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
-		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" />
 
 		<template name="JSFBeanManagerMenu" templateFileName="JSFPrimefacesMenuBean.vm" 
 			file-extension="java" technicalPackage="menu" file-suffix="Menu" 
-			model-specific="true" add-model-name="true" >
+			model-specific="true" add-model-name="true" has-updatable-nature="true">
 		</template>	
 							 
 		<template name="JSFBeanManagerController" templateFileName="JSFBeanManagerController.vm" 
 			subdir="" outputsubdir="" technicalPackage="controller"
 			file-extension="java" file-prefix="" file-suffix="Controller" 
-			entity-specific="true" package-specific="false" model-specific="false"
+			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
-			entity-specific="true"
+			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
 		</template>		
@@ -42,7 +42,7 @@
 		<template name="JSFI18nProperties" templateFileName="I18nProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="i18n"
 			file-extension="properties" file-prefix="" file-suffix="" 
-			model-specific="true"
+			model-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="separator" value="_"/>
 		</template>
@@ -80,7 +80,7 @@
 			application-specific="true" add-model-name="false" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>		
-						
+
     </template-target>		
 
 	<template-target 
@@ -106,7 +106,7 @@
 		</template>
 						
     </template-target>
-      	
+
 	<template-target 
 	    templatedir = "template" 
 		libdir="lib/BslaLibrary.vm"
@@ -121,6 +121,6 @@
 			application-specific="true" add-model-name="false">
 		</template>	
 					
-	</template-target>	  	
-  	         		
+	</template-target>
+
 </target>

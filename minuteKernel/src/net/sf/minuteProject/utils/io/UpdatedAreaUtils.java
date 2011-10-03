@@ -15,7 +15,7 @@ public class UpdatedAreaUtils {
 	public static final String MP_MANAGED_ADDED_AREA = "MP-MANAGED-ADDED-AREA";
 	public static final String MP_MANAGED_ADDED_AREA_BEGIN_APPENDIX = "-BEGINNING";
 	public static final String MP_MANAGED_ADDED_AREA_END_APPENDIX = "-ENDING";
-	public static final String MP_MANAGED_REFERENCE_MARKER = "#";
+	public static final String MP_MANAGED_REFERENCE_MARKER = "@";
 	
 	public static final String MP_MANAGED_ADDED_AREA_BEGINNING = MP_MANAGED_ADDED_AREA+MP_MANAGED_ADDED_AREA_BEGIN_APPENDIX;
 	public static final String MP_MANAGED_ADDED_AREA_ENDING = MP_MANAGED_ADDED_AREA+MP_MANAGED_ADDED_AREA_END_APPENDIX;
@@ -32,6 +32,8 @@ public class UpdatedAreaUtils {
 	public static final String IMPLEMENTATION = "implementation";
 	public static final String CLASS_ANNOTATION = "class-annotation";
 	public static final String FIELD_ANNOTATION = "field-annotation";
+	public static final String I18N_BEGIN = "i18n-begin";
+	public static final String I18N_END   = "i18n-end";
 	public static final String CONNECTOR = "-";
 	public static final String GETTER_SETTER = "GETTER-SETTER";
 	public static final String ATTRIBUTE = "ATTRIBUTE";
@@ -65,9 +67,6 @@ public class UpdatedAreaUtils {
 	
 	public static String getSnippet (Template template, Map<String, String> updatedAreas, String key) {
 		return getChunk (updatedAreas, key);
-//		if (s!=null) 
-//			return s;//+comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+s+MP_MANAGED_REFERENCE_MARKER);
-//		return getAddedAreaSnippet (template, key);
 	}
 	
 	private static String getChunk(Map<String, String> updatedAreas, String key) {
@@ -159,9 +158,12 @@ public class UpdatedAreaUtils {
 		return updatedAreaHolder;
 	}
 
-//	public static String getColumnEndSnippet(Template template, Column column) {
-//		return getUpdatedAreaEndSnippet(template, column.getName());
-//	}
-	
+	public static String getI18nBegin(Template template, Map<String, String> updatedAreas) {
+		return getAddedAreaSnippet(template, updatedAreas, I18N_BEGIN);
+	}
+
+	public static String getI18nEnd(Template template, Map<String, String> updatedAreas) {
+		return getAddedAreaSnippet(template, updatedAreas, I18N_END);
+	}
 
 }
