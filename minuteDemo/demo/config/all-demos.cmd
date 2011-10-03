@@ -15,6 +15,7 @@ call demo-last-features-spring-jpa.cmd
 @rem incubator generations
 echo "incubator generations"
 call demo-REST-JEE.cmd
+call demo-WS-JEE.cmd
 call demo-JSF-primefaces.cmd
 call demo-draft-features-vaadin-spring-hibernate.cmd
 call demo-last-features-roo.cmd

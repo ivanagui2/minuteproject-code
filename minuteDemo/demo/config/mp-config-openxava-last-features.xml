@@ -1,7 +1,10 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop" version="1.0" package-root="sf.net.mp.demo.ox">
+		<conventions>
+			<target-convention type="enable-updatable-code-feature" />
+		</conventions>	
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.ox">
 			<data-model>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
