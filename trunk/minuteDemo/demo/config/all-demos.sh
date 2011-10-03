@@ -15,6 +15,7 @@ echo "last feature generations"
 #rem incubator generations
 echo "incubator generations"
 ./demo-REST-JEE.sh
+./demo-WS-JEE.sh
 ./demo-JSF-primefaces.sh
 ./demo-draft-features-vaadin-spring-hibernate.sh
 ./demo-last-features-roo.sh

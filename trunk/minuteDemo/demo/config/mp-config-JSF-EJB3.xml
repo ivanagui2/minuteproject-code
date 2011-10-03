@@ -1,8 +1,10 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
-			
+		<conventions>
+			<target-convention type="enable-updatable-code-feature" />
+		</conventions>	
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">			
 			<data-model>
 			    <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
 			    <fileSource name="petshop" dir="c:/MinuteProject/data">
