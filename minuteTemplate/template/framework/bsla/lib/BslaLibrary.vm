@@ -72,6 +72,7 @@
 #set ($configuration = $model.configuration)
 #set ($businessPackages = $model.businessModel.businessPackage.packages)
 #set ($businessPackageViews = $model.businessModel.businessPackage.packageViews)
+##set ($businessPackageEntities = $model.businessModel.businessPackage.entities)
 #set ($businessPackageTranferEntities = $model.businessModel.businessPackage.packageTransferEntities)
 #set ($entities = $model.businessModel.businessPackage.entities)
 #set ($className = $commonUtils.getClassName($model, $template))

@@ -1,7 +1,9 @@
 ##exposeEJBDomainObjectSpecific()
 #exposeJPASpecifics()
+#addedAreas()
 package $packageName;
 
+$!updatedAreaImport
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import $importDomainObjectUML;
  */
 @Stateless
 public class ${className} {
-    
+
 	@PersistenceContext(unitName = "$unitName", type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 	
@@ -64,5 +66,6 @@ public class ${className} {
 	public void delete ($tableClassName $tableVariableName) {
 		em.remove (${tableVariableName});
 	}
-		
+
+$!updatedAreaImplementation
 }

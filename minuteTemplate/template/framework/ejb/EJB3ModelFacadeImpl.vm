@@ -1,4 +1,7 @@
-#exposeEJBDomainObjectSpecific()
+#exposeVariableModelSpecific()
+#exposeEJBModelObject()
+#addedAreas()
+#set($className2=$className)
 package $packageName;
 
 $!updatedAreaImport
@@ -20,14 +23,21 @@ import javax.jws.WebService;
 
 import javax.inject.Inject;
 
+#foreach ($table in ${entities})
+#if (!$table.isManyToMany())
+#exposeEJBDomainObjectSpecific()
 import $importDomainObjectUML;
 import $EJBDaoImplImport;
 import $EJBFacadeRemoteInterfaceImport;
+#end
+#end
+
+#set($className=$className2)
 /**
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: remote interface for ${className} service </p>
+ * <p>Description: WebService for ${model.name}  </p>
  *
  */
 
@@ -35,36 +45,41 @@ import $EJBFacadeRemoteInterfaceImport;
            ,serviceName="${className}")
 public class ${className} {
     
+
+#foreach ($table in ${entities})
+#if (!$table.isManyToMany())
+#exposeEJBDomainObjectSpecific()
 	@Inject
-    private $EJBDaoImplClass dao;
-	
-    public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
-		return dao.findAll($tableVariableName);
+	private $EJBDaoImplClass $EJBDaoImplVariable;
+#end
+#end
+
+#foreach ($table in ${entities})
+#if (!$table.isManyToMany())
+#exposeEJBDomainObjectSpecific()	
+	public List<$tableClassName> findAll$tableClassName ($tableClassName $tableVariableName) {
+		return ${EJBDaoImplVariable}.findAll($tableVariableName);
 	}
 
 #if ($hasOnlyOnePrimaryKey)
-	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
-		return dao.find($primaryKeyVariable);
+	public $tableClassName find${tableClassName}ById ($primaryKeyFullType $primaryKeyVariable) {
+		return ${EJBDaoImplVariable}.find($primaryKeyVariable);
 	}
 
 #end
-#if ($hasSemanticReference)
-	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
-		return em.find (${tableClassName}.class, $primaryKeyVariable);
+	public $tableClassName create${tableClassName} ($tableClassName $tableVariableName) {
+		return ${EJBDaoImplVariable}.create($tableVariableName);
 	}
 	
+	public $tableClassName update${tableClassName} ($tableClassName $tableVariableName) {
+		return ${EJBDaoImplVariable}.update (${tableVariableName});
+	}
+	
+	public void delete${tableClassName} ($tableClassName $tableVariableName) {
+		${EJBDaoImplVariable}.delete (${tableVariableName});
+	}
 #end
-	public $tableClassName create ($tableClassName $tableVariableName) {
-		return dao.create($tableVariableName);
-	}
-	
-	public $tableClassName update ($tableClassName $tableVariableName) {
-		return dao.update (${tableVariableName});
-	}
-	
-	public void delete ($tableClassName $tableVariableName) {
-		dao.delete (${tableVariableName});
-	}
-	
+#end
+		
 $!updatedAreaImplementation
 }

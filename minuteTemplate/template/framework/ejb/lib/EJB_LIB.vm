@@ -22,11 +22,17 @@
 #set ($EJBFacadeRemoteInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectEJBFacadeRemoteInterface))
 #end
 
+#macro (exposeEJBModelObject)
+#exposeEJBTemplate()
+#set ($EJBModelFacadeImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateModelEJBFacadeImpl))
+#end
+
 #macro (exposeEJBTemplate)
 #set ($templateDomainObjectEJBDaoImpl = "EJB3DaoImpl")
 #set ($templateDomainObjectEJBDaoRemoteInterface = "EJB3DaoRemoteInterface")
 #set ($templateDomainObjectEJBFacadeImpl = "EJB3FacadeImpl")
 #set ($templateDomainObjectEJBFacadeRemoteInterface = "EJB3FacadeRemoteInterface")
+#set ($templateModelEJBFacadeImpl = "EJB3ModelFacadeImpl")
 #end
 
 #macro (exposeEJBProperties)
