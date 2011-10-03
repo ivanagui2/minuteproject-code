@@ -16,9 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>template</name>
+			<name>minuteTemplate</name>
 			<type>2</type>
-			<location>C:/MINUTEPROJECT/minuteTemplate</location>
+			<location>D:/DEV/MINUTEPROJECT/TRUNK/trunk/minuteTemplate</location>
 		</link>
 	</linkedResources>
 </projectDescription>
