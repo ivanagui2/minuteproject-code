@@ -55,7 +55,7 @@
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/WS-JEE/petshop/JPA2"
+			   outputdir-root="../output/WS-JEE/petshop/JPA2"
 			   templatedir-root="../../template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
@@ -70,24 +70,24 @@
 			<target refname="WS-JEE-ejb" 
 			   name="WS-JEE-ejb" 
 			   fileName="mp-template-config-WS-JEE-ejb.xml" 
-			   outputdir-root="../../output/WS-JEE/petshop/EJB3"
+			   outputdir-root="../output/WS-JEE/petshop/EJB3"
 			   templatedir-root="../../template/framework/ejb">			   			   
 			</target> 		
 			<target refname="WS-JEE-war" 
 			   name="WS-JEE-war" 
 			   fileName="mp-template-config-WS-JEE-war.xml" 
-			   outputdir-root="../../output/WS-JEE/petshop/WS"
+			   outputdir-root="../output/WS-JEE/petshop/WS"
 			   templatedir-root="../../template/framework/webservice">			   			   
 			</target>
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../output/WS-JEE/petshop"
+			   outputdir-root="../output/WS-JEE/petshop"
 			   templatedir-root="../../template/framework/maven">
 			</target> 
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../../output/WS-JEE/petshop"
+			   outputdir-root="../output/WS-JEE/petshop"
 			   templatedir-root="../../template/template">
 			</target>	
 		</targets>
