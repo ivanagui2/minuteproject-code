@@ -213,7 +213,7 @@
 			name="PersistenceXmlOX" templateFileName="JPA.persistence.xml.OX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			 has-updatable-nature="true" model-specific="true">
 		</template>		
 											
   	</template-target>
