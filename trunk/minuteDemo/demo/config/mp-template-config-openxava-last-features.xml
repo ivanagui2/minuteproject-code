@@ -97,7 +97,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			add-model-dir-name="false"
 			file-extension="properties" file-prefix="" file-suffix="-labels" 
-			application-specific="true"
+			application-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
 			<!--check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"-->
 		</template>
