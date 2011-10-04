@@ -505,11 +505,11 @@ public class TableDDLUtils extends TableAbstract {
 		table.setType(type);		
 	}
 
-   public boolean isManyToMany() {
-//   	table.getColumnCount();
-    	return (getColumnCount() == 2) 
-    	        && (getParents().length == 2);
-    }
+//   public boolean isManyToMany() {
+////   	table.getColumnCount();
+//    	return (getColumnCount() == 2) 
+//    	        && (getParents().length == 2);
+//    }
 
 //	public String getAlias () {
 //		return super.getAlias();
