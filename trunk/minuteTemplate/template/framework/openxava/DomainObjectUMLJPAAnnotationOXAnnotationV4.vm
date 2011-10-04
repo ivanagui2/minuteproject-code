@@ -44,10 +44,10 @@ import org.openxava.annotations.*;
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
 #end
-#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))##$table.parents)
-#putReferenceParams2()
-	    + "${localColumnVariable};"  
-#end	
+##foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))##$table.parents)
+##putReferenceParams2()
+##	    + "${localColumnVariable};"  
+##end	
 		),
 	@View(
 		name="Create", 
