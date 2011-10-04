@@ -98,7 +98,8 @@
 		 	</fileset>
 		  	</copy>
 	</target>
-	<target name="release-architecture-fitnesse" depends="build-architecture-fitnesse,copy-architecture-fitnesse-dependencies"></target>
+	<target name="release-architecture-fitnesse" 
+		depends="build-architecture-fitnesse,copy-architecture-fitnesse-dependencies"></target>
 	
 	<target name="copy-kernel-dependencies">
 	  <copy todir="${application.lib.dir}" overwrite="true">
@@ -159,16 +160,24 @@
 	  		
 	<target name="release-console" depends="build-console-dependencies, distribute-console, copy-console-dependencies" >
 	</target>
-		
+
+	<target name="test-console-locally">
+	  <copy todir="${catalog.dev.relpath}" overwrite="true">
+	 	<fileset dir="${demo.config.dev.relpath}">
+	 		<include name="mp-template-config-*.xml"/>	 		
+	 	</fileset>
+		  </copy>	  	
+	 </target>
+	  	
 	<target name="copy-template-dependencies">
 	  <filter token="templateRoot" value="${templateRoot}"/>
 	  <copy todir="${catalog.dir}" overwrite="true" filtering="true">
 	 	<fileset dir="${catalog.dev.relpath}">
-	 		<include name="**/*.xml"/>	 		
+	 		<include name="**/*-catalog.xml"/>	 		
 	 	</fileset>	  	
 	  </copy>
 	  <copy todir="${catalog.dir}" overwrite="true" filtering="true">
-	 	<fileset dir="${demo.dev.relpath}/demo/config">
+	 	<fileset dir="${demo.config.dev.relpath}">
 	 		<include name="mp-template-config*.*"/>
 	 	</fileset>	  	
 	  </copy>		
