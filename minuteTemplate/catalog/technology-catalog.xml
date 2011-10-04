@@ -195,7 +195,7 @@
          comment=""
          description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">   
 	      <frameworks>
-	        <framework name="OpenXava" version="4.2.2"></framework>
+	        <framework name="OpenXava" version="4.2.3"></framework>
 	      </frameworks>        
 	 </technology>
 	 		 

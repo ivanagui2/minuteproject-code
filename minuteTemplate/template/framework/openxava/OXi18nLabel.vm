@@ -1,3 +1,6 @@
+#set ($updatedAreaI18nBegin=$updatedAreaUtils.getI18nBegin($template, $updatedAreas))
+#set ($updatedAreaI18nEnd=$updatedAreaUtils.getI18nEnd($template, $updatedAreas))
+$!updatedAreaI18nBegin
 #exposeVariableComponentSpecific()
 #foreach ($table in $modelEntities)
 #exposeVariableEntitySpecific()
@@ -41,3 +44,4 @@ ${targetTableVariableName}Via${linkTableName}By${localColumnName}s=$linkTableLab
 ${targetTableVariableName}Via${linkTableName}By${localColumnName}s[description]=$linkTableLabels
 #end
 #end
+$!updatedAreaI18nEnd
