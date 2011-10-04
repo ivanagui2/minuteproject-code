@@ -3,13 +3,10 @@ package net.sf.minuteProject.configuration.bean.enrichment.convention;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
-
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 public class GlobalConvention extends ModelConvention {
