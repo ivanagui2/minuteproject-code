@@ -1,6 +1,7 @@
 #exposeVariableModelSpecific()
 #exposeJdbc()
 #exposeJPASpecifics()
+#addedAreas()
 #set ($applicationOX=$configuration.name)
 #set ($hibernateDialect = $hibernate3.getDialect($database))
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
@@ -14,6 +15,7 @@
     	<class>org.openxava.session.GalleryImage</class>
         <properties>
             <property name="hibernate.dialect" value="$hibernateDialect"/>
+$!updatedAreaImport			
 #if($isSchemaNeeded)
             <property name="hibernate.default_schema" value="$schemaName"/>
 #end
