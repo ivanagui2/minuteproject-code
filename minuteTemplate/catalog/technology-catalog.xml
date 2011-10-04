@@ -21,7 +21,7 @@
          templatedir-ref="@templateRoot@/framework/ejb" 
          template-dir="@templateRoot@/framework/rest" 
          status="released"
-         description="Generates:\REST CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
+         description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
 	      <frameworks>
 	      	<framework name="jersey" version="1.9"></framework>
 	      </frameworks> 
@@ -29,7 +29,19 @@
 	      <property name="use-temporal" value="true"></property> 
 	      <property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>	             
 	 </technology> 
-	 	 
+
+	 <technology name="WS-JEE" target-name="WS-JEE"
+         template-config-file-name="mp-template-config-WS-JEE-ejb.xml" 
+         default-outputdir="EJB3"
+         depends-on-targets="WS-JEE-war,BSLA_LIB,JPA2,MavenMaster"
+         templatedir-ref="@templateRoot@/framework/ejb" 
+         template-dir="@templateRoot@/framework/rest" 
+         status="released"
+         description="Generates:\WebService CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\maven integration">
+	      <property name="add-xmlbinding" value="true"></property> 
+	      <property name="use-temporal" value="true"></property> 
+	 </technology>
+	 	 	 
 	 <technology name="JSF-primefaces" target-name="JSF-primefaces"
          template-config-file-name="mp-template-config-JSF.xml" 
          default-outputdir="JSF-primefaces"
@@ -43,13 +55,28 @@
 	        <framework name="JSF" version="2"></framework>
 	      </frameworks>  	             
 	 </technology> 
-	
+
+	<technology name="WS-JEE-war" target-name="WS-JEE-war"
+	   template-config-file-name="mp-template-config-WS-JEE-war.xml" 
+	   template-dir="@templateRoot@/framework/webservice"
+	   default-outputdir="WS"
+	   is-generable="false">
+	</technology>
+		
 	<technology name="MavenMaster" target-name="MavenMaster"
 	   template-config-file-name="mp-template-config-maven.xml" 
 	   template-dir="@templateRoot@/framework/maven"
 	   is-generable="false">
 	</technology> 	
 
+	<!--<technology name="WS-JEE-ejb" target-name="WS-JEE-ejb"
+	   template-config-file-name="mp-template-config-WS-JEE-ejb.xml" 
+	   template-dir="@templateRoot@/framework/ejb"
+	   is-generable="false">
+	</technology>-->
+	
+
+	
 	<technology name="i18n_LIB" target-name="i18n_LIB"
 	   template-config-file-name="mp-template-config-i18n-LIB.xml" 
 	   template-dir="@templateRoot@/framework/i18n"
