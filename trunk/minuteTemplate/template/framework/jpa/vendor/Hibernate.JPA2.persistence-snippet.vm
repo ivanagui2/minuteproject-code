@@ -18,4 +18,5 @@
             <property name="hibernate.format_sql" value="false" />	
 #end
             <property name="hibernate.dialect" value="$hibernate3.getDialect($database)"/>
+#addArea("properties")
 		</properties> 
