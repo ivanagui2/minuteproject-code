@@ -690,6 +690,11 @@ import $importDaoInterfaceUML;
 #updatedAreasCommon()
 #end
 
+#macro (exposeModelUpdatedAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $model, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
 #macro (updatedColumnAreas $area)
 #set ($updatedArea=$updatedAreaUtils.getColumnSnippet($template, $column, $updatedAreas, $area))
 #updatedAreasCommon()
@@ -751,4 +756,8 @@ $updatedAreaEnd
 #if(!$commonUtils.isEmpty($updatedAreaSnippet))
 $updatedAreaSnippet
 #end
+#end
+
+#macro(addArea $area) 
+$!updatedAreaUtils.getAddedAreaSnippet($template, $updatedAreas, $area)
 #end

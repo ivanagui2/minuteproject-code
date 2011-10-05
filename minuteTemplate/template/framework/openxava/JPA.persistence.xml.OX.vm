@@ -1,7 +1,6 @@
 #exposeVariableModelSpecific()
 #exposeJdbc()
 #exposeJPASpecifics()
-#addedAreas()
 #set ($applicationOX=$configuration.name)
 #set ($hibernateDialect = $hibernate3.getDialect($database))
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
@@ -15,12 +14,19 @@
     	<class>org.openxava.session.GalleryImage</class>
         <properties>
             <property name="hibernate.dialect" value="$hibernateDialect"/>
-$!updatedAreaImport			
+            <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
+            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache.xml" />
+            <property name="hibernate.cache.use_query_cache" value="true" />
+            <property name="hibernate.cache.use_second_level_cache" value="true" />
+            <property name="hibernate.generate_statistics" value="true" />			
+#addArea("properties")
 #if($isSchemaNeeded)
             <property name="hibernate.default_schema" value="$schemaName"/>
 #end
         </properties>
+#addArea("persistence-unit")
     </persistence-unit>       
-    
-    
+
+#addArea("persistence")
+
 </persistence>

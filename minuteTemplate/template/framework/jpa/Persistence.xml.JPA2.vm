@@ -38,6 +38,9 @@
 #if($jpa2ImplementationIsHibernate)
 #parse("./vendor/Hibernate.JPA2.persistence-snippet.vm")
 #end
+#addArea("persistence-unit")
     </persistence-unit>
-	
+
+#addArea("persistence")
+
 </persistence>

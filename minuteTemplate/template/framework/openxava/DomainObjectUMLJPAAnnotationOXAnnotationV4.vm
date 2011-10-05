@@ -2,6 +2,7 @@
 #exposeEnvironmentParams()
 #exposeOXDomainSpecific()
 #putImportParamsUML()
+#exposeEntityCache()
 #addedAreas()
 #set($defaultViewExt="DEFAULT_VIEW")
 ##set($attributes=$table.attributes)
@@ -104,6 +105,9 @@ properties=""
 #end
 )
 })
+#if($hasCache)
+@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
+#end
 $!updatedAreaClassAnnotation
 public class ${className} {
 
