@@ -59,7 +59,11 @@
 			<target refname="JPA2-LIB" 
 			   fileName="mp-template-config-JPA2-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
-			</target>			
+			</target>
+			<target refname="CACHE-LIB" 
+			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/cache">
+			</target>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">

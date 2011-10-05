@@ -15,7 +15,7 @@
 		libdir="lib/OX_LIB.vm"
 		outputdir="src"
 		belongToPackage="true">
-			 
+
 		<template name="OpenxavaDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
@@ -63,7 +63,7 @@
 			scope-specific-value="function-output-entity" >
       		<property name="convertClobToString" value="true"/>
 		</template>	
-				
+		
     </template-target>		
   
     <template-target 
@@ -132,7 +132,6 @@
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>	
 
-    
 	    <template package-root="WEB-INF"
 	  		name="OpenXavaSecurityWebXml" templateFileName="OpenXavaSecurityWebXml.vm" 
 	  		subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
@@ -214,8 +213,16 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" 
 			 has-updatable-nature="true" model-specific="true">
-		</template>		
-											
+		</template>
+
+		<template name="EhCacheXml" templateFileName="EhCache.Xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="ehcache" file-suffix="" 
+			application-specific="true" package-root=""
+			add-model-name="false">
+			<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
+		</template>
+
   	</template-target>
 
 <!-- 
