@@ -1,0 +1,14 @@
+<target name="EHCACHE">		
+	<architecture-target name="ehcache" description="ehcache architecture">
+	</architecture-target>	
+	<plugin name="cacheUtils" className="net.sf.minuteProject.utils.cache.CacheUtils"></plugin>
+
+	<template-target 
+    	name="EHCACHE lib"
+		libdir="lib/CACHE_LIB.vm"
+		outputdir="src"
+		belongToPackage="true">
+	
+    </template-target>		
+         		
+</target>
