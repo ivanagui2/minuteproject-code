@@ -56,6 +56,11 @@
 			   outputdir-root="../output/openxava/petshopOpenXava"
 			   templatedir-root="../../template/framework/openxava">
 			</target> 		
+
+			<target refname="CACHE-LIB" 
+			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   templatedir-root="../../template/framework/cache">
+			</target>
 		</targets>
 	</configuration>
 </generator-config>
