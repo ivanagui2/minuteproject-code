@@ -1,5 +1,6 @@
 package net.sf.minuteProject.configuration.bean;
 
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
 public class Model extends AbstractConfiguration{
@@ -101,5 +102,8 @@ public class Model extends AbstractConfiguration{
 		this.version = version;
 	}		
 	
+	public String getAlias() {
+		return FormatUtils.getJavaName(super.getAlias()).toLowerCase();
+	}
 	
 }
