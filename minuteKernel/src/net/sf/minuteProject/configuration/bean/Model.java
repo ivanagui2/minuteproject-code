@@ -12,6 +12,19 @@ public class Model extends AbstractConfiguration{
 	private BusinessModel businessModel;
 	private FunctionModel functionModel;
 	private Configuration configuration;
+	private WebServiceModel webServiceModel;
+
+	public WebServiceModel getWebServiceModel() {
+		if (webServiceModel==null) {
+			webServiceModel=new WebServiceModel();
+			webServiceModel.setModel(this);
+		}		
+		return webServiceModel;
+	}
+
+	public void setWebServiceModel(WebServiceModel webServiceModel) {
+		this.webServiceModel = webServiceModel;
+	}
 
 	public Configuration getConfiguration() {
 		return configuration;

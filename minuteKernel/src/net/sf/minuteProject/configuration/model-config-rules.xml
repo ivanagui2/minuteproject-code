@@ -31,7 +31,22 @@
 		<alias attr-name="version" prop-name="version" />
 		<alias attr-name="package-root" prop-name="packageRoot" />
 	</set-properties-rule>
-	<set-properties-rule/>		  
+	<set-properties-rule/>
+	<pattern value="webservice-model">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.WebServiceModel"/>		
+		<set-next-rule methodname="setWebServiceModel" paramtype="net.sf.minuteProject.configuration.bean.WebServiceModel"/>		
+		<bean-property-setter-rule pattern="schema"/>
+		<pattern value="wsdl">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.webservice.Wsdl"/>	
+			<set-next-rule methodname="setWsdl" paramtype="net.sf.minuteProject.configuration.bean.model.webservice.Wsdl"/>			
+			<set-properties-rule>
+				<alias attr-name="name" prop-name="name" />
+				<alias attr-name="dir" prop-name="directory" />
+				<alias attr-name="file" prop-name="file" />
+				<alias attr-name="location-uri" prop-name="locationUri" />
+			</set-properties-rule>
+		</pattern>
+	</pattern>
 	<pattern value="data-model">
 		<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
 		<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
