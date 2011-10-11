@@ -237,4 +237,9 @@ public class FormatUtils {
 	private static String convertReservedWord(String word) {
 		return "_" + word;
 	}
+
+	public static String convertAttributeText(String description) {
+		if (StringUtils.isEmpty(description)) return "";
+		return StringUtils.replace(description, "\\", "\n");
+	}
 }

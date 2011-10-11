@@ -119,6 +119,8 @@ public class ColumnUtils {
 			column.getType().equals("NUMBER") ||
 			column.getType().equals("DECIMAL") )
 			return "Long.valueOf(\"-1\")";
+		if (column.getType().equals("FLOAT"))
+			return "java.math.BigDecimal.valueOf(-1)";		
 		return "\"\"";
 	}
 	

@@ -7,7 +7,15 @@ public class Wsdl extends AbstractConfiguration{
 
 	WebServiceModel webServiceModel;
 	private String locationUri;
-	private String dir, file;
+	private String rootdir, dir, file;
+
+	public String getRootdir() {
+		return rootdir;
+	}
+
+	public void setRootdir(String rootdir) {
+		this.rootdir = rootdir;
+	}
 
 	public String getDir() {
 		return dir;

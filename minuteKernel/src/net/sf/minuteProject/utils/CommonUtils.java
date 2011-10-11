@@ -644,4 +644,8 @@ public class CommonUtils {
 	public static boolean isEmpty(String s) {
 		return StringUtils.isEmpty(s);
 	}
+	
+	public static String getReadMeText(Template template) {
+		return FormatUtils.convertAttributeText(template.getDescription());
+	}
 }
