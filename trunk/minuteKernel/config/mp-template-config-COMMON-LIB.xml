@@ -1,0 +1,9 @@
+<target name="Common">		
+	<template-target 
+    	name="Common set"
+		libdir="lib/COMMON_LIB.vm"
+		outputdir="src"
+		belongToPackage="true">
+    </template-target>		
+
+</target>

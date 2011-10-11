@@ -10,7 +10,16 @@ public class WsdlUtils {
 		model.getWebServiceModel().getWsdl().getDir()
 	}
 	
-	static getWsdlFile (Model model) {
+	static getWsdlRootDirectory (Model model) {
+		model.getWebServiceModel().getWsdl().getRootdir()
+	}
+	
+	static hasWsdlRootDirectory (Model model) {
+		def s = model.getWebServiceModel().getWsdl().getRootdir()
+		s!=null && !s.equals ("")
+	}
+
+		static getWsdlFile (Model model) {
 		model.getWebServiceModel().getWsdl().getFile()
 	}
 }

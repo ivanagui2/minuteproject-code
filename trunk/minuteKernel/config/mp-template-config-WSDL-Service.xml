@@ -7,7 +7,7 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
-		<template name="PomXml.WSDL-Impl" templateFileName="PomXml.WSDL-Impl.vm" 
+		<template name="PomXml.WSDL-Service" templateFileName="PomXml.WSDL-Service.vm" 
 			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
@@ -16,13 +16,14 @@
 	
 	<template-target 
     	name="webservice set"
-		outputdir="src/main/webapp/WEB-INF"
+		outputdir="src/main/java"
 		package-root=""
 		belongToPackage="true">
 			 
-		<template name="WebXml.WSDL-Impl" templateFileName="WebXml.WSDL-Impl.vm" 
-			file-extension="xml" technicalPackage="" file-suffix="web" 
-			application-specific="true" add-model-name="false" >
+		<template name="README-WSDL-Service" templateFileName="README.vm" 
+			file-extension="text" technicalPackage="" file-suffix="README" 
+			application-specific="true" add-model-name="false" 
+			description="Add your java service implementation classes here\good luck!">
 		</template>
 	
     </template-target>
