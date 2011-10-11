@@ -3,28 +3,29 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
   	<groupId>${rootPackage}.${model.name}</groupId>
-  	<artifactId>${model.name}WebServiceImpl</artifactId>
-	<name>${model.name}WebServiceImpl</name>
-  	<packaging>war</packaging>
+  	<artifactId>${model.name}Service</artifactId>
+	<name>${model.name}Service</name>
+  	<packaging>jar</packaging>
   	<version>${version}-SNAPSHOT</version>
-  	<description>$DbApiName Web service implementation</description>
+  	<description>$DbApiName service</description>
     <url>http://maven.apache.org</url>
 	
 	<dependencies>
 #addArea("custom-dependencies")
 		<dependency>
-			<groupId>${rootPackage}.${model.name}</groupId>
-			<artifactId>${model.name}WebServiceApi</artifactId>
-			<version>${version}-SNAPSHOT</version>
+            <groupId>${rootPackage}.${model.name}</groupId>
+            <artifactId>${model.name}WebServiceApi</artifactId>
+            <version>${version}-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>${rootPackage}.${model.name}</groupId>
-			<artifactId>${model.name}Service</artifactId>
+			<artifactId>$DbApiName</artifactId>
 			<version>${version}-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 #addArea("custom-plugins")
@@ -47,6 +48,7 @@
 	</build>
 	<dependencyManagement>
 		<dependencies>
+#addArea("custom-dependencies")
 		</dependencies>
 	</dependencyManagement>
 #addArea("custom-pomization")

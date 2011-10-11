@@ -68,4 +68,6 @@ $!updatedAreaEnd
 #end
 #end
 
+#addArea("custom-cache-definition")
+
 </ehcache>
