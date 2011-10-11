@@ -1,27 +1,21 @@
 package net.sf.minuteProject.console;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.LayoutManager;
+import static net.sf.minuteProject.console.utils.UIUtils.addSeparator;
+import static net.sf.minuteProject.console.utils.UIUtils.createTabPanel;
 
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
+import java.awt.Component;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import net.miginfocom.layout.PlatformDefaults;
 import net.miginfocom.swing.MigLayout;
 import net.sf.minuteProject.console.panel.CommonPanel;
 import net.sf.minuteProject.console.panel.ConventionPanel;
-import net.sf.minuteProject.console.panel.EnrichmentFieldPanel;
 import net.sf.minuteProject.console.panel.EnrichmentEntityPanel;
+import net.sf.minuteProject.console.panel.EnrichmentFieldPanel;
 import net.sf.minuteProject.console.panel.FilterPanel;
 import net.sf.minuteProject.console.panel.ModelAccessPanel;
 import net.sf.minuteProject.console.panel.ModelCommonPanel;
@@ -29,24 +23,23 @@ import net.sf.minuteProject.console.panel.PackagePanel;
 import net.sf.minuteProject.console.panel.TargetPanel;
 import net.sf.minuteProject.console.panel.TechnologyConventionPanel;
 import net.sf.minuteProject.console.panel.TechnologyLimitationPanel;
+import net.sf.minuteProject.console.panel.WebServiceAccessPanel;
+import net.sf.minuteProject.console.panel.WebServiceCommonPanel;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
-import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
-import net.sf.minuteProject.loader.catalog.technologycatalog.Technologycatalog;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
 import net.sf.minuteProject.utils.catalog.CatalogUtils;
-import static net.sf.minuteProject.console.utils.UIUtils.*;
-import static net.sf.minuteProject.console.panel.ModelAccessPanel.*;
-import static net.sf.minuteProject.console.panel.ModelCommonPanel.*;
 
 public class ConsoleSample extends JFrame{
 
 	private JTabbedPane tabbedPane;//, tabbedCommon;
 	private ModelAccessPanel modelAccessPanel;
+	private WebServiceAccessPanel webServiceAccessPanel;
 	private ModelCommonPanel modelCommonPanel;
 	private TargetPanel targetPanel;
-	private CommonPanel commonPanel; 
+	private CommonPanel commonPanel;
+	private WebServiceCommonPanel webServiceCommonPanel;
 	private FilterPanel filterPanel;
 	private ConventionPanel conventionPanel;
 	private TechnologyLimitationPanel technologyLimitationPanel;
@@ -71,7 +64,9 @@ public class ConsoleSample extends JFrame{
 		tabbedPane = new JTabbedPane();
 		
 		modelAccessPanel = new ModelAccessPanel(this);
+		webServiceAccessPanel = new WebServiceAccessPanel(this);
 		modelCommonPanel = new ModelCommonPanel(this);
+		webServiceCommonPanel = new WebServiceCommonPanel(this);
 		targetPanel = new TargetPanel(this);
 		filterPanel = new FilterPanel();
 		conventionPanel = new ConventionPanel();
@@ -82,6 +77,7 @@ public class ConsoleSample extends JFrame{
 		packagePanel = new PackagePanel();
 
 		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
+		tabbedPane.addTab("Webservice model", getWebServiceModelReverseMainPanel());	
 		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringCustomisationPanel());	
 
 		tabbedPane.addTab("Technology information", getTechConventionsTab());				
@@ -159,6 +155,16 @@ public class ConsoleSample extends JFrame{
 		return panel;
 	}
 
+	private Component getWebServiceModelReverseMainPanel() {
+		JPanel panel = createTabPanel(getDefaultMigLayout());
+		addSeparator(panel, "Webservice Access");
+		webServiceAccessPanel.fillPanel(panel);
+		addSeparator(panel, "Common configuration");
+		webServiceCommonPanel.fillPanel (panel);
+		addSeparator(panel, "Target technology");
+		targetPanel.fillPanel(panel);
+		return panel;
+	}
 	private MigLayout getDefaultMigLayout() {
 		return new MigLayout("ins 20", "[para]0[][100lp, fill][80lp][125lp, fill]", "");
 	}
@@ -181,7 +187,7 @@ public class ConsoleSample extends JFrame{
 			catalogDir=args[1];		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample("MinuteProject console 0.6 - beta -", catalogDir).setVisible(true);
+				new ConsoleSample("MinuteProject console 0.6.1 - beta -", catalogDir).setVisible(true);
 			}
 		});
 	}
