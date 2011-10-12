@@ -22,6 +22,7 @@ public class Technology extends AbstractConfigurationLoader{
    private String _description;
    private String _helper;
    private String _status;
+   private String _modelType;
    private String _targetName;
    private Boolean _isGenerable;
    private Frameworks _frameworks;
@@ -158,7 +159,16 @@ public class Technology extends AbstractConfigurationLoader{
       this._status = _status;
    }
    
-   
+   public String getModelType() {
+		if (_modelType == null)
+			_modelType = new String();
+		return _modelType;
+	}
+		
+   public void setModelType (String _modelType) {
+      this._modelType = _modelType;
+   }
+	   
    public String getTargetName() {
 	  if (_targetName == null)
 	     _targetName = new String();

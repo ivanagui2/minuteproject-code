@@ -16,6 +16,7 @@ import net.sf.minuteProject.configuration.bean.GenerationCondition;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
+import net.sf.minuteProject.configuration.bean.WebServiceModel;
 import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
@@ -68,6 +69,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private List<Condition> conditions;
 	private List<Convention> conventions, kernelConventions;
 	private Boolean areTablesIncluded, areViewsIncluded, enableUpdatableAreaConvention, isPkConventionSet=false;
+	private WebServiceModel webServiceModel;
 	
 	public Configuration getConfiguration () {
 		Configuration configuration = new Configuration();
@@ -164,11 +166,16 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private Model getModel() {
 		Model model = new Model();
 		model.setDataModel(getDataModel());
+		model.setWebServiceModel(getWebServiceModel());
 		model.setName(modelName);
 		model.setPackageRoot(rootpackage);
 		model.setVersion(getVersion());
 		model.setBusinessModel(getBusinessModel());
 		return model;
+	}
+
+	private WebServiceModel getWebServiceModel() {
+		return webServiceModel;
 	}
 
 	private BusinessModel getBusinessModel() {
@@ -284,6 +291,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		dataModel.setDriver(getDriverMaven());
 		return dataModel;
 	}
+	
 
 	private Driver getDriverMaven() {
 		Driver driver = new Driver();
@@ -547,5 +555,9 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	
 	public boolean isEnableUpdatableAreaConvention() {
 		return enableUpdatableAreaConvention;
+	}
+
+	public void setWebServiceModel(WebServiceModel webServiceModel) {
+		this.webServiceModel = webServiceModel;
 	}
 }
