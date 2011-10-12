@@ -27,6 +27,7 @@ import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -50,16 +51,19 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	private JPanel panel;
 	private String[][] dependentFrameworks;
 	private JScrollPane dependentFrameworksJSP;
-//	private List<Technology> technologies;
+	private enum ModelType {rdbms, webservice} 
 	
 	public TargetPanel(ConsoleSample consoleSample) {
+		this(consoleSample, "rdbms");
+	}	
+
+	public TargetPanel(ConsoleSample consoleSample, String type) {
 		this.consoleSample = consoleSample;
 		statusJL = createLabel(statusL);
 		dependencyJL = createLabel(dependencyL);
 		descriptionJL = createLabel(descriptionL);
-//		technologies = TechnologyCatalogUtils.getPublishedTechnologies();
-	}	
-
+	}
+	
 	private JButton getGenerateButton() {
 		generateButton = new JButton("Generate");
 		generateButton.addActionListener(new ClickListener());
@@ -143,7 +147,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	}	
 	
 	private String getTechnologyDescription(Technology technology) {
-		return StringUtils.replace(technology.getDescription(), "\\", "\n");
+		return FormatUtils.convertAttributeText(technology.getDescription());//StringUtils.replace(technology.getDescription(), "\\", "\n");
 //		return technology.getDescription();
 	}
 
