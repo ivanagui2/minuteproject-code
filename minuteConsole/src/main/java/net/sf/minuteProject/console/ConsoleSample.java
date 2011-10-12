@@ -37,7 +37,7 @@ public class ConsoleSample extends JFrame{
 	private ModelAccessPanel modelAccessPanel;
 	private WebServiceAccessPanel webServiceAccessPanel;
 	private ModelCommonPanel modelCommonPanel;
-	private TargetPanel targetPanel;
+	private TargetPanel targetPanel, webserviceTarget;
 	private CommonPanel commonPanel;
 	private WebServiceCommonPanel webServiceCommonPanel;
 	private FilterPanel filterPanel;
@@ -47,7 +47,7 @@ public class ConsoleSample extends JFrame{
 	private EnrichmentEntityPanel enrichmentEntityPanel;
 	private EnrichmentFieldPanel enrichmentFieldPanel;
 	private PackagePanel packagePanel;
-	private TechnologycatalogHolder technologycatalogHolder;
+	private TechnologycatalogHolder technologycatalogHolder, webserviceTechnologycatalogHolder;
 	private DatabasecatalogHolder databasecatalogHolder;
 	private JPanel technologyInfoTab;
 	private static String catalogDir, templateRootDir;
@@ -68,6 +68,7 @@ public class ConsoleSample extends JFrame{
 		modelCommonPanel = new ModelCommonPanel(this);
 		webServiceCommonPanel = new WebServiceCommonPanel(this);
 		targetPanel = new TargetPanel(this);
+		webserviceTarget = new TargetPanel(this);
 		filterPanel = new FilterPanel();
 		conventionPanel = new ConventionPanel();
 		technologyLimitationPanel = new TechnologyLimitationPanel(this);
@@ -160,9 +161,9 @@ public class ConsoleSample extends JFrame{
 		addSeparator(panel, "Webservice Access");
 		webServiceAccessPanel.fillPanel(panel);
 		addSeparator(panel, "Common configuration");
-		webServiceCommonPanel.fillPanel (panel);
-		addSeparator(panel, "Target technology");
-		targetPanel.fillPanel(panel);
+//		webServiceCommonPanel.fillPanel (panel);
+//		addSeparator(panel, "Target technology");
+		webserviceTarget.fillPanel(panel);
 		return panel;
 	}
 	private MigLayout getDefaultMigLayout() {
@@ -177,7 +178,8 @@ public class ConsoleSample extends JFrame{
 	
 	private void initCatalogs(String catalogDir) {
 		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder(catalogDir);
-		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);	
+		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);
+//		webserviceTechnologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir, "webservice");
 	}
 
 	public static void main(String args[]) {

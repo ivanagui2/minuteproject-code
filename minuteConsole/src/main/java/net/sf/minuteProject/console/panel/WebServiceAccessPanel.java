@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import net.sf.minuteProject.configuration.bean.WebServiceModel;
+import net.sf.minuteProject.configuration.bean.model.webservice.Wsdl;
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
@@ -28,148 +30,52 @@ import net.sf.minuteProject.utils.catalog.DatabaseCatalogUtils;
 @SuppressWarnings("serial")
 public class WebServiceAccessPanel extends JPanel implements FillBasicConfiguration{
 
-    private List<Database> databases;
-    private List<String> databaseNames;
-    public static final String url = "url";
-    public static final String username = "username";
-    public static final String password = "password";
-    public static final String schema = "schema";
-    public static final String database_type = "database type";
+    public String rootdir, dir, file, url;
     
     private JLabel schemaL;
-    private JComboBox databaseCb;
-    private JTextField urlTf, usernameTf, schemaTf, driverClassNameTf;
-    private JPasswordField passwordTf;
+    private JComboBox webServiceImplCb;
+    private JTextField urlTf, rootdirTf, dirTf, fileTf;
     private ConsoleSample consoleSample;
     
     public WebServiceAccessPanel(ConsoleSample consoleSample) {
-   	 this.consoleSample = consoleSample;
-   	 databases = DatabaseCatalogUtils.getPublishedDatabases(consoleSample.getCatalogDir());
- 	    databaseNames = new ArrayList<String>();
-	    for (Database database : databases) {
-		    databaseNames.add(database.getName());
-	    }
+   	 	this.consoleSample = consoleSample;
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
-		bic.setUrl(urlTf.getText());
-		bic.setUsername(usernameTf.getText());
-		bic.setPassword(passwordTf.getText());
-		bic.setSchema(schemaTf.getText());
-		bic.setDatabase(databaseCb.getSelectedItem().toString());
-		bic.setDriver(driverClassNameTf.getText());
+		WebServiceModel webServiceModel = new WebServiceModel();
+		Wsdl wsdl = fillWsdl();
+		webServiceModel.setWsdl(wsdl);
+		bic.setWebServiceModel(webServiceModel);
 	}
 	
+	private Wsdl fillWsdl() {
+		Wsdl wsdl = new Wsdl();
+		wsdl.setRootdir(rootdir);
+		wsdl.setDir(dir);
+		wsdl.setFile(file);
+		return wsdl;
+	}
+
 	public void fillPanel (JPanel panel) {
-		panel.add(createLabel(database_type), "skip");
-		databaseCb = createCombo(getTechnologies(), new DatabaseChangeListener());
-		panel.add(databaseCb);
-		panel.add(createLabel("driver"),  "center");
-		driverClassNameTf = createTextField(25);
-		driverClassNameTf.setText(getDefaultDriverClassNameTf());
-		panel.add(driverClassNameTf,   "span, growx");	
-		
-		panel.add(createLabel(url),   "skip");
-		urlTf = createTextField(getDefaultUrlStructureTf());
+
+		panel.add(createLabel("url"), "skip");
+		urlTf = createTextField("");
 		panel.add(urlTf,      "span, growx");
 		
-		panel.add(createLabel(username),   "skip");
-		usernameTf = createTextField("");
-		usernameTf.addFocusListener(new UserNameListener());
+		panel.add(createLabel("directory"),   "skip");
+		dirTf = createTextField("");
+		panel.add(dirTf);
 		
-		panel.add(usernameTf);
+		panel.add(createLabel("file"),   "center");
+		fileTf = createPasswordField("");
+		panel.add(fileTf,      "wrap");		
 		
-		panel.add(createLabel(password),   "center");
-		passwordTf = createPasswordField("");
-		panel.add(passwordTf,      "wrap");		
-		
-		schemaL = createLabel(schema);
-		schemaL.setVisible(isSchemaVisible());
+		schemaL = createLabel("root directory");
 		panel.add(schemaL,  "skip");
-		schemaTf = createTextField(15);
-		schemaTf.setVisible(isSchemaVisible());
-		panel.add(schemaTf,      "wrap para");
+		rootdirTf = createTextField(15);
+		panel.add(rootdirTf,      "wrap para");
 	}
 
-	private String getDefaultUrlStructureTf() {
-		// TODO Auto-generated method stub
-		return databases.get(0).getDefaultUrlStructure();
-	}
 
-	private boolean isSchemaVisible() {
-		return getDefaultDatabase().getUseSchema();
-	}
 
-	private Database getDefaultDatabase() {
-		return databases.get(0);
-	}
-	
-	private Database getCurrentDatabase() {
-		String databaseType = databaseCb.getSelectedItem().toString();
-		return getDatabase(databaseType);
-	}
-
-	private String getDefaultDriverClassNameTf() {
-		return databases.get(0).getDriverclassname();
-	}
-
-	private String[] getTechnologies() {
-		return (String[])databaseNames.toArray(new String[databaseNames.size()]);
-	}
-
-	private class UserNameListener implements FocusListener {
-
-		public void focusLost(FocusEvent arg0) {
-			if (getCurrentDatabase().useSchema() && schemaTf.getText().equals("")) {
-				schemaTf.setText(usernameTf.getText());
-			}
-		}
-		
-		public void focusGained(FocusEvent arg0) {
-		}
-		
-	}
-	
-	private class DatabaseChangeListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == databaseCb) {
-				Database database = getCurrentDatabase();
-				driverClassNameTf.setText(database.getDriverclassname());
-				if (database.getUseSchema())
-					applySchema();
-				else 
-					removeSchema();
-				urlTf.setText(database.getDefaultUrlStructure());
-				applyCurrentPrimaryKeyPolicy(database);
-			}
-		}
-	}
-	
-	private void applyCurrentPrimaryKeyPolicy(Database database) {
-		consoleSample.applyCurrentPrimaryKeyPolicy(database);
-	}	
-	
-	private void applySchema() {
-		schemaL.setVisible(true);
-		schemaTf.setVisible(true);
-	}
-	
-	private void removeSchema() {
-		schemaL.setVisible(false);
-//		schemaTf.setText("");
-		schemaTf.setVisible(false);
-	}
-	
-	private String getDriver(String databaseType) {
-		return getDatabase(databaseType).getDriverclassname();
-	}
-
-	private Database getDatabase(String databaseType) {
-		for (Database database : databases) {
-			if (database.getName().equals(databaseType))
-				return database;
-		}
-		return null;
-	}	
 }
