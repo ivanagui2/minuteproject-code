@@ -32,6 +32,7 @@
      <alias prop-name="description" attr-name="description"/>
      <alias prop-name="helper" attr-name="helper"/>
      <alias prop-name="status" attr-name="status"/>
+     <alias prop-name="modelType" attr-name="model-type"/>
      <alias prop-name="targetName" attr-name="target-name"/>
      <alias prop-name="isGenerable" attr-name="is-generable"/>
      <alias prop-name="packageName" attr-name="package-name"/>
