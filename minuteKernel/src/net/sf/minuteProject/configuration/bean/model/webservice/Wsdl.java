@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.webservice;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.WebServiceModel;
 
@@ -47,6 +49,16 @@ public class Wsdl extends AbstractConfiguration{
 
 	public void setWebServiceModel(WebServiceModel webServiceModel) {
 		this.webServiceModel = webServiceModel;
+	}
+
+	public String getLocation() {
+		if (!StringUtils.isEmpty(locationUri)) return locationUri;
+		StringBuffer sb = new StringBuffer();
+		if (!StringUtils.isEmpty(rootdir)) sb.append(rootdir+"/");
+		if (!StringUtils.isEmpty(dir)) sb.append(dir+"/");
+		if (!StringUtils.isEmpty(file)) sb.append(file+"/");
+		String s = sb.toString();
+		return (!StringUtils.isEmpty(s))?s:null;
 	}
 	
 	

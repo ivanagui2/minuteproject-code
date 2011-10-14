@@ -1,13 +1,25 @@
 package net.sf.minuteProject.configuration.bean;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLModel;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.webservice.Wsdl;
+import net.sf.minuteProject.configuration.bean.model.webservice.WsdlModel;
+import net.sf.minuteProject.configuration.bean.model.webservice.WsdlModelFactory;
 
 public class WebServiceModel extends AbstractConfiguration{
 
 	private Wsdl wsdl;
 	private Model model;
+	private WsdlModel wsdlModel;
+
+	public WsdlModel getWsdlModel() {
+		return wsdlModel;
+	}
+	public void setWsdlModel(WsdlModel wsdlModel) {
+		this.wsdlModel = wsdlModel;
+	}
 	
 	public Wsdl getWsdl() {
 		if (wsdl==null) {
@@ -24,6 +36,14 @@ public class WebServiceModel extends AbstractConfiguration{
 	}
 	public void setModel(Model model) {
 		this.model = model;
+	}
+	public void load() {
+		wsdlModel = WsdlModelFactory.getInstance().getWsdlModel(this);
+		
+	}
+	public String getWsdlLocation() {
+		if (wsdl!=null) return wsdl.getLocation();
+		return null;
 	}
 
 
