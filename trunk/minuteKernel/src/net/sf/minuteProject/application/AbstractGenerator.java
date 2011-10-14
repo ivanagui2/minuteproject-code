@@ -60,6 +60,7 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SCOPE_TARGET_TEMPLATE = "target";
 	protected static final String SCOPE_TRANSFER_ENTITY_TEMPLATE = "transfer-entity";
 	protected static final String SCOPE_ACTION_TEMPLATE="action";
+	protected static final String SCOPE_WSDL="wsdl";
 	
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;
@@ -406,7 +407,9 @@ public abstract class AbstractGenerator implements Generator {
 		if (beanName.equals("componentddlutils"))
 			return "component";			
 		if (beanName.equals("functionddlutils"))
-			return "function";				
+			return "function";	
+		if (beanName.equals("wsdlmodelmetro"))
+			return "wsdlmodel";			
 		return beanName;
    }
 	
