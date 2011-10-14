@@ -1,0 +1,7 @@
+
+test
+
+=>$wsdlmodel 
+- $wsdlmodel.services 
+- $wsdlmodel.services.size()
+
