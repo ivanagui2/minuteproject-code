@@ -14,5 +14,4 @@ public class WsdlServiceMetro extends AbstractConfiguration implements Service{
 	public String getName(){
 		return service.getName().toString();
 	}
-
 }

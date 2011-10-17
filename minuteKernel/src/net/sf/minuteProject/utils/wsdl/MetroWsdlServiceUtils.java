@@ -18,6 +18,7 @@ public class MetroWsdlServiceUtils {
 	}
 
 	private static Service getService(com.sun.tools.ws.processor.model.Service s) {
+//		s.getPorts().get(0).;
 		Service service = new WsdlServiceMetro(s);
 		return service;
 	}
