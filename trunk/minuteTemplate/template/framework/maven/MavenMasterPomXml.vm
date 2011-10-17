@@ -13,8 +13,15 @@
     <packaging>pom</packaging>	
 	<description>${model.name} Application</description>
 	<modules>
+#exposeModelUpdatedAreas("modules")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else		
 #foreach ($module in $mavenUtils.getModules($template))	
 		<module>$module.name</module>
 #end
+#end
+$!updatedAreaEnd
 	</modules>
 </project>
