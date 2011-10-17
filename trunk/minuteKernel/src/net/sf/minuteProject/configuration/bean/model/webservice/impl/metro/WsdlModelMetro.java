@@ -29,6 +29,7 @@ public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
 		options.addWSDL(file);
 		WSDLModeler wsdlModeler = new WSDLModeler(options, receiver);
 		wsdlModel = wsdlModeler.buildModel();
+
 	}
 
 	@Override
