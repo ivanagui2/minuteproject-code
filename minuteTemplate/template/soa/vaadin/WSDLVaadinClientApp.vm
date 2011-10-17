@@ -1,7 +1,15 @@
-
+#set ($services = $wsdlmodel.services)
 test
 
 =>$wsdlmodel 
 - $wsdlmodel.services 
 - $wsdlmodel.services.size()
+$wsdlmodel.services.get(0).name
 
+#foreach ($port in $services.ports)
+-> port $port.name 
+#foreach ($operation in $port.operations)
+-> op $operation.name 
+
+#end
+#end
