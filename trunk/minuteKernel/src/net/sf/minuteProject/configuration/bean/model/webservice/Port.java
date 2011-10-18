@@ -4,9 +4,8 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 
-public interface WsdlModel extends GeneratorBean{
+public interface Port extends GeneratorBean{
 
-	public List<Service> getServices();
+	public List<Operation> getOperations();
 	
-	public EntityModel getEntityModel();
 }

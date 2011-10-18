@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.WebServiceModel;
+import net.sf.minuteProject.configuration.bean.model.webservice.EntityModel;
 import net.sf.minuteProject.configuration.bean.model.webservice.Service;
 import net.sf.minuteProject.configuration.bean.model.webservice.WsdlModel;
 import net.sf.minuteProject.utils.wsdl.MetroWsdlServiceUtils;
@@ -18,6 +19,7 @@ public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
 
 	private WebServiceModel webServiceModel;
 	private Model wsdlModel;
+	private EntityModel entityModel;
 	private List<Service> services;
 	
 	public WsdlModelMetro(WebServiceModel webServiceModel) {
@@ -29,7 +31,6 @@ public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
 		options.addWSDL(file);
 		WSDLModeler wsdlModeler = new WSDLModeler(options, receiver);
 		wsdlModel = wsdlModeler.buildModel();
-
 	}
 
 	@Override
@@ -43,5 +44,15 @@ public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
 		return MetroWsdlServiceUtils.getServices(wsdlModel);
 	}
 
+	public EntityModel getEntityModel () {
+		if (entityModel==null) 
+			entityModel = initEntityModel();
+		return entityModel;			
+	}
+
+	private EntityModel initEntityModel() {
+		return new WsdlEntityModelMetro(wsdlModel.getJAXBModel());
+	}
+	
 	
 }
