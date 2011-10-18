@@ -11,6 +11,7 @@ import com.sun.tools.ws.processor.model.Model;
 public class MetroWsdlServiceUtils {
 
 	public static List<Service> getServices(Model wsdlModel) {
+//		wsdlModel.getJAXBModel().getGeneratedClassNames();
 		List<Service> services = new ArrayList<Service>();
 		for (com.sun.tools.ws.processor.model.Service service : wsdlModel.getServices())
 			services.add(getService(service));
