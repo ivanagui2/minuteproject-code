@@ -15,7 +15,7 @@ import com.sun.tools.ws.processor.modeler.wsdl.WSDLModeler;
 import com.sun.tools.ws.wscompile.ErrorReceiverFilter;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 
-public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
+public class WsdlModelMetro extends WsdlObjectMetro implements WsdlModel {
 
 	private WebServiceModel webServiceModel;
 	private Model wsdlModel;
@@ -31,6 +31,7 @@ public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
 		options.addWSDL(file);
 		WSDLModeler wsdlModeler = new WSDLModeler(options, receiver);
 		wsdlModel = wsdlModeler.buildModel();
+		name=webServiceModel.getModel().getName();
 	}
 
 	@Override
@@ -53,6 +54,5 @@ public class WsdlModelMetro extends AbstractConfiguration implements WsdlModel {
 	private EntityModel initEntityModel() {
 		return new WsdlEntityModelMetro(wsdlModel.getJAXBModel());
 	}
-	
 	
 }

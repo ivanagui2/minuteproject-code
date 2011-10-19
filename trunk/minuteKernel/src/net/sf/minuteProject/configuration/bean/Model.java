@@ -17,13 +17,14 @@ public class Model extends AbstractConfiguration{
 	public WebServiceModel getWebServiceModel() {
 		if (webServiceModel==null) {
 			webServiceModel=new WebServiceModel();
-			webServiceModel.setModel(this);
+//			webServiceModel.setModel(this);
 		}		
 		return webServiceModel;
 	}
 
 	public void setWebServiceModel(WebServiceModel webServiceModel) {
 		this.webServiceModel = webServiceModel;
+		this.webServiceModel.setModel(this);
 	}
 
 	public Configuration getConfiguration() {

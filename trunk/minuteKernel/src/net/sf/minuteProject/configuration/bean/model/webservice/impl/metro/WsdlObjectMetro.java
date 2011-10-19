@@ -17,5 +17,10 @@ public class WsdlObjectMetro extends AbstractConfiguration implements WsdlObject
 	public WsdlEntity getWsdlEntity() {
 		return entity;
 	}
+	
+	@Override
+	public String getAlias() {
+		return getName();
+	}
 
 }
