@@ -124,9 +124,10 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 //	 	return  ToStringBuilder.reflectionToString(this);
 //	}
 	
+//	public abstract String getTechnicalPackage(Template template);
 	public String getTechnicalPackage(Template template)
 	{
-		return "TO OVERWRITE in herited classes";
+		return template.getTechnicalPackage();
 	}
 	
 	public String getDescription() {
