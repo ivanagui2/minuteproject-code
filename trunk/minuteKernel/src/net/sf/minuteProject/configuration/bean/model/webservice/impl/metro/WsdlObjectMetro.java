@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.model.webservice.WsdlObject;
 public class WsdlObjectMetro extends AbstractConfiguration implements WsdlObject{
 
 	protected WsdlEntity entity;
+	protected String namespace;
 	
 	WsdlObjectMetro (){}
 	
@@ -23,4 +24,7 @@ public class WsdlObjectMetro extends AbstractConfiguration implements WsdlObject
 		return getName();
 	}
 
+	public String getNamespace() {
+		return namespace;
+	}
 }

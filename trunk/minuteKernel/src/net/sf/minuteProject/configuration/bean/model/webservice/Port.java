@@ -7,5 +7,7 @@ import net.sf.minuteProject.configuration.bean.GeneratorBean;
 public interface Port extends GeneratorBean{
 
 	public List<Operation> getOperations();
+
+	public String getNamespace();
 	
 }

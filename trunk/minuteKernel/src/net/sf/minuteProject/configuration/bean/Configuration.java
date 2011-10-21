@@ -1,10 +1,12 @@
 package net.sf.minuteProject.configuration.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
+import net.sf.minuteProject.configuration.bean.environment.Environment;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 
 public class Configuration extends AbstractConfigurationRoot{
@@ -13,6 +15,31 @@ public class Configuration extends AbstractConfigurationRoot{
 	private Model model;
 	private Presentation presentation;
 	private Conventions conventions;
+	private List<Environment> environments;
+	
+	public Environment getEnvironmentByName (String environmentName) {
+		if (environmentName==null) return null;
+		for (Environment env : getEnvironments()) {
+			if (env.isOfType(environmentName))
+				return env;
+		}
+		return null;
+	}
+	
+	public void addEnvironment (Environment environment) {
+		environment.setConfiguration(this);
+		getEnvironments().add(environment);
+	}
+	
+	public List<Environment> getEnvironments() {
+		if (environments == null)
+			initEnvironments();
+		return environments;
+	}
+
+	private void initEnvironments() {
+		environments = new ArrayList<Environment>();
+	}
 	
 	public Presentation getPresentation() {
 		return presentation;

@@ -66,6 +66,7 @@ public class Template extends TemplateTarget {
 	private String isToGenerate;
 	private boolean isUpdatable = false;
 	private boolean hasUpdatableNature = false;
+	private boolean convertPackageToDir = false;
 	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;
@@ -268,6 +269,7 @@ public class Template extends TemplateTarget {
 		}	
 		return null;
 	}	
+	
 	private Plugin getFileBuilderPlugin (String fileNameBuilderPlugin) {
 		List<Plugin> plugins = this.getTemplateTarget().getTarget().getPlugins();
 		for (Plugin plugin : plugins) {
@@ -416,7 +418,7 @@ public class Template extends TemplateTarget {
     	
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	String sb1 = new String(CommonUtils.getPackageName(bean, template));
-    	String dir = FormatUtils.getDirFromPackage(sb1);
+    	String dir = FormatUtils.getDirFromPackage(sb1, convertPackageToDir);
     	sb.append("//");
     	sb.append(dir);
     	if (addEntityDirName!=null && addEntityDirName.equals("true")) {
@@ -716,6 +718,14 @@ public class Template extends TemplateTarget {
 		return endingCommentSnippet;
 	}
 	
+	public boolean isConvertPackageToDir() {
+		return convertPackageToDir;
+	}
+
+	public void setConvertPackageToDir(boolean convertPackageToDir) {
+		this.convertPackageToDir = convertPackageToDir;
+	}
+
 	private String getBeginningCommentSnippetFromExtension() {
 		if (Extension.java.toString().equals(fileExtension)) return "//";
 		if (Extension.xml.toString().equals(fileExtension)) return "<!--";

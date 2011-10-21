@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLModel;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;

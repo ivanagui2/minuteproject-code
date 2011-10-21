@@ -54,6 +54,11 @@ public class FormatUtils {
 		return StringUtils.replace(name, "_", "-");
 	}	
 	public static String getDirFromPackage(String packageSt) {
+		return getDirFromPackage(packageSt, true);
+	}
+	public static String getDirFromPackage(String packageSt, boolean toConvert) {
+		if (!toConvert)
+			return (packageSt != null) ? packageSt: "";
 		return (packageSt != null) ? StringUtils.replace(packageSt, ".", "/"): "";
 	}
 
