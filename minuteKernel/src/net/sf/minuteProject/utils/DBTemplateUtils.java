@@ -1,22 +1,14 @@
 package net.sf.minuteProject.utils;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.StringTokenizer;
 
-import net.sf.minuteProject.configuration.bean.Package;
-import net.sf.minuteProject.configuration.bean.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.*;
 
 import org.apache.commons.lang.StringUtils;
 
-public class DBTemplateUtils implements Configuration {
+public class DBTemplateUtils {
 	
 	
 	public static String getDirFromPackage (String packageSt) {

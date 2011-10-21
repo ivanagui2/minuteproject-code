@@ -16,13 +16,15 @@ public class WsdlPortMetro extends WsdlObjectMetro implements Port {
 	
 	WsdlPortMetro (com.sun.tools.ws.processor.model.Port port) {
 		this.port = port;
+		namespace = port.getName().getNamespaceURI();
+		name=port.getName().getLocalPart();
 		entity=new WsdlTechnicalEntityMetro(port.getEntity());
 	}
 	
-	@Override
-	public String getName() {
-		return port.getName().toString();
-	}
+//	@Override
+//	public String getName() {
+//		return port.getName().toString();
+//	}
 
 	@Override
 	public List<Operation> getOperations() {
@@ -37,5 +39,7 @@ public class WsdlPortMetro extends WsdlObjectMetro implements Port {
 			operations.add(new WsdlOperationMetro(operation));
 		return operations;
 	}
+
+
 	
 }

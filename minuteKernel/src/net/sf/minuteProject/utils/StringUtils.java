@@ -7,4 +7,8 @@ public class StringUtils {
 		startsWith = org.apache.commons.lang.StringUtils.upperCase(startsWith);
 		return valueToTest.startsWith(startsWith);
 	}
+
+	public static boolean isEmpty(String str) {
+		return org.apache.commons.lang.StringUtils.isEmpty(str);
+	}
 }

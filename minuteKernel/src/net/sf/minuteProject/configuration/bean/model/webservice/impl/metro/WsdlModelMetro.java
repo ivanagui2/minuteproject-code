@@ -21,6 +21,7 @@ public class WsdlModelMetro extends WsdlObjectMetro implements WsdlModel {
 	private Model wsdlModel;
 	private EntityModel entityModel;
 	private List<Service> services;
+	private net.sf.minuteProject.configuration.bean.Model model;
 	
 	public WsdlModelMetro(WebServiceModel webServiceModel) {
 		this.webServiceModel = webServiceModel;
@@ -31,6 +32,7 @@ public class WsdlModelMetro extends WsdlObjectMetro implements WsdlModel {
 		options.addWSDL(file);
 		WSDLModeler wsdlModeler = new WSDLModeler(options, receiver);
 		wsdlModel = wsdlModeler.buildModel();
+		model = webServiceModel.getModel();
 		name=webServiceModel.getModel().getName();
 	}
 
@@ -54,5 +56,11 @@ public class WsdlModelMetro extends WsdlObjectMetro implements WsdlModel {
 	private EntityModel initEntityModel() {
 		return new WsdlEntityModelMetro(wsdlModel.getJAXBModel());
 	}
+
+	@Override
+	public WebServiceModel getWebServiceModel() {
+		return webServiceModel;
+	}
+	
 	
 }
