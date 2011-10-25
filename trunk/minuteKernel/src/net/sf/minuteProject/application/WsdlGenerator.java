@@ -31,6 +31,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.webservice.Entity;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 
@@ -234,10 +235,18 @@ public class WsdlGenerator extends AbstractGenerator {
 	public void generate(Template template) throws MinuteProjectException {
 		if (SCOPE_WSDL.equals(template.getScopeSpecificValue()))
 			generateArtifactsByWsdl(template);			
+		if (SCOPE_WSDL_ENTITY.equals(template.getScopeSpecificValue()))
+			generateArtifactsByWsdlEntity(template);			
 	}
 
 	private void generateArtifactsByWsdl(Template template) throws MinuteProjectException {
 		writeTemplateResult(getModel().getWebServiceModel().getWsdlModel(), template);
+	}
+	
+	private void generateArtifactsByWsdlEntity(Template template) throws MinuteProjectException {
+		List<Entity> entities = getModel().getWebServiceModel().getWsdlModel().getEntityModel().getEntities();
+		for (Entity entity : entities)
+			writeTemplateResult(entity, template);
 	}
 
 	public Model getModel() {
