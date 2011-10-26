@@ -157,7 +157,7 @@
 		belongToPackage="true">
 	
 		<template name="ScriptellaResetDbEtlXml" templateFileName="ScriptellaResetDbEtlXml.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="etl" file-suffix="" 
 			application-specific="true" add-model-name="false">
 		</template>		
@@ -170,13 +170,13 @@
 		</template>	
 		
 		<template name="DBSchemaDeleteOrder" templateFileName="DBSchemaDeleteOrder.vm" 
-			subdir="" outputsubdir="" technicalPackage="sql"
+			subdir="" outputsubdir="" technicalPackage="sql"  has-updatable-nature="true"
 			file-extension="sql" file-prefix="reset_db" file-suffix="" 
 			model-specific="true" add-model-name="false" add-model-dir-name="false">
 		</template>	
 
 		<template name="InsertEnumerationSQL" templateFileName="InsertEnumerationSQL.vm" 
-			subdir="" outputsubdir="" technicalPackage="sql"
+			subdir="" outputsubdir="" technicalPackage="sql" has-updatable-nature="true"
 			file-extension="sql" file-prefix="insert_reference_data" file-suffix="" 
 			model-specific="true" add-model-name="false" add-model-dir-name="false">
 		</template>	
