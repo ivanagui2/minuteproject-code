@@ -66,7 +66,7 @@ public class Template extends TemplateTarget {
 	private String isToGenerate;
 	private boolean isUpdatable = false;
 	private boolean hasUpdatableNature = false;
-	private boolean convertPackageToDir = false;
+	private boolean convertPackageToDir = true;
 	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;

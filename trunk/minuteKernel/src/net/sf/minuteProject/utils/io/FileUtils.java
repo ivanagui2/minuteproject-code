@@ -149,9 +149,9 @@ public class FileUtils {
 			while ((strLine = br.readLine()) != null) {
 				// Print the content on the console
 				if (artifactIsNotPartOfTheGeneration(strLine)) {
+					areas = new HashMap<String, String>();
 					areas.put(MP_MANAGED_STOP_GENERATING,
 							MP_MANAGED_STOP_GENERATING);
-					areas = new HashMap<String, String>();
 					return areas;
 				}
 				if (!isWithinAddedArea) {
