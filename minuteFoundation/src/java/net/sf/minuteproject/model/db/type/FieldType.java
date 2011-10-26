@@ -15,6 +15,7 @@ public enum FieldType {
 	BIT,
 	DATE,
 	BOOLEAN,
+	TINYINT,
 	OTHER;
 	
 }
