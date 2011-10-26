@@ -247,8 +247,8 @@ public class QueryUtils {
 					sb.append(" AND ");
 				}
 				sb.append(columnName);
-				if (expression.equals("=")) {
-					sb.append(" = ");
+				if (expression!=null && !expression.equals("")) {
+					sb.append(expression);
 				}
 				if (isQuoted(columnName)){
 					sb.append("'"+value+"'");
