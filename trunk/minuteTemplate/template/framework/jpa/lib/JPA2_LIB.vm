@@ -87,6 +87,8 @@ import $importDomainObjectUML;
 #set ($jpa2Implementation = $jpa2Utils.getJpa2Implementation($template))
 #set ($jpa2ImplementationIsHibernate = ($jpa2Implementation=="hibernate"))
 #set ($jpa2ImplementationIsEclipseLink = ($jpa2Implementation=="eclipselink"))
+#set($templateEnvironment=$template.getPropertyValue("environment","local"))
+#set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set ($datasourceName=$persistenceUtils.getDatasourceName($model))
 #end
 

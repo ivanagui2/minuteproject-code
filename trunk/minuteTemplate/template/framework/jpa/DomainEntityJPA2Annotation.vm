@@ -169,6 +169,11 @@ $!updatedAreaEnd
 #end	
 #foreach ($reference in $table.children)
 #putReferenceParams2()
+#exposeEntityUpdatedAreas("${childrenListVariable}-field")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 #if(!$linktableDB.isManyToMany())
 #set ($importDomainObjectForeignTable = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateJPA2DomainObject))
 #set ($targetEntityClass="${importDomainObjectForeignTable}.class")
@@ -186,6 +191,8 @@ $!updatedAreaEnd
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
 #end
+#end
+$!updatedAreaEnd
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
@@ -416,9 +423,14 @@ $!updatedAreaEnd
     }
 	
 #end
-##end
+
 #foreach ($reference in $table.children)
 #putReferenceParams2()
+#exposeEntityUpdatedAreas("${childrenListVariable}-getter")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 #if(!$linktableDB.isManyToMany())
 ##if($addXmlBinding)
 ##    @XmlElement(name="$childrenListVariable")
@@ -440,6 +452,9 @@ $!updatedAreaEnd
     
 #end    
 #end
+$!updatedAreaEnd
+#end
+
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
     public Set<$targetTableName> get${childrenListClass}() {
