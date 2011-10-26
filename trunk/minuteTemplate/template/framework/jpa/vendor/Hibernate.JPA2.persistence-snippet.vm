@@ -19,4 +19,4 @@
 #end
             <property name="hibernate.dialect" value="$hibernate3.getDialect($database)"/>
 #addArea("properties")
-		</properties> 
+        </properties> 
