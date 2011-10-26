@@ -9,6 +9,7 @@ public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 	public static final String IDENTITY = "identityPattern";
 	public static final String AUTOINCREMENT = "autoincrementPattern";
 	public static final String OTHER = "not defined";
+	public static final String NONE = "none";
 	
 	private PrimaryKeyPolicy primaryKeyPolicy;
 	private String suffix;
@@ -48,11 +49,11 @@ public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 				return PrimaryKeyPolicyPatternEnum.IDENTITY;
 			if (getName().equals(AUTOINCREMENT))
 				return PrimaryKeyPolicyPatternEnum.AUTOINCREMENT;			
+			if (getName().equals(NONE))
+				return PrimaryKeyPolicyPatternEnum.NONE;			
 			return PrimaryKeyPolicyPatternEnum.OTHER;
 		}
 		return PrimaryKeyPolicyPatternEnum.OTHER;
 	}
-	
-	
 	
 }

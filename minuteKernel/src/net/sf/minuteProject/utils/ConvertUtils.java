@@ -10,17 +10,18 @@ import org.apache.log4j.Logger;
 public class ConvertUtils {
 	
 	public static final String DB_TYPE_ORACLE                   =   "ORACLE";
-	public static final String JAVA_BOOLEAN_TYPE 				=   "java.lang.Boolean";					
-	public static final String JAVA_LONG_TYPE 					=   "java.lang.Long";	
-	public static final String JAVA_DOUBLE_TYPE 				=   "java.lang.Double";			
-	public static final String JAVA_INTEGER_TYPE 				=   "java.lang.Integer";		
-	public static final String JAVA_TIMESTAMP_TYPE 				=   "java.lang.Timestamp";			
-	public static final String JAVA_BIGDECIMAL_TYPE 			=   "java.math.BigDecimal";
-	public static final String JAVA_BIGINTEGER_TYPE 			=   "java.math.BigInteger";
-	public static final String JAVA_STRING_TYPE 				=   "java.lang.String";						
-	public static final String JAVA_DATE_TYPE 					=   "java.lang.Date";
-	public static final String JAVA_BLOB_TYPE 					=   "java.sql.Blob";	
-	public static final String JAVA_CLOB_TYPE 					=   "java.sql.Clob";	
+	public static final String JAVA_BOOLEAN_TYPE 					=   "java.lang.Boolean";					
+	public static final String JAVA_LONG_TYPE 						=   "java.lang.Long";	
+	public static final String JAVA_DOUBLE_TYPE 						=   "java.lang.Double";			
+	public static final String JAVA_INTEGER_TYPE 					=   "java.lang.Integer";		
+	public static final String JAVA_SHORT_TYPE 			 			=   "java.lang.Short";		
+	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.lang.Timestamp";			
+	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
+	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
+	public static final String JAVA_STRING_TYPE 						=   "java.lang.String";						
+	public static final String JAVA_DATE_TYPE 						=   "java.lang.Date";
+	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
+	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
 
 	public static final String DB_STRING_CHAR_TYPE 				=   "CHAR";	
 	public static final String DB_STRING2_CHAR_TYPE 			=   "CHAR2";	
@@ -30,12 +31,14 @@ public class ConvertUtils {
 	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
 	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
 	public static final String DB_TIMESTAMPZ_TYPE 				=   "TIMESTAMPZ";
-	public static final String DB_DATE_TYPE 					=   "DATE";
+	public static final String DB_DATE_TYPE 						=   "DATE";
 	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
+	public static final String DB_SMALLINT_TYPE 					=   "SMALLINT";	
+	public static final String DB_TINYINT_TYPE 					=   "TINYINT";	
 	
 	public static final String UML_STRING_TYPE 					=   "string";	
-	public static final String UML_INTEGER_TYPE 				=   "integer";	
-	public static final String UML_LONG_TYPE 					=   "decimal";	
+	public static final String UML_INTEGER_TYPE 					=   "integer";	
+	public static final String UML_LONG_TYPE 						=   "decimal";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	
@@ -82,6 +85,8 @@ public class ConvertUtils {
 			return  JAVA_BIGDECIMAL_TYPE;
 		if (dBType.equals("SMALLINT"))
 			return  JAVA_INTEGER_TYPE;	
+		if (dBType.equals(DB_TINYINT_TYPE))
+			return  JAVA_SHORT_TYPE;	
 		if (dBType.equals("VARCHAR"))
 			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("LONGVARCHAR"))
@@ -217,6 +222,8 @@ public class ConvertUtils {
 			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
 			return  "Integer";	
+		if (dBType.equals(DB_TINYINT_TYPE))
+			return  "Short";	
 		if (dBType.equals("VARCHAR"))
 			return  "String";	
 		if (dBType.equals("LONGVARCHAR"))

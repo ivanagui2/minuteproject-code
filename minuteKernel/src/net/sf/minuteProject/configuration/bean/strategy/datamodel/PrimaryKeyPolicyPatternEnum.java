@@ -6,6 +6,7 @@ public enum PrimaryKeyPolicyPatternEnum {
 	SEQUENCE,
 	IDENTITY,
 	AUTOINCREMENT,
+	NONE,
 	OTHER;
 
 	public static PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicy(String pkPolicy) {
