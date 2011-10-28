@@ -45,10 +45,10 @@
 				childWhat.set$linkedColumnClass(graphMaskWhat.$mask); // add to the what mask, usefull for reconciliation
 #if($beImplementation=="JPA")				
 				$dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName = new $dependentDaoExtentedImplementationJPAClassName ();
-				List<${linkedTableClass}> children = ${dependentDaoExtentedImplementationJPAVariableName}.lookup${linkedTableClass}(childWhat, getFkCriteria(" callId ", ids), null, getEntityManager());
+				List<${linkedTableClass}> children = ${dependentDaoExtentedImplementationJPAVariableName}.lookup${linkedTableClass}(childWhat, getFkCriteria(" $primaryKeyVariable ", ids), null, getEntityManager());
 #elseif($beImplementation=="hibernate")				
 				$dependentDaoExtentedImplementationHibernateClassName $dependentDaoExtentedImplementationHibernateVariableName = new $dependentDaoExtentedImplementationHibernateClassName ();
-				List<${linkedTableClass}> children = ${dependentDaoExtentedImplementationHibernateVariableName}.lookup${linkedTableClass}(childWhat, getFkCriteria(" callId ", ids), null, getSession());
+				List<${linkedTableClass}> children = ${dependentDaoExtentedImplementationHibernateVariableName}.lookup${linkedTableClass}(childWhat, getFkCriteria(" $primaryKeyVariable ", ids), null, getSession());
 #end
 				reassemble${linkedTableClass} (children, parents);				
 				break;
