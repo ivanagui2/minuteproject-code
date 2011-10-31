@@ -1,6 +1,9 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
+		<conventions>
+			<target-convention type="enable-updatable-code-feature" />
+		</conventions>	
 		<model name="petshop" package-root="sf.net.mp.demo">
 			<data-model>
 			    <dataSource>	
