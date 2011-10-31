@@ -59,6 +59,7 @@ import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
+import net.sf.minuteProject.utils.java.JavaUtils;
 
 /**
  * @author Florian Adler
@@ -90,6 +91,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private EnumUtils enumUtils = new EnumUtils();
 	private I18nUtils i18nUtils = new I18nUtils();
 	private UpdatedAreaUtils updatedAreaUtils = new UpdatedAreaUtils();
+	private JavaUtils javaUtils = new JavaUtils();
 
 	private Model model;
 
@@ -388,10 +390,11 @@ public class ModelGenerator extends AbstractGenerator {
 		//context
 		VelocityContext context = getVelocityContext(template);
 		Map<String,String> updatedAreas = TemplateUtils.getUpdatedAreas(template, bean);
-		if (updatedAreas!=null)
+		if (updatedAreas!=null) {
 			if (updatedAreas.containsKey(UpdatedAreaUtils.MP_MANAGED_STOP_GENERATING))
 				return; //stop generating directive
 			context.put("updatedAreas", updatedAreas);
+		}
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
 		if (bean instanceof Component) {
@@ -464,6 +467,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("enumUtils", enumUtils);
 		context.put("i18nUtils", i18nUtils);
 		context.put("updatedAreaUtils", updatedAreaUtils);
+		context.put("javaUtils", javaUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
