@@ -17,6 +17,8 @@ public enum FieldType {
 	BOOLEAN,
 	TINYINT,
 	SMALLINT,
+	LONGVARCHAR,
+	LONGVARBINARY,
 	OTHER;
 	
 }
