@@ -1,4 +1,4 @@
-<target name="JPA2">		
+z<target name="JPA2">		
 	<architecture-target name="JPA2" description="JPA2 architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
