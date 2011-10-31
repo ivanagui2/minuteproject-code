@@ -14,7 +14,7 @@ Expression contains for each columns the search filter operand. ('=','>','<','>=
 
 !|${packageName}.${className}|
 |General Info Input|table|$tableDB.name|count|3|
-|Fields |#foreach ($column in ${table.columns}) #putColumnParams() $column.name | #end 
+|Fields |#foreach ($column in ${table.columns}) #putColumnParams() $formatUtils.getUppercaseUnderscore($column.name) | #end 
 
  |Expression |#foreach ($column in ${table.columns})  | #end 
  

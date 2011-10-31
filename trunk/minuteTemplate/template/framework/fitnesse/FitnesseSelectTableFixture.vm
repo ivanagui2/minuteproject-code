@@ -16,11 +16,12 @@ public class ${className} extends DbTableFixture{
 
 #foreach ($column in ${table.columns})
 #putColumnParams()
-    public $columnType $column.name; //$columnVar; // 
+#columnJavaNaming()
+	public $columnType $formatUtils.getUppercaseUnderscore($column.name); //$columnVar; // 
 #set ($nbColumn = $velocityCount)
 #end
 
-	  public static int NB_COLUMN = $nbColumn;
+	public static int NB_COLUMN = $nbColumn;
 	
 	protected int getNumberOfColumn() {
 		return NB_COLUMN;
