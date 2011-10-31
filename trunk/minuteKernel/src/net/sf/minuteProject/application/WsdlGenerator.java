@@ -237,6 +237,8 @@ public class WsdlGenerator extends AbstractGenerator {
 			generateArtifactsByWsdl(template);			
 		if (SCOPE_WSDL_ENTITY.equals(template.getScopeSpecificValue()))
 			generateArtifactsByWsdlEntity(template);			
+		if (SCOPE_WSDL_SERVICE.equals(template.getScopeSpecificValue()))
+			generateArtifactsByWsdlService(template);			
 	}
 
 	private void generateArtifactsByWsdl(Template template) throws MinuteProjectException {
@@ -247,6 +249,12 @@ public class WsdlGenerator extends AbstractGenerator {
 		List<Entity> entities = getModel().getWebServiceModel().getWsdlModel().getEntityModel().getEntities();
 		for (Entity entity : entities)
 			writeTemplateResult(entity, template);
+	}
+	
+	private void generateArtifactsByWsdlService(Template template) throws MinuteProjectException {
+		List<net.sf.minuteProject.configuration.bean.model.webservice.Service> services = getModel().getWebServiceModel().getWsdlModel().getServices();
+		for (net.sf.minuteProject.configuration.bean.model.webservice.Service service : services)
+			writeTemplateResult(service, template);
 	}
 
 	public Model getModel() {
