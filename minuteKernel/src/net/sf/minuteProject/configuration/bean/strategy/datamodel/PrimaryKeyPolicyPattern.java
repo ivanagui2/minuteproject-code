@@ -15,7 +15,15 @@ public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 	private String suffix;
 	private String prefix;
 	private String sequenceName;
+	private boolean appendPrimaryKeyName;
 	
+	
+	public boolean isAppendPrimaryKeyName() {
+		return appendPrimaryKeyName;
+	}
+	public void setAppendPrimaryKeyName(boolean appendPrimaryKeyName) {
+		this.appendPrimaryKeyName = appendPrimaryKeyName;
+	}
 	public String getPrefix() {
 		return prefix;
 	}

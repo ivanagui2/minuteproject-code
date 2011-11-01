@@ -110,12 +110,14 @@
 			<bean-property-setter-rule pattern="oneForEachTable"/>		
 			<pattern value="primaryKeyPolicyPattern">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>		
-				<set-next-rule methodname="addPrimaryKeyPolicyPattern" paramtype="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>			  				
-				<set-properties-rule/>		  
+				<set-next-rule methodname="addPrimaryKeyPolicyPattern" paramtype="net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern"/>			  					  
 				<bean-property-setter-rule pattern="name"/>		
 				<bean-property-setter-rule pattern="prefix"/>	
 				<bean-property-setter-rule pattern="suffix"/>	
 				<bean-property-setter-rule pattern="sequenceName"/>		
+				<set-properties-rule>
+					<alias attr-name="append-primary-key-name" prop-name="appendPrimaryKeyName" />
+				</set-properties-rule>				
 			</pattern>					
 		</pattern>
 	</pattern>

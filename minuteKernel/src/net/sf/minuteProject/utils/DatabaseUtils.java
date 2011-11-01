@@ -8,7 +8,6 @@ import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPoli
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 
 public class DatabaseUtils {
-
 	
 	public static String providePrimaryKeyLookUpString (Table table) {
 		Database database = table.getDatabase();
@@ -43,18 +42,16 @@ public class DatabaseUtils {
 	public static String provideSequence (Table table) {
 		PrimaryKeyPolicy primaryKeyPolicy = table.getDatabase().getDataModel().getPrimaryKeyPolicy();
 		if (primaryKeyPolicy==null) {
-			//TODO log should provide a policy pattern
 			return "NO LOOK UP for PK";
 		}
 		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = primaryKeyPolicy.getFirstPrimaryKeyPolicyPattern();
 		if (primaryKeyPolicyPattern==null) {
-			//TODO log should provide a policy pattern
 			return "NO LOOK UP for PK : no pattern found";
 		}
 		if (primaryKeyPolicy.isOneGlobal()) {
 			return provideSequenceOneGlobal(primaryKeyPolicyPattern);
 		} else if (primaryKeyPolicy.isOneForEachTable()){
-			String seq = table.getName();
+			String seq = initSequence(primaryKeyPolicyPattern, table);
 			if (primaryKeyPolicyPattern.getPrefix()!=null || primaryKeyPolicyPattern.getSuffix()!=null) {
 				if (primaryKeyPolicyPattern.getPrefix()!=null)
 					seq = primaryKeyPolicyPattern.getPrefix() + seq;
@@ -68,6 +65,14 @@ public class DatabaseUtils {
 			return table.getName()+"_SEQ";
 	}
 	
+	private static String initSequence(PrimaryKeyPolicyPattern primaryKeyPolicyPattern, Table table) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(table.getName());
+		if (primaryKeyPolicyPattern.isAppendPrimaryKeyName())
+			sb.append("_"+TableUtils.getPrimaryKey(table));
+		return sb.toString();
+	}
+
 	public boolean isPrimayKeyLookUpStringNeeded (Table table) {
 		if (TableUtils.getPrimaryKeyType(table).equals("INT") ||
 				TableUtils.getPrimaryKeyType(table).equals("INTEGER") ||
