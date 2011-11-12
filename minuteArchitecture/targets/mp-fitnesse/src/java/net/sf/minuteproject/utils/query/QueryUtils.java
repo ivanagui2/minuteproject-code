@@ -1,9 +1,6 @@
 package net.sf.minuteproject.utils.query;
 
-import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
@@ -17,8 +14,6 @@ public class QueryUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getInsert(table, columns, columnValue));
 		sb.append(getInsertValue(columns, columnValue));
-//		sb.append(getInsert(table, columns, columnValue));
-//		System.out.println("Insert query = "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -31,7 +26,6 @@ public class QueryUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getUpdate(table, columnIndex, columnValue));
 		sb.append(getWhereQuery(columnWhereIndex, columnWhereValue));		
-//		System.out.println("Update query = "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -42,7 +36,6 @@ public class QueryUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getDelete(table));
 		sb.append(getWhereQuery(columnWhereIndex, columnWhereValue));		
-//		System.out.println("Delete query = "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -247,10 +240,17 @@ public class QueryUtils {
 					sb.append(" AND ");
 				}
 				sb.append(columnName);
-				if (expression!=null && !expression.equals("")) {
+				if ("startsWith".equals(expression)) {
+					sb.append(" like ");
+					sb.append("'"+value+"%'");
+				} else if ("contains".equals(expression)) {
+					sb.append(" like ");
+					sb.append("'%"+value+"%'");
+				} else if ("endsWith".equals(expression)) {
+					sb.append(" like ");
+					sb.append("'%"+value+"'");
+				} else {
 					sb.append(expression);
-				}
-				if (isQuoted(columnName)){
 					sb.append("'"+value+"'");
 				}
 			}
