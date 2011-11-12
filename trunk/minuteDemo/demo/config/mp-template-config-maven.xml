@@ -9,7 +9,7 @@
 		package-root=""
 		belongToPackage="true">
 		<template name="MavenMasterPomXml" templateFileName="MavenMasterPomXml.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
 		</template>				

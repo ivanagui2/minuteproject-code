@@ -1,6 +1,4 @@
-<target name="OpenXava">		
-	<architecture-target name="openxava" description="openxava architecture">
-	</architecture-target>	
+<target name="JPA2 LIB">		
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
