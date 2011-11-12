@@ -6,7 +6,7 @@ test
 - $wsdlmodel.services.size()
 $wsdlmodel.services.get(0).name
 
->>$wsdlmodel.services.get(0).ports ;;
+>>$wsdlmodel.services.get(0).ports ;
 
 $wsdlmodel.targetNamespaceURI
 
