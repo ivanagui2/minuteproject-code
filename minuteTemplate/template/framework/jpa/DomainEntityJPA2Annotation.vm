@@ -153,8 +153,7 @@ $!updatedAreaEnd
 #set($colVar = ${linkedTableVariable})
 #end
 #set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
-##exposeRelationship($table, $reference)
-    private $linkedTableClass ${colVar}; ##//${localColumnVariable} - ${linkedTableVariable} 
+    private $linkedTableClass ${colVar};  
 
 #set($column = $reference.localColumn)
 #putColumnParams()
@@ -305,6 +304,100 @@ $!updatedAreaEnd
 	   );
 	}
 
+#####
+#if($addBslaMethod)
+    /**
+    * toString implementation
+    */
+	public String toString() {
+		return toString(this);
+	}
+
+	public ToStringBuilder getToStringBuilder(Object object) {
+	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+#foreach ($column in ${table.columns})
+#putColumnParams()
+            .append("$columnVar", _$columnVar)
+#end	 	
+	 	    ;
+	} 
+		
+	public String toString(Object object) {
+	 	return getToStringBuilder(object).toString();
+	} 
+	
+	public String toStringWithParents() {
+	    ToStringBuilder toStringBuilder = getToStringBuilder(this);
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+        if (_${linkedTableVariable}${localColumnClass}!=null)
+             toStringBuilder.append("${linkedTableVariable}${localColumnClass}", _${linkedTableVariable}${localColumnClass}.toStringWithParents());
+#end
+	 	return toStringBuilder.toString();	
+	}
+	/**
+    * hashCode implementation
+    */
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(flat());
+	}
+	
+	/**
+    * equals implementation
+
+	public boolean equals(Object object) {
+		return super.toEquals(flat(), object);
+	}
+    */
+	public boolean equals(Object object) {
+		if (object == null) return false;	
+		if (object == this) return true;
+		if (!(object instanceof ${className})) return false;
+		${className} ${variableName} = (${className}) object;
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+		if (${variableName}._${columnVar}==null || !${variableName}._${columnVar}.equals(_${columnVar})) return false;
+#end
+		return true;
+	}    
+
+	public ${className} clone() {
+        ${className} ${variableName} = new ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParams()
+             get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+        );
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+        if (get$linkedTableClass${localColumnClass}()!=null) 
+            ${variableName}.set$linkedTableClass${localColumnClass} (get$linkedTableClass${localColumnClass}().clone());   
+#end	   
+        return ${variableName};
+	}
+	
+	public void copy (${className} ${variableName}) {
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        set$columnClass (${variableName}.get$columnClass());
+#end	
+	}
+	
+	public static ${className} fullMask() {
+		return new ${className}(
+#foreach ($column in ${table.columns})
+#putDefaultMaskColumnValue()
+			$defaultMask #if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+		);	    
+	}
+
+#end
+###
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;

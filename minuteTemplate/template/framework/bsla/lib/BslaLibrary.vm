@@ -266,8 +266,12 @@
 #macro (putImportParamsUML)
 #templateDefinition()
 #set ($tableDB = $table)
+#set ($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainObjectUML"))
+#set ($domainObjectClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2DomainObject))
+#set ($domainObjectVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectClass))
+#set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
 #set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport($model, $tableDB, $template))
-#set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+##set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
 #set ($importDomainObjectPackageNameUML = $commonUtils.getPackageName($tableDB, $template, $templateDomainObjectUML))
 #set ($daoInterfaceName = $bslaLibraryUtils.getDaoInterfaceName($tableDB, $template))
 #set ($daoInterfaceNameUML = $bslaLibraryUtils.getDaoInterfaceUMLName($tableDB, $template))
@@ -309,8 +313,12 @@
 #end
 
 #macro (exposeImportParamsUML $tableDB)
+#set ($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainObjectUML"))
+#set ($domainObjectClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2DomainObject))
+#set ($domainObjectVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectClass))
+#set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
 #set ($importDomainObject = $bslaLibraryUtils.getDomainObjectImport2($model, $tableDB, $template))
-#set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
+##set ($importDomainObjectUML = $bslaLibraryUtils.getDomainObjectUMLImport($model, $tableDB, $template))
 #end
 
 
@@ -628,7 +636,8 @@ import $importDaoInterfaceUML;
 
 #macro (templateDefinition)
 #set ($templateDomainObject="BslaDomainObject")
-#set ($templateDomainObjectUML="DomainObjectUML")
+#set ($templateDomainObjectUML=$template.getPropertyValue("DomainEntityUMLTemplate","DomainObjectUML"))
+##set ($templateDomainObjectUML="DomainObjectUML")
 #set ($templateBslaDaoInterface="BslaDaoInterface")
 #set ($templateBslaDaoInterfaceUML="BslaDaoInterfaceUML")
 #set ($templateBslaDaoInterfaceExtendedUML="BslaDaoInterfaceExtendedUML")
