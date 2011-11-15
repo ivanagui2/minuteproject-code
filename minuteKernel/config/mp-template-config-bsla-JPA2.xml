@@ -96,14 +96,20 @@
 		<template name="BslaDaoInterfaceUML" templateFileName="BslaDaoInterfaceUML.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="" file-suffix="Dao" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" 
+			has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
 		</template>				
 		
 		<!-- depends BslaDaoInterfaceUML, DomainObjectUML, BslaHibernate architecture		-->
-		<template name="BslaJPADaoImplUML" templateFileName="BslaJPADaoImpl.vm" 
+		<template name="BslaJPADaoImplUML" templateFileName="BslaJPA2DaoImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.impl.jpa"
 			file-extension="java" file-prefix="" file-suffix="JPAImpl" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true" 
+			has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
 		</template>
 			    
 	    <!-- EXTENDED DAO -->
@@ -111,14 +117,20 @@
 		<template name="BslaDaoInterfaceExtendedUML" templateFileName="BslaDaoInterfaceKFUML.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="" file-suffix="ExtDao" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true"
+			has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
 		</template>	
 			
 		<!-- depends BslaDaoInterfaceExtendedUML -->	
-		<template name="BslaJPAExtendedDaoImplUML" templateFileName="BslaJPAKFDaoImpl.vm" 
+		<template name="BslaJPAExtendedDaoImplUML" templateFileName="BslaJPA2KFDaoImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.impl.jpa"
 			file-extension="java" file-prefix="" file-suffix="ExtendedJPAImpl" 
-			entity-specific="true" package-specific="false" model-specific="false">
+			entity-specific="true"
+			has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
 		</template>		
 			
 		<!-- EXTENDED DAO end -->	

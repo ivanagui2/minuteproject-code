@@ -66,7 +66,7 @@
 			   outputdir-root="../../DEV/bsla-jpa2/petshop/jpa2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
-               <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
+               <property name="add-jpa2-implementation" value="hibernate"></property>			   			   
 			</target> 	
 
 			<target refname="MavenMaster" 
