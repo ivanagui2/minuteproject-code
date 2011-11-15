@@ -41,13 +41,13 @@ import $importJPAImplName;
 #foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 #putDependenciesUML()
+#if(!$linktableDB.isManyToMany())
 import $dependentImportDomainClassName;
 ##import $dependentImportDaoInterface;
 import $dependentDaoExtentedImportImplementationJPAClassName;
 #end  
-
+#end  
 #foreach ($reference in $table.parents)
-##exposeImportParamsUML($reference.foreignTable)
 #set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 import $importDaoImplExtendedJPAName;
 #end
@@ -67,11 +67,13 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
     
     private SimpleCache simpleCache = new SimpleCache();
 #foreach ($reference in $table.distinctChildrenType)
+#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
 #putDependenciesUML()
 ##    private $dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName;
     private $dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName;
-#end  
+#end
+#end
     private EntityManager emForRecursiveDao; // dao that needs other dao in a recursive manner not support by spring configuration
 
     public $className () {}
@@ -106,15 +108,16 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
     public void insert${tableClassName}WithCascade(EntityManager emForRecursiveDao, $tableClassName ${tableVariableName}) {
        insert$tableClassName(emForRecursiveDao, $tableVariableName);
 #foreach ($reference in $table.children)
+#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
 #putDependenciesUML()
-##       $dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName = null;
        if (!${tableVariableName}.get${linkedTableClass}${linkedColumnClass}s().isEmpty()) {
           $dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName = new $dependentDaoExtentedImplementationJPAClassName (emForRecursiveDao);
           for (${linkedTableClass} _${linkedTableVariable}${linkedColumnClass} : ${tableVariableName}.get${linkedTableClass}${linkedColumnClass}s()) {
              ${dependentDaoExtentedImplementationJPAVariableName}.insert${linkedTableClass}WithCascade(emForRecursiveDao, _${linkedTableVariable}${linkedColumnClass});
           }
        } 
+#end  
 #end  
     }
         
@@ -687,9 +690,9 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	}
 	
 #foreach ($reference in $table.distinctChildrenType)
+#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
 #putDependenciesUML()
-##$dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName;
     public void set$dependentDaoExtentedImplementationJPAClassName ($dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName) {
        this.$dependentDaoExtentedImplementationJPAVariableName = $dependentDaoExtentedImplementationJPAVariableName;
     }
@@ -698,14 +701,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        return $dependentDaoExtentedImplementationJPAVariableName;
     }
     
-##    public void set$dependentDaoInterfaceClassName ($dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName) {
-##       this.$dependentDaoInterfaceVariableName = $dependentDaoInterfaceVariableName;
-##    }
-##    
-##    public $dependentDaoInterfaceClassName get$dependentDaoInterfaceClassName () {
-##       return $dependentDaoInterfaceVariableName;
-##    }
-##    
+
+#end  
 #end  
     
 }
