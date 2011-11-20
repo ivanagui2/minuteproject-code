@@ -158,7 +158,7 @@
 		outputdir="src/main/resources"
 		belongToPackage="true">
 
-		<!-- JPA CONFIGURATION -->
+		<!-- JPA CONFIGURATION 
 
 		<template name="JPAMapping" templateFileName="JPA.orm.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="persistence"
@@ -171,7 +171,7 @@
 			file-extension="xml" file-prefix="" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>		
-		<!-- JPA CONFIGURATION end -->
+		 JPA CONFIGURATION end -->
 				
 		<!-- CACHING CONFIGURATION -->
 		<template name="BslaEhCacheXml" templateFileName="BslaEhCache.Xml.vm" 
@@ -188,7 +188,8 @@
 		<template name="BslaSpringConfigDaoJPA" templateFileName="BslaSpringConfigDaoJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-JPA-" file-suffix="" 
-			entity-specific="false" package-specific="true" model-specific="false">
+			entity-specific="false" package-specific="true" model-specific="false"
+			>
 		</template>		
 
 		<!-- spring config extended -->
@@ -254,11 +255,10 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
-		<template name="pomXml" templateFileName="pomXml.vm" 
+		<template name="PomXml.BSLA" templateFileName="PomXml.BSLA.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
-			<property tag="dependency" name="hibernate" value="groupId=,artifactId=,version=,scope="/>
 		</template>				
 	</template-target>		
 	

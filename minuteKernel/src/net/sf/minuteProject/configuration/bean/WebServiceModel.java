@@ -1,9 +1,5 @@
 package net.sf.minuteProject.configuration.bean;
 
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.webservice.Wsdl;
 import net.sf.minuteProject.configuration.bean.model.webservice.WsdlModel;
 import net.sf.minuteProject.configuration.bean.model.webservice.WsdlModelFactory;
