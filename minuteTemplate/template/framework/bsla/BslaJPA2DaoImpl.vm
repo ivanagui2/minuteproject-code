@@ -109,7 +109,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 
 #parse("./snippet/orm/dao/updateNotNullOnlySnippet.vm") 
                 
-#parse("./snippet/orm/dao/domainObjectManipulation.vm") 
+#parse("./snippet/orm/dao/domainObjectManipulationJPA2.vm") 
 	
 	@Transactional
     public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
@@ -474,7 +474,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
-	   ${tableVariableName}.set${localColumnClass}Object (($linkedTableClass)null);
+	   ${tableVariableName}.set${localColumnClass} (($linkedTableClass)null);
 #end       
     }
 }

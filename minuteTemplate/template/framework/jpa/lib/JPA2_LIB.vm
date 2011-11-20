@@ -20,6 +20,7 @@
 #set($templateEnvironment=$template.getPropertyValue("environment","local"))
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
+#set($addDomainSpecificMethod=$template.getPropertyValue("add-domain-specific-method",false))
 #set($useTemporal=$template.getPropertyValue("use-temporal",false))
 #set($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #end

@@ -111,10 +111,10 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
 #putDependenciesUML()
-       if (!${tableVariableName}.get${linkedTableClass}${linkedColumnClass}s().isEmpty()) {
+       if (!${tableVariableName}.get${childrenListClass}().isEmpty()) {
           $dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName = new $dependentDaoExtentedImplementationJPAClassName (emForRecursiveDao);
-          for (${linkedTableClass} _${linkedTableVariable}${linkedColumnClass} : ${tableVariableName}.get${linkedTableClass}${linkedColumnClass}s()) {
-             ${dependentDaoExtentedImplementationJPAVariableName}.insert${linkedTableClass}WithCascade(emForRecursiveDao, _${linkedTableVariable}${linkedColumnClass});
+          for (${linkedTableClass} _${childrenListVariable} : ${tableVariableName}.get${childrenListClass}()) {
+             ${dependentDaoExtentedImplementationJPAVariableName}.insert${linkedTableClass}WithCascade(emForRecursiveDao, _${childrenListVariable});
           }
        } 
 #end  
@@ -442,8 +442,11 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #foreach ($column in ${table.columns})
 #putColumnParams()
            if (${tableVariableName}.get$columnClass() != null) {
+#if($columnUtils.isForeignKey($column))		
+#set($columnClass="${columnClass}_")
+#end
 			  ${tableVariableName}Result.set$columnClass(($columnType) row[index]);
-              index++;
+			  index++;
            }
 #end 		   	
            returnList.add(${tableVariableName}Result);
@@ -480,13 +483,15 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end     
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
 #set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 #set ($linkedDaoImplExtendedJPAName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 ##-- var = ${localTableVariable} - ${localColumnClass}
-       if (${tableVariableName}.get${linkedTableClass}${localColumnClass}()!=null) {
+       if (${tableVariableName}.get${localColumnClass}()!=null) {
 	      String chunck = ${importDaoImplExtendedJPAName}.getPartialLoadWithParentWhere${linkedTableClass}Query(
-		      ${tableVariableName}.get${linkedTableClass}${localColumnClass}(), 
-			  isWhereSet, aliasHt, aliasWhereHt, alias, "${localColumnVariable}");
+		      ${tableVariableName}.get${localColumnClass}(), 
+			  isWhereSet, aliasHt, aliasWhereHt, alias, "${colVar}");
 		  if (chunck!=null && !chunck.equals("")) {
 		     query.append(chunck);
 		     isWhereSet=true;
@@ -556,13 +561,15 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end     
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
 #set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 #set ($linkedDaoImplExtendedJPAName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 ##-- var : $localColumnVariable ; class = ${localColumnClass} 
-       if (${tableVariableName}.get${linkedTableClass}${localColumnClass}()!=null) {
+       if (${tableVariableName}.get${localColumnClass}()!=null) {
 	      String chunck = ${importDaoImplExtendedJPAName}.getPartialLoadWithParent${linkedTableClass}Query(
-		      ${tableVariableName}.get${linkedTableClass}${localColumnClass}(), 
-			  isWhereSet, aliasHt, alias, "${localColumnVariable}", beanPath, rootPath+"${linkedTableVariable}${localColumnClass}.", queryWhatInit);
+		      ${tableVariableName}.get${localColumnClass}(), 
+			  isWhereSet, aliasHt, alias, "${localColumnVariable}", beanPath, rootPath+"${colVar}.", queryWhatInit);
 		  if (chunck!=null && !chunck.equals("")) {
 		     query.append(chunck);
 		     isWhereSet=true;
@@ -620,7 +627,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end    
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-       if (${tableVariableName}.get${linkedTableClass}${localColumnClass}()!=null) {
+#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+       if (${tableVariableName}.get${localColumnClass}()!=null) {
 	      return true;
 	   }  
 #end	
@@ -655,7 +663,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		return list;
 	}
 
-#parse("./snippet/orm/dao/loadGraphSnippet.vm")
+#parse("./snippet/orm/dao/loadGraphSnippetJPA2.vm")
     
 #if ($hasUniqueKey) 
    /**
@@ -701,7 +709,6 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        return $dependentDaoExtentedImplementationJPAVariableName;
     }
     
-
 #end  
 #end  
     
