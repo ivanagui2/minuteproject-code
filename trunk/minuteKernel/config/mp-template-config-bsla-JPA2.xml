@@ -29,6 +29,24 @@
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>					
 	</template-target>		
+
+	<template-target 
+    	name="meta-inf config"
+		libdir="lib/BslaLibrary.vm"
+		tool="velocity"
+		outputdir="src/test/resources"
+		belongToPackage="true">			
+
+		<template package-root="META-INF"
+			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
+			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="environment" value="local"/>
+			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
+		</template>		
+											
+  	</template-target>
 	
 	<template-target 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
@@ -173,14 +191,14 @@
 		</template>		
 		 JPA CONFIGURATION end -->
 				
-		<!-- CACHING CONFIGURATION -->
+		<!-- CACHING CONFIGURATION 
 		<template name="BslaEhCacheXml" templateFileName="BslaEhCache.Xml.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="ehcache" file-suffix="" 
 			application-specific="true" package-root=""
 			add-model-name="false">
 		</template>			
-		
+		-->
 		<!-- CACHING CONFIGURATION end -->
 		
 		<!-- SPRING CONFIGURATION -->
@@ -190,6 +208,7 @@
 			file-extension="xml" file-prefix="dao-JPA-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false"
 			>
+			<property name="ignore-many-to-many" value="true"/>
 		</template>		
 
 		<!-- spring config extended -->
@@ -197,6 +216,7 @@
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-ext-JPA-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
+			<property name="ignore-many-to-many" value="true"/>			
 		</template>	
 																		
 		<template name="BslaSpringConfigDaoJPA2" templateFileName="BslaSpringConfigDaoJPA2.vm" 
@@ -208,6 +228,7 @@
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
 			entity-specific="false" package-specific="false" model-specific="true">
+			<property name="use-persistence-standard-location" value="true"/>
 		</template>					
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
