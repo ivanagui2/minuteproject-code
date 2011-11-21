@@ -381,6 +381,7 @@
 #set ($pathJPAPersistenceConfig = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "JPAPersistenceConfig") )
 #set ($databaseConfig = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringDatabase") )
 #set ($persistenceXmlLocation = "classpath:${pathJPAPersistenceConfig}.xml" )
+#set ($persistenceXmlLocation = $bslaLibraryUtils.getJPAPersistenceXmlLocation($template, "classpath:${pathJPAPersistenceConfig}.xml") )
 #end
 
 #macro(exposeJPASpecifics)
