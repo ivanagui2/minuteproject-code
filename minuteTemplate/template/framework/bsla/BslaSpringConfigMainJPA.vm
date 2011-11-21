@@ -14,12 +14,11 @@
     <bean id="$JPAFactoryName" autowire="byName"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceXmlLocation" value="$persistenceXmlLocation" />
-
 		<property name="dataSource"><ref bean="${model.name}DataSource"/></property>
-				<property name="jpaVendorAdapter">
+		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="databasePlatform" value="${hibernate.dialect}"></property>
-				<property name="showSql" value="true"></property>
+				<!--<property name="showSql" value="true"></property>-->
 			</bean>
 		</property>
     </bean>
