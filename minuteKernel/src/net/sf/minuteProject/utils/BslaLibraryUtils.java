@@ -130,4 +130,10 @@ public class BslaLibraryUtils extends CommonUtils{
 		}
 		return CommonUtils.getJavaDefaultMask(column);
 	}
+	
+	public static String getJPAPersistenceXmlLocation (Template template, String def) {
+		if (template.hasProperty("use-persistence-standard-location"))
+			return "classpath:META-INF/persistence.xml";
+		return def;
+	}
 }
