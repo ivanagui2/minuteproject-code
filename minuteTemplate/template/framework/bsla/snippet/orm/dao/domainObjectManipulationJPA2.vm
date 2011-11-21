@@ -1,0 +1,27 @@
+	protected $tableClassName assignBlankToNull ($tableClassName $tableVariableName) {
+	    if ($tableVariableName==null)
+			return null;
+#foreach ($column in ${table.columns})
+#putColumnParams()
+#if ($columnType=="String")
+#if($columnUtils.isForeignKey($column))		
+#set($columnClass="${columnClass}_")
+#end	
+        if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
+           ${tableVariableName}.set$columnClass((String)null);
+#end
+#end	
+		return ${tableVariableName};
+	}
+	
+	protected boolean isAllNull ($tableClassName $tableVariableName) {
+	    if ($tableVariableName==null)
+			return true;
+#foreach ($column in ${table.columns})
+#putColumnParams()
+        if (${tableVariableName}.get$columnClass()!=null) 
+            return false;
+#end
+		return true;
+	}
+	
