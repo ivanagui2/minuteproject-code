@@ -112,7 +112,7 @@ $!updatedAreaEnd
 #putColumnParams()
 #columnJavaNaming()
         @FormParam("$columnVar") $columnType $columnVar,
-#end	
+#end
         @Context HttpServletResponse servletResponse
         ) throws IOException {
         $tableClassName _$tableVariableName = new $tableClassName (
@@ -121,7 +121,7 @@ $!updatedAreaEnd
 #columnJavaNaming()
            $columnVar#if ($velocityCount!=$table.columnCount),
 #end
-#end	   
+#end
 );
         return create(_$tableVariableName);
     }
