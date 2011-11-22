@@ -4,7 +4,7 @@
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-JPA2.xml"
-			default-outputdir="JPA2" depends-on-targets="BSLA_LIB"
+			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE-LIB"
 			template-dir="@templateRoot@/framework/jpa" status="released"
 			description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
 			<frameworks>
@@ -133,7 +133,7 @@
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			default-outputdir="openxava" template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB" status="released" comment=""
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE-LIB" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
 				<framework name="OpenXava" version="4.2.3"></framework>
@@ -270,12 +270,14 @@
 			template-dir="@templateRoot@/framework/common" is-generable="false">
 		</technology>
 			
-		<!--<technology name="WS-JEE-ejb" target-name="WS-JEE-ejb" template-config-file-name="mp-template-config-WS-JEE-ejb.xml" 
-			template-dir="@templateRoot@/framework/ejb" is-generable="false"> </technology> -->
-
 		<technology name="i18n_LIB" target-name="i18n_LIB"
 			template-config-file-name="mp-template-config-i18n-LIB.xml"
 			template-dir="@templateRoot@/framework/i18n" is-generable="false">
+		</technology>
+		
+		<technology name="CACHE-LIB" target-name="CACHE-LIB"
+			template-config-file-name="mp-template-config-CACHE-LIB.xml"
+			template-dir="@templateRoot@/framework/cache" is-generable="false">
 		</technology>
 
 	</technologies>

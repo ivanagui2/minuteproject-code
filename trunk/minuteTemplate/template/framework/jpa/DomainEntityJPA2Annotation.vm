@@ -1,6 +1,8 @@
 #exposeVariableEntitySpecific()
 #putJPA2TemplateDefinition()
+#exposeEntityCache()
 #exposeEnvironmentParams()
+#exposeJPA2Specifics()
 #addedAreas()
 package $packageName;
 
@@ -47,11 +49,19 @@ import javax.xml.bind.annotation.*;
 	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${domainVariableName}.$columnVar like :$columnVar")
 #end
 #end
-}) 
+})
 #if($addXmlBinding)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace="$packageName", name = "${className}")
 @XmlRootElement(namespace="$packageName")
+#end
+#if($hasCache && $isCacheEnabled)
+#if($jpa2ImplementationIsHibernate)
+@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
+#end
+#if($jpa2ImplementationIsEclipseLink)
+//eclipseLink configuration missing? Please contribute by providing the snippet
+#end
 #end
 #if($addDomainSpecificMethod)
 public class ${className} extends AbstractDomainObject {

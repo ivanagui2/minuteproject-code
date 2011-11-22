@@ -23,6 +23,7 @@
 #set($addDomainSpecificMethod=$template.getPropertyValue("add-domain-specific-method",false))
 #set($useTemporal=$template.getPropertyValue("use-temporal",false))
 #set($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
+#set($isCacheEnabled=$template.hasPropertyValue("add-cache-implementation",false))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
