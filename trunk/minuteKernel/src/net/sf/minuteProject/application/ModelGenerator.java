@@ -294,7 +294,8 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByModel(Template template) throws MinuteProjectException {
 		if (isToGenerate(getModel(), template))
-			writeTemplateResult(getModel(), template);
+			if (isToGenerate(getModel(), template))
+				writeTemplateResult(getModel(), template);
 	}
 
 	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
@@ -357,7 +358,8 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
-		writeTemplateResult(getModel().getConfiguration(), template);
+		if (isToGenerate(getModel(), template))
+			writeTemplateResult(getModel().getConfiguration(), template);
 	}
 	
 	protected void generateArtifactsByComponent(Template template) throws MinuteProjectException {	

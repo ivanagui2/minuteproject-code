@@ -58,15 +58,15 @@
 			>
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
-									
-    </template-target>		
+
+    </template-target>
 
 	<template-target 
     	name="web-inf config"
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir="src/main/resources"
-		belongToPackage="true">			
+		belongToPackage="true">
 
 		<template package-root="META-INF"
 			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
@@ -75,8 +75,17 @@
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="environment" value="remote"/>
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
-		</template>		
-											
+		</template>
+
+		<template name="EhCacheXml" templateFileName="EhCache.Xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="ehcache" file-suffix="" 
+			application-specific="true" package-root=""
+			add-model-name="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence">
+			<property name="property-presence" value="add-cache-implementation" ></property>
+		</template>
+
   	</template-target>
 
 	<template-target 
