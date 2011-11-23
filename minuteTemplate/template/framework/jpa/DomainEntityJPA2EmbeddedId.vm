@@ -39,9 +39,9 @@ public class ${className} implements Serializable {
     }
 	
     public void set$columnClass ($columnType $columnVar) {
-        this.$columnVar =  $columnVar;
+        this.$columnVar = $columnVar;
     }
-    
+
 #end
 
 #foreach ($foreignkey in $tableUtils.getParentCompositeForeignInPrimaryKey($table))
