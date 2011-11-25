@@ -1,0 +1,6 @@
+<beans ...>
+    <context:annotation-config />
+    <bean class="...AutowiredAnnotationBeanPostProcessor"/>
+    <bean class="...DefaultAnnotationHandlerMapping">
+    <context:component-scan base-package="com.mycompany.myserver"/>
+</beans>
