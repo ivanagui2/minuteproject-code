@@ -1,3 +1,4 @@
+#putJPA2TemplateDefinition()
 #set ($datasource = $model.dataModel.basicDataSource)
 ##		<provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
@@ -18,11 +19,13 @@
             <property name="hibernate.format_sql" value="false" />	
 #end
             <property name="hibernate.dialect" value="$hibernate3.getDialect($database)"/>
-#if ($isEhcacheEnabled)
+#if ($isEhCacheEnabled)
             <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
             <property name="net.sf.ehcache.configurationResourceName" value="/ehcache.xml" />
             <property name="hibernate.cache.use_query_cache" value="true" />
             <property name="hibernate.cache.use_second_level_cache" value="true" />
+#else
+<!-- -->
 #end
 #addArea("properties")
         </properties> 

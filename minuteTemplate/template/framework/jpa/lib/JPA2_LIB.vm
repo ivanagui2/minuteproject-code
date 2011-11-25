@@ -24,6 +24,7 @@
 #set($useTemporal=$template.getPropertyValue("use-temporal",false))
 #set($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #set($isCacheEnabled=$template.hasPropertyValue("add-cache-implementation",false))
+#set($isEhCacheEnabled=$template.hasPropertyValue("add-cache-implementation","ehcache"))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)

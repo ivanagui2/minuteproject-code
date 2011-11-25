@@ -140,7 +140,7 @@
    </repositories>
 	<properties>
 		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
-		<spring.version>3.1.0.BUILD-SNAPSHOT</spring.version>
+		<spring.version>3.0.6.BUILD-SNAPSHOT</spring.version>
 		<cglib.version>2.2.2</cglib.version>
 		<junit.version>4.10</junit.version>
 	</properties>

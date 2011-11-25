@@ -71,7 +71,15 @@
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
         </dependency>
-#end        	
+#end
+#if ($isCacheEnabled)
+		<!-- caching -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+#end
 #if($isQuerydslPowered)	
 	    <!-- querydsl integration -->
         <dependency>
@@ -164,7 +172,7 @@
         </plugins>
     </build>
     <repositories>
-#if($jpa2Implementation=="eclipselink")	
+#if($jpa2ImplementationIsEclipseLink)
       <repository>
         <id>EclipseLink Repo</id>
      <!-- note that ampersands in this URL are escaped because this is in an xml file -
