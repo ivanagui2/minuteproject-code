@@ -31,7 +31,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	public String getTemplateTargetPropertyValue(String name) {
 		String s = getPropertyValue(name);
 		if (s!=null) return s;
-		if (target!=null) return target.getPropertyValue(name);
+		if (target!=null) return target.getTargetPropertyValue(name);
 		return null;
 	}
 	

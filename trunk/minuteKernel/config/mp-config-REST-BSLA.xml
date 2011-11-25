@@ -41,7 +41,7 @@
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
-					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
+					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">
 					</entity>				    
 					<entity name="ITEM" alias="MY_GOOD_ITEM" comment="my item table">
 						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" comment="my product field reference"></field>					
@@ -68,6 +68,7 @@
 			   fileName="mp-template-config-bsla-JPA2.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/petshop/bsla"
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+				<property name="add-cache-implementation" value="ehcache"></property>
 			</target> 
 
 			<target refname="JPA2" 
@@ -83,6 +84,10 @@
 			<target refname="CACHE-LIB" 
 			   fileName="mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/cache">
+			</target>
+			<target refname="REST-LIB" 
+			   fileName="mp-template-config-REST-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/rest">
 			</target>
 			<target refname="MavenMaster" 
 			   name="maven" 

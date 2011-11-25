@@ -217,4 +217,12 @@ public class Target extends AbstractConfiguration{
 	public void complementAdditional(Target target) {
 		getTemplatedirRefs().addAll(target.getTemplatedirRefs());
 	}
+
+	public String getTargetPropertyValue(String name) {
+		String s = getPropertyValue(name);
+		if (s!=null) return s;
+		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyValue(name);
+		return null;
+	}
+		
 }
