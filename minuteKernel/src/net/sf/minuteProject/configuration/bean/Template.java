@@ -104,6 +104,11 @@ public class Template extends TemplateTarget {
 		return (s!=null)?true:defaultValue;
 	}
 	
+	public Boolean hasPropertyValue(String name, String value) {
+		String s = getPropertyValue(name);
+		return (s!=null)?(s.equals(value)):false;
+	}
+	
 	public TemplateTarget getTemplateTarget() {
 		return templateTarget;
 	}

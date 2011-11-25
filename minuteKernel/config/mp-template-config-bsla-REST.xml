@@ -8,7 +8,7 @@
 
 	<template-target 
     	name="REST java set"
-		libdir=""
+		libdir="lib/SPRING_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
@@ -19,7 +19,7 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
       		<property name="add-message-format" value="message-format"></property>
-		</template>		
+		</template>
 
 	</template-target>
 
