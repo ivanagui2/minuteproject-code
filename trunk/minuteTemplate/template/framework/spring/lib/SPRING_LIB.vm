@@ -1,0 +1,22 @@
+#macro (exposeSpringDomainObjectSpecific)
+#exposeVariableEntitySpecific()
+#exposeEnvironmentParams()
+#exposeJPA2DomainObject($tableDB)
+#exposeSpringBslaDomainObject()
+#set($implementInterface=$template.getPropertyValue("implement-interface",false))
+#end
+
+#macro (exposeSpringBslaDomainObject)
+#exposeSpringTemplate()
+#set ($BslaDaoInterfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectBslaDaoInterface))
+#set ($BslaDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($BslaDaoInterfaceClass))
+#set ($BslaDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectBslaDaoInterface))
+#set ($BslaDaoExtInterfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectBslaDaoExtInterface))
+#set ($BslaDaoExtInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($BslaDaoExtInterfaceClass))
+#set ($BslaDaoExtInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectBslaDaoExtInterface))
+#end
+
+#macro (exposeSpringTemplate)
+#set ($templateDomainObjectBslaDaoInterface = "BslaDaoInterfaceUML")
+#set ($templateDomainObjectBslaDaoExtInterface = "BslaDaoInterfaceExtendedUML")
+#end

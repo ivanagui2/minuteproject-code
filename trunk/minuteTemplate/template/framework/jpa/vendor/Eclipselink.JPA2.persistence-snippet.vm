@@ -1,3 +1,4 @@
+#putJPA2TemplateDefinition()
 #set ($datasource = $model.dataModel.basicDataSource)
 ##		<provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
