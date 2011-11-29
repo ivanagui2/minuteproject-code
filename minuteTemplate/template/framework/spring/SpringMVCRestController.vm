@@ -66,7 +66,7 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.GET)
     @Transactional
     public List<$tableClassName> findAll () {
         return ${BslaDaoInterfaceVariable}.searchPrototype$tableClassName(new $tableClassName());
@@ -79,11 +79,16 @@ $!updatedAreaEnd
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
-#else	
-    @RequestMapping(value = "/{$primaryKeyVariable}", method = RequestMethod.GET)
-    @ResponseBody
+#else
+	@RequestMapping(value = "/{$primaryKeyVariable}", method = RequestMethod.GET)
+	@ResponseBody
+	@Transactional
     public $tableClassName findById (@PathVariable ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
-        return ${BslaDaoInterfaceVariable}.load$tableClassName($primaryKeyVariable);
+        $tableClassName _$tableVariableName = new $tableClassName ();
+		_${tableVariableName}.set${primaryKeyJavaNameClass}($primaryKeyVariable);
+		_$tableVariableName = ${BslaDaoExtInterfaceVariable}.getFirst$tableClassName(_$tableVariableName);
+		if (_$tableVariableName!=null) return _${tableVariableName}.flat();
+		return new $tableClassName ();
     }
 #end
 $!updatedAreaEnd
@@ -135,7 +140,7 @@ $!updatedAreaEnd
 #columnJavaNaming()
            $columnVar#if ($velocityCount!=$table.columnCount),
 #end
-#end	   
+#end
 );
         return save(_$tableVariableName);
     }	
