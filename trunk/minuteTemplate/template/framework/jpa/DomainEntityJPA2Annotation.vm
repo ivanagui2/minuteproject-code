@@ -397,10 +397,12 @@ $!updatedAreaEnd
 	}
 	
 	public void copy (${className} ${variableName}) {
+		if (${variableName}!=null) {
 #foreach ($column in ${table.columns})
 #putColumnParams()
-        set$columnClass (${variableName}.get$columnClass());
-#end	
+			set$columnClass (${variableName}.get$columnClass());
+#end
+		}
 	}
 	
 	public static ${className} fullMask() {

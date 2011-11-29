@@ -19,4 +19,12 @@
 #macro (exposeSpringTemplate)
 #set ($templateDomainObjectBslaDaoInterface = "BslaDaoInterfaceUML")
 #set ($templateDomainObjectBslaDaoExtInterface = "BslaDaoInterfaceExtendedUML")
+#set ($templateRestController = "SpringMVCRestController")
+#set ($templateSpringBackendConfig="BslaSpringConfigMainBackend")
+#end
+
+#macro (exposeSpringModelSpecific)
+#exposeSpringTemplate()
+#set($controllerPackageName=$commonUtils.getPackageName($model, $template, $templateRestController))
+#set($pathSpringBackendConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringBackendConfig))
 #end

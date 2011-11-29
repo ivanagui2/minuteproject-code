@@ -43,7 +43,12 @@
 		</exclusions>
 	</dependency>	
 	<!-- spring end -->
-        
+	<!-- Jackson JSON Mapper -->
+	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-mapper-asl</artifactId>
+		<version>1.5.3</version>
+	</dependency> 	
 #foreach($dependency in $dependencies)
 #exposeMavenDepency()
     <dependency>
