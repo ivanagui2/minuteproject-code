@@ -15,7 +15,7 @@
 
 		<template name="SpringMVCRestController" templateFileName="SpringMVCRestController.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="Resource" 
-			entity-specific="true" has-updatable-nature="true"
+			entity-specific="true" has-updatable-nature="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
       		<property name="add-message-format" value="message-format"></property>
@@ -25,13 +25,23 @@
 
 	<template-target 
     	name="REST web.xml config"
-		libdir=""
+		libdir="lib/SPRING_LIB.vm"
 		outputdir="src/main/webapp/WEB-INF"
 		package-root=""
 		belongToPackage="true">
 
 		<template name="WebXml.REST.BSLA" templateFileName="WebXml.REST.BSLA.vm" 
-			file-extension="xml" technicalPackage="" file-suffix="web" 
+			file-extension="xml" technicalPackage="" file-suffix="web" has-updatable-nature="true"
+			application-specific="true" add-model-name="false" >
+		</template>
+
+		<template name="SpringMVCRestServletXml" templateFileName="SpringMVCRestServletXml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="rest-servlet" has-updatable-nature="true"
+			application-specific="true" add-model-name="false" >
+		</template>
+
+		<template name="SpringMVCRestApplicationContextXml" templateFileName="SpringMVCRestApplicationContextXml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" has-updatable-nature="true"
 			application-specific="true" add-model-name="false" >
 		</template>
 
@@ -46,7 +56,7 @@
 		belongToPackage="true">
 		
 		<template name="PomXml.REST.BSLA" templateFileName="PomXml.REST.BSLA.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
 		</template>	
