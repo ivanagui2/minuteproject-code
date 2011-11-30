@@ -223,13 +223,13 @@
 			file-extension="xml" file-prefix="spring-config-JPA-" file-suffix="-dao" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>
-		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA.vm" 
+		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="use-persistence-standard-location" value="true"/>
 		</template>
-		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA.vm" 
+		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
 			entity-specific="false" package-specific="false" model-specific="true">
