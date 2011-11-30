@@ -19,7 +19,14 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 #end
 #if(!$isEnvironmentLocal)
+#exposeModelUpdatedAreas("DATASOURCE")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
         <jta-data-source>$datasourceName</jta-data-source>	
+#end
+$!updatedAreaEnd
 #end
 #foreach ($package in ${businessPackages})
         <!-- $package.name -->	
