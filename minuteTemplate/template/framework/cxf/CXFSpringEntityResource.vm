@@ -3,23 +3,21 @@
 package $packageName;
 
 $!updatedAreaImport
-import java.io.IOException;
-import javax.servlet.http.*;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.http.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-#if($restJEEAnnotation)
+#exposeRESTURLServer()
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
@@ -35,7 +33,6 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
-#end
 
 import $BslaDaoInterfaceImport;
 import $BslaDaoExtInterfaceImport;
@@ -48,9 +45,13 @@ import $importDomainObjectUML;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@RequestMapping ("$restXmlServerUrl")
-@Controller 
+@Path ("$restXmlServerUrl")
+@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Service
+@Transactional
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
+ 
 
 	@Autowired
 	@Qualifier("$BslaDaoInterfaceVariable")
@@ -65,9 +66,8 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    @RequestMapping(method = RequestMethod.GET)
-    @Transactional
-	@ResponseBody
+    @GET
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
     public List<$tableClassName> findAll () {
 		List<$tableClassName> r = new ArrayList<$tableClassName>();
         List<$tableClassName> l = ${BslaDaoInterfaceVariable}.searchPrototype$tableClassName(new $tableClassName());
@@ -84,11 +84,11 @@ $!updatedAreaEnd
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
-#else
-	@RequestMapping(value = "/{$primaryKeyVariable}", method = RequestMethod.GET)
-	@ResponseBody
-	@Transactional
-    public $tableClassName findById (@PathVariable ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
+#else	
+    @GET
+    @Path("{$primaryKeyVariable}")
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
+    public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
         $tableClassName _$tableVariableName = new $tableClassName ();
 		_${tableVariableName}.set${primaryKeyJavaNameClass}($primaryKeyVariable);
 		_$tableVariableName = ${BslaDaoExtInterfaceVariable}.getFirst$tableClassName(_$tableVariableName);
@@ -97,50 +97,26 @@ $!updatedAreaSnippet
     }
 #end
 $!updatedAreaEnd
-#end
 
-	@RequestMapping(method = RequestMethod.POST)
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	@ResponseBody
-	public $tableClassName create (
-#foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
-        @RequestParam("$columnVar") $columnType $columnVar,
-#end
-        HttpServletResponse servletResponse
-        ) throws IOException {
-        $tableClassName _$tableVariableName = new $tableClassName (
-#foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
-           $columnVar#if ($velocityCount!=$table.columnCount),
-#end
-#end	   
-);
-        return save(_$tableVariableName);
-    }
-
-    @RequestMapping(value = "/{$primaryKeyVariable}", method = RequestMethod.DELETE)
-    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	@ResponseBody
-    public String delete (@PathVariable ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
+    @DELETE
+    @Path("{$primaryKeyVariable}")
+    public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
         $tableClassName $tableVariableName = new $tableClassName ();
         ${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
         ${BslaDaoInterfaceVariable}.delete$tableClassName($tableVariableName);
-		return "OK";
     }
-	
-	@RequestMapping(method = RequestMethod.PUT)
-	@ResponseBody
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-    public $tableClassName save (
+#end
+
+    @POST
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public $tableClassName create (
 #foreach ($column in ${table.columns})
 #putColumnParams()
 #columnJavaNaming()
-        @RequestParam("$columnVar") $columnType $columnVar,
+        @FormParam("$columnVar") $columnType $columnVar,
 #end
-        HttpServletResponse servletResponse
+        @Context HttpServletResponse servletResponse
         ) throws IOException {
         $tableClassName _$tableVariableName = new $tableClassName (
 #foreach ($column in ${table.columns})
@@ -151,8 +127,16 @@ $!updatedAreaEnd
 #end
 );
         return save(_$tableVariableName);
-    }	
+    }
 
+    @PUT
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
+        $tableClassName $tableVariableName = jaxb${tableClassName}.getValue();
+        if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
+            return ${BslaDaoInterfaceVariable}.update$tableClassName($tableVariableName);
+        return save($tableVariableName);
+    }
 
 	public $tableClassName save ($tableClassName $tableVariableName) {
 		${BslaDaoInterfaceVariable}.save$tableClassName($tableVariableName);
@@ -160,5 +144,4 @@ $!updatedAreaEnd
 	}
 
 $!updatedAreaImplementation
-
 }

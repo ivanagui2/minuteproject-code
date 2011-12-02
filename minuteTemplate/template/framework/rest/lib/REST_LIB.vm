@@ -25,3 +25,6 @@
 #set ($templateEntityResourceJersey = "EJB3ResourceREST")
 #end
 
+#macro (exposeMavenJersey)
+#set($jerseyVersion=$template.getPropertyValue("add-rest-implementation-jersey-version","1.9-ea03"))
+#end
