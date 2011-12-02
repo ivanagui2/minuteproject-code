@@ -1,0 +1,18 @@
+#macro (exposeCXFModelSpecific)
+#exposeCXFTemplate()
+#set($controllerCxfPackageName=$commonUtils.getPackageName($model, $template, $templateCXFSpringRestServiceBean))
+#end
+
+#macro(exposeCXFEntitySpecific)
+#exposeCXFTemplate()
+#set ($CXFRestServiceBeanClass = $commonUtils.getTemplateClassName($table, $model, $templateCXFSpringRestServiceBean))
+#set ($CXFRestServiceBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceBeanClass))
+#end
+
+#macro (exposeCXFTemplate)
+#set ($templateCXFSpringRestServiceBean = "CXFSpringEntityResource")
+#end
+
+#macro (exposeMavenCXF)
+#set($cxfVersion=$template.getPropertyValue("add-rest-implementation-cxf-version","2.2.3"))
+#end

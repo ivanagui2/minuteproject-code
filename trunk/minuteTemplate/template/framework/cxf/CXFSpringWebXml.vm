@@ -4,7 +4,7 @@
 
     <display-name>$model.name CXF REST</display-name>
     <description>$model.name CXF REST access</description>
-
+<!--
     <context-param>
         <param-name>webAppRootKey</param-name>
         <param-value>cxf.rest.example.root</param-value>
@@ -18,10 +18,10 @@
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
-
+	-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/deploy-context.xml</param-value>
+        <param-value>/WEB-INF/application-context.xml</param-value>
     </context-param>
 
     <listener>
