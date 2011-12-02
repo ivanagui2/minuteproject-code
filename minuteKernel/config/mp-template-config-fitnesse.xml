@@ -1,4 +1,4 @@
-<target name="BackendOnBsla-for-fitnesse">		
+<target name="fitnesse">		
 	<architecture-target name="fitnesse" description="fitness templates">
 	</architecture-target>	
 	<plugin name="restrictedCodeUtils" 	className="net.sf.minuteProject.utils.code.RestrictedCodeUtils"></plugin>
