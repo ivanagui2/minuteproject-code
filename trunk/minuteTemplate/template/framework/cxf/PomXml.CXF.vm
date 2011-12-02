@@ -42,8 +42,8 @@
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
         <version>${cxf.version}</version>
     </dependency>
+    <!-- for wadl generation -->	
     <dependency>
-       <!-- for wadl generation -->
        <groupId>com.sun.jersey</groupId>
        <artifactId>jersey-server</artifactId>
        <version>${jersey.version}</version>
