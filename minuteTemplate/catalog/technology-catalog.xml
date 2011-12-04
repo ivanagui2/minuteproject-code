@@ -26,6 +26,21 @@
 			<property name="add-rest-implementation-jersey-version"
 				value="1.9-ea03"></property>
 		</technology>
+		
+		<technology name="REST-Spring" target-name="REST-Spring"
+			model-type="rdbms" template-config-file-name="mp-template-config-bsla-REST.xml"
+			default-outputdir="REST-Spring" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster"
+			template-dir="@templateRoot@/framework/spring"
+			status="released"
+			description="Generates:\REST CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
+			<frameworks>
+				<framework name="jersey" version="1.9"></framework>
+			</frameworks>
+			<property name="add-xmlbinding" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+			<property name="add-rest-implementation-jersey-version"
+				value="1.9-ea03"></property>
+		</technology>
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-WS-JEE-ejb.xml"
