@@ -58,14 +58,14 @@
 		
 			<target refname="REST-CXF-BSLA" 
 			   name="default" 
-			   fileName="mp-template-config-bsla-REST-CXF.xml" 
+			   fileName="mp-template-config-REST-CXF-Spring.xml" 
 			   outputdir-root="../../DEV/cxf/petshop/rest"
 			   templatedir-root="../../minuteTemplate/template/framework/cxf">
 			</target>
 
 			<target refname="BackendOnBsla" 
 			   name="default" 
-			   fileName="mp-template-config-bsla-JPA2.xml" 
+			   fileName="mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="../../DEV/cxf/petshop/bsla"
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 				<property name="add-cache-implementation" value="ehcache"></property>

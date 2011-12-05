@@ -58,14 +58,14 @@
 		
 			<target refname="REST-SpringMVC" 
 			   name="default" 
-			   fileName="mp-template-config-bsla-REST.xml" 
+			   fileName="mp-template-config-REST-SpringMVC.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/petshop/rest"
 			   templatedir-root="../../minuteTemplate/template/framework/spring">
 			</target>
 
 			<target refname="BackendOnBsla" 
 			   name="default" 
-			   fileName="mp-template-config-bsla-JPA2.xml" 
+			   fileName="mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/petshop/bsla"
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 				<property name="add-cache-implementation" value="ehcache"></property>
