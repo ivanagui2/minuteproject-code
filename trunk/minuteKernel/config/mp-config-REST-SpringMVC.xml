@@ -56,7 +56,7 @@
 		</model>	
 		<targets>
 		
-			<target refname="REST-BSLA" 
+			<target refname="REST-SpringMVC" 
 			   name="default" 
 			   fileName="mp-template-config-bsla-REST.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/petshop/rest"
