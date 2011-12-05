@@ -58,7 +58,7 @@
 		
 			<target refname="BackendOnBsla" 
 			   name="default" 
-			   fileName="mp-template-config-bsla-JPA2.xml" 
+			   fileName="mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="../output/bsla-jpa2/petshop/bsla"
 			   templatedir-root="../../template/framework/bsla">
 			</target> 

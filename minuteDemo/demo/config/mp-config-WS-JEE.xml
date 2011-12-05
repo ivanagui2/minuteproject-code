@@ -67,6 +67,10 @@
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>			
+			<target refname="CACHE-LIB" 
+			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   templatedir-root="../../template/framework/cache">
+			</target>
 			<target refname="WS-JEE-ejb" 
 			   name="WS-JEE-ejb" 
 			   fileName="mp-template-config-WS-JEE-ejb.xml" 
