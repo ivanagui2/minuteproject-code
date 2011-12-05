@@ -166,7 +166,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private Model getModel() {
 		Model model = new Model();
 		model.setDataModel(getDataModel());
-		model.setWebServiceModel(getWebServiceModel());
+//		model.setWebServiceModel(getWebServiceModel());
 		model.setName(modelName);
 		model.setPackageRoot(rootpackage);
 		model.setVersion(getVersion());
