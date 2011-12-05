@@ -3,12 +3,9 @@
 	<configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
-		</conventions>	
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
+		</conventions>
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
 			<data-model>
-			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
-			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
@@ -41,7 +38,7 @@
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
-					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">
+					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
 					</entity>				    
 					<entity name="ITEM" alias="MY_GOOD_ITEM" comment="my item table">
 						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" comment="my product field reference"></field>					
@@ -55,49 +52,44 @@
 			</business-model>
 		</model>	
 		<targets>
-		
-			<target refname="REST-SpringMVC" 
-			   name="default" 
-			   fileName="mp-template-config-REST-SpringMVC.xml" 
-			   outputdir-root="../output/rest-springmvc/petshop/rest"
-			   templatedir-root="../../template/framework/spring">
-			</target>
-
-			<target refname="BackendOnBsla" 
-			   name="default" 
-			   fileName="mp-template-config-JPA2-bsla.xml" 
-			   outputdir-root="../output/rest-springmvc/petshop/bsla"
-			   templatedir-root="../../template/framework/bsla">
-				<property name="add-cache-implementation" value="ehcache"></property>
-			</target> 
-
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../output/rest-springmvc/petshop/jpa2"
+			   outputdir-root="../output/WS-JEE/petshop/JPA2"
 			   templatedir-root="../../template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
-               <property name="add-jpa2-implementation" value="hibernate"></property>
-               <property name="add-cache-implementation" value="ehcache"></property>
-               <property name="add-domain-specific-method" value="true"></property>
-               <property name="add-xmlbinding" value="true"></property>	
-               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-			</target> 	
-			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
-			   templatedir-root="../../template/framework/cache">
-			</target>
-			<target refname="REST-LIB" 
-			   fileName="mp-template-config-REST-LIB.xml" 
-			   templatedir-root="../../template/framework/rest">
+               <property name="add-jpa2-implementation" value="eclipselink"></property>	
+               <property name="add-xmlbinding" value="true"></property>
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		
+               	<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			</target>							
+			<target refname="LIB" 
+			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   templatedir-root="../../template/framework/bsla">
+			</target>			
+			<target refname="WS-JEE-ejb" 
+			   name="WS-JEE-ejb" 
+			   fileName="mp-template-config-WS-JEE-ejb.xml" 
+			   outputdir-root="../output/WS-JEE/petshop/EJB3"
+			   templatedir-root="../../template/framework/ejb">			   			   
+			</target> 		
+			<target refname="WS-JEE-war" 
+			   name="WS-JEE-war" 
+			   fileName="mp-template-config-WS-JEE-war.xml" 
+			   outputdir-root="../output/WS-JEE/petshop/WS"
+			   templatedir-root="../../template/framework/webservice">			   			   
 			</target>
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../output/rest-springmvc/petshop"
+			   outputdir-root="../output/WS-JEE/petshop"
 			   templatedir-root="../../template/framework/maven">
-			</target>
-			
+			</target> 
+			<target refname="Documentation" 
+			   fileName="mp-template-config-documentation.xml" 
+			   outputdir-root="../output/WS-JEE/petshop"
+			   templatedir-root="../../template/template">
+			</target>	
 		</targets>
 	</configuration>
 </generator-config>
