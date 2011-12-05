@@ -6,6 +6,7 @@ call demo-ibatis.cmd
 call demo-jpa.cmd
 call demo-last-features-openxava.cmd
 call demo-JPA2.cmd
+call demo-JPA2-BSLA.cmd
 
 @rem last feature generations
 echo "last feature generations"
@@ -15,6 +16,8 @@ call demo-last-features-spring-jpa.cmd
 @rem incubator generations
 echo "incubator generations"
 call demo-REST-JEE.cmd
+call demo-REST-CXF-Spring.cmd
+call demo-REST-SpringMVC.cmd
 call demo-WS-JEE.cmd
 call demo-JSF-primefaces.cmd
 call demo-draft-features-vaadin-spring-hibernate.cmd

@@ -6,6 +6,7 @@ echo "standard generations"
 ./demo-jpa.sh
 ./demo-last-features-openxava.sh
 ./demo-JPA2.sh
+./demo-JPA2-BSLA.sh
 
 #rem last feature generations
 echo "last feature generations"
@@ -15,6 +16,8 @@ echo "last feature generations"
 #rem incubator generations
 echo "incubator generations"
 ./demo-REST-JEE.sh
+./demo-REST-CXF-Spring.sh
+./demo-REST-SpringMVC.sh
 ./demo-WS-JEE.sh
 ./demo-JSF-primefaces.sh
 ./demo-draft-features-vaadin-spring-hibernate.sh
