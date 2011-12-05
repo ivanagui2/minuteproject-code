@@ -12,6 +12,15 @@
 			</frameworks>
 		</technology>
 
+		<technology name="JPA2-bsla" target-name="JPA2-bsla" model-type="rdbms"
+			template-config-file-name="mp-template-config-JPA2-bsla.xml"
+			default-outputdir="bsla" template-dir="@templateRoot@/framework/bsla"
+			status="release" description="Generates comprehensive set of Extended CRUD DAO"
+			depends-on-targets="JPA2,MavenMaster" 
+			is-generable="true">
+			<property name="add-cache-implementation" value="ehcache"></property>
+		</technology>
+
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
 			default-outputdir="REST-JEE" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster"
@@ -27,19 +36,40 @@
 				value="1.9-ea03"></property>
 		</technology>
 		
-		<technology name="REST-Spring" target-name="REST-Spring"
-			model-type="rdbms" template-config-file-name="mp-template-config-bsla-REST.xml"
-			default-outputdir="REST-Spring" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster"
+		<technology name="REST-SpringMVC" target-name="REST-SpringMVC"
+			model-type="rdbms" template-config-file-name="mp-template-config-REST-SpringMVC.xml"
+			default-outputdir="REST-Spring" depends-on-targets="JPA2,JPA2-bsla,REST_LIB,MavenMaster"
 			template-dir="@templateRoot@/framework/spring"
 			status="released"
-			description="Generates:\REST CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
+			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
-				<framework name="jersey" version="1.9"></framework>
+				<framework name="spring" version="3.0.6"></framework>
 			</frameworks>
-			<property name="add-xmlbinding" value="true"></property>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-xmlbinding" value="true"></property>	
+            <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version"
-				value="1.9-ea03"></property>
+		</technology>
+		
+		<technology name="REST-CXF" target-name="REST-CXF"
+			model-type="rdbms" template-config-file-name="mp-template-config-REST-CXF-Spring.xml"
+			default-outputdir="cxf" depends-on-targets="JPA2,JPA2-bsla,REST_LIB,SPRING-LIB,MavenMaster"
+			template-dir="@templateRoot@/framework/cxf"
+			status="released"
+			description="Generates:\REST CXF CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
+			<frameworks>
+				<framework name="spring" version="3.0.6"></framework>
+				<framework name="spring" version="2.2.3"></framework>
+			</frameworks>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-xmlbinding" value="true"></property>	
+            <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<property name="use-temporal" value="true"></property>
+			<property name="add-rest-implementation-jersey-version" value="2.2.3"></property>		
 		</technology>
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
@@ -223,7 +253,7 @@
 			</frameworks>
 		</technology>
 
-		<!-- webservice model technologies -->
+		<!-- webservice model technologies 
 		
 		<technology name="WebService+Spring-Hibernate" model-type="webservice"
 			template-config-file-name="mp-template-config-WSDL-API.xml"
@@ -257,7 +287,8 @@
 			status="release" description="Generates mvn structure to implement to nest backend to wsdl api" 
 			is-generable="false">
 		</technology>
-
+		-->
+		
 		<!-- libraries -->
 
 		<technology name="BSLA_LIB" target-name="BSLA_LIB"
@@ -293,6 +324,16 @@
 		<technology name="CACHE-LIB" target-name="CACHE-LIB"
 			template-config-file-name="mp-template-config-CACHE-LIB.xml"
 			template-dir="@templateRoot@/framework/cache" is-generable="false">
+		</technology>
+		
+		<technology name="REST-LIB" target-name="REST-LIB"
+			template-config-file-name="mp-template-config-REST-LIB.xml"
+			template-dir="@templateRoot@/framework/rest" is-generable="false">
+		</technology>
+		
+		<technology name="SPRING-LIB" target-name="SPRING-LIB"
+			template-config-file-name="mp-template-config-SPRING-LIB.xml"
+			template-dir="@templateRoot@/framework/spring" is-generable="false">
 		</technology>
 
 	</technologies>
