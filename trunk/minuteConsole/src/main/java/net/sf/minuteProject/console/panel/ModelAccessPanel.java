@@ -42,8 +42,9 @@ public class ModelAccessPanel extends JPanel implements FillBasicConfiguration{
     private JPasswordField passwordTf;
     private ConsoleSample consoleSample;
     
-    public ModelAccessPanel(ConsoleSample consoleSample) { this.consoleSample = consoleSample;
-   	 databases = DatabaseCatalogUtils.getPublishedDatabases(consoleSample.getCatalogDir());
+    public ModelAccessPanel(ConsoleSample consoleSample) { 
+    	this.consoleSample = consoleSample;
+   	    databases = DatabaseCatalogUtils.getPublishedDatabases(consoleSample.getCatalogDir());
  	    databaseNames = new ArrayList<String>();
 	    for (Database database : databases) {
 		    databaseNames.add(database.getName());

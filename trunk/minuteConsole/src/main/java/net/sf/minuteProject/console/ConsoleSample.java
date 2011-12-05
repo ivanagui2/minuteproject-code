@@ -78,7 +78,7 @@ public class ConsoleSample extends JFrame{
 		packagePanel = new PackagePanel();
 
 		tabbedPane.addTab("Data model reverse-engineering", getDataModelReverseEngineeringMainPanel());	
-		tabbedPane.addTab("Webservice model", getWebServiceModelReverseMainPanel());	
+		//tabbedPane.addTab("Webservice model", getWebServiceModelReverseMainPanel());	
 		tabbedPane.addTab("Customisation", getDataModelReverseEngineeringCustomisationPanel());	
 
 		tabbedPane.addTab("Technology information", getTechConventionsTab());				
