@@ -80,7 +80,10 @@
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>
-			
+			<target refname="CACHE-LIB" 
+			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   templatedir-root="../../template/framework/cache">
+			</target>			
 			<target 
 			   name="REST" 
 			   fileName="mp-template-config-REST.xml" 
@@ -99,7 +102,7 @@
 									
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../../dev/REST/petshop"
+			   outputdir-root="../output/REST-JEE/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>	
 			
