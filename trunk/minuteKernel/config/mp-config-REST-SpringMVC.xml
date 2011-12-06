@@ -3,6 +3,7 @@
 	<configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
+			<target-convention type="disable-package" />
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
 			<data-model>
