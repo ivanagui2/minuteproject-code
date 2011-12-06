@@ -29,7 +29,7 @@
 		</template>
 		
 		<template name="DomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="_" 
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
@@ -39,7 +39,7 @@
 		</template>		
 
 		<template name="DomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="Id" 
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
@@ -48,7 +48,7 @@
 
 		<!-- enumeration for reference data -->
 		<template name="EnumerationReferenceDataJPA2" templateFileName="EnumerationReferenceData.vm" 
-			subdir="" outputsubdir="" technicalPackage="enumeration"
+			subdir="" outputsubdir="" technicalPackage="domain.enumeration"
 			file-extension="java" file-prefix="" file-suffix="Enum" 
 			field-specific="true" 
 			file-name-builder-plugin="referenceDataUtils"
