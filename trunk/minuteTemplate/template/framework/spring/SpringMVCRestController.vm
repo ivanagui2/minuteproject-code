@@ -3,6 +3,12 @@
 package $packageName;
 
 $!updatedAreaImport
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.*;
+import java.sql.*;
+
 import java.io.IOException;
 import javax.servlet.http.*;
 import java.util.List;
@@ -104,16 +110,19 @@ $!updatedAreaEnd
 	@ResponseBody
 	public $tableClassName create (
 #foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
+#if ($column.isLob() && $convertClobToString=="true")
+#set($columnType="String")
+#elseif($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+#end
         @RequestParam("$columnVar") $columnType $columnVar,
 #end
         HttpServletResponse servletResponse
         ) throws IOException {
         $tableClassName _$tableVariableName = new $tableClassName (
 #foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
            $columnVar#if ($velocityCount!=$table.columnCount),
 #end
 #end	   
@@ -136,16 +145,19 @@ $!updatedAreaEnd
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
     public $tableClassName save (
 #foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
+#if ($column.isLob() && $convertClobToString=="true")
+#set($columnType="String")
+#elseif($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+#end
         @RequestParam("$columnVar") $columnType $columnVar,
 #end
         HttpServletResponse servletResponse
         ) throws IOException {
         $tableClassName _$tableVariableName = new $tableClassName (
 #foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
            $columnVar#if ($velocityCount!=$table.columnCount),
 #end
 #end

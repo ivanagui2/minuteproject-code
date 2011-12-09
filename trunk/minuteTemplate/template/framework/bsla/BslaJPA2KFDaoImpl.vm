@@ -67,8 +67,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
     
     private SimpleCache simpleCache = new SimpleCache();
 #foreach ($reference in $table.distinctChildrenType)
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 #putDependenciesUML()
 ##    private $dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName;
     private $dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName;
@@ -108,8 +108,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
     public void insert${tableClassName}WithCascade(EntityManager emForRecursiveDao, $tableClassName ${tableVariableName}) {
        insert$tableClassName(emForRecursiveDao, $tableVariableName);
 #foreach ($reference in $table.children)
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 #putDependenciesUML()
        if (!${tableVariableName}.get${childrenListClass}().isEmpty()) {
           $dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName = new $dependentDaoExtentedImplementationJPAClassName (emForRecursiveDao);
@@ -169,7 +169,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
         Query jpaQuery = getEntityManager().createQuery(query.toString());
         isWhereSet = false;
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
         }   
@@ -201,7 +201,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
    protected $tableClassName getDefault${tableClassName}What() {
       $tableClassName ${tableVariableName} = new $tableClassName();
 #foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()      
+#putColumnParamNaming()      
 #set ($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($column)) 
       ${tableVariableName}.set$columnClass($defaultStuffing);
 #end      
@@ -244,7 +244,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
           cpt++;
        }
@@ -440,7 +440,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		      row = (Object[]) iter.next();
 		   $tableClassName ${tableVariableName}Result = new $tableClassName();
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
            if (${tableVariableName}.get$columnClass() != null) {
 #if($columnUtils.isForeignKey($column))		
 #set($columnClass="${columnClass}_")
@@ -470,7 +470,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
           isWhereSet = false;
        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryBLANK_AND (isWhereSet));
 		   isWhereSet = true;
@@ -551,7 +551,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
           isWhereSet = false;
        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
           query.append (queryWhatInit.getWhatInit (isWhereSet));
           isWhereSet = true; 
@@ -620,7 +620,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	   if ($tableVariableName==null)
 		  return false;
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
 	      return true;
        }
@@ -642,7 +642,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        boolean isWhereSet = false;
        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
           query.append (getQuerySelectComma (isWhereSet));
           isWhereSet = true; 
@@ -698,8 +698,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	}
 	
 #foreach ($reference in $table.distinctChildrenType)
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 #putDependenciesUML()
     public void set$dependentDaoExtentedImplementationJPAClassName ($dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName) {
        this.$dependentDaoExtentedImplementationJPAVariableName = $dependentDaoExtentedImplementationJPAVariableName;

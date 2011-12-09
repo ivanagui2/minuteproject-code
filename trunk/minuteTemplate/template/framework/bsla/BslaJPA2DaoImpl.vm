@@ -75,31 +75,9 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     */ 
     @Transactional
     public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
-##        boolean isWhereSet = false;
-##        StringBuffer query = new StringBuffer();
-##        query.append (" Update $tableClassName $tableVariableName ");
-###foreach ($column in ${table.columns})
-###if (!$column.isPrimaryKey())
-###putColumnParams()
-##        if (${tableVariableName}.get$columnClass() != null) {
-##           query.append (getQueryCommaSet (isWhereSet));
-##           isWhereSet = true; 
-##           query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
-##        }
-###end    
-###end 		
-##		isWhereSet = false; 
-###foreach ($column in $table.primaryKeyColumns)
-###putColumnParams()
-##        if (${tableVariableName}.get$columnClass() != null) {
-##           query.append (getQueryWHERE_AND (isWhereSet));
-##           isWhereSet = true;
-##			query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
-##        }
-###end   
         Query jpaQuery = getEntityManager().createQuery(getUpdateNotNullOnly${tableClassName}QueryChunk(${tableVariableName}));
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
         }   
@@ -107,7 +85,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 		return jpaQuery.executeUpdate();
     }
 
-#parse("./snippet/orm/dao/updateNotNullOnlySnippet.vm") 
+#parse("./snippet/orm/dao/updateNotNullOnlySnippetJPA2.vm") 
                 
 #parse("./snippet/orm/dao/domainObjectManipulationJPA2.vm") 
 	
@@ -117,7 +95,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         StringBuffer query = new StringBuffer();
         query.append (" update $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryCommaSet (isWhereSet));
            isWhereSet = true; 
@@ -131,7 +109,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 #end
 		isWhereSet = false; 
 #foreach ($column in $table.columns)
-#putColumnParams()
+#putColumnParamNaming()
         if (prototypeCriteria.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
@@ -257,7 +235,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 #end    
 #end    
 #foreach ($column in $table.primaryKeyColumns)
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
@@ -363,7 +341,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         boolean isCommaSet = false;
         StringBuffer query = new StringBuffer("SELECT DISTINCT ");
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}Mask.get$columnClass() != null) {
            query.append (getQueryComma (isCommaSet));
            isCommaSet = true;
@@ -378,7 +356,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
     protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
         StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryAND (isAndSet));
            isAndSet = true;
@@ -400,7 +378,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
         StringBuffer query = new StringBuffer();
         query.append (" SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}Positive!=null && ${tableVariableName}Positive.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
