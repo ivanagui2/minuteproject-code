@@ -87,12 +87,13 @@ public class DatabaseUtils {
 	//
 	public boolean isPrimaryKeyPolicyOneGlobal(Model model) {
 		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
-		return primaryKeyPolicy.isOneGlobal();
+		if (primaryKeyPolicy!=null)
+			return primaryKeyPolicy.isOneGlobal();
+		return false;
 	}
 	
 	public boolean isPrimaryKeyPolicyOneForEachTable(Model model) {
-		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
-		return primaryKeyPolicy.isOneForEachTable();
+		return !isPrimaryKeyPolicyOneGlobal(model);
 	}
 	
 	private PrimaryKeyPolicy getPrimaryKeyPolicy (Table table) {
