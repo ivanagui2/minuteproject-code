@@ -103,7 +103,7 @@
 			<property name="environment" value="local"/>
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>		
-											
+
   	</template-target>
 
 	<template-target 
