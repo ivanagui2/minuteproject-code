@@ -62,9 +62,8 @@
 	}
 	
 #foreach ($reference in $table.distinctChildrenType)
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
-##set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+#if(!$linktableDB.isManyToMany())
 	private void reassemble${linkedTableClass} (List<${linkedTableClass}> children, List<$tableClassName> parents) {
 		for (${linkedTableClass} child : children) {
 			for ($tableClassName parent : parents) {

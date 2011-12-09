@@ -61,7 +61,7 @@
   </dependencies>
   
   <build>
-    <finalName>${model.name}RestApp</finalName>
+    <finalName>${model.name}RestSpringMVCApp</finalName>
     <resources>
       <!-- overwrite generated artifacts for packaging: for example by providing another jndi name ... -->
 	  <resource>

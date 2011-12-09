@@ -2,7 +2,7 @@
 	    if ($tableVariableName==null)
 			return null;
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
 #if ($columnType=="String")
 #if($columnUtils.isForeignKey($column))		
 #set($columnClass="${columnClass}_")
@@ -18,7 +18,7 @@
 	    if ($tableVariableName==null)
 			return true;
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
         if (${tableVariableName}.get$columnClass()!=null) 
             return false;
 #end
