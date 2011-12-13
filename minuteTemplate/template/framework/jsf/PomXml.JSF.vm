@@ -157,7 +157,7 @@
 		<repository>
 			<id>primefaces-repo</id>
 			<name>Prime Technology Maven Repository</name>
-			<url>http://repository.prime.com.tr</url>
+			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
