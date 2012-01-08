@@ -1,0 +1,4 @@
+##this is the place to 
+## put common definitions
+## as well as retrieving each JOOQ template position in the generated structure
+## call jooqUtils plugin for specific jooq extensions
