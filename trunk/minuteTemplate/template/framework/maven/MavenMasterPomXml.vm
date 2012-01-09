@@ -4,12 +4,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
+	<modelVersion>4.0.0</modelVersion>	
     <groupId>${rootPackage}.${model.name}</groupId>
     <artifactId>${model.name}App</artifactId>
     <version>${version}-SNAPSHOT</version>
-    <name>${model.name}App</name>  
+    <name>${model.name}App</name>
     <packaging>pom</packaging>	
 	<description>${model.name} Application</description>
 	<modules>
