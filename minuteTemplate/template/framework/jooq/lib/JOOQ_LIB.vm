@@ -2,3 +2,65 @@
 ## put common definitions
 ## as well as retrieving each JOOQ template position in the generated structure
 ## call jooqUtils plugin for specific jooq extensions
+
+#macro (exposeJOOQEntitySpecific)
+#exposeVariableEntitySpecific()
+#exposeJOOQEntities()
+#exposeJOOQCommon()
+#set($entitySuperClass=$jooqUtils.getEntitySuperClass($table))##"org.jooq.impl.UpdatableTableImpl")
+#set($serialValue=$jooqUtils.getRandomSerialNumber())
+#set($classNameUpperCase=$formatUtils.getUppercaseUnderscore(${table.name})) ##check if it is the table.name or table.alias to uppercase
+#end
+
+#macro (exposeJOOQCommon)
+#set ($jooqVersion = $template.getPropertyValue("jooq-version","2.0.1")) ##retrieve the default version at template/templateset/target level
+#set ($modelUpperCase = $formatUtils.getUppercaseUnderscore(${model.name})) ##retrieve the default version at template/templateset/target level
+#end
+
+#macro (putJOOQColumnParam)
+##to be used within a loop where $column is available
+#putColumnParamNaming()
+#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${column.name})) ##check if it is the column.name or column.alias to uppercase
+#set($jooqFullType = $jooqUtils.getJooqFullType($column))
+#end
+
+#macro (exposeJOOQModelSpecific)
+#exposeVariableModelDetailSpecific()
+#end
+
+#macro(putJOOQReferenceParam)
+#putReferenceParams2()
+#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.name}))
+#end
+
+#macro (exposeJOOQTemplate)
+#set ($templateJOOQEntity = "JOOQ.entity")
+#set ($templateJOOQGeneratorInput = "JOOQ.generator.input")
+#set ($templateJOOQKeys = "JOOQ.keys")
+#set ($templateJOOQModelFactory = "JOOQ.model.factory")
+#set ($templateJOOQModel = "JOOQ.model")
+#set ($templateJOOQPomXml = "JOOQ.PomXml")
+#set ($templateJOOQRecord = "JOOQ.record")
+#set ($templateJOOQRoutines = "JOOQ.routines")
+#set ($templateJOOQTables = "JOOQ.tables")
+#set ($templateJOOQStoredProcedure = "JOOQ.stored-procedure")
+#end
+	
+#macro (exposeJOOQEntities)
+#exposeJOOQTemplate()
+## a bit verbose 
+## this allows each template to discover other (from the same type (for reference) or not (for dependency))
+#set ($recordClass = $commonUtils.getTemplateClassName($table, $model, $templateJOOQRecord))
+#set ($recordVariable = $commonUtils.getJavaNameVariableFirstLetter($recordClass))
+#set ($recordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateJOOQRecord))
+#set ($entityClass = $commonUtils.getTemplateClassName($table, $model, $templateJOOQEntity))
+#set ($entityVariable = $commonUtils.getJavaNameVariableFirstLetter($entityClass))
+#set ($entityClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateJOOQEntity))
+#set ($keysClass = $commonUtils.getTemplateClassName($model, $template, $templateJOOQKeys))
+#set ($keysVariable = $commonUtils.getJavaNameVariableFirstLetter($keysClass))
+#set ($keysClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateJOOQKeys))
+#set ($modelClass = $commonUtils.getTemplateClassName($model, $template, $templateJOOQModel))
+#set ($modelVariable = $commonUtils.getJavaNameVariableFirstLetter($modelClass))
+#set ($modelClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateJOOQModel))
+#end
+

@@ -172,7 +172,7 @@ $!updatedAreaEnd
 #end
     @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
     private $columnType ${columnVar}_;
-	
+
 #end	
 #foreach ($reference in $table.children)
 #putReferenceParams2()
@@ -195,7 +195,7 @@ $!updatedAreaSnippet
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
-   
+
 #end
 #end
 $!updatedAreaEnd
