@@ -14,14 +14,14 @@
 		belongToPackage="true">
 			 
 		<template name="JOOQ.entity" templateFileName="JOOQ.entity.vm" 
-			subdir="" outputsubdir="" technicalPackage="tables"
+			subdir="" outputsubdir="" technicalPackage="tables" add-business-package-dir-name="false"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" has-updatable-nature="true">
 		</template>
 		
 		<template name="JOOQ.record" templateFileName="JOOQ.record.vm" 
 			subdir="" outputsubdir="" technicalPackage="tables.records"
-			file-extension="java" file-prefix="Record" file-suffix="" 
+			file-extension="java" file-prefix="" file-suffix="Record" add-business-package-dir-name="false"
 			entity-specific="true" has-updatable-nature="true">
 		</template>
 		
