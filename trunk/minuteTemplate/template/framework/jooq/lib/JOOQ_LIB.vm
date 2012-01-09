@@ -10,6 +10,8 @@
 #set($entitySuperClass=$jooqUtils.getEntitySuperClass($table))##"org.jooq.impl.UpdatableTableImpl")
 #set($serialValue=$jooqUtils.getRandomSerialNumber())
 #set($classNameUpperCase=$formatUtils.getUppercaseUnderscore(${table.name})) ##check if it is the table.name or table.alias to uppercase
+#set($classNameLowerCase = $formatUtils.lowerCase(${table.name})) ##check if it is the alias
+#set($pkUpperCase=$formatUtils.getUppercaseUnderscore(${primaryKey}))
 #end
 
 #macro (exposeJOOQCommon)
@@ -26,6 +28,8 @@
 
 #macro (exposeJOOQModelSpecific)
 #exposeVariableModelDetailSpecific()
+#exposeJOOQEntities()
+#exposeJOOQCommon()
 #end
 
 #macro(putJOOQReferenceParam)
@@ -62,5 +66,6 @@
 #set ($modelClass = $commonUtils.getTemplateClassName($model, $template, $templateJOOQModel))
 #set ($modelVariable = $commonUtils.getJavaNameVariableFirstLetter($modelClass))
 #set ($modelClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateJOOQModel))
+#set ($tableUpperCase = $formatUtils.getUppercaseUnderscore(${table.name}))##see if alias to use
 #end
 
