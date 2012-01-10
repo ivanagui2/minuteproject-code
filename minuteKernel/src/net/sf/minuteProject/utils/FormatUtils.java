@@ -46,7 +46,9 @@ public class FormatUtils {
 	}
 
 	public static String getUppercaseUnderscore (String name) {
-		return name.toUpperCase();
+		if (name!=null)
+			return name.toUpperCase();
+		return "";
 	}
 	
 	public static String getLowcaseHyphen (String name) {
@@ -124,6 +126,10 @@ public class FormatUtils {
 			return "INPUT_STRING_IS_NULL";
 		return st.substring(0, 1).toLowerCase()
 				+ st.substring(1, st.length()).toLowerCase();
+	}
+	
+	public static String lowerCase(String st) {
+		return st.toLowerCase();
 	}
 
 	public static String firstLowerCase(String st) {
