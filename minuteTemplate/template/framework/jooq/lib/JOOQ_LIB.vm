@@ -12,6 +12,7 @@
 #set($classNameUpperCase=$formatUtils.getUppercaseUnderscore(${table.name})) ##check if it is the table.name or table.alias to uppercase
 #set($classNameLowerCase = $formatUtils.lowerCase(${table.name})) ##check if it is the alias
 #set($pkUpperCase=$formatUtils.getUppercaseUnderscore(${primaryKey}))
+#set($classConstant = "${entityClassImport}.${tableUpperCase}")
 #end
 
 #macro (exposeJOOQCommon)
@@ -24,6 +25,7 @@
 #putColumnParamNaming()
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${column.name})) ##check if it is the column.name or column.alias to uppercase
 #set($jooqFullType = $jooqUtils.getJooqFullType($column))
+#set($classFieldConstant = "${classConstant}.$columnVariableUpperCase")
 #end
 
 #macro (exposeJOOQModelSpecific)
@@ -50,7 +52,7 @@
 #set ($templateJOOQStoredProcedure = "JOOQ.stored-procedure")
 #end
 	
-#macro (exposeJOOQEntities)
+#macro (exposeJOOQEntities)## $table)
 #exposeJOOQTemplate()
 ## a bit verbose 
 ## this allows each template to discover other (from the same type (for reference) or not (for dependency))
