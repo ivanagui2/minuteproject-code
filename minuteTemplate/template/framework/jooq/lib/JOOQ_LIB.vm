@@ -13,6 +13,7 @@
 #set($classNameLowerCase = $formatUtils.lowerCase(${table.name})) ##check if it is the alias
 #set($pkUpperCase=$formatUtils.getUppercaseUnderscore(${primaryKey}))
 #set($classConstant = "${entityClassImport}.${tableUpperCase}")
+#set($classPkConstant = "${classConstant}.$pkUpperCase")
 #end
 
 #macro (exposeJOOQCommon)
@@ -36,7 +37,10 @@
 
 #macro(putJOOQReferenceParam)
 #putReferenceParams2()
+#set($column=$localColumn)
+#putJOOQColumnParam()
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.name}))
+#set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
 #end
 
 #macro (exposeJOOQTemplate)
