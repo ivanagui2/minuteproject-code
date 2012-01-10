@@ -40,11 +40,11 @@ public class $className extends org.jooq.impl.SchemaImpl {
 	public final List<Table<?>> getTables() {
 		return Arrays.<Table<?>>asList(
 #foreach($table in $entities)
-#exposeJOOQEntities()
+#exposeJOOQEntitySpecific()
 			${entityClassImport}.$tableUpperCase#if($velocityCount!=$table.columnCount),#end
 
 #end
-			);
+		);
 	}
 	
 $!updatedAreaImplementation	
