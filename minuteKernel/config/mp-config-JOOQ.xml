@@ -1,6 +1,9 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
+		<conventions>
+			<target-convention type="enable-updatable-code-feature" />
+		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jooq">
 			<data-model>
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>

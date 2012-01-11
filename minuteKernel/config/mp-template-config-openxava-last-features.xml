@@ -367,6 +367,14 @@
 			add-model-dir-name="false"
 			file-extension="xml" file-prefix="mp4openxava-build" file-suffix="" 
 			application-specific="true">
+		</template>	
+				
+		<template package-root=""
+			name="OX.PomXml" templateFileName="OX.pom.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			add-model-dir-name="false" has-updatable-nature="true"
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true">
 		</template>			
 						
 	</template-target>	
