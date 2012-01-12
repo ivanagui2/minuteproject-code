@@ -27,6 +27,10 @@
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${column.name})) ##check if it is the column.name or column.alias to uppercase
 #set($jooqFullType = $jooqUtils.getJooqFullType($column))
 #set($classFieldConstant = "${classConstant}.$columnVariableUpperCase")
+#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedClassConstant = "${recordClassImport}.${linkedTableNameUpperCase}")
+#set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
 #end
 
 #macro (exposeJOOQModelSpecific)

@@ -65,9 +65,9 @@
 #end
 
 #macro (exposeOXEntitySpecific)
+#putOXTemplateDefinition()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-#getTemplatePropertyValue("add-spring-security")
-#if ($value.equals("true"))
+#if ($addSpringSecurity)
 #set($url=$openXavaUtils.getModuleUrlAbsoluteViaSlash(${applicationOX},${tableClassName}))
 #else
 #set($url=$openXavaUtils.getModuleUrl(${applicationOX},${tableClassName}))
@@ -156,4 +156,8 @@ properties=""
 
 #macro (exposeOXTemplate)
 #set ($templateActionOpenXava = "ActionOX")
+#end
+
+#macro (putOXTemplateDefinition)
+#set($addSpringSecurity=$template.getPropertyValue("add-spring-security","false"))
 #end
