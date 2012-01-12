@@ -1,4 +1,5 @@
 #set($deliveryName="${model.name}OXApp")
+#putOXTemplateDefinition()
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -50,6 +51,13 @@
             <id>jboss-maven2-release-repository</id>
             <url>https://oss.sonatype.org/content/repositories/JBoss</url>
         </repository>
+#if ($addSpringSecurity)
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Portfolio Milestone Repository</name>
+            <url>http://s3.amazonaws.com/maven.springframework.org/milestone</url>
+        </repository> 
+#end
     </repositories>
  
     <pluginRepositories>
@@ -150,17 +158,11 @@
             <artifactId>hibernate-tools</artifactId>
             <version>3.2.0.ga</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.2.1.ga</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                </exclusion>
-            </exclusions>             
-        </dependency>
+	    <dependency>
+	      <groupId>org.hibernate</groupId>
+	      <artifactId>hibernate-entitymanager</artifactId>
+	      <version>3.5.1-Final</version>
+	    </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
@@ -293,8 +295,31 @@
             <artifactId>validation-api</artifactId>
             <version>1.0.0.GA</version>
         </dependency>
+#if ($addSpringSecurity)
+        <dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-core</artifactId>
+        	<version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-web</artifactId>
+        	<version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-config</artifactId>
+        	<version>${spring.security.version}</version>
+        </dependency> 
+#end
     </dependencies>
- 
+
+	<properties>
+#if ($addSpringSecurity)
+		<spring.security.version>3.1.0.M1</spring.security.version>
+#end
+	</properties>
+	
     <build>
         <finalName>${deliveryName}</finalName>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
