@@ -32,4 +32,6 @@ public class $className extends org.jooq.util.mysql.MySQLFactory {
 	public $className(java.sql.Connection connection, org.jooq.SchemaMapping mapping) {
 		super(connection, mapping);
 	}
+	
+$!updatedAreaImplementation	
 }

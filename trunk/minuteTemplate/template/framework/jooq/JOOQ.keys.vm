@@ -52,5 +52,6 @@ public class Keys extends AbstractKeys {
 	 * No instances
 	 */
 	private Keys() {}
-	
+
+$!updatedAreaImplementation	
 }
