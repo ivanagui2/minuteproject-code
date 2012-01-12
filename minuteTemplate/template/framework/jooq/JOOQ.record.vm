@@ -45,7 +45,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 #end
 #foreach ($reference in $table.children)
 ##putJOOQReferenceParam()
-#putReferenceParams2()
+#putJOOQReferenceParamChildren()
 	/**
 	 * An uncommented item
 	 * 
@@ -61,7 +61,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 
 #end
 #foreach ($column in $table.attributes)
-#putJOOQColumnParam
+#putJOOQColumnParam()
 	/**
 	 * mapping $column.name
 	 */
@@ -115,9 +115,11 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 
 #end
 	/**
-	 * Create a detached AddressRecord
+	 * Create a detached $className
 	 */
 	public $className() {
 		super($classConstant);
 	}
+
+$!updatedAreaImplementation	
 }

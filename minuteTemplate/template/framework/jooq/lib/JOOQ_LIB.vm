@@ -16,6 +16,12 @@
 #set($classPkConstant = "${classConstant}.$pkUpperCase")
 #end
 
+#macro (exposeJOOQModelSpecific)
+#exposeVariableModelDetailSpecific()
+#exposeJOOQEntities()
+#exposeJOOQCommon()
+#end
+
 #macro (exposeJOOQCommon)
 #set ($jooqVersion = $template.getPropertyValue("jooq-version","2.0.1")) ##retrieve the default version at template/templateset/target level
 #set ($modelUpperCase = $formatUtils.getUppercaseUnderscore(${model.name})) ##retrieve the default version at template/templateset/target level
@@ -27,16 +33,6 @@
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${column.name})) ##check if it is the column.name or column.alias to uppercase
 #set($jooqFullType = $jooqUtils.getJooqFullType($column))
 #set($classFieldConstant = "${classConstant}.$columnVariableUpperCase")
-#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
-#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
-#set($linkedClassConstant = "${recordClassImport}.${linkedTableNameUpperCase}")
-#set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
-#end
-
-#macro (exposeJOOQModelSpecific)
-#exposeVariableModelDetailSpecific()
-#exposeJOOQEntities()
-#exposeJOOQCommon()
 #end
 
 #macro(putJOOQReferenceParam)
@@ -45,6 +41,20 @@
 #putJOOQColumnParam()
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.name}))
 #set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
+#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedClassConstant = "${recordClassImport}.${linkedTableNameUpperCase}")
+#set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
+#end
+
+#macro(putJOOQReferenceParamChildren)
+#putReferenceParams2()
+#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.name}))
+#set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
+#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedClassConstant = "${recordClassImport}.${linkedTableNameUpperCase}")
+#set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
 #end
 
 #macro (exposeJOOQTemplate)
