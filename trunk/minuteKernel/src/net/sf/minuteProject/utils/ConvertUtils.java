@@ -132,7 +132,13 @@ public class ConvertUtils {
 	public static String getJavaTypeFromDBFullType (Column column) {
 		if (column==null)
 			return null;
-		return getJavaTypeFromDBFullType(column.getType(), column.getSizeAsInt(), column.getScale(), column.getTable().getDatabase().getType());
+		String type=(column.getTable()!=null 
+				     && column.getTable().getDatabase()!=null)?
+				    		 column.getTable().getDatabase().getType():null;
+		return getJavaTypeFromDBFullType(column.getType(), 
+				column.getSizeAsInt(), 
+				column.getScale(), 
+				type);
 	}
 	
 	public static String getJavaDefaultMask (Column column) {
