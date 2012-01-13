@@ -141,6 +141,8 @@
 					<set-properties-rule>
 						<alias attr-name="type" prop-name="type" />
 						<alias attr-name="startsWith" prop-name="startsWith" />
+						<alias attr-name="endsWith" prop-name="endsWith" />
+						<alias attr-name="regex" prop-name="regex" />
 						<alias attr-name="result" prop-name="result" />		
 					</set-properties-rule>							
 				</pattern>					

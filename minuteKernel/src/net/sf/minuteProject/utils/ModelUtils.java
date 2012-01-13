@@ -50,7 +50,7 @@ public class ModelUtils {
 		return functionGC.areConditionsTrue(function.getName());
 	}
 
-	private static boolean isToGenerate(GenerationCondition generationCondition, Table table) {
+	public static boolean isToGenerate(GenerationCondition generationCondition, Table table) {
 		if (table.TABLE.equals(table.getType()) && generationCondition.isExcludeTables())
 			return false;
 		if (table.VIEW.equals(table.getType()) && generationCondition.isExcludeViews())
