@@ -32,24 +32,24 @@ public class GenerationConditionAdapter extends AbstractConfiguration {
 	}
 	
 	public boolean areConditionsTrue(String valueToTest) {
-		if (defaultType==null || !defaultType.equals(FILTER_FILE_TYPE_EXCLUDE))
+		if (!FILTER_FILE_TYPE_EXCLUDE.equals(defaultType)) //default set to include
 			return areConditionsTrueInclude(valueToTest);
 		else
 			return areConditionsTrueExclude(valueToTest);
 	}
 	
 	public boolean areConditionsTrueInclude(String valueToTest) {
-		for (Iterator iter = getConditions().iterator(); iter.hasNext();){
-			Condition condition = (Condition)iter.next();
-			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE) && !condition.isConditionTrue(valueToTest))
+//		System.out.println("areConditionsTrueInclude");
+		for (Condition condition : getConditions()){
+			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE) && condition.isConditionTrue(valueToTest))
 				return false;
 		}
 		return true;
 	}
 	
 	public boolean areConditionsTrueExclude(String valueToTest) {
-		for (Iterator iter = getConditions().iterator(); iter.hasNext();){
-			Condition condition = (Condition)iter.next();
+		System.out.println(">>>>areConditionsTrueExclude");
+		for (Condition condition : getConditions()){
 			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) && condition.isConditionTrue(valueToTest))
 				return true;
 		}

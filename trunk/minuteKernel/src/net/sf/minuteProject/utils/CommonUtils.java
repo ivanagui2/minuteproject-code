@@ -34,7 +34,9 @@ public class CommonUtils {
 	}
 
 	public static String getJavaClassName (GeneratorBean bean) {
-		return getJavaClassName(bean.getAlias());
+		if (bean!=null)
+			return getJavaClassName(bean.getAlias());
+		return "ERROR_GENERATOR_BEAN_IS_NULL";
 	}
 	
 	public static String getTableClassName (Table table) {
