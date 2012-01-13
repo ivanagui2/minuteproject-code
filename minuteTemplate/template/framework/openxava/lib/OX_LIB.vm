@@ -159,5 +159,5 @@ properties=""
 #end
 
 #macro (putOXTemplateDefinition)
-#set($addSpringSecurity=$template.getPropertyValue("add-spring-security","false"))
+#set($addSpringSecurity=$template.getPropertyValue("add-spring-security",false))
 #end
