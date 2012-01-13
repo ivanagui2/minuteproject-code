@@ -78,7 +78,6 @@
       <artifactId>hibernate-entitymanager</artifactId>
       <version>3.3.2.GA</version>
     </dependency>
-
     <!-- for JPA -->
      <dependency>
         <groupId>javax.persistence</groupId>
