@@ -28,7 +28,8 @@
 		<template name="JOOQ.stored-procedure" templateFileName="JOOQ.stored-procedure.vm" 
 			subdir="" outputsubdir="" technicalPackage="routines"
 			file-extension="java" file-prefix="" file-suffix="" 
-			function-specific="true" has-updatable-nature="true">
+			function-specific="true" has-updatable-nature="true"
+			add-model-name="false">
 		</template>
 
 		<template name="JOOQ.model" templateFileName="JOOQ.model.vm" 
@@ -46,17 +47,20 @@
 		<template name="JOOQ.keys" templateFileName="JOOQ.keys.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="java" file-prefix="Keys" file-suffix="" 
-			model-specific="true" has-updatable-nature="true">
+			model-specific="true" has-updatable-nature="true"
+			add-model-name="false">
 		</template>
 		<template name="JOOQ.tables" templateFileName="JOOQ.tables.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="java" file-prefix="Tables" file-suffix="" 
-			model-specific="true" has-updatable-nature="true">
+			model-specific="true" has-updatable-nature="true"
+			add-model-name="false">
 		</template>
 		<template name="JOOQ.routines" templateFileName="JOOQ.routines.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="java" file-prefix="Routines" file-suffix="" 
-			model-specific="true" has-updatable-nature="true">
+			model-specific="true" has-updatable-nature="true"
+			add-model-name="false">
 		</template>
 
     </template-target>
@@ -70,7 +74,7 @@
 		
 		<template name="JOOQ.PomXml" templateFileName="JOOQ.PomXml.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
-			file-extension="xml" file-prefix="pom" file-suffix="" 
+			file-extension="xml" file-prefix="pom" file-suffix="" has-updatable-nature="true"
 			application-specific="true" add-model-name="false">
 		</template>	
 					
@@ -86,7 +90,7 @@
 		<template name="JOOQ.generator.input" templateFileName="JOOQ.generator.input.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true"
 			file-extension="properties" file-prefix="jooq-" file-suffix="" 
-			application-specific="true" >
+			application-specific="true"  has-updatable-nature="true">
 		</template>	
 					
 	</template-target>	  	

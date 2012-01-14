@@ -20,10 +20,10 @@
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
-				<generation-condition>
+ 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
-					<condition type="exclude" startsWith="ID_GEN"></condition>
-				</generation-condition>		
+ 					<condition type="exclude" endsWith="_GEN"></condition>
+				</generation-condition> 	
 				<business-package default="pet">
 					<condition type="package" startsWith="PRODUCT" result="product"></condition>
 					<condition type="package" startsWith="ITEM" result="product"></condition>

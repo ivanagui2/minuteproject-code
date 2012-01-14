@@ -19,7 +19,7 @@ public class JooqUtils {
 	}
 	
 	public static String getJooqFullType(Column column) {
-		return "rg.jooq.impl.SQLDataType."+column.getType();
+		return "org.jooq.impl.SQLDataType."+column.getType();
 	}
 	
 	public static String getRandomSerialNumber () {
