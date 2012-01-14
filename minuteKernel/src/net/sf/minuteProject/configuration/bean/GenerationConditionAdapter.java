@@ -25,30 +25,30 @@ public class GenerationConditionAdapter extends AbstractConfiguration {
 	}
 	
 	public boolean isAddable (String valueToTest) {
-		if (defaultType==null || !defaultType.equals(FILTER_FILE_TYPE_EXCLUDE))
-			return areConditionsTrueInclude(valueToTest);
+		if (defaultType==null || defaultType.equals(FILTER_FILE_TYPE_INCLUDE))
+			return includeOtherwiseExpressInExcludeExpression(valueToTest);
 		else
-			return areConditionsTrueExclude(valueToTest);		
+			return excludeOtherwiseExpressInIncludeExpression(valueToTest);		
 	}
 	
 	public boolean areConditionsTrue(String valueToTest) {
-		if (!FILTER_FILE_TYPE_EXCLUDE.equals(defaultType)) //default set to include
-			return areConditionsTrueInclude(valueToTest);
+		if (defaultType==null || defaultType.equals(FILTER_FILE_TYPE_INCLUDE)) //default set to include
+			return includeOtherwiseExpressInExcludeExpression(valueToTest);
 		else
-			return areConditionsTrueExclude(valueToTest);
+			return excludeOtherwiseExpressInIncludeExpression(valueToTest);
 	}
 	
-	public boolean areConditionsTrueInclude(String valueToTest) {
-//		System.out.println("areConditionsTrueInclude");
+	public boolean includeOtherwiseExpressInExcludeExpression(String valueToTest) {
 		for (Condition condition : getConditions()){
-			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE) && condition.isConditionTrue(valueToTest))
-				return false;
+			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE)) {
+				if (condition.isConditionTrue(valueToTest))
+					return false;
+			}
 		}
 		return true;
 	}
 	
-	public boolean areConditionsTrueExclude(String valueToTest) {
-		System.out.println(">>>>areConditionsTrueExclude");
+	public boolean excludeOtherwiseExpressInIncludeExpression(String valueToTest) {
 		for (Condition condition : getConditions()){
 			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) && condition.isConditionTrue(valueToTest))
 				return true;
