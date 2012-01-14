@@ -32,4 +32,9 @@ public class StringUtils {
 		return false;
 	}
 
+	public static boolean regex(String valueToTest, String regex) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

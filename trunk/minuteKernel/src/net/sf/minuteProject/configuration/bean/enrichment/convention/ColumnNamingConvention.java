@@ -83,7 +83,8 @@ public class ColumnNamingConvention extends ModelConvention {
 		}	
 		// also of the column in attribute
 		Column column = ColumnUtils.getColumn(table, firstColumn) ;
-		column.setAlias(defaultValue);	
+		if (column!=null)
+			column.setAlias(defaultValue);	
 	}
 
 	public void setPatternToStrip (String s) {

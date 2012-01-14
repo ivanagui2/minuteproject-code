@@ -1,6 +1,6 @@
 package net.sf.minuteProject.configuration.bean;
 
-import org.apache.commons.lang.StringUtils;
+import net.sf.minuteProject.utils.StringUtils;
 
 public class Condition extends AbstractConfiguration {
 	
@@ -16,40 +16,45 @@ public class Condition extends AbstractConfiguration {
 	private String regex;
 	private String result;
 
+
+	public boolean isConditionFalse(String valueToTest) {
+		return !isConditionTrue(valueToTest);
+	}
+	
 	public boolean isConditionTrue(String valueToTest) {
-//		System.out.println("isConditionTrue");
-		if (isConditionStartsWithTrue(valueToTest, startsWith)==true) return true;
-		if (isConditionEndsWithTrue(valueToTest, endsWith)==true) return true;
-		if (isConditionRegexTrue(valueToTest, regex)==true) return true;
+		if (StringUtils.startsWithIgnoreCase(valueToTest, startsWith)==true) return true;
+		if (StringUtils.endsWithIgnoreCase(valueToTest, endsWith)==true) return true;
+		if (StringUtils.regex(valueToTest, regex)==true) return true;
 		return false;
 	}
-	public boolean isConditionStartsWithTrue (String valueToTest, String pattern) {
-		System.out.println("valueToTest "+valueToTest+" isConditionStartsWithTrue = "+"startsW "+startsWith+" result : "+isConditionTrue(valueToTest, STARTS_WITH, pattern));
-		return isConditionTrue(valueToTest, STARTS_WITH, pattern);
-	}
-	public boolean isConditionEndsWithTrue (String valueToTest, String pattern) {
-		System.out.println(">>>>>>valueToTest "+valueToTest+" isConditionEndsWithTrue = "+"endsW "+endsWith+" result : "+isConditionTrue(valueToTest, ENDS_WITH, pattern));
-		
-		return isConditionTrue(valueToTest, ENDS_WITH, pattern);
-	}
-	public boolean isConditionRegexTrue (String valueToTest, String pattern) {
-		return isConditionTrue(valueToTest, REGEX, pattern);
-	}
-	public boolean isConditionTrue (String valueToTest, String expression, String pattern) {
-//		if ((INCLUDE.equals(type)||EXCLUDE.equals(type)||PACKAGE.equals(type)) && expression!=null){
-//			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression);
+//	public boolean isConditionStartsWithTrue (String valueToTest, String pattern) {
+//		return StringUtils.startsWithIgnoreCase (valueToTest, startsWith);
+////		System.out.println("valueToTest "+valueToTest+" isConditionStartsWithTrue = "+"startsW "+startsWith+" result : "+isConditionTrue(valueToTest, STARTS_WITH, pattern));
+////		return isConditionTrue(valueToTest, STARTS_WITH, pattern);
+//	}
+//	public boolean isConditionEndsWithTrue (String valueToTest, String pattern) {
+//		System.out.println(">>>>>>valueToTest "+valueToTest+" isConditionEndsWithTrue = "+"endsW "+endsWith+" result : "+isConditionTrue(valueToTest, ENDS_WITH, pattern));
+//		
+//		return isConditionTrue(valueToTest, ENDS_WITH, pattern);
+//	}
+//	public boolean isConditionRegexTrue (String valueToTest, String pattern) {
+//		return isConditionTrue(valueToTest, REGEX, pattern);
+//	}
+//	public boolean isConditionTrue (String valueToTest, String expression, String pattern) {
+////		if ((INCLUDE.equals(type)||EXCLUDE.equals(type)||PACKAGE.equals(type)) && expression!=null){
+////			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression);
+////		}
+//		if (EXCLUDE.equals(type) && expression!=null){
+//			return !net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
 //		}
-		if (EXCLUDE.equals(type) && expression!=null){
-			return !net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
-		}
-		if (PACKAGE.equals(type) && expression!=null) {
-			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
-		}
-		if (INCLUDE.equals(type) && expression!=null){
-			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
-		}
-		return false;
-	}
+//		if (PACKAGE.equals(type) && expression!=null) {
+//			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
+//		}
+//		if (INCLUDE.equals(type) && expression!=null){
+//			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
+//		}
+//		return false;
+//	}
 	
 	public String getConditionResult(String valueToTest) {
 		if (isConditionTrue(valueToTest))
