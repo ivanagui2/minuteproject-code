@@ -92,7 +92,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 	}
 
 	@Override
-	public org.jooq.Identity<$recordClass, java.lang.Long> getIdentity() {
+	public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() {
 		return ${keysClass}.IDENTITY_$classNameLowerCase;
 	}
 
