@@ -81,41 +81,46 @@ public class $className extends $entitySuperClass <$recordClass> {
 	 * No further instances allowed
 	 */
 	private $className() {
-		super("$className", ${modelClass}.CONFERENCE);
+		super("$className", ${modelClass}.$modelNameUpperCase);
 	}
 
 	/**
 	 * No further instances allowed
 	 */
 	private $className(String alias) {
-		super(alias, ${modelClass}.CONFERENCE, ${className}.$classNameUpperCase);
+		super(alias, ${modelClass}.$modelNameUpperCase, ${className}.$classNameUpperCase);
 	}
 
 	@Override
 	public org.jooq.Identity<$recordClass, java.lang.Long> getIdentity() {
-		return ${keysClass}.IDENTITY_address;
+		return ${keysClass}.IDENTITY_$classNameLowerCase;
 	}
 
 	@Override
 	public org.jooq.UniqueKey<$recordClass> getMainKey() {
-		return ${keysClass}.KEY_address_PRIMARY;
+		return ${keysClass}.KEY_${classNameLowerCase}_PRIMARY;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public java.util.List<UniqueKey<$recordClass>> getKeys() {
-		return java.util.Arrays.<UniqueKey<$recordClass>>asList(${keysClass}.KEY_address_PRIMARY);
+		return java.util.Arrays.<UniqueKey<$recordClass>>asList(${keysClass}.KEY_${classNameLowerCase}_PRIMARY);
 	}
 
+#foreach($table in $entities)
+#exposeJOOQEntitySpecific()
+#foreach($reference in $table.parents)
+#putJOOQReferenceParam()
 	@Override
 	@SuppressWarnings("unchecked")
 	public java.util.List<ForeignKey<$recordClass, ?>> getReferences() {
-		return java.util.Arrays.<ForeignKey<$recordClass, ?>>asList(${keysClass}.fk_address_country1);
+		return java.util.Arrays.<ForeignKey<$recordClass, ?>>asList(${keysClass}.fk_${classNameLowerCase}_${columnVariableUpperCase}1);
 	}
-
+#end
+#end
 	@Override
-	public $recordClass as(java.lang.String alias) {
-		return new $recordClass(alias);
+	public $className as(java.lang.String alias) {
+		return new $className(alias);
 	}
 	
 $!updatedAreaImplementation	

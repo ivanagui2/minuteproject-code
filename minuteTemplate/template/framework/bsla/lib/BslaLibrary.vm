@@ -76,6 +76,7 @@
 #set ($businessPackageTranferEntities = $model.businessModel.businessPackage.packageTransferEntities)
 #set ($entities = $model.businessModel.businessPackage.entities)
 #set ($className = $commonUtils.getClassName($model, $template))
+#set ($classVariable = $commonUtils.getJavaVariableName($className))
 #set ($packageName = $commonUtils.getPackageName($model, $template))
 #end
 
