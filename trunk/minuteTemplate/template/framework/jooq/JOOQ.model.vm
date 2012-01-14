@@ -5,7 +5,7 @@
  */
 package $packageName;
 
-import $recordClassImport;
+//import $recordClassImport;
 import $modelClassImport;
 import $keysClassImport;
 
@@ -33,7 +33,7 @@ public class $className extends org.jooq.impl.SchemaImpl {
 	 * No further instances allowed
 	 */
 	private $className() {
-		super("$classVar");
+		super("$classVariable");
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class $className extends org.jooq.impl.SchemaImpl {
 		return Arrays.<Table<?>>asList(
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
-			${entityClassImport}.$tableUpperCase#if($velocityCount!=$table.columnCount),#end
+			${entityClassImport}.$tableUpperCase#if($velocityCount!=$entities.size()),#end
 
 #end
 		);

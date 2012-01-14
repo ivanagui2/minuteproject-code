@@ -8,6 +8,7 @@ package $packageName;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 $!updatedAreaImport
 
 $!updatedAreaClassAnnotation
@@ -20,11 +21,11 @@ $!updatedAreaClassAnnotation
 @SuppressWarnings({"unchecked"})
 public class Keys extends AbstractKeys {
 
-	// IDENTITY definitions
+	// IDENTITY definitions ##ie pk unique
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
 #if($table.hasPrimaryKey()) ##what about composite pk
-	public static final Identity<$entityClassImport, $primaryKeyFullType> IDENTITY_$classNameLowerCase = createIdentity($classConstant, $classPkConstant);
+	public static final Identity<$recordClassImport, $primaryKeyFullType> IDENTITY_$classNameLowerCase = createIdentity($classConstant, $classPkConstant);
 #end
 #end
 

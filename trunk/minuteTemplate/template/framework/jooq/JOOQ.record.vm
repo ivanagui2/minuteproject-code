@@ -55,7 +55,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 ##			.selectFrom(my.jooq.mp.tables.Conference.CONFERENCE)
 ##			.where(my.jooq.mp.tables.Conference.CONFERENCE.ADDRESS_ID.equal(getValue(my.jooq.mp.tables.Address.ADDRESS.ID)))		
 			.selectFrom($linkedClassConstant)
-			.where({$linkedClassConstant}.equal(getValue($classPkConstant)))
+			.where(${linkedClassFieldConstant}.equal(getValue($classPkConstant)))
 			.fetch();
 	}
 
@@ -80,7 +80,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
-	public void set$localColumnVariable($columnFullType value) {
+	public void set$localColumnClass($columnFullType value) {
 		setValue($classFieldConstant, value);
 	}
 	
@@ -93,7 +93,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
-	public $columnFullType set$localColumnVariable() {
+	public $columnFullType set$localColumnClass() {
 		return getValue($classFieldConstant);
 	}
 	
@@ -106,9 +106,9 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * REFERENCES country [conference.country.id]
 	 * </pre></code>
 	 */
-	public $linkedRecordClassImport fetch$foreignTableClass() {
+	public $linkedRecordClassImport fetch$linkedTableClass() {
 		return create()
-			.selectFrom($classConstant)
+			.selectFrom($linkedClassConstant)
 			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant)))
 			.fetchOne();
 	}
