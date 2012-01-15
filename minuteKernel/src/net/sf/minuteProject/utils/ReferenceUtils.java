@@ -84,6 +84,10 @@ public class ReferenceUtils {
 			if (name.equals(ref.getLocalColumn().getName())) 
 				ref.getLocalColumn().setAlias(newName);
 		}
+		for (net.sf.minuteProject.configuration.bean.model.data.Reference ref : table.getChildren()) {
+			if (name.equals(ref.getLocalColumn().getName())) 
+				ref.getLocalColumn().setAlias(newName);
+		}
 	}
 	
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference (Table table, String columnName) {
@@ -168,8 +172,10 @@ public class ReferenceUtils {
 		if (table!=null && column != null && foreignTable!=null && foreignColumn!=null) {
 			reference.setLocalTable(table);
 			reference.setLocalColumn(column);
+			reference.getLocalColumn().setAlias(reference.getLocalColumn().getAlias());
 			reference.setForeignTable(foreignTable);
 			reference.setForeignColumn(foreignColumn);
+			reference.getForeignColumn().setAlias(reference.getForeignColumn().getAlias());
 			
 			reference.setLocalColumnName(columnName);
 			reference.setLocalTableName(tableName);
@@ -239,5 +245,9 @@ public class ReferenceUtils {
 	public static String getDefaultAlias(net.sf.minuteProject.configuration.bean.model.data.Reference ref) {
 		//TODO add for recursive m2m //+"_"+ref.getLocalColumn().getAlias();
 		return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getForeignColumn().getAlias();//+"_"+ref.getLocalColumn().getAlias();
+	}
+
+	public static String getColumnAlias(Table table, Column column) {
+		return ColumnUtils.getColumn(table, column.getName()).getAlias();
 	}
 }
