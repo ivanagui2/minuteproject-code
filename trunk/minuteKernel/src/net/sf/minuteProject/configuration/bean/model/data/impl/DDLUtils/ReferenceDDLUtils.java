@@ -304,10 +304,12 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	public static Reference clone (Reference reference) {
 		Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
 		ref.setForeignColumn(reference.getForeignColumn());
+		ref.getForeignColumn().setAlias(reference.getForeignColumn().getAlias());
 		ref.setForeignColumnName(reference.getForeignColumnName());
 		ref.setForeignTable(reference.getForeignTable());
 		ref.setForeignTableName(reference.getForeignTableName());
 		ref.setLocalColumn(reference.getLocalColumn());
+		ref.getLocalColumn().setAlias(reference.getLocalColumn().getAlias());
 		ref.setLocalColumnName(reference.getLocalColumnName());
 		ref.setLocalTable(reference.getLocalTable());
 		ref.setLocalTableName(reference.getLocalTableName()); 		

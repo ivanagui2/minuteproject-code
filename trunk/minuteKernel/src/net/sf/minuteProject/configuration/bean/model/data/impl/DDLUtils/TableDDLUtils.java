@@ -16,6 +16,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 /**
@@ -346,12 +347,17 @@ public class TableDDLUtils extends TableAbstract {
 				Reference reference = new ReferenceDDLUtils (referenceddlutils);
 
 				Table foreignTable = TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName());
-				reference.setForeignColumn(new ColumnDDLUtils(referenceddlutils.getForeignColumn(),foreignTable));
+				Column foreignCol = new ColumnDDLUtils(referenceddlutils.getForeignColumn(),foreignTable);
+				foreignCol.setAlias(ReferenceUtils.getColumnAlias(foreignTable, foreignCol));
+				reference.setForeignColumn(foreignCol);
 				reference.setForeignColumnName(referenceddlutils.getForeignColumnName());
 				reference.setForeignTable(foreignTable);
 				reference.setForeignTableName(foreignKeyddlutils.getForeignTableName());
-				reference.setLocalColumn(new ColumnDDLUtils(referenceddlutils.getLocalColumn(), this));
-				reference.setLocalTable(new TableDDLUtils(table));
+				Column localCol = new ColumnDDLUtils(referenceddlutils.getLocalColumn(), this);
+				reference.setLocalColumn(localCol);
+				Table localTable = new TableDDLUtils(table);
+				reference.setLocalTable(localTable);
+				localCol.setAlias(ReferenceUtils.getColumnAlias(localTable, localCol));
 				if (reference.getForeignColumnName()==null) {
 					System.out.println ("error in ref : no column on "+table.getName()+" - "+reference.getLocalColumnName());
 					error = true;
