@@ -26,7 +26,9 @@ public class Keys extends AbstractKeys {
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
 #if($table.hasPrimaryKey()) ##what about composite pk
+#if($isPkUserProvided)
 	public static final Identity<$recordClassImport, $primaryKeyFullType> IDENTITY_$classNameLowerCase = createIdentity($classConstant, $classPkConstant);
+#end
 #end
 #end
 
@@ -54,7 +56,7 @@ public class Keys extends AbstractKeys {
 #exposeJOOQEntitySpecific()
 #foreach($reference in $table.parents)
 #putJOOQReferenceParam()
-	public static final ForeignKey<$recordClassImport, $linkedRecordClassImport> fk_${classNameLowerCase}_${columnVariableUpperCase}1 = createForeignKey(KEY_${classNameLowerCase}_PRIMARY, $classConstant, $classFieldConstant);
+	public static final ForeignKey<$recordClassImport, $linkedRecordClassImport> fk_${classNameLowerCase}_${columnVariableUpperCase}1 = createForeignKey(KEY_${linkedTableNameLowerCase}_PRIMARY, $classConstant, $classFieldConstant);
 #end
 #end
 

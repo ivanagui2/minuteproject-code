@@ -8,12 +8,12 @@
 #exposeJOOQEntities()
 #exposeJOOQCommon()
 #set($entitySuperClass=$jooqUtils.getEntitySuperClass($table))##"org.jooq.impl.UpdatableTableImpl")
-#set($classNameUpperCase=$formatUtils.getUppercaseUnderscore(${table.name})) ##check if it is the table.name or table.alias to uppercase
-#set($classNameLowerCase = $formatUtils.lowerCase(${table.name})) ##check if it is the alias
-#set($pkUpperCase=$formatUtils.getUppercaseUnderscore(${primaryKey}))
-#set($classConstant = "${entityClassImport}.${tableUpperCase}")
+#set($classNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${table}))) ##check if it is the table.alias or table.alias to uppercase
+#set($classNameLowerCase = $formatUtils.lowerCase(${table.alias})) ##check if it is the alias
+#set($pkUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${table},${primaryKeyFirstColumn.alias})))
+#set($classConstant = "${entityClassImport}.${classNameUpperCase}")
 #set($classPkConstant = "${classConstant}.$pkUpperCase")
-#set($modelNameUpperCase=$formatUtils.getUppercaseUnderscore(${model.name}))
+#set($modelNameUpperCase=$formatUtils.getUppercaseUnderscore(${model.alias}))
 #end
 
 #macro (exposeJOOQModelSpecific)
@@ -24,14 +24,14 @@
 
 #macro (exposeJOOQCommon)
 #set ($jooqVersion = $template.getPropertyValue("jooq-version","2.0.1")) ##retrieve the default version at template/templateset/target level
-#set ($modelUpperCase = $formatUtils.getUppercaseUnderscore(${model.name})) ##retrieve the default version at template/templateset/target level
+#set ($modelUpperCase = $formatUtils.getUppercaseUnderscore(${model.alias})) ##retrieve the default version at template/templateset/target level
 #set($serialValue=$jooqUtils.getRandomSerialNumber())
 #end
 
 #macro (putJOOQColumnParam)
 ##to be used within a loop where $column is available
 #putColumnParamNaming()
-#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${column.name})) ##check if it is the column.name or column.alias to uppercase
+#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${table},${column.alias}))) ##check if it is the column.alias or column.alias to uppercase
 #set($jooqFullType = $jooqUtils.getJooqFullType($column))
 #set($classFieldConstant = "${classConstant}.$columnVariableUpperCase")
 #end
@@ -40,30 +40,29 @@
 #putReferenceParams2()
 #set($column=$localColumn)
 #putJOOQColumnParam()
-#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.name}))
-##set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
-##set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
-##set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
-##set($linkedClassConstant = "${recordClassImport}.${linkedTableNameUpperCase}")
-##set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
+#set($linkedColumnAlias=$referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn}))
+#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.alias}))
 #set($linkedEntityClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQEntity))
 #set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
-#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
-#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${reference.foreignTable}))) ##check if it is the table.alias or table.alias to uppercase
+#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${reference.foreignTable}, $linkedColumnAlias))) ##check if it is the table.alias or table.alias to uppercase
 #set($linkedClassConstant = "${linkedEntityClassImport}.${linkedTableNameUpperCase}")
 #set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
+#set($linkedTableNameLowerCase = $formatUtils.lowerCase(${reference.foreignTable.alias}))
 #end
 
 #macro(putJOOQReferenceParamChildren)
 #putReferenceParams2()
-#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.name}))
+#set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.alias}))
 #set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
 #set($linkedEntityClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQEntity))
-#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignTable.name})) ##check if it is the table.name or table.alias to uppercase
-#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignColumn.name})) ##check if it is the table.name or table.alias to uppercase
+#set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignTable.alias})) ##check if it is the table.alias or table.alias to uppercase
+#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignColumn.alias})) ##check if it is the table.alias or table.alias to uppercase
 #set($linkedClassConstant = "${linkedEntityClassImport}.${linkedTableNameUpperCase}")
 #set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
 #end
+
+
 
 #macro (exposeJOOQTemplate)
 #set ($templateJOOQEntity = "JOOQ.entity")
@@ -94,6 +93,6 @@
 #set ($modelClass = $commonUtils.getTemplateClassName($model, $template, $templateJOOQModel))
 #set ($modelVariable = $commonUtils.getJavaNameVariableFirstLetter($modelClass))
 #set ($modelClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateJOOQModel))
-#set ($tableUpperCase = $formatUtils.getUppercaseUnderscore(${table.name}))##see if alias to use
+#set ($tableUpperCase = $formatUtils.getUppercaseUnderscore(${table.alias}))##see if alias to use
 #end
 

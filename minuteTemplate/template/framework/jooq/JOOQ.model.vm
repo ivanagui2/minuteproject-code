@@ -41,7 +41,7 @@ public class $className extends org.jooq.impl.SchemaImpl {
 		return Arrays.<Table<?>>asList(
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
-			${entityClassImport}.$tableUpperCase#if($velocityCount!=$entities.size()),#end
+			$classConstant#if($velocityCount!=$entities.size()),#end
 
 #end
 		);
