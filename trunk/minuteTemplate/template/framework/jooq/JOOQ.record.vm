@@ -24,13 +24,14 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	private static final long serialVersionUID = $serialValue;
 
 #foreach($column in ${table.primaryKeyColumns})
+#if(!$columnUtils.isForeignKey($column))
 #putJOOQColumnParam()
 	/**
 	 * An uncommented item
 	 * 
 	 * PRIMARY KEY
 	 */
-	public void setId(${primaryKeyFullType} value) {
+	public void set$primaryKeyJavaNameClass(${primaryKeyFullType} value) {
 		setValue($classPkConstant, value);
 	}
 
@@ -39,9 +40,10 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * 
 	 * PRIMARY KEY
 	 */
-	public ${primaryKeyFullType} get$primaryKeyVariable() {
+	public ${primaryKeyFullType} get$primaryKeyJavaNameClass() {
 		return getValue($classPkConstant);
 	}
+#end
 #end
 #foreach ($reference in $table.children)
 ##putJOOQReferenceParam()
@@ -55,7 +57,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 ##			.selectFrom(my.jooq.mp.tables.Conference.CONFERENCE)
 ##			.where(my.jooq.mp.tables.Conference.CONFERENCE.ADDRESS_ID.equal(getValue(my.jooq.mp.tables.Address.ADDRESS.ID)))		
 			.selectFrom($linkedClassConstant)
-			.where(${linkedClassFieldConstant}.equal(getValue($classPkConstant)))
+			.where(${linkedClassFieldConstant}.equal(getValue($classPkConstant))) //reference.foreignColumn.alias = ${reference.foreignColumn.alias}
 			.fetch();
 	}
 
@@ -65,7 +67,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	/**
 	 * mapping $column.name
 	 */
-	public void set$columnVar($columnFullType value) {
+	public void set$columnClass($columnFullType value) {
 		setValue($classFieldConstant, value);
 	}
 
@@ -73,6 +75,9 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 #foreach ($reference in $table.parents)
 #putJOOQReferenceParam()	
 	/**
+#if ($reference.localColumn.isPrimaryKey())
+     * PRIMARY KEY
+#end
 	 * setter and mapper in for $localColumnVariable
 	 * <p>
 	 * <code><pre>
@@ -102,16 +107,19 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * fetcher of associated $foreignTableVariable
 	 * <p>
 	 * <code><pre>
-	 * FOREIGN KEY [conference.address.country_id]
-	 * REFERENCES country [conference.country.id]
+     * FOREIGN KEY [${localTableVariable}.${localColumnVariable}]
+     * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
 	public $linkedRecordClassImport fetch$linkedTableClass() {
 		return create()
 			.selectFrom($linkedClassConstant)
-			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant)))
+			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant))) 
 			.fetchOne();
-	}
+//reference.foreignColumn.name = ${reference.foreignColumn.name}
+//reference.foreignColumn.alias = ${reference.foreignColumn.alias}
+//alias : $referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn});
+    }
 
 #end
 	/**

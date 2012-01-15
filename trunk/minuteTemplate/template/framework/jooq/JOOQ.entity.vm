@@ -25,7 +25,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 	private static final long serialVersionUID = $serialValue;
 
 	/**
-	 * The singleton instance of $classVariable
+	 * The singleton instance of $className
 	 */
 ##	public static final my.jooq.mp.tables.Address ADDRESS = new my.jooq.mp.tables.Address();
 	public static final $className $classNameUpperCase = new $className();
@@ -46,27 +46,31 @@ public class $className extends $entitySuperClass <$recordClass> {
 	}
 
 #foreach($column in ${table.primaryKeyColumns})
+#if(!$columnUtils.isForeignKey($column))
 #putJOOQColumnParam()
 	/**
 	 * An uncommented item
 	 * 
 	 * PRIMARY KEY $column.name
 	 */
-	public final TableField<${recordClass}, ${primaryKeyFullType}> $columnVariableUpperCase = createField("$columnVar", $jooqFullType, this);
+	public final TableField<${recordClass}, ${primaryKeyFullType}> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
+#end
 #end
 
 #foreach ($column in ${table.attributes})
 #putJOOQColumnParam()
 	/**
-	 * An uncommented item
+	 * $columnVariableUpperCase mapping for $column.name
 	 */
-	public final TableField<$recordClass, $columnFullType> $columnVariableUpperCase = createField("$columnVar", $jooqFullType, this);
+	public final TableField<$recordClass, $columnFullType> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
 #end
 
 #foreach ($reference in $table.parents)
 #putJOOQReferenceParam()	
 	/**
-	 * An uncommented item
+#if ($reference.localColumn.isPrimaryKey())
+     * PRIMARY KEY
+#end
 	 * <p>
 	 * <code><pre>
 	 * FOREIGN KEY [${localTableVariable}.${localColumnVariable}]
@@ -81,7 +85,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 	 * No further instances allowed
 	 */
 	private $className() {
-		super("$className", ${modelClass}.$modelNameUpperCase);
+		super("$table.name", ${modelClass}.$modelNameUpperCase);
 	}
 
 	/**
@@ -90,12 +94,13 @@ public class $className extends $entitySuperClass <$recordClass> {
 	private $className(String alias) {
 		super(alias, ${modelClass}.$modelNameUpperCase, ${className}.$classNameUpperCase);
 	}
-
+#if($isPkUserProvided)
 	@Override
 	public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() {
 		return ${keysClass}.IDENTITY_$classNameLowerCase;
 	}
 
+#end
 	@Override
 	public org.jooq.UniqueKey<$recordClass> getMainKey() {
 		return ${keysClass}.KEY_${classNameLowerCase}_PRIMARY;
