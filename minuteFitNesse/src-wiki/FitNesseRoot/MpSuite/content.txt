@@ -1,0 +1,12 @@
+!contents -R2 -g -p -f -h
+
+>UtilsSuite
+
+!define MP_KERNEL {C:\MINUTEPROJECT\minuteKernel}
+!define MP_FITNESSE {C:\MINUTEPROJECT\minuteFitNesse}
+
+!path ${MP_KERNEL}\bin
+!path ${MP_KERNEL}\lib\*
+!path ${MP_KERNEL}\lib\extra\*
+!path ${MP_FITNESSE}\bin
+!path ${MP_FITNESSE}\lib\*
