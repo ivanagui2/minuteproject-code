@@ -29,14 +29,16 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isNaturalPk(Column column) {
-		if (column.isPrimaryKey() && 
+		if (column!=null && column.isPrimaryKey() && 
 		   !(
 			column.getType().equals("INT") || 
 			column.getType().equals("BIGINT") || 
 			column.getType().equals("INTEGER") ||
 			column.getType().equals("NUMBER") ||
 			column.getType().equals("DECIMAL") ||
-			column.getType().equals("REAL")
+			column.getType().equals("SHORT") ||
+			column.getType().equals("REAL") ||
+			column.getType().equals("DOUBLE")
 			)
 			)
 			return true;

@@ -19,7 +19,7 @@ public class ConvertUtils {
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
 	public static final String JAVA_STRING_TYPE 						=   "java.lang.String";						
-	public static final String JAVA_DATE_TYPE 						=   "java.lang.Date";
+	public static final String JAVA_DATE_TYPE 						=   "java.sql.Date";
 	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
 
@@ -31,14 +31,16 @@ public class ConvertUtils {
 	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
 	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
 	public static final String DB_TIMESTAMPZ_TYPE 				=   "TIMESTAMPZ";
-	public static final String DB_DATE_TYPE 						=   "DATE";
+	public static final String DB_DATE_TYPE 					=   "DATE";
 	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
-	public static final String DB_SMALLINT_TYPE 					=   "SMALLINT";	
-	public static final String DB_TINYINT_TYPE 					=   "TINYINT";	
+	public static final String DB_SMALLINT_TYPE 				=   "SMALLINT";	
+	public static final String DB_TINYINT_TYPE 					=   "TINYINT";
+	public static final String DB_BLOB 							=	"BLOB";
+	public static final String DB_CLOB  						=	"CLOB";
 	
 	public static final String UML_STRING_TYPE 					=   "string";	
-	public static final String UML_INTEGER_TYPE 					=   "integer";	
-	public static final String UML_LONG_TYPE 						=   "decimal";	
+	public static final String UML_INTEGER_TYPE 				=   "integer";	
+	public static final String UML_LONG_TYPE 					=   "decimal";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	

@@ -45,19 +45,19 @@
 		</template>
 		
 		<template name="JOOQ.keys" templateFileName="JOOQ.keys.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="java" file-prefix="Keys" file-suffix="" 
 			model-specific="true" has-updatable-nature="true"
 			add-model-name="false">
 		</template>
 		<template name="JOOQ.tables" templateFileName="JOOQ.tables.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="java" file-prefix="Tables" file-suffix="" 
 			model-specific="true" has-updatable-nature="true"
 			add-model-name="false">
 		</template>
 		<template name="JOOQ.routines" templateFileName="JOOQ.routines.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="java" file-prefix="Routines" file-suffix="" 
 			model-specific="true" has-updatable-nature="true"
 			add-model-name="false">
