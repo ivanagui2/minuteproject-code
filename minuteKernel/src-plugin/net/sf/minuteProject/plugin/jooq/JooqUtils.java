@@ -3,6 +3,7 @@ package net.sf.minuteProject.plugin.jooq;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -19,7 +20,14 @@ public class JooqUtils {
 	}
 	
 	public static String getJooqFullType(Column column) {
-		return "org.jooq.impl.SQLDataType."+column.getType();
+		String type= column.getType();
+		if (ConvertUtils.DB_BLOB.equals(type)) type="BLOB";
+		return "org.jooq.impl.SQLDataType."+type;
+	}
+	public static String getJooqColumnFullType(Column column) {
+		String type= column.getType();
+		if (ConvertUtils.DB_BLOB.equals(type)) return "byte[]";
+		return CommonUtils.getFullType2(column);
 	}
 	
 	public static String getRandomSerialNumber () {
