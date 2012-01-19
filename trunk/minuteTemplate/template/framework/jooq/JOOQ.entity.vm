@@ -62,7 +62,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 	/**
 	 * $columnVariableUpperCase mapping for $column.name
 	 */
-	public final TableField<$recordClass, $columnFullType> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
+	public final TableField<$recordClass, $jooqColumnFullType> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
 #end
 
 #foreach ($reference in $table.parents)
@@ -94,10 +94,11 @@ public class $className extends $entitySuperClass <$recordClass> {
 	private $className(String alias) {
 		super(alias, ${modelClass}.$modelNameUpperCase, ${className}.$classNameUpperCase);
 	}
+
 #if($isPkUserProvided)
 	@Override
-	public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() {
-		return ${keysClass}.IDENTITY_$classNameLowerCase;
+	public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() { //$primaryKeyFirstColumn.type
+		return ${keysClass}.IDENTITY_$classNameLowerCase; // $columnUtils.isNaturalPk($primaryKeyFirstColumn)
 	}
 
 #end

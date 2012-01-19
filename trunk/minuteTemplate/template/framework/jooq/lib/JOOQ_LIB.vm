@@ -33,6 +33,7 @@
 #putColumnParamNaming()
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${table},${column.alias}))) ##check if it is the column.alias or column.alias to uppercase
 #set($jooqFullType = $jooqUtils.getJooqFullType($column))
+#set($jooqColumnFullType=$jooqUtils.getJooqColumnFullType($column))
 #set($classFieldConstant = "${classConstant}.$columnVariableUpperCase")
 #end
 
