@@ -31,7 +31,8 @@ public class EntityNamingConvention extends ModelConvention {
 	}
 
 	private boolean isConventionApplicable(Table table) {
-		return (table.getAlias().toLowerCase().equals(table.getName().toLowerCase()));
+		return true;
+//		return (table.getAlias().toLowerCase().equals(table.getName().toLowerCase()));
 	}
 
 	private void apply(Table table) {
@@ -49,9 +50,9 @@ public class EntityNamingConvention extends ModelConvention {
 	}
 
 	private boolean applyStripPrefix(Table table, String s) {
-		String name = table.getName();
+		String name = table.getAlias();
 		if (name.startsWith(s) && !name.equals(s)) {
-			String newName = StringUtils.removeStart(table.getName(), s);
+			String newName = StringUtils.removeStart(table.getAlias(), s);
 			table.setAlias(newName);
 			performReferenceUpdate(table, name, newName);
 			return true;
@@ -60,10 +61,10 @@ public class EntityNamingConvention extends ModelConvention {
 	}
 
 	private boolean applyStripSuffix(Table table, String s) {
-		String name = table.getName();
+		String name = table.getAlias();
 		if (name.endsWith(s) && !name.equals(s)) {
-			String newName = StringUtils.removeEnd(table.getName(), s);
-			table.setName(newName);
+			String newName = StringUtils.removeEnd(table.getAlias(), s);
+			table.setAlias(newName);
 			performReferenceUpdate(table, name, newName);
 			return true;
 		}
