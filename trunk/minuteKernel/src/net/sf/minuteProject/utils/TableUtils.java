@@ -463,7 +463,8 @@ public class TableUtils {
 	public static boolean isCompositePrimaryKeyNotMany2Many (Table table) {
 		if (!table.isManyToMany() && 
 			(table.getPrimaryKeyColumns().length>1
-			 || getPrimaryKeyAndForeignKeyColumns(table).size()>0)) {
+					)){
+//			 || getPrimaryKeyAndForeignKeyColumns(table).size()>0)) {
 			return true;
 		}
 		return false;

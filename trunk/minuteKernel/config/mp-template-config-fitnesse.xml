@@ -133,7 +133,7 @@
 	
 		<!-- select fixture -->
 		<template name="FitnesseSelectTableFixture" templateFileName="FitnesseSelectTableFixture.vm" 
-			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture" 
 			file-extension="java" file-prefix="" file-suffix="TableFixture" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>		
@@ -142,6 +142,12 @@
 			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.crud"
 			file-extension="java" file-prefix="" file-suffix="ColumnFixture" 
 			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+		
+		<template name="FitnesseLog4j" templateFileName="FitnesseLog4j.vm" 
+			subdir="" outputsubdir="" technicalPackage="" package-root=""
+			file-extension="properties" file-prefix="log4j" file-suffix="" add-model-name="false"
+			application-specific="true"  has-updatable-nature="true">
 		</template>	
 
 	</template-target>	
