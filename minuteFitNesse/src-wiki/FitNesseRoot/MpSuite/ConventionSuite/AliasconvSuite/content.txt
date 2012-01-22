@@ -1,0 +1,17 @@
+!contents -R2 -g -p -f -h
+
+!2 Load model
+Liferay model load
+!| net.sf.minuteProject.model.NavigateModelSequenceFixture|
+|load| mp-config-LIFERAY-JPA2.xml|
+|check | number of parents for entity| portletitem| 5 |
+|check | names of parents entity for entity| portletitem| group_, company, user_, portlet, classname_ | true |
+|check | names of local columns for entity| portletitem| groupId, companyId, userId, portletId, classNameId | true |
+|check | aliases of local columns for entity| portletitem| GROUPID, COMPANYID, USERID, PORTLETID, CLASSNAMEID | true |
+|check | alias java variable of first relationship between| portletitem| portlet | portletid |
+|check | column class name of first relationship between| assettag| group_| group|
+|check | column class name of first relationship between new| assettag| group_| group|
+|check | alias java variable of first relationship between new| portletitem| portlet | portletid |
+|check | alias of column of table| groupId| group_ | group|
+|check | alias of column of table new| groupId| group_ | group|
+|check | alias of column of table new| contactId| contact_ | contact|
