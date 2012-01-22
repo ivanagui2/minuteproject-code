@@ -1,6 +1,7 @@
 !contents -R2 -g -p -f -h
 
 >UtilsSuite
+>ConventionSuite
 
 !define MP_KERNEL {C:\MINUTEPROJECT\minuteKernel}
 !define MP_FITNESSE {C:\MINUTEPROJECT\minuteFitNesse}
