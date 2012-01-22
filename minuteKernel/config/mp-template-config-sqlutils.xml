@@ -13,6 +13,14 @@
 			file-extension="sql" file-prefix="" file-suffix="-table-out-of-view" 
 			model-specific="true">
 		</template>
+			 
+		<template name="SQL.ResetAndCreateForeignKeys" templateFileName="SQL.ResetAndCreateForeignKeys.vm" 
+			add-model-name="true" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="sql" file-prefix="" file-suffix="-table" 
+			model-specific="true">
+		</template>
 								
 	</template-target>	
 
