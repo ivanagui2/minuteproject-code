@@ -251,8 +251,6 @@ public class ModelGenerator extends AbstractGenerator {
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
 	public void generate(Template template) throws MinuteProjectException {
-		// TODO Auto-generated method stub
-		// getView();
 		if (template.getFieldSpecific().equals("true"))
 			generateArtifactsByField(template);		
 		else if (template.getEntitySpecific().equals("true"))
