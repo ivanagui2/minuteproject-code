@@ -110,6 +110,7 @@ public class TableUtils {
 		int maxTable = database.getTables().length;
 		for (int i = 0; i < maxTable; i++) {
 			Table table = database.getTables()[i];
+			System.out.println("table.getAlias()="+table.getAlias()+"-name:"+table.getName());
 			if (table.getAlias()!=null 
 				&& table.getType()!=null 
 				&& tablename!=null

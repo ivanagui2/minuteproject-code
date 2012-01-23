@@ -295,6 +295,7 @@ public class BusinessModel {
 	}
 
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
+//		System.out.println("------------table "+table.getName()+"- entity alias "+entity.getAlias());
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
 		table.setContentType(entity.getContentType());

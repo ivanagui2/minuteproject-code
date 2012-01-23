@@ -79,7 +79,7 @@ public class ForeignKeyConvention extends ModelConvention {
 	private List<Field> getForeignKeyFieldsNotInSelfReferencedPrimaryKey(Table table) {
 		List<Field> list = new ArrayList<Field>();
 		for (Column column : table.getColumns()) {
-			if (!isSelfReferencePrimaryKey(column)) { // 
+			if (isConventionToApply(column)) { // 
 				Field f = getForeignKeyField(column, table);
 				if (f != null) {
 					list.add(f);
@@ -103,10 +103,12 @@ public class ForeignKeyConvention extends ModelConvention {
 	
 	private Table getTarget(Column column) {
 		Table table = column.getTable();
-		String tablename = getTargetEntityName(column);
+		String tablename = getTargetEntityNameLowerCase(column);
 		Table target = TableUtils.getTable(table.getDatabase(), tablename);
-		if (target == null)
+		if (target == null) {
+			System.out.println(">>> table : "+column.getTable().getName()+", "+ column.getTable().getAlias()+" - column :"+column.getName()+" - key : "+tablename);
 			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
+		}
 		return target;
 	}
 
@@ -131,7 +133,7 @@ public class ForeignKeyConvention extends ModelConvention {
 		return null;
 	}
 
-	private String getTargetEntityName(Column column) {
+	private String getTargetEntityNameLowerCase(Column column) {
 		String key = column.getName().toLowerCase();
 		if (columnEnding != null && !"".equals(columnEnding))
 			key = StringUtils.stripEnd(key, columnEnding);
@@ -140,4 +142,18 @@ public class ForeignKeyConvention extends ModelConvention {
 		return key;
 	}
 
+	private boolean isConventionToApply(Column column) {
+		if (isSelfReferencePrimaryKey(column)) return false;
+		return isConventionToApplyOnPatternRelevance(column);
+	}
+	
+	private boolean isConventionToApplyOnPatternRelevance(Column column) {
+		if ((columnEnding == null || "".equals(columnEnding)) &&
+			(columnStarting == null || "".equals(columnStarting))) return false;
+		String key = getTargetEntityNameLowerCase(column);
+		if (key.equals(column.getName().toLowerCase())) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -19,5 +19,15 @@ public class MinuteProjectException extends Exception {
 	public void setError(String error) {
 		this.error = error;
 	}
-	
+
+	public MinuteProjectException(String message, String error) {
+		super();
+		this.message = message;
+		this.error = error;
+	}
+
+	public MinuteProjectException() {
+		super();
+	}
+
 }
