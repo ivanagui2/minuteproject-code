@@ -23,6 +23,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
 		this.table = table;
+//		this.alias = column.getAlias();
 	}
 	
 	public String getGeneratedBeanName() {

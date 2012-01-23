@@ -143,10 +143,10 @@ public class ModelUtils {
 		return FormatUtils.getDirFromPackage(getTechnicalPackage(model, template));		
 	}	
 	
-	public static List getParents (Database database, Table table) {
+	public static List<Reference> getParents (Database database, Table table) {
 		//return getParents(table);
 		// Duplicated code
-		List list = new ArrayList();
+		List<Reference> list = new ArrayList<Reference>();
 		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
 		ForeignKey [] foreignKeys = table.getForeignKeys();

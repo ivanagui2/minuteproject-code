@@ -27,6 +27,18 @@ public class ColumnUtils {
 		}
 		return null;		
 	}
+	public static Column getPrimaryKeyColumn(Table table, String columnName) {
+		if (table!=null && columnName!=null) {
+			columnName = columnName.toUpperCase();
+			int maxColumn = table.getPrimaryKeyColumns().length;
+			for (int i = 0; i < maxColumn; i++) {
+				Column column = table.getPrimaryKeyColumns()[i];
+				if (column.getName().toUpperCase().equals(columnName))
+					return column;
+			}
+		}
+		return null;		
+	}
 	
 	public static boolean isNaturalPk(Column column) {
 		if (column!=null && column.isPrimaryKey() && 

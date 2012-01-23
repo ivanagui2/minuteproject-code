@@ -576,6 +576,9 @@ public class CommonUtils {
 	public static String getColumnNameVariable (Table table, Reference reference) {
 		return FormatUtils.getJavaNameVariable(getColumnName(table, reference));
 	}
+	public static String getColumnAliasVariable (Table table, Reference reference) {
+		return FormatUtils.getJavaNameVariable(getColumnName(table, reference));
+	}
 	
 	public static String getColumnName (Table table, Reference reference) {
 		//simplification of parent reference should happen at convention time an not at template 
