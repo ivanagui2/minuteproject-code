@@ -30,6 +30,7 @@ import net.sf.minuteProject.utils.TableUtils;
 public class NavigateModelSequenceFixture extends SequenceFixture{
 
 	private enum ObjectAttribute {NAME, ALIAS};
+	private enum ColumnType {PK, FK, SIMPLE};
 	private enum ReferenceAttribute {LOCAL_COLUMN, LINKED_COLUMN, LOCAL_TABLE, LINKED_TABLE}
 	private ModelViewGenerator modelViewGenerator;
 	private Configuration configuration;
@@ -184,18 +185,51 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		return column.getAlias();
 	}
 	
-	public String aliasOfColumnOfTableNew (String columnName, String tableName) {
+	public Column getColumnOfTableByType (String columnName, String tableName, ColumnType type) throws MinuteProjectException {
 		for (Table table : model.getBusinessModel().getBusinessPackage().getTables()) {
 			if (table.getName().equals(tableName)) {
-				for (Column column:table.getPrimaryKeyColumns()) {
-					System.out.println("column "+column.getName());
-					if (column.getName().equals(columnName)) {
-						return column.getAlias();
+				if (type.equals(ColumnType.PK))
+					for (Column column:table.getPrimaryKeyColumns()) {
+						System.out.println("column "+column.getName());
+						if (column.getName().equals(columnName)) {
+							return column;
+						}
 					}
-				}
-				return "column not found";
+				if (type.equals(ColumnType.SIMPLE))
+					for (Column column:table.getColumns()) {
+						System.out.println("column "+column.getName());
+						if (column.getName().equals(columnName)) {
+							return column;
+						}
+					}
+				throw new MinuteProjectException("column not found","error");
 			}
 		}
-		return "table not found";
+		throw new MinuteProjectException("table not found","error");
+	}
+	
+	public String aliasOfColumnOfTableNew (String columnName, String tableName) {
+		try {
+			return getColumnOfTableByType(columnName, tableName, ColumnType.PK).getAlias();
+		} catch (MinuteProjectException e) {
+			// TODO Auto-generated catch block
+			return e.getMessage();
+		}
+	}
+
+	public String columnNameOfTableNameIsNotForeignKey (String columnName, String tableName) {
+		String s = columnNameOfTableNameIsForeignKey(columnName, tableName);
+		if ("true".equals(s)) return "false";
+		if ("false".equals(s)) return "true";
+		return s;
+	}
+	public String columnNameOfTableNameIsForeignKey (String columnName, String tableName) {
+		try {
+			Column column = getColumnOfTableByType(columnName, tableName, ColumnType.SIMPLE);
+			return (ColumnUtils.isForeignKey(column))?"true":"false";
+		} catch (MinuteProjectException e) {
+			// TODO Auto-generated catch block
+			return e.getMessage();
+		}
 	}
 }
