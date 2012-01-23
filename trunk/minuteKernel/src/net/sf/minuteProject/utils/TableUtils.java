@@ -85,7 +85,7 @@ public class TableUtils {
 		return null;
 	}
 	
-	public static Table getEntityFromBusinessPackage(Database database, String tablename){
+	public static Table getEntityFromBusinessPackageRefresh(Database database, String tablename){
 		for (Table table : database.getDataModel().getModel().getBusinessModel().getBusinessPackage().refreshEntities()) {
 			if (tablename.toLowerCase().equals(table.getName().toLowerCase())) return table;
 		}	
@@ -463,8 +463,8 @@ public class TableUtils {
 	public static boolean isCompositePrimaryKeyNotMany2Many (Table table) {
 		if (!table.isManyToMany() && 
 			(table.getPrimaryKeyColumns().length>1
-					)){
-//			 || getPrimaryKeyAndForeignKeyColumns(table).size()>0)) {
+//					)){
+			 || getPrimaryKeyAndForeignKeyColumns(table).size()>0)) {
 			return true;
 		}
 		return false;

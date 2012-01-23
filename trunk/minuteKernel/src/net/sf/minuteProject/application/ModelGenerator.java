@@ -158,17 +158,26 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 	
 	protected void generate (Configuration configuration) throws MinuteProjectException {
-		Model model = configuration.getModel();
-		setModel(model);
-		loadModel(model);
-		applyConventions(model);
-		applyLimitations(model);
+		Model model = getEnrichedModel(configuration);
+//		configuration.getModel();
+//		setModel(model);
+//		loadModel(model);
+//		applyConventions(model);
+//		applyLimitations(model);
 		if (hasTarget())
 			loadAndGenerate(model.getConfiguration().getTarget());
 		if (hasTargets())
 			loadAndGenerate(model.getConfiguration().getTargets());
 	}
 	
+	public Model getEnrichedModel (Configuration configuration) {
+		Model model = configuration.getModel();
+		setModel(model);
+		loadModel(model);
+		applyConventions(model);
+		applyLimitations(model);
+		return model;
+	}
 	private void applyLimitations(Model model) {
 		model.getBusinessModel().applyLimitations();
 	}

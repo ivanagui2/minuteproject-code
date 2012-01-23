@@ -106,7 +106,8 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private boolean isConventionApplicable(Column column) {
-		return (column.getAlias().equals(column.getName()));
+		return true;
+//		return (column.getAlias().equals(column.getName()));
 	}
 
 	private void applyFixPk(Column column) {
@@ -128,9 +129,10 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private boolean applyStripPrefix(Column column, String s) {
-		String name = column.getName();
+		s = s.toLowerCase();
+		String name = column.getName().toLowerCase();
 		if (name.startsWith(s) && !name.equals(s)) {
-			String newName = StringUtils.removeStart(column.getName(), s);
+			String newName = StringUtils.removeStart(name, s);
 			setNewColumnValue(column, name, newName);
 //			column.setAlias(newName);
 //			setReferenceColumnAlias(column, name, newName);
@@ -140,9 +142,10 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private boolean applyStripSuffix(Column column, String s) {
-		String name = column.getName();
+		s = s.toLowerCase();
+		String name = column.getName().toLowerCase();
 		if (name.endsWith(s) && !name.equals(s)) {
-			String newName = StringUtils.removeEnd(column.getName(), s);
+			String newName = StringUtils.removeEnd(name, s);
 			setNewColumnValue(column, name, newName);
 //			column.setAlias(newName);
 //			setReferenceColumnAlias(column, name, newName);

@@ -30,20 +30,20 @@ public class ReferenceUtils {
 //		return FormatUtils.getJavaNameVariable(c.getAlias());
 //	}
 	public static String getColumnClassNameForLinkTable(Database database, Column column) {
-		Column c = getColumnFromPackage(database, column);
+		Column c = getColumnForLinkTable(database, column);
 		if (column==null) return "COLUMN should not be null!";
 		return FormatUtils.getJavaName(c.getAlias());
 	}
 
 	public static String getColumnNameVariableForLinkTable (Database database, Column column) {
-		Column c = getColumnFromPackage(database, column);
+		Column c = getColumnForLinkTable(database, column);
 		if (column==null) return "COLUMN should not be null!";
 		return FormatUtils.getJavaNameVariable(c.getAlias());		
 	}
 	
-	public static Column getColumnFromPackage(Database database, Column column) {
+	public static Column getColumnForLinkTable(Database database, Column column) {
 		if (column==null) return null;
-		Table table = TableUtils.getEntityFromBusinessPackage(database, column.getTable().getName());
+		Table table = TableUtils.getEntityFromBusinessPackageRefresh(database, column.getTable().getName());
 		if (table!=null) {
 			return ColumnUtils.getColumn(table, column.getName());
 		}
@@ -75,7 +75,7 @@ public class ReferenceUtils {
 	
 	public static void setReferenceColumnAlias(Column column, String name, String newName) {
 		Database database = column.getTable().getDatabase();
-		Table table = TableUtils.getEntityFromBusinessPackage(database, column.getTable().getName());
+		Table table = TableUtils.getTable(database, column.getTable().getName());
 		if (table==null) {
 			log.error("> table : "+column.getTable().getName()+", column : "+column.getName()+" not found");
 			return;
