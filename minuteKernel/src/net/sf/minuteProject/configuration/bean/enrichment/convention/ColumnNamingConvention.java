@@ -57,12 +57,10 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private void applyMatchEntityName(Table table, Column column) {
-//		if (column.getAlias().toLowerCase().startsWith(table.getName().toLowerCase()))
 		column.setAlias(StringUtils.removeStart(column.getAlias().toLowerCase(), table.getName().toLowerCase()).toUpperCase());
 	}
 
 	private void applyMatchEntityAlias(Table table, Column column) {
-//		if (column.getAlias().toLowerCase().startsWith(table.getName().toLowerCase()))
 		column.setAlias(StringUtils.removeStart(column.getAlias().toLowerCase(), table.getAlias().toLowerCase()).toUpperCase());
 	}
 	
@@ -104,8 +102,38 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private boolean isConventionApplicable(Column column) {
-		return true;
+		int cpt=0;
+		String proposedName = getProposedName (column);
+		for (Column col:column.getTable().getColumns()) {
+			if (col.getAlias().toLowerCase().equals(proposedName.toLowerCase()))
+				cpt++;
+		}
+		// check duplicate a short version (a full version would be to propose all the alias and eliminate duplicate)
+		return (cpt>0)? false:true;
 //		return (column.getAlias().equals(column.getName()));
+	}
+
+	private String getProposedName(Column column) {
+		for (String s : ParserUtils.getList(defaultValue)) {
+			String proposedName = getProposedName(column, s);
+			if (!proposedName.equals(column.getAlias())) return proposedName;
+		}
+		return column.getAlias();
+	}
+	
+	private String getProposedName(Column column, String s) {
+		s = s.toLowerCase();
+		String name = column.getName().toLowerCase();
+		if (APPLY_STRIP_COLUMN_NAME_SUFFIX.equals(type)) {
+			if (name.endsWith(s) && !name.equals(s)) {
+				return StringUtils.removeEnd(name, s);
+			}
+		}
+		if (APPLY_STRIP_COLUMN_NAME_PREFIX.equals(type))
+			if (name.endsWith(s) && !name.equals(s)) {
+				return StringUtils.removeEnd(name, s);
+			}
+		return column.getAlias();
 	}
 
 	private void applyFixPk(Column column) {
@@ -132,8 +160,6 @@ public class ColumnNamingConvention extends ModelConvention {
 		if (name.startsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeStart(name, s);
 			setNewColumnValue(column, name, newName);
-//			column.setAlias(newName);
-//			setReferenceColumnAlias(column, name, newName);
 			return true;
 		}
 		return false;
@@ -145,8 +171,6 @@ public class ColumnNamingConvention extends ModelConvention {
 		if (name.endsWith(s) && !name.equals(s)) {
 			String newName = StringUtils.removeEnd(name, s);
 			setNewColumnValue(column, name, newName);
-//			column.setAlias(newName);
-//			setReferenceColumnAlias(column, name, newName);
 			return true;
 		}
 		return false;
@@ -159,24 +183,6 @@ public class ColumnNamingConvention extends ModelConvention {
 	
 	private void setReferenceColumnAlias(Column column, String name, String newName) {
 		ReferenceUtils.setReferenceColumnAlias(column, name, newName);
-////		for (ForeignKey fk : column.getTable().getForeignKeys()) {
-//			for (Reference ref : column.getTable().getParents()) {
-//				if (name.equals(ref.getLocalColumn().getName())) 
-//					ref.getLocalColumn().setAlias(newName);
-////					ref.setLocalColumnName(newName);
-//				//break;
-//			}
-////		}
-	}
-	
-	private void performReferenceUpdate2(Column column, String name, String newName) {
-		for (ForeignKey fk : column.getTable().getForeignKeys()) {
-			for (Reference ref : fk.getReferences()) {
-				if (newName.equals(ref.getLocalColumn().getName())) 
-					ref.setLocalColumnName(newName);
-				//break;
-			}
-		}
 	}
 
 }

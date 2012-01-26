@@ -19,7 +19,7 @@ public class ForeignKeyConvention extends ModelConvention {
 	public static final String APPLY_DEFAULT_FK_BY_ENTITY_NAME_AND_SUFFIX = "apply-default-foreign-key-by-entity-name-and-suffix";
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP = "autodetect-foreign-key-based-on-similarity-and-map";
 
-	public String defaultSuffix, columnEnding, columnStarting, columnBody;
+	public String defaultSuffix, columnEnding, columnStarting;
 
 	public String getDefaultSuffix() {
 		return defaultSuffix;
@@ -47,14 +47,6 @@ public class ForeignKeyConvention extends ModelConvention {
 
 	public void setColumnStarting(String columnStarting) {
 		this.columnStarting = columnStarting;
-	}
-
-	public String getColumnBody() {
-		return columnBody;
-	}
-
-	public void setColumnBody(String columnBody) {
-		this.columnBody = columnBody;
 	}
 
 	@Override
@@ -106,7 +98,7 @@ public class ForeignKeyConvention extends ModelConvention {
 		String tablename = getTargetEntityNameLowerCase(column);
 		Table target = TableUtils.getTable(table.getDatabase(), tablename);
 		if (target == null) {
-			System.out.println(">>> table : "+column.getTable().getName()+", "+ column.getTable().getAlias()+" - column :"+column.getName()+" - key : "+tablename);
+//			System.out.println(">>> table : "+column.getTable().getName()+", "+ column.getTable().getAlias()+" - column :"+column.getName()+" - key : "+tablename);
 			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
 		}
 		return target;
