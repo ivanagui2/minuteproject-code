@@ -26,25 +26,30 @@
       </authentication-provider> 
     </authentication-manager>  
     
-    <http realm="Contractor Realm">
+    <http realm="$model.name Realm">
 
         <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/hello.htm" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-  
+
         <!-- default url -->
 		<intercept-url pattern="/xava/**" access="ROLE_APPLICATION_USER"/> 
-		        
+		<intercept-url pattern="/xava/homeMenu.jsp" access="ROLE_APPLICATION_USER"/>        
+        <intercept-url pattern="/xava/**/*.jsp" access="ROLE_NOT_PRESENT"/>  
+		
 #foreach ($table in $entities)
 #exposeVariableEntitySpecific()
 #if($entitySecurityUtils.isEntityRoleSecured($table))
+	<!-- secured $table.name -->
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
 #set($ROLES=$springSecurityUtils.getRoles($roles))
         <intercept-url pattern="/MenuModules/$domainClassName" access="$ROLES"/>
 #end 
 #end       
 
+ 		<intercept-url pattern="/MenuModules/**" access="ROLE_APPLICATION_USER"/>
+		
         <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1"/>
         <http-basic/>
         <logout logout-success-url="/index.jsp"/>
