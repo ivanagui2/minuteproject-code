@@ -10,13 +10,14 @@ import org.openxava.util.*;
 public class ModuleHomeServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher;
 		String [] uri = request.getRequestURI().split("/");
 		if (uri.length < 4) {
-			response.getWriter().print(XavaResources.getString(request, "module_name_missing"));
-			return;
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(
+			dispatcher = request.getRequestDispatcher("/xava/homeMenu.jsp");
+		} else {
+			dispatcher = request.getRequestDispatcher(
 			"/xava/home.jsp?application=" + uri[1] + "&module=" + uri[3]);
+		}
 		dispatcher.forward(request, response);
 	}
 	
