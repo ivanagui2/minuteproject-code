@@ -56,11 +56,25 @@
 			model-specific="true" has-updatable-nature="true"
 			add-model-name="false">
 		</template>
+		
+		<!-- stored proc -->
 		<template name="JOOQ.routines" templateFileName="JOOQ.routines.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="java" file-prefix="Routines" file-suffix="" 
 			model-specific="true" has-updatable-nature="true"
 			add-model-name="false">
+		</template>
+			
+		<template name="StoredProcedureInputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="function.in"
+			file-extension="java" file-prefix="" file-suffix="" 
+			scope-specific-value="function-input-entity" >
+		</template>
+
+		<template name="StoredProcedureInputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="function.in"
+			file-extension="java" file-prefix="" file-suffix="" 
+			scope-specific-value="function-input-entity" >
 		</template>
 
     </template-target>

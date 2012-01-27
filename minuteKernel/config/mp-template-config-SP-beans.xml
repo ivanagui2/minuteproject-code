@@ -13,7 +13,7 @@
 			subdir="" outputsubdir="" technicalPackage="function.in"
 			file-extension="java" file-prefix="" file-suffix="" 
 			scope-specific-value="function-input-entity" >
-		</template>	
+		</template>
 
 		<template name="StoredProcedureOutputBean" templateFileName="JavaBean.vm" 
 			subdir="" outputsubdir="" technicalPackage="function.out"

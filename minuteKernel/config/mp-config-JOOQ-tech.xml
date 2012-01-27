@@ -18,7 +18,16 @@
 			</data-model>
 			<business-model>	
 				<enrichment>
-					<!-- to do for enum -->
+					<conventions>
+						<table-default-primary-key-convention
+							type="apply-default-primary-key-otherwise-first-one"
+							default-primary-key-names="ID">				
+							<!-- to do for enum -->
+						</table-default-primary-key-convention>
+					</conventions>
+					<model>
+						<function-model></function-model>
+					</model>
 				</enrichment>
 			</business-model>
 		</model>	
