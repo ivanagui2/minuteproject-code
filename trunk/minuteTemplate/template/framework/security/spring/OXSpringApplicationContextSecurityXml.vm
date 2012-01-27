@@ -41,7 +41,7 @@
 #foreach ($table in $entities)
 #exposeVariableEntitySpecific()
 #if($entitySecurityUtils.isEntityRoleSecured($table))
-	<!-- secured $table.name -->
+##	<!-- secured $table.name -->
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($table))
 #set($ROLES=$springSecurityUtils.getRoles($roles))
         <intercept-url pattern="/MenuModules/$domainClassName" access="$ROLES"/>
