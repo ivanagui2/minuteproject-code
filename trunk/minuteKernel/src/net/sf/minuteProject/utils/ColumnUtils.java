@@ -27,6 +27,13 @@ public class ColumnUtils {
 		}
 		return null;		
 	}
+	
+	public static String getPrimaryKeyClassName (Table table, String columnName) {
+		Column column = getPrimaryKeyColumn(table, columnName);
+		if (column==null) return "GET PRIMARY KEY COLUMN should not be null";
+		return FormatUtils.getJavaName(column.getAlias());
+	}
+	
 	public static Column getPrimaryKeyColumn(Table table, String columnName) {
 		if (table!=null && columnName!=null) {
 			columnName = columnName.toUpperCase();

@@ -30,22 +30,22 @@ public class ReferenceUtils {
 //		return FormatUtils.getJavaNameVariable(c.getAlias());
 //	}
 	public static String getColumnClassNameForLinkTable(Database database, Column column) {
-		Column c = getColumnForLinkTable(database, column);
-		if (column==null) return "COLUMN should not be null!";
+		Column c = getPrimaryColumnForLinkTable(database, column);
+		if (c==null) return "COLUMN should not be null!";
 		return FormatUtils.getJavaName(c.getAlias());
 	}
 
 	public static String getColumnNameVariableForLinkTable (Database database, Column column) {
-		Column c = getColumnForLinkTable(database, column);
-		if (column==null) return "COLUMN should not be null!";
+		Column c = getPrimaryColumnForLinkTable(database, column);
+		if (c==null) return "COLUMN should not be null!";
 		return FormatUtils.getJavaNameVariable(c.getAlias());		
 	}
 	
-	public static Column getColumnForLinkTable(Database database, Column column) {
+	private static Column getPrimaryColumnForLinkTable(Database database, Column column) {
 		if (column==null) return null;
 		Table table = TableUtils.getEntityFromBusinessPackageRefresh(database, column.getTable().getName());
 		if (table!=null) {
-			return ColumnUtils.getColumn(table, column.getName());
+			return TableUtils.getPrimaryFirstColumn(table);
 		}
 		return null;
 	}

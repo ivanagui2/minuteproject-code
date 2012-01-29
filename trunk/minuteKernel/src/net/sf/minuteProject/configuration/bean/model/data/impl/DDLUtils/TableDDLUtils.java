@@ -403,22 +403,20 @@ public class TableDDLUtils extends TableAbstract {
 	public void setForeignKey(ForeignKey foreignKey) {
 		getForeignKeyList().add(foreignKey);
 		Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference());
-//		Reference reference = foreignKey.getFirstReference();
-//			Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
-// 			ref.setForeignColumn(reference.getForeignColumn());
-// 			ref.setForeignColumnName(reference.getForeignColumnName());
-// 			ref.setForeignTable(reference.getForeignTable());
-// 			ref.setForeignTableName(reference.getForeignTableName());
-// 			ref.setLocalColumn(reference.getLocalColumn());
-// 			ref.setLocalColumnName(reference.getLocalColumnName());
-// 			ref.setLocalTable(reference.getLocalTable());
-// 			ref.setLocalTableName(reference.getLocalTableName()); 		
-		getParentList().add(ref);
+		if (!isPresent(getParentList(), ref))
+			getParentList().add(ref);
 		children = null;
 		columns = null;
 		resetNoPrimaryKeyNoForeignKeyColumns();
 	}
     
+	private boolean isPresent(List<Reference> references, Reference reference) {
+		for (Reference ref: references) {
+			if (ref.equals(reference))
+				return true;
+		}
+		return false;
+	}
     /**
      * Get the associated children
      * @return Reference
