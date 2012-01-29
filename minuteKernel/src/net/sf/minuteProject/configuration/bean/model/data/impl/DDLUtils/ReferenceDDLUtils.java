@@ -241,10 +241,29 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
     public boolean equals (Object object) {
     	if (object instanceof ReferenceDDLUtils) {
     		ReferenceDDLUtils toCompare = (ReferenceDDLUtils) object;
-    		if (toCompare.getForeignTableName().equals(getForeignTableName())
-    		    && toCompare.getForeignColumnName().equals(getForeignColumnName())
-    		    && toCompare.getLocalColumnName().equals(getLocalColumnName())
-    		    && toCompare.getLocalTableName().equals(getLocalTableName())
+    		String ltn, lcn, ftn, fcn;
+    		if (getLocalColumnName()==null) return false;
+    			lcn=getLocalColumnName().toLowerCase();
+			if (getLocalTableName()==null) return false;
+				ltn=getLocalTableName().toLowerCase();
+			if (getForeignColumnName()==null) return false;
+				fcn=getForeignColumnName().toLowerCase();
+			if (getForeignTableName()==null) return false;
+				ftn=getForeignTableName().toLowerCase();
+			String cltn, clcn, cftn, cfcn;
+			if (toCompare.getLocalColumnName()==null) return false;
+				clcn=toCompare.getLocalColumnName().toLowerCase();
+			if (toCompare.getLocalTableName()==null) return false;
+				cltn=toCompare.getLocalTableName().toLowerCase();
+			if (toCompare.getForeignColumnName()==null) return false;
+				cfcn=toCompare.getForeignColumnName().toLowerCase();
+			if (toCompare.getForeignTableName()==null) return false;
+				cftn=toCompare.getForeignTableName().toLowerCase();
+
+    		if (cftn.equals(ftn)
+    		    && cfcn.equals(fcn)
+    		    && clcn.equals(lcn)
+    		    && cltn.equals(ltn)
     		    ) 
     			return true;
     		return false;

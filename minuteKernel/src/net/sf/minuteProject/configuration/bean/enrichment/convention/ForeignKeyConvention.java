@@ -146,6 +146,12 @@ public class ForeignKeyConvention extends ModelConvention {
 		if (key.equals(column.getName().toLowerCase())) {
 			return false;
 		}
+		Table target = getTarget(column);
+		if (target==null) 
+			return false;
+		String targetType = TableUtils.getPrimaryKeyType(target);
+		if (!targetType.equals(column.getType()))
+			return false;
 		return true;
 	}
 }

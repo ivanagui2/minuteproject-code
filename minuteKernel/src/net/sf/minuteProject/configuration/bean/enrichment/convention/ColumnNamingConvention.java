@@ -92,6 +92,31 @@ public class ColumnNamingConvention extends ModelConvention {
 		apply(table.getPrimaryKeyColumns());
 		apply(table.getAttributes());
 		apply(table.getNoPrimaryKeyNoForeignKeyColumns());
+		applyParent(table.getParents());
+		applyChild(table.getChildren());
+	}
+
+	private void applyParent(Reference[] references) {
+		for (Reference reference : references) {
+			applyParent (reference);
+		}
+	}
+
+	private void applyParent(Reference reference) {
+		Column column = reference.getLocalColumn();
+//		if (isConventionApplicable(column))
+			apply (column);
+	}
+	private void applyChild(Reference[] references) {
+		for (Reference reference : references) {
+			applyChild (reference);
+		}
+	}
+	
+	private void applyChild(Reference reference) {
+		Column column = reference.getForeignColumn();
+//		if (isConventionApplicable(column))
+			apply (column);
 	}
 
 	private void apply(Column[] columns) {
@@ -178,7 +203,7 @@ public class ColumnNamingConvention extends ModelConvention {
 
 	private void setNewColumnValue (Column column, String name, String newName) {
 		column.setAlias(newName);
-		setReferenceColumnAlias(column, name, newName);		
+//		setReferenceColumnAlias(column, name, newName);		
 	}
 	
 	private void setReferenceColumnAlias(Column column, String name, String newName) {
