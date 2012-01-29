@@ -99,11 +99,11 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		return compareAttributesOfParentsEntitiesForEntity(name, values, ObjectAttribute.ALIAS, ReferenceAttribute.LINKED_TABLE);
 	}
 	
-	public String namesOfLocalColumnsForEntity (String name, String values) {
+	public String namesOfLocalFkColumnsForEntity (String name, String values) {
 		return compareAttributesOfParentsEntitiesForEntity(name, values, ObjectAttribute.NAME, ReferenceAttribute.LOCAL_COLUMN);
 	}
 	
-	public String aliasesOfLocalColumnsForEntity (String name, String values) {
+	public String aliasesOfLocalFkColumnsForEntity (String name, String values) {
 		return compareAttributesOfParentsEntitiesForEntity(name, values, ObjectAttribute.ALIAS, ReferenceAttribute.LOCAL_COLUMN);
 	}
 	
@@ -155,29 +155,14 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 	
 	public String aliasJavaVariableOfFirstRelationshipBetween (String child, String parent) {
 //		Reference ref = getReference(child, parent);
-		return CommonUtils.getColumnNameVariable(getEntity(child), getParentReference(child, parent));
-	}
-	
-	public String aliasJavaVariableOfFirstRelationshipBetweenNew (String child, String parent) {
-		Reference reference = getParentReference(child, parent);
-		return FormatUtils.getJavaNameVariable(ReferenceUtils.getColumnAlias(reference.getForeignTable(), reference.getForeignColumn()));
+		return CommonUtils.getColumnNameVariable(getEntity(child), 
+				getParentReference(child, parent));
 	}
 	
 	public String columnClassNameOfFirstRelationshipBetween (String child, String parent) {
 		Reference reference = getParentReference(child, parent);
 		Database db = model.getDataModel().getDatabase();
 		return ReferenceUtils.getColumnClassNameForLinkTable(db, reference.getForeignColumn());
-		
-		//FormatUtils.getJavaNameVariable(ReferenceUtils.getColumnAlias(reference.getForeignTable(), reference.getForeignColumn()));
-	}
-	
-	public String columnClassNameOfFirstRelationshipBetweenNew (String child, String parent) {
-		Reference reference = getParentReference(child, parent);
-		Database db = model.getDataModel().getDatabase();
-//		return ReferenceUtils.getColumnAlias(reference.getForeignTable(), reference.getForeignColumn());
-		return ReferenceUtils.getColumnAlias(TableUtils.getEntity(db, reference.getForeignTable().getName()), reference.getForeignColumn());
-		
-		//FormatUtils.getJavaNameVariable(ReferenceUtils.getColumnAlias(reference.getForeignTable(), reference.getForeignColumn()));
 	}
 
 	public String aliasOfColumnOfTable (String columnName, String tableName) {
