@@ -69,7 +69,7 @@ public class ${className} implements Serializable {
 #end
     private static final long serialVersionUID = 1L;
 	
-    public  static final String FIND_ALL = "${className}.findAll";
+    public static final String FIND_ALL = "${className}.findAll";
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
 #set($columnCap = $formatUtils.upperCase(${columnClass}))
@@ -244,8 +244,10 @@ $!updatedAreaEnd
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
        this.$embeddedIdVariable = new ${embeddedIdClass}();  	
 #foreach($column in $tableUtils.getPrimaryKeyNotForeignKeyColumns($table))
-#putColumnParamNaming()	
-       this.${embeddedIdVariable}.set$columnClass ($columnVar);
+#putColumnParamNaming()
+#set($locColumn=$columnUtils.getColumn($table, $column.name))
+#set($fieldVar=$formatUtils.getJavaNameVariable($locColumn.alias))
+       this.${embeddedIdVariable}.set$columnClass ($fieldVar);
 #end
 #else
 #foreach($column in ${table.primaryKeyColumns})
@@ -272,12 +274,11 @@ $!updatedAreaEnd
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
-##set($columnVar=$referenceUtils.getLocalColumnVariableName($database, $reference.localColumn))
-##set($columnVar=$referenceUtils.getLocalColumnClassName($database, $reference.localColumn))
-#set($columnVar=$referenceUtils.getColumnNameVariableForLinkTable($database, $localColumn))##$formatUtils.getJavaNameVariable($localColumnName.toLowerCase()))
-##set($columnClass=$referenceUtils.getLocalColumnClassNameForLinkTable($database, $localColumn))
+##set($columnVar=$referenceUtils.getColumnNameVariableForLinkTable($database, $localColumn))##$formatUtils.getJavaNameVariable($localColumnName.toLowerCase()))
+#set($locColumn=$columnUtils.getColumn($table, $localColumn.name))
+#set($fieldVar=$formatUtils.getJavaNameVariable($locColumn.alias))
 #columnJavaNaming()
-       this.${colVar}.set$columnClass($columnVar); //$linkedTableClass $linkedColumn - local $localTableClass $localColumn
+       this.${colVar}.set$columnClass($fieldVar); 
 #else
        // the datamodel type of foreignkey and primary are not equals, please adapt
 #end
@@ -289,10 +290,15 @@ $!updatedAreaEnd
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnUtils.belongsToCompositePrimaryKeyNotMany2Many($column))
+#set($columnClass=$columnUtils.getPrimaryKeyClassName($table, $column.name))
 		  get${embeddedIdClass}().get$columnClass()#if ($velocityCount!=$table.columnCount),
 #end
 #else
-#if($columnUtils.isForeignKey($column))
+#if($column.isPrimaryKey())
+#set($columnClass=$columnUtils.getPrimaryKeyClassName($table,$column.name))
+#elseif($columnUtils.isForeignKey($column))
+#set($reference=$referenceUtils.getReference($column))
+#set($columnClass = $commonUtils.getColumnAliasClassName($table, $reference))
 #set($columnClass="${columnClass}_")
 #end
           get$columnClass()#if ($velocityCount!=$table.columnCount),
