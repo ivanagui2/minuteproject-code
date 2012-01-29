@@ -6,18 +6,19 @@ define COMMAND_PATTERN {java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,susp
 Liferay model load
 !| net.sf.minuteProject.model.NavigateModelSequenceFixture|
 |load| mp-config-LIFERAY-JPA2.xml|
-|check | alias java variable of first relationship between new| portletitem| portlet | portletid |
-|check | alias java variable of first relationship between| portletitem| portlet | portletid |
-|check | alias java variable of first relationship between new| portletitem| group_| groupid|
-|check | alias java variable of first relationship between| portletitem| group_| groupid|
+|check | number of parents for entity| cyrususer| 0 |
+|check | names of parents entity for entity| portletitem| group_, company, user_, portlet, classname_ | true |
+|check | names of parents entity for entity| user_| contact_, company | true |
+|check | number of parents for entity| user_| 2 |
+|check | names of parents entity for entity| contact_| user_, company, account_ | true |
+|check | alias java variable of first relationship between| portletitem| portlet | portlet |
+|check | alias java variable of first relationship between| portletitem| group_| group|
 |check | alias of column of table| smallImageId| journalarticle| SMALLIMAGEID |
 |check | alias of column of table| smallImage| journalarticle| SMALLIMAGE|
 |check | alias of column of table| groupId| group_ | group|
-|check | alias of column of table new| groupId| group_ | GROUP|
+|check | alias of column of table new| groupId| group_ | GROUPID|
 |check | number of parents for entity| portletitem| 5 |
-|check | names of parents entity for entity| portletitem| group_, company, user_, portlet, classname_ | true |
-|check | names of local columns for entity| portletitem| groupId, companyId, userId, portletId, classNameId | true |
-|check | aliases of local columns for entity| portletitem| GROUPID, COMPANYID, USERID, PORTLETID, CLASSNAMEID | true |
-|check | column class name of first relationship between| assettag| group_| Group |
-|check | column class name of first relationship between new| assettag| group_| group|
-|check | alias of column of table new| contactId| contact_ | CONTACT |
+|check | names of local fk columns for entity| portletitem| groupId, companyId, userId, portletId, classNameId | true |
+|check | aliases of local fk columns for entity| portletitem| group, company, user, portlet, classname | true |
+|check | column class name of first relationship between| assettag| group_| Groupid |
+|check | alias of column of table new| contactId| contact_ | CONTACTID |
