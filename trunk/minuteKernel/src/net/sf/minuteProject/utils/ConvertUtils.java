@@ -15,7 +15,7 @@ public class ConvertUtils {
 	public static final String JAVA_DOUBLE_TYPE 						=   "java.lang.Double";			
 	public static final String JAVA_INTEGER_TYPE 					=   "java.lang.Integer";		
 	public static final String JAVA_SHORT_TYPE 			 			=   "java.lang.Short";		
-	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.lang.Timestamp";			
+	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.sql.Timestamp";			
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
 	public static final String JAVA_STRING_TYPE 						=   "java.lang.String";						
