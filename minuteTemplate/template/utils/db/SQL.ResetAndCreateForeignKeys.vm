@@ -6,7 +6,7 @@
 #exposeVariableEntitySpecific()
 #foreach($reference in $table.parents)
 #putReferenceParams2()
-ALTER TABLE ${reference.localTable.name} DROP FOREIGN KEY ${reference.localTable.name}_${velocityCount}_FK;
+##ALTER TABLE ${reference.localTable.name} DROP FOREIGN KEY ${reference.localTable.name}_${velocityCount}_FK;
 #end
 #end
 #end

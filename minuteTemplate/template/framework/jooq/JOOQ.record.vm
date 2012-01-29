@@ -10,6 +10,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 import $entityClassImport;
 import $modelClassImport;
 import $keysClassImport;
+import java.sql.*;
 #foreach ($reference in $table.children)
 //import 
 #end
