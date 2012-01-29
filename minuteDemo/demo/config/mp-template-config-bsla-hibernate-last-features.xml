@@ -18,7 +18,7 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="txt" file-prefix="" file-suffix="README" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>
+		</template>					
 	</template-target>
 	
 	<template-target 
