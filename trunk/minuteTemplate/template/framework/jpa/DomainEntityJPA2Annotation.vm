@@ -109,7 +109,7 @@ public class ${className} implements Serializable {
 #exposeXmlElementValue()
     @XmlElement $!xmlElementValue
 #end
-    private $columnType $columnVar;
+    private $columnType $columnVar; //$column.alias
 
 #end
 #end
@@ -269,7 +269,8 @@ $!updatedAreaEnd
 #putReferenceParams2()
 #columnJavaNaming()
 #exposeRelationship($table, $reference)
-#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+#set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
+##set($colVar=$formatUtils.getJavaNameVariable($referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn})))
        this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
