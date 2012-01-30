@@ -32,18 +32,23 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * 
 	 * PRIMARY KEY
 	 */
-	public void set$primaryKeyJavaNameClass(${primaryKeyFullType} value) {
-		setValue($classPkConstant, value);
-	}
-
+##	public void set$primaryKeyJavaNameClass(${primaryKeyFullType} value) {
+##		setValue($classPkConstant, value);
+##	}
+    public void set$columnClass($jooqColumnFullType value) {
+        setValue($classFieldConstant, value);
+    }
 	/**
 	 * An uncommented item
 	 * 
 	 * PRIMARY KEY
 	 */
-	public ${primaryKeyFullType} get$primaryKeyJavaNameClass() {
-		return getValue($classPkConstant);
-	}
+##	public ${primaryKeyFullType} get$primaryKeyJavaNameClass() {
+##		return getValue($classPkConstant);
+##	}
+    public $jooqColumnFullType get$columnClass() {
+        return getValue($classFieldConstant);
+    }
 #end
 #end
 #foreach ($reference in $table.children)
@@ -53,7 +58,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * An uncommented item
 	 * 
 	 */
-	public java.util.List<$linkedRecordClassImport> fetch${linkedTableVariable}List() {
+	public java.util.List<$linkedRecordClassImport> fetch${childrenListClass}List() {
 		return create()
 ##			.selectFrom(my.jooq.mp.tables.Conference.CONFERENCE)
 ##			.where(my.jooq.mp.tables.Conference.CONFERENCE.ADDRESS_ID.equal(getValue(my.jooq.mp.tables.Address.ADDRESS.ID)))		

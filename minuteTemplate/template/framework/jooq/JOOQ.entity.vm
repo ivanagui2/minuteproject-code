@@ -45,7 +45,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 		return __RECORD_TYPE;
 	}
 
-#if(!$isPkUserProvided)
+#if(!$isPkUserProvided && ${table.primaryKeyColumns.size}>1)
     @Override
     public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() { //$primaryKeyFirstColumn.type
         return ${keysClass}.IDENTITY_$classNameLowerCase; // $columnUtils.isNaturalPk($primaryKeyFirstColumn)
