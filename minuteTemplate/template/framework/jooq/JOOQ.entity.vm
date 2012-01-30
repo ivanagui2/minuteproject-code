@@ -45,6 +45,14 @@ public class $className extends $entitySuperClass <$recordClass> {
 		return __RECORD_TYPE;
 	}
 
+#if(!$isPkUserProvided)
+    @Override
+    public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() { //$primaryKeyFirstColumn.type
+        return ${keysClass}.IDENTITY_$classNameLowerCase; // $columnUtils.isNaturalPk($primaryKeyFirstColumn)
+    }
+
+#end
+
 #foreach($column in ${table.primaryKeyColumns})
 #if(!$columnUtils.isForeignKey($column))
 #putJOOQColumnParam()
@@ -53,7 +61,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 	 * 
 	 * PRIMARY KEY $column.name
 	 */
-	public final TableField<${recordClass}, ${primaryKeyFullType}> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
+	public final TableField<${recordClass}, $jooqColumnFullType> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
 #end
 #end
 
@@ -95,13 +103,6 @@ public class $className extends $entitySuperClass <$recordClass> {
 		super(alias, ${modelClass}.$modelNameUpperCase, ${className}.$classNameUpperCase);
 	}
 
-#if($isPkUserProvided)
-	@Override
-	public org.jooq.Identity<$recordClass, $primaryKeyFullType> getIdentity() { //$primaryKeyFirstColumn.type
-		return ${keysClass}.IDENTITY_$classNameLowerCase; // $columnUtils.isNaturalPk($primaryKeyFirstColumn)
-	}
-
-#end
 	@Override
 	public org.jooq.UniqueKey<$recordClass> getMainKey() {
 		return ${keysClass}.KEY_${classNameLowerCase}_PRIMARY;

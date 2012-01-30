@@ -8,8 +8,8 @@
 #exposeJOOQEntities()
 #exposeJOOQCommon()
 #set($entitySuperClass=$jooqUtils.getEntitySuperClass($table))##"org.jooq.impl.UpdatableTableImpl")
-#set($classNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${table}))) ##check if it is the table.alias or table.alias to uppercase
-#set($classNameLowerCase = $formatUtils.lowerCase(${table.alias})) ##check if it is the alias
+#set($classNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${table})))##check if it is the table.alias or table.alias to uppercase
+#set($classNameLowerCase = $formatUtils.lowerCase(${table.alias}))##check if it is the alias
 #set($pkUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${table},${primaryKeyFirstColumn.alias})))
 #set($classConstant = "${entityClassImport}.${classNameUpperCase}")
 #set($classPkConstant = "${classConstant}.$pkUpperCase")
@@ -23,8 +23,8 @@
 #end
 
 #macro (exposeJOOQCommon)
-#set ($jooqVersion = $template.getPropertyValue("jooq-version","2.0.1")) ##retrieve the default version at template/templateset/target level
-#set ($modelUpperCase = $formatUtils.getUppercaseUnderscore(${model.alias})) ##retrieve the default version at template/templateset/target level
+#set ($jooqVersion = $template.getPropertyValue("jooq-version","2.0.1"))##retrieve the default version at template/templateset/target level
+#set ($modelUpperCase = $formatUtils.getUppercaseUnderscore(${model.alias}))##retrieve the default version at template/templateset/target level
 #set($serialValue=$jooqUtils.getRandomSerialNumber())
 #end
 

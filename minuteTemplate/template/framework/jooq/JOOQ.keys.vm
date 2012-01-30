@@ -21,14 +21,11 @@ $!updatedAreaClassAnnotation
 @SuppressWarnings({"unchecked"})
 public class Keys extends AbstractKeys {
 
-	// IDENTITY definitions ##ie pk unique
-    
+	// IDENTITY definitions 
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
-#if($table.hasPrimaryKey()) ##what about composite pk
-#if($isPkUserProvided)
-	public static final Identity<$recordClassImport, $primaryKeyFullType> IDENTITY_$classNameLowerCase = createIdentity($classConstant, $classPkConstant);
-#end
+#if($table.hasPrimaryKey() && !$isPkUserProvided)
+    public static final Identity<$recordClassImport, $primaryKeyFullType> IDENTITY_$classNameLowerCase = createIdentity($classConstant, $classPkConstant);
 #end
 #end
 
@@ -36,7 +33,8 @@ public class Keys extends AbstractKeys {
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
 #foreach($columns in $table.columns)
-#if($tableUtils.isUnique($table, $column))##what about composite unique field not covered
+#if($tableUtils.isUnique($table, $column))
+##what about composite unique field not covered
 #putJOOQColumnParam()
 //	public static final UniqueKey<${recordClassImport}> KEY_${classNameLowerCase}_PRIMARY= createUniqueKey($classConstant, ${classFieldConstant});
 #end

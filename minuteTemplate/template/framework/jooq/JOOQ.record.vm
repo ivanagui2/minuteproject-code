@@ -68,7 +68,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	/**
 	 * mapping $column.name
 	 */
-	public void set$columnClass($columnFullType value) {
+	public void set$columnClass($jooqColumnFullType value) {
 		setValue($classFieldConstant, value);
 	}
 
@@ -86,7 +86,7 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	 * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
-	public void set$localColumnClass($columnFullType value) {
+	public void set$localColumnClass($jooqColumnFullType value) {
 		setValue($classFieldConstant, value);
 	}
 	
@@ -105,14 +105,14 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 	
 
 	/**
-	 * fetcher of associated $foreignTableVariable
+	 * fetcher of associated $linkedTableVariable via $localColumnClass
 	 * <p>
 	 * <code><pre>
      * FOREIGN KEY [${localTableVariable}.${localColumnVariable}]
      * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
-	public $linkedRecordClassImport fetch$linkedTableClass() {
+	public $linkedRecordClassImport fetch$localColumnClass() {
 		return create()
 			.selectFrom($linkedClassConstant)
 			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant))) 
