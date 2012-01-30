@@ -37,6 +37,9 @@ public class ConvertUtils {
 	public static final String DB_TINYINT_TYPE 					=   "TINYINT";
 	public static final String DB_BLOB 							=	"BLOB";
 	public static final String DB_CLOB  						=	"CLOB";
+	public static final String DB_LONGTEXT  					=	"LONGTEXT";
+	public static final String DB_LONGBLOB  					=	"DB_LONGBLOB";
+	public static final String DB_LONGVARBINARY  				=	"LONGVARBINARY";
 	
 	public static final String UML_STRING_TYPE 					=   "string";	
 	public static final String UML_INTEGER_TYPE 				=   "integer";	
@@ -72,7 +75,7 @@ public class ConvertUtils {
 	public static String getJavaTypeFromDBFullType (String dBType, int size, String databaseType) {
 		String retStr=null;
 		if (dBType.equals("BOOLEAN"))
-			return  JAVA_BOOLEAN_TYPE;					
+			return  JAVA_BOOLEAN_TYPE;
 		if (dBType.equals("BIGINT"))
 			return  JAVA_LONG_TYPE;	
 		if (dBType.equals("DOUBLE"))
