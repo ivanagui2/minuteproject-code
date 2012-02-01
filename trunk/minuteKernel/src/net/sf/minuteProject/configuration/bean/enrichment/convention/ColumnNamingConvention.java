@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -128,9 +129,21 @@ public class ColumnNamingConvention extends ModelConvention {
 
 	private boolean isConventionApplicable(Column column) {
 		int cpt=0;
-		String proposedName = getProposedName (column);
+		String proposedName = getProposedName (column).toLowerCase();
 		for (Column col:column.getTable().getColumns()) {
-			if (col.getAlias().toLowerCase().equals(proposedName.toLowerCase()))
+			if (col.getAlias().toLowerCase().equals(proposedName))
+				cpt++;
+		}
+		for (Reference ref:column.getTable().getParents()) {
+			if (ref.getLocalColumn().getAlias().toLowerCase().equals(proposedName))
+				cpt++;
+		}
+		for (Reference ref:column.getTable().getChildren()) {
+			if (ref.getLocalColumn().getAlias().toLowerCase().equals(proposedName))
+				cpt++;
+		}
+		for (Reference ref:EnrichmentUtils.getLinkedTargetReferenceByMany2Many(column.getTable())) {
+			if (ref.getLocalColumn().getAlias().toLowerCase().equals(proposedName))
 				cpt++;
 		}
 		// check duplicate a short version (a full version would be to propose all the alias and eliminate duplicate)

@@ -3,20 +3,21 @@
 	<configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
-		</conventions>	
+		</conventions>
 		<model name="jooqtech" version="1.0" package-root="net.sf.mp.demo.jooq">
 			<data-model>
-				<driver name="mysql" version="5.1.16" groupId="mysql" artifactId="mysql-connector-java"></driver>
-			    <fileSource name="jooqtech" dir="c:/MinuteProject/data">
-			    </fileSource>
+				<driver name="mysql" version="5.1.16" groupId="mysql"
+					artifactId="mysql-connector-java"></driver>
+				<fileSource name="jooqtech" dir="c:/MinuteProject/data">
+				</fileSource>
 				<dataSource>
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 					<url>jdbc:mysql://127.0.0.1:3306/jooq_tech</url>
 					<username>root</username>
 					<password>mysql</password>
-				</dataSource> 
+				</dataSource>
 			</data-model>
-			<business-model>	
+			<business-model>
 				<enrichment>
 					<conventions>
 						<table-default-primary-key-convention
@@ -28,21 +29,26 @@
 					<model>
 						<function-model></function-model>
 					</model>
+					<conventions>
+						<table-default-primary-key-convention
+							type="apply-default-primary-key-otherwise-first-one"
+							default-primary-key-names="ID" />
+						<view-primary-key-convention
+							type="apply-default-primary-key-otherwise-first-one"
+							default-primary-key-names="ID">
+						</view-primary-key-convention>
+					</conventions>
 				</enrichment>
 			</business-model>
-		</model>	
+		</model>
 		<targets>
-			<target refname="JOOQ" 
-			   name="JOOQ" 
-			   fileName="mp-template-config-JOOQ.xml" 
-			   outputdir-root="../../dev/JOOQ/jooq-tech"
-			   templatedir-root="../../minuteTemplate/template/framework/jooq">
-               <property name="jooq-version" value="2.0.1"></property>
+			<target refname="JOOQ" name="JOOQ" fileName="mp-template-config-JOOQ.xml"
+				outputdir-root="../../dev/JOOQ/jooq-tech" templatedir-root="../../minuteTemplate/template/framework/jooq">
+				<property name="jooq-version" value="2.0.1"></property>
 			</target>
-			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
-			</target>		
+			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
+				templatedir-root="../../minuteTemplate/template/framework/bsla">
+			</target>
 		</targets>
 	</configuration>
 </generator-config>

@@ -85,6 +85,7 @@ public class JooqUtils {
 	public static String getTableConstant(Table table) {
 		return isTableNameAndAnyColumnNameAmbiguous(table) ? "ENTITY_"
 				+ table.getAlias() : table.getAlias();
+//		return "__"+table.getAlias();
 	}
 
 	public static String getTableColumnConstant(Table table, String name) {
