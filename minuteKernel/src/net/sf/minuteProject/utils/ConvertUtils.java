@@ -9,16 +9,16 @@ import org.apache.log4j.Logger;
 
 public class ConvertUtils {
 	
-	public static final String DB_TYPE_ORACLE                   =   "ORACLE";
+	public static final String DB_TYPE_ORACLE                   	=   "ORACLE";
 	public static final String JAVA_BOOLEAN_TYPE 					=   "java.lang.Boolean";					
 	public static final String JAVA_LONG_TYPE 						=   "java.lang.Long";	
-	public static final String JAVA_DOUBLE_TYPE 						=   "java.lang.Double";			
+	public static final String JAVA_DOUBLE_TYPE 					=   "java.lang.Double";			
 	public static final String JAVA_INTEGER_TYPE 					=   "java.lang.Integer";		
 	public static final String JAVA_SHORT_TYPE 			 			=   "java.lang.Short";		
 	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.sql.Timestamp";			
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
-	public static final String JAVA_STRING_TYPE 						=   "java.lang.String";						
+	public static final String JAVA_STRING_TYPE 					=   "java.lang.String";						
 	public static final String JAVA_DATE_TYPE 						=   "java.sql.Date";
 	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
