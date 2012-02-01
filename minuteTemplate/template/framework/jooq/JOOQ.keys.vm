@@ -45,7 +45,13 @@ public class Keys extends AbstractKeys {
 #exposeJOOQEntitySpecific()
 ##what about composite pk
 #if($table.hasPrimaryKey()) 
-    public static final UniqueKey<${recordClassImport}> KEY_${classNameLowerCase}_PRIMARY= createUniqueKey($classConstant, $classPkConstant);
+    public static final UniqueKey<${recordClassImport}> KEY_${classNameLowerCase}_PRIMARY= 
+        createUniqueKey($classConstant,
+#foreach($column in ${table.primaryKeyColumns})
+#putJOOQColumnParam()
+        $classFieldConstant#if($velocityCount!=${table.primaryKeyColumns.size}),#end
+#end
+        );
 #end
 #end
 

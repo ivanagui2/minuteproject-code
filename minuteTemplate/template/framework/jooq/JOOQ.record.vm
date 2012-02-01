@@ -122,9 +122,9 @@ public class $className extends UpdatableRecordImpl<$recordClassImport> {
 			.selectFrom($linkedClassConstant)
 			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant))) 
 			.fetchOne();
-//reference.foreignColumn.name = ${reference.foreignColumn.name}
-//reference.foreignColumn.alias = ${reference.foreignColumn.alias}
-//alias : $referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn});
+##//reference.foreignColumn.name = ${reference.foreignColumn.name}
+##//reference.foreignColumn.alias = ${reference.foreignColumn.alias}
+##//alias : $referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn});
     }
 
 #end
