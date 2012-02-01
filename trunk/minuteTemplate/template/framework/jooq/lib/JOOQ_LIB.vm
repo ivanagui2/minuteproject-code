@@ -8,6 +8,7 @@
 #exposeJOOQEntities()
 #exposeJOOQCommon()
 #set($entitySuperClass=$jooqUtils.getEntitySuperClass($table))##"org.jooq.impl.UpdatableTableImpl")
+##set($classNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${table})))##check if it is the table.alias or table.alias to uppercase
 #set($classNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${table})))##check if it is the table.alias or table.alias to uppercase
 #set($classNameLowerCase = $formatUtils.lowerCase(${table.alias}))##check if it is the alias
 #set($pkUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${table},${primaryKeyFirstColumn.alias})))
@@ -41,7 +42,8 @@
 #putReferenceParams2()
 #set($column=$localColumn)
 #putJOOQColumnParam()
-#set($linkedColumnAlias=$referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn}))
+#set($linkedColumnAlias=$referenceUtils.getColumnClassAliasUpperCaseForLinkTable($database, $linkedColumn))
+##set($linkedColumnAlias=$referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn}))
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.alias}))
 #set($linkedEntityClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQEntity))
 #set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
