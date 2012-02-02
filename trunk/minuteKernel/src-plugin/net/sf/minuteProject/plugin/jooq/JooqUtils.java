@@ -76,20 +76,25 @@ public class JooqUtils {
 	public static boolean isTableNameAndAnyColumnNameAmbiguous(Table table) {
 		String proposedName = table.getAlias();
 		for (Column column : table.getColumns()) {
-			if (proposedName.equals(column.getAlias()))
+			if (proposedName.toLowerCase().equals(column.getAlias().toLowerCase()))
 				return true;
 		}
 		return false;
 	}
+	public static boolean isTableNameAndAnyColumnNameAmbiguous(Table table, String name) {
+		String proposedName = table.getAlias();
+		return (proposedName.toLowerCase().equals(name.toLowerCase()))?true:false;
+	}
 
 	public static String getTableConstant(Table table) {
-		return isTableNameAndAnyColumnNameAmbiguous(table) ? "ENTITY_"
-				+ table.getAlias() : table.getAlias();
-//		return "__"+table.getAlias();
+//		return isTableNameAndAnyColumnNameAmbiguous(table) ? "ENTITY_"
+//				+ table.getAlias() : table.getAlias();
+		return "__"+table.getAlias();
 	}
 
 	public static String getTableColumnConstant(Table table, String name) {
-		return isTableNameAndAnyColumnNameAmbiguous(table) ? "FIELD_" + name
-				: name;
+//		return isTableNameAndAnyColumnNameAmbiguous(table, name) ? "FIELD_" + name
+//				: name;
+		return name;
 	}
 }
