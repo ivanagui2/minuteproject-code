@@ -161,7 +161,7 @@ $!updatedAreaEnd
     @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
     @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true #else unique=false #end) 
 #exposeRelationship($table, $reference)
-#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+#set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
     private $linkedTableClass ${colVar};  
 
 #set($column = $reference.localColumn)
@@ -337,7 +337,7 @@ $!updatedAreaEnd
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #columnJavaNaming()
-#set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
+#set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
         if ($colVar!=null)
             toStringBuilder.append("${colVar}", ${colVar}.toStringWithParents());
 #end
@@ -374,8 +374,8 @@ $!updatedAreaEnd
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeRelationship($table, $reference)
-#set($localColumnVariable = $commonUtils.getColumnNameVariable($table, $reference))
-#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+#set($localColumnVariable = $commonUtils.getColumnAliasVariable($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnAliasClass($table, $reference))
         if (get${localColumnClass}()!=null) 
             ${variableName}.set${localColumnClass} (get${localColumnClass}().clone());   
 #end	   
@@ -477,8 +477,8 @@ $!updatedAreaEnd
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeRelationship($table, $reference)
-#set($localColumnVariable = $commonUtils.getColumnNameVariable($table, $reference))
-#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+#set($localColumnVariable = $commonUtils.getColumnAliasVariable($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnAliasClass($table, $reference))
     public $linkedTableClass get$localColumnClass () {
     	return ${localColumnVariable};
     }
