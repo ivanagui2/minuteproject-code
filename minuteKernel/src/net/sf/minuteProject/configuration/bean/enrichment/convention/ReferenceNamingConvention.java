@@ -13,6 +13,8 @@ import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 public class ReferenceNamingConvention extends ModelConvention {
 
 	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY="apply-referenced-alias-when-no-ambiguity";
+	//TODO
+	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY_AND_NOT_PRESENT="apply-referenced-alias-when-no-ambiguity-and-not-present";
 	
 	private boolean isToPlurialize;
 	
@@ -37,10 +39,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 	}
 
 	private void applyMany2ManyReference (Table table) {
-		List<Reference> list = new ArrayList<Reference>();
-		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
-			list.add(reference);
-		}	
+		List<Reference> list = getReferenceChildrenAndMany2Many(table);
 		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
 			if (!reference.getForeignTable().isManyToMany()) {
 				if (isNoAmbiguityReference(reference, list))
@@ -49,18 +48,10 @@ public class ReferenceNamingConvention extends ModelConvention {
 					reference.setAlias(getNameForAmbiguiousCaseAndMany2Many(table, reference));
 			} 
 		}	
-//		
-//		for (Reference ref : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
-//			ref.setAlias(ref.getForeignTable().getAlias());
-////			return
-//		}
 	}
 
 	private void applyNotMany2ManyReference(Table table) {
-		List<Reference> list = new ArrayList<Reference>();
-		for (Reference reference : table.getChildren()) {
-			list.add(reference);
-		}	
+		List<Reference> list = getReferenceChildrenAndMany2Many(table);
 		for (Reference reference : table.getChildren()) {
 			if (!reference.getForeignTable().isManyToMany()) {
 				if (isNoAmbiguityReference(reference, list))
@@ -71,6 +62,17 @@ public class ReferenceNamingConvention extends ModelConvention {
 		}		
 	}
 
+	private List<Reference> getReferenceChildrenAndMany2Many (Table table) {
+		List<Reference> list = new ArrayList<Reference>();
+		for (Reference reference : table.getChildren()) {
+			list.add(reference);
+		}
+		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
+			list.add(reference);
+		}
+		return list;
+	}
+	
 	private String getNameForUnambiguiousCaseAndNotMany2Many(Table table) {
 		return getFinalName(table.getAlias());
 	}
