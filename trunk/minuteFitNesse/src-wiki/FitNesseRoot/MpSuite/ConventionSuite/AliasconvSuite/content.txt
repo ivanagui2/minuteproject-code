@@ -6,13 +6,19 @@ define COMMAND_PATTERN {java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,susp
 Liferay model load
 !| net.sf.minuteProject.model.NavigateModelSequenceFixture|
 |load| mp-config-LIFERAY-JPA2.xml|
+|check | alias java variable of primary key from primary key set | assetvocabulary | vocabularyid |
+|check | alias java variable of primary key from column set | assetvocabulary | vocabularyid |
+|check | alias java variable of primary key from foreign key set | users_orgs | user |
+|check | alias java variable of first relationship between| users_orgs| user_| user|
+|check | name java variable of first relationship between| users_orgs| user_| userid|
+|check | alias java variable of first relationship between| portletitem| portlet | portlet |
+|check | alias java variable of first relationship between| portletitem| group_| group|
+|check | name java variable of first relationship between| portletitem| group_| groupid|
 |check | number of parents for entity| cyrususer| 0 |
 |check | names of parents entity for entity| portletitem| group_, company, user_, portlet, classname_ | true |
 |check | names of parents entity for entity| user_| contact_, company | true |
 |check | number of parents for entity| user_| 2 |
 |check | names of parents entity for entity| contact_| user_, company, account_ | true |
-|check | alias java variable of first relationship between| portletitem| portlet | portlet |
-|check | alias java variable of first relationship between| portletitem| group_| group|
 |check | alias of column of table| smallImageId| journalarticle| SMALLIMAGEID |
 |check | alias of column of table| smallImage| journalarticle| SMALLIMAGE|
 |check | alias of column of table| groupId| group_ | group|
