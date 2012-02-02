@@ -11,9 +11,6 @@ import $entityClassImport;
 import $modelClassImport;
 import $keysClassImport;
 import java.sql.*;
-#foreach ($reference in $table.children)
-//import 
-#end
 
 $!updatedAreaImport
 
