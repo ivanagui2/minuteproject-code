@@ -35,8 +35,8 @@
 
         <!-- default url -->
 		<intercept-url pattern="/xava/**" access="ROLE_APPLICATION_USER"/> 
-		<intercept-url pattern="/xava/homeMenu.jsp" access="ROLE_APPLICATION_USER"/>        
-        <intercept-url pattern="/xava/**/*.jsp" access="ROLE_NOT_PRESENT"/>  
+		<intercept-url pattern="/xava/homeMenu.jsp" access="ROLE_APPLICATION_USER"/>
+        <intercept-url pattern="/xava/**/*.jsp" access="ROLE_NOT_PRESENT"/>
 		
 #foreach ($table in $entities)
 #exposeVariableEntitySpecific()
@@ -62,3 +62,4 @@
     </b:bean>    
          
 </b:beans>
+SG_SEcunda_ec-hierarchy-v

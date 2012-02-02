@@ -24,7 +24,7 @@ public class Keys extends AbstractKeys {
 	// IDENTITY definitions 
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
-#if($table.hasPrimaryKey() && !$isPkUserProvided)
+#if($table.hasPrimaryKey() && !$isPkUserProvided && $tableUtils.getNumberOfPrimaryColumns($table)==1)
     public static final Identity<$recordClassImport, $primaryKeyFullType> IDENTITY_$classNameLowerCase = createIdentity($classConstant, $classPkConstant);
 #end
 #end
@@ -49,7 +49,7 @@ public class Keys extends AbstractKeys {
         createUniqueKey($classConstant,
 #foreach($column in ${table.primaryKeyColumns})
 #putJOOQColumnParam()
-        $classFieldConstant#if($velocityCount!=${table.primaryKeyColumns.size}),#end
+        $classFieldConstant#if($velocityCount!=$tableUtils.getNumberOfPrimaryColumns($table)),#end
 #end
         );
 #end
