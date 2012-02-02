@@ -154,7 +154,11 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 	}
 	
 	public String aliasJavaVariableOfFirstRelationshipBetween (String child, String parent) {
-//		Reference ref = getReference(child, parent);
+		return CommonUtils.getColumnAliasVariable(getEntity(child), 
+				getParentReference(child, parent));
+	}
+	
+	public String nameJavaVariableOfFirstRelationshipBetween (String child, String parent) {
 		return CommonUtils.getColumnNameVariable(getEntity(child), 
 				getParentReference(child, parent));
 	}
@@ -216,5 +220,32 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 			// TODO Auto-generated catch block
 			return e.getMessage();
 		}
+	}
+	
+	public String aliasJavaVariableOfPrimaryKeyFromPrimaryKeySet (String tableName) {
+		Column column = getFirstPrimaryKeyFromPrimaryKeySet(tableName);
+		if (column!=null)
+			return ColumnUtils.getJavaVariableColumnAlias(column);
+		return "NOT FOUND";	
+	}
+	public String aliasJavaVariableOfPrimaryKeyFromColumnSet (String tableName) {
+		Column column = getFirstPrimaryKeyFromColumnSet(tableName);
+		if (column!=null)
+			return ColumnUtils.getJavaVariableColumnAlias(column);
+		return "NOT FOUND";	
+	}
+
+	private Column getFirstPrimaryKeyFromPrimaryKeySet(String tableName) {
+		Table table = TableUtils.getEntity(database, tableName);
+		if (table!=null)
+			return TableUtils.getPrimaryFirstColumn(table);
+		return null;
+	}
+	private Column getFirstPrimaryKeyFromColumnSet(String tableName) {
+		Column column = getFirstPrimaryKeyFromPrimaryKeySet(tableName);
+		if (column!=null) {
+			return ColumnUtils.getColumn(TableUtils.getEntity(database, tableName), column.getName());
+		}
+		return null;
 	}
 }
