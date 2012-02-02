@@ -574,23 +574,20 @@ public class CommonUtils {
 	}
 	
 	public static String getColumnNameVariable (Table table, Reference reference) {
-		return getColumnAliasVariable(table, reference);
-	}
-	public static String getColumnAliasVariable (Table table, Reference reference) {
 		return FormatUtils.getJavaNameVariable(getColumnName(table, reference));
 	}
+	public static String getColumnAliasVariable (Table table, Reference reference) {
+		return FormatUtils.getJavaNameVariable(getAliasColumnName(table, reference));
+	}
 	public static String getColumnAliasClassName (Table table, Reference reference) {
-		return FormatUtils.getJavaName(getColumnName(table, reference));
+		return FormatUtils.getJavaName(getAliasColumnName(table, reference));
 	}
 	
-	public static String getColumnName (Table table, Reference reference) {
-		//simplification of parent reference should happen at convention time an not at template 
-		// generation time
-//		if (!ColumnUtils.isUsingDefaultAlias(reference.getLocalColumn()))
-//			return reference.getLocalColumn().getAlias();
-////		if (isParentRelationshipSimplificable(table, reference))
-////			return reference.getForeignTable().getAlias();
-		return reference.getLocalColumn().getAlias();
+	private static String getAliasColumnName (Table table, Reference reference) {
+		return (reference!=null && reference.getLocalColumn()!=null)?reference.getLocalColumn().getAlias():"ERROR_MISSING_REFERENCE_LOCALCOLUMN_ALIAS";
+	}
+	private static String getColumnName (Table table, Reference reference) {
+		return (reference!=null && reference.getLocalColumn()!=null)?reference.getLocalColumn().getName():"ERROR_MISSING_REFERENCE_LOCALCOLUMN_NAME";
 	}
 	
 	public static boolean isParentRelationshipSimplificable2 (Reference reference) {

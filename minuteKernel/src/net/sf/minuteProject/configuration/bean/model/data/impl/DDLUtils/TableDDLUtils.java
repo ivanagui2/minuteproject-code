@@ -258,7 +258,10 @@ public class TableDDLUtils extends TableAbstract {
     		primaryKeys = new ArrayList<Column>();
     		org.apache.ddlutils.model.Column [] primaryKeyColumns = table.getPrimaryKeyColumns();
     		for (int i = 0; i < primaryKeyColumns.length; i++) {
-    			Column primaryKey = new ColumnDDLUtils (primaryKeyColumns[i], this);
+    			/// ATTENTION IT IS NOT A REFERENCE BUT A COPY
+    			//Column primaryKey = new ColumnDDLUtils (primaryKeyColumns[i], this);
+    			String columnName = primaryKeyColumns[i].getName();
+    			Column primaryKey = ColumnUtils.getColumn(this, columnName);
     			primaryKeys.add(primaryKey);
     		}
     	}

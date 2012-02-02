@@ -221,5 +221,9 @@ public class ColumnUtils {
 		return (column.getName().toLowerCase().equals(column.getAlias().toLowerCase()));
 	}
 
+	public static String getJavaVariableColumnAlias(Column column) {
+		return (column!=null)?FormatUtils.getJavaNameVariable(column.getAlias()):"ERROR_NULL_COLUMN_CANNOT_FORMAT_ALIAS";
+	}
+
 	
 }

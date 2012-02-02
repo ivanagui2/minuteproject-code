@@ -471,4 +471,7 @@ public class TableUtils {
 		return false;
 	}
 	
+	public static int getNumberOfPrimaryColumns(Table table) {
+		return (table.getPrimaryKeyColumns()==null)?0:table.getPrimaryKeyColumns().length;
+	}
 }
