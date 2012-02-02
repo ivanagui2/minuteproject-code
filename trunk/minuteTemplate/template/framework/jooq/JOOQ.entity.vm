@@ -54,8 +54,10 @@ public class $className extends $entitySuperClass <$recordClass> {
 #end
 
 #foreach($column in ${table.primaryKeyColumns})
-#if(!$columnUtils.isForeignKey($column))
 #putJOOQColumnParam()
+	// pk $columnVariableUpperCase
+#if(!$columnUtils.isForeignKey($column))
+
 	/**
 	 * An uncommented item
 	 * 
@@ -85,7 +87,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 	 * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
-	public final TableField<$recordClass, $columnFullType> $columnVariableUpperCase = createField("$localColumnVariable", $jooqFullType, this);
+	public final TableField<$recordClass, $columnFullType> $columnVariableUpperCase = createField("$reference.localColumn.name", $jooqFullType, this);
 
 #end
 
