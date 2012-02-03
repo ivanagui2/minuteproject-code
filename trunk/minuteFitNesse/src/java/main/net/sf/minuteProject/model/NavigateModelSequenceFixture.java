@@ -241,10 +241,18 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		return "NOT FOUND";	
 	}
 	
-	private Column getFirstPrimaryKeyFromPrimaryKeySet(String tableName) {
+	private Column getFirstPrimaryKeyFromPrimaryKeySet(String tableName){
+		return getPrimaryKeyFromPrimaryKeySet(tableName, null);
+	}
+	private Column getPrimaryKeyFromPrimaryKeySet(String tableName, String columnName) {
 		Table table = TableUtils.getEntity(database, tableName);
 		if (table!=null)
-			return TableUtils.getPrimaryFirstColumn(table);
+			for (Column column:table.getPrimaryKeyColumns()) {
+				if (columnName==null) return column;
+				else if (columnName.equals(column.getName()))
+					return column;
+			}
+//			return TableUtils.getPrimaryKey(table)FirstColumn(table);
 		return null;
 	}
 	
@@ -263,6 +271,20 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		}
 		return null;
 	}
+	private Column getKeyFromForeignKeySet(String tableName, String columnName) {
+		Column column = getPrimaryKeyFromPrimaryKeySet(tableName, columnName);
+		if (column!=null) {
+			Reference reference = ReferenceUtils.getReference(column);
+			return reference.getLocalColumn();
+		}
+		return null;
+	}
 	
+	public String aliasJavaVariableOfPrimaryKeyFromPrimaryKeySet (String tableName, String columnName) {
+		Column column = getKeyFromForeignKeySet(tableName, columnName);
+		if (column!=null)
+			return ColumnUtils.getJavaVariableColumnAlias(column);
+		return "NOT FOUND";	
+	}
 
 }
