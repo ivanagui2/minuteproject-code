@@ -190,6 +190,7 @@ public class TableDDLUtils extends TableAbstract {
 	
 	private void resetNoPrimaryKeyNoForeignKeyColumns() {
 		noPrimaryKeyNoForeignKeyColumns = null;
+		primaryKeys=null;
 		setNoPrimaryKeyNoForeignKeyColumns();
 	}
 

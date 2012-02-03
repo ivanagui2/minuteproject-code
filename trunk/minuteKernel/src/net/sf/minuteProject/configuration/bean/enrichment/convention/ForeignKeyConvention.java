@@ -98,7 +98,6 @@ public class ForeignKeyConvention extends ModelConvention {
 		String tablename = getTargetEntityNameLowerCase(column);
 		Table target = TableUtils.getTable(table.getDatabase(), tablename);
 		if (target == null) {
-//			System.out.println(">>> table : "+column.getTable().getName()+", "+ column.getTable().getAlias()+" - column :"+column.getName()+" - key : "+tablename);
 			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
 		}
 		return target;
