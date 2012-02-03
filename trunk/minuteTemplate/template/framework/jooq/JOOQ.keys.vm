@@ -47,13 +47,10 @@ public class Keys extends AbstractKeys {
 #if($table.hasPrimaryKey()) 
     public static final UniqueKey<${recordClassImport}> KEY_${classNameLowerCase}_PRIMARY= 
         createUniqueKey($classConstant,
-#set($cpt=0)
-#foreach($column in ${table.columns})
+#set($nbPk = $tableUtils.getNumberOfPrimaryColumns($table))
+#foreach($column in ${table.primaryKeyColumns})
 #putJOOQColumnParam()
-#if($column.isPrimaryKey())
-#set($cpt=$cpt+1)
-           $classFieldConstant#if($cpt!=$tableUtils.getNumberOfPrimaryColumns($table)),
-#end
+           $classFieldConstant#if($velocityCount!=$nbPk),
 #end
 #end
         );
