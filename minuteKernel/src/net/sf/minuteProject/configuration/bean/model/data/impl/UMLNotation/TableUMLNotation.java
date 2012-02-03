@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.utils.ReferenceUtils;
 
 public class TableUMLNotation extends TableAbstract {
 	
@@ -41,8 +42,9 @@ public class TableUMLNotation extends TableAbstract {
 //				children.add(referenceUMLNotation);
 //			}
 			for (Reference reference : super.getTable().getChildren()) {
-				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (reference);
-				children.add(referenceUMLNotation);
+				ReferenceUMLNotation ref = new ReferenceUMLNotation (reference);
+//				Reference ref = ReferenceUtils.getReference(reference.getLocalColumn());
+				children.add(ref);
 			}			
 		}
 		return (Reference[])children.toArray(new Reference[children.size()]);//(ColumnUMLNotation[])getNoPrimaryKeyNoForeignKeyColumns();
@@ -52,8 +54,9 @@ public class TableUMLNotation extends TableAbstract {
 		if (parents == null) {
 			parents = new ArrayList<Reference>();
 			for (int i = 0; i < super.getParents().length; i++) {
-				ReferenceUMLNotation referenceUMLNotation = new ReferenceUMLNotation (super.getParents()[i]);
-				parents.add(referenceUMLNotation);
+				ReferenceUMLNotation reference = new ReferenceUMLNotation (super.getParents()[i]);
+//				Reference reference = ReferenceUtils.getReference(super.getParents()[i].getLocalColumn());
+				parents.add(reference);
 			}
 		}
 		return (Reference[])parents.toArray(new Reference[parents.size()]);//(ColumnUMLNotation[])getNoPrimaryKeyNoForeignKeyColumns();

@@ -90,9 +90,11 @@ public class ColumnNamingConvention extends ModelConvention {
 	
 	private void apply(Table table) {
 		apply(table.getColumns());
-		apply(table.getPrimaryKeyColumns());
-		apply(table.getAttributes());
-		apply(table.getNoPrimaryKeyNoForeignKeyColumns());
+// use reference and not copy
+//		apply(table.getPrimaryKeyColumns());
+//		apply(table.getAttributes());
+		//apply(table.getNoPrimaryKeyNoForeignKeyColumns());
+// check if reference is used for parent
 		applyParent(table.getParents());
 		applyChild(table.getChildren());
 	}
@@ -134,10 +136,10 @@ public class ColumnNamingConvention extends ModelConvention {
 			if (col.getAlias().toLowerCase().equals(proposedName))
 				cpt++;
 		}
-		for (Reference ref:column.getTable().getParents()) {
-			if (ref.getLocalColumn().getAlias().toLowerCase().equals(proposedName))
-				cpt++;
-		}
+//		for (Reference ref:column.getTable().getParents()) {
+//			if (ref.getLocalColumn().getAlias().toLowerCase().equals(proposedName))
+//				cpt++;
+//		}
 		for (Reference ref:column.getTable().getChildren()) {
 			if (ref.getLocalColumn().getAlias().toLowerCase().equals(proposedName))
 				cpt++;
