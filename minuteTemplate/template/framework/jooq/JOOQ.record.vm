@@ -153,5 +153,6 @@ $!updatedAreaEnd
 		super($classConstant);
 	}
 
-$!updatedAreaImplementation	
+$!updatedAreaImplementation
+
 }
