@@ -136,7 +136,7 @@
 			>
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
-		
+
 	</template-target>	
 
 	<template-target 
