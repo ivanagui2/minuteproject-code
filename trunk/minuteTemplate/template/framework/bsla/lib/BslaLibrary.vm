@@ -63,8 +63,8 @@
 #end
 
 #macro (exposeEnumerationSpecific)
-#set ($enumName = $restrictedCodeUtils.convertToValidJavaWithUpperCase($prop.name))
-#set ($enumValue = $restrictedCodeUtils.convertToValidPlainTextFromXml($prop.value))
+#set ($enumName = $restrictedCodeUtils.convertToValidJavaWithUpperCase($prop))
+#set ($enumValue = $restrictedCodeUtils.convertToValidPlainTextFromXml($prop))
 #end
 
 #macro(exposeVariableModelDetailSpecific)
@@ -170,9 +170,11 @@
 #set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
 #set ($columLengthPrecisionSize = $column.getSizeAsInt())
 #set ($columnVarAsInput = $commonUtils.getJavaNameVariableConvertReservedWord($column))
-#set ($isEnum = $enumUtils.isEnumType($template,$column))
-#set ($enumImport = $enumUtils.getEnumImport($template,$column))
-#set ($enumClassName = $enumUtils.getEnumType($template,$column))
+#set ($isEnum = $enumUtils.isEnumType($template, $column))
+#if($isEnum)
+#set ($enumImport = $enumUtils.getEnumImport($template, $column))
+#set ($enumClassName = $enumUtils.getEnumType($template, $column))
+#end
 #timeColumn()
 #largeFormat()
 #end
