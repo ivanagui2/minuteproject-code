@@ -32,9 +32,16 @@ public class $className extends org.jooq.impl.SchemaImpl {
 	/**
 	 * No further instances allowed
 	 */
+#exposeModelUpdatedAreas("jooq-model-name")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 	private $className() {
-		super("$classVariable");
+		super("$jooqSchema");
 	}
+#end
+$!updatedAreaEnd
 
 	@Override
 	public final List<Table<?>> getTables() {

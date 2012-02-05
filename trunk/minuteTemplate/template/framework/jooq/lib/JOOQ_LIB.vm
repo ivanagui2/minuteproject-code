@@ -21,6 +21,7 @@
 #exposeVariableModelDetailSpecific()
 #exposeJOOQEntities()
 #exposeJOOQCommon()
+#set($jooqSchema = $jooqUtils.getSchema($template, $model))
 #end
 
 #macro (exposeJOOQCommon)
