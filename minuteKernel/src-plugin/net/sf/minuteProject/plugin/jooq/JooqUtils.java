@@ -1,5 +1,7 @@
 package net.sf.minuteProject.plugin.jooq;
 
+import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -9,6 +11,7 @@ import net.sf.minuteProject.utils.TableUtils;
 
 public class JooqUtils {
 
+	private static final String JOOQ_SCHEMA = "schema";
 	public static final String JOOQ_DECIMAL = "DECIMAL";
 	public static final String JOOQ_FLOAT = "FLOAT";
 	public static final String JOOQ_BIGINT = "BIGINT";
@@ -97,4 +100,11 @@ public class JooqUtils {
 //				: name;
 		return name;
 	}
+	
+	public static String getSchema(Template template, Model model) {
+		String schema = template.getPropertyValue(JOOQ_SCHEMA);
+		if (schema!=null) return schema;
+		return model.getName();
+	}
+	
 }
