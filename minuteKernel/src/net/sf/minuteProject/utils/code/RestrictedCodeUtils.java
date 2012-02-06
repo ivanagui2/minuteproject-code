@@ -23,7 +23,7 @@ public class RestrictedCodeUtils {
 		return "ERROR_PROPERTY_NAME_NOT_SET";
 	}
 	
-	private static final String convertToValidJavaWithUpperCase(String input) {
+	public static final String convertToValidJavaWithUpperCase(String input) {
 		return convertToValidJava(input, true);
 	}
 

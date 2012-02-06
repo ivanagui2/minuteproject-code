@@ -13,12 +13,14 @@
 		libdir="lib/JOOQ_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
-			 
+		<property name="EnumerationReferenceData" value="JOOQ.enum"></property>
+		<property name="DomainEntityUMLTemplate" value="JOOQ.entity"></property>
+		<property name="jooq-reserved-word-in-method" value="table, fields, configuration"></property>
+		
 		<template name="JOOQ.entity" templateFileName="JOOQ.entity.vm" 
 			subdir="" outputsubdir="" technicalPackage="tables" add-business-package-dir-name="false"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" has-updatable-nature="true">
-			<property name="EnumerationReferenceData" value="JOOQ.enum"></property>
 		</template>
 		
 		<template name="JOOQ.record" templateFileName="JOOQ.record.vm" 
@@ -74,10 +76,10 @@
 			scope-specific-value="function-input-entity" >
 		</template>
 
-		<template name="StoredProcedureInputBean" templateFileName="JavaBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="function.in"
+		<template name="StoredProcedureOutputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="function.out"
 			file-extension="java" file-prefix="" file-suffix="" 
-			scope-specific-value="function-input-entity" >
+			scope-specific-value="function-output-entity" >
 		</template>
 		
         <!-- enumeration for reference data -->
@@ -88,8 +90,7 @@
             file-name-builder-plugin="referenceDataUtils"
             file-name-builder-method="getEnumName"  
             check-template-to-generate="true" 
-            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
-            >
+            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration">
             <property name="generateForTag" value="checkconstraint"></property>
         </template>
 

@@ -16,7 +16,9 @@
 					<username>root</username>
 					<password>mysql</password>
 				</dataSource>
+				<schema>jooq_tech</schema>
 			</data-model>
+			<function-model/>
 			<business-model>
 				<enrichment>
 					<conventions>
@@ -26,9 +28,6 @@
 							<!-- to do for enum -->
 						</table-default-primary-key-convention>
 					</conventions>
-					<model>
-						<function-model></function-model>
-					</model>
 					<conventions>
 						<table-default-primary-key-convention
 							type="apply-default-primary-key-otherwise-first-one"

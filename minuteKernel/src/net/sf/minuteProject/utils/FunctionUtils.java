@@ -35,7 +35,11 @@ public class FunctionUtils {
 			List<Function> functions = new ArrayList<Function>();
 		    
 			DatabaseMetaData dbMetaData = connection.getMetaData();
-		    ResultSet rs = dbMetaData.getProcedureColumns(connection.getCatalog(), schema, null, null);
+			ResultSet rs;
+			if ("MYSQL".equals(database.getType()))
+				rs = dbMetaData.getProcedureColumns(connection.getCatalog(), schema, "%", "%");
+			else
+				rs = dbMetaData.getProcedureColumns(connection.getCatalog(), schema, null, null);
 	
 		    String previousProcedureCatalog = "";
 		    String previousProcedureName    = "";

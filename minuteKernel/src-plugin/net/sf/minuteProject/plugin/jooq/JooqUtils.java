@@ -1,5 +1,8 @@
 package net.sf.minuteProject.plugin.jooq;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -8,15 +11,19 @@ import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class JooqUtils {
 
+	private static final String JOOQ_RESERVED_WORD_IN_METHOD = "jooq-reserved-word-in-method";
 	private static final String JOOQ_SCHEMA = "schema";
 	public static final String JOOQ_DECIMAL = "DECIMAL";
 	public static final String JOOQ_FLOAT = "FLOAT";
 	public static final String JOOQ_BIGINT = "BIGINT";
 	public static final String JOOQ_SMALLINT = "SMALLINT";
 	public static final String JOOQ_INTEGER = "INTEGER";
+	
+	private static List<String> columnInJooqRecordReservedWords;
 
 	public static String getDatabaseJavaPackage(String database) {
 		if ("MYSQL".equals(database))
@@ -92,6 +99,7 @@ public class JooqUtils {
 	public static String getTableConstant(Table table) {
 //		return isTableNameAndAnyColumnNameAmbiguous(table) ? "ENTITY_"
 //				+ table.getAlias() : table.getAlias();
+		if (table==null) return "ERROR_JOOQ_TABLE_CONSTANT_TABLE_IS_NULL";
 		return "__"+table.getAlias();
 	}
 
@@ -106,5 +114,24 @@ public class JooqUtils {
 		if (schema!=null) return schema;
 		return model.getName();
 	}
-	
+
+	public static String getRecordColumnNaming (String name, Template template) {
+		return (isColumnInJooqRecordReservedWords(name, template))?name+"_":name;
+	}
+
+	private static boolean isColumnInJooqRecordReservedWords(String name, Template template) {
+		for (String value:getColumnInJooqRecordReservedWords(template)) {
+			if (value.toLowerCase().equals(name.toLowerCase()))
+				return true;
+		}
+		return false;
+	}
+
+	private static List<String> getColumnInJooqRecordReservedWords(Template template) {
+		if (columnInJooqRecordReservedWords==null) {
+			columnInJooqRecordReservedWords = 
+				ParserUtils.getList(template.getPropertyValue(JOOQ_RESERVED_WORD_IN_METHOD));
+		}
+		return columnInJooqRecordReservedWords;
+	}
 }
