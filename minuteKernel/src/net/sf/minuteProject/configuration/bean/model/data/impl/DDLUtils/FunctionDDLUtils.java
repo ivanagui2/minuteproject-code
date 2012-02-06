@@ -68,10 +68,16 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 				outputColumns = getFunctionColumn (functionColumns, dir); 
 			}
 			return inputColumns;	
-		}	
-		return inputColumns;
+		}
+		if (dir.equals(Direction.ANY))
+			return getFunctionColumn();
+		return getFunctionColumn();
 	}
 	
+	private List<FunctionColumn> getFunctionColumn() {
+		return getFunctionColumnArray();
+	}
+
 	private List<FunctionColumn> getFunctionColumn(List<FunctionColumn> functionColumns, Direction dir) {
 		List<FunctionColumn> list = new ArrayList<FunctionColumn>();
 		if (functionColumns!=null) {
@@ -111,10 +117,6 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 		if (direction!=null && Direction.OUT.equals(direction))
 			return getOutputColumns();
 		return getInputColumns();
-	}
-	
-	public void setFunctionColumns(List<FunctionColumn> functionColumns) {
-		this.functionColumns = functionColumns;
 	}
 	
 	public String getTechnicalPackage(Template template)
@@ -158,7 +160,7 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 			return getInputEntity();
 		if (dir.equals(Direction.OUT))
 			return getOutputEntity();		
-		return getInputEntity();
+		return getEntityDirection(dir);
 	}
 	
 	private Table getEntityDirection(Direction dir) {
@@ -209,6 +211,5 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	public void setDatabase(Database database) {
 		this.database = database;
 	}
-
 
 }
