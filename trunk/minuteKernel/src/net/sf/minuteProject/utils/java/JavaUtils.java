@@ -70,6 +70,7 @@ public class JavaUtils {
 	}
 	
 	public static String getJavaClassNaming (String javaClass) {
+		if (javaClass==null) return "ERROR_JAVA_CLASS_IS_NULL";
 		return (isReservedWord(javaClass.toLowerCase()))?javaClass+"Name":javaClass;
 	}
 	

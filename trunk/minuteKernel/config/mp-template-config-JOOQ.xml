@@ -69,19 +69,13 @@
 			model-specific="true" has-updatable-nature="true"
 			add-model-name="false">
 		</template>
-			
-		<template name="StoredProcedureInputBean" templateFileName="JavaBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="function.in"
+
+		<template name="JOOQ.stored-procedure" templateFileName="JOOQ.stored-procedure.vm" 
+			subdir="" outputsubdir="" technicalPackage="routines" has-updatable-nature="true"
 			file-extension="java" file-prefix="" file-suffix="" 
-			scope-specific-value="function-input-entity" >
+			scope-specific-value="function" >
 		</template>
 
-		<template name="StoredProcedureOutputBean" templateFileName="JavaBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="function.out"
-			file-extension="java" file-prefix="" file-suffix="" 
-			scope-specific-value="function-output-entity" >
-		</template>
-		
         <!-- enumeration for reference data -->
         <template name="JOOQ.enum" templateFileName="JOOQ.enum.vm" 
             subdir="" outputsubdir="" technicalPackage="enums"

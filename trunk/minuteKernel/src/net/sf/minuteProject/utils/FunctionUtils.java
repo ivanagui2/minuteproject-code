@@ -35,11 +35,12 @@ public class FunctionUtils {
 			List<Function> functions = new ArrayList<Function>();
 		    
 			DatabaseMetaData dbMetaData = connection.getMetaData();
+			String catalog = connection.getCatalog();
 			ResultSet rs;
 			if ("MYSQL".equals(database.getType()))
-				rs = dbMetaData.getProcedureColumns(connection.getCatalog(), schema, "%", "%");
+				rs = dbMetaData.getProcedureColumns(catalog, schema, "%", "%");
 			else
-				rs = dbMetaData.getProcedureColumns(connection.getCatalog(), schema, null, null);
+				rs = dbMetaData.getProcedureColumns(catalog, schema, null, null);
 	
 		    String previousProcedureCatalog = "";
 		    String previousProcedureName    = "";
@@ -63,7 +64,10 @@ public class FunctionUtils {
 		    	 if (function!=null)
 		    		 functions.add(function);
 		    	 function = new FunctionDDLUtils();
-		         function.setCatalog(procedureCatalog);
+		    	 if (procedureCatalog!=null)
+		    		 function.setCatalog(procedureCatalog);
+		    	 else
+		    		 function.setCatalog(catalog);
 		         function.setName(procedureName);
 		      }
 		      previousProcedureCatalog = (procedureCatalog!=null)?procedureCatalog:"";
@@ -98,6 +102,8 @@ public class FunctionUtils {
 			return Direction.IN;
 		if (direction==4)
 			return Direction.OUT;
+		if (direction==5)
+			return Direction.RETURN;
 		return Direction.INOUT;
 	}
 	

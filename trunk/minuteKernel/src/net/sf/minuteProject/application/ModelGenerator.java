@@ -375,7 +375,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByFunction(Template template) throws MinuteProjectException {	
 		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
-			writeTemplateResult(function, template);
+			writeTemplateResult(function.getEntity(Direction.ANY), template);
 		}
 	}
 	
