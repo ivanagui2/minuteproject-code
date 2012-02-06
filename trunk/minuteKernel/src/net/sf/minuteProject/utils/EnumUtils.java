@@ -41,9 +41,9 @@ public class EnumUtils {
 	}
 	
 	private static Template getEnumTemplateDependencyAvailable(Template template) {
-		Property property = template.getPropertyByName(TEMPLATE_ENUMERATION_REFERENCE_DATA);
-		if (property != null && property.getValue() != null && property.getValue() != "") {
-			return CommonUtils.getTemplate(template.getTemplateTarget().getTarget(), property.getValue());
+		String property = template.getPropertyValue(TEMPLATE_ENUMERATION_REFERENCE_DATA);
+		if (property != null) {
+			return CommonUtils.getTemplate(template.getTemplateTarget().getTarget(), property);
 		}
 		return null;
 	}

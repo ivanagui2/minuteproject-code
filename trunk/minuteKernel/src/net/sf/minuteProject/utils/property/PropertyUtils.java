@@ -6,7 +6,7 @@ import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
 public class PropertyUtils {
 
 	public static String getConstraintPropertyValue (Property property) {
-		return RestrictedCodeUtils.convertToValidJavaWithUpperCase(getPropertyValue(property));
+		return RestrictedCodeUtils.convertToValidJavaWithUpperCase(property);
 	}
 	
 	public static String getPropertyValue (Property property) {
