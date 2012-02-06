@@ -68,31 +68,76 @@ $!updatedAreaSnippet
 	 */
 	public java.util.List<$linkedRecordClassImport> fetch${childrenListClass}List() {
 		return create()
-##			.selectFrom(my.jooq.mp.tables.Conference.CONFERENCE)
-##			.where(my.jooq.mp.tables.Conference.CONFERENCE.ADDRESS_ID.equal(getValue(my.jooq.mp.tables.Address.ADDRESS.ID)))		
 			.selectFrom($linkedClassConstant)
 			.where(${linkedClassFieldConstant}.equal(getValue($classPkConstant))) //reference.foreignColumn.alias = ${reference.foreignColumn.alias}
 			.fetch();
 	}
+	
 #end
 $!updatedAreaEnd
 #end
+//many2many
+##foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+##exposeJOOQM2MSpecific()
+##exposeModelUpdatedAreas("jooq-record-child-$childrenListClass")
+##$!updatedAreaBegin
+##if($isUpdated)
+##$!updatedAreaSnippet
+##else
+
+##    @ManyToMany
+##    @JoinTable(name="$linkedTableDBName", 
+##        joinColumns=@JoinColumn(name="$targetColumn.name"), 
+##        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
+##    )
+##	
+##	/**
+##	 * An uncommented item
+##	 * $linkedRecordClassImport
+##	 */
+##	public java.util.List<$foreignRecordClassImport> fetch${childrenListClass}List() {
+##		return create()
+##			.selectFrom($linkedClassConstant)
+##			.selectFrom($foreignEntityClassConstant)
+##			.join(${linkedClassConstant})
+##			.where(${linkedForeignClassFieldConstant}.equal(getValue($classPkConstant)))
+##			.and(${linkedLocalClassFieldConstant}.equal(getValue($classPkConstant)))
+##			.fetch();
+##	}
+##	
+###end
+##$!updatedAreaEnd
+###end
+##//many2many end
 #foreach ($column in $table.attributes)
 #putJOOQColumnParam()
+#if($isEnum)
+#exposeJOOQEnum()
+#end
+#exposeJOOQRecordNaming()
 #exposeModelUpdatedAreas("jooq-record-attribute-$classFieldConstant")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
 	/**
-	 * mapping $column.name
+	 * mapping $column.name setter
 	 */
 	public void set$columnClass($jooqColumnFullType value) {
 		setValue($classFieldConstant, value);
 	}
+	
+	/**
+	 * mapping $column.name getter
+	 */
+	public $jooqColumnFullType get$columnClass() {
+		return getValue($classFieldConstant);
+	}
+	
 #end
 $!updatedAreaEnd
 #end
+
 #foreach ($reference in $table.parents)
 #putJOOQReferenceParam()
 #exposeModelUpdatedAreas("jooq-record-parent-$classFieldConstant")
@@ -124,7 +169,7 @@ $!updatedAreaSnippet
 	 * REFERENCES ${linkedTableVariable} [${linkedTableVariable}.${linkedColumnVariable}]
 	 * </pre></code>
 	 */
-	public $columnFullType set$localColumnClass() {
+	public $columnFullType get$localColumnClass() {
 		return getValue($classFieldConstant);
 	}
 	
