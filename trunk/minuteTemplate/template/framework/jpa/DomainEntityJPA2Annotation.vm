@@ -275,7 +275,6 @@ $!updatedAreaEnd
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
-##set($columnVar=$referenceUtils.getColumnNameVariableForLinkTable($database, $localColumn))##$formatUtils.getJavaNameVariable($localColumnName.toLowerCase()))
 #set($locColumn=$columnUtils.getColumn($table, $localColumn.name))
 #set($fieldVar=$formatUtils.getJavaNameVariable($locColumn.alias))
 #columnJavaNaming()

@@ -73,8 +73,8 @@ public class $className extends $entitySuperClass <$recordClass> {
 	 * $columnVariableUpperCase mapping for $column.name
 	 */
 #if($isEnum)
-#set($columnType=$enumClassName)
-    public final TableField<$recordClass, $enumImport> $columnVariableUpperCase = createField("${column.name}", ${jooqFullType}.asEnumDataType(${enumImport}.class), this);
+#exposeJOOQEnum()
+    public final TableField<$recordClass, $jooqColumnFullType> $columnVariableUpperCase = createField("${column.name}", ${jooqFullType}.asEnumDataType(${jooqColumnFullType}.class), this);
 #else
 	public final TableField<$recordClass, $jooqColumnFullType> $columnVariableUpperCase = createField("${column.name}", $jooqFullType, this);
 #end
