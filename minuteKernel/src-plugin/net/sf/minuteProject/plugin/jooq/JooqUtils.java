@@ -3,15 +3,19 @@ package net.sf.minuteProject.plugin.jooq;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.RoutineUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
@@ -112,7 +116,10 @@ public class JooqUtils {
 	}
 	
 	public static String getSchema(Template template, Model model) {
-		String schema = template.getPropertyValue(JOOQ_SCHEMA);
+		String schema = model.getDataModel().getSchema();
+		if (!StringUtils.isEmpty(schema)) 
+			return schema;
+		schema = template.getPropertyValue(JOOQ_SCHEMA);
 		if (schema!=null) return schema;
 		return model.getName();
 	}
@@ -137,9 +144,30 @@ public class JooqUtils {
 		return columnInJooqRecordReservedWords;
 	}
 	
-//	public static String hasReturn (Function function) {
-//		for (FunctionColumn fc : function.getFunctionColumns())
-//			if (fc.getDirection().v)
-//	}
+	public static boolean hasReturn (Function function) {
+		return function.hasReturn();
+	}
 	
+	public static boolean isReturn (FunctionColumn functionColumn) {
+		return functionColumn.isReturn();
+	}
+
+	public static String getReturnType (Function function) {
+		return ConvertUtils.getJavaTypeFromDBFullType(RoutineUtils.getColumn(function.getReturnFunctionColumn()));
+	}
+	
+	public static String getReturnFullType (Function function) {
+		Column column = RoutineUtils.getColumn(function.getReturnFunctionColumn());
+		if (column==null)
+			return "java.lang.Void";
+		return getJooqFullType(column);
+	}
+	
+	public static String getDialect (Database database) {
+		return "org.jooq.SQLDialect."+database.getType();
+	}
+	
+	public static String getModelConstant (Template template, Model model) {
+		return "my.jooqtech.JooqTech."+getSchema(template, model);
+	}
 }

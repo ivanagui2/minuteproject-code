@@ -50,6 +50,7 @@ import net.sf.minuteProject.utils.EnumUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.RoutineUtils;
 import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.SqlUtils;
 import net.sf.minuteProject.utils.TableUtils;
@@ -92,6 +93,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private I18nUtils i18nUtils = new I18nUtils();
 	private UpdatedAreaUtils updatedAreaUtils = new UpdatedAreaUtils();
 	private JavaUtils javaUtils = new JavaUtils();
+	private RoutineUtils routineUtils = new RoutineUtils();
 
 	private Model model;
 
@@ -375,7 +377,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByFunction(Template template) throws MinuteProjectException {	
 		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
-			writeTemplateResult(function.getEntity(Direction.ANY), template);
+			writeTemplateResult(function, template);
 		}
 	}
 	
@@ -412,7 +414,8 @@ public class ModelGenerator extends AbstractGenerator {
 			context.put("table", table);
 		}		
 		if (bean instanceof Function) {
-			context.put("table", bean);
+			context.put("function", bean);
+			context.put("table", ((Function)bean).getEntity(Direction.ANY));
 		}		
 		if (beanName.equals("view"))
 			context.put("table", bean);		
@@ -477,6 +480,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("i18nUtils", i18nUtils);
 		context.put("updatedAreaUtils", updatedAreaUtils);
 		context.put("javaUtils", javaUtils);
+		context.put("routineUtils", routineUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {

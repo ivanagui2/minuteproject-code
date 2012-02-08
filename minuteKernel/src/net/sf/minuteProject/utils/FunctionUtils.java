@@ -131,8 +131,4 @@ public class FunctionUtils {
 		return Direction.INOUT;
 	}
 	
-	private static String getType(int codeType) {
-//		java.sql.Types.
-		return "VARCHAR";
-	}
 }

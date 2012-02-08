@@ -28,5 +28,9 @@ public interface Function extends GeneratorBean{
 	public void setDatabase (Database database);
 	
 	public boolean hasReturn();
+//
+//	public String getReturnType(Function function);
+
+	public FunctionColumn getReturnFunctionColumn();
 
 }

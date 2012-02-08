@@ -24,12 +24,14 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	private Table inputEntity, outputEntity;
 	private Package pack;
 	private Database database;
-	private Boolean hasReturn = false;
+	private FunctionColumn functionReturn;
+	private Boolean hasReturn=null;
 	
 	private String catalog;
 	
 	public void addColumn(FunctionColumn functionColumn) {
 		getFunctionColumnArray().add(functionColumn);
+		functionColumn.setFunction(this);
 	}
 
 	public String getCatalog() {
@@ -115,15 +117,16 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	}
 
 	public FunctionColumn [] getColumns() {
-		if (direction!=null && Direction.OUT.equals(direction))
-			return getOutputColumns();
-		return getInputColumns();
+//		if (direction!=null && Direction.OUT.equals(direction))
+//			return getOutputColumns();
+//		return getInputColumns();
+		return getFunctionColumns();
 	}
 	
-	public String getTechnicalPackage(Template template)
-	{
-		return StringUtils.lowerCase(getCatalog());
-	}
+//	public String getTechnicalPackage(Template template)
+//	{
+//		return StringUtils.lowerCase(getCatalog());
+//	}
 
 	@Override
 	public Direction getDirection() {
@@ -215,7 +218,31 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 
 	@Override
 	public boolean hasReturn() {
+		if (hasReturn==null) {
+			hasReturn = false;
+			for (FunctionColumn column : getColumns()) {
+				if (column.isReturn()==true) {
+					hasReturn = true;
+					functionReturn = column;
+//					functionReturn.setFunction(this);
+					break;
+				}
+			}
+		}
 		return hasReturn;
 	}
 
+	@Override
+	public FunctionColumn getReturnFunctionColumn() {
+		if (hasReturn())
+			return functionReturn;
+		return null;
+	}
+
+	public String getTechnicalPackage(Template template) {
+		net.sf.minuteProject.configuration.bean.Package p = getPackage();
+		if(p==null) 
+			return "ERROR_PACKAGE_IS_NULL";
+		return p.getTechnicalPackage(template);
+	}
 }
