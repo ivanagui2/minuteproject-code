@@ -6,6 +6,8 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
+import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -134,4 +136,10 @@ public class JooqUtils {
 		}
 		return columnInJooqRecordReservedWords;
 	}
+	
+//	public static String hasReturn (Function function) {
+//		for (FunctionColumn fc : function.getFunctionColumns())
+//			if (fc.getDirection().v)
+//	}
+	
 }
