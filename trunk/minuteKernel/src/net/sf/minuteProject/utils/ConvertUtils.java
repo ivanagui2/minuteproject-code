@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils;
 
+import net.sf.minuteProject.configuration.bean.model.data.BaseColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
 

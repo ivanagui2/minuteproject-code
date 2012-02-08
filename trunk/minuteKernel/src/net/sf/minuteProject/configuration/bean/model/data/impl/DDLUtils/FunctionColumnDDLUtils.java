@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -15,8 +16,9 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
 	private int precision, precisionRadix, scale, sizeAsInt, typeCode;
 	private Stereotype stereotype;
 	private String defaultValue, size, type;
-	private boolean isRequired;
+	private boolean isRequired, isReturn;
 	private Integer minLength;
+	private Function function;
 	
 	public Direction getDirection() {
 		return direction;
@@ -28,7 +30,6 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
 
 	public void setDirection(Direction direction) {
 		this.direction = direction;
-		
 	}
 
 	public void setPrecision(int precision) {
@@ -168,6 +169,19 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
    public void setMinLength(int minLength) {
    	this.minLength = minLength;
    }
-   
+	
+	@Override
+	public boolean isReturn() {
+		return (Direction.RETURN.equals(direction));
+	}
+
+	public Function getFunction() {
+		return function;
+	}
+
+	public void setFunction(Function function) {
+		this.function = function;
+	}
+	
 
 }

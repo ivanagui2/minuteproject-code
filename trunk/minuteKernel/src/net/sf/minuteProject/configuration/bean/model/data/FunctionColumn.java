@@ -11,4 +11,11 @@ public interface FunctionColumn extends BaseColumn {
 	public void setPrecision(int precision);
 	
 	public int getPrecision();
+	
+	public boolean isReturn();
+
+	public Function getFunction();
+
+	public void setFunction(Function function);
+	
 }
