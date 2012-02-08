@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -19,6 +22,7 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.Function
 public class FunctionUtils {
 	
 	private static Logger log = Logger.getLogger(FunctionUtils.class);
+	private static Map<String, Function> functions;
 	public static List<Function> getFunctions(DataModel dataModel, Database database) {
 		
 		Connection connection = ConnectionUtils.getConnection(dataModel);
@@ -30,10 +34,11 @@ public class FunctionUtils {
 	}
 	
 	public static List<Function> getFunctions(Connection connection, String schema, Database database) {
+		functions = new HashMap<String, Function>();
 		Function function = null;
 		try {
-			List<Function> functions = new ArrayList<Function>();
-		    
+//			List<Function> functions = new ArrayList<Function>();
+//		    
 			DatabaseMetaData dbMetaData = connection.getMetaData();
 			String catalog = connection.getCatalog();
 			ResultSet rs;
@@ -60,16 +65,17 @@ public class FunctionUtils {
 		      short  columnNullable       = rs.getShort(12);
 		      String columnRemarks        = rs.getString(13);
    
-		      if (procedureCatalog==null  || !procedureCatalog.equals(previousProcedureCatalog) || !procedureName.equals(previousProcedureName)) {
-		    	 if (function!=null)
-		    		 functions.add(function);
-		    	 function = new FunctionDDLUtils();
-		    	 if (procedureCatalog!=null)
-		    		 function.setCatalog(procedureCatalog);
-		    	 else
-		    		 function.setCatalog(catalog);
-		         function.setName(procedureName);
-		      }
+		      function = getFunction (procedureCatalog, catalog, procedureName);
+//		      if (procedureCatalog==null  || !procedureCatalog.equals(previousProcedureCatalog) || !procedureName.equals(previousProcedureName)) {
+//		    	 if (function!=null)
+//		    		 functions.add(function);
+//		    	 function = new FunctionDDLUtils();
+//		    	 if (procedureCatalog!=null)
+//		    		 function.setCatalog(procedureCatalog);
+//		    	 else
+//		    		 function.setCatalog(catalog);
+//		         function.setName(procedureName);
+//		      }
 		      previousProcedureCatalog = (procedureCatalog!=null)?procedureCatalog:"";
 		      previousProcedureName    = (procedureName!=null)?procedureName:"";
 		      
@@ -87,16 +93,34 @@ public class FunctionUtils {
 		      function.addColumn(functionColumn);
 		      
 		      function.setDatabase(database);
+		      functions.put(getKey(procedureCatalog, catalog, procedureName), function);
 		    }
-		    functions.add(function);
+		    
 		    connection.close();
-		    return functions;
+		    return new ArrayList<Function>(functions.values());
 		} catch (Exception e) {
 			log.error("Problem handling store procedures "+e.getMessage());
 		}
 		return new ArrayList<Function>();
 	}
 	
+	private static Function getFunction(String procedureCatalog, String catalog,
+			String procedureName) {
+		Function function = functions.get(getKey(procedureCatalog, catalog, procedureName));
+		if (function!=null) return function;
+		function = new FunctionDDLUtils();
+	   	 if (procedureCatalog!=null)
+			 function.setCatalog(procedureCatalog);
+		 else
+			 function.setCatalog(catalog);
+	   	function.setName(procedureName);
+		return function;
+	}
+
+	private static String getKey(String procedureCatalog, String catalog,String procedureName) {
+		return catalog+"-"+procedureCatalog+"-"+procedureName;
+	}
+
 	private static Direction getDirection(int direction) {
 		if (direction==1)
 			return Direction.IN;
