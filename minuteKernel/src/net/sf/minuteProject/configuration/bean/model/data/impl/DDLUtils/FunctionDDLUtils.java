@@ -24,6 +24,7 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	private Table inputEntity, outputEntity;
 	private Package pack;
 	private Database database;
+	private Boolean hasReturn = false;
 	
 	private String catalog;
 	
@@ -210,6 +211,11 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 
 	public void setDatabase(Database database) {
 		this.database = database;
+	}
+
+	@Override
+	public boolean hasReturn() {
+		return hasReturn;
 	}
 
 }
