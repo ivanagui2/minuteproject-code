@@ -21,6 +21,7 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class JooqUtils {
 
+	private static final String JAVA_LANG_VOID = "java.lang.Void";
 	private static final String JOOQ_RESERVED_WORD_IN_METHOD = "jooq-reserved-word-in-method";
 	private static final String JOOQ_SCHEMA = "schema";
 	public static final String JOOQ_DECIMAL = "DECIMAL";
@@ -153,13 +154,14 @@ public class JooqUtils {
 	}
 
 	public static String getReturnType (Function function) {
-		return ConvertUtils.getJavaTypeFromDBFullType(RoutineUtils.getColumn(function.getReturnFunctionColumn()));
+		String s = ConvertUtils.getJavaTypeFromDBFullType(RoutineUtils.getColumn(function.getReturnFunctionColumn()));
+		return (s!=null)?s:JAVA_LANG_VOID;
 	}
 	
 	public static String getReturnFullType (Function function) {
 		Column column = RoutineUtils.getColumn(function.getReturnFunctionColumn());
 		if (column==null)
-			return "java.lang.Void";
+			return JAVA_LANG_VOID;
 		return getJooqFullType(column);
 	}
 	

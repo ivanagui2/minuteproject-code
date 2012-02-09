@@ -192,7 +192,7 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 		column.setScale(fc.getScale());
 		column.setSize(fc.getSize());
 		column.setPrecisionRadix(fc.getPrecisionRadix());
-		column.setTypeCode(fc.getTypeCode());
+//		column.setTypeCode(fc.getTypeCode());
 		return column;
 	}
 
