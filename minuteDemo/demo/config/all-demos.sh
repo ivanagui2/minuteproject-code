@@ -15,6 +15,8 @@ echo "last feature generations"
 
 #rem incubator generations
 echo "incubator generations"
+./demo-JOOQ.sh
+./demo-JOOQ-tech.sh
 ./demo-REST-JEE.sh
 ./demo-REST-CXF-Spring.sh
 ./demo-REST-SpringMVC.sh
