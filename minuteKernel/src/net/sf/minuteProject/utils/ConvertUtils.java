@@ -29,6 +29,7 @@ public class ConvertUtils {
 	public static final String DB_STRING_TYPE 					=   "VARCHAR";	
 	public static final String DB_STRING2_TYPE 					=   "VARCHAR2";	
 	public static final String DB_INTEGER_TYPE 					=   "INTEGER";	
+	public static final String DB_INT_TYPE 						=   "INT";	
 	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
 	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
 	public static final String DB_TIMESTAMPZ_TYPE 				=   "TIMESTAMPZ";
@@ -59,18 +60,20 @@ public class ConvertUtils {
 	
 	public static String getUMLTypeFromDBFullType (String type) {
 		if (type==null) return DB_STRING_TYPE;
-		type = StringUtils.lowerCase(type);
+		type = StringUtils.upperCase(type);
 		if (DB_STRING_TYPE.equals(type)) return UML_STRING_TYPE;
 		if (DB_STRING2_TYPE.equals(type)) return UML_STRING_TYPE;
 		if (DB_STRING_CHAR_TYPE.equals(type)) return UML_STRING_TYPE;
 		if (DB_STRING2_CHAR_TYPE.equals(type)) return UML_STRING_TYPE;
 		if (DB_INTEGER_TYPE.equals(type)) return UML_INTEGER_TYPE;
+		if (DB_INT_TYPE.equals(type)) return UML_INTEGER_TYPE;
 		if (DB_DECIMAL_TYPE.equals(type)) return UML_LONG_TYPE;
 		return UML_STRING_TYPE;
 	}
 	
 	public static String getDDLUtilsTypeFromDBType (String type) {
-		return getDBFullTypeFromUMLType(getUMLTypeFromDBFullType(type));
+		return getDBFullTypeFromUMLType(getUMLTypeFromDBFullType(type.trim()));
+//		return (type==null)?DB_STRING_TYPE:type.toUpperCase();
 	}	
 	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, String databaseType) {
