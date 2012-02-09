@@ -88,8 +88,10 @@
 			template-dir="@templateRoot@/framework/jooq"
 			status="draft"
 			description="Generates:\JOOQ tables for tables and views\JOOQ enum\JOOQ store procedure interface">
-			<property name="add-xmlbinding" value="true"></property>
-			<property name="use-temporal" value="true"></property>
+            <frameworks>
+                <framework name="jooq-version" version="2.0.2"></framework>
+            </frameworks>
+			<property name="version" value="2.0.2"></property>
 		</technology>
 
 		<technology name="JSF-primefaces" target-name="JSF-primefaces"

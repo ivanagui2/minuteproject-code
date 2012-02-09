@@ -16,7 +16,7 @@
 	 
 	 <database name="MYSQL" 
         hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
-        use-schema="false" 
+        use-schema="true" 
         driverclassname="org.gjt.mm.mysql.Driver" 
         default-url-structure="jdbc:mysql://{server-name}:${port-number}/{database-name}" >
         <maven-artifact
