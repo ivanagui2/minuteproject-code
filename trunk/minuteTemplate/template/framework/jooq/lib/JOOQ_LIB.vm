@@ -63,13 +63,6 @@
 #set($foreignEntityClassConstant="${foreignEntityClassImport}.${foreignEntityNameUpperCase}")
 #end
 
-
-
-
-
-
-
-
 #macro(putJOOQReferenceParam)
 #putReferenceParams2()
 #set($column=$localColumn)
