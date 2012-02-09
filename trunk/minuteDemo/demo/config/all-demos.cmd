@@ -15,6 +15,8 @@ call demo-last-features-spring-jpa.cmd
 
 @rem incubator generations
 echo "incubator generations"
+call demo-JOOQ.cmd
+call demo-JOOQ-tech.cmd
 call demo-REST-JEE.cmd
 call demo-REST-CXF-Spring.cmd
 call demo-REST-SpringMVC.cmd
