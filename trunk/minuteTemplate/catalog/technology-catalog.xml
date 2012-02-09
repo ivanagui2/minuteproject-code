@@ -82,6 +82,16 @@
 			<property name="use-temporal" value="true"></property>
 		</technology>
 
+		<technology name="JOOQ" target-name="JOOQ" model-type="rdbms"
+			template-config-file-name="mp-template-config-JOOQ.xml"
+			default-outputdir="JOOQ" depends-on-targets="BSLA_LIB"
+			template-dir="@templateRoot@/framework/jooq"
+			status="draft"
+			description="Generates:\JOOQ tables for tables and views\JOOQ enum\JOOQ store procedure interface">
+			<property name="add-xmlbinding" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+		</technology>
+
 		<technology name="JSF-primefaces" target-name="JSF-primefaces"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
 			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
