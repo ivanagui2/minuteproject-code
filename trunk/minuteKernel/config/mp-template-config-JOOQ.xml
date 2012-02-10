@@ -91,6 +91,22 @@
     </template-target>
 
 	<template-target 
+    	name="JOOQ set"
+		libdir="lib/JOOQ_LIB.vm"
+		outputdir="src/test/java"
+		belongToPackage="true">
+		<property name="EnumerationReferenceData" value="JOOQ.enum"></property>
+		<property name="DomainEntityUMLTemplate" value="JOOQ.entity"></property>
+		
+		<template name="JOOQ.entity.unittest" templateFileName="JOOQ.entity.unittest.vm" 
+			subdir="" outputsubdir="" technicalPackage="tables" add-business-package-dir-name="false"
+			file-extension="java" file-prefix="Test" file-suffix="" 
+			entity-specific="true" has-updatable-nature="true">
+		</template>
+		
+	</template-target>
+	
+	<template-target 
 	    templatedir = "template" 
 		tool="velocity"
 		outputdir=""

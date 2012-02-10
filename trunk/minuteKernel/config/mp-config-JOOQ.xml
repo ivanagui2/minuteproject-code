@@ -60,7 +60,7 @@
 			   fileName="mp-template-config-JOOQ.xml" 
 			   outputdir-root="../../dev/JOOQ/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/jooq">
-               <property name="jooq-version" value="2.0.1"></property>
+               <property name="jooq-version" value="2.0.2"></property>
 			</target>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 

@@ -21,6 +21,7 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class JooqUtils {
 
+	private static final String TO_IMPLEMENT = "to implement";
 	private static final String JAVA_LANG_VOID = "java.lang.Void";
 	private static final String JOOQ_RESERVED_WORD_IN_METHOD = "jooq-reserved-word-in-method";
 	private static final String JOOQ_SCHEMA = "schema";
@@ -32,15 +33,16 @@ public class JooqUtils {
 	
 	private static List<String> columnInJooqRecordReservedWords;
 
-	public static String getDatabaseJavaPackage(String database) {
-		if ("MYSQL".equals(database))
+	public static String getDatabaseJavaPackage(Database database) {
+		if (database==null) return TO_IMPLEMENT;
+		if ("MYSQL".equals(database.getType()))
 			return "org.jooq.util.mysql.MySQLDatabase";
-		return "to implement";
+		return TO_IMPLEMENT;
 	}
 
 	public static String getEntitySuperClass(Table table) {
 		if (TableUtils.isView(table))
-			return "to implement";
+			return TO_IMPLEMENT;
 		return "org.jooq.impl.UpdatableTableImpl";
 	}
 
@@ -172,4 +174,5 @@ public class JooqUtils {
 	public static String getModelConstant (Template template, Model model) {
 		return "my.jooqtech.JooqTech."+getSchema(template, model);
 	}
+	
 }
