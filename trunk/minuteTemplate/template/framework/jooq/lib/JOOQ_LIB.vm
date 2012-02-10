@@ -102,6 +102,15 @@
 #set($columnClass=$jooqUtils.getRecordColumnNaming($columnClass, $template))
 #end
 
+#macro(exposeJOOQApplicationSpecific)
+#exposeJOOQTemplate()
+#set ($datasource = $model.dataModel.basicDataSource)
+#set ($schema = $model.dataModel.schema)
+#set ($output = $template.outputdir)##to implement
+#set ($jooqDatabaseGenerator = $jooqUtils.getDatabaseJavaPackage($model.dataModel.database))
+#set ($modelClassPackageImport = $commonUtils.getPackageName($model, $template, $templateJOOQModel))
+#end
+
 #macro (exposeJOOQEntities)## $table)
 #exposeJOOQTemplate()
 ## a bit verbose 
@@ -119,6 +128,9 @@
 #set ($modelVariable = $commonUtils.getJavaNameVariableFirstLetter($modelClass))
 #set ($modelClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateJOOQModel))
 #set ($tableUpperCase = $formatUtils.getUppercaseUnderscore(${table.alias}))##see if alias to use
+#set ($modelFactoryClass = $commonUtils.getTemplateClassName($model, $template, $templateJOOQModelFactory))
+#set ($modelFactoryClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateJOOQModelFactory))
+
 #end
 
 #macro (exposeJOOQTemplate)

@@ -22,7 +22,7 @@
         <dependency>
             <groupId>$driver.groupId</groupId>
             <artifactId>$driver.artifactId</artifactId>
-            <version>$driver.version</version>        
+            <version>$driver.version</version>
         </dependency>    
 #else
 	    <!-- add jdbc driver : it is not provided in the configuration -->
