@@ -55,7 +55,6 @@ public class $className extends $entitySuperClass <$recordClass> {
 
 #foreach($column in ${table.primaryKeyColumns})
 #putJOOQColumnParam()
-	// pk $columnVariableUpperCase
 #if(!$columnUtils.isForeignKey($column))
 
 	/**
@@ -110,6 +109,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 		super(alias, ${modelClass}.$modelNameUpperCase, ${className}.$classNameUpperCase);
 	}
 
+#if($table.hasPrimaryKey())
 	@Override
 	public org.jooq.UniqueKey<$recordClass> getMainKey() {
 		return ${keysClass}.KEY_${classNameLowerCase}_PRIMARY;
@@ -121,6 +121,7 @@ public class $className extends $entitySuperClass <$recordClass> {
 		return java.util.Arrays.<UniqueKey<$recordClass>>asList(${keysClass}.KEY_${classNameLowerCase}_PRIMARY);
 	}
 
+#end
 #foreach($table in $entities)
 #exposeJOOQEntitySpecific()
 #foreach($reference in $table.parents)
