@@ -98,6 +98,7 @@
 #macro(exposeJOOQEnum)
 #set($jooqColumnFullType=$enumUtils.getEnumImport($template, $columnUtils.getColumn($table, $column.name)))
 #end
+
 #macro(exposeJOOQRecordNaming)
 #set($columnClass=$jooqUtils.getRecordColumnNaming($columnClass, $template))
 #end

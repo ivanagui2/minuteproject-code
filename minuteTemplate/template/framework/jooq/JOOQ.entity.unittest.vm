@@ -49,23 +49,42 @@ $!updatedAreaSnippet
 			// future generation will not erase your code ;)
 			Result<Record> result = create.select().from($classNameUpperCase).limit(1).fetch();
 			for (Record r : result) {
-#foreach ($column in ${table.columns})
+#foreach($column in ${table.primaryKeyColumns})
+#putJOOQColumnParam()
+#if(!$columnUtils.isForeignKey($column))
+                $jooqColumnFullType $columnVar = r.getValue(${classNameUpperCase}.${columnVariableUpperCase});
+#end
+#end
+#foreach ($column in ${table.attribute})
 #putJOOQColumnParam()
 #if($isEnum)
 #exposeJOOQEnum()
 #end
 				$jooqColumnFullType $columnVar = r.getValue(${classNameUpperCase}.${columnVariableUpperCase});
 #end
+#foreach ($reference in $table.parents)
+#putJOOQReferenceParam()
+                $jooqColumnFullType $columnVar = r.getValue(${classNameUpperCase}.${columnVariableUpperCase});
+#end
 				System.out.println(
-#foreach ($column in ${table.columns})
+#foreach($column in ${table.primaryKeyColumns})
+#putJOOQColumnParam()
+#if(!$columnUtils.isForeignKey($column))
+                    "$columnVar : "+ $columnVar +
+#end
+#end
+#foreach ($column in ${table.attribute})
 #putJOOQColumnParam()
 #if($isEnum)
 #exposeJOOQEnum()
 #end
-					"$columnVar : "+ $columnVar #if ($velocityCount!=$table.columnCount)+
+					"$columnVar : "+ $columnVar +
 #end
+#foreach ($reference in $table.parents)
+#putJOOQReferenceParam()    
+                    "$columnVar : "+ $columnVar +
 #end
-
+                    ""
 					);
 #end
 $!updatedAreaEnd
@@ -84,6 +103,7 @@ $!updatedAreaEnd
 			}
 		}
 	}
+    
 $!updatedAreaImplementation	
 
 }
