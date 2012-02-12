@@ -63,7 +63,7 @@
 			   templatedir-root="../../template/framework/spring">
 			</target>
 
-			<target refname="BackendOnBsla" 
+			<target refname="JPA2-bsla" 
 			   name="default" 
 			   fileName="mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="../output/rest-springmvc/petshop/bsla"
