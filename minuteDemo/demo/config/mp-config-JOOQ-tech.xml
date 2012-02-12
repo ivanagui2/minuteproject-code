@@ -24,7 +24,7 @@
 					<conventions>
 						<table-default-primary-key-convention
 							type="apply-default-primary-key-otherwise-first-one"
-							default-primary-key-names="ID">				
+							default-primary-key-names="ID">
 							<!-- to do for enum -->
 						</table-default-primary-key-convention>
 					</conventions>
@@ -61,11 +61,11 @@
 		</model>
 		<targets>
 			<target refname="JOOQ" name="JOOQ" fileName="mp-template-config-JOOQ.xml"
-				outputdir-root="../../dev/JOOQ/jooq-tech" templatedir-root="../../minuteTemplate/template/framework/jooq">
+				outputdir-root="../../dev/JOOQ/jooq-tech" templatedir-root="../../template/framework/jooq">
 				<property name="jooq-version" value="2.0.1"></property>
 			</target>
 			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
-				templatedir-root="../../minuteTemplate/template/framework/bsla">
+				templatedir-root="../../template/framework/bsla">
 			</target>
 		</targets>
 	</configuration>

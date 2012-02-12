@@ -59,12 +59,12 @@
 			   name="JOOQ" 
 			   fileName="mp-template-config-JOOQ.xml" 
 			   outputdir-root="../../dev/JOOQ/petshop"
-			   templatedir-root="../../minuteTemplate/template/framework/jooq">
+			   templatedir-root="../../template/framework/jooq">
                <property name="jooq-version" value="2.0.1"></property>
 			</target>
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			   templatedir-root="../../template/framework/bsla">
 			</target>		
 		</targets>
 	</configuration>
