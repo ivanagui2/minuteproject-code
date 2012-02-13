@@ -64,7 +64,7 @@ public class ColumnNamingConvention extends ModelConvention {
 	private void applyMatchEntityAlias(Table table, Column column) {
 		column.setAlias(StringUtils.removeStart(column.getAlias().toLowerCase(), table.getAlias().toLowerCase()).toUpperCase());
 	}
-	
+
 	private void applyFixPk(Table table) {
 		if (defaultValue==null) return;
 		if (table.getPrimaryKeyColumns().length>1) return;
@@ -82,6 +82,8 @@ public class ColumnNamingConvention extends ModelConvention {
 		Column column = ColumnUtils.getColumn(table, firstColumn) ;
 		if (column!=null)
 			column.setAlias(defaultValue);	
+		
+		applyFixPkParent (table.getParents());
 	}
 
 	public void setPatternToStrip (String s) {
@@ -109,6 +111,18 @@ public class ColumnNamingConvention extends ModelConvention {
 		Column column = reference.getLocalColumn();
 //		if (isConventionApplicable(column))
 			apply (column);
+	}
+	
+	private void applyFixPkParent(Reference[] references) {
+		for (Reference reference : references) {
+			applyFixPkChild (reference);
+		}
+	}
+	
+	private void applyFixPkChild(Reference reference) {
+		Column column = reference.getForeignColumn();
+//		if (isConventionApplicable(column))
+		applyFixPk (column);
 	}
 	private void applyChild(Reference[] references) {
 		for (Reference reference : references) {
@@ -177,7 +191,11 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private void applyFixPk(Column column) {
-		setNewColumnValue (column, column.getName(), defaultValue);
+		applyFixPk(column, defaultValue);
+	}
+	
+	private void applyFixPk(Column column, String value) {
+		setNewColumnValue (column, column.getName(), value);
 	}
 	
 	private void apply(Column column) {
