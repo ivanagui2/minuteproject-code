@@ -36,9 +36,9 @@
 		if (parents==null || parents.isEmpty())
 		   return parents;
 		List<String> ids = getPk (parents);
-#foreach ($reference in $table.children)
-#if(!$linktableDB.isManyToMany())
+#foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 #putDependenciesUML()
 		if (graphMaskWhat.get${linkedTableClass}${linkedColumnClass}s()!=null && !graphMaskWhat.get${linkedTableClass}${linkedColumnClass}s().isEmpty()) {
 			for (${linkedTableClass} childWhat : graphMaskWhat.get${linkedTableClass}${linkedColumnClass}s()) {
@@ -61,8 +61,8 @@
 	}
 	
 #foreach ($reference in $table.distinctChildrenType)
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 	private void reassemble${linkedTableClass} (List<${linkedTableClass}> children, List<$tableClassName> parents) {
 		for (${linkedTableClass} child : children) {
 			for ($tableClassName parent : parents) {

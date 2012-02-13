@@ -36,10 +36,10 @@
 		if (parents==null || parents.isEmpty())
 		   return parents;
 		List<String> ids = getPk (parents);
-#foreach ($reference in $table.children)
+#foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-#putReferenceParams2()
+##putReferenceParams2()
 #putDependenciesUML()
 		if (graphMaskWhat.get${childrenListClass}()!=null && !graphMaskWhat.get${childrenListClass}().isEmpty()) {
 			for (${linkedTableClass} childWhat : graphMaskWhat.get${childrenListClass}()) {
