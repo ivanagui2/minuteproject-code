@@ -484,7 +484,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
-#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnAliasClassName($table, $reference))
 #set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 #set ($linkedDaoImplExtendedJPAName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 ##-- var = ${localTableVariable} - ${localColumnClass}
@@ -562,7 +562,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
-#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnAliasClassName($table, $reference))
 #set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 #set ($linkedDaoImplExtendedJPAName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 ##-- var : $localColumnVariable ; class = ${localColumnClass} 
@@ -627,7 +627,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end    
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#set($localColumnClass = $commonUtils.getColumnNameClass($table, $reference))
+#set($localColumnClass = $commonUtils.getColumnAliasClassName($table, $reference))
        if (${tableVariableName}.get${localColumnClass}()!=null) {
 	      return true;
 	   }  
