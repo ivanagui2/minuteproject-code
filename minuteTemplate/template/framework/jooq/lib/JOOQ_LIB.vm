@@ -2,7 +2,6 @@
 ## put common definitions
 ## as well as retrieving each JOOQ template position in the generated structure
 ## call jooqUtils plugin for specific jooq extensions
-
 #macro (exposeJOOQEntitySpecific)
 #exposeVariableEntitySpecific()
 #exposeJOOQEntities()
@@ -147,5 +146,7 @@
 #set ($templateJOOQStoredProcedure = "JOOQ.stored-procedure")
 #end
 	
-
+#macro(putClassImportSnippet)
+#parse("./snippet/JOOQ.class.import.snippet.vm")
+#end
 
