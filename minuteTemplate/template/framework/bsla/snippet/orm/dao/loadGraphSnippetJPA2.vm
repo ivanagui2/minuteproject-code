@@ -68,7 +68,7 @@
 		for (${linkedTableClass} child : children) {
 			for ($tableClassName parent : parents) {
 				if (parent.get${primaryKeyJavaNameClass}()!=null && parent.get${primaryKeyJavaNameClass}().toString().equals(child.get$linkedColumnClass()+"")) {
-					parent.add${childrenListClass}(child); //$childrenListClass
+					parent.add${childrenListClass}(child); 
 					child.set$linkedColumnClass(parent);
 					break;
 				}

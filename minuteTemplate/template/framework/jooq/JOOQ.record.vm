@@ -65,7 +65,7 @@ $!updatedAreaSnippet
 	public java.util.List<$linkedRecordClassImport> fetch${childrenListClass}List() {
 		return create()
 			.selectFrom($linkedClassConstant)
-			.where(${linkedClassFieldConstant}.equal(getValue($classPkConstant))) //reference.foreignColumn.alias = ${reference.foreignColumn.alias}
+			.where(${linkedClassFieldConstant}.equal(getValue($classPkConstant))) 
 			.fetch();
 	}
 	
