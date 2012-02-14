@@ -66,7 +66,7 @@
 #putReferenceParams2()
 #set($column=$localColumn)
 #putJOOQColumnParam()
-#set($linkedColumnAlias=$referenceUtils.getColumnClassAliasUpperCaseForLinkTable($database, $linkedColumn))
+#set($linkedColumnAlias=$linkedColumn.alias)##$referenceUtils.getColumnClassAliasUpperCaseForLinkTable($database, $linkedColumn))
 ##set($linkedColumnAlias=$referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn}))
 #set($columnVariableUpperCase = $formatUtils.getUppercaseUnderscore(${localColumn.alias}))
 #set($linkedEntityClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQEntity))

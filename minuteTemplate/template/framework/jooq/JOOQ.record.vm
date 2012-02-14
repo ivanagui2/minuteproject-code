@@ -181,7 +181,7 @@ $!updatedAreaSnippet
 	public $linkedRecordClassImport fetch$localColumnClass() {
 		return create()
 			.selectFrom($linkedClassConstant)
-			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant))) 
+			.where(${linkedClassFieldConstant}.equal(getValue($classFieldConstant))) //$linkedColumn.alias
 			.fetchOne();
     }
 #end
