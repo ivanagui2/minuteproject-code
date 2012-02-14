@@ -89,7 +89,8 @@
 #set($linkedRecordClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQRecord))
 #set($linkedEntityClassImport = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, $templateJOOQEntity))
 #set($linkedTableNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableConstant(${reference.foreignTable}))) ##check if it is the table.alias or table.alias to uppercase
-#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${reference.foreignTable}, $linkedColumnAlias))) ##check if it is the table.alias or table.alias to uppercase
+##set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore($jooqUtils.getTableColumnConstant(${reference.foreignTable}, $linkedColumnAlias))) ##check if it is the table.alias or table.alias to uppercase
+#set($linkedColumnNameUpperCase=$formatUtils.getUppercaseUnderscore(${reference.foreignColumn.alias})) ##check if it is the table.alias or table.alias to uppercase
 #set($linkedClassConstant = "${linkedEntityClassImport}.${linkedTableNameUpperCase}")
 #set($linkedClassFieldConstant = "${linkedClassConstant}.${linkedColumnNameUpperCase}")
 #end
