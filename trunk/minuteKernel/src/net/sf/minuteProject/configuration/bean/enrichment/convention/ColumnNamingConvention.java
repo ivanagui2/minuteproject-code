@@ -98,7 +98,7 @@ public class ColumnNamingConvention extends ModelConvention {
 		//apply(table.getNoPrimaryKeyNoForeignKeyColumns());
 // check if reference is used for parent
 		applyParent(table.getParents());
-//		applyChild(table.getChildren());
+		applyChild(table.getChildren());
 	}
 
 	private void applyParent(Reference[] references) {
