@@ -8,8 +8,8 @@ Liferay model load
 |load| mp-config-LIFERAY-JPA2.xml|
 |check | alias java variable of primary key from primary key set | users_orgs | userId | user |
 |check | alias java variable of primary key from primary key set | users_orgs | organizationId | organization |
-|check | alias java variable of primary key from primary key set | assetvocabulary | vocabularyid |
-|check | alias java variable of primary key from column set | assetvocabulary | vocabularyid |
+|check | alias java variable of primary key from primary key set | assetvocabulary | vocabulary |
+|check | alias java variable of primary key from column set | assetvocabulary | vocabulary |
 |check | alias java variable of primary key from foreign key set | users_orgs | user |
 |check | alias java variable of first relationship between| users_orgs| user_| user|
 |check | name java variable of first relationship between| users_orgs| user_| userid|
@@ -24,9 +24,9 @@ Liferay model load
 |check | alias of column of table| smallImageId| journalarticle| SMALLIMAGEID |
 |check | alias of column of table| smallImage| journalarticle| SMALLIMAGE|
 |check | alias of column of table| groupId| group_ | group|
-|check | alias of column of table new| groupId| group_ | GROUPID|
+|check | alias of column of table new| groupId| group_ | group |
 |check | number of parents for entity| portletitem| 5 |
 |check | names of local fk columns for entity| portletitem| groupId, companyId, userId, portletId, classNameId | true |
 |check | aliases of local fk columns for entity| portletitem| group, company, user, portlet, classname | true |
-|check | column class name of first relationship between| assettag| group_| Groupid |
-|check | alias of column of table new| contactId| contact_ | CONTACTID |
+|check | column class name of first relationship between| assettag| group_| Group |
+|check | alias of column of table new| contactId| contact_ | contact |
