@@ -98,7 +98,7 @@ public class ColumnNamingConvention extends ModelConvention {
 		//apply(table.getNoPrimaryKeyNoForeignKeyColumns());
 // check if reference is used for parent
 		applyParent(table.getParents());
-		applyChild(table.getChildren());
+//		applyChild(table.getChildren());
 	}
 
 	private void applyParent(Reference[] references) {
@@ -111,15 +111,18 @@ public class ColumnNamingConvention extends ModelConvention {
 		Column column = reference.getLocalColumn();
 //		if (isConventionApplicable(column))
 			apply (column);
+		column = reference.getForeignColumn();
+//		if (isConventionApplicable(column))
+			apply (column);
 	}
 	
 	private void applyFixPkParent(Reference[] references) {
 		for (Reference reference : references) {
-			applyFixPkChild (reference);
+			applyFixPkParent (reference);
 		}
 	}
 	
-	private void applyFixPkChild(Reference reference) {
+	private void applyFixPkParent(Reference reference) {
 		Column column = reference.getForeignColumn();
 //		if (isConventionApplicable(column))
 		applyFixPk (column);
@@ -138,8 +141,16 @@ public class ColumnNamingConvention extends ModelConvention {
 
 	private void apply(Column[] columns) {
 		for (Column column : columns) {
-			if (isConventionApplicable(column))
+			if (isConventionApplicable(column)) {
 				apply (column);
+//				if (column.isPrimaryKey()) {
+//					for (Column c : column.getTable().getPrimaryKeyColumns()) {
+//						if (c.getName().toLowerCase().equals(column.getName().toLowerCase())) {
+//							apply (c);
+//						}
+//					}
+//				}
+			}
 		}
 	}
 

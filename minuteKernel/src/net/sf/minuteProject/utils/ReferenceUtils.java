@@ -35,9 +35,9 @@ public class ReferenceUtils {
 		return FormatUtils.getJavaName(column.getAlias());
 	}
 	public static String getColumnClassAliasUpperCaseForLinkTable(Database database, Column column) {
-//		Column c = getPrimaryColumnForLinkTable(database, column);
-//		if (c==null) return "COLUMN should not be null!";
-		return FormatUtils.upperCase(column.getAlias());
+		Column c = getPrimaryColumnForLinkTable(database, column);
+		if (c==null) return "COLUMN should not be null!";
+		return FormatUtils.upperCase(c.getAlias());
 	}
 
 	private static Column getPrimaryColumnForLinkTable(Database database, Column column) {
