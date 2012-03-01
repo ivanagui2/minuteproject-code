@@ -1,3 +1,4 @@
+#exposeMaven()
 #set($deliveryName="${model.name}OXApp")
 #putOXTemplateDefinition()
 <?xml version="1.0" encoding="UTF-8"?>
@@ -14,7 +15,7 @@
     <repositories>
         <repository>
             <id>ibiblio</id>
-            <name>Ibilbio</name>
+            <name>Ibiblio</name>
             <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
         </repository>
         <repository>
@@ -75,6 +76,16 @@
             <id>com.springsource.repository.bundles.milestone</id>
             <name>SpringSource Enterprise Bundle Repository - External Bundle Milestones</name>
             <url>http://repository.springsource.com/maven/bundles/milestone</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>com.springsource.repository.bundles.snapshot</id>
+            <name>SpringSource Enterprise Bundle Repository - External Bundle Snapshots</name>
+            <url>http://repository.springsource.com/maven/bundles/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>com.springsource.repository.bundles.external.snapshots</id>
+            <name>SpringSource Enterprise Bundle Repository - Third Party External Bundle Snapshots</name>
+            <url>http://private.repository.springsource.com.s3.amazonaws.com/maven/bundles/external</url>
         </pluginRepository>
     </pluginRepositories>
  
