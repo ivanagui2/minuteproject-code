@@ -1,0 +1,200 @@
+<xs:schema id="generator-config" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://minuteproject.sf.net/xsd/mp-config">
+  <xs:element name="condition">
+    <xs:complexType>
+      <xs:attribute name="type" type="xs:string" />
+      <xs:attribute name="startsWith" type="xs:string" />
+      <xs:attribute name="result" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="property">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" />
+      <xs:attribute name="value" type="xs:string" />
+      <xs:attribute name="tag" type="xs:string" />
+      <xs:attribute name="alias" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="driver" >
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" />
+      <xs:attribute name="version" type="xs:string" />
+      <xs:attribute name="groupId" type="xs:string" />
+      <xs:attribute name="artifactId" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="generator-config">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="condition" />
+        <xs:element ref="property" />
+        <xs:element name="configuration">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="model" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="data-model" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element ref="driver" minOccurs="0" maxOccurs="unbounded">
+                          </xs:element>
+                          <xs:element name="dataSource" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="driverClassName" type="xs:string" minOccurs="0" />
+                                <xs:element name="url" type="xs:string" minOccurs="0" />
+                                <xs:element name="username" type="xs:string" minOccurs="0" />
+                                <xs:element name="password" type="xs:string" minOccurs="0" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="primaryKeyPolicy" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="primaryKeyPolicyPattern" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="oneGlobal" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="business-model" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="generation-condition" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="condition" minOccurs="0" maxOccurs="unbounded" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="business-package" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="condition" minOccurs="0" maxOccurs="unbounded" />
+                              </xs:sequence>
+                              <xs:attribute name="default" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="enrichment" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="conventions" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="column-naming-convention" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="type" type="xs:string" />
+                                          <xs:attribute name="pattern-to-strip" type="xs:string" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="reference-naming-convention" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="type" type="xs:string" />
+                                          <xs:attribute name="is-to-plurialize" type="xs:string" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="package" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="security-color" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:attribute name="roles" type="xs:string" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="name" type="xs:string" />
+                                    <xs:attribute name="alias" type="xs:string" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="entity" minOccurs="0" maxOccurs="unbounded">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="virtual-primary-key" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element ref="property" minOccurs="0" maxOccurs="unbounded" />
+                                          </xs:sequence>
+                                          <xs:attribute name="isRealPrimaryKey" type="xs:string" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="semantic-reference" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="sql-path" minOccurs="0" maxOccurs="unbounded">
+                                              <xs:complexType>
+                                                <xs:attribute name="path" type="xs:string" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="field" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="stereotype" minOccurs="0" maxOccurs="unbounded">
+                                              <xs:complexType>
+                                                <xs:attribute name="stereotype" type="xs:string" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                            <xs:element ref="property" minOccurs="0" maxOccurs="unbounded" />
+                                          </xs:sequence>
+                                          <xs:attribute name="name" type="xs:string" />
+                                          <xs:attribute name="linkToTargetEntity" type="xs:string" />
+                                          <xs:attribute name="linkToTargetField" type="xs:string" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="name" type="xs:string" />
+                                    <xs:attribute name="content-type" type="xs:string" />
+                                    <xs:attribute name="alias" type="xs:string" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="version" type="xs:string" />
+                  <xs:attribute name="package-root" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="targets" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="target" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element ref="property" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="refname" type="xs:string" />
+                        <xs:attribute name="name" type="xs:string" />
+                        <xs:attribute name="fileName" type="xs:string" />
+                        <xs:attribute name="outputdir-root" type="xs:string" />
+                        <xs:attribute name="templatedir-root" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
