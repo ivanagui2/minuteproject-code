@@ -219,19 +219,26 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	@Override
 	public boolean hasReturn() {
 		if (hasReturn==null) {
-			hasReturn = false;
-			for (FunctionColumn column : getColumns()) {
-				if (column.isReturn()==true) {
-					hasReturn = true;
-					functionReturn = column;
-//					functionReturn.setFunction(this);
-					break;
-				}
-			}
+			hasReturn = (getOutputEntity().getColumnCount()>0)?true:false;
+//			for (FunctionColumn column : getColumns()) {
+//				if (column.isReturn()==true) {
+//					hasReturn = true;
+//					functionReturn = column;
+////					functionReturn.setFunction(this);
+//					break;
+//				}
+//			}
 		}
 		return hasReturn;
 	}
 
+//	@Override
+//	public FunctionColumn getReturnFunctionColumn2() {
+//		if (hasReturn())
+//			return getOutputEntity().getColumns()[0];
+//		return null;
+//	}
+	
 	@Override
 	public FunctionColumn getReturnFunctionColumn() {
 		if (hasReturn())
