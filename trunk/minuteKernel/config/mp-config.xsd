@@ -1,5 +1,9 @@
-<xs:schema id="generator-config" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://minuteproject.sf.net/xsd/mp-config">
-  <xs:element name="condition">
+<xs:schema id="generator-config" 
+ xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://minuteproject.sf.net/xsd/mp-config"
+targetNamespace="http://minuteproject.sf.net/xsd/mp-config">
+
+  <xs:element name="condition2">
     <xs:complexType>
       <xs:attribute name="type" type="xs:string" />
       <xs:attribute name="startsWith" type="xs:string" />
@@ -28,7 +32,7 @@
   <xs:element name="generator-config">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="condition" />
+        <xs:element ref="condition2" />
         <xs:element ref="property" />
         <xs:element name="configuration">
           <xs:complexType>
@@ -72,14 +76,14 @@
                           <xs:element name="generation-condition" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element ref="condition" minOccurs="0" maxOccurs="unbounded" />
+                                <xs:element ref="condition2" minOccurs="0" maxOccurs="unbounded" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
                           <xs:element name="business-package" minOccurs="0" maxOccurs="unbounded">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element ref="condition" minOccurs="0" maxOccurs="unbounded" />
+                                <xs:element ref="condition2" minOccurs="0" maxOccurs="unbounded" />
                               </xs:sequence>
                               <xs:attribute name="default" type="xs:string" />
                             </xs:complexType>
