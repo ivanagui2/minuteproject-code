@@ -20,15 +20,15 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	private List<FunctionColumn> functionColumns;
 	private List<FunctionColumn> inputColumns;
 	private List<FunctionColumn> outputColumns;
-	private Direction direction;
+	private List<Direction> directions;
 	private Table inputEntity, outputEntity;
 	private Package pack;
 	private Database database;
 	private FunctionColumn functionReturn;
-	private Boolean hasReturn=null;
-	
+	private Boolean hasReturn = null;
+
 	private String catalog;
-	
+
 	public void addColumn(FunctionColumn functionColumn) {
 		getFunctionColumnArray().add(functionColumn);
 		functionColumn.setFunction(this);
@@ -38,54 +38,63 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 		return catalog;
 	}
 
-	private void setDirection () {
-		if (functionColumns!=null) {
+	private void setDirection() {
+		if (functionColumns != null) {
 			inputColumns = new ArrayList<FunctionColumn>();
 			outputColumns = new ArrayList<FunctionColumn>();
 			for (FunctionColumn functionColumn : functionColumns) {
-				if (functionColumn.getDirection().equals(Direction.IN)||functionColumn.getDirection().equals(Direction.INOUT)) 
+				if (functionColumn.getDirection().equals(Direction.IN)
+						|| functionColumn.getDirection()
+								.equals(Direction.INOUT))
 					inputColumns.add(functionColumn);
-				if (functionColumn.getDirection().equals(Direction.OUT)||functionColumn.getDirection().equals(Direction.INOUT)) 
+				if (functionColumn.getDirection().equals(Direction.OUT)
+						|| functionColumn.getDirection()
+								.equals(Direction.INOUT))
 					outputColumns.add(functionColumn);
-			}		
+			}
 		}
 	}
-	
+
 	public FunctionColumn[] getInputColumns() {
-		if (inputColumns==null) {
-			//inputColumns = new ArrayList<FunctionColumn>();
+		if (inputColumns == null) {
+			// inputColumns = new ArrayList<FunctionColumn>();
 			setDirection();
 		}
-		return (FunctionColumn[]) inputColumns.toArray(new FunctionColumn[inputColumns.size()]);
+		return (FunctionColumn[]) inputColumns
+				.toArray(new FunctionColumn[inputColumns.size()]);
 	}
 
 	public List<FunctionColumn> getColumns(Direction dir) {
-		if (Direction.IN.equals(dir) || Direction.INOUT.equals(dir) || Direction.NONE.equals(dir)) {
-			if (inputColumns!=null) {
-				inputColumns = getFunctionColumn (functionColumns, dir); 
+		if (Direction.IN.equals(dir) || Direction.INOUT.equals(dir)
+				|| Direction.NONE.equals(dir)) {
+			if (inputColumns != null) {
+				inputColumns = getFunctionColumn(functionColumns, dir);
 			}
-			return inputColumns;	
+			return inputColumns;
 		}
 		if (dir.equals(Direction.OUT)) {
-			if (outputColumns!=null) {
-				outputColumns = getFunctionColumn (functionColumns, dir); 
+			if (outputColumns != null) {
+				outputColumns = getFunctionColumn(functionColumns, dir);
 			}
-			return inputColumns;	
+			return inputColumns;
 		}
 		if (dir.equals(Direction.ANY))
 			return getFunctionColumn();
 		return getFunctionColumn();
 	}
-	
+
 	private List<FunctionColumn> getFunctionColumn() {
 		return getFunctionColumnArray();
 	}
 
-	private List<FunctionColumn> getFunctionColumn(List<FunctionColumn> functionColumns, Direction dir) {
+	private List<FunctionColumn> getFunctionColumn(
+			List<FunctionColumn> functionColumns, Direction dir) {
 		List<FunctionColumn> list = new ArrayList<FunctionColumn>();
-		if (functionColumns!=null) {
+		if (functionColumns != null) {
 			for (FunctionColumn functionColumn : functionColumns) {
-				if (functionColumn.getDirection().equals(dir)||functionColumn.getDirection().equals(Direction.INOUT)) 
+				if (functionColumn.getDirection().equals(dir)
+						|| functionColumn.getDirection()
+								.equals(Direction.INOUT))
 					list.add(functionColumn);
 			}
 		}
@@ -93,95 +102,99 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	}
 
 	public FunctionColumn[] getOutputColumns() {
-		if (outputColumns==null) {
-//			outputColumns = new ArrayList<FunctionColumn>();
+		if (outputColumns == null) {
+			// outputColumns = new ArrayList<FunctionColumn>();
 			setDirection();
 		}
-		return (FunctionColumn[]) outputColumns.toArray(new FunctionColumn[outputColumns.size()]);
+		return (FunctionColumn[]) outputColumns
+				.toArray(new FunctionColumn[outputColumns.size()]);
 	}
 
 	public void setCatalog(String catalog) {
 		this.catalog = catalog;
 	}
-	
+
 	private List<FunctionColumn> getFunctionColumnArray() {
-		if (functionColumns==null) {
+		if (functionColumns == null) {
 			functionColumns = new ArrayList<FunctionColumn>();
 		}
 		return functionColumns;
 	}
-	
-	public FunctionColumn [] getFunctionColumns() {
+
+	public FunctionColumn[] getFunctionColumns() {
 		List<FunctionColumn> columns = getFunctionColumnArray();
-		return (FunctionColumn []) columns.toArray(new FunctionColumn[columns.size()]);
+		return (FunctionColumn[]) columns.toArray(new FunctionColumn[columns
+				.size()]);
 	}
 
-	public FunctionColumn [] getColumns() {
-//		if (direction!=null && Direction.OUT.equals(direction))
-//			return getOutputColumns();
-//		return getInputColumns();
+	public FunctionColumn[] getColumns() {
+		// if (direction!=null && Direction.OUT.equals(direction))
+		// return getOutputColumns();
+		// return getInputColumns();
 		return getFunctionColumns();
 	}
-	
-//	public String getTechnicalPackage(Template template)
-//	{
-//		return StringUtils.lowerCase(getCatalog());
-//	}
+
+	// public String getTechnicalPackage(Template template)
+	// {
+	// return StringUtils.lowerCase(getCatalog());
+	// }
 
 	@Override
-	public Direction getDirection() {
-		if (direction!=null)
-			return direction;
-		boolean isInput = false;
-		boolean isOutput = false;
-		if (getInputColumns().length>1)
-			isInput = true;
-		if (getOutputColumns().length>1)
-			isOutput = true;	
-		if (isInput && isOutput)
-			return Direction.INOUT;
-		if (isInput && !isOutput)
-			return Direction.IN;		
-		if (!isInput && isOutput)
-			return Direction.OUT;			
-		return Direction.NONE;			
+	public List<Direction> getDirections() {
+		if (directions == null) {
+			directions = new ArrayList<Direction>();
+			boolean isInput = false;
+			boolean isOutput = false;
+			if (getInputColumns().length > 0)
+				isInput = true;
+			if (getOutputColumns().length > 0)
+				isOutput = true;
+			if (isInput && isOutput)
+				directions.add(Direction.INOUT);
+			if (isInput)
+				directions.add(Direction.IN);
+			if (isOutput)
+				directions.add(Direction.OUT);
+		}
+		return directions;
 	}
 
 	public Table getInputEntity() {
-		if (inputEntity==null)
-		   inputEntity= getEntityDirection(Direction.IN);
+		if (inputEntity == null)
+			inputEntity = getEntityDirection(Direction.IN);
 		return inputEntity;
 	}
 
 	public Table getOutputEntity() {
-		if (outputEntity==null)
-			outputEntity= getEntityDirection(Direction.OUT);
-			return outputEntity;
+		if (outputEntity == null)
+			outputEntity = getEntityDirection(Direction.OUT);
+		return outputEntity;
 	}
-	
+
 	public Table getEntity(Direction dir) {
 		if (dir.equals(Direction.IN))
 			return getInputEntity();
 		if (dir.equals(Direction.OUT))
-			return getOutputEntity();		
+			return getOutputEntity();
 		return getEntityDirection(dir);
 	}
-	
+
 	private Table getEntityDirection(Direction dir) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
 		table.setName(getName());
 		table.setCatalog(catalog);
 		table.setType(Table.TABLE);
-		addColumn (table, dir);
+		addColumn(table, dir);
 		Table entity = new TableDDLUtils(table);
 		entity.setPackage(getPackage());
 		entity.setDatabase(database);
 		return entity;
 	}
-	
-	private void addColumn(org.apache.ddlutils.model.Table table, Direction direction) {
-		for (FunctionColumn fc : getColumns (direction)) {
-			table.addColumn(getColumn (fc));
+
+	private void addColumn(org.apache.ddlutils.model.Table table,
+			Direction direction) {
+		for (FunctionColumn fc : getColumns(direction)) {
+			table.addColumn(getColumn(fc));
 		}
 	}
 
@@ -192,7 +205,7 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 		column.setScale(fc.getScale());
 		column.setSize(fc.getSize());
 		column.setPrecisionRadix(fc.getPrecisionRadix());
-//		column.setTypeCode(fc.getTypeCode());
+		// column.setTypeCode(fc.getTypeCode());
 		return column;
 	}
 
@@ -218,37 +231,42 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 
 	@Override
 	public boolean hasReturn() {
-		if (hasReturn==null) {
-			hasReturn = (getOutputEntity().getColumnCount()>0)?true:false;
-//			for (FunctionColumn column : getColumns()) {
-//				if (column.isReturn()==true) {
-//					hasReturn = true;
-//					functionReturn = column;
-////					functionReturn.setFunction(this);
-//					break;
-//				}
-//			}
+		if (hasReturn == null) {
+			hasReturn = (getOutputEntity().getColumnCount() > 0) ? true : false;
+			// for (FunctionColumn column : getColumns()) {
+			// if (column.isReturn()==true) {
+			// hasReturn = true;
+			// functionReturn = column;
+			// // functionReturn.setFunction(this);
+			// break;
+			// }
+			// }
 		}
 		return hasReturn;
 	}
 
-//	@Override
-//	public FunctionColumn getReturnFunctionColumn2() {
-//		if (hasReturn())
-//			return getOutputEntity().getColumns()[0];
-//		return null;
-//	}
-	
 	@Override
 	public FunctionColumn getReturnFunctionColumn() {
 		if (hasReturn())
-			return functionReturn;
+			return getFunctionFirstColumn();
 		return null;
+	}
+
+	public FunctionColumn getFunctionFirstColumn() {
+		if (functionReturn == null)
+			for (FunctionColumn column : getColumns()) {
+				if (column.isReturn() == true) {
+					hasReturn = true;
+					functionReturn = column;
+					break;
+				}
+			}
+		return functionReturn;
 	}
 
 	public String getTechnicalPackage(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
-		if(p==null) 
+		if (p == null)
 			return "ERROR_PACKAGE_IS_NULL";
 		return p.getTechnicalPackage(template);
 	}

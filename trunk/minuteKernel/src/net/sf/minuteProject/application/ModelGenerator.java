@@ -254,7 +254,7 @@ public class ModelGenerator extends AbstractGenerator {
 	 */
 	public void generate(Template template) throws MinuteProjectException {
 		if (template.getFieldSpecific().equals("true"))
-			generateArtifactsByField(template);		
+			generateArtifactsByField(template);
 		else if (template.getEntitySpecific().equals("true"))
 			generateArtifactsByEntity(template);
 		else if (template.getPackageSpecific().equals("true"))
@@ -276,7 +276,7 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (SCOPE_TARGET_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByTargetTemplate(template);	
 		else if (SCOPE_TRANSFER_ENTITY_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsByTransferEntity(template);	
+			generateArtifactsByTransferEntity(template);
 		else if (SCOPE_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByAction(template);			
 	}
@@ -383,11 +383,13 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByFunction(Template template, Direction... direction) throws MinuteProjectException {	
 		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
-			Direction functionDirection = function.getDirection();
+			List<Direction> functionDirections = function.getDirections();
 			for (Direction dir : direction) { // dir has to be put in the correct order IN or OUT before NONE, INOUT
-				if (dir.equals(functionDirection)) {
-					writeTemplateResult(function.getEntity(dir), template);
-					break;
+				for (Direction fdir : functionDirections) {
+					if (dir.equals(fdir)) {
+						writeTemplateResult(function.getEntity(dir), template);
+						//break;
+					}
 				}
 			}
 		}

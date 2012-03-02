@@ -19,8 +19,7 @@
 			file-extension="java" file-prefix="" file-suffix="DaoTest" 
 			entity-specific="true" package-specific="false" model-specific="false"
 			check-template-to-generate="true" 
-            is-template-to-generate-method="tableUtils.isTable"			
-			>
+            is-template-to-generate-method="tableUtils.isTable"	>
 			<property name="uml" value="true"></property>
 		</template>		
 		<template name="BslaDaoTestAdapter" templateFileName="BslaDaoTestAdapter.vm" 
@@ -118,7 +117,7 @@
 			has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
-		</template>				
+		</template>
 		
 		<!-- depends BslaDaoInterfaceUML, DomainObjectUML, BslaHibernate architecture		-->
 		<template name="BslaJPADaoImplUML" templateFileName="BslaJPA2DaoImpl.vm" 
@@ -154,20 +153,16 @@
 		<!-- EXTENDED DAO end -->	
 		<!-- DAO end -->
 		
-		<!-- in JPA2 track
-		enumeration for reference data 	
-		<template name="EnumerationReferenceData" templateFileName="EnumerationReferenceData.vm" 
-			subdir="" outputsubdir="" technicalPackage="enumeration"
-			file-extension="java" file-prefix="" file-suffix="Enum" 
-			field-specific="true" 
-			file-name-builder-plugin="referenceDataUtils"
-			file-name-builder-method="getEnumName"	
-            check-template-to-generate="true" 
-            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
-			>
-			<property name="generateForTag" value="checkconstraint"></property>
-		</template>		
-		-->	
+		<template name="BslaDaoInterfaceStoreProcedure" templateFileName="BslaDaoInterfaceStoreProcedure.vm"
+			file-extension="java" technicalPackage="dao.face" file-suffix="Dao" file-prefix="Procedure"
+			function-specific="true">
+		</template>	
+
+		<template name="BslaJPA2StoredProcedureDaoImpl" templateFileName="BslaJPA2StoredProcedureDaoImpl.vm" 
+			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoImpl" file-prefix="Procedure"
+			function-specific="true">
+		</template>	
+
 	</template-target>	
 
 	<template-target name="config"

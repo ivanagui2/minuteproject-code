@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 
@@ -21,7 +23,7 @@ public interface Function extends GeneratorBean{
 	
 	public FunctionColumn [] getColumns ();
 	
-	public Direction getDirection();
+	public List<Direction> getDirections();
 	
 	public Table getEntity (Direction direction);
 	
