@@ -34,7 +34,7 @@
         <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <!-- default url -->
-		<intercept-url pattern="/xava/**" access="ROLE_APPLICATION_USER"/> 
+
 		<intercept-url pattern="/xava/homeMenu.jsp" access="ROLE_APPLICATION_USER"/>
         <intercept-url pattern="/xava/**/*.jsp" access="ROLE_NOT_PRESENT"/>
 		

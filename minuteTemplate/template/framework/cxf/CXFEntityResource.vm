@@ -106,7 +106,7 @@ $!updatedAreaEnd
 
     @POST
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
     public $tableClassName create (
 #foreach ($column in ${table.columns})
 #putColumnParams()
@@ -131,7 +131,7 @@ $!updatedAreaEnd
     public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
         $tableClassName $tableVariableName = jaxb${tableClassName}.getValue();
         if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
-            return ${EJBDaoImplVariable}.update($tableVariableName);
+            return ${EJBDaoImplVariable}.update($tableVariableName).flat;
         return create($tableVariableName);
     }
 

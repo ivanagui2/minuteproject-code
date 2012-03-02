@@ -13,7 +13,6 @@
 
    <!-- $package.name -->	
 #foreach ($table in ${package.listOfTables})
-##exposeVariableEntitySpecificHibernateMapConfig()
 #exposeVariableEntitySpecificJPAMapConfig()
 		<mapping-file>$artifactRelativePathDirAndFullName</mapping-file>
 #end
@@ -27,7 +26,6 @@
 #end
 
 #end
-##exposeJPAProviderInfo()
 
     </persistence-unit>
 	
