@@ -18,7 +18,7 @@
 				</dataSource>
 				<schema>jooq_tech</schema>
 			</data-model>
-			<function-model/>
+			<function-model />
 			<business-model>
 				<enrichment>
 					<conventions>
@@ -38,23 +38,23 @@
 						</view-primary-key-convention>
 					</conventions>
 					<entity name="T_BOOK">
-					   <field name="STATUS">
-                            <property tag="checkconstraint" alias="my_book_status">
-                                <property name="SOLD OUT" />
-                                <property name="ORDERED" />
-                                <property name="IN HOUSE" value="on stock" />
-                                <property name="abstract" />
-                            </property>
-					   </field>
+						<field name="STATUS">
+							<property tag="checkconstraint" alias="my_book_status">
+								<property name="SOLD OUT" />
+								<property name="ORDERED" />
+								<property name="IN HOUSE" value="on stock" />
+								<property name="abstract" />
+							</property>
+						</field>
 					</entity>
 					<entity name="V_BOOK">
-					   <field name="STATUS">
-                            <property tag="checkconstraint">
-                                <property name="SOLD OUT" />
-                                <property name="ORDERED" />
-                                <property name="IN HOUSE" value="ON STOCK" />
-                            </property>
-					   </field>
+						<field name="STATUS">
+							<property tag="checkconstraint">
+								<property name="SOLD OUT" />
+								<property name="ORDERED" />
+								<property name="IN HOUSE" value="ON STOCK" />
+							</property>
+						</field>
 					</entity>
 				</enrichment>
 			</business-model>
