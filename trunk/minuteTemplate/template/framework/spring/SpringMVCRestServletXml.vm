@@ -21,10 +21,19 @@
             expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
-<!-- 	<context:component-scan base-package="dw.spring3.rest.controller" />
- -->	<!-- To enable @RequestMapping process on type level and method level -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="marshallingConverter" />
+				<ref bean="jsonConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Client -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
 		<property name="messageConverters">
 			<list>
 				<ref bean="marshallingConverter" />
@@ -38,20 +47,6 @@
     	<property name="supportedMediaTypes" value="application/xml"/>
 	</bean>
 
-	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-		<property name="supportedMediaTypes" value="application/json" />
-	</bean>
-
-	<!-- Client -->
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-		<property name="messageConverters">
-			<list>
-				<ref bean="marshallingConverter" />
-				<ref bean="jsonConverter" />
-			</list>
-		</property>
-	</bean>
-	
 	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
 			<list>
@@ -64,7 +59,6 @@
 #end
 #end
 #end
-	
 #foreach ($package in ${businessPackageViews})
 				<!-- $package.name -->
 #foreach ($table in ${package.listOfViews})
@@ -74,6 +68,10 @@
 #end
 			</list>
 		</property>
+	</bean>
+
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
 	</bean>
 
 </beans>

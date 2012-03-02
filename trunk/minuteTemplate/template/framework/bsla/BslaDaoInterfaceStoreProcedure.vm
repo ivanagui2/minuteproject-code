@@ -1,4 +1,4 @@
-#exposeVariableEntitySpecific()
+#exposeVariableFunctionSpecific()
 package $packageName;
 
 ##check when null import

@@ -1,3 +1,23 @@
 #macro(putReadmeText)
 $!commonUtils.getReadMeText($template)
 #end
+
+#macro(exposeVariableFunctionSpecific)
+#exposeFunction()
+#end
+
+#macro (exposeFunction)
+#exposeFunctionTemplate()
+#set ($functionInputClass = $commonUtils.getTemplateClassName($function.getEntity("IN"), $model, $templateFunctionInput))
+#set ($functionInputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionInputClass))
+#set ($functionInputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $function.getEntity("IN"), $template, $templateFunctionInput))
+#set ($functionOutputClass = $commonUtils.getTemplateClassName($function.getEntity("OUT"), $model, $templateFunctionInput))
+#set ($functionOutputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionOutputVariable))
+#set ($functionOutputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $function.getEntity("OUT"), $template, $templateFunctionInput))
+#end
+
+#macro (exposeFunctionTemplate)
+#set ($templateFunctionInput = "StoredProcedureInputBean")
+#set ($templateFunctionOutput = "StoredProcedureOutBean")
+#end
+
