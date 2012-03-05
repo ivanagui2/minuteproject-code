@@ -1,4 +1,8 @@
-<target name="BackendOnBsla-forhibernate">		
+<target-config 
+xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="http://minuteproject.sf.net/xsd/mp-template-config ../config/mp-template-config.xsd">		
+<target name="BackendOnBsla-forhibernate" xmlns="">
 	<architecture-target name="hibernate" description="basic springframework layer architecture"/>	
 	<plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
 	<plugin name="criteriaUtils" className="net.sf.minuteProject.utils.criteria.CriteriaUtils"></plugin>
@@ -250,3 +254,4 @@
 	</template-target>		
 	
 </target>	
+</target-config>
