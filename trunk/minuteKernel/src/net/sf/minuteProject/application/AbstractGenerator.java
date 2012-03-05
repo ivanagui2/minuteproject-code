@@ -387,12 +387,12 @@ public abstract class AbstractGenerator implements Generator {
 		FileOutputStream fos = new FileOutputStream(outputFilename);
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
 
-      if ( velocityTemplate != null)
-     	   velocityTemplate.merge(context, writer);
+//		writer.append(getLicence());
+		if ( velocityTemplate != null)
+			velocityTemplate.merge(context, writer);
 
-      writer.flush();
-      writer.close();  
-      
+		writer.flush();
+		writer.close();  
 	}
 	
    protected String getAbstractBeanName (GeneratorBean bean) {
