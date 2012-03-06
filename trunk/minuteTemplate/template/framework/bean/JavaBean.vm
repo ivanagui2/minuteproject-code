@@ -19,7 +19,6 @@ public class ${className} {
 #putColumnParams()
 #columnJavaNaming()
     private $columnType $columnVar;
-
 #end
 
     /**

@@ -3,11 +3,13 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro(exposeVariableFunctionSpecific)
+#exposeVariableEntitySpecific()
 #exposeFunction()
 #end
 
 #macro (exposeFunction)
 #exposeFunctionTemplate()
+#set ($in = $commonUtils.getDirection(IN))
 #set ($functionInputClass = $commonUtils.getTemplateClassName($function.getEntity("IN"), $model, $templateFunctionInput))
 #set ($functionInputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionInputClass))
 #set ($functionInputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $function.getEntity("IN"), $template, $templateFunctionInput))
