@@ -13,11 +13,15 @@ import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import fitlibrary.SequenceFixture;
 import net.sf.minuteProject.application.ModelViewGenerator;
 import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.FunctionModel;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
+import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -26,6 +30,7 @@ import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.MpObjectBuilder;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class NavigateModelSequenceFixture extends SequenceFixture{
 
@@ -113,7 +118,11 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 			 ObjectAttribute attribute,
 			 ReferenceAttribute refAttribute) {
 		List<String> l1 = getAttributesOfParentsEntitiesForEntity (name, attribute, refAttribute);
-		List<String> l2 = Arrays.asList(StringUtils.split(values, ","));
+		List<String> l2 = ParserUtils.getList(values);
+		return compareList (l1, l2);
+	}
+	
+	public String compareList (List<String> l1, List<String> l2) {
 		if (isIdentical(l1, l2)) {
 			return "true";
 		}
@@ -149,8 +158,21 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 	}
 	
 	public boolean isIdentical (List<String> l1, List<String> l2) {
-      Collection<String> compare = new HashSet<String>(l1);
-      return (compare.retainAll(l2)&&compare.removeAll(l2));
+		if (l1==null) {
+			if (l2 == null) return false;
+			else return true;
+		}
+		for (String s1 : l1) {
+			boolean exist = false;
+			for (String s2 : l2) {
+				if (s2.equals(s1)) exist = true;
+			}
+			if (!exist) return false;
+		}
+		return true;
+//		
+//      Collection<String> compare = new HashSet<String>(l1);
+//      return (compare.retainAll(l2)&&compare.removeAll(l2));
 	}
 	
 	public String aliasJavaVariableOfFirstRelationshipBetween (String child, String parent) {
@@ -285,6 +307,53 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		if (column!=null)
 			return ColumnUtils.getJavaVariableColumnAlias(column);
 		return "NOT FOUND";	
+	}
+	
+	public boolean storeProcedureExists (String sp) {
+		return (getProcedureByName(sp)!=null)?true:false;
+	}
+	
+	private Function getProcedureByName (String sp) {
+		Function[] fs = model.getDataModel().getDatabase().getFunctions();
+		for (Function f : fs) {
+			if (sp.equals(f.getName()))
+				return f;
+		}
+		return null;
+	}
+	
+	public String storeProcedureInputColumnsAre (String sp, String columns) {
+		return storeProcedureInputColumnsAre(sp, columns,Direction.IN);
+	}
+	public String storeProcedureOutputColumnsAre (String sp, String columns) {
+		return storeProcedureInputColumnsAre(sp, columns,Direction.OUT);
+	}
+	private String storeProcedureInputColumnsAre (String sp, String columns, Direction direction) {
+		Function f = getProcedureByName(sp);
+		if (f!=null) {
+			List<String> l1 = getColumnNames(f, direction);
+			List<String> l2 = ParserUtils.getList(columns);
+			return compareList (l1, l2);
+		}
+		return "false";
+	}
+
+	private List<String> getColumnNames(Function f, Direction direction) {
+		List<String> r = new ArrayList<String>();
+//		Table t = f.getEntity(direction);
+//		for (Column c : t.getColumns()) {
+//			r.add(c.getName());
+//		}		
+//		return r;
+		if (direction.equals(Direction.IN))
+			for (FunctionColumn c : f.getInputColumns()) {
+				r.add(c.getName());
+			}
+		else if (direction.equals(Direction.OUT))
+			for (FunctionColumn c : f.getOutputColumns()) {
+				r.add(c.getName());
+			}
+		return r;
 	}
 
 }
