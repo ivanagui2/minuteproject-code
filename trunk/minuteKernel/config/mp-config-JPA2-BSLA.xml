@@ -79,6 +79,10 @@ xs:schemaLocation="http://minuteproject.sf.net/xsd/mp-config ../config/mp-config
 			   fileName="mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/cache">
 			</target>
+			<target refname="COMMON-LIB" 
+			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/common">
+			</target>
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 

@@ -76,7 +76,7 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 			if (outputColumns != null) {
 				outputColumns = getFunctionColumn(functionColumns, dir);
 			}
-			return inputColumns;
+			return outputColumns;
 		}
 		if (dir.equals(Direction.ANY))
 			return getFunctionColumn();
@@ -184,15 +184,14 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 		table.setName(getName());
 		table.setCatalog(catalog);
 		table.setType(Table.TABLE);
-		addColumn(table, dir);
+		addColumns(table, dir);
 		Table entity = new TableDDLUtils(table);
 		entity.setPackage(getPackage());
 		entity.setDatabase(database);
 		return entity;
 	}
 
-	private void addColumn(org.apache.ddlutils.model.Table table,
-			Direction direction) {
+	private void addColumns(org.apache.ddlutils.model.Table table, Direction direction) {
 		for (FunctionColumn fc : getColumns(direction)) {
 			table.addColumn(getColumn(fc));
 		}

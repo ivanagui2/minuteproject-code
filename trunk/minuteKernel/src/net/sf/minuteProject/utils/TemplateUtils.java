@@ -39,4 +39,13 @@ public class TemplateUtils {
 		return FileUtils.getAddedArea(file);
 	}
 	
+	public static String commentLine(Template template, String line) {
+		return template.getBeginningCommentSnippet()+line+template.getEndingCommentSnippet();
+	}
+	
+	public static String commentText(Template template, String text) {
+		return template.getBeginningCommentSnippet()+text+template.getEndingCommentSnippet();
+	}
+	
+	
 }

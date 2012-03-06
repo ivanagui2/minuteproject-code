@@ -155,12 +155,14 @@
 		
 		<template name="BslaDaoInterfaceStoreProcedure" templateFileName="BslaDaoInterfaceStoreProcedure.vm"
 			file-extension="java" technicalPackage="dao.face" file-suffix="Dao" file-prefix="Procedure"
-			function-specific="true">
+			scope-specific-value="function"
+			has-updatable-nature="true">
 		</template>	
 
 		<template name="BslaJPA2StoredProcedureDaoImpl" templateFileName="BslaJPA2StoredProcedureDaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoImpl" file-prefix="Procedure"
-			function-specific="true">
+			scope-specific-value="function"
+			has-updatable-nature="true">
 		</template>	
 
 	</template-target>	
