@@ -7,5 +7,5 @@ Liferay model load
 !| net.sf.minuteProject.model.NavigateModelSequenceFixture|
 |load| mp-config-LAZULY-BSLA-JPA2.xml |
 |check | store procedure exists | registerAttendeeFull| true |
-|check | store procedure input columns are |registerAttendeeFull| firstName | lastName | email | conferenceId | address_street1 | address_street2 | countryId |true |
+|check | store procedure input columns are |registerAttendeeFull| firstName , lastName,email,conferenceId,address_street1,address_street2,countryId |true |
 |check | store procedure output columns are |registerAttendeeFull| attendeeId |true |
