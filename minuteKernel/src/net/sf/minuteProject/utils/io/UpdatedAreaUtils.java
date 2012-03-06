@@ -1,13 +1,12 @@
 package net.sf.minuteProject.utils.io;
 
-import groovyjarjarasm.asm.ClassAdapter;
-
 import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import static net.sf.minuteProject.utils.TemplateUtils.commentLine;
 
 public class UpdatedAreaUtils {
 
@@ -76,9 +75,9 @@ public class UpdatedAreaUtils {
 
 	public static UpdatedAreaHolder getAddedAreaSnippet(Template template, String key, String snippet) {
 		UpdatedAreaHolder updatedAreaHolder = new UpdatedAreaHolder();
-		updatedAreaHolder.setBeginSnippet(comment(template, MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER));
+		updatedAreaHolder.setBeginSnippet(commentLine(template, MP_MANAGED_ADDED_AREA_BEGINNING+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER));
 		updatedAreaHolder.setSnippet(snippet);
-		updatedAreaHolder.setEndSnippet(comment(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER));
+		updatedAreaHolder.setEndSnippet(commentLine(template, MP_MANAGED_ADDED_AREA_ENDING+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER));
 		return updatedAreaHolder;
 	}
 
@@ -91,18 +90,16 @@ public class UpdatedAreaUtils {
 		if (!template.isUpdatable()) return "";
 		StringBuffer sb = new StringBuffer();	
 		sb.append(directive+ " "+MP_MANAGED_REFERENCE_MARKER+key+MP_MANAGED_REFERENCE_MARKER);
-		return comment(template, sb.toString());
+		return commentLine(template, sb.toString());
 	}
 	
-	private static String comment(Template template, String string) {
-		return template.getBeginningCommentSnippet()+string+template.getEndingCommentSnippet();
-	}
+
 
 	public static String getUpdatedAreaEndSnippet(Template template, String s) {
 		if (!template.isUpdatable()) return "";
 		StringBuffer sb = new StringBuffer();
 		sb.append(MP_MANAGED_UPDATABLE_ENDING);
-		return comment(template, sb.toString());
+		return commentLine(template, sb.toString());
 	}	
 
 	public static UpdatedAreaHolder getConstructorWithFieldSnippet(Template template, Map<String, String> updatedAreas) {

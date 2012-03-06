@@ -268,7 +268,8 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
 		else if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(template.getScopeSpecificValue()))
-			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT, Direction.NONE);
+//			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT, Direction.NONE);
+			generateArtifactsByFunction(template, Direction.IN);
 		else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(template.getScopeSpecificValue()))
 			generateArtifactsByFunction(template, Direction.OUT);		
 		else if (SCOPE_DATAMODEL_FUNCTION.equals(template.getScopeSpecificValue()))
@@ -381,17 +382,17 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 	
-	protected void generateArtifactsByFunction(Template template, Direction... direction) throws MinuteProjectException {	
+	protected void generateArtifactsByFunction(Template template, Direction direction) throws MinuteProjectException {	
 		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
 			List<Direction> functionDirections = function.getDirections();
-			for (Direction dir : direction) { // dir has to be put in the correct order IN or OUT before NONE, INOUT
+//			for (Direction dir : direction) { // dir has to be put in the correct order IN or OUT before NONE, INOUT
 				for (Direction fdir : functionDirections) {
-					if (dir.equals(fdir)) {
-						writeTemplateResult(function.getEntity(dir), template);
+					if (direction.equals(fdir)) {
+						writeTemplateResult(function.getEntity(direction), template);
 						//break;
 					}
 				}
-			}
+//			}
 		}
 	}
 		
@@ -417,7 +418,8 @@ public class ModelGenerator extends AbstractGenerator {
 		}		
 		if (bean instanceof Function) {
 			context.put("function", bean);
-			context.put("table", ((Function)bean).getEntity(Direction.ANY));
+			context.put("table", ((Function)bean).getEntity(Direction.ANY)); //to give access to model
+//			context.put("table", bean);
 		}		
 		if (beanName.equals("view"))
 			context.put("table", bean);		
