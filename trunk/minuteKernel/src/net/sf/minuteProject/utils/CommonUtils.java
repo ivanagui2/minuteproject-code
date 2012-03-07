@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.view.View;
 
 
@@ -338,19 +339,12 @@ public class CommonUtils {
 		return "";
 	}	
 
-	/*
-	public static String getBusinessPackageName(Model model, net.sf.minuteProject.configuration.bean.Table table){
-		return getBusinessPackage(model, table.getTable());
-	}*/
-	
 	public static String getFunctionPackageName(Model model, Function function){
 		return getFunctionPackage(model, function);
 	}
 	
 	public static String getBusinessPackageName(Model model, Table table){
 		return getBusinessPackage(model, table);
-		//String a= model.getBusinessModel().getBusinessPackage().getPackage(table.getName());
-		//return a;
 	}
 	
 	public static String getAssociatedBusinessPackageName(Model model, String tableName){
@@ -653,4 +647,9 @@ public class CommonUtils {
 	public static String getReadMeText(Template template) {
 		return FormatUtils.convertAttributeText(template.getDescription());
 	}
+	
+	public Direction getDirection (String direction) {
+		return Direction.valueOf(direction);
+	}
+	
 }
