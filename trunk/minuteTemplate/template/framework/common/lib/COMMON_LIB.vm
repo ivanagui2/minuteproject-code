@@ -9,17 +9,20 @@ $!commonUtils.getReadMeText($template)
 
 #macro (exposeFunction)
 #exposeFunctionTemplate()
-#set ($in = $commonUtils.getDirection(IN))
-#set ($functionInputClass = $commonUtils.getTemplateClassName($function.getEntity("IN"), $model, $templateFunctionInput))
+#set ($in = $commonUtils.getDirection("IN"))
+#set ($out = $commonUtils.getDirection("OUT"))
+#set ($input = $function.getEntity($in))
+#set ($output = $function.getEntity($out))
+#set ($functionInputClass = $commonUtils.getTemplateClassName($input, $model, $templateFunctionInput))
 #set ($functionInputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionInputClass))
-#set ($functionInputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $function.getEntity("IN"), $template, $templateFunctionInput))
-#set ($functionOutputClass = $commonUtils.getTemplateClassName($function.getEntity("OUT"), $model, $templateFunctionInput))
+#set ($functionInputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $input, $template, $templateFunctionInput))
+#set ($functionOutputClass = $commonUtils.getTemplateClassName($output, $model, $templateFunctionInput))
 #set ($functionOutputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionOutputVariable))
-#set ($functionOutputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $function.getEntity("OUT"), $template, $templateFunctionInput))
+#set ($functionOutputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $output, $template, $templateFunctionInput))
 #end
 
 #macro (exposeFunctionTemplate)
 #set ($templateFunctionInput = "StoredProcedureInputBean")
-#set ($templateFunctionOutput = "StoredProcedureOutBean")
+#set ($templateFunctionOutput = "StoredProcedureOutputBean")
 #end
 

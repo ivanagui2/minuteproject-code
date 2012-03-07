@@ -15,6 +15,6 @@ import $functionOutputImport;
  */
 public interface $className extends DataAccessObject {
 
-    public $outputClassName insert$tableClassName($inputClassName $inputVariableName) ;
+    public $functionOutputClass insert$tableClassName($functionInputClass $functionInputVariable) ;
 
 }
