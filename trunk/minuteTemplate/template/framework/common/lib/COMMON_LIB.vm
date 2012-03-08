@@ -16,9 +16,9 @@ $!commonUtils.getReadMeText($template)
 #set ($functionInputClass = $commonUtils.getTemplateClassName($input, $model, $templateFunctionInput))
 #set ($functionInputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionInputClass))
 #set ($functionInputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $input, $template, $templateFunctionInput))
-#set ($functionOutputClass = $commonUtils.getTemplateClassName($output, $model, $templateFunctionInput))
+#set ($functionOutputClass = $commonUtils.getTemplateClassName($output, $model, $templateFunctionOutput))
 #set ($functionOutputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionOutputVariable))
-#set ($functionOutputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $output, $template, $templateFunctionInput))
+#set ($functionOutputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $output, $template, $templateFunctionOutput))
 #end
 
 #macro (exposeFunctionTemplate)

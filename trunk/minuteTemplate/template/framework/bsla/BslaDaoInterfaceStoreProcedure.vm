@@ -13,8 +13,8 @@ import $functionOutputImport;
  *  and return store procedure output</p>
  *
  */
-public interface $className extends DataAccessObject {
+public interface $className {
 
-    public $functionOutputClass insert$tableClassName($functionInputClass $functionInputVariable) ;
+    public $functionOutputClass $tableVariableName($functionInputClass $functionInputVariable) ;
 
 }
