@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
@@ -54,8 +56,12 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	}
 
 	public void fill(BasicIntegrationConfiguration bic) {
-		bic.setRootpackage(rootPackageTf.getText());
-		bic.setModelName(modelNameTf.getText());
+		String rootPackage = rootPackageTf.getText();
+		if (!StringUtils.isEmpty(rootPackage))
+			bic.setRootpackage(rootPackage);
+		String modelPackage = modelNameTf.getText();
+		if (!StringUtils.isEmpty(modelPackage))
+			bic.setModelName(modelPackage);
 //		bic.setDefaultBusinesspackage(modelNameTf.getText());
 		String pkPolicy = pkPolicyCb.getSelectedItem().toString();
 		bic.setPrimaryKeyPolicy(PrimaryKeyPolicyPatternEnum.getPrimaryKeyPolicy(pkPolicy));
