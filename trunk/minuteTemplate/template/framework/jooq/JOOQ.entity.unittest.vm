@@ -19,12 +19,11 @@ import static ${entityClassImport}.$classNameUpperCase;
 
 import org.jooq.Record;
 import org.jooq.Result;
-import org.junit.Test;
 
 #putClassImportSnippet()
 public class $className {
 
-	@Test
+	@org.junit.Test
 	public void test$entityClass () {
 		Connection conn = null;
 		String userName = "$datasource.username";
