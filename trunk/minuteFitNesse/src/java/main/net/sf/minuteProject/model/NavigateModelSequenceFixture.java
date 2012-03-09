@@ -37,12 +37,12 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 	private enum ObjectAttribute {NAME, ALIAS};
 	private enum ColumnType {PK, FK, SIMPLE};
 	private enum ReferenceAttribute {LOCAL_COLUMN, LINKED_COLUMN, LOCAL_TABLE, LINKED_TABLE}
-	private ModelViewGenerator modelViewGenerator;
-	private Configuration configuration;
-	private Model model;
-	private Database database;
+	private static ModelViewGenerator modelViewGenerator;
+	private static Configuration configuration;
+	private static Model model;
+	private static Database database;
 	
-	public String load (String config) {
+	public static String load (String config) {
 		try {
 			modelViewGenerator = new ModelViewGenerator(config);
 			configuration = (Configuration) modelViewGenerator.load();
@@ -325,9 +325,16 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 	public String storeProcedureInputColumnsAre (String sp, String columns) {
 		return storeProcedureInputColumnsAre(sp, columns,Direction.IN);
 	}
+	
 	public String storeProcedureOutputColumnsAre (String sp, String columns) {
 		return storeProcedureInputColumnsAre(sp, columns,Direction.OUT);
 	}
+	
+	public boolean storeProcedureHasReturn (String sp) {
+		Function f = getProcedureByName(sp);
+		return f.hasReturn();
+	}
+	
 	private String storeProcedureInputColumnsAre (String sp, String columns, Direction direction) {
 		Function f = getProcedureByName(sp);
 		if (f!=null) {
@@ -354,6 +361,14 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 				r.add(c.getName());
 			}
 		return r;
+	}
+
+	public static Model getModel() {
+		return model;
+	}
+
+	public static Database getDatabase() {
+		return database;
 	}
 
 }
