@@ -3,6 +3,7 @@
 >UtilsSuite
 >ConventionSuite
 >DataModelStructureSuite
+>TypeSuite
 
 !define MP_KERNEL {../../minuteKernel}
 !define MP_FITNESSE {..}
