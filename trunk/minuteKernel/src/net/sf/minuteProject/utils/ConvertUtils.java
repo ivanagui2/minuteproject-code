@@ -17,6 +17,7 @@ public class ConvertUtils {
 	public static final String JAVA_INTEGER_TYPE 					=   "java.lang.Integer";		
 	public static final String JAVA_SHORT_TYPE 			 			=   "java.lang.Short";		
 	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.sql.Timestamp";			
+	public static final String JAVA_TIME_TYPE 						=   "java.sql.Time";			
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
 	public static final String JAVA_STRING_TYPE 					=   "java.lang.String";						
@@ -32,6 +33,7 @@ public class ConvertUtils {
 	public static final String DB_INT_TYPE 						=   "INT";	
 	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
 	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
+	public static final String DB_TIME_TYPE 					=   "TIME";
 	public static final String DB_TIMESTAMPZ_TYPE 				=   "TIMESTAMPZ";
 	public static final String DB_DATE_TYPE 					=   "DATE";
 	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
@@ -89,7 +91,7 @@ public class ConvertUtils {
 		if (dBType.equals("INT"))
 			return  JAVA_INTEGER_TYPE;		
 		if (dBType.equals("TIME"))
-			return  JAVA_TIMESTAMP_TYPE;			
+			return  JAVA_TIME_TYPE;
 		if (dBType.equals("DECIMAL"))
 			return  JAVA_BIGDECIMAL_TYPE;
 		if (dBType.equals("SMALLINT"))
@@ -231,8 +233,8 @@ public class ConvertUtils {
 			return  "java.math.BigDecimal";			
 		if (dBType.equals("INT"))
 			return  "Integer";		
-		if (dBType.equals("TIME"))
-			return  "Timestamp";			
+		if (dBType.equals(DB_TIME_TYPE))
+			return  JAVA_TIME_TYPE;
 		if (dBType.equals("DECIMAL"))
 			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
@@ -326,7 +328,8 @@ public class ConvertUtils {
 	
 	public static boolean isDateType (String dBType) {
 		return (FieldType.DATE.toString().equals(dBType) ||
-				FieldType.TIMESTAMP.toString().equals(dBType))?true:false;
+				FieldType.TIMESTAMP.toString().equals(dBType) ||
+				FieldType.TIME.toString().equals(dBType))?true:false;
 	}	
 
 	public static boolean isNumberType (String dBType) {

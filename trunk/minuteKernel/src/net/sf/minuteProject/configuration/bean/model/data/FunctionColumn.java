@@ -9,9 +9,9 @@ public interface FunctionColumn extends BaseColumn {
 	public void setDirection(Direction direction);
 	
 	public void setPrecision(int precision);
-	
+
 	public int getPrecision();
-	
+
 	public boolean isReturn();
 
 	public Function getFunction();
