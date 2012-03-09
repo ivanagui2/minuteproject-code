@@ -314,8 +314,12 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	}
 
 	public String getDefaultPackage() {
-		if (defaultPackage==null)
+		if (defaultPackage==null) {
+			Model model = businessModel.getModel();
+			if (model.isUsingDefaultName())
+				return "defaultpackage";
 			return businessModel.getModel().getName();
+		}
 		return defaultPackage;
 	}	
 

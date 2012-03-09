@@ -2,9 +2,11 @@ package net.sf.minuteProject.configuration.bean;
 
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.StringUtils;
 
 public class Model extends AbstractConfiguration{
 	
+	private static final String DEFAUTMODEL_VALUE = "defautmodel";
 	private String packageRoot;
 	private String version;
 	
@@ -86,7 +88,7 @@ public class Model extends AbstractConfiguration{
 			&& 
 			!(template.getApplicationSpecific()!=null && template.getApplicationSpecific().equals("true"))
 			) {
-			if (isValidPackageName())
+//			if (isValidPackageName())
 				sb.append("."+getName());
 		}
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
@@ -94,10 +96,17 @@ public class Model extends AbstractConfiguration{
 		return sb.toString();
 	}
 
-	private boolean isValidPackageName() {
-		if (getName().trim().equals(""))
-			return false;
-		return true;
+//	private boolean isValidPackageName() {
+//		if (getName()!=null &&getName().trim().equals(""))
+//			return false;
+//		return true;
+//	}
+	
+	public String getName() {
+		if (StringUtils.isEmpty(name)){
+			name= DEFAUTMODEL_VALUE;
+		}
+		return name;
 	}
 
 	public String getPackageRoot() {
@@ -119,5 +128,10 @@ public class Model extends AbstractConfiguration{
 	public String getAlias() {
 		return FormatUtils.getJavaName(super.getAlias()).toLowerCase();
 	}
+
+	public boolean isUsingDefaultName() {
+		return DEFAUTMODEL_VALUE.equals(getName());
+	}
+	
 	
 }

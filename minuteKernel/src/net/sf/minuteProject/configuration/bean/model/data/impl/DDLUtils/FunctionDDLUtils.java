@@ -67,13 +67,13 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	public List<FunctionColumn> getColumns(Direction dir) {
 		if (Direction.IN.equals(dir) || Direction.INOUT.equals(dir)
 				|| Direction.NONE.equals(dir)) {
-			if (inputColumns != null) {
+			if (inputColumns == null) {
 				inputColumns = getFunctionColumn(functionColumns, dir);
 			}
 			return inputColumns;
 		}
 		if (dir.equals(Direction.OUT)) {
-			if (outputColumns != null) {
+			if (outputColumns == null) {
 				outputColumns = getFunctionColumn(functionColumns, dir);
 			}
 			return outputColumns;
@@ -191,8 +191,10 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 		return entity;
 	}
 
-	private void addColumns(org.apache.ddlutils.model.Table table, Direction direction) {
-		for (FunctionColumn fc : getColumns(direction)) {
+	private void addColumns(org.apache.ddlutils.model.Table table,
+			Direction direction) {
+		List<FunctionColumn> l = getColumns(direction);
+		for (FunctionColumn fc : l) {
 			table.addColumn(getColumn(fc));
 		}
 	}
@@ -231,15 +233,16 @@ public class FunctionDDLUtils extends AbstractConfiguration implements Function 
 	@Override
 	public boolean hasReturn() {
 		if (hasReturn == null) {
-			hasReturn = (getOutputEntity().getColumnCount() > 0) ? true : false;
-			// for (FunctionColumn column : getColumns()) {
-			// if (column.isReturn()==true) {
-			// hasReturn = true;
-			// functionReturn = column;
-			// // functionReturn.setFunction(this);
-			// break;
-			// }
-			// }
+			// hasReturn = (getOutputEntity().getColumnCount() > 0) ? true :
+			hasReturn = false;
+			for (FunctionColumn column : getColumns()) {
+				if (column.isReturn() == true) {
+					hasReturn = true;
+					functionReturn = column;
+					// functionReturn.setFunction(this);
+					break;
+				}
+			}
 		}
 		return hasReturn;
 	}
