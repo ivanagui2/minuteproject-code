@@ -1,7 +1,6 @@
 #exposeVariableFunctionSpecific()
 package $packageName;
 
-##check when null import
 import $functionInputImport;
 import $functionOutputImport;
 /**
