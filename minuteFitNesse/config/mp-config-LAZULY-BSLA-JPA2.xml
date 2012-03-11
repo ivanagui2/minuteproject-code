@@ -56,13 +56,14 @@
 			   fileName="mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/cache">
 			</target>
+
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/lazuly"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target>
-			
+            
 		</targets>		
 
 	</configuration>
