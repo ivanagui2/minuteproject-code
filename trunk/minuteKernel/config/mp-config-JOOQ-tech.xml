@@ -1,8 +1,8 @@
 <!DOCTYPE root>
 <generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://minuteproject.sf.net/xsd/mp-config ../config/mp-config.xsd">
-    <configuration xmlns="">
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:noNamespaceSchemaLocation="mp-config.xsd">
+    <configuration>
 
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
