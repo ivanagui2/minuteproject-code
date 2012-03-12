@@ -19,10 +19,14 @@ $!commonUtils.getReadMeText($template)
 #set ($functionOutputClass = $commonUtils.getTemplateClassName($output, $model, $templateFunctionOutput))
 #set ($functionOutputVariable = $commonUtils.getJavaNameVariableFirstLetter($functionOutputVariable))
 #set ($functionOutputImport = $commonUtils.getEntityLevelTemplateFullPath($model, $output, $template, $templateFunctionOutput))
+#set ($functionInterfaceClassName = $commonUtils.getTemplateClassName($output, $model, $templateFunctionInterface))
+#set ($functionInterfaceVariableName = $commonUtils.getJavaNameVariableFirstLetter($functionInterfaceClassName))
+#set ($functionInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $output, $template, $templateFunctionInterface))
 #end
 
 #macro (exposeFunctionTemplate)
 #set ($templateFunctionInput = "StoredProcedureInputBean")
 #set ($templateFunctionOutput = "StoredProcedureOutputBean")
+#set ($templateFunctionInterface = $template.getPropertyValue("functionInterface","DaoInterfaceStoreProcedure"))
 #end
 

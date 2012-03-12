@@ -1,7 +1,12 @@
 #exposeVariableFunctionSpecific()
 package $packageName;
 
-##check when null import
+import java.util.List;
+
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import $functionInputImport;
 import $functionOutputImport;
 import $functionInterfaceImport;
@@ -15,17 +20,19 @@ import $functionInterfaceImport;
  *  and return store procedure output</p>
  *
  */
-public interface $className implements $functionInterfaceClassName {
+public class $className implements $functionInterfaceClassName {
 
+    public static final String ${functionNameUpperCase} = "${functionCall}";
 	@PersistenceContext
     private EntityManager em;
 	
-    public $functionOutputClass $tableVariableName($functionInputClass $functionInputVariable) {
-       Query query = em.createQuery("from Product as p where p.category = :category");
-       query.setParameter("category", category);
+    public List<$functionOutputClass> $tableVariableName($functionInputClass $functionInputVariable) {
+       Query query = em.createNativeQuery(${functionNameUpperCase});
+#foreach ($column in $input.columns)
+#putColumnParams()
+       query.setParameter("${columnVar}", ${columnVar});
+#end
        return query.getResultList(); 
 	}
 	
-
-
 }
