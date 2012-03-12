@@ -20,7 +20,13 @@
 			file-extension="java" file-prefix="" file-suffix="Out" 
 			scope-specific-value="function-output-entity" >
 		</template>	
-									
+		
+		<!-- dao interface -->
+        <template name="DaoInterfaceStoreProcedure" templateFileName="DaoInterfaceStoreProcedure.vm"
+            file-extension="java" technicalPackage="dao.face" file-suffix="Dao" file-prefix="Procedure"
+            scope-specific-value="function"
+            has-updatable-nature="true">
+        </template> 							
     </template-target>		
 
 </target>
