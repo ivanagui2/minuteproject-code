@@ -1,0 +1,30 @@
+package $packageName;
+
+$!updatedAreaImport
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+/**
+ * Repository for generic search 
+ */
+$!updatedAreaClassAnnotation
+@NoRepositoryBean
+public interface CustomRepository<T, PK extends Serializable> extends PagingAndSortingRepository<R, PK>,
+        JpaSpecificationExecutor<T> {
+
+    Page<T> findByPrototype(T prototype, Pageable pageable);
+
+    Page<T> findByPrototype(T prototype, List<Range<R, ?>> ranges, Pageable pageable);
+
+    List<T> findAll();
+
+$!updatedAreaImplementation
+
+}
