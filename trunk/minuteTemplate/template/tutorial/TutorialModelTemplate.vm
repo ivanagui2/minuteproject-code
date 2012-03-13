@@ -27,10 +27,12 @@ If you need them, please add them in your main configuration (in order to get th
 #putColumnParams()
 #if(!$isForeignKey)
      type $columnType, variable $columnClass $columnVar; 
+#else
+	pk is fk : type $columnType, variable $columnClass $columnVar;
 #end
 #end
 >>>> attributes :
-	#foreach ($column in ${table.attributes})
+#foreach ($column in ${table.attributes})
 #putColumnParams()
      type $columnType, variable $columnVar; 
 #end
@@ -45,4 +47,10 @@ If you need them, please add them in your main configuration (in order to get th
      child table ${reference.foreignTableName} - link via child field ${reference.foreignColumnName}.
 #end
 #end
+#end
+
+Another way to extract table information
+
+#foreach($table in ${package.listOfEntities})
+>> $table.name
 #end
