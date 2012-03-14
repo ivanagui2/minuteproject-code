@@ -30,3 +30,6 @@ $!commonUtils.getReadMeText($template)
 #set ($templateFunctionInterface = $template.getPropertyValue("functionInterface","DaoInterfaceStoreProcedure"))
 #end
 
+#macro (putGetterSetter $class $variable)
+#parse("../snippet/GetterSetterSnippet.vm")
+#end

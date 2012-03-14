@@ -2,6 +2,7 @@
 #exposeEnvironmentParams()
 package $packageName;
 
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: Java Bean containing a collection of ${domainClassName} </p>
+ * <p>Description: Java Bean ${className} </p>
  *
  */
 public class ${className} {
