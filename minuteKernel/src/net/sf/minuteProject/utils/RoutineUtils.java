@@ -1,5 +1,7 @@
 package net.sf.minuteProject.utils;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
@@ -23,5 +25,23 @@ public class RoutineUtils {
 				return column;
 		}
 		return null;
+	}
+	
+	public static String getFunctionCallName(Function function) {
+		return StringUtils.upperCase(function.getName()+"_CALL");
+	}
+	
+	public static String getFunctionCall(Function function) {
+		return "call "+function.getName()+"("+getInput(function)+")";
+	}
+	private static String getInput(Function function) {
+		StringBuffer sb = new StringBuffer();
+		int size = function.getInputColumns().length;
+		for (int i=0; i<size; i++) {
+			sb.append("?");
+			if (i+1!=size)
+				sb.append(",");
+		}
+		return sb.toString();
 	}
 }
