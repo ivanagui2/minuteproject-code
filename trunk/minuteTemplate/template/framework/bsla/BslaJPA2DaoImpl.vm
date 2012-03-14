@@ -350,7 +350,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 #end      
         if (!isCommaSet)
            return "";
-	    return query.toString();        
+	    return query.toString();
     }
     
     protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {

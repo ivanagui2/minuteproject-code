@@ -1,13 +1,22 @@
 #exposeVariableModelSpecific()
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_0_0.dtd">
-
+#exposeModelUpdatedAreas("service-builder-node")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
 <service-builder package-path="$packageName">
+#end
 	<namespace>${model.name}</namespace>
 #foreach($table in ${package.listOfEntities})
-
+#exposeModelUpdatedAreas("entity-$domainClassName")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
 	<entity name="$domainClassName" uuid="false" local-service="true" remote-service="true">
-		
+#end		
 		<!-- PK fields -->
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -17,14 +26,30 @@
 		<!-- attribute fields -->
 #foreach ($column in ${table.attributes})
 #putColumnParams()
+#exposeModelUpdatedAreas("entity-${domainClassName}-$columnVar")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
 		<column name="$columnVar" type="$columnType" db-name="${column.name}"/> 
-#end		
+#end
+#end
+#foreach ($column in ${table.parents})
+#putColumnParams()
+#exposeModelUpdatedAreas("entity-${domainClassName}-$columnVar")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
+		<column name="$columnVar" type="$columnType" db-name="${column.name}"/> 
+#end
+#end
 		<!-- Relationships -->
 		
 		<column name="plid" type="Collection" entity="com.liferay.portal.Layout" mapping-key="plid"/> 
 		
 		<!-- Order -->
-		
+
 		<order>
 			<order-column name="sampleId" order-by="asc" />
 			<order-column name="version" order-by="desc" />
