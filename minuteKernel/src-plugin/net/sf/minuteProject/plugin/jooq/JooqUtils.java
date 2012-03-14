@@ -82,6 +82,8 @@ public class JooqUtils {
 	public static String getJooqColumnFullType(Column column) {
 		String type = column.getType();
 		if (ConvertUtils.DB_BLOB.equals(type) ||
+			ConvertUtils.DB_CLOB.equals(type) || 
+			ConvertUtils.DB_LONGTEXT.equals(type) || 
 			ConvertUtils.DB_LONGVARBINARY.equals(type) || 
 			ConvertUtils.DB_LONGBLOB.equals(type))
 			return "byte[]";
