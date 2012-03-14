@@ -5,6 +5,8 @@ $!commonUtils.getReadMeText($template)
 #macro(exposeVariableFunctionSpecific)
 #exposeVariableEntitySpecific()
 #exposeFunction()
+#set ($functionNameUpperCase=$routineUtils.getFunctionCallName($function))
+#set ($functionCall=$routineUtils.getFunctionCall($function))
 #end
 
 #macro (exposeFunction)

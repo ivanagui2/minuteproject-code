@@ -30,7 +30,7 @@ public class $className implements $functionInterfaceClassName {
        Query query = em.createNativeQuery(${functionNameUpperCase});
 #foreach ($column in $input.columns)
 #putColumnParams()
-       query.setParameter("${columnVar}", ${columnVar});
+       query.setParameter($velocityCount, ${functionInputVariable}.get${columnClass}());
 #end
        return query.getResultList(); 
 	}
