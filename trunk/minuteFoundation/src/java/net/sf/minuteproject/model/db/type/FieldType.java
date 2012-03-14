@@ -3,6 +3,7 @@ package net.sf.minuteproject.model.db.type;
 public enum FieldType {
 
 	TIMESTAMP,
+	TIME,
 	CHAR,
 	VARCHAR,
 	CHAR2,
