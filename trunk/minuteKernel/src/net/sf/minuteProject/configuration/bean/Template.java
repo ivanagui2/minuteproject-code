@@ -12,6 +12,7 @@ import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.LicenceUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -762,9 +763,14 @@ public class Template extends TemplateTarget {
 	private String getEndingTextCommentSnippetFromExtension() {
 		if (Extension.java.toString().equals(fileExtension)) return "*/";
 		if (Extension.xml.toString().equals(fileExtension)) return "-->";
-		if (Extension.sql.toString().equals(fileExtension)) return "";
-		if (Extension.properties.toString().equals(fileExtension)) return "";
+		if (Extension.sql.toString().equals(fileExtension)) return "--";
+		if (Extension.properties.toString().equals(fileExtension)) return "#";
 		return "";
+	}
+
+	public String getLicence() {
+		String s = LicenceUtils.getLicence();
+		return null;
 	}
 	
 }
