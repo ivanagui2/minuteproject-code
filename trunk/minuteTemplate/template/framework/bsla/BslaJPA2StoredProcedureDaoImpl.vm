@@ -23,6 +23,7 @@ import $functionInterfaceImport;
 public class $className implements $functionInterfaceClassName {
 
     public static final String ${functionNameUpperCase} = "${functionCall}";
+
 	@PersistenceContext
     private EntityManager em;
 	

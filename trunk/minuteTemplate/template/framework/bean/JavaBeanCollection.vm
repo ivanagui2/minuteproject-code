@@ -2,7 +2,6 @@
 #exposeEnvironmentParams()
 package $packageName;
 
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,11 +14,7 @@ import java.util.ArrayList;
  */
 public class ${className} {
 
-#foreach($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
-    private $columnType $columnVar;
-#end
+    private List<${domainClassName}> ${domainVariableName};
 
     /**
     * Default constructor
@@ -27,17 +22,6 @@ public class ${className} {
     public ${className}() {
     }
 	
-#foreach($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
-    public $columnType get$columnClass() {
-        return $columnVar;
-    }
-	
-    public void set$columnClass ($columnType $columnVar) {
-        this.$columnVar =  $columnVar;
-    }
-    
-#end
+#putGetterSetter(${domainClassName}, ${domainVariableName})
 
 }
