@@ -12,8 +12,9 @@ public class LicenceUtils {
 //				"wiki at minuteproject.wikispaces.com \n"+
 //				"blog at minuteproject.blogspot.net\n"+
 //				"";
-//		
-		return	"Copyright minuteproject\n"+
+
+		return	"Copyright (c) minuteproject, minuteproject@gmail.com\n"+
+				"All rights reserved.\n"+
 				"\n"+
 				"Licensed under the Apache License, Version 2.0 (the \"License\")\n"+
 				"you may not use this file except in compliance with the License.\n"+
@@ -27,7 +28,7 @@ public class LicenceUtils {
 				"See the License for the specific language governing permissions and\n"+
 				"limitations under the License.\n"+
 				"\n"+
-				"For information on minuteproject:\n"+
+				"More information on minuteproject:\n"+
 				"twitter @minuteproject\n"+
 				"wiki http://minuteproject.wikispaces.com \n"+
 				"blog http://minuteproject.blogspot.net\n"+
