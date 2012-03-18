@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import net.sf.minuteProject.application.ModelGenerator;
+import net.sf.minuteProject.configuration.bean.enumeration.Extension;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.view.Function;
@@ -75,7 +76,8 @@ public class Template extends TemplateTarget {
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
-	private enum Extension {java, xml, xsd, properties, sql};
+//	private enum Extension {java, xml, xsd, properties, sql};
+	private Extension extension;
 	
 	public Template () {}
 	
@@ -149,6 +151,7 @@ public class Template extends TemplateTarget {
 	}
 	public void setFileExtension(String fileExtension) {
 		this.fileExtension = fileExtension;
+		extension = Extension.fromValue(fileExtension);
 	}
 	public String getFilePrefix() {
 		if (filePrefix==null) return BLANK;
@@ -752,25 +755,26 @@ public class Template extends TemplateTarget {
 		return "";
 	}
 	
-	private String getBeginningTextCommentSnippetFromExtension() {
-		if (Extension.java.toString().equals(fileExtension)) return "/**";
-		if (Extension.xml.toString().equals(fileExtension)) return "<!--";
-		if (Extension.sql.toString().equals(fileExtension)) return "--";
-		if (Extension.properties.toString().equals(fileExtension)) return "#";
-		return "//missing extension";
-	}
-	
-	private String getEndingTextCommentSnippetFromExtension() {
-		if (Extension.java.toString().equals(fileExtension)) return "*/";
-		if (Extension.xml.toString().equals(fileExtension)) return "-->";
-		if (Extension.sql.toString().equals(fileExtension)) return "--";
-		if (Extension.properties.toString().equals(fileExtension)) return "#";
-		return "";
-	}
+//	private String getBeginningTextCommentSnippetFromExtension() {
+//		if (Extension.java.toString().equals(fileExtension)) return "/**";
+//		if (Extension.xml.toString().equals(fileExtension)) return "<!--";
+//		if (Extension.sql.toString().equals(fileExtension)) return "--";
+//		if (Extension.properties.toString().equals(fileExtension)) return "#";
+//		return "//missing extension";
+//	}
+//	
+//	private String getEndingTextCommentSnippetFromExtension() {
+//		if (Extension.java.toString().equals(fileExtension)) return "*/";
+//		if (Extension.xml.toString().equals(fileExtension)) return "-->";
+//		if (Extension.sql.toString().equals(fileExtension)) return "--";
+//		if (Extension.properties.toString().equals(fileExtension)) return "#";
+//		return "";
+//	}
 
 	public String getLicence() {
-		String s = LicenceUtils.getLicence();
-		return null;
+		if (extension==null)
+			return null;
+		return extension.getLicence();
 	}
 	
 }
