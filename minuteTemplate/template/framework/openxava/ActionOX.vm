@@ -1,10 +1,21 @@
 #exposeVariableActionSpecific()
 package $packageName;
 
+#addArea("import")
+
 public class ${className} extends org.openxava.actions.BaseAction{
 
 	public void execute() throws Exception {
-		//super.execute();
-		//TODO
+#exposeModelUpdatedAreas("execute")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
+        //super.execute();
+        //TODO
+#end
 	}
+
+#addArea("implementation")
+
 }
