@@ -133,11 +133,11 @@ $updatedAreaSnippet
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
 #end
 #if ($column.isLob())
-    @Lob
+    @Lob @Basic(fetch=FetchType.LAZY)  //$column.type
 #exposeLobProperties()
-#if ($convertClobToString=="true")
-#set($columnType="String")
-#end
+##if ($convertClobToString=="true")
+##set($columnType="String")
+##end
 #end
 #end
 #if($addXmlBinding)
@@ -231,8 +231,8 @@ $!updatedAreaEnd
     public ${className}(
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-#if ($column.isLob() && $convertClobToString=="true")
-#set($columnType="String")
+#if ($column.isLob())
+#exposeLobProperties()
 #elseif($useTemporal && $isTimeColumn)
 #set($columnType="java.util.Date")
 #end
@@ -451,9 +451,9 @@ $updatedAreaSnippet
 #putColumnParamNaming()
 #if ($column.isLob())
 #exposeLobProperties()
-#if ($convertClobToString=="true")
-#set($columnType="String")
-#end
+##if ($convertClobToString=="true")
+##set($columnType="String")
+##end
 #end
 #if($isEnum)
 #set($columnType=$enumClassName)
