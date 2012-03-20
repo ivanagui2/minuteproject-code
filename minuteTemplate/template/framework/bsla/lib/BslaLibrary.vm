@@ -474,6 +474,12 @@
 #if ($convertClobToString == "" && $column.type!="CLOB")
 #set ($convertClobToString = "false")
 #end
+#if ($convertClobToString=="true")
+#set($columnType="String")
+#end
+#if ($column.type=="BLOB")
+#set($columnType="byte[]")
+#end
 #end
 
 #macro (exposeWebSecurityProperties)

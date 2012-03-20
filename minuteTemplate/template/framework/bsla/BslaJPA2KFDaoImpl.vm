@@ -239,8 +239,6 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        return true;  
     }
 
-
-	
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;
 #foreach ($column in ${table.columns})
@@ -251,7 +249,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end 		
        return cpt;
 	}   
-  	
+
 	public List<$tableClassName> partialLoadWithParent$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName, QueryWhatInit queryWhatInit, Integer nbOfResult, Boolean useCache) {
 		Map beanPath = new Hashtable();
 ##		Query hquery = getPartialLoadWithParent${tableClassName}JPAQuery (${tableVariableName}What, positive$tableClassName, negative$tableClassName, beanPath, queryWhatInit, nbOfResult);
@@ -426,30 +424,34 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	    Query hquery = getEntityManager().createQuery(getPartialLoad${tableClassName}Query ($tableVariableName, positive$tableClassName, negative$tableClassName));
 		int countPartialField = countPartialField($tableVariableName);
 		if (countPartialField==0) 
-		   return new ArrayList<$tableClassName>();
+			return new ArrayList<$tableClassName>();
 		List list = hquery.getResultList();
 		Iterator iter = list.iterator();
 		List<$tableClassName> returnList = new ArrayList<$tableClassName>();
 		while(iter.hasNext()) {
-	       int index = 0;
-	       Object[] row;
-	       if (countPartialField==1) {
-	    	  row = new Object[1];
-	    	  row[0] = iter.next();
-	       } else 
-		      row = (Object[]) iter.next();
-		   $tableClassName ${tableVariableName}Result = new $tableClassName();
+			int index = 0;
+			Object[] row;
+			if (countPartialField==1) {
+				row = new Object[1];
+				row[0] = iter.next();
+				} 
+			else 
+				row = (Object[]) iter.next();
+			$tableClassName ${tableVariableName}Result = new $tableClassName();
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-           if (${tableVariableName}.get$columnClass() != null) {
-#if($columnUtils.isForeignKey($column))		
+			if (${tableVariableName}.get$columnClass() != null) {
+#if($columnUtils.isForeignKey($column))	
 #set($columnClass="${columnClass}_")
 #end
-			  ${tableVariableName}Result.set$columnClass(($columnType) row[index]);
-			  index++;
-           }
-#end 		   	
-           returnList.add(${tableVariableName}Result);
+#if ($column.isLob())
+#exposeLobProperties()
+#end
+				${tableVariableName}Result.set$columnClass(($columnType) row[index]);
+				index++;
+			}
+#end
+			returnList.add(${tableVariableName}Result);
         }
 	    return returnList;
 	}

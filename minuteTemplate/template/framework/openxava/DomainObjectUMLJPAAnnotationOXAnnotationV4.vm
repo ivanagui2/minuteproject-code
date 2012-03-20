@@ -169,9 +169,9 @@ public class ${className} {
     @Lob
 //    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
 #exposeLobProperties()
-#if ($convertClobToString=="true")
-#set($columnType="String")
-#end
+##if ($convertClobToString=="true")
+##set($columnType="String")
+##end
 #end
 #if ($columnUtils.hasStereotype($column))
     @Stereotype ("$column.stereotype.stereotype")
@@ -343,9 +343,9 @@ $!updatedAreaSnippet
 #columnJavaNaming()
 #if ($column.isLob())
 #exposeLobProperties()
-#if ($convertClobToString=="true")
-#set($columnType="String")
-#end
+##if ($convertClobToString=="true")
+##set($columnType="String")
+##end
 #end
     public $columnType get$columnClass() {
         return $columnVar;
