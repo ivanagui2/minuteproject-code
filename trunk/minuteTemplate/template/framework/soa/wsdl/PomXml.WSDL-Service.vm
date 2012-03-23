@@ -20,7 +20,8 @@
 		</dependency>
 		<dependency>
 			<groupId>${rootPackage}.${model.name}</groupId>
-			<artifactId>$DbApiName</artifactId>
+##			<artifactId>$DbApiName</artifactId>
+			<artifactId>${model.name}Bsla</artifactId>
 			<version>${version}-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

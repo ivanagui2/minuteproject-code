@@ -87,15 +87,16 @@
 #end
     <!-- store procedure input-->
 #foreach ($function in $database.functions)
+	<!-- function = $function -->
 #set ($in = $commonUtils.getDirection("IN"))
 #set ($table = $function.getEntity($in))
-#if(!$table.getColumnCount()>0)
+##if(!$table.getColumnCount()>0)
 #exposeVariableEntitySpecific()
 #set($controllerName=$openXavaUtils.getControllerName($table))
     <controller name="$controllerName">
 ##foreach ($action in $table.actions)
 ##exposeOXActionSpecific()   
-#set($actionName=$openXavaUtils.getActionClassName($action))
+#set($actionName=$openXavaUtils.getActionClassName($actionImport))
 #set($actionImport = $commonUtils.getEntityLevelTemplateFullPath($action, $template, "ActionOX.stored.proc"))
 ##        <action name="$actionName" mode="detail" class="$actionImport">
         <view name=""/>
@@ -105,5 +106,5 @@
 ##end        
     </controller>
 #end
-#end
+##end
 </controllers>

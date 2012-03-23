@@ -200,11 +200,15 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
    
    protected $tableClassName getDefault${tableClassName}What() {
       $tableClassName ${tableVariableName} = new $tableClassName();
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()      
 #set ($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($column)) 
       ${tableVariableName}.set$columnClass($defaultStuffing);
-#end      
+#end
+#else
+	// default what clause for composite pk is not yet supported - Contribution welcomed!
+#end
       return ${tableVariableName};
    }
    
