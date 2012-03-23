@@ -1,19 +1,23 @@
     public List<$tableClassName> loadGraph($tableClassName graphMaskWhat, List<$tableClassName> whereMask) {
         return loadGraphOneLevel(graphMaskWhat, whereMask);
     }
- 
-    public List<$tableClassName> loadGraphOneLevel($tableClassName graphMaskWhat, List<$tableClassName> whereMask) {
-        //first get roots element from where list mask
-        // this brings the level 0 of the graph (root level)
+
+	public List<$tableClassName> loadGraphOneLevel($tableClassName graphMaskWhat, List<$tableClassName> whereMask) {
+		//first get roots element from where list mask
+		// this brings the level 0 of the graph (root level)
+ #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #set($mask=$bslaLibraryUtils.getJavaDefaultMask($primaryKeyFirstColumn))		
-        graphMaskWhat.set${primaryKeyJavaNameClass}(graphMaskWhat.$mask);
-        List<$tableClassName> ${tableVariableName}s = searchPrototype$tableClassName (whereMask);
-        // for each sub level perform the search with a subquery then reassemble
-        // 1. get all sublevel queries
-        // 2. perform queries on the correct dao
-        // 3. reassemble
-        return getLoadGraphOneLevel (graphMaskWhat, ${tableVariableName}s);
-    }
+		graphMaskWhat.set${primaryKeyJavaNameClass}(graphMaskWhat.$mask);
+#else
+		// default what clause for composite pk is not yet supported - Contribution welcomed!
+#end
+		List<$tableClassName> ${tableVariableName}s = searchPrototype$tableClassName (whereMask);
+		// for each sub level perform the search with a subquery then reassemble
+		// 1. get all sublevel queries
+		// 2. perform queries on the correct dao
+		// 3. reassemble
+		return getLoadGraphOneLevel (graphMaskWhat, ${tableVariableName}s);
+	}
 
 	private List<$tableClassName> copy(List<$tableClassName> inputs) {
 		List<$tableClassName> l = new ArrayList<$tableClassName>();
