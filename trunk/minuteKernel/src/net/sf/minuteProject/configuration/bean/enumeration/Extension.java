@@ -83,6 +83,7 @@ public enum Extension implements FileComment {
 			licence = format(LicenceUtils.getLicence());
 		return licence;
 	}
+	
 	public String format (String text) {
 		if (text==null) return null;
 		String[] lines = StringUtils.split(text, CRLF);
