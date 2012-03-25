@@ -1,9 +1,7 @@
 #exposeVariableModelSpecific() 
 #exposeOXSpecific()
-<?xml version = "1.0" encoding = "ISO-8859-1"?>
-
-<!DOCTYPE application SYSTEM "dtds/application.dtd">
-
+##<?xml version = "1.0" encoding = "ISO-8859-1"?>
+##<!DOCTYPE application SYSTEM "dtds/application.dtd">
 <application name="$applicationOX"> 
 	
 	<!-- 
@@ -12,7 +10,7 @@
 	-->
 	
 	<default-module>		  
-		<controller name="Typical"/>		
+		<controller name="Typical"/>
 	</default-module>
 	
 ##exposeVariableModelDetailSpecific()
@@ -44,13 +42,21 @@
 	    <model name="$tableClassName"/>
 	    <view name="base"/> 
 	    <controller name="$openXavaUtils.getControllerName($table)"/>  
-##foreach ($action in $table.actions)	    
-##	    <controller name="$openXavaUtils.getActionClass($action.name)"/>
-##end	    
+	    <mode-controller name="DetailOnly"/>
+	</module>
+#end
+	
+#foreach ($function in $database.functions)
+#set ($inout = $commonUtils.getDirection("INOUT"))
+#set ($table = $function.getEntity($inout))
+#exposeVariableEntitySpecific()
+	<module name="$tableClassName" >
+	    <model name="$tableClassName"/>
+	    <view name="base"/> 
+	    <controller name="$openXavaUtils.getControllerName($table)"/>  
 	    <mode-controller name="DetailOnly"/>
 	</module>
 #end
 		
 </application>
-
 

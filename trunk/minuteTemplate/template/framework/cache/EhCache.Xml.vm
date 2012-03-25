@@ -31,7 +31,11 @@ $!updatedAreaSnippet
     created programmtically using CacheManager.add(String cacheName)
     -->
     <defaultCache
+#if($useMaxEntriesLocalHeap)
+            maxElementsInMemory="1000"
+#else
             maxEntriesLocalHeap="1000"
+#end
             eternal="false"
             timeToIdleSeconds="300"
             timeToLiveSeconds="300"
@@ -62,11 +66,15 @@ $!updatedAreaSnippet
 #else
    <cache
     name="$importDomainObjectUML"
-    maxElementsInMemory="5000"
-    eternal="false"
-    timeToIdleSeconds="300"
-    timeToLiveSeconds="600"
-    overflowToDisk="false"
+#if($useMaxEntriesLocalHeap)
+        maxElementsInMemory="5000"
+#else
+        maxEntriesLocalHeap="5000"
+#end
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="false"
    />
 #end
 $!updatedAreaEnd

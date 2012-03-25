@@ -1,11 +1,7 @@
 #exposeVariableModelSpecific() 
 #set ($applicationOX=$configuration.name)
-<?xml version = "1.0" encoding = "ISO-8859-1"?>
-
-<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
-
-<!-- OpenXavaTest -->
-
+##<?xml version = "1.0" encoding = "ISO-8859-1"?>
+##<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
 <controllers> 
 
 	<controller name="MpTypical">
@@ -87,24 +83,18 @@
 #end
     <!-- store procedure input-->
 #foreach ($function in $database.functions)
-	<!-- function = $function -->
-#set ($in = $commonUtils.getDirection("IN"))
-#set ($table = $function.getEntity($in))
-##if(!$table.getColumnCount()>0)
+#set ($inout = $commonUtils.getDirection("INOUT"))
+#set ($table = $function.getEntity($inout))
 #exposeVariableEntitySpecific()
 #set($controllerName=$openXavaUtils.getControllerName($table))
     <controller name="$controllerName">
-##foreach ($action in $table.actions)
-##exposeOXActionSpecific()   
-#set($actionName=$openXavaUtils.getActionClassName($actionImport))
-#set($actionImport = $commonUtils.getEntityLevelTemplateFullPath($action, $template, "ActionOX.stored.proc"))
-##        <action name="$actionName" mode="detail" class="$actionImport">
+#set($actionName="call${domainClassName}")
+#set($actionImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, "ActionOX.stored.proc"))
         <view name=""/>
-        <action name="call${domainClassName}" mode="detail" class="$actionImport">
+        <action name="${actionName}" mode="detail" class="$actionImport">
             <use-object name="xava_view" />
         </action>       
-##end        
     </controller>
 #end
-##end
+
 </controllers>

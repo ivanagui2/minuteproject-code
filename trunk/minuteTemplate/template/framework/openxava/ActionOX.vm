@@ -1,9 +1,10 @@
-#exposeVariableActionSpecific()
+#exposeOXVariableActionSpecific()
+
 package $packageName;
 
-#addArea("import")
+$!updatedAreaImport
 
-public class ${className} extends org.openxava.actions.BaseAction{
+public class ${className} extends org.openxava.actions.BaseAction {
 
 	public void execute() throws Exception {
 #exposeModelUpdatedAreas("execute")
@@ -14,8 +15,10 @@ $!updatedAreaSnippet
         //super.execute();
         //TODO
 #end
+$!updatedAreaEnd
+
 	}
 
-#addArea("implementation")
+$!updatedAreaImplementation
 
 }
