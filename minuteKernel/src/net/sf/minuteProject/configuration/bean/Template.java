@@ -772,7 +772,7 @@ public class Template extends TemplateTarget {
 //	}
 
 	public String getLicence() {
-		if (extension==null)
+		if (extension==null || extension.equals(Extension.xml))
 			return null;
 		return extension.getLicence();
 	}
