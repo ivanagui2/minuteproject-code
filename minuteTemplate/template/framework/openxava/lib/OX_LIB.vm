@@ -161,3 +161,12 @@ properties=""
 #macro (putOXTemplateDefinition)
 #set($addSpringSecurity=$template.getPropertyValue("add-spring-security",false))
 #end
+
+#macro(exposeOXVariableActionSpecific)
+#set($isAction=$template.getProperty("isAction",true))
+#if($isAction)
+#exposeVariableActionSpecific()
+#else
+#exposeVariableEntitySpecific()
+#end
+#end
