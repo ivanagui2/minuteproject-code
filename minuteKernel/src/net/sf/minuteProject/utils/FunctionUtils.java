@@ -37,8 +37,6 @@ public class FunctionUtils {
 		functions = new HashMap<String, Function>();
 		Function function = null;
 		try {
-//			List<Function> functions = new ArrayList<Function>();
-//		    
 			DatabaseMetaData dbMetaData = connection.getMetaData();
 			String catalog = connection.getCatalog();
 			ResultSet rs;
@@ -47,12 +45,12 @@ public class FunctionUtils {
 			else
 				rs = dbMetaData.getProcedureColumns(catalog, schema, null, null);
 	
-		    String previousProcedureCatalog = "";
-		    String previousProcedureName    = "";
+//		    String previousProcedureCatalog = "";
+//		    String previousProcedureName    = "";
 		    while(rs.next()) {
 		      // get stored procedure metadata
 		      String procedureCatalog     = rs.getString(1);
-		      String procedureSchema      = rs.getString(2);
+//		      String procedureSchema      = rs.getString(2);
 		      String procedureName        = rs.getString(3);
 		      String columnName           = rs.getString(4);
 		      short  columnReturn         = rs.getShort(5);
@@ -76,12 +74,13 @@ public class FunctionUtils {
 //		    		 function.setCatalog(catalog);
 //		         function.setName(procedureName);
 //		      }
-		      previousProcedureCatalog = (procedureCatalog!=null)?procedureCatalog:"";
-		      previousProcedureName    = (procedureName!=null)?procedureName:"";
-		      
+//		      previousProcedureCatalog = (procedureCatalog!=null)?procedureCatalog:"";
+//		      previousProcedureName    = (procedureName!=null)?procedureName:"";
+//		      
 		      FunctionColumn functionColumn = new FunctionColumnDDLUtils();
 		      functionColumn.setName(columnName);
-		      functionColumn.setDirection(getDirection(columnReturn));
+		      Direction dir = getDirection(columnReturn);
+		      functionColumn.setDirection(dir);
 		      functionColumn.setTypeCode(columnDataType);
 		      functionColumn.setType(columnReturnTypeName);//getType(columnDataType));
 		      functionColumn.setPrecisionRadix(columnRadix);
