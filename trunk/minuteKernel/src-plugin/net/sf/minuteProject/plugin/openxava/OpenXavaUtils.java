@@ -126,7 +126,9 @@ public class OpenXavaUtils {
 	}
 	
 	public static String getActionClassName (Action action) {
-		return RestrictedCodeUtils.convertToValidJava(action.getName());
+		if (action!=null)
+			return RestrictedCodeUtils.convertToValidJava(action.getName());
+		return "action_must_be_set";
 	}
 	
 	public static String getControllerName (Table table) {
