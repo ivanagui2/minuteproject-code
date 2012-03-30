@@ -10,13 +10,23 @@
     <!-- Dao JPA -->
     <import resource="classpath:${pathDaoJPA}.xml"/>    
 
+#exposeModelUpdatedAreas("${JPAFactoryName}")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
     <!-- hibernate config to put in an appart config file-->
     <bean id="$JPAFactoryName" autowire="byName"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- all connection information are retrieve from the persistence file-->
+		<!--
+			<property name="dataSource" ref="..."/>
+			<property name="persistenceUnitName" value="..."/>
+		-->
         <property name="persistenceXmlLocation" value="$persistenceXmlLocation" />
     </bean>
-    
+#end
+$!updatedAreaEnd
     <!-- Database -->
     <import resource="classpath:${databaseConfig}.xml"/>    
 
