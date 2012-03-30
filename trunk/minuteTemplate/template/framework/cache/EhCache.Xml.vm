@@ -32,9 +32,9 @@ $!updatedAreaSnippet
     -->
     <defaultCache
 #if($useMaxEntriesLocalHeap)
-            maxElementsInMemory="1000"
-#else
             maxEntriesLocalHeap="1000"
+#else
+            maxElementsInMemory="1000"
 #end
             eternal="false"
             timeToIdleSeconds="300"
