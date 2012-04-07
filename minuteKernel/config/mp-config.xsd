@@ -12,7 +12,6 @@
             </xs:documentation>
         </xs:annotation>
     </xs:element>
-    
 	<xs:complexType name="condition">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="startsWith" type="xs:string" />
@@ -21,8 +20,7 @@
 
 	<xs:complexType name="property">
 		<xs:sequence>
-			<xs:element name="property" type="property" minOccurs="0"
-				maxOccurs="unbounded"></xs:element>
+			<xs:element name="property" type="property" minOccurs="0" maxOccurs="unbounded"></xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="value" type="xs:string" />
@@ -39,8 +37,7 @@
 
 	<xs:complexType name="dataSource">
 		<xs:sequence>
-			<xs:element name="driverClassName" type="xs:string"
-				minOccurs="0" />
+			<xs:element name="driverClassName" type="xs:string" minOccurs="0" />
 			<xs:element name="url" type="xs:string" minOccurs="0" />
 			<xs:element name="username" type="xs:string" minOccurs="0" />
 			<xs:element name="password" type="xs:string" minOccurs="0" />
@@ -52,7 +49,6 @@
 		<xs:attribute name="prefix" type="xs:string" />
 		<xs:attribute name="suffix" type="xs:string" />
 		<xs:attribute name="sequenceName" type="xs:string" />
-
 	</xs:complexType>
 
 	<xs:complexType name="primaryKeyPolicy">
@@ -64,7 +60,6 @@
 		<xs:attribute name="oneForEachTable" type="xs:boolean" />
 		<xs:attribute name="oneGlobal" type="xs:boolean" />
 		<xs:attribute name="name" type="xs:string" />
-
 	</xs:complexType>
 
 	<xs:complexType name="generator-config">
@@ -255,6 +250,41 @@
 		<xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:complexType name="statement-model">
+		<xs:sequence>
+            <xs:element name="queries" type="queries" >
+            </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="queries">
+		<xs:sequence>
+            <xs:element name="query" type="query" minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="query">
+		<xs:sequence>
+            <xs:element name="query-body" />
+            <xs:element name="query-what"/>
+            <xs:element name="query-where"/>
+            <xs:element name="query-params" type="query-params"/>
+		</xs:sequence>
+        <xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="query-params">
+		<xs:sequence>
+            <xs:element name="query-param" type="query-param" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="query-param">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="is-mandatory" type="xs:boolean" />
+        <xs:attribute name="direction" type="xs:string" />
+	</xs:complexType>
 
 	<xs:complexType name="business-model">
 		<xs:sequence>
@@ -272,15 +302,16 @@
 
 	<xs:complexType name="model">
 		<xs:sequence>
-			<xs:element name="data-model" type="data-model" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="data-model" type="data-model">
 			</xs:element>
 			<xs:element name="business-model" type="business-model"
-				minOccurs="0" maxOccurs="unbounded">
+				minOccurs="0">
 			</xs:element>
-
 			<xs:element name="function-model" type="function-model"
-				minOccurs="0" maxOccurs="unbounded">
+				minOccurs="0" >
+			</xs:element>
+			<xs:element name="statement-model" type="statement-model"
+				minOccurs="0" >
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
@@ -319,7 +350,7 @@
 	</xs:complexType>
 
 	<xs:complexType name="data-model">
-		<xs:sequence  >
+		<xs:sequence>
 			<xs:element type="driver" name="driver" minOccurs="0"
 				maxOccurs="unbounded">
 			</xs:element>
