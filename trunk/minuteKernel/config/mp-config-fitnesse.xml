@@ -29,6 +29,18 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<condition type="package" startsWith="TB_" result="other"></condition>
 				</business-package>							
 			</business-model>
+			<statement-model>
+			     <queries>
+			         <query name="get address street">
+			             <query-what>select street1, street2 from address</query-what>
+			             <query-where><![CDATA[addressid > ?]]></query-where>
+			             <query-params>
+			                 <query-param name="identifierAddress" is-mandatory="false" type="int"></query-param>
+			             </query-params>
+			         </query>
+			     </queries>
+			</statement-model>
+			
 		</model>
 		<targets>
 			<target refname="FitNesse" 
