@@ -13,6 +13,7 @@ public class Model extends AbstractConfiguration{
 	private DataModel dataModel;
 	private BusinessModel businessModel;
 	private FunctionModel functionModel;
+	private StatementModel statementModel;
 	private Configuration configuration;
 	private WebServiceModel webServiceModel;
 

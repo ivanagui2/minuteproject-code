@@ -8,12 +8,5 @@ import org.apache.log4j.Logger;
 public class FunctionGenerationCondition extends GenerationConditionAdapter {
 
 	private static Logger logger = Logger.getLogger(FunctionGenerationCondition.class);
-//	private GenerationCondition generationCondition;
-//	
-//	public GenerationCondition getGenerationCondition() {
-//		return generationCondition;
-//	}
-//	public void setGenerationCondition(GenerationCondition generationCondition) {
-//		this.generationCondition = generationCondition;
-//	}
+
 }
