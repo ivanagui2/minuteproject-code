@@ -20,6 +20,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.statement.Queries;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
@@ -147,11 +149,6 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generate (Configuration configuration) throws MinuteProjectException {
 		Model model = getEnrichedModel(configuration);
-//		configuration.getModel();
-//		setModel(model);
-//		loadModel(model);
-//		applyConventions(model);
-//		applyLimitations(model);
 		if (hasTarget())
 			loadAndGenerate(model.getConfiguration().getTarget());
 		if (hasTargets())
@@ -254,7 +251,6 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
 		else if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(template.getScopeSpecificValue()))
-//			generateArtifactsByFunction(template, Direction.IN, Direction.INOUT, Direction.NONE);
 			generateArtifactsByFunction(template, Direction.IN);
 		else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(template.getScopeSpecificValue()))
 			generateArtifactsByFunction(template, Direction.OUT);		
@@ -265,7 +261,9 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (SCOPE_TRANSFER_ENTITY_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByTransferEntity(template);
 		else if (SCOPE_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsByAction(template);			
+			generateArtifactsByAction(template);
+		else if (QUERY_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
+			generateArtifactsByQuery(template);
 	}
 
 	private void generateArtifactsByAction(Template template) throws MinuteProjectException {
@@ -275,13 +273,13 @@ public class ModelGenerator extends AbstractGenerator {
 			}
 		}
 	}
-
-	public Model getModel() {
-		return model;
-	}
-
-	public void setModel(Model model) {
-		this.model = model;
+	
+	private void generateArtifactsByQuery(Template template) throws MinuteProjectException {
+		if (getModel().getStatementModel()!=null && getModel().getStatementModel().getQueries()!=null) {
+			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
+				writeTemplateResult(query, template);
+			}
+		}
 	}
 
 	protected void generateArtifactsByTargetTemplate(Template template) throws MinuteProjectException {
@@ -536,6 +534,14 @@ public class ModelGenerator extends AbstractGenerator {
 	 * private getter of the context object 
 	 */
 	
-	
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
 	
 }

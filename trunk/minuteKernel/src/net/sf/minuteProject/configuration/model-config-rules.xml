@@ -73,6 +73,57 @@
 			</set-properties-rule>-->
 		</pattern>
 	</pattern>
+    <pattern value="statement-model">
+        <object-create-rule classname="net.sf.minuteProject.configuration.bean.StatementModel"/>     
+        <set-next-rule methodname="setStatementModel" paramtype="net.sf.minuteProject.configuration.bean.StatementModel"/>        
+        <pattern value="queries">
+            <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.Queries"/>    
+            <set-next-rule methodname="setQueries" paramtype="net.sf.minuteProject.configuration.bean.model.statement.Queries"/>          
+            <set-properties-rule/>        
+            <bean-property-setter-rule pattern="name"/>
+	        <pattern value="query">
+	            <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.Query"/>    
+	            <set-next-rule methodname="addQuery" paramtype="net.sf.minuteProject.configuration.bean.model.statement.Query"/>          
+	            <bean-property-setter-rule pattern="name"/>
+                <set-properties-rule>
+                    <alias attr-name="name" prop-name="name" />
+                </set-properties-rule>  
+<!-- 	            <bean-property-setter-rule pattern="query-body" propertyname="queryBody"/>         
+	            <bean-property-setter-rule pattern="queryWhat" propertyname="query-what"/>         
+	            <bean-property-setter-rule pattern="query-where" propertyname="queryWhere"/>         
+ -->
+		        <pattern value="query-body">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
+	                <set-next-rule methodname="setQueryBody" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>          
+	                <set-properties-rule/>
+	                <bean-property-setter-rule pattern="value"/>
+	            </pattern>         
+ 		        <pattern value="query-what">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryWhat"/>    
+	                <set-next-rule methodname="setQueryWhat" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryWhat"/>          
+	                <set-properties-rule/>
+	                <bean-property-setter-rule pattern="value"/>
+	            </pattern>         
+		        <pattern value="query-where">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryWhere"/>    
+	                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryWhere"/>          
+	                <set-properties-rule/>
+	                <bean-property-setter-rule pattern="value"/>
+	            </pattern>         
+	             
+		        <pattern value="query-params">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>    
+	                <set-next-rule methodname="setQueryParams" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>          
+	                <set-properties-rule/>
+	                <pattern value="query-param">
+	                    <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>    
+	                    <set-next-rule methodname="addQueryParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>          
+	                    <set-properties-rule/>               
+	                </pattern>
+	            </pattern>
+	        </pattern>
+        </pattern>     
+    </pattern>
 	<pattern value="data-model">
 		<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
 		<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
