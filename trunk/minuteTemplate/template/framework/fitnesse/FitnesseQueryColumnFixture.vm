@@ -1,3 +1,4 @@
+#exposeQuerySpecific()
 package $packageName;
 
 import java.sql.*;

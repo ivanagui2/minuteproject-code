@@ -9,6 +9,11 @@ $!commonUtils.getReadMeText($template)
 #set ($functionCall=$routineUtils.getFunctionCall($function))
 #end
 
+#macro(exposeQuerySpecific)
+#set ($packageName = $commonUtils.getPackageName($query, $template))
+#set ($className = $commonUtils.getClassName($query, $template))
+#end
+
 #macro (exposeFunction)
 #exposeFunctionTemplate()
 #set ($in = $commonUtils.getDirection("IN"))
