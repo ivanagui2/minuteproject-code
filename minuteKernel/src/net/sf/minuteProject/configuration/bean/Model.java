@@ -133,6 +133,13 @@ public class Model extends AbstractConfiguration{
 	public boolean isUsingDefaultName() {
 		return DEFAUTMODEL_VALUE.equals(getName());
 	}
-	
+
+	public StatementModel getStatementModel() {
+		return statementModel;
+	}
+
+	public void setStatementModel(StatementModel statementModel) {
+		this.statementModel = statementModel;
+	}
 	
 }

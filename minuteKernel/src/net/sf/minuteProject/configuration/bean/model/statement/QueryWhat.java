@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
-public class QueryWhat {
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+
+public class QueryWhat extends QueryAdapter {
 
 }

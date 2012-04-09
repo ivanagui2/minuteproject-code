@@ -1,5 +1,5 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
-public class QueryWhere {
+public class QueryWhere extends QueryAdapter {
 
 }

@@ -60,6 +60,7 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SCOPE_TARGET_TEMPLATE = "target";
 	protected static final String SCOPE_TRANSFER_ENTITY_TEMPLATE = "transfer-entity";
 	protected static final String SCOPE_ACTION_TEMPLATE="action";
+	protected static final String QUERY_ACTION_TEMPLATE="query";
 	protected static final String SCOPE_WSDL="wsdl";
 	protected static final String SCOPE_WSDL_ENTITY="wsdl-entity";
 	protected static final String SCOPE_WSDL_SERVICE="wsdl-service";
@@ -396,9 +397,6 @@ public abstract class AbstractGenerator implements Generator {
 		writer.close();  
 	}
 	
-   private CharSequence getLicence() {
-		return null;
-	}
 
    protected String getAbstractBeanName (GeneratorBean bean) {
 		String beanName = StringUtils.lowerCase(bean.getClass().getName());

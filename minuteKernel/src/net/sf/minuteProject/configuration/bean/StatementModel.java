@@ -20,6 +20,7 @@ public class StatementModel {
 		return queries;
 	}
 	public void setQueries(Queries queries) {
+		queries.setStatementModel(this);
 		this.queries = queries;
 	}
 	
