@@ -1,0 +1,24 @@
+package $packageName;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+import net.sf.minuteproject.fitnesse.fixture.DbInsertUpdateDeleteFixture;
+import fit.ColumnFixture;
+import fitnesse.fixtures.TableFixture;
+
+public class ${className} extends DbInsertUpdateDeleteFixture{
+
+$query.name
+$query
+$query.queryWhat
+$query.queryWhat.value
+$query.queryWhere.value
+#foreach ($param in $query.queryParams.queryParams)
+-->$param.name $param.isMandatory() $param.type
+#end
+}
