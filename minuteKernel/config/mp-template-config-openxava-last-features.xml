@@ -425,7 +425,7 @@
 	
 	<template-target 
     	name="OpenXava action"
-    	outputdir="src-to-implement">	
+    	outputdir="src">	
 
 		<template
 			name="ActionOX" templateFileName="ActionOX.vm" 
