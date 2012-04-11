@@ -3,7 +3,9 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryParams {
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+
+public class QueryParams extends AbstractConfiguration{
 
 	private List<QueryParam> queryParams;
 

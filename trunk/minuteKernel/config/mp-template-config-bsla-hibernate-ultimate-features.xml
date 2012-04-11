@@ -1,8 +1,7 @@
-<!DOCTYPE root>
-<target name="BackendOnBsla-forhibernate" xmlns="http://minuteproject.sf.net/xsd/mp-template-config"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-	xs:noNamespaceSchemaLocation="mp-template-config.xsd">
-
+<target name="hibernate bsla criteria"
+xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="mp-template-config.xsd">
 	<architecture-target name="hibernate"
 		description="basic springframework layer architecture" />
 	<plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
