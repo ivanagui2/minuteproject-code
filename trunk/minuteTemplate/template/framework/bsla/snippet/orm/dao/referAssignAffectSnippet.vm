@@ -1,5 +1,5 @@
 	public $tableClassName affect$tableClassName ($tableClassName $tableVariableName) {
-	    return refer$tableClassName ($tableVariableName, false);		    
+	    return refer$tableClassName ($tableVariableName, null, false);		    
 	}
 		
 	/**
@@ -9,15 +9,31 @@
 	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
 	 */
 	public $tableClassName assign$tableClassName ($tableClassName $tableVariableName) {
-	    return refer$tableClassName ($tableVariableName, true);	
+		return refer$tableClassName ($tableVariableName, null, true);
 	}
-	
-	public $tableClassName refer$tableClassName ($tableClassName $tableVariableName, boolean isAssign) {
+
+	/**
+	 * Assign the first $tableVariableName retrieved corresponding to the mask criteria.
+	 * Blank criteria are mapped to null.
+	 * If no criteria is found, null is returned.
+	 * If there is no $tableVariableName corresponding in the database. 
+	 * Then $tableVariableName is inserted and returned with its primary key(s). 
+	 * Mask servers usually to set unique keys or the semantic reference
+	 */
+    public $tableClassName assign$tableClassName ($tableClassName $tableVariableName, $tableClassName mask) {
+		return refer$tableClassName ($tableVariableName, mask, true);
+	}
+
+	public $tableClassName refer$tableClassName ($tableClassName $tableVariableName, $tableClassName mask, boolean isAssign) {
 		$tableVariableName = assignBlankToNull ($tableVariableName);
 		if (isAllNull($tableVariableName))
 			return null;
 		else {
-			List<$tableClassName> list = searchPrototype$tableClassName($tableVariableName);
+			List<$tableClassName> list;
+			if (mask==null)
+				list = searchPrototype$tableClassName($tableVariableName);
+			else
+				list = searchPrototype$tableClassName(mask);
 			if (list.isEmpty()) {
 			    if (isAssign)
 			       insert$tableClassName($tableVariableName);
@@ -45,7 +61,7 @@
 	  String key = getCacheKey(null, $tableVariableName, null, "assign$tableClassName");
       $tableClassName ${tableVariableName}Cache = ($tableClassName)simpleCache.get(key);
       if (${tableVariableName}Cache==null) {
-         ${tableVariableName}Cache = refer${tableClassName} ($tableVariableName, isAssign);
+         ${tableVariableName}Cache = refer${tableClassName} ($tableVariableName, null, isAssign);
          if (key!=null)
          	simpleCache.put(key, ${tableVariableName}Cache);
       }
