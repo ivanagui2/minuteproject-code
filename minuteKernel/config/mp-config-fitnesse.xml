@@ -24,16 +24,16 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<business-model>
 				<generation-condition>
 					<condition type="exclude" startsWith="DUAL"></condition>
-				</generation-condition>		
+				</generation-condition>
 				<business-package default="pet">
 					<condition type="package" startsWith="TB_" result="other"></condition>
-				</business-package>							
+				</business-package>
 			</business-model>
 			<statement-model>
 			     <queries>
 			         <query name="get address street">
-			             <query-what>select street1, street2 from address</query-what>
-			             <query-where><![CDATA[addressid > ?]]></query-where>
+			             <query-what><value>select street1, street2 from address</value></query-what>
+			             <query-where><value><![CDATA[addressid > ?]]></value></query-where>
 			             <query-params>
 			                 <query-param name="identifierAddress" is-mandatory="false" type="int"></query-param>
 			             </query-params>
@@ -52,6 +52,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			</target>
+			<target refname="COMMON_LIB" 
+			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/common">
 			</target>
 		</targets>		
 				

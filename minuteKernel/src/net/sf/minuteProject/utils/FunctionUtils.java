@@ -23,6 +23,7 @@ public class FunctionUtils {
 	
 	private static Logger log = Logger.getLogger(FunctionUtils.class);
 	private static Map<String, Function> functions;
+	
 	public static List<Function> getFunctions(DataModel dataModel, Database database) {
 		
 		Connection connection = ConnectionUtils.getConnection(dataModel);

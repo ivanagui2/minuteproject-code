@@ -89,20 +89,13 @@ public class Model extends AbstractConfiguration{
 			&& 
 			!(template.getApplicationSpecific()!=null && template.getApplicationSpecific().equals("true"))
 			) {
-//			if (isValidPackageName())
 				sb.append("."+getName());
-		}
+			}
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());		
 		return sb.toString();
 	}
 
-//	private boolean isValidPackageName() {
-//		if (getName()!=null &&getName().trim().equals(""))
-//			return false;
-//		return true;
-//	}
-	
 	public String getName() {
 		if (StringUtils.isEmpty(name)){
 			name= DEFAUTMODEL_VALUE;
@@ -140,6 +133,7 @@ public class Model extends AbstractConfiguration{
 
 	public void setStatementModel(StatementModel statementModel) {
 		this.statementModel = statementModel;
+		this.statementModel.setModel(this);
 	}
 	
 }

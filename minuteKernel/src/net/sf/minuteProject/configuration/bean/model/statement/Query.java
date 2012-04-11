@@ -1,7 +1,10 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
+import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
 
@@ -10,6 +13,14 @@ public class Query extends AbstractConfiguration {
 	private QueryWhat queryWhat;
 	private QueryWhere queryWhere;
 	private QueryParams queryParams;
+	
+	public QueryParams getInputParams () {
+		return QueryUtils.getInputParams(this);
+	}
+	
+	public QueryParams getOutputParams () {
+		return QueryUtils.getOutputParams(this);
+	}
 	
 	public Queries getQueries() {
 		return queries;
@@ -54,7 +65,12 @@ public class Query extends AbstractConfiguration {
 		this.queryParams = queryParams;
 	}
 	
-//	public String getTechnicalPackage(Template template) {
-//		return template.getTechnicalPackage();
-//	}
+	public String getTechnicalPackage(Template template) {
+		return getModel().getTechnicalPackage(template);
+	}
+	
+	private Model getModel() {
+		return getQueries().getStatementModel().getModel();
+	}
+	
 }
