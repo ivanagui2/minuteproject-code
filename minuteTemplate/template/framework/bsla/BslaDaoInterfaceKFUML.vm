@@ -52,7 +52,17 @@ public interface $className extends DataAccessObject {
 	 * If there is no $tableVariableName corresponding in the database. Then $tableVariableName is inserted and returned with its primary key(s). 
 	 */
     public $tableClassName assign$tableClassName ($tableClassName $tableVariableName);
-    
+
+	/**
+	 * Assign the first $tableVariableName retrieved corresponding to the mask criteria.
+	 * Blank criteria are mapped to null.
+	 * If no criteria is found, null is returned.
+	 * If there is no $tableVariableName corresponding in the database. 
+	 * Then $tableVariableName is inserted and returned with its primary key(s). 
+	 * Mask servers usually to set unique keys or the semantic reference
+	 */
+    public $tableClassName assign$tableClassName ($tableClassName $tableVariableName, $tableClassName mask);
+	
     public $tableClassName assign${tableClassName}UseCache ($tableClassName $tableVariableName);
          
     /**
