@@ -206,7 +206,7 @@
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-ext-JPA-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
-			<property name="ignore-many-to-many" value="true"/>			
+			<property name="ignore-many-to-many" value="true"/>
 		</template>	
 
 		<template name="BslaSpringConfigDaoJPA2" templateFileName="BslaSpringConfigDaoJPA2.vm" 
@@ -217,7 +217,8 @@
 		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			entity-specific="false" package-specific="false" model-specific="true"
+			has-updatable-nature="true">
 			<property name="use-persistence-standard-location" value="true"/>
 		</template>
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA2.vm" 

@@ -196,7 +196,8 @@ xs:schemaLocation="mp-template-config.xsd">
 		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			entity-specific="false" package-specific="false" model-specific="true"
+			has-updatable-nature="true">
 		</template>					
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
@@ -208,7 +209,7 @@ xs:schemaLocation="mp-template-config.xsd">
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="hibernateDialect" value="true"></property>
-		</template>	
+		</template>
 
 		<!-- SPRING CONFIG end-->
 		
