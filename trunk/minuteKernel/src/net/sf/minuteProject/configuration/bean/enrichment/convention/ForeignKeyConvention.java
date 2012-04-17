@@ -64,8 +64,10 @@ public class ForeignKeyConvention extends ModelConvention {
 	}
 
 	private void apply(Table table) {
-		for (Field field : getForeignKeyFieldsNotInSelfReferencedPrimaryKey(table))
+		for (Field field : getForeignKeyFieldsNotInSelfReferencedPrimaryKey(table)){
+//			System.out.println("field "+field);
 			ForeignKeyUtils.setForeignKey(table, field);
+		}
 	}
 
 	private List<Field> getForeignKeyFieldsNotInSelfReferencedPrimaryKey(Table table) {

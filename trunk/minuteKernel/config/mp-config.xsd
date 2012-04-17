@@ -208,6 +208,7 @@
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="linkToTargetEntity" type="xs:string" />
 		<xs:attribute name="linkToTargetField" type="xs:string" />
+		<xs:attribute name="linkReferenceAlias" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="entity">

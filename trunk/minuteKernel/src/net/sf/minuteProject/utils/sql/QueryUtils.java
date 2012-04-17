@@ -34,7 +34,7 @@ public class QueryUtils {
 	}
 
 	public static QueryParams getInputParams(Query query) {
-		
+		return null;
 	}
 
 }
