@@ -303,7 +303,12 @@ $!updatedAreaEnd
 #set($columnClass = $commonUtils.getColumnAliasClassName($table, $reference))
 #set($columnClass="${columnClass}_")
 #end
+#if($isEnum)
+          get$columnClass().toString()#if ($velocityCount!=$table.columnCount),
+#end
+#else
           get$columnClass()#if ($velocityCount!=$table.columnCount),
+#end
 #end
 #end
 #end
