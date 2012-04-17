@@ -175,6 +175,12 @@ public class ReferenceUtils {
 			reference.setForeignTable(foreignTable);
 			reference.setForeignColumn(foreignColumn);
 			reference.getForeignColumn().setAlias(reference.getForeignColumn().getAlias());
+			System.out.println(">>>>>>>>>>> set alias ");
+			if (!StringUtils.isEmpty(field.getLinkReferenceAlias())) {
+				System.out.println(">>>>>>>>>>> set alias "+field.getLinkReferenceAlias());
+				reference.getForeignColumn().setAlias(field.getLinkReferenceAlias());
+				reference.setAlias(field.getLinkReferenceAlias());
+			}
 			
 			reference.setLocalColumnName(columnName);
 			reference.setLocalTableName(tableName);

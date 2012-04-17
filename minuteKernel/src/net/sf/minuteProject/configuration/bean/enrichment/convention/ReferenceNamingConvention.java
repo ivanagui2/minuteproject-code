@@ -3,11 +3,14 @@ package net.sf.minuteProject.configuration.bean.enrichment.convention;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
 public class ReferenceNamingConvention extends ModelConvention {
@@ -44,8 +47,14 @@ public class ReferenceNamingConvention extends ModelConvention {
 			if (!reference.getForeignTable().isManyToMany()) {
 				if (isNoAmbiguityReference(reference, list))
 					reference.setAlias(getNameForUnambiguiousCaseAndMany2Many(table, reference));
-				else
-					reference.setAlias(getNameForAmbiguiousCaseAndMany2Many(table, reference));
+				else {
+//					System.out.println(">>>>>>>>>> a "+reference.getAlias());
+//					if (StringUtils.isEmpty(reference.getAlias()) 
+//							&& !(ReferenceUtils.getDefaultAlias(reference)).equals(reference.getAlias())) {
+//						System.out.println(">>>>>>>>>> alias");
+						reference.setAlias(getNameForAmbiguiousCaseAndMany2Many(table, reference));
+//					}
+				} 				
 			} 
 		}	
 	}
@@ -56,7 +65,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 			if (!reference.getForeignTable().isManyToMany()) {
 				if (isNoAmbiguityReference(reference, list))
 					reference.setAlias(getNameForUnambiguiousCaseAndNotMany2Many(reference.getForeignTable()));
-				else
+				else 
 					reference.setAlias(getNameForAmbiguiousCaseAndNotMany2Many(table, reference));
 			} 
 		}		

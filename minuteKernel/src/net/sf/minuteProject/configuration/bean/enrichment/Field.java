@@ -8,7 +8,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 public class Field extends AbstractConfiguration {
 
 	private Entity entity;
-	private String linkToTargetEntity, linkToTargetField;
+	private String linkToTargetEntity, linkToTargetField, linkReferenceAlias;
 	private String bidirectional;
 	private Stereotype stereotype;
 	private String type, length;
@@ -131,4 +131,12 @@ public class Field extends AbstractConfiguration {
 		getTriggers().add(trigger);
 	}
 	
+	public String getLinkReferenceAlias() {
+		return linkReferenceAlias;
+	}
+
+	public void setLinkReferenceAlias(String linkReferenceAlias) {
+		this.linkReferenceAlias = linkReferenceAlias;
+	}
+
 }
