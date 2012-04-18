@@ -32,6 +32,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<statement-model>
 			     <queries>
 			         <query name="get address street">
+			             <query-body><value><![CDATA[select street1, street2 from address where addressid > ?]]></value></query-body>
 			             <query-what><value>select street1, street2 from address</value></query-what>
 			             <query-where><value><![CDATA[addressid > ?]]></value></query-where>
 			             <query-params>

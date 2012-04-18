@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
@@ -18,7 +19,7 @@ public class Query extends AbstractConfiguration {
 		return QueryUtils.getInputParams(this);
 	}
 	
-	public QueryParams getOutputParams () {
+	public QueryParams getOutputParams () throws MinuteProjectException {
 		return QueryUtils.getOutputParams(this);
 	}
 	
