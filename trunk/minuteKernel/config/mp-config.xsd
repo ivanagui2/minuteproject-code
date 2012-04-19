@@ -289,8 +289,9 @@
 	<xs:complexType name="query-param">
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="sample" type="xs:string" use="required"/>
         <xs:attribute name="is-mandatory" type="xs:boolean" />
-        <xs:attribute name="direction" type="xs:string" />
+<!--         <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
 
 	<xs:complexType name="business-model">

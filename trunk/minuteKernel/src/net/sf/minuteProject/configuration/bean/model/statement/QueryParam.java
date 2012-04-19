@@ -3,7 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 public class QueryParam extends QueryAdapter {
 
 	private boolean isMandatory;
-	private String type;
+	private String type, sample;
 	private int size;
 	
 	public boolean isMandatory() {
@@ -23,6 +23,12 @@ public class QueryParam extends QueryAdapter {
 	}
 	public void setSize(int size) {
 		this.size = size;
+	}
+	public String getSample() {
+		return sample;
+	}
+	public void setSample(String sample) {
+		this.sample = sample;
 	}
 	
 	
