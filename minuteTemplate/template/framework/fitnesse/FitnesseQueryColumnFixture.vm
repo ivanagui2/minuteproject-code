@@ -13,19 +13,50 @@ import fit.ColumnFixture;
 import fitnesse.fixtures.TableFixture;
 
 public class ${className} extends DbInsertUpdateDeleteFixture{
-
-$query.name
-$query
-$query.queryWhat
-$query.queryWhat.value
-$query.queryWhere.value
-
+--
 #foreach ($param in $query.queryParams.queryParams)
-    public $param.type $param.name; // $param.isMandatory() ;
+#exposeStatementParam()
+    public $javaType $javaVariable; //public $param.type $param.name; // $param.isMandatory() ;
+#end
+--
+#foreach ($param in $query.outputParams.queryParams)
+#exposeStatementParam()
+    public $javaType $javaVariable; //$param.type
+#end
+--
+#foreach ($param in $query.inputParams.queryParams)
+#exposeStatementParam()
+    public $javaType $javaVariable; 
 #end
 
     public execute () {
-        query (getQuery(), getParameters());
+		PreparedStatement prest = connection.prepareStatement(getQuery());
+		ResultSet rs = prest.executeQuery();
+#foreach ($param in $query.inputParams.queryParams)
+#exposeStatementParam()
+		prest.${setterType}($velocityCount,$javaVariable);
+#end
+		while (rs.next()){
+#foreach ($param in $query.outputParams.queryParams)
+#exposeStatementParam()
+			$javaType $javaVariable = rs.${getterType}($velocityCount);
+#end
+		}
     }
     
+	private String getQuery() {
+		return "${query.queryBody.value}";
+	}
+	
+	private String getInputParameters() {
+		return "${query.queryBody.value}";
+	}
+	
+	private static QueryParams getOutputParams(Connection connection, String query,
+			Database database) throws SQLException {
+		PreparedStatement prest = connection.prepareStatement(query);
+		ResultSet rs = prest.executeQuery();
+		return getQueryParams(rs.getMetaData());
+	}
+	
 }

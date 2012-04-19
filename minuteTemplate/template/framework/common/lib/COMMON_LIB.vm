@@ -14,6 +14,13 @@ $!commonUtils.getReadMeText($template)
 #set ($className = $commonUtils.getClassName($query, $template))
 #end
 
+#macro(exposeStatementParam)
+#set($javaType=$statementUtils.getJavaType($param))	
+#set($javaVariable=$statementUtils.getJavaVariableName($param))	
+#set($setterType=$statementUtils.getJdbcSetter($param))	
+#set($getterType=$statementUtils.getJdbcGetter($param))	
+#end
+
 #macro (exposeFunction)
 #exposeFunctionTemplate()
 #set ($in = $commonUtils.getDirection("IN"))
