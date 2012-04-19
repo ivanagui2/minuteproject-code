@@ -14,13 +14,16 @@ public class Query extends AbstractConfiguration {
 	private QueryWhat queryWhat;
 	private QueryWhere queryWhere;
 	private QueryParams queryParams;
+	private QueryParams outputParams;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
 	}
 	
 	public QueryParams getOutputParams () throws MinuteProjectException {
-		return QueryUtils.getOutputParams(this);
+		if (outputParams==null)
+			outputParams = QueryUtils.getOutputParams(this);
+		return outputParams;
 	}
 	
 	public Queries getQueries() {
