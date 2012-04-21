@@ -1,10 +1,17 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.exception.MinuteProjectException;
+import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
@@ -15,14 +22,22 @@ public class Query extends AbstractConfiguration {
 	private QueryWhere queryWhere;
 	private QueryParams queryParams;
 	private QueryParams outputParams;
+	private boolean isSet;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
 	}
 	
-	public QueryParams getOutputParams () throws MinuteProjectException {
-		if (outputParams==null)
-			outputParams = QueryUtils.getOutputParams(this);
+	public QueryParams getOutputParams (){
+		if (outputParams==null && isSet) {
+			try {
+				outputParams = QueryUtils.getOutputParams(this);
+			} catch (MinuteProjectException e) {
+				isSet=true;
+				//TODO log error
+			}
+			isSet = true;
+		}
 		return outputParams;
 	}
 	
@@ -75,6 +90,57 @@ public class Query extends AbstractConfiguration {
 	
 	private Model getModel() {
 		return getQueries().getStatementModel().getModel();
+	}
+	
+	public Table getInputBean () {
+		return getEntity(Direction.IN);
+	}
+	
+	public Table getOutputBean () {
+		return getEntity(Direction.OUT);
+	}
+
+	public Table getEntity(Direction dir) {
+		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
+		table.setName(getName());
+//		table.setCatalog(catalog);
+		table.setType(Table.TABLE);
+		addColumns(table, dir);
+		Table entity = new TableDDLUtils(table);
+		entity.setPackage(getPackage());
+		entity.setDatabase(getQueries().getStatementModel().getModel().getDataModel().getDatabase());
+		return entity;
+	}
+
+	private void addColumns(org.apache.ddlutils.model.Table table,
+			Direction direction) {
+		List<QueryParam> list = getColumns(direction);
+		for (QueryParam queryParam : list) {
+			table.addColumn(getColumn(queryParam));
+		}
+	}
+
+	private List<QueryParam> getColumns(Direction direction) {
+		if (Direction.IN.equals(direction))
+			return getInputParams().getQueryParams();
+		if (getOutputParams()!=null)
+			return getOutputParams().getQueryParams();
+		return new ArrayList<QueryParam>();
+	}
+
+	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam) {
+		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
+		column.setName(queryParam.getName());
+		column.setType(convertType(queryParam.getType()));
+//		column.setScale(queryParam.getScale());
+		column.setSize(queryParam.getSize()+"");
+//		column.setPrecisionRadix(queryParam.getPrecisionRadix());
+		// column.setTypeCode(fc.getTypeCode());
+		return column;
+	}
+	
+	private String convertType(String type) {
+		return ConvertUtils.getDDLUtilsTypeFromDBType(type);
 	}
 	
 }
