@@ -64,6 +64,8 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SCOPE_WSDL="wsdl";
 	protected static final String SCOPE_WSDL_ENTITY="wsdl-entity";
 	protected static final String SCOPE_WSDL_SERVICE="wsdl-service";
+	protected static final String SDD_INPUT_BEAN_TEMPLATE="sdd-input-bean";
+	protected static final String SDD_OUTPUT_BEAN_TEMPLATE="sdd-output-bean";
 	
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;

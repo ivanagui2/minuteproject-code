@@ -266,6 +266,10 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByAction(template);
 		else if (QUERY_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
 			generateArtifactsByQuery(template);
+		else if (SDD_INPUT_BEAN_TEMPLATE.equals(template.getScopeSpecificValue()))
+			generateArtifactsBySddBean(template, Direction.IN);
+		else if (SDD_OUTPUT_BEAN_TEMPLATE.equals(template.getScopeSpecificValue()))
+			generateArtifactsBySddBean(template, Direction.OUT);
 	}
 
 	private void generateArtifactsByAction(Template template) throws MinuteProjectException {
@@ -382,6 +386,15 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 		
+	protected void generateArtifactsBySddBean(Template template, Direction direction) throws MinuteProjectException {	
+		for (Query query : getModel().getStatementModel().getQueries().getQueries()) {//DataModel().getDatabase().getFunctions()) {
+			Table table = query.getEntity(direction);
+			if (table.getColumns().length>0) {
+				writeTemplateResult(table, template);
+			}
+		}
+	}
+	
 	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
 		// enable cache
 		bean.enableCache();

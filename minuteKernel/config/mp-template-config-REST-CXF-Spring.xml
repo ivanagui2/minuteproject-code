@@ -22,6 +22,20 @@
 		</template>
 
 	</template-target>
+	
+	<template-target 
+    	name="REST java SDD set"
+		libdir="lib/CXF_LIB.vm"
+		outputdir="src/main/java"
+		belongToPackage="true">
+		
+		<template name="CXFSpringEntityResource" templateFileName="CXFSpringSDDResource.vm" 
+			file-extension="java" technicalPackage="rest" file-suffix="Resource" 
+			scope-specific-value="query" has-updatable-nature="true" >
+      		<property name="add-message-format" value="message-format"></property>
+		</template>
+
+	</template-target>
 
 	<template-target 
     	name="REST web.xml config"
