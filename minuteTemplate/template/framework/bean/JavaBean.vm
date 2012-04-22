@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-#exposeEnvironmentParams()
+##exposeEnvironmentParams()
 package $packageName;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class ${className} {
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
-    
+
 #end
 
 }
