@@ -22,14 +22,14 @@ public class Query extends AbstractConfiguration {
 	private QueryWhere queryWhere;
 	private QueryParams queryParams;
 	private QueryParams outputParams;
-	private boolean isSet;
+	private boolean isSet = false;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
 	}
 	
 	public QueryParams getOutputParams (){
-		if (outputParams==null && isSet) {
+		if (outputParams==null && !isSet) {
 			try {
 				outputParams = QueryUtils.getOutputParams(this);
 			} catch (MinuteProjectException e) {
@@ -83,10 +83,10 @@ public class Query extends AbstractConfiguration {
 	public void setQueryParams(QueryParams queryParams) {
 		this.queryParams = queryParams;
 	}
-	
-	public String getTechnicalPackage(Template template) {
-		return getModel().getTechnicalPackage(template);
-	}
+//	
+//	public String getTechnicalPackage(Template template) {
+//		return getModel().getTechnicalPackage(template);
+//	}
 	
 	private Model getModel() {
 		return getQueries().getStatementModel().getModel();
@@ -108,8 +108,20 @@ public class Query extends AbstractConfiguration {
 		addColumns(table, dir);
 		Table entity = new TableDDLUtils(table);
 		entity.setPackage(getPackage());
+//		entity.getTechnicalPackage(template)
 		entity.setDatabase(getQueries().getStatementModel().getModel().getDataModel().getDatabase());
 		return entity;
+	}
+	
+	public net.sf.minuteProject.configuration.bean.Package getPackage() {
+		return getModel().getBusinessModel().getBusinessPackage().getPackage();
+	}
+	
+	public String getTechnicalPackage(Template template) {
+		net.sf.minuteProject.configuration.bean.Package p = getPackage();
+		if (p == null)
+			return "ERROR_PACKAGE_IS_NULL";
+		return p.getTechnicalPackage(template);
 	}
 
 	private void addColumns(org.apache.ddlutils.model.Table table,
