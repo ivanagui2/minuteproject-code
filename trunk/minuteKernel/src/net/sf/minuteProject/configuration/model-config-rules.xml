@@ -307,6 +307,15 @@
 						<alias attr-name="content-type" prop-name="contentType" />
 					</set-properties-rule>	
 	            </pattern>				
+				<pattern value="entity-semantic-reference-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntitySemanticReferenceConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntitySemanticReferenceConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="description" prop-name="description" />	
+						<alias attr-name="pattern" prop-name="pattern" />
+						<alias attr-name="content-type" prop-name="contentType" />
+					</set-properties-rule>	
+	            </pattern>				
 				<pattern value="view-primary-key-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
