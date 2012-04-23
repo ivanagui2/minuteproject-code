@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.FunctionModel;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
+import net.sf.minuteProject.configuration.bean.StatementModel;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -229,6 +230,10 @@ public class ModelGenerator extends AbstractGenerator {
 		if (model.hasFunctionModel()) {
 			FunctionModel functionModel = model.getFunctionModel();
 			functionModel.complementFunctionWithFunctionEntity();
+		}
+		if (model.hasStatementModel()) {
+			StatementModel statementModel = model.getStatementModel();
+			statementModel.complementStatement();
 		}
 	}
 

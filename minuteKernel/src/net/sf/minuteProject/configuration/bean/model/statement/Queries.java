@@ -3,9 +3,12 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.StatementModel;
 
-public class Queries {
+public class Queries extends AbstractConfiguration{
+
+	public static final String DEFAULT_PACKAGE_NAME = "statement";
 
 	private StatementModel statementModel;
 	
