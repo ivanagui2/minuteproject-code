@@ -69,9 +69,10 @@ public class FormatUtils {
 	}
 
 	private static String performGetJavaName(String name) {
-		if (name == null || name.equals(""))
+		if (StringUtils.isEmpty(name))
 			return "JAVA_NAME_RETURNS_NULL";
 		String underscoreName = StringUtils.replace(name, "-", "_");
+		underscoreName = StringUtils.replace(name, " ", "_");
 		return getJavaNameViaCharStrip(underscoreName, "_");
 	}
 

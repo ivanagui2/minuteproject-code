@@ -21,6 +21,13 @@
 			scope-specific-value="sdd-output-bean" >
 		</template>	
 
+		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="java" file-prefix="" file-suffix="OutList" 
+			scope-specific-value="sdd-output-bean" >
+			<property name="DomainEntityUMLTemplate" value="SDDOutputBean" />
+		</template>	
+
     </template-target>
 
 </target>
