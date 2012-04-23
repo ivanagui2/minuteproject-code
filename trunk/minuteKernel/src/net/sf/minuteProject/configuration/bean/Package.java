@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.utils.TableUtils;
 
 public class Package extends PackageAdapter <Group, GeneratorBean>{
@@ -20,7 +21,9 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	private String name;
 	private BusinessPackage businessPackage;
 	private FunctionPackage functionPackage;
+	private SDDPackage sddPackage;
 	private List<Function> listOfFunctions;
+	private List<Query> listOfQueries;
 	
 	private SecurityColor securityColor;
 	private String alias;
@@ -62,6 +65,26 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 		listOfTables.add(table);
 	}
 	
+	
+	public void addStatement(Query query) {
+		if (listOfQueries==null)
+			listOfQueries = new ArrayList<Query>();
+		query.setPackage(this);
+		listOfQueries.add(query);
+	}
+	
+	public SDDPackage getSddPackage() {
+		return sddPackage;
+	}
+
+	public void setSddPackage(SDDPackage sddPackage) {
+		this.sddPackage = sddPackage;
+	}
+
+	public List<Query> getListOfQueries() {
+		return listOfQueries;
+	}
+
 	public String getName() {
 		if (name!=null  && !name.equals("")) return name;
 		return getBusinessPackage().getBusinessModel().getModel().getAlias();
@@ -108,6 +131,7 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	private String getTechPackage(Template template) {
 		if (getBusinessPackage()!=null) return getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template);
 		if (getFunctionPackage()!=null) return getFunctionPackage().getFunctionModel().getModel().getTechnicalPackage(template);
+		if (getSddPackage()!=null) return getSddPackage().getStatementModel().getModel().getTechnicalPackage(template);
 		return "";
 	}
 

@@ -3,8 +3,11 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -12,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
@@ -23,6 +27,7 @@ public class Query extends AbstractConfiguration {
 	private QueryParams queryParams;
 	private QueryParams outputParams;
 	private boolean isSet = false;
+	private Package pack;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
@@ -88,9 +93,9 @@ public class Query extends AbstractConfiguration {
 //		return getModel().getTechnicalPackage(template);
 //	}
 	
-	private Model getModel() {
-		return getQueries().getStatementModel().getModel();
-	}
+//	private Model getModel() {
+//		return getQueries().getStatementModel().getModel();
+//	}
 	
 	public Table getInputBean () {
 		return getEntity(Direction.IN);
@@ -112,17 +117,43 @@ public class Query extends AbstractConfiguration {
 		entity.setDatabase(getQueries().getStatementModel().getModel().getDataModel().getDatabase());
 		return entity;
 	}
-	
-	public net.sf.minuteProject.configuration.bean.Package getPackage() {
-		return getModel().getBusinessModel().getBusinessPackage().getPackage();
+
+	public Package getPackage() {
+		return pack;
 	}
-	
-	public String getTechnicalPackage(Template template) {
-		net.sf.minuteProject.configuration.bean.Package p = getPackage();
-		if (p == null)
-			return "ERROR_PACKAGE_IS_NULL";
-		return p.getTechnicalPackage(template);
+
+	public void setPackage(Package pack) {
+		this.pack = pack;
 	}
+
+//	public net.sf.minuteProject.configuration.bean.Package getPackage() {
+//		return getModel().getConfiguration().getPackage();
+//	}
+//	
+//	private Package getPackage (Table table) {
+//		Package pack = new Package();
+//		pack.setName(getPackageName());
+//		return pack;
+//	}
+//	
+//	private String getPackageName() {
+//		StringBuffer sb = new StringBuffer();
+//		String packageRoot = getModel().getPackageRoot();
+//		if (packageRoot!=null)
+//			sb.append(packageRoot+".");
+//		sb.append(getModel().getConfiguration().getName());
+//		String queriesName = getQueries().getName();
+//		if (queriesName!=null)
+//			sb.append("."+getQueries().getName());
+//		return sb.toString();
+//	}
+
+//	public String getTechnicalPackage(Template template) {
+//		net.sf.minuteProject.configuration.bean.Package p = getPackage();
+//		if (p == null)
+//			return "ERROR_PACKAGE_IS_NULL";
+//		return p.getTechnicalPackage(template);
+//	}
 
 	private void addColumns(org.apache.ddlutils.model.Table table,
 			Direction direction) {

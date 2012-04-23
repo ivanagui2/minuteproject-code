@@ -75,6 +75,12 @@ public class Model extends AbstractConfiguration{
 			return true;
 		return false;
 	}
+	
+	public boolean hasStatementModel() {
+		if (statementModel!=null)
+			return true;
+		return false;
+	}
 
 	public void setDataModel(DataModel dataModel) {
 		dataModel.setModel(this);
