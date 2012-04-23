@@ -67,9 +67,9 @@ $!updatedAreaSnippet
    <cache
     name="$importDomainObjectUML"
 #if($useMaxEntriesLocalHeap)
-        maxElementsInMemory="5000"
-#else
         maxEntriesLocalHeap="5000"
+#else
+        maxElementsInMemory="5000"
 #end
         eternal="false"
         timeToIdleSeconds="300"

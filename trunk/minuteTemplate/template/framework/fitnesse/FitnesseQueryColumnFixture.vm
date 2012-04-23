@@ -13,24 +13,24 @@ import fit.ColumnFixture;
 import fitnesse.fixtures.TableFixture;
 
 public class ${className} extends DbInsertUpdateDeleteFixture{
---
-#foreach ($param in $query.queryParams.queryParams)
-#exposeStatementParam()
-    public $javaType $javaVariable; //public $param.type $param.name; // $param.isMandatory() ;
-#end
---
-#foreach ($param in $query.outputParams.queryParams)
-#exposeStatementParam()
-    public $javaType $javaVariable; //$param.type
-#end
---
-#foreach ($param in $query.inputParams.queryParams)
-#exposeStatementParam()
-    public $javaType $javaVariable; 
-#end
+##--
+##foreach ($param in $query.queryParams.queryParams)
+##exposeStatementParam()
+##    public $javaType $javaVariable; //public $param.type $param.name; // $param.isMandatory() ;
+##end
+##--
+##foreach ($param in $query.outputParams.queryParams)
+##exposeStatementParam()
+##    public $javaType $javaVariable; //$param.type
+##end
+##--
+###foreach ($param in $query.inputParams.queryParams)
+##exposeStatementParam()
+##    public $javaType $javaVariable; 
+##end
 
     public execute () {
-		PreparedStatement prest = connection.prepareStatement(getQuery());
+		PreparedStatement prest = connection.prepareStatement(getInputParameters());
 		ResultSet rs = prest.executeQuery();
 #foreach ($param in $query.inputParams.queryParams)
 #exposeStatementParam()
@@ -43,20 +43,9 @@ public class ${className} extends DbInsertUpdateDeleteFixture{
 #end
 		}
     }
-    
-	private String getQuery() {
-		return "${query.queryBody.value}";
-	}
-	
+
 	private String getInputParameters() {
 		return "${query.queryBody.value}";
-	}
-	
-	private static QueryParams getOutputParams(Connection connection, String query,
-			Database database) throws SQLException {
-		PreparedStatement prest = connection.prepareStatement(query);
-		ResultSet rs = prest.executeQuery();
-		return getQueryParams(rs.getMetaData());
 	}
 	
 }
