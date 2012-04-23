@@ -1,17 +1,16 @@
 <xs:schema id="generator-config" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://minuteproject.sf.net/xsd/mp-config" 
-	targetNamespace="http://minuteproject.sf.net/xsd/mp-config">
-	
-    <xs:element name="generator-config" type="generator-config">
-        <xs:annotation>
-            <xs:documentation source="version">1.0</xs:documentation>
-            <xs:documentation source="description">
-                The
-                <code>&lt;generator-config&gt;</code>
-                element is the root of the descriptor.
-            </xs:documentation>
-        </xs:annotation>
-    </xs:element>
+	xmlns="http://minuteproject.sf.net/xsd/mp-config" targetNamespace="http://minuteproject.sf.net/xsd/mp-config">
+
+	<xs:element name="generator-config" type="generator-config">
+		<xs:annotation>
+			<xs:documentation source="version">1.0</xs:documentation>
+			<xs:documentation source="description">
+				The
+				<code>&lt;generator-config&gt;</code>
+				element is the root of the descriptor.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:complexType name="condition">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="startsWith" type="xs:string" />
@@ -20,7 +19,8 @@
 
 	<xs:complexType name="property">
 		<xs:sequence>
-			<xs:element name="property" type="property" minOccurs="0" maxOccurs="unbounded"></xs:element>
+			<xs:element name="property" type="property" minOccurs="0"
+				maxOccurs="unbounded"></xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="value" type="xs:string" />
@@ -37,7 +37,8 @@
 
 	<xs:complexType name="dataSource">
 		<xs:sequence>
-			<xs:element name="driverClassName" type="xs:string" minOccurs="0" />
+			<xs:element name="driverClassName" type="xs:string"
+				minOccurs="0" />
 			<xs:element name="url" type="xs:string" minOccurs="0" />
 			<xs:element name="username" type="xs:string" minOccurs="0" />
 			<xs:element name="password" type="xs:string" minOccurs="0" />
@@ -64,8 +65,8 @@
 
 	<xs:complexType name="generator-config">
 		<xs:sequence>
-            <xs:element name="property" type="property" minOccurs="0" />
-            <xs:element name="configuration" type="configuration"></xs:element>
+			<xs:element name="property" type="property" minOccurs="0" />
+			<xs:element name="configuration" type="configuration"></xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
@@ -93,21 +94,43 @@
 			</xs:simpleType>
 		</xs:attribute>
 	</xs:complexType>
-	
+
+	<xs:simpleType name="content-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="master-data" />
+			<xs:enumeration value="reference-data" />
+			<xs:enumeration value="live-business-data" />
+			<xs:enumeration value="pseudo-static-data" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- conventions -->
 	<xs:complexType name="column-naming-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="pattern-to-strip" type="xs:string" />
 	</xs:complexType>
-	
+
 	<xs:complexType name="foreign-key-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="column-ending" type="xs:string" />
 		<xs:attribute name="column-starting" type="xs:string" />
 	</xs:complexType>
-	
+
 	<xs:complexType name="entity-naming-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="pattern-to-strip" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="entity-content-type-convention">
+		<xs:attribute name="description" type="xs:string" />
+		<xs:attribute name="pattern" type="xs:string" />
+		<xs:attribute name="content-type" type="content-type" />
+	</xs:complexType>
+
+	<xs:complexType name="entity-semantic-reference-convention">
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="content-type" type="content-type" />
+		<xs:attribute name="pattern" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="reference-naming-convention">
@@ -124,14 +147,17 @@
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
 	</xs:complexType>
-	
-	<xs:complexType name="version-convention" >
+
+	<xs:complexType name="version-convention">
 		<xs:attribute name="default-value" type="xs:string" />
 	</xs:complexType>
-
+	<!-- end conventions -->
 	<xs:complexType name="enrichment-conventions">
 		<xs:sequence>
 			<xs:element name="entity-naming-convention" type="entity-naming-convention"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="entity-content-type-convention" type="entity-content-type-convention"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 			<xs:element name="foreign-key-convention" type="foreign-key-convention"
@@ -146,8 +172,8 @@
 			<xs:element name="reference-naming-convention" type="reference-naming-convention"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
-			<xs:element name="table-default-primary-key-convention" type="table-default-primary-key-convention"
-				minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="table-default-primary-key-convention"
+				type="table-default-primary-key-convention" minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 			<xs:element name="view-primary-key-convention" type="view-primary-key-convention"
 				minOccurs="0" maxOccurs="unbounded">
@@ -224,7 +250,7 @@
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
-		<xs:attribute name="content-type" type="xs:string" />
+		<xs:attribute name="content-type" type="content-type" />
 		<xs:attribute name="alias" type="xs:string" />
 	</xs:complexType>
 
@@ -243,55 +269,57 @@
 	</xs:complexType>
 
 	<xs:complexType name="fileSource">
-        <xs:attribute name="name" type="xs:string" />
-        <xs:attribute name="dir" type="xs:string" />
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="dir" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="function-model">
 		<xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:complexType name="statement-model">
 		<xs:sequence>
-            <xs:element name="queries" type="queries" >
-            </xs:element>
+			<xs:element name="queries" type="queries">
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:complexType name="queries">
 		<xs:sequence>
-            <xs:element name="query" type="query" minOccurs="0" maxOccurs="unbounded">
-            </xs:element>
+			<xs:element name="query" type="query" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
 	<xs:complexType name="query">
 		<xs:sequence>
-            <xs:element name="query-body" type="value-body"/>
-            <xs:element name="query-what" type="value-body"/>
-            <xs:element name="query-where" type="value-body"/>
-            <xs:element name="query-params" type="query-params"/>
+			<xs:element name="query-body" type="value-body" />
+			<xs:element name="query-what" type="value-body" />
+			<xs:element name="query-where" type="value-body" />
+			<xs:element name="query-params" type="query-params" />
 		</xs:sequence>
-        <xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="name" type="xs:string" />
 	</xs:complexType>
 	<xs:complexType name="query-params">
 		<xs:sequence>
-            <xs:element name="query-param" type="query-param" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="query-param" type="query-param"
+				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="value-body">
 		<xs:sequence>
-            <xs:element name="name" type="xs:string" minOccurs="0"/>
-            <xs:element name="value" type="xs:string"/>
+			<xs:element name="name" type="xs:string" minOccurs="0" />
+			<xs:element name="value" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="query-param">
-        <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="type" type="xs:string" use="required"/>
-        <xs:attribute name="sample" type="xs:string" use="required"/>
-        <xs:attribute name="is-mandatory" type="xs:boolean" />
-<!--         <xs:attribute name="direction" type="xs:string" /> -->
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="type" type="xs:string" use="required" />
+		<xs:attribute name="sample" type="xs:string" use="required" />
+		<xs:attribute name="is-mandatory" type="xs:boolean" />
+		<!-- <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
 
 	<xs:complexType name="business-model">
@@ -316,10 +344,10 @@
 				minOccurs="0">
 			</xs:element>
 			<xs:element name="function-model" type="function-model"
-				minOccurs="0" >
+				minOccurs="0">
 			</xs:element>
 			<xs:element name="statement-model" type="statement-model"
-				minOccurs="0" >
+				minOccurs="0">
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
@@ -347,7 +375,8 @@
 
 	<xs:complexType name="configuration">
 		<xs:sequence>
-            <xs:element name="conventions" type="global-conventions" minOccurs="0" />
+			<xs:element name="conventions" type="global-conventions"
+				minOccurs="0" />
 			<xs:element name="model" type="model" minOccurs="0"
 				maxOccurs="unbounded">
 			</xs:element>
@@ -365,11 +394,14 @@
 			<xs:element type="dataSource" name="dataSource" minOccurs="0"
 				maxOccurs="unbounded">
 			</xs:element>
-            <xs:element name="schema" type="xs:string" minOccurs="0" maxOccurs="unbounded">
-            </xs:element>
-			<xs:element name="primaryKeyPolicy" type="primaryKeyPolicy" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="schema" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded">
 			</xs:element>
-			<xs:element name="fileSource" type="fileSource" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="primaryKeyPolicy" type="primaryKeyPolicy"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="fileSource" type="fileSource" minOccurs="0"
+				maxOccurs="unbounded">
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
