@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.enrichment.group.EntityGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.group.Group;
 import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
@@ -86,7 +88,7 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	}
 
 	public String getName() {
-		if (name!=null  && !name.equals("")) return name;
+		if (!StringUtils.isEmpty(name)) return name;
 		return getBusinessPackage().getBusinessModel().getModel().getAlias();
 	}
 	
