@@ -25,7 +25,7 @@
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
 			file-extension="java" file-prefix="" file-suffix="OutList" 
 			scope-specific-value="sdd-output-bean" >
-			<property name="DomainEntityUMLTemplate" value="SDDOutputBean" />
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
 
     </template-target>
