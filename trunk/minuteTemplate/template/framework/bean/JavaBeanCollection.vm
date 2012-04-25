@@ -1,9 +1,13 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
+#putImportSDDBean()
+#set ($listVariable = $i18nUtils.plurialize(${beanVariable}))
 package $packageName;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import $beanImport;
 
 /**
  *
@@ -14,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ${className} {
 
-    private List<${domainClassName}> ${domainVariableName};
+    private List<${beanClass}> $listVariable;
 
     /**
     * Default constructor
@@ -22,6 +26,6 @@ public class ${className} {
     public ${className}() {
     }
 	
-#putGetterSetter(${domainClassName}, ${domainVariableName})
+#putGetterAdder($className, $listVariable, ${beanClass}, ${beanVariable})
 
 }
