@@ -25,29 +25,31 @@ public class ConvertUtils {
 	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
 
-	public static final String DB_STRING_CHAR_TYPE 				=   "CHAR";	
-	public static final String DB_STRING2_CHAR_TYPE 			=   "CHAR2";	
-	public static final String DB_STRING_TYPE 					=   "VARCHAR";	
-	public static final String DB_STRING2_TYPE 					=   "VARCHAR2";	
-	public static final String DB_INTEGER_TYPE 					=   "INTEGER";	
-	public static final String DB_INT_TYPE 						=   "INT";	
-	public static final String DB_DECIMAL_TYPE 					=   "DECIMAL";
-	public static final String DB_TIMESTAMP_TYPE 				=   "TIMESTAMP";
-	public static final String DB_TIME_TYPE 					=   "TIME";
-	public static final String DB_TIMESTAMPZ_TYPE 				=   "TIMESTAMPZ";
-	public static final String DB_DATE_TYPE 					=   "DATE";
-	public static final String DB_NUMERIC_TYPE 					=   "NUMERIC";	
-	public static final String DB_SMALLINT_TYPE 				=   "SMALLINT";	
-	public static final String DB_TINYINT_TYPE 					=   "TINYINT";
-	public static final String DB_BLOB 							=	"BLOB";
-	public static final String DB_CLOB  						=	"CLOB";
-	public static final String DB_LONGTEXT  					=	"LONGTEXT";
-	public static final String DB_LONGBLOB  					=	"DB_LONGBLOB";
-	public static final String DB_LONGVARBINARY  				=	"LONGVARBINARY";
+	public static final String DB_STRING_CHAR_TYPE 					=   "CHAR";	
+	public static final String DB_STRING2_CHAR_TYPE 				=   "CHAR2";	
+	public static final String DB_STRING_TYPE 						=   "VARCHAR";	
+	public static final String DB_STRING2_TYPE 						=   "VARCHAR2";	
+	public static final String DB_INTEGER_TYPE 						=   "INTEGER";	
+	public static final String DB_INT_TYPE 							=   "INT";	
+	public static final String DB_DECIMAL_TYPE 						=   "DECIMAL";
+	public static final String DB_TIMESTAMP_TYPE 					=   "TIMESTAMP";
+	public static final String DB_TIME_TYPE 						=   "TIME";
+	public static final String DB_TIMESTAMPZ_TYPE 					=   "TIMESTAMPZ";
+	public static final String DB_DATE_TYPE 						=   "DATE";
+	public static final String DB_NUMERIC_TYPE 						=   "NUMERIC";	
+	public static final String DB_SMALLINT_TYPE 					=   "SMALLINT";	
+	public static final String DB_TINYINT_TYPE 						=   "TINYINT";
+	public static final String DB_BYTE_TYPE 						=   "BYTE";
+	public static final String DB_BLOB 								=	"BLOB";
+	public static final String DB_CLOB  							=	"CLOB";
+	public static final String DB_LONGTEXT  						=	"LONGTEXT";
+	public static final String DB_LONGBLOB  						=	"DB_LONGBLOB";
+	public static final String DB_LONGVARBINARY  					=	"LONGVARBINARY";
 	
-	public static final String UML_STRING_TYPE 					=   "string";	
-	public static final String UML_INTEGER_TYPE 				=   "integer";	
-	public static final String UML_LONG_TYPE 					=   "decimal";	
+	public static final String UML_STRING_TYPE 						=   "string";	
+	public static final String UML_INTEGER_TYPE 					=   "integer";	
+	public static final String UML_LONG_TYPE 						=   "decimal";	
+	public static final String UML_BYTE_TYPE 						=   "byte";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	
@@ -112,8 +114,12 @@ public class ConvertUtils {
 			return  JAVA_INTEGER_TYPE;	
 		if (dBType.equals("NUMERIC"))
 			return  JAVA_INTEGER_TYPE;		
-		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
-			if (databaseType.equals(DB_TYPE_ORACLE) && size==1 )
+		if (dBType.equals("NUMBER")  
+			|| dBType.equals("REAL") 
+			|| dBType.equals(DB_BYTE_TYPE) 
+			) 
+			{
+			if (size==1 ) //&&databaseType.equals(DB_TYPE_ORACLE) &&  )
 				return JAVA_BOOLEAN_TYPE;
 			return  JAVA_LONG_TYPE;
 		}
@@ -175,11 +181,11 @@ public class ConvertUtils {
 			else
 				return  JAVA_BIGDECIMAL_TYPE;
 		}
-		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
-			if (databaseType.equals(DB_TYPE_ORACLE) && size==1 )
-				return JAVA_BOOLEAN_TYPE;
-			return  JAVA_LONG_TYPE;
-		}		
+//		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
+//			if (databaseType.equals(DB_TYPE_ORACLE) && size==1 )
+//				return JAVA_BOOLEAN_TYPE;
+//			return  JAVA_LONG_TYPE;
+//		}	
 		return retStr;		
 	}
 
@@ -203,8 +209,12 @@ public class ConvertUtils {
 		}
 		if (dBType.equals("BOOLEAN"))
 			return  "Boolean";	
-		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
-			if (DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
+		if (dBType.equals("NUMBER")  
+				|| dBType.equals("REAL") 
+				|| dBType.equals(DB_BYTE_TYPE) 
+				) 
+				{
+			if (scale==1) //DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
 				return "Boolean";
 		}
 		if (dBType.equals("NUMERIC"))
@@ -221,7 +231,7 @@ public class ConvertUtils {
 	public static String getJavaTypeFromDBType (String dBType) {
 		//return StringUtils.
 		// TODO from getJavaTypeFromDBFullType
-		String retStr=null;
+		//String retStr=null;
 		if (dBType==null) return "String";
 		if (dBType.equals("BOOLEAN"))
 			return  "java.lang.Boolean";					
@@ -307,8 +317,11 @@ public class ConvertUtils {
 			else
 				return  "java.math.BigDecimal";
 		}	
-		if (dBType.equals("NUMBER")  || dBType.equals("REAL") ) {
-			if (DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
+		if (dBType.equals("NUMBER")  
+				|| dBType.equals("REAL") 
+				|| dBType.equals(DB_BYTE_TYPE))
+			{
+			if (scale==1 )//DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
 				return "Boolean";
 		}		
 		return retStr;		

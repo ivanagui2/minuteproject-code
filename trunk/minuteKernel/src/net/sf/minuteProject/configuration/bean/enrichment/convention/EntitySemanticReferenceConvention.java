@@ -1,15 +1,19 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.path.SqlPath;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class EntitySemanticReferenceConvention extends ModelConvention {
 
 	private String pattern, description, contentType;
-	
+	private List<String> patterns;
 	@Override
 	public void apply(BusinessModel model) {
 		if (model.getBusinessPackage()!=null) {
@@ -26,8 +30,12 @@ public class EntitySemanticReferenceConvention extends ModelConvention {
 	
 	private void applySemanticReference(Table table) {
 		for (Column column : table.getColumns()) {
-			if (column.getName().equals(pattern))
-				table.setSemanticReference(getSemanticReference(column));//.addSqlPath(getSqlPath(column));
+			for (String pattern : getPatterns()) {
+				if (column.getName().equals(pattern)) {
+					table.setSemanticReference(getSemanticReference(column));
+					return;
+				}
+			}
 		}
 		
 	}
@@ -56,6 +64,13 @@ public class EntitySemanticReferenceConvention extends ModelConvention {
 
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
+	}
+
+	public List<String> getPatterns() {
+		if (patterns==null) {
+			patterns = ParserUtils.getList(pattern);
+		}
+		return patterns;
 	}
 
 	public String getDescription() {
