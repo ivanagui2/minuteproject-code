@@ -104,6 +104,16 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="scope-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="entity" />
+			<xs:enumeration value="field" />
+			<xs:enumeration value="package" />
+			<xs:enumeration value="model" />
+			<xs:enumeration value="application" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<!-- conventions -->
 	<xs:complexType name="column-naming-convention">
 		<xs:attribute name="type" type="xs:string" />
@@ -127,10 +137,13 @@
 		<xs:attribute name="content-type" type="content-type" />
 	</xs:complexType>
 
-	<xs:complexType name="entity-semantic-reference-convention">
+	<xs:complexType name="property-convention">
 		<xs:attribute name="type" type="xs:string" />
-		<xs:attribute name="content-type" type="content-type" />
+		<xs:attribute name="scope" type="scope-type" />
 		<xs:attribute name="pattern" type="xs:string" />
+		<xs:attribute name="tag" type="xs:string" />
+		<xs:attribute name="property" type="xs:string" />
+		<xs:attribute name="value" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="reference-naming-convention">
