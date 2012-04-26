@@ -331,6 +331,17 @@
 						<alias attr-name="type" prop-name="type" />	
 					</set-properties-rule>	
 	            </pattern>		
+				<pattern value="property-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.PropertyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.PropertyConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="scope" prop-name="scope" />	
+						<alias attr-name="pattern" prop-name="pattern" />	
+						<alias attr-name="tag" prop-name="tag" />	
+						<alias attr-name="property" prop-name="property" />	
+						<alias attr-name="value" prop-name="value" />	
+					</set-properties-rule>	
+	            </pattern>		
 				<pattern value="table-default-primary-key-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.TableDefaultPrimaryKeyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		

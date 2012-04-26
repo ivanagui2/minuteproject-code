@@ -3,6 +3,7 @@ package net.sf.minuteProject.utils;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.texen.util.PropertiesUtil;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -13,6 +14,7 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class ColumnUtils {
 	
+	private static final String TRIGGER = "TRIGGER";
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
 	public static Column getColumn(Table table, String columnName) {
@@ -184,7 +186,22 @@ public class ColumnUtils {
 	}
 
 	public static boolean hasTrigger(Column column) {
-		return column.getTriggers()!=null && column.getTriggers().size()>0;
+		return (hasTriggerProperty(column) || (column.getTriggers()!=null && column.getTriggers().size()>0));
+	}
+
+	private static boolean hasTriggerProperty(Column column) {
+		for (Property property : column.getProperties()) {
+			if (isTrigger(property))
+				return true;
+		}
+		return false;
+	}
+
+	private static boolean isTrigger(Property property) {
+		String tag = property.getTag();
+		if (!StringUtils.isEmpty(tag))
+			return tag.toUpperCase().startsWith(TRIGGER);
+		return false;
 	}
 
 	public static boolean belongsToCompositePrimaryKeyNotMany2Many(Column column) {
