@@ -704,6 +704,11 @@ import $importDaoInterfaceUML;
 #set ($updatedAreaClassAnnotation=$updatedAreaUtils.getClassAnnotationSnippet($template, $updatedAreas))
 #end
 
+#macro (exposeQueryUpdatedAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $query, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
 #macro (exposeEntityUpdatedAreas $area)
 #set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $table, $updatedAreas, $area))
 #updatedAreasCommon()

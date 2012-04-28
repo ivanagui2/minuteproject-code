@@ -16,6 +16,16 @@
 #set ($BslaDaoExtInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectBslaDaoExtInterface))
 #end
 
+#macro (exposeSDDSpring)
+#exposeSDDSpringTemplate()
+#set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
+#set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
+#set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query, $template, $templateSDDDaoInterface))
+#set ($sddSpringJPADaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDSpringJPADaoClass))
+#set ($sddSpringJPADaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddSpringJPADaoInterfaceClass))
+#set ($sddSpringJPADaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query, $template, $templateSDDSpringJPADaoClass))
+#end
+
 #macro (exposeSpringTemplate)
 #set ($templateDomainObjectBslaDaoInterface = "BslaDaoInterfaceUML")
 #set ($templateDomainObjectBslaDaoExtInterface = "BslaDaoInterfaceExtendedUML")
@@ -23,8 +33,15 @@
 #set ($templateSpringBackendConfig="BslaSpringConfigMainBackend")
 #end
 
+#macro (exposeSDDSpringTemplate)
+#set ($templateSDDDaoInterface = "SDDDaoInterface")
+#set ($templateSDDSpringJPADaoClass = "SDDSpringJPADao")
+#end
+
 #macro (exposeSpringModelSpecific)
 #exposeSpringTemplate()
 #set($controllerPackageName=$commonUtils.getPackageName($model, $template, $templateRestController))
 #set($pathSpringBackendConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringBackendConfig))
 #end
+
+

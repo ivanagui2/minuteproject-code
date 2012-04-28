@@ -1,0 +1,31 @@
+#exposeQuerySpecific()
+#exposeSDDSpring()
+#putImportQuerySDDBean()
+package $packageName;
+
+$!updatedAreaImport
+
+import $sddOutputBeanCollectionImport;
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: remote interface for ${className} service </p>
+ *
+ */
+public interface ${className} {
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    public $sddOutputBeanCollectionClass execute ($sddInputBeanClass $sddInputBeanVariable) ;
+#end
+$!updatedAreaEnd
+
+$!updatedAreaImplementation
+
+
+}
