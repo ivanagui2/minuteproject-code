@@ -55,6 +55,18 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					</entity>
 				</enrichment>					
 			</business-model>
+            <statement-model>
+                 <queries>
+                     <query name="get address street">
+                         <query-body><value><![CDATA[select * from address where addressid > ?]]></value></query-body>
+                         <query-what><value>select street1, street2 from address</value></query-what>
+                         <query-where><value><![CDATA[addressid > ?]]></value></query-where>
+                         <query-params>
+                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="1"></query-param>
+                         </query-params>
+                     </query>
+                 </queries>
+            </statement-model>
 		</model>	
 		<targets>
 		
@@ -84,7 +96,16 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-domain-specific-method" value="true"></property>
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-			</target> 	
+			</target>
+            <target refname="SDD-beans" 
+                outputdir-root="../../DEV/cxf/petshop/jpa2"
+               fileName="mp-template-config-SDD-beans.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/bean">
+            </target>
+            <target refname="COMMON-LIB" 
+               fileName="mp-template-config-COMMON-LIB.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/common">
+            </target>   
 			<target refname="CACHE-LIB" 
 			   fileName="mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/cache">

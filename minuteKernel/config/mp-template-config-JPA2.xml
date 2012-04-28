@@ -15,7 +15,7 @@
 		libdir="lib/JPA2_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
-			 
+		
 		<template name="DomainEntityJPA2Annotation" templateFileName="DomainEntityJPA2Annotation.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
@@ -52,7 +52,7 @@
 			file-extension="java" file-prefix="" file-suffix="Enum" 
 			field-specific="true"  has-updatable-nature="true"
 			file-name-builder-plugin="referenceDataUtils"
-			file-name-builder-method="getEnumName"				
+			file-name-builder-method="getEnumName"
             check-template-to-generate="true" 
             is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration">
 			<property name="generateForTag" value="checkconstraint"></property>

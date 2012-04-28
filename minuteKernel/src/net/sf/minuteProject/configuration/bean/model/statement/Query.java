@@ -148,12 +148,12 @@ public class Query extends AbstractConfiguration {
 //		return sb.toString();
 //	}
 
-//	public String getTechnicalPackage(Template template) {
-//		net.sf.minuteProject.configuration.bean.Package p = getPackage();
-//		if (p == null)
-//			return "ERROR_PACKAGE_IS_NULL";
-//		return p.getTechnicalPackage(template);
-//	}
+	public String getTechnicalPackage(Template template) {
+		net.sf.minuteProject.configuration.bean.Package p = getPackage();
+		if (p == null)
+			return "ERROR_PACKAGE_IS_NULL";
+		return p.getTechnicalPackage(template);
+	}
 
 	private void addColumns(org.apache.ddlutils.model.Table table,
 			Direction direction) {

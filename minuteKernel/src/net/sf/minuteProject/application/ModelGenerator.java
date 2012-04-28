@@ -257,24 +257,27 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByApplication(template);
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
-		else if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(template.getScopeSpecificValue()))
-			generateArtifactsByFunction(template, Direction.IN);
-		else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(template.getScopeSpecificValue()))
-			generateArtifactsByFunction(template, Direction.OUT);		
-		else if (SCOPE_DATAMODEL_FUNCTION.equals(template.getScopeSpecificValue()))
-			generateArtifactsByFunction(template);
-		else if (SCOPE_TARGET_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsByTargetTemplate(template);	
-		else if (SCOPE_TRANSFER_ENTITY_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsByTransferEntity(template);
-		else if (SCOPE_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsByAction(template);
-		else if (QUERY_ACTION_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsByQuery(template);
-		else if (SDD_INPUT_BEAN_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsBySddBean(template, Direction.IN);
-		else if (SDD_OUTPUT_BEAN_TEMPLATE.equals(template.getScopeSpecificValue()))
-			generateArtifactsBySddBean(template, Direction.OUT);
+		else {
+			String scopeSpecificValue = template.getScopeSpecificValue();
+			if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(scopeSpecificValue))
+				generateArtifactsByFunction(template, Direction.IN);
+			else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(scopeSpecificValue))
+				generateArtifactsByFunction(template, Direction.OUT);		
+			else if (SCOPE_DATAMODEL_FUNCTION.equals(scopeSpecificValue))
+				generateArtifactsByFunction(template);
+			else if (SCOPE_TARGET_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsByTargetTemplate(template);	
+			else if (SCOPE_TRANSFER_ENTITY_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsByTransferEntity(template);
+			else if (SCOPE_ACTION_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsByAction(template);
+			else if (QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsByQuery(template);
+			else if (SDD_INPUT_BEAN_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsBySddBean(template, Direction.IN);
+			else if (SDD_OUTPUT_BEAN_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsBySddBean(template, Direction.OUT);
+		}
 	}
 
 	private void generateArtifactsByAction(Template template) throws MinuteProjectException {
