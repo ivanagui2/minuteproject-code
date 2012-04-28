@@ -46,7 +46,26 @@
 		</template>		
 
   	</template-target>
-	
+
+    
+    <template-target 
+        name="DAO Spring JPA set"
+        libdir=""
+        outputdir="src/main/java2"
+        belongToPackage="true">
+
+        <template name="SDDDaoInterface" templateFileName="SDDDaoInterface.vm" 
+            file-extension="java" technicalPackage="dao.sdd.face" file-suffix="DaoFace" 
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+        <template name="SDDSpringJPADao" templateFileName="SDDSpringJPADao.vm" 
+            file-extension="java" technicalPackage="dao.sdd.impl" file-suffix="Repository" 
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+    </template-target>
+    
 	<template-target 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
