@@ -1,0 +1,34 @@
+#exposeQuerySpecific()
+#exposeSDDSpring()
+#putImportQuerySDDBean()
+package $packageName;
+
+$!updatedAreaImport
+
+import $sddOutputBeanCollectionImport;
+import $sddInputBeanImport;
+import $sddDaoInterfaceImport;
+
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: SDD DAO Spring JPA implementation </p>
+ *
+ */
+public class ${className} implements $sddDaoInterfaceClass{
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    public $sddOutputBeanCollectionClass execute ($sddInputBeanClass $sddInputBeanVariable) {
+        return null;
+    }
+#end
+$!updatedAreaEnd
+
+$!updatedAreaImplementation
+
+}

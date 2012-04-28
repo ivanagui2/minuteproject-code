@@ -69,9 +69,27 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro (putImportSDDBean)
-##templateCommonDefinition()
 #set ($templateJavaBean=$template.getPropertyValue("JavaBeanTemplate","JavaBeanTemplate"))
 #set ($beanClass = $commonUtils.getTemplateClassName($table, $model, $templateJavaBean))
 #set ($beanVariable = $commonUtils.getJavaNameVariableFirstLetter($beanClass))
 #set ($beanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateJavaBean))
+#end
+
+#macro (putImportQuerySDDBean)
+#templateCommonDefinition()
+#set ($sddInputBeanClass = $commonUtils.getTemplateClassName($query.getInputBean(), $model, $templateSDDInputBean))
+#set ($sddInputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query.getInputBean(), $template, $templateSDDInputBean))
+#set ($sddOutputBeanClass = $commonUtils.getTemplateClassName($query.getOutputBean(), $model, $templateSDDOutputBean))
+#set ($sddOutputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddOutputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query.getOutputBean(), $template, $templateSDDOutputBean))
+#set ($sddOutputBeanCollectionClass = $commonUtils.getTemplateClassName($query.getOutputBean(), $model, $templateSDDOutputBeanCollection))
+#set ($sddOutputBeanCollectionVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddOutputBeanCollectionImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query.getOutputBean(), $template, $templateSDDOutputBeanCollection))
+#end
+
+#macro(templateCommonDefinition)
+#set ($templateSDDInputBean = "SDDInputBean")
+#set ($templateSDDOutputBean = "SDDOutputBean")
+#set ($templateSDDOutputBeanCollection = "SDDOutputBeanCollection")
 #end

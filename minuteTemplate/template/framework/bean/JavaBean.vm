@@ -5,6 +5,7 @@ package $packageName;
 import java.util.List;
 import java.util.ArrayList;
 
+$!updatedAreaImport
 /**
  *
  * <p>Title: ${className}</p>
@@ -39,4 +40,5 @@ public class ${className} {
 
 #end
 
+$!updatedAreaImplementation
 }

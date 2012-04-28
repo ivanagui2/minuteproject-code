@@ -1,5 +1,7 @@
-#exposeStatementIOSpecific()
+#exposeQuerySpecific()
+#exposeSDDSpring()
 #exposeRESTSDDURLServer()
+#putImportQuerySDDBean()
 package $packageName;
 
 $!updatedAreaImport
@@ -33,9 +35,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
-import $inputObjectImport;
-import $outputObjectImport;
-import $SDDDaoInterfaceImport;
+import $sddOutputBeanCollectionImport;
+//sddInputBeanClass = $sddInputBeanClass
+//sddOutputBeanClass = $sddOutputBeanClass
 
 /**
  *
@@ -49,23 +51,26 @@ import $SDDDaoInterfaceImport;
 @Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Service
 @Transactional
-public class ${className} <I, O, D extends $GenericSDDDao> {
- 
-#exposeEntityUpdatedAreas("SDD_EXECUTE")
+public class ${className} {
+
+    @Autowired
+    @Qualifier("$sddDaoInterfaceVariable")
+    ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
     @GET
-    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
-    public List<O> execute () {
-        return getDao().execute(getInput());
+    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
+    public $sddOutputBeanCollectionClass execute () {
+        return ${sddDaoInterfaceVariable}.execute(getInput());
     }
 #end
 $!updatedAreaEnd
 
-    public abstract D getDao();
-    public abstract I getInput();
-    
 $!updatedAreaImplementation
+
+
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import $beanImport;
 
+$!updatedAreaImport
 /**
  *
  * <p>Title: ${className}</p>
@@ -28,4 +29,5 @@ public class ${className} {
 	
 #putGetterAdder($className, $listVariable, ${beanClass}, ${beanVariable})
 
+$!updatedAreaImplementation
 }
