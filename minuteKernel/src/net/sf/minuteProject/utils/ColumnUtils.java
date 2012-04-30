@@ -4,17 +4,16 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.velocity.texen.util.PropertiesUtil;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 public class ColumnUtils {
 	
-	private static final String TRIGGER = "TRIGGER";
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
 	public static Column getColumn(Table table, String columnName) {
@@ -198,10 +197,7 @@ public class ColumnUtils {
 	}
 
 	private static boolean isTrigger(Property property) {
-		String tag = property.getTag();
-		if (!StringUtils.isEmpty(tag))
-			return tag.toUpperCase().startsWith(TRIGGER);
-		return false;
+		return PropertyUtils.isTriggerTag(property);
 	}
 
 	public static boolean belongsToCompositePrimaryKeyNotMany2Many(Column column) {
