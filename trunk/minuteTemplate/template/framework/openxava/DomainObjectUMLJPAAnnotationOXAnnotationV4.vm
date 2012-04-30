@@ -421,8 +421,16 @@ $!updatedAreaEnd
 
 #end
 
-#if ($tableUtils.hasTrigger($table))
+#if ($tableUtils.hasInsertTrigger($table))
 //   @Prepersist
+	public void prepersist_ () {
+#foreach ($trigger in $tableUtils.getInsertTriggers())
+		//$trigger
+#set($triggerVar =$trigger.column.alias)
+#set($triggerType =$trigger.column.type)
+		$triggerVar = getPrepersist${trigger.column.alias}();
+#end
+	}
 #end
 
 $!updatedAreaImplementation
