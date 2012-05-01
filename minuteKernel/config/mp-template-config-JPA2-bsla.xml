@@ -102,6 +102,8 @@
 		tool="velocity"
 		outputdir="src/main/java"
 		belongToPackage="true">
+		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>         
+		
 	
 	    <!-- ENTITY OBJECTs -->
 		<!-- in JPA2 track
