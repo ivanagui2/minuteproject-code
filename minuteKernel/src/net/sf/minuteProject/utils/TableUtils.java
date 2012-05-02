@@ -9,7 +9,9 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
+import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enumeration.CRUDEnum;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -431,21 +433,23 @@ public class TableUtils {
 		return false;
 	}
 
-	public static boolean hasTrigger(Table table, String crud) {
-		for (Column column : table.getColumns()) {
-			if (crud == null) {
-				if (ColumnUtils.hasTrigger(column))
-					return true;
-			} else {
-				if (INSERT.equals(crud)) {
-//					if (ColumnUtils.hasInsertTrigger(column))
-//						return true;
-				}
-			}
-		}
-		return false;
+	public static boolean hasTrigger(Table table, CRUDEnum crud) {
+		return (getTriggers(table, crud).isEmpty())?false:true;
 	}
 
+	public static List<Trigger> getTriggers(Table table, CRUDEnum crud) {
+		List<Trigger> triggers = new ArrayList<Trigger>();
+		for (Column column : table.getColumns()) {
+			List<Trigger> columnTriggers = column.getTriggers();
+			for (Trigger t : columnTriggers) {
+				if (t.isOfType(crud))
+					triggers.add(t);
+			}
+		}
+		return triggers;
+	}
+
+	
 	public static boolean hasTrigger(Table table) {
 		for (Column column : table.getColumns()) {
 			if (ColumnUtils.hasTrigger(column))
