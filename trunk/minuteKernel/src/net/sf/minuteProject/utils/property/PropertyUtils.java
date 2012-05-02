@@ -11,7 +11,6 @@ public class PropertyUtils {
 	private static final String START_WITH = "start-with";
 	private static final String END_WITH = "end-with";
 	private static final String CONTAIN = "contain";
-	private static final String TRIGGER = "TRIGGER";
 
 	public static String getConstraintPropertyValue(Property property) {
 		return RestrictedCodeUtils.convertToValidJavaWithUpperCase(property);
@@ -45,24 +44,6 @@ public class PropertyUtils {
 		return isPropertyTagCondition(property, name, CONTAIN);
 	}
 
-	public static boolean isTriggerTag(Property property) {
-		return isPropertyTagStartWith(property, TRIGGER);
-	}
 
-	public static boolean isInsertTrigger(Property property) {
-		return isTriggerTag(property) && isInsertTag(property);
-	}
-
-	public static boolean isUpdateTrigger(Property property) {
-		return isTriggerTag(property) && isUpdateTag(property);
-	}
-	
-	private static boolean isInsertTag(Property property) {
-		return isPropertyTagContain(property, INSERT);
-	}
-
-	private static boolean isUpdateTag(Property property) {
-		return isPropertyTagContain(property, UPDATE);
-	}
 
 }

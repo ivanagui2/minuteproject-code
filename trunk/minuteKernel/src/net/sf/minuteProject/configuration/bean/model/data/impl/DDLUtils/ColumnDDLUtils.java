@@ -9,7 +9,10 @@ import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.TriggerUtils;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 /**
  * Represents a column in the database model.
@@ -464,12 +467,20 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	}
 
 	public List<Trigger> getTriggers() {
-		if (triggers==null) triggers = new ArrayList<Trigger>();
+		if (triggers==null) {
+			triggers = new ArrayList<Trigger>();
+			for (Property property : getProperties()) {
+				Trigger trigger = TriggerUtils.getTriggerFromProperty(property, this);
+				if (trigger!=null)
+					triggers.add(trigger);
+			}
+		}
 		return triggers;
 	}
 
-	public void setTriggers(List<Trigger> triggers) {
-		this.triggers = triggers;
+	@Override
+	public void addTriggers(Trigger trigger) {
+		getTriggers().add(trigger);
 	}
 	
 }

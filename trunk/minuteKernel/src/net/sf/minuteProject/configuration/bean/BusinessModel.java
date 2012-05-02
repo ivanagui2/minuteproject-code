@@ -209,7 +209,7 @@ public class BusinessModel {
 		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTable(database, entity.getName());
 		if (table!=null){
 			complementDataModelWithTableEnrichment(table, entity);
-			complementEntityWithProperties(table, entity);
+			complementEntityWithProperties(table, entity);			
 		}		
 	}
 	
@@ -247,6 +247,11 @@ public class BusinessModel {
 		convertEntityInfoIntoTable(entity, table);
 		convertEntityReferenceIntoReference(entity,table);
 		convertEntityFields(entity, table);
+		complementEntityWithTriggers(entity, table);
+	}
+
+	private void complementEntityWithTriggers(Entity entity, Table table) {
+		// TODO Auto-generated method stub
 	}
 
 	private void convertEntityFields(Entity entity, Table table) {

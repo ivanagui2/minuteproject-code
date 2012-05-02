@@ -54,7 +54,7 @@ public interface Column extends BaseColumn
 	 
 	 public List<Trigger> getTriggers();
 	 
-	 public  void setTriggers(List<Trigger> triggers);
+	 public void addTriggers(Trigger trigger);
 	 
 }
 
