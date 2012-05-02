@@ -428,7 +428,7 @@ $!updatedAreaEnd
 		//$trigger
 #set($triggerVar =$trigger.column.alias)
 #set($triggerType =$trigger.column.type)
-		$triggerVar = getPrepersist${trigger.column.alias}();
+		$triggerVar = getPrepersist${trigger.column.alias}_();
 #end
 	}
 #end
