@@ -421,10 +421,10 @@ $!updatedAreaEnd
 
 #end
 
-#if ($tableUtils.hasInsertTrigger($table))
+#if ($tableUtils.hasTrigger($table)) ##insertTrigger
 //   @Prepersist
 	public void prepersist_ () {
-#foreach ($trigger in $tableUtils.getInsertTriggers())
+#foreach ($trigger in $tableUtils.getTriggers()) ##getInsertTriggers())
 		//$trigger
 #set($triggerVar =$trigger.column.alias)
 #set($triggerType =$trigger.column.type)
