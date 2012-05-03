@@ -458,8 +458,12 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 		return triggers;
 	}
 
-	public void setTriggers(List<Trigger> triggers) {
+	protected void setTriggers(List<Trigger> triggers) {
 		this.triggers = triggers;
 	}
 	
+	@Override
+	public void addTriggers(Trigger trigger) {
+		getTriggers().add(trigger);
+	}
 }
