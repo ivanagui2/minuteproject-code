@@ -31,8 +31,7 @@ public class TriggerUtils {
 	}
 
 	private static String getValue(Property property) {
-		// TODO Auto-generated method stub
-		return null;
+		return "with-current-date";
 	}
 
 	private static List<CRUDEnum> getCruds(Property property) {

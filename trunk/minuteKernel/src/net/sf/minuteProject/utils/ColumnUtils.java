@@ -185,20 +185,21 @@ public class ColumnUtils {
 	}
 
 	public static boolean hasTrigger(Column column) {
-		return (hasTriggerProperty(column) || (column.getTriggers()!=null && column.getTriggers().size()>0));
+//		return (hasTriggerProperty(column) || (column.getTriggers()!=null && column.getTriggers().size()>0));
+		return ((column.getTriggers()!=null && column.getTriggers().size()>0));
 	}
 
-	private static boolean hasTriggerProperty(Column column) {
-		for (Property property : column.getProperties()) {
-			if (isTrigger(property))
-				return true;
-		}
-		return false;
-	}
-
-	private static boolean isTrigger(Property property) {
-		return PropertyUtils.isTriggerTag(property);
-	}
+//	private static boolean hasTriggerProperty(Column column) {
+//		for (Property property : column.getProperties()) {
+//			if (isTrigger(property))
+//				return true;
+//		}
+//		return false;
+//	}
+//
+//	private static boolean isTrigger(Property property) {
+//		return PropertyUtils.isTriggerTag(property);
+//	}
 
 	public static boolean belongsToCompositePrimaryKeyNotMany2Many(Column column) {
 		return TableUtils.isCompositePrimaryKeyNotMany2Many(column.getTable()) &&

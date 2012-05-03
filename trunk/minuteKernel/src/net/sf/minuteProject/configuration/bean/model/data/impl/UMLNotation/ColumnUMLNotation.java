@@ -1,5 +1,6 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation;
 
+import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnAbstract;
