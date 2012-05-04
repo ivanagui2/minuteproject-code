@@ -421,17 +421,7 @@ $!updatedAreaEnd
 
 #end
 
-#if ($tableUtils.hasTrigger($table)) ##insertTrigger
-//   @Prepersist
-	public void prepersist_ () {
-#foreach ($trigger in $tableUtils.getTriggers()) ##getInsertTriggers())
-		//$trigger
-#set($triggerVar =$trigger.column.alias)
-#set($triggerType =$trigger.column.type)
-		$triggerVar = getPrepersist${trigger.column.alias}_();
-#end
-	}
-#end
+#putJPA2TriggerSnippet()
 
 $!updatedAreaImplementation
 

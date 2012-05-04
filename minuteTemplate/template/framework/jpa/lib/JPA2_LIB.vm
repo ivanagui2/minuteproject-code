@@ -98,3 +98,39 @@ import $importDomainObjectUML;
 #macro(exposeXmlElementValue)
 #set($xmlElementValue=$jaxbUtils.getXmlElementValue($column, $xmlFormat))
 #end
+
+#macro(putJPA2TriggerSnippet)
+#if ($tableUtils.hasInsertTrigger($table))
+#exposeEntityUpdatedAreas("prepersist")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    @javax.persistence.PrePersist
+    public void prePersist_ () {
+#foreach ($trigger in $tableUtils.getInsertTriggers($table)) 
+#exposeVariableTriggerSpecific()
+        $triggerVar = $triggerJavaExpressionChunk;
+#end
+    }
+#end
+$!updatedAreaEnd
+#end
+
+#if ($tableUtils.hasUpdateTrigger($table))
+#exposeEntityUpdatedAreas("preupdate")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    @javax.persistence.PreUpdate
+    public void preUpdate_ () {
+#foreach ($trigger in $tableUtils.getUpdateTriggers($table)) 
+#exposeVariableTriggerSpecific()
+        $triggerVar = $triggerJavaExpressionChunk;
+#end
+    }
+#end
+$!updatedAreaEnd
+#end
+#end

@@ -55,6 +55,13 @@ $!commonUtils.getReadMeText($template)
 
 #end
 
+#macro(exposeVariableTriggerSpecific)
+#set($triggerColumnName =$trigger.columnName)
+#set($triggerVar =$triggerUtils.getTriggerAlias($trigger))
+#set($triggerType =$triggerUtils.getTriggerAlias($trigger))
+#set($triggerJavaExpressionChunk =$triggerUtils.getJavaDisplayChunk($trigger))
+#end
+
 #macro (putGetterAdder $classList $listVariable $class $variable)
     public List<${class}> get${classList} () {
         if (${listVariable}==null)
