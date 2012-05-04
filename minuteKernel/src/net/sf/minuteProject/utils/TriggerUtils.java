@@ -2,36 +2,77 @@ package net.sf.minuteProject.utils;
 
 import static net.sf.minuteProject.configuration.bean.enrichment.Trigger.INSERT;
 import static net.sf.minuteProject.configuration.bean.enrichment.Trigger.UPDATE;
+import static net.sf.minuteProject.utils.property.PropertyUtils.isPropertyTagContain;
+import static net.sf.minuteProject.utils.property.PropertyUtils.isPropertyTagStartWith;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enumeration.CRUDEnum;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.system.Property;
-import net.sf.minuteProject.utils.property.PropertyUtils;
-import static net.sf.minuteProject.utils.property.PropertyUtils.*;
 
 public class TriggerUtils {
 
 	private static final String TRIGGER = "TRIGGER";
 	
+	public static String getTriggerAlias (Trigger trigger) {
+		return CommonUtils.getColumnVariableName(getColumn(trigger));
+	}
+	
+	public static String getTriggerType (Trigger trigger) {
+		return CommonUtils.getJavaType(getColumn(trigger));
+	}
+	
+	private static Column getColumn(Trigger trigger) {
+		return trigger.getColumn();
+	}
+
 	public static Trigger getTriggerFromProperty(Property property, Column column) {
 		if (isTriggerTag(property)) {
 			Trigger trigger = new Trigger();
-			trigger.setColumnName(column.getName());
+			trigger.setColumn(column);
 			trigger.setCruds(getCruds(property));
 			trigger.setValue(getValue(property));
 			return trigger;
 		}
 		return null;
 	}
+	
+	public static String getJavaDisplayChunk (Trigger trigger) {
+		if (trigger.getValue()==null)
+			return getTriggerAlias(trigger);
+		if (Trigger.CURRENT_TIME.equals(trigger.getValue()))
+			return getCurrentTime(trigger);
+		return getTriggerAlias(trigger);
+	}
 
+	private static String getCurrentTime(Trigger trigger) {
+		String javaFullType = CommonUtils.getFullType2(getColumn(trigger));
+		if (ConvertUtils.JAVA_SQL_DATE_TYPE.equals(javaFullType))
+			return "new java.sql.Date((new java.util.Date().getTime()))";
+		if (ConvertUtils.JAVA_SQL_TIMESTAMP_TYPE.equals(javaFullType))
+			return "new java.sql.Time(new java.util.Date().getTime()))";
+		return getTriggerAlias(trigger);
+	}
+
+	public static CRUDEnum getCRUDEnum (String crud) {
+		if (StringUtils.isEmpty(crud))
+			return null;
+		for (CRUDEnum e : CRUDEnum.values()) {
+			if (e.toString().equals(crud))
+				return e;
+		}
+		return null;
+	}
+	
 	private static String getValue(Property property) {
-		return "with-current-date";
+		if (org.apache.commons.lang.StringUtils.contains(property.getTag(), Trigger.CURRENT_TIME)
+			|| org.apache.commons.lang.StringUtils.contains(property.getTag(), Trigger.CURRENT_DATE))
+
+			return Trigger.CURRENT_TIME;
+		return null;
 	}
 
 	private static List<CRUDEnum> getCruds(Property property) {
