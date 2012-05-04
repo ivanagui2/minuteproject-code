@@ -4,15 +4,18 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enumeration.CRUDEnum;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 
 public class Trigger extends AbstractConfiguration  {
 
 	public static final String UPDATE = "UPDATE";
 	public static final String INSERT = "INSERT";
 	public static final String CURRENT_TIME = "current-time";
+	public static final String CURRENT_DATE = "current-date";
 	
-	public String action, className, value, columnName;
+	public String action, className, value;
 	public List<CRUDEnum> cruds;
+	public Column column;
 	
 	public String getAction() {
 		return action;
@@ -54,13 +57,13 @@ public class Trigger extends AbstractConfiguration  {
 		this.cruds = cruds;
 	}
 
-	public String getColumnName() {
-		return columnName;
+	public Column getColumn() {
+		return column;
 	}
 
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
+	public void setColumn(Column column) {
+		this.column = column;
 	}
-	
+
 	
 }

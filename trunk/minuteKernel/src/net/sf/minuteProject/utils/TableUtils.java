@@ -433,10 +433,27 @@ public class TableUtils {
 		return false;
 	}
 
+	
 	public static boolean hasTrigger(Table table, CRUDEnum crud) {
 		return (getTriggers(table, crud).isEmpty())?false:true;
 	}
+	
+	public static boolean hasInsertTrigger(Table table) {
+		return hasTrigger(table, CRUDEnum.INSERT);
+	}
+	
+	public static boolean hasUpdateTrigger(Table table) {
+		return hasTrigger(table, CRUDEnum.UPDATE);
+	}
 
+	public static List<Trigger> getInsertTriggers(Table table) {
+		return getTriggers(table, CRUDEnum.INSERT);
+	}
+	
+	public static List<Trigger> getUpdateTriggers(Table table) {
+		return getTriggers(table, CRUDEnum.UPDATE);
+	}
+	
 	public static List<Trigger> getTriggers(Table table, CRUDEnum crud) {
 		List<Trigger> triggers = new ArrayList<Trigger>();
 		for (Column column : table.getColumns()) {
@@ -448,7 +465,6 @@ public class TableUtils {
 		}
 		return triggers;
 	}
-
 	
 	public static boolean hasTrigger(Table table) {
 		for (Column column : table.getColumns()) {

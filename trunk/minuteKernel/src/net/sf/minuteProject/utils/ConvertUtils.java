@@ -17,11 +17,13 @@ public class ConvertUtils {
 	public static final String JAVA_INTEGER_TYPE 					=   "java.lang.Integer";		
 	public static final String JAVA_SHORT_TYPE 			 			=   "java.lang.Short";		
 	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.sql.Timestamp";			
+	public static final String JAVA_SQL_TIMESTAMP_TYPE 				=   "java.sql.Timestamp";			
 	public static final String JAVA_TIME_TYPE 						=   "java.sql.Time";			
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
 	public static final String JAVA_STRING_TYPE 					=   "java.lang.String";						
 	public static final String JAVA_DATE_TYPE 						=   "java.sql.Date";
+	public static final String JAVA_SQL_DATE_TYPE 					=   "java.sql.Date";
 	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
 
