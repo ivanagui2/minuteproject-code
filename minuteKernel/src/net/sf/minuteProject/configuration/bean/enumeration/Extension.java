@@ -1,5 +1,6 @@
 package net.sf.minuteProject.configuration.bean.enumeration;
 
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.utils.LicenceUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -79,8 +80,9 @@ public enum Extension implements FileComment {
 	private String licence;
 	
 	public String getLicence() {
-		if (licence==null)
+		if (licence==null) {
 			licence = format(LicenceUtils.getLicence());
+		}
 		return licence;
 	}
 	
