@@ -774,7 +774,19 @@ public class Template extends TemplateTarget {
 	public String getLicence() {
 		if (extension==null || extension.equals(Extension.xml))
 			return null;
-		return extension.getLicence();
+		return extension.getLicence()+getTemplateSignature();
 	}
-	
+
+	private String getTemplateSignature() {
+		return extension.format(getTemplateSignatureTxt());
+	}
+
+	private String getTemplateSignatureTxt() {
+		return 
+			" template reference : \n"+
+			" - name : "+getName()+"\n"+
+			" - file name : "+getTemplateFileName()+"\n"+
+			"";
+	}
+		
 }

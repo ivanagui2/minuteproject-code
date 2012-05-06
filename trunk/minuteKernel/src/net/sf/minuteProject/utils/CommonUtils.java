@@ -195,7 +195,7 @@ public class CommonUtils {
 		return getFileName(templateTarget, bean);
 	}
 	// TODO refactor 4 times
-	protected static String getTemplateClassName (GeneratorBean bean, Template template, String targetTemplateName) {
+	public static String getTemplateClassName (GeneratorBean bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
 		if (templateTarget==null) {
 			logger.debug("ConfigFile not ok");
