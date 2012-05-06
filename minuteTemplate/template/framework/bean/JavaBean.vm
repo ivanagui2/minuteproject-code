@@ -16,8 +16,7 @@ $!updatedAreaImport
 public class ${className} {
 
 #foreach($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
     private $columnType $columnVar;
 #end
 
@@ -28,8 +27,7 @@ public class ${className} {
     }
 	
 #foreach($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
     public $columnType get$columnClass() {
         return $columnVar;
     }

@@ -64,7 +64,12 @@ $!updatedAreaSnippet
 #else
     @GET
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
-    public $sddOutputBeanCollectionClass execute () {
+    public $sddOutputBeanCollectionClass execute (
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+        @PathParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columns.size),#end
+#end
+    ) {
         return ${sddDaoInterfaceVariable}.execute(getInput());
     }
 #end

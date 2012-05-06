@@ -3,9 +3,9 @@
 			return null;
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
-#if ($columnType=="String" && !$isEnum)	
+#if ($columnType=="String" && !$isEnum)
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
-           ${tableVariableName}.set$columnClass((String)null); //$isEnum
+           ${tableVariableName}.set$columnClass((String)null);
 #end
 #end
 #foreach ($column in ${table.parents})
