@@ -20,10 +20,10 @@
 #exposeSDDSpringTemplate()
 #set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
-#set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query, $template, $templateSDDDaoInterface))
+#set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDDaoInterface))
 #set ($sddSpringJPADaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDSpringJPADaoClass))
 #set ($sddSpringJPADaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddSpringJPADaoInterfaceClass))
-#set ($sddSpringJPADaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query, $template, $templateSDDSpringJPADaoClass))
+#set ($sddSpringJPADaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDSpringJPADaoClass))
 #end
 
 #macro (exposeSpringTemplate)

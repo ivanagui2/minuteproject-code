@@ -3,6 +3,11 @@
 #exposeRESTURLClient($techno)
 #end
 
+#macro(exposeRESTSDDURLServer)
+#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($query, $techno))
+#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($query, $techno))
+#end
+
 #macro (exposeRESTURLClient $techno)
 #set ($restXmlClientUrl = $restUtils.getRestUrlClientXml($table, $techno))
 #set ($restJsonClientUrl = $restUtils.getRestUrlClientJson($table, $techno))
