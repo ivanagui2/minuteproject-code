@@ -1,6 +1,7 @@
 #exposeQuerySpecific()
 #exposeSDDSpring()
 #putImportQuerySDDBean()
+#addedAreas()
 package $packageName;
 
 $!updatedAreaImport

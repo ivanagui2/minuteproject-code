@@ -38,6 +38,8 @@ import $importDaoInterfaceExtendedUML;
 import $importDomainObjectUML;
 import $importJPAImplName;
 
+#exposeJPA2EnumImport()
+
 #foreach ($reference in $table.distinctChildrenType)
 #putReferenceParams2()
 #putDependenciesUML()
@@ -451,7 +453,11 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #if ($column.isLob())
 #exposeLobProperties()
 #end
-				${tableVariableName}Result.set$columnClass(($columnType) row[index]);
+#if($isEnum)
+				${tableVariableName}Result.set$columnClass(${enumClassName}.fromValue(($columnType)row[index]));
+#else
+                ${tableVariableName}Result.set$columnClass(($columnType) row[index]);
+#end
 				index++;
 			}
 #end

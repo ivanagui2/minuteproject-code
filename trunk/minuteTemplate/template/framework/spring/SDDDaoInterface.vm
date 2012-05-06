@@ -1,11 +1,13 @@
 #exposeQuerySpecific()
 #exposeSDDSpring()
 #putImportQuerySDDBean()
+#addedAreas()
 package $packageName;
 
 $!updatedAreaImport
 
 import $sddOutputBeanCollectionImport;
+import $sddInputBeanImport;
 
 /**
  *
