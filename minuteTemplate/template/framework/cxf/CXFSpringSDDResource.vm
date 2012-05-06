@@ -2,6 +2,7 @@
 #exposeSDDSpring()
 #exposeRESTSDDURLServer()
 #putImportQuerySDDBean()
+#addedAreas()
 package $packageName;
 
 $!updatedAreaImport
@@ -36,9 +37,8 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
 import $sddOutputBeanCollectionImport;
-//sddInputBeanClass = $sddInputBeanClass
-//sddOutputBeanClass = $sddOutputBeanClass
 
+import $sddDaoInterfaceImport;
 /**
  *
  * <p>Title: ${className}</p>
@@ -71,6 +71,5 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 
 $!updatedAreaImplementation
-
 
 }
