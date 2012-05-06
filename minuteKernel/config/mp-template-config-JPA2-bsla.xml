@@ -51,7 +51,7 @@
     <template-target 
         name="DAO Spring JPA set"
         libdir=""
-        outputdir="src/main/java2"
+        outputdir="src/main/java"
         belongToPackage="true">
 
         <template name="SDDDaoInterface" templateFileName="SDDDaoInterface.vm" 
