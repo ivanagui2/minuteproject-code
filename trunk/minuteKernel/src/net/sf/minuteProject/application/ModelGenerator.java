@@ -323,7 +323,6 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByField (template, table);
 		}		
 	}
-	
 
 	protected void generateArtifactsByField(Template template, Table table) throws MinuteProjectException{
 		table = getDecoratedTable(table);

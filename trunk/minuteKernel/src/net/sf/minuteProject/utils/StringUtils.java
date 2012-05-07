@@ -37,4 +37,8 @@ public class StringUtils {
 		return false;
 	}
 
+	public static boolean compareName (String name1, String name2) {
+//		if (name1==null || name2==null)	return false;
+		return org.apache.commons.lang.StringUtils.equalsIgnoreCase(name1, name2);
+	}
 }
