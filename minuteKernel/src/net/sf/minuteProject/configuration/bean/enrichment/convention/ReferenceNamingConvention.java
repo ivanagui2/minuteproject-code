@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
+import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
+import net.sf.minuteProject.configuration.bean.enrichment.Entity;
+import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -18,6 +21,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY="apply-referenced-alias-when-no-ambiguity";
 	//TODO
 	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY_AND_NOT_PRESENT="apply-referenced-alias-when-no-ambiguity-and-not-present";
+	public final String APPLY_MANY_TO_MANY_ALIASING = "apply-many-to-many-aliasing";
 	
 	private boolean isToPlurialize;
 	
@@ -30,6 +34,58 @@ public class ReferenceNamingConvention extends ModelConvention {
 				}
 			}
 		}
+		else if (APPLY_MANY_TO_MANY_ALIASING.equals(type)) {
+			if (model.getBusinessPackage()!=null) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
+					if (table.isManyToMany())
+						applyM2MAlias (table);
+				}
+			}
+		}
+	}
+
+	private void applyM2MAlias(Table table) {
+		// get table other end 
+		for (Reference parent : table.getParents()) {
+			String retrievedAlias = retrieveAlias(table, parent);
+			if (retrievedAlias!=null)
+				parent.setAlias(retrievedAlias);
+		}
+		// check that reference is enriched
+	}
+
+	private String retrieveAlias(Table table, Reference parent) {
+		String retrievedAlias = getRetrievedAlias (table, parent);
+		if (retrievedAlias!=null)
+			if (isToPlurialize)
+				retrievedAlias = I18nUtils.plurialize(retrievedAlias);
+		return retrievedAlias;
+	}
+
+	private String getRetrievedAlias (Table table, Reference parent) {
+		Field field = getRetrievedField(table, parent);
+		if (field!=null)
+			return field.getLinkReferenceAlias();
+		return null;
+	}
+
+	private Field getRetrievedField(Table table, Reference parent) {
+		BusinessModel businessModel = table.getDatabase().getDataModel().getModel().getBusinessModel();
+		if (businessModel!=null){
+			Enrichment enrichment = businessModel.getEnrichment();
+			for (Entity entity : enrichment.getEntities()){
+				if (net.sf.minuteProject.utils.StringUtils.compareName(entity.getName(), table.getName())) {
+//					System.out.println(">>> table "+entity.getName()+"--"+ table.getName());
+					for (Field field : entity.getFields()) {
+						if (net.sf.minuteProject.utils.StringUtils.compareName(field.getLinkToTargetEntity(), parent.getForeignTable().getName())) {
+							System.out.println(">>> field "+field.getName()+"-link: "+field.getLinkToTargetEntity()+"- parent: "+parent.getForeignTable().getName());
+							return field;
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	private void apply(Table table) {
@@ -98,7 +154,9 @@ public class ReferenceNamingConvention extends ModelConvention {
 
 	public String getNameForAmbiguiousCaseAndMany2Many(Table table, Reference reference) {
 		//{targetTableVariableName}Via${linkTableName}By${localColumnName}s
-		String name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getForeignColumn().getAlias();
+//		String name = getRetrievedAlias (table);
+//		if (name==null)
+		String	name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getForeignColumn().getAlias();
 		return getFinalName(name);
 	}
 	
