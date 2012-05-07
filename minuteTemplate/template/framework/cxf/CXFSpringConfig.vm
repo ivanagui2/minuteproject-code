@@ -20,8 +20,8 @@
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-	
-	<context:component-scan base-package="${controllerCxfPackageName}"/>
+    
+    <context:component-scan base-package="${controllerCxfPackageName}"/>
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
 	
@@ -43,6 +43,11 @@
 #exposeCXFEntitySpecific()
 			<ref bean="$CXFRestServiceBeanVariable"/>
 #end
+#end
+			<!-- statements -->
+#foreach ($query in $model.statementModel.queries.queries)
+#exposeCXFSDDSpecific()
+			<ref bean="$CXFRestServiceSDDBeanVariable"/>
 #end
         </jaxrs:serviceBeans>
     </jaxrs:server>	
