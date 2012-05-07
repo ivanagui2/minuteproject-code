@@ -9,8 +9,15 @@
 #set ($CXFRestServiceBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceBeanClass))
 #end
 
+#macro(exposeCXFSDDSpecific)
+#exposeCXFTemplate()
+#set ($CXFRestServiceSDDBeanClass = $commonUtils.getTemplateClassName($query, $template, $templateCXFSpringRestServiceSDDBean))
+#set ($CXFRestServiceSDDBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDBeanClass))
+#end
+
 #macro (exposeCXFTemplate)
 #set ($templateCXFSpringRestServiceBean = "CXFSpringEntityResource")
+#set ($templateCXFSpringRestServiceSDDBean = "CXFSpringSDDResource")
 #end
 
 #macro (exposeMavenCXF)
