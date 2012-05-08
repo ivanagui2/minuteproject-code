@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import org.apache.log4j.Logger;
 
 public class StatementModel {
+	
 	private static Logger logger = Logger.getLogger(StatementModel.class);
 	private Queries queries;
 	private SDDPackage sddPackage;
@@ -19,6 +20,8 @@ public class StatementModel {
 		this.model = model;
 	}
 	public Queries getQueries() {
+		if (queries==null)
+			queries = new Queries();
 		return queries;
 	}
 	public SDDPackage getSddPackage() {
@@ -36,5 +39,9 @@ public class StatementModel {
 	public void complementStatement() {
 		Database database = model.getDataModel().getDatabase();
 		getSddPackage().setPackages(model, database);
+	}
+	
+	public boolean hasQueries () {
+		return (getQueries().getQueries().size()>0)?true:false;
 	}
 }

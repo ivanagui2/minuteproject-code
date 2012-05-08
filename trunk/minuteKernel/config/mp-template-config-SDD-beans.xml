@@ -11,19 +11,19 @@
 		<!-- SDD beans -->	
 		<template name="SDDInputBean" templateFileName="JavaBean.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.in"
-			file-extension="java" file-prefix="" file-suffix="In" 
+			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
 			scope-specific-value="sdd-input-bean" >
 		</template>	
 
 		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
-			file-extension="java" file-prefix="" file-suffix="Out" 
+			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
 			scope-specific-value="sdd-output-bean" >
 		</template>	
 
 		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
-			file-extension="java" file-prefix="" file-suffix="OutList" 
+			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
 			scope-specific-value="sdd-output-bean" >
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
