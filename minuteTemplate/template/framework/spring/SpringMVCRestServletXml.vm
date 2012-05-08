@@ -21,6 +21,13 @@
             expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
+#if ($model.statementModel.hasQueries())
+    <context:component-scan base-package="${controllerDaoPackageName}">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+#end
+
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

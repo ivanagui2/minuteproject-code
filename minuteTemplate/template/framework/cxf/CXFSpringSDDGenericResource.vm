@@ -1,5 +1,6 @@
 #exposeStatementIOSpecific()
 #exposeRESTSDDURLServer()
+#addedAreas()
 package $packageName;
 
 $!updatedAreaImport
@@ -41,7 +42,7 @@ import $SDDDaoInterfaceImport;
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: remote interface for ${className} service </p>
+ * <p>Description: class for ${className} service </p>
  *
  */
 @Path ("$restXmlServerUrl")
