@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils.sql;
 
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -18,10 +19,19 @@ public class StatementUtils {
 	}
 	
 	private static final String getJdbcType(QueryParam queryParam) {
-		String type = queryParam.getType();
-		if (type.equals(FieldType.INTEGER))
+		return getJdbcType(queryParam.getType());
+	}
+	
+	public static final String getJdbcType(Column column) {
+		return getJdbcType(column.getType());
+	}
+	
+	private static final String getJdbcType(String type) {
+		if (type.equals(FieldType.INTEGER.toString()))
 			return "Int";
-		if (type.equals(FieldType.CHAR))
+		if (type.equals(FieldType.DECIMAL.toString()))
+			return "Long";
+		if (type.equals(FieldType.CHAR.toString()))
 			return "String";
 		return "String";
 	}
