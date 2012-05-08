@@ -2,6 +2,7 @@
 #exposeSDDSpring()
 #putImportQuerySDDBean()
 #addedAreas()
+#exposeJPASpecifics()
 package $packageName;
 
 $!updatedAreaImport
@@ -44,7 +45,7 @@ public class ${className} implements $sddDaoInterfaceClass{
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
 	public static final String QUERY_NATIVE = "$fullQuery";
 
-	@PersistenceContext(unitName = "$persistence")  
+	@PersistenceContext(unitName = "$persistenceUnitName")  
     EntityManager entityManager;  
 #exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
 $!updatedAreaBegin

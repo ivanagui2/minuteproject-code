@@ -1,6 +1,7 @@
 #macro (exposeCXFModelSpecific)
 #exposeCXFTemplate()
 #set($controllerCxfPackageName=$commonUtils.getPackageName($model, $template, $templateCXFSpringRestServiceBean))
+#set($controllerDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADao))
 #end
 
 #macro(exposeCXFEntitySpecific)
@@ -18,6 +19,7 @@
 #macro (exposeCXFTemplate)
 #set ($templateCXFSpringRestServiceBean = "CXFSpringEntityResource")
 #set ($templateCXFSpringRestServiceSDDBean = "CXFSpringSDDResource")
+#set ($templateSDDSpringJPADao = "SDDSpringJPADao")
 #end
 
 #macro (exposeMavenCXF)
