@@ -22,8 +22,9 @@
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
     
     <context:component-scan base-package="${controllerCxfPackageName}"/>
-	
+#if ($model.statementModel.hasQueries())
     <context:component-scan base-package="${controllerDaoPackageName}"/>
+#end
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
 	

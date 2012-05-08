@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-##exposeEnvironmentParams()
+#addedAreas()
 package $packageName;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
 #putImportSDDBean()
+#addedAreas()
 package $packageName;
 
 import java.util.List;
