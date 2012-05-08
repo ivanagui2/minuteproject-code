@@ -1,11 +1,14 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
 #putImportSDDBean()
-#set ($listVariable = $i18nUtils.plurialize(${beanVariable}))
 package $packageName;
 
 import java.util.List;
 import java.util.ArrayList;
+
+#if($addXmlBinding)
+import javax.xml.bind.annotation.*;
+#end
 
 import $beanImport;
 
@@ -17,8 +20,15 @@ $!updatedAreaImport
  * <p>Description: Java Bean ${className} </p>
  *
  */
+#if($addXmlBinding)
+@XmlRootElement
+#end
 public class ${className} {
 
+#if($addXmlBinding)
+#set($xmlElementValue=$jaxbUtils.getXmlElementValue($listVariable, $xmlFormat))
+    @XmlElement $!xmlElementValue
+#end
     private List<${beanClass}> $listVariable;
 
     /**

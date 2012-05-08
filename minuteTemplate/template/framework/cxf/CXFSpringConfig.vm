@@ -22,6 +22,8 @@
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
     
     <context:component-scan base-package="${controllerCxfPackageName}"/>
+	
+    <context:component-scan base-package="${controllerDaoPackageName}"/>
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
 	

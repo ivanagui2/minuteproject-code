@@ -66,6 +66,9 @@ $!commonUtils.getReadMeText($template)
 
 #macro (putGetterAdder $classList $listVariable $class $variable)
 #set ($listClasses = $i18nUtils.plurialize(${class}))
+#if($addXmlBinding)
+    @XmlTransient
+#end
     public List<${class}> get${listClasses} () {
         if (${listVariable}==null)
             ${listVariable} = new ArrayList<$class>();
@@ -92,6 +95,9 @@ $!commonUtils.getReadMeText($template)
 #set ($beanClass = $commonUtils.getTemplateClassName($table, $model, $templateJavaBean))
 #set ($beanVariable = $commonUtils.getJavaNameVariableFirstLetter($beanClass))
 #set ($beanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateJavaBean))
+#set ($listVariable = $i18nUtils.plurialize(${beanVariable}))
+#set ($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
+#set ($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #end
 
 #macro (putImportQuerySDDBean)
