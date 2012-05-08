@@ -2,6 +2,7 @@ package net.sf.minuteProject.utils.binding;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.StringUtils;
 import static net.sf.minuteProject.utils.FormatUtils.*;
 
 public class JaxbUtils {
@@ -16,6 +17,17 @@ public class JaxbUtils {
 		if (xmlFormat==null) return null;
 		String name=null;
 		String alias = column.getAlias();
+		return format(xmlFormat, name, alias);
+	}
+	
+	public static String getXmlElementValue (String input, String xmlFormat) {
+		if (xmlFormat==null) return null;
+		String name=null;
+		String alias = FormatUtils.formatToSQLSingleString(input);
+		return format(xmlFormat, name, alias);
+	}
+
+	private static String format(String xmlFormat, String name, String alias) {
 		if (JAVA_VARIABLE_FORMAT.equals(xmlFormat))
 			name=getJavaNameVariable(alias);
 		if (UPPERCASE_UNDERSCORE_FORMAT.equals(xmlFormat))
