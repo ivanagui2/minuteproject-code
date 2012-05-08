@@ -65,16 +65,26 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro (putGetterAdder $classList $listVariable $class $variable)
-    public List<${class}> get${classList} () {
+#set ($listClasses = $i18nUtils.plurialize(${class}))
+    public List<${class}> get${listClasses} () {
         if (${listVariable}==null)
             ${listVariable} = new ArrayList<$class>();
         return ${listVariable};
     }
 
     public void add${class} (${class} ${variable}) {
-        get${classList} ().add(${variable});
+        get${listClasses} ().add(${variable});
     }
 
+#end
+
+#macro (putSetterGetterAdder $classList $listVariable $class $variable)
+#set ($listClasses = $i18nUtils.plurialize(${class}))
+    public void set${listClasses} (List<${class}> ${listVariable}) {
+        this.${listVariable} = ${listVariable};
+    }
+
+#putGetterAdder($classList $listVariable $class $variable)
 #end
 
 #macro (putImportSDDBean)
@@ -90,10 +100,11 @@ $!commonUtils.getReadMeText($template)
 #set ($sddInputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
 #set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query.getInputBean(), $template, $templateSDDInputBean))
 #set ($sddOutputBeanClass = $commonUtils.getTemplateClassName($query.getOutputBean(), $model, $templateSDDOutputBean))
-#set ($sddOutputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddOutputBeanClasses = $i18nUtils.plurialize(${sddOutputBeanClass}))
+#set ($sddOutputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddOutputBeanClass))
 #set ($sddOutputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query.getOutputBean(), $template, $templateSDDOutputBean))
 #set ($sddOutputBeanCollectionClass = $commonUtils.getTemplateClassName($query.getOutputBean(), $model, $templateSDDOutputBeanCollection))
-#set ($sddOutputBeanCollectionVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddOutputBeanCollectionVariable = $commonUtils.getJavaNameVariableFirstLetter($sddOutputBeanCollectionClass))
 #set ($sddOutputBeanCollectionImport = $commonUtils.getEntityLevelTemplateFullPath($model, $query.getOutputBean(), $template, $templateSDDOutputBeanCollection))
 #end
 
