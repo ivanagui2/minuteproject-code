@@ -101,6 +101,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                 outputdir-root="../../DEV/cxf/petshop/jpa2"
                fileName="mp-template-config-SDD-beans.xml" 
                templatedir-root="../../minuteTemplate/template/framework/bean">
+               <property name="add-xmlbinding" value="true"></property>	
+               <property name="add-xml-format" value="lowercase-hyphen"></property>
             </target>
             <target refname="COMMON-LIB" 
                fileName="mp-template-config-COMMON-LIB.xml" 
