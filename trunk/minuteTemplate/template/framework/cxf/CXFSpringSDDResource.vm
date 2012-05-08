@@ -37,7 +37,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
 import $sddOutputBeanCollectionImport;
-
+import $sddInputBeanImport;
 import $sddDaoInterfaceImport;
 /**
  *
@@ -67,10 +67,16 @@ $!updatedAreaSnippet
     public $sddOutputBeanCollectionClass execute (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        @PathParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columns.size),#end
+        @PathParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+#end
 #end
     ) {
-        return ${sddDaoInterfaceVariable}.execute(getInput());
+		$sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+		${sddInputBeanVariable}.set$columnClass ($columnVar);
+#end
+        return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
     }
 #end
 $!updatedAreaEnd

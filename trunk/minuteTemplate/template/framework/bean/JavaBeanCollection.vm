@@ -27,7 +27,7 @@ public class ${className} {
     public ${className}() {
     }
 	
-#putGetterAdder($className, $listVariable, ${beanClass}, ${beanVariable})
+#putSetterGetterAdder($className, $listVariable, ${beanClass}, ${beanVariable})
 
 $!updatedAreaImplementation
 }
