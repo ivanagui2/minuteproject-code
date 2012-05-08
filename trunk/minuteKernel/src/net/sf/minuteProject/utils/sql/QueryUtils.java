@@ -69,8 +69,16 @@ public class QueryUtils {
 		return qp;
 	}
 
+	public static String getFullQueryQuestionMark(Query query) {
+		return getQueryQuestionMark(query);
+	}
+	
+	public static String getQueryQuestionMark(Query query) {
+		return query.getQueryBody().getValue();
+	}
+	
 	public static String getFullQuerySample(Query query) {
-		String querySt = query.getQueryBody().getValue();
+		String querySt = getQueryQuestionMark(query);
 		List<String> samples = getSamples (query);
 		int samplesSize = samples.size();
 		int queryArgSize = StringUtils.countMatches(querySt, QUESTION_MARK);

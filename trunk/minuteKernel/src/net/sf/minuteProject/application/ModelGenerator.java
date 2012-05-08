@@ -48,6 +48,7 @@ import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 import net.sf.minuteProject.utils.java.JavaUtils;
+import net.sf.minuteProject.utils.sql.QueryUtils;
 import net.sf.minuteProject.utils.sql.StatementUtils;
 
 import org.apache.log4j.Logger;
@@ -87,6 +88,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private RoutineUtils routineUtils = new RoutineUtils();
 	private StatementUtils statementUtils = new StatementUtils();
 	private TriggerUtils triggerUtils = new TriggerUtils();
+	private QueryUtils queryUtils = new QueryUtils();
 
 	private Model model;
 
@@ -476,6 +478,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("routineUtils", routineUtils);
 		context.put("statementUtils", statementUtils);
 		context.put("triggerUtils", triggerUtils);
+		context.put("queryUtils", queryUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
