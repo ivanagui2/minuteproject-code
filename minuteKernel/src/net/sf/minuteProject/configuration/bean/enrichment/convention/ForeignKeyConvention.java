@@ -53,10 +53,7 @@ public class ForeignKeyConvention extends ModelConvention {
 	public void apply(BusinessModel model) {
 		if (AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP.equals(type)) {
 			if (model.getBusinessPackage() != null) {
-				// Database database =
-				// model.getModel().getDataModel().getDatabase();
 				for (Table table : model.getBusinessPackage().getTables()) {
-					// Table t = TableUtils.getEntity(database, table.getName());
 					apply(table);
 				}
 			}
@@ -65,7 +62,6 @@ public class ForeignKeyConvention extends ModelConvention {
 
 	private void apply(Table table) {
 		for (Field field : getForeignKeyFieldsNotInSelfReferencedPrimaryKey(table)){
-//			System.out.println("field "+field);
 			ForeignKeyUtils.setForeignKey(table, field);
 		}
 	}
@@ -77,7 +73,6 @@ public class ForeignKeyConvention extends ModelConvention {
 				Field f = getForeignKeyField(column, table);
 				if (f != null) {
 					list.add(f);
-					// System.out.println("f = "+f);
 				}
 			}
 		}
