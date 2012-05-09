@@ -30,6 +30,7 @@ import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.MpObjectBuilder;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class NavigateModelSequenceFixture extends SequenceFixture{
@@ -175,7 +176,24 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 //      return (compare.retainAll(l2)&&compare.removeAll(l2));
 	}
 	
+	public String aliasJavaVariableOfManyToManyBetweenTablesViaTable (String parent, String child, String via) {
+		return FormatUtils.getJavaNameVariable(getReferenceManyToManyBetweenTablesViaTable(parent, child, via));
+	}
+	
+	public String getReferenceManyToManyBetweenTablesViaTable (String parent, String child, String via) {
+		System.out.println(">> parent: "+parent);
+		Table table = TableUtils.getEntity(database, parent);
+		if (table!=null) {
+			for (Reference ref : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
+				if (ref.getForeignTable().getName().equals(child) && ref.getLocalTableName().toLowerCase().equals(via.toLowerCase()))
+					return ref.getAlias();
+			}
+		}
+		return "table do not exist";
+	}
+	
 	public String aliasJavaVariableOfFirstRelationshipBetween (String child, String parent) {
+		System.out.println("aliasJavaVariableOfFirstRelationshipBetween child = "+child+" - "+parent);
 		return CommonUtils.getColumnAliasVariable(getEntity(child), 
 				getParentReference(child, parent));
 	}

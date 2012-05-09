@@ -2,4 +2,4 @@
 
 >AliasconvSuite
 
->SampleTest
+>RelationshipAliasingSuite
