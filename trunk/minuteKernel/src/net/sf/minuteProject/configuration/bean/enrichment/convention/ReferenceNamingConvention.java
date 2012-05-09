@@ -154,9 +154,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 
 	public String getNameForAmbiguiousCaseAndMany2Many(Table table, Reference reference) {
 		//{targetTableVariableName}Via${linkTableName}By${localColumnName}s
-//		String name = getRetrievedAlias (table);
-//		if (name==null)
-		String	name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getForeignColumn().getAlias();
+		String name = reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getForeignColumn().getAlias();
 		return getFinalName(name);
 	}
 	
