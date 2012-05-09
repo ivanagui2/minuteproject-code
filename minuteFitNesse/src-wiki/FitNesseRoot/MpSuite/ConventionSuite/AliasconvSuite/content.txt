@@ -13,7 +13,6 @@ Liferay model load
 |check | alias java variable of primary key from foreign key set | users_orgs | user |
 |check | alias java variable of first relationship between| users_orgs| user_| user|
 |check | name java variable of first relationship between| users_orgs| user_| userid|
-|check | alias java variable of first relationship between| portletitem| portlet | portlet |
 |check | alias java variable of first relationship between| portletitem| group_| group|
 |check | name java variable of first relationship between| portletitem| group_| groupid|
 |check | number of parents for entity| cyrususer| 0 |
@@ -25,8 +24,14 @@ Liferay model load
 |check | alias of column of table| smallImage| journalarticle| SMALLIMAGE|
 |check | alias of column of table| groupId| group_ | group|
 |check | alias of column of table new| groupId| group_ | group |
-|check | number of parents for entity| portletitem| 5 |
 |check | names of local fk columns for entity| portletitem| groupId, companyId, userId, portletId, classNameId | true |
-|check | aliases of local fk columns for entity| portletitem| group, company, user, portlet, classname | true |
 |check | column class name of first relationship between| assettag| group_| Group |
 |check | alias of column of table new| contactId| contact_ | contact |
+
+
+There is no link between portletitem and portlet although portletitem as a field portletid.
+But portletid is not of the same type as portlet primary key
+!| net.sf.minuteProject.model.NavigateModelSequenceFixture|
+|check | alias java variable of first relationship between| portletitem| portlet | errorMissingReferenceLocalcolumnAlias|
+|check | number of parents for entity| portletitem| 4 |
+|check | aliases of local fk columns for entity| portletitem| GROUP, COMPANY, USER, CLASSNAME | true |
