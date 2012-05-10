@@ -47,7 +47,6 @@ import $sddDaoInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Path ("$restXmlServerUrl")
 @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Service
@@ -58,20 +57,72 @@ public class ${className} {
     @Qualifier("$sddDaoInterfaceVariable")
     ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 
-#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_XML")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
     @GET
-    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
-    public $sddOutputBeanCollectionClass execute (
+	@Path ("$restXmlServerUrl")
+    @Produces (MediaType.APPLICATION_XML) 
+    public $sddOutputBeanCollectionClass executeAndFormatXml (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
         @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
 #end
 #end
-    ) {
+) {
+        return execute(
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+           $columnVar #if($velocityCount!=$inputBean.columnCount),
+#end
+#end
+		
+		);
+    }
+#end
+$!updatedAreaEnd
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_JSON")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    @GET
+	@Path ("$restJsonServerUrl")
+    @Produces (MediaType.APPLICATION_JSON) 
+    public $sddOutputBeanCollectionClass executeAndFormatJson (
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+#end
+#end
+) {
+        return execute(
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+           $columnVar #if($velocityCount!=$inputBean.columnCount),
+#end
+#end
+		
+		);
+    }
+#end
+$!updatedAreaEnd
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    public $sddOutputBeanCollectionClass execute (
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+        $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+#end
+#end
+) {
 		$sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
