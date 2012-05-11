@@ -71,11 +71,13 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
     @RequestMapping(method = RequestMethod.GET)
-    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
+//    @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Transactional
+	@ResponseBody
     public $sddOutputBeanCollectionClass execute (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+        @RequestParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
 #end
 #end
     ) {
