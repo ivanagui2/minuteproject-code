@@ -40,8 +40,9 @@
 
 #macro (exposeSpringModelSpecific)
 #exposeSpringTemplate()
+#exposeSDDSpringTemplate()
 #set($controllerPackageName=$commonUtils.getPackageName($model, $template, $templateRestController))
 #set($pathSpringBackendConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringBackendConfig))
+#set($controllerDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADaoClass))
 #end
-
 
