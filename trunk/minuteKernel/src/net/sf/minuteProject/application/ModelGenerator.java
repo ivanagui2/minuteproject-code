@@ -398,10 +398,13 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 		
 	protected void generateArtifactsBySddBean(Template template, Direction direction) throws MinuteProjectException {	
-		for (Query query : getModel().getStatementModel().getQueries().getQueries()) {//DataModel().getDatabase().getFunctions()) {
-			Table table = query.getEntity(direction);
-			if (table.getColumns().length>0) {
-				writeTemplateResult(table, template);
+		StatementModel statementModel = getModel().getStatementModel();
+		if (statementModel!=null) {
+			for (Query query : statementModel.getQueries().getQueries()) {
+				Table table = query.getEntity(direction);
+				if (table.getColumns().length>0) {
+					writeTemplateResult(table, template);
+				}
 			}
 		}
 	}

@@ -64,9 +64,20 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					</entity>
 				</enrichment>					
 			</business-model>
+            <statement-model>
+                 <queries>
+                     <query name="get address street">
+                         <query-body><value><![CDATA[select * from address where addressid > ?]]></value></query-body>
+                         <query-what><value></value></query-what>
+                         <query-where><value></value></query-where>
+                         <query-params>
+                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="1"></query-param>
+                         </query-params>
+                     </query>
+                 </queries>
+            </statement-model>
 		</model>	
 		<targets>
-
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
@@ -77,15 +88,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
 			</target>
-							
-			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
-			</target>
-			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/cache">
-			</target>
+
 			<target 
 			   name="REST" 
 			   fileName="mp-template-config-REST.xml" 
@@ -93,15 +96,39 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   templatedir-root="../../minuteTemplate/template/framework/rest"
 			   templatedir-ref="../../minuteTemplate/template/framework/ejb">	
       			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
-			</target>		
+			</target>
 
+            <target refname="SDD-beans" 
+                outputdir-root="../../dev/REST/petshop/JPA2"
+               fileName="mp-template-config-SDD-beans.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/bean">
+               <property name="add-xmlbinding" value="true"></property> 
+               <property name="add-xml-format" value="lowercase-hyphen"></property>
+            </target>
+            
+            <target refname="LIB" 
+               fileName="mp-template-config-bsla-LIB-features.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/bsla">
+            </target>
+            <target refname="CACHE-LIB" 
+               fileName="mp-template-config-CACHE-LIB.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/cache">
+            </target>
+            <target refname="COMMON-LIB" 
+               fileName="mp-template-config-COMMON-LIB.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/common">
+            </target>
+            <target refname="SPRING-LIB" 
+               fileName="mp-template-config-SPRING-LIB.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/spring">
+            </target>
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
 			   outputdir-root="../../dev/REST/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
-									
+
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
 			   outputdir-root="../../dev/REST/petshop"
