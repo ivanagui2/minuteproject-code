@@ -19,8 +19,8 @@ cp other/tomcat/snippet/context.xml $OX_HOME/tomcat/conf
 cp $MP_HOME/application/lib/extra/*.jar $OX_HOME/tomcat/lib
 
 ## start tomcat in appart process
-cd $OX_HOME
-./start-tomcat.sh
+cd $OX_HOME/tomcat/bin
+./startup.sh
 
 cd $OX_HOME/workspace/$applicationOX
 ant -f mp4openxava-build.xml
