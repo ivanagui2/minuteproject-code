@@ -590,7 +590,6 @@ public class CommonUtils {
 	}
 	
 	private static String getAliasColumnName (Table table, Reference reference) {
-		System.out.println("reference "+reference);
 		return (reference!=null && reference.getLocalColumn()!=null)?reference.getLocalColumn().getAlias():"ERROR_MISSING_REFERENCE_LOCALCOLUMN_ALIAS";
 	}
 	private static String getColumnName (Table table, Reference reference) {
