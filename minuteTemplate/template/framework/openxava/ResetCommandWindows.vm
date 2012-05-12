@@ -2,8 +2,8 @@
 set currentdir=%cd%
 
 ## stop tomcat in appart process
-cd %OX_HOME%
-call stop-tomcat.bat
+cd %OX_HOME%\tomcat\bin
+call shutdown.bat
 
 ## remove OX project
 cd %OX_HOME%\workspace

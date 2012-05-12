@@ -10,6 +10,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
 import javax.annotation.Resource;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
@@ -20,6 +27,8 @@ import javax.persistence.Query;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.transaction.UserTransaction;
+
+import java.sql.SQLException;
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
@@ -36,8 +45,8 @@ import $sddDaoInterfaceImport;
 @Stateless
 public class ${className} {
 
-	@PersistenceContext(unitName = "$unitName", type = PersistenceContextType.EXTENDED)
-    private EntityManager em;
+    @Resource(mappedName="$datasource") 
+    DataSource datasource;
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
     public static final String QUERY_NATIVE = "$fullQuery";
@@ -103,19 +112,10 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 
 //if JPA2 implementation is hibernate
-    @SuppressWarnings("deprecation")   
-    public Connection getConnection() throws HibernateException {  
-        Session session = getSession();  
-        Connection connection = session.connection();  
-        return connection;  
-    } 
-    
-    private Session getSession() {  
-        Session session = (Session) entityManager.getDelegate();  
-        return session;  
+    public Connection getConnection() throws SQLException{  
+        return datasource.getConnection();
     }
     
 $!updatedAreaImplementation
 
-$!updatedAreaImplementation
 }
