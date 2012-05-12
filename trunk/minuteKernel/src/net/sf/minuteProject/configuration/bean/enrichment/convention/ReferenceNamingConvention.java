@@ -78,7 +78,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 //					System.out.println(">>> table "+entity.getName()+"--"+ table.getName());
 					for (Field field : entity.getFields()) {
 						if (net.sf.minuteProject.utils.StringUtils.compareName(field.getLinkToTargetEntity(), parent.getForeignTable().getName())) {
-							System.out.println(">>> field "+field.getName()+"-link: "+field.getLinkToTargetEntity()+"- parent: "+parent.getForeignTable().getName());
+//							System.out.println(">>> field "+field.getName()+"-link: "+field.getLinkToTargetEntity()+"- parent: "+parent.getForeignTable().getName());
 							return field;
 						}
 					}

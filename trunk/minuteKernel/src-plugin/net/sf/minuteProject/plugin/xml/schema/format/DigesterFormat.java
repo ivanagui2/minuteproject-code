@@ -47,8 +47,6 @@ public class DigesterFormat {
 //				String fulltype = ele.getTypeAttributeValue();
 				String type = XmlSchemaUtils.getFlatType(ele.getTypeAttributeValue());
 				String name = ele.getNameAttributeValue();
-				System.out.println("type = "+type+"- name = "+name);
-	//			if (isComplexType)
 				Element complex =(isComplexType)? document.getFirstComplexTypeElementByNameAttribute(type):null;
 				if (complex!=null) {
 //					if (isComplexType) {

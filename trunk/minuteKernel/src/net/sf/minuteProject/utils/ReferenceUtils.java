@@ -176,7 +176,6 @@ public class ReferenceUtils {
 			reference.setForeignColumn(foreignColumn);
 			reference.getForeignColumn().setAlias(reference.getForeignColumn().getAlias());
 			if (!StringUtils.isEmpty(field.getLinkReferenceAlias())) {
-				System.out.println(">>>>>>>>>>> set alias "+field.getLinkReferenceAlias());
 				//id set
 //				reference.getForeignColumn().setAlias(field.getLinkReferenceAlias());
 				//
