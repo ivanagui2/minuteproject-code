@@ -77,15 +77,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
 			</target>
-							
-			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../template/framework/bsla">
-			</target>
-			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
-			   templatedir-root="../../template/framework/cache">
-			</target>			
+						
 			<target 
 			   name="REST" 
 			   fileName="mp-template-config-REST.xml" 
@@ -95,6 +87,23 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
       			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
 			</target>		
 
+			<target refname="LIB" 
+			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   templatedir-root="../../template/framework/bsla">
+			</target>
+			<target refname="CACHE-LIB" 
+			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   templatedir-root="../../template/framework/cache">
+			</target>	
+      <target refname="COMMON-LIB" 
+         fileName="mp-template-config-COMMON-LIB.xml" 
+         templatedir-root="../../template/framework/common">
+      </target>		
+      <target refname="SPRING-LIB" 
+         fileName="mp-template-config-SPRING-LIB.xml" 
+         templatedir-root="../../template/framework/spring">
+      </target>
+      
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
