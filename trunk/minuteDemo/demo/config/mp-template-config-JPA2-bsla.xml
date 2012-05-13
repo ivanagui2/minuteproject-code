@@ -19,8 +19,7 @@
 			file-extension="java" file-prefix="" file-suffix="DaoTest" 
 			entity-specific="true" package-specific="false" model-specific="false"
 			check-template-to-generate="true" 
-            is-template-to-generate-method="tableUtils.isTable"			
-			>
+            is-template-to-generate-method="tableUtils.isTable"	>
 			<property name="uml" value="true"></property>
 		</template>		
 		<template name="BslaDaoTestAdapter" templateFileName="BslaDaoTestAdapter.vm" 
@@ -47,7 +46,26 @@
 		</template>		
 
   	</template-target>
-	
+
+    
+    <template-target 
+        name="DAO Spring JPA set"
+        libdir=""
+        outputdir="src/main/java"
+        belongToPackage="true">
+
+        <template name="SDDDaoInterface" templateFileName="SDDDaoInterface.vm" 
+            file-extension="java" technicalPackage="dao.sdd.face" file-suffix="DaoFace" 
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+        <template name="SDDSpringJPADao" templateFileName="SDDSpringJPADao.vm" 
+            file-extension="java" technicalPackage="dao.sdd.impl" file-suffix="Repository" 
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+    </template-target>
+    
 	<template-target 
 		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
 		tool="velocity"
@@ -84,6 +102,8 @@
 		tool="velocity"
 		outputdir="src/main/java"
 		belongToPackage="true">
+		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>         
+		
 	
 	    <!-- ENTITY OBJECTs -->
 		<!-- in JPA2 track
@@ -118,7 +138,7 @@
 			has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
-		</template>				
+		</template>
 		
 		<!-- depends BslaDaoInterfaceUML, DomainObjectUML, BslaHibernate architecture		-->
 		<template name="BslaJPADaoImplUML" templateFileName="BslaJPA2DaoImpl.vm" 
@@ -215,7 +235,7 @@
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-ext-JPA-" file-suffix="" 
 			entity-specific="false" package-specific="true" model-specific="false">
-			<property name="ignore-many-to-many" value="true"/>			
+			<property name="ignore-many-to-many" value="true"/>
 		</template>	
 
 		<template name="BslaSpringConfigDaoJPA2" templateFileName="BslaSpringConfigDaoJPA2.vm" 
@@ -226,7 +246,8 @@
 		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			entity-specific="false" package-specific="false" model-specific="true"
+			has-updatable-nature="true">
 			<property name="use-persistence-standard-location" value="true"/>
 		</template>
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA2.vm" 

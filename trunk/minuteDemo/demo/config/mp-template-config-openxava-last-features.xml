@@ -45,21 +45,21 @@
 				
 		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="dto"
-			file-extension="java" file-prefix="" file-suffix="" 
+			file-extension="java" file-prefix="" file-suffix="" has-updatable-nature="true"
 			scope-specific-value="transfer-entity" >
       		<property name="convertClobToString" value="true"/>
 		</template>		
 
 		<template name="FunctionInputDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="function.in"
-			file-extension="java" file-prefix="" file-suffix="" 
+			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
 			scope-specific-value="function-input-entity" >
       		<property name="convertClobToString" value="true"/>
 		</template>	
 
 		<template name="FunctionOutputDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="function.out"
-			file-extension="java" file-prefix="" file-suffix="" 
+			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
 			scope-specific-value="function-output-entity" >
       		<property name="convertClobToString" value="true"/>
 		</template>	
@@ -367,6 +367,14 @@
 			add-model-dir-name="false"
 			file-extension="xml" file-prefix="mp4openxava-build" file-suffix="" 
 			application-specific="true">
+		</template>	
+				
+		<template package-root=""
+			name="OX.PomXml" templateFileName="OX.pom.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			add-model-dir-name="false" has-updatable-nature="true"
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true">
 		</template>			
 						
 	</template-target>	
@@ -417,12 +425,13 @@
 	
 	<template-target 
     	name="OpenXava action"
-    	outputdir="src-to-implement">	
+    	outputdir="src">	
 
 		<template
 			name="ActionOX" templateFileName="ActionOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="action" 
 			file-extension="java" file-prefix="" file-suffix="Action" 
+			has-updatable-nature="true"
 			scope-specific-value="action">
 		</template>	
 								

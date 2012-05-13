@@ -1,6 +1,8 @@
 <!DOCTYPE root>
-<generator-config>
-	<configuration>
+<generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:noNamespaceSchemaLocation="mp-config.xsd">
+    <configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
 		</conventions>	
@@ -17,7 +19,7 @@
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema 
 				<schema> </schema>
-				 -->														 
+				 -->
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
@@ -53,6 +55,18 @@
 					</entity>
 				</enrichment>					
 			</business-model>
+			<statement-model>
+                 <queries>
+                     <query name="get address street">
+                         <query-body><value><![CDATA[select * from address where addressid > ?]]></value></query-body>
+                         <query-what><value></value></query-what>
+                         <query-where><value></value></query-where>
+                         <query-params>
+                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="1"></query-param>
+                         </query-params>
+                     </query>
+                 </queries>
+            </statement-model>
 		</model>	
 		<targets>
 		
@@ -83,6 +97,19 @@
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			</target> 	
+
+            <target refname="SDD-beans" 
+                outputdir-root="../../DEV/bsla-jpa2/petshop/jpa2"
+               fileName="mp-template-config-SDD-beans.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/bean">
+               <property name="add-xmlbinding" value="true"></property>	
+               <property name="add-xml-format" value="lowercase-hyphen"></property>
+            </target>
+			
+            <target refname="COMMON-LIB" 
+               fileName="mp-template-config-COMMON-LIB.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/common">
+            </target>   
 			<target refname="CACHE-LIB" 
 			   fileName="mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../template/framework/cache">

@@ -1,4 +1,7 @@
-<target name="Lib and plugin">		
+<target name="Lib and plugin"
+xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="mp-template-config.xsd">		
 	<architecture-target name="libraries" description="libraries"/>	
 	<plugin name="criteriaUtils" className="net.sf.minuteProject.utils.criteria.CriteriaUtils"></plugin>
 	<plugin name="schemaUtils" className="net.sf.minuteProject.plugin.database.SchemaUtils"></plugin>
