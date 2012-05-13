@@ -1,4 +1,7 @@
-<target name="REST">		
+<target name="REST"
+xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="mp-template-config.xsd">
 	<architecture-target name="REST architecture artifacts" description="REST architecture">
 	</architecture-target>	
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>

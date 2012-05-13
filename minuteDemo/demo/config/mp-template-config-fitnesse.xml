@@ -40,7 +40,6 @@
 			<property name="package-appender" value="Crud"/> 
 		</template>
 
-        
 		<template name="FitnesseWikiSiteSnippetContent" templateFileName="FitnesseWikiSiteSnippetContent.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="txt" file-prefix="" file-suffix="content" 
@@ -92,8 +91,6 @@
 		</template>
 		
 		<!-- set a directory for the entity -->
-
-        
 		<template name="FitnesseWikiSiteSnippetContent" templateFileName="FitnesseWikiSiteSnippetContent.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="txt" file-prefix="" file-suffix="content" 
@@ -133,7 +130,7 @@
 	
 		<!-- select fixture -->
 		<template name="FitnesseSelectTableFixture" templateFileName="FitnesseSelectTableFixture.vm" 
-			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture" 
 			file-extension="java" file-prefix="" file-suffix="TableFixture" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>		
@@ -142,6 +139,18 @@
 			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.crud"
 			file-extension="java" file-prefix="" file-suffix="ColumnFixture" 
 			entity-specific="true" package-specific="false" model-specific="false">
+		</template>	
+
+		<template name="QueryFixture" templateFileName="FitnesseQueryColumnFixture.vm" 
+			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.query"
+			file-extension="java" file-prefix="" file-suffix="ColumnFixture" 
+			scope-specific-value="query">
+		</template>	
+		
+		<template name="FitnesseLog4j" templateFileName="FitnesseLog4j.vm" 
+			subdir="" outputsubdir="" technicalPackage="" package-root=""
+			file-extension="properties" file-prefix="log4j" file-suffix="" add-model-name="false"
+			application-specific="true"  has-updatable-nature="true">
 		</template>	
 
 	</template-target>	

@@ -15,7 +15,7 @@
 		libdir="lib/JPA2_LIB.vm"
 		outputdir="src/main/java"
 		belongToPackage="true">
-			 
+		
 		<template name="DomainEntityJPA2Annotation" templateFileName="DomainEntityJPA2Annotation.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
@@ -50,12 +50,11 @@
 		<template name="EnumerationReferenceDataJPA2" templateFileName="EnumerationReferenceData.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain.enumeration"
 			file-extension="java" file-prefix="" file-suffix="Enum" 
-			field-specific="true" 
+			field-specific="true"  has-updatable-nature="true"
 			file-name-builder-plugin="referenceDataUtils"
-			file-name-builder-method="getEnumName"				
+			file-name-builder-method="getEnumName"
             check-template-to-generate="true" 
-            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
-			>
+            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration">
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
 
@@ -103,7 +102,7 @@
 			<property name="environment" value="local"/>
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>		
-
+											
   	</template-target>
 
 	<template-target 
@@ -127,7 +126,7 @@
 		belongToPackage="true">
 		
 		<template name="PomXml.JPA2" templateFileName="PomXml.JPA2.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
 		</template>	

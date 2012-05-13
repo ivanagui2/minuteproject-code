@@ -1,4 +1,8 @@
-<target name="BackendOnBsla-forhibernate">		
+<target name="hibernate bsla"
+xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="mp-template-config.xsd">
+
 	<architecture-target name="hibernate" description="basic springframework layer architecture"/>	
 	<plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
 	<plugin name="criteriaUtils" className="net.sf.minuteProject.utils.criteria.CriteriaUtils"></plugin>
@@ -18,7 +22,7 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="txt" file-prefix="" file-suffix="README" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>					
+		</template>
 	</template-target>
 	
 	<template-target 
@@ -136,7 +140,7 @@
 			>
 			<property name="generateForTag" value="checkconstraint"></property>
 		</template>
-		
+
 	</template-target>	
 
 	<template-target 
