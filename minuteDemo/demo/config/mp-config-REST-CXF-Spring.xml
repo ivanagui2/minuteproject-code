@@ -105,14 +105,13 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>
             </target>
-            
+<!--            
             <target refname="jQuerySDD" 
                 outputdir-root="../output/cxf/petshop/rest"
                fileName="mp-template-config-REST-client.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/jquery">
+               templatedir-root="../../template/framework/jquery">
             </target>
-            
-            
+-->                        
             <target refname="COMMON-LIB" 
                fileName="mp-template-config-COMMON-LIB.xml" 
                templatedir-root="../../minuteTemplate/template/framework/common">
