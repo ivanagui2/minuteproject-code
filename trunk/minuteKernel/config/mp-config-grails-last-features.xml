@@ -51,7 +51,7 @@ xs:noNamespaceSchemaLocation="config/mp-config.xsd">
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 			</target>
-			<target refname="LIB" 
+			<target refname="JQUERY_LIB" 
 			   fileName="mp-template-config-jquery-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/jquery">
 			</target>			
