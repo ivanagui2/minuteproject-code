@@ -49,7 +49,7 @@ import $sddDaoInterfaceImport;
  */
 @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Service
+@Service ("${classVariableName}")
 @Transactional
 public class ${className} {
 
