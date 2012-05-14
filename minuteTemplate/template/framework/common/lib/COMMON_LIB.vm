@@ -12,6 +12,7 @@ $!commonUtils.getReadMeText($template)
 #macro(exposeQuerySpecific)
 #set ($packageName = $commonUtils.getPackageName($query, $template))
 #set ($className = $commonUtils.getClassName($query, $template))
+#set ($classVariableName = $formatUtils.firstLowerCase(${className}))
 #set ($inputBean = $query.inputBean)
 #set ($outputBean = $query.outputBean)
 #end
