@@ -76,7 +76,7 @@
         <primary-key-policy type="sequence"/>
 	 </database>
 	 
-	 <!--  
+	 <!--  -->
 	 <database name="POSTGRES" 
         hibernate-dialect="org.hibernate.dialect.PostgreSQLDialect" 
         use-schema="true" 
@@ -89,7 +89,7 @@
         </maven-artifact>
         <primary-key-policy type="autoincrement"/>
 	 </database>
-	 -->
+	 
   </databases>
 
 </database-catalog>
