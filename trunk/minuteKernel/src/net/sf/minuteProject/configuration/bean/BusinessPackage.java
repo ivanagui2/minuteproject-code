@@ -99,6 +99,7 @@ public class BusinessPackage extends BusinessPackageAdapter {
 //		packages = new ArrayList<Package>();
 		Hashtable<String, Package> ht = new Hashtable<String, Package>();
 		Table[] tables = database.getTables();
+		
 		for (int i = 0; i < tables.length; i++) {
 			Table table = tables[i];
 			table.setDatabase(database);
@@ -165,9 +166,9 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	public List<Table> getTables() {
 		if (tables == null) {
 			tables = new ArrayList<Table>();
-			for (Iterator<Package> iter = getPackages().iterator(); iter.hasNext();) {
-				for (Iterator<Table> iter2 = ((Package) iter.next()).getListOfTables().iterator(); iter2.hasNext();) {
-					tables.add(iter2.next());
+			for (Package pack : getPackages()) {
+				for (Table table : pack.getListOfTables()) {
+					tables.add(table);
 				}
 			}
 		}
