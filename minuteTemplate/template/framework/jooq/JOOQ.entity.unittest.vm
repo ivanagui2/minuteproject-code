@@ -65,7 +65,7 @@ $!updatedAreaSnippet
 #foreach($column in ${table.primaryKeyColumns})
 #putJOOQColumnParam()
 #if(!$columnUtils.isForeignKey($column))
-                    "$columnVar : "+ $columnVar +
+                    "$columnVar : "+ r.getValue(${classNameUpperCase}.${columnVariableUpperCase}) + "\n" +
 #end
 #end
 #foreach ($column in ${table.attributes})
@@ -73,11 +73,11 @@ $!updatedAreaSnippet
 #if($isEnum)
 #exposeJOOQEnum()
 #end
-					"$columnVar : "+ $columnVar +
+					"$columnVar : "+ r.getValue(${classNameUpperCase}.${columnVariableUpperCase}) + "\n" +
 #end
 #foreach ($reference in $table.parents)
 #putJOOQReferenceParam()    
-                    "$columnVar : "+ $columnVar +
+                    "$columnVar : "+ r.getValue(${classNameUpperCase}.${columnVariableUpperCase}) + "\n" +
 #end
                     ""
 					);
