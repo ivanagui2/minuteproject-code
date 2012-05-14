@@ -206,7 +206,9 @@ public class DatabaseDDLUtils implements Database
     		}*/
     		org.apache.ddlutils.model.Table tablez[] = database.getTables();
     		for (int i = 0; i < tablez.length; i++) {
-    			if (tablez[i].getType().equals("TABLE")) {
+    			if (tablez[i].getType().equals("TABLE") || 
+    				 tablez[i].getType().equals("ALIAS") 
+    					) {
         			Table table = new TableDDLUtils (tablez[i]);
         			tables.add(table);
     			}

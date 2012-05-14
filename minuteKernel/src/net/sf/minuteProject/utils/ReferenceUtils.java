@@ -254,6 +254,9 @@ public class ReferenceUtils {
 	}
 
 	public static String getColumnAlias(Table table, Column column) {
-		return ColumnUtils.getColumn(table, column.getName()).getAlias();
+		Column column2 = ColumnUtils.getColumn(table, column.getName());
+		if (column2!=null)
+			return column2.getAlias();
+		return "COLUMN_IS_NULL";
 	}
 }

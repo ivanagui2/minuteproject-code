@@ -86,7 +86,7 @@ public class JdbcModelReader
     /** The default pattern for reading all columns. */
     private String _defaultColumnPattern;
     /** The table types to recognize per default. */
-    private String[] _defaultTableTypes = { "TABLE", "VIEW" };
+    private String[] _defaultTableTypes = { "TABLE", "VIEW", "ALIAS" };
     /** The active connection while reading a database model. */
     private Connection _connection;
 
@@ -557,7 +557,10 @@ public class JdbcModelReader
             table = new Table();
 
             table.setName(tableName);
-            table.setType((String)values.get("TABLE_TYPE"));
+            String type = (String)values.get("TABLE_TYPE");
+            if (type.equals("ALIAS")) 
+            	type="TABLE";
+				table.setType(type);
             table.setCatalog((String)values.get("TABLE_CAT"));
             table.setSchema((String)values.get("TABLE_SCHEM"));
             table.setDescription((String)values.get("REMARKS"));

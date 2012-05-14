@@ -150,6 +150,8 @@ public abstract class TypeMap
         
         //timestampz oracle
         registerJdbcType(new Integer(-101),  "TIMESTAMPZ",  JdbcTypeCategoryEnum.DATETIME);
+        // db2 xml type
+        registerJdbcType(new Integer(-2004),  "XML",  JdbcTypeCategoryEnum.TEXTUAL);
      
     }
 
