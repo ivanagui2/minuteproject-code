@@ -12,6 +12,7 @@
 #macro (exposeJSFEntitySpecific)
 #exposeVariableEntitySpecific()
 #exposeJSFTemplate()
+#exposeJSFConfig()
 #set ($entityCreateJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityCreateJSF))
 #set ($entityCreateJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityCreateJSF))
 #set ($entityCreateJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityCreateJSF))	
@@ -48,4 +49,7 @@
 #set ($templateModelBeanManagerMenuJSF = "JSFBeanManagerMenu")
 #end
 
-
+#macro(exposeJSFConfig)
+#set ($isSpringBackend=$template.hasPropertyValue("add-backend-implementation","spring"))
+#set ($isEJBBackend=$template.hasPropertyValue("add-backend-implementation","ejb"))
+#end

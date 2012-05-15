@@ -1,5 +1,11 @@
-#exposeEJBDomainObjectSpecific()
 #exposeJSFEntitySpecific()
+#if($isSpringBackend)
+#exposeSpringDomainObjectSpecific()
+#set ($EJBDaoImplClass = $BslaDaoInterfaceClass)
+#set ($EJBDaoImplVariable = $BslaDaoInterfaceVariable)
+#elseif($isEJBBackend)
+#exposeEJBDomainObjectSpecific()
+#end
 package $packageName;
 
 $!updatedAreaImport
@@ -7,6 +13,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+#if($isSpringBackend)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import $BslaDaoInterfaceImport;
+import $BslaDaoExtInterfaceImport;
+import $importDomainObjectUML;
+#elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -14,25 +31,38 @@ import javax.inject.Named;
 
 import $importDomainObjectUML;
 import $EJBDaoImplImport;
+#end
 
 /**
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: remote interface for ${className} service </p>
+ * <p>Description: JSF controller ${className} </p>
  *
  */
+#if($isSpringBackend)
+@Service ("${domainVariableName}")
+@Transactional
+#elseif($isEJBBackend)
 @Named(value = "$entityControllerJSFVariable")
 @Default
 @RequestScoped
+#end
 public class ${className} {
-    
+
+#if($isSpringBackend)
+    @Autowired
+    @Qualifier("$EJBDaoImplVariable")
+    ${EJBDaoImplClass} $EJBDaoImplVariable;
+#elseif($isEJBBackend)
 	@Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
+#end
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName;
 	
+#if($isEJBBackend)
     public List<$tableClassName> findAll () {
 		return ${EJBDaoImplVariable}.findAll($tableVariableName);
 	}
@@ -42,6 +72,14 @@ public class ${className} {
 		return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
 	}
 
+	public void delete ($tableClassName ${tableVariableName}) {
+		${EJBDaoImplVariable}.delete (${tableVariableName});
+	}
+	
+	public void delete () {
+		${EJBDaoImplVariable}.delete (${tableVariableName});
+	}
+	
 #end
 #if ($hasSemanticReference)
 	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
@@ -58,14 +96,42 @@ public class ${className} {
 		return ${EJBDaoImplVariable}.update (${tableVariableName});
 	}
 	
-	public void delete ($tableClassName ${tableVariableName}) {
-		${EJBDaoImplVariable}.delete (${tableVariableName});
+
+#elseif($isSpringBackend)
+    public List<$tableClassName> findAll () {
+		return ${EJBDaoImplVariable}.searchPrototype$tableClassName($tableVariableName);
 	}
 
-	public void delete () {
-		${EJBDaoImplVariable}.delete (${tableVariableName});
+#if ($hasOnlyOnePrimaryKey)
+	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
+		return ${EJBDaoImplVariable}.load$tableClassName($primaryKeyVariable);
+	}
+
+	public void delete ($tableClassName ${tableVariableName}) {
+		${EJBDaoImplVariable}.delete$tableClassName (${tableVariableName});
 	}
 	
+	public void delete () {
+		${EJBDaoImplVariable}.delete$tableClassName (${tableVariableName});
+	}
+	
+#end
+#if ($hasSemanticReference)
+	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
+		return ${EJBDaoImplVariable}.findBySemanticReference (${tableClassName}.class, $primaryKeyVariable);
+	}
+	
+#end
+	public String create () {
+		${EJBDaoImplVariable}.insert$tableClassName ($tableVariableName);
+		return "success";
+	}
+	
+	public $tableClassName update () {
+		return ${EJBDaoImplVariable}.update$tableClassName (${tableVariableName});
+	}
+	
+#end
 	public $tableClassName get$tableClassName() {
 	    return $tableVariableName;
 	}
@@ -87,5 +153,5 @@ public class ${className} {
 		return "success";
 	}	
 
-	$!updatedAreaImplementation
+$!updatedAreaImplementation
 }
