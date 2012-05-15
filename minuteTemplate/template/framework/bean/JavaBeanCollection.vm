@@ -22,13 +22,13 @@ $!updatedAreaImport
  *
  */
 #if($addXmlBinding)
-@XmlRootElement
+@XmlRootElement (name="${className}")
 #end
 public class ${className} {
 
 #if($addXmlBinding)
 #set($xmlElementValue=$jaxbUtils.getXmlElementValue($listVariable, $xmlFormat))
-    @XmlElement $!xmlElementValue
+    @XmlElement (name="${beanClass}") //$!xmlElementValue
 #end
     private List<${beanClass}> $listVariable;
 

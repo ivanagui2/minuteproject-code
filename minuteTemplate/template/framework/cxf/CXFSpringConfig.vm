@@ -50,7 +50,8 @@
 			<!-- statements -->
 #foreach ($query in $model.statementModel.queries.queries)
 #exposeCXFSDDSpecific()
-			<ref bean="$CXFRestServiceSDDBeanVariable"/>
+			<ref bean="$CXFRestServiceSDDXmlBeanVariable"/>
+			<ref bean="$CXFRestServiceSDDJsonBeanVariable"/>
 #end
         </jaxrs:serviceBeans>
     </jaxrs:server>	

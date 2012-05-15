@@ -47,52 +47,39 @@ import $sddDaoInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+#if($isFormatJson)
+@Produces ({MediaType.APPLICATION_JSON})
+@Consumes ({MediaType.APPLICATION_JSON})
+#elseif($isFormatXml)
+@Produces ({MediaType.APPLICATION_XML})
+@Consumes ({MediaType.APPLICATION_XML})
+#end
 @Service ("${classVariableName}")
 @Transactional
+#if($isFormatJson)
+@Path ("$restJsonServerUrl")
+#elseif($isFormatXml)
+@Path ("$restXmlServerUrl")
+#end
 public class ${className} {
 
     @Autowired
     @Qualifier("$sddDaoInterfaceVariable")
     ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 
-#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_XML")
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
     @GET
-	@Path ("$restXmlServerUrl")
-    @Produces (MediaType.APPLICATION_XML) 
-    public $sddOutputBeanCollectionClass executeAndFormatXml (
-#foreach($column in $inputBean.columns)
-#putColumnParamNaming()
-        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
-#end
-#end
-) {
-        return execute(
-#foreach($column in $inputBean.columns)
-#putColumnParamNaming()
-           $columnVar #if($velocityCount!=$inputBean.columnCount),
-#end
-#end
-		
-		);
-    }
-#end
-$!updatedAreaEnd
-
-#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_JSON")
-$!updatedAreaBegin
-#if($isUpdated)
-$!updatedAreaSnippet
-#else
-    @GET
-	@Path ("$restJsonServerUrl")
+#if($isFormatJson)
     @Produces (MediaType.APPLICATION_JSON) 
-    public $sddOutputBeanCollectionClass executeAndFormatJson (
+#elseif($isFormatXml)
+    @Produces (MediaType.APPLICATION_XML) 
+#end
+
+    public $sddOutputBeanCollectionClass executeAndFormatXml (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
         @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),

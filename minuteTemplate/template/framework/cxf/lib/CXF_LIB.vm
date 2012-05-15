@@ -12,15 +12,19 @@
 
 #macro(exposeCXFSDDSpecific)
 #exposeCXFTemplate()
-#set ($CXFRestServiceSDDBeanClass = $commonUtils.getTemplateClassName($query, $template, $templateCXFSpringRestServiceSDDBean))
-#set ($CXFRestServiceSDDBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDBeanClass))
+#set ($CXFRestServiceSDDXmlBeanClass = $commonUtils.getTemplateClassName($query, $template, $templateCXFSpringRestServiceSDDXmlBean))
+#set ($CXFRestServiceSDDXmlBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDXmlBeanClass))
+#set ($CXFRestServiceSDDJsonBeanClass = $commonUtils.getTemplateClassName($query, $template, $templateCXFSpringRestServiceSDDJsonBean))
+#set ($CXFRestServiceSDDJsonBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDJsonBeanClass))
 #end
 
 #macro (exposeCXFTemplate)
 #set ($templateCXFSpringRestServiceBean = "CXFSpringEntityResource")
-#set ($templateCXFSpringRestServiceSDDBean = "CXFSpringSDDResource")
+#set ($templateCXFSpringRestServiceSDDJsonBean = "CXFSpringSDDJsonResource")
+#set ($templateCXFSpringRestServiceSDDXmlBean = "CXFSpringSDDXmlResource")
 #set ($templateSDDSpringJPADao = "SDDSpringJPADao")
 #end
+
 
 #macro (exposeMavenCXF)
 #set($cxfVersion=$template.getPropertyValue("add-rest-implementation-cxf-version","2.2.3"))
