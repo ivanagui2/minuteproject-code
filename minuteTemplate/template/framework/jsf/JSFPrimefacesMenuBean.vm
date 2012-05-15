@@ -3,18 +3,31 @@
 #set ($applicationLabel=$formatUtils.getJavaName($applicationJSF))
 package $packageName;
 
+#if($isSpringBackend)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+#elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
+#end
 
 import org.primefaces.model.*;
 import org.primefaces.component.menuitem.*;
 import org.primefaces.component.submenu.Submenu;
 
+#if($isSpringBackend)
+@Service ("${modelBeanManagerMenuJSFVariable}")
+@Transactional
+#elseif($isEJBBackend)
 @Named(value = "$modelBeanManagerMenuJSFVariable")
 @Default
 @RequestScoped
+#end
 public class ${className} {
 
     private MenuModel model;  

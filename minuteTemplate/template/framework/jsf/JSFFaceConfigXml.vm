@@ -20,6 +20,7 @@
     </managed-bean>
 	
 #foreach ($table in $model.businessModel.businessPackage.entities)	
+#if (!$table.isManyToMany())
 #exposeJSFEntitySpecific()	
     <managed-bean>
         <managed-bean-name>$entityControllerJSFVariable</managed-bean-name>
@@ -43,5 +44,6 @@
 		</navigation-case>
 	</navigation-rule>	
 	
+#end	
 #end	
 </faces-config>

@@ -64,6 +64,11 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return new $tableClassName();		
     }	
 
+	public void delete ($tableClassName $tableVariableName) {
+		if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
+			em.remove (findById(${tableVariableName}.get${primaryKeyJavaNameClass}()));
+	}
+
 #end
 #if ($hasSemanticReference)
 	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
@@ -81,10 +86,6 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return $tableVariableName;
 	}
 	
-	public void delete ($tableClassName $tableVariableName) {
-		if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
-			em.remove (findById(${tableVariableName}.get${primaryKeyJavaNameClass}()));
-	}
 
 $!updatedAreaImplementation
 }

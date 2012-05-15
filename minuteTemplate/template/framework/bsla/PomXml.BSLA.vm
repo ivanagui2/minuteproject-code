@@ -68,7 +68,7 @@
 	</dependency>
 	
 	<!-- spring end -->
-
+	
 #foreach($dependency in $dependencies)
 #exposeMavenDepency()
     <dependency>
