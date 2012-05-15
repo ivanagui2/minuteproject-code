@@ -92,7 +92,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 
                      <query name="get address">
                          <query-body><value>
-<![CDATA[select * from address where lcase(city) like lcase('%?%')]]>
+<![CDATA[select * from address where lcase(city) like ?]]>
                             </value></query-body>
                          <query-what><value></value></query-what>
                          <query-where><value></value></query-where>
