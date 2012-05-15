@@ -57,6 +57,20 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
             <statement-model>
                  <queries>
+                     <query name="get addresses by criteria">
+                         <query-body><value>
+<![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
+                            </value></query-body>
+                         <query-what><value></value></query-what>
+                         <query-where><value></value></query-where>
+                         <query-params>
+                             <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
+                             <query-param name="latitude_upper_limit" is-mandatory="false" type="DOUBLE" sample="38"></query-param>
+                             <query-param name="longitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="-122"></query-param>
+                             <query-param name="longitude_upper_limit" is-mandatory="false" type="DOUBLE" sample="-123"></query-param>
+                             <query-param name="city" is-mandatory="false" type="STRING" sample="'S'"></query-param>
+                         </query-params>
+                     </query>
                      <query name="get address street">
                          <query-body><value><![CDATA[select * from address where addressid between ? and ?]]></value></query-body>
                          <query-what><value></value></query-what>
@@ -75,20 +89,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                              <query-param name="identifier_Address2" is-mandatory="false" type="INT" sample="1"></query-param>
                          </query-params>
                      </query>
-                     <query name="get add">
-                         <query-body><value>
-<![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like lcase('%?%')]]>
-                            </value></query-body>
-                         <query-what><value></value></query-what>
-                         <query-where><value></value></query-where>
-                         <query-params>
-                             <query-param name="latitude_lower_limit" is-mandatory="false" type="DECIMAL" sample="37"></query-param>
-                             <query-param name="latitude_upper_limit" is-mandatory="false" type="DECIMAL" sample="38"></query-param>
-                             <query-param name="longitude_lower_limit" is-mandatory="false" type="DECIMAL" sample="-122"></query-param>
-                             <query-param name="longitude_upper_limit" is-mandatory="false" type="DECIMAL" sample="-123"></query-param>
-                             <query-param name="city" is-mandatory="false" type="STRING" sample="S"></query-param>
-                         </query-params>
-                     </query>
+
                      <query name="get address">
                          <query-body><value>
 <![CDATA[select * from address where lcase(city) like lcase('%?%')]]>

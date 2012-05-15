@@ -35,6 +35,7 @@ public class ConvertUtils {
 	public static final String DB_INTEGER_TYPE 						=   "INTEGER";	
 	public static final String DB_INT_TYPE 							=   "INT";	
 	public static final String DB_DECIMAL_TYPE 						=   "DECIMAL";
+	public static final String DB_DOUBLE_TYPE 						=   "DOUBLE";
 	public static final String DB_TIMESTAMP_TYPE 					=   "TIMESTAMP";
 	public static final String DB_TIME_TYPE 						=   "TIME";
 	public static final String DB_TIMESTAMPZ_TYPE 					=   "TIMESTAMPZ";
@@ -48,10 +49,13 @@ public class ConvertUtils {
 	public static final String DB_LONGTEXT  						=	"LONGTEXT";
 	public static final String DB_LONGBLOB  						=	"DB_LONGBLOB";
 	public static final String DB_LONGVARBINARY  					=	"LONGVARBINARY";
+	public static final String DB_BIGDECIMAL_TYPE  					=	"BIGDECIMAL";
 	
 	public static final String UML_STRING_TYPE 						=   "string";	
 	public static final String UML_INTEGER_TYPE 					=   "integer";	
 	public static final String UML_LONG_TYPE 						=   "decimal";	
+	public static final String UML_DOUBLE_TYPE 						=   "double";	
+	public static final String UML_BIGDECIMAL_TYPE 					=   "bigdecimal";	
 	public static final String UML_BYTE_TYPE 						=   "byte";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
@@ -62,6 +66,7 @@ public class ConvertUtils {
 		if (UML_STRING_TYPE.equals(type)) return DB_STRING_TYPE;
 		if (UML_INTEGER_TYPE.equals(type)) return DB_INTEGER_TYPE;
 		if (UML_LONG_TYPE.equals(type)) return DB_DECIMAL_TYPE;
+		if (UML_DOUBLE_TYPE.equals(type)) return DB_DOUBLE_TYPE;
 		return DB_STRING_TYPE;
 	}
 	
@@ -75,6 +80,7 @@ public class ConvertUtils {
 		if (DB_INTEGER_TYPE.equals(type)) return UML_INTEGER_TYPE;
 		if (DB_INT_TYPE.equals(type)) return UML_INTEGER_TYPE;
 		if (DB_DECIMAL_TYPE.equals(type)) return UML_LONG_TYPE;
+		if (DB_DOUBLE_TYPE.equals(type)) return UML_DOUBLE_TYPE;
 		return UML_STRING_TYPE;
 	}
 	

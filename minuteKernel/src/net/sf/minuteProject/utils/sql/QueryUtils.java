@@ -65,6 +65,7 @@ public class QueryUtils {
 		QueryParam qp = new QueryParam();
 		qp.setName(metaData.getColumnName(i));
 		qp.setSize(metaData.getColumnDisplaySize(i));
+		qp.setScale(metaData.getScale(i));
 		qp.setType(metaData.getColumnTypeName(i));
 		return qp;
 	}
