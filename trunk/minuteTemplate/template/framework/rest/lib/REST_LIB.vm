@@ -4,6 +4,8 @@
 #end
 
 #macro(exposeRESTSDDURLServer)
+#set($isFormatXml=$template.hasPropertyValue("add-format","xml"))
+#set($isFormatJson=$template.hasPropertyValue("add-format","json"))
 #set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($query, $techno))
 #set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($query, $techno))
 #end
