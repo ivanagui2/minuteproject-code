@@ -174,9 +174,13 @@ public class Query extends AbstractConfiguration {
 	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam) {
 		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
 		column.setName(queryParam.getName());
-		column.setType(convertType(queryParam.getType()));
-//		column.setScale(queryParam.getScale());
+		String type = queryParam.getType();
+		column.setType(convertType(type));
 		column.setSize(queryParam.getSize()+"");
+		column.setScale(queryParam.getScale());
+		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type) && queryParam.getScale()>0) {
+			column.setType(ConvertUtils.DB_DOUBLE_TYPE);
+		}
 //		column.setPrecisionRadix(queryParam.getPrecisionRadix());
 		// column.setTypeCode(fc.getTypeCode());
 		return column;

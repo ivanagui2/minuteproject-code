@@ -4,7 +4,7 @@ public class QueryParam extends QueryAdapter {
 
 	private boolean isMandatory;
 	private String type, sample;
-	private int size;
+	private int size, scale;
 	
 	public boolean isMandatory() {
 		return isMandatory;
@@ -29,6 +29,12 @@ public class QueryParam extends QueryAdapter {
 	}
 	public void setSample(String sample) {
 		this.sample = sample;
+	}
+	public int getScale() {
+		return scale;
+	}
+	public void setScale(int scale) {
+		this.scale = scale;
 	}
 	
 	

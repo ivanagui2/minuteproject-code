@@ -29,10 +29,18 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 
-		<template name="CXFSpringSDDResource" templateFileName="CXFSpringSDDResource.vm" 
-			file-extension="java" technicalPackage="rest" file-suffix="Resource" 
+		<template name="CXFSpringSDDJsonResource" templateFileName="CXFSpringSDDResource.vm" 
+			file-extension="java" technicalPackage="rest" file-suffix="JsonResource" 
 			scope-specific-value="query" has-updatable-nature="true" >
       		<property name="add-message-format" value="message-format"></property>
+      		<property name="add-format" value="json"></property>
+		</template>
+
+		<template name="CXFSpringSDDXmlResource" templateFileName="CXFSpringSDDResource.vm" 
+			file-extension="java" technicalPackage="rest" file-suffix="XmlResource" 
+			scope-specific-value="query" has-updatable-nature="true" >
+      		<property name="add-message-format" value="message-format"></property>
+      		<property name="add-format" value="xml"></property>
 		</template>
 
 	</template-target>
