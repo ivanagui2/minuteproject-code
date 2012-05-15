@@ -1,4 +1,4 @@
-<target name="JSF">		
+<target name="JSF - bsla">		
 	<architecture-target name="JSF primefaces" description="JSF primefaces architecture">
 	</architecture-target>	
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
@@ -16,22 +16,22 @@
 		<template name="JSFBeanManagerMenu" templateFileName="JSFPrimefacesMenuBean.vm" 
 			file-extension="java" technicalPackage="menu" file-suffix="Menu" 
 			model-specific="true" add-model-name="true" has-updatable-nature="true">
-		</template>	
+		</template>
 							 
 		<template name="JSFBeanManagerController" templateFileName="JSFBeanManagerController.vm" 
 			subdir="" outputsubdir="" technicalPackage="controller"
 			file-extension="java" file-prefix="" file-suffix="Controller" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="add-backend-implementation" value="ejb"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</template>
-
+<!-- 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
-		</template>		
+		</template>		 -->
 				
 	</template-target>
 
@@ -72,8 +72,7 @@
 
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
-			application-specific="true" add-model-name="false" >
-      		<!-- check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"> -->
+			application-specific="true" add-model-name="false">
 		</template>
 		
 		<template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
@@ -100,10 +99,10 @@
 			application-specific="true" add-model-name="false" >
 		</template>
 
-		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
+<!-- 		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="beans" 
 			application-specific="true" add-model-name="false" >
-		</template>
+		</template> -->
 						
     </template-target>
 
@@ -119,7 +118,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
-			<property name="add-backend-implementation" value="ejb"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</template>	
 					
 	</template-target>
