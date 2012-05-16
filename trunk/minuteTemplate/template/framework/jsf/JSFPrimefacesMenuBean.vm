@@ -1,4 +1,5 @@
 #exposeJSFModelSpecific()
+##exposeJSFEntitySpecific()
 #set ($applicationJSF=$configuration.name) 
 #set ($applicationLabel=$formatUtils.getJavaName($applicationJSF))
 package $packageName;
