@@ -16,6 +16,13 @@
 #set ($BslaDaoExtInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectBslaDaoExtInterface))
 #end
 
+#macro (exposeSpringServiceDomainObject)
+#exposeSpringTemplate()
+#set ($SpringServiceInterfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSpringServiceInterface))
+#set ($SpringServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($SpringServiceInterfaceClass))
+#set ($SpringServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateSpringServiceInterface))
+#end
+
 #macro (exposeSDDSpring)
 #exposeSDDSpringTemplate()
 #set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
@@ -31,6 +38,8 @@
 #set ($templateDomainObjectBslaDaoExtInterface = "BslaDaoInterfaceExtendedUML")
 #set ($templateRestController = "SpringMVCRestController")
 #set ($templateSpringBackendConfig="BslaSpringConfigMainBackend")
+#set ($templateSpringServiceInterface="SpringServiceInterface")
+#set ($templateSpringServiceClass="SpringServiceImpl")
 #end
 
 #macro (exposeSDDSpringTemplate)
@@ -44,5 +53,6 @@
 #set($controllerPackageName=$commonUtils.getPackageName($model, $template, $templateRestController))
 #set($pathSpringBackendConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringBackendConfig))
 #set($controllerDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADaoClass))
+#set($springServicePackageName=$commonUtils.getPackageName($model, $template, $templateSpringServiceClass))
 #end
 

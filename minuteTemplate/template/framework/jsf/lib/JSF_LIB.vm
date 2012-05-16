@@ -28,6 +28,7 @@
 
 #macro (exposeJSFModelSpecific)
 #exposeVariableModelSpecific()
+#exposeJSFConfig()
 #exposeJSFTemplate()
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
@@ -37,6 +38,8 @@
 #set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
+#set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
+#set ($controllerBeanMenuPackageName=$commonUtils.getPackageName($model, $template, $templateModelBeanManagerMenuJSF))
 #end
 
 #macro (exposeJSFTemplate)

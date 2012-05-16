@@ -6,6 +6,9 @@
 	version="2.0">
 
 	<application>
+#if($isSpringBackend)
+	    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+#end
 		<resource-bundle>
 			<base-name>$modelI18nJSFImport</base-name>
 			<var>i18n</var>
@@ -22,11 +25,13 @@
 #foreach ($table in $model.businessModel.businessPackage.entities)	
 #if (!$table.isManyToMany())
 #exposeJSFEntitySpecific()	
+#if(!$isSpringBackend)
     <managed-bean>
         <managed-bean-name>$entityControllerJSFVariable</managed-bean-name>
         <managed-bean-class>$entityControllerJSFImport</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+#end
 	<navigation-rule>
 		<from-view-id>${entityListJSFLocation}</from-view-id>
 		<navigation-case>

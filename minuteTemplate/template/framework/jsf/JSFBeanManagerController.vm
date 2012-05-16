@@ -1,8 +1,9 @@
 #exposeJSFEntitySpecific()
 #if($isSpringBackend)
 #exposeSpringDomainObjectSpecific()
-#set ($EJBDaoImplClass = $BslaDaoInterfaceClass)
-#set ($EJBDaoImplVariable = $BslaDaoInterfaceVariable)
+#exposeSpringServiceDomainObject()
+#set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
+#set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
 #elseif($isEJBBackend)
 #exposeEJBDomainObjectSpecific()
 #end
@@ -20,9 +21,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import $BslaDaoInterfaceImport;
-import $BslaDaoExtInterfaceImport;
-import $importDomainObjectUML;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+
+import $SpringServiceInterfaceImport;
+
 #elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
@@ -30,9 +34,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import $importDomainObjectUML;
-import $EJBDaoImplImport;
-#end
 
+#end
+import $importDomainObjectUML;
 /**
  *
  * <p>Title: ${className}</p>
@@ -41,8 +45,8 @@ import $EJBDaoImplImport;
  *
  */
 #if($isSpringBackend)
-@Service ("${domainVariableName}")
-@Transactional
+@ManagedBean (name="${entityControllerJSFVariable}")
+@RequestScoped
 #elseif($isEJBBackend)
 @Named(value = "$entityControllerJSFVariable")
 @Default
@@ -51,8 +55,7 @@ import $EJBDaoImplImport;
 public class ${className} {
 
 #if($isSpringBackend)
-    @Autowired
-    @Qualifier("$EJBDaoImplVariable")
+	@ManagedProperty("#{${EJBDaoImplVariable}}")
     ${EJBDaoImplClass} $EJBDaoImplVariable;
 #elseif($isEJBBackend)
 	@Inject 
@@ -62,7 +65,7 @@ public class ${className} {
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName;
 	
-#if($isEJBBackend)
+##if($isEJBBackend)
     public List<$tableClassName> findAll () {
 		return ${EJBDaoImplVariable}.findAll($tableVariableName);
 	}
@@ -96,42 +99,6 @@ public class ${className} {
 		return ${EJBDaoImplVariable}.update (${tableVariableName});
 	}
 	
-
-#elseif($isSpringBackend)
-    public List<$tableClassName> findAll () {
-		return ${EJBDaoImplVariable}.searchPrototype$tableClassName($tableVariableName);
-	}
-
-#if ($hasOnlyOnePrimaryKey)
-	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
-		return ${EJBDaoImplVariable}.load$tableClassName($primaryKeyVariable);
-	}
-
-	public void delete ($tableClassName ${tableVariableName}) {
-		${EJBDaoImplVariable}.delete$tableClassName (${tableVariableName});
-	}
-	
-	public void delete () {
-		${EJBDaoImplVariable}.delete$tableClassName (${tableVariableName});
-	}
-	
-#end
-#if ($hasSemanticReference)
-	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
-		return ${EJBDaoImplVariable}.findBySemanticReference (${tableClassName}.class, $primaryKeyVariable);
-	}
-	
-#end
-	public String create () {
-		${EJBDaoImplVariable}.insert$tableClassName ($tableVariableName);
-		return "success";
-	}
-	
-	public $tableClassName update () {
-		return ${EJBDaoImplVariable}.update$tableClassName (${tableVariableName});
-	}
-	
-#end
 	public $tableClassName get$tableClassName() {
 	    return $tableVariableName;
 	}
@@ -152,6 +119,8 @@ public class ${className} {
     public String displayInput () {
 		return "success";
 	}	
+
+#putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
 
 $!updatedAreaImplementation
 }

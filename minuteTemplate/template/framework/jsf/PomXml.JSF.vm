@@ -103,6 +103,11 @@
 					</compilerArguments>
 				</configuration>
 			</plugin>
+#exposeModelUpdatedAreas("plugin-org.apache.maven.plugins")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -111,6 +116,8 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+#end
+$!updatedAreaEnd
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

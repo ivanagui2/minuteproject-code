@@ -120,3 +120,7 @@ $!commonUtils.getReadMeText($template)
 #set ($templateSDDOutputBean = "SDDOutputBean")
 #set ($templateSDDOutputBeanCollection = "SDDOutputBeanCollection")
 #end
+
+#macro(exposeWebXmlSpecific)
+#set($webXmlVersion=$template.getPropertyValue("web-xml-version","3.0"))
+#end
