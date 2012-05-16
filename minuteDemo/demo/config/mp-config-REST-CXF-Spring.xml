@@ -96,6 +96,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-domain-specific-method" value="true"></property>
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+               <property name="add-querydsl" value="2.1.2"></property>
 			</target>
 			
             <target refname="SDD-beans" 
