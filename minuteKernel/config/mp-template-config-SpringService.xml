@@ -1,0 +1,30 @@
+<target name="Spring service">		
+	<architecture-target name="Spring service" description="Spring service architecture">
+	</architecture-target>	
+
+	<template-target 
+    	name="Spring service"
+		libdir="lib/SPRING_LIB.vm"
+		outputdir="src/main/java"
+		belongToPackage="true">
+		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" />
+
+		<template name="SpringServiceInterface" templateFileName="SpringServiceInterface.vm" 
+			subdir="" outputsubdir="" technicalPackage="service.face"
+			file-extension="java" file-prefix="" file-suffix="Service" 
+			entity-specific="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
+			has-updatable-nature="true">
+		</template>	
+			
+		<!-- depends BslaDaoInterfaceExtendedUML -->	
+		<template name="SpringServiceImpl" templateFileName="SpringServiceImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="service.impl"
+			file-extension="java" file-prefix="" file-suffix="ServiceImpl" 
+			entity-specific="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
+			has-updatable-nature="true">
+		</template>		
+				
+	</template-target>
+</target>
