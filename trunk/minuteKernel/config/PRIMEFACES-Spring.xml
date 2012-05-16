@@ -75,7 +75,15 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-cache-implementation" value="ehcache"></property>
                <property name="add-domain-specific-method" value="true"></property>		   			   
 			</target>
-								
+
+			
+			<target refname="SpringService" 
+			   name="SpringService" 
+			   fileName="mp-template-config-SpringService.xml" 
+			   outputdir-root="../../DEV/cxf/petshop/rest"
+			   templatedir-root="../../minuteTemplate/template/framework/spring">
+			</target> 
+											
 			<target refname="BackendOnBsla" 
 			   name="default" 
 			   fileName="mp-template-config-JPA2-bsla.xml" 
@@ -86,7 +94,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 
 			<target refname="JSF" 
 			   name="JSF" 
-			   fileName="mp-template-config-JSF-bsla.xml" 
+			   fileName="mp-template-config-JSF-Spring.xml" 
 			   outputdir-root="../../dev/JSF/pegazlight/JSF"
 			   templatedir-root="../../minuteTemplate/template/framework/jsf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">

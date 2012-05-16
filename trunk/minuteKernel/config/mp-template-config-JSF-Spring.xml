@@ -88,15 +88,26 @@
 		outputdir="src/main/webapp/WEB-INF"
 		package-root=""
 		belongToPackage="true">
-			 
+		
+		
 		<template name="JSFWebXml" templateFileName="JSFWebXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="web" 
-			application-specific="true" add-model-name="false" >
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+			<property name="add-backend-implementation" value="spring"></property>
 		</template>
 
 		<template name="JSFFaceConfigXml" templateFileName="JSFFaceConfigXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="faces-config" 
-			application-specific="true" add-model-name="false" >
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+			<property name="add-backend-implementation" value="spring"></property>
+		</template>
+
+		<template name="JSFSpringConfig" templateFileName="JSFSpringConfig.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
 		</template>
 
 <!-- 		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
@@ -117,7 +128,8 @@
 		<template name="PomXml.JSF" templateFileName="PomXml.JSF.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
-			application-specific="true" add-model-name="false">
+			application-specific="true" add-model-name="false"
+			has-updatable-nature="true">
 			<property name="add-backend-implementation" value="spring"></property>
 		</template>	
 					
