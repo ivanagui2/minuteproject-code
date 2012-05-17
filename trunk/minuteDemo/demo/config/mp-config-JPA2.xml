@@ -79,11 +79,11 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                templatedir-root="../../template/framework/cache">
             </target>
             <target refname="SDD-beans" 
-                outputdir-root="../../dev/JPA2/petshop"
+                outputdir-root="../output/JPA2"
                fileName="mp-template-config-SDD-beans.xml" 
                templatedir-root="../../template/framework/bean">
             </target>
-			<target refname="LIB" 
+			<target refname="LIB"
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>

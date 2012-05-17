@@ -22,6 +22,7 @@ echo "incubator generations"
 ./demo-REST-SpringMVC.sh
 ./demo-WS-JEE.sh
 ./demo-JSF-primefaces.sh
+./demo-JSF-Spring-primefaces.sh
 ./demo-draft-features-vaadin-spring-hibernate.sh
 ./demo-last-features-roo.sh
 ./demo-last-features-grails.sh

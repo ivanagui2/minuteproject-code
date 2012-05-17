@@ -22,6 +22,7 @@ call demo-REST-CXF-Spring.cmd
 call demo-REST-SpringMVC.cmd
 call demo-WS-JEE.cmd
 call demo-JSF-primefaces.cmd
+call demo-JSF-Spring-primefaces.cmd
 call demo-draft-features-vaadin-spring-hibernate.cmd
 call demo-last-features-roo.cmd
 call demo-last-features-grails.cmd
