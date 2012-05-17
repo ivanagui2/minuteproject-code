@@ -27,9 +27,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<password></password>	
 				</dataSource>	
 											 
-				<primaryKeyPolicy oneGlobal="true">
-					<primaryKeyPolicyPattern name="autoincrementPattern"/>
-				</primaryKeyPolicy> 
+                <primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+                    <primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
+                </primaryKeyPolicy> 
 			</data-model>
 			<business-model>
 				<generation-condition>

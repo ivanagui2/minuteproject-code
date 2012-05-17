@@ -89,15 +89,14 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                              <query-param name="identifier_Address2" is-mandatory="false" type="INT" sample="1"></query-param>
                          </query-params>
                      </query>
-
                      <query name="get address">
                          <query-body><value>
-<![CDATA[select * from address where lcase(city) like ?]]>
+                            <![CDATA[select * from address where lcase(city) like ?]]>
                             </value></query-body>
                          <query-what><value></value></query-what>
                          <query-where><value></value></query-where>
                          <query-params>
-                             <query-param name="city" is-mandatory="false" type="STRING" sample="S"></query-param>
+                             <query-param name="city" is-mandatory="false" type="STRING" sample="'S'"></query-param>
                          </query-params>
                      </query>
                  </queries>
