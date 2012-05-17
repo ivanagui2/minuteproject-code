@@ -23,5 +23,6 @@ cd ..\..\WS-JEE\petshop
 call mvn clean package
 cd ..\MvnSpringJPA
 call mvn clean package
-
+cd ..\JSF-Spring
+call mvn clean package
 
