@@ -4,42 +4,39 @@ Todo list to release
 - minuteKernel
 - minuteFoundation
 - minuteTargets * target number
-
-
-2) update pom.xml => for new release x.y.z
+- update pom.xml => for new release x.y.z
 change version in install_maven (target/mp-bsla/application/dist)
 
-3) update the demo
+1)2) Release note update
+
+2) Upgrade feature
+2) Perform merge between MinuteKernel/config and minuteDemo/demo/config
+- This is to upgrade the new features (tracks and templates)
+
+2)2) Catalog
+- add tracks in catalog
+- add db in database-catalog
+
+3) Release
+3)1) Test
+- Run unit test
+- Run Fitnesse suite
+
+3)2) Build
+In MinuteprojectRelease run
+>ant
+
+3)3) Validate Demo update the demo
 - update template config
-- run demo
+- run demo 
+-- all-demo.cmd/sh all-packages.cmd
+-- on windows and linux
+-- deploy new tracks
 
-Commit;
+4) Source control
+- Commit
+- tag
 
-from another src
- 
-1) package
-check java_home, java -version in 1.6
-- in minuteRelease 
--- > ant
-- check the generation
--- > start sample
--- > ant generation-4-sample
-
-2) check demo
-- unzip
-- check the generation
--- > start sample
-- standard : spring/hibernate/iBatis/jpa
--- >
-- last feature
-- vaadin
-- fitnesse
-
-Upload on sf
-
-Download and test
-
-Publish release note
-
-
+5) Publish
+- sourceforge release
 
