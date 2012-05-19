@@ -1,0 +1,39 @@
+<target name="SDD beans">		
+	<architecture-target name="ABL" description="Automated Business Logic architecture">
+	</architecture-target>	
+
+	<template-target 
+    	name="ABL"
+		libdir=""
+		outputdir="src/main/java">
+
+		<!-- SDD beans -->	
+		<template name="ABLLogic" templateFileName="ABLLogic.vm" 
+			subdir="" outputsubdir="" technicalPackage="businessLogic"
+			file-extension="java" file-prefix="" file-suffix="Logic" has-updatable-nature="true"
+			scope-specific-value="entity" >
+		</template>	
+		
+    </template-target>
+    
+	<template-target 
+    	name="ABL"
+		libdir=""
+		outputdir="src/main/java"
+		packageRoot="">
+
+		<template name="ABLConfig" templateFileName="ABLConfig.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="properties" file-prefix="" file-suffix="ABLConfig" has-updatable-nature="true"
+			scope-specific-value="model" >
+		</template>
+
+		<template name="ABLLogging" templateFileName="ABLLogging.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="properties" file-prefix="" file-suffix="ABL_logging" has-updatable-nature="true"
+			scope-specific-value="model" >
+		</template>
+
+    </template-target>
+
+</target>
