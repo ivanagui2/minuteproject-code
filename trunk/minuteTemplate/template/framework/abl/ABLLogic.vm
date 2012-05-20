@@ -1,0 +1,35 @@
+#exposeVariableEntitySpecific()
+#addedAreas()
+package $packageName;
+
+import com.autobizlogic.abl.annotations.*;
+
+$!updatedAreaImport
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: AutomatedBusinessLogic ${domainClassName} class </p>
+ *
+ */
+public class ${className} extends LogicObject {
+
+#foreach($constraint in $ablUtils.getConstraints($table))
+#exposeAblContraintSpecific()
+    @Constraint(
+       value = "${constraint.value}",
+       errorMessage = "${constraint.errorMessage}"
+    )
+    public void constraint${constraint.name}() { }
+
+#end
+#foreach($derived in $ablUtils.getDerived($table))
+#exposeAblDerivedSpecific()
+    @${derived.annotation}("${derived.value}")
+    public void derived${derived.name}() { }
+
+#end
+
+$!updatedAreaImplementation
+
+}
