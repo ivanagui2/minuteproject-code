@@ -240,9 +240,9 @@
 				<xs:complexType>
 					<xs:attribute name="stereotype" type="xs:string" />
 				</xs:complexType>
-			</xs:element>
-			<xs:element name="property" type="property" minOccurs="0"
-				maxOccurs="unbounded" />
+			</xs:element> 
+			<xs:element name="property" type="property" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="derivations" type="derivations" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="linkToTargetEntity" type="xs:string" />
@@ -250,8 +250,45 @@
 		<xs:attribute name="linkReferenceAlias" type="xs:string" />
 	</xs:complexType>
 
+	<xs:complexType name="derivations">
+		<xs:sequence>
+			<xs:element name="derivation" type="rule"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="rule">
+	  <xs:attribute name="name"></xs:attribute>
+	  <xs:sequence>
+	       <xs:element name="annotation"></xs:element>
+	       <xs:element name="value"></xs:element>
+	  </xs:sequence>
+	</xs:complexType>
+	
+    <xs:complexType name="contraints">
+        <xs:sequence>
+            <xs:element name="contraint" type="rule"
+                minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+	
+    <xs:complexType name="actions">
+        <xs:sequence>
+            <xs:element name="action" type="rule"
+                minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    
+    <xs:complexType name="annotation"/>
+    
 	<xs:complexType name="entity">
 		<xs:sequence>
+		    <xs:element name="constraints" type="constraints" minOccurs="0" maxOccurs="1" />
+		    <xs:element name="actions" type="actions" minOccurs="0" maxOccurs="1" />
 			<xs:element name="virtual-primary-key" type="virtual-primary-key"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
