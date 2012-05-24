@@ -259,16 +259,16 @@
 	</xs:complexType>
 
 	<xs:complexType name="rule">
-	  <xs:attribute name="name"></xs:attribute>
 	  <xs:sequence>
 	       <xs:element name="annotation"></xs:element>
 	       <xs:element name="value"></xs:element>
 	  </xs:sequence>
+	     <xs:attribute name="name"></xs:attribute>
 	</xs:complexType>
 	
-    <xs:complexType name="contraints">
+    <xs:complexType name="constraints">
         <xs:sequence>
-            <xs:element name="contraint" type="rule"
+            <xs:element name="constraint" type="rule"
                 minOccurs="0" maxOccurs="unbounded">
             </xs:element>
         </xs:sequence>
