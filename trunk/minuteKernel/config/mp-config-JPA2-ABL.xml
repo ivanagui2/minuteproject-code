@@ -48,7 +48,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
 					     <sql-path path="NAME"/>
-					   </semantic-reference>					
+					   </semantic-reference>
 					</entity>
 				</enrichment>					
 			</business-model>

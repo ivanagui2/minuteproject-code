@@ -437,7 +437,14 @@
 					<alias attr-name="comment" prop-name="comment" />
 					<alias attr-name="description" prop-name="description" />
 					<alias attr-name="master-relationship-field" prop-name="masterRelationshipField" />
-				</set-properties-rule>	
+				</set-properties-rule>
+				<pattern value="constraints/constraint">
+                    <object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint"/>
+                    <set-next-rule methodname="addConstraint" paramtype="net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint"/>       
+                    <set-properties-rule>
+                        <alias attr-name="name" prop-name="name" /> 
+                    </set-properties-rule>
+				</pattern>
 				<pattern value="action">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 					<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
@@ -538,6 +545,13 @@
 						<alias attr-name="comment" prop-name="comment" />
 						<alias attr-name="description" prop-name="description" />
 					</set-properties-rule>
+	                <pattern value="derivations/derivation">
+	                    <object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation"/>
+	                    <set-next-rule methodname="addDerivation" paramtype="net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation"/>       
+	                    <set-properties-rule>
+	                        <alias attr-name="name" prop-name="name" /> 
+	                    </set-properties-rule>
+	                </pattern>
 					<pattern value="stereotype">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
 						<set-next-rule methodname="setStereotype" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>	
