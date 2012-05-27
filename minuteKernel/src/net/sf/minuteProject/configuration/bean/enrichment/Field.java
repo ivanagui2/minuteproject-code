@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 
 public class Field extends AbstractConfiguration {
 
@@ -14,6 +16,7 @@ public class Field extends AbstractConfiguration {
 	private String type, length;
 	private boolean isMandatory, isId, isSearchable, isEditable;
 	private List<Trigger> triggers;
+	private List<Derivation> derivations;
 
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -137,6 +140,14 @@ public class Field extends AbstractConfiguration {
 
 	public void setLinkReferenceAlias(String linkReferenceAlias) {
 		this.linkReferenceAlias = linkReferenceAlias;
+	}
+
+	public List<Derivation> getDerivations() {
+		return derivations;
+	}
+
+	public void setDerivations(List<Derivation> derivations) {
+		this.derivations = derivations;
 	}
 
 }

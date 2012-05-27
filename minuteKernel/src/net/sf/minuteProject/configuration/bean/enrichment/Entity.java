@@ -3,19 +3,20 @@ package net.sf.minuteProject.configuration.bean.enrichment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ddlutils.model.Column;
-import org.apache.ddlutils.model.ForeignKey;
-import org.apache.ddlutils.model.Reference;
-
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.TableUtils;
+
+import org.apache.ddlutils.model.Column;
+import org.apache.ddlutils.model.ForeignKey;
+import org.apache.ddlutils.model.Reference;
 
 public class Entity extends AbstractConfiguration {
 	
@@ -30,6 +31,7 @@ public class Entity extends AbstractConfiguration {
 	private EntitySecuredAccess entitySecuredAccess;
 	private String type, masterRelationshipField;
 	private List<FieldGroup> fieldGroups;
+	private List<Constraint> constraints;
 	
 	public EntitySecuredAccess getEntitySecuredAccess() {
 		return entitySecuredAccess;
