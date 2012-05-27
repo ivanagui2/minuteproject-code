@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -28,11 +29,11 @@ public class TableDDLUtils extends TableAbstract {
 	private Logger log = Logger.getLogger(this.getClass());
 	protected org.apache.ddlutils.model.Table table;
 	private Database database;
-	private ArrayList<Column> columns;
-	private ArrayList<ForeignKey> foreignKeys;
-	private ArrayList<Column> primaryKeys;
-	private ArrayList<Reference> parents;
-	private ArrayList<Reference> children;
+	private List<Column> columns;
+	private List<ForeignKey> foreignKeys;
+	private List<Column> primaryKeys;
+	private List<Reference> parents;
+	private List<Reference> children;
 	private String name;
 	
 	private Index [] nonUniqueIndices;
@@ -124,7 +125,7 @@ public class TableDDLUtils extends TableAbstract {
     	return (Column[])columns.toArray(new Column[columns.size()]);		
 	}
 	
-	private ArrayList<Column> getColumnList() {
+	private List<Column> getColumnList() {
     	if (columns == null) {
     		columns = new ArrayList<Column>();
     		for (int i = 0; i < table.getColumnCount(); i++) {
@@ -512,6 +513,16 @@ public class TableDDLUtils extends TableAbstract {
 	public void setType(String type) {
 		table.setType(type);		
 	}
+
+//	public List<Constraint> getConstraints() {
+//		return constraints;
+//	}
+//
+//	public void setConstraints(List<Constraint> constraints) {
+//		this.constraints = constraints;
+//	}
+
+
 
 //   public boolean isManyToMany() {
 ////   	table.getColumnCount();

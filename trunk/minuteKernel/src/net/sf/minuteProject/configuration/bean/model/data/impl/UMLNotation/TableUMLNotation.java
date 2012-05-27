@@ -95,11 +95,4 @@ public class TableUMLNotation extends TableAbstract {
 		
 	}
 	
-//	public List<Property> getProperties() {
-//	   return super.getProperties();
-//	}
-//
-//	public Property [] getPropertiesArray() {
-//		return super.getPropertiesArray();
-//	}
 }

@@ -444,13 +444,17 @@
                     <set-properties-rule>
                         <alias attr-name="name" prop-name="name" /> 
                     </set-properties-rule>
+                    <bean-property-setter-rule pattern="value"/>
+                    <bean-property-setter-rule pattern="comment"/>
 				</pattern>
-				<pattern value="action">
+				<pattern value="actions/action">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 					<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 					<set-properties-rule>
 						<alias attr-name="name" prop-name="name" />	
-					</set-properties-rule>	
+					</set-properties-rule>
+					<bean-property-setter-rule pattern="value"/>
+                    <bean-property-setter-rule pattern="comment"/>
 	            </pattern>				
 				<pattern value="field-group">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup"/>		
@@ -551,6 +555,8 @@
 	                    <set-properties-rule>
 	                        <alias attr-name="name" prop-name="name" /> 
 	                    </set-properties-rule>
+	                    <bean-property-setter-rule pattern="value"/>
+	                    <bean-property-setter-rule pattern="comment"/>
 	                </pattern>
 					<pattern value="stereotype">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		

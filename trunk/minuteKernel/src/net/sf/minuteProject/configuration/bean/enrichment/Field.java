@@ -143,11 +143,13 @@ public class Field extends AbstractConfiguration {
 	}
 
 	public List<Derivation> getDerivations() {
+		if (derivations==null)
+			derivations = new ArrayList<Derivation>();
 		return derivations;
 	}
 
-	public void setDerivations(List<Derivation> derivations) {
-		this.derivations = derivations;
+	public void addDerivation(Derivation derivation) {
+		getDerivations().add(derivation);
 	}
 
 }
