@@ -260,7 +260,7 @@
 
 	<xs:complexType name="rule">
 	  <xs:sequence>
-	       <xs:element name="annotation"></xs:element>
+	       <xs:element name="comment"></xs:element>
 	       <xs:element name="value"></xs:element>
 	  </xs:sequence>
 	     <xs:attribute name="name"></xs:attribute>
