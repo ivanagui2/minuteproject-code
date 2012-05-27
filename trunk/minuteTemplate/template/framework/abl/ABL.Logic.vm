@@ -1,0 +1,70 @@
+#exposeABLEntitySpecific()
+#addedAreas()
+package $packageName;
+
+import com.autobizlogic.abl.annotations.*;
+import ${logicBaseImport};
+
+$!updatedAreaImport
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: AutomatedBusinessLogic $className for ${domainClassName} class rules </p>
+ *
+ */
+public class ${className} extends ${logicBaseClass} {
+
+#foreach($constraint in $table.constraints)
+#exposeABLContraintSpecific()
+#exposeEntityUpdatedAreas("abl-constraint-${constraintName}")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+##    @Constraint(
+##       value = "${constraint.value}"
+###if($hasErrorMessage)
+##       ,errorMessage = "${constraint.errorMessage}"
+###end
+##    )
+    ${constraint.value}
+    public void constraint${constraintName}() { }
+
+#end
+$!updatedAreaEnd
+#end
+
+#foreach($action in $table.actions)
+#exposeABLActionSpecific()
+#exposeEntityUpdatedAreas("abl-action-${actionName}")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    ${action.value}
+    public void action${actionName}() { }
+
+#end
+$!updatedAreaEnd
+#end
+
+#foreach($column in ${table.attributes})
+#foreach($derivation in $column.derivations)
+#exposeABLDerivedSpecific()
+#exposeEntityUpdatedAreas("abl-derivation-${derivationName}")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    ${derivation.value}
+    public void derived${derivationName}() { }
+
+#end
+$!updatedAreaEnd
+#end
+#end
+
+$!updatedAreaImplementation
+
+}

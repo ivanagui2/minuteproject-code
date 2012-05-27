@@ -9,11 +9,6 @@
             <property name="hibernate.connection.url" value="$datasource.url" />
             <property name="hibernate.connection.username" value="$datasource.username" />
             <property name="hibernate.connection.password" value="$datasource.password" />
-##			<!--<property name="hibernate.c3p0.min_size" value="5" />
-##			<property name="hibernate.c3p0.max_size" value="20" />
-##			<property name="hibernate.c3p0.timeout" value="300" />
-##			<property name="hibernate.c3p0.max_statements" value="50" />
-##			<property name="hibernate.c3p0.idle_test_period" value="3000" />-->
 #else
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />	
@@ -25,6 +20,15 @@
             <property name="hibernate.cache.use_query_cache" value="true" />
             <property name="hibernate.cache.use_second_level_cache" value="true" />
 #else
+#if ($hasABLNature)
+            <!-- Use this for environments without JTA -->
+            <property name="hibernate.current_session_context_class" 
+                        value="com.autobizlogic.abl.session.LogicThreadLocalSessionContext" />
+                        
+            <!-- Use this for JTA -->
+            <!-- <property name="hibernate.current_session_context_class" 
+                        value="com.autobizlogic.abl.session.LogicJTASessionContext" /> -->
+#end
 <!-- -->
 #end
 #addArea("properties")

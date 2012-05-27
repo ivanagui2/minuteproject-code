@@ -21,6 +21,8 @@
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
 #set($addDomainSpecificMethod=$template.getPropertyValue("add-domain-specific-method",false))
+#set($hasABLNature=$template.hasPropertyValue("add-automated-business-logic",false))
+#set($autobizlogicVersion=$template.getPropertyValue("add-automated-business-logic","2.1.4"))
 #set($useTemporal=$template.getPropertyValue("use-temporal",false))
 #set($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #set($isCacheEnabled=$template.hasPropertyValue("add-cache-implementation",false))
