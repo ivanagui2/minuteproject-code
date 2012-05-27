@@ -4,9 +4,11 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
 
-public class Action extends AbstractConfiguration {
+public class Action extends Rule<Table> {
 
 	public String getTechnicalPackage(Template template) {
 		if (getParent()!=null)

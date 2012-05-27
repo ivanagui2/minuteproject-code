@@ -9,6 +9,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -34,6 +35,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<List<Column>> fieldGroupsList;
 	private List<FieldGroup> fieldGroups;
 	private List<Action> actions;
+	private List<Constraint> constraints;
 	private Boolean hasVersion;
 	
 	public TableAbstract () {
@@ -52,6 +54,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setComment(table.getComment());
 		this.setDescription(table.getDescription());		
 		this.setDatabase(table.getDatabase());
+		this.setConstraints(table.getConstraints());
 	}
 
 	public String getName () {
@@ -186,50 +189,6 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		return p.getTechnicalPackage(template);
 	}
 
-	/**
-	private void setNoPrimaryKeyNoForeignKeyColumns() {
-		List<String> primaryKeyAndForeignKeyColumnsName = new ArrayList<String>();
-		List<Column> noPrimaryKeyNoForeignKeyColumnsName = new ArrayList<Column>();
-		if (table.getNoPrimaryKeyNoForeignKeyColumns()==null) {
-			// populate with foreign key columns
-			ForeignKey [] foreignKeys =  getForeignKeys();
-			for (int i=0; i < foreignKeys.length; i++) {
-				Reference references [] = foreignKeys[i].getReferences();
-				for (int j=0; j < references.length; j++) {
-					primaryKeyAndForeignKeyColumnsName.add (references[j].getLocalColumnName());
-				}
-			}
-			// add pk columns
-			Column [] primaryKeys =  getPrimaryKeyColumns();
-			for (int i=0; i < primaryKeys.length; i++) {
-				primaryKeyAndForeignKeyColumnsName.add (primaryKeys[i].getName());
-			}			
-			// compute the remaining column
-			Column columns [] = getColumns();
-			boolean isMatching;
-			for (int i=0; i < columns.length; i++) {
-				isMatching = false;
-				for (Iterator<String> iter = primaryKeyAndForeignKeyColumnsName.iterator(); iter.hasNext();) {
-					String name = iter.next();
-					if (name.equals(columns [i].getName())) {
-						isMatching = true;
-						break;
-					}
-				}
-				if (isMatching == false)
-					noPrimaryKeyNoForeignKeyColumnsName.add (columns [i]);
-			}
-			//noPrimaryKeyNoForeignKeyColumns = (Column []) noPrimaryKeyNoForeignKeyColumnsName.toArray();
-			table.getNoPrimaryKeyNoForeignKeyColumns() = new Column [noPrimaryKeyNoForeignKeyColumnsName.size()];
-			int posix = 0;
-			for (Iterator<Column> iter = noPrimaryKeyNoForeignKeyColumnsName.iterator(); iter.hasNext();) {
-				noPrimaryKeyNoForeignKeyColumns [posix] = (Column)iter.next();
-				posix++;
-			}
-		}
-
-	}
-*/
 	public Column[] getNoPrimaryKeyNoForeignKeyColumns() {
 		return table.getNoPrimaryKeyNoForeignKeyColumns();
 	}
@@ -278,17 +237,6 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
     		return false;
     	return this.getName().equals(((Table)object).getName());
     }
-    
-//	public String getAlias() {
-//		if (alias!=null && !alias.equals(""))
-//			return alias;
-//		else
-//			return getName();
-//	}
-//
-//	public void setAlias(String alias) {
-//		this.alias = alias;
-//	}
 	
 	public boolean isManyToManyRecursive() {
 		if (isManyToMany()) {
@@ -460,6 +408,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 
 	public void setSearchable(boolean isSearchable) {
 		this.isSearchable = isSearchable;
+	}
+
+	public List<Constraint> getConstraints() {
+		return constraints;
+	}
+
+	public void setConstraints(List<Constraint> constraints) {
+		this.constraints = constraints;
 	}
 	
 }

@@ -247,13 +247,14 @@ public class ModelGenerator extends AbstractGenerator {
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
 	public void generate(Template template) throws MinuteProjectException {
+		String scopeSpecificValue = template.getScopeSpecificValue();
 		if (template.getFieldSpecific().equals("true"))
 			generateArtifactsByField(template);
-		else if (template.getEntitySpecific().equals("true"))
+		else if (template.getEntitySpecific().equals("true") || SCOPE_DATAMODEL_ENTITY.equals(scopeSpecificValue))
 			generateArtifactsByEntity(template);
 		else if (template.getPackageSpecific().equals("true"))
 			generateArtifactsByPackage(template);
-		else if (template.getModelSpecific().equals("true"))
+		else if (template.getModelSpecific().equals("true") || SCOPE_DATAMODEL_MODEL.equals(scopeSpecificValue))
 			generateArtifactsByModel(template);
 		else if (template.getServiceSpecific().equals("true"))
 			generateArtifactsByService(template);
@@ -262,7 +263,6 @@ public class ModelGenerator extends AbstractGenerator {
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
 		else {
-			String scopeSpecificValue = template.getScopeSpecificValue();
 			if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(scopeSpecificValue))
 				generateArtifactsByFunction(template, Direction.IN);
 			else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(scopeSpecificValue))

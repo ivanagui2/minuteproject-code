@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -19,6 +20,7 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	private Boolean isVersion, isSearchable;
 	private Integer minLength;
 	private List<Trigger> triggers;
+	private List<Derivation> derivations;
 	
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
@@ -466,4 +468,13 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
 	public void addTriggers(Trigger trigger) {
 		getTriggers().add(trigger);
 	}
+
+	public List<Derivation> getDerivations() {
+		return derivations;
+	}
+
+	public void setDerivations(List<Derivation> derivations) {
+		this.derivations = derivations;
+	}
+	
 }

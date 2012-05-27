@@ -3,10 +3,10 @@ package net.sf.minuteProject.configuration.bean.model.data;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
-import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 
 
@@ -278,9 +278,13 @@ public interface Table extends GeneratorBean{
 	public List<List<Column>> getFieldGroupsList ();
 	
 	public List<Action> getActions();
-	
+
 	public void setActions(List<Action> actions);
 	
+	public List<Constraint> getConstraints();
+	
+	public void setConstraints(List<Constraint> constraints);
+		
 	public void setSearchable(boolean isSearchable);
 	
 	public boolean isSearchable();

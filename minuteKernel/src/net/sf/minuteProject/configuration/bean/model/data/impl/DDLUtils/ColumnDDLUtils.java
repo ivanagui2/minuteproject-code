@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
@@ -29,6 +30,7 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	private Stereotype stereotype;
 	private Integer minLength;
 	private List<Trigger> triggers;
+	private List<Derivation> derivations;
 
 	protected ColumnDDLUtils() {}
 	
@@ -481,6 +483,14 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	@Override
 	public void addTriggers(Trigger trigger) {
 		getTriggers().add(trigger);
+	}
+	
+	public List<Derivation> getDerivations() {
+		return derivations;
+	}
+
+	public void setDerivations(List<Derivation> derivations) {
+		this.derivations = derivations;
 	}
 	
 }

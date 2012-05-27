@@ -310,6 +310,8 @@ public class BusinessModel {
 		table.setSearchable(entity.isSearchable());
 		table.setDescription(entity.getDescription());
 		table.setComment(entity.getComment());
+		table.setConstraints(entity.getConstraints());
+		table.setActions (entity.getActions());
 	}
 	
 	private void convertFieldInfoToColumn (Field field, Column column) {
@@ -319,6 +321,7 @@ public class BusinessModel {
 		column.setComment(field.getComment());
 		column.setSearchable(field.isSearchable());
 		column.setAlias(field.getAlias());
+		column.setDerivations(field.getDerivations());
 //		column.setTriggers(field.getTriggers());
 	}
 	

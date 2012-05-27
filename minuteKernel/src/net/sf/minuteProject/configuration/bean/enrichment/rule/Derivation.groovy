@@ -1,5 +1,8 @@
 package net.sf.minuteProject.configuration.bean.enrichment.rule
 
-class Derivation extends Rule{
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+
+
+class Derivation extends Rule<Column>{
 
 }

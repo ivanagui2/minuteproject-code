@@ -150,6 +150,16 @@ public class Entity extends AbstractConfiguration {
 		getActions().add(action);
 	}
 
+	public List<Constraint> getConstraints() {
+		if (constraints==null)
+			constraints = new ArrayList<Constraint>();
+		return constraints;
+	}
+
+	public void addConstraint (Constraint constraint) {
+		getConstraints().add(constraint);
+	}
+	
 	//use for m2m in grails, jpa2 xml rootnavigation
 	public String getMasterRelationshipField() {
 		return masterRelationshipField;
@@ -165,6 +175,7 @@ public class Entity extends AbstractConfiguration {
 			action.setParent(table);
 		}
 		table.setActions (this.getActions());
+		table.setConstraints(this.getConstraints());
 		table.setFieldGroups(this.getFieldGroups());
 		return table;
 	}
