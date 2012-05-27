@@ -79,6 +79,13 @@
 			<version>2.3.0</version>
 		</dependency>
 #end
+#if ($hasABLNature)
+        <dependency>
+            <groupId>com.autobizlogic.abl</groupId>
+            <artifactId>autobizlogic</artifactId>
+            <version>$autobizlogicVersion</version>
+        </dependency>
+#end
 #if($isQuerydslPowered)	
 	    <!-- querydsl integration -->
         <dependency>
@@ -183,6 +190,13 @@
         <enabled>true</enabled>
      </snapshots> -->
        </repository>    
+#end
+#if ($hasABLNature)
+       <repository>
+         <id>automated-business-logic</id>
+         <name>Automated Business Logic repository</name>
+         <url>http://resources.automatedbusinesslogic.com/maven2</url>
+       </repository>
 #end
     </repositories>   
 </project>
