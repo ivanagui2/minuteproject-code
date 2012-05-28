@@ -264,6 +264,7 @@
 	       <xs:element name="value"></xs:element>
 	  </xs:sequence>
 	     <xs:attribute name="name"></xs:attribute>
+	     <xs:attribute name="to-implement" type="xs:boolean" default="false"></xs:attribute>
 	</xs:complexType>
 	
     <xs:complexType name="constraints">
