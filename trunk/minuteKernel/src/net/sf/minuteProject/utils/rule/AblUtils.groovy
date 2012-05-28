@@ -32,7 +32,7 @@ class AblUtils {
 
 	boolean hasDerivation(Table table) {
 		for (Column column : table.getAttributes()) {
-			if (column.getDerivations.size()>0)
+			if (column.getDerivations()!=null && column.getDerivations().size()>0)
 				return true
 		}
 		return false

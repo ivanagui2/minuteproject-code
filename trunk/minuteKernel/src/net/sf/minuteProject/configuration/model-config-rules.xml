@@ -452,6 +452,7 @@
 					<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 					<set-properties-rule>
 						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="is-to-implement" prop-name="isToImplement" />	
 					</set-properties-rule>
 					<bean-property-setter-rule pattern="value"/>
                     <bean-property-setter-rule pattern="comment"/>

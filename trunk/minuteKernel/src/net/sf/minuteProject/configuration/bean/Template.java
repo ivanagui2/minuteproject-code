@@ -778,7 +778,15 @@ public class Template extends TemplateTarget {
 	}
 
 	private String getTemplateSignature() {
-		return extension.format(getTemplateSignatureTxt());
+		return getComment(getTemplateSignatureTxt());
+	}
+	
+	public String getComment(String text) {
+		return extension.format(text);
+	}
+	
+	public String getTextComment(String text) {
+		return extension.format(" \n"+text+"\n");
 	}
 
 	private String getTemplateSignatureTxt() {
