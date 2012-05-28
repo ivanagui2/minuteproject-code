@@ -24,6 +24,23 @@ public enum Extension implements FileComment {
 			return "*/";
 		}
 	},
+	groovy {
+		public String lineCommentBeginning() {
+			return "//";
+		}
+		public String lineCommentEnding() {
+			return "";
+		}
+		public String textCommentBeginning() {
+			return "/**";
+		}
+		public String textCommentMiddle() {
+			return "*";
+		}
+		public String textCommentEnding() {
+			return "*/";
+		}
+	},
 	xml {
 		public String lineCommentBeginning() {
 			return "<!--";
