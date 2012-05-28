@@ -1,11 +1,14 @@
 #macro(exposeABLContraintSpecific)
 #set($constraintName = $ablUtils.getConstraintName($table, $constraint))
+#set($comment = $template.getTextComment($constraint.comment))
 #end
 #macro(exposeABLDerivedSpecific)
 #set($derivationName = $ablUtils.getDerivationName($column, $derivation))
+#set($comment = $template.getTextComment($derivation.comment))
 #end
 #macro(exposeABLActionSpecific)
 #set($actionName = $ablUtils.getActionName($table, $action))
+#set($comment = $template.getTextComment($action.comment))
 #end
 #macro(exposeABLEntitySpecific)
 #exposeVariableEntitySpecific()
