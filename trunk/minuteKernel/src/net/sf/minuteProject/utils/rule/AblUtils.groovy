@@ -10,6 +10,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 class AblUtils {
 
+	AblUtils(){}
+	
 	String getConstraintName (Table table, Constraint constraint) {
 		constraint.getName table 
 	}
