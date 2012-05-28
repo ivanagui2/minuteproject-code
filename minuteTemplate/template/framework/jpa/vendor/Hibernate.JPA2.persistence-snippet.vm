@@ -24,7 +24,6 @@
             <!-- Use this for environments without JTA -->
             <property name="hibernate.current_session_context_class" 
                         value="com.autobizlogic.abl.session.LogicThreadLocalSessionContext" />
-                        
             <!-- Use this for JTA -->
             <!-- <property name="hibernate.current_session_context_class" 
                         value="com.autobizlogic.abl.session.LogicJTASessionContext" /> -->

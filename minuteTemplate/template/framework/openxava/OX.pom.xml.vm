@@ -59,6 +59,13 @@
             <url>http://s3.amazonaws.com/maven.springframework.org/milestone</url>
         </repository> 
 #end
+#if ($hasABLNature)
+       <repository>
+         <id>automated-business-logic</id>
+         <name>Automated Business Logic repository</name>
+         <url>http://resources.automatedbusinesslogic.com/maven2</url>
+       </repository>
+#end
     </repositories>
  
     <pluginRepositories>
@@ -322,6 +329,13 @@
         	<artifactId>spring-security-config</artifactId>
         	<version>${spring.security.version}</version>
         </dependency> 
+#end
+#if ($hasABLNature)
+        <dependency>
+            <groupId>com.autobizlogic.abl</groupId>
+            <artifactId>autobizlogic</artifactId>
+            <version>$autobizlogicVersion</version>
+        </dependency>
 #end
     </dependencies>
 
