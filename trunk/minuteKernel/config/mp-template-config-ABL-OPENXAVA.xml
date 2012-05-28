@@ -10,12 +10,12 @@ xs:schemaLocation="./mp-template-config.xsd">
 	<template-target 
     	name="ABL"
 		libdir="lib/ABL_LIB.vm"
-		outputdir="src/main/java">
+		outputdir="src">
 
 		<!-- ABL beans -->	
 		<template name="ABL.Logic" templateFileName="ABL.Logic.vm" 
 			subdir="" outputsubdir="" technicalPackage="businesslogic"
-			file-extension="java" file-prefix="" file-suffix="Logic" 
+			file-extension="groovy" file-prefix="" file-suffix="Logic" 
             check-template-to-generate="true" 
             is-template-to-generate-method="ablUtils.isToGenerateBasedRulePresence"
 			has-updatable-nature="true"
@@ -25,18 +25,10 @@ xs:schemaLocation="./mp-template-config.xsd">
 		
 		<template name="ABL.LogicBase" templateFileName="ABL.LogicBase.vm" 
 			subdir="" outputsubdir="" technicalPackage="businesslogic"
-			file-extension="java" file-prefix="" file-suffix="BizLogicBase" 
+			file-extension="groovy" file-prefix="" file-suffix="BizLogicBase" 
 			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="model" >
 		</template>	
-		
-    </template-target>
-    
-	<template-target 
-    	name="ABL"
-		libdir=""
-		outputdir="src/main/resources"
-		package-root="">
 
 		<template name="ABL.Config" templateFileName="ABL.Config.vm" 
 			subdir="" outputsubdir="" technicalPackage=""

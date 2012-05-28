@@ -57,13 +57,13 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   fileName="mp-template-config-openxava-last-features.xml" 
 			   outputdir-root="../../dev/openxava/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
-			   <property name="add-automated-business-logic" value="x.y.z"></property>
+			  <!--  <property name="add-automated-business-logic" value="x.y.z"></property> -->
 			</target> 
-            <target refname="ABL" 
+<!--             <target refname="ABL" 
                 outputdir-root="../../dev/openxava/petshop"
                 fileName="mp-template-config-ABL.xml" 
                 templatedir-root="../../minuteTemplate/template/framework/abl">
-            </target>
+            </target> -->
 			<target refname="JPA2-LIB" 
 			   fileName="mp-template-config-JPA2-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
