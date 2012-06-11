@@ -57,6 +57,26 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
             <statement-model>
                  <queries>
+                     <query name="get address street 2">
+                         <query-body><value>
+                         <![CDATA[
+                         select * from address 
+                         where addressid > ? 
+                         and addressid < ? order by addressid
+                         ]]></value></query-body>
+                         <query-params>
+                             <query-param name="identifier_Address" is-mandatory="true" type="INT" sample="1"></query-param>
+                             <query-param name="identifier_Address2" is-mandatory="false" type="INT" sample="1">
+                             	<query-param-optional-sections>
+                             		<query-param-optional-section name="optional1">
+                             			<query-param-area belongs-to="where/what/how/order/group">
+                             		<value><![CDATA[addressid < ?]]></value>
+                             		</query-param-area>
+                             		</query-param-optional-section>
+                             	</query-param-optional-sections>
+                             </query-param>
+                         </query-params>
+                     </query>
                      <query name="get addresses by criteria">
                          <query-body><value>
 <![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>

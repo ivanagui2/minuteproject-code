@@ -71,7 +71,7 @@ public class QueryUtils {
 	}
 
 	public static String getFullQueryQuestionMark(Query query) {
-		return getQueryQuestionMark(query);
+		return StringUtils.replace(getQueryQuestionMark(query), "\n", " ");
 	}
 	
 	public static String getQueryQuestionMark(Query query) {
