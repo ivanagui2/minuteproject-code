@@ -9,6 +9,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.group.Group;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ModelUtils;
@@ -39,7 +40,7 @@ public class SDDPackage extends BusinessPackageAdapter {
 		Hashtable<String, Package> ht = new Hashtable<String, Package>();
 		for (Query query:statementModel.getQueries().getQueries()) {
 //			if (ModelUtils.isToGenerate(statementModel, query)) {
-				String packageName = CommonUtils.getSDDPackageName(model, query);
+				String packageName = CommonUtils.getSDDPackageName(query);
 				Package pack = (Package) ht.get(packageName);
 				if (pack == null) {
 					pack = new Package();
@@ -50,6 +51,21 @@ public class SDDPackage extends BusinessPackageAdapter {
 				}
 				pack.addStatement(query);
 				ht.put(packageName, pack);
+//			}
+		}
+		for (Composite composite:statementModel.getComposites().getComposites()) {
+//			if (ModelUtils.isToGenerate(statementModel, query)) {
+			String packageName = CommonUtils.getSDDPackageName(composite);
+			Package pack = (Package) ht.get(packageName);
+			if (pack == null) {
+				pack = new Package();
+				pack.setSddPackage(this);
+				pack.setName(packageName);
+				composite.setPackage(pack);
+//					query.setDatabase (database);
+			}
+			pack.addComposite(composite);
+			ht.put(packageName, pack);
 //			}
 		}
 		Enumeration<Package> enumeration = ht.elements();

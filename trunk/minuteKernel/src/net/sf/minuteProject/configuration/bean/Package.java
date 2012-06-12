@@ -12,6 +12,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -26,6 +27,7 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	private SDDPackage sddPackage;
 	private List<Function> listOfFunctions;
 	private List<Query> listOfQueries;
+	private List<Composite> listOfComposites;
 	
 	private SecurityColor securityColor;
 	private String alias;
@@ -73,6 +75,13 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 			listOfQueries = new ArrayList<Query>();
 		query.setPackage(this);
 		listOfQueries.add(query);
+	}
+
+	public void addComposite(Composite composite) {
+		if (listOfComposites==null)
+			listOfComposites = new ArrayList<Composite>();
+		composite.setPackage(this);
+		listOfComposites.add(composite);
 	}
 	
 	public SDDPackage getSddPackage() {
