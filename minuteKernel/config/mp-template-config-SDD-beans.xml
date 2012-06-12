@@ -27,7 +27,14 @@
 			scope-specific-value="sdd-output-bean" >
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
-
+		
+		<!-- composite -->
+		<template name="SDDInputCompositeBean" templateFileName="JavaCompositeBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="composite"
+			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
+			scope-specific-value="sdd-input-composite-bean" >
+		</template>	
+		
     </template-target>
 
 </target>
