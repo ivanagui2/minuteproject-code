@@ -22,6 +22,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.statement.Composite;
+import net.sf.minuteProject.configuration.bean.model.statement.Composites;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.view.View;
@@ -344,15 +346,17 @@ public class CommonUtils {
 	public static String getFunctionPackageName(Model model, Function function){
 		return getFunctionPackage(model, function);
 	}
-	public static String getSDDPackageName(Model model, Query query){
-		return getSDDPackage(model, query);
+	public static String getSDDPackageName(Query query){
+		return getSDDPackage(query.getQueries().getName(), Queries.DEFAULT_PACKAGE_NAME);
+	}
+	public static String getSDDPackageName(Composite composite){
+		return getSDDPackage(composite.getComposites().getName(), Composites.DEFAULT_PACKAGE_NAME);
 	}
 	
-	private static String getSDDPackage(Model model, Query query) {
-		String queryName= query.getQueries().getName();
-		if (queryName!=null)
-			return queryName;
-		return Queries.DEFAULT_PACKAGE_NAME;
+	private static String getSDDPackage(String name, String defaultValue) {
+		if (name!=null)
+			return name;
+		return defaultValue;
 	}
 
 	public static String getBusinessPackageName(Model model, Table table){

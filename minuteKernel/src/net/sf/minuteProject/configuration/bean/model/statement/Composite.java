@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
@@ -14,6 +15,7 @@ public class Composite extends AbstractConfiguration{
 	private Composite inputComposite, outputComposite;
 	private List<Table> entities;
 	private String executionType;
+	private Package pack;
 	
 	private List<CompositeQueryElement> queries;
 	
@@ -71,6 +73,7 @@ public class Composite extends AbstractConfiguration{
 		Composite composite = new Composite();
 		composite.setName(this.name);
 		composite.setExecutionType(this.executionType);
+		composite.setPackage(this.getPackage());
 		for (CompositeQueryElement query : getQueries()) {
 			Query q = query.getQuery();
 			Table table = q.getEntity(dir);
@@ -98,4 +101,11 @@ public class Composite extends AbstractConfiguration{
 		return p.getTechnicalPackage(template);
 	}
 	
+	public Package getPackage() {
+		return pack;
+	}
+
+	public void setPackage(Package pack) {
+		this.pack = pack;
+	}
 }
