@@ -5,6 +5,7 @@ public class QueryParam extends QueryAdapter {
 	private boolean isMandatory;
 	private String type, sample;
 	private int size, scale;
+	private QueryParamOptionalSections queryParamOptionalSections;
 	
 	public boolean isMandatory() {
 		return isMandatory;

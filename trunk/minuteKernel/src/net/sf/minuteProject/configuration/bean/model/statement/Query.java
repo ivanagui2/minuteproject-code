@@ -20,6 +20,7 @@ import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
 
+	
 	private Queries queries;
 	private QueryBody queryBody;
 	private QueryWhat queryWhat;

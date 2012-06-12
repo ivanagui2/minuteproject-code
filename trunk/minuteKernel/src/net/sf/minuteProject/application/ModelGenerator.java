@@ -21,6 +21,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.statement.Composite;
+import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.service.Scope;
@@ -277,6 +279,10 @@ public class ModelGenerator extends AbstractGenerator {
 				generateArtifactsByAction(template);
 			else if (QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsByQuery(template);
+			else if (SDD_INPUT_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsBySddCompositeBean(template, Direction.IN);
+			else if (SDD_OUTPUT_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsBySddCompositeBean(template, Direction.OUT);
 			else if (SDD_INPUT_BEAN_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsBySddBean(template, Direction.IN);
 			else if (SDD_OUTPUT_BEAN_TEMPLATE.equals(scopeSpecificValue))
@@ -405,6 +411,15 @@ public class ModelGenerator extends AbstractGenerator {
 				if (table.getColumns().length>0) {
 					writeTemplateResult(table, template);
 				}
+			}
+		}
+	}
+	
+	protected void generateArtifactsBySddCompositeBean(Template template, Direction direction) throws MinuteProjectException {	
+		StatementModel statementModel = getModel().getStatementModel();
+		if (statementModel!=null) {
+			for (Composite composite : statementModel.getComposites().getComposites()) {
+				writeTemplateResult(composite.getComposite(direction), template);
 			}
 		}
 	}

@@ -56,8 +56,14 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
             <statement-model>
+            	 <composites>
+            	 	<composite id="a and b" name="address misc" execution-type="parallel/sequence">
+            	 		<query refid="a"/>
+            	 		<query refid="b"/>
+            	 	</composite>
+            	 </composites>
                  <queries>
-                     <query name="get address street 2">
+                     <query name="get address street 2" id="a">
                          <query-body><value>
                          <![CDATA[
                          select * from address 
@@ -70,14 +76,19 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                              	<query-param-optional-sections>
                              		<query-param-optional-section name="optional1">
                              			<query-param-area belongs-to="where/what/how/order/group">
-                             		<value><![CDATA[addressid < ?]]></value>
+                             		<value><![CDATA[and addressid < ?]]></value>
                              		</query-param-area>
                              		</query-param-optional-section>
                              	</query-param-optional-sections>
                              </query-param>
+                             <query-where><value><![CDATA[and addressid < ?]]></value></query-where>
+                             
+                             <query-where><value><![CDATA[and addressid < ?]]></value></query-where>
+                             
+                             
                          </query-params>
                      </query>
-                     <query name="get addresses by criteria">
+                     <query name="get addresses by criteria" id="b">
                          <query-body><value>
 <![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
                             </value></query-body>

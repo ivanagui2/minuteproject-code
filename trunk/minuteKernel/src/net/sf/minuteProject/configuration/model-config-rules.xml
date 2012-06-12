@@ -75,7 +75,28 @@
 	</pattern>
     <pattern value="statement-model">
         <object-create-rule classname="net.sf.minuteProject.configuration.bean.StatementModel"/>     
-        <set-next-rule methodname="setStatementModel" paramtype="net.sf.minuteProject.configuration.bean.StatementModel"/>        
+        <set-next-rule methodname="setStatementModel" paramtype="net.sf.minuteProject.configuration.bean.StatementModel"/>   
+        <pattern value="composites">
+            <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.Composites"/>    
+            <set-next-rule methodname="setComposites" paramtype="net.sf.minuteProject.configuration.bean.model.statement.Composites"/>          
+            <set-properties-rule/>        
+            <bean-property-setter-rule pattern="name"/>
+	        <pattern value="composite">
+	        	<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.Composite"/>
+	            <set-next-rule methodname="addComposite" paramtype="net.sf.minuteProject.configuration.bean.model.statement.Composite"/>          
+                <set-properties-rule>
+                    <alias attr-name="id" prop-name="id" />
+                    <alias attr-name="name" prop-name="name" />
+                    <alias attr-name="execution-type" prop-name="executionType" />
+                </set-properties-rule>  	
+		        <pattern value="query">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement"/>    
+	                <set-next-rule methodname="addQuery" paramtype="net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement"/>          
+	                <set-properties-rule/>
+	                <bean-property-setter-rule pattern="refid"/>
+	            </pattern> 
+	        </pattern>
+	    </pattern>     
         <pattern value="queries">
             <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.Queries"/>    
             <set-next-rule methodname="setQueries" paramtype="net.sf.minuteProject.configuration.bean.model.statement.Queries"/>          
