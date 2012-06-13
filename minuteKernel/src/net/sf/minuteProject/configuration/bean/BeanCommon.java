@@ -5,7 +5,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class BeanCommon {
 
-	private String id;
+	protected String id, refid;
 	
 	public String toString() {
 		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); 
@@ -18,6 +18,14 @@ public class BeanCommon {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getRefid() {
+		return refid;
+	}
+
+	public void setRefid(String refid) {
+		this.refid = refid;
 	}
 	
 	

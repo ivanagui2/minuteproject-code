@@ -22,8 +22,9 @@ public class StatementModel {
 		this.model = model;
 	}
 	public Queries getQueries() {
-		if (queries==null)
+		if (queries==null) {
 			queries = new Queries();
+		}
 		return queries;
 	}
 	public Composites getComposites() {
