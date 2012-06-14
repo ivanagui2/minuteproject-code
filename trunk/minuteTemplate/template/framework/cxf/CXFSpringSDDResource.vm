@@ -79,7 +79,7 @@ $!updatedAreaSnippet
     @Produces (MediaType.APPLICATION_XML) 
 #end
 
-    public $sddOutputBeanCollectionClass executeAndFormatXml (
+    public $sddOutputBeanCollectionClass executeAndFormat (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
         @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
