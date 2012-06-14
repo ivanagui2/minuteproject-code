@@ -53,7 +53,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					     <sql-path path="NAME"/>
 					   </semantic-reference>					
 					</entity>
-				</enrichment>					
+				</enrichment>
 			</business-model>
             <statement-model>
             	 <composites>
@@ -63,7 +63,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             	 	</composite>
             	 </composites>
                  <queries>
-                     <query name="get address street 1" id="a">
+                     <query name="get address street alpha" id="a">
                          <query-body name="address info"><value>
                          <![CDATA[
                          select * from address 
