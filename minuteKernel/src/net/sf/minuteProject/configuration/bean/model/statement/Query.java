@@ -6,16 +6,13 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
-import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
@@ -85,7 +82,9 @@ public class Query extends AbstractConfiguration {
 	public QueryParams getQueryParams() {
 		return queryParams;
 	}
+	
 	public void setQueryParams(QueryParams queryParams) {
+		this.queryParams.setQuery(this);
 		this.queryParams = queryParams;
 	}
 //	
@@ -107,7 +106,8 @@ public class Query extends AbstractConfiguration {
 
 	public Table getEntity(Direction dir) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
-		table.setName(getName());
+		setTableName(table, dir);
+//		table.setName(getName());
 //		table.setCatalog(catalog);
 		table.setType(Table.TABLE);
 		addColumns(table, dir);
@@ -116,6 +116,15 @@ public class Query extends AbstractConfiguration {
 //		entity.getTechnicalPackage(template)
 		entity.setDatabase(getQueries().getStatementModel().getModel().getDataModel().getDatabase());
 		return entity;
+	}
+
+	private void setTableName(org.apache.ddlutils.model.Table table,
+			Direction dir) {
+		String queryparamName = getQueryParams().getName();
+		if (dir.equals(Direction.IN) && StringUtils.isEmpty(queryparamName))
+			table.setName(queryparamName);
+		else
+			table.setName(getName());
 	}
 
 	public Package getPackage() {
