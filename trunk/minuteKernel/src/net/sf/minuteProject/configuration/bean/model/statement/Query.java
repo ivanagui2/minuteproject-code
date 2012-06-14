@@ -84,8 +84,8 @@ public class Query extends AbstractConfiguration {
 	}
 	
 	public void setQueryParams(QueryParams queryParams) {
-		this.queryParams.setQuery(this);
 		this.queryParams = queryParams;
+		this.queryParams.setQuery(this);
 	}
 //	
 //	public String getTechnicalPackage(Template template) {
@@ -121,7 +121,7 @@ public class Query extends AbstractConfiguration {
 	private void setTableName(org.apache.ddlutils.model.Table table,
 			Direction dir) {
 		String queryparamName = getQueryParams().getName();
-		if (dir.equals(Direction.IN) && StringUtils.isEmpty(queryparamName))
+		if (dir.equals(Direction.IN) && !StringUtils.isEmpty(queryparamName))
 			table.setName(queryparamName);
 		else
 			table.setName(getName());
