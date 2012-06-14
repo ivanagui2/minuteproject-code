@@ -31,14 +31,14 @@ xs:schemaLocation="./mp-template-config.xsd">
 		</template>	
 
 		<template name="ABL.Config" templateFileName="ABL.Config.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" add-model-dir-name="false"
 			file-extension="properties" file-prefix="" file-suffix="ABLConfig" 
 			has-updatable-nature="true" add-model-name="false"
 			application-specific="true" >
 		</template>
 
 		<template name="ABL.Logging" templateFileName="ABL.Logging.vm" 
-			subdir="" outputsubdir="" technicalPackage=""
+			subdir="" outputsubdir="" technicalPackage="" add-model-dir-name="false"
 			file-extension="properties" file-prefix="" file-suffix="ABL_logging" 
 			has-updatable-nature="true" add-model-name="false"
 			application-specific="true" >

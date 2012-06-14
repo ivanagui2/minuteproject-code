@@ -24,10 +24,13 @@ public class QueryParams extends AbstractConfiguration{
 	}
 
 	private List<QueryParam> getReferenceQueryParams(String refid) {
-		for (Query q : query.getQueries().getQueries()) {
-			if (refid.equals(q.getId()))
-				return q.getQueryParams().getQueryParams();
-		}
+		
+		Queries queries = query.getQueries();
+		if (queries!=null)
+			for (Query q : queries.getQueries()) {
+				if (refid.equals(q.getId()))
+					return q.getQueryParams().getQueryParams();
+			}
 		return null;
 	}
 
