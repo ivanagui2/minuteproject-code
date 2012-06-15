@@ -709,6 +709,11 @@ import $importDaoInterfaceUML;
 #updatedAreasCommon()
 #end
 
+#macro (exposeCompositeUpdatedAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $composite, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
 #macro (exposeEntityUpdatedAreas $area)
 #set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $table, $updatedAreas, $area))
 #updatedAreasCommon()

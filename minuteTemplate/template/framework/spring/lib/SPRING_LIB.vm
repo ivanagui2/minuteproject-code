@@ -33,6 +33,13 @@
 #set ($sddSpringJPADaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDSpringJPADaoClass))
 #end
 
+#macro (exposeSDDCompositeSpring)
+#exposeSDDSpringTemplate()
+#set ($sddCompositeDaoInterfaceClass = $commonUtils.getTemplateClassName($composite, $template, $templateSDDCompositeDaoInterface))
+#set ($sddCompositeDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddCompositeDaoInterfaceClass))
+#set ($sddCompositeDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($composite, $template, $templateSDDCompositeDaoInterface))
+#end
+
 #macro (exposeSpringTemplate)
 #set ($templateDomainObjectBslaDaoInterface = "BslaDaoInterfaceUML")
 #set ($templateDomainObjectBslaDaoExtInterface = "BslaDaoInterfaceExtendedUML")
@@ -44,6 +51,7 @@
 
 #macro (exposeSDDSpringTemplate)
 #set ($templateSDDDaoInterface = "SDDDaoInterface")
+#set ($templateSDDCompositeDaoInterface = "SDDCompositeDaoInterface")
 #set ($templateSDDSpringJPADaoClass = "SDDSpringJPADao")
 #end
 

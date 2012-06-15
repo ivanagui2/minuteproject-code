@@ -1,42 +1,56 @@
-##exposeVariableEntitySpecific()
+#exposeCompositeSpecific()
+#set($thisClass=${className})
 #addedAreas()
 package $packageName;
 
-import java.util.List;
-import java.util.ArrayList;
+#foreach($table in ${composite.entities})
+#if($composite.isDirection($in))
+#putImportCompositeInputSDDBean()
+import ${sddInputBeanImport};
+#else
+#putImportCompositeOutputSDDBean()
+import ${sddOutputBeanCollectionImport};
+#end
+#end
 
 $!updatedAreaImport
 /**
  *
- * <p>Title: ${className}</p>
+ * <p>Title: ${thisClass}</p>
  *
- * <p>Description: Java Bean containing a collection of ${domainClassName} </p>
+ * <p>Description: Java Bean#if($composite.isDirection($in)) Input#else Output#end composite</p>
  *
  */
-public class ${className} {
+public class ${thisClass} {
 
-#foreach($column in ${table.columns})
-#putColumnParamNaming()
-    private $columnType $columnVar;
+#if($composite.isDirection($in))
+#foreach($table in ${composite.entities})
+#putImportCompositeInputSDDBean()
+    private $sddInputBeanClass $sddInputBeanVariable;
 #end
+#else
+#foreach($table in ${composite.entities})
+#putImportCompositeOutputSDDBean()
+    private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
+#end
+#end	
 
     /**
     * Default constructor
     */
-    public ${className}() {
+    public ${thisClass}() {
     }
 	
+#if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
-#exposeVariableEntitySpecific()
-
-    public $columnType get${className}() {
-        return $columnVar;
-    }
-	
-    public void set$columnClass ($columnType $columnVar) {
-        this.$columnVar =  $columnVar;
-    }
-
+#putImportCompositeInputSDDBean()
+#putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
+#end
+#else
+#foreach($table in ${composite.entities})
+#putImportCompositeOutputSDDBean()
+#putGetterSetter($sddOutputBeanCollectionClass, $sddOutputBeanCollectionVariable)
+#end
 #end
 
 $!updatedAreaImplementation
