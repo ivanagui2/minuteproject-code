@@ -9,6 +9,22 @@ $!commonUtils.getReadMeText($template)
 #set ($functionCall=$routineUtils.getFunctionCall($function))
 #end
 
+#macro(exposeCompositeSpecific)
+#set ($in = $commonUtils.getDirection("IN"))
+#set ($out = $commonUtils.getDirection("OUT"))
+#set ($packageName = $commonUtils.getPackageName($composite, $template))
+#set ($className = $commonUtils.getClassName($composite, $template))
+#set ($classVariableName = $formatUtils.firstLowerCase(${className}))
+#end
+
+#macro(exposeInputCompositeSpecific)
+#set ($in = $commonUtils.getDirection("IN"))
+#set ($out = $commonUtils.getDirection("OUT"))
+#set ($packageName = $commonUtils.getPackageName($composite, $template))
+#set ($className = $commonUtils.getClassName($composite, $template))
+#set ($classVariableName = $formatUtils.firstLowerCase(${className}))
+#end
+
 #macro(exposeQuerySpecific)
 #set ($packageName = $commonUtils.getPackageName($query, $template))
 #set ($className = $commonUtils.getClassName($query, $template))
@@ -101,6 +117,36 @@ $!commonUtils.getReadMeText($template)
 #set ($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #end
 
+#macro (putImportCompositeSDDBean)
+#templateCommonDefinition()
+#set ($inputComposite = $composite.getInputComposite())
+#set ($outputComposite = $composite.getOutputComposite())
+#set ($sddInputCompositeBeanClass = $commonUtils.getTemplateClassName($inputComposite, $template, $templateSDDInputCompositeBean))
+#set ($sddInputCompositeBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputCompositeBeanClass))
+#set ($sddInputCompositeBeanImport = $commonUtils.getEntityLevelTemplateFullPath($inputComposite, $template, $templateSDDInputCompositeBean))
+#set ($sddOutputCompositeBeanClass = $commonUtils.getTemplateClassName($outputComposite, $template, $templateSDDOutputCompositeBean))
+#set ($sddOutputCompositeBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddOutputCompositeBeanClass))
+#set ($sddOutputCompositeBeanImport = $commonUtils.getEntityLevelTemplateFullPath($outputComposite, $template, $templateSDDOutputCompositeBean))
+#end
+
+#macro (putImportCompositeOutputSDDBean)
+#templateCommonDefinition()
+#set ($sddOutputBeanClass = $commonUtils.getTemplateClassName($table, $model, $templateSDDOutputBean))
+#set ($sddOutputBeanClasses = $i18nUtils.plurialize(${sddOutputBeanClass}))
+#set ($sddOutputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddOutputBeanClass))
+#set ($sddOutputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateSDDOutputBean))
+#set ($sddOutputBeanCollectionClass = $commonUtils.getTemplateClassName($table, $model, $templateSDDOutputBeanCollection))
+#set ($sddOutputBeanCollectionVariable = $commonUtils.getJavaNameVariableFirstLetter($sddOutputBeanCollectionClass))
+#set ($sddOutputBeanCollectionImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateSDDOutputBeanCollection))
+#end
+
+#macro (putImportCompositeInputSDDBean)
+#templateCommonDefinition()
+#set ($sddInputBeanClass = $commonUtils.getTemplateClassName($table, $template, $templateSDDInputBean))
+#set ($sddInputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSDDInputBean))
+#end
+
 #macro (putImportQuerySDDBean)
 #templateCommonDefinition()
 #set ($sddInputBeanClass = $commonUtils.getTemplateClassName($query.getInputBean(), $model, $templateSDDInputBean))
@@ -116,8 +162,10 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro(templateCommonDefinition)
-#set ($templateSDDInputBean = "SDDInputBean")
+#set ($templateSDDInputBean  = "SDDInputBean")
 #set ($templateSDDOutputBean = "SDDOutputBean")
+#set ($templateSDDInputCompositeBean  = "SDDInputCompositeBean")
+#set ($templateSDDOutputCompositeBean = "SDDOutputCompositeBean")
 #set ($templateSDDOutputBeanCollection = "SDDOutputBeanCollection")
 #end
 
