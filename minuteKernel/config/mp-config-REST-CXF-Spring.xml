@@ -90,7 +90,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                          where addressid between ? 
                          and ? order by addressid
                          ]]></value></query-body>
-                         <query-params id="b" refid="a"/>
+                         <query-params id="b" refid="a" />
                      </query>
                      <query name="get addresses by criteria" id="c">
                          <query-body><value>

@@ -30,9 +30,15 @@
 		
 		<!-- composite -->
 		<template name="SDDInputCompositeBean" templateFileName="JavaCompositeBean.vm" 
-			subdir="" outputsubdir="" technicalPackage="composite"
+			subdir="" outputsubdir="" technicalPackage="composite.in"
 			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
 			scope-specific-value="sdd-input-composite-bean" >
+		</template>
+			
+		<template name="SDDOutputCompositeBean" templateFileName="JavaCompositeBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="composite.out"
+			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
+			scope-specific-value="sdd-output-composite-bean" >
 		</template>	
 		
     </template-target>

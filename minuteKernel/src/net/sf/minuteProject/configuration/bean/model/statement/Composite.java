@@ -13,6 +13,7 @@ public class Composite extends AbstractConfiguration{
 
 	private Composites composites;
 	private Composite inputComposite, outputComposite;
+	private Direction direction;
 	private List<Table> entities;
 	private String executionType;
 	private Package pack;
@@ -57,13 +58,13 @@ public class Composite extends AbstractConfiguration{
 			return getOutputComposite();
 	}
 
-	private Composite getInputComposite() {
+	public Composite getInputComposite() {
 		if (inputComposite!=null)
 			return inputComposite;
 		return retrieveComposite(Direction.IN);
 	}
 	
-	private Composite getOutputComposite() {
+	public Composite getOutputComposite() {
 		if (outputComposite!=null)
 			return outputComposite;
 		return retrieveComposite(Direction.OUT);
@@ -71,9 +72,11 @@ public class Composite extends AbstractConfiguration{
 
 	private Composite retrieveComposite (Direction dir) {
 		Composite composite = new Composite();
+		composite.direction = dir;
 		composite.setName(this.name);
 		composite.setExecutionType(this.executionType);
 		composite.setPackage(this.getPackage());
+		composite.setQueries(getQueries());
 		for (CompositeQueryElement query : getQueries()) {
 			Query q = query.getQuery();
 			Table table = q.getEntity(dir);
@@ -108,4 +111,18 @@ public class Composite extends AbstractConfiguration{
 	public void setPackage(Package pack) {
 		this.pack = pack;
 	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	
+	public boolean isDirection (Direction direction) {
+		return (this.direction==direction);
+	}
+	
+	
 }

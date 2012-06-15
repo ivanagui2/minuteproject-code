@@ -135,7 +135,9 @@ public class UpdatedAreaUtils {
 	}
 	
 	private static String getUpdatableAreaKey(GeneratorBean bean, String area) {
-		return area+CONNECTOR+bean.getName();
+		if (bean!=null)
+			return area+CONNECTOR+bean.getName();
+		return area+CONNECTOR;
 	}
 
 	public static UpdatedAreaHolder getUpdatedAreaHolder(Template template, String key, Map<String, String> updatedAreas) {

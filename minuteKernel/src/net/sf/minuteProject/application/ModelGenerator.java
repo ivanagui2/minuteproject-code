@@ -279,6 +279,8 @@ public class ModelGenerator extends AbstractGenerator {
 				generateArtifactsByAction(template);
 			else if (QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsByQuery(template);
+			else if (SDD_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsBySddCompositeBean(template, Direction.IN);
 			else if (SDD_INPUT_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsBySddCompositeBean(template, Direction.IN);
 			else if (SDD_OUTPUT_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
