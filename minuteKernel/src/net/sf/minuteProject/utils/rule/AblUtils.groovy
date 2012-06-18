@@ -27,7 +27,11 @@ class AblUtils {
 	boolean isToGenerateBasedRulePresence (Template template, GeneratorBean bean) {
 		if (bean instanceof Table) {
 			Table table = (Table) bean
-			return (table.getActions().size()>0 || table.getConstraints().size()>0 || hasDerivation(table))?true:false
+			if (table.getActions()!=null && table.getActions().size()>0)
+				return true
+			if (table.getConstraints()!=null && table.getConstraints().size()>0)
+				return true
+			return hasDerivation(table)
 		}
 		return false
 	}

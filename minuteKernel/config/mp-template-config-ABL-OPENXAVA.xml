@@ -21,6 +21,7 @@ xs:schemaLocation="./mp-template-config.xsd">
 			has-updatable-nature="true"
 			scope-specific-value="entity"
 			>
+			<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>  
 		</template>	
 		
 		<template name="ABL.LogicBase" templateFileName="ABL.LogicBase.vm" 
@@ -29,6 +30,13 @@ xs:schemaLocation="./mp-template-config.xsd">
 			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="model" >
 		</template>	
+
+    </template-target>
+    
+	<template-target 
+    	name="ABL"
+		outputdir="src"
+		package-root="">
 
 		<template name="ABL.Config" templateFileName="ABL.Config.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-dir-name="false"
@@ -45,5 +53,4 @@ xs:schemaLocation="./mp-template-config.xsd">
 		</template>
 
     </template-target>
-
 </target>
