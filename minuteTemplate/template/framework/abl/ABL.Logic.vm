@@ -37,7 +37,8 @@ $!updatedAreaSnippet
 ##    )
 $comment
     ${constraint.value}
-    public void constraint${constraintName}() { }
+    public void constraint${constraintName}() { 
+	}
 
 #end
 $!updatedAreaEnd
