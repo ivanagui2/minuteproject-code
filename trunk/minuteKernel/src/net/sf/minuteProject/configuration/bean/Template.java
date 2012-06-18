@@ -338,24 +338,23 @@ public class Template extends TemplateTarget {
 			return result;
 		} catch (ClassNotFoundException e) {
 			logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
-			e.printStackTrace();
 		} catch (InstantiationException e) {
 			logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
 		} catch (IllegalAccessException e) {
 			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function+ " security exception "+e.getMessage());
 //			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function+ " NoSuchMethodException exception "+e.getMessage());
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function+ " IllegalArgumentException exception "+e.getMessage());
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin "+plugin.getName()+" via method "+function);
+			logger.info("cannot access plugin "+plugin.getName()+" via method "+function+ " InvocationTargetException exception "+e.getMessage());
 		}
 		return false;
 	}
@@ -383,17 +382,17 @@ public class Template extends TemplateTarget {
 			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " security exception "+e.getMessage());
 //			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " NoSuchMethodException exception "+e.getMessage());
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " IllegalArgumentException exception "+e.getMessage());
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod);
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " InvocationTargetException exception "+e.getMessage());
 		}
 		return null;
 	}
