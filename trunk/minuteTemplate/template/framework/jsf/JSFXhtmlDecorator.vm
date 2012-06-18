@@ -10,8 +10,12 @@
 <h:head>
 	<title><ui:insert name="title">$model.name jsf web</ui:insert></title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/style.css" />
 </h:head>
 <h:body>
+    <div id="header">Powered by minuteproject</div>
+    <div id="menu"><ui:include src="Menu.xhtml" /></div>
+    <div id="content">
 	<p:panel>
 		<h:panelGrid columns="2" cellpadding="10">
 			<h:panelGroup>
@@ -20,5 +24,7 @@
 		</h:panelGrid>
 		<ui:insert name="body">Welcome $model.name jsf web. Powered by minuteproject.</ui:insert>
 	</p:panel>
+	</div>
+    <div id="footer">Powered by minuteproject</div>
 </h:body>
 </html>
