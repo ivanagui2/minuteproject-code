@@ -80,7 +80,7 @@ public class Composite extends AbstractConfiguration{
 		for (CompositeQueryElement query : getQueries()) {
 			Query q = query.getQuery();
 			Table table = q.getEntity(dir);
-			table.setName(q.getName());
+//			table.setName(q.getName());
 			table.setPackage(q.getPackage());
 			composite.getEntities().add(table);
 		}
