@@ -1,7 +1,17 @@
 #macro (putJSFColumnSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}</label>
+#if($columnUtils.isTimeColumn($column))
+    <p:calendar value="#{agentTypeController.agentType.createdDate}"
+       id="lbl${columnClass}"
+       converterMessage="Invalid Date"
+       pattern="dd/MM/yyyy">
+	   <f:converter converterId="dateTsConverter" />
+    </p:calendar>
+	<p:message for="lbl${columnClass}" />
+#else
 <h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="true" />
 <h:message for="lbl${columnClass}" class="errorMsg"/>
+#end
 #end
 
 #macro(exposeSeparator)
@@ -38,8 +48,15 @@
 #set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
+#set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
 #set ($controllerBeanMenuPackageName=$commonUtils.getPackageName($model, $template, $templateModelBeanManagerMenuJSF))
+#end
+
+#macro (exposeJSFAppFwkSpecific)
+#exposeVariableModelSpecific()
+#set ($dateTsConverterImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateJSFFwkDateTsConverter))
+#set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #end
 
 #macro (exposeJSFTemplate)
@@ -49,7 +66,9 @@
 #set ($templateModelI18nJSF = "JSFI18nProperties")
 #set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")
 #set ($templateModelXhtmlMenuJSF = "JSFXhtmlMenu")
+#set ($templateCssDefaultJSF = "JSFCssDefault")
 #set ($templateModelBeanManagerMenuJSF = "JSFBeanManagerMenu")
+#set ($templateJSFFwkDateTsConverter = "JSFFwkDateTsConverter")
 #end
 
 #macro(exposeJSFConfig)

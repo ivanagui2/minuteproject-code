@@ -1,4 +1,5 @@
 #exposeJSFModelSpecific()
+#exposeJSFAppFwkSpecific()
 <?xml version="1.0" encoding="utf-8"?>
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -50,5 +51,11 @@
 	</navigation-rule>	
 	
 #end	
-#end	
+#end
+
+	<converter>
+		<converter-id>dateTsConverter</converter-id>
+		<converter-class>$dateTsConverterImport</converter-class>
+	</converter>
+	
 </faces-config>

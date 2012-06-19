@@ -9,22 +9,22 @@
 	xmlns:p="http://primefaces.prime.com.tr/ui">
 <h:head>
 	<title><ui:insert name="title">$model.name jsf web</ui:insert></title>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/style.css" />
+##	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}${modelCssDefaultJSFImport}" />
 </h:head>
 <h:body>
     <div id="header">Powered by minuteproject</div>
     <div id="menu"><ui:include src="Menu.xhtml" /></div>
     <div id="content">
 	<p:panel>
-		<h:panelGrid columns="2" cellpadding="10">
+		<h:panelGrid cellpadding="5">
 			<h:panelGroup>
-				<h1><ui:insert name="heading">$model.name jsf web</ui:insert></h1>
+				<ui:include src="BreadCrumb.xhtml" />
 			</h:panelGroup>
 		</h:panelGrid>
 		<ui:insert name="body">Welcome $model.name jsf web. Powered by minuteproject.</ui:insert>
 	</p:panel>
 	</div>
-    <div id="footer">Powered by minuteproject</div>
+    <div id="footer">footer</div>
 </h:body>
 </html>
