@@ -3,11 +3,13 @@
 #addedAreas()
 package $packageName;
 
-#foreach($table in ${composite.entities})
 #if($composite.isDirection($in))
+#foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()
 import ${sddInputBeanImport};
+#end
 #else
+#foreach($table in ${composite.entities})
 #putImportCompositeOutputSDDBean()
 import ${sddOutputBeanCollectionImport};
 #end
