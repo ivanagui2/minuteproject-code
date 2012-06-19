@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
@@ -14,7 +15,7 @@ public class QueryParams extends AbstractConfiguration {
 
 	public List<QueryParam> getQueryParams() {
 		if (queryParams == null) {
-			if (StringUtils.isEmpty(refid)) {
+			if (!StringUtils.isEmpty(refid)) {
 				queryParams = getReferenceQueryParams(refid);
 			}
 			if (queryParams == null)
@@ -28,11 +29,27 @@ public class QueryParams extends AbstractConfiguration {
 			Queries queries = query.getQueries();
 			if (queries != null)
 				for (Query q : queries.getQueries()) {
-					if (refid.equals(q.getId()))
-						return q.getQueryParams().getQueryParams();
+					if (refid.equals(q.getId())) {
+						return q.getQueryParams().getQueryParams();//copy(q);
+					}
 				}
 		}
 		return null;
+	}
+
+	private List<QueryParam> copy(Query q) {
+		List<QueryParam> r = new ArrayList<QueryParam>();
+		for (QueryParam qp : q.getQueryParams().getQueryParams()) {
+			QueryParam param = new QueryParam();
+			param.setName(qp.getName());
+//			column.setName(queryParam.getName());
+			String type = qp.getType();
+			param.setType(type);
+			param.setSize(qp.getSize());
+			param.setScale(qp.getScale());
+			r.add(param);
+		}
+		return r;
 	}
 
 	public void setQueryParams(List<QueryParam> queryParams) {
