@@ -125,7 +125,7 @@ class ${className} {
 #end
 #end	
     ]
-		
+
     static constraints = {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
