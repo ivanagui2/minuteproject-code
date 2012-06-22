@@ -6,6 +6,7 @@
 package $packageName;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -71,7 +72,13 @@ public class $className implements $SpringServiceInterfaceClass {
 	}
 	
 	public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
-		return ${BslaDaoInterfaceVariable}.searchPrototype$tableClassName ($tableVariableName);
+		List<$tableClassName> list = ${BslaDaoInterfaceVariable}.searchPrototype$tableClassName ($tableVariableName);
+		List<$tableClassName> ret = new ArrayList<$tableClassName>(); 	
+		 for ($tableClassName a : list) {
+			$tableClassName b = a.clone();
+			ret.add(b);
+		}
+		return ret;
 	}
 
 }
