@@ -1,12 +1,12 @@
 #exposeJSFEntitySpecific()
 #exposeJSFModelSpecific()
 #exposeSeparator()
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+#exposePrimefacesConfig()
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.prime.com.tr/ui">
+	xmlns:p="$primefacesNamespace">
 <ui:composition template="$modelDecoratorJSFImport">
 	<ui:define name="title">
 		<h:outputText value="#{i18n.listTitle}" />
@@ -16,13 +16,11 @@
 	</ui:define>
 <ui:define name="body">
 		
- <h:form>  
+ <h:form id="form${tableClassName}">  
   
     <p:dataTable var="${domainVariableName}" value="#{${entityControllerJSFVariable}.findAll()}" paginator="true" rows="10"  
-                selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single"  
-                onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()"
-                >  
-  
+                selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single" rowKey="#{${domainVariableName}}"
+                onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()" >  
         <f:facet name="header">  
             List of #{i18n.${tableVariableName}s}  
         </f:facet>  
@@ -48,10 +46,16 @@
             <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
         </p:column>  
 #end
+		<f:facet name="footer"> 
+			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
+                    update=":form${tableClassName}:display" oncomplete="agentDialog.show()"/>  	
+			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
+		</f:facet> 					
     </p:dataTable>  
   
-    <p:dialog header="$domainVariableName Detail" widgetVar="${domainVariableName}Dialog" resizable="false"  
-              width="200" showEffect="explode" hideEffect="explode">  
+    <p:dialog header="$domainVariableName Detail" widgetVar="${domainVariableName}Dialog" 
+		resizable="true" id="${domainVariableName}DialogId" 
+        width="400" showEffect="clip" hideEffect="fold">  
   
         <h:panelGrid id="display" columns="2" cellpadding="4">  
 #foreach($column in ${table.primaryKeyColumns})
@@ -71,7 +75,6 @@
 
         </h:panelGrid>  
     </p:dialog>  
-	<h:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
   
 </h:form> 
 

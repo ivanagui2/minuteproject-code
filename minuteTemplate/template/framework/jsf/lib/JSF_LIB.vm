@@ -2,14 +2,13 @@
 <label>#{i18n.$tableVariableName$separator$columnVar}</label>
 #if($columnUtils.isTimeColumn($column))
     <p:calendar value="#{agentTypeController.agentType.createdDate}"
-       id="lbl${columnClass}"
-       converterMessage="Invalid Date"
+       id="lbl${columnClass}" converter="dateTsConverter"
+       converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
-	   <f:converter converterId="dateTsConverter" />
     </p:calendar>
 	<p:message for="lbl${columnClass}" />
 #else
-<h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="true" />
+<h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
 <h:message for="lbl${columnClass}" class="errorMsg"/>
 #end
 #end
@@ -74,4 +73,8 @@
 #macro(exposeJSFConfig)
 #set ($isSpringBackend=$template.hasPropertyValue("add-backend-implementation","spring"))
 #set ($isEJBBackend=$template.hasPropertyValue("add-backend-implementation","ejb"))
+#end
+#macro(exposePrimefacesConfig)
+#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","3.3.1"))
+#set ($primefacesNamespace=$template.getPropertyValue("primefaces-namespace","http://primefaces.org/ui"))
 #end
