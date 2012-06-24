@@ -15,17 +15,21 @@
 </h:head>
 <h:body>
     <div id="header">Powered by minuteproject</div>
-    <div id="menu"><ui:include src="Menu.xhtml" /></div>
-    <div id="content">
-	<p:panel>
-		<h:panelGrid cellpadding="5">
-			<h:panelGroup>
-				<ui:include src="BreadCrumb.xhtml" />
-			</h:panelGroup>
-		</h:panelGrid>
-		<ui:insert name="body">Welcome $model.name jsf web. Powered by minuteproject.</ui:insert>
-	</p:panel>
-	</div>
-    <div id="footer">footer</div>
+<p:layout style="min-width:400px;min-height:200px;" id="layout">  
+    <p:layoutUnit position="west" resizable="true" size="216">
+    <ui:include src="Menu.xhtml" />
+</p:layoutUnit>           
+<!--    <div id="menu"><ui:include src="Menu.xhtml" /></div>
+    <div id="content">                      -->
+    <p:layoutUnit position="center">
+    <p:panel>
+        <ui:include src="BreadCrumb.xhtml" />
+        <ui:insert name="body">Welcome petshop jsf web. Powered by minuteproject.</ui:insert>
+    </p:panel>
+    </p:layoutUnit>
+    <!--</div>-->
+    
+</p:layout>
+<div id="footer">footer</div> 
 </h:body>
 </html>
