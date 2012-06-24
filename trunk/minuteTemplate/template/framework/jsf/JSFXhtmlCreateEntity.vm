@@ -39,7 +39,7 @@
 #columnJavaNaming()
 #putJSFColumnSnippet()
 #end					
-					<h:commandButton title="#{i18n.save}" value="#{i18n.save}"
+					<p:commandButton title="#{i18n.save}" value="#{i18n.save}"
 						action="#{${entityControllerJSFVariable}.create}" />
 				</h:panelGrid>
 			</p:panel>

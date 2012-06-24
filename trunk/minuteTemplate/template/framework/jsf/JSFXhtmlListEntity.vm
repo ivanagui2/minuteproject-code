@@ -20,7 +20,10 @@
   
     <p:dataTable var="${domainVariableName}" value="#{${entityControllerJSFVariable}.findAll()}" paginator="true" rows="10"  
                 selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single" rowKey="#{${domainVariableName}}"
-                onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()" >  
+                onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()" 
+                dynamic="true"  resizableColumns="true"
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                rowsPerPageTemplate="5,10,15"> 
         <f:facet name="header">  
             List of #{i18n.${tableVariableName}s}  
         </f:facet>  
@@ -48,12 +51,12 @@
 #end
 		<f:facet name="footer"> 
 			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
-                    update=":form${tableClassName}:display" oncomplete="agentDialog.show()"/>  	
+                    update=":form${tableClassName}:display" oncomplete="${domainVariableName}Dialog.show()"/>  	
 			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
 		</f:facet> 					
     </p:dataTable>  
   
-    <p:dialog header="$domainVariableName Detail" widgetVar="${domainVariableName}Dialog" 
+    <p:dialog header="$domainVariableName detail" widgetVar="${domainVariableName}Dialog" 
 		resizable="true" id="${domainVariableName}DialogId" 
         width="400" showEffect="clip" hideEffect="fold">  
   
