@@ -16,6 +16,8 @@
 				toggleable="true" closable="false" toggleSpeed="500"
 				onCloseUpdate="growl" closeSpeed="2000" onToggleUpdate="growl"
 				widgetVar="panel">
+				<p:messages id="messages" /> 
+				
 				<h:panelGrid columns="3" cellpadding="10">
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -39,7 +41,7 @@
 #columnJavaNaming()
 #putJSFColumnSnippet()
 #end					
-					<p:commandButton title="#{i18n.save}" value="#{i18n.save}"
+					<p:commandButton title="#{i18n.save}" value="#{i18n.save}" update="createPnl"
 						action="#{${entityControllerJSFVariable}.create}" />
 				</h:panelGrid>
 			</p:panel>

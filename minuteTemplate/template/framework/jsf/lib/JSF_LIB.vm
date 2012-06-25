@@ -1,16 +1,15 @@
 #macro (putJSFColumnSnippet)
-<label>#{i18n.$tableVariableName$separator$columnVar}</label>
+    <label>#{i18n.$tableVariableName$separator$columnVar}</label>
 #if($columnUtils.isTimeColumn($column))
-    <p:calendar value="#{agentTypeController.agentType.createdDate}"
+    <p:calendar label="${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
        id="lbl${columnClass}" converter="dateTsConverter"
        converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
     </p:calendar>
-	<p:message for="lbl${columnClass}" />
 #else
-<h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
-<h:message for="lbl${columnClass}" class="errorMsg"/>
+	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
 #end
+	<p:message for="lbl${columnClass}" />
 #end
 
 #macro(exposeSeparator)
@@ -48,6 +47,7 @@
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
+#set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
 #set ($controllerBeanMenuPackageName=$commonUtils.getPackageName($model, $template, $templateModelBeanManagerMenuJSF))
 #end
