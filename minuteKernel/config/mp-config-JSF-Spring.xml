@@ -68,7 +68,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/JSF/pegazlight/JPA2"
+			   outputdir-root="../../dev/JSF/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>               
                <property name="add-jpa2-implementation" value="hibernate"></property>
@@ -79,14 +79,14 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="SpringService" 
 			   name="SpringService" 
 			   fileName="mp-template-config-SpringService.xml" 
-			   outputdir-root="../../dev/JSF/pegazlight/JSF"
+			   outputdir-root="../../dev/JSF/petshop/JSF"
 			   templatedir-root="../../minuteTemplate/template/framework/spring">
 			</target> 
 											
 			<target refname="BackendOnBsla" 
 			   name="default" 
 			   fileName="mp-template-config-JPA2-bsla.xml" 
-			   outputdir-root="../../DEV/JSF/pegazlight/bsla"
+			   outputdir-root="../../DEV/JSF/petshop/bsla"
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 				<property name="add-cache-implementation" value="ehcache"></property>
 			</target> 
@@ -94,7 +94,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF-Spring.xml" 
-			   outputdir-root="../../dev/JSF/pegazlight/JSF"
+			   outputdir-root="../../dev/JSF/petshop/JSF"
 			   templatedir-root="../../minuteTemplate/template/framework/jsf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
 			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   	   			   
@@ -104,13 +104,13 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../dev/JSF/pegazlight"
+			   outputdir-root="../../dev/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
 									
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../../dev/JSF/pegazlight"
+			   outputdir-root="../../dev/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>
 			<target refname="LIB" 
