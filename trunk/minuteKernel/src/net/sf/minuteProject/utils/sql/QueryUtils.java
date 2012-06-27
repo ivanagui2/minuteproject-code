@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.statement.Composite;
+import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
+import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
@@ -121,4 +126,23 @@ public class QueryUtils {
 		return query.getQueryParams();
 	}
 
+	public static List<Column> getInputCompositeFull(Composite composite) {
+//		#foreach ($q in $composite.getInputComposite().getQueries())
+//		#set ($query = $q.query)
+//		#exposeQuerySpecific()
+//		#foreach ($column in $inputBean.columns)
+//		#putColumnParamNaming()
+//			@QueryParam $columnType $columnVar
+//		#end
+//		#end
+		List<Column> list = new ArrayList<Column>();
+		for (CompositeQueryElement q : composite.getInputComposite().getQueries()) {
+			Query query = q.getQuery();
+			for (Column column:query.getInputBean().getColumns()) {
+				list.add(column);
+			}
+		}
+		return list;
+	
+	}
 }
