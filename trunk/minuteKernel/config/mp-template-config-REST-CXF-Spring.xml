@@ -43,6 +43,20 @@
       		<property name="add-format" value="xml"></property>
 		</template>
 
+        <template name="CXFSpringSDDCompositeJsonResource" templateFileName="CXFSpringSDDCompositeResource.vm" 
+            file-extension="java" technicalPackage="rest" file-suffix="CompositeJsonResource" 
+            scope-specific-value="composite" has-updatable-nature="true" >
+      		<property name="add-message-format" value="message-format"></property>
+      		<property name="add-format" value="json"></property>     
+        </template>
+
+        <template name="CXFSpringSDDCompositeXmlResource" templateFileName="CXFSpringSDDCompositeResource.vm" 
+            file-extension="java" technicalPackage="rest" file-suffix="CompositeXmlResource" 
+            scope-specific-value="composite" has-updatable-nature="true" >
+      		<property name="add-message-format" value="message-format"></property>
+      		<property name="add-format" value="xml"></property>     
+        </template>
+
 	</template-target>
 
 	<template-target 
