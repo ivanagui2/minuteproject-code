@@ -43,6 +43,30 @@ public class ${thisClass} {
     public ${thisClass}() {
     }
 	
+    public ${thisClass}(
+#set($columns=$queryUtils.getInputCompositeFull($composite))
+#foreach ($column in $columns)
+#putColumnParamNaming()
+#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
+        $columnType $var#if ($velocityCount!=$columns.size()),
+#end
+#end
+        ) {
+#if($composite.isDirection($in))
+#foreach($table in ${composite.entities})
+#putImportCompositeInputSDDBean()
+        $sddInputBeanVariable = new $sddInputBeanClass ();
+#set($columns=$queryUtils.getInputCompositeFull($composite))
+#foreach ($column in $columns)
+#if($table.name==$column.table.name)
+#putColumnParamNaming()
+#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
+        ${sddInputBeanVariable}.set$columnClass($var);
+#end
+#end
+#end
+#end
+    }
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()
