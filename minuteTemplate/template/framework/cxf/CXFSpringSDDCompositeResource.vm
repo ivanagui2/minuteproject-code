@@ -80,30 +80,23 @@ $!updatedAreaSnippet
 #elseif($isFormatXml)
     @Produces (MediaType.APPLICATION_XML) 
 #end
-
     public $sddOutputCompositeBeanClass executeAndFormat (
-#foreach ($q in $composite.getInputComposite().getQueries())
-	--
-#set ($query = $q.query)
-#exposeSDDSpring()
-#foreach ($param in $query.getInputParams().getQueryParams())
-	@QueryParam  $param
-#end
-#end
-
-#foreach($column in $inputBean.columns)
+#set($columns=$queryUtils.getInputCompositeFull($composite))
+#foreach ($column in $columns)
 #putColumnParamNaming()
-        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
+    @QueryParam ("$var") $columnType $var#if ($velocityCount!=$columns.size()),
 #end
 #end
-) {
+    ) {
         return execute(
-#foreach($column in $inputBean.columns)
+#set($columns=$queryUtils.getInputCompositeFull($composite))
+#foreach ($column in $columns)
 #putColumnParamNaming()
-           $columnVar #if($velocityCount!=$inputBean.columnCount),
+#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
+           $var#if ($velocityCount!=$columns.size()),
 #end
 #end
-		
 		);
     }
 #end
@@ -115,18 +108,25 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
     public $sddOutputCompositeBeanClass execute (
-#foreach($column in $inputBean.columns)
+#set($columns=$queryUtils.getInputCompositeFull($composite))
+#foreach ($column in $columns)
 #putColumnParamNaming()
-        $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
+        $columnType $var#if ($velocityCount!=$columns.size()),
 #end
 #end
 ) {
-		$sddInputCompositeBeanClass $sddInputCompositeBeanVariable = new $sddInputCompositeBeanClass ();
-#foreach($column in $inputBean.columns)
+		$sddInputCompositeBeanClass $sddInputCompositeBeanVariable 
+           = new $sddInputCompositeBeanClass (
+#set($columns=$queryUtils.getInputCompositeFull($composite))
+#foreach ($column in $columns)
 #putColumnParamNaming()
-		${sddInputBeanVariable}.set$columnClass ($columnVar);
+#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
+           $var#if ($velocityCount!=$columns.size()),
 #end
-        return ${sddDaoInterfaceVariable}.execute(${sddInputCompositeBeanVariable});
+#end
+        );
+        return ${sddCompositeDaoInterfaceVariable}.execute(${sddInputCompositeBeanVariable});
     }
 #end
 $!updatedAreaEnd
