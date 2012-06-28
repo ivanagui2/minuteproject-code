@@ -56,4 +56,8 @@ public class StatementModel {
 	public boolean hasQueries () {
 		return (getQueries().getQueries().size()>0)?true:false;
 	}
+	
+	public boolean hasComposites () {
+		return (getComposites().getComposites().size()>0)?true:false;
+	}
 }
