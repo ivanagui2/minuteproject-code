@@ -1,7 +1,12 @@
 #exposeCompositeSpecific()
+#exposeSDDProperty()
 #set($thisClass=${className})
 #addedAreas()
 package $packageName;
+
+#if($addXmlBinding)
+import javax.xml.bind.annotation.*;
+#end
 
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
@@ -23,6 +28,9 @@ $!updatedAreaImport
  * <p>Description: Java Bean#if($composite.isDirection($in)) Input#else Output#end composite</p>
  *
  */
+#if($addXmlBinding)
+@XmlRootElement (name="${thisClass}")
+#end
 public class ${thisClass} {
 
 #if($composite.isDirection($in))
