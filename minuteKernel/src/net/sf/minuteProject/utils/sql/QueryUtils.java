@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -144,5 +146,22 @@ public class QueryUtils {
 		}
 		return list;
 	
+	}
+	
+	public static Map<String,List<Column>> getInputCompositeDistinct(Composite composite) {
+		Map<String,List<Column>> map = new HashMap<String, List<Column>>();
+		for (CompositeQueryElement q : composite.getInputComposite().getQueries()) {
+			Query query = q.getQuery();
+			for (Column column:query.getInputBean().getColumns()) {
+				//TODO check that the type of the column is the same, not only the name
+				List<Column> list = map.get(column.getName());
+				if (list==null)
+					list = new ArrayList<Column>();
+				list.add(column);
+				map.put(column.getName(), list);
+			}
+		}
+		return map;
+		
 	}
 }
