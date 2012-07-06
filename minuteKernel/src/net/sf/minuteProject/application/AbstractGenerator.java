@@ -56,6 +56,9 @@ public abstract class AbstractGenerator implements Generator {
 	
 	protected static final String SCOPE_DATAMODEL_FUNCTION = "function";
 	protected static final String SCOPE_DATAMODEL_ENTITY = "entity";
+	protected static final String SCOPE_DATAMODEL_FIELD = "field";
+	protected static final String SCOPE_DATAMODEL_PACKAGE = "package";
+	protected static final String SCOPE_DATAMODEL_APPLICATION = "application";
 	protected static final String SCOPE_DATAMODEL_MODEL = "model";
 	protected static final String SCOPE_DATAMODEL_FUNCTION_INPUT = "function-input-entity";
 	protected static final String SCOPE_DATAMODEL_FUNCTION_OUTPUT = "function-output-entity";

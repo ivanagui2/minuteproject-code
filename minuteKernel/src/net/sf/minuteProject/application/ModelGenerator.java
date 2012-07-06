@@ -250,17 +250,17 @@ public class ModelGenerator extends AbstractGenerator {
 	 */
 	public void generate(Template template) throws MinuteProjectException {
 		String scopeSpecificValue = template.getScopeSpecificValue();
-		if (template.getFieldSpecific().equals("true"))
+		if (template.getFieldSpecific().equals("true") || SCOPE_DATAMODEL_FIELD.equals(scopeSpecificValue))
 			generateArtifactsByField(template);
 		else if (template.getEntitySpecific().equals("true") || SCOPE_DATAMODEL_ENTITY.equals(scopeSpecificValue))
 			generateArtifactsByEntity(template);
-		else if (template.getPackageSpecific().equals("true"))
+		else if (template.getPackageSpecific().equals("true") || SCOPE_DATAMODEL_PACKAGE.equals(scopeSpecificValue))
 			generateArtifactsByPackage(template);
 		else if (template.getModelSpecific().equals("true") || SCOPE_DATAMODEL_MODEL.equals(scopeSpecificValue))
 			generateArtifactsByModel(template);
 		else if (template.getServiceSpecific().equals("true"))
 			generateArtifactsByService(template);
-		else if (template.getApplicationSpecific().equals("true"))
+		else if (template.getApplicationSpecific().equals("true") || SCOPE_DATAMODEL_APPLICATION.equals(scopeSpecificValue))
 			generateArtifactsByApplication(template);
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);

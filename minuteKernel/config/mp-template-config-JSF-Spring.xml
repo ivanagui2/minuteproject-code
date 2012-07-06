@@ -25,6 +25,15 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="spring"></property>
 		</template>
+		
+		<!-- sdd -->
+		<template name="JSFSDDController" templateFileName="JSFSDDController.vm" 
+			subdir="" outputsubdir="" technicalPackage="controller"
+			file-extension="java" file-prefix="" file-suffix="Controller" 
+			scope-specific-value="query" has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="add-backend-implementation" value="spring"></property>
+		</template>
 <!-- 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
@@ -108,6 +117,13 @@
 			model-specific="true" add-model-name="false" add-model-dir-name="false" >
 		</template>		
 		
+		<!-- SDD -->
+        <template name="JSFXhtmlSDDInput" templateFileName="JSFXhtmlSDDInput.vm" 
+            file-extension="xhtml" technicalPackage="sdd" file-suffix="Input" 
+            scope-specific-value="sdd-input-bean" 
+            check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+        </template>
+
     </template-target>		
 
 	<template-target 

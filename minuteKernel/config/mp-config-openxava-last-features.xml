@@ -50,6 +50,22 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					</entity>
 				</enrichment>					
 			</business-model>
+			<statement-model>
+			    <queries>
+                     <query name="get addresses by criteria" id="c">
+                         <query-body><value>
+<![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
+                            </value></query-body>
+                         <query-params>
+                             <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
+                             <query-param name="latitude_upper_limit" is-mandatory="false" type="DOUBLE" sample="38"></query-param>
+                             <query-param name="longitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="-122"></query-param>
+                             <query-param name="longitude_upper_limit" is-mandatory="false" type="DOUBLE" sample="-123"></query-param>
+                             <query-param name="city" is-mandatory="false" type="STRING" sample="'S'"></query-param>
+                         </query-params>
+                     </query>
+			    </queries>
+			</statement-model>
 		</model>	
 		<targets>
 			<target refname="OpenXava" 
@@ -57,13 +73,14 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   fileName="mp-template-config-openxava-last-features.xml" 
 			   outputdir-root="../../dev/openxava/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
-			  <!--  <property name="add-automated-business-logic" value="x.y.z"></property> -->
+			    <property name="add-automated-business-logic" value="x.y.z"></property>
+			    <property name="groovify" value="true"></property>
 			</target> 
-<!--             <target refname="ABL" 
+            <target refname="ABL-Openxava" 
                 outputdir-root="../../dev/openxava/petshop"
-                fileName="mp-template-config-ABL.xml" 
+                fileName="mp-template-config-ABL-OPENXAVA.xml" 
                 templatedir-root="../../minuteTemplate/template/framework/abl">
-            </target> -->
+            </target>
 			<target refname="JPA2-LIB" 
 			   fileName="mp-template-config-JPA2-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
