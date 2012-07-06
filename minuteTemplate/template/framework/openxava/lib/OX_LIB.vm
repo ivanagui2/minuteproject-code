@@ -45,7 +45,7 @@
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-	    + "${childrenListVariable} { ${childrenListVariable} };" //+ "${link}${columnclass}s { ${link}${columnclass}s };" 
+	    + "${childrenListVariable} { ${childrenListVariable} };" 
 #end
 #end
 #end
@@ -145,6 +145,8 @@ properties=""
 #set($putCascade="false")
 #set($parentVariableFromParentClass="false")
 #end
+#set($groovify=$template.getPropertyValue("groovify",false))
+#set($addGetterAndSetter=!$groovify)
 #end
 
 #macro (exposeOXActionSpecific)

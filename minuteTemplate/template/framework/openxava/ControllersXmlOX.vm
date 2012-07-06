@@ -97,4 +97,17 @@
     </controller>
 #end
 
+#foreach ($query in $model.statementModel.queries.queries)
+#set ($table = $query.getInputBean())
+#exposeVariableEntitySpecific()
+#set($controllerName=$openXavaUtils.getControllerName($table))
+    <controller name="$controllerName">
+#set($actionName="call${domainClassName}")
+#set($actionImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, "ActionOX.SDD.query"))
+        <view name=""/>
+        <action name="${actionName}" mode="detail" class="$actionImport">
+            <use-object name="xava_view" />
+        </action>       
+    </controller>
+#end
 </controllers>

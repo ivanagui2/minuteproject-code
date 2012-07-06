@@ -1,0 +1,56 @@
+#exposeQuerySpecific()
+#exposeSDDSpring()
+#putImportQuerySDDBean()
+#addedAreas()
+package $packageName;
+
+$!updatedAreaImport
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.http.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import $sddOutputBeanCollectionImport;
+import $sddInputBeanImport;
+import $sddDaoInterfaceImport;
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: remote interface for ${className} service </p>
+ *
+ */
+@Service ("${classVariableName}")
+@Transactional
+public class ${className} {
+
+    @Autowired
+    @Qualifier("$sddDaoInterfaceVariable")
+    ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+
+    private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
+    private $sddInputBeanClass selected$sddInputBeanClass;
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    public $sddOutputBeanCollectionClass execute () {
+        return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
+    }
+#end
+$!updatedAreaEnd
+
+$!updatedAreaImplementation
+
+}
