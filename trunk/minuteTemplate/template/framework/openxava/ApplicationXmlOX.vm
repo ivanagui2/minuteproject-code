@@ -57,6 +57,17 @@
 	    <mode-controller name="DetailOnly"/>
 	</module>
 #end
-		
+            <!-- statements -->
+#foreach ($query in $model.statementModel.queries.queries)
+#set ($table = $query.getInputBean())
+#exposeVariableEntitySpecific()
+    <module name="$tableClassName" >
+        <model name="$tableClassName"/>
+        <view name="base"/> 
+        <controller name="$openXavaUtils.getControllerName($table)"/>  
+        <mode-controller name="DetailOnly"/>
+    </module>
+#end
+
 </application>
 
