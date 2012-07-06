@@ -122,6 +122,8 @@
 					<alias attr-name="application-specific" prop-name="applicationSpecific" />
 					<alias attr-name="file-name-builder-plugin" prop-name="fileNameBuilderPlugin" />
 					<alias attr-name="file-name-builder-method" prop-name="fileNameBuilderMethod" />
+					<alias attr-name="extension-name-builder-plugin" prop-name="extensionNameBuilderPlugin" />
+					<alias attr-name="extension-name-builder-method" prop-name="extensionNameBuilderMethod" />
 					<alias attr-name="package-name-builder-plugin" prop-name="packageNameBuilderPlugin" />
 					<alias attr-name="package-name-builder-method" prop-name="packageNameBuilderMethod" />
 					<alias attr-name="node-attribute-name-specific" prop-name="nodeAttributeNameSpecific" />

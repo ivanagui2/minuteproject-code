@@ -58,8 +58,8 @@ public class Template extends TemplateTarget {
 	private String applicationSpecific;
 	private String componentSpecific;
 	private TemplateTarget templateTarget;
-	private String fileNameBuilderPlugin, packageNameBuilderPlugin;
-	private String fileNameBuilderMethod, packageNameBuilderMethod;
+	private String fileNameBuilderPlugin, extensionNameBuilderPlugin, packageNameBuilderPlugin;
+	private String fileNameBuilderMethod, extensionNameBuilderMethod, packageNameBuilderMethod;
 	private String isTemplateToGenerateMethod, checkTemplateToGenerate;
 	private String scopeSpecificValue;
 	private String entityDirNameSuffix;
@@ -146,6 +146,12 @@ public class Template extends TemplateTarget {
 	public void setEntitySpecific(String entitySpecific) {
 		this.entitySpecific = entitySpecific;
 	}
+	public String getFileExtension(GeneratorBean bean) {
+		String pluginResult = getPluginExtension(bean);
+		if (pluginResult!=null)
+			return pluginResult;
+		return getFileExtension();
+	}
 	public String getFileExtension() {
 		return fileExtension;
 	}
@@ -208,7 +214,7 @@ public class Template extends TemplateTarget {
 		this.templateFileName = templateFileName;
 	}
 	public String getOutputFileName (GeneratorBean bean) {
-		return getOutputFileMain(bean)+"."+fileExtension;
+		return getOutputFileMain(bean)+"."+getFileExtension(bean);
 	}	
 
 	public String getAppendEndPackageDir() {
@@ -245,8 +251,6 @@ public class Template extends TemplateTarget {
 		String pluginResult = getPluginFileMain(bean);
 		if (pluginResult!=null)
 			return pluginResult;
-		
-		//return getNonPluginFileMain(FormatUtils.getJavaName(bean.getName()));
 		return getNonPluginFileMain(bean.getGeneratedBeanName());
 	}
 	
@@ -257,25 +261,25 @@ public class Template extends TemplateTarget {
 		return getFilePrefix()+input+getFileSuffix();
 	}
 	
+	private String getPluginExtension (GeneratorBean bean) {
+		return getPluginName(bean, extensionNameBuilderPlugin, extensionNameBuilderMethod);
+	}
+	
+	
 	private String getPluginFileMain (GeneratorBean bean) {
-		if (fileNameBuilderPlugin!=null && fileNameBuilderMethod!=null) {
-			// lookup builder in the plugin
-			Plugin plugin = getFileBuilderPlugin(fileNameBuilderPlugin);
-			if (plugin!=null) {
-				String result = getPluginBuildFileName (plugin, fileNameBuilderMethod, bean);
-				if (result != null)
-					return result;
-			}
-		}	
-		return null;
+		return getPluginName(bean, fileNameBuilderPlugin, fileNameBuilderMethod);
 	}
 	
 	public String getPluginPackageMain (GeneratorBean bean) {
-		if (packageNameBuilderPlugin!=null && packageNameBuilderMethod!=null) {
+		return getPluginName(bean, packageNameBuilderPlugin, packageNameBuilderMethod);
+	}	
+	
+	public String getPluginName (GeneratorBean bean, String builderPlugin, String builderMethod) {
+		if (builderPlugin!=null && builderMethod!=null) {
 			// lookup builder in the plugin
-			Plugin plugin = getFileBuilderPlugin(packageNameBuilderPlugin);
+			Plugin plugin = getFileBuilderPlugin(builderPlugin);
 			if (plugin!=null) {
-				String result = getPluginBuildFileName (plugin, packageNameBuilderMethod, bean);
+				String result = getPluginBuildFileName (plugin, builderMethod, bean);
 				if (result != null)
 					return result;
 			}
@@ -692,6 +696,22 @@ public class Template extends TemplateTarget {
 
 	public void setPackageNameBuilderMethod(String packageNameBuilderMethod) {
 		this.packageNameBuilderMethod = packageNameBuilderMethod;
+	}
+
+	public String getExtensionNameBuilderPlugin() {
+		return extensionNameBuilderPlugin;
+	}
+
+	public void setExtensionNameBuilderPlugin(String extensionNameBuilderPlugin) {
+		this.extensionNameBuilderPlugin = extensionNameBuilderPlugin;
+	}
+
+	public String getExtensionNameBuilderMethod() {
+		return extensionNameBuilderMethod;
+	}
+
+	public void setExtensionNameBuilderMethod(String extensionNameBuilderMethod) {
+		this.extensionNameBuilderMethod = extensionNameBuilderMethod;
 	}
 
 	public void increaseNumberOfGeneratedArtifacts() {
