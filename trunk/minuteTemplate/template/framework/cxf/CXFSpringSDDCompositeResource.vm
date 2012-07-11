@@ -69,7 +69,7 @@ public class ${className} {
     @Qualifier("$sddCompositeDaoInterfaceVariable")
     ${sddCompositeDaoInterfaceClass} $sddCompositeDaoInterfaceVariable;
 
-#exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_FULL")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
@@ -100,6 +100,41 @@ $!updatedAreaSnippet
 		);
     }
 #end
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_DISTINCT")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    @GET
+#if($isFormatJson)
+    @Produces (MediaType.APPLICATION_JSON) 
+#elseif($isFormatXml)
+    @Produces (MediaType.APPLICATION_XML) 
+#end
+    @Path ("/distinct")
+    public $sddOutputCompositeBeanClass executeAndFormat (
+#set($map=$queryUtils.getInputCompositeDistinct($composite))
+#foreach ($listOfColumn in $map.values())
+#set($column = $listOfColumn.get(0))
+#putColumnParamNaming()
+        $columnType $columnVar#if ($velocityCount!=$map.size()),
+#end
+#end
+    ) {
+	    $sddInputCompositeBeanClass $sddInputCompositeBeanVariable
+		    = new $sddInputCompositeBeanClass(
+#set($map=$queryUtils.getInputCompositeDistinct($composite))
+#foreach ($listOfColumn in $map.values())
+#set($column = $listOfColumn.get(0))
+#putColumnParamNaming()
+               $columnVar#if ($velocityCount!=$map.size()),
+#end
+#end		
+		);
+        return execute($sddInputCompositeBeanVariable);
+    }
+#end
 $!updatedAreaEnd
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
@@ -126,6 +161,17 @@ $!updatedAreaSnippet
 #end
 #end
         );
+        return ${sddCompositeDaoInterfaceVariable}.execute(${sddInputCompositeBeanVariable});
+    }
+#end
+$!updatedAreaEnd
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_GET_BACKEND")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+    public $sddOutputCompositeBeanClass execute ($sddInputCompositeBeanClass $sddInputCompositeBeanVariable) {
         return ${sddCompositeDaoInterfaceVariable}.execute(${sddInputCompositeBeanVariable});
     }
 #end
