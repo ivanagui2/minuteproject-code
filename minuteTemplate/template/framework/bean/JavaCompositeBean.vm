@@ -51,6 +51,7 @@ public class ${thisClass} {
     public ${thisClass}() {
     }
 	
+#if($composite.isDirection($in))	
     public ${thisClass}(
 #set($columns=$queryUtils.getInputCompositeFull($composite))
 #foreach ($column in $columns)
@@ -60,7 +61,6 @@ public class ${thisClass} {
 #end
 #end
         ) {
-#if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()
         $sddInputBeanVariable = new $sddInputBeanClass ();
@@ -73,8 +73,33 @@ public class ${thisClass} {
 #end
 #end
 #end
+    }
+
+##check
+    public ${thisClass} (
+#set($map=$queryUtils.getInputCompositeDistinct($composite))
+#foreach ($listOfColumn in $map.values())
+#set($column = $listOfColumn.get(0))
+#putColumnParamNaming()
+        $columnType $columnVar#if ($velocityCount!=$map.size()),
+#end
+#end
+        ) {
+#foreach($table in ${composite.entities})
+#putImportCompositeInputSDDBean()
+        $sddInputBeanVariable = new $sddInputBeanClass ();
+#end
+#foreach ($listOfColumn in $map.values())
+#foreach ($column in $listOfColumn)
+#set($table = $column.table)
+#putColumnParamNaming()
+#putImportCompositeInputSDDBean()
+        ${sddInputBeanVariable}.set$columnClass($columnVar);
+#end
 #end
     }
+#end
+
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()
