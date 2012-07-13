@@ -1,3 +1,4 @@
+
 ##manage the dependency with JPA2 backend
 #exposeMaven()
 #exposeJSFConfig
@@ -50,18 +51,19 @@
 			<version>1.0.0.GA</version>
 			<scope>provided</scope>
 		</dependency>
-	   <dependency>
+		<dependency>
 	     <groupId>javax</groupId>
 	     <artifactId>javaee-api</artifactId>
 	     <version>6.0</version>
 	     <scope>provided</scope>
-	   </dependency>
-        <dependency>
+		</dependency>
+        
+		<dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
             <version>2.2</version>
             <scope>provided</scope>
-          </dependency>
+        </dependency>
         
           <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -75,18 +77,26 @@
 			<artifactId>primefaces</artifactId>
 			<version>$primefacesVersion</version>
 		</dependency>
-      <dependency>
-          <groupId>com.sun.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-          <version>2.0.3</version>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>com.sun.faces</groupId>
-          <artifactId>jsf-impl</artifactId>
-          <version>2.0.3</version>
-          <scope>runtime</scope>
-      </dependency>	
+		
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>cupertino</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+				
+          <dependency>
+              <groupId>com.sun.faces</groupId>
+              <artifactId>jsf-api</artifactId>
+              <version>2.0.3</version>
+              <scope>runtime</scope>
+          </dependency>
+		  
+          <dependency>
+              <groupId>com.sun.faces</groupId>
+              <artifactId>jsf-impl</artifactId>
+              <version>2.0.3</version>
+              <scope>runtime</scope>
+          </dependency>	
 	  
 	</dependencies>
 

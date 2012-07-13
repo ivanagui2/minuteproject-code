@@ -702,6 +702,8 @@ import $importDaoInterfaceUML;
 #set ($updatedAreaImport=$updatedAreaUtils.getImportSnippet($template, $updatedAreas))
 #set ($updatedAreaImplementation=$updatedAreaUtils.getImplementationSnippet($template, $updatedAreas))
 #set ($updatedAreaClassAnnotation=$updatedAreaUtils.getClassAnnotationSnippet($template, $updatedAreas))
+#set ($updatedAreaCustomQueries = $updatedAreaUtils.getAddedAreaSnippet($template, $updatedAreas, "customQueries"))
+#set ($updatedAreaClassAnnotation = $updatedAreaUtils.getAddedAreaSnippet($template, $updatedAreas, "classAnnotation"))
 #end
 
 #macro (exposeQueryUpdatedAreas $area)
@@ -753,6 +755,13 @@ import $importDaoInterfaceUML;
 #set ($fieldAnnotationSnippet = $updatedAreaUtils.getFieldAnnotationSnippet($template, $column, $updatedAreas))
 #if ($fieldAnnotationSnippet!="")
 $!fieldAnnotationSnippet
+#end
+#end
+
+#macro (customQueriesArea)
+#set ($customQueriesArea = $updatedAreaUtils.getAddedAreaSnippet($template, $updatedAreas, "customQueries"))
+#if ($customQueriesArea!="")
+$!customQueriesArea
 #end
 #end
 
