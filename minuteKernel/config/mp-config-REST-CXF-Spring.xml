@@ -5,6 +5,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
     <configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
+			<package-convention type="disable-business-package-for-entity-template" />
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
 			<data-model>
