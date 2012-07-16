@@ -107,23 +107,18 @@ $!commonUtils.getReadMeText($template)
 #putGetterAdder($classList $listVariable $class $variable)
 #end
 
-#macro (exposeSDDProperty)
-#set ($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
-#set ($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
-#end
-
 #macro (putImportSDDBean)
 #set ($templateJavaBean=$template.getPropertyValue("JavaBeanTemplate","JavaBeanTemplate"))
 #set ($beanClass = $commonUtils.getTemplateClassName($table, $model, $templateJavaBean))
 #set ($beanVariable = $commonUtils.getJavaNameVariableFirstLetter($beanClass))
 #set ($beanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateJavaBean))
 #set ($listVariable = $i18nUtils.plurialize(${beanVariable}))
-#exposeSDDProperty()
+#set ($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
+#set ($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
 #end
 
 #macro (putImportCompositeSDDBean)
 #templateCommonDefinition()
-#exposeSDDProperty()
 #set ($inputComposite = $composite.getInputComposite())
 #set ($outputComposite = $composite.getOutputComposite())
 #set ($sddInputCompositeBeanClass = $commonUtils.getTemplateClassName($inputComposite, $template, $templateSDDInputCompositeBean))

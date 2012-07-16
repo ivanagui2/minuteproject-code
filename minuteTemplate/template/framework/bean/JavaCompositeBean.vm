@@ -1,12 +1,7 @@
 #exposeCompositeSpecific()
-#exposeSDDProperty()
 #set($thisClass=${className})
 #addedAreas()
 package $packageName;
-
-#if($addXmlBinding)
-import javax.xml.bind.annotation.*;
-#end
 
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
@@ -28,9 +23,6 @@ $!updatedAreaImport
  * <p>Description: Java Bean#if($composite.isDirection($in)) Input#else Output#end composite</p>
  *
  */
-#if($addXmlBinding)
-@XmlRootElement (name="${thisClass}")
-#end
 public class ${thisClass} {
 
 #if($composite.isDirection($in))
@@ -51,55 +43,6 @@ public class ${thisClass} {
     public ${thisClass}() {
     }
 	
-#if($composite.isDirection($in))	
-    public ${thisClass}(
-#set($columns=$queryUtils.getInputCompositeFull($composite))
-#foreach ($column in $columns)
-#putColumnParamNaming()
-#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
-        $columnType $var#if ($velocityCount!=$columns.size()),
-#end
-#end
-        ) {
-#foreach($table in ${composite.entities})
-#putImportCompositeInputSDDBean()
-        $sddInputBeanVariable = new $sddInputBeanClass ();
-#set($columns=$queryUtils.getInputCompositeFull($composite))
-#foreach ($column in $columns)
-#if($table.name==$column.table.name)
-#putColumnParamNaming()
-#set($var = "$formatUtils.getJavaNameVariable($column.table.name)$columnClass")
-        ${sddInputBeanVariable}.set$columnClass($var);
-#end
-#end
-#end
-    }
-
-##check
-    public ${thisClass} (
-#set($map=$queryUtils.getInputCompositeDistinct($composite))
-#foreach ($listOfColumn in $map.values())
-#set($column = $listOfColumn.get(0))
-#putColumnParamNaming()
-        $columnType $columnVar#if ($velocityCount!=$map.size()),
-#end
-#end
-        ) {
-#foreach($table in ${composite.entities})
-#putImportCompositeInputSDDBean()
-        $sddInputBeanVariable = new $sddInputBeanClass ();
-#end
-#foreach ($listOfColumn in $map.values())
-#foreach ($column in $listOfColumn)
-#set($table = $column.table)
-#putColumnParamNaming()
-#putImportCompositeInputSDDBean()
-        ${sddInputBeanVariable}.set$columnClass($columnVar);
-#end
-#end
-    }
-#end
-
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()

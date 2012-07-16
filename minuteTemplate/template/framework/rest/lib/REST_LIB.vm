@@ -4,18 +4,10 @@
 #end
 
 #macro(exposeRESTSDDURLServer)
-#exposeRESTFormat()
-#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($query, $techno))
-#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($query, $techno))
-#end
-#macro(exposeRESTSDDCompositeURLServer)
-#exposeRESTFormat()
-#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($composite, $techno))
-#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($composite, $techno))
-#end
-#macro(exposeRESTFormat)
 #set($isFormatXml=$template.hasPropertyValue("add-format","xml"))
 #set($isFormatJson=$template.hasPropertyValue("add-format","json"))
+#set ($restXmlServerUrl = $restUtils.getRestUrlServerXml($query, $techno))
+#set ($restJsonServerUrl = $restUtils.getRestUrlServerJson($query, $techno))
 #end
 
 #macro (exposeRESTURLClient $techno)

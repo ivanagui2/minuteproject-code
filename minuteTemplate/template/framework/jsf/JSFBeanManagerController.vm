@@ -56,10 +56,11 @@ public class ${className} {
 
 #if($isSpringBackend)
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
+    ${EJBDaoImplClass} $EJBDaoImplVariable;
 #elseif($isEJBBackend)
 	@Inject 
-#end
     private $EJBDaoImplClass $EJBDaoImplVariable;
+#end
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName;

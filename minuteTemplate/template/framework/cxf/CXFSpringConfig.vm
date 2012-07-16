@@ -25,9 +25,6 @@
 #if ($model.statementModel.hasQueries())
     <context:component-scan base-package="${controllerDaoPackageName}"/>
 #end
-#if ($model.statementModel.hasComposites())
-    <context:component-scan base-package="${controllerCompositeDaoPackageName}"/>
-#end
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
 	
@@ -55,12 +52,6 @@
 #exposeCXFSDDSpecific()
 			<ref bean="$CXFRestServiceSDDXmlBeanVariable"/>
 			<ref bean="$CXFRestServiceSDDJsonBeanVariable"/>
-#end
-			<!-- composites -->
-#foreach ($composite in $model.statementModel.composites.composites)
-#exposeCXFSDDCompositeSpecific()
-			<ref bean="$CXFRestServiceSDDCompositeXmlBeanVariable"/>
-			<ref bean="$CXFRestServiceSDDCompositeJsonBeanVariable"/>
 #end
         </jaxrs:serviceBeans>
     </jaxrs:server>	
