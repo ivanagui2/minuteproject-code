@@ -228,7 +228,6 @@ public class TableUtils {
 				return view;
 		}
 		return null;
-		// return convertTableToView(database, getTable(database, viewname));
 	}
 
 	private static View convertTableToView(Database database, Table table) {

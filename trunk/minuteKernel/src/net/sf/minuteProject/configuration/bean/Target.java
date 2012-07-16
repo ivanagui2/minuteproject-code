@@ -3,6 +3,8 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.target.ImportTargets;
 import net.sf.minuteProject.configuration.bean.target.TargetParams;
@@ -30,6 +32,7 @@ public class Target extends AbstractConfiguration{
 	private String templatedirRoot, templatedirRef;
 	private Boolean isGenerable;
 	private List<String> templatedirRefs;
+	private Targets targets;
 	
 	public void complement (Target target) {
 		if (abstractConfigurationRoot==null)
@@ -173,9 +176,24 @@ public class Target extends AbstractConfiguration{
 	public void setTargetParams(TargetParams targetParams) {
 		this.targetParams = targetParams;
 	}
+
 	public String getOutputdirRoot() {
-		return outputdirRoot;
+		StringBuffer sb = new StringBuffer();
+		boolean hasTargetsOutputdir = hasTargetsOutputdir();
+		if (hasTargetsOutputdir) {
+			sb.append(getTargets().getOutputdirRoot());
+		}
+		if (outputdirRoot!=null) {
+			if (hasTargetsOutputdir) 
+				sb.append("/");
+			sb.append(outputdirRoot);
+		}
+		return sb.toString();
 	}
+	private boolean hasTargetsOutputdir() {
+		return (getTargets()!=null && !StringUtils.isEmpty(getTargets().getOutputdirRoot())) ;
+	}
+
 	public void setOutputdirRoot(String outputdirRoot) {
 		this.outputdirRoot = outputdirRoot;
 	}
@@ -224,5 +242,13 @@ public class Target extends AbstractConfiguration{
 		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyValue(name);
 		return null;
 	}
-		
+
+	public Targets getTargets() {
+		return targets;
+	}
+
+	public void setTargets(Targets targets) {
+		this.targets = targets;
+	}
+	
 }

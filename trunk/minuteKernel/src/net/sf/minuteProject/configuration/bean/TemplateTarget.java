@@ -68,7 +68,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	public String getDir() {
 		if (getRootdir()==null && getTemplatedir()==null)
 			return dir;
-		return getRootdir();//+"/"+getTemplatedir();
+		return getRootdir();
 	}
 	
 	public void setDir(String dir) {
