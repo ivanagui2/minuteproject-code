@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,13 @@ public class ColumnUtils {
 	
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
+	public static List<String> getColumnNames(Table table) {
+		List<String> columnNames = new ArrayList<String>();
+		for (Column column : table.getColumns()) {
+			columnNames.add(column.getName());
+		}
+		return columnNames;
+	}
 	public static Column getColumn(Table table, String columnName) {
 		if (table!=null && columnName!=null) {
 			columnName = columnName.toUpperCase();

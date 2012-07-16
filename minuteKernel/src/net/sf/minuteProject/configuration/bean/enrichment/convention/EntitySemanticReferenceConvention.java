@@ -9,7 +9,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.path.SqlPath;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.parser.ParserUtils;
-
+//TODO migrate into SemanticReferenceConvention
 public class EntitySemanticReferenceConvention extends ModelConvention {
 
 	private String pattern, description, contentType;
