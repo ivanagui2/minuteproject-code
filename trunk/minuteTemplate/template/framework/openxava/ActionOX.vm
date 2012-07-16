@@ -34,8 +34,7 @@ $!updatedAreaSnippet
         Query query = em.createNativeQuery(${routineName}_CALL);
 #end
 #foreach($column in $input.columns)
-#putColumnParamNaming()
-        query.setParameter($velocityCount, getView().getValueString("$columnVar"));
+        query.setParameter(1, getView().getValueString("firstname"));
 #end
 
 #end

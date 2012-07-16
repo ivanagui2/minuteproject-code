@@ -74,7 +74,12 @@ import org.openxava.annotations.*;
 #end
 #exposeViewParentSemanticRef()
 #exposeViewParentSemanticRefProperty()	
-	)
+	),
+    @View(name="reference", 
+       members=
+#exposeViewParentSemanticRef()
+#exposeViewParentSemanticRefProperty()  
+    )
 })
 
 @Tabs({
@@ -153,9 +158,9 @@ public class ${className} {
 #putColumnParams()
 #columnJavaNaming()
 #if ($isView)
-    @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
-    @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
+    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
 #end
 #if ($isMandatory)
     @Required
@@ -200,7 +205,7 @@ public class ${className} {
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
 #end  
-    @ReferenceView ("${linkedTableVariable}${defaultViewExt}")  
+    @ReferenceView ("reference") //${linkedTableVariable}${defaultViewExt}  
 #set($semanticReference = $linktableDB.semanticReference)
 #if ($openXavaUtils.hasDescriptionList($linktableDB)) 
 #if ($semanticReference.semanticReferenceBeanPath.size()<2)
@@ -308,8 +313,6 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
     }
 #end    
 
-## GETTER and SETTER
-#if($addGetterAndSetter)
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     public $embeddedIdClass get$embeddedIdClass() {
         return $embeddedIdVariable;
@@ -345,6 +348,9 @@ $!updatedAreaSnippet
 #columnJavaNaming()
 #if ($column.isLob())
 #exposeLobProperties()
+##if ($convertClobToString=="true")
+##set($columnType="String")
+##end
 #end
     public $columnType get$columnClass() {
         return $columnVar;
@@ -362,20 +368,20 @@ $!updatedAreaEnd
 #putReferenceParams2()
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
-    public $linkedTableClass get$localColumnClass () {  
+    public $linkedTableClass get$localColumnClass () {  //
     	return ${localColumnVariable};
     }
 	
     public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
-    	this.${localColumnVariable} = ${localColumnVariable};
+    	this.${localColumnVariable} = ${localColumnVariable};//this.${localColumnVariable} = ${linkedTableVariable};
     }
 #else
-    public $linkedTableClass get${linkedTableClass} () { 
-    	return ${linkedTableVariable};
+    public $linkedTableClass get${linkedTableClass} () {  //get$linkedTableVariable
+    	return ${linkedTableVariable};//${localColumnVariable};
     }
 	
    public void set${linkedTableClass} ($linkedTableClass ${linkedTableVariable}) {
-    	this.${linkedTableVariable} = ${linkedTableVariable};
+    	this.${linkedTableVariable} = ${linkedTableVariable};//this.${localColumnVariable} = ${linkedTableVariable};
     }
     
 #end 
@@ -418,7 +424,6 @@ $!updatedAreaEnd
         get${childrenListClass}().add($childrenListVariable);
     }	
 
-#end
 #end
 
 #putJPA2TriggerSnippet()

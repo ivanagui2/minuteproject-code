@@ -48,7 +48,6 @@ import javax.xml.bind.annotation.*;
 	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${domainVariableName}.$columnVar like :$columnVar")
 #end
 #end
-$!updatedAreaCustomQueries
 })
 #if($addXmlBinding)
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -63,7 +62,6 @@ $!updatedAreaCustomQueries
 //eclipseLink configuration missing? Please contribute by providing the snippet
 #end
 #end
-$!updatedAreaClassAnnotation
 #if($addDomainSpecificMethod)
 public class ${className} extends AbstractDomainObject {
 #else

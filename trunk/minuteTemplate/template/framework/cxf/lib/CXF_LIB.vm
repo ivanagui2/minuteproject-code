@@ -2,7 +2,6 @@
 #exposeCXFTemplate()
 #set($controllerCxfPackageName=$commonUtils.getPackageName($model, $template, $templateCXFSpringRestServiceBean))
 #set($controllerDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADao))
-#set($controllerCompositeDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDCompositeSpringJPADao))
 #end
 
 #macro(exposeCXFEntitySpecific)
@@ -19,22 +18,11 @@
 #set ($CXFRestServiceSDDJsonBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDJsonBeanClass))
 #end
 
-#macro(exposeCXFSDDCompositeSpecific)
-#exposeCXFTemplate()
-#set ($CXFRestServiceSDDCompositeXmlBeanClass = $commonUtils.getTemplateClassName($composite, $template, $templateCXFSpringRestServiceSDDCompositeXmlBean))
-#set ($CXFRestServiceSDDCompositeXmlBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDCompositeXmlBeanClass))
-#set ($CXFRestServiceSDDCompositeJsonBeanClass = $commonUtils.getTemplateClassName($composite, $template, $templateCXFSpringRestServiceSDDCompositeJsonBean))
-#set ($CXFRestServiceSDDCompositeJsonBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($CXFRestServiceSDDCompositeJsonBeanClass))
-#end
-
 #macro (exposeCXFTemplate)
 #set ($templateCXFSpringRestServiceBean = "CXFSpringEntityResource")
 #set ($templateCXFSpringRestServiceSDDJsonBean = "CXFSpringSDDJsonResource")
 #set ($templateCXFSpringRestServiceSDDXmlBean = "CXFSpringSDDXmlResource")
-#set ($templateCXFSpringRestServiceSDDCompositeJsonBean = "CXFSpringSDDCompositeJsonResource")
-#set ($templateCXFSpringRestServiceSDDCompositeXmlBean = "CXFSpringSDDCompositeXmlResource")
 #set ($templateSDDSpringJPADao = "SDDSpringJPADao")
-#set ($templateSDDCompositeSpringJPADao = "SDDCompositeSpringJPADao")
 #end
 
 
