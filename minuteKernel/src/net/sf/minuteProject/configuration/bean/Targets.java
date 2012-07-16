@@ -14,6 +14,7 @@ import net.sf.minuteProject.utils.io.FileUtils;
  */
 public class Targets extends AbstractConfiguration {
 	
+	private String outputdirRoot, templatedirRoot;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
 
@@ -36,8 +37,25 @@ public class Targets extends AbstractConfiguration {
 	}
 	
 	public void addTarget(Target target) {
+		target.setTargets(this);
 		target.setAbstractConfigurationRoot(getAbstractConfigurationRoot());
 		getTargets().add(target);
+	}
+
+	public String getOutputdirRoot() {
+		return outputdirRoot;
+	}
+
+	public void setOutputdirRoot(String outputdirRoot) {
+		this.outputdirRoot = outputdirRoot;
+	}
+
+	public String getTemplatedirRoot() {
+		return templatedirRoot;
+	}
+
+	public void setTemplatedirRoot(String templatedirRoot) {
+		this.templatedirRoot = templatedirRoot;
 	}
 	
 }

@@ -759,19 +759,21 @@ public class Template extends TemplateTarget {
 	}
 
 	private String getBeginningCommentSnippetFromExtension() {
-		if (Extension.java.toString().equals(fileExtension)) return "//";
-		if (Extension.xml.toString().equals(fileExtension)) return "<!--";
-		if (Extension.sql.toString().equals(fileExtension)) return "--";
-		if (Extension.properties.toString().equals(fileExtension)) return "#";
-		return "//missing extension";
+		return extension.lineCommentBeginning();
+//		if (Extension.java.toString().equals(fileExtension)) return "//";
+//		if (Extension.xml.toString().equals(fileExtension)) return "<!--";
+//		if (Extension.sql.toString().equals(fileExtension)) return "--";
+//		if (Extension.properties.toString().equals(fileExtension)) return "#";
+//		return "//missing extension";
 	}
 	
 	private String getEndingCommentSnippetFromExtension() {
-		if (Extension.java.toString().equals(fileExtension)) return "";
-		if (Extension.xml.toString().equals(fileExtension)) return "-->";
-		if (Extension.sql.toString().equals(fileExtension)) return "";
-		if (Extension.properties.toString().equals(fileExtension)) return "";
-		return "";
+		return extension.lineCommentEnding();
+//		if (Extension.java.toString().equals(fileExtension)) return "";
+//		if (Extension.xml.toString().equals(fileExtension)) return "-->";
+//		if (Extension.sql.toString().equals(fileExtension)) return "";
+//		if (Extension.properties.toString().equals(fileExtension)) return "";
+//		return "";
 	}
 	
 //	private String getBeginningTextCommentSnippetFromExtension() {
