@@ -11,7 +11,6 @@ xs:schemaLocation="./mp-template-config.xsd">
     	name="ABL"
 		libdir="lib/ABL_LIB.vm"
 		outputdir="src">
-
 		<!-- ABL beans -->	
 		<template name="ABL.Logic" templateFileName="ABL.Logic.vm" 
 			subdir="" outputsubdir="" technicalPackage="businesslogic"
@@ -19,8 +18,7 @@ xs:schemaLocation="./mp-template-config.xsd">
             check-template-to-generate="true" 
             is-template-to-generate-method="ablUtils.isToGenerateBasedRulePresence"
 			has-updatable-nature="true"
-			scope-specific-value="entity"
-			>
+			scope-specific-value="entity">
 			<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>  
 		</template>	
 		
