@@ -48,6 +48,7 @@ import net.sf.minuteProject.utils.TriggerUtils;
 import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
+import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 import net.sf.minuteProject.utils.java.JavaUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
@@ -91,6 +92,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private StatementUtils statementUtils = new StatementUtils();
 	private TriggerUtils triggerUtils = new TriggerUtils();
 	private QueryUtils queryUtils = new QueryUtils();
+	private SemanticReferenceUtils semanticReference = new SemanticReferenceUtils();
 
 	private Model model;
 
@@ -499,6 +501,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("statementUtils", statementUtils);
 		context.put("triggerUtils", triggerUtils);
 		context.put("queryUtils", queryUtils);
+		context.put("semanticReferenceUtils", semanticReference);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {

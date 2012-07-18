@@ -16,13 +16,22 @@
 		<xs:attribute name="startsWith" type="xs:string" />
 		<xs:attribute name="result" type="xs:string" />
 	</xs:complexType>
-	
-	<xs:complexType name="pattern-assertion-type">
+
+     <xs:simpleType name="pattern-assertion-type">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="startsWith" />
+             <xs:enumeration value="endsWith" />
+             <xs:enumeration value="contains" />
+             <xs:enumeration value="regex" />
+         </xs:restriction>
+     </xs:simpleType>
+    	
+<!-- 	<xs:complexType name="pattern-assertion-type">
 		<xs:attribute name="endsWith" type="xs:string" />
 		<xs:attribute name="startsWith" type="xs:string" />
 		<xs:attribute name="contains" type="xs:string" />
 		<xs:attribute name="regex" type="xs:string" />
-	</xs:complexType>
+	</xs:complexType> -->
 
 	<xs:complexType name="property">
 		<xs:sequence>

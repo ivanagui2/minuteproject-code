@@ -34,6 +34,11 @@
 							default-value="ID" />
 						<reference-naming-convention
 							type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
+						<semantic-reference-convention
+						    field-pattern="name,number,amount" field-pattern-type="contains" 
+						    force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present="true"
+						    max-number-of-fields="5"
+						/>
 					</conventions>
 					<entity name="customer">
 					   <constraints>
@@ -41,10 +46,10 @@
 					           <comment><![CDATA[fail if Balance > CreditLimit]]></comment>
 					           <value><![CDATA[@Constraint("balance <= creditLimit")]]></value>
 					       </constraint>
-					   </constraints>
+					   </constraints> 
 					</entity>
 					<entity name="employee_raise_service">
-						<actions>
+ 						<actions>
 							<action name="giveRaiseToEmployee" is-to-implement="true">
 							<comment><![CDATA[
 							Insert to retrieve Employee (parent), increase salary by percentRaiseToGive.
@@ -52,13 +57,13 @@
                             </comment>
                             <value>@Action</value>
                             </action>
-						</actions>
+						</actions> 
 					</entity>
 					<entity name="department">
-						<!-- <constraints> <constraint name="sumSubDepartmentBudget"> <value><![CDATA[@Constraint("balance 
-							<= creditLimit")]]></value> <comment><![CDATA[This is a comment]]></comment> 
-							</constraint> </constraints> <actions> <action name="bb"> <value>blabla</value> 
-							<comment>blabla</comment> </action> </actions> -->
+						<constraints> <constraint name="sumSubDepartmentBudget"> <value>
+						<![CDATA[@Constraint("balance <= creditLimit")]]></value> <comment><![CDATA[This is a comment]]></comment> 
+							</constraint> </constraints> <actions> <action name="bb"> <value>@Action</value> 
+							<comment>blabla</comment> </action> </actions> 
 						<field name="SumSubDepartmentBudget">
 							<derivations>
 								<derivation>
@@ -67,21 +72,20 @@
 									</value>
 								</derivation>
 							</derivations>
-						</field>
+						</field> 
 					</entity>
 				</enrichment>
 			</business-model>
 		</model>
-		<targets>
+		<targets 
+		  outputdir-root="C:/SRC/JAVA/OPENXAVA/openxava-4.4.1/workspace/busintro"
+		  templatedir-root="../../minuteTemplate">
             <target refname="OpenXava" 
-               name="OpenXava" 
                fileName="mp-template-config-openxava-last-features.xml" 
-               outputdir-root="../../dev/openxava/busintro"
                templatedir-root="../../minuteTemplate/template/framework/openxava">
-              <property name="add-automated-business-logic" value="2.1.4"></property>
+              <property name="add-automated-business-logic" value="2.1.4"></property> 
             </target> 
              <target refname="ABL" 
-                outputdir-root="../../dev/openxava/busintro"
                 fileName="mp-template-config-ABL-OPENXAVA.xml" 
                 templatedir-root="../../minuteTemplate/template/framework/abl">
             </target> 

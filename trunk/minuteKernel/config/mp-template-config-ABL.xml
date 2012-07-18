@@ -20,7 +20,7 @@ xs:schemaLocation="./mp-template-config.xsd">
             is-template-to-generate-method="ablUtils.isToGenerateBasedRulePresence"
 			has-updatable-nature="true"
 			scope-specific-value="entity"
-			>
+			>			
 		</template>	
 		
 		<template name="ABL.LogicBase" templateFileName="ABL.LogicBase.vm" 

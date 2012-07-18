@@ -86,8 +86,10 @@ public class SemanticReferenceConvention extends ModelConvention {
 					semanticReference.addSqlPath(getSqlPath(column.getName()));
 				}
 				for (Column column : table.getAttributes()) {
-					semanticReference.addSqlPath(getSqlPath(column.getName()));
-					break;
+					if (!column.isPrimaryKey()) {
+						semanticReference.addSqlPath(getSqlPath(column.getName()));
+						break;
+					}
 				}
 			}
 		}
@@ -97,10 +99,10 @@ public class SemanticReferenceConvention extends ModelConvention {
 	private int setSemanticReferenceForColumn(int maxColumn, int cpt,
 			SemanticReference semanticReference, List<String> columnNames,
 			String pattern, String path) {
-		if (columnNames.contains(path) && cpt <= maxColumn) {
-			columnNames.remove(path);
+		if (columnNames.contains(path) && cpt < maxColumn) {
 			if (net.sf.minuteProject.utils.StringUtils.checkExpression(path, fieldPatternType, pattern)) {
 				semanticReference.addSqlPath(getSqlPath(path));
+				columnNames.remove(path);
 				cpt++;
 			}
 		}

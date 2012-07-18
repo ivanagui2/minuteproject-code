@@ -5,11 +5,13 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.path.SqlPath;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.FormatUtils;
 
 public class SemanticReference extends AbstractConfiguration {
 
 	private List<SqlPath> sqlPaths;
+//	private List<Column> columns;
 
 	public List<SqlPath> getSqlPaths() {
 		if (sqlPaths==null)
