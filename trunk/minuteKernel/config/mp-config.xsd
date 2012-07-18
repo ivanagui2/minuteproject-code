@@ -16,6 +16,13 @@
 		<xs:attribute name="startsWith" type="xs:string" />
 		<xs:attribute name="result" type="xs:string" />
 	</xs:complexType>
+	
+	<xs:complexType name="pattern-assertion-type">
+		<xs:attribute name="endsWith" type="xs:string" />
+		<xs:attribute name="startsWith" type="xs:string" />
+		<xs:attribute name="contains" type="xs:string" />
+		<xs:attribute name="regex" type="xs:string" />
+	</xs:complexType>
 
 	<xs:complexType name="property">
 		<xs:sequence>
@@ -151,6 +158,18 @@
 		<xs:attribute name="is-to-plurialize" type="xs:string" />
 	</xs:complexType>
 
+	<xs:complexType name="semantic-reference-convention">
+		<xs:attribute name="entity-pattern" type="xs:string" />
+		<xs:attribute name="pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="content-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="max-number-of-fields" type="xs:integer" />
+		<xs:attribute name="package" type="xs:string" />
+		<xs:attribute name="force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present" type="xs:boolean" />
+		<xs:attribute name="look-up-in-parent-for-match" type="xs:boolean" />
+	</xs:complexType>
+
 	<xs:complexType name="table-default-primary-key-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
@@ -189,6 +208,9 @@
 				type="table-default-primary-key-convention" minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 			<xs:element name="view-primary-key-convention" type="view-primary-key-convention"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="semantic-reference-convention" type="semantic-reference-convention"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 		</xs:sequence>

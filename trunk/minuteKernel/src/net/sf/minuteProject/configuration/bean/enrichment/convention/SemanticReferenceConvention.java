@@ -18,13 +18,14 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class SemanticReferenceConvention extends ModelConvention {
 
-	private static final int DEFAULT_MAX_FIELD = 3;
+	private static final int DEFAULT_MAX_FIELD = 7;
 	private Logger logger = Logger.getLogger(SemanticReference.class);
 	private String entityPattern, patternType;
 	private String fieldPattern, fieldPatternType;
 	private int maxNumberOfFields, maxColumn=0;
 	private boolean toOverride=false;
 	private String pack, contentType;
+	private boolean forceDefaultSemanticReference, lookUpInParentForMatch;
 
 	@Override
 	public void apply(BusinessModel model) {
@@ -47,7 +48,7 @@ public class SemanticReferenceConvention extends ModelConvention {
 	}
 
 	private boolean isValid(Table table) {
-		return (hasEntityPattern(table) || hasPackage(table) || hasContentType(table) || matchAllEntities());
+		return (hasEntityPattern(table) || hasPackage(table) || hasContentType(table) || matchAllEntities()) && !table.isManyToMany();
 	}
 
 	private void apply(Table table) {
@@ -60,21 +61,50 @@ public class SemanticReferenceConvention extends ModelConvention {
 			return;
 		int maxColumn = getMaxColumns();
 		int cpt=0;
-		SemanticReference semanticReference = new SemanticReference();
+		SemanticReference semanticReference = table.getSemanticReference();
+		if (semanticReference==null)
+			semanticReference=new SemanticReference();
+		cpt = semanticReference.getSqlPaths().size();
 		List<String> columnNames = ColumnUtils.getColumnNames(table);
 		for (String pattern : getFieldPatterns()) {
 			for (Column column : table.getColumns()) {
-				String colName = column.getName();
-				if (columnNames.contains(colName) && cpt <= maxColumn) {
-					columnNames.remove(colName);
-					if (net.sf.minuteProject.utils.StringUtils.checkExpression(colName, fieldPatternType, pattern)) {
-						semanticReference.addSqlPath(getSqlPath(column));
-						cpt++;
+				cpt = setSemanticReferenceForColumn(maxColumn, cpt,
+						semanticReference, columnNames, pattern, column.getName());
+			}
+			if (lookUpInParentForMatch) {
+				for (Table t : TableUtils.getParents(table)) {
+					for (Column column : table.getColumns()) {
+						cpt = setSemanticReferenceForColumn(maxColumn, cpt,
+								semanticReference, columnNames, pattern, t.getName()+"."+column.getName());
 					}
 				}
 			}
 		}
+		if (forceDefaultSemanticReference) {
+			if (semanticReference.getSqlPaths().size()==0) {
+				for (Column column : table.getPrimaryKeyColumns()) {
+					semanticReference.addSqlPath(getSqlPath(column.getName()));
+				}
+				for (Column column : table.getAttributes()) {
+					semanticReference.addSqlPath(getSqlPath(column.getName()));
+					break;
+				}
+			}
+		}
 		table.setSemanticReference(semanticReference);
+	}
+
+	private int setSemanticReferenceForColumn(int maxColumn, int cpt,
+			SemanticReference semanticReference, List<String> columnNames,
+			String pattern, String path) {
+		if (columnNames.contains(path) && cpt <= maxColumn) {
+			columnNames.remove(path);
+			if (net.sf.minuteProject.utils.StringUtils.checkExpression(path, fieldPatternType, pattern)) {
+				semanticReference.addSqlPath(getSqlPath(path));
+				cpt++;
+			}
+		}
+		return cpt;
 	}
 
 	private int getMaxColumns() {
@@ -86,16 +116,26 @@ public class SemanticReferenceConvention extends ModelConvention {
 	private List<String> getFieldPatterns() {
 		return ParserUtils.getList(fieldPattern);
 	}
-//
-//	private SemanticReference getSemanticReference(Column column) {
-//		SemanticReference semanticReference = new SemanticReference();
-//		semanticReference.addSqlPath(getSqlPath(column));
-//		return semanticReference;
-//	}
+	
+	private SemanticReference getSemanticReference(String path) {
+		SemanticReference semanticReference = new SemanticReference();
+		semanticReference.addSqlPath(getSqlPath(path));
+		return semanticReference;
+	}
 
 	private SqlPath getSqlPath(Column column) {
+		return getSqlPath(column.getName());
+	}
+	
+	private SqlPath getSqlPath(String st) {
 		SqlPath sqlPath = new SqlPath();
-		sqlPath.setPath(column.getName());
+		sqlPath.setPath(st);
+		return sqlPath;
+	}
+	
+	private SqlPath getSqlPath(Table table, Column column) {
+		SqlPath sqlPath = new SqlPath();
+		sqlPath.setPath(table.getName()+"."+column.getName());
 		return sqlPath;
 	}
 //
@@ -201,6 +241,29 @@ public class SemanticReferenceConvention extends ModelConvention {
 		this.contentType = contentType;
 	}
 
+	public Logger getLogger() {
+		return logger;
+	}
 
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+
+	public boolean isLookUpInParentForMatch() {
+		return lookUpInParentForMatch;
+	}
+
+	public void setLookUpInParentForMatch(boolean lookUpInParentForMatch) {
+		this.lookUpInParentForMatch = lookUpInParentForMatch;
+	}
+
+	public boolean isForceDefaultSemanticReference() {
+		return forceDefaultSemanticReference;
+	}
+
+	public void setForceDefaultSemanticReference(
+			boolean forceDefaultSemanticReference) {
+		this.forceDefaultSemanticReference = forceDefaultSemanticReference;
+	}
 	
 }

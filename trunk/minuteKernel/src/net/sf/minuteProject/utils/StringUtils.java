@@ -19,6 +19,14 @@ public class StringUtils {
 		endsWith = org.apache.commons.lang.StringUtils.upperCase(endsWith);
 		return valueToTest.endsWith(endsWith);
 	}
+	
+	public static boolean containsIgnoreCase(String valueToTest, String endsWith) {
+		if (valueToTest==null) return false;
+		if (endsWith==null) return false;
+		valueToTest = org.apache.commons.lang.StringUtils.upperCase(valueToTest);
+		endsWith = org.apache.commons.lang.StringUtils.upperCase(endsWith);
+		return valueToTest.contains(endsWith);
+	}
 
 	public static boolean isEmpty(String str) {
 		return org.apache.commons.lang.StringUtils.isEmpty(str);
@@ -29,6 +37,8 @@ public class StringUtils {
 			return startsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.ENDS_WITH.equals(expression))
 			return endsWithIgnoreCase(valueToTest, pattern);
+		if (Condition.CONTAINS.equals(expression))
+			return containsIgnoreCase(valueToTest, pattern);
 		return false;
 	}
 

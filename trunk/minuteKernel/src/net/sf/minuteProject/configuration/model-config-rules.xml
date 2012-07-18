@@ -348,6 +348,8 @@
 						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 						<alias attr-name="max-number-of-fields" prop-name="maxNumberOfFields" />
 						<alias attr-name="package" prop-name="pack" />
+						<alias attr-name="force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present" prop-name="forceDefaultSemanticReference" />
+						<alias attr-name="look-up-in-parent-for-match" prop-name="lookUpInParentForMatch" />
 					</set-properties-rule>	
 	            </pattern>				
 				<pattern value="view-primary-key-convention">
