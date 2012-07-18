@@ -32,6 +32,7 @@
 #set ($isMany2Many = $tableUtils.isMany2Many($table))
 #set ($hasUniqueKey = $tableUtils.hasUniqueKey($table))
 #set ($hasOnlyOnePrimaryKey = $tableUtils.hasOnlyOnePrimaryKey($table))
+#set ($hasSemanticReference = $semanticReferenceUtils.hasSemanticReference($table))
 #end
 
 #macro (exposeVariableActionSpecific)
@@ -161,8 +162,8 @@
 #set ($columnFullType = $commonUtils.getFullType2($column))
 #set ($columnType = $commonUtils.getJavaType($column))
 #set ($columnTypeOnly = $commonUtils.getJavaTypeOnly($column))
-#set ($columnClass = $commonUtils.getColumnClassName($column))##$formatUtils.getJavaName($column.name))
-#set ($columnVar = $commonUtils.getColumnVariableName($column))##$formatUtils.getJavaNameVariable($column.name))
+#set ($columnClass = $commonUtils.getColumnClassName($column))
+#set ($columnVar = $commonUtils.getColumnVariableName($column))
 #set ($isColumnUnique = $tableUtils.isUnique($table, $column))
 #set ($isMandatory = $column.isRequired())
 #set ($isPrimaryKey = $column.isPrimaryKey())
