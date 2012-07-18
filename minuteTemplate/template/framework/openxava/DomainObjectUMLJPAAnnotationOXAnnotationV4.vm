@@ -76,9 +76,19 @@ import org.openxava.annotations.*;
 #exposeViewParentSemanticRefProperty()	
 	),
     @View(name="reference", 
+#if (!$hasSemanticReference)
+       extendsView="${domainVariableName}${defaultViewExt}"
+#else
+#set ($semanticReference = $table.getSemanticReference())
        members=
-#exposeViewParentSemanticRef()
-#exposeViewParentSemanticRefProperty()  
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)    
+#set($column = $semanticReferenceUtils.convertPathToColumn($table, $chunk))
+#putColumnParams()
+       "$columnVar $#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()); "+
+#else "
+#end
+#end  
+#end
     )
 })
 
@@ -205,7 +215,7 @@ public class ${className} {
     @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
 #end  
-    @ReferenceView ("reference") //${linkedTableVariable}${defaultViewExt}  
+    @ReferenceView ("reference") 
 #set($semanticReference = $linktableDB.semanticReference)
 #if ($openXavaUtils.hasDescriptionList($linktableDB)) 
 #if ($semanticReference.semanticReferenceBeanPath.size()<2)
@@ -268,9 +278,16 @@ public class ${className} {
 #set($listProperties=$openXavaUtils.getListProperties($reference))
 #if(!$listProperties.isEmpty())
     @ListProperties(""+
+#if(!$hasSemanticReference)
        "#foreach ($chunk in $listProperties)   
 $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end ")
+#else
+#set ($listOfSemanticReferenceAttribute = $semanticReference.getSemanticReferenceSqlPath())    
+       "#foreach ($chunk in $listOfSemanticReferenceAttribute)   
+$chunk #if ($velocityCount!=$listOfSemanticReferenceAttribute.size()),#else #end
+#end")
+#end
 #end
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    

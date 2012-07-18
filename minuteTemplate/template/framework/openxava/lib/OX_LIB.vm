@@ -32,7 +32,6 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$column.isLob())
-##     +#if ($velocityCount!=1)+", #else "#end $columnVar "
      +", $columnVar "
 #end
 #end
@@ -45,7 +44,7 @@
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-	    + "${childrenListVariable} { ${childrenListVariable} };" //+ "${link}${columnclass}s { ${link}${columnclass}s };" 
+	    + "${childrenListVariable} { ${childrenListVariable} };" 
 #end
 #end
 #end
