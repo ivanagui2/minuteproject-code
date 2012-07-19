@@ -19,6 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+
 import $sddOutputBeanCollectionImport;
 import $sddInputBeanImport;
 import $sddDaoInterfaceImport;
@@ -29,12 +33,12 @@ import $sddDaoInterfaceImport;
  * <p>Description: remote interface for ${className} service </p>
  *
  */
-@Service ("${classVariableName}")
-@Transactional
+@ManagedBean (name="${classVariableName}")
+@RequestScoped
 public class ${className} {
 
     @Autowired
-    @Qualifier("$sddDaoInterfaceVariable")
+    @Qualifier("${sddDaoInterfaceVariable}")
     ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 
     private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
@@ -50,6 +54,9 @@ $!updatedAreaSnippet
     }
 #end
 $!updatedAreaEnd
+
+#putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
+#putGetterSetterAlt($sddInputBeanClass, "Selected$sddInputBeanClass", "selected$sddInputBeanClass")
 
 $!updatedAreaImplementation
 

@@ -16,12 +16,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 $!updatedAreaClassAnnotation
 @NoRepositoryBean
-public interface CustomRepository<T, PK extends Serializable> extends PagingAndSortingRepository<R, PK>,
+public interface $className <T, PK extends Serializable> extends CrudRepository<T, PK>,
         JpaSpecificationExecutor<T> {
 
     Page<T> findByPrototype(T prototype, Pageable pageable);
-
-    Page<T> findByPrototype(T prototype, List<Range<R, ?>> ranges, Pageable pageable);
 
     List<T> findAll();
 

@@ -1,5 +1,4 @@
 #exposeStatementIOSpecific()
-#exposeRESTSDDURLServer()
 #addedAreas()
 package $packageName;
 

@@ -64,11 +64,15 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro (putGetterSetter $class $variable)
-    public ${class} get${class} () {
+#putGetterSetterAlt($class, $class, $variable)
+#end
+
+#macro (putGetterSetterAlt $class $classVariable $variable)
+    public ${class} get${classVariable} () {
         return ${variable};
     }
 
-    public void set${class} (${class} ${variable}) {
+    public void set${classVariable} (${class} ${variable}) {
         this.${variable} = ${variable};
     }
 
@@ -167,6 +171,13 @@ $!commonUtils.getReadMeText($template)
 #set ($templateSDDInputCompositeBean  = "SDDInputCompositeBean")
 #set ($templateSDDOutputCompositeBean = "SDDOutputCompositeBean")
 #set ($templateSDDOutputBeanCollection = "SDDOutputBeanCollection")
+#end
+
+#macro (putImportSDDInputBean)
+#templateCommonDefinition()
+#set ($sddInputBeanClass = $commonUtils.getTemplateClassName($table, $model, $templateSDDInputBean))
+#set ($sddInputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateSDDInputBean))
 #end
 
 #macro(exposeWebXmlSpecific)
