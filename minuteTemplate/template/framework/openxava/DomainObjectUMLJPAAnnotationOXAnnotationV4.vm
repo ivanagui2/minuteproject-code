@@ -75,6 +75,11 @@ import org.openxava.annotations.*;
 #exposeViewParentSemanticRef()
 #exposeViewParentSemanticRefProperty()	
 	),
+#exposeEntityUpdatedAreas("view-reference")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
     @View(name="reference", 
 #if (!$hasSemanticReference)
        extendsView="${domainVariableName}${defaultViewExt}"
@@ -89,6 +94,8 @@ import org.openxava.annotations.*;
 #end
 #end  
 #end
+#end
+#updatedAreaEnd()
     )
 })
 
@@ -201,6 +208,11 @@ public class ${className} {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#exposeEntityUpdatedAreas("parent-$linkedTableClass")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 #if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @MapsId ("$localColumnName")
 #end
@@ -262,9 +274,16 @@ public class ${className} {
     private $linkedTableClass ${colVar}; 
     
 #end
+#end
+#updatedAreaEnd()
 
 #foreach ($reference in $table.children)
 #putReferenceParams2()
+#exposeEntityUpdatedAreas("child-$childrenListVariable")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 #if(!$linktableDB.isManyToMany())
 #set ($importDomainObjectForeignTable = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateJPA2DomainObject))
 #set ($targetEntityClass="${importDomainObjectForeignTable}.class")
@@ -293,9 +312,17 @@ $chunk #if ($velocityCount!=$listOfSemanticReferenceAttribute.size()),#else #end
    
 #end
 #end
+#end
+#updatedAreaEnd()
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
+#putReferenceParams2()
+#exposeEntityUpdatedAreas("m2m-$childrenListVariable")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 #exposeImportParamsUML($targetTable)
 #set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
     @ManyToMany
@@ -306,6 +333,8 @@ $chunk #if ($velocityCount!=$listOfSemanticReferenceAttribute.size()),#else #end
     private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
+#end
+#updatedAreaEnd()
 
     /**
     * Default constructor
