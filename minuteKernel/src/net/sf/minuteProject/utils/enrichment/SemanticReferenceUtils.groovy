@@ -32,6 +32,8 @@ class SemanticReferenceUtils {
 	}
 	
 	public boolean hasSemanticReference(Table table) {
+		if (table.getSemanticReference()==null)
+			return false;
 		return (table.getSemanticReference().getSqlPaths().size>0)?true:false
 	}
 }
