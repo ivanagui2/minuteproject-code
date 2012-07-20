@@ -3,11 +3,12 @@
 <!---->
 <Entity
   xmlns="http://xmlns.oracle.com/bc4j"
-  Name="Departments"
-  Version="11.1.2.59.47"
-  DBObjectType="table"
-  DBObjectName="DEPARTMENTS"
-  AliasName="Departments"
+  Name="$className"
+##  Version="11.1.2.59.47"
+  Version="$adf.version"
+  DBObjectType="$table.type"
+  DBObjectName="$table.name"
+  AliasName="$className"
   BindingStyle="OracleName"
   UseGlueCode="false">
   <Attribute

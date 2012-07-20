@@ -5,7 +5,6 @@
 #exposeEntityCache()
 #addedAreas()
 #set($defaultViewExt="DEFAULT_VIEW")
-##set($attributes=$table.attributes)
 #set($attributecount=$attributes.length)
 package $packageName;
 
@@ -45,10 +44,6 @@ import org.openxava.annotations.*;
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
 #end
-##foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))##$table.parents)
-##putReferenceParams2()
-##	    + "${localColumnVariable};"  
-##end	
 		),
 	@View(
 		name="Create", 
@@ -274,17 +269,17 @@ $!updatedAreaSnippet
     private $linkedTableClass ${colVar}; 
     
 #end
-#end
 #updatedAreaEnd()
-
+#end
+//children
 #foreach ($reference in $table.children)
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 #exposeEntityUpdatedAreas("child-$childrenListVariable")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-#if(!$linktableDB.isManyToMany())
 #set ($importDomainObjectForeignTable = $commonUtils.getEntityLevelTemplateFullPath($model, $linktableDB, $template, $templateJPA2DomainObject))
 #set ($targetEntityClass="${importDomainObjectForeignTable}.class")
 #exposeEnrichedPk(${reference.column})
@@ -312,12 +307,11 @@ $chunk #if ($velocityCount!=$listOfSemanticReferenceAttribute.size()),#else #end
    
 #end
 #end
-#end
 #updatedAreaEnd()
-
+#end
+//m2m
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-#putReferenceParams2()
 #exposeEntityUpdatedAreas("m2m-$childrenListVariable")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -333,9 +327,8 @@ $!updatedAreaSnippet
     private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
-#end
 #updatedAreaEnd()
-
+#end
     /**
     * Default constructor
     */
