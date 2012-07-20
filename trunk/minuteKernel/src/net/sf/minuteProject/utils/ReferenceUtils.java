@@ -65,10 +65,14 @@ public class ReferenceUtils {
 //	}
 	
 	public static String getChildrenListVariable(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		if (reference==null)
+			return "ERROR_REFERENCE_IS_NUL";
 		return FormatUtils.getJavaNameVariable(reference.getAlias());
 	}
 	
 	public static String getChildrenListClass(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		if (reference==null)
+			return "ERROR_REFERENCE_IS_NUL";
 		return FormatUtils.getJavaName(reference.getAlias());
 	}
 	
