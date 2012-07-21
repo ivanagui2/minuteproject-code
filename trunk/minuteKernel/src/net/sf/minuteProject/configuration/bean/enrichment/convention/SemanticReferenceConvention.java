@@ -119,15 +119,15 @@ public class SemanticReferenceConvention extends ModelConvention {
 		return ParserUtils.getList(fieldPattern);
 	}
 	
-	private SemanticReference getSemanticReference(String path) {
-		SemanticReference semanticReference = new SemanticReference();
-		semanticReference.addSqlPath(getSqlPath(path));
-		return semanticReference;
-	}
-
-	private SqlPath getSqlPath(Column column) {
-		return getSqlPath(column.getName());
-	}
+//	private SemanticReference getSemanticReference(String path) {
+//		SemanticReference semanticReference = new SemanticReference();
+//		semanticReference.addSqlPath(getSqlPath(path));
+//		return semanticReference;
+//	}
+//
+//	private SqlPath getSqlPath(Column column) {
+//		return getSqlPath(column.getName());
+//	}
 	
 	private SqlPath getSqlPath(String st) {
 		SqlPath sqlPath = new SqlPath();
@@ -135,20 +135,10 @@ public class SemanticReferenceConvention extends ModelConvention {
 		return sqlPath;
 	}
 	
-	private SqlPath getSqlPath(Table table, Column column) {
-		SqlPath sqlPath = new SqlPath();
-		sqlPath.setPath(table.getName()+"."+column.getName());
-		return sqlPath;
-	}
-//
-//	private boolean isMatch(Table table) {
-//		boolean hasEntityPattern, hasContentType, hasPackage;
-//		hasEntityPattern=hasEntityPattern();
-//		if (hasEntityPattern()) {
-//			r
-//		}
-//		return hasCorrectContentType(table);
-//		return false;
+//	private SqlPath getSqlPath(Table table, Column column) {
+//		SqlPath sqlPath = new SqlPath();
+//		sqlPath.setPath(table.getName()+"."+column.getName());
+//		return sqlPath;
 //	}
 
 	private boolean hasContentType(Table table) {

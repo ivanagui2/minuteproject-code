@@ -807,6 +807,8 @@ public class Template extends TemplateTarget {
 	}
 	
 	public String getTextComment(String text) {
+		if (text==null)
+			text = "";
 		return extension.format(" \n"+text+"\n");
 	}
 
