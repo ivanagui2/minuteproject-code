@@ -4,6 +4,7 @@
 package $packageName;
 
 import com.autobizlogic.abl.annotations.*;
+import com.autobizlogic.abl.engine.*;
 import com.autobizlogic.abl.logic.LogicContext;
 import $importDomainObjectUML;
 import ${logicBaseImport};
