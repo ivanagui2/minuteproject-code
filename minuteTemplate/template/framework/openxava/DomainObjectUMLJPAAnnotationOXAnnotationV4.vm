@@ -33,6 +33,11 @@ import org.openxava.annotations.*;
 @Entity (name="${className}")
 @Table (name="${table.name}")
 @Views({
+#exposeEntityUpdatedAreas("view-base")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 	@View(
 		name="base",
 		members=
@@ -45,6 +50,8 @@ import org.openxava.annotations.*;
 #end
 #end
 		),
+#end
+#updatedAreaEnd()
 	@View(
 		name="Create", 
 		extendsView="base"
