@@ -18,6 +18,7 @@
 #end
 
 #macro(exposeABLModelSpecific)
+#set($ablPackages=$ablUtils.getPackageList($model))
 #end
 
 #macro(exposeABLTemplate)

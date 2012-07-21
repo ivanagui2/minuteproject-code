@@ -1,3 +1,4 @@
+#exposeABLModelSpecific()
 # Configuration file for ABL
 
 # This can contain a comma-separated list of all the Java packages that contain
@@ -5,7 +6,7 @@
 # classes vs. calls to persistent beans. This is not required if all your persistent beans
 # are in the same package.
 #persistentPackageNames = buslogicdemo.data
-#logicPackageNames = buslogicdemo.businesslogic
+logicPackageNames = $ablPackages
 
 
 # This can contain a comma-separated list of all the Java packages that contain
