@@ -23,7 +23,7 @@ class Rule <T extends GeneratorBean> extends AbstractConfiguration{
 		}
 	}
 	
-	String value, errorMessage
+	protected String value, errorMessage
 	
 	boolean isToImplement = false
 	

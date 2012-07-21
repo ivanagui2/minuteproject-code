@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils.rule
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
@@ -11,6 +12,10 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 class AblUtils {
 
 	AblUtils(){}
+	
+	String getPackageList (Model model) {
+		"todo"
+	}
 	
 	String getConstraintName (Table table, Constraint constraint) {
 		constraint.getName table 
