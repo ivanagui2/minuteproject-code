@@ -6,13 +6,22 @@
 # classes vs. calls to persistent beans. This is not required if all your persistent beans
 # are in the same package.
 #persistentPackageNames = buslogicdemo.data
-logicPackageNames = $ablPackages
+
 
 
 # This can contain a comma-separated list of all the Java packages that contain
 # business logic classes. The business logic classes will be matched by name, so
 # a persistent bean Customer will be matched with a business logic class CustomerLogic
 #logicPackageNames = com.autobizlogic.abl.businesslogicengine.dependency.test.logic
+
+#exposeModelUpdatedAreas("abl-logic-packages")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+logicPackageNames = $ablPackages
+#end
+$!updatedAreaEnd
 
 # If you don't specify a value for logicPackageNames, then SBL will look for the logic classes
 # in a package parallel to the persistent beans' package. So for instance, if you persistent beans
