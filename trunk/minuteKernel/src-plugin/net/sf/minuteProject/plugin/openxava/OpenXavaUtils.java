@@ -110,7 +110,7 @@ public class OpenXavaUtils {
 		Table linkTable = reference.getForeignTable();
 		List<String> relativeChildSR = getParentChildRelativeSemanticReference(reference, linkTable);
 		if (!relativeChildSR.isEmpty()) {
-			list.addAll(getTabDefaultProperties(linkTable));
+			list.addAll(getTabDefaultProperties(linkTable));//todo change by reference instead of default
 			list.addAll(relativeChildSR);
 		}
 		return list;
