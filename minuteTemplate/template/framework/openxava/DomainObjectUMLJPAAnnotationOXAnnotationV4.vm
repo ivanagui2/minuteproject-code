@@ -299,7 +299,7 @@ $!updatedAreaSnippet
 #set($listProperties=$openXavaUtils.getListProperties($reference))
 #if(!$listProperties.isEmpty())
     @ListProperties(""+
-#if(!$hasSemanticReference)
+#if(!$hasSemanticReference)##todo check hassemanticreference for the parent!!
        "#foreach ($chunk in $listProperties)   
 $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end ")
