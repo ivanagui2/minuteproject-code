@@ -25,6 +25,7 @@ import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
+import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.MpObjectBuilder;
@@ -64,20 +65,34 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		return -1;
 	}
 	
-	public Reference getParentReference(String child, String parent) {
+	public static Reference getParentReference(String child, String parent) {
 		for (Reference ref : parentsReferenceForEntity(child)) {
 			if (ref.getForeignTable().getName().toLowerCase().equals(parent.toLowerCase()))
 				return ref;
 		}
 		return null;
 	}
-	public Table getEntity (String name) {
+	public static Reference getChildReference(String child, String parent) {
+		for (Reference ref : childrenReferenceForEntity(parent)) {
+			if (ref.getForeignTable().getName().toLowerCase().equals(child.toLowerCase()))
+				return ref;
+		}
+		return null;
+	}
+	public static Table getEntity (String name) {
 		Database db = model.getDataModel().getDatabase();
 		return TableUtils.getEntity(db, name);
 	}
-	public List<Reference> parentsReferenceForEntity (String name) {
+	public static List<Table> getEntities () {
+		return model.getBusinessModel().getBusinessPackage().getEntities();
+	}
+	public static List<Reference> parentsReferenceForEntity (String name) {
 		Database db = model.getDataModel().getDatabase();
 		return Arrays.asList(TableUtils.getEntity(db, name).getParents());
+	}
+	public static List<Reference> childrenReferenceForEntity (String name) {
+		Database db = model.getDataModel().getDatabase();
+		return Arrays.asList(TableUtils.getEntity(db, name).getChildren());
 	}
 	
 	public int numberOfParentsForEntity (String name) {
@@ -86,7 +101,24 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		}
 		return -1;
 	}
-
+	
+//	number of column for entity
+	public int numberOfColumnsForEntity (String name) {
+		if (model!=null) {
+			Table entity = TableUtils.getEntity(database, name);
+			return (entity!=null)?entity.getColumnCount():-1;
+		}
+		return -1;
+	}
+//	column names of table name
+	public String columnNamesOfTableName (String name, String values) {
+		if (model!=null) {
+			Table entity = TableUtils.getEntity(database, name);
+			String columns = ColumnUtils.asNameStringList(Arrays.asList(entity.getColumns()));
+			return compareList(ParserUtils.getList(columns), ParserUtils.getList(values));
+		}
+		return "NA";
+	}
 	
 //	public List<String> getNamesOfParentsEntitiesForEntity (String name) {
 //		List<String> list = new ArrayList<String>();
@@ -123,8 +155,14 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		return compareList (l1, l2);
 	}
 	
-	public String compareList (List<String> l1, List<String> l2) {
-		if (isIdentical(l1, l2)) {
+	public static String compareList (List<String> l1, List<String> l2) {
+		if (isIdentical(l1, l2, false)) {
+			return "true";
+		}
+		return l1.toString();
+	}
+	public static String compareListWithOrder (List<String> l1, List<String> l2) {
+		if (isIdentical(l1, l2, true)) {
 			return "true";
 		}
 		return l1.toString();
@@ -158,17 +196,29 @@ public class NavigateModelSequenceFixture extends SequenceFixture{
 		return list;
 	}
 	
-	public boolean isIdentical (List<String> l1, List<String> l2) {
+	public static boolean isIdentical (List<String> l1, List<String> l2, boolean checkOrder) {
 		if (l1==null) {
 			if (l2 == null) return false;
 			else return true;
 		}
-		for (String s1 : l1) {
-			boolean exist = false;
-			for (String s2 : l2) {
-				if (s2.equals(s1)) exist = true;
+		if (l1.size()!=l2.size())
+			return false;
+		if (checkOrder) {
+			for (int i = 0; i < l1.size(); i++) {
+				if (!l1.get(i).equals(l2.get(i)))
+					return false;
 			}
-			if (!exist) return false;
+		} else {
+			for (String s1 : l1) {
+				boolean exist = false;
+				for (String s2 : l2) {
+					if (s2.equals(s1)) {
+						exist = true;
+						break;
+					}					
+				}
+				if (!exist) return false;
+			}
 		}
 		return true;
 //		
