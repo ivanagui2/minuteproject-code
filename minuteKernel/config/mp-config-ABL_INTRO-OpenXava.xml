@@ -78,12 +78,13 @@
 			</business-model>
 		</model>
 		<targets 
-		  outputdir-root="C:/SRC/JAVA/OPENXAVA/openxava-4.4.1/workspace/busintro"
+		  outputdir-root="D:/SRC/JAVA/OPENXAVA/openxava-4.5/openxava-4.5/workspace/busintro"
 		  templatedir-root="../../minuteTemplate">
             <target refname="OpenXava" 
                fileName="mp-template-config-openxava-last-features.xml" 
                templatedir-root="../../minuteTemplate/template/framework/openxava">
               <property name="add-automated-business-logic" value="2.1.4"></property> 
+              <!-- <property name="groovify" value="true"></property> -->
             </target> 
              <target refname="ABL" 
                 fileName="mp-template-config-ABL-OPENXAVA.xml" 
