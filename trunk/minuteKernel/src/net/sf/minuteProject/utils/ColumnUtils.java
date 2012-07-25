@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
@@ -247,5 +248,18 @@ public class ColumnUtils {
 		return (column!=null)?FormatUtils.getJavaNameVariable(column.getAlias()):"ERROR_NULL_COLUMN_CANNOT_FORMAT_ALIAS";
 	}
 
+	public static String asNameStringList(List<Column> beans) {
+		StringBuffer sb = new StringBuffer();
+		int cpt=0;
+		int size = beans.size();
+		for (GeneratorBean bean : beans) {
+			sb.append(bean.getName());
+			if (cpt<size) {
+				sb.append(",");
+				cpt++;
+			}
+		}
+		return sb.toString();
+	}
 	
 }

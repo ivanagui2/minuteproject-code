@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 class SemanticReferenceUtils {
@@ -31,9 +32,16 @@ class SemanticReferenceUtils {
 		sb
 	}
 	
-	public boolean hasSemanticReference(Table table) {
+	public static boolean hasSemanticReference(Table table) {
 		if (table.getSemanticReference()==null)
 			return false;
 		return (table.getSemanticReference().getSqlPaths().size>0)?true:false
 	}
+
+	public static String getSemanticReferenceListAsString(Table table) {
+		if (!hasSemanticReference(table))
+			return ""
+		return StringUtils.asNameStringList (table.getSemanticReference().getSqlPaths(), "getPath")
+	}
+
 }
