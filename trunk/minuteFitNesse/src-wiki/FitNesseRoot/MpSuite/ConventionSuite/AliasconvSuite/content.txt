@@ -16,7 +16,7 @@ Liferay model load
 |check | alias java variable of first relationship between| portletitem| group_| group|
 |check | name java variable of first relationship between| portletitem| group_| groupid|
 |check | number of parents for entity| cyrususer| 0 |
-|check | names of parents entity for entity| portletitem| group_, company, user_, portlet, classname_ | true |
+|check | names of parents entity for entity| portletitem| group_, company, user_, classname_ | true |
 |check | names of parents entity for entity| user_| contact_, company | true |
 |check | number of parents for entity| user_| 2 |
 |check | names of parents entity for entity| contact_| user_, company, account_ | true |
@@ -24,7 +24,7 @@ Liferay model load
 |check | alias of column of table| smallImage| journalarticle| SMALLIMAGE|
 |check | alias of column of table| groupId| group_ | group|
 |check | alias of column of table new| groupId| group_ | group |
-|check | names of local fk columns for entity| portletitem| groupId, companyId, userId, portletId, classNameId | true |
+|check | names of local fk columns for entity| portletitem| groupId, companyId, userId, classNameId | true |
 |check | column class name of first relationship between| assettag| group_| Group |
 |check | alias of column of table new| contactId| contact_ | contact |
 
