@@ -299,16 +299,16 @@ $!updatedAreaSnippet
 #set($listProperties=$openXavaUtils.getListProperties($reference))
 #if(!$listProperties.isEmpty())
     @ListProperties(""+
-#if(!$hasSemanticReference)##todo check hassemanticreference for the parent!!
+##if(!$hasSemanticReference)##todo check hassemanticreference for the parent!!
        "#foreach ($chunk in $listProperties)   
 $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #end ")
-#else
-#set ($listOfSemanticReferenceAttribute = $semanticReference.getSemanticReferenceSqlPath())    
-       "#foreach ($chunk in $listOfSemanticReferenceAttribute)   
-$chunk #if ($velocityCount!=$listOfSemanticReferenceAttribute.size()),#else #end
-#end")
-#end
+##else
+##set ($listOfSemanticReferenceAttribute = $semanticReference.getSemanticReferenceSqlPath())    
+##       "#foreach ($chunk in $listOfSemanticReferenceAttribute)   
+##$chunk #if ($velocityCount!=$listOfSemanticReferenceAttribute.size()),#else #end
+#####end")
+##end
 #end
     private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
