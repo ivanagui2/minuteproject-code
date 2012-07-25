@@ -41,6 +41,7 @@ xs:schemaLocation="./mp-template-config.xsd">
 			file-extension="properties" file-prefix="" file-suffix="ABLConfig" 
 			has-updatable-nature="true" add-model-name="false"
 			application-specific="true" >
+			<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>    
 		</template>
 
 		<template name="ABL.Logging" templateFileName="ABL.Logging.vm" 
