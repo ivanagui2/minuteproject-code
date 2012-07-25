@@ -31,4 +31,10 @@ class Rule <T extends GeneratorBean> extends AbstractConfiguration{
 		isToImplement
 	}
 	
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
 }

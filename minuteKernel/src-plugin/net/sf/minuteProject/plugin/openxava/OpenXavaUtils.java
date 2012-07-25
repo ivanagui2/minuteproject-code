@@ -17,6 +17,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
+import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
 import net.sf.minuteProject.utils.java.JavaUtils;
 
 public class OpenXavaUtils {
@@ -57,8 +58,9 @@ public class OpenXavaUtils {
 	private static List<String> getTabDefaultProperties (Table table) {
 		List<String> list = new ArrayList<String>();
 		for (Column column : table.getPrimaryKeyColumns()) {
-			if (ColumnUtils.isNaturalPk(column))
+			if (ColumnUtils.isNaturalPk(column)) {
 				list.add(JavaUtils.getJavaVariableNaming(FormatUtils.getJavaNameVariable(column.getAlias())));
+			}
 		}
 		for (Column column : table.getAttributes()) {
 			if (!column.isLob())
@@ -84,9 +86,9 @@ public class OpenXavaUtils {
 					SemanticReference sr = reference.getForeignTable().getSemanticReference();
 					for (String chunk : sr.getSemanticReferenceBeanPath()) {
 						String c = FormatUtils.getJavaNameVariable(reference.getLocalColumn().getAlias());
-						if (addChunk) c = c+"."+chunk;
+						if (addChunk) c = c+"."+convertChunkToAlias(chunk, parent);
 						list.add(c);
-						break; // only the first is added
+						//break; // only the first is added
 					}
 				}
 			}
@@ -94,6 +96,11 @@ public class OpenXavaUtils {
 		return list;
 	}
 	
+	private static String convertChunkToAlias(String chunk, Table table) {
+		Column column = ColumnUtils.getColumn(table, chunk);
+		return FormatUtils.getJavaNameVariable(column.getAlias());
+	}
+
 	public static boolean hasDescriptionList (Table table) {
 		if (TableUtils.hasSemanticReference(table) && 
 			(TableUtils.isReferenceDataContentType(table) || TableUtils.isPseudoStaticDataContentType(table)))
@@ -106,14 +113,30 @@ public class OpenXavaUtils {
 	}
 	
 	public static List<String> getListProperties (Reference reference) {
+		boolean hasSemRef = false;
 		List<String> list = new ArrayList<String>();
 		Table linkTable = reference.getForeignTable();
+		Table childTable = reference.getLocalTable();
 		List<String> relativeChildSR = getParentChildRelativeSemanticReference(reference, linkTable);
+		if (SemanticReferenceUtils.hasSemanticReference(childTable)) {
+			list.addAll(getSemanticRefProperties(childTable));
+			hasSemRef = true;
+		}
 		if (!relativeChildSR.isEmpty()) {
-			list.addAll(getTabDefaultProperties(linkTable));//todo change by reference instead of default
+			if (!hasSemRef)
+				list.addAll(getTabDefaultProperties(linkTable));//todo change by reference instead of default
 			list.addAll(relativeChildSR);
 		}
 		return list;
+	}
+
+	private static List<String> getSemanticRefProperties(Table childTable) {
+		List<String> list = new ArrayList<String>();
+		SemanticReference sr = childTable.getSemanticReference();
+		for (String chunk : sr.getSemanticReferenceBeanPath()) {
+			list.add(convertChunkToAlias(chunk, childTable));
+		}
+		return null;
 	}
 
 	private static List<String> getParentChildRelativeSemanticReference(

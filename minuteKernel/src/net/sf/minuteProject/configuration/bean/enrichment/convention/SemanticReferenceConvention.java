@@ -23,7 +23,7 @@ public class SemanticReferenceConvention extends ModelConvention {
 	private String entityPattern, patternType;
 	private String fieldPattern, fieldPatternType;
 	private int maxNumberOfFields, maxColumn=0;
-	private boolean toOverride=false;
+	private boolean toExtend = true, toOverride=false;
 	private String pack, contentType;
 	private boolean forceDefaultSemanticReference, lookUpInParentForMatch;
 
@@ -57,11 +57,11 @@ public class SemanticReferenceConvention extends ModelConvention {
 	}
 	
 	private void applySemanticReference(Table table) {
-		if (!toOverride && TableUtils.hasSemanticReference(table))
+		if (!toOverride && !toExtend && TableUtils.hasSemanticReference(table))
 			return;
 		int maxColumn = getMaxColumns();
 		int cpt=0;
-		SemanticReference semanticReference = table.getSemanticReference();
+		SemanticReference semanticReference = (toOverride)?new SemanticReference(): table.getSemanticReference();
 		if (semanticReference==null)
 			semanticReference=new SemanticReference();
 		cpt = semanticReference.getSqlPaths().size();
