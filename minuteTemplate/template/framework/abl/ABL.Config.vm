@@ -97,3 +97,6 @@ globalEventListeners = buslogicdemo.util.DemoEventListener
 # servlet container (i.e. an app server), you can expose the console service as a web service
 # at the following URL.
 #consoleServerUrl=http://localhost:9097/LogicConsoleService
+
+exceptionFactoryClass = $constraintExceptionTranslatorJCAImport
+
