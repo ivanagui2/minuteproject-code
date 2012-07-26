@@ -104,7 +104,7 @@
 		
 		<template name="JSFXhtmlPrimefacesBreadcrumbs" templateFileName="JSFXhtmlPrimefacesBreadcrumbs.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="BreadCrumb" 
-			application-specific="true" add-model-name="false" >
+			model-specific="true" add-model-dir-name="true" add-model-name="false" >
 		</template>		
 		
 		<template name="JSFPrimefacesIndexXhtml" templateFileName="JSFPrimefacesIndexXhtml.vm" 
