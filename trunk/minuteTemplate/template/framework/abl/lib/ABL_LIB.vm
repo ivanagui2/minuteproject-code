@@ -20,9 +20,11 @@
 #macro(exposeABLModelSpecific)
 #exposeABLTemplate()
 #set($ablPackages=$ablUtils.getPackageList($model, $templateABLLogic))
+#set ($constraintExceptionTranslatorJCAImport = $commonUtils.getLevelTemplateFullPath($model, $template, $templateABLConstraintExceptionTranslatorJCA))
 #end
 
 #macro(exposeABLTemplate)
 #set ($templateABLLogic = "ABL.Logic")
 #set ($templateABLLogicBase = "ABL.LogicBase")
+#set ($templateABLConstraintExceptionTranslatorJCA = "ABL.ConstraintExceptionTranslatorJCA")
 #end

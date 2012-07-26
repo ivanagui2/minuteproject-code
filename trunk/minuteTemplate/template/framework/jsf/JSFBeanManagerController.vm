@@ -84,12 +84,12 @@ public class ${className} {
 	}
 	
 #end
-#if ($hasSemanticReference)
-	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
-		return ${EJBDaoImplVariable}.findBySemanticReference (${tableClassName}.class, $primaryKeyVariable);
-	}
-	
-#end
+##if ($hasSemanticReference)
+##	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
+##		return ${EJBDaoImplVariable}.findBySemanticReference (${tableClassName}.class, $primaryKeyVariable);
+##	}
+##	
+##end
 	public String create () {
 		${EJBDaoImplVariable}.create($tableVariableName);
 		return "success";
