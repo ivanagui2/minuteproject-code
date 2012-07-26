@@ -30,6 +30,20 @@ xs:schemaLocation="./mp-template-config.xsd">
 			scope-specific-value="model" >
 		</template>	
 		
+		<template name="ABL.ConstraintExceptionTranslatorJCA" templateFileName="ABL.ConstraintExceptionTranslatorJCA.vm" 
+			subdir="" outputsubdir="" technicalPackage="businesslogic"
+			file-extension="java" file-prefix="" file-suffix="ConstraintExceptionTranslatorJCA" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="model" >
+		</template>	
+		
+		<template name="ABL.ConstraintViolation" templateFileName="ABL.ConstraintViolation.vm" 
+			subdir="" outputsubdir="" technicalPackage="businesslogic"
+			file-extension="java" file-prefix="" file-suffix="ConstraintViolation" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="model" >
+		</template>	
+		
     </template-target>
     
 	<template-target 
