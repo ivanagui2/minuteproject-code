@@ -8,8 +8,8 @@
     </p:calendar>
 	<p:message for="lbl${columnClass}" />
 #else
-<h:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
-<h:message for="lbl${columnClass}" class="errorMsg"/>
+	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
+	<p:message for="lbl${columnClass}"/>
 #end
 #end
 
