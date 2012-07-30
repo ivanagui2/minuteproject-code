@@ -56,9 +56,8 @@
 			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
                     update=":form${tableClassName}:display" oncomplete="${domainVariableName}Dialog.show()"/>  	
 			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
+			<p:commandButton title="Delete #{i18n.$tableVariableName}" value="Delete #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.delete}" />
 		</f:facet> 	
-		
-		
 		
 		<p:rowExpansion>  
 			<p:fieldset legend="${domainVariableName} Details">  

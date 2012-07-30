@@ -53,9 +53,9 @@
 #end	
 #end
 
-	<converter>
-		<converter-id>dateTsConverter</converter-id>
-		<converter-class>$dateTsConverterImport</converter-class>
-	</converter>
+##	<converter>
+##		<converter-id>dateTsConverter</converter-id>
+##		<converter-class>$dateTsConverterImport</converter-class>
+##	</converter>
 	
 </faces-config>

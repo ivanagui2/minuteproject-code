@@ -80,7 +80,7 @@ public class ${className} {
 	}
 	
 	public void delete () {
-		${EJBDaoImplVariable}.delete (${tableVariableName});
+		${EJBDaoImplVariable}.delete (selected$tableClassName);
 	}
 	
 #end
