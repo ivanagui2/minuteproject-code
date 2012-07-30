@@ -23,6 +23,7 @@
 			file-extension="java" file-prefix="" file-suffix="Controller" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="add-backend-implementation" value="ejb"></property>
 		</template>
 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
@@ -71,14 +72,13 @@
 
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
-			application-specific="true" add-model-name="false" 
-      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			application-specific="true" add-model-name="false" >
+      		<!-- check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"> -->
 		</template>
 		
 		<template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
-			application-specific="true" add-model-name="false" 
-      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			application-specific="true" add-model-name="false" >
 		</template>		
 
     </template-target>		
@@ -119,6 +119,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="add-backend-implementation" value="ejb"></property>
 		</template>	
 					
 	</template-target>
