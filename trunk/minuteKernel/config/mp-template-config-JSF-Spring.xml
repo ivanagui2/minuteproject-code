@@ -59,6 +59,7 @@
 
 	</template-target>
 
+<!-- 
   	<template-target 
     	name="framework"
 		outputdir="src/main/java"
@@ -71,7 +72,8 @@
 		</template>
 
 	</template-target>
-		
+ -->
+ 		
 	<template-target 
     	name="JSF xhtml set"
 		libdir="lib/JSF_LIB.vm"
