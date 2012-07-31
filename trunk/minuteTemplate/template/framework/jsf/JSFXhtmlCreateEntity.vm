@@ -8,7 +8,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
 <ui:composition template="$modelDecoratorJSFImport">
-	<ui:define name="title">#{i18n.createTitle}</ui:define>
+	<ui:define name="title">#{i18n.createTitle} ${tableClassName}</ui:define>
 	<ui:define name="heading">#{i18n.createHeading}</ui:define>
 	<ui:define name="body">
 		<h:form>
@@ -39,7 +39,7 @@
 #columnJavaNaming()
 #putJSFColumnSnippet()
 #end					
-					<p:commandButton title="#{i18n.save}" value="#{i18n.save}"
+					<p:commandButton title="#{i18n.save}" value="#{i18n.save}" update="createPnl"
 						action="#{${entityControllerJSFVariable}.create}" />
 				</h:panelGrid>
 			</p:panel>
