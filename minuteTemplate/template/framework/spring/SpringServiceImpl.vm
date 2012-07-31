@@ -59,7 +59,8 @@ public class $className implements $SpringServiceInterfaceClass {
 	}
 
 	public void delete ($tableClassName ${tableVariableName}) {
-		${BslaDaoInterfaceVariable}.delete$tableClassName (${tableVariableName});
+	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass());
+		${BslaDaoInterfaceVariable}.delete$tableClassName (var);
 	}
 	
 #end
