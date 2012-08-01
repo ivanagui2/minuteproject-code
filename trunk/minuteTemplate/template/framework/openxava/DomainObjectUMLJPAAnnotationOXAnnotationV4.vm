@@ -198,8 +198,9 @@ public class ${className} {
 ##end
 #end
 #if ($columnUtils.hasStereotype($column))
-    @Stereotype ("$column.stereotype.stereotype")
-#elseif ($presentationUtils.isRichText($column))
+#set($stereotype=$presentationUtils.getStereotype($column))
+    @Stereotype ("$stereotype")
+#elseif ($presentationUtils.isRichText($column)) //for backward compatibility (temporary)
     @Stereotype ("HTML_TEXT")
 #end
     private $columnType $columnVar;	
