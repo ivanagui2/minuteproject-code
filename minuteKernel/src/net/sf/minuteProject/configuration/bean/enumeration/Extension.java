@@ -133,4 +133,12 @@ public enum Extension implements FileComment {
         }
         return null;
     }
+    
+    //UGLY but for groovy compile...
+ 	public String lineCommentBeginning() {
+ 		return "";
+ 	}
+	public String lineCommentEnding() {
+		return "";
+	}
 }
