@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
@@ -19,6 +20,7 @@ public class ColumnNamingConvention extends ModelConvention {
 	public final static String APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY="apply-fix-primary-key-column-name-when-no-ambiguity";
 	public final static String APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_NAME  ="apply-strip-field-name-prefix-when-matching-entity-name";
 	public final static String APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_ALIAS ="apply-strip-field-name-prefix-when-matching-entity-alias";
+	public final static String APPLY_FIELD_ALIAS_BASED_ON_CAMEL_CASE ="apply-field-alias-based-on-camelcase";
 
 	@Override
 	public void apply(BusinessModel model) {
@@ -28,8 +30,7 @@ public class ColumnNamingConvention extends ModelConvention {
 					applyMatch (table);
 				}
 			}
-		}		
-		if (APPLY_STRIP_COLUMN_NAME_SUFFIX.equals(type) || APPLY_STRIP_COLUMN_NAME_PREFIX.equals(type)) {
+		} else if (APPLY_STRIP_COLUMN_NAME_SUFFIX.equals(type) || APPLY_STRIP_COLUMN_NAME_PREFIX.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
 					apply (table);
@@ -41,8 +42,25 @@ public class ColumnNamingConvention extends ModelConvention {
 					applyFixPk (table);
 				}
 			}			
+		} else if (APPLY_FIELD_ALIAS_BASED_ON_CAMEL_CASE.equals(type))  {
+			if (model.getBusinessPackage()!=null) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
+					applyCamelCaseAlias (table);
+				}
+			}
 		}
 		
+	}
+
+	private void applyCamelCaseAlias(Table table) {
+		for (Column column : table.getColumns())
+			applyCamelCaseAlias (table, column);	
+	}
+
+	private void applyCamelCaseAlias(Table table, Column column) {
+		if (FormatUtils.isCamelCaseAlias(column)) {
+			column.setAlias(FormatUtils.decamelCase(column.getName()));
+		}
 	}
 
 	private void applyMatch (Table table) {

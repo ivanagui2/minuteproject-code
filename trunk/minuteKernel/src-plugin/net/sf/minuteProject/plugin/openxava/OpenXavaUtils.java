@@ -170,4 +170,20 @@ public class OpenXavaUtils {
 		return getModuleUrlRelativeViaParameter(application, module);
 //		return getModuleUrlAbsoluteViaSlash(application, module);
 	}	
+	
+	
+	/**
+	 * @param table
+	 * @return
+	 */
+	public static String getMainView (Table table) {
+		// get main view
+		// link semantic reference (content type) in short version
+		// self semantic reference
+		// matrix
+		// mandatory param should appear
+		// overflow in tab
+		// text-html in tab
+		return "";
+	}
 }
