@@ -171,6 +171,54 @@ public class OpenXavaUtils {
 //		return getModuleUrlAbsoluteViaSlash(application, module);
 	}	
 	
+	public static String getStereotype (Column column) {
+		if (ColumnUtils.hasStereotype(column))
+			return getStereotype (column.getStereotype().getStereotype());
+		return null;
+	}
+
+//   MONEY, DINERO
+//   PHOTO, IMAGEN, FOTO, IMAGE
+//   MEMO, TEXT_AREA, TEXTO_GRANDE
+//   LABEL, ETIQUETA
+//   BOLD_LABEL, ETIQUETA_NEGRITA
+//   TIME, HORA
+//   DATETIME, FECHAHORA
+//   IMAGES_GALLERY, GALERIA_IMAGENES (setup instructions)
+//   ZEROS_FILLED, RELLENADO_CON_CEROS
+//   HTML_TEXT, TEXTO_HTML (text with editable format)
+//   IMAGE_LABEL, ETIQUETA_IMAGEN (image depending on property content)
+//   EMAIL
+//   TELEPHONE, TELEFONO
+//   WEBURL
+//   IP
+//   ISBN
+//   CREDIT_CARD, TARJETA_CREDITO
+//   EMAIL_LIST, LISTA_EMAIL
+//   DOCUMENT_LIBRARY, LIBRERIA_DOCUMENTOS (new in v4m6, it only works inside Liferay)
+//   PASSWORD, CONTRASENA (new in v4.1)
+	private static String getStereotype(String stereotype) {
+		String s = stereotype.toLowerCase();
+		if (s.equals("url"))
+			return "WEBURL";
+		if (s.equals("currency"))
+			return "MONEY";
+		if (s.equals("image"))
+			return "IMAGE";
+		if (s.equals("text-area"))
+			return "TEXT_AREA";
+		if (s.equals("text-html"))
+			return "HTML_TEXT";
+		if (s.equals("email"))
+			return "EMAIL";
+		if (s.equals("phone"))
+			return "TELEPHONE";
+		if (s.equals("password"))
+			return "PASSWORD";
+		return null;
+	}
+
+	
 	
 	/**
 	 * @param table
@@ -186,4 +234,5 @@ public class OpenXavaUtils {
 		// text-html in tab
 		return "";
 	}
+
 }
