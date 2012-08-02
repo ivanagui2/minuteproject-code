@@ -3,6 +3,8 @@ package net.sf.minuteProject.utils;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.format.FormatCache;
 import net.sf.minuteProject.utils.format.FormatCacheEntry;
 import net.sf.minuteProject.utils.java.JavaUtils;
@@ -254,4 +256,18 @@ public class FormatUtils {
 		if (StringUtils.isEmpty(description)) return "";
 		return StringUtils.replace(description, "\\", "\n");
 	}
+
+	public static boolean isCamelCaseAlias(GeneratorBean bean) {
+		return isCamelCaseAlias(bean.getName());
+	}
+
+	private static boolean isCamelCaseAlias(String name) {
+		return name.matches("^[A-Z]$");
+	}
+
+	public static String decamelCase(String name) {
+		String[] split = StringUtils.splitByCharacterTypeCamelCase(name);
+		return new String(split.toString());
+	}
+
 }
