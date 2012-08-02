@@ -36,7 +36,7 @@ public class SemanticReferenceConvention extends ModelConvention {
 				}
 			}
 		} else
-			logger.error("convention not valid");
+			logger.error("SemanticReferenceConvention not valid");
 	}
 
 	private boolean isValid() {

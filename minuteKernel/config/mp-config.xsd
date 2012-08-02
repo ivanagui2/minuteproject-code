@@ -120,6 +120,19 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="stereotype-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="email" />
+			<xs:enumeration value="text-html" />
+			<xs:enumeration value="text-area" />
+			<xs:enumeration value="url" />
+			<xs:enumeration value="image" />
+			<xs:enumeration value="photo" />
+			<xs:enumeration value="currency" />
+			<xs:enumeration value="telephone" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="scope-type">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="entity" />
@@ -179,6 +192,14 @@
 		<xs:attribute name="look-up-in-parent-for-match" type="xs:boolean" />
 	</xs:complexType>
 
+	<xs:complexType name="stereotype-convention">
+		<xs:attribute name="field-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="stereotype" type="stereotype-type" />
+		<xs:attribute name="override" type="xs:boolean" />
+	</xs:complexType>
+
 	<xs:complexType name="table-default-primary-key-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
@@ -220,6 +241,9 @@
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 			<xs:element name="semantic-reference-convention" type="semantic-reference-convention"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="stereotype-convention" type="stereotype-convention"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 		</xs:sequence>
