@@ -101,8 +101,8 @@
 			entity-specific="false" package-specific="false" model-specific="true">
 			<property name="environment" value="local"/>
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
-		</template>		
-											
+		</template>
+
   	</template-target>
 
 	<template-target 

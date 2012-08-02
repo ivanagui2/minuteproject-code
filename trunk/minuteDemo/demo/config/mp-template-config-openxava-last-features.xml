@@ -9,6 +9,7 @@
 	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
 	<plugin name="openXavaUtils" className="net.sf.minuteProject.plugin.openxava.OpenXavaUtils"></plugin>
 	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
+	<plugin name="extensionUtils" className="net.sf.minuteProject.utils.ExtensionUtils"></plugin>
 	
 	<template-target 
     	name="JPA set"
@@ -20,16 +21,18 @@
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" has-updatable-nature="true"
+			extension-name-builder-plugin="extensionUtils" extension-name-builder-method="getGroovyNature"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
-      		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>      		
+      		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>	
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
 		</template>
 		
 		<template name="OpenXavaDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="_" 
-			entity-specific="true" 
+			entity-specific="true" has-updatable-nature="true"
+            extension-name-builder-plugin="extensionUtils" extension-name-builder-method="getGroovyNature"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
@@ -42,6 +45,13 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
 		</template>			
+
+        <!-- SDD beans -->  
+        <template name="SDDInputBean" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
+            subdir="" outputsubdir="" technicalPackage="sdd.in"
+            file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
+            scope-specific-value="sdd-input-bean" >
+        </template> 	
 				
 		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="dto"
@@ -433,6 +443,24 @@
 			file-extension="java" file-prefix="" file-suffix="Action" 
 			has-updatable-nature="true"
 			scope-specific-value="action">
+		</template>	
+
+		<template
+			name="ActionOX.stored.proc" templateFileName="ActionOX.vm" 
+			subdir="" outputsubdir="" technicalPackage="action" 
+			file-extension="java" file-prefix="" file-suffix="Action" 
+			has-updatable-nature="true"
+			scope-specific-value="function">
+			<property name="isAction" value="false"></property>
+		</template>									
+
+		<template
+			name="ActionOX.SDD.query" templateFileName="ActionOX.SDD.query.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.action" 
+			file-extension="java" file-prefix="" file-suffix="Action" 
+			has-updatable-nature="true"
+			scope-specific-value="query">
+			<property name="isAction" value="false"></property>
 		</template>	
 								
 	</template-target>	

@@ -80,6 +80,16 @@
 			file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
 			application-specific="true" add-model-name="false" >
 		</template>		
+		
+		<template name="JSFXhtmlPrimefacesBreadcrumbs" templateFileName="JSFXhtmlPrimefacesBreadcrumbs.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="BreadCrumb" 
+			application-specific="true" add-model-name="false" >
+		</template>	
+				
+		<template name="JSFCssDefault" templateFileName="JSFPrimefacesCss.vm" 
+			file-extension="css" technicalPackage="css" file-suffix="style" 
+			model-specific="true" add-model-name="false" add-model-dir-name="false" >
+		</template>		
 
     </template-target>		
 
