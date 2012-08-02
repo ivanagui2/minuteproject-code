@@ -37,7 +37,27 @@
 						<semantic-reference-convention
 						    field-pattern="name,number,amount" field-pattern-type="contains" 
 						    force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present="true"
-						    max-number-of-fields="5"
+						    max-number-of-fields="5" 
+						/>
+						<stereotype-convention
+							field-pattern="amount,salary" field-pattern-type="endsWith"
+							stereotype="currency"
+						/>
+						<stereotype-convention
+							field-pattern="price,credit" field-pattern-type="contains"
+							stereotype="currency"
+						/>
+						<stereotype-convention
+							field-pattern="email" field-pattern-type="contains"
+							stereotype="email"
+						/>
+						<stereotype-convention
+							field-type="BLOB" field-pattern="image" field-pattern-type="contains" override="true"
+							stereotype="image"
+						/>
+						<stereotype-convention
+							field-type="CLOB" override="true"
+							stereotype="html-text" 
 						/>
 					</conventions>
 					<entity name="customer">
