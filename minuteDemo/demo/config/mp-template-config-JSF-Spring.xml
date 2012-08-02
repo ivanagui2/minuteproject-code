@@ -25,6 +25,15 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="spring"></property>
 		</template>
+		
+		<!-- sdd -->
+		<template name="JSFSDDController" templateFileName="JSFSDDController.vm" 
+			subdir="" outputsubdir="" technicalPackage="controller"
+			file-extension="java" file-prefix="" file-suffix="Controller" 
+			scope-specific-value="query" has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="add-backend-implementation" value="spring"></property>
+		</template>
 <!-- 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
@@ -49,7 +58,22 @@
 		</template>
 
 	</template-target>
-		
+
+<!-- 
+  	<template-target 
+    	name="framework"
+		outputdir="src/main/java"
+		belongToPackage="true">
+			 
+		<template name="JSFFwkDateTsConverter" templateFileName="JSFFwkDateTsConverter.vm" 
+			subdir="" outputsubdir="" technicalPackage="fwk"
+			file-extension="java" file-prefix="DateTsConverter" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
+
+	</template-target>
+ -->
+ 		
 	<template-target 
     	name="JSF xhtml set"
 		libdir="lib/JSF_LIB.vm"
@@ -77,8 +101,30 @@
 		
 		<template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
+			model-specific="true" add-model-dir-name="true" add-model-name="false">
+		</template>		
+		
+		<template name="JSFXhtmlPrimefacesBreadcrumbs" templateFileName="JSFXhtmlPrimefacesBreadcrumbs.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="BreadCrumb" 
+			model-specific="true" add-model-dir-name="true" add-model-name="false" >
+		</template>		
+		
+		<template name="JSFPrimefacesIndexXhtml" templateFileName="JSFPrimefacesIndexXhtml.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="index" 
 			application-specific="true" add-model-name="false" >
 		</template>		
+		
+		<template name="JSFCssDefault" templateFileName="JSFPrimefacesCss.vm" 
+			file-extension="css" technicalPackage="css" file-suffix="style" 
+			model-specific="true" add-model-name="false" add-model-dir-name="false" >
+		</template>		
+		
+		<!-- SDD -->
+        <template name="JSFXhtmlSDDInput" templateFileName="JSFXhtmlSDDInput.vm" 
+            file-extension="xhtml" technicalPackage="sdd" file-suffix="Input" 
+            scope-specific-value="sdd-input-bean" 
+            check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+        </template>
 
     </template-target>		
 
