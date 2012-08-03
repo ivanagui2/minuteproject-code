@@ -74,8 +74,9 @@ $!updatedAreaSnippet
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
 #end
-#exposeViewParentSemanticRef()
-#exposeViewParentSemanticRefProperty()	
+##TODO add parent ref
+##exposeViewParentSemanticRef()
+##exposeViewParentSemanticRefProperty()	
 	),
 #exposeEntityUpdatedAreas("view-reference")
 $!updatedAreaBegin
@@ -198,7 +199,7 @@ public class ${className} {
 ##end
 #end
 #if ($columnUtils.hasStereotype($column))
-#set($stereotype=$presentationUtils.getStereotype($column))
+#set($stereotype=$openXavaUtils.getStereotype($column))
     @Stereotype ("$stereotype")
 #elseif ($presentationUtils.isRichText($column)) //for backward compatibility (temporary)
     @Stereotype ("HTML_TEXT")
