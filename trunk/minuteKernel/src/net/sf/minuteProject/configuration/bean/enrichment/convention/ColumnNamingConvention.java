@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
@@ -18,6 +19,7 @@ public class ColumnNamingConvention extends ModelConvention {
 	public final static String APPLY_STRIP_COLUMN_NAME_SUFFIX="apply-strip-column-name-suffix";
 	public final static String APPLY_STRIP_COLUMN_NAME_PREFIX="apply-strip-column-name-prefix";
 	public final static String APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY="apply-fix-primary-key-column-name-when-no-ambiguity";
+	public final static String APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY_AND_NOT_NATURAL="apply-fix-primary-key-column-name-when-no-ambiguity-and-not-natural";
 	public final static String APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_NAME  ="apply-strip-field-name-prefix-when-matching-entity-name";
 	public final static String APPLY_STRIP_FIELD_NAME_PREFIX_WHEN_MATCHING_ENTITY_ALIAS ="apply-strip-field-name-prefix-when-matching-entity-alias";
 	public final static String APPLY_FIELD_ALIAS_BASED_ON_CAMEL_CASE ="apply-field-alias-based-on-camelcase";
@@ -36,7 +38,7 @@ public class ColumnNamingConvention extends ModelConvention {
 					apply (table);
 				}
 			}
-		} else if (APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY.equals(type))  {
+		} else if (APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY.equals(type) || APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY_AND_NOT_NATURAL.equals(type))  {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
 					applyFixPk (table);
@@ -86,6 +88,9 @@ public class ColumnNamingConvention extends ModelConvention {
 	private void applyFixPk(Table table) {
 		if (defaultValue==null) return;
 		if (table.getPrimaryKeyColumns().length>1) return;
+		if (APPLY_FIX_PRIMARY_KEY_COLUMN_NAME_WHEN_NO_AMBIGUITY_AND_NOT_NATURAL.equals(type) 
+				&& ColumnUtils.isNaturalPk(TableUtils.getPrimaryFirstColumn(table))) 
+			return;
 		for (Column column : table.getColumns()) {
 			if (column.getAlias().toLowerCase().equals(defaultValue.toLowerCase()))
 				return;
