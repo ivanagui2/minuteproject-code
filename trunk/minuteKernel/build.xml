@@ -117,11 +117,11 @@
     <!-- target definitions -->
     <!-- ===================================================================== -->
 
-	<target name="compileGroovy" depends="compile">  
+	<target name="compileGroovy" >  
 		<taskdef name="groovyc"
 		  classname="org.codehaus.groovy.ant.Groovyc"
 		  classpath="${lib.dir}/groovy-all-1.8.0.jar"/>	
-
+	    <mkdir dir="${classes.dir}"/>
 		<groovyc destdir="${classes.dir}"> 
             <src path="${src.dir}"/>
         	<src path="${src-plugin.dir}"/>
@@ -130,7 +130,7 @@
 			<classpath> 				
 				<pathelement path="${classes.dir}"/>
 			</classpath> 
-
+			<javac debug="on" deprecation="true"/>
 		</groovyc>  		
 	</target>	    
 
@@ -173,6 +173,7 @@
         <title title="TASK copy code" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Copy all the code.</description>
     	<delete dir="${release.code.dir}" ></delete>
+    	<mkdir dir="${dist.dir}"/>
     	<macro_copy_code filesetDir="${src.dir}" todir="${release.code.dir}"/>
     	<macro_copy_code filesetDir="${src-plugin.dir}" todir="${release.code.dir}"/>
     	<zip basedir="${release.code.dir}" destfile="${dist.dir}/${archive.src.name}"></zip>
