@@ -53,4 +53,20 @@ ${targetTableVariableName}Via${linkTableName}By${localColumnName}s=$linkTableLab
 ${targetTableVariableName}Via${linkTableName}By${localColumnName}s[description]=$linkTableLabels
 #end
 #end
+##TODO
+# SDD
+#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#exposeQuerySpecific()
+#putImportQuerySDDBean()
+${sddInputBeanVariable}=$i18nUtils.getI18nFromDBObject($inputBean)
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+${sddInputBeanVariable}$separator${columnVar}=$i18nUtils.getI18nFromDBObject($column)
+#end
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+${sddOutputBeanVariable}$separator${columnVar}=$i18nUtils.getI18nFromDBObject($column)
+#end
+#end
+
 $!updatedAreaI18nEnd
