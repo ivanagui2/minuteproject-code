@@ -1,5 +1,5 @@
 #macro (putJSFColumnSnippet)
-<label>#{i18n.$tableVariableName$separator$columnVar}</label>
+<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
 #if($columnUtils.isTimeColumn($column))
     <p:calendar value="#{agentTypeController.agentType.createdDate}"
        id="lbl${columnClass}" converter="dateTsConverter"

@@ -42,6 +42,7 @@ public class ${className} {
     ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 
     private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
+    private $sddOutputBeanClass $sddOutputBeanVariable;
     private $sddInputBeanClass selected$sddInputBeanClass;
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
