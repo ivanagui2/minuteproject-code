@@ -361,7 +361,7 @@ public abstract class AbstractGenerator implements Generator {
     
 	protected void produce(VelocityContext context, Template template, String outputFilename) throws Exception{
        org.apache.velocity.Template velocityTemplate = getVelocityTemplate(template, outputFilename);
-       writeFile(context, velocityTemplate, outputFilename, template.getLicence());
+       writeFile(context, velocityTemplate, outputFilename, template);
        writeFilePostProcessing (template, outputFilename);
        template.increaseNumberOfGeneratedArtifacts ();
     }
@@ -394,15 +394,17 @@ public abstract class AbstractGenerator implements Generator {
        return velocityTemplate;
 	}
 	
-	private void writeFile (VelocityContext context, org.apache.velocity.Template velocityTemplate, String outputFilename, String licence) throws Exception {
+	private void writeFile (VelocityContext context, org.apache.velocity.Template velocityTemplate, String outputFilename, Template template) throws Exception {
 		FileOutputStream fos = new FileOutputStream(outputFilename);
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
 
-		if (licence!=null)
+		String licence = template.getLicence();
+		if (template.isLicenceAtBeginning() && licence!=null)
 			writer.append(licence);
 		if ( velocityTemplate != null)
 			velocityTemplate.merge(context, writer);
-
+		if (!template.isLicenceAtBeginning() && licence!=null)
+			writer.append(licence);
 		writer.flush();
 		writer.close();  
 	}

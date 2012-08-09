@@ -37,20 +37,20 @@ public class QueryParams extends AbstractConfiguration {
 		return null;
 	}
 
-	private List<QueryParam> copy(Query q) {
-		List<QueryParam> r = new ArrayList<QueryParam>();
-		for (QueryParam qp : q.getQueryParams().getQueryParams()) {
-			QueryParam param = new QueryParam();
-			param.setName(qp.getName());
-//			column.setName(queryParam.getName());
-			String type = qp.getType();
-			param.setType(type);
-			param.setSize(qp.getSize());
-			param.setScale(qp.getScale());
-			r.add(param);
-		}
-		return r;
-	}
+//	private List<QueryParam> copy(Query q) {
+//		List<QueryParam> r = new ArrayList<QueryParam>();
+//		for (QueryParam qp : q.getQueryParams().getQueryParams()) {
+//			QueryParam param = new QueryParam();
+//			param.setName(qp.getName());
+////			column.setName(queryParam.getName());
+//			String type = qp.getType();
+//			param.setType(type);
+//			param.setSize(qp.getSize());
+//			param.setScale(qp.getScale());
+//			r.add(param);
+//		}
+//		return r;
+//	}
 
 	public void setQueryParams(List<QueryParam> queryParams) {
 		this.queryParams = queryParams;

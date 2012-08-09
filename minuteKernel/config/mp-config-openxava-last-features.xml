@@ -48,6 +48,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					     <sql-path path="NAME"/>
 					   </semantic-reference>					
 					</entity>
+					<entity name="item">
+					   <field name="disabled" type-alias="BOOLEAN"></field>
+					</entity>
 				</enrichment>					
 			</business-model>
 			<statement-model>

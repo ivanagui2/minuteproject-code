@@ -192,6 +192,7 @@ public class Query extends AbstractConfiguration {
 		}
 //		column.setPrecisionRadix(queryParam.getPrecisionRadix());
 		// column.setTypeCode(fc.getTypeCode());
+		column.setRequired(queryParam.isMandatory());
 		return column;
 	}
 	

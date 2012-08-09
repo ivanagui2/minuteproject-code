@@ -258,7 +258,8 @@ public class FormatUtils {
 	}
 
 	public static boolean isCamelCaseAlias(GeneratorBean bean) {
-		return isCamelCaseAlias(bean.getName());
+		return true;
+//		return isCamelCaseAlias(bean.getName());
 	}
 
 	private static boolean isCamelCaseAlias(String name) {
@@ -266,8 +267,14 @@ public class FormatUtils {
 	}
 
 	public static String decamelCase(String name) {
+		StringBuffer sb = new StringBuffer();
 		String[] split = StringUtils.splitByCharacterTypeCamelCase(name);
-		return new String(split.toString());
+		for (int i=0; i<split.length;i++) {
+			sb.append(split[i]);
+			if (i+1!=split.length)
+				sb.append("_");
+		}
+		return sb.toString();
 	}
 
 }

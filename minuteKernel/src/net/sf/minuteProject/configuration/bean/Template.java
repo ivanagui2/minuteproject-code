@@ -793,11 +793,16 @@ public class Template extends TemplateTarget {
 //	}
 
 	public String getLicence() {
-		if (extension==null || extension.equals(Extension.xml))
+		if (extension==null)// || extension.equals(Extension.xml))
 			return null;
 		return extension.getLicence()+getTemplateSignature();
 	}
 
+	public boolean isLicenceAtBeginning () {
+		if (extension==null)
+			return false;
+		return extension.licenceAtBeginning();
+	}
 	private String getTemplateSignature() {
 		return getComment(getTemplateSignatureTxt());
 	}

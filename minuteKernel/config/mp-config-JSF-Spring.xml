@@ -70,17 +70,16 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                             </value></query-body>
                          <query-params>
                              <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
-                             <query-param name="latitude_upper_limit" is-mandatory="false" type="DOUBLE" sample="38"></query-param>
-                             <query-param name="longitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="-122"></query-param>
-                             <query-param name="longitude_upper_limit" is-mandatory="false" type="DOUBLE" sample="-123"></query-param>
-                             <query-param name="city" is-mandatory="false" type="STRING" sample="'S'"></query-param>
+                             <query-param name="latitude_upper_limit" type="DOUBLE" sample="38"></query-param>
+                             <query-param name="longitude_lower_limit" type="DOUBLE" sample="-122"></query-param>
+                             <query-param name="longitude_upper_limit" type="DOUBLE" sample="-123"></query-param>
+                             <query-param name="city" type="STRING" sample="'S'"></query-param>
                          </query-params>
                      </query>
                 </queries>
             </statement-model>
 		</model>	
 		<targets>
-
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 

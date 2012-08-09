@@ -6,9 +6,10 @@ import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.FunctionColumn;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnBaseAbstract;
 import net.sf.minuteProject.utils.FormatUtils;
 
-public class FunctionColumnDDLUtils extends AbstractConfiguration implements FunctionColumn {
+public class FunctionColumnDDLUtils extends ColumnBaseAbstract implements FunctionColumn {
 
 	public FunctionColumnDDLUtils() {}
 	
@@ -87,10 +88,11 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
 		this.sizeAsInt = sizeAsInt;
 	}
 
-	public String getType() {
-		return type;
-	}
-
+    public String getType()
+    {
+    	return type;
+    }
+    
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -182,6 +184,6 @@ public class FunctionColumnDDLUtils extends AbstractConfiguration implements Fun
 	public void setFunction(Function function) {
 		this.function = function;
 	}
-	
+
 
 }
