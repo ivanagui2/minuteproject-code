@@ -161,7 +161,7 @@ public class ConvertUtils {
 		String type=(column.getTable()!=null 
 				     && column.getTable().getDatabase()!=null)?
 				    		 column.getTable().getDatabase().getType():null;
-		return getJavaTypeFromDBFullType(column.getType(), 
+		return getJavaTypeFromDBFullType(column.getTypeAlias(), //column.getType(), 
 				column.getSizeAsInt(), 
 				column.getScale(), 
 				type);
@@ -243,7 +243,7 @@ public class ConvertUtils {
 		//String retStr=null;
 		if (dBType==null) return "String";
 		if (dBType.equals("BOOLEAN"))
-			return  "java.lang.Boolean";					
+			return  "Boolean";					
 		if (dBType.equals("BIGINT"))
 			return  "Long";	
 		if (dBType.equals("DOUBLE"))
@@ -263,11 +263,11 @@ public class ConvertUtils {
 		if (dBType.equals("VARCHAR"))
 			return  "String";	
 		if (dBType.equals("LONGVARCHAR"))
-			return  "String";	
+			return  "String";
 		if (dBType.equals("VARCHAR2"))
-			return  "String";		
+			return  "String";
 		if (dBType.equals("VARGRAPHIC"))
-			return  "String";			
+			return  "String";
 		if (dBType.equals("CHAR"))
 			return  "String";		
 		if (dBType.equals("INTEGER"))
@@ -302,7 +302,8 @@ public class ConvertUtils {
 	}	
 
 	public static String getJavaTypeFromDBType (Column column) {
-		return getJavaTypeFromDBType(column.getType(), column.getScale(), getDatabaseType(column));
+		return getJavaTypeFromDBType(column.getTypeAlias(),//column.getType(),
+				column.getScale(), getDatabaseType(column));
 	}
 
 	public static String getJavaTypeFromDBTypeOnly (String dBType, int scale) {

@@ -27,6 +27,7 @@
 				</business-package>
 				<enrichment>
 					<conventions>
+					    <column-naming-convention type="apply-field-alias-based-on-camelcase"/>
 						<entity-naming-convention type="apply-strip-table-name-prefix"
 							pattern-to-strip="SYS,FIN" />
 						<column-naming-convention

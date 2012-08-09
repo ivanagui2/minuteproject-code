@@ -13,7 +13,7 @@ public class Field extends AbstractConfiguration {
 	private String linkToTargetEntity, linkToTargetField, linkReferenceAlias;
 	private String bidirectional;
 	private Stereotype stereotype;
-	private String type, length;
+	private String type, length, typeAlias;
 	private boolean isMandatory, isId, isSearchable, isEditable;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
@@ -150,6 +150,14 @@ public class Field extends AbstractConfiguration {
 
 	public void addDerivation(Derivation derivation) {
 		getDerivations().add(derivation);
+	}
+
+	public void setTypeAlias(String typeAlias) {
+		this.typeAlias = typeAlias;
+	}
+
+	public String getTypeAlias() {
+		return typeAlias;
 	}
 
 }

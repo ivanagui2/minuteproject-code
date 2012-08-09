@@ -2,7 +2,7 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 
 public class QueryParam extends QueryAdapter {
 
-	private boolean isMandatory;
+	private boolean isMandatory=true;
 	private String type, sample;
 	private int size, scale;
 	private QueryParamOptionalSections queryParamOptionalSections;
@@ -10,7 +10,7 @@ public class QueryParam extends QueryAdapter {
 	public boolean isMandatory() {
 		return isMandatory;
 	}
-	public void setMandatory(boolean isMandatory) {
+	public void setIsMandatory(boolean isMandatory) {
 		this.isMandatory = isMandatory;
 	}
 	public String getType() {

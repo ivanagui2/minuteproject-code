@@ -14,6 +14,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setVersion(column.isVersion());
 		setName(column.getName());
 		setAlias(column.getAlias());
+		setTypeAlias(column.getTypeAlias());
 		setComment(column.getComment());
 		setDescription(column.getDescription());
 		setTriggers(column.getTriggers());

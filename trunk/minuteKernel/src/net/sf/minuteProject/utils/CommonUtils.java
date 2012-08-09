@@ -173,9 +173,9 @@ public class CommonUtils {
 		return FormatUtils.getJavaNameVariable(getClassName(table, template));
 	}
 
-	public static String getJavaType (String type) {
-		return ConvertUtils.getJavaTypeFromDBType(type);
-	}
+//	public static String getJavaType (String type) {
+//		return ConvertUtils.getJavaTypeFromDBType(type);
+//	}
 	
 	public static String getJavaTypeOnly (Column column) {
 		if (column == null) {
@@ -402,7 +402,7 @@ public class CommonUtils {
 			logger.debug("ERROR the column is null");
 			return "ERROR column is null";
 		}
-		return ConvertUtils.getJavaTypeFromDBType(column.getType());
+		return ConvertUtils.getJavaTypeFromDBType(column.getTypeAlias());//column.getType());
 	}	
 	
 	public static String getFullType2 (Column column) {

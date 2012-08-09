@@ -23,6 +23,9 @@ public enum Extension implements FileComment {
 		public String textCommentEnding() {
 			return "*/";
 		}
+		public boolean licenceAtBeginning() {
+			return true;
+		}
 	},
 	groovy {
 		public String lineCommentBeginning() {
@@ -39,6 +42,9 @@ public enum Extension implements FileComment {
 		}
 		public String textCommentEnding() {
 			return "*/";
+		}
+		public boolean licenceAtBeginning() {
+			return true;
 		}
 	},
 	xml {
@@ -57,6 +63,9 @@ public enum Extension implements FileComment {
 		public String textCommentEnding() {
 			return "-->";
 		}
+		public boolean licenceAtBeginning() {
+			return false;
+		}
 	},
 	properties {
 		public String lineCommentBeginning() {
@@ -74,6 +83,9 @@ public enum Extension implements FileComment {
 		public String textCommentEnding() {
 			return "#";
 		}
+		public boolean licenceAtBeginning() {
+			return true;
+		}
 	},
 	sql {
 		public String lineCommentBeginning() {
@@ -90,6 +102,9 @@ public enum Extension implements FileComment {
 		}
 		public String textCommentEnding() {
 			return "*/";
+		}
+		public boolean licenceAtBeginning() {
+			return true;
 		}
 	};
 
@@ -140,5 +155,8 @@ public enum Extension implements FileComment {
  	}
 	public String lineCommentEnding() {
 		return "";
+	}
+	public boolean licenceAtBeginning() {
+		return false;
 	}
 }

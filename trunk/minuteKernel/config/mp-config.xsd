@@ -120,6 +120,18 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="column-naming-convention">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="apply-strip-column-name-suffix" />
+			<xs:enumeration value="apply-strip-column-name-prefix" />
+			<xs:enumeration value="apply-fix-primary-key-column-name-when-no-ambiguity" />
+			<xs:enumeration value="apply-fix-primary-key-column-name-when-no-ambiguity-and-not-natural" />
+			<xs:enumeration value="apply-strip-field-name-prefix-when-matching-entity-name" />
+			<xs:enumeration value="apply-strip-field-name-prefix-when-matching-entity-alias" />
+			<xs:enumeration value="apply-field-alias-based-on-camelcase" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="stereotype-type">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="email" />
@@ -145,7 +157,7 @@
 
 	<!-- conventions -->
 	<xs:complexType name="column-naming-convention">
-		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="type" type="column-naming-convention" />
 		<xs:attribute name="pattern-to-strip" type="xs:string" />
 	</xs:complexType>
 
@@ -288,9 +300,22 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:complexType name="validation">
+		<xs:sequence>
+			<xs:element name="validation" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="min" type="xs:int" />
+					<xs:attribute name="max" type="xs:int" />
+					<xs:attribute name="regex" type="xs:string" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 
 	<xs:complexType name="field">
 		<xs:sequence>
+			<xs:element name="validation" minOccurs="0" maxOccurs="unbounded" type="validation"/>
 			<xs:element name="stereotype" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:attribute name="stereotype" type="xs:string" />
@@ -303,6 +328,12 @@
 		<xs:attribute name="linkToTargetEntity" type="xs:string" />
 		<xs:attribute name="linkToTargetField" type="xs:string" />
 		<xs:attribute name="linkReferenceAlias" type="xs:string" />
+		<xs:attribute name="type-alias" type="xs:string" />
+		<xs:attribute name="is-id" type="xs:boolean" />
+		<xs:attribute name="is-mandatory" type="xs:boolean" />
+		<xs:attribute name="is-searchable" type="xs:boolean" />
+		<xs:attribute name="is-editable" type="xs:boolean" />
+		
 	</xs:complexType>
 
 	<xs:complexType name="derivations">
@@ -424,7 +455,7 @@
 		<xs:attribute name="name" type="xs:string" use="required" />
 		<xs:attribute name="type" type="xs:string" use="required" />
 		<xs:attribute name="sample" type="xs:string" use="required" />
-		<xs:attribute name="is-mandatory" type="xs:boolean" />
+		<xs:attribute name="is-mandatory" type="xs:boolean" default="true"/>
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
 

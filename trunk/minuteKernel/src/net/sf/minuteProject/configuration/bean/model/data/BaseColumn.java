@@ -199,5 +199,7 @@ public interface BaseColumn extends GeneratorBean{
 //    
 //    public void getDefault ();
 
+    public String getTypeAlias();
     
+    public void setTypeAlias(String typeAlias);
 }

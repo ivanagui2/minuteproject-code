@@ -322,6 +322,7 @@ public class BusinessModel {
 		column.setSearchable(field.isSearchable());
 		column.setAlias(field.getAlias());
 		column.setDerivations(field.getDerivations());
+		column.setTypeAlias(field.getTypeAlias());
 //		column.setTriggers(field.getTriggers());
 	}
 	

@@ -11,7 +11,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.FormatUtils;
 
-public abstract class ColumnAbstract extends AbstractConfiguration implements Column {
+public abstract class ColumnAbstract extends ColumnBaseAbstract implements Column {
 
 	private Column column;
 	private Table table;
@@ -185,6 +185,11 @@ public abstract class ColumnAbstract extends AbstractConfiguration implements Co
     public String getType()
     {
         return column.getType();
+    }
+    
+    public String getRealType()
+    {
+    	return column.getType();
     }
 
     /**

@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnBaseAbstract;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TriggerUtils;
@@ -20,7 +21,7 @@ import net.sf.minuteProject.utils.property.PropertyUtils;
  * 
  * @author Florian Adler
  */
-public class ColumnDDLUtils extends AbstractConfiguration implements Column
+public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 {
 	
 	private org.apache.ddlutils.model.Column column;
@@ -194,7 +195,6 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
     {
         return column.getType();
     }
-
     /**
      * Sets the JDBC type of the column.
      *
@@ -492,5 +492,5 @@ public class ColumnDDLUtils extends AbstractConfiguration implements Column
 	public void setDerivations(List<Derivation> derivations) {
 		this.derivations = derivations;
 	}
-	
+
 }

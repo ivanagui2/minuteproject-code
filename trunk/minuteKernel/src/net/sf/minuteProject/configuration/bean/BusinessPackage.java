@@ -17,6 +17,7 @@ import net.sf.minuteProject.utils.DBTemplateUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
+@SuppressWarnings("serial")
 public class BusinessPackage extends BusinessPackageAdapter {
 
 	protected BusinessModel businessModel;
@@ -28,29 +29,25 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	private List services;
 
 	void setPackageServices(Model model, Database database) {
-		packageServices = new ArrayList();
-		Hashtable<String, Package> ht = new Hashtable();
-		View[] views = database.getViews();
-		for (int i = 0; i < views.length; i++) {
-			View view = views[i];
-			view.setDatabase(database);
-			store (ht, model, view);
-//			if (ModelUtils.isToGenerate(businessModel, view)) {
-//				String packageName = CommonUtils.getBusinessPackageName(model,	view);
-//				Package pack = (Package) ht.get(packageName);
-//				if (pack == null) {
-//					pack = new Package();
-//					pack.setBusinessPackage(this);
-//					pack.setName(packageName);
-//				}
-//				pack.addView(view);
-//				ht.put(packageName, pack);
-//			}
-		}
-		Enumeration enumeration = ht.elements();
-		while (enumeration.hasMoreElements()) {
-			packageServices.add(enumeration.nextElement());
-		}
+		setPackages(model, database, getPackageServices(), database.getViews());
+//		packageServices = new ArrayList();
+//		Hashtable<String, Package> ht = new Hashtable();
+//		View[] views = database.getViews();
+//		for (int i = 0; i < views.length; i++) {
+//			View view = views[i];
+//			view.setDatabase(database);
+//			store (ht, model, view);
+//		}
+//		Enumeration enumeration = ht.elements();
+//		while (enumeration.hasMoreElements()) {
+//			packageServices.add(enumeration.nextElement());
+//		}
+	}
+
+	private List<Package> getPackageServices() {
+		if (packageServices==null)
+			packageServices=new ArrayList();
+		return packageServices;
 	}
 
 	public List<View> getServices() {
@@ -58,28 +55,31 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	}
 
 	void setPackageViews(Model model, Database database) {
-		packageViews = new ArrayList<Package>();
-		Hashtable<String, Package> ht = new Hashtable();
-		View[] views = database.getViews();
-		for (int i = 0; i < views.length; i++) {
-			View view = views[i];
-			view.setDatabase(database);
-			store (ht, model, view);
-//			if (ModelUtils.isToGenerate(businessModel, view)) {
-//				String packageName = CommonUtils.getBusinessPackageName(model, view);
-//				Package pack = (Package) ht.get(packageName);
-//				if (pack == null) {
-//					pack = new Package();
-//					pack.setBusinessPackage(this);
-//					pack.setName(packageName);
-//				}
-//				pack.addView(view);
-//				ht.put(packageName, pack);
-//			}
+		setPackages(model, database, getPackageViews(), database.getViews());
+//		packageViews = new ArrayList<Package>();
+//		Hashtable<String, Package> ht = new Hashtable();
+//		View[] views = database.getViews();
+//		for (int i = 0; i < views.length; i++) {
+//			View view = views[i];
+//			view.setDatabase(database);
+//			store (ht, model, view);
+//		}
+//		Enumeration<Package> enumeration = ht.elements();
+//		while (enumeration.hasMoreElements()) {
+//			packageViews.add(enumeration.nextElement());
+//		}
+	}
+	
+	void setPackages(Model model, Database database, List<Package> packs, Table[] t) {
+		Hashtable<String, Package> ht = new Hashtable<String, Package>();
+		for (int i = 0; i < t.length; i++) {
+			Table table = t[i];
+			table.setDatabase(database);
+			store (ht, model, table);
 		}
 		Enumeration<Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
-			packageViews.add(enumeration.nextElement());
+			packs.add(enumeration.nextElement());
 		}
 	}
 
@@ -96,30 +96,18 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	}
 
 	void setPackages(Model model, Database database) {
-//		packages = new ArrayList<Package>();
-		Hashtable<String, Package> ht = new Hashtable<String, Package>();
-		Table[] tables = database.getTables();
-		
-		for (int i = 0; i < tables.length; i++) {
-			Table table = tables[i];
-			table.setDatabase(database);
-			store (ht, model, table);
-//			if (ModelUtils.isToGenerate(businessModel, table)) {
-//				String packageName = CommonUtils.getBusinessPackageName(model, table);
-//				Package pack = (Package) ht.get(packageName);
-//				if (pack == null) {
-//					pack = new Package();
-//					pack.setBusinessPackage(this);
-//					pack.setName(packageName);
-//				}
-//				pack.addTable(table);
-//				ht.put(packageName, pack);
-//			}
-		}
-		Enumeration<Package> enumeration = ht.elements();
-		while (enumeration.hasMoreElements()) {
-			getPackages().add(enumeration.nextElement());
-		}
+		setPackages(model, database, getPackages(), database.getTables());
+//		Hashtable<String, Package> ht = new Hashtable<String, Package>();
+//		Table[] tables = database.getTables();		
+//		for (int i = 0; i < tables.length; i++) {
+//			Table table = tables[i];
+//			table.setDatabase(database);
+//			store (ht, model, table);
+//		}
+//		Enumeration<Package> enumeration = ht.elements();
+//		while (enumeration.hasMoreElements()) {
+//			getPackages().add(enumeration.nextElement());
+//		}
 	}
 
 	private void store (Hashtable<String, Package> ht, Model model, Table table) {
@@ -209,99 +197,7 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	public void addTransferEntity(Table transferEntity) {
 		getTransferEntities().add(transferEntity);
 	}
-//	public List<Package> getPackages() {
-//		if (packages == null)
-//			packages = new ArrayList<Package>();
-//		return packages;
-//	}
-//
-//	public List<Package> getPackageViews() {
-//		if (packageViews == null)
-//			packageViews = new ArrayList<Package>();
-//		return packageViews;
-//	}
-//
-//	public void addCondition(Condition condition) {
-//		if (conditions == null)
-//			conditions = new ArrayList<Condition>();
-//		conditions.add(condition);
-//	}
-//
-//	public List<Condition> getConditions() {
-//		return conditions;
-//	}
-//
-//	public void setConditions(List<Condition> conditions) {
-//		this.conditions = conditions;
-//	}
-//	
-//	public String getPackage(String value) {
-//		return getConditionsResult(value);
-//	}
-//
-//	private String getConditionsResult(String valueToTest) {
-//		if (conditions!=null) {
-//			for (Condition condition : conditions) {
-//				if (condition.getConditionResult(valueToTest) != null) {
-//					return condition.getResult();
-//				}
-//			}
-//		}
-//		return getDefaultPackage();
-//	}
-//
-//	public String getDefaultPackage() {
-//		if (defaultPackage==null)
-//			return businessModel.getModel().getName();
-//		return defaultPackage;
-//	}	
-//	
-//	public List<Table> getTransferEntities() {
-//		if (transferEntities==null) transferEntities = new ArrayList<Table>();
-//		return transferEntities;
-//	}
-//
-//	public void addTransferEntity(Table transferEntity) {
-//		getTransferEntities().add(transferEntity);
-//	}
-//
-//	public List<Package> getPackageTransferEntities() {
-//		if (packageTransferEntities==null) packageTransferEntities = new ArrayList<Package>();
-//		return packageTransferEntities;
-//	}
-//
-//
-//	public void setDefaultPackage(String defaultPackage) {
-//		this.defaultPackage = defaultPackage;
-//	}
-//
-//	public BusinessModel getBusinessModel() {
-//		return businessModel;
-//	}
-//
-//	public void setBusinessModel(BusinessModel businessModel) {
-//		this.businessModel = businessModel;
-//	}
-//
-//	public String getAutoPackageType() {
-//		return autoPackageType;
-//	}
-//
-//	public void setAutoPackageType(String autoPackageType) {
-//		this.autoPackageType = autoPackageType;
-//	}
-//
-//	public String getDefaultPackageType() {
-//		return defaultPackageType;
-//	}
-//
-//	public void setDefaultPackageType(String defaultPackageType) {
-//		this.defaultPackageType = defaultPackageType;
-//	}
-//	
-	
 
-	
 	public List<Package> getPackages() {
 		if (packages == null)
 			packages = new ArrayList<Package>();
@@ -329,22 +225,6 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		return packageTransferEntities;
 	}
 
-//	@Override
-//	protected List<GeneratorBean> convertGroupToElement(Group t) {
-//		List<GeneratorBean> tables = new ArrayList<GeneratorBean>();
-//		for (String element : t.getList()) {
-//			Table table = TableUtils.getTable(getBusinessModel().getModel().getDataModel().getDatabase(), element);
-//			if (table!=null)
-//				tables.add(table);
-//		}
-//		return tables;
-//	}
-//
-//	@Override
-//	public List<GeneratorBean> getElements() {
-//		return null;
-//	}
-	
 	public BusinessModel getBusinessModel() {
 		return businessModel;
 	}

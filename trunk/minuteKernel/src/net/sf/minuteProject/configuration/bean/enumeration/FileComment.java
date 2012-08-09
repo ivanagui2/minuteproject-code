@@ -7,5 +7,6 @@ public interface FileComment {
 	public String textCommentBeginning();
 	public String textCommentMiddle();
 	public String textCommentEnding();
+	public boolean licenceAtBeginning();
 
 }
