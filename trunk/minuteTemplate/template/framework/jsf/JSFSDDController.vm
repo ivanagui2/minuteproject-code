@@ -24,8 +24,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import $sddOutputBeanCollectionImport;
+import $sddOutputBeanImport;
 import $sddInputBeanImport;
-import $sddDaoInterfaceImport;
+##import $sddDaoInterfaceImport;
+import $sddServiceInterfaceImport;
 /**
  *
  * <p>Title: ${className}</p>
@@ -38,11 +40,11 @@ import $sddDaoInterfaceImport;
 public class ${className} {
 
     @Autowired
-    @Qualifier("${sddDaoInterfaceVariable}")
-    ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+    @Qualifier("${sddServiceInterfaceVariable}")
+    ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
 
     private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
-    private $sddOutputBeanClass $sddOutputBeanVariable;
+    private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
     private $sddInputBeanClass selected$sddInputBeanClass;
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
@@ -51,12 +53,20 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
     public $sddOutputBeanCollectionClass execute () {
-        return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
+        $sddOutputBeanCollectionVariable = ${sddServiceInterfaceVariable}.execute(${sddInputBeanVariable});
+        return $sddOutputBeanCollectionVariable;
     }
 #end
 $!updatedAreaEnd
 
+#set ($table = $query.outputBean)
+#putImportSDDBean()
+    public List<$sddOutputBeanClass> getOutputList() {
+        return ($sddOutputBeanCollectionVariable==null)?new ArrayList<$sddOutputBeanClass>():${sddOutputBeanCollectionVariable}.get${beanClass}s();
+    }
+
 #putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
+#putGetterSetter($sddServiceInterfaceClass, $sddServiceInterfaceVariable)
 #putGetterSetterAlt($sddInputBeanClass, "Selected$sddInputBeanClass", "selected$sddInputBeanClass")
 
 $!updatedAreaImplementation

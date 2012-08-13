@@ -25,6 +25,9 @@
 
 #macro (exposeSDDSpring)
 #exposeSDDSpringTemplate()
+#set ($sddServiceInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDServiceInterface))
+#set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
+#set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDServiceInterface))
 #set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
 #set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDDaoInterface))
@@ -51,6 +54,7 @@
 
 #macro (exposeSDDSpringTemplate)
 #set ($templateSDDDaoInterface = "SDDDaoInterface")
+#set ($templateSDDServiceInterface = "SDDServiceInterface")
 #set ($templateSDDCompositeDaoInterface = "SDDCompositeDaoInterface")
 #set ($templateSDDSpringJPADaoClass = "SDDSpringJPADao")
 #end
