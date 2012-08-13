@@ -63,6 +63,7 @@ ${sddInputBeanVariable}=$i18nUtils.getI18nFromDBObject($inputBean)
 #putColumnParamNaming()
 ${sddInputBeanVariable}$separator${columnVar}=$i18nUtils.getI18nFromDBObject($column)
 #end
+${sddOutputBeanVariable}=$i18nUtils.getI18nFromDBObject($outputBean)
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 ${sddOutputBeanVariable}$separator${columnVar}=$i18nUtils.getI18nFromDBObject($column)
