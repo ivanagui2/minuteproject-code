@@ -38,5 +38,16 @@ public class ${className} {
 
 #end
 
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+#foreach($column in ${table.columns})
+#putColumnParamNaming()
+        sb.append("$columnClass: "+get$columnClass());
+#if($velocityCount<${table.columns.length})
+        sb.append(", ");
+#end
+#end
+        return sb.toString();
+    }
 $!updatedAreaImplementation
 }

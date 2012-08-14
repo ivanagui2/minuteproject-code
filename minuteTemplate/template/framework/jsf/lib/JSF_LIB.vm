@@ -46,6 +46,7 @@
 #set ($modelBeanManagerMenuJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerMenuJSFClass))
 #set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
+#set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))

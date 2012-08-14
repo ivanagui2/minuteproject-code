@@ -39,13 +39,12 @@ import $sddServiceInterfaceImport;
 @RequestScoped
 public class ${className} {
 
-    @Autowired
-    @Qualifier("${sddServiceInterfaceVariable}")
+    @ManagedProperty("#{${sddServiceInterfaceVariable}}")
     ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
 
     private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
     private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
-    private $sddInputBeanClass selected$sddInputBeanClass;
+    private $sddOutputBeanClass selected$sddOutputBeanClass;
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
 $!updatedAreaBegin
@@ -67,7 +66,7 @@ $!updatedAreaEnd
 
 #putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
 #putGetterSetter($sddServiceInterfaceClass, $sddServiceInterfaceVariable)
-#putGetterSetterAlt($sddInputBeanClass, "Selected$sddInputBeanClass", "selected$sddInputBeanClass")
+#putGetterSetterAlt($sddOutputBeanClass, "Selected$sddOutputBeanClass", "selected$sddOutputBeanClass")
 
 $!updatedAreaImplementation
 
