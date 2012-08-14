@@ -123,7 +123,7 @@
 		<!-- SDD -->
         <template name="JSFXhtmlSDDInput" templateFileName="JSFXhtmlSDDInput.vm" 
             file-extension="xhtml" technicalPackage="sdd" file-suffix="Input" 
-            scope-specific-value="sdd-input-bean" 
+            scope-specific-value="query" 
             check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
         </template>
 
