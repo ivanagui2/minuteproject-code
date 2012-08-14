@@ -296,6 +296,8 @@ public class CommonUtils {
 	}
 	
 	protected static String getBusinessPackage(Model model, Table table) {
+		if (table==null)
+			return "TABLE CANNOT BE NUL";
 		return model.getBusinessModel().getBusinessPackage().getPackage(table.getName());
 	}
 	
