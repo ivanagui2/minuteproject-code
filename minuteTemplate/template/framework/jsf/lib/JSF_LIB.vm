@@ -62,6 +62,7 @@
 #macro (exposeJSFTemplate)
 #set ($templateEntityCreateJSF = "JSFXhtmlCreateEntity")
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
+#set ($templateSDDJSF = "JSFXhtmlSDDInput")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateModelI18nJSF = "JSFI18nProperties")
 #set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")

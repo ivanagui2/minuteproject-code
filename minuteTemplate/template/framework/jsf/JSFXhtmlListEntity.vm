@@ -55,8 +55,9 @@
 		<f:facet name="footer"> 
 			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
                     update=":form${tableClassName}:display" oncomplete="${domainVariableName}Dialog.show()"/>  	
-			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
-			<p:commandButton title="Delete #{i18n.$tableVariableName}" value="Delete #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.delete}" />
+##			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
+            <h:button value="New #{i18n.$tableVariableName}" outcome="${entityCreateJSFLocation}" class="Automatic reply: ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
+            <p:commandButton title="Delete #{i18n.$tableVariableName}" value="Delete #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.delete}" />
 		</f:facet> 	
 		
 		<p:rowExpansion>  
@@ -87,34 +88,34 @@
 #end
 				</h:panelGrid>
 			</p:fieldset> 
-<!--
-			<p:fieldset legend="agentRole's Summary">
-				<p:toolbar id="agentRoleToolBar">  
-					<p:toolbarGroup align="left"> 
-						<p:commandButton type="button" title="Add agentRole"  actionListener="#{agentRoleController.displayInput}" icon="ui-icon-document" update="evtsForm"/>         
-					</p:toolbarGroup>
-				</p:toolbar> 
-					<h:panelGrid columns="3" cellpadding="5"  styleClass="list_display_table_TR_even">
-						<c:forEach  var="evt" items="#{agentRoleController.selectedAgentRole.events}" varStatus="result" >
-								<p:column>
-									<h:outputText value="#{evt.typeEvent.label}" />  
-								</p:column> 
-								<p:column> 
-									<h:commandLink action="#{eventDetailsHistoryAction.displayEventDetails}">
-										<p:graphicImage value="/img/search.png"/> 
-										<f:param name="selectedEventUid" value="#{evt.uid}"/>
-									</h:commandLink>
-								</p:column> 
-								<p:column>  
-									<h:commandLink action="#{eventDetailsHistoryAction.deleteEvent}">
-										<p:graphicImage value="/img/delete_element.gif"/> 
-										<f:param name="selectedEventUid" value="#{evt.uid}"/>
-									</h:commandLink>
-								</p:column>  
-						</c:forEach> 
-					</h:panelGrid>
-			</p:fieldset> 
--->
+##<!--
+##			<p:fieldset legend="agentRole's Summary">
+##				<p:toolbar id="agentRoleToolBar">  
+##					<p:toolbarGroup align="left"> 
+##						<p:commandButton type="button" title="Add agentRole"  actionListener="#{agentRoleController.displayInput}" icon="ui-icon-document" update="evtsForm"/>         
+##					</p:toolbarGroup>
+##				</p:toolbar> 
+##					<h:panelGrid columns="3" cellpadding="5"  styleClass="list_display_table_TR_even">
+##						<c:forEach  var="evt" items="#{agentRoleController.selectedAgentRole.events}" varStatus="result" >
+##								<p:column>
+##									<h:outputText value="#{evt.typeEvent.label}" />  
+##								</p:column> 
+##								<p:column> 
+##									<h:commandLink action="#{eventDetailsHistoryAction.displayEventDetails}">
+##										<p:graphicImage value="/img/search.png"/> 
+##										<f:param name="selectedEventUid" value="#{evt.uid}"/>
+##									</h:commandLink>
+##								</p:column> 
+##								<p:column>  
+##									<h:commandLink action="#{eventDetailsHistoryAction.deleteEvent}">
+##										<p:graphicImage value="/img/delete_element.gif"/> 
+##										<f:param name="selectedEventUid" value="#{evt.uid}"/>
+##									</h:commandLink>
+##								</p:column>  
+##						</c:forEach> 
+##					</h:panelGrid>
+##			</p:fieldset> 
+##-->
 		</p:rowExpansion>  
 		
     </p:dataTable>  

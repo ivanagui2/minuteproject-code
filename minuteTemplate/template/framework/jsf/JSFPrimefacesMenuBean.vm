@@ -63,7 +63,22 @@ public class ${className} {
         model.addSubmenu(${subMenuVar});
 #end
 #end
-
+#if($model.hasStatementModel())
+        Submenu sdd = new Submenu();  
+        sdd.setLabel("SDD");
+#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateSDDJSF))
+#set($domainClassName=$commonUtils.getJavaClassName($table))
+        MenuItem item${domainClassName} = new MenuItem();  
+        item${domainClassName}.setValue("$tableLabel");  
+        item${domainClassName}.setUrl("${sddJSFLocation}");  
+        sdd.getChildren().add(item${domainClassName}); 
+        
+#end
+#end
     }  
       
     public MenuModel getModel() {  
