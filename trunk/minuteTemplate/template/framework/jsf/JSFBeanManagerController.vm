@@ -79,8 +79,9 @@ public class ${className} {
 		${EJBDaoImplVariable}.delete (${tableVariableName});
 	}
 	
-	public void delete () {
+	public String delete () {
 		${EJBDaoImplVariable}.delete (selected$tableClassName);
+        return "success";
 	}
 	
 #end
