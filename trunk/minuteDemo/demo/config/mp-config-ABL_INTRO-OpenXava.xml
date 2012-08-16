@@ -27,17 +27,38 @@
 				</business-package>
 				<enrichment>
 					<conventions>
+					    <column-naming-convention type="apply-field-alias-based-on-camelcase"/>
 						<entity-naming-convention type="apply-strip-table-name-prefix"
 							pattern-to-strip="SYS,FIN" />
 						<column-naming-convention
-							type="apply-fix-primary-key-column-name-when-no-ambiguity"
+							type="apply-fix-primary-key-column-name-when-no-ambiguity-and-not-natural"
 							default-value="ID" />
 						<reference-naming-convention
 							type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
 						<semantic-reference-convention
 						    field-pattern="name,number,amount" field-pattern-type="contains" 
 						    force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present="true"
-						    max-number-of-fields="5"
+						    max-number-of-fields="5" 
+						/>
+						<stereotype-convention
+							field-pattern="amount,salary" field-pattern-type="endsWith"
+							stereotype="currency"
+						/>
+						<stereotype-convention
+							field-pattern="price,credit" field-pattern-type="contains"
+							stereotype="currency"
+						/>
+						<stereotype-convention
+							field-pattern="email" field-pattern-type="contains"
+							stereotype="email"
+						/>
+						<stereotype-convention
+							field-type="BLOB" field-pattern="image" field-pattern-type="contains" override="true"
+							stereotype="image"
+						/>
+						<stereotype-convention
+							field-type="CLOB" override="true"
+							stereotype="html-text" 
 						/>
 					</conventions>
 					<entity name="customer">
@@ -82,26 +103,26 @@
 		  templatedir-root="../../minuteTemplate">
             <target refname="OpenXava" 
                fileName="mp-template-config-openxava-last-features.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/openxava">
+               templatedir-root="../../template/framework/openxava">
               <property name="add-automated-business-logic" value="2.1.4"></property> 
               <!-- <property name="groovify" value="true"></property> -->
             </target> 
              <target refname="ABL" 
                 fileName="mp-template-config-ABL-OPENXAVA.xml" 
-                templatedir-root="../../minuteTemplate/template/framework/abl">
+                templatedir-root="../../template/framework/abl">
             </target> 
             <target refname="JPA2-LIB" 
                fileName="mp-template-config-JPA2-LIB.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/jpa">
+               templatedir-root="../../template/framework/jpa">
             </target>
 			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
-				templatedir-root="../../minuteTemplate/template/framework/bsla">
+				templatedir-root="../../template/framework/bsla">
 			</target>
 			<target refname="CACHE-LIB" fileName="mp-template-config-CACHE-LIB.xml"
-				templatedir-root="../../minuteTemplate/template/framework/cache">
+				templatedir-root="../../template/framework/cache">
 			</target>
 			<target refname="COMMON-LIB" fileName="mp-template-config-COMMON-LIB.xml"
-				templatedir-root="../../minuteTemplate/template/framework/common">
+				templatedir-root="../../template/framework/common">
 			</target>
 		</targets>
 	</configuration>

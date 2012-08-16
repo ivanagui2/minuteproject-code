@@ -49,7 +49,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   templatedir-root="../../template/framework/bsla">
 			</target> 
             <target refname="ABL-Openxava" 
-                outputdir-root="../../dev/openxava/petshop"
+                outputdir-root="../output/openxava/petshopOpenXava"
                 fileName="mp-template-config-ABL-OPENXAVA.xml" 
                 templatedir-root="../../template/framework/abl">
             </target>

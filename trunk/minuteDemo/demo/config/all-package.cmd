@@ -11,7 +11,7 @@ cd ..\..\JOOQ\petshop
 call mvn clean package
 cd ..\..\JPA2
 call mvn clean package
-cd ..\..\JSF\petshop
+cd ..\JSF\petshop
 call mvn clean package
 cd ..\..\MvnSpringHibernate
 call mvn clean package
@@ -25,4 +25,3 @@ cd ..\MvnSpringJPA
 call mvn clean package
 cd ..\JSF-Spring
 call mvn clean package
-
