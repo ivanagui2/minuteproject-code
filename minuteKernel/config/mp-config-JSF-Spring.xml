@@ -73,7 +73,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                              <query-param name="latitude_upper_limit" type="DOUBLE" sample="38"></query-param>
                              <query-param name="longitude_lower_limit" type="DOUBLE" sample="-122"></query-param>
                              <query-param name="longitude_upper_limit" type="DOUBLE" sample="-123"></query-param>
-                             <query-param name="city" type="STRING" sample="'S'"></query-param>
+                             <query-param name="city" type="STRING" sample="'S'" convert="lowercase,append%" default="%">
+                             	<query-param-convert>lowercase</query-param-convert>
+                             	<query-param-convert>append%</query-param-convert>
+                             </query-param>
                          </query-params>
                      </query>
                 </queries>
