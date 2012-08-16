@@ -33,7 +33,7 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import $importDomainObjectUML;
+import $EJBDaoImplImport;
 
 #end
 import $importDomainObjectUML;

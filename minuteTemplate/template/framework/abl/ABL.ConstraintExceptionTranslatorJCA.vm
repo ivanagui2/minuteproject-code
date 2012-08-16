@@ -15,7 +15,6 @@ import com.autobizlogic.abl.engine.*;
  */
 public class $className extends DefaultExceptionFactory implements ExceptionFactory {
 
-
 	public RuntimeException createConstraintException(String aMessage, List <ConstraintFailure> aConstraintList) {
 
 		Set<ConstraintViolation<?>> constraintViolations = new HashSet<ConstraintViolation<?>>();
