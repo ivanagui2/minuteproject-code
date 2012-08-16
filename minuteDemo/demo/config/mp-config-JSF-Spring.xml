@@ -62,6 +62,22 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					</entity>
 				</enrichment>					
 			</business-model>
+            <statement-model>
+                <queries>
+                     <query name="get addresses by criteria" id="c">
+                         <query-body><value>
+<![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
+                            </value></query-body>
+                         <query-params>
+                             <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
+                             <query-param name="latitude_upper_limit" type="DOUBLE" sample="38"></query-param>
+                             <query-param name="longitude_lower_limit" type="DOUBLE" sample="-122"></query-param>
+                             <query-param name="longitude_upper_limit" type="DOUBLE" sample="-123"></query-param>
+                             <query-param name="city" type="STRING" sample="'S'" convert="lowercase,append%" default="%"/>
+                         </query-params>
+                     </query>
+                </queries>
+            </statement-model>
 		</model>	
 		<targets>
 
@@ -75,7 +91,13 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-cache-implementation" value="ehcache"></property>
                <property name="add-domain-specific-method" value="true"></property>		   			   
 			</target>
-		
+
+            <target refname="SDD-beans" 
+                outputdir-root="../output/JSF-Spring/JPA2"
+               fileName="mp-template-config-SDD-beans.xml" 
+               templatedir-root="../../template/framework/bean">
+            </target>
+            
 			<target refname="SpringService" 
 			   name="SpringService" 
 			   fileName="mp-template-config-SpringService.xml" 

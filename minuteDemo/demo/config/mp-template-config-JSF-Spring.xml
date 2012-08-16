@@ -33,6 +33,7 @@
 			scope-specific-value="query" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="spring"></property>
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>
 <!-- 
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
@@ -122,7 +123,7 @@
 		<!-- SDD -->
         <template name="JSFXhtmlSDDInput" templateFileName="JSFXhtmlSDDInput.vm" 
             file-extension="xhtml" technicalPackage="sdd" file-suffix="Input" 
-            scope-specific-value="sdd-input-bean" 
+            scope-specific-value="query" 
             check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
         </template>
 
