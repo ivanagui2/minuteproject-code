@@ -70,26 +70,30 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
-		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
-			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
-			application-specific="true" add-model-name="false" >
-      		<!-- check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"> -->
-		</template>
-		
-		<template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
-			file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
-			application-specific="true" add-model-name="false" >
-		</template>		
-		
-		<template name="JSFXhtmlPrimefacesBreadcrumbs" templateFileName="JSFXhtmlPrimefacesBreadcrumbs.vm" 
-			file-extension="xhtml" technicalPackage="" file-suffix="BreadCrumb" 
-			application-specific="true" add-model-name="false" >
-		</template>	
-				
-		<template name="JSFCssDefault" templateFileName="JSFPrimefacesCss.vm" 
-			file-extension="css" technicalPackage="css" file-suffix="style" 
-			model-specific="true" add-model-name="false" add-model-dir-name="false" >
-		</template>		
+        <template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
+            file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
+            application-specific="true" add-model-name="false">
+        </template>
+        
+        <template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
+            file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
+            model-specific="true" add-model-dir-name="true" add-model-name="false">
+        </template>     
+        
+        <template name="JSFXhtmlPrimefacesBreadcrumbs" templateFileName="JSFXhtmlPrimefacesBreadcrumbs.vm" 
+            file-extension="xhtml" technicalPackage="" file-suffix="BreadCrumb" 
+            model-specific="true" add-model-dir-name="true" add-model-name="false" >
+        </template>     
+        
+        <template name="JSFPrimefacesIndexXhtml" templateFileName="JSFPrimefacesIndexXhtml.vm" 
+            file-extension="xhtml" technicalPackage="" file-suffix="index" 
+            application-specific="true" add-model-name="false" >
+        </template>     
+        
+        <template name="JSFCssDefault" templateFileName="JSFPrimefacesCss.vm" 
+            file-extension="css" technicalPackage="css" file-suffix="style" 
+            model-specific="true" add-model-name="false" add-model-dir-name="false" >
+        </template> 
 
     </template-target>		
 
