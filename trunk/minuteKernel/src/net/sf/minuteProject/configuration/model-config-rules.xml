@@ -141,6 +141,7 @@
 	                    <set-next-rule methodname="addQueryParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>          
 	                    <set-properties-rule>
 	                       <alias attr-name="is-mandatory" prop-name="isMandatory" />
+	                       <alias attr-name="default" prop-name="defaultValue" />
 	                   </set-properties-rule>
 	                </pattern>
 	            </pattern>

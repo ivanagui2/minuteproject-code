@@ -5,6 +5,7 @@ public class QueryParam extends QueryAdapter {
 	private boolean isMandatory=true;
 	private String type, sample;
 	private int size, scale;
+	private String defaultValue, converter;
 	private QueryParamOptionalSections queryParamOptionalSections;
 	
 	public boolean isMandatory() {
@@ -37,6 +38,17 @@ public class QueryParam extends QueryAdapter {
 	public void setScale(int scale) {
 		this.scale = scale;
 	}
-	
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+	public String getConverter() {
+		return converter;
+	}
+	public void setConverter(String converter) {
+		this.converter = converter;
+	}
 	
 }
