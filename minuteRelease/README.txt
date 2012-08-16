@@ -12,6 +12,7 @@ change version in install_maven (target/mp-bsla/application/dist)
 2) Upgrade feature
 2) Perform merge between MinuteKernel/config and minuteDemo/demo/config
 - This is to upgrade the new features (tracks and templates)
+in the merge check that you remove '/minuteTemplate' on the demo app
 
 2)2) Catalog
 - add tracks in catalog
