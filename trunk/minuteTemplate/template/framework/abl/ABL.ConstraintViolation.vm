@@ -11,7 +11,7 @@ public class $className<T> implements ConstraintViolation {
 	
 	private ConstraintFailure constraintFailure = null;
 	
-	public AblConstraintViolation(ConstraintFailure aConstraintFailure) {
+	public $className(ConstraintFailure aConstraintFailure) {
 		super();
 		constraintFailure = aConstraintFailure;
 		

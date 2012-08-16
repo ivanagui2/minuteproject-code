@@ -66,6 +66,7 @@ public class ${className} {
 #if($model.hasStatementModel())
         Submenu sdd = new Submenu();  
         sdd.setLabel("SDD");
+        model.addSubmenu(sdd);
 #foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
 #exposeQuerySpecific()
 #set($table=$query.inputBean)

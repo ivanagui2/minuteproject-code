@@ -18,6 +18,7 @@
 #end
 
 #macro(exposeABLModelSpecific)
+#exposeVariableModelSpecific()
 #exposeABLTemplate()
 #set($ablPackages=$ablUtils.getPackageList($model, $templateABLLogic))
 #set ($constraintExceptionTranslatorJCAImport = $commonUtils.getLevelTemplateFullPath($model, $template, $templateABLConstraintExceptionTranslatorJCA))
