@@ -120,7 +120,7 @@
 		</xs:restriction>
 	</xs:simpleType>
 
-	<xs:simpleType name="column-naming-convention">
+	<xs:simpleType name="column-naming-convention-type">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="apply-strip-column-name-suffix" />
 			<xs:enumeration value="apply-strip-column-name-prefix" />
@@ -157,7 +157,7 @@
 
 	<!-- conventions -->
 	<xs:complexType name="column-naming-convention">
-		<xs:attribute name="type" type="column-naming-convention" />
+		<xs:attribute name="type" type="column-naming-convention-type" />
 		<xs:attribute name="pattern-to-strip" type="xs:string" />
 	</xs:complexType>
 
@@ -510,6 +510,8 @@
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
+		<xs:attribute name="outputdir-root" type="xs:string" />
+		<xs:attribute name="templatedir-root" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="configuration">

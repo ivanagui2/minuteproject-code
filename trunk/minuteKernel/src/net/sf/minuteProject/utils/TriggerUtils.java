@@ -8,9 +8,11 @@ import static net.sf.minuteProject.utils.property.PropertyUtils.isPropertyTagSta
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enumeration.CRUDEnum;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation.ColumnUMLNotation;
 import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class TriggerUtils {
@@ -40,16 +42,21 @@ public class TriggerUtils {
 		return null;
 	}
 	
-	public static String getJavaDisplayChunk (Trigger trigger) {
+	public static String getJavaDisplayChunk (Trigger trigger, Template template) {
 		if (trigger.getValue()==null)
 			return getTriggerAlias(trigger);
 		if (Trigger.CURRENT_TIME.equals(trigger.getValue()))
-			return getCurrentTime(trigger);
+			return getCurrentTime(trigger, template);
 		return getTriggerAlias(trigger);
 	}
 
-	private static String getCurrentTime(Trigger trigger) {
-		String javaFullType = CommonUtils.getFullType2(getColumn(trigger));
+	private static String getCurrentTime(Trigger trigger, Template template) {
+		//TODO add temporal in trigger
+		Column column = getColumn(trigger);
+		String javaFullType = CommonUtils.getFullType2(column);
+		if (template.hasProperty("use-temporal") && ColumnUtils.isTimeColumn(column)) {
+			return "new java.util.Date()";
+		}
 		if (ConvertUtils.JAVA_SQL_DATE_TYPE.equals(javaFullType))
 			return "new java.sql.Date((new java.util.Date().getTime()))";
 		if (ConvertUtils.JAVA_SQL_TIMESTAMP_TYPE.equals(javaFullType))
