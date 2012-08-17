@@ -82,7 +82,7 @@ $!commonUtils.getReadMeText($template)
 #set($triggerColumnName =$trigger.columnName)
 #set($triggerVar =$triggerUtils.getTriggerAlias($trigger))
 #set($triggerType =$triggerUtils.getTriggerAlias($trigger))
-#set($triggerJavaExpressionChunk =$triggerUtils.getJavaDisplayChunk($trigger))
+#set($triggerJavaExpressionChunk =$triggerUtils.getJavaDisplayChunk($trigger, $template))
 #end
 
 #macro (putGetterAdder $classList $listVariable $class $variable)
