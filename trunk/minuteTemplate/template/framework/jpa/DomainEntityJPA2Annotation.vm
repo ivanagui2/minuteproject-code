@@ -560,6 +560,8 @@ $!updatedAreaEnd
     }	    
 #end
 
+#putJPA2TriggerSnippet()
+
 $!updatedAreaImplementation
 
 }
