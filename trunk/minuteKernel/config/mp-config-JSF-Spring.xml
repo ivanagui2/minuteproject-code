@@ -64,10 +64,18 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
             <statement-model>
                 <queries>
+                     <query name="get address summary" id="dashAddress" type="dashboard" category="pie-chart">
+                         <query-body> <!-- dimensions column first -->
+                         <value>
+<![CDATA[select country, count(*) from address group by country order by country]]>
+                            </value>
+                         </query-body>
+                     </query>
                      <query name="get addresses by criteria" id="c">
                          <query-body><value>
 <![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
-                            </value></query-body>
+                            </value>
+                         </query-body>
                          <query-params>
                              <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
                              <query-param name="latitude_upper_limit" type="DOUBLE" sample="38"></query-param>
