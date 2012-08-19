@@ -120,6 +120,14 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="query-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="dashboard" />
+			<xs:enumeration value="master" />
+			<xs:enumeration value="detail" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="column-naming-convention-type">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="apply-strip-column-name-suffix" />
@@ -438,6 +446,8 @@
 			<xs:element name="query-params" type="query-params" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="type" type="xs:query-type" />
 	</xs:complexType>
 	<xs:complexType name="query-params">
 		<xs:sequence>
