@@ -1,0 +1,15 @@
+<h:form prependId="false">
+    <p:growl id="growl" showDetail="true" />
+#if($isPieChart)
+    <p:pieChart id="pieChart" value="#{chartBean.pieModel}" legendPosition="w"
+            title="Interactive Pie Chart" style="width:400px;height:300px">
+        <p:ajax event="itemSelect" listener="#{chartBean.itemSelect}" update="growl" />
+    </p:pieChart>
+#elseif ($isBarChart)
+    <p:barChart id="barChart" value="#{chartBean.categoryModel}" legendPosition="ne"
+            title="Interactive Bar Chart" style="height:300px">
+        <p:ajax event="itemSelect" listener="#{chartBean.itemSelect}" update="growl" />
+    </p:barChart>
+#end
+</h:form>
+                 

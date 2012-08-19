@@ -23,6 +23,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+#if ($isChartLayout)
+import org.primefaces.event.ItemSelectEvent;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.PieChartModel;
+#end
+
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
 import $sddInputBeanImport;
