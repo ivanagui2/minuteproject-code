@@ -148,6 +148,8 @@ public class ConvertUtils {
 			return  JAVA_STRING_TYPE;	
 		if (dBType.equals("NVARCHAR"))
 			return  JAVA_STRING_TYPE;
+		if (dBType.equals("VARBINARY"))
+			return  JAVA_STRING_TYPE;
 		
 		// to re implement when externalizing the mapping
 		if (dBType.equals("OTHER"))

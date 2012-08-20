@@ -1,5 +1,7 @@
 package net.sf.minuteProject.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
@@ -275,6 +277,15 @@ public class FormatUtils {
 				sb.append("_");
 		}
 		return sb.toString();
+	}
+
+	public static String renderCurrentTime() {
+		return renderTime(new Date());
+	}
+
+	private static String renderTime(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd G 'at' HH:mm:ss z");
+		return sdf.format(date);
 	}
 
 }

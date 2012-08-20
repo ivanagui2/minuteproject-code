@@ -820,8 +820,9 @@ public class Template extends TemplateTarget {
 	private String getTemplateSignatureTxt() {
 		return 
 			" template reference : \n"+
-			" - name : "+getName()+"\n"+
+			" - name      : "+getName()+"\n"+
 			" - file name : "+getTemplateFileName()+"\n"+
+			" - time      : "+FormatUtils.renderCurrentTime()+"\n"+
 			"";
 	}
 		
