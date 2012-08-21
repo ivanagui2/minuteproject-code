@@ -38,13 +38,9 @@ public class SemanticReference extends AbstractConfiguration {
 	public List<String> getSemanticReferenceBeanPath () {
 		List<String> list = new ArrayList<String>();
 		for (String sqlPath : getSemanticReferenceSqlPath()) {
-			list.add(getBeanPath(sqlPath));
+			list.add(sqlPath);//getBeanPath(sqlPath));
 		}
 		return list;
-	}
-	
-	private String getBeanPath(SqlPath sqlPath) {
-		return getBeanPath(sqlPath.getPath());
 	}
 	
 	private String getBeanPath(String sqlPath) {
