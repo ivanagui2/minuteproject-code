@@ -157,7 +157,8 @@ $!updatedAreaEnd
 #if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @MapsId ("$localColumnName")
 #end
-    @ManyToOne (fetch=FetchType.LAZY #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
+#set($fetchType=$jpa2Utils.getFetchType($template, $reference))
+    @ManyToOne (fetch=FetchType.$fetchType #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
     @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true #else unique=false #end) 
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
