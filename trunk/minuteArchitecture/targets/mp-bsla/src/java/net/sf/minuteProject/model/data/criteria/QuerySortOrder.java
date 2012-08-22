@@ -1,4 +1,4 @@
-package eu.europa.ec.sg.nif2.util;
+package net.sf.minuteProject.model.data.criteria;
 
 public enum QuerySortOrder {
 	ASC, DESC
