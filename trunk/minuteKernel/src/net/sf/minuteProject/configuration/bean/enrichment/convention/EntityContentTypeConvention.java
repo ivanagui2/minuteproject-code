@@ -43,7 +43,7 @@ public class EntityContentTypeConvention extends ModelConvention {
 	}
 	
 	private boolean isEndingMatch(Table table) {
-		for (String s : ParserUtils.getList(pattern)) {
+		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (table.getName().toLowerCase().endsWith(s))
 				return true;
 		}

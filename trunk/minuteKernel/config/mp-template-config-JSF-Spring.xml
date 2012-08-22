@@ -95,6 +95,12 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
+		<template name="JSFXhtmlListEntity" templateFileName="JSFXhtmlListLazyEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListLazy" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
 			application-specific="true" add-model-name="false">
