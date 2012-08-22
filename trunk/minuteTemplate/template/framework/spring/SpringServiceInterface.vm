@@ -8,6 +8,7 @@ package $packageName;
 import java.util.List;
 
 import $importDomainObjectUML;
+import net.sf.minuteProject.model.service.GenericService;
 
 /**
  *
@@ -19,7 +20,7 @@ import $importDomainObjectUML;
  * </p>
  *
  */
-public interface $className {
+public interface $className extends GenericService<$tableClassName> {
 
     /**
      * Inserts a $tableClassName entity $tCN 

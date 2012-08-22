@@ -3,11 +3,15 @@
 #exposeSpringBslaDomainObject()
 #exposeJPA2DomainObject($table)
 #putImportParamsUML()
+#addedAreas()
 package $packageName;
+
+$!updatedAreaImport
 
 import java.util.List;
 import java.util.ArrayList;
 
+import net.sf.minuteProject.model.data.criteria.QueryData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import $importDomainObjectUML;
 import $SpringServiceInterfaceImport;
 import $BslaDaoInterfaceImport;
+import $BslaDaoExtInterfaceImport;
 
 import org.springframework.transaction.annotation.Transactional;
 /**
@@ -36,6 +41,10 @@ public class $className implements $SpringServiceInterfaceClass {
     @Autowired
     @Qualifier("$BslaDaoInterfaceVariable")	
 	$BslaDaoInterfaceClass $BslaDaoInterfaceVariable;
+
+    @Autowired
+    @Qualifier("$BslaDaoExtInterfaceVariable")	
+	$BslaDaoExtInterfaceClass $BslaDaoExtInterfaceVariable;
 	
     /**
      * Inserts a $tableClassName entity $tCN 
@@ -81,5 +90,12 @@ public class $className implements $SpringServiceInterfaceClass {
 		}
 		return ret;
 	}
+
+	@Override
+	public void find(QueryData<$tableClassName> data) {
+		${BslaDaoExtInterfaceVariable}.find (data);
+	}
+	
+$!updatedAreaImplementation
 
 }

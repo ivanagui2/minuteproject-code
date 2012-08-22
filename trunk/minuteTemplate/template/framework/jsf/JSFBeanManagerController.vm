@@ -12,7 +12,11 @@ package $packageName;
 $!updatedAreaImport
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.QuerySortOrder;
 
 import $SpringServiceInterfaceImport;
 
@@ -57,6 +63,7 @@ public class ${className} {
 #if($isSpringBackend)
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
     ${EJBDaoImplClass} $EJBDaoImplVariable;
+	private LazyDataModel<$tableClassName> lazyModel;
 #elseif($isEJBBackend)
 	@Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
@@ -84,6 +91,38 @@ public class ${className} {
         return "success";
 	}
 	
+#end
+
+#if($isSpringBackend)
+	
+    public LazyDataModel<$tableClassName> getLazyModel() {
+    	if (lazyModel == null) {
+    		lazyModel = new LazyDataModel<$tableClassName>() {
+				
+			     @Override
+			     public List<$tableClassName> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {  
+##			log.info("first=" + first + ", pagesize=" + pageSize + ", sortfield=" + sortField + " sortorder=" + sortOrder + " filter:" + filters);	
+                    int start = first;
+                	int end = first + pageSize;
+                	
+                	QuerySortOrder order = QuerySortOrder.ASC;
+                	if (sortOrder == SortOrder.DESCENDING) {
+            			order = QuerySortOrder.DESC;     
+            		}
+                	
+            		QueryData data = new QueryData(start, end, sortField, order, filters);
+            		${EJBDaoImplVariable}.find(data);
+            		List<$tableClassName> list = data.getResult();
+            		int count = data.getTotalResultCount().intValue();
+            		this.setRowCount(count);      	
+                    return list;
+				}
+
+			};
+    	}
+    	
+    	return lazyModel;
+    }	
 #end
 
 #if ($hasSemanticReference)
