@@ -7,7 +7,6 @@ import java.util.List;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
-
 /**
  *
  * <p>Title: $className</p>

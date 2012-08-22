@@ -16,6 +16,7 @@ import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+import net.sf.minuteProject.model.service.GenericService;
 import $importDaoInterfaceUML;
 import $importDomainObjectUML;
 #foreach ($reference in $table.parents)
@@ -33,7 +34,7 @@ import $importDomainObjectUML;
  *
  */
 
-public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
+public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
 
 	public $className () {}
 

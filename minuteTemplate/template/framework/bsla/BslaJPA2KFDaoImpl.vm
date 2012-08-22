@@ -33,6 +33,10 @@ import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.architecture.filter.data.Criterion;
 import net.sf.minuteProject.architecture.filter.data.InCriterion;
 import net.sf.minuteProject.architecture.filter.data.OrderCriteria;
+import net.sf.minuteProject.model.service.GenericService;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.QuerySortOrder;
+
 import net.sf.minuteProject.architecture.utils.BeanUtils;
 import $importDaoInterfaceExtendedUML;
 import $importDomainObjectUML;
@@ -63,7 +67,7 @@ import $importDaoImplExtendedJPAName;
  *
  */
 
-public class $className extends $daoJPAImplClassName implements $daoInterfaceExtendedNameUML {
+public class $className extends $daoJPAImplClassName implements $daoInterfaceExtendedNameUML, GenericService<$tableClassName> {
 
     private Logger log = Logger.getLogger(this.getClass());
     
@@ -691,16 +695,43 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 
 #if ($hasOnlyOnePrimaryKey)
    public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName) {
+      //TODO
       return null;
    }
 
    public $primaryKeyType load${tableClassName}PkFromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
+      //TODO
       return null;
    }
    
 #end   
 #end
-    
+    // generic part
+	public void find (QueryData<${tableClassName}> data) {
+		Map<String, String> filters = data.getFilters();
+		int start = data.getStart();
+		int end = data.getEnd();
+		String sortField = data.getSortField();
+		QuerySortOrder order = data.getOrder();
+		
+		StringBuffer sb = new StringBuffer();
+		${tableClassName} $tableVariableName = new ${tableClassName}();
+		// set filter with positive mask pattern
+		//TODO filter set
+		${tableClassName} var = new ${tableClassName}();
+		
+		
+		String query = get${tableClassName}SearchEqualQuery(var);
+		Query hquery = getEntityManager().createQuery(query);
+		
+		hquery.setMaxResults(end - start);
+		hquery.setFirstResult(start);
+		
+		data.setResult(hquery.getResultList());
+		Long totalResultCount = count($tableVariableName);
+		data.setTotalResultCount(totalResultCount);
+	}
+	
     public EntityManager getEntityManagerForRecursiveDao() {
 		return emForRecursiveDao;
 	}
