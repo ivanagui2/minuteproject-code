@@ -560,6 +560,8 @@ public class JdbcModelReader
             String type = (String)values.get("TABLE_TYPE");
             if (type.equals("ALIAS")) 
             	type="TABLE";
+            if (type.equals("SYNONYM")) 
+            	type="TABLE";
 				table.setType(type);
             table.setCatalog((String)values.get("TABLE_CAT"));
             table.setSchema((String)values.get("TABLE_SCHEM"));
