@@ -49,6 +49,7 @@ public class ConvertUtils {
 	public static final String DB_LONGTEXT  						=	"LONGTEXT";
 	public static final String DB_LONGBLOB  						=	"DB_LONGBLOB";
 	public static final String DB_LONGVARBINARY  					=	"LONGVARBINARY";
+	public static final String DB_VARBINARY  						=	"VARBINARY";
 	public static final String DB_BIGDECIMAL_TYPE  					=	"BIGDECIMAL";
 	
 	public static final String UML_STRING_TYPE 						=   "string";	
