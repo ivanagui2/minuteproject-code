@@ -60,6 +60,19 @@
 
 	</template-target>
 
+
+  	<template-target 
+    	name="utils set"
+		outputdir="src/main/java"
+		belongToPackage="true">
+			 
+		<template name="JSFUtils" templateFileName="JSFUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
+
+	</template-target>
 <!-- 
   	<template-target 
     	name="framework"

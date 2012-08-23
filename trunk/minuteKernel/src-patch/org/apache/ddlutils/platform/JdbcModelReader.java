@@ -86,7 +86,7 @@ public class JdbcModelReader
     /** The default pattern for reading all columns. */
     private String _defaultColumnPattern;
     /** The table types to recognize per default. */
-    private String[] _defaultTableTypes = { "TABLE", "VIEW", "ALIAS" };
+    private String[] _defaultTableTypes = { "TABLE", "VIEW", "ALIAS", "SYNONYM" };
     /** The active connection while reading a database model. */
     private Connection _connection;
 
