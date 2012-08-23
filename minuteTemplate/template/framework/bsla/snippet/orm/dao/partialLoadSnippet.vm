@@ -95,11 +95,26 @@
        return partialLoadWithParent$tableClassName(whatMask, whereEqCriteria, null, new QuerySelectCountInit("${tableVariableName}"), null, false);
     }   
     	
+##    public Long count($tableClassName whereEqCriteria) {
+##        List<$tableClassName> list = partialLoadWithParent$tableClassName(null, whereEqCriteria, null, new QueryCountInit("${tableVariableName}"), null, false);    
+##    	if (!list.isEmpty())
+##    		return list.get(0).getCount__();
+##    	return 0L;
+##    }
+##		  	
     public Long count($tableClassName whereEqCriteria) {
-        List<$tableClassName> list = partialLoadWithParent$tableClassName(null, whereEqCriteria, null, new QueryCountInit("${tableVariableName}"), null, false);    
-    	if (!list.isEmpty())
-    		return list.get(0).getCount__();
+        Query query = getEntityManager().createQuery(getSelectCountPrototype(whereEqCriteria));
+        List<Long> list = query.getResultList();
+    	if (!list.isEmpty()) {
+            return list.get(0);
+    	}
     	return 0L;
     }
 		
-		  
+    protected String getSelectCountPrototype ($tableClassName whereEqCriteria) {
+        StringBuffer query = new StringBuffer();
+        StringBuffer queryWhere = new StringBuffer();
+        query.append ("SELECT count(*) FROM $tableClassName ${tableVariableName} ");
+        queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk(whereEqCriteria, false));   
+	    return getHQuery(query.toString(), queryWhere.toString());
+    }		  
