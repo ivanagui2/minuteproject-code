@@ -53,9 +53,7 @@
             <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
         </p:column>  
 #end
-
                         <p:column>
-                        
                         	<p:commandLink id="selectButton" update=":form2:panel" title="Edit" process="@this">
                      			<h:outputText value="Edit" /> 
                      			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
@@ -78,15 +76,11 @@
 
                     </p:dataTable>
                 </h:panelGroup>
-           </h:form>
-                
-                <br/>
-                
-             
-                
+           </h:form>        
+        <br/>
   			<h:form id="form2">
 				<p:messages id="messages" autoUpdate="true"/>  
-				<p:panelGrid columns="4" id="panel" >
+				<p:panelGrid columns="3" id="panel" >
                    
                     <f:facet name="header">
                     Create/Update #{i18n.${tableVariableName}}
@@ -96,7 +90,7 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$isMany2Many && $isPkUserProvided)
-#putJSFColumnSnippet()
+#putJSFColumnSnippet2()
 ##$columnVar =  $column.alias
 #end
 #end
@@ -104,7 +98,7 @@
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet()
+#putJSFColumnSnippet2()
 #end
 #end
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
@@ -114,68 +108,16 @@
 #columnJavaNaming()
 #putJSFColumnSnippet()
 #end    
-                     <h:outputLabel value="First Name:" for="firstName" />
-                    <p:inputText label="First Name" id="firstName" value="#{employeesController.current.firstName}" title="First Name" required="true" 
-                    	validatorMessage="#{bundle.EmployeeValidationFirstName}" requiredMessage="#{bundle.EmployeeRequiredMessage_firstName}">
-                    	<f:validateRegex pattern=".*\p{Alpha}{3,16}" />
-                    </p:inputText>
-                   
-					<h:outputLabel value="Last Name:" for="lastName" />
-                    <p:inputText label="Last Name" id="lastName" value="#{employeesController.current.lastName}" title="Last Name" required="true" 
-                    	validatorMessage="#{bundle.EmployeeValidationLastName}" requiredMessage="#{bundle.EmployeeRequiredMessage_lastName}">
-                    	<f:validateRegex pattern="\p{Alpha}{3,16}" />
-                    </p:inputText>
-                    
-                    <h:outputLabel value="Extension:" for="extension" />
-                    <p:inputText label="Extension" id="extension" value="#{employeesController.current.extension}" title="Extension" required="true" 
-                    	validatorMessage="#{bundle.EmployeeValidationExtension}" requiredMessage="#{bundle.EmployeeRequiredMessage_extension}">
-                    	<f:validateRegex pattern="[x|X]?\d{4}" />
-                    </p:inputText>
-
-                    <h:outputLabel value="Email:" for="email" />
-                    <p:inputText label="Email" id="email" value="#{employeesController.current.email}" title="Email" required="true" 
-                    	validatorMessage="#{bundle.EmployeeValidationEmail}" requiredMessage="#{bundle.EmployeeRequiredMessage_email}">
-                    	<f:validateRegex pattern="#{bundle.emailRegex}" />
-                    </p:inputText>
-
-                    <h:outputLabel value="Job Title:" for="jobTitle" />
-
-					<h:selectOneMenu id="jobTitle" value="#{employeesController.current.jobTitle}" required="true" requiredMessage="#{bundle.EmployeeRequiredMessage_jobTitle}">
-                    	<f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
-                        <f:selectItems value="#{employeesController.jobTitlesList}" var="job"
-                   			itemLabel="#{job}" itemValue="#{job}"/>
-                    </h:selectOneMenu>
-
-
-                    <h:outputLabel value="Office Code:" for="officeCode" />
-                    <h:selectOneMenu id="officeCode" value="#{employeesController.current.office}" required="true" requiredMessage="#{bundle.EmployeeRequiredMessage_officeCode}">
-                    	<f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
-                        <f:selectItems value="#{employeesController.allOffices}" var="off"
-                   			itemLabel="#{off.city}" itemValue="#{off}"/>
-                    </h:selectOneMenu>
-                    
-                    
-					<h:outputLabel />
-					<h:outputLabel />
-					
-
-                    <h:outputLabel value="Reports To:" for="reportsTo" />
-                    <h:selectOneMenu id="reportsTo" value="#{employeesController.current.reportsTo}" required="true" requiredMessage="#{bundle.EmployeeRequiredMessage_reportsTo}">
-                    	<f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
-                        <f:selectItems value="#{employeesController.allManagers}" var="emp"
-                   			itemLabel="#{emp.firstName} #{emp.lastName} (#{emp.jobTitle} )" itemValue="#{emp}"/>
-                    </h:selectOneMenu>
-
-                    <f:facet name="footer">  
-				        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{employeesController.createOrUpdateListener}" update=":form:empTable,:form2:panel" />  
-				        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{employeesController.clearListener}" update=":form2:panel" style="margin:5px;"/>
-				    </f:facet> 
+        			<h:outputLabel />
+        			<h:outputLabel />
+        			<f:facet name="footer">  
+            	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
+            	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
+            	    </f:facet> 
                 </p:panelGrid>
-
-
-
-			   <p:dialog id="basicDialog" header="Employee Details" widgetVar="detailDialog"  resizable="false" >  
-                <h:panelGrid columns="2" cellpadding="5"  styleClass="list_display_table_TR_even">
+				
+			   <p:dialog id="basicDialog" header="#{${domainVariableName}} Details" widgetVar="detailDialog"  resizable="false" >  
+                <h:panelGrid columns="2" cellpadding="5"  styleClass="list_display_table_TR_even" id="display">
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -189,20 +131,20 @@
 #columnJavaNaming() 
             <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
             <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
-#end
+#end				
                 </h:panelGrid>
 			</p:dialog>   
 
 		</h:form>
     
     		<h:form id="dialogForm">
-    			<p:confirmDialog id="confirmDialog" header="Confirm Delete Employee" severity="alert" widgetVar="confirmation">  
+    			<p:confirmDialog id="confirmDialog" header="Confirm Delete #{i18n.${tableVariableName}}" severity="alert" widgetVar="confirmation">  
     	                  	<f:facet name="message">
-    						<h:outputText value="Delete item ?" />
+    						<h:outputText value="Delete #{i18n.${tableVariableName}} item ?" />
     						</f:facet>
     	                  
-    	        <p:commandButton id="confirm" value="Yes" oncomplete="confirmation.hide()"  update=":form:empTable" 
-    	                     actionListener="#{employeesController.destroyListener}"/>  
+    	        <p:commandButton id="confirm" value="Yes" oncomplete="confirmation.hide()"  update=":form${domainClassName}:${domainVariableName}Table" />
+    	                    ## actionListener="#{employeesController.destroyListener}"/>  
     	        <p:commandButton id="decline" value="No" onclick="confirmation.hide()" type="button" />   
     	                  
     			</p:confirmDialog>  
@@ -210,5 +152,4 @@
 				
         </ui:define>
     </ui:composition>
-</h:body>
 </html>
