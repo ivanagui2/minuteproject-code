@@ -16,6 +16,7 @@ import net.sf.minuteProject.utils.TableUtils;
 
 public class ForeignKeyConvention extends ModelConvention {
 
+	public static final String APPLY_DEFAULT_FOREIGN_KEY_BASED_ON_TARGET_PRIMARY_KEY_NAME_WHEN_NO_AMBIGUITY = "apply-default-foreign-key-based-on-target-primary-key-name-when-no-ambiguity";
 	public static final String APPLY_DEFAULT_FK_BY_ENTITY_NAME_AND_SUFFIX = "apply-default-foreign-key-by-entity-name-and-suffix";
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP = "autodetect-foreign-key-based-on-similarity-and-map";
 
@@ -54,16 +55,41 @@ public class ForeignKeyConvention extends ModelConvention {
 		if (AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP.equals(type)) {
 			if (model.getBusinessPackage() != null) {
 				for (Table table : model.getBusinessPackage().getTables()) {
-					apply(table);
+					applyEntitySimilarity(table);
+				}
+			}
+		}
+		if (APPLY_DEFAULT_FOREIGN_KEY_BASED_ON_TARGET_PRIMARY_KEY_NAME_WHEN_NO_AMBIGUITY.equals(type)) {
+			if (model.getBusinessPackage() != null) {
+				for (Table table : model.getBusinessPackage().getTables()) {
+					applyFieldSimilarity(table);
 				}
 			}
 		}
 	}
 
-	private void apply(Table table) {
+	private void applyEntitySimilarity(Table table) {
 		for (Field field : getForeignKeyFieldsNotInSelfReferencedPrimaryKey(table)){
 			ForeignKeyUtils.setForeignKey(table, field);
 		}
+	}
+	private void applyFieldSimilarity(Table table) {
+		for (Field field : getForeignKeyFieldsBasedOnTargetPk(table)){
+			ForeignKeyUtils.setForeignKey(table, field);
+		}
+	}
+	
+	private List<Field> getForeignKeyFieldsBasedOnTargetPk(Table table) {
+		List<Field> list = new ArrayList<Field>();
+		for (Column column : table.getColumns()) {
+			if (isConventionToApply(column)) { // 
+				Field f = getForeignKeyField(column, table);
+				if (f != null) {
+					list.add(f);
+				}
+			}
+		}
+		return list;
 	}
 
 	private List<Field> getForeignKeyFieldsNotInSelfReferencedPrimaryKey(Table table) {

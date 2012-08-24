@@ -51,9 +51,12 @@ public class TableDefaultPrimaryKeyConvention extends ModelConvention {
 	
 	protected List<Column> getPksByFirstColumn(Table table) {
 		List<Column> pks = new ArrayList<Column>();
-		Column column = table.getColumn(0);
-		if (column!=null)
-			pks.add(column);		
+		Column column;
+		if (table.getColumnCount()>0) {
+			column = table.getColumn(0);
+			if (column!=null)
+				pks.add(column);
+		}
 		return pks;
 	}
 	
