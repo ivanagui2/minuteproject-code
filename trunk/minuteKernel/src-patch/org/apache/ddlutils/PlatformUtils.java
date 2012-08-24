@@ -243,6 +243,8 @@ public class PlatformUtils
     public String determineDatabaseType(DataSource dataSource, String username, String password) throws DatabaseOperationException
     {
         Connection connection = null;
+        _username = username;
+        _password = password;
 
         try
         {
@@ -279,6 +281,8 @@ public class PlatformUtils
         }
     }
 
+    public static String _username, _password, _schema, _driver, _url;
+    
     /**
      * Tries to determine the database type for the given jdbc driver and connection url.
      * 

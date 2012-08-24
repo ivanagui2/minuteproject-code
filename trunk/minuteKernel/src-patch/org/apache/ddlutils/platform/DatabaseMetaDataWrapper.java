@@ -19,9 +19,18 @@ package org.apache.ddlutils.platform;
  * under the License.
  */
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
 
 /**
  * Wrapper class for database meta data that stores additional info.
@@ -146,6 +155,15 @@ public class DatabaseMetaDataWrapper
     public ResultSet getColumns(String tableNamePattern, String columnNamePattern) throws SQLException
     {
         return getMetaData().getColumns(getCatalog(), getSchemaPattern(), tableNamePattern, columnNamePattern);
+    }
+    
+    public ResultSetMetaData getColumnsByFetch(String tableNamePattern, Connection connection) throws SQLException
+    {
+    	String query = "select * from "+tableNamePattern+" where 1 = 0";
+    	Statement createStatement = connection.createStatement();
+		ResultSet rs = createStatement.executeQuery(query);
+		int columnCount = rs.getMetaData().getColumnCount();
+		return rs.getMetaData();
     }
 
     /**
