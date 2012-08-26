@@ -122,8 +122,9 @@ public class FormatUtils {
 	public static String firstUpperCaseOnly(String st) {
 		if (st == null)
 			return "INPUT_STRING_IS_NULL";
-		return st.substring(0, 1).toUpperCase()
-				+ st.substring(1, st.length()).toLowerCase();
+		int len = Math.min (st.length(),1);
+		return st.substring(0, len).toUpperCase()
+				+ st.substring(len, st.length()).toLowerCase();
 	}
 
 	public static String firstLowerCaseOnly(String st) {

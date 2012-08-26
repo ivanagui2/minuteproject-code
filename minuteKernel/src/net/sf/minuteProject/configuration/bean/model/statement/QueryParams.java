@@ -13,6 +13,10 @@ public class QueryParams extends AbstractConfiguration {
 	private List<QueryParam> queryParams;
 	private Query query;
 
+	public boolean isEmpty () {
+		return getQueryParams().isEmpty();
+	}
+	
 	public List<QueryParam> getQueryParams() {
 		if (queryParams == null) {
 			if (!StringUtils.isEmpty(refid)) {
