@@ -178,5 +178,12 @@
     	<macro_copy_code filesetDir="${src.dir}" todir="${release.code.dir}"/>
     	<zip basedir="${release.code.dir}" destfile="${dist.dir}/${archive.src.name}"></zip>
     	<delete dir="${release.code.dir}" ></delete>
-    </target>		
+    </target>
+	
+	  <target name="minuteFitnesse" depends="archive">
+	    <java jar="src-wiki/fitnesse.jar" failonerror="true" fork="true">
+	      <arg value="-c"/>
+	      <arg value="FitNesse.MpSuite?suite&amp;format=text"/>
+	    </java>
+	  </target>
 </project>
