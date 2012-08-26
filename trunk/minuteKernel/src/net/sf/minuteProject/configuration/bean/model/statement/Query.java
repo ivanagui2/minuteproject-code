@@ -80,6 +80,7 @@ public class Query extends AbstractConfiguration {
 		queryWhere.setValue(s);
 	}
 	public QueryParams getQueryParams() {
+		if (queryParams==null) queryParams=new QueryParams();
 		return queryParams;
 	}
 	
