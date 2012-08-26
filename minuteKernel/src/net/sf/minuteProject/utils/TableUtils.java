@@ -1,8 +1,11 @@
 package net.sf.minuteProject.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -531,5 +534,17 @@ public class TableUtils {
 	public static int getNumberOfPrimaryColumns(Table table) {
 		return (table.getPrimaryKeyColumns() == null) ? 0 : table
 				.getPrimaryKeyColumns().length;
+	}
+
+	public static Map<String, Table> getPrimaryKeyTableMap(BusinessModel model) {
+		Map <String, Table> tables = new HashMap<String, Table>();
+		for (Table table : model.getBusinessPackage().getEntities()) {
+			if (table.hasPrimaryKey()) {
+				Column col = getPrimaryFirstColumn(table);
+				String pk = col.getName();
+				tables.put(pk, table);
+			}
+		}
+		return tables;
 	}
 }

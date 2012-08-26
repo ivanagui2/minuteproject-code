@@ -40,6 +40,8 @@ public class StringUtils {
 	}
 
 	public static boolean checkExpression(String valueToTest, String expression, String pattern) {
+		if (expression==null || valueToTest==null || pattern==null)
+			return false;
 		if (Condition.STARTS_WITH.equals(expression))
 			return startsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.ENDS_WITH.equals(expression))
