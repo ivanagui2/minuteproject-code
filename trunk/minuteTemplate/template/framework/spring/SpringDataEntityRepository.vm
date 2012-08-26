@@ -8,8 +8,10 @@ import $modelRepositoryImport;
  */
 public interface $className extends $modelRepositoryClassName<$domainClassName, $primaryKeyType> {
 
-##foreach semantic reference
+#foreach semantic reference
 ## searchEqual, searchLike
+#end
+
 #if ($hasSemanticReference)
 #set($semanticReferenceMethod = $semanticReferenceUtils.getSemanticReferenceMethod($semanticReference))
     public $tableClassName findBy$semanticReferenceMethod (
@@ -23,4 +25,9 @@ public interface $className extends $modelRepositoryClassName<$domainClassName, 
     );
     
 #end
+
+#foreach field searchable
+    //search like
+#end
+
 }

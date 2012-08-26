@@ -31,7 +31,9 @@ import org.primefaces.model.chart.PieChartModel;
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
+#if($isNotVoidInput)
 import $sddInputBeanImport;
+#end
 ##import $sddDaoInterfaceImport;
 import $sddServiceInterfaceImport;
 /**
@@ -48,7 +50,9 @@ public class ${className} {
     @ManagedProperty("#{${sddServiceInterfaceVariable}}")
     ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
 
+#if($isNotVoidInput)
     private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
+#end
     private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
     private $sddOutputBeanClass selected$sddOutputBeanClass;
 
@@ -58,7 +62,7 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
     public $sddOutputBeanCollectionClass execute () {
-        $sddOutputBeanCollectionVariable = ${sddServiceInterfaceVariable}.execute(${sddInputBeanVariable});
+        $sddOutputBeanCollectionVariable = ${sddServiceInterfaceVariable}.execute(#if($isNotVoidInput)${sddInputBeanVariable}#end);
         return $sddOutputBeanCollectionVariable;
     }
 #end
@@ -70,7 +74,9 @@ $!updatedAreaEnd
         return ($sddOutputBeanCollectionVariable==null)?new ArrayList<$sddOutputBeanClass>():${sddOutputBeanCollectionVariable}.get${beanClass}s();
     }
 
+#if($isNotVoidInput)
 #putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
+#end
 #putGetterSetter($sddServiceInterfaceClass, $sddServiceInterfaceVariable)
 #putGetterSetterAlt($sddOutputBeanClass, "Selected$sddOutputBeanClass", "selected$sddOutputBeanClass")
 

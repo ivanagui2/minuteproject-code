@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
+#if($isNotVoidInput)
 import $sddInputBeanImport;
+#end
 import $sddDaoInterfaceImport;
 import $sddServiceInterfaceImport;
 
@@ -40,8 +42,8 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute ($sddInputBeanClass $sddInputBeanVariable) {
-        return ${sddDaoInterfaceVariable}.execute ($sddInputBeanVariable);
+    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+        return ${sddDaoInterfaceVariable}.execute (#if($isNotVoidInput)$sddInputBeanVariable#end);
     }
 #end
 $!updatedAreaEnd

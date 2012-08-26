@@ -7,7 +7,9 @@ package $packageName;
 $!updatedAreaImport
 
 import $sddOutputBeanCollectionImport;
+#if($isNotVoidInput)
 import $sddInputBeanImport;
+#end
 
 /**
  *
@@ -23,7 +25,7 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute ($sddInputBeanClass $sddInputBeanVariable) ;
+    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) ;
 #end
 $!updatedAreaEnd
 
