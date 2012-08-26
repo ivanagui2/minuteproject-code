@@ -186,6 +186,11 @@
 	 		<include name="**/*.vm"/>		
 	 	</fileset>
 	  </copy>		
+	  <copy todir="${template.utils.dir}" overwrite="true" >
+	 	<fileset dir="${template2.dev.relpath.utils}">
+	 		<include name="**/*.vm"/>		
+	 	</fileset>
+	  </copy>		
 	  <copy todir="${template.soa.dir}" overwrite="true" >
 	 	<fileset dir="${template2.dev.relpath.soa}">
 	 		<include name="**/*.vm"/>		
