@@ -28,9 +28,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
-import $sddInputBeanImport;
 import $sddDaoInterfaceImport;
-
+#if($isNotVoidInput)
+import $sddInputBeanImport;
+#end
 /**
  *
  * <p>Title: ${className}</p>
@@ -52,9 +53,9 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute ($sddInputBeanClass $sddInputBeanVariable) {
+    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
 		$sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable = new $sddOutputBeanCollectionClass();
-		List<$sddOutputBeanClass> list = executeJDBC ($sddInputBeanVariable);
+		List<$sddOutputBeanClass> list = executeJDBC (#if($isNotVoidInput)$sddInputBeanVariable#end);
 		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (list);
         return ${sddOutputBeanCollectionVariable};
     }
@@ -66,7 +67,7 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-	public List<$sddOutputBeanClass> executeJDBC($sddInputBeanClass $sddInputBeanVariable) {
+	public List<$sddOutputBeanClass> executeJDBC(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

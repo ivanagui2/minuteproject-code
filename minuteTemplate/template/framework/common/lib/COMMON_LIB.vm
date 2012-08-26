@@ -31,6 +31,7 @@ $!commonUtils.getReadMeText($template)
 #set ($classVariableName = $formatUtils.firstLowerCase(${className}))
 #set ($inputBean = $query.inputBean)
 #set ($outputBean = $query.outputBean)
+#set ($isNotVoidInput = !$inputBean.getColumns().isEmpty())
 #end
 
 #macro(exposeStatementParam)
