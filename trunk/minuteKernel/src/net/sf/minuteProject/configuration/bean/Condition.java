@@ -8,6 +8,7 @@ public class Condition extends AbstractConfiguration {
 	public static final String ENDS_WITH = "endsWith";
 	public static final String CONTAINS = "contains";
 	public static final String STARTS_WITH = "startsWith";
+	public static final String EQUALS = "equals";
 	public static final String INCLUDE = "include";
 	public static final String PACKAGE = "package";
 	public static final String EXCLUDE = "exclude";

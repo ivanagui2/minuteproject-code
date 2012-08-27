@@ -19,6 +19,14 @@ public class StringUtils {
 		return valueToTest.startsWith(startsWith);
 	}
 	
+	public static boolean equalsIgnoreCase(String valueToTest, String startsWith) {
+		if (valueToTest==null) return false;
+		if (startsWith==null) return false;
+		valueToTest = org.apache.commons.lang.StringUtils.upperCase(valueToTest);
+		startsWith = org.apache.commons.lang.StringUtils.upperCase(startsWith);
+		return valueToTest.equals(startsWith);
+	}
+	
 	public static boolean endsWithIgnoreCase(String valueToTest, String endsWith) {
 		if (valueToTest==null) return false;
 		if (endsWith==null) return false;
@@ -44,6 +52,8 @@ public class StringUtils {
 			return false;
 		if (Condition.STARTS_WITH.equals(expression))
 			return startsWithIgnoreCase(valueToTest, pattern);
+		if (Condition.EQUALS.equals(expression))
+			return equalsIgnoreCase(valueToTest, pattern);
 		if (Condition.ENDS_WITH.equals(expression))
 			return endsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.CONTAINS.equals(expression))

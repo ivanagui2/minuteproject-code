@@ -22,4 +22,11 @@ public class ParserUtils {
 		}
 		return l;
 	}
+
+	public static boolean isInList(String name,
+			String list) {
+		if (list==null || list.isEmpty()) 
+			return false;
+		return getList(list).contains(name);
+	}
 }
