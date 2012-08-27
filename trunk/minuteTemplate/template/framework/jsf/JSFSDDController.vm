@@ -23,10 +23,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+#exposeChartSpecific()
 #if ($isChartLayout)
 import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartSeries;
 #end
 
 import $sddOutputBeanCollectionImport;
@@ -55,6 +58,43 @@ public class ${className} {
 #end
     private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
     private $sddOutputBeanClass selected$sddOutputBeanClass;
+
+#if ($isChartLayout)
+    private CartesianChartModel categoryModel;  
+    private PieChartModel pieModel;
+
+    public CartesianChartModel getCategoryModel() {  
+        return categoryModel;  
+    }  
+  
+    public PieChartModel getPieModel() {  
+        return pieModel;  
+    }  
+
+    public CartesianChartModel createCategoryModel() {  
+        categoryModel = new CartesianChartModel();  
+        
+        ChartSeries $outputBeanDimension1 = new ChartSeries();  
+        ${outputBeanDimension1}.setLabel("$outputBeanDimension1");  
+  
+        for ($sddOutputBeanClass var : getOutputList()) {
+            ${outputBeanDimension1}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
+        }
+        categoryModel.addSeries($outputBeanDimension1);  
+        
+        return categoryModel;
+    }  
+  
+    public PieChartModel createPieModel() {
+        execute();
+        pieModel = new PieChartModel();  
+        for ($sddOutputBeanClass var : getOutputList()) {
+            pieModel.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
+        }
+        return pieModel;
+    }
+
+#end
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
 $!updatedAreaBegin
