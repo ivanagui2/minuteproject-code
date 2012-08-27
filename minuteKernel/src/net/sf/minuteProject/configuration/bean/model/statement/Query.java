@@ -25,6 +25,7 @@ public class Query extends AbstractConfiguration {
 	private QueryParams outputParams;
 	private boolean isSet = false;
 	private Package pack;
+	private String type, category;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
@@ -199,6 +200,22 @@ public class Query extends AbstractConfiguration {
 	
 	private String convertType(String type) {
 		return ConvertUtils.getDDLUtilsTypeFromDBType(type);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 }

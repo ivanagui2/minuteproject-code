@@ -67,7 +67,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                      <query name="get address summary" id="dashAddress" type="dashboard" category="pie-chart">
                          <query-body> <!-- dimensions column first -->
                          <value>
-<![CDATA[select city, count(*) as nb from address group by city order by city]]>
+<![CDATA[select city, count(*) as nb from address group by city order by count(*) desc]]>
                             </value>
                          </query-body>
                      </query>
