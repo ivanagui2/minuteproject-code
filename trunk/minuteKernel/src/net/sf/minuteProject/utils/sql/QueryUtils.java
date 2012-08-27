@@ -162,6 +162,25 @@ public class QueryUtils {
 			}
 		}
 		return map;
-		
+	}
+	
+	public static boolean isChartLayout(Query query) {
+		return "dashboard".equals(query.getType());
+	}
+	
+	public static boolean isPieChart(Query query) {
+		return "pie-chart".equals(query.getCategory());
+	}
+	
+	public static boolean isBarChart(Query query) {
+		return "bar-chart".equals(query.getCategory());
+	}
+	
+	public static Column getOutputBeanDimension(Query query, int i) {
+		return query.getOutputBean().getColumn(i);
+	}
+	
+	public static Column getOutputBeanValue(Query query) {
+		return query.getOutputBean().getColumn(query.getOutputBean().getColumnCount()-1);
 	}
 }
