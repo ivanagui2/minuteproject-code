@@ -19,7 +19,7 @@ import net.sf.minuteProject.utils.TableUtils;
 public class ForeignKeyConvention extends ModelConvention {
 
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_TARGET_PRIMARY_KEY_NAME = "autodetect-foreign-key-based-on-target-primary-key-name";
-	public static final String APPLY_DEFAULT_FK_BY_ENTITY_NAME_AND_SUFFIX = "apply-default-foreign-key-by-entity-name-and-suffix";
+//	public static final String APPLY_DEFAULT_FK_BY_ENTITY_NAME_AND_SUFFIX = "apply-default-foreign-key-by-entity-name-and-suffix";
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP = "autodetect-foreign-key-based-on-similarity-and-map";
 
 	public String defaultSuffix, columnEnding, columnStarting;
@@ -65,7 +65,7 @@ public class ForeignKeyConvention extends ModelConvention {
 	public void apply(BusinessModel model) {
 		if (AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP.equals(type)) {
 			if (model.getBusinessPackage() != null) {
-				for (Table table : model.getBusinessPackage().getTables()) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
 					applyEntitySimilarity(table);
 				}
 			}
@@ -73,7 +73,7 @@ public class ForeignKeyConvention extends ModelConvention {
 		if (AUTODETECT_FOREIGN_KEY_BASED_ON_TARGET_PRIMARY_KEY_NAME.equals(type)) {
 			if (model.getBusinessPackage() != null) {
 				Map<String, Table> map = TableUtils.getPrimaryKeyTableMap(model);
-				for (Table table : model.getBusinessPackage().getTables()) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
 					applyFieldSimilarity(table, map);
 				}
 			}
@@ -91,7 +91,7 @@ public class ForeignKeyConvention extends ModelConvention {
 		for (Column column : table.getAttributes()) {
 			Table target = matchTable(column, map);
 			if (target!=null) {
-				Field field = getForeignKeyField(column, table);
+				Field field = getForeignKeyField(column, table, target);
 				ForeignKeyUtils.setForeignKey(table, field);
 			}
 		}
@@ -151,6 +151,10 @@ public class ForeignKeyConvention extends ModelConvention {
 //		if (target == null)
 //			target = TableUtils.getTableFromAlias(table.getDatabase(), tablename);
 		Table target = getTarget(column);
+		return getForeignKeyField(column, table, target);
+	}
+
+	private Field getForeignKeyField(Column column, Table table, Table target) {
 		if (target != null) {
 			Field f = new Field();
 			f.setName(column.getName());

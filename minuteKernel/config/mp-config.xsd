@@ -21,6 +21,7 @@
          <xs:restriction base="xs:string">
              <xs:enumeration value="startsWith" />
              <xs:enumeration value="endsWith" />
+             <xs:enumeration value="equals" />
              <xs:enumeration value="contains" />
              <xs:enumeration value="regex" />
          </xs:restriction>
@@ -139,6 +140,13 @@
 			<xs:enumeration value="apply-field-alias-based-on-camelcase" />
 		</xs:restriction>
 	</xs:simpleType>
+	
+	<xs:simpleType name="foreign-key-convention-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="autodetect-foreign-key-based-on-similarity-and-map" />
+			<xs:enumeration value="autodetect-foreign-key-based-on-target-primary-key-name" />
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:simpleType name="stereotype-type">
 		<xs:restriction base="xs:string">
@@ -170,9 +178,10 @@
 	</xs:complexType>
 
 	<xs:complexType name="foreign-key-convention">
-		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="type" type="foreign-key-convention-type" />
 		<xs:attribute name="column-ending" type="xs:string" />
 		<xs:attribute name="column-starting" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
 
 	<xs:complexType name="entity-naming-convention">
@@ -223,11 +232,15 @@
 	<xs:complexType name="table-default-primary-key-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
+		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
 
 	<xs:complexType name="view-primary-key-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
+		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
 
 	<xs:complexType name="version-convention">

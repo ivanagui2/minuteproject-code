@@ -372,6 +372,8 @@
 					<set-properties-rule>
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 					</set-properties-rule>	
 	            </pattern>		
 				<pattern value="primary-key-convention">
@@ -398,6 +400,8 @@
 					<set-properties-rule>
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 					</set-properties-rule>	
 	            </pattern>		            		
 				<pattern value="foreign-key-convention">
@@ -407,8 +411,7 @@
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="column-ending" prop-name="columnEnding" />	
 						<alias attr-name="column-starting" prop-name="columnStarting" />	
-						<alias attr-name="column-body" prop-name="columnBody" />	
-						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 					</set-properties-rule>	
 	            </pattern>
 				<pattern value="version-convention">
