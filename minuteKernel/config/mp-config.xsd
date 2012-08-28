@@ -233,6 +233,7 @@
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
 		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
 		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
 
@@ -240,6 +241,7 @@
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
 		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
 		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
 
