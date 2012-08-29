@@ -16,6 +16,7 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 public class TableDefaultPrimaryKeyConvention extends ModelConvention {
 
 	public static final String APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK = "apply-default-primary-key-otherwise-first-one";
+	public static final String APPLY_DEFAULT_PK = "apply-default-primary-key";
 	public String defaultPrimaryKeyNames, excludePrimaryKeyNames, fieldPatternType="equals";
 	public boolean allowCompositePk=true;
 	
@@ -58,23 +59,25 @@ public class TableDefaultPrimaryKeyConvention extends ModelConvention {
 	}
 	
 	protected void apply(Table table) {
-		table.setPrimaryKeys(getVirtualPrimaryKey(table));
+		Column[] virtualPrimaryKey = getVirtualPrimaryKey(table);
+		if (virtualPrimaryKey.length>0) 
+			table.setPrimaryKeys(virtualPrimaryKey);
 	}
 	
 	protected Column[] getVirtualPrimaryKey(Table table) {
 		List<Column> pks = getPksByDefaultPrimaryKeyNames(table);
-		if (pks==null || pks.isEmpty())
+		if (pks==null || pks.isEmpty() && APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK.equals(getType()))
 			pks = getPksByFirstColumn(table);
 		return (Column[])pks.toArray(new Column[pks.size()]);
 	}
 	
 	protected List<Column> getPksByFirstColumn(Table table) {
 		List<Column> pks = new ArrayList<Column>();
-		Column column;
-		if (table.getColumnCount()>0) {
-			column = table.getColumn(0);
-			if (column!=null)
+		for (Column column : table.getColumns()) {
+			if (!ParserUtils.isInList(column.getName(), getExcludePrimaryKeyNames())) {
 				pks.add(column);
+				return pks;
+			}
 		}
 		return pks;
 	}
@@ -95,16 +98,6 @@ public class TableDefaultPrimaryKeyConvention extends ModelConvention {
 				}
 			}
 		}
-//		if (pk!=null) {
-//			pk = StringUtils.remove(pk, " ");
-//			for (String columnName : getDefaultPrimaryKeyNames().split(",")) {
-//				if (!ParserUtils.isInList(columnName, getExcludePrimaryKeyNames())) {
-//					Column column = ColumnUtils.getColumn(table, columnName);
-//					if (column!=null)
-//						pks.add(column);
-//				}
-//			}
-//		}
 		return pks;
 	}
 	
