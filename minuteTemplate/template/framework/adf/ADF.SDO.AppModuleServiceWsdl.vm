@@ -1,0 +1,408 @@
+<wsdl:definitions
+     name="AppModuleService"
+     targetNamespace="/my/hw/view/common/"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:errors="http://xmlns.oracle.com/adf/svc/errors/"
+     xmlns:orafault="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="/my/hw/view/common/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:types="/my/hw/view/common/types/"
+    >
+    <plnk:partnerLinkType name="AppModuleService">
+        <plnk:role name="AppModuleServiceProvider">
+            <plnk:portType name="tns:AppModuleService"/>
+        </plnk:role>
+        <plnk:role name="AppModuleServiceRequestor">
+            <plnk:portType name="tns:AppModuleServiceResponse"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://xmlns.oracle.com/adf/svc/errors/" location="classpath:/META-INF/wsdl/ServiceException.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0" schemaLocation="classpath:/META-INF/oracle-webservices-async-fault-11_0.xsd"/>
+            <import namespace="/my/hw/view/common/types/" schemaLocation="AppModuleService.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="AppModuleService_onFault">
+        <wsdl:part name="parameters" element="orafault:Fault"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_deletePersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:deletePersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_mergePersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:mergePersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_findPersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:findPersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_getPersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:getPersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processCSPersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:processCSPersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processPersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:processPersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_updatePersonsView1AsyncResponse">
+        <wsdl:part name="parameters" element="types:updatePersonsView1AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_getPersonsView1">
+        <wsdl:part name="parameters" element="types:getPersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_getPersonsView1Response">
+        <wsdl:part name="parameters" element="types:getPersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_updatePersonsView1">
+        <wsdl:part name="parameters" element="types:updatePersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_updatePersonsView1Response">
+        <wsdl:part name="parameters" element="types:updatePersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_deletePersonsView1">
+        <wsdl:part name="parameters" element="types:deletePersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_deletePersonsView1Response">
+        <wsdl:part name="parameters" element="types:deletePersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_mergePersonsView1">
+        <wsdl:part name="parameters" element="types:mergePersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_mergePersonsView1Response">
+        <wsdl:part name="parameters" element="types:mergePersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_findPersonsView1">
+        <wsdl:part name="parameters" element="types:findPersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_findPersonsView1Response">
+        <wsdl:part name="parameters" element="types:findPersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processPersonsView1">
+        <wsdl:part name="parameters" element="types:processPersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processPersonsView1Response">
+        <wsdl:part name="parameters" element="types:processPersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processCSPersonsView1">
+        <wsdl:part name="parameters" element="types:processCSPersonsView1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processCSPersonsView1Response">
+        <wsdl:part name="parameters" element="types:processCSPersonsView1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_deletePersonsView1Async">
+        <wsdl:part name="parameters" element="types:deletePersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_mergePersonsView1Async">
+        <wsdl:part name="parameters" element="types:mergePersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_findPersonsView1Async">
+        <wsdl:part name="parameters" element="types:findPersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_getPersonsView1Async">
+        <wsdl:part name="parameters" element="types:getPersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processCSPersonsView1Async">
+        <wsdl:part name="parameters" element="types:processCSPersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_processPersonsView1Async">
+        <wsdl:part name="parameters" element="types:processPersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_updatePersonsView1Async">
+        <wsdl:part name="parameters" element="types:updatePersonsView1Async"/>
+    </wsdl:message>
+    <wsdl:portType name="AppModuleServiceResponse">
+        <wsdl:operation name="onFault">
+            <wsdl:input message="tns:AppModuleService_onFault" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
+        </wsdl:operation>
+        <wsdl:operation name="deletePersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_deletePersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/deletePersonsView1AsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="mergePersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_mergePersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/mergePersonsView1AsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="findPersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_findPersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/findPersonsView1AsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getPersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_getPersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/getPersonsView1AsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="processCSPersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_processCSPersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/processCSPersonsView1AsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="processPersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_processPersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/processPersonsView1AsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="updatePersonsView1AsyncResponse">
+            <wsdl:input message="tns:AppModuleService_updatePersonsView1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/updatePersonsView1AsyncResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="AppModuleService">
+        <wsdl:documentation>
+            <ViewInstance xmlns="http://xmlns.oracle.com/adf/svc/metadata/" Name="AddressesView1" SDOName="tns:AddressesViewSDO"/>
+            <ViewInstance xmlns="http://xmlns.oracle.com/adf/svc/metadata/" Name="CountryCodesView1"
+                 SDOName="tns:CountryCodesViewSDO"/>
+            <ViewInstance xmlns="http://xmlns.oracle.com/adf/svc/metadata/" Name="OrdersView1" SDOName="tns:OrdersViewSDO"/>
+            <ViewInstance xmlns="http://xmlns.oracle.com/adf/svc/metadata/" Name="PersonsView1" SDOName="tns:PersonsViewSDO"
+                 UpdateOpName="updatePersonsView1" DeleteOpName="deletePersonsView1" MergeOpName="mergePersonsView1"
+                 GetOpName="getPersonsView1" FindOpName="findPersonsView1" ProcessOpName="processPersonsView1"
+                 ProcessCSOpName="processCSPersonsView1"/>
+        </wsdl:documentation>
+        <wsdl:operation name="getPersonsView1">
+            <wsdl:input message="tns:AppModuleService_getPersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_getPersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="updatePersonsView1">
+            <wsdl:input message="tns:AppModuleService_updatePersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_updatePersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="deletePersonsView1">
+            <wsdl:input message="tns:AppModuleService_deletePersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_deletePersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="mergePersonsView1">
+            <wsdl:input message="tns:AppModuleService_mergePersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_mergePersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="findPersonsView1">
+            <wsdl:input message="tns:AppModuleService_findPersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_findPersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="processPersonsView1">
+            <wsdl:input message="tns:AppModuleService_processPersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_processPersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="processCSPersonsView1">
+            <wsdl:input message="tns:AppModuleService_processCSPersonsView1"/>
+            <wsdl:output message="tns:AppModuleService_processCSPersonsView1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="deletePersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_deletePersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/deletePersonsView1Async"/>
+        </wsdl:operation>
+        <wsdl:operation name="mergePersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_mergePersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/mergePersonsView1Async"/>
+        </wsdl:operation>
+        <wsdl:operation name="findPersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_findPersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/findPersonsView1Async"/>
+        </wsdl:operation>
+        <wsdl:operation name="getPersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_getPersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/getPersonsView1Async"/>
+        </wsdl:operation>
+        <wsdl:operation name="processCSPersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_processCSPersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/processCSPersonsView1Async"/>
+        </wsdl:operation>
+        <wsdl:operation name="processPersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_processPersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/processPersonsView1Async"/>
+        </wsdl:operation>
+        <wsdl:operation name="updatePersonsView1Async">
+            <wsdl:input message="tns:AppModuleService_updatePersonsView1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="/my/hw/view/common/updatePersonsView1Async"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AppModuleServiceSoapHttp" type="tns:AppModuleService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getPersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/getPersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="updatePersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/updatePersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="deletePersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/deletePersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="mergePersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/mergePersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findPersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/findPersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="processPersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/processPersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="processCSPersonsView1">
+            <soap:operation soapAction="/my/hw/view/common/processCSPersonsView1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="deletePersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/deletePersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="mergePersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/mergePersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="findPersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/findPersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getPersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/getPersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="processCSPersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/processCSPersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="processPersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/processPersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="updatePersonsView1Async">
+            <soap:operation soapAction="/my/hw/view/common/updatePersonsView1Async"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="AppModuleServiceResponseBinding" type="tns:AppModuleServiceResponse">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="onFault">
+            <soap:operation soapAction="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="deletePersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/deletePersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="mergePersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/mergePersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="findPersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/findPersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getPersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/getPersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="processCSPersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/processCSPersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="processPersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/processPersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="updatePersonsView1AsyncResponse">
+            <soap:operation soapAction="/my/hw/view/common/updatePersonsView1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AppModuleService">
+        <wsdl:port name="AppModuleServiceSoapHttpPort" binding="tns:AppModuleServiceSoapHttp">
+            <soap:address location="http://localhost:7101/m-ViewController-context-root/AppModuleService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

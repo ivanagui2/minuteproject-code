@@ -1,0 +1,175 @@
+package my.hw.view.server.serviceinterface;
+
+import java.lang.reflect.Method;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+import javax.interceptor.Interceptors;
+
+import my.hw.view.common.PersonsViewSDO;
+import my.hw.view.common.serviceinterface.AppModuleService;
+
+import oracle.jbo.common.Diagnostic;
+import oracle.jbo.common.sdo.SDOHelper;
+import oracle.jbo.common.service.types.FindControl;
+import oracle.jbo.common.service.types.FindCriteria;
+import oracle.jbo.common.service.types.ProcessControl;
+import oracle.jbo.common.service.types.ProcessData;
+import oracle.jbo.server.svc.ServiceContextInterceptor;
+import oracle.jbo.server.svc.ServiceImpl;
+import oracle.jbo.service.errors.ServiceException;
+
+import oracle.webservices.annotations.PortableWebService;
+import oracle.webservices.annotations.async.AsyncWebService;
+
+@Stateless(name="my.hw.view.common.AppModuleServiceBean", mappedName="AppModuleServiceBean")
+@Remote(AppModuleService.class)
+@PortableWebService(targetNamespace="/my/hw/view/common/", serviceName="AppModuleService",
+    portName="AppModuleServiceSoapHttpPort", endpointInterface="my.hw.view.common.serviceinterface.AppModuleService")
+@Interceptors( { ServiceContextInterceptor.class })
+@AsyncWebService
+public class AppModuleServiceImpl extends ServiceImpl implements AppModuleService {
+    private static boolean _isInited = false;
+
+    /**
+     * This is the default constructor (do not remove).
+     */
+    public AppModuleServiceImpl() {
+        init();
+        setApplicationModuleDefName("my.hw.view.AppModule");
+        setConfigurationName("AppModuleService");
+    }
+
+    /**
+     * Generated method. Do not modify. Do initialization in the constructor
+     */
+    protected void init() {
+        if (_isInited) {
+            return;
+        }
+        synchronized (AppModuleServiceImpl.class) {
+            if (_isInited) {
+                return;
+            }
+            try {
+                SDOHelper.INSTANCE.defineSchema("my/hw/view/common/serviceinterface/", "AppModuleService.xsd");
+                _isInited = true;
+            } catch (Exception ex) {
+                Diagnostic.printStackTrace(ex);
+            }
+        }
+    }
+
+    /**
+     * getPersonsView1: generated method. Do not modify.
+     */
+    public PersonsViewSDO getPersonsView1(Long personId) throws ServiceException {
+        return (PersonsViewSDO)get(new Object[] { personId }, "PersonsView1",
+                                   PersonsViewSDO.class);
+    }
+
+    /**
+     * updatePersonsView1: generated method. Do not modify.
+     */
+    public PersonsViewSDO updatePersonsView1(PersonsViewSDO personsView1) throws ServiceException {
+        return (PersonsViewSDO)update(personsView1, "PersonsView1");
+    }
+
+    /**
+     * deletePersonsView1: generated method. Do not modify.
+     */
+    public void deletePersonsView1(PersonsViewSDO personsView1) throws ServiceException {
+        delete(personsView1, "PersonsView1");
+    }
+
+    /**
+     * mergePersonsView1: generated method. Do not modify.
+     */
+    public PersonsViewSDO mergePersonsView1(PersonsViewSDO personsView1) throws ServiceException {
+        return (PersonsViewSDO)merge(personsView1, "PersonsView1");
+    }
+
+    /**
+     * findPersonsView1: generated method. Do not modify.
+     */
+    public List<PersonsViewSDO> findPersonsView1(FindCriteria findCriteria,
+                                                 FindControl findControl) throws ServiceException {
+        return (List<PersonsViewSDO>)find(findCriteria, findControl,
+                                          "PersonsView1",
+                                          PersonsViewSDO.class);
+    }
+
+    /**
+     * processPersonsView1: generated method. Do not modify.
+     */
+    public List<PersonsViewSDO> processPersonsView1(String changeOperation,
+                                                    List<PersonsViewSDO> personsView1,
+                                                    ProcessControl processControl) throws ServiceException {
+        return (List<PersonsViewSDO>)process(changeOperation, processControl,
+                                             personsView1, "PersonsView1");
+    }
+
+    /**
+     * processCSPersonsView1: generated method. Do not modify.
+     */
+    public ProcessData processCSPersonsView1(ProcessData processData,
+                                             ProcessControl processControl) throws ServiceException {
+        return processChangeSummary(processData, processControl, "PersonsView1");
+    }
+
+    /**
+     * mergePersonsView1Async: generated method. Do not modify.
+     */
+    public PersonsViewSDO mergePersonsView1Async(PersonsViewSDO personsView1) throws ServiceException {
+        return mergePersonsView1(personsView1);
+    }
+
+    /**
+     * findPersonsView1Async: generated method. Do not modify.
+     */
+    public List<PersonsViewSDO> findPersonsView1Async(FindCriteria findCriteria,
+                                                      FindControl findControl) throws ServiceException {
+        return findPersonsView1(findCriteria, findControl);
+    }
+
+    /**
+     * processPersonsView1Async: generated method. Do not modify.
+     */
+    public List<PersonsViewSDO> processPersonsView1Async(String changeOperation,
+                                                         List<PersonsViewSDO> personsView1,
+                                                         ProcessControl processControl) throws ServiceException {
+        return processPersonsView1(changeOperation, personsView1, processControl);
+    }
+
+    /**
+     * updatePersonsView1Async: generated method. Do not modify.
+     */
+    public PersonsViewSDO updatePersonsView1Async(PersonsViewSDO personsView1) throws ServiceException {
+        return updatePersonsView1(personsView1);
+    }
+
+    /**
+     * deletePersonsView1Async: generated method. Do not modify.
+     */
+    public void deletePersonsView1Async(PersonsViewSDO personsView1) throws ServiceException {
+        deletePersonsView1(personsView1);
+    }
+
+    /**
+     * getPersonsView1Async: generated method. Do not modify.
+     */
+    public PersonsViewSDO getPersonsView1Async(Long personId) throws ServiceException {
+        return getPersonsView1(personId);
+    }
+
+    /**
+     * processCSPersonsView1Async: generated method. Do not modify.
+     */
+    public ProcessData processCSPersonsView1Async(ProcessData processData,
+                                                  ProcessControl processControl) throws ServiceException {
+        return processCSPersonsView1(processData, processControl);
+    }
+}

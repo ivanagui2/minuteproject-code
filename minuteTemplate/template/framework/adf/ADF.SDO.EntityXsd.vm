@@ -1,50 +1,43 @@
+#exposeVariableEntitySpecific()
+#addedAreas()
+#set($namespacePackage = "/my/hw/view/common/")
+#set($javaPackage = "my.hw.view.common")
 <xsd:schema xmlns:sdoJava="commonj.sdo/java" xmlns:ns0="http://xmlns.oracle.com/adf/svc/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-     xmlns:sdoXML="commonj.sdo/xml" targetNamespace="/my/hw/view/common/" xmlns="/my/hw/view/common/"
-     elementFormDefault="qualified" sdoJava:package="my.hw.view.common">
+     xmlns:sdoXML="commonj.sdo/xml" targetNamespace="$namespacePackage" xmlns="$namespacePackage"
+     elementFormDefault="qualified" sdoJava:package="$javaPackage">
     <xsd:import schemaLocation="classpath:/META-INF/wsdl/BC4JService.xsd" namespace="http://xmlns.oracle.com/adf/svc/types/"/>
     <xsd:import schemaLocation="classpath:/xml/sdoJava.xsd" namespace="commonj.sdo/java"/>
     <xsd:import schemaLocation="classpath:/xml/sdoXML.xsd" namespace="commonj.sdo/xml"/>
-    <xsd:include schemaLocation="OrdersViewSDO.xsd"/>
-    <xsd:complexType name="PersonsViewSDO">
+#foreach ($reference in $table.children)
+#putReferenceParams2()
+#exposeADFEntityConfig()
+    <xsd:include schemaLocation="${ViewSDOXsdClassName}"/>
+#end
+    <xsd:complexType name="${className}">
         <xsd:annotation>
             <xsd:appinfo source="http://xmlns.oracle.com/adf/svc/metadata/">
                 <key xmlns="http://xmlns.oracle.com/adf/svc/metadata/">
-                    <attribute>PersonId</attribute>
+#foreach ($column in $table.primaryKeys)
+#putColumnParamNaming()
+                    <attribute>$columnClass</attribute>
+#end
                 </key>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:sequence>
+#foreach ($column in $table.primaryKeys)
+#putColumnParamNaming()
+#set($sdoType="xsd:long")
+#set($hasSdoDataType=false)
+#set($sdoXmlDataType="sdoJava:LongObject")
+                    <attribute>$columnClass</attribute>
+            <xsd:element name="${columnClass}" type="xsd:long" minOccurs="0" sdoXML:dataType="sdoJava:LongObject"/>
+#end
             <xsd:element name="PersonId" type="xsd:long" minOccurs="0" sdoXML:dataType="sdoJava:LongObject"/>
             <xsd:element name="PrincipalName" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="Title" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="FirstName" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="LastName" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="PersonTypeCode" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="SupplierId" type="xsd:long" minOccurs="0" nillable="true"/>
-            <xsd:element name="ProvisionedFlag" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="PrimaryAddressId" type="xsd:long" minOccurs="0" nillable="true"/>
-            <xsd:element name="RegisteredDate" type="ns0:dateTime-Timestamp" minOccurs="0" nillable="true"/>
-            <xsd:element name="MembershipId" type="xsd:long" minOccurs="0" nillable="true"/>
-            <xsd:element name="Email" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="ConfirmedEmail" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="PhoneNumber" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="MobilePhoneNumber" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="CreditLimit" type="xsd:decimal" minOccurs="0" nillable="true"/>
-            <xsd:element name="DateOfBirth" type="ns0:dateTime-Timestamp" minOccurs="0" nillable="true"/>
-            <xsd:element name="MaritalStatusCode" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="Gender" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="ChildrenUnder18" type="xsd:int" minOccurs="0" nillable="true"/>
-            <xsd:element name="ApproximateIncome" type="xsd:long" minOccurs="0" nillable="true"/>
-            <xsd:element name="ContactMethodCode" type="xsd:string" minOccurs="0" nillable="true"/>
-            <xsd:element name="ContactableFlag" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="ContactByAffilliatesFlag" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="CreatedBy" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="CreationDate" type="ns0:dateTime-Timestamp" minOccurs="0"/>
-            <xsd:element name="LastUpdatedBy" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="LastUpdateDate" type="ns0:dateTime-Timestamp" minOccurs="0"/>
-            <xsd:element name="ObjectVersionId" type="xsd:long" minOccurs="0" sdoXML:dataType="sdoJava:LongObject"/>
+
             <xsd:element name="OrdersView" type="OrdersViewSDO" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="personsViewSDO" type="PersonsViewSDO"/>
+    <xsd:element name="$classVariable" type="$className"/>
 </xsd:schema>
