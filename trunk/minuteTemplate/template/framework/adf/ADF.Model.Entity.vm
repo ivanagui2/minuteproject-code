@@ -11,62 +11,42 @@
   AliasName="$className"
   BindingStyle="OracleName"
   UseGlueCode="false">
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
   <Attribute
-    Name="DepartmentId"
-    IsNotNull="true"
-    Precision="4"
-    Scale="0"
-    ColumnName="DEPARTMENT_ID"
-    SQLType="NUMERIC"
-    Type="java.lang.Integer"
-    ColumnType="NUMBER"
-    TableName="DEPARTMENTS"
-    PrimaryKey="true"/>
-  <Attribute
-    Name="DepartmentName"
-    IsNotNull="true"
-    Precision="30"
-    ColumnName="DEPARTMENT_NAME"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    TableName="DEPARTMENTS">
+    Name="$columnVar"
+    IsNotNull="$column.isRequired()"
+    Precision="$column.precision()"
+    Scale="$column.precision()"
+    ColumnName="$column.name"
+    SQLType="$column.type"
+    Type="$columnType"
+    ColumnType="$column.type"
+    TableName="${column.table.name}"
+    PrimaryKey="${column.isPrimaryKey()}">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
+      <Attr Name="_DisplaySize" Value="$column.precision()"/>
     </DesignTime>
   </Attribute>
-  <Attribute
-    Name="ManagerId"
-    Precision="6"
-    Scale="0"
-    ColumnName="MANAGER_ID"
-    SQLType="NUMERIC"
-    Type="java.lang.Integer"
-    ColumnType="NUMBER"
-    TableName="DEPARTMENTS"/>
-  <Attribute
-    Name="LocationId"
-    Precision="4"
-    Scale="0"
-    ColumnName="LOCATION_ID"
-    SQLType="NUMERIC"
-    Type="java.lang.Integer"
-    ColumnType="NUMBER"
-    TableName="DEPARTMENTS"/>
+#end
+#foreach($child in $table.getChildren())
   <AccessorAttribute
-    Name="Employees"
+    Name="$child.name"
     Association="demo.model.DeptMgrFkAssoc"
     AssociationEnd="demo.model.DeptMgrFkAssoc.Employees"
     AssociationOtherEnd="demo.model.DeptMgrFkAssoc.Departments"
     Type="oracle.jbo.server.EntityImpl"
     IsUpdateable="true"/>
-  <AccessorAttribute
-    Name="Employees1"
-    Association="demo.model.EmpDeptFkAssoc"
-    AssociationEnd="demo.model.EmpDeptFkAssoc.Employees1"
-    AssociationOtherEnd="demo.model.EmpDeptFkAssoc.Departments1"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
+#end
+##  <AccessorAttribute
+##     Name="Employees1"
+##     Association="demo.model.EmpDeptFkAssoc"
+##     AssociationEnd="demo.model.EmpDeptFkAssoc.Employees1"
+##     AssociationOtherEnd="demo.model.EmpDeptFkAssoc.Departments1"
+##     Type="oracle.jbo.RowIterator"
+##     IsUpdateable="false"/>
+#foreach ($column in $table.columns)
+#if($column.isPrimaryKey)
   <Key
     Name="DeptIdPk"
     PrimaryKey="true">
@@ -77,15 +57,19 @@
       <Item Value="demo.model.Departments.DepartmentId"/>
     </AttrArray>
   </Key>
+#end
+#if($column.isRequired)
   <Key
     Name="DeptNameNn">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="DEPT_NAME_NN"/>
-      <Attr Name="_checkCondition" Value="DEPARTMENT_NAME IS NOT NULL"/>
+      <Attr Name="_DBObjectName" Value="${column.name}_NN"/>
+      <Attr Name="_checkCondition" Value="${column.name} IS NOT NULL"/>
       <Attr Name="_isCheck" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes"/>
   </Key>
+#end
+#if($column.isForeignKey())
   <Key
     Name="DeptLocFk">
     <DesignTime>
@@ -97,15 +81,6 @@
       <Item Value="demo.model.Departments.LocationId"/>
     </AttrArray>
   </Key>
-  <Key
-    Name="DeptMgrFk">
-    <DesignTime>
-      <Attr Name="_referencedKey" Value="EMP_EMP_ID_PK"/>
-      <Attr Name="_isForeign" Value="true"/>
-      <Attr Name="_DBObjectName" Value="DEPT_MGR_FK"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="demo.model.Departments.ManagerId"/>
-    </AttrArray>
-  </Key>
+#end
+#end
 </Entity>

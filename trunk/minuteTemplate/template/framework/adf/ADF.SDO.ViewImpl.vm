@@ -1,0 +1,255 @@
+package my.hw.view.common;
+
+import org.eclipse.persistence.sdo.SDODataObject;
+
+public class PersonsViewSDOImpl extends SDODataObject implements PersonsViewSDO {
+
+   public static final int START_PROPERTY_INDEX = 0;
+
+   public static final int END_PROPERTY_INDEX = START_PROPERTY_INDEX + 29;
+
+   public PersonsViewSDOImpl() {}
+
+   public java.lang.Long getPersonId() {
+      return getLong(START_PROPERTY_INDEX + 0);
+   }
+
+   public void setPersonId(java.lang.Long value) {
+      set(START_PROPERTY_INDEX + 0 , value);
+   }
+
+   public java.lang.String getPrincipalName() {
+      return getString(START_PROPERTY_INDEX + 1);
+   }
+
+   public void setPrincipalName(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 1 , value);
+   }
+
+   public java.lang.String getTitle() {
+      return getString(START_PROPERTY_INDEX + 2);
+   }
+
+   public void setTitle(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 2 , value);
+   }
+
+   public java.lang.String getFirstName() {
+      return getString(START_PROPERTY_INDEX + 3);
+   }
+
+   public void setFirstName(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 3 , value);
+   }
+
+   public java.lang.String getLastName() {
+      return getString(START_PROPERTY_INDEX + 4);
+   }
+
+   public void setLastName(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 4 , value);
+   }
+
+   public java.lang.String getPersonTypeCode() {
+      return getString(START_PROPERTY_INDEX + 5);
+   }
+
+   public void setPersonTypeCode(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 5 , value);
+   }
+
+   public java.lang.Long getSupplierId() {
+      return getLong(START_PROPERTY_INDEX + 6);
+   }
+
+   public void setSupplierId(java.lang.Long value) {
+      set(START_PROPERTY_INDEX + 6 , value);
+   }
+
+   public java.lang.String getProvisionedFlag() {
+      return getString(START_PROPERTY_INDEX + 7);
+   }
+
+   public void setProvisionedFlag(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 7 , value);
+   }
+
+   public java.lang.Long getPrimaryAddressId() {
+      return getLong(START_PROPERTY_INDEX + 8);
+   }
+
+   public void setPrimaryAddressId(java.lang.Long value) {
+      set(START_PROPERTY_INDEX + 8 , value);
+   }
+
+   public java.sql.Timestamp getRegisteredDate() {
+      return (java.sql.Timestamp)get(START_PROPERTY_INDEX + 9);
+   }
+
+   public void setRegisteredDate(java.sql.Timestamp value) {
+      set(START_PROPERTY_INDEX + 9 , value);
+   }
+
+   public java.lang.Long getMembershipId() {
+      return getLong(START_PROPERTY_INDEX + 10);
+   }
+
+   public void setMembershipId(java.lang.Long value) {
+      set(START_PROPERTY_INDEX + 10 , value);
+   }
+
+   public java.lang.String getEmail() {
+      return getString(START_PROPERTY_INDEX + 11);
+   }
+
+   public void setEmail(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 11 , value);
+   }
+
+   public java.lang.String getConfirmedEmail() {
+      return getString(START_PROPERTY_INDEX + 12);
+   }
+
+   public void setConfirmedEmail(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 12 , value);
+   }
+
+   public java.lang.String getPhoneNumber() {
+      return getString(START_PROPERTY_INDEX + 13);
+   }
+
+   public void setPhoneNumber(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 13 , value);
+   }
+
+   public java.lang.String getMobilePhoneNumber() {
+      return getString(START_PROPERTY_INDEX + 14);
+   }
+
+   public void setMobilePhoneNumber(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 14 , value);
+   }
+
+   public java.math.BigDecimal getCreditLimit() {
+      return getBigDecimal(START_PROPERTY_INDEX + 15);
+   }
+
+   public void setCreditLimit(java.math.BigDecimal value) {
+      set(START_PROPERTY_INDEX + 15 , value);
+   }
+
+   public java.sql.Timestamp getDateOfBirth() {
+      return (java.sql.Timestamp)get(START_PROPERTY_INDEX + 16);
+   }
+
+   public void setDateOfBirth(java.sql.Timestamp value) {
+      set(START_PROPERTY_INDEX + 16 , value);
+   }
+
+   public java.lang.String getMaritalStatusCode() {
+      return getString(START_PROPERTY_INDEX + 17);
+   }
+
+   public void setMaritalStatusCode(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 17 , value);
+   }
+
+   public java.lang.String getGender() {
+      return getString(START_PROPERTY_INDEX + 18);
+   }
+
+   public void setGender(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 18 , value);
+   }
+
+   public java.lang.Integer getChildrenUnder18() {
+      return new Integer(getInt(START_PROPERTY_INDEX + 19));
+   }
+
+   public void setChildrenUnder18(java.lang.Integer value) {
+      set(START_PROPERTY_INDEX + 19 , value);
+   }
+
+   public java.lang.Long getApproximateIncome() {
+      return getLong(START_PROPERTY_INDEX + 20);
+   }
+
+   public void setApproximateIncome(java.lang.Long value) {
+      set(START_PROPERTY_INDEX + 20 , value);
+   }
+
+   public java.lang.String getContactMethodCode() {
+      return getString(START_PROPERTY_INDEX + 21);
+   }
+
+   public void setContactMethodCode(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 21 , value);
+   }
+
+   public java.lang.String getContactableFlag() {
+      return getString(START_PROPERTY_INDEX + 22);
+   }
+
+   public void setContactableFlag(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 22 , value);
+   }
+
+   public java.lang.String getContactByAffilliatesFlag() {
+      return getString(START_PROPERTY_INDEX + 23);
+   }
+
+   public void setContactByAffilliatesFlag(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 23 , value);
+   }
+
+   public java.lang.String getCreatedBy() {
+      return getString(START_PROPERTY_INDEX + 24);
+   }
+
+   public void setCreatedBy(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 24 , value);
+   }
+
+   public java.sql.Timestamp getCreationDate() {
+      return (java.sql.Timestamp)get(START_PROPERTY_INDEX + 25);
+   }
+
+   public void setCreationDate(java.sql.Timestamp value) {
+      set(START_PROPERTY_INDEX + 25 , value);
+   }
+
+   public java.lang.String getLastUpdatedBy() {
+      return getString(START_PROPERTY_INDEX + 26);
+   }
+
+   public void setLastUpdatedBy(java.lang.String value) {
+      set(START_PROPERTY_INDEX + 26 , value);
+   }
+
+   public java.sql.Timestamp getLastUpdateDate() {
+      return (java.sql.Timestamp)get(START_PROPERTY_INDEX + 27);
+   }
+
+   public void setLastUpdateDate(java.sql.Timestamp value) {
+      set(START_PROPERTY_INDEX + 27 , value);
+   }
+
+   public java.lang.Long getObjectVersionId() {
+      return getLong(START_PROPERTY_INDEX + 28);
+   }
+
+   public void setObjectVersionId(java.lang.Long value) {
+      set(START_PROPERTY_INDEX + 28 , value);
+   }
+
+   public java.util.List getOrdersView() {
+      return getList(START_PROPERTY_INDEX + 29);
+   }
+
+   public void setOrdersView(java.util.List value) {
+      set(START_PROPERTY_INDEX + 29 , value);
+   }
+
+
+}
+

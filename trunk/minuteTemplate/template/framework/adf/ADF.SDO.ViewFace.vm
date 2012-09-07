@@ -1,0 +1,127 @@
+package my.hw.view.common;
+
+public interface PersonsViewSDO extends java.io.Serializable {
+
+   public java.lang.Long getPersonId();
+
+   public void setPersonId(java.lang.Long value);
+
+   public java.lang.String getPrincipalName();
+
+   public void setPrincipalName(java.lang.String value);
+
+   public java.lang.String getTitle();
+
+   public void setTitle(java.lang.String value);
+
+   public java.lang.String getFirstName();
+
+   public void setFirstName(java.lang.String value);
+
+   public java.lang.String getLastName();
+
+   public void setLastName(java.lang.String value);
+
+   public java.lang.String getPersonTypeCode();
+
+   public void setPersonTypeCode(java.lang.String value);
+
+   public java.lang.Long getSupplierId();
+
+   public void setSupplierId(java.lang.Long value);
+
+   public java.lang.String getProvisionedFlag();
+
+   public void setProvisionedFlag(java.lang.String value);
+
+   public java.lang.Long getPrimaryAddressId();
+
+   public void setPrimaryAddressId(java.lang.Long value);
+
+   public java.sql.Timestamp getRegisteredDate();
+
+   public void setRegisteredDate(java.sql.Timestamp value);
+
+   public java.lang.Long getMembershipId();
+
+   public void setMembershipId(java.lang.Long value);
+
+   public java.lang.String getEmail();
+
+   public void setEmail(java.lang.String value);
+
+   public java.lang.String getConfirmedEmail();
+
+   public void setConfirmedEmail(java.lang.String value);
+
+   public java.lang.String getPhoneNumber();
+
+   public void setPhoneNumber(java.lang.String value);
+
+   public java.lang.String getMobilePhoneNumber();
+
+   public void setMobilePhoneNumber(java.lang.String value);
+
+   public java.math.BigDecimal getCreditLimit();
+
+   public void setCreditLimit(java.math.BigDecimal value);
+
+   public java.sql.Timestamp getDateOfBirth();
+
+   public void setDateOfBirth(java.sql.Timestamp value);
+
+   public java.lang.String getMaritalStatusCode();
+
+   public void setMaritalStatusCode(java.lang.String value);
+
+   public java.lang.String getGender();
+
+   public void setGender(java.lang.String value);
+
+   public java.lang.Integer getChildrenUnder18();
+
+   public void setChildrenUnder18(java.lang.Integer value);
+
+   public java.lang.Long getApproximateIncome();
+
+   public void setApproximateIncome(java.lang.Long value);
+
+   public java.lang.String getContactMethodCode();
+
+   public void setContactMethodCode(java.lang.String value);
+
+   public java.lang.String getContactableFlag();
+
+   public void setContactableFlag(java.lang.String value);
+
+   public java.lang.String getContactByAffilliatesFlag();
+
+   public void setContactByAffilliatesFlag(java.lang.String value);
+
+   public java.lang.String getCreatedBy();
+
+   public void setCreatedBy(java.lang.String value);
+
+   public java.sql.Timestamp getCreationDate();
+
+   public void setCreationDate(java.sql.Timestamp value);
+
+   public java.lang.String getLastUpdatedBy();
+
+   public void setLastUpdatedBy(java.lang.String value);
+
+   public java.sql.Timestamp getLastUpdateDate();
+
+   public void setLastUpdateDate(java.sql.Timestamp value);
+
+   public java.lang.Long getObjectVersionId();
+
+   public void setObjectVersionId(java.lang.Long value);
+
+   public java.util.List getOrdersView();
+
+   public void setOrdersView(java.util.List value);
+
+
+}
+
