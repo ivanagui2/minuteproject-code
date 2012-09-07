@@ -37,6 +37,12 @@
 	</target>
 
 	<target name="distribute-minuteFoundation">
+	  <copy todir="${target.dir}/mp-foundation" overwrite="true">
+	 	<fileset dir="${minute.foundation.dev.relpath}/dist">
+	 		<include name="**/*.jar"/>
+	 		<include name="**/*.zip"/>
+	 	</fileset>
+	  </copy>	  		
 	  <copy todir="${application.dir}" overwrite="true">
 	 	<fileset dir="${minute.foundation.dev.relpath}/dist">
 	 		<include name="**/*.jar"/>
@@ -44,8 +50,15 @@
 	 	</fileset>
 	  </copy>	  		
 	</target>
-	 			
-	<target name="release-minuteFoundation" depends="build-minuteFoundation, distribute-minuteFoundation"></target>
+	<target name="copy-install-maven-minuteFoundation">
+		  <copy todir="${target.dir}/mp-foundation" overwrite="true">
+		 	<fileset dir="${minute.foundation.dev.relpath}/script">
+		 		<include name="*.*"/>
+		 	</fileset>
+		  </copy>		
+	</target>
+	
+	<target name="release-minuteFoundation" depends="build-minuteFoundation, copy-install-maven-minuteFoundation, distribute-minuteFoundation"></target>
 	
 	
 	<target name="build-architecture-bsla">
@@ -98,8 +111,15 @@
 		 	</fileset>
 		  	</copy>
 	</target>
+	<target name="copy-install-maven-fitnesse">
+		  <copy todir="${target.dir}/${fitnesse}" overwrite="true">
+		 	<fileset dir="${architecture.fitnesse.dev.relpath}/script">
+		 		<include name="*.*"/>
+		 	</fileset>
+		  </copy>		
+	</target>
 	<target name="release-architecture-fitnesse" 
-		depends="build-architecture-fitnesse,copy-architecture-fitnesse-dependencies"></target>
+		depends="build-architecture-fitnesse,copy-install-maven-fitnesse,copy-architecture-fitnesse-dependencies"></target>
 	
 	<target name="copy-kernel-dependencies">
 	  <copy todir="${application.lib.dir}" overwrite="true">
