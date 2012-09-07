@@ -18,7 +18,15 @@ public abstract class DbInsertUpdateDeleteFixture extends ColumnFixture{
 	Logger log = Logger.getLogger(this.getClass());
 	
 	public String insert() {
-		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue());
+		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue(), false);
+		log.debug("insert query = "+query);
+//		System.out.println("insert query = "+query);
+		
+		return action(query);
+	}
+	
+	public String insertWithTimeAsFunction() {
+		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue(), true);
 		log.debug("insert query = "+query);
 //		System.out.println("insert query = "+query);
 		

@@ -10,10 +10,11 @@ public class QueryUtils {
 	public static String buildInsertStatement (
 			String table,
 			Map<Integer, Column> columns,
-			Map<String, String>  columnValue) {
+			Map<String, String>  columnValue,
+			boolean timeAsFunction) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getInsert(table, columns, columnValue));
-		sb.append(getInsertValue(columns, columnValue));
+		sb.append(getInsertValue(columns, columnValue, timeAsFunction));
 		return sb.toString();
 	}
 	
@@ -59,17 +60,18 @@ public class QueryUtils {
 		return sb.toString();		
 	}
 	
-	private static String getInsertValue(Map<Integer, Column>  columns, Map<String, String>  columnValue) {
+	private static String getInsertValue(Map<Integer, Column>  columns, Map<String, String>  columnValue, boolean timeAsFunction) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" VALUES (");
-		sb.append(getInsertValues(columns, columnValue));
+		sb.append(getInsertValues(columns, columnValue, timeAsFunction));
 		sb.append(") ");
 		return sb.toString();		
 	}
 	
 	private static String getInsertValues (			 
 			 Map<Integer, Column> columns,
-			 Map<String, String>  columnValue) {
+			 Map<String, String>  columnValue,
+			 boolean timeAsFunction) {
 		int size = columns.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isBeginning = true;
@@ -82,7 +84,7 @@ public class QueryUtils {
 					isBeginning=false;
 				}else
 					sb.append(",");
-				if (isQuoted(column)){
+				if (isQuoted(column, timeAsFunction)){
 					sb.append("'"+value+"'");
 				} else {
 					sb.append(value);
@@ -258,8 +260,9 @@ public class QueryUtils {
 		return sb.toString();		
 	}
 	
-	public static boolean isQuoted (Column column) {
-		if (FieldType.TIMESTAMP.equals(column.getType()))
+	public static boolean isQuoted (Column column, boolean timeAsFunction) {
+		FieldType type = column.getType();
+		if (timeAsFunction &&(FieldType.TIMESTAMP.equals(type) || FieldType.DATE.equals(type) || FieldType.TIME.equals(type)))
 			return false;
 		return true;
 	}
