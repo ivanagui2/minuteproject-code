@@ -17,7 +17,7 @@ public abstract class DbInsertFixture extends ColumnFixture{
 
 	Logger log = Logger.getLogger(this.getClass());
 	public String insert() {
-		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue());
+		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue(), false);
 		log.debug("insert query = "+query);
 		System.out.println("insert query = "+query);
 		return insert(query);

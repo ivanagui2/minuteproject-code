@@ -21,5 +21,4 @@ public class DbConnectionFixture extends ColumnFixture{
 		return dataSource;
 	}
 	
-	
 }
