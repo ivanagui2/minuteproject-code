@@ -1,7 +1,7 @@
 <target name="ABL framework"
 xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
-xs:schemaLocation="./mp-template-config.xsd">	
+xs:schemaLocation="../config/mp-template-config.xsd">	
 	<architecture-target name="ABL" description="Automated Business Logic architecture">
 	</architecture-target>	
 
@@ -24,7 +24,7 @@ xs:schemaLocation="./mp-template-config.xsd">
 		<template name="ADF.Model.Entity" templateFileName="ADF.Model.Entity.vm" 
 			subdir="" outputsubdir="" technicalPackage="view"
 			file-extension="xml" file-prefix="" file-suffix="" 
-			has-updatable-nature="true"
+			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="entity"
 			>			
 		</template>	
@@ -61,18 +61,50 @@ xs:schemaLocation="./mp-template-config.xsd">
 			>			
 		</template>	
 		
+		<template name="ADF.SDO.AppModuleServiceImplJava" templateFileName="ADF.SDO.AppModuleServiceImplJava.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.serviceinterface"
+			file-extension="java" file-prefix="" file-suffix="AppModuleServiceImpl" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="model"
+			>			
+		</template>			
+		
+		<template name="ADF.SDO.AppModuleServiceJava" templateFileName="ADF.SDO.AppModuleServiceJava.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.serviceinterface"
+			file-extension="java" file-prefix="" file-suffix="AppModuleService" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="model"
+			>			
+		</template>	
+		
+		<template name="ADF.SDO.AppModuleServiceWsdl" templateFileName="ADF.SDO.AppModuleServiceWsdl.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.serviceinterface"
+			file-extension="wsdl" file-prefix="" file-suffix="AppModuleService" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="model"
+			>			
+		</template>	
+		
+		<template name="ADF.SDO.AppModuleServiceXsd" templateFileName="ADF.SDO.AppModuleServiceXsd.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.serviceinterface"
+			file-extension="xsd" file-prefix="" file-suffix="AppModuleService" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="model"
+			>			
+		</template>	
+		
 		<template name="ADF.SDO.ejb-jar" templateFileName="ADF.SDO.ejb-jar.vm" 
 			subdir="" outputsubdir="META-INF" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="ejb-jar" 
-			has-updatable-nature="true"
+			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="application"
-			>			
+			>
 		</template>	
 		
 		<template name="ADF.SDO.weblogic-ejb-jar" templateFileName="ADF.SDO.weblogic-ejb-jar.vm" 
 			subdir="" outputsubdir="META-INF" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="weblogic-ejb-jar" 
-			has-updatable-nature="true"
+			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="application"
 			>			
 		</template>	
