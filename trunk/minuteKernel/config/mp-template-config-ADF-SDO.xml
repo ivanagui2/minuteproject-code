@@ -1,0 +1,83 @@
+<target name="ABL framework"
+xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="./mp-template-config.xsd">	
+	<architecture-target name="ABL" description="Automated Business Logic architecture">
+	</architecture-target>	
+
+    <plugin name="adfUtils" className="net.sf.minuteProject.plugin.oracle.AdfUtils"></plugin>
+
+	<template-target 
+    	name="ABL"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/src">
+
+		<!-- ABL beans -->	
+		<template name="ADF.Model.AppModule" templateFileName="ADF.Model.AppModule.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="xml" file-prefix="" file-suffix="AppModule" 
+			has-updatable-nature="true"
+			scope-specific-value="model"
+			>			
+		</template>	
+		
+		<template name="ADF.Model.Entity" templateFileName="ADF.Model.Entity.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="xml" file-prefix="" file-suffix="" 
+			has-updatable-nature="true"
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<template name="ADF.Model.View" templateFileName="ADF.Model.View.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="xml" file-prefix="" file-suffix="View" 
+			has-updatable-nature="true"
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<template name="ADF.Model.FkAssoc" templateFileName="ADF.Model.FkAssoc.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="xml" file-prefix="" file-suffix="FkAssoc" 
+			has-updatable-nature="true"
+			scope-specific-value="reference"
+			>			
+		</template>	
+		
+		<template name="ADF.Model.FkLink" templateFileName="ADF.Model.FkLink.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="xml" file-prefix="" file-suffix="FkLink" 
+			has-updatable-nature="true"
+			scope-specific-value="reference"
+			>			
+		</template>	
+		
+		<template name="ADF.Model.ViewController" templateFileName="ADF.Model.ViewController.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="jpx" file-prefix="" file-suffix="ViewController" 
+			has-updatable-nature="true"
+			scope-specific-value="model"
+			>			
+		</template>	
+		
+		<template name="ADF.SDO.ejb-jar" templateFileName="ADF.SDO.ejb-jar.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="ejb-jar" 
+			has-updatable-nature="true"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+		<template name="ADF.SDO.weblogic-ejb-jar" templateFileName="ADF.SDO.weblogic-ejb-jar.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="weblogic-ejb-jar" 
+			has-updatable-nature="true"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+    </template-target>
+
+
+</target>
