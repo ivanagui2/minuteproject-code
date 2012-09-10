@@ -94,6 +94,7 @@
 #set ($isSpringBackend=$template.hasPropertyValue("add-backend-implementation","spring"))
 #set ($isEJBBackend=$template.hasPropertyValue("add-backend-implementation","ejb"))
 #end
+
 #macro(exposePrimefacesConfig)
 #set ($primefacesVersion=$template.getPropertyValue("primefaces-version","3.3.1"))
 #set ($primefacesNamespace=$template.getPropertyValue("primefaces-namespace","http://primefaces.org/ui"))

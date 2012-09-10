@@ -1,15 +1,16 @@
 #exposeVariableEntitySpecific()
 #addedAreas()
+#exposeADFSDOEntitySpecific()
 package $packageName;
 
 import org.eclipse.persistence.sdo.SDODataObject;
-import $SDOViewImport;
+import $entityADFSDOViewImport;
 
-public class $className extends SDODataObject implements $SDOViewClass {
+public class $className extends SDODataObject implements $entityADFSDOViewClass {
 
    public static final int START_PROPERTY_INDEX = 0;
-
-   public static final int END_PROPERTY_INDEX = START_PROPERTY_INDEX + ${table.columnCounts()};
+#set($maxIndex = ${table.getColumnCount()} - 1)
+   public static final int END_PROPERTY_INDEX = START_PROPERTY_INDEX + $maxIndex;
 
    public $className() {}
 

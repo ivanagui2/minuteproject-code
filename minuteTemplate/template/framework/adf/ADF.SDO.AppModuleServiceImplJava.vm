@@ -1,4 +1,6 @@
-package my.hw.view.server.serviceinterface;
+#exposeVariableModelSpecific()
+#exposeSDOSpecific()
+package $packageName;
 
 import java.lang.reflect.Method;
 
@@ -9,7 +11,10 @@ import javax.ejb.Stateless;
 
 import javax.interceptor.Interceptors;
 
-import my.hw.view.common.PersonsViewSDO;
+#foreach($table in $entities)
+#exposeADFSDOEntitySpecific()
+import $entityADFSDOViewImport;
+#end
 import my.hw.view.common.serviceinterface.AppModuleService;
 
 import oracle.jbo.common.Diagnostic;
@@ -26,8 +31,8 @@ import oracle.webservices.annotations.PortableWebService;
 import oracle.webservices.annotations.async.AsyncWebService;
 
 @Stateless(name="my.hw.view.common.AppModuleServiceBean", mappedName="AppModuleServiceBean")
-@Remote(AppModuleService.class)
-@PortableWebService(targetNamespace="/my/hw/view/common/", serviceName="AppModuleService",
+@Remote(${className}.class)
+@PortableWebService(targetNamespace="/${namespacePackage}", serviceName="AppModuleService",
     portName="AppModuleServiceSoapHttpPort", endpointInterface="my.hw.view.common.serviceinterface.AppModuleService")
 @Interceptors( { ServiceContextInterceptor.class })
 @AsyncWebService
@@ -55,121 +60,123 @@ public class AppModuleServiceImpl extends ServiceImpl implements AppModuleServic
                 return;
             }
             try {
-                SDOHelper.INSTANCE.defineSchema("my/hw/view/common/serviceinterface/", "AppModuleService.xsd");
+                SDOHelper.INSTANCE.defineSchema("${namespacePackage}serviceinterface/", "AppModuleService.xsd");
                 _isInited = true;
             } catch (Exception ex) {
                 Diagnostic.printStackTrace(ex);
             }
         }
     }
-
+#foreach($table in $entities)
+#exposeADFSDOEntitySpecific()
     /**
-     * getPersonsView1: generated method. Do not modify.
+     * get${domainClassName}View1: generated method. Do not modify.
      */
-    public PersonsViewSDO getPersonsView1(Long personId) throws ServiceException {
-        return (PersonsViewSDO)get(new Object[] { personId }, "PersonsView1",
-                                   PersonsViewSDO.class);
+    public $entityADFSDOViewClass get${domainClassName}View1(Long personId) throws ServiceException {
+        return ($entityADFSDOViewClass)get(new Object[] { personId }, "${domainClassName}View1",
+                                   $entityADFSDOViewClass.class);
     }
 
     /**
-     * updatePersonsView1: generated method. Do not modify.
+     * update${domainClassName}View1: generated method. Do not modify.
      */
-    public PersonsViewSDO updatePersonsView1(PersonsViewSDO personsView1) throws ServiceException {
-        return (PersonsViewSDO)update(personsView1, "PersonsView1");
+    public $entityADFSDOViewClass update${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        return ($entityADFSDOViewClass)update(${domainClassName}View1, "${domainClassName}View1");
     }
 
     /**
-     * deletePersonsView1: generated method. Do not modify.
+     * delete${domainClassName}View1: generated method. Do not modify.
      */
-    public void deletePersonsView1(PersonsViewSDO personsView1) throws ServiceException {
-        delete(personsView1, "PersonsView1");
+    public void delete${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        delete(${domainClassName}View1, "${domainClassName}View1");
     }
 
     /**
-     * mergePersonsView1: generated method. Do not modify.
+     * merge${domainClassName}View1: generated method. Do not modify.
      */
-    public PersonsViewSDO mergePersonsView1(PersonsViewSDO personsView1) throws ServiceException {
-        return (PersonsViewSDO)merge(personsView1, "PersonsView1");
+    public $entityADFSDOViewClass merge${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        return ($entityADFSDOViewClass)merge(${domainClassName}View1, "${domainClassName}View1");
     }
 
     /**
-     * findPersonsView1: generated method. Do not modify.
+     * find${domainClassName}View1: generated method. Do not modify.
      */
-    public List<PersonsViewSDO> findPersonsView1(FindCriteria findCriteria,
+    public List<$entityADFSDOViewClass> find${domainClassName}View1(FindCriteria findCriteria,
                                                  FindControl findControl) throws ServiceException {
-        return (List<PersonsViewSDO>)find(findCriteria, findControl,
-                                          "PersonsView1",
-                                          PersonsViewSDO.class);
+        return (List<$entityADFSDOViewClass>)find(findCriteria, findControl,
+                                          "${domainClassName}View1",
+                                          $entityADFSDOViewClass.class);
     }
 
     /**
-     * processPersonsView1: generated method. Do not modify.
+     * process${domainClassName}View1: generated method. Do not modify.
      */
-    public List<PersonsViewSDO> processPersonsView1(String changeOperation,
-                                                    List<PersonsViewSDO> personsView1,
+    public List<$entityADFSDOViewClass> process${domainClassName}View1(String changeOperation,
+                                                    List<$entityADFSDOViewClass> ${domainClassName}View1,
                                                     ProcessControl processControl) throws ServiceException {
-        return (List<PersonsViewSDO>)process(changeOperation, processControl,
-                                             personsView1, "PersonsView1");
+        return (List<$entityADFSDOViewClass>)process(changeOperation, processControl,
+                                             ${domainClassName}View1, "${domainClassName}View1");
     }
 
     /**
-     * processCSPersonsView1: generated method. Do not modify.
+     * processCS${domainClassName}View1: generated method. Do not modify.
      */
-    public ProcessData processCSPersonsView1(ProcessData processData,
+    public ProcessData processCS${domainClassName}View1(ProcessData processData,
                                              ProcessControl processControl) throws ServiceException {
-        return processChangeSummary(processData, processControl, "PersonsView1");
+        return processChangeSummary(processData, processControl, "${domainClassName}View1");
     }
 
     /**
-     * mergePersonsView1Async: generated method. Do not modify.
+     * merge${domainClassName}View1Async: generated method. Do not modify.
      */
-    public PersonsViewSDO mergePersonsView1Async(PersonsViewSDO personsView1) throws ServiceException {
-        return mergePersonsView1(personsView1);
+    public $entityADFSDOViewClass merge${domainClassName}View1Async($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        return merge${domainClassName}View1(${domainClassName}View1);
     }
 
     /**
-     * findPersonsView1Async: generated method. Do not modify.
+     * find${domainClassName}View1Async: generated method. Do not modify.
      */
-    public List<PersonsViewSDO> findPersonsView1Async(FindCriteria findCriteria,
+    public List<$entityADFSDOViewClass> find${domainClassName}View1Async(FindCriteria findCriteria,
                                                       FindControl findControl) throws ServiceException {
-        return findPersonsView1(findCriteria, findControl);
+        return find${domainClassName}View1(findCriteria, findControl);
     }
 
     /**
-     * processPersonsView1Async: generated method. Do not modify.
+     * process${domainClassName}View1Async: generated method. Do not modify.
      */
-    public List<PersonsViewSDO> processPersonsView1Async(String changeOperation,
-                                                         List<PersonsViewSDO> personsView1,
+    public List<$entityADFSDOViewClass> process${domainClassName}View1Async(String changeOperation,
+                                                         List<$entityADFSDOViewClass> ${domainClassName}View1,
                                                          ProcessControl processControl) throws ServiceException {
-        return processPersonsView1(changeOperation, personsView1, processControl);
+        return process${domainClassName}View1(changeOperation, ${domainClassName}View1, processControl);
     }
 
     /**
-     * updatePersonsView1Async: generated method. Do not modify.
+     * update${domainClassName}View1Async: generated method. Do not modify.
      */
-    public PersonsViewSDO updatePersonsView1Async(PersonsViewSDO personsView1) throws ServiceException {
-        return updatePersonsView1(personsView1);
+    public $entityADFSDOViewClass update${domainClassName}View1Async($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        return update${domainClassName}View1(${domainClassName}View1);
     }
 
     /**
-     * deletePersonsView1Async: generated method. Do not modify.
+     * delete${domainClassName}View1Async: generated method. Do not modify.
      */
-    public void deletePersonsView1Async(PersonsViewSDO personsView1) throws ServiceException {
-        deletePersonsView1(personsView1);
+    public void delete${domainClassName}View1Async($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        delete${domainClassName}View1(${domainClassName}View1);
     }
 
     /**
-     * getPersonsView1Async: generated method. Do not modify.
+     * get${domainClassName}View1Async: generated method. Do not modify.
      */
-    public PersonsViewSDO getPersonsView1Async(Long personId) throws ServiceException {
-        return getPersonsView1(personId);
+    public $entityADFSDOViewClass get${domainClassName}View1Async(Long personId) throws ServiceException {
+        return get${domainClassName}View1(personId);
     }
 
     /**
-     * processCSPersonsView1Async: generated method. Do not modify.
+     * processCS${domainClassName}View1Async: generated method. Do not modify.
      */
-    public ProcessData processCSPersonsView1Async(ProcessData processData,
+    public ProcessData processCS${domainClassName}View1Async(ProcessData processData,
                                                   ProcessControl processControl) throws ServiceException {
-        return processCSPersonsView1(processData, processControl);
+        return processCS${domainClassName}View1(processData, processControl);
     }
+#end
 }

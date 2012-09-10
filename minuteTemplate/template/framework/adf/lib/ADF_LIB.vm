@@ -1,0 +1,70 @@
+#macro (exposeSDOSpecific)
+#set($namespacePackage = "/my/hw/view/common/")
+#set($namespaceTypesPackage = "/my/hw/view/common/types/")
+#set($javaPackage = "my.hw.view.common")
+#end
+
+#macro (exposeADFEntitySpecific)
+#exposeVariableEntitySpecific()
+#exposeADFTemplate()
+#exposeADFConfig()
+#set ($entityADFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateADFEntity))
+#set ($entityADFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityADFClass))
+#set ($entityADFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateADFEntity))	
+#end
+
+#macro (exposeADFSDOEntitySpecific)
+#exposeVariableEntitySpecific()
+#exposeADFTemplate()
+#exposeADFConfig()
+#set ($entityADFSDOXsdClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSDOEntityXsd))
+#set ($entityADFSDOXsdClassName = $commonUtils.getTemplateArtifactName($tableDB, $templateSDOEntityXsd))
+##set ($entityADFSDOXsdVariable = $commonUtils.getJavaNameVariableFirstLetter($entityADFSDOXsdClass))
+##set ($entityADFSDOXsdImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateSDOEntityXsd))	
+#set ($entityADFSDOViewClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSDOViewFace))
+#set ($entityADFSDOViewVariable = $commonUtils.getJavaNameVariableFirstLetter($entityADFSDOViewClass))
+#set ($entityADFSDOViewImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateSDOViewFace))	
+#set ($entityADFSDOViewImplClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSDOViewImpl))
+#set ($entityADFSDOViewImplVariable = $commonUtils.getJavaNameVariableFirstLetter($entityADFSDOViewImplClass))
+#set ($entityADFSDOViewImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateSDOViewImpl))	
+#end
+
+#macro (exposeADFModelSpecific)
+#exposeVariableModelSpecific()
+#exposeADFTemplate()
+#exposeADFConfig()
+#set($appModuleName="AppModule")
+#set($applicationName="ApplicationName")
+#end
+
+#macro (exposeSDOColumnSpecific)
+#set($sdoType="xsd:long")
+#set($hasSdoDataType=false)
+#set($sdoXmlDataType="sdoJava:LongObject")
+#end
+
+#macro(exposeADFConfig)
+#set ($adfVersion=$template.getPropertyValue("adf-version","3.3.1"))
+#end
+
+#macro(exposeSDOReference)
+#putReferenceParams2()
+#end
+
+#macro (exposeADFTemplate)
+#set ($templateADFModelAppModule = "ADF.Model.AppModule")
+#set ($templateADFEntity = "ADF.Model.Entity")
+#set ($templateADFFkAssoc = "ADF.Model.FkAssoc")
+#set ($templateADFFkLink = "ADF.Model.FkLink")
+#set ($templateADFView = "ADF.Model.View")
+#set ($templateADFViewController = "ADF.Model.ViewController")
+#set ($templateSDOAppModuleServiceImplJava = "ADF.SDO.AppModuleServiceImplJava")
+#set ($templateSDOAppModuleServiceJava = "ADF.SDO.AppModuleServiceJava")
+#set ($templateSDOAppModuleServiceWsdl = "ADF.SDO.AppModuleServiceWsdl")
+#set ($templateSDOAppModuleServiceXsd = "ADF.SDO.AppModuleServiceXsd")
+#set ($templateSDOEjbJar = "ADF.SDO.ejb-jar")
+#set ($templateSDOWeblogicEjbJar = "ADF.SDO.weblogic-ejb-jar")
+#set ($templateSDOEntityXsd = "ADF.SDO.EntityXsd")
+#set ($templateSDOViewFace = "ADF.SDO.ViewFace")
+#set ($templateSDOViewImpl = "ADF.SDO.ViewImpl")
+#end
