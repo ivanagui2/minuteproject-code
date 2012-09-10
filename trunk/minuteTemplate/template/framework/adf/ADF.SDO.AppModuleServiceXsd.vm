@@ -1,66 +1,75 @@
-<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="/my/hw/view/common/types/"
-     xmlns:tns="/my/hw/view/common/types/" xmlns:ns0="/my/hw/view/common/" xmlns:ns1="http://xmlns.oracle.com/adf/svc/types/">
-    <import namespace="/my/hw/view/common/" schemaLocation="../CountryCodesViewSDO.xsd"/>
+#exposeVariableModelSpecific()
+#exposeSDOSpecific()
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace=""
+     xmlns:tns="$namespacePackage" xmlns:ns0="$namespacePackage" xmlns:ns1="http://xmlns.oracle.com/adf/svc/types/">
+#foreach ($table in $model.entities)
+#exposeADFSDOEntitySpecific()
+    <import namespace="$namespacePackage" schemaLocation="../${entityADFSDOXsdClassName}"/>
+#end
     <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="classpath:/META-INF/wsdl/BC4JService.xsd"/>
-    <import namespace="/my/hw/view/common/" schemaLocation="../OrdersViewSDO.xsd"/>
     <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="classpath:/META-INF/wsdl/BC4JServiceCS.xsd"/>
-    <import namespace="/my/hw/view/common/" schemaLocation="../AddressesViewSDO.xsd"/>
-    <import namespace="/my/hw/view/common/" schemaLocation="../PersonsViewSDO.xsd"/>
-    <element name="getPersonsView1">
+	
+#foreach ($table in $model.entities)
+#exposeADFSDOEntitySpecific()
+    <element name="get${domainClassName}View1">
         <complexType>
             <sequence>
-                <element name="personId" type="long"/>
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+                <element name="$columnVar" type="$columnType"/>
+##                <element name="personId" type="long"/>
+#end
             </sequence>
         </complexType>
     </element>
-    <element name="getPersonsView1Response">
+    <element name="get${domainClassName}View1Response">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="updatePersonsView1">
+    <element name="update${domainClassName}View1">
         <complexType>
             <sequence>
-                <element name="personsView1" type="ns0:PersonsViewSDO"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="updatePersonsView1Response">
+    <element name="update${domainClassName}View1Response">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="deletePersonsView1">
+    <element name="delete${domainClassName}View1">
         <complexType>
             <sequence>
-                <element name="personsView1" type="ns0:PersonsViewSDO"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="deletePersonsView1Response">
+    <element name="delete${domainClassName}View1Response">
         <complexType>
             <sequence/>
         </complexType>
     </element>
-    <element name="mergePersonsView1">
+    <element name="merge${domainClassName}View1">
         <complexType>
             <sequence>
-                <element name="personsView1" type="ns0:PersonsViewSDO"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="mergePersonsView1Response">
+    <element name="merge${domainClassName}View1Response">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="findPersonsView1">
+    <element name="find${domainClassName}View1">
         <complexType>
             <sequence>
                 <element name="findCriteria" type="ns1:FindCriteria"/>
@@ -68,30 +77,30 @@
             </sequence>
         </complexType>
     </element>
-    <element name="findPersonsView1Response">
+    <element name="find${domainClassName}View1Response">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
-    <element name="processPersonsView1">
+    <element name="process${domainClassName}View1">
         <complexType>
             <sequence>
                 <element name="changeOperation" type="string"/>
-                <element name="personsView1" type="ns0:PersonsViewSDO" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO" minOccurs="0" maxOccurs="unbounded"/>
                 <element name="processControl" type="ns1:ProcessControl"/>
             </sequence>
         </complexType>
     </element>
-    <element name="processPersonsView1Response">
+    <element name="process${domainClassName}View1Response">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
-    <element name="processCSPersonsView1">
+    <element name="processCS${domainClassName}View1">
         <complexType>
             <sequence>
                 <element name="processData" type="ns1:ProcessData"/>
@@ -99,40 +108,40 @@
             </sequence>
         </complexType>
     </element>
-    <element name="processCSPersonsView1Response">
+    <element name="processCS${domainClassName}View1Response">
         <complexType>
             <sequence>
                 <element name="result" type="ns1:ProcessData"/>
             </sequence>
         </complexType>
     </element>
-    <element name="deletePersonsView1Async">
+    <element name="delete${domainClassName}View1Async">
         <complexType>
             <sequence>
-                <element name="personsView1" type="ns0:PersonsViewSDO"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="deletePersonsView1AsyncResponse">
+    <element name="delete${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence/>
         </complexType>
     </element>
-    <element name="mergePersonsView1Async">
+    <element name="merge${domainClassName}View1Async">
         <complexType>
             <sequence>
-                <element name="personsView1" type="ns0:PersonsViewSDO"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="mergePersonsView1AsyncResponse">
+    <element name="merge${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="findPersonsView1Async">
+    <element name="find${domainClassName}View1Async">
         <complexType>
             <sequence>
                 <element name="findCriteria" type="ns1:FindCriteria"/>
@@ -140,28 +149,28 @@
             </sequence>
         </complexType>
     </element>
-    <element name="findPersonsView1AsyncResponse">
+    <element name="find${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
-    <element name="getPersonsView1Async">
+    <element name="get${domainClassName}View1Async">
         <complexType>
             <sequence>
                 <element name="personId" type="long"/>
             </sequence>
         </complexType>
     </element>
-    <element name="getPersonsView1AsyncResponse">
+    <element name="get${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="processCSPersonsView1Async">
+    <element name="processCS${domainClassName}View1Async">
         <complexType>
             <sequence>
                 <element name="processData" type="ns1:ProcessData"/>
@@ -169,41 +178,42 @@
             </sequence>
         </complexType>
     </element>
-    <element name="processCSPersonsView1AsyncResponse">
+    <element name="processCS${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence>
                 <element name="result" type="ns1:ProcessData"/>
             </sequence>
         </complexType>
     </element>
-    <element name="processPersonsView1Async">
+    <element name="process${domainClassName}View1Async">
         <complexType>
             <sequence>
                 <element name="changeOperation" type="string"/>
-                <element name="personsView1" type="ns0:PersonsViewSDO" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO" minOccurs="0" maxOccurs="unbounded"/>
                 <element name="processControl" type="ns1:ProcessControl"/>
             </sequence>
         </complexType>
     </element>
-    <element name="processPersonsView1AsyncResponse">
+    <element name="process${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO" minOccurs="0" maxOccurs="unbounded"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
-    <element name="updatePersonsView1Async">
+    <element name="update${domainClassName}View1Async">
         <complexType>
             <sequence>
-                <element name="personsView1" type="ns0:PersonsViewSDO"/>
+                <element name="${domainClassName}View1" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
-    <element name="updatePersonsView1AsyncResponse">
+    <element name="update${domainClassName}View1AsyncResponse">
         <complexType>
             <sequence>
-                <element name="result" type="ns0:PersonsViewSDO"/>
+                <element name="result" type="ns0:${domainClassName}ViewSDO"/>
             </sequence>
         </complexType>
     </element>
+#end
 </schema>
