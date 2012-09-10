@@ -36,13 +36,13 @@ $!commonUtils.getReadMeText($template)
 
 #macro(exposeChartSpecific)
 #set ($isChartLayout = $queryUtils.isChartLayout($query))
-#set ($isChartLayout = $queryUtils.isChartLayout($query))
 #set ($isPieChart = $queryUtils.isPieChart($query))
 #set ($isBarChart = $queryUtils.isBarChart($query))
 #set ($outputBeanColumnDimension1 = $queryUtils.getOutputBeanDimension($query,0))
 #set ($outputBeanColumnValue = $queryUtils.getOutputBeanValue($query))
 #set ($outputBeanDimension1 = $formatUtils.getJavaName($outputBeanColumnDimension1.alias))
 #set ($outputBeanDimensionValue = $formatUtils.getJavaName($outputBeanColumnValue.alias))
+#set ($dimensions = $queryUtils.getOutputBeanDimension($query))
 #end
 
 #macro(exposeStatementParam)
