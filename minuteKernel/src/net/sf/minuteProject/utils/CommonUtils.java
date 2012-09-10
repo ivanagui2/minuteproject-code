@@ -326,14 +326,20 @@ public class CommonUtils {
 	}	
 	
 	public static String getFileName (Template template, GeneratorBean bean) {
+		if (template==null)
+			return "TEMPLATE_CANNOT_BE_NUL";
 		return template.getOutputFileName(bean);
 	}
 	
 	public static String getFileMainName (Template template, GeneratorBean bean) {
+		if (template==null)
+			return "TEMPLATE_CANNOT_BE_NUL";
 		return template.getOutputFileMain(bean);
 	}
 	
 	public static String getClasspathName (Template template, GeneratorBean bean) {
+		if (template==null)
+			return "TEMPLATE_CANNOT_BE_NUL";
 		return template.getOutputFileName(bean);
 	}
 	
