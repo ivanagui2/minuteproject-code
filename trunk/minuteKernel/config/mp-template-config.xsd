@@ -63,6 +63,8 @@
 		<xs:attribute name="file-name-builder-method" type="xs:string" />
 		<xs:attribute name="application-specific" type="xs:string" />
 		<xs:attribute name="package-root" type="xs:string" />
+		<xs:attribute name="add-technical-dir-name" type="xs:string" />
+		<xs:attribute name="add-business-package-dir-name=" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="template-target">
