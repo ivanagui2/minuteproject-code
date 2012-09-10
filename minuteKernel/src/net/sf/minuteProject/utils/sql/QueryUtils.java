@@ -180,6 +180,10 @@ public class QueryUtils {
 		return query.getOutputBean().getColumn(i);
 	}
 	
+	public static Column[] getOutputBeanDimension(Query query) {
+		return query.getOutputBean().getColumns();
+	}
+	
 	public static Column getOutputBeanValue(Query query) {
 		return query.getOutputBean().getColumn(query.getOutputBean().getColumnCount()-1);
 	}
