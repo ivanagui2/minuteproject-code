@@ -57,12 +57,12 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 		
-		<template name="ADF.Model.ViewController" templateFileName="ADF.Model.ViewController.vm" 
+		<template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
 			subdir="" outputsubdir="" technicalPackage="view"
-			file-extension="jpx" file-prefix="" file-suffix="ViewController" 
+			file-extension="jpx" file-prefix="" file-suffix="Model" 
 			has-updatable-nature="true"
 			scope-specific-value="model"
-			>			
+			>
 		</template>	
 		
 		<!-- SDO for entities -->
@@ -70,7 +70,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceImplJava" templateFileName="ADF.SDO.AppModuleServiceImplJava.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.server.serviceinterface"
 			file-extension="java" file-prefix="" file-suffix="AppModuleServiceImpl" 
-			has-updatable-nature="true" add-model-name="false"
+			has-updatable-nature="true" 
 			scope-specific-value="model"
 			>			
 		</template>			
@@ -78,7 +78,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceJava" templateFileName="ADF.SDO.AppModuleServiceJava.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.common.serviceinterface"
 			file-extension="java" file-prefix="" file-suffix="AppModuleService" 
-			has-updatable-nature="true" add-model-name="false"
+			has-updatable-nature="true" 
 			scope-specific-value="model"
 			>			
 		</template>	
@@ -86,7 +86,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceWsdl" templateFileName="ADF.SDO.AppModuleServiceWsdl.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.common.serviceinterface"
 			file-extension="wsdl" file-prefix="" file-suffix="AppModuleService" 
-			has-updatable-nature="true" add-model-name="false"
+			has-updatable-nature="true"
 			scope-specific-value="model"
 			>			
 		</template>	
@@ -94,27 +94,10 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceXsd" templateFileName="ADF.SDO.AppModuleServiceXsd.vm" 
 			subdir="" outputsubdir="" technicalPackage="view.common.serviceinterface"
 			file-extension="xsd" file-prefix="" file-suffix="AppModuleService" 
-			has-updatable-nature="true" add-model-name="false"
+			has-updatable-nature="true"
 			scope-specific-value="model"
 			>			
-		</template>	
-	    
-	    <!-- package -->	
-		<template name="ADF.SDO.ejb-jar" templateFileName="ADF.SDO.ejb-jar.vm" 
-			subdir="" outputsubdir="META-INF" technicalPackage=""
-			file-extension="xml" file-prefix="" file-suffix="ejb-jar" 
-			has-updatable-nature="true" add-model-name="false"
-			scope-specific-value="application"
-			>
-		</template>	
-		
-		<template name="ADF.SDO.weblogic-ejb-jar" templateFileName="ADF.SDO.weblogic-ejb-jar.vm" 
-			subdir="" outputsubdir="META-INF" technicalPackage=""
-			file-extension="xml" file-prefix="" file-suffix="weblogic-ejb-jar" 
-			has-updatable-nature="true" add-model-name="false"
-			scope-specific-value="application"
-			>			
-		</template>	
+		</template>
 		
 		<!-- SDO for entities -->
 
@@ -147,6 +130,70 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		
     </template-target>
 
+	<template-target 
+    	name="ADF Model META-INF"
+		libdir="lib/ADF_LIB.vm"
+		package-root=""
+		outputdir="Model/src/META-INF">
+	    <!-- package -->	
+		<template name="ADF.SDO.ejb-jar" templateFileName="ADF.SDO.ejb-jar.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="ejb-jar" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>
+		</template>	
+		
+		<template name="ADF.SDO.weblogic-ejb-jar" templateFileName="ADF.SDO.weblogic-ejb-jar.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="weblogic-ejb-jar" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+	</template-target>
+	
+	<template-target 
+    	name="ADF View Controller src"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/public_html/WEB-INF">
+
+		<template name="ADF.BC.web" templateFileName="ADF.BC.web.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="web" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+				
+
+		<template name="ADF.BC.trinidad-config" templateFileName="ADF.BC.trinidad-config.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="trinidad-config" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+
+		<template name="ADF.BC.faces-config" templateFileName="ADF.BC.faces-config.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="faces-config" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+				
+		<template name="ADF.BC.adfc-config" templateFileName="ADF.BC.adfc-config.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="adfc-config" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+				
+	</template-target>
+
+
 	<!-- ADF project specific -->
 	<template-target 
     	name="ADF Model project"
@@ -157,7 +204,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Model.jpr" templateFileName="ADF.Model.jpr.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jpr" file-prefix="" file-suffix="Model" 
-			has-updatable-nature="true" add-model-name="false" add-package-name-dir="false"
+			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="application"
 			>			
 		</template>			
@@ -167,17 +214,18 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 	<template-target 
     	name="ADF View Controller project"
 		libdir="lib/ADF_LIB.vm"
+		package-root=""
 		outputdir="ViewController">
 		
+		<template name="ADF.ViewController.jpr" templateFileName="ADF.ViewController.jpr.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="jpr" file-prefix="" file-suffix="ViewController" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>			
 	</template-target>
-	
-	<template-target 
-    	name="ADF View Controller src"
-		libdir="lib/ADF_LIB.vm"
-		outputdir="ViewController/src">
 		
-	</template-target>
-	
 	<template-target 
     	name="ADF workspace"
 		libdir="lib/ADF_LIB.vm"
@@ -187,7 +235,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.jws" templateFileName="ADF.jws.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jws" file-prefix="" file-suffix="Workspace" 
-			has-updatable-nature="true" add-model-name="false"
+			has-updatable-nature="true" 
 			scope-specific-value="application"
 			>			
 		</template>				
