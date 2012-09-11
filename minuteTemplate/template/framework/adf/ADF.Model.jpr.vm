@@ -56,13 +56,13 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
    </list>
-   <value n="defaultPackage" v="kavin.adf.sample.model"/>
+   <value n="defaultPackage" v="${javaPackage}"/>
    <hash n="ejbModuleContainer">
       <url n="ejbJarNodeURL" path="src/META-INF/ejb-jar.xml"/>
       <value n="ejbVersion" v="3.0"/>
       <url n="weblogicEjbJarNodeURL" path="src/META-INF/weblogic-ejb-jar.xml"/>
    </hash>
-   <value n="jbo.JpxName" v="kavin.adf.sample.model.Model"/>
+   <value n="jbo.JpxName" v="${modelADFModuleJpxImport}"/>
    <value n="JboProject" v="true"/>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
