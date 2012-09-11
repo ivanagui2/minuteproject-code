@@ -75,6 +75,24 @@ public class ColumnUtils {
 		return false;
 	}
 	
+	public static boolean isNumeric(Column column) {
+		if (column!=null && 
+				(
+						column.getType().equals("INT") || 
+						column.getType().equals("BIGINT") || 
+						column.getType().equals("INTEGER") ||
+						column.getType().equals("NUMBER") ||
+						column.getType().equals("DECIMAL") ||
+						column.getType().equals("SHORT") ||
+						column.getType().equals("REAL") ||
+						column.getType().equals("VARBINARY") ||
+						column.getType().equals("DOUBLE")
+						)
+				)
+			return true;
+		return false;
+	}
+	
 	public static boolean isPkUserProvided (Column column) {
 		return isNaturalPk(column);
 	}
