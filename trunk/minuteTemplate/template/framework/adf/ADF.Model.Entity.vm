@@ -1,5 +1,6 @@
 #exposeVariableEntitySpecific()
 #addedAreas()
+#set($adfVersion = "11.1.1.61.92")
 <?xml version="1.0" encoding="windows-1252" ?>
 <!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
 <!---->
@@ -7,7 +8,7 @@
   xmlns="http://xmlns.oracle.com/bc4j"
   Name="$className"
 ##  Version="11.1.2.59.47"
-  Version="$adf.version"
+  Version="$adfVersion"
   DBObjectType="$table.type"
   DBObjectName="$table.name"
   AliasName="$className"
@@ -15,31 +16,35 @@
   UseGlueCode="false">
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
+#set($adfType=$adfUtils.getAdfType($column))
+#set($adfSQLType=$adfUtils.getAdfSQLType($column))
   <Attribute
     Name="$columnVar"
     IsNotNull="$column.isRequired()"
-    Precision="$column.precision()"
-    Scale="$column.precision()"
+#if($isLengthPrecisionColumn)
+    Precision="$column.size"
+    Scale="$column.scale"
+#end
     ColumnName="$column.name"
-    SQLType="$column.type"
-    Type="$columnType"
+    SQLType="$adfSQLType"
+    Type="$adfType"
     ColumnType="$column.type"
     TableName="${column.table.name}"
     PrimaryKey="${column.isPrimaryKey()}">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="$column.precision()"/>
+      <Attr Name="_DisplaySize" Value="$column.size"/>
     </DesignTime>
   </Attribute>
 #end
-#foreach($child in $table.getChildren())
-  <AccessorAttribute
-    Name="$child.name"
-    Association="demo.model.DeptMgrFkAssoc"
-    AssociationEnd="demo.model.DeptMgrFkAssoc.Employees"
-    AssociationOtherEnd="demo.model.DeptMgrFkAssoc.Departments"
-    Type="oracle.jbo.server.EntityImpl"
-    IsUpdateable="true"/>
-#end
+###foreach($child in $table.getChildren())
+##  <AccessorAttribute
+##    Name="$child.name"
+##    Association="demo.model.DeptMgrFkAssoc"
+##    AssociationEnd="demo.model.DeptMgrFkAssoc.Employees"
+##    AssociationOtherEnd="demo.model.DeptMgrFkAssoc.Departments"
+##    Type="oracle.jbo.server.EntityImpl"
+##    IsUpdateable="true"/>
+###end
 ##  <AccessorAttribute
 ##     Name="Employees1"
 ##     Association="demo.model.EmpDeptFkAssoc"
@@ -48,15 +53,16 @@
 ##     Type="oracle.jbo.RowIterator"
 ##     IsUpdateable="false"/>
 #foreach ($column in $table.columns)
+#putColumnParamNaming()
 #if($column.isPrimaryKey)
   <Key
-    Name="DeptIdPk"
+    Name="$columnVar"
     PrimaryKey="true">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="DEPT_ID_PK"/>
+      <Attr Name="_DBObjectName" Value="$column.name"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="demo.model.Departments.DepartmentId"/>
+      <Item Value="${packageName}.${className}.$columnVar"/>
     </AttrArray>
   </Key>
 #end
@@ -71,18 +77,18 @@
     <AttrArray Name="Attributes"/>
   </Key>
 #end
-#if($column.isForeignKey())
-  <Key
-    Name="DeptLocFk">
-    <DesignTime>
-      <Attr Name="_referencedKey" Value="LOC_ID_PK"/>
-      <Attr Name="_isForeign" Value="true"/>
-      <Attr Name="_DBObjectName" Value="DEPT_LOC_FK"/>
-    </DesignTime>
-    <AttrArray Name="Attributes">
-      <Item Value="demo.model.Departments.LocationId"/>
-    </AttrArray>
-  </Key>
-#end
+##if($column.isForeignKey())
+##  <Key
+##    Name="DeptLocFk">
+##    <DesignTime>
+##      <Attr Name="_referencedKey" Value="LOC_ID_PK"/>
+##      <Attr Name="_isForeign" Value="true"/>
+##      <Attr Name="_DBObjectName" Value="DEPT_LOC_FK"/>
+##    </DesignTime>
+##    <AttrArray Name="Attributes">
+##      <Item Value="demo.model.Departments.LocationId"/>
+##    </AttrArray>
+##  </Key>
+###end
 #end
 </Entity>

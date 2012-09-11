@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific()
 #exposeSDOSpecific()
+#set($thisClassName = $className)
 package $packageName;
 
 import java.lang.reflect.Method;
@@ -15,7 +16,7 @@ import javax.interceptor.Interceptors;
 #exposeADFSDOEntitySpecific()
 import $entityADFSDOViewImport;
 #end
-import my.hw.view.common.serviceinterface.AppModuleService;
+import $appModuleADFSODServiceFaceImport;
 
 import oracle.jbo.common.Diagnostic;
 import oracle.jbo.common.sdo.SDOHelper;
@@ -31,21 +32,21 @@ import oracle.webservices.annotations.PortableWebService;
 import oracle.webservices.annotations.async.AsyncWebService;
 
 @Stateless(name="my.hw.view.common.AppModuleServiceBean", mappedName="AppModuleServiceBean")
-@Remote(${className}.class)
+@Remote(${thisClassName}.class)
 @PortableWebService(targetNamespace="/${namespacePackage}", serviceName="AppModuleService",
     portName="AppModuleServiceSoapHttpPort", endpointInterface="my.hw.view.common.serviceinterface.AppModuleService")
 @Interceptors( { ServiceContextInterceptor.class })
 @AsyncWebService
-public class AppModuleServiceImpl extends ServiceImpl implements AppModuleService {
+public class $thisClassName extends ServiceImpl implements $appModuleADFSODServiceFaceClass {
     private static boolean _isInited = false;
 
     /**
      * This is the default constructor (do not remove).
      */
-    public AppModuleServiceImpl() {
+    public $thisClassName() {
         init();
-        setApplicationModuleDefName("my.hw.view.AppModule");
-        setConfigurationName("AppModuleService");
+        setApplicationModuleDefName("${packageName}.$thisClassName");
+        setConfigurationName("$thisClassName");
     }
 
     /**
@@ -55,12 +56,12 @@ public class AppModuleServiceImpl extends ServiceImpl implements AppModuleServic
         if (_isInited) {
             return;
         }
-        synchronized (AppModuleServiceImpl.class) {
+        synchronized (${thisClassName}.class) {
             if (_isInited) {
                 return;
             }
             try {
-                SDOHelper.INSTANCE.defineSchema("${namespacePackage}serviceinterface/", "AppModuleService.xsd");
+                SDOHelper.INSTANCE.defineSchema("${namespacePackage}serviceinterface/", "${appModuleADFSDOServiceXsdClass}.xsd");
                 _isInited = true;
             } catch (Exception ex) {
                 Diagnostic.printStackTrace(ex);
@@ -74,7 +75,7 @@ public class AppModuleServiceImpl extends ServiceImpl implements AppModuleServic
      */
     public $entityADFSDOViewClass get${domainClassName}View1(Long personId) throws ServiceException {
         return ($entityADFSDOViewClass)get(new Object[] { personId }, "${domainClassName}View1",
-                                   $entityADFSDOViewClass.class);
+                                   ${entityADFSDOViewClass}.class);
     }
 
     /**
@@ -105,7 +106,7 @@ public class AppModuleServiceImpl extends ServiceImpl implements AppModuleServic
                                                  FindControl findControl) throws ServiceException {
         return (List<$entityADFSDOViewClass>)find(findCriteria, findControl,
                                           "${domainClassName}View1",
-                                          $entityADFSDOViewClass.class);
+                                          ${entityADFSDOViewClass}.class);
     }
 
     /**

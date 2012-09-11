@@ -19,8 +19,8 @@
    </hash>
    <list n="listOfChildren">
 ##TODO change
-      <hash><url n="URL" path="Model/Model.jpr"/></hash>
-      <hash><url n="URL" path="ViewController/ViewController.jpr"/></hash>
+      <hash><url n="URL" path="$modelADFJprFullPath"/></hash>
+      <hash><url n="URL" path="$viewControllerADFJprFullPath"/></hash>
    </list>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
@@ -33,9 +33,9 @@
                   <hash>
                      <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
 ##TODO change
-                     <url n="ownerURL" path="Model/Model.jpr"/>
+                     <url n="ownerURL" path="$modelADFJprFullPath"/>
                      <value n="pathInEar" v=""/>
-                     <value n="profileName" v="EmpDeptServiceProfile_MiddleTier"/>
+                     <value n="profileName" v="${applicationName}_MiddleTier"/>
                   </hash>
                </list>
             </hash>
