@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
+   <AppModuleConfigBag ApplicationName="eu.europa.ec.sg.nif2.model.AppModule">
+      <AppModuleConfig name="AppModuleLocal" ApplicationName="eu.europa.ec.sg.nif2.model.AppModule" DeployPlatform="LOCAL" JDBCName="NIF2-DC-DEV" jbo.project="eu.europa.ec.sg.nif2.model.Model">
+         <Security AppModuleJndiName="eu.europa.ec.sg.nif2.model.AppModule"/>
+      </AppModuleConfig>
+      <AppModuleConfig name="AppModuleShared" ApplicationName="eu.europa.ec.sg.nif2.model.AppModule" DeployPlatform="LOCAL" JDBCName="NIF2-DC-DEV" jbo.project="eu.europa.ec.sg.nif2.model.Model">
+         <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+         <Security AppModuleJndiName="eu.europa.ec.sg.nif2.model.AppModule"/>
+      </AppModuleConfig>
+      <AppModuleConfig name="AppModuleService" ApplicationName="eu.europa.ec.sg.nif2.model.AppModule" DeployPlatform="SI" jbo.project="eu.europa.ec.sg.nif2.model.Model">
+         <AM-Pooling jbo.ampool.resetnontransactionalstate="true"/>
+         <Database jbo.locking.mode="optimistic"/>
+         <Security AppModuleJndiName="eu.europa.ec.sg.nif2.model.AppModule"/>
+         <Custom JDBCDataSource="java:comp/env/jdbc/NIF2-DC-DEVDS"/>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+</BC4JConfig>

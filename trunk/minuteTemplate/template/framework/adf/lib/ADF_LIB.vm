@@ -1,6 +1,6 @@
 #macro (exposeSDOSpecific)
 #exposeADFSpecific()
-#set($namespacePackage = "/eu/europa/ec/sg/nif2/view/common/")
+#set($namespacePackage = "/eu/europa/ec/sg/nif2/model/common/")
 #set($namespaceTypesPackage = $namespacePackage+"types/")
 #set($appModuleADFSODServiceImplImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceImplJava))
 #set($appModuleADFSODServiceFaceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceJava))
@@ -49,15 +49,17 @@
 #set($appModuleName=$commonUtils.getTemplateClassName($model, $template, $templateADFModelAppModule))
 #set($applicationName="ApplicationName")
 #set($modelADFModuleJpxImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelJpx))	
+#set($modelADFModuleJpxFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpx))	
 #set($modelADFAppModuleImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelAppModule))	
+#set($modelADFModuleBc4jFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelBc4j))	
 #set($modelADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpr))	
 #set($viewControllerADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFViewControllerJpr))	
 #end
 
 #macro (exposeSDOColumnSpecific)
-#set($sdoType="xsd:long")
-#set($hasSdoDataType=false)
-#set($sdoXmlDataType="sdoJava:LongObject")
+#set($sdoType=$adfUtils.getSdoXsdType($column))
+#set($hasSdoDataType=$adfUtils.hasSdoXmlDataType($column))
+#set($sdoXmlDataType=$adfUtils.getSdoXmlDataType($column))##"sdoJava:LongObject")
 #end
 
 #macro(exposeADFConfig)
@@ -86,4 +88,5 @@
 #set ($templateSDOViewImpl = "ADF.SDO.ViewImpl")
 #set ($templateADFModelJpr = "ADF.Model.jpr")
 #set ($templateADFViewControllerJpr = "ADF.ViewController.jpr")
+#set ($templateADFModelBc4j = "ADF.Model.bc4j")
 #end

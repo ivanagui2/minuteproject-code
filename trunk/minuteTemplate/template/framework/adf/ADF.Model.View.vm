@@ -13,11 +13,11 @@
   SelectList="
 #foreach ($column in $table.columns)
 #putColumnParams()
-   ${tableVariableName}.${column.name}#if($table.columnCounts()>$velocityCount),#end 
+   ${tableClassName}.${column.name}#if($table.columnCounts()>$velocityCount),#end 
 
 #end
 	   "
-  FromList="$table.name ${tableVariableName}"
+  FromList="$table.name ${tableClassName}"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
@@ -34,10 +34,11 @@
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
   <ViewAttribute
-    Name="$columnVar"
+    Name="$columnClass"
     IsNotNull="$column.isRequired()"
+	PrecisionRule="true"
 ##    PrecisionRule="${adf.hasPrecisionRule($column)}"
-    EntityAttrName="$columnVar"
+    EntityAttrName="$columnClass"
     EntityUsage="${domainClassName}"
     AliasName="$column.name"/>
 #end

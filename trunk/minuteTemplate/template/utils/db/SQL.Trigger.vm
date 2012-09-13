@@ -1,0 +1,25 @@
+#exposeVariableModelSpecific()
+#foreach ($table in $entities)
+#if ($tableUtils.hasInsertTrigger($table))
+CREATE OR REPLACE TRIGGER update_timestamp 
+  BEFORE INSERT ON ${table.name}
+BEGIN
+#foreach ($trigger in $tableUtils.getInsertTriggers($table)) 
+#exposeVariableTriggerSpecific()
+    :NEW.$triggerVar = $triggerSqlExpressionChunk;
+#end
+--  :NEW.TS := systimestamp;
+END;
+#end
+#if ($tableUtils.hasUpdateTrigger($table))
+CREATE OR REPLACE TRIGGER update_timestamp 
+  BEFORE UPDATE ON ${table.name}
+BEGIN
+#foreach ($trigger in $tableUtils.getUpdateTriggers($table)) 
+#exposeVariableTriggerSpecific()
+    :NEW.$triggerVar = $triggerSqlExpressionChunk;
+#end
+--  :NEW.TS := systimestamp;
+END;
+#end
+#end
