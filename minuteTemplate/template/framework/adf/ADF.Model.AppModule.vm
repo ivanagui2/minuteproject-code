@@ -6,8 +6,13 @@
 <AppModule
   xmlns="http://xmlns.oracle.com/bc4j"
   Name="$appModuleName"
-  Version="11.1.2.59.47"
+  Version="11.1.1.61.92"
+  InheritPersonalization="true"
   ClearCacheOnRollback="true">
+  <!-- the following node ensure the display of wsdl, xsdl, java ws interface and impl -->
+  <DesignTime>
+    <Attr Name="_deployType" Value="4096"/>
+  </DesignTime>
 #foreach($table in $entities)
 #exposeADFEntitySpecific()
   <ViewUsage
@@ -33,7 +38,7 @@
     <DesignTime>
       <Attr Name="_webServiceName" Value="$appModuleADFSODServiceFaceClass"/>
       <Attr Name="_targetNameSpace" Value="${namespacePackage}"/>
-      <Attr Name="_genAsyncMethods" Value="true"/>
+##      <Attr Name="_genAsyncMethods" Value="true"/>
     </DesignTime>
   </Remote>
   
@@ -50,6 +55,7 @@
 #exposeADFSDOEntitySpecific()
   <ServiceViewUsage
     ViewUsageName="${domainClassName}View1"
+    CanCreate="true"
     CanUpdate="true"
     CanDelete="true"
     CanMerge="true">
@@ -61,6 +67,7 @@
       <Attr Name="_FindOpName" Value="find${domainClassName}View1"/>
       <Attr Name="_UpdateOpName" Value="update${domainClassName}View1"/>
       <Attr Name="_ProcessOpName" Value="process${domainClassName}View1"/>
+      <Attr Name="_CreateOpName" Value="create${domainClassName}View1"/>
     </DesignTime>
   </ServiceViewUsage>   
 #end

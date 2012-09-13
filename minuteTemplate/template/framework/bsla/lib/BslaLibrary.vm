@@ -35,6 +35,46 @@
 #set ($hasSemanticReference = $semanticReferenceUtils.hasSemanticReference($table))
 #end
 
+## putColumnParams are for the decorating the entity attribute 
+#macro (putColumnParams)
+#set ($isForeignKey = $columnUtils.isForeignKey($column))
+#set ($isPkUserProvided = $commonUtils.isPkUserProvided($column))
+#set ($columnFullType = $commonUtils.getFullType2($column))
+#set ($columnType = $commonUtils.getJavaType($column))
+#set ($columnTypeOnly = $commonUtils.getJavaTypeOnly($column))
+#set ($columnClass = $commonUtils.getColumnClassName($column))
+#set ($columnVar = $commonUtils.getColumnVariableName($column))
+#set ($isColumnUnique = $tableUtils.isUnique($table, $column))
+#set ($isMandatory = $column.isRequired())
+#set ($isPrimaryKey = $column.isPrimaryKey())
+#set ($resource = "${table.name}.$columnVar")
+#set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
+#set ($columLengthPrecisionSize = $column.getSizeAsInt())
+#set ($columnVarAsInput = $commonUtils.getJavaNameVariableConvertReservedWord($column))
+#set ($isEnum = $enumUtils.isEnumType($template, $column))
+#if($isEnum)
+#set ($enumImport = $enumUtils.getEnumImport($template, $column))
+#set ($enumClassName = $enumUtils.getEnumType($template, $column))
+#end
+#timeColumn()
+#largeFormat()
+#end
+
+#macro (columnJavaNaming)
+##if ($javaUtils.isReservedWord($columnVar))
+#set($columnVar=$javaUtils.getJavaVariableNaming(${columnVar}))
+#set($columnClass=$javaUtils.getJavaClassNaming(${columnClass}))
+#end
+
+#macro (putColumnParamNaming)
+#putColumnParams()
+#columnJavaNaming()
+#end
+
+#macro (exposeVariableModelSpecific)
+#exposeVariableModelDetailSpecific()
+#end
+
 #macro (exposeVariableActionSpecific)
 #set ($className = $commonUtils.getClassName($action, $template))
 #set ($packageName = $commonUtils.getPackageName($action, $template))
@@ -51,10 +91,6 @@
 #set ($packageDirName = $commonUtils.getPackageDirName($model, $template, $component))
 #set ($modelEntities = $model.businessModel.businessPackage.getEntities())
 ##set ($modelEntities = $model.businessModel.businessPackage.refreshEntities())
-#end
-
-#macro (exposeVariableModelSpecific)
-#exposeVariableModelDetailSpecific()
 #end
 
 #macro (exposeColumnSpecific)
@@ -153,42 +189,6 @@
 #set ($linkedTableVarAsInput = $formatUtils.getJavaNameVariableConvertReservedWord(${reference.foreignTable.alias}))
 #set ($childrenListVariable = $referenceUtils.getChildrenListVariable($reference))##${linkedTableVariable}${linkedColumnClass}s)
 #set ($childrenListClass = $referenceUtils.getChildrenListClass($reference))##${linkedTableVariable}${linkedColumnClass}s)
-#end
-
-## putColumnParams are for the decorating the entity attribute 
-#macro (putColumnParams)
-#set ($isForeignKey = $columnUtils.isForeignKey($column))
-#set ($isPkUserProvided = $commonUtils.isPkUserProvided($column))
-#set ($columnFullType = $commonUtils.getFullType2($column))
-#set ($columnType = $commonUtils.getJavaType($column))
-#set ($columnTypeOnly = $commonUtils.getJavaTypeOnly($column))
-#set ($columnClass = $commonUtils.getColumnClassName($column))
-#set ($columnVar = $commonUtils.getColumnVariableName($column))
-#set ($isColumnUnique = $tableUtils.isUnique($table, $column))
-#set ($isMandatory = $column.isRequired())
-#set ($isPrimaryKey = $column.isPrimaryKey())
-#set ($resource = "${table.name}.$columnVar")
-#set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
-#set ($columLengthPrecisionSize = $column.getSizeAsInt())
-#set ($columnVarAsInput = $commonUtils.getJavaNameVariableConvertReservedWord($column))
-#set ($isEnum = $enumUtils.isEnumType($template, $column))
-#if($isEnum)
-#set ($enumImport = $enumUtils.getEnumImport($template, $column))
-#set ($enumClassName = $enumUtils.getEnumType($template, $column))
-#end
-#timeColumn()
-#largeFormat()
-#end
-
-#macro (columnJavaNaming)
-##if ($javaUtils.isReservedWord($columnVar))
-#set($columnVar=$javaUtils.getJavaVariableNaming(${columnVar}))
-#set($columnClass=$javaUtils.getJavaClassNaming(${columnClass}))
-#end
-
-#macro (putColumnParamNaming)
-#putColumnParams()
-#columnJavaNaming()
 #end
 
 #macro (exposeM2MSpecific)

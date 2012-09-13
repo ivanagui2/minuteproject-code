@@ -9,28 +9,38 @@
   Name="$className"
 ##  Version="11.1.2.59.47"
   Version="$adfVersion"
-  DBObjectType="$table.type"
+##TODO with views
+  InheritPersonalization="true"
+  DBObjectType="table"
   DBObjectName="$table.name"
   AliasName="$className"
   BindingStyle="OracleName"
   UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <AttrArray Name="_publishEvents"/>
+  </DesignTime>
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
 #set($adfType=$adfUtils.getAdfType($column))
 #set($adfSQLType=$adfUtils.getAdfSQLType($column))
   <Attribute
-    Name="$columnVar"
+    Name="$columnClass"
     IsNotNull="$column.isRequired()"
-#if($isLengthPrecisionColumn)
     Precision="$column.size"
+#if($isScaleColumn)
     Scale="$column.scale"
 #end
     ColumnName="$column.name"
     SQLType="$adfSQLType"
     Type="$adfType"
-    ColumnType="$column.type"
+    ColumnType="$adfUtils.getColumnType($column)"
     TableName="${column.table.name}"
-    PrimaryKey="${column.isPrimaryKey()}">
+#if(${column.isPrimaryKey()})
+    PrimaryKey="true">
+#else
+	>
+#end
     <DesignTime>
       <Attr Name="_DisplaySize" Value="$column.size"/>
     </DesignTime>
@@ -54,21 +64,21 @@
 ##     IsUpdateable="false"/>
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
-#if($column.isPrimaryKey)
+#if($column.isPrimaryKey())
   <Key
-    Name="$columnVar"
+    Name="${className}_Pk"
     PrimaryKey="true">
     <DesignTime>
       <Attr Name="_DBObjectName" Value="$column.name"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="${packageName}.${className}.$columnVar"/>
+      <Item Value="${packageName}.${className}.$columnClass"/>
     </AttrArray>
   </Key>
 #end
-#if($column.isRequired)
+#if($column.isRequired())
   <Key
-    Name="DeptNameNn">
+    Name="${columnVar}Nn">
     <DesignTime>
       <Attr Name="_DBObjectName" Value="${column.name}_NN"/>
       <Attr Name="_checkCondition" Value="${column.name} IS NOT NULL"/>

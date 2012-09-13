@@ -9,7 +9,7 @@
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
      xmlns:tns="$namespacePackage"
      xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-     xmlns:types="$namespacePackage"
+     xmlns:types="$namespaceTypesPackage"
     >
     <plnk:partnerLinkType name="AppModuleService">
         <plnk:role name="AppModuleServiceProvider">
@@ -23,7 +23,7 @@
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema">
             <import namespace="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0" schemaLocation="classpath:/META-INF/oracle-webservices-async-fault-11_0.xsd"/>
-            <import namespace="${namespacePackage}" schemaLocation="AppModuleService.xsd"/>
+            <import namespace="${namespaceTypesPackage}" schemaLocation="${appModuleADFSDOServiceXsdClass}.xsd"/>
         </schema>
     </wsdl:types>
 #foreach($table in $entities)
@@ -31,6 +31,7 @@
     <wsdl:message name="AppModuleService_onFault">
         <wsdl:part name="parameters" element="orafault:Fault"/>
     </wsdl:message>
+#if($isAsync)
     <wsdl:message name="AppModuleService_delete${domainClassName}View1AsyncResponse">
         <wsdl:part name="parameters" element="types:delete${domainClassName}View1AsyncResponse"/>
     </wsdl:message>
@@ -52,6 +53,10 @@
     <wsdl:message name="AppModuleService_update${domainClassName}View1AsyncResponse">
         <wsdl:part name="parameters" element="types:update${domainClassName}View1AsyncResponse"/>
     </wsdl:message>
+    <wsdl:message name="AppModuleService_create${domainClassName}View1AsyncResponse">
+        <wsdl:part name="parameters" element="types:create${domainClassName}View1AsyncResponse"/>
+    </wsdl:message>
+#end
     <wsdl:message name="AppModuleService_get${domainClassName}View1">
         <wsdl:part name="parameters" element="types:get${domainClassName}View1"/>
     </wsdl:message>
@@ -94,6 +99,7 @@
     <wsdl:message name="AppModuleService_processCS${domainClassName}View1Response">
         <wsdl:part name="parameters" element="types:processCS${domainClassName}View1Response"/>
     </wsdl:message>
+#if($isAsync)
     <wsdl:message name="AppModuleService_delete${domainClassName}View1Async">
         <wsdl:part name="parameters" element="types:delete${domainClassName}View1Async"/>
     </wsdl:message>
@@ -116,6 +122,7 @@
         <wsdl:part name="parameters" element="types:update${domainClassName}View1Async"/>
     </wsdl:message>
 #end
+#end
     <wsdl:portType name="AppModuleServiceResponse">
         <wsdl:operation name="onFault">
             <wsdl:input message="tns:AppModuleService_onFault" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
@@ -123,6 +130,7 @@
         </wsdl:operation>
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
+#if($isAsync)
         <wsdl:operation name="delete${domainClassName}View1AsyncResponse">
             <wsdl:input message="tns:AppModuleService_delete${domainClassName}View1AsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action="${namespacePackage}delete${domainClassName}View1AsyncResponse"/>
@@ -152,6 +160,7 @@
                  ns1:Action="${namespacePackage}update${domainClassName}View1AsyncResponse"/>
         </wsdl:operation>
 #end
+#end
     </wsdl:portType>
     <wsdl:portType name="AppModuleService">
         <wsdl:documentation>
@@ -168,6 +177,11 @@
         <wsdl:operation name="get${domainClassName}View1">
             <wsdl:input message="tns:AppModuleService_get${domainClassName}View1"/>
             <wsdl:output message="tns:AppModuleService_get${domainClassName}View1Response"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="create${domainClassName}View1">
+            <wsdl:input message="tns:AppModuleService_create${domainClassName}View1"/>
+            <wsdl:output message="tns:AppModuleService_create${domainClassName}View1Response"/>
             <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
         </wsdl:operation>
         <wsdl:operation name="update${domainClassName}View1">
@@ -200,6 +214,7 @@
             <wsdl:output message="tns:AppModuleService_processCS${domainClassName}View1Response"/>
             <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
         </wsdl:operation>
+#if($isAsync)
         <wsdl:operation name="delete${domainClassName}View1Async">
             <wsdl:input message="tns:AppModuleService_delete${domainClassName}View1Async" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
                  ns1:Action="${namespacePackage}delete${domainClassName}View1Async"/>
@@ -229,6 +244,7 @@
                  ns1:Action="${namespacePackage}update${domainClassName}View1Async"/>
         </wsdl:operation>
 #end
+#end
     </wsdl:portType>
     <wsdl:binding name="AppModuleServiceSoapHttp" type="tns:AppModuleService">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -236,6 +252,18 @@
 #exposeADFSDOEntitySpecific()
         <wsdl:operation name="get${domainClassName}View1">
             <soap:operation soapAction="${namespacePackage}get${domainClassName}View1"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="create${domainClassName}View1">
+            <soap:operation soapAction="${namespacePackage}create${domainClassName}View1"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
@@ -318,6 +346,7 @@
                 <soap:fault name="ServiceException" use="literal"/>
             </wsdl:fault>
         </wsdl:operation>
+#if($isAsync)
         <wsdl:operation name="delete${domainClassName}View1Async">
             <soap:operation soapAction="${namespacePackage}delete${domainClassName}View1Async"/>
             <wsdl:input>
@@ -361,6 +390,7 @@
             </wsdl:input>
         </wsdl:operation>
 #end
+#end
     </wsdl:binding>
     <wsdl:binding name="AppModuleServiceResponseBinding" type="tns:AppModuleServiceResponse">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -372,6 +402,7 @@
         </wsdl:operation>
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
+#if($isAsync)
         <wsdl:operation name="delete${domainClassName}View1AsyncResponse">
             <soap:operation soapAction="${namespacePackage}delete${domainClassName}View1AsyncResponse"/>
             <wsdl:input>
@@ -414,6 +445,13 @@
                 <soap:body use="literal"/>
             </wsdl:input>
         </wsdl:operation>
+        <wsdl:operation name="create${domainClassName}View1AsyncResponse">
+            <soap:operation soapAction="${namespacePackage}create${domainClassName}View1AsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+#end
 #end
     </wsdl:binding>
     <wsdl:service name="AppModuleService">

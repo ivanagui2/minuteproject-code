@@ -9,6 +9,7 @@ import $entityADFSDOViewImport;
 public class $className extends SDODataObject implements $entityADFSDOViewClass {
 
    public static final int START_PROPERTY_INDEX = 0;
+
 #set($maxIndex = ${table.getColumnCount()} - 1)
    public static final int END_PROPERTY_INDEX = START_PROPERTY_INDEX + $maxIndex;
 
@@ -17,8 +18,10 @@ public class $className extends SDODataObject implements $entityADFSDOViewClass 
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
 #set($cpt = $velocityCount - 1)
-   public java.lang.Long get$columnClass() {
-      return getLong(START_PROPERTY_INDEX + $cpt);
+#set($getSDOColumnTypeBegin=$adfUtils.getSDOColumnTypeBegin($column))
+#set($getSDOColumnTypeEnd=$adfUtils.getSDOColumnTypeEnd($column))
+   public $columnFullType get$columnClass() {
+      return ${getSDOColumnTypeBegin}(START_PROPERTY_INDEX + $cpt)${getSDOColumnTypeEnd};
    }
 
    public void set$columnClass($columnFullType value) {

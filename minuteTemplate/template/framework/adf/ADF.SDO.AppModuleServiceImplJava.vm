@@ -31,10 +31,10 @@ import oracle.jbo.service.errors.ServiceException;
 import oracle.webservices.annotations.PortableWebService;
 import oracle.webservices.annotations.async.AsyncWebService;
 
-@Stateless(name="my.hw.view.common.AppModuleServiceBean", mappedName="AppModuleServiceBean")
+@Stateless(name="${appModuleADFSODServiceFaceImport}", mappedName="${appModuleADFSODServiceFaceClass}")
 @Remote(${thisClassName}.class)
-@PortableWebService(targetNamespace="/${namespacePackage}", serviceName="AppModuleService",
-    portName="AppModuleServiceSoapHttpPort", endpointInterface="my.hw.view.common.serviceinterface.AppModuleService")
+@PortableWebService(targetNamespace="${namespacePackage}", serviceName="${appModuleADFSODServiceFaceClass}",
+    portName="AppModuleServiceSoapHttpPort", endpointInterface="${appModuleADFSODServiceFaceImport}")
 @Interceptors( { ServiceContextInterceptor.class })
 @AsyncWebService
 public class $thisClassName extends ServiceImpl implements $appModuleADFSODServiceFaceClass {
@@ -73,30 +73,37 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
     /**
      * get${domainClassName}View1: generated method. Do not modify.
      */
-    public $entityADFSDOViewClass get${domainClassName}View1(Long personId) throws ServiceException {
-        return ($entityADFSDOViewClass)get(new Object[] { personId }, "${domainClassName}View1",
+    public $entityADFSDOViewClass get${domainClassName}View1($primaryKeyFullType $primaryKeyVariable) throws ServiceException {
+        return ($entityADFSDOViewClass)get(new Object[] { $primaryKeyVariable }, "${domainVariableName}View1",
                                    ${entityADFSDOViewClass}.class);
+    }
+
+    /**
+     * create${domainClassName}View1: generated method. Do not modify.
+     */
+    public $entityADFSDOViewClass create${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
+        return ($entityADFSDOViewClass)create(${domainClassName}View1, "${domainVariableName}View1");
     }
 
     /**
      * update${domainClassName}View1: generated method. Do not modify.
      */
     public $entityADFSDOViewClass update${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
-        return ($entityADFSDOViewClass)update(${domainClassName}View1, "${domainClassName}View1");
+        return ($entityADFSDOViewClass)update(${domainClassName}View1, "${domainVariableName}View1");
     }
 
     /**
      * delete${domainClassName}View1: generated method. Do not modify.
      */
     public void delete${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
-        delete(${domainClassName}View1, "${domainClassName}View1");
+        delete(${domainClassName}View1, "${domainVariableName}View1");
     }
 
     /**
      * merge${domainClassName}View1: generated method. Do not modify.
      */
     public $entityADFSDOViewClass merge${domainClassName}View1($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
-        return ($entityADFSDOViewClass)merge(${domainClassName}View1, "${domainClassName}View1");
+        return ($entityADFSDOViewClass)merge(${domainClassName}View1, "${domainVariableName}View1");
     }
 
     /**
@@ -105,7 +112,7 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
     public List<$entityADFSDOViewClass> find${domainClassName}View1(FindCriteria findCriteria,
                                                  FindControl findControl) throws ServiceException {
         return (List<$entityADFSDOViewClass>)find(findCriteria, findControl,
-                                          "${domainClassName}View1",
+                                          "${domainVariableName}View1",
                                           ${entityADFSDOViewClass}.class);
     }
 
@@ -113,10 +120,10 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
      * process${domainClassName}View1: generated method. Do not modify.
      */
     public List<$entityADFSDOViewClass> process${domainClassName}View1(String changeOperation,
-                                                    List<$entityADFSDOViewClass> ${domainClassName}View1,
+                                                    List<$entityADFSDOViewClass> ${domainVariableName}View1,
                                                     ProcessControl processControl) throws ServiceException {
         return (List<$entityADFSDOViewClass>)process(changeOperation, processControl,
-                                             ${domainClassName}View1, "${domainClassName}View1");
+                                             ${domainVariableName}View1, "${domainVariableName}View1");
     }
 
     /**
@@ -126,12 +133,12 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
                                              ProcessControl processControl) throws ServiceException {
         return processChangeSummary(processData, processControl, "${domainClassName}View1");
     }
-
+#if($isAsync)
     /**
      * merge${domainClassName}View1Async: generated method. Do not modify.
      */
-    public $entityADFSDOViewClass merge${domainClassName}View1Async($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
-        return merge${domainClassName}View1(${domainClassName}View1);
+    public $entityADFSDOViewClass merge${domainClassName}View1Async($entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException {
+        return merge${domainClassName}View1(${domainVariableName}View1);
     }
 
     /**
@@ -146,9 +153,9 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
      * process${domainClassName}View1Async: generated method. Do not modify.
      */
     public List<$entityADFSDOViewClass> process${domainClassName}View1Async(String changeOperation,
-                                                         List<$entityADFSDOViewClass> ${domainClassName}View1,
+                                                         List<$entityADFSDOViewClass> ${domainVariableName}View1,
                                                          ProcessControl processControl) throws ServiceException {
-        return process${domainClassName}View1(changeOperation, ${domainClassName}View1, processControl);
+        return process${domainClassName}View1(changeOperation, ${domainVariableName}View1, processControl);
     }
 
     /**
@@ -161,15 +168,15 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
     /**
      * delete${domainClassName}View1Async: generated method. Do not modify.
      */
-    public void delete${domainClassName}View1Async($entityADFSDOViewClass ${domainClassName}View1) throws ServiceException {
-        delete${domainClassName}View1(${domainClassName}View1);
+    public void delete${domainClassName}View1Async($entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException {
+        delete${domainClassName}View1(${domainVariableName}View1);
     }
 
     /**
      * get${domainClassName}View1Async: generated method. Do not modify.
      */
-    public $entityADFSDOViewClass get${domainClassName}View1Async(Long personId) throws ServiceException {
-        return get${domainClassName}View1(personId);
+    public $entityADFSDOViewClass get${domainClassName}View1Async($primaryKeyFullType $primaryKeyVariable) throws ServiceException {
+        return get${domainClassName}View1($primaryKeyVariable);
     }
 
     /**
@@ -179,5 +186,6 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
                                                   ProcessControl processControl) throws ServiceException {
         return processCS${domainClassName}View1(processData, processControl);
     }
+#end
 #end
 }
