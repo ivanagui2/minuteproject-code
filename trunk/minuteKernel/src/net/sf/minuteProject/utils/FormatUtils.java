@@ -127,11 +127,18 @@ public class FormatUtils {
 				+ st.substring(len, st.length()).toLowerCase();
 	}
 
-	public static String firstLowerCaseOnly(String st) {
+	public static String fullLowerCase(String st) {
 		if (st == null)
 			return "INPUT_STRING_IS_NULL";
 		return st.substring(0, 1).toLowerCase()
 				+ st.substring(1, st.length()).toLowerCase();
+	}
+	
+	public static String firstLowerCaseOnly(String st) {
+		if (st == null)
+			return "INPUT_STRING_IS_NULL";
+		return st.substring(0, 1).toLowerCase()
+				+ st.substring(1, st.length());
 	}
 	
 	public static String lowerCase(String st) {

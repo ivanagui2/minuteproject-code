@@ -80,6 +80,7 @@ public class ConvertUtils {
 		if (DB_STRING2_CHAR_TYPE.equals(type)) return UML_STRING_TYPE;
 		if (DB_INTEGER_TYPE.equals(type)) return UML_INTEGER_TYPE;
 		if (DB_INT_TYPE.equals(type)) return UML_INTEGER_TYPE;
+		if (DB_SMALLINT_TYPE.equals(type)) return UML_INTEGER_TYPE;
 		if (DB_DECIMAL_TYPE.equals(type)) return UML_LONG_TYPE;
 		if (DB_DOUBLE_TYPE.equals(type)) return UML_DOUBLE_TYPE;
 		return UML_STRING_TYPE;

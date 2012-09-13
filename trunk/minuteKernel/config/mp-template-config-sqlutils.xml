@@ -21,6 +21,14 @@
 			file-extension="sql" file-prefix="" file-suffix="-table" 
 			model-specific="true">
 		</template>
+			 
+		<template name="SQL.Trigger" templateFileName="SQL.Trigger.vm" 
+			add-model-name="true" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="sql" file-prefix="" file-suffix="-triggers" 
+			model-specific="true">
+		</template>
 								
 	</template-target>	
 

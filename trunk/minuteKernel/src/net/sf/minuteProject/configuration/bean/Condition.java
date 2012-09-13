@@ -14,7 +14,7 @@ public class Condition extends AbstractConfiguration {
 	public static final String EXCLUDE = "exclude";
 	private String type;
 	private String startsWith;
-	private String endsWith;
+	private String endsWith, equals;
 	private String regex;
 	private String result;
 
@@ -25,6 +25,7 @@ public class Condition extends AbstractConfiguration {
 	
 	public boolean isConditionTrue(String valueToTest) {
 		if (StringUtils.startsWithIgnoreCase(valueToTest, startsWith)==true) return true;
+		if (StringUtils.equalsIgnoreCase(valueToTest, equals)==true) return true;
 		if (StringUtils.endsWithIgnoreCase(valueToTest, endsWith)==true) return true;
 		if (StringUtils.regex(valueToTest, regex)==true) return true;
 		return false;
@@ -81,6 +82,15 @@ public class Condition extends AbstractConfiguration {
 	public void setEndsWith(String endsWith) {
 		this.endsWith = endsWith;
 	}
+	
+	public String getEquals() {
+		return equals;
+	}
+
+	public void setEquals(String equals) {
+		this.equals = equals;
+	}
+
 	public String getType() {
 		return type;
 	}

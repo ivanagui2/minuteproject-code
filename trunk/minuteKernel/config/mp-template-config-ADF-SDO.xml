@@ -14,15 +14,25 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 
 		<!-- ABL beans -->	
 		<template name="ADF.Model.AppModule" templateFileName="ADF.Model.AppModule.vm" 
-			subdir="" outputsubdir="" technicalPackage="view"
+			subdir="" outputsubdir="" technicalPackage="model"
 			file-extension="xml" file-prefix="" file-suffix="AppModule" 
-			has-updatable-nature="true"
+			has-updatable-nature="true" 				add-model-name="false"
 			scope-specific-value="model"
 			>			
 		</template>	
 		
+		<template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
+			subdir="" outputsubdir="" technicalPackage="model"
+			file-extension="jpx" file-prefix="" file-suffix="Model" 
+			has-updatable-nature="true"  						add-model-name="false"
+			scope-specific-value="model"
+			>
+		</template>	
+		
+		
+				
 		<template name="ADF.Model.Entity" templateFileName="ADF.Model.Entity.vm" 
-			subdir="" outputsubdir="" technicalPackage="view"
+			subdir="" outputsubdir="" technicalPackage="model"
 			file-extension="xml" file-prefix="" file-suffix="" 
 			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="entity" 
@@ -31,7 +41,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 		<template name="ADF.Model.View" templateFileName="ADF.Model.View.vm" 
-			subdir="" outputsubdir="" technicalPackage="view"
+			subdir="" outputsubdir="" technicalPackage="model"
 			file-extension="xml" file-prefix="" file-suffix="View" 
 			has-updatable-nature="true"
 			scope-specific-value="entity"
@@ -40,7 +50,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 		<template name="ADF.Model.FkAssoc" templateFileName="ADF.Model.FkAssoc.vm" 
-			subdir="" outputsubdir="" technicalPackage="view"
+			subdir="" outputsubdir="" technicalPackage="model"
 			file-extension="xml" file-prefix="" file-suffix="FkAssoc" 
 			has-updatable-nature="true"
 			scope-specific-value="reference"
@@ -49,52 +59,45 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 		<template name="ADF.Model.FkLink" templateFileName="ADF.Model.FkLink.vm" 
-			subdir="" outputsubdir="" technicalPackage="view"
+			subdir="" outputsubdir="" technicalPackage="model"
 			file-extension="xml" file-prefix="" file-suffix="FkLink" 
 			has-updatable-nature="true"
 			scope-specific-value="reference"
 			add-business-package-dir-name="false"
 			>			
 		</template>	
-		
-		<template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
-			subdir="" outputsubdir="" technicalPackage="view"
-			file-extension="jpx" file-prefix="" file-suffix="Model" 
-			has-updatable-nature="true"
-			scope-specific-value="model"
-			>
-		</template>	
+
 		
 		<!-- SDO for entities -->
 		
 		<template name="ADF.SDO.AppModuleServiceImplJava" templateFileName="ADF.SDO.AppModuleServiceImplJava.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.server.serviceinterface"
+			subdir="" outputsubdir="" technicalPackage="model.server.serviceinterface"
 			file-extension="java" file-prefix="" file-suffix="AppModuleServiceImpl" 
-			has-updatable-nature="true" 
+			has-updatable-nature="true"  					add-model-name="false"
 			scope-specific-value="model"
 			>			
 		</template>			
 		
 		<template name="ADF.SDO.AppModuleServiceJava" templateFileName="ADF.SDO.AppModuleServiceJava.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.common.serviceinterface"
+			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
 			file-extension="java" file-prefix="" file-suffix="AppModuleService" 
-			has-updatable-nature="true" 
+			has-updatable-nature="true"  					add-model-name="false"
 			scope-specific-value="model"
 			>			
 		</template>	
 		
 		<template name="ADF.SDO.AppModuleServiceWsdl" templateFileName="ADF.SDO.AppModuleServiceWsdl.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.common.serviceinterface"
+			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
 			file-extension="wsdl" file-prefix="" file-suffix="AppModuleService" 
-			has-updatable-nature="true"
+			has-updatable-nature="true" 					 add-model-name="false"
 			scope-specific-value="model"
 			>			
 		</template>	
 		
 		<template name="ADF.SDO.AppModuleServiceXsd" templateFileName="ADF.SDO.AppModuleServiceXsd.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.common.serviceinterface"
+			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
 			file-extension="xsd" file-prefix="" file-suffix="AppModuleService" 
-			has-updatable-nature="true"
+			has-updatable-nature="true"  					add-model-name="false"
 			scope-specific-value="model"
 			>			
 		</template>
@@ -102,8 +105,8 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<!-- SDO for entities -->
 
 		<template name="ADF.SDO.EntityXsd" templateFileName="ADF.SDO.EntityXsd.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.common"
-			file-extension="xsd" file-prefix="" file-suffix="" 
+			subdir="" outputsubdir="" technicalPackage="model.common"
+			file-extension="xsd" file-prefix="" file-suffix="ViewSDO" 
 			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="entity"
 			add-business-package-dir-name="false"
@@ -111,7 +114,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 		<template name="ADF.SDO.ViewFace" templateFileName="ADF.SDO.ViewFace.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.common"
+			subdir="" outputsubdir="" technicalPackage="model.common"
 			file-extension="java" file-prefix="" file-suffix="ViewSDO" 
 			has-updatable-nature="true"
 			scope-specific-value="entity"
@@ -120,12 +123,20 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 		<template name="ADF.SDO.ViewImpl" templateFileName="ADF.SDO.ViewImpl.vm" 
-			subdir="" outputsubdir="" technicalPackage="view.common"
+			subdir="" outputsubdir="" technicalPackage="model.common"
 			file-extension="java" file-prefix="" file-suffix="ViewSDOImpl" 
 			has-updatable-nature="true"
 			scope-specific-value="entity"
 			add-business-package-dir-name="false"
 			>			
+		</template>	
+
+		<template name="ADF.Model.bc4j" templateFileName="ADF.Model.bc4j.vm" 
+			subdir="" outputsubdir="" technicalPackage="model.common"
+			file-extension="xcfg" file-prefix="" file-suffix="bc4j" 
+			has-updatable-nature="true"  					add-model-name="false"
+			scope-specific-value="model"
+			>		
 		</template>	
 		
     </template-target>
@@ -151,6 +162,22 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>			
 		</template>	
+	</template-target>
+	
+	<template-target 
+    	name="ADF Model META-INF"
+		libdir="lib/ADF_LIB.vm"
+		package-root=""
+		outputdir="Model/classes/META-INF">
+	    <!-- package -->	
+		<template name="ADF.Model.adfm" templateFileName="ADF.Model.adfm.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="adfm" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>
+		</template>	
+
 	</template-target>
 	
 	<template-target 

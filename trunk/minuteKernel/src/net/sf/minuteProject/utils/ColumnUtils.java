@@ -66,6 +66,7 @@ public class ColumnUtils {
 			column.getType().equals("NUMBER") ||
 			column.getType().equals("DECIMAL") ||
 			column.getType().equals("SHORT") ||
+			column.getType().equals("SMALLINT") ||
 			column.getType().equals("REAL") ||
 			column.getType().equals("VARBINARY") ||
 			column.getType().equals("DOUBLE")
@@ -84,6 +85,7 @@ public class ColumnUtils {
 						column.getType().equals("NUMBER") ||
 						column.getType().equals("DECIMAL") ||
 						column.getType().equals("SHORT") ||
+						column.getType().equals("SMALLINT") ||
 						column.getType().equals("REAL") ||
 						column.getType().equals("VARBINARY") ||
 						column.getType().equals("DOUBLE")
