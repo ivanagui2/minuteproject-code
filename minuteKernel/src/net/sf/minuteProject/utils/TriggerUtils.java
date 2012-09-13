@@ -46,11 +46,19 @@ public class TriggerUtils {
 		if (trigger.getValue()==null)
 			return getTriggerAlias(trigger);
 		if (Trigger.CURRENT_TIME.equals(trigger.getValue()))
-			return getCurrentTime(trigger, template);
+			return getJavaCurrentTime(trigger, template);
+		return getTriggerAlias(trigger);
+	}
+	
+	public static String getSQLDisplayChunk (Trigger trigger, Template template) {
+		if (trigger.getValue()==null)
+			return getTriggerAlias(trigger);
+		if (Trigger.CURRENT_TIME.equals(trigger.getValue()))
+			return getSQLCurrentTime(trigger, template);
 		return getTriggerAlias(trigger);
 	}
 
-	private static String getCurrentTime(Trigger trigger, Template template) {
+	private static String getJavaCurrentTime(Trigger trigger, Template template) {
 		//TODO add temporal in trigger
 		Column column = getColumn(trigger);
 		String javaFullType = CommonUtils.getFullType2(column);
@@ -63,6 +71,19 @@ public class TriggerUtils {
 			return "new java.sql.Timestamp(new java.util.Date().getTime()))";
 		if (ConvertUtils.JAVA_SQL_TIME_TYPE.equals(javaFullType))
 			return "new java.sql.Time(new java.util.Date().getTime()))";
+		return getTriggerAlias(trigger);
+	}
+	
+	private static String getSQLCurrentTime(Trigger trigger, Template template) {
+		//TODO add temporal in trigger
+		Column column = getColumn(trigger);
+		String javaFullType = CommonUtils.getFullType2(column);
+		if (ConvertUtils.JAVA_SQL_DATE_TYPE.equals(javaFullType))
+			return "sysdate";
+		if (ConvertUtils.JAVA_SQL_TIMESTAMP_TYPE.equals(javaFullType))
+			return "systimestamp";
+		if (ConvertUtils.JAVA_SQL_TIME_TYPE.equals(javaFullType))
+			return "sysdate";
 		return getTriggerAlias(trigger);
 	}
 

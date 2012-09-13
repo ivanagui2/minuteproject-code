@@ -33,7 +33,7 @@ public class I18nUtils {
 		if (firstUpperCase)
 			input = FormatUtils.firstUpperCaseOnly(input);
 		else 
-			input = FormatUtils.firstLowerCaseOnly(input);
+			input = FormatUtils.fullLowerCase(input);
 		return input;
 	}
 	

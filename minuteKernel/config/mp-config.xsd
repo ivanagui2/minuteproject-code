@@ -14,6 +14,9 @@
 	<xs:complexType name="condition">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="startsWith" type="xs:string" />
+		<xs:attribute name="endsWith" type="xs:string" />
+		<xs:attribute name="regex" type="xs:string" />
+		<xs:attribute name="equals" type="xs:string" />
 		<xs:attribute name="result" type="xs:string" />
 	</xs:complexType>
 
