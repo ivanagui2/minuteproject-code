@@ -27,7 +27,7 @@ public class TriggerUtils {
 		return CommonUtils.getJavaType(getColumn(trigger));
 	}
 	
-	private static Column getColumn(Trigger trigger) {
+	public static Column getColumn(Trigger trigger) {
 		return trigger.getColumn();
 	}
 
@@ -50,7 +50,7 @@ public class TriggerUtils {
 		return getTriggerAlias(trigger);
 	}
 	
-	public static String getSQLDisplayChunk (Trigger trigger, Template template) {
+	public static String getSqlDisplayChunk (Trigger trigger, Template template) {
 		if (trigger.getValue()==null)
 			return getTriggerAlias(trigger);
 		if (Trigger.CURRENT_TIME.equals(trigger.getValue()))
