@@ -60,15 +60,11 @@ public class ${className} {
     private $sddOutputBeanClass selected$sddOutputBeanClass;
 
 #if ($isChartLayout)
+#if($isBarChart)
     private CartesianChartModel categoryModel;  
-    private PieChartModel pieModel;
 
     public CartesianChartModel getCategoryModel() {  
         return categoryModel;  
-    }  
-  
-    public PieChartModel getPieModel() {  
-        return pieModel;  
     }  
 
     public CartesianChartModel createCategoryModel() {  
@@ -80,13 +76,20 @@ public class ${className} {
         ChartSeries $dimVar = new ChartSeries();  
         ${dimVar}.setLabel("$columnClass");+
         for ($sddOutputBeanClass var : getOutputList()) {
-            ${dimVar}.set(var.get$columnClass(), var.get$outputBeanDimensionValue());
+            ${dimVar}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
         }
         categoryModel.addSeries(${dimVar});  
 #end
         return categoryModel;
+    }
+    
+#end
+#if($isPieChart)
+    private PieChartModel pieModel;
+    public PieChartModel getPieModel() {  
+        return pieModel;  
     }  
-  
+    
     public PieChartModel createPieModel() {
         execute();
         pieModel = new PieChartModel();  
@@ -96,6 +99,7 @@ public class ${className} {
         return pieModel;
     }
 
+#end
 #end
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
