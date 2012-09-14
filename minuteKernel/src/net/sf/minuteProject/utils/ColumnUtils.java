@@ -18,6 +18,14 @@ public class ColumnUtils {
 	
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
+	public static boolean hasDefaultValue (Column column) {
+		return (column.getDefaultValue()!=null)?true:false;
+	}
+	
+	public static String getDefaultValue (Column column) {
+		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
+	}
+	
 	public static List<String> getColumnNames(Table table) {
 		List<String> columnNames = new ArrayList<String>();
 		for (Column column : table.getColumns()) {

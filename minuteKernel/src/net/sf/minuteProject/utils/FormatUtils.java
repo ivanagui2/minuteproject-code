@@ -50,8 +50,11 @@ public class FormatUtils {
 	}
 
 	public static String getUppercaseUnderscore (String name) {
-		if (name!=null)
-			return name.toUpperCase();
+		if (name!=null) {
+			String underscoreName = StringUtils.replace(name, "-", "_");
+			underscoreName = StringUtils.replace(name, " ", "_");
+			return underscoreName.toUpperCase();
+		}
 		return "";
 	}
 	
