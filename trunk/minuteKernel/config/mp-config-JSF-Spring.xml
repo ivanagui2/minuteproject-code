@@ -64,10 +64,17 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
             <statement-model>
                 <queries>
-                     <query name="get address summary" id="dashAddress" type="dashboard" category="pie-chart">
+                     <query name="get address abstract" id="dashAddress" type="dashboard" category="pie-chart">
                          <query-body> <!-- dimensions column first -->
                          <value>
 <![CDATA[select city, count(*) as nb from address group by city order by count(*) desc]]>
+                            </value>
+                         </query-body>
+                     </query>
+                     <query name="get address summary" id="dashCity" type="dashboard" category="bar-chart">
+                         <query-body> <!-- dimensions column first -->
+                         <value>
+<![CDATA[select city, count(*) as nb, count(*) as nb2 from address group by city order by count(*) desc]]>
                             </value>
                          </query-body>
                      </query>

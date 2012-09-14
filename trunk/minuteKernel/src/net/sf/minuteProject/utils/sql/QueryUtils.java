@@ -177,13 +177,23 @@ public class QueryUtils {
 	}
 	
 	public static Column getOutputBeanDimension(Query query, int i) {
-		return query.getOutputBean().getColumn(i);
+		if (query.getOutputBean().getColumnCount()>=i+1)
+			return query.getOutputBean().getColumn(i);
+		return null;
 	}
 	
-	public static Column[] getOutputBeanDimension(Query query) {
-		return query.getOutputBean().getColumns();
+	public static List<Column> getOutputBeanDimension(Query query) {
+		List<Column> dimensions = new ArrayList<Column>();
+		int cpt=0;
+		for(Column column : query.getOutputBean().getColumns()) {
+			if (cpt>0) {
+				dimensions.add(column);
+			}
+			cpt++;
+		}
+		return dimensions;
 	}
-	
+
 	public static Column getOutputBeanValue(Query query) {
 		return query.getOutputBean().getColumn(query.getOutputBean().getColumnCount()-1);
 	}
