@@ -36,7 +36,17 @@ public class AdfUtils {
 			"SMALLINT".equals(column.getType())	
 				)
 			return "new Integer(getInt";
+		if ("DATE".equals(column.getType()) 
+				)
+			return "(java.sql.Timestamp) get";
 		return "get"+CommonUtils.getJavaType(column);
+	}	
+	
+	public String getSDOColumnFullType(Column column) {
+		if ("DATE".equals(column.getType()) 
+				)
+			return "java.sql.Timestamp";
+		return CommonUtils.getFullType2(column);
 	}
 	
 	public String getSDOColumnTypeEnd(Column column) {
