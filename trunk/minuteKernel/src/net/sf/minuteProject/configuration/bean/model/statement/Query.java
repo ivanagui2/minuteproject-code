@@ -189,6 +189,7 @@ public class Query extends AbstractConfiguration {
 		column.setType(convertType(type));
 		column.setSize(queryParam.getSize()+"");
 		column.setScale(queryParam.getScale());
+		column.setDefaultValue(queryParam.getDefaultValue());
 		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type) && queryParam.getScale()>0) {
 			column.setType(ConvertUtils.DB_DOUBLE_TYPE);
 		}
