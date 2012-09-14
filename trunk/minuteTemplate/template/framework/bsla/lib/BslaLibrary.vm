@@ -45,6 +45,10 @@
 #set ($columnClass = $commonUtils.getColumnClassName($column))
 #set ($columnVar = $commonUtils.getColumnVariableName($column))
 #set ($isColumnUnique = $tableUtils.isUnique($table, $column))
+#set ($hasDefaultValue = $columnUtils.hasDefaultValue($column))
+#if($hasDefaultValue)
+#set ($defaultValue = $columnUtils.getDefaultValue($column))
+#end
 #set ($isMandatory = $column.isRequired())
 #set ($isPrimaryKey = $column.isPrimaryKey())
 #set ($resource = "${table.name}.$columnVar")

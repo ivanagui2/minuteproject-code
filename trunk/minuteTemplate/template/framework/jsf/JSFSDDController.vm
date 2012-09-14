@@ -68,13 +68,13 @@ public class ${className} {
     }  
 
     public CartesianChartModel createCategoryModel() {  
+        execute();
         categoryModel = new CartesianChartModel();  
-        
 #foreach($column in $dimensions)
 #putColumnParamNaming()
 #set($dimVar = "${columnVar}$velocityCount")
         ChartSeries $dimVar = new ChartSeries();  
-        ${dimVar}.setLabel("$columnClass");+
+        ${dimVar}.setLabel("$columnClass");
         for ($sddOutputBeanClass var : getOutputList()) {
             ${dimVar}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
         }
