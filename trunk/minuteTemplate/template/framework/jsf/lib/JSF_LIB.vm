@@ -88,6 +88,7 @@
 #set ($templateModelBeanManagerMenuJSF = "JSFBeanManagerMenu")
 #set ($templateJSFFwkDateTsConverter = "JSFFwkDateTsConverter")
 #set ($templateModelJSFUtils = "JSFUtils")
+#set ($templateChartJSF = "JSFXhtmlChart")
 #end
 
 #macro(exposeJSFConfig)

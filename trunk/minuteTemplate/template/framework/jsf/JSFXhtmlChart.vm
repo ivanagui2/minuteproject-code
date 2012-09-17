@@ -32,6 +32,23 @@
         <p:ajax event="itemSelect" listener="#{${entityControllerJSFVariable}.itemSelect}" update="growl" />
     </p:barChart>
 #end
+
+##TODO idem jsfxhtmlSDDinput.vm
+            <p:panel id="sddInputPanel" header="#{i18n.$tableVariableName}"
+                toggleable="true" closable="false" toggleSpeed="500"
+                onCloseUpdate="growl" closeSpeed="2000" onToggleUpdate="growl"
+                widgetVar="panel">
+                <p:messages id="messages" />
+                <h:panelGrid columns="3" cellpadding="10">
+#foreach($column in $inputBean.columns)
+#putColumnParams()
+#columnJavaNaming()
+#putJSFColumnSnippet()
+#end
+                <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanel,display"
+                    action="#{${entityControllerJSFVariable}.execute}" />
+                </h:panelGrid>
+            </p:panel>
 </h:form>
     </ui:define>
 </ui:composition>
