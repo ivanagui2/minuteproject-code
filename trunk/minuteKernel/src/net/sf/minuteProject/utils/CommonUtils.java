@@ -568,6 +568,46 @@ public class CommonUtils {
 		return FormatUtils.getDirFromPackage(getModelLevelTemplateFullPath(model, template, targetTemplateName));
 	}
 	
+	public static String getPhysicalPathFileStartWithLowerCase (GeneratorBean bean, Template template, String targetTemplateName) {
+		Template target = getTargetTemplate(template, targetTemplateName);
+		//TODO change only quick
+		return getPhysicalDirPath(bean, template, targetTemplateName)+FormatUtils.firstLowerCaseOnly(CommonUtils.getFileName(target,bean));
+	}
+	
+	public static String getPhysicalPath (GeneratorBean bean, Template template, String targetTemplateName) {
+		Template target = getTargetTemplate(template, targetTemplateName);
+		//TODO change only quick
+		return getPhysicalDirPath(bean, template, targetTemplateName)+CommonUtils.getFileName(target,bean);
+	}
+	
+	public static String getPhysicalDirPath (GeneratorBean bean, Template template, String targetTemplateName) {
+		Template target = getTargetTemplate(template, targetTemplateName);
+		if (target==null)
+			return "TARGET "+targetTemplateName+" NOT FOUND";
+		return target.getOutputdir();
+	}
+	
+	public static String getPhysicalDirectory(GeneratorBean bean, Template template) {
+		StringBuffer sb = new StringBuffer(template.getOutputdir());
+    	String sb1 = new String(CommonUtils.getPackageName(bean, template));
+    	String dir = FormatUtils.getDirFromPackage(sb1, template.isConvertPackageToDir());
+    	if(!StringUtils.isEmpty(dir)) {
+	    	sb.append("/");
+	    	sb.append(dir);
+    	}
+    	String addEntityDirName = template.getAddEntityDirName();
+		if (addEntityDirName!=null && addEntityDirName.equals("true")) {
+    		sb.append("/");
+    		sb.append(template.getEntityDirName(bean.getGeneratedBeanName()));
+    	}
+    	String appendEndPackageDir = template.getAppendEndPackageDir();
+		if (appendEndPackageDir!=null) {
+    		sb.append("/"+appendEndPackageDir);
+    	}
+    	String outputFileDir = sb.toString();
+		return outputFileDir;
+	}
+	
 	public static boolean isEnrichedPrimaryKey (Column column) {
 		if (column!=null) {
 			if (column.isPrimaryKey() && column.getTable().getPrimaryKeyColumns().length==1) return true;
