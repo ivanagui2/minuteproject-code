@@ -24,7 +24,7 @@
    </list>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
-         <hash n="EmpDeptService">
+         <hash n="${model.name}SDOProfile">
             <hash n="archiveOptions">
                <value n="hasManifest" v="false"/>
             </hash>

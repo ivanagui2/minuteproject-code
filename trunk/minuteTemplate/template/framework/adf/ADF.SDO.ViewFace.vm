@@ -6,10 +6,10 @@ public interface $className extends java.io.Serializable {
 
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
-#set($cpt = $velocityCount - 1)
-   public $columnFullType get$columnClass();
+#set($getSDOColumnFullType=$adfUtils.getSDOColumnFullType($column))
+   public $getSDOColumnFullType get$columnClass();
    
-   public void set$columnClass($columnFullType value);
+   public void set$columnClass($getSDOColumnFullType value);
 
 #end
 

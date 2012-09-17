@@ -1,6 +1,5 @@
-#exposeVariableModelSpecific()
 #exposeSDOSpecific()
-#set($connectionDS=$template.getPropertyValue("connection-datasource-name","${model.name}DS"))
+#set($connectionDS=$template.getPropertyValue("connection-datasource-name","jdbc/${model.name}DS"))
 <?xml version = '1.0' encoding = 'windows-1252'?>
 <ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"

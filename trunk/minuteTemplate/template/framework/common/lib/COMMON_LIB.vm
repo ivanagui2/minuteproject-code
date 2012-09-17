@@ -91,10 +91,12 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro(exposeVariableTriggerSpecific)
-#set($triggerColumnName =$trigger.columnName)
+#set($triggerColumn =$triggerUtils.getColumn($trigger))
+#set($triggerColumnName =$triggerColumn.name)
 #set($triggerVar =$triggerUtils.getTriggerAlias($trigger))
-#set($triggerType =$triggerUtils.getTriggerAlias($trigger))
+#set($triggerType =$triggerUtils.getTriggerType($trigger))
 #set($triggerJavaExpressionChunk =$triggerUtils.getJavaDisplayChunk($trigger, $template))
+#set($triggerSqlExpressionChunk =$triggerUtils.getSqlDisplayChunk($trigger, $template))
 #end
 
 #macro (putGetterAdder $classList $listVariable $class $variable)

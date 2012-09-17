@@ -73,6 +73,17 @@
       </list>
    </hash>
    <value n="oracle.jbo.SavedPreferences" v="true"/>
+   <hash n="oracle.jdeveloper.compiler.ant.AntConfiguration">
+      <value n="makeTarget" v="all"/>
+      <url n="projectBuildfile" path="build.xml"/>
+      <list n="targetList">
+         <string v="all"/>
+         <string v="clean"/>
+         <string v="compile"/>
+         <string v="copy"/>
+         <string v="deploy"/>
+      </list>
+   </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <list n="copyRes">
          <string v=".gif"/>
@@ -111,7 +122,7 @@
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
          <hash n="${applicationName}Profile">
-            <url n="bcApplication" path="src/${projectPathName}/adf/sample/model/Model.jpx"/>
+            <url n="bcApplication" path="src/${modelADFModuleJpxFullPath}"/>			
             <hash n="commonProfile">
                <hash n="archiveOptions">
                   <value n="hasManifest" v="true"/>

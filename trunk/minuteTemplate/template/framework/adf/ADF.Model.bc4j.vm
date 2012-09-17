@@ -1,18 +1,21 @@
+#exposeSDOSpecific()
+#exposeADFModelSpecific()
+#set($connectionDS=$template.getPropertyValue("connection-datasource-name","jdbc/${model.name}DS"))
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
-   <AppModuleConfigBag ApplicationName="eu.europa.ec.sg.nif2.model.AppModule">
-      <AppModuleConfig name="AppModuleLocal" ApplicationName="eu.europa.ec.sg.nif2.model.AppModule" DeployPlatform="LOCAL" JDBCName="NIF2-DC-DEV" jbo.project="eu.europa.ec.sg.nif2.model.Model">
-         <Security AppModuleJndiName="eu.europa.ec.sg.nif2.model.AppModule"/>
+   <AppModuleConfigBag ApplicationName="${modelADFAppModuleImport}"  default="AppModuleService">
+      <AppModuleConfig name="AppModuleLocal" ApplicationName="${modelADFAppModuleImport}" DeployPlatform="LOCAL" JDBCName="${model.name}LocalDS" jbo.project="$modelADFModuleJpxImport">
+         <Security AppModuleJndiName="${modelADFAppModuleImport}"/>
       </AppModuleConfig>
-      <AppModuleConfig name="AppModuleShared" ApplicationName="eu.europa.ec.sg.nif2.model.AppModule" DeployPlatform="LOCAL" JDBCName="NIF2-DC-DEV" jbo.project="eu.europa.ec.sg.nif2.model.Model">
+      <AppModuleConfig name="AppModuleShared" ApplicationName="${modelADFAppModuleImport}" DeployPlatform="LOCAL" JDBCName="${model.name}LocalDS" jbo.project="$modelADFModuleJpxImport">
          <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
-         <Security AppModuleJndiName="eu.europa.ec.sg.nif2.model.AppModule"/>
+         <Security AppModuleJndiName="${modelADFAppModuleImport}"/>
       </AppModuleConfig>
-      <AppModuleConfig name="AppModuleService" ApplicationName="eu.europa.ec.sg.nif2.model.AppModule" DeployPlatform="SI" jbo.project="eu.europa.ec.sg.nif2.model.Model">
+      <AppModuleConfig name="AppModuleService" ApplicationName="${modelADFAppModuleImport}" DeployPlatform="SI" jbo.project="$modelADFModuleJpxImport">
          <AM-Pooling jbo.ampool.resetnontransactionalstate="true"/>
          <Database jbo.locking.mode="optimistic"/>
-         <Security AppModuleJndiName="eu.europa.ec.sg.nif2.model.AppModule"/>
-         <Custom JDBCDataSource="java:comp/env/jdbc/NIF2-DC-DEVDS"/>
+         <Security AppModuleJndiName="${modelADFAppModuleImport}"/>
+         <Custom JDBCDataSource="$connectionDS"/>
       </AppModuleConfig>
    </AppModuleConfigBag>
 </BC4JConfig>
