@@ -183,6 +183,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 	<template-target 
     	name="ADF View Controller src"
 		libdir="lib/ADF_LIB.vm"
+		package-root=""
 		outputdir="ViewController/public_html/WEB-INF">
 
 		<template name="ADF.BC.web" templateFileName="ADF.BC.web.vm" 
@@ -236,6 +237,24 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>			
 		
+		<!-- build scripts -->
+		
+		<template name="ADF.Build.Model.ant.script" templateFileName="ADF.Build.Model.ant.script.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="build" 
+			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>				
+		
+		<template name="ADF.Build.Model.ant.properties" templateFileName="ADF.Build.Model.ant.properties.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="properties" file-prefix="" file-suffix="build" 
+			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>				
+		
 	</template-target>
 	
 	<template-target 
@@ -263,9 +282,44 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jws" file-prefix="" file-suffix="Workspace" 
 			has-updatable-nature="true" 
+			scope-specific-value="application">			
+		</template>			
+		
+		<!-- build scripts -->
+		
+		<template name="ADF.Build.ant.script" templateFileName="ADF.Build.ant.script.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="build" 
+			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
 			scope-specific-value="application"
 			>			
 		</template>				
+		
+		<template name="ADF.Build.ant.properties" templateFileName="ADF.Build.ant.properties.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="properties" file-prefix="" file-suffix="build" 
+			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+		<template name="ADF.Build.command.cmd" templateFileName="ADF.Build.command.cmd.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="bat" file-prefix="" file-suffix="deploy_to_ear" 
+			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+		<template name="ADF.Build.deploy-to-ear.ojdeploy" templateFileName="ADF.Build.deploy-to-ear.ojdeploy.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="deploy_to_ear.ojdeploy" 
+			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+			
 	</template-target>
 	
 </target>

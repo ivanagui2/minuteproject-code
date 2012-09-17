@@ -432,26 +432,31 @@ public class Template extends TemplateTarget {
     
     public String getGeneratorOutputFileNameForConfigurationBean (GeneratorBean bean, Template template) {
     	
-    	StringBuffer sb = new StringBuffer(template.getOutputdir());
-    	String sb1 = new String(CommonUtils.getPackageName(bean, template));
-    	String dir = FormatUtils.getDirFromPackage(sb1, convertPackageToDir);
-    	sb.append("//");
-    	sb.append(dir);
-    	if (addEntityDirName!=null && addEntityDirName.equals("true")) {
-    		sb.append("//");
-    		sb.append(getEntityDirName(bean.getGeneratedBeanName()));
-    	}
-    	if (appendEndPackageDir!=null) {
-    		sb.append("//"+appendEndPackageDir);
-    	}
-    	String outputFileDir = sb.toString();
+    	String outputFileDir = CommonUtils.getPhysicalDirectory(bean, template);
 		new File (outputFileDir.toString()).mkdirs();
 		String TemplateFileName = CommonUtils.getFileName(template,bean);
 		String outputFilename = outputFileDir+"//"+TemplateFileName;
 		return outputFilename;    	
     }
+
+//	public String getPhysicalDirectory(GeneratorBean bean, Template template) {
+//		StringBuffer sb = new StringBuffer(template.getOutputdir());
+//    	String sb1 = new String(CommonUtils.getPackageName(bean, template));
+//    	String dir = FormatUtils.getDirFromPackage(sb1, convertPackageToDir);
+//    	sb.append("//");
+//    	sb.append(dir);
+//    	if (addEntityDirName!=null && addEntityDirName.equals("true")) {
+//    		sb.append("//");
+//    		sb.append(getEntityDirName(bean.getGeneratedBeanName()));
+//    	}
+//    	if (appendEndPackageDir!=null) {
+//    		sb.append("//"+appendEndPackageDir);
+//    	}
+//    	String outputFileDir = sb.toString();
+//		return outputFileDir;
+//	}
     
-    private String getEntityDirName (String input) {
+    public String getEntityDirName (String input) {
     	StringBuffer output = new StringBuffer();
 		if (entityDirNamePrefix!=null && !entityDirNamePrefix.equals("")) {
 			output.append(entityDirNamePrefix);
