@@ -71,11 +71,15 @@ public class ${className} {
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-#set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateSDDJSF))
 #set($domainClassName=$commonUtils.getJavaClassName($table))
         MenuItem item${domainClassName} = new MenuItem();  
-        item${domainClassName}.setValue("$tableLabel");  
-        item${domainClassName}.setUrl("${sddJSFLocation}");  
+        item${domainClassName}.setValue("$tableLabel");
+#if (!$isChartLayout)
+#set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateSDDJSF))
+#else
+#set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateChartJSF))
+#end
+        item${domainClassName}.setUrl("${sddJSFLocation}");
         sdd.getChildren().add(item${domainClassName}); 
         
 #end
