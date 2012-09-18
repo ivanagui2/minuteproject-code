@@ -233,7 +233,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jpr" file-prefix="" file-suffix="Model" 
 			has-updatable-nature="true" add-package-name-dir="false"
-			scope-specific-value="application"
+			scope-specific-value="application" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
 			>			
 		</template>			
 		
@@ -267,7 +267,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jpr" file-prefix="" file-suffix="ViewController" 
 			has-updatable-nature="true" add-package-name-dir="false"
-			scope-specific-value="application"
+			scope-specific-value="application" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
 			>			
 		</template>			
 	</template-target>
@@ -281,7 +281,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.jws" templateFileName="ADF.jws.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jws" file-prefix="" file-suffix="Workspace" 
-			has-updatable-nature="true" 
+			has-updatable-nature="true" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
 			scope-specific-value="application">			
 		</template>			
 		

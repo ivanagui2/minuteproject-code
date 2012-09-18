@@ -464,9 +464,14 @@ public class CommonUtils {
 	}
 	
 	public static String getArtifactRelativePathDirAndFullName (AbstractConfiguration bean, Template template, String targetTemplateName) {
-		return FormatUtils.getDirFromPackage(getPackageName(bean, template, targetTemplateName)) +
+		return getArtifactRelativePathDir(bean, template, targetTemplateName) +
 		       "/"+ getTemplateFileName(bean, template, targetTemplateName);
 		//return getLevelTemplateFullClassPath(bean, template, targetTemplateName)+"."+templa;
+	}
+
+	public static String getArtifactRelativePathDir(AbstractConfiguration bean,
+			Template template, String targetTemplateName) {
+		return FormatUtils.getDirFromPackage(getPackageName(bean, template, targetTemplateName));
 	}
 	
 	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {
