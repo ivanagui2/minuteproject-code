@@ -51,6 +51,8 @@
 #set($modelADFModuleJpxImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelJpx))	
 #set($modelADFModuleJpxFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpx))	
 #set($modelADFAppModuleImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelAppModule))	
+#set($modelADFAppModulerRootPath = $commonUtils.getArtifactRelativePathDir($model, $template, $templateADFModelAppModule))	
+#set($modelADFAppModulerPackageName = $commonUtils.getPackageName($model, $template, $templateADFModelAppModule))	
 #set($modelADFModuleBc4jFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelBc4j))	
 ##set($modelADFJprName=$formatUtils.firstLowerCaseOnly($commonUtils.getTemplateFileName($model, $template, $templateADFModelJpr)))	
 #set($modelADFJprName=$commonUtils.getTemplateFileName($model, $template, $templateADFModelJpr))	

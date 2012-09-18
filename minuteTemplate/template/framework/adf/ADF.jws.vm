@@ -1,9 +1,11 @@
 #exposeADFModelSpecific()
+#set($profileName=${model.name}+"SDOProfile")
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jws:workspace xmlns:jws="http://xmlns.oracle.com/ide/project">
    <hash n="adrs-workspace-properties">
       <value n="adrs-instance-binding" v="DefaultServer"/>
    </hash>
+   <value n="application-package-prefix" v="$modelADFAppModulerPackageName"/>
    <url n="application-source-directory" path="src/"/>
    <value n="appTemplateId" v="adfWebappApplicationTemplate"/>
    <hash n="component-versions">
@@ -23,8 +25,12 @@
       <hash><url n="URL" path="$viewControllerADFJprFullPath"/></hash>
    </list>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
+      <hash n="DefaultProfile">
+         <value n="ProfileName" v="${profileName}"/>
+      </hash>
       <hash n="profileDefinitions">
-         <hash n="${model.name}SDOProfile">
+      <hash n="profileDefinitions">
+         <hash n="application1">
             <hash n="archiveOptions">
                <value n="hasManifest" v="false"/>
             </hash>
@@ -32,15 +38,14 @@
                <list n="dependencyList">
                   <hash>
                      <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
-##TODO change
-                     <url n="ownerURL" path="$modelADFJprFullPath"/>
+                     <url n="ownerURL" path="Model/Nif2Model.jpr"/>
                      <value n="pathInEar" v=""/>
-                     <value n="profileName" v="${applicationName}_MiddleTier"/>
+                     <value n="profileName" v="nif2SDOProfile"/>
                   </hash>
                </list>
             </hash>
-            <url n="earURL" path="deploy/${applicationName}.ear"/>
-            <value n="enterpriseAppName" v="$applicationName"/>
+            <url n="earURL" path="deploy/application1.ear"/>
+            <value n="enterpriseAppName" v="application1"/>
             <hash n="fileGroups">
                <list n="groups">
                   <hash>
@@ -75,11 +80,65 @@
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
             <value n="profileClass" v="oracle.jdeveloper.deploy.ear.EarProfile"/>
-            <value n="profileName" v="$applicationName"/>
+            <value n="profileName" v="application1"/>
+         </hash>
+         <hash n="${profileName}">
+            <hash n="archiveOptions">
+               <value n="hasManifest" v="false"/>
+            </hash>
+            <hash n="dependencies">
+               <list n="dependencyList">
+                  <hash>
+                     <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
+##TODO change
+                     <url n="ownerURL" path="$modelADFJprFullPath"/>
+                     <value n="pathInEar" v=""/>
+                     <value n="profileName" v="${profileName}"/>
+                  </hash>
+               </list>
+            </hash>
+            <url n="earURL" path="deploy/${profileName}.ear"/>
+            <value n="enterpriseAppName" v="${applicationName}-app"/>
+            <hash n="fileGroups">
+               <list n="groups">
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="9"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="Application Descriptors"/>
+                     <hash n="filters">
+                        <list n="rules"/>
+                     </hash>
+                     <value n="internalName" v="ear-metainf"/>
+                     <value n="type" v="1"/>
+                  </hash>
+                  <hash>
+                     <value n="displayName" v="Application Libraries"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="libraries"/>
+                     <value n="targetWithinJar" v="lib"/>
+                     <value n="type" v="3"/>
+                  </hash>
+               </list>
+            </hash>
+            <hash n="libraryDependencies">
+               <value n="IncludeLibrariesFromOtherContainers" v="true"/>
+            </hash>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.ear.EarProfile"/>
+            <value n="profileName" v="$profileName"/>
          </hash>
       </hash>
       <list n="profileList">
-         <string v="$applicationName"/>
+         <string v="application1"/>
+         <string v="$profileName"/>
       </list>
       <value n="Security-Deployment-Migrate-Users-And-Groups-Key" v="false"/>
       <value n="Security-Deployment-Overwrite-Credentials-Key" v="false"/>
