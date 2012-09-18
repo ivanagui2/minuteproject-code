@@ -1,4 +1,5 @@
 #exposeADFModelSpecific()
+#set($profileName=${model.name}+"SDOProfile")
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
    <hash n="component-versions">
@@ -121,7 +122,7 @@
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
-         <hash n="${applicationName}Profile">
+         <hash n="${profileName}">
             <url n="bcApplication" path="src/${modelADFModuleJpxFullPath}"/>			
             <hash n="commonProfile">
                <hash n="archiveOptions">
@@ -147,35 +148,12 @@
                                  <value n="type" v="1"/>
                               </hash>
                               <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/entity/common/serviceinterface/*"/>
+                                 <value n="pattern" v="${modelADFAppModulerRootPath}/common/serviceinterface/*"/>
                               </hash>
                               <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/entity/common/*"/>
+                                 <value n="pattern" v="${modelADFAppModulerRootPath}/common/*"/>
                               </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/view/common/serviceinterface/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/view/common/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/applicationModule/common/serviceinterface/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/applicationModule/common/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/entity/association/common/serviceinterface/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/entity/association/common/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/view/link/common/serviceinterface/*"/>
-                              </hash>
-                              <hash>
-                                 <value n="pattern" v="${projectPathName}/adf/sample/model/view/link/common/*"/>
-                              </hash>
+
                               <hash>
                                  <value n="pattern" v="**"/>
                                  <value n="type" v="1"/>
@@ -284,14 +262,14 @@
                      </hash>
                   </list>
                </hash>
-               <url n="jarURL" path="deploy/${applicationName}Profile_Common.jar"/>
+               <url n="jarURL" path="deploy/${profileName}_Common.jar"/>
                <hash n="libraryDependencies">
                   <value n="IncludeLibrariesFromOtherContainers" v="true"/>
                </hash>
                <value n="profileClass" v="oracle.jdeveloper.deploy.jar.ArchiveProfile"/>
-               <value n="profileName" v="${applicationName}Profile_Common"/>
+               <value n="profileName" v="${profileName}_Common"/>
             </hash>
-            <url n="commonProfileURL" path="Model.jpr" ref="${applicationName}Profile_Common"/>
+            <url n="commonProfileURL" path="Model.jpr" ref="${profileName}_Common"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
@@ -305,12 +283,12 @@
                      <hash>
                         <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
                         <url n="ownerURL" path="Model.jpr"/>
-                        <value n="profileName" v="${applicationName}Profile_Common"/>
+                        <value n="profileName" v="${profileName}_Common"/>
                      </hash>
                   </list>
                </hash>
-               <url n="earURL" path="deploy/${applicationName}Profile_MiddleTier.ear"/>
-               <value n="enterpriseAppName" v="${applicationName}Profile_MiddleTier"/>
+               <url n="earURL" path="deploy/${profileName}.ear"/>
+               <value n="enterpriseAppName" v="${profileName}"/>
                <hash n="fileGroups">
                   <list n="groups">
                      <hash>
@@ -470,23 +448,23 @@
                      </hash>
                   </list>
                </hash>
-               <url n="jarURL" path="deploy/${applicationName}Profile_MiddleTier.jar"/>
+               <url n="jarURL" path="deploy/${profileName}.jar"/>
                <hash n="libraryDependencies">
                   <value n="IncludeLibrariesFromOtherContainers" v="true"/>
                </hash>
                <value n="profileClass" v="oracle.jdeveloper.deploy.ejb.EjbProfile"/>
-               <value n="profileName" v="${applicationName}Profile_MiddleTier"/>
+               <value n="profileName" v="${profileName}"/>
                <hash n="properties">
                   <value n="JboService" v="true"/>
                </hash>
             </hash>
-            <url n="mtProfileURL" path="Model.jpr" ref="${applicationName}Profile_MiddleTier"/>
+            <url n="mtProfileURL" path="Model.jpr" ref="${profileName}"/>
             <value n="profileClass" v="oracle.jbo.dt.jdevx.deployment.JbdSDOProfile"/>
-            <value n="profileName" v="${applicationName}Profile"/>
+            <value n="profileName" v="${profileName}"/>
          </hash>
       </hash>
       <list n="profileList">
-         <string v="${applicationName}Profile"/>
+         <string v="${profileName}"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
