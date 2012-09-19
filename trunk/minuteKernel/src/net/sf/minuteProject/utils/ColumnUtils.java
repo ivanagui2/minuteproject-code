@@ -95,7 +95,7 @@ public class ColumnUtils {
 						column.getType().equals("SHORT") ||
 						column.getType().equals("SMALLINT") ||
 						column.getType().equals("REAL") ||
-						column.getType().equals("VARBINARY") ||
+//						column.getType().equals("VARBINARY") ||
 						column.getType().equals("DOUBLE")
 						)
 				)

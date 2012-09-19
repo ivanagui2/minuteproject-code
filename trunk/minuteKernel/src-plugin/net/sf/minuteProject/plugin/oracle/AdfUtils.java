@@ -2,10 +2,13 @@ package net.sf.minuteProject.plugin.oracle;
 
 import org.codehaus.groovy.runtime.ConvertedClosure;
 
+import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 
 public class AdfUtils {
 
@@ -38,7 +41,7 @@ public class AdfUtils {
 			return "new Integer(getInt";
 		if ("DATE".equals(column.getType()) 
 				)
-			return "(java.sql.Timestamp) get";
+			return "(java.sql.Timestamp)get";
 		return "get"+CommonUtils.getJavaType(column);
 	}	
 	
@@ -58,6 +61,9 @@ public class AdfUtils {
 	}
 	
 	public String getSdoXsdType(Column column) {
+		if (ColumnUtils.isTimeColumn(column)) {
+			return "ns0:dateTime-Timestamp";
+		}
 		return "xsd:"+getSdoXsdTypeValue(column);
 	}
 
@@ -76,5 +82,10 @@ public class AdfUtils {
 		if (ColumnUtils.isNumeric(column)) 
 			return "sdoJava:IntObject";
 		return null;
+	}
+	
+	public static String getNamespacePackage(Model model, Template template, String targetTemplate) {
+		String packageName = CommonUtils.getPackageName(model, CommonUtils.getTemplate(model.getConfiguration(), targetTemplate));
+		return FormatUtils.getDirFromPackage(packageName);
 	}
 }
