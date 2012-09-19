@@ -3,7 +3,7 @@
 #set($connectionDS=$template.getPropertyValue("connection-datasource-name","jdbc/${model.name}DS"))
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <BC4JConfig version="11.1" xmlns="http://xmlns.oracle.com/bc4j/configuration">
-   <AppModuleConfigBag ApplicationName="${modelADFAppModuleImport}"  default="AppModuleService">
+   <AppModuleConfigBag ApplicationName="${modelADFAppModuleImport}" default="AppModuleService">
       <AppModuleConfig name="AppModuleLocal" ApplicationName="${modelADFAppModuleImport}" DeployPlatform="LOCAL" JDBCName="${model.name}LocalDS" jbo.project="$modelADFModuleJpxImport">
          <Security AppModuleJndiName="${modelADFAppModuleImport}"/>
       </AppModuleConfig>
@@ -11,7 +11,7 @@
          <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
          <Security AppModuleJndiName="${modelADFAppModuleImport}"/>
       </AppModuleConfig>
-      <AppModuleConfig name="AppModuleService" ApplicationName="${modelADFAppModuleImport}" DeployPlatform="SI" jbo.project="$modelADFModuleJpxImport">
+      <AppModuleConfig DeployPlatform="SI" jbo.project="$modelADFModuleJpxImport" name="AppModuleService" ApplicationName="${modelADFAppModuleImport}">
          <AM-Pooling jbo.ampool.resetnontransactionalstate="true"/>
          <Database jbo.locking.mode="optimistic"/>
          <Security AppModuleJndiName="${modelADFAppModuleImport}"/>

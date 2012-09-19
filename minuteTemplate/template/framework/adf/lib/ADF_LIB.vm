@@ -1,6 +1,7 @@
 #macro (exposeSDOSpecific)
 #exposeADFSpecific()
-#set($namespacePackage = "/eu/europa/ec/sg/nif2/model/common/")
+#set($namespacePackageShort = $adfUtils.getNamespacePackage($model, $template, $templateADFModelBc4j))##"eu/europa/ec/sg/nif2/model/common/")
+#set($namespacePackage = "/${namespacePackageShort}/")
 #set($namespaceTypesPackage = $namespacePackage+"types/")
 #set($appModuleADFSODServiceImplImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceImplJava))
 #set($appModuleADFSODServiceFaceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceJava))
@@ -11,7 +12,10 @@
 
 #macro (exposeADFSpecific)
 #exposeADFTemplate()
+#set($AppModuleTemplate = $commonUtils.getTemplate($model.configuration, $templateADFModelAppModule))
+#set($rootPackage=$modelUtils.getPackageRoot($AppModuleTemplate)+".$model.name")
 #set($javaPackage =  $commonUtils.getRootAndTechnicalPackageName($model, $templateADFEntity))
+#set($javaPackageView =  "${rootPackage}.view")
 #end
 
 #macro (exposeADFEntitySpecific)
@@ -53,6 +57,8 @@
 #set($modelADFAppModuleImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelAppModule))	
 #set($modelADFAppModulerRootPath = $commonUtils.getArtifactRelativePathDir($model, $template, $templateADFModelAppModule))	
 #set($modelADFAppModulerPackageName = $commonUtils.getPackageName($model, $template, $templateADFModelAppModule))	
+#set($ejbBeanName="AppModuleServiceBean")
+#set($ejbBean=$modelADFAppModulerPackageName+".common."+$ejbBeanName)
 #set($modelADFModuleBc4jFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelBc4j))	
 ##set($modelADFJprName=$formatUtils.firstLowerCaseOnly($commonUtils.getTemplateFileName($model, $template, $templateADFModelJpr)))	
 #set($modelADFJprName=$commonUtils.getTemplateFileName($model, $template, $templateADFModelJpr))	
@@ -71,7 +77,8 @@
 #set($WEBLOGIC_HOME=$template.getPropertyValue("WEBLOGIC_HOME","D:/SOFT/SERVER/ORACLE/WLS"))
 #set($WLS_HOME=$template.getPropertyValue("WLS_HOME","D:/SOFT/SERVER/ORACLE/WLS/SERVER"))
 #set($projectModelPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFModelJpr))
-#set($projectJwsPhysicalPath=$commonUtils.getPhysicalPathFileStartWithLowerCase($model, $template, $templateADFJws))
+##set($projectJwsPhysicalPath=$commonUtils.getPhysicalPathFileStartWithLowerCase($model, $template, $templateADFJws))
+#set($projectJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFJws))
 #set($modelADFJprClass = $commonUtils.getTemplateClassName($model, $template, $templateADFModelJpr))	
 #end
 

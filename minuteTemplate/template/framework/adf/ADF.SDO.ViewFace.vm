@@ -8,7 +8,7 @@ public interface $className extends java.io.Serializable {
 #putColumnParamNaming()
 #set($getSDOColumnFullType=$adfUtils.getSDOColumnFullType($column))
    public $getSDOColumnFullType get$columnClass();
-   
+
    public void set$columnClass($getSDOColumnFullType value);
 
 #end

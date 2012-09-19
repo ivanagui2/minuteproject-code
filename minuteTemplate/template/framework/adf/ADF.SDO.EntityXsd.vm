@@ -2,8 +2,9 @@
 #addedAreas()
 #exposeSDOSpecific()
 <xsd:schema xmlns:sdoJava="commonj.sdo/java" xmlns:ns0="http://xmlns.oracle.com/adf/svc/types/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-     xmlns:sdoXML="commonj.sdo/xml" targetNamespace="$namespacePackage" xmlns="$namespaceTypesPackage"
-     elementFormDefault="qualified" sdoJava:package="$javaPackage">
+     xmlns:sdoXML="commonj.sdo/xml" targetNamespace="$namespacePackage" xmlns="$namespacePackage"
+##	 xmlns="$namespaceTypesPackage"
+     elementFormDefault="qualified" sdoJava:package="${javaPackage}.common">
     <xsd:import schemaLocation="classpath:/META-INF/wsdl/BC4JService.xsd" namespace="http://xmlns.oracle.com/adf/svc/types/"/>
     <xsd:import schemaLocation="classpath:/xml/sdoJava.xsd" namespace="commonj.sdo/java"/>
     <xsd:import schemaLocation="classpath:/xml/sdoXML.xsd" namespace="commonj.sdo/xml"/>
