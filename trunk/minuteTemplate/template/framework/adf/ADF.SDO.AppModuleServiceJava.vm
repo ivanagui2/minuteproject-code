@@ -36,7 +36,7 @@ import oracle.webservices.annotations.async.CallbackMethod;
 @SDODatabinding(schemaLocation="${namespacePackage}serviceinterface/${thisClassName}.xsd")
 @AsyncWebService
 public interface $thisClassName {
-    public static final String NAME = "{/${namespacePackage}}${thisClassName}";
+    public static final String NAME = "{${namespacePackage}}${thisClassName}";
 
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
@@ -49,9 +49,9 @@ public interface $thisClassName {
     $entityADFSDOViewClass get${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="$primaryKeyVariable")
         $primaryKeyFullType $primaryKeyVariable) throws ServiceException;
 
-    @WebMethod(action="${namespacePackage}update${domainClassName}View1", operationName="update${domainClassName}View1")
-    @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="update${domainClassName}View1")
-    @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="update${domainClassName}View1Response")
+    @WebMethod(action="${namespacePackage}create${domainClassName}View1", operationName="create${domainClassName}View1")
+    @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="create${domainClassName}View1")
+    @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="create${domainClassName}View1Response")
     @WebResult(name="result")
     @CallbackMethod(exclude=true)
     $entityADFSDOViewClass create${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")

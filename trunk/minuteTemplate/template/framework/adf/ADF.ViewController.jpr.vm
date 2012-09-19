@@ -61,12 +61,12 @@
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
-   <value n="defaultPackage" v="${javaPackage}"/>
+   <value n="defaultPackage" v="${javaPackageView}"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
          <hash>
             <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
-            <url n="sourceOwnerURL" path="../${applicationName}.jws"/>
+            <url n="sourceOwnerURL" path="../${projectJwsFullName}"/>
             <url n="sourceURL" path="../$modelADFJprFullPath"/>
          </hash>
       </list>
@@ -74,10 +74,10 @@
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="XML"/>
-         <string v="ADFc"/>
-         <string v="JSF"/>
-         <string v="HTML"/>
          <string v="Java"/>
+         <string v="HTML"/>
+         <string v="JSF"/>
+         <string v="ADFc"/>
          <string v="JSP"/>
          <string v="ADF_FACES"/>
       </list>
@@ -188,6 +188,14 @@
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
+            <value n="id" v="JSF 1.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="JSTL 1.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
             <value n="id" v="ADF Page Flow Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -229,14 +237,6 @@
          </hash>
          <hash>
             <value n="id" v="Commons Collections 3.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="JSF 1.2"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="JSTL 1.2"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>

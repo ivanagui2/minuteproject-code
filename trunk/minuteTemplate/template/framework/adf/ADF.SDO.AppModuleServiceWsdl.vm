@@ -3,34 +3,34 @@
 <wsdl:definitions
      name="AppModuleService"
      targetNamespace="${namespacePackage}"
-     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+####ERROR     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
      xmlns:errors="http://xmlns.oracle.com/adf/svc/errors/"
-     xmlns:orafault="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0"
+####ERROR     xmlns:orafault="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0"
      xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
      xmlns:tns="$namespacePackage"
      xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
      xmlns:types="$namespaceTypesPackage"
     >
-    <plnk:partnerLinkType name="AppModuleService">
-        <plnk:role name="AppModuleServiceProvider">
-            <plnk:portType name="tns:AppModuleService"/>
-        </plnk:role>
-        <plnk:role name="AppModuleServiceRequestor">
-            <plnk:portType name="tns:AppModuleServiceResponse"/>
-        </plnk:role>
-    </plnk:partnerLinkType>
+####ERROR    <plnk:partnerLinkType name="AppModuleService">
+####ERROR        <plnk:role name="AppModuleServiceProvider">
+####ERROR            <plnk:portType name="tns:AppModuleService"/>
+####ERROR        </plnk:role>
+####ERROR        <plnk:role name="AppModuleServiceRequestor">
+####ERROR            <plnk:portType name="tns:AppModuleServiceResponse"/>
+####ERROR        </plnk:role>
+####ERROR    </plnk:partnerLinkType>
     <wsdl:import namespace="http://xmlns.oracle.com/adf/svc/errors/" location="classpath:/META-INF/wsdl/ServiceException.wsdl"/>
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema">
-            <import namespace="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0" schemaLocation="classpath:/META-INF/oracle-webservices-async-fault-11_0.xsd"/>
+####ERROR            <import namespace="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0" schemaLocation="classpath:/META-INF/oracle-webservices-async-fault-11_0.xsd"/>
             <import namespace="${namespaceTypesPackage}" schemaLocation="${appModuleADFSDOServiceXsdClass}.xsd"/>
         </schema>
     </wsdl:types>
+####ERROR    <wsdl:message name="AppModuleService_onFault">
+####ERROR        <wsdl:part name="parameters" element="orafault:Fault"/>
+####ERROR    </wsdl:message>
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
-    <wsdl:message name="AppModuleService_onFault">
-        <wsdl:part name="parameters" element="orafault:Fault"/>
-    </wsdl:message>
 #if($isAsync)
     <wsdl:message name="AppModuleService_delete${domainClassName}View1AsyncResponse">
         <wsdl:part name="parameters" element="types:delete${domainClassName}View1AsyncResponse"/>
@@ -62,6 +62,12 @@
     </wsdl:message>
     <wsdl:message name="AppModuleService_get${domainClassName}View1Response">
         <wsdl:part name="parameters" element="types:get${domainClassName}View1Response"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_create${domainClassName}View1">
+        <wsdl:part name="parameters" element="types:create${domainClassName}View1"/>
+    </wsdl:message>
+    <wsdl:message name="AppModuleService_create${domainClassName}View1Response">
+        <wsdl:part name="parameters" element="types:create${domainClassName}View1Response"/>
     </wsdl:message>
     <wsdl:message name="AppModuleService_update${domainClassName}View1">
         <wsdl:part name="parameters" element="types:update${domainClassName}View1"/>
@@ -121,13 +127,16 @@
     <wsdl:message name="AppModuleService_update${domainClassName}View1Async">
         <wsdl:part name="parameters" element="types:update${domainClassName}View1Async"/>
     </wsdl:message>
+    <wsdl:message name="AppModuleService_create${domainClassName}View1Async">
+        <wsdl:part name="parameters" element="types:create${domainClassName}View1Async"/>
+    </wsdl:message>
 #end
 #end
-    <wsdl:portType name="AppModuleServiceResponse">
-        <wsdl:operation name="onFault">
-            <wsdl:input message="tns:AppModuleService_onFault" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
-                 ns1:Action="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
-        </wsdl:operation>
+####ERROR    <wsdl:portType name="AppModuleServiceResponse">
+####ERROR        <wsdl:operation name="onFault">
+####ERROR            <wsdl:input message="tns:AppModuleService_onFault" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+####ERROR                 ns1:Action="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
+####ERROR        </wsdl:operation>
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
 #if($isAsync)
@@ -161,15 +170,15 @@
         </wsdl:operation>
 #end
 #end
-    </wsdl:portType>
+####ERROR    </wsdl:portType>
     <wsdl:portType name="AppModuleService">
         <wsdl:documentation>
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
             <ViewInstance xmlns="http://xmlns.oracle.com/adf/svc/metadata/" Name="${domainClassName}View1" SDOName="tns:${domainClassName}ViewSDO"
-                 UpdateOpName="update${domainClassName}View1" DeleteOpName="delete${domainClassName}View1" MergeOpName="merge${domainClassName}View1"
-                 GetOpName="get${domainClassName}View1" FindOpName="find${domainClassName}View1" ProcessOpName="process${domainClassName}View1"
-                 ProcessCSOpName="processCS${domainClassName}View1"/>
+                 CreateOpName="create${domainClassName}View1" UpdateOpName="update${domainClassName}View1" DeleteOpName="delete${domainClassName}View1" 
+				 MergeOpName="merge${domainClassName}View1" GetOpName="get${domainClassName}View1" FindOpName="find${domainClassName}View1"
+				 ProcessOpName="process${domainClassName}View1" ProcessCSOpName="processCS${domainClassName}View1"/>
 #end
         </wsdl:documentation>
 #foreach($table in $entities)
@@ -392,14 +401,14 @@
 #end
 #end
     </wsdl:binding>
-    <wsdl:binding name="AppModuleServiceResponseBinding" type="tns:AppModuleServiceResponse">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="onFault">
-            <soap:operation soapAction="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-        </wsdl:operation>
+####ERROR    <wsdl:binding name="AppModuleServiceResponseBinding" type="tns:AppModuleServiceResponse">
+####ERROR        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+####ERROR        <wsdl:operation name="onFault">
+####ERROR            <soap:operation soapAction="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
+####ERROR            <wsdl:input>
+####ERROR                <soap:body use="literal"/>
+####ERROR            </wsdl:input>
+####ERROR        </wsdl:operation>
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
 #if($isAsync)
@@ -453,7 +462,7 @@
         </wsdl:operation>
 #end
 #end
-    </wsdl:binding>
+####ERROR    </wsdl:binding>
     <wsdl:service name="AppModuleService">
         <wsdl:port name="AppModuleServiceSoapHttpPort" binding="tns:AppModuleServiceSoapHttp">
             <soap:address location="http://localhost:7101/m-ViewController-context-root/AppModuleService"/>

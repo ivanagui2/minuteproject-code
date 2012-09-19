@@ -1,3 +1,4 @@
+#exposeADFModelSpecific()
 #exposeSDOSpecific()
 #set($connectionDS=$template.getPropertyValue("connection-datasource-name","jdbc/${model.name}DS"))
 <?xml version = '1.0' encoding = 'windows-1252'?>
@@ -6,7 +7,8 @@
          version="3.0" xmlns="http://java.sun.com/xml/ns/javaee">
   <enterprise-beans>
     <session>
-      <ejb-name>${appModuleADFSODServiceFaceImport}</ejb-name>
+##      <ejb-name>${appModuleADFSODServiceFaceImport}</ejb-name>
+      <ejb-name>${ejbBean}</ejb-name>
       <resource-ref>
         <res-ref-name>$connectionDS</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
