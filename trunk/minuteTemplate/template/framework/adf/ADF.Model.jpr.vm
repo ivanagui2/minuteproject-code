@@ -1,6 +1,5 @@
 #exposeADFModelSpecific()
-#set($profileName=${model.name}+"SDOProfile")
-#set($deployName=${model.name}+"SDO")
+#exposeADFReleaseSpecific()
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
    <hash n="component-versions">
@@ -297,8 +296,8 @@
                      </hash>
                   </list>
                </hash>
-               <url n="earURL" path="deploy/${deployName}-app.ear"/>
-               <value n="enterpriseAppName" v="${deployName}-app"/>
+               <url n="earURL" path="deploy/${modelReleaseName}.ear"/>
+               <value n="enterpriseAppName" v="${modelReleaseName}"/>
                <hash n="fileGroups">
                   <list n="groups">
                      <hash>
@@ -416,7 +415,7 @@
                      </hash>
                   </list>
                </hash>
-               <url n="jarURL" path="deploy/${deployName}-app.jar"/>
+               <url n="jarURL" path="deploy/${modelReleaseName}.jar"/>
                <hash n="libraryDependencies">
                   <value n="IncludeLibrariesFromOtherContainers" v="true"/>
                </hash>
