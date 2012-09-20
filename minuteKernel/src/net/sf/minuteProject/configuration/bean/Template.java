@@ -676,7 +676,8 @@ public class Template extends TemplateTarget {
 	}
 	
 	public String getOutputdir() {
-		return super.getOutputdir();
+		String mainOutputDir = super.getOutputdir();
+		return  (StringUtils.isEmpty(getOutputsubdir()))?mainOutputDir:mainOutputDir+"/"+getOutputsubdir();//add sub
 	}
 
 	public String getChmod() {

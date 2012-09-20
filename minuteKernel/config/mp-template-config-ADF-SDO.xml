@@ -247,13 +247,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>				
 		
-		<template name="ADF.Build.Model.ant.properties" templateFileName="ADF.Build.Model.ant.properties.vm" 
+<!-- 		<template name="ADF.Build.Model.ant.properties" templateFileName="ADF.Build.Model.ant.properties.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="properties" file-prefix="" file-suffix="build" 
 			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
 			scope-specific-value="application"
 			>			
-		</template>				
+		</template>		 -->		
 		
 	</template-target>
 	
@@ -349,8 +349,8 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		
 		<template name="ADF.Build.command.cmd" templateFileName="ADF.Build.command.cmd.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
-			file-extension="bat" file-prefix="" file-suffix="deploy_to_ear" 
-			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+			file-extension="bat" file-prefix="" file-suffix="-release" 
+			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="application"
 			>			
 		</template>	
@@ -364,6 +364,64 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 			
+	</template-target>
+	
+	<template-target 
+    	name="ADF ORACLE original artefacts"
+		libdir="lib/ADF_LIB.vm"
+		package-root=""
+		outputdir="oracle-original/sdo/war/WEB-INF/wsdl">
+		
+		<!-- META-INF wsdl -->
+		<template name="ADF.oracle-original.BC4JService.xsd" templateFileName="ADF.oracle-original.BC4JService.xsd.vm" 
+			subdir="" outputsubdir="META-INF/wsdl" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="BC4JService" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<template name="ADF.oracle-original.BC4JServiceCS.xsd" templateFileName="ADF.oracle-original.BC4JServiceCS.xsd.vm" 
+			subdir="" outputsubdir="META-INF/wsdl" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="BC4JServiceCS" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<template name="ADF.oracle-original.ServiceException.wsdl" templateFileName="ADF.oracle-original.ServiceException.wsdl.vm" 
+			subdir="" outputsubdir="META-INF/wsdl" technicalPackage="" add-model-name="false"
+			file-extension="wsdl" file-prefix="" file-suffix="ServiceException" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<template name="ADF.oracle-original.ServiceException.xsd" templateFileName="ADF.oracle-original.ServiceException.xsd.vm" 
+			subdir="" outputsubdir="META-INF/wsdl" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="ServiceException" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<!-- sdo -->
+		<template name="ADF.oracle-original.datagraph.xsd" templateFileName="ADF.oracle-original.datagraph.xsd.vm" 
+			subdir="" outputsubdir="xml" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="datagraph" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<template name="ADF.oracle-original.sdoJava.xsd" templateFileName="ADF.oracle-original.sdoJava.xsd.vm" 
+			subdir="" outputsubdir="xml" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="sdoJava" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<template name="ADF.oracle-original.sdoModel.xsd" templateFileName="ADF.oracle-original.sdoModel.xsd.vm" 
+			subdir="" outputsubdir="xml" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="sdoModel" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
+		<template name="ADF.oracle-original.sdoXML.xsd" templateFileName="ADF.oracle-original.sdoXML.xsd.vm" 
+			subdir="" outputsubdir="xml" technicalPackage="" add-model-name="false"
+			file-extension="xsd" file-prefix="" file-suffix="sdoXML" 
+			scope-specific-value="application" add-licence="false">			
+		</template>			
+		
 	</template-target>
 	
 </target>
