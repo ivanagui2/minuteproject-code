@@ -1,7 +1,26 @@
 #exposeADFBuildSpecific()
-oracle.jdeveloper.workspace.path=D:\DEV\JSF\ADF\nif2SDOApp\nif2SDOApp.jws
-workspace.path=D:\DEV\JSF\ADF\nif2SDOApp
-workspace.name=nif2SDOApp.jws
-ear.filename=nif2SDOApp.ear
-autosync.true=<value n="Weblogic-JDBC-Auto-Sync-Key" v="true"/>
-autosync.false=<value n="Weblogic-JDBC-Auto-Sync-Key" v="false"/> 
+#exposeADFReleaseSpecific()
+release.dir=release
+build.dir=build
+oracle.original.sdo.dir=oracle-original/sdo
+sdo.ear=${releaseName}.ear
+sdo.war=${modelReleaseName}.war
+
+# 
+# properties used for Model script
+#
+oracle.jdeveloper.ant.library=${JDEV_HOME}/jdev/lib/ant-jdeveloper.jar
+output.dir=classes
+oracle.home=$JDEV_HOME
+javac.deprecation=off
+oracle.jdeveloper.workspace.path=${projectJwsPhysicalPath}
+oracle.jdeveloper.deploy.profile.name=*
+javac.debug=on
+oracle.jdeveloper.deploy.dir=${projectModelPhysicalDirPath}/deploy
+oracle.jdeveloper.ojdeploy.path=${JDEV_HOME}/jdev/bin/ojdeploy.exe
+javac.nowarn=off
+oracle.jdeveloper.project.name=$modelADFJprClass
+oracle.jdeveloper.deploy.outputfile=${projectModelPhysicalDirPath}/deploy/${profile.name}
+
+oracle-jdev-common-module-dir=${WEBLOGIC_HOME}/oracle_common/modules
+oracle-weblogic-module-dir=${WEBLOGIC_HOME}/modules

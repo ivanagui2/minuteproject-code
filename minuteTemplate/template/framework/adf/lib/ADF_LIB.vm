@@ -77,7 +77,7 @@
 #set($WEBLOGIC_HOME=$template.getPropertyValue("WEBLOGIC_HOME","D:/SOFT/SERVER/ORACLE/WLS"))
 #set($WLS_HOME=$template.getPropertyValue("WLS_HOME","D:/SOFT/SERVER/ORACLE/WLS/SERVER"))
 #set($projectModelPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFModelJpr))
-##set($projectJwsPhysicalPath=$commonUtils.getPhysicalPathFileStartWithLowerCase($model, $template, $templateADFJws))
+#set($projectJwsPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFJws))
 #set($projectJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFJws))
 #set($modelADFJprClass = $commonUtils.getTemplateClassName($model, $template, $templateADFModelJpr))	
 #end
@@ -86,6 +86,13 @@
 #set($sdoType=$adfUtils.getSdoXsdType($column))
 #set($hasSdoDataType=$adfUtils.hasSdoXmlDataType($column))
 #set($sdoXmlDataType=$adfUtils.getSdoXmlDataType($column))##"sdoJava:LongObject")
+#end
+
+#macro (exposeADFReleaseSpecific)
+#set($profileName=${model.name}+"SDOProfile")
+#set($deployName=${model.name}+"SDO")
+#set($releaseName="${deployName}App")
+#set($modelReleaseName="${deployName}-app")
 #end
 
 #macro(exposeADFConfig)

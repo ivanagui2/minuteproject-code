@@ -1,20 +1,44 @@
 #exposeADFBuildSpecific()
-<?xml version="1.0" encoding="windows-1252" ?>
-<project name="Deploy Helper Tasks" default="usage" basedir=".">
-  <property file="deploy_to_ear.ant.properties"/>
-  <target name="usage">
-    <echo>Use one of the following targets:</echo>
-    <echo>1) disable-wls-jdbc-autosync - desc todo</echo>
-    <echo>2) enable-wls-jdbc-autosync  - desc todo</echo>
-  </target>
-  <target name="disable-wls-jdbc-autosync">
-    <replaceregexp match="${ autosync.true}"
-                   file="${ oracle.jdeveloper.workspace.path}"
-                   replace="${ autosync.false}"/>
-  </target>
-  <target name="enable-wls-jdbc-autosync">
-    <replaceregexp match="${ autosync.false}"
-                   file="${ oracle.jdeveloper.workspace.path}"
-                   replace="${ autosync.true}"/>
-  </target>
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="release" basedir="." name="release">
+    <description>Build file for ADF artefacts</description>
+    <!-- ===================================================================== -->
+    <!-- import files -->
+    <!-- ===================================================================== -->
+	<property file="build.properties"/>
+    <!-- ===================================================================== -->
+    <!-- properties definitions -->
+    <!-- ===================================================================== -->
+    <!-- LOCAL PROPERTIES 	-->
+    <property name="project.name" value="SDO-project"/>
+	
+	<target name="prepare-structure">
+		<delete dir="${release.dir}" />
+		<delete dir="${build.dir}" />
+		<mkdir dir="${release.dir}"/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<target name="release" depends="prepare-structure">
+		<unzip src="deploy/${sdo.ear}"
+			   dest="${build.dir}">
+		</unzip>
+		<unzip src="${build.dir}/${sdo.war}"
+			   dest="${build.dir}/temp">
+		</unzip>
+		<copy todir="${build.dir}/temp" overwrite="true">
+			<fileset dir="${oracle.original.sdo.dir}/war">
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/temp/WEB-INF/wsdl" overwrite="true">
+			<fileset dir="Model/src">
+				<include name="**/*.xsd"/>
+				<include name="**/*.wsdl"/>
+			</fileset>
+		</copy>
+		<zip destfile="${build.dir}/${sdo.war}" basedir="${build.dir}/temp"></zip>
+		<delete dir="${build.dir}/temp"/>
+		<zip destfile="${release.dir}/${sdo.ear}" basedir="${build.dir}"></zip>
+	</target>
+
 </project>
