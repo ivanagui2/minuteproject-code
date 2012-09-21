@@ -28,8 +28,6 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="model"
 			>
 		</template>	
-		
-		
 				
 		<template name="ADF.Model.Entity" templateFileName="ADF.Model.Entity.vm" 
 			subdir="" outputsubdir="" technicalPackage="model"
@@ -91,7 +89,8 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="wsdl" file-prefix="" file-suffix="AppModuleService" 
 			has-updatable-nature="true" 					 add-model-name="false"
 			scope-specific-value="model"
-			>			
+			>		
+			<property name="is-for-workspace" value="true"/>	
 		</template>	
 		
 		<template name="ADF.SDO.AppModuleServiceXsd" templateFileName="ADF.SDO.AppModuleServiceXsd.vm" 
@@ -99,7 +98,8 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="xsd" file-prefix="" file-suffix="AppModuleService" 
 			has-updatable-nature="true"  					add-model-name="false"
 			scope-specific-value="model"
-			>			
+			>	
+			<property name="is-for-workspace" value="true"/>			
 		</template>
 		
 		<!-- SDO for entities -->
@@ -145,7 +145,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
-		outputdir="Model/src/META-INF">
+		outputdir="Model/src">
 	    <!-- package -->	
 		<template name="ADF.SDO.ejb-jar" templateFileName="ADF.SDO.ejb-jar.vm" 
 			subdir="" outputsubdir="META-INF" technicalPackage=""
@@ -168,7 +168,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
-		outputdir="Model/classes/META-INF">
+		outputdir="Model/classes">
 	    <!-- package -->	
 		<template name="ADF.Model.adfm" templateFileName="ADF.Model.adfm.vm" 
 			subdir="" outputsubdir="META-INF" technicalPackage=""
@@ -362,10 +362,58 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>			
 		</template>	
+					
+	</template-target>
+
+
+	<template-target 
+    	name="ADF package src"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="working/src">
 		
-			
+		<template name="ADF.SDO.AppModuleServiceWsdl" templateFileName="ADF.SDO.AppModuleServiceWsdl.vm" 
+			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
+			file-extension="wsdl" file-prefix="" file-suffix="AppModuleService" 
+			has-updatable-nature="true" 					 add-model-name="false"
+			scope-specific-value="model"
+			>		
+			<property name="is-for-workspace" value="false"/>	
+		</template>	
+		
+		<template name="ADF.SDO.AppModuleServiceXsd" templateFileName="ADF.SDO.AppModuleServiceXsd.vm" 
+			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
+			file-extension="xsd" file-prefix="" file-suffix="AppModuleService" 
+			has-updatable-nature="true"  					add-model-name="false"
+			scope-specific-value="model"
+			>	
+			<property name="is-for-workspace" value="false"/>			
+		</template>			
+				
 	</template-target>
 	
+	<template-target 
+    	name="ADF package src"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="working/src"
+		package-root="">
+		
+		<template name="ADF.Build.oracle-webservices" templateFileName="ADF.Build.oracle-webservices.vm" 
+			outputsubdir="" add-package-name-dir="false" add-business-package-dir-name="false"
+			file-extension="xml" file-suffix="oracle-webservices" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application">			
+		</template>		
+		
+		<template name="ADF.Build.standard-webservices" templateFileName="ADF.Build.standard-webservices.vm" 
+			outputsubdir="" add-package-name-dir="false" add-business-package-dir-name="false"
+			file-extension="xml" file-suffix="standard-webservices" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application">			
+		</template>		
+				
+	</template-target>
+	
+		
 	<template-target 
     	name="ADF ORACLE original artefacts"
 		libdir="lib/ADF_LIB.vm"

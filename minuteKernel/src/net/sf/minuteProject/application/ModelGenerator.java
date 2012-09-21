@@ -53,6 +53,7 @@ import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 import net.sf.minuteProject.utils.java.JavaUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 import net.sf.minuteProject.utils.sql.StatementUtils;
+import net.sf.minuteProject.utils.velocity.VelocityUtils;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
@@ -93,6 +94,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private TriggerUtils triggerUtils = new TriggerUtils();
 	private QueryUtils queryUtils = new QueryUtils();
 	private SemanticReferenceUtils semanticReference = new SemanticReferenceUtils();
+	private VelocityUtils velocityUtils= new VelocityUtils();
 
 	private Model model;
 
@@ -502,6 +504,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("triggerUtils", triggerUtils);
 		context.put("queryUtils", queryUtils);
 		context.put("semanticReferenceUtils", semanticReference);
+		context.put("velocityUtils", velocityUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
