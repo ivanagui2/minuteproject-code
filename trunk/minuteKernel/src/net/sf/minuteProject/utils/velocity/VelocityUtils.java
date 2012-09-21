@@ -12,34 +12,8 @@ import net.sf.minuteProject.loader.catalog.technologycatalog.node.TechnologyCata
 
 public class VelocityUtils {
 
-//	public static String getDistinctVelocityDirectory (TechnologyCatalog technologyCatalog) {
-//		List<String> list = new ArrayList<String>();
-//		StringBuffer sb = new StringBuffer();
-//		for (Technology technology : technologyCatalog.getTechnologies().getTechnologys()) {
-//			list.add(getDistinctVelocityDirectory(technology));
-//		}
-//		for (String string : list) {
-//			sb.append(string+",");
-//		}	
-//		return sb.toString();
-//	}
-//
-//	private static String getDistinctVelocityDirectory(Technology technology) {
-//		return technology.getTemplateDir();
-//	}
-//	
-//	public static String getDistinctVelocityLib(List<Target> list) {
-//		StringBuffer sb = new StringBuffer();
-//		Hashtable<String, String> ht = new Hashtable<String, String>();
-//		for (Target target : list) {
-//			for (TemplateTarget templateTarget : target.getTemplateTargets()) {
-//				ht.put(templateTarget.getLibdir(), templateTarget.getLibdir());
-//			}
-//		}
-//		Enumeration<String> e = ht.elements();
-//		while (e.hasMoreElements())
-//			sb.append((String)e.nextElement()+",");
-//		return sb.toString();
-//	}
+	public static String getCommentChunk() {
+		return "##";
+	}
 	
 }
