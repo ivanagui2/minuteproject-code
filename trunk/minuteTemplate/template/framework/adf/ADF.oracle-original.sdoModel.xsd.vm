@@ -1,3 +1,4 @@
+#set($comment=$velocityUtils.commentChunk)
 <xsd:schema targetNamespace="commonj.sdo" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xmlns:sdo="commonj.sdo" xmlns:sdoXML="commonj.sdo/xml" xmlns:sdoJava="commonj.sdo/java"
      elementFormDefault="qualified" xsi:schemaLocation="commonj.sdo/xml sdoXML.xsd                   commonj.sdo/java sdoJava.xsd">
@@ -15,7 +16,7 @@
             <xsd:element name="baseType" type="sdo:URI" minOccurs="0" maxOccurs="unbounded" sdoXML:propertyType="sdo:Type"/>
             <xsd:element name="property" type="sdo:Property" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="aliasName" type="sdo:String" minOccurs="0" maxOccurs="unbounded"/>
-            <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:any namespace="${comment}other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="name" type="xsd:ID" sdoXML:dataType="sdo:String"/>
         <xsd:attribute name="uri" type="sdo:URI"/>
@@ -23,12 +24,12 @@
         <xsd:attribute name="open" type="sdo:Boolean"/>
         <xsd:attribute name="sequenced" type="sdo:Boolean"/>
         <xsd:attribute name="abstract" type="sdo:Boolean"/>
-        <xsd:anyAttribute namespace="##any" processContents="lax"/>
+        <xsd:anyAttribute namespace="${comment}any" processContents="lax"/>
     </xsd:complexType>
     <xsd:complexType name="Property">
         <xsd:sequence>
             <xsd:element name="aliasName" type="sdo:String" minOccurs="0" maxOccurs="unbounded"/>
-            <xsd:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:any namespace="${comment}other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="name" type="sdo:String"/>
         <xsd:attribute name="many" type="sdo:Boolean"/>
@@ -38,7 +39,7 @@
         <xsd:attribute name="type" type="sdo:URI" sdoXML:propertyType="sdo:Type"/>
         <xsd:attribute name="opposite" type="sdo:URI" sdoXML:propertyType="sdo:Property"/>
         <xsd:attribute name="nullable" type="sdo:Boolean"/>
-        <xsd:anyAttribute namespace="##any" processContents="lax"/>
+        <xsd:anyAttribute namespace="${comment}any" processContents="lax"/>
     </xsd:complexType>
     <xsd:complexType name="DataObject" abstract="true"/>
     <xsd:complexType name="TextType" abstract="true">

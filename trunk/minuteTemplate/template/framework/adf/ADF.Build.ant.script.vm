@@ -36,6 +36,18 @@
 				<include name="**/*.wsdl"/>
 			</fileset>
 		</copy>
+		<copy todir="${build.dir}/temp/WEB-INF/wsdl" overwrite="true">
+			<fileset dir="working/src">
+				<include name="**/*.xml"/>
+				<include name="**/*.xsd"/>
+				<include name="**/*.wsdl"/>
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/temp/WEB-INF" overwrite="true">
+			<fileset dir="working/src">
+				<include name="*.xml"/>
+			</fileset>
+		</copy>
 		<zip destfile="${build.dir}/${sdo.war}" basedir="${build.dir}/temp"></zip>
 		<delete dir="${build.dir}/temp"/>
 		<zip destfile="${release.dir}/${sdo.ear}" basedir="${build.dir}"></zip>

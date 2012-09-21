@@ -1,5 +1,8 @@
 #exposeVariableModelSpecific()
 #exposeSDOSpecific()
+#if(!$isForWorkspace)
+<?xml version="1.0"?>
+#end
 <wsdl:definitions
      name="AppModuleService"
      targetNamespace="${namespacePackage}"
@@ -19,11 +22,20 @@
 ####ERROR            <plnk:portType name="tns:AppModuleServiceResponse"/>
 ####ERROR        </plnk:role>
 ####ERROR    </plnk:partnerLinkType>
+#if($isForWorkspace)
     <wsdl:import namespace="http://xmlns.oracle.com/adf/svc/errors/" location="classpath:/META-INF/wsdl/ServiceException.wsdl"/>
+## remove classpath in "classpath:/META-INF/wsdl/ServiceException.wsdl" since the copy and replace part is jdev env dependent and not covered in the build
+#else
+    <wsdl:import namespace="http://xmlns.oracle.com/adf/svc/errors/" location="/META-INF/wsdl/ServiceException.wsdl"/>
+#end
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema">
 ####ERROR            <import namespace="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0" schemaLocation="classpath:/META-INF/oracle-webservices-async-fault-11_0.xsd"/>
-            <import namespace="${namespaceTypesPackage}" schemaLocation="${appModuleADFSDOServiceXsdClass}.xsd"/>
+#if($isForWorkspace)
+			<import namespace="${namespaceTypesPackage}" schemaLocation="${appModuleADFSDOServiceXsdClass}.xsd"/>
+#else
+			<import namespace="${namespaceTypesPackage}" schemaLocation="/${appModuleADFSDOServiceXsdRelativePath}"/>
+#end
         </schema>
     </wsdl:types>
 ####ERROR    <wsdl:message name="AppModuleService_onFault">
