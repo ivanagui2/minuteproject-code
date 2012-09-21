@@ -1,5 +1,6 @@
 #macro (exposeSDOSpecific)
 #exposeADFSpecific()
+#set($isForWorkspace=$template.getPropertyValue("is-for-workspace",true))
 #set($namespacePackageShort = $adfUtils.getNamespacePackage($model, $template, $templateADFModelBc4j))##"eu/europa/ec/sg/nif2/model/common/")
 #set($namespacePackage = "/${namespacePackageShort}/")
 #set($namespaceTypesPackage = $namespacePackage+"types/")
@@ -8,6 +9,8 @@
 #set($appModuleADFSODServiceFaceClass=$commonUtils.getTemplateClassName($model, $template, $templateSDOAppModuleServiceJava))
 #set($appModuleADFSODServiceImplClass=$commonUtils.getTemplateClassName($model, $template, $templateSDOAppModuleServiceImplJava))
 #set($appModuleADFSDOServiceXsdClass=$commonUtils.getTemplateClassName($model, $template, $templateSDOAppModuleServiceXsd))
+#set($appModuleADFSDOServiceXsdRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateSDOAppModuleServiceXsd))
+#set($appModuleADFSDOServiceWsdlRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateSDOAppModuleServiceWsdl))
 #end
 
 #macro (exposeADFSpecific)
@@ -36,6 +39,7 @@
 #exposeADFConfig()
 #set ($entityADFSDOXsdClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSDOEntityXsd))
 #set ($entityADFSDOXsdClassName = $commonUtils.getTemplateArtifactName($tableDB, $templateSDOEntityXsd))
+#set ($entityADFSDOXsdRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $templateSDOEntityXsd))
 ##set ($entityADFSDOXsdVariable = $commonUtils.getJavaNameVariableFirstLetter($entityADFSDOXsdClass))
 ##set ($entityADFSDOXsdImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateSDOEntityXsd))	
 #set ($entityADFSDOViewClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSDOViewFace))
@@ -93,6 +97,7 @@
 #set($deployName=${model.name}+"SDO")
 #set($releaseName="${deployName}App")
 #set($modelReleaseName="${deployName}-app")
+#set($contextRootName="$formatUtils.firstUpperCase(${model.name})-app")
 #end
 
 #macro(exposeADFConfig)

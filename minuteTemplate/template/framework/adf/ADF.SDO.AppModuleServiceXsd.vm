@@ -3,11 +3,20 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="/eu/europa/ec/sg/nif2/model/common/types/"
      xmlns:tns="$namespaceTypesPackage" xmlns:ns0="$namespacePackage"
      xmlns:ns1="http://xmlns.oracle.com/adf/svc/types/">
+#if($isForWorkspace)
     <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="classpath:/META-INF/wsdl/BC4JService.xsd"/>
     <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="classpath:/META-INF/wsdl/BC4JServiceCS.xsd"/>
+#else
+    <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="/META-INF/wsdl/BC4JService.xsd"/>
+    <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="/META-INF/wsdl/BC4JServiceCS.xsd"/>
+#end
 #foreach ($table in $entities)
 #exposeADFSDOEntitySpecific()
+#if($isForWorkspace)
     <import namespace="$namespacePackage" schemaLocation="../${entityADFSDOXsdClassName}"/>
+#else
+    <import namespace="$namespacePackage" schemaLocation="/${entityADFSDOXsdRelativePath}"/>
+#end
 #end	
 #foreach ($table in $entities)
 #exposeADFSDOEntitySpecific()
