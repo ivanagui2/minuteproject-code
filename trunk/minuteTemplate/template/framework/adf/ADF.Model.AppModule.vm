@@ -9,12 +9,17 @@
   Version="11.1.1.61.92"
   InheritPersonalization="true"
   ClearCacheOnRollback="true">
+<<<<<<< .mine
+#foreach($table in $entities)
+#exposeADFEntitySpecific()
+=======
   <!-- the following node ensure the display of wsdl, xsdl, java ws interface and impl -->
   <DesignTime>
     <Attr Name="_deployType" Value="4096"/>
   </DesignTime>
 #foreach($table in $entities)
 #exposeADFEntitySpecific()
+>>>>>>> .r1528
   <ViewUsage
     Name="${entityADFViewClass}1"
     ViewObjectName="$entityADFViewImport"/>
@@ -30,6 +35,47 @@
     DstViewUsageName="$viewLinkUsage.destination"
     Reversed="$viewLinkUsage.isReverse"/>
 #end
+<<<<<<< .mine
+  <!-- SDO part -->
+  <Remote
+    Name="ServiceInterface"
+    ServerClassName="$appModuleADFSODServiceImplImport"
+    ServerInterfaceName="$appModuleADFSODServiceFaceImport">
+    <DesignTime>
+      <Attr Name="_webServiceName" Value="$appModuleADFSODServiceFaceClass"/>
+      <Attr Name="_targetNameSpace" Value="${namespacePackage}"/>
+      <Attr Name="_genAsyncMethods" Value="true"/>
+    </DesignTime>
+  </Remote>
+  
+##  <Remote
+##    Name="ServiceInterface"
+##    ServerClassName="eu.europa.ec.sg.nif2.view.server.serviceinterface.Nif2AppModuleServiceImpl"
+##    ServerInterfaceName="eu.europa.ec.sg.nif2.view.common.serviceinterface.Nif2AppModuleService">
+##    <DesignTime>
+ ##     <Attr Name="_webServiceName" Value="Nif2AppModuleService"/>
+##      <Attr Name="_targetNameSpace" Value="/eu/europa/ec/sg/nif2/view/common/"/>
+##    </DesignTime>
+##  </Remote>
+#foreach($table in $entities)
+#exposeADFSDOEntitySpecific()
+  <ServiceViewUsage
+    ViewUsageName="${domainClassName}View1"
+    CanUpdate="true"
+    CanDelete="true"
+    CanMerge="true">
+    <DesignTime>
+      <Attr Name="_DeleteOpName" Value="delete${domainClassName}View1"/>
+      <Attr Name="_ProcessCSOpName" Value="processCS${domainClassName}View1"/>
+      <Attr Name="_GetOpName" Value="get${domainClassName}View1"/>
+      <Attr Name="_MergeOpName" Value="merge${domainClassName}View1"/>
+      <Attr Name="_FindOpName" Value="find${domainClassName}View1"/>
+      <Attr Name="_UpdateOpName" Value="update${domainClassName}View1"/>
+      <Attr Name="_ProcessOpName" Value="process${domainClassName}View1"/>
+    </DesignTime>
+  </ServiceViewUsage>   
+#end
+=======
   <!-- SDO part -->
   <Remote
     Name="ServiceInterface"
@@ -71,4 +117,5 @@
     </DesignTime>
   </ServiceViewUsage>   
 #end
+>>>>>>> .r1528
 </AppModule>

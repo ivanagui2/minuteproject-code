@@ -13,7 +13,11 @@
   SelectList="
 #foreach ($column in $table.columns)
 #putColumnParams()
+<<<<<<< .mine
+   ${tableVariableName}.${column.name}#if($table.columnCounts()>$velocityCount),#end 
+=======
 	    ${tableClassName}.${column.name}#if($table.getColumnCount()>$velocityCount),#end 
+>>>>>>> .r1528
 
 #end
 	   "
@@ -34,6 +38,13 @@
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
   <ViewAttribute
+<<<<<<< .mine
+    Name="$columnVar"
+    IsNotNull="$column.isRequired()"
+##    PrecisionRule="${adf.hasPrecisionRule($column)}"
+    EntityAttrName="$columnVar"
+    EntityUsage="${domainClassName}"
+=======
     Name="$columnClass"
 #if($column.isUnique())
     IsUnique="true"
@@ -45,6 +56,7 @@
 ##    PrecisionRule="${adf.hasPrecisionRule($column)}"
     EntityAttrName="$columnClass"
     EntityUsage="${domainClassName}"
+>>>>>>> .r1528
     AliasName="$column.name"/>
 #end
 ##foreach ($reference in $table.children)
