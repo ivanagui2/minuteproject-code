@@ -13,56 +13,78 @@ import net.sf.minuteProject.utils.FormatUtils;
 public class AdfUtils {
 
 	public String getAdfType(Column column) {
+		if (ColumnUtils.isTimeStampColumn(column))
+			return "oracle.jbo.domain.Timestamp";
 		if (ColumnUtils.isTimeColumn(column))
 			return "oracle.jbo.domain.Date";
 		if (ColumnUtils.isNumeric(column))
 			return "oracle.jbo.domain.Number";
+		if ("CLOB".equals(column.getType()))
+			return "oracle.jbo.domain.ClobDomain";
+		if ("BLOB".equals(column.getType()))
+			return "oracle.jbo.domain.BlobDomain";
 		return "java.lang.String";
 	}
 	
 	public String getAdfSQLType(Column column) {
+		if (ColumnUtils.isTimeStampColumn(column))
+			return "TIMESTAMP";
 		if (ColumnUtils.isTimeColumn(column))
 			return "DATE";
 		if (ColumnUtils.isNumeric(column))
 			return "NUMERIC";
+		if ("CLOB".equals(column.getType()))
+			return "CLOB";		
+		if ("BLOB".equals(column.getType()))
+			return "BLOB";		
 		return "VARCHAR";
 	}
 	
 	public String getColumnType(Column column) {
-		if ("SMALLINT".equals(column.getType()))
+		if (isSDOTypeNumeric(column))
 			return "NUMERIC";
 		return column.getType();
 	}
 	
 	public String getSDOColumnTypeBegin(Column column) {
-		if ("INTEGER".equals(column.getType()) || 
-			"SMALLINT".equals(column.getType())	
-				)
+		if (isSDOTypeNumeric(column))
 			return "new Integer(getInt";
-		if ("DATE".equals(column.getType()) 
-				)
+		if (ColumnUtils.isTimeColumn(column)) 
 			return "(java.sql.Timestamp)get";
+		if (column.isLob())
+			return "(javax.activation.DataHandler)get(";
 		return "get"+CommonUtils.getJavaType(column);
 	}	
 	
 	public String getSDOColumnFullType(Column column) {
-		if ("DATE".equals(column.getType()) 
-				)
+		if ("DATE".equals(column.getType()))
 			return "java.sql.Timestamp";
+		if (ColumnUtils.isTimeStampColumn(column)) 
+			return "java.sql.Timestamp";
+		if (column.isLob())//"CLOB".equals(column.getType()) )
+			return "javax.activation.DataHandler";
 		return CommonUtils.getFullType2(column);
 	}
 	
 	public String getSDOColumnTypeEnd(Column column) {
-		if ("INTEGER".equals(column.getType()) || 
-			"SMALLINT".equals(column.getType())	
-				)
+		if (isSDOTypeNumeric(column) ||
+			column.isLob())
 			return ")";
 		return "";
+	}
+
+	private boolean isSDOTypeNumeric(Column column) {
+		return "INTEGER".equals(column.getType()) || 
+			"SMALLINT".equals(column.getType())	||
+			"NUMERIC".equals(column.getType());
 	}
 	
 	public String getSdoXsdType(Column column) {
 		if (ColumnUtils.isTimeColumn(column)) {
 			return "ns0:dateTime-Timestamp";
+		}
+		if ("CLOB".equals(column.getType())) {
+			return "ns0:base64Binary-DataHandler";
 		}
 		return "xsd:"+getSdoXsdTypeValue(column);
 	}

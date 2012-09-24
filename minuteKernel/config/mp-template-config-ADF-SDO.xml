@@ -66,12 +66,27 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 
 		
+<<<<<<< .mine
+		<template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
+			subdir="" outputsubdir="" technicalPackage="view"
+			file-extension="jpx" file-prefix="" file-suffix="Model" 
+			has-updatable-nature="true"
+			scope-specific-value="model"
+			>
+		</template>	
+		
+=======
+>>>>>>> .r1528
 		<!-- SDO for entities -->
 		
 		<template name="ADF.SDO.AppModuleServiceImplJava" templateFileName="ADF.SDO.AppModuleServiceImplJava.vm" 
 			subdir="" outputsubdir="" technicalPackage="model.server.serviceinterface"
 			file-extension="java" file-prefix="" file-suffix="AppModuleServiceImpl" 
+<<<<<<< .mine
+			has-updatable-nature="true" 
+=======
 			has-updatable-nature="true"  					add-model-name="false"
+>>>>>>> .r1528
 			scope-specific-value="model"
 			>			
 		</template>			
@@ -79,7 +94,11 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceJava" templateFileName="ADF.SDO.AppModuleServiceJava.vm" 
 			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
 			file-extension="java" file-prefix="" file-suffix="AppModuleService" 
+<<<<<<< .mine
+			has-updatable-nature="true" 
+=======
 			has-updatable-nature="true"  					add-model-name="false"
+>>>>>>> .r1528
 			scope-specific-value="model"
 			>			
 		</template>	
@@ -87,7 +106,11 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceWsdl" templateFileName="ADF.SDO.AppModuleServiceWsdl.vm" 
 			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
 			file-extension="wsdl" file-prefix="" file-suffix="AppModuleService" 
+<<<<<<< .mine
+			has-updatable-nature="true"
+=======
 			has-updatable-nature="true" 					 add-model-name="false"
+>>>>>>> .r1528
 			scope-specific-value="model"
 			>		
 			<property name="is-for-workspace" value="true"/>	
@@ -96,11 +119,20 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.SDO.AppModuleServiceXsd" templateFileName="ADF.SDO.AppModuleServiceXsd.vm" 
 			subdir="" outputsubdir="" technicalPackage="model.common.serviceinterface"
 			file-extension="xsd" file-prefix="" file-suffix="AppModuleService" 
+<<<<<<< .mine
+			has-updatable-nature="true"
+=======
 			has-updatable-nature="true"  					add-model-name="false"
+>>>>>>> .r1528
 			scope-specific-value="model"
+<<<<<<< .mine
+			>			
+		</template>
+=======
 			>	
 			<property name="is-for-workspace" value="true"/>			
 		</template>
+>>>>>>> .r1528
 		
 		<!-- SDO for entities -->
 
@@ -141,6 +173,72 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		
     </template-target>
 
+<<<<<<< .mine
+	<template-target 
+    	name="ADF Model META-INF"
+		libdir="lib/ADF_LIB.vm"
+		package-root=""
+		outputdir="Model/src/META-INF">
+	    <!-- package -->	
+		<template name="ADF.SDO.ejb-jar" templateFileName="ADF.SDO.ejb-jar.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="ejb-jar" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>
+		</template>	
+		
+		<template name="ADF.SDO.weblogic-ejb-jar" templateFileName="ADF.SDO.weblogic-ejb-jar.vm" 
+			subdir="" outputsubdir="META-INF" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="weblogic-ejb-jar" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+	</template-target>
+	
+	<template-target 
+    	name="ADF View Controller src"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/public_html/WEB-INF">
+
+		<template name="ADF.BC.web" templateFileName="ADF.BC.web.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="web" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+				
+
+		<template name="ADF.BC.trinidad-config" templateFileName="ADF.BC.trinidad-config.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="trinidad-config" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+
+		<template name="ADF.BC.faces-config" templateFileName="ADF.BC.faces-config.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="faces-config" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+				
+		<template name="ADF.BC.adfc-config" templateFileName="ADF.BC.adfc-config.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="adfc-config" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+				
+	</template-target>
+
+
+=======
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
@@ -222,6 +320,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 	</template-target>
 
 
+>>>>>>> .r1528
 	<!-- ADF project specific -->
 	<template-target 
     	name="ADF Model project"
@@ -232,8 +331,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Model.jpr" templateFileName="ADF.Model.jpr.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jpr" file-prefix="" file-suffix="Model" 
+<<<<<<< .mine
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+=======
 			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
 			scope-specific-value="application" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
+>>>>>>> .r1528
 			>			
 		</template>			
 		
@@ -263,6 +367,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		package-root=""
 		outputdir="ViewController">
 		
+<<<<<<< .mine
+		<template name="ADF.ViewController.jpr" templateFileName="ADF.ViewController.jpr.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="jpr" file-prefix="" file-suffix="ViewController" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>			
+		</template>			
+=======
 		<template name="ADF.ViewController.jpr" templateFileName="ADF.ViewController.jpr.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jpr" file-prefix="" file-suffix="ViewController" 
@@ -270,14 +383,20 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
 			>			
 		</template>			
+>>>>>>> .r1528
 	</template-target>
+<<<<<<< .mine
+=======
 	
 	<template-target 
     	name="ADF .adf config"
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
 		outputdir=".adf/META-INF">
+>>>>>>> .r1528
 		
+<<<<<<< .mine
+=======
 		<template name="ADF.adf.adf-config" templateFileName="ADF.adf.adf-config.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="adf-config" 
@@ -294,6 +413,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		
 	</template-target>
 		
+>>>>>>> .r1528
 	<template-target 
     	name="ADF meta config"
 		libdir="lib/ADF_LIB.vm"
@@ -325,6 +445,9 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.jws" templateFileName="ADF.jws.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jws" file-prefix="" file-suffix="Workspace" 
+<<<<<<< .mine
+			has-updatable-nature="true" 
+=======
 			has-updatable-nature="true" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
 			scope-specific-value="application">			
 		</template>			
@@ -335,6 +458,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="build" 
 			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
+>>>>>>> .r1528
 			scope-specific-value="application"
 			>			
 		</template>				
