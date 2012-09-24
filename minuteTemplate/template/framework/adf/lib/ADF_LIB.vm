@@ -1,4 +1,13 @@
 #macro (exposeSDOSpecific)
+<<<<<<< .mine
+#exposeADFSpecific()
+#set($namespacePackage = "/eu/europa/ec/sg/nif2/view/common/")
+#set($namespaceTypesPackage = $namespacePackage+"types/")
+#set($appModuleADFSODServiceImplImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceImplJava))
+#set($appModuleADFSODServiceFaceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceJava))
+#set($appModuleADFSODServiceFaceClass=$commonUtils.getTemplateClassName($model, $template, $templateSDOAppModuleServiceJava))
+#set($appModuleADFSODServiceImplClass=$commonUtils.getTemplateClassName($model, $template, $templateSDOAppModuleServiceImplJava))
+=======
 #exposeADFSpecific()
 #set($isForWorkspace=$template.getPropertyValue("is-for-workspace",true))
 #set($namespacePackageShort = $adfUtils.getNamespacePackage($model, $template, $templateADFModelBc4j))##"eu/europa/ec/sg/nif2/model/common/")
@@ -11,8 +20,16 @@
 #set($appModuleADFSDOServiceXsdClass=$commonUtils.getTemplateClassName($model, $template, $templateSDOAppModuleServiceXsd))
 #set($appModuleADFSDOServiceXsdRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateSDOAppModuleServiceXsd))
 #set($appModuleADFSDOServiceWsdlRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateSDOAppModuleServiceWsdl))
+>>>>>>> .r1528
 #end
 
+<<<<<<< .mine
+#macro (exposeADFSpecific)
+#exposeADFTemplate()
+#set($javaPackage =  $commonUtils.getRootAndTechnicalPackageName($model, $templateADFEntity))
+#end
+
+=======
 #macro (exposeADFSpecific)
 #exposeADFTemplate()
 #set($AppModuleTemplate = $commonUtils.getTemplate($model.configuration, $templateADFModelAppModule))
@@ -21,6 +38,7 @@
 #set($javaPackageView =  "${rootPackage}.view")
 #end
 
+>>>>>>> .r1528
 #macro (exposeADFEntitySpecific)
 #exposeVariableEntitySpecific()
 #exposeADFTemplate()
@@ -54,6 +72,10 @@
 #exposeVariableModelSpecific()
 #exposeADFSpecific()
 #exposeADFConfig()
+<<<<<<< .mine
+#set($appModuleName=$commonUtils.getTemplateClassName($model, $template, $templateADFModelAppModule))
+#set($applicationName="ApplicationName")
+=======
 #set($appModuleName=$commonUtils.getTemplateClassName($model, $template, $templateADFModelAppModule))
 #set($applicationName="${model.name}SDO")
 #set($modelADFModuleJpxImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelJpx))	
@@ -71,6 +93,11 @@
 #set($viewControllerADFJprName=$commonUtils.getTemplateFileName($model, $template, $templateADFViewControllerJpr))	
 #set($viewControllerADFJprFullPath = "ViewController/$viewControllerADFJprName")	
 #set($projectJwsFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFJws))	
+>>>>>>> .r1528
+#set($modelADFModuleJpxImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelJpx))	
+#set($modelADFAppModuleImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelAppModule))	
+#set($modelADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpr))	
+#set($viewControllerADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFViewControllerJpr))	
 #end
 
 #macro (exposeADFBuildSpecific)
@@ -124,8 +151,13 @@
 #set ($templateSDOEntityXsd = "ADF.SDO.EntityXsd")
 #set ($templateSDOViewFace = "ADF.SDO.ViewFace")
 #set ($templateSDOViewImpl = "ADF.SDO.ViewImpl")
+<<<<<<< .mine
+#set ($templateADFModelJpr = "ADF.Model.jpr")
+#set ($templateADFViewControllerJpr = "ADF.ViewController.jpr")
+=======
 #set ($templateADFModelJpr = "ADF.Model.jpr")
 #set ($templateADFViewControllerJpr = "ADF.ViewController.jpr")
 #set ($templateADFModelBc4j = "ADF.Model.bc4j")
 #set ($templateADFJws = "ADF.jws")
+>>>>>>> .r1528
 #end
