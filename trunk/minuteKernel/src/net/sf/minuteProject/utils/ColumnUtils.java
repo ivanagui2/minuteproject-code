@@ -84,6 +84,7 @@ public class ColumnUtils {
 		return false;
 	}
 	
+
 	public static boolean isNumeric(Column column) {
 		if (column!=null && 
 				(
@@ -102,7 +103,7 @@ public class ColumnUtils {
 			return true;
 		return false;
 	}
-	
+
 	public static boolean isPkUserProvided (Column column) {
 		return isNaturalPk(column);
 	}
