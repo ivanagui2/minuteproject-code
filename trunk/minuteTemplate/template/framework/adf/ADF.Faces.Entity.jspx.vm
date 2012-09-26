@@ -1,0 +1,136 @@
+#exposeADFFacesEntitySpecific()
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:pageTemplate viewId="/WEB-INF/common/template.jspx" id="pt1">
+          <f:facet name="PageTitle">
+            <af:outputText value="#{viewcontrollerBundle['${entityADFImport}.title']}"
+                           id="ot1"/>
+          </f:facet>
+          <f:facet name="PageSubtitle"/>
+          <f:facet name="PageContent">
+            <af:panelTabbed id="${entityADFVariable}_pt2" dimensionsFrom="auto">
+              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.consult.tabtitle']}"
+                                 id="${entityADFVariable}_sdi1">
+                 <af:panelGroupLayout id="${entityADFVariable}_pgl3" layout="horizontal"
+                                       halign="left">                
+                    <af:panelBox text="#{viewcontrollerBundle['${entityADFImport}.consult.select.header']}"
+                                 id="${entityADFVariable}_pb1" styleClass="section"
+                                 disclosed="#{viewScope.${entityADFVariable}BackingBean.displaySearch}">
+                      <af:panelFormLayout id="${entityADFVariable}_pfl1" labelWidth="100px"
+                                          fieldWidth="400px">
+                        <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.consult.select.name']}"
+                                      id="nameit1" columns="40"
+                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Name}"/>
+                        <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.consult.select.reference']}"
+                                      id="referenceit1" columns="5"
+                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Reference}"/>
+                        
+                      </af:panelFormLayout>
+                        <af:panelGroupLayout id="pgl1" halign="end"
+                                                 layout="horizontal">
+                              <f:facet name="separator">
+                                <af:spacer width="10" height="1"/>
+                              </f:facet>
+                              <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.select.search']}"
+                                                id="search"
+                                                actionListener="#{viewScope.${entityADFVariable}BackingBean.search}"
+                                                inlineStyle="background-color:#4B9FC9; background-image:none; color:#FFF;"/>
+                              <af:panelLabelAndMessage label="#{viewcontrollerBundle['${entityADFImport}.select.or']}"
+                                                       id="plam1"
+                                                       for="msdisplayall">
+                               <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.select.displayall']}"
+                                                  id="msdisplayall"
+                                                  actionListener="#{viewScope.${entityADFVariable}BackingBean.displayAll}"/>
+                              </af:panelLabelAndMessage>
+                            </af:panelGroupLayout>
+                    </af:panelBox>
+                 </af:panelGroupLayout>
+                 
+                    <af:panelGroupLayout layout="horizontal" halign="left"
+                        rendered="#{viewScope.${entityADFVariable}BackingBean.displayResults}">
+                    <af:panelBox id="${entityADFVariable}__pb2" showDisclosure="false"
+                                 showHeader="always" ramp="core"
+                                 styleClass="section">
+                      <af:pageTemplate viewId="/WEB-INF/common/tableCollectionTemplate.jspx"
+                                       id="${entityADFVariable}TableTmpl">
+                        <f:facet name="table">
+                        <af:table id="${entityADFVariable}Table"
+                                    value="#{bindings.keyValueDTOs.collectionModel}"
+                                    var="row"
+                                    rows="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
+                                    emptyText="#{bindings.keyValueDTOs.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                    fetchSize="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
+                                    rowBandingInterval="1"
+                                    filterModel="#{bindings.keyValueDTOsQuery.queryDescriptor}"
+                                    queryListener="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.queryListener}"
+                                    filterVisible="true"
+                                    columnResizing="disabled" autoHeightRows="0"
+                                    varStatus="vs" rowSelection="none"
+                                    width="500px" contentDelivery="immediate"
+                                    immediate="true"
+                                    binding="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.tableUIComp}">
+                            <af:column sortProperty="value" sortable="true"
+                                       filterable="true"
+                                       headerText="#{viewcontrollerBundle['${entityADFImport}.consult.select.name']}"
+                                       id="${entityADFVariable}_c2" width="304">
+                              <af:commandLink text="#{row.value}" id="gl1"
+                                              action="details" immediate="true"
+                                              partialSubmit="true"
+                                              useWindow="true"
+                                              windowEmbedStyle="inlineDocument"
+                                              windowModalityType="applicationModal"
+                                              windowHeight="200"
+                                              windowWidth="400"
+                                              launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFVariable}Dlg}">
+                                <f:attribute name="${entityADFVariable}Reference" value="#{row.key}"/>
+                              </af:commandLink>
+                            </af:column>
+                            <af:column sortProperty="key" sortable="true"
+                                       filterable="true"
+                                       headerText="#{viewcontrollerBundle['${entityADFImport}.consult.select.reference']}"
+                                       id="${entityADFVariable}_c1" width="184">
+                              <af:outputText value="#{row.key}" id="${entityADFVariable}_ot2"/>
+                            </af:column>
+                          </af:table>
+                      </f:facet>
+                        <f:attribute name="paginationUtils"
+                                     value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table}"/>
+                      </af:pageTemplate>
+                    </af:panelBox>
+                  </af:panelGroupLayout>
+             
+              </af:showDetailItem>
+              
+              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.create.tabtitle']}"
+                                 id="${entityADFVariable}_sdi2">
+								 
+                    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" styleClass="dialogFormLayout">
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
+                      <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.details.${columnVar}']}" id="itdet${columnVar}"
+                                    value="#{viewScope.${entityADFVariable}BackingBean.new${entityADFVariable}.name}"/>
+#end
+                    
+                    <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
+                          <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.details.savebutton']}"
+                                              id="itdetsave"
+                                            actionListener="#{viewScope.${entityADFVariable}BackingBean.create${entityADFVariable}}"/>
+					</af:panelGroupLayout>
+                                 
+                </af:showDetailItem>
+            </af:panelTabbed>
+
+          </f:facet>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

@@ -71,7 +71,7 @@ public interface $thisClassName {
 >>>>>>> .r1528
     @WebResult(name="result")
     @CallbackMethod(exclude=true)
-    $entityADFSDOViewClass create${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+    $entityADFSDOViewClass create${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
     @WebMethod(action="${namespacePackage}update${domainClassName}View1", operationName="update${domainClassName}View1")
@@ -79,14 +79,14 @@ public interface $thisClassName {
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="update${domainClassName}View1Response")
     @WebResult(name="result")
     @CallbackMethod(exclude=true)
-    $entityADFSDOViewClass update${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+    $entityADFSDOViewClass update${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
     @WebMethod(action="${namespacePackage}delete${domainClassName}View1", operationName="delete${domainClassName}View1")
     @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="delete${domainClassName}View1")
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="delete${domainClassName}View1Response")
     @CallbackMethod(exclude=true)
-    void delete${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+    void delete${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
     @WebMethod(action="${namespacePackage}merge${domainClassName}View1", operationName="merge${domainClassName}View1")
@@ -94,7 +94,7 @@ public interface $thisClassName {
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="merge${domainClassName}View1Response")
     @WebResult(name="result")
     @CallbackMethod(exclude=true)
-    $entityADFSDOViewClass merge${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+    $entityADFSDOViewClass merge${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
     @WebMethod(action="${namespacePackage}find${domainClassName}View1", operationName="find${domainClassName}View1")
@@ -114,7 +114,7 @@ public interface $thisClassName {
     @CallbackMethod(exclude=true)
     List<$entityADFSDOViewClass> process${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN,
             name="changeOperation")
-        String changeOperation, @WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+        String changeOperation, @WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         List<$entityADFSDOViewClass> ${domainVariableName}View1, @WebParam(mode = WebParam.Mode.IN,
             name="processControl")
         ProcessControl processControl) throws ServiceException;
@@ -139,7 +139,7 @@ public interface $thisClassName {
     @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="delete${domainClassName}View1Async")
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="delete${domainClassName}View1AsyncResponse")
     @Action(input="${namespacePackage}delete${domainClassName}View1Async", output="${namespacePackage}delete${domainClassName}View1AsyncResponse")
-    void delete${domainClassName}View1Async(@WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+    void delete${domainClassName}View1Async(@WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
     @WebMethod(action="${namespacePackage}merge${domainClassName}View1Async",
@@ -149,7 +149,7 @@ public interface $thisClassName {
     @WebResult(name="result")
     @Action(input="${namespacePackage}merge${domainClassName}View1Async", output="${namespacePackage}merge${domainClassName}View1AsyncResponse")
     $entityADFSDOViewClass merge${domainClassName}View1Async(@WebParam(mode = WebParam.Mode.IN,
-            name="${domainClassName}View1")
+            name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
     @WebMethod(action="${namespacePackage}find${domainClassName}View1Async",
@@ -197,7 +197,7 @@ public interface $thisClassName {
     @Action(input="${namespacePackage}process${domainClassName}View1Async", output="${namespacePackage}process${domainClassName}View1AsyncResponse")
     List<$entityADFSDOViewClass> process${domainClassName}View1Async(@WebParam(mode = WebParam.Mode.IN,
             name="changeOperation")
-        String changeOperation, @WebParam(mode = WebParam.Mode.IN, name="${domainClassName}View1")
+        String changeOperation, @WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
         List<$entityADFSDOViewClass> ${domainVariableName}View1, @WebParam(mode = WebParam.Mode.IN,
             name="processControl")
         ProcessControl processControl) throws ServiceException;
@@ -209,7 +209,7 @@ public interface $thisClassName {
     @WebResult(name="result")
     @Action(input="${namespacePackage}update${domainClassName}View1Async", output="${namespacePackage}update${domainClassName}View1AsyncResponse")
     $entityADFSDOViewClass update${domainClassName}View1Async(@WebParam(mode = WebParam.Mode.IN,
-            name="${domainClassName}View1")
+            name="${domainVariableName}View1")
         $entityADFSDOViewClass ${domainVariableName}View1) throws ServiceException;
 
 #end

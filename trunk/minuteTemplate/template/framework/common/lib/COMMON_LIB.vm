@@ -116,6 +116,19 @@ $!commonUtils.getReadMeText($template)
 
 #end
 
+#macro (toString)
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+#foreach($column in ${table.columns})
+#putColumnParamNaming()
+        sb.append("$columnClass: "+get$columnClass());
+#if($velocityCount<${table.columnCount})
+        sb.append(", ");
+#end
+#end
+        return sb.toString();
+    }
+#end
 #macro (putSetterGetterAdder $classList $listVariable $class $variable)
 #set ($listClasses = $i18nUtils.plurialize(${class}))
     public void set${listClasses} (List<${class}> ${listVariable}) {

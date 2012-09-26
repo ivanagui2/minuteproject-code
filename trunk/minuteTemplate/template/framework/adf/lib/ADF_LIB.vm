@@ -1,3 +1,7 @@
+#macro (exposeADFFacesEntitySpecific)
+#exposeADFEntitySpecific()
+#end
+
 #macro (exposeSDOSpecific)
 <<<<<<< .mine
 #exposeADFSpecific()
