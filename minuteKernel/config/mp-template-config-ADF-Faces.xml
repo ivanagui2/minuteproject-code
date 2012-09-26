@@ -18,7 +18,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.Entity.jspx" templateFileName="ADF.Faces.Entity.jspx.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="jspx" file-prefix="" file-suffix="" 
-			has-updatable-nature="true" 
+			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
 			>			
 		</template>	
@@ -26,7 +26,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.EntityDetail.jspx" templateFileName="ADF.Faces.EntityDetail.jspx.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="jspx" file-prefix="detail" file-suffix="" 
-			has-updatable-nature="true" 
+			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
 			>			
 		</template>	
@@ -34,19 +34,28 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.EntityEdit.jspx" templateFileName="ADF.Faces.EntityEdit.jspx.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="jspx" file-prefix="edit" file-suffix="" 
-			has-updatable-nature="true" 
+			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
 			>			
 		</template>	
 		
-		<template name="ADF.Faces.viewEditEntity-flow.xml.jspx" templateFileName="ADF.Faces.viewEditEntity-flow.xml" 
-			subdir="" outputsubdir="taskflows" technicalPackage="pages"
+		<template name="ADF.Faces.viewEditEntity-flow.xml" templateFileName="ADF.Faces.viewEditEntity-flow.xml.vm" 
+			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="flows"
 			file-extension="xml" file-prefix="viewEdit" file-suffix="-flow" 
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			>			
 		</template>	
 		
+		<template name="ADF.Faces.Model.main-flow.xml" templateFileName="ADF.Faces.Model.main-flow.xml.vm" 
+			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="" add-model-dir-name="false"
+			file-extension="xml" file-prefix="main-" file-suffix="-flow" add-package-name-dir="false"
+			has-updatable-nature="true" 
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+
     </template-target>
     
 <!-- 	<template-target 
@@ -69,7 +78,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		package-root=""
 		outputdir="Model/classes">
 	    <!-- package -->	
-		<template name="ADF.Model.adfm" templateFileName="ADF.Model.adfm.vm" 
+		<template name="ADF.Faces.adfm" templateFileName="ADF.Faces.adfm.vm" 
 			subdir="" outputsubdir="META-INF" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="adfm" 
 			has-updatable-nature="true" add-model-name="false"
@@ -91,8 +100,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="application" add-model-name="false"
 			>			
-		</template>	
-				
+		</template>		
 
 		<template name="ADF.BC.trinidad-config" templateFileName="ADF.BC.trinidad-config.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
@@ -102,7 +110,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 
-		<template name="ADF.BC.faces-config" templateFileName="ADF.BC.faces-config.vm" 
+		<template name="ADF.Faces.Model.faces-config" templateFileName="ADF.Faces.Model.faces-config.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="faces-config" 
 			has-updatable-nature="true" add-package-name-dir="false"
@@ -110,14 +118,31 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 				
-		<template name="ADF.BC.adfc-config" templateFileName="ADF.BC.adfc-config.vm" 
+		<template name="ADF.Faces.Model.adfc-config.xml" templateFileName="ADF.Faces.Model.adfc-config.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="adfc-config" 
 			has-updatable-nature="true" add-package-name-dir="false"
 			scope-specific-value="application" add-model-name="false"
 			>			
 		</template>	
-				
+		
+		<!-- model artefacts -->
+		<template name="ADF.Faces.Model.admin-config.xml" templateFileName="ADF.Faces.Model.admin-config.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-package-name-dir="false"
+			file-extension="xml" file-prefix="administration-config" file-suffix="" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+		<template name="ADF.Faces.Model.Menu.xml" templateFileName="ADF.Faces.Model.Menu.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-package-name-dir="false"
+			file-extension="xml" file-prefix="administration_menu_model" file-suffix="" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+						
 	</template-target>
 
 
@@ -128,7 +153,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		package-root=""
 		outputdir="Model">
 		
-		<template name="ADF.Model.jpr" templateFileName="ADF.Model.jpr.vm" 
+		<template name="ADF.ModelUI.jpr" templateFileName="ADF.Model.jpr.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jpr" file-prefix="" file-suffix="AdminUI" 
 			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
