@@ -18,15 +18,12 @@ import javax.ejb.Stateless;
 
 import javax.interceptor.Interceptors;
 
-<<<<<<< .mine
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
 import $entityADFSDOViewImport;
 #end
 import $appModuleADFSODServiceFaceImport;
 
-=======
->>>>>>> .r1528
 import oracle.jbo.common.Diagnostic;
 import oracle.jbo.common.sdo.SDOHelper;
 import oracle.jbo.common.service.types.FindControl;
@@ -47,13 +44,9 @@ import oracle.webservices.annotations.async.AsyncWebService;
     serviceName="${appModuleADFSODServiceFaceClass}", portName="AppModuleServiceSoapHttpPort",
     endpointInterface="${appModuleADFSODServiceFaceImport}")
 @Interceptors( { ServiceContextInterceptor.class })
-<<<<<<< .mine
-@AsyncWebService
-public class $className extends ServiceImpl implements $appModuleADFSODServiceFaceClass {
-=======
+
 ##@AsyncWebService
 public class $thisClassName extends ServiceImpl implements $appModuleADFSODServiceFaceClass {
->>>>>>> .r1528
     private static boolean _isInited = false;
 
     /**
@@ -90,15 +83,10 @@ public class $thisClassName extends ServiceImpl implements $appModuleADFSODServi
     /**
      * get${domainClassName}View1: generated method. Do not modify.
      */
-<<<<<<< .mine
-    public $entityADFSDOViewClass get${domainClassName}View1(Long personId) throws ServiceException {
-        return ($entityADFSDOViewClass)get(new Object[] { personId }, "${domainClassName}View1",
-                                   ${entityADFSDOViewClass}.class);
-=======
+
     public $entityADFSDOViewClass get${domainClassName}View1($primaryKeyFullType $primaryKeyVariable) throws ServiceException {
         return ($entityADFSDOViewClass)get(new Object[] { $primaryKeyVariable }, "${domainClassName}View1",
                                    ${entityADFSDOViewClass}.class);
->>>>>>> .r1528
     }
 
     /**
