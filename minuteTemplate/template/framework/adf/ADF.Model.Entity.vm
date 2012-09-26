@@ -8,15 +8,10 @@
   xmlns="http://xmlns.oracle.com/bc4j"
   Name="$className"
 ##  Version="11.1.2.59.47"
-<<<<<<< .mine
-  Version="$adfVersion"
-  DBObjectType="$table.type"
-=======
   Version="$adfVersion"
 ##TODO with views
   InheritPersonalization="true"
   DBObjectType="table"
->>>>>>> .r1528
   DBObjectName="$table.name"
   AliasName="$className"
   BindingStyle="OracleName"
@@ -32,36 +27,31 @@
   <Attribute
     Name="$columnClass"
     IsNotNull="$column.isRequired()"
-<<<<<<< .mine
-#if($isLengthPrecisionColumn)
+#if (!$column.isLob())
+#if (!$columnUtils.isTimeStampColumn($column))
     Precision="$column.size"
-    Scale="$column.scale"
 #end
-=======
-    Precision="$column.size"
+#else
+	IsQueriable="false"
+#end
 #if($isScaleColumn)
     Scale="$column.scale"
 #end
->>>>>>> .r1528
     ColumnName="$column.name"
-<<<<<<< .mine
-    SQLType="$adfSQLType"
-    Type="$adfType"
-    ColumnType="$column.type"
-=======
     SQLType="$adfSQLType"
     Type="$adfType"
     ColumnType="$adfUtils.getColumnType($column)"
->>>>>>> .r1528
     TableName="${column.table.name}"
 #if(${column.isPrimaryKey()})
     PrimaryKey="true">
 #else
 	>
 #end
+#if (!$column.isLob())
     <DesignTime>
       <Attr Name="_DisplaySize" Value="$column.size"/>
     </DesignTime>
+#end
   </Attribute>
 #end
 ###foreach($child in $table.getChildren())
@@ -80,33 +70,23 @@
 ##     AssociationOtherEnd="demo.model.EmpDeptFkAssoc.Departments1"
 ##     Type="oracle.jbo.RowIterator"
 ##     IsUpdateable="false"/>
-#foreach ($column in $table.columns)
-<<<<<<< .mine
-#putColumnParamNaming()
-#if($column.isPrimaryKey)
-=======
-#putColumnParamNaming()
-#if($column.isPrimaryKey())
->>>>>>> .r1528
+#if($hasPrimaryKey)
   <Key
-<<<<<<< .mine
-    Name="$columnVar"
-=======
     Name="${className}_Pk"
->>>>>>> .r1528
     PrimaryKey="true">
     <DesignTime>
-      <Attr Name="_DBObjectName" Value="$column.name"/>
+      <Attr Name="_DBObjectName" Value="${table.name}_PK"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-<<<<<<< .mine
-      <Item Value="${packageName}.${className}.$columnVar"/>
-=======
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
       <Item Value="${packageName}.${className}.$columnClass"/>
->>>>>>> .r1528
+#end
     </AttrArray>
   </Key>
 #end
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
 #if($column.isRequired())
   <Key
     Name="${columnVar}Nn">
