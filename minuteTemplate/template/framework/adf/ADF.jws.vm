@@ -41,15 +41,9 @@
                   <hash>
                      <value n="adapterClass" v="oracle.jdevimpl.deploy.common.DefaultProfileDependable"/>
 ##TODO change
-<<<<<<< .mine
-                     <url n="ownerURL" path="$modelADFJprFullPath"/>
-                     <value n="pathInEar" v=""/>
-                     <value n="profileName" v="${applicationName}_MiddleTier"/>
-=======
                      <url n="ownerURL" path="$modelADFJprFullPath"/>
 ##                     <value n="pathInEar" v=""/>
                      <value n="profileName" v="${profileName}_MiddleTier"/>
->>>>>>> .r1528
                   </hash>
                </list>
             </hash>

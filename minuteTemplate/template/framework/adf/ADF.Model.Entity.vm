@@ -7,9 +7,7 @@
 <Entity
   xmlns="http://xmlns.oracle.com/bc4j"
   Name="$className"
-##  Version="11.1.2.59.47"
   Version="$adfVersion"
-##TODO with views
   InheritPersonalization="true"
   DBObjectType="table"
   DBObjectName="$table.name"
@@ -29,11 +27,13 @@
     IsNotNull="$column.isRequired()"
 #if (!$column.isLob())
 #if (!$columnUtils.isTimeStampColumn($column))
+##if($isLengthPrecisionColumn)
     Precision="$column.size"
 #end
 #else
 	IsQueriable="false"
 #end
+##end
 #if($isScaleColumn)
     Scale="$column.scale"
 #end
@@ -80,7 +80,9 @@
     <AttrArray Name="Attributes">
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
-      <Item Value="${packageName}.${className}.$columnClass"/>
+      <Item Value="${packageName}.${className}.$columnVar"/>
+##      <Item Value="${packageName}.${className}.$columnClass"/>
+
 #end
     </AttrArray>
   </Key>

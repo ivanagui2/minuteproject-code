@@ -40,35 +40,18 @@ public interface $thisClassName {
 
 #foreach($table in $entities)
 #exposeADFSDOEntitySpecific()
-<<<<<<< .mine
-    @WebMethod(action="${namespacePackage}get${domainClassName}View1", operationName="get${domainClassName}View1")
-    @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="get${domainClassName}View1")
-    @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="get${domainClassName}View1Response")
-=======
 // for PK
     @WebMethod(action="${namespacePackage}get${domainClassName}View1", operationName="get${domainClassName}View1")
     @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="get${domainClassName}View1")
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="get${domainClassName}View1Response")
->>>>>>> .r1528
     @WebResult(name="result")
     @CallbackMethod(exclude=true)
-<<<<<<< .mine
-    $entityADFSDOViewClass get${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="$primaryKeyVariable")
-        Long personId) throws ServiceException;
-=======
     $entityADFSDOViewClass get${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="$primaryKeyVariable")
         $primaryKeyFullType $primaryKeyVariable) throws ServiceException;
->>>>>>> .r1528
 
-<<<<<<< .mine
-    @WebMethod(action="${namespacePackage}update${domainClassName}View1", operationName="update${domainClassName}View1")
-    @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="update${domainClassName}View1")
-    @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="update${domainClassName}View1Response")
-=======
     @WebMethod(action="${namespacePackage}create${domainClassName}View1", operationName="create${domainClassName}View1")
     @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="create${domainClassName}View1")
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="create${domainClassName}View1Response")
->>>>>>> .r1528
     @WebResult(name="result")
     @CallbackMethod(exclude=true)
     $entityADFSDOViewClass create${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="${domainVariableName}View1")
@@ -128,13 +111,9 @@ public interface $thisClassName {
     ProcessData processCS${domainClassName}View1(@WebParam(mode = WebParam.Mode.IN, name="processData")
         ProcessData processData, @WebParam(mode = WebParam.Mode.IN, name="processControl")
         ProcessControl processControl) throws ServiceException;
-<<<<<<< .mine
-
-    @WebMethod(action="${namespacePackage}delete${domainClassName}View1Async",
-=======
+		
 #if($isAsync)
     @WebMethod(action="${namespacePackage}delete${domainClassName}View1Async",
->>>>>>> .r1528
         operationName="delete${domainClassName}View1Async")
     @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="delete${domainClassName}View1Async")
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="delete${domainClassName}View1AsyncResponse")
@@ -163,12 +142,8 @@ public interface $thisClassName {
         FindCriteria findCriteria, @WebParam(mode = WebParam.Mode.IN, name="findControl")
         FindControl findControl) throws ServiceException;
 
-<<<<<<< .mine
-    @WebMethod(action="${namespacePackage}get${domainClassName}View1Async",
-=======
 // for PK
     @WebMethod(action="${namespacePackage}get${domainClassName}View1Async",
->>>>>>> .r1528
         operationName="get${domainClassName}View1Async")
     @RequestWrapper(targetNamespace="${namespacePackage}types/", localName="get${domainClassName}View1Async")
     @ResponseWrapper(targetNamespace="${namespacePackage}types/", localName="get${domainClassName}View1AsyncResponse")
