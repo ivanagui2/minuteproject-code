@@ -1,0 +1,68 @@
+#exposeADFFacesModelSpecific()
+#set($cpt=20)
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <metadata-resource>$adminFlowADFFacesModelFullPath</metadata-resource>
+ 
+#foreach ($table in $entities)
+#exposeADFFacesEntitySpecific()
+  <task-flow-call id="viewEditMS-flow">
+    <task-flow-reference>
+      <document>$viewEditADFFacesEntityFullPath</document>
+      <id>$viewEditADFFacesEntityClassName</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__$cpt">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="${domainVariableName}">
+    <page>$pageEntityADFFacesFullPath</page>
+  </view>
+#set($cpt=$cpt+1) 
+#end
+
+#foreach ($table in $entities)
+#exposeADFFacesEntitySpecific()
+#set($cpt=$cpt+1) 
+  <control-flow-rule id="__$cpt">
+#set($cpt=$cpt+1) 
+    <from-activity-id id="__$cpt">${domainVariableName}</from-activity-id>
+#set($cpt=$cpt+1) 
+    <control-flow-case id="__$cpt">
+#set($cpt=$cpt+1) 
+      <from-outcome id="__$cpt">details</from-outcome>
+#set($cpt=$cpt+1) 
+      <to-activity-id id="__$cpt">$viewEditADFFacesEntityClassName</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+#set($cpt=$cpt+1)
+#end
+  
+  <managed-bean id="__4">
+    <managed-bean-name id="__3">localMenuUtils</managed-bean-name>
+    <managed-bean-class id="__2">utils.MenuUtils</managed-bean-class>
+    <managed-bean-scope id="__1">backingBean</managed-bean-scope>
+    <managed-property id="__6">
+      <property-name id="__5">menuModelName</property-name>
+      <property-class>java.lang.String</property-class>
+      <value id="__7">administration_menu_model</value>
+    </managed-property>
+    <managed-property id="__10">
+      <property-name id="__8">isRootMenu</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value id="__9">false</value>
+    </managed-property>
+  </managed-bean>  
+  
+#foreach ($table in $entities)
+#exposeADFFacesEntitySpecific()  
+   <managed-bean id="__12">
+    <managed-bean-name id="__10">${backingBeanADFFacesVariableName}</managed-bean-name>
+    <managed-bean-class id="__11">${backingBeanADFFacesImport}</managed-bean-class>
+    <managed-bean-scope id="__13">view</managed-bean-scope>
+  </managed-bean>
+#end
+
+</adfc-config>
