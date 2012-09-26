@@ -1,5 +1,19 @@
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
+#set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))##"/pages/administration/memberStatesManagement/languages/languages.jspx")
+#set($pageEntityADFFacesFullPath = "/pages/administration/memberStatesManagement/memberStates/memberStates.jspx")
+#set($backingBeanADFFacesVariableName="MemberStatesBackingBean")
+#set($backingBeanADFFacesImport="pages.administration.memberStatesManagement.memberStates.MemberStatesBackingBean")
+#set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/administration/memberStatesManagement/memberStates/viewEditMS-flow.xml")
+#end
+
+#macro (exposeADFFacesModelSpecific)
+#exposeADFModelSpecific()
+#set($mainFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesMainFlow))
+#set($menuADFFacesModelRelativePath="/WEB-INF/administration_menu_model.xml")
+#set($adminFlowADFFacesModelFullPath ="/WEB-INF/taskflows/administration-flow.xml")
+#set($viewEditADFFacesEntityClassName = "viewEditMS-flow")
+
 #end
 
 #macro (exposeSDOSpecific)
@@ -136,4 +150,7 @@
 #set ($templateADFViewControllerJpr = "ADF.ViewController.jpr")
 #set ($templateADFModelBc4j = "ADF.Model.bc4j")
 #set ($templateADFJws = "ADF.jws")
+##Front-End
+#set ($templateADFFacesMainFlow = "ADF.Faces.Model.main-flow.xml")
+#set ($templateADFFacesEntity = "ADF.Faces.Entity.jspx")
 #end
