@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <metadata-resource>/WEB-INF/taskflows/administration-flow.xml</metadata-resource>
+  
+  
+  
+  <task-flow-call id="viewEditMS-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/memberStatesManagement/memberStates/viewEditMS-flow.xml</document>
+      <id>viewEditMS-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__29">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="memberStates">
+    <page>/pages/administration/memberStatesManagement/memberStates/memberStates.jspx</page>
+  </view>
+  <view id="infringementsTypes">
+    <page>/pages/administration/infringementProcess/infringementsTypes/infringementsTypes.jspx</page>
+  </view>
+  <task-flow-call id="viewEditInfrTypes-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/infringementProcess/infringementsTypes/viewEditInfrTypes-flow.xml</document>
+      <id>viewEditInfrTypes-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__28">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="deadLineTypes">
+    <page>/pages/administration/directive/deadLineTypes/deadLineTypes.jspx</page>
+  </view>
+  <task-flow-call id="viewEditDeadLineTypes-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/directive/deadLineTypes/viewEditDeadLineTypes-flow.xml</document>
+      <id>viewEditDeadLineTypes-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__39">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="notificationStatus">
+    <page>/pages/administration/directive/notificationStatus/notificationStatus.jspx</page>
+  </view>
+  <task-flow-call id="viewEditNotificationStatus-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/directive/notificationStatus/viewEditNotificationStatus-flow.xml</document>
+      <id>viewEditNotificationStatus-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__49">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="transpositionStatus">
+    <page>/pages/administration/directive/transpositionStatus/transpositionStatus.jspx</page>
+  </view>
+  <task-flow-call id="viewEditTranspositionStatus-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/directive/transpositionStatus/viewEditTranspositionStatus-flow.xml</document>
+      <id>viewEditTranspositionStatus-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__55">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="legalActs">
+    <page>/pages/administration/memberStatesManagement/legalActs/legalActs.jspx</page>
+  </view>
+  <task-flow-call id="viewEditLegalAct-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/memberStatesManagement/legalActs/viewEditLegalAct-flow.xml</document>
+      <id>viewEditLegalAct-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__69">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="languages">
+    <page>/pages/administration/memberStatesManagement/languages/languages.jspx</page>
+  </view>
+  <task-flow-call id="viewEditLanguage-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/memberStatesManagement/languages/viewEditLanguage-flow.xml</document>
+      <id>viewEditLanguage-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__70">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="officialJournals">
+    <page>/pages/administration/memberStatesManagement/officialJournals/officialJournals.jspx</page>
+  </view>
+  <task-flow-call id="viewEditOfficialJournal-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/memberStatesManagement/officialJournals/viewEditOfficialJournal-flow.xml</document>
+      <id>viewEditOfficialJournal-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__80">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+ <view id="caseOrigin">
+    <page>/pages/administration/cases/caseOrigin/caseOrigin.jspx</page>
+  </view>
+  <task-flow-call id="viewEditCaseOrigin-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/cases/caseOrigin/viewEditCaseOrigin-flow.xml</document>
+      <id>viewEditCaseOrigin-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__111">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <task-flow-call id="viewEditCaseType-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/cases/caseType/viewEditCaseType-flow.xml</document>
+      <id>viewEditCaseType-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__96">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="caseType">
+    <page>/pages/administration/cases/caseType/caseType.jspx</page>
+  </view>
+  <task-flow-call id="viewEditCaseStatus-flow">
+    <task-flow-reference>
+      <document>/WEB-INF/taskflows/administration/cases/caseStatus/viewEditCaseStatus-flow.xml</document>
+      <id>viewEditCaseStatus-flow</id>
+    </task-flow-reference>
+    <run-as-dialog>
+      <display-type id="__123">
+        <inline-popup/>
+      </display-type>
+    </run-as-dialog>
+  </task-flow-call>
+  <view id="caseStatus">
+    <page>/pages/administration/cases/caseStatus/caseStatus.jspx</page>
+  </view>
+  <control-flow-rule id="__21">
+    <from-activity-id id="__22">memberStates</from-activity-id>
+    <control-flow-case id="__24">
+      <from-outcome id="__25">details</from-outcome>
+      <to-activity-id id="__23">viewEditMS-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__18">
+    <from-activity-id id="__19">infringementsTypes</from-activity-id>
+    <control-flow-case id="__26">
+      <from-outcome id="__27">details</from-outcome>
+      <to-activity-id id="__20">viewEditInfrTypes-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__34">
+    <from-activity-id id="__35">deadLineTypes</from-activity-id>
+    <control-flow-case id="__37">
+      <from-outcome id="__38">details</from-outcome>
+      <to-activity-id id="__36">viewEditDeadLineTypes-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__44">
+    <from-activity-id id="__45">notificationStatus</from-activity-id>
+    <control-flow-case id="__47">
+      <from-outcome id="__48">details</from-outcome>
+      <to-activity-id id="__46">viewEditNotificationStatus-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__50">
+    <from-activity-id id="__51">transpositionStatus</from-activity-id>
+    <control-flow-case id="__52">
+      <from-outcome id="__54">details</from-outcome>
+      <to-activity-id id="__53">viewEditTranspositionStatus-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__64">
+    <from-activity-id id="__65">legalActs</from-activity-id>
+    <control-flow-case id="__67">
+      <from-outcome id="__68">details</from-outcome>
+      <to-activity-id id="__66">viewEditLegalAct-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__71">
+    <from-activity-id id="__72">languages</from-activity-id>
+    <control-flow-case id="__73">
+      <from-outcome id="__75">details</from-outcome>
+      <to-activity-id id="__74">viewEditLanguage-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__81">
+    <from-activity-id id="__82">officialJournals</from-activity-id>
+    <control-flow-case id="__84">
+      <from-outcome id="__85">details</from-outcome>
+      <to-activity-id id="__83">viewEditOfficialJournal-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__106">
+    <from-activity-id id="__107">caseOrigin</from-activity-id>
+    <control-flow-case id="__108">
+      <from-outcome id="__110">details</from-outcome>
+      <to-activity-id id="__109">viewEditCaseOrigin-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__91">
+    <from-activity-id id="__92">caseType</from-activity-id>
+    <control-flow-case id="__93">
+      <from-outcome id="__95">details</from-outcome>
+      <to-activity-id id="__94">viewEditCaseType-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__97">
+    <from-activity-id id="__98">*</from-activity-id>
+    <control-flow-case id="__100">
+      <from-outcome id="__99"></from-outcome>
+      <to-activity-id id="__101"></to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__116">
+      <from-outcome id="__118"></from-outcome>
+      <to-activity-id id="__117"></to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__129">
+    <from-activity-id id="__130">caseStatus</from-activity-id>
+    <control-flow-case id="__132">
+      <from-outcome id="__133">details</from-outcome>
+      <to-activity-id id="__131">viewEditCaseStatus-flow</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  
+  
+  
+  
+  
+  
+  <managed-bean id="__4">
+    <managed-bean-name id="__3">localMenuUtils</managed-bean-name>
+    <managed-bean-class id="__2">utils.MenuUtils</managed-bean-class>
+    <managed-bean-scope id="__1">backingBean</managed-bean-scope>
+    <managed-property id="__6">
+      <property-name id="__5">menuModelName</property-name>
+      <property-class>java.lang.String</property-class>
+      <value id="__7">administration_menu_model</value>
+    </managed-property>
+    <managed-property id="__90">
+      <property-name id="__8">isRootMenu</property-name>
+      <property-class>java.lang.Boolean</property-class>
+      <value id="__9">false</value>
+    </managed-property>
+  </managed-bean>  
+   <managed-bean id="__12">
+    <managed-bean-name id="__10">memberStatesBackingBean</managed-bean-name>
+    <managed-bean-class id="__11">pages.administration.memberStatesManagement.memberStates.MemberStatesBackingBean</managed-bean-class>
+    <managed-bean-scope id="__13">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__15">
+    <managed-bean-name id="__17">infringementTypesBackingBean</managed-bean-name>
+    <managed-bean-class id="__14">pages.administration.infringementProcess.infringementsTypes.InfringementTypesBackingBean</managed-bean-class>
+    <managed-bean-scope id="__16">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__33">
+    <managed-bean-name id="__32">deadLineTypesBackingBean</managed-bean-name>
+    <managed-bean-class id="__31">pages.administration.directive.deadLineTypes.DeadLineTypesBackingBean</managed-bean-class>
+    <managed-bean-scope id="__30">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__41">
+    <managed-bean-name id="__40">notificationStatusBackingBean</managed-bean-name>
+    <managed-bean-class id="__42">pages.administration.directive.notificationStatus.NotificationStatusBackingBean</managed-bean-class>
+    <managed-bean-scope id="__43">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__56">
+    <managed-bean-name id="__57">transpositionStatusBackingBean</managed-bean-name>
+    <managed-bean-class id="__58">pages.administration.directive.transpositionStatus.TranspositionStatusBackingBean</managed-bean-class>
+    <managed-bean-scope id="__59">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__60">
+    <managed-bean-name id="__61">legalActsBackingBean</managed-bean-name>
+    <managed-bean-class id="__62">pages.administration.memberStatesManagement.legalActs.LegalActsBackingBean</managed-bean-class>
+    <managed-bean-scope id="__63">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__77">
+    <managed-bean-name id="__76">languagesBackingBean</managed-bean-name>
+    <managed-bean-class id="__78">pages.administration.memberStatesManagement.languages.LanguagesBackingBean</managed-bean-class>
+    <managed-bean-scope id="__79">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__89">
+    <managed-bean-name id="__88">officialJournalsBackingBean</managed-bean-name>
+    <managed-bean-class id="__87">pages.administration.memberStatesManagement.officialJournals.OfficialJournalsBackingBean</managed-bean-class>
+    <managed-bean-scope id="__86">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__104">
+    <managed-bean-name id="__105">caseOriginBackingBean</managed-bean-name>
+    <managed-bean-class id="__102">pages.administration.cases.caseOrigin.CaseOriginBackingBean</managed-bean-class>
+    <managed-bean-scope id="__103">view</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__112">
+    <managed-bean-name id="__114">caseTypeBackingBean</managed-bean-name>
+    <managed-bean-class id="__113">pages.administration.cases.caseType.CaseTypeBackingBean</managed-bean-class>
+    <managed-bean-scope id="__115">view</managed-bean-scope>
+  </managed-bean>  
+  <managed-bean id="__121">
+    <managed-bean-name id="__119">caseStatusBackingBean</managed-bean-name>
+    <managed-bean-class id="__120">pages.administration.cases.caseStatus.CaseStatusBackingBean</managed-bean-class>
+    <managed-bean-scope id="__122">view</managed-bean-scope>
+  </managed-bean>
+</adfc-config>

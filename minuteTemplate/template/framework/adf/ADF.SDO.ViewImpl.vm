@@ -30,6 +30,7 @@ public class $className extends SDODataObject implements $entityADFSDOViewClass 
    }
 
 #end
+#toString()
 
 }
 
