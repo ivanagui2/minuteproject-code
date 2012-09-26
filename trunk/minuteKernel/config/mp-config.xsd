@@ -12,7 +12,7 @@
 		</xs:annotation>
 	</xs:element>
 	<xs:complexType name="condition">
-		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="type" type="generationConditionDefaultType" />
 		<xs:attribute name="startsWith" type="xs:string" />
 		<xs:attribute name="endsWith" type="xs:string" />
 		<xs:attribute name="regex" type="xs:string" />
@@ -27,6 +27,13 @@
              <xs:enumeration value="equals" />
              <xs:enumeration value="contains" />
              <xs:enumeration value="regex" />
+         </xs:restriction>
+     </xs:simpleType>
+
+     <xs:simpleType name="generationConditionDefaultType">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="include" />
+             <xs:enumeration value="exclude" />
          </xs:restriction>
      </xs:simpleType>
     	
@@ -95,6 +102,9 @@
 			<xs:element name="condition" type="condition" minOccurs="0"
 				maxOccurs="unbounded" />
 		</xs:sequence>
+		<xs:attribute name="exclude-views" type="xs:boolean" default="false"/>
+		<xs:attribute name="exclude-tables" type="xs:boolean" default="false"/>
+		<xs:attribute name="default-type" type="generationConditionDefaultType" default="include"/>
 	</xs:complexType>
 
 	<xs:complexType name="business-package">
@@ -466,8 +476,9 @@
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="id" type="xs:string" />
 		<xs:attribute name="category" type="xs:string" />
-		<xs:attribute name="type" type="xs:query-type" />
+		<xs:attribute name="type" type="query-type" />
 	</xs:complexType>
+	
 	<xs:complexType name="query-params">
 		<xs:sequence>
 			<xs:element name="query-param" type="query-param"

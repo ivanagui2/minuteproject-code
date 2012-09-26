@@ -271,6 +271,8 @@
 			<set-next-rule methodname="setGenerationCondition" paramtype="net.sf.minuteProject.configuration.bean.GenerationCondition"/>	
 			<set-properties-rule>
 				<alias attr-name="default-type" prop-name="defaultType" />
+				<alias attr-name="exclude-tables" prop-name="excludeTables" />
+				<alias attr-name="exclude-views" prop-name="excludeViews" />
 			</set-properties-rule>	
 			<pattern value="condition">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Condition"/>		
@@ -278,7 +280,10 @@
 				<set-properties-rule>
 					<alias attr-name="type" prop-name="type" />
 					<alias attr-name="startsWith" prop-name="startsWith" />
-					<alias attr-name="result" prop-name="result" />		
+					<alias attr-name="equals" prop-name="equals" />
+					<alias attr-name="endsWith" prop-name="endsWith" />
+					<alias attr-name="regex" prop-name="regex" />
+					<alias attr-name="result" prop-name="result" />	
 				</set-properties-rule>							
 			</pattern>					
 		</pattern>	

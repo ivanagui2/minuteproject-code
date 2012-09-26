@@ -189,7 +189,7 @@ public class ColumnUtils {
 	public static boolean isTimeColumn (Column column) {
 		if (column.getType().equals("DATE") || 
 			column.getType().equals("TIME") || 
-			column.getType().equals("TIMESTAMP"))
+			isTimeStampColumn(column))
 			return true;		
 		return false;
 	}
@@ -265,7 +265,6 @@ public class ColumnUtils {
 	}
 
 	public static boolean isEnumColumn(Column column) {
-		// TODO implement for string && int column
 		return true;
 	}
 
@@ -290,6 +289,13 @@ public class ColumnUtils {
 			}
 		}
 		return sb.toString();
+	}
+
+	public static boolean isTimeStampColumn(Column column) {
+		if (column.getType().equals("TIMESTAMP") || 
+			column.getType().equals("TIMESTAMPTZ"))
+			return true;		
+		return false;
 	}
 	
 }
