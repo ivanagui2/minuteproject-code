@@ -64,5 +64,4 @@ public class GenerationConditionAdapter extends AbstractConfiguration {
 		this.defaultType = defaultType;
 	}
 	
-	
 }

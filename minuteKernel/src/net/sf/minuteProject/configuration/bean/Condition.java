@@ -30,35 +30,7 @@ public class Condition extends AbstractConfiguration {
 		if (StringUtils.regex(valueToTest, regex)==true) return true;
 		return false;
 	}
-//	public boolean isConditionStartsWithTrue (String valueToTest, String pattern) {
-//		return StringUtils.startsWithIgnoreCase (valueToTest, startsWith);
-////		System.out.println("valueToTest "+valueToTest+" isConditionStartsWithTrue = "+"startsW "+startsWith+" result : "+isConditionTrue(valueToTest, STARTS_WITH, pattern));
-////		return isConditionTrue(valueToTest, STARTS_WITH, pattern);
-//	}
-//	public boolean isConditionEndsWithTrue (String valueToTest, String pattern) {
-//		System.out.println(">>>>>>valueToTest "+valueToTest+" isConditionEndsWithTrue = "+"endsW "+endsWith+" result : "+isConditionTrue(valueToTest, ENDS_WITH, pattern));
-//		
-//		return isConditionTrue(valueToTest, ENDS_WITH, pattern);
-//	}
-//	public boolean isConditionRegexTrue (String valueToTest, String pattern) {
-//		return isConditionTrue(valueToTest, REGEX, pattern);
-//	}
-//	public boolean isConditionTrue (String valueToTest, String expression, String pattern) {
-////		if ((INCLUDE.equals(type)||EXCLUDE.equals(type)||PACKAGE.equals(type)) && expression!=null){
-////			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression);
-////		}
-//		if (EXCLUDE.equals(type) && expression!=null){
-//			return !net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
-//		}
-//		if (PACKAGE.equals(type) && expression!=null) {
-//			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
-//		}
-//		if (INCLUDE.equals(type) && expression!=null){
-//			return net.sf.minuteProject.utils.StringUtils.checkExpression(valueToTest, expression, pattern);
-//		}
-//		return false;
-//	}
-	
+
 	public String getConditionResult(String valueToTest) {
 		if (isConditionTrue(valueToTest))
 			return result;

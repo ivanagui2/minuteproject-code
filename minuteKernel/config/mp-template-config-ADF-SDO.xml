@@ -2,7 +2,7 @@
 xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
 xs:schemaLocation="../config/mp-template-config.xsd">	
-	<architecture-target name="ABL" description="Automated Business Logic architecture">
+	<architecture-target name="ABL" description="ADF SDO Architecture">
 	</architecture-target>	
 
     <plugin name="adfUtils" className="net.sf.minuteProject.plugin.oracle.AdfUtils"></plugin>
