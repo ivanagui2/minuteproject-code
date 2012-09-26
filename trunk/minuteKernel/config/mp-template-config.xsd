@@ -48,8 +48,8 @@
 		<xs:attribute name="subdir" type="xs:string" />
 		<xs:attribute name="outputsubdir" type="xs:string" />
 		<xs:attribute name="technicalPackage" type="xs:string" />
-		<xs:attribute name="add-model-name" type="xs:string" />
-		<xs:attribute name="add-model-dir-name" type="xs:string" />
+		<xs:attribute name="add-model-name" type="xs:boolean" />
+		<xs:attribute name="add-model-dir-name" type="xs:boolean" />
 		<xs:attribute name="file-extension" type="xs:string" />
 		<xs:attribute name="file-prefix" type="xs:string" />
 		<xs:attribute name="file-suffix" type="xs:string" />
@@ -63,8 +63,8 @@
 		<xs:attribute name="file-name-builder-method" type="xs:string" />
 		<xs:attribute name="application-specific" type="xs:string" />
 		<xs:attribute name="package-root" type="xs:string" />
-		<xs:attribute name="add-technical-dir-name" type="xs:string" />
-		<xs:attribute name="add-business-package-dir-name=" type="xs:string" />
+		<xs:attribute name="add-technical-dir-name" type="xs:boolean" />
+		<xs:attribute name="add-business-package-dir-name=" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="template-target">
