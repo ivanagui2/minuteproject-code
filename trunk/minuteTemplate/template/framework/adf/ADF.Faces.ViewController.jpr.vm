@@ -1,4 +1,4 @@
-#exposeADFModelSpecific()
+#exposeADFFacesModelSpecific()
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
    <hash n="component-versions">
@@ -66,7 +66,7 @@
       <list n="dependencyList">
          <hash>
             <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
-            <url n="sourceOwnerURL" path="../${projectJwsFullName}"/>
+            <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
             <url n="sourceURL" path="../$modelADFJprFullPath"/>
          </hash>
       </list>
@@ -98,7 +98,7 @@
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
-         <hash n="${applicationName}_ViewController_webapp1">
+         <hash n="${applicationName}_ViewController_webapp">
             <hash n="appletArchives"/>
             <hash n="appletFiles">
                <value n="autoInclude" v="true"/>
@@ -109,8 +109,9 @@
             <hash n="archiveOptions">
                <value n="hasManifest" v="false"/>
             </hash>
-            <url n="earURL" path="deploy/${applicationName}_ViewController_webapp1.ear"/>
-            <value n="enterpriseAppName" v="${applicationName}_ViewController_webapp1"/>
+            <value n="contextRoot" v="${applicationName}"/>
+            <url n="earURL" path="deploy/${applicationName}.ear"/>
+            <value n="enterpriseAppName" v="${applicationName}"/>
             <hash n="fileGroups">
                <list n="groups">
                   <hash>
@@ -158,21 +159,21 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/${applicationName}_ViewController_webapp1.war"/>
+            <url n="jarURL" path="deploy/${applicationName}.war"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
             <value n="profileClass" v="oracle.jdeveloper.deploy.war.WarProfile"/>
-            <value n="profileName" v="${applicationName}_ViewController_webapp1"/>
+            <value n="profileName" v="${applicationName}_ViewController_webapp"/>
          </hash>
       </hash>
       <list n="profileList">
-         <string v="${applicationName}_ViewController_webapp1"/>
+         <string v="${applicationName}_ViewController_webapp"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="${applicationName}-ViewController-webapp"/>
-      <value n="j2eeWebContextRoot" v="${applicationName}-ViewController-context-root"/>
+      <value n="j2eeWebAppName" v="${applicationName}"/>
+      <value n="j2eeWebContextRoot" v="${applicationName}"/>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
       <hash n="runConfigurationDefinitions">
@@ -259,8 +260,56 @@
             <value n="id" v="JPS Designtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Oracle JEWT"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Common Web Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle Page Templates"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Faces Databinding Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="oracle.adfm.adapter.WebServiceDataControl Library"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Web Service Data Control"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
+      <hash n="internalDefinitions">
+         <list n="libraryDefinitions">
+            <hash>
+               <list n="classPath">
+                  <url path="../.adf/"/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="oracle.adfm.adapter.WebServiceDataControl Library"/>
+               <value n="id" v="oracle.adfm.adapter.WebServiceDataControl Library"/>
+            </hash>
+         </list>
+      </hash>
       <list n="libraryReferences">
+         <hash>
+            <value n="id" v="JSF 1.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="JSTL 1.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
          <hash>
             <value n="id" v="ADF Page Flow Runtime"/>
             <value n="isJDK" v="false"/>
@@ -306,14 +355,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="JSF 1.2"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="JSTL 1.2"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="ADF DVT Faces Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -331,6 +372,34 @@
          </hash>
          <hash>
             <value n="id" v="JPS Designtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle JEWT"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Common Web Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle Page Templates"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Faces Databinding Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="oracle.adfm.adapter.WebServiceDataControl Library"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Web Service Data Control"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

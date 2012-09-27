@@ -3,24 +3,45 @@
 release.dir=release
 build.dir=build
 oracle.original.sdo.dir=oracle-original/sdo
+#if ($isFrontEndRelease)
 sdo.ear=${releaseName}.ear
 sdo.war=${modelReleaseName}.war
+#else
+sdo.ear=${releaseName}.ear
+sdo.war=${modelReleaseName}.war
+#end
 
 # 
 # properties used for Model script
 #
+oracle.jdeveloper.ojdeploy.path=${JDEV_HOME}/jdev/bin/ojdeploy.exe
 oracle.jdeveloper.ant.library=${JDEV_HOME}/jdev/lib/ant-jdeveloper.jar
-output.dir=classes
 oracle.home=$JDEV_HOME
+
+# 
+# static properties
+#
+output.dir=classes
 javac.deprecation=off
-oracle.jdeveloper.workspace.path=${projectJwsPhysicalPath}
 oracle.jdeveloper.deploy.profile.name=*
 javac.debug=on
-oracle.jdeveloper.deploy.dir=${projectModelPhysicalDirPath}/deploy
-oracle.jdeveloper.ojdeploy.path=${JDEV_HOME}/jdev/bin/ojdeploy.exe
 javac.nowarn=off
+
+#if ($isFrontEndRelease)
+oracle.jdeveloper.project.name=$projectADFFacesViewControllerClass
+oracle.jdeveloper.deploy.outputfile=${projectADFFacesViewControllerPhysicalDirPath}/deploy/${profile.name}
+oracle.jdeveloper.workspace.path=${projectFEJwsPhysicalPath}
+oracle.jdeveloper.deploy.dir=${projectFEJwsPhysicalDirPath}/deploy
+#else
 oracle.jdeveloper.project.name=$modelADFJprClass
 oracle.jdeveloper.deploy.outputfile=${projectModelPhysicalDirPath}/deploy/${profile.name}
+oracle.jdeveloper.workspace.path=${projectJwsPhysicalPath}
+oracle.jdeveloper.deploy.dir=${projectModelPhysicalDirPath}/deploy
+#end
 
+
+# 
+# properties modified in oracle build scripts 
+#
 oracle-jdev-common-module-dir=${WEBLOGIC_HOME}/oracle_common/modules
 oracle-weblogic-module-dir=${WEBLOGIC_HOME}/modules

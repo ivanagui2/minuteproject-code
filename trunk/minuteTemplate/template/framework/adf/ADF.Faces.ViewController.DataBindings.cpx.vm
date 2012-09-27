@@ -1,0 +1,29 @@
+#exposeADFFacesModelSpecific()
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.60.13" id="$className" SeparateXMLFiles="false"
+             Package="view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+#foreach ($table in ${entities})
+#exposeADFFacesEntitySpecific()
+    <page path="$pageEntityADFFacesFullPath"
+          usageId="view_${domainVariableName}PageDef"/>
+#end
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="view_navigatorsPageDef" path="pages.common.navigatorsPageDef"/>
+#foreach ($table in ${entities})
+#exposeADFFacesEntitySpecific()
+    <page id="view_${domainVariableName}PageDef"
+          path="$pageDefADFFacesEntityImport"/>
+#end
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <dc id="TableDataProvider" path="tabledatacontrol.TableDataProvider"/>
+  </dataControlUsages>
+</Application>
