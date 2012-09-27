@@ -382,7 +382,10 @@ public class ModelGenerator extends AbstractGenerator {
 
 	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
 		if (isToGenerate(getModel(), template))
-			writeTemplateResult(getModel().getConfiguration(), template);
+//			writeTemplateResult(getModel().getConfiguration(), template);
+			template.setAddModelDirName("false");
+//			template.setAddModelName("false");
+			writeTemplateResult(getModel(), template);
 	}
 	
 	protected void generateArtifactsByComponent(Template template) throws MinuteProjectException {	
