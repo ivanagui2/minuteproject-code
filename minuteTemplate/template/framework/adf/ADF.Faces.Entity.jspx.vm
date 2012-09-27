@@ -118,7 +118,7 @@
                       <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.details.${columnVar}']}" id="itdet${columnVar}"
                                     value="#{viewScope.${entityADFVariable}BackingBean.new${entityADFVariable}.name}"/>
 #end
-                    
+					</af:panelFormLayout>                    
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.details.savebutton']}"
                                               id="itdetsave"

@@ -23,8 +23,9 @@
 #set($cpt=$cpt+1)
 	  <to-activity-id id="__$cpt">${domainVariableName}</to-activity-id>
 #set($cpt=$cpt+1)
-#end
     </control-flow-case>
+#end
+  </control-flow-rule>
 #end
   
   <managed-bean id="__1">

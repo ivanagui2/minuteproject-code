@@ -5,15 +5,20 @@
 #set($backingBeanADFFacesVariableName="MemberStatesBackingBean")
 #set($backingBeanADFFacesImport="pages.administration.memberStatesManagement.memberStates.MemberStatesBackingBean")
 #set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/administration/memberStatesManagement/memberStates/viewEditMS-flow.xml")
+#set($pageDefADFFacesEntityImportpages="administration.memberStatesManagement.memberStates.memberStatesPageDef")
 #end
 
 #macro (exposeADFFacesModelSpecific)
 #exposeADFModelSpecific()
 #set($mainFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesMainFlow))
+#set($mainFlowADFFacesFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesMainFlow))
+#set($adminConfigADFFacesViewControllerFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesViewControllerAdminConfig))
 #set($menuADFFacesModelRelativePath="/WEB-INF/administration_menu_model.xml")
-#set($adminFlowADFFacesModelFullPath ="/WEB-INF/taskflows/administration-flow.xml")
+#set($adminFlowADFFacesViewControllerFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesMainFlow))
+#set($adminFlowADFFacesModelFullPath ="/WEB-INF/taskflows/"+$adminFlowADFFacesViewControllerFileName)
 #set($viewEditADFFacesEntityClassName = "viewEditMS-flow")
-
+#set($projectJwsFacesFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFFacesJws))
+#set($applicationName="${model.name}-FE")
 #end
 
 #macro (exposeSDOSpecific)
@@ -91,12 +96,15 @@
 #set($projectJwsFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFJws))	
 #set($modelADFModuleJpxImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelJpx))	
 #set($modelADFAppModuleImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelAppModule))	
-#set($modelADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpr))	
-#set($viewControllerADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFViewControllerJpr))	
+##set($modelADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpr))	
+##set($viewControllerADFJprFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFViewControllerJpr))	
 #end
 
 #macro (exposeADFBuildSpecific)
 #exposeADFTemplate()
+#set($templateTargetTechnoType=$template.getPropertyValue("target-techno-type","sdo"))
+#set($isFrontEndRelease=($templateTargetTechnoType=="front-end"))
+#set($isSdoRelease=($templateTargetTechnoType=="sdo"))
 #set($projectJwsFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFJws))	
 #set($JDEV_HOME=$template.getPropertyValue("JDEV_HOME","D:/SOFT/SERVER/ORACLE/WLS/jdeveloper"))
 #set($OMF_HOME=$template.getPropertyValue("OMF_HOME","D:/SOFT/SERVER/ORACLE/WLS"))
@@ -105,7 +113,12 @@
 #set($projectModelPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFModelJpr))
 #set($projectJwsPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFJws))
 #set($projectJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFJws))
-#set($modelADFJprClass = $commonUtils.getTemplateClassName($model, $template, $templateADFModelJpr))	
+#set($modelADFJprClass = $commonUtils.getTemplateClassName($model, $template, $templateADFModelJpr))
+## controller
+#set($projectADFFacesViewControllerPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFFacesViewControllerJpr))
+#set($projectFEJwsPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFFacesJws))
+#set($projectFEJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFFacesJws))
+#set($projectADFFacesViewControllerClass = $commonUtils.getTemplateClassName($model, $template, $templateADFFacesViewControllerJpr))	
 #end
 
 #macro (exposeSDOColumnSpecific)
@@ -151,6 +164,9 @@
 #set ($templateADFModelBc4j = "ADF.Model.bc4j")
 #set ($templateADFJws = "ADF.jws")
 ##Front-End
-#set ($templateADFFacesMainFlow = "ADF.Faces.Model.main-flow.xml")
+#set ($templateADFFacesMainFlow = "ADF.Faces.ViewController.main-flow.xml")
 #set ($templateADFFacesEntity = "ADF.Faces.Entity.jspx")
+#set ($templateADFFacesJws = "ADF.Faces.jws")
+#set ($templateADFFacesViewControllerJpr = "ADF.Faces.ViewController.jpr")
+#set ($templateADFFacesViewControllerAdminConfig = "ADF.Faces.ViewController.admin-config.xml")
 #end
