@@ -117,7 +117,7 @@
          <string v=".xsd"/>
          <string v=".jpx"/>
       </list>
-      <value n="internalEncoding" v="Cp1252"/>
+      <value n="internalEncoding" v="UTF-8"/>
       <list n="Javac.commandline.optionlist">
          <string v="-g"/>
          <string v="-Xlint:all"/>

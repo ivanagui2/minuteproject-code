@@ -6,6 +6,9 @@
 #set($backingBeanADFFacesImport="pages.administration.memberStatesManagement.memberStates.MemberStatesBackingBean")
 #set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/administration/memberStatesManagement/memberStates/viewEditMS-flow.xml")
 #set($pageDefADFFacesEntityImportpages="administration.memberStatesManagement.memberStates.memberStatesPageDef")
+#set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
+#set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
+#set($beanVOADFFacesVariable=$commonUtils.getJavaNameVariableFirstLetter($beanVOADFFacesClass))
 #end
 
 #macro (exposeADFFacesModelSpecific)
@@ -169,4 +172,5 @@
 #set ($templateADFFacesJws = "ADF.Faces.jws")
 #set ($templateADFFacesViewControllerJpr = "ADF.Faces.ViewController.jpr")
 #set ($templateADFFacesViewControllerAdminConfig = "ADF.Faces.ViewController.admin-config.xml")
+#set ($templateBeanVOADFFaces = "ADF.Faces.Entity.Bean")
 #end
