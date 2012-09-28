@@ -8,6 +8,37 @@ xs:schemaLocation="../config/mp-template-config.xsd">
     <plugin name="adfUtils" className="net.sf.minuteProject.plugin.oracle.AdfUtils"></plugin>
 
 	<template-target 
+    	name="ADF Model META-INF"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/src">  
+		
+		<template name="ADF.Faces.Entity.BackingBean" templateFileName="ADF.Faces.Entity.BackingBean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="BackingBean" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<template name="ADF.Faces.Entity.ViewEditBean" templateFileName="ADF.Faces.Entity.ViewEditBean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="ViewEditBean" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<template name="ADF.Faces.Entity.Bean" templateFileName="ADF.Faces.Entity.Bean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="VO" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+    </template-target>  
+    
+	<template-target 
     	name="ADF ViewController src"
 		libdir="lib/ADF_LIB.vm"
 		outputdir="ViewController/public_html"
@@ -58,20 +89,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 
     </template-target>
     
-<!-- 	<template-target 
-    	name="ADF Model META-INF"
-		libdir="lib/ADF_LIB.vm"
-		package-root=""
-		outputdir="Model/classes">  
-		<template name="ADF.Faces.viewEditEntity-flow.xml.jspx" templateFileName="ADF.Faces.viewEditEntity-flow.xml" 
-			subdir="" outputsubdir="taskflows" technicalPackage="pages"
-			file-extension="xml" file-prefix="viewEdit" file-suffix="-flow" 
-			has-updatable-nature="true" 
-			scope-specific-value="entity"
-			>			
-		</template>	
-		
-    </template-target>   -->
+
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
