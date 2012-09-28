@@ -1,0 +1,149 @@
+#exposeADFFacesEntitySpecific()
+package $packageName;
+
+import $beanVOADFFacesImport;
+#if($hasCriteriaApi)
+import mypackage.Criteria;
+
+import mypackage.CriteriaExpression;
+
+import mypackage.UnaryOperationCode;
+import mypackage.ValueExpression;
+#end
+import java.util.HashMap;
+import java.util.List;
+
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.event.ActionEvent;
+
+import oracle.adf.model.BindingContext;
+import oracle.adf.view.rich.component.rich.layout.RichPanelTabbed;
+import oracle.adf.view.rich.component.rich.layout.RichShowDetailItem;
+import oracle.adf.view.rich.component.rich.nav.RichCommandLink;
+
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
+
+import org.apache.myfaces.trinidad.event.LaunchEvent;
+
+import utils.TablePaginationUtils;
+
+public class $className {
+    
+    private TablePaginationUtils table;
+    private String caseOriginName;
+    private String caseOriginReference;
+    private RichPanelTabbed panelTab;
+    private $beanVOADFFacesClass $beanVOADFFacesVariable = new $beanVOADFFacesClass();
+    
+
+    public $className() {
+        table = new TablePaginationUtils("list${domainClassName}");
+        table.refreshPagination();
+    }
+
+    public void setTable(TablePaginationUtils table) {
+        this.table = table;
+    }
+
+    public TablePaginationUtils getTable() {
+        return table;
+    }
+
+    public String getCaseOriginName() {
+        return caseOriginName;
+    }
+
+    public void setCaseOriginReference(String caseOriginReference) {
+        this.caseOriginReference = caseOriginReference;
+    }
+
+    public String getCaseOriginReference() {
+        return caseOriginReference;
+    }
+
+    public void doSearch(ActionEvent actionEvent) {
+#if($hasCriteriaApi)
+        table.getRequest().getCriterias().clear();
+        Criteria criteria = new Criteria();
+        CriteriaExpression expression = new CriteriaExpression();
+        criteria.setCriteriaExpression(expression);
+        
+        if (caseOriginName!=null && !"".equals(caseOriginName)) {
+            ValueExpression ve = new ValueExpression();            
+            ve.setCriteriaAttribute("value");
+            ve.setOperationCode(UnaryOperationCode.LIKE_IGNORE_CASE);        
+            ve.getValues().add(caseOriginName);             
+            expression.getValueExpressions().add(ve);
+        }
+        
+        if (caseOriginReference!=null && !"".equals(caseOriginReference)) {
+            ValueExpression ve = new ValueExpression();            
+            ve.setCriteriaAttribute("key");
+            ve.setOperationCode(UnaryOperationCode.LIKE_IGNORE_CASE);        
+            ve.getValues().add(caseOriginReference);             
+            expression.getValueExpressions().add(ve);
+        }
+        
+        table.getRequest().getCriterias().add(criteria);
+        table.setPageNumber(1);
+        table.refreshPagination();       
+#end        
+    }
+
+    public void displayAll(ActionEvent actionEvent) {
+        //displayResults=true;
+        table.getRequest().getCriterias().clear();
+        table.setPageNumber(1);
+        table.refreshPagination();
+    }
+
+    public void handleLaunchEditCaseOriginDlg(LaunchEvent launchEvent) {
+        RichCommandLink comp = (RichCommandLink)launchEvent.getComponent();
+        String caseOriginCode = (String) comp.getAttributes().get("caseOriginCode");
+        //Pass the current value of the field into the dialog
+        //      Object usr = username;
+        launchEvent.getDialogParameters().put("caseOriginCode", caseOriginCode);
+    }
+
+    public void setCaseOriginName(String caseOriginName) {
+        this.caseOriginName = caseOriginName;
+    }
+
+    public void setPanelTab(RichPanelTabbed panelTab) {
+        this.panelTab = panelTab;
+    }
+
+    public RichPanelTabbed getPanelTab() {
+        return panelTab;
+    }
+
+    public void createCaseOrigin(ActionEvent actionEvent) {
+        BindingContext bindingCtx = BindingContext.getCurrent();
+        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+        Map mapParam = new HashMap();
+        mapParam.put("caseOrigin", this.${beanVOADFFacesVariable});
+        OperationBinding ob = bindings.getOperationBinding("createOrUpdateCaseOrigin");
+        ob.getParamsMap().putAll(mapParam);
+        ob.execute();
+        ${beanVOADFFacesVariable} = new ${beanVOADFFacesClass}();
+        List<UIComponent> childUIComponent = this.panelTab.getChildren();
+        
+        if (childUIComponent != null && childUIComponent.size() > 0) {
+        
+            for (int i = 0; i < childUIComponent.size(); i++) {
+                if (childUIComponent.get(i) instanceof RichShowDetailItem) {
+                    if (i == 0) {
+                        ((RichShowDetailItem)childUIComponent.get(i)).setDisclosed(true);
+                    } 
+                    else {
+                        ((RichShowDetailItem)childUIComponent.get(i)).setDisclosed(false);
+                   }
+                }
+            }
+        }
+        
+    }
+}

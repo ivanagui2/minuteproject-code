@@ -6,6 +6,38 @@
 <!--Generated 14-Sep-2012 15:25:45-->
 <project name="Model" default="all" basedir=".">
   <property file="../build.properties"/>
+  <path id="library.JSF.1.2">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.jsf_1.2.9/glassfish.jsf_1.0.0.0_1-2-15.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.jsf_1.2.9/glassfish.jstl_1.2.0.1.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.jsf_1.2.9/javax.jsf_1.1.0.0_1-2.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.jsf_1.2.9/wls.jsf.di.jar"/>
+  </path>
+  
+  <path id="library.JSTL.1.2">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.jsf_1.2.9/glassfish.jstl_1.2.0.1.jar"/>
+  </path>
+  <path id="library.ADF.Page.Flow.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.pageflow_11.1.1/adf-pageflow-impl.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.pageflow_11.1.1/adf-pageflow-dtrt.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.pageflow_11.1.1/adf-pageflow-fwk.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.pageflow_11.1.1/adf-pageflow-rc.jar"/>
+  </path>
+  <path id="library.ADF.Controller.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.controller_11.1.1/adf-controller.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.controller_11.1.1/adf-controller-api.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.controller_11.1.1/adf-controller-rt-common.jar"/>
+  </path>
+  <path id="library.ADF.Controller.Schema">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adf-controller-schema.jar"/>
+  </path>
+  <path id="library.ADF.Faces.Runtime.11">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/trinidad-api.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/trinidad-impl.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/adf-richclient-api-11.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/adf-richclient-impl-11.jar"/>
+  </path>
+  
+  
   <path id="library.ADF.Model.Runtime">
     <pathelement location="${oracle-jdev-common-module-dir}/oracle.idm_11.1.1/identitystore.jar"/>
     <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adfm.jar"/>
@@ -130,6 +162,88 @@
     <pathelement location="${oracle-weblogic-module-dir}/javax.management_1.2.1.jar"/>
     <pathelement location="${oracle-weblogic-module-dir}/javax.management.j2ee_1.0.jar"/>
   </path>
+  
+  
+  <path id="library.Commons.Beanutils.1.6">
+    <pathelement location="${oracle-jdev-common-module-dir}/org.apache.commons.beanutils_1.6.jar"/>
+  </path>
+  <path id="library.Commons.Logging.1.0.4">
+    <pathelement location="${oracle-jdev-common-module-dir}/org.apache.commons.logging_1.0.4.jar"/>
+  </path>
+  <path id="library.Commons.Collections.3.1">
+    <pathelement location="${oracle-weblogic-module-dir}/com.bea.core.apache.commons.collections_3.2.0.jar"/>
+  </path>
+  <path id="library.ADF.DVT.Faces.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/dvt-utils.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/dvt-jclient.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/dvt-trinidad.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/dvt-faces.jar"/>
+  </path>
+  <path id="library.ADF.DVT.Faces.Databinding.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/dvt-databindings.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/dvt-facesbindings.jar"/>
+  </path>
+  <path id="library.ADF.DVT.Faces.Databinding.MDS.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/dvt-databindings-mds.jar"/>
+  </path>
+  <path id="library.JSP.Runtime">
+    <pathelement location="${oracle-weblogic-module-dir}/javax.servlet_1.0.0.0_2-5.jar"/>
+    <pathelement location="${oracle-weblogic-module-dir}/javax.jsp_1.2.0.0_2-1.jar"/>
+    <pathelement location="${oracle-weblogic-module-dir}/glassfish.el_1.0.0.0_2-1.jar"/>
+  </path>
+  <path id="library.Oracle.JEWT">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.bali.share_11.1.1/share.jar"/>
+    <pathelement location="${oracle.home}/jlib/jewt4.jar"/>
+    <pathelement location="${oracle.home}/jlib/inspect4.jar"/>
+  </path>
+  <path id="library.ADF.Common.Web.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adflibfilter.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.share.ca_11.1.1/adf-share-base.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.javatools_11.1.1/javatools-nodeps.jar"/>
+  </path>
+  <path id="library.Oracle.Page.Templates">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/oracle-page-templates.jar"/>
+  </path>
+  <path id="library.ADF.Management.Pages">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.management_11.1.1/adf-em-config.jar"/>
+  </path>
+  <path id="library.ADF.Faces.Databinding.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/adf-faces-databinding-rt.jar"/>
+  </path>
+  <path id="library.Commons.Digester.1.8">
+    <pathelement location="${oracle-jdev-common-module-dir}/org.apache.commons.digester_1.8.jar"/>
+  </path>
+  <path id="library.ADF.Model.Runtime">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.idm_11.1.1/identitystore.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adfm.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/groovy-all-1.6.3.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adftransactionsdt.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.view_11.1.1/adf-dt-at-rt.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adfdt_common.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/adflibrary.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.xdk_11.1.0/xmlparserv2.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/db-ca.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.model_11.1.1/jdev-cm.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.ldap_11.1.1/ojmisc.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.share_11.1.1/commons-el.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.share_11.1.1/jsp-el-api.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.share_11.1.1/oracle-el.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.security_11.1.1/adf-share-security.jar"/>
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.adf.security_11.1.1/adf-controller-security.jar"/>
+    <pathelement location="${oracle-weblogic-module-dir}/javax.activation_1.1.0.0_1-1.jar"/>
+  </path>
+  <path id="library.JSTL.1.2.Tags">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.jsf_1.2.9/glassfish.jstl_1.2.0.1.jar"/>
+  </path>
+  <path id="library.Resource.Bundle.Support">
+    <pathelement location="${oracle-jdev-common-module-dir}/oracle.javatools_11.1.1/resourcebundle.jar"/>
+  </path>
+  
+  
+  
+  <path id="library.Resource.Bundle.Variable.Resolver">
+    <pathelement location="${oracle.home}/jlib/bundleresolver.jar"/>
+  </path>
   <path id="library.Oracle.JDBC">
     <pathelement location="${oracle.home}/ide/macros/../../../oracle_common/modules/oracle.jdbc_11.1.1/ojdbc6dms.jar"/>
     <pathelement location="${oracle.home}/ide/macros/../../../oracle_common/modules/oracle.nlsrtl_11.1.0/orai18n.jar"/>
@@ -151,6 +265,7 @@
     <pathelement location="${oracle-jdev-common-module-dir}/javax.ejb_3.0.1.jar"/>
   </path>
   <path id="classpath">
+    <path refid="library.JSF.1.2"/>
     <path refid="library.ADF.Model.Runtime"/>
     <path refid="library.BC4J.Oracle.Domains"/>
     <path refid="library.BC4J.Runtime"/>
@@ -158,10 +273,33 @@
     <path refid="library.BC4J.Tester"/>
     <path refid="library.MDS.Runtime"/>
     <path refid="library.MDS.Runtime.Dependencies"/>
+	
+    <path refid="library.JSP.Runtime"/>
+    <path refid="library.Oracle.JEWT"/>
+    <path refid="library.ADF.Common.Web.Runtime"/>
+    <path refid="library.Oracle.Page.Templates"/>
+    <path refid="library.ADF.Management.Pages"/>
+    <path refid="library.ADF.Faces.Databinding.Runtime"/>
+    <path refid="library.Commons.Digester.1.8"/>
+    <path refid="library.ADF.Model.Runtime"/>
+    <path refid="library.JSTL.1.2.Tags"/>
+    <path refid="library.Resource.Bundle.Support"/>
+    <path refid="library.Resource.Bundle.Variable.Resolver"/>	
     <path refid="library.Oracle.JDBC"/>
     <path refid="library.BC4J.Service.Runtime"/>
     <path refid="library.JAX-WS.Web.Services"/>
     <path refid="library.EJB.3.0"/>
+	
+    <path refid="library.JSTL.1.2"/>
+
+    <path refid="library.ADF.Page.Flow.Runtime"/>
+
+    <path refid="library.ADF.Controller.Runtime"/>
+
+    <path refid="library.ADF.Controller.Schema"/>
+
+    <path refid="library.ADF.Faces.Runtime.11"/>
+	
   </path>
   <target name="init">
     <tstamp/>
