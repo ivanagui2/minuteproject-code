@@ -68,3 +68,12 @@
 #set($springServicePackageName=$commonUtils.getPackageName($model, $template, $templateSpringServiceClass))
 #end
 
+#macro (exposeSpringdataModelSpecific)
+#exposeSpringdataTemplate()
+#set ($modelRepositoryClass = $commonUtils.getTemplateClassName($model, $template, $templateSpringdataRepository))
+#set ($modelRepositoryImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSpringdataRepository))
+#end
+
+#macro (exposeSpringdataTemplate)
+#set ($templateSpringdataRepository = "SpringDataModelRepository")
+#end

@@ -69,6 +69,7 @@ public class ${className} {
         model.addSubmenu(sdd);
 #foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
 #exposeQuerySpecific()
+#exposeChartSpecific()
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($domainClassName=$commonUtils.getJavaClassName($table))

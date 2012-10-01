@@ -1,16 +1,15 @@
+#exposeVariableEntitySpecific()
+#exposeSpringdataModelSpecific()
+#exposeImportParamsUML($table)
 package $packageName;
 
-import $domainEntityImport;
+import $importDomainObjectUML;
 import $modelRepositoryImport;
 
 /**
  * Custom spring data select for {@link $domainEntity}.
  */
-public interface $className extends $modelRepositoryClassName<$domainClassName, $primaryKeyType> {
-
-#foreach semantic reference
-## searchEqual, searchLike
-#end
+public interface $className extends $modelRepositoryClass<$domainClassName, $primaryKeyType> {
 
 #if ($hasSemanticReference)
 #set($semanticReferenceMethod = $semanticReferenceUtils.getSemanticReferenceMethod($semanticReference))
@@ -24,10 +23,6 @@ public interface $className extends $modelRepositoryClassName<$domainClassName, 
 #end   
     );
     
-#end
-
-#foreach field searchable
-    //search like
 #end
 
 }
