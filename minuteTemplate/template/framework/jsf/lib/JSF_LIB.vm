@@ -1,21 +1,7 @@
 #macro (putJSFColumnSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
 #if($columnUtils.isTimeColumn($column))
-    <p:calendar value="#{agentTypeController.agentType.createdDate}"
-       id="lbl${columnClass}" ##converter="dateTsConverter"
-       converterMessage="Invalid Date" required="$column.isRequired()"
-       pattern="dd/MM/yyyy">
-    </p:calendar>
-	<p:message for="lbl${columnClass}" />
-#else
-	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
-	<p:message for="lbl${columnClass}"/>
-#end
-#end
-#macro (putJSFColumnSnippet2)
-<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
-#if($columnUtils.isTimeColumn($column))
-    <p:calendar value="#{agentTypeController.agentType.createdDate}"
+    <p:calendar value="#{${entityControllerJSFVariable}.${tableClassName}.${columnVar}}"
        id="lbl${columnClass}" ##converter="dateTsConverter"
        converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
@@ -23,6 +9,20 @@
 	<p:message for="lbl${columnClass}" />
 #else
 	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
+	<p:message for="lbl${columnClass}"/>
+#end
+#end
+#macro (putJSFColumnSnippet2)
+<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
+#if($columnUtils.isTimeColumn($column))
+    <p:calendar value="#{${entityControllerJSFVariable}.${tableClassName}.${columnVar}}"
+       id="lbl${columnClass}" ##converter="dateTsConverter"
+       converterMessage="Invalid Date" required="$column.isRequired()"
+       pattern="dd/MM/yyyy">
+    </p:calendar>
+	<p:message for="lbl${columnClass}" />
+#else
+	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()" />
 	<p:message for="lbl${columnClass}"/>
 #end
 #end
