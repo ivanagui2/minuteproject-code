@@ -1,11 +1,12 @@
 #exposeVariableEntitySpecific()
 #exposeSpringdataModelSpecific()
+#addedAreas()
 #exposeImportParamsUML($table)
 package $packageName;
 
 import $importDomainObjectUML;
 import $modelRepositoryImport;
-
+$!updatedAreaImport
 /**
  * Custom spring data select for {@link $domainEntity}.
  */
@@ -24,5 +25,7 @@ public interface $className extends $modelRepositoryClass<$domainClassName, $pri
     );
     
 #end
+
+$!updatedAreaImplementation
 
 }
