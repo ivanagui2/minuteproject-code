@@ -22,20 +22,22 @@
 <h:form prependId="false">
     <p:growl id="growl" showDetail="true" />
 #if($isPieChart)
-    <p:pieChart id="pieChart" value="#{${entityControllerJSFVariable}.createPieModel()}" legendPosition="w"
+#set($method="createPieModel")
+    <p:pieChart id="chart" value="#{${entityControllerJSFVariable}.createPieModel()}" legendPosition="w"
             title="Interactive Pie Chart" style="width:400px;height:300px">
         <p:ajax event="itemSelect" listener="#{${entityControllerJSFVariable}.itemSelect}" update="growl" />
     </p:pieChart>
 #elseif ($isBarChart)
-    <p:barChart id="barChart" value="#{${entityControllerJSFVariable}.createCategoryModel()}" legendPosition="ne"
+#set($method="createCategoryModel")
+    <p:barChart id="chart" value="#{${entityControllerJSFVariable}.createCategoryModel()}" legendPosition="ne"
             title="Interactive Bar Chart" style="height:300px">
         <p:ajax event="itemSelect" listener="#{${entityControllerJSFVariable}.itemSelect}" update="growl" />
     </p:barChart>
 #end
 
 ##TODO idem jsfxhtmlSDDinput.vm
-            <p:panel id="sddInputPanel" header="#{i18n.$tableVariableName}"
-                toggleable="true" closable="false" toggleSpeed="500"
+            <p:panel id="sddInputPanelChart" header="#{i18n.$tableVariableName}"
+                toggleable="true" closable="true" toggleSpeed="500"
                 onCloseUpdate="growl" closeSpeed="2000" onToggleUpdate="growl"
                 widgetVar="panel">
                 <p:messages id="messages" />
@@ -45,8 +47,8 @@
 #columnJavaNaming()
 #putJSFColumnSnippet()
 #end
-                <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanel,display"
-                    action="#{${entityControllerJSFVariable}.execute}" />
+                <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanelChart,chart"
+                    action="#{${entityControllerJSFVariable}.${method}()}" />
                 </h:panelGrid>
             </p:panel>
 </h:form>
