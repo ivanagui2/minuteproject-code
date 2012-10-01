@@ -1,0 +1,34 @@
+Release 0.8.3
+-------------
+Springdata + rest based on heuristics
+
+Primefaces w/ pagination
+
+jquery WS datatable:
+Gson servlet
+
+Full CRUD primefaces
+
+liferay integration
+
+sdd 3 parts
+ drop down and sub select PF
+ 
+Add primefaces 4 liferay
+
+Publish
+-------
+MP as a workspace
+
+Tune your JPA2 back-end
+
+
+Investigate
+-----------
+Android
+Eclipse plugin
+HTML5
+Cloud
+pf on cloudbees
+
+
