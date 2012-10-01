@@ -62,89 +62,30 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					</entity>
 				</enrichment>					
 			</business-model>
-            <statement-model>
-                <queries>
-                     <query name="get address abstract" id="dashAddress" type="dashboard" category="pie-chart">
-                         <query-body> <!-- dimensions column first -->
-                         <value>
-<![CDATA[select top ? city, count(*) as nb from address group by city order by count(*) desc]]>
-                            </value>
-                         </query-body>
-                         <query-params>
-                             <query-param name="top city" is-mandatory="false" type="INT" sample="37" default="10"></query-param>
-                         </query-params>
-                     </query>
-                     <query name="get address summary" id="dashCity" type="dashboard" category="bar-chart">
-                         <query-body> <!-- dimensions column first -->
-                         <value>
-<![CDATA[select city, count(*) as nb, count(*) as nb2 from address group by city order by count(*) desc]]>
-                            </value>
-                         </query-body>
-                     </query>
-                     <query name="get addresses by criteria" id="c">
-                         <query-body><value>
-<![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
-                            </value>
-                         </query-body>
-                         <query-params>
-                             <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
-                             <query-param name="latitude_upper_limit" type="DOUBLE" sample="38"></query-param>
-                             <query-param name="longitude_lower_limit" type="DOUBLE" sample="-122"></query-param>
-                             <query-param name="longitude_upper_limit" type="DOUBLE" sample="-123"></query-param>
-                             <query-param name="city" type="STRING" sample="'S'" convert="lowercase,append%" default="%">
-                             </query-param>
-                         </query-params>
-                     </query>
-                </queries>
-            </statement-model>
 		</model>	
 		<targets>
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JPA2"
+			   outputdir-root="../../dev/springdata/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>               
                <property name="add-jpa2-implementation" value="hibernate"></property>
                <property name="add-cache-implementation" value="ehcache"></property>
                <property name="add-domain-specific-method" value="true"></property>		   			   
 			</target>
-
-            <target refname="SDD-beans" 
-                outputdir-root="../../dev/JSF/petshop/JPA2"
-               fileName="mp-template-config-SDD-beans.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/bean">
-            </target>
             
-			<target refname="SpringService" 
+			<target refname="springdata" 
 			   name="SpringService" 
-			   fileName="mp-template-config-SpringService.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JSF"
+			   fileName="mp-template-config-SpringData.xml" 
+			   outputdir-root="../../dev/springdata/petshop/springdata"
 			   templatedir-root="../../minuteTemplate/template/framework/spring">
-			</target> 
-
-			<target refname="BackendOnBsla" 
-			   name="default" 
-			   fileName="mp-template-config-JPA2-bsla.xml" 
-			   outputdir-root="../../DEV/JSF/petshop/bsla"
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
-				<property name="add-cache-implementation" value="ehcache"></property>
-			</target> 
-
-			<target refname="JSF" 
-			   name="JSF" 
-			   fileName="mp-template-config-JSF-Spring.xml" 
-			   outputdir-root="../../dev/JSF/petshop/JSF"
-			   templatedir-root="../../minuteTemplate/template/framework/jsf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
-			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   	   			   
-			   <property name="web-xml-version" value="3.0"></property>		   			   	   			   
 			</target> 
 
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../../dev/JSF/petshop"
+			   outputdir-root="../../dev/springdata/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
 									
