@@ -1,0 +1,33 @@
+0.5.6:
+-primefaces: create, list, menu
+-simplify fitnesse:
+-- clean snippet (3)
+-- algo delete order
+-- mvn 4 sources
+-vaadin: create, list, pagination
+-bsla: pagination test
+-solr: test
+-OX: update image, file
+
+0.5.7
+- rest finish
+- grails
+- vaadin
+- constructor;
+- generate loaders;
+- console, prepare console (add catalog entries);
+- pk view console convention not applied
+
+- suppress test 4 views
+
+0.6
+-updatable template
+-vaadin
+-bsla pagination
+-solr
+-grails: + searchable
+
+
+
+0.7
+Plugin
