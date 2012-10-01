@@ -106,7 +106,7 @@
 #set ($column=$localColumn)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet()
+#putJSFColumnSnippet2()
 #end    
         			<h:outputLabel />
         			<h:outputLabel />
