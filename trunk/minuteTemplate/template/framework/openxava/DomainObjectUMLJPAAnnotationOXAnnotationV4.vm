@@ -84,18 +84,16 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
     @View(name="reference", 
-#if (!$hasSemanticReference)
+#set($referenceList=$openXavaUtils.getListProperties($table))
+#if (!$hasSemanticReference && !$referenceList.isEmpty())
        extendsView="${domainVariableName}${defaultViewExt}"
 #else
-#set ($semanticReference = $table.getSemanticReference())
        members=
-#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)    
-#set($column = $semanticReferenceUtils.convertPathToColumn($table, $chunk))
-#putColumnParams()
-       "$columnVar $#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()); "+
+#foreach($chunk in $referenceList)
+       "$chunk #if ($velocityCount!=$referenceList.size()); "+
 #else "
 #end
-#end  
+#end 
 #end
 #end
 #updatedAreaEnd()
@@ -226,9 +224,9 @@ $!updatedAreaSnippet
 #else
 #if(!$isMany2Many)
 #OxJPAFKisPK()
-    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end $insertableUpdatable )
+    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end $insertableUpdatable )
 #else
-    @JoinColumn(name="$localColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
 #end  
     @ReferenceView ("reference") 
@@ -275,7 +273,7 @@ $!updatedAreaSnippet
 #else
 #set($colVar = ${linkedTableVariable})
 #end
-    private $linkedTableClass ${colVar}; 
+    private $linkedTableClass ${colVar}; //$localColumnVariable - $linkedTableVariable
     
 #end
 #updatedAreaEnd()
