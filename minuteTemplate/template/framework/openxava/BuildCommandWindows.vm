@@ -1,6 +1,12 @@
 #exposeOXSpecific()
 set currentdir=%cd%
 
+IF %OX_HOME% == "" (
+set /p OX_HOME= What Openxava home directory?
+)
+IF %MP_HOME% == "" (
+set /p MP_HOME= What Minuteproject home directory?
+)
 ##create OX project
 cd %OX_HOME%\workspace\OpenXavaTemplate
 call ant -f CreateNewProject.xml -Dproject=$applicationOX

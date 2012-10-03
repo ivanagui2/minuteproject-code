@@ -60,6 +60,7 @@
 #end
 
 #macro (exposeOXSpecific)
+#set ($configuration = $model.configuration)
 #set ($applicationOX=$configuration.name)
 #end
 
