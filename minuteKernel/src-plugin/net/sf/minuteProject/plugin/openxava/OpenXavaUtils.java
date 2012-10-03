@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
+import net.sf.minuteProject.configuration.bean.enrichment.path.SqlPath;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -81,13 +82,18 @@ public class OpenXavaUtils {
 		List<String> list = new ArrayList<String>();
 		for (Reference reference : table.getParents()) {
 			if (!ReferenceUtils.isSimilarReference(reference, removeReference)) {
-				Table parent = reference.getForeignTable();
+				Table foreignTable = reference.getForeignTable();
+				Table parent = foreignTable;
 				if (TableUtils.hasSemanticReference(parent)) {
-					SemanticReference sr = reference.getForeignTable().getSemanticReference();
+					SemanticReference sr = foreignTable.getSemanticReference();
 					for (String chunk : sr.getSemanticReferenceBeanPath()) {
-						String c = FormatUtils.getJavaNameVariable(reference.getLocalColumn().getAlias());
-						if (addChunk) c = c+"."+convertChunkToAlias(chunk, parent);
-						list.add(c);
+						Column column = ColumnUtils.getColumn(foreignTable, chunk);
+						//only one level
+						if (!ColumnUtils.isForeignKey(column)) {
+							String c = FormatUtils.getJavaNameVariable(reference.getLocalColumn().getAlias());
+							if (addChunk) c = c+"."+convertChunkToAlias(chunk, parent);
+							list.add(c);
+						}
 						//break; // only the first is added
 					}
 				}
@@ -112,6 +118,50 @@ public class OpenXavaUtils {
 		return I18nUtils.getPackageName(pack);
 	}
 	
+	public static List<String> getListProperties (Table table) {
+		List<String> list = new ArrayList<String>();
+		SemanticReference sr = table.getSemanticReference();
+		for (String chunk : sr.getSemanticReferenceBeanPath()) {
+			Column column = ColumnUtils.getColumn(table, chunk);
+			String colPar = FormatUtils.getJavaNameVariable(column.getAlias());
+			if (ColumnUtils.isForeignKey(column)) {
+				Reference reference = ReferenceUtils.getReference(table, column.getName());
+				Table parent = reference.getForeignTable();
+				SemanticReference srParent = parent.getSemanticReference();
+				
+				for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
+					Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
+					if (!ColumnUtils.isForeignKey(columnParent)) {
+						String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
+						list.add(colPar+"."+parCol);
+					}
+				}
+			} else
+				list.add(colPar);
+		}
+		return list;
+//		return getSemanticRefProperties(table);
+		
+//		boolean hasSemRef = false;
+//		List<String> list = new ArrayList<String>();
+//		List<String> sqlPaths = semanticReference.getSemanticReferenceSqlPath();
+//		
+//		
+//		Table linkTable = reference.getForeignTable();
+//		Table childTable = reference.getLocalTable();
+//		List<String> relativeChildSR = getParentChildRelativeSemanticReference(reference, linkTable);
+//		if (SemanticReferenceUtils.hasSemanticReference(childTable)) {
+//			list.addAll(getSemanticRefProperties(childTable));
+//			hasSemRef = true;
+//		}
+//		if (!relativeChildSR.isEmpty()) {
+//			if (!hasSemRef)
+//				list.addAll(getTabDefaultProperties(linkTable));//todo change by reference instead of default
+//			list.addAll(relativeChildSR);
+//		}
+//		return list;
+	}
+	
 	public static List<String> getListProperties (Reference reference) {
 		boolean hasSemRef = false;
 		List<String> list = new ArrayList<String>();
@@ -134,6 +184,7 @@ public class OpenXavaUtils {
 		List<String> list = new ArrayList<String>();
 		SemanticReference sr = childTable.getSemanticReference();
 		for (String chunk : sr.getSemanticReferenceBeanPath()) {
+			
 			list.add(convertChunkToAlias(chunk, childTable));
 		}
 		return null;
