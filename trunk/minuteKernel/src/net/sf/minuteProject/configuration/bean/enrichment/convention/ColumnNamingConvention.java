@@ -55,11 +55,29 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 
 	private void applyCamelCaseAlias(Table table) {
-		for (Column column : table.getColumns())
-			applyCamelCaseAlias (table, column);	
+		applyCamelCaseAlias(table.getColumns());
+		applyCamelCaseAlias(table.getParents());
+//		applyChild(table.getChildren());
+	}
+	
+	private void applyCamelCaseAlias(Column [] columns) {
+		for (Column column : columns)
+			applyCamelCaseAlias (column);	
 	}
 
-	private void applyCamelCaseAlias(Table table, Column column) {
+	private void applyCamelCaseAlias(Reference[] references) {
+		for (Reference reference : references) {
+			applyCamelCaseAlias (reference);
+		}
+	}
+
+	private void applyCamelCaseAlias(Reference reference) {
+		Column column = reference.getLocalColumn();
+		applyCamelCaseAlias (column);
+		column = reference.getForeignColumn();
+		applyCamelCaseAlias (column);
+	}
+	private void applyCamelCaseAlias(Column column) {
 		if (FormatUtils.isCamelCaseAlias(column)) {
 			column.setAlias(FormatUtils.decamelCase(column.getName()));
 		}
@@ -132,11 +150,9 @@ public class ColumnNamingConvention extends ModelConvention {
 
 	private void applyParent(Reference reference) {
 		Column column = reference.getLocalColumn();
-//		if (isConventionApplicable(column))
-			apply (column);
+		apply (column);
 		column = reference.getForeignColumn();
-//		if (isConventionApplicable(column))
-			apply (column);
+		apply (column);
 	}
 	
 	private void applyFixPkParent(Reference[] references) {

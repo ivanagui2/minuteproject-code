@@ -416,7 +416,7 @@ public class TableUtils {
 		for (Column column : table.getColumns()) {
 			if (column.isPrimaryKey() && ColumnUtils.isPkUserProvided(column))
 				columns.add(column);
-			else if (!column.isLob()) {
+			else if (!column.isLob() && !ColumnUtils.isForeignKey(column)) {
 				columns.add(column);
 			}
 		}
