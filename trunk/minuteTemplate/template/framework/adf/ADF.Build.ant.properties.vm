@@ -1,11 +1,9 @@
-#exposeADFBuildSpecific()
 #exposeADFReleaseSpecific()
 release.dir=release
 build.dir=build
 oracle.original.sdo.dir=oracle-original/sdo
 #if ($isFrontEndRelease)
-sdo.ear=${releaseName}.ear
-sdo.war=${modelReleaseName}.war
+#exposeADFFacesModelSpecific()
 #else
 sdo.ear=${releaseName}.ear
 sdo.war=${modelReleaseName}.war
@@ -45,3 +43,28 @@ oracle.jdeveloper.deploy.dir=${projectModelPhysicalDirPath}/deploy
 #
 oracle-jdev-common-module-dir=${WEBLOGIC_HOME}/oracle_common/modules
 oracle-weblogic-module-dir=${WEBLOGIC_HOME}/modules
+
+#
+# deploy properties
+#
+#exposeModelUpdatedAreas("weblogic-properties")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
+wls.username=$template.getPropertyValue("wls-username","weblogic")
+wls.password=$template.getPropertyValue("wls-password","weblogic")
+wls.hostname=$template.getPropertyValue("wls-hostname","localhost")
+wls.port=$template.getPropertyValue("wls-port","localhost")
+wls.deploy.target=$template.getPropertyValue("wls-deploy-target","AdminServer")
+#if ($isFrontEndRelease)
+##wls.deploy.name=${applicationName}_ViewController_webapp
+##wls.deploy.source=${applicationName}_ViewController_webapp.war
+wls.deploy.name=${releaseName}
+wls.deploy.source=${releaseName}.ear
+#else
+wls.deploy.name=${releaseName}
+wls.deploy.source=${releaseName}.ear
+#end
+$!updatedAreaEnd
+#end

@@ -1,14 +1,22 @@
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
 #set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))##"/pages/administration/memberStatesManagement/languages/languages.jspx")
-#set($pageEntityADFFacesFullPath = "/pages/administration/memberStatesManagement/memberStates/memberStates.jspx")
-#set($backingBeanADFFacesVariableName="MemberStatesBackingBean")
-#set($backingBeanADFFacesImport="pages.administration.memberStatesManagement.memberStates.MemberStatesBackingBean")
-#set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/administration/memberStatesManagement/memberStates/viewEditMS-flow.xml")
+##set($pageEntityADFFacesFullPath = "/pages/administration/memberStatesManagement/memberStates/memberStates.jspx")
+#set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
+#set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
+#set($backingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBackingBeanADFFaces))
+#set($viewEditBeanFlowADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateViewEditBeanADFFaces))
+#set($viewEditBeanFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateViewEditBeanADFFaces))
+#set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/"+$viewEditBeanFlowADFFacesRelativePath)
 #set($pageDefADFFacesEntityImportpages="administration.memberStatesManagement.memberStates.memberStatesPageDef")
 #set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesVariable=$commonUtils.getJavaNameVariableFirstLetter($beanVOADFFacesClass))
+##set($viewEditEntityBeanClass=$commonUtils.getTemplateArtifactName($table, $templateViewEditBeanFlowADFFaces))
+#set($viewEditEntityBeanClass=$commonUtils.getTemplateArtifactName($table, $templateViewEditBeanADFFaces))
+#set($viewEditEntityBeanVariable=$commonUtils.getJavaNameVariableFirstLetter($viewEditEntityBeanClass))
+#set($detailADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateDetailBeanFlowADFFaces))
+#set($editADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateViewEditBeanFlowADFFaces))
 #end
 
 #macro (exposeADFFacesModelSpecific)
@@ -16,12 +24,13 @@
 #set($mainFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesMainFlow))
 #set($mainFlowADFFacesFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesMainFlow))
 #set($adminConfigADFFacesViewControllerFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesViewControllerAdminConfig))
+#set($adminConfigADFFacesSiteMenuFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesSiteMenuConfig))
 #set($menuADFFacesModelRelativePath="/WEB-INF/administration_menu_model.xml")
 #set($adminFlowADFFacesViewControllerFileName=$commonUtils.getTemplateArtifactName($model, $templateADFFacesMainFlow))
 #set($adminFlowADFFacesModelFullPath ="/WEB-INF/taskflows/"+$adminFlowADFFacesViewControllerFileName)
-#set($viewEditADFFacesEntityClassName = "viewEditMS-flow")
 #set($projectJwsFacesFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFFacesJws))
-#set($applicationName="${model.name}-FE")
+#set($i18nADFFacesImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templatei18nADFFaces))
+#set($menuConfigADFFacesName = $commonUtils.getTemplateArtifactMainName($model, $templateMenuConfigADFFacesViewController))
 #end
 
 #macro (exposeSDOSpecific)
@@ -81,7 +90,6 @@
 #exposeADFSpecific()
 #exposeADFConfig()
 #set($appModuleName=$commonUtils.getTemplateClassName($model, $template, $templateADFModelAppModule))
-#set($applicationName="${model.name}SDO")
 #set($modelADFModuleJpxImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelJpx))	
 #set($modelADFModuleJpxFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFModelJpx))	
 #set($modelADFAppModuleImport = $commonUtils.getArtifactFullClasspath($model, $templateADFModelAppModule))	
@@ -115,13 +123,39 @@
 #set($WLS_HOME=$template.getPropertyValue("WLS_HOME","D:/SOFT/SERVER/ORACLE/WLS/SERVER"))
 #set($projectModelPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFModelJpr))
 #set($projectJwsPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFJws))
+#set($projectADFFacesJwsPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFFacesJws))
 #set($projectJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFJws))
+#set($projectADFFacesJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFFacesJws))
 #set($modelADFJprClass = $commonUtils.getTemplateClassName($model, $template, $templateADFModelJpr))
 ## controller
 #set($projectADFFacesViewControllerPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFFacesViewControllerJpr))
 #set($projectFEJwsPhysicalDirPath=$commonUtils.getPhysicalDirPath($model, $template, $templateADFFacesJws))
 #set($projectFEJwsPhysicalPath=$commonUtils.getPhysicalPath($model, $template, $templateADFFacesJws))
 #set($projectADFFacesViewControllerClass = $commonUtils.getTemplateClassName($model, $template, $templateADFFacesViewControllerJpr))	
+#end
+
+#macro (exposeADFFacesEntityImport)
+#foreach ($reference in $table.children)
+#set ($thisTable = $reference.foreignTable)
+#exposeADFFacesDomainObject($reference.foreignTable)
+#if(!$thisTable.isManyToMany())
+import $importDomainObjectUML;
+#end
+#end
+#foreach ($reference in $table.parents)
+#exposeADFFacesDomainObject($reference.foreignTable)
+#set ($thisTable = $reference.foreignTable)
+#if(!$thisTable.isManyToMany())
+import $importDomainObjectUML;
+#end
+#end
+#end
+
+#macro (exposeADFFacesDomainObject $tableDB)
+#exposeADFTemplate()
+#set ($domainObjectClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateBeanVOADFFaces))
+#set ($domainObjectVariable = $commonUtils.getJavaNameVariableFirstLetter($domainObjectClass))
+#set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateBeanVOADFFaces))
 #end
 
 #macro (exposeSDOColumnSpecific)
@@ -131,11 +165,22 @@
 #end
 
 #macro (exposeADFReleaseSpecific)
+#exposeADFBuildSpecific()
+#if($isFrontEndRelease)
+#set($applicationName="${model.name}-FE")
+#set($profileName=${model.name}+"FEProfile")
+#set($deployName=${model.name}+"FE")
+#set($releaseName="${deployName}App")
+#set($modelReleaseName="${deployName}-FE-app")
+#set($contextRootName="$formatUtils.firstUpperCase(${model.name})-FE-app")
+#else
+#set($applicationName="${model.name}SDO")
 #set($profileName=${model.name}+"SDOProfile")
 #set($deployName=${model.name}+"SDO")
 #set($releaseName="${deployName}App")
 #set($modelReleaseName="${deployName}-app")
 #set($contextRootName="$formatUtils.firstUpperCase(${model.name})-app")
+#end
 #end
 
 #macro(exposeADFConfig)
@@ -172,5 +217,12 @@
 #set ($templateADFFacesJws = "ADF.Faces.jws")
 #set ($templateADFFacesViewControllerJpr = "ADF.Faces.ViewController.jpr")
 #set ($templateADFFacesViewControllerAdminConfig = "ADF.Faces.ViewController.admin-config.xml")
+#set ($templateADFFacesSiteMenuConfig = "ADF.Faces.ViewController.site-menu.xml")
 #set ($templateBeanVOADFFaces = "ADF.Faces.Entity.Bean")
+#set ($templateBackingBeanADFFaces = "ADF.Faces.Entity.BackingBean")
+#set ($templateViewEditBeanADFFaces = "ADF.Faces.Entity.ViewEditBean")
+#set ($templateViewEditBeanFlowADFFaces = "ADF.Faces.EntityEdit.jspx")
+#set ($templateDetailBeanFlowADFFaces = "ADF.Faces.EntityDetail.jspx")
+#set ($templatei18nADFFaces = "ADFI18nProperties")
+#set ($templateMenuConfigADFFacesViewController = "ADF.Faces.ViewController.Menu.xml")
 #end

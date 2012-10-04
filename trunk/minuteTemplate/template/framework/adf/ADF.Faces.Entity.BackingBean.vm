@@ -28,28 +28,33 @@ import oracle.binding.OperationBinding;
 
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 
-import utils.TablePaginationUtils;
+import eu.adf.fwk.utils.TablePaginationUtils;
 
 public class $className {
     
-    private TablePaginationUtils table;
+    private TablePaginationUtils ${domainVariableName}Table;
     private String caseOriginName;
     private String caseOriginReference;
     private RichPanelTabbed panelTab;
     private $beanVOADFFacesClass $beanVOADFFacesVariable = new $beanVOADFFacesClass();
-    
+    private Boolean displayResults = true;
+    private Boolean displaySearch = false;    
 
     public $className() {
-        table = new TablePaginationUtils("list${domainClassName}");
-        table.refreshPagination();
+        ${domainVariableName}Table = new TablePaginationUtils("list${domainClassName}");
+#if($runTimeErrorSolved)
+        ${domainVariableName}Table.refreshPagination();
+#end
     }
 
-    public void setTable(TablePaginationUtils table) {
-        this.table = table;
+#putGetterSetter ($beanVOADFFacesClass $beanVOADFFacesVariable)
+
+    public void set${domainClassName}Table(TablePaginationUtils table) {
+        this.${domainVariableName}Table = table;
     }
 
-    public TablePaginationUtils getTable() {
-        return table;
+    public TablePaginationUtils get${domainClassName}Table() {
+        return ${domainVariableName}Table;
     }
 
     public String getCaseOriginName() {
@@ -66,7 +71,7 @@ public class $className {
 
     public void doSearch(ActionEvent actionEvent) {
 #if($hasCriteriaApi)
-        table.getRequest().getCriterias().clear();
+        ${domainVariableName}Table.getRequest().getCriterias().clear();
         Criteria criteria = new Criteria();
         CriteriaExpression expression = new CriteriaExpression();
         criteria.setCriteriaExpression(expression);
@@ -87,17 +92,21 @@ public class $className {
             expression.getValueExpressions().add(ve);
         }
         
-        table.getRequest().getCriterias().add(criteria);
-        table.setPageNumber(1);
-        table.refreshPagination();       
+        ${domainVariableName}Table.getRequest().getCriterias().add(criteria);
+        ${domainVariableName}Table.setPageNumber(1);
+#if($runTimeErrorSolved)
+        ${domainVariableName}Table.refreshPagination();
+#end    
 #end        
     }
 
     public void displayAll(ActionEvent actionEvent) {
         //displayResults=true;
-        table.getRequest().getCriterias().clear();
-        table.setPageNumber(1);
-        table.refreshPagination();
+        ${domainVariableName}Table.getRequest().getCriterias().clear();
+        ${domainVariableName}Table.setPageNumber(1);
+#if($runTimeErrorSolved)
+        ${domainVariableName}Table.refreshPagination();
+#end
     }
 
     public void handleLaunchEditCaseOriginDlg(LaunchEvent launchEvent) {
@@ -145,5 +154,21 @@ public class $className {
             }
         }
         
+    }
+	
+    public void setDisplayResults(Boolean displayResults) {
+        this.displayResults = displayResults;
+    }
+
+    public Boolean getDisplayResults() {
+        return displayResults;
+    }
+
+    public void setDisplaySearch(Boolean displaySearch) {
+        this.displaySearch = displaySearch;
+    }
+
+    public Boolean getDisplaySearch() {
+        return displaySearch;
     }
 }

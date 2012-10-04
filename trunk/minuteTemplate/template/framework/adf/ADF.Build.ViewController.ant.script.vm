@@ -306,13 +306,13 @@
     <mkdir dir="${output.dir}"/>
   </target>
   <target name="all" description="Build the project"
-          depends="deploy,compile,copy"/>
+          depends="ojdeploy,compile,copy"/>
   <target name="clean" description="Clean the project">
     <delete includeemptydirs="true" quiet="true">
       <fileset dir="${output.dir}" includes="**/*"/>
     </delete>
   </target>
-  <target name="deploy" description="Deploy JDeveloper profiles"
+  <target name="ojdeploy" description="Deploy JDeveloper profiles"
           depends="init,compile">
     <taskdef name="ojdeploy"
              classname="oracle.jdeveloper.deploy.ant.OJDeployAntTask"
@@ -372,4 +372,10 @@
       </fileset>
     </copy>
   </target>
+
+#set($releaseDir="./deploy/")
+#parse("./snippet/ADF.Deploy.ant.script.vm")
+
+  <target name="deliver" description="release and deploy"
+          depends="all,undeploy,deploy"/>
 </project>

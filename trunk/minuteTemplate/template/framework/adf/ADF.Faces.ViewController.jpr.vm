@@ -1,4 +1,5 @@
 #exposeADFFacesModelSpecific()
+#exposeADFReleaseSpecific()
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
    <hash n="component-versions">
@@ -67,7 +68,7 @@
          <hash>
             <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
             <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
-            <url n="sourceURL" path="../$modelADFJprFullPath"/>
+            <url n="sourceURL" path="../$viewControllerADFJprFullPath"/>
          </hash>
       </list>
    </hash>

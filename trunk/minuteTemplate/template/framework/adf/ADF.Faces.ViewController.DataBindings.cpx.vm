@@ -11,7 +11,7 @@
   <pageMap>
 #foreach ($table in ${entities})
 #exposeADFFacesEntitySpecific()
-    <page path="$pageEntityADFFacesFullPath"
+    <page path="$entityEntryADFFaceRelativePath"
           usageId="view_${domainVariableName}PageDef"/>
 #end
   </pageMap>

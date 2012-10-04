@@ -1,4 +1,10 @@
 #exposeADFFacesEntitySpecific()
+#set($separator=$i18nUtils.getSeparator($template))
+#macro (adfEntityColumnDisplay $id)
+                        <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+                                      id="${id}" ##columns="40" ##columns="$column.size"
+                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"/>
+#end
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -11,42 +17,50 @@
       <af:form id="f1">
         <af:pageTemplate viewId="/WEB-INF/common/template.jspx" id="pt1">
           <f:facet name="PageTitle">
-            <af:outputText value="#{viewcontrollerBundle['${entityADFImport}.title']}"
+##            <af:outputText value="#{viewcontrollerBundle['${entityADFImport}.title']}"
+            <af:outputText value="#{viewcontrollerBundle['${tableVariableName}']}"
                            id="ot1"/>
           </f:facet>
           <f:facet name="PageSubtitle"/>
           <f:facet name="PageContent">
             <af:panelTabbed id="${entityADFVariable}_pt2" dimensionsFrom="auto">
-              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.consult.tabtitle']}"
+##              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.consult.tabtitle']}"
+              <af:showDetailItem text="#{viewcontrollerBundle['consult.title']}"
                                  id="${entityADFVariable}_sdi1">
                  <af:panelGroupLayout id="${entityADFVariable}_pgl3" layout="horizontal"
                                        halign="left">                
-                    <af:panelBox text="#{viewcontrollerBundle['${entityADFImport}.consult.select.header']}"
+                    <af:panelBox text="#{viewcontrollerBundle['consult.select.header']} #{viewcontrollerBundle['${tableVariableName}']}"
                                  id="${entityADFVariable}_pb1" styleClass="section"
                                  disclosed="#{viewScope.${entityADFVariable}BackingBean.displaySearch}">
                       <af:panelFormLayout id="${entityADFVariable}_pfl1" labelWidth="100px"
                                           fieldWidth="400px">
-                        <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.consult.select.name']}"
-                                      id="nameit1" columns="40"
-                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Name}"/>
-                        <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.consult.select.reference']}"
-                                      id="referenceit1" columns="5"
-                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Reference}"/>
-                        
+#if (!$hasSemanticReference)
+#foreach ($column in $table.columns)  
+#putColumnParamNaming()
+#adfEntityColumnDisplay("${columnVar}it")
+#end 
+#else
+#set ($semanticReference = $table.getSemanticReference())
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)    
+#set($column = $semanticReferenceUtils.convertPathToColumn($table, $chunk))
+#putColumnParamNaming()
+#adfEntityColumnDisplay("${columnVar}it")
+#end  
+#end
                       </af:panelFormLayout>
                         <af:panelGroupLayout id="pgl1" halign="end"
                                                  layout="horizontal">
                               <f:facet name="separator">
                                 <af:spacer width="10" height="1"/>
                               </f:facet>
-                              <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.select.search']}"
+                              <af:commandButton text="#{viewcontrollerBundle['searchHeading']}"
                                                 id="search"
                                                 actionListener="#{viewScope.${entityADFVariable}BackingBean.search}"
                                                 inlineStyle="background-color:#4B9FC9; background-image:none; color:#FFF;"/>
-                              <af:panelLabelAndMessage label="#{viewcontrollerBundle['${entityADFImport}.select.or']}"
+                              <af:panelLabelAndMessage label="#{viewcontrollerBundle['selectOr']}"
                                                        id="plam1"
                                                        for="msdisplayall">
-                               <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.select.displayall']}"
+                               <af:commandButton text="#{viewcontrollerBundle['displayAll']}"
                                                   id="msdisplayall"
                                                   actionListener="#{viewScope.${entityADFVariable}BackingBean.displayAll}"/>
                               </af:panelLabelAndMessage>
@@ -77,11 +91,15 @@
                                     width="500px" contentDelivery="immediate"
                                     immediate="true"
                                     binding="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.tableUIComp}">
-                            <af:column sortProperty="value" sortable="true"
+##pk
+#foreach ($column in $table.columns)  
+#putColumnParamNaming()
+#if($isPrimaryKey)
+                            <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
-                                       headerText="#{viewcontrollerBundle['${entityADFImport}.consult.select.name']}"
-                                       id="${entityADFVariable}_c2" width="304">
-                              <af:commandLink text="#{row.value}" id="gl1"
+                                       headerText="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+                                       id="${columnVar}_id" width="800">
+                              <af:commandLink text="#{row.${columnVar}}" id="${columnVar}1"
                                               action="details" immediate="true"
                                               partialSubmit="true"
                                               useWindow="true"
@@ -90,15 +108,18 @@
                                               windowHeight="200"
                                               windowWidth="400"
                                               launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFVariable}Dlg}">
-                                <f:attribute name="${entityADFVariable}Reference" value="#{row.key}"/>
+                                <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
                             </af:column>
-                            <af:column sortProperty="key" sortable="true"
+#else
+                            <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
-                                       headerText="#{viewcontrollerBundle['${entityADFImport}.consult.select.reference']}"
-                                       id="${entityADFVariable}_c1" width="184">
-                              <af:outputText value="#{row.key}" id="${entityADFVariable}_ot2"/>
+                                       headerText="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+                                       id="${columnVar}_col" width="184">
+                              <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot2"/>
                             </af:column>
+#end
+#end
                           </af:table>
                       </f:facet>
                         <f:attribute name="paginationUtils"
@@ -109,18 +130,17 @@
              
               </af:showDetailItem>
               
-              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.create.tabtitle']}"
+              <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}"
                                  id="${entityADFVariable}_sdi2">
 								 
                     <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" styleClass="dialogFormLayout">
-#foreach ($column in $table.columns)
-#putColumnParamNaming()
-                      <af:inputText label="#{viewcontrollerBundle['${entityADFImport}.details.${columnVar}']}" id="itdet${columnVar}"
-                                    value="#{viewScope.${entityADFVariable}BackingBean.new${entityADFVariable}.name}"/>
+#foreach ($column in $table.columns)  
+#putColumnParams()
+#adfEntityColumnDisplay("${columnVar}itdet")
 #end
-					</af:panelFormLayout>                    
+			</af:panelFormLayout>                    
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
-                          <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.details.savebutton']}"
+                          <af:commandButton text="#{viewcontrollerBundle['save']}"
                                               id="itdetsave"
                                             actionListener="#{viewScope.${entityADFVariable}BackingBean.create${entityADFVariable}}"/>
 					</af:panelGroupLayout>

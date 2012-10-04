@@ -13,35 +13,33 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
-import pages.cases.caseType.ViewEditCaseTypeBean;
-
 public class $className {
     
     private ${beanVOADFFacesClass} ${beanVOADFFacesVariable};
-    private String ${domainVariableName}CodeParam;
+    private String ${domainVariableName}Param;
     
     public $className () {
-        ${domainVariableName}CodeParam = (String)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("${domainClassName}Code");
+        ${domainVariableName}Param = (String)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("get${domainClassName}");
     }
 
     public void delete${domainClassName}(DCBindingContainer bindings) {
-        this.${domainClassName} = null;
-        Map ${domainClassName}Param = new HashMap();
-        ${domainClassName}Param.put("${domainClassName}Ref", getCurrent${domainClassName}(bindings));
+        this.${beanVOADFFacesVariable} = null;
+        Map ${domainVariableName}Param = new HashMap();
+        ${domainVariableName}Param.put("${domainClassName}Ref", getCurrent${domainClassName}(bindings));
         OperationBinding ob = bindings.getOperationBinding("delete${domainClassName}");
-        ob.getParamsMap().putAll(${domainClassName}Param);
+        ob.getParamsMap().putAll(${domainVariableName}Param);
         ob.execute();
     }
     
     public void rollback${domainClassName}() {
-        this.${domainClassName} = null;
+        this.${beanVOADFFacesVariable} = null;
     }
     
     public void save${domainClassName}(DCBindingContainer bindings) {
-        Map ${domainClassName}Param = new HashMap();
-        ${domainClassName}Param.put("${domainClassName}", this.${domainClassName});
+        Map ${domainVariableName}Param = new HashMap();
+        ${domainVariableName}Param.put("${domainClassName}", this.${beanVOADFFacesVariable});
         OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
-        ob.getParamsMap().putAll(${domainClassName}Param);
+        ob.getParamsMap().putAll(${domainVariableName}Param);
         ob.execute();
     }
     
@@ -51,19 +49,19 @@ public class $className {
 
     public ${beanVOADFFacesClass} get${domainClassName}() {
         
-        if (${domainClassName}==null) {
+        if (${beanVOADFFacesVariable}==null) {
             BindingContext bindingCtx = BindingContext.getCurrent();
             BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-            ${domainClassName} = getCurrent${domainClassName}(bindings);
+            ${beanVOADFFacesVariable} = getCurrent${domainClassName}(bindings);
         }
-        return ${domainClassName};
+        return ${beanVOADFFacesVariable};
     
     }
     
     private ${beanVOADFFacesClass} getCurrent${domainClassName}(BindingContainer bindings){
 #if($tocomment)
         ReferenceDTO ref = new ReferenceDTO();
-        ref.setKey(${domainClassName}CodeParam);
+        ref.setKey(${domainVariableName}Param);
         OperationBinding ob = bindings.getOperationBinding("get${domainClassName}");
         ob.getParamsMap().put("reference", ref);
         this.${beanVOADFFacesVariable} = (${beanVOADFFacesClass})ob.execute();

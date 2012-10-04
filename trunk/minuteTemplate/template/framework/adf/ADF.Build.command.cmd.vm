@@ -1,13 +1,23 @@
 #exposeADFBuildSpecific()
 #exposeADFReleaseSpecific()
-// check environment properties
-// WLS_HOME
-// JDEV_HOME
-// ORACLE_MF_HOME
+@rem check environment properties
+@rem WLS_HOME
+@rem JDEV_HOME
+@rem ORACLE_MF_HOME
 set JDEV_HOME=$JDEV_HOME
+#if($isFrontEndRelease)
+set WORKSPACE_HOME=$projectADFFacesJwsPhysicalDirPath
+#else
 set WORKSPACE_HOME=$projectJwsPhysicalDirPath
+#end
+#if($isFrontEndRelease)
+cd ViewController
+#else
 cd Model
+#end
 call ant
 cd ..
 call %JDEV_HOME%\jdev\bin\ojdeploy -buildfile deploy_to_ear.ojdeploy.xml -define workspace.path=%WORKSPACE_HOME%,ear.filename=${releaseName}.ear
+#if(!$isFrontEndRelease)
 call ant
+#end
