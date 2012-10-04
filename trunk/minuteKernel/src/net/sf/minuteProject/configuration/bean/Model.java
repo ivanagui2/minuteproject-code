@@ -88,17 +88,20 @@ public class Model extends AbstractConfiguration{
 	}
 
 	public String getTechnicalPackage(Template template) {
-		StringBuffer sb = new StringBuffer(ModelUtils.getPackageRoot(template));
+		String packageRoot2 = ModelUtils.getPackageRoot(template);
+		StringBuffer sb = new StringBuffer(packageRoot2);
 		if ((template.getAddModelDirName()==null 
 			|| template.getAddModelDirName().equals("")
 			|| template.getAddModelDirName().equals("true"))	
 			&& 
 			!(template.getApplicationSpecific()!=null && template.getApplicationSpecific().equals("true"))
 			) {
-				sb.append("."+getName());
+				sb.append((StringUtils.isEmpty(packageRoot2)? getName() :"."+getName()));
 			}
-		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
-			sb.append("."+template.getTechnicalPackage());		
+		boolean isEmpty = StringUtils.isEmpty(sb.toString());
+		String technicalPackage = template.getTechnicalPackage();
+		if (technicalPackage!=null && !technicalPackage.equals(""))
+			sb.append(isEmpty?technicalPackage:"."+technicalPackage);		
 		return sb.toString();
 	}
 
