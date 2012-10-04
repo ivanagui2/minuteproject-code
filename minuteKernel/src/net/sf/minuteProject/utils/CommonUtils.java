@@ -523,6 +523,11 @@ public class CommonUtils {
 		return getFileMainName(template, table);
 	}
 	
+	public static String getTemplateArtifactMainName (Model model, String templateName) {
+		Template template = getTemplate(model.getConfiguration(), templateName);
+		return getFileMainName(template, model);
+	}
+	
 	public static String getTemplateArtifactDirName (Model model, String templateName) {
 		Template template = getTemplate(model.getConfiguration(), templateName);
 		return FormatUtils.getDirFromPackage(getPackageName(model, template));
@@ -533,7 +538,9 @@ public class CommonUtils {
 	}
 	
 	public static String getEntityLevelTemplateFullPath(Model model, Table table, Template template, String targetTemplateName) {
-		return getPackageName(model, table, template, targetTemplateName) +"."+ getTemplateClassName (table, model, targetTemplateName);
+		String packageName = getPackageName(model, table, template, targetTemplateName);
+		String templateClassName = getTemplateClassName (table, model, targetTemplateName);
+		return (StringUtils.isEmpty(packageName))? templateClassName : packageName +"."+ templateClassName;
 	}
 	
 	public static String getEntityLevelTemplateFullPath(Model model, String tableName, Template template, String targetTemplateName) {
@@ -544,7 +551,9 @@ public class CommonUtils {
 	}
 	
 	public static String getEntityLevelTemplateFullPath(GeneratorBean bean, Template template, String targetTemplateName) {
-		return getPackageName(bean, template, targetTemplateName) +"."+ getTemplateClassName (bean, template, targetTemplateName);
+		String packageName = getPackageName(bean, template, targetTemplateName);
+		String templateClassName = getTemplateClassName (bean, template, targetTemplateName);
+		return (StringUtils.isEmpty(packageName))? templateClassName : packageName +"."+ templateClassName;
 	}	
 	
 	public static String getTemplateJavaVariableName(Table table, Model model, String targetTemplateName) {

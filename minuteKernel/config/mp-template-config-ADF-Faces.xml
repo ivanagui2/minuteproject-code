@@ -6,7 +6,28 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 	</architecture-target>	
 
     <plugin name="adfUtils" className="net.sf.minuteProject.plugin.oracle.AdfUtils"></plugin>
+    <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
+	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
+	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
+	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
+	
+  	<template-target 
+    	name="i18n set"
+		outputdir="ViewController/src"
+		package-root=""
+		belongToPackage="true">
+			 
+		<template name="ADFI18nProperties" templateFileName="I18nProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="view.I18N"
+			file-extension="properties" file-prefix="viewBundle" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
+			add-model-name="false"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="separator" value="_"/>
+		</template>
 
+	</template-target>
+	
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
@@ -30,10 +51,11 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		
 		<template name="ADF.Faces.Entity.Bean" templateFileName="ADF.Faces.Entity.Bean.vm" 
 		    technicalPackage="bean"
-			file-extension="java" file-prefix="" file-suffix="VO" 
+			file-extension="java" file-prefix="" file-suffix="" 
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			>			
+			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
 		</template>	
 		
     </template-target>  
@@ -85,7 +107,6 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>			
 		</template>	
-		
 
     </template-target>
     
@@ -135,6 +156,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application" add-model-name="false"
 			>			
 		</template>		
+		
+		<template name="ADF.Faces.ViewController.weblogic" templateFileName="ADF.Faces.ViewController.weblogic.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="" file-suffix="weblogic" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application" add-model-name="false"
+			>			
+		</template>		
 
 		<template name="ADF.BC.trinidad-config" templateFileName="ADF.BC.trinidad-config.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
@@ -169,6 +198,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 		
+		<template name="ADF.Faces.ViewController.site-menu.xml" templateFileName="ADF.Faces.ViewController.site-menu.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-package-name-dir="false"
+			file-extension="xml" file-prefix="site-menu" file-suffix="" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
 		<template name="ADF.Faces.ViewController.Menu.xml" templateFileName="ADF.Faces.ViewController.Menu.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-package-name-dir="false"
 			file-extension="xml" file-prefix="administration_menu_model" file-suffix="" 
@@ -186,6 +223,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
 		outputdir="ViewController">
+		<property name="target-techno-type" value="front-end"></property>	
 		
 		<template name="ADF.Faces.ViewController.jpr" templateFileName="ADF.Faces.ViewController.jpr.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
@@ -256,12 +294,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
 		outputdir="">
-		
-		<template name="ADF.Faces.jws" templateFileName="ADF.Faces.jws.vm" 
+		<property name="target-techno-type" value="front-end"></property>	
+		<template name="ADF.Faces.jws" templateFileName="ADF.jws.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jws" file-prefix="" file-suffix="WorkspaceUI" 
 			has-updatable-nature="true" file-name-format="FORMAT_UPPER_CASE_FIRST_LETTER" 
-			scope-specific-value="application">			
+			scope-specific-value="application">	
+				
 		</template>			
 		
 		<!-- build scripts -->
@@ -280,7 +319,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" add-package-name-dir="false" add-model-name="false"
 			scope-specific-value="application"
 			>
-			<property name="target-techno-type" value="front-end"></property>
+
 		</template>	
 		
 		<template name="ADF.Build.command.cmd" templateFileName="ADF.Build.command.cmd.vm" 

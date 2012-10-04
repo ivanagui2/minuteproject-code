@@ -100,8 +100,9 @@ public class ModelUtils {
 	}
 	
 	public static String getTechnicalPackage(Model model, Template template) {
-		StringBuffer sb = new StringBuffer(getPackageRoot(template));
-		sb.append("."+model.getName());
+		String packageRoot = getPackageRoot(template);
+		StringBuffer sb = new StringBuffer(packageRoot);
+		sb.append((StringUtils.isEmpty(packageRoot))?model.getName():"."+model.getName());
 		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
 			sb.append("."+template.getTechnicalPackage());
 		return sb.toString();		
