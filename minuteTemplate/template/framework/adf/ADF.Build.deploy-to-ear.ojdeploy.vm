@@ -1,8 +1,12 @@
-#exposeADFBuildSpecific()
+#exposeADFReleaseSpecific()
 <?xml version = '1.0' standalone = 'yes' ?>
 <ojdeploy-build>
   <deploy>
+#if ($isFrontEndRelease)
+    <parameter name="workspace" value="$projectADFFacesJwsPhysicalPath"/>
+#else
     <parameter name="workspace" value="$projectJwsPhysicalPath"/>
+#end
     <parameter name="profile" value="*"/>
     <parameter name="nocompile" value="true"/>
     <parameter name="nodatasources" value="true"/>

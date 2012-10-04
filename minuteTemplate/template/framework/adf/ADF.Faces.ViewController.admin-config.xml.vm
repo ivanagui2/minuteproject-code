@@ -6,10 +6,10 @@
  
 #foreach ($table in $entities)
 #exposeADFFacesEntitySpecific()
-  <task-flow-call id="viewEditMS-flow">
+  <task-flow-call id="$viewEditBeanFlowADFFacesClassName">
     <task-flow-reference>
       <document>$viewEditADFFacesEntityFullPath</document>
-      <id>$viewEditADFFacesEntityClassName</id>
+      <id>$viewEditBeanFlowADFFacesClassName</id>
     </task-flow-reference>
     <run-as-dialog>
       <display-type id="__$cpt">
@@ -18,14 +18,13 @@
     </run-as-dialog>
   </task-flow-call>
   <view id="${domainVariableName}">
-    <page>$pageEntityADFFacesFullPath</page>
+    <page>$entityEntryADFFaceRelativePath</page>
   </view>
 #set($cpt=$cpt+1) 
 #end
 
 #foreach ($table in $entities)
 #exposeADFFacesEntitySpecific()
-#set($cpt=$cpt+1) 
   <control-flow-rule id="__$cpt">
 #set($cpt=$cpt+1) 
     <from-activity-id id="__$cpt">${domainVariableName}</from-activity-id>
@@ -39,10 +38,11 @@
   </control-flow-rule>
 #set($cpt=$cpt+1)
 #end
-  
+
+#if($__addMenu)
   <managed-bean id="__4">
     <managed-bean-name id="__3">localMenuUtils</managed-bean-name>
-    <managed-bean-class id="__2">utils.MenuUtils</managed-bean-class>
+    <managed-bean-class id="__2">eu.adf.fwk.utils.MenuUtils</managed-bean-class>
     <managed-bean-scope id="__1">backingBean</managed-bean-scope>
     <managed-property id="__6">
       <property-name id="__5">menuModelName</property-name>
@@ -55,13 +55,18 @@
       <value id="__9">false</value>
     </managed-property>
   </managed-bean>  
+#end
   
 #foreach ($table in $entities)
 #exposeADFFacesEntitySpecific()  
-   <managed-bean id="__12">
-    <managed-bean-name id="__10">${backingBeanADFFacesVariableName}</managed-bean-name>
-    <managed-bean-class id="__11">${backingBeanADFFacesImport}</managed-bean-class>
-    <managed-bean-scope id="__13">view</managed-bean-scope>
+   <managed-bean id="__$cpt">
+#set($cpt=$cpt+1)
+    <managed-bean-name id="__$cpt">${backingBeanADFFacesVariableName}</managed-bean-name>
+#set($cpt=$cpt+1)
+    <managed-bean-class id="__$cpt">${backingBeanADFFacesImport}</managed-bean-class>
+#set($cpt=$cpt+1)
+    <managed-bean-scope id="__$cpt">view</managed-bean-scope>
+#set($cpt=$cpt+1)
   </managed-bean>
 #end
 

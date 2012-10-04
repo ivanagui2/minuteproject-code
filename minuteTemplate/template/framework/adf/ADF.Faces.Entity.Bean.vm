@@ -16,7 +16,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 #end
 import java.io.Serializable;
-import javax.persistence.*;
+
+#exposeADFFacesEntityImport()
 
 /**
  *
@@ -32,10 +33,12 @@ public class ${className} implements Serializable {
 	
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
-#if (!$isMany2Many)
-#if (!$isPkUserProvided)
+##if (!$isMany2Many)
+##if (!$isPkUserProvided)
     private $columnType $columnVar;
 
+##end
+##end
 #end
 
 #foreach ($column in ${table.attributes})
@@ -46,6 +49,12 @@ $!updatedAreaBegin
 $updatedAreaSnippet
 #else
 #putColumnParamNaming()
+#if ($column.isLob())
+#exposeLobProperties()
+#end
+#if($isEnum)
+#set($columnType=$enumClassName)
+#end
 #if($useTemporal && $isTimeColumn)
 #set($columnType="java.util.Date")
 #end
@@ -54,14 +63,14 @@ $updatedAreaSnippet
 $!updatedAreaEnd
 
 #end
-#end
-#end
 
 #foreach ($reference in $table.parents)
+#if(!$referenceUtils.isReferenceInPrimaryKey($reference))
 #putReferenceParams2()
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
     private $linkedTableClass ${colVar};  
 
+#end	
 #end	
 
 #foreach ($reference in $table.children)
@@ -88,6 +97,7 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 #end
+#if($isM2MEnable)
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeEntityUpdatedAreas("m2m-$childrenListVariable")
@@ -102,6 +112,7 @@ $!updatedAreaSnippet
 
 #end
 #updatedAreaEnd()
+#end
 #end
     /**
     * Default constructor
@@ -202,35 +213,8 @@ $!updatedAreaSnippet
 		);	    
 	}
 
-#end
-###
-#if ($isMany2Many)
-    public ${className} get${className} () {
-    	return this;
-    }
+#end  
 
-    public void set${className} (${className} ${variableName}) {
-    	new ${className}(
-#foreach ($column in ${table.columns})
-#putColumnParams()
-       ${variableName}.get_${columnVar}()#if ($velocityCount!=$table.columnCount),
-#end
-#end 		
-		);
-    }
-    
-#end   
-#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-    public $embeddedIdClass get$embeddedIdClass() {
-		if ($embeddedIdVariable==null) $embeddedIdVariable = new $embeddedIdClass();
-        return $embeddedIdVariable;
-    }
-	
-    public void set$embeddedIdClass ($embeddedIdClass $embeddedIdVariable) {
-        this.$embeddedIdVariable =  $embeddedIdVariable;
-    }
-    
-#else 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
     public $columnType get$columnClass() {
@@ -242,7 +226,7 @@ $!updatedAreaSnippet
     }
     
 #end
-#end
+
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
 $!updatedAreaBegin
@@ -252,9 +236,6 @@ $updatedAreaSnippet
 #putColumnParamNaming()
 #if ($column.isLob())
 #exposeLobProperties()
-##if ($convertClobToString=="true")
-##set($columnType="String")
-##end
 #end
 #if($isEnum)
 #set($columnType=$enumClassName)
@@ -275,6 +256,7 @@ $!updatedAreaEnd
 #end
 
 #foreach ($reference in $table.parents)
+#if(!$referenceUtils.isReferenceInPrimaryKey($reference))
 #putReferenceParams2()
 #exposeRelationship($table, $reference)
 #set($localColumnVariable = $commonUtils.getColumnAliasVariable($table, $reference))
@@ -287,16 +269,7 @@ $!updatedAreaEnd
     	this.${localColumnVariable} = ${localColumnVariable};
     }
 
-#set($column = $reference.localColumn)
-#putColumnParamNaming()
-    public $columnType get${columnClass}_() {
-        return ${columnVar}_;
-    }
-	
-    public void set${columnClass}_ ($columnType $columnVar) {
-        this.${columnVar}_ =  $columnVar;
-    }
-	
+#end
 #end
 
 #foreach ($reference in $table.children)
@@ -330,6 +303,7 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 
+#if($isM2MEnable)
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
     public Set<$targetTableName> get${childrenListClass}() {
@@ -346,6 +320,7 @@ $!updatedAreaEnd
     public void add${childrenListClass} ($targetTableName ${childrenListVariable}) {
         get${childrenListClass}().add($childrenListVariable);
     }	    
+#end
 #end
 
 $!updatedAreaImplementation

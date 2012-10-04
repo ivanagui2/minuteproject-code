@@ -1,6 +1,10 @@
-#exposeADFBuildSpecific()
+#exposeADFReleaseSpecific()
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="release" basedir="." name="release">
+#if(!$isFrontEndRelease)
+	<project default="deliver" basedir="." name="release">
+#else
+	<project default="release" basedir="." name="release">
+#end
     <description>Build file for ADF artefacts</description>
     <!-- ===================================================================== -->
     <!-- import files -->
@@ -10,6 +14,7 @@
     <!-- properties definitions -->
     <!-- ===================================================================== -->
     <!-- LOCAL PROPERTIES 	-->
+#if(!$isFrontEndRelease)
     <property name="project.name" value="SDO-project"/>
 	
 	<target name="prepare-structure">
@@ -52,5 +57,11 @@
 		<delete dir="${build.dir}/temp"/>
 		<zip destfile="${release.dir}/${sdo.ear}" basedir="${build.dir}"></zip>
 	</target>
+#end
+#set($releaseDir="./deploy/")
+#parse("./snippet/ADF.Deploy.ant.script.vm")
 
+	<target name="deliver" description="deploy"
+          depends="undeploy,deploy"/>
+		  
 </project>
