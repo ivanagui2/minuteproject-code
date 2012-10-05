@@ -22,7 +22,7 @@
     <managed-property id="__15">
       <property-name id="__17">source</property-name>
       <property-class id="__14">java.lang.String</property-class>
-      <value id="__16">/WEB-INF/root_menu_model.xml</value>
+      <value id="__16">/WEB-INF/${menuConfigADFFacesName}.xml</value>
     </managed-property>
   </managed-bean>
 </adfc-config>

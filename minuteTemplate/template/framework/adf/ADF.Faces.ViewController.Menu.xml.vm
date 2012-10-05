@@ -1,18 +1,26 @@
 #exposeADFFacesModelSpecific()
 <?xml version="1.0" encoding="windows-1252" ?>
 <menu xmlns="http://myfaces.apache.org/trinidad/menu">
-<groupNode id="ApplicationGroup" label="Application Management" idref="ApplicationGroup">
+<groupNode id="ApplicationGroup" label="Application Management"
 #foreach ($package in ${businessPackages})
 #set($groupId="${package.name}Group")
 #set($groupLabel=$package.name)
 #set($groupIdRef="${package.name}Group")
+#if($velocityCount==1)
+## idref="ApplicationGroup">
+ idref="$groupIdRef">
+#end
    <!-- $package.name -->	
-      <groupNode id="$groupId" label="$groupLabel" idref="$groupIdRef">   
+      <groupNode id="$groupId" label="$groupLabel" 
 #foreach ($table in ${package.listOfTables})
 #exposeADFFacesEntitySpecific()
+#if($velocityCount==1)
+## idref="$groupIdRef">  
+ idref="${domainClassName}Item">  
+#end
         <itemNode id="${domainClassName}Item" label="#{viewcontrollerBundle['${tableVariableName}']}"
                   action="goto${domainClassName}"
-                  focusViewId="/${domainVariableName}"/>
+                  focusViewId="/${domainVariableName}View"/>
 
 #end
       </groupNode>

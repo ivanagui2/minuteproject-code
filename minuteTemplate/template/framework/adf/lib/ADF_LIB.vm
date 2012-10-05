@@ -5,10 +5,10 @@
 #set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
 #set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
 #set($backingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBackingBeanADFFaces))
-#set($viewEditBeanFlowADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateViewEditBeanADFFaces))
-#set($viewEditBeanFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateViewEditBeanADFFaces))
+#set($viewEditBeanFlowADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateADFFacesEntityFlow))
+#set($viewEditBeanFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityFlow))
 #set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/"+$viewEditBeanFlowADFFacesRelativePath)
-#set($pageDefADFFacesEntityImportpages="administration.memberStatesManagement.memberStates.memberStatesPageDef")
+#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))##"administration.memberStatesManagement.memberStates.memberStatesPageDef")
 #set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesVariable=$commonUtils.getJavaNameVariableFirstLetter($beanVOADFFacesClass))
@@ -31,6 +31,8 @@
 #set($projectJwsFacesFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFFacesJws))
 #set($i18nADFFacesImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templatei18nADFFaces))
 #set($menuConfigADFFacesName = $commonUtils.getTemplateArtifactMainName($model, $templateMenuConfigADFFacesViewController))
+#set($modelADFFacesDataBindingsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataBindings))
+#set($modelADFFacesDataControlsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataControls))
 #end
 
 #macro (exposeSDOSpecific)
@@ -225,4 +227,8 @@ import $importDomainObjectUML;
 #set ($templateDetailBeanFlowADFFaces = "ADF.Faces.EntityDetail.jspx")
 #set ($templatei18nADFFaces = "ADFI18nProperties")
 #set ($templateMenuConfigADFFacesViewController = "ADF.Faces.ViewController.Menu.xml")
+#set ($templateADFFacesEntityFlow = "ADF.Faces.viewEditEntity-flow.xml")
+#set ($templateADFFacesDataBindings = "ADF.Faces.ViewController.DataBindings.cpx")
+#set ($templateADFFacesDataControls = "ADF.Faces.ViewController.DataControls.dcx")
+#set ($templatePageDefADFFacesEntity = "ADF.Faces.DataControls.PageDef.xml")
 #end

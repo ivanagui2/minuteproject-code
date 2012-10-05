@@ -3,12 +3,12 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
 
-##foreach ($table in $entities)
-##exposeADFFacesEntitySpecific()
-##  <view id="${domainVariableName}">
-##    <page>$entityEntryADFFaceRelativePath</page>
-##  </view>
-##end
+#foreach ($table in $entities)
+#exposeADFFacesEntitySpecific()
+  <view id="${domainVariableName}View">
+    <page>/$entityEntryADFFaceRelativePath</page>
+  </view>
+#end
 ##
 #foreach ($table in ${entities})
   <control-flow-rule id="__$cpt">
@@ -21,7 +21,7 @@
 #set($cpt=$cpt+1)
       <from-outcome id="__$cpt">goTo${domainClassName}</from-outcome>
 #set($cpt=$cpt+1)
-	  <to-activity-id id="__$cpt">${domainVariableName}</to-activity-id>
+	  <to-activity-id id="__$cpt">${domainVariableName}View</to-activity-id>
 #set($cpt=$cpt+1)
     </control-flow-case>
 ##end
@@ -33,7 +33,7 @@
     <managed-bean-name id="__3">administration_menu_model</managed-bean-name>
     <managed-bean-class>oracle.adf.view.rich.model.MDSMenuModel</managed-bean-class>
     <managed-bean-scope id="__4">request</managed-bean-scope>
-    <managed-property id="__4">
+    <managed-property id="__5">
       <property-name id="__6">createHiddenNodes</property-name>
       <value id="__7">false</value>
     </managed-property>

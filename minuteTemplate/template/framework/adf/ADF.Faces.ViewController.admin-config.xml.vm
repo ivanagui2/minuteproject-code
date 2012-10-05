@@ -17,9 +17,9 @@
       </display-type>
     </run-as-dialog>
   </task-flow-call>
-  <view id="${domainVariableName}">
-    <page>$entityEntryADFFaceRelativePath</page>
-  </view>
+##  <view id="${domainVariableName}">
+##    <page>/$entityEntryADFFaceRelativePath</page>
+##  </view>
 #set($cpt=$cpt+1) 
 #end
 
@@ -33,7 +33,7 @@
 #set($cpt=$cpt+1) 
       <from-outcome id="__$cpt">details</from-outcome>
 #set($cpt=$cpt+1) 
-      <to-activity-id id="__$cpt">$viewEditADFFacesEntityClassName</to-activity-id>
+      <to-activity-id id="__$cpt">$viewEditBeanFlowADFFacesClassName</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
 #set($cpt=$cpt+1)
