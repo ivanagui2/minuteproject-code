@@ -21,3 +21,8 @@ call %JDEV_HOME%\jdev\bin\ojdeploy -buildfile deploy_to_ear.ojdeploy.xml -define
 #if(!$isFrontEndRelease)
 call ant
 #end
+#set($templateBuildTarget=$template.getPropertyValue("build-target-type","none"))
+#set($isDeliver=($templateBuildTarget=="deliver"))
+#if($isDeliver)
+call ant deliver
+#end

@@ -142,7 +142,7 @@
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['save']}"
                                               id="itdetsave"
-                                            actionListener="#{viewScope.${entityADFVariable}BackingBean.create${entityADFVariable}}"/>
+                                            actionListener="#{viewScope.${entityADFVariable}BackingBean.create${domainClassName}}"/>
 					</af:panelGroupLayout>
                                  
                 </af:showDetailItem>

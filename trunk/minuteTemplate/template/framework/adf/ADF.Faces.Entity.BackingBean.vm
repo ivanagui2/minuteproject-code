@@ -33,8 +33,8 @@ import eu.adf.fwk.utils.TablePaginationUtils;
 public class $className {
     
     private TablePaginationUtils ${domainVariableName}Table;
-    private String caseOriginName;
-    private String caseOriginReference;
+    private String ${domainVariableName}Name;
+    private String ${domainVariableName}Reference;
     private RichPanelTabbed panelTab;
     private $beanVOADFFacesClass $beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private Boolean displayResults = true;
@@ -57,16 +57,16 @@ public class $className {
         return ${domainVariableName}Table;
     }
 
-    public String getCaseOriginName() {
-        return caseOriginName;
+    public String get${domainClassName}Name() {
+        return ${domainVariableName}Name;
     }
 
-    public void setCaseOriginReference(String caseOriginReference) {
-        this.caseOriginReference = caseOriginReference;
+    public void set${domainClassName}Reference(String ${domainVariableName}Reference) {
+        this.${domainVariableName}Reference = ${domainVariableName}Reference;
     }
 
-    public String getCaseOriginReference() {
-        return caseOriginReference;
+    public String get${domainClassName}Reference() {
+        return ${domainVariableName}Reference;
     }
 
     public void doSearch(ActionEvent actionEvent) {
@@ -76,19 +76,19 @@ public class $className {
         CriteriaExpression expression = new CriteriaExpression();
         criteria.setCriteriaExpression(expression);
         
-        if (caseOriginName!=null && !"".equals(caseOriginName)) {
+        if (${domainVariableName}Name!=null && !"".equals(${domainVariableName}Name)) {
             ValueExpression ve = new ValueExpression();            
             ve.setCriteriaAttribute("value");
             ve.setOperationCode(UnaryOperationCode.LIKE_IGNORE_CASE);        
-            ve.getValues().add(caseOriginName);             
+            ve.getValues().add(${domainVariableName}Name);             
             expression.getValueExpressions().add(ve);
         }
         
-        if (caseOriginReference!=null && !"".equals(caseOriginReference)) {
+        if (${domainVariableName}Reference!=null && !"".equals(${domainVariableName}Reference)) {
             ValueExpression ve = new ValueExpression();            
             ve.setCriteriaAttribute("key");
             ve.setOperationCode(UnaryOperationCode.LIKE_IGNORE_CASE);        
-            ve.getValues().add(caseOriginReference);             
+            ve.getValues().add(${domainVariableName}Reference);             
             expression.getValueExpressions().add(ve);
         }
         
@@ -117,8 +117,8 @@ public class $className {
         launchEvent.getDialogParameters().put("caseOriginCode", caseOriginCode);
     }
 
-    public void setCaseOriginName(String caseOriginName) {
-        this.caseOriginName = caseOriginName;
+    public void set${domainClassName}Name(String ${domainVariableName}Name) {
+        this.${domainVariableName}Name = ${domainVariableName}Name;
     }
 
     public void setPanelTab(RichPanelTabbed panelTab) {
@@ -129,7 +129,7 @@ public class $className {
         return panelTab;
     }
 
-    public void createCaseOrigin(ActionEvent actionEvent) {
+    public void create${domainClassName}(ActionEvent actionEvent) {
         BindingContext bindingCtx = BindingContext.getCurrent();
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
         Map mapParam = new HashMap();
