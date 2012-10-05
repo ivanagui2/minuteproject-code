@@ -476,7 +476,7 @@ public class CommonUtils {
 	
 	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {
 //		 TODO refactor may have side effect check with the Template implementation
-		String classpathName = getPackageName(table, template);
+		String classpathName = templatePackageName(table, template);
 		String filename = getFileName(template, table);
 		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
 	}
@@ -603,10 +603,18 @@ public class CommonUtils {
 	
 	public static String getPhysicalDirectory(GeneratorBean bean, Template template) {
 		StringBuffer sb = new StringBuffer(template.getOutputdir());
-    	String sb1 = new String(CommonUtils.getPackageName(bean, template));
+    	String templatePackageName = templatePackageName(bean, template);
+    	sb.append("/");
+    	sb.append(templatePackageName);
+    	String outputFileDir = sb.toString();
+		return outputFileDir;
+	}
+
+	private static String templatePackageName(GeneratorBean bean, Template template) {
+		StringBuffer sb = new StringBuffer();
+		String sb1 = new String(CommonUtils.getPackageName(bean, template));
     	String dir = FormatUtils.getDirFromPackage(sb1, template.isConvertPackageToDir());
     	if(!StringUtils.isEmpty(dir)) {
-	    	sb.append("/");
 	    	sb.append(dir);
     	}
     	String addEntityDirName = template.getAddEntityDirName();
@@ -618,8 +626,7 @@ public class CommonUtils {
 		if (appendEndPackageDir!=null) {
     		sb.append("/"+appendEndPackageDir);
     	}
-    	String outputFileDir = sb.toString();
-		return outputFileDir;
+		return sb.toString();
 	}
 	
 	public static boolean isEnrichedPrimaryKey (Column column) {

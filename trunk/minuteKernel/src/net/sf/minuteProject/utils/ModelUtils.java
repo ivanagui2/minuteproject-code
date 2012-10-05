@@ -100,12 +100,15 @@ public class ModelUtils {
 	}
 	
 	public static String getTechnicalPackage(Model model, Template template) {
-		String packageRoot = getPackageRoot(template);
-		StringBuffer sb = new StringBuffer(packageRoot);
-		sb.append((StringUtils.isEmpty(packageRoot))?model.getName():"."+model.getName());
-		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
-			sb.append("."+template.getTechnicalPackage());
-		return sb.toString();		
+		return model.getTechnicalPackage(template);
+		
+		
+//		String packageRoot = getPackageRoot(template);
+//		StringBuffer sb = new StringBuffer(packageRoot);
+//		sb.append((StringUtils.isEmpty(packageRoot))?model.getName():"."+model.getName());
+//		if (template.getTechnicalPackage()!=null && !template.getTechnicalPackage().equals(""))
+//			sb.append("."+template.getTechnicalPackage());
+//		return sb.toString();		
 	}
 	
 	public static String getPackageRoot (Template template) {
