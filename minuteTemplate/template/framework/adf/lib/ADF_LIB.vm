@@ -1,20 +1,20 @@
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
-#set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))##"/pages/administration/memberStatesManagement/languages/languages.jspx")
-##set($pageEntityADFFacesFullPath = "/pages/administration/memberStatesManagement/memberStates/memberStates.jspx")
+#set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))
 #set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
 #set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
 #set($backingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBackingBeanADFFaces))
 #set($viewEditBeanFlowADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateADFFacesEntityFlow))
 #set($viewEditBeanFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityFlow))
 #set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/"+$viewEditBeanFlowADFFacesRelativePath)
-#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))##"administration.memberStatesManagement.memberStates.memberStatesPageDef")
+#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))
+#set($pageDefEditADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefEditADFFacesEntity))
 #set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesVariable=$commonUtils.getJavaNameVariableFirstLetter($beanVOADFFacesClass))
-##set($viewEditEntityBeanClass=$commonUtils.getTemplateArtifactName($table, $templateViewEditBeanFlowADFFaces))
-#set($viewEditEntityBeanClass=$commonUtils.getTemplateArtifactName($table, $templateViewEditBeanADFFaces))
+#set($viewEditEntityBeanClass=$commonUtils.getTemplateClassName($table, $templateViewEditBeanADFFaces))
 #set($viewEditEntityBeanVariable=$commonUtils.getJavaNameVariableFirstLetter($viewEditEntityBeanClass))
+#set($viewEditEntityBeanImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateViewEditBeanADFFaces))
 #set($detailADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateDetailBeanFlowADFFaces))
 #set($editADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateViewEditBeanFlowADFFaces))
 #end
@@ -33,6 +33,10 @@
 #set($menuConfigADFFacesName = $commonUtils.getTemplateArtifactMainName($model, $templateMenuConfigADFFacesViewController))
 #set($modelADFFacesDataBindingsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataBindings))
 #set($modelADFFacesDataControlsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataControls))
+#end
+
+#macro (exposeADFDataBindingControlSpecific)
+#set($dataControlRef="ReferenceDataEBS_WS_DC")
 #end
 
 #macro (exposeSDOSpecific)
@@ -231,4 +235,5 @@ import $importDomainObjectUML;
 #set ($templateADFFacesDataBindings = "ADF.Faces.ViewController.DataBindings.cpx")
 #set ($templateADFFacesDataControls = "ADF.Faces.ViewController.DataControls.dcx")
 #set ($templatePageDefADFFacesEntity = "ADF.Faces.DataControls.PageDef.xml")
+#set ($templatePageDefEditADFFacesEntity = "ADF.Faces.DataControls.EditPageDef.xml")
 #end

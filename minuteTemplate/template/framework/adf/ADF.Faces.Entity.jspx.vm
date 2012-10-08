@@ -55,7 +55,7 @@
                               </f:facet>
                               <af:commandButton text="#{viewcontrollerBundle['searchHeading']}"
                                                 id="search"
-                                                actionListener="#{viewScope.${entityADFVariable}BackingBean.search}"
+                                                actionListener="#{viewScope.${entityADFVariable}BackingBean.doSearch}"
                                                 inlineStyle="background-color:#4B9FC9; background-image:none; color:#FFF;"/>
                               <af:panelLabelAndMessage label="#{viewcontrollerBundle['selectOr']}"
                                                        id="plam1"
