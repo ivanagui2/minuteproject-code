@@ -16,16 +16,30 @@
 #end
   </pageMap>
   <pageDefinitionUsages>
-    <page id="view_navigatorsPageDef" path="pages.common.navigatorsPageDef"/>
+##    <page id="view_navigatorsPageDef" path="pages.common.navigatorsPageDef"/>
 #foreach ($table in ${entities})
 #exposeADFFacesEntitySpecific()
     <page id="view_${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityImport"/>
+    <page id="view_edit${domainVariableName}PageDef"
+          path="$pageDefADFFacesEntityImport"/>
 #end
   </pageDefinitionUsages>
-  <!--
+
   <dataControlUsages>
+#if ($isMock)
     <dc id="TableDataProvider" path="tabledatacontrol.TableDataProvider"/>
+#elseif($isDirectBinding)	
+    <BC4JDataControl id="AppModuleDataControl" Package="demo.model"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
+                     SupportsTransactions="true" SupportsFindMode="true"
+                     SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true"
+                     Configuration="AppModuleLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+#elseif($isWSBinding)
+    <dc id="ReferenceDataEBS_WS_DC" path="pack.ReferenceDataEBS_WS_DC"/>
+#end
   </dataControlUsages>
-  -->
+
 </Application>

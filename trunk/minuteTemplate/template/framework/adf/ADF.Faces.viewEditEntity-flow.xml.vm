@@ -7,16 +7,16 @@
 ##      <managed-bean-name id="__13">viewEdit${domainVariableName}Bean</managed-bean-name>
       <managed-bean-name id="__13">$viewEditEntityBeanVariable</managed-bean-name>
 ##      <managed-bean-class id="__1">pages.administration.cases.${domainVariableName}.ViewEdit${domainVariableName}Bean</managed-bean-class>
-      <managed-bean-class id="__1">$viewEditEntityBeanClass</managed-bean-class>
+      <managed-bean-class id="__1">$viewEditEntityBeanImport</managed-bean-class>
       <managed-bean-scope id="__14">pageFlow</managed-bean-scope>
     </managed-bean>
-    <view id="detail${domainVariableName}">
+    <view id="${domainVariableName}Details">
 ##      <page>/pages/administration/cases/${domainVariableName}/${domainVariableName}Details.jspx</page>
       <page>${detailADFFacesRelativePath}</page>
 ##      <page>/pages/administration/cases/${domainVariableName}/${domainVariableName}Details.jspx</page>
 ##      <page>${detailADFFacesRelativePath}</page>
     </view>
-    <view id="edit${domainVariableName}">
+    <view id="edit${domainClassName}">
 ##      <page>/pages/administration/cases/${domainVariableName}/edit${domainVariableName}.jspx</page>
       <page>${editADFFacesRelativePath}</page>
     </view>
@@ -26,7 +26,7 @@
       </outcome>
     </task-flow-return>
     <method-call id="delete">
-      <method>#{pageFlowScope.viewEdit${domainVariableName}Bean.delete${domainVariableName}}</method>
+      <method>#{pageFlowScope.${domainVariableName}ViewEditBean.delete${domainClassName}}</method>
       <parameter>
         <class>oracle.adf.model.binding.DCBindingContainer</class>
         <value>#{data.view_edit${domainVariableName}PageDef}</value>
@@ -36,7 +36,7 @@
       </outcome>
     </method-call>
     <method-call id="save">
-      <method>#{pageFlowScope.viewEdit${domainVariableName}Bean.save${domainVariableName}}</method>
+      <method>#{pageFlowScope.${domainVariableName}ViewEditBean.save${domainClassName}}</method>
       <parameter>
         <class>oracle.adf.model.binding.DCBindingContainer</class>
         <value>#{data.view_edit${domainVariableName}PageDef}</value>
@@ -46,16 +46,16 @@
       </outcome>
     </method-call>
     <method-call id="rollback">
-      <method>#{pageFlowScope.viewEdit${domainVariableName}Bean.rollback${domainVariableName}}</method>
+      <method>#{pageFlowScope.${domainVariableName}ViewEditBean.rollback${domainClassName}}</method>
       <outcome id="__37">
         <fixed-outcome>rollback</fixed-outcome>
       </outcome>
     </method-call>
     <control-flow-rule id="__3">
-      <from-activity-id id="__4">detail${domainVariableName}</from-activity-id>
+      <from-activity-id id="__4">${domainVariableName}Details</from-activity-id>
       <control-flow-case id="__6">
         <from-outcome id="__7">edit</from-outcome>
-        <to-activity-id id="__5">edit${domainVariableName}</to-activity-id>
+        <to-activity-id id="__5">edit${domainClassName}</to-activity-id>
       </control-flow-case>
       <control-flow-case id="__9">
         <from-outcome id="__11">close</from-outcome>
@@ -63,7 +63,7 @@
       </control-flow-case>
     </control-flow-rule>
     <control-flow-rule id="__15">
-      <from-activity-id id="__16">edit${domainVariableName}</from-activity-id>
+      <from-activity-id id="__16">edit${domainClassName}</from-activity-id>
       <control-flow-case id="__18">
         <from-outcome id="__19">delete</from-outcome>
         <to-activity-id id="__17">delete</to-activity-id>

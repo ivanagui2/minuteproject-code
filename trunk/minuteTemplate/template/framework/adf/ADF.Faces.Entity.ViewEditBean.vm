@@ -57,7 +57,7 @@ public class $className {
         return ${beanVOADFFacesVariable};
     
     }
-    
+
     private ${beanVOADFFacesClass} getCurrent${domainClassName}(BindingContainer bindings){
 #if($tocomment)
         ReferenceDTO ref = new ReferenceDTO();

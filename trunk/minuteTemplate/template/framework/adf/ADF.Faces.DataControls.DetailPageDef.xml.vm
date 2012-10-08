@@ -1,0 +1,21 @@
+#exposeADFFacesEntitySpecific()
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="$className"
+                Package="$packageName">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+  </executables>
+  <bindings>
+	<!--
+    <methodAction id="getCaseOrigin" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="getCaseOrigin"
+                  IsViewObjectMethod="false" DataControl="ReferenceDataEBS_WS_DC"
+                  InstanceName="ReferenceDataEBS_WS_DC.dataProvider"
+                  ReturnName="data.ReferenceDataEBS_WS_DC.methodResults.getCaseOrigin_ReferenceDataEBS_WS_DC_dataProvider_getCaseOrigin_result">
+      <NamedData NDName="reference" NDType="eu.europa.nif.dto.common.ReferenceDTO" NDOption="2"/>
+    </methodAction>
+	-->
+  </bindings>
+</pageDefinition>
