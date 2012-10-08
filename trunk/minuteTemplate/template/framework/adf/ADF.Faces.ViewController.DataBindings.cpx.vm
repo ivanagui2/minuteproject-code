@@ -38,7 +38,7 @@
                      Configuration="AppModuleLocal" syncMode="Immediate"
                      xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
 #elseif($isWSBinding)
-    <dc id="ReferenceDataEBS_WS_DC" path="pack.ReferenceDataEBS_WS_DC"/>
+    <dc id="$dataControlRef" path="pack.$dataControlRef"/>
 #end
   </dataControlUsages>
 
