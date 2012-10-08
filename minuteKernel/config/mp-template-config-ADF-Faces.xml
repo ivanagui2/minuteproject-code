@@ -123,6 +123,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="entity"
 			>			
 		</template>	
+		<template name="ADF.Faces.DataControls.EditPageDef.xml" templateFileName="ADF.Faces.DataControls.EditPageDef.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages"
+			file-extension="xml" file-prefix="" file-suffix="EditPageDef" 
+			has-updatable-nature="true" add-model-dir-name="false"
+			scope-specific-value="entity"
+			>			
+		</template>	
 		
 		
 	</template-target>

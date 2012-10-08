@@ -395,7 +395,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
 		outputdir="">
-		
+		<property name="target-techno-type" value="sdo"></property>	
 		<template name="ADF.jws" templateFileName="ADF.jws.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="jws" file-prefix="" file-suffix="Workspace" 
@@ -429,6 +429,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 		
+		<template name="ADF.Build.command.cmd" templateFileName="ADF.Build.command.cmd.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="bat" file-prefix="" file-suffix="-deliver" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>		
+			<property name="build-target-type" value="deliver"></property>	
+		</template>	
+				
 		<template name="ADF.Build.deploy-to-ear.ojdeploy" templateFileName="ADF.Build.deploy-to-ear.ojdeploy.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="deploy_to_ear.ojdeploy" 
