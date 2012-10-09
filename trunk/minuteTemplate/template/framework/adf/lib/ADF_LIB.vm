@@ -31,6 +31,7 @@
 #set($projectJwsFacesFullName = $commonUtils.getTemplateFileName($model, $template, $templateADFFacesJws))
 #set($i18nADFFacesImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templatei18nADFFaces))
 #set($menuConfigADFFacesName = $commonUtils.getTemplateArtifactMainName($model, $templateMenuConfigADFFacesViewController))
+#set($rootMenuConfigADFFacesName = $commonUtils.getTemplateArtifactMainName($model, $templateRootMenuConfigADFFacesViewController))
 #set($modelADFFacesDataBindingsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataBindings))
 #set($modelADFFacesDataControlsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataControls))
 #end
@@ -231,6 +232,7 @@ import $importDomainObjectUML;
 #set ($templateDetailBeanFlowADFFaces = "ADF.Faces.EntityDetail.jspx")
 #set ($templatei18nADFFaces = "ADFI18nProperties")
 #set ($templateMenuConfigADFFacesViewController = "ADF.Faces.ViewController.Menu.xml")
+#set ($templateRootMenuConfigADFFacesViewController = "ADF.Faces.ViewController.RootMenu.xml")
 #set ($templateADFFacesEntityFlow = "ADF.Faces.viewEditEntity-flow.xml")
 #set ($templateADFFacesDataBindings = "ADF.Faces.ViewController.DataBindings.cpx")
 #set ($templateADFFacesDataControls = "ADF.Faces.ViewController.DataControls.dcx")

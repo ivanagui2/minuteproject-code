@@ -11,7 +11,7 @@
     <managed-property id="__10">
       <property-name id="__11">menuModelName</property-name>
       <property-class>java.lang.String</property-class>
-      <value id="__12">$menuConfigADFFacesName</value>
+      <value id="__12">$rootMenuConfigADFFacesName</value>
     </managed-property>
     <managed-property id="__13">
       <property-name id="__14">isRootMenu</property-name>
