@@ -1,3 +1,4 @@
+#exposeADFFacesModelSpecific()
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <view id="homePage">
@@ -22,7 +23,7 @@
     <managed-property id="__15">
       <property-name id="__17">source</property-name>
       <property-class id="__14">java.lang.String</property-class>
-      <value id="__16">/WEB-INF/${menuConfigADFFacesName}.xml</value>
+      <value id="__16">/WEB-INF/${rootMenuConfigADFFacesName}.xml</value>
     </managed-property>
   </managed-bean>
 </adfc-config>

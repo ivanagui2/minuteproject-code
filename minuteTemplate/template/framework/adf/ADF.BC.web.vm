@@ -150,4 +150,14 @@
     <extension>swf</extension>
     <mime-type>application/x-shockwave-flash</mime-type>
   </mime-mapping>
+#if($hasErrorHandling)
+  <error-page>
+    <error-code>404</error-code>
+    <location>/faces/unexpectedErrorHandler.jspx</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/faces/unexpectedErrorHandler.jspx</location>
+  </error-page>
+#end
 </web-app>

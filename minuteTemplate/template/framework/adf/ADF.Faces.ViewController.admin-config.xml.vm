@@ -17,7 +17,7 @@
       </display-type>
     </run-as-dialog>
   </task-flow-call>
-##  <view id="${domainVariableName}">
+##  <view id="${domainVariableName}View">
 ##    <page>/$entityEntryADFFaceRelativePath</page>
 ##  </view>
 #set($cpt=$cpt+1) 
@@ -39,7 +39,6 @@
 #set($cpt=$cpt+1)
 #end
 
-#if($__addMenu)
   <managed-bean id="__4">
     <managed-bean-name id="__3">localMenuUtils</managed-bean-name>
     <managed-bean-class id="__2">eu.adf.fwk.utils.MenuUtils</managed-bean-class>
@@ -47,7 +46,7 @@
     <managed-property id="__6">
       <property-name id="__5">menuModelName</property-name>
       <property-class>java.lang.String</property-class>
-      <value id="__7">administration_menu_model</value>
+      <value id="__7">$menuConfigADFFacesName</value>
     </managed-property>
     <managed-property id="__10">
       <property-name id="__8">isRootMenu</property-name>
@@ -55,7 +54,6 @@
       <value id="__9">false</value>
     </managed-property>
   </managed-bean>  
-#end
   
 #foreach ($table in $entities)
 #exposeADFFacesEntitySpecific()  
