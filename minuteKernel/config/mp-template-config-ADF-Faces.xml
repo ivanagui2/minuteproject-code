@@ -130,9 +130,8 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="entity"
 			>			
 		</template>	
-		
-		
 	</template-target>
+	
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
@@ -171,6 +170,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		package-root=""
 		outputdir="ViewController/public_html/WEB-INF">
 
+<!-- 		<template name="ADF.Faces.ViewController.MenuNavigator.jsff" templateFileName="ADF.Faces.ViewController.MenuNavigator.jsff.vm" 
+			subdir="" outputsubdir="common" technicalPackage=""
+			file-extension="jsff" file-prefix="" file-suffix="navigators" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application" add-model-name="false"
+			>			
+		</template>	 -->	
+		
 		<template name="ADF.BC.web" templateFileName="ADF.BC.web.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="web" 
@@ -231,6 +238,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.ViewController.Menu.xml" templateFileName="ADF.Faces.ViewController.Menu.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-package-name-dir="false"
 			file-extension="xml" file-prefix="administration_menu_model" file-suffix="" 
+			has-updatable-nature="true" add-model-name="false"
+			scope-specific-value="application"
+			>			
+		</template>	
+		
+		<template name="ADF.Faces.ViewController.RootMenu.xml" templateFileName="ADF.Faces.ViewController.RootMenu.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-package-name-dir="false"
+			file-extension="xml" file-prefix="root_menu_model" file-suffix="" 
 			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="application"
 			>			
