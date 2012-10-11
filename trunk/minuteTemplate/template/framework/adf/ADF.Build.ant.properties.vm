@@ -54,8 +54,8 @@ $!updatedAreaSnippet
 #else 
 wls.username=$template.getPropertyValue("wls-username","weblogic")
 wls.password=$template.getPropertyValue("wls-password","weblogic")
-wls.hostname=$template.getPropertyValue("wls-hostname","localhost")
-wls.port=$template.getPropertyValue("wls-port","localhost")
+wls.hostname=$server-hostname
+wls.port=$server-port
 wls.deploy.target=$template.getPropertyValue("wls-deploy-target","AdminServer")
 #if ($isFrontEndRelease)
 ##wls.deploy.name=${applicationName}_ViewController_webapp

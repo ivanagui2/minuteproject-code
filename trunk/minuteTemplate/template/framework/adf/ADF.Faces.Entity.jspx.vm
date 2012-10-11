@@ -1,10 +1,5 @@
 #exposeADFFacesEntitySpecific()
 #set($separator=$i18nUtils.getSeparator($template))
-#macro (adfEntityColumnDisplay $id)
-                        <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
-                                      id="${id}" ##columns="40" ##columns="$column.size"
-                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"/>
-#end
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -27,8 +22,7 @@
 ##              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.consult.tabtitle']}"
               <af:showDetailItem text="#{viewcontrollerBundle['consult.title']}"
                                  id="${entityADFVariable}_sdi1">
-                 <af:panelGroupLayout id="${entityADFVariable}_pgl3" layout="horizontal"
-                                       halign="left">                
+                 <af:panelGroupLayout id="${entityADFVariable}_pgl3" layout="horizontal" halign="left" inlineStyle="width:518px;">                
                     <af:panelBox text="#{viewcontrollerBundle['consult.select.header']} #{viewcontrollerBundle['${tableVariableName}']}"
                                  id="${entityADFVariable}_pb1" styleClass="section"
                                  disclosed="#{viewScope.${entityADFVariable}BackingBean.displaySearch}">
@@ -67,8 +61,8 @@
                             </af:panelGroupLayout>
                     </af:panelBox>
                  </af:panelGroupLayout>
-                 
-                    <af:panelGroupLayout layout="horizontal" halign="left"
+## list
+                 <af:panelGroupLayout layout="horizontal" halign="left"
                         rendered="#{viewScope.${entityADFVariable}BackingBean.displayResults}">
                     <af:panelBox id="${entityADFVariable}__pb2" showDisclosure="false"
                                  showHeader="always" ramp="core"
@@ -130,15 +124,15 @@
              
               </af:showDetailItem>
               
-              <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}"
-                                 id="${entityADFVariable}_sdi2">
+              <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}" immediate="true"
+                                 id="${entityADFVariable}_sdi2" >
 								 
                     <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" styleClass="dialogFormLayout">
 #foreach ($column in $table.columns)  
 #putColumnParams()
-#adfEntityColumnDisplay("${columnVar}itdet")
+#adfEntityEditColumnDisplay("${columnVar}itdet")
 #end
-			</af:panelFormLayout>                    
+					</af:panelFormLayout>                    
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['save']}"
                                               id="itdetsave"
