@@ -160,6 +160,13 @@
 			<xs:enumeration value="autodetect-foreign-key-based-on-target-primary-key-name" />
 		</xs:restriction>
 	</xs:simpleType>
+	
+	<xs:simpleType name="sql-mapping-convention-type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="varchar2-used-instead-of-varchar" />
+			<xs:enumeration value="char2-used-instead-of-char" />
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:simpleType name="stereotype-type">
 		<xs:restriction base="xs:string">
@@ -188,6 +195,10 @@
 	<xs:complexType name="column-naming-convention">
 		<xs:attribute name="type" type="column-naming-convention-type" />
 		<xs:attribute name="pattern-to-strip" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="sql-mapping-convention">
+		<xs:attribute name="type" type="sql-mapping-convention-type" />
 	</xs:complexType>
 
 	<xs:complexType name="foreign-key-convention">
