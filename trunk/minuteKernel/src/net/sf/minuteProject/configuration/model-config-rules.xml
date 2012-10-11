@@ -321,6 +321,25 @@
 					<alias attr-name="name" prop-name="name" />	
 					<alias attr-name="alias" prop-name="alias" />
 				</set-properties-rule>
+				<pattern value="check-constraint-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.CheckConstraintConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.CheckConstraintConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="field-pattern" prop-name="fieldPattern" />	
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />	
+						<alias attr-name="field-content-type" prop-name="fieldContentType" />	
+					</set-properties-rule>	
+					<pattern value="property">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+						<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="value" prop-name="value" />
+							<alias attr-name="tag" prop-name="tag" />
+						</set-properties-rule>
+					</pattern>	
+	            </pattern>					
 				<pattern value="global-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.GlobalConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.GlobalConvention"/>		
@@ -381,6 +400,13 @@
 						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
 						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
+					</set-properties-rule>	
+	            </pattern>		
+				<pattern value="sql-mapping-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SqlMappingConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SqlMappingConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
 					</set-properties-rule>	
 	            </pattern>		
 				<pattern value="primary-key-convention">

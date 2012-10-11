@@ -62,7 +62,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
     
 	<template-target 
     	name="ADF ViewController src"
-		libdir="lib/ADF_LIB.vm"
+		libdir="lib/ADF_LIB.vm,lib/ADF_FACES_LIB.vm"
 		outputdir="ViewController/public_html"
 		package-root=""
 		>
