@@ -25,4 +25,7 @@ call ant
 #set($isDeliver=($templateBuildTarget=="deliver"))
 #if($isDeliver)
 call ant deliver
+call explorer http://${server-hostname}:${server-port}/$applicationName/faces/homePage.jspx
+
+@rem call selenium
 #end

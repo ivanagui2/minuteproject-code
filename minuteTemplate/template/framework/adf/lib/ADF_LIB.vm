@@ -188,6 +188,8 @@ import $importDomainObjectUML;
 #set($modelReleaseName="${deployName}-app")
 #set($contextRootName="$formatUtils.firstUpperCase(${model.name})-app")
 #end
+#set($server-hostname=$template.getPropertyValue("wls-hostname","localhost"))
+#set($server-port=$template.getPropertyValue("wls-port","7001"))
 #end
 
 #macro(exposeADFConfig)
