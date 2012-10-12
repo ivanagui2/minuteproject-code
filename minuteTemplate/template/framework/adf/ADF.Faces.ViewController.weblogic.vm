@@ -1,7 +1,8 @@
 #exposeADFReleaseSpecific()
 <?xml version = '1.0' encoding = 'windows-1252'?>
 <weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd" xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app">
-    <context-root>$contextRootName</context-root>
+##    <context-root>$contextRootName</context-root>
+    <context-root>$applicationName</context-root>
     <library-ref>
         <library-name>adf.oracle.domain.webapp</library-name>
     </library-ref>
@@ -13,4 +14,9 @@
         <library-name>jsf</library-name>
         <specification-version>1.2</specification-version>
     </library-ref>
+#if($hasCasAuthentication)
+	<session-descriptor>
+		<cookie-path>/$applicationName</cookie-path>
+	</session-descriptor>
+#end
 </weblogic-web-app>

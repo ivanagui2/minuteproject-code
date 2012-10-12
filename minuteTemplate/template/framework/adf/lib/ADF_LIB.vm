@@ -180,6 +180,8 @@ import $importDomainObjectUML;
 #set($releaseName="${deployName}App")
 #set($modelReleaseName="${deployName}-FE-app")
 #set($contextRootName="$formatUtils.firstUpperCase(${model.name})-FE-app")
+#set($adfFacesCustomFwkHome = $template.getPropertyValue("adf-faces-custom-framework-home",""))
+#set($hasAdfFacesCustomFwk=$adfFacesCustomFwkHome!="")
 #else
 #set($applicationName="${model.name}SDO")
 #set($profileName=${model.name}+"SDOProfile")
@@ -190,6 +192,7 @@ import $importDomainObjectUML;
 #end
 #set($server-hostname=$template.getPropertyValue("wls-hostname","localhost"))
 #set($server-port=$template.getPropertyValue("wls-port","7001"))
+#set($hasCasAuthentication=$template.getPropertyValue("has-cas-authentication",false))
 #end
 
 #macro(exposeADFConfig)
