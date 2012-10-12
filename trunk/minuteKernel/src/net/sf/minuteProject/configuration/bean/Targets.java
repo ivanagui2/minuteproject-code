@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.system.GenerationAction;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.target.ImportTargets;
 import net.sf.minuteProject.configuration.bean.target.TargetParams;
@@ -17,6 +18,7 @@ public class Targets extends AbstractConfiguration {
 	private String outputdirRoot, templatedirRoot;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
+	private GenerationAction postGenerationAction;
 
 	public List<Target> getTargets() {
 		if (targets==null)
@@ -56,6 +58,15 @@ public class Targets extends AbstractConfiguration {
 
 	public void setTemplatedirRoot(String templatedirRoot) {
 		this.templatedirRoot = templatedirRoot;
+	}
+
+	public GenerationAction getPostGenerationAction() {
+		return postGenerationAction;
+	}
+
+	public void setPostGenerationAction(GenerationAction postGenerationAction) {
+		postGenerationAction.setTargets(this);
+		this.postGenerationAction = postGenerationAction;
 	}
 	
 }

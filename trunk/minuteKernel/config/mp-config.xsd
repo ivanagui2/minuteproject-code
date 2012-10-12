@@ -560,9 +560,17 @@
 					<xs:attribute name="templatedir-root" type="xs:string" />
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="post-generation-action" type="generation-action"
+				minOccurs="0">
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="outputdir-root" type="xs:string" />
 		<xs:attribute name="templatedir-root" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="generation-action">
+		<xs:attribute name="command" type="xs:string" />
+		<xs:attribute name="is-absolute-path" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="configuration">
