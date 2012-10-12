@@ -10,8 +10,13 @@ set WORKSPACE_HOME=$projectADFFacesJwsPhysicalDirPath
 #else
 set WORKSPACE_HOME=$projectJwsPhysicalDirPath
 #end
+set currentdir=%cd%
+
 #if($isFrontEndRelease)
 cd ViewController
+#if($hasAdfFacesCustomFwk)
+xcopy $adfFacesCustomFwkHome %cd% /s /e /y
+#end
 #else
 cd Model
 #end
