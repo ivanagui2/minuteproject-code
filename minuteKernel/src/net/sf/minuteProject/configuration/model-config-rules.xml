@@ -847,6 +847,14 @@
             <alias attr-name="outputdir-root" prop-name="outputdirRoot" />
             <alias attr-name="templatedir-root" prop-name="templatedirRoot" />
       </set-properties-rule>
+		<pattern value="post-generation-action">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.GenerationAction"/>		
+			<set-next-rule methodname="setPostGenerationAction" paramtype="net.sf.minuteProject.configuration.bean.system.GenerationAction"/>	
+			<set-properties-rule>
+				<alias attr-name="command" prop-name="command" />
+				<alias attr-name="is-absolute-path" prop-name="absolutePath" />
+			</set-properties-rule>
+		</pattern>	
 	  <pattern value="target">
 		<object-create-rule classname="net.sf.minuteProject.configuration.bean.Target"/>	  
 		<set-next-rule methodname="addTarget" paramtype="net.sf.minuteProject.configuration.bean.Target"/>		  

@@ -169,7 +169,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		libdir="lib/ADF_LIB.vm"
 		package-root=""
 		outputdir="ViewController/public_html/WEB-INF">
-
+		<property name="target-techno-type" value="front-end"></property>	
 <!-- 		<template name="ADF.Faces.ViewController.MenuNavigator.jsff" templateFileName="ADF.Faces.ViewController.MenuNavigator.jsff.vm" 
 			subdir="" outputsubdir="common" technicalPackage=""
 			file-extension="jsff" file-prefix="" file-suffix="navigators" 
@@ -178,7 +178,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	 -->	
 		
-		<template name="ADF.BC.web" templateFileName="ADF.BC.web.vm" 
+		<template name="ADF.BC.web-FE" templateFileName="ADF.BC.web.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="" file-suffix="web" 
 			has-updatable-nature="true" add-package-name-dir="false"

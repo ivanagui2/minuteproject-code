@@ -143,7 +143,7 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 		config = args[0];
 		Date startDate = new Date();
-	    logger.info("start time = "+new Date());
+	    logger.info("start time = "+startDate);
 		ModelGenerator generator = new ModelGenerator(config);
 		try {
 			generator.generate();
@@ -151,6 +151,7 @@ public class ModelGenerator extends AbstractGenerator {
 			generator.exit ("");
 		}
 		Date endDate = new Date();
+		logger.info("start time = "+endDate);
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
@@ -164,10 +165,22 @@ public class ModelGenerator extends AbstractGenerator {
 		Model model = getEnrichedModel(configuration);
 		if (hasTarget())
 			loadAndGenerate(model.getConfiguration().getTarget());
+		Targets targets = model.getConfiguration().getTargets();
 		if (hasTargets())
-			loadAndGenerate(model.getConfiguration().getTargets());
+			loadAndGenerate(targets);
+		if (hasPostGenerationAction(targets)) {
+			executePostGenerationAction(targets);
+		}
 	}
 	
+	private void executePostGenerationAction(Targets targets) {
+		targets.getPostGenerationAction().run();
+	}
+
+	private boolean hasPostGenerationAction(Targets targets) {
+		return targets.getPostGenerationAction()!=null;
+	}
+
 	public Model getEnrichedModel (Configuration configuration) {
 		Model model = configuration.getModel();
 		setModel(model);
