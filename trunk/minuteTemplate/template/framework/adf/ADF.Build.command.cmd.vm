@@ -23,14 +23,21 @@ cd Model
 call ant
 cd ..
 call %JDEV_HOME%\jdev\bin\ojdeploy -buildfile deploy_to_ear.ojdeploy.xml -define workspace.path=%WORKSPACE_HOME%,ear.filename=${releaseName}.ear
-#if(!$isFrontEndRelease)
+
+#if($isSdoRelease)
 call ant
 #end
 #set($templateBuildTarget=$template.getPropertyValue("build-target-type","none"))
 #set($isDeliver=($templateBuildTarget=="deliver"))
 #if($isDeliver)
 call ant deliver
+
+#if($isSdoRelease)
+call explorer http://${server-hostname}:${server-port}/$contextRootName/AppModuleService?wsdl
+#end
+#if($isFrontEndRelease)
 call explorer http://${server-hostname}:${server-port}/$applicationName/faces/homePage.jspx
+#end
 
 @rem call selenium
 #end

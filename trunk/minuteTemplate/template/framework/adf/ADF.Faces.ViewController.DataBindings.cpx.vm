@@ -38,7 +38,7 @@
                      Configuration="AppModuleLocal" syncMode="Immediate"
                      xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
 #elseif($isWSBinding)
-    <dc id="$dataControlRef" path="pack.$dataControlRef"/>
+    <dc id="$dataControlRef" path="$SDOWsDcDefImport"/>
 #end
   </dataControlUsages>
 
