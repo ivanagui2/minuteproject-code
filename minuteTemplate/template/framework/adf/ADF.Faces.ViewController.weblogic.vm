@@ -15,6 +15,9 @@
         <specification-version>1.2</specification-version>
     </library-ref>
 #if($hasCasAuthentication)
+    <container-descriptor>
+        <allow-all-roles>true</allow-all-roles>
+    </container-descriptor>
 	<session-descriptor>
 		<cookie-path>/$applicationName</cookie-path>
 	</session-descriptor>
