@@ -476,6 +476,8 @@ public class CommonUtils {
 	
 	public static String getArtifactRelativePathDirAndFullName(Template template, Table table) {
 //		 TODO refactor may have side effect check with the Template implementation
+		if (template==null)
+			return "TEMPLATE_CANNOT_BE_NUL";
 		String classpathName = templatePackageName(table, template);
 		String filename = getFileName(template, table);
 		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;
@@ -483,6 +485,8 @@ public class CommonUtils {
 
 	public static String getArtifactRelativePathDirAndFullName(Template template, Model model) {
 		// TODO refactor may have side effect check with the Template implementation
+		if (template==null)
+			return "TEMPLATE_CANNOT_BE_NUL";
 		String classpathName = getPackageName(model, template);
 		String filename = getFileName(template, model);
 		return FormatUtils.getDirFromPackage(classpathName)+"/"+filename;

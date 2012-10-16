@@ -12,6 +12,25 @@ import net.sf.minuteProject.utils.FormatUtils;
 
 public class AdfUtils {
 
+	private static final String MOCK = "mock";
+	private static final String DB_DIRECT = "db-direct";
+	private static final String WS_SDO = "ws-sdo";
+	private static final String ADF_FACES_BACKEND_BINDING = "adf-faces-backend-binding";
+
+	public boolean isBindingWsSDO(Template template) {
+		return WS_SDO.equals(getBinding(template));
+	}
+	public boolean isBindingDBDirect(Template template) {
+		return DB_DIRECT.equals(getBinding(template));
+	}
+	public boolean isBindingMock(Template template) {
+		return MOCK.equals(getBinding(template));
+	}
+	
+	private String getBinding(Template template) {
+		return template.getPropertyValue(ADF_FACES_BACKEND_BINDING);
+	}
+
 	public String getAdfType(Column column) {
 		if (ColumnUtils.isTimeStampColumn(column))
 			return "oracle.jbo.domain.Timestamp";
