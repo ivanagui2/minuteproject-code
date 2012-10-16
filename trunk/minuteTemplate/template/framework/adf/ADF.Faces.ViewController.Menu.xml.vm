@@ -24,6 +24,22 @@
 
 #end
       </groupNode>
+#if ($showViews)
+   <!-- $package.name view-->	
+      <groupNode id="$groupId" label="$groupLabel" 
+#foreach ($table in ${package.listOfViews})
+#exposeADFFacesEntitySpecific()
+#if($velocityCount==1)
+## idref="$groupIdRef">  
+ idref="${domainClassName}Item">  
+#end
+        <itemNode id="${domainClassName}Item" label="#{viewcontrollerBundle['${tableVariableName}']}"
+                  action="goto${domainClassName}"
+                  focusViewId="/${domainVariableName}View"/>
+
+#end
+      </groupNode>
+#end
 #end
    </groupNode>	
 </menu>

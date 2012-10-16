@@ -1,4 +1,6 @@
 #exposeADFFacesModelSpecific()
+#exposeADFFacesDataControlModelSpecific()
+#exposeADFDataBindingControlSpecific()
 <?xml version="1.0" encoding="UTF-8" ?>
 <Application xmlns="http://xmlns.oracle.com/adfm/application"
              version="11.1.1.60.13" id="$className" SeparateXMLFiles="false"
@@ -27,9 +29,9 @@
   </pageDefinitionUsages>
 
   <dataControlUsages>
-#if ($isMock)
+#if ($isBindingMock)
     <dc id="TableDataProvider" path="tabledatacontrol.TableDataProvider"/>
-#elseif($isDirectBinding)	
+#elseif($isBindingDBDirect)	
     <BC4JDataControl id="AppModuleDataControl" Package="demo.model"
                      FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
                      SupportsTransactions="true" SupportsFindMode="true"
@@ -37,8 +39,8 @@
                      SupportsSortCollection="true"
                      Configuration="AppModuleLocal" syncMode="Immediate"
                      xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
-#elseif($isWSBinding)
-    <dc id="$dataControlRef" path="$SDOWsDcDefImport"/>
+#elseif($isBindingWsSDO)
+    <dc id="$ADFSDOWsDcDefClass" path="$ADFSDOWsDcDefImport"/>
 #end
   </dataControlUsages>
 
