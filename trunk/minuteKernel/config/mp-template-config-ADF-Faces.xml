@@ -30,6 +30,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			add-model-name="true">
 		</template>
 			 
+		<template name="ADF.Faces.SDOWsControllerImpl" templateFileName="ADF.Faces.SDOWsControllerImpl.vm" 
+			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
+			file-extension="java" file-prefix="" file-suffix="SdoWsDcImpl" 
+			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
+			add-model-name="true">
+		</template>
+			 
 		<template name="ADF.Faces.Entity.QueryRequest.Bean" templateFileName="ADF.Faces.Entity.QueryRequest.Bean.vm" 
 			subdir="" outputsubdir="src" technicalPackage="query"
 			file-extension="java" file-prefix="" file-suffix="QueryRequest" 
@@ -150,14 +157,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		outputdir="ViewController/adfmsrc">
 	    <!-- package -->	
 		<template name="ADF.Faces.DataControls.PageDef.xml" templateFileName="ADF.Faces.DataControls.PageDef.xml.vm" 
-			subdir="" outputsubdir="" technicalPackage="pages"
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="xml" file-prefix="" file-suffix="PageDef" 
 			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
 			>			
 		</template>	
 		<template name="ADF.Faces.DataControls.EditPageDef.xml" templateFileName="ADF.Faces.DataControls.EditPageDef.xml.vm" 
-			subdir="" outputsubdir="" technicalPackage="pages"
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="xml" file-prefix="" file-suffix="EditPageDef" 
 			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
@@ -178,11 +185,17 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>
 		</template>	
-		
+	</template-target>
+	
+	<template-target 
+    	name="ADF Model META-INF"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/adfmsrc">
+
 		<template name="ADF.Faces.ViewController.DataBindings.cpx" templateFileName="ADF.Faces.ViewController.DataBindings.cpx.vm" 
-			subdir="" technicalPackage="view"
+			subdir="" technicalPackage="view" 
 			file-extension="cpx" file-prefix="" file-suffix="DataBindings" 
-			has-updatable-nature="true" add-model-dir-name="false"
+			has-updatable-nature="true" add-model-dir-name="false" add-model-name="false"
 			scope-specific-value="model"
 			>
 		</template>	
@@ -190,7 +203,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.ViewController.DataControls.dcx" templateFileName="ADF.Faces.ViewController.DataControls.dcx.vm" 
 			subdir="" technicalPackage="view"
 			file-extension="dcx" file-prefix="" file-suffix="DataControls" 
-			has-updatable-nature="true" add-model-dir-name="false"
+			has-updatable-nature="true" add-model-dir-name="false" add-model-name="false"
 			scope-specific-value="model"
 			>
 		</template>	

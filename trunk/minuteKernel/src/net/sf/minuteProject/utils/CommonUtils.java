@@ -99,7 +99,8 @@ public class CommonUtils {
 	
 	public static String getPackageName (GeneratorBean bean, Template template, String targetTemplateName) {
 		Template templateTarget = getTargetTemplate(template, targetTemplateName);
-		return getPackageName(bean, templateTarget);
+		return FormatUtils.getDirToPackage(templatePackageName(bean, templateTarget));
+//		return getPackageName(bean, templateTarget);
 	}
 	
 	public static String getRootAndTechnicalPackageName (Model model, String templateName) {
@@ -110,6 +111,7 @@ public class CommonUtils {
 	}
 	// 4 times (model, package, table, view) use hierachy instead
 	// TODO refactor
+	// use templatePackageName instead
 	public static String getPackageName (GeneratorBean bean, Template template) {
 		if (bean ==null || template==null)
 			return "PACKAGENAME_ERROR";
@@ -555,7 +557,7 @@ public class CommonUtils {
 	}
 	
 	public static String getEntityLevelTemplateFullPath(GeneratorBean bean, Template template, String targetTemplateName) {
-		String packageName = getPackageName(bean, template, targetTemplateName);
+	    String packageName = getPackageName(bean, template, targetTemplateName);
 		String templateClassName = getTemplateClassName (bean, template, targetTemplateName);
 		return (StringUtils.isEmpty(packageName))? templateClassName : packageName +"."+ templateClassName;
 	}	
