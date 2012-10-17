@@ -30,7 +30,7 @@ public interface $thisClassName {
    */
    public $beanVOADFFacesClass get$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable);
   
-   public void createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable);
+   public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable);
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable);
 

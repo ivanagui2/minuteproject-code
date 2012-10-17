@@ -1,0 +1,53 @@
+#exposeADFFacesModelSpecific()
+#exposeADFFacesDataControlModelSpecific()
+#set($thisClassName=$className)
+package $packageName;
+
+import eu.adf.fwk.query.QueryRequest;
+import eu.adf.fwk.query.QueryResponse;
+
+import $ADFSDOWsDcFaceImport;
+
+#foreach($table in $entities)
+#exposeADFFacesEntitySpecific()
+#exposeADFFacesDataControlEntitySpecific()
+import $beanVOADFFacesImport;
+import $beanVOADFFacesQueryResponseImport;
+import $beanVOADFFacesQueryRequestImport;
+#end
+
+import java.util.List;
+
+public class $thisClassName implements $ADFSDOWsDcFaceClass {
+
+#foreach($table in $entities)
+#exposeADFFacesEntitySpecific()
+#exposeADFFacesDataControlEntitySpecific()
+  /**
+   * @return $beanVOADFFacesQueryResponseClass
+   */
+  public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request) {
+     System.out.println(">>>> list$domainClassName");
+	 return new $beanVOADFFacesQueryResponseClass();
+  }
+
+   /**
+    * @return $beanVOADFFacesClass
+   */
+   public $beanVOADFFacesClass get$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable) {
+      System.out.println(">>>> get$domainClassName");
+	  return new $beanVOADFFacesClass();
+   }
+  
+   public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
+      System.out.println(">>>> createOrUpdate$domainClassName");
+	  return new $beanVOADFFacesClass();
+   }
+  
+   public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
+      System.out.println(">>>> delete$domainClassName");
+   }
+
+#end
+
+}

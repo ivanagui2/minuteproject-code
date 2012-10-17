@@ -1,23 +1,71 @@
 #exposeADFFacesEntitySpecific()
 #exposeADFDataBindingControlSpecific()
+#exposeADFFacesDataControlEntitySpecific()
 #exposeADFFacesDomainObject()
 <?xml version="1.0" encoding="UTF-8" ?>
 <pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
                 version="11.1.1.61.92" id="$className"
-                Package="$packageName">
+                Package="${packageName}.$domainClassName">
   <parameters/>
   <executables>
-    <variableIterator id="variables"/>
+    <methodIterator Binds="list${domainClassName}.result" DataControl="${dataControlRef}"
+                    RangeSize="1"
+                    BeanClass="$beanVOADFFacesQueryResponseImport"
+                    id="list${domainClassName}Iterator"/>
+    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="${domainVariableName}DTOs"
+                      RangeSize="50" DataControl="${dataControlRef}"
+                      BeanClass="$beanVOADFFacesQueryResponseImport"
+                      id="${domainVariableName}DTOsIterator"/>
+    <searchRegion Binds="${domainVariableName}DTOsIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="referenceDTOsQuery"/>
+    <methodIterator Binds="listAvailableForItems.result"
+                    DataControl="${dataControlRef}" RangeSize="25"
+                    BeanClass="$beanVOADFFacesQueryResponseImport"
+                    id="listAvailableForItemsIterator"/>
   </executables>
   <bindings>
-
-    <methodAction id="get${domainObjectClass}" RequiresUpdateModel="true"
-                  Action="invokeMethod" MethodName="get${domainObjectClass}"
+    <methodAction id="list${domainClassName}" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="list${domainClassName}"
                   IsViewObjectMethod="false" DataControl="${dataControlRef}"
                   InstanceName="${dataControlRef}.dataProvider"
-                  ReturnName="data.${dataControlRef}.methodResults.get${domainObjectClass}_${dataControlRef}_dataProvider_get${domainObjectClass}_result">
-      <NamedData NDName="reference" NDType="$importDomainObjectUML" NDOption="2"/>
+                  ReturnName="data.${dataControlRef}.methodResults.list${domainClassName}_${dataControlRef}_dataProvider_list${domainClassName}_result">
+      <NamedData NDName="request"
+                 NDValue="#{viewScope.${domainVariableName}BackingBean.${domainClassName}Table.request}"
+                 NDType="$beanVOADFFacesQueryRequestImport"
+                 NDOption="2"/>
     </methodAction>
-
+    <tree IterBinding="${domainVariableName}DTOsIterator" id="${domainVariableName}DTOs">
+      <nodeDefinition DefName="$beanVOADFFacesImport"
+                      Name="${domainVariableName}DTOs">
+        <AttrNames>
+          <Item Value="key"/>
+          <Item Value="value"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="listAvailableForItems" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="listAvailableForItems"
+                  IsViewObjectMethod="false"
+                  DataControl="${dataControlRef}"
+                  InstanceName="${dataControlRef}.dataProvider"
+                  ReturnName="data.${dataControlRef}.methodResults.listAvailableForItems_${dataControlRef}_dataProvider_listAvailableForItems_result"/>
+    <list IterBinding="listAvailableForItemsIterator" ListOperMode="navigation"
+          ListIter="listAvailableForItemsIterator" id="ReferenceDTO"
+          DTSupportsMRU="true">
+      <AttrNames>
+        <Item Value="key"/>
+        <Item Value="value"/>
+      </AttrNames>
+    </list>
+    <methodAction id="createOrUpdate${domainClassName}" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="createOrUpdate${domainClassName}"
+                  IsViewObjectMethod="false"
+                  DataControl="${dataControlRef}"
+                  InstanceName="${dataControlRef}.dataProvider">
+      <NamedData NDName="${domainVariableName}" NDType="$beanVOADFFacesImport"
+                 NDOption="2"/>
+    </methodAction>
   </bindings>
 </pageDefinition>
+
