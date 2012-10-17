@@ -8,6 +8,7 @@
 		  
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
+#exposeADFFacesDataControlEntitySpecific()
   <MethodAccessor IsCollection="false"
                   Type="$beanVOADFFacesQueryResponseImport"
                   BeanClass="$beanVOADFFacesQueryResponseImport"
@@ -27,7 +28,7 @@
    
   <MethodAccessor IsCollection="false"
                   Type="$beanVOADFFacesImport"
-                  BeanClass="eu.adf.fwk.MemberStateDTO"
+                  BeanClass="$beanVOADFFacesImport"
                   id="get$domainClassName" ReturnNodeName="$domainClassName">
     <ParameterInfo id="$beanVOADFFacesVariable" Type="$beanVOADFFacesImport"
                    isStructured="true"/>

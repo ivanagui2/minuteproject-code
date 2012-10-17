@@ -1,5 +1,6 @@
 #exposeADFFacesEntitySpecific()
 #exposeADFDataBindingControlSpecific()
+#exposeADFFacesDataControlEntitySpecific()
 #exposeADFFacesDomainObject()
 <?xml version="1.0" encoding="UTF-8" ?>
 <pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"

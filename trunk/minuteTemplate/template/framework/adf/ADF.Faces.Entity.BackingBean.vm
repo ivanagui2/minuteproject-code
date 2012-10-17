@@ -111,10 +111,10 @@ public class $className {
 
     public void handleLaunchEditCaseOriginDlg(LaunchEvent launchEvent) {
         RichCommandLink comp = (RichCommandLink)launchEvent.getComponent();
-        String caseOriginCode = (String) comp.getAttributes().get("caseOriginCode");
+        String caseOriginCode = (String) comp.getAttributes().get("${domainClassName}Origin");
         //Pass the current value of the field into the dialog
         //      Object usr = username;
-        launchEvent.getDialogParameters().put("caseOriginCode", caseOriginCode);
+        launchEvent.getDialogParameters().put("${domainClassName}Origin", caseOriginCode);
     }
 
     public void set${domainClassName}Name(String ${domainVariableName}Name) {
@@ -131,10 +131,12 @@ public class $className {
 
     public void create${domainClassName}(ActionEvent actionEvent) {
         BindingContext bindingCtx = BindingContext.getCurrent();
+		System.out.println(">> create${domainClassName} : bindingCtx: "+bindingCtx);
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+		System.out.println(">> create${domainClassName} : bindings: "+bindings);
         Map mapParam = new HashMap();
-        mapParam.put("caseOrigin", this.${beanVOADFFacesVariable});
-        OperationBinding ob = bindings.getOperationBinding("createOrUpdateCaseOrigin");
+        mapParam.put("${domainClassName}", this.${beanVOADFFacesVariable});
+        OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(mapParam);
         ob.execute();
         ${beanVOADFFacesVariable} = new ${beanVOADFFacesClass}();

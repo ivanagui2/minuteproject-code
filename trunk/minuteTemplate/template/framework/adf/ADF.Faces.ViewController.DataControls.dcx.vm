@@ -4,7 +4,7 @@
 <DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
                     version="11.1.1.60.13" id="$className" Package="view">
 					
-  <AdapterDataControl id="SDO_WS_DC"
+  <AdapterDataControl id="$ADFSDOWsDcFaceClass"
                       FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
                       ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
                       SupportsTransactions="false" SupportsSortCollection="true"
@@ -19,11 +19,14 @@
 #foreach ($table in ${entities})
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDomainObject($table)
+#exposeADFFacesDataControlEntitySpecific()
       <TypeInfo FullName="$importDomainObjectUML"/>
+      <TypeInfo FullName="$beanVOADFFacesQueryResponseImport"/>
+      <TypeInfo FullName="$beanVOADFFacesQueryRequestImport"/>
 #end
     </CreatableTypes>
     <Source>
-      <bean-definition BeanClass="$ADFSDOWsDcDefImport" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
+      <bean-definition BeanClass="$ADFSDOWsDcImplImport" xmlns="http://xmlns.oracle.com/adfm/adapter/bean"/>
     </Source>
   </AdapterDataControl>  
 </DataControlConfigs>

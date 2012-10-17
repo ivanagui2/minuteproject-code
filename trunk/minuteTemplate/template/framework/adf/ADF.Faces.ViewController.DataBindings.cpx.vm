@@ -23,8 +23,8 @@
 #exposeADFFacesEntitySpecific()
     <page id="view_${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityImport"/>
-    <page id="view_edit${domainVariableName}PageDef"
-          path="$pageDefADFFacesEntityImport"/>
+##    <page id="view_edit${domainVariableName}PageDef"
+##          path="$pageDefADFFacesEntityImport"/>
 #end
   </pageDefinitionUsages>
 

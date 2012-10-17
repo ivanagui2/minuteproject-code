@@ -1,13 +1,13 @@
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
 #set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))
+#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))
 #set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
 #set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
 #set($backingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBackingBeanADFFaces))
 #set($viewEditBeanFlowADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateADFFacesEntityFlow))
 #set($viewEditBeanFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityFlow))
 #set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/"+$viewEditBeanFlowADFFacesRelativePath)
-#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))
 #set($pageDefEditADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefEditADFFacesEntity))
 #set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
@@ -30,8 +30,10 @@
 #macro (exposeADFFacesDataControlModelSpecific)
 #exposeADFModelSpecific()
 #set($ADFSDOWsDcFaceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcFace))
+#set($ADFSDOWsDcFaceClass=$commonUtils.getTemplateClassName($model, $template, $templateADFSDOWsDcFace))
 #set($ADFSDOWsDcDefImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcDef))
 #set($ADFSDOWsDcDefClass=$commonUtils.getTemplateClassName($model, $template, $templateADFSDOWsDcDef))
+#set($ADFSDOWsDcImplImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcImpl))
 #end
 
 #macro (exposeADFFacesModelSpecific)
@@ -52,7 +54,8 @@
 #end
 
 #macro (exposeADFDataBindingControlSpecific)
-#set($dataControlRef="ReferenceDataEBS_WS_DC")
+#exposeADFFacesDataControlModelSpecific()
+#set($dataControlRef=$ADFSDOWsDcDefClass)
 #set($isBindingWsSDO=$adfUtils.isBindingWsSDO($template))
 #set($isBindingDBDirect=$adfUtils.isBindingDBDirect($template))
 #set($isBindingMock=$adfUtils.isBindingMock($template))
@@ -262,6 +265,7 @@ import $importDomainObjectUML;
 #set ($templatePageDefADFFacesEntity = "ADF.Faces.DataControls.PageDef.xml")
 #set ($templatePageDefEditADFFacesEntity = "ADF.Faces.DataControls.EditPageDef.xml")
 #set ($templateADFSDOWsDcFace = "ADF.Faces.SDOWsControllerFace")
+#set ($templateADFSDOWsDcImpl = "ADF.Faces.SDOWsControllerImpl")
 #set ($templateADFSDOWsDcDef = "ADF.Faces.SDOWsControllerDef")
 #set ($templateBeanVOQueryResponseADFFaces = "ADF.Faces.Entity.QueryResponse.Bean")
 #set ($templateBeanVOQueryRequestADFFaces = "ADF.Faces.Entity.QueryRequest.Bean")
