@@ -16,12 +16,12 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		outputdir="ViewController"
 		belongToPackage="true">
 			 
-		<template name="ADF.Faces.SDOWsControllerDef" templateFileName="ADF.Faces.SDOWsControllerDef.vm" 
+<!-- 		<template name="ADF.Faces.SDOWsControllerDef" templateFileName="ADF.Faces.SDOWsControllerDef.vm" 
 			subdir="" outputsubdir="adfmsrc" technicalPackage="datacontrol"
 			file-extension="xml" file-prefix="" file-suffix="SdoWsDc" 
 			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
 			add-model-name="true">
-		</template>
+		</template> -->
 			 
 		<template name="ADF.Faces.SDOWsControllerFace" templateFileName="ADF.Faces.SDOWsControllerFace.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol"
@@ -29,7 +29,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
 			add-model-name="true">
 		</template>
-			 
+
+		<template name="ADF.Faces.SDOWsControllerDef" templateFileName="ADF.Faces.SDOWsControllerDef.vm" 
+			subdir="" outputsubdir="adfmsrc" technicalPackage="datacontrol.impl"
+			file-extension="xml" file-prefix="" file-suffix="SdoWsDcImpl" 
+			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
+			add-model-name="true">
+		</template>
+					 
 		<template name="ADF.Faces.SDOWsControllerImpl" templateFileName="ADF.Faces.SDOWsControllerImpl.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
 			file-extension="java" file-prefix="" file-suffix="SdoWsDcImpl" 
@@ -75,7 +82,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		
 		<template name="ADF.Faces.Entity.BackingBean" templateFileName="ADF.Faces.Entity.BackingBean.vm" 
 		    technicalPackage="bean"
-			file-extension="java" file-prefix="" file-suffix="BackingBean" 
+			file-extension="java" file-prefix="" file-suffix="BackingBean"
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			>			
@@ -195,7 +202,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.ViewController.DataBindings.cpx" templateFileName="ADF.Faces.ViewController.DataBindings.cpx.vm" 
 			subdir="" technicalPackage="view" 
 			file-extension="cpx" file-prefix="" file-suffix="DataBindings" 
-			has-updatable-nature="true" add-model-dir-name="false" add-model-name="false"
+			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="model"
 			>
 		</template>	
@@ -203,11 +210,21 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.ViewController.DataControls.dcx" templateFileName="ADF.Faces.ViewController.DataControls.dcx.vm" 
 			subdir="" technicalPackage="view"
 			file-extension="dcx" file-prefix="" file-suffix="DataControls" 
-			has-updatable-nature="true" add-model-dir-name="false" add-model-name="false"
+			has-updatable-nature="true" add-model-name="false"
 			scope-specific-value="model"
 			>
 		</template>	
 
+		<!-- Data control xml -->
+		<template name="ADF.Faces.Entity.BeanXml" templateFileName="ADF.Faces.Entity.BeanXml.vm" 
+		    technicalPackage="bean"
+			file-extension="xml" file-prefix="" file-suffix="" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			>			
+			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
+		</template>	
+		
 	</template-target>
 	
 	<template-target 
