@@ -34,6 +34,7 @@
 #set($ADFSDOWsDcDefImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcDef))
 #set($ADFSDOWsDcDefClass=$commonUtils.getTemplateClassName($model, $template, $templateADFSDOWsDcDef))
 #set($ADFSDOWsDcImplImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcImpl))
+#set($ADFSDOWsDcImplClass=$commonUtils.getTemplateClassName($model, $template, $templateADFSDOWsDcImpl))
 #end
 
 #macro (exposeADFFacesModelSpecific)
