@@ -1,0 +1,175 @@
+<!DOCTYPE root>
+<generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+	xs:noNamespaceSchemaLocation="../config/mp-config.xsd">
+	<configuration>
+	    
+        <conventions>
+            <target-convention type="enable-updatable-code-feature" />
+        </conventions>	
+		<model name="hrsystem" version="1.0" package-root="org.mp.demo">
+			<data-model>
+			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
+			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
+			    </fileSource>
+			    <dataSource>	
+					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+					<url>jdbc:oracle:thin:@localhost:1521:hrsystem</url>
+					<username>HR</username>
+					<password>oracle</password>	
+				</dataSource>
+				<!-- for Oracle and DB2 please set the schema  -->
+				<schema>HR</schema>
+				<!-- 
+			    <dataSource>	
+					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+					<url>jdbc:oracle:thin:@localhost:1521:hrsystem</url>
+					<username>HR</username>
+					<password>oracle</password>	
+				</dataSource>
+				<schema>HR</schema>
+						 -->												 
+				<primaryKeyPolicy oneGlobal="true">
+					<primaryKeyPolicyPattern name="uuid" ></primaryKeyPolicyPattern>
+				</primaryKeyPolicy> 
+			</data-model>
+			<business-model>
+
+				<generation-condition exclude-views="true" default-type="exclude">
+					<condition type="include" startsWith="COUNTRIES" ></condition>
+					<condition type="include" startsWith="DEPARTMENTS" ></condition>
+					<condition type="include" startsWith="EMPLOYEES" ></condition>
+					<condition type="include" startsWith="JOB_HISTORY" ></condition>
+					<condition type="include" startsWith="JOBS" ></condition>
+					<condition type="include" startsWith="LOCATIONS" ></condition>
+					<condition type="include" startsWith="REGIONS" ></condition>
+					<condition type="include" startsWith="PS_TXN" ></condition>
+				</generation-condition>		
+				
+				<business-package default="hr">
+					<condition type="package" startsWith="COUNTRIES" result="hr"></condition>
+					<condition type="package" startsWith="DEPARTMENTS" result="hr"></condition>
+					<condition type="package" startsWith="EMPLOYEES" result="hr"></condition>
+					<condition type="package" startsWith="JOB_HISTORY" result="hr"></condition>
+					<condition type="package" startsWith="JOBS" result="hr"></condition>
+					<condition type="package" startsWith="LOCATIONS" result="hr"></condition>
+					<condition type="package" startsWith="REGIONS" result="hr"></condition>
+					<condition type="package" startsWith="PS_TXN" result="hr"></condition>
+				</business-package>	
+				
+				<enrichment>
+				   <conventions>
+				      <primary-key-convention type="apply-primary-key-on-entity-with-two-columns-only-and-foreign-key-otherwise-specified" />
+				      <primary-key-convention type="apply-default-primary-key-otherwise-first-one" />
+				      <entity-content-type-convention type="apply-content-type-to-entity-starting-with" pattern="I18N_" content-type="reference-data"/>
+				      <entity-content-type-convention type="apply-content-type-to-entity-ending-with" pattern="_TYPE,_STATE,_CODE" content-type="reference-data"/>
+				      <entity-semantic-reference-convention  pattern="CODE,LANGUAGE_CODE" description="LABEL" content-type="reference-data"/>
+				      <property-convention scope="field" pattern="CREATED_ON" tag="trigger-insert-with-current-date" type="start-with"/>
+				      <property-convention scope="field" pattern="LAST_UPDATED_ON" tag="trigger-insert-update-with-current-date" type="start-with"/>
+				      <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
+				      <check-constraint-convention field-pattern ="active" field-pattern-type="equals" field-content-type="string">
+				      		<property name="true" value="T"></property>
+				      		<property name="false" value="F"></property>
+				      </check-constraint-convention>
+				      <sql-mapping-convention type="varchar2-used-instead-of-varchar"></sql-mapping-convention>
+				   </conventions>
+				</enrichment>					
+			</business-model>
+
+		</model>	
+		
+		<targets outputdir-root="c:/dev/ADF_MP_GENERATION/MP4HR" >
+		<!-- 
+ 			<post-generation-action command="ADF-FACES/Nif2-delivery" is-absolute-path="false"/>
+ 			 -->
+ 			<target refname="ADF FACES" 
+			   name="ADF FACES"
+			   fileName="mp-template-config-ADF-Faces.xml" 
+			   outputdir-root="ADF-FACES-MODEL"
+			   templatedir-root="../../minuteTemplate/template/framework/adf"
+			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  	
+			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
+			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
+			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
+		   	   
+			   <property name="wls-username" value="weblogic"></property>		   
+			   <property name="wls-password" value="weblogic01"></property>		   
+			   <property name="wls-hostname" value="localhost"></property>		   
+			   <property name="wls-port" value="7201"></property>
+			   <property name="wls-deploy-target" value="AdminServer,soa_server1"></property>	
+			   
+			   <property name="adf-faces-custom-framework-home" value="c:\DEV\JSF\ADF\ADF-fwk"/>
+			   <property name="adf-faces-custom-framework-package-name" value="eu.adf.fwk"/>
+			   
+			   <property name="adf-faces-backend-binding" value="ws-sdo"/>
+			   
+			</target>  
+			
+ 			<target refname="ADF FACES" 
+			   name="ADF FACES"
+			   fileName="mp-template-config-ADF-Faces.xml" 
+			   outputdir-root="ADF-FACES"
+			   templatedir-root="../../minuteTemplate/template/framework/adf"
+			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  	
+			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
+			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
+			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
+		   	   
+			   <property name="wls-username" value="weblogic"></property>		   
+			   <property name="wls-password" value="weblogic01"></property>		   
+			   <property name="wls-hostname" value="localhost"></property>		   
+			   <property name="wls-port" value="7201"></property>
+			   <property name="wls-deploy-target" value="AdminServer"></property>	
+			   
+			   <property name="adf-faces-custom-framework-home" value="c:\DEV\JSF\ADF\ADF-fwk"/>
+			   <property name="adf-faces-custom-framework-package-name" value="eu.adf.fwk"/>
+			   
+			   <property name="adf-faces-backend-binding" value="ws-sdo"/>
+			   
+			</target>  
+
+			<target refname="SDO" 
+			   name="SDO" 
+			   outputdir-root="ADF-SDO"
+			   fileName="mp-template-config-ADF-SDO.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/adf">  	
+			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
+			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
+			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>	
+		   	   
+			   <property name="wls-username" value="weblogic"></property>		   
+			   <property name="wls-password" value="weblogic01"></property>		   
+			   <property name="wls-hostname" value="localhost"></property>		   
+			   <property name="wls-port" value="7201"></property>
+			   <property name="wls-deploy-target" value="AdminServer,soa_server1"></property>
+			</target> 
+ 
+			<target 
+			   name="Selenium" 
+			   outputdir-root="ADF-TEST"
+			   fileName="mp-template-config-selenium.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/selenium">  
+			   <property name="target-techno" value="adf"></property>			   
+			   <property name="target-techno-type" value="front-end"></property>	
+			   <property name="wls-hostname" value="localhost"></property>		   
+			   <property name="wls-port" value="7201"></property>
+			</target>  
+			
+			<target refname="SQL" 
+			   name="SQL" 
+			   fileName="mp-template-config-sqlutils.xml" 
+			   templatedir-root="../../minuteTemplate/template/utils/db">  			   
+			</target> 
+
+			<target refname="LIB" 
+			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			</target>
+			<target refname="COMMON-LIB" 
+			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/common">
+			</target>
+							
+		</targets>
+	</configuration>
+</generator-config>
