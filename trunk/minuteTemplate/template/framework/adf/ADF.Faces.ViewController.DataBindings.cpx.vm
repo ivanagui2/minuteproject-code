@@ -32,12 +32,12 @@
 #if ($isBindingMock)
     <dc id="TableDataProvider" path="tabledatacontrol.TableDataProvider"/>
 #elseif($isBindingDBDirect)	
-    <BC4JDataControl id="AppModuleDataControl" Package="demo.model"
+    <BC4JDataControl id="AppModuleDataControl" Package="${modelADFAppModulerPackageName}"
                      FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl"
                      SupportsTransactions="true" SupportsFindMode="true"
                      SupportsRangesize="true" SupportsResetState="true"
                      SupportsSortCollection="true"
-                     Configuration="AppModuleLocal" syncMode="Immediate"
+                     Configuration="AppModuleService" syncMode="Immediate"
                      xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
 #elseif($isBindingWsSDO)
     <dc id="$ADFSDOWsDcDefClass" path="$ADFSDOWsDcDefImport"/>
