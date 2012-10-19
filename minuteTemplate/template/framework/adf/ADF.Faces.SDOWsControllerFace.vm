@@ -20,11 +20,12 @@ public interface $thisClassName {
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#if ($hasSearch)
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */
   public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request);
-
+#end
   /**
    * @return $beanVOADFFacesClass
    */

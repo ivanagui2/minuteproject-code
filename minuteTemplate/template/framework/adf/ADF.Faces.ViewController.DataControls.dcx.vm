@@ -4,16 +4,18 @@
 <DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
                     version="11.1.1.60.13" id="$className" Package="view">
 					
-  <AdapterDataControl id="$ADFSDOWsDcFaceClass"
+  <AdapterDataControl id="$ADFSDOWsDcImplClass"
                       FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
                       ImplDef="oracle.adf.model.adapter.bean.BeanDefinition"
                       SupportsTransactions="false" SupportsSortCollection="true"
                       SupportsResetState="true" SupportsRangesize="false"
                       SupportsFindMode="false" SupportsUpdates="true"
 ##                      Definition="datacontrol.common.ReferenceDataEBS_WS_DC"
-                      Definition="$ADFSDOWsDcDefImport"
+##                      Definition="$ADFSDOWsDcDefImport"
+                      Definition="$ADFSDOWsDcImplImport"
 ##                      BeanClass="datacontrol.common.ReferenceDataEBS_WS_DC"
-                      BeanClass="$ADFSDOWsDcFaceImport"
+##                      BeanClass="$ADFSDOWsDcFaceImport"
+                      BeanClass="$ADFSDOWsDcImplImport"
                       xmlns="http://xmlns.oracle.com/adfm/datacontrol">
     <CreatableTypes>
 #foreach ($table in ${entities})
@@ -21,8 +23,10 @@
 #exposeADFFacesDomainObject($table)
 #exposeADFFacesDataControlEntitySpecific()
       <TypeInfo FullName="$importDomainObjectUML"/>
+#if($hasSearch)
       <TypeInfo FullName="$beanVOADFFacesQueryResponseImport"/>
       <TypeInfo FullName="$beanVOADFFacesQueryRequestImport"/>
+#end
 #end
     </CreatableTypes>
     <Source>

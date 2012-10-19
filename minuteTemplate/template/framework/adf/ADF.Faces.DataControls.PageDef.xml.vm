@@ -8,6 +8,8 @@
                 Package="${packageName}.$domainClassName">
   <parameters/>
   <executables>
+	<variableIterator id="variables"/>
+#if($hasSearch)
     <methodIterator Binds="list${domainClassName}.result" DataControl="${dataControlRef}"
                     RangeSize="1"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
@@ -23,8 +25,10 @@
                     DataControl="${dataControlRef}" RangeSize="25"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
                     id="listAvailableForItemsIterator"/>
+#end
   </executables>
   <bindings>
+#if($hasSearch)
     <methodAction id="list${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="list${domainClassName}"
                   IsViewObjectMethod="false" DataControl="${dataControlRef}"
@@ -58,6 +62,7 @@
         <Item Value="value"/>
       </AttrNames>
     </list>
+#end
     <methodAction id="createOrUpdate${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="createOrUpdate${domainClassName}"
                   IsViewObjectMethod="false"

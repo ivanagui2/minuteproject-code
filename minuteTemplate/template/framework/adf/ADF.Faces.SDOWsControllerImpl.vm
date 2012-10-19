@@ -23,6 +23,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#if ($hasSearch)
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */
@@ -30,7 +31,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      System.out.println(">>>> list$domainClassName");
 	 return new $beanVOADFFacesQueryResponseClass();
   }
-
+#end
    /**
     * @return $beanVOADFFacesClass
    */

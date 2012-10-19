@@ -3,12 +3,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.61.92"
           id="$className" Package="$packageName"
-          BeanClass="$ADFSDOWsDcFaceImport"
+##          BeanClass="$ADFSDOWsDcFaceImport"
+          BeanClass="$ADFSDOWsDcImplImport"
           isJavaBased="true">
 		  
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#if ($hasSearch)
   <MethodAccessor IsCollection="false"
                   Type="$beanVOADFFacesQueryResponseImport"
                   BeanClass="$beanVOADFFacesQueryResponseImport"
@@ -18,8 +20,9 @@
                    Type="$beanVOADFFacesQueryRequestImport"
                    isStructured="true"/>
   </MethodAccessor>
+#end
   
-  <MethodAccessor IsCollection="false" Type="void"
+  <MethodAccessor IsCollection="false" Type="$beanVOADFFacesImport"
                   id="createOrUpdate$domainClassName" ReturnNodeName="Return">
     <ParameterInfo id="$domainVariableName"
                    Type="$beanVOADFFacesImport"
