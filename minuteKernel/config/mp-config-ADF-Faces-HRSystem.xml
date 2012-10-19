@@ -84,10 +84,11 @@
  			 -->
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
-			   fileName="mp-template-config-ADF-Faces.xml" 
+			   fileName="mp-template-config-ADF-Faces-Model.xml" 
 			   outputdir-root="ADF-FACES-MODEL"
 			   templatedir-root="../../minuteTemplate/template/framework/adf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  	
+			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  
+			   	
 			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
 			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
 			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
@@ -101,10 +102,11 @@
 			   <property name="adf-faces-custom-framework-home" value="c:\DEV\JSF\ADF\ADF-fwk"/>
 			   <property name="adf-faces-custom-framework-package-name" value="eu.adf.fwk"/>
 			   
-			   <property name="adf-faces-backend-binding" value="ws-sdo"/>
+			   <property name="adf-faces-backend-binding" value="db-direct"/>
 			   
 			</target>  
 			
+			<!-- 
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
 			   fileName="mp-template-config-ADF-Faces.xml" 
@@ -143,7 +145,7 @@
 			   <property name="wls-port" value="7201"></property>
 			   <property name="wls-deploy-target" value="AdminServer,soa_server1"></property>
 			</target> 
- 
+  -->
 			<target 
 			   name="Selenium" 
 			   outputdir-root="ADF-TEST"
