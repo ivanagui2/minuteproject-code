@@ -14,7 +14,7 @@
 			    </fileSource>
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
-					<url>jdbc:oracle:thin:@localhost:1521:hrsystem</url>
+					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
 					<username>HR</username>
 					<password>oracle</password>	
 				</dataSource>

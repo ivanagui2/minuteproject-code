@@ -73,6 +73,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>
 		</template>	
 		
+
+        <template name="ADF.Model.bc4j" templateFileName="ADF.Model.bc4j.vm" 
+            subdir="" outputsubdir="" technicalPackage="model.common"
+            file-extension="xcfg" file-prefix="" file-suffix="bc4j" 
+            has-updatable-nature="true"                     add-model-name="false"
+            scope-specific-value="model"
+            >       
+        </template> 
+        
 		<!-- SDO for entities -->
 		
 		<template name="ADF.SDO.AppModuleServiceImplJava" templateFileName="ADF.SDO.AppModuleServiceImplJava.vm" 
@@ -137,14 +146,6 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 
-		<template name="ADF.Model.bc4j" templateFileName="ADF.Model.bc4j.vm" 
-			subdir="" outputsubdir="" technicalPackage="model.common"
-			file-extension="xcfg" file-prefix="" file-suffix="bc4j" 
-			has-updatable-nature="true"  					add-model-name="false"
-			scope-specific-value="model"
-			>		
-		</template>	
-		
     </template-target>
 
 <!-- 

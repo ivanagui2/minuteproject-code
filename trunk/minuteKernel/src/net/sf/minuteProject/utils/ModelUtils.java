@@ -112,6 +112,9 @@ public class ModelUtils {
 	}
 	
 	public static String getPackageRoot (Template template) {
+		if (template==null) {
+			return "TEMPLATE_IS_NULL";
+		}
 		return (template.getPackageRoot()!=null)?template.getPackageRoot():"defaultroot";
 	}
 	

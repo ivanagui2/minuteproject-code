@@ -18,6 +18,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
@@ -279,6 +280,8 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByService(template);
 		else if (template.getApplicationSpecific().equals("true") || SCOPE_DATAMODEL_APPLICATION.equals(scopeSpecificValue))
 			generateArtifactsByApplication(template);
+		else if (SCOPE_FOREIGNKEY_APPLICATION.equals(scopeSpecificValue))
+			generateArtifactsByForeignKey(template);
 		else if (template.getComponentSpecific().equals("true"))
 			generateArtifactsByComponent(template);
 		else {
@@ -399,6 +402,19 @@ public class ModelGenerator extends AbstractGenerator {
 			template.setAddModelDirName("false");
 //			template.setAddModelName("false");
 			writeTemplateResult(getModel(), template);
+	}
+	
+	private void generateArtifactsByForeignKey(Template template) throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
+			for (ForeignKey foreignKey :table.getForeignKeys()) {
+				generateArtifactsByForeignKey (foreignKey, template);
+			}
+		}
+	}
+
+	protected void generateArtifactsByForeignKey(ForeignKey foreignKey, Template template) throws MinuteProjectException {	
+//		if (isToGenerate(foreignKey, template))
+		   writeTemplateResult(foreignKey, template);		
 	}
 	
 	protected void generateArtifactsByComponent(Template template) throws MinuteProjectException {	

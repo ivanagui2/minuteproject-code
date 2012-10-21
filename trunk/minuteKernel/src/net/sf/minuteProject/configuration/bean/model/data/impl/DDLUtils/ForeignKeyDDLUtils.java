@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.apache.ddlutils.model.Column;
 
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -35,7 +36,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
  * 
  * @author Florian Adler
  */
-public class ForeignKeyDDLUtils implements ForeignKey
+public class ForeignKeyDDLUtils extends AbstractConfiguration implements ForeignKey
 {
 	
 	private boolean isBidirectional=true;
