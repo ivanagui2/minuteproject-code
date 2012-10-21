@@ -57,6 +57,10 @@
 #macro (exposeADFDataBindingControlSpecific)
 #exposeADFFacesDataControlModelSpecific()
 #set($dataControlRef=$ADFSDOWsDcDefClass)
+#exposeFrontEndBackendBindingType()
+#end
+
+#macro(exposeFrontEndBackendBindingType)
 #set($isBindingWsSDO=$adfUtils.isBindingWsSDO($template))
 #set($isBindingDBDirect=$adfUtils.isBindingDBDirect($template))
 #set($isBindingMock=$adfUtils.isBindingMock($template))
