@@ -1,12 +1,14 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+
 /**
  * Inspired from DDLUtils Foreign Key class
  * Represents a database foreign key.
  * 
  * @author Florian Adler
  */
-public interface ForeignKey extends Cloneable
+public interface ForeignKey extends GeneratorBean
 {
     
    /**

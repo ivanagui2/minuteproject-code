@@ -617,6 +617,8 @@ public class CommonUtils {
 	}
 
 	private static String templatePackageName(GeneratorBean bean, Template template) {
+		if (template==null)
+			return "TEMPLATE_IS_NULL";
 		StringBuffer sb = new StringBuffer();
 		String sb1 = new String(CommonUtils.getPackageName(bean, template));
     	String dir = FormatUtils.getDirFromPackage(sb1, template.isConvertPackageToDir());
