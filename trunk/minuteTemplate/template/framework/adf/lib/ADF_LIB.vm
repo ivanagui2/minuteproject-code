@@ -249,6 +249,7 @@ import $importDomainObjectUML;
 #set ($templateSDOViewImpl = "ADF.SDO.ViewImpl")
 #set ($templateADFModelJpr = "ADF.Model.jpr")
 #set ($templateADFViewControllerJpr = "ADF.ViewController.jpr")
+#set ($templateADFFacesViewControllerJpr = "ADF.ViewController.jpr")##"ADF.Faces.ViewController.jpr")
 #set ($templateADFModelBc4j = "ADF.Model.bc4j")
 #set ($templateADFJws = "ADF.jws")
 ##Front-End
@@ -256,7 +257,6 @@ import $importDomainObjectUML;
 #set ($templateADFFacesEntity = "ADF.Faces.Entity.jspx")
 #set ($templateADFFacesEntityQuery = "ADF.Faces.EntityQuery.jspx")
 #set ($templateADFFacesJws = "ADF.Faces.jws")
-#set ($templateADFFacesViewControllerJpr = "ADF.Faces.ViewController.jpr")
 #set ($templateADFFacesViewControllerAdminConfig = "ADF.Faces.ViewController.admin-config.xml")
 #set ($templateADFFacesSiteMenuConfig = "ADF.Faces.ViewController.site-menu.xml")
 #set ($templateBeanVOADFFaces = "ADF.Faces.Entity.Bean")

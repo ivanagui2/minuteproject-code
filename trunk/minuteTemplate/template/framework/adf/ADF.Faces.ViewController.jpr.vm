@@ -66,21 +66,25 @@
    <value n="defaultPackage" v="${javaPackageView}"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
-#if ($isBindingWsSDO)
+##if ($isBindingWsSDO)
          <hash>
             <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
             <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
+#if ($isBindingWsSDO)
             <url n="sourceURL" path="../$viewControllerADFJprFullPath"/>
-         </hash>
 #elseif($isBindingDBDirect)
-         <hash>
-            <hash n="dependable">
-               <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
-               <url n="sourceURL" path="../$modelADFJprFullPath"/>
-            </hash>
-            <value n="recognizerId" v="oracle.jdeveloper.library"/>
-         </hash>
+            <url n="sourceURL" path="../$modelADFJprFullPath"/>
 #end
+         </hash>
+##elseif($isBindingDBDirect)
+##         <hash>
+##            <hash n="dependable">
+##               <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
+##               <url n="sourceURL" path="../$modelADFJprFullPath"/>
+##            </hash>
+##            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+##         </hash>
+##end
       </list>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
