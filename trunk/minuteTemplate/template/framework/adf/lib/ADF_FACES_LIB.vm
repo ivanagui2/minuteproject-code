@@ -1,3 +1,7 @@
+#macro (exposeADFFacesCommon)
+#set($separator=$i18nUtils.getSeparator($template))
+#end
+
 #macro (adfEntityColumnDisplay $id)
                         <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                                       id="${id}" ##columns="40" ##columns="$column.size"
@@ -5,15 +9,21 @@
 #end
 
 #macro (adfEntityEditColumnDisplay $id)
+#adfEntityEditColumnDisplayWithScope($id, "viewScope")
+#end
+
+#macro (adfEntityEditColumnDisplayForBindings $id)
+#adfEntityEditColumnDisplayWithScope($id, "bindings")
+#end
+
+#macro (adfEntityEditColumnDisplayWithScope $id $scope)
 #if($columnUtils.hasCheckConstraint($column))
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="${id}">
-                          <f:selectItems value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
+                          <f:selectItems value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
 #set($property=$columnUtils.getCheckConstraintProperty($column))
 #set($propertyList=$property.getPropertiesArray())
 #foreach ($prop in $propertyList)
 #exposeEnumerationSpecific()
-##                          <f:selectItem itemLabel="$prop.value" itemValue="$prop.value"/>
-##                          <f:selectItems value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}"/>
 #end
                         </af:selectOneChoice>
 #else
@@ -25,12 +35,12 @@
                             label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                             id="${id}" 
 #if (!$columnUtils.isTimeColumn($column))
-                            columns="$column.size"
+                            columns="$adfUtils.getPrecision($column)"
 #else
                             columns="10"
 #end
                             required="$isMandatory"
-                            value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"
+                            value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"
                             shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                         />
 #end

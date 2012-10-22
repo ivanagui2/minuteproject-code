@@ -15,6 +15,8 @@
 #exposeADFFacesEntitySpecific()
     <page path="/$entityEntryADFFaceRelativePath"
           usageId="view_${domainVariableName}PageDef"/>
+    <page path="/$entityQueryEntryADFFaceRelativePath"
+          usageId="viewQuery_${domainVariableName}PageDef"/>	  
 #end
   </pageMap>
   <pageDefinitionUsages>
@@ -23,6 +25,8 @@
 #exposeADFFacesEntitySpecific()
     <page id="view_${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityImport"/>
+    <page id="viewQuery_${domainVariableName}PageDef"
+          path="$pageDefADFFacesEntityQueryImport"/>
 ##    <page id="view_edit${domainVariableName}PageDef"
 ##          path="$pageDefADFFacesEntityImport"/>
 #end

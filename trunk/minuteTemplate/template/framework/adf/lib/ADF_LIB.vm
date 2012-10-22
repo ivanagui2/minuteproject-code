@@ -1,7 +1,9 @@
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
 #set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))
-#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))
+#set($entityQueryEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityQuery))
+#set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))##check if not templatePageDefEditADFFacesEntity
+#set($pageDefADFFacesEntityQueryImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefQueryADFFacesEntity))
 #set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
 #set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
 #set($backingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBackingBeanADFFaces))
@@ -252,6 +254,7 @@ import $importDomainObjectUML;
 ##Front-End
 #set ($templateADFFacesMainFlow = "ADF.Faces.ViewController.main-flow.xml")
 #set ($templateADFFacesEntity = "ADF.Faces.Entity.jspx")
+#set ($templateADFFacesEntityQuery = "ADF.Faces.EntityQuery.jspx")
 #set ($templateADFFacesJws = "ADF.Faces.jws")
 #set ($templateADFFacesViewControllerJpr = "ADF.Faces.ViewController.jpr")
 #set ($templateADFFacesViewControllerAdminConfig = "ADF.Faces.ViewController.admin-config.xml")
@@ -269,6 +272,7 @@ import $importDomainObjectUML;
 #set ($templateADFFacesDataControls = "ADF.Faces.ViewController.DataControls.dcx")
 #set ($templatePageDefADFFacesEntity = "ADF.Faces.DataControls.PageDef.xml")
 #set ($templatePageDefEditADFFacesEntity = "ADF.Faces.DataControls.EditPageDef.xml")
+#set ($templatePageDefQueryADFFacesEntity = "ADF.Faces.DataControls.QueryPageDef.xml")
 #set ($templateADFSDOWsDcFace = "ADF.Faces.SDOWsControllerFace")
 #set ($templateADFSDOWsDcImpl = "ADF.Faces.SDOWsControllerImpl")
 #set ($templateADFSDOWsDcDef = "ADF.Faces.SDOWsControllerDef")

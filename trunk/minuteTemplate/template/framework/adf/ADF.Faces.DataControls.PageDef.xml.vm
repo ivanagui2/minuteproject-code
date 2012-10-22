@@ -2,6 +2,7 @@
 #exposeADFDataBindingControlSpecific()
 #exposeADFFacesDataControlEntitySpecific()
 #exposeADFFacesDomainObject()
+#exposeFrontEndBackendBindingType()
 <?xml version="1.0" encoding="UTF-8" ?>
 <pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
                 version="11.1.1.61.92" id="$className"
@@ -9,6 +10,16 @@
   <parameters/>
   <executables>
 	<variableIterator id="variables"/>
+#if($isBindingDBDirect)	
+    <iterator Binds="${entityADFViewClass}1" RangeSize="25" DataControl="AppModuleDataControl" id="${entityADFViewClass}1Iterator"
+              ChangeEventPolicy="ppr"/>
+##    <iterator Binds="EmployeesView3" RangeSize="-1" DataControl="AppModuleDataControl" id="EmployeesView3Iterator"
+##              ChangeEventPolicy="ppr"/>
+##    <searchRegion Binds="EmployeesView3Iterator" Criteria=""
+##                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="EmployeesView3Query"/>
+##    <taskFlow id="searchemailflow1" taskFlowId="/WEB-INF/search-email-flow.xml#search-email-flow" activation="deferred"
+##              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+#end			  
 #if($hasSearch)
     <methodIterator Binds="list${domainClassName}.result" DataControl="${dataControlRef}"
                     RangeSize="1"
@@ -26,8 +37,105 @@
                     BeanClass="$beanVOADFFacesQueryResponseImport"
                     id="listAvailableForItemsIterator"/>
 #end
-  </executables>
+   </executables>
   <bindings>
+#if($isBindingDBDirect)	
+    <attributeValues IterBinding="${entityADFViewClass}1Iterator" id="DepartmentId">
+      <AttrNames>
+        <Item Value="DepartmentId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="${entityADFViewClass}1Iterator" id="DepartmentName">
+      <AttrNames>
+        <Item Value="DepartmentName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="${entityADFViewClass}1Iterator" id="ManagerId">
+      <AttrNames>
+        <Item Value="ManagerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="${entityADFViewClass}1Iterator" id="LocationId">
+      <AttrNames>
+        <Item Value="LocationId"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="${entityADFViewClass}1Iterator" id="First" RequiresUpdateModel="true" Action="first"/>
+    <action IterBinding="${entityADFViewClass}1Iterator" id="Previous" RequiresUpdateModel="true" Action="previous"/>
+    <action IterBinding="${entityADFViewClass}1Iterator" id="Next" RequiresUpdateModel="true" Action="next"/>
+    <action IterBinding="${entityADFViewClass}1Iterator" id="Last" RequiresUpdateModel="true" Action="last"/>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="EmployeeId">
+      <AttrNames>
+        <Item Value="EmployeeId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="FirstName">
+      <AttrNames>
+        <Item Value="FirstName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="LastName">
+      <AttrNames>
+        <Item Value="LastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="Email">
+      <AttrNames>
+        <Item Value="Email"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="PhoneNumber">
+      <AttrNames>
+        <Item Value="PhoneNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="HireDate">
+      <AttrNames>
+        <Item Value="HireDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="JobId">
+      <AttrNames>
+        <Item Value="JobId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="EmployeesView3Iterator" id="Salary">
+      <AttrNames>
+        <Item Value="Salary"/>
+      </AttrNames>
+    </attributeValues>
+    <graph IterBinding="EmployeesView3Iterator" id="EmployeesView31" xmlns="http://xmlns.oracle.com/adfm/dvt"
+           type="PIE">
+      <graphDataMap convert="false" leafOnly="true">
+        <series>
+          <item value="LastName"/>
+        </series>
+        <groups>
+          <data>
+            <item value="Salary"/>
+          </data>
+        </groups>
+      </graphDataMap>
+    </graph>
+    <tree IterBinding="EmployeesView3Iterator" id="EmployeesView3">
+      <nodeDefinition DefName="demo.model.EmployeesView" Name="EmployeesView30">
+        <AttrNames>
+          <Item Value="EmployeeId"/>
+          <Item Value="FirstName"/>
+          <Item Value="LastName"/>
+          <Item Value="Email"/>
+          <Item Value="PhoneNumber"/>
+          <Item Value="HireDate"/>
+          <Item Value="JobId"/>
+          <Item Value="Salary"/>
+          <Item Value="CommissionPct"/>
+          <Item Value="ManagerId"/>
+          <Item Value="DepartmentId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+#end	
+#if ($isBindingWsSDO)
 #if($hasSearch)
     <methodAction id="list${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="list${domainClassName}"
@@ -71,6 +179,7 @@
       <NamedData NDName="${domainVariableName}" NDType="$beanVOADFFacesImport"
                  NDOption="2"/>
     </methodAction>
+#end
   </bindings>
 </pageDefinition>
 

@@ -28,7 +28,7 @@
 #if (!$column.isLob())
 #if (!$columnUtils.isTimeStampColumn($column))
 ##if($isLengthPrecisionColumn)
-    Precision="$column.size"
+    Precision="$adfUtils.getPrecision($column)"##$column.size"
 #end
 #else
 	IsQueriable="false"
@@ -49,7 +49,7 @@
 #end
 #if (!$column.isLob())
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="$column.size"/>
+      <Attr Name="_DisplaySize" Value="$adfUtils.getPrecision($column)"/>
     </DesignTime>
 #end
   </Attribute>
@@ -80,8 +80,8 @@
     <AttrArray Name="Attributes">
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
-      <Item Value="${packageName}.${className}.$columnVar"/>
-##      <Item Value="${packageName}.${className}.$columnClass"/>
+##      <Item Value="${packageName}.${className}.$columnVar"/>
+      <Item Value="${packageName}.${className}.$columnClass"/>
 
 #end
     </AttrArray>

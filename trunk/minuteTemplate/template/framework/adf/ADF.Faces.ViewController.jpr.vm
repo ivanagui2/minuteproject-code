@@ -1,5 +1,6 @@
 #exposeADFFacesModelSpecific()
 #exposeADFReleaseSpecific()
+#exposeFrontEndBackendBindingType()
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
    <hash n="component-versions">
@@ -65,11 +66,21 @@
    <value n="defaultPackage" v="${javaPackageView}"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
+#if ($isBindingWsSDO)
          <hash>
             <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
             <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
             <url n="sourceURL" path="../$viewControllerADFJprFullPath"/>
          </hash>
+#elseif($isBindingDBDirect)
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
+               <url n="sourceURL" path="../$modelADFJprFullPath"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+#end
       </list>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
