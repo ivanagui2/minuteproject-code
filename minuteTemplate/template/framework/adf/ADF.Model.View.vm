@@ -1,6 +1,7 @@
 #exposeADFSDOEntitySpecific()
 #exposeADFEntitySpecific()
 #exposeSDOSpecific()
+#exposeFrontEndBackendBindingType()
 #addedAreas()
 <?xml version="1.0" encoding="windows-1252" ?>
 <!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
@@ -22,12 +23,17 @@
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
+#if($isBindingWsSDO)  
   SdoGen="true"
   SdoName="${entityADFSDOViewImport}"
-  SdoNameSpace="${namespacePackage}">
+  SdoNameSpace="${namespacePackage}"
+#end
+  >
+#if($isBindingWsSDO)  
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
+#end
   <EntityUsage
     Name="${domainClassName}"
     Entity="${entityADFImport}"/>

@@ -121,6 +121,17 @@
 #set ($packageName = $commonUtils.getPackageName($model, $template))
 #end
 
+#macro (exposeVariableForeignKeySpecific)
+#set ($table = $foreignkey.table)
+#set ($database = $table.database)
+#set ($model = $table.package.businessPackage.businessModel.model)
+#set ($tableDB = $table)
+#set ($isView = $tableUtils.isView($table))
+#set ($configuration = $model.configuration)
+#set ($packageName = $commonUtils.getPackageName($foreignkey, $template))
+#set ($className = $commonUtils.getClassName($foreignkey, $template))
+#end
+
 #macro(exposeVariablePackageSpecific)
 #set ($model = $package.businessPackage.businessModel.model)
 #exposeVariableModelSpecific()
