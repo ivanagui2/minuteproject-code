@@ -129,4 +129,9 @@ public class AdfUtils {
 		String packageName = CommonUtils.getPackageName(model, CommonUtils.getTemplate(model.getConfiguration(), targetTemplate));
 		return FormatUtils.getDirFromPackage(packageName);
 	}
+	
+	public static String getPrecision(Column column) {
+		Integer i = column.getSizeAsInt();
+		return i.intValue()+"";
+	}
 }

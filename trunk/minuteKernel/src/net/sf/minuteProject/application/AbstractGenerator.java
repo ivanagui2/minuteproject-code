@@ -426,6 +426,8 @@ public abstract class AbstractGenerator implements Generator {
 			return "component";			
 		if (beanName.equals("functionddlutils"))
 			return "function";	
+		if (beanName.equals("foreignkeyddlutils"))
+			return "foreignkey";			
 		if (beanName.equals("wsdlmodelmetro"))
 			return "wsdlmodel";			
 		return beanName;

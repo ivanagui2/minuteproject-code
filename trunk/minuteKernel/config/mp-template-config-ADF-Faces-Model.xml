@@ -74,7 +74,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
             scope-specific-value="model"
             >
         </template> 
-                
+<!-- 
+        <template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
+            subdir="" outputsubdir="" technicalPackage="view"
+            file-extension="jpx" file-prefix="" file-suffix="Model" 
+            has-updatable-nature="true"
+            scope-specific-value="model"
+            >
+        </template>  -->
+                        
         <template name="ADF.Model.Entity" templateFileName="ADF.Model.Entity.vm" 
             subdir="" outputsubdir="" technicalPackage="model"
             file-extension="xml" file-prefix="" file-suffix="" 
@@ -95,7 +103,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
         
         <template name="ADF.Model.FkAssoc" templateFileName="ADF.Model.FkAssoc.vm" 
             subdir="" outputsubdir="" technicalPackage="model"
-            file-extension="xml" file-prefix="" file-suffix="FkAssoc" 
+            file-extension="xml" file-prefix="" file-suffix="Assoc" 
             has-updatable-nature="true"
             scope-specific-value="foreignkey"
             add-business-package-dir-name="false"
@@ -104,21 +112,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
         
         <template name="ADF.Model.FkLink" templateFileName="ADF.Model.FkLink.vm" 
             subdir="" outputsubdir="" technicalPackage="model"
-            file-extension="xml" file-prefix="" file-suffix="FkLink" 
+            file-extension="xml" file-prefix="" file-suffix="Link" 
             has-updatable-nature="true"
             scope-specific-value="foreignkey"
             add-business-package-dir-name="false"
             >           
         </template> 
 
-        <template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
-            subdir="" outputsubdir="" technicalPackage="view"
-            file-extension="jpx" file-prefix="" file-suffix="Model" 
-            has-updatable-nature="true"
-            scope-specific-value="model"
-            >
-        </template> 
-        
 
         <template name="ADF.Model.bc4j" templateFileName="ADF.Model.bc4j.vm" 
             subdir="" outputsubdir="" technicalPackage="model.common"
@@ -185,7 +185,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		outputdir="ViewController/public_html"
 		package-root=""
 		>
-
+		<property name="separator" value="_"/>
 		<!-- jspx pages -->	
 		<template name="ADF.Faces.Entity.jspx" templateFileName="ADF.Faces.Entity.jspx.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
@@ -206,6 +206,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.EntityEdit.jspx" templateFileName="ADF.Faces.EntityEdit.jspx.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="jspx" file-prefix="edit" file-suffix="" 
+			has-updatable-nature="true" add-model-dir-name="false"
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<template name="ADF.Faces.EntityQuery.jspx" templateFileName="ADF.Faces.EntityQuery.jspx.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
+			file-extension="jspx" file-prefix="query" file-suffix="" 
 			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
 			>			
@@ -249,6 +257,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="entity"
 			>			
 		</template>	
+		<template name="ADF.Faces.DataControls.QueryPageDef.xml" templateFileName="ADF.Faces.DataControls.QueryPageDef.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
+			file-extension="xml" file-prefix="" file-suffix="QueryPageDef" 
+			has-updatable-nature="true" add-model-dir-name="false"
+			scope-specific-value="entity"
+			>			
+		</template>	
 	</template-target>
 	
 	<template-target 
@@ -278,7 +293,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="model"
 			>
 		</template>	
-		
+<!-- 		
 		<template name="ADF.Faces.ViewController.DataControls.dcx" templateFileName="ADF.Faces.ViewController.DataControls.dcx.vm" 
 			subdir="" technicalPackage="view"
 			file-extension="dcx" file-prefix="" file-suffix="DataControls" 
@@ -286,7 +301,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="model"
 			>
 		</template>	
-
+ -->
 		<!-- Data control xml -->
 		<template name="ADF.Faces.Entity.BeanXml" templateFileName="ADF.Faces.Entity.BeanXml.vm" 
 		    technicalPackage="bean"

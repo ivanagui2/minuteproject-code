@@ -12,18 +12,17 @@
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
 			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
 			    </fileSource>
-			    <dataSource>	
+				<dataSource>
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
-					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
-					<username>HR</username>
-					<password>oracle</password>	
+					<url>jdbc:oracle:thin:@sgdbd01.sg.cec.eu.int:1521:sgdbd01</url>
+					<username>secunda_dev</username>
+					<password>secunda_dev</password>
 				</dataSource>
-				<!-- for Oracle and DB2 please set the schema  -->
-				<schema>HR</schema>
+				<schema>secunda_dev</schema>
 				<!-- 
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
-					<url>jdbc:oracle:thin:@localhost:1521:hrsystem</url>
+					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
 					<username>HR</username>
 					<password>oracle</password>	
 				</dataSource>
