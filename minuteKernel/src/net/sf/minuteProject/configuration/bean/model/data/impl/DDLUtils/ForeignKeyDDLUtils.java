@@ -27,9 +27,11 @@ import java.util.List;
 import org.apache.ddlutils.model.Column;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.TableUtils;
 
 /**
  * Represents a database foreign key.
@@ -42,14 +44,16 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
 	private boolean isBidirectional=true;
 	
 	private org.apache.ddlutils.model.ForeignKey foreignKey;
+	private Table table;
 	
 	private ArrayList<Reference> references;
 	/**
       * Creates a new foreign key object that has no name.
      */
-    public ForeignKeyDDLUtils(org.apache.ddlutils.model.ForeignKey foreignKey)
+    public ForeignKeyDDLUtils(org.apache.ddlutils.model.ForeignKey foreignKey, Table table)
     {
         this.foreignKey = foreignKey;
+        this.table = table;
     }
 
     /**
@@ -79,7 +83,8 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
      */
     public Table getForeignTable()
     {
-        return new TableDDLUtils (foreignKey.getForeignTable());
+//        return new TableDDLUtils (foreignKey.getForeignTable());
+        return table;
     }
 
 
@@ -90,7 +95,8 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
      */
     public String getForeignTableName()
     {
-        return foreignKey.getForeignTableName();
+//        return foreignKey.getForeignTableName();
+        return getForeignTable().getName();
     }
     
     /**
@@ -270,4 +276,7 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
 		this.isBidirectional = isBidirectional;
 	}
 	
+	public String getTechnicalPackage(Template template) {
+		return getForeignTable().getTechnicalPackage(template);
+	}
 }

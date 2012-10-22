@@ -22,20 +22,21 @@ public class ForeignKeyUtils {
 	}
 	
 	public static ForeignKey getForeignKey (Field field, Database database) {
-		if (field.getLinkToTargetEntity()!=null && field.getLinkToTargetField()!=null) {
+		String linkToTargetEntity = field.getLinkToTargetEntity();
+		if (linkToTargetEntity!=null && field.getLinkToTargetField()!=null) {
 			Reference reference = ReferenceUtils.getReference(field, database);
 			if (reference!=null) {
 				org.apache.ddlutils.model.ForeignKey foreignKeyMp = new org.apache.ddlutils.model.ForeignKey();
 				foreignKeyMp.setName(field.getName());
-				ForeignKey foreignKey = new ForeignKeyDDLUtils (foreignKeyMp);
-				foreignKey.setForeignTableName(field.getLinkToTargetEntity());
+				ForeignKey foreignKey = new ForeignKeyDDLUtils (foreignKeyMp, TableUtils.getEntity(database, linkToTargetEntity));
+				foreignKey.setForeignTableName(linkToTargetEntity);
 				foreignKey.setReference (reference);
 				// bidirection
 				if (field.getBidirectional()!=null && field.getBidirectional().equals("false"))
 					foreignKey.setBidirectional(false);
 				return foreignKey;
 			}
-			logger.info("no correct fk found for "+field.getEntity().getName()+" - "+field.getName()+" - pointing towards "+field.getLinkToTargetEntity()+" - "+field.getLinkToTargetField());
+			logger.info("no correct fk found for "+field.getEntity().getName()+" - "+field.getName()+" - pointing towards "+linkToTargetEntity+" - "+field.getLinkToTargetField());
 		}
 		return null;
 	}
