@@ -10,34 +10,52 @@
   <DesignTime>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
+  <!--
+#foreach ($reference in $foreignkey.references)
+>>> $reference
+${reference.foreignTable.alias}
+${reference.localTable.alias}
+${reference.localColumn.alias}
+
+--
+${reference.foreignTableName}
+${reference.foreignColumnName}
+#end
+  -->
+#foreach ($reference in $foreignkey.references)
+#putReferenceParams2()
+  <!-- target -->
   <AssociationEnd
-    Name="Addresses"
+    Name="$linkedTableClass"
     Cardinality="1"
     Source="true"
-    Owner="my.hw.view.Addresses">
+    Owner="$importDomainObjectUMLForeignTable">
     <DesignTime>
       <Attr Name="_aggregation" Value="0"/>
-      <Attr Name="_finderName" Value="Addresses"/>
-      <Attr Name="_foreignKey" Value="my.hw.view.Addresses.AddressesPk"/>
+      <Attr Name="_finderName" Value="$linkedTableClass"/>
+      <Attr Name="_foreignKey" Value="${importDomainObjectUMLForeignTable}.${linkedColumnClass}Pk"/>
       <Attr Name="_isUpdateable" Value="true"/>
       <Attr Name="_minCardinality" Value="1"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="my.hw.view.Addresses.AddressId"/>
+      <Item Value="${importDomainObjectUMLForeignTable}.${linkedColumnClass}"/>
     </AttrArray>
   </AssociationEnd>
+  
+  <!-- fk field -->
   <AssociationEnd
-    Name="Orders"
+    Name="$localTableClass"
     Cardinality="-1"
-    Owner="my.hw.view.Orders">
+    Owner="$importDomainObjectUMLLocalTable">
     <DesignTime>
       <Attr Name="_aggregation" Value="0"/>
-      <Attr Name="_finderName" Value="Orders"/>
-      <Attr Name="_foreignKey" Value="my.hw.view.Orders.OrdersAddressesFk"/>
+      <Attr Name="_finderName" Value="$localTableClass"/>
+      <Attr Name="_foreignKey" Value="${importDomainObjectUMLLocalTable}.${localColumnClass}Fk"/>
       <Attr Name="_isUpdateable" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="my.hw.view.Orders.ShipToAddressId"/>
+      <Item Value="${importDomainObjectUMLLocalTable}.${localColumnClass}"/>
     </AttrArray>
   </AssociationEnd>
+#end
 </Association>
