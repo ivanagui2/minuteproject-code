@@ -12,6 +12,7 @@
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
 			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
 			    </fileSource>
+			    <!-- 
 				<dataSource>
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
 					<url>jdbc:oracle:thin:@sgdbd01.sg.cec.eu.int:1521:sgdbd01</url>
@@ -19,7 +20,7 @@
 					<password>secunda_dev</password>
 				</dataSource>
 				<schema>secunda_dev</schema>
-				<!-- 
+                         -->
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
 					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
@@ -27,7 +28,7 @@
 					<password>oracle</password>	
 				</dataSource>
 				<schema>HR</schema>
-						 -->												 
+
 				<primaryKeyPolicy oneGlobal="true">
 					<primaryKeyPolicyPattern name="uuid" ></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
@@ -88,9 +89,10 @@
 			   templatedir-root="../../minuteTemplate/template/framework/adf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  
 			   	
-			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
-			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
-			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
+			   <property name="WEBLOGIC_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>		   
+			   <property name="WLS_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>
+
+			   <property name="JDEV_HOME" value="C:/SOFT/IDE/Oracle/Middleware/jdeveloper"></property>		   
 		   	   
 			   <property name="wls-username" value="weblogic"></property>		   
 			   <property name="wls-password" value="weblogic01"></property>		   

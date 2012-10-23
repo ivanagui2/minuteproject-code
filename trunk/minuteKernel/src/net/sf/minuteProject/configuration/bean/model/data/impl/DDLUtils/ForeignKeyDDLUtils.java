@@ -44,7 +44,7 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
 	private boolean isBidirectional=true;
 	
 	private org.apache.ddlutils.model.ForeignKey foreignKey;
-	private Table table;
+	private Table table, foreignTable;
 	
 	private ArrayList<Reference> references;
 	/**
@@ -84,7 +84,10 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
     public Table getForeignTable()
     {
 //        return new TableDDLUtils (foreignKey.getForeignTable());
-        return table;
+    	if (foreignTable==null) {
+    		foreignTable = TableUtils.getEntity(table.getDatabase(), getForeignTableName());
+    	}
+        return foreignTable;
     }
 
 
@@ -95,8 +98,8 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
      */
     public String getForeignTableName()
     {
-//        return foreignKey.getForeignTableName();
-        return getForeignTable().getName();
+        return foreignKey.getForeignTableName();
+//        return getForeignTable().getName();
     }
     
     /**

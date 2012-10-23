@@ -429,7 +429,7 @@ public class TableDDLUtils extends TableAbstract {
     public Reference [] getChildren() {
     	if (children == null) {
     		children = new ArrayList<Reference>();
-			String columnRef;
+//			String columnRef;
 			Reference ref;
 			Reference reference;
 			Table [] tables = database.getEntities();
@@ -437,10 +437,11 @@ public class TableDDLUtils extends TableAbstract {
 	    		ForeignKey [] fk = tables[i].getForeignKeys();
 	        	for (int j = 0; j < fk.length; j++) {
 	        		String tableName = fk[j].getForeignTableName();
+	        		fk[j].getFirstReference().getLocalTable();
 	        		if (tableName!=null) {
 		        		if (tableName.toLowerCase().equals(table.getName().toLowerCase())) {
 		        			ref = fk[j].getReference(0);
-		        			columnRef = ref.getLocalColumnName();
+//		        			columnRef = ref.getLocalColumnName();
 		        			Column column = ColumnUtils.getColumn (tables[i], ref.getLocalColumnName());
 		        			//reference = new Reference(tables[i], column2, tables[i].getName(), ref.getLocalColumnName());
 
