@@ -197,23 +197,32 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
+		package-root=""
 		outputdir="ViewController/adfmsrc">
 
 		<template name="ADF.Faces.ViewController.DataBindings.cpx" templateFileName="ADF.Faces.ViewController.DataBindings.cpx.vm" 
 			subdir="" technicalPackage="view" 
 			file-extension="cpx" file-prefix="" file-suffix="DataBindings" 
-			has-updatable-nature="true" add-model-name="false"
+			has-updatable-nature="true" add-model-name="false" add-model-dir-name="false"
 			scope-specific-value="model"
 			>
 		</template>	
 		
 		<template name="ADF.Faces.ViewController.DataControls.dcx" templateFileName="ADF.Faces.ViewController.DataControls.dcx.vm" 
-			subdir="" technicalPackage="view"
+			subdir="" technicalPackage="model"
 			file-extension="dcx" file-prefix="" file-suffix="DataControls" 
-			has-updatable-nature="true" add-model-name="false"
-			scope-specific-value="model"
+			has-updatable-nature="true" add-model-name="false" add-model-dir-name="false"
+			scope-specific-value="model" 
 			>
 		</template>	
+	</template-target>
+	
+	<template-target 
+    	name="ADF Model META-INF"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/adfmsrc">
+
+
 
 		<!-- Data control xml -->
 		<template name="ADF.Faces.Entity.BeanXml" templateFileName="ADF.Faces.Entity.BeanXml.vm" 
