@@ -370,6 +370,9 @@
       <fileset dir="src">
         <patternset refid="copy.patterns"/>
       </fileset>
+      <fileset dir="adfmsrc">
+        <patternset refid="copy.patterns"/>
+      </fileset>
     </copy>
   </target>
 

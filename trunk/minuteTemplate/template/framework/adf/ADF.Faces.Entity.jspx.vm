@@ -18,7 +18,7 @@
           </f:facet>
           <f:facet name="PageSubtitle"/>
           <f:facet name="PageContent">
-            <af:panelTabbed id="${entityADFVariable}_pt2" dimensionsFrom="auto">
+            <af:panelTabbed id="${entityADFVariable}_pt2" dimensionsFrom="auto" binding="#{viewScope.${entityADFVariable}BackingBean.panelTab}">
 ##              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.consult.tabtitle']}"
               <af:showDetailItem text="#{viewcontrollerBundle['consult.title']}"
                                  id="${entityADFVariable}_sdi1">

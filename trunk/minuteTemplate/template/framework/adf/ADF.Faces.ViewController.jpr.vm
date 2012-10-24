@@ -72,7 +72,7 @@
             <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
 #if ($isBindingWsSDO)
             <url n="sourceURL" path="../$viewControllerADFJprFullPath"/>
-#elseif($isBindingDBDirect)
+#elseif($isBindingDBDirect || $isBindingJava)
             <url n="sourceURL" path="../$modelADFJprFullPath"/>
 #end
          </hash>
