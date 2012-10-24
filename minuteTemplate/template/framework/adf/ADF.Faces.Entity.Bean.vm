@@ -71,7 +71,10 @@ $!updatedAreaEnd
 #if(!$referenceUtils.isReferenceInPrimaryKey($reference))
 #putReferenceParams2()
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
-    private $linkedTableClass ${colVar};  
+    private $linkedTableClass ${colVar};
+#set($column = $reference.localColumn)
+#putColumnParamNaming()
+    private $columnType ${columnVar}_;  
 
 #end	
 #end	
@@ -299,6 +302,15 @@ $!updatedAreaEnd
     	this.${localColumnVariable} = ${localColumnVariable};
     }
 
+#set($column = $reference.localColumn)
+#putColumnParamNaming()
+    public $columnType get${columnClass}_() {
+        return ${columnVar}_;
+    }
+	
+    public void set${columnClass}_ ($columnType $columnVar) {
+        this.${columnVar}_ =  $columnVar;
+    }
 #end
 #end
 

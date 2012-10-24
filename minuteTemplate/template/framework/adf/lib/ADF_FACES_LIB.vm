@@ -5,15 +5,12 @@
 #macro (adfEntityColumnDisplay $id)
                         <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                                       id="${id}" ##columns="40" ##columns="$column.size"
-                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"/>
+#adfBackingBean("viewScope")
+                        />
 #end
 
 #macro (adfEntityEditColumnDisplay $id)
 #adfEntityEditColumnDisplayWithScope($id, "viewScope")
-#end
-
-#macro (adfEntityEditColumnDisplayForBindings $id)
-#adfEntityEditColumnDisplayWithScope($id, "bindings")
 #end
 
 #macro (adfEntityEditColumnDisplayWithScope $id $scope)
@@ -40,8 +37,56 @@
                             columns="10"
 #end
                             required="$isMandatory"
-                            value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"
-                            shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+#adfBackingBean($scope)
+							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                         />
 #end
+#end
+
+#macro(adfBackingBean $scope)
+#if($isForeignKey)
+                            value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}_}"
+#else
+                            value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"
+#end
+#end
+#############
+############# macro direct binding
+#############
+#macro (adfEntityEditColumnDisplayForBindings $id)
+#####if($columnUtils.hasCheckConstraint($column))
+####                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="${id}">
+####                          <f:selectItems value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
+#####set($property=$columnUtils.getCheckConstraintProperty($column))
+#####set($propertyList=$property.getPropertiesArray())
+#####foreach ($prop in $propertyList)
+#####exposeEnumerationSpecific()
+#####end
+####                        </af:selectOneChoice>
+#####else
+#if ($columnUtils.isTimeColumn($column))
+                                            <af:inputDate value="#{bindings.${columnClass}.inputValue}"
+                                                          label="#{bindings.${columnClass}.hints.label}"
+                                                          required="#{bindings.${columnClass}.hints.mandatory}"
+                                                          columns="#{bindings.${columnClass}.hints.displayWidth}"
+                                                          shortDesc="#{bindings.${columnClass}.hints.tooltip}" id="$id">
+                                                <f:validator binding="#{bindings.${columnClass}.validator}"/>
+                                                <af:convertDateTime pattern="#{bindings.${columnClass}.format}"/>
+                                            </af:inputDate>
+#else
+                                            <af:inputText value="#{bindings.${columnClass}.inputValue}"
+                                                          label="#{bindings.${columnClass}.hints.label}"
+                                                          required="#{bindings.${columnClass}.hints.mandatory}"
+                                                          columns="#{bindings.${columnClass}.hints.displayWidth}"
+                                                          maximumLength="#{bindings.${columnClass}.hints.precision}"
+                                                          shortDesc="#{bindings.${columnClass}.hints.tooltip}" id="$id">
+                                                <f:validator binding="#{bindings.${columnClass}.validator}"/>
+##if ($columnUtils.isNumeric($column))
+##                                                <af:convertNumber groupingUsed="false"
+##                                                                  pattern="#{bindings.${columnClass}.format}"/>
+###end
+                                            </af:inputText>
+#end
+
+#####end
 #end

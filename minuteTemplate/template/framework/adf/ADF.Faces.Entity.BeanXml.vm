@@ -44,7 +44,9 @@ $!updatedAreaEnd
   <AccessorAttribute id="${colVar}" IsCollection="false"
                      BeanClass="$importDomainObjectUML"
                      CollectionBeanClass="UpdateableSingleValue"/>
-##    private $linkedTableClass ${colVar};  
+#set($column = $reference.localColumn)
+#putColumnParamNaming()
+  <Attribute Name="$columnVar" Type="$columnFullType"/>
 #end	
 #end	
 

@@ -10,7 +10,7 @@
          value="#{adfBundle['view.I18N.viewBundle']}"/>
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
    <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-    <af:document title="query" id="d1">
+    <af:document title="query #{viewcontrollerBundle['${tableVariableName}']}" id="d1">
         <af:messages id="m1"/>
         <af:form id="f1">
             <af:panelStretchLayout id="psl1">
@@ -22,7 +22,7 @@
                                 <f:facet name="center">
                                     <af:panelGroupLayout layout="vertical" id="pgl1">
                                         <af:panelGroupLayout layout="vertical" id="pgl4">
-                                            <af:panelHeader text="Employees" id="ph1">
+                                            <af:panelHeader text="#{viewcontrollerBundle['${tableVariableName}']}" id="ph1">
                                                 <af:query id="qryId1" headerText="Search" disclosed="true"
                                                           value="#{bindings.ImplicitViewCriteriaQuery.queryDescriptor}"
                                                           model="#{bindings.ImplicitViewCriteriaQuery.queryModel}"

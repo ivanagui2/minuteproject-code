@@ -54,6 +54,7 @@
 #set($rootMenuConfigADFFacesName = $commonUtils.getTemplateArtifactMainName($model, $templateRootMenuConfigADFFacesViewController))
 #set($modelADFFacesDataBindingsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataBindings))
 #set($modelADFFacesDataControlsFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $templateADFFacesDataControls))
+#set($$modelADFFacesDataControlPackageName = $commonUtils.getPackageName($model, $template, $templateADFFacesDataControls))	
 #end
 
 #macro (exposeADFDataBindingControlSpecific)
@@ -66,6 +67,7 @@
 #set($isBindingWsSDO=$adfUtils.isBindingWsSDO($template))
 #set($isBindingDBDirect=$adfUtils.isBindingDBDirect($template))
 #set($isBindingMock=$adfUtils.isBindingMock($template))
+#set($isBindingJava=$adfUtils.isBindingJava($template))
 #end
 
 #macro (exposeSDOSpecific)
