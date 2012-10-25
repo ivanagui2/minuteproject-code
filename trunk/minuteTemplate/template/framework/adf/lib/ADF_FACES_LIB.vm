@@ -23,6 +23,16 @@
 #exposeEnumerationSpecific()
 #end
                         </af:selectOneChoice>
+#elseif ($presentationUtils.isCheckBox($column))
+                        <af:selectBooleanCheckbox label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+##                            textAndAccessKey="checkbox&amp;2"
+##                            accessKey="2"
+##                            value="#{demoInput.boolean}"
+                            id="$id"/>	
+#elseif ($presentationUtils.isRichTextOnly($column))
+                        <af:richTextEditor label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="$id"/>	
+#elseif($presentationUtils.isFileUpload($column))
+##TODO	
 #else
 #if ($columnUtils.isTimeColumn($column))
                         <af:inputDate 
@@ -32,13 +42,15 @@
                             label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                             id="${id}" 
 #if (!$columnUtils.isTimeColumn($column))
-                            columns="$adfUtils.getPrecision($column)"
+##                            columns="$adfUtils.getPrecision($column)"
+                            columns="$adfUtils.getDisplayColumns($column)"
+                            rows="$adfUtils.getDisplayRows($column)"
 #else
                             columns="10"
 #end
                             required="$isMandatory"
 #adfBackingBean($scope)
-							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+                            shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                         />
 #end
 #end
