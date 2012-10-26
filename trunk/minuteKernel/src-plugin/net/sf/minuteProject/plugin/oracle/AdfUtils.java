@@ -12,6 +12,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 
 public class AdfUtils {
 
+	private static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
 	private static final String MOCK = "mock";
 	private static final String DB_DIRECT = "db-direct";
 	private static final String BINDING_JAVA = "java";
@@ -138,4 +139,16 @@ public class AdfUtils {
 		Integer i = column.getSizeAsInt();
 		return i.intValue()+"";
 	}
+	
+	public int getDisplayColumns(Column column) {
+		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
+	}
+	
+	public int getDisplayRows(Column column) {
+		int sizeAsInt = column.getSizeAsInt();
+		int i = sizeAsInt%MAX_COLUMNS_DISPLAY_SIZE;
+		int j = sizeAsInt/MAX_COLUMNS_DISPLAY_SIZE;
+		return (i % MAX_COLUMNS_DISPLAY_SIZE == 0)? j : j+1;
+	}
+	
 }

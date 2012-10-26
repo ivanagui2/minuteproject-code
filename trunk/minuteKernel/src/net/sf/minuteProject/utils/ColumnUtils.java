@@ -297,5 +297,11 @@ public class ColumnUtils {
 			return true;		
 		return false;
 	}
+
+	public static Boolean isBoolean(Column column) {
+		if (column.getType().equals("CHAR") && column.getSizeAsInt()<=1)
+			return true;
+		return false;
+	}
 	
 }
