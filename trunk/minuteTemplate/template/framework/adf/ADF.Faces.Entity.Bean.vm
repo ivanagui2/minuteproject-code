@@ -219,6 +219,8 @@ $!updatedAreaSnippet
 		);	    
 	}
 
+#else
+#toString()
 #end  
 
 #foreach($column in ${table.primaryKeyColumns})
