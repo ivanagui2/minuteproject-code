@@ -130,13 +130,14 @@ public class $className {
     }
 
     public void create${domainClassName}(ActionEvent actionEvent) {
-		System.out.println(">> object : $beanVOADFFacesVariable: "+$beanVOADFFacesVariable);
+        System.out.println(">> object : $beanVOADFFacesVariable: "+$beanVOADFFacesVariable);
         BindingContext bindingCtx = BindingContext.getCurrent();
-		System.out.println(">> create${domainClassName} : bindingCtx: "+bindingCtx);
+        System.out.println(">> create${domainClassName} : bindingCtx: "+bindingCtx);
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-		System.out.println(">> create${domainClassName} : bindings: "+bindings);
+        System.out.println(">> create${domainClassName} : bindings: "+bindings);
+        System.out.println(">> ${domainClassName} : "+this.${beanVOADFFacesVariable});
         Map mapParam = new HashMap();
-        mapParam.put("${domainClassName}", this.${beanVOADFFacesVariable});
+        mapParam.put("${domainVariableName}", this.${beanVOADFFacesVariable}); //the variable name of the operation signature has to be passed
         OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(mapParam);
         ob.execute();
