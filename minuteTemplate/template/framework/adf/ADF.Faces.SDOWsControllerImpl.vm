@@ -42,7 +42,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
   
    public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
       System.out.println(">>>> createOrUpdate$domainClassName");
-	  return new $beanVOADFFacesClass();
+	  return $beanVOADFFacesVariable;
    }
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
