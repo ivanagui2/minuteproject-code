@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.loader.presentation.node.Block;
 import net.sf.minuteProject.loader.presentation.node.Window;
+import net.sf.minuteProject.utils.ColumnUtils;
 
 public class PresentationUtils {
 
@@ -20,6 +21,18 @@ public class PresentationUtils {
 	public static Boolean isRichText (Column column) {
 		return (column.getSizeAsInt()>100 && column.getType().equals("CLOB"))? true:false;
 	}	
+	
+	public static Boolean isRichTextOnly (Column column) {
+		return (column.getType().equals("CLOB"))? true:false;
+	}	
+	
+	public static Boolean isFileUpload (Column column) {
+		return (column.getType().equals("BLOB"))? true:false;
+	}	
+	
+	public static Boolean isCheckBox (Column column) {
+		return (ColumnUtils.isBoolean(column));
+	}
 	
 	public static Boolean isForm(Template template, GeneratorBean generatorBean) {
 		if (generatorBean instanceof Window)
