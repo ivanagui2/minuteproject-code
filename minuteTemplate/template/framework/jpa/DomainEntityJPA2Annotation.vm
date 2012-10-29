@@ -84,7 +84,12 @@ public class ${className} implements Serializable {
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
     private ${embeddedIdClass} $embeddedIdVariable;
-    
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+#if(!$isForeignKey)
+    private $columnType ${columnVar}_;
+#end
+#end
 #else
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
@@ -442,7 +447,19 @@ $!updatedAreaSnippet
     public void set$embeddedIdClass ($embeddedIdClass $embeddedIdVariable) {
         this.$embeddedIdVariable =  $embeddedIdVariable;
     }
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+#if(!$isForeignKey)
+    public $columnType get${columnClass}_() {
+        return ${columnVar}_;
+    }
+	
+    public void set${columnClass}_ ($columnType $columnVar) {
+        this.${columnVar}_ =  ${columnVar}_;
+    }
     
+#end
+#end
 #else 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()

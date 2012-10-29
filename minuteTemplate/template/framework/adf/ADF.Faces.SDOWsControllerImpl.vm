@@ -1,5 +1,6 @@
 #exposeADFFacesModelSpecific()
 #exposeADFFacesDataControlModelSpecific()
+#exposeFrontEndBackendBindingType()
 #set($thisClassName=$className)
 package $packageName;
 
@@ -15,11 +16,28 @@ import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
 #end
+#if($isBindingSpring)
+#foreach($table in $entities)
+#exposeADFFacesSpringBindingSpecific()
+import $beanADFFacesSpringServiceImport;
+#end
+#end
 
 import java.util.List;
 
 public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
+    public $thisClassName() {
+        System.out.println(">>>>>>>>>>> constructor before loading config");
+#if($isBindingSpring)
+#foreach($table in $entities)
+#exposeADFFacesSpringBindingSpecific()
+        $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");;
+#end
+#end
+        System.out.println(">>>>>>>>>>> constructor after loading config "+langDao);
+    }
+	
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
@@ -42,6 +60,15 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
   
    public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
       System.out.println(">>>> createOrUpdate$domainClassName");
+#if($isBindingSpring)
+	  ${domainClassImport} var = new ${domainClassImport} ();
+        try {
+            BeanUtils.copyProperties(var, $beanVOADFFacesVariable);
+        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException e) {
+        }
+	  ${beanADFFacesSpringServiceVariable}.create(var);
+#end
 	  return $beanVOADFFacesVariable;
    }
   
