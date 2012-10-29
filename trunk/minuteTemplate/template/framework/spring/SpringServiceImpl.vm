@@ -68,7 +68,11 @@ public class $className implements $SpringServiceInterfaceClass {
 	}
 
 	public void delete ($tableClassName ${tableVariableName}) {
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass().get$primaryKeyJavaNameClass());
+#else
 	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass());
+#end
 		${BslaDaoInterfaceVariable}.delete$tableClassName (var);
 	}
 	

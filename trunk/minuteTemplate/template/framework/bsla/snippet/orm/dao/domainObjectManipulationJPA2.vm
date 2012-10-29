@@ -3,7 +3,7 @@
 			return null;
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
-#if ($columnType=="String" && !$isEnum)
+#if ($columnType=="String" && !$isEnum && !$isForeignKey)
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
            ${tableVariableName}.set$columnClass((String)null);
 #end
@@ -11,9 +11,10 @@
 #foreach ($column in ${table.parents})
 #putColumnParamNaming()
 #if ($columnType=="String")
-#if($columnUtils.isForeignKey($column))     
+#if($isForeignKey)     
 #set($columnClass="${columnClass}_")
 #end    
+        //foreign key
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
            ${tableVariableName}.set$columnClass((String)null);
 #end
