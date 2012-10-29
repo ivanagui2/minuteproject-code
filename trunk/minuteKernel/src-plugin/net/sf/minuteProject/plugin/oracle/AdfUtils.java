@@ -16,9 +16,13 @@ public class AdfUtils {
 	private static final String MOCK = "mock";
 	private static final String DB_DIRECT = "db-direct";
 	private static final String BINDING_JAVA = "java";
+	private static final String BINDING_SPRING = "spring";
 	private static final String WS_SDO = "ws-sdo";
 	private static final String ADF_FACES_BACKEND_BINDING = "adf-faces-backend-binding";
 
+	public boolean isBindingSpring(Template template) {
+		return BINDING_SPRING.equals(getBinding(template));
+	}
 	public boolean isBindingWsSDO(Template template) {
 		return WS_SDO.equals(getBinding(template));
 	}

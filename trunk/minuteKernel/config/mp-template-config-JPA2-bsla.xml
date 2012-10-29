@@ -113,6 +113,7 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>         
+		<property name="convertClobToString" value="true" ></property>         
 		
 	
 	    <!-- ENTITY OBJECTs -->

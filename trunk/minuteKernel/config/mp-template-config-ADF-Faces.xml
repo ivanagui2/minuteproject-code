@@ -36,6 +36,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
 			add-model-name="true">
 		</template>
+
+		<template name="ADF.Spring.ApplicationContext.Loader" templateFileName="ADF.Spring.ApplicationContext.Loader.vm" 
+			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
+			file-extension="java" file-prefix="" file-suffix="AppContextLoader" 
+			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
+			add-model-name="false">
+			<!-- add condition clause property=spring -->
+		</template>
 					 
 		<template name="ADF.Faces.SDOWsControllerImpl" templateFileName="ADF.Faces.SDOWsControllerImpl.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
@@ -56,6 +64,20 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			entity-specific="true" has-updatable-nature="true" >
 		</template>
 
+	</template-target>
+	
+  	<template-target 
+    	name="i18n set"
+		outputdir="ViewController/src"
+		package-root=""
+		belongToPackage="true">
+
+		<template name="ADF.Spring.ApplicationContext.Config" templateFileName="ADF.Spring.ApplicationContext.Config.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+		</template>
+		
 	</template-target>
 	
   	<template-target 
