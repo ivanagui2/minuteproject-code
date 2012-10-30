@@ -25,6 +25,7 @@ oracle.jdeveloper.deploy.profile.name=*
 javac.debug=on
 javac.nowarn=off
 
+#exposeFrontEndBackendBindingType()
 #if ($isFrontEndRelease)
 oracle.jdeveloper.project.name=$projectADFFacesViewControllerClass
 oracle.jdeveloper.deploy.outputfile=${projectADFFacesViewControllerPhysicalDirPath}/deploy/${profile.name}
@@ -43,6 +44,13 @@ oracle.jdeveloper.deploy.dir=${projectModelPhysicalDirPath}/deploy
 #
 oracle-jdev-common-module-dir=${WEBLOGIC_HOME}/oracle_common/modules
 oracle-weblogic-module-dir=${WEBLOGIC_HOME}/modules
+
+#
+# backend specific
+#
+#if($isBindingSpring)
+${model.name}.backend=$template.getPropertyValue("backend-lib","c:/lib")
+#end
 
 #
 # deploy properties

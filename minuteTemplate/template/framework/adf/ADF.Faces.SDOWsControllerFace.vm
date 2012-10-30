@@ -8,9 +8,11 @@ import eu.adf.fwk.query.QueryResponse;
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#if(!$isMany2Many)
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
+#end
 #end
 
 import java.util.List;
@@ -20,12 +22,13 @@ public interface $thisClassName {
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
-#if ($hasSearch)
+#if(!$isMany2Many)
+##if ($hasSearch)
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */
   public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request);
-#end
+##end
   /**
    * @return $beanVOADFFacesClass
    */
@@ -35,6 +38,7 @@ public interface $thisClassName {
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable);
 
+#end
 #end
 
 }

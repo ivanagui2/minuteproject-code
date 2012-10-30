@@ -31,15 +31,6 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../temp/NIF2/nif2App/WEB-INF/lib/nif2Bsla-1.0-SNAPSHOT.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Nif2Bsla-1.0-SNAPSHOT.jar"/>
-               <value n="id" v="Nif2Bsla-1.0-SNAPSHOT.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
                   <url path="../../../../../temp/NIF2/nif2App/WEB-INF/lib/spring-asm-3.0.6.BUILD-20110801.142304-2.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -427,15 +418,6 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="${physicalDirPathADFMavenJPA2Project}target/${model.name}BackEnd-${version}-SNAPSHOT.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="${model.name}BackEnd-${version}-SNAPSHOT.jar"/>
-               <value n="id" v="${model.name}BackEnd-${version}-SNAPSHOT.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
                   <url path="../../../../../temp/NIF2/nif2App/WEB-INF/lib/querydsl-core-2.1.2.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -454,19 +436,34 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="${physicalDirPathADFMavenBslaProject}target/${model.name}Bsla-${version}-SNAPSHOT.jar" jar-entry=""/>
+##                  <url path="${physicalDirPathADFMavenJPA2Project}target/${model.name}BackEnd-${version}-SNAPSHOT.jar" jar-entry=""/>
+                  <url path="../model-maven/jpa2/target/${model.name}BackEnd-${version}-SNAPSHOT.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="${model.name}Bsla-${version}-SNAPSHOT.jar1"/>
-               <value n="id" v="${model.name}Bsla-${version}-SNAPSHOT.jar1"/>
+               <value n="description" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>
+               <value n="id" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+##                  <url path="${physicalDirPathADFMavenBslaProject}target/${model.name}Bsla-${version}-SNAPSHOT.jar" jar-entry=""/>
+                  <url path="../model-maven/bsla/target/${model.name}Bsla-${version}-SNAPSHOT.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="${modelUpperCase}Bsla-${version}-SNAPSHOT.jar"/>
+               <value n="id" v="${modelUpperCase}Bsla-${version}-SNAPSHOT.jar"/>
                <value n="locked" v="true"/>
             </hash>
 #end
 #end
 #macro(putSpringDep)
-#if($isBindingSpring)		 
-        <hash>
-            <value n="id" v="Nif2Bsla-${version}-SNAPSHOT.jar"/>
+#if($isBindingSpring)
+         <hash>
+            <value n="id" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="${modelUpperCase}Bsla-${version}-SNAPSHOT.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -654,19 +651,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="${model.name}BackEnd-${version}-SNAPSHOT.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Querydsl-core-2.1.2.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Commons-collections-3.1.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="${model.name}Bsla-${version}-SNAPSHOT.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
 #end	
@@ -675,6 +664,7 @@
 #exposeADFFacesModelSpecific()
 #exposeADFReleaseSpecific()
 #exposeFrontEndBackendBindingType()
+#set($modelUpperCase=$formatUtils.firstUpperCaseOnly(${model.name}))
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
    <hash n="component-versions">
@@ -744,12 +734,10 @@
          <hash>
             <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
             <url n="sourceOwnerURL" path="../${projectJwsFacesFullName}"/>
-#if ($isBindingWsSDO)
+#if ($isBindingWsSDO || $isBindingSpring)
             <url n="sourceURL" path="../$viewControllerADFJprFullPath"/>
 #elseif($isBindingDBDirect || $isBindingJava)
             <url n="sourceURL" path="../$modelADFJprFullPath"/>
-#elseif($isBindingSpring)
-            <url n="sourceURL" path="../$viewControllerADFJprFullPath"/>
 #end
          </hash>
 ##elseif($isBindingDBDirect)
@@ -1096,9 +1084,7 @@
             <value n="id" v="Web Service Data Control"/>
             <value n="isJDK" v="false"/>
          </hash>
-#if($isSpring)
-	
-#end
+#putSpringDep()	
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">

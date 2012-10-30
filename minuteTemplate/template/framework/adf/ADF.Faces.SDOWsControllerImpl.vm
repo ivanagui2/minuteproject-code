@@ -12,44 +12,86 @@ import $ADFSDOWsDcFaceImport;
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#if(!$isMany2Many)
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
 #end
+#end
 #if($isBindingSpring)
 #foreach($table in $entities)
+#exposeVariableEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
 import $beanADFFacesSpringServiceImport;
 #end
 #end
+#end
+
+import java.lang.reflect.InvocationTargetException;
 
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
+#if($isBindingSpring)
+#foreach($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+    private $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#end
+#end
+#end
     public $thisClassName() {
         System.out.println(">>>>>>>>>>> constructor before loading config");
 #if($isBindingSpring)
 #foreach($table in $entities)
+#exposeVariableEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
-        $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");;
+#if(!$isMany2Many)
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");;
 #end
 #end
-        System.out.println(">>>>>>>>>>> constructor after loading config "+langDao);
+#end
     }
-	
+   public void convert(Object input, Object output) {
+      try {
+         BeanUtils.copyProperties(output, input);
+      } catch (IllegalAccessException e) {
+      } catch (InvocationTargetException e) {
+      }   
+   }
+   
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
-#if ($hasSearch)
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+##if ($hasSearch)
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */
   public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request) {
      System.out.println(">>>> list$domainClassName");
-	 return new $beanVOADFFacesQueryResponseClass();
+     $beanVOADFFacesClass input = request.get${beanVOADFFacesClass}();
+     ${domainClassImport} var = new ${domainClassImport} ();
+
+     convert(var, input);
+     List<$domainClassImport> list = ${beanADFFacesSpringServiceVariable}.findAll(var);
+	 
+     $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
+     for($domainClassImport element : list) {
+        $beanVOADFFacesClass output = new $beanVOADFFacesClass();
+        convert(output, element);
+        ret.add$beanVOADFFacesClass(output);
+     }
+     return ret;
   }
-#end
+##end
+
    /**
     * @return $beanVOADFFacesClass
    */
@@ -61,21 +103,22 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
       System.out.println(">>>> createOrUpdate$domainClassName");
 #if($isBindingSpring)
-	  ${domainClassImport} var = new ${domainClassImport} ();
-        try {
-            BeanUtils.copyProperties(var, $beanVOADFFacesVariable);
-        } catch (IllegalAccessException e) {
-        } catch (InvocationTargetException e) {
-        }
-	  ${beanADFFacesSpringServiceVariable}.create(var);
+      ${domainClassImport} var = new ${domainClassImport} ();
+      try {
+         BeanUtils.copyProperties(var, $beanVOADFFacesVariable);
+      } catch (IllegalAccessException e) {
+      } catch (InvocationTargetException e) {
+      }
+      ${beanADFFacesSpringServiceVariable}.create(var);
 #end
-	  return $beanVOADFFacesVariable;
+      return $beanVOADFFacesVariable;
    }
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
       System.out.println(">>>> delete$domainClassName");
    }
 
+#end
 #end
 
 }

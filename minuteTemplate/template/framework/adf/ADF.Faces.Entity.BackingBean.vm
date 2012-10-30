@@ -1,4 +1,5 @@
 #exposeADFFacesEntitySpecific()
+#exposeADFFacesDataControlEntitySpecific()
 package $packageName;
 
 import $beanVOADFFacesImport;
@@ -30,6 +31,10 @@ import org.apache.myfaces.trinidad.event.LaunchEvent;
 
 import eu.adf.fwk.utils.TablePaginationUtils;
 
+import $beanVOADFFacesImport;
+import $beanVOADFFacesQueryResponseImport;
+import $beanVOADFFacesQueryRequestImport;
+
 public class $className {
     
     private TablePaginationUtils ${domainVariableName}Table;
@@ -37,6 +42,7 @@ public class $className {
     private String ${domainVariableName}Reference;
     private RichPanelTabbed panelTab;
     private $beanVOADFFacesClass $beanVOADFFacesVariable = new $beanVOADFFacesClass();
+    private $beanVOADFFacesClass search$beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private Boolean displayResults = true;
     private Boolean displaySearch = false;    
 
@@ -101,6 +107,15 @@ public class $className {
     }
 
     public void displayAll(ActionEvent actionEvent) {
+        BindingContext bindingCtx = BindingContext.getCurrent();
+        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+        System.out.println(">> actionEvent: "+actionEvent);
+        Map mapParam = new HashMap();
+        mapParam.put("${domainVariableName}", this.search$beanVOADFFacesVariable); //the variable name of the operation signature has to be passed
+        OperationBinding ob = bindings.getOperationBinding("list$domainClassName");
+        ob.getParamsMap().putAll(mapParam);
+        ob.execute();
+        $beanVOADFFacesQueryResponseClass result = ($beanVOADFFacesQueryResponseClass)ob.getResult();
         //displayResults=true;
         ${domainVariableName}Table.getRequest().getCriterias().clear();
         ${domainVariableName}Table.setPageNumber(1);

@@ -20,7 +20,7 @@
 ##    <taskFlow id="searchemailflow1" taskFlowId="/WEB-INF/search-email-flow.xml#search-email-flow" activation="deferred"
 ##              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
 #end			  
-#if($hasSearch)
+##if($hasSearch)
     <methodIterator Binds="list${domainClassName}.result" DataControl="${dataControlRef}"
                     RangeSize="1"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
@@ -36,7 +36,7 @@
                     DataControl="${dataControlRef}" RangeSize="25"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
                     id="listAvailableForItemsIterator"/>
-#end
+##end
    </executables>
   <bindings>
 #if($isBindingDBDirect)	
@@ -135,15 +135,15 @@
       </nodeDefinition>
     </tree>
 #end	
-#if ($isBindingWsSDO)
-#if($hasSearch)
+#if ($isBindingWsSDO || $isBindingSpring)
+##if($hasSearch)
     <methodAction id="list${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="list${domainClassName}"
                   IsViewObjectMethod="false" DataControl="${dataControlRef}"
                   InstanceName="${dataControlRef}.dataProvider"
                   ReturnName="data.${dataControlRef}.methodResults.list${domainClassName}_${dataControlRef}_dataProvider_list${domainClassName}_result">
       <NamedData NDName="request"
-                 NDValue="#{viewScope.${domainVariableName}BackingBean.${domainClassName}Table.request}"
+                 NDValue="#{viewScope.${domainVariableName}BackingBean.${domainVariableName}Table.request}"
                  NDType="$beanVOADFFacesQueryRequestImport"
                  NDOption="2"/>
     </methodAction>
@@ -170,7 +170,7 @@
         <Item Value="value"/>
       </AttrNames>
     </list>
-#end
+##end
     <methodAction id="createOrUpdate${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="createOrUpdate${domainClassName}"
                   IsViewObjectMethod="false"

@@ -47,7 +47,7 @@
                      SupportsSortCollection="true"
                      Configuration="AppModuleService" syncMode="Immediate"
                      xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
-#elseif($isBindingWsSDO)
+#elseif($isBindingWsSDO || $isBindingSpring)
 ## this is something complex to understand:
 ## the path lead to a relative dir where stands a DataControls.dcx
 ## in this data control there is the name of the element
