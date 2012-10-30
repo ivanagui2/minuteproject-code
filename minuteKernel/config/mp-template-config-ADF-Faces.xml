@@ -55,13 +55,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Faces.Entity.QueryRequest.Bean" templateFileName="ADF.Faces.Entity.QueryRequest.Bean.vm" 
 			subdir="" outputsubdir="src" technicalPackage="query"
 			file-extension="java" file-prefix="" file-suffix="QueryRequest" 
-			entity-specific="true" has-updatable-nature="true" >
+			entity-specific="true" has-updatable-nature="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 		
 		<template name="ADF.Faces.Entity.QueryResponse.Bean" templateFileName="ADF.Faces.Entity.QueryResponse.Bean.vm" 
 			subdir="" outputsubdir="src" technicalPackage="query"
 			file-extension="java" file-prefix="" file-suffix="QueryResponse" 
-			entity-specific="true" has-updatable-nature="true" >
+			entity-specific="true" has-updatable-nature="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
 	</template-target>
@@ -107,6 +109,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="java" file-prefix="" file-suffix="BackingBean"
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
 			>			
 		</template>	
 		
@@ -115,7 +118,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="java" file-prefix="" file-suffix="ViewEditBean" 
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
-			>			
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">			
 		</template>	
 		
 		<template name="ADF.Faces.Entity.Bean" templateFileName="ADF.Faces.Entity.Bean.vm" 
@@ -123,7 +126,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="java" file-prefix="" file-suffix="" 
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
-			>			
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">			
 			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
 		</template>	
 		
