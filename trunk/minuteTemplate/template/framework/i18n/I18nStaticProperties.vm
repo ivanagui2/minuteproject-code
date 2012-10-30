@@ -14,5 +14,5 @@ manageSddChartTitle=Chart
 consult.title=Consult
 consult.select.header=Select
 searchHeading=Search
-displayAll=All
-selectOr=Select with or clause
+displayAll=Display All
+selectOr=or

@@ -58,7 +58,7 @@
                                                   id="msdisplayall"
                                                   actionListener="#{viewScope.${entityADFVariable}BackingBean.displayAll}"/>
                               </af:panelLabelAndMessage>
-                            </af:panelGroupLayout>
+                        </af:panelGroupLayout>
                     </af:panelBox>
                  </af:panelGroupLayout>
 ## list
@@ -71,13 +71,13 @@
                                        id="${entityADFVariable}TableTmpl">
                         <f:facet name="table">
                         <af:table id="${entityADFVariable}Table"
-                                    value="#{bindings.keyValueDTOs.collectionModel}"
+                                    value="#{bindings.${domainVariableName}DTOs.collectionModel}"
                                     var="row"
                                     rows="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
-                                    emptyText="#{bindings.keyValueDTOs.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                    emptyText="#{bindings.${domainVariableName}DTOs.viewable ? 'No data to display.' : 'Access Denied.'}"
                                     fetchSize="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
                                     rowBandingInterval="1"
-                                    filterModel="#{bindings.keyValueDTOsQuery.queryDescriptor}"
+                                    filterModel="#{bindings.${domainVariableName}DTOsQuery.queryDescriptor}"
                                     queryListener="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.queryListener}"
                                     filterVisible="true"
                                     columnResizing="disabled" autoHeightRows="0"

@@ -10,6 +10,7 @@
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#if(!$isMany2Many)
 #if ($hasSearch)
   <MethodAccessor IsCollection="false"
                   Type="$beanVOADFFacesQueryResponseImport"
@@ -43,5 +44,6 @@
                    isStructured="true"/>
   </MethodAccessor>
   
+#end
 #end
 </JavaBean>
