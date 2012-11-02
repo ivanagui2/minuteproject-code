@@ -77,8 +77,10 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
   public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request) {
      System.out.println(">>>> list$domainClassName");
      $beanVOADFFacesClass input = request.get${beanVOADFFacesClass}();
+     System.out.println(">>>> input "+input);
+     if (input==null)
+        input = new $beanVOADFFacesClass();
      ${domainClassImport} var = new ${domainClassImport} ();
-
      convert(var, input);
      List<$domainClassImport> list = ${beanADFFacesSpringServiceVariable}.findAll(var);
 	 
@@ -104,11 +106,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
       System.out.println(">>>> createOrUpdate$domainClassName");
 #if($isBindingSpring)
       ${domainClassImport} var = new ${domainClassImport} ();
-      try {
-         BeanUtils.copyProperties(var, $beanVOADFFacesVariable);
-      } catch (IllegalAccessException e) {
-      } catch (InvocationTargetException e) {
-      }
+      convert(var, $beanVOADFFacesVariable);
       ${beanADFFacesSpringServiceVariable}.create(var);
 #end
       return $beanVOADFFacesVariable;
