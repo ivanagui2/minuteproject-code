@@ -338,6 +338,24 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
 		</template>	
+
+		<template name="ADF.Faces.Entity.QueryRequest.BeanXml" templateFileName="ADF.Faces.Entity.QueryRequest.BeanXml.vm" 
+		    technicalPackage="bean"
+			file-extension="xml" file-prefix="" file-suffix="QueryRequest" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			>			
+			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
+		</template>	
+		
+		<template name="ADF.Faces.Entity.QueryResponse.BeanXml" templateFileName="ADF.Faces.Entity.QueryResponse.BeanXml.vm" 
+		    technicalPackage="bean"
+			file-extension="xml" file-prefix="" file-suffix="QueryResponse" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			>			
+			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
+		</template>	
 		
 	</template-target>
 	
