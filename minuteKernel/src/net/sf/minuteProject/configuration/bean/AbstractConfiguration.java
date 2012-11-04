@@ -15,7 +15,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	// Done by AOP
 	
 	protected boolean isCacheEnabled;
-	protected String alias, comment;
+	protected String alias, label, comment;
 	private enum PropertyCriteria {NAME, TAG};
 	protected String name;
 	private String refname;
@@ -195,4 +195,13 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	public void enableCache() {
 		isCacheEnabled = true;
 	}
+	
+	public String getLabel() {
+		return label;
+	}
+	
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
 }

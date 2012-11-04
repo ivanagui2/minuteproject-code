@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <!DOCTYPE digester-rules PUBLIC 
         "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" 
         "http://jakarta.apache.org/commons/digester/dtds/digester-rules.dtd">
@@ -494,6 +493,7 @@
 				<set-properties-rule>
 					<alias attr-name="name" prop-name="name" />	
 					<alias attr-name="alias" prop-name="alias" />
+					<alias attr-name="label" prop-name="label" />
 				</set-properties-rule>	
 				<pattern value="security-color">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor"/>		
@@ -519,6 +519,7 @@
 				<set-properties-rule>
 					<alias attr-name="name" prop-name="name" />	
 					<alias attr-name="alias" prop-name="alias" />
+					<alias attr-name="label" prop-name="label" />
 					<alias attr-name="type" prop-name="type" />
 					<alias attr-name="structure" prop-name="structure" />		
 					<alias attr-name="content-type" prop-name="contentType" />	
@@ -631,6 +632,7 @@
 					<set-properties-rule>
 					    <alias attr-name="is-id" prop-name="isId" />
 					    <alias attr-name="alias" prop-name="alias" />	
+					    <alias attr-name="label" prop-name="label" />	
 					    <alias attr-name="type-alias" prop-name="typeAlias" />	
 						<alias attr-name="name" prop-name="name" />	
 						<alias attr-name="type" prop-name="type" />	
@@ -713,11 +715,10 @@
 								<alias attr-name="value" prop-name="value" />
 								<alias attr-name="tag" prop-name="tag" />
 							</set-properties-rule>
-						</pattern>							
-					</pattern>							
+						</pattern>
+					</pattern>
 				</pattern>
-			</pattern>		
-					
+			</pattern>
 			</pattern>
 			<pattern value="service">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Service"/>		
@@ -725,7 +726,6 @@
 				<set-properties-rule>
 					<alias attr-name="name" prop-name="name" />	
 				</set-properties-rule>			
-								
 				<pattern value="scope">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.service.Scope"/>		
 					<set-next-rule methodname="addScope" paramtype="net.sf.minuteProject.configuration.bean.service.Scope"/>	
