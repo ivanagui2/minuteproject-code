@@ -182,6 +182,7 @@ public class BusinessModel {
 	
 	private void complementPackage(net.sf.minuteProject.configuration.bean.Package p, Package pack) {
 		p.setAlias(pack.getAlias());
+		p.setLabel(pack.getLabel());
 		p.setGroups(pack.getEntityGroups());
 		p.setSecurityColor (pack.getSecurityColor());
 		for (Table table : p.getListOfEntities()) {
@@ -302,6 +303,7 @@ public class BusinessModel {
 	private void convertEntityInfoIntoTable(Entity entity, Table table) {
 		table.setProperties(entity.getProperties());
 		table.setAlias(entity.getAlias());
+		table.setLabel(entity.getLabel());
 		table.setContentType(entity.getContentType());
 		table.setSemanticReference(entity.getSemanticReference());
 		table.setLinkEntity(entity.isLinkEntity());
@@ -321,6 +323,7 @@ public class BusinessModel {
 		column.setComment(field.getComment());
 		column.setSearchable(field.isSearchable());
 		column.setAlias(field.getAlias());
+		column.setLabel(field.getLabel());
 		column.setDerivations(field.getDerivations());
 		column.setTypeAlias(field.getTypeAlias());
 //		column.setTriggers(field.getTriggers());

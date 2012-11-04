@@ -44,6 +44,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	public TableAbstract (Table table) {
 		setTable (table);
 		this.setAlias(table.getAlias());
+		this.setLabel(table.getLabel());
 		this.setProperties(table.getProperties());
 		this.setContentType(table.getContentType());
 		this.setSemanticReference(table.getSemanticReference());
