@@ -197,6 +197,8 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	}
 	
 	public String getLabel() {
+		if (label==null)
+			label=getAlias();
 		return label;
 	}
 	

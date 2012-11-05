@@ -247,16 +247,30 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		libdir="lib/ADF_LIB.vm"
 		outputdir="ViewController/adfmsrc">
 
-
-
 		<!-- Data control xml -->
 		<template name="ADF.Faces.Entity.BeanXml" templateFileName="ADF.Faces.Entity.BeanXml.vm" 
 		    technicalPackage="bean"
 			file-extension="xml" file-prefix="" file-suffix="" 
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
-			>			
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">			
 			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
+		</template>	
+		
+		<template name="ADF.Faces.Entity.QueryRequest.BeanXml" templateFileName="ADF.Faces.Entity.QueryRequest.BeanXml.vm" 
+		    technicalPackage="query"
+			file-extension="xml" file-prefix="" file-suffix="QueryRequest" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">			
+		</template>	
+		
+		<template name="ADF.Faces.Entity.QueryResponse.BeanXml" templateFileName="ADF.Faces.Entity.QueryResponse.BeanXml.vm" 
+		    technicalPackage="query"
+			file-extension="xml" file-prefix="" file-suffix="QueryResponse" 
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">			
 		</template>	
 		
 	</template-target>
