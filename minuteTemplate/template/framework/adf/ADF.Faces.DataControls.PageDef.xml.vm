@@ -13,30 +13,18 @@
 #if($isBindingDBDirect)	
     <iterator Binds="${entityADFViewClass}1" RangeSize="25" DataControl="AppModuleDataControl" id="${entityADFViewClass}1Iterator"
               ChangeEventPolicy="ppr"/>
-##    <iterator Binds="EmployeesView3" RangeSize="-1" DataControl="AppModuleDataControl" id="EmployeesView3Iterator"
-##              ChangeEventPolicy="ppr"/>
-##    <searchRegion Binds="EmployeesView3Iterator" Criteria=""
-##                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="EmployeesView3Query"/>
-##    <taskFlow id="searchemailflow1" taskFlowId="/WEB-INF/search-email-flow.xml#search-email-flow" activation="deferred"
-##              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
 #end			  
-##if($hasSearch)
     <methodIterator Binds="list${domainClassName}.result" DataControl="${dataControlRef}"
                     RangeSize="1"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
                     id="list${domainClassName}Iterator"/>
-    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="${domainVariableName}DTOs"
+    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="${domainVariableName}s"
                       RangeSize="50" DataControl="${dataControlRef}"
-                      BeanClass="$beanVOADFFacesQueryResponseImport"
+                      BeanClass="$beanVOADFFacesImport"
                       id="${domainVariableName}DTOsIterator"/>
     <searchRegion Binds="${domainVariableName}DTOsIterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
-                  id="referenceDTOsQuery"/>
-    <methodIterator Binds="listAvailableForItems.result"
-                    DataControl="${dataControlRef}" RangeSize="25"
-                    BeanClass="$beanVOADFFacesQueryResponseImport"
-                    id="listAvailableForItemsIterator"/>
-##end
+                  id="${domainVariableName}DTOsQuery"/>
    </executables>
   <bindings>
 #if($isBindingDBDirect)	
@@ -120,17 +108,10 @@
     <tree IterBinding="EmployeesView3Iterator" id="EmployeesView3">
       <nodeDefinition DefName="demo.model.EmployeesView" Name="EmployeesView30">
         <AttrNames>
-          <Item Value="EmployeeId"/>
-          <Item Value="FirstName"/>
-          <Item Value="LastName"/>
-          <Item Value="Email"/>
-          <Item Value="PhoneNumber"/>
-          <Item Value="HireDate"/>
-          <Item Value="JobId"/>
-          <Item Value="Salary"/>
-          <Item Value="CommissionPct"/>
-          <Item Value="ManagerId"/>
-          <Item Value="DepartmentId"/>
+#foreach ($column in $table.columns)  
+#putColumnParamNaming()
+          <Item Value="${columnVar}"/>
+#end 
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -149,28 +130,15 @@
     </methodAction>
     <tree IterBinding="${domainVariableName}DTOsIterator" id="${domainVariableName}DTOs">
       <nodeDefinition DefName="$beanVOADFFacesImport"
-                      Name="${domainVariableName}DTOs">
+                      Name="${domainVariableName}">
         <AttrNames>
-          <Item Value="key"/>
-          <Item Value="value"/>
+#foreach ($column in $table.columns)  
+#putColumnParamNaming()
+          <Item Value="${columnVar}"/>
+#end 
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <methodAction id="listAvailableForItems" RequiresUpdateModel="true"
-                  Action="invokeMethod" MethodName="listAvailableForItems"
-                  IsViewObjectMethod="false"
-                  DataControl="${dataControlRef}"
-                  InstanceName="${dataControlRef}.dataProvider"
-                  ReturnName="data.${dataControlRef}.methodResults.listAvailableForItems_${dataControlRef}_dataProvider_listAvailableForItems_result"/>
-    <list IterBinding="listAvailableForItemsIterator" ListOperMode="navigation"
-          ListIter="listAvailableForItemsIterator" id="ReferenceDTO"
-          DTSupportsMRU="true">
-      <AttrNames>
-        <Item Value="key"/>
-        <Item Value="value"/>
-      </AttrNames>
-    </list>
-##end
     <methodAction id="createOrUpdate${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="createOrUpdate${domainClassName}"
                   IsViewObjectMethod="false"

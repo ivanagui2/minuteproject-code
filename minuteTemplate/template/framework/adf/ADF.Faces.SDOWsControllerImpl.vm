@@ -33,6 +33,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+
+import java.sql.Timestamp;
 
 public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
@@ -40,6 +43,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
+#set($domainTemplate = $commonUtils.getTargetTemplate($template, "DomainEntityJPA2Annotation"))
 #if(!$isMany2Many)
     private $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
 #end
@@ -57,20 +61,60 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #end
 #end
     }
-   public void convert(Object input, Object output) {
+/*   public void convert(Object output, Object input) {
       try {
          BeanUtils.copyProperties(output, input);
       } catch (IllegalAccessException e) {
       } catch (InvocationTargetException e) {
       }   
    }
-   
+*/   
+   public void convert(Object output, Object input) {
+      try {
+         BeanUtils.copyProperties(output, input);
+      } catch (IllegalAccessException e) {
+      } catch (InvocationTargetException e) {
+      } catch (Exception e) {
+          //TODO handle
+      System.out.println("e:"+e.getMessage());
+      }
+    }
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
 #if(!$isMany2Many)
 ##if ($hasSearch)
+	
+  private void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#set ($isEnum = $enumUtils.isEnumType($domainTemplate, $column))
+#if($isEnum)
+    output.set$columnClass(output.get$columnClass().fromValue(input.get$columnClass()));
+#elseif(!$column.isLob())
+    output.set$columnClass(input.get$columnClass());
+#end
+#end
+#end
+  }
+	
+  private void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#set ($isEnum = $enumUtils.isEnumType($domainTemplate, $column))
+#if($isEnum)
+    output.set$columnClass(input.get$columnClass().toString());
+#elseif($columnUtils.isTimeStampColumn($column))
+    output.set$columnClass(new Timestamp(input.get$columnClass().getTime()));
+#elseif(!$column.isLob())
+    output.set$columnClass(input.get$columnClass());
+#end
+#end
+#end
+  }
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */
@@ -81,13 +125,13 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      if (input==null)
         input = new $beanVOADFFacesClass();
      ${domainClassImport} var = new ${domainClassImport} ();
-     convert(var, input);
+     convert(input, var);
      List<$domainClassImport> list = ${beanADFFacesSpringServiceVariable}.findAll(var);
 	 
      $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
      for($domainClassImport element : list) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
-        convert(output, element);
+        convert(element, output);
         ret.add$beanVOADFFacesClass(output);
      }
      return ret;
@@ -103,10 +147,11 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    }
   
    public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
-      System.out.println(">>>> createOrUpdate$domainClassName");
+      System.out.println(">>>> createOrUpdate$domainClassName"+$beanVOADFFacesVariable);
 #if($isBindingSpring)
       ${domainClassImport} var = new ${domainClassImport} ();
-      convert(var, $beanVOADFFacesVariable);
+      convert($beanVOADFFacesVariable, var);
+      System.out.println(">>>> createOrUpdate$domainClassName var :"+var);
       ${beanADFFacesSpringServiceVariable}.create(var);
 #end
       return $beanVOADFFacesVariable;

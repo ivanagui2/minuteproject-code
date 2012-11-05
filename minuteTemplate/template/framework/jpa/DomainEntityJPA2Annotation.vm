@@ -316,7 +316,8 @@ $!updatedAreaSnippet
 #set($columnClass="${columnClass}_")
 #end
 #if($isEnum)
-          get$columnClass().toString()#if ($velocityCount!=$table.columnCount),
+##          get$columnClass().toString()#if ($velocityCount!=$table.columnCount),
+          (get$columnClass()==null)?null:get$columnClass().toString()#if ($velocityCount!=$table.columnCount),
 #end
 #else
           get$columnClass()#if ($velocityCount!=$table.columnCount),
