@@ -1,5 +1,6 @@
 #exposeADFBuildSpecific()
 #exposeADFReleaseSpecific()
+#exposeFrontEndBackendBindingType()
 @rem check environment properties
 @rem WLS_HOME
 @rem JDEV_HOME
@@ -13,6 +14,11 @@ set WORKSPACE_HOME=$projectJwsPhysicalDirPath
 set currentdir=%cd%
 
 #if($isFrontEndRelease)
+#if($isBindingSpring)
+cd model-maven
+call mvn clean package
+cd ..
+#end
 cd ViewController
 #if($hasAdfFacesCustomFwk)
 xcopy $adfFacesCustomFwkHome %cd% /s /e /y

@@ -3,7 +3,6 @@
 package $packageName;
 
 $!updatedAreaImport
-import java.sql.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
 import javax.faces.model.SelectItem;
+import java.sql.*;
 
 #if($addDomainSpecificMethod)
 import org.apache.commons.lang.builder.HashCodeBuilder;

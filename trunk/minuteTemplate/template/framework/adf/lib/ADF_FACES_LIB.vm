@@ -15,7 +15,9 @@
 
 #macro (adfEntityEditColumnDisplayWithScope $id $scope)
 #if($columnUtils.hasCheckConstraint($column))
-                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="${id}">
+                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
+							value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"
+							id="${id}">
                           <f:selectItems value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
 #set($property=$columnUtils.getCheckConstraintProperty($column))
 #set($propertyList=$property.getPropertiesArray())
@@ -27,7 +29,7 @@
                         <af:selectBooleanCheckbox label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
 ##                            textAndAccessKey="checkbox&amp;2"
 ##                            accessKey="2"
-##                            value="#{demoInput.boolean}"
+                            value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"
                             id="$id"/>	
 #elseif ($presentationUtils.isRichTextOnly($column))
                         <af:richTextEditor label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="$id"/>	

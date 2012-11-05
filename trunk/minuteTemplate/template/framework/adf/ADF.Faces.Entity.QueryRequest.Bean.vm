@@ -21,6 +21,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 #end
 import java.io.Serializable;
 
+import eu.adf.fwk.query.QueryRequest;
+
 #exposeADFFacesEntityImport()
 
 import $beanVOADFFacesImport;
@@ -32,7 +34,7 @@ import $beanVOADFFacesImport;
  *
  */
 
-public class ${className} implements Serializable {
+public class ${className} extends QueryRequest implements Serializable {
 
    private $beanVOADFFacesClass $beanVOADFFacesVariable;
 #putGetterSetter($beanVOADFFacesClass, $beanVOADFFacesVariable)

@@ -30,6 +30,7 @@ import oracle.binding.OperationBinding;
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 
 import eu.adf.fwk.utils.TablePaginationUtils;
+import eu.adf.fwk.utils.EntityPaginator;
 
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
@@ -37,7 +38,8 @@ import $beanVOADFFacesQueryRequestImport;
 
 public class $className {
     
-    private TablePaginationUtils ${domainVariableName}Table;
+##    private TablePaginationUtils ${domainVariableName}Table;
+    private EntityPaginator<$beanVOADFFacesQueryRequestClass> ${domainVariableName}Table;
     private String ${domainVariableName}Name;
     private String ${domainVariableName}Reference;
     private RichPanelTabbed panelTab;
@@ -47,7 +49,8 @@ public class $className {
     private Boolean displaySearch = false;    
 
     public $className() {
-        ${domainVariableName}Table = new TablePaginationUtils("list${domainClassName}");
+##        ${domainVariableName}Table = new TablePaginationUtils("list${domainClassName}");
+        ${domainVariableName}Table = new EntityPaginator<$beanVOADFFacesQueryRequestClass>(${beanVOADFFacesQueryRequestClass}.class, "list${domainClassName}");
 #if($runTimeErrorSolved)
         ${domainVariableName}Table.refreshPagination();
 #end
@@ -55,11 +58,11 @@ public class $className {
 
 #putGetterSetter ($beanVOADFFacesClass $beanVOADFFacesVariable)
 
-    public void set${domainClassName}Table(TablePaginationUtils table) {
+    public void set${domainClassName}Table(EntityPaginator<$beanVOADFFacesQueryRequestClass> table) {
         this.${domainVariableName}Table = table;
     }
 
-    public TablePaginationUtils get${domainClassName}Table() {
+    public EntityPaginator<$beanVOADFFacesQueryRequestClass> get${domainClassName}Table() {
         return ${domainVariableName}Table;
     }
 
