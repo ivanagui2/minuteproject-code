@@ -65,14 +65,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 
-		<template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
+<!-- 		<template name="ADF.Model.jpx" templateFileName="ADF.Model.jpx.vm" 
 			subdir="" outputsubdir="" technicalPackage="view"
 			file-extension="jpx" file-prefix="" file-suffix="Model" 
 			has-updatable-nature="true"
 			scope-specific-value="model"
 			>
 		</template>	
-		
+		 -->
 
         <template name="ADF.Model.bc4j" templateFileName="ADF.Model.bc4j.vm" 
             subdir="" outputsubdir="" technicalPackage="model.common"
