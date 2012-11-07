@@ -2,6 +2,7 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="viewEdit${domainVariableName}-flow">
+##  <task-flow-definition id="$className">
     <default-activity id="__2">${domainVariableName}Details</default-activity>
     <managed-bean id="__12">
 ##      <managed-bean-name id="__13">viewEdit${domainVariableName}Bean</managed-bean-name>

@@ -1,8 +1,12 @@
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
 #set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))
+#set($entityDetailEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityDetail))
+#set($entityEditEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityEdit))
 #set($entityQueryEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityQuery))
 #set($pageDefADFFacesEntityImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefADFFacesEntity))##check if not templatePageDefEditADFFacesEntity
+#set($pageDefADFFacesEntityDetailImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefDetailADFFacesEntity))##check if not templatePageDefEditADFFacesEntity
+#set($pageDefADFFacesEntityEditImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefEditADFFacesEntity))##check if not templatePageDefEditADFFacesEntity
 #set($pageDefADFFacesEntityQueryImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templatePageDefQueryADFFacesEntity))
 #set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
 #set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
@@ -266,6 +270,8 @@ import $importDomainObjectUML;
 ##Front-End
 #set ($templateADFFacesMainFlow = "ADF.Faces.ViewController.main-flow.xml")
 #set ($templateADFFacesEntity = "ADF.Faces.Entity.jspx")
+#set ($templateADFFacesEntityDetail = "ADF.Faces.EntityDetail.jspx")
+#set ($templateADFFacesEntityEdit = "ADF.Faces.EntityEdit.jspx")
 #set ($templateADFFacesEntityQuery = "ADF.Faces.EntityQuery.jspx")
 #set ($templateADFFacesJws = "ADF.Faces.jws")
 #set ($templateADFFacesViewControllerAdminConfig = "ADF.Faces.ViewController.admin-config.xml")
@@ -283,6 +289,7 @@ import $importDomainObjectUML;
 #set ($templateADFFacesDataControls = "ADF.Faces.ViewController.DataControls.dcx")
 #set ($templatePageDefADFFacesEntity = "ADF.Faces.DataControls.PageDef.xml")
 #set ($templatePageDefEditADFFacesEntity = "ADF.Faces.DataControls.EditPageDef.xml")
+#set ($templatePageDefDetailADFFacesEntity = "ADF.Faces.DataControls.DetailPageDef.xml")
 #set ($templatePageDefQueryADFFacesEntity = "ADF.Faces.DataControls.QueryPageDef.xml")
 #set ($templateADFSDOWsDcFace = "ADF.Faces.SDOWsControllerFace")
 #set ($templateADFSDOWsDcImpl = "ADF.Faces.SDOWsControllerImpl")

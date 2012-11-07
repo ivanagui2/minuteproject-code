@@ -127,12 +127,13 @@ public class $className {
 #end
     }
 
-    public void handleLaunchEditCaseOriginDlg(LaunchEvent launchEvent) {
+    public void handleLaunchEdit${entityADFClass}Dlg(LaunchEvent launchEvent) {
         RichCommandLink comp = (RichCommandLink)launchEvent.getComponent();
-        String caseOriginCode = (String) comp.getAttributes().get("${domainClassName}Origin");
+        String code = (String) comp.getAttributes().get("${entityADFVariable}Reference");
         //Pass the current value of the field into the dialog
         //      Object usr = username;
-        launchEvent.getDialogParameters().put("${domainClassName}Origin", caseOriginCode);
+        launchEvent.getDialogParameters().put("${entityADFVariable}Reference", code);
+		System.out.println(">>>>>>>>>>>> handleLaunchEdit${entityADFClass}Dlg");
     }
 
     public void set${domainClassName}Name(String ${domainVariableName}Name) {

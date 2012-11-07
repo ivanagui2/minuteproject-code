@@ -1,5 +1,5 @@
 #exposeADFFacesEntitySpecific()
-#exposeADFFacesDataControlEntitySpecificexposeADFFacesDataControlEntitySpecific()
+#exposeADFFacesDataControlEntitySpecific()
 <?xml version="1.0" encoding="UTF-8" ?>
 <pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
                 version="11.1.1.61.92" id="$className"
@@ -9,7 +9,7 @@
     <variableIterator id="variables"/>
   </executables>
   <bindings>
-	<!--
+<!--
     <methodAction id="getCaseOrigin" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="getCaseOrigin"
                   IsViewObjectMethod="false" DataControl="ReferenceDataEBS_WS_DC"
@@ -18,5 +18,15 @@
       <NamedData NDName="reference" NDType="eu.europa.nif.dto.common.ReferenceDTO" NDOption="2"/>
     </methodAction>
 	-->
+    <methodAction id="get${domainClassName}" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="get${domainClassName}"
+                  IsViewObjectMethod="false" DataControl="${dataControlRef}"
+                  InstanceName="${dataControlRef}.dataProvider"
+                  ReturnName="data.${dataControlRef}.methodResults.get${domainClassName}_${dataControlRef}_dataProvider_get${domainClassName}_result">
+      <NamedData NDName="request"
+                 NDValue="#{viewScope.${domainVariableName}BackingBean.$beanVOADFFacesVariable}"
+                 NDType="$beanVOADFFacesImport"
+                 NDOption="2"/>
+    </methodAction>
   </bindings>
 </pageDefinition>
