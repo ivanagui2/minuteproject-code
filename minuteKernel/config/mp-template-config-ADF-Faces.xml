@@ -195,6 +195,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="entity"
 			>			
 		</template>	
+		<template name="ADF.Faces.DataControls.DetailPageDef.xml" templateFileName="ADF.Faces.DataControls.DetailPageDef.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
+			file-extension="xml" file-prefix="detail" file-suffix="PageDef" 
+			has-updatable-nature="true" add-model-dir-name="false"
+			scope-specific-value="entity"
+			>			
+		</template>	
 		<template name="ADF.Faces.DataControls.EditPageDef.xml" templateFileName="ADF.Faces.DataControls.EditPageDef.xml.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="xml" file-prefix="" file-suffix="EditPageDef" 

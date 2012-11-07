@@ -5,6 +5,7 @@ import org.codehaus.groovy.runtime.ConvertedClosure;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
@@ -12,6 +13,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 
 public class AdfUtils {
 
+	private static final int ADF_PIXEL_MULTIPLICATOR = 10;
 	private static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
 	private static final String MOCK = "mock";
 	private static final String DB_DIRECT = "db-direct";
@@ -146,6 +148,10 @@ public class AdfUtils {
 	
 	public int getDisplayColumns(Column column) {
 		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
+	}
+	
+	public int getDisplayColumnWithHeader(Column column) {
+		return Math.max(getDisplayColumns(column),I18nUtils.getI18nFromDBObject(column).length())*ADF_PIXEL_MULTIPLICATOR;
 	}
 	
 	public int getDisplayRows(Column column) {
