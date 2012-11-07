@@ -6,6 +6,7 @@
  
 #foreach ($table in $entities)
 #exposeADFFacesEntitySpecific()
+#set($viewEditBeanFlowADFFacesClassName="viewEdit${domainVariableName}-flow")
   <task-flow-call id="$viewEditBeanFlowADFFacesClassName">
     <task-flow-reference>
       <document>$viewEditADFFacesEntityFullPath</document>
@@ -17,17 +18,18 @@
       </display-type>
     </run-as-dialog>
   </task-flow-call>
-##  <view id="${domainVariableName}View">
-##    <page>/$entityEntryADFFaceRelativePath</page>
-##  </view>
+  <view id="${domainVariableName}View">
+    <page>/$entityEntryADFFaceRelativePath</page>
+  </view>
 #set($cpt=$cpt+1) 
 #end
 
 #foreach ($table in $entities)
 #exposeADFFacesEntitySpecific()
+#set($viewEditBeanFlowADFFacesClassName="viewEdit${domainVariableName}-flow")
   <control-flow-rule id="__$cpt">
 #set($cpt=$cpt+1) 
-    <from-activity-id id="__$cpt">${domainVariableName}</from-activity-id>
+    <from-activity-id id="__$cpt">${domainVariableName}View</from-activity-id>
 #set($cpt=$cpt+1) 
     <control-flow-case id="__$cpt">
 #set($cpt=$cpt+1) 

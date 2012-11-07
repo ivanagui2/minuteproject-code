@@ -15,6 +15,10 @@
 #exposeADFFacesEntitySpecific()
     <page path="/$entityEntryADFFaceRelativePath"
           usageId="view_${domainVariableName}PageDef"/>
+    <page path="/$entityDetailEntryADFFaceRelativePath"
+          usageId="view_${domainVariableName}DetailPageDef"/>
+    <page path="/$entityEditEntryADFFaceRelativePath"
+          usageId="view_edit${domainVariableName}PageDef"/>
 #if($isBindingDBDirect)
     <page path="/$entityQueryEntryADFFaceRelativePath"
           usageId="viewQuery_${domainVariableName}PageDef"/>	  
@@ -27,6 +31,10 @@
 #exposeADFFacesEntitySpecific()
     <page id="view_${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityImport"/>
+	<page id="view_${domainVariableName}DetailPageDef"
+          path="$pageDefADFFacesEntityDetailImport"/>
+    <page id="view_edit${domainVariableName}PageDef"
+          path="$pageDefADFFacesEntityEditImport"/>
 #if($isBindingDBDirect)
     <page id="viewQuery_${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityQueryImport"/>

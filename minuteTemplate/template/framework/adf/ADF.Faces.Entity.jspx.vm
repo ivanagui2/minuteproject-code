@@ -92,7 +92,7 @@
                             <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
                                        headerText="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
-                                       id="${columnVar}_id" width="800">
+                                       id="${columnVar}_id" width="$adfUtils.getDisplayColumnWithHeader($column)">
                               <af:commandLink text="#{row.${columnVar}}" id="${columnVar}1"
                                               action="details" immediate="true"
                                               partialSubmit="true"
@@ -101,7 +101,7 @@
                                               windowModalityType="applicationModal"
                                               windowHeight="200"
                                               windowWidth="400"
-                                              launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFVariable}Dlg}">
+                                              launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFClass}Dlg}">
                                 <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
                             </af:column>
@@ -109,7 +109,7 @@
                             <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
                                        headerText="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
-                                       id="${columnVar}_col" width="184">
+                                       id="${columnVar}_col" width="$adfUtils.getDisplayColumnWithHeader($column)">
                               <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot2"/>
                             </af:column>
 #end
