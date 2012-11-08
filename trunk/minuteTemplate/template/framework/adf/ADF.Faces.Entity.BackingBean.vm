@@ -129,11 +129,11 @@ public class $className {
 
     public void handleLaunchEdit${entityADFClass}Dlg(LaunchEvent launchEvent) {
         RichCommandLink comp = (RichCommandLink)launchEvent.getComponent();
-        String code = (String) comp.getAttributes().get("${entityADFVariable}Reference");
+##works for one pk only
+        String ${entityADFVariable}Reference = (String) comp.getAttributes().get("${entityADFVariable}Reference");
         //Pass the current value of the field into the dialog
         //      Object usr = username;
-        launchEvent.getDialogParameters().put("${entityADFVariable}Reference", code);
-		System.out.println(">>>>>>>>>>>> handleLaunchEdit${entityADFClass}Dlg");
+        launchEvent.getDialogParameters().put("${entityADFVariable}Reference", ${entityADFVariable}Reference);
     }
 
     public void set${domainClassName}Name(String ${domainVariableName}Name) {
@@ -149,12 +149,8 @@ public class $className {
     }
 
     public void create${domainClassName}(ActionEvent actionEvent) {
-        System.out.println(">> object : $beanVOADFFacesVariable: "+$beanVOADFFacesVariable);
         BindingContext bindingCtx = BindingContext.getCurrent();
-        System.out.println(">> create${domainClassName} : bindingCtx: "+bindingCtx);
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-        System.out.println(">> create${domainClassName} : bindings: "+bindings);
-        System.out.println(">> ${domainClassName} : "+this.${beanVOADFFacesVariable});
         Map mapParam = new HashMap();
         mapParam.put("${domainVariableName}", this.${beanVOADFFacesVariable}); //the variable name of the operation signature has to be passed
         OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");

@@ -16,10 +16,11 @@ import oracle.binding.OperationBinding;
 public class $className {
     
     private ${beanVOADFFacesClass} ${beanVOADFFacesVariable};
-    private String ${domainVariableName}Param;
+##works for one pk only
+    private $primaryKeyType ${domainVariableName}Param;
     
     public $className () {
-        ${domainVariableName}Param = (String)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("get${domainClassName}");
+        ${domainVariableName}Param = ($primaryKeyType)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("${entityADFVariable}Reference");
     }
 
     public void delete${domainClassName}(DCBindingContainer bindings) {
@@ -37,8 +38,9 @@ public class $className {
     
     public void save${domainClassName}(DCBindingContainer bindings) {
         Map ${domainVariableName}Param = new HashMap();
-        ${domainVariableName}Param.put("${domainClassName}", this.${beanVOADFFacesVariable});
-        OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
+        ${domainVariableName}Param.put("${beanVOADFFacesVariable}", this.${beanVOADFFacesVariable});
+        System.out.println(">>>>> ${beanVOADFFacesVariable} "+this.${beanVOADFFacesVariable});
+		OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(${domainVariableName}Param);
         ob.execute();
     }
@@ -50,9 +52,18 @@ public class $className {
     public ${beanVOADFFacesClass} get${domainClassName}() {
         
         if (${beanVOADFFacesVariable}==null) {
+            Map map = new HashMap();
+##works one for one primary key
+            ${beanVOADFFacesClass} ref = new ${beanVOADFFacesClass}();
+            ref.set$primaryKeyJavaNameClass(${domainVariableName}Param);
+            map.put("${beanVOADFFacesVariable}", ref);
+			
             BindingContext bindingCtx = BindingContext.getCurrent();
             BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-            ${beanVOADFFacesVariable} = getCurrent${domainClassName}(bindings);
+			
+            OperationBinding ob = bindings.getOperationBinding("get$domainClassName");
+            ob.getParamsMap().putAll(map);
+            this.${beanVOADFFacesVariable} = (${beanVOADFFacesClass})ob.execute();
         }
         return ${beanVOADFFacesVariable};
     
