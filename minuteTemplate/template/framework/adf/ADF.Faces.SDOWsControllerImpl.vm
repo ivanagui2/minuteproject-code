@@ -83,6 +83,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
+#set($tableHasOnlyOnePrimaryKey=$hasOnlyOnePrimaryKey)
 #if(!$isMany2Many)
 ##if ($hasSearch)
 	
@@ -136,29 +137,44 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      }
      return ret;
   }
-##end
 
    /**
     * @return $beanVOADFFacesClass
    */
    public $beanVOADFFacesClass get$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable) {
       System.out.println(">>>> get$domainClassName");
-	  return new $beanVOADFFacesClass();
+#if($tableHasOnlyOnePrimaryKey)
+      ${domainClassImport} var = ${beanADFFacesSpringServiceVariable}.findById(${beanVOADFFacesVariable}.get$primaryKeyJavaNameClass());
+      convert(var, $beanVOADFFacesVariable);
+#else
+      // multiple primary key not supported yet
+#end
+	  return $beanVOADFFacesVariable;
    }
-  
+   
    public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
       System.out.println(">>>> createOrUpdate$domainClassName"+$beanVOADFFacesVariable);
 #if($isBindingSpring)
       ${domainClassImport} var = new ${domainClassImport} ();
       convert($beanVOADFFacesVariable, var);
       System.out.println(">>>> createOrUpdate$domainClassName var :"+var);
-      ${beanADFFacesSpringServiceVariable}.create(var);
+	  if (var.get$primaryKeyJavaNameClass()!=null)
+		${beanADFFacesSpringServiceVariable}.update(var);
+	  else
+		${beanADFFacesSpringServiceVariable}.create(var);
 #end
       return $beanVOADFFacesVariable;
    }
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
       System.out.println(">>>> delete$domainClassName");
+#if($tableHasOnlyOnePrimaryKey)
+      ${domainClassImport} var = new ${domainClassImport} ();
+      convert($beanVOADFFacesVariable, var);
+      ${beanADFFacesSpringServiceVariable}.delete(var);
+#else
+      // multiple primary key not supported yet
+#end
    }
 
 #end

@@ -2,10 +2,11 @@
 #exposeADFDataBindingControlSpecific()
 #exposeADFFacesDataControlEntitySpecific()
 #exposeADFFacesDomainObject()
+#exposeFrontEndBackendBindingType()
 <?xml version="1.0" encoding="UTF-8" ?>
 <pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
                 version="11.1.1.61.92" id="$className"
-                Package="$packageName">
+                Package="${packageName}.$domainClassName">
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
@@ -19,22 +20,23 @@
                   Action="invokeMethod" MethodName="delete${domainClassName}"
                   IsViewObjectMethod="false" DataControl="$dataControlRef"
                   InstanceName="${dataControlRef}.dataProvider">
-      <NamedData NDName="reference" NDType="$importDomainObjectUML" NDOption="2"/>
+      <NamedData NDName="$domainVariableName" NDType="$importDomainObjectUML" NDOption="2"/>
     </methodAction>
     <methodAction id="createOrUpdate${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="createOrUpdate${domainClassName}"
                   IsViewObjectMethod="false" DataControl="$dataControlRef"
                   InstanceName="${dataControlRef}.dataProvider">
-      <NamedData NDName="caseStatus" NDType="$importDomainObjectUML"
+      <NamedData NDName="$domainVariableName" NDType="$importDomainObjectUML"
                  NDOption="2"/>
     </methodAction>
+#if($todo)
     <methodAction id="get${domainClassName}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="get${domainClassName}"
                   IsViewObjectMethod="false"
                   DataControl="${dataControlRef}"
                   InstanceName="${dataControlRef}.dataProvider"
                   ReturnName="data.${dataControlRef}.methodResults.get${domainClassName}_${dataControlRef}_dataProvider_get${domainClassName}_result">
-      <NamedData NDName="reference"
+      <NamedData NDName="$domainVariableName"
                  NDType="$importDomainObjectUML" NDOption="2"/>
 	</methodAction>
     <methodAction id="listAvailableForItems" RequiresUpdateModel="true"
@@ -51,5 +53,6 @@
         <Item Value="value"/>
       </AttrNames>
     </list>
+#end
   </bindings>
 </pageDefinition>

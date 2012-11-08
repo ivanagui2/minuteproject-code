@@ -1,13 +1,14 @@
 #exposeADFFacesEntitySpecific()
 #set($separator=$i18nUtils.getSeparator($template))
-#macro (adfEntityColumnDisplay $id)
+#macro (adfEntityDetailColumnDisplay $id)
 ##                        <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
 ##                                      id="${id}" ##columns="40" ##columns="$column.size"
 ##                                      value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}}"/>
-          <af:panelLabelAndMessage label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="$id"
-                                   for="dldet${columnVar}">
+          <af:panelLabelAndMessage label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
+			id="$id"
+            for="dldet${columnVar}">
 ##            <af:outputText value="#{pageFlowScope.viewEditDeadLineTypeBean.deadLineType.name}" id="dldet${columnVar}"/>
-            <af:outputText value="#{pageFlowScope.${entityADFVariable}ViewEditBean.${entityADFVariable}.${columnVar}}}" id="dldet${columnVar}"/>
+            <af:outputText value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}" id="dldet${columnVar}"/>
           </af:panelLabelAndMessage>
 #end
 <?xml version='1.0' encoding='UTF-8'?>
@@ -29,7 +30,7 @@
                             styleClass="dialogFormLayout">
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
-#adfEntityColumnDisplay("det$velocityCount")
+#adfEntityDetailColumnDisplay("det$velocityCount")
 #end
         </af:panelFormLayout>
           
@@ -37,9 +38,9 @@
                       <f:facet name="separator">
                         <af:spacer width="10" height="1"/>
                       </f:facet>
-                      <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.details.editbutton']}"
+                      <af:commandButton text="#{viewcontrollerBundle['editTitle']}"
                                         id="dldetedit" action="edit"/>
-                      <af:commandButton text="#{viewcontrollerBundle['${entityADFImport}.details.closebutton']}"
+                      <af:commandButton text="#{viewcontrollerBundle['closeTitle']}"
                                           id="dldetclose" action="close"/>
           </af:panelGroupLayout>
       </af:form>

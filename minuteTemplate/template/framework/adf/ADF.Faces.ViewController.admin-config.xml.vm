@@ -68,6 +68,17 @@
     <managed-bean-scope id="__$cpt">view</managed-bean-scope>
 #set($cpt=$cpt+1)
   </managed-bean>
+#if($todo)
+   <managed-bean id="__$cpt">
+#set($cpt=$cpt+1)
+    <managed-bean-name id="__$cpt">${viewEditEntityBeanVariable}</managed-bean-name>
+#set($cpt=$cpt+1)
+    <managed-bean-class id="__$cpt">${viewEditEntityBeanImport}</managed-bean-class>
+#set($cpt=$cpt+1)
+    <managed-bean-scope id="__$cpt">view</managed-bean-scope>
+#set($cpt=$cpt+1)
+  </managed-bean>
+#end
 #end
 
 </adfc-config>

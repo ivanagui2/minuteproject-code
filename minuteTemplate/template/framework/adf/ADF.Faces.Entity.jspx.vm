@@ -102,7 +102,8 @@
                                               windowHeight="200"
                                               windowWidth="400"
                                               launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFClass}Dlg}">
-                                <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
+##works for one pk only
+								<f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
                             </af:column>
 #else

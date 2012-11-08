@@ -13,13 +13,13 @@
     </managed-bean>
     <view id="${domainVariableName}Details">
 ##      <page>/pages/administration/cases/${domainVariableName}/${domainVariableName}Details.jspx</page>
-      <page>${detailADFFacesRelativePath}</page>
+      <page>/${detailADFFacesRelativePath}</page>
 ##      <page>/pages/administration/cases/${domainVariableName}/${domainVariableName}Details.jspx</page>
 ##      <page>${detailADFFacesRelativePath}</page>
     </view>
     <view id="edit${domainClassName}">
 ##      <page>/pages/administration/cases/${domainVariableName}/edit${domainVariableName}.jspx</page>
-      <page>${editADFFacesRelativePath}</page>
+      <page>/${editADFFacesRelativePath}</page>
     </view>
     <task-flow-return id="taskFlowReturn1">
       <outcome id="__8">
