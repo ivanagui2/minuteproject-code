@@ -26,13 +26,14 @@ public class $className {
     public void delete${domainClassName}(DCBindingContainer bindings) {
         this.${beanVOADFFacesVariable} = null;
         Map ${domainVariableName}Param = new HashMap();
-        ${domainVariableName}Param.put("${domainClassName}Ref", getCurrent${domainClassName}(bindings));
+        ${domainVariableName}Param.put("${beanVOADFFacesVariable}", getCurrent${domainClassName}(bindings));
         OperationBinding ob = bindings.getOperationBinding("delete${domainClassName}");
         ob.getParamsMap().putAll(${domainVariableName}Param);
         ob.execute();
     }
     
     public void rollback${domainClassName}() {
+	    System.out.println(">>>> rollback ");
         this.${beanVOADFFacesVariable} = null;
     }
     
