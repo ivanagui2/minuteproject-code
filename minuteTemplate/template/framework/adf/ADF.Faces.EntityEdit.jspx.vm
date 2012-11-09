@@ -37,7 +37,7 @@
                       <af:commandButton text="#{viewcontrollerBundle['deleteTitle']}"
                                         id="dldetdelete" action="delete"/>
                       <af:commandButton text="#{viewcontrollerBundle['cancelTitle']}"
-                                          id="dldetreturn" action="return"/>
+                                          id="dldetreturn" action="cancel"/>
                       <af:commandButton text="#{viewcontrollerBundle['saveTitle']}"
                                           id="dldetsave" action="save"/>
           </af:panelGroupLayout>
