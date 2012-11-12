@@ -18,8 +18,9 @@
                             styleClass="dialogFormLayout">
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
-          <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="dldet${columnVar}"
-                        value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}"/>
+#adfEntityEditColumnDisplay4PageFlow("dldet${columnVar}")
+##          <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="dldet${columnVar}"
+##                        value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}"/>
 #if($hasMessage)
             <af:panelLabelAndMessage label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="dldetplam4"
                                    for="dldetavailable">

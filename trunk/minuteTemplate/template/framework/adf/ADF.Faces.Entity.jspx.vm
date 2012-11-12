@@ -28,6 +28,35 @@
                                  disclosed="#{viewScope.${entityADFVariable}BackingBean.displaySearch}">
                       <af:panelFormLayout id="${entityADFVariable}_pfl1" labelWidth="100px"
                                           fieldWidth="400px">
+
+                      <af:selectBooleanRadio group="searchRadioSearchMatch"
+                                             label="Any" id="searchRadioAny"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchAny}"/>
+                      <af:selectBooleanRadio group="searchRadioSearchMatch"
+                                             label="All" id="searchRadioAll"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchAll}"
+                                             />
+                      <af:separator id="sep1"/>
+                      <af:selectBooleanRadio group="searchRadioSearchType"
+                                             label="Equals" id="searchRadioEquals"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchEquals}"/>
+                      <af:selectBooleanRadio group="searchRadioSearchType"
+                                             label="Contains" id="searchRadioContains"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchContains}"
+                                             />
+                      <af:selectBooleanRadio group="searchRadioSearchType"
+                                             label="Like" id="searchRadioLike"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchLike}"/>
+                      <af:separator id="sep2"/>
+					  <af:selectBooleanRadio group="searchRadioSearchCase"
+                                             label="Case sensitive" id="searchRadioCaseSensitive"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchCaseSentive}"
+                                             />
+                      <af:selectBooleanRadio group="searchRadioSearchCase"
+                                             label="Case insensitive" id="searchRadioCaseInsensitive"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchCaseInsentive}"/>
+                      <af:separator id="sep3"/>
+
 #if (!$hasSemanticReference)
 #foreach ($column in $table.columns)  
 #putColumnParamNaming()
@@ -124,7 +153,7 @@
                   </af:panelGroupLayout>
              
               </af:showDetailItem>
-              
+<!-- create -->              
               <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}" immediate="true"
                                  id="${entityADFVariable}_sdi2" >
 								 

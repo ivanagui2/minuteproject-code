@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 #if($addDomainSpecificMethod)
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -419,6 +420,16 @@ $!updatedAreaSnippet
 #end
 
 		);	    
+	}
+
+	public void assignNullToBlank () {
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if ($columnType=="String" && !$isEnum && !$isForeignKey)
+        if (StringUtils.isEmpty(get$columnClass()))
+           set$columnClass(null);
+#end
+#end	
 	}
 
 #end

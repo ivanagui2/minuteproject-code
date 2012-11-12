@@ -31,8 +31,8 @@ public class $className {
             ref.set$primaryKeyJavaNameClass(${domainVariableName}Param);
             map.put("${beanVOADFFacesVariable}", ref);
             
-            BindingContext bindingCtx = BindingContext.getCurrent();
-            BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+##            BindingContext bindingCtx = BindingContext.getCurrent();
+##            BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
             
             OperationBinding ob = bindings.getOperationBinding("delete$domainClassName");
             ob.getParamsMap().putAll(map);
@@ -80,4 +80,17 @@ public class $className {
     
     }
 
+#if($todo)
+	public void reset () {
+        Map mapParam = new HashMap();
+        mapParam.put("${domainVariableName}", new $beanVOADFFacesClass()); //the variable name of the operation signature has to be passed
+        OperationBinding ob = bindings.getOperationBinding("list$domainClassName");
+        ob.getParamsMap().putAll(mapParam);
+        ob.execute();
+        $beanVOADFFacesQueryResponseClass result = ($beanVOADFFacesQueryResponseClass)ob.getResult();
+        //displayResults=true;
+        ${domainVariableName}Table.getRequest().getCriterias().clear();
+        ${domainVariableName}Table.setPageNumber(1);
+	}
+#end	
 }

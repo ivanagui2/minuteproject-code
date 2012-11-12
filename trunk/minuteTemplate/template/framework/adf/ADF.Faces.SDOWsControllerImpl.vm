@@ -127,8 +127,12 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
         input = new $beanVOADFFacesClass();
      ${domainClassImport} var = new ${domainClassImport} ();
      convert(input, var);
-     List<$domainClassImport> list = ${beanADFFacesSpringServiceVariable}.findAll(var);
-	 
+     var.assignNullToBlank();
+     List<$domainClassImport> list;
+     if (QueryRequest.PrototypeMatchType.ALL.equals(request.getMatchType()))
+        list = ${beanADFFacesSpringServiceVariable}.findAll(var);
+     else
+        list = ${beanADFFacesSpringServiceVariable}.findAny(var);
      $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
      for($domainClassImport element : list) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();

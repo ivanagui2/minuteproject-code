@@ -124,11 +124,19 @@ public interface $className extends DataAccessObject {
     public $tableClassName loadFull$tableClassName(Long id) ;
 
     /**
-     * Searches a list of $tableClassName entity based on a $tableClassName containing $tableClassName matching criteria
+     * Searches a list of $tableClassName entity based on a $tableClassName containing $tableClassName matching criteria on the positive mask
      * @param $tableClassName $tableVariableName
      * @return List<$tableClassName>
      */
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) ;
+    
+
+    /**
+     * Searches a list of $tableClassName entity based on a $tableClassName containing $tableClassName matching criteria on any field
+     * @param $tableClassName $tableVariableName
+     * @return List<$tableClassName>
+     */
+    public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) ;
     
     /**
      * Searches a list of $tableClassName entity based on a list of $tableClassName containing $tableClassName matching criteria

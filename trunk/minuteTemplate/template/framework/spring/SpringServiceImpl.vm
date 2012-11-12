@@ -94,6 +94,16 @@ public class $className implements $SpringServiceInterfaceClass {
 		}
 		return ret;
 	}
+	
+	public List<$tableClassName> findAny ($tableClassName $tableVariableName) {
+		List<$tableClassName> list = ${BslaDaoInterfaceVariable}.searchPrototypeAny$tableClassName ($tableVariableName);
+		List<$tableClassName> ret = new ArrayList<$tableClassName>(); 	
+		 for ($tableClassName a : list) {
+			$tableClassName b = a.clone();
+			ret.add(b);
+		}
+		return ret;
+	}
 
 	@Override
 	public void find(QueryData<$tableClassName> data) {
