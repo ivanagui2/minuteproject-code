@@ -7,6 +7,9 @@ import java.util.List;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+
 /**
  *
  * <p>Title: $className</p>
@@ -137,7 +140,9 @@ public interface $className extends DataAccessObject {
      * @return List<$tableClassName>
      */
     public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) ;
-    
+
+    public List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) ;
+
     /**
      * Searches a list of $tableClassName entity based on a list of $tableClassName containing $tableClassName matching criteria
      * @param List<$tableClassName> ${tableVariableName}s
@@ -158,5 +163,5 @@ public interface $className extends DataAccessObject {
      * @return List
      */
     public List<$tableClassName> loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) ;
-            
+
 }
