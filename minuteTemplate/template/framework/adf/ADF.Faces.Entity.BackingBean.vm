@@ -29,6 +29,7 @@ import oracle.binding.OperationBinding;
 
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 
+import eu.adf.fwk.query.QueryRequest;
 import eu.adf.fwk.utils.TablePaginationUtils;
 import eu.adf.fwk.utils.EntityPaginator;
 
@@ -46,7 +47,13 @@ public class $className {
     private $beanVOADFFacesClass $beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private $beanVOADFFacesClass search$beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private Boolean displayResults = true;
-    private Boolean displaySearch = false;    
+    private Boolean displaySearch = false;
+    private Boolean searchAny = false;
+    private Boolean searchAll = true;
+    private Boolean searchEquals = true;
+    private Boolean searchContains = false;
+    private Boolean searchLike = false;
+    private Boolean searchCaseSensitive = false;
 
     public $className() {
 ##        ${domainVariableName}Table = new TablePaginationUtils("list${domainClassName}");
@@ -57,6 +64,8 @@ public class $className {
     }
 
 #putGetterSetter ($beanVOADFFacesClass $beanVOADFFacesVariable)
+
+#putGetterSetterAlt ($beanVOADFFacesClass "Search$beanVOADFFacesVariable" "search$beanVOADFFacesVariable")
 
     public void set${domainClassName}Table(EntityPaginator<$beanVOADFFacesQueryRequestClass> table) {
         this.${domainVariableName}Table = table;
@@ -79,52 +88,38 @@ public class $className {
     }
 
     public void doSearch(ActionEvent actionEvent) {
-#if($hasCriteriaApi)
-        ${domainVariableName}Table.getRequest().getCriterias().clear();
-        Criteria criteria = new Criteria();
-        CriteriaExpression expression = new CriteriaExpression();
-        criteria.setCriteriaExpression(expression);
-        
-        if (${domainVariableName}Name!=null && !"".equals(${domainVariableName}Name)) {
-            ValueExpression ve = new ValueExpression();            
-            ve.setCriteriaAttribute("value");
-            ve.setOperationCode(UnaryOperationCode.LIKE_IGNORE_CASE);        
-            ve.getValues().add(${domainVariableName}Name);             
-            expression.getValueExpressions().add(ve);
-        }
-        
-        if (${domainVariableName}Reference!=null && !"".equals(${domainVariableName}Reference)) {
-            ValueExpression ve = new ValueExpression();            
-            ve.setCriteriaAttribute("key");
-            ve.setOperationCode(UnaryOperationCode.LIKE_IGNORE_CASE);        
-            ve.getValues().add(${domainVariableName}Reference);             
-            expression.getValueExpressions().add(ve);
-        }
-        
-        ${domainVariableName}Table.getRequest().getCriterias().add(criteria);
-        ${domainVariableName}Table.setPageNumber(1);
-#if($runTimeErrorSolved)
-        ${domainVariableName}Table.refreshPagination();
-#end    
-#end        
+        System.out.println(">> actionEvent: "+actionEvent);
+        display(this.search$beanVOADFFacesVariable);        
     }
 
     public void displayAll(ActionEvent actionEvent) {
+        System.out.println(">> actionEvent: "+actionEvent);
+        displayAll();
+#if($runTimeErrorSolved)
+        ${domainVariableName}Table.refreshPagination();
+#end
+    }
+
+    public void displayAll() {
+        display(new $beanVOADFFacesClass());
+    }
+	
+    public void display($beanVOADFFacesClass $beanVOADFFacesVariable) {
         BindingContext bindingCtx = BindingContext.getCurrent();
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-        System.out.println(">> actionEvent: "+actionEvent);
+        $beanVOADFFacesQueryRequestClass request = new $beanVOADFFacesQueryRequestClass();
+        request.set$beanVOADFFacesClass($beanVOADFFacesVariable);
+        request.setMatchType(searchAny?QueryRequest.PrototypeMatchType.ANY:QueryRequest.PrototypeMatchType.ALL);
+        request.setType(searchEquals?QueryRequest.PrototypeType.EQUALS:searchContains?QueryRequest.PrototypeType.CONTAINS:QueryRequest.PrototypeType.LIKE);
+        request.setCaseSensitiveness(searchCaseSensitive?QueryRequest.PrototypeCase.SENSITIVE:QueryRequest.PrototypeCase.INSENSITIVE);
         Map mapParam = new HashMap();
-        mapParam.put("${domainVariableName}", this.search$beanVOADFFacesVariable); //the variable name of the operation signature has to be passed
+        mapParam.put("request", request); 
         OperationBinding ob = bindings.getOperationBinding("list$domainClassName");
         ob.getParamsMap().putAll(mapParam);
         ob.execute();
         $beanVOADFFacesQueryResponseClass result = ($beanVOADFFacesQueryResponseClass)ob.getResult();
-        //displayResults=true;
         ${domainVariableName}Table.getRequest().getCriterias().clear();
         ${domainVariableName}Table.setPageNumber(1);
-#if($runTimeErrorSolved)
-        ${domainVariableName}Table.refreshPagination();
-#end
     }
 
     public void handleLaunchEdit${entityADFClass}Dlg(LaunchEvent launchEvent) {
@@ -133,6 +128,7 @@ public class $className {
         String ${entityADFVariable}Reference = (String) comp.getAttributes().get("${entityADFVariable}Reference");
         //Pass the current value of the field into the dialog
         //      Object usr = username;
+		System.out.println(">>>>>>>>>>>> ${entityADFVariable}Reference "+${entityADFVariable}Reference);
         launchEvent.getDialogParameters().put("${entityADFVariable}Reference", ${entityADFVariable}Reference);
     }
 
@@ -156,6 +152,7 @@ public class $className {
         OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(mapParam);
         ob.execute();
+		displayAll();
         ${beanVOADFFacesVariable} = new ${beanVOADFFacesClass}();
         List<UIComponent> childUIComponent = this.panelTab.getChildren();
         
@@ -189,5 +186,61 @@ public class $className {
 
     public Boolean getDisplaySearch() {
         return displaySearch;
+    }
+	
+    public void setSearchAny(Boolean searchAny) {
+        this.searchAny = searchAny;
+    }
+
+    public Boolean getSearchAny() {
+        return searchAny;
+    }
+
+    public void setSearchAll(Boolean searchAll) {
+        this.searchAll = searchAll;
+    }
+
+    public Boolean getSearchAll() {
+        return searchAll;
+    }
+	
+    public void setSearchEquals(Boolean searchEquals) {
+        this.searchEquals = searchEquals;
+    }
+
+    public Boolean getSearchEquals() {
+        return searchEquals;
+    }
+
+    public void setSearchContains(Boolean searchContains) {
+        this.searchContains = searchContains;
+    }
+
+    public Boolean getSearchContains() {
+        return searchContains;
+    }
+
+    public void setSearchLike(Boolean searchLike) {
+        this.searchLike = searchLike;
+    }
+
+    public Boolean getSearchLike() {
+        return searchLike;
+    }
+
+    public void setSearchCaseSensitive(Boolean searchCaseSensitive) {
+        this.searchCaseSensitive = searchCaseSensitive;
+    }
+
+    public Boolean getSearchCaseSensitive() {
+        return searchCaseSensitive;
+    }
+	
+    public void setSearchCaseInsensitive(Boolean searchCaseSensitive) {
+        this.searchCaseSensitive = !searchCaseSensitive;
+    }
+
+    public Boolean getSearchCaseInsensitive() {
+        return !searchCaseSensitive;
     }
 }

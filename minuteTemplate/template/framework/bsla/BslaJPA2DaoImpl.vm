@@ -274,9 +274,20 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {      
        return searchPrototype ($tableVariableName, null);            
     }  
+	
+    public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) {      
+       return searchPrototypeAny ($tableVariableName, null);            
+    }  
     
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) { 
        Query hquery = getEntityManager().createQuery(get${tableClassName}SearchEqualQuery ($tableVariableName));
+       if (maxResults!=null)
+          hquery.setMaxResults(maxResults);
+       return hquery.getResultList();         
+    }        
+    
+    protected List<$tableClassName> searchPrototypeAny ($tableClassName $tableVariableName, Integer maxResults) { 
+       Query hquery = getEntityManager().createQuery(get${tableClassName}SearchEqualAnyQuery ($tableVariableName));
        if (maxResults!=null)
           hquery.setMaxResults(maxResults);
        return hquery.getResultList();         
@@ -316,6 +327,16 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
         queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));   
 	    return getHQuery(query.toString(), queryWhere.toString());
     }
+    /**
+    * return a jql query search on a ${tableClassName} with any prototype
+    */
+    protected String get${tableClassName}SearchEqualAnyQuery ($tableClassName $tableVariableName) {
+        StringBuffer query = new StringBuffer();
+        StringBuffer queryWhere = new StringBuffer();
+        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
+        queryWhere.append (get${tableClassName}SearchEqualAnyWhereQueryChunk($tableVariableName, false));   
+	    return getHQuery(query.toString(), queryWhere.toString());
+    }
 
 
     /**
@@ -338,6 +359,26 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	    return getHQuery(query.toString(), queryWhere.toString());
     }	
     
+    /**
+    * return a jql search for a list of ${tableClassName} prototype
+    */
+    protected String get${tableClassName}SearchEqualAnyQuery ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
+        boolean isOrSet = false;
+        StringBuffer query = new StringBuffer();
+        if (${tableVariableName}Mask !=null)
+           query.append (get${tableClassName}MaskWhat (${tableVariableName}Mask));
+        query.append (" FROM $tableClassName $tableVariableName ");
+        StringBuffer queryWhere = new StringBuffer();
+        for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
+           if (!isAllNull(${tableVariableName})) {        
+	           queryWhere.append (getQueryOR (isOrSet));
+	           isOrSet = true;        
+	           queryWhere.append (" ("+get${tableClassName}SearchEqualAnyWhereQueryChunk($tableVariableName, false)+") ");
+           }
+        }
+	    return getHQuery(query.toString(), queryWhere.toString());
+    }	
+    
     protected String get${tableClassName}MaskWhat ($tableClassName ${tableVariableName}Mask) {
         boolean isCommaSet = false;
         StringBuffer query = new StringBuffer("SELECT DISTINCT ");
@@ -354,12 +395,23 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	    return query.toString();
     }
     
+    protected String get${tableClassName}SearchEqualAnyWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
+		return get${tableClassName}SearchEqualWhereQueryChunk ($tableVariableName, isAndSet, false);	
+	}
+	
     protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
+		return get${tableClassName}SearchEqualWhereQueryChunk ($tableVariableName, isAndSet, true);
+	}
+	
+    protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll) {
         StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
-           query.append (getQueryAND (isAndSet));
+		   if (isAll)
+			  query.append (getQueryAND (isAndSet));
+		   else 
+		      query.append (getQueryOR (isAndSet));
            isAndSet = true;
 #if ($sqlUtils.isQuotedColumn($column))        
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");

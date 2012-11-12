@@ -27,7 +27,7 @@ ${tableClassName}s=$tableClassNames
 #columnJavaNaming()
 #set($columnLabel=$i18nUtils.getI18nFromDBObject($column))
 ##$columnVar =  $column.alias
-$tableVariableName$separator$columnVar=${entityPrefix}${columnLabel}
+$tableVariableName$separator$columnVar=${columnLabel}
 #set($columnDescription=$i18nUtils.getColumnDescription($column))
 #if($columnDescription!="")
 $tableVariableName$separator${columnVar}[description]=${column.description}

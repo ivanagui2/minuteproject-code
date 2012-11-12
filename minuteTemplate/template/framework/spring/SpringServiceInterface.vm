@@ -41,6 +41,8 @@ public interface $className extends GenericService<$tableClassName> {
     public void save($tableClassName $tableVariableName);
          
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) ;
+         
+    public List<$tableClassName> findAny ($tableClassName $tableVariableName) ;
 
 #if ($hasOnlyOnePrimaryKey)
     /**
