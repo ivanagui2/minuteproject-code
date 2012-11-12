@@ -9,7 +9,10 @@ import java.util.List;
 
 import $importDomainObjectUML;
 import net.sf.minuteProject.model.service.GenericService;
+import net.sf.minuteProject.model.service.GenericService;
 
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 /**
  *
  * <p>Title: $className</p>
@@ -43,6 +46,8 @@ public interface $className extends GenericService<$tableClassName> {
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) ;
          
     public List<$tableClassName> findAny ($tableClassName $tableVariableName) ;
+
+    public List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) ;
 
 #if ($hasOnlyOnePrimaryKey)
     /**

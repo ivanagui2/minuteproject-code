@@ -24,22 +24,14 @@ public class $className {
     }
 
     public void delete${domainClassName}(DCBindingContainer bindings) {
-        if (${beanVOADFFacesVariable}==null) {
-            Map map = new HashMap();
+        Map map = new HashMap();
 ##works one for one primary key
-            ${beanVOADFFacesClass} ref = new ${beanVOADFFacesClass}();
-            ref.set$primaryKeyJavaNameClass(${domainVariableName}Param);
-            map.put("${beanVOADFFacesVariable}", ref);
-            
-##            BindingContext bindingCtx = BindingContext.getCurrent();
-##            BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-            
-            OperationBinding ob = bindings.getOperationBinding("delete$domainClassName");
-            ob.getParamsMap().putAll(map);
-            ob.execute();
-            
-//            reset(bindings);
-        }
+        ${beanVOADFFacesClass} ref = get${domainClassName}();
+        ref.set$primaryKeyJavaNameClass(${domainVariableName}Param);
+        map.put("${beanVOADFFacesVariable}", ref);
+        OperationBinding ob = bindings.getOperationBinding("delete$domainClassName");
+        ob.getParamsMap().putAll(map);
+        ob.execute();
     }
     
     public void rollback${domainClassName}() {

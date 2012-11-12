@@ -24,6 +24,10 @@ import $BslaDaoInterfaceImport;
 import $BslaDaoExtInterfaceImport;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+
 /**
  *
  * <p>Title: $className</p>
@@ -87,24 +91,28 @@ public class $className implements $SpringServiceInterfaceClass {
 	
 	public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
 		List<$tableClassName> list = ${BslaDaoInterfaceVariable}.searchPrototype$tableClassName ($tableVariableName);
-		List<$tableClassName> ret = new ArrayList<$tableClassName>(); 	
-		 for ($tableClassName a : list) {
-			$tableClassName b = a.clone();
-			ret.add(b);
-		}
-		return ret;
+        return convert(list);
 	}
 	
 	public List<$tableClassName> findAny ($tableClassName $tableVariableName) {
 		List<$tableClassName> list = ${BslaDaoInterfaceVariable}.searchPrototypeAny$tableClassName ($tableVariableName);
-		List<$tableClassName> ret = new ArrayList<$tableClassName>(); 	
-		 for ($tableClassName a : list) {
-			$tableClassName b = a.clone();
-			ret.add(b);
-		}
-		return ret;
+        return convert(list);
 	}
 
+    public List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        List<$tableClassName> list = ${BslaDaoInterfaceVariable}.find ($tableVariableName, matchType, operandType, caseSensitivenessType);
+        return convert(list);
+    }
+    
+    private List<$tableClassName> convert(List<$tableClassName> list) {
+        List<$tableClassName> ret = new ArrayList<$tableClassName>();   
+         for ($tableClassName a : list) {
+            $tableClassName b = a.clone();
+            ret.add(b);
+        }
+        return ret;
+    }
+    
 	@Override
 	public void find(QueryData<$tableClassName> data) {
 		${BslaDaoExtInterfaceVariable}.find (data);
