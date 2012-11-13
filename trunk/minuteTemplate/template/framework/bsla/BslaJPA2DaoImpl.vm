@@ -15,6 +15,9 @@ import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import net.sf.minuteProject.model.service.GenericService;
 import $importDaoInterfaceUML;
@@ -278,7 +281,26 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) {      
        return searchPrototypeAny ($tableVariableName, null);            
     }  
-    
+
+    public List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+       return find ($tableVariableName, matchType, operandType, caseSensitivenessType, null); 
+	}
+	
+	protected List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, Integer maxResults) {
+       Query hquery = getEntityManager().createQuery(findQuery ($tableVariableName, matchType, operandType, caseSensitivenessType));
+       if (maxResults!=null)
+          hquery.setMaxResults(maxResults);
+       return hquery.getResultList(); 
+    }
+
+    public String findQuery ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        StringBuffer query = new StringBuffer();
+        StringBuffer queryWhere = new StringBuffer();
+        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName "); 
+        queryWhere.append (findChunk ($tableVariableName, false, isAll(matchType), operandType, caseSensitivenessType));   
+	    return getHQuery(query.toString(), queryWhere.toString());
+    }
+	
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) { 
        Query hquery = getEntityManager().createQuery(get${tableClassName}SearchEqualQuery ($tableVariableName));
        if (maxResults!=null)
@@ -423,6 +445,39 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	    return query.toString();
     }   
      
+    protected String findChunk ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
+        StringBuffer query = new StringBuffer();
+		String operand = getOperand (operandType);
+		String evaluatorPrefix = getEvaluatorPrefix (operandType);		
+		String evaluatorSuffix = getEvaluatorSuffix (operandType);		
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+        if (${tableVariableName}.get$columnClass() != null) {
+		   if (isAll)
+			  query.append (getQueryAND (isAndSet));
+		   else 
+		      query.append (getQueryOR (isAndSet));
+           isAndSet = true;
+#if ($sqlUtils.isQuotedColumn($column))
+#if ($columnUtils.isStringColumn($column) && !$isForeignKey && !$isEnum)
+           String value = ${tableVariableName}.get$columnClass();
+           if (!caseSensitive) {
+		      value = value.toLowerCase();
+			  query.append(" lower(${tableVariableName}.${columnVar}) "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
+		   }
+		   else
+			  query.append(" ${tableVariableName}.${columnVar} "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
+#else
+           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
+#end
+#else
+           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
+#end
+        }
+#end      
+	    return query.toString();
+    }   
+    
     /**
     * return a jql search on a ${tableClassName} prototype with positive and negative beans
     */
@@ -508,4 +563,33 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	   ${tableVariableName}.set${localColumnClass} (($linkedTableClass)null);
 #end       
     }
+	
+	private String getOperand (OperandType operandType) {
+	    if (OperandType.EQUALS.equals(operandType))
+		   return "=";
+	    if (OperandType.LIKE.equals(operandType))
+		   return "like";
+	    if (OperandType.CONTAINS.equals(operandType))
+		   return "like";
+		return "=";
+	}
+	
+	private String getEvaluatorPrefix (OperandType operandType) {
+	    if (OperandType.CONTAINS.equals(operandType))
+		   return "%";
+		return "";
+	}
+	
+	private String getEvaluatorSuffix (OperandType operandType) {
+	    if (OperandType.LIKE.equals(operandType))
+		   return "%";
+	    if (OperandType.CONTAINS.equals(operandType))
+		   return "%";
+		return "";
+	}
+	
+	private boolean isAll(EntityMatchType matchType) {
+		return EntityMatchType.ALL.equals(matchType)?true:false;
+	}
+
 }

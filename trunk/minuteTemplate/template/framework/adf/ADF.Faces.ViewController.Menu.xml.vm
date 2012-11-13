@@ -11,6 +11,11 @@
  idref="$groupIdRef">
 #end
    <!-- $package.name -->	
+#exposeModelUpdatedAreas("${groupLabel}-node-begin")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
       <groupNode id="$groupId" label="$groupLabel" 
 #foreach ($table in ${package.listOfTables})
 #exposeADFFacesEntitySpecific()
@@ -21,9 +26,10 @@
         <itemNode id="${domainClassName}Item" label="#{viewcontrollerBundle['${tableVariableName}']}"
                   action="goto${domainClassName}"
                   focusViewId="/${domainVariableName}View"/>
-
 #end
       </groupNode>
+#end
+$!updatedAreaEnd
 #if ($showViews)
    <!-- $package.name view-->	
       <groupNode id="$groupId" label="$groupLabel" 
@@ -38,8 +44,16 @@
                   focusViewId="/${domainVariableName}View"/>
 
 #end
+#exposeModelUpdatedAreas("${groupLabel}-node-end")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
       </groupNode>
 #end
+$!updatedAreaEnd
 #end
+#end
+#addArea("custom-groupnode-definition")
    </groupNode>	
 </menu>
