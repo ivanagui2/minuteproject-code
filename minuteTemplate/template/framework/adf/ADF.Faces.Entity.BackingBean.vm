@@ -109,8 +109,11 @@ public class $className {
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
         $beanVOADFFacesQueryRequestClass request = new $beanVOADFFacesQueryRequestClass();
         request.set$beanVOADFFacesClass($beanVOADFFacesVariable);
+		System.out.println("searchLike"+searchLike);
+		System.out.println("searchContains"+searchContains);
+		System.out.println("searchEquals"+searchEquals);
         request.setMatchType(searchAny?QueryRequest.PrototypeMatchType.ANY:QueryRequest.PrototypeMatchType.ALL);
-        request.setType(searchEquals?QueryRequest.PrototypeType.EQUALS:searchContains?QueryRequest.PrototypeType.CONTAINS:QueryRequest.PrototypeType.LIKE);
+        request.setType(getPrototypeType());
         request.setCaseSensitiveness(searchCaseSensitive?QueryRequest.PrototypeCase.SENSITIVE:QueryRequest.PrototypeCase.INSENSITIVE);
         Map mapParam = new HashMap();
         mapParam.put("request", request); 
@@ -121,6 +124,14 @@ public class $className {
         ${domainVariableName}Table.getRequest().getCriterias().clear();
         ${domainVariableName}Table.setPageNumber(1);
     }
+	
+	private QueryRequest.PrototypeType getPrototypeType() {
+	    if (searchLike)
+		   return QueryRequest.PrototypeType.LIKE;
+	    if (searchContains)
+		   return QueryRequest.PrototypeType.CONTAINS;
+		return QueryRequest.PrototypeType.EQUALS;
+	}
 
     public void handleLaunchEdit${entityADFClass}Dlg(LaunchEvent launchEvent) {
         RichCommandLink comp = (RichCommandLink)launchEvent.getComponent();

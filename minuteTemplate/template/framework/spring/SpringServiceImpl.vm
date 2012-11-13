@@ -103,7 +103,7 @@ public class $className implements $SpringServiceInterfaceClass {
         List<$tableClassName> list = ${BslaDaoInterfaceVariable}.find ($tableVariableName, matchType, operandType, caseSensitivenessType);
         return convert(list);
     }
-    
+	
     private List<$tableClassName> convert(List<$tableClassName> list) {
         List<$tableClassName> ret = new ArrayList<$tableClassName>();   
          for ($tableClassName a : list) {

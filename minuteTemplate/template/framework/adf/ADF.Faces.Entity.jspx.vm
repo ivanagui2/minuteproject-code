@@ -1,5 +1,6 @@
 #exposeADFFacesEntitySpecific()
 #set($separator=$i18nUtils.getSeparator($template))
+#set($entityCriteriaActivated=$template.getPropertyValue("activate-entity-criteria",false))
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -28,7 +29,7 @@
                                  disclosed="#{viewScope.${entityADFVariable}BackingBean.displaySearch}">
                       <af:panelFormLayout id="${entityADFVariable}_pfl1" labelWidth="100px"
                                           fieldWidth="400px">
-
+#if($entityCriteriaActivated)
                       <af:selectBooleanRadio group="searchRadioSearchMatch"
                                              label="Any" id="searchRadioAny"
                                              value="#{viewScope.${entityADFVariable}BackingBean.searchAny}"/>
@@ -50,13 +51,13 @@
                       <af:separator id="sep2"/>
 					  <af:selectBooleanRadio group="searchRadioSearchCase"
                                              label="Case sensitive" id="searchRadioCaseSensitive"
-                                             value="#{viewScope.${entityADFVariable}BackingBean.searchCaseSentive}"
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchCaseSensitive}"
                                              />
                       <af:selectBooleanRadio group="searchRadioSearchCase"
                                              label="Case insensitive" id="searchRadioCaseInsensitive"
-                                             value="#{viewScope.${entityADFVariable}BackingBean.searchCaseInsentive}"/>
+                                             value="#{viewScope.${entityADFVariable}BackingBean.searchCaseInsensitive}"/>
                       <af:separator id="sep3"/>
-
+#end
 #if (!$hasSemanticReference)
 #foreach ($column in $table.columns)  
 #putColumnParamNaming()
