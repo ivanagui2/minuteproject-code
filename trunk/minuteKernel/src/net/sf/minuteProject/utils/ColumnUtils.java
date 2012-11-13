@@ -150,6 +150,21 @@ public class ColumnUtils {
 		return false;
 	}
 	
+	public static boolean isStringColumn (Column column) {
+		if (column==null || column.getType()==null) return false;
+		if (
+				column.getType().equals("CHAR") || 
+				column.getType().equals("CHAR2") ||
+				column.getType().equals("VARCHAR") ||
+				column.getType().equals("VARCHAR2") ||
+				column.getType().equals("VARGRAPHIC") ||
+				column.getType().equals("VARGRAPHIC2") ||
+				column.getType().equals("CLOB")
+				)
+			return true;
+		return false;
+	}
+	
 	public static String getMethodInputParameters (Column columns[]) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < columns.length; i++) {
