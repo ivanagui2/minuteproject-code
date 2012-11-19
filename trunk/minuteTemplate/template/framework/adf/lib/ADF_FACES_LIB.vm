@@ -26,23 +26,16 @@
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
 							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
 							id="${id}" required="$isMandatory">
-                          <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}List}" id="${id}Items"/>
+                          <f:selectItems value="#{${scope}.${bean}.${columnVar}List}" id="${id}Items"/>
                         </af:selectOneChoice>	
 #elseif($columnUtils.hasCheckConstraint($column))
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
 							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
 							id="${id}" required="$isMandatory">
                           <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
-##set($property=$columnUtils.getCheckConstraintProperty($column))
-##set($propertyList=$property.getPropertiesArray())
-##foreach ($prop in $propertyList)
-##exposeEnumerationSpecific()
-##end
                         </af:selectOneChoice>
-#elseif ($presentationUtils.isCheckBox($column))
+#elseif($presentationUtils.isCheckBox($column))
                         <af:selectBooleanCheckbox label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
-##                            textAndAccessKey="checkbox&amp;2"
-##                            accessKey="2"
                             value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
                             id="$id"/>	
 #elseif ($presentationUtils.isRichTextOnly($column))
@@ -83,16 +76,6 @@
 ############# macro direct binding
 #############
 #macro (adfEntityEditColumnDisplayForBindings $id)
-#####if($columnUtils.hasCheckConstraint($column))
-####                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="${id}">
-####                          <f:selectItems value="#{${scope}.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
-#####set($property=$columnUtils.getCheckConstraintProperty($column))
-#####set($propertyList=$property.getPropertiesArray())
-#####foreach ($prop in $propertyList)
-#####exposeEnumerationSpecific()
-#####end
-####                        </af:selectOneChoice>
-#####else
 #if ($columnUtils.isTimeColumn($column))
                                             <af:inputDate value="#{bindings.${columnClass}.inputValue}"
                                                           label="#{bindings.${columnClass}.hints.label}"
@@ -110,12 +93,6 @@
                                                           maximumLength="#{bindings.${columnClass}.hints.precision}"
                                                           shortDesc="#{bindings.${columnClass}.hints.tooltip}" id="$id">
                                                 <f:validator binding="#{bindings.${columnClass}.validator}"/>
-##if ($columnUtils.isNumeric($column))
-##                                                <af:convertNumber groupingUsed="false"
-##                                                                  pattern="#{bindings.${columnClass}.format}"/>
-###end
                                             </af:inputText>
 #end
-
-#####end
 #end

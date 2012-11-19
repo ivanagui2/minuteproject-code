@@ -166,7 +166,6 @@ $!updatedAreaSnippet
                       </af:pageTemplate>
                     </af:panelBox>
                   </af:panelGroupLayout>
-             
               </af:showDetailItem>
 <!-- create -->              
               <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}" immediate="true"
