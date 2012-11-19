@@ -7,6 +7,8 @@ package $packageName;
 import eu.adf.fwk.query.QueryRequest;
 import eu.adf.fwk.query.QueryResponse;
 
+import java.util.ArrayList;
+
 import $ADFSDOWsDcFaceImport;
 
 #foreach($table in $entities)
@@ -212,6 +214,20 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    }
 
 #end
+
+#if ($tableUtils.isAdminContentType($table))
+    public List<$beanVOADFFacesClass> get${beanVOADFFacesClass}DropDownList() {
+     List<$beanVOADFFacesClass> ret = new ArrayList<$beanVOADFFacesClass>();
+	 for($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+        $beanVOADFFacesClass output = new $beanVOADFFacesClass();
+        convert(element, output);
+        ret.add(output);
+     }
+     return ret;
+    }
+		
+#end
+
 #end
 
 }

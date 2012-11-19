@@ -37,6 +37,8 @@ import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
 
+#exposeADFFacesEntityImport()
+
 public class $className {
     
 ##    private TablePaginationUtils ${domainVariableName}Table;
@@ -182,7 +184,20 @@ public class $className {
         }
         
     }
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+    public List<$linkedTableClass> get${localColumnClass}List() {
+        BindingContext bindingCtx = BindingContext.getCurrent();
+        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+        Map mapParam = new HashMap();
+        OperationBinding ob = bindings.getOperationBinding("get${localColumnClass}DropDownList");
+        ob.getParamsMap().putAll(mapParam);
+        ob.execute();
+        return (List<$linkedTableClass>)ob.getResult();
+	}
 	
+#end
+
     public void setDisplayResults(Boolean displayResults) {
         this.displayResults = displayResults;
     }

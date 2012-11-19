@@ -38,6 +38,10 @@ public interface $thisClassName {
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable);
 
+#if ($tableUtils.isAdminContentType($table))
+    public List<$beanVOADFFacesClass> get${beanVOADFFacesClass}DropDownList() ;
+		
+#end
 #end
 #end
 

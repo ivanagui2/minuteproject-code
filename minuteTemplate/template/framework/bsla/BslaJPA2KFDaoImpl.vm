@@ -1,6 +1,7 @@
 #exposeVariableEntitySpecific()
 #set($beImplementation="JPA")
 #putImportParamsUML()
+#exposeTableMetadata()
 package $packageName;
 
 import java.lang.reflect.InvocationTargetException;
@@ -756,5 +757,16 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
     
 #end  
 #end  
-    
+
+#if($isMasterData || $isReferenceData)
+    /**
+     * return a list of $tableClassName entities 
+     */
+    public List<$tableClassName> getList () {
+		//first lightweight implementation
+		return searchPrototype$tableClassName(new $tableClassName());
+	}
+
+#end
+$!updatedAreaImplementation
 }

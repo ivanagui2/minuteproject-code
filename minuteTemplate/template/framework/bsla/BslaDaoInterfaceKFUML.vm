@@ -1,5 +1,6 @@
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
+#exposeTableMetadata()
 package $packageName;
 
 import $importDomainObjectUML;
@@ -164,6 +165,13 @@ public interface $className extends GenericDao<$tableClassName> {##DataAccessObj
      */
     public List<Object[]> getSQLQueryResult(String query);     
 
-	
+#if($isMasterData || $isReferenceData)
+    /**
+     * return a list of $tableClassName entities 
+     */
+    public List<$tableClassName> getList ();
+
+#end
+$!updatedAreaImplementation
 }
 

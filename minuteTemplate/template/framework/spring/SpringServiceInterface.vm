@@ -3,6 +3,7 @@
 #exposeSpringBslaDomainObject()
 #exposeJPA2DomainObject($table)
 #putImportParamsUML()
+#exposeTableMetadata()
 package $packageName;
 
 import java.util.List;
