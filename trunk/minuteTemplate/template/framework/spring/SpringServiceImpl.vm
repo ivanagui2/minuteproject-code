@@ -4,6 +4,7 @@
 #exposeJPA2DomainObject($table)
 #putImportParamsUML()
 #addedAreas()
+#exposeTableMetadata()
 package $packageName;
 
 $!updatedAreaImport
@@ -122,7 +123,7 @@ public class $className implements $SpringServiceInterfaceClass {
     /**
      * return a list of $tableClassName entities 
      */
-    @Cachable
+    //@Cachable
     public List<$tableClassName> getList () {
         return ${BslaDaoExtInterfaceVariable}.getList();
     }

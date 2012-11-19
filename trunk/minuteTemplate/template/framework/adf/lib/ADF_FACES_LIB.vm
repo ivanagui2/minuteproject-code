@@ -18,16 +18,26 @@
 #end
 
 #macro (adfEntityEditColumnDisplayWithScope $id $bean $scope)
-#if($columnUtils.hasCheckConstraint($column))
+#if($isPrimaryKey && !$columnUtils.isNaturalPk($column))
+	
+##elseif($columnUtils.isForeignKey($column) && )
+#else
+#if($presentationUtils.isParentDropDownList($column) )
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
 							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
-							id="${id}">
+							id="${id}" required="$isMandatory">
+                          <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}List}" id="${id}Items"/>
+                        </af:selectOneChoice>	
+#elseif($columnUtils.hasCheckConstraint($column))
+                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
+							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
+							id="${id}" required="$isMandatory">
                           <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
-#set($property=$columnUtils.getCheckConstraintProperty($column))
-#set($propertyList=$property.getPropertiesArray())
-#foreach ($prop in $propertyList)
-#exposeEnumerationSpecific()
-#end
+##set($property=$columnUtils.getCheckConstraintProperty($column))
+##set($propertyList=$property.getPropertiesArray())
+##foreach ($prop in $propertyList)
+##exposeEnumerationSpecific()
+##end
                         </af:selectOneChoice>
 #elseif ($presentationUtils.isCheckBox($column))
                         <af:selectBooleanCheckbox label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
@@ -58,6 +68,7 @@
 #adfBackingBean($scope, $bean, ${entityADFVariable})
                             shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                         />
+#end
 #end
 #end
 

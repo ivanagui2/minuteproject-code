@@ -3,18 +3,23 @@
 			return null;
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
-#if ($columnType=="String" && !$isEnum && !$isForeignKey)
+#if ($isEnum)
+        if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
+           ${tableVariableName}.set$columnClass(null);
+#elseif ($columnType=="String" && !$isEnum && !$isForeignKey)
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
            ${tableVariableName}.set$columnClass((String)null);
 #end
 #end
-#foreach ($column in ${table.parents})
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set($column = $reference.localColumn)
 #putColumnParamNaming()
 #if ($columnType=="String")
 #if($isForeignKey)     
 #set($columnClass="${columnClass}_")
 #end    
-        //foreign key
+        //foreign key ${column.name}
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
            ${tableVariableName}.set$columnClass((String)null);
 #end
