@@ -57,7 +57,16 @@
                                              label="Case insensitive" id="searchRadioCaseInsensitive"
                                              value="#{viewScope.${entityADFVariable}BackingBean.searchCaseInsensitive}"/>
                       <af:separator id="sep3"/>
+<<<<<<< .mine
+#exposeModelUpdatedAreas("search-node")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
+
+=======
 #end
+>>>>>>> .r1610
 #if (!$hasSemanticReference)
 #foreach ($column in $table.columns)  
 #putColumnParamNaming()
@@ -71,6 +80,9 @@
 #adfEntityColumnDisplay("${columnVar}it")
 #end  
 #end
+
+#end
+
                       </af:panelFormLayout>
                         <af:panelGroupLayout id="pgl1" halign="end"
                                                  layout="horizontal">
@@ -116,6 +128,12 @@
                                     immediate="true"
                                     binding="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.tableUIComp}">
 ##pk
+#exposeModelUpdatedAreas("list-node")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
+    
 #foreach ($column in $table.columns)  
 #putColumnParamNaming()
 #if($isPrimaryKey)
@@ -145,6 +163,7 @@
                             </af:column>
 #end
 #end
+#end
                           </af:table>
                       </f:facet>
                         <f:attribute name="paginationUtils"
@@ -157,17 +176,22 @@
 <!-- create -->              
               <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}" immediate="true"
                                  id="${entityADFVariable}_sdi2" >
-								 
                     <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" styleClass="dialogFormLayout">
+#exposeModelUpdatedAreas("create-node")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
 #foreach ($column in $table.columns)  
 #putColumnParams()
 #adfEntityEditColumnDisplay("${columnVar}itdet")
 #end
+#end
 					</af:panelFormLayout>                    
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['save']}"
-                                              id="itdetsave"
-                                            actionListener="#{viewScope.${entityADFVariable}BackingBean.create${domainClassName}}"/>
+                              id="itdetsave"
+                              actionListener="#{viewScope.${entityADFVariable}BackingBean.create${domainClassName}}"/>
 					</af:panelGroupLayout>
                                  
                 </af:showDetailItem>
