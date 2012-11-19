@@ -118,6 +118,16 @@ public class $className implements $SpringServiceInterfaceClass {
 		${BslaDaoExtInterfaceVariable}.find (data);
 	}
 	
+#if($isMasterData || $isReferenceData)
+    /**
+     * return a list of $tableClassName entities 
+     */
+    @Cachable
+    public List<$tableClassName> getList () {
+        return ${BslaDaoExtInterfaceVariable}.getList();
+    }
+
+#end
 $!updatedAreaImplementation
 
 }
