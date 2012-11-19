@@ -161,15 +161,22 @@ public enum Extension implements FileComment {
 	}
 	
     public static Extension fromValue(String v) {
+    	String checkValue = getCheckValue(v);
         for (Extension c : Extension.values()) {
-            if (c.toString().equals(v)) {
+            if (c.toString().equals(checkValue)) {
                 return c;
             }
         }
         return null;
     }
     
-    //UGLY but for groovy compile...
+    private static String getCheckValue(String v) {
+    	if ("jspx".equals(v))
+    		return "xml";
+		return v;
+	}
+
+	//UGLY but for groovy compile...
  	public String lineCommentBeginning() {
  		return "";
  	}

@@ -11,9 +11,15 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.loader.presentation.node.Block;
 import net.sf.minuteProject.loader.presentation.node.Window;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.TableUtils;
 
 public class PresentationUtils {
 
+	public static Boolean isParentDropDownList (Column column) {
+		return (ColumnUtils.isForeignKey(column) 
+				&& TableUtils.isAdminContentType(ColumnUtils.getForeignTable(column)))? true:false;
+	}
+	
 	public static Boolean isTextArea (Column column) {
 		return (column.getSizeAsInt()>100 && !column.isLob())? true:false;
 	}
