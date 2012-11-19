@@ -273,9 +273,18 @@ public class TableUtils {
 		return false;
 	}
 
+	public static boolean isMasterDataContentType(Table table) {
+		return isTableOfContentType(table, masterDataContentType);
+	}
+	
 	public static boolean isReferenceDataContentType(Table table) {
 		return isTableOfContentType(table, referenceDataContentType);
 	}
+	
+	public static boolean isAdminContentType(Table table) {
+		return isReferenceDataContentType(table) || isMasterDataContentType(table);
+	}
+ 
 
 	public static boolean isPseudoStaticDataContentType(Table table) {
 		return isTableOfContentType(table, pseudoStaticDataContentType);
