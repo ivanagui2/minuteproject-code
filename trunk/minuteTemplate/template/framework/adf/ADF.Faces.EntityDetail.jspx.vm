@@ -28,9 +28,15 @@
       <af:form id="f1">
         <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%"
                             styleClass="dialogFormLayout">
+#exposeModelUpdatedAreas("detail-node")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
 #adfEntityDetailColumnDisplay("det$velocityCount")
+#end
 #end
         </af:panelFormLayout>
           

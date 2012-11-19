@@ -16,6 +16,11 @@
       <af:form id="f1">
         <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%"
                             styleClass="dialogFormLayout">
+#exposeModelUpdatedAreas("search-node")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else 
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
 #adfEntityEditColumnDisplay4PageFlow("dldet${columnVar}")
@@ -27,6 +32,7 @@
                  <af:outputText value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}" id="dldet${columnVar}"/>
             </af:panelLabelAndMessage>
 			  
+#end
 #end
 #end
         </af:panelFormLayout>
