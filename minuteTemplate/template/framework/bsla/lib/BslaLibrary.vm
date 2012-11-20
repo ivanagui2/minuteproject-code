@@ -87,6 +87,7 @@
 #macro(exposeTableMetadata)
 #set ($isMasterData = $tableUtils.isMasterDataContentType($table))
 #set ($isReferenceData = $tableUtils.isReferenceDataContentType($table))
+#set ($isAdminData = $tableUtils.isAdminDataContentType($table))
 #set ($isPseudoStaticData = $tableUtils.isPseudoStaticDataContentType($table))
 #set ($isLiveBusinessData = $tableUtils.isLiveBusinessDataContentType($table))
 #end

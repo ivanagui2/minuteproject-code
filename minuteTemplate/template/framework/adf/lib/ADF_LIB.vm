@@ -238,6 +238,20 @@ import $importDomainObjectUML;
 #set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))	
 #end
 
+#macro(exposeADFFacesSpringBindingSpecific4Entity $table)
+#exposeSpringTemplate()
+#set($beanADFFacesSpringServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
+#set($beanADFFacesSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanADFFacesSpringServiceClass))
+#set($beanADFFacesSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))	
+#set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))	
+#end
+
+#macro(exposeADFFacesSpringModelBindingSpecific)
+#exposeSpringTemplate()
+#set($beanADFFacesSpringAppContextLoaderClass=$commonUtils.getTemplateClassName($model, $template, $templateADFFacesSpringAppContextLoader))	
+#set($beanADFFacesSpringAppContextLoaderImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFFacesSpringAppContextLoader))	
+#end
+
 #macro(exposeADFConfig)
 #set ($adfVersion=$template.getPropertyValue("adf-version","3.3.1"))
 #end
@@ -296,4 +310,5 @@ import $importDomainObjectUML;
 #set ($templateADFSDOWsDcDef = "ADF.Faces.SDOWsControllerDef")
 #set ($templateBeanVOQueryResponseADFFaces = "ADF.Faces.Entity.QueryResponse.Bean")
 #set ($templateBeanVOQueryRequestADFFaces = "ADF.Faces.Entity.QueryRequest.Bean")
+#set ($templateADFFacesSpringAppContextLoader = "ADF.Spring.ApplicationContext.Loader")
 #end

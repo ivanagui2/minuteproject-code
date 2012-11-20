@@ -75,7 +75,6 @@ $!updatedAreaSnippet
 #adfEntityColumnDisplay("${columnVar}it")
 #end  
 #end
-
 #end
 #end
                       </af:panelFormLayout>
