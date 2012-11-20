@@ -625,6 +625,11 @@ public class CommonUtils {
     	if(!StringUtils.isEmpty(dir)) {
 	    	sb.append(dir);
     	}
+//    	String addModelDirName = template.getAddModelDirName();
+//    	if (addModelDirName!=null && addModelDirName.equals("true")) {
+//    		sb.append("/");
+//    		sb.append(bean.get);
+//    	}
     	String addEntityDirName = template.getAddEntityDirName();
 		if (addEntityDirName!=null && addEntityDirName.equals("true")) {
     		sb.append("/");
