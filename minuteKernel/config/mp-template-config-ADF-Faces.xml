@@ -40,7 +40,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		<template name="ADF.Spring.ApplicationContext.Loader" templateFileName="ADF.Spring.ApplicationContext.Loader.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
 			file-extension="java" file-prefix="" file-suffix="AppContextLoader" 
-			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
+			application-specific="true" has-updatable-nature="true" 
 			add-model-name="false">
 			<!-- add condition clause property=spring -->
 		</template>
