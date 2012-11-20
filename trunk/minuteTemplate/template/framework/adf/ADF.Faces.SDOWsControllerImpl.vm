@@ -55,13 +55,12 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #end
 #end
     public $thisClassName() {
-        System.out.println(">>>>>>>>>>> constructor before loading config");
 #if($isBindingSpring)
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
 #if(!$isMany2Many)
-        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");;
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
 #end
 #end
 #end
@@ -147,23 +146,13 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    * @return $beanVOADFFacesQueryResponseClass
    */
   public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request) {
-     System.out.println(">>>> list$domainClassName");
      $beanVOADFFacesClass input = request.get${beanVOADFFacesClass}();
-     System.out.println(">>>> input "+input);
      if (input==null)
         input = new $beanVOADFFacesClass();
      ${domainClassImport} var = new ${domainClassImport} ();
      convert(input, var);
      var.assignNullToBlank();
-     List<$domainClassImport> list;
-##     if (QueryRequest.PrototypeMatchType.ALL.equals(request.getMatchType()))
-##        list = ${beanADFFacesSpringServiceVariable}.findAll(var);
-##     else
-##        list = ${beanADFFacesSpringServiceVariable}.findAny(var);
-     System.out.println("getEntityMatchType(request) "+getEntityMatchType(request));
-      System.out.println("getOperandType(request) "+getOperandType(request));
-      System.out.println("isCaseSensitive(request) "+isCaseSensitive(request));
-	 list = ${beanADFFacesSpringServiceVariable}.find(var, getEntityMatchType(request), getOperandType(request), isCaseSensitive(request));
+     List<$domainClassImport> list = ${beanADFFacesSpringServiceVariable}.find(var, getEntityMatchType(request), getOperandType(request), isCaseSensitive(request));
      $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
      for($domainClassImport element : list) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
@@ -188,7 +177,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    }
    
    public $beanVOADFFacesClass createOrUpdate$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
-      System.out.println(">>>> createOrUpdate$domainClassName"+$beanVOADFFacesVariable);
 #if($isBindingSpring)
       ${domainClassImport} var = new ${domainClassImport} ();
       convert($beanVOADFFacesVariable, var);

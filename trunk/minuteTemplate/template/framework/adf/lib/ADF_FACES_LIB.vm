@@ -24,20 +24,22 @@
 #else
 #if($presentationUtils.isParentDropDownList($column) )
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
-							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
-							id="${id}" required="$isMandatory">
+							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}_}"
+							id="${id}" required="$isMandatory"
+							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
                           <f:selectItems value="#{${scope}.${bean}.${columnVar}List}" id="${id}Items"/>
                         </af:selectOneChoice>	
 #elseif($columnUtils.hasCheckConstraint($column))
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
 							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
-							id="${id}" required="$isMandatory">
+							id="${id}" required="$isMandatory"
+							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
                           <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
                         </af:selectOneChoice>
 #elseif($presentationUtils.isCheckBox($column))
                         <af:selectBooleanCheckbox label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                             value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
-                            id="$id"/>	
+                            id="$id" shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"/>	
 #elseif ($presentationUtils.isRichTextOnly($column))
                         <af:richTextEditor label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="$id"/>	
 #elseif($presentationUtils.isFileUpload($column))

@@ -43,7 +43,14 @@
     <ParameterInfo id="$beanVOADFFacesVariable" Type="$beanVOADFFacesImport"
                    isStructured="true"/>
   </MethodAccessor>
-  
+
+#if ($tableUtils.isAdminContentType($table))
+  <AccessorAttribute id="${beanVOADFFacesVariable}DropDownList" IsCollection="true"
+                     BeanClass="$beanVOADFFacesImport"
+                     CollectionBeanClass="UpdateableCollection"/>
+		
+#end
+
 #end
 #end
 </JavaBean>

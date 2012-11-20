@@ -1,5 +1,8 @@
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
+#exposeFrontEndBackendBindingType()
+#exposeADFFacesSpringModelBindingSpecific()
+#set($thisTable=$table)
 package $packageName;
 
 import $beanVOADFFacesImport;
@@ -15,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
+import java.util.ArrayList;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
@@ -23,6 +27,8 @@ import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.layout.RichPanelTabbed;
 import oracle.adf.view.rich.component.rich.layout.RichShowDetailItem;
 import oracle.adf.view.rich.component.rich.nav.RichCommandLink;
+
+import javax.faces.model.SelectItem;
 
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
@@ -38,6 +44,16 @@ import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
 
 #exposeADFFacesEntityImport()
+
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+import $beanADFFacesSpringServiceImport;
+#end
+#end
+
+import $beanADFFacesSpringAppContextLoaderImport;
 
 public class $className {
     
@@ -57,11 +73,25 @@ public class $className {
     private Boolean searchLike = false;
     private Boolean searchCaseSensitive = false;
 
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+    $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#end
+#end
+
     public $className() {
-##        ${domainVariableName}Table = new TablePaginationUtils("list${domainClassName}");
         ${domainVariableName}Table = new EntityPaginator<$beanVOADFFacesQueryRequestClass>(${beanVOADFFacesQueryRequestClass}.class, "list${domainClassName}");
 #if($runTimeErrorSolved)
         ${domainVariableName}Table.refreshPagination();
+#end
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#end
 #end
     }
 
@@ -90,12 +120,10 @@ public class $className {
     }
 
     public void doSearch(ActionEvent actionEvent) {
-        System.out.println(">> actionEvent: "+actionEvent);
         display(this.search$beanVOADFFacesVariable);        
     }
 
     public void displayAll(ActionEvent actionEvent) {
-        System.out.println(">> actionEvent: "+actionEvent);
         displayAll();
 #if($runTimeErrorSolved)
         ${domainVariableName}Table.refreshPagination();
@@ -111,9 +139,6 @@ public class $className {
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
         $beanVOADFFacesQueryRequestClass request = new $beanVOADFFacesQueryRequestClass();
         request.set$beanVOADFFacesClass($beanVOADFFacesVariable);
-		System.out.println("searchLike"+searchLike);
-		System.out.println("searchContains"+searchContains);
-		System.out.println("searchEquals"+searchEquals);
         request.setMatchType(searchAny?QueryRequest.PrototypeMatchType.ANY:QueryRequest.PrototypeMatchType.ALL);
         request.setType(getPrototypeType());
         request.setCaseSensitiveness(searchCaseSensitive?QueryRequest.PrototypeCase.SENSITIVE:QueryRequest.PrototypeCase.INSENSITIVE);
@@ -184,18 +209,21 @@ public class $className {
         }
         
     }
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-    public List<$linkedTableClass> get${localColumnClass}List() {
-        BindingContext bindingCtx = BindingContext.getCurrent();
-        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-        Map mapParam = new HashMap();
-        OperationBinding ob = bindings.getOperationBinding("get${localColumnClass}DropDownList");
-        ob.getParamsMap().putAll(mapParam);
-        ob.execute();
-        return (List<$linkedTableClass>)ob.getResult();
-	}
 	
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+#putReferenceParams2()
+#set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
+    public List<SelectItem> get${localColumnClass}List() {
+        List<SelectItem> list = new ArrayList<SelectItem>();
+        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+            list.add(new SelectItem(element.get$columnClass(),element.get$columnClass()));
+        }
+        return list;
+    }
+#end
 #end
 
     public void setDisplayResults(Boolean displayResults) {
