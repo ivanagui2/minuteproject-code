@@ -95,6 +95,8 @@ import $importDomainObjectUML;
 #set($templateEnvironment=$template.getPropertyValue("environment","local"))
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set ($datasourceName=$persistenceUtils.getDatasourceName($model))
+#set($relationshipPersistence=$template.getPropertyValue("relationship-persistence","object"))
+#set($isFieldRelationshipPersistence=($relationshipPersistence=="field"))
 #end
 
 #macro(exposeXmlElementValue)

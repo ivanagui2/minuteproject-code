@@ -113,7 +113,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #if(!$isMany2Many)
 ##if ($hasSearch)
 	
-  private void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
+  public static void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
@@ -124,10 +124,13 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
     output.set$columnClass(input.get$columnClass());
 #end
 #end
+#if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+	output.set${columnClass}_(input.get${columnClass}_());
+#end
 #end
   }
 	
-  private void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
+  public static void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
@@ -139,6 +142,9 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #elseif(!$column.isLob())
     output.set$columnClass(input.get$columnClass());
 #end
+#end
+#if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+	output.set${columnClass}_(input.get${columnClass}_());
 #end
 #end
   }

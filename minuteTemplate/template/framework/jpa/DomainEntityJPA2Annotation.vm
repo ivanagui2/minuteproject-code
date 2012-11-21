@@ -109,6 +109,9 @@ public class ${className} implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
 #elseif ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
     @GeneratedValue(strategy = GenerationType.AUTO)
+#elseif ($databaseUtils.isPrimaryKeyPolicyUUID($table) && $jpa2ImplementationIsHibernate)
+    @GeneratedValue(generator = "system-uuid")
+    @org.hibernate.annotations.GenericGenerator(name = "system-uuid", strategy = "uuid")
 #end
 #end
 #end
@@ -136,9 +139,9 @@ $updatedAreaSnippet
 #end    
 #else
 #if ($isView)
-    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+    @Column(name="$column.name"  #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
 #else
-    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
+    @Column(name="$column.name"  #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end)
 #end
 #if ($column.isLob())
     @Lob @Basic(fetch=FetchType.LAZY)  //$column.type
@@ -160,12 +163,21 @@ $!updatedAreaEnd
 #end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#if($isFieldRelationshipPersistence)
+#set($insertableUpdatableRelationship=", insertable=false, updatable=false")
+#set($insertableUpdatableField=", insertable=true, updatable=true")
+#else
+#set($insertableUpdatableRelationship=", insertable=true, updatable=true")
+#set($insertableUpdatableField=", insertable=false, updatable=false")
+#end
 #if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#set($insertableUpdatableRelationship=", insertable=true, updatable=true")
+#set($insertableUpdatableField=", insertable=false, updatable=false")
     @MapsId ("$localColumnName")
 #end
 #set($fetchType=$jpa2Utils.getFetchType($template, $reference))
     @ManyToOne (fetch=FetchType.$fetchType #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
-    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true #else unique=false #end) 
+    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
     private $linkedTableClass ${colVar};  
@@ -176,7 +188,7 @@ $!updatedAreaEnd
 #exposeXmlElementValue()
     @XmlAttribute $!xmlElementValue
 #end
-    @Column(name="$column.name", #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+    @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
     private $columnType ${columnVar}_;
 
 #end	
