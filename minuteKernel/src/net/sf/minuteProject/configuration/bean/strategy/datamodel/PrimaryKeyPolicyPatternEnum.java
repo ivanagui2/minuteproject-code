@@ -6,6 +6,7 @@ public enum PrimaryKeyPolicyPatternEnum {
 	SEQUENCE,
 	IDENTITY,
 	AUTOINCREMENT,
+	UUID,
 	NONE,
 	OTHER;
 

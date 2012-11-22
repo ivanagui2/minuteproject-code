@@ -138,6 +138,10 @@ public class DatabaseUtils {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.SEQUENCE);
 	}
 	
+	public boolean isPrimaryKeyPolicyUUID(Table table) {
+		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.UUID);
+	}
+	
 	public boolean isPrimaryKeyPolicyIncrement(Table table) {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.AUTOINCREMENT);
 	}
