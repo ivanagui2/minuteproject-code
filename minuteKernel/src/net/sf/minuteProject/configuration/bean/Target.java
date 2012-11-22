@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.configuration.bean.target.ImportTargets;
 import net.sf.minuteProject.configuration.bean.target.TargetParams;
 import net.sf.minuteProject.utils.io.FileUtils;
@@ -240,6 +241,13 @@ public class Target extends AbstractConfiguration{
 		String s = getPropertyValue(name);
 		if (s!=null) return s;
 		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyValue(name);
+		return null;
+	}
+	
+	public Property getTemplateTargetPropertyByName(String name) {
+		Property p = getPropertyByName(name);
+		if (p!=null) return p;
+		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyByName(name);
 		return null;
 	}
 
