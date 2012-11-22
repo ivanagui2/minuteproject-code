@@ -9,6 +9,7 @@ import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.enumeration.Extension;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -91,6 +92,12 @@ public class Template extends TemplateTarget {
 	public String getPropertyValue(String name) {
 		String s = super.getPropertyValue(name);
 		return (s!=null)?s:templateTarget.getTemplateTargetPropertyValue(name);
+	}
+	
+	
+	public Property getPropertyByName(String name) {
+		Property p = super.getPropertyByName(name);
+		return (p!=null)?p:templateTarget.getTemplateTargetPropertyByName(name);
 	}
 	
 	public String getPropertyValue(String name, String defaultValue) {

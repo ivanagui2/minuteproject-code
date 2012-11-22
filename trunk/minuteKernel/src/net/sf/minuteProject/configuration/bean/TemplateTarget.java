@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.io.FileUtils;
 
 public class TemplateTarget extends AbstractConfiguration{
@@ -32,6 +33,13 @@ public class TemplateTarget extends AbstractConfiguration{
 		String s = getPropertyValue(name);
 		if (s!=null) return s;
 		if (target!=null) return target.getTargetPropertyValue(name);
+		return null;
+	}
+	
+	public Property getTemplateTargetPropertyByName(String name) {
+		Property p = getPropertyByName(name);
+		if (p!=null) return p;
+		if (target!=null) return target.getTemplateTargetPropertyByName(name);
 		return null;
 	}
 	
