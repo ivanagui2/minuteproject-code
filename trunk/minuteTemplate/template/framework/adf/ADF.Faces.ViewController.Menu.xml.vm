@@ -1,6 +1,8 @@
 #exposeADFFacesModelSpecific()
 <?xml version="1.0" encoding="windows-1252" ?>
 <menu xmlns="http://myfaces.apache.org/trinidad/menu">
+	
+#addArea("custom-groupnode-definition-beginning")
 <groupNode id="ApplicationGroup" label="Application Management"
 #foreach ($package in ${businessPackages})
 #set($groupId="${package.name}Group")
@@ -54,6 +56,6 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 #end
-#addArea("custom-groupnode-definition")
+#addArea("custom-groupnode-definition-ending")
    </groupNode>	
 </menu>

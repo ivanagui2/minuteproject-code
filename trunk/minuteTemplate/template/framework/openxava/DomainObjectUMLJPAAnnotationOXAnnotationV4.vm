@@ -157,7 +157,7 @@ public class ${className} {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
 #elseif ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
     @GeneratedValue(strategy = GenerationType.AUTO)
-#elseif ($databaseUtils.isPrimaryKeyPolicyUUID($table) && $jpa2ImplementationIsHibernate)
+#elseif ($databaseUtils.isPrimaryKeyPolicyUUID($table))
     @GeneratedValue(generator = "system-uuid")
     @org.hibernate.annotations.GenericGenerator(name = "system-uuid", strategy = "uuid")
 #end

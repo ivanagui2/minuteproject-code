@@ -5,6 +5,8 @@
 #putImportParamsUML()
 #addedAreas()
 #exposeTableMetadata()
+#set($passivationBehavior = $behaviorUtils.getPassivationBehavior($table, $template))
+//$passivationBehavior
 package $packageName;
 
 $!updatedAreaImport
@@ -78,9 +80,20 @@ public class $className implements $SpringServiceInterfaceClass {
 #else
 	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass());
 #end
+#if($passivationBehavior.hasPassivation())
+#set($column = $passivationBehavior.column)
+#putColumnParamNaming()
+##if($isEnum)
+##	    var.set$columnClass(${enumImport}.${passivationBehavior.value});
+##else
+	    var.set$columnClass("$passivationBehavior.value");
+##end
+	    ${BslaDaoInterfaceVariable}.update$tableClassName(var);
+#else
 		${BslaDaoInterfaceVariable}.delete$tableClassName (var);
-	}
-	
+#end
+	}	
+
 #end
      /**
      * Saves a $tableClassName entity 
