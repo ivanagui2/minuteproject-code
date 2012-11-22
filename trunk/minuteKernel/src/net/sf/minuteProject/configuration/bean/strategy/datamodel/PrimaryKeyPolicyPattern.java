@@ -7,6 +7,7 @@ public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 	
 	public static final String SEQUENCE = "sequencePattern";
 	public static final String IDENTITY = "identityPattern";
+	public static final String UUID = "uuid";
 	public static final String AUTOINCREMENT = "autoincrementPattern";
 	public static final String OTHER = "not defined";
 	public static final String NONE = "none";
@@ -55,6 +56,8 @@ public class PrimaryKeyPolicyPattern extends AbstractConfiguration {
 				return PrimaryKeyPolicyPatternEnum.SEQUENCE;
 			if (getName().equals(IDENTITY))
 				return PrimaryKeyPolicyPatternEnum.IDENTITY;
+			if (getName().equals(UUID))
+				return PrimaryKeyPolicyPatternEnum.UUID;			
 			if (getName().equals(AUTOINCREMENT))
 				return PrimaryKeyPolicyPatternEnum.AUTOINCREMENT;			
 			if (getName().equals(NONE))
