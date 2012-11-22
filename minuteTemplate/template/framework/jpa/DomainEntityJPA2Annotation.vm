@@ -511,6 +511,7 @@ $updatedAreaSnippet
 ##end
 #end
 #if($isEnum)
+#set($originType=$columnType)
 #set($columnType=$enumClassName)
 #end
 #if($useTemporal && $isTimeColumn)
@@ -522,7 +523,13 @@ $updatedAreaSnippet
 	
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
-    }    
+    }
+	
+#if($isEnum)
+    public void set$columnClass ($originType $columnVar) {
+        this.$columnVar =  ${enumClassName}.fromValue($columnVar);
+    } 
+#end
 #end
 $!updatedAreaEnd
 
