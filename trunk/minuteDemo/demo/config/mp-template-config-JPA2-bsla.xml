@@ -7,6 +7,7 @@
 	<plugin name="cacheUtils" className="net.sf.minuteProject.utils.cache.CacheUtils"></plugin>
 	<plugin name="referenceDataUtils" className="net.sf.minuteProject.plugin.data.ReferenceDataUtils"></plugin>
 	<plugin name="restrictedCodeUtils" 	className="net.sf.minuteProject.utils.code.RestrictedCodeUtils"></plugin>
+	<plugin name="behaviorUtils" 	className="net.sf.minuteProject.plugin.behavior.BehaviorUtils"></plugin>
 	
 
 	<template-target 
@@ -113,6 +114,7 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>         
+		<property name="convertClobToString" value="true" ></property>         
 		
 	
 	    <!-- ENTITY OBJECTs -->
@@ -183,21 +185,13 @@
 			
 		<!-- EXTENDED DAO end -->	
 		<!-- DAO end -->
-		
-		<!-- in JPA2 track
-		enumeration for reference data 	
-		<template name="EnumerationReferenceData" templateFileName="EnumerationReferenceData.vm" 
-			subdir="" outputsubdir="" technicalPackage="enumeration"
-			file-extension="java" file-prefix="" file-suffix="Enum" 
-			field-specific="true" 
-			file-name-builder-plugin="referenceDataUtils"
-			file-name-builder-method="getEnumName"	
-            check-template-to-generate="true" 
-            is-template-to-generate-method="referenceDataUtils.isCandidateForReferenceDataGeneration"
-			>
-			<property name="generateForTag" value="checkconstraint"></property>
-		</template>		
-		-->	
+
+		<template name="BslaJPA2StoredProcedureDaoImpl" templateFileName="BslaJPA2StoredProcedureDaoImpl.vm" 
+			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoImpl" file-prefix="Procedure"
+			scope-specific-value="function"
+			has-updatable-nature="true">
+		</template>	
+
 	</template-target>	
 
 	<template-target name="config"
