@@ -3,10 +3,19 @@
 #end
 
 #macro (adfEntityColumnDisplay $id)
+#if($columnUtils.hasCheckConstraint($column))
+                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
+							value="#{viewScope.${entityADFVariable}BackingBean.search${entityADFVariable}.${columnVar}}"
+							id="${id}"
+							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
+                          <f:selectItems value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
+                        </af:selectOneChoice>
+#else
                         <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                                       id="${id}" ##columns="40" ##columns="$column.size"
 #adfBackingBean("viewScope", "${entityADFVariable}BackingBean", "search${entityADFVariable}")
                         />
+#end
 #end
 
 #macro (adfEntityEditColumnDisplay $id)

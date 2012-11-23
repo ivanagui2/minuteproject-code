@@ -8,7 +8,8 @@
           id="$thisClassName" Package="$thisPackageName"
           BeanClass="$beanVOADFFacesQueryResponseImport"
           isJavaBased="true">
-  <AccessorAttribute id="${domainVariableName}s" IsCollection="true"
+#set ($listClasses = $i18nUtils.plurialize("${beanVOADFFacesVariable}"))
+  <AccessorAttribute id="${listClasses}" IsCollection="true"
                      AddMethod="add${domainClassName}"
                      BeanClass="$beanVOADFFacesImport"
                      CollectionBeanClass="UpdateableCollection">
