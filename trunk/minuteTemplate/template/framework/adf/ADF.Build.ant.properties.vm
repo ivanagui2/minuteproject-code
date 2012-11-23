@@ -1,4 +1,5 @@
 #exposeADFReleaseSpecific()
+#exposeADFSpring()
 release.dir=release
 build.dir=build
 oracle.original.sdo.dir=oracle-original/sdo
@@ -49,7 +50,7 @@ oracle-weblogic-module-dir=${WEBLOGIC_HOME}/modules
 # backend specific
 #
 #if($isBindingSpring)
-${model.name}.backend=$template.getPropertyValue("backend-lib","c:/lib")
+${model.name}.backend=$backendlib
 #end
 
 #
