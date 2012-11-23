@@ -68,9 +68,9 @@ public class $className {
     private Boolean displaySearch = false;
     private Boolean searchAny = false;
     private Boolean searchAll = true;
-    private Boolean searchEquals = true;
+    private Boolean searchEquals = false;
     private Boolean searchContains = false;
-    private Boolean searchLike = false;
+    private Boolean searchLike = true;
     private Boolean searchCaseSensitive = false;
 
 #foreach ($reference in $table.parents)

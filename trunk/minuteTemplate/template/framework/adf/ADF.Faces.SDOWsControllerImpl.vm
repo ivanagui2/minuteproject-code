@@ -2,6 +2,24 @@
 #exposeADFFacesDataControlModelSpecific()
 #exposeFrontEndBackendBindingType()
 #set($thisClassName=$className)
+#macro(putConverter)
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#set ($isEnum = $enumUtils.isEnumType($domainTemplate, $column))
+#if($isEnum)
+    output.set$columnClass((input.get$columnClass()==null)?(String)null:input.get$columnClass().toString());
+#elseif($columnUtils.isTimeStampColumn($column))
+    output.set$columnClass(new Timestamp(input.get$columnClass().getTime()));
+#elseif(!$column.isLob())
+    output.set$columnClass(input.get$columnClass());
+#end
+#end
+#if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+	output.set${columnClass}_(input.get${columnClass}_());
+#end
+#end
+#end
 package $packageName;
 
 import eu.adf.fwk.query.QueryRequest;
@@ -114,39 +132,11 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 ##if ($hasSearch)
 	
   public static void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
-#foreach ($column in ${table.columns})
-#putColumnParamNaming()
-#if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-#set ($isEnum = $enumUtils.isEnumType($domainTemplate, $column))
-#if($isEnum)
-    output.set$columnClass(output.get$columnClass().fromValue(input.get$columnClass()));
-#elseif(!$column.isLob())
-    output.set$columnClass(input.get$columnClass());
-#end
-#end
-#if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-	output.set${columnClass}_(input.get${columnClass}_());
-#end
-#end
+#putConverter()
   }
 	
   public static void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
-#foreach ($column in ${table.columns})
-#putColumnParamNaming()
-#if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-#set ($isEnum = $enumUtils.isEnumType($domainTemplate, $column))
-#if($isEnum)
-    output.set$columnClass(input.get$columnClass().toString());
-#elseif($columnUtils.isTimeStampColumn($column))
-    output.set$columnClass(new Timestamp(input.get$columnClass().getTime()));
-#elseif(!$column.isLob())
-    output.set$columnClass(input.get$columnClass());
-#end
-#end
-#if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-	output.set${columnClass}_(input.get${columnClass}_());
-#end
-#end
+#putConverter()
   }
   /**
    * @return $beanVOADFFacesQueryResponseClass

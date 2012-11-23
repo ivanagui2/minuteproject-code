@@ -18,7 +18,8 @@
                     RangeSize="1"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
                     id="list${domainClassName}Iterator"/>
-    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="${domainVariableName}s"
+#set ($listClasses = $i18nUtils.plurialize("${beanVOADFFacesVariable}"))
+    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="$listClasses"
                       RangeSize="50" DataControl="${dataControlRef}"
                       BeanClass="$beanVOADFFacesImport"
                       id="${domainVariableName}DTOsIterator"/>

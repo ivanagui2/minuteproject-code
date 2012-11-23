@@ -5,7 +5,7 @@
 #putColumnParamNaming()
 #if ($isEnum)
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
-           ${tableVariableName}.set$columnClass(null);
+           ${tableVariableName}.set$columnClass((String)null);
 #elseif ($columnType=="String" && !$isEnum && !$isForeignKey)
         if (${tableVariableName}.get$columnClass()!=null && ${tableVariableName}.get$columnClass().equals(""))
            ${tableVariableName}.set$columnClass((String)null);
