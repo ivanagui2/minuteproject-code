@@ -256,6 +256,10 @@ import $importDomainObjectUML;
 #set ($adfVersion=$template.getPropertyValue("adf-version","3.3.1"))
 #end
 
+#macro(exposeADFSpring)
+#set($backendlib=$template.getPropertyValue("backend-lib","c:/lib"))
+#end
+
 #macro(exposeSDOReference)
 #putReferenceParams2()
 #end
