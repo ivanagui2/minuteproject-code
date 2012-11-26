@@ -266,7 +266,7 @@ $updatedAreaSnippet
 #set($propertyList=$property.getPropertiesArray())
 #foreach ($prop in $propertyList)
 #exposeEnumerationSpecific()
-        list.add(new SelectItem("$prop.value","$prop.value"));
+        list.add(new SelectItem("$enumName","$enumValue"));
 #end
         return list;
 	}
@@ -280,7 +280,7 @@ $updatedAreaSnippet
 #foreach ($prop in $propertyList)
 #exposeEnumerationSpecific()
 ##        list.add("$prop.value");
-        map.put("$prop.value","$prop.value");
+        map.put("$enumName","$enumValue");
 #end
         return map;
 	}

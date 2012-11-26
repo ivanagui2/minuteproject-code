@@ -28,7 +28,7 @@ cd Model
 #end
 call ant
 cd ..
-call %JDEV_HOME%\jdev\bin\ojdeploy -buildfile deploy_to_ear.ojdeploy.xml -define workspace.path=%WORKSPACE_HOME%,ear.filename=${releaseName}.ear
+call %JDEV_HOME%\jdev\bin\ojdeploy -buildfile $projectADFFacesJwsPhysicalDirPath/deploy_to_ear.ojdeploy.xml -define workspace.path=%WORKSPACE_HOME%,ear.filename=${releaseName}.ear
 
 #if($isSdoRelease)
 call ant
