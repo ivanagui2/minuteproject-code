@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.util.FileUtils;
 
 import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
@@ -755,4 +757,14 @@ public class CommonUtils {
 		return Direction.valueOf(direction);
 	}
 	
+	public String getRootRelative(Model model, String targetTemplateName, String filePath) {
+		Template template = getTargetTemplate(model, targetTemplateName);
+		String root = template.getOutputdir();
+		try {
+			return FileUtils.getRelativePath(new File(root), new File(filePath));
+		} catch (Exception e) {
+			logger.error("relative path between "+targetTemplateName+" directory "+root+" and "+filePath+" not found ");
+		}
+		return "NO_RELATIVE_PATH_FOUND";
+	}
 }
