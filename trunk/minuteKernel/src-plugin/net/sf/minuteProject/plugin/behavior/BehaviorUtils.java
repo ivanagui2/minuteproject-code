@@ -67,7 +67,8 @@ public class BehaviorUtils {
 		}
 
 		public String toString() {
-			return "column = "+column.getName()+" - value "+value+" - hasPassivation "+hasPassivation;
+			String name = (column!=null)?column.getName():"NO COLUMN FOUND";
+			return "column = "+name+" - value "+value+" - hasPassivation "+hasPassivation;
 		}
 	}
 }
