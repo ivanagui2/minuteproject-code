@@ -51,11 +51,11 @@ public class ModelViewGenerator extends ModelGenerator {
 		try {
 			generator.generate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		Date endDate = new Date();
+		logger.info("end time = "+endDate);
 		logger.info("time taken : " + (endDate.getTime() - startDate.getTime())
 				/ 1000 + "s.");
 	}

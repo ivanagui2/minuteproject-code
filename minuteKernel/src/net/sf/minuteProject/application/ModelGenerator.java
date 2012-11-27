@@ -152,7 +152,7 @@ public class ModelGenerator extends AbstractGenerator {
 			generator.exit ("");
 		}
 		Date endDate = new Date();
-		logger.info("start time = "+endDate);
+		logger.info("end time = "+endDate);
 		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
 	}
 
