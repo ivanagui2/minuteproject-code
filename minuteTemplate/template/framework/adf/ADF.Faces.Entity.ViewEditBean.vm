@@ -1,27 +1,61 @@
 #exposeADFFacesEntitySpecific()
+#exposeADFFacesDataControlEntitySpecific()
+#exposeFrontEndBackendBindingType()
+#exposeADFFacesSpringModelBindingSpecific()
+#set($thisTable=$table)
 package $packageName;
 
 import $beanVOADFFacesImport;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
+import javax.faces.model.SelectItem;
+
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
+#exposeADFFacesEntityImport()
+
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+import $beanADFFacesSpringServiceImport;
+#end
+#end
+
+import $beanADFFacesSpringAppContextLoaderImport;
+
 public class $className {
-    
+
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+    $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#end
+#end
     private ${beanVOADFFacesClass} ${beanVOADFFacesVariable};
 ##works for one pk only
     private $primaryKeyType ${domainVariableName}Param;
     
     public $className () {
         ${domainVariableName}Param = ($primaryKeyType)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("${entityADFVariable}Reference");
-    }
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#end
+#end
+	}
 
     public void delete${domainClassName}(DCBindingContainer bindings) {
         Map map = new HashMap();
@@ -85,4 +119,20 @@ public class $className {
         ${domainVariableName}Table.setPageNumber(1);
 	}
 #end	
+
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+#if ($tableUtils.isAdminContentType($foreignTable))
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+#putReferenceParams2()
+#set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
+    public List<SelectItem> get${localColumnClass}List() {
+        List<SelectItem> list = new ArrayList<SelectItem>();
+        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+            list.add(new SelectItem(element.get$columnClass(),element.get$columnClass()));
+        }
+        return list;
+    }
+#end
+#end
 }
