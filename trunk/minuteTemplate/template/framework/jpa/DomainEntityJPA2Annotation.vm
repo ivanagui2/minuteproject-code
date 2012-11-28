@@ -297,6 +297,7 @@ $!updatedAreaSnippet
 #columnJavaNaming()
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
+#set($colClass= $commonUtils.getColumnAliasClassName($table, $reference))
 ##set($colVar=$formatUtils.getJavaNameVariable($referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn})))
        this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
@@ -306,6 +307,9 @@ $!updatedAreaSnippet
 #set($fieldVar=$formatUtils.getJavaNameVariable($locColumn.alias))
 #columnJavaNaming()
        this.${colVar}.set$columnClass($fieldVar); //${reference.foreignColumn.alias}
+#if(!$isPrimaryKey)
+	   set${colClass}_ (${fieldVar});
+#end
 #else
        // the datamodel type of foreignkey and primary are not equals, please adapt
 #end

@@ -154,7 +154,10 @@ $!updatedAreaSnippet
                                        filterable="true"
                                        headerText="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                                        id="${columnVar}_col" width="$adfUtils.getDisplayColumnWithHeader($column)">
-                              <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot2"/>
+#if($isForeignKey)
+#set($columnVar = "${columnVar}_")
+#end
+							  <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot2"/>
                             </af:column>
 #end
 #end

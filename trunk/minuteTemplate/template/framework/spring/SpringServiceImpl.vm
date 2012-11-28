@@ -127,7 +127,7 @@ public class $className implements $SpringServiceInterfaceClass {
         return ret;
     }
     
-	@Override
+//	@Override
 	public void find(QueryData<$tableClassName> data) {
 		${BslaDaoExtInterfaceVariable}.find (data);
 	}

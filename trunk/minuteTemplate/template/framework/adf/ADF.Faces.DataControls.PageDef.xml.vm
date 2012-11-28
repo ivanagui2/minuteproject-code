@@ -136,6 +136,9 @@
 #foreach ($column in $table.columns)  
 #putColumnParamNaming()
           <Item Value="${columnVar}"/>
+#if($isForeignKey)
+          <Item Value="${columnVar}_"/>
+#end
 #end 
         </AttrNames>
       </nodeDefinition>

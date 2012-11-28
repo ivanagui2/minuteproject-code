@@ -7,6 +7,9 @@
           <af:panelLabelAndMessage label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
 			id="$id"
             for="dldet${columnVar}">
+#if($isForeignKey)
+#set($columnVar = "${columnVar}_")
+#end
 ##            <af:outputText value="#{pageFlowScope.viewEditDeadLineTypeBean.deadLineType.name}" id="dldet${columnVar}"/>
             <af:outputText value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}" id="dldet${columnVar}"/>
           </af:panelLabelAndMessage>

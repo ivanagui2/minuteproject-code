@@ -2,9 +2,17 @@
 <?xml version = '1.0' encoding = 'windows-1252'?>
 <weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd" xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app">
 ##    <context-root>$contextRootName</context-root>
-    <context-root>$applicationName</context-root>
+    <context-root>/$applicationName</context-root>
+#if($hasCasAuthentication)
+	<session-descriptor>
+         <cookie-path>/$applicationName</cookie-path>
+	</session-descriptor>
+#end
 	<container-descriptor>
         <prefer-web-inf-classes>true</prefer-web-inf-classes>
+#if($hasCasAuthentication)
+        <allow-all-roles>true</allow-all-roles>
+#end
     </container-descriptor>
     <library-ref>
         <library-name>adf.oracle.domain.webapp</library-name>
@@ -17,12 +25,5 @@
         <library-name>jsf</library-name>
         <specification-version>1.2</specification-version>
     </library-ref>
-#if($hasCasAuthentication)
-    <container-descriptor>
-        <allow-all-roles>true</allow-all-roles>
-    </container-descriptor>
-	<session-descriptor>
-		<cookie-path>/$applicationName</cookie-path>
-	</session-descriptor>
-#end
+
 </weblogic-web-app>
