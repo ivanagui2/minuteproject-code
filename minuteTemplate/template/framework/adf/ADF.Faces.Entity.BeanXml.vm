@@ -46,7 +46,7 @@ $!updatedAreaEnd
                      CollectionBeanClass="UpdateableSingleValue"/>
 #set($column = $reference.localColumn)
 #putColumnParamNaming()
-  <Attribute Name="$columnVar" Type="$columnFullType"/>
+  <Attribute Name="${colVar}_" Type="$columnFullType"/>
 #end	
 #end	
 

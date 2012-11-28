@@ -29,6 +29,9 @@ $!updatedAreaSnippet
 #if($hasMessage)
             <af:panelLabelAndMessage label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="dldetplam4"
                                    for="dldetavailable">
+#if($isForeignKey)
+#set($columnVar = "${columnVar}_")
+#end
                  <af:outputText value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}" id="dldet${columnVar}"/>
             </af:panelLabelAndMessage>
 			  

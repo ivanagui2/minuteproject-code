@@ -42,7 +42,7 @@ call ant deliver
 call explorer http://${server-hostname}:${server-port}/$contextRootName/AppModuleService?wsdl
 #end
 #if($isFrontEndRelease)
-call explorer http://${server-hostname}:${server-port}/$applicationName/faces/homePage.jspx
+call explorer http://${server-hostname}:${server-port}/$applicationName/faces/homePage
 #end
 
 @rem call selenium

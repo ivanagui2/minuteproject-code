@@ -16,7 +16,7 @@
 #end
 #end
 #if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-	output.set${columnClass}_(input.get${columnClass}_());
+    output.set${columnClass}_(input.get${columnClass}_());
 #end
 #end
 #end
