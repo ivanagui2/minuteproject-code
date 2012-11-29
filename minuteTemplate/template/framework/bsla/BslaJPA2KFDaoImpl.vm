@@ -35,8 +35,12 @@ import net.sf.minuteProject.architecture.filter.data.Criterion;
 import net.sf.minuteProject.architecture.filter.data.InCriterion;
 import net.sf.minuteProject.architecture.filter.data.OrderCriteria;
 import net.sf.minuteProject.model.service.GenericService;
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
 import net.sf.minuteProject.model.data.criteria.QueryData;
-import net.sf.minuteProject.model.data.criteria.QuerySortOrder;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 
 import net.sf.minuteProject.architecture.utils.BeanUtils;
 import $importDaoInterfaceExtendedUML;
@@ -187,7 +191,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	
 #parse("./snippet/orm/dao/referAssignAffectSnippet.vm") 
 	
-#parse("./snippet/orm/dao/partialLoadSnippet.vm")    
+#parse("./snippet/orm/dao/partialLoadSnippetJPA2.vm")    
 		
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
       List<$tableClassName> list = partialLoadWithParent$tableClassName(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);
@@ -711,27 +715,15 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #end
     // generic part
 	public void find (QueryData<${tableClassName}> data) {
-		Map<String, String> filters = data.getFilters();
+		EntityCriteria<${tableClassName}> filter = data.getEntityCriteria();
+		${tableClassName} mask = filter.getEntity();
 		int start = data.getStart();
-		int end = data.getEnd();
-		String sortField = data.getSortField();
-		QuerySortOrder order = data.getOrder();
+		int max = data.getMax();
+		EntitySort<${tableClassName}> sortField = data.getEntitySort();
+		QuerySortOrder sortOrder = sortField.getOrder();	
 		
-		StringBuffer sb = new StringBuffer();
-		${tableClassName} $tableVariableName = new ${tableClassName}();
-		// set filter with positive mask pattern
-		//TODO filter set
-		${tableClassName} var = new ${tableClassName}();
-		
-		
-		String query = get${tableClassName}SearchEqualQuery(var);
-		Query hquery = getEntityManager().createQuery(query);
-		
-		hquery.setMaxResults(end - start);
-		hquery.setFirstResult(start);
-		
-		data.setResult(hquery.getResultList());
-		Long totalResultCount = count($tableVariableName);
+		data.setResult(find(mask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), start, max));
+		Long totalResultCount = count(mask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType());
 		data.setTotalResultCount(totalResultCount);
 	}
 	
