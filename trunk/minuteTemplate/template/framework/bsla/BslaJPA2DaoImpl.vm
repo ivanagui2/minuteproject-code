@@ -283,20 +283,27 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     }  
 
     public List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
-       return find ($tableVariableName, matchType, operandType, caseSensitivenessType, null); 
+       return find ($tableVariableName, matchType, operandType, caseSensitivenessType, null, null); 
 	}
 	
-	protected List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, Integer maxResults) {
+	protected List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, Integer startPosition, Integer maxResults) {
        Query hquery = getEntityManager().createQuery(findQuery ($tableVariableName, matchType, operandType, caseSensitivenessType));
+       if (startPosition!=null)
+          hquery.setFirstResult(startPosition);
        if (maxResults!=null)
           hquery.setMaxResults(maxResults);
        return hquery.getResultList(); 
     }
 
     public String findQuery ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        String what = "SELECT $tableVariableName FROM $tableClassName $tableVariableName ";
+		return findQuery ($tableVariableName, what, matchType, operandType, caseSensitivenessType);
+    }
+	
+    protected String findQuery ($tableClassName $tableVariableName, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
         StringBuffer query = new StringBuffer();
         StringBuffer queryWhere = new StringBuffer();
-        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName "); 
+        query.append (what); 
         queryWhere.append (findChunk ($tableVariableName, false, isAll(matchType), operandType, caseSensitivenessType));   
 	    return getHQuery(query.toString(), queryWhere.toString());
     }

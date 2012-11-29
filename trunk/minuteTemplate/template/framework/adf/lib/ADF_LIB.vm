@@ -217,6 +217,8 @@ import $importDomainObjectUML;
 #set($contextRootName="$formatUtils.firstUpperCase(${model.name})-FE-app")
 #set($adfFacesCustomFwkHome = $template.getPropertyValue("adf-faces-custom-framework-home",""))
 #set($hasAdfFacesCustomFwk=$adfFacesCustomFwkHome!="")
+#set($adfFacesCustomCodeHome = $template.getPropertyValue("adf-faces-custom-code-home",""))
+#set($hasAdfFacesCustomCode=$adfFacesCustomCodeHome!="")
 #else
 #set($applicationName="${model.name}SDO")
 #set($profileName=${model.name}+"SDOProfile")
