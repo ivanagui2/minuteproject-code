@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
 import net.sf.minuteProject.model.service.GenericService;
 import $importDaoInterfaceUML;
@@ -282,12 +283,16 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
        return searchPrototypeAny ($tableVariableName, null);            
     }  
 
-    public List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
-       return find ($tableVariableName, matchType, operandType, caseSensitivenessType, null, null); 
+    public List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+       return find (criteriaMask, matchType, operandType, caseSensitivenessType, null, null); 
 	}
 	
-	protected List<$tableClassName> find ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, Integer startPosition, Integer maxResults) {
-       Query hquery = getEntityManager().createQuery(findQuery ($tableVariableName, matchType, operandType, caseSensitivenessType));
+	protected List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, Integer startPosition, Integer maxResults) {
+       return find (criteriaMask, null, matchType, operandType, caseSensitivenessType, null, startPosition, maxResults); 
+    }
+	
+	protected List<$tableClassName> find ($tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder, Integer startPosition, Integer maxResults) {
+       Query hquery = getEntityManager().createQuery(findQuery (criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder));
        if (startPosition!=null)
           hquery.setFirstResult(startPosition);
        if (maxResults!=null)
@@ -295,16 +300,16 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
        return hquery.getResultList(); 
     }
 
-    public String findQuery ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+    public String findQuery ($tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
         String what = "SELECT $tableVariableName FROM $tableClassName $tableVariableName ";
-		return findQuery ($tableVariableName, what, matchType, operandType, caseSensitivenessType);
+		return findQuery (criteriaMask, orderMask, what, matchType, operandType, caseSensitivenessType, sortOrder);
     }
 	
-    protected String findQuery ($tableClassName $tableVariableName, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+    protected String findQuery ($tableClassName criteriaMask, $tableClassName orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
         StringBuffer query = new StringBuffer();
         StringBuffer queryWhere = new StringBuffer();
         query.append (what); 
-        queryWhere.append (findChunk ($tableVariableName, false, isAll(matchType), operandType, caseSensitivenessType));   
+        queryWhere.append (findChunk (criteriaMask, orderMask, false, isAll(matchType), operandType, caseSensitivenessType, sortOrder));   
 	    return getHQuery(query.toString(), queryWhere.toString());
     }
 	
@@ -452,13 +457,16 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	    return query.toString();
     }   
      
-    protected String findChunk ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
+    protected String findChunk ($tableClassName $tableVariableName, $tableClassName orderMask, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive, QuerySortOrder sortOrder) {
         StringBuffer query = new StringBuffer();
 		String operand = getOperand (operandType);
 		String evaluatorPrefix = getEvaluatorPrefix (operandType);		
 		String evaluatorSuffix = getEvaluatorSuffix (operandType);		
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
+#if($isForeignKey)
+#set($columnClass="${columnClass}_")
+#end
         if (${tableVariableName}.get$columnClass() != null) {
 		   if (isAll)
 			  query.append (getQueryAND (isAndSet));
@@ -481,9 +489,24 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
         }
-#end      
+#end    
+        String orderColumn = getFirstNotNullColumnOtherWiseNull(orderMask);
+		if (orderMask!=null && orderColumn!=null)
+           query.append(" order by " + orderColumn + " " + sortOrder);
 	    return query.toString();
-    }   
+    }
+	
+	protected String getFirstNotNullColumnOtherWiseNull ($tableClassName mask) {
+        if (mask == null) return null;
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if($isForeignKey)
+#set($columnClass="${columnClass}_")
+#end
+        if (mask.get$columnClass() != null) return "$columnVar";
+#end
+        return null;	
+	}
     
     /**
     * return a jql search on a ${tableClassName} prototype with positive and negative beans

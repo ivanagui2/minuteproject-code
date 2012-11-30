@@ -117,7 +117,7 @@
 
 	protected String countQuery ($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
         String what = "SELECT count(*) FROM $tableClassName ${tableVariableName} ";
-		return findQuery ($tableVariableName, what, matchType, operandType, caseSensitivenessType);
+		return findQuery ($tableVariableName, null, what, matchType, operandType, caseSensitivenessType, null);
     }
 	
     protected String getSelectCountPrototype ($tableClassName whereEqCriteria) {
