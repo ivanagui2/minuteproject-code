@@ -1,7 +1,6 @@
 package net.sf.minuteProject.model.data.criteria;
 
 import java.util.List;
-import java.util.Map;
 
 public class QueryData <T> {
 
@@ -9,18 +8,15 @@ public class QueryData <T> {
 	private Long totalResultCount;
 	
 	private int start;
-	private int end;
-	private String sortField;
-	private QuerySortOrder order;
-	private Map<String,String> filters;
+	private int max;
+	private EntitySort<T> entitySort;
+	private EntityCriteria<T> entityCriteria;
 	
-	public QueryData(int start, int end, String field, QuerySortOrder order, Map<String, String> filters) {
-	
+	public QueryData(int start, int max, EntitySort<T> entitySort, EntityCriteria<T> entityCriteria) {	
 		this.start = start;
-		this.end = end;
-		this.sortField = field;
-		this.order = order;
-		this.filters = filters;
+		this.max = max;
+		this.entitySort = entitySort;
+		this.entityCriteria = entityCriteria;
 	}
 	
 	public List<T> getResult() {
@@ -35,17 +31,6 @@ public class QueryData <T> {
 		return start;
 	}
 
-	public int getEnd() {
-		return end;
-	}
-
-	public QuerySortOrder getOrder() {
-		return order;
-	}
-
-	public Map<String, String> getFilters() {
-		return filters;
-	}
 
 	public void setResult(List<T> result) {
 		this.result = result;
@@ -55,14 +40,38 @@ public class QueryData <T> {
 		this.totalResultCount = totalResultCount;
 	}
 
-	public String getSortField() {
-		return sortField;
+	public int getMax() {
+		return max;
+	}
+
+	public void setMax(int max) {
+		this.max = max;
+	}
+
+	public EntitySort<T> getEntitySort() {
+		return entitySort;
+	}
+
+	public void setEntitySort(EntitySort<T> entitySort) {
+		this.entitySort = entitySort;
+	}
+
+	public EntityCriteria<T> getEntityCriteria() {
+		return entityCriteria;
+	}
+
+	public void setEntityCriteria(EntityCriteria<T> entityCriteria) {
+		this.entityCriteria = entityCriteria;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeeQueryData [start=" + start + ", end=" + end + ", sortField=" + sortField + ", order=" + order + ", filters="
-				+ filters + "]";
+		return "QueryData [start=" + start + ", end=" + max + ", entitySort=" + entitySort + ", entityCriteria="
+				+ entityCriteria + "]";
 	}
 	
 }
