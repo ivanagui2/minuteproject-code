@@ -24,7 +24,7 @@ cd ViewController
 xcopy $adfFacesCustomFwkHome %cd% /s /e /y
 #end
 #if($hasAdfFacesCustomCode)
-xcopy $adfFacesCustomCodeHome %cd% /s /e /y
+xcopy ${adfFacesCustomCodeHome}\ViewController %cd% /s /e /y
 #end
 #else
 cd Model
