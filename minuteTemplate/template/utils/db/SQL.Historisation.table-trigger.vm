@@ -1,6 +1,9 @@
+#exposeVariableModelSpecific()
+#foreach ($table in $entities)
 CREATE OR REPLACE TRIGGER ${table.name}_I INSERT AFTER ${table.name}
 REFERENCING NEW AS NEW OLD AS OLD FOR EACH ROW 
 BEGIN
 #putHistoTriggerInsert("INS") 
 END ${table.name}_I;
 /
+#end
