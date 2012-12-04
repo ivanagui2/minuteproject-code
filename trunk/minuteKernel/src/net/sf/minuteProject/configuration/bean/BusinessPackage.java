@@ -21,7 +21,7 @@ import net.sf.minuteProject.utils.TableUtils;
 public class BusinessPackage extends BusinessPackageAdapter {
 
 	protected BusinessModel businessModel;
-	protected List<Package> packages, packageViews, packageTransferEntities;
+	protected List<Package> packages, packageViews, packageTransferEntities, allPackages;
 	
 	private List<Table> tables, entities, transferEntities;
 	private List<View> views;	
@@ -233,4 +233,13 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		this.businessModel = businessModel;
 	}
 
+	public List<Package> getPackagesTableViewTransfer() {
+		if (allPackages==null) {
+		    allPackages = new ArrayList<Package>();
+			allPackages.addAll(getPackages());
+			allPackages.addAll(getPackageViews());
+			allPackages.addAll(getPackageTransferEntities());
+		}
+		return allPackages;
+	}
 }
