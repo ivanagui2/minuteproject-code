@@ -4,7 +4,7 @@
 	
 #addArea("custom-groupnode-definition-beginning")
 <groupNode id="ApplicationGroup" label="Application Management"
-#foreach ($package in ${businessPackages})
+#foreach ($package in ${businessPackagesAll})
 #set($groupId="${package.name}Group")
 #set($groupLabel=$package.name)
 #set($groupIdRef="${package.name}Group")
@@ -19,7 +19,7 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else 
       <groupNode id="$groupId" label="$groupLabel" 
-#foreach ($table in ${package.listOfTables})
+#foreach ($table in ${package.listOfEntities})
 #exposeADFFacesEntitySpecific()
 #if($velocityCount==1)
 ## idref="$groupIdRef">  
@@ -32,29 +32,6 @@ $!updatedAreaSnippet
       </groupNode>
 #end
 $!updatedAreaEnd
-#if ($showViews)
-   <!-- $package.name view-->	
-      <groupNode id="$groupId" label="$groupLabel" 
-#foreach ($table in ${package.listOfViews})
-#exposeADFFacesEntitySpecific()
-#if($velocityCount==1)
-## idref="$groupIdRef">  
- idref="${domainClassName}Item">  
-#end
-        <itemNode id="${domainClassName}Item" label="#{viewcontrollerBundle['${tableVariableName}']}"
-                  action="goto${domainClassName}"
-                  focusViewId="/${domainVariableName}View"/>
-
-#end
-#exposeModelUpdatedAreas("${groupLabel}-node-end")
-$!updatedAreaBegin
-#if($isUpdated)
-$!updatedAreaSnippet
-#else 
-      </groupNode>
-#end
-$!updatedAreaEnd
-#end
 #end
 #addArea("custom-groupnode-definition-ending")
    </groupNode>	

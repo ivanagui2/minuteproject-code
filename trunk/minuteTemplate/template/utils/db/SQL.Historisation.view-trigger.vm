@@ -1,3 +1,5 @@
+#exposeVariableModelSpecific()
+#foreach ($table in $entities)
 /*
 This pattern introduce a view as a proxy middle-man
 It might be intrusive it
@@ -21,3 +23,4 @@ INSERT INTO ${table.name}
 #putHistoTriggerInsert("INS") 
 END ${table.name}_I;
 /
+#end
