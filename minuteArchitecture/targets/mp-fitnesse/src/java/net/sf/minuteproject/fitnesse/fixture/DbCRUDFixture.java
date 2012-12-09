@@ -103,8 +103,8 @@ public abstract class DbCRUDFixture extends TableFixture {
 	public Map<String, String> getColumnOrderValue() {
 		if (columnOrderValue==null) {
 			columnOrderValue = new HashMap<String, String>(getNumberOfColumn());
-			setColumnValues(columnOrderValue, ORDER_ROW_INDEX);
 		}
+		setColumnValues(columnOrderValue, ORDER_ROW_INDEX);
 		return columnOrderValue;
 	}
 
