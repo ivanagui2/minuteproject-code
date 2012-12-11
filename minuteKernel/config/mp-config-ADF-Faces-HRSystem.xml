@@ -12,7 +12,7 @@
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
 			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
 			    </fileSource>
-			    <!-- 
+			    
 				<dataSource>
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
 					<url>jdbc:oracle:thin:@sgdbd01.sg.cec.eu.int:1521:sgdbd01</url>
@@ -20,7 +20,7 @@
 					<password>secunda_dev</password>
 				</dataSource>
 				<schema>secunda_dev</schema>
-                         -->
+                 <!--        
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
 					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
@@ -28,7 +28,7 @@
 					<password>oracle</password>	
 				</dataSource>
 				<schema>HR</schema>
-
+ -->
 				<primaryKeyPolicy oneGlobal="true">
 					<primaryKeyPolicyPattern name="uuid" ></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
@@ -61,17 +61,6 @@
 				   <conventions>
 				      <primary-key-convention type="apply-primary-key-on-entity-with-two-columns-only-and-foreign-key-otherwise-specified" />
 				      <primary-key-convention type="apply-default-primary-key-otherwise-first-one" />
-				      <entity-content-type-convention type="apply-content-type-to-entity-starting-with" pattern="I18N_" content-type="reference-data"/>
-				      <entity-content-type-convention type="apply-content-type-to-entity-ending-with" pattern="_TYPE,_STATE,_CODE" content-type="reference-data"/>
-				      <entity-semantic-reference-convention  pattern="CODE,LANGUAGE_CODE" description="LABEL" content-type="reference-data"/>
-				      <property-convention scope="field" pattern="CREATED_ON" tag="trigger-insert-with-current-date" type="start-with"/>
-				      <property-convention scope="field" pattern="LAST_UPDATED_ON" tag="trigger-insert-update-with-current-date" type="start-with"/>
-				      <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
-				      <check-constraint-convention field-pattern ="active" field-pattern-type="equals" field-content-type="string">
-				      		<property name="true" value="T"></property>
-				      		<property name="false" value="F"></property>
-				      </check-constraint-convention>
-				      <sql-mapping-convention type="varchar2-used-instead-of-varchar"></sql-mapping-convention>
 				   </conventions>
 				</enrichment>					
 			</business-model>
@@ -79,16 +68,15 @@
 		</model>	
 		
 		<targets outputdir-root="c:/dev/ADF_MP_GENERATION/MP4HR_2" >
-		<!-- 
- 			<post-generation-action command="ADF-FACES/Nif2-delivery" is-absolute-path="false"/>
- 			 -->
+
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
-			   fileName="mp-template-config-ADF-Faces-Model.xml" 
-			   outputdir-root="ADF-FACES-MODEL"
+			   fileName="mp-template-config-ADF-Faces.xml" 
+			   outputdir-root="ADF-FACES"
 			   templatedir-root="../../minuteTemplate/template/framework/adf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  
-			   	
+			   
+			   <!-- 
 			   <property name="WEBLOGIC_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>		   
 			   <property name="WLS_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>
 
@@ -103,17 +91,8 @@
 			   <property name="adf-faces-custom-framework-home" value="c:\DEV\JSF\ADF\ADF-fwk"/>
 			   <property name="adf-faces-custom-framework-package-name" value="eu.adf.fwk"/>
 			   
-			   <property name="adf-faces-backend-binding" value="db-direct"/>
-			   
-			</target>  
-			
-			<!-- 
- 			<target refname="ADF FACES" 
-			   name="ADF FACES"
-			   fileName="mp-template-config-ADF-Faces.xml" 
-			   outputdir-root="ADF-FACES"
-			   templatedir-root="../../minuteTemplate/template/framework/adf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  	
+			   <property name="adf-faces-backend-binding" value="db-direct"/>			   
+			    -->	
 			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
 			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
 			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
@@ -124,12 +103,86 @@
 			   <property name="wls-port" value="7201"></property>
 			   <property name="wls-deploy-target" value="AdminServer"></property>	
 			   
-			   <property name="adf-faces-custom-framework-home" value="c:\DEV\JSF\ADF\ADF-fwk"/>
-			   <property name="adf-faces-custom-framework-package-name" value="eu.adf.fwk"/>
+<!--			   <property name="adf-faces-custom-framework-home" value="C:\MP4ADF-dependency\target\fwk"/>
+ 			   <property name="adf-faces-custom-code-home" value="C:\DEV\customisation\ADF_FACES"/> -->
+			   <property name="adf-faces-custom-framework-package-name" value="net.sf.minuteproject.adf"/>
+<!-- 			   <property name="backend-lib" value="C:/DEV/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/lib"/> -->
+			   			   
+			   <property name="adf-faces-backend-binding" value="spring"/>
 			   
-			   <property name="adf-faces-backend-binding" value="ws-sdo"/>
-			   
+			   <property name="display-hide-auditing-field" value="true"/>
+
 			</target>  
+
+			
+			<target refname="SpringService" 
+			   name="SpringService" 
+			   fileName="mp-template-config-SpringService.xml" 
+			   outputdir-root="ADF-FACES/model-maven/bsla"
+			   templatedir-root="../../minuteTemplate/template/framework/spring">
+				<property name="passivate-based-on-toggle-field" value="true">
+					<property name="active" value="N"></property>
+				</property>
+			</target> 
+			
+			<target refname="BackendOnBsla" 
+			   name="default" 
+			   fileName="mp-template-config-JPA2-bsla.xml" 
+			   outputdir-root="ADF-FACES/model-maven/bsla"
+			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+				<property name="add-cache-implementation" value="ehcache"></property>
+			</target> 
+			
+						
+			<target refname="JPA2" 
+			   name="JPA2" 
+			   fileName="mp-template-config-JPA2.xml" 
+			   outputdir-root="ADF-FACES/model-maven/jpa2"
+			   templatedir-root="../../minuteTemplate/template/framework/jpa">
+               <property name="add-querydsl" value="2.1.2"></property>               
+               <property name="add-jpa2-implementation" value="hibernate"></property>
+               <property name="add-cache-implementation" value="ehcache"></property>
+               <property name="add-domain-specific-method" value="true"></property>		
+               <property name="use-temporal" value="true"></property>     			   
+               <property name="fetch-type" value="eager-when-parent-content-is-reference-data"></property>     			   
+               <property name="relationship-persistence" value="field"></property>     			   
+			</target>
+
+
+			<target refname="JSF" 
+			   name="JSF" 
+			   fileName="mp-template-config-JSF-Spring.xml" 
+			   outputdir-root="ADF-FACES/model-maven/JSF"
+			   templatedir-root="../../minuteTemplate/template/framework/jsf"
+			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
+			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   	   			   
+			   <property name="web-xml-version" value="3.0"></property>		   			   	   			   
+			</target> 
+
+
+			<target refname="MavenMaster" 
+			   name="maven" 
+			   fileName="mp-template-config-maven.xml" 
+			   outputdir-root="ADF-FACES/model-maven"
+			   templatedir-root="../../minuteTemplate/template/framework/maven">
+			</target> 
+
+			<target refname="LIB" 
+			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			</target>
+			<target refname="CACHE-LIB" 
+			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/cache">
+			</target>
+			<target refname="SPRING-LIB" 
+			   fileName="mp-template-config-SPRING-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/spring">
+			</target>
+			<target refname="COMMON-LIB" 
+			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   templatedir-root="../../minuteTemplate/template/framework/common">
+			</target>
 
 			<target refname="SDO" 
 			   name="SDO" 
@@ -144,9 +197,12 @@
 			   <property name="wls-password" value="weblogic01"></property>		   
 			   <property name="wls-hostname" value="localhost"></property>		   
 			   <property name="wls-port" value="7201"></property>
-			   <property name="wls-deploy-target" value="AdminServer,soa_server1"></property>
+			   <property name="wls-deploy-target" value="AdminServer"></property>
+			   
+			   <property name="adf-faces-backend-binding" value="ws-sdo"/>
+			   
 			</target> 
-  -->
+ 
 			<target 
 			   name="Selenium" 
 			   outputdir-root="ADF-TEST"
@@ -161,7 +217,9 @@
 			<target refname="SQL" 
 			   name="SQL" 
 			   fileName="mp-template-config-sqlutils.xml" 
-			   templatedir-root="../../minuteTemplate/template/utils/db">  			   
+			   templatedir-root="../../minuteTemplate/template/utils/db">  	
+			   <property name="user-field" value="userid"></property>		   
+			   <property name="add-version" value="true"></property>		   
 			</target> 
 
 			<target refname="LIB" 
@@ -172,7 +230,7 @@
 			   fileName="mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/common">
 			</target>
-							
+						
 		</targets>
 	</configuration>
 </generator-config>
