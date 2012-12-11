@@ -136,8 +136,10 @@ public abstract class DbTableFixture extends TableFixture {
 	public Map<String, String> getColumnOrderValue() {
 		if (columnOrderValue==null) {
 			columnOrderValue = new HashMap<String, String>(getNumberOfColumn());
+			
 			setColumnValues(columnOrderValue, ORDER_ROW_INDEX);
 		}
+		System.out.println(">>>>>>>>>>>>>>>>>>> columnOrderValue "+columnOrderValue);
 		return columnOrderValue;
 	}
 

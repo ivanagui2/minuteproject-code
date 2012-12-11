@@ -206,9 +206,10 @@ public class QueryUtils {
 		int size = columnIndex.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isCommaSet = false;
-		for (int i = 1; i < size; i++) {
+		for (int i = 0; i <= size; i++) {
 			String columnName = columnIndex.get(Integer.valueOf(i));
 			String order = columnOrderValue.get(columnName);
+//			System.out.println(">>>>>>> i ="+i+" order = "+order + " columnName = "+columnName);
 			if (order!=null && !order.equals("") && !order.equals("blank") && !order.equals("null")) {
 				if (isCommaSet==false) {
 					sb.append(" ORDER BY ");
