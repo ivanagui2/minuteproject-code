@@ -359,7 +359,11 @@ $!updatedAreaSnippet
 	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
+#if(!$isPrimaryKey)
             .append("$columnVar", $columnVar)
+#elseif(!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+            .append("$columnVar", $columnVar)
+#end	 	
 #end	 	
 	 	    ;
 	} 
@@ -398,9 +402,13 @@ $!updatedAreaSnippet
 		if (object == this) return true;
 		if (!(object instanceof ${className})) return false;
 		${className} ${variableName} = (${className}) object;
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+// not supported yet for composite pk
+#else
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
 		if (${variableName}.${columnVar}==null || !${variableName}.${columnVar}.equals(${columnVar})) return false;
+#end
 #end
 		return true;
 	}    
@@ -422,7 +430,11 @@ $!updatedAreaSnippet
 		if (${variableName}!=null) {
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
+#if(!$isPrimaryKey)
 			set$columnClass (${variableName}.get$columnClass());
+#elseif(!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+			set$columnClass (${variableName}.get$columnClass());
+#end
 #end
 		}
 	}
