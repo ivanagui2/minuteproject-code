@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+
+<a id="content" name="content"></a>
+<p class="off-screen"><af:outputText value="Additional Tools"/></p>
+<ul class="reset-list" id="additional-tools">
+        <li class="print">
+                <a href="javascript:tools.printPage();" title="Print"><img src="../wel/template-2012/images/print.gif" alt="Print"/></a>
+        </li>
+</ul>
+
+
+</jsp:root>
