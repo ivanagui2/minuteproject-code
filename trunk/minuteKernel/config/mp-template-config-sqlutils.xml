@@ -4,7 +4,8 @@
 	
   	<template-target 
     	name="SQL scripts"
-		outputdir="scripts">
+		outputdir="scripts"
+		libdir="lib/SQL_LIB.vm">
 			 
 		<template name="TableOutOfViewSQL" templateFileName="TableOutOfViewSQL.vm" 
 			add-model-name="true" package-root=""
@@ -27,6 +28,22 @@
 			add-model-dir-name="false"		
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="sql" file-prefix="" file-suffix="-triggers" 
+			model-specific="true">
+		</template>
+								
+		<template name="SQL.Historisation.table-trigger" templateFileName="SQL.Historisation.table-trigger.vm" 
+			add-model-name="true" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="sql" file-prefix="" file-suffix="-historisation-tables-and-triggers" 
+			model-specific="true">
+		</template>
+								
+		<template name="SQL.Historisation.table-view-trigger" templateFileName="SQL.Historisation.view-trigger.vm" 
+			add-model-name="true" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="sql" file-prefix="" file-suffix="-historisation-tables-views-and-triggers" 
 			model-specific="true">
 		</template>
 								
