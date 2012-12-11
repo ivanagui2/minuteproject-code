@@ -25,10 +25,11 @@
 				widgetVar="panel">
 				<p:messages id="messages" />
 				<h:panelGrid columns="3" cellpadding="10">
+#set($tableClassName=$sddOutputBeanClass)
 #foreach($column in $inputBean.columns)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet()
+#putJSFColumnSnippet2()
 #end
                 <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanel,display"
                     action="#{${entityControllerJSFVariable}.execute}" />
