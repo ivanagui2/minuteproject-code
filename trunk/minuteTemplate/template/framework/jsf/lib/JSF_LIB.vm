@@ -47,6 +47,7 @@
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
+#set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
 #end
 
 #macro (exposeJSFModelSpecific)
@@ -79,6 +80,7 @@
 #macro (exposeJSFTemplate)
 #set ($templateEntityCreateJSF = "JSFXhtmlCreateEntity")
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
+#set ($templateEntityListLazyJSF = "JSFXhtmlListLazyEntity")
 #set ($templateSDDJSF = "JSFXhtmlSDDInput")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateModelI18nJSF = "JSFI18nProperties")

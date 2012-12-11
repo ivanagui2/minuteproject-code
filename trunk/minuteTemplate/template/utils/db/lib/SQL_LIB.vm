@@ -1,4 +1,4 @@
-#macro(putHistoTriggerInsert $action)
+#macro(putHistoTrigger $action)
 INSERT INTO ${table.name}_H (
 #foreach($column in ${table.columns})
 #putColumnParams()
@@ -27,11 +27,8 @@ WHERE
 #end
 
 #macro(createHistoryTable)
-CREATE TABLE ${table.name}_T (
-#foreach($column in ${table.columns})
-#putColumnParams()
-#if($velocityCount>1),#else #end$column.name $column.type 
-#end
+CREATE TABLE ${table.name}_H (
+#createTableColumn()
 ,AUD_NUMBER INTEGER
 ,AUD_ACTION CHAR(3)
 ,AUD_USER VARCHAR(20)
@@ -40,3 +37,17 @@ CREATE TABLE ${table.name}_T (
 ; 
 #end
 
+#macro (createTable $tName)
+create table $tName (
+#createTableColumn()
+);
+#end
+
+#macro (createTableColumn)
+#foreach($column in ${table.columns})
+#putColumnParams()
+#set($columnSQLType=$sqlUtils.getSqlTypeFormat($column, $database.type))
+#set($columnSQLSize=$sqlUtils.getSqlTypeSizeFormat($column, $database.type))
+    #if($velocityCount>1),#else #end$column.name $columnSQLType $columnSQLSize
+#end
+#end

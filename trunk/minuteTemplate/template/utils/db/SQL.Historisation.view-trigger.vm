@@ -1,10 +1,14 @@
 #exposeVariableModelSpecific()
-#foreach ($table in $entities)
-/*
-This pattern introduce a view as a proxy middle-man
-It might be intrusive it
-*/
-CREATE OR REPLACE TRIGGER ${table.name}_I INSTEAD OF INSERT ON ${table.name}_V
+#macro(putTriggerViewHisto $operation)
+CREATE OR REPLACE TRIGGER ${table.name}_I INSTEAD OF 
+#if($operation=="INS")
+INSERT 
+#elseif($operation=="DEL")
+DELETE
+#elseif($operation=="UPD")
+UPDATE
+#end
+ON ${table.name}_V
 REFERENCING NEW AS NEW OLD AS OLD FOR EACH ROW 
 BEGIN 
 INSERT INTO ${table.name}
@@ -20,7 +24,17 @@ INSERT INTO ${table.name}
 #if($velocityCount>1),#else #end:new.$column.name
 #end
 );
-#putHistoTriggerInsert("INS") 
+#putHistoTrigger("$operation") 
 END ${table.name}_I;
 /
+#end
+#foreach ($table in $entities)
+/*
+This pattern introduce a view as a proxy middle-man
+It might be intrusive it
+*/
+#createHistoryTable()
+#putTriggerViewHisto("INS")
+#putTriggerViewHisto("UPD")
+#putTriggerViewHisto("DEL")
 #end
