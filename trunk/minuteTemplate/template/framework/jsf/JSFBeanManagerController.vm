@@ -82,7 +82,7 @@ public class ${className} {
 #end
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
-	private $tableClassName selected$tableClassName;
+	private $tableClassName selected$tableClassName = new $tableClassName();
 	
 ##if($isEJBBackend)
     public List<$tableClassName> findAll () {
@@ -146,6 +146,7 @@ public class ${className} {
 	    
     public void createOrUpdateListener(ActionEvent event) {
     	try {
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 	    	if (selected${tableClassName}.get$primaryKeyJavaNameClass() == null) {
 	    		${EJBDaoImplVariable}.create(selected${tableClassName});
 	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("i18n").getString("createTitle"));
@@ -153,6 +154,7 @@ public class ${className} {
 	    		${EJBDaoImplVariable}.update(selected${tableClassName});
 	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("i18n").getString("updateTitle"));
 	    	}
+#end
 	    	selected${tableClassName} = new ${tableClassName}();
 ##    	} catch (StaleDataException e) {
 ##    		current = getClassicModelsService().findEmployee(selected${tableClassName}.getEmployeeNumber());

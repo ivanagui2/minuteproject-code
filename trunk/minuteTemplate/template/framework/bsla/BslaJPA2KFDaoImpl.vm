@@ -180,11 +180,13 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
         Query jpaQuery = getEntityManager().createQuery(query.toString());
         isWhereSet = false;
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
         }   
-#end         
+#end
+#end
 		return jpaQuery.executeUpdate();           
 ##		return query.executeUpdate();        
     }
@@ -257,11 +259,13 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
           cpt++;
        }
-#end 		
+#end
+#end
        return cpt;
 	}   
 
@@ -493,6 +497,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
           isWhereSet = false;
        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryBLANK_AND (isWhereSet));
@@ -503,7 +508,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
            query.append(" "+alias+".${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end		  
        }
-#end     
+#end
+#end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
@@ -574,6 +580,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
           isWhereSet = false;
        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
           query.append (queryWhatInit.getWhatInit (isWhereSet));
@@ -581,7 +588,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
           beanPath.put(beanPath.size(), rootPath+"${columnVar}");
           query.append(" "+alias+".${columnVar} ");
        }
-#end     
+#end
+#end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #set($colVar = $commonUtils.getColumnNameVariable($table, $reference))
@@ -643,11 +651,13 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	   if ($tableVariableName==null)
 		  return false;
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
 	      return true;
        }
-#end    
+#end
+#end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #set($localColumnClass = $commonUtils.getColumnAliasClassName($table, $reference))
@@ -665,13 +675,15 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        boolean isWhereSet = false;
        StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
        if (${tableVariableName}.get$columnClass() != null) {
           query.append (getQuerySelectComma (isWhereSet));
           isWhereSet = true; 
           query.append(" ${columnVar} ");
        }
-#end    
+#end
+#end
        query.append(get${tableClassName}SearchEqualQuery (positive$tableClassName, negative$tableClassName));
 	   return query.toString(); 
     }

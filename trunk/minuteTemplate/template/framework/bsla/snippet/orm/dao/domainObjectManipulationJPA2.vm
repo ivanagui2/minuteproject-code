@@ -31,9 +31,11 @@
 	    if ($tableVariableName==null)
 			return true;
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass()!=null) 
             return false;
+#end
 #end
 		return true;
 	}

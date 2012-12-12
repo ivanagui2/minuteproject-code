@@ -358,10 +358,8 @@ $!updatedAreaSnippet
 	public ToStringBuilder getToStringBuilder(Object object) {
 	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
-#if(!$isPrimaryKey)
-            .append("$columnVar", $columnVar)
-#elseif(!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
             .append("$columnVar", $columnVar)
 #end	 	
 #end	 	
@@ -429,10 +427,8 @@ $!updatedAreaSnippet
 	public void copy (${className} ${variableName}) {
 		if (${variableName}!=null) {
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
-#if(!$isPrimaryKey)
-			set$columnClass (${variableName}.get$columnClass());
-#elseif(!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 			set$columnClass (${variableName}.get$columnClass());
 #end
 #end

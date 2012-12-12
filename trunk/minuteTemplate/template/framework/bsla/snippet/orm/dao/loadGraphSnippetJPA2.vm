@@ -84,9 +84,11 @@
 #end
 	private List<String> getPk(List<$tableClassName> input) {
 		List<String> s = new ArrayList<String>();
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 		for ($tableClassName t : input) {
 			s.add(t.get${primaryKeyJavaNameClass}()+"");
 		}
+#end
 		return s;
 	}
 
