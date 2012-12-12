@@ -319,4 +319,8 @@ public class ColumnUtils {
 		return false;
 	}
 	
+	public static boolean isColumnEmbeddedInEntity (Column column) {
+		boolean primaryKey = column.isPrimaryKey();
+		return (!primaryKey || (primaryKey && !TableUtils.isCompositePrimaryKeyNotMany2Many(column.getTable())));
+	}
 }
