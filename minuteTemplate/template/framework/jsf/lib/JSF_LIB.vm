@@ -1,14 +1,14 @@
 #macro (putJSFColumnSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
 #if($columnUtils.isTimeColumn($column))
-    <p:calendar value="#{${entityControllerJSFVariable}.${tableClassName}.${columnVar}}"
+    <p:calendar value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
        id="lbl${columnClass}" ##converter="dateTsConverter"
        converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
     </p:calendar>
 	<p:message for="lbl${columnClass}" />
 #else
-	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
+	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()" />
 	<p:message for="lbl${columnClass}"/>
 #end
 #end

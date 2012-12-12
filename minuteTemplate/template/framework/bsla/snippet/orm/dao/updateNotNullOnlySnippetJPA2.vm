@@ -19,13 +19,15 @@
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer(getUpdateNotNullOnly${tableClassName}QueryChunkPrototype($tableVariableName));
 #foreach ($column in $table.primaryKeyColumns)
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
 			     query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
         }
-#end   	
+#end
+#end
         return query.toString();
     }
     

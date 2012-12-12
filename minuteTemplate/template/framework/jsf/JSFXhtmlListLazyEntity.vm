@@ -22,7 +22,7 @@
 						
                 <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}" 
 					id="${domainVariableName}Table" 
-					var="${domainVariableName}" 
+					var="item" 
 					paginator="true" rows="10"  
 ##                            dynamic="true"  resizableColumns="true"
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
@@ -35,41 +35,41 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$isMany2Many && $isPkUserProvided)
-        <p:column sortBy="#{${domainVariableName}.${columnVar}}" filterBy="#{${domainVariableName}.${columnVar}}" >  
-            <f:facet name="header">  
-                <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
-            </f:facet>  
-            <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
-        </p:column> 
+                    <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}" >  
+                        <f:facet name="header">  
+                            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+                        </f:facet>  
+                        <h:outputText value="#{item.${columnVar}}" />  
+                    </p:column> 
 #end
 #end		
 #foreach ($column in $table.attributes)
 #putColumnParams()
 #columnJavaNaming()	
-        <p:column sortBy="#{${domainVariableName}.${columnVar}}" filterBy="#{${domainVariableName}.${columnVar}}">  
-            <f:facet name="header">  
-                <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
-            </f:facet>  
-            <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
-        </p:column>  
+                    <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
+                        <f:facet name="header">  
+                            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+                        </f:facet>  
+                        <h:outputText value="#{item.${columnVar}}" />  
+                    </p:column>  
 #end
                         <p:column>
                         	<p:commandLink id="selectButton" update=":form2:panel" title="Edit" process="@this">
                      			<h:outputText value="Edit" /> 
-                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+                     			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.${tableVariableName}}" />
 ##                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.current}" />
                  			</p:commandLink >
                  			|
                  			<p:commandLink  id="detailButton" update=":form2:display" title="View Details" oncomplete="detailDialog.show()" process="@this">
                  				<h:outputText value="View" />
-                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+                     			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
 ##                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
                  			</p:commandLink >
                  			|
                  			<p:commandLink  id="showDialogButton" update=":dialogForm:confirmDialog" title="Delete" oncomplete="confirmation.show()" process="@this">
                  				<h:outputText value="Delete" />  
 ##                 				<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-                 				<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+                 				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
                  			</p:commandLink >
         				
                     	</p:column>

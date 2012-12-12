@@ -1,38 +1,64 @@
-#header, #menu, #content, #footer {
-padding:1px 0;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+#heading {
+    padding: 20px;
+    height: 30px;
+    margin-bottom: 10px;
+    background: #dddddd;
+    border: 1px solid darkGray;
+}
+
+#footer {
+	clear: both;
+    padding: 5px;
+    height: 15px;
+    background: #dddddd;
+    border: 1px solid darkGray;
+}
+
+#sidebarLeft {
+    border: thin solid lightGray;
+    padding: 5px;    
+    float:left;
+    width: 17%;
+    background: #eeeeee;
+    margin-bottom: 10px;
+}
+
+#sidebarLeft a {
+    margin-bottom: 10px;
+    display: block;
 }
 
 #content {
-/* margin: 1em 25%;
-*/
-
-margin-left:245px;
-}
-#menu {
-float:left;
-width:240px;
-/*  position: absolute;
-  top: 1em;
-  left: 1%;
-  width: 18%;
-  */
+    padding: 5px;
+    border: thin solid lightGray;
+    background-color: LightBlue;
+    float: right;
+    width:80%;
+    margin-bottom:10px;
 }
 
-#header {
-background-color:#FF9900;
-text-align:center;
-}
-#main {
-max-with:960px;
-margin:auto;
+.header {
+    font-size: 1.4em;
+    font-style: italic;
+    font-family: Palatino;
+    text-align: center;
 }
 
-#contenu {
-margin-left:245px;
-background-color:#9966FF;
+a {
+    color: DarkGray;
+    font-size: small;
 }
-#footer {
-background-color:#669933;
-text-align:center;
-clear:both;
+a:hover {
+	color: LightBlue;
+}
+
+
+.ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: small;
 }

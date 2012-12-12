@@ -82,11 +82,13 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
         Query jpaQuery = getEntityManager().createQuery(getUpdateNotNullOnly${tableClassName}QueryChunk(${tableVariableName}));
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
         }   
-#end         
+#end
+#end
 		return jpaQuery.executeUpdate();
     }
 
@@ -100,6 +102,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
         StringBuffer query = new StringBuffer();
         query.append (" update $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryCommaSet (isWhereSet));
@@ -112,8 +115,10 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #end		
         }
 #end
+#end
 		isWhereSet = false; 
 #foreach ($column in $table.columns)
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (prototypeCriteria.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
@@ -124,7 +129,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            query.append(" ${tableVariableName}.${columnVar} = "+ prototypeCriteria.get$columnClass() + " ");
 #end
         }
-#end   		
+#end
+#end
         Query jpaQuery = getEntityManager().createQuery(query.toString());
 		return jpaQuery.executeUpdate();
     }
@@ -240,6 +246,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #end    
 #end    
 #foreach ($column in $table.primaryKeyColumns)
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
@@ -250,8 +257,9 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
          }
-	#end                   
-        	List list = getJpaTemplate().find(query.toString());
+#end
+#end
+        List list = getJpaTemplate().find(query.toString());
         if (list!=null && !list.isEmpty())
            return ($tableClassName)list.get(0);    
         return null;
@@ -417,13 +425,15 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
         boolean isCommaSet = false;
         StringBuffer query = new StringBuffer("SELECT DISTINCT ");
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}Mask.get$columnClass() != null) {
            query.append (getQueryComma (isCommaSet));
            isCommaSet = true;
            query.append(" ${columnVar} ");
         }
-#end      
+#end
+#end
         if (!isCommaSet)
            return "";
 	    return query.toString();
@@ -440,6 +450,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll) {
         StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
 		   if (isAll)
@@ -453,7 +464,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
         }
-#end      
+#end
+#end
 	    return query.toString();
     }   
      
@@ -463,6 +475,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 		String evaluatorPrefix = getEvaluatorPrefix (operandType);		
 		String evaluatorSuffix = getEvaluatorSuffix (operandType);		
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
 #if($isForeignKey)
 #set($columnClass="${columnClass}_")
@@ -489,7 +502,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
         }
-#end    
+#end
+#end
         String orderColumn = getFirstNotNullColumnOtherWiseNull(orderMask);
 		if (orderMask!=null && orderColumn!=null)
            query.append(" order by " + orderColumn + " " + sortOrder);
@@ -499,11 +513,13 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	protected String getFirstNotNullColumnOtherWiseNull ($tableClassName mask) {
         if (mask == null) return null;
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
 #if($isForeignKey)
 #set($columnClass="${columnClass}_")
 #end
         if (mask.get$columnClass() != null) return "$columnVar";
+#end
 #end
         return null;	
 	}
@@ -516,6 +532,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
         StringBuffer query = new StringBuffer();
         query.append (" SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
+#if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
         if (${tableVariableName}Positive!=null && ${tableVariableName}Positive.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
@@ -530,7 +547,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            isWhereSet = true;   
            query.append(" ${tableVariableName}.${columnVar} is null ");
         }
-#end      
+#end
+#end
 	    return query.toString();
     }
     
