@@ -55,9 +55,9 @@
 ##TODO	
 #else
 #if ($columnUtils.isTimeColumn($column))
-                        <af:inputDate 
+                        <af:inputDate
 #else
-                        <af:inputText 	
+                        <af:inputText
 #end
                             label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
                             id="${id}" 

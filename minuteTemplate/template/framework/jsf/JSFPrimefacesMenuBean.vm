@@ -80,7 +80,7 @@ public class ${className} {
 #else
 #set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateChartJSF))
 #end
-        item${domainClassName}.setUrl("${sddJSFLocation}");
+        item${domainClassName}.setUrl("/${sddJSFLocation}");
         sdd.getChildren().add(item${domainClassName}); 
         
 #end
