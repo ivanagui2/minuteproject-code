@@ -87,19 +87,19 @@ public class ColumnUtils {
 
 	public static boolean isNumeric(Column column) {
 		if (column!=null && 
-				(
-						column.getType().equals("INT") || 
-						column.getType().equals("BIGINT") || 
-						column.getType().equals("INTEGER") ||
-						column.getType().equals("NUMBER") ||
-						column.getType().equals("DECIMAL") ||
-						column.getType().equals("SHORT") ||
-						column.getType().equals("SMALLINT") ||
-						column.getType().equals("REAL") ||
-//						column.getType().equals("VARBINARY") ||
-						column.getType().equals("DOUBLE")
-						)
+			(
+				column.getType().equals("INT") || 
+				column.getType().equals("BIGINT") || 
+				column.getType().equals("INTEGER") ||
+				column.getType().equals("NUMBER") ||
+				column.getType().equals("DECIMAL") ||
+				column.getType().equals("SHORT") ||
+				column.getType().equals("SMALLINT") ||
+				column.getType().equals("REAL") ||
+	//						column.getType().equals("VARBINARY") ||
+				column.getType().equals("DOUBLE")
 				)
+			)
 			return true;
 		return false;
 	}
@@ -136,16 +136,20 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isLengthPrecisionColumn(Column column) {
+		return isString(column);
+	}
+	
+	public static boolean isString(Column column) {
 		if (column==null || column.getType()==null) return false;
 		if (
-			column.getType().equals("CHAR") || 
-			column.getType().equals("CHAR2") ||
-			column.getType().equals("VARCHAR") ||
-			column.getType().equals("VARCHAR2") ||
-			column.getType().equals("VARGRAPHIC") ||
-			column.getType().equals("VARGRAPHIC2") ||
-			column.getType().equals("CLOB")
-			)
+				column.getType().equals("CHAR") || 
+				column.getType().equals("CHAR2") ||
+				column.getType().equals("VARCHAR") ||
+				column.getType().equals("VARCHAR2") ||
+				column.getType().equals("VARGRAPHIC") ||
+				column.getType().equals("VARGRAPHIC2") ||
+				column.getType().equals("CLOB")
+		)
 			return true;
 		return false;
 	}
