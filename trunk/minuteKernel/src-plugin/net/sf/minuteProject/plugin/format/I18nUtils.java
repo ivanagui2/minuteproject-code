@@ -9,7 +9,6 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
-import net.sf.minuteProject.utils.TemplateUtils;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -160,4 +159,5 @@ public class I18nUtils {
 	public static String getPackageName(Package pack) {
 		return FormatUtils.getJavaName(pack.getAlias());
 	}
+	
 }
