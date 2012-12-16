@@ -113,20 +113,18 @@ public class ${className} {
 
 			     @Override
 			     public List<$tableClassName> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {  
-##			log.info("first=" + first + ", pagesize=" + pageSize + ", sortfield=" + sortField + " sortorder=" + sortOrder + " filter:" + filters);	
-                	
+     			 System.out.println("first=" + first + ", pagesize=" + pageSize + ", sortfield=" + sortField + " sortorder=" + sortOrder + " filter:" + filters);	
+               	
                 	QuerySortOrder order = QuerySortOrder.ASC;
                 	if (sortOrder == SortOrder.DESCENDING) {
             			order = QuerySortOrder.DESC;     
             		}
 					$tableClassName esMask = new $tableClassName();
-//TODO
-//					esMask.mask(sortField);
+					esMask.mask(sortField);
                 	EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
 
             		$tableClassName ecMask = new $tableClassName();
-//TODO
-//            		ecMask.mask(filters);
+            		ecMask.mask(filters);
             		EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.EQUALS, false);
 							
             		QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
