@@ -11,7 +11,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 public class SemanticReference extends AbstractConfiguration {
 
 	private List<SqlPath> sqlPaths;
-//	private List<Column> columns;
+	private SemanticReference summary;
 
 	public List<SqlPath> getSqlPaths() {
 		if (sqlPaths==null)
@@ -42,9 +42,15 @@ public class SemanticReference extends AbstractConfiguration {
 		}
 		return list;
 	}
-	
-	private String getBeanPath(String sqlPath) {
-		return FormatUtils.getJavaNameVariable(sqlPath);
+
+	public SemanticReference getSummary() {
+		if (summary==null)
+			summary = new SemanticReference();
+		return summary;
+	}
+
+	public void setSummary(SemanticReference summary) {
+		this.summary = summary;
 	}
 	
 }

@@ -101,4 +101,33 @@ public class PresentationUtils {
 			return true;
 		return false;
 	}
+	
+	public static List<List<List<Column>>> getDisplayableColumnsForSearchView(Table table) {
+		List<Column> row = new ArrayList<Column>();
+		List<List<Column>> block = new ArrayList<List<Column>>();
+		List<List<List<Column>>> displayable = new ArrayList<List<List<Column>>>();
+		
+		// 1 if has semantic reference
+		
+		// 2 else if has fieldgroup
+		
+		// 3
+		for (Column column : getPotentialDisplayableColumns(table)) {
+			//sort and group based on fieldgroup
+			row.add(column);
+			block.add(row);
+		}
+		displayable.add(block);
+		return displayable;
+	}
+
+	public static List<Column> getPotentialDisplayableColumns(Table table) {
+		if (TableUtils.hasSemanticReference(table)) {
+			return TableUtils.getSemanticReferenceColumns(table);
+		}
+		return getNotTechnicalColumns(table);
+	}
+	public static List<Column> getNotTechnicalColumns(Table table) {
+		return TableUtils.getNotTechnicalColumns(table);
+	}
 }
