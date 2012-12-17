@@ -62,20 +62,12 @@
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
-#else 
-#if (!$hasSemanticReference)
-#foreach ($column in $table.columns)  
+#else
+##foreach ($column in $table.columns)  
+#foreach ($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParamNaming()
 #adfEntityColumnDisplay("${columnVar}it")
 #end 
-#else
-#set ($semanticReference = $table.getSemanticReference())
-#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)    
-#set($column = $semanticReferenceUtils.convertPathToColumn($table, $chunk))
-#putColumnParamNaming()
-#adfEntityColumnDisplay("${columnVar}it")
-#end  
-#end
 #end
 
                       </af:panelFormLayout>
@@ -128,15 +120,24 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else 
-    
-#foreach ($column in $table.columns)  
+##foreach ($column in $table.columns)  
+#foreach ($column in $presentationUtils.getPotentialDisplayableColumns($table))  
 #putColumnParamNaming()
 #if($isPrimaryKey)
                             <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
+#if($columnUtils.isNaturalPk($column))
                                        headerText="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+#else
+                                       headerText="Reference"	
+#end
                                        id="${columnVar}_id" width="$adfUtils.getDisplayColumnWithHeader($column)">
-                              <af:commandLink text="#{row.${columnVar}}" id="${columnVar}1"
+                              <af:commandLink id="${columnVar}1"
+#if($columnUtils.isNaturalPk($column))
+                                              text="#{row.${columnVar}}" 
+#else
+                                              text="view" 
+#end
                                               action="details" immediate="true"
                                               partialSubmit="true"
                                               useWindow="true"
@@ -162,6 +163,7 @@ $!updatedAreaSnippet
 #end
 #end
 #end
+$updatedAreaEnd
                           </af:table>
                       </f:facet>
                         <f:attribute name="paginationUtils"
@@ -179,21 +181,21 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else 
-#foreach ($column in $table.columns)  
+##foreach ($column in $table.columns) 
+#foreach ($column in $presentationUtils.getNotTechnicalColumns($table))  
 #putColumnParams()
 #adfEntityEditColumnDisplay("${columnVar}itdet")
 #end
 #end
+$updatedAreaEnd
 					</af:panelFormLayout>                    
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['save']}"
                               id="itdetsave"
                               actionListener="#{viewScope.${entityADFVariable}BackingBean.create${domainClassName}}"/>
 					</af:panelGroupLayout>
-                                 
                 </af:showDetailItem>
             </af:panelTabbed>
-
           </f:facet>
         </af:pageTemplate>
       </af:form>
