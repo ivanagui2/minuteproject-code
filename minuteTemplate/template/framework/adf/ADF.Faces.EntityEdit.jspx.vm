@@ -23,7 +23,12 @@ $!updatedAreaSnippet
 #else 
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
-#adfEntityEditColumnDisplay4PageFlow("dldet${columnVar}")
+#if($columnUtils.hasTrigger($column))
+#set($isDisabled="true")
+#else
+#set($isDisabled="false")
+#end
+#adfEntityEditColumnDisplay4PageFlow("dldet${columnVar}", $isDisabled)
 ##          <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" id="dldet${columnVar}"
 ##                        value="#{pageFlowScope.${viewEditEntityBeanVariable}.${entityADFVariable}.${columnVar}}"/>
 #if($hasMessage)
