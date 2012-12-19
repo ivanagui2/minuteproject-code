@@ -445,6 +445,22 @@ public class TableUtils {
 		return (getTriggers(table, crud).isEmpty())?false:true;
 	}
 	
+	public static boolean hasPrepersist(Table table) {
+		return hasInsertTrigger(table) || hasDefaultColumns(table);
+	}
+	
+	public static boolean hasPreUpdate(Table table) {
+		return hasUpdateTrigger(table) || hasDefaultColumns(table);
+	}
+	
+	private static boolean hasDefaultColumns(Table table) {
+		for (Column column : table.getColumns()) {
+			if (column.getDefaultValue()!=null)
+				return true;
+		}
+		return false;
+	}
+
 	public static boolean hasInsertTrigger(Table table) {
 		return hasTrigger(table, CRUDEnum.INSERT);
 	}
