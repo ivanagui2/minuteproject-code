@@ -50,11 +50,11 @@ public class StringUtils {
 	public static boolean checkExpression(String valueToTest, String expression, String pattern) {
 		if (expression==null || valueToTest==null || pattern==null)
 			return false;
-		if (Condition.STARTS_WITH.equals(expression))
+		if (Condition.STARTS_WITH.equals(expression)  || Condition.STARTS__WITH.equals(expression))
 			return startsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.EQUALS.equals(expression))
 			return equalsIgnoreCase(valueToTest, pattern);
-		if (Condition.ENDS_WITH.equals(expression))
+		if (Condition.ENDS_WITH.equals(expression) || Condition.ENDS__WITH.equals(expression))
 			return endsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.CONTAINS.equals(expression))
 			return containsIgnoreCase(valueToTest, pattern);

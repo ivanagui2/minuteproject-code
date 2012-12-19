@@ -5,6 +5,7 @@ import org.codehaus.groovy.runtime.ConvertedClosure;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -159,6 +160,17 @@ public class AdfUtils {
 		int i = sizeAsInt%MAX_COLUMNS_DISPLAY_SIZE;
 		int j = sizeAsInt/MAX_COLUMNS_DISPLAY_SIZE;
 		return (i % MAX_COLUMNS_DISPLAY_SIZE == 0)? j : j+1;
+	}
+	
+	public int getDisplayWindowDetailsWidth(Table table) {
+		return 400;
+	}
+		
+	public int getDisplayWindowDetailsHeight(Table table) {
+		//400
+		int columnCpt = table.getColumnCount();
+		int buttonLineIn = 2;
+		return (columnCpt+buttonLineIn)*30;
 	}
 	
 }
