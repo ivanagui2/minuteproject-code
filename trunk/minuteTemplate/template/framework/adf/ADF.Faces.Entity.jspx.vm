@@ -1,6 +1,12 @@
 #exposeADFFacesEntitySpecific()
 #set($separator=$i18nUtils.getSeparator($template))
 #set($entityCriteriaActivated=$template.getPropertyValue("activate-entity-criteria",false))
+#set($windowHeight="$adfUtils.getDisplayWindowDetailsHeight($table)")##"400")
+#set($windowWidth="$adfUtils.getDisplayWindowDetailsWidth($table)")##"600")
+#set($createfieldWidth="80%")
+#set($createlabelWidth="20%")
+#set($searchWidth="718px")
+#set($resultListWidth="700px")
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -14,8 +20,7 @@
         <af:pageTemplate viewId="/WEB-INF/common/template.jspx" id="pt1">
           <f:facet name="PageTitle">
 ##            <af:outputText value="#{viewcontrollerBundle['${entityADFImport}.title']}"
-            <af:outputText value="#{viewcontrollerBundle['${tableVariableName}']}"
-                           id="ot1"/>
+            <af:outputText value="#{viewcontrollerBundle['${tableVariableName}']}" id="ot1"/>
           </f:facet>
           <f:facet name="PageSubtitle"/>
           <f:facet name="PageContent">
@@ -23,12 +28,11 @@
 ##              <af:showDetailItem text="#{viewcontrollerBundle['${entityADFImport}.consult.tabtitle']}"
               <af:showDetailItem text="#{viewcontrollerBundle['consult.title']}"
                                  id="${entityADFVariable}_sdi1">
-                 <af:panelGroupLayout id="${entityADFVariable}_pgl3" layout="horizontal" halign="left" inlineStyle="width:518px;">                
+                 <af:panelGroupLayout id="${entityADFVariable}_pgl3" layout="horizontal" halign="left" inlineStyle="width:${searchWidth};">                
                     <af:panelBox text="#{viewcontrollerBundle['consult.select.header']} #{viewcontrollerBundle['${tableVariableName}']}"
                                  id="${entityADFVariable}_pb1" styleClass="section"
                                  disclosed="#{viewScope.${entityADFVariable}BackingBean.displaySearch}">
-                      <af:panelFormLayout id="${entityADFVariable}_pfl1" labelWidth="100px"
-                                          fieldWidth="400px">
+                      <af:panelFormLayout id="${entityADFVariable}_pfl1" labelWidth="100px" fieldWidth="400px">
 #if($entityCriteriaActivated)
                       <af:selectBooleanRadio group="searchRadioSearchMatch"
                                              label="Any" id="searchRadioAny"
@@ -111,7 +115,7 @@ $!updatedAreaSnippet
                                     filterVisible="true"
                                     columnResizing="disabled" autoHeightRows="0"
                                     varStatus="vs" rowSelection="none"
-                                    width="500px" contentDelivery="immediate"
+                                    width="${resultListWidth}" contentDelivery="immediate"
                                     immediate="true"
                                     binding="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.tableUIComp}">
 ##pk
@@ -143,8 +147,8 @@ $!updatedAreaSnippet
                                               useWindow="true"
                                               windowEmbedStyle="inlineDocument"
                                               windowModalityType="applicationModal"
-                                              windowHeight="200"
-                                              windowWidth="400"
+                                              windowHeight="$windowHeight"
+                                              windowWidth="$windowWidth"
                                               launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFClass}Dlg}">
 ##works for one pk only
 								<f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
@@ -175,7 +179,7 @@ $updatedAreaEnd
 <!-- create -->              
               <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}" immediate="true"
                                  id="${entityADFVariable}_sdi2" >
-                    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" styleClass="dialogFormLayout">
+                    <af:panelFormLayout id="pfl1" fieldWidth="$createfieldWidth" labelWidth="$createlabelWidth" styleClass="dialogFormLayout">
 #exposeModelUpdatedAreas("create-node")
 $!updatedAreaBegin
 #if($isUpdated)

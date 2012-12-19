@@ -133,6 +133,7 @@ properties=""
 #end
 $!updatedAreaClassAnnotation
 public class ${className} {
+#putColumnDefaultValue()
 
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId

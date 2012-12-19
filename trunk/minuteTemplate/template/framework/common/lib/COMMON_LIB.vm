@@ -210,3 +210,30 @@ $!commonUtils.getReadMeText($template)
 #macro(exposeWebXmlSpecific)
 #set($webXmlVersion=$template.getPropertyValue("web-xml-version","3.0"))
 #end
+
+#macro(putColumnDefaultValue)
+#foreach($column in ${table.columns})
+#putColumnParamNaming()
+#if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)))
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+    public static final $columnType $defaultConstant = $defaultValue;
+#end
+#end
+#end
+
+#macro(putColumnDefaultValueGetter)
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+    public $columnType get$columnClass() {
+        return ($columnVar!=null)?$columnVar:$defaultConstant;
+    }
+#end
+
+#macro(putColumnDefaultValueAffectation)
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)) && !$isEnum)
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+        if ($columnVar==null) $columnVar=$defaultConstant;
+#end
+#end
+#end
