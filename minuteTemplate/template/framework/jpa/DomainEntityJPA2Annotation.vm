@@ -73,7 +73,8 @@ public class ${className} extends AbstractDomainObject {
 public class ${className} implements Serializable {
 #end
     private static final long serialVersionUID = 1L;
-	
+#putColumnDefaultValue()
+
     public static final String FIND_ALL = "${className}.findAll";
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
@@ -560,10 +561,14 @@ $updatedAreaSnippet
 #if($useTemporal && $isTimeColumn)
 #set($columnType="java.util.Date")
 #end
+##if($hasDefaultValue)
+##putColumnDefaultValueGetter()
+##else
     public $columnType get$columnClass() {
         return $columnVar;
     }
 	
+##end
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }

@@ -104,7 +104,7 @@ import $importDomainObjectUML;
 #end
 
 #macro(putJPA2TriggerSnippet)
-#if ($tableUtils.hasInsertTrigger($table))
+#if ($tableUtils.hasPrepersist($table))
 #exposeEntityUpdatedAreas("prepersist")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -112,6 +112,7 @@ $!updatedAreaSnippet
 #else
     @javax.persistence.PrePersist
     public void prePersist_ () {
+#putColumnDefaultValueAffectation()
 #foreach ($trigger in $tableUtils.getInsertTriggers($table)) 
 #exposeVariableTriggerSpecific()
         $triggerVar = $triggerJavaExpressionChunk;
@@ -121,7 +122,7 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 
-#if ($tableUtils.hasUpdateTrigger($table))
+#if ($tableUtils.hasPreUpdate($table))
 #exposeEntityUpdatedAreas("preupdate")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -129,6 +130,7 @@ $!updatedAreaSnippet
 #else
     @javax.persistence.PreUpdate
     public void preUpdate_ () {
+#putColumnDefaultValueAffectation()
 #foreach ($trigger in $tableUtils.getUpdateTriggers($table)) 
 #exposeVariableTriggerSpecific()
         $triggerVar = $triggerJavaExpressionChunk;
