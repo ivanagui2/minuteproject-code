@@ -1,0 +1,110 @@
+#exposeADFQuerySpecific()
+package $packageName;
+
+import eu.adf.utils.ADFUtils;
+
+import eu.adf.utils.JSFUtils;
+
+import java.util.HashMap;
+import java.util.List;
+
+import java.util.Map;
+import java.util.logging.Logger;
+
+import javax.faces.component.UIComponent;
+
+import javax.faces.context.FacesContext;
+
+import oracle.adf.controller.internal.binding.DCTaskFlowBinding;
+import oracle.adf.controller.internal.binding.DCTaskFlowBindingDef;
+import oracle.adf.controller.internal.binding.TaskFlowRegionModel;
+import oracle.adf.view.rich.component.rich.fragment.RichRegion;
+import oracle.adf.view.rich.component.rich.layout.RichPanelTabbed;
+import oracle.adf.view.rich.component.rich.layout.RichShowDetailItem;
+import oracle.adf.view.rich.context.AdfFacesContext;
+
+import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
+
+public class $className {
+
+   private static Logger log =
+     Logger.getLogger(${className}.class.getName());
+
+   private UIComponent mainForm;
+##foreach (display split)
+   private RichRegion queryflowdefinition1;
+   private RichPanelTabbed tabs;
+
+   private static final String tab1_ID = "sdi1";
+
+   public String search() {
+     refreshSelectedTab();
+
+    return "";
+  }
+
+  public String search() {
+
+    try {
+      Map<String,Object> params = new HashMap<String,Object>();
+      ADFUtils.invokeOperation("reviewOffTopic");     
+      ADFUtils.refreshMainPage();
+    }catch(Exception e){
+      log.severe(e.getMessage());   
+    }
+
+    return "";
+  }
+
+  public void setMainForm(UIComponent mainForm) {
+    this.mainForm = mainForm;
+  }
+
+  public UIComponent getMainForm() {
+    return mainForm;
+  }
+
+  public RichRegion getQueryflowdefinition1() {
+    return queryflowdefinition1;
+  }
+
+
+  public void setQueryflowdefinition1(RichRegion queryflowdefinition1) {
+    this.queryflowdefinition1 = queryflowdefinition1;
+  }
+
+  public void setQueryflowdefinition2(RichRegion queryflowdefinition2) {
+    this.queryflowdefinition2 = queryflowdefinition2;
+  }  
+
+  public void setTabs(RichPanelTabbed tabs) {
+    this.tabs = tabs;
+  }
+
+  public RichPanelTabbed getTabs() {
+    return tabs;
+  }
+
+  public void refreshSelectedTab() {
+    try {
+      List<UIComponent> coms = tabs.getChildren();
+      String disclosedID = "";
+      for (UIComponent com : coms) {
+        if (RichShowDetailItem.class.isAssignableFrom(com.getClass())) {
+          RichShowDetailItem item = RichShowDetailItem.class.cast(com);
+          if (item.isDisclosed()) {
+            disclosedID = item.getId();
+          }
+        }
+      }     
+      if (disclosedID.contains(tab1_ID)) {
+        JSFUtils.refreshRichRegionModel(queryflowdefinition1);
+        JSFUtils.refreshRichRegionModel(queryflowdefinition2);
+      } 
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+}
