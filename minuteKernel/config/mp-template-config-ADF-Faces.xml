@@ -144,6 +144,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" 
 			scope-specific-value="query"
 			>			
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
 				
     </template-target>  
