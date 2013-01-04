@@ -66,6 +66,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
+        <!-- sdd -->
+		<template name="ADF.Faces.SDD.Result.Bean" templateFileName="ADF.Faces.SDD.Result.Bean.vm" 
+			subdir="" outputsubdir="src" technicalPackage="query"
+			file-extension="java" file-prefix="" file-suffix="ResponseBean" 
+			scope-specific-value="query" has-updatable-nature="true" >
+		</template>
+        
 	</template-target>
 	
   	<template-target 
@@ -129,7 +136,16 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">			
 			<property name="DomainEntityUMLTemplate" value="ADF.Faces.Entity.Bean" ></property>
 		</template>	
+<!-- SDD -->
 		
+		<template name="ADF.Faces.SDD.BackingBean" templateFileName="ADF.Faces.SDD.BackingBean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="BackingBean"
+			has-updatable-nature="true" 
+			scope-specific-value="query"
+			>			
+		</template>	
+				
     </template-target>  
     
 	<template-target 
@@ -179,6 +195,29 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>			
 		</template>	
+		
+		<!-- sdd -->
+		<template name="ADF.Faces.SDD.QueryInput.jspx" templateFileName="ADF.Faces.SDD.QueryInput.jspx.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
+			file-extension="jspx" file-prefix="query" file-suffix="" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>
+		
+		<template name="ADF.Faces.SDD.QueryInput.jsff" templateFileName="ADF.Faces.SDD.QueryInput.jsff.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
+			file-extension="jsff" file-prefix="query" file-suffix="" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>
+			
+		<template name="ADF.Faces.SDD.QueryInputTaskFlow.xml" templateFileName="ADF.Faces.SDD.QueryInputTaskFlow.xml.vm" 
+			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="sdd"
+			file-extension="xml" file-prefix="main-" file-suffix="-flow" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>	
+		
     </template-target>
     
 
@@ -207,6 +246,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="xml" file-prefix="edit" file-suffix="PageDef" 
 			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<!-- sdd -->
+		<template name="ADF.Faces.SDD.QueryInputPageDef.xml" templateFileName="ADF.Faces.SDD.QueryInputPageDef.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages"  add-model-dir-name="false"
+			file-extension="xml" file-prefix="query" file-suffix="PageDef" 
+			has-updatable-nature="true" scope-specific-value="query"
 			>			
 		</template>	
 	</template-target>

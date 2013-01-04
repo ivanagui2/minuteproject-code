@@ -38,6 +38,7 @@ import net.sf.minuteProject.configuration.bean.view.View;
 
 public class CommonUtils {
 	
+	private static final String TEMPLATE_IS_NULL_ERROR = "TEMPLATE_IS_NULL_ERROR";
 	private static Logger logger = Logger.getLogger(CommonUtils.class);
 	
 	// TODO refactor (4 times)
@@ -263,6 +264,8 @@ public class CommonUtils {
 	}
 	
 	public static Template getTargetTemplate (Template template, String targetTemplateName) {
+		if (template==null)
+			return null;
 		return template.getTemplateTarget().getTarget().getTemplate(targetTemplateName);
 		//return template.getTemplateTarget().getTemplate(targetTemplateName);
 	}
@@ -288,6 +291,8 @@ public class CommonUtils {
 	}
 	
 	public static String getPackageName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		if (template==null)
+			return TEMPLATE_IS_NULL_ERROR;
 		return getPackageName(bean, getTargetTemplate(template, targetTemplateName));
 	}
 	
@@ -759,6 +764,8 @@ public class CommonUtils {
 	
 	public String getRootRelative(Model model, String targetTemplateName, String filePath) {
 		Template template = getTargetTemplate(model, targetTemplateName);
+		if (template==null)
+			return TEMPLATE_IS_NULL_ERROR;
 		String root = template.getOutputdir();
 		try {
 			return FileUtils.getRelativePath(new File(root), new File(filePath));
