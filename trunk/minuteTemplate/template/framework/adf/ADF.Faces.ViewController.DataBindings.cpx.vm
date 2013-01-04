@@ -24,6 +24,14 @@
           usageId="viewQuery_${domainVariableName}PageDef"/>	  
 #end
 #end
+#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#exposeADFQuerySpecific()
+#exposeADFQuerySpecific()
+#set($table=$query.inputBean)
+#set($domainClassName=$commonUtils.getJavaClassName($table))
+	<page path="/$queryInputADFFaceRelativePath"
+          usageId="viewQuery_${domainClassName}PageDef"/>
+#end
   </pageMap>
   <pageDefinitionUsages>
 ##    <page id="view_navigatorsPageDef" path="pages.common.navigatorsPageDef"/>
@@ -31,7 +39,7 @@
 #exposeADFFacesEntitySpecific()
     <page id="view_${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityImport"/>
-	<page id="view_${domainVariableName}DetailPageDef"
+    <page id="view_${domainVariableName}DetailPageDef"
           path="$pageDefADFFacesEntityDetailImport"/>
     <page id="view_edit${domainVariableName}PageDef"
           path="$pageDefADFFacesEntityEditImport"/>
@@ -41,6 +49,13 @@
 ##    <page id="view_edit${domainVariableName}PageDef"
 ##          path="$pageDefADFFacesEntityImport"/>
 #end
+#end
+#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#exposeADFQuerySpecific()
+#set($table=$query.inputBean)
+#set($domainClassName=$commonUtils.getJavaClassName($table))
+    <page id="viewQuery_${domainClassName}PageDef"
+          path="$queryInputPageDefADFFaceImport"/>
 #end
   </pageDefinitionUsages>
 

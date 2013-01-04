@@ -25,6 +25,20 @@
 #set($editADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateViewEditBeanFlowADFFaces))
 #end
 
+#macro (exposeADFQuerySpecific)
+#exposeQuerySpecific()
+#exposeADFSDDTemplate()
+#set($queryInputADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInput))
+#set($queryInputJsffADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputJsff))
+#set($queryInputPageDefADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputPageDef))
+#set($queryInputPageDefADFFaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDQueryInputPageDef))
+#set($queryBackingBeanADFFaceClass = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDBackingBean))
+#set($queryBackingBeanADFFaceVariable=$commonUtils.getJavaNameVariableFirstLetter($queryBackingBeanADFFaceClass))
+#set($queryBackingBeanADFFaceImport=$commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDBackingBean))
+#set($queryInputTaskFlowADFFaceClassName = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDQueryInputTaskFlow))
+#set($queryInputTaskFlowADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputTaskFlow))
+#end
+
 #macro (exposeADFFacesDataControlEntitySpecific)
 #exposeADFEntitySpecific()
 #set($beanVOADFFacesQueryResponseImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOQueryResponseADFFaces))
@@ -317,4 +331,12 @@ import $importDomainObjectUML;
 #set ($templateBeanVOQueryResponseADFFaces = "ADF.Faces.Entity.QueryResponse.Bean")
 #set ($templateBeanVOQueryRequestADFFaces = "ADF.Faces.Entity.QueryRequest.Bean")
 #set ($templateADFFacesSpringAppContextLoader = "ADF.Spring.ApplicationContext.Loader")
+#end
+
+#macro (exposeADFSDDTemplate)
+#set ($templateADFFacesSDDQueryInput = "ADF.Faces.SDD.QueryInput.jspx")
+#set ($templateADFFacesSDDQueryInputJsff = "ADF.Faces.SDD.QueryInput.jsff")
+#set ($templateADFFacesSDDQueryInputPageDef = "ADF.Faces.SDD.QueryInputPageDef.xml")
+#set ($templateADFFacesSDDQueryInputTaskFlow = "ADF.Faces.SDD.QueryInputTaskFlow.xml")
+#set ($templateADFFacesSDDBackingBean = "ADF.Faces.SDD.BackingBean")
 #end
