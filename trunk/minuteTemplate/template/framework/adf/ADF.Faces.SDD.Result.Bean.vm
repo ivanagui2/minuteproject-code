@@ -1,9 +1,9 @@
 #exposeADFQuerySpecific()
 package $packageName;
 
-import eu.adf.utils.ADFUtils;
+import eu.adf.fwk.utils.ADFUtils;
 
-import eu.adf.utils.JSFUtils;
+import eu.adf.fwk.utils.JSFUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +15,6 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.context.FacesContext;
 
-import oracle.adf.controller.internal.binding.DCTaskFlowBinding;
-import oracle.adf.controller.internal.binding.DCTaskFlowBindingDef;
-import oracle.adf.controller.internal.binding.TaskFlowRegionModel;
 import oracle.adf.view.rich.component.rich.fragment.RichRegion;
 import oracle.adf.view.rich.component.rich.layout.RichPanelTabbed;
 import oracle.adf.view.rich.component.rich.layout.RichShowDetailItem;
@@ -28,7 +25,7 @@ import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 public class $className {
 
    private static Logger log =
-     Logger.getLogger(${className}.class.getName());
+      Logger.getLogger(${className}.class.getName());
 
    private UIComponent mainForm;
 ##foreach (display split)
@@ -37,12 +34,12 @@ public class $className {
 
    private static final String tab1_ID = "sdi1";
 
-   public String search() {
-     refreshSelectedTab();
-
-    return "";
-  }
-
+##   public String search() {
+##     refreshSelectedTab();
+##
+##    return "";
+##  }
+##
   public String search() {
 
     try {
@@ -73,10 +70,6 @@ public class $className {
     this.queryflowdefinition1 = queryflowdefinition1;
   }
 
-  public void setQueryflowdefinition2(RichRegion queryflowdefinition2) {
-    this.queryflowdefinition2 = queryflowdefinition2;
-  }  
-
   public void setTabs(RichPanelTabbed tabs) {
     this.tabs = tabs;
   }
@@ -99,7 +92,6 @@ public class $className {
       }     
       if (disclosedID.contains(tab1_ID)) {
         JSFUtils.refreshRichRegionModel(queryflowdefinition1);
-        JSFUtils.refreshRichRegionModel(queryflowdefinition2);
       } 
 
     } catch (Exception e) {

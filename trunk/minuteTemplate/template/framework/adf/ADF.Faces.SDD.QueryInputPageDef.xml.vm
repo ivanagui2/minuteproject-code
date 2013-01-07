@@ -9,7 +9,7 @@
   <executables>
     <variableIterator id="variables"/>
     <taskFlow id="${queryClassName}Flow"
-              taskFlowId="/taskflows/${queryInputTaskFlowADFFaceRelativePath}#$queryInputTaskFlowADFFaceClassName"
+              taskFlowId="/WEB-INF/taskflows/${queryInputTaskFlowADFFaceRelativePath}#$queryInputTaskFlowADFFaceClassName"
               activation="immediate"              
               xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>

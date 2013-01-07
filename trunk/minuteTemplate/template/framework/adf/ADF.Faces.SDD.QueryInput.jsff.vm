@@ -1,4 +1,8 @@
 #exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+#exposeADFFacesCommon()
+#set($entityADFVariable=$sddInputBeanVariable)
+#set($tableVariableName=$sddInputBeanVariable)
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
@@ -13,7 +17,7 @@
 #foreach($column in $inputBean.columns)
 #putColumnParams()
 #columnJavaNaming()
-#adfEntityDetailColumnDisplay("input$velocityCount")
+#adfSddInputColumnDisplay("input$velocityCount")
 #end
         </af:panelGroupLayout>
         <f:facet name="footer">
