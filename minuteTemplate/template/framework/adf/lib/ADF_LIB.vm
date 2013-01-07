@@ -35,6 +35,9 @@
 #set($queryBackingBeanADFFaceClass = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDBackingBean))
 #set($queryBackingBeanADFFaceVariable=$commonUtils.getJavaNameVariableFirstLetter($queryBackingBeanADFFaceClass))
 #set($queryBackingBeanADFFaceImport=$commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDBackingBean))
+#set($queryResponseBeanADFFaceClass = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDResponseBean))
+#set($queryResponseBeanADFFaceVariable=$commonUtils.getJavaNameVariableFirstLetter($queryResponseBeanADFFaceClass))
+#set($queryResponseBeanADFFaceImport=$commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDResponseBean))
 #set($queryInputTaskFlowADFFaceClassName = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDQueryInputTaskFlow))
 #set($queryInputTaskFlowADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputTaskFlow))
 #end
@@ -274,6 +277,7 @@ import $importDomainObjectUML;
 
 #macro(exposeADFSpring)
 #set($backendlib=$template.getPropertyValue("backend-lib","c:/lib"))
+#set($mp4adfsrc=$template.getPropertyValue("mp4adf-src","c:/mp4adf/src"))
 #end
 
 #macro(exposeSDOReference)
@@ -339,4 +343,5 @@ import $importDomainObjectUML;
 #set ($templateADFFacesSDDQueryInputPageDef = "ADF.Faces.SDD.QueryInputPageDef.xml")
 #set ($templateADFFacesSDDQueryInputTaskFlow = "ADF.Faces.SDD.QueryInputTaskFlow.xml")
 #set ($templateADFFacesSDDBackingBean = "ADF.Faces.SDD.BackingBean")
+#set ($templateADFFacesSDDResponseBean = "ADF.Faces.SDD.Result.Bean")
 #end

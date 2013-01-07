@@ -39,7 +39,7 @@ import $sddServiceInterfaceImport;
  */
 public class ${className} {
 
-    @ManagedProperty("#{${sddServiceInterfaceVariable}}")
+##    @ManagedProperty("#{${sddServiceInterfaceVariable}}")
     ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
 
 #if($isNotVoidInput)

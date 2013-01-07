@@ -22,6 +22,10 @@
 #adfEntityEditColumnDisplayWithScope($id, "${entityADFVariable}BackingBean", "viewScope", "false" )
 #end
 
+#macro (adfSddInputColumnDisplay $id)
+#adfEntityEditColumnDisplayWithScope($id, "${queryBackingBeanADFFaceVariable}", "pageFlowScope", "false" )
+#end
+
 #macro (adfEntityEditColumnDisplay4PageFlow $id, $isDisabled)
 #adfEntityEditColumnDisplayWithScope($id, "${viewEditEntityBeanVariable}", "pageFlowScope", $isDisabled)
 #end
@@ -33,16 +37,16 @@
 #else
 #if($presentationUtils.isParentDropDownList($column) )
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
-							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}_}"
-							id="${id}" required="$isMandatory" disabled="$isDisabled"
-							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
+                            value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}_}"
+                            id="${id}" required="$isMandatory" disabled="$isDisabled"
+                            shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
                           <f:selectItems value="#{${scope}.${bean}.${columnVar}List}" id="${id}Items"/>
                         </af:selectOneChoice>	
 #elseif($columnUtils.hasCheckConstraint($column))
                         <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
-							value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
-							id="${id}" required="$isMandatory" disabled="$isDisabled"
-							shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
+                            value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}}"
+                            id="${id}" required="$isMandatory" disabled="$isDisabled"
+                            shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
                           <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
                         </af:selectOneChoice>
 #elseif($presentationUtils.isCheckBox($column))
@@ -69,7 +73,7 @@
                             columns="10"
 #end
                             required="$isMandatory"
-							disabled="$isDisabled"
+                            disabled="$isDisabled"
 #adfBackingBean($scope, $bean, ${entityADFVariable})
                             shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
 #if ($columnUtils.isTimeColumn($column))

@@ -15,6 +15,11 @@
       <managed-bean-class id="__14">${queryBackingBeanADFFaceImport}</managed-bean-class>
       <managed-bean-scope id="__12">pageFlow</managed-bean-scope>
     </managed-bean>
+    <managed-bean id="__111">
+      <managed-bean-name id="__113">${queryResponseBeanADFFaceVariable}</managed-bean-name>
+      <managed-bean-class id="__114">${queryResponseBeanADFFaceImport}</managed-bean-class>
+      <managed-bean-scope id="__112">pageFlow</managed-bean-scope>
+    </managed-bean>
     <view id="${entryActivity}">
       <page>/$queryInputJsffADFFaceRelativePath</page>
     </view>
