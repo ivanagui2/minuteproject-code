@@ -1,0 +1,53 @@
+#exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+#exposeADFFacesCommon()
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.61.92" id="$className"
+                Package="$packageName">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <methodIterator Binds="query${sddOutputBeanVariable}s.result"
+                    DataControl="${dataControlRef}" RangeSize="100"
+                    BeanClass="${sddOutputBeanVariable}"
+                    id="${sddOutputBeanVariable}Iterator"/>
+    <accessorIterator MasterBinding="${sddOutputBeanVariable}Iterator"
+                      Binds="${sddOutputBeanVariable}s" RangeSize="100"
+                      DataControl="${dataControlRef}"
+                      BeanClass="${sddInputBeanImport}"
+                      id="${sddOutputBeanVariable}Iterator" RenderHint="background"
+                      ChangeEventPolicy="ppr"/>
+    <taskFlow id="detailsflowdefinition1"
+              taskFlowId="/WEB-INF/taskflows/$queryInputJsffResultDetailADFFaceRelativePath#$queryInputJsffResultDetailADFFaceClass"
+              activation="deferred"  
+              Refresh="ifNeeded"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="${sddOutputBeanVariable}" xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                   value="#{selection.${sddOutputBeanVariable}}"/>
+      </parameters>
+    </taskFlow>
+  </executables>
+  <bindings>
+    <methodAction id="get${sddOutputBeanClass}s" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="get${sddOutputBeanClass}s"
+                  IsViewObjectMethod="false"
+                  DataControl="${dataControlRef}"
+                  InstanceName="${dataControlRef}.dataProvider">
+      <NamedData NDName="request" NDValue="#{pageFlowScope.query}" NDOption="1"
+                 NDType="${sddInputBeanImport}"/>
+    </methodAction>
+    <tree IterBinding="${sddOutputBeanVariable}Iterator" id="${sddOutputBeanVariable}s">
+      <nodeDefinition DefName="${sddOutputBeanImport}"
+                      Name="${sddOutputBeanVariable}">
+        <AttrNames>
+#foreach ($column in $outputBean.columns)  
+#putColumnParamNaming()
+          <Item Value="${columnVar}"/>
+#end 
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

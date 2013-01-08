@@ -24,7 +24,7 @@
           <af:panelGroupLayout id="pgl4" layout="horizontal" halign="right">
             <af:spacer width="400" id="s4"/>
             <af:commandButton text="Search" id="cb1"
-                              action="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.search}" partialSubmit="true"/>
+                              action="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.search}" partialSubmit="true"/>
           </af:panelGroupLayout>
         </f:facet>
       </af:panelFormLayout>
@@ -38,17 +38,17 @@
     </af:panelFormLayout>
     <af:separator id="s2"/>
     <af:panelTabbed id="pt1" childCreation="lazy"
-                    binding="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.tabs}"
+                    binding="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.tabs}"
                     partialTriggers="cb1" dimensionsFrom="auto"
                     >
       <af:showDetailItem text="Selection" id="sdi1">
         <af:panelBox text=" " disclosed="true" id="pb2">
-          <af:region binding="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.queryflowdefinition1}" value="#{bindings.queryflowdefinition1.regionModel}"
+          <af:region binding="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.queryflowdefinition1}" value="#{bindings.queryflowdefinition1.regionModel}"
                      id="r2"/>
         </af:panelBox>
       </af:showDetailItem>
     </af:panelTabbed>
-    <af:commandButton text="Start CIS" id="cb2" action="startMdh" />
+    <af:commandButton text="Start" id="cb2" action="execute" />
   </af:panelGroupLayout>
 </jsp:root>
 

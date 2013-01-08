@@ -1,0 +1,96 @@
+#exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+#exposeADFFacesCommon()
+#set($entityADFVariable=$sddInputBeanVariable)
+#set($tableVariableName=$sddInputBeanVariable)
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+##  <task-flow-definition id="${tableVariableName}-details-flow-definition">
+  <task-flow-definition id="${className}">
+    <default-activity id="__4">${tableVariableName}Result</default-activity>
+    <data-control-scope id="__3">
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name id="__2">$sddOutputBeanVariable</name>
+      <value>#{pageFlowScope.${sddOutputBeanClass}}</value>
+      <class>$sddOutputBeanImport</class>
+      <required/>
+    </input-parameter-definition>
+    <view id="${tableVariableName}Result">
+      <page>/$queryInputJsffResultADFFaceRelativePath</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>
+
+#foreach($action in $actions)
+    <af:column sortProperty="$actionName"  sortable="false" headerText="" id="c5">
+      <!-- Facelet template -->
+      <af:commandLink text="$actionName" id="action1"
+                      actionListener="#{${queryBackingBeanADFFaceVariable}.actionListener}"
+                      action="#{${queryBackingBeanADFFaceVariable}.excludeCandidate}">
+       <f:setPropertyActionListener value="#{row.rowKey}"
+                      target="#{${queryBackingBeanADFFaceVariable}.curentRow}" />
+      </af:commandLink>      
+
+    </af:column>
+#end
+#if($isImpl)
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="query-flow-definition">
+    <default-activity id="__1">result</default-activity>
+    <no-save-point/>
+    <data-control-scope id="__2">
+      <isolated/>
+    </data-control-scope>
+    <input-parameter-definition id="__9">
+      <name id="__10">action</name>
+      <value>#{pageFlowScope.action}</value>
+      <class>java.lang.CharSequence</class>
+      <required/>
+    </input-parameter-definition>
+    <input-parameter-definition id="__24">
+      <name id="__25">resultList</name>
+      <value>#{pageFlowScope.resultList}</value>
+      <class>java.util.List</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__32">
+      <name id="__33">mainBean</name>
+      <value>#{pageFlowScope.mainBean}</value>
+      <class>xxxxx.MdhCandidateBean</class>
+      <required/>
+    </input-parameter-definition>
+    <managed-bean id="__8">
+      <managed-bean-name id="__7">candidatesManager</managed-bean-name>
+      <managed-bean-class id="__6">xxxxx.CandidatesManagerBean</managed-bean-class>
+      <managed-bean-scope id="__5">request</managed-bean-scope>
+      <managed-property id="__13">
+        <property-name id="__15">candidatesIncl</property-name>
+        <property-class>java.util.List</property-class>
+        <value id="__14">#{pageFlowScope.listIncl}</value>
+      </managed-property>
+      <managed-property id="__28">
+        <property-name id="__27">candidatesExcl</property-name>
+        <property-class>java.util.List</property-class>
+        <value id="__26">#{pageFlowScope.listExcl}</value>
+      </managed-property>
+      <managed-property id="__29">
+        <property-name id="__31">mainBean</property-name>
+        <property-class>xxxxx.MdhCandidateBean</property-class>
+        <value id="__30">#{pageFlowScope.mainBean}</value>
+      </managed-property>
+    </managed-bean>
+    <managed-bean id="__17">
+      <managed-bean-name id="__19">candidatesSelection</managed-bean-name>
+      <managed-bean-class id="__18">xxxxx.CandidatesSelectionListener</managed-bean-class>
+      <managed-bean-scope id="__16">request</managed-bean-scope>
+    </managed-bean>
+    <view id="result">
+      <page>/components/mdh/result.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>
+#end

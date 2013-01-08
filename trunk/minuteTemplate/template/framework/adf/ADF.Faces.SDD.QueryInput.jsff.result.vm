@@ -1,0 +1,47 @@
+#exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+#exposeADFFacesCommon()
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <af:table value="#{bindings.${sddOutputBeanVariable}s.collectionModel}" var="row"
+            rows="#{bindings.${sddOutputBeanVariable}s.rangeSize}"
+            emptyText="#{bindings.${sddOutputBeanVariable}s.viewable ? 'No data to display.' : 'Access Denied.'}"
+            fetchSize="#{bindings.${sddOutputBeanVariable}s.rangeSize}"
+            rowBandingInterval="0" id="t1" width="100%" rowSelection="single"
+            selectionListener="#{selection.selectionEvent}"
+            columnStretching="column:c4"
+            queryListener="#{selection.queryListener}"
+            rangeChangeListener="#{selection.rangeChangeListener}"
+            rowDisclosureListener="#{selection.rowDisclosureListener}">
+    <f:facet name="detailStamp">
+      <af:panelFormLayout id="pfl1">
+        <af:region value="#{bindings.detailsflowdefinition1.regionModel}" id="r1"/>
+      </af:panelFormLayout>
+    </f:facet>
+#set($tableClassName=$sddOutputBeanClass)
+##TODO filter to select only abstract
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+##adfSddInputColumnDisplay("input$velocityCount")
+    <af:column sortProperty="${columnVar}" sortable="false" headerText="${columnVar}"
+               id="c$velocityCount">
+      <af:outputText value="#{row.${columnVar}}" id="ot$velocityCount"/>     
+    </af:column>
+#end
+
+#foreach($action in $actions)
+    <af:column sortProperty="$actionName"  sortable="false" headerText="" id="c5">
+      <!-- Facelet template -->
+      <af:commandLink text="$actionName" id="action1"
+                      actionListener="#{${queryBackingBeanADFFaceVariable}.actionListener}"
+                      action="#{${queryBackingBeanADFFaceVariable}.excludeCandidate}">
+       <f:setPropertyActionListener value="#{row.rowKey}"
+                      target="#{${queryBackingBeanADFFaceVariable}.curentRow}" />
+      </af:commandLink>
+
+    </af:column>
+#end
+  </af:table>
+</jsp:root>

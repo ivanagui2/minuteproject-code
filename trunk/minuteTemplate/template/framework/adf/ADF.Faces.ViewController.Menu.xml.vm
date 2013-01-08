@@ -33,6 +33,23 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 #end
+
+<!-- SDD -->
+#if($model.hasStatementModel())
+<groupNode id="QueryGroup" label="Queries"
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#set ($queryClassName = $formatUtils.getJavaName(${query.name}))
+#set ($queryVariableName = $formatUtils.firstLowerCase(${queryClassName}))
+#if($velocityCount==1)
+   idref="$queryVariableName"
+#end
+    >
+      <itemNode id="$queryVariableName" label="#{viewcontrollerBundle['${queryClassName}']}"
+                  action="goto${queryClassName}"
+                  focusViewId="/${queryVariableName}View"/>
+#end
+</groupNode>
+#end
 #addArea("custom-groupnode-definition-ending")
    </groupNode>	
 </menu>
