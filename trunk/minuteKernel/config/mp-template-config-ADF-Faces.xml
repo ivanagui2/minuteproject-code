@@ -204,14 +204,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" scope-specific-value="query"
 			>			
 		</template>
-		
-		<template name="ADF.Faces.SDD.QueryInput.jsff" templateFileName="ADF.Faces.SDD.QueryInput.jsff.vm" 
-			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
-			file-extension="jsff" file-prefix="query" file-suffix="" 
-			has-updatable-nature="true" scope-specific-value="query"
-			>			
-		</template>
-			
+
 		<template name="ADF.Faces.SDD.QueryInputTaskFlow.xml" templateFileName="ADF.Faces.SDD.QueryInputTaskFlow.xml.vm" 
 			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="sdd"
 			file-extension="xml" file-prefix="main-" file-suffix="-flow" 
@@ -219,8 +212,49 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 		
+		<template name="ADF.Faces.SDD.QueryInput.jsff" templateFileName="ADF.Faces.SDD.QueryInput.jsff.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
+			file-extension="jsff" file-prefix="query" file-suffix="" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>
+<!-- 			
+		<template name="ADF.Faces.SDD.QueryInput.jsff.taskflow" templateFileName="ADF.Faces.SDD.QueryInput.jsff.taskflow.vm" 
+			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="sdd"
+			file-extension="xml" file-prefix="main-" file-suffix="-input-flow" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>	
+ -->
+		<template name="ADF.Faces.SDD.QueryInput.jsff.result" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
+			file-extension="jsff" file-prefix="query" file-suffix="Result" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>
+			
+		<template name="ADF.Faces.SDD.QueryInput.jsff.result.taskflow" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.taskflow.vm" 
+			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="sdd"
+			file-extension="xml" file-prefix="main-" file-suffix="-result-flow" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>	
+		
+		<template name="ADF.Faces.SDD.QueryInput.jsff.result.detail" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.detail.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
+			file-extension="jsff" file-prefix="query" file-suffix="Detail" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>
+			
+		<template name="ADF.Faces.SDD.QueryInput.jsff.result.detail.taskflow" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.detail.taskflow.vm" 
+			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="sdd"
+			file-extension="xml" file-prefix="main-" file-suffix="-detail-flow" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>	
+		
     </template-target>
-    
 
 	<template-target 
     	name="ADF Model META-INF"
@@ -256,7 +290,29 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			file-extension="xml" file-prefix="query" file-suffix="PageDef" 
 			has-updatable-nature="true" scope-specific-value="query"
 			>			
+		</template>
+		
+		<template name="ADF.Faces.SDD.QueryInput.jsff.pagedef" templateFileName="ADF.Faces.SDD.QueryInput.jsff.pagedef.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages"  add-model-dir-name="false"
+			file-extension="xml" file-prefix="queryInput" file-suffix="PageDef" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
 		</template>	
+			
+		<template name="ADF.Faces.SDD.QueryInput.jsff.result.pagedef" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.pagedef.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages"
+			file-extension="xml" file-prefix="queryResult" file-suffix="PageDef" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>	
+			
+		<template name="ADF.Faces.SDD.QueryInput.jsff.result.detail.pagedef" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.detail.pagedef.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages"
+			file-extension="xml" file-prefix="queryDetail" file-suffix="PageDef" 
+			has-updatable-nature="true" scope-specific-value="query"
+			>			
+		</template>
+		
 	</template-target>
 	
 	<template-target 
