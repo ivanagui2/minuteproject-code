@@ -19,6 +19,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.context.AdfFacesContext;
+import oracle.adf.view.rich.event.QueryEvent;
+
+import org.apache.myfaces.trinidad.event.RangeChangeEvent;
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
+
+import eu.adf.fwk.utils.ADFUtils;
+
 #exposeChartSpecific()
 #if ($isChartLayout)
 #end
@@ -91,12 +101,25 @@ public class ${className} {
 #end
 #end
 
+    public String search() {
+       System.out.println("   >>> search !!!!");
+       try {
+         Map<String,Object> params = new HashMap<String,Object>();
+         ADFUtils.invokeOperation("reviewOffTopic");     
+         ADFUtils.refreshMainPage();
+      } catch(Exception e){
+
+      }
+
+      return "";
+    }
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
     public $sddOutputBeanCollectionClass execute () {
+	    System.out.println(">>>>>> execute !!!");
         $sddOutputBeanCollectionVariable = ${sddServiceInterfaceVariable}.execute(#if($isNotVoidInput)${sddInputBeanVariable}#end);
         return $sddOutputBeanCollectionVariable;
     }
@@ -114,6 +137,55 @@ $!updatedAreaEnd
 #end
 #putGetterSetter($sddServiceInterfaceClass, $sddServiceInterfaceVariable)
 #putGetterSetterAlt($sddOutputBeanClass, "Selected$sddOutputBeanClass", "selected$sddOutputBeanClass")
+
+   //selection listner part
+   
+  public void selectionEvent(org.apache.myfaces.trinidad.event.SelectionEvent selectionEvent) {
+    System.out.println("selection event!");
+
+    /*
+    getDetaillog().setVisible(false);
+    getHeaderlog().setVisible(true);
+
+  */
+  }
+
+  public void queryListener(QueryEvent queryEvent) {
+     System.out.println("queryListener event!");
+  }
+
+  public void rangeChangeListener(RangeChangeEvent rangeChangeEvent) {
+     System.out.println("rangeChangeListener event!");
+  }
+  
+  public String selectCandidateForExclusion(ActionEvent event) {
+    
+    return "";
+  }
+  
+  public void rowDisclosureListener(RowDisclosureEvent rowDisclosureEvent) {
+    /*
+    RichTable richTable = (RichTable)rowDisclosureEvent.getSource();
+    FacesCtrlHierBinding.FacesModel cm =
+      (FacesCtrlHierBinding.FacesModel)richTable.getValue();
+    RowKeySet rowKeySet = richTable.getSelectedRowKeys();
+    Object[] rowKeySetArray = rowKeySet.toArray();
+    if(null != rowKeySetArray && rowKeySetArray.length >= 1){
+      richTable.setRowKey(rowKeySetArray[0]);
+      JUCtrlHierNodeBinding rowData = (JUCtrlHierNodeBinding)cm.getRowData();
+    }*/
+    $sddOutputBeanClass candidate = ADFUtils.getDisclosedTableRowValue(rowDisclosureEvent, ${sddOutputBeanClass}.class);    
+    if(null != candidate){
+      System.out.println("rowDisclosureListener event!"+candidate);
+    }
+  }
+  
+  public void rowDisclosureListenerWithPartialRefresh(RowDisclosureEvent rowDisclosureEvent) {
+      rowDisclosureListener(rowDisclosureEvent);
+      AdfFacesContext adfFacesContext = null;
+      adfFacesContext = AdfFacesContext.getCurrentInstance();
+      adfFacesContext.addPartialTarget(((RichTable)rowDisclosureEvent.getSource()).getParent());
+  }
 
 $!updatedAreaImplementation
 

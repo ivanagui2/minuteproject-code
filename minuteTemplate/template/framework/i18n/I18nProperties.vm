@@ -58,6 +58,8 @@ ${targetTableVariableName}Via${linkTableName}By${localColumnName}s[description]=
 #foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
 #exposeQuerySpecific()
 #putImportQuerySDDBean()
+#set ($queryClassName = $formatUtils.getJavaName(${query.name}))
+${queryClassName}=$i18nUtils.getI18nFromDBObject($query)
 ${sddInputBeanVariable}=$i18nUtils.getI18nFromDBObject($inputBean)
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()

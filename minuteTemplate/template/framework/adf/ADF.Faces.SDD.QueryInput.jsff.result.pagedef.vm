@@ -1,3 +1,4 @@
+#exposeADFDataBindingControlSpecific()
 #exposeADFQuerySpecific()
 #putImportQuerySDDBean()
 #exposeADFFacesCommon()
@@ -11,7 +12,7 @@
     <methodIterator Binds="query${sddOutputBeanVariable}s.result"
                     DataControl="${dataControlRef}" RangeSize="100"
                     BeanClass="${sddOutputBeanVariable}"
-                    id="${sddOutputBeanVariable}Iterator"/>
+                    id="${sddOutputBeanVariable}"/>
     <accessorIterator MasterBinding="${sddOutputBeanVariable}Iterator"
                       Binds="${sddOutputBeanVariable}s" RangeSize="100"
                       DataControl="${dataControlRef}"

@@ -8,23 +8,16 @@
                 Package="${packageName}">
   <parameters/>
   <executables>
-    <variableIterator id="queryflowdefinition1"/>
-    <taskFlow id="${queryClassName}InputFlow"
+    <variableIterator id="variables"/>
+    <taskFlow id="queryflowdefinition1"
+##    <taskFlow id="${queryClassName}InputFlow"
               taskFlowId="/WEB-INF/taskflows/${queryInputResultJsffTaskFlowADFFaceRelativePath}#$queryInputResultJsffTaskFlowADFFaceClassName"
               activation="immediate"              
               xmlns="http://xmlns.oracle.com/adf/controller/binding">
       <parameters>
-        <parameter id="query" evaluate="eachUse"
+        <parameter id="${sddOutputBeanCollectionClass}" evaluate="eachUse"
                    xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                   value="#{pageFlowScope.candidatesQueryBuilderBean.queryRequestForEX}"/>
-        <parameter id="action" xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                   value="Exclude"/>
-        <parameter id="list" evaluate="eachUse"
-                   xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                   value="#{pageFlowScope.candidatesQueryBuilderBean.exIncludedIDs}"/>
-        <parameter id="mainBean" evaluate="eachUse"
-                   xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                   value="#{pageFlowScope.CandidateBean}"/>
+                   value="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.outputList}"/>
       </parameters>
     </taskFlow>
   </executables>
