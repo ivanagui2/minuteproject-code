@@ -12,11 +12,16 @@
       <shared/>
     </data-control-scope>
     <input-parameter-definition id="__1">
-      <name id="__2">$sddOutputBeanVariable</name>
-      <value>#{pageFlowScope.${sddOutputBeanClass}}</value>
-      <class>$sddOutputBeanImport</class>
+      <name id="__2">$sddOutputBeanCollectionVariable</name>
+      <value>#{pageFlowScope.${sddOutputBeanCollectionClass}}</value>
+      <class>$sddOutputBeanCollectionImport</class>
       <required/>
     </input-parameter-definition>
+    <managed-bean id="__17">
+      <managed-bean-name id="__19">${queryBackingBeanADFFaceVariable}</managed-bean-name>
+      <managed-bean-class id="__18">${queryBackingBeanADFFaceImport}</managed-bean-class>
+      <managed-bean-scope id="__16">request</managed-bean-scope>
+    </managed-bean>
     <view id="${tableVariableName}Result">
       <page>/$queryInputJsffResultADFFaceRelativePath</page>
     </view>
