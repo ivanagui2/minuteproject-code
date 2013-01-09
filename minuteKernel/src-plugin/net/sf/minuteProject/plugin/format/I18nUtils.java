@@ -2,6 +2,7 @@ package net.sf.minuteProject.plugin.format;
 
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -128,8 +129,8 @@ public class I18nUtils {
 		return getI18nFromDBName(name, firstUpperCase);
 	}
 	
-	public static String getI18nFromDBObject (Table table) {
-		String alias = table.getAlias();
+	public static String getI18nFromDBObject (GeneratorBean bean) {
+		String alias = bean.getAlias();
 //		if (table.getName().equals(alias))
 //			return getI18nFromDBNameStripPrefix(alias);
 		return getI18nFromDBName(alias);
