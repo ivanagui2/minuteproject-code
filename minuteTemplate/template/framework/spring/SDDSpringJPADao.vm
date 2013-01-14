@@ -68,6 +68,10 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
 	public List<$sddOutputBeanClass> executeJDBC(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+#if($isNotVoidInput)
+		if ($sddInputBeanVariable==null)
+			$sddInputBeanVariable = new $sddInputBeanClass();
+#end
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

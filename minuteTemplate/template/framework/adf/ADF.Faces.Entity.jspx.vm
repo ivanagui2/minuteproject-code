@@ -192,7 +192,20 @@ $!updatedAreaSnippet
 #end
 #end
 $updatedAreaEnd
-					</af:panelFormLayout>                    
+
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+<!-- m2m -->
+        <af:selectManyShuttle label="${childrenListVariable} Shuttle"
+                              binding="#{viewScope.${entityADFVariable}BackingBean.${childrenListVariable}_sms1}"
+                              id="${childrenListVariable}_sms1"
+                              value="#{viewScope.${entityADFVariable}BackingBean.selected${childrenListClass}}">
+          <f:selectItems value="#{viewScope.${entityADFVariable}BackingBean.all${childrenListClass}}"
+                         binding="#{viewScope.${entityADFVariable}BackingBean.${childrenListVariable}_si1}"
+                         id="${childrenListVariable}_si1"/>
+        </af:selectManyShuttle>
+#end
+					</af:panelFormLayout>
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['save']}"
                               id="itdetsave"

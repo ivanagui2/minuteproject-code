@@ -24,7 +24,7 @@
           <af:panelGroupLayout id="pgl4" layout="horizontal" halign="right">
             <af:spacer width="400" id="s4"/>
             <af:commandButton text="Search" id="cb1"
-                              action="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.search}" partialSubmit="true"/>
+                              action="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.search}" partialSubmit="true"/>
           </af:panelGroupLayout>
         </f:facet>
       </af:panelFormLayout>

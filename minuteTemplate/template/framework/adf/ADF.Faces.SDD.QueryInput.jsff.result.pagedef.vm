@@ -9,37 +9,28 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <methodIterator Binds="query${sddOutputBeanVariable}s.result"
-                    DataControl="${dataControlRef}" RangeSize="100"
-                    BeanClass="${sddOutputBeanVariable}"
-                    id="${sddOutputBeanVariable}"/>
-    <accessorIterator MasterBinding="${sddOutputBeanVariable}Iterator"
-                      Binds="${sddOutputBeanVariable}s" RangeSize="100"
-                      DataControl="${dataControlRef}"
-                      BeanClass="${sddInputBeanImport}"
-                      id="${sddOutputBeanVariable}Iterator" RenderHint="background"
-                      ChangeEventPolicy="ppr"/>
-    <taskFlow id="detailsflowdefinition1"
-              taskFlowId="/WEB-INF/taskflows/$queryInputJsffResultDetailADFFaceRelativePath#$queryInputJsffResultDetailADFFaceClass"
-              activation="deferred"  
-              Refresh="ifNeeded"
+    <taskFlow id="detailflowdefinition1"
+              taskFlowId="/WEB-INF/taskflows/$queryInputDetailJsffTaskFlowADFFaceRelativePath#$queryInputDetailJsffTaskFlowADFFaceClassName"
+              activation="immediate" 
               xmlns="http://xmlns.oracle.com/adf/controller/binding">
       <parameters>
-        <parameter id="${sddOutputBeanVariable}" xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                   value="#{selection.${sddOutputBeanVariable}}"/>
+        <parameter id="${sddOutputBeanVariable}" evaluate="eachUse"
+                   xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                   value="#{${queryListenerBeanADFFaceVariable}.selected${sddOutputBeanClass}}"/>
       </parameters>
     </taskFlow>
+    <methodIterator Binds="get${sddOutputBeanCollectionClass}.result"
+                    DataControl="${dataControlRef}" RangeSize="100"
+                    BeanClass="${sddOutputBeanCollectionImport}"
+                    id="${sddOutputBeanCollectionVariable}" >
+    </methodIterator>
+    <accessorIterator id="mytest" MasterBinding="${sddOutputBeanCollectionVariable}"
+        Binds="${sddOutputBeanVariable}s" RangeSize="100" BeanClass="${sddOutputBeanImport}"
+        />
+    <searchRegion id="testit" Binds="mytest" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" />
   </executables>
   <bindings>
-    <methodAction id="get${sddOutputBeanClass}s" RequiresUpdateModel="true"
-                  Action="invokeMethod" MethodName="get${sddOutputBeanClass}s"
-                  IsViewObjectMethod="false"
-                  DataControl="${dataControlRef}"
-                  InstanceName="${dataControlRef}.dataProvider">
-      <NamedData NDName="request" NDValue="#{pageFlowScope.query}" NDOption="1"
-                 NDType="${sddInputBeanImport}"/>
-    </methodAction>
-    <tree IterBinding="${sddOutputBeanVariable}Iterator" id="${sddOutputBeanVariable}s">
+    <tree IterBinding="mytest" id="${sddOutputBeanVariable}s">
       <nodeDefinition DefName="${sddOutputBeanImport}"
                       Name="${sddOutputBeanVariable}">
         <AttrNames>
@@ -50,5 +41,15 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <methodAction id="get${sddOutputBeanCollectionClass}" RequiresUpdateModel="true"
+                  InstanceName="${dataControlRef}.dataProvider"
+                  DataControl="${dataControlRef}" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
+                  IsViewObjectMethod="false"
+				  ReturnName="data.${dataControlRef}.methodResults.get${sddOutputBeanCollectionClass}">
+      <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${sddInputBeanVariable}}" 
+                 NDType="${sddInputBeanImport}"
+                 NDOption="1"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

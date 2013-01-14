@@ -29,6 +29,11 @@ import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 
 import eu.adf.fwk.utils.ADFUtils;
 
+import java.awt.event.ActionEvent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 #exposeChartSpecific()
 #if ($isChartLayout)
 #end
@@ -49,7 +54,6 @@ import $sddServiceInterfaceImport;
  */
 public class ${className} {
 
-##    @ManagedProperty("#{${sddServiceInterfaceVariable}}")
     ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
 
 #if($isNotVoidInput)

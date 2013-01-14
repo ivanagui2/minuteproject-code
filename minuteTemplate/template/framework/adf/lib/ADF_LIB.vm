@@ -45,6 +45,9 @@
 #set($queryBackingBeanADFFaceClass = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDBackingBean))
 #set($queryBackingBeanADFFaceVariable=$commonUtils.getJavaNameVariableFirstLetter($queryBackingBeanADFFaceClass))
 #set($queryBackingBeanADFFaceImport=$commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDBackingBean))
+#set($queryListenerBeanADFFaceClass = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDListenerBean))
+#set($queryListenerBeanADFFaceVariable=$commonUtils.getJavaNameVariableFirstLetter($queryListenerBeanADFFaceClass))
+#set($queryListenerBeanADFFaceImport=$commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDListenerBean))
 #set($queryResponseBeanADFFaceClass = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDResponseBean))
 #set($queryResponseBeanADFFaceVariable=$commonUtils.getJavaNameVariableFirstLetter($queryResponseBeanADFFaceClass))
 #set($queryResponseBeanADFFaceImport=$commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateADFFacesSDDResponseBean))
@@ -54,6 +57,8 @@
 #set($queryInputJsffTaskFlowADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputTaskFlow))
 #set($queryInputResultJsffTaskFlowADFFaceClassName = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDQueryInputResultJsffTaskflow))
 #set($queryInputResultJsffTaskFlowADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputResultJsffTaskflow))
+#set($queryInputDetailJsffTaskFlowADFFaceClassName = $commonUtils.getTemplateClassName($query, $template, $templateADFFacesSDDQueryInputDetailJsffTaskflow))
+#set($queryInputDetailJsffTaskFlowADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateADFFacesSDDQueryInputDetailJsffTaskflow))
 #end
 
 #macro (exposeADFFacesDataControlEntitySpecific)
@@ -360,10 +365,12 @@ import $importDomainObjectUML;
 #set ($templateADFFacesSDDQueryInputJsffPageDef = "ADF.Faces.SDD.QueryInput.jsff.pagedef")
 ##set ($templateADFFacesSDDQueryInputJsffTaskflow = "ADF.Faces.SDD.QueryInput.jsff.taskflow")
 #set ($templateADFFacesSDDQueryInputResultJsffTaskflow = "ADF.Faces.SDD.QueryInput.jsff.result.taskflow")
+#set ($templateADFFacesSDDQueryInputDetailJsffTaskflow = "ADF.Faces.SDD.QueryInput.jsff.result.detail.taskflow")
 #set ($templateADFFacesSDDQueryInputJsffResultPageDef = "ADF.Faces.SDD.QueryInput.jsff.result.pagedef")
 #set ($templateADFFacesSDDQueryInputJsffResultDetailPageDef = "ADF.Faces.SDD.QueryInput.jsff.result.detail.pagedef")
 ##set ($templateADFFacesSDDQueryInputResultJsffPageDef = "ADF.Faces.SDD.QueryInputResultJsffPageDef.xml")
 #set ($templateADFFacesSDDQueryInputTaskFlow = "ADF.Faces.SDD.QueryInputTaskFlow.xml")
 #set ($templateADFFacesSDDBackingBean = "ADF.Faces.SDD.BackingBean")
+#set ($templateADFFacesSDDListenerBean = "ADF.Faces.SDD.ActionListener")
 #set ($templateADFFacesSDDResponseBean = "ADF.Faces.SDD.Result.Bean")
 #end
