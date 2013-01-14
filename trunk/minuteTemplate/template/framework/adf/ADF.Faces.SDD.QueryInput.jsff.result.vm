@@ -10,7 +10,7 @@
             emptyText="#{bindings.${sddOutputBeanVariable}s.viewable ? 'No data to display.' : 'Access Denied.'}"
             fetchSize="#{bindings.${sddOutputBeanVariable}s.rangeSize}"
             rowBandingInterval="0" id="t1" width="100%" rowSelection="single"
-            selectionListener="#{${queryBackingBeanADFFaceVariable}.${queryBackingBeanADFFaceVariable}Event}"
+            selectionListener="#{${queryBackingBeanADFFaceVariable}.selectionEvent}"
             columnStretching="column:c4"
             queryListener="#{${queryBackingBeanADFFaceVariable}.queryListener}"
             rangeChangeListener="#{${queryBackingBeanADFFaceVariable}.rangeChangeListener}"
@@ -20,6 +20,7 @@
         <af:region value="#{bindings.detailsflowdefinition1.regionModel}" id="r1"/>
       </af:panelFormLayout>
     </f:facet>
+
 #set($tableClassName=$sddOutputBeanClass)
 ##TODO filter to select only abstract
 #foreach($column in $outputBean.columns)

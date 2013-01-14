@@ -15,6 +15,15 @@ import $beanVOADFFacesQueryRequestImport;
 #end
 #end
 
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+import $sddOutputBeanCollectionImport;
+#if($isNotVoidInput)
+import $sddInputBeanImport;
+#end
+#end
+
 import java.util.List;
 
 public interface $thisClassName {
@@ -45,4 +54,12 @@ public interface $thisClassName {
 #end
 #end
 
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) ;
+
+    public $sddOutputBeanClass get${sddOutputBeanClass}Detail ($sddOutputBeanClass $sddOutputBeanVariable) ;
+
+#end
 }

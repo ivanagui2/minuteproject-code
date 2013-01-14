@@ -1,5 +1,7 @@
 #exposeADFDataBindingControlSpecific()
 #exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+#exposeADFFacesCommon()
 #set($table=$query.inputBean)
 #set($queryClassName=$commonUtils.getJavaClassName($table))
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -15,11 +17,22 @@
               activation="immediate"              
               xmlns="http://xmlns.oracle.com/adf/controller/binding">
       <parameters>
-        <parameter id="${sddOutputBeanCollectionClass}" evaluate="eachUse"
+        <parameter id="${sddInputBeanVariable}" evaluate="eachUse"
                    xmlns="http://xmlns.oracle.com/adfm/uimodel"
-                   value="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.outputList}"/>
+                   value="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.${sddInputBeanVariable}}"/>
       </parameters>
     </taskFlow>
   </executables>
-  <bindings/>
+  <bindings>
+    <methodAction id="get${sddOutputBeanCollectionClass}1"
+                  InstanceName="UlysseSdoWsDcImpl.dataProvider"
+                  DataControl="UlysseSdoWsDcImpl" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
+                  IsViewObjectMethod="false"
+                  ReturnName="data.UlysseSdoWsDcImpl.methodResults.get${sddOutputBeanCollectionClass}1_result">
+      <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.${sddInputBeanVariable}}"
+                 NDType="${sddInputBeanImport}"
+                 NDOption="2"/>
+    </methodAction>
+  </bindings>
 </pageDefinition>

@@ -11,23 +11,26 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <methodIterator Binds="query${sddOutputBeanVariable}.result"
-                    DataControl="${dataControlRef}" RangeSize="25"
-                    BeanClass="${sddOutputBeanVariable}"
-                    id="${sddOutputBeanVariable}"/>
+   <methodIterator Binds="get${sddOutputBeanClass}Detail.result"
+                    DataControl="${dataControlRef}" RangeSize="100"
+                    BeanClass="${sddOutputBeanImport}"
+                    id="${sddOutputBeanVariable}Iterator" >
+    </methodIterator>
+#if($toImpl)
     <accessorIterator MasterBinding="${sddOutputBeanVariable}Iterator"
-                      Binds="${sddOutputBeanVariable}s" RangeSize="25"
+                      Binds="${sddOutputBeanVariable}" RangeSize="25"
                       DataControl="${dataControlRef}"
                       BeanClass="${sddInputBeanImport}"
                       id="${sddOutputBeanVariable}Iterator"/>
+#end
   </executables>
   <bindings>
-    <methodAction id="get${sddOutputBeanClass}" RequiresUpdateModel="true"
-                  Action="invokeMethod" MethodName="get${sddOutputBeanClass}"
+    <methodAction id="get${sddOutputBeanClass}Detail" RequiresUpdateModel="true"
+                  Action="invokeMethod" MethodName="get${sddOutputBeanClass}Detail"
                   IsViewObjectMethod="false" DataControl="${dataControlRef}"
                   InstanceName="${dataControlRef}.dataProvider">
-      <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${sddInputBeanVariable}}"
-                 NDType="${sddInputBeanImport}"
+      <NamedData NDName="${sddOutputBeanVariable}" NDValue="#{pageFlowScope.${sddOutputBeanVariable}}"
+                 NDType="${sddOutputBeanImport}"
                  NDOption="1"/>
     </methodAction>
 #foreach ($column in $outputBean.columns)  
