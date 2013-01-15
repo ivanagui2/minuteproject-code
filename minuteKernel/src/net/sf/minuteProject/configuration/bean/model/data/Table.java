@@ -231,6 +231,8 @@ public interface Table extends GeneratorBean{
     
     public Reference [] getDistinctChildrenType();
     
+    public Reference [] getDistinctParentsType();
+    
     /**
      * Indicates if it is a many to many table
      * @return boolean

@@ -146,6 +146,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
+		
+		<template name="ADF.Faces.SDD.ActionListener" templateFileName="ADF.Faces.SDD.ActionListener.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="Listener"
+			has-updatable-nature="true" 
+			scope-specific-value="query"
+			>			
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>	
 				
     </template-target>  
     
@@ -300,14 +309,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 			
 		<template name="ADF.Faces.SDD.QueryInput.jsff.result.pagedef" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.pagedef.vm" 
-			subdir="" outputsubdir="" technicalPackage="pages"
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
 			file-extension="xml" file-prefix="queryResult" file-suffix="PageDef" 
 			has-updatable-nature="true" scope-specific-value="query"
 			>			
 		</template>	
 			
 		<template name="ADF.Faces.SDD.QueryInput.jsff.result.detail.pagedef" templateFileName="ADF.Faces.SDD.QueryInput.jsff.result.detail.pagedef.vm" 
-			subdir="" outputsubdir="" technicalPackage="pages"
+			subdir="" outputsubdir="" technicalPackage="pages" add-model-dir-name="false"
 			file-extension="xml" file-prefix="queryDetail" file-suffix="PageDef" 
 			has-updatable-nature="true" scope-specific-value="query"
 			>			

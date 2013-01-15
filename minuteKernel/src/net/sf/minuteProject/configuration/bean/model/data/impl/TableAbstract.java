@@ -27,7 +27,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	
 	private Table table;
 //	private String alias;
-	private Reference [] distinctChildrenRef;
+	private Reference [] distinctChildrenRef, distinctParentsRef, distinctRelationshipsRef;
 	private SemanticReference semanticReference;
 	private String contentType;
 	private boolean isLinkEntity, isSearchable;
@@ -252,17 +252,45 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 			distinctChildrenRef = getDistinctChildrenTypeArray();
 		return distinctChildrenRef;
 	}
+	public Reference [] getDistinctParentsType() {
+		if (distinctParentsRef==null)
+			distinctParentsRef = getDistinctParentsTypeArray();
+		return distinctParentsRef;
+	}
+	
+	public Reference [] getDistinctRelationships() {
+		if (distinctRelationshipsRef==null)
+			distinctRelationshipsRef = getDistinctRelationshipsTypeArray();
+		return distinctRelationshipsRef;
+	}
+	
+	public Reference [] getDistinctRelationshipsTypeArray() {
+		List <Reference> references = new ArrayList<Reference>();
+		for (Reference ref : getChildren())
+			references.add(ref);
+		for (Reference ref : getParents())
+			references.add(ref);
+//m2m
+		return getDistinctTypeArray((Reference[])references.toArray());
+	}
 	
 	public Reference [] getDistinctChildrenTypeArray() {
+		return getDistinctTypeArray(getChildren());
+	}
+	public Reference [] getDistinctParentsTypeArray() {
+		return getDistinctTypeArray(getParents());
+	}
+	
+	public Reference [] getDistinctTypeArray(Reference[] references) {
 		List<Reference> distinctTypes = new ArrayList<Reference>();
-
-		Reference[] references = getChildren();
+		
+//		Reference[] references = getChildren();
 		for (int i = 0; i < references.length; i++) {
 			boolean toAdd = true;
 			for (Reference reference : distinctTypes) {
 				if (   reference.getForeignTableName().equals(references[i].getForeignTableName())  
-					&& reference.getLocalTableName().equals(references[i].getLocalTableName())	
-					) {
+						&& reference.getLocalTableName().equals(references[i].getLocalTableName())	
+						) {
 					toAdd = false;
 					break;
 				}
