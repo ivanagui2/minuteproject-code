@@ -103,11 +103,11 @@
 			   <property name="wls-port" value="7201"></property>
 			   <property name="wls-deploy-target" value="AdminServer"></property>	
 			   
-<!--			   <property name="adf-faces-custom-framework-home" value="C:\MP4ADF-dependency\target\fwk"/>
- 			   <property name="adf-faces-custom-code-home" value="C:\DEV\customisation\ADF_FACES"/> -->
-			   <property name="adf-faces-custom-framework-package-name" value="net.sf.minuteproject.adf"/>
-<!-- 			   <property name="backend-lib" value="C:/DEV/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/lib"/> -->
-			   			   
+			   <property name="adf-faces-custom-framework-home" value="C:\DEV\COMMISSION\NIF2\work\svn2\Generator\MP4ADF-dependency\target\fwk"/>
+			   <property name="backend-lib" value="C:/DEV/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/lib"/>
+			   <property name="mp4adf-src" value="C:/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/fwk/src"/>
+			   			   		
+			   			   		
 			   <property name="adf-faces-backend-binding" value="spring"/>
 			   
 			   <property name="display-hide-auditing-field" value="true"/>
