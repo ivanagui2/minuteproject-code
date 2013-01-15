@@ -1,5 +1,6 @@
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
+#set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
 
 import $importDomainObjectUML;

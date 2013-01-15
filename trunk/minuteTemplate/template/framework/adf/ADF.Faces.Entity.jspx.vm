@@ -197,12 +197,12 @@ $updatedAreaEnd
 #exposeM2MSpecific()
 <!-- m2m -->
         <af:selectManyShuttle label="${childrenListVariable} Shuttle"
-                              binding="#{viewScope.${entityADFVariable}BackingBean.${childrenListVariable}_sms1}"
+                              binding="#{viewScope.${entityADFVariable}BackingBean.${childrenListVariable}Sms}"
                               id="${childrenListVariable}_sms1"
                               value="#{viewScope.${entityADFVariable}BackingBean.selected${childrenListClass}}">
           <f:selectItems value="#{viewScope.${entityADFVariable}BackingBean.all${childrenListClass}}"
-                         binding="#{viewScope.${entityADFVariable}BackingBean.${childrenListVariable}_si1}"
-                         id="${childrenListVariable}_si1"/>
+                         binding="#{viewScope.${entityADFVariable}BackingBean.${childrenListVariable}Si}"
+                         id="${childrenListVariable}Si"/>
         </af:selectManyShuttle>
 #end
 					</af:panelFormLayout>

@@ -2,6 +2,7 @@
 #set($beImplementation="JPA")
 #putImportParamsUML()
 #exposeTableMetadata()
+#set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
 
 import java.lang.reflect.InvocationTargetException;

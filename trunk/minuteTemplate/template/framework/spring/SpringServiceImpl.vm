@@ -6,7 +6,7 @@
 #addedAreas()
 #exposeTableMetadata()
 #set($passivationBehavior = $behaviorUtils.getPassivationBehavior($table, $template))
-//$passivationBehavior
+#set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
 
 $!updatedAreaImport

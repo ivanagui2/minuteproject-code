@@ -154,7 +154,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #exposeADFFacesSpringBindingSpecific()
 #set($tableHasOnlyOnePrimaryKey=$hasOnlyOnePrimaryKey)
 #if(!$isMany2Many)
-##if ($hasSearch)
+#set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
 	
   public static void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
 #putConverter()
@@ -224,8 +224,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #end
    }
 
-#end
-
 #if ($tableUtils.isAdminContentType($table))
     public List<$beanVOADFFacesClass> get${beanVOADFFacesClass}DropDownList() {
      List<$beanVOADFFacesClass> ret = new ArrayList<$beanVOADFFacesClass>();
@@ -238,7 +236,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
     }
 		
 #end
-
+#end
 #end
 
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())

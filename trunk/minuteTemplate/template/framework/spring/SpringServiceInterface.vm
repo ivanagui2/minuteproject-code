@@ -4,6 +4,7 @@
 #exposeJPA2DomainObject($table)
 #putImportParamsUML()
 #exposeTableMetadata()
+#set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
 
 import java.util.List;
