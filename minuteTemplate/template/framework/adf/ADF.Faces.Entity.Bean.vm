@@ -327,6 +327,7 @@ $!updatedAreaSnippet
 ##if($addXmlBinding)
 ##    @XmlElement(name="$childrenListVariable")
 ##end
+#set($linkedTableVariable = $formatUtils.getJavaNameVariableConvertReservedWord($linkedTableVariable))
     public Set<$linkedTableClass> get${childrenListClass}() {
         if (${childrenListVariable} == null){
             ${childrenListVariable} = new HashSet<$linkedTableClass>();

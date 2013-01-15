@@ -3,6 +3,7 @@
 #exposeFrontEndBackendBindingType()
 #exposeADFFacesSpringModelBindingSpecific()
 #set($thisTable=$table)
+#set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
 package $packageName;
 
 import $beanVOADFFacesImport;
@@ -23,7 +24,7 @@ import oracle.binding.OperationBinding;
 
 #exposeADFFacesEntityImport()
 
-#foreach ($reference in $table.parents)
+#foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
@@ -35,9 +36,11 @@ import $beanADFFacesSpringAppContextLoaderImport;
 
 public class $className {
 
-#foreach ($reference in $table.parents)
+#exposeADFFacesSpringBindingSpecific4Entity($table)
+    $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
-#if ($tableUtils.isAdminContentType($foreignTable))
+#if ($tableUtils.isAdminContentType($foreignTable) && !($table==$foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
     $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
 #end
@@ -48,6 +51,8 @@ public class $className {
     
     public $className () {
         ${domainVariableName}Param = ($primaryKeyType)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("${entityADFVariable}Reference");
+#exposeADFFacesSpringBindingSpecific4Entity($table)
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
 #foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))

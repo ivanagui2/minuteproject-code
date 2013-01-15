@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.*;
  */
 @Entity (name="${className}")
 @Table (name="${table.name}")
+#set($domainVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($domainVariableName))
 @NamedQueries({
 #set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
 	 @NamedQuery(name="${className}.findAll", query="$selectChunk")
@@ -398,6 +399,8 @@ $!updatedAreaSnippet
 		return super.toEquals(flat(), object);
 	}
     */
+	
+#set($variableName = $formatUtils.getJavaNameVariableConvertReservedWord($variableName))
 	public boolean equals(Object object) {
 		if (object == null) return false;	
 		if (object == this) return true;
@@ -456,10 +459,11 @@ $!updatedAreaSnippet
     }
     
     public ${className} mask(String pattern, String value) {
+        pattern = pattern.toUpperCase();
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
-        if ("${column.name}".toLowerCase().equals(pattern))
+        if ("${column.name}".equals(pattern))
            set$columnClass(value);
 #end
 #end
@@ -467,11 +471,12 @@ $!updatedAreaSnippet
     }
 
     public ${className} mask(String pattern) {
+        pattern = pattern.toUpperCase();
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
 #putDefaultMaskColumnValue()
-        if ("${column.name}".toLowerCase().equals(pattern))
+        if ("${column.name}".equals(pattern))
            set$columnClass($defaultMask);
 #end
 #end
@@ -619,6 +624,7 @@ $!updatedAreaSnippet
 ##if($addXmlBinding)
 ##    @XmlElement(name="$childrenListVariable")
 ##end
+#set($linkedTableVariable = $formatUtils.getJavaNameVariableConvertReservedWord($linkedTableVariable))
     public Set<$linkedTableClass> get${childrenListClass}() {
         if (${childrenListVariable} == null){
             ${childrenListVariable} = new HashSet<$linkedTableClass>();

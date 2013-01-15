@@ -33,6 +33,7 @@ public interface $thisClassName {
 #exposeADFFacesDataControlEntitySpecific()
 #if(!$isMany2Many)
 ##if ($hasSearch)
+#set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */

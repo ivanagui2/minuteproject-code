@@ -1,6 +1,7 @@
 #exposeVariableEntitySpecific()
 #exposeADFFacesEntitySpecific()
 #addedAreas()
+#set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
 package $packageName;
 
 $!updatedAreaImport
