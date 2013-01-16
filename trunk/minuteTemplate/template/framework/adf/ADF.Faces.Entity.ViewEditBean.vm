@@ -23,7 +23,11 @@ import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
 #exposeADFFacesEntityImport()
-
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+import $beanADFFacesSpringServiceImport;
+#end
 #foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -36,8 +40,11 @@ import $beanADFFacesSpringAppContextLoaderImport;
 
 public class $className {
 
-#exposeADFFacesSpringBindingSpecific4Entity($table)
-    $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+    ${beanADFFacesSpringServiceClass} _$beanADFFacesSpringServiceVariable;
+#end
 #foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable) && !($table==$foreignTable))
@@ -45,14 +52,17 @@ public class $className {
     $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
 #end
 #end
-    private ${beanVOADFFacesClass} ${beanVOADFFacesVariable};
+    private ${beanVOADFFacesClass} _${beanVOADFFacesVariable};
 ##works for one pk only
     private $primaryKeyType ${domainVariableName}Param;
     
     public $className () {
         ${domainVariableName}Param = ($primaryKeyType)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("${entityADFVariable}Reference");
-#exposeADFFacesSpringBindingSpecific4Entity($table)
-        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+        _$beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#end
 #foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -75,39 +85,37 @@ public class $className {
     
     public void rollback${domainClassName}() {
 	    System.out.println(">>>> rollback ");
-        this.${beanVOADFFacesVariable} = null;
+        this._${beanVOADFFacesVariable} = null;
     }
     
     public void save${domainClassName}(DCBindingContainer bindings) {
         Map ${domainVariableName}Param = new HashMap();
-        ${domainVariableName}Param.put("${beanVOADFFacesVariable}", this.${beanVOADFFacesVariable});
-        System.out.println(">>>>> ${beanVOADFFacesVariable} "+this.${beanVOADFFacesVariable});
-		OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
+        ${domainVariableName}Param.put("${beanVOADFFacesVariable}", this._${beanVOADFFacesVariable});
+        System.out.println(">>>>> ${beanVOADFFacesVariable} "+this._${beanVOADFFacesVariable});
+        OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(${domainVariableName}Param);
         ob.execute();
     }
     
-    public void set${domainClassName}($beanVOADFFacesClass ${beanVOADFFacesVariable}) {
-        this.${beanVOADFFacesVariable} = ${beanVOADFFacesVariable};
+    public void set${domainClassName}($beanVOADFFacesClass _${beanVOADFFacesVariable}) {
+        this._${beanVOADFFacesVariable} = _${beanVOADFFacesVariable};
     }
 
     public ${beanVOADFFacesClass} get${domainClassName}() {
         
-        if (${beanVOADFFacesVariable}==null) {
+        if (_${beanVOADFFacesVariable}==null) {
             Map map = new HashMap();
 ##works one for one primary key
             ${beanVOADFFacesClass} ref = new ${beanVOADFFacesClass}();
             ref.set$primaryKeyJavaNameClass(${domainVariableName}Param);
             map.put("${beanVOADFFacesVariable}", ref);
-			
             BindingContext bindingCtx = BindingContext.getCurrent();
             BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-			
             OperationBinding ob = bindings.getOperationBinding("get$domainClassName");
             ob.getParamsMap().putAll(map);
-            this.${beanVOADFFacesVariable} = (${beanVOADFFacesClass})ob.execute();
+            this._${beanVOADFFacesVariable} = (${beanVOADFFacesClass})ob.execute();
         }
-        return ${beanVOADFFacesVariable};
+        return _${beanVOADFFacesVariable};
     
     }
 

@@ -54,6 +54,13 @@ ${targetTableVariableName}Via${linkTableName}By${localColumnName}s[description]=
 #end
 #end
 ##TODO
+# m2m
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+${childrenListVariable}_Shuttle=Associated ${childrenListVariable}
+${childrenListVariable}_Available_Values=Available ${childrenListVariable}
+${childrenListVariable}_Selected_Values=Selected ${childrenListVariable}
+#end
 # SDD
 #foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
 #exposeQuerySpecific()

@@ -3,7 +3,6 @@
 #exposeFrontEndBackendBindingType()
 #exposeADFFacesSpringModelBindingSpecific()
 #set($thisTable=$table)
-#set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
 package $packageName;
 
 import $beanVOADFFacesImport;
@@ -42,8 +41,11 @@ import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
 
 #exposeADFFacesEntityImport()
-import $beanADFFacesSpringServiceClass;
-#exposeADFFacesSpringBindingSpecific4Entity($table)
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+import $beanADFFacesSpringServiceImport;
+#end
 #foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -60,7 +62,7 @@ public class $className {
     private String ${domainVariableName}Name;
     private String ${domainVariableName}Reference;
     private RichPanelTabbed panelTab;
-    private $beanVOADFFacesClass $beanVOADFFacesVariable = new $beanVOADFFacesClass();
+    private $beanVOADFFacesClass _$beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private $beanVOADFFacesClass search$beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private Boolean displayResults = true;
     private Boolean displaySearch = false;
@@ -71,8 +73,11 @@ public class $className {
     private Boolean searchLike = true;
     private Boolean searchCaseSensitive = false;
 
-#exposeADFFacesSpringBindingSpecific4Entity($table)
-    private $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+    ${beanADFFacesSpringServiceClass} _$beanADFFacesSpringServiceVariable;
+#end
 #foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -86,8 +91,11 @@ public class $className {
 #if($runTimeErrorSolved)
         ${domainVariableName}Table.refreshPagination();
 #end
-#exposeADFFacesSpringBindingSpecific4Entity($table)
-        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+        _$beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#end
 #foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -96,26 +104,29 @@ public class $className {
 #end
 #end
     }
-#putGetterSetter ($beanVOADFFacesClass $beanVOADFFacesVariable)
+#putGetterSetter ($beanVOADFFacesClass "_$beanVOADFFacesVariable")
 
 #putGetterSetterAlt ($beanVOADFFacesClass "Search$beanVOADFFacesVariable" "search$beanVOADFFacesVariable")
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
+#set($table = $targetTable)
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+#set($firstPkColumn=$tableUtils.getPrimaryFirstColumn($targetTable))
+#set($firstPkColumnVar=$formatUtils.getJavaName(${firstPkColumn.alias}))
     List all${childrenListClass};
     List selected${childrenListClass};
     private RichSelectManyShuttle ${childrenListVariable}Sms;
     private UISelectItems ${childrenListVariable}Si;
 	
     public List getAll${childrenListClass}() {
-#exposeADFFacesSpringBindingSpecific4Entity($table)
-      if (all${childrenListClass} == null) {
-        all${childrenListClass} = new ArrayList<javax.faces.model.SelectItem>();
-        for ($targetTableName entity : ${beanADFFacesSpringServiceVariable}.get${childrenListClass}()) {
-           all${childrenListClass}.add(new javax.faces.model.SelectItem(entity));
-        }
-      }
-      return all${childrenListClass};
+       if (all${childrenListClass} == null) {
+         all${childrenListClass} = new ArrayList<SelectItem>();
+         for ($domainClassImport entity : _${beanADFFacesSpringServiceVariable}.getList()) {
+            all${childrenListClass}.add(new SelectItem(entity.get${firstPkColumnVar}()));
+         }
+       }
+       return all${childrenListClass};
     }
 	
     public List getSelected${childrenListClass}() {
@@ -181,12 +192,13 @@ public class $className {
     public void displayAll() {
         display(new $beanVOADFFacesClass());
     }
-	
-    public void display($beanVOADFFacesClass $beanVOADFFacesVariable) {
+
+#set($var = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
+    public void display($beanVOADFFacesClass $var) {
         BindingContext bindingCtx = BindingContext.getCurrent();
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
         $beanVOADFFacesQueryRequestClass request = new $beanVOADFFacesQueryRequestClass();
-        request.set$beanVOADFFacesClass($beanVOADFFacesVariable);
+        request.set$beanVOADFFacesClass($var);
         request.setMatchType(searchAny?QueryRequest.PrototypeMatchType.ANY:QueryRequest.PrototypeMatchType.ALL);
         request.setType(getPrototypeType());
         request.setCaseSensitiveness(searchCaseSensitive?QueryRequest.PrototypeCase.SENSITIVE:QueryRequest.PrototypeCase.INSENSITIVE);
@@ -233,12 +245,12 @@ public class $className {
         BindingContext bindingCtx = BindingContext.getCurrent();
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
         Map mapParam = new HashMap();
-        mapParam.put("${domainVariableName}", this.${beanVOADFFacesVariable}); //the variable name of the operation signature has to be passed
+        mapParam.put("${domainVariableName}", this._${beanVOADFFacesVariable}); //the variable name of the operation signature has to be passed
         OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(mapParam);
         ob.execute();
-		displayAll();
-        ${beanVOADFFacesVariable} = new ${beanVOADFFacesClass}();
+        displayAll();
+        _${beanVOADFFacesVariable} = new ${beanVOADFFacesClass}();
         List<UIComponent> childUIComponent = this.panelTab.getChildren();
         
         if (childUIComponent != null && childUIComponent.size() > 0) {
