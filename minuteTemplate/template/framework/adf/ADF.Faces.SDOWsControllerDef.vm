@@ -11,6 +11,7 @@
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
 #if(!$isMany2Many)
+#set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
 #if ($hasSearch)
   <MethodAccessor IsCollection="false"
                   Type="$beanVOADFFacesQueryResponseImport"
