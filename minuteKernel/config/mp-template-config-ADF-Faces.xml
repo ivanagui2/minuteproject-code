@@ -15,7 +15,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
     	name="WS SDO client controller"
 		outputdir="ViewController"
 		belongToPackage="true">
-			 
+			 <property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
 <!-- 		<template name="ADF.Faces.SDOWsControllerDef" templateFileName="ADF.Faces.SDOWsControllerDef.vm" 
 			subdir="" outputsubdir="adfmsrc" technicalPackage="datacontrol"
 			file-extension="xml" file-prefix="" file-suffix="SdoWsDc" 
@@ -44,7 +44,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			add-model-name="false">
 			<!-- add condition clause property=spring -->
 		</template>
-					 
+
 		<template name="ADF.Faces.SDOWsControllerImpl" templateFileName="ADF.Faces.SDOWsControllerImpl.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
 			file-extension="java" file-prefix="" file-suffix="SdoWsDcImpl" 
@@ -52,6 +52,14 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			add-model-name="true">
 		</template>
 			 
+		<template name="ADF.Faces.FE-BE.ConverterUtils" templateFileName="ADF.Faces.FE-BE.ConverterUtils.vm" 
+			subdir="" outputsubdir="src" technicalPackage="datacontrol.impl"
+			file-extension="java" file-prefix="" file-suffix="ConvertUtils" 
+			application-specific="true" has-updatable-nature="true" 
+			add-model-name="false">
+			<!-- add condition clause property=spring -->
+		</template>
+					 
 		<template name="ADF.Faces.Entity.QueryRequest.Bean" templateFileName="ADF.Faces.Entity.QueryRequest.Bean.vm" 
 			subdir="" outputsubdir="src" technicalPackage="query"
 			file-extension="java" file-prefix="" file-suffix="QueryRequest" 

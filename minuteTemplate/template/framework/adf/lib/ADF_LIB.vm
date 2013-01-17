@@ -71,6 +71,7 @@
 
 #macro (exposeADFFacesDataControlModelSpecific)
 #exposeADFModelSpecific()
+#set($ADFFEBEConverterImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFFEBEConverterUtils))
 #set($ADFSDOWsDcFaceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcFace))
 #set($ADFSDOWsDcFaceClass=$commonUtils.getTemplateClassName($model, $template, $templateADFSDOWsDcFace))
 #set($ADFSDOWsDcDefImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFSDOWsDcDef))
@@ -354,6 +355,7 @@ import $importDomainObjectUML;
 #set ($templateBeanVOQueryResponseADFFaces = "ADF.Faces.Entity.QueryResponse.Bean")
 #set ($templateBeanVOQueryRequestADFFaces = "ADF.Faces.Entity.QueryRequest.Bean")
 #set ($templateADFFacesSpringAppContextLoader = "ADF.Spring.ApplicationContext.Loader")
+#set ($templateADFFEBEConverterUtils = "ADF.Faces.FE-BE.ConverterUtils")
 #end
 
 #macro (exposeADFSDDTemplate)

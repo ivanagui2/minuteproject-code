@@ -658,11 +658,11 @@ $!updatedAreaEnd
         this.${childrenListVariable} = ${childrenListVariable};
     }
     	
-    public void add${childrenListClass} ($targetTableName ${childrenListVariable}) {
+    public void add${targetTableName} ($targetTableName ${childrenListVariable}) {
         get${childrenListClass}().add($childrenListVariable);
-    }	    
+    }
+	
 #end
-
 #putJPA2TriggerSnippet()
 
 $!updatedAreaImplementation

@@ -2,24 +2,6 @@
 #exposeADFFacesDataControlModelSpecific()
 #exposeFrontEndBackendBindingType()
 #set($thisClassName=$className)
-#macro(putConverter)
-#foreach ($column in ${table.columns})
-#putColumnParamNaming()
-#if(!$isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-#set ($isEnum = $enumUtils.isEnumType($domainTemplate, $column))
-#if($isEnum)
-    output.set$columnClass((input.get$columnClass()==null)?(String)null:input.get$columnClass().toString());
-#elseif($columnUtils.isTimeStampColumn($column))
-    output.set$columnClass(new Timestamp(input.get$columnClass().getTime()));
-#elseif(!$column.isLob())
-    output.set$columnClass(input.get$columnClass());
-#end
-#end
-#if($isForeignKey && !$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-    output.set${columnClass}_(input.get${columnClass}_());
-#end
-#end
-#end
 package $packageName;
 
 import eu.adf.fwk.query.QueryRequest;
@@ -28,6 +10,7 @@ import eu.adf.fwk.query.QueryResponse;
 import java.util.ArrayList;
 
 import $ADFSDOWsDcFaceImport;
+import static ${ADFFEBEConverterImport}.*;
 
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
@@ -106,16 +89,8 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #putImportQuerySDDBean()
     $sddServiceInterfaceVariable  = (${sddServiceInterfaceClass})AppContextLoader.getContextLoader().getAppContext().getBean("$sddServiceInterfaceVariable");;
 #end
-
     }
-/*   public void convert(Object output, Object input) {
-      try {
-         BeanUtils.copyProperties(output, input);
-      } catch (IllegalAccessException e) {
-      } catch (InvocationTargetException e) {
-      }   
-   }
-*/   
+ 
     private EntityMatchType getEntityMatchType(QueryRequest request) {
         if (QueryRequest.PrototypeMatchType.ALL.equals(request.getMatchType()))
             return EntityMatchType.ALL;
@@ -138,16 +113,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
         return OperandType.EQUALS;
     } 
 	
-   public void convert(Object output, Object input) {
-      try {
-         BeanUtils.copyProperties(output, input);
-      } catch (IllegalAccessException e) {
-      } catch (InvocationTargetException e) {
-      } catch (Exception e) {
-          //TODO handle
-      System.out.println("e:"+e.getMessage());
-      }
-    }
+
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
@@ -156,13 +122,15 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #if(!$isMany2Many)
 #set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
 	
-  public static void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
-#putConverter()
-  }
-	
-  public static void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
-#putConverter()
-  }
+##  public static void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
+###putConverter()
+###putConverterM2M4Bean()
+##  }
+##	
+##  public static void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
+###putConverter()
+###putConverterM2M4Domain()
+##  }
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */
@@ -189,7 +157,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    public $beanVOADFFacesClass get$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable) {
       System.out.println(">>>> get$domainClassName");
 #if($tableHasOnlyOnePrimaryKey)
-      ${domainClassImport} var = ${beanADFFacesSpringServiceVariable}.findById(${beanVOADFFacesVariable}.get$primaryKeyJavaNameClass());
+      ${domainClassImport} var = ${beanADFFacesSpringServiceVariable}.load(${beanVOADFFacesVariable}.get$primaryKeyJavaNameClass());
       convert(var, $beanVOADFFacesVariable);
 #else
       // multiple primary key not supported yet
