@@ -108,30 +108,48 @@ public class $className {
 
 #putGetterSetterAlt ($beanVOADFFacesClass "Search$beanVOADFFacesVariable" "search$beanVOADFFacesVariable")
 
+	public ${domainClassName} getConsolidated () {
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeADFFacesSpringBindingSpecific4Entity($targetTable)
+#set($beanVOADFFacesTargetClass=$commonUtils.getTemplateClassName($targetTable, $template, $templateBeanVOADFFaces))
+#set($column=$tableUtils.getPrimaryFirstColumn($targetTable))
+#putColumnParams()
+        for ($columnType item : getSelected${childrenListClass}()) {
+            $beanVOADFFacesTargetClass element = new $beanVOADFFacesTargetClass();
+            element.set$columnClass(item);
+            _${beanVOADFFacesVariable}.add${targetTableName}(element);
+        }
+#end
+        return _${beanVOADFFacesVariable};
+	}
+	
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #set($table = $targetTable)
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($firstPkColumn=$tableUtils.getPrimaryFirstColumn($targetTable))
-#set($firstPkColumnVar=$formatUtils.getJavaName(${firstPkColumn.alias}))
-    List all${childrenListClass};
-    List selected${childrenListClass};
+#set($firstPkColumnClass=$formatUtils.getJavaName(${firstPkColumn.alias}))
+#set($column=$tableUtils.getPrimaryFirstColumn($targetTable))
+#putColumnParams()
+    List<SelectItem> all${childrenListClass};
+    List<$columnType> selected${childrenListClass};
     private RichSelectManyShuttle ${childrenListVariable}Sms;
     private UISelectItems ${childrenListVariable}Si;
 	
-    public List getAll${childrenListClass}() {
+    public List<SelectItem> getAll${childrenListClass}() {
        if (all${childrenListClass} == null) {
          all${childrenListClass} = new ArrayList<SelectItem>();
          for ($domainClassImport entity : _${beanADFFacesSpringServiceVariable}.getList()) {
-            all${childrenListClass}.add(new SelectItem(entity.get${firstPkColumnVar}()));
+            all${childrenListClass}.add(new SelectItem(entity.get${columnClass}()));
          }
        }
        return all${childrenListClass};
     }
 	
-    public List getSelected${childrenListClass}() {
+    public List<$columnType> getSelected${childrenListClass}() {
       if (selected${childrenListClass} == null) {
-         selected${childrenListClass} = new ArrayList<javax.faces.model.SelectItem>();
+         selected${childrenListClass} = new ArrayList<$columnType>();
       }
       return selected${childrenListClass};   
     }
@@ -241,11 +259,11 @@ public class $className {
         return panelTab;
     }
 
-    public void create${domainClassName}(ActionEvent actionEvent) {
+	public void create${domainClassName}(ActionEvent actionEvent) {
         BindingContext bindingCtx = BindingContext.getCurrent();
         BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
         Map mapParam = new HashMap();
-        mapParam.put("${domainVariableName}", this._${beanVOADFFacesVariable}); //the variable name of the operation signature has to be passed
+        mapParam.put("${domainVariableName}", getConsolidated ());//this._${beanVOADFFacesVariable}); //the variable name of the operation signature has to be passed
         OperationBinding ob = bindings.getOperationBinding("createOrUpdate${domainClassName}");
         ob.getParamsMap().putAll(mapParam);
         ob.execute();

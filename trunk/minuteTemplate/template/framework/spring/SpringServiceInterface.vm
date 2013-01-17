@@ -62,6 +62,8 @@ public interface $className extends GenericService<$tableClassName> {
     public void delete($tableClassName $tableVariableName) ; 
    
 	public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable);
+   
+	public $tableClassName load ($primaryKeyFullType $primaryKeyVariable);
 	
 #end
 #if($isMasterData || $isReferenceData)

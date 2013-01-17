@@ -103,7 +103,7 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 #end
-#if($isM2MEnable)
+
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeEntityUpdatedAreas("m2m-$childrenListVariable")
@@ -118,7 +118,6 @@ $!updatedAreaSnippet
 
 #end
 #updatedAreaEnd()
-#end
 #end
     /**
     * Default constructor
@@ -348,7 +347,6 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 
-#if($isM2MEnable)
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
     public Set<$targetTableName> get${childrenListClass}() {
@@ -362,10 +360,9 @@ $!updatedAreaEnd
         this.${childrenListVariable} = ${childrenListVariable};
     }
     	
-    public void add${childrenListClass} ($targetTableName ${childrenListVariable}) {
+    public void add${targetTableName} ($targetTableName ${childrenListVariable}) {
         get${childrenListClass}().add($childrenListVariable);
     }	    
-#end
 #end
 
 
