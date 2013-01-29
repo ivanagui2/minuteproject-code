@@ -208,13 +208,13 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>	
 		
 		<!-- jsff -->
-		<template name="ADF.Faces.Entity.Collection.jsff" templateFileName="ADF.Faces.Entity.Collection.jsff.vm" 
+<!-- 		<template name="ADF.Faces.Entity.Collection.jsff" templateFileName="ADF.Faces.Entity.Collection.jsff.vm" 
 			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
 			file-extension="jsff" file-prefix="list" file-suffix="" 
 			has-updatable-nature="true" add-model-dir-name="false"
 			scope-specific-value="entity"
 			>			
-		</template>	
+		</template>	 -->
 		
 		<!-- flow -->
 		<template name="ADF.Faces.viewEditEntity-flow.xml" templateFileName="ADF.Faces.viewEditEntity-flow.xml.vm" 
