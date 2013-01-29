@@ -298,5 +298,13 @@ public class FormatUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd G 'at' HH:mm:ss z");
 		return sdf.format(date);
 	}
+	
+	public static String windowizePath (String path) {
+		return StringUtils.replace(path, "/", "\\");
+	}
+	
+	public static String unixizePath (String path) {
+		return StringUtils.replace(path, "\\", "/");
+	}
 
 }
