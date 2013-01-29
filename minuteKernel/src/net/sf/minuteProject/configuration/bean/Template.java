@@ -772,6 +772,8 @@ public class Template extends TemplateTarget {
 	}
 
 	private String getBeginningCommentSnippetFromExtension() {
+		if (extension==null)
+			return "// No beginning comment snippet from this extension ";
 		return extension.lineCommentBeginning();
 //		if (Extension.java.toString().equals(fileExtension)) return "//";
 //		if (Extension.xml.toString().equals(fileExtension)) return "<!--";
@@ -781,6 +783,8 @@ public class Template extends TemplateTarget {
 	}
 	
 	private String getEndingCommentSnippetFromExtension() {
+		if (extension==null)
+			return "// No ending comment snippet from this extension ";
 		return extension.lineCommentEnding();
 //		if (Extension.java.toString().equals(fileExtension)) return "";
 //		if (Extension.xml.toString().equals(fileExtension)) return "-->";

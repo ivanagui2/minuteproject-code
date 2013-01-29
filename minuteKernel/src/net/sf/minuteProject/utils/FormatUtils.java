@@ -1,6 +1,8 @@
 package net.sf.minuteProject.utils;
 
+import java.text.CharacterIterator;
 import java.text.SimpleDateFormat;
+import java.text.StringCharacterIterator;
 import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -304,7 +306,24 @@ public class FormatUtils {
 	}
 	
 	public static String unixizePath (String path) {
-		return StringUtils.replace(path, "\\", "/");
+	    final StringBuilder result = new StringBuilder();
+	    final StringCharacterIterator iterator = new StringCharacterIterator(path);
+	    char character =  iterator.current();
+	    while (character != CharacterIterator.DONE ){
+	     
+	      if (character == '\\') {
+	         result.append("/");
+	      }
+	       else {
+	        result.append(character);
+	      }
+
+	      
+	      character = iterator.next();
+	    }
+	    System.out.println("input = "+path+"; output = "+result.toString());
+	    return result.toString();
+//		return StringUtils.replace(path, "\\", "/");
 	}
 
 }
