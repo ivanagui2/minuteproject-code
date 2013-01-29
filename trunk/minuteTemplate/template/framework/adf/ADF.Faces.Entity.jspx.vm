@@ -1,6 +1,7 @@
 #exposeADFFacesEntitySpecific()
 #set($separator=$i18nUtils.getSeparator($template))
 #set($entityCriteriaActivated=$template.getPropertyValue("activate-entity-criteria",false))
+#set($displayChildren=$template.getPropertyValue("display-children",false))
 #set($windowHeight="$adfUtils.getDisplayWindowDetailsHeight($table)")##"400")
 #set($windowWidth="$adfUtils.getDisplayWindowDetailsWidth($table)")##"600")
 #set($createfieldWidth="80%")
@@ -73,7 +74,6 @@ $!updatedAreaSnippet
 #adfEntityColumnDisplay("${columnVar}it")
 #end 
 #end
-
                       </af:panelFormLayout>
                         <af:panelGroupLayout id="pgl1" halign="end"
                                                  layout="horizontal">
@@ -208,7 +208,21 @@ $updatedAreaEnd
                          id="${childrenListVariable}Si"/>
         </af:selectManyShuttle>
 #end
-					</af:panelFormLayout>
+#if($displayChildren)
+           <af:panelTabbed id="tab-children" dimensionsFrom="auto" >##binding=""
+#foreach($reference in $table.children)
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+<!-- $linktableDB.name -->
+#adfEntityTable($linktableDB "${childrenListClass}$velocityCount" $linkedTableVariable ${childrenListVariable} true)
+##<jsp:include page="/$listADFFacesRelativePath">
+####  <jsp:param name="backingBean" value="${entityADFVariable}BackingBean"/>
+##</jsp:include>
+#end
+#end
+           </af:panelTabbed>
+#end
+                    </af:panelFormLayout>
                     <af:panelGroupLayout id="itdetpgl1" halign="center"  layout="horizontal">
                           <af:commandButton text="#{viewcontrollerBundle['save']}"
                               id="itdetsave"

@@ -119,6 +119,15 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		libdir="lib/ADF_LIB.vm"
 		outputdir="ViewController/src">  
 		
+		<template name="ADF.Faces.Entity.AdapterBackingBean" templateFileName="ADF.Faces.Entity.AdapterBackingBean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="AdapterBean"
+			has-updatable-nature="true" 
+			scope-specific-value="entity"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
+			>			
+		</template>	
+		
 		<template name="ADF.Faces.Entity.BackingBean" templateFileName="ADF.Faces.Entity.BackingBean.vm" 
 		    technicalPackage="bean"
 			file-extension="java" file-prefix="" file-suffix="BackingBean"
@@ -198,6 +207,16 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 		
+		<!-- jsff -->
+		<template name="ADF.Faces.Entity.Collection.jsff" templateFileName="ADF.Faces.Entity.Collection.jsff.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
+			file-extension="jsff" file-prefix="list" file-suffix="" 
+			has-updatable-nature="true" add-model-dir-name="false"
+			scope-specific-value="entity"
+			>			
+		</template>	
+		
+		<!-- flow -->
 		<template name="ADF.Faces.viewEditEntity-flow.xml" templateFileName="ADF.Faces.viewEditEntity-flow.xml.vm" 
 			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="flows"
 			file-extension="xml" file-prefix="viewEdit" file-suffix="-flow" 

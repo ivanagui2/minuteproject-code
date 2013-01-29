@@ -1,28 +1,16 @@
 package net.sf.minuteProject.utils;
 
 import java.io.File;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.tools.ant.util.FileUtils;
-
-import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
-import net.sf.minuteProject.configuration.bean.Package;
-import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
@@ -33,7 +21,10 @@ import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.Composites;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
-import net.sf.minuteProject.configuration.bean.view.View;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.tools.ant.util.FileUtils;
 
 
 public class CommonUtils {

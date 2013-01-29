@@ -11,6 +11,8 @@
 #set($backingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateBackingBeanADFFaces))
 #set($backingBeanADFFacesVariableName=$commonUtils.getJavaNameVariableFirstLetter($backingBeanADFFacesClassName))
 #set($backingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBackingBeanADFFaces))
+#set($adapterBackingBeanADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateAdapterBackingBeanADFFaces))
+#set($adapterBackingBeanADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateAdapterBackingBeanADFFaces))
 #set($viewEditBeanFlowADFFacesClassName=$commonUtils.getTemplateClassName($table, $template, $templateADFFacesEntityFlow))
 #set($viewEditBeanFlowADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityFlow))
 #set($viewEditADFFacesEntityFullPath = "/WEB-INF/taskflows/"+$viewEditBeanFlowADFFacesRelativePath)
@@ -23,6 +25,7 @@
 #set($viewEditEntityBeanImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateViewEditBeanADFFaces))
 #set($detailADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateDetailBeanFlowADFFaces))
 #set($editADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateViewEditBeanFlowADFFaces))
+#set($listADFFacesRelativePath=$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntityCollection))
 #end
 
 #macro (exposeADFQuerySpecific)
@@ -328,6 +331,7 @@ import $importDomainObjectUML;
 ##Front-End
 #set ($templateADFFacesMainFlow = "ADF.Faces.ViewController.main-flow.xml")
 #set ($templateADFFacesEntity = "ADF.Faces.Entity.jspx")
+#set ($templateADFFacesEntityCollection = "ADF.Faces.Entity.Collection.jsff")
 #set ($templateADFFacesEntityDetail = "ADF.Faces.EntityDetail.jspx")
 #set ($templateADFFacesEntityEdit = "ADF.Faces.EntityEdit.jspx")
 #set ($templateADFFacesEntityQuery = "ADF.Faces.EntityQuery.jspx")
@@ -336,6 +340,7 @@ import $importDomainObjectUML;
 #set ($templateADFFacesSiteMenuConfig = "ADF.Faces.ViewController.site-menu.xml")
 #set ($templateBeanVOADFFaces = "ADF.Faces.Entity.Bean")
 #set ($templateBackingBeanADFFaces = "ADF.Faces.Entity.BackingBean")
+#set ($templateAdapterBackingBeanADFFaces = "ADF.Faces.Entity.AdapterBackingBean")
 #set ($templateViewEditBeanADFFaces = "ADF.Faces.Entity.ViewEditBean")
 #set ($templateViewEditBeanFlowADFFaces = "ADF.Faces.EntityEdit.jspx")
 #set ($templateDetailBeanFlowADFFaces = "ADF.Faces.EntityDetail.jspx")
