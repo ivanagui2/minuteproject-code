@@ -43,7 +43,7 @@
     </tree>
     <methodAction id="get${sddOutputBeanCollectionClass}" RequiresUpdateModel="true"
                   InstanceName="${dataControlRef}.dataProvider"
-                  DataControl="${dataControlRef}" RequiresUpdateModel="true"
+                  DataControl="${dataControlRef}"
                   Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
                   IsViewObjectMethod="false"
 				  ReturnName="data.${dataControlRef}.methodResults.get${sddOutputBeanCollectionClass}">
