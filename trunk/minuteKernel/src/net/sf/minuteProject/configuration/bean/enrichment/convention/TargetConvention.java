@@ -8,21 +8,22 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 public class TargetConvention extends KernelConvention{
 	
 	public static final String ENABLE_UPDATABLE_CODE = "enable-updatable-code-feature";
+	public static final String DISABLE_TIMESTAMP_COMMENT_MARKER = "disable-timestamp-comment-marker";
 
 	@Override
 	public void apply(Configuration configuration) {
-		if (ENABLE_UPDATABLE_CODE.equals(type))
-			applyEnableUpdatableCode(configuration);
+		if (ENABLE_UPDATABLE_CODE.equals(type) || DISABLE_TIMESTAMP_COMMENT_MARKER.equals(type) )
+			applyConvention(configuration);
 	}
 
-	private void applyEnableUpdatableCode(Configuration configuration) {
+	private void applyConvention(Configuration configuration) {
 		Target target = configuration.getTarget();
-		applyEnableUpdatableCode(target);
+		applyConvention(target);
 		for (Target t : configuration.getTargets().getTargets())
-			applyEnableUpdatableCode(t);
+			applyConvention(t);
 	}
 
-	private void applyEnableUpdatableCode(Target target) {
+	private void applyConvention(Target target) {
 		// TODO Auto-generated method stub
 		for (TemplateTarget tt : target.getTemplateTargets()) {
 			for (Template t : tt.getTemplates())
@@ -31,6 +32,9 @@ public class TargetConvention extends KernelConvention{
 	}
 
 	private void applyEnableUpdatableCode(Template t) {
-		t.setUpdatable(true);
+		if (ENABLE_UPDATABLE_CODE.equals(type)) 
+			t.setUpdatable(true);
+		if (DISABLE_TIMESTAMP_COMMENT_MARKER.equals(type)) 
+			t.setTimestampMarkerEnabled(false);
 	}
 }

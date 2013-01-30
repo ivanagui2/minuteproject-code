@@ -11,12 +11,14 @@
     <data-control-scope id="__3">
       <shared/>
     </data-control-scope>
+#if($isNotVoidInput)
     <input-parameter-definition id="__1">
       <name id="__2">$sddInputBeanVariable</name>
       <value>#{pageFlowScope.${sddInputBeanVariable}}</value>
       <class>$sddInputBeanImport</class>
       <required/>
     </input-parameter-definition>
+#end
     <managed-bean id="__17">
       <managed-bean-name id="__19">${queryBackingBeanADFFaceVariable}</managed-bean-name>
       <managed-bean-class id="__18">${queryBackingBeanADFFaceImport}</managed-bean-class>
@@ -98,7 +100,7 @@
       <managed-bean-scope id="__16">request</managed-bean-scope>
     </managed-bean>
     <view id="result">
-      <page>/components/mdh/result.jsff</page>
+      <page>/components/xxxx/result.jsff</page>
     </view>
     <use-page-fragments/>
   </task-flow-definition>

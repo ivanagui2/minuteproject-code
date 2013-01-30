@@ -2,8 +2,8 @@
 #set($thisClassName=$className)
 package $packageName;
 
-import eu.adf.fwk.query.QueryRequest;
-import eu.adf.fwk.query.QueryResponse;
+import net.sf.minuteproject.adf.query.QueryRequest;
+import net.sf.minuteproject.adf.query.QueryResponse;
 
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
@@ -19,6 +19,7 @@ import $beanVOADFFacesQueryRequestImport;
 #exposeADFQuerySpecific()
 #putImportQuerySDDBean()
 import $sddOutputBeanCollectionImport;
+import $sddOutputBeanImport;
 #if($isNotVoidInput)
 import $sddInputBeanImport;
 #end
@@ -58,7 +59,7 @@ public interface $thisClassName {
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #exposeADFQuerySpecific()
 #putImportQuerySDDBean()
-    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) ;
+    public $sddOutputBeanCollectionClass get$sddOutputBeanCollectionClass (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) ;
 
     public $sddOutputBeanClass get${sddOutputBeanClass}Detail ($sddOutputBeanClass $sddOutputBeanVariable) ;
 

@@ -27,7 +27,7 @@ import oracle.adf.view.rich.event.QueryEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 
-import eu.adf.fwk.utils.ADFUtils;
+import net.sf.minuteproject.adf.utils.ADFUtils;
 
 import java.awt.event.ActionEvent;
 
@@ -64,44 +64,44 @@ public class ${className} {
 
 #if ($isChartLayout)
 #if($isBarChart)
-    private CartesianChartModel categoryModel;  
-
-    public CartesianChartModel getCategoryModel() {  
-        return categoryModel;  
-    }  
-
-    public CartesianChartModel createCategoryModel() {  
-        execute();
-        categoryModel = new CartesianChartModel();  
+##    private CartesianChartModel categoryModel;  
+##
+##    public CartesianChartModel getCategoryModel() {  
+##        return categoryModel;  
+##    }  
+##
+##    public CartesianChartModel createCategoryModel() {  
+##        execute();
+##        categoryModel = new CartesianChartModel();  
 #foreach($column in $dimensions)
 #putColumnParamNaming()
 #set($dimVar = "${columnVar}$velocityCount")
-        ChartSeries $dimVar = new ChartSeries();  
-        ${dimVar}.setLabel("$columnClass");
-        for ($sddOutputBeanClass var : getOutputList()) {
-            ${dimVar}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
-        }
-        categoryModel.addSeries(${dimVar});  
+##        ChartSeries $dimVar = new ChartSeries();  
+##        ${dimVar}.setLabel("$columnClass");
+##        for ($sddOutputBeanClass var : getOutputList()) {
+##            ${dimVar}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
+##        }
+##        categoryModel.addSeries(${dimVar});  
 #end
-        return categoryModel;
-    }
-    
+##        return categoryModel;
+##    }
+##    
 #end
 #if($isPieChart)
-    private PieChartModel pieModel;
-    public PieChartModel getPieModel() {  
-        return pieModel;  
-    }  
-    
-    public PieChartModel createPieModel() {
-        execute();
-        pieModel = new PieChartModel();  
-        for ($sddOutputBeanClass var : getOutputList()) {
-            pieModel.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
-        }
-        return pieModel;
-    }
-
+##    private PieChartModel pieModel;
+##    public PieChartModel getPieModel() {  
+##        return pieModel;  
+##    }  
+##    
+##    public PieChartModel createPieModel() {
+##        execute();
+##        pieModel = new PieChartModel();  
+##        for ($sddOutputBeanClass var : getOutputList()) {
+##            pieModel.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
+##        }
+##        return pieModel;
+##    }
+##
 #end
 #end
 

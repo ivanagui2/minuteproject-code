@@ -44,7 +44,7 @@
 
   <managed-bean id="__4">
     <managed-bean-name id="__3">localMenuUtils</managed-bean-name>
-    <managed-bean-class id="__2">eu.adf.fwk.utils.MenuUtils</managed-bean-class>
+    <managed-bean-class id="__2">net.sf.minuteproject.adf.utils.MenuUtils</managed-bean-class>
     <managed-bean-scope id="__1">backingBean</managed-bean-scope>
     <managed-property id="__6">
       <property-name id="__5">menuModelName</property-name>
@@ -86,7 +86,7 @@
 #set($cpt=$cpt+1)
     <managed-bean-name id="__$cpt">securityBean</managed-bean-name>
 #set($cpt=$cpt+1)
-    <managed-bean-class id="__$cpt">eu.adf.fwk.security.SecurityBean</managed-bean-class>
+    <managed-bean-class id="__$cpt">net.sf.minuteproject.adf.security.SecurityBean</managed-bean-class>
 #set($cpt=$cpt+1)
     <managed-bean-scope id="__$cpt">view</managed-bean-scope>
 #set($cpt=$cpt+1)

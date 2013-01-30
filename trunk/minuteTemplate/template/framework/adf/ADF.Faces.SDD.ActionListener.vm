@@ -6,7 +6,7 @@ package $packageName;
 
 $!updatedAreaImport
 
-import eu.adf.fwk.utils.ADFUtils;
+import net.sf.minuteproject.adf.utils.ADFUtils;
 
 import $sddOutputBeanImport;
 
@@ -35,12 +35,12 @@ public class ${className} {
       /*
       getDetaillog().setVisible(false);
       getHeaderlog().setVisible(true);
-
     */
-    }   
+    }
+	
     public void rowDisclosureListener(RowDisclosureEvent rowDisclosureEvent) {
         System.out.println("rowDisclosureListener event");
-        selected$sddOutputBeanClass = ADFUtils.getDisclosedTableRowValue(rowDisclosureEvent, $sddOutputBeanClass.class);    
+        selected$sddOutputBeanClass = ADFUtils.getDisclosedTableRowValue(rowDisclosureEvent, ${sddOutputBeanClass}.class);    
         if(null != selected$sddOutputBeanClass){
            System.out.println("rowDisclosureListener EVENT!"+selected$sddOutputBeanClass);
         }

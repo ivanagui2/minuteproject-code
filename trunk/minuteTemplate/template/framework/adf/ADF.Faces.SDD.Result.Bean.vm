@@ -1,9 +1,9 @@
 #exposeADFQuerySpecific()
 package $packageName;
 
-import eu.adf.fwk.utils.ADFUtils;
+import net.sf.minuteproject.adf.utils.ADFUtils;
 
-import eu.adf.fwk.utils.JSFUtils;
+import net.sf.minuteproject.adf.utils.JSFUtils;
 
 import java.util.HashMap;
 import java.util.List;

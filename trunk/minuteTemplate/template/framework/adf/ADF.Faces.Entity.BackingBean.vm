@@ -32,9 +32,9 @@ import oracle.binding.OperationBinding;
 
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 
-import eu.adf.fwk.query.QueryRequest;
-import eu.adf.fwk.utils.TablePaginationUtils;
-import eu.adf.fwk.utils.EntityPaginator;
+import net.sf.minuteproject.adf.query.QueryRequest;
+import net.sf.minuteproject.adf.utils.TablePaginationUtils;
+import net.sf.minuteproject.adf.utils.EntityPaginator;
 
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;

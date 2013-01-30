@@ -45,8 +45,8 @@
 #end
 package $packageName;
 
-import eu.adf.fwk.query.QueryRequest;
-import eu.adf.fwk.query.QueryResponse;
+import net.sf.minuteproject.adf.query.QueryRequest;
+import net.sf.minuteproject.adf.query.QueryResponse;
 
 import java.util.ArrayList;
 

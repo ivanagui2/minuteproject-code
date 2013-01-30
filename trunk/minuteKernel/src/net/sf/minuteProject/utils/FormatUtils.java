@@ -321,7 +321,6 @@ public class FormatUtils {
 	      
 	      character = iterator.next();
 	    }
-	    System.out.println("input = "+path+"; output = "+result.toString());
 	    return result.toString();
 //		return StringUtils.replace(path, "\\", "/");
 	}

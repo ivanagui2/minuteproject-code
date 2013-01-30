@@ -47,9 +47,11 @@
                   Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
                   IsViewObjectMethod="false"
 				  ReturnName="data.${dataControlRef}.methodResults.get${sddOutputBeanCollectionClass}">
+#if($isNotVoidInput)
       <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${sddInputBeanVariable}}" 
                  NDType="${sddInputBeanImport}"
                  NDOption="1"/>
+#end
     </methodAction>
   </bindings>
 </pageDefinition>
