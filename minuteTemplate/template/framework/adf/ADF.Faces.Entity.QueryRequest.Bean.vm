@@ -22,7 +22,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 #end
 import java.io.Serializable;
 
-import eu.adf.fwk.query.QueryRequest;
+import net.sf.minuteproject.adf.query.QueryRequest;
 
 #exposeADFFacesEntityImport()
 

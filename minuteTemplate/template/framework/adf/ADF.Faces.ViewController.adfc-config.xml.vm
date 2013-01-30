@@ -6,7 +6,7 @@
 #addArea("custom-config-definition")
   <managed-bean id="__6">
     <managed-bean-name id="__7">rootMenuUtils</managed-bean-name>
-    <managed-bean-class id="__8">eu.adf.fwk.utils.MenuUtils</managed-bean-class>
+    <managed-bean-class id="__8">net.sf.minuteproject.adf.utils.MenuUtils</managed-bean-class>
     <managed-bean-scope id="__9">backingBean</managed-bean-scope>
     <managed-property id="__10">
       <property-name id="__11">menuModelName</property-name>

@@ -70,6 +70,7 @@ public class Template extends TemplateTarget {
 	private boolean isUpdatable = false;
 	private boolean hasUpdatableNature = false;
 	private boolean convertPackageToDir = true;
+	private boolean isTimestampMarkerEnabled = true;
 	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;
@@ -751,6 +752,14 @@ public class Template extends TemplateTarget {
 		this.hasUpdatableNature = hasUpdatableNature;
 	}
 
+	public boolean isTimestampMarkerEnabled() {
+		return isTimestampMarkerEnabled;
+	}
+
+	public void setTimestampMarkerEnabled(boolean isTimestampMarkerEnabled) {
+		this.isTimestampMarkerEnabled = isTimestampMarkerEnabled;
+	}
+
 	public String getBeginningCommentSnippet() {
 		if (beginningCommentSnippet==null)
 			beginningCommentSnippet=getBeginningCommentSnippetFromExtension();
@@ -835,12 +844,13 @@ public class Template extends TemplateTarget {
 	}
 
 	private String getTemplateSignatureTxt() {
-		return 
+		StringBuffer sb = new StringBuffer(
 			" template reference : \n"+
 			" - name      : "+getName()+"\n"+
-			" - file name : "+getTemplateFileName()+"\n"+
-			" - time      : "+FormatUtils.renderCurrentTime()+"\n"+
-			"";
+			" - file name : "+getTemplateFileName()+"\n");
+		sb.append((isTimestampMarkerEnabled)?" - time      : "+FormatUtils.renderCurrentTime()+"\n":"");
+		sb.append("");
+		return sb.toString();
 	}
 		
 }

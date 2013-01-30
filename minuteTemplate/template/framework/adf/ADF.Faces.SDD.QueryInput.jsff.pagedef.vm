@@ -17,9 +17,11 @@
               activation="immediate"              
               xmlns="http://xmlns.oracle.com/adf/controller/binding">
       <parameters>
+#if($isNotVoidInput)
         <parameter id="${sddInputBeanVariable}" evaluate="eachUse"
                    xmlns="http://xmlns.oracle.com/adfm/uimodel"
                    value="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.${sddInputBeanVariable}}"/>
+#end
       </parameters>
     </taskFlow>
   </executables>
@@ -30,9 +32,11 @@
                   Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
                   IsViewObjectMethod="false"
                   ReturnName="data.UlysseSdoWsDcImpl.methodResults.get${sddOutputBeanCollectionClass}1_result">
+#if($isNotVoidInput)
       <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.${sddInputBeanVariable}}"
                  NDType="${sddInputBeanImport}"
                  NDOption="2"/>
+#end
     </methodAction>
   </bindings>
 </pageDefinition>

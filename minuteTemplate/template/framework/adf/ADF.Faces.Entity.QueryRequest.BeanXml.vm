@@ -12,13 +12,13 @@
                      BeanClass="$beanVOADFFacesImport"
                      CollectionBeanClass="UpdateableSingleValue"/>
   <AccessorAttribute id="criterias" IsCollection="true"
-                     BeanClass="eu.adf.fwk.query.Criteria"
+                     BeanClass="net.sf.minuteproject.adf.query.Criteria"
                      CollectionBeanClass="UpdateableCollection"/>
   <AccessorAttribute id="pagination" IsCollection="false"
-                     BeanClass="eu.adf.fwk.query.Pagination"
+                     BeanClass="net.sf.minuteproject.adf.query.Pagination"
                      CollectionBeanClass="UpdateableSingleValue"/>
   <AccessorAttribute id="sort" IsCollection="false"
-                     BeanClass="eu.adf.fwk.query.SortType"
+                     BeanClass="net.sf.minuteproject.adf.query.SortType"
                      CollectionBeanClass="UpdateableSingleValue"/>
   <ConstructorMethod IsCollection="true"
                      Type="$beanVOADFFacesQueryRequestImport"
