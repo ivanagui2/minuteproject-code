@@ -10,11 +10,11 @@
             emptyText="#{bindings.${sddOutputBeanVariable}s.viewable ? 'No data to display.' : 'Access Denied.'}"
             fetchSize="#{bindings.${sddOutputBeanVariable}s.rangeSize}"
             rowBandingInterval="0" id="t1" width="100%" rowSelection="single"
-            selectionListener="#{${queryBackingBeanADFFaceVariable}.selectionEvent}"
+            selectionListener="#{${queryListenerBeanADFFaceVariable}.selectionEvent}"
             columnStretching="column:c4"
-            queryListener="#{${queryBackingBeanADFFaceVariable}.queryListener}"
-            rangeChangeListener="#{${queryBackingBeanADFFaceVariable}.rangeChangeListener}"
-            rowDisclosureListener="#{${queryBackingBeanADFFaceVariable}.rowDisclosureListener}">
+            queryListener="#{${queryListenerBeanADFFaceVariable}.queryListener}"
+            rangeChangeListener="#{${queryListenerBeanADFFaceVariable}.rangeChangeListener}"
+            rowDisclosureListener="#{${queryListenerBeanADFFaceVariable}.rowDisclosureListener}">
     <f:facet name="detailStamp">
       <af:panelFormLayout id="pfl1">
         <af:region value="#{bindings.detailsflowdefinition1.regionModel}" id="r1"/>

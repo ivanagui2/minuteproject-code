@@ -350,7 +350,33 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>
 		
 	</template-target>
-	
+
+	<template-target 
+    	name="ADF Model META-INF SDD"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/adfmsrc"
+		belongToPackage="true">
+		<!-- sdd javabean -->
+		<template name="ADF.Faces.SDD.InputBean.xml" templateFileName="ADF.Faces.SDD.JavaBean.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.in"
+			file-extension="xml" file-prefix="" file-suffix="In" has-updatable-nature="true"
+			scope-specific-value="sdd-input-bean" >
+		</template>	
+
+		<template name="ADF.Faces.SDD.OutputBean.xml" templateFileName="ADF.Faces.SDD.JavaBean.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="xml" file-prefix="" file-suffix="Out" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" >
+		</template>	
+
+		<template name="ADF.Faces.SDD.OutputBeanCollection.xml" templateFileName="ADF.Faces.SDD.OutputBeanCollection.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="xml" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" >
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>
+	</template-target>
+
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"

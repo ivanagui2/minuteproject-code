@@ -54,4 +54,34 @@
 
 #end
 #end
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#exposeADFQuerySpecific()
+#putImportQuerySDDBean()
+  <MethodAccessor IsCollection="false"
+                  Type="$sddOutputBeanCollectionImport"
+                  BeanClass="$sddOutputBeanCollectionImport"
+                  id="$sddOutputBeanCollectionClass"
+                  ReturnNodeName="$sddOutputBeanCollectionClass">
+#if($isNotVoidInput)
+    <ParameterInfo id="$sddInputBeanVariable"
+                   Type="$sddInputBeanClass"
+                   isStructured="true"/>
+#end
+  </MethodAccessor>
+  <MethodAccessor IsCollection="false"
+                  Type="$sddOutputBeanImportf"
+                  BeanClass="$sddOutputBeanImport"
+                  id="get${sddOutputBeanClass}Detail"
+                  ReturnNodeName="$sddOutputBeanClass">
+#if($isNotVoidInput)
+    <ParameterInfo id="$sddOutputBeanVariable"
+                   Type="$sddOutputBeanClass"
+                   isStructured="true"/>
+#end
+  </MethodAccessor>
+#end
+  <ConstructorMethod IsCollection="true"
+                     Type="$packageName.${className}"
+                     BeanClass="${packageName}.${className}"
+                     id="${className}"/>
 </JavaBean>
