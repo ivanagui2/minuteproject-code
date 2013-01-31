@@ -9,7 +9,7 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <taskFlow id="detailflowdefinition1"
+    <taskFlow id="detailsflowdefinition1"
               taskFlowId="/WEB-INF/taskflows/$queryInputDetailJsffTaskFlowADFFaceRelativePath#$queryInputDetailJsffTaskFlowADFFaceClassName"
               activation="immediate" 
               xmlns="http://xmlns.oracle.com/adf/controller/binding">
