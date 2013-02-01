@@ -1,6 +1,8 @@
 #exposeADFBuildSpecific()
 #exposeADFReleaseSpecific()
 #exposeFrontEndBackendBindingType()
+#set($templateIsFirstSetup=$template.getPropertyValue("is-first-setup","false"))
+#set($isFirstSetup=($templateBuildTarget=="true"))
 @rem check environment properties
 @rem WLS_HOME
 @rem JDEV_HOME
@@ -15,16 +17,20 @@ set currentdir=%cd%
 
 #if($isFrontEndRelease)
 #if($isBindingSpring)
+#if($isFirstSetup)
 cd model-maven
 call mvn clean package
 cd ..
 #end
+#end
 cd ViewController
+#if($isFirstSetup)
 #if($hasAdfFacesCustomFwk)
 xcopy $formatUtils.windowizePath($adfFacesCustomFwkHome) %cd% /s /e /y
 #end
 #if($hasAdfFacesCustomCode)
 xcopy $formatUtils.windowizePath(${adfFacesCustomCodeHome})\ViewController %cd% /s /e /y
+#end
 #end
 #else
 cd Model

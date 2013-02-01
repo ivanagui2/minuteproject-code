@@ -658,6 +658,16 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>		
 			<property name="build-target-type" value="deliver"></property>	
+		</template>
+		
+		<template name="ADF.Build.command.cmd" templateFileName="ADF.Build.command.cmd.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="bat" file-prefix="" file-suffix="-deliver-first-setup" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>		
+			<property name="build-target-type" value="deliver"></property>	
+			<property name="is-first-setup" value="true"></property>	
 		</template>	
 		
 		<template name="ADF.Build.deploy-to-ear.ojdeploy" templateFileName="ADF.Build.deploy-to-ear.ojdeploy.vm" 
