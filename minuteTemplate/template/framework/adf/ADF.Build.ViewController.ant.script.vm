@@ -317,6 +317,11 @@
 
     <path refid="library.ADF.Faces.Runtime.11"/>
 	
+	<!-- graphical elements -->
+	<path refid="library.ADF.DVT.Faces.Runtime"/>
+	<path refid="library.ADF.DVT.Faces.Databinding.Runtime"/>
+	<!--<path refid="library.ADF.DVT.Faces.Databinding.ADF.Runtime"/>-->
+	
   </path>
   <target name="init">
     <tstamp/>

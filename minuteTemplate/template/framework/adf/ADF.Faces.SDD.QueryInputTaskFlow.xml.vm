@@ -24,7 +24,7 @@
       <page>/$queryInputJsffADFFaceRelativePath</page>
     </view>
     <method-call id="${executeActivity}">
-      <method>#{pageFlowScope.${queryBackingBeanADFFaceVariable}.get${sddOutputBeanCollectionClass}}</method>
+      <method>#{pageFlowScope.${queryBackingBeanADFFaceVariable}.execute}</method>##get${sddOutputBeanCollectionClass}}</method>
       <outcome id="__5">
         <fixed-outcome>*</fixed-outcome>
       </outcome>

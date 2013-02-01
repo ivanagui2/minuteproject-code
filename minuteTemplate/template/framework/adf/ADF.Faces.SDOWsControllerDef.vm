@@ -69,7 +69,7 @@
 #end
   </MethodAccessor>
   <MethodAccessor IsCollection="false"
-                  Type="$sddOutputBeanImportf"
+                  Type="$sddOutputBeanImport"
                   BeanClass="$sddOutputBeanImport"
                   id="get${sddOutputBeanClass}Detail"
                   ReturnNodeName="$sddOutputBeanClass">

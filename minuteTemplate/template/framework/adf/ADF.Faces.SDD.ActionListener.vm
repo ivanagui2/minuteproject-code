@@ -60,4 +60,5 @@ public class ${className} {
     public void rangeChangeListener(RangeChangeEvent rangeChangeEvent) {
        System.out.println("rangeChangeListener event!");
     }
+
 }
