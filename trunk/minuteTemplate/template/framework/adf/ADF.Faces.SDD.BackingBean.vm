@@ -36,6 +36,10 @@ import java.util.Map;
 
 #exposeChartSpecific()
 #if ($isChartLayout)
+import oracle.adf.view.faces.bi.component.graph.UIGraph;
+import oracle.adf.view.faces.bi.model.DataModel;
+import oracle.adf.view.faces.bi.model.GraphDataModel;
+import oracle.dss.dataView.LocalXMLDataSource;
 #end
 
 import $sddOutputBeanCollectionImport;
@@ -63,6 +67,7 @@ public class ${className} {
     private $sddOutputBeanClass selected$sddOutputBeanClass;
 
 #if ($isChartLayout)
+    GraphDataModel graphData;
 #if($isBarChart)
 ##    private CartesianChartModel categoryModel;  
 ##
