@@ -67,7 +67,36 @@ public class ${className} {
     private $sddOutputBeanClass selected$sddOutputBeanClass;
 
 #if ($isChartLayout)
-    GraphDataModel graphData;
+    GraphDataModel graphDataModel;
+    public GraphDataModel getGraphDataModel() {
+        Object[] columnLabels = new Object["test"];
+        Object[] rowLabels = new Object["fr"];
+        Object[][] data = {new Integer["10"]};
+        oracle.dss.dataView.LocalXMLDataSource lxd = new LocalXMLDataSource(columnLabels, rowLabels, data);
+        graphDataModel = new GraphDataModel(lxd);
+        list<String> seriesLabelsList = new ArrayList();
+		List<$sddOutputBeanClass> list = getOutputList();
+        String[] columnLabels = { "$className" };
+##foreach($column in $dimensions)
+##putColumnParamNaming()
+##set($dimVar = "${columnVar}$velocityCount")
+##           #if($velocityCount>0),#end"$dimVar"
+##end
+##		};
+        int cpt = 0;
+        Object[][] data = new Object[1][list.size()];
+        for ($sddOutputBeanClass var : list) {
+           seriesLabelsList.add(var.get$outputBeanDimension1());
+           data[0][cpt] = new Double(40);
+           cpt++;
+        }
+        String[] seriesLabels = Array.toArray(seriesLabelsList);
+        oracle.dss.dataView.LocalXMLDataSource ds =
+            new oracle.dss.dataView.LocalXMLDataSource(columnLabels, seriesLabels, data);
+        graphData = new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
+        return graphData;
+    }
+
 #if($isBarChart)
 ##    private CartesianChartModel categoryModel;  
 ##

@@ -1,4 +1,6 @@
 #exposeADFFacesEntitySpecific()
+#set($displayChildren=$presentationUtils.getDisplayDisplayableChildReference($table, $template))
+#set($isDisplayChildren=$displayChildren.size()>0)
 #set($separator=$i18nUtils.getSeparator($template))
 #macro (adfEntityDetailColumnDisplay $id)
 ##                        <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
@@ -40,6 +42,22 @@ $!updatedAreaSnippet
 #putColumnParamNaming()
 #adfEntityDetailColumnDisplay("det$velocityCount")
 #end
+#end
+<!-- isDisplayChildren = $isDisplayChildren-->
+#if($isDisplayChildren)
+           <af:separator id="displayChildrenSep"/>
+           <af:panelTabbed id="tab-children" dimensionsFrom="auto" >##binding=""
+#foreach($reference in $displayChildren)
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+<!-- $linktableDB.name -->
+#adfEntityTable($linktableDB "${childrenListClass}$velocityCount" $linkedTableVariable ${childrenListVariable} true)
+##<jsp:include page="/$listADFFacesRelativePath">
+####  <jsp:param name="backingBean" value="${entityADFVariable}BackingBean"/>
+##</jsp:include>
+#end
+#end
+           </af:panelTabbed>
 #end
         </af:panelFormLayout>
           

@@ -21,6 +21,22 @@ public class PropertyUtils {
 				.getName();
 	}
 
+	public static boolean isPropertyCondition(Property property, String valueToAssess) {
+		String name = property.getName();
+		String condition = property.getValue();
+		if (!StringUtils.isEmpty(name) && !StringUtils.isEmpty(condition) && !StringUtils.isEmpty(valueToAssess)) {
+			String conditionUpperCase = condition.toUpperCase();
+			String valueToAssessUpperCase = valueToAssess.toUpperCase();
+			if (START_WITH.equals(name))
+				return valueToAssessUpperCase.startsWith(conditionUpperCase);
+			if (END_WITH.equals(name))
+				return valueToAssessUpperCase.startsWith(conditionUpperCase);
+			if (CONTAIN.equals(name))
+				return valueToAssessUpperCase.contains(conditionUpperCase);
+		}
+		return false;
+	}
+	
 	public static boolean isPropertyTagCondition(Property property,
 			String name, String condition) {
 		String tag = property.getTag();
