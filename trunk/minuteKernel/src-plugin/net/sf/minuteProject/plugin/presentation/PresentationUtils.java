@@ -1,19 +1,26 @@
 package net.sf.minuteProject.plugin.presentation;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.presentation.node.Block;
 import net.sf.minuteProject.loader.presentation.node.Window;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 public class PresentationUtils {
+
+	private static final String DISPLAY_CHILDREN = "display-children";
 
 	public static Boolean isParentDropDownList (Column column) {
 		return (ColumnUtils.isForeignKey(column) 
@@ -129,5 +136,25 @@ public class PresentationUtils {
 	}
 	public static List<Column> getNotTechnicalColumns(Table table) {
 		return TableUtils.getNotTechnicalColumns(table);
+	}
+	
+	public static List<Reference> getDisplayDisplayableChildReference(Table table, Template template) {
+		List<Reference> ref = new ArrayList<Reference>();
+		Property displayChildren = template.getPropertyByName(DISPLAY_CHILDREN);
+		if (displayChildren==null)
+			return ref;
+		List<Property> props = displayChildren.getProperties();
+		Reference[] children = table.getChildren();
+		if (props.isEmpty())
+			return Arrays.asList(children);
+		for (Property prop : props) {
+			for (Reference reference : children) {
+				if (PropertyUtils.isPropertyCondition(prop, reference.getForeignTable().getName())){
+					ref.add(reference);
+					break;
+				}
+			}
+		}
+		return ref;
 	}
 }

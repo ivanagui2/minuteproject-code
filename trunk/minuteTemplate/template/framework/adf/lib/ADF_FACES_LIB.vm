@@ -126,7 +126,10 @@
 #######################################################################
 
 #macro(adfEntityTable $table $adfIdAppender $tableVariableName $listVariable $isChild)
-              <af:showDetailItem text="#{viewcontrollerBundle['$tableVariableName$separator$listVariable']}"
+#set($windowHeight="$adfUtils.getDisplayWindowDetailsHeight($table)")##"400")
+#set($windowWidth="$adfUtils.getDisplayWindowDetailsWidth($table)")##"600")
+#set($resultListWidth="600px")
+<af:showDetailItem text="#{viewcontrollerBundle['$tableVariableName$separator$listVariable']}"
                                  id="sdChildren$adfIdAppender">
                  <af:panelGroupLayout layout="horizontal" halign="left"
                         rendered="#{viewScope.${entityADFVariable}BackingBean.displayResults}">

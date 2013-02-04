@@ -151,7 +151,7 @@ $!updatedAreaSnippet
                                               windowWidth="$windowWidth"
                                               launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFClass}Dlg}">
 ##works for one pk only
-								<f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
+                                 <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
                             </af:column>
 #else
@@ -162,7 +162,7 @@ $!updatedAreaSnippet
 #if($isForeignKey)
 #set($columnVar = "${columnVar}_")
 #end
-							  <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot2"/>
+                              <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot2"/>
                             </af:column>
 #end
 #end
