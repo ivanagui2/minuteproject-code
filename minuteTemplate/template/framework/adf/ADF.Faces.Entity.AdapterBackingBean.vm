@@ -3,6 +3,12 @@
 #exposeFrontEndBackendBindingType()
 #exposeADFFacesSpringModelBindingSpecific()
 #set($thisTable=$table)
+#set($thisClassName=$className)
+#set($thisDomainVariableName=$domainVariableName)
+#set($thisDomainClassName=$domainClassName)
+#set($thisBeanVOADFFacesClass=$beanVOADFFacesClass)
+#set($thisBeanVOADFFacesVariable = $beanVOADFFacesVariable)
+#set($thisPrimaryKeyType=$primaryKeyType)
 package $packageName;
 
 import $beanVOADFFacesImport;
@@ -39,29 +45,42 @@ import net.sf.minuteproject.adf.utils.EntityPaginator;
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
+#set($ADFFEBEConverterImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFFEBEConverterUtils))
+import static $ADFFEBEConverterImport.*;
 
 #exposeADFFacesEntityImport()
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 import $beanADFFacesSpringServiceImport;
 #end
-#foreach ($reference in $table.parents)
+#foreach ($reference in $thisTable.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
 import $beanADFFacesSpringServiceImport;
 #end
 #end
-
+#foreach ($reference in $thisTable.distinctChildrenType)
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+#set($foreignTable=$reference.foreignTable)
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+import $beanADFFacesSpringServiceImport;
+#exposeADFFacesDataControlEntitySpecificForTable($foreignTable)
+import $beanVOADFFacesQueryResponseImport;
+import $beanVOADFFacesQueryRequestImport;
+import $beanVOADFFacesImport;
+#end
+#end
 import $beanADFFacesSpringAppContextLoaderImport;
 
-public class $className {
+public class $thisClassName {
     
-    private String ${domainVariableName}Name;
-    private String ${domainVariableName}Reference;
+    private String ${thisDomainVariableName}Name;
+    private String ${thisDomainVariableName}Reference;
     private RichPanelTabbed panelTab;
-    private $beanVOADFFacesClass _$beanVOADFFacesVariable = new $beanVOADFFacesClass();
+    private $thisBeanVOADFFacesClass _$thisBeanVOADFFacesVariable = new $thisBeanVOADFFacesClass();
     private Boolean displayResults = true;
     private Boolean displaySearch = false;
     private Boolean searchAny = false;
@@ -71,12 +90,40 @@ public class $className {
     private Boolean searchLike = true;
     private Boolean searchCaseSensitive = false;
 
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+	protected $thisPrimaryKeyType get${thisDomainVariableName}Param() { return null; }
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
     ${beanADFFacesSpringServiceClass} _$beanADFFacesSpringServiceVariable;
 #end
-#foreach ($reference in $table.distinctParentsType)
+#foreach ($reference in $thisTable.distinctChildrenType)
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+#set($foreignTable=$reference.foreignTable)
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+    $beanADFFacesSpringServiceClass ${beanADFFacesSpringServiceVariable}_;
+#exposeADFFacesDataControlEntitySpecificForTable($foreignTable)
+    EntityPaginator<$beanVOADFFacesQueryRequestClass> ${childrenListVariable}Table_;
+    public EntityPaginator<$beanVOADFFacesQueryRequestClass> get${childrenListClass}Table() {
+        return ${childrenListVariable}Table_;
+    }
+    public List<${beanVOADFFacesClass}> get${childrenListClass}() {
+        List<${beanVOADFFacesClass}> list = new ArrayList<${beanVOADFFacesClass}>();
+        $domainClassImport i = new $domainClassImport();
+        // set foreign key 
+        i.set${linkedColumnClass}_(get${thisDomainVariableName}Param());
+        List<$domainClassImport> elements = ${beanADFFacesSpringServiceVariable}_.findAll(i);
+        //convert back
+        for ($domainClassImport element : elements) {
+           ${beanVOADFFacesClass} var = new ${beanVOADFFacesClass}();
+           convert(element, var);
+           list.add(var);
+        }
+        return list;
+    }
+#end
+#end
+#foreach ($reference in $thisTable.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
@@ -84,16 +131,26 @@ public class $className {
 #end
 #end
 
-    public $className() {
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+    public $thisClassName() {
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
         _$beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
 #end
+#foreach ($reference in $thisTable.distinctChildrenType)
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+#set($foreignTable=$reference.foreignTable)
+#exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
+        ${beanADFFacesSpringServiceVariable}_ = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#exposeADFFacesDataControlEntitySpecificForTable($foreignTable)
+        ${childrenListVariable}Table_ = new EntityPaginator<$beanVOADFFacesQueryRequestClass>(${beanVOADFFacesQueryRequestClass}.class, "list${domainClassName}");
+#end
+#end
     }
 
-	public ${domainClassName} getConsolidated (${domainClassName} entity) {
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+    public ${thisDomainClassName} getConsolidated (${thisDomainClassName} entity) {
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($beanVOADFFacesTargetClass=$commonUtils.getTemplateClassName($targetTable, $template, $templateBeanVOADFFaces))
@@ -106,14 +163,14 @@ public class $className {
         }
 #end
         return entity;
-	}
+    }
 	
-	public ${domainClassName} getConsolidated () {
-        return getConsolidated(_${beanVOADFFacesVariable});
-	}
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+    public ${thisDomainClassName} getConsolidated () {
+        return getConsolidated(_${thisBeanVOADFFacesVariable});
+    }
+	
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
-#set($table = $targetTable)
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($firstPkColumn=$tableUtils.getPrimaryFirstColumn($targetTable))
 #set($firstPkColumnClass=$formatUtils.getJavaName(${firstPkColumn.alias}))

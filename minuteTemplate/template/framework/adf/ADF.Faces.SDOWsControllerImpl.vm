@@ -122,16 +122,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #set($tableHasOnlyOnePrimaryKey=$hasOnlyOnePrimaryKey)
 #if(!$isMany2Many)
 #set($beanVOADFFacesVariable = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
-	
-##  public static void convert($beanVOADFFacesClass input, ${domainClassImport} output) {
-###putConverter()
-###putConverterM2M4Bean()
-##  }
-##	
-##  public static void convert($domainClassImport input, ${beanVOADFFacesClass} output) {
-###putConverter()
-###putConverterM2M4Domain()
-##  }
   /**
    * @return $beanVOADFFacesQueryResponseClass
    */

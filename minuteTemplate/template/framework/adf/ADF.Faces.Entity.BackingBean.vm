@@ -39,13 +39,14 @@ import net.sf.minuteproject.adf.utils.EntityPaginator;
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
-
+//m2m
 #exposeADFFacesEntityImport()
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 import $beanADFFacesSpringServiceImport;
 #end
+//parents
 #foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -53,6 +54,7 @@ import $beanADFFacesSpringServiceImport;
 import $beanADFFacesSpringServiceImport;
 #end
 #end
+//children
 #foreach($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
@@ -85,13 +87,15 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
     ${beanADFFacesSpringServiceClass} _$beanADFFacesSpringServiceVariable;
 #end
-#foreach ($reference in $table.distinctParentsType)
+//distinct parents
+#foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
     $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
 #end
 #end
+//
 
     public $className() {
         ${domainVariableName}Table = new EntityPaginator<$beanVOADFFacesQueryRequestClass>(${beanVOADFFacesQueryRequestClass}.class, "list${domainClassName}");
@@ -103,7 +107,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
         _$beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
 #end
-#foreach ($reference in $table.distinctParentsType)
+#foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
@@ -116,7 +120,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 #putGetterSetterAlt ($beanVOADFFacesClass "Search$beanVOADFFacesVariable" "search$beanVOADFFacesVariable")
 
 	public ${domainClassName} getConsolidated () {
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($beanVOADFFacesTargetClass=$commonUtils.getTemplateClassName($targetTable, $template, $templateBeanVOADFFaces))
@@ -133,7 +137,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 	
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-#set($table = $targetTable)
+#if ($tableUtils.isAdminContentType($targetTable))
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($firstPkColumn=$tableUtils.getPrimaryFirstColumn($targetTable))
 #set($firstPkColumnClass=$formatUtils.getJavaName(${firstPkColumn.alias}))
@@ -181,6 +185,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
         return ${childrenListVariable}Si;
     }
 	
+#end
 #end
 
     public void set${domainClassName}Table(EntityPaginator<$beanVOADFFacesQueryRequestClass> table) {

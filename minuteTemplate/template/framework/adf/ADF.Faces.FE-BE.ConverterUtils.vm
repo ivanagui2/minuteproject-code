@@ -11,7 +11,7 @@
 #if($isEnum)
     output.set$columnClass((input.get$columnClass()==null)?(String)null:input.get$columnClass().toString());
 #elseif($columnUtils.isTimeStampColumn($column))
-    output.set$columnClass(new Timestamp(input.get$columnClass().getTime()));
+    output.set$columnClass((input.get$columnClass()==null)?(Timestamp)null:new Timestamp(input.get$columnClass().getTime()));
 #elseif(!$column.isLob())
     output.set$columnClass(input.get$columnClass());
 #end

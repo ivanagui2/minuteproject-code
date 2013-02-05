@@ -144,7 +144,8 @@ public class $className implements $SpringServiceInterfaceClass {
 		${BslaDaoExtInterfaceVariable}.find (data);
 	}
 	
-#if($isMasterData || $isReferenceData)
+##if($isMasterData || $isReferenceData)
+#if ($tableUtils.isAdminContentType($table))
     /**
      * return a list of $tableClassName entities 
      */
