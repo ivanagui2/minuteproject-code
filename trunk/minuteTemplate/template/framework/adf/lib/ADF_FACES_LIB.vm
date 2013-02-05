@@ -125,14 +125,14 @@
 ############# macro table
 #######################################################################
 
-#macro(adfEntityTable $table $adfIdAppender $tableVariableName $listVariable $isChild)
+#macro(adfEntityTable $table $adfIdAppender $tableVariableName $listVariable $scope $bean $isChild)
 #set($windowHeight="$adfUtils.getDisplayWindowDetailsHeight($table)")##"400")
 #set($windowWidth="$adfUtils.getDisplayWindowDetailsWidth($table)")##"600")
 #set($resultListWidth="600px")
 <af:showDetailItem text="#{viewcontrollerBundle['$tableVariableName$separator$listVariable']}"
                                  id="sdChildren$adfIdAppender">
                  <af:panelGroupLayout layout="horizontal" halign="left"
-                        rendered="#{viewScope.${entityADFVariable}BackingBean.displayResults}">
+                        rendered="#{${scope}.${bean}.displayResults}">
                     <af:panelBox id="${entityADFVariable}__pb_${adfIdAppender}" showDisclosure="false"
                                  showHeader="always" ramp="core"
                                  styleClass="section">
@@ -144,12 +144,12 @@
                                     value="#{bindings.${domainVariableName}DTOs.collectionModel}"
                                     emptyText="#{bindings.${domainVariableName}DTOs.viewable ? 'No data to display.' : 'Access Denied.'}"
                                     filterModel="#{bindings.${domainVariableName}DTOsQuery.queryDescriptor}"
-                                    rows="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
-                                    fetchSize="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
-                                    queryListener="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.queryListener}"
-                                    binding="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.tableUIComp}"
+                                    rows="#{${scope}.${bean}.${entityADFVariable}Table.rangeSize}"
+                                    fetchSize="#{${scope}.${bean}.${entityADFVariable}Table.rangeSize}"
+                                    queryListener="#{${scope}.${bean}.${entityADFVariable}Table.queryListener}"
+                                    binding="#{${scope}.${bean}.${entityADFVariable}Table.tableUIComp}"
 #else
-                                    value="#{viewScope.${entityADFVariable}BackingBean.${listVariable}Children}"
+                                    value="#{${scope}.${bean}.${listVariable}Children}"
 #end
                                     var="row"
                                     rowBandingInterval="1"
@@ -190,7 +190,7 @@ $!updatedAreaSnippet
                                               windowModalityType="applicationModal"
                                               windowHeight="$windowHeight"
                                               windowWidth="$windowWidth"
-                                              launchListener="#{viewScope.${entityADFVariable}BackingBean.handleLaunchEdit${entityADFClass}Dlg}">
+                                              launchListener="#{${scope}.${bean}.handleLaunchEdit${entityADFClass}Dlg}">
 ##works for one pk only
                                 <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
@@ -212,7 +212,7 @@ $updatedAreaEnd
                           </af:table>
                       </f:facet>
                         <f:attribute name="paginationUtils"
-                                     value="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table}"/>
+                                     value="#{${scope}.${bean}.${entityADFVariable}Table}"/>
                       </af:pageTemplate>
                     </af:panelBox>
                   </af:panelGroupLayout>

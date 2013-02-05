@@ -51,7 +51,7 @@ $!updatedAreaSnippet
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 <!-- $linktableDB.name -->
-#adfEntityTable($linktableDB "${childrenListClass}$velocityCount" $linkedTableVariable ${childrenListVariable} true)
+#adfEntityTable($linktableDB "${childrenListClass}$velocityCount" $linkedTableVariable ${childrenListVariable} "pageFlowScope" "${viewEditEntityBeanVariable}" true)
 ##<jsp:include page="/$listADFFacesRelativePath">
 ####  <jsp:param name="backingBean" value="${entityADFVariable}BackingBean"/>
 ##</jsp:include>

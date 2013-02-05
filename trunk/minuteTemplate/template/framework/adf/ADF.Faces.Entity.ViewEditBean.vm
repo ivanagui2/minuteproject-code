@@ -23,12 +23,13 @@ import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
 #exposeADFFacesEntityImport()
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 import $beanADFFacesSpringServiceImport;
 #end
-#foreach ($reference in $table.distinctParentsType)
+// distinct
+#foreach ($reference in $thisTable.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
@@ -41,14 +42,14 @@ import $adapterBackingBeanADFFacesImport;
 
 public class $className extends $adapterBackingBeanADFFacesClassName {
 
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
     ${beanADFFacesSpringServiceClass} _$beanADFFacesSpringServiceVariable;
 #end
-#foreach ($reference in $table.distinctParentsType)
+#foreach ($reference in $thisTable.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
-#if ($tableUtils.isAdminContentType($foreignTable) && !($table==$foreignTable))
+#if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
     $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
 #end
@@ -56,15 +57,17 @@ public class $className extends $adapterBackingBeanADFFacesClassName {
     private ${beanVOADFFacesClass} _${beanVOADFFacesVariable};
 ##works for one pk only
     private $primaryKeyType ${domainVariableName}Param;
-    
+    protected $primaryKeyType get${domainVariableName}Param() {
+        return ${domainVariableName}Param;
+    }
     public $className () {
         ${domainVariableName}Param = ($primaryKeyType)AdfFacesContext.getCurrentInstance().getDialogService().getInitialDialogParameters().get("${entityADFVariable}Reference");
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
         _$beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
 #end
-#foreach ($reference in $table.parents)
+#foreach ($reference in $thisTable.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
@@ -132,7 +135,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName {
 	}
 #end	
 
-#foreach ($reference in $table.parents)
+#foreach ($reference in $thisTable.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
@@ -148,9 +151,8 @@ public class $className extends $adapterBackingBeanADFFacesClassName {
 #end
 #end
 
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
 #exposeM2MSpecific()
-#set($table = $targetTable)
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($firstPkColumn=$tableUtils.getPrimaryFirstColumn($targetTable))
 #set($firstPkColumnClass=$formatUtils.getJavaName(${firstPkColumn.alias}))

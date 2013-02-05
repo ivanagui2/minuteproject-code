@@ -72,6 +72,16 @@
 #set($beanVOADFFacesQueryRequestClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOQueryRequestADFFaces))
 #end
 
+#macro (exposeADFFacesDataControlEntitySpecificForTable $table)
+#exposeADFEntitySpecific()
+#set($beanVOADFFacesQueryResponseImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOQueryResponseADFFaces))
+#set($beanVOADFFacesQueryResponseClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOQueryResponseADFFaces))
+#set($beanVOADFFacesQueryRequestImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOQueryRequestADFFaces))
+#set($beanVOADFFacesQueryRequestClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOQueryRequestADFFaces))
+#set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
+#set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
+#end
+
 #macro (exposeADFFacesDataControlModelSpecific)
 #exposeADFModelSpecific()
 #set($ADFFEBEConverterImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateADFFEBEConverterUtils))
@@ -286,6 +296,8 @@ import $importDomainObjectUML;
 #set($beanADFFacesSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanADFFacesSpringServiceClass))
 #set($beanADFFacesSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))	
 #set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))	
+##set($domainClass=$commonUtils.getTemplateClassName($table, "DomainEntityJPA2Annotation"))	
+##set($domainVar=$commonUtils.getJavaNameVariableFirstLetter($domainClass))	
 #end
 
 #macro(exposeADFFacesSpringModelBindingSpecific)

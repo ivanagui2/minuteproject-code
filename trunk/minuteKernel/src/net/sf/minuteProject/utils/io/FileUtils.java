@@ -320,8 +320,10 @@ public class FileUtils {
 		if (dir==null)
 			return list;
 		File file = new File(dir);
-		for (File f : file.listFiles()) {
-			list.add(f.getName());
+		if (file!=null) {
+			for (File f : file.listFiles()) {
+				list.add(f.getName());
+			}
 		}
 		return list;
 	}
