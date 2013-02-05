@@ -67,15 +67,12 @@ public class ${className} {
     private $sddOutputBeanClass selected$sddOutputBeanClass;
 
 #if ($isChartLayout)
+    private UIGraph uiGraph;
+#putGetterAndSetter("UIGraph" "uiGraph")
     GraphDataModel graphDataModel;
     public GraphDataModel getGraphDataModel() {
-        Object[] columnLabels = new Object["test"];
-        Object[] rowLabels = new Object["fr"];
-        Object[][] data = {new Integer["10"]};
-        oracle.dss.dataView.LocalXMLDataSource lxd = new LocalXMLDataSource(columnLabels, rowLabels, data);
-        graphDataModel = new GraphDataModel(lxd);
         list<String> seriesLabelsList = new ArrayList();
-		List<$sddOutputBeanClass> list = getOutputList();
+        List<$sddOutputBeanClass> list = getOutputList();
         String[] columnLabels = { "$className" };
 ##foreach($column in $dimensions)
 ##putColumnParamNaming()
@@ -96,7 +93,6 @@ public class ${className} {
         graphData = new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
         return graphData;
     }
-
 #if($isBarChart)
 ##    private CartesianChartModel categoryModel;  
 ##

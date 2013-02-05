@@ -5,7 +5,28 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-  <af:table value="#{bindings.${sddOutputBeanVariable}s.collectionModel}" var="row"
+#if ($isChartLayout)
+    <dvt:barGraph id="barGraph1" shortDesc="test"
+                  value="#{backingBeanScope.${graphBackingBean}.graphDataModel}"
+                  subType="BAR_VERT_CLUST"
+                  binding="#{backingBeanScope.${graphBackingBean}.UIGraph}"
+                  threeDEffect="true">
+      <dvt:background>
+        <dvt:specialEffects/>
+      </dvt:background>
+      <dvt:graphPlotArea/>
+      <dvt:seriesSet>
+        <dvt:series color="#ffffff"/>
+        <dvt:series color="#ff0000"/>
+        <dvt:series color="#0000ff"/>
+      </dvt:seriesSet>
+      <dvt:o1Axis/>
+      <dvt:y1Axis/>
+      <dvt:legendArea automaticPlacement="AP_NEVER"/>
+      <dvt:o1MajorTick id="o1MajorTick1" tickStyle="GS_AUTOMATIC"/>
+    </dvt:barGraph>
+#end
+    <af:table value="#{bindings.${sddOutputBeanVariable}s.collectionModel}" var="row"
             rows="#{bindings.${sddOutputBeanVariable}s.rangeSize}"
             emptyText="#{bindings.${sddOutputBeanVariable}s.viewable ? 'No data to display.' : 'Access Denied.'}"
             fetchSize="#{bindings.${sddOutputBeanVariable}s.rangeSize}"
