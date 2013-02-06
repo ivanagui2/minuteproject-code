@@ -208,7 +208,7 @@ $updatedAreaEnd
                          id="${childrenListVariable}Si"/>
         </af:selectManyShuttle>
 #end
-#if($displayChildren)
+#if($toImplement)
            <af:panelTabbed id="tab-children" dimensionsFrom="auto" >##binding=""
 #foreach($reference in $table.children)
 #putReferenceParams2()
