@@ -129,7 +129,7 @@
 #set($windowHeight="$adfUtils.getDisplayWindowDetailsHeight($table)")##"400")
 #set($windowWidth="$adfUtils.getDisplayWindowDetailsWidth($table)")##"600")
 #set($resultListWidth="600px")
-<af:showDetailItem text="#{viewcontrollerBundle['$tableVariableName$separator$listVariable']}"
+              <af:showDetailItem text="#{viewcontrollerBundle['$tableVariableName$separator$listVariable']}"
                                  id="sdChildren$adfIdAppender">
                  <af:panelGroupLayout layout="horizontal" halign="left"
                         rendered="#{${scope}.${bean}.displayResults}">
@@ -149,7 +149,7 @@
                                     queryListener="#{${scope}.${bean}.${entityADFVariable}Table.queryListener}"
                                     binding="#{${scope}.${bean}.${entityADFVariable}Table.tableUIComp}"
 #else
-                                    value="#{${scope}.${bean}.${listVariable}Children}"
+                                    value="#{${scope}.${bean}.${listVariable}}"
 #end
                                     var="row"
                                     rowBandingInterval="1"
@@ -177,6 +177,7 @@ $!updatedAreaSnippet
                                        headerText="Reference"	
 #end
                                        id="${columnVar}_id_${adfIdAppender}" width="$adfUtils.getDisplayColumnWithHeader($column)">
+#if(!$isChild)
                               <af:commandLink id="${columnVar}_${adfIdAppender}"
 #if($columnUtils.isNaturalPk($column))
                                               text="#{row.${columnVar}}" 
@@ -194,6 +195,7 @@ $!updatedAreaSnippet
 ##works for one pk only
                                 <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
+#end
                             </af:column>
 #else
                             <af:column sortProperty="${columnVar}" sortable="true"
@@ -212,7 +214,11 @@ $updatedAreaEnd
                           </af:table>
                       </f:facet>
                         <f:attribute name="paginationUtils"
+#if(!$isChild)
                                      value="#{${scope}.${bean}.${entityADFVariable}Table}"/>
+#else
+                                     value="#{${scope}.${bean}.${listVariable}Table_}"/>
+#end
                       </af:pageTemplate>
                     </af:panelBox>
                   </af:panelGroupLayout>

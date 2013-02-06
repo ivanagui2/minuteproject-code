@@ -98,6 +98,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 //
 
     public $className() {
+        super();
         ${domainVariableName}Table = new EntityPaginator<$beanVOADFFacesQueryRequestClass>(${beanVOADFFacesQueryRequestClass}.class, "list${domainClassName}");
 #if($runTimeErrorSolved)
         ${domainVariableName}Table.refreshPagination();
