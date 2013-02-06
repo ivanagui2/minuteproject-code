@@ -84,7 +84,7 @@ public class ${className} {
         Object[][] data = new Object[1][list.size()];
         for ($sddOutputBeanClass var : list) {
            seriesLabelsList.add(var.get$outputBeanDimension1());
-           data[0][cpt] = new Double(40);
+           data[0][cpt] = var.get$outputBeanDimensionValue();
            cpt++;
         }
         String[] seriesLabels = Array.toArray(seriesLabelsList);
