@@ -1,7 +1,5 @@
 #exposeADFFacesEntitySpecific()
-#set($displayChildren=$presentationUtils.getDisplayDisplayableChildReference($table, $template))
-#set($isDisplayChildren=$displayChildren.size()>0)
-#set($separator=$i18nUtils.getSeparator($template))
+#exposeADFJsfUtils()
 #macro (adfEntityDetailColumnDisplay $id)
 ##                        <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
 ##                                      id="${id}" ##columns="40" ##columns="$column.size"
@@ -51,7 +49,7 @@ $!updatedAreaSnippet
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 <!-- $linktableDB.name -->
-#adfEntityTable($linktableDB "${childrenListClass}$velocityCount" $linkedTableVariable ${childrenListVariable} "pageFlowScope" "${viewEditEntityBeanVariable}" true)
+#adfEntityTable($linktableDB "${childrenListClass}$velocityCount" $linkedTableVariable ${childrenListVariable} "pageFlowScope" "${viewEditEntityBeanVariable}" true ${reference.foreignColumn.name} false)
 ##<jsp:include page="/$listADFFacesRelativePath">
 ####  <jsp:param name="backingBean" value="${entityADFVariable}BackingBean"/>
 ##</jsp:include>

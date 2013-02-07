@@ -125,7 +125,7 @@
 ############# macro table
 #######################################################################
 
-#macro(adfEntityTable $table $adfIdAppender $tableVariableName $listVariable $scope $bean $isChild)
+#macro(adfEntityTable $table $adfIdAppender $tableVariableName $listVariable $scope $bean $isChild $childColumnName $isEditMode)
 #set($windowHeight="$adfUtils.getDisplayWindowDetailsHeight($table)")##"400")
 #set($windowWidth="$adfUtils.getDisplayWindowDetailsWidth($table)")##"600")
 #set($resultListWidth="600px")
@@ -156,8 +156,12 @@
                                     filterVisible="true"
                                     columnResizing="disabled" autoHeightRows="0"
                                     varStatus="vs" rowSelection="none"
-                                    width="${resultListWidth}" contentDelivery="immediate"
+#if(!$isChild)
+                                    width="${resultListWidth}"
+#end
+                                    contentDelivery="immediate"
                                     immediate="true"
+									binding="#{${scope}.${bean}.${listVariable}TableUIComp}"
                                     >
 ##pk
 #exposeModelUpdatedAreas("list-node")
@@ -166,9 +170,10 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else 
 ##foreach ($column in $table.columns)  
-#foreach ($column in $presentationUtils.getPotentialDisplayableColumns($table))  
+#foreach ($column in $presentationUtils.getPotentialDisplayableColumnsWithExclusion($table, $childColumnName))  
 #putColumnParamNaming()
 #if($isPrimaryKey)
+#if(!$isChild)
                             <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
 #if($columnUtils.isNaturalPk($column))
@@ -177,7 +182,7 @@ $!updatedAreaSnippet
                                        headerText="Reference"	
 #end
                                        id="${columnVar}_id_${adfIdAppender}" width="$adfUtils.getDisplayColumnWithHeader($column)">
-#if(!$isChild)
+
                               <af:commandLink id="${columnVar}_${adfIdAppender}"
 #if($columnUtils.isNaturalPk($column))
                                               text="#{row.${columnVar}}" 
@@ -195,8 +200,8 @@ $!updatedAreaSnippet
 ##works for one pk only
                                 <f:attribute name="${entityADFVariable}Reference" value="#{row.${columnVar}}"/>
                               </af:commandLink>
-#end
                             </af:column>
+#end
 #else
                             <af:column sortProperty="${columnVar}" sortable="true"
                                        filterable="true"
@@ -205,7 +210,24 @@ $!updatedAreaSnippet
 #if($isForeignKey)
 #set($columnVar = "${columnVar}_")
 #end
+#if($isEditMode)
+#if($toDo) ##$columnUtils.hasCheckConstraint($column))
+                        <af:selectOneChoice label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}" 
+                            value="#{${scope}.${bean}.search${entityADFVariable}.${columnVar}}"
+                            id="${columnVar}_ot_${adfIdAppender}"
+                            shortDesc="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}">
+                          <f:selectItems value="#{${scope}.${bean}.${entityADFVariable}.${columnVar}Enum}" id="${id}Items"/>
+                        </af:selectOneChoice>
+#else
+                        <af:inputText label="#{viewcontrollerBundle['$tableVariableName$separator$columnVar']}"
+                                      id="${columnVar}_ot_${adfIdAppender}" 
+                                      value="#{row.$columnVar}"
+##adfBackingBean("viewScope", "${entityADFVariable}BackingBean", "search${entityADFVariable}")
+                        />
+#end
+#else
                               <af:outputText value="#{row.${columnVar}}" id="${columnVar}_ot_${adfIdAppender}"/>
+#end
                             </af:column>
 #end
 #end

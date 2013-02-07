@@ -319,6 +319,12 @@ import $importDomainObjectUML;
 #putReferenceParams2()
 #end
 
+#macro(exposeADFJsfUtils)
+#set($displayChildren=$presentationUtils.getDisplayDisplayableChildReference($table, $template))
+#set($isDisplayChildren=$displayChildren.size()>0)
+#set($separator=$i18nUtils.getSeparator($template))
+#end
+
 #macro (exposeADFTemplate)
 #set ($templateADFModelAppModule = "ADF.Model.AppModule")
 #set ($templateADFEntity = "ADF.Model.Entity")

@@ -42,6 +42,8 @@ import net.sf.minuteproject.adf.query.QueryRequest;
 import net.sf.minuteproject.adf.utils.TablePaginationUtils;
 import net.sf.minuteproject.adf.utils.EntityPaginator;
 
+import oracle.adf.view.rich.component.rich.data.RichTable;
+
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
@@ -107,6 +109,10 @@ public class $thisClassName {
     public EntityPaginator<$beanVOADFFacesQueryRequestClass> get${childrenListClass}Table_() {
         return ${childrenListVariable}Table_;
     }
+    private RichTable ${childrenListVariable}TableUIComp;
+    public RichTable get${childrenListClass}TableUIComp() {
+        return ${childrenListVariable}TableUIComp;
+    }
     public List<${beanVOADFFacesClass}> get${childrenListClass}() {
         List<${beanVOADFFacesClass}> list = new ArrayList<${beanVOADFFacesClass}>();
         $domainClassImport i = new $domainClassImport();
@@ -133,7 +139,7 @@ public class $thisClassName {
 
     public $thisClassName() {
         super();
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
         _$beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
@@ -151,7 +157,7 @@ public class $thisClassName {
     }
 
     public ${thisDomainClassName} getConsolidated (${thisDomainClassName} entity) {
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($beanVOADFFacesTargetClass=$commonUtils.getTemplateClassName($targetTable, $template, $templateBeanVOADFFaces))
@@ -170,7 +176,7 @@ public class $thisClassName {
         return getConsolidated(_${thisBeanVOADFFacesVariable});
     }
 	
-#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($thisTable))
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 #set($firstPkColumn=$tableUtils.getPrimaryFirstColumn($targetTable))

@@ -3,6 +3,7 @@ package net.sf.minuteProject.plugin.presentation;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.BusinessPackage;
@@ -128,6 +129,18 @@ public class PresentationUtils {
 		return displayable;
 	}
 
+	public static List<Column> getPotentialDisplayableColumnsWithExclusion(Table table, String columnName) {
+		List<Column> columns = getPotentialDisplayableColumns(table);
+		for (Iterator<Column> iterator = columns.iterator(); iterator.hasNext();) {
+			Column column = iterator.next();
+			if (column.getName().equals(columnName)) {
+				iterator.remove();
+				break;
+			}
+		}
+		return columns;
+	}
+	
 	public static List<Column> getPotentialDisplayableColumns(Table table) {
 		if (TableUtils.hasSemanticReference(table)) {
 			return TableUtils.getSemanticReferenceColumns(table);

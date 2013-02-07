@@ -67,12 +67,12 @@ public interface $className extends GenericService<$tableClassName> {
 	
 #end
 ##if($isMasterData || $isReferenceData)
-#if ($tableUtils.isAdminContentType($table))
+##if ($tableUtils.isAdminContentType($table))
     /**
      * return a list of $tableClassName entities 
      */
     public List<$tableClassName> getList ();
 
-#end
+##end
 $!updatedAreaImplementation
 }
