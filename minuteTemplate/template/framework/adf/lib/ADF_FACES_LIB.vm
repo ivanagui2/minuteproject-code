@@ -161,7 +161,7 @@
 #end
                                     contentDelivery="immediate"
                                     immediate="true"
-									binding="#{${scope}.${bean}.${listVariable}TableUIComp}"
+                                    binding="#{${scope}.${bean}.${listVariable}TableUIComp}"
                                     >
 ##pk
 #exposeModelUpdatedAreas("list-node")

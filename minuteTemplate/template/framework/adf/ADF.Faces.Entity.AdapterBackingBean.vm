@@ -109,10 +109,9 @@ public class $thisClassName {
     public EntityPaginator<$beanVOADFFacesQueryRequestClass> get${childrenListClass}Table_() {
         return ${childrenListVariable}Table_;
     }
-    private RichTable ${childrenListVariable}TableUIComp;
-    public RichTable get${childrenListClass}TableUIComp() {
-        return ${childrenListVariable}TableUIComp;
-    }
+    private RichTable ${childrenListVariable}TableUIComp = new RichTable();
+#putGetterSetterAlt ("RichTable" "${childrenListClass}TableUIComp" "${childrenListVariable}TableUIComp")
+
     public List<${beanVOADFFacesClass}> get${childrenListClass}() {
         List<${beanVOADFFacesClass}> list = new ArrayList<${beanVOADFFacesClass}>();
         $domainClassImport i = new $domainClassImport();

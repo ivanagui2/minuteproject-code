@@ -1,5 +1,6 @@
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
+#addedAreas()
 #exposeTableMetadata()
 #set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
@@ -9,6 +10,8 @@ import java.util.List;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 import net.sf.minuteProject.model.dao.GenericDao;
+
+$!updatedAreaImport
 
 /**
  *
