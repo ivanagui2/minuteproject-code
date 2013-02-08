@@ -1,11 +1,14 @@
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
+#addedAreas()
 package $packageName;
 
 import $importDomainObjectUML;
 import java.util.List;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+
+$!updatedAreaImport
 
 /**
  *
@@ -43,6 +46,7 @@ public interface $className extends DataAccessObject {
     * search on prototype with cache
     */
     public List<$tableClassName> searchPrototypeWithCache$tableClassName ($tableClassName $tableVariableName);
-    
+
+$!updatedAreaImplementation    
 }
 

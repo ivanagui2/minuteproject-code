@@ -1,6 +1,7 @@
 #exposeVariableEntitySpecific()
 #set($beImplementation="JPA")
 #putImportParamsUML()
+#addedAreas()
 #exposeTableMetadata()
 #set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
@@ -47,6 +48,8 @@ import net.sf.minuteProject.architecture.utils.BeanUtils;
 import $importDaoInterfaceExtendedUML;
 import $importDomainObjectUML;
 import $importJPAImplName;
+
+$!updatedAreaImport
 
 #exposeJPA2EnumImport()
 

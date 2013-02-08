@@ -314,13 +314,14 @@ public class FileUtils {
 		}
 		return properties;
 	}
-	
+
 	public static List<String> getFileNameListFromDir(String dir) {
 		List<String> list = new ArrayList<String>();
 		if (dir==null)
 			return list;
 		File file = new File(dir);
-		if (file!=null) {
+		if (file!=null 
+			&& file.isDirectory()) {
 			for (File f : file.listFiles()) {
 				list.add(f.getName());
 			}
