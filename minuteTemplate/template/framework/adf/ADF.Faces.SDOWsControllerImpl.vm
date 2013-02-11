@@ -4,8 +4,25 @@
 #set($thisClassName=$className)
 package $packageName;
 
+
+import java.lang.reflect.InvocationTargetException;
+
+import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+
+import java.sql.Timestamp;
+import java.math.BigInteger;
+
 import net.sf.minuteproject.adf.query.QueryRequest;
 import net.sf.minuteproject.adf.query.QueryResponse;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
 
 import java.util.ArrayList;
 
@@ -42,18 +59,6 @@ import $sddInputBeanImport;
 #end
 import $sddServiceInterfaceImport;
 #end
-
-import java.lang.reflect.InvocationTargetException;
-
-import java.util.List;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
-
-import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
-import net.sf.minuteProject.model.data.criteria.constant.OperandType;
-
-import java.sql.Timestamp;
 
 public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
@@ -106,14 +111,22 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 	
     private OperandType getOperandType(QueryRequest request) {
         if (QueryRequest.PrototypeType.EQUALS.equals(request.getType()))
-            return OperandType.EQUALS;
+           return OperandType.EQUALS;
         if (QueryRequest.PrototypeType.LIKE.equals(request.getType()))
-            return OperandType.LIKE;
+           return OperandType.LIKE;
         if (QueryRequest.PrototypeType.CONTAINS.equals(request.getType()))
-            return OperandType.CONTAINS; 
-        return OperandType.EQUALS;
+           return OperandType.CONTAINS; 
+        if (QueryRequest.PrototypeType.STARTWITH.equals(request.getType()))
+            return OperandType.STARTWITH; 
+        return OperandType.STARTWITH;
     } 
-	
+ 
+    private QuerySortOrder getSortOrder(QueryRequest request) {
+        if (request.getSort()!= null) {
+            return QuerySortOrder.valueOf(request.getSort().name());
+        } 
+        return QuerySortOrder.ASC;
+    } 
 
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
@@ -126,15 +139,36 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    * @return $beanVOADFFacesQueryResponseClass
    */
   public $beanVOADFFacesQueryResponseClass list$domainClassName($beanVOADFFacesQueryRequestClass request) {
-     $beanVOADFFacesClass input = request.get${beanVOADFFacesClass}();
-     if (input==null)
-        input = new $beanVOADFFacesClass();
-     ${domainClassImport} var = new ${domainClassImport} ();
-     convert(input, var);
-     var.assignNullToBlank();
-     List<$domainClassImport> list = ${beanADFFacesSpringServiceVariable}.find(var, getEntityMatchType(request), getOperandType(request), isCaseSensitive(request));
+     $beanVOADFFacesClass ${beanVOADFFacesVariable}Criteria = request.get${beanVOADFFacesClass}Criteria();
+     $beanVOADFFacesClass ${beanVOADFFacesVariable}Sort = request.get${beanVOADFFacesClass}Sort();
+     if (${beanVOADFFacesVariable}Criteria==null)
+        ${beanVOADFFacesVariable}Criteria = new $beanVOADFFacesClass();
+     ${domainClassImport} criteriaMask = new ${domainClassImport} ();
+     convert(${beanVOADFFacesVariable}Criteria, criteriaMask);
+     criteriaMask.assignNullToBlank();
+	 
+     if (${beanVOADFFacesVariable}Sort==null)
+        ${beanVOADFFacesVariable}Sort = new $beanVOADFFacesClass();
+     ${domainClassImport} sortMask = new ${domainClassImport} ();
+     convert(${beanVOADFFacesVariable}Sort, sortMask);
+     sortMask.assignNullToBlank();
+	 
+     BigInteger start = new BigInteger("0");
+     BigInteger fetchSize = new BigInteger("10");
+     if (request.getPagination() != null) {
+        start = request.getPagination().getStartPosition();
+        fetchSize = request.getPagination().getFetchSize();
+     }
+     EntitySort<$domainClassImport> entitySort = new EntitySort<$domainClassImport>(sortMask, getSortOrder(request));
+     EntityCriteria<$domainClassImport> entityCriteria = new EntityCriteria<$domainClassImport>(criteriaMask, getEntityMatchType(request), getOperandType(request), isCaseSensitive(request));
+    
+     QueryData<$domainClassImport> queryData = new QueryData<$domainClassImport>(start.intValue(),fetchSize.intValue(), entitySort, entityCriteria);
+    
+     ${beanADFFacesSpringServiceVariable}.find(queryData);
+
      $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
-     for($domainClassImport element : list) {
+     ret.setTotalRowsCount(queryData.getTotalResultCount().intValue());
+     for($domainClassImport element : queryData.getResult()) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
         convert(element, output);
         ret.add$beanVOADFFacesClass(output);

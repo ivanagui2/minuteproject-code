@@ -16,6 +16,7 @@ import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
@@ -315,11 +316,9 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     }
 	
     protected String findQuery ($tableClassName criteriaMask, $tableClassName orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
-        StringBuffer query = new StringBuffer();
-        StringBuffer queryWhere = new StringBuffer();
-        query.append (what); 
-        queryWhere.append (findChunk (criteriaMask, orderMask, false, isAll(matchType), operandType, caseSensitivenessType, sortOrder));   
-	    return getHQuery(query.toString(), queryWhere.toString());
+        String queryWhere = findWhere (criteriaMask, false, isAll(matchType), operandType, caseSensitivenessType);
+		String queryOrder = findOrder (orderMask, sortOrder);
+	    return getHQuery(what, queryWhere, queryOrder);
     }
 	
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) { 
@@ -468,9 +467,19 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #end
 #end
 	    return query.toString();
-    }   
-     
-    protected String findChunk ($tableClassName $tableVariableName, $tableClassName orderMask, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive, QuerySortOrder sortOrder) {
+    }
+
+    protected String findOrder ($tableClassName orderMask, QuerySortOrder sortOrder) {
+        StringBuffer query = new StringBuffer();
+        if (orderMask!=null) {
+            String orderColumn = getFirstNotNullColumnOtherWiseNull(orderMask);
+            if (orderColumn!=null)
+                query.append(orderColumn + " " + sortOrder);
+        }
+        return query.toString();
+    }
+
+    protected String findWhere ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
         StringBuffer query = new StringBuffer();
 		String operand = getOperand (operandType);
 		String evaluatorPrefix = getEvaluatorPrefix (operandType);		
@@ -482,20 +491,20 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #set($columnClass="${columnClass}_")
 #end
         if (${tableVariableName}.get$columnClass() != null) {
-		   if (isAll)
-			  query.append (getQueryAND (isAndSet));
-		   else 
-		      query.append (getQueryOR (isAndSet));
+           if (isAll)
+              query.append (getQueryAND (isAndSet));
+           else 
+              query.append (getQueryOR (isAndSet));
            isAndSet = true;
 #if ($sqlUtils.isQuotedColumn($column))
 #if ($columnUtils.isStringColumn($column) && !$isForeignKey && !$isEnum)
            String value = ${tableVariableName}.get$columnClass();
            if (!caseSensitive) {
-		      value = value.toLowerCase();
-			  query.append(" lower(${tableVariableName}.${columnVar}) "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
-		   }
-		   else
-			  query.append(" ${tableVariableName}.${columnVar} "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
+              value = value.toLowerCase();
+              query.append(" lower(${tableVariableName}.${columnVar}) "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
+           }
+           else
+              query.append(" ${tableVariableName}.${columnVar} "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #end
@@ -505,10 +514,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
         }
 #end
 #end
-        String orderColumn = getFirstNotNullColumnOtherWiseNull(orderMask);
-		if (orderMask!=null && orderColumn!=null)
-           query.append(" order by " + orderColumn + " " + sortOrder);
-	    return query.toString();
+        return query.toString();
     }
 	
 	protected String getFirstNotNullColumnOtherWiseNull ($tableClassName mask) {

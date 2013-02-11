@@ -26,6 +26,8 @@ import java.io.Serializable;
 
 import $beanVOADFFacesImport;
 
+import net.sf.minuteproject.adf.query.QueryResponse;
+
 /**
  *
  * <p>Title: ${className}</p>
@@ -34,11 +36,19 @@ import $beanVOADFFacesImport;
  *
  */
 
-public class ${className} implements Serializable {
+public class ${className} extends QueryResponse<$beanVOADFFacesClass> implements Serializable {
 
-	private List<$beanVOADFFacesClass> list$beanVOADFFacesClass;
-		
-#putGetterAdder ("List$beanVOADFFacesClass", "list$beanVOADFFacesClass", $beanVOADFFacesClass, $beanVOADFFacesVariable)
+##	private List<$beanVOADFFacesClass> list$beanVOADFFacesClass;
+
+    public List<$beanVOADFFacesClass> get$beanVOADFFacesClass(){
+      return super.getPayload(); 
+    }
+
+    public void add$beanVOADFFacesClass ($beanVOADFFacesClass $beanVOADFFacesVariable) {
+        get$beanVOADFFacesClass().add($beanVOADFFacesVariable);
+    }
+
+##putGetterAdder ("List$beanVOADFFacesClass", "list$beanVOADFFacesClass", $beanVOADFFacesClass, $beanVOADFFacesVariable)
 
 $!updatedAreaImplementation
 

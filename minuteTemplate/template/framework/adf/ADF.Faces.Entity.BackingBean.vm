@@ -10,6 +10,7 @@ import $beanVOADFFacesImport;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 import java.util.ArrayList;
 
 import javax.faces.component.UIComponent;
@@ -24,6 +25,9 @@ import oracle.adf.view.rich.component.rich.layout.RichPanelTabbed;
 import oracle.adf.view.rich.component.rich.layout.RichShowDetailItem;
 import oracle.adf.view.rich.component.rich.nav.RichCommandLink;
 import oracle.adf.view.rich.component.rich.input.RichSelectManyShuttle;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
+import oracle.adf.model.generic.BeanUtils;
+import oracle.adf.view.rich.event.QueryEvent;
 
 import javax.faces.model.SelectItem;
 
@@ -33,20 +37,25 @@ import oracle.binding.OperationBinding;
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 
 import net.sf.minuteproject.adf.query.QueryRequest;
-import net.sf.minuteproject.adf.utils.TablePaginationUtils;
+##import net.sf.minuteproject.adf.utils.TablePaginationUtils;
 import net.sf.minuteproject.adf.utils.EntityPaginator;
+import net.sf.minuteproject.adf.query.SortType;
+
+import org.apache.myfaces.trinidad.event.SortEvent;
+import org.apache.myfaces.trinidad.model.CollectionModel;
+import org.apache.myfaces.trinidad.model.SortCriterion;
+
+import org.apache.commons.lang.StringUtils;
 
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
-//m2m
 #exposeADFFacesEntityImport()
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)
 import $beanADFFacesSpringServiceImport;
 #end
-//parents
 #foreach ($reference in $table.parents)
 #set($foreignTable=$reference.foreignTable)
 #if ($tableUtils.isAdminContentType($foreignTable))
@@ -54,7 +63,6 @@ import $beanADFFacesSpringServiceImport;
 import $beanADFFacesSpringServiceImport;
 #end
 #end
-//children
 #foreach($reference in $table.children)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
@@ -68,8 +76,8 @@ import $adapterBackingBeanADFFacesImport;
 public class $className extends $adapterBackingBeanADFFacesClassName{
     
     private EntityPaginator<$beanVOADFFacesQueryRequestClass> ${domainVariableName}Table;
-    private String ${domainVariableName}Name;
-    private String ${domainVariableName}Reference;
+##    private String ${domainVariableName}Name;
+##    private String ${domainVariableName}Reference;
     private RichPanelTabbed panelTab;
     private $beanVOADFFacesClass _$beanVOADFFacesVariable = new $beanVOADFFacesClass();
     private $beanVOADFFacesClass search$beanVOADFFacesVariable = new $beanVOADFFacesClass();
@@ -197,21 +205,21 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
         return ${domainVariableName}Table;
     }
 
-    public String get${domainClassName}Name() {
-        return ${domainVariableName}Name;
-    }
-
-    public void set${domainClassName}Reference(String ${domainVariableName}Reference) {
-        this.${domainVariableName}Reference = ${domainVariableName}Reference;
-    }
-
-    public String get${domainClassName}Reference() {
-        return ${domainVariableName}Reference;
-    }
-
-    public void doSearch(ActionEvent actionEvent) {
-        display(this.search$beanVOADFFacesVariable);        
-    }
+##    public String get${domainClassName}Name() {
+##        return ${domainVariableName}Name;
+##    }
+##
+##    public void set${domainClassName}Reference(String ${domainVariableName}Reference) {
+##        this.${domainVariableName}Reference = ${domainVariableName}Reference;
+##    }
+##
+##    public String get${domainClassName}Reference() {
+##        return ${domainVariableName}Reference;
+##    }
+##
+##    public void doSearch(ActionEvent actionEvent) {
+##        display(this.search$beanVOADFFacesVariable);
+##    }
 
     public void displayAll(ActionEvent actionEvent) {
         displayAll();
@@ -226,23 +234,30 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 
 #set($var = $formatUtils.getJavaNameVariableConvertReservedWord($beanVOADFFacesVariable))
     public void display($beanVOADFFacesClass $var) {
-        BindingContext bindingCtx = BindingContext.getCurrent();
-        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
-        $beanVOADFFacesQueryRequestClass request = new $beanVOADFFacesQueryRequestClass();
-        request.set$beanVOADFFacesClass($var);
+        $beanVOADFFacesQueryRequestClass request = ${domainVariableName}Table.getRequest();
+        request.set${beanVOADFFacesClass}Criteria($var);
         request.setMatchType(searchAny?QueryRequest.PrototypeMatchType.ANY:QueryRequest.PrototypeMatchType.ALL);
         request.setType(getPrototypeType());
         request.setCaseSensitiveness(searchCaseSensitive?QueryRequest.PrototypeCase.SENSITIVE:QueryRequest.PrototypeCase.INSENSITIVE);
-        Map mapParam = new HashMap();
-        mapParam.put("request", request); 
-        OperationBinding ob = bindings.getOperationBinding("list$domainClassName");
-        ob.getParamsMap().putAll(mapParam);
-        ob.execute();
-        $beanVOADFFacesQueryResponseClass result = ($beanVOADFFacesQueryResponseClass)ob.getResult();
-        ${domainVariableName}Table.getRequest().getCriterias().clear();
-        ${domainVariableName}Table.setPageNumber(1);
+        ${domainVariableName}Table.doSearch();
+##		
+##        BindingContext bindingCtx = BindingContext.getCurrent();
+##        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+##        $beanVOADFFacesQueryRequestClass request = new $beanVOADFFacesQueryRequestClass();
+##        request.set$beanVOADFFacesClass($var);
+##        request.setMatchType(searchAny?QueryRequest.PrototypeMatchType.ANY:QueryRequest.PrototypeMatchType.ALL);
+##        request.setType(getPrototypeType());
+##        request.setCaseSensitiveness(searchCaseSensitive?QueryRequest.PrototypeCase.SENSITIVE:QueryRequest.PrototypeCase.INSENSITIVE);
+##        Map mapParam = new HashMap();
+##        mapParam.put("request", request); 
+##        OperationBinding ob = bindings.getOperationBinding("list$domainClassName");
+##        ob.getParamsMap().putAll(mapParam);
+##        ob.execute();
+##        $beanVOADFFacesQueryResponseClass result = ($beanVOADFFacesQueryResponseClass)ob.getResult();
+##        ${domainVariableName}Table.getRequest().getCriterias().clear();
+##        ${domainVariableName}Table.setPageNumber(1);
     }
-	
+
 	private QueryRequest.PrototypeType getPrototypeType() {
 	    if (searchLike)
 		   return QueryRequest.PrototypeType.LIKE;
@@ -259,10 +274,10 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
         launchEvent.getDialogParameters().put("${entityADFVariable}Reference", ${entityADFVariable}Reference);
     }
 
-    public void set${domainClassName}Name(String ${domainVariableName}Name) {
-        this.${domainVariableName}Name = ${domainVariableName}Name;
-    }
-
+##    public void set${domainClassName}Name(String ${domainVariableName}Name) {
+##        this.${domainVariableName}Name = ${domainVariableName}Name;
+##    }
+##
     public void setPanelTab(RichPanelTabbed panelTab) {
         this.panelTab = panelTab;
     }
@@ -323,6 +338,35 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
     }
 #end
 #end
+
+    public void queryListener(QueryEvent queryEvent) {
+        FilterableQueryDescriptor fqd = (FilterableQueryDescriptor) queryEvent.getDescriptor();
+        Map filterMap = fqd.getFilterCriteria(); 
+        ${domainClassName} searchCriteria = new ${domainClassName}();
+        Boolean hasCriteria = false;
+        for (Object filter:filterMap.keySet()){
+            String filterKey = (String) filter;
+            String filterValue = (String) filterMap.get(filter);    
+            if (!StringUtils.isBlank(filterValue)) {
+                BeanUtils.setProperty(searchCriteria, filterKey, filterValue);
+                hasCriteria = true;
+            }
+        }
+        if (hasCriteria) 
+            display(searchCriteria); 
+    }
+
+    public void sortListener(SortEvent sortEvent) {
+        ${domainClassName} sortCriteria = new ${domainClassName}();
+        ${domainVariableName}Table.getRequest().set${domainClassName}Sort(sortCriteria);
+
+        List<SortCriterion> sortList  = sortEvent.getSortCriteria();
+        SortCriterion sc = sortList.get(0);
+        BeanUtils.setProperty(sortCriteria, sc.getProperty(), "notNullValue");
+        ${domainVariableName}Table.getRequest().setSort(sc.isAscending()?SortType.ASC:SortType.DESC); 
+        ${domainVariableName}Table.doSearch();
+    }
+
     public void setDisplayResults(Boolean displayResults) {
         this.displayResults = displayResults;
     }
