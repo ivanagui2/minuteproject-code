@@ -37,8 +37,11 @@ import $beanVOADFFacesImport;
 
 public class ${className} extends QueryRequest implements Serializable {
 
-   private $beanVOADFFacesClass $beanVOADFFacesVariable;
-#putGetterSetter($beanVOADFFacesClass, $beanVOADFFacesVariable)
+   private $beanVOADFFacesClass ${beanVOADFFacesVariable}Criteria;
+#putGetterSetterAlt($beanVOADFFacesClass, "${beanVOADFFacesClass}Criteria", "${beanVOADFFacesVariable}Criteria")
+
+   private $beanVOADFFacesClass ${beanVOADFFacesVariable}Sort;
+#putGetterSetterAlt($beanVOADFFacesClass, "${beanVOADFFacesClass}Sort", "${beanVOADFFacesVariable}Sort")
 
 $!updatedAreaImplementation
 

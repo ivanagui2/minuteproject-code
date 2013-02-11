@@ -38,7 +38,7 @@
                     <af:panelBox id="${entityADFVariable}__pb_${adfIdAppender}" showDisclosure="false"
                                  showHeader="always" ramp="core"
                                  styleClass="section">
-                      <af:pageTemplate viewId="/WEB-INF/common/tableCollectionTemplate.jspx"
+                      <af:pageTemplate viewId="/WEB-INF/common/tablePaginationTemplate.jspx"
                                        id="tableTmpl_${adfIdAppender}">
                         <f:facet name="table">
                         <af:table id="table_${adfIdAppender}"

@@ -8,7 +8,10 @@
           id="$thisClassName" Package="$thisPackageName"
           BeanClass="$beanVOADFFacesQueryRequestImport"
           isJavaBased="true">
-  <AccessorAttribute id="${domainVariableName}" IsCollection="false"
+  <AccessorAttribute id="${domainVariableName}Sort" IsCollection="false"
+                     BeanClass="$beanVOADFFacesImport"
+                     CollectionBeanClass="UpdateableSingleValue"/>
+  <AccessorAttribute id="${domainVariableName}Criteria" IsCollection="false"
                      BeanClass="$beanVOADFFacesImport"
                      CollectionBeanClass="UpdateableSingleValue"/>
   <AccessorAttribute id="criterias" IsCollection="true"

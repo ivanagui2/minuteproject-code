@@ -46,7 +46,16 @@
         String whereWord = getWhere (where);
 	    return what+whereWord+where;
     }
+
+	protected String getHQuery (String what, String where, String order) {
+	    return what+getWhere(where)+getOrder(order);
+    }
     
     protected String getWhere (String where) {
-        return (where==null || where.trim().equals("") || where.trim()==null)?"":" WHERE ";
+        return (StringUtils.isEmpty(where))?"":" WHERE ";
     }
+	
+    protected String getOrder (String order) {
+        return (StringUtils.isEmpty(order))?"":" ORDER BY ";
+    }
+		

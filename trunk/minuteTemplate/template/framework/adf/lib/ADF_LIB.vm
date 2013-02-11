@@ -1,3 +1,6 @@
+#macro (exposeADFCustomisation)
+#set($menuUtilsImport=$template.getPropertyValue("menu-utils-import","net.sf.minuteproject.adf.utils.MenuUtils"))
+#end
 #macro (exposeADFFacesEntitySpecific)
 #exposeADFEntitySpecific()
 #set($entityEntryADFFaceRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($table, $templateADFFacesEntity))

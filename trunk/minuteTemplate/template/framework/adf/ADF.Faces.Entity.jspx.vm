@@ -100,7 +100,7 @@ $!updatedAreaSnippet
                     <af:panelBox id="${entityADFVariable}__pb2" showDisclosure="false"
                                  showHeader="always" ramp="core"
                                  styleClass="section">
-                      <af:pageTemplate viewId="/WEB-INF/common/tableCollectionTemplate.jspx"
+                      <af:pageTemplate viewId="/WEB-INF/common/tablePaginationTemplate.jspx"
                                        id="${entityADFVariable}TableTmpl">
                         <f:facet name="table">
                         <af:table id="${entityADFVariable}Table"
@@ -111,7 +111,9 @@ $!updatedAreaSnippet
                                     fetchSize="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.rangeSize}"
                                     rowBandingInterval="1"
                                     filterModel="#{bindings.${domainVariableName}DTOsQuery.queryDescriptor}"
-                                    queryListener="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.queryListener}"
+##                                    queryListener="#{viewScope.${entityADFVariable}BackingBean.${entityADFVariable}Table.queryListener}"
+                                    queryListener="#{viewScope.${entityADFVariable}BackingBean.queryListener}"
+                                    sortListener="#{viewScope.${entityADFVariable}BackingBean.sortListener}"
                                     filterVisible="true"
                                     columnResizing="disabled" autoHeightRows="0"
                                     varStatus="vs" rowSelection="none"

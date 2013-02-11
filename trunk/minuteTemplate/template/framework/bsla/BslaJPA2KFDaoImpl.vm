@@ -1,4 +1,5 @@
 #exposeVariableEntitySpecific()
+#putJPA2TemplateDefinition()
 #set($beImplementation="JPA")
 #putImportParamsUML()
 #addedAreas()
@@ -220,7 +221,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()      
-#set ($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($column)) 
+#set ($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($column, $useTemporal)) 
       ${tableVariableName}.set$columnClass($defaultStuffing);
 #end
 #else

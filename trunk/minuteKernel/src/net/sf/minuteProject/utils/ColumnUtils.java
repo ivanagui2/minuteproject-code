@@ -181,26 +181,31 @@ public class ColumnUtils {
 		return sb.toString();
 	}
 	
-	public static String getDefaultStuffingForColumn (Column column) {
-		if (column.getType().equals("CHAR") || 
-			column.getType().equals("CHAR2") ||
-			column.getType().equals("VARCHAR") ||
-			column.getType().equals("VARCHAR2") ||
-			column.getType().equals("VARGRAPHIC") ||
-			column.getType().equals("VARGRAPHIC2") ||
-			column.getType().equals("CLOB")
+	public static String getDefaultStuffingForColumn (Column column, boolean useTemporal) {
+		String type = column.getType();
+		if (type.equals("CHAR") || 
+			type.equals("CHAR2") ||
+			type.equals("VARCHAR") ||
+			type.equals("VARCHAR2") ||
+			type.equals("VARGRAPHIC") ||
+			type.equals("VARGRAPHIC2") ||
+			type.equals("CLOB")
 				)
 			return "\"\"";
-		if (column.getType().equals("INT") ||
-			column.getType().equals("INTEGER") )
+		if (type.equals("INT") ||
+			type.equals("INTEGER") )
 			return "Integer.valueOf(\"-1\")";
-		if (column.getType().equals("BIGINT") || 
-			column.getType().equals("LONG")   ||
-			column.getType().equals("NUMBER") ||
-			column.getType().equals("DECIMAL") )
+		if (type.equals("BIGINT") || 
+			type.equals("LONG")   ||
+			type.equals("NUMBER") ||
+			type.equals("DECIMAL") )
 			return "Long.valueOf(\"-1\")";
-		if (column.getType().equals("FLOAT"))
-			return "java.math.BigDecimal.valueOf(-1)";		
+		if (type.equals("FLOAT"))
+			return "java.math.BigDecimal.valueOf(-1)";
+		if (type.equals("DATE")) 
+			return "new java.util.Date()";
+		if (type.equals("TIMESTAMP"))
+			return (useTemporal)?"new java.util.Date()": "new Timestamp(new Date().getTime())";
 		return "\"\"";
 	}
 	
