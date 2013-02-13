@@ -18,14 +18,14 @@
                     RangeSize="1"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
                     id="list${domainClassName}Iterator"/>
-#set ($listClasses = $i18nUtils.plurialize("${beanVOADFFacesVariable}"))
-    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="$listClasses"
+##set ($listClasses = $i18nUtils.plurialize("${beanVOADFFacesVariable}"))
+    <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="$beanVOADFFacesVariable"
                       RangeSize="50" DataControl="${dataControlRef}"
                       BeanClass="$beanVOADFFacesImport"
-                      id="${domainVariableName}DTOsIterator"/>
+                      id="${domainVariableName}DTOsIterator" Refresh="ifNeeded"/>
     <searchRegion Binds="${domainVariableName}DTOsIterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
-                  id="${domainVariableName}DTOsQuery"/>
+                  id="${domainVariableName}DTOsQuery" Refresh="ifNeeded"/>
    </executables>
   <bindings>
 #if($isBindingDBDirect)	
