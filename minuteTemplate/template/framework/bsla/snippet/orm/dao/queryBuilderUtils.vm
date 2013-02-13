@@ -25,30 +25,31 @@
 	}
 
 	protected static String getQueryBLANK_COMMA(boolean isBlankSet) {
-		if (isBlankSet)
-			return " , ";
-		return " ";
+        if (isBlankSet)
+           return " , ";
+        return " ";
 	}
 
 	protected String getQueryComma(boolean isCommaSet) {
-		return (isCommaSet) ? " , " : "";
+        return (isCommaSet) ? " , " : "";
 	}
 
 	protected String getQueryOR(boolean isOrSet) {
-		return (isOrSet) ? " OR " : "";
+        return (isOrSet) ? " OR " : "";
 	}
 
 	protected String getQueryAND(boolean isAndSet) {
-		return (isAndSet) ? " AND " : "";
+        return (isAndSet) ? " AND " : "";
 	}
 
 	protected String getHQuery (String what, String where) {
         String whereWord = getWhere (where);
-	    return what+whereWord+where;
+        return what+whereWord+where;
     }
 
 	protected String getHQuery (String what, String where, String order) {
-	    return what+getWhere(where)+getOrder(order);
+        String orderbyWord = getOrder(order);
+        return getHQuery(what, where)+orderbyWord+order;
     }
     
     protected String getWhere (String where) {
