@@ -128,6 +128,15 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
         return QuerySortOrder.ASC;
     } 
 
+    BigInteger getPosition (QueryRequest request, BigInteger def) {
+       return (request.getPagination() != null && request.getPagination().getStartPosition()!=null) ? request.getPagination().getStartPosition() : def;
+    }
+    BigInteger getStartPosition (QueryRequest request) {
+       return getPosition(request, BigInteger.valueOf(0));
+	}
+    BigInteger getFetchPosition (QueryRequest request) {
+       return getPosition(request, BigInteger.valueOf(10));
+	}
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
@@ -152,13 +161,8 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      ${domainClassImport} sortMask = new ${domainClassImport} ();
      convert(${beanVOADFFacesVariable}Sort, sortMask);
      sortMask.assignNullToBlank();
-	 
-     BigInteger start = new BigInteger("0");
-     BigInteger fetchSize = new BigInteger("10");
-     if (request.getPagination() != null) {
-        start = request.getPagination().getStartPosition();
-        fetchSize = request.getPagination().getFetchSize();
-     }
+     BigInteger start = getStartPosition(request);
+     BigInteger fetchSize = getFetchPosition(request);
      EntitySort<$domainClassImport> entitySort = new EntitySort<$domainClassImport>(sortMask, getSortOrder(request));
      EntityCriteria<$domainClassImport> entityCriteria = new EntityCriteria<$domainClassImport>(criteriaMask, getEntityMatchType(request), getOperandType(request), isCaseSensitive(request));
     
