@@ -1,12 +1,12 @@
 #exposeVariableModelSpecific()
 #macro(putTriggerViewHisto $operation)
-CREATE OR REPLACE TRIGGER ${table.name}_I INSTEAD OF 
+CREATE OR REPLACE 
 #if($operation=="INS")
-INSERT 
+TRIGGER ${table.name}_I INSTEAD OF INSERT 
 #elseif($operation=="DEL")
-DELETE
+TRIGGER ${table.name}_D INSTEAD OF DELETE
 #elseif($operation=="UPD")
-UPDATE
+TRIGGER ${table.name}_U INSTEAD OF UPDATE
 #end
 ON ${table.name}_V
 REFERENCING NEW AS NEW OLD AS OLD FOR EACH ROW 
@@ -24,8 +24,14 @@ INSERT INTO ${table.name}
 #if($velocityCount>1),#else #end:new.$column.name
 #end
 );
-#putHistoTrigger("$operation") 
+#putTriggerTableHisto("$operation") 
+#if($operation=="INS")
 END ${table.name}_I;
+#elseif($operation=="DEL")
+END ${table.name}_D;
+#elseif($operation=="UPD")
+END ${table.name}_U;
+#end
 /
 #end
 #foreach ($table in $entities)
