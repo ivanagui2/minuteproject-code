@@ -1,4 +1,4 @@
-#macro(putHistoTrigger $action)
+#macro(putTriggerTableHisto $action)
 INSERT INTO ${table.name}_H (
 #foreach($column in ${table.columns})
 #putColumnParams()
@@ -48,6 +48,6 @@ create table $tName (
 #putColumnParams()
 #set($columnSQLType=$sqlUtils.getSqlTypeFormat($column, $database.type))
 #set($columnSQLSize=$sqlUtils.getSqlTypeSizeFormat($column, $database.type))
-    #if($velocityCount>1),#else #end$column.name $columnSQLType $columnSQLSize
+#if($velocityCount>1),#else #end$column.name $columnSQLType ##$columnSQLSize
 #end
 #end
