@@ -128,14 +128,11 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
         return QuerySortOrder.ASC;
     } 
 
-    BigInteger getPosition (QueryRequest request, BigInteger def) {
-       return (request.getPagination() != null && request.getPagination().getStartPosition()!=null) ? request.getPagination().getStartPosition() : def;
-    }
     BigInteger getStartPosition (QueryRequest request) {
-       return getPosition(request, BigInteger.valueOf(0));
+       return (request.getPagination() != null && request.getPagination().getStartPosition()!=null) ? request.getPagination().getStartPosition() : BigInteger.valueOf(0);
 	}
     BigInteger getFetchPosition (QueryRequest request) {
-       return getPosition(request, BigInteger.valueOf(10));
+       return (request.getPagination() != null && request.getPagination().getFetchSize()!=null) ? request.getPagination().getFetchSize() : BigInteger.valueOf(10);
 	}
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
@@ -172,6 +169,8 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
      $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
      ret.setTotalRowsCount(queryData.getTotalResultCount().intValue());
+	 System.out.println("start = "+start + " - fetch = "+fetchSize);
+	 System.out.println("queryData.getResult() = "+queryData.getResult());
      for($domainClassImport element : queryData.getResult()) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
         convert(element, output);

@@ -1,6 +1,21 @@
 #macro(putSpringClassPathDep)
 #if($isBindingSpring)
 #exposeADFSpring()
+#foreach($dependency in $buildUtils.getDependencies($template))
+            <hash>
+               <list n="classPath">
+                  <url path="${dependency.relativepath}/${dependency.filename}" jar-entry=""/>
+               </list>
+#if ($dependency.isEmbedded())
+               <value n="deployedByDefault" v="true"/>
+#else
+               <value n="deployedByDefault" v="false"/>
+#end
+               <value n="description" v="${dependency.filename}"/>
+               <value n="id" v="${dependency.filename}"/>
+               <value n="locked" v="true"/>
+            </hash>
+#end
 #set($physicalDirPathADFMavenBslaProject = $commonUtils.getPhysicalDirPath($model, $template, "PomXml.BSLA"))
 #set($physicalDirPathADFMavenJPA2Project = $commonUtils.getPhysicalDirPath($model, $template, "PomXml.JPA2"))
             <hash>
@@ -458,6 +473,12 @@
 #end
 #end
 #macro(putSpringDep)
+#foreach($dependency in $buildUtils.getDependencies($template))
+         <hash>
+            <value n="id" v="${dependency.filename}"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+#end
 #if($isBindingSpring)
          <hash>
             <value n="id" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>

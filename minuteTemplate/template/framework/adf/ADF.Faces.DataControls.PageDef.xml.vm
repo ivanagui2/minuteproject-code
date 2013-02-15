@@ -17,7 +17,7 @@
     <methodIterator Binds="list${domainClassName}.result" DataControl="${dataControlRef}"
                     RangeSize="1"
                     BeanClass="$beanVOADFFacesQueryResponseImport"
-                    id="list${domainClassName}Iterator"/>
+                    id="list${domainClassName}Iterator" Refresh="ifNeeded"/>
 ##set ($listClasses = $i18nUtils.plurialize("${beanVOADFFacesVariable}"))
     <accessorIterator MasterBinding="list${domainClassName}Iterator" Binds="$beanVOADFFacesVariable"
                       RangeSize="50" DataControl="${dataControlRef}"
@@ -25,7 +25,7 @@
                       id="${domainVariableName}DTOsIterator" Refresh="ifNeeded"/>
     <searchRegion Binds="${domainVariableName}DTOsIterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
-                  id="${domainVariableName}DTOsQuery" Refresh="ifNeeded"/>
+                  id="${domainVariableName}DTOsQuery" />
    </executables>
   <bindings>
 #if($isBindingDBDirect)	

@@ -217,9 +217,9 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 ##        return ${domainVariableName}Reference;
 ##    }
 ##
-##    public void doSearch(ActionEvent actionEvent) {
-##        display(this.search$beanVOADFFacesVariable);
-##    }
+    public void doSearch(ActionEvent actionEvent) {
+        display(this.search$beanVOADFFacesVariable);
+    }
 
     public void displayAll(ActionEvent actionEvent) {
         displayAll();
