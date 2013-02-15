@@ -14,6 +14,10 @@
     <pathelement location="../model-maven/jpa2/target/${model.name}BackEnd-${version}-SNAPSHOT.jar"/>
     <pathelement location="../model-maven/bsla/target/${model.name}Bsla-${version}-SNAPSHOT.jar"/>
 
+#foreach($dependency in $buildUtils.getDependencies($template))
+    <pathelement location="../${dependency.path}/${dependency.filename}"/>
+#end
+
 #foreach($filename in $fileUtils.getFileNameListFromDir($backendlib))
     <pathelement location="${${model.name}.backend}/$filename"/>
 #end
