@@ -37,6 +37,14 @@
          </xs:restriction>
      </xs:simpleType>
     	
+
+     <xs:simpleType name="ordering-type">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="asc" />
+             <xs:enumeration value="desc" />
+         </xs:restriction>
+     </xs:simpleType>
+    	
 <!-- 	<xs:complexType name="pattern-assertion-type">
 		<xs:attribute name="endsWith" type="xs:string" />
 		<xs:attribute name="startsWith" type="xs:string" />
@@ -374,6 +382,7 @@
 			<xs:element name="derivations" type="derivations" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="ordering" type="ordering-type" />
 		<xs:attribute name="label" type="xs:string" />
 		<xs:attribute name="linkToTargetEntity" type="xs:string" />
 		<xs:attribute name="linkToTargetField" type="xs:string" />

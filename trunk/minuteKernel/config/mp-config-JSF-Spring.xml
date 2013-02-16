@@ -98,7 +98,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                 </queries>
             </statement-model>
 		</model>	
-		<targets>
+		<targets outputdir-root="">
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 

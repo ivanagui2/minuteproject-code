@@ -263,4 +263,19 @@ public class ReferenceUtils {
 			return column2.getAlias();
 		return "COLUMN_IS_NULL";
 	}
+	
+	public static Boolean hasPivot (Reference reference) {
+		return (TableUtils.getAssociatedForeignKeyFromUniqueKey(reference.getTable(), reference.getColumn())==null)?false:true;
+	}
+	
+	public static Boolean isMartix (Reference reference) {
+		Column column = TableUtils.getAssociatedForeignKeyFromUniqueKey(reference.getTable(), reference.getColumn());
+		Table table = ColumnUtils.getForeignTable(column);
+		if (table!=null) {
+			if (TableUtils.isAdminContentType(table)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

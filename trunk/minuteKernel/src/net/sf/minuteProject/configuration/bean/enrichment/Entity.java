@@ -1,13 +1,16 @@
 package net.sf.minuteProject.configuration.bean.enrichment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
@@ -237,6 +240,16 @@ public class Entity extends AbstractConfiguration {
 		column.setSize(field.getLength());
 		column.setPrimaryKey(field.isId());
 		return column;
+	}
+
+	public Map<String, Ordering> getOrdering() {
+		Map <String, Ordering> map = new HashMap<String, Ordering>();
+		for (Field field : getFields()) {
+			if (field.getOrdering()!=null) {
+				map.put(field.getName(), field.getOrdering());
+			}
+		}
+		return map;
 	}
 	
 }
