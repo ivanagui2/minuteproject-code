@@ -646,6 +646,7 @@
 					    <alias attr-name="label" prop-name="label" />	
 					    <alias attr-name="type-alias" prop-name="typeAlias" />	
 						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="ordering" prop-name="ordering" />	
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="length" prop-name="length" />	
 						<alias attr-name="is-mandatory" prop-name="isMandatory" />	

@@ -160,7 +160,7 @@ public class TableUtils {
 		return (table.getUniqueIndices() != null && table.getUniqueIndices().length > 0) ? true
 				: false;
 	}
-
+	
 	public static boolean isUnique(Table table, Column column) {
 		if (table == null)
 			return false;
@@ -584,5 +584,32 @@ public class TableUtils {
 			}
 		}
 		return columns;
+	}
+
+	public static Column getAssociatedForeignKeyFromUniqueKey (Table table, Column column) {
+		for (Index index : table.getUniqueIndices()) {
+			int columnCount = index.getColumnCount();
+			if (columnCount==2) {
+				boolean match = false;
+				Column retCol = null;
+				for (Column col : index.getColumns()) {
+					String colName = col.getName();
+					if (colName.equals(column.getName())) {
+						match=true;
+						break;
+					} else {
+						if (ColumnUtils.isForeignKey(column)) {
+							retCol=column;
+						} else {
+							match=false;
+						}
+					}
+				}
+				if (match) {
+					return retCol;
+				}
+			}
+		}
+		return null;
 	}
 }

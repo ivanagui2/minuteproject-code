@@ -3,6 +3,11 @@ package net.sf.minuteProject.configuration.bean.model.data.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.commons.collections.iterators.EntrySetMapIterator;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -11,6 +16,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -37,6 +43,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<Action> actions;
 	private List<Constraint> constraints;
 	private Boolean hasVersion;
+	private Map<Column, Ordering> ordering;
 	
 	public TableAbstract () {
 	}
@@ -53,9 +60,10 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setActions(table.getActions());
 		this.setSearchable(table.isSearchable());
 		this.setComment(table.getComment());
-		this.setDescription(table.getDescription());		
+		this.setDescription(table.getDescription());
 		this.setDatabase(table.getDatabase());
 		this.setConstraints(table.getConstraints());
+		this.setOrdering(table.getOrdering());
 	}
 
 	public String getName () {
@@ -447,4 +455,23 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.constraints = constraints;
 	}
 	
+	public void setProposedOrdering(Map<String, Ordering> ordering) {
+		if (ordering==null) {
+			Set<Entry<String, Ordering>> set = ordering.entrySet();
+			for (Entry<String, Ordering> entry: set) {
+				Column column = ColumnUtils.getColumn(this, entry.getKey());
+				if (column!=null)
+					this.ordering.put(column, entry.getValue());
+			}
+		}
+	}
+
+	public Map<Column, Ordering> getOrdering() {
+		return ordering;
+	}
+
+	public void setOrdering(Map<Column, Ordering> ordering) {
+		this.ordering = ordering;
+	}
+
 }

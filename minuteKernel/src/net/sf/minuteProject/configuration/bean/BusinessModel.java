@@ -314,6 +314,7 @@ public class BusinessModel {
 		table.setComment(entity.getComment());
 		table.setConstraints(entity.getConstraints());
 		table.setActions (entity.getActions());
+		table.setProposedOrdering (entity.getOrdering());
 	}
 	
 	private void convertFieldInfoToColumn (Field field, Column column) {

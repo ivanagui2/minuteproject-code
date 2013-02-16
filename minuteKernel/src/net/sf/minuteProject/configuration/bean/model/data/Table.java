@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.util.List;
+import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
@@ -8,6 +9,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
 
 
 public interface Table extends GeneratorBean{
@@ -293,4 +295,9 @@ public interface Table extends GeneratorBean{
 	
 	public void setForeignKey(ForeignKey foreignKey);
 
+	public void setProposedOrdering(Map<String, Ordering> ordering);
+
+	public Map<Column, Ordering> getOrdering();
+	
+	public void setOrdering(Map<Column, Ordering> ordering);
 }

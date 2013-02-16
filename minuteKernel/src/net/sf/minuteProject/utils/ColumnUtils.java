@@ -181,6 +181,10 @@ public class ColumnUtils {
 		return sb.toString();
 	}
 	
+	public static String getDefaultStuffingForColumn (Column column) {
+		return getDefaultStuffingForColumn(column, false);
+	}
+	
 	public static String getDefaultStuffingForColumn (Column column, boolean useTemporal) {
 		String type = column.getType();
 		if (type.equals("CHAR") || 
