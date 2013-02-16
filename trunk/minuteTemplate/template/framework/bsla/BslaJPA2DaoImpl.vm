@@ -281,10 +281,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * Searches a list of $tableClassName entity 
      * @param $tableClassName $tableVariableName
      * @return List
-     */
-##    public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {      
-##	   return getJpaTemplate().find(get${tableClassName}SearchEqualQuery ($tableVariableName));            
-##    }    
+     */  
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {      
        return searchPrototype ($tableVariableName, null);            
     }  
@@ -626,6 +623,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 		   return "like";
 	    if (OperandType.CONTAINS.equals(operandType))
 		   return "like";
+	    if (OperandType.STARTWITH.equals(operandType))
+		   return "like";
 		return "=";
 	}
 	
@@ -640,6 +639,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 		   return "%";
 	    if (OperandType.CONTAINS.equals(operandType))
 		   return "%";
+        if (OperandType.STARTWITH.equals(operandType))
+           return "%";
 		return "";
 	}
 	

@@ -117,7 +117,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
         if (QueryRequest.PrototypeType.CONTAINS.equals(request.getType()))
            return OperandType.CONTAINS; 
         if (QueryRequest.PrototypeType.STARTWITH.equals(request.getType()))
-            return OperandType.STARTWITH; 
+           return OperandType.STARTWITH; 
         return OperandType.STARTWITH;
     } 
  
@@ -131,9 +131,10 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
     BigInteger getStartPosition (QueryRequest request) {
        return (request.getPagination() != null && request.getPagination().getStartPosition()!=null) ? request.getPagination().getStartPosition() : BigInteger.valueOf(0);
 	}
+
     BigInteger getFetchPosition (QueryRequest request) {
        return (request.getPagination() != null && request.getPagination().getFetchSize()!=null) ? request.getPagination().getFetchSize() : BigInteger.valueOf(10);
-	}
+    }
 #foreach($table in $entities)
 #exposeADFFacesEntitySpecific()
 #exposeADFFacesDataControlEntitySpecific()
