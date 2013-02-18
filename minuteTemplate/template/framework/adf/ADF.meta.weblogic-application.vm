@@ -8,12 +8,14 @@
   <listener>
     <listener-class>oracle.adf.share.weblogic.listeners.ADFApplicationLifecycleListener</listener-class>
   </listener>
+<!-- to add if SOA domain
   <listener>
     <listener-class>oracle.mds.lcm.weblogic.WLLifecycleListener</listener-class>
   </listener>
   <listener>
     <listener-class>oracle.jbo.client.svc.ADFApplicationLifecycleListener </listener-class>
   </listener>
+  -->
   <library-ref>
     <library-name>adf.oracle.domain</library-name>
   </library-ref>

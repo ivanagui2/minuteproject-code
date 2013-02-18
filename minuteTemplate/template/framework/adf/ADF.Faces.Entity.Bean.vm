@@ -366,6 +366,18 @@ $!updatedAreaEnd
 #end
 
 
+    public ${className} mask(String pattern) {
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if($columnUtils.isForeignKey($column) && !$isPrimaryKey)
+#set($columnClass="${columnClass}_")
+#end
+        if ("${columnVar}".equals(pattern))
+           set$columnClass($columnUtils.getDefaultStuffingForColumn($column)); //$column.type
+#end
+        return this;
+    }
+	
 $!updatedAreaImplementation
 
 }
