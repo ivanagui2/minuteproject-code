@@ -362,7 +362,8 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 
         List<SortCriterion> sortList  = sortEvent.getSortCriteria();
         SortCriterion sc = sortList.get(0);
-        BeanUtils.setProperty(sortCriteria, sc.getProperty(), "notNullValue");
+        sortCriteria.mask(sc.getProperty());
+        //BeanUtils.setProperty(sortCriteria, sc.getProperty(), "notNullValue");
         ${domainVariableName}Table.getRequest().setSort(sc.isAscending()?SortType.ASC:SortType.DESC); 
         ${domainVariableName}Table.doSearch();
     }

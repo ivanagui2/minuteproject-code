@@ -192,11 +192,12 @@ public class ColumnUtils {
 			type.equals("VARCHAR") ||
 			type.equals("VARCHAR2") ||
 			type.equals("VARGRAPHIC") ||
-			type.equals("VARGRAPHIC2") ||
-			type.equals("CLOB")
+			type.equals("VARGRAPHIC2") 
+			//type.equals("CLOB")
 				)
 			return "\"\"";
 		if (type.equals("INT") ||
+			type.equals("SMALLINT") ||
 			type.equals("INTEGER") )
 			return "Integer.valueOf(\"-1\")";
 		if (type.equals("BIGINT") || 
@@ -210,6 +211,9 @@ public class ColumnUtils {
 			return "new java.util.Date()";
 		if (type.equals("TIMESTAMP"))
 			return (useTemporal)?"new java.util.Date()": "new Timestamp(new Date().getTime())";
+		if (type.equals("CLOB") ||
+			type.equals("BLOB"))
+			return "null";
 		return "\"\"";
 	}
 	
