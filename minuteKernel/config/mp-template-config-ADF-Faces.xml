@@ -16,12 +16,6 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		outputdir="ViewController"
 		belongToPackage="true">
 			 <property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
-<!-- 		<template name="ADF.Faces.SDOWsControllerDef" templateFileName="ADF.Faces.SDOWsControllerDef.vm" 
-			subdir="" outputsubdir="adfmsrc" technicalPackage="datacontrol"
-			file-extension="xml" file-prefix="" file-suffix="SdoWsDc" 
-			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
-			add-model-name="true">
-		</template> -->
 			 
 		<template name="ADF.Faces.SDOWsControllerFace" templateFileName="ADF.Faces.SDOWsControllerFace.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol"
@@ -113,7 +107,20 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>
 
 	</template-target>
-	
+
+  	<template-target 
+    	name="ADF lookup managed bean"
+		outputdir="ViewController/src"
+		belongToPackage="true">
+			<template name="ADF.Faces.Entity.Lookup.BackingBean" templateFileName="ADF.Faces.Entity.Lookup.BackingBean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="LookupDefaultingBean"
+			has-updatable-nature="true" 
+			scope-specific-value="model"
+			>
+		</template>	
+	</template-target>
+
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
@@ -125,7 +132,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
-			>			
+			>
 		</template>	
 		
 		<template name="ADF.Faces.Entity.BackingBean" templateFileName="ADF.Faces.Entity.BackingBean.vm" 
