@@ -364,10 +364,13 @@ $!updatedAreaSnippet
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#if($columnUtils.isForeignKey($column))
+#set($columnVar="${columnVar}_")
+#end
             .append("$columnVar", $columnVar)
 #end	 	
 #end	 	
-	 	    ;
+	 	;
 	} 
 		
 	public String toString(Object object) {

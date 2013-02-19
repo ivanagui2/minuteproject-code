@@ -170,8 +170,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
      $beanVOADFFacesQueryResponseClass ret = new $beanVOADFFacesQueryResponseClass();
      ret.setTotalRowsCount(queryData.getTotalResultCount().intValue());
-	 System.out.println("start = "+start + " - fetch = "+fetchSize);
-	 System.out.println("queryData.getResult() = "+queryData.getResult());
      for($domainClassImport element : queryData.getResult()) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
         convert(element, output);
@@ -184,7 +182,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
     * @return $beanVOADFFacesClass
    */
    public $beanVOADFFacesClass get$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable) {
-      System.out.println(">>>> get$domainClassName");
 #if($tableHasOnlyOnePrimaryKey)
       ${domainClassImport} var = ${beanADFFacesSpringServiceVariable}.load(${beanVOADFFacesVariable}.get$primaryKeyJavaNameClass());
       convert(var, $beanVOADFFacesVariable);
@@ -238,6 +235,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #exposeADFQuerySpecific()
+#exposeSDDSpring()
 #putImportQuerySDDBean()
     public $sddOutputBeanCollectionClass get$sddOutputBeanCollectionClass (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
 	    System.out.println(">>>> execute");

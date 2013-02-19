@@ -1,0 +1,66 @@
+#exposeADFFacesModelSpecific()
+#exposeADFFacesSpringModelBindingSpecific()
+#set($thisClassName=$className)
+package $packageName;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Date;
+import java.util.ArrayList;
+
+import javax.faces.model.SelectItem;
+
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
+
+import org.apache.myfaces.trinidad.event.LaunchEvent;
+
+#foreach($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+import $beanADFFacesSpringServiceImport;
+#end
+#end
+import $beanADFFacesSpringAppContextLoaderImport;
+
+public class $thisClassName {
+
+#foreach($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+    private $beanADFFacesSpringServiceClass $beanADFFacesSpringServiceVariable;
+#end
+#end
+
+    public $thisClassName() {
+#foreach($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+#end
+#end
+    }
+
+#foreach($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+#exposeADFFacesSpringBindingSpecific4Entity($table)
+#if($columnUtils.isForeignKey($primaryKeyFirstColumn))
+#set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
+#end
+    public List<SelectItem> get${domainClassName}List() {
+        List<SelectItem> list = new ArrayList<SelectItem>();
+        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+            list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.get$primaryKeyJavaNameClass()));
+        }
+        return list;
+    }
+#end
+#end
+
+}
