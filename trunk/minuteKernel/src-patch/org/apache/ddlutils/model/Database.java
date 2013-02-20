@@ -292,9 +292,12 @@ public class Database implements Serializable, Cloneable
                 }
                 if (namesOfProcessedColumns.contains(column.getName()))
                 {
-                    throw new ModelException("There are multiple column with the name "+column.getName()+" in the table "+curTable.getName());
+                     System.out.println("> duplicate column "+column.getName()+" - for entity "+curTable.getName());
+//                    throw new ModelException("There are multiple column with the name "+column.getName()+" in the table "+curTable.getName());
                 }
-                namesOfProcessedColumns.add(column.getName());
+                else {
+                    namesOfProcessedColumns.add(column.getName());
+                }
 
                 if ((column.getType() == null) || (column.getType().length() == 0))
                 {

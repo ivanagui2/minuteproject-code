@@ -8,7 +8,7 @@
 	<template-target 
 	   name="fitnesse CRUD Wiki templates" 
 	   package-root="TestFitnesseCrud"
-	   outputdir=""
+	   outputdir="src-wiki/FitNesseRoot"
 	   belongToPackage="true">
 	
 		<!-- select fixture -->
@@ -56,7 +56,7 @@
 
 	<template-target 
 	   name="fitnesse CRUD Wiki templates" 
-	   outputdir=""
+	   outputdir="src-wiki/FitNesseRoot"
 	   package-root="TestFitnesse"
        belongToPackage="true">
 	
@@ -107,7 +107,7 @@
 	   name="fitnesse DB setup Wiki templates" 
 	   libdir="lib/BslaLibrary.vm"
 	   package-root="TestFitnesseSetup"
-	   outputdir=""
+	   outputdir="src-wiki/FitNesseRoot"
 	   belongToPackage="true">
 
 		<template name="FitnesseWikiDBSetupSnippetContent" templateFileName="FitnesseWikiDBSetupSnippetContent.vm" 
@@ -125,7 +125,7 @@
     	
   <template-target 
 	   name="fitnesse fixture" 
-	   outputdir="src-generated"
+	   outputdir="src/main/java"
 		belongToPackage="true">
 	
 		<!-- select fixture -->
@@ -157,7 +157,7 @@
 	
     <template-target 
 	   name="database setup" 
-	   outputdir="src-generated"
+	   outputdir="src/main/resources"
 	   package-root=""
 		belongToPackage="true">
 	

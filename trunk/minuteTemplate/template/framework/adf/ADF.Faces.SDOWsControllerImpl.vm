@@ -220,13 +220,13 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 
 #if ($tableUtils.isAdminContentType($table))
     public List<$beanVOADFFacesClass> get${beanVOADFFacesClass}DropDownList() {
-     List<$beanVOADFFacesClass> ret = new ArrayList<$beanVOADFFacesClass>();
-	 for($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
-        $beanVOADFFacesClass output = new $beanVOADFFacesClass();
-        convert(element, output);
-        ret.add(output);
-     }
-     return ret;
+      List<$beanVOADFFacesClass> ret = new ArrayList<$beanVOADFFacesClass>();
+      for($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
+         convert(element, output);
+         ret.add(output);
+      }
+      return ret;
     }
 		
 #end
