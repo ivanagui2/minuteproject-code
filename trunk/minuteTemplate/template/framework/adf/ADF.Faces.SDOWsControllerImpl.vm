@@ -172,7 +172,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      ret.setTotalRowsCount(queryData.getTotalResultCount().intValue());
      for($domainClassImport element : queryData.getResult()) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
-        convert(element, output);
+        convertSimple(element, output);
         ret.add$beanVOADFFacesClass(output);
      }
      return ret;
