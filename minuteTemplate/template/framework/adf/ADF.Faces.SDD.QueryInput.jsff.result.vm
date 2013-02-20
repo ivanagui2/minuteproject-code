@@ -47,7 +47,7 @@
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 ##adfSddInputColumnDisplay("input$velocityCount")
-    <af:column sortProperty="${columnVar}" sortable="false" headerText="${columnVar}"
+    <af:column sortProperty="${columnVar}" sortable="false" headerText="#{viewcontrollerBundle['${sddOutputBeanVariable}$separator${columnVar}']}"
                id="c$velocityCount">
       <af:outputText value="#{row.${columnVar}}" id="ot$velocityCount"/>     
     </af:column>

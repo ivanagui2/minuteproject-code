@@ -1,7 +1,8 @@
 #exposeADFFacesModelSpecific()
 <?xml version="1.0" encoding="windows-1252" ?>
 <menu xmlns="http://myfaces.apache.org/trinidad/menu">
-	
+
+#if (!$businessPackagesAll.isEmpty())
 #addArea("custom-groupnode-definition-beginning")
 <groupNode id="ApplicationGroup" label="Application Management"
 #foreach ($package in ${businessPackagesAll})
@@ -33,23 +34,26 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 #end
+   </groupNode>	
+#end
 
 <!-- SDD -->
 #if($model.hasStatementModel())
-<groupNode id="QueryGroup" label="Queries"
+<groupNode id="SDDGroup" label="Statements" idref="QueryGroup">
+   <groupNode id="QueryGroup" label="Queries"
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #set ($queryClassName = $formatUtils.getJavaName(${query.name}))
 #set ($queryVariableName = $formatUtils.firstLowerCase(${queryClassName}))
 #if($velocityCount==1)
-   idref="$queryVariableName"
+      idref="$queryVariableName">
 #end
-    >
       <itemNode id="$queryVariableName" label="#{viewcontrollerBundle['${queryClassName}']}"
-                  action="goto${queryClassName}"
-                  focusViewId="/${queryVariableName}View"/>
+          action="goto${queryClassName}"
+          focusViewId="/${queryVariableName}View"/>
 #end
+   </groupNode>
 </groupNode>
 #end
 #addArea("custom-groupnode-definition-ending")
-   </groupNode>	
+
 </menu>

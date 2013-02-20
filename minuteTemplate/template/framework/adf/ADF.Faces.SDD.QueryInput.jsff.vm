@@ -33,10 +33,10 @@
     <af:outputText inlineStyle="color:Blue; font-weight:500;font-weight:bold; font-size:11pt;"
                    value="Results" id="ot1"/>
     <af:separator id="s1"/>
-    <af:panelFormLayout id="pfl2">
-      <af:inputText label="params" value="" id="it3" readOnly="true"/>
-    </af:panelFormLayout>
-    <af:separator id="s2"/>
+##    <af:panelFormLayout id="pfl2">
+##      <af:inputText label="params" value="" id="it3" readOnly="true"/>
+##    </af:panelFormLayout>
+##    <af:separator id="s2"/>
     <af:panelTabbed id="pt1" childCreation="lazy"
                     binding="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.tabs}"
                     partialTriggers="cb1" dimensionsFrom="auto"
@@ -48,7 +48,7 @@
         </af:panelBox>
       </af:showDetailItem>
     </af:panelTabbed>
-    <af:commandButton text="Start" id="cb2" action="execute" />
+##    <af:commandButton text="Start" id="cb2" action="execute" />
   </af:panelGroupLayout>
 </jsp:root>
 

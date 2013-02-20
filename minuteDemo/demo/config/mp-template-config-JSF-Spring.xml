@@ -60,6 +60,19 @@
 
 	</template-target>
 
+
+  	<template-target 
+    	name="utils set"
+		outputdir="src/main/java"
+		belongToPackage="true">
+			 
+		<template name="JSFUtils" templateFileName="JSFUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
+
+	</template-target>
 <!-- 
   	<template-target 
     	name="framework"
@@ -95,6 +108,12 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
+		<template name="JSFXhtmlListEntity" templateFileName="JSFXhtmlListLazyEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListLazy" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
 			application-specific="true" add-model-name="false">
@@ -123,9 +142,11 @@
 		<!-- SDD -->
         <template name="JSFXhtmlSDDInput" templateFileName="JSFXhtmlSDDInput.vm" 
             file-extension="xhtml" technicalPackage="sdd" file-suffix="Input" 
-            scope-specific-value="query" 
-            check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-        </template>
+            scope-specific-value="query"/>
+
+        <template name="JSFXhtmlChart" templateFileName="JSFXhtmlChart.vm"
+			file-extension="xhtml" technicalPackage="sdd" file-suffix="Chart"
+			scope-specific-value="query" />
 
     </template-target>		
 

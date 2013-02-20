@@ -3,6 +3,7 @@
 #exposeSpringBslaDomainObject()
 #exposeJPA2DomainObject($table)
 #putImportParamsUML()
+#addedAreas()
 #exposeTableMetadata()
 #set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;

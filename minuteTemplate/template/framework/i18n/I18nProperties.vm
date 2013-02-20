@@ -70,6 +70,7 @@ ${childrenListVariable}_Selected_Values=Selected ${childrenListVariable}
 #set ($queryClassName = $formatUtils.getJavaName(${query.name}))
 ${queryClassName}=$i18nUtils.getI18nFromDBObject($query)
 ${sddInputBeanVariable}=$i18nUtils.getI18nFromDBObject($inputBean)
+# ${sddInputBeanVariable}
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
 ${sddInputBeanVariable}$separator${columnVar}=$i18nUtils.getI18nFromDBObject($column)
