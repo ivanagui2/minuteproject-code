@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
 import $importDomainObjectUML;
 import $SpringServiceInterfaceImport;
 import $BslaDaoInterfaceImport;
@@ -151,7 +153,10 @@ public class $className implements $SpringServiceInterfaceClass {
      */
     //@Cachable
     public List<$tableClassName> getList () {
-        return ${BslaDaoExtInterfaceVariable}.getList();
+        $tableClassName sortMask = new $tableClassName();
+#set ($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($primaryKeyFirstColumn))
+        sortMask.set$primaryClassName($defaultStuffing);
+        return ${BslaDaoExtInterfaceVariable}.getList(sortMask, QuerySortOrder.DESC);
     }
 
 ##end
