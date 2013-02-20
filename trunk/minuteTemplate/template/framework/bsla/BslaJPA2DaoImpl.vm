@@ -282,12 +282,12 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @param $tableClassName $tableVariableName
      * @return List
      */  
-    public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {      
-       return searchPrototype ($tableVariableName, null);            
+    public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) {
+       return searchPrototype ($tableVariableName, null);
     }  
 	
-    public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) {      
-       return searchPrototypeAny ($tableVariableName, null);            
+    public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) {
+       return searchPrototypeAny ($tableVariableName, null);
     }  
 
     public List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
@@ -318,22 +318,27 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 	    return getHQuery(what, queryWhere, queryOrder);
     }
 	
-    protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) { 
-       Query hquery = getEntityManager().createQuery(get${tableClassName}SearchEqualQuery ($tableVariableName));
-       if (maxResults!=null)
-          hquery.setMaxResults(maxResults);
-       return hquery.getResultList();         
-    }        
+    protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, $tableClassName orderMask, QuerySortOrder sortOrder, Integer maxResults) {
+       return searchPrototype(get${tableClassName}SearchEqualQuery ($tableVariableName, orderMask, sortOrder, maxResults);
+    }
+
+    protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) {
+       return searchPrototype($tableVariableName, null, null, maxResults);
+    }
     
     protected List<$tableClassName> searchPrototypeAny ($tableClassName $tableVariableName, Integer maxResults) { 
-       Query hquery = getEntityManager().createQuery(get${tableClassName}SearchEqualAnyQuery ($tableVariableName));
+       return searchPrototype(get${tableClassName}SearchEqualAnyQuery ($tableVariableName), maxResults);
+    }
+    
+    protected List<$tableClassName> searchPrototype (String query, Integer maxResults) { 
+       Query hquery = getEntityManager().createQuery(query);
        if (maxResults!=null)
           hquery.setMaxResults(maxResults);
-       return hquery.getResultList();         
-    }        
-    
+       return hquery.getResultList();
+    }
+
     public List<$tableClassName> searchPrototype$tableClassName (List<$tableClassName> ${tableVariableName}s) {
-       return searchPrototype (${tableVariableName}s, null);  
+       return searchPrototype (${tableVariableName}s, null);
     }
 
     protected List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}s, Integer maxResults) {    
@@ -357,26 +362,30 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     }
 
     /**
+    * return a string query search on a ${tableClassName} prototype
+    */
+    protected String get${tableClassName}SearchEqualQuery (String where, $tableClassName orderMask, QuerySortOrder sortOrder) {
+       return get${tableClassName}SearchEqualQuery (where+getOrder(findOrder (orderMask, sortOrder)));
+    }
+    protected String get${tableClassName}SearchEqualQuery (String where) {
+       StringBuffer query = new StringBuffer();
+       StringBuffer queryWhere = new StringBuffer();
+       query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
+       queryWhere.append (where);
+       return getHQuery(query.toString(), queryWhere.toString());
+    }
+    /**
     * return a jql query search on a ${tableClassName} prototype
     */
     protected String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
-        StringBuffer query = new StringBuffer();
-        StringBuffer queryWhere = new StringBuffer();
-        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
-        queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));   
-	    return getHQuery(query.toString(), queryWhere.toString());
+       return get${tableClassName}SearchEqualQuery (get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false));
     }
     /**
     * return a jql query search on a ${tableClassName} with any prototype
     */
     protected String get${tableClassName}SearchEqualAnyQuery ($tableClassName $tableVariableName) {
-        StringBuffer query = new StringBuffer();
-        StringBuffer queryWhere = new StringBuffer();
-        query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
-        queryWhere.append (get${tableClassName}SearchEqualAnyWhereQueryChunk($tableVariableName, false));   
-	    return getHQuery(query.toString(), queryWhere.toString());
+       return get${tableClassName}SearchEqualQuery (get${tableClassName}SearchEqualAnyWhereQueryChunk($tableVariableName, false));   
     }
-
 
     /**
     * return a jql search for a list of ${tableClassName} prototype
@@ -391,7 +400,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
         for ($tableClassName ${tableVariableName} : ${tableVariableName}s) {
            if (!isAllNull(${tableVariableName})) {        
 	           queryWhere.append (getQueryOR (isOrSet));
-	           isOrSet = true;        
+	           isOrSet = true;
 	           queryWhere.append (" ("+get${tableClassName}SearchEqualWhereQueryChunk($tableVariableName, false)+") ");
            }
         }
@@ -598,8 +607,6 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
        int maxResult = paginationCriteria.getNumberOfRowsReturned()*(1+paginationCriteria.getPageNumber());
        List<$primaryKeyType> set = getEntityManager().createNamedQuery(query.toString()).setMaxResults(maxResult).getResultList();
        return set;
-##       //getJpaTemplate().find(query.toString());
-##   	   //return set.subList(0, maxResult);
     }
 
 #parse("./snippet/orm/dao/queryBuilderUtils.vm")   
