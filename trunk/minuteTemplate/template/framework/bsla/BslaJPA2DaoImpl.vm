@@ -317,9 +317,13 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 		String queryOrder = findOrder (orderMask, sortOrder);
 	    return getHQuery(what, queryWhere, queryOrder);
     }
-	
+#*	
+    protected String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName, $tableClassName orderMask, QuerySortOrder sortOrder, Integer maxResults) {
+       return get${tableClassName}SearchEqualQuery (get${tableClassName}SearchEqualQuery($tableVariableName), orderMask, sortOrder), maxResults);
+    }
+*#	
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, $tableClassName orderMask, QuerySortOrder sortOrder, Integer maxResults) {
-       return searchPrototype(get${tableClassName}SearchEqualQuery ($tableVariableName, orderMask, sortOrder, maxResults);
+       return searchPrototype(get${tableClassName}SearchEqualQuery (get${tableClassName}SearchEqualQuery($tableVariableName), orderMask, sortOrder), maxResults);
     }
 
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) {

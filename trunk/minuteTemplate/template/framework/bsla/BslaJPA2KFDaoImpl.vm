@@ -753,9 +753,15 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
      * return a list of $tableClassName entities 
      */
     public List<$tableClassName> getList () {
-		//first lightweight implementation
-		return searchPrototype$tableClassName(new $tableClassName());
-	}
+        //first lightweight implementation
+        return searchPrototype$tableClassName(new $tableClassName());
+    }
+    /**
+     * return a list of $tableClassName entities and sort
+     */
+    public List<$tableClassName> getList ($tableClassName orderMask, QuerySortOrder sortOrder) {
+        return searchPrototype(new $tableClassName(), orderMask, sortOrder, null);
+    }
 
 ##end
 $!updatedAreaImplementation
