@@ -11,6 +11,7 @@ import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 import net.sf.minuteProject.model.dao.GenericDao;
 
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 $!updatedAreaImport
 
 /**
@@ -174,6 +175,8 @@ public interface $className extends GenericDao<$tableClassName> {##DataAccessObj
      * return a list of $tableClassName entities 
      */
     public List<$tableClassName> getList ();
+        
+    public List<$tableClassName> getList ($tableClassName orderMask, QuerySortOrder sortOrder);
 
 ##end
 $!updatedAreaImplementation

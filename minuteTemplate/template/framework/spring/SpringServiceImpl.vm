@@ -155,7 +155,7 @@ public class $className implements $SpringServiceInterfaceClass {
     public List<$tableClassName> getList () {
         $tableClassName sortMask = new $tableClassName();
 #set ($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($primaryKeyFirstColumn))
-        sortMask.set$primaryClassName($defaultStuffing);
+        sortMask.set$primaryKeyJavaNameClass($defaultStuffing);
         return ${BslaDaoExtInterfaceVariable}.getList(sortMask, QuerySortOrder.DESC);
     }
 
