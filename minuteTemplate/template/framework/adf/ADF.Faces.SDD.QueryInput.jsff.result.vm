@@ -38,7 +38,7 @@
             rowDisclosureListener="#{${queryListenerBeanADFFaceVariable}.rowDisclosureListener}">
     <f:facet name="detailStamp">
       <af:panelFormLayout id="pfl1">
-        <af:region value="#{bindings.detailsflowdefinition1.regionModel}" id="r1"/>
+        <af:region value="#{bindings.detailflowdefinition1.regionModel}" id="r1"/>
       </af:panelFormLayout>
     </f:facet>
 
