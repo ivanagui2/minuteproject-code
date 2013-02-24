@@ -9,7 +9,8 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
-import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
+import net.sf.minuteProject.configuration.bean.enumeration.Order;
+import net.sf.minuteProject.configuration.bean.query.Ordering;
 
 
 public interface Table extends GeneratorBean{
@@ -295,9 +296,11 @@ public interface Table extends GeneratorBean{
 	
 	public void setForeignKey(ForeignKey foreignKey);
 
-	public void setProposedOrdering(Map<String, Ordering> ordering);
+	public void setProposedOrdering(List<Ordering> orderings);
 
-	public Map<Column, Ordering> getOrdering();
+	public List<Ordering> getOrderings();
 	
-	public void setOrdering(Map<Column, Ordering> ordering);
+	public void setOrderings(List<Ordering> orderings);
+	
+	public void addOrdering(Ordering ordering);
 }

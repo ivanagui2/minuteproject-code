@@ -604,8 +604,8 @@
 					</pattern>						
 				</pattern>					
 				<pattern value="property">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
-					<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>
+					<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>
 					<set-properties-rule>
 						<alias attr-name="name" prop-name="name" />
 						<alias attr-name="value" prop-name="value" />
@@ -638,8 +638,8 @@
 					</pattern>						
 				</pattern>
 				<pattern value="field">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
-					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>		
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
 					<set-properties-rule>
 					    <alias attr-name="is-id" prop-name="isId" />
 					    <alias attr-name="alias" prop-name="alias" />	

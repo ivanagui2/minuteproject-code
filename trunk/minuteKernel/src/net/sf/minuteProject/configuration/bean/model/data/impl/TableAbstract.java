@@ -16,13 +16,14 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
-import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
+import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.Index;
+import net.sf.minuteProject.configuration.bean.query.Ordering;
 import net.sf.minuteProject.utils.ColumnUtils;
 
 /**
@@ -43,7 +44,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<Action> actions;
 	private List<Constraint> constraints;
 	private Boolean hasVersion;
-	private Map<Column, Ordering> ordering;
+	private List<Ordering> orderings;
 	
 	public TableAbstract () {
 	}
@@ -63,7 +64,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setDescription(table.getDescription());
 		this.setDatabase(table.getDatabase());
 		this.setConstraints(table.getConstraints());
-		this.setOrdering(table.getOrdering());
+		this.setOrderings(table.getOrderings());
 	}
 
 	public String getName () {
@@ -455,23 +456,29 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.constraints = constraints;
 	}
 	
-	public void setProposedOrdering(Map<String, Ordering> ordering) {
-		if (ordering==null) {
-			Set<Entry<String, Ordering>> set = ordering.entrySet();
-			for (Entry<String, Ordering> entry: set) {
-				Column column = ColumnUtils.getColumn(this, entry.getKey());
-				if (column!=null)
-					this.ordering.put(column, entry.getValue());
+	public void setProposedOrdering(List<Ordering> orderings) {
+		if (orderings!=null) {
+			for (Ordering entry: orderings) {
+				Column column = ColumnUtils.getColumn(this, entry.getColumnName());
+				if (column!=null) {
+					entry.setColumn(column);
+					getOrderings().add(entry);
+				}
 			}
 		}
 	}
 
-	public Map<Column, Ordering> getOrdering() {
-		return ordering;
+	public List<Ordering> getOrderings() {
+		if (orderings==null)
+			orderings = new ArrayList<Ordering>();
+		return orderings;
 	}
 
-	public void setOrdering(Map<Column, Ordering> ordering) {
-		this.ordering = ordering;
+	public void addOrdering(Ordering ordering) {
+		orderings.add(ordering);
 	}
 
+	public void setOrderings(List<Ordering> orderings) {
+		this.orderings = orderings;
+	}
 }
