@@ -6,7 +6,7 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
-import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
+import net.sf.minuteProject.configuration.bean.enumeration.Order;
 
 public class Field extends AbstractConfiguration {
 
@@ -18,7 +18,7 @@ public class Field extends AbstractConfiguration {
 	private boolean isMandatory, isId, isSearchable, isEditable;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
-	private Ordering ordering;
+	private String ordering;
 
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -162,17 +162,20 @@ public class Field extends AbstractConfiguration {
 		return typeAlias;
 	}
 
-	public Ordering getOrdering() {
+	public String getOrdering() {
 		return ordering;
 	}
 
 	public void setOrdering(String ordering) {
-		for (Ordering order : Ordering.values()) {
+		this.ordering = ordering;
+	}
+	public Order getOrder() {
+		for (Order order : Order.values()) {
 			if (order.name().toLowerCase().equals(ordering)) {
-				this.ordering = order;
-				return;
+				return order;
 			}
 		}
+		return null;
 	}
 
 }

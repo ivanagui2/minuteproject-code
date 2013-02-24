@@ -10,10 +10,11 @@ import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
-import net.sf.minuteProject.configuration.bean.enumeration.Ordering;
+import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
+import net.sf.minuteProject.configuration.bean.query.Ordering;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -242,14 +243,17 @@ public class Entity extends AbstractConfiguration {
 		return column;
 	}
 
-	public Map<String, Ordering> getOrdering() {
-		Map <String, Ordering> map = new HashMap<String, Ordering>();
+	public List<Ordering> getOrdering() {
+		List <Ordering> list = new ArrayList<Ordering>();
 		for (Field field : getFields()) {
 			if (field.getOrdering()!=null) {
-				map.put(field.getName(), field.getOrdering());
+				Ordering ordering = new Ordering();
+				ordering.setColumnName(field.getName());
+				ordering.setOrder(field.getOrder());
+				list.add(ordering);
 			}
 		}
-		return map;
+		return list;
 	}
 	
 }

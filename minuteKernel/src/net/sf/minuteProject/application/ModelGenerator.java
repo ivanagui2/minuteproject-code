@@ -49,6 +49,7 @@ import net.sf.minuteProject.utils.TriggerUtils;
 import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
+import net.sf.minuteProject.utils.criteria.OrderingUtils;
 import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
@@ -98,6 +99,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private SemanticReferenceUtils semanticReference = new SemanticReferenceUtils();
 	private VelocityUtils velocityUtils= new VelocityUtils();
 	private FileUtils fileUtils= new FileUtils();
+	private OrderingUtils orderingUtils = new OrderingUtils();
 
 	private Model model;
 
@@ -540,6 +542,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("semanticReferenceUtils", semanticReference);
 		context.put("velocityUtils", velocityUtils);
 		context.put("fileUtils", fileUtils);
+		context.put("orderingUtils", orderingUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
