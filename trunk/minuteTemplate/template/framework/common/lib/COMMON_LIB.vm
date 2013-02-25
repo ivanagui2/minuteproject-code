@@ -237,3 +237,10 @@ $!commonUtils.getReadMeText($template)
 #end
 #end
 #end
+
+#macro(putOrmForeignKeyColumn)
+#if($columnUtils.isForeignKey($column))
+#set($columnClass="${columnClass}_")
+#set($columnVar="${columnVar}_")
+#end
+#end

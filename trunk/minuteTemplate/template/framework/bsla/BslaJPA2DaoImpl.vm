@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.commons.lang.StringUtils;
 
+import static net.sf.minuteProject.model.utils.BuilderUtils.*;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
@@ -86,6 +87,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
         if (${tableVariableName}.get$columnClass() != null) {
            jpaQuery.setParameter ("${columnVar}", ${tableVariableName}.get$columnClass());
         }   
@@ -106,11 +108,12 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryCommaSet (isWhereSet));
            isWhereSet = true; 
 ##           //query.append(" ${tableVariableName}.${columnVar} = :${tableVariableName}CriteriaValue.${tableVariableName}.${columnVar}");
-#if ($sqlUtils.isQuotedColumn($column)  && $column.type != 'DECIMAL')        
+#if ($sqlUtils.isQuotedColumn($column)  && $column.type != 'DECIMAL')
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
@@ -122,10 +125,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in $table.columns)
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
         if (prototypeCriteria.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
-#if ($sqlUtils.isQuotedColumn($column)  && $column.type != 'DECIMAL')        
+#if ($sqlUtils.isQuotedColumn($column)  && $column.type != 'DECIMAL')
            query.append(" ${tableVariableName}.${columnVar} = '"+ prototypeCriteria.get$columnClass()+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ prototypeCriteria.get$columnClass() + " ");
@@ -250,10 +254,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in $table.primaryKeyColumns)
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
         if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
-#if ($sqlUtils.isQuotedColumn($column))        
+#if ($sqlUtils.isQuotedColumn($column))
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
@@ -462,13 +467,14 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
         if (${tableVariableName}.get$columnClass() != null) {
 		   if (isAll)
 			  query.append (getQueryAND (isAndSet));
 		   else 
 		      query.append (getQueryOR (isAndSet));
            isAndSet = true;
-#if ($sqlUtils.isQuotedColumn($column))        
+#if ($sqlUtils.isQuotedColumn($column))
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
@@ -497,9 +503,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
-#if($isForeignKey)
-#set($columnClass="${columnClass}_")
-#end
+#putOrmForeignKeyColumn()
         if (${tableVariableName}.get$columnClass() != null) {
            if (isAll)
               query.append (getQueryAND (isAndSet));
@@ -551,10 +555,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
         if (${tableVariableName}Positive!=null && ${tableVariableName}Positive.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
-#if ($sqlUtils.isQuotedColumn($column))        
+#if ($sqlUtils.isQuotedColumn($column))
            query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}Positive.get$columnClass()+"' ");
 #else
            query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}Positive.get$columnClass() + " ");
@@ -613,7 +618,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
        return set;
     }
 
-#parse("./snippet/orm/dao/queryBuilderUtils.vm")   
+##parse("./snippet/orm/dao/queryBuilderUtils.vm")   
    
     protected EntityManager getEntityManager () {
         return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
@@ -624,39 +629,8 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
 	   ${tableVariableName}.set${localColumnClass} (($linkedTableClass)null);
-#end       
+#end
     }
 	
-	private String getOperand (OperandType operandType) {
-	    if (OperandType.EQUALS.equals(operandType))
-		   return "=";
-	    if (OperandType.LIKE.equals(operandType))
-		   return "like";
-	    if (OperandType.CONTAINS.equals(operandType))
-		   return "like";
-	    if (OperandType.STARTWITH.equals(operandType))
-		   return "like";
-		return "=";
-	}
-	
-	private String getEvaluatorPrefix (OperandType operandType) {
-	    if (OperandType.CONTAINS.equals(operandType))
-		   return "%";
-		return "";
-	}
-	
-	private String getEvaluatorSuffix (OperandType operandType) {
-	    if (OperandType.LIKE.equals(operandType))
-		   return "%";
-	    if (OperandType.CONTAINS.equals(operandType))
-		   return "%";
-        if (OperandType.STARTWITH.equals(operandType))
-           return "%";
-		return "";
-	}
-	
-	private boolean isAll(EntityMatchType matchType) {
-		return EntityMatchType.ALL.equals(matchType)?true:false;
-	}
 
 }

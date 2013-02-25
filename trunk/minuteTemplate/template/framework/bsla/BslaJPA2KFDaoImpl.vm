@@ -44,6 +44,7 @@ import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import static net.sf.minuteProject.model.utils.BuilderUtils.*;
 
 import net.sf.minuteProject.architecture.utils.BeanUtils;
 import $importDaoInterfaceExtendedUML;
@@ -108,7 +109,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 ##		   Query hquery = getSession().createSQLQuery(query);
 ##		   return hquery.list();   
 		   Query queryJ = getEntityManager().createNativeQuery(query);
-		   return queryJ.getResultList();		        
+		   return queryJ.getResultList();
     }
 
 
@@ -192,13 +193,13 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
         }   
 #end
 #end
-		return jpaQuery.executeUpdate();           
+		return jpaQuery.executeUpdate();
 ##		return query.executeUpdate();        
     }
 	
 #parse("./snippet/orm/dao/referAssignAffectSnippet.vm") 
 	
-#parse("./snippet/orm/dao/partialLoadSnippetJPA2.vm")    
+#parse("./snippet/orm/dao/partialLoadSnippetJPA2.vm")
 		
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
       List<$tableClassName> list = partialLoadWithParent$tableClassName(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);
@@ -445,9 +446,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if(!$isPrimaryKey)
-#if($isForeignKey)	
-#set($columnClass="${columnClass}_")
-#end
+#putOrmForeignKeyColumn()
 			if (${tableVariableName}.get$columnClass() != null) {
 #if ($column.isLob())
 #exposeLobProperties()
@@ -487,7 +486,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
        if (${tableVariableName}.get$columnClass() != null) {
            query.append (getQueryBLANK_AND (isWhereSet));
 		   isWhereSet = true;
-#if ($sqlUtils.isQuotedColumn($column))        
+#if ($sqlUtils.isQuotedColumn($column))
+#putOrmForeignKeyColumn()
            query.append(" "+alias+".${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #else
            query.append(" "+alias+".${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
