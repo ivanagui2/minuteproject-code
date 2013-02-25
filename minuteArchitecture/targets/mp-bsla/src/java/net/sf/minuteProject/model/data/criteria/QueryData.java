@@ -7,12 +7,18 @@ public class QueryData <T> {
 	private List<T> result;
 	private Long totalResultCount;
 	
-	private int start;
-	private int max;
+	private Integer start;
+	private Integer max;
 	private EntitySort<T> entitySort;
 	private EntityCriteria<T> entityCriteria;
+	private T entityWhat;
 	
-	public QueryData(int start, int max, EntitySort<T> entitySort, EntityCriteria<T> entityCriteria) {	
+	public QueryData(Integer start, Integer max, EntitySort<T> entitySort, EntityCriteria<T> entityCriteria, T entityWhat) {	
+		this(start, max, entitySort, entityCriteria);
+		this.entityWhat = entityWhat;
+	}
+
+	public QueryData(Integer start, Integer max, EntitySort<T> entitySort, EntityCriteria<T> entityCriteria) {	
 		this.start = start;
 		this.max = max;
 		this.entitySort = entitySort;
@@ -30,7 +36,6 @@ public class QueryData <T> {
 	public int getStart() {
 		return start;
 	}
-
 
 	public void setResult(List<T> result) {
 		this.result = result;
@@ -68,10 +73,14 @@ public class QueryData <T> {
 		this.start = start;
 	}
 
+	public T getEntityWhat() {
+		return entityWhat;
+	}
+	
 	@Override
 	public String toString() {
 		return "QueryData [start=" + start + ", end=" + max + ", entitySort=" + entitySort + ", entityCriteria="
-				+ entityCriteria + "]";
+				+ entityCriteria + ", entityWhat= "+entityWhat+"]";
 	}
 	
 }
