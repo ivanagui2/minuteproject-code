@@ -170,12 +170,7 @@ public class Field extends AbstractConfiguration {
 		this.ordering = ordering;
 	}
 	public Order getOrder() {
-		for (Order order : Order.values()) {
-			if (order.name().toLowerCase().equals(ordering)) {
-				return order;
-			}
-		}
-		return null;
+		return Order.getOrder(ordering);
 	}
 
 }

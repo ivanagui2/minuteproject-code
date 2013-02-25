@@ -23,6 +23,8 @@
 #set($beanVOADFFacesImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesClass=$commonUtils.getTemplateClassName($table, $template, $templateBeanVOADFFaces))
 #set($beanVOADFFacesVariable=$commonUtils.getJavaNameVariableFirstLetter($beanVOADFFacesClass))
+#set($lookupBeanImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateLookupBean))
+#set($lookupBeanClass=$commonUtils.getTemplateClassName($model, $template, $templateLookupBean))
 #set($viewEditEntityBeanClass=$commonUtils.getTemplateClassName($table, $templateViewEditBeanADFFaces))
 #set($viewEditEntityBeanVariable=$commonUtils.getJavaNameVariableFirstLetter($viewEditEntityBeanClass))
 #set($viewEditEntityBeanImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateViewEditBeanADFFaces))
@@ -382,6 +384,7 @@ import $importDomainObjectUML;
 #set ($templateBeanVOQueryRequestADFFaces = "ADF.Faces.Entity.QueryRequest.Bean")
 #set ($templateADFFacesSpringAppContextLoader = "ADF.Spring.ApplicationContext.Loader")
 #set ($templateADFFEBEConverterUtils = "ADF.Faces.FE-BE.ConverterUtils")
+#set ($templateLookupBean = "ADF.Faces.Entity.Lookup.BackingBean")
 #end
 
 #macro (exposeADFSDDTemplate)

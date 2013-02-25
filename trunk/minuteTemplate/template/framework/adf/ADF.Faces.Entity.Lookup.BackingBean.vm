@@ -15,6 +15,7 @@ import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 
 import org.apache.myfaces.trinidad.event.LaunchEvent;
+import javax.faces.model.SelectItem;
 
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
@@ -53,10 +54,13 @@ public class $thisClassName {
 #if($columnUtils.isForeignKey($primaryKeyFirstColumn))
 #set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
 #end
+#set($ordering=$orderingUtils.getFirstOrdering($table))
+#set($column=$ordering.column)
+#putColumnParamNaming()
     public List<SelectItem> get${domainClassName}List() {
         List<SelectItem> list = new ArrayList<SelectItem>();
         for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
-            list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.get$primaryKeyJavaNameClass()));
+            list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.get$columnClass()));
         }
         return list;
     }

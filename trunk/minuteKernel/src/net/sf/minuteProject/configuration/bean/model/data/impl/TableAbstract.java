@@ -475,7 +475,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	}
 
 	public void addOrdering(Ordering ordering) {
-		orderings.add(ordering);
+		getOrderings().add(ordering);
 	}
 
 	public void setOrderings(List<Ordering> orderings) {
