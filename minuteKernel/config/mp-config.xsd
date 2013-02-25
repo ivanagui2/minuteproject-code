@@ -261,6 +261,13 @@
 		<xs:attribute name="stereotype" type="stereotype-type" />
 		<xs:attribute name="override" type="xs:boolean" />
 	</xs:complexType>
+	
+	<xs:complexType name="ordering-convention">
+		<xs:attribute name="field-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="ordering" type="ordering-type" />
+	</xs:complexType>
 
 	<xs:complexType name="table-default-primary-key-convention">
 		<xs:attribute name="type" type="xs:string" />

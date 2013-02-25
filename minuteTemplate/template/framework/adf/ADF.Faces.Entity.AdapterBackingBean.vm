@@ -45,6 +45,8 @@ import net.sf.minuteproject.adf.utils.EntityPaginator;
 
 import oracle.adf.view.rich.component.rich.data.RichTable;
 
+import $lookupBeanImport;
+
 import $beanVOADFFacesImport;
 import $beanVOADFFacesQueryResponseImport;
 import $beanVOADFFacesQueryRequestImport;
@@ -92,6 +94,7 @@ public class $thisClassName {
     private Boolean searchContains = false;
     private Boolean searchLike = true;
     private Boolean searchCaseSensitive = false;
+	protected $lookupBeanClass lookupBean;
 
 	protected $thisPrimaryKeyType get${thisDomainVariableName}Param() { return null; }
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
@@ -139,6 +142,8 @@ public class $thisClassName {
 
     public $thisClassName() {
         super();
+		//to replace with injection
+		lookupBean = new $lookupBeanClass();
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeADFFacesSpringBindingSpecific4Entity($targetTable)

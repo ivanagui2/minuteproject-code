@@ -38,7 +38,7 @@ class StereotypeConvention extends ModelConvention{
 		}
 	}
 	
-	private boolean match(Column column) {
+	protected boolean match(Column column) {
 		boolean matchFieldType = false
 		boolean matchFieldPattern = false
 		if (hasFieldType()) {
@@ -65,7 +65,7 @@ class StereotypeConvention extends ModelConvention{
 		fieldPatternList
 	}
 	
-	private boolean isValid() {
+	protected boolean isValid() {
 		hasStereotype() && (hasFieldType() || (hasFieldPatternType() && hasFieldPattern())) ;
 	}
 	

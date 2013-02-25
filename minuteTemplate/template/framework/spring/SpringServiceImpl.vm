@@ -158,8 +158,10 @@ public class $className implements $SpringServiceInterfaceClass {
 #set($column=$ordering.column)
 #set($order=$ordering.order)
 #putColumnParamNaming()
+#if (!$columnUtils.isPartOfCompositePrimaryKey($column))
 #set($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($column))
         sortMask.set$columnClass($defaultStuffing);
+#end
         return ${BslaDaoExtInterfaceVariable}.getList(sortMask, QuerySortOrder.$order);
     }
 

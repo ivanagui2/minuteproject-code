@@ -277,7 +277,7 @@ public class ColumnUtils {
 			 isPartOfCompositePrimaryKey(column);
 	}
 	
-	private static boolean isPartOfCompositePrimaryKey(Column column) {
+	public static boolean isPartOfCompositePrimaryKey(Column column) {
 		for (Column col : column.getTable().getPrimaryKeyColumns()) {
 			if (col.getName().toLowerCase().equals(column.getName().toLowerCase()))
 				return true;
