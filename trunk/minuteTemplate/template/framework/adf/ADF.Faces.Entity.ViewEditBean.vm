@@ -136,14 +136,17 @@ public class $className extends $adapterBackingBeanADFFacesClassName {
 	}
 #end	
 
-#foreach ($reference in $thisTable.distinctParentsType)
+#foreach ($reference in $table.distinctParentsType)
 #set($foreignTable=$reference.foreignTable)
+#set($localColumnName=$reference.localColumnName)
+#set($localTable=$tableUtils.getTable($database,$localColumnName))
 #if ($tableUtils.isAdminContentType($foreignTable))
 #exposeADFFacesSpringBindingSpecific4Entity($foreignTable)
 #putReferenceParams2()
+#if(!$tableUtils.isMany2Many($localTable))
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
     public List<SelectItem> get${localColumnClass}List() {
-        return lookupBean.get${localTableClass}List();
+        return lookupBean.get${linkedTableClass}List();
 #*        List<SelectItem> list = new ArrayList<SelectItem>();
         for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
             list.add(new SelectItem(element.get$columnClass(),element.get$columnClass()));
@@ -151,6 +154,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName {
         return list;
 *#
     }
+#end
 #end
 #end
 

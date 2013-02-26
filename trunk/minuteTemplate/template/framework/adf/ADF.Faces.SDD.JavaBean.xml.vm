@@ -8,7 +8,7 @@
           isJavaBased="true">
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
-  <Attribute Name="$columnVar" Type="$columnType"/>
+  <Attribute Name="$columnVar" Type="$columnFullType"/>
 #end
   <MethodAccessor IsCollection="false" Type="java.lang.String" id="toString"
                   ReturnNodeName="Return"/>

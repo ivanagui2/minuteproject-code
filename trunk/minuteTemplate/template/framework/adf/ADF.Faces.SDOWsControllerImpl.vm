@@ -164,7 +164,8 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      EntitySort<$domainClassImport> entitySort = new EntitySort<$domainClassImport>(sortMask, getSortOrder(request));
      EntityCriteria<$domainClassImport> entityCriteria = new EntityCriteria<$domainClassImport>(criteriaMask, getEntityMatchType(request), getOperandType(request), isCaseSensitive(request));
     
-     QueryData<$domainClassImport> queryData = new QueryData<$domainClassImport>(start.intValue(),fetchSize.intValue(), entitySort, entityCriteria);
+     //strangely outboxing in constructor seems not to work...
+     QueryData<$domainClassImport> queryData = new QueryData<$domainClassImport>(new Integer(start.intValue()),new Integer(fetchSize.intValue()), entitySort, entityCriteria);
     
      ${beanADFFacesSpringServiceVariable}.find(queryData);
 
@@ -172,7 +173,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
      ret.setTotalRowsCount(queryData.getTotalResultCount().intValue());
      for($domainClassImport element : queryData.getResult()) {
         $beanVOADFFacesClass output = new $beanVOADFFacesClass();
-        convert(element, output);
+        convertSimple(element, output);
         ret.add$beanVOADFFacesClass(output);
      }
      return ret;
