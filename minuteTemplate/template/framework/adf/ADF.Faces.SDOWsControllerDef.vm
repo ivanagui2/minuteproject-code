@@ -60,7 +60,7 @@
   <MethodAccessor IsCollection="false"
                   Type="$sddOutputBeanCollectionImport"
                   BeanClass="$sddOutputBeanCollectionImport"
-                  id="$sddOutputBeanCollectionClass"
+                  id="get$sddOutputBeanCollectionClass"
                   ReturnNodeName="$sddOutputBeanCollectionClass">
 #if($isNotVoidInput)
     <ParameterInfo id="$sddInputBeanVariable"

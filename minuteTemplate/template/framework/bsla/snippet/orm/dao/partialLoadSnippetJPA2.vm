@@ -124,7 +124,7 @@
         StringBuffer query = new StringBuffer();
         StringBuffer queryWhere = new StringBuffer();
         query.append ("SELECT count(*) FROM $tableClassName ${tableVariableName} ");
-        queryWhere.append (get${tableClassName}SearchEqualWhereQueryChunk(whereEqCriteria, false));   
+        queryWhere.append (get${tableClassName}WhereEqualWhereQueryChunk(whereEqCriteria, false));   
 	    return getHQuery(query.toString(), queryWhere.toString());
     }
 	
