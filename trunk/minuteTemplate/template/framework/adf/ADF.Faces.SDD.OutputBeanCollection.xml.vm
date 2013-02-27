@@ -7,14 +7,14 @@
           BeanClass="${packageName}.$className"
           isJavaBased="true">
   <AccessorAttribute id="$listVariable" IsCollection="true"
-                     AddMethod="add$className"
+                     AddMethod="add$beanClass"
                      BeanClass="$beanImport"
                      CollectionBeanClass="UpdateableCollection">
     <Properties>
-      <Property Name="AddMethod" Value="add$className"/>
+      <Property Name="AddMethod" Value="add$beanClass"/>
     </Properties>
   </AccessorAttribute>
-  <MethodAccessor IsCollection="false" Type="void" id="add$className"
+  <MethodAccessor IsCollection="false" Type="void" id="add$beanClass"
                   ReturnNodeName="Return">
     <ParameterInfo id="p0"
                    Type="$beanImport"
