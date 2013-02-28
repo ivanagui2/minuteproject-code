@@ -10,7 +10,7 @@
           xmlns:f="http://java.sun.com/jsf/core">
   <af:panelGroupLayout id="pgl1">
     <af:panelBox text="Search criteria" id="pb1">
-      <af:panelFormLayout id="pfl1">
+      <af:panelFormLayout id="pfl0">
         <af:panelGroupLayout id="pgl2" layout="horizontal">
           <af:spacer width="105" id="s5"/>
 #set($tableClassName=$sddOutputBeanClass)
@@ -31,7 +31,7 @@
     </af:panelBox>
     <br/>
     <af:outputText inlineStyle="color:Blue; font-weight:500;font-weight:bold; font-size:11pt;"
-                   value="Results" id="ot1"/>
+                   value="Results" id="result1"/>
     <af:separator id="s1"/>
 ##    <af:panelFormLayout id="pfl2">
 ##      <af:inputText label="params" value="" id="it3" readOnly="true"/>
@@ -43,8 +43,9 @@
                     >
       <af:showDetailItem text="Selection" id="sdi1">
         <af:panelBox text=" " disclosed="true" id="pb2">
-          <af:region binding="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.queryflowdefinition1}" value="#{bindings.queryflowdefinition1.regionModel}"
-                     id="r2"/>
+#putSDDResultTable()
+##          <af:region binding="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.queryflowdefinition1}" value="#{bindings.queryflowdefinition1.regionModel}"
+##                     id="r2"/>
         </af:panelBox>
       </af:showDetailItem>
     </af:panelTabbed>

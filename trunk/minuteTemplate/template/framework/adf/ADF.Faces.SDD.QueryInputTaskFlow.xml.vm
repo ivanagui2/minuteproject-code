@@ -20,11 +20,16 @@
       <managed-bean-class id="__114">${queryResponseBeanADFFaceImport}</managed-bean-class>
       <managed-bean-scope id="__112">pageFlow</managed-bean-scope>
     </managed-bean>
+    <managed-bean id="__117">
+      <managed-bean-name id="__119">${queryListenerBeanADFFaceVariable}</managed-bean-name>
+      <managed-bean-class id="__118">${queryListenerBeanADFFaceImport}</managed-bean-class>
+      <managed-bean-scope id="__116">request</managed-bean-scope>
+    </managed-bean>
     <view id="${entryActivity}">
       <page>/$queryInputJsffADFFaceRelativePath</page>
     </view>
     <method-call id="${executeActivity}">
-      <method>#{pageFlowScope.${queryBackingBeanADFFaceVariable}.execute}</method>##get${sddOutputBeanCollectionClass}}</method>
+      <method>#{pageFlowScope.${queryBackingBeanADFFaceVariable}.execute}</method>
       <outcome id="__5">
         <fixed-outcome>*</fixed-outcome>
       </outcome>

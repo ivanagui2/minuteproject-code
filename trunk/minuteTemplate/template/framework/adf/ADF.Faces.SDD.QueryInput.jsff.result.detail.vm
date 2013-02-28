@@ -8,15 +8,16 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:f="http://java.sun.com/jsf/core">
   <af:panelGroupLayout id="pgl1">
-    <af:panelFormLayout id="pfl1" inlineStyle="width:inherit;">
+##    <af:panelFormLayout id="pfl1" inlineStyle="width:inherit;" maxColumns="2">
+    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" maxColumns="2">
 #set($tableClassName=$sddOutputBeanClass)
 ##TODO filter to select only abstract
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
-      <af:inputText readOnly="true" label="${columnVar}" id="ot$velocityCount"
-                    value="#{bindings.${columnVar}}">
-##        <f:validator binding="#{bindings.${columnVar}.validator}"/>
-      </af:inputText>
+      <af:panelLabelAndMessage label="#{viewcontrollerBundle['${sddOutputBeanVariable}$separator${columnVar}']}" id="otl$velocityCount" >
+      <af:outputText value="#{bindings.${columnVar}}" id="otv$velocityCount" />
+	  </af:panelLabelAndMessage>
+##adfEntityDetailColumnDisplay("det$velocityCount")
 #end
 
 #foreach($action in $actions)

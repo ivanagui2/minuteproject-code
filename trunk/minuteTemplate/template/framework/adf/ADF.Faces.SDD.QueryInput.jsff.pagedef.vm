@@ -24,8 +24,38 @@
 #end
       </parameters>
     </taskFlow>
+    <taskFlow id="detailflowdefinition1"
+              taskFlowId="/WEB-INF/taskflows/$queryInputDetailJsffTaskFlowADFFaceRelativePath#$queryInputDetailJsffTaskFlowADFFaceClassName"
+              activation="immediate" 
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="${sddOutputBeanVariable}" evaluate="eachUse"
+                   xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                   value="#{${queryListenerBeanADFFaceVariable}.selected${sddOutputBeanClass}}"/>
+      </parameters>
+    </taskFlow>
+    <methodIterator Binds="get${sddOutputBeanCollectionClass}1.result"
+                    DataControl="${dataControlRef}" RangeSize="100"
+                    BeanClass="${sddOutputBeanCollectionImport}"
+                    id="${sddOutputBeanCollectionVariable}" >
+    </methodIterator>
+    <accessorIterator id="accessorIterator" MasterBinding="${sddOutputBeanCollectionVariable}"
+        Binds="${sddOutputBeanVariable}s" RangeSize="100" BeanClass="${sddOutputBeanImport}"
+    />
   </executables>
   <bindings>
+##    <tree IterBinding="${sddOutputBeanCollectionVariable}" id="${sddOutputBeanVariable}s">
+    <tree IterBinding="accessorIterator" id="${sddOutputBeanVariable}s">
+      <nodeDefinition DefName="${sddOutputBeanImport}"
+                      Name="${sddOutputBeanVariable}">
+        <AttrNames>
+#foreach ($column in $outputBean.columns)  
+#putColumnParamNaming()
+          <Item Value="${columnVar}"/>
+#end 
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
     <methodAction id="get${sddOutputBeanCollectionClass}1"
                   InstanceName="UlysseSdoWsDcImpl.dataProvider"
                   DataControl="UlysseSdoWsDcImpl" RequiresUpdateModel="true"
