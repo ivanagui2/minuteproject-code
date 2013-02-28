@@ -171,7 +171,8 @@ public enum Extension implements FileComment {
     }
     
     private static String getCheckValue(String v) {
-    	if ("jspx".equals(v))
+    	if ("jspx".equals(v) ||
+    		"jsff".equals(v))
     		return "xml";
 		return v;
 	}

@@ -19,7 +19,7 @@
                    value="#{${queryListenerBeanADFFaceVariable}.selected${sddOutputBeanClass}}"/>
       </parameters>
     </taskFlow>
-    <methodIterator Binds="get${sddOutputBeanCollectionClass}.result"
+    <methodIterator Binds="get${sddOutputBeanCollectionClass}1.result"
                     DataControl="${dataControlRef}" RangeSize="100"
                     BeanClass="${sddOutputBeanCollectionImport}"
                     id="${sddOutputBeanCollectionVariable}" >
@@ -41,7 +41,7 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
-    <methodAction id="get${sddOutputBeanCollectionClass}" RequiresUpdateModel="true"
+    <methodAction id="get${sddOutputBeanCollectionClass}1" RequiresUpdateModel="true"
                   InstanceName="${dataControlRef}.dataProvider"
                   DataControl="${dataControlRef}"
                   Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
@@ -50,7 +50,7 @@
 #if($isNotVoidInput)
       <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${sddInputBeanVariable}}" 
                  NDType="${sddInputBeanImport}"
-                 NDOption="1"/>
+                 NDOption="2"/>
 #end
     </methodAction>
   </bindings>

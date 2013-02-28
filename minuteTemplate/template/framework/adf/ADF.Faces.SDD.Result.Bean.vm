@@ -1,4 +1,8 @@
 #exposeADFQuerySpecific()
+#exposeQuerySpecific()
+#exposeSDDSpring()
+#putImportQuerySDDBean()
+#addedAreas()
 package $packageName;
 
 import net.sf.minuteproject.adf.utils.ADFUtils;
@@ -19,9 +23,16 @@ import oracle.adf.view.rich.component.rich.fragment.RichRegion;
 import oracle.adf.view.rich.component.rich.layout.RichPanelTabbed;
 import oracle.adf.view.rich.component.rich.layout.RichShowDetailItem;
 import oracle.adf.view.rich.context.AdfFacesContext;
+import oracle.adf.model.BindingContext;
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
 
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
-
+import $sddOutputBeanCollectionImport;
+import $sddOutputBeanImport;
+#if($isNotVoidInput)
+import $sddInputBeanImport;
+#end
 public class $className {
 
    private static Logger log =
@@ -40,17 +51,22 @@ public class $className {
 ##    return "";
 ##  }
 ##
-  public String search() {
+  public void search() {
 
-    try {
-      Map<String,Object> params = new HashMap<String,Object>();
-      ADFUtils.invokeOperation("reviewOffTopic");     
-      ADFUtils.refreshMainPage();
-    }catch(Exception e){
-      log.severe(e.getMessage());   
-    }
-
-    return "";
+       System.out.println("   >>> search !!!!");
+	   
+       BindingContext bindingCtx = BindingContext.getCurrent();
+       BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+       Map mapParam = new HashMap();
+#if($isNotVoidInput)
+	   $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
+       mapParam.put("${sddInputBeanVariable}", ${sddInputBeanVariable}); 
+       System.out.println("${sddInputBeanVariable}  in search "+${sddInputBeanVariable});
+#end
+       OperationBinding ob = bindings.getOperationBinding("get${sddOutputBeanCollectionClass}1");
+       ob.getParamsMap().putAll(mapParam);
+       ob.execute();
+       ${sddOutputBeanCollectionClass} result = (${sddOutputBeanCollectionClass})ob.getResult();     
   }
 
   public void setMainForm(UIComponent mainForm) {

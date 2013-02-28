@@ -44,6 +44,8 @@ public class ${className} {
         if(null != selected$sddOutputBeanClass){
            System.out.println("rowDisclosureListener EVENT!"+selected$sddOutputBeanClass);
         }
+		//
+		ADFUtils.setApplicationScopeValue("$sddOutputBeanVariable",selected$sddOutputBeanClass);
     }
     
     public void rowDisclosureListenerWithPartialRefresh(RowDisclosureEvent rowDisclosureEvent) {

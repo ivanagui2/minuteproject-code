@@ -24,6 +24,8 @@ import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 
+import net.sf.minuteproject.adf.utils.ADFUtils;
+
 import java.util.ArrayList;
 
 import $ADFSDOWsDcFaceImport;
@@ -244,8 +246,11 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
     }
 	
     public $sddOutputBeanClass get${sddOutputBeanClass}Detail ($sddOutputBeanClass $sddOutputBeanVariable) {
-        System.out.println(">>>>>>>>> execute $sddOutputBeanClass "+$sddOutputBeanVariable);
+        if ($sddOutputBeanVariable==null)   
+           $sddOutputBeanVariable = ($sddOutputBeanClass)ADFUtils.getApplicationScopeValue("$sddOutputBeanVariable");
+        //go for further processing
         return $sddOutputBeanVariable;
+		
     }
 	
 #end

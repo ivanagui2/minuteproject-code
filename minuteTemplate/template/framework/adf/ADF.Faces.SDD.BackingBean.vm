@@ -24,12 +24,14 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.event.QueryEvent;
 
+import oracle.adf.model.BindingContext;
+import oracle.binding.BindingContainer;
+import oracle.binding.OperationBinding;
+
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 
 import net.sf.minuteproject.adf.utils.ADFUtils;
-
-import java.awt.event.ActionEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,10 +70,10 @@ public class ${className} {
 
 #if ($isChartLayout)
     private UIGraph uiGraph;
-#putGetterAndSetter("UIGraph" "uiGraph")
+#putGetterSetter("UIGraph" "uiGraph")
     GraphDataModel graphDataModel;
     public GraphDataModel getGraphDataModel() {
-        list<String> seriesLabelsList = new ArrayList();
+        List<String> seriesLabelsList = new ArrayList();
         List<$sddOutputBeanClass> list = getOutputList();
         String[] columnLabels = { "$className" };
 ##foreach($column in $dimensions)
@@ -87,11 +89,11 @@ public class ${className} {
            data[0][cpt] = var.get$outputBeanDimensionValue();
            cpt++;
         }
-        String[] seriesLabels = Array.toArray(seriesLabelsList);
+        String[] seriesLabels = (String[])seriesLabelsList.toArray();
         oracle.dss.dataView.LocalXMLDataSource ds =
             new oracle.dss.dataView.LocalXMLDataSource(columnLabels, seriesLabels, data);
-        graphData = new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
-        return graphData;
+        graphDataModel = new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
+        return graphDataModel;
     }
 #if($isBarChart)
 ##    private CartesianChartModel categoryModel;  
@@ -135,17 +137,19 @@ public class ${className} {
 #end
 #end
 
-    public String search() {
+    public void search() {
        System.out.println("   >>> search !!!!");
-       try {
-         Map<String,Object> params = new HashMap<String,Object>();
-         ADFUtils.invokeOperation("reviewOffTopic");     
-         ADFUtils.refreshMainPage();
-      } catch(Exception e){
-
-      }
-
-      return "";
+       BindingContext bindingCtx = BindingContext.getCurrent();
+       BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
+       Map mapParam = new HashMap();
+#if($isNotVoidInput)
+       mapParam.put("${sddInputBeanVariable}", ${sddInputBeanVariable}); 
+       System.out.println("${sddInputBeanVariable}  in search "+${sddInputBeanVariable});
+#end
+       OperationBinding ob = bindings.getOperationBinding("get${sddOutputBeanCollectionClass}1");
+       ob.getParamsMap().putAll(mapParam);
+       ob.execute();
+       ${sddOutputBeanCollectionClass} result = (${sddOutputBeanCollectionClass})ob.getResult();     
     }
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
 $!updatedAreaBegin
@@ -192,10 +196,11 @@ $!updatedAreaEnd
      System.out.println("rangeChangeListener event!");
   }
   
-  public String selectCandidateForExclusion(ActionEvent event) {
+#*  public String selectCandidateForExclusion(ActionEvent event) {
     
     return "";
   }
+  *#
   
   public void rowDisclosureListener(RowDisclosureEvent rowDisclosureEvent) {
     /*
