@@ -462,11 +462,11 @@ $!updatedAreaSnippet
     }
     
     public ${className} mask(String pattern, String value) {
-        pattern = pattern.toUpperCase();
+        if(pattern==null) return this;
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
-        if ("${column.name}".equals(pattern))
+        if ("${columnVar}".equals(pattern))
            set$columnClass(value);
 #end
 #end
@@ -474,12 +474,12 @@ $!updatedAreaSnippet
     }
 
     public ${className} mask(String pattern) {
-        pattern = pattern.toUpperCase();
+        if(pattern==null) return this;
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
 #putDefaultMaskColumnValue()
-        if ("${column.name}".equals(pattern))
+        if ("${columnVar}".equals(pattern))
            set$columnClass($defaultMask);
 #end
 #end
