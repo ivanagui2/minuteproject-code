@@ -295,11 +295,15 @@ $updatedAreaEnd
 
 #macro(putSDDResultGraph)
 #if ($isChartLayout)
+#if($isBarChart)
     <dvt:barGraph id="barGraph1" shortDesc="test"
+#else
+    <dvt:pieGraph id="pieGraph1" shortDesc="test"
+#end
 ##                  value="#{backingBeanScope.${graphBackingBean}.graphDataModel}"
-                  value="#{backingBeanScope.${sddOutputBeanVariable}s.graphDataModel}"
+                  value="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.graphDataModel}"
                   subType="BAR_VERT_CLUST"
-                  binding="#{backingBeanScope.${sddOutputBeanVariable}s.UIGraph}"
+                  binding="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.UIGraph}"
                   threeDEffect="true">
       <dvt:background>
         <dvt:specialEffects/>

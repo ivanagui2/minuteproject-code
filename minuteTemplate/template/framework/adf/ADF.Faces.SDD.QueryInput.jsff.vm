@@ -1,12 +1,16 @@
 #exposeADFQuerySpecific()
 #putImportQuerySDDBean()
 #exposeADFFacesCommon()
+#exposeChartSpecific()
 #set($entityADFVariable=$sddInputBeanVariable)
 #set($tableVariableName=$sddInputBeanVariable)
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+#if ($isChartLayout)
+          xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces"
+#end
           xmlns:f="http://java.sun.com/jsf/core">
   <af:panelGroupLayout id="pgl1">
     <af:panelBox text="Search criteria" id="pb1">
@@ -43,6 +47,7 @@
                     >
       <af:showDetailItem text="Selection" id="sdi1">
         <af:panelBox text=" " disclosed="true" id="pb2">
+#putSDDResultGraph()
 #putSDDResultTable()
 ##          <af:region binding="#{pageFlowScope.${queryResponseBeanADFFaceVariable}.queryflowdefinition1}" value="#{bindings.queryflowdefinition1.regionModel}"
 ##                     id="r2"/>

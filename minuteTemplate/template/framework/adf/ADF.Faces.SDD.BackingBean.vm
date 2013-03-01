@@ -2,6 +2,8 @@
 #exposeSDDSpring()
 #putImportQuerySDDBean()
 #addedAreas()
+#exposeADFTemplate()
+#exposeADFFacesSpringModelBindingSpecific()
 package $packageName;
 
 $!updatedAreaImport
@@ -51,6 +53,8 @@ import $sddInputBeanImport;
 #end
 ##import $sddDaoInterfaceImport;
 import $sddServiceInterfaceImport;
+
+import $beanADFFacesSpringAppContextLoaderImport;
 /**
  *
  * <p>Title: ${className}</p>
@@ -60,7 +64,7 @@ import $sddServiceInterfaceImport;
  */
 public class ${className} {
 
-    ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
+//    ${sddServiceInterfaceClass} $sddServiceInterfaceVariable;
 
 #if($isNotVoidInput)
     private $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
@@ -68,32 +72,40 @@ public class ${className} {
     private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
     private $sddOutputBeanClass selected$sddOutputBeanClass;
 
+	public ${className} () {
+//        $sddServiceInterfaceVariable  = (${sddServiceInterfaceClass})${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$sddServiceInterfaceVariable");;
+	}
 #if ($isChartLayout)
     private UIGraph uiGraph;
 #putGetterSetter("UIGraph" "uiGraph")
     GraphDataModel graphDataModel;
     public GraphDataModel getGraphDataModel() {
-        List<String> seriesLabelsList = new ArrayList();
+        if (graphDataModel!=null) {
+           return graphDataModel;
+        }
+        search();
+        return graphDataModel;
+    }
+
+    public GraphDataModel getGraphDataModel($sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable) {
+        List<String> seriesLabelsList = new ArrayList<String>();
         List<$sddOutputBeanClass> list = getOutputList();
-        String[] columnLabels = { "$className" };
-##foreach($column in $dimensions)
-##putColumnParamNaming()
-##set($dimVar = "${columnVar}$velocityCount")
-##           #if($velocityCount>0),#end"$dimVar"
-##end
-##		};
+#set ($queryClassName = $formatUtils.getJavaName(${query.name}))
+#set ($queryVariableName = $formatUtils.firstLowerCase(${queryClassName}))
+        String[] columnLabels = { "${queryVariableName}" };
         int cpt = 0;
         Object[][] data = new Object[1][list.size()];
         for ($sddOutputBeanClass var : list) {
            seriesLabelsList.add(var.get$outputBeanDimension1());
-           data[0][cpt] = var.get$outputBeanDimensionValue();
+           data[0][cpt] = new Double(var.get$outputBeanDimensionValue());
            cpt++;
         }
-        String[] seriesLabels = (String[])seriesLabelsList.toArray();
+        String[] seriesLabels = seriesLabelsList.toArray(new String[seriesLabelsList.size()]);
+        System.out.println(" seriesLabels ="+seriesLabels);
+        System.out.println(" data ="+data);
         oracle.dss.dataView.LocalXMLDataSource ds =
             new oracle.dss.dataView.LocalXMLDataSource(columnLabels, seriesLabels, data);
-        graphDataModel = new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
-        return graphDataModel;
+        return new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
     }
 #if($isBarChart)
 ##    private CartesianChartModel categoryModel;  
@@ -149,18 +161,22 @@ public class ${className} {
        OperationBinding ob = bindings.getOperationBinding("get${sddOutputBeanCollectionClass}1");
        ob.getParamsMap().putAll(mapParam);
        ob.execute();
-       ${sddOutputBeanCollectionClass} result = (${sddOutputBeanCollectionClass})ob.getResult();     
+       $sddOutputBeanCollectionVariable = (${sddOutputBeanCollectionClass})ob.getResult();
+#if ($isChartLayout)
+       graphDataModel = getGraphDataModel($sddOutputBeanCollectionVariable);
+#end
     }
 #exposeQueryUpdatedAreas("SDD_EXECUTE")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute () {
-	    System.out.println(">>>>>> execute !!!");
+/*    public $sddOutputBeanCollectionClass execute () {
+        System.out.println(">>>>>> execute !!!");
         $sddOutputBeanCollectionVariable = ${sddServiceInterfaceVariable}.execute(#if($isNotVoidInput)${sddInputBeanVariable}#end);
         return $sddOutputBeanCollectionVariable;
     }
+*/
 #end
 $!updatedAreaEnd
 
@@ -173,7 +189,7 @@ $!updatedAreaEnd
 #if($isNotVoidInput)
 #putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
 #end
-#putGetterSetter($sddServiceInterfaceClass, $sddServiceInterfaceVariable)
+##putGetterSetter($sddServiceInterfaceClass, $sddServiceInterfaceVariable)
 #putGetterSetterAlt($sddOutputBeanClass, "Selected$sddOutputBeanClass", "selected$sddOutputBeanClass")
 
    //selection listner part
