@@ -1,6 +1,7 @@
 #exposeADFFacesModelSpecific()
 #exposeADFFacesDataControlModelSpecific()
 #exposeFrontEndBackendBindingType()
+#exposeADFFacesSpringModelBindingSpecific()
 #set($thisClassName=$className)
 package $packageName;
 
@@ -87,7 +88,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #exposeVariableEntitySpecific()
 #exposeADFFacesSpringBindingSpecific()
 #if(!$isMany2Many)
-        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)AppContextLoader.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
+        $beanADFFacesSpringServiceVariable = ($beanADFFacesSpringServiceClass)${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$beanADFFacesSpringServiceVariable");
 #end
 #end
 #end
@@ -95,7 +96,7 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #exposeADFQuerySpecific()
 #exposeSDDSpring()
 #putImportQuerySDDBean()
-    $sddServiceInterfaceVariable  = (${sddServiceInterfaceClass})AppContextLoader.getContextLoader().getAppContext().getBean("$sddServiceInterfaceVariable");;
+        $sddServiceInterfaceVariable  = (${sddServiceInterfaceClass})${beanADFFacesSpringAppContextLoaderClass}.getContextLoader().getAppContext().getBean("$sddServiceInterfaceVariable");;
 #end
     }
  
