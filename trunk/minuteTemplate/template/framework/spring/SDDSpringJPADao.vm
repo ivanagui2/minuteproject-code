@@ -82,8 +82,12 @@ $!updatedAreaSnippet
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
-			pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
-#end			
+            if (${sddInputBeanVariable}.get$columnClass()==null) {
+               pstmt.setNull($velocityCount, java.sql.Types.${column.type});
+            } else {
+               pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
+            }
+#end
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
