@@ -9,7 +9,7 @@
           xmlns:f="http://java.sun.com/jsf/core">
   <af:panelGroupLayout id="pgl1">
 ##    <af:panelFormLayout id="pfl1" inlineStyle="width:inherit;" maxColumns="2">
-    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" maxColumns="2">
+##    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" maxColumns="2">
 #set($tableClassName=$sddOutputBeanClass)
 ##TODO filter to select only abstract
 #foreach($column in $outputBean.columns)
@@ -32,6 +32,6 @@
 
     </af:column>
 #end
-    </af:panelFormLayout>
+##    </af:panelFormLayout>
   </af:panelGroupLayout>
 </jsp:root>
