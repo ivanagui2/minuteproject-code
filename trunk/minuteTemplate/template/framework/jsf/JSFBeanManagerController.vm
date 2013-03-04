@@ -147,10 +147,10 @@ public class ${className} {
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 	    	if (selected${tableClassName}.get$primaryKeyJavaNameClass() == null) {
 	    		${EJBDaoImplVariable}.create(selected${tableClassName});
-	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("i18n").getString("createTitle"));
+	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityCreated"));
 	    	} else {
 	    		${EJBDaoImplVariable}.update(selected${tableClassName});
-	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("i18n").getString("updateTitle"));
+	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityUpdated"));
 	    	}
 #end
 	    	selected${tableClassName} = new ${tableClassName}();
@@ -162,7 +162,7 @@ public class ${className} {
 ##            JsfUtil.addErrorMessage(ResourceBundle.getBundle("Bundle").getString("OptimisticLockErrorUserDeleted"));
     	} catch (Exception e) {
 ##			log.warn(e.toString(), e);
-			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("Bundle").getString("PersistenceErrorOccured"));
+			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
         }
     }
 
