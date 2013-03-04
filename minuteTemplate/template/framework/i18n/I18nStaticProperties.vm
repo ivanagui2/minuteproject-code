@@ -1,7 +1,9 @@
 createTitle=Create
 createHeading=Create
+entityCreated=Entity created
 updateTitle=Update
 updateHeading=Update
+entityUpdated=Entity updated
 save=Save
 saveTitle=Save
 delete=Delete
@@ -21,3 +23,5 @@ selectOr=or
 editTitle=Edit
 closeTitle=Close
 cancelTitle=Cancel
+# errors
+PersistenceErrorOccured=Error persisting data
