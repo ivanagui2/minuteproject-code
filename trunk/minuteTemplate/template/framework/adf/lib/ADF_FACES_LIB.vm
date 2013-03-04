@@ -263,7 +263,7 @@ $updatedAreaEnd
             rangeChangeListener="#{${queryListenerBeanADFFaceVariable}.rangeChangeListener}"
             rowDisclosureListener="#{${queryListenerBeanADFFaceVariable}.rowDisclosureListener}">
     <f:facet name="detailStamp">
-      <af:panelFormLayout id="pfl1">
+      <af:panelFormLayout id="pfl1" maxColumns="2">
         <af:region value="#{bindings.detailflowdefinition1.regionModel}" id="r1"/>
       </af:panelFormLayout>
     </f:facet>
