@@ -264,7 +264,8 @@ $updatedAreaEnd
             rowDisclosureListener="#{${queryListenerBeanADFFaceVariable}.rowDisclosureListener}">
     <f:facet name="detailStamp">
       <af:panelFormLayout id="pfl1" maxColumns="2">
-        <af:region value="#{bindings.detailflowdefinition1.regionModel}" id="r1"/>
+##        <af:region value="#{bindings.detailflowdefinition1.regionModel}" id="r1"/>
+#putSDDResultDetail("row")
       </af:panelFormLayout>
     </f:facet>
 
@@ -320,4 +321,33 @@ $updatedAreaEnd
       <dvt:o1MajorTick id="o1MajorTick1" tickStyle="GS_AUTOMATIC"/>
     </dvt:barGraph>
 #end
+#end
+
+#macro(putSDDResultDetail $bind)
+  <af:panelGroupLayout id="pgl_d1">
+##    <af:panelFormLayout id="pfl1" inlineStyle="width:inherit;" maxColumns="2">
+##    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" maxColumns="2">
+#set($tableClassName=$sddOutputBeanClass)
+##TODO filter to select only abstract
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+      <af:panelLabelAndMessage label="#{viewcontrollerBundle['${sddOutputBeanVariable}$separator${columnVar}']}" id="otl$velocityCount" >
+         <af:outputText value="#{${bind}.${columnVar}}" id="otv$velocityCount" />
+      </af:panelLabelAndMessage>
+##adfEntityDetailColumnDisplay("det$velocityCount")
+#end
+
+#foreach($action in $actions)
+    <af:column sortProperty="$actionName"  sortable="false" headerText="" id="c5">
+      <!-- Facelet template -->
+      <af:commandLink text="$actionName" id="action1"
+                      actionListener="#{${queryBackingBeanADFFaceVariable}.actionListener}"
+                      action="#{${queryBackingBeanADFFaceVariable}.excludeCandidate}">
+       <f:setPropertyActionListener value="#{row.rowKey}"
+                      target="#{${queryBackingBeanADFFaceVariable}.curentRow}" />
+      </af:commandLink>
+    </af:column>
+#end
+##    </af:panelFormLayout>
+  </af:panelGroupLayout>
 #end

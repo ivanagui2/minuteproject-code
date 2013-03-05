@@ -196,14 +196,18 @@ public class ColumnUtils {
 			//type.equals("CLOB")
 				)
 			return "\"\"";
-		if (type.equals("INT") ||
-			type.equals("SMALLINT") ||
-			type.equals("INTEGER") )
-			return "Integer.valueOf(\"-1\")";
-		if (type.equals("BIGINT") || 
-			type.equals("LONG")   ||
-			type.equals("NUMBER") ||
-			type.equals("DECIMAL") )
+//		if (type.equals("INT") ||
+//			type.equals("SMALLINT") ||
+//			type.equals("INTEGER") )
+//			return "Integer.valueOf(\"-1\")";
+		if (isInteger(column))
+			return "Integer.valueOf(\"-1\")"; 
+//		if (type.equals("BIGINT") || 
+//			type.equals("LONG")   ||
+//			type.equals("NUMBER") ||
+//			type.equals("DECIMAL") )
+//			return "Long.valueOf(\"-1\")";
+		if (isLong(column))
 			return "Long.valueOf(\"-1\")";
 		if (type.equals("FLOAT"))
 			return "java.math.BigDecimal.valueOf(-1)";
@@ -217,6 +221,20 @@ public class ColumnUtils {
 		return "\"\"";
 	}
 	
+	public static boolean isInteger(Column column) {
+		String type = column.getType();
+		return (type.equals("INT") ||
+			type.equals("SMALLINT") ||
+			type.equals("INTEGER") )?true:false;
+	}
+	
+	public static boolean isLong(Column column) {
+		String type = column.getType();
+		return (type.equals("BIGINT") ||
+				type.equals("LONG") ||
+				type.equals("DECIMAL") ||
+				type.equals("NUMBER") )?true:false;
+	}
 
 	public static boolean isTimeColumn (Column column) {
 		if (column.getType().equals("DATE") || 
