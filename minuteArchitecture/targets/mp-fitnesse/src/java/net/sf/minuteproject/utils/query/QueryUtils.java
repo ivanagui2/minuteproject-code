@@ -271,4 +271,9 @@ public class QueryUtils {
 	public static boolean isQuoted (String name) {
 		return true;
 	}
+
+//	public static String buildQuery(String jdbcQuery,
+//			Map<Integer, Object> inputIndex) {
+//		return null;
+//	}
 }
