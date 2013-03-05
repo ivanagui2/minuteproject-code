@@ -7,31 +7,5 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:f="http://java.sun.com/jsf/core">
-  <af:panelGroupLayout id="pgl1">
-##    <af:panelFormLayout id="pfl1" inlineStyle="width:inherit;" maxColumns="2">
-##    <af:panelFormLayout id="pfl1" fieldWidth="80%" labelWidth="20%" maxColumns="2">
-#set($tableClassName=$sddOutputBeanClass)
-##TODO filter to select only abstract
-#foreach($column in $outputBean.columns)
-#putColumnParamNaming()
-      <af:panelLabelAndMessage label="#{viewcontrollerBundle['${sddOutputBeanVariable}$separator${columnVar}']}" id="otl$velocityCount" >
-      <af:outputText value="#{bindings.${columnVar}}" id="otv$velocityCount" />
-	  </af:panelLabelAndMessage>
-##adfEntityDetailColumnDisplay("det$velocityCount")
-#end
-
-#foreach($action in $actions)
-    <af:column sortProperty="$actionName"  sortable="false" headerText="" id="c5">
-      <!-- Facelet template -->
-      <af:commandLink text="$actionName" id="action1"
-                      actionListener="#{${queryBackingBeanADFFaceVariable}.actionListener}"
-                      action="#{${queryBackingBeanADFFaceVariable}.excludeCandidate}">
-       <f:setPropertyActionListener value="#{row.rowKey}"
-                      target="#{${queryBackingBeanADFFaceVariable}.curentRow}" />
-      </af:commandLink>      
-
-    </af:column>
-#end
-##    </af:panelFormLayout>
-  </af:panelGroupLayout>
+#putSDDResultDetail("bindings")
 </jsp:root>
