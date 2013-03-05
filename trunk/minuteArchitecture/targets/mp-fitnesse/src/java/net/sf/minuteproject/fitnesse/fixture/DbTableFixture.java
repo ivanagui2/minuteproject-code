@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -70,7 +72,7 @@ public abstract class DbTableFixture extends TableFixture {
 		int rowToCheck = getRowToCheck(ROW_VALUE_INDEX);
 		for (int i = 1; i <= rowToCheck; i++) {
 			checkResultSetRow (i+OUPUT_GENERAL_ROW_INDEX);
-		}		
+		}
 	}
 	
 	protected int getRowToCheck(int row) {
@@ -89,6 +91,7 @@ public abstract class DbTableFixture extends TableFixture {
 		}
 		return rowToCheck;
 	}
+	
 	protected void checkResultSetRow (int row) {
 		int length = getColumnIndex().size();
 		for (int i = 1; i <= length; i++) {
@@ -139,7 +142,7 @@ public abstract class DbTableFixture extends TableFixture {
 			
 			setColumnValues(columnOrderValue, ORDER_ROW_INDEX);
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>>> columnOrderValue "+columnOrderValue);
+		log.debug(">>>>>>>>>>>>>>>>>>> columnOrderValue "+columnOrderValue);
 		return columnOrderValue;
 	}
 
@@ -163,7 +166,7 @@ public abstract class DbTableFixture extends TableFixture {
 		this.columnIndex = columnIndex;
 	}
 
-	private void setColumnValues (Map<String, String> outputMap, int row) {
+	protected void setColumnValues (Map<String, String> outputMap, int row) {
 		Set<Entry<Integer, String>> set = getColumnIndex().entrySet();
 		for (Entry<Integer, String> entry : set) {
 			String text = getText(row, entry.getKey());
@@ -177,17 +180,53 @@ public abstract class DbTableFixture extends TableFixture {
 	 Map<String, String>  columnOrderValue) throws SQLException {
 		// call factory
 		String query = QueryUtils.buildQuery(getTable(), columnIndex, columnExpressionValue, columnValue,  columnOrderValue);
+		return executeQuery(query);
+	}
+	
+	protected Object[][] executeQuery(String jdbcQuery,	Map<Integer, Object> inputIndex) throws SQLException {
+		// call factory
+		return executeQuery(jdbcQuery);
+	}
+
+	private Object[][] executeQuery(String jdbcQuery) throws SQLException {
 		Connection connection = DatabaseUtils.getConnection();
 		if (connection ==null)
 			System.out.println("connection is null");
 		Statement ps = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE ,ResultSet.CONCUR_READ_ONLY);
-		ResultSet rs = ps.executeQuery(query);
+		ResultSet rs = ps.executeQuery(jdbcQuery);
+		Object[][] table = getResultSet(rs);
+		connection.close();
+		return table;
+	}
+
+	protected Object[][] getResultSet(ResultSet rs) throws SQLException {
+		int len = rs.getMetaData().getColumnCount();
+		
+		List<Object[]> list = new ArrayList<Object[]>() ;
+		while (rs.next())  {
+			Object [] row = new Object[len];
+			for (int j = 0; j < len; j++) {
+				Object o = rs.getObject(j+1);
+				if (o==null)
+					o = new String (">null value returned<");
+				row[j]=o;
+			}
+			list.add(row);
+		}
+		Object [][] table =  new Object[list.size()][];
+		for (int i = 0; i< list.size(); i++) {
+			table[i]=list.get(i);
+		}
+		return table;
+	}
+	/*
+	protected Object[][] getResultSet(ResultSet rs) throws SQLException {
 		int len = rs.getMetaData().getColumnCount();
 		rs.last();
 		int size = rs.getRow();
 		rs.first();
 		
-//		System.out.println("size "+size+", len "+len);
+		log.debug("size "+size+", len "+len);
 		Object [][] table = new Object [size][];
 		for (int i = 0; i < size; i++) {
 			Object [] row = new Object[len];
@@ -195,16 +234,15 @@ public abstract class DbTableFixture extends TableFixture {
 				Object o = rs.getObject(j+1);
 				if (o==null)
 					o = new String (">null value returned<");
-//				System.out.println("i="+i+",j="+j+",obj="+o.toString());		
+				log.debug("i="+i+",j="+j+",obj="+o.toString());		
 				row[j]=o;
 			}
 			table[i] = row;
 			rs.next();
 		}
-		connection.close();
 		return table;
 	}
-	
+	*/
 	
 	protected Object getResultSetObject(int row, int column) {
 		int len = resultSet.length;
