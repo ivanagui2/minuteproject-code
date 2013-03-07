@@ -71,7 +71,13 @@
 			file-extension="java" file-prefix="JsfUtils" file-suffix="" 
 			model-specific="true" has-updatable-nature="true" add-model-name="false">
 		</template>
-
+        <template name="JSF.Spring.Lookup.Service" templateFileName="JSF.Spring.Lookup.Service.vm" 
+            technicalPackage="bean"
+            file-extension="java" file-prefix="" file-suffix="LookupDefaultingService"
+            has-updatable-nature="true" 
+            scope-specific-value="model"
+            >
+        </template> 
 	</template-target>
 <!-- 
   	<template-target 

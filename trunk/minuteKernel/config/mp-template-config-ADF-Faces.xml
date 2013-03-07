@@ -141,7 +141,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
-			>			
+			>
 		</template>	
 		
 		<template name="ADF.Faces.Entity.ViewEditBean" templateFileName="ADF.Faces.Entity.ViewEditBean.vm" 
