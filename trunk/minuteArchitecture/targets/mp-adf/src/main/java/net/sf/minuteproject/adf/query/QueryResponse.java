@@ -1,4 +1,4 @@
-package eu.adf.fwk.query;
+package net.sf.minuteproject.adf.query;
 
 import java.util.List;
 import java.util.Stack;

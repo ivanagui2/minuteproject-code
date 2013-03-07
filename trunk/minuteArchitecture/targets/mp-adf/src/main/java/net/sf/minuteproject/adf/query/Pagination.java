@@ -1,4 +1,4 @@
-package eu.adf.fwk.query;
+package net.sf.minuteproject.adf.query;
 
 import java.math.BigInteger;
 

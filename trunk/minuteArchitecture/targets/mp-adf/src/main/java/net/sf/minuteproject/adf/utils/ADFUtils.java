@@ -1,16 +1,25 @@
-package eu.adf.fwk.utils;
+package net.sf.minuteproject.adf.utils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import oracle.adf.model.BindingContext;
+import oracle.adf.model.bean.DCDataRow;
 import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.model.binding.DCParameter;
 
+import oracle.adf.share.ADFContext;
 import oracle.adf.share.logging.ADFLogger;
+
+import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.binding.AttributeBinding;
 import oracle.binding.BindingContainer;
@@ -24,16 +33,21 @@ import oracle.jbo.ApplicationModule;
 import oracle.jbo.Key;
 import oracle.jbo.Row;
 import oracle.jbo.ViewObject;
+import oracle.jbo.uicli.binding.JUCtrlHierBinding;
 import oracle.jbo.uicli.binding.JUCtrlValueBinding;
+
+import org.apache.myfaces.trinidad.event.RowKeySetChangeEvent;
+import org.apache.myfaces.trinidad.model.CollectionModel;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 
 
 /**
  * A series of convenience functions for dealing with ADF Bindings.
  * Note: Updated for JDeveloper 11
- * 
+ *
  * @author Duncan Mills
  * @author Steve Muench
- * 
+ *
  * $Id: ADFUtils.java 2513 2007-09-20 20:39:13Z ralsmith $.
  */
 public class ADFUtils {
@@ -475,5 +489,201 @@ public class ADFUtils {
     public static ViewObject getViewObjectByIterator(String itName) {
        return getDCBindingContainer().findIteratorBinding(itName).getViewObject();
     }
+
+    public static Object invokeOperation(String methodAction) {
+      return invokeOperation(methodAction, null, null);
+    }
+
+    public static Object invokeOperation(String methodAction,
+                                         Map <String, Object> params) {
+      BindingContainer dCBindingContainer =
+        BindingContext.getCurrent().getCurrentBindingsEntry();
+      OperationBinding ob = dCBindingContainer.getOperationBinding(methodAction);
+      if (null != params && !params.isEmpty()) {
+        ob.getParamsMap().putAll(params);
+      }
+
+      ob.execute();
+      Object result = ob.getResult();
+
+      return result;
+    }
+
+    public static <T> T invokeOperation(String methodAction,
+                                        Class<T> resultType) {
+      return (T)invokeOperation(methodAction, null, resultType);
+    }
+
+
+    public static <T> T invokeOperation(String methodAction,
+                                        Map<String, Object> params,
+                                        Class<T> resultType) {
+      T t = null;
+      Object result = invokeOperation(methodAction, params);
+      if (result != null) {
+        if (resultType != null) {
+          t = resultType.cast(result);
+        }
+      }
+      return t;
+    }
+
+    public static <T> T getBoundAttributeValue(Class<T> clazz,
+                                               String attributeName) {
+      Object value = getBoundAttributeValue(attributeName);
+      T t = null;
+      if (null != value) {
+        t = clazz.cast(value);
+      }
+      return t;
+    }   
     
+    public static void refreshMainPage() {
+      refreshMainPage("f1");
+    }
+
+    public static void refreshMainPage(String mainFormID) {
+      AdfFacesContext context = AdfFacesContext.getCurrentInstance();
+      UIComponent form = findComponent(mainFormID);
+
+      if (null != form) {
+        context.addPartialTarget(form);
+      } else {
+
+      }
+    }
+
+    public static <T extends UIComponent> T findComponent(String id) {
+
+      FacesContext facesCtx = FacesContext.getCurrentInstance();
+      UIComponent comp = facesCtx.getViewRoot().findComponent(id);
+      return (T)comp;
+    }
+
+    public static UIComponent findComponentInRoot(String id) {
+      UIComponent component = null;
+
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      if (facesContext != null) {
+        UIComponent root = facesContext.getViewRoot();
+        component = findComponent(root, id);
+      }
+
+      return component;
+    }
+
+    public static UIComponent findComponent(UIComponent base, String id) {
+      if (id.equals(base.getId()))
+        return base;
+
+      UIComponent kid = null;
+      UIComponent result = null;
+      Iterator kids = base.getFacetsAndChildren();
+      while (kids.hasNext() && (result == null)) {
+        kid = (UIComponent)kids.next();
+        if (id.equals(kid.getId())) {
+          result = kid;
+          break;
+        }
+        result = findComponent(kid, id);
+        if (result != null) {
+          break;
+        }
+      }
+      return result;
+    }
+    
+    public static <T extends Object> T getDisclosedTableRowValue(RowKeySetChangeEvent rowDisclosureEvent,
+                                                                 Class<T> clazz) {
+      T inst = null;
+      RichTable table = (RichTable)rowDisclosureEvent.getSource();
+      RowKeySet discloseRowKeySet = table.getDisclosedRowKeys();
+      RowKeySet lastAddedRowKeySet = rowDisclosureEvent.getAddedSet();
+      Iterator lastAddedRowKeySetIter = lastAddedRowKeySet.iterator();
+      if (lastAddedRowKeySetIter.hasNext()) {
+        discloseRowKeySet.clear();
+        Object lastRowKey = lastAddedRowKeySetIter.next();
+        discloseRowKeySet.add(lastRowKey);
+
+        //makeDisclosedRowCurrent(table, lastAddedRowKeySet);
+        CollectionModel tableModel = (CollectionModel)table.getValue();
+        JUCtrlHierBinding tableHierBinding = null;
+        tableHierBinding = (JUCtrlHierBinding)(tableModel).getWrappedData();
+        DCIteratorBinding dCIteratorBindin = null;
+        dCIteratorBindin = tableHierBinding.getDCIteratorBinding();
+        Iterator keySetIter = lastAddedRowKeySet.iterator();
+        List firstKey = (List)keySetIter.next();
+        oracle.jbo.Key key = (oracle.jbo.Key)firstKey.get(0);
+
+
+        
+        boolean isInsideIterator=false;
+        for (Row row:dCIteratorBindin.getAllRowsInRange()) {
+            if (row.getKey().toStringFormat(true).equals(key.toStringFormat(true))) {
+                isInsideIterator = true;
+            }
+        }
+
+        if (!dCIteratorBindin.getCurrentRowKeyString().equals(key.toStringFormat(true)) && isInsideIterator) {
+            dCIteratorBindin.setCurrentRowWithKey(key.toStringFormat(true));
+        }
+        
+          table.setSelectedRowKeys(lastAddedRowKeySet);
+
+        //setSelectedMeasure
+        //CollectionModel tableModel = (CollectionModel)table.getValue();
+        if (tableModel != null) {
+          tableHierBinding = null;
+          tableHierBinding = (JUCtrlHierBinding)(tableModel).getWrappedData();
+          DCDataRow currentDataRow = (DCDataRow)tableHierBinding.getCurrentRow();
+          Object val = currentDataRow.getDataProvider();
+          if (val != null) {
+            if (clazz.isAssignableFrom(val.getClass())) {
+              inst = clazz.cast(val);
+            } else {
+              throw new IllegalArgumentException("Cannot cast table row value of type [" +
+                                                 val.getClass() + " to " +
+                                                 clazz + "]");
+            }
+          }
+        }
+      }
+      return inst;
+    }
+    //Method to set the value of page flow scope created on runtime
+    public static void setPageFlowScopeValue(String name, Object value) {
+        ADFContext adfCtx = ADFContext.getCurrent();
+        Map pageFlowScope = adfCtx.getPageFlowScope();
+        pageFlowScope.put(name, value);
+    }
+    
+    //method to get the value of page flow scope created on runtime
+    public static Object getPageFlowScopeValue(String name) {
+        ADFContext adfCtx = ADFContext.getCurrent();
+        Map pageFlowScope = adfCtx.getPageFlowScope();
+        Object val = pageFlowScope.get(name);
+     
+        if (val == null)
+            return 0;
+        else
+            return val;
+    }
+	
+    public static void setApplicationScopeValue(String name, Object value) {
+        ADFContext adfCtx = ADFContext.getCurrent();
+        Map scope = adfCtx.getApplicationScope();
+        scope.put(name, value);
+    }
+    
+    //method to get the value of page flow scope created on runtime
+    public static Object getApplicationScopeValue(String name) {
+        ADFContext adfCtx = ADFContext.getCurrent();
+        Map scope = adfCtx.getApplicationScope();
+        Object val = scope.get(name);
+     
+        if (val == null)
+            return 0;
+        else
+            return val;
+    }
 }

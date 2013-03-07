@@ -1,14 +1,13 @@
-package eu.adf.fwk.utils;
+package net.sf.minuteproject.adf.utils;
 
+import net.sf.minuteproject.adf.query.Criteria;
+import net.sf.minuteproject.adf.query.CriteriaExpression;
+import net.sf.minuteproject.adf.query.Pagination;
+import net.sf.minuteproject.adf.query.QueryRequest;
 
-import eu.adf.fwk.query.Criteria;
-import eu.adf.fwk.query.CriteriaExpression;
-import eu.adf.fwk.query.Pagination;
-import eu.adf.fwk.query.QueryRequest;
-
-import eu.adf.fwk.query.QueryResponse;
-import eu.adf.fwk.query.UnaryOperationCode;
-import eu.adf.fwk.query.ValueExpression;
+import net.sf.minuteproject.adf.query.QueryResponse;
+import net.sf.minuteproject.adf.query.UnaryOperationCode;
+import net.sf.minuteproject.adf.query.ValueExpression;
 
 import java.math.BigInteger;
 

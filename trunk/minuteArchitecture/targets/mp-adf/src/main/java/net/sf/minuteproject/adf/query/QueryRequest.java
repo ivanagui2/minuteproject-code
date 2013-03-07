@@ -1,4 +1,4 @@
-package eu.adf.fwk.query;
+package net.sf.minuteproject.adf.query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class QueryRequest {
     public enum PrototypeMatchType{ALL, ANY};
     protected PrototypeMatchType matchType;
     
-    public enum PrototypeType{EQUALS, CONTAINS, LIKE};
+    public enum PrototypeType{EQUALS, CONTAINS, LIKE, STARTWITH};
     protected PrototypeType type;
     
     public enum PrototypeCase{SENSITIVE, INSENSITIVE};

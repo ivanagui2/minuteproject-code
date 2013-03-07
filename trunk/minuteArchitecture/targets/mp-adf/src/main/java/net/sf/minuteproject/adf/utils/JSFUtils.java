@@ -1,4 +1,4 @@
-package eu.adf.fwk.utils;
+package net.sf.minuteproject.adf.utils;
 
 import java.util.Iterator;
 import java.util.Locale;
@@ -18,6 +18,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import oracle.adf.controller.internal.binding.TaskFlowRegionModel;
+import oracle.adf.share.ADFContext;
+import oracle.adf.view.rich.component.rich.fragment.RichRegion;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -409,5 +413,14 @@ public class JSFUtils {
         return newUrlBuffer.toString();
     }
 
-  
+  public static void refreshRichRegionModel(RichRegion queryflowdefinition1) {
+    Object iteratorModel = queryflowdefinition1.getRegionModel();
+    if (TaskFlowRegionModel.class.isAssignableFrom(iteratorModel.getClass())) {
+      if(queryflowdefinition1.isDisclosed()){
+        TaskFlowRegionModel model = TaskFlowRegionModel.class.cast(iteratorModel);
+        model.refresh(FacesContext.getCurrentInstance());
+        model.dirtyRegion();  
+      }
+    }
+  }  
 }

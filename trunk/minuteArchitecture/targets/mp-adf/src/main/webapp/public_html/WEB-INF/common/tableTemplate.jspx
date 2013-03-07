@@ -26,7 +26,7 @@
         </facet>
         <attribute>
           <attribute-name>paginationUtils</attribute-name>
-          <attribute-class>eu.adf.fwk.utils.TablePaginationUtils</attribute-class>
+          <attribute-class>net.sf.minuteproject.adf.utils.TablePaginationUtils</attribute-class>
           <required>true</required>
         </attribute>
         <attribute>
