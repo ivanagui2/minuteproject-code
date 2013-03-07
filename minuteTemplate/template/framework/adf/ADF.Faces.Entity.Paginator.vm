@@ -289,13 +289,13 @@ public class $className {
     // find a UIComponent inside a UIComponent   
     private UIComponent getUIComponent(UIComponent component, String name) {  
             if (component != null)  
-                System.out.println(component.getId());  
+##                System.out.println(component.getId());  
               
             List<UIComponent> items = component.getChildren();  
             Iterator<UIComponent> facets = component.getFacetsAndChildren();  
       
             if  ( items.size() > 0 ) {  
-              System.out.println("got childern");  
+##              System.out.println("got childern");  
               for (UIComponent item : items) {  
                   UIComponent found = getUIComponent(item, name);  
                   if (found != null) {  
@@ -306,7 +306,7 @@ public class $className {
                   }  
               }  
             } else if ( facets.hasNext()) {  
-                System.out.println("got facets");  
+##                System.out.println("got facets");  
                 while ( facets.hasNext() ){  
                   UIComponent facet = facets.next();    
                   UIComponent found = getUIComponent(facet, name);  

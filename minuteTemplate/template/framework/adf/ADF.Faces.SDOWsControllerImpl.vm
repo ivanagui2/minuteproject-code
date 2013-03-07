@@ -199,7 +199,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #if($isBindingSpring)
       ${domainClassImport} var = new ${domainClassImport} ();
       convert($beanVOADFFacesVariable, var);
-      System.out.println(">>>> createOrUpdate$domainClassName var :"+var);
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 	  if (var.get$primaryKeyJavaNameClass()!=null)
 		 ${beanADFFacesSpringServiceVariable}.update(var);
@@ -211,11 +210,9 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
    }
   
    public void delete$domainClassName ($beanVOADFFacesClass $beanVOADFFacesVariable){
-      System.out.println(">>>> delete$domainClassName : "+$beanVOADFFacesVariable);
 #if($tableHasOnlyOnePrimaryKey)
       ${domainClassImport} var = new ${domainClassImport} ();
       convert($beanVOADFFacesVariable, var);
-	  System.out.println(">>>> delete "+var);
       ${beanADFFacesSpringServiceVariable}.delete(var);
 #else
       // multiple primary key not supported yet
@@ -242,7 +239,6 @@ public class $thisClassName implements $ADFSDOWsDcFaceClass {
 #exposeSDDSpring()
 #putImportQuerySDDBean()
     public $sddOutputBeanCollectionClass get$sddOutputBeanCollectionClass (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
-	    System.out.println(">>>> execute");
 		return ${sddServiceInterfaceVariable}.execute (#if($isNotVoidInput)$sddInputBeanVariable#end);
     }
 	

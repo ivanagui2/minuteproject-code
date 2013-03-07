@@ -270,7 +270,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
         RichCommandLink comp = (RichCommandLink)launchEvent.getComponent();
 ##works for one pk only
         $primaryKeyType ${entityADFVariable}Reference = ($primaryKeyType) comp.getAttributes().get("${entityADFVariable}Reference");
-        System.out.println(">>>>>>>>>>>> ${entityADFVariable}Reference "+${entityADFVariable}Reference);
+##        System.out.println(">>>>>>>>>>>> ${entityADFVariable}Reference "+${entityADFVariable}Reference);
         launchEvent.getDialogParameters().put("${entityADFVariable}Reference", ${entityADFVariable}Reference);
     }
 

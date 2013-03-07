@@ -2,16 +2,21 @@
 #set ($datasource = $model.dataModel.basicDataSource)
 ##		<provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-#if($isEnvironmentLocal)		
+#if($isShowSql)
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
+#else
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />	
+#end
+#if($isEnvironmentLocal)
             <property name="hibernate.connection.driver_class" value="$datasource.driverClassName" />
             <property name="hibernate.connection.url" value="$datasource.url" />
             <property name="hibernate.connection.username" value="$datasource.username" />
             <property name="hibernate.connection.password" value="$datasource.password" />
-#else
-            <property name="hibernate.show_sql" value="false" />
-            <property name="hibernate.format_sql" value="false" />	
+##else
+##            <property name="hibernate.show_sql" value="false" />
+##            <property name="hibernate.format_sql" value="false" />	
 #end
             <property name="hibernate.dialect" value="$hibernate3.getDialect($database)"/>
 #if ($isEhCacheEnabled)
