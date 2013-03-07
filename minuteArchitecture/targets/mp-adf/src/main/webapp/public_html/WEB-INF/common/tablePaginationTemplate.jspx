@@ -6,7 +6,6 @@
           xmlns:trh="http://myfaces.apache.org/trinidad/html">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   
-  
   <trh:script id="blockNoteWindow">
     function blockNoteWindow(event) {
         var src = event.getSource();
@@ -15,24 +14,24 @@
         //    return false;
        // }
     }
-</trh:script>
-  
+    </trh:script>
+
   <af:pageTemplateDef var="attrs">
     <af:xmlContent>
       <component xmlns="http://xmlns.oracle.com/adf/faces/rich/component">
-        <display-name>tableCollectionTemplate</display-name>
+        <display-name>tablePaginationTemplate</display-name>
         <facet>
           <facet-name>table</facet-name>
         </facet>
         <attribute>
           <attribute-name>paginationUtils</attribute-name>
-          <attribute-class>net.sf.minuteproject.adf.utils.TablePaginationUtils</attribute-class>
+          <attribute-class>net.sf.minuteproject.adf.utils.TableAbstractPaginator</attribute-class>
           <required>true</required>
         </attribute>
       </component>
     </af:xmlContent>
     
-
+    
         <af:panelGroupLayout id="pgl2">
           <af:panelCollection id="tmplpc1" defaultToolbarItemDisplay="icon"
                               featuresOff="statusBar viewMenu"
@@ -45,7 +44,11 @@
                     <f:facet name="separator">
                       <af:spacer width="5" height="0"/>
                     </f:facet>
-                    <af:commandImageLink shortDesc="First Page"
+                  <af:outputText value="#{attrs.paginationUtils.numberOfRecords}" id="pt_ot2"
+                                binding="#{attrs.paginationUtils.numberOfRecordsUIComp}"
+                                clientComponent="true"/>
+                  <af:outputText value="item(s) found" id="pt_ot3" noWrap="true"/>
+                  <af:commandImageLink shortDesc="First Page"
                                          action="#{attrs.paginationUtils.goFirstPage}"
                                          id="cb1"
                                          icon="/images/pagination/first.png"
@@ -94,7 +97,7 @@
                                          hoverIcon="/images/pagination/last-hover.png"
                                          binding="#{attrs.paginationUtils.lastPageUIComp}"/>
                     <af:selectOneChoice valueChangeListener="#{attrs.paginationUtils.rangeSizeListener}"
-                                        value="#{attrs.paginationUtils.rangeSize}"
+                                        value="#{attrs.paginationUtils.RANGE_SIZE}"
                                         id="soc1" autoSubmit="true" simple="true"
                                         shortDesc=""
                                         binding="#{attrs.paginationUtils.rangeSizeUIComp}"

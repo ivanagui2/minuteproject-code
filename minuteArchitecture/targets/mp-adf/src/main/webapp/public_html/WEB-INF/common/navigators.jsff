@@ -11,7 +11,7 @@
         <ul>
             <af:forEach items="#{backingBeanScope.rootMenuUtils!=null? backingBeanScope.rootMenuUtils.treeList : backingBeanScope.localMenuUtils.treeList}" var="treeItem">
                 <li class="li_accordion_toggler_1">
-                    <af:switcher id="nav_s1" facetName="#{treeItem.hasChildren ? 'parentNode' : 'leafNode'}">
+                    <af:switcher id="s1" facetName="#{treeItem.hasChildren ? 'parentNode' : 'leafNode'}">
                         <f:facet name="parentNode">
                             <af:group>
                                 <div class="accordion_toggler_1"><a href="javascript:void(0)">
@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="accordion_content_1">
                                     <ul class="sublev">                                    
-                                        <af:forEach items="#{treeItem.children}" var="treeItem2">                                        
+                                        <af:forEach items="#{treeItem.children}" var="treeItem2"> 
                                                     <af:switcher id="s2"  facetName="#{treeItem2.hasChildren ? 'parentNode2' : 'leafNode2'}">
                                                     <f:facet name="parentNode2">                                                        
                                                         <af:group>
@@ -34,23 +34,24 @@
                                                                                                  text="#{treeItem3.label}"
                                                                                                  action="#{treeItem3.doAction}"
                                                                                                  visible="#{treeItem3.visible}"
-                                                                                                 styleClass="#{fn:startsWith(treeItem3.focusViewId,controllerContext.currentViewPort.viewId) ?'on' : ''}"
+                                                                                                 styleClass="#{fn:contains(treeItem3.focusViewId, '*') and fn:startsWith(controllerContext.currentViewPort.viewId,fn:replace(treeItem3.focusViewId,'*','')) or controllerContext.currentViewPort.viewId eq treeItem3.focusViewId?'on' : ''}"                 
                                                                                                  inlineStyle="background-image: none;"
                                                                                                  immediate="true">
                                                                                 </af:commandImageLink>
-                                                                        </af:forEach>
+                                                                    </af:forEach>
                                                                     </af:panelList>
                                                                 </div>
                                                             </li>
-                                                        </af:group>                                                        
+                                                    </af:group>                                                        
                                                     </f:facet>
                                                     <f:facet name="leafNode2">
                                                         <af:commandImageLink text="#{treeItem2.node.label}"
                                                                              action="#{treeItem2.node.doAction}"
                                                                              visible="#{treeItem2.node.visible}"
-                                                                             styleClass="#{fn:startsWith(controllerContext.currentViewPort.viewId,treeItem2.node.focusViewId)?'on' : ''}"
+                                                                             styleClass="#{fn:contains(treeItem2.node.focusViewId, '*') and fn:startsWith(controllerContext.currentViewPort.viewId,fn:replace(treeItem2.node.focusViewId,'*','')) or controllerContext.currentViewPort.viewId eq treeItem2.node.focusViewId?'on' : ''}"                 
                                                                              inlineStyle="background-image: none;"
                                                                              immediate="true"></af:commandImageLink>
+                                                        
                                                     </f:facet>
                                                 </af:switcher>
 
@@ -60,7 +61,7 @@
                             </af:group>
                         </f:facet>
                         <f:facet name="leafNode">
-                            <af:group id="nav_g1">
+                            <af:group id="g1">
                                 <af:commandImageLink text="#{treeItem.node.label}"
                                                      action="#{treeItem.node.doAction}"
                                                      visible="#{treeItem.node.visible}"

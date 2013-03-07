@@ -1,4 +1,4 @@
-package eu.adf.fwk.utils;
+package net.sf.minuteproject.adf.utils;
 
 import javax.faces.context.FacesContext;
 
