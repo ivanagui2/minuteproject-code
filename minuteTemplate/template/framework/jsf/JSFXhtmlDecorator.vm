@@ -14,9 +14,10 @@
 </h:head>
 <h:body>
   <p:layout fullPage="true" id="layout">  
-    <p:layoutUnit position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">  
+#*    <p:layoutUnit position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">  
         <h:outputText value="Powered by minuteproject" />  
-    </p:layoutUnit>  
+    </p:layoutUnit>
+*#
     <p:layoutUnit position="west" resizable="true" size="216">
         <ui:include src="/${model.name}/Menu.xhtml" />
     </p:layoutUnit>           

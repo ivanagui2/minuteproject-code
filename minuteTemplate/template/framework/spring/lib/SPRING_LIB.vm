@@ -77,3 +77,32 @@
 #macro (exposeSpringdataTemplate)
 #set ($templateSpringdataRepository = "SpringDataModelRepository")
 #end
+
+#macro (putSpringJSFModelLookup)
+#foreach($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeADFFacesSpringBindingSpecific()
+#if(!$isMany2Many)
+#exposeADFFacesSpringBindingSpecific4Entity($table)
+#if($columnUtils.isForeignKey($primaryKeyFirstColumn))
+#set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
+#end
+#set($ordering=$orderingUtils.getFirstOrdering($table))
+#set($column=$ordering.column)
+#putColumnParamNaming()
+#putOrmForeignKeyColumn()
+#if($columnUtils.isStringColumn($column))
+#set($setToString="")
+#else
+#set($setToString=".toString()")
+#end
+    public List<SelectItem> get${domainClassName}List() {
+        List<SelectItem> list = new ArrayList<SelectItem>();
+        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+            list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.get$columnClass()$setToString));
+        }
+        return list;
+    }
+#end
+#end
+#end
