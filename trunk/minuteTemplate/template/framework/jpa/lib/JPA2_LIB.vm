@@ -25,6 +25,7 @@
 #set($autobizlogicVersion=$template.getPropertyValue("add-automated-business-logic","2.1.4"))
 #set($useTemporal=$template.getPropertyValue("use-temporal",false))
 #set($xmlFormat=$template.getPropertyValue("add-xml-format","none"))
+#set($isShowSql=$template.getPropertyValue("show-sql",true))
 #set($isCacheEnabled=$template.hasPropertyValue("add-cache-implementation",false))
 #set($isEhCacheEnabled=$template.hasPropertyValue("add-cache-implementation","ehcache"))
 #end

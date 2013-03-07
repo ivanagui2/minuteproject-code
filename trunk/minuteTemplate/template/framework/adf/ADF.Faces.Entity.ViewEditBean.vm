@@ -89,7 +89,7 @@ public class $className extends $adapterBackingBeanADFFacesClassName {
     }
     
     public void rollback${domainClassName}() {
-	    System.out.println(">>>> rollback ");
+##	    System.out.println(">>>> rollback ");
         this._${beanVOADFFacesVariable} = null;
     }
     

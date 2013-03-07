@@ -26,11 +26,11 @@ public class ${className} {
     }
 
     public $sddOutputBeanClass getSelected$sddOutputBeanClass() {
-        System.out.println("getSelected$sddOutputBeanClass retrieval");
+##        System.out.println("getSelected$sddOutputBeanClass retrieval");
         return selected$sddOutputBeanClass;
     }
     public void selectionEvent(org.apache.myfaces.trinidad.event.SelectionEvent selectionEvent) {
-      System.out.println("selection event!");
+##      System.out.println("selection event!");
 
       /*
       getDetaillog().setVisible(false);
@@ -39,11 +39,11 @@ public class ${className} {
     }
 	
     public void rowDisclosureListener(RowDisclosureEvent rowDisclosureEvent) {
-        System.out.println("rowDisclosureListener event");
+//        System.out.println("rowDisclosureListener event");
         selected$sddOutputBeanClass = ADFUtils.getDisclosedTableRowValue(rowDisclosureEvent, ${sddOutputBeanClass}.class);    
-        if(null != selected$sddOutputBeanClass){
-           System.out.println("rowDisclosureListener EVENT!"+selected$sddOutputBeanClass);
-        }
+##        if(null != selected$sddOutputBeanClass){
+##           System.out.println("rowDisclosureListener EVENT!"+selected$sddOutputBeanClass);
+##        }
 		//
 		ADFUtils.setApplicationScopeValue("$sddOutputBeanVariable",selected$sddOutputBeanClass);
     }
@@ -56,11 +56,11 @@ public class ${className} {
     }
     
     public void queryListener(QueryEvent queryEvent) {
-       System.out.println("queryListener event!");
+//       System.out.println("queryListener event!");
     }
 
     public void rangeChangeListener(RangeChangeEvent rangeChangeEvent) {
-       System.out.println("rangeChangeListener event!");
+//       System.out.println("rangeChangeListener event!");
     }
 
 }

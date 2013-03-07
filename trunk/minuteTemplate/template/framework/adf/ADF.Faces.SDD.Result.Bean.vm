@@ -53,15 +53,12 @@ public class $className {
 ##
   public void search() {
 
-       System.out.println("   >>> search !!!!");
-	   
        BindingContext bindingCtx = BindingContext.getCurrent();
        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
        Map mapParam = new HashMap();
 #if($isNotVoidInput)
 	   $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass();
        mapParam.put("${sddInputBeanVariable}", ${sddInputBeanVariable}); 
-       System.out.println("${sddInputBeanVariable}  in search "+${sddInputBeanVariable});
 #end
        OperationBinding ob = bindings.getOperationBinding("get${sddOutputBeanCollectionClass}1");
        ob.getParamsMap().putAll(mapParam);

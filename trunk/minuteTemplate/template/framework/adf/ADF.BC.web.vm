@@ -157,7 +157,7 @@
 			<web-resource-name>faces</web-resource-name>
 			<description>This is the protected area of the application.
 			</description>
-			<url-pattern>/faces/*</url-pattern>
+			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<description>Requires users to be authenticated but does not require them to be authorized.

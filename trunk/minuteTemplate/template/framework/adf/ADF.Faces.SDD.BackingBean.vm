@@ -101,8 +101,8 @@ public class ${className} {
            cpt++;
         }
         String[] seriesLabels = seriesLabelsList.toArray(new String[seriesLabelsList.size()]);
-        System.out.println(" seriesLabels ="+seriesLabels);
-        System.out.println(" data ="+data);
+//        System.out.println(" seriesLabels ="+seriesLabels);
+//        System.out.println(" data ="+data);
         oracle.dss.dataView.LocalXMLDataSource ds =
             new oracle.dss.dataView.LocalXMLDataSource(columnLabels, seriesLabels, data);
         return new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
@@ -156,7 +156,7 @@ public class ${className} {
        Map mapParam = new HashMap();
 #if($isNotVoidInput)
        mapParam.put("${sddInputBeanVariable}", ${sddInputBeanVariable}); 
-       System.out.println("${sddInputBeanVariable}  in search "+${sddInputBeanVariable});
+//       System.out.println("${sddInputBeanVariable}  in search "+${sddInputBeanVariable});
 #end
        OperationBinding ob = bindings.getOperationBinding("get${sddOutputBeanCollectionClass}1");
        ob.getParamsMap().putAll(mapParam);
@@ -195,7 +195,7 @@ $!updatedAreaEnd
    //selection listner part
    
   public void selectionEvent(org.apache.myfaces.trinidad.event.SelectionEvent selectionEvent) {
-    System.out.println("selection event!");
+//    System.out.println("selection event!");
 
     /*
     getDetaillog().setVisible(false);
@@ -205,11 +205,11 @@ $!updatedAreaEnd
   }
 
   public void queryListener(QueryEvent queryEvent) {
-     System.out.println("queryListener event!");
+//     System.out.println("queryListener event!");
   }
 
   public void rangeChangeListener(RangeChangeEvent rangeChangeEvent) {
-     System.out.println("rangeChangeListener event!");
+//     System.out.println("rangeChangeListener event!");
   }
   
 #*  public String selectCandidateForExclusion(ActionEvent event) {
@@ -231,7 +231,7 @@ $!updatedAreaEnd
     }*/
     $sddOutputBeanClass candidate = ADFUtils.getDisclosedTableRowValue(rowDisclosureEvent, ${sddOutputBeanClass}.class);    
     if(null != candidate){
-      System.out.println("rowDisclosureListener event!"+candidate);
+//      System.out.println("rowDisclosureListener event!"+candidate);
     }
   }
   
