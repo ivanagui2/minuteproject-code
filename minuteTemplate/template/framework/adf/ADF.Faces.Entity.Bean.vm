@@ -215,7 +215,7 @@ $!updatedAreaSnippet
 #end
 #end
 
-		);	    
+		);
 	}
 
 #else
@@ -363,8 +363,8 @@ $!updatedAreaEnd
     public void add${targetTableName} ($targetTableName ${childrenListVariable}) {
         get${childrenListClass}().add($childrenListVariable);
     }	    
-#end
 
+#end
 
     public ${className} mask(String pattern) {
 #foreach ($column in ${table.columns})
