@@ -1,4 +1,3 @@
-
 #macro (exposeVariableEntitySpecific)
 ## model, table, reference (towards this table must be available), commonUtils, formatUtils, template
 #set ($database = $table.database)

@@ -78,12 +78,32 @@
 #set ($templateSpringdataRepository = "SpringDataModelRepository")
 #end
 
+### front end client
+
+#macro(exposeSpringServiceBindingSpecific)
+#exposeSpringTemplate()
+#set($beanSpringServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
+#set($beanSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
+#set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))  
+#set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))   
+#end
+
+#macro(exposeSpringServiceBindingSpecific4Entity $table)
+#exposeSpringTemplate()
+#set($beanSpringServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
+#set($beanSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanADFFacesSpringServiceClass))
+#set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))  
+#set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))   
+##set($domainClass=$commonUtils.getTemplateClassName($table, "DomainEntityJPA2Annotation")) 
+##set($domainVar=$commonUtils.getJavaNameVariableFirstLetter($domainClass)) 
+#end
+
 #macro (putSpringJSFModelLookup)
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
-#exposeADFFacesSpringBindingSpecific()
+#exposeSpringServiceBindingSpecific()
 #if(!$isMany2Many)
-#exposeADFFacesSpringBindingSpecific4Entity($table)
+##exposeSpringServiceBindingSpecific4Entity($table)
 #if($columnUtils.isForeignKey($primaryKeyFirstColumn))
 #set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
 #end
@@ -98,7 +118,7 @@
 #end
     public List<SelectItem> get${domainClassName}List() {
         List<SelectItem> list = new ArrayList<SelectItem>();
-        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+        for ($domainClassImport element : ${beanSpringServiceVariable}.getList()) {
             list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.get$columnClass()$setToString));
         }
         return list;
