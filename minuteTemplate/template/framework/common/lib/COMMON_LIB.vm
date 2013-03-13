@@ -239,8 +239,27 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro(putOrmForeignKeyColumn)
-#if($columnUtils.isForeignKey($column))
+#if($columnUtils.isForeignKey($column) || $columnUtils.isPartOfCompositePrimaryKey($column))
 #set($columnClass="${columnClass}_")
 #set($columnVar="${columnVar}_")
 #end
+#end
+
+#macro(putOrmForeignAndPrimaryKeyColumn)
+#if($columnUtils.isForeignKey($column))
+#set($columnClass="${columnClass}_")
+#set($columnVar="${columnVar}_")
+#if($column.isPrimaryKey())
+##set($columnClass="${columnClass}_")
+##if(!$columnUtils.isForeignKey($primaryKeyFirstColumn))
+#set($primaryKeyJavaNameClass="${primaryKeyJavaNameClass}_")
+##end
+#elseif($columnUtils.isForeignKey($primaryKeyFirstColumn))
+#set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
+#end
+#end
+##if($columnUtils.isForeignKey($primaryKeyFirstColumn))
+##set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
+##end
+
 #end

@@ -17,6 +17,7 @@ PersistenceErrorOccured=Persistence error occured
 manageSddChartTitle=Chart
 consult.title=Consult
 consult.select.header=Select
+consult.select.criteria.header=Selection criteria
 searchHeading=Search
 displayAll=Display All
 selectOr=or
