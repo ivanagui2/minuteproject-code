@@ -91,7 +91,7 @@
 #macro(exposeSpringServiceBindingSpecific4Entity $table)
 #exposeSpringTemplate()
 #set($beanSpringServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
-#set($beanSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanADFFacesSpringServiceClass))
+#set($beanSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
 #set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))  
 #set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))   
 ##set($domainClass=$commonUtils.getTemplateClassName($table, "DomainEntityJPA2Annotation")) 
@@ -104,13 +104,15 @@
 #exposeSpringServiceBindingSpecific()
 #if(!$isMany2Many)
 ##exposeSpringServiceBindingSpecific4Entity($table)
-#if($columnUtils.isForeignKey($primaryKeyFirstColumn))
-#set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
-#end
 #set($ordering=$orderingUtils.getFirstOrdering($table))
 #set($column=$ordering.column)
 #putColumnParamNaming()
 #putOrmForeignKeyColumn()
+#if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($column))
+#set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
+##elseif($column.isPrimaryKey())
+##set($primaryKeyJavaNameClass="${primaryKeyJavaNameClass}_")
+#end
 #if($columnUtils.isStringColumn($column))
 #set($setToString="")
 #else
