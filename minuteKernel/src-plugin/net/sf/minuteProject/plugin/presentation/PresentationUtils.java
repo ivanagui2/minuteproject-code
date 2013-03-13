@@ -141,6 +141,22 @@ public class PresentationUtils {
 		return columns;
 	}
 	
+	public static List<Column> getPotentialDisplayableColumnsWithOnePkInFirstPosition(Table table) {
+		List<Column> columns = new ArrayList<Column> ();
+		columns.add(TableUtils.getPrimaryFirstColumn(table));
+		columns.addAll(getPotentialDisplayableColumns(table));
+		int cpt=0;
+		for (Iterator<Column> iterator = columns.iterator(); iterator.hasNext();) {
+			Column column = iterator.next();
+			if (column.isPrimaryKey() && cpt>0) {
+				iterator.remove();
+				break;
+			}
+			cpt++;
+		}
+		return columns;
+	}
+	
 	public static List<Column> getPotentialDisplayableColumns(Table table) {
 		if (TableUtils.hasSemanticReference(table)) {
 			return TableUtils.getSemanticReferenceColumns(table);

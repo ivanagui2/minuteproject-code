@@ -187,38 +187,39 @@ public class ColumnUtils {
 	
 	public static String getDefaultStuffingForColumn (Column column, boolean useTemporal) {
 		String type = column.getType();
-		if (type.equals("CHAR") || 
-			type.equals("CHAR2") ||
-			type.equals("VARCHAR") ||
-			type.equals("VARCHAR2") ||
-			type.equals("VARGRAPHIC") ||
-			type.equals("VARGRAPHIC2") 
-			//type.equals("CLOB")
-				)
-			return "\"\"";
-//		if (type.equals("INT") ||
-//			type.equals("SMALLINT") ||
-//			type.equals("INTEGER") )
-//			return "Integer.valueOf(\"-1\")";
-		if (isInteger(column))
-			return "Integer.valueOf(\"-1\")"; 
-//		if (type.equals("BIGINT") || 
-//			type.equals("LONG")   ||
-//			type.equals("NUMBER") ||
-//			type.equals("DECIMAL") )
-//			return "Long.valueOf(\"-1\")";
-		if (isLong(column))
-			return "Long.valueOf(\"-1\")";
-		if (type.equals("FLOAT"))
-			return "java.math.BigDecimal.valueOf(-1)";
-		if (type.equals("DATE")) 
-			return "new java.util.Date()";
 		if (type.equals("TIMESTAMP"))
 			return (useTemporal)?"new java.util.Date()": "new Timestamp(new Date().getTime())";
-		if (type.equals("CLOB") ||
-			type.equals("BLOB"))
-			return "null";
-		return "\"\"";
+		return ConvertUtils.getJavaDefaultMask(column);
+//		if (type.equals("CHAR") || 
+//			type.equals("CHAR2") ||
+//			type.equals("VARCHAR") ||
+//			type.equals("VARCHAR2") ||
+//			type.equals("VARGRAPHIC") ||
+//			type.equals("VARGRAPHIC2") 
+//			//type.equals("CLOB")
+//				)
+//			return "\"\"";
+////		if (type.equals("INT") ||
+////			type.equals("SMALLINT") ||
+////			type.equals("INTEGER") )
+////			return "Integer.valueOf(\"-1\")";
+//		if (isInteger(column))
+//			return "Integer.valueOf(\"-1\")"; 
+////		if (type.equals("BIGINT") || 
+////			type.equals("LONG")   ||
+////			type.equals("NUMBER") ||
+////			type.equals("DECIMAL") )
+////			return "Long.valueOf(\"-1\")";
+//		if (isLong(column))
+//			return "Long.valueOf(\"-1\")";
+//		if (type.equals("FLOAT"))
+//			return "java.math.BigDecimal.valueOf(-1)";
+//		if (type.equals("DATE")) 
+//			return "new java.util.Date()";
+//		if (type.equals("CLOB") ||
+//			type.equals("BLOB"))
+//			return "null";
+//		return "\"\"";
 	}
 	
 	public static boolean isInteger(Column column) {
@@ -296,8 +297,12 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isPartOfCompositePrimaryKey(Column column) {
-		for (Column col : column.getTable().getPrimaryKeyColumns()) {
-			if (col.getName().toLowerCase().equals(column.getName().toLowerCase()))
+		Column[] primaryKeyColumns = column.getTable().getPrimaryKeyColumns();
+		if (primaryKeyColumns.length<2)
+			return false;
+		String columnLowerCase = column.getName().toLowerCase();
+		for (Column col : primaryKeyColumns) {
+			if (col.getName().toLowerCase().equals(columnLowerCase))
 				return true;
 		}
 		return false;
