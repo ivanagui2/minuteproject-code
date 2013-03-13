@@ -17,66 +17,68 @@
 <ui:define name="body">
 		
  <h:form id="form${tableClassName}"> 
-
-	         <h:panelGroup id="dataPanel">  
-						
-                <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}" 
-					id="${domainVariableName}Table" 
-					var="item" 
-					paginator="true" rows="10"  
-##                            dynamic="true"  resizableColumns="true"
-                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                    rowsPerPageTemplate="10,20,50"> 
-                    <f:facet name="header">  
-                        List of #{i18n.${tableVariableName}s}  
-                    </f:facet>  
+     <h:panelGroup id="dataPanel">  
+        <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}" 
+            id="${domainVariableName}Table" 
+            var="item" 
+            paginator="true" rows="10" 
+            lazy="true"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="10,20,50"> 
+            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
+            <p:column style="width:4%">  
+                <p:rowToggler />  
+            </p:column
+            <f:facet name="header">  
+                List of #{i18n.${tableVariableName}s}  
+            </f:facet>  
 	
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
 #if (!$isMany2Many && $isPkUserProvided)
-                    <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}" >  
-                        <f:facet name="header">  
-                            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
-                        </f:facet>  
-                        <h:outputText value="#{item.${columnVar}}" />  
-                    </p:column> 
+            <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}" >  
+                <f:facet name="header">  
+                    <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+                </f:facet>  
+                <h:outputText value="#{item.${columnVar}}" />  
+            </p:column> 
 #end
 #end		
 #foreach ($column in $table.attributes)
 #putColumnParams()
 #columnJavaNaming()	
-                    <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
-                        <f:facet name="header">  
-                            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
-                        </f:facet>  
-                        <h:outputText value="#{item.${columnVar}}" />  
-                    </p:column>  
+            <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
+                <f:facet name="header">  
+                    <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+                </f:facet>  
+                <h:outputText value="#{item.${columnVar}}" />  
+            </p:column>  
 #end
-                        <p:column>
-                        	<p:commandLink id="selectButton" update=":form2:panel" title="Edit" process="@this">
-                     			<h:outputText value="Edit" /> 
-                     			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.${tableVariableName}}" />
+            <p:column>
+            	<p:commandLink id="selectButton" update=":form2:panel" title="Edit" process="@this">
+         			<h:outputText value="Edit" /> 
+         			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.${tableVariableName}}" />
 ##                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.current}" />
-                 			</p:commandLink >
-                 			|
-                 			<p:commandLink  id="detailButton" update=":form2:display" title="View Details" oncomplete="detailDialog.show()" process="@this">
-                 				<h:outputText value="View" />
-                     			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+     			</p:commandLink >
+     			|
+     			<p:commandLink  id="detailButton" update=":form2:display" title="View Details" oncomplete="detailDialog.show()" process="@this">
+     				<h:outputText value="View" />
+         			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
 ##                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-                 			</p:commandLink >
-                 			|
-                 			<p:commandLink  id="showDialogButton" update=":dialogForm:confirmDialog" title="Delete" oncomplete="confirmation.show()" process="@this">
-                 				<h:outputText value="Delete" />  
+     			</p:commandLink >
+     			|
+     			<p:commandLink  id="showDialogButton" update=":dialogForm:confirmDialog" title="Delete" oncomplete="confirmation.show()" process="@this">
+     				<h:outputText value="Delete" />  
 ##                 				<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-                 				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
-                 			</p:commandLink >
-        				
-                    	</p:column>
+     				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+     			</p:commandLink >
+			
+        	</p:column>
 
-                    </p:dataTable>
-                </h:panelGroup>
-           </h:form>        
+        </p:dataTable>
+    </h:panelGroup>
+   </h:form>        
         <br/>
   			<h:form id="form2">
 				<p:messages id="messages" autoUpdate="true"/>  
