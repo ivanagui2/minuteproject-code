@@ -142,7 +142,7 @@ public class SemanticReferenceConvention extends ModelConvention {
 //	}
 
 	private boolean hasContentType(Table table) {
-		if (table.getContentType()!=null && table.getContentType().equals(contentType))
+		if (hasContentType() && table.getContentType()!=null && table.getContentType().equals(contentType))
 			return true;
 		return false;
 	}
