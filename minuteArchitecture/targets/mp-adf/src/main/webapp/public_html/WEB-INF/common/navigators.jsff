@@ -78,5 +78,5 @@
     
     <af:resource type="javascript" source="/javascript/accordion_menu.js"/>
     <af:resource type="css" source="/stylesheets/accordion_menu.css"/>
-    <!--oracle-jdev-comment:preferred-managed-bean-name:menuUtils-->
+
 </jsp:root>
