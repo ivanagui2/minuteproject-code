@@ -3,207 +3,49 @@
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich" version="2.1">
     <div id="header">
-        <img alt="European Commission logo" id="banner-flag"
-             src="../wel/template-2012/images/logo/logo_en.gif"/>
-        <p id="banner-title-text">Title of the site</p>
-        <span id="banner-image-title" class="title-en"> </span>
-        <ul class="reset-list" id="accessibility-menu">
-            <li>
-                <a accesskey="1" href="#content">Go to content</a>
-            </li>
-        </ul>
-        <p class="off-screen">Service tools</p>
-        <ul class="reset-list" id="services">
-            <li>
-                <a class="first" href="/atoz_en.htm">A-Z Index</a>
-            </li>
-             
-            <li>
-                <a href="/sitemap/index_en.htm">Sitemap</a>
-            </li>
-             
-            <li>
-                <a href="/abouteuropa/index_en.htm">About this site</a>
-            </li>
-             
-            <li>
-                <a href="/abouteuropa/faq/index_en.htm">FAQ</a>
-            </li>
-             
-            <li>
-                <a href="/geninfo/whatsnew_en.htm">What's New</a>
-            </li>
-             
-            <li>
-                <a accesskey="2" href="/geninfo/legal_notices_en.htm">Legal
-                                                                      notice</a>
-            </li>
-             
-            <li>
-                <a accesskey="3" href="/contact/index_en.htm">Contact</a>
-            </li>
-             
-            <li>
-                <a accesskey="4" href="/geninfo/query/search_en.html">Search</a>
-            </li>
-        </ul>
-        <p class="off-screen">Language selector</p>
-        <ul class="reset-list language-selector" id="language-selector">
-            <li>
-                <a href="index_bg.htm" hreflang="bg" lang="bg"
-                   title="български">bg</a>
-            </li>
-             
-            <li>
-                <a href="index_cs.htm" hreflang="cs" lang="cs" title="čeština">cs</a>
-            </li>
-             
-            <li>
-                <a href="index_da.htm" hreflang="da" lang="da" title="dansk">da</a>
-            </li>
-             
-            <li>
-                <a href="index_de.htm" hreflang="de" lang="de" title="Deutsch">de</a>
-            </li>
-             
-            <li>
-                <a href="index_et.htm" hreflang="et" lang="et"
-                   title="eesti keel">et</a>
-            </li>
-             
-            <li>
-                <a href="index_el.htm" hreflang="el" lang="el" title="ελληνικά">el</a>
-            </li>
-             
-            <li class="selected" lang="en" title="English">
-                <span class="off-screen">Current language:</span>
-                en
-            </li>
-             
-            <li>
-                <a href="index_es.htm" hreflang="es" lang="es" title="español">es</a>
-            </li>
-             
-            <li>
-                <a href="index_fr.htm" hreflang="fr" lang="fr" title="français">fr</a>
-            </li>
-             
-            <li>
-                <a href="index_ga.htm" hreflang="ga" lang="ga" title="Gaeilge">ga</a>
-            </li>
-             
-            <li>
-                <a href="index_it.htm" hreflang="it" lang="it" title="italiano">it</a>
-            </li>
-             
-            <li>
-                <a href="index_lv.htm" hreflang="lv" lang="lv"
-                   title="latviešu valoda">lv</a>
-            </li>
-             
-            <li>
-                <a href="index_lt.htm" hreflang="lt" lang="lt"
-                   title="lietuvių kalba">lt</a>
-            </li>
-             
-            <li>
-                <a href="index_hu.htm" hreflang="hu" lang="hu" title="magyar">hu</a>
-            </li>
-             
-            <li>
-                <a href="index_mt.htm" hreflang="mt" lang="mt" title="Malti">mt</a>
-            </li>
-             
-            <li>
-                <a href="index_nl.htm" hreflang="nl" lang="nl"
-                   title="Nederlands">nl</a>
-            </li>
-             
-            <li>
-                <a href="index_pl.htm" hreflang="pl" lang="pl" title="polski">pl</a>
-            </li>
-             
-            <li>
-                <a href="index_pt.htm" hreflang="pt" lang="pt"
-                   title="português">pt</a>
-            </li>
-             
-            <li>
-                <a href="index_ro.htm" hreflang="ro" lang="ro" title="română">ro</a>
-            </li>
-             
-            <li>
-                <a href="index_sk.htm" hreflang="sk" lang="sk"
-                   title="slovenčina">sk</a>
-            </li>
-             
-            <li>
-                <a href="index_sl.htm" hreflang="sl" lang="sl"
-                   title="slovenščina">sl</a>
-            </li>
-             
-            <li>
-                <a href="index_fi.htm" hreflang="fi" lang="fi" title="suomi">fi</a>
-            </li>
-             
-            <li>
-                <a href="index_sv.htm" hreflang="sv" lang="sv" title="svenska">sv</a>
-            </li>
-             
-            <li class="non-official first">
-                <a href="index_hr.htm" hreflang="hr" lang="hr" title="hrvatski">hr</a>
-            </li>
-             
-            <li class="non-official">
-                <a href="index_is.htm" hreflang="is" lang="is" title="íslenska">is</a>
-            </li>
-             
-            <li class="non-official">
-                <a href="index_mk.htm" hreflang="mk" lang="mk"
-                   title="македонски">mk</a>
-            </li>
-             
-            <li class="non-official">
-                <a href="index_no.htm" hreflang="no" lang="no" title="norsk">no</a>
-            </li>
-             
-            <li class="non-official">
-                <a href="index_tr.htm" hreflang="tr" lang="tr" title="türkçe">tr</a>
-            </li>
-        </ul>
-    </div>
+        <img alt="MP logo" id="banner-flag"
+             src="../images/logo/mp.gif"/>    </div>
     <div id="path">
         <p class="off-screen">Navigation path</p>
-        <!-- Breadcrumb links -->        
+        <!-- Breadcrumb links -->    
+        <!-- Breadcrumb links -->   
+        <div>
+        <div style="Float:left">		
         <af:breadCrumbs var="menuInfo" value="#{backingBeanScope.rootMenuUtils!=null? backingBeanScope.rootMenuUtils.model : backingBeanScope.localMenuUtils.model}"
                         inlineStyle="min-height:10px;" styleClass="reset-list"
                         varStatus="varSt">            
             <f:facet name="nodeStamp">
-                <af:switcher id="swt1" facetName="#{menuInfo.id eq 'europeanCommision'? 'EuropaNode' : 'MenuItems'}">
-                    <f:facet name="EuropaNode">
-                        <af:group>
-                            <a href="http://ec.europa.eu/index_en.htm"><af:outputText value="#{menuInfo.label}"/></a>   
-                        </af:group>
-                    </f:facet>
-                    <f:facet name="MenuItems">
-                        <af:switcher id="swt2" facetName="#{empty menuInfo.children ? 'MenuLink' : 'MenuGroup'}">
-                            <f:facet name="MenuGroup">
-                                <af:outputText value="#{menuInfo.label}"/>
-                            </f:facet>
-                            <f:facet name="MenuLink">
-                                <af:commandNavigationItem text="#{menuInfo.label}"
-                                          action="#{menuInfo.doAction}"
-                                          icon="#{menuInfo.icon}"
-                                          destination="#{menuInfo.destination}"
-                                          visible="#{menuInfo.visible}"
-                                          rendered="#{menuInfo.rendered}"/>
-                            </f:facet>
-                        </af:switcher>
-                    </f:facet>
-                </af:switcher>
+				<f:facet name="MenuItems">
+					<af:switcher id="swt2" facetName="#{empty menuInfo.children ? 'MenuLink' : 'MenuGroup'}">
+						<f:facet name="MenuGroup">
+							<af:outputText value="#{menuInfo.label}"/>
+						</f:facet>
+						<f:facet name="MenuLink">
+							<af:commandNavigationItem text="#{menuInfo.label}"
+									  action="#{menuInfo.doAction}"
+									  icon="#{menuInfo.icon}"
+									  destination="#{menuInfo.destination}"
+									  visible="#{menuInfo.visible}"
+									  rendered="#{menuInfo.rendered}"/>
+						</f:facet>
+					</af:switcher>
+				</f:facet>
             </f:facet>
         </af:breadCrumbs>
+        </div>
+			<div style="Float:right">
+		<!-- <af:outputText id="userId"
+						value="#{viewScope.securityBean.securityUser.userId}"/>&nbsp;
+-->
+		 <af:outputText id="userFirstName"
+						value="#{viewScope.securityBean.securityUser.firstName}"/>&nbsp;
+		 <af:outputText id="userLastName"
+						value="#{viewScope.securityBean.securityUser.lastName}"/>&nbsp;&nbsp;&nbsp;
+<!--     <af:commandLink id="logOut" >Log out</af:commandLink>-->
+			</div>
+        </div>
     </div>
+
     
     
 </jsp:root>
