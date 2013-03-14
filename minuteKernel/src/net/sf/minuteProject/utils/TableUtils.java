@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -611,5 +612,19 @@ public class TableUtils {
 			}
 		}
 		return null;
+	}
+	
+	public static List<Column> getFirstUniqueColumns(Table table) {
+		for (Index index: table.getIndices()) {
+			if (index.getColumnCount()>0)
+				return Arrays.asList(index.getColumns());
+		}
+		return new ArrayList<Column>();
+	}
+	
+	public static List<Column> getColumnWithoutPrimaryKeys(Table table) {
+		List<Column> asList = Arrays.asList(table.getColumns());
+		asList.removeAll(Arrays.asList(table.getPrimaryKeyColumns()));
+		return asList;
 	}
 }

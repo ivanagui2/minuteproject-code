@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ public abstract class PrimaryKeyConvention<T extends Table> extends ModelConvent
 	public static final String APPLY_PK_ON_ENTITY_WITH_TWO_COLUMN_AS_FK = "apply-primary-key-on-entity-with-two-columns-only-and-foreign-key-otherwise-specified";
 //
 	public static final String APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK = "apply-default-primary-key-otherwise-first-one";
+	public static final String APPLY_PK_ON_FIRST_FIELD_AND_OTHER_MATCHING = "apply-primary-key-on-first-field-and-other-matching";
 	
 	public String defaultPrimaryKeyNames;
 	
@@ -93,11 +95,42 @@ public abstract class PrimaryKeyConvention<T extends Table> extends ModelConvent
 		if (APPLY_PK_ON_ENTITY_WITH_TWO_COLUMN_AS_FK.equals(type)) {
 			applyPkOnM2MConvention(model);
 		}
-		if (APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK.equals(type)) {
+		else if (APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK.equals(type)) {
 			applyDefaultPkConvention(model);
+		}
+		else if (APPLY_PK_ON_FIRST_FIELD_AND_OTHER_MATCHING.equals(type)) {
+			applyPkOnFirstFieldAndOtherMatching(model);
 		}
 	}
 
+	protected void applyPkOnFirstFieldAndOtherMatching(BusinessModel model) {
+		if (model.getBusinessPackage()!=null) {
+			for (T t : getEntity(model)) {
+				applyPkOnFirstFieldAndOtherMatching (t);
+			}
+		}
+	}
+	private void applyPkOnFirstFieldAndOtherMatching(T t) {
+		t.setPrimaryKeys(getPrimaryKeyFirstFieldAndOtherMatching(t));
+	}
+	
+	private Column[] getPrimaryKeyFirstFieldAndOtherMatching(T t) {
+		List<Column> columns = new ArrayList<Column>();
+		int cpt = 0;
+		for (Column column : t.getColumns()) {
+			if (cpt==0)
+				columns.add(column);
+			else if (match (column)) 
+				columns.add(column);
+			cpt++;
+		}
+		return columns.toArray(new Column[columns.size()]);
+	}
+	
+	private boolean match(Column column) {
+		return false;
+	}
+	
 	protected abstract List<T> getEntity(BusinessModel model);
 
 
