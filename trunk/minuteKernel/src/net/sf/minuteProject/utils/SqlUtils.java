@@ -36,7 +36,7 @@ public class SqlUtils {
 		return getDbSqlTypeFormat(column, databaseType)+getSqlTypeSizeFormat(column, databaseType);
 	}
 
-	private static String getDbSqlTypeFormat(Column column, String databaseType) {
+	public static String getDbSqlTypeFormat(Column column, String databaseType) {
 		if (databaseType.equals("ORACLE"))
 			return getOracleSqlTypeFormat(column);
 		return column.getType();
