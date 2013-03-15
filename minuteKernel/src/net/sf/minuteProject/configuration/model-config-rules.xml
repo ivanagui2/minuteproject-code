@@ -422,10 +422,12 @@
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.TablePrimaryKeyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
 					<set-properties-rule>
+						<alias attr-name="field-type" prop-name="fieldType" />
+						<alias attr-name="field-pattern" prop-name="fieldPattern" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 						<alias attr-name="type" prop-name="type" />	
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
 						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
-						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
 					</set-properties-rule>	
 	            </pattern>		

@@ -12,7 +12,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 
-public abstract class PrimaryKeyConvention<T extends Table> extends ModelConvention {
+public abstract class PrimaryKeyConvention<T extends Table> extends FieldConvention {
 
 	public static final String APPLY_PK_ON_ENTITY_WITH_TWO_COLUMN_AS_FK = "apply-primary-key-on-entity-with-two-columns-only-and-foreign-key-otherwise-specified";
 //
@@ -98,7 +98,8 @@ public abstract class PrimaryKeyConvention<T extends Table> extends ModelConvent
 		else if (APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK.equals(type)) {
 			applyDefaultPkConvention(model);
 		}
-		else if (APPLY_PK_ON_FIRST_FIELD_AND_OTHER_MATCHING.equals(type)) {
+		else if (APPLY_PK_ON_FIRST_FIELD_AND_OTHER_MATCHING.equals(type)
+			&& isValid()) {
 			applyPkOnFirstFieldAndOtherMatching(model);
 		}
 	}
@@ -127,9 +128,6 @@ public abstract class PrimaryKeyConvention<T extends Table> extends ModelConvent
 		return columns.toArray(new Column[columns.size()]);
 	}
 	
-	private boolean match(Column column) {
-		return false;
-	}
 	
 	protected abstract List<T> getEntity(BusinessModel model);
 

@@ -9,7 +9,6 @@ CREATE OR REPLACE PROCEDURE ${table.name}_IUR (
 #set($columnSQLTypeFormat=$sqlUtils.getDbSqlTypeFormat($column, $database.type))
 #if($velocityCount>1),#else #end$columnVar $columnSQLTypeFormat
 #end
---AppCd VARCHAR, RolCd VARCHAR, RolObjCd VARCHAR
 )
 IS
   cpt   pls_integer;
@@ -19,7 +18,6 @@ SELECT count(*) INTO cpt FROM ${table.name} WHERE
 #putColumnParamNaming()
        #if($velocityCount>1) AND #else #end$column.name = $columnVar
 #end
---ROL_CD = RolCd and APP_CD=AppCd;
 if cpt = 0 then
    insert into $table.name (
 #foreach($column in ${table.columns})
@@ -32,7 +30,6 @@ if cpt = 0 then
 #putColumnParamNaming()
        #if($velocityCount>1),#else #end$column.name
 #end
---RolCd, RolCd, RolCd, RolCd, 0, to_date( lpad('01/01/1800', 10, '0') , 'DD/MM/YYYY'), 	to_date( lpad('31/12/9999', 10, '0') , 'DD/MM/YYYY'), 	AppCd, 	sysdate, 	'test', 	sysdate, 	'test', 	RolObjCd
     );
 else
   update ${table.name}
@@ -46,7 +43,6 @@ else
 #putColumnParamNaming()
          #if($velocityCount>1) AND #else #end$column.name = $columnVar
 #end
---ROL_CD = RolCd and APP_CD=AppCd; 
 end if;
 END;
 #end
