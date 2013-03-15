@@ -285,6 +285,16 @@
 		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
 
+	<xs:complexType name="primary-key-convention">
+		<xs:attribute name="field-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="default-primary-key-names" type="xs:string" />
+		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
+	</xs:complexType>
+
 	<xs:complexType name="version-convention">
 		<xs:attribute name="default-value" type="xs:string" />
 	</xs:complexType>

@@ -264,7 +264,7 @@ import $importDomainObjectUML;
 #macro (exposeADFReleaseSpecific)
 #exposeADFBuildSpecific()
 #if($isFrontEndRelease)
-#set($applicationName="${model.name}-FE")
+#set($applicationName=$template.getPropertyValue("application-name","${model.name}-FE"))
 #set($profileName=${model.name}+"FEProfile")
 #set($deployName=${model.name}+"FE")
 #set($releaseName="${deployName}App")
@@ -275,7 +275,7 @@ import $importDomainObjectUML;
 #set($adfFacesCustomCodeHome = $template.getPropertyValue("adf-faces-custom-code-home",""))
 #set($hasAdfFacesCustomCode=$adfFacesCustomCodeHome!="")
 #else
-#set($applicationName="${model.name}SDO")
+#set($applicationName=$template.getPropertyValue("application-name","${model.name}SDO"))
 #set($profileName=${model.name}+"SDOProfile")
 #set($deployName=${model.name}+"SDO")
 #set($releaseName="${deployName}App")
