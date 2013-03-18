@@ -60,63 +60,7 @@
             <p:commandButton title="Delete #{i18n.$tableVariableName}" value="Delete #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.delete}" />
 		</f:facet> 	
 		
-		<p:rowExpansion>  
-			<p:fieldset legend="${domainVariableName} Details">  
-				 <p:toolbar>  
-					<p:toolbarGroup align="left"> 
-						<p:commandButton type="button" title="Edit" icon="ui-icon-folder-open"/>  
-						<p:separator />          
-						<p:commandButton type="button" title="Save" icon="ui-icon-disk"/>  
-						<p:separator />  
-						<p:commandButton type="button" title="Cancel" icon="ui-icon-trash"/> 
-					</p:toolbarGroup>  
-				</p:toolbar>
-				<h:panelGrid columns="2" cellpadding="5"  styleClass="list_display_table_TR_even">
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
-            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
-#end
-#end  
-#foreach ($column in $table.attributes)
-#putColumnParams()
-#columnJavaNaming()	
-            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
-            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
-#end
-				</h:panelGrid>
-			</p:fieldset> 
-##<!--
-##			<p:fieldset legend="agentRole's Summary">
-##				<p:toolbar id="agentRoleToolBar">  
-##					<p:toolbarGroup align="left"> 
-##						<p:commandButton type="button" title="Add agentRole"  actionListener="#{agentRoleController.displayInput}" icon="ui-icon-document" update="evtsForm"/>         
-##					</p:toolbarGroup>
-##				</p:toolbar> 
-##					<h:panelGrid columns="3" cellpadding="5"  styleClass="list_display_table_TR_even">
-##						<c:forEach  var="evt" items="#{agentRoleController.selectedAgentRole.events}" varStatus="result" >
-##								<p:column>
-##									<h:outputText value="#{evt.typeEvent.label}" />  
-##								</p:column> 
-##								<p:column> 
-##									<h:commandLink action="#{eventDetailsHistoryAction.displayEventDetails}">
-##										<p:graphicImage value="/img/search.png"/> 
-##										<f:param name="selectedEventUid" value="#{evt.uid}"/>
-##									</h:commandLink>
-##								</p:column> 
-##								<p:column>  
-##									<h:commandLink action="#{eventDetailsHistoryAction.deleteEvent}">
-##										<p:graphicImage value="/img/delete_element.gif"/> 
-##										<f:param name="selectedEventUid" value="#{evt.uid}"/>
-##									</h:commandLink>
-##								</p:column>  
-##						</c:forEach> 
-##					</h:panelGrid>
-##			</p:fieldset> 
-##-->
-		</p:rowExpansion>  
+#putPrimefacesEntityRowExpansion()
 		
     </p:dataTable>  
   

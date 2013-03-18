@@ -22,7 +22,7 @@
         <ui:include src="/${model.name}/Menu.xhtml" />
     </p:layoutUnit>           
     <p:layoutUnit position="center">
-        <ui:include src="/${model.name}/BreadCrumb.xhtml" />
+##        <ui:include src="/${model.name}/BreadCrumb.xhtml" />
         <ui:insert name="body">Welcome petshop jsf web. Powered by minuteproject.</ui:insert>
     </p:layoutUnit>
     <p:layoutUnit position="south" size="100" header="Disclaimer" resizable="true" closable="true" collapsible="true">  

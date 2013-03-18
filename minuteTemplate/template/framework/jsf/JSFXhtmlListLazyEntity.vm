@@ -28,7 +28,7 @@
             <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
             <p:column style="width:4%">  
                 <p:rowToggler />  
-            </p:column
+            </p:column>
             <f:facet name="header">  
                 List of #{i18n.${tableVariableName}s}  
             </f:facet>  
@@ -75,7 +75,7 @@
      			</p:commandLink >
 			
         	</p:column>
-
+#putPrimefacesEntityRowExpansion()
         </p:dataTable>
     </h:panelGroup>
    </h:form>        
@@ -140,7 +140,7 @@
 		</h:form>
     
     		<h:form id="dialogForm">
-    			<p:confirmDialog id="confirmDialog" header="Confirm Delete #{i18n.${tableVariableName}}" severity="alert" widgetVar="confirmation">  
+    			<p:confirmDialog id="confirmDialog" message="Confirm delete #{i18n.${tableVariableName}} item ?" header="Confirm Delete #{i18n.${tableVariableName}}" severity="alert" widgetVar="confirmation">  
     	                  	<f:facet name="message">
     						<h:outputText value="Delete #{i18n.${tableVariableName}} item ?" />
     						</f:facet>

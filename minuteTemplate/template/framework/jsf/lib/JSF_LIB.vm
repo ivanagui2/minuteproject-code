@@ -15,7 +15,7 @@
 #macro (putJSFColumnSnippet2)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
 #if($columnUtils.isTimeColumn($column))
-    <p:calendar value="#{${entityControllerJSFVariable}.${tableClassName}.${columnVar}}"
+    <p:calendar value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}"
        id="lbl${columnClass}" ##converter="dateTsConverter"
        converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
@@ -99,6 +99,39 @@
 #end
 
 #macro(exposePrimefacesConfig)
-#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","3.3.1"))
+#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","3.5"))
 #set ($primefacesNamespace=$template.getPropertyValue("primefaces-namespace","http://primefaces.org/ui"))
+#end
+
+#macro(putPrimefacesEntityRowExpansion)
+		<p:rowExpansion>  
+			<p:fieldset legend="${domainVariableName} Details">  
+				 <p:toolbar>  
+					<p:toolbarGroup align="left"> 
+						<p:commandButton type="button" title="Edit" icon="ui-icon-folder-open"/>  
+						<p:separator />          
+						<p:commandButton type="button" title="Save" icon="ui-icon-disk"/>  
+						<p:separator />  
+						<p:commandButton type="button" title="Cancel" icon="ui-icon-trash"/> 
+					</p:toolbarGroup>  
+				</p:toolbar>
+				<h:panelGrid columns="2" cellpadding="5"  styleClass="list_display_table_TR_even">
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
+            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
+#end
+#end  
+#foreach ($column in $table.attributes)
+#putColumnParams()
+#columnJavaNaming()	
+            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
+            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
+#end
+				</h:panelGrid>
+			</p:fieldset> 
+
+		</p:rowExpansion>  
 #end

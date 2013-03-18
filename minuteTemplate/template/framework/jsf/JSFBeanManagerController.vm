@@ -35,6 +35,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.bean.ViewScoped;
 
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
@@ -48,6 +49,7 @@ import $SpringServiceInterfaceImport;
 
 #elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -65,11 +67,11 @@ import $importDomainObjectUML;
  */
 #if($isSpringBackend)
 @ManagedBean (name="${entityControllerJSFVariable}")
-@RequestScoped
+@ViewScoped
 #elseif($isEJBBackend)
 @Named(value = "$entityControllerJSFVariable")
 @Default
-@RequestScoped
+@ViewScoped
 #end
 public class ${className} {
 
@@ -135,6 +137,19 @@ public class ${className} {
             		this.setRowCount(count);      	
                     return list;
 				}
+				
+				@Override
+				public void setRowIndex(final int rowIndex)
+				{
+				          if (rowIndex == -1 || getPageSize() == 0)
+				          {
+				            super.setRowIndex(-1);
+				          }
+				          else
+				          {
+				            super.setRowIndex(rowIndex % getPageSize());
+				          }
+				 }
 
 			};
     	}
@@ -142,7 +157,7 @@ public class ${className} {
     }
 
     public void recoverItemRowToggle(ToggleEvent toggleEvent) {
-        selected$tableClassName = ($tableClassName) toggleEvent.getSource();
+        selected$tableClassName = ($tableClassName) toggleEvent.getData();
     } 
 
     public void createOrUpdateListener(ActionEvent event) {
