@@ -75,6 +75,7 @@ $!updatedAreaSnippet
 #foreach ($column in $presentationUtils.getPotentialDisplayableColumnsWithOnePkInFirstPosition($table))
 #putColumnParamNaming()
 #adfEntityColumnDisplay("${columnVar}it")
+#ADFHtmlEntityId()
 #end 
 #end
                       </af:panelFormLayout>
@@ -183,7 +184,7 @@ $updatedAreaEnd
               </af:showDetailItem>
 <!-- create -->              
               <af:showDetailItem text="#{viewcontrollerBundle['createTitle']}" immediate="true"
-                                 id="${entityADFVariable}_sdi2" >
+                                 id="$entityCreateId" >##${entityADFVariable}_sdi2" >
                     <af:panelFormLayout id="pfl1" fieldWidth="$createfieldWidth" labelWidth="$createlabelWidth" styleClass="dialogFormLayout">
 #exposeModelUpdatedAreas("create-node")
 $!updatedAreaBegin
