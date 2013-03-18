@@ -351,3 +351,7 @@ $updatedAreaEnd
 ##    </af:panelFormLayout>
   </af:panelGroupLayout>
 #end
+
+#macro(ADFHtmlEntityId)
+#set($entityCreateId="${entityADFVariable}_sdi2")
+#end
