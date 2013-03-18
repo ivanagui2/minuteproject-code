@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -137,12 +138,11 @@ public class ${className} {
 
 			};
     	}
-    	
     	return lazyModel;
     }
 
     public void recoverItemRowToggle(ToggleEvent toggleEvent) {
-        selected$tableClassName = ($tableClassName) toggleEvent.getData();
+        selected$tableClassName = ($tableClassName) toggleEvent.getSource();
     } 
 
     public void createOrUpdateListener(ActionEvent event) {
