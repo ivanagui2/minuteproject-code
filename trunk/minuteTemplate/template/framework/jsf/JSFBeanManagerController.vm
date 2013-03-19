@@ -210,6 +210,21 @@ public class ${className} {
 	    UIComponent component = viewRoot.findComponent("form2");  
 	    ${modelJSFUtilsClass}.clearComponentHierarchy(component);
     }
+	
+    public void deleteListener(ActionEvent event) {
+        try {
+            if (selected${tableClassName}.get$primaryKeyJavaNameClass() != null) {
+                ${EJBDaoImplVariable}.delete(selected${tableClassName});
+                JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityDeleted"));
+            }
+			else {
+			   System.out.println("no resources found");
+			}
+	    	selected${tableClassName} = new ${tableClassName}();
+        } catch (Exception e) {
+			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
+        }
+    }
 #end
 
 #if ($hasSemanticReference)

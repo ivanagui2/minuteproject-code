@@ -4,6 +4,7 @@ entityCreated=Entity created
 updateTitle=Update
 updateHeading=Update
 entityUpdated=Entity updated
+entityDeleted=Entity deleted
 save=Save
 saveTitle=Save
 delete=Delete
