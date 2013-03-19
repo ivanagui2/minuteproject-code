@@ -17,18 +17,24 @@
 <ui:define name="body">
 		
  <h:form id="form${tableClassName}"> 
+   <p:growl id="growl" showDetail="true"/>
      <h:panelGroup id="dataPanel">  
         <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}" 
             id="${domainVariableName}Table" 
             var="item" 
             paginator="true" rows="10" 
             lazy="true"
+			selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
             rowsPerPageTemplate="10,20,50"> 
-            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
+            <p:ajax partialSubmit="true" event="rowSelect"
+                    listener="#{agentRoleController.onRowSelect}"
+                    update=":formAgentRole:growl :form2:panel"/> 
+#*            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
             <p:column style="width:4%">  
                 <p:rowToggler />  
             </p:column>
+*#
             <f:facet name="header">  
                 List of #{i18n.${tableVariableName}s}  
             </f:facet>  
@@ -55,7 +61,7 @@
                 <h:outputText value="#{item.${columnVar}}" />  
             </p:column>  
 #end
-            <p:column>
+#*            <p:column>
             	<p:commandLink id="selectButton" update=":form2:panel" title="Edit" process="@this">
          			<h:outputText value="Edit" /> 
          			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.${tableVariableName}}" />
@@ -75,6 +81,7 @@
      			</p:commandLink >
 			
         	</p:column>
+*#
 #putPrimefacesEntityRowExpansion()
         </p:dataTable>
     </h:panelGroup>
@@ -110,8 +117,6 @@
 #columnJavaNaming()
 #putJSFColumnSnippet2()
 #end    
-        			<h:outputLabel />
-        			<h:outputLabel />
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
@@ -138,7 +143,7 @@
 			</p:dialog>   
 
 		</h:form>
-    
+#*    
     		<h:form id="dialogForm">
     			<p:confirmDialog id="confirmDialog" message="Confirm delete #{i18n.${tableVariableName}} item ?" header="Confirm Delete #{i18n.${tableVariableName}}" severity="alert" widgetVar="confirmation">  
     	                  	<f:facet name="message">
@@ -151,7 +156,7 @@
     	                  
     			</p:confirmDialog>  
     		</h:form>
-				
+*#				
         </ui:define>
     </ui:composition>
 </html>
