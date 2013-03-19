@@ -20,6 +20,17 @@ import java.util.ResourceBundle;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.primefaces.event.SelectEvent;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +38,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.bean.ViewScoped;
 
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
@@ -109,7 +111,7 @@ public class ${className} {
 #end
 
 #if($isSpringBackend)
-	
+	//TODO create a generic Model
     public LazyDataModel<$tableClassName> getLazyModel() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<$tableClassName>() {
@@ -141,16 +143,34 @@ public class ${className} {
 				@Override
 				public void setRowIndex(final int rowIndex)
 				{
-				          if (rowIndex == -1 || getPageSize() == 0)
-				          {
-				            super.setRowIndex(-1);
-				          }
-				          else
-				          {
-				            super.setRowIndex(rowIndex % getPageSize());
-				          }
+    		          if (rowIndex == -1 || getPageSize() == 0)
+    		          {
+    		            super.setRowIndex(-1);
+    		          }
+    		          else
+    		          {
+    		            super.setRowIndex(rowIndex % getPageSize());
+    		          }
 				 }
 
+                @Override
+				//Strange why is the getRowData input a string and not an object
+                public $tableClassName getRowData(String rowKey) {
+                    List<$tableClassName> list = (List<$tableClassName>) getWrappedData();
+                    System.out.println(">>>>>>>>>>>>>>>> getList for rowkey ="+rowKey);
+                    for($tableClassName element : list) {
+                        if(element.get$primaryKeyJavaNameClass().equals(rowKey))  {
+                            return element;
+                        }
+                    }
+
+                    return null;
+                }
+
+                @Override
+                public Object getRowKey($tableClassName element) {
+                    return element.get$primaryKeyJavaNameClass();
+                }
 			};
     	}
     	return lazyModel;
@@ -229,6 +249,12 @@ public class ${className} {
 		return "success";
 	}	
 
+    public void onRowSelect(SelectEvent event) {
+        selected$tableClassName = ($tableClassName) event.getObject();
+##        selected$tableClassName = (selectedAgentRole==null)?new $tableClassName():selected$tableClassName;
+        FacesMessage msg = new FacesMessage("$tableClassName Selected", selected${tableClassName}.toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
 
 $!updatedAreaImplementation
