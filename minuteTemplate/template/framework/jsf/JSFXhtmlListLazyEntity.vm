@@ -28,8 +28,8 @@
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
             rowsPerPageTemplate="10,20,50"> 
             <p:ajax partialSubmit="true" event="rowSelect"
-                    listener="#{agentRoleController.onRowSelect}"
-                    update=":formAgentRole:growl :form2:panel"/> 
+                    listener="#{${entityControllerJSFVariable}.onRowSelect}"
+                    update=":form${tableClassName} :form2:panel"/> 
 #*            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
             <p:column style="width:4%">  
                 <p:rowToggler />  
@@ -120,6 +120,7 @@
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
+            	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	    </f:facet> 
                 </p:panelGrid>
 				
