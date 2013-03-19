@@ -42,6 +42,9 @@ public class $className {
 #set($colVar = ${linkedTableVariable})
 #end
     public static volatile SingularAttribute<${domainClassName}, $linkedTableClass> $colVar;
+#set($column = $reference.localColumn)
+#putColumnParamNaming()
+    public static volatile SingularAttribute<${domainClassName}, $columnType> ${columnVar}_;
 #end
 
 #foreach ($reference in $table.children)

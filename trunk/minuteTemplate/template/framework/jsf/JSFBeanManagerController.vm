@@ -157,19 +157,27 @@ public class ${className} {
 				//Strange why is the getRowData input a string and not an object
                 public $tableClassName getRowData(String rowKey) {
                     List<$tableClassName> list = (List<$tableClassName>) getWrappedData();
-                    System.out.println(">>>>>>>>>>>>>>>> getList for rowkey ="+rowKey);
                     for($tableClassName element : list) {
+#if(!$columnUtils.isString($primaryKeyFirstColumn))
+                        if(element.get$primaryKeyJavaNameClass().toString().equals(rowKey))  {
+#else
                         if(element.get$primaryKeyJavaNameClass().equals(rowKey))  {
+#end
                             return element;
                         }
                     }
-
                     return null;
                 }
 
                 @Override
                 public Object getRowKey($tableClassName element) {
+#if(!$columnUtils.isString($primaryKeyFirstColumn))
+                    if (element.get$primaryKeyJavaNameClass()==null)
+                        return null;
+                    return element.get$primaryKeyJavaNameClass().toString();
+#else
                     return element.get$primaryKeyJavaNameClass();
+#end
                 }
 			};
     	}
