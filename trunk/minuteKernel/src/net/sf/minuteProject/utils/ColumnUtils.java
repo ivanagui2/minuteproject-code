@@ -1,10 +1,7 @@
 package net.sf.minuteProject.utils;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -12,7 +9,6 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
-import net.sf.minuteProject.utils.property.PropertyUtils;
 
 public class ColumnUtils {
 	
