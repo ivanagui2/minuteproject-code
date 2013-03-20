@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 public class SqlUtils {
@@ -89,4 +90,14 @@ public class SqlUtils {
 		return "";
 	}
 
+	public static String getCompiliantName(Database database, String input) {
+		return FormatUtils.removeStart(removeRightCompliance(database, input), "_");	
+	}
+
+	private static String removeRightCompliance(Database database, String input) {
+		if ("ORACLE".equals(database.getType())) {
+			return FormatUtils.stripToSizeRemovingRight(input, 30);
+		}
+		return FormatUtils.stripToSizeRemovingRight(input, 30);
+	}
 }

@@ -11,6 +11,8 @@ public class FormatUtilsTest extends TestCase {
 	private String shortNameName2 = "ThisIsAnotherTest";
 
 	private String expressionToTrim1 = "____bbbbbbbasdasd____dasdsa___daddddddsd__";
+	private String expressionToTrim2 = "123456789012345678901234567890----";
+	private String expressionToTrim2Assert = "123456789012345678901234567890";
 
 	public void testFirstUpperCaseOnly () {
 		String s = FormatUtils.firstUpperCaseOnly("s");
@@ -40,4 +42,8 @@ public class FormatUtilsTest extends TestCase {
 	}
 
 
+	public void testStripToSizeRemovingBackend () {
+		String result = FormatUtils.stripToSizeRemovingLeft(expressionToTrim2, 30);
+		assertTrue (result.equals(expressionToTrim2Assert));
+	}
 }

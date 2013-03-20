@@ -17,9 +17,11 @@ public abstract class PrimaryKeyConvention<T extends Table> extends FieldConvent
 	public static final String APPLY_PK_ON_ENTITY_WITH_TWO_COLUMN_AS_FK = "apply-primary-key-on-entity-with-two-columns-only-and-foreign-key-otherwise-specified";
 //
 	public static final String APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK = "apply-default-primary-key-otherwise-first-one";
-	public static final String APPLY_PK_ON_FIRST_FIELD_AND_OTHER_MATCHING = "apply-primary-key-on-first-field-and-other-matching";
+	public static final String APPLY_PK_ON_FIRST_FIELDS_AND_OTHER_MATCHING = "apply-primary-key-on-first-fields-and-other-matching";
 	
-	public String defaultPrimaryKeyNames;
+	private String defaultPrimaryKeyNames;
+	private int maxFields=1;
+	private int numberOfFirstFields=1;
 	
 	public String getDefaultPrimaryKeyNames() {
 		return defaultPrimaryKeyNames;
@@ -98,7 +100,7 @@ public abstract class PrimaryKeyConvention<T extends Table> extends FieldConvent
 		else if (APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK.equals(type)) {
 			applyDefaultPkConvention(model);
 		}
-		else if (APPLY_PK_ON_FIRST_FIELD_AND_OTHER_MATCHING.equals(type)
+		else if (APPLY_PK_ON_FIRST_FIELDS_AND_OTHER_MATCHING.equals(type)
 			&& isValid()) {
 			applyPkOnFirstFieldAndOtherMatching(model);
 		}
@@ -111,25 +113,43 @@ public abstract class PrimaryKeyConvention<T extends Table> extends FieldConvent
 			}
 		}
 	}
-	private void applyPkOnFirstFieldAndOtherMatching(T t) {
+	protected void applyPkOnFirstFieldAndOtherMatching(T t) {
 		t.setPrimaryKeys(getPrimaryKeyFirstFieldAndOtherMatching(t));
 	}
 	
-	private Column[] getPrimaryKeyFirstFieldAndOtherMatching(T t) {
+	protected Column[] getPrimaryKeyFirstFieldAndOtherMatching(T t) {
 		List<Column> columns = new ArrayList<Column>();
-		int cpt = 0;
+		int cpt = 1;
 		for (Column column : t.getColumns()) {
-			if (cpt==0)
-				columns.add(column);
-			else if (match (column)) 
-				columns.add(column);
-			cpt++;
+			if (cpt<=maxFields) {
+				if (cpt<=numberOfFirstFields) {
+					columns.add(column);
+					cpt++;
+				}
+				else if (match (column)) {
+					columns.add(column);
+					cpt++;
+				}
+				
+			}
 		}
 		return columns.toArray(new Column[columns.size()]);
 	}
 	
 	
 	protected abstract List<T> getEntity(BusinessModel model);
+	public int getMaxFields() {
+		return maxFields;
+	}
+	public void setMaxFields(int maxFields) {
+		this.maxFields = maxFields;
+	}
+	public int getNumberOfFirstFields() {
+		return numberOfFirstFields;
+	}
+	public void setNumberOfFirstFields(int numberOfFirstFields) {
+		this.numberOfFirstFields = numberOfFirstFields;
+	}
 
 
 
