@@ -400,17 +400,7 @@
 						<alias attr-name="ordering" prop-name="ordering" />
 					</set-properties-rule>	
 	            </pattern>				
-				<pattern value="view-primary-key-convention">
-					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
-					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
-					<set-properties-rule>
-						<alias attr-name="type" prop-name="type" />	
-						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
-						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
-						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
-						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
-					</set-properties-rule>	
-	            </pattern>		
+	
 				<pattern value="sql-mapping-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SqlMappingConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SqlMappingConvention"/>		
@@ -429,8 +419,30 @@
 						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
 						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
 						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
+						<alias attr-name="max-fields" prop-name="maxFields" />
+						<alias attr-name="number-of-first-fields" prop-name="numberOfFirstFields" />
 					</set-properties-rule>	
-	            </pattern>		
+	            </pattern>
+				<pattern value="view-primary-key-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
+					<set-properties-rule>
+<!-- 						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" /> -->
+						<alias attr-name="field-type" prop-name="fieldType" />
+						<alias attr-name="field-pattern" prop-name="fieldPattern" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
+						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
+						<alias attr-name="max-fields" prop-name="maxFields" />
+						<alias attr-name="number-of-first-fields" prop-name="numberOfFirstFields" />
+					</set-properties-rule>	
+	            </pattern>	
 				<pattern value="property-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.PropertyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.PropertyConvention"/>		
@@ -463,7 +475,19 @@
 						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
 						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
 					</set-properties-rule>	
-	            </pattern>		            		
+	            </pattern>
+	            	
+				<pattern value="view-default-primary-key-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewDefaultPrimaryKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention"/>		
+					<set-properties-rule>
+						<alias attr-name="type" prop-name="type" />	
+						<alias attr-name="default-primary-key-names" prop-name="defaultPrimaryKeyNames" />
+						<alias attr-name="exclude-primary-key-names" prop-name="excludePrimaryKeyNames" />
+						<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+						<alias attr-name="allow-composite-primary-key" prop-name="allowCompositePk" />
+					</set-properties-rule>	
+	            </pattern>
 				<pattern value="foreign-key-convention">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ForeignKeyConvention"/>		
 					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.ForeignKeyConvention"/>		

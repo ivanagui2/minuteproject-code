@@ -7,25 +7,29 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ViewDDLUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
 
 @SuppressWarnings("serial")
-public class ViewPrimaryKeyConvention extends TableDefaultPrimaryKeyConvention {
+public class ViewPrimaryKeyConvention extends PrimaryKeyConvention<View> {
 
+	public ViewPrimaryKeyConvention(){}
 	@Override
-	public void apply(BusinessModel model) {
-		if (model.getBusinessPackage()!=null) {
-			for (View view : model.getBusinessPackage().getViews()) {
-				if (view.getPrimaryKeyColumns().length==0)
-					apply (view);
-			}
+	protected List<View> getEntity(BusinessModel model) {
+//		List<Table> list = new ArrayList<Table>();
+//		for (View view : model.getBusinessPackage().getViews()) {
+//			list.add((Table)view);
+//		}
+		return model.getBusinessPackage().getViews();
+	}
+
+	protected void applyPkOnFirstFieldAndOtherMatching(View view) {
+		Column[] primaryKeyFirstFieldAndOtherMatching = getPrimaryKeyFirstFieldAndOtherMatching(view);
+		for (Column column : primaryKeyFirstFieldAndOtherMatching) {
+			view.addVirtualPrimaryKey(column);
 		}
 	}
-	private void apply(View view) {
-		view.setVirtualPrimaryKeys(getVirtualPrimaryKey(view));
-	}
-
 	
 }

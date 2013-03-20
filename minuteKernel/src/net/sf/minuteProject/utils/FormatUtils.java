@@ -325,4 +325,19 @@ public class FormatUtils {
 //		return StringUtils.replace(path, "\\", "/");
 	}
 
+	public static String stripToSizeRemovingLeft(String input, int i) {
+		return StringUtils.left(input, i);
+	}
+	
+	public static String stripToSizeRemovingRight(String input, int i) {
+		return StringUtils.right(input, i);
+	}
+
+	public static String removeStart(String input,
+			String start) {
+		if (input.startsWith(start))
+			return StringUtils.removeStart(input, start);
+		return input;
+	}
+
 }

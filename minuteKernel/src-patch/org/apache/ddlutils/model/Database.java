@@ -284,6 +284,7 @@ public class Database implements Serializable, Cloneable
 
             for (int idx = 0; idx < curTable.getColumnCount(); idx++)
             {
+            	boolean isDuplicateColumn = false;
                 Column column = curTable.getColumn(idx);
 
                 if ((column.getName() == null) || (column.getName().length() == 0))
@@ -293,6 +294,7 @@ public class Database implements Serializable, Cloneable
                 if (namesOfProcessedColumns.contains(column.getName()))
                 {
                      System.out.println("> duplicate column "+column.getName()+" - for entity "+curTable.getName());
+                     isDuplicateColumn = true;
 //                    throw new ModelException("There are multiple column with the name "+column.getName()+" in the table "+curTable.getName());
                 }
                 else {
@@ -307,7 +309,8 @@ public class Database implements Serializable, Cloneable
                 {
                     throw new ModelException("The column nr. "+idx+" in table "+curTable.getName()+" has an unknown type "+column.getType());
                 }
-                namesOfProcessedColumns.add(column.getName());
+                if (!isDuplicateColumn)
+                	namesOfProcessedColumns.add(column.getName());
             }
 
             for (int idx = 0; idx < curTable.getForeignKeyCount(); idx++)

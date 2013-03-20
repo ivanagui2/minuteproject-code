@@ -276,14 +276,22 @@
 		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
 		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
-
-	<xs:complexType name="view-primary-key-convention">
+	
+	<xs:complexType name="view-default-primary-key-convention">
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
 		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
 		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
 		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
 	</xs:complexType>
+<!-- 
+	<xs:complexType name="view-primary-key-convention">
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="default-primary-key-names" type="xs:string" />
+		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+	</xs:complexType> -->
 
 	<xs:complexType name="primary-key-convention">
 		<xs:attribute name="field-type" type="xs:string" />
@@ -293,6 +301,20 @@
 		<xs:attribute name="default-primary-key-names" type="xs:string" />
 		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
 		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
+		<xs:attribute name="max-fields" type="xs:integer" />
+		<xs:attribute name="number-of-first-fields" type="xs:integer" />
+	</xs:complexType>
+
+	<xs:complexType name="view-primary-key-convention">
+		<xs:attribute name="field-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="default-primary-key-names" type="xs:string" />
+		<xs:attribute name="exclude-primary-key-names" type="xs:string" />
+		<xs:attribute name="allow-composite-primary-key" type="xs:boolean" />
+		<xs:attribute name="max-fields" type="xs:integer" />
+		<xs:attribute name="number-of-first-fields" type="xs:integer" />
 	</xs:complexType>
 
 	<xs:complexType name="version-convention">
@@ -321,6 +343,12 @@
 			</xs:element>
 			<xs:element name="table-default-primary-key-convention"
 				type="table-default-primary-key-convention" minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="view-default-primary-key-convention"
+				type="view-default-primary-key-convention" minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="primary-key-convention" type="primary-key-convention"
+				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 			<xs:element name="view-primary-key-convention" type="view-primary-key-convention"
 				minOccurs="0" maxOccurs="unbounded">
