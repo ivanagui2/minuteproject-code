@@ -3,7 +3,8 @@
 /*
 * entity ${table.name}
 */
-CREATE OR REPLACE PROCEDURE ${table.name}_IUR (
+#set ($procedureName=$sqlUtils.getCompiliantName($database, "${table.name}_IUR"))
+CREATE OR REPLACE PROCEDURE ${procedureName} (
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
 #set($columnSQLTypeFormat=$sqlUtils.getDbSqlTypeFormat($column, $database.type))
@@ -18,6 +19,7 @@ SELECT count(*) INTO cpt FROM ${table.name} WHERE
 #putColumnParamNaming()
        #if($velocityCount>1) AND #else #end$column.name = $columnVar
 #end
+       ;
 if cpt = 0 then
    insert into $table.name (
 #foreach($column in ${table.columns})
@@ -28,7 +30,7 @@ if cpt = 0 then
     values (
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
-       #if($velocityCount>1),#else #end$column.name
+       #if($velocityCount>1),#else #end$columnVar
 #end
     );
 else
@@ -43,6 +45,8 @@ else
 #putColumnParamNaming()
          #if($velocityCount>1) AND #else #end$column.name = $columnVar
 #end
+     ;
 end if;
 END;
+/
 #end

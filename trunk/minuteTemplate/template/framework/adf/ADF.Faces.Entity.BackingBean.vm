@@ -322,12 +322,6 @@ public class $className extends $adapterBackingBeanADFFacesClassName{
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
     public List<SelectItem> get${localColumnClass}List() {
         return lookupBean.get${linkedTableClass}List();
-#*        List<SelectItem> list = new ArrayList<SelectItem>();
-        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
-            list.add(new SelectItem(element.get$columnClass(),element.get$columnClass()));
-        }
-        return list;
-*#
     }
 #end
 #end
