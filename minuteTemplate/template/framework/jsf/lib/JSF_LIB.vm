@@ -33,7 +33,7 @@
 #end
 #macro (putJSFParentColumnSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
-<h:selectOneMenu id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()">
+<h:selectOneMenu id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_}" required="$column.isRequired()">
 #if(!$column.isRequired())
     <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
