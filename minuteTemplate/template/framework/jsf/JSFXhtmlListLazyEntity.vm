@@ -115,7 +115,7 @@
 #set ($column=$localColumn)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet2()
+#putJSFParentColumnSnippet()
 #end    
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  

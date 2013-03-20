@@ -30,6 +30,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 #if($isSpringBackend)
@@ -46,8 +47,9 @@ import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
-import $modelJSFUtilsImport;
+import $lookupBeanImport;
 import $SpringServiceInterfaceImport;
+import $modelJSFUtilsImport;
 
 #elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
@@ -81,6 +83,10 @@ public class ${className} {
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
     ${EJBDaoImplClass} $EJBDaoImplVariable;
 	private LazyDataModel<$tableClassName> lazyModel;
+		
+	@ManagedProperty("#{${lookupBeanVar}}")
+    ${lookupBeanClass} ${lookupBeanVar};	
+	
 #elseif($isEJBBackend)
 	@Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
@@ -233,6 +239,23 @@ public class ${className} {
 			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
         }
     }
+	
+#foreach ($reference in $table.parents)
+#set($foreignTable=$reference.foreignTable)
+##if ($tableUtils.isAdminContentType($foreignTable))
+#putReferenceParams2()
+#set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
+    public List<SelectItem> get${localColumnClass}List() {
+        return ${lookupBeanVar}.get${linkedTableClass}List();
+#*        List<SelectItem> list = new ArrayList<SelectItem>();
+        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
+            list.add(new SelectItem(element.get$columnClass(),element.get$columnClass()));
+        }
+        return list;
+*#
+    }
+##end
+#end
 #end
 
 #if ($hasSemanticReference)
@@ -279,6 +302,7 @@ public class ${className} {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
+#putGetterSetter ($lookupBeanClass $lookupBeanVar)
 
 $!updatedAreaImplementation
 }

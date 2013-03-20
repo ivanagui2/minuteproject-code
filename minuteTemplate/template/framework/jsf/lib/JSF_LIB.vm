@@ -14,6 +14,11 @@
 #end
 #macro (putJSFColumnSnippet2)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
+##if($columnUtils.hasCheckConstraint($column))
+##<h:selectOneMenu id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()">
+##	<f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${id}Items"/>
+##</h:selectOneMenu>
+##else
 #if($columnUtils.isTimeColumn($column))
     <p:calendar value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}"
        id="lbl${columnClass}" ##converter="dateTsConverter"
@@ -26,7 +31,16 @@
 	<p:message for="lbl${columnClass}"/>
 #end
 #end
-
+#macro (putJSFParentColumnSnippet)
+<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
+<h:selectOneMenu id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()">
+#if(!$column.isRequired())
+    <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
+#end
+	<f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${columnVar}Items"/>
+</h:selectOneMenu>
+<p:message for="lbl${columnClass}" />
+#end
 #macro(exposeSeparator)
 #exposeJSFTemplate()
 #set($separator=$i18nUtils.getSeparator($template, $templateModelI18nJSF))
@@ -69,6 +83,10 @@
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
 #set ($controllerBeanMenuPackageName=$commonUtils.getPackageName($model, $template, $templateModelBeanManagerMenuJSF))
+#set ($lookupBeanImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateLookupBean))
+#set ($lookupBeanClass=$commonUtils.getTemplateClassName($model, $template, $templateLookupBean))
+#set ($lookupBeanVar=$commonUtils.getJavaNameVariableFirstLetter($lookupBeanClass))
+#set ($lookupPackageName=$commonUtils.getPackageName($model, $template, $templateLookupBean))
 #end
 
 #macro (exposeJSFAppFwkSpecific)
@@ -91,6 +109,7 @@
 #set ($templateJSFFwkDateTsConverter = "JSFFwkDateTsConverter")
 #set ($templateModelJSFUtils = "JSFUtils")
 #set ($templateChartJSF = "JSFXhtmlChart")
+#set ($templateLookupBean = "JSF.Spring.Lookup.Service")
 #end
 
 #macro(exposeJSFConfig)
