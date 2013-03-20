@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific()
 #set($thisClassName=$className)
+#set($thisDomainVariableName=$classVariable)
 package $packageName;
 
 import java.util.HashMap;
@@ -7,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Date;
 import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.faces.model.SelectItem;
 
@@ -21,15 +26,16 @@ import javax.faces.bean.ManagedProperty;
 import $beanSpringServiceImport;
 #end
 #end
-@ManagedBean (name="${classVariable}")
-@ApplicationScoped
+@Service ("${thisDomainVariableName}")
+##@ApplicationScoped
 public class $thisClassName {
 
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
 #exposeSpringServiceBindingSpecific()
 #if(!$isMany2Many)
-    @ManagedProperty("#{${beanSpringServiceVariable}}")
+    @Autowired 
+	@Qualifier("${beanSpringServiceVariable}")
     private $beanSpringServiceClass $beanSpringServiceVariable;
 #end
 #end
