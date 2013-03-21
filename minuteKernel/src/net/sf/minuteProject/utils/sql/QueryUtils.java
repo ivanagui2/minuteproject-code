@@ -50,7 +50,12 @@ public class QueryUtils {
 			Database database) throws SQLException {
 		PreparedStatement prest = connection.prepareStatement(query);
 		ResultSet rs = prest.executeQuery();
-		return getQueryParams(rs.getMetaData());
+		try {
+			return getQueryParams(rs.getMetaData());
+		} catch (SQLException e) {
+			//TODO log error 
+			return new QueryParams();
+		}
 	}
 
 	private static QueryParams getQueryParams(ResultSetMetaData metaData) throws SQLException {
@@ -195,6 +200,8 @@ public class QueryUtils {
 	}
 
 	public static Column getOutputBeanValue(Query query) {
+		if (query.getOutputBean().getColumns().length==0)
+			return null;
 		return query.getOutputBean().getColumn(query.getOutputBean().getColumnCount()-1);
 	}
 }
