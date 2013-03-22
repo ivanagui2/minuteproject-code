@@ -197,6 +197,15 @@ public class ${className} {
     public void createOrUpdateListener(ActionEvent event) {
     	try {
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#*#foreach ($column in ${table.columns})
+#putColumnParamNaming()	
+#if($isForeignKey )
+	        if (selected${tableClassName}.get${columnClass}_()!=null) {
+               selected${tableClassName}.set${columnClass}_(selected${tableClassName}.get${columnClass}_());
+			}
+#end
+#end
+*#
 	    	if (selected${tableClassName}.get$primaryKeyJavaNameClass() == null) {
 	    		${EJBDaoImplVariable}.create(selected${tableClassName});
 	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityCreated"));
