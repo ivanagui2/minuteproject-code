@@ -25,16 +25,16 @@
 				widgetVar="panel">
 				<p:messages id="messages" />
 				<h:panelGrid columns="3" cellpadding="10">
-#set($tableClassName=$sddOutputBeanClass)
+##set($tableClassName=$sddInputBeanClass)
 #foreach($column in $inputBean.columns)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet2()
+#putJSFColumnSnippet($tableVariableName $tableVariableName)
 #end
                 <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanel,display"
                     action="#{${entityControllerJSFVariable}.execute}" />
-				</h:panelGrid>
-			</p:panel>
+                </h:panelGrid>
+            </p:panel>
             <p:panel id="display" header="Information" style="margin-top:10px;">
             <p:dataTable var="${sddOutputBeanVariable}" value="#{${entityControllerJSFVariable}.getOutputList()}" paginator="true" rows="10"  
                         selection="#{${entityControllerJSFVariable}.selected${sddOutputBeanClass}}" 

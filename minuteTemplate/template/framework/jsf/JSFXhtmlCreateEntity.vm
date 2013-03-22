@@ -21,7 +21,7 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$isMany2Many && $isPkUserProvided)
-#putJSFColumnSnippet()
+#putJSFColumnSnippet($tableVariableName $tableVariableName)
 ##$columnVar =  $column.alias
 #end
 #end
@@ -29,7 +29,7 @@
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet()
+#putJSFColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
@@ -37,7 +37,7 @@
 #set ($column=$localColumn)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet()
+#putJSFColumnSnippet($tableVariableName $tableVariableName)
 #end					
 					<p:commandButton title="#{i18n.save}" value="#{i18n.save}" update="createPnl"
 						action="#{${entityControllerJSFVariable}.create}" />
