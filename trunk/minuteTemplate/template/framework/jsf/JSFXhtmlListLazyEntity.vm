@@ -17,7 +17,7 @@
 <ui:define name="body">
 		
  <h:form id="form${tableClassName}"> 
-   <p:growl id="growl" showDetail="true"/>
+##   <p:growl id="growl" showDetail="true"/>
      <h:panelGroup id="dataPanel">  
         <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}" 
             id="${domainVariableName}Table" 

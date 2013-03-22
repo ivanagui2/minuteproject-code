@@ -45,7 +45,7 @@
 #foreach($column in $inputBean.columns)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFColumnSnippet()
+#putJSFColumnSnippet($tableVariableName $tableVariableName)
 #end
                 <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanelChart,chart"
                     action="#{${entityControllerJSFVariable}.${method}()}" />
