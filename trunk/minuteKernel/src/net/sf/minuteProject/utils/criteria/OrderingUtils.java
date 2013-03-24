@@ -22,7 +22,7 @@ public class OrderingUtils {
 		//otherwise
 		//2 get semantic reference first column
 		Ordering ordering = new Ordering();
-		ordering.setOrder(Order.DESC);
+		ordering.setOrder(Order.ASC);
 		List<Column> sr = TableUtils.getSemanticReferenceColumns(table);
 		if (sr.size()>0) {
 			ordering.setColumn(sr.get(0));
