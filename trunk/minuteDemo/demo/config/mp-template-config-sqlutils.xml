@@ -46,7 +46,23 @@
 			file-extension="sql" file-prefix="" file-suffix="-historisation-tables-views-and-triggers" 
 			model-specific="true">
 		</template>
-								
+
+		<template name="SQL.CreateOrUpdateRowProceduresDefinitions" templateFileName="SQL.CreateOrUpdateRowProceduresDefinitions.vm" 
+			add-model-name="true" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="sql" file-prefix="" file-suffix="-create-or-update-row-procedure" 
+			model-specific="true">
+		</template>
+
+		<template name="SQL.CreateOrUpdateRowProceduresClientSample" templateFileName="SQL.CreateOrUpdateRowProceduresClientSample.vm" 
+			add-model-name="true" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="sql" file-prefix="" file-suffix="-create-or-update-row-procedure-client" 
+			model-specific="true">
+		</template>
+
 	</template-target>	
 
 </target>

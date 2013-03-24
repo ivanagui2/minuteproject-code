@@ -16,12 +16,6 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		outputdir="ViewController"
 		belongToPackage="true">
 			 <property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation"></property>
-<!-- 		<template name="ADF.Faces.SDOWsControllerDef" templateFileName="ADF.Faces.SDOWsControllerDef.vm" 
-			subdir="" outputsubdir="adfmsrc" technicalPackage="datacontrol"
-			file-extension="xml" file-prefix="" file-suffix="SdoWsDc" 
-			model-specific="true" has-updatable-nature="true" add-model-dir-name="false" 
-			add-model-name="true">
-		</template> -->
 			 
 		<template name="ADF.Faces.SDOWsControllerFace" templateFileName="ADF.Faces.SDOWsControllerFace.vm" 
 			subdir="" outputsubdir="src" technicalPackage="datacontrol"
@@ -113,7 +107,20 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>
 
 	</template-target>
-	
+
+  	<template-target 
+    	name="ADF lookup managed bean"
+		outputdir="ViewController/src"
+		belongToPackage="true">
+			<template name="ADF.Faces.Entity.Lookup.BackingBean" templateFileName="ADF.Faces.Entity.Lookup.BackingBean.vm" 
+		    technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="LookupDefaultingBean"
+			has-updatable-nature="true" 
+			scope-specific-value="model"
+			>
+		</template>	
+	</template-target>
+
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
@@ -125,7 +132,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
-			>			
+			>
 		</template>	
 		
 		<template name="ADF.Faces.Entity.BackingBean" templateFileName="ADF.Faces.Entity.BackingBean.vm" 
@@ -134,7 +141,7 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			has-updatable-nature="true" 
 			scope-specific-value="entity"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many"
-			>			
+			>
 		</template>	
 		
 		<template name="ADF.Faces.Entity.ViewEditBean" templateFileName="ADF.Faces.Entity.ViewEditBean.vm" 
@@ -207,6 +214,16 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			>			
 		</template>	
 		
+		<!-- jsff -->
+<!-- 		<template name="ADF.Faces.Entity.Collection.jsff" templateFileName="ADF.Faces.Entity.Collection.jsff.vm" 
+			subdir="" outputsubdir="" technicalPackage="pages" add-entity-dir-name="true" 
+			file-extension="jsff" file-prefix="list" file-suffix="" 
+			has-updatable-nature="true" add-model-dir-name="false"
+			scope-specific-value="entity"
+			>			
+		</template>	 -->
+		
+		<!-- flow -->
 		<template name="ADF.Faces.viewEditEntity-flow.xml" templateFileName="ADF.Faces.viewEditEntity-flow.xml.vm" 
 			subdir="" outputsubdir="WEB-INF/taskflows" technicalPackage="flows"
 			file-extension="xml" file-prefix="viewEdit" file-suffix="-flow" 
@@ -340,7 +357,33 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 		</template>
 		
 	</template-target>
-	
+
+	<template-target 
+    	name="ADF Model META-INF SDD"
+		libdir="lib/ADF_LIB.vm"
+		outputdir="ViewController/adfmsrc"
+		belongToPackage="true">
+		<!-- sdd javabean -->
+		<template name="ADF.Faces.SDD.InputBean.xml" templateFileName="ADF.Faces.SDD.JavaBean.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.in"
+			file-extension="xml" file-prefix="" file-suffix="In" has-updatable-nature="true"
+			scope-specific-value="sdd-input-bean" >
+		</template>	
+
+		<template name="ADF.Faces.SDD.OutputBean.xml" templateFileName="ADF.Faces.SDD.JavaBean.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="xml" file-prefix="" file-suffix="Out" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" >
+		</template>	
+
+		<template name="ADF.Faces.SDD.OutputBeanCollection.xml" templateFileName="ADF.Faces.SDD.OutputBeanCollection.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="xml" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" >
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>
+	</template-target>
+
 	<template-target 
     	name="ADF Model META-INF"
 		libdir="lib/ADF_LIB.vm"
@@ -622,6 +665,16 @@ xs:schemaLocation="../config/mp-template-config.xsd">
 			scope-specific-value="application"
 			>		
 			<property name="build-target-type" value="deliver"></property>	
+		</template>
+		
+		<template name="ADF.Build.command.cmd" templateFileName="ADF.Build.command.cmd.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="bat" file-prefix="" file-suffix="-deliver-first-setup" 
+			has-updatable-nature="true" add-package-name-dir="false"
+			scope-specific-value="application"
+			>		
+			<property name="build-target-type" value="deliver"></property>	
+			<property name="is-first-setup" value="true"></property>	
 		</template>	
 		
 		<template name="ADF.Build.deploy-to-ear.ojdeploy" templateFileName="ADF.Build.deploy-to-ear.ojdeploy.vm" 
