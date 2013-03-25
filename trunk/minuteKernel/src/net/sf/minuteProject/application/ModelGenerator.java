@@ -183,7 +183,7 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	private boolean hasPostGenerationAction(Targets targets) {
-		return targets.getPostGenerationAction()!=null;
+		return targets!=null && targets.getPostGenerationAction()!=null;
 	}
 
 	public Model getEnrichedModel (Configuration configuration) {
