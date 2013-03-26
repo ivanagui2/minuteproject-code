@@ -107,11 +107,7 @@ public class FileUtils {
 		}
 		return resolvePath(rootPath, filename);
 	}
-
-	private static String getMinuteProjectHome() {
-		return System.getenv("MP_HOME");
-	}
-
+	
 	public static String stripFileName(String filename) {
 		// return getAbsolutePathFromPath(filename);
 		filename = StringUtils.replace(filename, "\\", "/");
@@ -120,10 +116,10 @@ public class FileUtils {
 		return StringUtils.substring(filename, 0, i);
 	}
 
-	public static String stripRelativePath(String filename) {
-		int i = StringUtils.lastIndexOf(filename, "\\");
-		return StringUtils.substring(filename, i);
-	}
+//	public static String stripRelativePath(String filename) {
+//		int i = StringUtils.lastIndexOf(filename, "\\");
+//		return StringUtils.substring(filename, i);
+//	}
 
 	public static String resolvePath(String root, String relativePath) {
 		return root + "/" + relativePath;
