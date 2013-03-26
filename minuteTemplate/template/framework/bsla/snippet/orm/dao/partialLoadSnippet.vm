@@ -102,6 +102,7 @@
 ##    	return 0L;
 ##    }
 ##		  	
+#*
     public Long count($tableClassName whereEqCriteria) {
         Query query = getEntityManager().createQuery(getSelectCountPrototype(whereEqCriteria));
         List<Long> list = query.getResultList();
@@ -110,7 +111,7 @@
     	}
     	return 0L;
     }
-		
+*#	
     protected String getSelectCountPrototype ($tableClassName whereEqCriteria) {
         StringBuffer query = new StringBuffer();
         StringBuffer queryWhere = new StringBuffer();

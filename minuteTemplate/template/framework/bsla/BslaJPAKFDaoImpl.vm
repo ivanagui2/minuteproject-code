@@ -34,6 +34,12 @@ import net.sf.minuteProject.architecture.filter.data.Criterion;
 import net.sf.minuteProject.architecture.filter.data.InCriterion;
 import net.sf.minuteProject.architecture.filter.data.OrderCriteria;
 import net.sf.minuteProject.architecture.utils.BeanUtils;
+
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+
 import $importDaoInterfaceExtendedUML;
 import $importDomainObjectUML;
 import $importJPAImplName;
@@ -178,7 +184,16 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #parse("./snippet/orm/dao/referAssignAffectSnippet.vm") 
 	
 #parse("./snippet/orm/dao/partialLoadSnippet.vm")    
-		
+
+    public Long count($tableClassName whereEqCriteria) {
+        Query query = getEntityManager().createQuery(getSelectCountPrototype(whereEqCriteria));
+        List<Long> list = query.getResultList();
+    	if (!list.isEmpty()) {
+            return list.get(0);
+    	}
+    	return 0L;
+    }
+	
    public $tableClassName getFirst${tableClassName}WhereConditionsAre ($tableClassName $tableVariableName) {
       List<$tableClassName> list = partialLoadWithParent$tableClassName(getDefault${tableClassName}What(), $tableVariableName, null, 1, false);
       if (list.isEmpty()) {
@@ -707,5 +722,22 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 ##    }
 ##    
 #end  
-    
+
+    /**
+     * return a list of $tableClassName entities 
+     */
+    public List<$tableClassName> getList () {
+        throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
+
+    }
+    /**
+     * return a list of $tableClassName entities and sort
+     */
+    public List<$tableClassName> getList ($tableClassName orderMask, QuerySortOrder sortOrder) {
+        throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
+    }
+	
+    public void find (QueryData<${tableClassName}> data) {
+        throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
+    }
 }
