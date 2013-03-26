@@ -64,6 +64,23 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
             <statement-model>
                 <queries>
+                     <query name="get address abstract" id="dashAddress" type="dashboard" category="pie-chart">
+                         <query-body> <!-- dimensions column first -->
+                         <value>
+<![CDATA[select top ? city, count(*) as nb from address group by city order by count(*) desc]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="top city" is-mandatory="false" type="INT" sample="37" default="10"></query-param>
+                         </query-params>
+                     </query>
+                     <query name="get address summary" id="dashCity" type="dashboard" category="bar-chart">
+                         <query-body> <!-- dimensions column first -->
+                         <value>
+<![CDATA[select city, count(*) as nb, count(*) as nb2 from address group by city order by count(*) desc]]>
+                            </value>
+                         </query-body>
+                     </query>
                      <query name="get addresses by criteria" id="c">
                          <query-body><value>
 <![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
@@ -89,7 +106,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-querydsl" value="2.1.2"></property>               
                <property name="add-jpa2-implementation" value="hibernate"></property>
                <property name="add-cache-implementation" value="ehcache"></property>
-               <property name="add-domain-specific-method" value="true"></property>		   			   
+               <property name="add-domain-specific-method" value="true"></property>
+               <property name="relationship-persistence" value="field"></property>
 			</target>
 
             <target refname="SDD-beans" 
