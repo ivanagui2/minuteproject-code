@@ -14,7 +14,7 @@ public class QueryUtilsTest extends TestCase{
 	public static final String query1Jdbc = "SELECT A, B from T where C = ? and D = ?";
 	public static final String query1Full = "SELECT A, B from T where C = 1 and D = 'test'";
 	public static final String query1SampleParam1 = "1";
-	public static final String query1SampleParam2 = "test";
+	public static final String query1SampleParam2 = "'test'";
 	public static final String query1Param1Type = "int";
 	public static final String query1Param2Type = "string";
 	

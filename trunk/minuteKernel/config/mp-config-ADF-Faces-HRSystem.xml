@@ -12,15 +12,8 @@
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
 			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
 			    </fileSource>
-			    
-				<dataSource>
-					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
-					<url>jdbc:oracle:thin:@sgdbd01.sg.cec.eu.int:1521:sgdbd01</url>
-					<username>secunda_dev</username>
-					<password>secunda_dev</password>
-				</dataSource>
-				<schema>secunda_dev</schema>
-                 <!--        
+
+                 <!--        -->
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
 					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
@@ -28,7 +21,7 @@
 					<password>oracle</password>	
 				</dataSource>
 				<schema>HR</schema>
- -->
+ 
 <!-- 				<primaryKeyPolicy oneGlobal="true">
 					<primaryKeyPolicyPattern name="uuid" ></primaryKeyPolicyPattern>
 				</primaryKeyPolicy>  -->
@@ -164,7 +157,7 @@
                <property name="relationship-persistence" value="field"></property>
 			</target>
 
-
+<!-- 
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF-Spring.xml" 
@@ -175,7 +168,7 @@
 			   <property name="web-xml-version" value="3.0"></property>		   			   	   			   
 			</target> 
 
-
+ -->
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
