@@ -15,7 +15,14 @@ import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
 import $importDaoInterfaceUML;
 import $importDomainObjectUML;
 #foreach ($reference in $table.parents)
@@ -473,4 +480,13 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {
 	   ${tableVariableName}.set${localColumnClass}Object (($linkedTableClass)null);
 #end       
     }
+	
+    public List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
+	}
+	
+    
+    public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) {
+        throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
+	}
 }
