@@ -95,6 +95,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   fileName="mp-template-config-documentation.xml" 
 			   outputdir-root="../output/WS-JEE/petshop"
 			   templatedir-root="../../template/template">
+			</target>
+			<target refname="COMMON_LIB" 
+			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   templatedir-root="../../template/framework/common">
 			</target>	
 		</targets>
 	</configuration>

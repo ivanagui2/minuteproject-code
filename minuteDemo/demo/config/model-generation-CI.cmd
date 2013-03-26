@@ -1,6 +1,6 @@
 @echo off
 @rem set JAVA_HOME=..
-set CP_ROOT=minuteproject\minuteDemo\demo\config
+set CP_ROOT=%1
 set LOCALCLASSPATH=
 for %%i in ("%CP_ROOT%\..\..\application\lib\minuteKernel*.jar") do call lcp %%i
 for %%i in ("%CP_ROOT%\..\..\application\lib\*.jar") do call lcp %%i
@@ -10,4 +10,4 @@ set LOCALCLASSPATH=%LOCALCLASSPATH%;config\
 echo %LOCALCLASSPATH%
 set CP=-cp %LOCALCLASSPATH%
 
-"%JAVA_HOME%\bin\java" %CP% net.sf.minuteProject.application.ModelViewGenerator %1
+"%JAVA_HOME%\bin\java" %CP% net.sf.minuteProject.application.ModelViewGenerator %2

@@ -25,3 +25,10 @@ cd ..\MvnSpringJPA
 call mvn clean package
 cd ..\JSF-Spring
 call mvn clean package
+
+cd ..\REST-JEE\petshop
+call mvn clean package
+cd ..\..\JSF\petshop
+call mvn clean package
+cd ..\..\WS-JEE\petshop
+call mvn clean package
