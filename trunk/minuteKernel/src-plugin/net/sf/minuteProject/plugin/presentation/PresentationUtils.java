@@ -186,4 +186,17 @@ public class PresentationUtils {
 		}
 		return ref;
 	}
+	
+	//used by OX
+	public static List<Column> getDisplayableAttributes(Table table) {
+		List<Column> columns = new ArrayList<Column>();
+		for (Column column : table.getColumns()) {
+			if (column.isPrimaryKey() && ColumnUtils.isPkUserProvided(column))
+				columns.add(column);
+			else if (!column.isLob()) {
+				columns.add(column);
+			}
+		}
+		return columns;
+	}
 }
