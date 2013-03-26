@@ -121,23 +121,25 @@ public class OpenXavaUtils {
 	public static List<String> getListProperties (Table table) {
 		List<String> list = new ArrayList<String>();
 		SemanticReference sr = table.getSemanticReference();
-		for (String chunk : sr.getSemanticReferenceBeanPath()) {
-			Column column = ColumnUtils.getColumn(table, chunk);
-			String colPar = FormatUtils.getJavaNameVariable(column.getAlias());
-			if (ColumnUtils.isForeignKey(column)) {
-				Reference reference = ReferenceUtils.getReference(table, column.getName());
-				Table parent = reference.getForeignTable();
-				SemanticReference srParent = parent.getSemanticReference();
-				
-				for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
-					Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
-					if (!ColumnUtils.isForeignKey(columnParent)) {
-						String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
-						list.add(colPar+"."+parCol);
+		if (sr!=null) {
+			for (String chunk : sr.getSemanticReferenceBeanPath()) {
+				Column column = ColumnUtils.getColumn(table, chunk);
+				String colPar = FormatUtils.getJavaNameVariable(column.getAlias());
+				if (ColumnUtils.isForeignKey(column)) {
+					Reference reference = ReferenceUtils.getReference(table, column.getName());
+					Table parent = reference.getForeignTable();
+					SemanticReference srParent = parent.getSemanticReference();
+					
+					for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
+						Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
+						if (!ColumnUtils.isForeignKey(columnParent)) {
+							String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
+							list.add(colPar+"."+parCol);
+						}
 					}
-				}
-			} else
-				list.add(colPar);
+				} else
+					list.add(colPar);
+			}
 		}
 		return list;
 //		return getSemanticRefProperties(table);

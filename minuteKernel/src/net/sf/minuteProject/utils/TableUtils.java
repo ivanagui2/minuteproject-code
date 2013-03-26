@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.plugin.presentation.PresentationUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -298,7 +299,7 @@ public class TableUtils {
 	public static boolean hasSemanticReference(Table table) {
 		SemanticReference semanticReference = table.getSemanticReference();
 		if (semanticReference != null) {
-			if (!semanticReference.getSemanticReferenceBeanPath().isEmpty())
+			if (!semanticReference.getSemanticReferenceSqlPath().isEmpty())
 				return true;
 		}
 		return false;
@@ -388,6 +389,10 @@ public class TableUtils {
 		return parentsOrder;
 	}
 
+	public static List<List<Column>> extractFieldGroup(List<Column> columns,
+					Table table) {
+		return extractFieldGroup (columns.toArray(new Column[columns.size()]), table);
+	}
 	public static List<List<Column>> extractFieldGroup(Column[] columns,
 			Table table) {
 		List<List<Column>> tableFg = table.getFieldGroupsList();
@@ -421,16 +426,13 @@ public class TableUtils {
 		return false;
 	}
 
-	public static Column[] getDisplayableAttributes(Table table) {
+	public static List<Column> getDisplayableAttributes(Table table) {
 		List<Column> columns = new ArrayList<Column>();
-		for (Column column : table.getColumns()) {
-			if (column.isPrimaryKey() && ColumnUtils.isPkUserProvided(column))
+		for (Column column : PresentationUtils.getDisplayableAttributes(table)) {
+			if (!ColumnUtils.isForeignKey(column))
 				columns.add(column);
-			else if (!column.isLob() && !ColumnUtils.isForeignKey(column)) {
-				columns.add(column);
-			}
 		}
-		return (Column[]) columns.toArray(new Column[columns.size()]);
+		return columns;
 	}
 
 	public static boolean hasChild(Table table, String targetTableName) {
