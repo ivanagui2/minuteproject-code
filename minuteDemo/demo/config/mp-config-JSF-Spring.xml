@@ -95,7 +95,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                      </query>
                 </queries>
             </statement-model>
-		</model>	
+		</model>
 		<targets>
 
 			<target refname="JPA2" 
