@@ -79,8 +79,8 @@
 			   name="ADF FACES"
 			   fileName="mp-template-config-ADF-Faces.xml" 
 			   outputdir-root="ADF-FACES"
-			   templatedir-root="../../minuteTemplate/template/framework/adf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  
+			   templatedir-root="../../template/framework/adf"
+			   templatedir-ref="../../template/framework/i18n">  
 			   
 			   <!-- 
 			   <property name="WEBLOGIC_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>		   
@@ -113,10 +113,8 @@
 			   <property name="backend-lib" value="C:/DEV//work/svn2/Generator/MP4ADF-dependency/target/lib"/>
  -->
 			   <property name="mp4adf-src" value="%MP_HOME%/target/mp4adf/src"/>
-			   			   		
 			   <property name="activate-entity-criteria" value="true"/>
 			   <property name="adf-faces-backend-binding" value="spring"/>
-			   
 			   <property name="display-hide-auditing-field" value="true"/>
 
 			</target>  
@@ -126,17 +124,14 @@
 			   name="SpringService" 
 			   fileName="mp-template-config-SpringService.xml" 
 			   outputdir-root="ADF-FACES/model-maven/bsla"
-			   templatedir-root="../../minuteTemplate/template/framework/spring">
-				<property name="passivate-based-on-toggle-field" value="true">
-					<property name="active" value="N"></property>
-				</property>
+			   templatedir-root="../../template/framework/spring">
 			</target> 
 			
 			<target refname="BackendOnBsla" 
 			   name="default" 
 			   fileName="mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="ADF-FACES/model-maven/bsla"
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			   templatedir-root="../../template/framework/bsla">
 				<property name="add-cache-implementation" value="ehcache"></property>
 			</target> 
 			
@@ -145,7 +140,7 @@
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="ADF-FACES/model-maven/jpa2"
-			   templatedir-root="../../minuteTemplate/template/framework/jpa">
+			   templatedir-root="../../template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>               
                <property name="add-jpa2-implementation" value="hibernate"></property>
                <property name="add-cache-implementation" value="ehcache"></property>
@@ -160,8 +155,8 @@
 			   name="JSF" 
 			   fileName="mp-template-config-JSF-Spring.xml" 
 			   outputdir-root="ADF-FACES/model-maven/JSF"
-			   templatedir-root="../../minuteTemplate/template/framework/jsf"
-			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
+			   templatedir-root="../../template/framework/jsf"
+			   templatedir-ref="../../template/framework/i18n,../../template/framework/ejb">
 			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   	   			   
 			   <property name="web-xml-version" value="3.0"></property>		   			   	   			   
 			</target> 
@@ -171,31 +166,31 @@
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
 			   outputdir-root="ADF-FACES/model-maven"
-			   templatedir-root="../../minuteTemplate/template/framework/maven">
+			   templatedir-root="../../template/framework/maven">
 			</target> 
 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			   templatedir-root="../../template/framework/bsla">
 			</target>
 			<target refname="CACHE-LIB" 
 			   fileName="mp-template-config-CACHE-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/cache">
+			   templatedir-root="../../template/framework/cache">
 			</target>
 			<target refname="SPRING-LIB" 
 			   fileName="mp-template-config-SPRING-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/spring">
+			   templatedir-root="../../template/framework/spring">
 			</target>
 			<target refname="COMMON-LIB" 
 			   fileName="mp-template-config-COMMON-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/common">
+			   templatedir-root="../../template/framework/common">
 			</target>
 
 			<target refname="SDO" 
 			   name="SDO" 
 			   outputdir-root="ADF-SDO"
 			   fileName="mp-template-config-ADF-SDO.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/adf">  	
+			   templatedir-root="../../template/framework/adf">  	
                <property name="WEBLOGIC_HOME" value="C:/SOFT/IDE/Oracle/Middleware"></property>        
                <property name="WLS_HOME" value="C:/SOFT/IDE/Oracle/Middleware/wlserver_10.3"></property>           
                <property name="JDEV_HOME" value="C:/SOFT/IDE/Oracle/Middleware/jdeveloper"></property>         
@@ -214,7 +209,7 @@
 			   name="Selenium" 
 			   outputdir-root="ADF-TEST"
 			   fileName="mp-template-config-selenium.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/selenium">  
+			   templatedir-root="../../template/framework/selenium">  
 			   <property name="target-techno" value="adf"></property>			   
 			   <property name="target-techno-type" value="front-end"></property>	
 			   <property name="wls-hostname" value="localhost"></property>		   
@@ -223,11 +218,11 @@
 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+			   templatedir-root="../../template/framework/bsla">
 			</target>
 			<target refname="COMMON-LIB" 
 			   fileName="mp-template-config-COMMON-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/common">
+			   templatedir-root="../../template/framework/common">
 			</target>
 						
 		</targets>
