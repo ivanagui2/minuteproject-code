@@ -50,7 +50,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
-					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
+					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">
 					</entity>				    
 					<entity name="ITEM" alias="MY_GOOD_ITEM" comment="my item table">
 						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" comment="my product field reference"></field>					
@@ -58,9 +58,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
 					     <sql-path path="NAME"/>
-					   </semantic-reference>					
+					   </semantic-reference>
 					</entity>
-				</enrichment>					
+				</enrichment>
 			</business-model>
             <statement-model>
                 <queries>
