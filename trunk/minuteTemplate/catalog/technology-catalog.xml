@@ -23,7 +23,7 @@
 
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
-			default-outputdir="REST-JEE" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster"
+			default-outputdir="REST-JEE" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster,COMMON_LIB"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
@@ -101,7 +101,7 @@
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="2.2"></framework>
+				<framework name="primefaces" version="3.5"></framework>
 				<framework name="JSF" version="2"></framework>
 			</frameworks>
 		</technology>
@@ -190,10 +190,10 @@
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			default-outputdir="openxava" template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE-LIB" status="released" comment=""
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE-LIB,COMMON_LIB" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
-				<framework name="OpenXava" version="4.2.3"></framework>
+				<framework name="OpenXava" version="4.6.1"></framework>
 			</frameworks>
 		</technology>
 
