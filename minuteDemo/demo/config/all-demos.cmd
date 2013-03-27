@@ -28,3 +28,5 @@ call demo-last-features-roo.cmd
 call demo-last-features-grails.cmd
 call demo-last-features-play.cmd
 call demo-solr.cmd
+call demo-ADF.cmd
+
