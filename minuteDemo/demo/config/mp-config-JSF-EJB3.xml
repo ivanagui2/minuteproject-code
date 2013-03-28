@@ -90,7 +90,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   outputdir-root="../output/JSF/petshop/JSF"
 			   templatedir-root="../../template/framework/jsf"
 			   templatedir-ref="../../template/framework/i18n,../../template/framework/ejb">
-			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
+			   <property name="add-jsf-implementation" value="primefaces"></property>
 			</target> 
 
 			<target refname="MavenMaster" 
