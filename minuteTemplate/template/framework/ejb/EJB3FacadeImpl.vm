@@ -49,12 +49,13 @@ public class ${className} implements $EJBFacadeRemoteInterfaceClass {
 	}
 
 #end
-#if ($hasSemanticReference)
+#*#if ($hasSemanticReference)
 	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
 		return em.find (${tableClassName}.class, $primaryKeyVariable);
 	}
 	
 #end
+*#
 	public $tableClassName create ($tableClassName $tableVariableName) {
 		return dao.create($tableVariableName);
 	}
