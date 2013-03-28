@@ -64,11 +64,18 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
-		<template name="JSFXhtmlListEntity" templateFileName="JSFXhtmlListEntity.vm" 
+		<!--  JSFXhtmlListLazyEntity is used instead of JSFXhtmlListEntity -->
+		<template name="JSFXhtmlListLazyEntity" templateFileName="JSFXhtmlListEntity.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="List" 
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
+<!-- 
+		<template name="JSFXhtmlListEntity" templateFileName="JSFXhtmlListEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="List" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template> -->
 
         <template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
             file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
