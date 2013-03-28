@@ -101,8 +101,6 @@ public class ${className} {
            cpt++;
         }
         String[] seriesLabels = seriesLabelsList.toArray(new String[seriesLabelsList.size()]);
-//        System.out.println(" seriesLabels ="+seriesLabels);
-//        System.out.println(" data ="+data);
         oracle.dss.dataView.LocalXMLDataSource ds =
             new oracle.dss.dataView.LocalXMLDataSource(columnLabels, seriesLabels, data);
         return new oracle.adf.view.faces.bi.model.GraphDataModel(ds);

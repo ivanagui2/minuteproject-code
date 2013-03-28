@@ -311,7 +311,9 @@ public class ${className} {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
+#if($isSpringBackend)
 #putGetterSetter ($lookupBeanClass $lookupBeanVar)
+#end
 
 $!updatedAreaImplementation
 }
