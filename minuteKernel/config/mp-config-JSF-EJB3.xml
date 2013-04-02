@@ -69,7 +69,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../output/JSF/petshop/JPA2"
-			   templatedir-root="../../template/framework/jpa">
+			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="environment" value="remote"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
