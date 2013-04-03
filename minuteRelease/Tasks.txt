@@ -1,15 +1,25 @@
 Release 0.8.3
 -------------
 Springdata + rest based on heuristics
+TODO
 
-Primefaces w/ pagination
+Primefaces w/ pagination:
+OK
+Example: DD list order asc
+liferay integration
+TODO
+
+ADF:
+SDO
+ADF-FACES
+Selenium
+OK
 
 jquery WS datatable:
 Gson servlet
 
 Full CRUD primefaces
 
-liferay integration
 
 sdd 3 parts
  drop down and sub select PF
@@ -21,7 +31,39 @@ Publish
 MP as a workspace
 
 Tune your JPA2 back-end
+--> add extra annotations (hibernate search)
 
+ADF
+---
+-> tuning (caching) adf-config.xml
+-> adf logger for error in separate dir
+-> adf error page
+-> adf permission denied
+-> id suppress auto in web.xml (for selenium test)
+
+Adf TODO
+--------
+- lookup fragment (passing id) + bean
+-- for subUC and DDlist
+- SDD dashboard
+
+- matrix (detect) matrix = collection with pivot column pointing towards a masterdata table
+-- pivot column (detect) = if table A is refered by table B via B.a and B contain a unique key based on 2 fk among which B.a then the other fk is the pivot column.
+    column which is
+    1) FK
+    2) belonging to a Unique constraint made of 2 columns
+    3) is part of PK
+    4) table of column contains more than 2 columns
+    
+-- pivot value order
+-- display pivot value as Read-Only
+-- optional (associate w/ icon)
+
+Oracle
+------
+-> oracle search
+-> historisation
+-> testing framework
 
 Investigate
 -----------
@@ -31,4 +73,22 @@ HTML5
 Cloud
 pf on cloudbees
 
+Think sellenium
+-> for each technology: menu, entry point for select
+-> for (ADF, OX, PF)
+-> CRUD
+-> HOW-to
+-->select count(*)
+-->create unique
+--->validation
+-->select count(*)
+-->select unique
+-->update unique
+
+--
+go home
+check menu
++ fitnesse fixture
+-->delete
+-->select count(*)
 
