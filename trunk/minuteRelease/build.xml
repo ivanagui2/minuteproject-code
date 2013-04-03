@@ -60,7 +60,6 @@
 	
 	<target name="release-minuteFoundation" depends="build-minuteFoundation, copy-install-maven-minuteFoundation, distribute-minuteFoundation"></target>
 	
-	
 	<target name="build-architecture-bsla">
 		  <ant dir="${architecture.bsla.dev.relpath}" target="distribute" >
 		  	<property name="project.name" value="${bsla}"></property>
@@ -83,6 +82,15 @@
 	</target>
 	
 	<target name="release-architecture-bsla" depends="build-architecture-bsla,copy-install-maven,copy-architecture-bsla-dependencies"></target>
+
+	<target name="build-architecture-adf">
+		  <ant dir="${architecture.adf.dev.relpath}" target="distribute" >
+		  	<property name="project.name" value="${adf}"></property>
+		  	<property name="distribute.dir" value="../../${release.del.relpath}/${target.dir}/${adf}"></property>
+		  </ant>		
+	</target>
+	
+	<target name="release-architecture-adf" depends="build-architecture-adf"></target>
 
 	<target name="build-architecture-openxava">
 		  <ant dir="${architecture.openxava.dev.relpath}" target="distribute" >
@@ -279,6 +287,7 @@
 	 <antcall target="release-console"></antcall>
 	 <antcall target="release-architecture-bsla"></antcall>
 	 <antcall target="release-architecture-openxava"></antcall>
+	 <antcall target="release-architecture-adf"></antcall>
      <antcall target="release-architecture-fitnesse"></antcall>	
 	 <antcall target="release-sample"></antcall>	
 	 <antcall target="release-demo"></antcall>		
