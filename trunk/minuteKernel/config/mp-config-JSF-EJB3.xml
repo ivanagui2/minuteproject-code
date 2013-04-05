@@ -68,7 +68,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../output/JSF/petshop/JPA2"
+			   outputdir-root="../../output/JSF/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="environment" value="remote"></property>
@@ -87,7 +87,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF.xml" 
-			   outputdir-root="../output/JSF/petshop/JSF"
+			   outputdir-root="../../output/JSF/petshop/JSF"
 			   templatedir-root="../../minuteTemplate/template/framework/jsf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n,../../minuteTemplate/template/framework/ejb">
 			   <property name="add-jsf-implementation" value="primefaces"></property>		   			   
@@ -96,7 +96,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../output/JSF/petshop"
+			   outputdir-root="../../output/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
 									
