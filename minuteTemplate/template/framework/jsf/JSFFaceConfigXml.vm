@@ -34,7 +34,7 @@
     </managed-bean>
 #end
 	<navigation-rule>
-		<from-view-id>/${entityListJSFLocation}</from-view-id>
+		<from-view-id>/${entityListLazyJSFLocation}</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/${entityCreateJSFLocation}</to-view-id>
@@ -45,7 +45,7 @@
 		<from-view-id>/${entityCreateJSFLocation}</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
-			<to-view-id>/${entityListJSFLocation}</to-view-id>
+			<to-view-id>/${entityListLazyJSFLocation}</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>	
