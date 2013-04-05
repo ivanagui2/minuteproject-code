@@ -55,7 +55,7 @@ public class ${className} {
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
         MenuItem item${domainClassName} = new MenuItem();  
         item${domainClassName}.setValue("$tableLabel");  
-        item${domainClassName}.setUrl("/${entityListLazyJSFLocation}");  //$entityListJSFLocation
+        item${domainClassName}.setUrl("/${entityListLazyJSFLocation}"); 
         ${subMenuVar}.getChildren().add(item${domainClassName}); 
 		
 #end

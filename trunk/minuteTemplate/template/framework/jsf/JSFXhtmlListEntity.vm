@@ -56,7 +56,7 @@
 			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
                     update=":form${tableClassName}:display" oncomplete="${domainVariableName}Dialog.show()"/>  	
 ##			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
-            <h:button value="New #{i18n.$tableVariableName}" outcome="${entityCreateJSFLocation}" class="Automatic reply: ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
+            <h:button value="New #{i18n.$tableVariableName}" outcome="/${entityCreateJSFLocation}" class="Automatic reply: ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
             <p:commandButton title="Delete #{i18n.$tableVariableName}" value="Delete #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.delete}" />
 		</f:facet> 	
 		

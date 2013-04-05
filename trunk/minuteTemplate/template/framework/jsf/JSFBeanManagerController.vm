@@ -75,7 +75,7 @@ import $importDomainObjectUML;
 #elseif($isEJBBackend)
 @Named(value = "$entityControllerJSFVariable")
 @Default
-@ViewScoped
+@RequestScoped
 #end
 public class ${className} {
 
