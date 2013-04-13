@@ -1,6 +1,5 @@
 package net.sf.minuteProject.configuration.bean.enumeration;
 
-import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.utils.LicenceUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -48,6 +47,26 @@ public enum Extension implements FileComment {
 		}
 	},
 	xml {
+		public String lineCommentBeginning() {
+			return "<!--";
+		}
+		public String lineCommentEnding() {
+			return "-->";
+		}
+		public String textCommentBeginning() {
+			return "<!--";
+		}
+		public String textCommentMiddle() {
+			return "";
+		}
+		public String textCommentEnding() {
+			return "-->";
+		}
+		public boolean licenceAtBeginning() {
+			return false;
+		}
+	},
+	xhtml {
 		public String lineCommentBeginning() {
 			return "<!--";
 		}
