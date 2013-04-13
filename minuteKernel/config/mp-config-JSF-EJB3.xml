@@ -99,7 +99,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   outputdir-root="../../output/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
-									
+
 			<target refname="Documentation" 
 			   fileName="mp-template-config-documentation.xml" 
 			   outputdir-root="../minuteTemplate/output/JSF/petshop"
