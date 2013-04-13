@@ -115,8 +115,12 @@
 #set ($column=$localColumn)
 #putColumnParams()
 #columnJavaNaming()
-#putJSFParentColumnSnippet()
-#end    
+#if($tableUtils.isAdminContentType($table))
+#putJSFParentDropDownListSnippet()
+#else
+#putJSFParentAffectationSnippet()
+#end
+#end
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
