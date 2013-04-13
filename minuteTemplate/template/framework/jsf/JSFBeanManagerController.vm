@@ -83,7 +83,7 @@ public class ${className} {
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
     ${EJBDaoImplClass} $EJBDaoImplVariable;
 	private LazyDataModel<$tableClassName> lazyModel;
-		
+
 	@ManagedProperty("#{${lookupBeanVar}}")
     ${lookupBeanClass} ${lookupBeanVar};	
 	
@@ -151,11 +151,11 @@ public class ${className} {
 				{
     		          if (rowIndex == -1 || getPageSize() == 0)
     		          {
-    		            super.setRowIndex(-1);
+    		             super.setRowIndex(-1);
     		          }
     		          else
     		          {
-    		            super.setRowIndex(rowIndex % getPageSize());
+    		             super.setRowIndex(rowIndex % getPageSize());
     		          }
 				 }
 
@@ -229,7 +229,7 @@ public class ${className} {
 
     public void clearListener(ActionEvent event) {
     	selected${tableClassName} = new ${tableClassName}();
-    	UIViewRoot viewRoot =  FacesContext.getCurrentInstance().getViewRoot();
+    	UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
 	    UIComponent component = viewRoot.findComponent("form2");  
 	    ${modelJSFUtilsClass}.clearComponentHierarchy(component);
     }
@@ -243,7 +243,7 @@ public class ${className} {
 			else {
 			   System.out.println("no resources found");
 			}
-	    	selected${tableClassName} = new ${tableClassName}();
+	       	selected${tableClassName} = new ${tableClassName}();
         } catch (Exception e) {
 			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
         }
@@ -256,12 +256,6 @@ public class ${className} {
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
     public List<SelectItem> get${localColumnClass}List() {
         return ${lookupBeanVar}.get${linkedTableClass}List();
-#*        List<SelectItem> list = new ArrayList<SelectItem>();
-        for ($domainClassImport element : ${beanADFFacesSpringServiceVariable}.getList()) {
-            list.add(new SelectItem(element.get$columnClass(),element.get$columnClass()));
-        }
-        return list;
-*#
     }
 ##end
 #end
@@ -298,7 +292,7 @@ public class ${className} {
 	public void setSelected$tableClassName ($tableClassName $tableVariableName) {
 	    this.selected$tableClassName = $tableVariableName;
 	}		
-	
+
 	//TODO put in upperclass
     public String displayInput () {
 		return "success";
