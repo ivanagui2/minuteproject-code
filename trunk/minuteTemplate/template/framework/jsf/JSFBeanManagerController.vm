@@ -77,6 +77,11 @@ import $importDomainObjectUML;
 @Default
 @RequestScoped
 #end
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#exposeEmbeddedId($table)
+#set($deletionNotYetImplemented=true)
+#set($primaryKeyJavaNameClass = $embeddedIdClass)
+#end
 public class ${className} {
 
 #if($isSpringBackend)
@@ -237,8 +242,12 @@ public class ${className} {
     public void deleteListener(ActionEvent event) {
         try {
             if (selected${tableClassName}.get$primaryKeyJavaNameClass() != null) {
+#if(!$deletionNotYetImplemented)
                 ${EJBDaoImplVariable}.delete(selected${tableClassName});
                 JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityDeleted"));
+#else
+                JsfUtils.addSuccessMessage("deletion not implemented for composite pk, please contribute");
+#end
             }
 			else {
 			   System.out.println("no resources found");
