@@ -1,13 +1,8 @@
 package net.sf.minuteproject.adf.utils;
 
-import net.sf.minuteproject.adf.query.Criteria;
-import net.sf.minuteproject.adf.query.CriteriaExpression;
 import net.sf.minuteproject.adf.query.Pagination;
 import net.sf.minuteproject.adf.query.QueryRequest;
-
 import net.sf.minuteproject.adf.query.QueryResponse;
-import net.sf.minuteproject.adf.query.UnaryOperationCode;
-import net.sf.minuteproject.adf.query.ValueExpression;
 
 import java.math.BigInteger;
 
@@ -19,6 +14,13 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+
+import net.sf.minuteproject.adf.query.Criteria;
+
+import net.sf.minuteproject.adf.query.CriteriaExpression;
+
+import net.sf.minuteproject.adf.query.ValueExpression;
+import net.sf.minuteproject.adf.query.UnaryOperationCode;
 
 import oracle.adf.model.BindingContext;
 
