@@ -19,8 +19,6 @@
       </component>
     </af:xmlContent>
     
-    <af:resource type="css" source="/wel/template-2012/stylesheets/ec-lite.css"/>
-    <af:resource type="css" source="/wel/template-2012/stylesheets/ec-ie.css"/>
     <af:resource type="css" source="/stylesheets/customs.css"/>
     <af:resource type="css" source="/stylesheets/form.css"/>
     
@@ -39,12 +37,12 @@
             <af:panelStretchLayout topHeight="165px" id="pt_ps21"
                                    bottomHeight="25px"
                                    dimensionsFrom="children">
-              <f:facet name="top">
+              <!--<f:facet name="top">
                 <af:group>
-                  <!-- The auxiliary area for toolbar links -->
+                   The auxiliary area for toolbar links 
                   <jsp:include page="/WEB-INF/common/header.jsff"/>
                 </af:group>
-              </f:facet>
+              </f:facet>-->
               <f:facet name="center">
                 <af:group>
                     <div class="layout-wrapper">

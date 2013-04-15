@@ -4,13 +4,9 @@ import java.math.BigInteger;
 
 import java.util.Map;
 
-import net.sf.minuteproject.adf.query.Criteria;
-import net.sf.minuteproject.adf.query.CriteriaExpression;
 import net.sf.minuteproject.adf.query.Pagination;
 import net.sf.minuteproject.adf.query.QueryRequest;
 import net.sf.minuteproject.adf.query.QueryResponse;
-import net.sf.minuteproject.adf.query.UnaryOperationCode;
-import net.sf.minuteproject.adf.query.ValueExpression;
 
 import org.apache.myfaces.trinidad.event.SortEvent;
 import oracle.binding.BindingContainer;
