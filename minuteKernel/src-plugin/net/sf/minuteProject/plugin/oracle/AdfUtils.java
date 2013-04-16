@@ -80,6 +80,8 @@ public class AdfUtils {
 	public String getSDOColumnTypeBegin(Column column) {
 		if (isSDOTypeNumeric(column))
 			return "new Integer(getInt";
+		if (isSDOBigDecimal(column))
+			return "(java.math.BigDecimal)get(";
 		if (ColumnUtils.isTimeColumn(column)) 
 			return "(java.sql.Timestamp)get";
 		if (column.isLob())
@@ -99,6 +101,7 @@ public class AdfUtils {
 	
 	public String getSDOColumnTypeEnd(Column column) {
 		if (isSDOTypeNumeric(column) ||
+			isSDOBigDecimal(column) ||
 			column.isLob())
 			return ")";
 		return "";
@@ -108,6 +111,10 @@ public class AdfUtils {
 		return "INTEGER".equals(column.getType()) || 
 			"SMALLINT".equals(column.getType())	||
 			"NUMERIC".equals(column.getType());
+	}
+	
+	private boolean isSDOBigDecimal(Column column) {
+		return ConvertUtils.JAVA_BIGDECIMAL_TYPE.equals(ConvertUtils.getJavaTypeFromDBFullType(column));
 	}
 	
 	public String getSdoXsdType(Column column) {
