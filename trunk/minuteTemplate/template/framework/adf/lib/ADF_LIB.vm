@@ -133,7 +133,7 @@
 #macro (exposeSDOSpecific)
 #exposeADFSpecific()
 #set($isForWorkspace=$template.getPropertyValue("is-for-workspace",true))
-#set($namespacePackageShort = $adfUtils.getNamespacePackage($model, $template, $templateADFModelBc4j))##"eu/europa/ec/sg/nif2/model/common/")
+#set($namespacePackageShort = $adfUtils.getNamespacePackage($model, $template, $templateADFModelBc4j))
 #set($namespacePackage = "/${namespacePackageShort}/")
 #set($namespaceTypesPackage = $namespacePackage+"types/")
 #set($appModuleADFSODServiceImplImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSDOAppModuleServiceImplJava))
@@ -148,7 +148,8 @@
 #macro (exposeADFSpecific)
 #exposeADFTemplate()
 #set($AppModuleTemplate = $commonUtils.getTemplate($model.configuration, $templateADFModelAppModule))
-#set($rootPackage=$modelUtils.getPackageRoot($AppModuleTemplate)+".$model.name")
+#set($modelName="$model.name")
+#set($rootPackage=$modelUtils.getPackageRoot($AppModuleTemplate)+"$modelName")
 #set($javaPackage =  $commonUtils.getRootAndTechnicalPackageName($model, $templateADFEntity))
 #set($javaPackageView =  "${rootPackage}.view")
 #end
