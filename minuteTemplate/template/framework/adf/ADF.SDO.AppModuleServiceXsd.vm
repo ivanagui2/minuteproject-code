@@ -1,6 +1,6 @@
 #exposeVariableModelSpecific()
 #exposeSDOSpecific()
-<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="/eu/europa/ec/sg/nif2/model/common/types/"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="$namespaceTypesPackage"
      xmlns:tns="$namespaceTypesPackage" xmlns:ns0="$namespacePackage"
      xmlns:ns1="http://xmlns.oracle.com/adf/svc/types/">
 #if($isForWorkspace)
