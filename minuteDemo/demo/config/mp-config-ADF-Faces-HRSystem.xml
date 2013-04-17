@@ -75,7 +75,7 @@
 
 		</model>	
 		
-		<targets outputdir-root="c:/dev/ADF_MP_GENERATION/MP4HR" >
+		<targets outputdir-root="c:/dev/output/ADF/MP4HR" >
 
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
