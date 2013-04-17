@@ -12,7 +12,13 @@
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
 			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
 			    </fileSource>
-
+			    <dataSource>	
+					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+					<url>jdbc:oracle:thin:@devora3.cc.cec.eu.int:1579:IN1USGD</url>
+					<username>sg_secunda</username>
+					<password>Qjdheuyd_65</password>	
+				</dataSource>
+				<schema>sg_secunda</schema>
                  <!--        
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
@@ -102,13 +108,13 @@
 			   
 			   <property name="adf-faces-backend-binding" value="db-direct"/>			   
 			    -->	
-<!-- 			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
+ 			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
 			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
 			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
-		   	    -->
-			   <property name="WEBLOGIC_HOME" value="%WEBLOGIC_HOME%"></property>		   
+		   	   
+<!-- 			   <property name="WEBLOGIC_HOME" value="%WEBLOGIC_HOME%"></property>		   
 			   <property name="WLS_HOME" value="%WLS_HOME%"></property>		   
-			   <property name="JDEV_HOME" value="%JDEV_HOME%"></property>		   
+			   <property name="JDEV_HOME" value="%JDEV_HOME%"></property>		 -->   
 		   	   
 			   <property name="wls-username" value="weblogic"></property>		   
 			   <property name="wls-password" value="weblogic01"></property>		   
@@ -120,6 +126,7 @@
 			   <!-- 
 			   <property name="adf-faces-custom-framework-home" value="$MP_HOME/target/mp-adf"/>
 			    -->
+ 			   <property name="backend-lib" value="C:/DEV/ADF_MP_GENERATION/MP4HR/ADF-FACES/model-maven/JSF/target/hrsystemApp/WEB-INF/lib"/>
 <!-- 			   <property name="backend-lib" value="C:/DEV/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/lib"/>
 			   <property name="mp4adf-src" value="C:/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/fwk/src"/>
 			   			   		 -->
@@ -164,7 +171,7 @@
                <property name="relationship-persistence" value="field"></property>
 			</target>
 
-<!-- 
+ 
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF-Spring.xml" 
@@ -175,7 +182,7 @@
 			   <property name="web-xml-version" value="3.0"></property>		   			   	   			   
 			</target> 
 
- -->
+
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
