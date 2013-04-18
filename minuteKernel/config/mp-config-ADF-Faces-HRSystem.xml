@@ -79,6 +79,52 @@
 				   </conventions>
 				</enrichment>
 			</business-model>
+            <statement-model>
+                <queries>
+                     <query name="employee abstract" id="employeeabstract">
+                         <query-body> <!-- dimensions column first -->
+                         <value>
+<![CDATA[SELECT e.first_name || ' ' || e.last_name Name,
+  l.city || ', ' || c.country_name Location
+FROM employees e, departments d, locations l, countries c
+WHERE e.department_id=d.department_id AND
+  d.location_id=l.location_id AND
+  l.country_id=c.country_id
+ORDER BY last_name]]>
+                            </value>
+                         </query-body>
+                     </query>
+                      <query name="job statistics" id="jobstats">
+                         <query-body> dimensions column first
+                         <value>
+<![CDATA[
+SELECT job_id as Job, COUNT(*) as Nb, MIN(salary)as Minimum, 
+  ROUND(AVG(salary), 0) as Average,  
+  MEDIAN(salary) as Median, MAX(salary) as Maximum, 
+  ROUND(STDDEV(salary)) as Std_Dev
+FROM employees
+GROUP BY job_id
+ORDER BY job_id]]>
+                            </value>
+                         </query-body>
+                     </query> 
+                      <query name="dept_above_average_salary" id="dept_above_average_salary" type="dashboard" category="bar-chart">
+                         <query-body>
+                         <value>
+<![CDATA[SELECT Department_Name Department, SUM(salary*12) All_Salaries 
+FROM employees, departments 
+where employees.Department_id = departments.Department_id 
+HAVING SUM(salary * 12) >= ? 
+GROUP BY Department_Name
+order by all_salaries desc]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="Amount" is-mandatory="true" type="INT" sample="100000" ></query-param>
+                         </query-params>
+                     </query>
+                </queries>
+            </statement-model>
 
 		</model>	
 		
@@ -170,7 +216,11 @@
                <property name="fetch-type" value="eager-when-parent-content-is-reference-data"></property>     			   
                <property name="relationship-persistence" value="field"></property>
 			</target>
-
+            <target refname="SDD-beans" 
+                outputdir-root="ADF-FACES/model-maven/jpa2"
+               fileName="mp-template-config-SDD-beans.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/bean">
+            </target>
  
 			<target refname="JSF" 
 			   name="JSF" 

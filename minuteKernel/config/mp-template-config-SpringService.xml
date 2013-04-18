@@ -63,7 +63,7 @@
 				
 
 
-        <!-- sdd -->
+        <!-- sdd 
         <template name="JSFSDDController" templateFileName="JSFSDDController.vm" 
             subdir="" outputsubdir="" technicalPackage="controller"
             file-extension="java" file-prefix="" file-suffix="Controller" 
@@ -71,7 +71,7 @@
             check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
             <property name="add-backend-implementation" value="spring"></property>
         </template>
-        
+        -->
         <!-- Take care the service and the DAO are the same so just one physical template -->
 		<template name="SDDServiceInterface" templateFileName="SDDDaoInterface.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.face"
