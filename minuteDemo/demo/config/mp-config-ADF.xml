@@ -65,7 +65,7 @@
             </business-model>
             <statement-model>
                 <queries>
-                     <query name="get address abstract" id="dashAddress" type="dashboard" category="pie-chart">
+                     <query name="get address abstract" id="dashAddress" type="dashboard" category="bar-chart">
                          <query-body> <!-- dimensions column first -->
                          <value>
 <![CDATA[select top ? city, count(*) as nb from address group by city order by count(*) desc]]>
@@ -84,20 +84,16 @@
                      </query>
                      <query name="get addresses by criteria" id="c">
                          <query-body><value>
-<![CDATA[select * from address where latitude between ? and ? and longitude between ? and ? and lcase(city) like ?]]>
+<![CDATA[select * from address where lcase(city) like ?]]>
                             </value></query-body>
                          <query-params>
-                             <query-param name="latitude_lower_limit" is-mandatory="false" type="DOUBLE" sample="37"></query-param>
-                             <query-param name="latitude_upper_limit" type="DOUBLE" sample="38"></query-param>
-                             <query-param name="longitude_lower_limit" type="DOUBLE" sample="-122"></query-param>
-                             <query-param name="longitude_upper_limit" type="DOUBLE" sample="-123"></query-param>
                              <query-param name="city" type="STRING" sample="'S'" convert="lowercase,append%" default="%"/>
                          </query-params>
                      </query>
                 </queries>
             </statement-model>
         </model>		
-		<targets outputdir-root="c:/dev/ADF_MP_GENERATION/MP4ADF" >
+		<targets outputdir-root="c:/dev/output/ADF/MP4-petshop" >
 
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
@@ -106,22 +102,48 @@
 			   templatedir-root="../../template/framework/adf"
 			   templatedir-ref="../../template/framework/i18n">  
 			   
-			   <property name="WEBLOGIC_HOME" value="C:/SOFT/IDE/Oracle/Middleware"></property>		   
-			   <property name="WLS_HOME" value="C:/SOFT/IDE/Oracle/Middleware/wlserver_10.3"></property>		   
+			   <!-- 
+			   <property name="WEBLOGIC_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>		   
+			   <property name="WLS_HOME" value="C:/SERVER/APP/WLS_103/wlserver_10.3"></property>
+
 			   <property name="JDEV_HOME" value="C:/SOFT/IDE/Oracle/Middleware/jdeveloper"></property>		   
 		   	   
 			   <property name="wls-username" value="weblogic"></property>		   
 			   <property name="wls-password" value="weblogic01"></property>		   
 			   <property name="wls-hostname" value="localhost"></property>		   
-			   <property name="wls-port" value="7001"></property>
+			   <property name="wls-port" value="7201"></property>
+			   <property name="wls-deploy-target" value="AdminServer,soa_server1"></property>	
+			   
+			   <property name="adf-faces-custom-framework-home" value="c:\DEV\JSF\ADF\ADF-fwk"/>
+			   <property name="adf-faces-custom-framework-package-name" value="eu.adf.fwk"/>
+			   
+			   <property name="adf-faces-backend-binding" value="db-direct"/>			   
+			    -->	
+ 			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
+			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
+			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>		   
+		   	   
+<!-- 			   <property name="WEBLOGIC_HOME" value="%WEBLOGIC_HOME%"></property>		   
+			   <property name="WLS_HOME" value="%WLS_HOME%"></property>		   
+			   <property name="JDEV_HOME" value="%JDEV_HOME%"></property>		 -->   
+		   	   
+			   <property name="wls-username" value="weblogic"></property>		   
+			   <property name="wls-password" value="weblogic01"></property>		   
+			   <property name="wls-hostname" value="localhost"></property>		   
+			   <property name="wls-port" value="7201"></property>
 			   <property name="wls-deploy-target" value="AdminServer"></property>	
 			   
-<!-- 			   <property name="adf-faces-custom-framework-home" value="C:\DEV\work\svn2\Generator\MP4ADF-dependency\target\fwk"/>
-			   <property name="backend-lib" value="C:/DEV//work/svn2/Generator/MP4ADF-dependency/target/lib"/>
- -->
-			   <property name="mp4adf-src" value="%MP_HOME%/target/mp4adf/src"/>
+			   <property name="adf-faces-custom-framework-home" value="%MP_HOME%/target/mp-adf"/>
+			   <!-- 
+			   <property name="adf-faces-custom-framework-home" value="$MP_HOME/target/mp-adf"/>
+			    -->
+ 			   <property name="backend-lib" value="C:/DEV/ADF_MP_GENERATION/MP4HR/ADF-FACES/model-maven/JSF/target/hrsystemApp/WEB-INF/lib"/>
+<!-- 			   <property name="backend-lib" value="C:/DEV/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/lib"/>
+			   <property name="mp4adf-src" value="C:/COMMISSION/NIF2/work/svn2/Generator/MP4ADF-dependency/target/fwk/src"/>
+			   			   		 -->
 			   <property name="activate-entity-criteria" value="true"/>
 			   <property name="adf-faces-backend-binding" value="spring"/>
+			   
 			   <property name="display-hide-auditing-field" value="true"/>
 
 			</target>  
@@ -132,6 +154,9 @@
 			   fileName="mp-template-config-SpringService.xml" 
 			   outputdir-root="ADF-FACES/model-maven/bsla"
 			   templatedir-root="../../template/framework/spring">
+				<property name="passivate-based-on-toggle-field" value="true">
+					<property name="active" value="N"></property>
+				</property>
 			</target> 
 			
 			<target refname="BackendOnBsla" 
@@ -156,8 +181,12 @@
                <property name="fetch-type" value="eager-when-parent-content-is-reference-data"></property>     			   
                <property name="relationship-persistence" value="field"></property>
 			</target>
-
-<!-- 
+            <target refname="SDD-beans" 
+                outputdir-root="ADF-FACES/model-maven/jpa2"
+               fileName="mp-template-config-SDD-beans.xml" 
+               templatedir-root="../../template/framework/bean">
+            </target>
+ 
 			<target refname="JSF" 
 			   name="JSF" 
 			   fileName="mp-template-config-JSF-Spring.xml" 
@@ -168,7 +197,7 @@
 			   <property name="web-xml-version" value="3.0"></property>		   			   	   			   
 			</target> 
 
- -->
+
 			<target refname="MavenMaster" 
 			   name="maven" 
 			   fileName="mp-template-config-maven.xml" 
@@ -198,14 +227,14 @@
 			   outputdir-root="ADF-SDO"
 			   fileName="mp-template-config-ADF-SDO.xml" 
 			   templatedir-root="../../template/framework/adf">  	
-               <property name="WEBLOGIC_HOME" value="C:/SOFT/IDE/Oracle/Middleware"></property>        
-               <property name="WLS_HOME" value="C:/SOFT/IDE/Oracle/Middleware/wlserver_10.3"></property>           
-               <property name="JDEV_HOME" value="C:/SOFT/IDE/Oracle/Middleware/jdeveloper"></property>         
-
+			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
+			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
+			   <property name="JDEV_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/jdeveloper"></property>	
+		   	   
 			   <property name="wls-username" value="weblogic"></property>		   
 			   <property name="wls-password" value="weblogic01"></property>		   
 			   <property name="wls-hostname" value="localhost"></property>		   
-			   <property name="wls-port" value="7001"></property>
+			   <property name="wls-port" value="7201"></property>
 			   <property name="wls-deploy-target" value="AdminServer"></property>
 			   
 			   <property name="adf-faces-backend-binding" value="ws-sdo"/>
@@ -222,6 +251,14 @@
 			   <property name="wls-hostname" value="localhost"></property>		   
 			   <property name="wls-port" value="7201"></property>
 			</target>  
+			
+			<target refname="SQL" 
+			   name="SQL" 
+			   fileName="mp-template-config-sqlutils.xml" 
+			   templatedir-root="../../template/utils/db">  	
+			   <property name="user-field" value="userid"></property>		   
+			   <property name="add-version" value="true"></property>		   
+			</target> 
 
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
