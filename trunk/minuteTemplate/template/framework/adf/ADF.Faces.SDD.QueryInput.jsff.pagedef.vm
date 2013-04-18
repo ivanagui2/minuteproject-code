@@ -1,4 +1,5 @@
 #exposeADFDataBindingControlSpecific()
+#exposeADFFacesDataControlModelSpecific()
 #exposeADFQuerySpecific()
 #putImportQuerySDDBean()
 #exposeADFFacesCommon()
@@ -57,11 +58,11 @@
       </nodeDefinition>
     </tree>
     <methodAction id="get${sddOutputBeanCollectionClass}1"
-                  InstanceName="UlysseSdoWsDcImpl.dataProvider"
-                  DataControl="UlysseSdoWsDcImpl" RequiresUpdateModel="true"
+                  InstanceName="${ADFSDOWsDcDefClass}.dataProvider"
+                  DataControl="${ADFSDOWsDcDefClass}" RequiresUpdateModel="true"
                   Action="invokeMethod" MethodName="get${sddOutputBeanCollectionClass}"
                   IsViewObjectMethod="false"
-                  ReturnName="data.UlysseSdoWsDcImpl.methodResults.get${sddOutputBeanCollectionClass}1_result">
+                  ReturnName="data.${ADFSDOWsDcDefClass}.methodResults.get${sddOutputBeanCollectionClass}1_result">
 #if($isNotVoidInput)
       <NamedData NDName="${sddInputBeanVariable}" NDValue="#{pageFlowScope.${queryBackingBeanADFFaceVariable}.${sddInputBeanVariable}}"
                  NDType="${sddInputBeanImport}"

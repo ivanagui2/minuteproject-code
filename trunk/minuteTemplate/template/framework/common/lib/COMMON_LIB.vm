@@ -139,7 +139,7 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro (putImportSDDBean)
-#set ($templateJavaBean=$template.getPropertyValue("JavaBeanTemplate","JavaBeanTemplate"))
+#set ($templateJavaBean=$template.getPropertyValue("JavaBeanTemplate","SDDOutputBean"))
 #set ($beanClass = $commonUtils.getTemplateClassName($table, $model, $templateJavaBean))
 #set ($beanVariable = $commonUtils.getJavaNameVariableFirstLetter($beanClass))
 #set ($beanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateJavaBean))

@@ -76,7 +76,11 @@ public class ${className} {
         ChartSeries $dimVar = new ChartSeries();  
         ${dimVar}.setLabel("$columnClass");
         for ($sddOutputBeanClass var : getOutputList()) {
+#if ($columnUtils.isStringColumn($outputBeanColumnValue))
+            ${dimVar}.set(var.get$outputBeanDimension1(), Integer.valueOf(var.get$outputBeanDimensionValue()));
+#else
             ${dimVar}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
+#end
         }
         categoryModel.addSeries(${dimVar});  
 #end
