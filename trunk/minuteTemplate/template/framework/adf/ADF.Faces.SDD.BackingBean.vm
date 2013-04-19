@@ -106,55 +106,21 @@ public class ${className} {
         return new oracle.adf.view.faces.bi.model.GraphDataModel(ds);
     }
 #if($isBarChart)
-##    private CartesianChartModel categoryModel;  
-##
-##    public CartesianChartModel getCategoryModel() {  
-##        return categoryModel;  
-##    }  
-##
-##    public CartesianChartModel createCategoryModel() {  
-##        execute();
-##        categoryModel = new CartesianChartModel();  
 #foreach($column in $dimensions)
 #putColumnParamNaming()
 #set($dimVar = "${columnVar}$velocityCount")
-##        ChartSeries $dimVar = new ChartSeries();  
-##        ${dimVar}.setLabel("$columnClass");
-##        for ($sddOutputBeanClass var : getOutputList()) {
-##            ${dimVar}.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
-##        }
-##        categoryModel.addSeries(${dimVar});  
 #end
-##        return categoryModel;
-##    }
-##    
 #end
 #if($isPieChart)
-##    private PieChartModel pieModel;
-##    public PieChartModel getPieModel() {  
-##        return pieModel;  
-##    }  
-##    
-##    public PieChartModel createPieModel() {
-##        execute();
-##        pieModel = new PieChartModel();  
-##        for ($sddOutputBeanClass var : getOutputList()) {
-##            pieModel.set(var.get$outputBeanDimension1(), var.get$outputBeanDimensionValue());
-##        }
-##        return pieModel;
-##    }
-##
 #end
 #end
 
     public void search() {
-       System.out.println("   >>> search !!!!");
        BindingContext bindingCtx = BindingContext.getCurrent();
        BindingContainer bindings = bindingCtx.getCurrentBindingsEntry();
        Map mapParam = new HashMap();
 #if($isNotVoidInput)
        mapParam.put("${sddInputBeanVariable}", ${sddInputBeanVariable}); 
-//       System.out.println("${sddInputBeanVariable}  in search "+${sddInputBeanVariable});
 #end
        OperationBinding ob = bindings.getOperationBinding("get${sddOutputBeanCollectionClass}1");
        ob.getParamsMap().putAll(mapParam);
