@@ -21,6 +21,7 @@ import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TabChangeEvent;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -313,6 +314,25 @@ public class ${className} {
         FacesMessage msg = new FacesMessage("$tableClassName Selected", selected${tableClassName}.toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+
+    public void onTabChange(TabChangeEvent event) {
+	    String tabId = event.getTab().getId();
+#if ($hasDisplayableChildren)
+	    switch (tabId):
+#foreach($reference in $displayableChildren)
+		    $tabIdName : load$child();
+			// if selectElement not null add
+			// append list of element
+			// nice to have paginated query
+	
+#foreach ($reference in $table.children)
+	
+#end
+
+#end
+#end
+    }
+
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
 #if($isSpringBackend)
 #putGetterSetter ($lookupBeanClass $lookupBeanVar)
