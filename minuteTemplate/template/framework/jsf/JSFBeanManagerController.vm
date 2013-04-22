@@ -123,15 +123,12 @@ public class ${className} {
 #end
 
 #if($isSpringBackend)
-	//TODO create a generic Model
     public LazyDataModel<$tableClassName> getLazyModel() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<$tableClassName>() {
 
 			     @Override
-			     public List<$tableClassName> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {  
-     			 System.out.println("first=" + first + ", pagesize=" + pageSize + ", sortfield=" + sortField + " sortorder=" + sortOrder + " filter:" + filters);	
-               	
+			     public List<$tableClassName> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {
                 	QuerySortOrder order = QuerySortOrder.ASC;
                 	if (sortOrder == SortOrder.DESCENDING) {
             			order = QuerySortOrder.DESC;     
