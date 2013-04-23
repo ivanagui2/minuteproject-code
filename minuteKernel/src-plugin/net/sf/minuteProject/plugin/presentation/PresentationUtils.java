@@ -22,7 +22,27 @@ import net.sf.minuteProject.utils.property.PropertyUtils;
 public class PresentationUtils {
 
 	private static final String DISPLAY_CHILDREN = "display-children";
+	private static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
 
+	public static int getDisplayColumns(Column column) {
+		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
+	}
+
+	public static int getDisplayRows(Column column) {
+		int sizeAsInt = column.getSizeAsInt();
+		int i = sizeAsInt%MAX_COLUMNS_DISPLAY_SIZE;
+		int j = sizeAsInt/MAX_COLUMNS_DISPLAY_SIZE;
+		return (i % MAX_COLUMNS_DISPLAY_SIZE == 0)? j : j+1;
+	}
+	
+	public static Boolean hasDisplayableChildren (Table table) {
+		return (table.getChildren().length>0);
+	}
+	
+	public static Reference[] getDisplayableChildren (Table table) {
+		return (table.getChildren());
+	}
+	
 	public static Boolean isParentDropDownList (Column column) {
 		return (ColumnUtils.isForeignKey(column) 
 				&& TableUtils.isAdminContentType(ColumnUtils.getForeignTable(column)))? true:false;
