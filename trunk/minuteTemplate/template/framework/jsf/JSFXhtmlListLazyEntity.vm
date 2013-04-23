@@ -26,7 +26,8 @@
             lazy="true"
 			selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-            rowsPerPageTemplate="10,20,50"> 
+            rowsPerPageTemplate="10,20,50"
+			emptyMessage="No ${tableClassName} found with given criteria"> 
             <p:ajax partialSubmit="true" event="rowSelect"
                     listener="#{${entityControllerJSFVariable}.onRowSelect}"
                     update=":form${tableClassName} :form2:panel"/> 
@@ -50,7 +51,7 @@
                 <h:outputText value="#{item.${columnVar}}" />  
             </p:column> 
 #end
-#end		
+#end
 #foreach ($column in $table.attributes)
 #putColumnParams()
 #columnJavaNaming()	
@@ -122,17 +123,18 @@
 #end
 #end
 
+#if ($presentationUtils.hasDisplayableChildren($table))
 <p:tabView id="childrenTab" orientation="top|bottom|left|right"> 
 	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" update=":form:growl"/>
-#foreach ($reference in $table.children)
+#foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
-   <p:tab id="child-$linktableDB.alias" title="TODO" > 
+   <p:tab id="child-$linktableDB.alias" title="$linktableDB.alias" > 
 		<p:toolbar id="add-$linktableDB.alias">  
 			<p:toolbarGroup align="left"> 
 				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document"/>         
     		</p:toolbarGroup>
 		</p:toolbar>
-    <p:dataTable var="$linktableDB.alias" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
+        <p:dataTable var="$linktableDB.alias" value="#{${entityControllerJSFVariable}.selected${tableClassName}.get${childrenListClass}()}" paginator="true" rows="10"  
 ##                selection="#{${entityControllerJSFVariable}.selected${entityControllerJSFVariable}}" selectionMode="single" rowKey="#{${entityControllerJSFVariable}}"
                 onRowSelectUpdate="display" 
                 dynamic="true"  resizableColumns="true"
@@ -166,6 +168,7 @@
    </p:tab>
 #end
 </p:tabView>
+#end
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
