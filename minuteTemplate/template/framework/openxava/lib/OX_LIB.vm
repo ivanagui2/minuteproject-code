@@ -18,7 +18,7 @@
 #if($table.hasAttribute())
      +", "+
 #end
-#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)       
+#foreach ($chunk in $semanticReference.semanticReferenceBeanPath)
       "${linkedTableVariable}.$chunk#if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
 #else "
 #end 

@@ -13,7 +13,15 @@
     </p:calendar>
 	<p:message for="lbl${columnClass}" />
 #else
-	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
+#if($presentationUtils.isTextArea($column))
+	<p:inputTextarea rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" counter="counter" maxlength="$column.sizeAsInt"
+        counterTemplate="{0} characters remaining." autoResize="false"
+#elseif($presentationUtils.isRichText($column))
+	<p:editor 
+#else
+	<p:inputText 
+#end
+		label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
 	<p:message for="lbl${columnClass}"/>
 #end
 #end
