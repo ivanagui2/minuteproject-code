@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
+import net.sf.minuteProject.plugin.presentation.PresentationUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
@@ -155,7 +156,7 @@ public class AdfUtils {
 	}
 	
 	public int getDisplayColumns(Column column) {
-		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
+		return PresentationUtils.getDisplayColumns(column);
 	}
 	
 	public int getDisplayColumnWithHeader(Column column) {
@@ -163,10 +164,7 @@ public class AdfUtils {
 	}
 	
 	public int getDisplayRows(Column column) {
-		int sizeAsInt = column.getSizeAsInt();
-		int i = sizeAsInt%MAX_COLUMNS_DISPLAY_SIZE;
-		int j = sizeAsInt/MAX_COLUMNS_DISPLAY_SIZE;
-		return (i % MAX_COLUMNS_DISPLAY_SIZE == 0)? j : j+1;
+		return PresentationUtils.getDisplayRows(column);
 	}
 	
 	public int getDisplayWindowDetailsWidth(Table table) {
