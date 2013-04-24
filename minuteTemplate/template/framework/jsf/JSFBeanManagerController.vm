@@ -33,7 +33,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -63,6 +62,7 @@ import $EJBDaoImplImport;
 
 #end
 import $importDomainObjectUML;
+#exposeJPA2Import()
 /**
  *
  * <p>Title: ${className}</p>
@@ -91,7 +91,10 @@ public class ${className} {
 	private LazyDataModel<$tableClassName> lazyModel;
 
 	@ManagedProperty("#{${lookupBeanVar}}")
-    ${lookupBeanClass} ${lookupBeanVar};	
+    ${lookupBeanClass} ${lookupBeanVar};
+
+	@ManagedProperty("#{${modelCollectionServiceVar}}")
+    ${modelCollectionServiceClass} ${modelCollectionServiceVar};
 	
 #elseif($isEJBBackend)
 	@Inject 
@@ -318,14 +321,12 @@ public class ${className} {
 ##	    switch (tabId):
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
-		    $tabIdName : load$child();
-			// if selectElement not null add
-			// append list of element
-			// nice to have paginated query
-#foreach ($reference in $table.children)
-	
-#end
-
+	    if ("child-$childrenListVariable".equals(tabId)) {
+		    $linkedTableClass mask = new $linkedTableClass();
+			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+			List<$linkedTableClass> list = ${modelCollectionServiceVar}.getList(mask);
+			selected${tableClassName}.set${childrenListClass}(new HashSet<$linkedTableClass>(list));
+		}
 #end
 #end
     }

@@ -128,7 +128,7 @@
 	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" update=":form:growl"/>
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
-   <p:tab id="child-$linktableDB.alias" title="$linktableDB.alias" > 
+   <p:tab id="child-$childrenListVariable" title="$childrenListVariable" > 
 		<p:toolbar id="add-$linktableDB.alias">  
 			<p:toolbarGroup align="left"> 
 				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document"/>         
