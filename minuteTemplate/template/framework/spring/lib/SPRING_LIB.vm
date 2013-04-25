@@ -50,6 +50,8 @@
 #set ($templateSpringBackendConfig="BslaSpringConfigMainBackend")
 #set ($templateSpringServiceInterface="SpringServiceInterface")
 #set ($templateSpringServiceClass="SpringServiceImpl")
+#set ($templateSpringModelServiceInterface="SpringModelServiceInterface")
+#set ($templateSpringModelServiceClass="SpringModelServiceImpl")
 #end
 
 #macro (exposeSDDSpringTemplate)
@@ -84,7 +86,10 @@
 #exposeSpringTemplate()
 #set($beanSpringServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
 #set($beanSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
-#set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))  
+#set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringModelServiceInterface))  
+#set($beanSpringModelServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
+#set($beanSpringModelServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
+#set($beanSpringModelServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringModelServiceInterface))  
 #set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))   
 #end
 
