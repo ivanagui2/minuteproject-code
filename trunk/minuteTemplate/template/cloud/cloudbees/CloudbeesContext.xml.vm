@@ -1,0 +1,23 @@
+<Context>
+    <Resource
+            name="jdbc/${cloudbees.binding.alias}"
+            auth="Container"
+            type="javax.sql.DataSource"
+
+            url="${cloudbees.db.url}"
+            username="${cloudbees.db.username}"
+            password="${cloudbees.db.password}"
+
+            driverClassName="com.mysql.jdbc.Driver"
+
+            maxActive="20"
+            maxIdle="1"
+            maxWait="10000"
+            removeAbandoned="true"
+            removeAbandonedTimeout="60"
+            logAbandoned="true"
+
+            validationQuery="SELECT 1"
+            testOnBorrow="true"
+            />
+</Context>
