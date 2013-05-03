@@ -11,7 +11,6 @@ import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
 public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
-
 	@Override
 	public void find (QueryData<T> data) {
 		EntityCriteria<T> filter = data.getEntityCriteria();

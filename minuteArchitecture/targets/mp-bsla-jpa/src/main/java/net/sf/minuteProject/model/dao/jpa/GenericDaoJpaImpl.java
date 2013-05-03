@@ -2,6 +2,9 @@ package net.sf.minuteProject.model.dao.jpa;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import net.sf.minuteProject.model.dao.GenericDaoImpl;
 
 public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
@@ -13,7 +16,7 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
     * @param T t
     */
    public void save (T t) {
-	   
+	   entityManager.persist(t);
    }
    
    /**
@@ -21,7 +24,7 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
     * @param T t
     */
    public void delete (T t) {
-	   
+	   entityManager.remove(t);
    }
 
     /**
@@ -29,7 +32,7 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
      * @param T t
      */
     public void insert (T t) {
-    	
+    	entityManager.persist(t);
     }
  
     /**
@@ -37,7 +40,8 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
      * @param List<T> ts
      */
     public void insert (List<T> list) {
-    	
+    	for (T element : list)
+    		insert(element);
     }
         
     /**
@@ -45,6 +49,7 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
      * @param T t
      */
     public T update(T t) {
+    	entityManager.merge(t);
     	return t;
     }
     
