@@ -118,8 +118,8 @@
 	
     <dependency>
       <groupId>net.sf.minuteproject</groupId>
-      <artifactId>mp-bsla</artifactId>
-      <version>0.8.3</version>
+      <artifactId>mp-bsla-jpa</artifactId>
+      <version>0.8.4</version>
     </dependency>	
 #end	
     </dependencies>

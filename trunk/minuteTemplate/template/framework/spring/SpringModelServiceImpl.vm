@@ -76,7 +76,7 @@ public class $thisClassName implements $beanSpringModelServiceClass {
 #set($defaultStuffing = $columnUtils.getDefaultStuffingForColumn($column))
         sortMask.set$columnClass($defaultStuffing);
 #end
-        return ${BslaDaoExtInterfaceVariable}.getList($tableVariableName, sortMask, QuerySortOrder.$order);
+        return ${BslaDaoExtInterfaceVariable}.list($tableVariableName, sortMask, QuerySortOrder.$order);
     }
 #end
 #end
