@@ -88,17 +88,17 @@
 		</template>		
 		
 		<!-- spring model service -->
-<!-- 		<template name="SpringModelServiceInterface" templateFileName="SpringModelServiceInterface.vm" 
+		<template name="SpringModelServiceInterface" templateFileName="SpringModelServiceInterface.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.face"
 			file-extension="java" file-prefix="" file-suffix="ModelService" 
 			model-specific="true"
 			has-updatable-nature="true">
 		</template>	
-			 -->
+			 
 
 		<template name="SpringModelServiceImpl" templateFileName="SpringModelServiceImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.impl"
-			file-extension="java" file-prefix="" file-suffix="ServiceImpl" 
+			file-extension="java" file-prefix="" file-suffix="ModelServiceImpl" 
 			model-specific="true" 
 			has-updatable-nature="true">
 		</template>
