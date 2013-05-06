@@ -1,4 +1,5 @@
 #exposeVariableModelSpecific()
+#exposeSpringModelSpecific()
 #addedAreas()
 #set($thisClassName="$className")
 package $packageName;
@@ -34,6 +35,8 @@ import org.springframework.transaction.annotation.Transactional;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 
+import $beanSpringModelServiceImport;
+
 /**
  *
  * <p>Title: $thisClassName</p>
@@ -46,7 +49,7 @@ import net.sf.minuteProject.model.data.criteria.constant.OperandType;
  */
 @Service ("$SpringModelServiceInterfaceVariable")
 @Transactional
-public class $thisClassName implements $SpringServiceInterfaceClass {
+public class $thisClassName implements $beanSpringModelServiceClass {
 
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()

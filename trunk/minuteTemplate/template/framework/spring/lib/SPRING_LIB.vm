@@ -68,6 +68,9 @@
 #set($pathSpringBackendConfig=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateSpringBackendConfig))
 #set($controllerDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADaoClass))
 #set($springServicePackageName=$commonUtils.getPackageName($model, $template, $templateSpringServiceClass))
+#set($beanSpringModelServiceClass=$commonUtils.getTemplateClassName($model, $template, $templateSpringModelServiceInterface))
+#set($beanSpringModelServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
+#set($beanSpringModelServiceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSpringModelServiceInterface))  
 #end
 
 #macro (exposeSpringdataModelSpecific)
@@ -86,10 +89,10 @@
 #exposeSpringTemplate()
 #set($beanSpringServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
 #set($beanSpringServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
-#set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringModelServiceInterface))  
-#set($beanSpringModelServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringServiceInterface))
-#set($beanSpringModelServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
-#set($beanSpringModelServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringModelServiceInterface))  
+#set($beanSpringServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringServiceInterface))  
+##set($beanSpringModelServiceClass=$commonUtils.getTemplateClassName($table, $templateSpringModelServiceInterface))
+##set($beanSpringModelServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
+##set($beanSpringModelServiceImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateSpringModelServiceInterface))  
 #set($domainClassImport=$commonUtils.getEntityLevelTemplateFullPath($table, $template, "DomainEntityJPA2Annotation"))   
 #end
 
