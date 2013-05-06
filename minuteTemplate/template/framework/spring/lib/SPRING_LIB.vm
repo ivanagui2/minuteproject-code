@@ -69,7 +69,7 @@
 #set($controllerDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADaoClass))
 #set($springServicePackageName=$commonUtils.getPackageName($model, $template, $templateSpringServiceClass))
 #set($beanSpringModelServiceClass=$commonUtils.getTemplateClassName($model, $template, $templateSpringModelServiceInterface))
-#set($beanSpringModelServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringServiceClass))
+#set($beanSpringModelServiceVariable=$commonUtils.getJavaNameVariableFirstLetter($beanSpringModelServiceClass))
 #set($beanSpringModelServiceImport=$commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateSpringModelServiceInterface))  
 #end
 
