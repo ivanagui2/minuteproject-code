@@ -8,7 +8,7 @@ package $packageName;
 import $importDomainObjectUML;
 import java.util.List;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
-import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+##import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 import net.sf.minuteProject.model.dao.GenericDao;
 
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;

@@ -6,7 +6,7 @@ package $packageName;
 import $importDomainObjectUML;
 import java.util.List;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
-import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+##import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
 $!updatedAreaImport
 
@@ -18,7 +18,7 @@ $!updatedAreaImport
  * persistence. It offers extended DAO functionalities</p>
  *
  */
-public interface $className extends DataAccessObject {
+public interface $className {##extends DataAccessObject {
 
     /**
      * lookup $tableClassName entity $tCN, criteria and max result number

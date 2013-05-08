@@ -47,7 +47,7 @@ import $beanSpringModelServiceImport;
  * </p>
  *
  */
-@Service ("$SpringModelServiceInterfaceVariable")
+@Service ("$beanSpringModelServiceVariable")
 @Transactional
 public class $thisClassName implements $beanSpringModelServiceClass {
 
