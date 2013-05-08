@@ -7,9 +7,9 @@ import $importDomainObjectUML;
 import java.util.List;
 import java.sql.*;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
-import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+##import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
-public interface $className extends DataAccessObject {
+public interface $className {##extends DataAccessObject {
 
 	/**
 	* returns the list of $tableClassName. Each $tableClassName has its corresponding mask attribute filled with value

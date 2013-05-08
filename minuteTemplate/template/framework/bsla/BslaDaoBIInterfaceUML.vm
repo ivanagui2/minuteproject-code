@@ -5,7 +5,7 @@ package $packageName;
 import $importDomainObjectUML;
 import java.util.List;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
-import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+##import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
 
 /**
@@ -17,7 +17,7 @@ import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
  * deleting and searching $tableVariableName objects</p>
  *
  */
-public interface $className extends DataAccessObject {
+public interface $className {##extends DataAccessObject {
 
     /**
      * search all the duplicates for entity $tableClassName, based on the entity mask. 

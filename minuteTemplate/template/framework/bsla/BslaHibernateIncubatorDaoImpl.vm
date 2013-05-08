@@ -7,7 +7,7 @@ import $importDaoIncubatorNameUML;
 import java.util.List;
 import java.sql.*;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
-import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+##import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
 
 

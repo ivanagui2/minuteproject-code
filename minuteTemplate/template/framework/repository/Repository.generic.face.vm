@@ -5,7 +5,7 @@ package $packageName;
 import $importDomainObjectUML;
 import java.util.List;
 import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
-import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
+##import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
 
 
 /**
@@ -17,7 +17,7 @@ import net.sf.minuteProject.architecture.bsla.dao.face.DataAccessObject;
  * deleting and searching t objects</p>
  *
  */
-public interface $className <T> extends DataAccessObject {
+public interface $className <T> {##extends DataAccessObject {
 
     /**
      * Inserts an entity 
