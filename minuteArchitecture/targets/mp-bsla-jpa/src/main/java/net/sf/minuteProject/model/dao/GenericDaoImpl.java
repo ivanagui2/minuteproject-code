@@ -9,6 +9,8 @@ import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
+import static net.sf.minuteProject.model.utils.BuilderUtils.*;
+
 public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
 	@Override
@@ -26,6 +28,55 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 		data.setTotalResultCount(totalResultCount);
 	}
 	
+    protected String findQuery (T criteriaMask, T orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
+        String queryWhere = findWhere (criteriaMask, false, isAll(matchType), operandType, caseSensitivenessType);
+		String queryOrder = findOrder (orderMask, sortOrder);
+	    return getHQuery(what, queryWhere, queryOrder);
+    }
+    
+    protected String getWhereEqualAnyWhereQueryChunk (T t, boolean isAndSet) {
+		return getSearchEqualWhereQueryChunk (t, isAndSet, false);	
+	}
+	
+    protected String getWhereEqualWhereQueryChunk (T t, boolean isAndSet) {
+		return getSearchEqualWhereQueryChunk (t, isAndSet, true);
+	}
+    
+    public List<T> searchPrototypeCategory(T t) {
+        return searchPrototype (t, null);
+     }  
+    protected List<T> searchPrototype (T t, Integer maxResults) {
+        return searchPrototype(t, null, null, maxResults);
+    }
+    
+    protected List<T> searchPrototype (T t, T orderMask, QuerySortOrder sortOrder, Integer maxResults) {
+        return searchPrototype(getSelectQuery (getWhereEqualWhereQueryChunk(t), orderMask, sortOrder), maxResults);
+    }
+
+	protected String getSelectQuery (String where, T orderMask, QuerySortOrder sortOrder) {
+        return getSelectQuery (where, findOrder (orderMask, sortOrder));
+     }
+    
+    protected String getSelectQuery (String where, String order) {
+        StringBuffer query = new StringBuffer();
+        query.append (getSelectFrom());//"SELECT t FROM T t ");
+        return getHQuery(query.toString(), where, order);
+    }
+    
+	protected String getWhereEqualWhereQueryChunk (T t) {
+        return getWhereEqualWhereQueryChunk(t, false);
+    }
+	
+    protected abstract String getSelectFrom() ;
+
+    protected abstract boolean isAllNull (T t);
+    
+    protected abstract String getSearchEqualWhereQueryChunk(T t, boolean isAndSet, boolean b) ;
+
+	protected abstract String findWhere(T criteriaMask, boolean b, boolean all,
+			OperandType operandType, Boolean caseSensitivenessType) ;
+
+	protected abstract String findOrder(T orderMask, QuerySortOrder sortOrder);
 
 	protected abstract Long count(T criteriaMask, EntityMatchType matchType,
 			OperandType operandType, Boolean caseSensitivenessType) ;
@@ -35,11 +86,8 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 			OperandType operandType, Boolean caseSensitivenessType,
 			QuerySortOrder sortOrder, int start, int max) ;
 
-
-	@Override
-	public void getList(T mask, T sortMask, QuerySortOrder order) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    protected abstract List<T> searchPrototype(String selectQuery, Integer maxResults) ;
+    
+    protected abstract void assignBlankToNull (T t);
+    
 }

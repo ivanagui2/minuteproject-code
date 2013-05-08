@@ -42,6 +42,6 @@ public interface GenericDao <T> {
 	 */
 	public void find (QueryData<T> queryData);
 	
-	public void getList(T mask, T sortMask, QuerySortOrder order);
+	public void list(T mask, T sortMask, QuerySortOrder order);
 	
 }
