@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import net.sf.minuteProject.model.dao.GenericDaoImpl;
 
@@ -52,5 +53,20 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
     	entityManager.merge(t);
     	return t;
     }
+
+    protected List<T> searchPrototype (String query, Integer maxResults) { 
+        Query hquery = getEntityManager().createQuery(query);
+        if (maxResults!=null)
+           hquery.setMaxResults(maxResults);
+        return hquery.getResultList();
+     }
+    
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
     
 }
