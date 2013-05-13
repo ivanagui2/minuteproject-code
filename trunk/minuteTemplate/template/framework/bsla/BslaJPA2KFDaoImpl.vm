@@ -78,7 +78,7 @@ import $importDaoImplExtendedJPAName;
  *
  */
 
-public class $className extends $daoJPAImplClassName implements $daoInterfaceExtendedNameUML, GenericService<$tableClassName> {
+public class $className extends $daoJPAImplClassName implements $daoInterfaceExtendedNameUML{##, GenericService<$tableClassName> {
 
     private Logger log = Logger.getLogger(this.getClass());
     
@@ -761,6 +761,12 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
      */
     public List<$tableClassName> getList ($tableClassName orderMask, QuerySortOrder sortOrder) {
         return searchPrototype(new $tableClassName(), orderMask, sortOrder, null);
+    }
+    /**
+     * return a list of $tableClassName entities and sort based on a $tableClassName prototype
+     */
+    public List<$tableClassName> list ($tableClassName mask, $tableClassName orderMask, QuerySortOrder sortOrder) {
+        return searchPrototype(mask, orderMask, sortOrder, null);
     }
 
 ##end

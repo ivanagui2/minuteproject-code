@@ -22,7 +22,7 @@ $!updatedAreaImport
  * persistence. It offers extended DAO functionalities</p>
  *
  */
-public interface $className extends GenericDao<$tableClassName> {##DataAccessObject { {
+public interface $className {##extends GenericDao<$tableClassName> {##DataAccessObject { {
      
      /**
      * Inserts a $tableClassName entity with cascade of its children
@@ -177,6 +177,8 @@ public interface $className extends GenericDao<$tableClassName> {##DataAccessObj
     public List<$tableClassName> getList ();
         
     public List<$tableClassName> getList ($tableClassName orderMask, QuerySortOrder sortOrder);
+
+    public List<$tableClassName> list ($tableClassName mask, $tableClassName orderMask, QuerySortOrder sortOrder);
 
 ##end
 $!updatedAreaImplementation

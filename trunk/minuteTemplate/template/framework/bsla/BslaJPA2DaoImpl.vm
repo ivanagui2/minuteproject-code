@@ -328,7 +328,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     }
 *#	
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, $tableClassName orderMask, QuerySortOrder sortOrder, Integer maxResults) {
-       return searchPrototype(get${tableClassName}SelectQuery (get${tableClassName}WhereEqualWhereQueryChunk($tableVariableName), orderMask, sortOrder), maxResults);
+       return searchPrototype(get${tableClassName}SelectQuery (getWhereEqualWhereQueryChunk($tableVariableName), orderMask, sortOrder), maxResults);
     }
 
     protected List<$tableClassName> searchPrototype ($tableClassName $tableVariableName, Integer maxResults) {
@@ -385,11 +385,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     /**
     * return a jql query search on a ${tableClassName} prototype
     */
-    protected String get${tableClassName}SearchEqualQuery ($tableClassName $tableVariableName) {
-       return get${tableClassName}SelectQuery (get${tableClassName}WhereEqualWhereQueryChunk($tableVariableName),null);
+    protected String getSearchEqualQuery ($tableClassName $tableVariableName) {
+       return get${tableClassName}SelectQuery (getWhereEqualWhereQueryChunk($tableVariableName),null);
     }
-    protected String get${tableClassName}WhereEqualWhereQueryChunk ($tableClassName $tableVariableName) {
-       return get${tableClassName}WhereEqualWhereQueryChunk($tableVariableName, false);
+    protected String getWhereEqualWhereQueryChunk ($tableClassName $tableVariableName) {
+       return getWhereEqualWhereQueryChunk($tableVariableName, false);
     }
     /**
     * return a jql query search on a ${tableClassName} with any prototype
@@ -415,7 +415,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
            if (!isAllNull(${tableVariableName})) {        
 	           queryWhere.append (getQueryOR (isOrSet));
 	           isOrSet = true;
-	           queryWhere.append (" ("+get${tableClassName}WhereEqualWhereQueryChunk($tableVariableName, false)+") ");
+	           queryWhere.append (" ("+getWhereEqualWhereQueryChunk($tableVariableName, false)+") ");
            }
         }
 	    return getHQuery(query.toString(), queryWhere.toString());
@@ -463,11 +463,11 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 		return getSearchEqualWhereQueryChunk ($tableVariableName, isAndSet, false);	
 	}
 	
-    protected String get${tableClassName}WhereEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
-		return get${tableClassName}SearchEqualWhereQueryChunk ($tableVariableName, isAndSet, true);
+    protected String getWhereEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet) {
+		return getSearchEqualWhereQueryChunk ($tableVariableName, isAndSet, true);
 	}
 	
-    protected String get${tableClassName}SearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll) {
+    protected String getSearchEqualWhereQueryChunk ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll) {
         StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
@@ -613,7 +613,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
        boolean isWhereSet = false;
        StringBuffer query = new StringBuffer();
        query.append ("select ${tableVariableName}.$primaryKeyVariable ");
-       query.append (get${tableClassName}SearchEqualQuery ($tableVariableName));
+       query.append (getSearchEqualQuery ($tableVariableName));
        if (paginationCriteria.getOrderList()!=null) {
     	   query.append(" order by "+paginationCriteria.getOrderList());
        }
