@@ -55,7 +55,7 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
 	protected String getSelectQuery (String where, T orderMask, QuerySortOrder sortOrder) {
         return getSelectQuery (where, findOrder (orderMask, sortOrder));
-     }
+    }
     
     protected String getSelectQuery (String where, String order) {
         StringBuffer query = new StringBuffer();
