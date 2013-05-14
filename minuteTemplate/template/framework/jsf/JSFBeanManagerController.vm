@@ -25,6 +25,7 @@ import org.primefaces.model.SortOrder;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TabChangeEvent;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -103,6 +104,11 @@ public class ${className} {
 	@Inject 
     private $EJBDaoImplClass $EJBDaoImplVariable;
 #end
+	
+	@PostConstruct
+	void initialiseSession() {
+	    FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	}
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName = new $tableClassName();
@@ -339,6 +345,7 @@ public class ${className} {
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
 #if($isSpringBackend)
 #putGetterSetter ($lookupBeanClass $lookupBeanVar)
+#putGetterSetter (${beanSpringModelServiceClass} ${beanSpringModelServiceVariable})
 #end
 
 $!updatedAreaImplementation

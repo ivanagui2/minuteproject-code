@@ -122,26 +122,27 @@
 #putJSFParentAffectationSnippet()
 #end
 #end
-
+                </p:panelGrid>
 #if ($presentationUtils.hasDisplayableChildren($table))
 <p:tabView id="childrenTab" orientation="top|bottom|left|right"> 
-	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" update=":form:growl"/>
+	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" />##update=":form:growl"/>
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
    <p:tab id="child-$childrenListVariable" title="$childrenListVariable" > 
 		<p:toolbar id="add-$linktableDB.alias">  
 			<p:toolbarGroup align="left"> 
 				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document"/>         
     		</p:toolbarGroup>
 		</p:toolbar>
-        <p:dataTable var="$linktableDB.alias" value="#{${entityControllerJSFVariable}.selected${tableClassName}.get${childrenListClass}()}" paginator="true" rows="10"  
+        <p:dataTable var="$linkedTableVariable" value="#{${entityControllerJSFVariable}.selected${tableClassName}.get${childrenListClass}()}" paginator="true" rows="10"  
 ##                selection="#{${entityControllerJSFVariable}.selected${entityControllerJSFVariable}}" selectionMode="single" rowKey="#{${entityControllerJSFVariable}}"
                 onRowSelectUpdate="display" 
                 dynamic="true"  resizableColumns="true"
                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                 rowsPerPageTemplate="5,10,15"> 
         <f:facet name="header">  
-            List of #{i18n.$linktableDB.alias}  
+            List of #{i18n.$linkedTableVariable}  
         </f:facet>
 #foreach($column in ${linktableDB.primaryKeyColumns})
 #putColumnParams()
@@ -149,7 +150,7 @@
 #if (!$isMany2Many && $isPkUserProvided)
             <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}" >  
                 <f:facet name="header">  
-                    <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+                    <h:outputText value="#{i18n.$linkedTableVariable$separator$columnVar}" />  
                 </f:facet>  
                 <h:outputText value="#{item.${columnVar}}" />  
             </p:column> 
@@ -160,15 +161,18 @@
 #columnJavaNaming()	
             <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
                 <f:facet name="header">  
-                    <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
+                    <h:outputText value="#{i18n.$linkedTableVariable$separator$columnVar}" />  
                 </f:facet>  
                 <h:outputText value="#{item.${columnVar}}" />  
-            </p:column>  
+            </p:column>
 #end
+		</p:dataTable>
    </p:tab>
+#end
 #end
 </p:tabView>
 #end
+                <p:panelGrid columns="3" id="panelfooter" >
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
