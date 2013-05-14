@@ -14,7 +14,8 @@
 	<p:message for="lbl${columnClass}" />
 #else
 #if($presentationUtils.isTextArea($column))
-	<p:inputTextarea rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" counter="counter" maxlength="$column.sizeAsInt"
+	<p:inputTextarea rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
+## counter="counter" 
         counterTemplate="{0} characters remaining." autoResize="false"
 #elseif($presentationUtils.isRichText($column))
 	<p:editor 
