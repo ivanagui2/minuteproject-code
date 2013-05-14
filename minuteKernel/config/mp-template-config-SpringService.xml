@@ -82,7 +82,7 @@
 		<!-- depends BslaDaoInterfaceExtendedUML -->	
 		<template name="SDDSpringServiceImpl" templateFileName="SDDSpringServiceImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.impl"
-			file-extension="java" file-prefix="" file-suffix="ModelServiceImpl" 
+			file-extension="java" file-prefix="" file-suffix="ServiceImpl" 
 			scope-specific-value="query"
 			has-updatable-nature="true">
 		</template>		
