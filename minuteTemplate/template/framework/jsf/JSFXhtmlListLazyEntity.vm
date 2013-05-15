@@ -30,7 +30,8 @@
 			emptyMessage="No ${tableClassName} found with given criteria"> 
             <p:ajax partialSubmit="true" event="rowSelect"
                     listener="#{${entityControllerJSFVariable}.onRowSelect}"
-                    update=":form${tableClassName} :form2:panel"/> 
+##                    update=":form${tableClassName} :form2:panel"/> 
+                    update=":form2:panel :form2:childrenTab"/> 
 #*            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
             <p:column style="width:4%">  
                 <p:rowToggler />  
@@ -83,7 +84,7 @@
 			
         	</p:column>
 *#
-#putPrimefacesEntityRowExpansion()
+##putPrimefacesEntityRowExpansion()
         </p:dataTable>
     </h:panelGroup>
    </h:form>        
@@ -135,7 +136,7 @@
 				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document"/>         
     		</p:toolbarGroup>
 		</p:toolbar>
-        <p:dataTable var="$linkedTableVariable" value="#{${entityControllerJSFVariable}.selected${tableClassName}.get${childrenListClass}()}" paginator="true" rows="10"  
+        <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
 ##                selection="#{${entityControllerJSFVariable}.selected${entityControllerJSFVariable}}" selectionMode="single" rowKey="#{${entityControllerJSFVariable}}"
                 onRowSelectUpdate="display" 
                 dynamic="true"  resizableColumns="true"
