@@ -19,6 +19,10 @@ import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
 
+/**
+ * @author adlerfl
+ *
+ */
 public class PresentationUtils {
 
 	private static final String DISPLAY_CHILDREN = "display-children";
@@ -35,12 +39,25 @@ public class PresentationUtils {
 		return (i % MAX_COLUMNS_DISPLAY_SIZE == 0)? j : j+1;
 	}
 	
+	/**
+	 * @param table
+	 * @return
+	 */
 	public static Boolean hasDisplayableChildren (Table table) {
-		return (table.getChildren().length>0);
+		return (getDisplayableChildren(table).size()>0);
 	}
 	
-	public static Reference[] getDisplayableChildren (Table table) {
-		return (table.getChildren());
+	/**
+	 * @param table
+	 * @return list of associate child references that are not many to many
+	 */
+	public static List<Reference> getDisplayableChildren (Table table) {
+		List<Reference> refs = new ArrayList<Reference>();
+		for (Reference reference : table.getChildren()) {
+			if (!reference.getForeignTable().isManyToMany())
+				refs.add(reference);
+		}
+		return refs;
 	}
 	
 	public static Boolean isParentDropDownList (Column column) {
