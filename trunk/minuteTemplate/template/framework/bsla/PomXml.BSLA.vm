@@ -15,7 +15,6 @@
         <artifactId>$DbApiName</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>
-	
 	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
