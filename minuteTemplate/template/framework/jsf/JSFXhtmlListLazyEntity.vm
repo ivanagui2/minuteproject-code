@@ -2,6 +2,7 @@
 #exposeJSFModelSpecific()
 #exposeSeparator()
 #exposePrimefacesConfig()
+#set($hasDisplayableChildren=$presentationUtils.hasDisplayableChildren($table))
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -31,7 +32,7 @@
             <p:ajax partialSubmit="true" event="rowSelect"
                     listener="#{${entityControllerJSFVariable}.onRowSelect}"
 ##                    update=":form${tableClassName} :form2:panel"/> 
-                    update=":form2:panel :form2:childrenTab"/> 
+                    update=":form2:panel #if ($hasDisplayableChildren):form2:childrenTab#end"/> 
 #*            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
             <p:column style="width:4%">  
                 <p:rowToggler />  
@@ -94,7 +95,10 @@
 				<p:panelGrid columns="3" id="panel" >
                    
                     <f:facet name="header">
-                    Create/Update #{i18n.${tableVariableName}}
+                         <h:outputText value="#{i18n.${tableVariableName}} details "/>
+            	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
+            	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
+            	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
                     </f:facet> 
 
 #foreach($column in ${table.primaryKeyColumns})
@@ -124,7 +128,7 @@
 #end
 #end
                 </p:panelGrid>
-#if ($presentationUtils.hasDisplayableChildren($table))
+#if ($hasDisplayableChildren)
 <p:tabView id="childrenTab" orientation="top|bottom|left|right"> 
 	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" />##update=":form:growl"/>
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
@@ -173,14 +177,14 @@
 #end
 </p:tabView>
 #end
-                <p:panelGrid columns="3" id="panelfooter" >
+#*                <p:panelGrid columns="3" id="panelfooter" >
         			<f:facet name="footer">  
             	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
             	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
             	    </f:facet> 
                 </p:panelGrid>
-				
+*#
 			   <p:dialog id="basicDialog" header="#{${domainVariableName}} Details" widgetVar="detailDialog"  resizable="false" >  
                 <h:panelGrid columns="2" cellpadding="5"  styleClass="list_display_table_TR_even" id="display">
 #foreach($column in ${table.primaryKeyColumns})
