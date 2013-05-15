@@ -113,7 +113,29 @@ public class ${className} {
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName = new $tableClassName();
 	
-##if($isEJBBackend)
+#foreach ($reference in $presentationUtils.getDisplayableChildren($table))
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+	private List<$linkedTableClass> $childrenListVariable;
+    public List<${linkedTableClass}> get${childrenListClass} () {
+        return ${childrenListVariable};
+    }
+#if($velocityCount==1)
+#set($hasFirstRelationship=true)
+	private void populateFirst () {
+		populate$linkedTableClass ();
+	}
+#end
+	private void populate$linkedTableClass () {
+		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
+    		$linkedTableClass mask = new $linkedTableClass();
+    		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+    		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
+		}
+	}
+#end
+#end
+
     public List<$tableClassName> findAll () {
 		return ${EJBDaoImplVariable}.findAll($tableVariableName);
 	}
@@ -319,6 +341,9 @@ public class ${className} {
 
     public void onRowSelect(SelectEvent event) {
         selected$tableClassName = ($tableClassName) event.getObject();
+#if($hasFirstRelationship)
+		populateFirst ();
+#end
 ##        selected$tableClassName = (selectedAgentRole==null)?new $tableClassName():selected$tableClassName;
         FacesMessage msg = new FacesMessage("$tableClassName Selected", selected${tableClassName}.toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -327,15 +352,11 @@ public class ${className} {
     public void onTabChange(TabChangeEvent event) {
 	    String tabId = event.getTab().getId();
 #if ($presentationUtils.hasDisplayableChildren($table))
-##	    switch (tabId):
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 	    if ("child-$childrenListVariable".equals(tabId)) {
-		    $linkedTableClass mask = new $linkedTableClass();
-			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
-			List<$linkedTableClass> list = ${beanSpringModelServiceVariable}.getList(mask);
-			selected${tableClassName}.set${childrenListClass}(new HashSet<$linkedTableClass>(list));
+			populate$linkedTableClass ();
 		}
 #end
 #end
