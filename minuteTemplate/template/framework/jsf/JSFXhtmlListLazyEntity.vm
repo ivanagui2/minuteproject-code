@@ -95,10 +95,11 @@
 				<p:panelGrid columns="3" id="panel" >
                    
                     <f:facet name="header">
-                         <h:outputText value="#{i18n.${tableVariableName}} details "/>
-            	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
-            	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
-            	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
+                        <h:outputText value="#{i18n.${tableVariableName}} details "/>
+#set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end")
+            	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
+            	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
+            	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update="$update" />  
                     </f:facet> 
 
 #foreach($column in ${table.primaryKeyColumns})
