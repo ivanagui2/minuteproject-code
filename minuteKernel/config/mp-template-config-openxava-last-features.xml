@@ -21,7 +21,6 @@
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" has-updatable-nature="true"
-			extension-name-builder-plugin="extensionUtils" extension-name-builder-method="getGroovyNature"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>	
@@ -32,7 +31,6 @@
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="_" 
 			entity-specific="true" has-updatable-nature="true"
-            extension-name-builder-plugin="extensionUtils" extension-name-builder-method="getGroovyNature"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
