@@ -25,9 +25,19 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</dataSource>				
 				<schema>petshop</schema>	
 				-->			 
-				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+<!-- 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
 					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
-				</primaryKeyPolicy> 
+				</primaryKeyPolicy>  -->
+				
+<!--                 <dataSource>
+                    <driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
+                    <url>jdbc:mysql://127.0.0.1:3306/petshop</url>
+                    <username>root</username>
+                    <password></password>
+                </dataSource> -->
+               <primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+                    <primaryKeyPolicyPattern prefix="" suffix="" name="autoincrementPattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
+                </primaryKeyPolicy>  
 			</data-model>
 			<business-model>
 				<generation-condition>
@@ -53,7 +63,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					</entity>
 				</enrichment>					
 			</business-model>
-			<statement-model>
+			<!-- <statement-model>
 			    <queries>
                      <query name="get addresses by criteria" id="c">
                          <query-body><value>
@@ -68,19 +78,17 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                          </query-params>
                      </query>
 			    </queries>
-			</statement-model>
+			</statement-model> -->
 		</model>	
-		<targets>
+		<targets outputdir-root="../../dev/openxava/petshop-cloudbees">
 			<target refname="OpenXava" 
 			   name="OpenXava" 
 			   fileName="mp-template-config-openxava-last-features.xml" 
-			   outputdir-root="../../dev/openxava/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/openxava">
 			    <property name="add-automated-business-logic" value="x.y.z"></property>
 			    <property name="groovify" value="true"></property>
 			</target> 
             <target refname="ABL-Openxava" 
-                outputdir-root="../../dev/openxava/petshop"
                 fileName="mp-template-config-ABL-OPENXAVA.xml" 
                 templatedir-root="../../minuteTemplate/template/framework/abl">
             </target>

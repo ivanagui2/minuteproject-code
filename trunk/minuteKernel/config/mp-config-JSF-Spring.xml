@@ -2,34 +2,24 @@
 <generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config" 
 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
 xs:noNamespaceSchemaLocation="mp-config.xsd">
+    <!-- adapted for cloudbees petshop model -->
     <configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">			
 			<data-model>
-			    <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
-			    </fileSource>
-			    <!--
-			    <dataSource>	
-					<driverClassName>org.apache.derby.jdbc.ClientDriver</driverClassName>
-					<url>jdbc:derby://localhost:1527/sample</url>
-					<username>app</username>
-					<password>app</password>	
-				</dataSource>
-				<schema>app</schema>			    
-			    -->	
-			    <dataSource>	
-					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
-					<username>sa</username>
-					<password></password>	
-				</dataSource>	
-											 
-                <primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
-                    <primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
-                </primaryKeyPolicy> 
+                <driver name="mysql" version="5.1.16" groupId="mysql"
+                    artifactId="mysql-connector-java"></driver>
+                <dataSource>
+                    <driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
+                    <url>jdbc:mysql://127.0.0.1:3306/petshop</url>
+                    <username>root</username>
+                    <password>mysql</password>
+                </dataSource>
+                <primaryKeyPolicy oneGlobal="false">
+                    <primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
+                </primaryKeyPolicy>
 			</data-model>
 			<business-model>
 				<generation-condition>
@@ -69,7 +59,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                      <query name="get address abstract" id="dashAddress" type="dashboard" category="pie-chart">
                          <query-body> <!-- dimensions column first -->
                          <value>
-<![CDATA[select top ? city, count(*) as nb from address group by city order by count(*) desc]]>
+<![CDATA[select city, count(*) as nb from address group by city order by count(*) desc limit ?]]>
                             </value>
                          </query-body>
                          <query-params>
@@ -109,8 +99,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-querydsl" value="2.1.2"></property>               
                <property name="add-jpa2-implementation" value="hibernate"></property>
                <property name="add-cache-implementation" value="ehcache"></property>
-               <property name="add-domain-specific-method" value="true"></property>		   			   
-               <property name="relationship-persistence" value="field"></property>		   			   
+               <property name="add-domain-specific-method" value="true"></property>	
+               <property name="relationship-persistence" value="field"></property>
 			</target>
 
             <target refname="SDD-beans" 
