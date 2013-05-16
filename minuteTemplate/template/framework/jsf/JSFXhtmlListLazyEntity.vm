@@ -18,7 +18,7 @@
 <ui:define name="body">
 		
  <h:form id="form${tableClassName}"> 
-##   <p:growl id="growl" showDetail="true"/>
+     <p:growl id="growl" showDetail="true"/>
      <h:panelGroup id="dataPanel">  
         <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}" 
             id="${domainVariableName}Table" 
@@ -89,19 +89,28 @@
         </p:dataTable>
     </h:panelGroup>
    </h:form>        
-        <br/>
-  			<h:form id="form2">
-				<p:messages id="messages" autoUpdate="true"/>  
-				<p:panelGrid columns="3" id="panel" >
-                   
-                    <f:facet name="header">
-                        <h:outputText value="#{i18n.${tableVariableName}} details "/>
-#set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end")
-            	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
-            	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
-            	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update="$update" />  
-                    </f:facet> 
+   <br/>
+#set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
+		
+	<p:confirmDialog id="confirmDialog" message="Can you confirm your deletion?"
+			header="Deletion process" severity="alert" widgetVar="confirmation" appendToBody="true">
+		<h:form id="deletion">
+			<p:commandButton id="confirm" value="Yes" oncomplete="confirmation.hide()" immediate="true"
+				actionListener="#{${entityControllerJSFVariable}.deleteListener}" update="$update" />
+			<p:commandButton id="decline" value="No" onclick="confirmation.hide()" type="button" /> 
+	   </h:form>
+	</p:confirmDialog>
 
+  		<h:form id="form2">
+##				<p:messages id="messages" autoUpdate="true"/>  
+			<p:panelGrid columns="3" id="panel" >
+            <f:facet name="header">
+                <h:outputText value="#{i18n.${tableVariableName}} details "/>
+            	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
+            	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
+##            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
+            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
+             </f:facet> 
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()

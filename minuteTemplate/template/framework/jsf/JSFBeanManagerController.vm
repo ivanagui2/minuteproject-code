@@ -345,8 +345,8 @@ public class ${className} {
 		populateFirst ();
 #end
 ##        selected$tableClassName = (selectedAgentRole==null)?new $tableClassName():selected$tableClassName;
-        FacesMessage msg = new FacesMessage("$tableClassName Selected", selected${tableClassName}.toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+##        FacesMessage msg = new FacesMessage("$tableClassName Selected", selected${tableClassName}.toString());
+##        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onTabChange(TabChangeEvent event) {
