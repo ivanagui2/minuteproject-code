@@ -36,4 +36,9 @@ class Jpa2Utils {
 			return EAGER
 		return LAZY
 	}
+	
+	public static boolean isJtaTransactionServer(Template template) {
+		String s = template.getPropertyValue("target-server");
+		"tomcat".equals(s)
+	}
 }
