@@ -1,14 +1,18 @@
+#exposeVariableModelSpecific()
+#set ($datasource = $model.dataModel.basicDataSource)
+#exposeJdbc()
+#exposeJPA2Specifics()
 <Context>
     <Resource
-            name="jdbc/${cloudbees.binding.alias}"
+            name="$datasourceName"
             auth="Container"
             type="javax.sql.DataSource"
 
-            url="${cloudbees.db.url}"
-            username="${cloudbees.db.username}"
-            password="${cloudbees.db.password}"
+            url="$datasource.url"
+            username="$datasource.username"
+            password="$datasource.password"
 
-            driverClassName="com.mysql.jdbc.Driver"
+            driverClassName="$datasource.driverClassName"
 
             maxActive="20"
             maxIdle="1"
