@@ -28,6 +28,7 @@
 #set($isShowSql=$template.getPropertyValue("show-sql",true))
 #set($isCacheEnabled=$template.hasPropertyValue("add-cache-implementation",false))
 #set($isEhCacheEnabled=$template.hasPropertyValue("add-cache-implementation","ehcache"))
+#set($isJtaTransactionServer=$jpa2Utils.isJtaTransactionServer($template))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
