@@ -95,7 +95,7 @@ create table tag(
 create table tag_item(
     tagid INTEGER NOT NULL,
     itemid INTEGER NOT NULL,
-    unique(tagid, itemid),
+    primary key (tagid, itemid),
     foreign key (itemid) references item(itemid),
     foreign key (tagid) references tag(tagid)
 );
