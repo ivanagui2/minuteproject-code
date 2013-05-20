@@ -62,3 +62,8 @@ a:hover {
     font-family: Arial,sans-serif;
     font-size: small;
 }
+
+
+.ui-datatable-odd {
+    background: none repeat scroll 0 0 #F2F5F9;
+}
