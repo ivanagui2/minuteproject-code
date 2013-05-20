@@ -181,6 +181,20 @@
                 <h:outputText value="#{item.${columnVar}}" />  
             </p:column>
 #end
+            <p:column>
+                <p:commandLink  id="detailButton" update=":form2:display" title="View Details" oncomplete="detailDialog.show()" process="@this">
+                    <h:outputText value="View" />
+                    <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
+                </p:commandLink >
+                |
+                <p:commandLink  id="showDialogButton" update=":dialogForm:confirmDialog" title="Delete" oncomplete="confirmation.show()" process="@this">
+                    <h:outputText value="Delete" />  
+##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
+                    <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+                </p:commandLink >
+            
+            </p:column>
 		</p:dataTable>
    </p:tab>
 #end
@@ -196,7 +210,7 @@
                 </p:panelGrid>
 *#
 			   <p:dialog id="basicDialog" header="#{${domainVariableName}} Details" widgetVar="detailDialog"  resizable="false" >  
-                <h:panelGrid columns="2" cellpadding="5"  styleClass="list_display_table_TR_even" id="display">
+                <h:panelGrid columns="2" cellpadding="5" id="display">
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
