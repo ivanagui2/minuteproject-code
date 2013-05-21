@@ -1,0 +1,28 @@
+#exposeJSFModelSpecific()
+package $packageName;
+
+#foreach($table in $entities)
+#if(!$table.isManyToMany())
+#exposeJPA2DomainObject($table)
+import $importDomainObjectUML;
+#end
+#end
+
+public class $className {
+
+#foreach($table in $entities)
+#if(!$table.isManyToMany())
+#exposeVariableEntitySpecific()
+   public String getSemanticReference ($tableClassName element) {
+      StringBuffer sb = new StringBuffer();
+#foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
+#putColumnParamNaming()
+      sb.append (element.get$columnClass()+ " ");
+#end
+      return sb.toString();
+   }
+
+#end
+#end
+
+}

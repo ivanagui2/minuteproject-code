@@ -37,11 +37,6 @@ public class $className {
     public static void addSuccessMessage(String msg) {
         addSuccessMessage (msg, msg);
     }
-    
-	public static void addSuccessMessage(String msg) {
-		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg);
-		FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-	}
 
 	//https://community.jboss.org/thread/8446
 	public static void clearComponentHierarchy(UIComponent pComponent) {
