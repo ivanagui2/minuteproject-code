@@ -12,13 +12,13 @@
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
 			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
 			    </fileSource>
-			    <dataSource>	
-					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
-					<url>jdbc:oracle:thin:@devora3.cc.cec.eu.int:1579:IN1USGD</url>
-					<username>sg_secunda</username>
-					<password>Qjdheuyd_65</password>	
-				</dataSource>
-				<schema>sg_secunda</schema>
+                <dataSource>    
+                    <driverClassName>oracle.jdbc.OracleDriver</driverClassName>
+                    <url>jdbc:oracle:thin:@localhost:1521:XE</url>
+                    <username>HR</username>
+                    <password>oracle</password> 
+                </dataSource>
+                <schema>HR</schema>
                  <!--        
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
