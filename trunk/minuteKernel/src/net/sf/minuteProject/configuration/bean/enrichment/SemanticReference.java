@@ -27,7 +27,8 @@ public class SemanticReference extends AbstractConfiguration {
 	}
 	
 	public void addSqlPath(SqlPath sqlPath) {
-		getSqlPaths().add(sqlPath);
+		if (!getSqlPaths().contains(sqlPath))
+			getSqlPaths().add(sqlPath);
 	}
 	
 	public List<String> getSemanticReferenceSqlPath () {
