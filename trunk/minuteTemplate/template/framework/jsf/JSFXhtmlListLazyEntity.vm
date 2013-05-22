@@ -104,40 +104,17 @@
   		<h:form id="form2">
 ##				<p:messages id="messages" autoUpdate="true"/>  
 			<p:panelGrid columns="3" id="panel" >
-            <f:facet name="header">
-                <h:outputText value="#{i18n.${tableVariableName}} details "/>
-            	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
-            	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
+                <f:facet name="header">
+                    <h:outputText value="#{i18n.${tableVariableName}} details "/>
+                	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
+                	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
 ##            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
-            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
-             </f:facet> 
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-#putJSFColumnSnippet2()
-##$columnVar =  $column.alias
-#end
-#end
-#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
-#foreach ($column in $columnGroup)
-#putColumnParams()
-#columnJavaNaming()
-#putJSFColumnSnippet2()
-#end
-#end
-#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
-#putReferenceParams2()
-#set ($column=$localColumn)
-#putColumnParams()
-#columnJavaNaming()
-#if($tableUtils.isAdminContentType($table))
-#putJSFParentDropDownListSnippet()
-#else
-#putJSFParentAffectationSnippet()
-#end
-#end
-                </p:panelGrid>
+                	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
+                </f:facet>
+                <ui:include src="/$entityEditJSFLocation">
+                   <ui:param name="idValue" value="1" />
+                </ui:include>
+            </p:panelGrid>
 #if ($hasDisplayableChildren)
 <p:tabView id="childrenTab" orientation="top|bottom|left|right"> 
 	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" />##update=":form:growl"/>
@@ -188,7 +165,7 @@
 ##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
                 </p:commandLink >
                 |
-                <p:commandLink  id="showDialogButton" update=":dialogForm:confirmDialog" title="Delete" oncomplete="confirmation.show()" process="@this">
+                <p:commandLink  id="showDialogButton" update=":form2:display" title="Delete" oncomplete="detailDialog.show()" process="@this">
                     <h:outputText value="Delete" />  
 ##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
                     <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />

@@ -1,57 +1,38 @@
 #macro (putJSFColumnSnippet $tableVariableName $internat)
 <label>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</label>
-##if($columnUtils.hasCheckConstraint($column))
-##<h:selectOneMenu id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()">
-##  <f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${id}Items"/>
-##</h:selectOneMenu>
-##else
 #if($columnUtils.isTimeColumn($column))
     <p:calendar value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
-       id="lbl${columnClass}" ##converter="dateTsConverter"
+       id="lbl${columnClass}-#{idValue}" ##converter="dateTsConverter"
        converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
     </p:calendar>
-	<p:message for="lbl${columnClass}" />
+	<p:message for="lbl${columnClass}-#{idValue}" />
 #else
 #if($presentationUtils.isTextArea($column))
 	<p:inputTextarea rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
-## counter="counter" 
         counterTemplate="{0} characters remaining." autoResize="false"
 #elseif($presentationUtils.isRichText($column))
 	<p:editor 
 #else
 	<p:inputText 
 #end
-		label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
-	<p:message for="lbl${columnClass}"/>
+		label="${columnClass}" id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
+	<p:message for="lbl${columnClass}-#{idValue}"/>
 #end
 #end
 #macro (putJSFColumnSnippet2)
 #putJSFColumnSnippet("selected${tableClassName}" ${tableVariableName})
-#*<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) * #end</label>
-#if($columnUtils.isTimeColumn($column))
-    <p:calendar value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}"
-       id="lbl${columnClass}" ##converter="dateTsConverter"
-       converterMessage="Invalid Date" required="$column.isRequired()"
-       pattern="dd/MM/yyyy">
-    </p:calendar>
-	<p:message for="lbl${columnClass}" />
-#else
-	<p:inputText label="${columnClass}" id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()" />
-	<p:message for="lbl${columnClass}"/>
-#end
-*#
 #end
 
 #macro (putJSFParentDropDownListSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
-<h:selectOneMenu id="lbl${columnClass}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_}" required="$column.isRequired()">
+<h:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_}" required="$column.isRequired()">
 #if(!$column.isRequired())
     <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
 	<f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${columnVar}Items"/>
 </h:selectOneMenu>
-<p:message for="lbl${columnClass}" />
+<p:message for="lbl${columnClass}-#{idValue}" />
 #end
 
 #macro (putJSFParentAffectationSnippet)
@@ -62,7 +43,7 @@
 #end
     <f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${columnVar}Items"/>
 </h:selectOneMenu>
-<p:message for="lbl${columnClass}" />
+<p:message for="lbl${columnClass}-#{idValue}" />
 #end
 
 #macro(exposeSeparator)
@@ -81,11 +62,11 @@
 #set ($entityListJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityListJSF))
 #set ($entityListJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityListJSFClass))
 #set ($entityListJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityListJSF))	
-##set ($entityListJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListJSF))
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
 #set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
+#set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))
 #end
 
 #macro (exposeJSFModelSpecific)
@@ -93,7 +74,6 @@
 #exposeJSFConfig()
 #exposeJSFTemplate()
 #set ($modelJSFUtilsClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJSFUtils))
-##set ($modelJSFUtilsVariable = $commonUtils.getJavaNameVariableFirstLetter($modelJSFUtilsClass))
 #set ($modelJSFUtilsImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelJSFUtils))
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
@@ -102,7 +82,8 @@
 #set ($modelBeanManagerMenuJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerMenuJSFClass))
 #set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
-#set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
+#set ($modelSemanticReferenceUtilsJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateModelJSFSemanticReferenceUtils))
+#set ($modelSemanticReferenceUtilsJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJSFSemanticReferenceUtils))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
@@ -123,6 +104,7 @@
 #set ($templateEntityCreateJSF = "JSFXhtmlCreateEntity")
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
 #set ($templateEntityListLazyJSF = "JSFXhtmlListLazyEntity")
+#set ($templateEntityEditJSF = "JSFXhtmlEditEntity")
 #set ($templateSDDJSF = "JSFXhtmlSDDInput")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateModelI18nJSF = "JSFI18nProperties")
@@ -132,6 +114,7 @@
 #set ($templateModelBeanManagerMenuJSF = "JSFBeanManagerMenu")
 #set ($templateJSFFwkDateTsConverter = "JSFFwkDateTsConverter")
 #set ($templateModelJSFUtils = "JSFUtils")
+#set ($templateModelJSFSemanticReferenceUtils = "JSFSemanticReferenceUtils")
 #set ($templateChartJSF = "JSFXhtmlChart")
 #set ($templateLookupBean = "JSF.Spring.Lookup.Service")
 #end
