@@ -54,6 +54,7 @@ import $lookupBeanImport;
 import $beanSpringModelServiceImport;
 import $SpringServiceInterfaceImport;
 import $modelJSFUtilsImport;
+import $modelSemanticReferenceUtilsJSFImport;
 
 #elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
@@ -245,10 +246,10 @@ public class ${className} {
 *#
 	    	if (selected${tableClassName}.get$primaryKeyJavaNameClass() == null) {
 	    		${EJBDaoImplVariable}.create(selected${tableClassName});
-	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityCreated"));
+	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityCreated"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 	    	} else {
 	    		${EJBDaoImplVariable}.update(selected${tableClassName});
-	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityUpdated"));
+	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityUpdated"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 	    	}
 #end
 	    	selected${tableClassName} = new ${tableClassName}();
@@ -276,7 +277,7 @@ public class ${className} {
             if (selected${tableClassName}.get$primaryKeyJavaNameClass() != null) {
 #if(!$deletionNotYetImplemented)
                 ${EJBDaoImplVariable}.delete(selected${tableClassName});
-                JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityDeleted"));
+                JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityDeleted"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 #else
                 JsfUtils.addSuccessMessage("deletion not implemented for composite pk, please contribute");
 #end

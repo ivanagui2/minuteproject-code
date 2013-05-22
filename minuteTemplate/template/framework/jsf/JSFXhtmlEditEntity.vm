@@ -1,0 +1,37 @@
+#exposeJSFEntitySpecific()
+#exposeJSFModelSpecific()
+#exposeSeparator()
+#exposePrimefacesConfig()
+#set($hasDisplayableChildren=$presentationUtils.hasDisplayableChildren($table))
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="$primefacesNamespace">
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+#putJSFColumnSnippet2()
+##$columnVar =  $column.alias
+#end
+#end
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($column in $columnGroup)
+#putColumnParams()
+#columnJavaNaming()
+#putJSFColumnSnippet2()
+#end
+#end
+#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
+#putReferenceParams2()
+#set ($column=$localColumn)
+#putColumnParams()
+#columnJavaNaming()
+#if($tableUtils.isAdminContentType($table))
+#putJSFParentDropDownListSnippet()
+#else
+#putJSFParentAffectationSnippet()
+#end
+#end
+</html>
