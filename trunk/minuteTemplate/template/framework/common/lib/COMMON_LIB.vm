@@ -216,7 +216,12 @@ $!commonUtils.getReadMeText($template)
 #putColumnParamNaming()
 #if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)))
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
-    public static final $columnType $defaultConstant = $defaultValue;
+#if ($columnUtils.isString($column))
+#set($defaultType="String")
+#else
+#set($defaultType=$columnType)
+#end
+	public static final $defaultType $defaultConstant = $defaultValue;
 #end
 #end
 #end

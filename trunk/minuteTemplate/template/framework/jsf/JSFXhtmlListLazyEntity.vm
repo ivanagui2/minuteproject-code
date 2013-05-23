@@ -3,6 +3,7 @@
 #exposeSeparator()
 #exposePrimefacesConfig()
 #set($hasDisplayableChildren=$presentationUtils.hasDisplayableChildren($table))
+#set($refCnt=1)
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -64,28 +65,6 @@
                 <h:outputText value="#{item.${columnVar}}" />  
             </p:column>  
 #end
-#*            <p:column>
-            	<p:commandLink id="selectButton" update=":form2:panel" title="Edit" process="@this">
-         			<h:outputText value="Edit" /> 
-         			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.${tableVariableName}}" />
-##                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.current}" />
-     			</p:commandLink >
-     			|
-     			<p:commandLink  id="detailButton" update=":form2:display" title="View Details" oncomplete="detailDialog.show()" process="@this">
-     				<h:outputText value="View" />
-         			<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
-##                     			<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-     			</p:commandLink >
-     			|
-     			<p:commandLink  id="showDialogButton" update=":dialogForm:confirmDialog" title="Delete" oncomplete="confirmation.show()" process="@this">
-     				<h:outputText value="Delete" />  
-##                 				<f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-     				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
-     			</p:commandLink >
-			
-        	</p:column>
-*#
-##putPrimefacesEntityRowExpansion()
         </p:dataTable>
     </h:panelGroup>
    </h:form>        
@@ -101,9 +80,8 @@
 	   </h:form>
 	</p:confirmDialog>
 
-  		<h:form id="form2">
-##				<p:messages id="messages" autoUpdate="true"/>  
-			<p:panelGrid columns="3" id="panel" >
+  	<h:form id="form2">
+			<p:panelGrid columns="3" id="panel" cellpadding="5" >
                 <f:facet name="header">
                     <h:outputText value="#{i18n.${tableVariableName}} details "/>
                 	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
@@ -112,7 +90,8 @@
                 	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
                 </f:facet>
                 <ui:include src="/$entityEditJSFLocation">
-                   <ui:param name="idValue" value="1" />
+                   <ui:param name="idValue" value="$refCnt" />
+#set($refCnt=$refCnt+1)
                 </ui:include>
             </p:panelGrid>
 #if ($hasDisplayableChildren)
@@ -159,16 +138,20 @@
             </p:column>
 #end
             <p:column>
-                <p:commandLink  id="detailButton" update=":form2:display" title="View Details" oncomplete="detailDialog.show()" process="@this">
+#set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
+#set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
+                <p:commandLink  id="detailButton${childrenListClass}" update=":form${childrenListClass}" title="View Details" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
                     <h:outputText value="View" />
-                    <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+                    <f:setPropertyActionListener value="#{item}" target="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" />
+                    ##<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.associated${childrenListClass}}" />
 ##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
                 </p:commandLink >
                 |
-                <p:commandLink  id="showDialogButton" update=":form2:display" title="Delete" oncomplete="detailDialog.show()" process="@this">
+                <p:commandLink  id="showDialogButton${childrenListClass}" update=":form2:panel" title="Delete" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
                     <h:outputText value="Delete" />  
 ##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-                    <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}}" />
+                    ##<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.associated${childrenListClass}}" />
+                    <f:setPropertyActionListener value="#{item}" target="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" />
                 </p:commandLink >
             
             </p:column>
@@ -178,15 +161,20 @@
 #end
 </p:tabView>
 #end
-#*                <p:panelGrid columns="3" id="panelfooter" >
-        			<f:facet name="footer">  
-            	        <p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
-            	        <p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel" style="margin:5px;"/>
-            	        <p:commandButton value="Delete" icon="ui-icon-trash"  actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form${domainClassName}:${domainVariableName}Table,:form2:panel" />  
-            	    </f:facet> 
-                </p:panelGrid>
-*#
-			   <p:dialog id="basicDialog" header="#{${domainVariableName}} Details" widgetVar="detailDialog"  resizable="false" >  
+	</h:form>
+#if ($hasDisplayableChildren)
+#foreach ($reference in $presentationUtils.getDisplayableChildren($table))
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+#set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
+	<h:form id="form${childrenListClass}">
+		<p:dialog id="basicDialog${childrenListClass}" header="#{${childrenListVariable}} Details" widgetVar="detailDialog${childrenListClass}" resizable="true" >  
+			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
+			<ui:include src="/$entityEditJSFLocation">
+                <ui:param name="idValue" value="$refCnt" />
+#set($refCnt=$refCnt+1)
+            </ui:include>
+#*			   <p:dialog id="basicDialog" header="#{${domainVariableName}} Details" widgetVar="detailDialog"  resizable="false" >  
                 <h:panelGrid columns="2" cellpadding="5" id="display">
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -201,25 +189,17 @@
 #columnJavaNaming() 
             <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
             <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
-#end				
-                </h:panelGrid>
-			</p:dialog>   
+#end
+*#
+            </h:panelGrid>
 
-		</h:form>
-#*    
-    		<h:form id="dialogForm">
-    			<p:confirmDialog id="confirmDialog" message="Confirm delete #{i18n.${tableVariableName}} item ?" header="Confirm Delete #{i18n.${tableVariableName}}" severity="alert" widgetVar="confirmation">  
-    	                  	<f:facet name="message">
-    						<h:outputText value="Delete #{i18n.${tableVariableName}} item ?" />
-    						</f:facet>
-    	                  
-    	        <p:commandButton id="confirm" value="Yes" oncomplete="confirmation.hide()"  update=":form${domainClassName}:${domainVariableName}Table" />
-    	                    ## actionListener="#{employeesController.destroyListener}"/>  
-    	        <p:commandButton id="decline" value="No" onclick="confirmation.hide()" type="button" />   
-    	                  
-    			</p:confirmDialog>  
-    		</h:form>
-*#				
+		</p:dialog>
+	</h:form>
+#end
+#end
+#end
+
+
         </ui:define>
     </ui:composition>
 </html>
