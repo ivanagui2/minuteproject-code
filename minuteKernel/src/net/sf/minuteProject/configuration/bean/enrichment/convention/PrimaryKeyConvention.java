@@ -72,9 +72,11 @@ public abstract class PrimaryKeyConvention<T extends Table> extends FieldConvent
 	
 	protected List<Column> getPksByFirstColumn(T t) {
 		List<Column> pks = new ArrayList<Column>();
-		Column column = t.getColumn(0);
-		if (column!=null)
-			pks.add(column);		
+		if (t.getColumnCount()>0) {
+			Column column = t.getColumn(0);
+			if (column!=null)
+				pks.add(column);	
+		}
 		return pks;
 	}
 	

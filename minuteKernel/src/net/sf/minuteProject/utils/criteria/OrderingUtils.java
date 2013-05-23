@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -13,6 +15,7 @@ import net.sf.minuteProject.utils.TableUtils;
 
 public class OrderingUtils {
 
+	private Logger logger = Logger.getLogger(OrderingUtils.class);
 	public Ordering getFirstOrdering(Table table) {
 		//1 get ordering enrichment
 		List<Ordering> orderings = table.getOrderings();
@@ -34,6 +37,14 @@ public class OrderingUtils {
 			ordering.setColumn(pk);
 			return ordering;
 		}
+		//4 to prevent pk not set
+		logger.warn("TABLE "+table.getName()+ " should have a PK, please apply Primary-key conventions if PK is not physically enabled");
+		pk = table.getColumn(0);
+		if(pk!=null) {
+			ordering.setColumn(pk);
+			return ordering;
+		}
+		
 		return null;
 	}
 
