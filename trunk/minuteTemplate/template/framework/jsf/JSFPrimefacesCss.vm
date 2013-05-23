@@ -57,13 +57,25 @@ a:hover {
 	color: LightBlue;
 }
 
-
 .ui-widget {
     font-family: Arial,sans-serif;
     font-size: small;
 }
 
-
 .ui-datatable-odd {
     background: none repeat scroll 0 0 #F2F5F9;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    box-shadow: none !important;
+}
+.ui-inputfield {
+    border: 2px solid #dadada !important; 
+    border-radius: 7px !important;
+}
+
+.ui-inputfield:focus { 
+    outline: none !important;
+    border-color: #7bc1f7 !important;
+    box-shadow: 0 0 10px #7bc1f7 !important;
 }

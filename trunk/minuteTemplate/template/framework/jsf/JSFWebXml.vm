@@ -21,9 +21,9 @@
 			<url-pattern>*.xhtml</url-pattern>
 		</servlet-mapping>
 		<welcome-file-list>
-			<welcome-file>$modelMenuJSFImport</welcome-file>
+			<welcome-file>$modelIndexJSFImport</welcome-file>
 		</welcome-file-list>
-#if($isSpringBackend)		
+#if($isSpringBackend)
 	<!-- if spring -->
 	<context-param>
 		<param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>

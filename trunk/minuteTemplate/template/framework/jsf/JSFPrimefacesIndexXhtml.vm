@@ -7,11 +7,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.prime.com.tr/ui">
-<h:head>
-	<title><ui:insert name="title">Welcome to $model.name jsf primefaces web app</ui:insert></title>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
-</h:head>
-<h:body>
-    <h3>Welcome to $model.name jsf primefaces web app</h3>  
-</h:body>
+    <ui:composition template="$modelDecoratorJSFImport">
+    	<ui:define name="title">
+    		<ui:insert name="title">Welcome to petshop jsf primefaces web app</ui:insert>
+    	</ui:define>
+    	<ui:define name="heading">
+    		<h:outputText value="Menu" />
+    	</ui:define>
+		<ui:define name="body">
+			Welcome to petshop jsf primefaces web app
+    	</ui:define>
+    </ui:composition>
 </html>	
