@@ -117,6 +117,9 @@ public class ${className} {
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
+##	private ${linkedTableClass} associated${childrenListClass};
+##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
+
 	private List<$linkedTableClass> $childrenListVariable;
     public List<${linkedTableClass}> get${childrenListClass} () {
         return ${childrenListVariable};
