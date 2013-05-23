@@ -9,17 +9,28 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">			
 			<data-model>
-                <driver name="mysql" version="5.1.16" groupId="mysql"
-                    artifactId="mysql-connector-java"></driver>
-                <dataSource>
-                    <driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
-                    <url>jdbc:mysql://127.0.0.1:3306/petshop</url>
-                    <username>root</username>
-                    <password>mysql</password>
-                </dataSource>
-                <primaryKeyPolicy oneGlobal="false">
-                    <primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
-                </primaryKeyPolicy>
+			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
+			    <fileSource name="petshop" dir="c:/MinuteProject/data">
+			    </fileSource>
+			    <!--
+			    <dataSource>	
+					<driverClassName>org.apache.derby.jdbc.ClientDriver</driverClassName>
+					<url>jdbc:derby://localhost:1527/sample</url>
+					<username>app</username>
+					<password>app</password>	
+				</dataSource>
+				<schema>app</schema>			    
+			    -->	
+			    <dataSource>	
+					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
+					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+					<username>sa</username>
+					<password></password>	
+				</dataSource>	
+											 
+                <primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
+                    <primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
+                </primaryKeyPolicy> 
 			</data-model>
 			<business-model>
 				<generation-condition>
