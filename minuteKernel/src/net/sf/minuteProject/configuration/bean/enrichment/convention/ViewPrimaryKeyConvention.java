@@ -25,6 +25,19 @@ public class ViewPrimaryKeyConvention extends PrimaryKeyConvention<View> {
 		return model.getBusinessPackage().getViews();
 	}
 
+	protected void applyDefaultPkConvention(View view) {
+		Column[] virtualPrimaryKey = getVirtualPrimaryKey(view);
+		if (virtualPrimaryKey.length>0) {
+			view.addVirtualPrimaryKey(virtualPrimaryKey[0]);
+		}
+	}
+	
+//	protected void applyDefaultPkConvention(View view) {
+//		Column[] primaryKeyFirstFieldAndOtherMatching = getPrimaryKeyFirstFieldAndOtherMatching(view);
+//		for (Column column : primaryKeyFirstFieldAndOtherMatching) {
+//			view.addVirtualPrimaryKey(column);
+//		}
+//	}
 	protected void applyPkOnFirstFieldAndOtherMatching(View view) {
 		Column[] primaryKeyFirstFieldAndOtherMatching = getPrimaryKeyFirstFieldAndOtherMatching(view);
 		for (Column column : primaryKeyFirstFieldAndOtherMatching) {
