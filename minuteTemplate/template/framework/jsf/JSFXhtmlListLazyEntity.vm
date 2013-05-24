@@ -103,7 +103,7 @@
    <p:tab id="child-$childrenListVariable" title="$childrenListVariable" > 
 		<p:toolbar id="add-$linktableDB.alias">  
 			<p:toolbarGroup align="left"> 
-				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document"/>         
+				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document" onclick="add${childrenListClass}.show();" update=":form2:panel"/>
     		</p:toolbarGroup>
 		</p:toolbar>
         <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
@@ -140,20 +140,9 @@
             <p:column>
 #set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
-                <p:commandLink  id="detailButton${childrenListClass}" update=":form${childrenListClass}" title="View Details" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
-                    <h:outputText value="View" />
+                <p:commandButton value="Manage" id="detailButton${childrenListClass}" update=":form${childrenListClass}" title="Manage Details" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
                     <f:setPropertyActionListener value="#{item}" target="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" />
-                    ##<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.associated${childrenListClass}}" />
-##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-                </p:commandLink >
-                |
-                <p:commandLink  id="showDialogButton${childrenListClass}" update=":form2:panel" title="Delete" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
-                    <h:outputText value="Delete" />  
-##                              <f:setPropertyActionListener value="#{${domainVariableName}}" target="#{employeesController.detailedEmployee}" />
-                    ##<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.associated${childrenListClass}}" />
-                    <f:setPropertyActionListener value="#{item}" target="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" />
-                </p:commandLink >
-            
+                </p:commandButton >
             </p:column>
 		</p:dataTable>
    </p:tab>
@@ -162,11 +151,23 @@
 </p:tabView>
 #end
 	</h:form>
+
 #if ($hasDisplayableChildren)
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
+	<h:form id="formAdd$childrenListVariable">
+		<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >  
+			<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
+			<ui:include src="/$entityEditJSFLocation">
+                <ui:param name="idValue" value="$refCnt" />
+#set($refCnt=$refCnt+1)
+            </ui:include>
+            </h:panelGrid>
+			<p:commandButton id="cmdAdd${childrenListClass}" value="Add"  icon="ui-icon-check" process="@this" oncomplete="basicAdd${childrenListClass}.hide()" />
+		</p:dialog>
+	</h:form>
 	<h:form id="form${childrenListClass}">
 		<p:dialog id="basicDialog${childrenListClass}" header="#{${childrenListVariable}} Details" widgetVar="detailDialog${childrenListClass}" resizable="true" >  
 			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
@@ -174,25 +175,9 @@
                 <ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
             </ui:include>
-#*			   <p:dialog id="basicDialog" header="#{${domainVariableName}} Details" widgetVar="detailDialog"  resizable="false" >  
-                <h:panelGrid columns="2" cellpadding="5" id="display">
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
-            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
-#end
-#end  
-#foreach ($column in $table.attributes)
-#putColumnParams()
-#columnJavaNaming() 
-            <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}:" />  
-            <h:outputText value="#{${entityControllerJSFVariable}.selected${domainClassName}.$columnVar}" />  
-#end
-*#
             </h:panelGrid>
-
+			<p:commandButton id="cmdUpdate${childrenListClass}" value="Update"  icon="ui-icon-check" process="@this" oncomplete="basicDialog${childrenListClass}.hide()" />
+			<p:commandButton id="cmdDelete${childrenListClass}" value="Delete"  icon="ui-icon-trash" process="@this" oncomplete="basicDialog${childrenListClass}.hide()" />
 		</p:dialog>
 	</h:form>
 #end
