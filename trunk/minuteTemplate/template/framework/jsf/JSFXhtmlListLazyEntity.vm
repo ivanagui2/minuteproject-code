@@ -107,7 +107,6 @@
     		</p:toolbarGroup>
 		</p:toolbar>
         <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
-##                selection="#{${entityControllerJSFVariable}.selected${entityControllerJSFVariable}}" selectionMode="single" rowKey="#{${entityControllerJSFVariable}}"
                 onRowSelectUpdate="display" 
                 dynamic="true"  resizableColumns="true"
                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
@@ -157,15 +156,17 @@
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
+#set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
+#set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 	<h:form id="formAdd$childrenListVariable">
 		<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >  
 			<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
 			<ui:include src="/$entityEditJSFLocation">
-                <ui:param name="idValue" value="$refCnt" />
+               <ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
             </ui:include>
             </h:panelGrid>
-			<p:commandButton id="cmdAdd${childrenListClass}" value="Add"  icon="ui-icon-check" process="@this" oncomplete="basicAdd${childrenListClass}.hide()" />
+			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$update"/>
 		</p:dialog>
 	</h:form>
 	<h:form id="form${childrenListClass}">
@@ -176,8 +177,8 @@
 #set($refCnt=$refCnt+1)
             </ui:include>
             </h:panelGrid>
-			<p:commandButton id="cmdUpdate${childrenListClass}" value="Update"  icon="ui-icon-check" process="@this" oncomplete="basicDialog${childrenListClass}.hide()" />
-			<p:commandButton id="cmdDelete${childrenListClass}" value="Delete"  icon="ui-icon-trash" process="@this" oncomplete="basicDialog${childrenListClass}.hide()" />
+			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update"/>
+			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$update"/>
 		</p:dialog>
 	</h:form>
 #end
