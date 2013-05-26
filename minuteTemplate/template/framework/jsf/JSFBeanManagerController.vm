@@ -122,6 +122,7 @@ public class ${className} {
 
 	private List<$linkedTableClass> $childrenListVariable;
     public List<${linkedTableClass}> get${childrenListClass} () {
+        populate$linkedTableClass ();
         return ${childrenListVariable};
     }
 #if($velocityCount==1)
