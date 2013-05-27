@@ -62,6 +62,7 @@
 			 <p:column>
                 <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}" title="Affect" onclick="suc${childrenListClass}Dialog.hide()" process="@this">
                     <f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
+                    <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
                 </p:commandButton >
 			  </p:column>
         </p:dataTable>

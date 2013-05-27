@@ -34,11 +34,12 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
+    <!--$isJtaTransactionServer-->
 #if($isJtaTransactionServer)
         <jta-data-source>$datasourceName</jta-data-source>
 #else
         <!-- tomcat server -->
-        <non-jta-data-source>java:comp/env/jdbc/$datasourceName</non-jta-data-source>
+        <non-jta-data-source>java:comp/env/$datasourceName</non-jta-data-source>
 #end
 #end
 $!updatedAreaEnd

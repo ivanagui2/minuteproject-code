@@ -78,6 +78,11 @@ public class $className implements $SpringServiceInterfaceClass {
 
     public $tableClassName load ($primaryKeyFullType $primaryKeyVariable) {
         $tableClassName entity = findById($primaryKeyVariable);
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set($localColumnClass = $commonUtils.getColumnAliasClass($table, $reference))
+        entity.get${localColumnClass}().toString();//improve with partialparent loading
+#end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #exposeImportParamsUML($targetTable)
