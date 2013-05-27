@@ -18,6 +18,9 @@ public class $className {
 #foreach($table in $entities)
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
+   public static String getSemanticReference$tableClassName ($tableClassName element) {
+      return getSemanticReference(element);
+   }
    public static String getSemanticReference ($tableClassName element) {
       if (element==null) return "";
 	  StringBuffer sb = new StringBuffer();

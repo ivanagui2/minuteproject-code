@@ -88,7 +88,7 @@ import $importDomainObjectUML;
 #set($deletionNotYetImplemented=true)
 #set($primaryKeyJavaNameClass = $embeddedIdClass)
 #end
-public class ${className} {
+public class ${className} implements java.io.Serializable{
 
 #if($isSpringBackend)
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
@@ -204,7 +204,12 @@ public class ${className} {
                 @Override
 				//Strange why is the getRowData input a string and not an object
                 public $tableClassName getRowData(String rowKey) {
-                    List<$tableClassName> list = (List<$tableClassName>) getWrappedData();
+#if($columnUtils.isString($primaryKeyFirstColumn))
+                    return ${EJBDaoImplVariable}.load(rowKey);
+#else
+                    return ${EJBDaoImplVariable}.load(${primaryKeyType}.valueOf(rowKey));
+#end
+#*                    List<$tableClassName> list = (List<$tableClassName>) getWrappedData();
                     for($tableClassName element : list) {
 #if(!$columnUtils.isString($primaryKeyFirstColumn))
                         if(element.get$primaryKeyJavaNameClass().toString().equals(rowKey))  {
@@ -215,6 +220,7 @@ public class ${className} {
                         }
                     }
                     return null;
+*#
                 }
 
                 @Override

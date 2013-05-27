@@ -38,7 +38,7 @@
 #macro (putJSFParentAffectationSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
 <p:row>
-<p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
+<p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
 <p:commandButton type="button" title="Search" icon="ui-icon-search" onclick="suc${childrenListClass}Dialog.show()"/>
 </p:row>
 <p:message for="lbl${columnClass}-#{idValue}" />
