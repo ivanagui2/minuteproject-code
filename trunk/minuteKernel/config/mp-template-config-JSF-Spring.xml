@@ -118,6 +118,12 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
+		<template name="JSFXhtmlListRowEntity" templateFileName="JSFXhtmlListRowEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListRow" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+
 		<template name="JSFXhtmlEditEntity" templateFileName="JSFXhtmlEditEntity.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="Edit" 
 			entity-specific="true" 
