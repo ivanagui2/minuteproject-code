@@ -37,12 +37,10 @@
 
 #macro (putJSFParentAffectationSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
-<h:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_}" required="$column.isRequired()">
-#if(!$column.isRequired())
-    <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
-#end
-    <f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${columnVar}Items"/>
-</h:selectOneMenu>
+<p:row>
+<p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
+<p:commandButton type="button" title="Search" icon="ui-icon-search" onclick="suc${childrenListClass}Dialog.show()"/>
+</p:row>
 <p:message for="lbl${columnClass}-#{idValue}" />
 #end
 
@@ -67,6 +65,7 @@
 #set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
 #set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))
+#set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListRowJSF))
 #end
 
 #macro (exposeJSFModelSpecific)
@@ -84,6 +83,7 @@
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
 #set ($modelSemanticReferenceUtilsJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateModelJSFSemanticReferenceUtils))
 #set ($modelSemanticReferenceUtilsJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJSFSemanticReferenceUtils))
+#set ($modelSemanticReferenceUtilsJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelSemanticReferenceUtilsJSFClass))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
 #set ($modelIndexJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateIndexXhtmlMenuJSF))
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
@@ -106,6 +106,7 @@
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
 #set ($templateEntityListLazyJSF = "JSFXhtmlListLazyEntity")
 #set ($templateEntityEditJSF = "JSFXhtmlEditEntity")
+#set ($templateEntityListRowJSF = "JSFXhtmlListRowEntity")
 #set ($templateSDDJSF = "JSFXhtmlSDDInput")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateModelI18nJSF = "JSFI18nProperties")
