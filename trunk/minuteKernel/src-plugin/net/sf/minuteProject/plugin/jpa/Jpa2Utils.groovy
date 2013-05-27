@@ -39,6 +39,8 @@ class Jpa2Utils {
 	
 	public static boolean isJtaTransactionServer(Template template) {
 		String s = template.getPropertyValue("target-server");
+		if (s==null)
+			return false;
 		"tomcat".equals(s)
 	}
 }
