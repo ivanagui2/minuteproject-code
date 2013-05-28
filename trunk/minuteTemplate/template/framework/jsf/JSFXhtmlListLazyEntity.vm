@@ -148,12 +148,19 @@
 #end
 *#
             <p:column>
-
 #set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
-                <p:commandButton value="Manage" id="detailButton${childrenListClass}" update=":form${childrenListClass}" title="Manage Details" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
-                    <f:setPropertyActionListener value="#{item}" target="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" />
-                </p:commandButton >
+##                <p:commandButton value="Manage" id="detailButton${childrenListClass}" update=":form${childrenListClass}" title="Manage Details" oncomplete="detailDialog${childrenListClass}.show()" process="@this">
+##                    <f:setPropertyActionListener value="#{item}" target="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" />
+##                </p:commandButton >
+                <p:commandButton value="Manage" 
+					id="detailButton${childrenListClass}" 
+					update=":form${childrenListClass}" 
+					title="Manage Details"
+					action="#{${entityLinkControllerJSFVariable}.reloadSelected}"
+					actionListener="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"
+					oncomplete="detailDialog${childrenListClass}.show()" 
+					process="@this"/>
             </p:column>
 		</p:dataTable>
    </p:tab>
@@ -170,29 +177,33 @@
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
-	<h:form id="formAdd$childrenListVariable">
-		<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >  
+	<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >  
+		<h:form id="formAdd$childrenListVariable">
 			<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
 			<ui:include src="/$entityEditJSFLocation">
-               <ui:param name="idValue" value="$refCnt" />
+				<ui:param name="affectFormId" value=":formAdd$childrenListVariable" />
+                <ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
             </ui:include>
             </h:panelGrid>
 			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$update"/>
-		</p:dialog>
-	</h:form>
-	<h:form id="form${childrenListClass}">
-		<p:dialog id="basicDialog${childrenListClass}" header="#{${childrenListVariable}} Details" widgetVar="detailDialog${childrenListClass}" resizable="true" >  
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="basicDialog${childrenListClass}" header="#{${childrenListVariable}} Details" widgetVar="detailDialog${childrenListClass}" resizable="true" >  
+		<h:form id="form${childrenListClass}">
 			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
 			<ui:include src="/$entityEditJSFLocation">
+				<ui:param name="affectFormId" value=":form${childrenListClass}" />
                 <ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
             </ui:include>
             </h:panelGrid>
 			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update"/>
 			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$update"/>
-		</p:dialog>
-	</h:form>
+		</h:form>
+	</p:dialog>
+
 #end
 #end
 #end
