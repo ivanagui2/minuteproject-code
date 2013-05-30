@@ -96,10 +96,10 @@ public class ${className} implements java.io.Serializable{
 	private LazyDataModel<$tableClassName> lazyModel;
 
 	@ManagedProperty("#{${lookupBeanVar}}")
-    ${lookupBeanClass} ${lookupBeanVar};
+    transient ${lookupBeanClass} ${lookupBeanVar};
 
 	@ManagedProperty("#{${beanSpringModelServiceVariable}}")
-    ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
+    transient ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
 	
 #elseif($isEJBBackend)
 	@Inject 
@@ -122,16 +122,16 @@ public class ${className} implements java.io.Serializable{
 
 	private List<$linkedTableClass> $childrenListVariable;
     public List<${linkedTableClass}> get${childrenListClass} () {
-        populate$linkedTableClass ();
+        populate$childrenListVariable ();
         return ${childrenListVariable};
     }
 #if($velocityCount==1)
 #set($hasFirstRelationship=true)
 	private void populateFirst () {
-		populate$linkedTableClass ();
+		populate$childrenListVariable ();
 	}
 #end
-	private void populate$linkedTableClass () {
+	private void populate$childrenListVariable () {
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
     		$linkedTableClass mask = new $linkedTableClass();
     		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
@@ -359,7 +359,7 @@ public class ${className} implements java.io.Serializable{
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 	    if ("child-$childrenListVariable".equals(tabId)) {
-			populate$linkedTableClass ();
+			populate$childrenListVariable ();
 		}
 #end
 #end

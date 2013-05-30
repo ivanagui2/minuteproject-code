@@ -106,7 +106,7 @@
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
    <p:tab id="child-$childrenListVariable" title="$childrenListVariable" > 
-		<p:toolbar id="add-$linktableDB.alias">  
+		<p:toolbar id="add-$childrenListVariable">  
 			<p:toolbarGroup align="left"> 
 				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document" onclick="add${childrenListClass}.show();" update=":form2:panel"/>
     		</p:toolbarGroup>
