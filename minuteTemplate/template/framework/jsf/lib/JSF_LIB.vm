@@ -61,7 +61,7 @@
 #set ($entityListJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityListJSFClass))
 #set ($entityListJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityListJSF))	
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
-#set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
+#set ($entityControllerJSFVariable = $formatUtils.getJavaNameForGetterAndSetter($entityControllerJSFClass))
 #set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
 #set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))
