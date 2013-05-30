@@ -576,7 +576,11 @@ public class JdbcModelReader
             table.setDescription((String)values.get("REMARKS"));
 
             if (SYNONYM.equals(origType)) {
-            	table.addColumns(readColumnsByFetch(metaData, tableName, _connection));
+            	Collection readColumnsByFetch = readColumnsByFetch(metaData, tableName, _connection);
+            	if (!readColumnsByFetch.isEmpty())
+            		table.addColumns(readColumnsByFetch);
+            	else
+            		return null;
             } else {
             	table.addColumns(readColumns(metaData, tableName));
             }

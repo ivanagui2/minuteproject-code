@@ -108,7 +108,16 @@ public class FormatUtils {
 			return "ERROR_GET_JAVANAMEVARIABLE_WITH_NULL";
 		if (name.equals(""))
 			return name;
+		return getJavaNameForGetterAndSetter(name);
+	}
+
+	public static String getJavaNameForGetterAndSetter(String name) {
 		String javaname = getJavaName(name);
+		return getJavaNameForGetterAndSetter(name, javaname);
+	}
+
+	public static String getJavaNameForGetterAndSetter(String name,
+			String javaname) {
 		if (isStandardBean(name))
 			return firstLowerCase(javaname);
 		// trick java part
