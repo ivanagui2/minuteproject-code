@@ -70,6 +70,8 @@ public class BusinessModel {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
 			getBusinessPackage().setPackageViews(model, database);
+			getBusinessPackage().renameColisionPackageName();
+			
 		}
 		complementDataModelWithViewsEnrichment();
 		complementDataModelWithPackageEnrichment();

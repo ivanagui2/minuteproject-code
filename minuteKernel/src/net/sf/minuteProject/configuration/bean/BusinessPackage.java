@@ -70,6 +70,15 @@ public class BusinessPackage extends BusinessPackageAdapter {
 //		}
 	}
 	
+	public void renameColisionPackageName() {
+		for (Package packv: getPackageViews()) {
+			for (Package packt : getPackages()) {
+				if (packv.getName().equalsIgnoreCase(packt.getName())) 
+					packv.setName(packv.getName()+"view");
+			}
+		}
+	}
+	
 	void setPackages(Model model, Database database, List<Package> packs, Table[] t) {
 		Hashtable<String, Package> ht = new Hashtable<String, Package>();
 		for (int i = 0; i < t.length; i++) {
@@ -242,4 +251,6 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		}
 		return allPackages;
 	}
+
+
 }
