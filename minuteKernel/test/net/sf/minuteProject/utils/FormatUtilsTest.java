@@ -13,7 +13,21 @@ public class FormatUtilsTest extends TestCase {
 	private String expressionToTrim1 = "____bbbbbbbasdasd____dasdsa___daddddddsd__";
 	private String expressionToTrim2 = "123456789012345678901234567890----";
 	private String expressionToTrim2Assert = "123456789012345678901234567890";
-
+	
+	private final String getterSetterClassName = "TSecUser";
+	private final String getterSetterClassName2 = "TtSecUser";
+	private final String getterSetterVariableName2 = "ttSecUser";
+	private final String getterSetterClassName3 = "t";
+	private final String getterSetterVariableName3 = "t";
+	
+	public void testGetterSetterVariable () {
+		String s = FormatUtils.getJavaVariableNameForGetterAndSetterFromJavaName(getterSetterClassName);
+		assertTrue ("error '"+s+"' should be equal to "+getterSetterClassName,s.equals(getterSetterClassName));
+		s = FormatUtils.getJavaVariableNameForGetterAndSetterFromJavaName(getterSetterClassName2);
+		assertTrue ("error '"+s+"' should be equal to "+getterSetterClassName,s.equals(getterSetterVariableName2));
+		s = FormatUtils.getJavaVariableNameForGetterAndSetterFromJavaName(getterSetterClassName3);
+		assertTrue ("error '"+s+"' should be equal to "+getterSetterClassName,s.equals(getterSetterVariableName3));
+	}
 	public void testFirstUpperCaseOnly () {
 		String s = FormatUtils.firstUpperCaseOnly("s");
 		assertTrue ("S".equals(s));

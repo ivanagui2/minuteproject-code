@@ -111,12 +111,41 @@ public class FormatUtils {
 		return getJavaNameForGetterAndSetter(name);
 	}
 
-	public static String getJavaNameForGetterAndSetter(String name) {
+	public static String getJavaVariableNameForGetterAndSetterFromJavaName(String name) {
+		if (name == null)
+			return "ERROR_GET_JAVANAMEVARIABLE_WITH_NULL";
+		if (isSecondLetterUpperCase(name))
+			return name;
+		return firstLowerCase(name);
+	}
+	
+	private static boolean isSecondLetterUpperCase(String name) {
+		String secondLetter = getSecondLetter(name);
+		if (secondLetter==null) return false;
+		return isLetterUpperCase(secondLetter);
+	}
+
+	private static String getSecondLetter(String st) {
+		if (st.length()>1)
+			return st.substring(1, 2);
+		return null;
+	}
+
+	private static boolean isLetterUpperCase(String letter) {
+		for (char c :letter.toCharArray()) {
+			if (Character.isUpperCase(c))
+				return true;
+			return false;
+		}
+		return false;
+	}
+
+	private static String getJavaNameForGetterAndSetter(String name) {
 		String javaname = getJavaName(name);
 		return getJavaNameForGetterAndSetter(name, javaname);
 	}
 
-	public static String getJavaNameForGetterAndSetter(String name,
+	private static String getJavaNameForGetterAndSetter(String name,
 			String javaname) {
 		if (isStandardBean(name))
 			return firstLowerCase(javaname);
@@ -130,7 +159,8 @@ public class FormatUtils {
 	}
 
 	public static String getJavaNameVariableFirstLetter(String name) {
-		return firstLowerCase(name);
+		return getJavaVariableNameForGetterAndSetterFromJavaName(name);
+//		return firstLowerCase(name);
 	}
 
 	public static String firstUpperCaseOnly(String st) {

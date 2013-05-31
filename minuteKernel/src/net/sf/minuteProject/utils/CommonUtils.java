@@ -146,6 +146,9 @@ public class CommonUtils {
 		return template.getOutputFileMain(bean);
 	}
 	
+	public static String getJavaVariableNameForGetterAndSetterFromJavaName (String s) {
+		return FormatUtils.getJavaVariableNameForGetterAndSetterFromJavaName(s);
+	}
 //	public static String getClassName (Table table, Template template) {
 //		String className = template.getOutputFileMain(getTableClassName(table));
 //		return className;
