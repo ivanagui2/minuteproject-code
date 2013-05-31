@@ -31,16 +31,17 @@
 #if($tableUtils.isAdminContentType($linktableDB))
 #putJSFParentDropDownListSnippet()
 #else
-#putJSFParentAffectationSnippet()
+##TODO change childrenListClass is normally for children unique but not unique for parent lookup
+#putJSFParentAffectationSnippet($velocityCount)
 #end
 #end
+#*
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
 #putReferenceParams2()
 #if(!$tableUtils.isAdminContentType($linktableDB))
 #set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityListRowJSF))
 #set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
-##TODO change childrenListClass is normally for children unique but not unique for parent lookup
 #set ($childrenListClass = $childrenListClass+$velocityCount)
 	<p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?"
 			header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
@@ -72,4 +73,5 @@
 	</p:dialog>
 #end
 #end
+*#
 </html>

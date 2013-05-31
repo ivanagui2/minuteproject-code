@@ -19,7 +19,7 @@
 #macro (exposeSpringServiceDomainObject)
 #exposeSpringTemplate()
 #set ($SpringServiceInterfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateSpringServiceInterface))
-#set ($SpringServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($SpringServiceInterfaceClass))
+#set ($SpringServiceInterfaceVariable = $formatUtils.getJavaVariableNameForGetterAndSetterFromJavaName($SpringServiceInterfaceClass))
 #set ($SpringServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateSpringServiceInterface))
 #end
 
