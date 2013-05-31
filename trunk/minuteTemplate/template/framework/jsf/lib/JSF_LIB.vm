@@ -35,13 +35,48 @@
 <p:message for="lbl${columnClass}-#{idValue}" />
 #end
 
-#macro (putJSFParentAffectationSnippet)
+#macro (putJSFParentAffectationSnippet $cpt)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
 <p:row>
 <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
+##TODO change childrenListClass is normally for children unique but not unique for parent lookup
+#set ($childrenListClass = $childrenListClass+$cpt)
 <p:commandButton type="button" title="Search" icon="ui-icon-search" onclick="suc${childrenListClass}Dialog.show()"/>
 </p:row>
 <p:message for="lbl${columnClass}-#{idValue}" />
+#set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityListRowJSF))
+#set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
+#set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
+##set ($childrenListClass = $childrenListClass+$velocityCount)
+	<p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?"
+			header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
+		<h:form id="suc${linkedTableVariable}Form">
+        <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
+            id="addressTable" 
+            var="item" 
+            paginator="true" rows="10" 
+            lazy="true"
+			selection="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" selectionMode="single"
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="10,20,50"
+			emptyMessage="No $linkedTableClass found with given criteria"> 
+
+            <f:facet name="header">  
+                List of #{i18n.${childrenListVariable}}  
+            </f:facet>
+            <ui:include src="/$entityListRowJSFLocation">
+               <ui:param name="isSemanticReference" value="false" />
+             </ui:include>
+			 <p:column>
+                <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}" title="Affect" onclick="suc${childrenListClass}Dialog.hide()" process="@this">
+                    <f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
+                    <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
+                </p:commandButton >
+			  </p:column>
+        </p:dataTable>
+	   </h:form>
+	</p:dialog>
+
 #end
 
 #macro(exposeSeparator)
@@ -61,7 +96,7 @@
 #set ($entityListJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityListJSFClass))
 #set ($entityListJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityListJSF))	
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
-#set ($entityControllerJSFVariable = $formatUtils.getJavaNameForGetterAndSetter($entityControllerJSFClass))
+#set ($entityControllerJSFVariable = $formatUtils.getJavaVariableNameForGetterAndSetterFromJavaName($entityControllerJSFClass))
 #set ($entityControllerJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityControllerJSF))	
 #set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))

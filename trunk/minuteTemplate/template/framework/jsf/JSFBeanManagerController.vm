@@ -96,10 +96,10 @@ public class ${className} implements java.io.Serializable{
 	private LazyDataModel<$tableClassName> lazyModel;
 
 	@ManagedProperty("#{${lookupBeanVar}}")
-    transient ${lookupBeanClass} ${lookupBeanVar};
+    ${lookupBeanClass} ${lookupBeanVar};
 
 	@ManagedProperty("#{${beanSpringModelServiceVariable}}")
-    transient ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
+    ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
 	
 #elseif($isEJBBackend)
 	@Inject 
