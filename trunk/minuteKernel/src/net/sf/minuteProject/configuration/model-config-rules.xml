@@ -892,6 +892,7 @@
 	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Targets"/>	  
 	<set-next-rule methodname="setTargets" paramtype="net.sf.minuteProject.configuration.bean.Targets"/>
       <set-properties-rule>
+            <alias attr-name="catalog" prop-name="catalog" />
             <alias attr-name="outputdir-root" prop-name="outputdirRoot" />
             <alias attr-name="templatedir-root" prop-name="templatedirRoot" />
       </set-properties-rule>

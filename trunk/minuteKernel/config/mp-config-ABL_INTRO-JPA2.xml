@@ -72,7 +72,7 @@
 				</enrichment>
 			</business-model>
 		</model>
-		<targets>
+		<targets >
 			<target refname="JPA2" name="JPA2" fileName="mp-template-config-JPA2.xml"
 				outputdir-root="../../dev/JPA2-ABL/busintro" templatedir-root="../../minuteTemplate/template/framework/jpa">
 				<property name="add-querydsl" value="2.1.2"></property>
