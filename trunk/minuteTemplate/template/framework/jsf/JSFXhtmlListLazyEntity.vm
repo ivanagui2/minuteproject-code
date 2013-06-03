@@ -114,7 +114,7 @@
         <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
                 onRowSelectUpdate="display" 
                 dynamic="true"  resizableColumns="true"
-                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                 rowsPerPageTemplate="5,10,15"> 
         <f:facet name="header">  
             List of #{i18n.$linkedTableVariable}  
