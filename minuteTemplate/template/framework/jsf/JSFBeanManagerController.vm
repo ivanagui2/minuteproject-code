@@ -239,6 +239,7 @@ public class ${className} implements java.io.Serializable{
     }
 
     public $tableClassName serviceLoad(String rowKey) {
+	   if (rowKey == null) return new $tableClassName();
 #if($columnUtils.isString($primaryKeyFirstColumn))
         return ${EJBDaoImplVariable}.load(rowKey);
 #else

@@ -44,9 +44,9 @@
 #set ($childrenListClass = $childrenListClass+$velocityCount)
 <p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?"
 		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
-	<h:form id="suc${linkedTableVariable}Form">
+	<h:form id="suc${childrenListClass}Form">
     <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
-        id="addressTable" 
+        id="table$childrenListClass" 
         var="item" 
         paginator="true" rows="10" 
         lazy="true"
