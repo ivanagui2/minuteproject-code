@@ -205,18 +205,6 @@ public class ${className} implements java.io.Serializable{
 				//Strange why is the getRowData input a string and not an object
                 public $tableClassName getRowData(String rowKey) {
 					return serviceLoad(rowKey);
-#*                    List<$tableClassName> list = (List<$tableClassName>) getWrappedData();
-                    for($tableClassName element : list) {
-#if(!$columnUtils.isString($primaryKeyFirstColumn))
-                        if(element.get$primaryKeyJavaNameClass().toString().equals(rowKey))  {
-#else
-                        if(element.get$primaryKeyJavaNameClass().equals(rowKey))  {
-#end
-                            return element;
-                        }
-                    }
-                    return null;
-*#
                 }
 
                 @Override
@@ -235,15 +223,26 @@ public class ${className} implements java.io.Serializable{
     }
 
     public void reloadSelected() {
+##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+        // not supported! cannot transform row in composite pk
+#else
     	selected$tableClassName = ${EJBDaoImplVariable}.load(selected${tableClassName}.get$primaryKeyJavaNameClass());
+#end
     }
 
     public $tableClassName serviceLoad(String rowKey) {
+##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+        // not supported! cannot transform row in composite pk
+        return new $tableClassName();
+#else
 	   if (rowKey == null) return new $tableClassName();
 #if($columnUtils.isString($primaryKeyFirstColumn))
         return ${EJBDaoImplVariable}.load(rowKey);
 #else
         return ${EJBDaoImplVariable}.load(${primaryKeyType}.valueOf(rowKey));
+#end
 #end
     }
 
