@@ -27,6 +27,9 @@ public class $className {
 #foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParamNaming()
 #if(!$isForeignKey)
+#if($columnUtils.isPartOfCompositePrimaryKey($column))
+#set($columnClass = "${columnClass}_")
+#end
       sb.append (element.get$columnClass()+" - ");
 #end
 #end
