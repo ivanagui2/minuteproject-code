@@ -330,6 +330,7 @@ public class ${className} implements java.io.Serializable{
 	}	
 	
 	public $tableClassName getSelected$tableClassName() {
+        if (selected$tableClassName==null) selected$tableClassName = new $tableClassName();
 	    return selected$tableClassName;
 	}
 	
@@ -347,9 +348,6 @@ public class ${className} implements java.io.Serializable{
 #if($hasFirstRelationship)
 		populateFirst ();
 #end
-##        selected$tableClassName = (selectedAgentRole==null)?new $tableClassName():selected$tableClassName;
-##        FacesMessage msg = new FacesMessage("$tableClassName Selected", selected${tableClassName}.toString());
-##        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onTabChange(TabChangeEvent event) {
