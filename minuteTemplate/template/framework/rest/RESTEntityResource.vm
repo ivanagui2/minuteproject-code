@@ -109,16 +109,14 @@ $!updatedAreaEnd
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public $tableClassName create (
 #foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
         @FormParam("$columnVar") $columnType $columnVar,
 #end
         @Context HttpServletResponse servletResponse
         ) throws IOException {
         $tableClassName _$tableVariableName = new $tableClassName (
 #foreach ($column in ${table.columns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
            $columnVar#if ($velocityCount!=$table.columnCount),
 #end
 #end

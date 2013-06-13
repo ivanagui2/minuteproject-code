@@ -73,6 +73,13 @@
 #macro (putColumnParamNaming)
 #putColumnParams()
 #columnJavaNaming()
+##code to pass in the template to make the evaluation at backend
+#if ($column.isLob())
+#exposeLobProperties()
+#end
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+#end
 #end
 
 #macro (exposeVariableModelSpecific)

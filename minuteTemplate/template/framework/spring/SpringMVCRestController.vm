@@ -111,11 +111,6 @@ $!updatedAreaEnd
 	public $tableClassName create (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-#if ($column.isLob() && $convertClobToString=="true")
-#set($columnType="String")
-#elseif($useTemporal && $isTimeColumn)
-#set($columnType="java.util.Date")
-#end
         @RequestParam("$columnVar") $columnType $columnVar,
 #end
         HttpServletResponse servletResponse
@@ -146,11 +141,6 @@ $!updatedAreaEnd
     public $tableClassName save (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-#if ($column.isLob() && $convertClobToString=="true")
-#set($columnType="String")
-#elseif($useTemporal && $isTimeColumn)
-#set($columnType="java.util.Date")
-#end
         @RequestParam("$columnVar") $columnType $columnVar,
 #end
         HttpServletResponse servletResponse
