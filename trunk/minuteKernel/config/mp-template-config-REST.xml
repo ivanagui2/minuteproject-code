@@ -12,6 +12,8 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="convertClobToString" value="true"/>
+		<property name="use-temporal" value="true"></property>
 
 		<template name="EJB3ResourceREST" templateFileName="RESTEntityResource.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="Resource" 

@@ -105,6 +105,7 @@
 		package-root=""
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="convertClobToString" value="true"/>
 			 
 		<template name="JSFXhtmlCreateEntity" templateFileName="JSFXhtmlCreateEntity.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="Create" 
