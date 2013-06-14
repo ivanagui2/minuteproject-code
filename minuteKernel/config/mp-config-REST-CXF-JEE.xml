@@ -73,12 +73,21 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   outputdir-root="../../dev/cxf-jee/petshop/jpa2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
+               <property name="add-domain-specific-method" value="true"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>	
                <property name="use-temporal" value="true"></property>
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
 			</target>
-							
+			<target 
+			   name="REST" 
+			   fileName="mp-template-config-REST-CXF-JEE.xml" 
+			   outputdir-root="../../dev/cxf-jee/petshop/rest"
+			   templatedir-root="../../minuteTemplate/template/framework/rest"
+			   templatedir-ref="../../minuteTemplate/template/framework/ejb,../../minuteTemplate/template/framework/cxf">	
+      			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>		   			   
+      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>
+ 			</target>								
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
@@ -91,15 +100,11 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   fileName="mp-template-config-CXF-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/cxf">
 			</target>
-			<target 
-			   name="REST" 
-			   fileName="mp-template-config-REST-CXF-JEE.xml" 
-			   outputdir-root="../../dev/cxf-jee/petshop/rest"
-			   templatedir-root="../../minuteTemplate/template/framework/rest"
-			   templatedir-ref="../../minuteTemplate/template/framework/ejb,../../minuteTemplate/template/framework/cxf">	
-      			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>		   			   
-      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>
- 			</target>		
+			<target refname="COMMON-LIB" 
+               fileName="mp-template-config-COMMON-LIB.xml" 
+               templatedir-root="../../minuteTemplate/template/framework/common">
+            </target>   
+	
 
 			<target refname="MavenMaster" 
 			   name="maven" 

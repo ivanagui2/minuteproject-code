@@ -164,6 +164,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-jpa2-implementation" value="hibernate"></property>
                <property name="add-cache-implementation" value="ehcache"></property>
                <property name="add-domain-specific-method" value="true"></property>
+               <property name="use-temporal" value="true"></property>
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
                <property name="environment" value="local"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
