@@ -3,9 +3,15 @@ package net.sf.minuteProject.utils.catalog;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
+import net.sf.minuteProject.configuration.bean.Target;
+import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Framework;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
+import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
+import net.sf.minuteProject.utils.technology.TechnologyUtils;
 
 public class TechnologyCatalogUtils extends CatalogUtils{
 
@@ -129,4 +135,51 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return frameworks;
 	}
 	
+	//TARGETS
+	public static Targets getTargets(Technology technologyTarget, String catalogDir,String outputDir, String templateRootDir) {
+		Targets targets = new Targets();
+		for (Target target2 : getAllRelatedTargets(technologyTarget, catalogDir, outputDir, templateRootDir)) {
+			targets.addTarget(target2);
+		}
+		return targets;
+	}
+
+	
+	private static List<Target> getAllRelatedTargets(Technology technologyTarget, String catalogDir, String outputDir, String templateRootDir) {
+		List<Target> list = new ArrayList<Target>();
+		List<Technology> technologies = TechnologyCatalogUtils.getAllRelatedTechnologies(technologyTarget, catalogDir);
+		for (Technology technology : technologies) {
+//			//add properties
+//			technology.getProperties().addAll(getChoosenTechnology().getProperties());
+			list.add(getTarget(technology, catalogDir, outputDir, templateRootDir, true));
+		}
+		return list;
+	}
+	
+	private static Target getTarget(Technology technology, String catalogDir, String outputDir, String templateRootDir, boolean isDefaultOutputToAppend) {
+		Target target = new Target();
+		target.setName(technology.getName());
+		target.setProperties(technology.getProperties());
+		target.setFileName(technology.getTemplateConfigFileName());
+		target.setDir(getTemplateSetFullPath(technology.getTemplateConfigFileName(), catalogDir));
+		target.setTemplatedirRoot(TechnologyUtils.getTechnologyTemplateDir(technology, templateRootDir));		
+		target.setOutputdirRoot(getOutputDir(technology, outputDir, isDefaultOutputToAppend));
+		target.setIsGenerable(technology.isGenerable());
+		return target;
+	}
+
+	private static String getTemplateSetFullPath(String fileName, String catalogDir) {
+		String canonicalFileName = getTemplateSetFullPathAndFileName(fileName, catalogDir);
+		return StringUtils.removeEnd(canonicalFileName, fileName);
+	}
+	
+	private static String getTemplateSetFullPathAndFileName(String fileName, String catalogDir) {
+		return FileUtils.getFileFullPathFromFileInRootClassPath(catalogDir+"/"+ fileName);
+	}
+	
+	public static String getOutputDir(Technology technology, String outputDir, boolean isDefaultOutputToAppend) {
+		if (isDefaultOutputToAppend)
+			return outputDir+"/"+technology.getDefaultOutputdir();
+		return outputDir;
+	}
 }

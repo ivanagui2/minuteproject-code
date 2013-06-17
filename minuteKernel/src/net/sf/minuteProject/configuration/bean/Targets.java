@@ -15,7 +15,8 @@ import net.sf.minuteProject.utils.io.FileUtils;
  */
 public class Targets extends AbstractConfiguration {
 	
-	private String outputdirRoot, catalog, templatedirRoot;
+	private String outputdirRoot, catalog, catalogEntry, templatedirRoot;
+
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
 	private GenerationAction postGenerationAction;
@@ -77,6 +78,13 @@ public class Targets extends AbstractConfiguration {
 		this.catalog = catalog;
 	}
 	
-	
+	public String getCatalogEntry() {
+		return catalogEntry;
+	}
+
+	public void setCatalogEntry(String catalogEntry) {
+		this.catalogEntry = catalogEntry;
+	}
+
 	
 }

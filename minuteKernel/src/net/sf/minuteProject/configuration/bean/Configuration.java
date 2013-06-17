@@ -95,5 +95,10 @@ public class Configuration extends AbstractConfigurationRoot{
 	public void setConventions(Conventions conventions) {
 		this.conventions = conventions;
 	}
+
+	public boolean hasCatalog() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
