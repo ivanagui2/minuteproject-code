@@ -161,18 +161,22 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 
-	public void generate() throws MinuteProjectException {
-		Configuration configuration = (Configuration) load();
-		generate(configuration);		
-	}
-	
 	protected void generate (Configuration configuration) throws MinuteProjectException {
 		Model model = getEnrichedModel(configuration);
+		//generate for target
 		if (hasTarget())
 			loadAndGenerate(model.getConfiguration().getTarget());
-		Targets targets = model.getConfiguration().getTargets();
-		if (hasTargets())
+		//generate for targets (set of target)
+		Targets targets = null;
+		if (hasTargets()) {
+			targets = model.getConfiguration().getTargets();
 			loadAndGenerate(targets);
+		}
+		//generate for catalog entry
+		if (hasCatalog()) {
+			targets = model.getConfiguration().getTargets();
+			loadAndGenerate(targets);
+		}
 		if (hasPostGenerationAction(targets)) {
 			executePostGenerationAction(targets);
 		}
@@ -208,6 +212,10 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected boolean hasTargets () {
 		return model.getConfiguration().hasTargets();
+	}
+	
+	protected boolean hasCatalog () {
+		return model.getConfiguration().hasCatalog();
 	}
 	
 	protected void loadAndGenerate (Target target) throws MinuteProjectException {

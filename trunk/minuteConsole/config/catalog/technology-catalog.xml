@@ -40,7 +40,37 @@
 	        <framework name="ehCache" version=""></framework>
 	      </frameworks>  	   
 	</technology> 	 
-
+<!-- 
+			<target refname="REST-CXF-BSLA" 
+			   name="default" 
+			   fileName="mp-template-config-REST-CXF-Spring.xml" 
+			   outputdir-root="rest"
+			   templatedir-root="../../minuteTemplate/template/framework/cxf">
+			</target> -->
+			
+	<technology name="rest-spring-cxf" 
+	   template-config-file-name="mp-template-config-REST-CXF-Spring.xml" 
+	   default-outputdir="rest"
+	   template-dir="../../minuteTemplate/template/framework/cxf"
+	   depends-on-targets="BSLA_LIB, BSLA-JPA2, JPA2"
+	   status="released"
+	   description="Generates REST application based on springframework and CXF.">
+	      <frameworks>
+	        <framework name="Spring" version="2.5+"></framework>
+	        <framework name="Hibernate" version="3.2+"></framework>
+	        <framework name="JPA" version="1.0"></framework>
+	        <framework name="ehCache" version=""></framework>
+	      </frameworks>  	   
+	</technology> 	 
+<!-- 
+			<target refname="BackendOnBsla" 
+			   name="default" 
+			   fileName="mp-template-config-JPA2-bsla.xml" 
+			   outputdir-root="bsla"
+			   templatedir-root="../../minuteTemplate/template/framework/bsla">
+				<property name="add-cache-implementation" value="ehcache"></property>
+			</target> 
+			 -->
 	<technology name="FitNesse" 
 	   template-config-file-name="mp-template-config-fitnesse.xml" 
 	   default-outputdir="fitnesse"

@@ -893,9 +893,19 @@
 	<set-next-rule methodname="setTargets" paramtype="net.sf.minuteProject.configuration.bean.Targets"/>
       <set-properties-rule>
             <alias attr-name="catalog" prop-name="catalog" />
+            <alias attr-name="catalog-entry" prop-name="catalogEntry" />
             <alias attr-name="outputdir-root" prop-name="outputdirRoot" />
             <alias attr-name="templatedir-root" prop-name="templatedirRoot" />
       </set-properties-rule>
+		<pattern value="property">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+			<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+			<set-properties-rule>
+				<alias attr-name="name" prop-name="name" />
+				<alias attr-name="value" prop-name="value" />
+				<alias attr-name="tag" prop-name="tag" />
+			</set-properties-rule>
+		</pattern>
 		<pattern value="post-generation-action">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.GenerationAction"/>		
 			<set-next-rule methodname="setPostGenerationAction" paramtype="net.sf.minuteProject.configuration.bean.system.GenerationAction"/>	

@@ -81,15 +81,18 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	}
 	
 	private Targets getTargets() {
-		Targets targets = new Targets();
-//		Target target = getChoosenTarget();
-//		targets.addTarget(target);
-		for (Target target2 : getAllRelatedTechnologies()) {
-			targets.addTarget(target2);
-		}
-		return targets;
+		return TechnologyCatalogUtils.getTargets(
+				getChoosenTechnology(), 
+				getCatalogDir(), 
+				outputDir, 
+				templateRootDir);
+//		Targets targets = new Targets();
+//		for (Target target2 : getAllRelatedTechnologies()) {
+//			targets.addTarget(target2);
+//		}
+//		return targets;
 	}
-
+/*
 	private List<Target> getDependentTargetTechnologies() {
 		List<Target> list = new ArrayList<Target>();
 		List<Technology> technologies = TechnologyCatalogUtils.getDependentTechnologies(getChoosenTechnology(), getCatalogDir());
@@ -112,7 +115,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		}
 		return list;
 	}
-
+*/
 	private boolean isDefaultOutputToAppend(List<Technology> technologies) {
 		int i = 0;
 		for (Technology technology : technologies) {
@@ -123,7 +126,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		}
 		return false;
 	}
-
+/*
 	private Target getTarget(Technology technology, boolean isDefaultOutputToAppend) {
 		Target target = new Target();
 		target.setName(technology.getName());
@@ -144,7 +147,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		String canonicalFileName = getTemplateSetFullPathAndFileName(fileName);
 		return StringUtils.removeEnd(canonicalFileName, fileName);
 	}
-
+*/
 	private Database getChoosenDatabase() {
 		if (choosenDatabase==null)
 			choosenDatabase = DatabaseCatalogUtils.getPublishedDatabase(getDatabase(), getCatalogDir());

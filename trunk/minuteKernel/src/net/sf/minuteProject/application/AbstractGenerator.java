@@ -211,6 +211,16 @@ public abstract class AbstractGenerator implements Generator {
 		return loadFromObject();
 	}
 	
+
+	public void generate() throws MinuteProjectException {
+		Configuration configuration = (Configuration) load();
+		generate(configuration);		
+	}
+	
+    void generate (Configuration configuration) throws MinuteProjectException {
+    	throw new MinuteProjectException("generate method shall be implemented");
+    }
+	
 	public final AbstractConfiguration loadFromConfigurationFile() throws MinuteProjectException {
 		AbstractConfiguration abstractConfiguration = null;
 		try {

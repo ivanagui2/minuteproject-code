@@ -20,6 +20,12 @@ public class MinuteProjectException extends Exception {
 		this.error = error;
 	}
 
+	public MinuteProjectException(String error) {
+		super();
+		this.message = error;
+		this.error = error;
+	}
+	
 	public MinuteProjectException(String message, String error) {
 		super();
 		this.message = message;
