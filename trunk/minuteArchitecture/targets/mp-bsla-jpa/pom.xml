@@ -60,6 +60,37 @@
 	</dependencies>
 	<build>
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- Restrict execution of source compilation to install or deploy. -->
+						<!-- The default is package. -->
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Package JavaDocs to JAR to upload to repo -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<!-- Restrict execution of source compilation to install -->
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -70,6 +101,9 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
+                        <configuration>
+                            <keyname>E6A0EF79</keyname>
+                        </configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -90,12 +124,35 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<developers>
+		<developer>
+			<id>florian</id>
+			<name>Florian Adler</name>
+			<email>minuteproject@gmail.com</email>
+			<url>http://minuteproject.sf.net</url>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:svn:http://svn.code.sf.net/p/minuteproject/code</connection>
+		<developerConnection>scm:svn:https://svn.code.sf.net/p/minuteproject/code</developerConnection>
+		<tag>HEAD</tag>
+		<url>http://svn.code.sf.net/p/minuteproject/code</url>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
 	<distributionManagement>
 		<repository>
 			<id>sonatype-nexus-staging</id>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-			<!-- 
-			<url>https://oss.sonatype.org/content/repositories/releases/</url> -->
+			<!-- <url>https://oss.sonatype.org/content/repositories/releases/</url> -->
 		</repository>
 		<snapshotRepository>
 			<id>sonatype-nexus-snapshots</id>
