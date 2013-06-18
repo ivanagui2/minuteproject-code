@@ -180,16 +180,19 @@ public class Target extends AbstractConfiguration{
 
 	public String getOutputdirRoot() {
 		StringBuffer sb = new StringBuffer();
-		boolean hasTargetsOutputdir = hasTargetsOutputdir();
-		if (hasTargetsOutputdir && !isFromCatalog) {
+		if (hasAppendOutputDir()) {
 			sb.append(getTargets().getOutputdirRoot());
 		}
 		if (outputdirRoot!=null) {
-			if (hasTargetsOutputdir) 
+			if (hasAppendOutputDir()) 
 				sb.append("/");
 			sb.append(outputdirRoot);
 		}
 		return sb.toString();
+	}
+
+	private boolean hasAppendOutputDir() {
+		return hasTargetsOutputdir() && !isFromCatalog;
 	}
 	private boolean hasTargetsOutputdir() {
 		return (getTargets()!=null && !StringUtils.isEmpty(getTargets().getOutputdirRoot())) ;
