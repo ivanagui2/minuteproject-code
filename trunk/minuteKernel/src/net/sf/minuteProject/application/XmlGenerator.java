@@ -73,7 +73,7 @@ public class XmlGenerator extends AbstractGenerator {
 	}
 
 	@Override
-	public AbstractConfiguration getConfigurationRoot() {
+	public Configuration getConfigurationRoot() {
 		return new Configuration();
 	}
 

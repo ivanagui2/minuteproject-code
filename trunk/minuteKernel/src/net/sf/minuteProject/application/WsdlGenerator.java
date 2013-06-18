@@ -118,7 +118,7 @@ public class WsdlGenerator extends AbstractGenerator {
 	}
 
 	@Override
-	public AbstractConfiguration getConfigurationRoot() {
+	public Configuration getConfigurationRoot() {
 		return new Configuration();
 	}
 
@@ -151,11 +151,11 @@ public class WsdlGenerator extends AbstractGenerator {
 	}
 
 
-	public void generate() throws MinuteProjectException {
-		Configuration configuration = (Configuration) load();
-		generate(configuration);		
-	}
-	
+//	public void generate() throws MinuteProjectException {
+//		Configuration configuration = (Configuration) load();
+//		generate(configuration);		
+//	}
+//	
 	protected void generate (Configuration configuration) throws MinuteProjectException {
 		Model model = configuration.getModel();
 		setModel(model);

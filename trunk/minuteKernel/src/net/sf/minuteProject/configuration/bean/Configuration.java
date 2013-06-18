@@ -3,6 +3,8 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
@@ -96,9 +98,8 @@ public class Configuration extends AbstractConfigurationRoot{
 		this.conventions = conventions;
 	}
 
-	public boolean hasCatalog() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hasTechnologyCatalogEntry() {
+		return (hasTargets() && !StringUtils.isEmpty(getTargets().getCatalogEntry()));
 	}
 	
 }

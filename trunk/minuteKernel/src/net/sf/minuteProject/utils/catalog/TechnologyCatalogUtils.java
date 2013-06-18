@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Framework;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Technology;
 import net.sf.minuteProject.utils.io.FileUtils;
@@ -17,7 +18,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 
 	private static List<Technology> technologies;
 	
-	public static Technology getPublishedTechnology(String name, String catalogDir) {
+	public static Technology getPublishedTechnology(String name, String catalogDir) throws MinuteProjectException {
 		for (Technology technology : getPublishedTechnologies (catalogDir)) {
 			if (technology.getName().equals(name))
 				return technology;
@@ -25,13 +26,13 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return null;
 	}
 	
-	public static List<Technology> getPublishedTechnologies (String catalogDir) {
+	public static List<Technology> getPublishedTechnologies (String catalogDir) throws MinuteProjectException {
 		if (technologies==null)
 			technologies = getPublishedTechnologyCatalogHolder(catalogDir).getTechnologyCatalog().getTechnologies().getTechnologys();
 		return technologies;
 	}
 	
-	public static String[] getPublishedTechnologyNames(String catalogDir) {
+	public static String[] getPublishedTechnologyNames(String catalogDir) throws MinuteProjectException {
 		List<String> list = new ArrayList<String>();
 		for (Technology technology : getPublishedTechnologies(catalogDir)) {
 			if (technology.isGenerable())
@@ -40,7 +41,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return (String[])list.toArray(new String[list.size()]);
 	}
 	
-	public static List<Technology> getDependentTechnologies (Technology technology, String catalogDir) {
+	public static List<Technology> getDependentTechnologies (Technology technology, String catalogDir) throws MinuteProjectException {
 		List<Technology> list = new ArrayList<Technology>();
 		List<String> targets = ParserUtils.getList(technology.getDependsOnTargets());
 		for (String targetName : targets) {
@@ -51,7 +52,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return list;
 	}
 
-	public static Technology getTechnologyByTargetName(String name, String catalogDir) {
+	public static Technology getTechnologyByTargetName(String name, String catalogDir) throws MinuteProjectException {
 		for (Technology technology : getPublishedTechnologies(catalogDir)) {
 			if (technology.getTargetName().equals(name))
 				return technology;
@@ -59,7 +60,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return null;
 	}
 
-	public static List<Technology> getAllRelatedTechnologies (Technology technologyRoot, String catalogDir) {
+	public static List<Technology> getAllRelatedTechnologies (Technology technologyRoot, String catalogDir) throws MinuteProjectException {
 		List<Technology> list = new ArrayList<Technology>();
 		List<Technology> allTechnos = getPublishedTechnologies(catalogDir);
 		List<Technology> dependentTechnologies = getDependentTechnologies (technologyRoot, catalogDir);
@@ -99,7 +100,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		CatalogUtils.resetTechnologycatalogHolder();
 	}
 
-	public static String[][] getFrameworkDependency(Technology technology, String catalogDir) {
+	public static String[][] getFrameworkDependency(Technology technology, String catalogDir) throws MinuteProjectException {
 		List<Framework> frameworks = getAllLinkedFrameworkDependencies(technology, catalogDir);
 		String [][] array = new String [frameworks.size()][2];
 		int i=0;
@@ -111,7 +112,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return array;
 	}
 	
-	public static List<Framework> getAllLinkedFrameworkDependencies(Technology technology, String catalogDir) {
+	public static List<Framework> getAllLinkedFrameworkDependencies(Technology technology, String catalogDir) throws MinuteProjectException {
 		List<Framework> frameworks = new ArrayList<Framework>();
 		frameworks.addAll(getFrameworkDependencies(technology));
 		frameworks.addAll(getRelatedFrameworkDependencies(technology, catalogDir));
@@ -126,7 +127,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		return frameworks;
 	}
 	
-	public static List<Framework> getRelatedFrameworkDependencies(Technology technology, String catalogDir) {
+	public static List<Framework> getRelatedFrameworkDependencies(Technology technology, String catalogDir) throws MinuteProjectException {
 		List<Framework> frameworks = new ArrayList<Framework>();
 		List<Technology> technos = getDependentTechnologies(technology, catalogDir);
 		for (Technology technology2 : technos) {
@@ -136,7 +137,16 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 	}
 	
 	//TARGETS
-	public static Targets getTargets(Technology technologyTarget, String catalogDir,String outputDir, String templateRootDir) {
+	public static Targets getTargets(String technologyTarget, String catalogDir,String outputDir, String templateRootDir) throws MinuteProjectException {
+		return getTargets(getChoosenTechnology(technologyTarget, catalogDir), catalogDir, outputDir, templateRootDir);
+	}
+	
+
+	private static Technology getChoosenTechnology(String targetTechnology, String catalogDir) throws MinuteProjectException {
+	    return TechnologyCatalogUtils.getPublishedTechnology(targetTechnology, catalogDir);
+	}
+	
+	public static Targets getTargets(Technology technologyTarget, String catalogDir,String outputDir, String templateRootDir) throws MinuteProjectException {
 		Targets targets = new Targets();
 		for (Target target2 : getAllRelatedTargets(technologyTarget, catalogDir, outputDir, templateRootDir)) {
 			targets.addTarget(target2);
@@ -145,7 +155,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 	}
 
 	
-	private static List<Target> getAllRelatedTargets(Technology technologyTarget, String catalogDir, String outputDir, String templateRootDir) {
+	private static List<Target> getAllRelatedTargets(Technology technologyTarget, String catalogDir, String outputDir, String templateRootDir) throws MinuteProjectException {
 		List<Target> list = new ArrayList<Target>();
 		List<Technology> technologies = TechnologyCatalogUtils.getAllRelatedTechnologies(technologyTarget, catalogDir);
 		for (Technology technology : technologies) {
@@ -165,6 +175,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		target.setTemplatedirRoot(TechnologyUtils.getTechnologyTemplateDir(technology, templateRootDir));		
 		target.setOutputdirRoot(getOutputDir(technology, outputDir, isDefaultOutputToAppend));
 		target.setIsGenerable(technology.isGenerable());
+		target.setIsFromCatalog(true);
 		return target;
 	}
 

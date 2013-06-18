@@ -20,6 +20,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Target;
+import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
@@ -35,6 +36,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.ViewUtils;
+import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
 
@@ -120,14 +122,14 @@ public abstract class AbstractGenerator implements Generator {
 	 * gets the configuration root element 
 	 * @return AbstractConfiguration
 	 */
-	public abstract AbstractConfiguration getConfigurationRoot();
+	public abstract Configuration getConfigurationRoot();
 	
 //	protected abstract void generate(Configuration configuration) throws Exception;
 	/* (non-Javadoc)
 	 * @see net.sf.minuteProject.application.Generator#load(java.lang.String, java.lang.String)
 	 */
-	public final AbstractConfiguration load (String configuration, String rules) throws Exception{
-		AbstractConfiguration abstractConfiguration = getConfigurationRoot();
+	public final Configuration load (String configuration, String rules) throws Exception{
+		Configuration abstractConfiguration = getConfigurationRoot();
 		abstractConfiguration.setConfigurationFileInClassPath(configuration);
 		loadConfiguration(abstractConfiguration, getConfigurationInputStream(configuration), rules);
         return abstractConfiguration;		
@@ -205,10 +207,10 @@ public abstract class AbstractGenerator implements Generator {
 	 * @throws Exception 
 	 * @throws Exception
 	 */
-	public final AbstractConfiguration load() throws MinuteProjectException {
+	public final Configuration load() throws MinuteProjectException {
 		if (getConfigurationFile()!=null)
 			return loadFromConfigurationFile();
-		return loadFromObject();
+		return loadFromBIC();
 	}
 	
 
@@ -221,18 +223,38 @@ public abstract class AbstractGenerator implements Generator {
     	throw new MinuteProjectException("generate method shall be implemented");
     }
 	
-	public final AbstractConfiguration loadFromConfigurationFile() throws MinuteProjectException {
-		AbstractConfiguration abstractConfiguration = null;
+	public final Configuration loadFromConfigurationFile() throws MinuteProjectException {
+		Configuration configuration = null;
 		try {
-			abstractConfiguration = load(getConfigurationFile(), getConfigurationRulesFile());
+			configuration = load(getConfigurationFile(), getConfigurationRulesFile());
+			if (configuration.hasTechnologyCatalogEntry()) {
+				Targets targets = TechnologyCatalogUtils.getTargets(
+						configuration.getTargets().getCatalogEntry(), 
+						"catalog", 
+						configuration.getTargets().getOutputdirRoot(), 
+						configuration.getTargets().getTemplatedirRoot());
+//				Targets targets = TechnologyCatalogUtils.getDependentTechnologies (technologyRoot, catalogDir)(
+//						configuration.getTargets().getCatalogEntry(), 
+//						"catalog", 
+//						configuration.getTargets().getOutputdirRoot(), 
+//						configuration.getTargets().getTemplatedirRoot());
+				appendTargets (configuration, targets);
+			}
+				
 		} catch (Exception e) {
 			throwException(e, "CANNOT LOAD CONFIGURATION FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
 		}
-		return abstractConfiguration;		
+		return configuration;		
+	}
+
+	private void appendTargets(Configuration configuration, Targets targets) {
+		for (Target target: targets.getTargets()) {
+			configuration.addTarget(target);
+		}
 	}
 	
-	public final AbstractConfiguration loadFromObject() throws MinuteProjectException {
-		AbstractConfiguration abstractConfiguration = null;
+	public final Configuration loadFromBIC() throws MinuteProjectException {
+		Configuration abstractConfiguration = null;
 		if (bic!=null)
 			abstractConfiguration = bic.getConfiguration();
 		else

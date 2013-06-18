@@ -127,7 +127,7 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	@Override
-	public AbstractConfiguration getConfigurationRoot() {
+	public Configuration getConfigurationRoot() {
 		return new Configuration();
 	}
 
@@ -173,10 +173,10 @@ public class ModelGenerator extends AbstractGenerator {
 			loadAndGenerate(targets);
 		}
 		//generate for catalog entry
-		if (hasCatalog()) {
-			targets = model.getConfiguration().getTargets();
-			loadAndGenerate(targets);
-		}
+//		if (hasCatalog()) {
+//			targets = model.getConfiguration().getTargets();
+//			loadAndGenerate(targets);
+//		}
 		if (hasPostGenerationAction(targets)) {
 			executePostGenerationAction(targets);
 		}
@@ -213,10 +213,7 @@ public class ModelGenerator extends AbstractGenerator {
 	protected boolean hasTargets () {
 		return model.getConfiguration().hasTargets();
 	}
-	
-	protected boolean hasCatalog () {
-		return model.getConfiguration().hasCatalog();
-	}
+
 	
 	protected void loadAndGenerate (Target target) throws MinuteProjectException {
 		loadTarget(model.getConfiguration(), target);

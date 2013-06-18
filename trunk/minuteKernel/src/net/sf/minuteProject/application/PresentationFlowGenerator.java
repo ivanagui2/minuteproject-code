@@ -120,7 +120,7 @@ public class PresentationFlowGenerator extends AbstractGenerator {
 //	}
 
 	@Override
-	public AbstractConfiguration getConfigurationRoot() {
+	public net.sf.minuteProject.configuration.bean.Configuration getConfigurationRoot() {
 		// TODO Auto-generated method stub
 		return null;
 	}

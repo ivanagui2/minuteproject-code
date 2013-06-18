@@ -77,7 +77,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets outputdir-root="JPA2" catalog-entry="JPA2">
+		<targets outputdir-root="../../JPA2" catalog-entry="JPA2" templatedir-root="../../minuteTemplate/template">
 <!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 

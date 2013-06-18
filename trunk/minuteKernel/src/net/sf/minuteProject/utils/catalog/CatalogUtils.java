@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils.catalog;
 
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.loader.catalog.databasecatalog.Databasecatalog;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.technologycatalog.Technologycatalog;
@@ -7,6 +8,7 @@ import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHo
 
 public class CatalogUtils {
 
+	private static final String NO_TECHNOLOGY_CATALOG_FOUND = "No technology catalog found";
 	private static TechnologycatalogHolder technologycatalogHolder;
 	private static DatabasecatalogHolder databasecatalogHolder;
 
@@ -18,7 +20,7 @@ public class CatalogUtils {
 		databasecatalogHolder = null;
 	}
 	
-	public static TechnologycatalogHolder getPublishedTechnologyCatalogHolder(String catalogDir) {
+	public static TechnologycatalogHolder getPublishedTechnologyCatalogHolder(String catalogDir) throws MinuteProjectException {
 		if (catalogDir==null)
 			catalogDir=getDefaultCatalogDir();		
 		if (technologycatalogHolder==null)
@@ -26,10 +28,11 @@ public class CatalogUtils {
 		return technologycatalogHolder;
 	}
 	
-	public static TechnologycatalogHolder loadTechnologyCatalogHolder(String name) {
+	public static TechnologycatalogHolder loadTechnologyCatalogHolder(String name) throws MinuteProjectException {
 		try {
 			return getTechnologyCatalogLoader(name).load();
 		} catch (Exception e) {
+			MinuteProjectException.throwException(CatalogUtils.class, NO_TECHNOLOGY_CATALOG_FOUND);
 			return new TechnologycatalogHolder();
 		}
 	}
