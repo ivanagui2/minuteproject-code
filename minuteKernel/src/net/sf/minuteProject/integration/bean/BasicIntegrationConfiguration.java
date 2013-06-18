@@ -28,6 +28,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimary
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPattern;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.MavenArtifact;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
@@ -71,7 +72,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 	private Boolean areTablesIncluded, areViewsIncluded, enableUpdatableAreaConvention, isPkConventionSet=false;
 	private WebServiceModel webServiceModel;
 	
-	public Configuration getConfiguration () {
+	public Configuration getConfiguration () throws MinuteProjectException {
 		Configuration configuration = new Configuration();
 		configuration.setModel(getModel());
 		configuration.setTargets(getTargets());
@@ -80,7 +81,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		return configuration;
 	}
 	
-	private Targets getTargets() {
+	private Targets getTargets() throws MinuteProjectException {
 		return TechnologyCatalogUtils.getTargets(
 				getChoosenTechnology(), 
 				getCatalogDir(), 
@@ -160,7 +161,7 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 //		return target;
 //	}
 
-	private Technology getChoosenTechnology() {
+	private Technology getChoosenTechnology() throws MinuteProjectException {
 		if (choosenTechnology==null)
 			choosenTechnology = TechnologyCatalogUtils.getPublishedTechnology(targetTechnology, getCatalogDir());
 		return choosenTechnology;

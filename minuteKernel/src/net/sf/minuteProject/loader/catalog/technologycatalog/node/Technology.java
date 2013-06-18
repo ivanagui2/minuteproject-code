@@ -226,6 +226,11 @@ public class Technology extends AbstractConfigurationLoader{
    public void setConventions (Conventions _conventions) {
       this._conventions = _conventions;
    }
+
+@Override
+public String toString() {
+	return "Technology [_name=" + _name + ", _version=" + _version + "]";
+}
    
    
 

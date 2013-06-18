@@ -31,7 +31,7 @@ public class Target extends AbstractConfiguration{
 	private ImportTargets importTargets;
 	private String outputdirRoot;
 	private String templatedirRoot, templatedirRef;
-	private Boolean isGenerable;
+	private Boolean isGenerable, isFromCatalog = false;
 	private List<String> templatedirRefs;
 	private Targets targets;
 	
@@ -181,7 +181,7 @@ public class Target extends AbstractConfiguration{
 	public String getOutputdirRoot() {
 		StringBuffer sb = new StringBuffer();
 		boolean hasTargetsOutputdir = hasTargetsOutputdir();
-		if (hasTargetsOutputdir) {
+		if (hasTargetsOutputdir && !isFromCatalog) {
 			sb.append(getTargets().getOutputdirRoot());
 		}
 		if (outputdirRoot!=null) {
@@ -257,6 +257,18 @@ public class Target extends AbstractConfiguration{
 
 	public void setTargets(Targets targets) {
 		this.targets = targets;
+	}
+
+	public Boolean getIsGenerable() {
+		return isGenerable;
+	}
+
+	public Boolean getIsFromCatalog() {
+		return isFromCatalog;
+	}
+
+	public void setIsFromCatalog(Boolean isFromCatalog) {
+		this.isFromCatalog = isFromCatalog;
 	}
 	
 }
