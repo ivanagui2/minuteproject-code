@@ -79,27 +79,29 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	private class ClickListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == generateButton) {
-				BasicIntegrationConfiguration bic = new BasicIntegrationConfiguration();
-				consoleSample.fill(bic);				
-				ModelViewGenerator mvg = new ModelViewGenerator(bic);
-				mvg.resetTemplatePath();
-				TechnologyCatalogUtils.resetTechnologies();
-				try {
-					mvg.generate();
-				} catch (MinuteProjectException mpe) {
-					logger.info("error generating : "+mpe.getError());
+			try {
+				if (e.getSource() == generateButton) {
+					BasicIntegrationConfiguration bic = new BasicIntegrationConfiguration();
+					consoleSample.fill(bic);				
+					ModelViewGenerator mvg = new ModelViewGenerator(bic);
+					mvg.resetTemplatePath();
+					TechnologyCatalogUtils.resetTechnologies();
+					
+						mvg.generate();
+	
 				}
-			}
-			else if (e.getSource() == detailButton) {
-				updateTechnologyDetails();
-//				if (detailButton.getText().equals(showDetailL)) {
-//					detailButton.setText(hideDetailL);
-//					showDetails(panel);
-//				} else {
-//					detailButton.setText(showDetailL);
-//					hideDetails(panel);
-//				}
+				else if (e.getSource() == detailButton) {
+					updateTechnologyDetails();
+	//				if (detailButton.getText().equals(showDetailL)) {
+	//					detailButton.setText(hideDetailL);
+	//					showDetails(panel);
+	//				} else {
+	//					detailButton.setText(showDetailL);
+	//					hideDetails(panel);
+	//				}
+				}
+			} catch (MinuteProjectException mpe) {
+				logger.info("error generating : "+mpe.getError());
 			}
 		}
 	}
@@ -108,22 +110,27 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 
 		public void itemStateChanged(ItemEvent e) {
 			consoleSample.getModelCommonPanel().rebuildDefaultTargetDir();
-			updateTechnologyDetails();
+			try {
+				updateTechnologyDetails();
+			} catch (MinuteProjectException mpe) {
+				// TODO Auto-generated catch block
+				logger.info("error generating : "+mpe.getError());
+			}
 		}
 	}
 	
-	public void fill(BasicIntegrationConfiguration bic) {
+	public void fill(BasicIntegrationConfiguration bic) throws MinuteProjectException {
 		bic.setTargetTechnology(getTargetTechnology());
 	}
 
-	public String getTargetTechnology() {
+	public String getTargetTechnology() throws MinuteProjectException {
 		if (targetCb==null || targetCb.getSelectedItem()==null)
 			return getTechnologyNames()[0];
 		return targetCb.getSelectedItem().toString();
 //		return getTechnology(technologyName).getTemplateConfigFileName();
 	}
 
-	public void fillPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) throws MinuteProjectException {
 		this.panel = panel;
 		panel.add(createLabel(targetL), "skip");
 		targetCb = createCombo(getTechnologyNames(), new TargetNameListener());
@@ -132,7 +139,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		showDetails(panel);
 	}
 	
-	private void showDetails (JPanel panel) {
+	private void showDetails (JPanel panel) throws MinuteProjectException {
 		Technology technology = getChoosenTechnology();
 		panel.add(statusJL, "skip");
 		statusDetailJL = createLabel(technology.getStatus());
@@ -151,7 +158,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 //		return technology.getDescription();
 	}
 
-	private JScrollPane getDependentFrameworksJSP() {
+	private JScrollPane getDependentFrameworksJSP() throws MinuteProjectException {
 		dependentFrameworks = TechnologyCatalogUtils.getFrameworkDependency(getChoosenTechnology(), consoleSample.getCatalogDir());
 		TableModel dataModel = new DefaultTableModel(dependentFrameworks, getDependentFrameworksTitle());
 		JTable table = new JTable(dataModel);
@@ -166,7 +173,7 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 		return new String[] {"Framework","Version"};
 	}
 
-	private void updateTechnologyDetails () {
+	private void updateTechnologyDetails () throws MinuteProjectException {
 		Technology technology = getChoosenTechnology();
 		statusDetailJL.setText(technology.getStatus());
 		updateTextAreaScroll(descriptionJSP,getTechnologyDescription(technology));
@@ -176,11 +183,11 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 //		consoleSample.rebuildTechnologyPanelTab();
 	}
 
-	public Technology getChoosenTechnology() {
+	public Technology getChoosenTechnology() throws MinuteProjectException {
 		return TechnologyCatalogUtils.getPublishedTechnology(targetCb.getSelectedItem().toString(), consoleSample.getCatalogDir());
 	}	
 
-	private String[] getTechnologyNames() {
+	private String[] getTechnologyNames() throws MinuteProjectException {
 		return TechnologyCatalogUtils.getPublishedTechnologyNames(consoleSample.getCatalogDir());
 	}
 	

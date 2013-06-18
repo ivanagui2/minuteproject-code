@@ -11,6 +11,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.apache.log4j.Logger;
+
 import net.miginfocom.swing.MigLayout;
 import net.sf.minuteProject.console.panel.CommonPanel;
 import net.sf.minuteProject.console.panel.ConventionPanel;
@@ -25,6 +27,7 @@ import net.sf.minuteProject.console.panel.TechnologyConventionPanel;
 import net.sf.minuteProject.console.panel.TechnologyLimitationPanel;
 import net.sf.minuteProject.console.panel.WebServiceAccessPanel;
 import net.sf.minuteProject.console.panel.WebServiceCommonPanel;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
@@ -33,6 +36,7 @@ import net.sf.minuteProject.utils.catalog.CatalogUtils;
 
 public class ConsoleSample extends JFrame{
 
+	private static Logger logger = Logger.getLogger(ConsoleSample.class);
 	private JTabbedPane tabbedPane;//, tabbedCommon;
 	private ModelAccessPanel modelAccessPanel;
 	private WebServiceAccessPanel webServiceAccessPanel;
@@ -52,12 +56,12 @@ public class ConsoleSample extends JFrame{
 	private JPanel technologyInfoTab;
 	private static String catalogDir, templateRootDir;
 	
-	public ConsoleSample (String title, String catalogDir) {
+	public ConsoleSample (String title, String catalogDir) throws MinuteProjectException {
 		super(title);
 		init(catalogDir);
 	}
 
-	private void initComponents() {
+	private void initComponents() throws MinuteProjectException {
 		
 		setLookAndFeel();
 
@@ -145,7 +149,7 @@ public class ConsoleSample extends JFrame{
 		return common;
 	}
 
-	private Component getDataModelReverseEngineeringMainPanel() {
+	private Component getDataModelReverseEngineeringMainPanel() throws MinuteProjectException {
 		JPanel panel = createTabPanel(getDefaultMigLayout());
 		addSeparator(panel, "Model Access");
 		modelAccessPanel.fillPanel(panel);
@@ -156,7 +160,7 @@ public class ConsoleSample extends JFrame{
 		return panel;
 	}
 
-	private Component getWebServiceModelReverseMainPanel() {
+	private Component getWebServiceModelReverseMainPanel() throws MinuteProjectException {
 		JPanel panel = createTabPanel(getDefaultMigLayout());
 		addSeparator(panel, "Webservice Access");
 		webServiceAccessPanel.fillPanel(panel);
@@ -171,12 +175,12 @@ public class ConsoleSample extends JFrame{
 	}
 	
 	
-	public void init(String catalogDir) {
+	public void init(String catalogDir) throws MinuteProjectException {
 		initCatalogs(catalogDir);
 		initComponents();
 	}
 	
-	private void initCatalogs(String catalogDir) {
+	private void initCatalogs(String catalogDir) throws MinuteProjectException {
 		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder(catalogDir);
 		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);
 //		webserviceTechnologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir, "webservice");
@@ -189,12 +193,17 @@ public class ConsoleSample extends JFrame{
 			catalogDir=args[1];		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new ConsoleSample("MinuteProject console 0.8.2 - beta -", catalogDir).setVisible(true);
+				try {
+					new ConsoleSample("MinuteProject console 0.8.4 - beta -", catalogDir).setVisible(true);
+				} catch (MinuteProjectException mpe) {
+					// TODO Auto-generated catch block
+					logger.info("error generating : "+mpe.getError());
+				}
 			}
 		});
 	}
 
-	public void fill(BasicIntegrationConfiguration bic) {
+	public void fill(BasicIntegrationConfiguration bic) throws MinuteProjectException {
 		bic.setTemplateRootDir(templateRootDir);
 		modelAccessPanel.fill(bic);
 		modelCommonPanel.fill(bic);
