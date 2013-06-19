@@ -57,12 +57,12 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>
 			</business-model>
             <statement-model>
-            	 <composites>
+<!--             	 <composites>
             	 	<composite id="a and b" name="address misc" execution-type="parallel/sequence">
             	 		<query refid="a"/>
             	 		<query refid="b"/>
             	 	</composite>
-            	 </composites>
+            	 </composites> -->
                  <queries>
                      <query name="get address street alpha" id="a">
                          <query-body name="address info"><value>
@@ -138,8 +138,11 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets>
-		
+		<targets outputdir-root="../../output/REST-CXF-Spring" 
+				 catalog-entry="REST-CXF-Spring" 
+				 templatedir-root="../../minuteTemplate/template">
+               <property name="environment" value="local"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+<!-- 		
 			<target refname="REST-CXF-BSLA" 
 			   name="default" 
 			   fileName="mp-template-config-REST-CXF-Spring.xml" 
@@ -166,8 +169,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-domain-specific-method" value="true"></property>
                <property name="use-temporal" value="true"></property>
                <property name="add-xmlbinding" value="true"></property>	
-               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-               <property name="environment" value="local"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		java-variable, uppercase-underscore, lowercase-hyphen, java-class
+               <property name="environment" value="local"></property>		java-variable, uppercase-underscore, lowercase-hyphen, java-class
 			</target>
 			
             <target refname="SDD-beans" 
@@ -206,7 +209,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   outputdir-root="../../DEV/cxf/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target>
-			
+			 -->
 		</targets>
 	</configuration>
 </generator-config>

@@ -1,15 +1,22 @@
 <technology-catalog>
-
+<!-- 
+the main technology is loaded with all its dependencies (not in a transitive way) i.e. you have to specify
+all of them
+the properties are declared at the technology level and apply to all templates (not transitive)
+ -->
 	<technologies>
-
+	
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-JPA2.xml"
-			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE-LIB"
+			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE-LIB,SDD-BEANS"
 			template-dir="@templateRoot@/framework/jpa" status="released"
 			description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
 			<frameworks>
 				<framework name="JPA" version="2"></framework>
 			</frameworks>
+		    <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-cache-implementation" value="ehcache"></property>
 		</technology>
 
 		<technology name="JPA2-ABL" target-name="JPA2-ABL" model-type="rdbms"
@@ -21,35 +28,49 @@
 				<framework name="JPA" version="2"></framework>
 				<framework name="ABL" ></framework>
 			</frameworks>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-automated-business-logic" value="2.2.0"></property> 
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-cache-implementation" value="ehcache"></property>
 		</technology>
 
-		<technology name="JPA2-bsla" target-name="JPA2-bsla" model-type="rdbms"
+		<technology name="BSLA-JPA2" target-name="BSLA-JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-JPA2-bsla.xml"
 			default-outputdir="bsla" template-dir="@templateRoot@/framework/bsla"
 			status="release" description="Generates comprehensive set of Extended CRUD DAO"
-			depends-on-targets="JPA2,MavenMaster" 
+			depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE-LIB,MavenMaster" 
 			is-generable="true">
-			<property name="add-cache-implementation" value="ehcache"></property>
+            <property name="add-querydsl" value="2.1.2"></property>
+             <property name="add-automated-business-logic" value="2.2.0"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-cache-implementation" value="ehcache"></property>
+            <property name="add-domain-specific-method" value="true"></property>
 		</technology>
+		
+		
+		
+		
 
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
-			default-outputdir="REST-JEE" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster,COMMON_LIB"
+			default-outputdir="REST-JEE" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
 				<framework name="jersey" version="1.9"></framework>
 			</frameworks>
-			<property name="add-xmlbinding" value="true"></property>
-			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version"
-				value="1.9-ea03"></property>
+               <property name="add-querydsl" value="2.1.2"></property>
+               <property name="add-jpa2-implementation" value="eclipselink"></property>	
+               <property name="add-xmlbinding" value="true"></property>	
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
+      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
+
 		</technology>
 		
-		<technology name="REST-SpringMVC" target-name="REST-SpringMVC"
+		<technology name="REST-SpringMVC"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST-SpringMVC.xml"
-			default-outputdir="REST-Spring" depends-on-targets="JPA2,JPA2-bsla,REST_LIB,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,MavenMaster"
 			template-dir="@templateRoot@/framework/spring"
 			status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
@@ -59,29 +80,55 @@
             <property name="add-querydsl" value="2.1.2"></property>
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-cache-implementation" value="ehcache"></property>
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
 		</technology>
 		
-		<technology name="REST-CXF" target-name="REST-CXF"
+		
+		<technology name="REST-CXF-Spring"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST-CXF-Spring.xml"
-			default-outputdir="cxf" depends-on-targets="JPA2,JPA2-bsla,REST_LIB,SPRING-LIB,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,MavenMaster"
 			template-dir="@templateRoot@/framework/cxf"
 			status="released"
 			description="Generates:\REST CXF CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
 				<framework name="spring" version="3.0.6"></framework>
-				<framework name="spring" version="2.2.3"></framework>
 			</frameworks>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-cache-implementation" value="ehcache"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-xmlbinding" value="true"></property>	
+            <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<property name="use-temporal" value="true"></property>
+			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
+		</technology>
+		
+		<technology name="REST-CXF-JEE" 
+			model-type="rdbms" template-config-file-name="mp-template-config-REST-CXF-JEE.xml"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,REST_LIB,SPRING-LIB,MavenMaster"
+			template-dir="@templateRoot@/framework/cxf"
+			status="released"
+			description="Generates:\REST CXF CRUD app\JEE DAO \JPA2 Domain entities with JAXB\with maven integration">
+			<frameworks>
+				<framework name="spring" version="3.0.6"></framework>
+			</frameworks>
+			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
             <property name="add-querydsl" value="2.1.2"></property>
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-domain-specific-method" value="true"></property>
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version" value="2.2.3"></property>		
+			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		
 		</technology>
+
+
+
+
+
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-WS-JEE-ejb.xml"
@@ -312,12 +359,15 @@
 		</technology>
 		-->
 		<!-- dependent tracks -->
-          <target refname="ABL" 
-              outputdir-root="../../dev/JPA2-ABL/petshop"
-              fileName="catalog/mp-template-config-ABL.xml" 
-              templatedir-root="../../minuteTemplate/template/framework/abl">
-            </target>		
-            
+
+		<technology name="SDD-BEANS" model-type="rdbms"
+			template-config-file-name="mp-template-config-SDD-beans.xml"
+			default-outputdir="JPA2" template-dir="@templateRoot@/framework/bean"
+			status="released" description="Generates backend artifacts">
+               <property name="add-xmlbinding" value="true"></property> 
+               <property name="add-xml-format" value="lowercase-hyphen"></property>
+		</technology>
+
 		<technology name="ABL-JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-ABL.xml"
 			default-outputdir="JPA2" template-dir="@templateRoot@/framework/abl"
@@ -358,17 +408,17 @@
 			template-dir="@templateRoot@/framework/i18n" is-generable="false">
 		</technology>
 		
-		<technology name="CACHE-LIB" target-name="CACHE-LIB"
+		<technology name="CACHE_LIB" target-name="CACHE_LIB"
 			template-config-file-name="mp-template-config-CACHE-LIB.xml"
 			template-dir="@templateRoot@/framework/cache" is-generable="false">
 		</technology>
 		
-		<technology name="REST-LIB" target-name="REST-LIB"
+		<technology name="REST_LIB" target-name="REST_LIB"
 			template-config-file-name="mp-template-config-REST-LIB.xml"
 			template-dir="@templateRoot@/framework/rest" is-generable="false">
 		</technology>
 		
-		<technology name="SPRING-LIB" target-name="SPRING-LIB"
+		<technology name="SPRING_LIB" target-name="SPRING_LIB"
 			template-config-file-name="mp-template-config-SPRING-LIB.xml"
 			template-dir="@templateRoot@/framework/spring" is-generable="false">
 		</technology>

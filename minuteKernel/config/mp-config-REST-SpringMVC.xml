@@ -69,8 +69,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets>
-		
+		<targets outputdir-root="../../output/REST-SpringMVC-petshop" 
+				 catalog-entry="REST-SpringMVC" 
+				 templatedir-root="../../minuteTemplate/template">
+<!-- 		
 			<target refname="REST-SpringMVC" 
 			   name="default" 
 			   fileName="mp-template-config-REST-SpringMVC.xml" 
@@ -98,7 +100,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-domain-specific-method" value="true"></property>
                <property name="add-xmlbinding" value="true"></property>	
                <property name="use-temporal" value="true"></property>
-               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		java-variable, uppercase-underscore, lowercase-hyphen, java-class
 			</target> 	
 
             <target refname="SDD-beans" 
@@ -127,7 +129,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   outputdir-root="../../DEV/bsla-jpa2/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target>
-			
+			 -->
 		</targets>
 	</configuration>
 </generator-config>

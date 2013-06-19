@@ -45,16 +45,16 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		List<Technology> list = new ArrayList<Technology>();
 		List<String> targets = ParserUtils.getList(technology.getDependsOnTargets());
 		for (String targetName : targets) {
-			Technology tech = getTechnologyByTargetName(targetName, catalogDir);
+			Technology tech = getTechnologyByName(targetName, catalogDir);
 			if (tech!=null)
 				list.add(tech);
 		}
 		return list;
 	}
 
-	public static Technology getTechnologyByTargetName(String name, String catalogDir) throws MinuteProjectException {
+	public static Technology getTechnologyByName(String name, String catalogDir) throws MinuteProjectException {
 		for (Technology technology : getPublishedTechnologies(catalogDir)) {
-			if (technology.getTargetName().equals(name))
+			if (technology.getName().equals(name))
 				return technology;
 		}		
 		return null;
@@ -69,6 +69,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 				technology2.getProperties().addAll(technologyRoot.getProperties());
 				list.add(getDependentTechnology(technology2, true));
 			} else {
+				// all the other technology are in the path (it is to remove reference to lib
 				list.add(getDependentTechnology(technology2, false));
 			}
 		}
