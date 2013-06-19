@@ -887,7 +887,7 @@
 			  </pattern>						
 		    </pattern>		
 	</pattern>		
-  </pattern>Targets targetsTargets targets
+  </pattern>
   <pattern value="targets">
 	<object-create-rule classname="net.sf.minuteProject.configuration.bean.Targets"/>	  
 	<set-next-rule methodname="setTargets" paramtype="net.sf.minuteProject.configuration.bean.Targets"/>

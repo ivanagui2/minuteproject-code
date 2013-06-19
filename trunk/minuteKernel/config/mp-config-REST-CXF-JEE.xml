@@ -65,8 +65,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
-
+		<targets outputdir-root="../../output/REST-CXF-JEE" 
+				 catalog-entry="REST-CXF-JEE" 
+				 templatedir-root="../../minuteTemplate/template">
+<!-- 
 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
@@ -77,7 +79,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>	
                <property name="use-temporal" value="true"></property>
-               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		java-variable, uppercase-underscore, lowercase-hyphen, java-class   			   
 			</target>
 			<target 
 			   name="REST" 
@@ -103,8 +105,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="COMMON-LIB" 
                fileName="mp-template-config-COMMON-LIB.xml" 
                templatedir-root="../../minuteTemplate/template/framework/common">
-            </target>   
-	
+            </target>	
 
 			<target refname="MavenMaster" 
 			   name="maven" 
@@ -118,7 +119,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   outputdir-root="../../dev/REST/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>	
-			
+			 -->
 		</targets>
 	</configuration>
 </generator-config>

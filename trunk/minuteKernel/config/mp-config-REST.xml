@@ -77,8 +77,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets>
-			<target refname="JPA2" 
+		<targets outputdir-root="../../output/REST-petshop" 
+				 catalog-entry="REST-JEE" 
+				 templatedir-root="../../minuteTemplate/template">
+<!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../../dev/REST/petshop/JPA2"
@@ -86,7 +88,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-querydsl" value="2.1.2"></property>
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>	
-               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		java-variable, uppercase-underscore, lowercase-hyphen, java-class   			   
 			</target>
 
 			<target 
@@ -135,6 +137,6 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>	
 			
-		</targets>
+ -->		</targets>
 	</configuration>
 </generator-config>

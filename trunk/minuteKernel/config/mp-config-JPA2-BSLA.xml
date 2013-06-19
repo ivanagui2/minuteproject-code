@@ -56,9 +56,11 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
+		<targets outputdir-root="../../output/myBSLA-JPA2-sample" 
+				 catalog-entry="BSLA-JPA2" 
+				 templatedir-root="../../minuteTemplate/template">
 		
-			<target refname="BackendOnBsla" 
+<!-- 			<target refname="BackendOnBsla" 
 			   name="default" 
 			   fileName="mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/petshop/bsla"
@@ -88,7 +90,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   fileName="mp-template-config-maven.xml" 
 			   outputdir-root="../../DEV/bsla-jpa2/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
-			</target>
+			</target> -->
 			
 		</targets>
 	</configuration>
