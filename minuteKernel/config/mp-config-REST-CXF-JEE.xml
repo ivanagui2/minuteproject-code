@@ -65,9 +65,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets outputdir-root="../../output/REST-CXF-JEE" 
+		<targets catalog-entry="REST-CXF-JEE" templatedir-root="../../minuteTemplate/template">
+<!-- 		<targets outputdir-root="../../output/REST-CXF-JEE" 
 				 catalog-entry="REST-CXF-JEE" 
-				 templatedir-root="../../minuteTemplate/template">
+				 templatedir-root="../../minuteTemplate/template"> -->
 <!-- 
 			<target refname="JPA2" 
 			   name="JPA2" 

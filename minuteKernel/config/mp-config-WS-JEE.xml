@@ -53,8 +53,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
-			<target refname="JPA2" 
+		<targets catalog-entry="WS-JEE" templatedir-root="../../minuteTemplate/template">
+<!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../../dev/WS-JEE/petshop/JPA2"
@@ -63,7 +63,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>
                <property name="add-xml-format" value="lowercase-hyphen"></property>		
-               	<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+               	java-variable, uppercase-underscore, lowercase-hyphen, java-class
 			</target>							
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
@@ -99,7 +99,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="COMMON_LIB" 
 			   fileName="mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/common">
-			</target>	
+			</target> -->	
 		</targets>
 	</configuration>
 </generator-config>
