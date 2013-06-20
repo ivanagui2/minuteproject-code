@@ -3,6 +3,8 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.system.GenerationAction;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.target.ImportTargets;
@@ -46,7 +48,13 @@ public class Targets extends AbstractConfiguration {
 	}
 
 	public String getOutputdirRoot() {
+		if (hasCatalogEntry() && outputdirRoot==null)
+			return "../../output/"+getCatalogEntry(); // default
 		return outputdirRoot;
+	}
+
+	private boolean hasCatalogEntry() {
+		return !StringUtils.isEmpty(catalogEntry);
 	}
 
 	public void setOutputdirRoot(String outputdirRoot) {
@@ -54,6 +62,8 @@ public class Targets extends AbstractConfiguration {
 	}
 
 	public String getTemplatedirRoot() {
+		if (hasCatalogEntry() && templatedirRoot==null) 
+			return "template";//default : search in classpath
 		return templatedirRoot;
 	}
 
