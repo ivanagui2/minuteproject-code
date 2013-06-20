@@ -2,7 +2,7 @@
 #exposeSDDCompositeSpring()
 #set($thisClassName=$className)
 #putImportCompositeSDDBean()
-#exposeRESTSDDCompositeURLServer()
+##exposeRESTSDDCompositeURLServer()
 #addedAreas()
 package $packageName;
 
