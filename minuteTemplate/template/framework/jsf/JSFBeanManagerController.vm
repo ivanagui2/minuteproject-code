@@ -119,7 +119,7 @@ public class ${className} implements java.io.Serializable{
 #if(!$linktableDB.isManyToMany())
 ##	private ${linkedTableClass} associated${childrenListClass};
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
-
+#if($isSpringBackend)
 	private List<$linkedTableClass> $childrenListVariable;
     public List<${linkedTableClass}> get${childrenListClass} () {
         populate$childrenListVariable ();
@@ -138,6 +138,7 @@ public class ${className} implements java.io.Serializable{
     		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
 		}
 	}
+#end
 #end
 #end
 
@@ -342,7 +343,7 @@ public class ${className} implements java.io.Serializable{
     public String displayInput () {
 		return "success";
 	}	
-
+#if($isSpringBackend)
     public void onRowSelect(SelectEvent event) {
         selected$tableClassName = ($tableClassName) event.getObject();
 #if($hasFirstRelationship)
@@ -363,6 +364,7 @@ public class ${className} implements java.io.Serializable{
 #end
 #end
     }
+#end
 
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
 #if($isSpringBackend)
