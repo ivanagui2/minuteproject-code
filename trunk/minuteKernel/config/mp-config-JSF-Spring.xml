@@ -101,8 +101,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                 </queries>
             </statement-model>
 		</model>	
-		<targets outputdir-root="">
-			<target refname="JPA2" 
+		<targets catalog-entry="Primefaces-Spring" templatedir-root="../../minuteTemplate/template">
+<!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../../dev/JSF/petshop/JPA2"
@@ -173,7 +173,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			   fileName="mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/common">
 			</target>
-							
+							 -->
 		</targets>
 	</configuration>
 </generator-config>

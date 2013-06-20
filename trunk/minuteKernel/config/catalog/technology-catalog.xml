@@ -47,10 +47,6 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-domain-specific-method" value="true"></property>
 		</technology>
 		
-		
-		
-		
-
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
 			default-outputdir="REST-JEE" depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB"
@@ -125,14 +121,9 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		
 		</technology>
 
-
-
-
-
-
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-WS-JEE-ejb.xml"
-			default-outputdir="EJB3" depends-on-targets="WS-JEE-war,BSLA_LIB,JPA2,MavenMaster"
+			default-outputdir="EJB3" depends-on-targets="WS-JEE-war,SDD-BEANS,BSLA_LIB,JPA2,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\WebService CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\maven integration">
@@ -140,7 +131,7 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="use-temporal" value="true"></property>
 		</technology>
 
-		<technology name="JOOQ" target-name="JOOQ" model-type="rdbms"
+		<technology name="JOOQ" model-type="rdbms"
 			template-config-file-name="mp-template-config-JOOQ.xml"
 			default-outputdir="JOOQ" depends-on-targets="BSLA_LIB"
 			template-dir="@templateRoot@/framework/jooq"
@@ -152,7 +143,26 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="version" value="2.0.2"></property>
 		</technology>
 
-		<technology name="JSF-primefaces" target-name="JSF-primefaces"
+		<technology name="Primefaces-Spring" 
+			model-type="rdbms" template-config-file-name="mp-template-config-JSF-Spring.xml"
+			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
+			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
+			template-dir="@templateRoot@/framework/jsf" status="released"
+			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
+			<frameworks>
+				<framework name="primefaces" version="3.5"></framework>
+				<framework name="JSF" version="2"></framework>
+				<framework name="spring" version="3+"></framework>
+			</frameworks>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-xmlbinding" value="true"></property>	
+            <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<property name="use-temporal" value="true"></property>
+		</technology>
+		
+		<technology name="Primefaces-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
 			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
@@ -163,44 +173,7 @@ the properties are declared at the technology level and apply to all templates (
 				<framework name="JSF" version="2"></framework>
 			</frameworks>
 		</technology>
-
-		<technology name="WS-JEE-war" target-name="WS-JEE-war"
-			model-type="rdbms" template-config-file-name="mp-template-config-WS-JEE-war.xml"
-			template-dir="@templateRoot@/framework/webservice" default-outputdir="WS"
-			is-generable="false">
-		</technology>
-
-
-		<technology name="EJB3_LIB" target-name="EJB3_LIB"
-			template-config-file-name="mp-template-config-EJB3-LIB.xml"
-			template-dir="@templateRoot@/framework/ejb" is-generable="false">
-		</technology>
-
-		<technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
-			model-type="rdbms" template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml"
-			default-outputdir="bslaSpringHibernate" template-dir="@templateRoot@/framework/bsla"
-			status="released"
-			description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
-			<frameworks>
-				<framework name="Spring" version="2.5+"></framework>
-				<framework name="Hibernate" version="3.2+"></framework>
-				<framework name="ehCache" version=""></framework>
-			</frameworks>
-		</technology>
-
-		<technology name="Maven Spring JPA/Hibernate" model-type="rdbms"
-			template-config-file-name="mp-template-config-bsla-JPA-last-features.xml"
-			default-outputdir="bslaSpringJPAHibernate" template-dir="@templateRoot@/framework/bsla"
-			status="released"
-			description="Generates Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
-			<frameworks>
-				<framework name="Spring" version="2.5+"></framework>
-				<framework name="Hibernate" version="3.2+"></framework>
-				<framework name="JPA" version="1.0"></framework>
-				<framework name="ehCache" version=""></framework>
-			</frameworks>
-		</technology>
-
+		
 		<technology name="FitNesse" model-type="rdbms"
 			template-config-file-name="mp-template-config-fitnesse.xml"
 			default-outputdir="fitnesse" template-dir="@templateRoot@/framework/fitnesse"
@@ -214,37 +187,7 @@ the properties are declared at the technology level and apply to all templates (
 			</frameworks>
 		</technology>
 
-<!-- 		<technology name="Spring Hibernate Standard" model-type="rdbms"
-			template-config-file-name="mp-template-config-hibernate.xml"
-			template-dir="@templateRoot@/framework/bsla" default-outputdir="springHibernate"
-			status="released" description="Generates Spring Hibernate backend and DAO layer.">
-			<frameworks>
-				<framework name="Spring" version="1.2.5+"></framework>
-				<framework name="Hibernate" version="3.2+"></framework>
-			</frameworks>
-		</technology>
 
-		<technology name="Spring iBatis Standard" model-type="rdbms"
-			template-config-file-name="mp-template-config-ibatis.xml"
-			default-outputdir="springIbatis" template-dir="@templateRoot@/framework/bsla"
-			status="released" description="Generates Spring iBatis backend and DAO layer.">
-			<frameworks>
-				<framework name="Spring" version="1.2.5+"></framework>
-				<framework name="iBatis" version=""></framework>
-			</frameworks>
-		</technology>
-
-		<technology name="Spring JPA Standard" model-type="rdbms"
-			template-config-file-name="mp-template-config-jpa.xml"
-			default-outputdir="springJpa" template-dir="@templateRoot@/framework/bsla"
-			status="released" description="Generates Spring JPA/Hibernate backend and DAO layer.">
-			<frameworks>
-				<framework name="Spring" version="1.2.5+"></framework>
-				<framework name="Hibernate" version="3.2+"></framework>
-				<framework name="JPA" version="1.0"></framework>
-			</frameworks>
-		</technology>
- -->
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			default-outputdir="openxava" template-dir="@templateRoot@/framework/openxava"
@@ -323,7 +266,7 @@ the properties are declared at the technology level and apply to all templates (
 			</frameworks>
 		</technology>
 
-		<!-- webservice model technologies 
+		<!-- webservice model technologies not activated
 		
 		<technology name="WebService+Spring-Hibernate" model-type="webservice"
 			template-config-file-name="mp-template-config-WSDL-API.xml"
@@ -358,8 +301,84 @@ the properties are declared at the technology level and apply to all templates (
 			is-generable="false">
 		</technology>
 		-->
+		
+		<!-- legacy tracks -->		
+
+		<technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
+			model-type="rdbms" template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml"
+			default-outputdir="bslaSpringHibernate" template-dir="@templateRoot@/framework/bsla"
+			status="released"
+			description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
+			<frameworks>
+				<framework name="Spring" version="2.5+"></framework>
+				<framework name="Hibernate" version="3.2+"></framework>
+				<framework name="ehCache" version=""></framework>
+			</frameworks>
+		</technology>
+
+		<technology name="Maven Spring JPA/Hibernate" model-type="rdbms"
+			template-config-file-name="mp-template-config-bsla-JPA-last-features.xml"
+			default-outputdir="bslaSpringJPAHibernate" template-dir="@templateRoot@/framework/bsla"
+			status="released"
+			description="Generates Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
+			<frameworks>
+				<framework name="Spring" version="2.5+"></framework>
+				<framework name="Hibernate" version="3.2+"></framework>
+				<framework name="JPA" version="1.0"></framework>
+				<framework name="ehCache" version=""></framework>
+			</frameworks>
+		</technology>
+		
+		<!-- 		<technology name="Spring Hibernate Standard" model-type="rdbms"
+			template-config-file-name="mp-template-config-hibernate.xml"
+			template-dir="@templateRoot@/framework/bsla" default-outputdir="springHibernate"
+			status="released" description="Generates Spring Hibernate backend and DAO layer.">
+			<frameworks>
+				<framework name="Spring" version="1.2.5+"></framework>
+				<framework name="Hibernate" version="3.2+"></framework>
+			</frameworks>
+		</technology>
+
+		<technology name="Spring iBatis Standard" model-type="rdbms"
+			template-config-file-name="mp-template-config-ibatis.xml"
+			default-outputdir="springIbatis" template-dir="@templateRoot@/framework/bsla"
+			status="released" description="Generates Spring iBatis backend and DAO layer.">
+			<frameworks>
+				<framework name="Spring" version="1.2.5+"></framework>
+				<framework name="iBatis" version=""></framework>
+			</frameworks>
+		</technology>
+
+		<technology name="Spring JPA Standard" model-type="rdbms"
+			template-config-file-name="mp-template-config-jpa.xml"
+			default-outputdir="springJpa" template-dir="@templateRoot@/framework/bsla"
+			status="released" description="Generates Spring JPA/Hibernate backend and DAO layer.">
+			<frameworks>
+				<framework name="Spring" version="1.2.5+"></framework>
+				<framework name="Hibernate" version="3.2+"></framework>
+				<framework name="JPA" version="1.0"></framework>
+			</frameworks>
+		</technology>
+ -->
 		<!-- dependent tracks -->
 
+
+		<technology name="SpringService" model-type="rdbms"
+			template-config-file-name="mp-template-config-SpringService.xml"
+			default-outputdir="bsla" depends-on-targets="BSLA_LIB"
+			template-dir="@templateRoot@/framework/jooq"
+			status="release"
+			description="Spring service">
+		</technology>
+		
+		
+		<technology name="WS-JEE-war" target-name="WS-JEE-war"
+			model-type="rdbms" template-config-file-name="mp-template-config-WS-JEE-war.xml"
+			template-dir="@templateRoot@/framework/webservice" default-outputdir="WS"
+			is-generable="false">
+		</technology>
+		
+		
 		<technology name="SDD-BEANS" model-type="rdbms"
 			template-config-file-name="mp-template-config-SDD-beans.xml"
 			default-outputdir="JPA2" template-dir="@templateRoot@/framework/bean"
@@ -377,6 +396,12 @@ the properties are declared at the technology level and apply to all templates (
 			</frameworks>
 		</technology>
 		<!-- libraries -->
+
+
+		<technology name="EJB3_LIB" target-name="EJB3_LIB"
+			template-config-file-name="mp-template-config-EJB3-LIB.xml"
+			template-dir="@templateRoot@/framework/ejb" is-generable="false">
+		</technology>
 
 		<technology name="BSLA_LIB" target-name="BSLA_LIB"
 			template-config-file-name="mp-template-config-bsla-LIB-features.xml"

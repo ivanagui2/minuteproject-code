@@ -63,9 +63,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
-
-			<target refname="JPA2" 
+		<targets catalog-entry="Primefaces-JEE" templatedir-root="../../minuteTemplate/template">
+<!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../../output/JSF/petshop/JPA2"
@@ -108,7 +107,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             <target refname="COMMON-LIB" 
                fileName="mp-template-config-COMMON-LIB.xml" 
                templatedir-root="../../minuteTemplate/template/framework/common">
-            </target>
-		</targets>
+            </target>-->
+		</targets> 
 	</configuration>
 </generator-config>
