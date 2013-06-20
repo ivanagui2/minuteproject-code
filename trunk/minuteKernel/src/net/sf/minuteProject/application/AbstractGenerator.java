@@ -49,6 +49,9 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
 
 /**
  * @author Florian Adler
@@ -292,6 +295,7 @@ public abstract class AbstractGenerator implements Generator {
 //		Velocity.clearProperty(Velocity.VM_LIBRARY);
 //		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
 //		p.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+
 		VelocityContext context = new VelocityContext();
 		try {
 			Velocity.setExtendedProperties(getExtendedProperties(template));
@@ -308,6 +312,22 @@ public abstract class AbstractGenerator implements Generator {
 		ExtendedProperties extendedProperties = new ExtendedProperties();
 		extendedProperties.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
 		extendedProperties.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+//		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "string");
+//		extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
+		return extendedProperties;
+	}
+	
+	private ExtendedProperties getClasspathLoaderProperties(Template template) {
+		ExtendedProperties extendedProperties = new ExtendedProperties();
+		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+		extendedProperties.setProperty("classpath.resource.loader.class",ClasspathResourceLoader.class.getName());
+		return extendedProperties;
+	}
+	
+	private ExtendedProperties getStringLoaderEmbeddedProperties(Template template) {
+		ExtendedProperties extendedProperties = new ExtendedProperties();
+		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "string");
+		extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
 		return extendedProperties;
 	}
 	
@@ -413,6 +433,13 @@ public abstract class AbstractGenerator implements Generator {
 	
 	private org.apache.velocity.Template getVelocityTemplate (Template template, String outputFilename) throws Exception {
 	   org.apache.velocity.Template velocityTemplate =  null;
+//		Properties p = new Properties();
+//		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "string");
+//		extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
+//
+//		p.setProperty("resource.loader", "string");
+//		p.setProperty("resource.loader.class", "org.apache.velocity.runtime.resource.loader.StringResourceLoader");
+//		Velocity.init(p);
 	   try {
 	   		velocityTemplate = Velocity.getTemplate(template.getTemplateFileName());
 	   }

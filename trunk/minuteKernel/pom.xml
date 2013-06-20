@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.minuteproject</groupId>
-	<artifactId>kernel</artifactId>
+	<artifactId>mp-kernel</artifactId>
 	<version>0.9</version>
 	<name>mp-kernel</name>
 	<packaging>jar</packaging>
@@ -55,7 +55,7 @@
 		<developerConnection>florian adler</developerConnection>
 	</scm>
 	<build>
-	 	<finalName>mp-kernel</finalName>
+<!-- 	 	<finalName>mp-kernel</finalName> -->
 		<sourceDirectory>${basedir}/src/</sourceDirectory>
 		<testResources>
 			<testResource>
