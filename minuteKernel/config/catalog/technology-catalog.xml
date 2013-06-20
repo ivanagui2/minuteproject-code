@@ -329,7 +329,9 @@ the properties are declared at the technology level and apply to all templates (
 			</frameworks>
 		</technology>
 		
-		<!-- 		<technology name="Spring Hibernate Standard" model-type="rdbms"
+		<!-- 		
+		
+		<technology name="Spring Hibernate Standard" model-type="rdbms"
 			template-config-file-name="mp-template-config-hibernate.xml"
 			template-dir="@templateRoot@/framework/bsla" default-outputdir="springHibernate"
 			status="released" description="Generates Spring Hibernate backend and DAO layer.">
