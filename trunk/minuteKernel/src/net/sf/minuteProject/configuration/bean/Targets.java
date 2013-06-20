@@ -3,13 +3,9 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.sf.minuteProject.configuration.bean.system.GenerationAction;
-import net.sf.minuteProject.configuration.bean.system.Plugin;
-import net.sf.minuteProject.configuration.bean.target.ImportTargets;
-import net.sf.minuteProject.configuration.bean.target.TargetParams;
-import net.sf.minuteProject.utils.io.FileUtils;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Florian Adler
