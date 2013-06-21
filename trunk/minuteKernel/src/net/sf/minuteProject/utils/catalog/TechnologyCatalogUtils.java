@@ -154,7 +154,6 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 		}
 		return targets;
 	}
-
 	
 	private static List<Target> getAllRelatedTargets(Technology technologyTarget, String catalogDir, String outputDir, String templateRootDir) throws MinuteProjectException {
 		List<Target> list = new ArrayList<Target>();

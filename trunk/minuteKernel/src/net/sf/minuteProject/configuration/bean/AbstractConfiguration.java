@@ -119,6 +119,10 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 		return value.equals("false");
 	}	
 
+	public void addProperties(List<Property> props) {
+		getProperties().addAll(props);
+		
+	}
 //	public String toString() {
 //		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); 
 //	 	return  ToStringBuilder.reflectionToString(this);

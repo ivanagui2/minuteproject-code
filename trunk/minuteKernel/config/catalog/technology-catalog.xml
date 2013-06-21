@@ -157,9 +157,9 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-querydsl" value="2.1.2"></property>
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-domain-specific-method" value="true"></property>
-            <property name="add-xmlbinding" value="true"></property>	
-            <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
+			<property name="add-jsf-implementation" value="primefaces"></property>
+			<property name="web-xml-version" value="3.0"></property>
 		</technology>
 		
 		<technology name="Primefaces-JEE"
@@ -186,7 +186,16 @@ the properties are declared at the technology level and apply to all templates (
 				<framework name="MP 4 FitNesse" version=""></framework>
 			</frameworks>
 		</technology>
-
+		
+		<technology name="Solr" model-type="rdbms"
+			template-config-file-name="mp-template-config-solr.xml"
+			template-dir="@templateRoot@/framework/osem/solr"
+			depends-on-targets="BSLA_LIB" status="released"
+			description="Generates Solr artifacts">
+			<frameworks>
+				<framework name="Solr" version=""></framework>
+			</frameworks>
+		</technology>
 
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
@@ -248,13 +257,19 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="Vaadin" model-type="rdbms"
 			template-config-file-name="mp-template-config-vaadin-last-features.xml"
 			default-outputdir="vaadin" template-dir="@templateRoot@/framework/vaadin"
-			depends-on-targets="MVN_SPRING_HIBERNATE_LAST" status="draft"
+			depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster" status="draft"
 			description="Generates Vaadin Front end on top of a Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 			<frameworks>
 				<framework name="Vaadin" version="6.3+"></framework>
 				<framework name="Toolkit productivity tools addon"
 					version="1.1+"></framework>
 			</frameworks>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+			<property name="add-jsf-implementation" value="primefaces"></property>
+			<property name="web-xml-version" value="3.0"></property>
 		</technology>
 
 		<technology name="Roo" model-type="rdbms"
