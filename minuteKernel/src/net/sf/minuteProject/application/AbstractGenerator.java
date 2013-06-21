@@ -26,6 +26,7 @@ import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
+import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
@@ -59,6 +60,7 @@ import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
  */
 public abstract class AbstractGenerator implements Generator {
 	
+	private static final String CATALOG = "catalog";
 	protected static final String SCOPE_DATAMODEL_FUNCTION = "function";
 	protected static final String SCOPE_DATAMODEL_ENTITY = "entity";
 	protected static final String SCOPE_DATAMODEL_FIELD = "field";
@@ -233,7 +235,7 @@ public abstract class AbstractGenerator implements Generator {
 			if (configuration.hasTechnologyCatalogEntry()) {
 				Targets targets = TechnologyCatalogUtils.getTargets(
 						configuration.getTargets().getCatalogEntry(), 
-						"catalog", 
+						CATALOG, 
 						configuration.getTargets().getOutputdirRoot(), 
 						configuration.getTargets().getTemplatedirRoot());
 //				Targets targets = TechnologyCatalogUtils.getDependentTechnologies (technologyRoot, catalogDir)(
@@ -251,8 +253,10 @@ public abstract class AbstractGenerator implements Generator {
 	}
 
 	private void appendTargets(Configuration configuration, Targets targets) {
+		List<Property> props = configuration.getTargets().getProperties();
 		for (Target target: targets.getTargets()) {
-			configuration.addTarget(target);
+			target.addProperties(props); //TODO make override in template not only append at target level
+			configuration.getTargets().addTarget(target);
 		}
 	}
 	
@@ -284,10 +288,7 @@ public abstract class AbstractGenerator implements Generator {
 		}
 	}
 	
-	public void getSolutionPortfolio (String solutionPortfolioFileName) {
-		
-	}
-	
+
     protected VelocityContext getVelocityContext(Template template) {
 //		Properties p = new Properties();
 		

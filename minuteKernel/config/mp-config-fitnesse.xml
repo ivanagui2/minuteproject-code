@@ -43,8 +43,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</statement-model>
 			
 		</model>
-		<targets>
-			<target refname="FitNesse" 
+		<targets catalog-entry="FitNesse" templatedir-root="../../minuteTemplate/template">
+<!-- 			<target refname="FitNesse" 
 			   name="default" 
 			   fileName="mp-template-config-fitnesse.xml" 
 			   outputdir-root="../../dev/output/Fitnesse"
@@ -57,7 +57,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="COMMON_LIB" 
 			   fileName="mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/common">
-			</target>
+			</target> -->
 		</targets>		
 				
 	</configuration>

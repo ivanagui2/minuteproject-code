@@ -243,6 +243,7 @@ public class Target extends AbstractConfiguration{
 	public String getTargetPropertyValue(String name) {
 		String s = getPropertyValue(name);
 		if (s!=null) return s;
+		if (targets!=null) return targets.getPropertyValue(name);
 		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyValue(name);
 		return null;
 	}
@@ -250,6 +251,7 @@ public class Target extends AbstractConfiguration{
 	public Property getTemplateTargetPropertyByName(String name) {
 		Property p = getPropertyByName(name);
 		if (p!=null) return p;
+		if (targets!=null) return targets.getPropertyByName(name);
 		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyByName(name);
 		return null;
 	}
