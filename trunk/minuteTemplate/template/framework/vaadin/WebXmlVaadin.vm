@@ -39,6 +39,14 @@
 #exposeVariableEntitySpecific()
 #exposeVaadinDomainObject()
     <servlet>
+        <servlet-name>$domainObjectApplicationClass</servlet-name>
+        <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+        <init-param>
+            <param-name>UI</param-name>
+            <param-value>$domainObjectApplicationImport</param-value>
+        </init-param>
+    </servlet>
+#*    <servlet>
 		<servlet-name>$domainObjectApplicationClass</servlet-name>
 		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
 		<init-param>
@@ -46,13 +54,14 @@
 			<param-value>$domainObjectApplicationImport</param-value>
 		</init-param>
 	</servlet>
+	*#
 #end
 #end
     <servlet>
 		<servlet-name>$modelApplicationClass</servlet-name>
-		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
 		<init-param>
-			<param-name>application</param-name>
+			<param-name>UI</param-name>
 			<param-value>$modelApplicationImport</param-value>
 		</init-param>
 	</servlet>
@@ -69,7 +78,7 @@
 #end
 	<servlet-mapping>
 		<servlet-name>$modelApplicationClass</servlet-name>
-		<url-pattern>/$modelApplicationClass/*</url-pattern>
+		<url-pattern>/VAADIN/*</url-pattern>
 	</servlet-mapping>
 		
 	<welcome-file-list>

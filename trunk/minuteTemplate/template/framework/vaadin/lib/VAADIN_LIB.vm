@@ -32,6 +32,11 @@
 #set ($containerServiceImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateVaadinContainerServiceImpl))
 #end
 
+#macro(exposeVaadinConfig)
+#set ($isSpringBackend=$template.hasPropertyValue("add-backend-implementation","spring"))
+#set ($isEJBBackend=$template.hasPropertyValue("add-backend-implementation","ejb"))
+#end
+
 #macro (exposeVaadinSpringConfig)
 #exposeVaadinTemplate()
 #set ($vaadinSpringContainerConfigFullPath = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $templateVaadinSpringContainerConfig))

@@ -3,7 +3,6 @@
 package $packageName;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
-import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
@@ -77,11 +76,11 @@ public class $className extends VerticalLayout{ //MenuBar {
                         item.getNewButton().setVisible(false);
                     }
                     EntityMenuItem.this.addStyleName("open");
-                    ${applicationControllerClass}.getController().switchView(entityName);
+##                    ${applicationControllerClass}.getController().switchView(entityName);
                 }
 
                 public void buttonClick(Button.ClickEvent event) {
-                    ${applicationControllerClass}.getController().switchView(entityName);
+##                    ${applicationControllerClass}.getController().switchView(entityName);
                 }
             });
         }
