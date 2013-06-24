@@ -8,7 +8,6 @@ import com.vaadin.demo.tutorial.addressbook.AddressBookApplication;
 import com.vaadin.demo.tutorial.addressbook.data.Person;
 import com.vaadin.demo.tutorial.addressbook.data.PersonContainer;
 */
-import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.Table;

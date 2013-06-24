@@ -1,7 +1,7 @@
 #exposeVariableModelDetailSpecific()
 package $packageName;
 
-import eu.livotov.tpt.gui.widgets.TPTMultiView;
+##import eu.livotov.tpt.gui.widgets.TPTMultiView;
 #foreach ($package in ${businessPackages})
 #foreach ($tableDB in ${package.listOfTables})
 #if(!$tableDB.isManyToMany())
@@ -12,7 +12,7 @@ import $domainObjectViewImport;
 #end
 
 @SuppressWarnings("serial")
-public class $className extends TPTMultiView {
+public class $className {##extends TPTMultiView {
 
     private static $className controller;
 
@@ -23,13 +23,13 @@ public class $className extends TPTMultiView {
     }
     
     public $className () {
-        super(true);
+##        super(true);
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
 #if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
 #exposeVaadinDomainObject()
-        addView("$tableVariableName", new $domainObjectViewClass());
+##        addView("$tableVariableName", new $domainObjectViewClass());
 #end
 #end
 #end        

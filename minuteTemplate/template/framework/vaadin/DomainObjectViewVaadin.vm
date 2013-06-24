@@ -20,28 +20,18 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.terminal.ExternalResource;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.Embedded;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.SplitPanel;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Link;
+import com.vaadin.server.ExternalResource;
+import com.vaadin.ui.*;
 
-import eu.livotov.tpt.gui.widgets.TPTMultiView.TPTView;
+##import eu.livotov.tpt.gui.widgets.TPTMultiView.TPTView;
 
 import $menuImport;
 
-public class $className extends VerticalLayout implements TPTView, ClickListener, ValueChangeListener, ItemClickListener {
+public class $className extends VerticalLayout implements ClickListener, ValueChangeListener, ItemClickListener {
 
-	private SplitPanel horizontalSplit = new SplitPanel(SplitPanel.ORIENTATION_HORIZONTAL);
+	private HorizontalSplitPanel horizontalSplit = new HorizontalSplitPanel();
 	private $domainObjectFormClass form = null;
 	private Table table = null;
 
@@ -56,7 +46,7 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		addComponent(horizontalSplit);
 		setExpandRatio(horizontalSplit, 1);
 
-		horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
+		horizontalSplit.setSplitPosition(200, HorizontalSplitPanel.UNITS_PIXELS);
 		horizontalSplit.setFirstComponent(new $menuClass("${tableLabelVariable}"));
 
 		horizontalSplit.setSecondComponent(getSplitPanel(size));
@@ -75,8 +65,8 @@ public class $className extends VerticalLayout implements TPTView, ClickListener
 		return lo;
 	}
 
-	public SplitPanel getSplitPanel(Integer size) {
-		SplitPanel splitPanel = new SplitPanel();
+	public HorizontalSplitPanel getSplitPanel(Integer size) {
+		HorizontalSplitPanel splitPanel = new HorizontalSplitPanel();
 		table = new Table();
 		table.setSizeFull();
 		$domainObjectApplicationClass app  = new $domainObjectApplicationClass();

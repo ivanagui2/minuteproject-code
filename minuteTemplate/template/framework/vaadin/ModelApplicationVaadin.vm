@@ -7,15 +7,15 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
-import eu.livotov.tpt.TPTApplication;
+##import eu.livotov.tpt.TPTApplication;
 
-public class $className extends TPTApplication {
+public class $className { ##extends{TPTApplication {
  
        
-    @Override
+##    @Override
     public void applicationInit() {   
         Window w = new $modelWindowClass();
-        setMainWindow(w);       
+//        setMainWindow(w);       
         System.out.println("SET MAIN WINDOW IN init()");
     }
 
@@ -29,7 +29,7 @@ public class $className extends TPTApplication {
 		
 	}
 
-	@Override
+##	@Override
 	public void firstApplicationStartup() {
 		// TODO Auto-generated method stub
 		

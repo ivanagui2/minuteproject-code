@@ -3,15 +3,13 @@
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 ##import com.vaadin.demo.tutorial.addressbook.data.SearchFilter;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.*;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.NativeSelect;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Window.Notification;
 
 @SuppressWarnings("serial")
 public class ${className} extends Panel {
@@ -51,7 +49,7 @@ public class ${className} extends Panel {
 		fieldToSearch.setNullSelectionAllowed(false);
 
 		/* Initialize save checkbox */
-		saveSearch.setValue(true);
+#*		saveSearch.setValue(true);
 		saveSearch.setImmediate(true);
 		saveSearch.addListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
@@ -72,16 +70,18 @@ public class ${className} extends Panel {
 		addComponent(saveSearch);
 		addComponent(searchName);
 		addComponent(search);
+		*#
 	}
 
 	private void performSearch() {
 		String searchTerm = (String) tf.getValue();
-		if (searchTerm == null || searchTerm.equals("")) {
+#*		if (searchTerm == null || searchTerm.equals("")) {
 			getWindow().showNotification("Search term cannot be empty!",
 					Notification.TYPE_WARNING_MESSAGE);
 			return;
-		}
-/*
+			*#
+	}
+#*
 		SearchFilter searchFilter = new SearchFilter(fieldToSearch.getValue(),
 				searchTerm, (String) searchName.getValue());
 		if (saveSearch.booleanValue()) {
@@ -95,7 +95,7 @@ public class ${className} extends Panel {
 			app.saveSearch(searchFilter);
 		}
 		app.search(searchFilter);
-		*/
+		
 	}
-
+*#
 }
