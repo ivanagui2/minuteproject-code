@@ -65,7 +65,20 @@
 			<param-value>$modelApplicationImport</param-value>
 		</init-param>
 	</servlet>
-
+	
+    <servlet>
+        <servlet-name>${modelApplicationClass}UI</servlet-name>
+        <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+        <init-param>
+            <param-name>UI</param-name>
+            <param-value>$modelUIImport</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>${modelApplicationClass}UI</servlet-name>
+        <url-pattern>/${modelApplicationClass}UI/*</url-pattern>
+    </servlet-mapping>
+	
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #if ($vaadinPlugin.isVaadinApplication($table))
 #exposeVariableEntitySpecific()
