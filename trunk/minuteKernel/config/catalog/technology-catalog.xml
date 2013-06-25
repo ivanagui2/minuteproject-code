@@ -264,6 +264,7 @@ the properties are declared at the technology level and apply to all templates (
 				<framework name="Toolkit productivity tools addon"
 					version="1.1+"></framework>
 			</frameworks>
+            <property name="add-backend-implementation" value="spring"></property>
             <property name="add-querydsl" value="2.1.2"></property>
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-domain-specific-method" value="true"></property>
@@ -383,7 +384,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="SpringService" model-type="rdbms"
 			template-config-file-name="mp-template-config-SpringService.xml"
 			default-outputdir="bsla" depends-on-targets="BSLA_LIB"
-			template-dir="@templateRoot@/framework/jooq"
+			template-dir="@templateRoot@/framework/spring"
 			status="release"
 			description="Spring service">
 		</technology>
