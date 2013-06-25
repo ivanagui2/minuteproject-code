@@ -26,8 +26,13 @@ public class ${className} extends UI implements
 
 	@Override
 	public void init(VaadinRequest vaadinRequest) {
-		buildMainLayout();
-		setContent(getListView());
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+        layout.addComponent(horizontalSplit);
+        layout.setExpandRatio(horizontalSplit, 1);
+        horizontalSplit.setFirstComponent(new PetshopMenu());
+        horizontalSplit.setSecondComponent(getListView());
+        setContent(layout);
 	}
 	
 #*    @Override

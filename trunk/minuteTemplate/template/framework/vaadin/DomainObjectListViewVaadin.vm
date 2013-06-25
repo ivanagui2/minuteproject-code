@@ -1,11 +1,11 @@
 #putVaadinClassObjectAndPackage()
 
-import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.VerticalSplitPanel;
 import $domainObjectListImport;
 import $domainObjectFormImport;
 
 @SuppressWarnings("serial")
-public class $className extends HorizontalSplitPanel {
+public class $className extends VerticalSplitPanel {
 	public $className ($domainObjectListClass list, $domainObjectFormClass form) {
 		addStyleName("view");
 		setFirstComponent(list);
