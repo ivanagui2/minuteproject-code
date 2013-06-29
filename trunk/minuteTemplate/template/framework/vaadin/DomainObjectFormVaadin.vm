@@ -25,7 +25,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-//import ${importDomainObjectUML}; might enter in confict with vaadin class (ex: Item import)
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 
@@ -34,9 +33,15 @@ public class ${className} extends Form implements ClickListener {
 
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
 	
-#foreach($column in ${table.columns})
-#putColumnParams()
+##foreach($column in ${table.columns})
+#foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
+#putColumnParamNaming()
+#if(!$isForeignKey)
+#if($columnUtils.isPartOfCompositePrimaryKey($column))
+#set($columnClass = "${columnClass}_")
+#end
        #if ($velocityCount!=1),#end"$columnVar"
+#end
 #end
 ##	
 ##foreach($column in ${table.primaryKeyColumns})
@@ -101,7 +106,10 @@ public class ${className} extends Form implements ClickListener {
 					Component uiContext) {
 				Field field = super.createField(item, propertyId, uiContext);
 #foreach($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
+#if($isForeignKey || $columnUtils.isPartOfCompositePrimaryKey($column))
+#set($columnClass = "${columnClass}_")
+#end
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 					TextField tf = (TextField) field;
 					tf.setNullRepresentation("");
