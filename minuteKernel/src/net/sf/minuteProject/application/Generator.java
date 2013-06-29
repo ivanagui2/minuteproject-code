@@ -42,6 +42,4 @@ public interface Generator {
 	 */
 	public void generate (Template template) throws MinuteProjectException;
 		
-	public void getSolutionPortfolio (String solutionPortfolioFileName);
-	
 }
