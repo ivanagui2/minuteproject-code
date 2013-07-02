@@ -1,4 +1,5 @@
 #exposeVaadinApps()
+#exposeVaadinConfig()
 #exposeVaadinModel()
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
@@ -20,7 +21,15 @@
 		<param-value>true</param-value>
 		<description>Vaadin production mode</description>
 	</context-param>
-
+#if($isSpringBackend)
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/application-context.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+#end
 <!--
 	<listener>
     	<listener-class>
