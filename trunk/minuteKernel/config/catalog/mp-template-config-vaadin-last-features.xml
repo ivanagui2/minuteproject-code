@@ -65,6 +65,11 @@
 			application-specific="true" add-model-name="false">			
 		</template>
 		
+		<template name="VaadinSpringConfig" templateFileName="VaadinSpringConfig.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+		</template>		
 	</template-target>		
 	
 	<template-target 
