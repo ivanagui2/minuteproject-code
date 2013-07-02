@@ -67,7 +67,7 @@
 #end
 
 #macro (exposeFormParams)
-#putColumnParams()
+#putColumParamNamingFkPrimitive()
 #if ($columnType=="java.math.BigDecimal")
 #set ($convertMethod = "getBigInteger")
 #else 

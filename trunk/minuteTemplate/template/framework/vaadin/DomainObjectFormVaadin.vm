@@ -1,5 +1,5 @@
 #putVaadinClassObjectAndPackage()
-
+#exposeSpringModelSpecific()
 import java.util.Arrays;
 import java.util.Iterator;
 import java.sql.*;
@@ -20,19 +20,26 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
+import com.vaadin.ui.Select;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
+import $beanSpringModelServiceImport;
 
 @SuppressWarnings("serial")
+@org.springframework.stereotype.Component
 public class ${className} extends Form implements ClickListener {
 
+    @Autowired
+    @Qualifier("$beanSpringModelServiceVariable")
+	$beanSpringModelServiceClass $beanSpringModelServiceVariable;
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
-	
 ##foreach($column in ${table.columns})
 #foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParamNaming()
@@ -59,6 +66,13 @@ public class ${className} extends Form implements ClickListener {
 ##	   ,"$localColumnVariable"
 ##end
 ##
+	};
+	public static final Object[] DEFAULT_ALL_COL_ORDER = new Object[] {
+##foreach($column in ${table.columns})
+#foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
+#putColumParamNamingFkPrimitive()
+       #if ($velocityCount!=1),#end"$columnVar"
+#end
 	};
 			
 	private Button save = new Button("Save", (ClickListener) this);
@@ -106,13 +120,15 @@ public class ${className} extends Form implements ClickListener {
 					Component uiContext) {
 				Field field = super.createField(item, propertyId, uiContext);
 #foreach($column in ${table.columns})
-#putColumnParamNaming()
-#if($isForeignKey || $columnUtils.isPartOfCompositePrimaryKey($column))
-#set($columnClass = "${columnClass}_")
-#end
+#putColumParamNamingFkPrimitive()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
+#if($isForeignKey)
+					Select tf = (Select) field;
+					tf.setCaption("$columnVar");
+#else
 					TextField tf = (TextField) field;
 					tf.setNullRepresentation("");
+#end
 #if($hasTypeValidator)
 					//@TODO change it. 
 #end
@@ -177,9 +193,8 @@ public class ${className} extends Form implements ClickListener {
 		new${domainClassName}Mode = false;
 
 		if (newDataSource != null) {
-			List<Object> orderedProperties = Arrays.asList(NATURAL_COL_ORDER);
+			List<Object> orderedProperties = Arrays.asList(DEFAULT_ALL_COL_ORDER);
 			super.setItemDataSource(newDataSource, orderedProperties);
-
 			setReadOnly(true);
 			getFooter().setVisible(true);
 		} else {
@@ -206,7 +221,14 @@ public class ${className} extends Form implements ClickListener {
 
 	private ${importDomainObjectUML} get${domainClassName}FromForm () {
 		$importDomainObjectUML $domainVariableName = new $importDomainObjectUML();
+#foreach($column in ${table.columns})
+#exposeFormParams()
+        if (getField("$columnVar").getValue()!=null)
+   		   ${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue()));
+#end
+#*
 #foreach($column in ${table.primaryKeyColumns})
+#putColumParamNamingFkPrimitive()
 #exposeFormParams()
 ##if(!$isForeignKey && $columnUtils.isPkUserProvided($column))
         if (getField("$columnVar").getValue()!=null)
@@ -223,6 +245,7 @@ public class ${className} extends Form implements ClickListener {
         if (getField("$localColumnVariable").getValue()!=null)
    		   ${domainVariableName}.set${localColumnClass}_($convertMethod(getField("$localColumnVariable").getValue())); 
 #end
+*#
 		return $domainVariableName;
 	}
 

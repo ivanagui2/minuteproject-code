@@ -82,6 +82,15 @@
 #end
 #end
 
+#macro(putColumParamNamingFkPrimitive)
+#putColumnParamNaming()
+#if($isForeignKey || $columnUtils.isPartOfCompositePrimaryKey($column))
+#set($columnClass = "${columnClass}_")
+#set($columnVar = "${columnVar}_")
+#end
+#end
+
+
 #macro (exposeVariableModelSpecific)
 #exposeVariableModelDetailSpecific()
 #end
