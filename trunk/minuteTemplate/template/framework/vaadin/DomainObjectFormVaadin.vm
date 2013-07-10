@@ -1,5 +1,6 @@
 #putVaadinClassObjectAndPackage()
 #exposeSpringModelSpecific()
+#exposeSpringDomainObjectSpecific()
 import java.util.Arrays;
 import java.util.Iterator;
 import java.sql.*;
@@ -39,6 +40,7 @@ public class ${className} extends Form implements ClickListener {
     @Autowired
     @Qualifier("$beanSpringModelServiceVariable")
 	$beanSpringModelServiceClass $beanSpringModelServiceVariable;
+
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
 ##foreach($column in ${table.columns})
 #foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
@@ -125,6 +127,15 @@ public class ${className} extends Form implements ClickListener {
 #if($isForeignKey)
 					Select tf = (Select) field;
 					tf.setCaption("$columnVar");
+#if($columnUtils.isStringColumn($column))
+#set($setToString="")
+#else
+#set($setToString=".toString()")
+#end
+#exposeSpringServiceBindingSpecific()
+                    for ($domainClassImport element : ${beanSpringModelServiceVariable}.getList(new $domainClassImport())) {   
+						tf.setItemCaption(element.get$primaryKeyJavaNameClass(),element.get$columnClass()$setToString);
+                    }
 #else
 					TextField tf = (TextField) field;
 					tf.setNullRepresentation("");
