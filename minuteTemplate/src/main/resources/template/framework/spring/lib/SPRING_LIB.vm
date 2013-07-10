@@ -137,3 +137,11 @@
 #end
 #end
 #end
+
+#macro(putToStringMethod)
+#if($columnUtils.isStringColumn($column))
+#set($setToString="")
+#else
+#set($setToString=".toString()")
+#end
+#end
