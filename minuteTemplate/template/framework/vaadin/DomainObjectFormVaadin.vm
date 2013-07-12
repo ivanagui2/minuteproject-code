@@ -29,6 +29,7 @@ import com.vaadin.ui.Button.ClickListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import $SpringContextHelperImport;
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 import $beanSpringModelServiceImport;
@@ -99,7 +100,9 @@ public class ${className} extends Form implements ClickListener {
 		 * through to the underlying object.)
 		 */
 		//setWriteThrough(false);
-
+        $SpringContextHelperClass helper = new ${SpringContextHelperClass}();
+        petshopModelService = (PetshopModelService)helper.getBean("petshopModelService");
+		
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.setSpacing(true);
 		footer.addComponent(save);
@@ -125,7 +128,7 @@ public class ${className} extends Form implements ClickListener {
 #putColumParamNamingFkPrimitive()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 #if($isForeignKey)
-					Select tf = (Select) field;
+					ComboBox tf = new ComboBox();
 					tf.setCaption("$columnVar");
 #if($columnUtils.isStringColumn($column))
 #set($setToString="")
