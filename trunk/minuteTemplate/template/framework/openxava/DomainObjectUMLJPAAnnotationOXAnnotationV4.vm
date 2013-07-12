@@ -150,7 +150,7 @@ public class ${className} {
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
 #end
-    #if (!$isPkUserProvided)@Hidden #end@Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+    #if (!$isPkUserProvided)@Hidden #end @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
