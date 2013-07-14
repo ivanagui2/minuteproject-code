@@ -28,8 +28,9 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import $SpringContextHelperImport;
+//import $SpringContextHelperImport;
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 import $beanSpringModelServiceImport;
@@ -100,9 +101,12 @@ public class ${className} extends Form implements ClickListener {
 		 * through to the underlying object.)
 		 */
 		//setWriteThrough(false);
-        $SpringContextHelperClass helper = new ${SpringContextHelperClass}();
-        petshopModelService = (PetshopModelService)helper.getBean("petshopModelService");
-		
+##        $SpringContextHelperClass helper = new ${SpringContextHelperClass}();
+##        petshopModelService = (PetshopModelService)helper.getBean("petshopModelService");
+		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$pathSpringApplicationContextConfig");
+		$beanSpringModelServiceVariable = ($beanSpringModelServiceClass)bf.getBean("$beanSpringModelServiceVariable");
+	
+	
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.setSpacing(true);
 		footer.addComponent(save);
@@ -128,8 +132,9 @@ public class ${className} extends Form implements ClickListener {
 #putColumParamNamingFkPrimitive()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 #if($isForeignKey)
-					ComboBox tf = new ComboBox();
-					tf.setCaption("$columnVar");
+					ComboBox tf = new ComboBox("$columnVar");
+					BeanContainer<$primaryKeyType, $domainClassImport> container =
+                            new BeanContainer<String, $domainClassImport>($domainClassImport.class);
 #if($columnUtils.isStringColumn($column))
 #set($setToString="")
 #else
@@ -153,7 +158,11 @@ public class ${className} extends Form implements ClickListener {
 					tf.setVisible(false);
 #end									
 				}    			
-#end				
+#end	
+##TODO
+## date, Textarea, Richcontent
+## size
+## stereotype (email, money)
 				field.setWidth("200px");
 				return field;
 			}
