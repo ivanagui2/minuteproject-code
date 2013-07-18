@@ -6,6 +6,19 @@
 	<plugin name="fitnesseUtils" className="net.sf.minuteProject.plugin.fitnesse.FitnesseUtils"></plugin>
 	
 	<template-target 
+	   name="POM" 
+	   package-root=""
+	   outputdir=""
+	   belongToPackage="true">
+		
+		<template name="Fitnesse.pom.xml" templateFileName="Fitnesse.pom.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>	
+		
+	</template-target>
+	<template-target 
 	   name="fitnesse CRUD Wiki templates" 
 	   package-root="TestFitnesseCrud"
 	   outputdir="src-wiki/FitNesseRoot"
