@@ -132,9 +132,21 @@ public class ${className} extends Form implements ClickListener {
 #putColumParamNamingFkPrimitive()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 #if($isForeignKey)
-					ComboBox tf = new ComboBox("$columnVar");
+## set putSpringJSFModelLookup	
+                    ComboBox tf = new ComboBox("$columnVar");
 					BeanContainer<$primaryKeyType, $domainClassImport> container = 
                             new BeanContainer<String, $domainClassImport>($domainClassImport.class);
+                    container.setBeanIdProperty("$columnVar");
+                    List<Category> l = petshopModelService.getList(new Category());
+                    container.addAll(l);
+
+                    tf.setContainerDataSource(container);
+                    tf.setItemCaptionPropertyId("$columnVar");
+                    tf.setItemCaptionMode(Select.ITEM_CAPTION_MODE_PROPERTY);
+
+                    tf.setRequired(true);
+                    tf.setNullSelectionAllowed(false);
+                    tf.setValue(l.get(0));
 #if($columnUtils.isStringColumn($column))
 #set($setToString="")
 #else
@@ -156,7 +168,8 @@ public class ${className} extends Form implements ClickListener {
 #end
 #if ($column.isPrimaryKey && !$columnUtils.isPkUserProvided($column))
 					tf.setVisible(false);
-#end									
+#end				
+                    return tf;
 				}    			
 #end	
 ##TODO
