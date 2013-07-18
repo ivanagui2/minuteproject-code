@@ -133,7 +133,7 @@ public class ${className} extends Form implements ClickListener {
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
 #if($isForeignKey)
 					ComboBox tf = new ComboBox("$columnVar");
-					BeanContainer<$primaryKeyType, $domainClassImport> container =
+					BeanContainer<$primaryKeyType, $domainClassImport> container = 
                             new BeanContainer<String, $domainClassImport>($domainClassImport.class);
 #if($columnUtils.isStringColumn($column))
 #set($setToString="")

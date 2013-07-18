@@ -119,7 +119,7 @@
 #putColumnParamNaming()
 #putOrmForeignKeyColumn()
 #if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($column))
-//here $columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($column)
+##//here $columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($column)
 #set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
 ##elseif($column.isPrimaryKey())
 ##set($primaryKeyJavaNameClass="${primaryKeyJavaNameClass}_")
