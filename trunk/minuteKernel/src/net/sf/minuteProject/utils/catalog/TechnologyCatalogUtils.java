@@ -23,9 +23,17 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 			if (technology.getName().equals(name))
 				return technology;
 		}		
-		return null;
+		throw new MinuteProjectException("Bad target\nSpecified target "+name+"\nAvailable targets"+getAvailableTargetsDisplay(catalogDir));
 	}
 	
+	private static String getAvailableTargetsDisplay(String catalogDir) throws MinuteProjectException {
+		StringBuffer sb = new StringBuffer();
+		for (Technology technology : getPublishedTechnologies (catalogDir)) {
+			sb.append("\n"+technology.getName());
+		}	
+		return sb.toString();
+	}
+
 	public static List<Technology> getPublishedTechnologies (String catalogDir) throws MinuteProjectException {
 		if (technologies==null)
 			technologies = getPublishedTechnologyCatalogHolder(catalogDir).getTechnologyCatalog().getTechnologies().getTechnologys();
