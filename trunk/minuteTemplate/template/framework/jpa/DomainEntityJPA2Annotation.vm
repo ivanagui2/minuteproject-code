@@ -354,6 +354,12 @@ $!updatedAreaSnippet
 #####
 #if($addDomainSpecificMethod)
     /**
+    * display semanticReference with attribute inside class
+    */
+	public String getDisplay() {
+#putSemanticReference("this")
+	}
+    /**
     * toString implementation
     */
 	public String toString() {

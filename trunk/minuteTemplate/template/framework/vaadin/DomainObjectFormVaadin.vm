@@ -1,6 +1,7 @@
 #putVaadinClassObjectAndPackage()
 #exposeSpringModelSpecific()
 #exposeSpringDomainObjectSpecific()
+#thisDomainObject()
 import java.util.Arrays;
 import java.util.Iterator;
 import java.sql.*;
@@ -9,11 +10,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
-
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.RegexpValidator;
+import com.vaadin.data.util.BeanContainer;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -34,6 +35,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 import $beanSpringModelServiceImport;
+#exposeJPA2Import()
+import $thisDomainImport;
 
 @SuppressWarnings("serial")
 @org.springframework.stereotype.Component
@@ -130,32 +133,25 @@ public class ${className} extends Form implements ClickListener {
 				Field field = super.createField(item, propertyId, uiContext);
 #foreach($column in ${table.columns})
 #putColumParamNamingFkPrimitive()
-			   #if($velocityCount==1) if#else else if#end (propertyId.equals("$columnVar")) {
+			   #if($velocityCount==1) if#else else if#end (propertyId.equals("${columnVar}")) {
 #if($isForeignKey)
-## set putSpringJSFModelLookup	
-                    ComboBox tf = new ComboBox("$columnVar");
-					BeanContainer<$primaryKeyType, $domainClassImport> container = 
-                            new BeanContainer<String, $domainClassImport>($domainClassImport.class);
-                    container.setBeanIdProperty("$columnVar");
-                    List<Category> l = petshopModelService.getList(new Category());
+#set($reference=$referenceUtils.getReference($column))
+#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))
+#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
+                    ComboBox tf = new ComboBox("$thisColumnVar");
+					BeanContainer<$primaryKeyType, $linkedTableClass> container = 
+                            new BeanContainer<$primaryKeyType, $linkedTableClass>(${linkedTableClass}.class);
+                    container.setBeanIdProperty("${linkedColumnVariable}");
+                    List<$linkedTableClass> l = petshopModelService.getList(new $linkedTableClass());
                     container.addAll(l);
 
                     tf.setContainerDataSource(container);
-                    tf.setItemCaptionPropertyId("$columnVar");
+                    tf.setItemCaptionPropertyId("display");
                     tf.setItemCaptionMode(Select.ITEM_CAPTION_MODE_PROPERTY);
 
                     tf.setRequired(true);
                     tf.setNullSelectionAllowed(false);
                     tf.setValue(l.get(0));
-#if($columnUtils.isStringColumn($column))
-#set($setToString="")
-#else
-#set($setToString=".toString()")
-#end
-#exposeSpringServiceBindingSpecific()
-                    for ($domainClassImport element : ${beanSpringModelServiceVariable}.getList(new $domainClassImport())) {   
-						tf.setItemCaption(element.get$primaryKeyJavaNameClass(),element.get$columnClass()$setToString);
-                    }
 #else
 					TextField tf = (TextField) field;
 					tf.setNullRepresentation("");
@@ -190,8 +186,8 @@ public class ${className} extends Form implements ClickListener {
 			if (!isValid()) {
 				return;
 			}
-			${importDomainObjectUML} $domainVariableName = get${domainClassName}FromForm ();
-	        ${domainObjectContainerVariable}.saveAndUpdateList ($domainVariableName);
+			${thisDomainObjectClass} var = get${domainClassName}FromForm ();
+	        ${domainObjectContainerVariable}.saveAndUpdateList (var);
 		    //${domainObjectApplicationVariable}.refresh();
 			//commit();
 			if (new${domainClassName}Mode) {
@@ -218,8 +214,8 @@ public class ${className} extends Form implements ClickListener {
 		} else if (source == edit) {
 			setReadOnly(false);
 		} else if (source == delete) {
-			${importDomainObjectUML} $domainVariableName = get${domainClassName}FromForm ();
-	        ${domainObjectContainerVariable}.delete ($domainVariableName);
+			${thisDomainObjectClass} var = get${domainClassName}FromForm ();
+	        ${domainObjectContainerVariable}.delete (var);
 		    //${domainObjectApplicationVariable}.refresh();
 		}
 	}
@@ -255,12 +251,12 @@ public class ${className} extends Form implements ClickListener {
 		setReadOnly(false);
 	}
 
-	private ${importDomainObjectUML} get${domainClassName}FromForm () {
-		$importDomainObjectUML $domainVariableName = new $importDomainObjectUML();
+	private ${thisDomainObjectClass} get${domainClassName}FromForm () {
+		$thisDomainObjectClass var = new $thisDomainObjectClass();
 #foreach($column in ${table.columns})
 #exposeFormParams()
         if (getField("$columnVar").getValue()!=null)
-   		   ${domainVariableName}.set${columnClass}($convertMethod(getField("$columnVar").getValue()));
+   		   var.set${columnClass}($convertMethod(getField("$columnVar").getValue()));
 #end
 #*
 #foreach($column in ${table.primaryKeyColumns})
@@ -282,7 +278,7 @@ public class ${className} extends Form implements ClickListener {
    		   ${domainVariableName}.set${localColumnClass}_($convertMethod(getField("$localColumnVariable").getValue())); 
 #end
 *#
-		return $domainVariableName;
+		return var;
 	}
 
     protected Integer getInteger(Object stringObject) {
@@ -290,7 +286,7 @@ public class ${className} extends Form implements ClickListener {
 	}
 	
 	protected String getString (Object stringObject) {
-	   return (String) stringObject;
+	   return stringObject.toString();
 	}
 
 	protected java.math.BigDecimal getBigInteger (Object stringObject) {
