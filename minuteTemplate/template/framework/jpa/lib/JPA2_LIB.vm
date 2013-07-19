@@ -1,3 +1,9 @@
+#macro (thisDomainObject)
+#set($thisDomainImport = $importDomainObjectUML)
+#set($thisDomainObjectVariable = $domainObjectVariable)
+#set($thisDomainObjectClass = $domainObjectClass)
+#end
+
 #macro (putJPA2TemplateDefinitionOld)
 ##set ($templateJPA2EmbeddedId="DomainEntityJPA2EmbeddedId")
 #getTemplatePropertyValue("DomainEntityJPA2EmbeddedId")
@@ -38,6 +44,11 @@
 #set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
 #end
 
+#macro (exposeJPA2DomainObjectImport $tableDB)
+#putJPA2TemplateDefinition()
+#set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
+#end
+
 #macro (exposeEmbeddedId $tableDB)
 #putJPA2TemplateDefinition()
 #set ($embeddedIdClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2EmbeddedId))
@@ -65,13 +76,13 @@ import $importDomainObjectUMLEmbeddedId;
 #macro (exposeJPA2Import)
 #foreach ($reference in $table.children)
 #set ($thisTable = $reference.foreignTable)
-#exposeJPA2DomainObject($reference.foreignTable)
+#exposeJPA2DomainObjectImport($reference.foreignTable)
 #if(!$thisTable.isManyToMany())
 import $importDomainObjectUML;
 #end
 #end
 #foreach ($reference in $table.parents)
-#exposeJPA2DomainObject($reference.foreignTable)
+#exposeJPA2DomainObjectImport($reference.foreignTable)
 #set ($thisTable = $reference.foreignTable)
 #if(!$thisTable.isManyToMany())
 import $importDomainObjectUML;

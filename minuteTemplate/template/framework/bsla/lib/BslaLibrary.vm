@@ -84,6 +84,7 @@
 
 #macro(putColumParamNamingFkPrimitive)
 #putColumnParamNaming()
+#set($thisColumnVar = "${columnVar}")
 #if($isForeignKey || $columnUtils.isPartOfCompositePrimaryKey($column))
 #set($columnClass = "${columnClass}_")
 #set($columnVar = "${columnVar}_")
