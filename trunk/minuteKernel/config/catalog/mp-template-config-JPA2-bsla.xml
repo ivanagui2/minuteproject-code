@@ -42,7 +42,7 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
 			entity-specific="false" package-specific="false" model-specific="true">
-			<property name="environment" value="local"/>
+			<property name="environment" value="local"/><!-- for unit test and debug -->
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>		
 

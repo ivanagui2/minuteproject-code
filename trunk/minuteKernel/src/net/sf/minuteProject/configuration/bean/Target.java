@@ -240,6 +240,12 @@ public class Target extends AbstractConfiguration{
 		getTemplatedirRefs().addAll(target.getTemplatedirRefs());
 	}
 
+	public String getPropertyValue(String name) {
+		String s = super.getPropertyValue(name);
+		if (s!=null) return s;
+		if (targets!=null) return targets.getPropertyValue(name);
+		return null;
+	}
 	public String getTargetPropertyValue(String name) {
 		String s = getPropertyValue(name);
 		if (s!=null) return s;

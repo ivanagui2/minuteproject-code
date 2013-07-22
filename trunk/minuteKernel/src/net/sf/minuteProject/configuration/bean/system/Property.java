@@ -7,6 +7,13 @@ public class Property extends AbstractConfiguration{
 	public String value;
 	public String tag;
 
+	public Property (String name, String value) {
+		this.name = name;
+		this.value = value;
+	}
+	public Property() {
+		
+	}
 	public String getValue() {
 		return value;
 	}
