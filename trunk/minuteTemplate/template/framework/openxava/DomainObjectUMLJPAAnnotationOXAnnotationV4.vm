@@ -206,6 +206,10 @@ public class ${className} {
 #elseif ($presentationUtils.isRichText($column)) //for backward compatibility (temporary)
     @Stereotype ("HTML_TEXT")
 #end
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+    @Temporal(TemporalType.${column.type})
+#end
     private $columnType $columnVar;	
 #end
 #updatedAreaEnd()
@@ -379,7 +383,9 @@ $!updatedAreaSnippet
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
-##if(!$isForeignKey)
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+#end
     public $columnType get$columnClass() {
         return $columnVar;
     }
@@ -404,6 +410,9 @@ $!updatedAreaSnippet
 ##if ($convertClobToString=="true")
 ##set($columnType="String")
 ##end
+#end
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
 #end
     public $columnType get$columnClass() {
         return $columnVar;
