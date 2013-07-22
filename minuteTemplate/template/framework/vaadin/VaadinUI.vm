@@ -31,6 +31,7 @@ import $domainObjectFormImport;
 #end
 #end
 
+@Theme("${model.name}")
 public class $thisClassName extends UI {
     private static final long serialVersionUID = 511085335415683713L;
 
@@ -111,7 +112,7 @@ public class $thisClassName extends UI {
             hLayout.addComponent(menu);
 
             // A panel that contains a content area on right
-            panel = new Panel("An Equal");
+            panel = new Panel("Powered by minuteproject");
             panel.setSizeFull();
             hLayout.addComponent(panel);
             hLayout.setExpandRatio(panel, 1.0f);
