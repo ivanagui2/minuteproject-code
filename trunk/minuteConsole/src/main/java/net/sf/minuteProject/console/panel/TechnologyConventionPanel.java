@@ -17,6 +17,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.convention.VersionConv
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.component.CheckBoxField;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Convention;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Conventions;
@@ -57,7 +58,7 @@ public class TechnologyConventionPanel extends JPanel implements FillBasicConfig
 		return convention;
 	}
 
-	private List<Convention> getTechConventions () {
+	private List<Convention> getTechConventions () throws MinuteProjectException {
 		Technology technology = consoleSample.getTargetPanel().getChoosenTechnology();
 		return getTechConventions (technology);
 	}
@@ -67,7 +68,7 @@ public class TechnologyConventionPanel extends JPanel implements FillBasicConfig
 		return conventions.getConventions();
 	}
 	
-	public void fillPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) throws MinuteProjectException {
 		for (Convention convention : getTechConventions()) {
 			addConventionToPanel (convention, panel);
 		}
@@ -85,7 +86,7 @@ public class TechnologyConventionPanel extends JPanel implements FillBasicConfig
 		conventionList.add(cbf);
 	}
 
-	public void rebuildPanel(JPanel panel) {
+	public void rebuildPanel(JPanel panel) throws MinuteProjectException {
 //		panel.remov
 		removeConventions(panel);
 		this.removeAll();

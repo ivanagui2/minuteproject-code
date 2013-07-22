@@ -128,7 +128,7 @@ public class ConsoleSample extends JFrame{
 		return panel;
 	}
 	
-	private Component getTechConventionsTab() {
+	private Component getTechConventionsTab() throws MinuteProjectException {
 		technologyInfoTab = createTabPanel(getDefaultMigLayout());
 		addSeparator(technologyInfoTab, getTargetConventionTitle());
 		technologyLimitationPanel.fillPanel(technologyInfoTab);	
@@ -268,7 +268,7 @@ public class ConsoleSample extends JFrame{
 		return technologyInfoTab;
 	}
 
-	public void rebuildPanel(JPanel panel) {
+	public void rebuildPanel(JPanel panel) throws MinuteProjectException {
 		technologyInfoTab.removeAll();
 		getTechConventionsTab ();
 		technologyInfoTab.repaint();

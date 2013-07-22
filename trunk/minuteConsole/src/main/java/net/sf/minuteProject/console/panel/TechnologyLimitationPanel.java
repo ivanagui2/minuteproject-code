@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Convention;
 import net.sf.minuteProject.loader.catalog.technologycatalog.node.Conventions;
@@ -36,7 +37,7 @@ public class TechnologyLimitationPanel extends JPanel implements FillBasicConfig
 	public void fill(BasicIntegrationConfiguration bic) {
 	}
 
-	private List<Limitation> getTechLimitations () {
+	private List<Limitation> getTechLimitations () throws MinuteProjectException {
 		Technology technology = consoleSample.getTargetPanel().getChoosenTechnology();
 		return getTechLimitations (technology);
 	}
@@ -46,7 +47,7 @@ public class TechnologyLimitationPanel extends JPanel implements FillBasicConfig
 		return limitations.getLimitations();
 	}
 	
-	public void fillPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) throws MinuteProjectException {
 		limitationsL = createLabel(limitations);
 		panel.add(limitationsL, "skip");
 		limitationsJSP = createTextAreaScroll(getLimitations(), 10, 40, true, false);
@@ -57,7 +58,7 @@ public class TechnologyLimitationPanel extends JPanel implements FillBasicConfig
 		
 	}
 
-	public String getLimitations() {
+	public String getLimitations() throws MinuteProjectException {
 		StringBuffer sb = new StringBuffer();
 		for (Limitation limitation : getTechLimitations()) {
 			sb.append(limitation.getName()+"\n");

@@ -14,9 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
 import net.sf.minuteProject.console.ConsoleSample;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
@@ -24,6 +27,7 @@ import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
 @SuppressWarnings("serial")
 public class WebServiceCommonPanel extends JPanel implements FillBasicConfiguration {
 
+	private static Logger logger = Logger.getLogger(WebServiceCommonPanel.class);
 //	private Form f;
 	public static final String root_package = "root package";
 	public static final String model_name = "model name";
@@ -71,7 +75,7 @@ public class WebServiceCommonPanel extends JPanel implements FillBasicConfigurat
 		}	
 	}
 	
-	public void fillPanel (JPanel panel) {
+	public void fillPanel (JPanel panel) throws MinuteProjectException {
 		panel.add(createLabel(root_package),   "skip");
 		rootPackageTf = createTextField("");
 		panel.add(rootPackageTf,      "wrap");
@@ -167,20 +171,26 @@ public class WebServiceCommonPanel extends JPanel implements FillBasicConfigurat
 	private class ModelNameListener implements FocusListener {
 
 		public void focusLost(FocusEvent arg0) {
-			rebuildDefaultTargetDir();
+			try {
+				rebuildDefaultTargetDir();
+			} catch (MinuteProjectException mpe) {
+				// TODO Auto-generated catch block
+				logger.info("error generating : "+mpe.getError());
+
+			}
 		}
 		
 		public void focusGained(FocusEvent arg0) {
 		}
 	}
 	
-	public void rebuildDefaultTargetDir() {
+	public void rebuildDefaultTargetDir() throws MinuteProjectException {
 		if (!isTargetDirTouched) {
 			targetDirTf.setText(getDefaultTargetDir());
 		}
 	}
 
-	private String getDefaultTargetDir() {
+	private String getDefaultTargetDir() throws MinuteProjectException {
 		StringBuffer sb = new StringBuffer ("../output");
 		String formattedModelName = getFormattedModelName();
 		if (formattedModelName!=null)
@@ -191,11 +201,11 @@ public class WebServiceCommonPanel extends JPanel implements FillBasicConfigurat
 		return sb.toString();
 	}
 
-	private String getFormattedTargetName() {
+	private String getFormattedTargetName() throws MinuteProjectException {
 		return getFormattedName(getTechnologyName());
 	}
 
-	private String getTechnologyName() {
+	private String getTechnologyName() throws MinuteProjectException {
 		return consoleSample.getTargetPanel().getTargetTechnology();
 	}
 

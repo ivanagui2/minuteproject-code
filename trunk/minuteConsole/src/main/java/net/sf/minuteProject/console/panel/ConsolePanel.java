@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 import net.sf.minuteProject.console.face.FillBasicConfiguration;
+import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 
 public class ConsolePanel extends JPanel implements FillBasicConfiguration{
@@ -59,7 +60,7 @@ public class ConsolePanel extends JPanel implements FillBasicConfiguration{
 //		TargetPanel tp = new TargetPanel(this);
 //	}
 	
-	public void fill(BasicIntegrationConfiguration bic) {
+	public void fill(BasicIntegrationConfiguration bic) throws MinuteProjectException {
 		modelAccessPanel.fill(bic);
 		modelCommonPanel.fill(bic);
 		targetPanel.fill(bic);
