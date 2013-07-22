@@ -109,8 +109,8 @@ public class TargetPanel extends JPanel implements FillBasicConfiguration{
 	private class TargetNameListener implements ItemListener {
 
 		public void itemStateChanged(ItemEvent e) {
-			consoleSample.getModelCommonPanel().rebuildDefaultTargetDir();
 			try {
+				consoleSample.getModelCommonPanel().rebuildDefaultTargetDir();
 				updateTechnologyDetails();
 			} catch (MinuteProjectException mpe) {
 				// TODO Auto-generated catch block
