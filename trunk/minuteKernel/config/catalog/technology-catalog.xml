@@ -199,7 +199,7 @@ the properties are declared at the technology level and apply to all templates (
 
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
-			default-outputdir="openxava" template-dir="@templateRoot@/framework/openxava"
+			template-dir="@templateRoot@/framework/openxava"
 			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE-LIB,COMMON_LIB" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
