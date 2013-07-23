@@ -105,7 +105,7 @@
 				</enrichment>
 			</business-model>
 		</model>
-		<targets>
+		<targets >
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
