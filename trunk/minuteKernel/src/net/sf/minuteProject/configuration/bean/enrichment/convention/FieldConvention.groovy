@@ -41,15 +41,15 @@ public abstract class FieldConvention extends ModelConvention{
 		hasFieldType() || (hasFieldPatternType() && hasFieldPattern()) ;
 	}
 	
-	private boolean hasFieldType() {
+	protected boolean hasFieldType() {
 		fieldType!=null
 	}
 	
-	private boolean hasFieldPatternType() {
+	protected boolean hasFieldPatternType() {
 		fieldPatternType!=null
 	}
 	
-	private boolean hasFieldPattern() {
+	protected boolean hasFieldPattern() {
 		fieldPattern!=null
 	}
 	
