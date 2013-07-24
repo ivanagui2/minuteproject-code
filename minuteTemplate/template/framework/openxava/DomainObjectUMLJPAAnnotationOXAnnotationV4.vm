@@ -210,6 +210,9 @@ public class ${className} {
 #set($columnType="java.util.Date")
     @Temporal(TemporalType.${column.type})
 #end
+#if($columnUtils.hasTrigger($column))
+    @ReadOnly(forViews="base,Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}")
+#end
     private $columnType $columnVar;	
 #end
 #updatedAreaEnd()
@@ -250,10 +253,15 @@ $!updatedAreaSnippet
 #end
 #end 
        ,order=
+#set($ordering=$orderingUtils.getFirstOrdering($linktableDB))
+#set($column=$ordering.column)
+#set($order=$ordering.order)
+#putColumnParamNaming()
+       "$columnVar $order "
 ##foreach ($chunk in $semanticReference.semanticReferenceSqlPath) 
 #foreach ($chunk in $openXavaUtils.getListProperties($linktableDB))
-       "$chunk asc #if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
-#else "
+//       "$chunk asc #if ($velocityCount!=$semanticReference.semanticReferenceBeanPath.size()), "+
+#else// "
 #end
 #end       
     )
