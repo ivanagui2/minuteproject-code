@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
@@ -100,6 +102,19 @@ public class OpenXavaUtils {
 			}
 		}
 		return list;
+	}
+	
+	public String getI18nSemanticReference(String key) {
+		//only 2 token parent table and column
+		String ss [] = StringUtils.split(key,".");
+		if (ss.length!=2) return key;
+		StringBuffer sb = new StringBuffer();
+		for (int i=0 ; i < ss.length; i++) {
+			sb.append(FormatUtils.firstUpperCase(ss[i]));
+			if (i!=ss.length-1)
+				sb.append(" ");
+		}
+		return sb.toString();
 	}
 	
 	private static String convertChunkToAlias(String chunk, Table table) {

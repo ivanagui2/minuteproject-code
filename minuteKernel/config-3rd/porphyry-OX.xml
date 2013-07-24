@@ -40,6 +40,14 @@
 							field-pattern-type="contains" stereotype="url" />
 						<stereotype-convention field-pattern="password"
 							field-pattern-type="contains" stereotype="password" />
+						<stereotype-convention field-pattern="notes"
+							field-pattern-type="equals" stereotype="text-html" />
+							
+						<!-- primary key conv -->
+						<column-naming-convention
+							type="apply-fix-primary-key-column-name-when-no-ambiguity-and-not-natural"
+							default-value="ID" />
+							
 						<!-- strip prefix -->
 						<entity-naming-convention type="apply-strip-table-name-prefix"
 							pattern-to-strip="ADMIN_,SEC_,BUS_" />
