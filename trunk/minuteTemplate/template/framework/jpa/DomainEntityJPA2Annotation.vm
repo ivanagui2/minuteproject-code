@@ -565,9 +565,6 @@ $updatedAreaSnippet
 #putColumnParamNaming()
 #if ($column.isLob())
 #exposeLobProperties()
-##if ($convertClobToString=="true")
-##set($columnType="String")
-##end
 #end
 #if($isEnum)
 #set($originType=$columnType)
@@ -576,14 +573,10 @@ $updatedAreaSnippet
 #if($useTemporal && $isTimeColumn)
 #set($columnType="java.util.Date")
 #end
-##if($hasDefaultValue)
-##putColumnDefaultValueGetter()
-##else
     public $columnType get$columnClass() {
         return $columnVar;
     }
 	
-##end
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }

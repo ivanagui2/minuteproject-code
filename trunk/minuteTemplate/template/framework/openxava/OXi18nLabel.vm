@@ -34,6 +34,10 @@ $tableVariableName.${columnVar}[description]=${entityPrefix}${columnLabel}
 $tableVariableName.${link}${columnclass}s=$linkTableLabels
 $tableVariableName.${link}${columnclass}s[description]=$linkTableLabels
 #end
+# semantic reference i18n may collide with existing keys
+#foreach($key in $openXavaUtils.getParentSemanticReference($table))
+$key=$openXavaUtils.getI18nSemanticReference($key)
+#end
 #end
 #foreach ($table in $modelEntities)
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
