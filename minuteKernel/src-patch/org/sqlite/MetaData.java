@@ -18,7 +18,7 @@ package org.sqlite;
 
 import java.sql.*;
 
-class MetaData implements DatabaseMetaData
+public abstract class MetaData implements DatabaseMetaData
 {
     private Conn conn;
     private PreparedStatement
