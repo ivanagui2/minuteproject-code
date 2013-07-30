@@ -107,11 +107,8 @@
 						</field> 
 					</entity>
 
-					<!-- views 
-					<entity name="stat_mb_per_ctry_conf" alias="MEMBER_PER_COUNTRY_AND_CONFERENCE">
-						<virtual-primary-key isRealPrimaryKey="true">
-							<property name="virtualPrimaryKey" value="ID" />
-						</virtual-primary-key>
+					<!-- views -->
+					<entity name="stat_nb_release_app" alias="application statistics">
 					</entity>
 					<entity name="stat_mb_by_role" alias="MEMBER_PER_ROLE_COUNTRY_AND_CONFERENCE">
 						<virtual-primary-key isRealPrimaryKey="true">
