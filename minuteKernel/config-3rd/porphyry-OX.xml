@@ -110,13 +110,13 @@
 					<!-- views -->
 					<entity name="stat_nb_release_app" alias="application statistics">
 					</entity>
-					<entity name="stat_mb_by_role" alias="MEMBER_PER_ROLE_COUNTRY_AND_CONFERENCE">
+					<!-- <entity name="stat_mb_by_role" alias="MEMBER_PER_ROLE_COUNTRY_AND_CONFERENCE">
 						<virtual-primary-key isRealPrimaryKey="true">
 							<property name="virtualPrimaryKey" value="id" />
 						</virtual-primary-key>
 						<field name="stat_mb_per_ctry_conf_ID" linkToTargetEntity="stat_mb_per_ctry_conf"
 							linkToTargetField="id"></field>
-					</entity>-->
+					</entity> -->
 				</enrichment>
 			</business-model>
 		</model>
