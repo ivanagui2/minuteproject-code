@@ -98,6 +98,15 @@ public abstract class TypeMap
     public static final String VARBINARY     = "VARBINARY";
     /** The string representation of the {@link java.sql.Types#VARCHAR} constant. */
     public static final String VARCHAR       = "VARCHAR";
+    
+    //new type 1.6
+    /** The string representation of the {@link java.sql.Types#NVARCHAR} constant. */
+    public static final String NCHAR       = "NCHAR";
+    /** The string representation of the {@link java.sql.Types#NVARCHAR} constant. */
+    public static final String NVARCHAR       = "NVARCHAR";
+    /** The string representation of the {@link java.sql.Types#LONGNVARCHAR} constant. */
+    public static final String LONGNVARCHAR   = "LONGNVARCHAR";
+    
 
     /** Maps type names to the corresponding {@link java.sql.Types} constants. */
     private static HashMap _typeNameToTypeCode = new HashMap();
@@ -136,6 +145,11 @@ public abstract class TypeMap
         registerJdbcType(Types.TINYINT,       TINYINT,       JdbcTypeCategoryEnum.NUMERIC);
         registerJdbcType(Types.VARBINARY,     VARBINARY,     JdbcTypeCategoryEnum.BINARY);
         registerJdbcType(Types.VARCHAR,       VARCHAR,       JdbcTypeCategoryEnum.TEXTUAL);
+        
+        //new type
+        registerJdbcType(Types.NVARCHAR,      NVARCHAR,       JdbcTypeCategoryEnum.TEXTUAL);
+        registerJdbcType(Types.LONGNVARCHAR,  LONGNVARCHAR,       JdbcTypeCategoryEnum.TEXTUAL);
+        registerJdbcType(Types.NCHAR,  NCHAR,       JdbcTypeCategoryEnum.TEXTUAL);
 
         // only available in JDK 1.4 and above:
         if (Jdbc3Utils.supportsJava14JdbcTypes())
