@@ -301,11 +301,11 @@ public class CommonUtils {
 	protected static String getBusinessPackage(Model model, Table table) {
 		if (table==null)
 			return "TABLE CANNOT BE NUL";
-		return model.getBusinessModel().getBusinessPackage().getPackage(table.getName());
+		return model.getBusinessModel().getBusinessPackage().getPackage(table);
 	}
 	
 	protected static String getFunctionPackage(Model model, Function function) {
-		return model.getFunctionModel().getFunctionPackage().getPackage(function.getName());
+		return model.getFunctionModel().getFunctionPackage().getPackage(function);
 	}
 	
 	public static Template getTemplate (Configuration configuration, String name) {
@@ -379,10 +379,10 @@ public class CommonUtils {
 		return getBusinessPackage(model, table);
 	}
 	
-	public static String getAssociatedBusinessPackageName(Model model, String tableName){
-		if (tableName==null || model==null)
+	public static String getAssociatedBusinessPackageName(Model model, Table table){
+		if (table==null || model==null)
 			return "getAssociatedBusinessPackageName returns null";
-		String a= model.getBusinessModel().getBusinessPackage().getPackage(tableName);
+		String a= model.getBusinessModel().getBusinessPackage().getPackage(table);
 		return a;
 	}		
 	

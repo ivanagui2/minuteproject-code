@@ -47,7 +47,7 @@ public class ModelUtils {
 	}
 	
 	private static boolean isToGenerate(FunctionGenerationCondition functionGC, Function function) {
-		return functionGC.areConditionsTrue(function.getName());
+		return functionGC.areConditionsTrue(function);
 	}
 
 	public static boolean isToGenerate(GenerationCondition generationCondition, Table table) {
@@ -55,7 +55,7 @@ public class ModelUtils {
 			return false;
 		if (table.VIEW.equals(table.getType()) && generationCondition.isExcludeViews())
 			return false;		
-		return generationCondition.areConditionsTrue(table.getName());
+		return generationCondition.areConditionsTrue(table);
 	}
 	
 	public static boolean isSchemaNeeded(Model model) {

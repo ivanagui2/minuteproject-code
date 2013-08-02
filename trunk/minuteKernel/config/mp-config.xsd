@@ -13,6 +13,7 @@
 	</xs:element>
 	<xs:complexType name="condition">
 		<xs:attribute name="type" type="generationConditionDefaultType" />
+		<xs:attribute name="database-object-type" type="databaseObjectType" />
 		<xs:attribute name="startsWith" type="xs:string" />
 		<xs:attribute name="endsWith" type="xs:string" />
 		<xs:attribute name="regex" type="xs:string" />
@@ -34,6 +35,14 @@
          <xs:restriction base="xs:string">
              <xs:enumeration value="include" />
              <xs:enumeration value="exclude" />
+         </xs:restriction>
+     </xs:simpleType>
+
+     <xs:simpleType name="databaseObjectType">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="TABLE" />
+             <xs:enumeration value="VIEW" />
+             <xs:enumeration value="FUNCTION" />
          </xs:restriction>
      </xs:simpleType>
     	

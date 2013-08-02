@@ -186,6 +186,21 @@ public class ConvertUtils {
 		return "null";
 	}
 	
+	public static String getJavaTypeMask (Column column, String value) {
+		String type = getJavaTypeFromDBFullType(column);
+		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean(\""+value+"\")";					
+		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf("+value+")";
+		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf("+value+")";	
+		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf("+value+")";	
+		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
+		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf("+value+")";
+		if (JAVA_STRING_TYPE.equals(type)) return "new String("+value+")";				
+		//if (JAVA_DATE_TYPE.equals(type)) return "new Date("+value+")";
+		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
+		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
+		return "null";
+	}
+	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
 		String retStr=getJavaTypeFromDBFullType (dBType, size, databaseType);		
 		if (dBType.equals("DECIMAL")) {
@@ -229,6 +244,7 @@ public class ConvertUtils {
 				{
 			if (scale==1) //DB_TYPE_ORACLE.equals(databaseType) && scale==1 )
 				return "Boolean";
+			return  JAVA_LONG_TYPE;
 		}
 		if (dBType.equals("NUMERIC"))
 			return  "Integer";		
@@ -296,6 +312,8 @@ public class ConvertUtils {
 			return  "String";	
 		if (dBType.equals("NVARCHAR"))
 			return  "String";	
+		if (dBType.equals("REAL"))
+			return  "Long";	
 		
 		// to re implement when externalizing the mapping
 		if (dBType.equals("OTHER"))

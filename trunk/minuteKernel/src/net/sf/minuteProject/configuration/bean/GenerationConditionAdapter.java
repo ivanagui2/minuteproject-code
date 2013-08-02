@@ -24,33 +24,33 @@ public class GenerationConditionAdapter extends AbstractConfiguration {
 		return conditions;
 	}
 	
-	public boolean isAddable (String valueToTest) {
+	public boolean isAddable (GeneratorBean bean) {
 		if (defaultType==null || defaultType.equals(FILTER_FILE_TYPE_INCLUDE))
-			return includeOtherwiseExpressInExcludeExpression(valueToTest);
+			return includeOtherwiseExpressInExcludeExpression(bean);
 		else
-			return excludeOtherwiseExpressInIncludeExpression(valueToTest);		
+			return excludeOtherwiseExpressInIncludeExpression(bean);		
 	}
 	
-	public boolean areConditionsTrue(String valueToTest) {
+	public boolean areConditionsTrue(GeneratorBean bean) {
 		if (defaultType==null || defaultType.equals(FILTER_FILE_TYPE_INCLUDE)) //default set to include
-			return includeOtherwiseExpressInExcludeExpression(valueToTest);
+			return includeOtherwiseExpressInExcludeExpression(bean);
 		else
-			return excludeOtherwiseExpressInIncludeExpression(valueToTest);
+			return excludeOtherwiseExpressInIncludeExpression(bean);
 	}
 	
-	public boolean includeOtherwiseExpressInExcludeExpression(String valueToTest) {
+	public boolean includeOtherwiseExpressInExcludeExpression(GeneratorBean bean) {
 		for (Condition condition : getConditions()){
 			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE)) {
-				if (condition.isConditionTrue(valueToTest))
+				if (condition.isConditionTrue(bean))
 					return false;
 			}
 		}
 		return true;
 	}
 	
-	public boolean excludeOtherwiseExpressInIncludeExpression(String valueToTest) {
+	public boolean excludeOtherwiseExpressInIncludeExpression(GeneratorBean bean) {
 		for (Condition condition : getConditions()){
-			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) && condition.isConditionTrue(valueToTest))
+			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) && condition.isConditionTrue(bean))
 				return true;
 		}
 		return false;
