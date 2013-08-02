@@ -13,6 +13,8 @@
   	<name>$DbApiName JPA2 specification and implementation</name>
 
     <dependencies>
+#addMavenDependencyJdbcDriver()
+#*
         <!-- JDBC driver --> 
 #if($hasDriver)		
         <dependency>
@@ -22,7 +24,8 @@
         </dependency>    
 #else
 	    <!-- add jdbc driver : it is not provided in the configuration -->
-#end		
+#end
+*#
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>

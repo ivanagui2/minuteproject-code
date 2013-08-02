@@ -11,6 +11,7 @@
     <version>$version</version>
 		
 	<dependencies>
+#addMavenDependencyJdbcDriver()
 		<dependency>
 			<groupId>net.sf.minuteproject.fitnesse</groupId>
 			<artifactId>mp-fitnesse</artifactId>

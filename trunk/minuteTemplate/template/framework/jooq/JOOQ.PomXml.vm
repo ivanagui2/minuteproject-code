@@ -17,6 +17,9 @@
           <artifactId>jooq</artifactId>
           <version>${jooq.version}</version>
         </dependency>
+#addMavenDependencyJdbcDriver()
+
+#*
         <!-- JDBC driver --> 
 #if($hasDriver)		
         <dependency>
@@ -27,7 +30,8 @@
 #else
 	    <!-- add jdbc driver : it is not provided in the configuration -->
 #exposeModelUpdatedAreas("jdbc-driver-dependency")
-#end		
+#end
+*#	
         <!-- other dependencies -->
 #exposeModelUpdatedAreas("dependencies")
         <dependency>
