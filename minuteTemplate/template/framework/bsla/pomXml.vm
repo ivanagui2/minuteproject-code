@@ -9,7 +9,9 @@
   <name>$DbApiName specification and implementation</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-        <!-- JDBC driver --> 
+#addMavenDependencyJdbcDriver()
+
+#*        <!-- JDBC driver --> 
 #if($hasDriver)		
     <dependency>
         <groupId>$driver.groupId</groupId>
@@ -18,7 +20,8 @@
     </dependency> 
 #else
 	    <!-- add jdbc driver : it is not provided in the configuration -->
-#end	
+#end
+*#	
     <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>

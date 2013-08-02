@@ -18,7 +18,7 @@ public class ${className} {
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
 #if($hasDefaultValue)
-#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
     private final $columnType $defaultConstant = $defaultValue;
 #end
 #end
@@ -36,7 +36,7 @@ public class ${className} {
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
 #if($hasDefaultValue)
-#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
     public $columnType get$columnClass() {
         return ($columnVar!=null)?$columnVar:$defaultConstant;
     }

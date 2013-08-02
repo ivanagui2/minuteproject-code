@@ -215,7 +215,7 @@ $!commonUtils.getReadMeText($template)
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
 #if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)))
-#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
 #if ($columnUtils.isString($column))
 #set($defaultType="String")
 #else
@@ -227,7 +227,7 @@ $!commonUtils.getReadMeText($template)
 #end
 
 #macro(putColumnDefaultValueGetter)
-#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
     public $columnType get$columnClass() {
         return ($columnVar!=null)?$columnVar:$defaultConstant;
     }
@@ -237,7 +237,7 @@ $!commonUtils.getReadMeText($template)
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)) && !$isEnum)
-#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.name)")
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
         if ($columnVar==null) $columnVar=$defaultConstant;
 #end
 #end
@@ -335,4 +335,27 @@ $!updatedAreaEnd
 #end
 #end
       return sb.toString();
+#end
+
+
+#macro (addMavenDependencyJdbcDriver)
+        <!-- JDBC driver --> 
+#if($hasDriver)		
+	    <!-- 
+		if driver is not on a maven repository 
+		download it manually and run the following command	   
+		mvn install:install-file -Dfile=${driver.artifactId}.jar -Dpackaging=jar -DgroupId=${driver.groupId} -DartifactId=${driver.artifactId} -Dversion=$driver.version
+		
+		remark:
+		this command assumes that your jar name is the same as your groupId name
+		-->
+        <dependency>
+            <groupId>$driver.groupId</groupId>
+            <artifactId>$driver.artifactId</artifactId>
+            <version>$driver.version</version>        
+        </dependency>    
+#else
+	    <!-- add jdbc driver : it is not provided in the configuration -->
+#exposeModelUpdatedAreas("jdbc-driver-dependency")
+#end
 #end
