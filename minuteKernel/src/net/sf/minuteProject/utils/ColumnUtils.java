@@ -15,11 +15,14 @@ public class ColumnUtils {
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
 	public static boolean hasDefaultValue (Column column) {
-		return (column.getDefaultValue()!=null)?true:false;
+		return (column.getDefaultValue()!=null && 
+				!ConvertUtils.getJavaTypeMask(column, "1").equals("null")) // check that there is a possible convertion
+				?true:false;
 	}
 	
 	public static String getDefaultValue (Column column) {
-		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
+//		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
+		return ConvertUtils.getJavaTypeMask(column, column.getDefaultValue());
 	}
 	
 	public static List<String> getColumnNames(Table table) {
@@ -139,8 +142,10 @@ public class ColumnUtils {
 		if (column==null || column.getType()==null) return false;
 		if (
 				column.getType().equals("CHAR") || 
+				column.getType().equals("NCHAR") || 
 				column.getType().equals("CHAR2") ||
 				column.getType().equals("VARCHAR") ||
+				column.getType().equals("NVARCHAR") ||
 				column.getType().equals("VARCHAR2") ||
 				column.getType().equals("VARGRAPHIC") ||
 				column.getType().equals("VARGRAPHIC2") ||
@@ -151,18 +156,19 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isStringColumn (Column column) {
-		if (column==null || column.getType()==null) return false;
-		if (
-				column.getType().equals("CHAR") || 
-				column.getType().equals("CHAR2") ||
-				column.getType().equals("VARCHAR") ||
-				column.getType().equals("VARCHAR2") ||
-				column.getType().equals("VARGRAPHIC") ||
-				column.getType().equals("VARGRAPHIC2") ||
-				column.getType().equals("CLOB")
-				)
-			return true;
-		return false;
+		return isString(column);
+//		if (column==null || column.getType()==null) return false;
+//		if (
+//				column.getType().equals("CHAR") || 
+//				column.getType().equals("CHAR2") ||
+//				column.getType().equals("VARCHAR") ||
+//				column.getType().equals("VARCHAR2") ||
+//				column.getType().equals("VARGRAPHIC") ||
+//				column.getType().equals("VARGRAPHIC2") ||
+//				column.getType().equals("CLOB")
+//				)
+//			return true;
+//		return false;
 	}
 	
 	public static String getMethodInputParameters (Column columns[]) {

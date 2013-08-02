@@ -14,6 +14,7 @@ public class Condition extends AbstractConfiguration {
 	public static final String INCLUDE = "include";
 	public static final String PACKAGE = "package";
 	public static final String EXCLUDE = "exclude";
+	private String databaseObjectType;
 	private String type;
 	private String startsWith;
 	private String endsWith, equals;
@@ -21,20 +22,36 @@ public class Condition extends AbstractConfiguration {
 	private String result;
 
 
-	public boolean isConditionFalse(String valueToTest) {
-		return !isConditionTrue(valueToTest);
+	public boolean isConditionFalse(GeneratorBean bean) {
+		return !isConditionTrue(bean);
 	}
 	
-	public boolean isConditionTrue(String valueToTest) {
+	public boolean isConditionTrue(GeneratorBean bean) {
+		//rem: combi on name and package not yet done
+		return isConditionOnName(bean) || isConditionOnType(bean);
+	}
+	public boolean isConditionOnName(GeneratorBean bean) {
+		String valueToTest = bean.getName();
 		if (StringUtils.startsWithIgnoreCase(valueToTest, startsWith)==true) return true;
 		if (StringUtils.equalsIgnoreCase(valueToTest, equals)==true) return true;
 		if (StringUtils.endsWithIgnoreCase(valueToTest, endsWith)==true) return true;
 		if (StringUtils.regex(valueToTest, regex)==true) return true;
 		return false;
 	}
+	public boolean isConditionOnType(GeneratorBean bean) {
+		if (databaseObjectType!=null) {
+			if (bean instanceof net.sf.minuteProject.configuration.bean.model.data.Table) {
+				String type = ((net.sf.minuteProject.configuration.bean.model.data.Table) bean).getType();
+				return StringUtils.equalsIgnoreCase(databaseObjectType, type);
+			}
+			return false;
+		}
+		// by default do not care about the type
+		return false;
+	}
 
-	public String getConditionResult(String valueToTest) {
-		if (isConditionTrue(valueToTest))
+	public String getConditionResult(GeneratorBean bean) {
+		if (isConditionTrue(bean))
 			return result;
 		return null;
 	}
@@ -68,6 +85,14 @@ public class Condition extends AbstractConfiguration {
 	public String getType() {
 		return type;
 	}
+	public String getDatabaseObjectType() {
+		return databaseObjectType;
+	}
+
+	public void setDatabaseObjectType(String databaseObjectType) {
+		this.databaseObjectType = databaseObjectType;
+	}
+
 	public void setType(String type) {
 		this.type = type;
 	}

@@ -20,8 +20,10 @@ public class Hibernate3 {
 		else if (type.equals("POSTGRESQL"))
 			return "org.hibernate.dialect.PostgreSQLDialect";		
 		else if (type.equals("DERBY"))
-			return "org.apache.derby.jdbc.ClientDriver";			
-		return "wrongDialect";
+			return "org.hibernate.dialect.DerbyDialect";			
+		else if (type.equals("MSSQL"))
+			return "org.hibernate.dialect.SQLServer2008Dialect";			
+		return "no dialect for database type = "+type;
 	}
 
 	public static String getDialect () {

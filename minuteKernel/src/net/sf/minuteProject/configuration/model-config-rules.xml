@@ -219,6 +219,7 @@
 						<alias attr-name="endsWith" prop-name="endsWith" />
 						<alias attr-name="regex" prop-name="regex" />
 						<alias attr-name="result" prop-name="result" />
+						<alias attr-name="database-object-type" prop-name="databaseObjectType" />
 					</set-properties-rule>
 				</pattern>
 			</pattern>	
@@ -255,9 +256,13 @@
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Condition"/>		
 				<set-next-rule methodname="addCondition" paramtype="net.sf.minuteProject.configuration.bean.Condition"/>		
 				<set-properties-rule>
-					<alias attr-name="type" prop-name="type" />
-					<alias attr-name="startsWith" prop-name="startsWith" />
-					<alias attr-name="result" prop-name="result" />	
+						<alias attr-name="type" prop-name="type" />
+						<alias attr-name="startsWith" prop-name="startsWith" />
+						<alias attr-name="equals" prop-name="equals" />
+						<alias attr-name="endsWith" prop-name="endsWith" />
+						<alias attr-name="regex" prop-name="regex" />
+						<alias attr-name="result" prop-name="result" />
+						<alias attr-name="database-object-type" prop-name="databaseObjectType" />
 				</set-properties-rule>							
 			</pattern>					
 		</pattern>
@@ -296,9 +301,13 @@
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Condition"/>		
 				<set-next-rule methodname="addCondition" paramtype="net.sf.minuteProject.configuration.bean.Condition"/>		
 				<set-properties-rule>
-					<alias attr-name="type" prop-name="type" />
-					<alias attr-name="startsWith" prop-name="startsWith" />
-					<alias attr-name="result" prop-name="result" />		
+						<alias attr-name="type" prop-name="type" />
+						<alias attr-name="startsWith" prop-name="startsWith" />
+						<alias attr-name="equals" prop-name="equals" />
+						<alias attr-name="endsWith" prop-name="endsWith" />
+						<alias attr-name="regex" prop-name="regex" />
+						<alias attr-name="result" prop-name="result" />
+						<alias attr-name="database-object-type" prop-name="databaseObjectType" />
 				</set-properties-rule>							
 			</pattern>					
 		</pattern>

@@ -27,14 +27,14 @@ public abstract class BusinessPackageAdapter extends AbstractConfiguration {
 		this.conditions = conditions;
 	}
 	
-	public String getPackage(String value) {
-		return getConditionsResult(value);
+	public String getPackage(GeneratorBean bean) {
+		return getConditionsResult(bean);
 	}
 
-	private String getConditionsResult(String valueToTest) {
+	private String getConditionsResult(GeneratorBean bean) {
 		if (conditions!=null) {
 			for (Condition condition : conditions) {
-				if (condition.getConditionResult(valueToTest) != null) {
+				if (condition.getConditionResult(bean) != null) {
 					return condition.getResult();
 				}
 			}

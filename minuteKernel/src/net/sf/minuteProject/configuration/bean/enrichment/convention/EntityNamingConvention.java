@@ -1,5 +1,8 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
@@ -9,13 +12,14 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
-public class EntityNamingConvention extends ModelConvention {
+public class EntityNamingConvention extends BeanNamingConvention<Table> {
 
 	public final String APPLY_STRIP_TABLE_NAME_SUFFIX="apply-strip-table-name-suffix";
 	public final String APPLY_STRIP_TABLE_NAME_PREFIX="apply-strip-table-name-prefix";
 	
 	@Override
 	public void apply(BusinessModel model) {
+		super.apply(model);
 		if (APPLY_STRIP_TABLE_NAME_SUFFIX.equals(type) || APPLY_STRIP_TABLE_NAME_PREFIX.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
@@ -26,6 +30,17 @@ public class EntityNamingConvention extends ModelConvention {
 		}
 	}
 	
+
+	@Override
+	protected List<Table> getBeans(BusinessModel model) {
+		List<Table> tables = new ArrayList<Table>();
+		if (model.getBusinessPackage()!=null) {
+			return model.getBusinessPackage().getEntities();
+		}
+		return tables;
+	}
+
+
 	public void setPatternToStrip (String s) {
 		setDefaultValue(s);
 	}
@@ -82,4 +97,5 @@ public class EntityNamingConvention extends ModelConvention {
 		}
 		
 	}
+
 }
