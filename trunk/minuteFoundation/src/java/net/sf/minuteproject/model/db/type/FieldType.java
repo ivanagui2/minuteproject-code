@@ -22,6 +22,7 @@ public enum FieldType {
 	SMALLINT,
 	LONGVARCHAR,
 	LONGVARBINARY,
+	NUMERIC,
 	OTHER;
 	
 }
