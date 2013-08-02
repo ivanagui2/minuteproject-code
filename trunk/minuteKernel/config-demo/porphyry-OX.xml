@@ -1,0 +1,129 @@
+<!DOCTYPE root>
+<generator-config>
+	<configuration>
+		<model name="porphyry" version="1.0" package-root="net.sf.mp.demo">
+			<data-model>
+				<driver name="mysql" version="5.1.16" groupId="mysql"
+					artifactId="mysql-connector-java"></driver>
+				<dataSource>
+					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
+					<url>jdbc:mysql://127.0.0.1:3306/porphyry</url>
+					<username>root</username>
+					<password>mysql</password>
+				</dataSource>
+				<!-- for Oracle and DB2 please set the schema <schema> </schema> -->
+				<primaryKeyPolicy oneGlobal="true">
+					<primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
+				</primaryKeyPolicy>
+			</data-model>
+			<business-model>
+				<business-package default="project">
+					<condition type="package" startsWith="STAT" result="statistics"></condition>
+					<condition type="package" startsWith="SEC" result="security"></condition>
+					<condition type="package" startsWith="ADMIN" result="admin"></condition>
+					<condition type="package" startsWith="RELEASE" result="release"></condition>
+					<condition type="package" startsWith="BUS" result="business"></condition>
+				</business-package>
+				<enrichment>
+					<conventions>
+						<column-naming-convention type="apply-strip-column-name-suffix"
+							pattern-to-strip="_ID" />
+						<reference-naming-convention
+							type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true" />
+						<ordering-convention field-pattern="DISPLAY_ORDER"
+							field-pattern-type="endsWith" ordering="asc" />
+
+						<!-- stereotype email, URL -->
+						<stereotype-convention field-pattern="email"
+							field-pattern-type="contains" stereotype="email" />
+						<stereotype-convention field-pattern="url"
+							field-pattern-type="contains" stereotype="url" />
+						<stereotype-convention field-pattern="password"
+							field-pattern-type="contains" stereotype="password" />
+						<stereotype-convention field-pattern="notes"
+							field-pattern-type="equals" stereotype="text-html" />
+							
+						<!-- primary key conv -->
+						<column-naming-convention
+							type="apply-fix-primary-key-column-name-when-no-ambiguity-and-not-natural"
+							default-value="ID" />
+							
+						<!-- strip prefix -->
+						<entity-naming-convention type="apply-strip-table-name-prefix"
+							pattern-to-strip="ADMIN_,SEC_,BUS_" />
+						<!-- semantic reference -->
+						<semantic-entity-convention
+							field-pattern="NAME,NUMBER" field-pattern-type="contains"
+							max-number-of-fields="2" />
+
+						<!-- trigger -->
+						<property-convention scope="field" pattern="CREATION_DATE"
+							tag="trigger-insert-with-current-date" type="start-with" />
+
+					</conventions>
+
+					<entity name="ADMIN_ENVIRONMENT" content-type="reference-data">
+						<semantic-reference>
+							<sql-path path="NAME" />
+						</semantic-reference>
+					</entity>
+					<entity name="SEC_USER">
+						<semantic-reference>
+							<sql-path path="IDENTIFIER" />
+						</semantic-reference>
+					</entity>
+					<entity name="BUS_RELEASE">
+						<!-- todo trigger name -->
+						<!-- todo trigger creation date -->
+
+						<field name="STATUS">
+							<property tag="checkconstraint" alias="release_status">
+								<property name="ACTIVE" value="ACTIVE" />
+								<property name="DONE" value="DONE" />
+								<property name="NOT_OK" value="REJECTED" />
+							</property>
+						</field>
+					</entity>
+					<entity name="SEC_PROJECT_RIGHT">
+						<field name="role">
+							<property tag="checkconstraint">
+								<property name="RELEASER" />
+								<property name="RELEASE_VALIDATOR" />
+							</property>
+						</field>
+					</entity>
+					<entity name="ADMIN_ACCESS">
+						<!-- todo trigger name -->
+						<!-- todo trigger creation date -->
+						<field name="ENVIRONMENT_ID" >
+							<constraint belongs-to="(APPLICATION_ID)[ADMIN_APPLI_ENV(ADMIN_ENVIRONMENT)]"></constraint>
+						</field> 
+					</entity>
+					<entity name="BUS_RELEASE">
+						<!-- todo trigger name -->
+						<!-- todo trigger creation date -->
+						<field name="APPLICATION_ID" >
+							<constraint belongs-to="(RELEASER_ID)[SEC_PROJECT_RIGHT(ADMIN_ENVIRONMENT){ADMIN_ROLE='RELEASER'}]"></constraint>
+						</field> 
+					</entity>
+
+					<!-- views 
+					<entity name="stat_mb_per_ctry_conf" alias="MEMBER_PER_COUNTRY_AND_CONFERENCE">
+						<virtual-primary-key isRealPrimaryKey="true">
+							<property name="virtualPrimaryKey" value="ID" />
+						</virtual-primary-key>
+					</entity>
+					<entity name="stat_mb_by_role" alias="MEMBER_PER_ROLE_COUNTRY_AND_CONFERENCE">
+						<virtual-primary-key isRealPrimaryKey="true">
+							<property name="virtualPrimaryKey" value="id" />
+						</virtual-primary-key>
+						<field name="stat_mb_per_ctry_conf_ID" linkToTargetEntity="stat_mb_per_ctry_conf"
+							linkToTargetField="id"></field>
+					</entity>-->
+				</enrichment>
+			</business-model>
+		</model>
+		<targets catalog-entry="OpenXava" templatedir-root="../../minuteTemplate/template">
+		</targets>
+	</configuration>
+</generator-config>
