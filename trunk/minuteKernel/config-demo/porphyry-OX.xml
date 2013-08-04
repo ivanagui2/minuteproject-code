@@ -2,12 +2,20 @@
 <generator-config>
 	<configuration>
 		<model name="porphyry" version="1.0" package-root="net.sf.mp.demo">
+			<description>
+			<CDATA>
+			This model illustrates:
+			Reverse-engineering on tables, views
+			SDD
+			Add ad-hoc forms and actions
+			</CDATA>
+			</description>
 			<data-model>
 				<driver name="mysql" version="5.1.16" groupId="mysql"
 					artifactId="mysql-connector-java"></driver>
 				<dataSource>
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
-					<url>jdbc:mysql://127.0.0.1:3306/porphyry</url>
+					<url>jdbc:mysql://localhost:3306/porphyry</url>
 					<username>root</username>
 					<password>mysql</password>
 				</dataSource>
@@ -75,9 +83,9 @@
 					<entity name="BUS_RELEASE">
 						<!-- todo trigger name -->
 						<!-- todo trigger creation date -->
-
 						<field name="STATUS">
 							<property tag="checkconstraint" alias="release_status">
+
 								<property name="ACTIVE" value="ACTIVE" />
 								<property name="DONE" value="DONE" />
 								<property name="NOT_OK" value="REJECTED" />
@@ -107,23 +115,81 @@
 						</field> 
 					</entity>
 
-					<!-- views 
-					<entity name="stat_mb_per_ctry_conf" alias="MEMBER_PER_COUNTRY_AND_CONFERENCE">
+					<!-- views stat
+					<entity name="stat_nb_release_per_app" alias="number of releases per application">
 						<virtual-primary-key isRealPrimaryKey="true">
 							<property name="virtualPrimaryKey" value="ID" />
 						</virtual-primary-key>
 					</entity>
-					<entity name="stat_mb_by_role" alias="MEMBER_PER_ROLE_COUNTRY_AND_CONFERENCE">
+					<entity name="stat_release_detail" alias="release detail">
 						<virtual-primary-key isRealPrimaryKey="true">
 							<property name="virtualPrimaryKey" value="id" />
 						</virtual-primary-key>
 						<field name="stat_mb_per_ctry_conf_ID" linkToTargetEntity="stat_mb_per_ctry_conf"
 							linkToTargetField="id"></field>
 					</entity>-->
+					
+					<!-- batch with SDD -->
+					
+					<!-- transient objects -->
+					<entity name="create release" is-transfer-entity="true" main-entity="bus_release">
+						<field name="name"></field>
+						<field name="notes"></field>
+						<field name="application_id"></field>
+						<field name="environmnent_id"></field>
+						<field name="releaser_id" hidden="true" default="profile.user.id"></field>
+						<field name="status" value="ACTIVE" hidden="true"></field>
+						<field name="creation_date" hidden="true"></field>
+						<!-- <field name="validator_id"></field> -->
+						<field name="time_to_start"></field>
+						<field name="time_to_end"></field>
+						<field name="validation_reason" hidden="true"></field>
+						<!-- other fields -->
+						<field name="notify" type="string" mandatory="true">
+							<stereotype stereotype="EMAIL" />
+						</field>
+						<action name="release" default-implementation="create"/>
+					</entity>
+					<!-- transient objects -->
+					<entity name="validate release" 
+						is-transfer-entity="true" 
+						main-entity="bus_release" 
+						is-editable="false"
+						is-searchable="true">
+						<field name="id" hidden="true"></field>Î
+						<field name="name"></field>
+						<field name="notes"></field>
+						<field name="application_id"></field>
+						<field name="environmnent_id"></field>
+						<field name="releaser_id" ></field>
+						<field name="status" hidden="false"></field>
+						<field name="creation_date"></field>
+						<field name="validator_id" hidden="true" default="profile.user.id"></field>
+						<field name="time_to_start"></field>
+						<field name="time_to_end"></field>
+						<field name="validation_reason" is-editable="true"></field>
+
+						<!-- other fields -->
+						<field name="inform" type="string" mandatory="true" is-editable="true">
+							<stereotype stereotype="EMAIL" />
+						</field>
+						<action name="validate" default-implementation="update">
+							<field name="status" value="DONE"></field>
+						</action>
+						<action name="reject" default-implementation="update">
+							<field name="status" value="REJECT"></field>
+						</action>
+					</entity>
 				</enrichment>
 			</business-model>
+			<!-- <statement-model>
+				<queries>
+					<query>
+					</query>
+				</queries>
+			</statement-model> -->
 		</model>
-		<targets catalog-entry="OpenXava" templatedir-root="../../minuteTemplate/template">
+		<targets catalog-entry="OpenXava" templatedir-root="../minuteTemplate/template">
 		</targets>
 	</configuration>
 </generator-config>

@@ -31,12 +31,29 @@ public class Entity extends AbstractConfiguration {
 	private Enrichment enrichment;
 	private String contentType; //pseudo-static, reference, life-business-data
 	private SemanticReference semanticReference;
-	private boolean isLinkEntity, isTransferEntity, isSearchable;
+	private boolean isLinkEntity, isTransferEntity, isSearchable, isEditable;
 	private EntitySecuredAccess entitySecuredAccess;
 	private String type, masterRelationshipField;
 	private List<FieldGroup> fieldGroups;
 	private List<Constraint> constraints;
+	private String mainEntity;
 	
+	public String getMainEntity() {
+		return mainEntity;
+	}
+
+	public void setMainEntity(String mainEntity) {
+		this.mainEntity = mainEntity;
+	}
+
+	public boolean isEditable() {
+		return isEditable;
+	}
+
+	public void setEditable(boolean isEditable) {
+		this.isEditable = isEditable;
+	}
+
 	public EntitySecuredAccess getEntitySecuredAccess() {
 		return entitySecuredAccess;
 	}

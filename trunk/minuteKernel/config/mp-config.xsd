@@ -447,6 +447,8 @@
 		<xs:attribute name="is-searchable" type="xs:boolean" />
 		<xs:attribute name="is-editable" type="xs:boolean" />
 		
+		<xs:attribute name="hidden" type="xs:boolean" />
+		
 	</xs:complexType>
 
 	<xs:complexType name="derivations">
@@ -500,9 +502,13 @@
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="main-entity" type="xs:string" />
 		<xs:attribute name="content-type" type="content-type" />
 		<xs:attribute name="alias" type="xs:string" />
 		<xs:attribute name="label" type="xs:string" />
+		<xs:attribute name="is-editable" type="xs:boolean" />
+		<xs:attribute name="is-searchable" type="xs:boolean" />
+		<xs:attribute name="is-transfer-entity" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="enrichment">
