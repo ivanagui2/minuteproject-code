@@ -164,7 +164,7 @@
 						<field name="releaser_id" ></field>
 						<field name="status" hidden="false"></field>
 						<field name="creation_date"></field>
-						<field name="validator_id" hidden="true" default="profile.user.id"></field>
+						<field name="validator_id" hidden="true" default-value="profile.user.id"></field>
 						<field name="time_to_start"></field>
 						<field name="time_to_end"></field>
 						<field name="validation_reason" is-editable="true"></field>

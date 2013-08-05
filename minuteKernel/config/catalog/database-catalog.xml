@@ -1,6 +1,6 @@
 <database-catalog>
   <databases>
-	 
+
 	 <database name="HSQLDB" 
         hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
         use-schema="false" 
@@ -89,7 +89,21 @@
         </maven-artifact>
         <primary-key-policy type="autoincrement"/>
 	 </database>
+
 	 
+	 <database name="MSSQL" 
+        hibernate-dialect="org.hibernate.dialect.SQLServer2008Dialect" 
+        use-schema="true" 
+        driverclassname="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        default-url-structure="jdbc:sqlserver://{server-name}:${port-number};databaseName={database-name}" >
+        <maven-artifact
+           mvn-artifact-id="sqljdbc4" 
+           mvn-group-id="com.microsoft.sqlserver"
+           mvn-version="4.0">
+        </maven-artifact>
+        <primary-key-policy type="identity"/>
+	 </database>  
+	 	 
   </databases>
 
 </database-catalog>
