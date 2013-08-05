@@ -67,6 +67,7 @@
 
     <!-- transfer entities -->
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
+		<!-- $table.name -->
 #if(!$table.actions.isEmpty())
 #exposeVariableEntitySpecific()
 #set($controllerName=$openXavaUtils.getControllerName($table))
