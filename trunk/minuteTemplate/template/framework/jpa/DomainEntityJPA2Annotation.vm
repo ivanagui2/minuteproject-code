@@ -114,6 +114,8 @@ public class ${className} implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
 #elseif ($databaseUtils.isPrimaryKeyPolicyIncrement($table))
     @GeneratedValue(strategy = GenerationType.AUTO)
+#elseif ($databaseUtils.isPrimaryKeyPolicyIdentity($table))
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 #elseif ($databaseUtils.isPrimaryKeyPolicyUUID($table) && $jpa2ImplementationIsHibernate)
     @GeneratedValue(generator = "system-uuid")
     @org.hibernate.annotations.GenericGenerator(name = "system-uuid", strategy = "uuid")
