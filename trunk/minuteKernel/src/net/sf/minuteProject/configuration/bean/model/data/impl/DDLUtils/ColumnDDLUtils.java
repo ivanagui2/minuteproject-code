@@ -26,9 +26,9 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 	
 	private org.apache.ddlutils.model.Column column;
 	private Table table;
-	private Boolean isLob, isVersion; 
-	private boolean isSearchable;
+	private Boolean isLob, isHidden=false;
 	private Stereotype stereotype;
+	private Boolean isVersion, isSearchable=true, isEditable=true;
 	private Integer minLength;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
@@ -491,6 +491,15 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 
 	public void setDerivations(List<Derivation> derivations) {
 		this.derivations = derivations;
+	}
+
+	@Override
+	public boolean isHidden() {
+		return isHidden;
+	}
+	@Override
+	public void setHidden(boolean isHidden) {
+		this.isHidden = isHidden;
 	}
 
 }

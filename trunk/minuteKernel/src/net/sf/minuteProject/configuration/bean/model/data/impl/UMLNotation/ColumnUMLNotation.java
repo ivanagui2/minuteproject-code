@@ -19,6 +19,9 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setDescription(column.getDescription());
 		setTriggers(column.getTriggers());
 		setDerivations(column.getDerivations());
+		setHidden(column.isHidden());
+		setSearchable(column.isSearchable());
+//		setEditable(column.isEditable());
 	}
 
 }

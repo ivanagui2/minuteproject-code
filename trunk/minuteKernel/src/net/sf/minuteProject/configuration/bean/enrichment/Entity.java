@@ -13,9 +13,13 @@ import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecured
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.DatabaseDDLUtils;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.configuration.bean.query.Ordering;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.DatabaseUtils;
+import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 import org.apache.ddlutils.model.Column;
@@ -141,7 +145,7 @@ public class Entity extends AbstractConfiguration {
 		return isSearchable;
 	}
 
-	public void setSearchable(boolean isSearchable) {
+	public void setIsSearchable(boolean isSearchable) {
 		this.isSearchable = isSearchable;
 	}
 
@@ -191,18 +195,61 @@ public class Entity extends AbstractConfiguration {
 	}
 
 	public Table getTable (Database database) {
-		Table table = new TableDDLUtils(getTable(this, database));
+		Table table = (mainEntity!=null)?getFromMainEntity(database.findTable(mainEntity,false)):new TableDDLUtils(getTable(this, database));
+//		Table table = new TableDDLUtils(getTable(this, database));
 		for (Action action : this.getActions()) {
 			action.setParent(table);
 		}
 		table.setActions (this.getActions());
 		table.setConstraints(this.getConstraints());
 		table.setFieldGroups(this.getFieldGroups());
+		//
+		setFieldSpecifics(table);
 		return table;
 	}
 	
-	private org.apache.ddlutils.model.Table getTable(Entity entity, Database database) {
+	private void setFieldSpecifics(Table table) {
+		for (Field field : fields) {
+			net.sf.minuteProject.configuration.bean.model.data.Column column = ColumnUtils.getColumn(table, field.getName());
+			if (column!=null) {
+				column.setHidden(field.isHidden());
+			}
+				
+		}
+		
+	}
+
+	private Table getFromMainEntity(Table foundTable) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
+		table.setName(getName());
+		table.setType(foundTable.getType());
+		table.setDescription(foundTable.getDescription());
+		for (net.sf.minuteProject.configuration.bean.model.data.Column column : foundTable.getColumns()) {
+			// exclude or include according to options
+			Field field = getField(column);
+			Column c = new Column();
+			c.setName(column.getName());
+			c.setType(column.getType());
+			c.setScale(column.getScale());
+			c.setDefaultValue((field!=null)?field.getDefaultValue():column.getDefaultValue());
+			c.setSize(column.getSize());
+			c.setTypeCode(column.getTypeCode());
+			table.addColumn(c);
+		}
+		return new TableDDLUtils(table);
+	}
+
+	private Field getField(
+			net.sf.minuteProject.configuration.bean.model.data.Column column) {
+		for (Field field : fields) {
+			if (StringUtils.equalsIgnoreCase(field.getName(),column.getName()))
+				return field;
+		}
+		return null;
+	}
+
+	private org.apache.ddlutils.model.Table getTable(Entity entity, Database database) {
+		org.apache.ddlutils.model.Table table = getTable (getMainEntity());//new org.apache.ddlutils.model.Table();
 		table.setType(Table.TABLE);
 		table.setName(entity.getName());
 		for (Field field : entity.getFields()) {
@@ -213,6 +260,13 @@ public class Entity extends AbstractConfiguration {
 				table.addForeignKey(getForeignKey(field, database));
 		}			
 		return table;
+	}
+
+	private org.apache.ddlutils.model.Table getTable(String mainEntity) {
+		if (mainEntity!=null) {
+			
+		}
+		return new org.apache.ddlutils.model.Table();
 	}
 
 	private boolean isForeignKey(Field field) {
@@ -257,6 +311,7 @@ public class Entity extends AbstractConfiguration {
 		column.setRequired(field.isMandatory());
 		column.setSize(field.getLength());
 		column.setPrimaryKey(field.isId());
+		//column.setHidden(field.isHidden());
 		return column;
 	}
 

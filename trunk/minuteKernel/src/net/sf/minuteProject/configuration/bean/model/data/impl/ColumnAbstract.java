@@ -15,9 +15,9 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 
 	private Column column;
 	private Table table;
-	private Boolean isLob;
+	private Boolean isLob, isHidden=false;
 	private Stereotype stereotype;
-	private Boolean isVersion, isSearchable;
+	private Boolean isVersion, isSearchable, isEditable;
 	private Integer minLength;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
@@ -480,6 +480,32 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 
 	public void setDerivations(List<Derivation> derivations) {
 		this.derivations = derivations;
+	}
+	@Override
+	public boolean isHidden() {
+		return isHidden;
+	}
+	@Override
+	public void setHidden(boolean isHidden) {
+		this.isHidden = isHidden;
+	}
+//	@Override
+//	public boolean isHidden() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public void setHidden(boolean isHidden) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	public boolean isEditable() {
+		return isEditable;
+	}
+
+	public void setEditable(boolean isEditable) {
+		this.isEditable = isEditable;
 	}
 	
 }

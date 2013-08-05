@@ -15,10 +15,11 @@ public class Field extends AbstractConfiguration {
 	private String bidirectional;
 	private Stereotype stereotype;
 	private String type, length, typeAlias;
-	private boolean isMandatory, isId, isSearchable, isEditable;
+	private boolean isMandatory=false, isId=false, isSearchable=true, isEditable=true, isHidden=false;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
 	private String ordering;
+	private String value, defaultValue;
 
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -81,6 +82,14 @@ public class Field extends AbstractConfiguration {
 
 	public void setLength(String length) {
 		this.length = length;
+	}
+
+	public boolean isHidden() {
+		return isHidden;
+	}
+
+	public void setHidden(boolean isHidden) {
+		this.isHidden = isHidden;
 	}
 
 	public boolean isMandatory() {
@@ -172,5 +181,22 @@ public class Field extends AbstractConfiguration {
 	public Order getOrder() {
 		return Order.getOrder(ordering);
 	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+
 
 }
