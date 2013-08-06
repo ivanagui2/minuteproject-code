@@ -46,7 +46,9 @@ $!updatedAreaSnippet
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
+#if(!$column.isHidden())
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
+#end
 #end
 #end
 		),
@@ -212,8 +214,12 @@ public class ${className} {
 #end
 #if($columnUtils.hasTrigger($column))
     @ReadOnly(forViews="base,Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}")
+#else
+#if(!$column.isEditable())
+	@ReadOnly
 #end
-    private $columnType $columnVar;	
+#end
+    private $columnType $columnVar;
 #end
 #updatedAreaEnd()
 

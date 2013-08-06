@@ -149,13 +149,14 @@ properties=""
 
 #macro (exposeOXActionSpecific)
 #exposeOXTemplate()
-#set ($actionClass = $commonUtils.getTemplateClassName($action, $template, $templateActionOpenXava))
+#set ($actionClass = $commonUtils.getTemplateClassName($action, $template, $templateActionEntityOpenXava))
 #set ($actionVariable = $commonUtils.getJavaNameVariableFirstLetter($actionClass))
-#set ($actionImport = $commonUtils.getEntityLevelTemplateFullPath($action, $template, $templateActionOpenXava))
+#set ($actionImport = $commonUtils.getEntityLevelTemplateFullPath($action, $template, $templateActionEntityOpenXava))
 #end
 
 #macro (exposeOXTemplate)
 #set ($templateActionOpenXava = "ActionOX")
+#set ($templateActionEntityOpenXava = "ActionEntityOX")
 #end
 
 #macro (putOXTemplateDefinition)
@@ -165,10 +166,12 @@ properties=""
 #end
 
 #macro(exposeOXVariableActionSpecific)
-#set($isAction=$template.getProperty("isAction",true))
+#set($isAction=$template.getPropertyValue("isAction",true))
+#if($isAction)
+#set($table=$action.parent)
+#end
+#exposeVariableEntitySpecific()
 #if($isAction)
 #exposeVariableActionSpecific()
-#else
-#exposeVariableEntitySpecific()
 #end
 #end

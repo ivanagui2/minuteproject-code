@@ -1,4 +1,5 @@
-#exposeVariableModelSpecific() 
+#exposeVariableModelSpecific()
+#exposeOXTemplate()
 #set ($applicationOX=$configuration.name)
 ##<?xml version = "1.0" encoding = "ISO-8859-1"?>
 ##<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
@@ -75,7 +76,7 @@
 #foreach ($action in $table.actions)
 #exposeOXActionSpecific()	
 #set($actionName=$openXavaUtils.getActionClassName($action))
-		<action name="$actionName" mode="detail" class="$actionImport">
+		<action name="$actionName" mode="detail" class="$actionImport" >
 			<use-object name="xava_view" />
 		</action>	    
 #end		
