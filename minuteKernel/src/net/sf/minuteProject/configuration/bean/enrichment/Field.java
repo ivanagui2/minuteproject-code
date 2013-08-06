@@ -15,11 +15,12 @@ public class Field extends AbstractConfiguration {
 	private String bidirectional;
 	private Stereotype stereotype;
 	private String type, length, typeAlias;
-	private boolean isMandatory=false, isId=false, isSearchable=true, isEditable=true, isHidden=false;
+	private boolean isMandatory=false, isId=false,   isHidden=false;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
 	private String ordering;
 	private String value, defaultValue;
+	private Boolean isSearchable,isEditable;
 
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
@@ -116,7 +117,7 @@ public class Field extends AbstractConfiguration {
 		this.isId = isId;
 	}
 
-	public boolean isSearchable() {
+	public Boolean isSearchable() {
 		return isSearchable;
 	}
 
@@ -124,7 +125,7 @@ public class Field extends AbstractConfiguration {
 		this.isSearchable = isSearchable;
 	}
 
-	public boolean isEditable() {
+	public Boolean isEditable() {
 		return isEditable;
 	}
 

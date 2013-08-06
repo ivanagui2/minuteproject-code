@@ -17,7 +17,7 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 	private Table table;
 	private Boolean isLob, isHidden=false;
 	private Stereotype stereotype;
-	private Boolean isVersion, isSearchable, isEditable;
+	private Boolean isVersion, isSearchable=true, isEditable=true;
 	private Integer minLength;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
@@ -452,12 +452,13 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
    	this.minLength = minLength;
    }
    
-	public boolean isSearchable() {
+	public Boolean isSearchable() {
 		return isSearchable;
 	}
 
-	public void setSearchable(boolean isSearchable) {
-		this.isSearchable = isSearchable;
+	public void setSearchable(Boolean isSearchable) {
+		if (isSearchable!=null)
+			this.isSearchable = isSearchable;
 	}
 	
 	public List<Trigger> getTriggers() {
@@ -482,11 +483,12 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 		this.derivations = derivations;
 	}
 	@Override
-	public boolean isHidden() {
+	public Boolean isHidden() {
 		return isHidden;
 	}
 	@Override
-	public void setHidden(boolean isHidden) {
+	public void setHidden(Boolean isHidden) {
+		if (isHidden!=null)
 		this.isHidden = isHidden;
 	}
 //	@Override
@@ -500,12 +502,13 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 //		// TODO Auto-generated method stub
 //		
 //	}
-	public boolean isEditable() {
+	public Boolean isEditable() {
 		return isEditable;
 	}
 
-	public void setEditable(boolean isEditable) {
-		this.isEditable = isEditable;
+	public void setEditable(Boolean isEditable) {
+		if (isEditable!=null)
+			this.isEditable = isEditable;
 	}
 	
 }

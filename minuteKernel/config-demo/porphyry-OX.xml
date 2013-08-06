@@ -128,13 +128,13 @@
 					<!-- batch with SDD -->
 
 					<!-- transient objects -->
-					<entity name="create release" is-transfer-entity="true"
+					<entity name="create release" is-transfer-entity="true" is-searchable="false"
 						main-entity="bus_release">
 						<field name="name"></field>
 						<field name="notes"></field>
 						<field name="application_id"></field>
 						<field name="environmnent_id"></field>
-						<field name="releaser_id" hidden="true" default="profile.user.id"></field>
+						<field name="releaser_id" hidden="true" default="1"></field>
 						<field name="status" value="ACTIVE" hidden="true"></field>
 						<field name="creation_date" hidden="true"></field>
 						<!-- <field name="validator_id"></field> -->
@@ -153,15 +153,14 @@
 					<entity name="validate release" is-transfer-entity="true"
 						main-entity="bus_release" is-editable="false" is-searchable="true">
 						<field name="id" hidden="true"></field>
-						Î
 						<field name="name"></field>
 						<field name="notes"></field>
 						<field name="application_id"></field>
 						<field name="environmnent_id"></field>
 						<field name="releaser_id"></field>
-						<field name="status" hidden="false"></field>
+						<field name="status" hidden="true"></field>
 						<field name="creation_date"></field>
-						<field name="validator_id" hidden="true" default-value="profile.user.id"></field>
+						<field name="validator_id" hidden="true" /><!-- default-value="profile.user.id"></field> -->
 						<field name="time_to_start"></field>
 						<field name="time_to_end"></field>
 						<field name="validation_reason" is-editable="true"></field>
@@ -184,7 +183,9 @@
 			</business-model>
 			<!-- <statement-model> <queries> <query> </query> </queries> </statement-model> -->
 		</model>
-		<targets catalog-entry="OpenXava" templatedir-root="../minuteTemplate/template">
+		<targets catalog-entry="OpenXava" 
+			templatedir-root="../minuteTemplate/template"
+			outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
 		</targets>
 	</configuration>
 </generator-config>

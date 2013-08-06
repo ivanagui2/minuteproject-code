@@ -460,12 +460,13 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
    	this.minLength = minLength;
    }
    
-	public boolean isSearchable() {
+	public Boolean isSearchable() {
 		return isSearchable;
 	}
 
-	public void setSearchable(boolean isSearchable) {
-		this.isSearchable = isSearchable;
+	public void setSearchable(Boolean isSearchable) {
+		if (isSearchable!=null)
+			this.isSearchable = isSearchable;
 	}
 
 	public List<Trigger> getTriggers() {
@@ -494,12 +495,21 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 	}
 
 	@Override
-	public boolean isHidden() {
+	public Boolean isHidden() {
 		return isHidden;
 	}
 	@Override
-	public void setHidden(boolean isHidden) {
-		this.isHidden = isHidden;
+	public void setHidden(Boolean isHidden) {
+		if (isHidden!=null)
+			this.isHidden = isHidden;
 	}
-
+	@Override
+	public Boolean isEditable() {
+		return isEditable;
+	}
+	@Override
+	public void setEditable(Boolean isEditable) {
+		if (isEditable!=null)
+			this.isEditable = isEditable;
+	}
 }

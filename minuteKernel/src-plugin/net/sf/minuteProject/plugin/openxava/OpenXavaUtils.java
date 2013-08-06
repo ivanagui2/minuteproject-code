@@ -66,7 +66,7 @@ public class OpenXavaUtils {
 			}
 		}
 		for (Column column : table.getAttributes()) {
-			if (!column.isLob())
+			if (column.isSearchable() && !column.isLob())
 				list.add(JavaUtils.getJavaVariableNaming(FormatUtils.getJavaNameVariable(column.getAlias())));
 		}
 		return list;

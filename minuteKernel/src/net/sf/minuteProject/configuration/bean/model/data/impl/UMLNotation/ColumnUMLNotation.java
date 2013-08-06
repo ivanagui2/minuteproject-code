@@ -10,7 +10,6 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		super(column, table);
 		setProperties(column.getProperties());
 		setStereotype(column.getStereotype());
-		setSearchable(column.isSearchable());
 		setVersion(column.isVersion());
 		setName(column.getName());
 		setAlias(column.getAlias());
@@ -21,6 +20,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setDerivations(column.getDerivations());
 		setHidden(column.isHidden());
 		setSearchable(column.isSearchable());
+		setEditable(column.isEditable());
 //		setEditable(column.isEditable());
 	}
 

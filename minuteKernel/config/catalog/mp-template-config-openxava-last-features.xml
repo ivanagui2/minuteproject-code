@@ -435,14 +435,22 @@
     	name="OpenXava action"
     	outputdir="src">	
 
-		<template
+<!-- 		<template
 			name="ActionOX" templateFileName="ActionOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="action" 
 			file-extension="java" file-prefix="" file-suffix="Action" 
 			has-updatable-nature="true"
 			scope-specific-value="action">
-		</template>	
+		</template>	 -->
 
+ 		<template
+			name="ActionEntityOX" templateFileName="ActionEntityOX.vm" 
+			subdir="" outputsubdir="" technicalPackage="action" 
+			file-extension="java" file-prefix="" file-suffix="Action" 
+			has-updatable-nature="true"
+			scope-specific-value="action">
+		</template>	 
+<!--
 		<template
 			name="ActionOX.stored.proc" templateFileName="ActionOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="action" 
@@ -451,7 +459,7 @@
 			scope-specific-value="function">
 			<property name="isAction" value="false"></property>
 		</template>									
-
+-->
 		<template
 			name="ActionOX.SDD.query" templateFileName="ActionOX.SDD.query.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.action" 
