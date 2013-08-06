@@ -92,6 +92,19 @@
 </mp:isUserInRole>	
 #end
 #end
+<!-- transfer entities -->
+    <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
+	  <ul class="submenu">
+#foreach ($table in $model.businessModel.businessPackage.transferEntities)
+		<!-- $table.name -->
+#if(!$table.actions.isEmpty())
+#exposeVariableEntitySpecific()
+        <li><a href="$url" #if($displayUtils.hasAlt($table)) alt="$displayUtils.getAlt($table)"#end>$tableLabel</a></li>
+#end
+#end
+	  </ul>
+	</li>
+	
   </ul>
   </div>
 
