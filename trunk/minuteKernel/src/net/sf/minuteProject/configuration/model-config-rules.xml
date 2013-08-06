@@ -700,6 +700,7 @@
 						<alias attr-name="is-searchable" prop-name="isSearchable" />
 						<alias attr-name="is-editable" prop-name="isEditable" />
 						<alias attr-name="stereotype" prop-name="stereotype" />		
+						<alias attr-name="hidden" prop-name="hidden" />		
 						<alias attr-name="comment" prop-name="comment" />
 						<alias attr-name="value" prop-name="value" />
 						<alias attr-name="default-value" prop-name="defaultValue" />

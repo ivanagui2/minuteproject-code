@@ -325,6 +325,7 @@ public class BusinessModel {
 		column.setDescription(field.getDescription());
 		column.setComment(field.getComment());
 		column.setSearchable(field.isSearchable());
+		column.setEditable(field.isSearchable());
 		column.setAlias(field.getAlias());
 		column.setLabel(field.getLabel());
 		column.setDerivations(field.getDerivations());

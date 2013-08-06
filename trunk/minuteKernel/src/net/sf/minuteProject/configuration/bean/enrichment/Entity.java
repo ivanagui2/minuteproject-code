@@ -35,7 +35,7 @@ public class Entity extends AbstractConfiguration {
 	private Enrichment enrichment;
 	private String contentType; //pseudo-static, reference, life-business-data
 	private SemanticReference semanticReference;
-	private boolean isLinkEntity, isTransferEntity, isSearchable, isEditable;
+	private boolean isLinkEntity, isTransferEntity, isSearchable=true, isEditable=true;
 	private EntitySecuredAccess entitySecuredAccess;
 	private String type, masterRelationshipField;
 	private List<FieldGroup> fieldGroups;
@@ -50,7 +50,7 @@ public class Entity extends AbstractConfiguration {
 		this.mainEntity = mainEntity;
 	}
 
-	public boolean isEditable() {
+	public Boolean isEditable() {
 		return isEditable;
 	}
 
@@ -141,11 +141,11 @@ public class Entity extends AbstractConfiguration {
 		this.isTransferEntity = isTransferEntity;
 	}
 
-	public boolean isSearchable() {
+	public Boolean isSearchable() {
 		return isSearchable;
 	}
 
-	public void setIsSearchable(boolean isSearchable) {
+	public void setSearchable(boolean isSearchable) {
 		this.isSearchable = isSearchable;
 	}
 
@@ -205,6 +205,7 @@ public class Entity extends AbstractConfiguration {
 		table.setFieldGroups(this.getFieldGroups());
 		//
 		setFieldSpecifics(table);
+		table.setSearchable(isSearchable);
 		return table;
 	}
 	
@@ -213,17 +214,38 @@ public class Entity extends AbstractConfiguration {
 			net.sf.minuteProject.configuration.bean.model.data.Column column = ColumnUtils.getColumn(table, field.getName());
 			if (column!=null) {
 				column.setHidden(field.isHidden());
+				column.setEditable(getEditable (field));
+				column.setSearchable(getSearchable (field));
+				//column.setStereotype(field.getStereotype());//todo
 			}
-				
 		}
 		
 	}
 
+	private boolean getEditable(Field field) {
+		if (field.isEditable()!=null) {
+			return field.isEditable();
+		}
+		if (isEditable()!=null) {
+			return isEditable();
+		}
+		return true;
+	}
+	private boolean getSearchable(Field field) {
+		if (field.isSearchable()!=null) {
+			return field.isSearchable();
+		}
+		if (isSearchable()!=null) {
+			return isSearchable();
+		}
+		return isSearchable;
+	}
+
 	private Table getFromMainEntity(Table foundTable) {
-		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
-		table.setName(getName());
-		table.setType(foundTable.getType());
-		table.setDescription(foundTable.getDescription());
+		org.apache.ddlutils.model.Table t = new org.apache.ddlutils.model.Table();
+		t.setName(getName());
+		t.setType(foundTable.getType());
+		t.setDescription(foundTable.getDescription());
 		for (net.sf.minuteProject.configuration.bean.model.data.Column column : foundTable.getColumns()) {
 			// exclude or include according to options
 			Field field = getField(column);
@@ -234,13 +256,17 @@ public class Entity extends AbstractConfiguration {
 			c.setDefaultValue((field!=null)?field.getDefaultValue():column.getDefaultValue());
 			c.setSize(column.getSize());
 			c.setTypeCode(column.getTypeCode());
-			table.addColumn(c);
+			c.setRequired(column.isRequired());
+			c.setPrimaryKey(column.isPrimaryKey());
+			t.addColumn(c);
 		}
-		return new TableDDLUtils(table);
+		Table table = new TableDDLUtils(t);
+		table.setAlias(getName());
+		table.setName(foundTable.getName());
+		return table;
 	}
 
-	private Field getField(
-			net.sf.minuteProject.configuration.bean.model.data.Column column) {
+	private Field getField(net.sf.minuteProject.configuration.bean.model.data.Column column) {
 		for (Field field : fields) {
 			if (StringUtils.equalsIgnoreCase(field.getName(),column.getName()))
 				return field;
