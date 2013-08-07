@@ -78,7 +78,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             </statement-model>
 		</model>	
 		<targets catalog-entry="Vaadin" 
-				 templatedir-root="../../minuteTemplate/template">
+				 templatedir-root="../minuteTemplate/template">
 		</targets>
 	</configuration>
 </generator-config>
