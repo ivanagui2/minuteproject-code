@@ -1,4 +1,5 @@
 #exposeVariableEntitySpecific()
+#putJPA2TemplateDefinition()
 #exposeEnvironmentParams()
 #exposeOXDomainSpecific()
 #putImportParamsUML()
@@ -219,7 +220,7 @@ public class ${className} {
 	@ReadOnly
 #end
 #end
-    private $columnType $columnVar;
+    private $columnType $columnVar; // $useTemporal && $isTimeColumn
 #end
 #updatedAreaEnd()
 

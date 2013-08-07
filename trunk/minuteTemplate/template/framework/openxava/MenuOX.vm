@@ -99,6 +99,7 @@
 		<!-- $table.name -->
 #if(!$table.actions.isEmpty())
 #exposeVariableEntitySpecific()
+#exposeOXEntitySpecific()
         <li><a href="$url" #if($displayUtils.hasAlt($table)) alt="$displayUtils.getAlt($table)"#end>$tableLabel</a></li>
 #end
 #end
