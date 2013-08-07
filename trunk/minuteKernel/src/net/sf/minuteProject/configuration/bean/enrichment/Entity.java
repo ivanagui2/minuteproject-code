@@ -22,6 +22,7 @@ import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
+import org.apache.ddlutils.alteration.ColumnOrderChange;
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.ForeignKey;
 import org.apache.ddlutils.model.Reference;
@@ -195,7 +196,7 @@ public class Entity extends AbstractConfiguration {
 	}
 
 	public Table getTable (Database database) {
-		Table table = (mainEntity!=null)?getFromMainEntity(database.findTable(mainEntity,false)):new TableDDLUtils(getTable(this, database));
+		Table table = (mainEntity!=null)?getFromMainEntity(database.findTable(mainEntity,false), database):new TableDDLUtils(getTable(this, database));
 //		Table table = new TableDDLUtils(getTable(this, database));
 		for (Action action : this.getActions()) {
 			action.setParent(table);
@@ -216,10 +217,9 @@ public class Entity extends AbstractConfiguration {
 				column.setHidden(field.isHidden());
 				column.setEditable(getEditable (field));
 				column.setSearchable(getSearchable (field));
-				//column.setStereotype(field.getStereotype());//todo
+				column.setStereotype(field.getStereotype());//todo
 			}
 		}
-		
 	}
 
 	private boolean getEditable(Field field) {
@@ -241,31 +241,93 @@ public class Entity extends AbstractConfiguration {
 		return isSearchable;
 	}
 
-	private Table getFromMainEntity(Table foundTable) {
+	private Table getFromMainEntity(Table foundTable, Database database) {
+		List<Field> excludedFields = new ArrayList<Field>();
 		org.apache.ddlutils.model.Table t = new org.apache.ddlutils.model.Table();
 		t.setName(getName());
 		t.setType(foundTable.getType());
 		t.setDescription(foundTable.getDescription());
+		//add relationships
+		foundTable.setDatabase(database);
+		for (net.sf.minuteProject.configuration.bean.model.data.Reference reference : foundTable.getParents()) {
+			//set reference in entity.field to reuse the construction mechanism field.ref towards table.ref
+//			Field foundField = getField (reference);
+			String localColumnName = reference.getLocalColumnName();
+			Field foundField=null;
+			for (Field field : fields) {
+				if (StringUtils.equalsIgnoreCase(localColumnName, field.getName())) {
+					foundField = field;
+					excludedFields.add(foundField);
+					break;
+				}
+			}
+			if (foundField!=null) {
+				foundField.setLinkToTargetEntity(reference.getForeignTableName());
+				foundField.setLinkToTargetField(reference.getForeignColumnName());
+			}
+		}
+		initRelationship(this, database, t);
+		//
 		for (net.sf.minuteProject.configuration.bean.model.data.Column column : foundTable.getColumns()) {
 			// exclude or include according to options
-			Field field = getField(column);
-			Column c = new Column();
-			c.setName(column.getName());
-			c.setType(column.getType());
-			c.setScale(column.getScale());
-			c.setDefaultValue((field!=null)?field.getDefaultValue():column.getDefaultValue());
-			c.setSize(column.getSize());
-			c.setTypeCode(column.getTypeCode());
-			c.setRequired(column.isRequired());
-			c.setPrimaryKey(column.isPrimaryKey());
-			t.addColumn(c);
+			Field field = getField(column, excludedFields);
+			if (field!=null) {
+				Column c = new Column();
+				c.setName(column.getName());
+				c.setType(column.getType());
+				c.setScale(column.getScale());
+				c.setDefaultValue((field!=null)?field.getDefaultValue():column.getDefaultValue());
+				c.setSize(column.getSize());
+				c.setTypeCode(column.getTypeCode());
+				c.setRequired(column.isRequired());
+				c.setPrimaryKey(column.isPrimaryKey());
+				t.addColumn(c);
+				excludedFields.add(field);
+			}
 		}
+		//add other field
+		for (Field field: fields) {
+			if (!excludedFields.contains(field))
+				t.addColumn(getColumn(field));
+		}
+		
 		Table table = new TableDDLUtils(t);
 		table.setAlias(getName());
 		table.setName(foundTable.getName());
+		//setTableSpecifics(foundTable, table);
+		
 		return table;
 	}
+	
+	private void setTableSpecifics(Table input, Table output) {
+		for (Field field : fields) {
+			net.sf.minuteProject.configuration.bean.model.data.Column columnInput = ColumnUtils.getColumn(input, field.getName());
+			net.sf.minuteProject.configuration.bean.model.data.Column columnOutput = ColumnUtils.getColumn(output, field.getName());
+			if (columnInput!=null && columnOutput!=null) {
+				columnOutput.setStereotype(getStereotype(field, columnInput));//todo
+			}
+		}
+	}
+	private Stereotype getStereotype(
+			Field field,
+			net.sf.minuteProject.configuration.bean.model.data.Column columnInput) {
+		if (field.getStereotype()!=null)
+			return field.getStereotype();
+		return columnInput.getStereotype();
+	}
 
+	private Field getField(net.sf.minuteProject.configuration.bean.model.data.Column column, List<Field> excludedFields) {
+		Field f = getField(column);
+		if (f!=null && !excludedFields.contains(f)) {
+//			for (Field fi : excludedFields){
+//				if (fi.getName().equals(f.getName()))
+//					return null;
+//			}
+			return f;
+		}
+			
+		return null;
+	}
 	private Field getField(net.sf.minuteProject.configuration.bean.model.data.Column column) {
 		for (Field field : fields) {
 			if (StringUtils.equalsIgnoreCase(field.getName(),column.getName()))
@@ -278,20 +340,31 @@ public class Entity extends AbstractConfiguration {
 		org.apache.ddlutils.model.Table table = getTable (getMainEntity());//new org.apache.ddlutils.model.Table();
 		table.setType(Table.TABLE);
 		table.setName(entity.getName());
-		for (Field field : entity.getFields()) {
-			table.addColumn(getColumn(field));
-		}	
-		for (Field field : entity.getFields()) {
-			if (isForeignKey(field))
-				table.addForeignKey(getForeignKey(field, database));
-		}			
+		initFieldAndRelationship(entity, database, table);			
 		return table;
 	}
 
-	private org.apache.ddlutils.model.Table getTable(String mainEntity) {
-		if (mainEntity!=null) {
-			
+	private void initFieldAndRelationship(Entity entity, Database database,
+			org.apache.ddlutils.model.Table table) {
+		initField(entity, table);	
+		initRelationship(entity, database, table);
+	}
+
+	private void initField(Entity entity, org.apache.ddlutils.model.Table table) {
+		for (Field field : entity.getFields()) {
+			table.addColumn(getColumn(field));
 		}
+	}
+
+	private void initRelationship(Entity entity, Database database,
+			org.apache.ddlutils.model.Table table) {
+		for (Field field : entity.getFields()) {
+			if (isForeignKey(field))
+				table.addForeignKey(getForeignKey(field, database));
+		}
+	}
+
+	private org.apache.ddlutils.model.Table getTable(String mainEntity) {
 		return new org.apache.ddlutils.model.Table();
 	}
 

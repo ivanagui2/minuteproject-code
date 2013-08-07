@@ -219,6 +219,7 @@ public class BusinessModel {
 	private void complementTransferEntity(Entity entity, Database database) {
 		net.sf.minuteProject.configuration.bean.model.data.Table table = TableUtils.getTransferEntity(database, entity.getName());
 		if (table!=null){
+			complementDataModelWithTableEnrichment(table, entity);
 			complementEntityWithProperties(table, entity);
 		}		
 	}

@@ -194,7 +194,7 @@ public class ConvertUtils {
 		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf("+value+")";	
 		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
 		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf("+value+")";
-		if (JAVA_STRING_TYPE.equals(type)) return "new String("+value+")";				
+		if (JAVA_STRING_TYPE.equals(type)) return "new String(\""+value+"\")";				
 		//if (JAVA_DATE_TYPE.equals(type)) return "new Date("+value+")";
 		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
 		//if (JAVA_CLOB_TYPE.equals(type)) return "null";

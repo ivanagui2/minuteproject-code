@@ -174,9 +174,10 @@ public class BusinessPackage extends BusinessPackageAdapter {
 
 	public List<Table> getEntities() {
 		if (entities==null) {
-			entities = new ArrayList<Table>();
-			entities.addAll(getTables());
-			entities.addAll(getViews());
+			entities = refreshEntities();
+//			new ArrayList<Table>();
+//			entities.addAll(getTables());
+//			entities.addAll(getViews());
 		}
 		return entities;
 	}
@@ -185,6 +186,7 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		List <Table> entities = new ArrayList<Table>();
 		entities.addAll(getTables());
 		entities.addAll(getViews());
+		entities.addAll(getTransferEntities());
 		return entities;
 	}
 	
