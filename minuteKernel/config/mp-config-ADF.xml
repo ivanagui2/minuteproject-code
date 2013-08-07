@@ -93,11 +93,11 @@
                 </queries>
             </statement-model>
         </model>		
-		<targets outputdir-root="c:/dev/output/ADF/MP4-petshop" >
+		<targets outputdir-root="../../dev/output/ADF/MP4-petshop" >
 
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
-			   fileName="mp-template-config-ADF-Faces.xml" 
+			   fileName="catalog/mp-template-config-ADF-Faces.xml" 
 			   outputdir-root="ADF-FACES"
 			   templatedir-root="../../minuteTemplate/template/framework/adf"
 			   templatedir-ref="../../minuteTemplate/template/framework/i18n">  
