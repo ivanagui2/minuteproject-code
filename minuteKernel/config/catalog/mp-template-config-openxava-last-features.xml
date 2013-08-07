@@ -42,7 +42,7 @@
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
-		</template>			
+		</template>
 
         <!-- SDD beans -->  
         <template name="SDDInputBean" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
