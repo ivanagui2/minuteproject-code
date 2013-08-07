@@ -408,7 +408,7 @@ public class Entity extends AbstractConfiguration {
 		column.setName(field.getName());
 		column.setType(ConvertUtils.getDBFullTypeFromUMLType(field.getType()));
 		column.setRequired(field.isMandatory());
-		column.setSize(field.getLength());
+		column.setSize((field.getLength()==null)?"255":field.getLength());
 		column.setPrimaryKey(field.isId());
 		//column.setHidden(field.isHidden());
 		return column;

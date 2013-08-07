@@ -130,6 +130,7 @@
 					<!-- transient objects -->
 					<entity name="create release" is-transfer-entity="true" is-searchable="false"
 						main-entity="bus_release">
+						<field name="id"></field>
 						<field name="name"></field>
 						<field name="notes"></field>
 						<field name="application_id"></field>
