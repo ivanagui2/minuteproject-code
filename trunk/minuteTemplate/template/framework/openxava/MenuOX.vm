@@ -93,7 +93,8 @@
 #end
 #end
 <!-- transfer entities -->
-    <li class="topitem"><a href="#" onclick="return false;">${packageLabel}</a>
+#if($model.businessModel.businessPackage.hasTransferEntities())
+    <li class="topitem"><a href="#" onclick="return false;">Actions</a>
 	  <ul class="submenu">
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
 		<!-- $table.name -->
@@ -105,7 +106,7 @@
 #end
 	  </ul>
 	</li>
-	
+#end
   </ul>
   </div>
 
