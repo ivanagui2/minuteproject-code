@@ -236,6 +236,10 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		return packageTransferEntities;
 	}
 
+	public boolean hasTransferEntities(){
+		return (getTransferEntities().size()>0);
+	}
+	
 	public BusinessModel getBusinessModel() {
 		return businessModel;
 	}
