@@ -23,6 +23,44 @@ $!updatedAreaSnippet
         Messages errors =
             MapFacade.validate("${domainClassName}", getView().getValues());
         if (errors.contains()) throw new ValidationException(errors);
+#if ($defaultImplementationCRUD)		
+        EntityManager em = XPersistence.getManager();
+        try {
+	        ${domainClassName} e = new ${domainClassName}();
+#set($mask=$formatUtils.addDoubleQuotes("$primaryKeyVariable"))
+#set($entityMask=$columnUtils.getMask($primaryKeyFirstColumn, "getView().getValueString($mask)"))
+			e.set${primaryKeyJavaNameClass}($entityMask);
+			e = XPersistence.getManager().find(${domainClassName}.class, e.get${primaryKeyJavaNameClass}());
+            //check display condition
+#foreach ($displayConditions in ${action.displayConditions})
+		    if (e.get${conditionColumnClassName}().equals(${conditionColumnValue}))
+				errors.add ("$displayConditionError");
+#end
+			// set init condition	
+			// copy field from form
+#foreach ($field in ${entity.fields})
+		    e.set${assignColumnClassName}(${assignColumnValue});
+#end
+			// assign field
+#foreach ($fieldToAssign in ${action.fields})
+		    e.set${assignColumnClassName}(${assignColumnValue});
+#end
+#*			
+			vr.setStatus("REJECTED");
+			vr.setInform(getView().getValueString("id"));
+			XPersistence.getManager().persist(vr); 
+			System.out.println(">>> vr.id "+vr.getId());
+			*#
+			getView().reset();
+			resetDescriptionsCache();
+        } catch (Exception e) {
+            errors = new Messages();
+            errors.add(e.getMessage());
+            throw new ValidationException(errors);
+        }
+#else
+		addWarning ("Please implement me!)");
+#end
 /*        EntityManager em = XPersistence.getManager();
         try {
             query.getResultList();
