@@ -47,7 +47,7 @@ $!updatedAreaSnippet
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-#if(!$column.isHidden())
+#if(!$column.isHidden())## && !$column.isTransient())
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
 #end
@@ -182,10 +182,14 @@ public class ${className} {
 #else
 #putColumnParams()
 #columnJavaNaming()
+#if ($column.isTransient())
+	@Transient
+#else
 #if ($isView)
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
+#end
 #end
 #if ($isMandatory)
     @Required
@@ -220,7 +224,7 @@ public class ${className} {
 	@ReadOnly
 #end
 #end
-    private $columnType $columnVar; // $useTemporal && $isTimeColumn
+    private $columnType $columnVar;
 #end
 #updatedAreaEnd()
 
