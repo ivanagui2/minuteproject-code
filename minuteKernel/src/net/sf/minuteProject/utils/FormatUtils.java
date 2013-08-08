@@ -378,5 +378,9 @@ public class FormatUtils {
 			return StringUtils.removeStart(input, start);
 		return input;
 	}
+	
+	public static String addDoubleQuotes (String input) {
+		return "\""+input+"\"";
+	}
 
 }

@@ -165,7 +165,6 @@
 						<field name="time_to_start"></field>
 						<field name="time_to_end"></field>
 						<field name="validation_reason" is-editable="true"></field>
-
 						<!-- other fields -->
 						<field name="inform" type="string" mandatory="true"
 							is-editable="true">
@@ -173,9 +172,15 @@
 						</field>
 						<actions>
 							<action name="validate" default-implementation="update">
+								<display-condition name="statusActive">
+									<field name="status" value="ACTIVE"/>
+								</display-condition>
 								<field name="status" value="DONE"></field>
 							</action>
 							<action name="reject" default-implementation="update">
+								<display-condition name="statusActive">
+									<field name="status" value="ACTIVE"/>
+								</display-condition>
 								<field name="status" value="REJECT"></field>
 							</action>						
 						</actions>
@@ -185,8 +190,8 @@
 			<!-- <statement-model> <queries> <query> </query> </queries> </statement-model> -->
 		</model>
 		<targets catalog-entry="OpenXava" 
-			templatedir-root="../minuteTemplate/template" >
-			<!-- outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry"> -->
+			templatedir-root="../minuteTemplate/template" 
+			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
 		</targets>
 	</configuration>
 </generator-config>

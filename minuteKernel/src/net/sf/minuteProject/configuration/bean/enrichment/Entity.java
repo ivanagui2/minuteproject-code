@@ -196,7 +196,7 @@ public class Entity extends AbstractConfiguration {
 	}
 
 	public Table getTable (Database database) {
-		Table table = (mainEntity!=null)?getFromMainEntity(database.findTable(mainEntity,false), database):new TableDDLUtils(getTable(this, database));
+		Table table = (mainEntity!=null)?getFromMainEntity(database.findTable(mainEntity,false), database):getTransientEntity(getTable(this, database));//new TableDDLUtils(getTable(this, database));
 //		Table table = new TableDDLUtils(getTable(this, database));
 		for (Action action : this.getActions()) {
 			action.setParent(table);
@@ -210,6 +210,13 @@ public class Entity extends AbstractConfiguration {
 		return table;
 	}
 	
+	private Table getTransientEntity(org.apache.ddlutils.model.Table t) {
+		Table table = new TableDDLUtils(t);
+		for (net.sf.minuteProject.configuration.bean.model.data.Column column : table.getColumns())
+			column.setTransient(true);
+		return table;
+	}
+
 	private void setFieldSpecifics(Table table) {
 		for (Field field : fields) {
 			net.sf.minuteProject.configuration.bean.model.data.Column column = ColumnUtils.getColumn(table, field.getName());
@@ -241,8 +248,7 @@ public class Entity extends AbstractConfiguration {
 		return isSearchable;
 	}
 
-	private Table getFromMainEntity(Table foundTable, Database database) {
-		List<Field> excludedFields = new ArrayList<Field>();
+	private Table getFromMainEntity(Table foundTable, Database database) { List<Field> excludedFields = new ArrayList<Field>();
 		org.apache.ddlutils.model.Table t = new org.apache.ddlutils.model.Table();
 		t.setName(getName());
 		t.setType(foundTable.getType());
@@ -285,7 +291,7 @@ public class Entity extends AbstractConfiguration {
 				excludedFields.add(field);
 			}
 		}
-		//add other field
+		//add other field 
 		for (Field field: fields) {
 			if (!excludedFields.contains(field))
 				t.addColumn(getColumn(field));
@@ -295,26 +301,34 @@ public class Entity extends AbstractConfiguration {
 		table.setAlias(getName());
 		table.setName(foundTable.getName());
 		//setTableSpecifics(foundTable, table);
-		
+		//set transient fields
+		for (Field field: fields) {
+			if (!excludedFields.contains(field)) {
+				net.sf.minuteProject.configuration.bean.model.data.Column c = ColumnUtils.getColumn(table, field.getName());
+				if (c!=null)
+					c.setTransient(true);
+			}
+				
+		}		
 		return table;
 	}
 	
-	private void setTableSpecifics(Table input, Table output) {
-		for (Field field : fields) {
-			net.sf.minuteProject.configuration.bean.model.data.Column columnInput = ColumnUtils.getColumn(input, field.getName());
-			net.sf.minuteProject.configuration.bean.model.data.Column columnOutput = ColumnUtils.getColumn(output, field.getName());
-			if (columnInput!=null && columnOutput!=null) {
-				columnOutput.setStereotype(getStereotype(field, columnInput));//todo
-			}
-		}
-	}
-	private Stereotype getStereotype(
-			Field field,
-			net.sf.minuteProject.configuration.bean.model.data.Column columnInput) {
-		if (field.getStereotype()!=null)
-			return field.getStereotype();
-		return columnInput.getStereotype();
-	}
+//	private void setTableSpecifics(Table input, Table output) {
+//		for (Field field : fields) {
+//			net.sf.minuteProject.configuration.bean.model.data.Column columnInput = ColumnUtils.getColumn(input, field.getName());
+//			net.sf.minuteProject.configuration.bean.model.data.Column columnOutput = ColumnUtils.getColumn(output, field.getName());
+//			if (columnInput!=null && columnOutput!=null) {
+//				columnOutput.setStereotype(getStereotype(field, columnInput));//todo
+//			}
+//		}
+//	}
+//	private Stereotype getStereotype(
+//			Field field,
+//			net.sf.minuteProject.configuration.bean.model.data.Column columnInput) {
+//		if (field.getStereotype()!=null)
+//			return field.getStereotype();
+//		return columnInput.getStereotype();
+//	}
 
 	private Field getField(net.sf.minuteProject.configuration.bean.model.data.Column column, List<Field> excludedFields) {
 		Field f = getField(column);

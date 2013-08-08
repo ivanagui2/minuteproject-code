@@ -48,18 +48,6 @@ public interface Column extends BaseColumn
     public boolean isVersion();
     
     public void setVersion(boolean isVersion);
-    
-    public Boolean isHidden();
-    
-    public void setHidden(Boolean isHidden);
-    
-	public void setSearchable(Boolean isSearchable);
-	
-	public Boolean isSearchable();
-	 
-	public void setEditable(Boolean isSearchable);
-	 
-	public Boolean isEditable();
 	 
 	public List<Trigger> getTriggers();
 	 
