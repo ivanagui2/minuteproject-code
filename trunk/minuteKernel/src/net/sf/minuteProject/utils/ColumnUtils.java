@@ -22,7 +22,11 @@ public class ColumnUtils {
 	
 	public static String getDefaultValue (Column column) {
 //		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
-		return ConvertUtils.getJavaTypeMask(column, column.getDefaultValue());
+		return getMask(column, column.getDefaultValue());
+	}
+	
+	public static String getMask (Column column, String value) {
+		return ConvertUtils.getJavaTypeMask(column, value);
 	}
 	
 	public static List<String> getColumnNames(Table table) {

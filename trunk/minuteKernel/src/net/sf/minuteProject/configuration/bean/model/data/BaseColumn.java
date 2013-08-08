@@ -195,11 +195,24 @@ public interface BaseColumn extends GeneratorBean{
     public int minLength();
     
     public void setMinLength(int minLength);
-//    public void setDefault(String defaultValue);
-//    
-//    public void getDefault ();
 
     public String getTypeAlias();
     
     public void setTypeAlias(String typeAlias);
+    
+    public Boolean isHidden();
+    
+    public void setHidden(Boolean isHidden);
+    
+	public void setSearchable(Boolean isSearchable);
+	
+	public Boolean isSearchable();
+	 
+	public void setEditable(Boolean isSearchable);
+	
+	public Boolean isEditable();
+	
+	public void setTransient(Boolean isTransient);
+	 
+	public Boolean isTransient();
 }

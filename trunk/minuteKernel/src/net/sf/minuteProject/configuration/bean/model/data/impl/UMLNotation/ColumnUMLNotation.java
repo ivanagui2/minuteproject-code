@@ -21,7 +21,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setHidden(column.isHidden());
 		setSearchable(column.isSearchable());
 		setEditable(column.isEditable());
-//		setEditable(column.isEditable());
+		setTransient(column.isTransient());
 	}
 
 }
