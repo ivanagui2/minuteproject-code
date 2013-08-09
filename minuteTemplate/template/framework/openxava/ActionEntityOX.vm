@@ -1,6 +1,10 @@
 #exposeOXVariableActionSpecific()
-
+#set ($defaultImplementationCRUD=$action.hasDefaultImplementation())
 package $packageName;
+
+import javax.persistence.*;
+
+import $domainImport; 
 
 import org.openxava.jpa.*;
 import org.openxava.model.*;
@@ -38,8 +42,9 @@ $!updatedAreaSnippet
 #end
 			// set init condition	
 			// copy field from form
-#foreach ($field in ${entity.fields})
-		    e.set${assignColumnClassName}(${assignColumnValue});
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+		    e.set${columnClass}(${assignColumnValue});
 #end
 			// assign field
 #foreach ($fieldToAssign in ${action.fields})

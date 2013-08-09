@@ -171,6 +171,8 @@ properties=""
 #set($table=$action.parent)
 #end
 #exposeVariableEntitySpecific()
+#set ($templateOXTransferDomainObject="TransferDomainObjectUML")
+#set ($domainImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateOXTransferDomainObject))
 #if($isAction)
 #exposeVariableActionSpecific()
 #end
