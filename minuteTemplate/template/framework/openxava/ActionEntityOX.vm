@@ -36,7 +36,7 @@ $!updatedAreaSnippet
 			e.set${primaryKeyJavaNameClass}($entityMask);
 			e = XPersistence.getManager().find(${domainClassName}.class, e.get${primaryKeyJavaNameClass}());
             //check display condition
-#foreach ($displayConditions in ${action.displayConditions})
+#foreach ($field in ${action.actionCondition.fields})
 		    if (e.get${conditionColumnClassName}().equals(${conditionColumnValue}))
 				errors.add ("$displayConditionError");
 #end
