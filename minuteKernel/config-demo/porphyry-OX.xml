@@ -172,15 +172,15 @@
 						</field>
 						<actions>
 							<action name="validate" default-implementation="update">
-								<display-condition name="statusActive">
+								<action-condition name="statusActive">
 									<field name="status" value="ACTIVE"/>
-								</display-condition>
+								</action-condition>
 								<field name="status" value="DONE"></field>
 							</action>
 							<action name="reject" default-implementation="update">
-								<display-condition name="statusActive">
+								<action-condition name="statusActive">
 									<field name="status" value="ACTIVE"/>
-								</display-condition>
+								</action-condition>
 								<field name="status" value="REJECT"></field>
 							</action>						
 						</actions>
