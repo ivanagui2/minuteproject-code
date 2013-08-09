@@ -1,5 +1,7 @@
 #exposeOXVariableActionSpecific()
 #set ($defaultImplementationCRUD=$action.hasDefaultImplementation())
+#set ($defaultImplementationIsInsert=$action.hasDefaultImplementation("insert"))
+#set ($defaultImplementationIsUpdate=$action.hasDefaultImplementation("update"))
 package $packageName;
 
 import javax.persistence.*;
@@ -31,31 +33,36 @@ $!updatedAreaSnippet
         EntityManager em = XPersistence.getManager();
         try {
 	        ${domainClassName} e = new ${domainClassName}();
+#if($defaultImplementationIsUpdate)
 #set($mask=$formatUtils.addDoubleQuotes("$primaryKeyVariable"))
 #set($entityMask=$columnUtils.getMask($primaryKeyFirstColumn, "getView().getValueString($mask)"))
 			e.set${primaryKeyJavaNameClass}($entityMask);
 			e = XPersistence.getManager().find(${domainClassName}.class, e.get${primaryKeyJavaNameClass}());
             //check display condition
 #foreach ($field in ${action.actionCondition.fields})
-		    if (e.get${conditionColumnClassName}().equals(${conditionColumnValue}))
-				errors.add ("$displayConditionError");
+#set($column=$columnUtils.getColumn($table, $field.name))
+#putColumnParamNaming()
+#set($conditionColumnValue=$action.actionCondition.getConditionColumnValue($column, $field))
+		    if (${conditionColumnValue}.equals(e.get${columnClass}()))
+				errors.add ("Condition ${action.actionCondition.name} not met!");
+#end
 #end
 			// set init condition	
 			// copy field from form
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-		    e.set${columnClass}(${assignColumnValue});
+		    e.set${columnClass}(getView().getValueString("${columnVar}"));
 #end
 			// assign field
-#foreach ($fieldToAssign in ${action.fields})
-		    e.set${assignColumnClassName}(${assignColumnValue});
+#foreach ($field in ${action.fields})
+#set($column=$columnUtils.getColumn($table, $field.name))
+#putColumnParamNaming()
+#set($columnValue=$columnUtils.getMask($column, $field.value))
+		    e.set${columnClass}(${columnValue});
 #end
-#*			
-			vr.setStatus("REJECTED");
-			vr.setInform(getView().getValueString("id"));
-			XPersistence.getManager().persist(vr); 
-			System.out.println(">>> vr.id "+vr.getId());
-			*#
+#if($defaultImplementationIsUpdate || $defaultImplementationIsInsert)
+			XPersistence.getManager().persist(e); 
+#end
 			getView().reset();
 			resetDescriptionsCache();
         } catch (Exception e) {
