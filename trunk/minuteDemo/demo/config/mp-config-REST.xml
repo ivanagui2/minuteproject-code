@@ -62,45 +62,45 @@
 				</enrichment>
 			</business-model>
 		</model>
-		<targets>
-
-			<target refname="JPA2" name="JPA2" fileName="mp-template-config-JPA2.xml"
+		<targets catalog-entry="REST-JEE">
+<!-- 
+			<target refname="JPA2" name="JPA2" fileName="catalog/mp-template-config-JPA2.xml"
 				outputdir-root="../output/REST-JEE/petshop/JPA2" templatedir-root="../../template/framework/jpa">
 				<property name="add-querydsl" value="2.1.2"></property>
 				<property name="add-jpa2-implementation" value="eclipselink"></property>
 				<property name="add-xmlbinding" value="true"></property>
-				<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+				<property name="add-xml-format" value="lowercase-hyphen"></property>		< - - java-variable, uppercase-underscore, lowercase-hyphen, java-class - - >
 			</target>
 
-			<target name="REST" fileName="mp-template-config-REST.xml"
+			<target name="REST" fileName="catalog/mp-template-config-REST.xml"
 				outputdir-root="../output/REST-JEE/petshop/REST" templatedir-root="../../template/framework/rest"
 				templatedir-ref="../../template/framework/ejb">
 				<property name="add-rest-implementation-jersey-version"
 					value="1.9-ea03"></property>
 			</target>
 
-			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
+			<target refname="LIB" fileName="catalog/mp-template-config-bsla-LIB-features.xml"
 				templatedir-root="../../template/framework/bsla">
 			</target>
-			<target refname="CACHE-LIB" fileName="mp-template-config-CACHE-LIB.xml"
+			<target refname="CACHE-LIB" fileName="catalog/mp-template-config-CACHE-LIB.xml"
 				templatedir-root="../../template/framework/cache">
 			</target>
-			<target refname="COMMON-LIB" fileName="mp-template-config-COMMON-LIB.xml"
+			<target refname="COMMON-LIB" fileName="catalog/mp-template-config-COMMON-LIB.xml"
 				templatedir-root="../../template/framework/common">
 			</target>
-			<target refname="SPRING-LIB" fileName="mp-template-config-SPRING-LIB.xml"
+			<target refname="SPRING-LIB" fileName="catalog/mp-template-config-SPRING-LIB.xml"
 				templatedir-root="../../template/framework/spring">
 			</target>
 
 			<target refname="MavenMaster" name="maven"
-				fileName="mp-template-config-maven.xml" outputdir-root="../output/REST-JEE/petshop"
+				fileName="catalog/mp-template-config-maven.xml" outputdir-root="../output/REST-JEE/petshop"
 				templatedir-root="../../template/framework/maven">
 			</target>
 
-			<target refname="Documentation" fileName="mp-template-config-documentation.xml"
+			<target refname="Documentation" fileName="catalog/mp-template-config-documentation.xml"
 				outputdir-root="../output/REST-JEE/petshop" templatedir-root="../../template/template">
 			</target>
-
+ -->
 		</targets>
 	</configuration>
 </generator-config>

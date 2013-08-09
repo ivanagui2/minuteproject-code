@@ -28,7 +28,7 @@
 			</business-model>
 		</model>
 		<target refname="BackendOnBsla" name="default"  
-			fileName="mp-template-config-ibatis.xml" 
+			fileName="catalog/mp-template-config-ibatis.xml" 
 			outputdir-root="../output/StandardSpringIbatis/src-generated"
 			templatedir-root="../../template/framework/bsla">
 		</target> 	

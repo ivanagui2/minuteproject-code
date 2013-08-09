@@ -35,17 +35,17 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
-			<target refname="Roo" 
+		<targets catalog-entry="Roo">
+			<!--  <target refname="Roo" 
 			   name="Roo" 
-			   fileName="mp-template-config-roo-last-features.xml" 
+			   fileName="catalog/mp-template-config-roo-last-features.xml" 
 			   outputdir-root="../output/roo/petshopRoo"
 			   templatedir-root="../../template/framework/roo">
 			</target> 
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
-			</target> 				
+			</target>--> 				
 		</targets>
 	</configuration>
 </generator-config>

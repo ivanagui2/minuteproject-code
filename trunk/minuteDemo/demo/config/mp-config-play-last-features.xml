@@ -41,7 +41,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
+		<targets catalog-entry="Play">
+		<!-- 
 			<target
 			   name="Play" 
 			   fileName="mp-template-config-play-last-features.xml" 
@@ -59,7 +60,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="JQUERY-LIB" 
 			   fileName="mp-template-config-jquery-features.xml" 
 			   templatedir-root="../../template/framework/jquery">
-			</target>							
+			</target>	
+			 -->						
 		</targets>
 	</configuration>
 </generator-config>

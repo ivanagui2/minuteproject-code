@@ -66,7 +66,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 		<targets>
 			<target refname="JPA2" 
 			   name="JPA2" 
-			   fileName="mp-template-config-JPA2.xml" 
+			   fileName="catalog/mp-template-config-JPA2.xml" 
 			   outputdir-root="../../dev/springdata/petshop/JPA2"
 			   templatedir-root="../../minuteTemplate/template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>               
@@ -77,37 +77,37 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             
 			<target refname="springdata" 
 			   name="SpringService" 
-			   fileName="mp-template-config-SpringData.xml" 
+			   fileName="catalog/mp-template-config-SpringData.xml" 
 			   outputdir-root="../../dev/springdata/petshop/springdata"
 			   templatedir-root="../../minuteTemplate/template/framework/spring">
 			</target> 
 
 			<target refname="MavenMaster" 
 			   name="maven" 
-			   fileName="mp-template-config-maven.xml" 
+			   fileName="catalog/mp-template-config-maven.xml" 
 			   outputdir-root="../../dev/springdata/petshop"
 			   templatedir-root="../../minuteTemplate/template/framework/maven">
 			</target> 
 									
 			<target refname="Documentation" 
-			   fileName="mp-template-config-documentation.xml" 
+			   fileName="catalog/mp-template-config-documentation.xml" 
 			   outputdir-root="../../dev/JSF/petshop"
 			   templatedir-root="../../minuteTemplate/template/template">
 			</target>
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/bsla">
 			</target>
 			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   fileName="catalog/mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/cache">
 			</target>
 			<target refname="SPRING-LIB" 
-			   fileName="mp-template-config-SPRING-LIB.xml" 
+			   fileName="catalog/mp-template-config-SPRING-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/spring">
 			</target>
 			<target refname="COMMON-LIB" 
-			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   fileName="catalog/mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/common">
 			</target>
 							

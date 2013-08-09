@@ -1,5 +1,7 @@
 <!DOCTYPE root>
-<generator-config>
+<generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:noNamespaceSchemaLocation="mp-config.xsd">
 	<configuration>
 	    <!-- adapt your model here -->
 		<model name="petshop" version="1.0" package-root="sf.net.mp.demo">
@@ -105,100 +107,9 @@
 				</enrichment>					
 			</business-model>
 		</model>
-		
-		<targets>
-		    <!-- uncomment this to have a mvn spring hibernate backend
-			<target refname="BackendOnBsla" 
-			   name="default" 
-			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-			   outputdir-root="../output/myworkHibernateLastFeature"
-			   templatedir-root="../../template/framework/bsla">
-			</target> 
-			-->
+		<!-- change your catalog entry with one of the track -->
+		<targets catalog-entry="xxx"/>
 
-			<!-- uncomment this to have a mvn spring hibernate backend + a vaadin web front end
-			<target refname="BackendOnBsla" 
-			   name="bsla-hibernate" 
-			   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
-			   outputdir-root="../output/vaadin/myworkHibernate"
-			   templatedir-root="../../template/framework/bsla">
-			</target> 	
-			<target refname="MpVaadin" 
-			   name="vaadin" 
-			   fileName="mp-template-config-vaadin-last-features.xml" 
-			   outputdir-root="../output/vaadin/myworkVaadin"
-			   templatedir-root="../../template/framework/vaadin">
-			</target> 				
-			 -->		
-			 
-			 <!-- uncomment this to have a mvn spring JPA backend
-			<target refname="BackendOnBsla" 
-			   name="default" 
-			   fileName="mp-template-config-bsla-JPA-last-features.xml" 
-			   outputdir-root="../output/myworkJpaLastFeature"
-			   templatedir-root="../../template/framework/bsla">
-			</target> 			 
-			  -->		
-			  
-			<!-- uncomment this to have a fitnesse wiki + fixture 
-			<target refname="FitNesse" 
-			   name="default" 
-			   fileName="mp-template-config-fitnesse.xml" 
-			   outputdir-root="../output/myworkFitnesse"
-			   templatedir-root="../../template/framework/bsla">
-			</target> 			
-			 -->		
-			 
-			 <!-- uncomment this to have a spring hibernate backend
-			<target refname="BackendOnBsla" name="default" 
-	      		fileName="mp-template-config-hibernate.xml"
-	      		outputdir-root="../output/myworkHibernate/src-generated"
-	      		templatedir-root="../../template/framework/bsla">
-			</target> 			 
-			  -->
-			  
-			 <!-- uncomment this to have a spring iBatis backend
-			<target refname="BackendOnBsla" name="default"  
-				fileName="mp-template-config-ibatis.xml" 
-				outputdir-root="../output/myworkIbatis/src-generated"
-				templatedir-root="../../template/framework/bsla">
-			</target> 			 
-			  -->		
-			  
-			 <!-- uncomment this to have a spring JPA backend
-			<target refname="BackendOnBsla" name="default" 
-				fileName="mp-template-config-jpa.xml" 
-				outputdir-root="../output/myworkJpa/src-generated"
-				templatedir-root="../../template/framework/bsla">
-			</target> 			 
-			  -->	
-			  
-			  <!-- uncomment this to have an OpenXava web application
-				<target refname="LIB" 
-				   fileName="mp-template-config-bsla-LIB-features.xml" 
-				   templatedir-root="../../template/framework/bsla">
-				</target> 	
-				<target refname="OpenXava" 
-				   name="OpenXava" 
-				   fileName="mp-template-config-openxava-last-features.xml" 
-				   outputdir-root="../output/openxava/petshopOpenXava"
-				   templatedir-root="../../template/framework/openxava">
-				</target>			  
-			   -->	
-			   
-			 <!-- uncomment this to have a Roo backend
-				<target refname="Roo" 
-				   name="Roo" 
-				   fileName="mp-template-config-roo-last-features.xml" 
-				   outputdir-root="../output/roo/petshopRoo"
-				   templatedir-root="../../template/framework/roo">
-				</target> 
-				<target refname="LIB" 
-				   fileName="mp-template-config-bsla-LIB-features.xml" 
-				   templatedir-root="../../template/framework/bsla">
-				</target> 			 
-			  -->	  	  
-		</targets>
 
 	</configuration>
 </generator-config>

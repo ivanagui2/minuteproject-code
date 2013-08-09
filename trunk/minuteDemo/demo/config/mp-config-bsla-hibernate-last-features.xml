@@ -34,7 +34,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 		</model>
 		<target refname="BackendOnBsla" 
 		   name="default" 
-		   fileName="mp-template-config-bsla-hibernate-last-features.xml" 
+		   fileName="catalog/mp-template-config-bsla-hibernate-last-features.xml" 
 		   outputdir-root="../output/MvnSpringHibernate"
 		   templatedir-root="../../template/framework/bsla">
 		</target> 	

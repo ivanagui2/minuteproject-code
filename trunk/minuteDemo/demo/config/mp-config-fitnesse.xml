@@ -1,5 +1,7 @@
 <!DOCTYPE root>
-<generator-config>
+<generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+	xs:noNamespaceSchemaLocation="mp-config.xsd">
 	<configuration>
 		<model name="petshop" package-root="sf.net.mp.demo">
 			<data-model>
@@ -25,21 +27,23 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<targets>
+		<targets catalog-entry="FitNesse" >
+		<!-- 
 			<target refname="FitNesse" 
 			   name="default" 
-			   fileName="mp-template-config-fitnesse.xml" 
+			   fileName="catalog/mp-template-config-fitnesse.xml" 
 			   outputdir-root="../output/Fitnesse"
 			   templatedir-root="../../template/framework/fitnesse">
 			</target> 
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>
 			<target refname="COMMON_LIB" 
-			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   fileName="catalog/mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../template/framework/common">
 			</target>
+			 -->
 		</targets>		
 				
 	</configuration>
