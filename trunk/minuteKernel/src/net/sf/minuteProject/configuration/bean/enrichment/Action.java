@@ -55,6 +55,10 @@ public class Action extends Rule<Table> {
 		this.actionCondition = actionCondition;
 	}
 
+	public boolean hasDefaultImplementation (String impl) {
+		return net.sf.minuteProject.utils.StringUtils.equalsIgnoreCase(defaultImplementation, impl);
+	}
+	
 	public boolean hasDefaultImplementation () {
 		return CRUDEnum.isInCRUDEnum(defaultImplementation);
 	}

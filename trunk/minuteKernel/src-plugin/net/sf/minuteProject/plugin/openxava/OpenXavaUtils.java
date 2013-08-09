@@ -271,8 +271,6 @@ public class OpenXavaUtils {
 			return "WEBURL";
 		if (s.equals("currency"))
 			return "MONEY";
-		if (s.equals("image"))
-			return "IMAGE";
 		if (s.equals("text-area"))
 			return "TEXT_AREA";
 		if (s.equals("text-html"))
@@ -283,6 +281,8 @@ public class OpenXavaUtils {
 			return "TELEPHONE";
 		if (s.equals("password"))
 			return "PASSWORD";
+		if ("picture".equals(s) || "image".equals(s))
+			return "IMAGE";
 		return null;
 	}
 
