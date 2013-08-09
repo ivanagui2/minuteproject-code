@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 import net.sf.minuteProject.configuration.bean.enumeration.CRUDEnum;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -16,6 +17,7 @@ public class Action extends Rule<Table> {
 
 	private String defaultImplementation;
 	private List<Field> fields;
+	private ActionCondition actionCondition;
 	
 	public String getTechnicalPackage(Template template) {
 		if (getParent()!=null)
@@ -44,6 +46,15 @@ public class Action extends Rule<Table> {
 		getFields().add(field);
 	}
 	
+	
+	public ActionCondition getActionCondition() {
+		return actionCondition;
+	}
+
+	public void setActionCondition(ActionCondition actionCondition) {
+		this.actionCondition = actionCondition;
+	}
+
 	public boolean hasDefaultImplementation () {
 		return CRUDEnum.isInCRUDEnum(defaultImplementation);
 	}

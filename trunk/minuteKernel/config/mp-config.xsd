@@ -471,6 +471,15 @@
 	     <xs:attribute name="default-implementation" type="CRUD-implementation"></xs:attribute>
 	</xs:complexType>
 	
+	<xs:complexType name="action">
+		<xs:complexContent>
+			<xs:extension base="rule">
+				<xs:sequence>
+					<xs:element name="action-condition" type="action-condition"></xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 	<!--  -->
 
 	<xs:simpleType name="CRUD-implementation">
@@ -492,7 +501,7 @@
 	
     <xs:complexType name="actions">
         <xs:sequence>
-            <xs:element name="action" type="rule"
+            <xs:element name="action" type="action"
                 minOccurs="0" maxOccurs="unbounded">
             </xs:element>
         </xs:sequence>
