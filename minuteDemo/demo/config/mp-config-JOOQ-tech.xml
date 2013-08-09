@@ -11,7 +11,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<data-model>
 				<driver name="mysql" version="5.1.16" groupId="mysql"
 					artifactId="mysql-connector-java"></driver>
-				<fileSource name="jooqtech" dir="c:/MinuteProject/data">
+				<fileSource name="jooqtech" dir="../../MinuteProject/data">
 				</fileSource>
 				<dataSource>
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
@@ -62,14 +62,14 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>
 			</business-model>
 		</model>
-		<targets>
-			<target refname="JOOQ" name="JOOQ" fileName="mp-template-config-JOOQ.xml"
+		<targets catalog-entry="JOOQ">
+			<!-- <target refname="JOOQ" name="JOOQ" fileName="catalog/mp-template-config-JOOQ.xml"
 				outputdir-root="../output/JOOQ/jooq-tech" templatedir-root="../../template/framework/jooq">
 				<property name="jooq-version" value="2.0.4"></property>
 			</target>
-			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
+			<target refname="LIB" fileName="catalog/mp-template-config-bsla-LIB-features.xml"
 				templatedir-root="../../template/framework/bsla">
-			</target>
+			</target> -->
 		</targets>
 	</configuration>
 </generator-config>

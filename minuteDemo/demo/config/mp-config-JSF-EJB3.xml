@@ -8,8 +8,11 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">			
 			<data-model>
-			    <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
+			    <!-- <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
+			    -->
+			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
+
+			    <fileSource name="petshop" dir="../../MinuteProject/data">
 			    </fileSource>
 			    <!--
 			    <dataSource>	

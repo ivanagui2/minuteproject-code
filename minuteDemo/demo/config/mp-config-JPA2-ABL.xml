@@ -79,7 +79,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets outputdir-root="../../myABL-JPA2" catalog-entry="JPA2-ABL" templatedir-root="../../minuteTemplate/template">
+		<targets catalog-entry="JPA2-ABL" >
 <!-- 			<target refname="JPA2"
 			   name="JPA2" 
 			   fileName="catalog/mp-template-config-JPA2.xml" 

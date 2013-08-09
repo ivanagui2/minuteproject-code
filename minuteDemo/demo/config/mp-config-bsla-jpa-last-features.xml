@@ -31,7 +31,7 @@
 		</model>
 		<target refname="BackendOnBsla" 
 		   name="default" 
-		   fileName="mp-template-config-bsla-JPA-last-features.xml" 
+		   fileName="catalog/mp-template-config-bsla-JPA-last-features.xml" 
 		   outputdir-root="../output/MvnSpringJPA"
 		   templatedir-root="../../template/framework/bsla">
 		</target> 	

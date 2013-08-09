@@ -121,11 +121,11 @@ order by all_salaries desc]]>
 
 		</model>	
 		
-		<targets outputdir-root="c:/dev/output/ADF/MP4HR" >
+		<targets outputdir-root="../../output/ADF/hrsystem" >
 
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
-			   fileName="mp-template-config-ADF-Faces.xml" 
+			   fileName="catalog/mp-template-config-ADF-Faces.xml" 
 			   outputdir-root="ADF-FACES"
 			   templatedir-root="../../template/framework/adf"
 			   templatedir-ref="../../template/framework/i18n">  
@@ -179,7 +179,7 @@ order by all_salaries desc]]>
 			
 			<target refname="SpringService" 
 			   name="SpringService" 
-			   fileName="mp-template-config-SpringService.xml" 
+			   fileName="catalog/mp-template-config-SpringService.xml" 
 			   outputdir-root="ADF-FACES/model-maven/bsla"
 			   templatedir-root="../../template/framework/spring">
 				<property name="passivate-based-on-toggle-field" value="true">
@@ -189,7 +189,7 @@ order by all_salaries desc]]>
 			
 			<target refname="BackendOnBsla" 
 			   name="default" 
-			   fileName="mp-template-config-JPA2-bsla.xml" 
+			   fileName="catalog/mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="ADF-FACES/model-maven/bsla"
 			   templatedir-root="../../template/framework/bsla">
 				<property name="add-cache-implementation" value="ehcache"></property>
@@ -198,7 +198,7 @@ order by all_salaries desc]]>
 						
 			<target refname="JPA2" 
 			   name="JPA2" 
-			   fileName="mp-template-config-JPA2.xml" 
+			   fileName="catalog/mp-template-config-JPA2.xml" 
 			   outputdir-root="ADF-FACES/model-maven/jpa2"
 			   templatedir-root="../../template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>               
@@ -211,13 +211,13 @@ order by all_salaries desc]]>
 			</target>
             <target refname="SDD-beans" 
                 outputdir-root="ADF-FACES/model-maven/jpa2"
-               fileName="mp-template-config-SDD-beans.xml" 
+               fileName="catalog/mp-template-config-SDD-beans.xml" 
                templatedir-root="../../template/framework/bean">
             </target>
  
 			<target refname="JSF" 
 			   name="JSF" 
-			   fileName="mp-template-config-JSF-Spring.xml" 
+			   fileName="catalog/mp-template-config-JSF-Spring.xml" 
 			   outputdir-root="ADF-FACES/model-maven/JSF"
 			   templatedir-root="../../template/framework/jsf"
 			   templatedir-ref="../../template/framework/i18n,../../template/framework/ejb">
@@ -228,32 +228,32 @@ order by all_salaries desc]]>
 
 			<target refname="MavenMaster" 
 			   name="maven" 
-			   fileName="mp-template-config-maven.xml" 
+			   fileName="catalog/mp-template-config-maven.xml" 
 			   outputdir-root="ADF-FACES/model-maven"
 			   templatedir-root="../../template/framework/maven">
 			</target> 
 
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>
 			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   fileName="catalog/mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../template/framework/cache">
 			</target>
 			<target refname="SPRING-LIB" 
-			   fileName="mp-template-config-SPRING-LIB.xml" 
+			   fileName="catalog/mp-template-config-SPRING-LIB.xml" 
 			   templatedir-root="../../template/framework/spring">
 			</target>
 			<target refname="COMMON-LIB" 
-			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   fileName="catalog/mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../template/framework/common">
 			</target>
 
 			<target refname="SDO" 
 			   name="SDO" 
 			   outputdir-root="ADF-SDO"
-			   fileName="mp-template-config-ADF-SDO.xml" 
+			   fileName="catalog/mp-template-config-ADF-SDO.xml" 
 			   templatedir-root="../../template/framework/adf">  	
 			   <property name="WEBLOGIC_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0"></property>		   
 			   <property name="WLS_HOME" value="D:/SOFT/SERVER/ORACLE/WLS/10.3.5.0-jdev-11.1.1.6.0/wlserver_10.3"></property>		   
@@ -272,7 +272,7 @@ order by all_salaries desc]]>
 			<target 
 			   name="Selenium" 
 			   outputdir-root="ADF-TEST"
-			   fileName="mp-template-config-selenium.xml" 
+			   fileName="catalog/mp-template-config-selenium.xml" 
 			   templatedir-root="../../template/framework/selenium">  
 			   <property name="target-techno" value="adf"></property>			   
 			   <property name="target-techno-type" value="front-end"></property>	
@@ -282,18 +282,18 @@ order by all_salaries desc]]>
 			
 			<target refname="SQL" 
 			   name="SQL" 
-			   fileName="mp-template-config-sqlutils.xml" 
+			   fileName="catalog/mp-template-config-sqlutils.xml" 
 			   templatedir-root="../../template/utils/db">  	
 			   <property name="user-field" value="userid"></property>		   
 			   <property name="add-version" value="true"></property>		   
 			</target> 
 
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>
 			<target refname="COMMON-LIB" 
-			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   fileName="catalog/mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../template/framework/common">
 			</target>
 						

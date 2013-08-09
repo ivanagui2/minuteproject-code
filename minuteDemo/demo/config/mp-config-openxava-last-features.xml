@@ -43,39 +43,41 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
+		<targets catalog-entry="OpenXava">
+		<!-- 
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target> 
             <target refname="ABL-Openxava" 
                 outputdir-root="../output/openxava/petshopOpenXava"
-                fileName="mp-template-config-ABL-OPENXAVA.xml" 
+                fileName="catalog/mp-template-config-ABL-OPENXAVA.xml" 
                 templatedir-root="../../template/framework/abl">
             </target>
 			<target refname="JPA2-LIB" 
-			   fileName="mp-template-config-JPA2-LIB.xml" 
+			   fileName="catalog/mp-template-config-JPA2-LIB.xml" 
 			   templatedir-root="../../template/framework/jpa">
 			</target>					
 			<target refname="OpenXava" 
 			   name="OpenXava" 
-			   fileName="mp-template-config-openxava-last-features.xml" 
+			   fileName="catalog/mp-template-config-openxava-last-features.xml" 
 			   outputdir-root="../output/openxava/petshopOpenXava"
 			   templatedir-root="../../template/framework/openxava">
 			</target> 		
 
 			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   fileName="catalog/mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../template/framework/cache">
 			</target>
 			<target refname="COMMON_LIB" 
-			   fileName="mp-template-config-COMMON-LIB.xml" 
+			   fileName="catalog/mp-template-config-COMMON-LIB.xml" 
 			   templatedir-root="../../template/framework/common">
 			</target>
 			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
+			   fileName="catalog/mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
 			</target>
+			 -->
 		</targets>
 	</configuration>
 </generator-config>

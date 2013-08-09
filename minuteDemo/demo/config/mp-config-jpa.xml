@@ -27,7 +27,7 @@
 			</business-model>
 		</model>
 		<target refname="BackendOnBsla" name="default" 
-			fileName="mp-template-config-jpa.xml" 
+			fileName="catalog/mp-template-config-jpa.xml" 
 			outputdir-root="../output/StandardSpringJpa/src-generated"
 			templatedir-root="../../template/framework/bsla">
 		</target> 	

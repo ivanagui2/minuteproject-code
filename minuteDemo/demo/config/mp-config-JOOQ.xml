@@ -56,8 +56,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>
 			</business-model>
 		</model>	
-		<targets>
-			<target refname="JOOQ" 
+		<targets catalog-entry="JOOQ">
+			<!-- <target refname="JOOQ" 
 			   name="JOOQ" 
 			   fileName="mp-template-config-JOOQ.xml" 
 			   outputdir-root="../output/JOOQ/petshop"
@@ -67,7 +67,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
-			</target>		
+			</target>	
+			 -->	
 		</targets>
 	</configuration>
 </generator-config>

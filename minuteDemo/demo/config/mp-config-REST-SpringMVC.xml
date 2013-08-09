@@ -68,18 +68,18 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets>
-		
+		<targets catalog-entry="REST-SpringMVC">
+		<!-- 
 			<target refname="REST-SpringMVC" 
 			   name="default" 
-			   fileName="mp-template-config-REST-SpringMVC.xml" 
+			   fileName="catalog/mp-template-config-REST-SpringMVC.xml" 
 			   outputdir-root="../output/rest-springmvc/petshop/rest"
 			   templatedir-root="../../template/framework/spring">
 			</target>
 
 			<target refname="JPA2-bsla" 
 			   name="default" 
-			   fileName="mp-template-config-JPA2-bsla.xml" 
+			   fileName="catalog/mp-template-config-JPA2-bsla.xml" 
 			   outputdir-root="../output/rest-springmvc/petshop/bsla"
 			   templatedir-root="../../template/framework/bsla">
 				<property name="add-cache-implementation" value="ehcache"></property>
@@ -87,7 +87,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 
 			<target refname="JPA2" 
 			   name="JPA2" 
-			   fileName="mp-template-config-JPA2.xml" 
+			   fileName="catalog/mp-template-config-JPA2.xml" 
 			   outputdir-root="../output/rest-springmvc/petshop/jpa2"
 			   templatedir-root="../../template/framework/jpa">
                <property name="add-querydsl" value="2.1.2"></property>
@@ -95,36 +95,36 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                <property name="add-cache-implementation" value="ehcache"></property>
                <property name="add-domain-specific-method" value="true"></property>
                <property name="add-xmlbinding" value="true"></property>	
-               <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+               <property name="add-xml-format" value="lowercase-hyphen"></property>		 java-variable, uppercase-underscore, lowercase-hyphen, java-class 
 			</target> 	
 
             <target refname="SDD-beans" 
                 outputdir-root="../output/rest-springmvc/petshop/jpa2"
-               fileName="mp-template-config-SDD-beans.xml" 
+               fileName="catalog/mp-template-config-SDD-beans.xml" 
                templatedir-root="../../template/framework/bean">
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>
             </target>
 			
             <target refname="COMMON-LIB" 
-               fileName="mp-template-config-COMMON-LIB.xml" 
+               fileName="catalog/mp-template-config-COMMON-LIB.xml" 
                templatedir-root="../../template/framework/common">
             </target>   
 			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
+			   fileName="catalog/mp-template-config-CACHE-LIB.xml" 
 			   templatedir-root="../../template/framework/cache">
 			</target>
 			<target refname="REST-LIB" 
-			   fileName="mp-template-config-REST-LIB.xml" 
+			   fileName="catalog/mp-template-config-REST-LIB.xml" 
 			   templatedir-root="../../template/framework/rest">
 			</target>
 			<target refname="MavenMaster" 
 			   name="maven" 
-			   fileName="mp-template-config-maven.xml" 
+			   fileName="catalog/mp-template-config-maven.xml" 
 			   outputdir-root="../output/rest-springmvc/petshop"
 			   templatedir-root="../../template/framework/maven">
 			</target>
-			
+			 -->
 		</targets>
 	</configuration>
 </generator-config>

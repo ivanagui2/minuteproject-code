@@ -33,7 +33,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
 
 		</model>
-		<targets>
+		<targets catalog-entry="Solr">
+		<!-- 
 			<target refname="Solr" 
 			   fileName="mp-template-config-solr.xml" 
 			   outputdir-root="../output/Solr"
@@ -42,7 +43,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="LIB" 
 			   fileName="mp-template-config-bsla-LIB-features.xml" 
 			   templatedir-root="../../template/framework/bsla">
-			</target> 			
+			</target>
+			 --> 			
 		</targets>				
 	</configuration>
 </generator-config>
