@@ -33,6 +33,10 @@ public class FileUtils {
 		ADDED, UPDATED
 	};
 
+	public static boolean exists (String filePath) {
+		File file = new File(filePath);
+		return file.exists();
+	}
 	public static String getAbsoluteDir(String relDir, String defDir,
 			String targetDir) {
 		if (relDir == null)

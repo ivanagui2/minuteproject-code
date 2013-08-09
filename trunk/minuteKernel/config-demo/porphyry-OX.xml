@@ -147,7 +147,7 @@
 							<stereotype stereotype="EMAIL" />
 						</field>
 						<actions>
-							<action name="release" default-implementation="create" />
+							<action name="release" default-implementation="insert" />
 						</actions>
 					</entity>
 					<!-- transient objects -->
@@ -190,7 +190,6 @@
 			<!-- <statement-model> <queries> <query> </query> </queries> </statement-model> -->
 		</model>
 		<targets catalog-entry="OpenXava" 
-			templatedir-root="../minuteTemplate/template" 
 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
 		</targets>
 	</configuration>
