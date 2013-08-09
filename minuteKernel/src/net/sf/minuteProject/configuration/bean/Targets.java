@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.system.GenerationAction;
+import net.sf.minuteProject.exception.MinuteProjectException;
+import net.sf.minuteProject.utils.io.FileUtils;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -14,7 +16,8 @@ import org.apache.commons.lang.StringUtils;
 public class Targets extends AbstractConfiguration {
 	
 	private String outputdirRoot, catalog, catalogEntry, templatedirRoot;
-
+	public static final String productionPath = "../../template";
+	public static final String developmentPath = "../minuteTemplate/template";
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
 	private GenerationAction postGenerationAction;
@@ -45,7 +48,8 @@ public class Targets extends AbstractConfiguration {
 
 	public String getOutputdirRoot() {
 		if (hasCatalogEntry() && outputdirRoot==null) {
-			outputdirRoot = "../../output/"+getCatalogEntry()+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
+			String output = FileUtils.exists(productionPath)?"../output/":"../../output/";
+			outputdirRoot = output+getCatalogEntry()+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
 		}
 		return outputdirRoot;
 	}
@@ -58,9 +62,16 @@ public class Targets extends AbstractConfiguration {
 		this.outputdirRoot = outputdirRoot;
 	}
 
-	public String getTemplatedirRoot() {
-		if (hasCatalogEntry() && templatedirRoot==null) 
-			return "template";//default : search in classpath
+	public String getTemplatedirRoot() throws MinuteProjectException {
+		if (hasCatalogEntry() && templatedirRoot==null) {
+			// try default for release
+			if (FileUtils.exists(productionPath))
+				return productionPath;
+			// try default for dev
+			if (FileUtils.exists(developmentPath))
+				return developmentPath;			
+			throw new MinuteProjectException("targets node with catalog entry does not seems to have correct template association");
+		}
 		return templatedirRoot;
 	}
 

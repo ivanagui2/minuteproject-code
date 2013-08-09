@@ -446,7 +446,6 @@
 		<xs:attribute name="is-mandatory" type="xs:boolean" />
 		<xs:attribute name="is-searchable" type="xs:boolean" />
 		<xs:attribute name="is-editable" type="xs:boolean" />
-		
 		<xs:attribute name="hidden" type="xs:boolean" />
 		
 	</xs:complexType>
@@ -463,10 +462,25 @@
 	  <xs:sequence>
 	       <xs:element name="comment"></xs:element>
 	       <xs:element name="value"></xs:element>
+			<xs:element name="field" type="field"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
 	  </xs:sequence>
 	     <xs:attribute name="name"></xs:attribute>
 	     <xs:attribute name="to-implement" type="xs:boolean" default="false"></xs:attribute>
+	     <xs:attribute name="default-implementation" type="CRUD-implementation"></xs:attribute>
 	</xs:complexType>
+	
+	<!--  -->
+
+	<xs:simpleType name="CRUD-implementation">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="insert" />
+             <xs:enumeration value="update" />
+             <xs:enumeration value="delete" />
+             <xs:enumeration value="select" />
+         </xs:restriction>
+   	</xs:simpleType>
 	
     <xs:complexType name="constraints">
         <xs:sequence>
