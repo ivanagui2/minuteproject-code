@@ -12,8 +12,10 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="convertClobToString" value="true"/>
+		<property name="use-temporal" value="true"></property>
 
-		<template name="CXFEntityResource" templateFileName="CXFEntityResource.vm" 
+		<template name="EJB3ResourceREST" templateFileName="RESTEntityResource.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="Resource" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
@@ -34,6 +36,38 @@
 		</template>	
 						
 	</template-target>
+
+    <template-target 
+        name="REST java SDD set"
+        libdir="lib/SPRING_LIB.vm"
+        outputdir="src/main/java"
+        belongToPackage="true">
+
+        <template name="RESTSDDBeanResource" templateFileName="RESTSDDBeanResource.vm" 
+            file-extension="java" technicalPackage="rest" file-suffix="Resource" 
+            scope-specific-value="query" has-updatable-nature="true" >
+            <property name="add-message-format" value="message-format"></property>
+        </template>
+
+    </template-target>
+
+    <template-target 
+        name="DAO Spring JPA set"
+        libdir=""
+        outputdir="src/main/java"
+        belongToPackage="true">
+
+        <template name="SDDDaoInterface" templateFileName="SDDDaoInterface.vm" 
+            file-extension="java" technicalPackage="dao.sdd.face" file-suffix="DaoFace" 
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+        <template name="EJB3SDDDaoImpl" templateFileName="EJB3SDDDaoImpl.vm" 
+            file-extension="java" technicalPackage="dao.sdd.impl" file-suffix="Repository" 
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+    </template-target>
 
 	<template-target 
     	name="REST web.xml config"
@@ -57,7 +91,7 @@
 		package-root=""
 		belongToPackage="true">
 		
-		<template name="PomXml.CXF" templateFileName="PomXml.CXF.vm" 
+		<template name="PomXml.REST" templateFileName="PomXml.REST.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">

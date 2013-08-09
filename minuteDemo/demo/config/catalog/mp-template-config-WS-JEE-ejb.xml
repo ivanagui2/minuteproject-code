@@ -10,6 +10,8 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="convertClobToString" value="true"/>
+		<property name="use-temporal" value="true"></property>
 			 
 		<template name="EJB3DaoRemoteInterface" templateFileName="EJB3DaoRemoteInterface.vm" 
 			file-extension="java" technicalPackage="dao.face" file-suffix="DaoRemoteEJB" 

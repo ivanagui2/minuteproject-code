@@ -21,7 +21,6 @@
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="" 
 			entity-specific="true" has-updatable-nature="true"
-			extension-name-builder-plugin="extensionUtils" extension-name-builder-method="getGroovyNature"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>	
@@ -32,7 +31,6 @@
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-extension="java" file-prefix="" file-suffix="_" 
 			entity-specific="true" has-updatable-nature="true"
-            extension-name-builder-plugin="extensionUtils" extension-name-builder-method="getGroovyNature"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
@@ -44,7 +42,7 @@
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
-		</template>			
+		</template>
 
         <!-- SDD beans -->  
         <template name="SDDInputBean" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
@@ -437,14 +435,22 @@
     	name="OpenXava action"
     	outputdir="src">	
 
-		<template
+<!-- 		<template
 			name="ActionOX" templateFileName="ActionOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="action" 
 			file-extension="java" file-prefix="" file-suffix="Action" 
 			has-updatable-nature="true"
 			scope-specific-value="action">
-		</template>	
+		</template>	 -->
 
+ 		<template
+			name="ActionEntityOX" templateFileName="ActionEntityOX.vm" 
+			subdir="" outputsubdir="" technicalPackage="action" 
+			file-extension="java" file-prefix="" file-suffix="Action" 
+			has-updatable-nature="true"
+			scope-specific-value="action">
+		</template>	 
+<!--
 		<template
 			name="ActionOX.stored.proc" templateFileName="ActionOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="action" 
@@ -453,7 +459,7 @@
 			scope-specific-value="function">
 			<property name="isAction" value="false"></property>
 		</template>									
-
+-->
 		<template
 			name="ActionOX.SDD.query" templateFileName="ActionOX.SDD.query.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.action" 

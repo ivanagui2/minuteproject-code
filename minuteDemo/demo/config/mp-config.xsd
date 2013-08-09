@@ -13,6 +13,7 @@
 	</xs:element>
 	<xs:complexType name="condition">
 		<xs:attribute name="type" type="generationConditionDefaultType" />
+		<xs:attribute name="database-object-type" type="databaseObjectType" />
 		<xs:attribute name="startsWith" type="xs:string" />
 		<xs:attribute name="endsWith" type="xs:string" />
 		<xs:attribute name="regex" type="xs:string" />
@@ -34,6 +35,14 @@
          <xs:restriction base="xs:string">
              <xs:enumeration value="include" />
              <xs:enumeration value="exclude" />
+         </xs:restriction>
+     </xs:simpleType>
+
+     <xs:simpleType name="databaseObjectType">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="TABLE" />
+             <xs:enumeration value="VIEW" />
+             <xs:enumeration value="FUNCTION" />
          </xs:restriction>
      </xs:simpleType>
     	
@@ -437,6 +446,7 @@
 		<xs:attribute name="is-mandatory" type="xs:boolean" />
 		<xs:attribute name="is-searchable" type="xs:boolean" />
 		<xs:attribute name="is-editable" type="xs:boolean" />
+		<xs:attribute name="hidden" type="xs:boolean" />
 		
 	</xs:complexType>
 
@@ -452,10 +462,25 @@
 	  <xs:sequence>
 	       <xs:element name="comment"></xs:element>
 	       <xs:element name="value"></xs:element>
+			<xs:element name="field" type="field"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
 	  </xs:sequence>
 	     <xs:attribute name="name"></xs:attribute>
 	     <xs:attribute name="to-implement" type="xs:boolean" default="false"></xs:attribute>
+	     <xs:attribute name="default-implementation" type="CRUD-implementation"></xs:attribute>
 	</xs:complexType>
+	
+	<!--  -->
+
+	<xs:simpleType name="CRUD-implementation">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="insert" />
+             <xs:enumeration value="update" />
+             <xs:enumeration value="delete" />
+             <xs:enumeration value="select" />
+         </xs:restriction>
+   	</xs:simpleType>
 	
     <xs:complexType name="constraints">
         <xs:sequence>
@@ -491,9 +516,13 @@
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="main-entity" type="xs:string" />
 		<xs:attribute name="content-type" type="content-type" />
 		<xs:attribute name="alias" type="xs:string" />
 		<xs:attribute name="label" type="xs:string" />
+		<xs:attribute name="is-editable" type="xs:boolean" />
+		<xs:attribute name="is-searchable" type="xs:boolean" />
+		<xs:attribute name="is-transfer-entity" type="xs:boolean" />
 	</xs:complexType>
 
 	<xs:complexType name="enrichment">
@@ -624,6 +653,8 @@
 		</xs:sequence>
 		<xs:attribute name="outputdir-root" type="xs:string" />
 		<xs:attribute name="templatedir-root" type="xs:string" />
+		<xs:attribute name="catalog" type="xs:string" />
+		<xs:attribute name="catalog-entry" type="xs:string" />
 	</xs:complexType>
 	
 	<xs:complexType name="generation-action">

@@ -1,4 +1,4 @@
-<target name="Grails">		
+<target name="Rails">		
 	<architecture-target name="openxava" description="openxava architecture">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
@@ -7,100 +7,80 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
 	<plugin name="authorizationUtils" className="net.sf.minuteProject.utils.security.AuthorizationUtils"/>
-   	<plugin name="grailsUtils" className="net.sf.minuteProject.plugin.grails.GrailsUtils"/>
+   	<plugin name="railsUtils" className="net.sf.minuteProject.plugin.ruby.RailsUtils"/>
    	<plugin name="referenceUtils" className="net.sf.minuteProject.utils.ReferenceUtils"/>
-	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>   	
+   	
   	<template-target 
-    	name="Grails domain"
-		outputdir="grails-app/domain"
-		libdir="lib/Grails_LIB.vm">
+    	name="Rails domain"
+		outputdir="app/model"
+		libdir="lib/Rails_LIB.vm">
 			 
-		<template name="GromDomainObject" templateFileName="GrailsGorm.vm" 
-			file-extension="groovy"
+		<!--<template name="RailsDomainObject" templateFileName="RailsActiveRecord.vm" package-root=""
+			file-extension="rb" entity-specific="true"
+			add-model-name="false" add-model-dir-name="false" technicalPackage=""
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>-->	
+					
+		<template name="RailsDomainObject" templateFileName="RailsActiveRecord.vm" 
+			file-extension="rb"
 			entity-specific="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
-					
+							
 	</template-target>
 	
   	<template-target 
-    	name="Grails controllers"
-		outputdir="grails-app/controllers">
+    	name="Rails controllers"
+		outputdir="app/controllers">
 			 
-		<template name="GrailsController" templateFileName="GrailsController.vm" 
-			file-extension="groovy"
-			entity-specific="true" file-suffix="Controller" 
+		<template name="RailsController" templateFileName="RailsController.vm" package-root=""
+			file-extension="rb"
+			entity-specific="true" file-suffix="_controller" 
+			add-model-name="false" add-model-dir-name="false" technicalPackage=""
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 					
 	</template-target>
 		
   	<template-target 
-    	name="Grails views"
-		outputdir="grails-app/views">
-				
-		<template name="GrailsJQueryJsonSearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
-			file-extension="gsp" technicalPackage="" add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			entity-specific="true" 
-			file-prefix="searchJson"
-			package-root=""
-			package-name-builder-plugin="restUtils"
-			package-name-builder-method="getRenderingPackageName"				
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="REST_EXCHANGE_FORMAT" value="json"/>
-			<property name="REST_TECHNOLOGY" value="grails"></property>			
-		</template>	
-		 
-		<template name="GrailsJQueryXmlSearchDOHtml" templateFileName="PlayJQuerySearchDOHtml.vm" 
-			file-extension="gsp" technicalPackage="" add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			entity-specific="true" 
-			file-prefix="searchXml"
-			package-root=""
-			package-name-builder-plugin="restUtils"
-			package-name-builder-method="getRenderingPackageName"				
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="REST_EXCHANGE_FORMAT" value="xml"/>
-			<property name="REST_TECHNOLOGY" value="grails"></property>				
-		</template>	
-							
-	</template-target>		
-		
-  	<template-target 
-    	name="Grails config"
+    	name="Rails config"
 		outputdir="grails-app/conf" >
 			
 		<template package-root=""
-			name="GrailsBuildConfig" templateFileName="GrailsBuildConfig.vm" 
+			name="RailsBuildConfig" templateFileName="RailsBuildConfig.vm" 
 			add-model-name="false" add-model-dir-name="false"
 			file-extension="groovy" file-prefix="BuildConfig"
 			model-specific="true">
 		</template>	
 
 		<template package-root=""
-			name="GrailsDataSource" templateFileName="GrailsDataSource.vm" 
+			name="RailsDataSource" templateFileName="RailsDataSource.vm" 
 			add-model-name="false" add-model-dir-name="false"
 			file-extension="groovy" file-prefix="DataSource"
 			model-specific="true">
 		</template>	
-
-		<template package-root=""
-			name="GrailsUrlMappings" templateFileName="GrailsUrlMappings.vm" 
-			add-model-name="true" add-model-dir-name="false"
-			file-extension="groovy" file-suffix="UrlMappings"
-			model-specific="true">
-		</template>					
-		
-								
+											
 	</template-target>	
-			
+
   	<template-target 
-    	name="Grails config"
+    	name="Rails scaffolding input"
 		outputdir="" >
 			
 		<template package-root=""
-			name="GrailsBuildCommandWindows" templateFileName="GrailsBuildCommandWindows.vm" 
+			name="RailsScaffoldingCommandWindows" templateFileName="RailsScaffolding.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="cmd" file-prefix="scaffolding-" file-suffix="" 
+			application-specific="true">
+		</template>	
+	</template-target>
+				
+  	<template-target 
+    	name="Rails config"
+		outputdir="" >
+			
+		<template package-root=""
+			name="RailsBuildCommandWindows" templateFileName="RailsBuildCommandWindows.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="cmd" file-prefix="build-" file-suffix="" 
@@ -108,7 +88,7 @@
 		</template>	
 				
 		<template package-root=""
-			name="GrailsBuildCommandBash" templateFileName="GrailsBuildCommandBash.vm" 
+			name="RailsBuildCommandBash" templateFileName="RailsBuildCommandBash.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="sh" file-prefix="build-" file-suffix="" 
@@ -116,7 +96,7 @@
 		</template>
 		
 		<template package-root=""
-			name="GrailsBuildGrailsREPluginCommandWindows" templateFileName="GrailsBuildGrailsREPluginCommandWindows.vm" 
+			name="RailsBuildGrailsREPluginCommandWindows" templateFileName="RailsBuildGrailsREPluginCommandWindows.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="cmd" file-prefix="execute-grails-plugin-reverse-4-" file-suffix="" 
@@ -124,7 +104,7 @@
 		</template>	
 				
 		<template package-root=""
-			name="GrailsBuildGrailsREPluginCommandBash" templateFileName="GrailsBuildGrailsREPluginCommandBash.vm" 
+			name="RailsBuildGrailsREPluginCommandBash" templateFileName="RailsBuildGrailsREPluginCommandBash.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
 			file-extension="sh" file-prefix="execute-grails-plugin-reverse-4-" file-suffix="" 
@@ -132,7 +112,7 @@
 		</template>		
 		
 		<template package-root=""
-			name="GrailsInstallReadMe" templateFileName="GrailsInstallReadMe.vm" 
+			name="RailsInstallReadMe" templateFileName="RailsInstallReadMe.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
 			add-model-dir-name="false"
 			file-extension="txt" file-prefix="README" file-suffix="" 
