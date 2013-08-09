@@ -65,6 +65,11 @@
 			application-specific="true" add-model-name="false">			
 		</template>
 		
+		<template name="VaadinSpringConfig" templateFileName="VaadinSpringConfig.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+		</template>		
 	</template-target>		
 	
 	<template-target 
@@ -148,6 +153,12 @@
 			subdir="" outputsubdir="" technicalPackage="application"
 			file-extension="java" file-prefix="" file-suffix="Appl" 
 			entity-specific="false" package-specific="false" model-specific="true">
+		</template>		
+		
+		<template name="ModelUIVaadin" templateFileName="VaadinUI.vm" 
+			subdir="" outputsubdir="" technicalPackage="ui"
+			file-extension="java" file-prefix="" file-suffix="UI" 
+			model-specific="true">
 		</template>		
 		
 		<template name="ModelWindowVaadin" templateFileName="ModelWindowVaadin.vm" 

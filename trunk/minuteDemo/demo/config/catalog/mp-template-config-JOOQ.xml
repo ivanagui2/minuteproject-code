@@ -29,13 +29,13 @@
 			entity-specific="true" has-updatable-nature="true">
 		</template>
 		
-		<template name="JOOQ.stored-procedure" templateFileName="JOOQ.stored-procedure.vm" 
+<!-- 		<template name="JOOQ.stored-procedure" templateFileName="JOOQ.stored-procedure.vm" 
 			subdir="" outputsubdir="" technicalPackage="routines"
 			file-extension="java" file-prefix="" file-suffix="" 
 			function-specific="true" has-updatable-nature="true"
 			add-model-name="false">
 		</template>
-
+ -->
 		<template name="JOOQ.model" templateFileName="JOOQ.model.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="java" file-prefix="" file-suffix="" 
