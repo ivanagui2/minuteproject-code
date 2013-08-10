@@ -320,7 +320,7 @@ public class FormatUtils {
 		return name.matches("^[A-Z]$");
 	}
 
-	public static String decamelCase(String name) {
+	public static String insertUnderscoreforCamelCaseSeparation(String name) {
 		StringBuffer sb = new StringBuffer();
 		String[] split = StringUtils.splitByCharacterTypeCamelCase(name);
 		for (int i=0; i<split.length;i++) {
@@ -329,6 +329,29 @@ public class FormatUtils {
 				sb.append("_");
 		}
 		return sb.toString();
+	}
+	
+	public static String decamelCaseForSqlAliasing(String name) {
+		StringBuffer sb = new StringBuffer();
+		String[] split = StringUtils.splitByCharacterTypeCamelCase(name);
+		for (int i=0; i<split.length;i++) {
+			sb.append(getSqlAliasingForCamelChunk(split[i]));
+			if (i+1!=split.length)
+				sb.append("_");
+		}
+		return sb.toString();
+	}
+
+	private static String getSqlAliasingForCamelChunk(String string) {
+		char[] chars = string.toCharArray();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i<chars.length; i++) {
+			if (Character.isUpperCase(chars[i]) && i>0)
+				sb.append("_"+chars[i]);
+			else
+				sb.append(Character.toUpperCase(chars[i]));
+		}
+		return sb.toString(); 
 	}
 
 	public static String renderCurrentTime() {

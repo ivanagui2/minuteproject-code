@@ -83,7 +83,7 @@ public class ColumnNamingConvention extends ModelConvention {
 
 	protected void applyCamelCaseAlias(Column column) {
 		if (FormatUtils.isCamelCaseAlias(column)) {
-			column.setAlias(FormatUtils.decamelCase(column.getName()));
+			column.setAlias(FormatUtils.decamelCaseForSqlAliasing(column.getName()));
 		}
 	}
 

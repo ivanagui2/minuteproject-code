@@ -29,7 +29,7 @@ public abstract class BeanNamingConvention <T extends GeneratorBean> extends Mod
 	
 	protected void applyCamelCaseAlias(T t)  {
 		if (FormatUtils.isCamelCaseAlias(t)) {
-			t.setAlias(FormatUtils.decamelCase(t.getName()));
+			t.setAlias(FormatUtils.decamelCaseForSqlAliasing(t.getName()));
 		}
 
 	}
