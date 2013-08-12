@@ -15,18 +15,31 @@ public class ColumnUtils {
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
 	public static boolean hasDefaultValue (Column column) {
+		return hasDefaultValue(column, false);
+	}
+	
+	public static boolean hasDefaultValue (Column column, boolean useTemporal) {
 		return (column.getDefaultValue()!=null && 
-				!ConvertUtils.getJavaTypeMask(column, "1").equals("null")) // check that there is a possible convertion
+				!ConvertUtils.getJavaTypeMask(column, "1", useTemporal).equals("null")) // check that there is a possible convertion
 				?true:false;
 	}
 	
 	public static String getDefaultValue (Column column) {
+		return getDefaultValue(column, false);
+	}
+	public static String getDefaultValue (Column column, boolean useTemporal) {
 //		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
-		return getMask(column, column.getDefaultValue());
+		return getMask(column, column.getDefaultValue(), useTemporal);
 	}
 	
 	public static String getMask (Column column, String value) {
-		return ConvertUtils.getJavaTypeMask(column, value);
+		return getMask(column, value, false);
+	}
+	public static String getMask (Column column, String value, boolean useTemporal) {
+		return ConvertUtils.getJavaTypeMask(column, value, useTemporal);
+	}
+	public static String getMaskWithExpression (Column column, String expression, boolean useTemporal) {
+		return ConvertUtils.getJavaTypeMaskExpression(column, expression, useTemporal);
 	}
 	
 	public static List<String> getColumnNames(Table table) {

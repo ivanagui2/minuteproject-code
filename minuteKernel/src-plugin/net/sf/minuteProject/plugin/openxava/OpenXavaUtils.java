@@ -302,5 +302,9 @@ public class OpenXavaUtils {
 		// text-html in tab
 		return "";
 	}
+	
+	public static String getViewValue(String input) {
+		return "getView().getValueString(\""+input+"\")";
+	}
 
 }
