@@ -47,6 +47,7 @@ $!updatedAreaSnippet
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
+//$columnVar
 #if(!$column.isHidden())## && !$column.isTransient())
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
@@ -144,8 +145,7 @@ public class ${className} {
     
 #else
 #foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
