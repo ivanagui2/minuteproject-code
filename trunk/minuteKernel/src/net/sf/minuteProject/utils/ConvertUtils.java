@@ -23,7 +23,8 @@ public class ConvertUtils {
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
 	public static final String JAVA_STRING_TYPE 					=   "java.lang.String";						
-	public static final String JAVA_DATE_TYPE 						=   "java.sql.Date";
+	public static final String JAVA_DATE_TYPE 						=   "java.util.Date";
+//	public static final String JAVA_DATE_TYPE 						=   "java.sql.Date";
 	public static final String JAVA_SQL_DATE_TYPE 					=   "java.sql.Date";
 	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
 	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
@@ -135,7 +136,7 @@ public class ConvertUtils {
 			return  JAVA_LONG_TYPE;
 		}
 		if (dBType.equals("DATE"))
-			return  JAVA_DATE_TYPE;
+			return  JAVA_SQL_DATE_TYPE;
 		if (dBType.equals("TIMESTAMP"))
 			return  JAVA_TIMESTAMP_TYPE;	
 		if (dBType.equals("TIMESTAMPZ"))
@@ -180,22 +181,35 @@ public class ConvertUtils {
 		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
 		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf(-1)";
 		if (JAVA_STRING_TYPE.equals(type)) return "new String()";				
-		if (JAVA_DATE_TYPE.equals(type)) return "new Date()";
+		if (JAVA_SQL_DATE_TYPE.equals(type)) return "new Date()";
 		if (JAVA_BLOB_TYPE.equals(type)) return "null";	
 		if (JAVA_CLOB_TYPE.equals(type)) return "null";
 		return "null";
 	}
 	
-	public static String getJavaTypeMask (Column column, String value) {
+	public static String getJavaTypeMask (Column column, String value, boolean useTemporal) {
 		String type = getJavaTypeFromDBFullType(column);
 		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean(\""+value+"\")";					
-		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf("+value+")";
-		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf("+value+")";	
-		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf("+value+")";	
-		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
-		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf("+value+")";
 		if (JAVA_STRING_TYPE.equals(type)) return "new String(\""+value+"\")";				
-		//if (JAVA_DATE_TYPE.equals(type)) return "new Date("+value+")";
+		if (JAVA_SQL_DATE_TYPE.equals(type) || JAVA_DATE_TYPE.equals(type)) return "new Date("+value+")";
+		return getJavaTypeMaskExpression(column, value, useTemporal);
+	}
+	
+	public static String getJavaTypeMaskExpression (Column column, String expression, boolean useTemporal) {
+		String type = getJavaTypeFromDBFullType(column);	
+		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf("+expression+")";
+		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf("+expression+")";	
+		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf("+expression+")";	
+//		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
+		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf("+expression+")";
+		if (JAVA_SQL_DATE_TYPE.equals(type) || 
+			JAVA_DATE_TYPE.equals(type)) return "new Date("+expression+")";
+		if ((JAVA_TIMESTAMP_TYPE.equals(type) || 
+			JAVA_TIME_TYPE.equals(type))
+			&& useTemporal)
+			return "new Date("+expression+")";
+		if (JAVA_STRING_TYPE.equals(type)) return "new String("+expression+")";				
+		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean("+expression+")";
 		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
 		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
 		return "null";

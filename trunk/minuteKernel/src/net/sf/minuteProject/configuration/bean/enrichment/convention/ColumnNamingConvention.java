@@ -59,6 +59,7 @@ public class ColumnNamingConvention extends ModelConvention {
 
 	private void applyCamelCaseAlias(Table table) {
 		applyCamelCaseAlias(table.getColumns());
+		applyCamelCaseAlias(table.getPrimaryKeyColumns());
 		applyCamelCaseAlias(table.getParents());
 //		applyChild(table.getChildren());
 	}
