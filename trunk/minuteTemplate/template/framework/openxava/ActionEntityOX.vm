@@ -16,6 +16,8 @@ import org.openxava.validators.*;
 import org.openxava.actions.*;
 import java.util.*;
 
+#exposeJPA2Import()
+
 $!updatedAreaImport
 
 public class ${className} extends ViewBaseAction {
@@ -51,11 +53,25 @@ $!updatedAreaSnippet
 #end
 			// set init condition	
 			// copy field from form
-#foreach ($column in ${table.columns})
+#foreach ($column in ${table.attributes})
 #putColumnParamNaming()
+#if(!$isForeignKey && !$column.isHidden())
+#if(!$isPrimaryKey || $columnUtils.isNaturalPk($column))
 #set($oxGetViewValue=$openXavaUtils.getViewValue($columnVar))
 #set($fieldMask=$columnUtils.getMaskWithExpression($column, $oxGetViewValue, $useTemporal))
 		    e.set${columnClass}(${fieldMask});
+#end
+#end
+#end
+	        // parent
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set($linkedTablePrimaryKeyJavaNameClass = "Id")
+#set($linkedTablePrimaryKeyJavaVariable="id")
+#set($linkedTablePrimaryKeyJavaType="Integer")
+            $linkedTableClass ${localColumnVariable} = new $linkedTableClass();
+			${localColumnVariable}.set${linkedTablePrimaryKeyJavaNameClass}(($linkedTablePrimaryKeyJavaType)((Map)getView().getValue("${localColumnVariable}")).get("${linkedTablePrimaryKeyJavaVariable}"));
+		    e.set${localColumnClass}(${localColumnVariable});
 #end
 			// assign field
 #foreach ($field in ${action.fields})
