@@ -47,7 +47,6 @@ $!updatedAreaSnippet
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-//$columnVar
 #if(!$column.isHidden())## && !$column.isTransient())
         + "$columnVar #if ($velocityCount!=$columnGroup.size()),#else ; #end"
 #end
@@ -303,7 +302,7 @@ $!updatedAreaSnippet
 #else
 #set($colVar = ${linkedTableVariable})
 #end
-    private $linkedTableClass ${colVar}; //$localColumnVariable - $linkedTableVariable
+    private $linkedTableClass ${colVar};
     
 #end
 #updatedAreaEnd()
