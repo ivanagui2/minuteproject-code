@@ -248,7 +248,8 @@ public class Entity extends AbstractConfiguration {
 		return isSearchable;
 	}
 
-	private Table getFromMainEntity(Table foundTable, Database database) { List<Field> excludedFields = new ArrayList<Field>();
+	private Table getFromMainEntity(Table foundTable, Database database) { 
+		List<Field> excludedFields = new ArrayList<Field>();
 		org.apache.ddlutils.model.Table t = new org.apache.ddlutils.model.Table();
 		t.setName(getName());
 		t.setType(foundTable.getType());
@@ -259,38 +260,30 @@ public class Entity extends AbstractConfiguration {
 			//set reference in entity.field to reuse the construction mechanism field.ref towards table.ref
 //			Field foundField = getField (reference);
 			String localColumnName = reference.getLocalColumnName();
-			Field foundField=null;
 			for (Field field : fields) {
 				if (StringUtils.equalsIgnoreCase(localColumnName, field.getName())) {
-					foundField = field;
-					excludedFields.add(foundField);
+					field.setLinkToTargetEntity(reference.getForeignTableName());
+					field.setLinkToTargetField(reference.getForeignColumnName());
+					field.setType(reference.getLocalColumn().getType()); //todo change to convert to uml
+					field.setLength(reference.getLocalColumn().getSize());
+
+					excludedFields.add(field);
 					break;
 				}
 			}
-			if (foundField!=null) {
-				foundField.setLinkToTargetEntity(reference.getForeignTableName());
-				foundField.setLinkToTargetField(reference.getForeignColumnName());
-			}
 		}
-		initRelationship(this, database, t);
+//		initRelationship(this, database, t);
 		//
 		for (net.sf.minuteProject.configuration.bean.model.data.Column column : foundTable.getColumns()) {
 			// exclude or include according to options
-			Field field = getField(column, excludedFields);
+			Field field = getFieldNotFromExclusionList(column, excludedFields);
+//			Field field = getField(column); //even for fk
 			if (field!=null) {
-				Column c = new Column();
-				c.setName(column.getName());
-				c.setType(column.getType());
-				c.setScale(column.getScale());
-				c.setDefaultValue((field!=null)?field.getDefaultValue():column.getDefaultValue());
-				c.setSize(column.getSize());
-				c.setTypeCode(column.getTypeCode());
-				c.setRequired(column.isRequired());
-				c.setPrimaryKey(column.isPrimaryKey());
-				t.addColumn(c);
+				createAndAddColumn(t, column, field);
 				excludedFields.add(field);
 			}
 		}
+		initRelationship(this, database, t);
 		//add other field 
 		for (Field field: fields) {
 			if (!excludedFields.contains(field))
@@ -312,6 +305,21 @@ public class Entity extends AbstractConfiguration {
 		}		
 		return table;
 	}
+
+	private void createAndAddColumn(org.apache.ddlutils.model.Table t,
+			net.sf.minuteProject.configuration.bean.model.data.Column column,
+			Field field) {
+		Column c = new Column();
+		c.setName(column.getName());
+		c.setType(column.getType());
+		c.setScale(column.getScale());
+		c.setDefaultValue((field!=null)?field.getDefaultValue():column.getDefaultValue());
+		c.setSize(column.getSize());
+		c.setTypeCode(column.getTypeCode());
+		c.setRequired(column.isRequired());
+		c.setPrimaryKey(column.isPrimaryKey());
+		t.addColumn(c);
+	}
 	
 //	private void setTableSpecifics(Table input, Table output) {
 //		for (Field field : fields) {
@@ -330,7 +338,7 @@ public class Entity extends AbstractConfiguration {
 //		return columnInput.getStereotype();
 //	}
 
-	private Field getField(net.sf.minuteProject.configuration.bean.model.data.Column column, List<Field> excludedFields) {
+	private Field getFieldNotFromExclusionList(net.sf.minuteProject.configuration.bean.model.data.Column column, List<Field> excludedFields) {
 		Field f = getField(column);
 		if (f!=null && !excludedFields.contains(f)) {
 //			for (Field fi : excludedFields){
@@ -373,8 +381,11 @@ public class Entity extends AbstractConfiguration {
 	private void initRelationship(Entity entity, Database database,
 			org.apache.ddlutils.model.Table table) {
 		for (Field field : entity.getFields()) {
-			if (isForeignKey(field))
-				table.addForeignKey(getForeignKey(field, database));
+			if (isForeignKey(field)) {
+				ForeignKey foreignKey = getForeignKey(field, database);
+				table.addForeignKey(foreignKey);
+				table.addColumn(foreignKey.getFirstReference().getLocalColumn());
+			}
 		}
 	}
 
@@ -405,6 +416,16 @@ public class Entity extends AbstractConfiguration {
 		Reference reference = new Reference();
 		Column localColumn = new Column();
 		localColumn.setName(field.getName());
+
+
+		localColumn.setType(field.getType());
+		//localColumn.setScale(field.getScale());
+		localColumn.setDefaultValue(field.getDefaultValue());
+//		localColumn.setSize(field.getSize());
+//		localColumn.setTypeCode(field.getTypeCode());
+		localColumn.setRequired(field.isMandatory());
+//		localColumn.setPrimaryKey(field.isPrimaryKey());
+		
 		reference.setLocalColumn(localColumn);
 		reference.setLocalColumnName(field.getName());
 

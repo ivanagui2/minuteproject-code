@@ -134,11 +134,11 @@
 						<field name="name"></field>
 						<field name="notes"></field>
 						<field name="application_id"></field>
-						<field name="environmnent_id"></field>
-						<field name="releaser_id" hidden="true" default="1"></field>
+						<field name="environment_id"></field>
+						<field name="releaser_id" ></field>
 						<field name="status" value="ACTIVE" hidden="true"></field>
 						<field name="creation_date" hidden="true"></field>
-						<!-- <field name="validator_id"></field> -->
+						<!-- <field name="validator_id"></field>  -->
 						<field name="time_to_start"></field>
 						<field name="time_to_end"></field>
 						<field name="validation_reason" hidden="true"></field>
@@ -157,9 +157,9 @@
 						<field name="name"></field>
 						<field name="notes"></field>
 						<field name="application_id"></field>
-						<field name="environmnent_id"></field>
+						<field name="environment_id"></field>
 						<field name="releaser_id"></field>
-						<field name="status" hidden="true"></field>
+						<field name="status"></field>
 						<field name="creation_date"></field>
 						<field name="validator_id" hidden="true" /><!-- default-value="profile.user.id"></field> -->
 						<field name="time_to_start"></field>
