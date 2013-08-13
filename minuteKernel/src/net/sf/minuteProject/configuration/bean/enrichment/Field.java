@@ -200,4 +200,7 @@ public class Field extends AbstractConfiguration {
 	}
 
 
+	public String toString() {
+		return "field [name="+name+"]";
+	}
 }
