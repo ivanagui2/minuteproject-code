@@ -19,6 +19,7 @@ import net.sf.minuteProject.configuration.bean.query.Ordering;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
@@ -205,7 +206,7 @@ public class Entity extends AbstractConfiguration {
 		table.setConstraints(this.getConstraints());
 		table.setFieldGroups(this.getFieldGroups());
 		//
-		setFieldSpecifics(table);
+		setFieldSpecifics(table, database);
 		table.setSearchable(isSearchable);
 		return table;
 	}
@@ -217,7 +218,7 @@ public class Entity extends AbstractConfiguration {
 		return table;
 	}
 
-	private void setFieldSpecifics(Table table) {
+	private void setFieldSpecifics(Table table, Database database) {
 		for (Field field : fields) {
 			net.sf.minuteProject.configuration.bean.model.data.Column column = ColumnUtils.getColumn(table, field.getName());
 			if (column!=null) {
@@ -225,6 +226,15 @@ public class Entity extends AbstractConfiguration {
 				column.setEditable(getEditable (field));
 				column.setSearchable(getSearchable (field));
 				column.setStereotype(field.getStereotype());//todo
+				// reference not set at this time
+//				net.sf.minuteProject.configuration.bean.model.data.Reference reference = ReferenceUtils.getReference(table, columnName)Reference(column, database);
+//				if (reference!=null) {
+//					net.sf.minuteProject.configuration.bean.model.data.Column localColumn = reference.getLocalColumn();
+//					localColumn.setHidden(field.isHidden());
+//					localColumn.setEditable(getEditable (field));
+//					localColumn.setSearchable(getSearchable (field));
+//					localColumn.setStereotype(field.getStereotype());//todo					
+//				}
 			}
 		}
 	}

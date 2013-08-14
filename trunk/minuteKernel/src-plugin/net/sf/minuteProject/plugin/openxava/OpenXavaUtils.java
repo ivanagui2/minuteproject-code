@@ -12,6 +12,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.path.SqlPath;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
@@ -313,4 +314,12 @@ public class OpenXavaUtils {
 		return ConvertUtils.getJavaTypeCastExpression(column, "getView().getValue(\""+var+"\")", useTemporal);
 	}
 
+	public static boolean isRelationshipEditable (Reference reference, Database database) {
+		List<Table> tables = database.getDataModel().getModel().getBusinessModel().getBusinessPackage().getEntities();
+		Table table = TableUtils.getEntityByAlias(tables, reference.getLocalTable().getAlias());
+		Column column = ColumnUtils.getColumn(table, reference.getLocalColumnName());
+		if (column != null)
+			return column.isEditable();
+		return true;
+	}
 }

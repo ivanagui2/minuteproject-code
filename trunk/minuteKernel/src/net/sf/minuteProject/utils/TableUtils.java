@@ -629,4 +629,12 @@ public class TableUtils {
 		asList.removeAll(Arrays.asList(table.getPrimaryKeyColumns()));
 		return asList;
 	}
+
+	public static Table getEntityByAlias(List<Table> tables, String targetName) {
+		for (Table table : tables) {
+			if (table.getAlias().equals(targetName))
+				return table;
+		}
+		return null;
+	}
 }
