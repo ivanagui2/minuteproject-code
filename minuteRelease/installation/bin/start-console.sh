@@ -10,6 +10,6 @@ do
 done
 LOCALCLASSPATH=${LOCALCLASSPATH}:../
 
-"$JAVA_HOME/bin/java" -cp $LOCALCLASSPATH net.sf.minuteProject.console.ConsoleSample
+"$JAVA_HOME/bin/java" -cp $LOCALCLASSPATH net.sf.minuteProject.console.ConsoleSample  ../template
 
 
