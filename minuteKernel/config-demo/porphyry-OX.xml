@@ -100,22 +100,22 @@
 							</property>
 						</field>
 					</entity>
-					<entity name="ADMIN_ACCESS">
-						<!-- todo trigger name -->
-						<!-- todo trigger creation date -->
+<!-- 					<entity name="ADMIN_ACCESS">
+						todo trigger name
+						todo trigger creation date
 						<field name="ENVIRONMENT_ID">
 							<constraint
 								belongs-to="(APPLICATION_ID)[ADMIN_APPLI_ENV(ADMIN_ENVIRONMENT)]"></constraint>
 						</field>
 					</entity>
 					<entity name="BUS_RELEASE">
-						<!-- todo trigger name -->
-						<!-- todo trigger creation date -->
+						todo trigger name
+						todo trigger creation date
 						<field name="APPLICATION_ID">
 							<constraint
 								belongs-to="(RELEASER_ID)[SEC_PROJECT_RIGHT(ADMIN_ENVIRONMENT){ADMIN_ROLE='RELEASER'}]"></constraint>
 						</field>
-					</entity>
+					</entity> -->
 
 					<!-- views stat <entity name="stat_nb_release_per_app" alias="number 
 						of releases per application"> <virtual-primary-key isRealPrimaryKey="true"> 

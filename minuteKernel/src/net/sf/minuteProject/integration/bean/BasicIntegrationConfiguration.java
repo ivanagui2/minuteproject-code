@@ -22,6 +22,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
+import net.sf.minuteProject.configuration.bean.enrichment.convention.PrimaryKeyConvention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.TableDefaultPrimaryKeyConvention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.TargetConvention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention;
@@ -243,12 +244,14 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 
 	private Convention getPkForTableConvention() {
 		Convention convention = new TableDefaultPrimaryKeyConvention ();
+		convention.setType(PrimaryKeyConvention.APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK);
 		convention.setDefaultValue(getVirtualPrimaryKey());
 		return convention;
 	}
 	
 	private Convention getPkForViewConvention() {
 		Convention convention = new ViewPrimaryKeyConvention ();
+		convention.setType(PrimaryKeyConvention.APPLY_DEFAULT_PK_OTHERWISE_FIRST_FIELD_IS_PK);
 		convention.setDefaultValue(getVirtualPrimaryKey());
 		return convention;
 	}
