@@ -8,5 +8,5 @@ set LOCALCLASSPATH=%LOCALCLASSPATH%;../
 @rem 
 set CP=-cp %LOCALCLASSPATH%
 
-"%JAVA_HOME%\bin\java" %CP% net.sf.minuteProject.console.ConsoleSample
+"%JAVA_HOME%\bin\java" %CP% net.sf.minuteProject.console.ConsoleSample ../template
 
