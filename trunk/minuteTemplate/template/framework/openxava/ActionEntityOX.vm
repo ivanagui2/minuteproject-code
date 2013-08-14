@@ -47,31 +47,46 @@ $!updatedAreaSnippet
 #set($column=$columnUtils.getColumn($table, $field.name))
 #putColumnParamNaming()
 #set($conditionColumnValue=$action.actionCondition.getConditionColumnValue($column, $field))
-		    if (${conditionColumnValue}.equals(e.get${columnClass}()))
+		    if (!${conditionColumnValue}.equals(e.get${columnClass}()))
 				errors.add ("Condition ${action.actionCondition.name} not met!");
 #end
 #end
+	        if (errors.contains()) throw new ValidationException(errors);
 			// set init condition	
 			// copy field from form
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
 #if(!$isForeignKey && !$column.isHidden())
 #if(!$isPrimaryKey || $columnUtils.isNaturalPk($column))
-#set($oxGetViewValue=$openXavaUtils.getViewValue($columnVar))
-#set($fieldMask=$columnUtils.getMaskWithExpression($column, $oxGetViewValue, $useTemporal))
-		    e.set${columnClass}(${fieldMask});
+#set($oxGetViewValue=$openXavaUtils.getViewValue($column, $useTemporal))
+##set($fieldMask=$columnUtils.getMaskWithExpression($column, $oxGetViewValue, $useTemporal))
+		    e.set${columnClass}(${oxGetViewValue});
 #end
 #end
 #end
 	        // parent
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#set($linkedTablePrimaryKeyJavaNameClass = "Id")
-#set($linkedTablePrimaryKeyJavaVariable="id")
-#set($linkedTablePrimaryKeyJavaType="Integer")
-            $linkedTableClass ${localColumnVariable} = new $linkedTableClass();
-			${localColumnVariable}.set${linkedTablePrimaryKeyJavaNameClass}(($linkedTablePrimaryKeyJavaType)((Map)getView().getValue("${localColumnVariable}")).get("${linkedTablePrimaryKeyJavaVariable}"));
-		    e.set${localColumnClass}(${localColumnVariable});
+#set($pkColumn = $referenceUtils.getPrimaryColumnForLinkTable($database, $linkedColumn))
+#set($linkedTablePrimaryKeyJavaNameClass = $formatUtils.firstUpperCaseOnly($linkedColumnVarAsInput))
+#set($linkedTablePrimaryKeyJavaVariable=$linkedColumnVarAsInput)
+#set($linkedTablePrimaryKeyJavaType=$commonUtils.getJavaTypeOnly($pkColumn))
+
+            Map ${localColumnVariable}Map = (Map)getView().getValue("${localColumnVariable}");
+            if (${localColumnVariable}Map!=null) {
+##	            	User validator = new User();
+##	            	validator.setId((Integer)(validatorId));
+##			    	e.setValidator(validator);
+                $linkedTablePrimaryKeyJavaType ${localColumnVariable}Id = ($linkedTablePrimaryKeyJavaType)${localColumnVariable}Map.get("${linkedTablePrimaryKeyJavaVariable}");
+                if (${localColumnVariable}Id != null) {
+    				$linkedTableClass ${localColumnVariable} = new $linkedTableClass();
+        			${localColumnVariable}.set${linkedTablePrimaryKeyJavaNameClass}(${localColumnVariable}Id);
+        		    e.set${localColumnClass}(${localColumnVariable});
+            	}
+            }
+##            $linkedTableClass ${localColumnVariable} = new $linkedTableClass();
+##			${localColumnVariable}.set${linkedTablePrimaryKeyJavaNameClass}(($linkedTablePrimaryKeyJavaType)((Map)getView().getValue("${localColumnVariable}")).get("${linkedTablePrimaryKeyJavaVariable}"));
+##		    e.set${localColumnClass}(${localColumnVariable});
 #end
 			// assign field
 #foreach ($field in ${action.fields})
