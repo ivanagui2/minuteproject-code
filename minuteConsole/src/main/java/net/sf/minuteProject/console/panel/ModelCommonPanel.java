@@ -40,6 +40,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 	private ConsoleSample consoleSample;
 	public static final String SEQUENCE = "sequence";
 	public static final String AUTOINCREMENT = "autoincrement";
+	public static final String IDENTITY = "identity";
 	public static final String GLOBAL_SEQUENCE = "global sequence";
 	public static final String ENTITY_ASSOCIATED_SEQUENCE = "entity linked sequence";
 	
@@ -94,7 +95,7 @@ public class ModelCommonPanel extends JPanel implements FillBasicConfiguration {
 		panel.add(versionNameTf,      "wrap para");
 		
 		panel.add(createLabel(primary_key_policy),   "skip");
-		pkPolicyCb = createCombo(new String[] {SEQUENCE, AUTOINCREMENT}, new PkPolicyItemListener());
+		pkPolicyCb = createCombo(new String[] {SEQUENCE, AUTOINCREMENT, IDENTITY}, new PkPolicyItemListener());
 		panel.add(pkPolicyCb);
 		
 		// sequence specific
