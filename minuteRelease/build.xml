@@ -189,7 +189,7 @@
 	<target name="release-console" depends="build-console-dependencies, distribute-console, copy-console-dependencies" >
 	</target>
 
-	<target name="test-console-locally">
+	<target name="test-console-localy">
 	  <copy todir="${catalog.dev.relpath}" overwrite="true">
 	 	<fileset dir="${demo.config.dev.relpath}">
 	 		<include name="mp-template-config-*.xml"/>	 		
@@ -205,8 +205,11 @@
 	 	</fileset>
 	  </copy>
 	  <copy todir="${catalog.dir}" overwrite="true" filtering="true">
-	 	<fileset dir="${demo.config.dev.relpath}">
+<!--	 	<fileset dir="${demo.config.dev.relpath}">
 	 		<include name="mp-template-config*.*"/>
+	 	</fileset>	 --> 	
+	 	<fileset dir="${demo.config.dev.relpath}/catalog">
+	 		<include name="*.*"/>
 	 	</fileset>	  	
 	  </copy>		
 	  <copy todir="${template.framework.dir}" overwrite="true" >
