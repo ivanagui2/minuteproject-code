@@ -84,17 +84,29 @@ public class ColumnUtils {
 	public static boolean isNaturalPk(Column column) {
 		if (column!=null && column.isPrimaryKey() && 
 		   !(
-			column.getType().equals("INT") || 
-			column.getType().equals("BIGINT") || 
-			column.getType().equals("INTEGER") ||
-			column.getType().equals("NUMBER") ||
-			column.getType().equals("DECIMAL") ||
-			column.getType().equals("SHORT") ||
-			column.getType().equals("SMALLINT") ||
-			column.getType().equals("REAL") ||
-			column.getType().equals("VARBINARY") ||
-			column.getType().equals("DOUBLE")
+				column.getType().equals("INT") || 
+				column.getType().equals("BIGINT") || 
+				column.getType().equals("INTEGER") ||
+				column.getType().equals("NUMBER") ||
+				column.getType().equals("DECIMAL") ||
+				column.getType().equals("SHORT") ||
+				column.getType().equals("SMALLINT") ||
+				column.getType().equals("REAL") ||
+				column.getType().equals("VARBINARY") ||
+				column.getType().equals("DOUBLE")
+				)
 			)
+			return true;
+		return false;
+	}
+	
+	public static boolean isTime(Column column) {
+		if (column!=null && 
+			!(
+				column.getType().equals("DATE") || 
+				column.getType().equals("TIMESTAMP") || 
+				column.getType().equals("TIME")
+				)
 			)
 			return true;
 		return false;
