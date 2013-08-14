@@ -215,6 +215,26 @@ public class ConvertUtils {
 		return "null";
 	}
 	
+	public static String getJavaTypeCastExpression (Column column, String expression, boolean useTemporal) {
+		String type = getJavaTypeFromDBFullType(column);	
+		if (JAVA_STRING_TYPE.equals(type)) return "(String)"+expression;	
+		if (JAVA_LONG_TYPE.equals(type)) return "(Long)"+expression;
+		if (JAVA_DOUBLE_TYPE.equals(type)) return "(Double)"+expression;	
+		if (JAVA_INTEGER_TYPE.equals(type)) return "(Integer)"+expression;	
+//		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
+		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "(java.math.BigDecimal)"+expression;
+		if (JAVA_SQL_DATE_TYPE.equals(type) || 
+				JAVA_DATE_TYPE.equals(type)) return "(Date)"+expression;
+		if ((JAVA_TIMESTAMP_TYPE.equals(type) || 
+				JAVA_TIME_TYPE.equals(type))
+				&& useTemporal)
+			return "(Date)"+expression;			
+		if (JAVA_BOOLEAN_TYPE.equals(type)) return "(Boolean)"+expression;
+		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
+		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
+		return expression;
+	}
+	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
 		String retStr=getJavaTypeFromDBFullType (dBType, size, databaseType);		
 		if (dBType.equals("DECIMAL")) {

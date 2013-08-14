@@ -147,7 +147,9 @@
 							<stereotype stereotype="EMAIL" />
 						</field>
 						<actions>
-							<action name="release" default-implementation="insert" />
+							<action name="release" default-implementation="insert" >
+								<field name="status" value="ACTIVE"></field>
+							</action>
 						</actions>
 					</entity>
 					<!-- transient objects -->
@@ -161,7 +163,7 @@
 						<field name="releaser_id"></field>
 						<field name="status"></field>
 						<field name="creation_date"></field>
-						<field name="validator_id" hidden="true" /><!-- default-value="profile.user.id"></field> -->
+						<field name="validator_id" is-editable="true"/><!-- default-value="profile.user.id"></field> -->
 						<field name="time_to_start"></field>
 						<field name="time_to_end"></field>
 						<field name="validation_reason" is-editable="true"></field>

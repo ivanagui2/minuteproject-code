@@ -16,6 +16,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.CommonUtils;
+import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
@@ -303,8 +305,12 @@ public class OpenXavaUtils {
 		return "";
 	}
 	
-	public static String getViewValue(String input) {
-		return "getView().getValueString(\""+input+"\")";
+	public static String getViewValue(Column column, boolean useTemporal) {
+		String var = CommonUtils.getColumnVariableName(column);
+//		if (ColumnUtils.isTime(input))
+//			return "(Date)getView().getValue(\""+var+"\")";
+//		return "getView().getValueString(\""+var+"\")";
+		return ConvertUtils.getJavaTypeCastExpression(column, "getView().getValue(\""+var+"\")", useTemporal);
 	}
 
 }

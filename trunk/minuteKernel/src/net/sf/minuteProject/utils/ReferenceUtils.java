@@ -40,7 +40,7 @@ public class ReferenceUtils {
 		return FormatUtils.upperCase(c.getAlias());
 	}
 
-	private static Column getPrimaryColumnForLinkTable(Database database, Column column) {
+	public static Column getPrimaryColumnForLinkTable(Database database, Column column) {
 		if (column==null) return null;
 		Table table = TableUtils.getEntityFromBusinessPackageRefresh(database, column.getTable().getName());
 		if (table!=null) {
@@ -268,7 +268,7 @@ public class ReferenceUtils {
 		return (TableUtils.getAssociatedForeignKeyFromUniqueKey(reference.getTable(), reference.getColumn())==null)?false:true;
 	}
 	
-	public static Boolean isMartix (Reference reference) {
+	public static Boolean isMatrix (Reference reference) {
 		Column column = TableUtils.getAssociatedForeignKeyFromUniqueKey(reference.getTable(), reference.getColumn());
 		Table table = ColumnUtils.getForeignTable(column);
 		if (table!=null) {
