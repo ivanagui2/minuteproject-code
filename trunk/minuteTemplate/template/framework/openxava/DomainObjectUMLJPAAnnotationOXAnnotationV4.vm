@@ -236,6 +236,8 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
+#set($nomodify=!$openXavaUtils.isRelationshipEditable($reference, $database))
+##set($nomodify=false)
 #if ($referenceUtils.isReferenceInPrimaryKey($reference) && $tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @MapsId ("$localColumnName")
 #end
@@ -288,13 +290,19 @@ $!updatedAreaSnippet
 #end       
     )         
     })  
-#end    
-    @NoCreate
-    @NoModify	
+#end
+#set($nomodify=true)
+##    @NoCreate
+##    @NoModify	
 #end 
 #if (!$authorizationUtils.hasSameColor($table, $linktableDB) && !$openXavaUtils.hasDescriptionList($linktableDB))    
+#set($nomodify=true)
+## ##   @NoCreate
+##    @NoModify	
+#end
+#if ($nomodify)
     @NoCreate
-    @NoModify	
+    @NoModify		
 #end
 #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
