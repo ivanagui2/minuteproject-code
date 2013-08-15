@@ -307,7 +307,22 @@
 	<!-- ===================================================================== -->
     <!-- classpath definitions -->
     <!-- ===================================================================== -->
-    <path id="hsqldb.library.path">
+
+    <macrodef name="macro_generate">
+        <attribute name="config"/>
+        <attribute name="display"/>
+        <sequential>
+	       	  <echo message="@{display}" />  
+	       	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
+	       	   <classpath>  
+	       	    <path refid="mp.library.path" />  
+	       	   </classpath>  
+	       	  	<arg line="@{config}"/>	
+	       	  </java>  
+        </sequential>
+    </macrodef>
+	
+	<path id="hsqldb.library.path">
         <fileset dir="${sample.dir}/hsql">
             <include name="*.jar"/>
         </fileset>   	
@@ -341,9 +356,19 @@
       </java>
     </target>
 
+	<target name="mp-generation-JPA2" description="JPA2" >  
+	 <echo message="JPA2" />  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
+	   <classpath>  
+	    <path refid="mp.library.path" />  
+	   </classpath>  
+	  	<arg line="mp-config-JPA2.xml"/>	
+	  </java>  
+	</target>
+	
 	<target name="mp-bsla-hibernate-generation" description="MP Hibernate" >  
 	 <echo message="MP Hibernate" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
 	   <classpath>  
 	    <path refid="mp.library.path" />  
 	   </classpath>  
@@ -353,7 +378,7 @@
 	
 	<target name="mp-bsla-jpa-generation" description="MP JPA">  
 	 <echo message="MP JPA" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
 	   <classpath>  
 	    <path refid="mp.library.path" />  
 	   </classpath>  
@@ -363,7 +388,7 @@
 	
 	<target name="mp-bsla-ibatis-generation" description="MP iBatis">  
 	 <echo message="MP iBatis" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelGenerator" >  
+	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
 	   <classpath>  
 	    <path refid="mp.library.path" />  
 	   </classpath>  
@@ -388,5 +413,25 @@
 	  <antcall target="mp-bsla-ibatis-generation"/>
 	  <antcall target="mp-fitnesse-generation"/>			
 	  <antcall target="hsqldb.stop"/>
+	</target>
+	
+	<target name="generation-demo" >
+	  
+		<macro_generate display="JPA2" config="mp-config-JPA2.xml"/>
+		<macro_generate display="JPA2" config="mp-config-JPA2.xml"/>
+		<!--	<macro_generate display="ADF" config="mp-config-ADF.xml"/>
+		<macro_generate display="EJB" config="mp-config-EJB3.xml"/>
+		<macro_generate display="FitNesse" config="mp-config-fitnesse.xml"/>
+		<macro_generate display="Grails" config="mp-config-grails-last-features.xml"/>
+		<macro_generate display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml"/>
+		<macro_generate display="iBatis-BSLA" config="mp-config-bsla-ibatis.xml"/>
+		<macro_generate display="JOOQ" config="mp-config-JOOQ.xml"/>
+		<macro_generate display="jpa" config="mp-config-bsla-jpa-last-features.xml"/>
+		<macro_generate display="JPA2-ABL" config="mp-config-bsla-jpa-last-features.xml"/>
+	  <antcall target="mp-bsla-hibernate-generation"/>
+	  <antcall target="mp-generation-JPA2"/>
+	  <antcall target="mp-bsla-jpa-generation"/>	 
+	  <antcall target="mp-bsla-ibatis-generation"/>
+	  <antcall target="mp-fitnesse-generation"/>	-->		
 	</target>
 </project>
