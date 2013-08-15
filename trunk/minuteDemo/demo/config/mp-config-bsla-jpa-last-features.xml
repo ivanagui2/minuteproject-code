@@ -6,7 +6,8 @@
 			    <!--  --><driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+<!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
+					<url>jdbc:hsqldb:file:../../sample/hsql/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
