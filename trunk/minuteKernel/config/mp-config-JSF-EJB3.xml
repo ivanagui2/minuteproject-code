@@ -22,7 +22,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			    -->	
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url>
+<!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
+					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
 					<username>sa</username>
 					<password></password>	
 				</dataSource>	
