@@ -38,7 +38,7 @@ the properties are declared at the technology level and apply to all templates (
 			template-config-file-name="mp-template-config-JPA2-bsla.xml"
 			default-outputdir="bsla" template-dir="@templateRoot@/framework/bsla"
 			status="release" description="Generates comprehensive set of Extended CRUD DAO"
-			depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE-LIB,MavenMaster" 
+			depends-on-targets="JPA2,BSLA_LIB,CACHE-LIB,MavenMaster" 
 			is-generable="true">
             <property name="add-querydsl" value="2.1.2"></property>
              <property name="add-automated-business-logic" value="2.2.0"></property>

@@ -94,7 +94,7 @@
                 </queries>
             </statement-model>
         </model>		
-		<targets outputdir-root="../../output/ADF/petshop" >
+		<targets outputdir-root="../output/ADF/petshop" >
 
  			<target refname="ADF FACES" 
 			   name="ADF FACES"
