@@ -336,8 +336,12 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 				primaryKeyPolicyPattern.setSuffix(getSequenceEntitySuffix());
 			}
 		}
-		else if (primaryKeyPolicy.equals("autoincrement"))
+		else if (primaryKeyPolicy.equals(PrimaryKeyPolicyPatternEnum.AUTOINCREMENT))
 			primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.AUTOINCREMENT);
+		else if (primaryKeyPolicy.equals(PrimaryKeyPolicyPatternEnum.IDENTITY))
+			primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.IDENTITY);
+		else if (primaryKeyPolicy.equals(PrimaryKeyPolicyPatternEnum.UUID))
+			primaryKeyPolicyPattern.setName(PrimaryKeyPolicyPattern.UUID);
 		return primaryKeyPolicyPattern;
 	}
 

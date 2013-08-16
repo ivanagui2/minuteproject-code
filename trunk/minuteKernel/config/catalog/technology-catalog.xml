@@ -8,7 +8,7 @@ the properties are declared at the technology level and apply to all templates (
 	
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-JPA2.xml"
-			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE-LIB,SDD-BEANS"
+			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE_LIB,SDD-BEANS"
 			template-dir="@templateRoot@/framework/jpa" status="released"
 			description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries">
 			<frameworks>
@@ -21,7 +21,7 @@ the properties are declared at the technology level and apply to all templates (
 
 		<technology name="JPA2-ABL" target-name="JPA2-ABL" model-type="rdbms"
 			template-config-file-name="mp-template-config-JPA2.xml"
-			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE-LIB,ABL-JPA2,COMMON-LIB"
+			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE_LIB,ABL-JPA2,COMMON-LIB"
 			template-dir="@templateRoot@/framework/jpa" status="released"
 			description="Generates:\JPA2 Domain entities with annotation\JPA2 metamodel for compilable criteria queries\ABL integration">
 			<frameworks>
@@ -38,10 +38,10 @@ the properties are declared at the technology level and apply to all templates (
 			template-config-file-name="mp-template-config-JPA2-bsla.xml"
 			default-outputdir="bsla" template-dir="@templateRoot@/framework/bsla"
 			status="release" description="Generates comprehensive set of Extended CRUD DAO"
-			depends-on-targets="JPA2,BSLA_LIB,CACHE-LIB,MavenMaster" 
+			depends-on-targets="JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" 
 			is-generable="true">
 			
-			<!--  depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE-LIB,MavenMaster" -->
+			<!--  depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" -->
             <property name="add-querydsl" value="2.1.2"></property>
              <property name="add-automated-business-logic" value="2.2.0"></property>
             <property name="add-jpa2-implementation" value="hibernate"></property>
@@ -202,7 +202,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE-LIB,COMMON_LIB" status="released" comment=""
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
 				<framework name="OpenXava" version="4.6.1"></framework>
