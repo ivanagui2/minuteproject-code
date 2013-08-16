@@ -6,13 +6,13 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
 		</conventions>	
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">			
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
+			
 			<data-model>
-			    <!-- <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/>
-			    -->
+			    <!-- <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/> -->
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
-
-			    <fileSource name="petshop" dir="../../MinuteProject/data">
+			    
+			    <fileSource name="petshop" dir="c:/MinuteProject/data">
 			    </fileSource>
 			    <!--
 			    <dataSource>	
@@ -54,7 +54,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				    	<entity-group entities="PRODUCT"></entity-group>
 				    	<entity-group entities="ITEM"></entity-group>
 				    </package>
-					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT">				
+				    <entity name="TAG_ITEM" master-relationship-field="ITEMID"/>	
+					<entity name="PRODUCT" alias="MY_GOOD_PRODUCT" master-relationship-field="">				
 					</entity>				    
 					<entity name="ITEM" alias="MY_GOOD_ITEM" comment="my item table">
 						<field name="PRODUCTID" alias="THIS_IS_MY_PRODUCT" comment="my product field reference"></field>					
@@ -62,57 +63,24 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<entity name="CATEGORY" content-type="reference-data" >
 					   <semantic-reference>
 					     <sql-path path="NAME"/>
-					   </semantic-reference>					
+					   </semantic-reference>
 					</entity>
-				</enrichment>					
+				</enrichment>
 			</business-model>
+            <statement-model>
+                 <queries>
+                     <query name="get address street">
+                         <query-body><value><![CDATA[select * from address where addressid > ?]]></value></query-body>
+                         <query-what><value></value></query-what>
+                         <query-where><value></value></query-where>
+                         <query-params>
+                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="1"></query-param>
+                         </query-params>
+                     </query>
+                 </queries>
+            </statement-model>
 		</model>	
-		<targets catalog-entry="Primefaces-JEE" >
-
-<!-- 			<target refname="JPA2" 
-			   name="JPA2" 
-			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../output/JSF/petshop/JPA2"
-			   templatedir-root="../../template/framework/jpa">
-               <property name="add-querydsl" value="2.1.2"></property>
-               <property name="environment" value="remote"></property>
-               <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
-			</target>
-							
-			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../template/framework/bsla">
-			</target>
-			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
-			   templatedir-root="../../template/framework/cache">
-			</target>
-			
-			<target refname="JSF" 
-			   name="JSF" 
-			   fileName="mp-template-config-JSF.xml" 
-			   outputdir-root="../output/JSF/petshop/JSF"
-			   templatedir-root="../../template/framework/jsf"
-			   templatedir-ref="../../template/framework/i18n,../../template/framework/ejb">
-			   <property name="add-jsf-implementation" value="primefaces"></property>
-			</target> 
-
-			<target refname="MavenMaster" 
-			   name="maven" 
-			   fileName="mp-template-config-maven.xml" 
-			   outputdir-root="../output/JSF/petshop"
-			   templatedir-root="../../template/framework/maven">
-			</target> 
-									
-			<target refname="Documentation" 
-			   fileName="mp-template-config-documentation.xml" 
-			   outputdir-root="../output/JSF/petshop"
-			   templatedir-root="../../template/template">
-			</target>	
-            <target refname="COMMON-LIB" 
-               fileName="mp-template-config-COMMON-LIB.xml" 
-               templatedir-root="../../template/framework/common">
-            </target> -->
+		<targets catalog-entry="Vaadin">
 		</targets>
 	</configuration>
 </generator-config>

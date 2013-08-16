@@ -1,4 +1,5 @@
 echo install mp-bsla in maven
+set pwd=%cd%
 cd ..\..\target\mp-bsla
 call install_maven.cmd
 
@@ -16,15 +17,15 @@ cd ..\..\JOOQ\jooq-tech
 call mvn clean package
 
 echo JOOQ petshop
-cd ..\..\JOOQ\petshop
+cd ..\..\JOOQ\petshop\JOOQ
 call mvn clean package
 
 echo JPA2
-cd ..\..\JPA2
+cd ..\..\..\JPA2\petshop\JPA2
 call mvn clean package
 
 echo JSF 
-cd ..\JSF\petshop
+cd ..\..\..\Primefaces-Spring\petshop
 call mvn clean package
 
 echo Mvn Spring Hibernate 
@@ -40,15 +41,29 @@ cd ..\REST-JEE\petshop
 call mvn clean package
 
 echo REST-SPRING MVC
-cd ..\..\rest-springmvc\petshop
+cd ..\..\REST-SpringMVC\petshop
+call mvn clean package
+
+echo REST-CXF-SPRING
+cd ..\..\REST-CXF-Spring\petshop
+call mvn clean package
+
+echo REST-CXF-JEE
+cd ..\..\REST-CXF-JEE\petshop
 call mvn clean package
 
 echo WebService
 cd ..\..\WS-JEE\petshop
 call mvn clean package
 
-echo JSF-Spring
-cd ..\..\JSF-Spring
+echo Primefaces-Spring
+cd ..\..\Primefaces-Spring\petshop
 call mvn clean package
 
+echo Primefaces-JEE
+cd ..\..\Primefaces-JEE\petshop
+call mvn clean package
 
+echo Vaadin-spring
+cd ..\..\Vaadin\petshop
+call mvn clean package
