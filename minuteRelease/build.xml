@@ -265,6 +265,7 @@
 	  </copy>
 	  <copy todir="${release.dir}/mywork/config" overwrite="true">
 	 	<fileset dir="${demo.config.dev.relpath}">
+	 		<include name="catalog/*.*"/>
 	 		<include name="mp-template-config*"/>
 	 		<include name="model-generation*"/>
 	 		<include name="lcp*"/>
