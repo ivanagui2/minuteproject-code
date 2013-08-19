@@ -156,7 +156,6 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 		return null;
 	}
 	public void setPackage(Package pack) {
-
 	}
 
 	public String getGeneratedBeanName() {
