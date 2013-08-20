@@ -66,6 +66,25 @@
 #end
 #end
 
+    <!-- statement driven development SDD -->
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#putImportQuerySDDBean()
+##foreach ($table in $model.businessModel.businessPackage.transferEntities)
+		<!-- $table.name -->
+##if(!$table.actions.isEmpty())
+#exposeVariableEntitySpecific()
+#set($controllerName=$openXavaUtils.getControllerName($table))
+	<controller name="$controllerName">
+#foreach ($action in $table.actions)
+#exposeOXActionSpecific()	
+#set($actionName=$openXavaUtils.getActionClassName($action))
+		<action name="$actionName" mode="detail" class="$actionImport" >
+			<use-object name="xava_view" />
+		</action>	    
+#end		
+	</controller>
+##end
+#end
     <!-- transfer entities -->
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
 		<!-- $table.name -->

@@ -1,8 +1,11 @@
 #exposeQuerySpecific()
-#exposeSDDSpring()
+##exposeSDDOX()
+#putJPA2TemplateDefinition()
 #putImportQuerySDDBean()
 #addedAreas()
 #exposeJPASpecifics()
+#set ($table = $inputBean)
+#exposeVariableEntitySpecific()
 package $packageName;
 
 $!updatedAreaImport
@@ -11,12 +14,12 @@ import org.openxava.jpa.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
+import org.openxava.actions.*;
+import java.util.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,7 +30,9 @@ import org.hibernate.Session;
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
-import $sddOXInputBeanImport;
+#if($isNotVoidInput)
+import $sddInputBeanImport;
+#end
 
 /**
  *
@@ -36,7 +41,7 @@ import $sddOXInputBeanImport;
  * <p>Description: SDD DAO Spring JPA implementation </p>
  *
  */
-public class ${className} extends org.openxava.actions.BaseAction {
+public class ${className} extends ViewBaseAction {
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
     public static final String QUERY_NATIVE = "$fullQuery";
@@ -55,6 +60,9 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 
+#putSddJdbcLookup()
+
+#*
 #exposeQueryUpdatedAreas("SDD_EXECUTE_JDBC")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -98,6 +106,7 @@ $!updatedAreaSnippet
     }
 #end
 $!updatedAreaEnd
+*#
 
 //if JPA2 implementation is hibernate
     @SuppressWarnings("deprecation")   
@@ -108,7 +117,7 @@ $!updatedAreaEnd
     } 
     
     private Session getSession() {  
-        Session session = (Session) XPersistence.getEntityManager().getDelegate();  
+        Session session = (Session) XPersistence.getManager().getDelegate();  
         return session;  
     }
 
@@ -121,9 +130,19 @@ $!updatedAreaSnippet
         //super.execute();
         //TODO
         Messages errors =
-            MapFacade.validate("$inputView", getView().getValues());
+            MapFacade.validate("$sddInputBeanClass", getView().getValues());
         if (errors.contains()) throw new ValidationException(errors);
-        EntityManager em = XPersistence.getManager();
+        ${sddInputBeanClass} e = new ${sddInputBeanClass}();
+#foreach ($column in ${table.attributes})
+#putColumnParamNaming()
+#if(!$isForeignKey && !$column.isHidden() && $column.isEditable())
+#if(!$isPrimaryKey || $columnUtils.isNaturalPk($column))
+#set($oxGetViewValue=$openXavaUtils.getViewValue($column, $useTemporal))
+		e.set${columnClass}(${oxGetViewValue});
+#end
+#end
+#end
+#*
 #if($isCallAllowedRoutine)
 #if($hasRoutineOutput)
         Query query = em.createNativeQuery(${routineName}_CALL, $routineOutputClassImport.class);
@@ -136,10 +155,12 @@ $!updatedAreaSnippet
 #end
 
 #end
+*#
         try {
-            query.getResultList();
-        } catch (Exception e) {
-            Messages errors = new Messages();
+            execute(e);
+        } catch (Exception ex) {
+            errors = new Messages();
+            errors.add(ex.getMessage());
             throw new ValidationException(errors);
         }
         //TODO return list
