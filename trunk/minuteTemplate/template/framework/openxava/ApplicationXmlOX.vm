@@ -35,6 +35,17 @@
 #end
 	</module>	
 #end
+    <!-- statement driven development SDD -->
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#putImportQuerySDDBean()
+##exposeVariableEntitySpecific()
+	<module name="$tableClassName" >
+	    <model name="$tableClassName"/>
+	    <view name="base"/> 
+	    <controller name="$openXavaUtils.getControllerName($table)"/>
+	    <mode-controller name="DetailOnly"/>
+	</module>
+#end
 	
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
 #exposeVariableEntitySpecific()
