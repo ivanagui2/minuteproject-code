@@ -177,3 +177,8 @@ properties=""
 #exposeVariableActionSpecific()
 #end
 #end
+
+#macro (exposeSDDOX)
+#set ($templateSDDInputBean = "templateSDDInputBean")
+#set ($domainImport = $commonUtils.getEntityLevelTemplateFullPath($model, $inputBean, $template, $templateSDDInputBean))
+#end
