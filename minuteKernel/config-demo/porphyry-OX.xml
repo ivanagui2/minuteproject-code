@@ -34,6 +34,7 @@
 					<condition type="package" startsWith="ADMIN" result="admin"></condition>
 					<condition type="package" startsWith="RELEASE" result="release"></condition>
 					<condition type="package" startsWith="BUS" result="business"></condition>
+					<condition type="package" startsWith="VIEW_STAT" result="stats"></condition>
 				</business-package>
 				<enrichment>
 					<conventions>
@@ -70,7 +71,10 @@
 						<!-- trigger -->
 						<property-convention scope="field" pattern="CREATION_DATE"
 							tag="trigger-insert-with-current-date" type="start-with" />
-
+						
+						<view-primary-key-convention 
+						            type="apply-default-primary-key-otherwise-first-one" 
+						            default-primary-key-names="IDENTIFIER,ID" /> 
 					</conventions>
 
 					<entity name="ADMIN_ENVIRONMENT" content-type="reference-data">
@@ -192,7 +196,27 @@
 					</entity>
 				</enrichment>
 			</business-model>
-			<!-- <statement-model> <queries> <query> </query> </queries> </statement-model> -->
+			<!-- S D D -->
+			<statement-model>
+				<queries>
+			         <query name="ask_for_role" id="ask_for_role" >
+                         <query-body>
+                         <value>
+<![CDATA[call ask_for_role (?,?,?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="username" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                             <query-param name="email" is-mandatory="true" type="string" sample="'b'">
+                             	<stereotype stereotype="EMAIL" />
+                             </query-param>
+                             <query-param name="role" is-mandatory="true" type="string" sample="'c'">
+                                <query-param-link entity-name="sec_role" field-name="role"/>
+                             </query-param>
+                         </query-params>
+                     </query>
+                </queries>
+            </statement-model>
 		</model>
 		<targets catalog-entry="OpenXava" 
 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
