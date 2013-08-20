@@ -218,8 +218,8 @@
                 </queries>
             </statement-model>
 		</model>
-		<targets catalog-entry="OpenXava" 
-			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
-		</targets>
+		<targets catalog-entry="OpenXava" >
+<!-- 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
+	 -->	</targets>
 	</configuration>
 </generator-config>
