@@ -260,21 +260,24 @@
 			name="ApplicationXml" templateFileName="ApplicationXmlOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="application" 
-		    model-specific="true">
+		    model-specific="true"
+		    has-updatable-nature="true">
 		</template>		
     
     	<template 
 			name="ControllersXmlOX" templateFileName="ControllersXmlOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="controllers" 
-			model-specific="true">
+			model-specific="true"
+			has-updatable-nature="true">
 		</template>			
  
 		<template name="OXEditorXml" templateFileName="OXEditorXml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="xml" file-prefix="editors" file-suffix="" 
 			add-model-name="false" add-model-dir-name="false"
-			model-specific="true" >
+			model-specific="true" 
+			has-updatable-nature="true">
 		</template>	
 				
 	</template-target>
