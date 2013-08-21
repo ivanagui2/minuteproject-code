@@ -107,7 +107,25 @@
 	  </ul>
 	</li>
 #end
-  </ul>
+
+#if($model.hasStatementModel())
+    <li class="topitem"><a href="#" onclick="return false;">Statements</a>
+	  <ul class="submenu">
+    <!-- statement driven development SDD -->
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+##putImportQuerySDDBean()
+#set($table=$query.inputBean)
+#set($inputBean=$query.inputBean)
+#exposeSDDOX()
+#exposeOXEntitySpecific()
+
+		<!-- $table.name -->
+        <li><a href="$url" #if($displayUtils.hasAlt($table)) alt="$displayUtils.getAlt($table)"#end>$tableLabel</a></li>
+#end
+	  </ul>
+	</li>
+#end
+	
   </div>
 
 </div>

@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific()
 #exposeOXTemplate()
+#addedAreas()
 #set ($applicationOX=$configuration.name)
 ##<?xml version = "1.0" encoding = "ISO-8859-1"?>
 ##<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
@@ -72,16 +73,18 @@
 ##foreach ($table in $model.businessModel.businessPackage.transferEntities)
 		<!-- $table.name -->
 ##if(!$table.actions.isEmpty())
-#exposeVariableEntitySpecific()
+##exposeVariableEntitySpecific()
+#set($table=$query.inputBean)
 #set($controllerName=$openXavaUtils.getControllerName($table))
 	<controller name="$controllerName">
-#foreach ($action in $table.actions)
-#exposeOXActionSpecific()	
-#set($actionName=$openXavaUtils.getActionClassName($action))
+##foreach ($action in $table.actions)
+##exposeOXActionSpecific()	
+#set($actionName=$formatUtils.getJavaNameVariable($query.name))
+#set($actionImport=$commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateActionSDDOpenXava))
 		<action name="$actionName" mode="detail" class="$actionImport" >
 			<use-object name="xava_view" />
 		</action>	    
-#end		
+##end		
 	</controller>
 ##end
 #end
@@ -117,5 +120,7 @@
         </action>       
     </controller>
 #end
+
+#addArea("custom-controllers-nodes")
 
 </controllers>

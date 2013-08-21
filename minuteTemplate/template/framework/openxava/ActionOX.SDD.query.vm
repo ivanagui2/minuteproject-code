@@ -129,7 +129,7 @@ $!updatedAreaSnippet
 #else 
         //super.execute();
         //TODO
-        Messages errors =
+        Messages errors = 
             MapFacade.validate("$sddInputBeanClass", getView().getValues());
         if (errors.contains()) throw new ValidationException(errors);
         ${sddInputBeanClass} e = new ${sddInputBeanClass}();
