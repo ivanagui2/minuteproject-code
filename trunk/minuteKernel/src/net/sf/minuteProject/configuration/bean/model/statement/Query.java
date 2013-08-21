@@ -8,10 +8,14 @@ import org.apache.commons.lang.StringUtils;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.Entity;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.exception.MinuteProjectException;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
@@ -26,6 +30,7 @@ public class Query extends AbstractConfiguration {
 	private boolean isSet = false;
 	private Package pack;
 	private String type, category;
+	private Table tableIn, tableOut;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
@@ -99,25 +104,71 @@ public class Query extends AbstractConfiguration {
 //	}
 	
 	public Table getInputBean () {
-		return getEntity(Direction.IN);
+		if (tableIn==null)
+			tableIn = getEntityFromDirection(Direction.IN);
+		return tableIn;
 	}
 	
 	public Table getOutputBean () {
-		return getEntity(Direction.OUT);
+		if (tableOut==null)
+			tableOut = getEntityFromDirection(Direction.OUT);
+		return tableOut;
 	}
 
+	public Table getEntityFromDirection(Direction dir) {
+		Table entity = getEntityRoot(dir);
+		if (dir.equals(Direction.IN))
+			complementFields(entity,queryParams);
+		return entity;
+	}
+	
 	public Table getEntity(Direction dir) {
+		Table entity = getEntityRoot(dir);
+		if (dir.equals(Direction.IN))
+			complementFields(entity,queryParams);
+		return entity;
+	}
+	
+	private void complementFields(Table table, QueryParams queryParams) {
+		List<QueryParam> list = getColumns(Direction.IN);
+		for (QueryParam queryParam : list) {
+			Column column = ColumnUtils.getColumn(table, queryParam.getName());
+			if (column!=null) {
+				column.setStereotype(queryParam.getStereotype());
+//				if (queryParam.isId()) {
+//					table.setPrimaryKeys(new Column[] {column});
+//				}
+					
+			}
+		}
+	}
+
+	public Table getEntityRoot(Direction dir) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
+		Database database = getQueries().getStatementModel().getModel().getDataModel().getDatabase();
 		setTableName(table, dir);
 //		table.setName(getName());
 //		table.setCatalog(catalog);
 		table.setType(Table.TABLE);
 		addColumns(table, dir);
+		
 		Table entity = new TableDDLUtils(table);
+		initFieldAndRelationship(dir, database, table);	
 		entity.setPackage(getPackage());
 //		entity.getTechnicalPackage(template)
-		entity.setDatabase(getQueries().getStatementModel().getModel().getDataModel().getDatabase());
+		entity.setDatabase(database);
 		return entity;
+	}
+
+	private void initFieldAndRelationship(Direction dir, Database database,
+			org.apache.ddlutils.model.Table table) {
+		if (dir.equals(Direction.IN)) {
+			List<QueryParam> list = getColumns(Direction.IN);
+			for (QueryParam queryParam : list) {
+				Entity.assignForeignKey (database, table, queryParam.getLinkField());
+			}
+		}
+		
 	}
 
 	private void setTableName(org.apache.ddlutils.model.Table table,
@@ -170,7 +221,9 @@ public class Query extends AbstractConfiguration {
 			Direction direction) {
 		List<QueryParam> list = getColumns(direction);
 		for (QueryParam queryParam : list) {
-			table.addColumn(getColumn(queryParam));
+			if (!queryParam.isLink()) {
+				table.addColumn(getColumn(queryParam));
+			}
 		}
 	}
 
@@ -187,7 +240,7 @@ public class Query extends AbstractConfiguration {
 		column.setName(queryParam.getName());
 		String type = queryParam.getType();
 		column.setType(convertType(type));
-		column.setSize(queryParam.getSize()+"");
+		column.setSize(queryParam.getSizeOrDefault());
 		column.setScale(queryParam.getScale());
 		column.setDefaultValue(queryParam.getDefaultValue());
 		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type) && queryParam.getScale()>0) {
@@ -195,6 +248,7 @@ public class Query extends AbstractConfiguration {
 		}
 //		column.setPrecisionRadix(queryParam.getPrecisionRadix());
 		// column.setTypeCode(fc.getTypeCode());
+		column.setPrimaryKey(queryParam.isId()); //cannot be set here
 		column.setRequired(queryParam.isMandatory());
 		return column;
 	}

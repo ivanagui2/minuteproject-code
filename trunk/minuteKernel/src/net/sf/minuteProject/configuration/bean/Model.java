@@ -144,5 +144,5 @@ public class Model extends AbstractConfiguration{
 		this.statementModel = statementModel;
 		this.statementModel.setModel(this);
 	}
-	
+
 }

@@ -140,8 +140,25 @@
 	                    <set-next-rule methodname="addQueryParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>          
 	                    <set-properties-rule>
 	                       <alias attr-name="is-mandatory" prop-name="isMandatory" />
+	                       <alias attr-name="is-id" prop-name="isId" />
 	                       <alias attr-name="default" prop-name="defaultValue" />
 	                   </set-properties-rule>
+	                   <pattern value="stereotype">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
+							<set-next-rule methodname="setStereotype" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>	
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="stereotype" prop-name="stereotype" />
+							</set-properties-rule>
+						</pattern>
+	                   <pattern value="query-param-link">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>		
+							<set-next-rule methodname="setQueryParamLink" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>	
+							<set-properties-rule>
+								<alias attr-name="entity-name" prop-name="entityName" />
+								<alias attr-name="field-name" prop-name="fieldName" />
+							</set-properties-rule>
+						</pattern>
 	                </pattern>
 	            </pattern>
 	        </pattern>
