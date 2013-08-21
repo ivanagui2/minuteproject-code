@@ -391,11 +391,16 @@ public class Entity extends AbstractConfiguration {
 	private void initRelationship(Entity entity, Database database,
 			org.apache.ddlutils.model.Table table) {
 		for (Field field : entity.getFields()) {
-			if (isForeignKey(field)) {
-				ForeignKey foreignKey = getForeignKey(field, database);
-				table.addForeignKey(foreignKey);
-				table.addColumn(foreignKey.getFirstReference().getLocalColumn());
-			}
+			assignForeignKey(database, table, field);
+		}
+	}
+
+	public static void assignForeignKey(Database database,
+			org.apache.ddlutils.model.Table table, Field field) {
+		if (isForeignKey(field)) {
+			ForeignKey foreignKey = getForeignKey(field, database);
+			table.addForeignKey(foreignKey);
+			table.addColumn(foreignKey.getFirstReference().getLocalColumn());
 		}
 	}
 
@@ -403,11 +408,11 @@ public class Entity extends AbstractConfiguration {
 		return new org.apache.ddlutils.model.Table();
 	}
 
-	private boolean isForeignKey(Field field) {
+	private static boolean isForeignKey(Field field) {
 		return (field.getLinkToTargetEntity()!=null && !field.getLinkToTargetEntity().trim().equals(""));
 	}
 
-	private ForeignKey getForeignKey(Field field, Database database) {
+	private static ForeignKey getForeignKey(Field field, Database database) {
 		ForeignKey foreignKey = new ForeignKey();
 		foreignKey.addReference(getReference (field));
 		foreignKey.setForeignTable(getForeignTable(field, database));
@@ -415,14 +420,14 @@ public class Entity extends AbstractConfiguration {
 		return foreignKey;
 	}
 
-	private org.apache.ddlutils.model.Table getForeignTable(Field field, Database database) {
+	private static org.apache.ddlutils.model.Table getForeignTable(Field field, Database database) {
 		Table table = TableUtils.getTable(database, field.getLinkToTargetEntity());
 		org.apache.ddlutils.model.Table t = new org.apache.ddlutils.model.Table();
 		t.setName(table.getName());
 		return null;
 	}
 
-	private Reference getReference(Field field) {
+	private static Reference getReference(Field field) {
 		Reference reference = new Reference();
 		Column localColumn = new Column();
 		localColumn.setName(field.getName());
@@ -453,7 +458,7 @@ public class Entity extends AbstractConfiguration {
 		column.setName(field.getName());
 		column.setType(ConvertUtils.getDBFullTypeFromUMLType(field.getType()));
 		column.setRequired(field.isMandatory());
-		column.setSize((field.getLength()==null)?"255":field.getLength());
+		column.setSize(field.getSizeOrDefault());
 		column.setPrimaryKey(field.isId());
 		//column.setHidden(field.isHidden());
 		return column;

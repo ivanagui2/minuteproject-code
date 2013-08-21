@@ -61,10 +61,16 @@ public class QueryParams extends AbstractConfiguration {
 	}
 
 	public void addQueryParam(QueryParam queryParam) {
+		queryParam.addQueryParams(this);
 		getQueryParams().add(queryParam);
 	}
 
 	public void setQuery(Query query) {
 		this.query = query;
 	}
+
+	public Query getQuery() {
+		return query;
+	}
+	
 }

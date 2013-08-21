@@ -1,8 +1,10 @@
 package net.sf.minuteProject.configuration.bean;
 
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.statement.Composites;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 
 import org.apache.log4j.Logger;
 
@@ -49,6 +51,18 @@ public class StatementModel {
 	}
 	
 	public void complementStatement() {
+		complementStatementPackage();
+		complementStatementInputField();
+	}
+	private void complementStatementInputField() {
+		// TODO Auto-generated method stub
+		for (Query query : getQueries().getQueries()) {
+			for (Column column : query.getInputBean().getColumns()) {
+				
+			}
+		}
+	}
+	private void complementStatementPackage() {
 		Database database = model.getDataModel().getDatabase();
 		getSddPackage().setPackages(model, database);
 	}

@@ -22,6 +22,9 @@ public class Field extends AbstractConfiguration {
 	private String value, defaultValue;
 	private Boolean isSearchable,isEditable;
 
+	public String getSizeOrDefault() {
+		return (getLength()==null)?"255":getLength();
+	}
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
 			return true;

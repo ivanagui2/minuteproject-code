@@ -455,6 +455,7 @@ public class ModelGenerator extends AbstractGenerator {
 		if (statementModel!=null) {
 			for (Query query : statementModel.getQueries().getQueries()) {
 				Table table = query.getEntity(direction);
+				table = getDecoratedTable(table);
 				// create even if no column table.getColumns().length>0
 					writeTemplateResult(table, template);
 				//}
