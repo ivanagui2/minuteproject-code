@@ -193,6 +193,7 @@
 			<xs:enumeration value="text-area" />
 			<xs:enumeration value="url" />
 			<xs:enumeration value="image" />
+			<xs:enumeration value="picture" />
 			<xs:enumeration value="photo" />
 			<xs:enumeration value="currency" />
 			<xs:enumeration value="telephone" />
@@ -427,15 +428,16 @@
 	<xs:complexType name="field">
 		<xs:sequence>
 			<xs:element name="validation" minOccurs="0" maxOccurs="unbounded" type="validation"/>
-			<xs:element name="stereotype" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="stereotype">
 				<xs:complexType>
-					<xs:attribute name="stereotype" type="xs:string" />
+					<xs:attribute name="stereotype" type="stereotype-type" />
 				</xs:complexType>
 			</xs:element> 
 			<xs:element name="property" type="property" minOccurs="0" maxOccurs="unbounded" />
 			<xs:element name="derivations" type="derivations" minOccurs="0" maxOccurs="1" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="value" type="xs:string" />
 		<xs:attribute name="ordering" type="ordering-type" />
 		<xs:attribute name="label" type="xs:string" />
 		<xs:attribute name="linkToTargetEntity" type="xs:string" />
@@ -462,7 +464,7 @@
 	  <xs:sequence>
 	       <xs:element name="comment"></xs:element>
 	       <xs:element name="value"></xs:element>
-			<xs:element name="field" type="field"
+			<xs:element name="field" type="field" 
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 	  </xs:sequence>
@@ -479,6 +481,13 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="action-condition">
+		<xs:sequence>
+			<xs:element name="field" type="field"/>
+		</xs:sequence>
+		<xs:attribute name="name"/>
 	</xs:complexType>
 	<!--  -->
 
@@ -599,6 +608,14 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="query-param">
+		<xs:sequence>
+			<xs:element name="query-param-link" type="query-param-link"/>
+			<xs:element name="stereotype">
+				<xs:complexType>
+					<xs:attribute name="stereotype" type="stereotype-type" />
+				</xs:complexType>
+			</xs:element> 
+		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required" />
 		<xs:attribute name="type" type="xs:string" use="required" />
 		<xs:attribute name="sample" type="xs:string" use="required" />
@@ -606,6 +623,10 @@
 		<xs:attribute name="converter" type="xs:string" />
 		<xs:attribute name="is-mandatory" type="xs:boolean" default="true"/>
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->
+	</xs:complexType>
+	<xs:complexType name="query-param-link">
+		<xs:attribute name="entity-name" type="xs:string" use="required" />
+		<xs:attribute name="field-name" type="xs:string" use="required" />
 	</xs:complexType>
 
 	<xs:complexType name="business-model">
