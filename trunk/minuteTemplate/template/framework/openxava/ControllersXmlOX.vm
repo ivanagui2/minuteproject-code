@@ -70,7 +70,7 @@
     <!-- statement driven development SDD -->
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #putImportQuerySDDBean()
-##foreach ($table in $model.businessModel.businessPackage.transferEntities)
+##foreach ($table in $model.businessModel.buÒsinessPackage.transferEntities)
 		<!-- $table.name -->
 ##if(!$table.actions.isEmpty())
 ##exposeVariableEntitySpecific()

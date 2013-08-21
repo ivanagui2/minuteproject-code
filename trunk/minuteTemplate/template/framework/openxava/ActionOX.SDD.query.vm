@@ -62,52 +62,6 @@ $!updatedAreaEnd
 
 #putSddJdbcLookup()
 
-#*
-#exposeQueryUpdatedAreas("SDD_EXECUTE_JDBC")
-$!updatedAreaBegin
-#if($isUpdated)
-$!updatedAreaSnippet
-#else
-    public List<$sddOutputBeanClass> executeJDBC($sddInputBeanClass $sddInputBeanVariable) {
-        List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        Connection conn = null;
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(QUERY_NATIVE);
-#foreach($column in $inputBean.columns)
-#putColumnParamNaming()
-#set($columnType = $statementUtils.getJdbcType($column))
-            pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
-#end            
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                $sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
-#foreach($column in $outputBean.columns)
-#putColumnParamNaming()
-#set($columnType = $statementUtils.getJdbcType($column))
-                ${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}($velocityCount)); 
-#end
-                list.add(${sddOutputBeanVariable});
-            }
-        } catch (Exception e) {
-              e.printStackTrace();
-        } finally {
-          try {
-            rs.close();
-            pstmt.close();
-            conn.close();
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-        }
-        return list;
-    }
-#end
-$!updatedAreaEnd
-*#
-
 //if JPA2 implementation is hibernate
     @SuppressWarnings("deprecation")   
     public Connection getConnection() throws HibernateException {  
@@ -142,20 +96,7 @@ $!updatedAreaSnippet
 #end
 #end
 #end
-#*
-#if($isCallAllowedRoutine)
-#if($hasRoutineOutput)
-        Query query = em.createNativeQuery(${routineName}_CALL, $routineOutputClassImport.class);
-#else
-        Query query = em.createNativeQuery(${routineName}_CALL);
-#end
-#foreach($column in $input.columns)
-#putColumnParamNaming()
-        query.setParameter($velocityCount, getView().getValueString("$columnVar"));
-#end
 
-#end
-*#
         try {
             execute(e);
         } catch (Exception ex) {
