@@ -157,6 +157,7 @@ properties=""
 #macro (exposeOXTemplate)
 #set ($templateActionOpenXava = "ActionOX")
 #set ($templateActionEntityOpenXava = "ActionEntityOX")
+#set ($templateActionSDDOpenXava = "ActionOX.SDD.query")
 #end
 
 #macro (putOXTemplateDefinition)
@@ -179,6 +180,7 @@ properties=""
 #end
 
 #macro (exposeSDDOX)
-#set ($templateSDDInputBean = "templateSDDInputBean")
+#set ($templateSDDInputBean = "SDDInputBean")
 #set ($domainImport = $commonUtils.getEntityLevelTemplateFullPath($model, $inputBean, $template, $templateSDDInputBean))
+#set ($tableClassName = $commonUtils.getTemplateClassName($inputBean, $template, $templateSDDInputBean))
 #end

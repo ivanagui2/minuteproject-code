@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific() 
 #exposeOXSpecific()
+#addedAreas()
 ##<?xml version = "1.0" encoding = "ISO-8859-1"?>
 ##<!DOCTYPE application SYSTEM "dtds/application.dtd">
 <application name="$applicationOX"> 
@@ -15,7 +16,7 @@
 	
 ##exposeVariableModelDetailSpecific()
 #foreach($table in $model.businessModel.businessPackage.getEntities())
-<!-- entity : $table.name -->
+   <!-- entity : $table.name -->
 #exposeVariableEntitySpecific()
   <module name="$tableClassName">
 	  <model name="$tableClassName"/>  
@@ -35,18 +36,20 @@
 #end
 	</module>	
 #end
+
     <!-- statement driven development SDD -->
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #putImportQuerySDDBean()
-##exposeVariableEntitySpecific()
-	<module name="$tableClassName" >
-	    <model name="$tableClassName"/>
+#set($table=$query.inputBean)
+	<module name="$sddInputBeanClass" >
+	    <model name="$sddInputBeanClass"/>
 	    <view name="base"/> 
 	    <controller name="$openXavaUtils.getControllerName($table)"/>
 	    <mode-controller name="DetailOnly"/>
 	</module>
 #end
-	
+
+	<!-- transfer entities -->
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
 #exposeVariableEntitySpecific()
 	<module name="$tableClassName" >
@@ -60,7 +63,8 @@
 #end
 	</module>
 #end
-	
+
+	<!-- functions -->
 #foreach ($function in $database.functions)
 #set ($inout = $commonUtils.getDirection("INOUT"))
 #set ($table = $function.getEntity($inout))
@@ -73,5 +77,7 @@
 	</module>
 #end
 		
+#addArea("custom-application-nodes")
+
 </application>
 
