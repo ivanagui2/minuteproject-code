@@ -308,9 +308,6 @@ public class OpenXavaUtils {
 	
 	public static String getViewValue(Column column, boolean useTemporal) {
 		String var = CommonUtils.getColumnVariableName(column);
-//		if (ColumnUtils.isTime(input))
-//			return "(Date)getView().getValue(\""+var+"\")";
-//		return "getView().getValueString(\""+var+"\")";
 		return ConvertUtils.getJavaTypeCastExpression(column, "getView().getValue(\""+var+"\")", useTemporal);
 	}
 
