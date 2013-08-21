@@ -40,7 +40,7 @@
 			</business-model>
 
 		</model>
-<!-- -->  		<targets catalog-entry="OpenXava">
+<!-- -->  		<targets catalog-entry="WS-JE">
 		</targets>  
 <!--  		<targets catalog-entry="JPA2" templatedir-root="../../minuteTemplate/template">
 		</targets>   -->

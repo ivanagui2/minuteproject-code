@@ -206,7 +206,7 @@
                             </value>
                          </query-body>
                          <query-params>
-                             <query-param name="username" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                             <query-param name="username" is-mandatory="true" type="string" sample="'a'" is-id="true"></query-param>
                              <query-param name="email" is-mandatory="true" type="string" sample="'b'">
                              	<stereotype stereotype="EMAIL" />
                              </query-param>
@@ -218,8 +218,8 @@
                 </queries>
             </statement-model>
 		</model>
-		<targets catalog-entry="OpenXava" >
-<!-- 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
-	 -->	</targets>
+		<targets catalog-entry="OpenXava" 
+			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
+		</targets>
 	</configuration>
 </generator-config>
