@@ -97,6 +97,26 @@ $!updatedAreaSnippet
 #end
 #end
 
+	        // parent to copy to transient field
+#foreach ($reference in $table.parents)
+#set($isEditable=$openXavaUtils.isRelationshipEditable($reference, $database))
+#if ($isEditable)
+#putReferenceParams2()
+#set($pkColumn = $referenceUtils.getPrimaryColumnForLinkTable($database, $linkedColumn))
+#set($linkedTablePrimaryKeyJavaNameClass = $formatUtils.firstUpperCaseOnly($linkedColumnVarAsInput))
+#set($linkedTablePrimaryKeyJavaVariable=$linkedColumnVarAsInput)
+#set($linkedTablePrimaryKeyJavaType=$commonUtils.getJavaTypeOnly($pkColumn))
+#set($associatedTransientColumn = $columnUtils.getAssociatedTransientColumn($localColumn))
+#set($associatedTransientColumnClassName = $formatUtils.getJavaName($associatedTransientColumn.alias))
+#set($associatedTransientColumnJavaType =$commonUtils.getJavaType($associatedTransientColumn))
+#set($linkedTargetColumnJavaVariable = $columnUtils.getTransientColumnNameRoot($associatedTransientColumn))
+        Map ${localColumnVariable}Map = (Map)getView().getValue("${localColumnVariable}");
+        if (${localColumnVariable}Map!=null) {
+			e.set$associatedTransientColumnClassName (($associatedTransientColumnJavaType)${localColumnVariable}Map.get("${linkedTargetColumnJavaVariable}"));
+        }
+#end
+#end
+		
         try {
             execute(e);
         } catch (Exception ex) {

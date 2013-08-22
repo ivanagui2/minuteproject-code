@@ -297,6 +297,7 @@ $!updatedAreaSnippet
             }
 #end
 			rs = pstmt.executeQuery();
+#if ($statementUtils.hasResult($outputBean))
 			while (rs.next()) {
 				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
 #foreach($column in $outputBean.columns)
@@ -306,6 +307,7 @@ $!updatedAreaSnippet
 #end
 				list.add(${sddOutputBeanVariable});
 	        }
+#end
 		} catch (Exception e) {
 		      e.printStackTrace();
 	    } finally {
