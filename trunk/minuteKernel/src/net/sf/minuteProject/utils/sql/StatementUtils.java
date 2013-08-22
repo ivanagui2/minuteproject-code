@@ -1,6 +1,7 @@
 package net.sf.minuteProject.utils.sql;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -44,5 +45,9 @@ public class StatementUtils {
 	
 	public static final String getJdbcSetter(QueryParam queryParam) {
 		return "get"+getJdbcType(queryParam);
+	}
+	
+	public static final boolean hasResult (Table table) {
+		return table.getColumnCount()>0;
 	}
 }

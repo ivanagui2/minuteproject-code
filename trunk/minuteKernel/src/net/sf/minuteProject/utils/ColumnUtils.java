@@ -3,6 +3,8 @@ package net.sf.minuteProject.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -12,6 +14,7 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class ColumnUtils {
 	
+	private static final String _TRANSIENT = "_TRANSIENT";
 	public static String CHECK_CONSTRAINT_PROPERTY_TAG = "checkconstraint";
 	
 	public static boolean hasDefaultValue (Column column) {
@@ -393,5 +396,35 @@ public class ColumnUtils {
 	public static boolean isColumnEmbeddedInEntity (Column column) {
 		boolean primaryKey = column.isPrimaryKey();
 		return (!primaryKey || (primaryKey && !TableUtils.isCompositePrimaryKeyNotMany2Many(column.getTable())));
+	}
+
+	public static String getTransientName(String name) {
+		return name+_TRANSIENT;
+	}
+
+	public static boolean hasTransientColumnName(Column column) {
+		return (column!=null && column.getName()!=null && column.getName().endsWith(_TRANSIENT));
+	}
+	
+	
+	public Column getAssociatedTransientColumn(Column column) {
+		for (Column c : column.getTable().getColumns()) {
+			if (c.getName().equals(column.getName()+_TRANSIENT))
+				return c;
+		}
+		return null;//"NOT ASSOCIATED TRANSIENT COLUMN";
+	}
+	
+	public static String getTransientColumnNameRoot(Column column) {
+		return StringUtils.remove(column.getName(), _TRANSIENT);
+	}
+	
+	public static Column getTransientColumnRoot(Column column) {
+		for (Reference reference : column.getTable().getParents()) {
+			if (reference.getLocalColumnName().equals(getTransientColumnNameRoot(column))) {
+				return reference.getLocalColumn();
+			}
+		}
+		return null;
 	}
 }

@@ -52,7 +52,7 @@ public class StatementModel {
 	
 	public void complementStatement() {
 		complementStatementPackage();
-		complementStatementInputField();
+//		complementStatementInputField();
 	}
 	private void complementStatementInputField() {
 		// TODO Auto-generated method stub
@@ -74,4 +74,5 @@ public class StatementModel {
 	public boolean hasComposites () {
 		return (getComposites().getComposites().size()>0)?true:false;
 	}
+
 }

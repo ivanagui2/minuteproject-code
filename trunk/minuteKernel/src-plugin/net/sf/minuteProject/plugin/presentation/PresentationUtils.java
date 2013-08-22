@@ -233,6 +233,10 @@ public class PresentationUtils {
 			else if (!column.isLob()) {
 				columns.add(column);
 			}
+			// not to clean but working
+			Column c = ColumnUtils.getTransientColumnRoot(column);
+			if (c!=null)
+				columns.add(c);
 		}
 		return columns;
 	}

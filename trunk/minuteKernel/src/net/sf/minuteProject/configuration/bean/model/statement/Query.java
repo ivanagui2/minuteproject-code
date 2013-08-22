@@ -94,14 +94,6 @@ public class Query extends AbstractConfiguration {
 		this.queryParams = queryParams;
 		this.queryParams.setQuery(this);
 	}
-//	
-//	public String getTechnicalPackage(Template template) {
-//		return getModel().getTechnicalPackage(template);
-//	}
-	
-//	private Model getModel() {
-//		return getQueries().getStatementModel().getModel();
-//	}
 	
 	public Table getInputBean () {
 		if (tableIn==null)
@@ -114,7 +106,7 @@ public class Query extends AbstractConfiguration {
 			tableOut = getEntityFromDirection(Direction.OUT);
 		return tableOut;
 	}
-
+	// remove duplication
 	public Table getEntityFromDirection(Direction dir) {
 		Table entity = getEntityRoot(dir);
 		if (dir.equals(Direction.IN))
@@ -122,6 +114,7 @@ public class Query extends AbstractConfiguration {
 		return entity;
 	}
 	
+	// remove duplication
 	public Table getEntity(Direction dir) {
 		Table entity = getEntityRoot(dir);
 		if (dir.equals(Direction.IN))
@@ -138,7 +131,15 @@ public class Query extends AbstractConfiguration {
 //				if (queryParam.isId()) {
 //					table.setPrimaryKeys(new Column[] {column});
 //				}
-					
+
+			}
+		}
+		for (Column column : table.getColumns()) {
+			if (ColumnUtils.hasTransientColumnName(column)) {
+				column.setHidden(true);
+				column.setEditable(false);
+				column.setRequired(false);
+				column.setTransient(true);
 			}
 		}
 	}
@@ -188,28 +189,6 @@ public class Query extends AbstractConfiguration {
 		this.pack = pack;
 	}
 
-//	public net.sf.minuteProject.configuration.bean.Package getPackage() {
-//		return getModel().getConfiguration().getPackage();
-//	}
-//	
-//	private Package getPackage (Table table) {
-//		Package pack = new Package();
-//		pack.setName(getPackageName());
-//		return pack;
-//	}
-//	
-//	private String getPackageName() {
-//		StringBuffer sb = new StringBuffer();
-//		String packageRoot = getModel().getPackageRoot();
-//		if (packageRoot!=null)
-//			sb.append(packageRoot+".");
-//		sb.append(getModel().getConfiguration().getName());
-//		String queriesName = getQueries().getName();
-//		if (queriesName!=null)
-//			sb.append("."+getQueries().getName());
-//		return sb.toString();
-//	}
-
 	public String getTechnicalPackage(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
@@ -223,6 +202,8 @@ public class Query extends AbstractConfiguration {
 		for (QueryParam queryParam : list) {
 			if (!queryParam.isLink()) {
 				table.addColumn(getColumn(queryParam));
+			} else {
+				table.addColumn(getColumnTransient(queryParam));
 			}
 		}
 	}
@@ -234,10 +215,10 @@ public class Query extends AbstractConfiguration {
 			return getOutputParams().getQueryParams();
 		return new ArrayList<QueryParam>();
 	}
-
-	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam) {
+	
+	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam, String name) {
 		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
-		column.setName(queryParam.getName());
+		column.setName(name);
 		String type = queryParam.getType();
 		column.setType(convertType(type));
 		column.setSize(queryParam.getSizeOrDefault());
@@ -252,7 +233,21 @@ public class Query extends AbstractConfiguration {
 		column.setRequired(queryParam.isMandatory());
 		return column;
 	}
+
+	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam) {
+		return getColumn(queryParam, queryParam.getName());
+	}
 	
+	private org.apache.ddlutils.model.Column getColumnTransient(QueryParam queryParam) {
+		return getColumn(queryParam, ColumnUtils.getTransientName(getTransientRoot(queryParam)));
+	}
+	
+	private String getTransientRoot(QueryParam queryParam) {
+		if (queryParam.getQueryParamLink()!=null && queryParam.getQueryParamLink().getFieldName()!=null)
+			return queryParam.getQueryParamLink().getFieldName();
+		return queryParam.getName();
+	}
+
 	private String convertType(String type) {
 		return ConvertUtils.getDDLUtilsTypeFromDBType(type);
 	}

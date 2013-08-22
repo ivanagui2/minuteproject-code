@@ -408,7 +408,7 @@ public class Entity extends AbstractConfiguration {
 		return new org.apache.ddlutils.model.Table();
 	}
 
-	private static boolean isForeignKey(Field field) {
+	public static boolean isForeignKey(Field field) {
 		return (field.getLinkToTargetEntity()!=null && !field.getLinkToTargetEntity().trim().equals(""));
 	}
 
