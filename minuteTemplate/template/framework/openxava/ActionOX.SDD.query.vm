@@ -30,9 +30,9 @@ import org.hibernate.Session;
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
-#if($isNotVoidInput)
+##if($isNotVoidInput)
 import $sddInputBeanImport;
-#end
+##end
 
 /**
  *
@@ -53,8 +53,12 @@ $!updatedAreaSnippet
 #else
     public $sddOutputBeanCollectionClass execute ($sddInputBeanClass $sddInputBeanVariable) {
         $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable = new $sddOutputBeanCollectionClass();
+#if($isNotVoidInput)
         List<$sddOutputBeanClass> list = executeJDBC ($sddInputBeanVariable);
-        ${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (list);
+#else
+        List<$sddOutputBeanClass> list = executeJDBC ();
+#end
+		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (list);
         return ${sddOutputBeanCollectionVariable};
     }
 #end
