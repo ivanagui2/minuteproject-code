@@ -481,4 +481,8 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	public void setOrderings(List<Ordering> orderings) {
 		this.orderings = orderings;
 	}
+	
+	public void addColumn (Column column) {
+		this.table.addColumn(column);
+	}
 }
