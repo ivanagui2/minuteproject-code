@@ -38,6 +38,7 @@
 				</business-package>
 				<enrichment>
 					<conventions>
+						<sdd-dummy-primary-key add="true" />
 						<column-naming-convention type="apply-strip-column-name-suffix"
 							pattern-to-strip="_ID" />
 						<reference-naming-convention
@@ -249,7 +250,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
             </statement-model>
 		</model>
 		<targets catalog-entry="OpenXava" 
-			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
+			 outputdir-root="/Users/florianadler/SRC/JAVA/Openxava/openxava-4.8/workspace/porphyry">
 		</targets>
 	</configuration>
 </generator-config>

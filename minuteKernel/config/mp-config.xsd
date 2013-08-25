@@ -610,6 +610,7 @@
 	<xs:complexType name="query-param">
 		<xs:sequence>
 			<xs:element name="query-param-link" type="query-param-link"/>
+			<xs:element name="property" type="property"/>
 			<xs:element name="stereotype">
 				<xs:complexType>
 					<xs:attribute name="stereotype" type="stereotype-type" />

@@ -303,4 +303,7 @@ public interface Table extends GeneratorBean{
 	public void setOrderings(List<Ordering> orderings);
 	
 	public void addOrdering(Ordering ordering);
+	
+	public void addColumn (Column column);
+	
 }

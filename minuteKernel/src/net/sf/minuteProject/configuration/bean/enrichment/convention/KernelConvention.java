@@ -6,7 +6,7 @@ import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 
-public abstract class KernelConvention extends Convention{
+public abstract class KernelConvention extends Convention<Configuration>{
 
-	public abstract void apply(Configuration configuration) ;
+	//public abstract void apply(Configuration configuration) ;
 }

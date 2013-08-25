@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -515,6 +516,17 @@ public class TableDDLUtils extends TableAbstract {
 		table.setType(type);		
 	}
 
+	@Override
+	public void addColumn (Column column) {
+		//use converter instead
+//		List<org.apache.ddlutils.model.Column> cols = Arrays.asList(table.getColumns());
+		org.apache.ddlutils.model.Column col = new org.apache.ddlutils.model.Column();
+		col.setName(column.getName());
+		col.setType(column.getType());
+		col.setPrimaryKey(column.isPrimaryKey());
+		table.addColumn(col);
+		resetNoPrimaryKeyNoForeignKeyColumns();
+	}
 //	public List<Constraint> getConstraints() {
 //		return constraints;
 //	}
