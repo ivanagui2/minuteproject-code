@@ -288,6 +288,7 @@ $!updatedAreaSnippet
 			conn = getConnection();
 			pstmt = conn.prepareStatement(QUERY_NATIVE);
 #foreach($column in $inputBean.columns)
+#if (!$column.isTransient())
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
             if (${sddInputBeanVariable}.get$columnClass()==null) {
@@ -295,6 +296,7 @@ $!updatedAreaSnippet
             } else {
                pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
             }
+#end
 #end
 			rs = pstmt.executeQuery();
 #if ($statementUtils.hasResult($outputBean))

@@ -35,7 +35,7 @@
 #foreach($table in $model.businessModel.businessPackage.getEntities())
 #exposeVariableEntitySpecific()
 #if (!$isMany2Many)
-#porlet()
+#portlet()
 #end
 #end
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
