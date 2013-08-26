@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.application.ModelGenerator;
+import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
@@ -45,7 +46,7 @@ public class BusinessModel {
 	private Model model;
 	private GenerationCondition generationCondition;
 	private BusinessPackage businessPackage; 
-	private Enrichment enrichment;
+	private BusinessModelEnrichment enrichment;
 	private Presentation presentation;
 	
 	// for xml manipulation
@@ -90,7 +91,7 @@ public class BusinessModel {
 		if (database!=null) {
 			// for all the view
 			// set virtual pk, realpk
-			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			BusinessModelEnrichment enrichment = model.getBusinessModel().getEnrichment(); 
 			if (enrichment != null) {
 				if (enrichment.getEntities()!=null) {
 					for (Entity entity : enrichment.getEntities()) {
@@ -108,7 +109,7 @@ public class BusinessModel {
 	public void complementDataModelWithTransferEntitiesEnrichment () {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
-			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			BusinessModelEnrichment enrichment = model.getBusinessModel().getEnrichment(); 
 			if (enrichment != null) {
 				if (enrichment.getEntities()!=null) {
 					for (Entity entity : enrichment.getEntities()) {
@@ -128,7 +129,7 @@ public class BusinessModel {
 	private void complementDataModelWithPackageEnrichment () {
 		Database database = model.getDataModel().getDatabase();
 		if (database!=null) {
-			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			BusinessModelEnrichment enrichment = model.getBusinessModel().getEnrichment(); 
 			if (enrichment != null) {
 				if (enrichment.getPackages()!=null) {
 					for (Package pack : enrichment.getPackages()) {
@@ -151,7 +152,7 @@ public class BusinessModel {
 		if (database!=null) {
 			// for all the view
 			// set virtual pk, realpk
-			Enrichment enrichment = model.getBusinessModel().getEnrichment(); 
+			BusinessModelEnrichment enrichment = model.getBusinessModel().getEnrichment(); 
 			if (enrichment != null) {
 				if (enrichment.getEntities()!=null) {
 					for (Entity entity : enrichment.getEntities()) {
@@ -430,12 +431,12 @@ public class BusinessModel {
 		this.model = model;
 	}
 
-	public Enrichment getEnrichment() {
+	public BusinessModelEnrichment getEnrichment() {
 		return enrichment;
 	}
 
-	public void setEnrichment(Enrichment enrichment) {
-		enrichment.setBusinessModel(this);
+	public void setBusinessModelEnrichment(BusinessModelEnrichment enrichment) {
+		enrichment.setModel(this);
 		this.enrichment = enrichment;
 	}
 
@@ -466,9 +467,7 @@ public class BusinessModel {
 
 	public void applyConventions() {
 		if (enrichment!=null && enrichment.getConventions()!=null) {
-			for (ModelConvention convention : enrichment.getConventions().getModelConventions()) {
-				convention.apply (this);
-			}
+			enrichment.applyConventions();
 		}		
 	}
 

@@ -22,6 +22,11 @@ public class Conventions extends AbstractConfiguration{
 		return conventions;
 	}
 	
+	public  Collection<Convention> getConventionsByType(Class type) {
+		Transformer transformer = new PredicateTransformer(new InstanceofPredicate(type.getClass()));
+		return CollectionUtils.transformedCollection(getConventions(), transformer);
+	}
+	
 	public Collection<ModelConvention> getModelConventions() {
 		Transformer transformer = new PredicateTransformer(new InstanceofPredicate(ModelConvention.class));
 		return CollectionUtils.transformedCollection(getConventions(), transformer);
@@ -45,8 +50,19 @@ public class Conventions extends AbstractConfiguration{
 	public void addConvention (Convention convention) {
 		getConventions().add(convention);
 	}
+
+	public Collection<SddConvention> getStatementConventions() {
+		Transformer transformer = new PredicateTransformer(new InstanceofPredicate(SddConvention.class));
+		return CollectionUtils.transformedCollection(getConventions(), transformer);
+	}
 	
 //	public void addConvention (ViewPrimaryKeyConvention convention) {
 //		getConventions().add(convention);
 //	}	
+	
+//	public void applyConventions() {
+//		for (Convention<T> convention : getConventions()) {
+//			convention.apply (this.get);
+//		}	
+//	}
 }
