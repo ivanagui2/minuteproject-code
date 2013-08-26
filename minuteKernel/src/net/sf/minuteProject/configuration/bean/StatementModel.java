@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean;
 
+import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment;
+import net.sf.minuteProject.configuration.bean.enrichment.StatementModelEnrichment;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.statement.Composites;
@@ -9,6 +11,8 @@ import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import org.apache.log4j.Logger;
 
 public class StatementModel {
+	
+	private StatementModelEnrichment enrichment;
 	
 	private static Logger logger = Logger.getLogger(StatementModel.class);
 	private Queries queries;
@@ -74,5 +78,18 @@ public class StatementModel {
 	public boolean hasComposites () {
 		return (getComposites().getComposites().size()>0)?true:false;
 	}
+	
+	public void applyConventions() {
+		if (enrichment!=null && enrichment.getConventions()!=null) {
+			enrichment.applyConventions();
+		}		
+	}
+	public StatementModelEnrichment getEnrichment() {
+		return enrichment;
+	}
 
+	public void setBusinessModelEnrichment(StatementModelEnrichment enrichment) {
+		enrichment.setModel(this);
+		this.enrichment = enrichment;
+	}
 }

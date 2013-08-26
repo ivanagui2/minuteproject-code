@@ -10,27 +10,28 @@ import net.sf.minuteProject.utils.TableUtils;
 
 class SddDummyPrimaryKeyConvention extends SddConvention{
 
+	SddDummyPrimaryKeyConvention () {
+	}
 	@Override
 	public void apply(StatementModel t) {
 		Queries queries = t.getQueries();
 		if (queries!=null) {
 			for (Query query : queries.getQueries()) {
 				Table input = query.getInputBean();
-				TableUtils.getPrimaryFirstColumn(input);
-				if (input==null)
+				if (TableUtils.getPrimaryFirstColumn(input)==null)
 					addDummyPrimaryKey(input);
 			}
 		}
 	}
 
-	private void addDummyPrimaryKeyIfNoPrimaryKey(Table input) {
-		TableUtils.getPrimaryFirstColumn(input);
-		if (input==null)
-			addDummyPrimaryKey(input);
-	}
+//	private void addDummyPrimaryKeyIfNoPrimaryKey(Table input) {
+//		TableUtils.getPrimaryFirstColumn(input);
+//		if (input==null)
+//			addDummyPrimaryKey(input);
+//	}
 	
 	private void addDummyPrimaryKey(Table input) {
-		input.addColumn (getDummyPrimaryKeyColumn());
+		input.addColumn (getDummyPrimaryKeyColumn(input));
 	}
 	
 	private Column getDummyPrimaryKeyColumn(Table input) {
@@ -42,5 +43,7 @@ class SddDummyPrimaryKeyConvention extends SddConvention{
 		column.setRequired(true);
 		column.setHidden(true);
 		column.setTransient(true);
+		column.setName("DUMMY_PK_ID")
+		return column
 	}
 }

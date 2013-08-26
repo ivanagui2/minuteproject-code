@@ -519,12 +519,14 @@ public class TableDDLUtils extends TableAbstract {
 	@Override
 	public void addColumn (Column column) {
 		//use converter instead
+		// add 
 //		List<org.apache.ddlutils.model.Column> cols = Arrays.asList(table.getColumns());
 		org.apache.ddlutils.model.Column col = new org.apache.ddlutils.model.Column();
 		col.setName(column.getName());
 		col.setType(column.getType());
 		col.setPrimaryKey(column.isPrimaryKey());
 		table.addColumn(col);
+		getColumnList().add(column);
 		resetNoPrimaryKeyNoForeignKeyColumns();
 	}
 //	public List<Constraint> getConstraints() {

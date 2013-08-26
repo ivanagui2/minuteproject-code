@@ -75,6 +75,34 @@
     <pattern value="statement-model">
         <object-create-rule classname="net.sf.minuteProject.configuration.bean.StatementModel"/>     
         <set-next-rule methodname="setStatementModel" paramtype="net.sf.minuteProject.configuration.bean.StatementModel"/>   
+		<pattern value="enrichment">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.StatementModelEnrichment"/>		
+			<set-next-rule methodname="setBusinessModelEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.StatementModelEnrichment"/>					
+			<pattern value="conventions">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
+				<set-next-rule methodname="setConventions" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />	
+					<alias attr-name="alias" prop-name="alias" />
+				</set-properties-rule>
+				<pattern value="sdd-dummy-primarykey-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddDummyPrimaryKeyConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddDummyPrimaryKeyConvention"/>		
+					<set-properties-rule>
+					</set-properties-rule>	
+					<pattern value="property">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+						<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="value" prop-name="value" />
+							<alias attr-name="tag" prop-name="tag" />
+						</set-properties-rule>
+					</pattern>	
+	            </pattern>	
+	        </pattern>
+	    </pattern>
+
         <pattern value="composites">
             <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.Composites"/>    
             <set-next-rule methodname="setComposites" paramtype="net.sf.minuteProject.configuration.bean.model.statement.Composites"/>          
@@ -353,8 +381,8 @@
 			</set-properties-rule>
 		</pattern>
 		<pattern value="enrichment">
-			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>		
-			<set-next-rule methodname="setEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Enrichment"/>					
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment"/>		
+			<set-next-rule methodname="setBusinessModelEnrichment" paramtype="net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment"/>					
 			<pattern value="conventions">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		
 				<set-next-rule methodname="setConventions" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions"/>		

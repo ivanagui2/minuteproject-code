@@ -116,10 +116,13 @@ public class Query extends AbstractConfiguration {
 	
 	// remove duplication
 	public Table getEntity(Direction dir) {
-		Table entity = getEntityRoot(dir);
-		if (dir.equals(Direction.IN))
-			complementFields(entity,queryParams);
-		return entity;
+//		Table entity = getEntityRoot(dir);
+//		if (dir.equals(Direction.IN))
+//			complementFields(entity,queryParams);
+//		return entity;$
+		if (Direction.IN.equals(dir))
+			return getInputBean();
+		return getOutputBean();
 	}
 	
 	private void complementFields(Table table, QueryParams queryParams) {
