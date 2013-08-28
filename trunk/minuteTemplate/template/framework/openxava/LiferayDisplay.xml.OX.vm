@@ -13,5 +13,18 @@
 		<portlet id="$domainClassName" /> 
 #end
 #end
+    <!-- Transient definitions -->
+#foreach ($table in $model.businessModel.businessPackage.transferEntities)
+#exposeVariableEntitySpecific()
+		<portlet id="$domainClassName" /> 
+#end
+    <!-- SDD -->
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#set($table=$query.inputBean)
+#set($inputBean=$query.inputBean)
+#exposeSDDOX()
+#set($domainClassName=$tableClassName)
+		<portlet id="$domainClassName" /> 
+#end
 	</category>
 </display>

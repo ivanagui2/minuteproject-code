@@ -25,6 +25,7 @@
 #end
 #exposeVariableModelSpecific() 
 #exposeOXSpecific()
+#exposeOXTemplate()
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <portlet-app id="$applicationOX"
@@ -38,13 +39,18 @@
 #portlet()
 #end
 #end
+    <!-- Transient definitions -->
 #foreach ($table in $model.businessModel.businessPackage.transferEntities)
 #exposeVariableEntitySpecific()
 #portlet()
 #end
+    <!-- SDD -->
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #set($table=$query.inputBean)
+#set($inputBean=$query.inputBean)
 #exposeVariableEntitySpecific()
+#exposeSDDOX()
+#set($domainClassName=$tableClassName)
 #portlet()
 #end
 </portlet-app>
