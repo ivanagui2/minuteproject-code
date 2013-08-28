@@ -9,7 +9,9 @@ $!updatedAreaSnippet
 <service-builder package-path="$packageName">
 #end
 	<namespace>${model.name}</namespace>
-#foreach($table in ${package.listOfEntities})
+#foreach($table in ${entities})
+#asUML($table)
+#exposeVariableEntitySpecific()
 #exposeModelUpdatedAreas("entity-$domainClassName")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -20,7 +22,10 @@ $!updatedAreaSnippet
 		<!-- PK fields -->
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
-		<column name="$columnVar" type="$columnType" primary="true" />
+		<column name="$columnVar" 
+			type="$columnType" 
+			db-name="${column.name}"
+			primary="true" />
 		<!-- todo sequence, identity, increment -->
 #end		
 		<!-- attribute fields -->
@@ -46,15 +51,16 @@ $!updatedAreaSnippet
 #end
 		<!-- Relationships -->
 		
-		<column name="plid" type="Collection" entity="com.liferay.portal.Layout" mapping-key="plid"/> 
+##		<column name="plid" type="Collection" entity="com.liferay.portal.Layout" mapping-key="plid"/> 
 		
 		<!-- Order -->
 
-		<order>
+#*
+<order>
 			<order-column name="sampleId" order-by="asc" />
 			<order-column name="version" order-by="desc" />
 		</order>
-		
+*#		
 		<!-- Finder methods -->
 		
 

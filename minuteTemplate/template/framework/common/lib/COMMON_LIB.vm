@@ -2,6 +2,9 @@
 $!commonUtils.getReadMeText($template)
 #end
 
+#macro (asUML $table)
+#set ($table = $tableUtils.asUML($table))
+#end
 #macro(exposeVariableFunctionSpecific)
 #exposeVariableEntitySpecific()
 #exposeFunction()
