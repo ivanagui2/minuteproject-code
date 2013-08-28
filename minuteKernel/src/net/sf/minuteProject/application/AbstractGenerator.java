@@ -39,6 +39,7 @@ import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
 
 import org.apache.commons.collections.ExtendedProperties;
@@ -233,17 +234,15 @@ public abstract class AbstractGenerator implements Generator {
 		try {
 			configuration = load(getConfigurationFile(), getConfigurationRulesFile());
 			if (configuration.hasTechnologyCatalogEntry()) {
-				Targets targets = TechnologyCatalogUtils.getTargets(
-						configuration.getTargets().getCatalogEntry(), 
+				for (String catalogEntry : ParserUtils.getList(configuration.getTargets().getCatalogEntry())) {
+					logger.info("load catalog-entry "+catalogEntry);
+					Targets targets = TechnologyCatalogUtils.getTargets(
+						catalogEntry, 
 						CATALOG, 
-						configuration.getTargets().getOutputdirRoot(), 
+						configuration.getTargets().getOutputdirRoot(catalogEntry), 
 						configuration.getTargets().getTemplatedirRoot());
-//				Targets targets = TechnologyCatalogUtils.getDependentTechnologies (technologyRoot, catalogDir)(
-//						configuration.getTargets().getCatalogEntry(), 
-//						"catalog", 
-//						configuration.getTargets().getOutputdirRoot(), 
-//						configuration.getTargets().getTemplatedirRoot());
-				appendTargets (configuration, targets);
+					appendTargets (configuration, targets);
+				}
 			}
 				
 		} catch (Exception e) {

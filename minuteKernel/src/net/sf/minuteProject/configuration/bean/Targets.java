@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
 public class Targets extends AbstractConfiguration {
 	
 	private String outputdirRoot, catalog, catalogEntry, templatedirRoot;
-	public static final String productionPath = "../../template";
+	public static final String deliveryPath = "../../template";
 	public static final String developmentPath = "../minuteTemplate/template";
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
@@ -47,13 +47,21 @@ public class Targets extends AbstractConfiguration {
 	}
 
 	public String getOutputdirRoot() {
+		return getOutputdirRootCache(getCatalogEntry());
+	}
+
+	public String getOutputdirRootCache(String subdir) {
 		if (hasCatalogEntry() && outputdirRoot==null) {
-			String output = FileUtils.exists(productionPath)?"../output/":"../../output/";
-			outputdirRoot = output+getCatalogEntry()+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
+			outputdirRoot = getOutputdirRoot(subdir);
 		}
 		return outputdirRoot;
 	}
-
+	
+	public String getOutputdirRoot(String subdir) {
+		String output = FileUtils.exists(deliveryPath)?"../output/":"../../output/";
+		return output+subdir+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
+	}
+	
 	private boolean hasCatalogEntry() {
 		return !StringUtils.isEmpty(catalogEntry);
 	}
@@ -65,8 +73,8 @@ public class Targets extends AbstractConfiguration {
 	public String getTemplatedirRoot() throws MinuteProjectException {
 		if (hasCatalogEntry() && templatedirRoot==null) {
 			// try default for release
-			if (FileUtils.exists(productionPath))
-				return productionPath;
+			if (FileUtils.exists(deliveryPath))
+				return deliveryPath;
 			// try default for dev
 			if (FileUtils.exists(developmentPath))
 				return developmentPath;			
