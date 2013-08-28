@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation.TableUMLNotation;
 import net.sf.minuteProject.plugin.presentation.PresentationUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -636,5 +637,9 @@ public class TableUtils {
 				return table;
 		}
 		return null;
+	}
+	
+	public static Table asUML (Table table) {
+		return new TableUMLNotation(table);
 	}
 }

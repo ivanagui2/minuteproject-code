@@ -145,6 +145,17 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="version" value="2.0.2"></property>
 		</technology>
 
+		<technology name="Liferay" model-type="rdbms"
+			template-config-file-name="mp-template-config-Liferay.xml"
+			default-outputdir="Liferay" depends-on-targets="BSLA_LIB"
+			template-dir="@templateRoot@/framework/liferay"
+			status="draft"
+			description="Generates:\Liferay Service builder file">
+            <frameworks>
+                <framework name="liferay-version" version="6+"></framework>
+            </frameworks>
+		</technology>
+
 		<technology name="Primefaces-Spring" 
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF-Spring.xml"
 			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
