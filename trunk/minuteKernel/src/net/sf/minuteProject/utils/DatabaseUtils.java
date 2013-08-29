@@ -85,26 +85,26 @@ public class DatabaseUtils {
 	}
 	
 	//
-	public boolean isPrimaryKeyPolicyOneGlobal(Model model) {
+	public static boolean isPrimaryKeyPolicyOneGlobal(Model model) {
 		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
 		if (primaryKeyPolicy!=null)
 			return primaryKeyPolicy.isOneGlobal();
 		return false;
 	}
 	
-	public boolean isPrimaryKeyPolicyOneForEachTable(Model model) {
+	public static boolean isPrimaryKeyPolicyOneForEachTable(Model model) {
 		return !isPrimaryKeyPolicyOneGlobal(model);
 	}
 	
-	private PrimaryKeyPolicy getPrimaryKeyPolicy (Table table) {
+	private static PrimaryKeyPolicy getPrimaryKeyPolicy (Table table) {
 		return table.getDatabase().getDataModel().getPrimaryKeyPolicy();
 	}
 	
-	private PrimaryKeyPolicy getPrimaryKeyPolicy (Model model) {
+	private static PrimaryKeyPolicy getPrimaryKeyPolicy (Model model) {
 		return model.getDataModel().getPrimaryKeyPolicy();
 	}
 //	public boolean 
-	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (PrimaryKeyPolicy primaryKeyPolicy) {
+	private static PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (PrimaryKeyPolicy primaryKeyPolicy) {
 		if (primaryKeyPolicy==null) {
 			//TODO log should provide a policy pattern
 			return null;
@@ -112,17 +112,17 @@ public class DatabaseUtils {
 		return  primaryKeyPolicy.getFirstPrimaryKeyPolicyPattern();
 	}
 	
-	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Model model) {
+	private static PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Model model) {
 		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(model);
 		return  getPrimaryKeyPolicyPattern(primaryKeyPolicy);
 	}
 	
-	private PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Table table) {
+	private static PrimaryKeyPolicyPattern getPrimaryKeyPolicyPattern (Table table) {
 		PrimaryKeyPolicy primaryKeyPolicy = getPrimaryKeyPolicy(table);
 		return  getPrimaryKeyPolicyPattern(primaryKeyPolicy);
 	}
 	
-	public PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicyPatternEnum (Table table) {
+	public static PrimaryKeyPolicyPatternEnum getPrimaryKeyPolicyPatternEnum (Table table) {
 		PrimaryKeyPolicyPattern primaryKeyPolicyPattern = getPrimaryKeyPolicyPattern (table);
 		if (primaryKeyPolicyPattern != null) {
 			return primaryKeyPolicyPattern.getPrimaryKeyPolicyPatternEnum();
@@ -130,19 +130,19 @@ public class DatabaseUtils {
 		return PrimaryKeyPolicyPatternEnum.OTHER;
 	}
 	
-	public boolean isPrimaryKeyPolicyIdentity(Table table) {
+	public static boolean isPrimaryKeyPolicyIdentity(Table table) {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.IDENTITY);
 	}
 	
-	public boolean isPrimaryKeyPolicySequence(Table table) {
+	public static boolean isPrimaryKeyPolicySequence(Table table) {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.SEQUENCE);
 	}
 	
-	public boolean isPrimaryKeyPolicyUUID(Table table) {
+	public static boolean isPrimaryKeyPolicyUUID(Table table) {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.UUID);
 	}
 	
-	public boolean isPrimaryKeyPolicyIncrement(Table table) {
+	public static boolean isPrimaryKeyPolicyIncrement(Table table) {
 		return getPrimaryKeyPolicyPatternEnum(table).equals(PrimaryKeyPolicyPatternEnum.AUTOINCREMENT);
 	}
 	
