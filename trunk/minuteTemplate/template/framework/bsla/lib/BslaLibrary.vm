@@ -172,6 +172,7 @@
 #macro (putReferenceParams)
 ## this macro is used when accessing the entity reference via parentReferences or childReferences
 ## this macro is deprecated used putReferenceParams2 instead
+## use only when working with not UML notation tables
 #set ($linktable = ${reference.tableName})
 #set ($columnDB = $reference.column)
 #set ($linktableDB = ${reference.table})

@@ -5,67 +5,120 @@
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
-#else 
-<service-builder package-path="$packageName">
+#else
+#set($packageName=$model.packageRoot)
+<service-builder package-path="${packageName}.${model.name}">
 #end
 	<namespace>${model.name}</namespace>
 #foreach($table in ${entities})
 #asUML($table)
 #exposeVariableEntitySpecific()
+#if (!$isMany2Many)
 #exposeModelUpdatedAreas("entity-$domainClassName")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else 
-	<entity name="$domainClassName" uuid="false" local-service="true" remote-service="true">
-#end		
+	<entity name="$domainClassName" 
+		local-service="true" 
+		remote-service="true"
+        table="${table.name}"
+#if ($databaseUtils.isPrimaryKeyPolicyUUID($table))
+        uuid="true"
+        uuid-accessor="true"
+#end
+		>
+#end
+$!updatedAreaEnd	
 		<!-- PK fields -->
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
+
 		<column name="$columnVar" 
 			type="$columnType" 
 			db-name="${column.name}"
-			primary="true" />
+			primary="true" 
+#if(!$columnUtils.isNaturalPk($column) && !$databaseUtils.isPrimaryKeyPolicyUUID($table))
+#set($lrPkType=$liferayUtils.getSbPrimaryKeyType($column))
+		    id-type="$lrPkType"
+#if ($databaseUtils.isPrimaryKeyPolicySequence($table))
+#set ($sequenceName = $databaseUtils.provideSequence($table))
+            id-param="$sequenceName"
+#end
+#end
+         />
 		<!-- todo sequence, identity, increment -->
 #end		
 		<!-- attribute fields -->
 #foreach ($column in ${table.attributes})
 #putColumnParams()
-#exposeModelUpdatedAreas("entity-${domainClassName}-$columnVar")
+#exposeModelUpdatedAreas("entity-${domainClassName}-field-$columnVar")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else 
-		<column name="$columnVar" type="$columnType" db-name="${column.name}"/> 
+		<column name="$columnVar" type="$liferayUtils.getSbColumnType($column)" db-name="${column.name}"/> 
 #end
+$!updatedAreaEnd
 #end
-#foreach ($column in ${table.parents})
-#putColumnParams()
-#exposeModelUpdatedAreas("entity-${domainClassName}-$columnVar")
+		<!-- Relationships parents -->
+#foreach ($reference in ${table.parents})
+#putReferenceParams2()
+#exposeModelUpdatedAreas("entity-${domainClassName}-field-$localColumnVariable")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else 
-		<column name="$columnVar" type="$columnType" db-name="${column.name}"/> 
+		<column name="$localColumnVariable" type="$localColumnType" db-name="${localColumnName}"/> 
+#end
+$!updatedAreaEnd
+#end	
+#foreach ($reference in ${table.children})
+#if(!$linktableDB.isManyToMany())
+#putReferenceParams2()
+#exposeModelUpdatedAreas("entity-${domainClassName}-field-$localColumnVariable")
+        <column
+            name="$childrenListVariable"
+            type="Collection"
+            entity="$linkedTableClass"
+        />
+        <finder name="$childrenListClass" return-type="Collection">
+            <finder-column name="$childrenListVariable" />
+        </finder>
 #end
 #end
-		<!-- Relationships -->
-		
-##		<column name="plid" type="Collection" entity="com.liferay.portal.Layout" mapping-key="plid"/> 
-		
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+#exposeImportParamsUML($targetTable)
+#set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
+	    <!-- with m2m relationship it is not yet clear how I can do it with
+		     service builder since join and inversejoin column are missing
+        <column
+            name="$childrenListVariable"
+            type="Collection"
+            entity="$linkedTableClass"
+			mapping-table="$linkedTableDBName" 
+			
+			missing info to make correct association in ORM
+			    joinColumns=@JoinColumn(name="$targetColumn.name"), 
+        		inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
+        />
+		-->
+#end
+#set($ordering=$orderingUtils.getFirstOrdering($table))
+#set($column=$ordering.column)
+#set($order=$formatUtils.lowerCase(${ordering.order.toString()}))
+#putColumnParamNaming()
 		<!-- Order -->
-
-#*
-<order>
-			<order-column name="sampleId" order-by="asc" />
-			<order-column name="version" order-by="desc" />
-		</order>
-*#		
+		<order>
+			<order-column name="$columnVar" order-by="$order" />
+		</order>	
 		<!-- Finder methods -->
 		
 
 		<!-- References -->
 
 	</entity>
+#end
 #end
 </service-builder>

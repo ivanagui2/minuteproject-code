@@ -19,6 +19,7 @@ If you need them, please add them in your main configuration (in order to get th
 #foreach ($package in ${businessPackages})
 > package name is $package.name
 #foreach ($table in ${package.listOfTables})
+#asUML($table)
 #exposeVariableEntitySpecific()
 >> $velocityCount) table name is $table.name , the class name is $tableClassName .
 >>> fields:
@@ -52,5 +53,6 @@ If you need them, please add them in your main configuration (in order to get th
 Another way to extract table information
 
 #foreach($table in ${package.listOfEntities})
+#asUML($table)
 >> $table.name
 #end
