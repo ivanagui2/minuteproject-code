@@ -17,6 +17,13 @@
 			application-specific="true" add-model-name="false">
 		</template>
 
+		<template name="Liferay.service.builder.build.xml" templateFileName="Liferay.service.builder.build.xml.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="xml" file-prefix="build" file-suffix="" 
+			has-updatable-nature="true"
+			application-specific="true" add-model-name="false">
+		</template>
+
 	</template-target>	  	
   	         		
 </target>
