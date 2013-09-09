@@ -33,9 +33,8 @@ $!updatedAreaEnd
 		<!-- PK fields -->
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
-
 		<column name="$columnVar" 
-			type="$columnType" 
+			type="$liferayUtils.getSbColumnType($column)" 
 			db-name="${column.name}"
 			primary="true" 
 #if(!$columnUtils.isNaturalPk($column) && !$databaseUtils.isPrimaryKeyPolicyUUID($table))
@@ -69,23 +68,21 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else 
-		<column name="$localColumnVariable" type="$localColumnType" db-name="${localColumnName}"/> 
+		<column name="$localColumnVariable" type="$liferayUtils.getSbColumnType($localColumn)" db-name="${localColumnName}"/> 
 #end
 $!updatedAreaEnd
 #end	
 #foreach ($reference in ${table.children})
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
 #exposeModelUpdatedAreas("entity-${domainClassName}-field-$localColumnVariable")
         <column
             name="$childrenListVariable"
             type="Collection"
             entity="$linkedTableClass"
         />
-        <finder name="$childrenListClass" return-type="Collection">
-            <finder-column name="$childrenListVariable" />
-        </finder>
 #end
+$!updatedAreaEnd
 #end
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
@@ -114,7 +111,16 @@ $!updatedAreaEnd
 			<order-column name="$columnVar" order-by="$order" />
 		</order>	
 		<!-- Finder methods -->
-		
+#if($tableUtils.hasSemanticReference($table))
+#exposeModelUpdatedAreas("entity-${domainClassName}-semantic-ref")
+		<finder name="SemanticReference" return-type="Collection">
+#foreach($column in $tableUtils.getSemanticReferenceColumns($table))
+#putColumnParams()
+			<finder-column name="$columnVar" />
+#end
+        </finder>
+$!updatedAreaEnd
+#end		
 
 		<!-- References -->
 
