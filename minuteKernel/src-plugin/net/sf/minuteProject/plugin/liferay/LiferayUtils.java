@@ -15,14 +15,21 @@ public class LiferayUtils {
 		//strip auto in autoincrement
 		return DatabaseUtils.getPrimaryKeyPolicyPatternEnum(table).toString().toLowerCase();
 	}
+	/*
+	 * Info deduced from liferay sdk eclipse plugin
+	 */
 	public static String getSbColumnType(Column column) {
 		if (ColumnUtils.isString(column))
 			return "String";
 		if (ColumnUtils.isTime(column))
 			return "Date";
 		if (ColumnUtils.isInteger(column))
-			return "Integer";
+			return "int";
 		if (ColumnUtils.isLong(column))
+			return "long";
+		if (ColumnUtils.isDouble(column))
+			return "long";
+		if (ColumnUtils.isBoolean(column))
 			return "long";
 		//do clob and glob
 		return "String";

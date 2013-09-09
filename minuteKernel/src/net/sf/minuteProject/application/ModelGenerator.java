@@ -203,8 +203,10 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	protected void applyConventions (Model model) {
-		model.getBusinessModel().applyConventions();
-		model.getStatementModel().applyConventions();
+		if (model.hasBusinessModel())
+			model.getBusinessModel().applyConventions();
+		if (model.hasStatementModel())
+			model.getStatementModel().applyConventions();
 	}
 	
 	protected boolean hasTarget () {
