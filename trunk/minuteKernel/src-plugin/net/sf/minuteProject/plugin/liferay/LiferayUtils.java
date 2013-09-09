@@ -28,9 +28,9 @@ public class LiferayUtils {
 		if (ColumnUtils.isLong(column))
 			return "long";
 		if (ColumnUtils.isDouble(column))
-			return "long";
+			return "double";
 		if (ColumnUtils.isBoolean(column))
-			return "long";
+			return "boolean";
 		//do clob and glob
 		return "String";
 	}

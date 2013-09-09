@@ -105,7 +105,7 @@ public class ColumnUtils {
 	
 	public static boolean isTime(Column column) {
 		if (column!=null && 
-			!(
+			(
 				column.getType().equals("DATE") || 
 				column.getType().equals("TIMESTAMP") || 
 				column.getType().equals("TIME")
