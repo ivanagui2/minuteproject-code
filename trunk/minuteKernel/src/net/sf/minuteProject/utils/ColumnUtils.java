@@ -271,6 +271,11 @@ public class ColumnUtils {
 				type.equals("NUMBER") )?true:false;
 	}
 
+	public static boolean isDouble(Column column) {
+		String type = column.getType();
+		return type.equals("DOUBLE");
+	}
+	
 	public static boolean isTimeColumn (Column column) {
 		if (column.getType().equals("DATE") || 
 			column.getType().equals("TIME") || 
@@ -427,4 +432,5 @@ public class ColumnUtils {
 		}
 		return null;
 	}
+
 }
