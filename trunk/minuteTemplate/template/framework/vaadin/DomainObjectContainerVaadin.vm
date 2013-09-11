@@ -125,11 +125,11 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 		return ${variableName};
 	}
 	
-	public void saveAndUpdateList (${importDomainObjectUML} $domainVariableName) {
+#*	public void saveAndUpdateList (${importDomainObjectUML} $domainVariableName) {
 	   save ($domainVariableName);
 	   getAll(100);
 	}
-	
+*#	
 	public void save (${importDomainObjectUML} $domainVariableName) {
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     	if (${domainVariableName}.get$primaryKeyJavaNameClass() == null) {

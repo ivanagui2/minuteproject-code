@@ -34,6 +34,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 //import $SpringContextHelperImport;
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
+import ${domainObjectListImport};
 import $beanSpringModelServiceImport;
 #exposeJPA2Import()
 import $thisDomainImport;
@@ -82,11 +83,13 @@ public class ${className} extends Form implements ClickListener {
 #end
 	};
 			
+	HorizontalLayout createFormLayout = new HorizontalLayout();
 	private Button save = new Button("Save", (ClickListener) this);
 	private Button cancel = new Button("Cancel", (ClickListener) this);
 	private Button edit = new Button("Edit", (ClickListener) this);
 	private Button delete = new Button("Delete", (ClickListener) this);
 
+	private ${domainObjectListClass} list;
 	private $domainObjectApplicationClass $domainObjectApplicationVariable;
 	private boolean new${domainClassName}Mode = false;
 	private $importDomainObjectUML $domainVariableName = null;
@@ -96,6 +99,10 @@ public class ${className} extends Form implements ClickListener {
 	    this();
 		this.$domainObjectApplicationVariable = $domainObjectApplicationVariable;
 	}
+
+	public void setList (${domainObjectListClass} list) {
+        this.list = list;
+    }
 	
 	public ${className}() {
 		/*
@@ -178,6 +185,46 @@ public class ${className} extends Form implements ClickListener {
 		});
 	}
 
+	
+	
+	public void createFormLayout () {
+#foreach($column in ${table.columns})
+#putColumParamNamingFkPrimitive()
+#if($isForeignKey)
+#set($reference=$referenceUtils.getReference($column))
+#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))
+#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
+        ComboBox ${columnVar}Field = new ComboBox("$thisColumnVar");
+		BeanContainer<$primaryKeyType, $linkedTableClass> container$velocityCount = 
+                new BeanContainer<$primaryKeyType, $linkedTableClass>(${linkedTableClass}.class);
+        container${velocityCount}.setBeanIdProperty("${linkedColumnVariable}");
+        List<$linkedTableClass> l${velocityCount} = petshopModelService.getList(new $linkedTableClass());
+        container${velocityCount}.addAll(l${velocityCount});
+
+        ${columnVar}Field.setContainerDataSource(container$velocityCount);
+        ${columnVar}Field.setItemCaptionPropertyId("display");
+        ${columnVar}Field.setItemCaptionMode(Select.ITEM_CAPTION_MODE_PROPERTY);
+
+        ${columnVar}Field.setRequired(true);
+        ${columnVar}Field.setNullSelectionAllowed(false);
+        ${columnVar}Field.setValue(l${velocityCount}.get(0));
+#else
+		TextField ${columnVar}Field = new TextField("${columnVar}");
+		${columnVar}Field.setNullRepresentation("");
+#end
+#if($hasTypeValidator)
+		//@TODO change it. 
+#end
+#if($isMandatory && !$columnUtils.isPkUserProvided($column))
+		${columnVar}Field.setRequired(true);
+#end
+#if ($column.isPrimaryKey && !$columnUtils.isPkUserProvided($column))
+		${columnVar}Field.setVisible(false);
+#end				
+        createFormLayout.addComponent(${columnVar}Field);   			
+#end	
+	}	
+	
 	public void buttonClick(ClickEvent event) {
 		Button source = event.getButton();
 
@@ -187,18 +234,10 @@ public class ${className} extends Form implements ClickListener {
 				return;
 			}
 			${thisDomainObjectClass} var = get${domainClassName}FromForm ();
-	        ${domainObjectContainerVariable}.saveAndUpdateList (var);
-		    //${domainObjectApplicationVariable}.refresh();
-			//commit();
+	        ${domainObjectContainerVariable}.save (var);
+			list.loadData();
+##		    //${domainObjectApplicationVariable}.refresh();
 			if (new${domainClassName}Mode) {
-				/* We need to add the new person to the container */
-				//Item addedItem = app.getDataSource().addItem($domainVariableName);
-				/*
-				 * We must update the form to use the Item from our datasource
-				 * as we are now in edit mode (no longer in add mode)
-				 */
-				//setItemDataSource(addedItem);
-
 				new${domainClassName}Mode = false;
 			}
 			//setReadOnly(true);
@@ -216,7 +255,7 @@ public class ${className} extends Form implements ClickListener {
 		} else if (source == delete) {
 			${thisDomainObjectClass} var = get${domainClassName}FromForm ();
 	        ${domainObjectContainerVariable}.delete (var);
-		    //${domainObjectApplicationVariable}.refresh();
+##		    //${domainObjectApplicationVariable}.refresh();
 		}
 	}
 
