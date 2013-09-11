@@ -4,7 +4,6 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
-import net.sf.minuteProject.utils.TableUtils;
 
 public class LiferayUtils {
 
@@ -13,6 +12,11 @@ public class LiferayUtils {
 		if (ColumnUtils.isNaturalPk(column))
 			return "";
 		//strip auto in autoincrement
+		String strategyLowercase = getStrategyLowercase(table);
+		return (strategyLowercase.equals("autoincrement"))?"increment":strategyLowercase;
+	}
+	
+	private static String getStrategyLowercase(Table table) {
 		return DatabaseUtils.getPrimaryKeyPolicyPatternEnum(table).toString().toLowerCase();
 	}
 	/*
