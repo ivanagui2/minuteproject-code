@@ -213,7 +213,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB" status="released" comment=""
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
 				<framework name="OpenXava" version="4.6.1"></framework>
@@ -282,6 +282,16 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="web-xml-version" value="3.0"></property>
+		</technology>
+
+
+		<technology name="SqlUtils" model-type="rdbms"
+			template-config-file-name="mp-template-config-sqlutils.xml"
+			default-outputdir="SqlUtils" template-dir="@templateRoot@/utils/db"
+			status="draft" description="Generates misc sql artifacts \create missing fk \archiving trigger and tables">
+			<frameworks>
+				<framework name="SQL" version=""></framework>
+			</frameworks>
 		</technology>
 
 		<technology name="Roo" model-type="rdbms"
@@ -475,6 +485,11 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="SPRING_LIB" target-name="SPRING_LIB"
 			template-config-file-name="mp-template-config-SPRING-LIB.xml"
 			template-dir="@templateRoot@/framework/spring" is-generable="false">
+		</technology>
+		
+		<technology name="LIFERAY_LIB" target-name="LIFERAY_LIB"
+			template-config-file-name="mp-template-config-LIFERAY-LIB.xml"
+			template-dir="@templateRoot@/framework/liferay" is-generable="false">
 		</technology>
 
 	</technologies>

@@ -7,9 +7,9 @@
 					artifactId="sqljdbc4"></driver>
 				<dataSource>
 					<driverClassName>com.microsoft.sqlserver.jdbc.SQLServerDriver</driverClassName>
-					<url>jdbc:sqlserver://D02DI1157666:1433;databaseName=northwind</url>
+					<url>jdbc:sqlserver://localhost:1433;databaseName=northwind</url>
 					<username>sqlserver</username>
-					<password>Vw4LyuPpduh3RVkaEPmT</password>
+					<password>xxx</password>
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema <schema> </schema> -->
 				<schema>dbo</schema>
