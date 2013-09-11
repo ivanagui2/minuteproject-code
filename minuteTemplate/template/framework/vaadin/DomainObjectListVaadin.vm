@@ -15,6 +15,8 @@ import com.vaadin.data.Item;
 @SuppressWarnings("serial")
 public class ${className} extends Table {
 
+	$domainObjectContainerClass container = new $domainObjectContainerClass();
+
 	public ${className} ($domainObjectApplicationClass app) {
 		setSizeFull();
 		setContainerDataSource(app.getElements(100));
@@ -38,13 +40,14 @@ public class ${className} extends Table {
 	}
 	
     public ${className} (final $domainObjectFormClass form) { 
+	    form.setList(this);
         setSizeFull();
-        $domainObjectContainerClass container = new $domainObjectContainerClass();
-        setContainerDataSource(container.getAll(100));
-
+##        $domainObjectContainerClass container = new $domainObjectContainerClass();
+        loadData();
+#*		setContainerDataSource(container.getAll(100));
         setVisibleColumns(${domainObjectContainerClass}.NATURAL_COL_ORDER);
         setColumnHeaders(${domainObjectContainerClass}.COL_HEADERS_ENGLISH);
-
+*#
         setColumnCollapsingAllowed(true);
         setColumnReorderingAllowed(true);
 
@@ -69,4 +72,9 @@ public class ${className} extends Table {
 
     }
 
+    public void loadData() {
+        setContainerDataSource(container.getAll(100));
+        setVisibleColumns(${domainObjectContainerClass}.NATURAL_COL_ORDER);
+        setColumnHeaders(${domainObjectContainerClass}.COL_HEADERS_ENGLISH);
+    }
 }

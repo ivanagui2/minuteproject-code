@@ -1,0 +1,15 @@
+#macro(putLiferayPortletXmlModelSecurity)
+#foreach($role in $entitySecurityUtils.getDistinctRole($model))
+	<role-mapper>
+		<role-name>$role</role-name>
+		<role-link>$role</role-link>
+	</role-mapper>
+#end
+#end
+#macro(putPortletXmlEntitySecurity)
+#foreach($role in $entitySecurityUtils.getEntitySecuredRoles($table))
+		<security-role-ref>
+			<role-name>$role</role-name>
+		</security-role-ref>
+#end
+#end
