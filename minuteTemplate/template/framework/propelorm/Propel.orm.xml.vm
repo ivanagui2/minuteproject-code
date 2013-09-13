@@ -1,0 +1,41 @@
+<database name="my_connection_name" defaultIdMethod="native"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd" >
+   <table>
+##     <column name="Doctrine\Tests\ORM\Mapping\User" table="cms_users">
+     <column name="$columImportPhp" table="$table.name">
+       <inheritance />
+#*    <table name="product">
+        <column name="id"
+            type="integer"
+            required="true"
+            primaryKey="true"
+            autoIncrement="true"
+        />
+        <column name="name"
+            type="varchar"
+            primaryString="true"
+            size="100"
+        />
+        <column name="price"
+            type="decimal"
+        />
+        <column name="description"
+            type="longvarchar"
+        />
+    </table>
+	*#
+     </column>
+     <foreign-key>
+       <reference />
+     </foreign-key>
+     <index>
+       <index-column />
+     </index>
+     <unique>
+       <unique-column />
+     </unique>
+     <id-method-parameter/>
+   </table>
+   <external-schema />
+</database>
