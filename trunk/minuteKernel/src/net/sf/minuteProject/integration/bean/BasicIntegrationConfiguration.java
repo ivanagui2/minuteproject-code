@@ -18,6 +18,7 @@ import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.WebServiceModel;
 import net.sf.minuteProject.configuration.bean.connection.Driver;
+import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
@@ -187,12 +188,12 @@ public class BasicIntegrationConfiguration extends BeanCommon{
 		BusinessModel businessModel = new BusinessModel();
 		businessModel.setGenerationCondition(getGenerationCondition());
 		businessModel.setBusinessPackage(getBusinessPackage());
-		businessModel.setEnrichment(getEnrichment());
+		businessModel.setBusinessModelEnrichment(getEnrichment());
 		return businessModel;
 	}
 
-	private Enrichment getEnrichment() {
-		Enrichment enrichment = new Enrichment();
+	private BusinessModelEnrichment getEnrichment() {
+		BusinessModelEnrichment enrichment = new BusinessModelEnrichment();
 		enrichment.setConventions(getConventions());
 		return enrichment;
 	}

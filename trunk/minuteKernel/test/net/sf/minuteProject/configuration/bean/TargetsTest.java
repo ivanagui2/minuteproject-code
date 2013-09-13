@@ -36,7 +36,7 @@ public class TargetsTest {
 		assertNotNull(p2);
 		assertTrue(value.equals(p2));		
 		
-		Template template = new Template();
+		Template template = new Template(templateTarget);
 		templateTarget.addTemplate(template);
 		String p3 = template.getPropertyValue(name);
 		assertNotNull(p3);

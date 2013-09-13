@@ -3,6 +3,7 @@ package net.sf.minuteProject.utils;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import junit.framework.TestCase;
@@ -19,7 +20,12 @@ public class CommonUtilsTest extends TestCase{
 	}
 
 	private Template getSampleDomainTemplate() {
-		Template t = new Template();
+		TemplateTarget templateTarget;
+		templateTarget = new TemplateTarget();
+		templateTarget.setOutputdir("test");
+		templateTarget.setDir("test");
+		templateTarget.setRootdir("test");
+		Template t = new Template(templateTarget);
 		t.setName("DomainObjectUML");
 		
 		return t;

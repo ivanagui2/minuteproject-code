@@ -10,8 +10,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-<!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
-					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
+ 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
+					<!--<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>-->
 					<username>sa</username>
 					<password></password>	
 				</dataSource>
@@ -19,7 +19,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				<schema> </schema>
 				 -->
 				<primaryKeyPolicy oneGlobal="true" oneForEachTable="false">
-					<primaryKeyPolicyPattern prefix="" suffix="" name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
+					<primaryKeyPolicyPattern name="sequencePattern" sequenceName="hibernate_sequence"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
@@ -54,7 +54,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
- 		<targets catalog-entry="Liferay" >	
+ 		<targets catalog-entry="Liferay" outputdir-root="D:/temp">	
 		</targets>
 	</configuration>
 </generator-config>

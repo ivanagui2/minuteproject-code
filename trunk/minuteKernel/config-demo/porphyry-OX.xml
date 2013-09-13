@@ -253,7 +253,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                 </queries>
             </statement-model>
 		</model>
-		<targets catalog-entry="Liferay" />
+		<targets catalog-entry="OpenXava" outputdir-root="D:/SRC/OPENXAVA/temp/workspace/porphyry"/>
 <!-- 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
 		</targets> -->
 	</configuration>

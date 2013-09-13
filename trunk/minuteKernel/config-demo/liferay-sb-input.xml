@@ -15,8 +15,8 @@
      <password>mysql</password>
     </dataSource>
     <schema>lportal</schema>
-    <primaryKeyPolicy oneGlobal="true">
-     <primaryKeyPolicyPattern name="none"></primaryKeyPolicyPattern>
+    <primaryKeyPolicy>
+     <primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
     </primaryKeyPolicy>
    </data-model>
    <business-model>
@@ -32,10 +32,12 @@
       <entity-naming-convention type="apply-strip-table-name-suffix"
        pattern-to-strip="_" />
       <!-- manipulate the structure and entities BEFORE manipulating the 
-       entities -->
+       entities 
       <foreign-key-convention
          type="autodetect-foreign-key-based-on-similarity-and-map"
          column-ending="id" column-starting="" />
+         
+         -->
       <column-naming-convention type="apply-strip-column-name-suffix"
        pattern-to-strip="ID" />
       <reference-naming-convention
@@ -45,6 +47,6 @@
     </enrichment>
    </business-model>
   </model>
-  <targets catalog-entry="Liferay,SqlUtils"/>
+  <targets catalog-entry="Liferay,SqlUtils" />
  </configuration>
 </generator-config>

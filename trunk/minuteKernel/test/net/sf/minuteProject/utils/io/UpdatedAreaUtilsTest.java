@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import static net.sf.minuteProject.utils.io.UpdatedAreaUtils.*;
 
 import org.junit.Before;
@@ -14,11 +15,16 @@ import junit.framework.TestCase;
 public class UpdatedAreaUtilsTest extends TestCase {
 
 	Template template;
+	TemplateTarget templateTarget;
 	Map<String, String> updatedArea= new HashMap<String, String>();
 	
 	@Before
 	public void setUp() {
-		template = new Template();
+		templateTarget = new TemplateTarget();
+		templateTarget.setOutputdir("test");
+		templateTarget.setDir("test");
+		templateTarget.setRootdir("test");
+		template = new Template(templateTarget);
 		template.setFileExtension("java");
 		template.setUpdatable(true);
 		template.setHasUpdatableNature(true);

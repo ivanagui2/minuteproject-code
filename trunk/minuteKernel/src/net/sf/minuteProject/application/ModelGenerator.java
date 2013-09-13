@@ -227,25 +227,14 @@ public class ModelGenerator extends AbstractGenerator {
 		Target targetFinal = new Target();
 		Configuration configuration = model.getConfiguration();
 		for (Target target : targets.getTargets()) {
-//			TargetHolder targetHolder = new TargetHolder();
 			loadTarget(configuration, target);
 			configuration.getTarget().setIsGenerable(target.isGenerable());
-//			generate(configuration.getTarget());
-//			targetHolder.setTarget(model.getConfiguration().getTarget());
-			
 			targetFinal.complement(configuration.getTarget());
 			targetFinal.complementAdditional (target);
 			configuration.setTarget(new Target());
 		}	
 		configuration.setTarget(targetFinal);
 		applyTargetConventionAndGenerate(configuration.getTarget());
-//		for (Target target : targets.getTargets()) {
-//			complementWithTargetInfo(configuration, target);
-//			System.out.println("---");
-//			generate(configuration.getTarget());
-//		}
-//		targets.getAbstractConfigurationRoot().setTarget(targetHolder);
-			
 	}
 	
 	private void applyTargetConventionAndGenerate (Target target) throws MinuteProjectException {

@@ -90,7 +90,7 @@
 	</xs:complexType>
 
 	<xs:complexType name="primaryKeyPolicyPattern">
-		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="name" type="primaryKeyPolicyPatternType" />
 		<xs:attribute name="prefix" type="xs:string" />
 		<xs:attribute name="suffix" type="xs:string" />
 		<xs:attribute name="sequenceName" type="xs:string" />
@@ -149,6 +149,15 @@
 			<xs:enumeration value="reference-data" />
 			<xs:enumeration value="live-business-data" />
 			<xs:enumeration value="pseudo-static-data" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="primaryKeyPolicyPatternType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="sequencePattern" />
+			<xs:enumeration value="identityPattern" />
+			<xs:enumeration value="uuid" />
+			<xs:enumeration value="autoincrementPattern" />
 		</xs:restriction>
 	</xs:simpleType>
 
