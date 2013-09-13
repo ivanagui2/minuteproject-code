@@ -144,7 +144,9 @@ public abstract class AbstractGenerator implements Generator {
 	private InputStream getConfigurationInputStream (String configurationFileName) {
 		return getClass().getClassLoader().getSystemResourceAsStream(configurationFileName);
 	}
-	
+	/**
+	 * Starting from the target it loads another target into abstractconfigurationRooet
+	 */
 	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws MinuteProjectException {
 		try {
 			loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
@@ -174,6 +176,7 @@ public abstract class AbstractGenerator implements Generator {
 	
 	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
 		Target target2 = abstractConfigurationRoot.getTarget();
+//ERROR		target2.setTargets(target.getTargets());
 		target2.setDir(target.getDir());
 		target2.setCanonicalDir(target.getCanonicalDir());
 		target2.setOutputdirRoot(target.getOutputdirRoot());
@@ -206,6 +209,19 @@ public abstract class AbstractGenerator implements Generator {
         digester.push(object);
         digester.parse(input);
 	}
+
+
+	public void generate() throws MinuteProjectException {
+		//load configuration
+		//load targets and target
+		Configuration configuration = (Configuration) load();
+		generate(configuration);		
+	}
+	
+    void generate (Configuration configuration) throws MinuteProjectException {
+    	throw new MinuteProjectException("generate method shall be implemented");
+    }
+	
 	
 	/**
 	 * load the configuration root element
@@ -219,27 +235,24 @@ public abstract class AbstractGenerator implements Generator {
 		return loadFromBIC();
 	}
 	
-
-	public void generate() throws MinuteProjectException {
-		Configuration configuration = (Configuration) load();
-		generate(configuration);		
-	}
-	
-    void generate (Configuration configuration) throws MinuteProjectException {
-    	throw new MinuteProjectException("generate method shall be implemented");
-    }
 	
 	public final Configuration loadFromConfigurationFile() throws MinuteProjectException {
 		Configuration configuration = null;
 		try {
 			configuration = load(getConfigurationFile(), getConfigurationRulesFile());
+			//
+			String outputdirRoot = null;
+			Targets ts = configuration.getTargets();
+			if (ts!=null)
+				outputdirRoot = ts.getOutputdirRoot();
+			//
 			if (configuration.hasTechnologyCatalogEntry()) {
 				for (String catalogEntry : ParserUtils.getList(configuration.getTargets().getCatalogEntry())) {
 					logger.info("load catalog-entry "+catalogEntry);
 					Targets targets = TechnologyCatalogUtils.getTargets(
 						catalogEntry, 
 						CATALOG, 
-						configuration.getTargets().getOutputdirRoot(catalogEntry), 
+						(outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry), 
 						configuration.getTargets().getTemplatedirRoot());
 					appendTargets (configuration, targets);
 				}

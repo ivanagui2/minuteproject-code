@@ -46,6 +46,14 @@ public class Targets extends AbstractConfiguration {
 		getTargets().add(target);
 	}
 
+//	public String getOutputdirRoot() {
+//		if (hasCatalogEntry() && outputdirRoot==null) {
+//			String output = FileUtils.exists(deliveryPath)?"../output/":"../../output/";
+//			outputdirRoot = output+getCatalogEntry()+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
+//		}
+//		return outputdirRoot;
+//	}
+
 	public String getOutputdirRoot() {
 		return getOutputdirRootCache(getCatalogEntry());
 	}

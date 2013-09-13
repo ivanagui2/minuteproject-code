@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
+import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
@@ -72,7 +73,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 	private Field getRetrievedField(Table table, Reference parent) {
 		BusinessModel businessModel = table.getDatabase().getDataModel().getModel().getBusinessModel();
 		if (businessModel!=null){
-			Enrichment enrichment = businessModel.getEnrichment();
+			BusinessModelEnrichment enrichment = businessModel.getEnrichment();
 			for (Entity entity : enrichment.getEntities()){
 				if (net.sf.minuteProject.utils.StringUtils.compareName(entity.getName(), table.getName())) {
 //					System.out.println(">>> table "+entity.getName()+"--"+ table.getName());
