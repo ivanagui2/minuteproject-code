@@ -1,9 +1,31 @@
-<database name="my_connection_name" defaultIdMethod="native"
+#exposeVariableModelSpecific()
+##TODO phpname (conversion of reserved words 
+##http://propelorm.org/documentation/02-buildtime.html
+##http://propelorm.org/cookbook/working-with-existing-databases.html
+<database name="$model.name" defaultIdMethod="native"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd" >
-   <table>
+#foreach($table in ${entities})
+#exposeVariableEntitySpecific()
+   <table name="$table.name" phpName="$domainClassVar">
 ##     <column name="Doctrine\Tests\ORM\Mapping\User" table="cms_users">
-     <column name="$columImportPhp" table="$table.name">
+#foreach($column in ${table.columns})
+#putColumnParams()
+	 <column name="$columnVar" 
+		phpName="$column.name"
+		type="$propelUtils.getType($column)"
+#if($isPrimaryKey)
+        primaryKey="true"	
+#if($isAutoincrement)
+	    autoIncrement="true"
+#end
+#end
+#if($isMandatory)
+        required="true"	
+#end
+		>
+
+#end
        <inheritance />
 #*    <table name="product">
         <column name="id"
@@ -38,4 +60,5 @@
      <id-method-parameter/>
    </table>
    <external-schema />
+#end
 </database>
