@@ -26,7 +26,7 @@
 		>
 
 #end
-       <inheritance />
+##       <inheritance />
 #*    <table name="product">
         <column name="id"
             type="integer"
