@@ -2,6 +2,7 @@
 #exposeMaven()
 #exposeJSFConfig
 #exposePrimefacesConfig()
+#set($isLiferayPortlet=$template.getPropertyValue("liferay-portlet",false))
 #set($jsfImplementation=$jsfUtils.getJsfImplementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -81,6 +82,13 @@
 			<artifactId>primefaces</artifactId>
 			<version>$primefacesVersion</version>
 		</dependency>
+#if($isLiferayPortlet)		
+        <dependency>
+        	<groupId>com.liferay.faces</groupId>
+        	<artifactId>liferay-faces-bridge-api</artifactId>
+        	<version>3.0.0-ga1</version>
+        </dependency>
+#end
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>cupertino</artifactId>
