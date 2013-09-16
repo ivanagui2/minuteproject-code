@@ -71,6 +71,11 @@
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
+		<template name="JSFXhtmlListLazyEntityPortlet" templateFileName="JSFXhtmlListLazyEntityPortlet.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="PortletList" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
 <!-- 
 		<template name="JSFXhtmlListEntity" templateFileName="JSFXhtmlListEntity.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="List" 
