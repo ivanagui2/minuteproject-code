@@ -5,6 +5,12 @@ $!commonUtils.getReadMeText($template)
 #macro (asUML $table)
 #set ($table = $tableUtils.asUML($table))
 #end
+
+#macro (exposeApplicationSpecific)
+#set ($configuration = $model.configuration)
+#set ($applicationName=$configuration.name)
+#end
+
 #macro(exposeVariableFunctionSpecific)
 #exposeVariableEntitySpecific()
 #exposeFunction()

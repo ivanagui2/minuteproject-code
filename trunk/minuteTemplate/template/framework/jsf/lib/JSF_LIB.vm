@@ -68,6 +68,7 @@
 #set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))
 #set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListRowJSF))
+#set ($entityListPortletJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListPortletJSF))
 #end
 
 #macro (exposeJSFModelSpecific)
@@ -107,6 +108,7 @@
 #set ($templateEntityCreateJSF = "JSFXhtmlCreateEntity")
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
 #set ($templateEntityListLazyJSF = "JSFXhtmlListLazyEntity")
+#set ($templateEntityListPortletJSF = "JSFXhtmlListLazyEntityPortlet")
 #set ($templateEntityEditJSF = "JSFXhtmlEditEntity")
 #set ($templateEntityListRowJSF = "JSFXhtmlListRowEntity")
 #set ($templateSDDJSF = "JSFXhtmlSDDInput")
