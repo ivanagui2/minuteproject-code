@@ -149,7 +149,6 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 	public static Targets getTargets(String technologyTarget, String catalogDir,String outputDir, String templateRootDir) throws MinuteProjectException {
 		return getTargets(getChoosenTechnology(technologyTarget, catalogDir), catalogDir, outputDir, templateRootDir);
 	}
-	
 
 	private static Technology getChoosenTechnology(String targetTechnology, String catalogDir) throws MinuteProjectException {
 	    return TechnologyCatalogUtils.getPublishedTechnology(targetTechnology, catalogDir);

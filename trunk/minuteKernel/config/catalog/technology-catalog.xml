@@ -146,7 +146,7 @@ the properties are declared at the technology level and apply to all templates (
 		</technology>
 
 		<technology name="Liferay" model-type="rdbms"
-			template-config-file-name="mp-template-config-Liferay.xml"
+			template-config-file-name="mp-template-config-Liferay-servicebuilder.xml"
 			default-outputdir="Liferay" depends-on-targets="BSLA_LIB"
 			template-dir="@templateRoot@/framework/liferay"
 			status="draft"
