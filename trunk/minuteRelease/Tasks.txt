@@ -1,3 +1,36 @@
+Release 0.9
+-----------
+Android
+content-oriented structure
+
+
+
+Release 0.8.6
+-------------
+PHP
+- doctrine2
+
+Go Github //TODO
+velocity template in jar (check for lib)
+ant script / mvn artifact
+
+Build to maven:
+-> copy src and package + code coverage + sonar
+
+
+
+
+
+Release 0.8.5
+-------------
+Liferay SB generation
+portlet with vaadin and PF
+Productivity
+Liferay productivity suite
+OX generation with Transient definition and SDD
+
+DB H2
+
 Release 0.8.3
 -------------
 Springdata + rest based on heuristics
