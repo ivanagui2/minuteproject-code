@@ -1,24 +1,48 @@
 #macro(portlet)
+#if($isVaadin)
+#exposeVaadinDomainObject()
+#elseif ($isPrimefaces)
 #exposeJSFEntitySpecific()
+#elseif ($isOpenxava)
+#exposeOXEntitySpecific()
+#end
 	<portlet id="$domainClassName">
 		<description>$applicationName - $domainClassName</description>       
 		<description xml:lang="en">$applicationName - $domainClassName</description>         
 		<portlet-name>$domainClassName</portlet-name>
 		<display-name>$applicationName - $domainClassName</display-name>    
-		<display-name xml:lang="en">$applicationName - $domainClassName</display-name>    
+		<display-name xml:lang="en">$applicationName - $domainClassName</display-name>   
+#if($isVaadin)
+        <portlet-class>com.vaadin.server.VaadinPortlet</portlet-class>
+        <init-param>
+          <name>UI</name>    
+			<value>$domainObjectApplicationImport</value>
+        </init-param>
+#elseif($isPrimefaces)
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/$entityListPortletJSFLocation</value>
 		</init-param>
+#elseif($isOpenxava)
+		<portlet-class>org.openxava.web.portlets.XavaPortlet</portlet-class>
+		<init-param>
+			<name>Application</name>
+			<value>$applicationOX</value>
+		</init-param>
+		<init-param>
+			<name>Module</name>
+			<value>$domainClassName</value>
+		</init-param> 
+    	<resource-bundle>portlets/$domainClassName</resource-bundle>
+#end
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<supported-locale>en</supported-locale> 
-<!--    	<resource-bundle>portlets/$domainClassName</resource-bundle>
--->
+#putPortletXmlEntitySecurity($table)
 	</portlet>
 #*
 	<portlet>
@@ -58,6 +82,7 @@
 		</security-role-ref>
 		*#
 #end
+#exposePortletTechnology()
 #exposeVariableModelSpecific() 
 #exposeApplicationSpecific()
 <?xml version="1.0" encoding="ISO-8859-1"?>
