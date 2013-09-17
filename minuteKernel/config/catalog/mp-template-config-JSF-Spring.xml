@@ -206,7 +206,7 @@
 			application-specific="true" add-model-name="false" 
 			has-updatable-nature="true">
 		</template>
-
+<!-- replace in liferay track
 		<template name="JSFPortletXml" templateFileName="JSFPortlet.xml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="portlet" 
 			application-specific="true" add-model-name="false" 
@@ -217,7 +217,7 @@
 			file-extension="xml" technicalPackage="" file-suffix="liferay-display" 
 			application-specific="true" add-model-name="false" 
 			has-updatable-nature="true">
-		</template>
+		</template> -->
 
 <!-- 		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="beans" 

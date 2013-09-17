@@ -145,4 +145,19 @@ public class Model extends AbstractConfiguration{
 		this.statementModel.setModel(this);
 	}
 
+	public boolean hasBusinessPackages () {
+		return !getBusinessModel().getBusinessPackage().getPackages().isEmpty();
+	}
+	
+	public boolean hasBusinessPackageViews () {
+		return !getBusinessModel().getBusinessPackage().getPackageViews().isEmpty();
+	}
+	
+	public boolean hasBusinessPackageTransferEntities () {
+		return !getBusinessModel().getBusinessPackage().getPackageTransferEntities().isEmpty();
+	}
+	
+	public boolean hasStatements () {
+		return !getStatementModel().getQueries().getQueries().isEmpty();
+	}
 }
