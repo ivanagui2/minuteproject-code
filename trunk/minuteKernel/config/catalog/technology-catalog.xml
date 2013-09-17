@@ -158,7 +158,7 @@ the properties are declared at the technology level and apply to all templates (
 
 		<technology name="Primefaces-Spring" 
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF-Spring.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
@@ -177,7 +177,7 @@ the properties are declared at the technology level and apply to all templates (
 		
 		<technology name="Primefaces-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="Primefaces_portlet,JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
@@ -271,7 +271,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="Vaadin" model-type="rdbms"
 			template-config-file-name="mp-template-config-vaadin-last-features.xml"
 			default-outputdir="vaadin" template-dir="@templateRoot@/framework/vaadin"
-			depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster" status="draft"
+			depends-on-targets="Vaadin_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster" status="draft"
 			description="Generates Vaadin Front end on top of a Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 			<frameworks>
 				<framework name="Vaadin" version="7"></framework>
@@ -284,6 +284,25 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="web-xml-version" value="3.0"></property>
 		</technology>
 
+		<technology name="Vaadin_portlet" model-type="rdbms"
+			template-config-file-name="mp-template-config-liferay-portlet-features.xml"
+			default-outputdir="vaadin" template-dir="@templateRoot@/framework/liferay"
+			description="Generates Liferay portlet artifacts">
+			<frameworks>
+				<framework name="Liferay" version="6.1+"></framework>
+			</frameworks>
+			<property name="portlet-technology" value="vaadin"></property>
+		</technology>
+
+		<technology name="Primefaces_portlet" model-type="rdbms"
+			template-config-file-name="mp-template-config-liferay-portlet-features.xml"
+			default-outputdir="JSF-primefaces" template-dir="@templateRoot@/framework/liferay"
+			description="Generates Liferay portlet artifacts">
+			<frameworks>
+				<framework name="Liferay" version="6.1+"></framework>
+			</frameworks>
+			<property name="portlet-technology" value="primefaces"></property>
+		</technology>
 
 		<technology name="SqlUtils" model-type="rdbms"
 			template-config-file-name="mp-template-config-sqlutils.xml"
