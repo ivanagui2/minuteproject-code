@@ -13,3 +13,9 @@
 		</security-role-ref>
 #end
 #end
+
+#macro(exposePortletTechnology)
+#set($isVaadin=$template.getPropertyValue("portlet-technology","none")=="vaadin")
+#set($isPrimefaces=$template.getPropertyValue("portlet-technology","none")=="primefaces")
+#set($isOpenxava=$template.getPropertyValue("portlet-technology","none")=="openxava")
+#end
