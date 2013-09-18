@@ -23,41 +23,24 @@
 #if($isMandatory)
         required="true"	
 #end
-		>
-
-#end
-##       <inheritance />
-#*    <table name="product">
-        <column name="id"
-            type="integer"
-            required="true"
-            primaryKey="true"
-            autoIncrement="true"
-        />
-        <column name="name"
-            type="varchar"
-            primaryString="true"
-            size="100"
-        />
-        <column name="price"
-            type="decimal"
-        />
-        <column name="description"
-            type="longvarchar"
-        />
-    </table>
-	*#
-     </column>
+		/>
+#if($isForeignKey)
      <foreign-key>
        <reference />
      </foreign-key>
+#end
+#if($isIndex)
      <index>
        <index-column />
      </index>
+#end
+#if($isUnique)
      <unique>
        <unique-column />
      </unique>
+#end
      <id-method-parameter/>
+#end
    </table>
    <external-schema />
 #end
