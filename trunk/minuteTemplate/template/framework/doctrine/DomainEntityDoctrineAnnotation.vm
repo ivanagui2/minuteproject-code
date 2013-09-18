@@ -144,6 +144,7 @@ $!updatedAreaEnd
 #end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#* 
 #if($isFieldRelationshipPersistence)
 #set($insertableUpdatableRelationship=", insertable=false, updatable=false")
 #set($insertableUpdatableField=", insertable=true, updatable=true")
@@ -156,19 +157,23 @@ $!updatedAreaEnd
 #set($insertableUpdatableField=", insertable=false, updatable=false")
     @MapsId ("$localColumnName")
 #end
+*#
 #set($fetchType=$jpa2Utils.getFetchType($template, $reference))
-    @ManyToOne (fetch=FetchType.$fetchType #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
-    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
-    private $linkedTableClass ${colVar};  
-
+    /**
+	 * @ManyToOne (fetch=FetchType.$fetchType #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
+     * @JoinColumn(type="$linkedTableClass" name="$localColumnName", referencedColumnName = "$reference.foreignColumnName" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
+	 */
+	private ${colVar};  
+#*
 #set($column = $reference.localColumn)
 #putColumnParamNaming()
     @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
     private $columnType ${columnVar}_;
-
+*#
 #end	
+
 #foreach ($reference in $table.children)
 #putReferenceParams2()
 #exposeEntityUpdatedAreas("${childrenListVariable}-field")
@@ -185,8 +190,10 @@ $!updatedAreaSnippet
 #else
 #set ($foreignColumnVar = $domainVariableName)
 #end
-    @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
+    /**
+	 * @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
+     */
+	private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
 
 #end
 #end
@@ -203,11 +210,13 @@ $!updatedAreaSnippet
 #else
 #exposeImportParamsUML($targetTable)
 #set($targetColumn=$enrichmentUtils.getOtherColumn($linkedTableDB, $linkReference.localColumn))
-    @ManyToMany
-    @JoinTable(name="$linkedTableDBName", 
-        joinColumns=@JoinColumn(name="$targetColumn.name"), 
-        inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
-    )
+    /**
+	 * @ManyToMany
+     * @JoinTable(name="$linkedTableDBName", 
+     *   joinColumns=@JoinColumn(name="$targetColumn.name"), 
+     *   inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
+     * )
+	 */
     private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
@@ -377,7 +386,7 @@ $!updatedAreaEnd
     }
 	
 #end
-#putJPA2TriggerSnippet()
+##putJPA2TriggerSnippet()
 
 $!updatedAreaImplementation
 
