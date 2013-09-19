@@ -429,6 +429,15 @@ the properties are declared at the technology level and apply to all templates (
 			description="Spring service">
 		</technology>
 		
+
+		<technology name="Doctrine" model-type="rdbms"
+			template-config-file-name="mp-template-config-doctrine.xml"
+			default-outputdir="doctrine" depends-on-targets="PHP_LIB"
+			template-dir="@templateRoot@/framework/doctrine"
+			status="experimental"
+			description="Doctrine2 classes">
+		</technology>
+		
 		
 		<technology name="WS-JEE-war" target-name="WS-JEE-war"
 			model-type="rdbms" template-config-file-name="mp-template-config-WS-JEE-war.xml"

@@ -37,7 +37,7 @@
 
 	<template-target 
 	    templatedir = "template" 
-		libdir="lib/BslaLibrary.vm"
+		libdir="lib/DOCTRINE_LIB.vm"
 		tool="velocity"
 		outputdir=""
 		package-root=""
