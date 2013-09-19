@@ -286,16 +286,6 @@ $!updatedAreaBegin
 $updatedAreaSnippet
 #else
 #putColumnParamNaming()
-#if ($column.isLob())
-#exposeLobProperties()
-#end
-#if($isEnum)
-#set($originType=$columnType)
-#set($columnType=$enumClassName)
-#end
-#if($useTemporal && $isTimeColumn)
-#set($columnType="java.util.Date")
-#end
     public $columnType get$columnClass() {
         return $columnVar;
     }
@@ -304,11 +294,6 @@ $updatedAreaSnippet
         this.$columnVar =  $columnVar;
     }
 	
-#if($isEnum)
-    public void set$columnClass ($originType $columnVar) {
-        this.$columnVar =  ${enumClassName}.fromValue($columnVar);
-    } 
-#end
 #end
 $!updatedAreaEnd
 
