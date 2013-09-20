@@ -251,6 +251,18 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                          </query-params>
                      </query>
                 </queries>
+                <nested-statements>
+                	<nested-statement id="manage-session" query-id="select-session">
+						<actions>
+							<action name="kill-session" default-implementation="statement" 
+							    query-id="kill-session" >
+								<action-condition name="blocked session">
+									<field name="blocking_session" value="1"/>
+								</action-condition>
+							</action>					
+						</actions>
+                	</nested-statement>
+                </nested-statements>
             </statement-model>
 		</model>
 		<targets catalog-entry="OpenXava" outputdir-root="D:/SRC/OPENXAVA/temp/workspace/porphyry"/>

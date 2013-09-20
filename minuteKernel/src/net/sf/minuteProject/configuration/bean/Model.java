@@ -137,6 +137,8 @@ public class Model extends AbstractConfiguration{
 	}
 
 	public StatementModel getStatementModel() {
+		if (statementModel==null)
+			statementModel = new StatementModel();
 		return statementModel;
 	}
 
