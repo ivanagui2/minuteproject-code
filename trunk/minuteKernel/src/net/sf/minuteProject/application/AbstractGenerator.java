@@ -249,10 +249,11 @@ public abstract class AbstractGenerator implements Generator {
 			if (configuration.hasTechnologyCatalogEntry()) {
 				for (String catalogEntry : ParserUtils.getList(configuration.getTargets().getCatalogEntry())) {
 					logger.info("load catalog-entry "+catalogEntry);
+					String outputDir = (outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry);
 					Targets targets = TechnologyCatalogUtils.getTargets(
 						catalogEntry, 
 						CATALOG, 
-						(outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry), 
+						outputDir, 
 						configuration.getTargets().getTemplatedirRoot());
 					appendTargets (configuration, targets);
 				}

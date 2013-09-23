@@ -55,7 +55,8 @@ public class Targets extends AbstractConfiguration {
 //	}
 
 	public String getOutputdirRoot() {
-		return getOutputdirRootCache(getCatalogEntry());
+		return outputdirRoot;
+//		return getOutputdirRootCache(getCatalogEntry());
 	}
 
 	public String getOutputdirRootCache(String subdir) {
