@@ -139,9 +139,10 @@ public class QueryUtils {
 			if (value!=null && !value.equals("")) {
 				if (isBeginning) {
 					isBeginning=false;
+					sb.append(" SET "+columnName+" = ");
 				}else
-					sb.append(",");
-				sb.append(" SET "+columnName+" = ");
+					sb.append(", "+columnName+" = ");
+//				sb.append(" SET "+columnName+" = ");
 				if (isQuoted(value)){
 					sb.append("'"+value+"'");
 				}
