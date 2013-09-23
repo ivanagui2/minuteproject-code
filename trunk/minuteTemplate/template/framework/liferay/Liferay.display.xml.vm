@@ -7,7 +7,7 @@
 	<category name="minuteproject.$applicationName"> 
 #if($hasBusinessPackages)
 	    <category name="CRUD Admin">
-#foreach($table in $businessPackages)
+#foreach($table in $businessTablePackages)
 #if(!$table.isMany2Many)
 #exposeVariableEntitySpecific()	
 		    <portlet id="$domainClassName" /> 
@@ -17,7 +17,7 @@
 #end
 #if($hasBusinessPackageViews)
 	    <category name="Virtualisation">
-#foreach($table in $businessPackageViews)
+#foreach($table in $businessViewPackages)
 #if(!$table.isMany2Many)
 #exposeVariableEntitySpecific()	
 		    <portlet id="$domainClassName" /> 
@@ -28,7 +28,7 @@
 #if($hasBusinessPackageTransferEntities)
         <!-- Transient definitions -->
 	    <category name="Transient definitions">
-#foreach ($table in $businessPackageTranferEntities)
+#foreach ($table in $businessTranferEntityPackages)
 #exposeVariableEntitySpecific()
 		     <portlet id="$domainClassName" /> 
 #end

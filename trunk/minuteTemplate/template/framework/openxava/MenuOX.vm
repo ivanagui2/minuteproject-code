@@ -108,7 +108,7 @@
 	</li>
 #end
 
-#if($model.hasStatementModel())
+#if($model.hasStatements())
     <li class="topitem"><a href="#" onclick="return false;">Statements</a>
 	  <ul class="submenu">
     <!-- statement driven development SDD -->
