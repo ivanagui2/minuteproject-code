@@ -1,28 +1,47 @@
 package net.sf.minuteProject.integration.ant;
 
+import net.sf.minuteProject.application.ModelViewGenerator;
+import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicyPatternEnum;
+import net.sf.minuteProject.exception.MinuteProjectException;
+import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 
 public class MpAntTask extends Task {
 
-	private String schema, 
-		driver, 
-		url, 
-		username, 
-		password, 
-		primaryKeyPolicy, 
-		target, 
-		database, 
-		rootpackage,
-		businesspackage,
-		version,
-		configuration;
-	
-    public void execute() {
-	   log("MinuteProject generator", Project.MSG_INFO);
-	   //load DB matrix for default
-	   //load target matrix (ex: openxava, granity...)
-	   //
+	private ModelViewGenerator modelViewGenerator;
+
+	private String schema, driver, url, username, password, primaryKeyPolicy,
+			target, database, rootpackage, businesspackage, version,
+			configuration;
+
+	public void execute() {
+		log("MinuteProject generator", Project.MSG_INFO);
+		modelViewGenerator = (configuration != null) ? new ModelViewGenerator(
+				configuration) : new ModelViewGenerator(getBic());
+		try {
+			modelViewGenerator.generate();
+		} catch (MinuteProjectException e) {
+			log("MinuteProject generator error " + e.getMessage(),
+					Project.MSG_ERR);
+		}
+	}
+
+	private BasicIntegrationConfiguration getBic() {
+		BasicIntegrationConfiguration bic = new BasicIntegrationConfiguration();
+		bic.setSchema(schema);
+		bic.setDriver(driver);
+		bic.setUrl(url);
+		bic.setUsername(username);
+		bic.setPassword(password);
+		bic.setPrimaryKeyPolicy(PrimaryKeyPolicyPatternEnum.getPrimaryKeyPolicy(primaryKeyPolicy));
+		bic.setTargetTechnology(target);
+		bic.setDatabase(database);
+		bic.setRootpackage(rootpackage);
+		bic.setBusinesspackage(businesspackage);
+		bic.setVersion(version);
+		return bic;
 	}
 
 	public String getSchema() {
@@ -121,5 +140,4 @@ public class MpAntTask extends Task {
 		this.version = version;
 	}
 
-	
 }

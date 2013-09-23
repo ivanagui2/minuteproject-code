@@ -252,13 +252,25 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                      </query>
                 </queries>
                 <nested-statements>
-                	<nested-statement id="manage-session" query-id="select-session">
+                	<nested-statement id="manage-access" query-id="select-pending-user">
 						<actions>
-							<action name="kill-session" default-implementation="statement" 
-							    query-id="kill-session" >
-								<action-condition name="blocked session">
+							<action name="grant-user" default-implementation="statement" 
+							    query-id="grant-user-role" >
+<!-- 								<action-condition name="blocked session">
 									<field name="blocking_session" value="1"/>
 								</action-condition>
+								<statement-mapping>
+									use default mapping
+								</statement-mapping> -->
+							</action>					
+							<action name="reject-user" default-implementation="statement" 
+							    query-id="reject-user-role" >
+<!-- 								<action-condition name="blocked session">
+									<field name="blocking_session" value="1"/>
+								</action-condition>
+								<statement-mapping>
+									use default mapping
+								</statement-mapping> -->
 							</action>					
 						</actions>
                 	</nested-statement>
