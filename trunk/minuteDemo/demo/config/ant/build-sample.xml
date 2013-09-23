@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project name="Ant Task" default="demoMinuteproject" basedir=".">
+
+  <path id="minuteproject.path">
+  <pathelement location="${env.MP_HOME}/demo/config"/>
+  <pathelement location="${env.MP_HOME}/application/lib/minuteKernel-0.8.4.jar"/>
+    <fileset dir="${env.MP_HOME}/application/lib" >
+	<include name="*.jar"/>
+    </fileset>
+    <fileset dir="${env.MP_HOME}/application/lib/extra"  includes="*.jar" >
+    </fileset>		
+  </path>
+
+	<taskdef name="minuteproject"
+              classname="net.sf.minuteProject.integration.ant.MpAntTask">
+		<classpath refid="minuteproject.path"/>
+	</taskdef>
+
+		
+  <target name="demoMinuteproject">
+
+
+      <minuteproject configuration="mp-config-fitnesse.xml"/>
+
+  </target>
+  
+</project>
+
+
+
