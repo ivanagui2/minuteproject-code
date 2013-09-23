@@ -1,4 +1,5 @@
 #exposeOXSpecific()
+@echo off
 set currentdir=%cd%
 
 IF %OX_HOME% == "" (

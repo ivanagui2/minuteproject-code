@@ -64,7 +64,9 @@ $!updatedAreaSnippet
 		extendsView="base",
 #writeViewChildrenMember()
 	),
-	@View(extendsView="base",
+	@View(
+		name="DEFAULT", 
+		extendsView="base",
 #writeViewChildrenMember()
 	),
     @View(name="${domainVariableName}${defaultViewExt}", 

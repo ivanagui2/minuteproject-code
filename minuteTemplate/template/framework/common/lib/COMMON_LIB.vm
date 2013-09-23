@@ -223,6 +223,7 @@ $!commonUtils.getReadMeText($template)
 #macro(putColumnDefaultValue)
 #foreach($column in ${table.columns})
 #putColumnParamNaming()
+#if(!$isForeignKey && !$isPrimaryKey)
 #if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)))
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
 #if ($columnUtils.isString($column))
@@ -234,20 +235,25 @@ $!commonUtils.getReadMeText($template)
 #end
 #end
 #end
+#end
 
+#* 
 #macro(putColumnDefaultValueGetter)
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
     public $columnType get$columnClass() {
         return ($columnVar!=null)?$columnVar:$defaultConstant;
     }
 #end
+*#
 
 #macro(putColumnDefaultValueAffectation)
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
+#if(!$isForeignKey && !$isPrimaryKey)
 #if($hasDefaultValue && ($columnUtils.isString($column) || $columnUtils.isNumeric($column)) && !$isEnum)
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
         if ($columnVar==null) $columnVar=$defaultConstant;
+#end
 #end
 #end
 #end
