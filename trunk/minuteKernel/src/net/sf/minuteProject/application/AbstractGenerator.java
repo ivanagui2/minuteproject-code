@@ -137,7 +137,8 @@ public abstract class AbstractGenerator implements Generator {
 	public final Configuration load (String configuration, String rules) throws Exception{
 		Configuration abstractConfiguration = getConfigurationRoot();
 		abstractConfiguration.setConfigurationFileInClassPath(configuration);
-		loadConfiguration(abstractConfiguration, getConfigurationInputStream(configuration), rules);
+		InputStream configurationInputStream = getConfigurationInputStream(configuration);
+		loadConfiguration(abstractConfiguration, configurationInputStream, rules);
         return abstractConfiguration;		
 	}
 	
@@ -550,6 +551,7 @@ public abstract class AbstractGenerator implements Generator {
     
     protected void throwException (Exception e, String error) throws MinuteProjectException {
 		logger.error(error);
+		e.printStackTrace();
 		MinuteProjectException mpe = new MinuteProjectException();
 		mpe.setError(error);
 		if (e!=null)

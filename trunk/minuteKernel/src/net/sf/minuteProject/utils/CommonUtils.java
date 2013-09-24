@@ -466,6 +466,11 @@ public class CommonUtils {
 		return FormatUtils.getDirFromPackage(getLevelTemplateFullPath(bean, template, targetTemplateName));
 	}
 	
+	public static String getArtifactRelativePathDirAndName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		return getArtifactRelativePathDir(bean, template, targetTemplateName) +
+				"/"+ getTemplateClassName(bean, template, targetTemplateName);
+	}
+	
 	public static String getArtifactRelativePathDirAndFullName (AbstractConfiguration bean, Template template, String targetTemplateName) {
 		return getArtifactRelativePathDir(bean, template, targetTemplateName) +
 		       "/"+ getTemplateFileName(bean, template, targetTemplateName);

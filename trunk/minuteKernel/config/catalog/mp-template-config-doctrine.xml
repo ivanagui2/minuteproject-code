@@ -1,7 +1,7 @@
 <target name="doctrine">		
 	<architecture-target name="doctrine" description="doctrine ORM">
 	</architecture-target>	
-    <plugin name="doctrineUtils" className="net.sf.minuteproject.utils.doctrine.DoctrineUtils"></plugin>
+    <plugin name="doctrineUtils" className="net.sf.minuteProject.plugin.doctrine.DoctrineUtils"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="entitySecurityUtils" className="net.sf.minuteProject.utils.security.EntitySecurityUtils"/>
@@ -35,7 +35,7 @@
  -->
     </template-target>
 
-	<template-target 
+	<template-target name="build"
 	    templatedir = "template" 
 		libdir="lib/DOCTRINE_LIB.vm"
 		tool="velocity"
