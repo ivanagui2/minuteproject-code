@@ -26,6 +26,26 @@ public enum Extension implements FileComment {
 			return true;
 		}
 	},
+	php {
+		public String lineCommentBeginning() {
+			return "//";
+		}
+		public String lineCommentEnding() {
+			return "";
+		}
+		public String textCommentBeginning() {
+			return "/**";
+		}
+		public String textCommentMiddle() {
+			return "*";
+		}
+		public String textCommentEnding() {
+			return "*/";
+		}
+		public boolean licenceAtBeginning() {
+			return true;
+		}
+	},
 	groovy {
 		public String lineCommentBeginning() {
 			return "//";

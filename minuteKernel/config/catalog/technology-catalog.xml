@@ -519,6 +519,11 @@ the properties are declared at the technology level and apply to all templates (
 			template-config-file-name="mp-template-config-LIFERAY-LIB.xml"
 			template-dir="@templateRoot@/framework/liferay" is-generable="false">
 		</technology>
+		
+		<technology name="PHP_LIB" target-name="PHP_LIB"
+			template-config-file-name="mp-template-config-PHP-LIB.xml"
+			template-dir="@templateRoot@/framework/php" is-generable="false">
+		</technology>
 
 	</technologies>
 	
