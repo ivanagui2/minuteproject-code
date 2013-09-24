@@ -429,7 +429,6 @@ the properties are declared at the technology level and apply to all templates (
 			description="Spring service">
 		</technology>
 		
-
 		<technology name="Doctrine" model-type="rdbms"
 			template-config-file-name="mp-template-config-doctrine.xml"
 			default-outputdir="doctrine" depends-on-targets="PHP_LIB"
