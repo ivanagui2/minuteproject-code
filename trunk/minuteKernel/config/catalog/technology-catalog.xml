@@ -437,6 +437,14 @@ the properties are declared at the technology level and apply to all templates (
 			description="Doctrine2 classes">
 		</technology>
 		
+		<technology name="Propel" model-type="rdbms"
+			template-config-file-name="mp-template-config-propel.xml"
+			default-outputdir="propel" depends-on-targets="PHP_LIB"
+			template-dir="@templateRoot@/framework/propelorm"
+			status="experimental"
+			description="Propel schema, build, runtime">
+		</technology>
+		
 		
 		<technology name="WS-JEE-war" target-name="WS-JEE-war"
 			model-type="rdbms" template-config-file-name="mp-template-config-WS-JEE-war.xml"

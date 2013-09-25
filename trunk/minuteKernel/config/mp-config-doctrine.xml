@@ -53,7 +53,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
- 		<targets catalog-entry="Doctrine" >		
+ 		<targets catalog-entry="Doctrine,Propel" >		
 		</targets>
 	</configuration>
 </generator-config>
