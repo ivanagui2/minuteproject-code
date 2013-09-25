@@ -14,6 +14,9 @@ public class PhpUtils {
 
 	public static String getType(Column column) {
 		//http://docs.doctrine-project.org/en/2.0.x/reference/basic-mapping.html
+//		text: Type that maps an SQL CLOB to a PHP string.
+		if (column.getType().equals(FieldType.CLOB.toString()))
+				return "text";	
 //		string: Type that maps an SQL VARCHAR to a PHP string.
 		if (ColumnUtils.isString(column))
 			return "string";
@@ -42,9 +45,6 @@ public class PhpUtils {
 		if (column.getType().equals(FieldType.DATETIME.toString()) ||
 			column.getType().equals(FieldType.TIMESTAMP.toString())	)
 			return "datetime";	
-//		text: Type that maps an SQL CLOB to a PHP string.
-		if (column.getType().equals(FieldType.CLOB.toString()))
-				return "text";	
 //		object: Type that maps a SQL CLOB to a PHP object using serialize() and unserialize()
 		//TODO not inline with the above spec
 		if (column.getType().equals(FieldType.BLOB.toString()))
@@ -69,5 +69,11 @@ public class PhpUtils {
 		return JavaUtils.getJavaClassNaming(columnVar);
 	}
 	
+	public static String getDatabaseName(Model model) {
+		String dbType = model.getDataModel().getDatabase().getType().toLowerCase();
+		if (dbType.equals("hsqldb"))
+			return "mysql";
+		return dbType;
+	}
 	
 }
