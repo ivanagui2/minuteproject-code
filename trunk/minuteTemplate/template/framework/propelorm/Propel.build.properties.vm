@@ -1,0 +1,5 @@
+# Database driver
+propel.database = $propelUtils.getDatabaseName($model)
+
+# Project name
+propel.project = ${model.packageRoot}.$model.name
