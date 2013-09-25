@@ -210,6 +210,7 @@
 #macro (putReferenceParams2)
 ## this macro is use when a reference is accessed via parent.references or child.references
 #set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
+#set ($linkedTableName = ${reference.foreignTable.name})
 #set ($linkedTableVariable = $formatUtils.getJavaNameVariable(${reference.foreignTable.alias}))
 #set ($localColumnVariable = $formatUtils.getJavaNameVariable(${reference.localColumn.alias}))
 #set ($localTableVariable = $formatUtils.getJavaNameVariable(${reference.localTable.alias}))
@@ -222,6 +223,7 @@
 #set ($isLengthPrecisionColumnLocalColumn = $columnUtils.isLengthPrecisionColumn($localColumn))
 #set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.alias}))
 #set ($linkedColumnName = ${reference.foreignColumn.alias})
+#set ($linkedColumnDBName = ${reference.foreignColumn.name})
 #set ($linkedColumnType = $commonUtils.getJavaType($reference.foreignColumn))
 #set ($linkedColumn = ${reference.foreignColumn})
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))

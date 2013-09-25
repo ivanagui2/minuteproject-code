@@ -1,19 +1,31 @@
 #exposeVariableModelSpecific()
 ##TODO phpname (conversion of reserved words 
+##http://propelorm.org/reference/schema.html
 ##http://propelorm.org/documentation/02-buildtime.html
 ##http://propelorm.org/cookbook/working-with-existing-databases.html
 <database name="$model.name" defaultIdMethod="native"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd" >
 #foreach($table in ${entities})
+#asUML($table)
 #exposeVariableEntitySpecific()
-   <table name="$table.name" phpName="$domainClassVar">
+#exposePHPVariableEntitySpecific()
+   <table name="$table.name" phpName="$domainClassName"
+#if($isMany2Many)
+       isCrossRef="true"
+#end
+	>
 ##     <column name="Doctrine\Tests\ORM\Mapping\User" table="cms_users">
 #foreach($column in ${table.columns})
 #putColumnParams()
-	 <column name="$columnVar" 
-		phpName="$column.name"
-		type="$propelUtils.getType($column)"
+	 <column name="$column.name" 
+		phpName="$columnVar"
+		type="$column.type" ##$propelUtils.getType($column)"
+##  [scale = "/DigitsAfterDecimalPlace/"]
+##  [defaultValue = "/AnyDefaultValueMatchingType/"]		
+#if($isLengthPrecisionColumn)
+	    size="$column.size"
+#end
 #if($isPrimaryKey)
         primaryKey="true"	
 #if($isAutoincrement)
@@ -24,24 +36,27 @@
         required="true"	
 #end
 		/>
-#if($isForeignKey)
-     <foreign-key>
-       <reference />
-     </foreign-key>
-#end
 #if($isIndex)
      <index>
        <index-column />
      </index>
 #end
 #if($isUnique)
+	<!-- unique todo 
      <unique>
        <unique-column />
      </unique>
+	 -->
 #end
-     <id-method-parameter/>
+##     <id-method-parameter/>
+#end
+#foreach ($reference in ${table.parents})
+#putReferenceParams2()
+     <foreign-key foreignTable="$linkedTableName">
+        <reference local="${localColumnName}" foreign="${linkedColumnDBName}"/>
+     </foreign-key>
 #end
    </table>
-   <external-schema />
+##   <external-schema />
 #end
 </database>
