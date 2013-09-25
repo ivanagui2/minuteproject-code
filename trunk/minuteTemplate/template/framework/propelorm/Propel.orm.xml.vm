@@ -29,7 +29,12 @@
 #if($isPrimaryKey)
         primaryKey="true"	
 #if($isAutoincrement)
-	    autoIncrement="true"
+        idMethod = "native"
+##	    autoIncrement="true"
+#end
+#if($isView)
+        skipSql = "true"
+		readOnly = "true"
 #end
 #end
 #if($isMandatory)
@@ -40,6 +45,14 @@
      <index>
        <index-column />
      </index>
+#end
+#if (!$isMany2Many)
+#if (!$isPkUserProvided)
+#if ($databaseUtils.isPrimaryKeyPolicySequence($table))
+#set ($sequenceName = $databaseUtils.provideSequence($table))
+        <id-method-parameter value="$sequenceName"/>
+#end
+#end
 #end
 #if($isUnique)
 	<!-- unique todo 
