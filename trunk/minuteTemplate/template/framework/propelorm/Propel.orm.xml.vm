@@ -14,17 +14,24 @@
 #if($isMany2Many)
        isCrossRef="true"
 #end
+#if($isView)
+       readOnly="true"
+       skipSql="true"
+#end
 	>
-##     <column name="Doctrine\Tests\ORM\Mapping\User" table="cms_users">
 #foreach($column in ${table.columns})
 #putColumnParams()
 	 <column name="$column.name" 
 		phpName="$columnVar"
-		type="$column.type" ##$propelUtils.getType($column)"
+		type="$propelUtils.getType($column)"
 ##  [scale = "/DigitsAfterDecimalPlace/"]
 ##  [defaultValue = "/AnyDefaultValueMatchingType/"]		
 #if($isLengthPrecisionColumn)
 	    size="$column.size"
+		scale="$column.scale"
+#end
+#if($hasDefaultValue)
+        defaultValue = "$column.defaultValue"
 #end
 #if($isPrimaryKey)
         primaryKey="true"	
