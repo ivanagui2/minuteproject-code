@@ -259,7 +259,7 @@ public class TableUtils {
 	}
 
 	public static boolean isView(Table table) {
-		if (table instanceof View) {
+		if (table.getType().equals("VIEW") || table instanceof View) {
 			return true;
 		}
 		return false;

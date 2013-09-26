@@ -8,12 +8,15 @@ import net.sf.minuteproject.model.db.type.FieldType;
 public class PropelUtils extends PhpUtils{
 
 	public static String getType(Column column) {
-//		text: Type that maps an SQL CLOB to a PHP string.
+////		text: Type that maps an SQL CLOB to a PHP string.
 		if (column.getType().equals(FieldType.VARCHAR.toString())||
 			column.getType().equals(FieldType.VARCHAR2.toString())
 		)
-			return "varchar";	
-		return PhpUtils.getType(column);
+			return "VARCHAR";	
+		if (column.getType().equals(FieldType.BIT.toString()))
+			return "BOOLEAN";	
+		return column.getType();
+//		return PhpUtils.getType(column);
 	}
 	
 	public static String getDsn(Model model) {

@@ -186,7 +186,7 @@ public class BusinessPackage extends BusinessPackageAdapter {
 		List <Table> entities = new ArrayList<Table>();
 		entities.addAll(getTables());
 		entities.addAll(getViews());
-		entities.addAll(getTransferEntities());
+//NOT TO SET		entities.addAll(getTransferEntities());
 		return entities;
 	}
 	
