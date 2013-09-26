@@ -49,3 +49,4 @@ use $importDomainObjectUML;
 #macro (putPHPTemplateDefinition)
 #set ($templateDoctrineDomainObject = "DomainEntityDoctrineAnnotation")
 #end
+
