@@ -69,11 +69,15 @@ public class PhpUtils {
 		return JavaUtils.getJavaClassNaming(columnVar);
 	}
 	
-	public static String getDatabaseName(Model model) {
+	public static String getDatabaseType(Model model) {
 		String dbType = model.getDataModel().getDatabase().getType().toLowerCase();
 		if (dbType.equals("hsqldb"))
 			return "mysql";
 		return dbType;
 	}
+	
+//	public static String getDatabaseType(Model model) {
+//		return PhpUtils.getDatabaseName(model);
+//	}
 	
 }

@@ -40,13 +40,15 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
-<!-- 		
-		<template name="PomXml.JPA2" templateFileName="PomXml.JPA2.vm" 
-			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
-			file-extension="xml" file-prefix="pom" file-suffix="" 
-			application-specific="true" add-model-name="false">
-		</template>	
-	 -->				
+
+		<template name="Doctrine.Bootstrap.php" templateFileName="Doctrine.Bootstrap.php.vm" 
+			add-model-name="false" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="php" file-prefix="bootstrap" 
+			model-specific="true">
+		</template>
+					
 	</template-target>	  	
   	         		
 </target>
