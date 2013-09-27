@@ -1,3 +1,6 @@
+#exposeVariableModelSpecific()
+#exposeConnectionSpecific()
+#set ($datasource = $model.dataModel.basicDataSource)
 <?php
 // bootstrap.php
 require_once "vendor/autoload.php";
@@ -10,10 +13,10 @@ $isDevMode = false;
 
 // the connection configuration
 $dbParams = array(
-    'driver'   => 'pdo_mysql',
-    'user'     => 'root',
-    'password' => '',
-    'dbname'   => 'foo',
+    'driver'   => 'pdo_${propelUtils.getDatabaseType($model)}',
+    'user'     => '$datasource.username',
+    'password' => '$datasource.password',
+    'dbname'   => '$propelUtils.getDsn($model)',
 );
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
