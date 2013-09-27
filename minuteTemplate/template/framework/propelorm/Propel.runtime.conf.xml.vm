@@ -14,7 +14,7 @@
   <propel>
     <datasources default="$model.name">
       <datasource id="$model.name">
-        <adapter>$propelUtils.getDatabaseName($model)</adapter> <!-- sqlite, mysql, mssql, oracle, or pgsql -->
+        <adapter>$propelUtils.getDatabaseType($model)</adapter> <!-- sqlite, mysql, mssql, oracle, or pgsql -->
         <connection>
           <dsn>$propelUtils.getDsn($model)</dsn>
 ##mysql:host=localhost;dbname=my_db_name</dsn>
