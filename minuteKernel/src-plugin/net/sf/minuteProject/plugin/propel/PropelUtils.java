@@ -21,9 +21,10 @@ public class PropelUtils extends PhpUtils{
 	
 	public static String getDsn(Model model) {
 		String databaseName = PhpUtils.getDatabaseName(model);
+		//TODO from the connection string
 		if (databaseName!=null) {
 			if ("mysql".equals(databaseName))
-				return "mysql:host=localhost;dbname=my_db_name";
+				return "mysql:host=localhost;dbname="+model.getName();
 		}
 		return "no DSN provide for DB type = "+databaseName;
 	}
