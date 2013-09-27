@@ -22,11 +22,27 @@
 			model-specific="true">
 		</template>
 		
+		<template name="Propel.build.cmd" templateFileName="Propel.build.cmd.vm" 
+			add-model-name="false" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="cmd" file-prefix="build" 
+			model-specific="true">
+		</template>
+		
 		<template name="Propel.runtime.conf.xml" templateFileName="Propel.runtime.conf.xml.vm" 
 			add-model-name="false" package-root=""
 			add-model-dir-name="false"		
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="runtime-conf" 
+			model-specific="true">
+		</template>
+		
+		<template name="Propel.setup.php" templateFileName="Propel.setup.php.vm" 
+			add-model-name="false" package-root=""
+			add-model-dir-name="false"		
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="php" file-prefix="setup" 
 			model-specific="true">
 		</template>
 
