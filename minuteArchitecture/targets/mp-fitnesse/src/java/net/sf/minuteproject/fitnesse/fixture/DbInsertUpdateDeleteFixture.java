@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteproject.model.db.Column;
@@ -39,6 +40,12 @@ public abstract class DbInsertUpdateDeleteFixture extends ColumnFixture{
 		return action(query);
 	}
 	
+	public String updateExpectException() {
+		String query = QueryUtils.buildUpdateStatement(getTable(), getColumnIndex(), getColumnValue(), getColumnWhereIndex(), getColumnWhereValue());
+		log.debug("update query = "+query);
+		return actionTranslateException(query);
+	}
+	
 	public String delete() {
 		String query = QueryUtils.buildDeleteStatement(getTable(), getColumnWhereIndex(), getColumnWhereValue());
 		log.debug("delete query = "+query);
@@ -48,18 +55,37 @@ public abstract class DbInsertUpdateDeleteFixture extends ColumnFixture{
 	protected String action(String query) {
 		Connection connection;
 		try {
-			connection = DatabaseUtils.getConnection();
-			if (connection ==null)
-				System.out.println("connection is null");
-			Statement st = connection.createStatement();
-			st.executeUpdate(query);
-			connection.close();
+			performAction(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return (e.getMessage());
 		} 
 		return "OK";
+	}
+	
+	protected String actionTranslateException(String query) {
+		Connection connection;
+		try {
+			performAction(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return (translateException(e.getMessage()));
+		} 
+		return "OK";
+	}
+
+	protected String translateException(String message) {
+		return StringUtils.substringBefore(message, ":");
+	}
+
+	private void performAction(String query) throws SQLException {
+		Connection connection;
+		connection = DatabaseUtils.getConnection();
+		if (connection ==null)
+			System.out.println("connection is null");
+		Statement st = connection.createStatement();
+		st.executeUpdate(query);
+		connection.close();
 	}
 	
 	protected abstract String getTable();
