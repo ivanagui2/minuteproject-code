@@ -1,6 +1,7 @@
 #exposeVariableModelSpecific()
 #exposeConnectionSpecific()
-#set ($datasource = $model.dataModel.basicDataSource)
+#set ($basicDataSource = $model.dataModel.basicDataSource)
+#set ($datasource = $databaseUtils.getDatasource(basicDataSource))
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
   <!-- Uncomment this if you have PEAR Log installed
@@ -18,8 +19,8 @@
         <connection>
           <dsn>$propelUtils.getDsn($model)</dsn>
 ##mysql:host=localhost;dbname=my_db_name</dsn>
-          <user>$datasource.username</user>
-          <password>$datasource.password</password>
+          <user>$basicDataSource.username</user>
+          <password>$basicDataSource.password</password>
         </connection>
       </datasource>
     </datasources>
