@@ -43,9 +43,17 @@
 
 		<template name="Doctrine.Bootstrap.php" templateFileName="Doctrine.Bootstrap.php.vm" 
 			add-model-name="false" package-root=""
-			add-model-dir-name="false"		
+			add-model-dir-name="false"	 has-updatable-nature="true"	
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="php" file-prefix="bootstrap" 
+			model-specific="true">
+		</template>
+					
+		<template name="Doctrine.cli-config.php" templateFileName="Doctrine.cli-config.php.vm" 
+			add-model-name="false" package-root=""
+			add-model-dir-name="false"	 has-updatable-nature="true"	
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="php" file-prefix="cli-config" 
 			model-specific="true">
 		</template>
 					

@@ -43,7 +43,7 @@ public enum Extension implements FileComment {
 			return "*/";
 		}
 		public boolean licenceAtBeginning() {
-			return true;
+			return false;
 		}
 	},
 	groovy {

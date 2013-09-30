@@ -310,6 +310,11 @@ public class FormatUtils {
 		if (StringUtils.isEmpty(description)) return "";
 		return StringUtils.replace(description, "\\", "\n");
 	}
+	
+	public static String transformSlashIntoBackSlash(String description) {
+		if (StringUtils.isEmpty(description)) return "";
+		return StringUtils.replace(description, "/", "\\");
+	}
 
 	public static boolean isCamelCaseAlias(GeneratorBean bean) {
 		return true;
