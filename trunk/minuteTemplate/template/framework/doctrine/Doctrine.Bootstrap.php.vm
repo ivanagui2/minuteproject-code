@@ -1,9 +1,17 @@
 #exposeVariableModelSpecific()
 #exposeConnectionSpecific()
+#addedAreas()
 #set ($datasource = $model.dataModel.basicDataSource)
 <?php
 // bootstrap.php
+#exposeEntityUpdatedAreas("doctrine-composer-path")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
 require_once "vendor/autoload.php";
+$!updatedAreaEnd
+#end
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
@@ -16,7 +24,7 @@ $dbParams = array(
     'driver'   => 'pdo_${propelUtils.getDatabaseType($model)}',
     'user'     => '$datasource.username',
     'password' => '$datasource.password',
-    'dbname'   => '$propelUtils.getDsn($model)',
+    'dbname'   => '$doctrineUtils.getDbName($model)',
 );
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
