@@ -17,7 +17,6 @@ public class DatasourceTest {
 	public static final String sampleDB2DriverUrl = "jdbc:db2://${server-name}:${port-number}/${database-name}";
 	public static final String samplePostgresDriverUrl = "jdbc:postgresql://${server-name}:${port-number}:${database-name}";
 	public static final String sampleSqlserverDriverUrl = "jdbc:sqlserver://${server-name}:${port-number};databaseName=${database-name}";
-
 	
 	public static final String serverNameKey = "${server-name}";
 	public static final String serverPortKey = "${port-number}";
@@ -70,7 +69,7 @@ public class DatasourceTest {
 		Datasource datasource = new Datasource(bds, "sqlserver");
 		assertDataSourceParams(datasource);
 	}
-	
+
 	@Test
 	public void testOracle () {
 		when(bds.getUrl()).thenReturn(sampleOracleDriverUrl);
