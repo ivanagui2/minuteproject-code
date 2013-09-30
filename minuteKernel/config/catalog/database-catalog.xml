@@ -18,7 +18,7 @@
         hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
         use-schema="true" 
         driverclassname="org.gjt.mm.mysql.Driver" 
-        default-url-structure="jdbc:mysql://{server-name}:${port-number}/{database-name}" >
+        default-url-structure="jdbc:mysql://${server-name}:${port-number}/${database-name}" >
         <maven-artifact
            mvn-artifact-id="mysql-connector-java" 
            mvn-group-id="mysql"
@@ -31,7 +31,7 @@
         hibernate-dialect="org.hibernate.dialect.HSQLDialect" 
         use-schema="true" 
         driverclassname="org.apache.derby.jdbc.ClientDriver"
-        default-url-structure="jdbc:derby://{server-name}:${port-number}/{database-name}" >
+        default-url-structure="jdbc:derby://${server-name}:${port-number}/${database-name}" >
         <maven-artifact
            mvn-artifact-id="derbyclient" 
            mvn-group-id="org.apache.derby"
@@ -44,7 +44,7 @@
         hibernate-dialect="org.hibernate.dialect.Oracle10gDialect" 
         use-schema="true" 
         driverclassname="oracle.jdbc.OracleDriver"
-        default-url-structure="jdbc:oracle:thin:@{server-name}:{port-number}:{SID}" >
+        default-url-structure="jdbc:oracle:thin:@${server-name}:${port-number}:${SID}" >
         <maven-artifact 
         	mvn-artifact-id="ojdbc14" 
             mvn-group-id="com.oracle"
@@ -67,7 +67,7 @@
         hibernate-dialect="org.hibernate.dialect.DB2Dialect" 
         use-schema="true" 
         driverclassname="com.ibm.db2.jcc.DB2Driver" 
-        default-url-structure="jdbc:db2://{server-name}:${port-number}/{database-name}">
+        default-url-structure="">
         <maven-artifact
            mvn-artifact-id="db2jcc" 
            mvn-group-id="com.ibm"
@@ -81,7 +81,7 @@
         hibernate-dialect="org.hibernate.dialect.PostgreSQLDialect" 
         use-schema="true" 
         driverclassname="org.postgresql.Driver"
-        default-url-structure="jdbc:postgresql://{server-name}:${port-number}:{database-name}" >
+        default-url-structure="jdbc:postgresql://${server-name}:${port-number}:${database-name}" >
         <maven-artifact
            mvn-artifact-id="postgresql" 
            mvn-group-id="postgresql"
@@ -95,7 +95,7 @@
         hibernate-dialect="org.hibernate.dialect.SQLServer2008Dialect" 
         use-schema="true" 
         driverclassname="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-        default-url-structure="jdbc:sqlserver://{server-name}:${port-number};databaseName={database-name}" >
+        default-url-structure="jdbc:sqlserver://${server-name}:${port-number};databaseName=${database-name}" >
         <maven-artifact
            mvn-artifact-id="sqljdbc4" 
            mvn-group-id="com.microsoft.sqlserver"
