@@ -43,7 +43,7 @@ use $importDomainObjectUML;
 
 #macro (exposePHPDomainObjectImport $tableDB)
 #putPHPTemplateDefinition()
-#set ($importDomainObjectUML = $commonUtils.getArtifactRelativePathDirAndName($tableDB, $template, $templateDoctrineDomainObject))
+#set ($importDomainObjectUML = $formatUtils.transformSlashIntoBackSlash($commonUtils.getArtifactRelativePathDirAndName($tableDB, $template, $templateDoctrineDomainObject)))
 #end
 
 #macro (putPHPTemplateDefinition)
