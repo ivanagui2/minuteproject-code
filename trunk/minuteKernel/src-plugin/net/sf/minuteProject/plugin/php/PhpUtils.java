@@ -58,7 +58,7 @@ public class PhpUtils {
 	
 	public static String getPackageName (Model model, Template template, Table table) {
 		String result = CommonUtils.getPackageName(model, template, table);
-		return FormatUtils.getDirFromPackage(result);
+		return FormatUtils.transformSlashIntoBackSlash(FormatUtils.getDirFromPackage(result));
 	}
 	
 	public String getVariableNaming (String columnVar) {
@@ -76,6 +76,9 @@ public class PhpUtils {
 		return dbType;
 	}
 	
+	public String getDbName(Model model) {
+		return model.getName();//TODO false to change
+	}
 //	public static String getDatabaseType(Model model) {
 //		return PhpUtils.getDatabaseName(model);
 //	}

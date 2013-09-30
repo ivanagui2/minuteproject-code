@@ -1,5 +1,8 @@
 package net.sf.minuteProject.plugin.doctrine;
 
-public class DoctrineUtils {
+import net.sf.minuteProject.plugin.php.PhpUtils;
+
+public class DoctrineUtils extends PhpUtils{
+
 
 }
