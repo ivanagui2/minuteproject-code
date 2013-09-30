@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 public class Datasource {
 
 	private static final String POSTGRES = "postgres";
+	private static final String SQLSERVER = "sqlserver";
 	private static final String ORACLE = "oracle";
 	private static final String DB2 = "db2";
 	private static final String DERBY = "derby";
@@ -15,7 +16,7 @@ public class Datasource {
 
 	public Datasource(BasicDataSource basicDataSource, String dbType) {
 		this.basicDataSource = basicDataSource;
-		this.dbType = dbType;
+		this.dbType = dbType.toLowerCase();
 		convertDatasource();
 	}
 
@@ -24,7 +25,6 @@ public class Datasource {
 		if (url!=null) {
 			if (MYSQL.equals(dbType) ||
 				DB2.equals(dbType) ||
-				POSTGRES.equals(dbType) ||
 				DERBY.equals(dbType)
 				){
 				//jdbc:hsqldb:hsql://{server-name}:${port-number}/{database-name}
@@ -34,10 +34,19 @@ public class Datasource {
 				port = StringUtils.substringAfter(urlServerPort, ":");
 				databaseInstance = StringUtils.substringAfter(urlAfterProtocol, "/");
 			} else
-			if (ORACLE.equals(dbType) 
+			if (SQLSERVER.equals(dbType) ){
+				//jdbc:sqlserver://${server-name}:${port-number};databaseName=${database-name}
+				String urlAfterProtocol = StringUtils.substringAfter(url, "//");
+				String urlServerPort = StringUtils.substringBefore(urlAfterProtocol, ";");
+				server = StringUtils.substringBefore(urlServerPort, ":");
+				port = StringUtils.substringAfter(urlServerPort, ":");
+				databaseInstance = StringUtils.substringAfter(urlAfterProtocol, "databaseName=");
+			} else
+			if (ORACLE.equals(dbType) ||
+				POSTGRES.equals(dbType)  
 					){
 				//jdbc:hsqldb:hsql://{server-name}:${port-number}/{database-name}
-				String urlAfterProtocol = StringUtils.substringAfter(url, "@");
+				String urlAfterProtocol = StringUtils.substringAfter(url, (ORACLE.equals(dbType))?"@":"//");
 				server = StringUtils.substringBefore(urlAfterProtocol, ":");
 				String portAndSid = StringUtils.substringAfter(urlAfterProtocol, ":");
 				port = StringUtils.substringBefore(portAndSid, ":");

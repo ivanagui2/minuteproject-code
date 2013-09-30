@@ -1,5 +1,6 @@
 package net.sf.minuteProject.plugin.propel;
 
+import net.sf.minuteProject.configuration.bean.Datasource;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.plugin.php.PhpUtils;
@@ -21,10 +22,12 @@ public class PropelUtils extends PhpUtils{
 	
 	public static String getDsn(Model model) {
 		String databaseType = getDatabaseType(model);
+		Datasource datasource = new Datasource(model.getDataModel().getBasicDataSource(), databaseType);
 		//TODO from the connection string
 		if (databaseType!=null) {
-			if ("mysql".equals(databaseType))
-				return "mysql:host=localhost;dbname="+model.getName();
+			return databaseType+":host="+datasource.getServer()+";port="+datasource.getPort()+";dbname="+datasource.getDatabaseInstance();
+//			if ("mysql".equals(databaseType))
+//				return "mysql:host=localhost;dbname="+model.getName();
 		}
 		return "no DSN provide for DB type = "+databaseType;
 	}
