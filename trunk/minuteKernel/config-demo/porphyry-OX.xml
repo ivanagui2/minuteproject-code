@@ -250,6 +250,33 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                              </query-param>
                          </query-params>
                      </query>
+			         <query name="select-pending-user" id="select-pending-user" >
+                         <query-body>
+                         <value>
+<![CDATA[select * from bus_user_role_request where status = 'PENDING' order by request_date asc]]>
+                            </value>
+                         </query-body>
+                     </query>
+			         <query name="grant-user" id="grant-user" >
+                         <query-body>
+                         <value>
+<![CDATA[call grant_user (?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="user_role_request_id" is-mandatory="true" type="long" sample="1" is-id="true"></query-param>
+                         </query-params>
+                     </query>                     
+			         <query name="revoke-user" id="revoke-user" >
+                         <query-body>
+                         <value>
+<![CDATA[call reject_user (?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="user_role_request_id" is-mandatory="true" type="long" sample="1" is-id="true"></query-param>
+                         </query-params>
+                     </query>                     
                 </queries>
                 <nested-statements>
                 	<nested-statement id="manage-access" query-id="select-pending-user">
