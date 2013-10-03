@@ -204,6 +204,23 @@
 					</conventions>
 				</enrichment>
 				<queries>
+			         <query name="ask_for_role" id="ask_for_role" >
+                         <query-body>
+                         <value>
+<![CDATA[call ask_for_role (?,?,?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="username" is-mandatory="true" type="string" sample="'a'" is-id="true"></query-param>
+                             <query-param name="email" is-mandatory="true" type="string" sample="'b'">
+                             	<stereotype stereotype="EMAIL" />
+                             </query-param>
+                             <query-param name="role" is-mandatory="true" type="string" sample="'c'">
+                                <query-param-link entity-name="sec_role" field-name="role"/>
+                             </query-param>
+                         </query-params>
+                     </query>
+                     				
 			         <query name="role_request_per_day" id="role_request_per_day" >
                          <query-body>
                          <value>
@@ -234,22 +251,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                              
                          </query-params>
                      </query>
-			         <query name="ask_for_role" id="ask_for_role" >
-                         <query-body>
-                         <value>
-<![CDATA[call ask_for_role (?,?,?)]]>
-                            </value>
-                         </query-body>
-                         <query-params>
-                             <query-param name="username" is-mandatory="true" type="string" sample="'a'" is-id="true"></query-param>
-                             <query-param name="email" is-mandatory="true" type="string" sample="'b'">
-                             	<stereotype stereotype="EMAIL" />
-                             </query-param>
-                             <query-param name="role" is-mandatory="true" type="string" sample="'c'">
-                                <query-param-link entity-name="sec_role" field-name="role"/>
-                             </query-param>
-                         </query-params>
-                     </query>
+
 			         <query name="select-pending-user" id="select-pending-user" >
                          <query-body>
                          <value>

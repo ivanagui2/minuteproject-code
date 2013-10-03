@@ -18,6 +18,7 @@ public class Action extends Rule<Table> {
 	private String defaultImplementation;
 	private List<Field> fields;
 	private ActionCondition actionCondition;
+	private String queryId;
 	
 	public String getTechnicalPackage(Template template) {
 		if (getParent()!=null)
@@ -61,5 +62,13 @@ public class Action extends Rule<Table> {
 	
 	public boolean hasDefaultImplementation () {
 		return CRUDEnum.isInCRUDEnum(defaultImplementation);
+	}
+
+	public String getQueryId() {
+		return queryId;
+	}
+
+	public void setQueryId(String queryId) {
+		this.queryId = queryId;
 	}
 }
