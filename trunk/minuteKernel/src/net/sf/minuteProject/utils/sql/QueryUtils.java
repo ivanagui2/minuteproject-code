@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -25,10 +26,12 @@ import net.sf.minuteProject.utils.ConnectionUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 public class QueryUtils {
 
 	private static final String QUESTION_MARK = "?";
+	private static Logger logger = Logger.getLogger(QueryUtils.class);
 
 	public static QueryParams getOutputParams(Query query) throws MinuteProjectException {
 		DataModel dataModel = query.getQueries().getStatementModel().getModel()
@@ -49,11 +52,12 @@ public class QueryUtils {
 	private static QueryParams getOutputParams(Connection connection, String query,
 			Database database) throws SQLException {
 		PreparedStatement prest = connection.prepareStatement(query);
-		ResultSet rs = prest.executeQuery();
 		try {
+			ResultSet rs = prest.executeQuery();
 			return getQueryParams(rs.getMetaData());
 		} catch (SQLException e) {
 			//TODO log error 
+			logger.error("error executing query : "+query);
 			return new QueryParams();
 		}
 	}

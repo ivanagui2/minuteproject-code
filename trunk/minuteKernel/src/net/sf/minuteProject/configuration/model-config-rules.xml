@@ -207,6 +207,20 @@
 	            </pattern>
 	        </pattern>
         </pattern>     
+    	<pattern value="nested-statements">
+            <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.NestedStatements"/>    
+            <set-next-rule methodname="setNestedStatements" paramtype="net.sf.minuteProject.configuration.bean.model.statement.NestedStatements"/>          
+            <set-properties-rule/>        
+            <bean-property-setter-rule pattern="name"/>
+	        <pattern value=nested-statement>
+	            <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.NestedStatement"/>    
+	            <set-next-rule methodname="addNestedStatement" paramtype="net.sf.minuteProject.configuration.bean.model.statement.NestedStatement"/>          
+                <set-properties-rule>
+                    <alias attr-name="name" prop-name="name" />
+                    <alias attr-name="query-id" prop-name="queryId" />
+                </set-properties-rule>  
+              </pattern>
+         </pattern>
     </pattern>
 	<pattern value="data-model">
 		<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
