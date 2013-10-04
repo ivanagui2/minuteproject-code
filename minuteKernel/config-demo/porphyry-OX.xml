@@ -252,14 +252,14 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                          </query-params>
                      </query>
 
-			         <query name="select-pending-user" id="select-pending-user" >
+			         <query name="select pending user" id="select-pending-user" >
                          <query-body>
                          <value>
-<![CDATA[select * from bus_user_role_request where status = 'PENDING' order by request_date asc]]>
+<![CDATA[select * from bus_user_role_request where status = 'TO_TREAT' order by request_date asc]]>
                             </value>
                          </query-body>
                      </query>
-			         <query name="grant-user" id="grant-user" >
+			         <query name="grant user" id="grant-user" >
                          <query-body>
                          <value>
 <![CDATA[call grant_user (?)]]>
@@ -269,7 +269,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                              <query-param name="user_role_request_id" is-mandatory="true" type="long" sample="1" is-id="true"></query-param>
                          </query-params>
                      </query>                     
-			         <query name="revoke-user" id="revoke-user" >
+			         <query name="revoke user" id="revoke-user" >
                          <query-body>
                          <value>
 <![CDATA[call reject_user (?)]]>
@@ -281,9 +281,9 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                      </query>                     
                 </queries>
                 <nested-statements>
-                	<nested-statement id="manage-access" query-id="select-pending-user">
+                	<nested-statement name="manage access" query-id="select-pending-user">
 						<actions>
-							<action name="grant-user" default-implementation="statement" 
+							<action name="grant user" default-implementation="statement" 
 							    query-id="grant-user-role" >
 <!-- 								<action-condition name="blocked session">
 									<field name="blocking_session" value="1"/>
@@ -292,7 +292,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
 									use default mapping
 								</statement-mapping> -->
 							</action>					
-							<action name="reject-user" default-implementation="statement" 
+							<action name="reject user" default-implementation="statement" 
 							    query-id="reject-user-role" >
 <!-- 								<action-condition name="blocked session">
 									<field name="blocking_session" value="1"/>
@@ -306,8 +306,9 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                 </nested-statements>
             </statement-model>
 		</model>
-		<targets catalog-entry="OpenXava" outputdir-root="D:/SRC/OPENXAVA/temp/workspace/porphyry"/>
-<!-- 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
+		<targets catalog-entry="OpenXava" />
+<!--		outputdir-root="D:/SRC/OPENXAVA/temp/workspace/porphyry"/>
+ 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
 		</targets> -->
 	</configuration>
 </generator-config>

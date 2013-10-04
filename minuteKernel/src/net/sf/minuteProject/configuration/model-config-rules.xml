@@ -212,7 +212,7 @@
             <set-next-rule methodname="setNestedStatements" paramtype="net.sf.minuteProject.configuration.bean.model.statement.NestedStatements"/>          
             <set-properties-rule/>        
             <bean-property-setter-rule pattern="name"/>
-	        <pattern value=nested-statement>
+	        <pattern value="nested-statement">
 	            <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.NestedStatement"/>    
 	            <set-next-rule methodname="addNestedStatement" paramtype="net.sf.minuteProject.configuration.bean.model.statement.NestedStatement"/>          
                 <set-properties-rule>

@@ -5,6 +5,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.StatementModelEnrichme
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.statement.Composites;
+import net.sf.minuteProject.configuration.bean.model.statement.NestedStatements;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 
@@ -17,6 +18,7 @@ public class StatementModel {
 	private static Logger logger = Logger.getLogger(StatementModel.class);
 	private Queries queries;
 	private Composites composites;
+	private NestedStatements nestedStatements;
 	private SDDPackage sddPackage;
 	
 	private Model model;
@@ -58,6 +60,7 @@ public class StatementModel {
 		complementStatementPackage();
 //		complementStatementInputField();
 	}
+	
 	private void complementStatementInputField() {
 		// TODO Auto-generated method stub
 		for (Query query : getQueries().getQueries()) {
@@ -91,5 +94,12 @@ public class StatementModel {
 	public void setBusinessModelEnrichment(StatementModelEnrichment enrichment) {
 		enrichment.setModel(this);
 		this.enrichment = enrichment;
+	}
+
+	public NestedStatements getNestedStatements() {
+		return nestedStatements;
+	}
+	public void setNestedStatements(NestedStatements nestedStatements) {
+		this.nestedStatements = nestedStatements;
 	}
 }
