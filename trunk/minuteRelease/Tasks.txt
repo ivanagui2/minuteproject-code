@@ -18,9 +18,6 @@ Build to maven:
 -> copy src and package + code coverage + sonar
 
 
-
-
-
 Release 0.8.5
 -------------
 Liferay SB generation
