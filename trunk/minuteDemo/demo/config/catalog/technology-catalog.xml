@@ -145,9 +145,20 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="version" value="2.0.2"></property>
 		</technology>
 
+		<technology name="Liferay" model-type="rdbms"
+			template-config-file-name="mp-template-config-Liferay-servicebuilder.xml"
+			default-outputdir="Liferay" depends-on-targets="BSLA_LIB"
+			template-dir="@templateRoot@/framework/liferay"
+			status="draft"
+			description="Generates:\Liferay Service builder file">
+            <frameworks>
+                <framework name="liferay-version" version="6+"></framework>
+            </frameworks>
+		</technology>
+
 		<technology name="Primefaces-Spring" 
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF-Spring.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
@@ -166,7 +177,7 @@ the properties are declared at the technology level and apply to all templates (
 		
 		<technology name="Primefaces-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="Primefaces_portlet,JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
@@ -202,7 +213,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB" status="released" comment=""
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
 				<framework name="OpenXava" version="4.6.1"></framework>
@@ -260,7 +271,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="Vaadin" model-type="rdbms"
 			template-config-file-name="mp-template-config-vaadin-last-features.xml"
 			default-outputdir="vaadin" template-dir="@templateRoot@/framework/vaadin"
-			depends-on-targets="BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster" status="draft"
+			depends-on-targets="Vaadin_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster" status="draft"
 			description="Generates Vaadin Front end on top of a Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 			<frameworks>
 				<framework name="Vaadin" version="7"></framework>
@@ -271,6 +282,35 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="web-xml-version" value="3.0"></property>
+		</technology>
+
+		<technology name="Vaadin_portlet" model-type="rdbms"
+			template-config-file-name="mp-template-config-liferay-portlet-features.xml"
+			default-outputdir="vaadin" template-dir="@templateRoot@/framework/liferay"
+			description="Generates Liferay portlet artifacts">
+			<frameworks>
+				<framework name="Liferay" version="6.1+"></framework>
+			</frameworks>
+			<property name="portlet-technology" value="vaadin"></property>
+		</technology>
+
+		<technology name="Primefaces_portlet" model-type="rdbms"
+			template-config-file-name="mp-template-config-liferay-portlet-features.xml"
+			default-outputdir="JSF-primefaces" template-dir="@templateRoot@/framework/liferay"
+			description="Generates Liferay portlet artifacts">
+			<frameworks>
+				<framework name="Liferay" version="6.1+"></framework>
+			</frameworks>
+			<property name="portlet-technology" value="primefaces"></property>
+		</technology>
+
+		<technology name="SqlUtils" model-type="rdbms"
+			template-config-file-name="mp-template-config-sqlutils.xml"
+			default-outputdir="SqlUtils" template-dir="@templateRoot@/utils/db"
+			status="draft" description="Generates misc sql artifacts \create missing fk \archiving trigger and tables">
+			<frameworks>
+				<framework name="SQL" version=""></framework>
+			</frameworks>
 		</technology>
 
 		<technology name="Roo" model-type="rdbms"
@@ -389,6 +429,22 @@ the properties are declared at the technology level and apply to all templates (
 			description="Spring service">
 		</technology>
 		
+		<technology name="Doctrine" model-type="rdbms"
+			template-config-file-name="mp-template-config-doctrine.xml"
+			default-outputdir="doctrine" depends-on-targets="PHP_LIB"
+			template-dir="@templateRoot@/framework/doctrine"
+			status="experimental"
+			description="Doctrine2 classes">
+		</technology>
+		
+		<technology name="Propel" model-type="rdbms"
+			template-config-file-name="mp-template-config-propel.xml"
+			default-outputdir="propel" depends-on-targets="PHP_LIB"
+			template-dir="@templateRoot@/framework/propelorm"
+			status="experimental"
+			description="Propel schema, build, runtime">
+		</technology>
+		
 		
 		<technology name="WS-JEE-war" target-name="WS-JEE-war"
 			model-type="rdbms" template-config-file-name="mp-template-config-WS-JEE-war.xml"
@@ -464,6 +520,16 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="SPRING_LIB" target-name="SPRING_LIB"
 			template-config-file-name="mp-template-config-SPRING-LIB.xml"
 			template-dir="@templateRoot@/framework/spring" is-generable="false">
+		</technology>
+		
+		<technology name="LIFERAY_LIB" target-name="LIFERAY_LIB"
+			template-config-file-name="mp-template-config-LIFERAY-LIB.xml"
+			template-dir="@templateRoot@/framework/liferay" is-generable="false">
+		</technology>
+		
+		<technology name="PHP_LIB" target-name="PHP_LIB"
+			template-config-file-name="mp-template-config-PHP-LIB.xml"
+			template-dir="@templateRoot@/framework/php" is-generable="false">
 		</technology>
 
 	</technologies>

@@ -136,6 +136,12 @@
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
+		
+		<template name="JSFXhtmlListLazyEntityPortlet" templateFileName="JSFXhtmlListLazyEntityPortlet.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListLazyPortlet" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>		
 
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
@@ -200,6 +206,18 @@
 			application-specific="true" add-model-name="false" 
 			has-updatable-nature="true">
 		</template>
+<!-- replace in liferay track
+		<template name="JSFPortletXml" templateFileName="JSFPortlet.xml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="portlet" 
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+		</template>
+
+		<template name="JSFLiferay.display.xml" templateFileName="JSFLiferay.display.xml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="liferay-display" 
+			application-specific="true" add-model-name="false" 
+			has-updatable-nature="true">
+		</template> -->
 
 <!-- 		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="beans" 
