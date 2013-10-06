@@ -4,6 +4,7 @@ public enum FieldType {
 
 	TIMESTAMP,
 	TIME,
+	DATETIME,
 	CHAR,
 	VARCHAR,
 	CHAR2,
