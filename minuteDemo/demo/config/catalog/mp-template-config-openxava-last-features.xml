@@ -49,8 +49,21 @@
             subdir="" outputsubdir="" technicalPackage="sdd.in"
             file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
             scope-specific-value="sdd-input-bean" >
-        </template> 	
-				
+        </template> 
+        	
+		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" >
+		</template>	
+
+		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" >
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>	
+		
 		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="dto"
 			file-extension="java" file-prefix="" file-suffix="" has-updatable-nature="true"
@@ -247,21 +260,24 @@
 			name="ApplicationXml" templateFileName="ApplicationXmlOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="application" 
-		    model-specific="true">
+		    model-specific="true"
+		    has-updatable-nature="true">
 		</template>		
     
     	<template 
 			name="ControllersXmlOX" templateFileName="ControllersXmlOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="controllers" 
-			model-specific="true">
+			model-specific="true"
+			has-updatable-nature="true">
 		</template>			
  
 		<template name="OXEditorXml" templateFileName="OXEditorXml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="xml" file-prefix="editors" file-suffix="" 
 			add-model-name="false" add-model-dir-name="false"
-			model-specific="true" >
+			model-specific="true" 
+			has-updatable-nature="true">
 		</template>	
 				
 	</template-target>
@@ -435,6 +451,15 @@
     	name="OpenXava action"
     	outputdir="src">	
 
+		<template
+			name="ActionOX.SDD.query" templateFileName="ActionOX.SDD.query.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.action" 
+			file-extension="java" file-prefix="" file-suffix="Action" 
+			has-updatable-nature="true"
+			scope-specific-value="query">
+			<property name="isAction" value="false"></property>
+		</template>	
+		
 <!-- 		<template
 			name="ActionOX" templateFileName="ActionOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="action" 
@@ -460,14 +485,7 @@
 			<property name="isAction" value="false"></property>
 		</template>									
 -->
-		<template
-			name="ActionOX.SDD.query" templateFileName="ActionOX.SDD.query.vm" 
-			subdir="" outputsubdir="" technicalPackage="sdd.action" 
-			file-extension="java" file-prefix="" file-suffix="Action" 
-			has-updatable-nature="true"
-			scope-specific-value="query">
-			<property name="isAction" value="false"></property>
-		</template>	
+
 								
 	</template-target>	
 	
