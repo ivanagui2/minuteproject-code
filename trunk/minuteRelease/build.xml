@@ -298,10 +298,7 @@
 	 <antcall target="release-demo"></antcall>		
 	 <antcall target="release-installation"></antcall>		
 	</target>
-	
-	<target name="release" depends="release-all">
-	  <zip destfile="${release.dir}.zip" basedir="${release.dir}"></zip>
-	</target>
+
 	
 	<!--
 	    
@@ -315,6 +312,7 @@
         <attribute name="display"/>
         <sequential>
 	       	  <echo message="@{display}" />  
+        	  <delete file="${hsqldb-sample}/petshop.lck" ></delete>
 	       	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
 	       	   <classpath>  
 	       	    <path refid="mp.library.path" />  
@@ -340,100 +338,52 @@
 
 	<!-- ===================================================================== -->
     <!-- ant task definitions -->
-    <!-- ===================================================================== -->	
-	<target name="hsqldb.start" description="Starts local HSQLDB server" >  
-	 <echo message="Starting HSQLDB" />  
-	  <java fork="true" dir="${sample.dir}" classname="org.hsqldb.Server" spawn="true">  
-	   <classpath>  
-	    <path refid="hsqldb.library.path" />  
-	   </classpath>  
-	  	<arg line="-database.0 file:./hsql/${db.name} -dbname.0 ${db.name} -port 9001"/>	
-	  </java>  
-	</target> 
-	
-    <target name="hsqldb.stop" description="Stops HSQLDB server">
-      <java classname="org.hsqldb.util.ShutdownServer">
-       <classpath refid="hsqldb.library.path"/>
-       <arg line="-url ${dburl}"/>
-      </java>
-    </target>
-
-	<target name="mp-generation-JPA2" description="JPA2" >  
-	 <echo message="JPA2" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
-	   <classpath>  
-	    <path refid="mp.library.path" />  
-	   </classpath>  
-	  	<arg line="mp-config-JPA2.xml"/>	
-	  </java>  
-	</target>
-	
-	<target name="mp-bsla-hibernate-generation" description="MP Hibernate" >  
-	 <echo message="MP Hibernate" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
-	   <classpath>  
-	    <path refid="mp.library.path" />  
-	   </classpath>  
-	  	<arg line="mp-config-hibernate.xml"/>	
-	  </java>  
-	</target>
-	
-	<target name="mp-bsla-jpa-generation" description="MP JPA">  
-	 <echo message="MP JPA" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
-	   <classpath>  
-	    <path refid="mp.library.path" />  
-	   </classpath>  
-	  	<arg line="mp-config-jpa.xml"/>	
-	  </java>  
-	</target>
-	
-	<target name="mp-bsla-ibatis-generation" description="MP iBatis">  
-	 <echo message="MP iBatis" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
-	   <classpath>  
-	    <path refid="mp.library.path" />  
-	   </classpath>  
-	  	<arg line="mp-config-ibatis.xml"/>	
-	  </java>  
-	</target>
-	
-	<target name="mp-fitnesse-generation" description="MP Fitnesse">  
-	 <echo message="MP Fitness" />  
-	  <java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator" >  
-	   <classpath>  
-	    <path refid="mp.library.path" />  
-	   </classpath>  
-	  	<arg line="mp-config-fitnesse.xml"/>	
-	  </java>  
-	</target>
-	
-	<target name="generation-4-sample" >
-	  <antcall target="hsqldb.start"/>
-	  <antcall target="mp-bsla-hibernate-generation"/>
-	  <antcall target="mp-bsla-jpa-generation"/>	 
-	  <antcall target="mp-bsla-ibatis-generation"/>
-	  <antcall target="mp-fitnesse-generation"/>			
-	  <antcall target="hsqldb.stop"/>
-	</target>
+    <!-- ===================================================================== -->
 	
 	<target name="generation-demo" >
 	  
 		<macro_generate display="JPA2" config="mp-config-JPA2.xml"/>
-		<macro_generate display="JPA2" config="mp-config-JPA2.xml"/>
-		<!--	<macro_generate display="ADF" config="mp-config-ADF.xml"/>
-		<macro_generate display="EJB" config="mp-config-EJB3.xml"/>
+		<macro_generate display="ADF" config="mp-config-ADF.xml"/>
+
+		<macro_generate display="Hibernate" config="mp-config-hibernate.xml"/>
 		<macro_generate display="FitNesse" config="mp-config-fitnesse.xml"/>
-		<macro_generate display="Grails" config="mp-config-grails-last-features.xml"/>
-		<macro_generate display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml"/>
-		<macro_generate display="iBatis-BSLA" config="mp-config-bsla-ibatis.xml"/>
+		<macro_generate display="iBatis-BSLA" config="mp-config-ibatis.xml"/>
 		<macro_generate display="JOOQ" config="mp-config-JOOQ.xml"/>
-		<macro_generate display="jpa" config="mp-config-bsla-jpa-last-features.xml"/>
+		<macro_generate display="JPA" config="mp-config-jpa.xml"/>
+		<macro_generate display="JPA2-bsla" config="mp-config-JPA2-BSLA.xml"/>
+		<macro_generate display="JPA2" config="mp-config-JPA2.xml"/>
+		<macro_generate display="Primefaces-JEE" config="mp-config-JSF-EJB3.xml"/>
+		<macro_generate display="Primefaces-Spring" config="mp-config-JSF-Spring.xml"/>
+		<macro_generate display="Grails" config="mp-config-grails-last-features.xml"/>
+		<macro_generate display="Openxava" config="mp-config-openxava-last-features.xml"/>
+		<macro_generate display="Play" config="mp-config-play-last-features.xml"/>
+		<macro_generate display="Roo" config="mp-config-roo-last-features.xml"/>
+		<macro_generate display="REST-CXF-JEE" config="mp-config-REST-CXF-JEE.xml"/>
+		<macro_generate display="REST-CXF-Spring" config="mp-config-REST-CXF-Spring.xml"/>
+		<macro_generate display="REST-JEE" config="mp-config-REST.xml"/>
+		<macro_generate display="REST-SpringMVC" config="mp-config-REST-SpringMVC.xml"/>
+		<macro_generate display="Vaadin" config="mp-config-vaadin.xml"/>
+		<macro_generate display="WS-JEE" config="mp-config-WS-JEE.xml"/>
+		<macro_generate display="Solr" config="mp-config-solr.xml"/>
+		
+		
+		<macro_generate display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml"/>
 		<macro_generate display="JPA2-ABL" config="mp-config-bsla-jpa-last-features.xml"/>
-	  <antcall target="mp-bsla-hibernate-generation"/>
-	  <antcall target="mp-generation-JPA2"/>
-	  <antcall target="mp-bsla-jpa-generation"/>	 
-	  <antcall target="mp-bsla-ibatis-generation"/>
-	  <antcall target="mp-fitnesse-generation"/>	-->		
+
+	</target>
+	
+
+	<!-- ===================================================================== -->
+    <!-- release -->
+    <!-- ===================================================================== -->	
+	
+	<target name="release-application" depends="release-all">
+	  <zip destfile="${release.dir}.zip" basedir="${release.dir}"></zip>
+	</target>
+	<target name="build-demo" depends="generation-demo">
+	  <zip destfile="${release.demo.dir}.zip" basedir="${demo.output.dir}"></zip>
+	</target>
+	<target name="release" depends="release-application,build-demo">
+	  <zip destfile="${release.dir}.zip" basedir="${release.dir}"></zip>
 	</target>
 </project>
