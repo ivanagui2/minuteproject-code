@@ -58,6 +58,7 @@
 
 #macro (exposeJPA2EnumImport)
 #foreach ($column in $table.columns)
+#####foreach ($column in $table.attributes) to migrate
 #putColumnParams()
 ##-$column.name - $isEnum - $enumImport - $enumClassName
 #if($isEnum)
