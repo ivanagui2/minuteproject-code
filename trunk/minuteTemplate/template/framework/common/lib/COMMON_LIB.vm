@@ -303,7 +303,7 @@ $!updatedAreaSnippet
 			conn = getConnection();
 			pstmt = conn.prepareStatement(QUERY_NATIVE);
 #foreach($column in $inputBean.columns)
-#if (!$column.isTransient())
+#if (!$column.isTransient() && $column.isPrimaryKey()) 
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
             if (${sddInputBeanVariable}.get$columnClass()==null) {
