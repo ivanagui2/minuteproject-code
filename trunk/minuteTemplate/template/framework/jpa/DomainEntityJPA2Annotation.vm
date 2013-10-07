@@ -140,9 +140,11 @@ $updatedAreaSnippet
 #else
 #putColumnParamNaming()
 #if($isEnum)
-#set($columnType=$enumClassName)
+#set ($enumColumn = $columnUtils.getColumn($table, $column.name))
+#set ($columnType = $enumUtils.getEnumType($template, $enumColumn))
+##set($columnType=$enumClassName)
     @Enumerated #if($convertUtils.isStringType($column.type))(EnumType.STRING)
-    @Column(name="$column.name")
+    @Column(name="$column.name") 
 #end    
 #else
 #if ($isView)
@@ -293,6 +295,8 @@ $!updatedAreaSnippet
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
 #if($isEnum)
+#set ($enumColumn = $columnUtils.getColumn($table, $column.name))
+#set ($enumClassName = $enumUtils.getEnumType($template, $enumColumn))
        set$columnClass (${enumClassName}.fromValue($columnVar));
 #else
        set$columnClass ($columnVar);
@@ -570,7 +574,9 @@ $updatedAreaSnippet
 #end
 #if($isEnum)
 #set($originType=$columnType)
-#set($columnType=$enumClassName)
+#set ($enumColumn = $columnUtils.getColumn($table, $column.name))
+#set ($columnType = $enumUtils.getEnumType($template, $enumColumn))
+##set($columnType=$enumClassName)
 #end
 #if($useTemporal && $isTimeColumn)
 #set($columnType="java.util.Date")
@@ -585,7 +591,7 @@ $updatedAreaSnippet
 	
 #if($isEnum)
     public void set$columnClass ($originType $columnVar) {
-        this.$columnVar =  ${enumClassName}.fromValue($columnVar);
+        this.$columnVar =  ${columnType}.fromValue($columnVar);
     } 
 #end
 #end
