@@ -135,6 +135,18 @@ public class ColumnUtils {
 		return false;
 	}
 
+
+	public static boolean isClob (Column column) {
+		if (column!=null && 
+				(
+					column.getType().equals("CLOB") || 
+					column.getType().equals("TEXT") 
+					)
+				)
+				return true;
+			return false;
+	}
+	
 	public static boolean isPkUserProvided (Column column) {
 		return isNaturalPk(column);
 	}
