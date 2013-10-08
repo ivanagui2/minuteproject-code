@@ -11,9 +11,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<data-model>
 			    <!-- <driver groupId="org.apache.derby" artifactId="derby" version="10.8.1.2"/> -->
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
-			    
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
-			    </fileSource>
+			   
 			    <!--
 			    <dataSource>	
 					<driverClassName>org.apache.derby.jdbc.ClientDriver</driverClassName>
