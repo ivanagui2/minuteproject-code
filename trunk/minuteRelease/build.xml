@@ -366,6 +366,11 @@
 		<macro_generate display="WS-JEE" config="mp-config-WS-JEE.xml"/>
 		<macro_generate display="Solr" config="mp-config-solr.xml"/>
 		
+		<macro_generate display="Liferay SB" config="mp-config-Liferay.xml"/>
+		<macro_generate display="PHP-doctrine" config="mp-config-doctrine.xml"/>
+		<macro_generate display="PHP-propel" config="mp-config-propel.xml"/>
+		
+		
 		
 		<macro_generate display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml"/>
 		<macro_generate display="JPA2-ABL" config="mp-config-bsla-jpa-last-features.xml"/>
