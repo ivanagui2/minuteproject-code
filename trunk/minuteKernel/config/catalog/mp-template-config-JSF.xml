@@ -5,6 +5,7 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
+	<plugin name="primefacesUtils" className="net.sf.minuteProject.plugin.jsf.PrimefacesUtils"></plugin>
 
 	<template-target 
     	name="JSF java set"

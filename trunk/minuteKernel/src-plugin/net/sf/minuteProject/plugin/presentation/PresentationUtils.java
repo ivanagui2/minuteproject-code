@@ -25,8 +25,8 @@ import net.sf.minuteProject.utils.property.PropertyUtils;
  */
 public class PresentationUtils {
 
-	private static final String DISPLAY_CHILDREN = "display-children";
-	private static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
+	public static final String DISPLAY_CHILDREN = "display-children";
+	public static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
 
 	public static int getDisplayColumns(Column column) {
 		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
@@ -66,15 +66,15 @@ public class PresentationUtils {
 	}
 	
 	public static Boolean isTextArea (Column column) {
-		return (column.getSizeAsInt()>100 && !column.isLob())? true:false;
+		return (column.getSizeAsInt()>100 && !ColumnUtils.isClob(column))? true:false;
 	}
 	
 	public static Boolean isRichText (Column column) {
-		return (column.getSizeAsInt()>100 && column.getType().equals("CLOB"))? true:false;
+		return (column.getSizeAsInt()>100 && ColumnUtils.isClob(column))? true:false;
 	}	
 	
 	public static Boolean isRichTextOnly (Column column) {
-		return (column.getType().equals("CLOB"))? true:false;
+		return (ColumnUtils.isClob(column))? true:false;
 	}	
 	
 	public static Boolean isFileUpload (Column column) {

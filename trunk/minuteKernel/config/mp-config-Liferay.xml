@@ -54,7 +54,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
- 		<targets catalog-entry="Liferay" outputdir-root="D:/temp">	
+ 		<targets catalog-entry="Liferay">	
 		</targets>
 	</configuration>
 </generator-config>
