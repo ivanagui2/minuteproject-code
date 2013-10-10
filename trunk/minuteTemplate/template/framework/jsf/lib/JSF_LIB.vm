@@ -9,7 +9,7 @@
 	<p:message for="lbl${columnClass}-#{idValue}" />
 #else
 #if($presentationUtils.isTextArea($column))
-	<p:inputTextarea rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
+	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
         counterTemplate="{0} characters remaining." autoResize="false"
 #elseif($presentationUtils.isRichText($column))
 	<p:editor 
@@ -20,6 +20,7 @@
 	<p:message for="lbl${columnClass}-#{idValue}"/>
 #end
 #end
+
 #macro (putJSFColumnSnippet2)
 #putJSFColumnSnippet("selected${tableClassName}" ${tableVariableName})
 #end
@@ -41,7 +42,8 @@
 <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
 ##TODO change childrenListClass is normally for children unique but not unique for parent lookup
 #set ($childrenListClass = $childrenListClass+$cpt)
-<p:commandButton type="button" title="Search" icon="ui-icon-search" onclick="suc${childrenListClass}Dialog.show()"/>
+##<p:commandButton process="@form" title="Search" icon="ui-icon-search" onclick="suc${childrenListClass}Dialog.show()"/>
+<p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
 </p:row>
 <p:message for="lbl${columnClass}-#{idValue}" />
 #end

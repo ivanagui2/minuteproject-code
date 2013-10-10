@@ -264,6 +264,8 @@ public class ${className} implements java.io.Serializable{
 #end
 	    	selected${tableClassName} = new ${tableClassName}();
     	} catch (Exception e) {
+			System.out.println(">>>>> selected${tableClassName} = "+selected${tableClassName});
+			e.printStackTrace();
 			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
         }
     }
@@ -290,6 +292,7 @@ public class ${className} implements java.io.Serializable{
 			}
 	       	selected${tableClassName} = new ${tableClassName}();
         } catch (Exception e) {
+			e.printStackTrace();
 			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
         }
     }
@@ -302,7 +305,21 @@ public class ${className} implements java.io.Serializable{
     public List<SelectItem> get${localColumnClass}List() {
         return ${lookupBeanVar}.get${linkedTableClass}List();
     }
-##end
+
+    private boolean render${localColumnClass} = false;
+    
+    public void desactiveRender${localColumnClass} () {
+     	render${localColumnClass} = false;
+    }
+    
+    public void activateRender${localColumnClass} () {
+    	render${localColumnClass} = true;
+    }
+
+	public boolean isRender${localColumnClass}() {
+		return render${localColumnClass};
+	}
+
 #end
 #end
 

@@ -42,7 +42,8 @@
 #set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
 #set ($childrenListClass = $childrenListClass+$velocityCount)
-<p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?"
+<p:outputPanel id="container${childrenListClass}" >
+ <p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
 		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
 	<h:form id="suc${childrenListClass}Form">
     <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
@@ -62,14 +63,15 @@
            <ui:param name="isSemanticReference" value="false" />
          </ui:include>
 		 <p:column>
-            <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}" title="Affect" onclick="suc${childrenListClass}Dialog.hide()" process="@this">
-                <f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
+            <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactiveRender${localColumnClass}}" title="Affect" onclick="suc${childrenListClass}Dialog.hide()" process="@this">
+				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
                 <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
             </p:commandButton >
 		  </p:column>
     </p:dataTable>
    </h:form>
-</p:dialog>
+ </p:dialog>
+</p:outputPanel>
 #end
 #end
 </html>

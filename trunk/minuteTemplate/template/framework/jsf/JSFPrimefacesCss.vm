@@ -62,6 +62,10 @@ a:hover {
     font-size: small;
 }
 
+.ui-widget-content-borderless  tr, .ui-widget-content-borderless td {
+    border: none;
+}
+
 .ui-datatable-odd {
     background: none repeat scroll 0 0 #F2F5F9;
 }

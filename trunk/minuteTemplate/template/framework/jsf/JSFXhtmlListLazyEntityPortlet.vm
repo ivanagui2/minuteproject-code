@@ -76,7 +76,7 @@
 	</p:confirmDialog>
 
   	<h:form id="form2">
-			<p:panelGrid columns="3" id="panel" cellpadding="5" >
+			<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" >
                 <f:facet name="header">
                     <h:outputText value="#{i18n.${tableVariableName}} details "/>
                 	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
@@ -168,7 +168,7 @@
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
-	<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >  
+	<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >##  appendToBody="true"
 		<h:form id="formAdd$childrenListVariable">
 			<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
 			<ui:include src="/$entityEditJSFLocation">
