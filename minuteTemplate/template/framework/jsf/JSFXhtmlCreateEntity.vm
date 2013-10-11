@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
-<ui:composition template="$modelDecoratorJSFImport">
+  <ui:composition template="$modelDecoratorJSFImport">
 	<ui:define name="title">#{i18n.createTitle} ${tableClassName}</ui:define>
 	<ui:define name="heading">#{i18n.createHeading}</ui:define>
 	<ui:define name="body">
@@ -45,5 +45,5 @@
 			</p:panel>
 		</h:form>
 	</ui:define>
-</ui:composition>
+  </ui:composition>
 </html>

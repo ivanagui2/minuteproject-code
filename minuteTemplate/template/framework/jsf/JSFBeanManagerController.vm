@@ -122,7 +122,9 @@ public class ${className} implements java.io.Serializable{
 #if($isSpringBackend)
 	private List<$linkedTableClass> $childrenListVariable;
     public List<${linkedTableClass}> get${childrenListClass} () {
-        populate$childrenListVariable ();
+		if (${childrenListVariable}==null) {
+			populate$childrenListVariable ();
+		}
         return ${childrenListVariable};
     }
 #if($velocityCount==1)
@@ -374,13 +376,26 @@ public class ${className} implements java.io.Serializable{
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
+	    render${childrenListVariable} = false; // reset
 	    if ("child-$childrenListVariable".equals(tabId)) {
+		    render${childrenListVariable} = true;
 			populate$childrenListVariable ();
 		}
 #end
 #end
 #end
     }
+#end
+
+#foreach ($reference in $presentationUtils.getDisplayableChildren($table))
+#putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
+    private boolean render${childrenListVariable} = false;
+
+	public boolean isRender${childrenListClass}() {
+		return render${childrenListVariable};
+	}
+#end
 #end
 
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)

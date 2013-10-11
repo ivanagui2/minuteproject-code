@@ -92,11 +92,12 @@
             </p:panelGrid>
 #if ($hasDisplayableChildren)
 <p:tabView id="childrenTab" orientation="top|bottom|left|right"> 
-	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" />##update=":form:growl"/>
+	<p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}" update="childrenTab" />##update=":form:growl"/>
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-   <p:tab id="child-$childrenListVariable" title="$childrenListVariable" > 
+   <p:tab id="child-$childrenListVariable" title="$childrenListVariable #{${entityControllerJSFVariable}.isRender${childrenListClass}()}" > 
+	 <p:outputPanel id="child-${childrenListVariable}Panel" rendered="#{${entityControllerJSFVariable}.isRender${childrenListClass}()}">
 		<p:toolbar id="add-$childrenListVariable">  
 			<p:toolbarGroup align="left"> 
 				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document" onclick="add${childrenListClass}.show();" update=":form2:panel"/>
@@ -154,6 +155,7 @@
 					process="@this"/>
             </p:column>
 		</p:dataTable>
+	 </p:outputPanel>
    </p:tab>
 #end
 #end
