@@ -9,7 +9,7 @@
 	<p:message for="lbl${columnClass}-#{idValue}" />
 #else
 #if($presentationUtils.isTextArea($column))
-	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
+	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" width="$column.sizeAsInt" 
         counterTemplate="{0} characters remaining." autoResize="false"
 #elseif($presentationUtils.isRichText($column))
 	<p:editor 
