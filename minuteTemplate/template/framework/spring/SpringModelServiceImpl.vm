@@ -81,6 +81,24 @@ public class $thisClassName implements $beanSpringModelServiceClass {
 #end
         return ${BslaDaoExtInterfaceVariable}.list($tableVariableName, sortMask, QuerySortOrder.$order);
     }
+
+#*
+    public void loadAssociations ($tableClassName $tableVariableName) {
+#foreach ($reference in $table.parents)
+#putReferenceParams2()
+#set($column = $reference.localColumn)
+#putColumnParamNaming()
+#set($tableDB = $reference.foreignTable)
+#set ($BslaDaoInterfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectBslaDaoInterface))
+#set ($interfaceClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2DomainObject))
+#set ($BslaDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($BslaDaoInterfaceClass))
+        if (${tableVariableName}.get${columnClass}_()!=null)
+           ${tableVariableName}.set${columnClass}(${BslaDaoInterfaceVariable}.load${interfaceClass}(${tableVariableName}.get${columnClass}_()));
+#end
+    }
+
+
+*#
 #end
 #end
 
