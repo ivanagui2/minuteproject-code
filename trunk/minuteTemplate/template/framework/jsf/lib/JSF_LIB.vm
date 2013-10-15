@@ -27,12 +27,12 @@
 
 #macro (putJSFParentDropDownListSnippet)
 <label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
-<h:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_}" required="$column.isRequired()">
+<p:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()">
 #if(!$column.isRequired())
     <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
 	<f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}List}" id="${columnVar}Items"/>
-</h:selectOneMenu>
+</p:selectOneMenu>
 <p:message for="lbl${columnClass}-#{idValue}" />
 #end
 

@@ -1,4 +1,5 @@
 #exposeVariableEntitySpecific()
+#exposeJPA2Specifics()
 #putImportParamsUML()
 #set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
@@ -50,7 +51,9 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @param $tableClassName $tableVariableName
      */
     public void insert$tableClassName($tableClassName $tableVariableName) {
+#if($isFieldRelationshipPersistence)
        convertTransientReferenceToNull ($tableVariableName);
+#end
        getJpaTemplate().persist($tableVariableName);
     }
 
@@ -69,7 +72,9 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @param $tableClassName $tableVariableName
      */
     public $tableClassName update$tableClassName($tableClassName $tableVariableName) {
+#if($isFieldRelationshipPersistence)
        convertTransientReferenceToNull ($tableVariableName);
+#end
        return getJpaTemplate().merge($tableVariableName);
     }
 
@@ -627,12 +632,14 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     protected EntityManager getEntityManager () {
         return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
     }
-    
+
+#if($isFieldRelationshipPersistence)
     protected void convertTransientReferenceToNull ($tableClassName $tableVariableName) {
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
 #exposeImportParamsUML($reference.foreignTable)
 	   ${tableVariableName}.set${localColumnClass} (($linkedTableClass)null);
+#end
 #end
     }
 	

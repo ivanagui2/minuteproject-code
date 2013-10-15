@@ -33,6 +33,8 @@ public interface $thisClassName {
 #if(!$isMany2Many)
 	
     public List<$tableClassName> getList ($tableClassName $tableVariableName) ;
+##		
+##	public void loadAssociations ($tableClassName $tableVariableName);
 #end
 #end
 
