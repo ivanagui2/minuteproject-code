@@ -51,7 +51,7 @@ public class EntityNamingConvention extends BeanNamingConvention<Table> {
 	}
 
 	private void apply(Table table) {
-		for (String s : ParserUtils.getList(defaultValue)) {
+		for (String s : ParserUtils.getListLowerCase(defaultValue)) {
 			if (apply (table, s)) return;
 		}		
 	}
@@ -65,9 +65,9 @@ public class EntityNamingConvention extends BeanNamingConvention<Table> {
 	}
 
 	private boolean applyStripPrefix(Table table, String s) {
-		String name = table.getAlias();
+		String name = table.getAlias().toLowerCase();
 		if (name.startsWith(s) && !name.equals(s)) {
-			String newName = StringUtils.removeStart(table.getAlias(), s);
+			String newName = StringUtils.removeStart(name, s);
 			table.setAlias(newName);
 			performReferenceUpdate(table, name, newName);
 			return true;
@@ -76,9 +76,9 @@ public class EntityNamingConvention extends BeanNamingConvention<Table> {
 	}
 
 	private boolean applyStripSuffix(Table table, String s) {
-		String name = table.getAlias();
+		String name = table.getAlias().toLowerCase();
 		if (name.endsWith(s) && !name.equals(s)) {
-			String newName = StringUtils.removeEnd(table.getAlias(), s);
+			String newName = StringUtils.removeEnd(name, s);
 			table.setAlias(newName);
 			performReferenceUpdate(table, name, newName);
 			return true;

@@ -18,6 +18,12 @@ public class ParserUtils {
 		return list;
 	}
 	
+	public static List<String> getListLowerCase(String s) {
+		if (s!=null)
+			return getList(s.toLowerCase());
+		return new ArrayList<String>();
+	}
+	
 	public static List<String> getList(String s) {
 		List<String> l = new ArrayList<String>();
 		if (s!=null) {
