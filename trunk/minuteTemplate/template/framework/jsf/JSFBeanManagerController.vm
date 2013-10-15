@@ -310,7 +310,7 @@ public class ${className} implements java.io.Serializable{
 
     private boolean render${localColumnClass} = false;
     
-    public void desactiveRender${localColumnClass} () {
+    public void desactivateRender${localColumnClass} () {
      	render${localColumnClass} = false;
     }
     
