@@ -121,6 +121,10 @@ public class ${className} implements java.io.Serializable{
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
 #if($isSpringBackend)
 	private List<$linkedTableClass> $childrenListVariable;
+	//used as property listener
+	public void setRefresh${childrenListClass}(Boolean b) {
+    	populate$childrenListVariable ();
+    }
     public List<${linkedTableClass}> get${childrenListClass} () {
 		if (${childrenListVariable}==null) {
 			populate$childrenListVariable ();

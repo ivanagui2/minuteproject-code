@@ -152,7 +152,9 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      */
     public void save$tableClassName($tableClassName $tableVariableName) {
        //getJpaTemplate().persist($tableVariableName);
+#if($isFieldRelationshipPersistence)
        convertTransientReferenceToNull ($tableVariableName);
+#end
        if (getJpaTemplate().contains($tableVariableName)) {
           getJpaTemplate().merge($tableVariableName);
        } else {
@@ -582,7 +584,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #end
 	    return query.toString();
     }
-    
+#*      
     /**
      * Load a paginated list of $tableClassName entity dependent of pagination criteria
      * @param PaginationCriteria paginationCriteria
@@ -626,7 +628,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
        List<$primaryKeyType> set = getEntityManager().createNamedQuery(query.toString()).setMaxResults(maxResult).getResultList();
        return set;
     }
-
+*# 
 ##parse("./snippet/orm/dao/queryBuilderUtils.vm")   
    
     protected EntityManager getEntityManager () {
@@ -640,8 +642,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #exposeImportParamsUML($reference.foreignTable)
 	   ${tableVariableName}.set${localColumnClass} (($linkedTableClass)null);
 #end
-#end
     }
-	
+#end	
 
 }
