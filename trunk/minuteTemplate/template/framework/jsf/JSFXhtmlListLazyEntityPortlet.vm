@@ -4,6 +4,7 @@
 #exposePrimefacesConfig()
 #set($hasDisplayableChildren=$presentationUtils.hasDisplayableChildren($table))
 #set($refCnt=1)
+#set($thisEntityControllerJSFVariable = $entityControllerJSFVariable)
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -145,7 +146,7 @@
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
-	<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" >##  appendToBody="true"
+	<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" > ##  appendToBody="true"
 		<h:form id="formAdd$childrenListVariable">
 			<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
 			<ui:include src="/$entityEditJSFLocation">
@@ -154,10 +155,11 @@
 #set($refCnt=$refCnt+1)
             </ui:include>
             </h:panelGrid>
-			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$update"/>
+			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$update">
+				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+            </p:commandButton>				
 		</h:form>
 	</p:dialog>
-
 	<p:dialog id="basicDialog${childrenListClass}" header="#{${childrenListVariable}} Details" widgetVar="detailDialog${childrenListClass}" resizable="true" >  
 		<h:form id="form${childrenListClass}">
 			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
@@ -167,8 +169,13 @@
 #set($refCnt=$refCnt+1)
             </ui:include>
             </h:panelGrid>
-			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update"/>
-			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$update"/>
+##			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
+			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
+				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+            </p:commandButton>
+			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
+				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+            </p:commandButton>
 		</h:form>
 	</p:dialog>
 

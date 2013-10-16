@@ -157,12 +157,12 @@ public interface $className {##extends DataAccessObject {
      * @return List
      */
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) ;
-        
+#*         
     /**
      * Load a paginated list of $tableClassName entity dependent of pagination criteria
      * @param PaginationCriteria paginationCriteria
      * @return List
      */
     public List<$tableClassName> loadPaginated$tableClassName ($tableClassName $tableVariableName, PaginationCriteria paginationCriteria) ;
-
+*#
 }
