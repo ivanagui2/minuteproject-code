@@ -26,6 +26,14 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="spring"></property>
 		</template>
+								 
+		<template name="JSFBeanManagerConverter" templateFileName="JSFBeanManagerConverter.vm" 
+			subdir="" outputsubdir="" technicalPackage="converter"
+			file-extension="java" file-prefix="" file-suffix="Converter" 
+			entity-specific="true" has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="add-backend-implementation" value="spring"></property>
+		</template>
 		
 		<!-- sdd -->
 		<template name="JSFSDDController" templateFileName="JSFSDDController.vm" 
