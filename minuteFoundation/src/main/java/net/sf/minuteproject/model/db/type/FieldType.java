@@ -18,7 +18,6 @@ public enum FieldType {
 	DOUBLE,
 	BIT,
 	DATE,
-	DATETIME,
 	BOOLEAN,
 	TINYINT,
 	SMALLINT,
