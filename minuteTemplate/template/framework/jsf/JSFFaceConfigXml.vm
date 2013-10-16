@@ -50,6 +50,10 @@
 		</navigation-case>
 	</navigation-rule>	
 	
+	<converter>
+		<converter-id>$entityConverterJSFVariable</converter-id>
+		<converter-class>$entityConverterJSFImport</converter-class>
+	</converter>	
 #end	
 #end
 
