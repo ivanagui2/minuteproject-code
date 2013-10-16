@@ -1,0 +1,87 @@
+#exposeJSFEntitySpecific()
+#exposeJSFModelSpecific()
+#if($isSpringBackend)
+#exposeSpringDomainObjectSpecific()
+#exposeSpringServiceDomainObject()
+#set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
+#set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
+#exposeSpringModelSpecific()
+#elseif($isEJBBackend)
+#exposeEJBDomainObjectSpecific()
+#end
+package $packageName;
+
+$!updatedAreaImport
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.FacesConverter;
+
+#if($isSpringBackend)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
+import $lookupBeanImport;
+import $beanSpringModelServiceImport;
+import $SpringServiceInterfaceImport;
+import $modelJSFUtilsImport;
+import $modelSemanticReferenceUtilsJSFImport;
+
+#elseif($isEJBBackend)
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import $EJBDaoImplImport;
+
+#end
+import $importDomainObjectUML;
+#exposeJPA2Import()
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: JSF converter ${className} </p>
+ *
+ */
+@FacesConverter(value="${entityControllerJSFVariable}")
+#if($isSpringBackend)
+@ManagedBean (name="${entityControllerJSFVariable}")
+#elseif($isEJBBackend)
+@Named(value = "$entityControllerJSFVariable")
+#end
+public class ${className} implements Converter{
+
+	@Inject 
+    private $EJBDaoImplClass $EJBDaoImplVariable;
+
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent ui, String string) {
+        Object ret = null;
+		//TODO
+        return ret;
+    }
+
+	@Override
+    public String getAsString(FacesContext context, UIComponent ui, Object object) {
+        String str = "";
+		//TODO
+        return str;
+    }
+	
+$!updatedAreaImplementation
+}
