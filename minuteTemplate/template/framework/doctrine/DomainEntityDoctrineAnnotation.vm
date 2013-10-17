@@ -13,29 +13,8 @@
 namespace $packageName;
 
 $!updatedAreaImport
-#*
-import java.sql.*;
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
 
-#if($addDomainSpecificMethod)
-import java.util.Map;
-import java.util.Map.Entry;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
-#end
-import java.io.Serializable;
-import javax.persistence.*;
-*#
 #exposePHPImport()
-##exposeJPA2CompositeKeyImport()
-##exposeJPA2EnumImport()
 
 /**
  *
@@ -48,45 +27,9 @@ import javax.persistence.*;
  * @Table (name="${table.name}")
  */
 #set($domainVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($domainVariableName))
-#*
-@NamedQueries({
-#set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
-	 @NamedQuery(name="${className}.findAll", query="$selectChunk")
-#foreach ($column in ${table.attributes})
-#putPHPColumnParamNaming()
-	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE ${domainVariableName}.$columnVar = :$columnVar")
-#if($convertUtils.isStringType($column.type))
-	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${domainVariableName}.$columnVar like :$columnVar")
-#end
-#addArea ("custom-queries")
-#end
-})
-*#
-#*
-#if($hasCache && $isCacheEnabled)
-#if($jpa2ImplementationIsHibernate)
-@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
-#end
-#if($jpa2ImplementationIsEclipseLink)
-//eclipseLink configuration missing? Please contribute by providing the snippet
-#end
-#end
-*#
+
 #addArea("custom-annotations")
 class ${className} {
-##putColumnDefaultValue()
-#* 
-    public static final String FIND_ALL = "${className}.findAll";
-#foreach ($column in ${table.attributes})
-#putPHPColumnParamNaming()
-#set($columnCap = $formatUtils.upperCase(${columnClass}))
-    public static final String FIND_BY_$columnCap = "${className}.findBy$columnClass";
-#if($convertUtils.isStringType($column.type))
-    public static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
-#end
-#end	
-*#
-
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     /** @Id */
     private ${embeddedIdClass} $embeddedIdVariable;
@@ -222,8 +165,8 @@ $!updatedAreaSnippet
 #updatedAreaEnd()
 #end
     /**
-    * Default constructor
-    */
+     *  Default constructor
+     */
     public function __construct() {
 #foreach ($reference in $table.children)
 #putReferenceParams2()
@@ -236,22 +179,6 @@ $!updatedAreaSnippet
         $this->$childrenListVariable = new \Doctrine\Common\Collections\ArrayCollection();
 #end
     }
-#*#if ($isMany2Many)
-    public ${className} get${className} () {
-    	return this;
-    }
 
-    public void set${className} (${className} ${variableName}) {
-    	new ${className}(
-#foreach ($column in ${table.columns})
-#putColumnParams()
-       ${variableName}.get_${columnVar}()#if ($velocityCount!=$table.columnCount),
-#end
-#end 		
-		);
-    }
-    
-#end   
-*#
 $!updatedAreaImplementation
 }
