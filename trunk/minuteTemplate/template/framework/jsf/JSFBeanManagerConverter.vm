@@ -13,11 +13,14 @@ package $packageName;
 
 $!updatedAreaImport
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,11 +61,11 @@ import $importDomainObjectUML;
  * <p>Description: JSF converter ${className} </p>
  *
  */
-@FacesConverter(value="${entityControllerJSFVariable}")
+@FacesConverter(value="${entityConverterJSFVariable}")
 #if($isSpringBackend)
-@ManagedBean (name="${entityControllerJSFVariable}")
+@ManagedBean (name="${entityConverterJSFVariable}")
 #elseif($isEJBBackend)
-@Named(value = "$entityControllerJSFVariable")
+@Named(value = "$entityConverterJSFVariable")
 #end
 public class ${className} implements Converter{
 
@@ -72,6 +75,7 @@ public class ${className} implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent ui, String string) {
         Object ret = null;
+		System.out.println(">>>> string = "+string);
 		//TODO
         return ret;
     }
@@ -79,6 +83,7 @@ public class ${className} implements Converter{
 	@Override
     public String getAsString(FacesContext context, UIComponent ui, Object object) {
         String str = "";
+		System.out.println(">>>> object = "+object);
 		//TODO
         return str;
     }
