@@ -1,5 +1,5 @@
 #macro (putJSFColumnSnippet $tableVariableName $internat)
-<label>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</label>
+<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
 #if($columnUtils.isTimeColumn($column))
     <p:calendar value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
        id="lbl${columnClass}-#{idValue}" ##converter="dateTsConverter"
@@ -26,7 +26,7 @@
 #end
 
 #macro (putJSFParentDropDownListSnippet)
-<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
+<p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
 <p:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()">
 #if(!$column.isRequired())
     <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
@@ -37,7 +37,7 @@
 #end
 
 #macro (putJSFParentAffectationSnippet $cpt)
-<label>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</label>
+<p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
 <p:row>
 <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
 ##TODO change childrenListClass is normally for children unique but not unique for parent lookup

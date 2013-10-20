@@ -77,7 +77,7 @@ public class ${className} implements Converter{
         Object ret = null;
 		System.out.println(">>>> string = "+string);
 		//TODO
-        return ret;
+        return "";
     }
 
 	@Override
