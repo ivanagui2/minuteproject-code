@@ -107,6 +107,15 @@
 							</property>
 						</field>
 					</entity>
+					<entity name="bus_user_role_request">
+						<field name="STATUS">
+							<property tag="checkconstraint">
+								<property name="TO_TREAT" />
+								<property name="TREATED" />
+								<property name="REJECTED" />
+							</property>
+						</field>
+					</entity>
 <!-- 					<entity name="ADMIN_ACCESS">
 						todo trigger name
 						todo trigger creation date
