@@ -131,11 +131,16 @@
 #end
     public List<SelectItem> get${domainClassName}List() {
         List<SelectItem> list = new ArrayList<SelectItem>();
-        for ($domainClassImport element : ${beanSpringServiceVariable}.getList()) {
-            list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.get$columnClass()$setToString));
+        for ($domainClassImport element : get${domainClassName}s()) {
+            list.add(new SelectItem(element.get$primaryKeyJavaNameClass(),element.display()));
         }
         return list;
     }
+	
+    public List<$domainClassImport> get${domainClassName}s() {
+        return ${beanSpringServiceVariable}.getList();
+    }
+	
 #end
 #end
 #end

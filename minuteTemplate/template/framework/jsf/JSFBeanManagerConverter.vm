@@ -23,18 +23,7 @@ import javax.inject.Inject;
 
 
 #if($isSpringBackend)
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import net.sf.minuteProject.model.data.criteria.EntityCriteria;
-import net.sf.minuteProject.model.data.criteria.EntitySort;
-import net.sf.minuteProject.model.data.criteria.QueryData;
-import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
-import net.sf.minuteProject.model.data.criteria.constant.OperandType;
-import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+import org.springframework.stereotype.*;
 
 import $lookupBeanImport;
 import $beanSpringModelServiceImport;
@@ -63,29 +52,29 @@ import $importDomainObjectUML;
  */
 @FacesConverter(value="${entityConverterJSFVariable}")
 #if($isSpringBackend)
-@ManagedBean (name="${entityConverterJSFVariable}")
+@Component ("${entityConverterJSFVariable}")
 #elseif($isEJBBackend)
-@Named(value = "$entityConverterJSFVariable")
 #end
-public class ${className} implements Converter{
+public class ${className} implements Converter {
 
-	@Inject 
-    private $EJBDaoImplClass $EJBDaoImplVariable;
+##	@Inject 
+##    private $EJBDaoImplClass $EJBDaoImplVariable;
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent ui, String string) {
-        Object ret = null;
-		System.out.println(">>>> string = "+string);
-		//TODO
-        return "";
+    public Object getAsObject(FacesContext context, UIComponent ui, String value) {
+        $tableClassName $tableVariableName = new $tableClassName();
+#if($columnUtils.isString($primaryKeyFirstColumn))
+	    ${tableVariableName}.set${primaryKeyJavaNameClass}(value);
+#else
+	    ${tableVariableName}.set${primaryKeyJavaNameClass}(${primaryKeyFullType}.valueOf(value));
+#end
+    	return $tableVariableName;
     }
 
 	@Override
     public String getAsString(FacesContext context, UIComponent ui, Object object) {
-        String str = "";
-		System.out.println(">>>> object = "+object);
-		//TODO
-        return str;
+		return (($tableClassName) object).get${primaryKeyJavaNameClass}().toString();
+##		return object.toString();
     }
 	
 $!updatedAreaImplementation

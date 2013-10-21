@@ -308,8 +308,11 @@ public class ${className} implements java.io.Serializable{
 ##if ($tableUtils.isAdminContentType($foreignTable))
 #putReferenceParams2()
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
-    public List<SelectItem> get${localColumnClass}List() {
-        return ${lookupBeanVar}.get${linkedTableClass}List();
+##    public List<SelectItem> get${localColumnClass}List() {
+##        return ${lookupBeanVar}.get${linkedTableClass}List();
+##    }
+    public List<$linkedTableClass> get${localColumnClass}s() {
+        return ${lookupBeanVar}.get${linkedTableClass}s();
     }
 
     private boolean render${localColumnClass} = false;
