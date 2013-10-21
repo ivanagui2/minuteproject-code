@@ -1,0 +1,34 @@
+#exposeVariableModelSpecific()
+#set($thisClassName=$className)
+#set($thisDomainVariableName=$classVariable)
+package $packageName;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import java.io.Serializable;
+
+@ManagedBean(name="${thisDomainVariableName}")
+@ViewScoped
+public class $thisClassName implements Serializable{
+
+#foreach($table in ${entities})
+#asUML($table)
+#exposeVariableEntitySpecific()
+#foreach($column in ${table.columns})
+#putColumnParamNaming()
+#if($isEnum)
+#set ($enumColumn = $columnUtils.getColumn($table, $column.name))
+#set ($columnType = $enumUtils.getEnumType($template, $enumColumn))
+##    private $enumImport  $columnType;
+##	
+	public $enumImport [] get${domainClassName}${columnClass}Array() {
+		return ${enumImport}.values();
+	}
+	
+#end
+#end
+#end
+
+}

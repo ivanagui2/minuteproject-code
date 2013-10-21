@@ -344,13 +344,17 @@ $!updatedAreaEnd
 
 #macro (putSemanticReference $element)
 	  StringBuffer sb = new StringBuffer();
+#set($count=0)
 #foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParamNaming()
 #if(!$isForeignKey)
 #if($columnUtils.isPartOfCompositePrimaryKey($column))
 #set($columnClass = "${columnClass}_")
 #end
-      sb.append (${element}.get$columnClass()+" - ");
+#set($count=$count+1)
+##//$velocityCount $count
+      sb.append (${element}.get$columnClass()#if($count<$velocityCount) +" - "); #else +" " ); 
+#end 
 #end
 #end
       return sb.toString();

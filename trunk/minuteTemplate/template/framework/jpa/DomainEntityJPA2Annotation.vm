@@ -362,7 +362,7 @@ $!updatedAreaSnippet
     /**
     * display semanticReference with attribute inside class
     */
-	public String getDisplay() {
+	public String display() {
 #putSemanticReference("this")
 	}
     /**
