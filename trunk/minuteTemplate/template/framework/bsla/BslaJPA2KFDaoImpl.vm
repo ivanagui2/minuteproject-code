@@ -718,11 +718,19 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		int max = data.getMax();
 		EntitySort<${tableClassName}> entitySort = data.getEntitySort();
 		QuerySortOrder sortOrder = entitySort.getOrder();
-		${tableClassName} sortMask = entitySort.getEntity();
-		
-		data.setResult(find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max));
+		${tableClassName} sortMask = entitySort.getEntity();	
+#* 		data.setResult(find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max));
 		Long totalResultCount = count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType());
 		data.setTotalResultCount(totalResultCount);
+		*#
+
+		List<${tableClassName}> results = find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max);
+		data.setResult(results);
+		int size = results.size();
+		if (size<max) 
+			data.setTotalResultCount(Long.valueOf(size));
+		data.setTotalResultCount(count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
+
 	}
 	
     public EntityManager getEntityManagerForRecursiveDao() {
