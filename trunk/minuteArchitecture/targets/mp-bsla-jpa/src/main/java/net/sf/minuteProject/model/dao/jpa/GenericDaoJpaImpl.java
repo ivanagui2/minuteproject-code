@@ -6,12 +6,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import net.sf.minuteProject.model.dao.GenericDaoImpl;
+import org.springframework.stereotype.Repository;
 
+import net.sf.minuteProject.model.dao.GenericDaoImpl;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+
+@Repository
 public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
     /**
     * Saves a T entity 
     * @param T t
@@ -69,4 +74,19 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
 		this.entityManager = entityManager;
 	}
     
+    public Long count(T t, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        Query query = getEntityManager().createQuery(countQuery(t, matchType, operandType, caseSensitivenessType));
+        List<Long> list = query.getResultList();
+    	if (!list.isEmpty()) {
+            return list.get(0);
+    	}
+    	return 0L;
+    }
+    
+	protected String countQuery (T t, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        String what = getQuerySelectFromEntity();
+		return findQuery (t, null, what, matchType, operandType, caseSensitivenessType, null);
+    }
+
+	protected abstract String getQuerySelectFromEntity() ;
 }
