@@ -729,7 +729,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		int size = results.size();
 		if (size<max) 
 			data.setTotalResultCount(Long.valueOf(size));
-		data.setTotalResultCount(count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
+		else
+			data.setTotalResultCount(count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
 
 	}
 	
