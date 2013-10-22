@@ -23,9 +23,12 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 		QuerySortOrder sortOrder = entitySort.getOrder();
 		T sortMask = entitySort.getEntity();
 		
-		data.setResult(find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max));
-		Long totalResultCount = count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType());
-		data.setTotalResultCount(totalResultCount);
+		List<T> results = find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max);
+		data.setResult(results);
+		int size = results.size();
+		if (size<max) 
+			data.setTotalResultCount(Long.valueOf(size));
+		data.setTotalResultCount(count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
 	}
 	
     protected String findQuery (T criteriaMask, T orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
