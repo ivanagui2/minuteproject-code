@@ -64,7 +64,7 @@
         </p:dataTable>
     </h:panelGroup>
    </h:form>        
-   <br/>
+##   <br/>
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
 		
 	<p:confirmDialog id="confirmDialog" message="Can you confirm your deletion?"
@@ -102,36 +102,66 @@
                 	 <p:outputPanel id="child-${childrenListVariable}Panel" >
                 		<p:toolbar id="add-$childrenListVariable">  
                 			<p:toolbarGroup align="left"> 
-                				<p:commandButton type="button" title="Add $linktableDB.name"  icon="ui-icon-document" onclick="add${childrenListClass}.show();" update=":form2:panel"/>
-                    		</p:toolbarGroup>
+                				<p:commandButton 
+									actionListener="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}}"
+                                    immediate="true" 
+									title="Add $linktableDB.name"  
+									icon="ui-icon-document" 
+									oncomplete="add${childrenListClass}.show();" 
+									update=":containerBasicAdd${childrenListClass}"/>
+#*	 							<p:commandButton actionListener="#{applicationController.activateRenderAddAdminAccess}"
+                                             immediate="true"
+                                             title="Add ADMIN_ACCESS"
+                                             icon="ui-icon-document"
+                                             oncomplete="addAdminAccesses.show();"
+                                             update=":containerBasicAddAdminAccesses"/>
+											 *#
+							</p:toolbarGroup>
                 		</p:toolbar>
                         <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
                                 onRowSelectUpdate="display" 
                                 dynamic="true"  resizableColumns="true"
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                 rowsPerPageTemplate="5,10,15"> 
-                        <f:facet name="header">  
+							<f:facet name="header">  
                             List of #{i18n.$linkedTableVariable}  
-                        </f:facet>
+							</f:facet>
 #set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityListRowJSF))
-                        <ui:include src="/$entityListRowJSFLocation">
-                            <ui:param name="isSemanticReference" value="true" />
-                        </ui:include>
-	                    <p:column>
+							<ui:include src="/$entityListRowJSFLocation">
+								<ui:param name="isSemanticReference" value="true" />
+							</ui:include>
+							<p:column>
 #set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
                             <p:commandButton value="Manage" 
             					id="detailButton${childrenListClass}" 
-            					update=":form${childrenListClass}" 
+## update=":form${childrenListClass}" 
+            					update=":containerBasicDialog${childrenListClass}" 
             					title="Manage Details"
             					action="#{${entityLinkControllerJSFVariable}.reloadSelected}"
-            					actionListener="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"
+##            					actionListener="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"
             					oncomplete="detailDialog${childrenListClass}.show()" 
-            					process="@this"/>
-                        </p:column>
-            		</p:dataTable>
-            	 </p:outputPanel>
-               </p:tab>
+            					process="@this">
+                                <f:actionListener binding="#{${thisEntityControllerJSFVariable}.activateRenderDialog${childrenListClass}()}" />
+                                <f:actionListener binding="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"/>
+                            </p:commandButton>
+#*		 						
+                            <p:commandButton value="Manage" 
+            					id="detailButtonAdminAccesses" 
+            					update=":containerBasicDialogAdminAccesses"
+            					title="Manage Details"
+            					action="#{accessController.reloadSelected}"
+
+            					oncomplete="detailDialogAdminAccesses.show()" 
+            					process="@this">
+                                <f:actionListener binding="#{applicationController.activateRenderDialogAdminAccesses()}"      />
+                                <f:actionListener binding="#{accessController.setSelectedAccess(item)}"      />
+                            </p:commandButton>
+		*#					
+							</p:column>
+						</p:dataTable>
+                	 </p:outputPanel>
+                   </p:tab>
 #end
 #end
 			</p:tabView>
@@ -146,22 +176,33 @@
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityEditJSF))
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
-	<p:dialog id="basicAdd${childrenListClass}" header="Add #{childrenListVariable}" widgetVar="add$childrenListClass" resizable="true" > ##  appendToBody="true"
-		<h:form id="formAdd$childrenListVariable">
-			<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
-			<ui:include src="/$entityEditJSFLocation">
-				<ui:param name="affectFormId" value=":formAdd$childrenListVariable" />
-                <ui:param name="idValue" value="$refCnt" />
+	<p:outputLabel id="containerBasicAdd${childrenListClass}">
+		<p:dialog id="basicAdd${childrenListClass}" 
+			rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
+			header="Add #{childrenListVariable}" 
+			widgetVar="add$childrenListClass" 
+			resizable="true" > ##  appendToBody="true"
+			<h:form id="formAdd$childrenListVariable">
+				<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
+					<ui:include src="/$entityEditJSFLocation">
+						<ui:param name="affectFormId" value=":formAdd$childrenListVariable" />
+						<ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
-            </ui:include>
+					</ui:include>
             </h:panelGrid>
-			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$update">
-				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
-            </p:commandButton>				
-		</h:form>
-	</p:dialog>
-	<p:dialog id="basicDialog${childrenListClass}" header="#{${childrenListVariable}} Details" widgetVar="detailDialog${childrenListClass}" resizable="true" >  
-		<h:form id="form${childrenListClass}">
+				<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$update">
+					<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+				</p:commandButton>				
+			</h:form>
+		</p:dialog>
+	</p:outputLabel>
+	<p:outputLabel id="containerBasicDialog${childrenListClass}">
+		<p:dialog id="basicDialog${childrenListClass}" 
+			rendered="#{${thisEntityControllerJSFVariable}.isRenderDialog${childrenListClass}()}"
+			header="#{${childrenListVariable}} Details" 
+			widgetVar="detailDialog${childrenListClass}" 
+			resizable="true" >  
+			<h:form id="form${childrenListClass}">
 			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
 			<ui:include src="/$entityEditJSFLocation">
 				<ui:param name="affectFormId" value=":form${childrenListClass}" />
@@ -178,6 +219,7 @@
             </p:commandButton>
 		</h:form>
 	</p:dialog>
+	</p:outputLabel>
 
 #end
 #end
