@@ -64,6 +64,8 @@ a:hover {
 
 .ui-widget-content-borderless  tr, .ui-widget-content-borderless td {
     border: none;
+    width: 100%;
+    text-align: left;
 }
 
 .ui-datatable-odd {
