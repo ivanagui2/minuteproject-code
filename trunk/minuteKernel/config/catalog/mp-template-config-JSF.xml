@@ -26,7 +26,7 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="ejb"></property>
 		</template>
-						 
+<!-- 						 
 		<template name="JSFBeanManagerConverter" templateFileName="JSFBeanManagerConverter.vm" 
 			subdir="" outputsubdir="" technicalPackage="converter"
 			file-extension="java" file-prefix="" file-suffix="Converter" 
@@ -34,9 +34,9 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="spring"></property>
 		</template>		
-
+ -->
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
-			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
+			file-extension="java" technicalPackage="dao.imhpl" file-suffix="DaoEJB" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>

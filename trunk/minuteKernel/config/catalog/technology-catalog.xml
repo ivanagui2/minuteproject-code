@@ -177,7 +177,7 @@ the properties are declared at the technology level and apply to all templates (
 		
 		<technology name="Primefaces-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
-			default-outputdir="Primefaces_portlet,JSF-primefaces" depends-on-targets="BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces_portlet,BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
