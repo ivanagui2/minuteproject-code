@@ -397,10 +397,36 @@ public class ${className} implements java.io.Serializable{
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
+	//${childrenListVariable}
+	//rendering of tab
     private boolean render${childrenListVariable} = false;
 
 	public boolean isRender${childrenListClass}() {
 		return render${childrenListVariable};
+	}
+	// rendering of add button 
+    private boolean isRenderAdd${childrenListClass} = false;
+
+	public boolean isRenderAdd${childrenListClass}() {
+		return isRenderAdd${childrenListClass};
+	}	
+	public void activateRenderAdd${childrenListClass}() {
+		isRenderAdd${childrenListClass} = true;
+	}
+	public void desactivateRenderAdd${childrenListClass}() {
+		isRenderAdd${childrenListClass} = false;
+	}
+	// rendering of dialog button 
+    private boolean isRenderDialog${childrenListClass} = false;
+
+	public boolean isRenderDialog${childrenListClass}() {
+		return isRenderDialog${childrenListClass};
+	}	
+	public void activateRenderDialog${childrenListClass}() {
+		isRenderDialog${childrenListClass}=true;
+	}
+	public void desactivateRenderDialog${childrenListClass}() {
+		isRenderDialog${childrenListClass}=false;
 	}
 #end
 #end
