@@ -405,7 +405,9 @@ public class ColumnUtils {
 	}
 
 	public static Boolean isBoolean(Column column) {
-		if (column.getType().equals("CHAR") && column.getSizeAsInt()<=1)
+		if (column.getType().equals("BOOLEAN") ||
+			column.getType().equals("BIT") ||
+			(column.getType().equals("CHAR") && column.getSizeAsInt()<=1))
 			return true;
 		return false;
 	}
