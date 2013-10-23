@@ -1,5 +1,6 @@
 #macro (putJSFColumnSnippet $tableVariableName $internat)
-<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
+
+	<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
 #if($isEnum)
     <p:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()" > 
 #if(!$column.isRequired())
@@ -7,7 +8,6 @@
 #end
 		<f:selectItems value="#{${lookupEnumVar}.${domainVariableName}${columnClass}Array}" itemValue="#{item}" var="item" itemLabel="#{item.name()}" />
     </p:selectOneMenu>	
-	<p:message for="lbl${columnClass}-#{idValue}" />
 #else
 #if($columnUtils.isTimeColumn($column))
     <p:calendar value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
@@ -15,7 +15,10 @@
        converterMessage="Invalid Date" required="$column.isRequired()"
        pattern="dd/MM/yyyy">
     </p:calendar>
-	<p:message for="lbl${columnClass}-#{idValue}" />
+##	<p:message for="lbl${columnClass}-#{idValue}" />
+#else
+#if($columnUtils.isBoolean($column))
+	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
 #else
 #if($presentationUtils.isTextArea($column))
 	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" width="$column.sizeAsInt" 
@@ -24,11 +27,14 @@
 	<p:editor 
 #else
 	<p:inputText 
+		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
 #end
-		label="${columnClass}" id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()" />
-	<p:message for="lbl${columnClass}-#{idValue}"/>
+		label="${columnClass}" id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()"/>
+##	<p:message for="lbl${columnClass}-#{idValue}"/>
 #end
 #end
+#end
+	<p:message for="lbl${columnClass}-#{idValue}" />
 #end
 
 #macro (putJSFColumnSnippet2)
@@ -161,9 +167,9 @@
 
 #macro(putPrimefacesEntityRowExpansion)
 		<p:rowExpansion>  
-			<p:fieldset legend="${domainVariableName} Details">  
+			<p:fieldset legend="${domainClassName} Details" align="left">  
 				 <p:toolbar>  
-					<p:toolbarGroup align="left"> 
+					<p:toolbarGroup > 
 						<p:commandButton type="button" title="Edit" icon="ui-icon-folder-open"/>  
 						<p:separator />          
 						<p:commandButton type="button" title="Save" icon="ui-icon-disk"/>  
