@@ -180,9 +180,9 @@
 	<p:outputLabel id="containerBasicAdd${childrenListClass}">
 		<p:dialog id="basicAdd${childrenListClass}" 
 			rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
-			header="Add #{childrenListVariable}" 
+			header="Add ${childrenListVariable}" 
 			widgetVar="add$childrenListClass" 
-			resizable="true" > ##  appendToBody="true"
+			resizable="true" >
 			<h:form id="formAdd$childrenListVariable">
 				<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
 					<ui:include src="/$entityEditJSFLocation">
@@ -190,10 +190,16 @@
 						<ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
 					</ui:include>
-            </h:panelGrid>
-				<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
+            </h:panelGrid>			
+#exposeImportParamsUML($linktableDB)
+				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
+					<f:setPropertyActionListener target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
 					<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
-				</p:commandButton>				
+				</p:commandButton>	
+#*				<p:commandButton action="#{releaseController.createOrUpdateListener}" id="cmdAddBusReleaseReleasers" value="Add" icon="ui-icon-check" oncomplete="addBusReleaseReleasers.hide()" update=":form2:childrenTab:child-busReleaseReleasersPanel,:formUser:growl">
+                    <f:setPropertyActionListener target="#{releaseController.selectedRelease.releaser}" value="#{userController.selectedUser}"/>
+                    <f:setPropertyActionListener target="#{userController.refreshBusReleaseReleasers}" value="true"/>
+                </p:commandButton>*#
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
