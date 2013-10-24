@@ -121,12 +121,14 @@ public class ${className} implements java.io.Serializable{
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
 #if($isSpringBackend)
 	private List<$linkedTableClass> $childrenListVariable;
+	private Boolean refresh$childrenListClass=true;
 	//used as property listener
 	public void setRefresh${childrenListClass}(Boolean b) {
-    	populate$childrenListVariable ();
+##    	populate$childrenListVariable ();
+		refresh$childrenListClass=true;
     }
     public List<${linkedTableClass}> get${childrenListClass} () {
-		if (${childrenListVariable}==null) {
+		if (${childrenListVariable}==null || refresh$childrenListClass) {
 			populate$childrenListVariable ();
 		}
         return ${childrenListVariable};
@@ -139,6 +141,7 @@ public class ${className} implements java.io.Serializable{
 #end
 	private void populate$childrenListVariable () {
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
+		    refresh$childrenListClass = false;
     		$linkedTableClass mask = new $linkedTableClass();
     		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
     		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
@@ -258,6 +261,9 @@ public class ${className} implements java.io.Serializable{
     } 
 
     public void createOrUpdateListener(ActionEvent event) {
+		createOrUpdateListener();
+	}
+    public void createOrUpdateListener() {
     	try {
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 	    	if (selected${tableClassName}.get$primaryKeyJavaNameClass() == null) {
