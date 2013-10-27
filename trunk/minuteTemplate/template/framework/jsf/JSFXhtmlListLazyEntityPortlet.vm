@@ -37,7 +37,8 @@
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
 		
 	<p:confirmDialog id="confirmDialog" message="Can you confirm your deletion?"
-			header="Deletion process" severity="alert" widgetVar="confirmation" appendToBody="true">
+			header="Deletion process" severity="alert" widgetVar="confirmation" >
+##appendToBody="true">
 		<h:form id="deletion">
 			<p:commandButton id="confirm" value="Yes" oncomplete="confirmation.hide()" immediate="true"
 				actionListener="#{${entityControllerJSFVariable}.deleteListener}" update="$update" />
@@ -46,24 +47,24 @@
 	</p:confirmDialog>
 
   	<h:form id="form2">
-			<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" >
-                <f:facet name="header" align="left">
-                    <h:outputText value="#{i18n.${tableVariableName}} details "/>
-                	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
-                	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
+		<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" >
+            <f:facet name="header" align="left">
+                <h:outputText value="#{i18n.${tableVariableName}} details "/>
+            	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
+            	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
 ##            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
-                	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
-                </f:facet>
-                <ui:include src="/$entityEditJSFLocation">
-                   <ui:param name="affectFormId" value=":form2" />
-                   <ui:param name="idValue" value="$refCnt" />
+            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
+            </f:facet>
+            <ui:include src="/$entityEditJSFLocation">
+               <ui:param name="affectFormId" value=":form2" />
+               <ui:param name="idValue" value="$refCnt" />
 #set($refCnt=$refCnt+1)
-                </ui:include>
-            </p:panelGrid>
-			<h:panelGrid id="childrenPanel">
+            </ui:include>
+        </p:panelGrid>
+		<h:panelGrid id="childrenPanel">
 #if ($hasDisplayableChildren)
-               <p:tabView id="childrenTab" orientation="top|bottom|left|right" cache="false" > 
-	             <p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}"/>
+           <p:tabView id="childrenTab" orientation="top|bottom|left|right" cache="false" > 
+             <p:ajax event="tabChange" listener="#{${entityControllerJSFVariable}.onTabChange}"/>
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
