@@ -64,6 +64,7 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 
+#set($isTransientDefinition=true)
 #putSddJdbcLookup()
 
 //if JPA2 implementation is hibernate

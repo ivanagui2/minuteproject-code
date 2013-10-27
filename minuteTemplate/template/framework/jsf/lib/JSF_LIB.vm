@@ -62,9 +62,9 @@
         <p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
         <p:row>
             <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
-            ##TODO change childrenListClass is normally for children unique but not unique for parent lookup
-            #set ($childrenListClass = $childrenListClass+$cpt)
-            <p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
+##TODO change childrenListClass is normally for children unique but not unique for parent lookup
+#set ($childrenListClass = $childrenListClass+$cpt)
+            <h:outputText value="&#160;&#160;" /><p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
         </p:row>
         <p:message for="lbl${columnClass}-#{idValue}" />
     </c:if>

@@ -30,6 +30,11 @@ public class $className {
 	}
 
     public static void addSuccessMessage(String title, String msg) {
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, title, msg);
+        FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+    }
+    
+    public static void addInfoMessage(String title, String msg) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, title, msg);
         FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
     }
