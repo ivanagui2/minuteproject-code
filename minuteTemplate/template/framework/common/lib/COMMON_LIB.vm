@@ -303,14 +303,13 @@ $!updatedAreaSnippet
 			conn = getConnection();
 			pstmt = conn.prepareStatement(QUERY_NATIVE);
 #foreach($column in $inputBean.columns)
+#if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
-#putColumnParamNaming()
-#set($columnType = $statementUtils.getJdbcType($column))
-            if (${sddInputBeanVariable}.get$columnClass()==null) {
-               pstmt.setNull($velocityCount, java.sql.Types.${column.type});
-            } else {
-               pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
-            }
+##if (!$column.isTransient()) 
+#injectSDDParameter()
+#end
+#else
+#injectSDDParameter()	
 #end
 #end
 			rs = pstmt.executeQuery();
@@ -341,6 +340,17 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 #end
+
+#macro(injectSDDParameter)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+            if (${sddInputBeanVariable}.get$columnClass()==null) {
+               pstmt.setNull($velocityCount, java.sql.Types.${column.type});
+            } else {
+               pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
+            }
+#end
+	
 
 #macro (putSemanticReference $element)
 	  StringBuffer sb = new StringBuffer();
