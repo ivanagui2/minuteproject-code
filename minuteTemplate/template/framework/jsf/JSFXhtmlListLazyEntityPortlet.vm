@@ -24,47 +24,16 @@
 			emptyMessage="No ${tableClassName} found with given criteria"> 
             <p:ajax partialSubmit="true" event="rowSelect"
                     listener="#{${entityControllerJSFVariable}.onRowSelect}"
-##                    update=":form${tableClassName} :form2:panel"/> 
                     update=":form2:panel #if ($hasDisplayableChildren):form2:childrenTab#end"/> 
-#*            <p:ajax event="rowToggle" listener="#{${entityControllerJSFVariable}.recoverItemRowToggle}" />
-            <p:column style="width:4%">  
-                <p:rowToggler />  
-            </p:column>
-*#
             <f:facet name="header">  
                 List of #{i18n.${tableVariableName}s}  
             </f:facet>
             <ui:include src="/$entityListRowJSFLocation">
                <ui:param name="isSemanticReference" value="false" />
              </ui:include>
-#*	
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-            <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}" >  
-                <f:facet name="header">  
-                    <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
-                </f:facet>  
-                <h:outputText value="#{item.${columnVar}}" />  
-            </p:column> 
-#end
-#end
-#foreach ($column in $table.attributes)
-#putColumnParams()
-#columnJavaNaming()	
-            <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
-                <f:facet name="header">  
-                    <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
-                </f:facet>  
-                <h:outputText value="#{item.${columnVar}}" />  
-            </p:column>  
-#end
-*#
         </p:dataTable>
     </h:panelGroup>
    </h:form>        
-##   <br/>
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
 		
 	<p:confirmDialog id="confirmDialog" message="Can you confirm your deletion?"
@@ -98,7 +67,7 @@
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-                   <p:tab id="child-$childrenListVariable" title="$childrenListVariable" > 
+                   <p:tab id="child-$childrenListVariable" title="#{i18n.$linkedTableVariable}" > 
                 	 <p:outputPanel id="child-${childrenListVariable}Panel" >
                 		<p:toolbar id="add-$childrenListVariable">  
                 			<p:toolbarGroup align="left"> 
@@ -109,13 +78,6 @@
 									icon="ui-icon-document" 
 									oncomplete="add${childrenListClass}.show();" 
 									update=":containerBasicAdd${childrenListClass}"/>
-#*	 							<p:commandButton actionListener="#{applicationController.activateRenderAddAdminAccess}"
-                                             immediate="true"
-                                             title="Add ADMIN_ACCESS"
-                                             icon="ui-icon-document"
-                                             oncomplete="addAdminAccesses.show();"
-                                             update=":containerBasicAddAdminAccesses"/>
-											 *#
 							</p:toolbarGroup>
                 		</p:toolbar>
                         <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
@@ -135,29 +97,14 @@
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
                             <p:commandButton value="Manage" 
             					id="detailButton${childrenListClass}" 
-## update=":form${childrenListClass}" 
             					update=":containerBasicDialog${childrenListClass}" 
             					title="Manage Details"
             					action="#{${entityLinkControllerJSFVariable}.reloadSelected}"
-##            					actionListener="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"
             					oncomplete="detailDialog${childrenListClass}.show()" 
             					process="@this">
                                 <f:actionListener binding="#{${thisEntityControllerJSFVariable}.activateRenderDialog${childrenListClass}()}" />
                                 <f:actionListener binding="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"/>
                             </p:commandButton>
-#*		 						
-                            <p:commandButton value="Manage" 
-            					id="detailButtonAdminAccesses" 
-            					update=":containerBasicDialogAdminAccesses"
-            					title="Manage Details"
-            					action="#{accessController.reloadSelected}"
-
-            					oncomplete="detailDialogAdminAccesses.show()" 
-            					process="@this">
-                                <f:actionListener binding="#{applicationController.activateRenderDialogAdminAccesses()}"      />
-                                <f:actionListener binding="#{accessController.setSelectedAccess(item)}"      />
-                            </p:commandButton>
-		*#					
 							</p:column>
 						</p:dataTable>
                 	 </p:outputPanel>
@@ -177,10 +124,13 @@
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #set($updateFromPopUp=":form2:childrenTab:child-${childrenListVariable}Panel,:form${domainClassName}:growl")
+#exposeImportParamsUML($linktableDB)
+
+    <!-- dialog to add and manage ${childrenListClass} -->
 	<p:outputLabel id="containerBasicAdd${childrenListClass}">
 		<p:dialog id="basicAdd${childrenListClass}" 
 			rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
-			header="Add ${childrenListVariable}" 
+			header="Add ${linkedColumnClass}" 
 			widgetVar="add$childrenListClass" 
 			resizable="true" >
 			<h:form id="formAdd$childrenListVariable">
@@ -188,18 +138,14 @@
 					<ui:include src="/$entityEditJSFLocation">
 						<ui:param name="affectFormId" value=":formAdd$childrenListVariable" />
 						<ui:param name="idValue" value="$refCnt" />
+						<ui:param name="fieldToHide" value="$linkedColumnVariable" />
 #set($refCnt=$refCnt+1)
 					</ui:include>
             </h:panelGrid>			
-#exposeImportParamsUML($linktableDB)
 				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
 					<f:setPropertyActionListener target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
 					<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
 				</p:commandButton>	
-#*				<p:commandButton action="#{releaseController.createOrUpdateListener}" id="cmdAddBusReleaseReleasers" value="Add" icon="ui-icon-check" oncomplete="addBusReleaseReleasers.hide()" update=":form2:childrenTab:child-busReleaseReleasersPanel,:formUser:growl">
-                    <f:setPropertyActionListener target="#{releaseController.selectedRelease.releaser}" value="#{userController.selectedUser}"/>
-                    <f:setPropertyActionListener target="#{userController.refreshBusReleaseReleasers}" value="true"/>
-                </p:commandButton>*#
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
@@ -210,23 +156,24 @@
 			widgetVar="detailDialog${childrenListClass}" 
 			resizable="true" >  
 			<h:form id="form${childrenListClass}">
-			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
-			<ui:include src="/$entityEditJSFLocation">
-				<ui:param name="affectFormId" value=":form${childrenListClass}" />
-                <ui:param name="idValue" value="$refCnt" />
+    			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
+    			<ui:include src="/$entityEditJSFLocation">
+    				<ui:param name="affectFormId" value=":form${childrenListClass}" />
+                    <ui:param name="idValue" value="$refCnt" />
+    				<ui:param name="fieldToHide" value="$linkedColumnVariable" />
 #set($refCnt=$refCnt+1)
-            </ui:include>
-            </h:panelGrid>
-##			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
-			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
-				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
-				<!-- todo add reset DD lookup -->
-            </p:commandButton>
-			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
-				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
-            </p:commandButton>
-		</h:form>
-	</p:dialog>
+                </ui:include>
+                </h:panelGrid>
+    ##			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+    				<!-- todo add reset DD lookup -->
+                </p:commandButton>
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+                </p:commandButton>
+			</h:form>
+		</p:dialog>
 	</p:outputLabel>
 
 #end

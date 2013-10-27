@@ -44,26 +44,28 @@
 #macro (putJSFParentDropDownListSnippet)
 #set ($parentConverterJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityConverterJSF))
 #set ($parentConverterJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($parentConverterJSFClass))
-<p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
-<p:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()" converter="$parentConverterJSFVariable" >
+    <p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
+    <p:selectOneMenu id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}" required="$column.isRequired()" converter="$parentConverterJSFVariable" >
 #if(!$column.isRequired())
-    <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
+		<f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
-	<f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}s}" id="${columnVar}Items" itemValue="#{item}" var="item" itemLabel="#{item.display()}"/>
-</p:selectOneMenu>
-<p:message for="lbl${columnClass}-#{idValue}" />
+    	<f:selectItems value="#{${entityControllerJSFVariable}.${columnVar}s}" id="${columnVar}Items" itemValue="#{item}" var="item" itemLabel="#{item.display()}"/>
+    </p:selectOneMenu>
+    <p:message for="lbl${columnClass}-#{idValue}" />
 #end
 
 #macro (putJSFParentAffectationSnippet $cpt)
-<p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
-<p:row>
-<p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
-##TODO change childrenListClass is normally for children unique but not unique for parent lookup
-#set ($childrenListClass = $childrenListClass+$cpt)
-##<p:commandButton process="@form" title="Search" icon="ui-icon-search" onclick="suc${childrenListClass}Dialog.show()"/>
-<p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
-</p:row>
-<p:message for="lbl${columnClass}-#{idValue}" />
+	
+    <c:if test="#{fieldToHide != '${columnVar}'}">
+        <p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
+        <p:row>
+            <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
+            ##TODO change childrenListClass is normally for children unique but not unique for parent lookup
+            #set ($childrenListClass = $childrenListClass+$cpt)
+            <p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
+        </p:row>
+        <p:message for="lbl${columnClass}-#{idValue}" />
+    </c:if>
 #end
 
 #macro(exposeSeparator)
