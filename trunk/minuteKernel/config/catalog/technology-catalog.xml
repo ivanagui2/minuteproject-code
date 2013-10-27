@@ -163,7 +163,7 @@ the properties are declared at the technology level and apply to all templates (
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="3.5"></framework>
+				<framework name="primefaces" version="4.0"></framework>
 				<framework name="JSF" version="2"></framework>
 				<framework name="spring" version="3+"></framework>
 			</frameworks>
@@ -182,7 +182,7 @@ the properties are declared at the technology level and apply to all templates (
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="3.5"></framework>
+				<framework name="primefaces" version="4.0"></framework>
 				<framework name="JSF" version="2"></framework>
 			</frameworks>
 		</technology>
