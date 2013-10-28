@@ -106,7 +106,7 @@ public class ${className} implements Serializable {
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
 #end
-    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end)
+    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end) 
 #if (!$isMany2Many)
 #if (!$isPkUserProvided)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
