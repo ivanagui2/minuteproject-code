@@ -154,6 +154,13 @@
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
+
+		<template name="JSFXhtmlEntityPortlet" templateFileName="JSFXhtmlListLazyEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="Portlet" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="is-portlet" value="true"></property>
+		</template>		
 		
 		<template name="JSFXhtmlListLazyEntityPortlet" templateFileName="JSFXhtmlListLazyEntityPortlet.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="ListLazyPortlet" 
@@ -161,9 +168,16 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>		
 
+
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
 			application-specific="true" add-model-name="false">
+		</template>
+
+		<template name="JSFXhtmlPortletDecorator" templateFileName="JSFXhtmlDecorator.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="_PortletDecorator" 
+			application-specific="true" add-model-name="false">
+			<property name="is-portlet" value="true"></property>
 		</template>
 		
 		<template name="JSFXhtmlMenu" templateFileName="JSFPrimefacesMenuXhtml.vm" 
