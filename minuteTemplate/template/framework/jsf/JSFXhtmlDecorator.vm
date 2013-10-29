@@ -18,15 +18,17 @@
         <h:outputText value="Powered by minuteproject" />  
     </p:layoutUnit>
 *#
+#if(!$isPortlet)
     <p:layoutUnit position="west" resizable="true" size="216">
         <ui:include src="/${model.name}/Menu.xhtml" />
-    </p:layoutUnit>           
+    </p:layoutUnit>       
+#end
     <p:layoutUnit position="center">
 ##        <ui:include src="/${model.name}/BreadCrumb.xhtml" />
-        <ui:insert name="body">Welcome $model.name jsf web. Powered by minuteproject.</ui:insert>
+        <ui:insert name="body">Welcome $model.name Primeface webapp. <a href="http://minuteproject.sf.net">Powered by minuteproject</a>.</ui:insert>
     </p:layoutUnit>
     <p:layoutUnit position="south" size="100" header="Disclaimer" resizable="true" closable="true" collapsible="true">  
-        <h:outputText value="This is a sample website" /><a href="http://minuteproject.sf.net">Powered by minuteproject</a>
+        <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a>
     </p:layoutUnit>  
   </p:layout>
 </h:body>

@@ -1,3 +1,30 @@
+#macro(setJsfMenu4Package)
+#set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
+#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
+#set($packageLabel=$i18nUtils.getPackageName($package))
+#set($subMenuVar = "submenu${package.name}")
+#if(!$displayableEntities.isEmpty())
+        DefaultSubMenu ${subMenuVar} = new DefaultSubMenu();  
+        ${subMenuVar}.setLabel("${packageLabel}"); 	
+		
+#if($entitySecurityUtils.isEntityRoleSecured($package))
+#set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
+## <mp:isUserInRole role="${roles}"> if(!tx.isCallerInRole ("${roles}")
+#end
+#foreach ($groups in $displayableEntityGroups)	
+#foreach ($table in ${groups})
+#exposeJSFEntitySpecific()
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+        DefaultMenuItem item${domainClassName} = new DefaultMenuItem();  
+        item${domainClassName}.setValue("$tableLabel");  
+        item${domainClassName}.setUrl("/${entityListLazyJSFLocation}"); 
+        ${subMenuVar}.addElement(item${domainClassName}); 
+		
+#end
+#end
+        model.addElement(${subMenuVar});
+#end	
+#end
 #exposeJSFModelSpecific()
 ##exposeJSFEntitySpecific()
 #set ($applicationJSF=$configuration.name) 
@@ -42,32 +69,13 @@ public class ${className} {
         model = new DefaultMenuModel();  
           
 #foreach ($package in ${businessPackages})
-#set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
-#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
-#set($packageLabel=$i18nUtils.getPackageName($package))
-#set($subMenuVar = "submenu${package.name}")
-#if(!$displayableEntities.isEmpty())
-        DefaultSubMenu ${subMenuVar} = new DefaultSubMenu();  
-        ${subMenuVar}.setLabel("${packageLabel}"); 	
-		
-#if($entitySecurityUtils.isEntityRoleSecured($package))
-#set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
-## <mp:isUserInRole role="${roles}"> if(!tx.isCallerInRole ("${roles}")
+#setJsfMenu4Package($package)
 #end
-#foreach ($groups in $displayableEntityGroups)	
-#foreach ($table in ${groups})
-#exposeJSFEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        DefaultMenuItem item${domainClassName} = new DefaultMenuItem();  
-        item${domainClassName}.setValue("$tableLabel");  
-        item${domainClassName}.setUrl("/${entityListLazyJSFLocation}"); 
-        ${subMenuVar}.addElement(item${domainClassName}); 
-		
+
+#foreach ($package in ${businessPackageViews})
+#setJsfMenu4Package($package)
 #end
-#end
-        model.addElement(${subMenuVar});
-#end
-#end
+
 #if($model.hasStatementModel())
 	
 	    // SDD

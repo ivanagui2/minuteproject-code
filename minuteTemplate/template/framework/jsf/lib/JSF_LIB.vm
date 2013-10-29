@@ -96,6 +96,7 @@
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))
 #set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListRowJSF))
 #set ($entityListPortletJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListPortletJSF))
+#set ($entityPortletJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityPortletJSF))
 #end
 
 #macro (exposeJSFModelSpecific)
@@ -111,6 +112,7 @@
 #set ($modelBeanManagerMenuJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerMenuJSFClass))
 #set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlDecoratorJSF))
+#set ($modelPortletDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlPortletDecoratorJSF))
 #set ($modelSemanticReferenceUtilsJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateModelJSFSemanticReferenceUtils))
 #set ($modelSemanticReferenceUtilsJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJSFSemanticReferenceUtils))
 #set ($modelSemanticReferenceUtilsJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelSemanticReferenceUtilsJSFClass))
@@ -127,6 +129,7 @@
 #set ($lookupEnumClass=$commonUtils.getTemplateClassName($model, $template, $templateLookupEnum))
 #set ($lookupEnumVar=$commonUtils.getJavaNameVariableFirstLetter($lookupEnumClass))
 #set ($lookupPackageName=$commonUtils.getPackageName($model, $template, $templateLookupBean))
+#set($isPortlet=$template.getPropertyValue("is-portlet",false))
 #end
 
 #macro (exposeJSFAppFwkSpecific)
@@ -140,6 +143,7 @@
 #set ($templateEntityListJSF = "JSFXhtmlListEntity")
 #set ($templateEntityListLazyJSF = "JSFXhtmlListLazyEntity")
 #set ($templateEntityListPortletJSF = "JSFXhtmlListLazyEntityPortlet")
+#set ($templateEntityPortletJSF = "JSFXhtmlEntityPortlet")
 #set ($templateEntityEditJSF = "JSFXhtmlEditEntity")
 #set ($templateEntityListRowJSF = "JSFXhtmlListRowEntity")
 #set ($templateSDDJSF = "JSFXhtmlSDDInput")
@@ -147,6 +151,7 @@
 #set ($templateEntityConverterJSF = "JSFBeanManagerConverter")
 #set ($templateModelI18nJSF = "JSFI18nProperties")
 #set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")
+#set ($templateModelXhtmlPortletDecoratorJSF = "JSFXhtmlPortletDecorator")
 #set ($templateModelXhtmlMenuJSF = "JSFXhtmlMenu")
 #set ($templateIndexXhtmlMenuJSF = "JSFPrimefacesIndexXhtml")
 #set ($templateCssDefaultJSF = "JSFCssDefault")
