@@ -642,4 +642,14 @@ public class TableUtils {
 	public static Table asUML (Table table) {
 		return new TableUMLNotation(table);
 	}
+	
+	public static Boolean doesNotHaveVariable (Table table, String variable) {
+		if (variable==null)
+			return false;
+		for (Column column : table.getAttributes()) {
+			if (column.getAlias().equals(variable))
+				return false;
+		}
+		return true;
+	}
 }
