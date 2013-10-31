@@ -17,6 +17,8 @@ import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.data.util.BeanContainer;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.DateField;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
@@ -31,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-//import $SpringContextHelperImport;
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
 import ${domainObjectListImport};
@@ -48,8 +49,8 @@ public class ${className} extends Form implements ClickListener {
 	$beanSpringModelServiceClass $beanSpringModelServiceVariable;
 
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
-##foreach($column in ${table.columns})
-#foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
+#foreach($column in ${table.columns})
+##foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParamNaming()
 #if(!$isForeignKey)
 #if($columnUtils.isPartOfCompositePrimaryKey($column))
@@ -76,8 +77,8 @@ public class ${className} extends Form implements ClickListener {
 ##
 	};
 	public static final Object[] DEFAULT_ALL_COL_ORDER = new Object[] {
-##foreach($column in ${table.columns})
-#foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
+#foreach($column in ${table.columns})
+##foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumParamNamingFkPrimitive()
        #if ($velocityCount!=1),#end"$columnVar"
 #end
@@ -112,7 +113,6 @@ public class ${className} extends Form implements ClickListener {
 		 */
 		//setWriteThrough(false);
 ##        $SpringContextHelperClass helper = new ${SpringContextHelperClass}();
-##        petshopModelService = (PetshopModelService)helper.getBean("petshopModelService");
 		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$pathSpringApplicationContextConfig");
 		$beanSpringModelServiceVariable = ($beanSpringModelServiceClass)bf.getBean("$beanSpringModelServiceVariable");
 	
@@ -137,7 +137,7 @@ public class ${className} extends Form implements ClickListener {
 			@Override
 			public Field createField(Item item, Object propertyId,
 					Component uiContext) {
-				Field field = super.createField(item, propertyId, uiContext);
+				Field f = super.createField(item, propertyId, uiContext);
 #foreach($column in ${table.columns})
 #putColumParamNamingFkPrimitive()
 			   #if($velocityCount==1) if#else else if#end (propertyId.equals("${columnVar}")) {
@@ -145,41 +145,48 @@ public class ${className} extends Form implements ClickListener {
 #set($reference=$referenceUtils.getReference($column))
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))
 #set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
-                    ComboBox tf = new ComboBox("$thisColumnVar");
+                    // drop down list
+					ComboBox field = new ComboBox("$thisColumnVar");
 					BeanContainer<$primaryKeyType, $linkedTableClass> container = 
                             new BeanContainer<$primaryKeyType, $linkedTableClass>(${linkedTableClass}.class);
                     container.setBeanIdProperty("${linkedColumnVariable}");
-                    List<$linkedTableClass> l = petshopModelService.getList(new $linkedTableClass());
+                    List<$linkedTableClass> l = ${beanSpringModelServiceVariable}.getList(new $linkedTableClass());
                     container.addAll(l);
-
-                    tf.setContainerDataSource(container);
-                    tf.setItemCaptionPropertyId("display");
-                    tf.setItemCaptionMode(Select.ITEM_CAPTION_MODE_PROPERTY);
-
-                    tf.setRequired(true);
-                    tf.setNullSelectionAllowed(false);
-                    tf.setValue(l.get(0));
+                    field.setContainerDataSource(container);
+                    field.setItemCaptionPropertyId("display");
+                    field.setItemCaptionMode(Select.ITEM_CAPTION_MODE_PROPERTY);
+                    field.setRequired(true);
+                    field.setNullSelectionAllowed(false);
+                    field.setValue(l.get(0));
+#elseif($columnUtils.isBoolean($column))
+					CheckBox field = (CheckBox) f;
+#elseif($columnUtils.isTime($column))
+					DateField field = (DateField) f;
 #else
-					TextField tf = (TextField) field;
-					tf.setNullRepresentation("");
+					TextField field = (TextField) f;
+					field.setWidth("200px");
+					field.setNullRepresentation("");
 #end
 #if($hasTypeValidator)
 					//@TODO change it. 
 #end
 #if($isMandatory && !$columnUtils.isPkUserProvided($column))
-					tf.setRequired(true);
+					field.setRequired(true);
 #end
 #if ($column.isPrimaryKey && !$columnUtils.isPkUserProvided($column))
-					tf.setVisible(false);
+					field.setVisible(false);
 #end				
-                    return tf;
+                    return field;
 				}    			
 #end	
 ##TODO
 ## date, Textarea, Richcontent
 ## size
 ## stereotype (email, money)
+##				field.setWidth("200px");
+				TextField field = (TextField) f;
 				field.setWidth("200px");
+				field.setNullRepresentation("");
 				return field;
 			}
 		});
@@ -198,7 +205,7 @@ public class ${className} extends Form implements ClickListener {
 		BeanContainer<$primaryKeyType, $linkedTableClass> container$velocityCount = 
                 new BeanContainer<$primaryKeyType, $linkedTableClass>(${linkedTableClass}.class);
         container${velocityCount}.setBeanIdProperty("${linkedColumnVariable}");
-        List<$linkedTableClass> l${velocityCount} = petshopModelService.getList(new $linkedTableClass());
+        List<$linkedTableClass> l${velocityCount} = ${beanSpringModelServiceVariable}.getList(new $linkedTableClass());
         container${velocityCount}.addAll(l${velocityCount});
 
         ${columnVar}Field.setContainerDataSource(container$velocityCount);
@@ -359,5 +366,6 @@ public class ${className} extends Form implements ClickListener {
 	protected Timestamp getTimestamp (Object date) {
        return new Timestamp(Calendar.getInstance().getTimeInMillis());
 	}
+
         
 }

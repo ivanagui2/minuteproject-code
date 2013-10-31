@@ -153,7 +153,7 @@ $updatedAreaSnippet
     @Column(name="$column.name"  #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end)
 #end
 #if ($column.isLob())
-    @Lob @Basic(fetch=FetchType.LAZY)  //$column.type
+    @Lob @Basic(fetch=FetchType.LAZY) 
 #exposeLobProperties()
 #end
 #end
@@ -365,6 +365,12 @@ $!updatedAreaSnippet
 	public String display() {
 #putSemanticReference("this")
 	}
+	
+#if($tableUtils.doesNotHaveVariable($table, "display"))
+    public String getDisplay() {
+		return display();
+	}
+#end
     /**
     * toString implementation
     */

@@ -30,7 +30,7 @@ public class ${className} extends UI implements
         layout.setSizeFull();
         layout.addComponent(horizontalSplit);
         layout.setExpandRatio(horizontalSplit, 1);
-        horizontalSplit.setFirstComponent(new PetshopMenu());
+        horizontalSplit.setFirstComponent(new ${menuClass}());
         horizontalSplit.setSecondComponent(getListView());
         setContent(layout);
 	}
