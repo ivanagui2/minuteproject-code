@@ -68,20 +68,12 @@
 
 #macro (exposeFormParams)
 #putColumParamNamingFkPrimitive()
-#if ($columnType=="java.math.BigDecimal")
-#set ($convertMethod = "getBigInteger")
-#else 
-#set ($convertMethod = "get${columnType}")
-#end
+#set($convertMethod=$vaadinPlugin.getConverter($column))
 #end
 
 #macro (exposeFormParentParams)
 #putReferenceParams2()
-#if ($localColumnType=="java.math.BigDecimal")
-#set ($convertMethod = "getBigInteger")
-#else 
-#set ($convertMethod = "get${localColumnType}")
-#end
+#set($convertMethod=$vaadinPlugin.getConverter($localColumn))
 #end
 
 #macro (exposeVaadinApp)

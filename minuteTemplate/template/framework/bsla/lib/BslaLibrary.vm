@@ -293,7 +293,7 @@
 #end
 
 #macro (timeColumn)
-#set ($isTimeColumn = ($column.type == 'DATE' || $column.type == 'TIMESTAMP'))
+#set ($isTimeColumn = $columnUtils.isTimeColumn($column))
 #end
 
 ## ----- import params

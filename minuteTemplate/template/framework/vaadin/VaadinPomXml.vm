@@ -67,7 +67,7 @@
         <vaadin.version>7.0.0</vaadin.version>
 	</properties>
   <build>
-    <finalName>${DbApiName}VaadinWeb</finalName>
+    <finalName>${model.name}VaadinApp</finalName>
     <resources>
         <resource>
          <directory>src/main/resources</directory>
