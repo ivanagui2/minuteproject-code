@@ -27,6 +27,8 @@ public class PresentationUtils {
 
 	public static final String DISPLAY_CHILDREN = "display-children";
 	public static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
+	public static final int MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA = 60;
+	public static final int MAX_ROWS_DISPLAY_SIZE_TEXTAREA = 5;
 
 	public static int getDisplayColumns(Column column) {
 		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
