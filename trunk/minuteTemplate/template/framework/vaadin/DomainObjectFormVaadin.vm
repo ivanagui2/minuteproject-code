@@ -1,3 +1,13 @@
+#macro(putDefaultColumnFormEntry)
+					TextField field = (TextField) f;
+#if($columnUtils.isString($column))
+#set($size=$vaadinPlugin.getColumnLengthInPixel($column))
+				    field.setWidth("${size}");
+#else
+				    field.setWidth("200px");
+#end
+				    field.setNullRepresentation("");
+#end
 #putVaadinClassObjectAndPackage()
 #exposeSpringModelSpecific()
 #exposeSpringDomainObjectSpecific()
@@ -27,6 +37,7 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.Select;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +128,6 @@ public class ${className} extends Form implements ClickListener {
 		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$pathSpringApplicationContextConfig");
 		$beanSpringModelServiceVariable = ($beanSpringModelServiceClass)bf.getBean("$beanSpringModelServiceVariable");
 	
-	
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.setSpacing(true);
 		footer.addComponent(save);
@@ -174,10 +184,15 @@ public class ${className} extends Form implements ClickListener {
 					CheckBox field = (CheckBox) f;
 #elseif($columnUtils.isTime($column))
 					DateField field = (DateField) f;
+#elseif($presentationUtils.isTextArea($column))
+	                TextField tf = (TextField) f;
+	                TextArea field = new TextArea();
+					field.setValue(tf.getValue());
+					field.setCaption(tf.getCaption());
+				    field.setColumns($vaadinPlugin.getDisplayColumns($column));
+                    field.setRows($vaadinPlugin.getDisplayRows($column));
 #else
-					TextField field = (TextField) f;
-					field.setWidth("200px");
-					field.setNullRepresentation("");
+#putDefaultColumnFormEntry()
 #end
 #if($hasTypeValidator)
 					//@TODO change it. 
@@ -197,10 +212,8 @@ public class ${className} extends Form implements ClickListener {
 ## size
 ## stereotype (email, money)
 ##				field.setWidth("200px");
-				TextField field = (TextField) f;
-				field.setWidth("200px");
-				field.setNullRepresentation("");
-				return field;
+#putDefaultColumnFormEntry()
+                    return field;
 			}
 		});
 	}
@@ -374,24 +387,26 @@ public class ${className} extends Form implements ClickListener {
 	   return Double.valueOf (getString(stringObject));
 	}
 
-	protected Date getDate (Object stringObject) {
-	   return new Date();
+	protected Date getDate (Object o) {
+	   return (Date)o;
 	}
 
 	protected Boolean getBoolean (Object stringObject) {
 	   return Boolean.valueOf(getString(stringObject));
 	}
 		
-	protected Blob getBlob (Object stringObject) {
-	   return null;//TODO
+	protected Blob getBlob (Object o) {
+	   return (Blob)o;
 	}	
 	
-	protected Clob getClob (Object stringObject) {
-	   return null;//TODO
+	protected Clob getClob (Object o) {
+	   return (Clob)o;
 	}	
 
-	protected Timestamp getTimestamp (Object date) {
-       return new Timestamp(Calendar.getInstance().getTimeInMillis());
+	protected Timestamp getTimestamp (Object o) {
+##       return (Timestamp)o; 
+	   return new Timestamp(((Date)o).getTime()); 
+##       return new Timestamp(Calendar.getInstance().getTimeInMillis());
 	}
 
         
