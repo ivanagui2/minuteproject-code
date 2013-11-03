@@ -38,6 +38,7 @@ import $domainObjectContainerImport;
 import ${domainObjectListImport};
 import $beanSpringModelServiceImport;
 #exposeJPA2Import()
+#exposeJPA2EnumImport()
 import $thisDomainImport;
 
 @SuppressWarnings("serial")
@@ -127,8 +128,6 @@ public class ${className} extends Form implements ClickListener {
 
 		setFooter(footer);
 
-        //TODO populate DD list
-
 		/*
 		 * Field factory for overriding how the component for city selection is
 		 * created
@@ -155,9 +154,22 @@ public class ${className} extends Form implements ClickListener {
                     field.setContainerDataSource(container);
                     field.setItemCaptionPropertyId("display");
                     field.setItemCaptionMode(Select.ITEM_CAPTION_MODE_PROPERTY);
-                    field.setRequired(true);
+#if($isMandatory)
                     field.setNullSelectionAllowed(false);
+#else
+                    field.setNullSelectionAllowed(true);
+#end
                     field.setValue(l.get(0));
+#elseif($isEnum)
+                    ComboBox field = new ComboBox("$thisColumnVar");
+#if($isMandatory)
+                    field.setNullSelectionAllowed(false);
+#else
+                    field.setNullSelectionAllowed(true);
+#end
+                    for ($enumClassName value : ${enumClassName}.values()) {
+                        field.addItem(value);
+                    }	
 #elseif($columnUtils.isBoolean($column))
 					CheckBox field = (CheckBox) f;
 #elseif($columnUtils.isTime($column))
@@ -173,7 +185,8 @@ public class ${className} extends Form implements ClickListener {
 #if($isMandatory && !$columnUtils.isPkUserProvided($column))
 					field.setRequired(true);
 #end
-#if ($column.isPrimaryKey && !$columnUtils.isPkUserProvided($column))
+#if ($isPrimaryKey && !$columnUtils.isPkUserProvided($column))
+//					field.setReadOnly(true);
 					field.setVisible(false);
 #end				
                     return field;
@@ -193,12 +206,12 @@ public class ${className} extends Form implements ClickListener {
 	}
 
 	
-	
+#*	
 	public void createFormLayout () {
 #foreach($column in ${table.columns})
 #putColumParamNamingFkPrimitive()
 #if($isForeignKey)
-#set($reference=$referenceUtils.getReference($column))
+#set ($reference=$referenceUtils.getReference($column))
 #set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))
 #set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
         ComboBox ${columnVar}Field = new ComboBox("$thisColumnVar");
@@ -231,7 +244,7 @@ public class ${className} extends Form implements ClickListener {
         createFormLayout.addComponent(${columnVar}Field);   			
 #end	
 	}	
-	
+*#	
 	public void buttonClick(ClickEvent event) {
 		Button source = event.getButton();
 
@@ -301,8 +314,22 @@ public class ${className} extends Form implements ClickListener {
 		$thisDomainObjectClass var = new $thisDomainObjectClass();
 #foreach($column in ${table.columns})
 #exposeFormParams()
+#if($isForeignKey)
+#set ($reference=$referenceUtils.getReference($column))
+#set ($linkedColumnVariable = $formatUtils.getJavaNameVariable(${reference.foreignColumn.alias}))
+#set ($linkedColumnClass = $formatUtils.getJavaName(${reference.foreignColumn.alias}))
+#set ($linkedTableClass = $formatUtils.getJavaName(${reference.foreignTable.alias}))
+#set ($linkedColumnType = $commonUtils.getJavaType($reference.foreignColumn))
+		if (getField("$columnVar").getValue()!=null) {
+		   $linkedColumnType v = $convertMethod(getField("$columnVar").getValue());
+		   $linkedTableClass e = new $linkedTableClass();
+		   e.set${linkedColumnClass}(v);
+		   var.set${thisColumnClass}(e);
+        }
+#else
         if (getField("$columnVar").getValue()!=null)
    		   var.set${columnClass}($convertMethod(getField("$columnVar").getValue()));
+#end
 #end
 #*
 #foreach($column in ${table.primaryKeyColumns})
