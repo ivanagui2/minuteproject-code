@@ -6,6 +6,8 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import static net.sf.minuteProject.plugin.presentation.PresentationUtils.*;
+import net.sf.minuteProject.plugin.presentation.PresentationUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 
 public class VaadinPlugin {
@@ -18,6 +20,21 @@ public class VaadinPlugin {
 				list.add(new VaadinApplication(table));
 		}
 		return list;
+	}
+
+	public static int getDisplayColumns(Column column) {
+		if (isTextArea(column))
+			return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA);
+		return PresentationUtils.getDisplayColumns(column);
+	}
+
+	public String getColumnLengthInPixel (Column column) {
+		return getDisplayColumns(column)*5+"px";
+	}
+	public static int getDisplayRows(Column column) {
+		if (isTextArea(column))
+			return MAX_ROWS_DISPLAY_SIZE_TEXTAREA;
+		return PresentationUtils.getDisplayRows(column);
 	}
 	
 	public static String getConverter(Column column) {

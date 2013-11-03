@@ -6,9 +6,6 @@ import static net.sf.minuteProject.plugin.presentation.PresentationUtils.*;
 
 public class PrimefacesUtils extends PresentationUtils{
 
-	private static final int MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA = 60;
-	private static final int MAX_ROWS_DISPLAY_SIZE_TEXTAREA = 5;
-
 	public static int getDisplayColumns(Column column) {
 		if (isTextArea(column))
 			return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA);
