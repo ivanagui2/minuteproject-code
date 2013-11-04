@@ -28,6 +28,9 @@ OX generation with Transient definition and SDD
 
 DB H2
 
+New version of mp-bsla-jpa 0.8.5
+To adapt backend pom jpa
+
 Release 0.8.3
 -------------
 Springdata + rest based on heuristics
