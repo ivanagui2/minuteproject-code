@@ -194,7 +194,7 @@ public class ConsoleSample extends JFrame{
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new ConsoleSample("MinuteProject console 0.8.4 - beta -", catalogDir).setVisible(true);
+					new ConsoleSample("MinuteProject console 0.8.5 - beta -", catalogDir).setVisible(true);
 				} catch (MinuteProjectException mpe) {
 					// TODO Auto-generated catch block
 					logger.info("error generating : "+mpe.getError());
