@@ -5,6 +5,7 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
+	<plugin name="primefacesUtils" className="net.sf.minuteProject.plugin.jsf.PrimefacesUtils"></plugin>
 
 	<template-target 
     	name="JSF java set"
@@ -25,7 +26,15 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="add-backend-implementation" value="ejb"></property>
 		</template>
-
+<!-- 						 
+		<template name="JSFBeanManagerConverter" templateFileName="JSFBeanManagerConverter.vm" 
+			subdir="" outputsubdir="" technicalPackage="converter"
+			file-extension="java" file-prefix="" file-suffix="Converter" 
+			entity-specific="true" has-updatable-nature="true"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="add-backend-implementation" value="spring"></property>
+		</template>		
+ -->
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
 			entity-specific="true" has-updatable-nature="true"
