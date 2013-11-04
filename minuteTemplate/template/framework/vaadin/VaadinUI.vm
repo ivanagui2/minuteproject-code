@@ -129,6 +129,7 @@ public class $thisClassName extends UI {
 #exposeVaadinDomainObject()
         private $domainObjectListViewClass getList${domainObjectViewClass}() {
             $domainObjectFormClass form = new ${domainObjectFormClass}();
+			form.init();
             $domainObjectListClass list = new ${domainObjectListClass}(form);
             return new ${domainObjectListViewClass}(list, form);
         }

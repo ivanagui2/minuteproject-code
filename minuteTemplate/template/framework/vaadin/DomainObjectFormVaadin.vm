@@ -26,6 +26,7 @@ import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.data.util.BeanContainer;
 
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.DateField;
@@ -40,9 +41,12 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+##import org.springframework.beans.factory.annotation.Autowired;
+##import org.springframework.beans.factory.annotation.Qualifier;
+##import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import $domainObjectApplicationImport;
 import $domainObjectContainerImport;
@@ -53,11 +57,13 @@ import $beanSpringModelServiceImport;
 import $thisDomainImport;
 
 @SuppressWarnings("serial")
-@org.springframework.stereotype.Component
+##@org.springframework.stereotype.Component
 public class ${className} extends Form implements ClickListener {
 
-    @Autowired
-    @Qualifier("$beanSpringModelServiceVariable")
+	private ApplicationContext context;
+	
+##    @Autowired
+##    @Qualifier("$beanSpringModelServiceVariable")
 	$beanSpringModelServiceClass $beanSpringModelServiceVariable;
 
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
@@ -117,7 +123,9 @@ public class ${className} extends Form implements ClickListener {
         this.list = list;
     }
 	
-	public ${className}() {
+	public ${className}() {}
+
+    public void init() {
 		/*
 		 * Enable buffering so that commit() must be called for the form before
 		 * input is written to the data. (Form input is not written immediately
@@ -125,8 +133,10 @@ public class ${className} extends Form implements ClickListener {
 		 */
 		//setWriteThrough(false);
 ##        $SpringContextHelperClass helper = new ${SpringContextHelperClass}();
-		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$pathSpringApplicationContextConfig");
-		$beanSpringModelServiceVariable = ($beanSpringModelServiceClass)bf.getBean("$beanSpringModelServiceVariable");
+##		ClassPathXmlApplicationContext bf = new ClassPathXmlApplicationContext("classpath:$pathSpringApplicationContextConfig");
+        context = WebApplicationContextUtils.
+                getRequiredWebApplicationContext(VaadinServlet.getCurrent().getServletContext());
+		$beanSpringModelServiceVariable = ($beanSpringModelServiceClass)context.getBean("$beanSpringModelServiceVariable");
 	
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.setSpacing(true);
