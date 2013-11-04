@@ -38,11 +38,48 @@ public class VaadinPlugin {
 	}
 	
 	public static String getConverter(Column column) {
+		if ("BLOB".equals(column.getType())
+			|| "BINARY".equals(column.getType())) {
+			return "getBytes";
+		}
+		
 		String javaType = ConvertUtils.getJavaTypeClassFromDBType(column);
+		if (ConvertUtils.JAVA_STRING.equals(javaType)) {
+			return "getString";
+		}
 		if (ConvertUtils.JAVA_BIGINTEGER_TYPE.equals(javaType)) {
 			return "getBigInteger";
 		}
+		if (ConvertUtils.JAVA_BIGDECIMAL_TYPE.equals(javaType)) {
+			return "getBigDecimal";
+		}
 		
+		if (ConvertUtils.JAVA_BOOLEAN_TYPE.equals(javaType)
+			|| ConvertUtils.JAVA_BOOLEAN.equals(javaType)
+			) {
+			return "getBoolean";
+		}
+		
+		if (ConvertUtils.JAVA_SHORT_TYPE.equals(javaType)			
+			|| ConvertUtils.JAVA_SHORT.equals(javaType)
+			) {
+			return "getShort";
+		}
+		if (ConvertUtils.JAVA_LONG_TYPE.equals(javaType)			
+			|| ConvertUtils.JAVA_LONG.equals(javaType)
+			) {
+			return "getLong";
+		}
+		if (ConvertUtils.JAVA_DOUBLE_TYPE.equals(javaType)			
+			|| ConvertUtils.JAVA_DOUBLE.equals(javaType)
+			) {
+			return "getDouble";
+		}
+		if (ConvertUtils.JAVA_INTEGER_TYPE.equals(javaType)
+			|| ConvertUtils.JAVA_INTEGER.equals(javaType)
+				) {
+			return "getInteger";
+		}
 		if (ConvertUtils.JAVA_DATE_TYPE.equals(javaType)) {
 			return "getDate";
 		}
@@ -52,7 +89,14 @@ public class VaadinPlugin {
 		if (ConvertUtils.JAVA_TIMESTAMP_TYPE.equals(javaType)) {
 			return "getDate";
 		}
-		return "get"+ConvertUtils.getJavaTypeFromDBType(column);
+		if (ConvertUtils.JAVA_CLOB_TYPE.equals(javaType)) {
+			return "getString";
+		}
+		if (ConvertUtils.JAVA_BLOB_TYPE.equals(javaType)
+			|| ConvertUtils.JAVA_BLOB.equals(javaType)) {
+			return "getBytes";
+		}
+		return "get"+ConvertUtils.getJavaTypeFromDBTypeOnly(column);
 	}
 	
 	public boolean isVaadinApplication (Table table) {

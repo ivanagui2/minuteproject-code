@@ -12,22 +12,30 @@ public class ConvertUtils {
 	
 	public static final String DB_TYPE_ORACLE                   	=   "ORACLE";
 	public static final String JAVA_BOOLEAN_TYPE 					=   "java.lang.Boolean";					
+	public static final String JAVA_BOOLEAN 					    =   "Boolean";					
 	public static final String JAVA_LONG_TYPE 						=   "java.lang.Long";	
+	public static final String JAVA_LONG  						    =   "Long";	
 	public static final String JAVA_DOUBLE_TYPE 					=   "java.lang.Double";			
+	public static final String JAVA_DOUBLE      					=   "Double";			
 	public static final String JAVA_INTEGER_TYPE 					=   "java.lang.Integer";		
+	public static final String JAVA_INTEGER 					    =   "Integer";		
 	public static final String JAVA_SHORT_TYPE 			 			=   "java.lang.Short";		
+	public static final String JAVA_SHORT 			 			    =   "Short";		
 	public static final String JAVA_TIMESTAMP_TYPE 					=   "java.sql.Timestamp";			
 	public static final String JAVA_SQL_TIMESTAMP_TYPE 				=   "java.sql.Timestamp";			
 	public static final String JAVA_TIME_TYPE 						=   "java.sql.Time";			
 	public static final String JAVA_SQL_TIME_TYPE 					=   "java.sql.Time";			
 	public static final String JAVA_BIGDECIMAL_TYPE 				=   "java.math.BigDecimal";
 	public static final String JAVA_BIGINTEGER_TYPE 				=   "java.math.BigInteger";
-	public static final String JAVA_STRING_TYPE 					=   "java.lang.String";						
+	public static final String JAVA_STRING_TYPE 					=   "java.lang.String";	
+	public static final String JAVA_STRING 							=   "String";	
 	public static final String JAVA_DATE_TYPE 						=   "java.util.Date";
 //	public static final String JAVA_DATE_TYPE 						=   "java.sql.Date";
 	public static final String JAVA_SQL_DATE_TYPE 					=   "java.sql.Date";
 	public static final String JAVA_BLOB_TYPE 						=   "java.sql.Blob";	
+	public static final String JAVA_BLOB    						=   "Blob";	
 	public static final String JAVA_CLOB_TYPE 						=   "java.sql.Clob";	
+
 
 	public static final String DB_STRING_CHAR_TYPE 					=   "CHAR";	
 	public static final String DB_STRING2_CHAR_TYPE 				=   "CHAR2";	
@@ -362,6 +370,10 @@ public class ConvertUtils {
 				column.getScale(), getDatabaseType(column));
 	}
 
+	public static String getJavaTypeFromDBTypeOnly (Column column) {
+		return getJavaTypeFromDBTypeOnly(column.getType(), column.getScale());
+	}
+	
 	public static String getJavaTypeFromDBTypeOnly (String dBType, int scale) {
 		String retStr=getJavaTypeFromDBType (dBType);	
 		if (dBType==null) return retStr;

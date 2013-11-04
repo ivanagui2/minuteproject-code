@@ -36,7 +36,7 @@
 		</template>		
  -->
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
-			file-extension="java" technicalPackage="dao.imhpl" file-suffix="DaoEJB" 
+			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
