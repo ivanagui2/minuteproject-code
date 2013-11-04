@@ -16,6 +16,8 @@ in the merge check that you remove '/minuteTemplate' on the demo app
 
 2)2) Catalog
 - add tracks in catalog
+-- merge demo/config with kernel/config
+-- merge demo/config/catalog with kernel/config/catalog (mp-template-config ).
 - add db in database-catalog
 
 3) Release
