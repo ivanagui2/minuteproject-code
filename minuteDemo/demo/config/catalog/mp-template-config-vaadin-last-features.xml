@@ -85,6 +85,7 @@
 			file-extension="java" file-prefix="" file-suffix="Form" 
 			entity-specific="true" package-specific="false" model-specific="false"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>
 		</template>
 
 		<template name="DomainObjectContainerVaadin" templateFileName="DomainObjectContainerVaadin.vm" 
