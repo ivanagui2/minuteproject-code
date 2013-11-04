@@ -366,38 +366,49 @@ public class ${className} extends Form implements ClickListener {
 *#
 		return var;
 	}
-
+    protected Short getShort (Object stringObject) {
+        return Short.valueOf (getString(stringObject));
+    }
+	
     protected Integer getInteger(Object stringObject) {
 	   return Integer.valueOf(getString(stringObject));
 	}
-	
+
 	protected String getString (Object stringObject) {
-	   return stringObject.toString();
-	}
+        return stringObject.toString();
+    }
 
-	protected java.math.BigDecimal getBigInteger (Object stringObject) {
-   	   return java.math.BigDecimal.valueOf(getDouble(stringObject));
-	}
+    protected java.math.BigDecimal getBigDecimal (Object stringObject) {
+        return java.math.BigDecimal.valueOf(getDouble(stringObject));
+    }
 
-	protected Long getLong (Object stringObject) {
-   	   return Long.valueOf (getString(stringObject));
-	}
+    protected Long getLong (Object stringObject) {
+        return Long.valueOf (getString(stringObject));
+    }
+
+    protected Double getDouble (Object stringObject) {
+        return Double.valueOf (getString(stringObject));
+    }
+
+    protected java.math.BigInteger getBigInteger (Object stringObject) {
+        return java.math.BigInteger.valueOf(getLong(stringObject));
+    }
 	
-	protected Double getDouble (Object stringObject) {
-	   return Double.valueOf (getString(stringObject));
-	}
-
 	protected Date getDate (Object o) {
-	   return (Date)o;
+	    return (Date)o;
 	}
 
 	protected Boolean getBoolean (Object stringObject) {
-	   return Boolean.valueOf(getString(stringObject));
+	    return Boolean.valueOf(getString(stringObject));
 	}
 		
 	protected Blob getBlob (Object o) {
-	   return (Blob)o;
+	    return (Blob)o;
 	}	
+	
+	protected byte[] getBytes (Object o) {
+        return ((String)o).getBytes();
+    }
 	
 	protected Clob getClob (Object o) {
 	   return (Clob)o;
