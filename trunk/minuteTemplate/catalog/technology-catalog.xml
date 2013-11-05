@@ -287,7 +287,8 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="Vaadin_portlet" model-type="rdbms"
 			template-config-file-name="mp-template-config-liferay-portlet-features.xml"
 			default-outputdir="vaadin" template-dir="@templateRoot@/framework/liferay"
-			description="Generates Liferay portlet artifacts">
+			description="Generates Liferay portlet artifacts"
+			is-generable="false">
 			<frameworks>
 				<framework name="Liferay" version="6.1+"></framework>
 			</frameworks>
@@ -297,7 +298,8 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="Primefaces_portlet" model-type="rdbms"
 			template-config-file-name="mp-template-config-liferay-portlet-features.xml"
 			default-outputdir="JSF-primefaces" template-dir="@templateRoot@/framework/liferay"
-			description="Generates Liferay portlet artifacts">
+			description="Generates Liferay portlet artifacts"
+			is-generable="false">
 			<frameworks>
 				<framework name="Liferay" version="6.1+"></framework>
 			</frameworks>
@@ -307,7 +309,8 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="SqlUtils" model-type="rdbms"
 			template-config-file-name="mp-template-config-sqlutils.xml"
 			default-outputdir="SqlUtils" template-dir="@templateRoot@/utils/db"
-			status="draft" description="Generates misc sql artifacts \create missing fk \archiving trigger and tables">
+			status="draft" description="Generates misc sql artifacts \create missing fk \archiving trigger and tables"
+			is-generable="false">
 			<frameworks>
 				<framework name="SQL" version=""></framework>
 			</frameworks>
@@ -456,7 +459,8 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="SDD-BEANS" model-type="rdbms"
 			template-config-file-name="mp-template-config-SDD-beans.xml"
 			default-outputdir="JPA2" template-dir="@templateRoot@/framework/bean"
-			status="released" description="Generates backend artifacts">
+			status="released" description="Generates backend artifacts"
+			is-generable="false">
                <property name="add-xmlbinding" value="true"></property> 
                <property name="add-xml-format" value="lowercase-hyphen"></property>
 		</technology>
