@@ -17,6 +17,19 @@ ant script / mvn artifact
 Build to maven:
 -> copy src and package + code coverage + sonar
 
+--
+Improve test:
+ Test generation (hsqldb embedded)
+ - generate sample:
+ 	-> if fails : log error
+ - build sample
+ 	-> if fails : log error
+ - report 
+ 	-> OK for track or failure
+ 	
+ Test for deployment
+ xpath change connection
+ 
 
 Release 0.8.5
 -------------
