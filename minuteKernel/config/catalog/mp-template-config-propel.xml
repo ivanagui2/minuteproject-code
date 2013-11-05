@@ -4,7 +4,7 @@
 	
   	<template-target 
     	name="Propel config"
-		outputdir="propel"
+		outputdir=""
 		libdir="lib/PROPEL_LIB.vm"
 		>
 			 
