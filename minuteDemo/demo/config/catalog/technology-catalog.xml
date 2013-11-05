@@ -360,9 +360,9 @@ the properties are declared at the technology level and apply to all templates (
 		
 		<!-- legacy tracks -->		
 
-		<technology name="Maven Spring Hibernate" target-name="MVN_SPRING_HIBERNATE_LAST"
+		<technology name="MavenSpringHibernate" target-name="MavenSpringHibernate"
 			model-type="rdbms" template-config-file-name="mp-template-config-bsla-hibernate-last-features.xml"
-			default-outputdir="bslaSpringHibernate" template-dir="@templateRoot@/framework/bsla"
+			default-outputdir="" template-dir="@templateRoot@/framework/bsla"
 			status="released" depends-on-targets="COMMON_LIB"
 			description="Generates Maven Spring Hibernate backend and advanced DAOs layer.">
 			<frameworks>
@@ -372,9 +372,9 @@ the properties are declared at the technology level and apply to all templates (
 			</frameworks>
 		</technology>
 
-		<technology name="Maven Spring JPA/Hibernate" model-type="rdbms"
+		<technology name="MavenSpringJPA" model-type="rdbms"
 			template-config-file-name="mp-template-config-bsla-JPA-last-features.xml"
-			default-outputdir="bslaSpringJPAHibernate" template-dir="@templateRoot@/framework/bsla"
+			default-outputdir="" template-dir="@templateRoot@/framework/bsla"
 			status="released" depends-on-targets="COMMON_LIB"
 			description="Generates Maven Spring JPA/Hibernate backend and advanced DAOs layer.">
 			<frameworks>

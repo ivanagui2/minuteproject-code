@@ -33,11 +33,12 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" 
+		<targets catalog-entry="MavenSpringHibernate"/>
+		<!-- <target refname="BackendOnBsla" 
 		   name="default" 
 		   fileName="catalog/mp-template-config-bsla-hibernate-last-features.xml" 
 		   outputdir-root="../output/MvnSpringHibernate"
 		   templatedir-root="../../template/framework/bsla">
-		</target> 	
+		</target> --> 	
 	</configuration>
 </generator-config>
