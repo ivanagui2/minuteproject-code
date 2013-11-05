@@ -421,9 +421,12 @@
 	<!-- ===================================================================== -->
 
 	<target name="generation-build-sample" depends="release-application" >
-
-		<macro_generate_and_build display="JPA2" config="mp-config-JPA2.xml" maven.basedir="JPA2/petshop/JPA2" />
+		<macro_generate_and_build display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml" maven.basedir="MavenSpringHibernate/petshop"/>
+		<macro_generate_and_build display="JPA-BSLA" config="mp-config-bsla-jpa-last-features.xml" maven.basedir="MavenSpringJPA/petshop"/>
+		
+<!--		<macro_generate_and_build display="JPA2" config="mp-config-JPA2.xml" maven.basedir="JPA2/petshop/JPA2" />
 		<echo>${maven.build.result}</echo>
+		-->
 	</target>
 
 	<target name="generation-demo" depends="release-application">
@@ -477,8 +480,10 @@
 		<macro_generate_and_build display="REST-SpringMVC" config="mp-config-REST-SpringMVC.xml" maven.basedir="REST-SpringMVC/petshop"/>
 		<macro_generate_and_build display="Vaadin" config="mp-config-vaadin.xml" maven.basedir="Vaadin/petshop"/>
 		<macro_generate_and_build display="WS-JEE" config="mp-config-WS-JEE.xml" maven.basedir="WS-JEE/petshop"/>		
-		<macro_generate_and_build display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml" maven.basedir="MvnSpringHibernate"/>
-		<macro_generate_and_build display="JPA2-ABL" config="mp-config-bsla-jpa-last-features.xml" maven.basedir="MvnSpringJPA"/>
+		
+		<macro_generate_and_build display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml" maven.basedir="MavenSpringHibernate/petshop"/>
+		<macro_generate_and_build display="JPA-BSLA" config="mp-config-bsla-jpa-last-features.xml" maven.basedir="MavenSpringJPA/petshop"/>
+		
 		
 		<!--
 		<macro_generate display="ADF" config="mp-config-ADF.xml" />
