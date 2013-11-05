@@ -30,11 +30,12 @@
 				</enrichment>					
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" 
+		<targets catalog-entry="MavenSpringJPA"/>
+<!-- 		<target refname="BackendOnBsla" 
 		   name="default" 
 		   fileName="catalog/mp-template-config-bsla-JPA-last-features.xml" 
 		   outputdir-root="../output/MvnSpringJPA"
 		   templatedir-root="../../template/framework/bsla">
-		</target> 	
+		</target> 	 -->
 	</configuration>
 </generator-config>

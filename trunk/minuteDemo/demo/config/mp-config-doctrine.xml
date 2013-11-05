@@ -3,11 +3,9 @@
 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
 xs:noNamespaceSchemaLocation="mp-config.xsd">
     <configuration>
-		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
+		<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
 			<data-model>
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
-			    <fileSource name="petshop" dir="c:/MinuteProject/data">
-			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 					<url>jdbc:hsqldb:file:../../sample/hsql/petshop</url>
