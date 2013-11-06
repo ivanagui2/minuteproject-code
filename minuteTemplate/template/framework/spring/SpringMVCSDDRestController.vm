@@ -47,7 +47,9 @@ import javax.xml.bind.JAXBElement;
 #end
 
 import $sddOutputBeanCollectionImport;
+#if($isNotVoidInput)
 import $sddInputBeanImport;
+#end
 import $sddDaoInterfaceImport;
 
 /**
@@ -81,12 +83,16 @@ $!updatedAreaSnippet
 #end
 #end
     ) {
+#if($isNotVoidInput)
 		$sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
 		${sddInputBeanVariable}.set$columnClass ($columnVar);
 #end
         return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
+#else
+        return ${sddDaoInterfaceVariable}.execute();
+#end
     }
 #end
 $!updatedAreaEnd
