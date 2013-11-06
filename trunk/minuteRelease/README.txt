@@ -29,10 +29,19 @@ in the merge check that you remove '/minuteTemplate' on the demo app
 In MinuteprojectRelease run
 >ant
 
+TESTS
+=====
+1) generation 
+2) generation + build and package mvn
+2) generation + build, package and deploy for webpps tracks
+- REST, OX, PF, Vaadin
+- deploy and test
+
+
 3)3) Validate Demo update the demo
 - update template config
 - run demo 
--- all-demo.cmd/sh all-packages.cmd
+-- all-demo-and-package.cmd/sh all-packages.cmd
 -- on windows and linux
 -- deploy new tracks
 
