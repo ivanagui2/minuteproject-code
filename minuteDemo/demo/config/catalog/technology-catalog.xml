@@ -106,7 +106,7 @@ the properties are declared at the technology level and apply to all templates (
 		
 		<technology name="REST-CXF-JEE" 
 			model-type="rdbms" template-config-file-name="mp-template-config-REST-CXF-JEE.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,REST_LIB,SPRING-LIB,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,REST_LIB,EJB3_LIB,SPRING-LIB,MavenMaster"
 			template-dir="@templateRoot@/framework/cxf"
 			status="released"
 			description="Generates:\REST CXF CRUD app\JEE DAO \JPA2 Domain entities with JAXB\with maven integration">
