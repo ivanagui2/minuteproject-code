@@ -861,6 +861,10 @@ public class $className extends $daoHibernateImplClassName implements $daoInterf
     public List<$tableClassName> getList ($tableClassName orderMask, QuerySortOrder sortOrder) {
         throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
     }
+
+    public List<$tableClassName> list ($tableClassName mask, $tableClassName orderMask, QuerySortOrder sortOrder) {
+        throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");		
+	}
 	
     public void find (QueryData<${tableClassName}> data) {
         throw new UnsupportedOperationException ("NOT SUPPORTED only for track JPA2");
