@@ -36,13 +36,36 @@
    </h:form>        
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
 		
-	<p:confirmDialog id="confirmDialog" message="Can you confirm your deletion?"
-			header="Deletion process" severity="alert" widgetVar="confirmation" >
+#* 
+	<p:confirmDialog id="confirmDialog"  showEffect="fade" hideEffect="fade"
+			global="true" >
+		<h:form id="deletion">
+			<p:commandButton id="confirm" value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+				actionListener="#{projectController.deleteListener}" update=":formProject:projectTable,:form2:panel,:form2:childrenTab,:formProject:growl" />
+			<p:commandButton id="decline" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+	   </h:form>
+	</p:confirmDialog>
+
+  	<h:form id="form2">
+		<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" >
+            <f:facet name="header" align="left">
+                <h:outputText value="#{i18n.project} details "/>
+            	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{projectController.createOrUpdateListener}" update=":formProject:projectTable,:form2:panel,:form2:childrenTab,:formProject:growl" />  
+            	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{projectController.clearListener}" update=":form2:panel,:form2:childrenTab" style="margin:5px;"/>
+            	<p:commandButton value="Delete" icon="ui-icon-trash" >
+                    <p:confirm    header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
+                </p:commandButton>
+            </f:facet>
+*#			
+	<p:confirmDialog id="confirmDialog" showEffect="fade" hideEffect="fade" global="true" >
 ##appendToBody="true">
 		<h:form id="deletion">
-			<p:commandButton id="confirm" value="Yes" oncomplete="confirmation.hide()" immediate="true"
+			<p:commandButton id="confirm" value="Yes" immediate="true" 
+				styleClass="ui-confirmdialog-yes" 
+				icon="ui-icon-check"
 				actionListener="#{${entityControllerJSFVariable}.deleteListener}" update="$update" />
-			<p:commandButton id="decline" value="No" onclick="confirmation.hide()" type="button" /> 
+			<p:commandButton id="decline" value="No" type="button" 
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
 	   </h:form>
 	</p:confirmDialog>
 
@@ -53,7 +76,9 @@
             	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
             	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
 ##            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
-            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
+            	<p:commandButton value="Delete" icon="ui-icon-trash" >
+                    <p:confirm header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
+                </p:commandButton>
             </f:facet>
             <ui:include src="/$entityEditJSFLocation">
                <ui:param name="affectFormId" value=":form2" />
@@ -131,7 +156,7 @@
 	<p:outputLabel id="containerBasicAdd${childrenListClass}">
 		<p:dialog id="basicAdd${childrenListClass}" 
 			rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
-			header="Add ${linkedColumnClass}" 
+			header="Add ${linkedTableClass}" 
 			widgetVar="add$childrenListClass" 
 			resizable="true" >
 			<h:form id="formAdd$childrenListVariable">

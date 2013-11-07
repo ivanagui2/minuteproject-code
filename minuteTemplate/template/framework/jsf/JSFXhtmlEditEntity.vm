@@ -58,7 +58,10 @@
 		emptyMessage="No $linkedTableClass found with given criteria"> 
 
         <f:facet name="header">  
-            List of #{i18n.${childrenListVariable}}  
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
+#set($tableLabelVar=$commonUtils.getJavaNameVariableFirstLetter($tableLabel))
+#set($tableVariableNames=$i18nUtils.plurialize($tableLabelVar))
+            List of #{i18n.${tableVariableNames}}  
         </f:facet>
         <ui:include src="/$entityListRowJSFLocation">
            <ui:param name="isSemanticReference" value="false" />
