@@ -7,4 +7,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
     <p:menu model="#{${modelBeanManagerMenuJSFVariable}.model}"/> 
+	
+##	<p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+	#*
+    <p:accordionPanel>  
+    <p:tab title="package">  
+        <h:panelGrid columns="2" cellpadding="10">  
+            <h:outputText  
+                value="" />  
+        </h:panelGrid>  
+    </p:tab>  
+ 
+	</p:accordionPanel> 
+	*#
 </html>	
