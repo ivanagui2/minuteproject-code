@@ -6,10 +6,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
-    <p:menu model="#{${modelBeanManagerMenuJSFVariable}.model}"/> 
-	
+##    <p:menu model="#{${modelBeanManagerMenuJSFVariable}.model}"/> 
+	<p:accordionPanel binding="#{${modelBeanManagerMenuJSFVariable}.accordion}"/> 
 ##	<p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-	#*
+	#* 
     <p:accordionPanel>  
     <p:tab title="package">  
         <h:panelGrid columns="2" cellpadding="10">  

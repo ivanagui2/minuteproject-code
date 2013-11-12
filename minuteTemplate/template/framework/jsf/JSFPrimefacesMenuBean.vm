@@ -3,9 +3,13 @@
 #set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
 #set($packageLabel=$i18nUtils.getPackageName($package))
 #set($subMenuVar = "submenu${package.name}")
+#set($tabVar = "tab${package.name}")
 #if(!$displayableEntities.isEmpty())
         DefaultSubMenu ${subMenuVar} = new DefaultSubMenu();  
         ${subMenuVar}.setLabel("${packageLabel}"); 	
+		//
+		Tab $tabVar = new Tab();
+		${tabVar}.setTitle("${packageLabel}");
 		
 #if($entitySecurityUtils.isEntityRoleSecured($package))
 #set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
@@ -15,17 +19,38 @@
 #foreach ($table in ${groups})
 #exposeJSFEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        DefaultMenuItem item${domainClassName} = new DefaultMenuItem();  
-        item${domainClassName}.setValue("$tableLabel");  
-        item${domainClassName}.setUrl("/${entityListLazyJSFLocation}"); 
-        ${subMenuVar}.addElement(item${domainClassName}); 
+        ${subMenuVar}.addElement(getItem("$tableLabel", ${table.name}_ACCESS_URL)); 
+		${tabVar}.getChildren().add(getLink("$tableLabel", ${table.name}_ACCESS_URL));
 		
 #end
 #end
         model.addElement(${subMenuVar});
+		accordion.getChildren().add(${tabVar}) ;
 #end	
 #end
+#macro(setJsfMenu4Access)
+#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
+     public static final String ${package.name}_INDEX = "$index";
+#foreach ($groups in $displayableEntityGroups)	
+#foreach ($table in ${groups})
+#exposeJSFEntitySpecific()
+     public static final String ${table.name}_ACCESS_URL = "/${entityListLazyJSFLocation}"; 		
+#end
+#end
+#set($index=$index+1)
+#end
+#macro(setJsfMenu4AccessUrl)
+#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
+#foreach ($groups in $displayableEntityGroups)	
+#foreach ($table in ${groups})
+#exposeJSFEntitySpecific()
+        if (url.endsWith(${table.name}_ACCESS_URL))
+            accordion.setActiveIndex(${package.name}_INDEX);		
+#end
+#end
+#end
 #exposeJSFModelSpecific()
+#set($thisClassName=$className)
 ##exposeJSFEntitySpecific()
 #set ($applicationJSF=$configuration.name) 
 #set ($applicationLabel=$formatUtils.getJavaName($applicationJSF))
@@ -48,6 +73,14 @@ import org.primefaces.model.*;
 import org.primefaces.component.menuitem.*;
 import org.primefaces.component.submenu.Submenu;
 *#
+import javax.faces.component.html.HtmlOutputLink;
+import javax.faces.component.html.HtmlOutputText;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.primefaces.component.accordionpanel.AccordionPanel;
+import org.primefaces.component.panel.Panel;
+import org.primefaces.component.tabview.Tab;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultMenuItem;
@@ -63,17 +96,39 @@ import org.primefaces.model.menu.MenuModel;
 #end
 public class ${className} {
 
-    private MenuModel model;  
-  
-    public ${className}() {  
-        model = new DefaultMenuModel();  
-          
+#set($index=0)
+
 #foreach ($package in ${businessPackages})
-#setJsfMenu4Package($package)
+#setJsfMenu4Access()
 #end
 
 #foreach ($package in ${businessPackageViews})
-#setJsfMenu4Package($package)
+#setJsfMenu4Access()
+#end
+#* 
+#foreach ($groups in $displayableEntityGroups)	
+#exposeJSFEntitySpecific()
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+     public static String ${package.name}_INDEX = "$index"; 		
+     public static String ${table.name}_ACCESS_URL = "/${entityListLazyJSFLocation}"; 		
+#set($index=$index+1)
+#end
+*#
+    private MenuModel model;  
+	private AccordionPanel accordion;
+  
+	public ${thisClassName}() { 
+	}
+	
+    public void load() {  
+        model = new DefaultMenuModel();  
+        accordion = new AccordionPanel();
+#foreach ($package in ${businessPackages})
+#setJsfMenu4Package()
+#end
+
+#foreach ($package in ${businessPackageViews})
+#setJsfMenu4Package()
 #end
 
 #if($model.hasStatementModel())
@@ -103,6 +158,57 @@ public class ${className} {
     }  
       
     public MenuModel getModel() {  
+	    if (model == null)
+			load();
         return model;  
     }     
+      
+    public AccordionPanel getAccordion() {  
+	    if (accordion == null)
+			load();
+		String url = getRequestURL();
+#foreach ($package in ${businessPackages})
+#setJsfMenu4AccessUrl()
+#end
+
+#foreach ($package in ${businessPackageViews})
+#setJsfMenu4AccessUrl()
+#end
+        return accordion;  
+    }     
+	
+    public void setAccordion(AccordionPanel accordion) {
+        this.accordion = accordion;
+    }
+	
+	private Panel getLink (String title, String url) {
+        Panel panel = new Panel();
+		HtmlOutputLink link = new HtmlOutputLink();
+        link.setValue(url); 
+		HtmlOutputText h =new HtmlOutputText() ;
+        h.setValue(title);
+        link.getChildren().add(h);
+        panel.getChildren().add(link);
+		return panel;
+	}
+	
+	private DefaultMenuItem getItem (String title, String url)	{
+	    DefaultMenuItem item = new DefaultMenuItem();  
+        item.setValue(title);  
+        item.setUrl(url); 
+		return item;
+    } 
+		
+    public String getRequestURL()
+    {
+        Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        if(request instanceof HttpServletRequest)
+        {
+            return ((HttpServletRequest) request).getRequestURL().toString();
+        }else
+        {
+            return "";
+        }
+    }
+	
 }  
