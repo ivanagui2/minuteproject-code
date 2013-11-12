@@ -1,54 +1,3 @@
-#macro(setJsfMenu4Package)
-#set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
-#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
-#set($packageLabel=$i18nUtils.getPackageName($package))
-#set($subMenuVar = "submenu${package.name}")
-#set($tabVar = "tab${package.name}")
-#if(!$displayableEntities.isEmpty())
-        DefaultSubMenu ${subMenuVar} = new DefaultSubMenu();  
-        ${subMenuVar}.setLabel("${packageLabel}"); 	
-		//
-		Tab $tabVar = new Tab();
-		${tabVar}.setTitle("${packageLabel}");
-		
-#if($entitySecurityUtils.isEntityRoleSecured($package))
-#set($roles=$entitySecurityUtils.getEntitySecuredRoles($package))
-## <mp:isUserInRole role="${roles}"> if(!tx.isCallerInRole ("${roles}")
-#end
-#foreach ($groups in $displayableEntityGroups)	
-#foreach ($table in ${groups})
-#exposeJSFEntitySpecific()
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        ${subMenuVar}.addElement(getItem("$tableLabel", ${table.name}_ACCESS_URL)); 
-		${tabVar}.getChildren().add(getLink("$tableLabel", ${table.name}_ACCESS_URL));
-		
-#end
-#end
-        model.addElement(${subMenuVar});
-		accordion.getChildren().add(${tabVar}) ;
-#end	
-#end
-#macro(setJsfMenu4Access)
-#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
-     public static final String ${package.name}_INDEX = "$index";
-#foreach ($groups in $displayableEntityGroups)	
-#foreach ($table in ${groups})
-#exposeJSFEntitySpecific()
-     public static final String ${table.name}_ACCESS_URL = "/${entityListLazyJSFLocation}"; 		
-#end
-#end
-#set($index=$index+1)
-#end
-#macro(setJsfMenu4AccessUrl)
-#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
-#foreach ($groups in $displayableEntityGroups)	
-#foreach ($table in ${groups})
-#exposeJSFEntitySpecific()
-        if (url.endsWith(${table.name}_ACCESS_URL))
-            accordion.setActiveIndex(${package.name}_INDEX);		
-#end
-#end
-#end
 #exposeJSFModelSpecific()
 #set($thisClassName=$className)
 ##exposeJSFEntitySpecific()
@@ -73,6 +22,7 @@ import org.primefaces.model.*;
 import org.primefaces.component.menuitem.*;
 import org.primefaces.component.submenu.Submenu;
 *#
+import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlOutputLink;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
@@ -85,6 +35,9 @@ import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.MenuModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 #if($isSpringBackend)
 @Service ("${modelBeanManagerMenuJSFVariable}")
@@ -116,9 +69,49 @@ public class ${className} {
 *#
     private MenuModel model;  
 	private AccordionPanel accordion;
+    private Map<String, MenuTuple> map;
+
+    private class MenuTuple {
+        private String packageIndex, url, entry, title;
+
+        private MenuTuple(String url, String packageIndex, String entry, String title) {
+            this.packageIndex = packageIndex;
+            this.url = url;
+            this.entry = entry;
+            this.title = title;
+        }
+
+        private String getPackageIndex() {
+            return packageIndex;
+        }
+
+        private String getUrl() {
+            return url;
+        }
+
+        private String getEntry() {
+            return entry;
+        }
+
+        private String getTitle() {
+            return title;
+        }
+    }
   
 	public ${thisClassName}() { 
+        if (map==null)
+            populateMenuMap();
 	}
+
+    public void populateMenuMap () {
+        map = new HashMap<String, MenuTuple>();
+#foreach ($package in ${businessPackages})
+#setJsfMenu4Map()
+#end
+#foreach ($package in ${businessPackageViews})
+#setJsfMenu4Map()
+#end
+    }
 	
     public void load() {  
         model = new DefaultMenuModel();  
@@ -126,7 +119,6 @@ public class ${className} {
 #foreach ($package in ${businessPackages})
 #setJsfMenu4Package()
 #end
-
 #foreach ($package in ${businessPackageViews})
 #setJsfMenu4Package()
 #end
@@ -163,10 +155,10 @@ public class ${className} {
         return model;  
     }     
       
-    public AccordionPanel getAccordion() {  
-	    if (accordion == null)
-			load();
-		String url = getRequestURL();
+	public void activateMenu() {
+	    accordion.setActiveIndex(getTupleIndex(getRequestURL()));
+		activateTab(getTupleIndex(getRequestURL());
+#*		String url = getRequestURL();
 #foreach ($package in ${businessPackages})
 #setJsfMenu4AccessUrl()
 #end
@@ -174,19 +166,37 @@ public class ${className} {
 #foreach ($package in ${businessPackageViews})
 #setJsfMenu4AccessUrl()
 #end
+*#	
+	}
+	
+    public AccordionPanel getAccordion() {  
+	    if (accordion == null)
+			load();
+		activateMenu();
         return accordion;  
     }     
 	
     public void setAccordion(AccordionPanel accordion) {
         this.accordion = accordion;
     }
+				
+    public MenuTuple getTuple(String url) {
+        return map.get(url);
+    }
 	
-	private Panel getLink (String title, String url) {
+	private void activateTab (String title) {
+        UIComponent c = accordion.findComponent("menuTitle"+title)      ;
+        Panel p = (Panel)c;
+        p.setStyleClass(" ui-state-active ");
+    }
+	
+	private Panel getPanel (MenuTuple tuple) {
         Panel panel = new Panel();
+		panel.setId("menuTitle"+tuple.getEntry());
 		HtmlOutputLink link = new HtmlOutputLink();
-        link.setValue(url); 
+        link.setValue(tuple.getUrl()); 
 		HtmlOutputText h =new HtmlOutputText() ;
-        h.setValue(title);
+        h.setValue(tuple.getTitle());
         link.getChildren().add(h);
         panel.getChildren().add(link);
 		return panel;
@@ -205,6 +215,18 @@ public class ${className} {
         if(request instanceof HttpServletRequest)
         {
             return ((HttpServletRequest) request).getRequestURL().toString();
+        }else
+        {
+            return "";
+        }
+    }
+		
+    public String getServletPath()
+    {
+        Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        if(request instanceof HttpServletRequest)
+        {
+            return ((HttpServletRequest) request).getServletPath();
         }else
         {
             return "";

@@ -35,28 +35,7 @@
     </h:panelGroup>
    </h:form>        
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
-		
-#* 
-	<p:confirmDialog id="confirmDialog"  showEffect="fade" hideEffect="fade"
-			global="true" >
-		<h:form id="deletion">
-			<p:commandButton id="confirm" value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-				actionListener="#{projectController.deleteListener}" update=":formProject:projectTable,:form2:panel,:form2:childrenTab,:formProject:growl" />
-			<p:commandButton id="decline" value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-	   </h:form>
-	</p:confirmDialog>
 
-  	<h:form id="form2">
-		<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" >
-            <f:facet name="header" align="left">
-                <h:outputText value="#{i18n.project} details "/>
-            	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{projectController.createOrUpdateListener}" update=":formProject:projectTable,:form2:panel,:form2:childrenTab,:formProject:growl" />  
-            	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{projectController.clearListener}" update=":form2:panel,:form2:childrenTab" style="margin:5px;"/>
-            	<p:commandButton value="Delete" icon="ui-icon-trash" >
-                    <p:confirm    header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
-                </p:commandButton>
-            </f:facet>
-*#			
 	<p:confirmDialog id="confirmDialog" showEffect="fade" hideEffect="fade" global="true" >
 ##appendToBody="true">
 		<h:form id="deletion">
@@ -169,8 +148,14 @@
 					</ui:include>
             </h:panelGrid>			
 				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
-					<f:setPropertyActionListener target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
-					<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+					<f:setPropertyActionListener 
+						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" 
+						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
+					<f:setPropertyActionListener 
+						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}_}" 
+						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}.$primaryKeyVariable}"/>
+					<f:setPropertyActionListener 
+						target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
 				</p:commandButton>	
 			</h:form>
 		</p:dialog>
