@@ -70,6 +70,7 @@
 		 <p:column>
             <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="suc${childrenListClass}Dialog.hide()" process="@this">
 				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
+<!-- value="#{item.${localColumnVariable}_}"  -->
 ##				<f:setPropertyActionListener value="#{item.${localColumnVariable}_}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
 ##TODO remove the unnecessary one
 				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
