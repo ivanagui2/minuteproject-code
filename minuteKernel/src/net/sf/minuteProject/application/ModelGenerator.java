@@ -50,6 +50,7 @@ import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
 import net.sf.minuteProject.utils.criteria.OrderingUtils;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
@@ -100,6 +101,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private VelocityUtils velocityUtils= new VelocityUtils();
 	private FileUtils fileUtils= new FileUtils();
 	private OrderingUtils orderingUtils = new OrderingUtils();
+	private EnrichmentUtils enrichmentUtils = new EnrichmentUtils();
 
 	private Model model;
 
@@ -541,6 +543,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("velocityUtils", velocityUtils);
 		context.put("fileUtils", fileUtils);
 		context.put("orderingUtils", orderingUtils);
+		context.put("enrichmentUtils", enrichmentUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
