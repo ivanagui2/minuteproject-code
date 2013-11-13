@@ -23,9 +23,14 @@
 		<welcome-file-list>
 			<welcome-file>$modelIndexJSFImport</welcome-file>
 		</welcome-file-list>
-        <context-param>
+#*        <context-param>
             <param-name>facelets.SKIP_COMMENTS</param-name>
             <param-value>true</param-value>
+        </context-param>
+*#
+        <context-param>
+            <param-name>facelets.FACELETS_SKIP_COMMENTS</param-name>
+            <param-value>ENABLE</param-value>
         </context-param>
 #if($isSpringBackend)
     	<!-- if spring -->
