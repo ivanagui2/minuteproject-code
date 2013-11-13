@@ -156,17 +156,11 @@ public class ${className} {
     }     
       
 	public void activateMenu() {
-	    accordion.setActiveIndex(getTupleIndex(getRequestURL()));
-		activateTab(getTupleIndex(getRequestURL());
-#*		String url = getRequestURL();
-#foreach ($package in ${businessPackages})
-#setJsfMenu4AccessUrl()
-#end
-
-#foreach ($package in ${businessPackageViews})
-#setJsfMenu4AccessUrl()
-#end
-*#	
+		MenuTuple activeTuple = getCurrentTuple();
+		if (activeTuple!=null) {
+    	    accordion.setActiveIndex(activeTuple.getPackageIndex());
+    		activateTab(activeTuple);
+		}
 	}
 	
     public AccordionPanel getAccordion() {  
@@ -179,13 +173,10 @@ public class ${className} {
     public void setAccordion(AccordionPanel accordion) {
         this.accordion = accordion;
     }
-				
-    public MenuTuple getTuple(String url) {
-        return map.get(url);
-    }
+
 	
-	private void activateTab (String title) {
-        UIComponent c = accordion.findComponent("menuTitle"+title)      ;
+	private void activateTab (MenuTuple tuple) {
+        UIComponent c = accordion.findComponent("menuTitle"+tuple.getEntry());
         Panel p = (Panel)c;
         p.setStyleClass(" ui-state-active ");
     }
@@ -193,6 +184,7 @@ public class ${className} {
 	private Panel getPanel (MenuTuple tuple) {
         Panel panel = new Panel();
 		panel.setId("menuTitle"+tuple.getEntry());
+		//panel.setStyleClass(" ui-state-disactive ");
 		HtmlOutputLink link = new HtmlOutputLink();
         link.setValue(tuple.getUrl()); 
 		HtmlOutputText h =new HtmlOutputText() ;
@@ -208,7 +200,15 @@ public class ${className} {
         item.setUrl(url); 
 		return item;
     } 
-		
+				
+    public MenuTuple getCurrentTuple() {
+        return getTuple(getServletPath());
+    }
+	
+    public MenuTuple getTuple(String url) {
+        return map.get(url);
+    }
+	
     public String getRequestURL()
     {
         Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();

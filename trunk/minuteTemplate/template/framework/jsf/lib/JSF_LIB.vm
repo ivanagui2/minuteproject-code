@@ -207,6 +207,109 @@
 		</p:rowExpansion>  
 #end
 
+#macro(putPrimefacesChildrenAddEditDialog)
+
+    <!-- dialog to add and manage ${childrenListClass} -->
+	<p:outputLabel id="containerBasicAdd${childrenListClass}">
+		<p:dialog id="basicAdd${childrenListClass}" 
+			rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
+			header="Add ${linkedTableClass}" 
+			widgetVar="add$childrenListClass" 
+			resizable="true" >
+			<h:form id="formAdd$childrenListVariable">
+				<h:panelGrid columns="3" cellpadding="5" id="add${childrenListClass}">
+					<ui:include src="/$entityEditJSFLocation">
+						<ui:param name="affectFormId" value=":formAdd$childrenListVariable" />
+						<ui:param name="idValue" value="$refCnt" />
+						<ui:param name="fieldToHide" value="$linkedColumnVariable" />
+#set($refCnt=$refCnt+1)
+					</ui:include>
+            </h:panelGrid>			
+				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
+					<f:setPropertyActionListener 
+						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" 
+						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
+					<f:setPropertyActionListener 
+						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}_}" 
+						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}.$primaryKeyVariable}"/>
+					<f:setPropertyActionListener 
+						target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+				</p:commandButton>	
+			</h:form>
+		</p:dialog>
+	</p:outputLabel>
+	<p:outputLabel id="containerBasicDialog${childrenListClass}">
+		<p:dialog id="basicDialog${childrenListClass}" 
+			rendered="#{${thisEntityControllerJSFVariable}.isRenderDialog${childrenListClass}()}"
+			header="#{${childrenListVariable}} Details" 
+			widgetVar="detailDialog${childrenListClass}" 
+			resizable="true" >  
+			<h:form id="form${childrenListClass}">
+    			<h:panelGrid columns="3" cellpadding="5" id="display${childrenListClass}">
+    			<ui:include src="/$entityEditJSFLocation">
+    				<ui:param name="affectFormId" value=":form${childrenListClass}" />
+                    <ui:param name="idValue" value="$refCnt" />
+    				<ui:param name="fieldToHide" value="$linkedColumnVariable" />
+#set($refCnt=$refCnt+1)
+                </ui:include>
+                </h:panelGrid>
+    ##			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+    				<!-- todo add reset DD lookup -->
+                </p:commandButton>
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
+                </p:commandButton>
+			</h:form>
+		</p:dialog>
+	</p:outputLabel>
+#end
+
+#macro(putPrimefacesChildrenAddEditCommand)
+                   <p:tab id="child-$childrenListVariable" title="#{i18n.$linkedTableVariable}" > 
+                	 <p:outputPanel id="child-${childrenListVariable}Panel" >
+                		<p:toolbar id="add-$childrenListVariable">  
+                			<p:toolbarGroup align="left"> 
+                				<p:commandButton 
+##									actionListener="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}}"
+                                    immediate="true" 
+									title="Add $linktableDB.name"  
+									icon="ui-icon-document" 
+									oncomplete="add${childrenListClass}.show();" 
+									update=":containerBasicAdd${childrenListClass}">
+									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
+									<f:actionListener binding="#{${entityLinkControllerJSFVariable}.resetSelected${linkedTableClass}()}"/>
+                                </p:commandButton>
+							</p:toolbarGroup>
+                		</p:toolbar>
+                        <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
+                                onRowSelectUpdate="display" 
+                                dynamic="true"  resizableColumns="true"
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="5,10,15"> 
+							<f:facet name="header">  
+                            List of #{i18n.$linkedTableVariable}  
+							</f:facet>
+							<ui:include src="/$entityListRowJSFLocation">
+								<ui:param name="isSemanticReference" value="true" />
+							</ui:include>
+							<p:column>
+                            <p:commandButton value="Manage" 
+            					id="detailButton${childrenListClass}" 
+            					update=":containerBasicDialog${childrenListClass}" 
+            					title="Manage Details"
+            					action="#{${entityLinkControllerJSFVariable}.reloadSelected}"
+            					oncomplete="detailDialog${childrenListClass}.show()" 
+            					process="@this">
+                                <f:actionListener binding="#{${thisEntityControllerJSFVariable}.activateRenderDialog${childrenListClass}()}" />
+                                <f:actionListener binding="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"/>
+                            </p:commandButton>
+							</p:column>
+						</p:dataTable>
+                	 </p:outputPanel>
+                   </p:tab>
+#end
 #macro(setJsfMenu4Package)
 #set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
 #set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))

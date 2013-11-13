@@ -367,6 +367,10 @@ public class ${className} implements java.io.Serializable{
 	    return selected$tableClassName;
 	}
 	
+	public void resetSelected$tableClassName () {
+	    selected$tableClassName = new $tableClassName();
+	}		
+	
 	public void setSelected$tableClassName ($tableClassName $tableVariableName) {
 	    this.selected$tableClassName = $tableVariableName;
 	}		

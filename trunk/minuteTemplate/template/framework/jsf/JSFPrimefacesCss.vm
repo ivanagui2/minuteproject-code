@@ -64,7 +64,7 @@ a:hover {
 
 .ui-widget-content-borderless  tr, .ui-widget-content-borderless td {
     border: none;
-    width: 100%;
+    width: 27%;
     text-align: left;
 }
 
@@ -75,6 +75,7 @@ a:hover {
 .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
     box-shadow: none !important;
 }
+
 .ui-inputfield {
     border: 2px solid #dadada !important; 
     border-radius: 7px !important;
@@ -85,3 +86,10 @@ a:hover {
     border-color: #7bc1f7 !important;
     box-shadow: 0 0 10px #7bc1f7 !important;
 }
+
+.mp-column-center {
+    width: 30%;
+    text-align: center;
+    margin-left: 50%; 
+}
+
