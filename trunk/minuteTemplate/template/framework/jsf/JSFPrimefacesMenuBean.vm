@@ -58,6 +58,7 @@ public class ${className} {
 #foreach ($package in ${businessPackageViews})
 #setJsfMenu4Access()
 #end
+#setJsfMenu4SDDAccess()
 #* 
 #foreach ($groups in $displayableEntityGroups)	
 #exposeJSFEntitySpecific()
@@ -111,6 +112,7 @@ public class ${className} {
 #foreach ($package in ${businessPackageViews})
 #setJsfMenu4Map()
 #end
+#setJsfMenu4SDDMap()
     }
 	
     public void load() {  
@@ -124,11 +126,13 @@ public class ${className} {
 #end
 
 #if($model.hasStatementModel())
-	
 	    // SDD
         DefaultSubMenu sdd = new DefaultSubMenu();  
         sdd.setLabel("SDD");
-        model.addElement(sdd);
+        
+		Tab sddTab = new Tab();
+		sddTab.setTitle("SDD");
+		
 #foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
 #exposeQuerySpecific()
 #exposeChartSpecific()
@@ -144,8 +148,12 @@ public class ${className} {
 #end
         item${domainClassName}.setUrl("/${sddJSFLocation}");
         sdd.addElement(item${domainClassName}); 
-        
+		
+		sddTab.getChildren().add(getPanel(getTuple (${table.name}_ACCESS_URL)));
+      
 #end
+        accordion.getChildren().add(sddTab) ;
+	    model.addElement(sdd);
 #end
     }  
       

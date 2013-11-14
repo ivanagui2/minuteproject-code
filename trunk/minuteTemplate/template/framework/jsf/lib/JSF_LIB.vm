@@ -354,6 +354,23 @@
 #set($index=$index+1)
 #end
 
+#macro(setJsfMenu4SDDAccess)
+#if($model.hasStatementModel())
+	 public static final String SDD_INDEX_ = "$index";
+#set($index=$index+1)
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#set($table=$query.inputBean)
+#exposeJSFEntitySpecific()
+#if (!$isChartLayout)
+#set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateSDDJSF))
+#else
+#set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateChartJSF))
+#end
+     public static final String ${table.name}_ACCESS_URL = "/${sddJSFLocation}"; 
+#end
+#end
+#end
+
 #macro(setJsfMenu4AccessUrl)
 #set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
 #foreach ($groups in $displayableEntityGroups)	
@@ -372,6 +389,16 @@
 #exposeJSFEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
         map.put (${table.name}_ACCESS_URL, new MenuTuple(${table.name}_ACCESS_URL, ${package.name}_INDEX, "${table.name}","$tableLabel")); 		
+#end
+#end
+#end
+
+#macro(setJsfMenu4SDDMap)
+#if($model.hasStatementModel())
+#foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#set($table=$query.inputBean)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+        map.put (${table.name}_ACCESS_URL, new MenuTuple(${table.name}_ACCESS_URL, SDD_INDEX_, "${table.name}","$tableLabel"));
 #end
 #end
 #end
