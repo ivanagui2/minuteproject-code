@@ -56,7 +56,7 @@ public class PresentationUtils {
 	public static List<Reference> getDisplayableChildren (Table table) {
 		List<Reference> refs = new ArrayList<Reference>();
 		for (Reference reference : table.getChildren()) {
-			if (!reference.getForeignTable().isManyToMany())
+//			if (!reference.getForeignTable().isManyToMany())
 				refs.add(reference);
 		}
 		return refs;

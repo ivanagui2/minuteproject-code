@@ -17,6 +17,7 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDL
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
@@ -172,16 +173,20 @@ public class Query extends AbstractConfiguration {
 				Entity.assignForeignKey (database, table, queryParam.getLinkField());
 			}
 		}
-		
 	}
 
 	private void setTableName(org.apache.ddlutils.model.Table table,
 			Direction dir) {
 		String queryparamName = getQueryParams().getName();
 		if (dir.equals(Direction.IN) && !StringUtils.isEmpty(queryparamName))
-			table.setName(queryparamName);
+			table.setName(formatTableName(queryparamName));
 		else
-			table.setName(getName());
+			table.setName(formatTableName(getName()));
+	}
+	
+
+	private String formatTableName(String name) {
+		return FormatUtils.getUppercaseUnderscore(name);
 	}
 
 	public Package getPackage() {
