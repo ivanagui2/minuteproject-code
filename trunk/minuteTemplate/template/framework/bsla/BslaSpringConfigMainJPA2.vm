@@ -7,8 +7,8 @@
 
 <beans>
 
-    <!-- Dao JPA -->
-    <import resource="classpath:${pathDaoJPA}.xml"/>    
+##    <!-- Dao JPA -->
+##    <import resource="classpath:${pathDaoJPA}.xml"/>    
 
 #exposeModelUpdatedAreas("${JPAFactoryName}")
 $!updatedAreaBegin

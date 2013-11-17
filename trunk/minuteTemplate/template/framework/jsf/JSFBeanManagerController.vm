@@ -114,7 +114,9 @@ public class ${className} implements java.io.Serializable{
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName = new $tableClassName();
 	
+#set($cntAssociation=0)
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
+#set($cntAssociation=$cntAssociation+1)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 ##	private ${linkedTableClass} associated${childrenListClass};
@@ -127,18 +129,14 @@ public class ${className} implements java.io.Serializable{
 ##    	populate$childrenListVariable ();
 		refresh$childrenListClass=true;
     }
+	
     public List<${linkedTableClass}> get${childrenListClass} () {
 		if (${childrenListVariable}==null || refresh$childrenListClass) {
 			populate$childrenListVariable ();
 		}
         return ${childrenListVariable};
     }
-#if($velocityCount==1)
-#set($hasFirstRelationship=true)
-	private void populateFirst () {
-		populate$childrenListVariable ();
-	}
-#end
+
 	private void populate$childrenListVariable () {
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
 		    refresh$childrenListClass = false;
@@ -146,6 +144,52 @@ public class ${className} implements java.io.Serializable{
     		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
     		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
 		}
+	}
+	
+#if($cntAssociation==1)
+#set($hasFirstRelationship=true)
+	private void populateFirst () {
+		populate$childrenListVariable ();
+	}
+#end
+#end
+#end
+#end
+
+
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#set($cntAssociation=$cntAssociation+1)
+#exposeM2MSpecific()
+#if($isSpringBackend)
+	private List<$targetTableClassName> $childrenListVariable;
+	private Boolean refresh$childrenListClass=true;
+	//used as property listener
+	public void setRefresh${childrenListClass}(Boolean b) {
+##    	populate$childrenListVariable ();
+		refresh$childrenListClass=true;
+    }
+	
+    public List<${targetTableClassName}> get${childrenListClass} () {
+		if (${childrenListVariable}==null || refresh$childrenListClass) {
+			populate$childrenListVariable ();
+		}
+        return ${childrenListVariable};
+    }
+
+	private void populate$childrenListVariable () {
+		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
+		    refresh$childrenListClass = false;
+    		$targetTableClassName mask = new $targetTableClassName();
+    		//linkTableVariableName $linkTableVariableName
+			//mask.get${childrenListClass}().add(selected${tableClassName});
+    		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
+		}
+	}
+	
+#if($cntAssociation==1)
+#set($hasFirstRelationship=true)
+	private void populateFirst () {
+		populate$childrenListVariable ();
 	}
 #end
 #end
@@ -399,6 +443,15 @@ public class ${className} implements java.io.Serializable{
 			populate$childrenListVariable ();
 		}
 #end
+
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+	    render${childrenListVariable} = false; // reset
+	    if ("child-$childrenListVariable".equals(tabId)) {
+		    render${childrenListVariable} = true;
+			populate$childrenListVariable ();
+		}
+#end
 #end
 #end
     }
@@ -439,6 +492,41 @@ public class ${className} implements java.io.Serializable{
 		isRenderDialog${childrenListClass}=false;
 	}
 #end
+#end
+
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+	//rendering of tab
+
+    private boolean render${childrenListVariable} = false;
+
+	public boolean isRender${childrenListClass}() {
+		return render${childrenListVariable};
+	}
+	// rendering of add button 
+    private boolean isRenderAdd${childrenListClass} = false;
+
+	public boolean isRenderAdd${childrenListClass}() {
+		return isRenderAdd${childrenListClass};
+	}	
+	public void activateRenderAdd${childrenListClass}() {
+		isRenderAdd${childrenListClass} = true;
+	}
+	public void desactivateRenderAdd${childrenListClass}() {
+		isRenderAdd${childrenListClass} = false;
+	}
+	// rendering of dialog button 
+    private boolean isRenderDialog${childrenListClass} = false;
+
+	public boolean isRenderDialog${childrenListClass}() {
+		return isRenderDialog${childrenListClass};
+	}	
+	public void activateRenderDialog${childrenListClass}() {
+		isRenderDialog${childrenListClass}=true;
+	}
+	public void desactivateRenderDialog${childrenListClass}() {
+		isRenderDialog${childrenListClass}=false;
+	}
 #end
 
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
