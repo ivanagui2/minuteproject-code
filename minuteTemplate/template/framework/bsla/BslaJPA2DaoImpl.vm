@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,9 @@ import $importDomainObjectUML;
 import $importDomainObjectUML;
 #end
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 /**
  *
  * <p>Title: $className</p>
@@ -42,10 +46,15 @@ import $importDomainObjectUML;
  *
  */
 
-public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
+@Repository(value="$daoInterfaceVariableNameUML")
+##public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
+public class $className implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
 
 	public $className () {}
-
+	
+    @PersistenceContext
+    EntityManager entityManager;
+	
     /**
      * Inserts a $tableClassName entity 
      * @param $tableClassName $tableVariableName
@@ -54,7 +63,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #if($isFieldRelationshipPersistence)
        convertTransientReferenceToNull ($tableVariableName);
 #end
-       getJpaTemplate().persist($tableVariableName);
+       entityManager.persist($tableVariableName);
     }
 
     protected void insert$tableClassName(EntityManager emForRecursiveDao, $tableClassName $tableVariableName) {
@@ -75,7 +84,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 #if($isFieldRelationshipPersistence)
        convertTransientReferenceToNull ($tableVariableName);
 #end
-       return getJpaTemplate().merge($tableVariableName);
+       return entityManager.merge($tableVariableName);
     }
 
 	/**
@@ -151,16 +160,16 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @param $tableClassName $tableVariableName
      */
     public void save$tableClassName($tableClassName $tableVariableName) {
-       //getJpaTemplate().persist($tableVariableName);
+       //entityManager.persist($tableVariableName);
 #if($isFieldRelationshipPersistence)
        convertTransientReferenceToNull ($tableVariableName);
 #end
-       if (getJpaTemplate().contains($tableVariableName)) {
-          getJpaTemplate().merge($tableVariableName);
+       if (entityManager.contains($tableVariableName)) {
+          entityManager.merge($tableVariableName);
        } else {
-          getJpaTemplate().persist($tableVariableName);
+          entityManager.persist($tableVariableName);
        }
-       getJpaTemplate().flush(); 
+       entityManager.flush(); 
     }
        
     /**
@@ -168,7 +177,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @param $tableClassName $tableVariableName
      */
     public void delete$tableClassName($tableClassName $tableVariableName) {
-      getJpaTemplate().remove($tableVariableName);
+      entityManager.remove($tableVariableName);
     }
     
     /**
@@ -178,7 +187,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @return $tableClassName The $tableClassName entity
      
     public $tableClassName load$tableClassName(Long id) {
-    	return ($tableClassName)getJpaTemplate().get(${tableClassName}.class, id);
+    	return ($tableClassName)entityManager.get(${tableClassName}.class, id);
     }
 */
   
@@ -194,10 +203,10 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      */
 #if($isMany2Many)
     public $tableClassName load$tableClassName($tableClassName ${tableVariableName}) {
-    	return ($tableClassName)getJpaTemplate().find(${tableClassName}.class, ${tableVariableName});    
+    	return ($tableClassName)entityManager.find(${tableClassName}.class, ${tableVariableName});    
 #else      
     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable) {
-    	return ($tableClassName)getJpaTemplate().find(${tableClassName}.class, $primaryKeyVariable);
+    	return ($tableClassName)entityManager.find(${tableClassName}.class, $primaryKeyVariable);
 #end    
     }
     
@@ -226,7 +235,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable) {
-        List list = getJpaTemplate().find(
+        List list = getResultList(
                      "SELECT $tableVariableName FROM $tableClassName $tableVariableName "
 #foreach ($reference in $table.children)
 #if(!$linktableDB.isManyToMany())
@@ -239,7 +248,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
          if (list!=null && !list.isEmpty())
             return ($tableClassName)list.get(0);
          return null;
-    	//return null;//($tableClassName) getJpaTemplate().queryForObject("loadFullFirstLevel$tableClassName", id);
+    	//return null;//($tableClassName) entityManager.queryForObject("loadFullFirstLevel$tableClassName", id);
     }
 
     /**
@@ -273,7 +282,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
          }
 #end
 #end
-        List list = getJpaTemplate().find(query.toString());
+        List list = getResultList(query.toString());
         if (list!=null && !list.isEmpty())
            return ($tableClassName)list.get(0);    
         return null;
@@ -286,7 +295,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName loadFull$tableClassName(Long id) {
-    	return null;//($tableClassName)getJpaTemplate().queryForObject("loadFull$tableClassName", id);
+    	return null;//($tableClassName)entityManager.queryForObject("loadFull$tableClassName", id);
     }
 
     /**
@@ -358,13 +367,16 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
     }
 
     protected List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}s, Integer maxResults) {    
-       //TODO convert setMaxResults in JPA if (maxResults!=null)
-       //   getJpaTemplate().setMaxResults(maxResults);
-       return getJpaTemplate().find(get${tableClassName}SearchEqualQuery (null, ${tableVariableName}s));            
-    }    
+	   return getResultList(get${tableClassName}SearchEqualQuery (null, ${tableVariableName}s));
+	}    
+
+    protected List<$tableClassName> getResultList (String query) {    
+	   Query hquery = entityManager.createQuery(query);            
+	   return hquery.getResultList();
+	}    
 
     public List<$tableClassName> searchDistinctPrototype$tableClassName ($tableClassName ${tableVariableName}Mask, List<$tableClassName> ${tableVariableName}s) {
-        return getJpaTemplate().find(get${tableClassName}SearchEqualQuery (${tableVariableName}Mask, ${tableVariableName}s));    
+        return getResultList(get${tableClassName}SearchEqualQuery (${tableVariableName}Mask, ${tableVariableName}s));    
     }
          
 	/**
@@ -374,7 +386,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
      * @return List
      */
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
-	    return getJpaTemplate().find(get${tableClassName}SearchEqualQuery (${tableVariableName}Positive, ${tableVariableName}Negative));  
+	    return getResultList(get${tableClassName}SearchEqualQuery (${tableVariableName}Positive, ${tableVariableName}Negative));  
     }
 
     /**
@@ -611,7 +623,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 			     query.append(",");
 		   }
 	       query.append(") ");
-	       return getJpaTemplate().find(query.toString()); 
+	       return entityManager.find(query.toString()); 
     	} 
         return new ArrayList<$tableClassName>();
     }      
@@ -632,7 +644,7 @@ public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {#
 ##parse("./snippet/orm/dao/queryBuilderUtils.vm")   
    
     protected EntityManager getEntityManager () {
-        return EntityManagerFactoryUtils.getTransactionalEntityManager(getJpaTemplate().getEntityManagerFactory());    
+        return entityManager;    
     }
 
 #if($isFieldRelationshipPersistence)
