@@ -319,7 +319,7 @@ public class ConvertUtils {
 		if (dBType.equals("DECIMAL"))
 			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
-			return  "Integer";	
+			return  "Short";	
 		if (dBType.equals(DB_TINYINT_TYPE))
 			return  "Short";	
 		if (dBType.equals("VARCHAR"))
