@@ -28,7 +28,7 @@
         <ui:insert name="body">Welcome $model.name Primeface webapp. <a href="http://minuteproject.sf.net">Powered by minuteproject</a>.</ui:insert>
     </p:layoutUnit>
     <p:layoutUnit position="south" size="100" header="Disclaimer" resizable="true" closable="true" collapsible="true">  
-        <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a>
+        <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a> version $minuteprojectUtils.version
     </p:layoutUnit>  
   </p:layout>
 </h:body>
