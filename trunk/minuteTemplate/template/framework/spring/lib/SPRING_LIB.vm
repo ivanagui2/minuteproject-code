@@ -46,6 +46,8 @@
 #macro (exposeSpringTemplate)
 #set ($templateDomainObjectBslaDaoInterface = "BslaDaoInterfaceUML")
 #set ($templateDomainObjectBslaDaoExtInterface = "BslaDaoInterfaceExtendedUML")
+#set ($templateDomainObjectBslaDaoImpl = "BslaJPADaoImplUML")
+#set ($templateDomainObjectBslaDaoExtImpl = "BslaJPAExtendedDaoImplUML")
 #set ($templateRestController = "SpringMVCRestController")
 #set ($templateSpringBackendConfig="BslaSpringConfigMainBackend")
 #set ($templateSpringApplicationContextConfig="Spring.Service.ApplicationContext.Config")
