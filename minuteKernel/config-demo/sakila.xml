@@ -28,18 +28,31 @@
 				</primaryKeyPolicy>
 			</data-model>
 			<business-model>
-				<business-package default="project">
-					<condition type="package" startsWith="STAT" result="statistics"></condition>
-					<condition type="package" startsWith="SEC" result="security"></condition>
-					<condition type="package" startsWith="ADMIN" result="admin"></condition>
-					<condition type="package" startsWith="RELEASE" result="release"></condition>
-					<condition type="package" startsWith="BUS" result="business"></condition>
-					<condition type="package" startsWith="VIEW_STAT" result="stats"></condition>
+				<business-package default="sakila">
+					<condition type="package" startsWith="FILM" result="film"></condition>
+					<condition type="package" startsWith="LANGUAGE" result="film"></condition>
+					<condition type="package" startsWith="category" result="film"></condition>
+					<condition type="package" startsWith="ACTOR" result="film"></condition>
+					<condition type="package" startsWith="INVENTORY" result="film"></condition>
+					
+					<condition type="package" startsWith="STAFF" result="business"></condition>
+					<condition type="package" startsWith="STORE" result="business"></condition>
+					<condition type="package" startsWith="RENTAL" result="business"></condition>
+					<condition type="package" startsWith="PAYMENT" result="business"></condition>
+					
+					<condition type="package" startsWith="COUNTRY" result="customer"></condition>
+					<condition type="package" startsWith="CITY" result="customer"></condition>
+					<condition type="package" startsWith="ADDRESS" result="customer"></condition>
+					<condition type="package" startsWith="CUSTOMER" result="customer"></condition>
+					
+					
 				</business-package>
 				<enrichment>
 					<conventions>
+					<!-- 
 						<column-naming-convention type="apply-strip-column-name-suffix"
 							pattern-to-strip="_ID" />
+							 -->
 						<reference-naming-convention
 							type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true" />
 						<ordering-convention field-pattern="DISPLAY_ORDER"
@@ -55,11 +68,11 @@
 						<stereotype-convention field-pattern="notes"
 							field-pattern-type="equals" stereotype="text-html" />
 
-						<!-- primary key conv -->
+						<!-- primary key conv 
 						<column-naming-convention
 							type="apply-fix-primary-key-column-name-when-no-ambiguity-and-not-natural"
 							default-value="ID" />
-
+-->
 						<!-- strip prefix -->
 						<entity-naming-convention type="apply-strip-table-name-prefix"
 							pattern-to-strip="ADMIN_,SEC_,BUS_" />

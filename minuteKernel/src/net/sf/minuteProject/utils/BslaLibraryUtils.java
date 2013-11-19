@@ -127,6 +127,7 @@ public class BslaLibraryUtils extends CommonUtils{
 			if (ConvertUtils.JAVA_BIGINTEGER_TYPE.equals(type)) return "bigIntegerMask__";
 			if (ConvertUtils.JAVA_LONG_TYPE.equals(type))       return "longMask__";
 			if (ConvertUtils.JAVA_INTEGER_TYPE.equals(type))    return "integerMask__";	
+			if (ConvertUtils.JAVA_SHORT_TYPE.equals(type))      return "shortMask__";	
 		}
 		return CommonUtils.getJavaDefaultMask(column);
 	}

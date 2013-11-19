@@ -43,4 +43,8 @@ class Jpa2Utils {
 			return false;
 		"tomcat".equals(s)
 	}
+	
+	public static boolean isEmbedded (Table table) {
+		TableUtils.isCompositePrimaryKeyNotMany2Many(table);
+	}
 }
