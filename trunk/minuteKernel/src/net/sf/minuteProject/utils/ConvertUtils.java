@@ -117,7 +117,7 @@ public class ConvertUtils {
 		if (dBType.equals("DECIMAL"))
 			return  JAVA_BIGDECIMAL_TYPE;
 		if (dBType.equals("SMALLINT"))
-			return  JAVA_INTEGER_TYPE;	
+			return  JAVA_SHORT_TYPE;	
 		if (dBType.equals(DB_TINYINT_TYPE))
 			return  JAVA_SHORT_TYPE;	
 		if (dBType.equals("VARCHAR"))
