@@ -37,6 +37,7 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.EnumUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.RoutineUtils;
@@ -102,6 +103,7 @@ public class ModelGenerator extends AbstractGenerator {
 	private FileUtils fileUtils= new FileUtils();
 	private OrderingUtils orderingUtils = new OrderingUtils();
 	private EnrichmentUtils enrichmentUtils = new EnrichmentUtils();
+	private MinuteProjectUtils minuteprojectUtils = new MinuteProjectUtils();
 
 	private Model model;
 
@@ -544,6 +546,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("fileUtils", fileUtils);
 		context.put("orderingUtils", orderingUtils);
 		context.put("enrichmentUtils", enrichmentUtils);
+		context.put("minuteprojectUtils", minuteprojectUtils);
 	}
 	
 	public BslaLibraryUtils getBslaLibraryUtils() {
@@ -623,11 +626,6 @@ public class ModelGenerator extends AbstractGenerator {
 			webUtils = new WebUtils();
 		return webUtils;
 	}
-
-	/* 
-	 * private getter of the context object 
-	 */
-	
 
 	public Model getModel() {
 		return model;
