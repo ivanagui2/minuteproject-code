@@ -77,7 +77,8 @@ public class Model extends AbstractConfiguration{
 	}
 	
 	public boolean hasStatementModel() {
-		if (statementModel!=null)
+		if (statementModel!=null
+			&& statementModel.getQueries().getQueries().size()>0)
 			return true;
 		return false;
 	}
