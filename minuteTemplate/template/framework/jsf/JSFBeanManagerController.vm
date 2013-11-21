@@ -86,7 +86,7 @@ import $importDomainObjectUML;
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #exposeEmbeddedId($table)
 #set($deletionNotYetImplemented=true)
-#set($primaryKeyJavaNameClass = $embeddedIdClass)
+#set($primaryKeyJavaNameClass = $embeddedIdClass+"_")
 #end
 public class ${className} implements java.io.Serializable{
 

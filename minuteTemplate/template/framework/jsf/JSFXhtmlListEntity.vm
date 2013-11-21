@@ -43,6 +43,7 @@
 #end
 #end		
 #foreach ($column in $table.attributes)
+#if (!$column.isLob())
 #putColumnParams()
 #columnJavaNaming()	
         <p:column sortBy="#{${domainVariableName}.${columnVar}}" filterBy="#{${domainVariableName}.${columnVar}}">  
@@ -51,6 +52,7 @@
             </f:facet>  
             <h:outputText value="#{${domainVariableName}.${columnVar}}" />  
         </p:column>  
+#end
 #end
 		<f:facet name="footer"> 
 			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
