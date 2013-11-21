@@ -92,6 +92,8 @@ public class ${className} implements Converter {
 
 	@Override
     public String getAsString(FacesContext context, UIComponent ui, Object object) {
+		if (object==null)
+            return "";
 		return (($tableClassName) object).get${primaryKeyJavaNameClass}().toString();
 ##		return object.toString();
     }

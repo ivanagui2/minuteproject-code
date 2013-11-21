@@ -12,7 +12,7 @@
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
+#if (!$isMany2Many && $isPkUserProvided && !$isForeignKey)
 #putJSFColumnSnippet2()
 ##$columnVar =  $column.alias
 #end
@@ -45,7 +45,7 @@
 #set ($childrenListClass = $childrenListClass+$velocityCount)
 <p:outputPanel id="container${childrenListClass}" >
  <p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
-		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
+		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendTo="@(body)">
 	<h:form id="suc${childrenListClass}Form">
     <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
         id="table$childrenListClass" 
