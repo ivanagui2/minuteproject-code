@@ -9,6 +9,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 
 public abstract class ColumnAbstract extends ColumnBaseAbstract implements Column {
@@ -415,9 +416,7 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 	}
 	
 	private Boolean getIsLob() {
-		if (getType().equals("CLOB") || column.getType().equals("BLOB"))
-			return true;
-		return false;
+		return ColumnUtils.isLob(this);
 	}
 
 	public Stereotype getStereotype() {

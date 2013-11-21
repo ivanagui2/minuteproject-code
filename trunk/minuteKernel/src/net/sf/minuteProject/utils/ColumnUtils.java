@@ -147,6 +147,21 @@ public class ColumnUtils {
 			return false;
 	}
 	
+	public static boolean isLob (Column column) {
+		return isClob(column) || isBlob(column);
+	}
+	
+	private static boolean isBlob(Column column) {
+		if (column!=null && 
+				(
+					column.getType().equals("BLOB") || 
+					column.getType().equals("LONGVARBINARY") 
+					)
+				)
+				return true;
+			return false;
+	}
+
 	public static boolean isPkUserProvided (Column column) {
 		return isNaturalPk(column);
 	}
