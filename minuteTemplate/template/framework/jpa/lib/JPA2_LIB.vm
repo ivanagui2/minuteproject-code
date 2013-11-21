@@ -53,6 +53,8 @@
 #putJPA2TemplateDefinition()
 #set ($embeddedIdClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2EmbeddedId))
 #set ($embeddedIdVariable = $commonUtils.getJavaNameVariableFirstLetter($embeddedIdClass))
+##this variable my collide with existing attribute
+#set ($embeddedIdVariable = $tableUtils.getEmbeddedVariable($tableDB, $embeddedIdVariable))
 #set ($importDomainObjectUMLEmbeddedId = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2EmbeddedId))
 #end
 

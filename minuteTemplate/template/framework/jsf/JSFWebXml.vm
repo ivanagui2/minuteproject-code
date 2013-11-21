@@ -30,7 +30,7 @@
 *#
         <context-param>
             <param-name>facelets.FACELETS_SKIP_COMMENTS</param-name>
-            <param-value>ENABLE</param-value>
+            <param-value>true</param-value>
         </context-param>
 #if($isSpringBackend)
     	<!-- if spring -->
