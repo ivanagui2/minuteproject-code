@@ -348,13 +348,15 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isPartOfCompositePrimaryKey(Column column) {
-		Column[] primaryKeyColumns = column.getTable().getPrimaryKeyColumns();
-		if (primaryKeyColumns.length<2)
-			return false;
-		String columnLowerCase = column.getName().toLowerCase();
-		for (Column col : primaryKeyColumns) {
-			if (col.getName().toLowerCase().equals(columnLowerCase))
-				return true;
+		if (column!=null) {
+			Column[] primaryKeyColumns = column.getTable().getPrimaryKeyColumns();
+			if (primaryKeyColumns.length<2)
+				return false;
+			String columnLowerCase = column.getName().toLowerCase();
+			for (Column col : primaryKeyColumns) {
+				if (col.getName().toLowerCase().equals(columnLowerCase))
+					return true;
+			}
 		}
 		return false;
 	}
