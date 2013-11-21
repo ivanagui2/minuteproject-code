@@ -22,6 +22,7 @@
 #end
 #end
 #foreach ($column in $table.attributes)
+#if (!$column.isLob())
 #putColumnParams()
 #columnJavaNaming()	
             <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
@@ -29,6 +30,7 @@
                     <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
                 </f:facet>  
                 <h:outputText value="#{item.${columnVar}}" />  
-            </p:column>  
+            </p:column>
+#end
 #end
 </html>

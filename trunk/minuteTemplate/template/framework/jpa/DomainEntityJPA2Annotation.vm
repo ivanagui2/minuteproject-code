@@ -4,6 +4,7 @@
 #exposeEnvironmentParams()
 #exposeJPA2Specifics()
 #addedAreas()
+#set($isEmbedded = $jpa2Utils.isEmbedded($table))
 package $packageName;
 
 $!updatedAreaImport
@@ -86,7 +87,7 @@ public class ${className} implements Serializable {
 #end
 #end	
 	
-#if ($jpa2Utils.isEmbedded($table))
+#if ($isEmbedded)
     @EmbeddedId
     private ${embeddedIdClass} $embeddedIdVariable;
 #foreach($column in ${table.primaryKeyColumns})
@@ -348,6 +349,9 @@ $!updatedAreaSnippet
           (get$columnClass()==null)?null:get$columnClass().toString()#if ($velocityCount!=$table.columnCount),
 #end
 #else
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
           get$columnClass()#if ($velocityCount!=$table.columnCount),
 #end
 #end
@@ -446,6 +450,9 @@ $!updatedAreaSnippet
 #exposeRelationship($table, $reference)
 #set($localColumnVariable = $commonUtils.getColumnAliasVariable($table, $reference))
 #set($localColumnClass = $commonUtils.getColumnAliasClass($table, $reference))
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
         if (get${localColumnClass}()!=null) 
             ${variableName}.set${localColumnClass} (get${localColumnClass}().clone());   
 #end	   
@@ -485,6 +492,9 @@ $!updatedAreaSnippet
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
         if ("${columnVar}".equals(pattern))
            set$columnClass(value);
 #end
@@ -498,6 +508,9 @@ $!updatedAreaSnippet
 #putColumnParamNaming()
 #if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
 #putDefaultMaskColumnValue()
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
         if ("${columnVar}".equals(pattern))
            set$columnClass($defaultMask);
 #end
@@ -509,6 +522,9 @@ $!updatedAreaSnippet
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
 #if ($columnType=="String" && !$isEnum && !$isForeignKey)
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
         if (StringUtils.isEmpty(get$columnClass()))
            set$columnClass(null);
 #end
@@ -534,12 +550,17 @@ $!updatedAreaSnippet
     
 #end   
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-    public $embeddedIdClass get$embeddedIdClass() {
+#if ($isEmbedded)
+#set($embeddedIdClassGetSet=$embeddedIdClass+"_")
+#else
+#set($embeddedIdClassGetSet=$embeddedIdClass)
+#end
+    public $embeddedIdClass get$embeddedIdClassGetSet() {
 		if ($embeddedIdVariable==null) $embeddedIdVariable = new $embeddedIdClass();
         return $embeddedIdVariable;
     }
 	
-    public void set$embeddedIdClass ($embeddedIdClass $embeddedIdVariable) {
+    public void set$embeddedIdClassGetSet ($embeddedIdClass $embeddedIdVariable) {
         this.$embeddedIdVariable =  $embeddedIdVariable;
     }
 #foreach($column in ${table.primaryKeyColumns})
@@ -653,8 +674,8 @@ $!updatedAreaSnippet
         this.${childrenListVariable} = ${childrenListVariable};
     }	
     
-    public void add${childrenListClass} ($linkedTableClass ${linkedTableVariable}) {
-    	    get${childrenListClass}().add($linkedTableVariable);
+    public void add${childrenListClass} ($linkedTableClass element) {
+    	    get${childrenListClass}().add(element);
     }
     
 #end    
@@ -675,8 +696,8 @@ $!updatedAreaEnd
         this.${childrenListVariable} = ${childrenListVariable};
     }
     	
-    public void add${targetTableName} ($targetTableName ${childrenListVariable}) {
-        get${childrenListClass}().add($childrenListVariable);
+    public void add${childrenListClass} ($targetTableName element) {
+        get${childrenListClass}().add(element);
     }
 	
 #end
