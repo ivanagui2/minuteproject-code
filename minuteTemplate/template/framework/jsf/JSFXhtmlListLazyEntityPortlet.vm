@@ -37,7 +37,6 @@
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
 
 	<p:confirmDialog id="confirmDialog" showEffect="fade" hideEffect="fade" global="true" >
-##appendToBody="true">
 		<h:form id="deletion">
 			<p:commandButton id="confirm" value="Yes" immediate="true" 
 				styleClass="ui-confirmdialog-yes" 

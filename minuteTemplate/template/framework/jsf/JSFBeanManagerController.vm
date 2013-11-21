@@ -291,7 +291,7 @@ public class ${className} implements java.io.Serializable{
         // not supported! cannot transform row in composite pk
         return new $tableClassName();
 #else
-	   if (rowKey == null) return new $tableClassName();
+	   if (rowKey == null || "null".equals(rowKey)) return new $tableClassName();
 #if($columnUtils.isString($primaryKeyFirstColumn))
         return ${EJBDaoImplVariable}.load(rowKey);
 #else
