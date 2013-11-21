@@ -4,7 +4,6 @@
 #exposeEnvironmentParams()
 #exposeJPA2Specifics()
 #addedAreas()
-#set($isEmbedded = $jpa2Utils.isEmbedded($table))
 package $packageName;
 
 $!updatedAreaImport
@@ -334,7 +333,7 @@ $!updatedAreaSnippet
 #putColumnParamNaming()
 #if ($columnUtils.belongsToCompositePrimaryKeyNotMany2Many($column))
 #set($columnClass=$columnUtils.getPrimaryKeyClassName($table, $column.name))
-		  get${embeddedIdClass}().get$columnClass()#if ($velocityCount!=$table.columnCount),
+		  get${embeddedIdClassGetSet}().get$columnClass()#if ($velocityCount!=$table.columnCount),
 #end
 #else
 #if($column.isPrimaryKey())
@@ -550,11 +549,12 @@ $!updatedAreaSnippet
     
 #end   
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-#if ($isEmbedded)
+#* #if ($isEmbedded)
 #set($embeddedIdClassGetSet=$embeddedIdClass+"_")
 #else
 #set($embeddedIdClassGetSet=$embeddedIdClass)
 #end
+*#
     public $embeddedIdClass get$embeddedIdClassGetSet() {
 		if ($embeddedIdVariable==null) $embeddedIdVariable = new $embeddedIdClass();
         return $embeddedIdVariable;

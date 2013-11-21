@@ -51,6 +51,7 @@
 
 #macro (exposeEmbeddedId $tableDB)
 #putJPA2TemplateDefinition()
+#set ($isEmbedded = $jpa2Utils.isEmbedded($table))
 #set ($embeddedIdClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateJPA2EmbeddedId))
 #set ($embeddedIdVariable = $commonUtils.getJavaNameVariableFirstLetter($embeddedIdClass))
 ##this variable my collide with existing attribute
@@ -70,10 +71,24 @@ import $enumImport;
 #end
 
 #macro (exposeJPA2CompositeKeyImport)
-#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #exposeEmbeddedId($table)
+#if ($isEmbedded)
 import $importDomainObjectUMLEmbeddedId;
 #end
+#if ($isEmbedded)
+#set($embeddedIdClassGetSet=$embeddedIdClass+"_")
+#end
+#end
+
+#macro (exposeJPA2CompositeKeyImportOld)
+#set($isEmbedded = $jpa2Utils.isEmbedded($table))
+#if ($isEmbedded)
+#exposeEmbeddedId($table)
+#set($embeddedIdClassGetSet=$embeddedIdClass+"_")
+#else
+#set($embeddedIdClassGetSet=$embeddedIdClass)
+#end
+import $importDomainObjectUMLEmbeddedId;
 #end
 
 #macro (exposeJPA2Import)
