@@ -653,5 +653,22 @@ public class TableUtils {
 		return true;
 	}
 	
+	public static String getEmbeddedVariable (Table table, String proposedVariable) {
+		return proposedVariable+"__";
+	}
+//	
+//	public static String getEmbeddedClass (Table table, String proposedVariable) {
+//		return proposedVariable+"__";
+//	}
+	
+	public static boolean isPartOfEmbeddedAnNotForeignKey (Column column) {
+		if(isCompositePrimaryKeyNotMany2Many(column.getTable())) {
+			for (Column c : column.getTable().getPrimaryKeyColumns()) {
+				if (c.getName().equals(column.getName()))
+					return true;
+			}
+		}
+		return false;
+	}
 
 }
