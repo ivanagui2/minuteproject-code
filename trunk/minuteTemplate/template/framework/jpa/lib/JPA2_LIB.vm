@@ -76,19 +76,8 @@ import $enumImport;
 import $importDomainObjectUMLEmbeddedId;
 #end
 #if ($isEmbedded)
-#set($embeddedIdClassGetSet=$embeddedIdClass+"_")
+#set($embeddedIdClassGetSet=$embeddedIdClass+"__")
 #end
-#end
-
-#macro (exposeJPA2CompositeKeyImportOld)
-#set($isEmbedded = $jpa2Utils.isEmbedded($table))
-#if ($isEmbedded)
-#exposeEmbeddedId($table)
-#set($embeddedIdClassGetSet=$embeddedIdClass+"_")
-#else
-#set($embeddedIdClassGetSet=$embeddedIdClass)
-#end
-import $importDomainObjectUMLEmbeddedId;
 #end
 
 #macro (exposeJPA2Import)
