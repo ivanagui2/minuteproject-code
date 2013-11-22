@@ -194,7 +194,7 @@ public class ${className} {
 		panel.setId("menuTitle"+tuple.getEntry());
 		//panel.setStyleClass(" ui-state-disactive ");
 		HtmlOutputLink link = new HtmlOutputLink();
-        link.setValue(tuple.getUrl()); 
+        link.setValue(getContextPath()+tuple.getUrl()); 
 		HtmlOutputText h =new HtmlOutputText() ;
         h.setValue(tuple.getTitle());
         link.getChildren().add(h);
@@ -235,6 +235,20 @@ public class ${className} {
         if(request instanceof HttpServletRequest)
         {
             return ((HttpServletRequest) request).getServletPath();
+        }else
+        {
+            return "";
+        }
+    }
+	
+	
+    public String getContextPath()
+    {
+        Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        if(request instanceof HttpServletRequest)
+        {
+            HttpServletRequest req = (HttpServletRequest) request;
+            return req.getContextPath();
         }else
         {
             return "";

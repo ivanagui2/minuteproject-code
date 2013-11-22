@@ -363,7 +363,8 @@ $!updatedAreaEnd
 #end
 #set($count=$count+1)
 ##//$velocityCount $count
-      sb.append (${element}.get$columnClass()#if($count<$velocityCount) +" - "); #else +" " ); 
+      sb.append (${element}.get$columnClass()#if($count<$velocityCount) +" - "); 
+#else +" " ); 
 #end 
 #end
 #end

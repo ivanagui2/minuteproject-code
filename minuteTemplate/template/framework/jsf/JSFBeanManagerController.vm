@@ -141,7 +141,15 @@ public class ${className} implements java.io.Serializable{
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
 		    refresh$childrenListClass = false;
     		$linkedTableClass mask = new $linkedTableClass();
-    		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+##set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKey, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
+##    		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+#if ($linkedColumn.type!=$primaryKeyFirstColumn.type)
+	        // cannot apply mask (type mismatch (link type = $linkedColumn.type and pk type = $primaryKeyFirstColumn.type))
+#set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKeyFirstColumn, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
+			// mask.set${linkedColumnClass}_($maskValue);
+#else
+			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+#end
     		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
 		}
 	}
@@ -263,12 +271,18 @@ public class ${className} implements java.io.Serializable{
 
                 @Override
                 public Object getRowKey($tableClassName element) {
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
+                    // not fully supported! cannot transform row in composite pk
+				    return element.get${primaryKeyVariable}_();
+#else
 #if(!$columnUtils.isString($primaryKeyFirstColumn))
                     if (element.get$primaryKeyJavaNameClass()==null)
                         return null;
                     return element.get$primaryKeyJavaNameClass().toString();
 #else
                     return element.get$primaryKeyJavaNameClass();
+#end
 #end
                 }
 			};
@@ -278,17 +292,25 @@ public class ${className} implements java.io.Serializable{
 
     public void reloadSelected() {
 ##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#if ($hasOnlyOnePrimaryKey)
 #if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
-        // not supported! cannot transform row in composite pk
+        // not fully supported! cannot transform row in composite pk
+#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
+
+		selected$tableClassName = ${EJBDaoImplVariable}.load(selected${tableClassName}.get${primaryKeyVariable}_());
+
 #else
     	selected$tableClassName = ${EJBDaoImplVariable}.load(selected${tableClassName}.get$primaryKeyJavaNameClass());
+#end
+#else
+        // not supported! has more than one pk	
 #end
     }
 
     public $tableClassName serviceLoad(String rowKey) {
 ##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
 #if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
-        // not supported! cannot transform row in composite pk
+        // not fully supported! cannot transform row in composite pk
         return new $tableClassName();
 #else
 	   if (rowKey == null || "null".equals(rowKey)) return new $tableClassName();
@@ -307,6 +329,7 @@ public class ${className} implements java.io.Serializable{
     public void createOrUpdateListener(ActionEvent event) {
 		createOrUpdateListener();
 	}
+	
     public void createOrUpdateListener() {
     	try {
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
@@ -335,12 +358,18 @@ public class ${className} implements java.io.Serializable{
 	
     public void deleteListener(ActionEvent event) {
         try {
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+        // not fully supported! cannot transform row in composite pk
+#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
+		    if (selected${tableClassName}.get${primaryKeyVariable}_() != null) {
+#else
             if (selected${tableClassName}.get$primaryKeyJavaNameClass() != null) {
 #if(!$deletionNotYetImplemented)
                 ${EJBDaoImplVariable}.delete(selected${tableClassName});
                 JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityDeleted"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 #else
                 JsfUtils.addSuccessMessage("deletion not implemented for composite pk, please contribute");
+#end
 #end
             }
 			else {

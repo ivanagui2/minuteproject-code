@@ -65,16 +65,6 @@ public class ${className} implements Converter {
         $tableClassName $tableVariableName = new $tableClassName();
 #if ($jpa2Utils.isEmbedded($table))
 	//not ideal since not all the column are copied
-#*     
-@EmbeddedId
-    private ${embeddedIdClass} $embeddedIdVariable;
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParamNaming()
-#if(!$isForeignKey)
-    @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
-    private $columnType ${columnVar}_;
-#end
-*#
 #if($columnUtils.isString($primaryKeyFirstColumn))
 	    ${tableVariableName}.set${primaryKeyJavaNameClass}_(value);
 #else
@@ -94,7 +84,11 @@ public class ${className} implements Converter {
     public String getAsString(FacesContext context, UIComponent ui, Object object) {
 		if (object==null)
             return "";
+#if ($jpa2Utils.isEmbedded($table))
+		return (($tableClassName) object).get${primaryKeyJavaNameClass}_().toString();
+#else
 		return (($tableClassName) object).get${primaryKeyJavaNameClass}().toString();
+#end
 ##		return object.toString();
     }
 	

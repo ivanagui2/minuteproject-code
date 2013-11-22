@@ -84,10 +84,10 @@ public class $className implements $SpringServiceInterfaceClass {
         if (entity.get${localColumnClass}()!=null)
 #set ($fTable = $tableUtils.asUML($linktableDB))
 #set ($fprimaryKeyFirstColumn = $commonUtils.getPrimaryKeyFirstColumn($fTable))
-//$fprimaryKeyFirstColumn
 #set ($fprimaryKeyJavaNameClass = $commonUtils.getColumnClassName($fprimaryKeyFirstColumn))
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-	       entity.get${localColumnClass}().get${fprimaryKeyJavaNameClass}().get${fprimaryKeyJavaNameClass}();//improve with partialparent loading
+##	       entity.get${localColumnClass}().get${fprimaryKeyJavaNameClass}().get${fprimaryKeyJavaNameClass}_();//improve with partialparent loading
+	       entity.get${localColumnClass}().get${fprimaryKeyJavaNameClass}();//improve with partialparent loading
 #else
 	       entity.get${localColumnClass}().get${fprimaryKeyJavaNameClass}();//improve with partialparent loading
 #end
@@ -104,7 +104,8 @@ public class $className implements $SpringServiceInterfaceClass {
 	
 	public void delete ($tableClassName ${tableVariableName}) {
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass().get$primaryKeyJavaNameClass());
+##	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass().get${primaryKeyJavaNameClass}_());
+	    $tableClassName var = findById (${tableVariableName}.get${primaryKeyJavaNameClass}_());
 #else
 	    $tableClassName var = findById (${tableVariableName}.get$primaryKeyJavaNameClass());
 #end
