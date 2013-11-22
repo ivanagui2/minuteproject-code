@@ -60,6 +60,7 @@ public class ConvertUtils {
 	public static final String DB_LONGVARBINARY  					=	"LONGVARBINARY";
 	public static final String DB_VARBINARY  						=	"VARBINARY";
 	public static final String DB_BIGDECIMAL_TYPE  					=	"BIGDECIMAL";
+	public static final String DB_BIT_TYPE  					    =	"BIT";
 	
 	public static final String UML_STRING_TYPE 						=   "string";	
 	public static final String UML_INTEGER_TYPE 					=   "integer";	
@@ -67,6 +68,7 @@ public class ConvertUtils {
 	public static final String UML_DOUBLE_TYPE 						=   "double";	
 	public static final String UML_BIGDECIMAL_TYPE 					=   "bigdecimal";	
 	public static final String UML_BYTE_TYPE 						=   "byte";	
+	public static final String UML_BOOLEAN_TYPE 					=   "boolean";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	
@@ -92,6 +94,7 @@ public class ConvertUtils {
 		if (DB_SMALLINT_TYPE.equals(type)) return UML_INTEGER_TYPE;
 		if (DB_DECIMAL_TYPE.equals(type)) return UML_LONG_TYPE;
 		if (DB_DOUBLE_TYPE.equals(type)) return UML_DOUBLE_TYPE;
+		if (DB_BIT_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		return UML_STRING_TYPE;
 	}
 	

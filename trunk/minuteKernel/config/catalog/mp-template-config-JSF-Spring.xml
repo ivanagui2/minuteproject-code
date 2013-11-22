@@ -85,6 +85,11 @@
 			file-extension="java" file-prefix="JsfSemanticReferenceUtils" file-suffix="" 
 			model-specific="true" has-updatable-nature="true" add-model-name="false">
 		</template>
+		<template name="JSFManagedBeanUtils" templateFileName="JSFManagedBeanUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfManagedBeanUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
         <template name="JSF.Spring.Lookup.Service" templateFileName="JSF.Spring.Lookup.Service.vm" 
             technicalPackage="bean"
             file-extension="java" file-prefix="" file-suffix="LookupDefaultingService"

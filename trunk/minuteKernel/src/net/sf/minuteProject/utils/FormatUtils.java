@@ -145,7 +145,7 @@ public class FormatUtils {
 		return getJavaNameForGetterAndSetter(name, javaname);
 	}
 
-	private static String getJavaNameForGetterAndSetter(String name,
+	public static String getJavaNameForGetterAndSetter(String name,
 			String javaname) {
 		if (isStandardBean(name))
 			return firstLowerCase(javaname);
