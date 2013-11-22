@@ -211,7 +211,7 @@
 	</target>
 
 	<!-- target archive -->
-	<target name="archive" depends="clean,compileGroovy,resource,template, archive-code">
+	<target name="archive" depends="clean,template,compileGroovy,resource, archive-code">
 		<title title="TASK archive" projectname="${project.name}" projectdir="${home.dir}"/>
 		<description>Create an archive containing all the classes of the migration project</description>
 		<macro_archive compress="true" destdir="${dist.dir}" destfile="${archive.name}" classesdir="${classes.dir}"/>
