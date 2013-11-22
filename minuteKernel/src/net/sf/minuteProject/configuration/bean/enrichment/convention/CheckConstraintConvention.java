@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.StringUtils;
 
 public class CheckConstraintConvention extends ModelConvention {
@@ -51,6 +52,11 @@ public class CheckConstraintConvention extends ModelConvention {
 	}
 	
 	public boolean match (Column column) {
+		if (fieldContentType!=null) {
+			String umlType = ConvertUtils.getUMLTypeFromDBFullType(column.getType());
+			if (!umlType.toLowerCase().equals(fieldContentType.toLowerCase()))
+				return false;
+		}
 		return StringUtils.checkExpression(fieldPattern, fieldPatternType, column.getName());
 	}
 
