@@ -15,9 +15,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Targets extends AbstractConfiguration {
 	
+	private static final String MP_HOME = "MP_HOME";
 	private String outputdirRoot, catalog, catalogEntry, templatedirRoot;
 	public static final String deliveryPath = "../../template";
 	public static final String developmentPath = "../minuteTemplate/template";
+	public static final String MP_HOME_RELATIVE_PATH = "/template";
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List<Target> targets;
 	private GenerationAction postGenerationAction;
@@ -81,12 +83,16 @@ public class Targets extends AbstractConfiguration {
 
 	public String getTemplatedirRoot() throws MinuteProjectException {
 		if (hasCatalogEntry() && templatedirRoot==null) {
-			// try default for release
+			// try default for release (use by console)
 			if (FileUtils.exists(deliveryPath))
 				return deliveryPath;
-			// try default for dev
+			// try default for dev (used in dev, MP as a workspace)
 			if (FileUtils.exists(developmentPath))
 				return developmentPath;			
+			// try from MP_HOME (used by integration tool such as ANT)
+			String MpHomePath = System.getProperty(MP_HOME);
+			if (MpHomePath!=null && FileUtils.exists(MpHomePath))
+				return MpHomePath+MP_HOME_RELATIVE_PATH;			
 			throw new MinuteProjectException("targets node with catalog entry does not seems to have correct template association");
 		}
 		return templatedirRoot;
