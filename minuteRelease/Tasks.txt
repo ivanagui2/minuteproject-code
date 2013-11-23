@@ -29,7 +29,11 @@ Improve test:
  	
  Test for deployment
  xpath change connection
+ One config with all web track (REST(4), WS, OX, Vaadin, JSF(2))
+ with hsqldb started (url)
+ generation, package + deploy (tomcat (tomcat_home))
  
+ Test console
 
 Release 0.8.5
 -------------
