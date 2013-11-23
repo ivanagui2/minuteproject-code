@@ -438,9 +438,30 @@
 		<fileset dir="${application.lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
-
 	</path>
 
+	
+	<!-- ===================================================================== -->
+	<!-- hsqldb def -->
+	<!-- ===================================================================== -->
+    <target name="startdb" description="Run HSQL database server with clean DB">
+        <!-- Delete database files 
+        <delete dir="${database.dir}" />-->
+        <java classname="org.hsqldb.Server" fork="yes" classpathref="hsqldb.library.path" failonerror="true">
+            <arg value="-database.0" />
+            <arg value="./hsql/petshop" />
+            <arg value="-dbname.0" />  
+            <arg value="petshop" />  
+        </java>
+    </target>
+	
+    <target name="stopdb" description="Stop HSQL database server">
+        <sql driver="org.hsqldb.jdbcDriver" url="${dburl}" userid="sa" password="" onerror="continue">
+            <classpath refid="hsqldb.library.path" />
+            SHUTDOWN;
+        </sql>
+    </target>
+	
 	<!-- ===================================================================== -->
 	<!-- ant generation tasks definitions -->
 	<!-- ===================================================================== -->
