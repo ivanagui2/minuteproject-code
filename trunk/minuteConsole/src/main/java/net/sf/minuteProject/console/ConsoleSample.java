@@ -32,6 +32,7 @@ import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.loader.catalog.databasecatalog.DatabasecatalogHolder;
 import net.sf.minuteProject.loader.catalog.databasecatalog.node.Database;
 import net.sf.minuteProject.loader.catalog.technologycatalog.TechnologycatalogHolder;
+import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.catalog.CatalogUtils;
 
 public class ConsoleSample extends JFrame{
@@ -183,7 +184,6 @@ public class ConsoleSample extends JFrame{
 	private void initCatalogs(String catalogDir) throws MinuteProjectException {
 		databasecatalogHolder = CatalogUtils.getPublishedDatabaseCatalogHolder(catalogDir);
 		technologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir);
-//		webserviceTechnologycatalogHolder = CatalogUtils.getPublishedTechnologyCatalogHolder(catalogDir, "webservice");
 	}
 
 	public static void main(String args[]) {
@@ -194,9 +194,8 @@ public class ConsoleSample extends JFrame{
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new ConsoleSample("MinuteProject console 0.8.5 - beta -", catalogDir).setVisible(true);
+					new ConsoleSample("MinuteProject console "+ MinuteProjectUtils.getVersion()+" - beta -", catalogDir).setVisible(true);
 				} catch (MinuteProjectException mpe) {
-					// TODO Auto-generated catch block
 					logger.info("error generating : "+mpe.getError());
 				}
 			}
