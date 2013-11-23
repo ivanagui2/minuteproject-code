@@ -19,7 +19,7 @@
     </p:layoutUnit>
 *#
 #if(!$isPortlet)
-    <p:layoutUnit position="west" resizable="true" size="216" collapsible="true">
+    <p:layoutUnit header="Menu" position="west" resizable="true" size="216" collapsible="true">
         <ui:include src="/${model.name}/Menu.xhtml" />
     </p:layoutUnit>       
 #end
