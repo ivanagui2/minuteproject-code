@@ -87,6 +87,10 @@ a:hover {
     box-shadow: 0 0 10px #7bc1f7 !important;
 }
 
+.ui-accordion .ui-accordion-content {
+   padding: 0;
+}
+
 .mp-column-center {
     width: 30%;
     text-align: center;

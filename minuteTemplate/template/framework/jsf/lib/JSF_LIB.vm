@@ -466,8 +466,10 @@
 	 public static final String SDD_INDEX_ = "$index";
 #set($index=$index+1)
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
+#exposeQuerySpecific()
+#exposeChartSpecific()
 #set($table=$query.inputBean)
-#exposeJSFEntitySpecific()
+##&nbsp;exposeJSFEntitySpecific()
 #if (!$isChartLayout)
 #set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateSDDJSF))
 #else
