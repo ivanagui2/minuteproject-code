@@ -54,11 +54,11 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>
 			</business-model>
             <statement-model>
-				<enrichment>
+<!-- 				<enrichment> only for OX
 					<conventions>
 						<sdd-dummy-primarykey-convention add="true" />
 					</conventions>
-				</enrichment>        
+				</enrichment>   -->      
                 <queries>
                      <query name="get address abstract" id="dashAddress" type="dashboard" category="pie-chart">
                          <query-body> <!-- dimensions column first -->
@@ -92,7 +92,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                 </queries>
             </statement-model>
 		</model>
-		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,OpenXava,Vaadin">
+		<!-- ,OpenXava is not part since sdd  sdd-dummy-primarykey-convention convention is needed -->
+		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin">
 		</targets>
 	</configuration>
 </generator-config>
