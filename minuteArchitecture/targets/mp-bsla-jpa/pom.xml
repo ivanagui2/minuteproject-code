@@ -5,7 +5,7 @@
 	<artifactId>mp-bsla-jpa</artifactId>
 	<name>MinuteprojectBsla</name>
 	<packaging>jar</packaging>
-	<version>0.8.5</version>
+	<version>0.8.6</version>
 	<description>Minuteproject Basic spring layer architecture</description>
 	<url>http://minuteproject.wikispaces.net/BSLA</url>
 
@@ -97,7 +97,7 @@
 				</executions>
 			</plugin>
 
-<!-- 			<plugin>
+<!-- 	-->		<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<executions>
@@ -108,11 +108,11 @@
 							<goal>sign</goal>
 						</goals>
                         <configuration>
-                            <keyname>E6A0EF79</keyname>
+                            <keyname>23C28A7D</keyname>
                         </configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin> 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
