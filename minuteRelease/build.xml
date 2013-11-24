@@ -565,12 +565,12 @@
 	
 	<target name="generation-build-porphyry" depends="release-application" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-porphyry.xml" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/petshop" project="REST" artifact="petshopRestCxfJeeApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/petshop" project="REST" artifact="petshopRestCxfApp" />
-		<macro_build_and_deploy maven.basedir="REST-JEE/petshop" project="REST-JEE" artifact="petshopRESTApp" />
-		<macro_build_and_deploy maven.basedir="REST-SpringMVC/petshop" project="REST" artifact="petshopRestSpringMVCApp" />
-		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/porphyry" project="REST" artifact="porphyryRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/porphyry" project="REST" artifact="porphyryRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/porphyry" project="REST-JEE" artifact="porphyryRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/porphyry" project="REST" artifact="porphyryRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/porphyry" project="vaadin" artifact="porphyryVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/porphyry" project="JSF-primefaces" artifact="porphyryApp" />
 
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
