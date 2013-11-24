@@ -20,7 +20,7 @@
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 					<url>jdbc:mysql://localhost:3306/porphyry</url>
 					<username>root</username>
-					<password>mysql</password>
+					<password></password>
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema <schema> </schema> -->
 				<primaryKeyPolicy oneGlobal="true">
@@ -208,9 +208,9 @@
 			<!-- S D D -->
 			<statement-model>
 				<enrichment>
-					<conventions>
+<!-- 	for OX only				<conventions>
 						<sdd-dummy-primarykey-convention add="true" />
-					</conventions>
+					</conventions> -->
 				</enrichment>
 				<queries>
 			         <query name="ask_for_role" id="ask_for_role" >
@@ -315,12 +315,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                 </nested-statements>
             </statement-model>
 		</model>
-		<!-- <targets catalog-entry="Primefaces-Spring,JPA2" /> -->
-		<!--  -->
-	<!-- 	<targets catalog-entry="OpenXava,Vaadin" outputdir-root="D:/SRC/OPENXAVA/openxava-4.8/workspace/porphyry"/> -->
-		<targets catalog-entry="Primefaces-Spring" />
-<!--		outputdir-root="D:/SRC/OPENXAVA/temp/workspace/porphyry"/>
- 			 outputdir-root="D:/SRC/OPENXAVA/openxava-4.7.1/openxava-4.7.1/workspace/porphyry">
-		</targets> -->
+		<targets catalog-entry="Vaadin,Primefaces-Spring" />
+
 	</configuration>
 </generator-config>
