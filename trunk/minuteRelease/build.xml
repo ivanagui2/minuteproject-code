@@ -539,7 +539,18 @@
 	
 
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
-	<target name="generation-build-webapps" depends="release-application" >
+	<target name="generation-build-webapps" depends="generation-build-petshop" >
+		<antcall target="generation-build-petshop"/>
+		<antcall target="generation-build-porphyry"/>
+		<antcall target="generation-build-sakila"/>
+		<!--
+			<antcall target="generation-build-lazuly"/>
+			<antcall target="generation-build-northwind"/>
+			<antcall target="generation-build-tranxy"/>
+		-->
+	</target>
+	
+	<target name="generation-build-petshop" depends="release-application" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-webapps.xml" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/petshop" project="REST" artifact="petshopRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/petshop" project="REST" artifact="petshopRestCxfApp" />
@@ -547,6 +558,71 @@
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/petshop" project="REST" artifact="petshopRestSpringMVCApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-porphyry" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-porphyry.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/petshop" project="REST" artifact="petshopRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/petshop" project="REST" artifact="petshopRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/petshop" project="REST-JEE" artifact="petshopRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/petshop" project="REST" artifact="petshopRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-sakila" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-sakila.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/sakila" project="REST" artifact="sakilaRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/sakila" project="REST" artifact="sakilaRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/sakila" project="REST-JEE" artifact="sakilaRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/sakila" project="REST" artifact="sakilaRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/sakila" project="vaadin" artifact="sakilaVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/sakila" project="JSF-primefaces" artifact="sakilaApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-lazuly" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-lazuly.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/lazuly" project="REST" artifact="lazulyRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/lazuly" project="REST" artifact="lazulyRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/lazuly" project="REST-JEE" artifact="lazulyRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/lazuly" project="REST" artifact="lazulyRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/lazuly" project="vaadin" artifact="lazulyVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/lazuly" project="JSF-primefaces" artifact="lazulyApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-northwind" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-northwind.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/northwind" project="REST" artifact="northwindRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/northwind" project="REST" artifact="northwindRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/northwind" project="REST-JEE" artifact="northwindRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/northwind" project="REST" artifact="northwindRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/northwind" project="vaadin" artifact="northwindVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/northwind" project="JSF-primefaces" artifact="northwindApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-tranxy" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/tranxy" project="vaadin" artifact="tranxyVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/tranxy" project="JSF-primefaces" artifact="tranxyApp" />
 
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
