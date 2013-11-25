@@ -551,7 +551,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #set ($linkedDaoImplExtendedJPAName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 ##-- var = ${localTableVariable} - ${localColumnClass}
        if (${tableVariableName}.get${localColumnClass}()!=null) {
-	      String chunck = ${importDaoImplExtendedJPAName}.getPartialLoadWithParentWhere${linkedTableClass}Query(
+	      String chunck = ${importDaoImplExtendedJPAName}.getPartialLoadWithParentWhereQuery(
 		      ${tableVariableName}.get${localColumnClass}(), 
 			  isWhereSet, aliasHt, aliasWhereHt, alias, "${colVar}");
 		  if (chunck!=null && !chunck.equals("")) {
