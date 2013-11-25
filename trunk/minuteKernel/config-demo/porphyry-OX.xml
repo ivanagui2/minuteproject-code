@@ -20,7 +20,7 @@
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 					<url>jdbc:mysql://localhost:3306/porphyry</url>
 					<username>root</username>
-					<password></password>
+					<password>mysql</password>
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema <schema> </schema> -->
 				<primaryKeyPolicy oneGlobal="true">
