@@ -419,7 +419,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		Hashtable aliasWhatHt = new Hashtable();
 		String what = getPartialLoadWithParent${tableClassName}Query ($tableVariableName, null, aliasWhatHt, null, null, beanPath, "", queryWhatInit);
 		Hashtable aliasWhereHt = new Hashtable();
-		String where = getPartialLoadWithParentWhere${tableClassName}Query (positive$tableClassName, null, aliasWhatHt, aliasWhereHt, null, null);
+		String where = getPartialLoadWithParentWhereQuery (positive$tableClassName, null, aliasWhatHt, aliasWhereHt, null, null);
 		String whereHow = reconciliateWherePath(aliasWhatHt, aliasWhereHt);
 		String how = reconciliateHowPath(aliasWhatHt, aliasWhereHt);
 		String whereConcat = "";
@@ -436,8 +436,8 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		Hashtable aliasWhatHt = new Hashtable();
 		String what = getPartialLoadWithParent${tableClassName}Query (whatMask, null, aliasWhatHt, null, null, beanPath, "", queryWhatInit);
 		Hashtable aliasWhereHt = new Hashtable();
-//		String where = getPartialLoadWithParentWhere${tableClassName}Query (criteriaMask, null, aliasWhatHt, aliasWhereHt, null, null);
-		String where = getPartialLoadWithParentWhereAddressQuery (criteriaMask, null, aliasWhatHt, aliasWhereHt, null, null, orderMask, what, matchType, operandType, caseSensitivenessType, sortOrder);
+//		String where = getPartialLoadWithParentWhereQuery (criteriaMask, null, aliasWhatHt, aliasWhereHt, null, null);
+		String where = getPartialLoadWithParentWhereQuery (criteriaMask, null, aliasWhatHt, aliasWhereHt, null, null, orderMask, what, matchType, operandType, caseSensitivenessType, sortOrder);
 		String whereHow = reconciliateWherePath(aliasWhatHt, aliasWhereHt);
 		String how = reconciliateHowPath(aliasWhatHt, aliasWhereHt);
 		String whereConcat = "";
@@ -495,7 +495,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	    return returnList;
 	}
 
-	public static String getPartialLoadWithParentWhere${tableClassName}Query (
+	public static String getPartialLoadWithParentWhereQuery (
 	   $tableClassName criteriaMask, Boolean isWhereSet, Hashtable aliasHt, Hashtable aliasWhereHt, String childAlias, String childFKAlias,
 	   $tableClassName orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
 	   if (criteriaMask==null)
@@ -513,7 +513,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 	   return findWhere (alias, criteriaMask, false, isAll(matchType), operandType, caseSensitivenessType); 
 	}
 
-	public static String getPartialLoadWithParentWhere${tableClassName}Query (
+	public static String getPartialLoadWithParentWhereQuery (
 	   $tableClassName $tableVariableName, Boolean isWhereSet, Hashtable aliasHt, Hashtable aliasWhereHt, String childAlias, String childFKAlias) {
 	   if ($tableVariableName==null)
 	      return "";
