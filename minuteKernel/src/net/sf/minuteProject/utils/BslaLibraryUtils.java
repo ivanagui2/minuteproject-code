@@ -118,6 +118,21 @@ public class BslaLibraryUtils extends CommonUtils{
 		return getEntityLevelTemplateFullPath (table, ResourceBundle);
 	}
 	
+	public static String getJavaDefaultMask (Column column, boolean useTemporal) {
+		String type = ConvertUtils.getJavaTypeFromDBFullType(column);
+		if (type!=null) {
+			if (ConvertUtils.JAVA_TIMESTAMP_TYPE.equals(type))  return "timestampMask__";
+			if (ConvertUtils.JAVA_STRING_TYPE.equals(type))     return "stringMask__";
+			if (ConvertUtils.JAVA_BIGDECIMAL_TYPE.equals(type)) return "bigDecimalMask__";
+			if (ConvertUtils.JAVA_BIGINTEGER_TYPE.equals(type)) return "bigIntegerMask__";
+			if (ConvertUtils.JAVA_LONG_TYPE.equals(type))       return "longMask__";
+			if (ConvertUtils.JAVA_INTEGER_TYPE.equals(type))    return "integerMask__";	
+			if (ConvertUtils.JAVA_SHORT_TYPE.equals(type))      return "shortMask__";	
+			if (ConvertUtils.JAVA_DATE_TYPE.equals(type))       return "dateMask__";	
+		}
+		return CommonUtils.getJavaDefaultMask(column);
+	}
+	
 	public static String getJavaDefaultMask (Column column) {
 		String type = ConvertUtils.getJavaTypeFromDBFullType(column);
 		if (type!=null) {
@@ -128,6 +143,7 @@ public class BslaLibraryUtils extends CommonUtils{
 			if (ConvertUtils.JAVA_LONG_TYPE.equals(type))       return "longMask__";
 			if (ConvertUtils.JAVA_INTEGER_TYPE.equals(type))    return "integerMask__";	
 			if (ConvertUtils.JAVA_SHORT_TYPE.equals(type))      return "shortMask__";	
+			if (ConvertUtils.JAVA_DATE_TYPE.equals(type))       return "dateMask__";	
 		}
 		return CommonUtils.getJavaDefaultMask(column);
 	}

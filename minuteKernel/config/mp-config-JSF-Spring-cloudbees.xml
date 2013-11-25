@@ -61,9 +61,9 @@
 						<field name="DESCRIPTION" ordering="asc" label="my description"
 							is-searchable="true"></field>
 						<field name="NAME" ordering="asc"></field>
-						<semantic-reference>
+<!-- 						<semantic-reference>
 							<sql-path path="NAME" />
-						</semantic-reference>
+						</semantic-reference> -->
 					</entity>
 				</enrichment>
 			</business-model>
