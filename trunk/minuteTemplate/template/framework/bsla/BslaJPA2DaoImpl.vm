@@ -311,16 +311,29 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
        return searchPrototypeAny ($tableVariableName, null);
     }  
 
+	// indirection
     public List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
        return find (criteriaMask, matchType, operandType, caseSensitivenessType, null, null); 
 	}
 	
+	// indirection
 	protected List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, Integer startPosition, Integer maxResults) {
        return find (criteriaMask, null, matchType, operandType, caseSensitivenessType, null, startPosition, maxResults); 
     }
 	
+	// indirection
 	protected List<$tableClassName> find ($tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder, Integer startPosition, Integer maxResults) {
-       Query hquery = getEntityManager().createQuery(findQuery (criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder));
+       return find (null, criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder, startPosition, maxResults);
+    }
+	
+	// main find implementation
+	protected List<$tableClassName> find ($tableClassName whatMask, $tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder, Integer startPosition, Integer maxResults) {
+       Query hquery = null;
+	   if (whatMask==null)
+		  hquery = getEntityManager().createQuery(findQuery (criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder));
+	   else
+		  hquery = getEntityManager().createQuery(findPartialQuery (whatMask, criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder));
+
        if (startPosition!=null)
           hquery.setFirstResult(startPosition);
        if (maxResults!=null)
@@ -328,9 +341,21 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
        return hquery.getResultList(); 
     }
 
+	/**
+	 *   find * on entity
+	 *
+	 */
     public String findQuery ($tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
         String what = "SELECT $tableVariableName FROM $tableClassName $tableVariableName ";
 		return findQuery (criteriaMask, orderMask, what, matchType, operandType, caseSensitivenessType, sortOrder);
+    }
+
+	/**
+	 *   find partial on entity
+	 *
+	 */
+    public String findPartialQuery ($tableClassName whatMask, $tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
+        return "to override ";
     }
 	
     protected String findQuery ($tableClassName criteriaMask, $tableClassName orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
@@ -518,8 +543,14 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
         return "";
     }
 
+	// indirection
     protected String findWhere ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
-        StringBuffer query = new StringBuffer();
+		return findWhere (null, $tableVariableName, isAndSet, isAll, operandType, caseSensitive);
+	}
+	protected static String findWhere (String alias, $tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
+        if (alias==null)
+			alias = "$tableVariableName";
+		StringBuffer query = new StringBuffer();
 		String operand = getOperand (operandType);
 		String evaluatorPrefix = getEvaluatorPrefix (operandType);		
 		String evaluatorSuffix = getEvaluatorSuffix (operandType);		
@@ -538,15 +569,15 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
            String value = ${tableVariableName}.get$columnClass();
            if (!caseSensitive) {
               value = value.toLowerCase();
-              query.append(" lower(${tableVariableName}.${columnVar}) "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
+              query.append(" lower("+alias+".${columnVar}) "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
            }
            else
-              query.append(" ${tableVariableName}.${columnVar} "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
+              query.append(" "+alias+".${columnVar} "+operand+ "'"+evaluatorPrefix+value+evaluatorSuffix+"' ");
 #else
-           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
+           query.append(" "+alias+".${columnVar} = '"+ ${tableVariableName}.get$columnClass()+"' ");
 #end
 #else
-           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
+           query.append(" "+alias+".${columnVar} = "+ ${tableVariableName}.get$columnClass() + " ");
 #end
         }
 #end
