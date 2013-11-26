@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Date;
+import java.util.Map;
+import java.util.Hashtable;
 import java.sql.Timestamp;
 
 import javax.persistence.Query;
@@ -329,16 +331,21 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
 	// main find implementation
 	protected List<$tableClassName> find ($tableClassName whatMask, $tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder, Integer startPosition, Integer maxResults) {
        Query hquery = null;
-	   if (whatMask==null)
+	   Map beanPath = new Hashtable();
+	   if (isAllNull(whatMask))
 		  hquery = getEntityManager().createQuery(findQuery (criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder));
 	   else
-		  hquery = getEntityManager().createQuery(findPartialQuery (whatMask, criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder));
+		  hquery = getEntityManager().createQuery(findPartialQuery (whatMask, criteriaMask, orderMask, matchType, operandType, caseSensitivenessType, sortOrder, beanPath));
 
        if (startPosition!=null)
           hquery.setFirstResult(startPosition);
        if (maxResults!=null)
           hquery.setMaxResults(maxResults);
-       return hquery.getResultList(); 
+	   List result = hquery.getResultList();
+	   if (isAllNull(whatMask))
+	      return result; 
+	   else
+	      return handlePartialLoadWithParentResult (whatMask, result, beanPath);
     }
 
 	/**
@@ -354,9 +361,13 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
 	 *   find partial on entity
 	 *
 	 */
-    public String findPartialQuery ($tableClassName whatMask, $tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
+    public String findPartialQuery ($tableClassName whatMask, $tableClassName criteriaMask, $tableClassName orderMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder, Map beanPath) {
         return "to override ";
     }
+	
+	public List<$tableClassName> handlePartialLoadWithParentResult($tableClassName what, List list, Map beanPath) {
+		return null; //TO Override
+	}
 	
     protected String findQuery ($tableClassName criteriaMask, $tableClassName orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
         String queryWhere = findWhere (criteriaMask, false, isAll(matchType), operandType, caseSensitivenessType);
@@ -547,6 +558,7 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
     protected String findWhere ($tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
 		return findWhere (null, $tableVariableName, isAndSet, isAll, operandType, caseSensitive);
 	}
+	
 	protected static String findWhere (String alias, $tableClassName $tableVariableName, boolean isAndSet, boolean isAll, OperandType operandType, boolean caseSensitive) {
         if (alias==null)
 			alias = "$tableVariableName";
