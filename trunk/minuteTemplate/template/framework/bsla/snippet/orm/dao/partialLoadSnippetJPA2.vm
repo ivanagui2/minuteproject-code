@@ -96,7 +96,7 @@
     }   
   	
     public Long count($tableClassName whereEqCriteria) {
-	    return count(whereEqCriteria, EntityMatchType.ALL, OperandType.EQUALS, true); 
+	    return count(null, whereEqCriteria, EntityMatchType.ALL, OperandType.EQUALS, true); 
 /*        Query query = getEntityManager().createQuery(getSelectCountPrototype(whereEqCriteria));
         List<Long> list = query.getResultList();
     	if (!list.isEmpty()) {
@@ -105,9 +105,24 @@
     	return 0L;
 */
     }
-  	
-    public Long count($tableClassName $tableVariableName, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
-        Query query = getEntityManager().createQuery(countQuery($tableVariableName, matchType, operandType, caseSensitivenessType));
+#*   	
+    public Long count($tableClassName whereCriteria, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        Query query = getEntityManager().createQuery(countQuery(whereCriteria, matchType, operandType, caseSensitivenessType));
+        List<Long> list = query.getResultList();
+    	if (!list.isEmpty()) {
+            return list.get(0);
+    	}
+    	return 0L;
+    }
+*#
+
+    public Long count($tableClassName whatMask, $tableClassName whereCriteria, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
+        Query query = null;
+		if (isAllNull(whatMask))
+			query = getEntityManager().createQuery(countQuery(whereCriteria, matchType, operandType, caseSensitivenessType));
+		else {
+			query = getEntityManager().createQuery(countPartialLoadWithParentRawHsqlQuery(whatMask, whereCriteria, matchType, operandType, caseSensitivenessType));
+		}
         List<Long> list = query.getResultList();
     	if (!list.isEmpty()) {
             return list.get(0);
