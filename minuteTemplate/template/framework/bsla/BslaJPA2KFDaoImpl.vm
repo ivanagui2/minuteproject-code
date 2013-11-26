@@ -451,7 +451,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 		Hashtable aliasWhatHt = new Hashtable();
 		// used to initiate the how part of the what
 		getPartialLoadWithParent${tableClassName}Query (whatMask, null, aliasWhatHt, null, null, beanPath, "", new QuerySelectInit());
-		what = "select count($tableVariableName) ";
+		String what = "select count($tableVariableName) ";
 		Hashtable aliasWhereHt = new Hashtable();
 ##		String where = getPartialLoadWithParentWhereQuery (criteriaMask, null, aliasWhatHt, aliasWhereHt, null, null, orderMask, what, matchType, operandType, caseSensitivenessType);
 		String where = getPartialLoadWithParentWhereQuery (criteriaMask, null, aliasWhatHt, aliasWhereHt, null, null, matchType, operandType, caseSensitivenessType);
@@ -569,7 +569,7 @@ public class $className extends $daoJPAImplClassName implements $daoInterfaceExt
 #set($localColumnClass = $commonUtils.getColumnAliasClassName($table, $reference))
 #set ($importDaoImplExtendedJPAName = $commonUtils.getEntityLevelTemplateFullPath($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
 #set ($linkedDaoImplExtendedJPAName = $commonUtils.getTemplateClassName($model, $reference.foreignTable, $template, "BslaJPAExtendedDaoImplUML"))
-##-- var = ${localTableVariable} - ${localColumnClass}
+##-- var = ${localTableVariable} - ${localColumnClass}z
        if (${tableVariableName}.get${localColumnClass}()!=null) {
 	      String chunck = ${importDaoImplExtendedJPAName}.getPartialLoadWithParentWhereQuery(
 		      ${tableVariableName}.get${localColumnClass}(), 
