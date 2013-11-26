@@ -261,7 +261,7 @@
 
 #macro (putDefaultMaskColumnValue)
 #putColumnParams()
-#set ($defaultMask = $bslaLibraryUtils.getJavaDefaultMask($column, $useTemporal))
+#set ($defaultMask = $bslaLibraryUtils.getJavaDefaultMask($column))
 #end
 
 #macro(exposeSpringConfig)
