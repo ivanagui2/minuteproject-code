@@ -1,6 +1,6 @@
-#exposeVariableEntitySpecific()
 #putJPA2TemplateDefinition()
 #set($beImplementation="JPA")
+#exposeVariableEntitySpecific()
 #putImportParamsUML()
 #addedAreas()
 #exposeTableMetadata()

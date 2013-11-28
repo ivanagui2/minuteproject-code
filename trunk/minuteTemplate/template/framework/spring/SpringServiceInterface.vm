@@ -1,3 +1,4 @@
+#putJPA2TemplateDefinition()
 #exposeVariableEntitySpecific()
 #exposeSpringServiceDomainObject()
 #exposeSpringBslaDomainObject()

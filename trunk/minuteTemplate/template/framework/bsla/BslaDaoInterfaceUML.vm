@@ -1,3 +1,4 @@
+#putJPA2TemplateDefinition()
 #exposeVariableEntitySpecific()
 #putImportParamsUML()
 #set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))

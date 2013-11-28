@@ -1,3 +1,4 @@
+#putJPA2TemplateDefinition()
 #exposeVariableEntitySpecific()
 #exposeJPA2Specifics()
 #putImportParamsUML()
