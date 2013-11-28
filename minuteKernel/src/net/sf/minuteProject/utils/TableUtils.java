@@ -23,6 +23,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation.TableUMLNotation;
 import net.sf.minuteProject.plugin.presentation.PresentationUtils;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -669,6 +670,10 @@ public class TableUtils {
 			}
 		}
 		return false;
+	}
+	
+	public static boolean hasManyToManyRelationship(Table table) {
+		return EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table).length>0;
 	}
 
 }
