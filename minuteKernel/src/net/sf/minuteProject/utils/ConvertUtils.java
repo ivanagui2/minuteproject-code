@@ -219,6 +219,8 @@ public class ConvertUtils {
 			JAVA_TIME_TYPE.equals(type))
 			&& useTemporal)
 			return "new Date("+expression+")";
+		if (JAVA_TIMESTAMP_TYPE.equals(type) && !useTemporal)
+			return "Timestamp.valueOf("+expression+")";
 		if (JAVA_STRING_TYPE.equals(type)) return "new String("+expression+")";				
 		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean("+expression+")";
 		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
