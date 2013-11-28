@@ -319,7 +319,7 @@ public class ${className} implements java.io.Serializable{
         return ${EJBDaoImplVariable}.load(rowKey);
 #else
 ##        return ${EJBDaoImplVariable}.load(${primaryKeyType}.valueOf(rowKey));
-        return ${EJBDaoImplVariable}.load($convertUtils.getJavaTypeMask($column, "rowKey", $useTemporal));
+        return ${EJBDaoImplVariable}.load($convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal));
 #end
 #end
     }
