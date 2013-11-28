@@ -281,8 +281,9 @@ $!commonUtils.getReadMeText($template)
 ##if($columnUtils.isForeignKey($primaryKeyFirstColumn))
 ##set($primaryKeyJavaNameClass = "${primaryKeyJavaNameClass}_")
 ##end
-
 #end
+
+
 
 #macro (putSddJdbcLookup)
 #exposeQueryUpdatedAreas("SDD_EXECUTE_JDBC")

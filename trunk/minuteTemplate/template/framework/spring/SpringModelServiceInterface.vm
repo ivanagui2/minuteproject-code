@@ -36,6 +36,10 @@ public interface $thisClassName {
 ##		
 ##	public void loadAssociations ($tableClassName $tableVariableName);
 #end
+#if ($tableUtils.hasManyToManyRelationship($table))
+
+    public $tableClassName getManyToManyList ($tableClassName $tableVariableName, String child) ;
+#end
 #end
 
 $!updatedAreaImplementation

@@ -115,14 +115,17 @@ public class ${className} implements java.io.Serializable{
 	private $tableClassName $tableVariableName = new $tableClassName();
 	private $tableClassName selected$tableClassName = new $tableClassName();
 	
-#set($cntAssociation=0)
+#set($hasFirstRelationship=false)
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
-#set($cntAssociation=$cntAssociation+1)
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
 ##	private ${linkedTableClass} associated${childrenListClass};
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
 #if($isSpringBackend)
+#if (!$hasFirstRelationship)
+#set($hasFirstRelationship=true)
+#set($Relationship="$childrenListVariable")
+#end
 	private List<$linkedTableClass> $childrenListVariable;
 	private Boolean refresh$childrenListClass=true;
 	//used as property listener
@@ -155,21 +158,18 @@ public class ${className} implements java.io.Serializable{
 		}
 	}
 	
-#if($cntAssociation==1)
-#set($hasFirstRelationship=true)
-	private void populateFirst () {
-		populate$childrenListVariable ();
-	}
-#end
 #end
 #end
 #end
 
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
-#set($cntAssociation=$cntAssociation+1)
 #exposeM2MSpecific()
 #if($isSpringBackend)
+#if (!$hasFirstRelationship)
+#set($hasFirstRelationship=true)
+#set($Relationship="$childrenListVariable")
+#end
 	private List<$targetTableClassName> $childrenListVariable;
 	private Boolean refresh$childrenListClass=true;
 	//used as property listener
@@ -184,7 +184,7 @@ public class ${className} implements java.io.Serializable{
 		}
         return ${childrenListVariable};
     }
-
+#*
 	private void populate$childrenListVariable () {
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
 		    refresh$childrenListClass = false;
@@ -194,14 +194,33 @@ public class ${className} implements java.io.Serializable{
     		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
 		}
 	}
-	
-#if($cntAssociation==1)
-#set($hasFirstRelationship=true)
-	private void populateFirst () {
-		populate$childrenListVariable ();
+	*#
+
+	private void populate$childrenListVariable () {
+		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
+		    refresh$childrenListClass = false;
+    		$tableClassName mask = new $tableClassName();
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
+                    // not fully supported! cannot transform row in composite pk
+				    return element.get${primaryKeyVariable}_();
+			mask.set${primaryKeyVariable}_(selected${tableClassName}.get${primaryKeyVariable}_());
+#else
+	        mask.set${primaryKeyJavaNameClass}(selected${tableClassName}.get${primaryKeyJavaNameClass}());
+#end
+##			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+    		mask = ${beanSpringModelServiceVariable}.getManyToManyList(mask, "$childrenListVariable");
+    		$childrenListVariable = new ArrayList(mask.get$childrenListClass());
+		}
 	}
+	
 #end
 #end
+
+#if($hasFirstRelationship)
+	private void populateFirst () {
+		populate$Relationship ();
+	}
 #end
 
     public List<$tableClassName> findAll () {

@@ -46,7 +46,9 @@ import javax.xml.bind.JAXBElement;
 import $BslaDaoInterfaceImport;
 import $BslaDaoExtInterfaceImport;
 import $importDomainObjectUML;
-
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#set($primaryKeyJavaNameClass = $primaryKeyJavaNameClass+"_")
+#end
 /**
  *
  * <p>Title: ${className}</p>
