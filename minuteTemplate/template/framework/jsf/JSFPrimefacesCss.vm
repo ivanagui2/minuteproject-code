@@ -91,6 +91,10 @@ a:hover {
    padding: 0;
 }
 
+.ui-panel {
+    border: none;
+}
+
 .mp-column-center {
     width: 30%;
     text-align: center;

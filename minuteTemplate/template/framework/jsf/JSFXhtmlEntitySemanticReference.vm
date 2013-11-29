@@ -14,16 +14,21 @@
         <composite:attribute name="entity" />
     </composite:interface>
     <composite:implementation>
+       <p:panelGrid columns="2" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" columnClasses="mp-column-center">
 #foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParams()
 #columnJavaNaming()
+#if (!$isForeignKey)
         <p:outputLabel>#{i18n.${tableVariableName}$separator$columnVar}</p:outputLabel>
         <p:inputText 
         	size="$primefacesUtils.getDisplayColumns($column)" 
         	maxlength="$column.sizeAsInt" 
         	label="${columnClass}"
+			disabled="true"
         	value="#{cc.attrs.entity.${columnVar}}"/>
 
 #end
+#end
+       </p:panelGrid>
 	</composite:implementation>
 </html>

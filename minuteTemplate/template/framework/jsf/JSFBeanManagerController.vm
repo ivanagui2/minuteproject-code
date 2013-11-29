@@ -366,7 +366,7 @@ public class ${className} implements java.io.Serializable{
     	} catch (Exception e) {
 			System.out.println(">>>>> selected${tableClassName} = "+selected${tableClassName});
 			e.printStackTrace();
-			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
+			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
         }
     }
 
