@@ -58,8 +58,8 @@
 
 #macro (putJSFParentAffectationSnippet $cpt)
 	
-    <c:if test="#{fieldToHide != '${columnVar}'}">
-        <p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
+#*     <c:if test="#{fieldToHide != '${columnVar}'}">
+        <p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) * #end</p:outputLabel>
         <p:row>
             <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
 ##TODO change childrenListClass is normally for children unique but not unique for parent lookup
@@ -68,6 +68,23 @@
         </p:row>
         <p:message for="lbl${columnClass}-#{idValue}" />
     </c:if>
+*#	
+    <c:if test="#{fieldToHide != '${columnVar}'}">
+#set ($childrenListClass = $childrenListClass+$cpt)
+		<p:row>
+			<p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) * #end</p:outputLabel>
+			<h:outputText value="&#160;&#160;" /><p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
+		</p:row>
+		<p:row>
+            <p:panel id="lbl${columnClass}-#{idValue}" header="#{i18n.$tableVariableName$separator$columnVar} details" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="parent${columnVar}" collapsed="#{jsfSemanticReferenceUtils.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}) eq ''}" >
+				<${model.name}:${linkedTableClass}SemanticReference entity="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}"/>
+			</p:panel>
+##            <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
+
+            
+        </p:row>
+        <p:message for="lbl${columnClass}-#{idValue}" />
+    </c:if>	
 #end
 
 #macro(exposeSeparator)
