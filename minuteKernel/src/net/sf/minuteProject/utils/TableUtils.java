@@ -164,7 +164,7 @@ public class TableUtils {
 		return (table.getUniqueIndices() != null && table.getUniqueIndices().length > 0) ? true
 				: false;
 	}
-	
+
 	public static boolean isUnique(Table table, Column column) {
 		if (table == null)
 			return false;
@@ -280,15 +280,15 @@ public class TableUtils {
 	public static boolean isMasterDataContentType(Table table) {
 		return isTableOfContentType(table, masterDataContentType);
 	}
-	
+
 	public static boolean isReferenceDataContentType(Table table) {
 		return isTableOfContentType(table, referenceDataContentType);
 	}
-	
+
 	public static boolean isAdminContentType(Table table) {
-		return isReferenceDataContentType(table) || isMasterDataContentType(table);
+		return isReferenceDataContentType(table)
+				|| isMasterDataContentType(table);
 	}
- 
 
 	public static boolean isPseudoStaticDataContentType(Table table) {
 		return isTableOfContentType(table, pseudoStaticDataContentType);
@@ -392,9 +392,11 @@ public class TableUtils {
 	}
 
 	public static List<List<Column>> extractFieldGroup(List<Column> columns,
-					Table table) {
-		return extractFieldGroup (columns.toArray(new Column[columns.size()]), table);
+			Table table) {
+		return extractFieldGroup(columns.toArray(new Column[columns.size()]),
+				table);
 	}
+
 	public static List<List<Column>> extractFieldGroup(Column[] columns,
 			Table table) {
 		List<List<Column>> tableFg = table.getFieldGroupsList();
@@ -445,22 +447,21 @@ public class TableUtils {
 		return false;
 	}
 
-	
 	public static boolean hasTrigger(Table table, CRUDEnum crud) {
-		return (getTriggers(table, crud).isEmpty())?false:true;
+		return (getTriggers(table, crud).isEmpty()) ? false : true;
 	}
-	
+
 	public static boolean hasPrepersist(Table table) {
 		return hasInsertTrigger(table) || hasDefaultColumns(table);
 	}
-	
+
 	public static boolean hasPreUpdate(Table table) {
 		return hasUpdateTrigger(table) || hasDefaultColumns(table);
 	}
-	
+
 	private static boolean hasDefaultColumns(Table table) {
 		for (Column column : table.getColumns()) {
-			if (column.getDefaultValue()!=null)
+			if (column.getDefaultValue() != null)
 				return true;
 		}
 		return false;
@@ -469,7 +470,7 @@ public class TableUtils {
 	public static boolean hasInsertTrigger(Table table) {
 		return hasTrigger(table, CRUDEnum.INSERT);
 	}
-	
+
 	public static boolean hasUpdateTrigger(Table table) {
 		return hasTrigger(table, CRUDEnum.UPDATE);
 	}
@@ -477,11 +478,11 @@ public class TableUtils {
 	public static List<Trigger> getInsertTriggers(Table table) {
 		return getTriggers(table, CRUDEnum.INSERT);
 	}
-	
+
 	public static List<Trigger> getUpdateTriggers(Table table) {
 		return getTriggers(table, CRUDEnum.UPDATE);
 	}
-	
+
 	public static List<Trigger> getTriggers(Table table, CRUDEnum crud) {
 		List<Trigger> triggers = new ArrayList<Trigger>();
 		for (Column column : table.getColumns()) {
@@ -493,7 +494,7 @@ public class TableUtils {
 		}
 		return triggers;
 	}
-	
+
 	public static boolean hasTrigger(Table table) {
 		for (Column column : table.getColumns()) {
 			if (ColumnUtils.hasTrigger(column))
@@ -567,7 +568,7 @@ public class TableUtils {
 	}
 
 	public static Map<String, Table> getPrimaryKeyTableMap(BusinessModel model) {
-		Map <String, Table> tables = new HashMap<String, Table>();
+		Map<String, Table> tables = new HashMap<String, Table>();
 		for (Table table : model.getBusinessPackage().getEntities()) {
 			if (table.hasPrimaryKey()) {
 				Column col = getPrimaryFirstColumn(table);
@@ -581,8 +582,9 @@ public class TableUtils {
 	public static List<Column> getNotTechnicalColumns(Table table) {
 		List<Column> columns = new ArrayList<Column>();
 		for (Column column : table.getColumns()) {
-			if (column.isPrimaryKey() && ColumnUtils.isNaturalPk(column)) {
-				columns.add(column);
+			if (column.isPrimaryKey()){
+			   if (ColumnUtils.isNaturalPk(column)) 
+				   columns.add(column);
 			}
 			else if (!ColumnUtils.hasTrigger(column)) {
 				columns.add(column);
@@ -591,22 +593,23 @@ public class TableUtils {
 		return columns;
 	}
 
-	public static Column getAssociatedForeignKeyFromUniqueKey (Table table, Column column) {
+	public static Column getAssociatedForeignKeyFromUniqueKey(Table table,
+			Column column) {
 		for (Index index : table.getUniqueIndices()) {
 			int columnCount = index.getColumnCount();
-			if (columnCount==2) {
+			if (columnCount == 2) {
 				boolean match = false;
 				Column retCol = null;
 				for (Column col : index.getColumns()) {
 					String colName = col.getName();
 					if (colName.equals(column.getName())) {
-						match=true;
+						match = true;
 						break;
 					} else {
 						if (ColumnUtils.isForeignKey(column)) {
-							retCol=column;
+							retCol = column;
 						} else {
-							match=false;
+							match = false;
 						}
 					}
 				}
@@ -617,15 +620,15 @@ public class TableUtils {
 		}
 		return null;
 	}
-	
+
 	public static List<Column> getFirstUniqueColumns(Table table) {
-		for (Index index: table.getIndices()) {
-			if (index.getColumnCount()>0)
+		for (Index index : table.getIndices()) {
+			if (index.getColumnCount() > 0)
 				return Arrays.asList(index.getColumns());
 		}
 		return new ArrayList<Column>();
 	}
-	
+
 	public static List<Column> getColumnWithoutPrimaryKeys(Table table) {
 		List<Column> asList = Arrays.asList(table.getColumns());
 		asList.removeAll(Arrays.asList(table.getPrimaryKeyColumns()));
@@ -639,13 +642,13 @@ public class TableUtils {
 		}
 		return null;
 	}
-	
-	public static Table asUML (Table table) {
+
+	public static Table asUML(Table table) {
 		return new TableUMLNotation(table);
 	}
-	
-	public static Boolean doesNotHaveVariable (Table table, String variable) {
-		if (variable==null)
+
+	public static Boolean doesNotHaveVariable(Table table, String variable) {
+		if (variable == null)
 			return false;
 		for (Column column : table.getAttributes()) {
 			if (column.getAlias().equals(variable))
@@ -653,17 +656,20 @@ public class TableUtils {
 		}
 		return true;
 	}
-	
-	public static String getEmbeddedVariable (Table table, String proposedVariable) {
-		return proposedVariable+"__";
+
+	public static String getEmbeddedVariable(Table table,
+			String proposedVariable) {
+		return proposedVariable + "__";
 	}
-//	
-//	public static String getEmbeddedClass (Table table, String proposedVariable) {
-//		return proposedVariable+"__";
-//	}
-	
-	public static boolean isPartOfEmbeddedAnNotForeignKey (Column column) {
-		if(isCompositePrimaryKeyNotMany2Many(column.getTable())) {
+
+	//
+	// public static String getEmbeddedClass (Table table, String
+	// proposedVariable) {
+	// return proposedVariable+"__";
+	// }
+
+	public static boolean isPartOfEmbeddedAnNotForeignKey(Column column) {
+		if (isCompositePrimaryKeyNotMany2Many(column.getTable())) {
 			for (Column c : column.getTable().getPrimaryKeyColumns()) {
 				if (c.getName().equals(column.getName()))
 					return true;
@@ -671,9 +677,9 @@ public class TableUtils {
 		}
 		return false;
 	}
-	
+
 	public static boolean hasManyToManyRelationship(Table table) {
-		return EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table).length>0;
+		return EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table).length > 0;
 	}
 
 }
