@@ -20,7 +20,7 @@
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 					<url>jdbc:mysql://localhost:3306/porphyry</url>
 					<username>root</username>
-					<password></password>
+					<password>mysql</password>
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema <schema> </schema> -->
 				<primaryKeyPolicy oneGlobal="true">
@@ -207,11 +207,6 @@
 			</business-model>
 			<!-- S D D -->
 			<statement-model>
-				<enrichment>
-<!-- 	for OX only				<conventions>
-						<sdd-dummy-primarykey-convention add="true" />
-					</conventions> -->
-				</enrichment>
 				<queries>
 			         <query name="ask_for_role" id="ask_for_role" >
                          <query-body>
