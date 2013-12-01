@@ -477,6 +477,22 @@ public class CommonUtils {
 		//return getLevelTemplateFullClassPath(bean, template, targetTemplateName)+"."+templa;
 	}
 
+	/**
+	 * Root path does not start with a / if not needed
+	 * @param bean
+	 * @param template
+	 * @param targetTemplateName
+	 * @return
+	 */
+	public static String getArtifactRootPathDirAndFullName (AbstractConfiguration bean, Template template, String targetTemplateName) {
+		//TODO change to just strip "/" from
+		return StringUtils.removeStart(getArtifactRelativePathDirAndFullName(bean, template, targetTemplateName), "/");
+//		String artifactRelativePathDir = getArtifactRelativePathDir(bean, template, targetTemplateName);
+//		String templateFileName = getTemplateFileName(bean, template, targetTemplateName);
+//		return (StringUtils.isEmpty(artifactRelativePathDir))?templateFileName : artifactRelativePathDir + "/"+ templateFileName;
+		//return getLevelTemplateFullClassPath(bean, template, targetTemplateName)+"."+templa;
+	}
+
 	public static String getArtifactRelativePathDir(AbstractConfiguration bean,
 			Template template, String targetTemplateName) {
 		return FormatUtils.getDirFromPackage(getPackageName(bean, template, targetTemplateName));

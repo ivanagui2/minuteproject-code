@@ -132,7 +132,7 @@
 #set ($modelSemanticReferenceUtilsJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJSFSemanticReferenceUtils))
 #set ($modelSemanticReferenceUtilsJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelSemanticReferenceUtilsJSFClass))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
-#set ($modelIndexJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateIndexXhtmlMenuJSF))
+#set ($modelIndexJSFImport = $commonUtils.getArtifactRootPathDirAndFullName($model, $template, $templateIndexXhtmlMenuJSF))
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
 #set ($converterBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityConverterJSF))
