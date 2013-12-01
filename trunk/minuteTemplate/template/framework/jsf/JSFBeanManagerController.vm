@@ -162,7 +162,6 @@ public class ${className} implements java.io.Serializable{
 #end
 #end
 
-
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
 #if($isSpringBackend)
@@ -177,7 +176,10 @@ public class ${className} implements java.io.Serializable{
 ##    	populate$childrenListVariable ();
 		refresh$childrenListClass=true;
     }
-	
+	private ${targetTableClassName} ${targetTableVariableName};
+    public void set${childrenListClass}ToAdd (${targetTableClassName} ${targetTableVariableName}) {
+		this.$targetTableVariableName = $targetTableVariableName;
+	}
     public List<${targetTableClassName}> get${childrenListClass} () {
 		if (${childrenListVariable}==null || refresh$childrenListClass) {
 			populate$childrenListVariable ();
@@ -559,6 +561,12 @@ public class ${className} implements java.io.Serializable{
 	public boolean isRenderAdd${childrenListClass}() {
 		return isRenderAdd${childrenListClass};
 	}	
+	
+	public void affectAndDesactivateRender${childrenListClass}() {
+	    desactivateRenderAdd${childrenListClass}();
+		//TODO add to m2m list and persist
+	}
+	
 	public void activateRenderAdd${childrenListClass}() {
 		isRenderAdd${childrenListClass} = true;
 	}
