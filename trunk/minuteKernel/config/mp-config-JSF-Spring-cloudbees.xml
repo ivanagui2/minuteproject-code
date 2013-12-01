@@ -15,7 +15,7 @@
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 					<url>jdbc:mysql://localhost:3306/petshop</url>
 					<username>root</username>
-					<password></password>
+					<password>mysql</password>
 				</dataSource>
 				<primaryKeyPolicy oneGlobal="false">
 					<primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
