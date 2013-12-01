@@ -6,6 +6,7 @@
 #exposeRESTSDDURLServer()
 #putImportQuerySDDBean()
 #addedAreas()
+#set ($size = $inputBean.columns.size())
 package $packageName;
 
 $!updatedAreaImport
@@ -71,14 +72,14 @@ $!updatedAreaSnippet
     public $sddOutputBeanCollectionClass executeAndFormatXml (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
 ) {
         return execute(
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-           $columnVar #if($velocityCount!=$inputBean.columnCount),
+           $columnVar #if($velocityCount!=$size),
 #end
 #end
         
@@ -98,14 +99,14 @@ $!updatedAreaSnippet
     public $sddOutputBeanCollectionClass executeAndFormatJson (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
 ) {
         return execute(
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-           $columnVar #if($velocityCount!=$inputBean.columnCount),
+           $columnVar #if($velocityCount!=$size),
 #end
 #end
         
@@ -122,7 +123,7 @@ $!updatedAreaSnippet
     public $sddOutputBeanCollectionClass execute (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+        $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
 ) {

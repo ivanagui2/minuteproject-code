@@ -3,6 +3,7 @@
 #putImportQuerySDDBean()
 #addedAreas()
 #exposeJPASpecifics()
+#set ($size = $inputBean.columns.size())
 package $packageName;
 
 $!updatedAreaImport
@@ -56,7 +57,7 @@ $!updatedAreaSnippet
     public void execute (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        @RequestParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$inputBean.columnCount),
+        @RequestParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
     ) {
