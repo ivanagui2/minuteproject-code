@@ -67,6 +67,7 @@ public class ${className} extends Form implements ClickListener {
 	$beanSpringModelServiceClass $beanSpringModelServiceVariable;
 
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
+#set($cnt=0)
 #foreach($column in ${table.columns})
 ##foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
 #putColumnParamNaming()
@@ -74,7 +75,8 @@ public class ${className} extends Form implements ClickListener {
 #if($columnUtils.isPartOfCompositePrimaryKey($column))
 #set($columnClass = "${columnClass}_")
 #end
-       #if ($velocityCount!=1),#end"$columnVar"
+       #if ($cnt!=0),#end"$columnVar"
+#set($cnt=$cnt+1)
 #end
 #end
 ##	

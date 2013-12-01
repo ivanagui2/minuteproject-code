@@ -144,7 +144,9 @@ public class ${className} extends BeanItemContainer<${domainClassName}> implemen
 	}
 
 	public void delete (${importDomainObjectUML} $domainVariableName) {
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 	   ${EJBDaoImplVariable}.delete ($domainVariableName);
+#end
 	}
 		
 #parse("PARSER_daoInterfaceUMLGetterSetter.vm")

@@ -6,7 +6,7 @@
   <artifactId>${model.name}RestBsla</artifactId>
   <packaging>war</packaging>
   <version>${version}-SNAPSHOT</version>
-  <name>$DbApiName specification and implementation</name>
+  <name>$DbApiName REST BSLA specification and implementation</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 
