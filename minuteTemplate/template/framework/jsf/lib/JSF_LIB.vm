@@ -282,9 +282,49 @@
 #end
 
 #macro(putPrimefacesM2MChildrenSelectDeleteDialog)
+     <!-- dialog to add and manage ${childrenListClass} -->
+	 <p:outputPanel id="containerBasicAdd${childrenListClass}" >
+         <p:dialog id="basicAdd${childrenListClass}" 
+			       message="Can you select one item?"
+                   rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
+                   header="Affectation process" severity="alert"
+                   widgetVar="add$childrenListClass"
+				   resizable="true" 
+                   appendTo="@(body)">
 
-    <!-- dialog to add and manage ${childrenListClass} -->
-	<p:outputLabel id="containerBasicAdd${childrenListClass}">
+             <h:form id="formAdd$childrenListVariable">
+                 <p:dataTable value="#{${entityControllerJSFVariable}.lazyModel}"
+                              var="item"
+                              paginator="true" rows="10"
+                              lazy="true"
+                              selection="#{${entityControllerJSFVariable}.selected${domainObjectClass}}" selectionMode="single"
+                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                              rowsPerPageTemplate="10,20,50"
+                              emptyMessage="No ${domainObjectClass} found with given criteria">
+    
+                     <f:facet name="header">
+                         List of #{i18n.$linkedTableVariable} 
+                     </f:facet>
+                     <ui:include src="/$entityListRowJSFLocation">
+                         <ui:param name="isSemanticReference" value="false" />
+                     </ui:include>
+                     <p:column>
+                         <p:commandButton value="Affect"
+                             id="cmdAdd${childrenListClass}"
+                             update="$updateFromPopUp"
+                             actionListener="#{${thisEntityControllerJSFVariable}.affectAndDesactivateRender${childrenListClass}}"
+                             title="Affect"
+                             onclick="add${childrenListClass}.hide()"
+                             process="@this">
+                             <f:setPropertyActionListener value="#{item}" target="#{${thisEntityControllerJSFVariable}.${childrenListVariable}ToAdd}" />
+                         </p:commandButton >
+                     </p:column>
+                 </p:dataTable>
+             </h:form>
+         </p:dialog>
+     </p:outputPanel>
+#*    
+	<p:outputLabel id="containerBasicAdd${childrenListClass}2">
 		<p:dialog id="basicAdd${childrenListClass}" 
 			rendered="#{${thisEntityControllerJSFVariable}.isRenderAdd${childrenListClass}()}"
 			header="Add ${linkedTableClass}" 
@@ -300,19 +340,12 @@
 					</ui:include>
             </h:panelGrid>			
 				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
-#* 					<f:setPropertyActionListener 
-						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" 
-						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
-					<f:setPropertyActionListener 
-						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}_}" 
-						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}.$primaryKeyVariable}"/>
-					<f:setPropertyActionListener 
-						target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
-*#
 				</p:commandButton>	
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
+*#  
+
 	<p:outputLabel id="containerBasicDialog${childrenListClass}">
 		<p:dialog id="basicDialog${childrenListClass}" 
 			rendered="#{${thisEntityControllerJSFVariable}.isRenderDialog${childrenListClass}()}"
@@ -358,7 +391,9 @@
                                 </p:commandButton>
 							</p:toolbarGroup>
                 		</p:toolbar>
-                        <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
+                        <p:dataTable var="item" 
+							    value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" 
+							    paginator="true" rows="10"  
                                 onRowSelectUpdate="display" 
                                 dynamic="true"  resizableColumns="true"
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
@@ -404,7 +439,8 @@
                                 </p:commandButton>
 							</p:toolbarGroup>
                 		</p:toolbar>
-                        <p:dataTable var="item" value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
+                        <p:dataTable var="item" 
+							    value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
                                 onRowSelectUpdate="display" 
                                 dynamic="true"  resizableColumns="true"
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
