@@ -304,10 +304,12 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isTimeColumn (Column column) {
-		if (column.getType().equals("DATE") || 
-			column.getType().equals("TIME") || 
-			isTimeStampColumn(column))
-			return true;		
+		if (column!=null && column.getType()!=null) {
+			if (column.getType().equals("DATE") || 
+				column.getType().equals("TIME") || 
+				isTimeStampColumn(column))
+				return true;		
+		}
 		return false;
 	}
 	
