@@ -2,6 +2,7 @@
 #exposeJSFModelSpecific()
 #exposeSeparator()
 #exposePrimefacesConfig()
+#set ($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainObjectUML"))
 #set($hasDisplayableChildren=$presentationUtils.hasDisplayableChildren($table))
 #set($refCnt=1)
 #set($thisEntityControllerJSFVariable = $entityControllerJSFVariable)
@@ -83,7 +84,6 @@
 #set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($targetTable, $model, $templateEntityControllerJSF))
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
 #set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($targetTable, $template, $templateEntityListRowJSF))	
-#set ($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainObjectUML"))
 #set ($domainObjectClass = $commonUtils.getTemplateClassName($targetTable, $model, $templateJPA2DomainObject))
 #putPrimefacesM2MChildrenSelectRemoveCommand()
 #end
@@ -112,6 +112,8 @@
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #set($updateFromPopUp=":form2:childrenTab:child-${childrenListVariable}Panel,:form${domainClassName}:growl")
 ##exposeImportParamsUML($linktableDB)
+#set ($domainObjectClass = $commonUtils.getTemplateClassName($targetTable, $model, $templateJPA2DomainObject))
+#set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($targetTable, $template, $templateEntityListRowJSF))
 #putPrimefacesM2MChildrenSelectDeleteDialog()
 #end
 
