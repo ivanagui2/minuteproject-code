@@ -189,6 +189,7 @@ public class ConvertUtils {
 		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf(-1)";
 		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf(-1)";	
 		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf(-1)";	
+		if (JAVA_SHORT_TYPE.equals(type)) return "Short.valueOf(\"-1\")";	
 		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
 		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf(-1)";
 		if (JAVA_STRING_TYPE.equals(type)) return "new String()";				
@@ -223,6 +224,7 @@ public class ConvertUtils {
 			return "Timestamp.valueOf("+expression+")";
 		if (JAVA_STRING_TYPE.equals(type)) return "new String("+expression+")";				
 		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean("+expression+")";
+		if (JAVA_SHORT_TYPE.equals(type)) return "Short.valueOf("+expression+")";
 		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
 		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
 		return "null";
@@ -234,6 +236,7 @@ public class ConvertUtils {
 		if (JAVA_LONG_TYPE.equals(type)) return "(Long)"+expression;
 		if (JAVA_DOUBLE_TYPE.equals(type)) return "(Double)"+expression;	
 		if (JAVA_INTEGER_TYPE.equals(type)) return "(Integer)"+expression;	
+		if (JAVA_SHORT_TYPE.equals(type)) return "(Short)"+expression;	
 //		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
 		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "(java.math.BigDecimal)"+expression;
 		if (JAVA_SQL_DATE_TYPE.equals(type) || 
