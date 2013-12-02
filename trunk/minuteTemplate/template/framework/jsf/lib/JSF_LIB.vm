@@ -276,6 +276,7 @@
     			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
                 </p:commandButton>
+				<p:commandButton value="Cancel" onclick="detailDialog${childrenListClass}.hide()"/>
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
@@ -345,7 +346,7 @@
 		</p:dialog>
 	</p:outputLabel>
 *#  
-
+#* 
 	<p:outputLabel id="containerBasicDialog${childrenListClass}">
 		<p:dialog id="basicDialog${childrenListClass}" 
 			rendered="#{${thisEntityControllerJSFVariable}.isRenderDialog${childrenListClass}()}"
@@ -369,9 +370,11 @@
     			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
                 </p:commandButton>
+				<p:commandButton value="Cancel" onclick="detailDialog${childrenListClass}.hide()"/>
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
+	*#
 #end
 
 #macro(putPrimefacesChildrenAddEditCommand)
@@ -454,13 +457,11 @@
 							<p:column>
                             <p:commandButton value="Delete association" 
             					id="detailButton${childrenListClass}" 
-            					update=":containerBasicDialog${childrenListClass}" 
+##            					update=":containerBasicDialog${childrenListClass}" 
             					title="Delete"
-            					action="#{${entityLinkControllerJSFVariable}.reloadSelected}"
-            					oncomplete="detailDialog${childrenListClass}.show()" 
+								actionListener="#{${thisEntityControllerJSFVariable}.disaffectAndDesactivateRender${childrenListClass}}"
             					process="@this">
-##                                <f:actionListener binding="#{${thisEntityControllerJSFVariable}.activateRenderDialog${childrenListClass}()}" />
-##                                <f:actionListener binding="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"/>
+								<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
                             </p:commandButton>
 							</p:column>
 						</p:dataTable>
