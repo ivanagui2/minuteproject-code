@@ -27,8 +27,10 @@
 ##        <ui:include src="/${model.name}/BreadCrumb.xhtml" />
         <ui:insert name="body">Welcome $model.name Primeface webapp. <a href="http://minuteproject.sf.net">Powered by minuteproject</a>.</ui:insert>
     </p:layoutUnit>
-    <p:layoutUnit position="south" size="100" header="Disclaimer" resizable="true" closable="true" collapsible="true">  
-        <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a> version $minuteprojectUtils.version
+    <p:layoutUnit position="south" size="100" header="Disclaimer" resizable="true" closable="true" collapsible="true"><br/>  
+        <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a> version $minuteprojectUtils.version - $minuteprojectUtils.buildDate<br/>  
+        <h:outputText value="Follow " /><a href="https://twitter.com/minuteproject">@minuteproject</a><br/> 
+        <h:outputText value="Model $model.name - $model.version" />
     </p:layoutUnit>  
   </p:layout>
 </h:body>
