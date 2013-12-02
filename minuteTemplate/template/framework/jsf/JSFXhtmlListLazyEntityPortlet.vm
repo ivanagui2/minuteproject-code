@@ -57,6 +57,7 @@
             	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
 ##            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
             	<p:commandButton value="Delete" icon="ui-icon-trash" >
+##            	<p:commandButton value="Delete" icon="ui-icon-trash" process="@this" actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end">
                     <p:confirm header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
                 </p:commandButton>
             </f:facet>

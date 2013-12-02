@@ -565,6 +565,13 @@ public class ${className} implements java.io.Serializable{
 	public void affectAndDesactivateRender${childrenListClass}() {
 	    desactivateRenderAdd${childrenListClass}();
 		//TODO add to m2m list and persist
+		System.out.println("affectAndDesactivateRender");
+	}
+	
+	public void disaffectAndDesactivateRender${childrenListClass}() {
+	    desactivateRenderAdd${childrenListClass}();
+		//TODO add to m2m list and persist
+		System.out.println("disaffectAndDesactivateRender");
 	}
 	
 	public void activateRenderAdd${childrenListClass}() {
