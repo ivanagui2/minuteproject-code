@@ -336,6 +336,7 @@ public class ${className} implements java.io.Serializable{
         return new $tableClassName();
 #else
 	   if (rowKey == null || "null".equals(rowKey)) return new $tableClassName();
+##set($rowKey=$convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal))
 #if($columnUtils.isString($primaryKeyFirstColumn))
         return ${EJBDaoImplVariable}.load(rowKey);
 #else
