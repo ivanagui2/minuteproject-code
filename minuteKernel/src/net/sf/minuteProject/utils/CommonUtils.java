@@ -696,15 +696,36 @@ public class CommonUtils {
 		return FormatUtils.getJavaNameVariable(getColumnName(table, reference));
 	}
 	public static String getColumnAliasVariable (Table table, Reference reference) {
-		return FormatUtils.getJavaNameVariable(getAliasColumnName(table, reference));
+		if (ReferenceUtils.belongsToMultipleForeignKey(reference)) {
+			return FormatUtils.getJavaNameVariable(getAliasColumnName(reference.getForeignKey()));
+		}
+		return FormatUtils.getJavaNameVariable(getAliasColumnName(reference));
 	}
 	public static String getColumnAliasClassName (Table table, Reference reference) {
-		return FormatUtils.getJavaName(getAliasColumnName(table, reference));
+		return FormatUtils.getJavaName(getAliasColumnName(reference));
 	}
 	
-	private static String getAliasColumnName (Table table, Reference reference) {
+	private static String getAliasColumnName (Reference reference) {
 		return (reference!=null && reference.getLocalColumn()!=null)?reference.getLocalColumn().getAlias():"ERROR_MISSING_REFERENCE_LOCALCOLUMN_ALIAS";
 	}
+
+	private static String getAliasColumnName (ForeignKey foreignKey) {
+		return (foreignKey!=null && foreignKey.getReferences().length>0)?getAliasColumnName(foreignKey.getReferences()):"ERROR_MISSING_FOREIGNKEY_LOCALCOLUMN_ALIAS";
+	}
+
+	private static String getAliasColumnName(Reference[] references) {
+		return FormatUtils.getJavaName(getColumnName(references));
+	}
+	
+	private static String getColumnName(Reference[] references) {
+		// TODO Auto-generated method stub
+		StringBuffer sb = new StringBuffer();
+		for (Reference reference : references) {
+			sb.append(reference.getLocalColumnName()+"_");
+		}
+		return sb.toString();
+	}
+
 	private static String getColumnName (Table table, Reference reference) {
 		return (reference!=null && reference.getLocalColumn()!=null)?reference.getLocalColumn().getName():"ERROR_MISSING_REFERENCE_LOCALCOLUMN_NAME";
 	}

@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.ReferenceAbstract;
@@ -60,8 +61,6 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 
 	

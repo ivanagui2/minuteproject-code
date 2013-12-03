@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.model.data.impl;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ColumnDDLUtils;
@@ -155,4 +156,11 @@ public abstract class ReferenceAbstract extends AbstractConfiguration implements
 	public boolean isAggregateRelationship(){
 		return reference.isAggregateRelationship();
 	}	
+	
+	@Override
+	public ForeignKey getForeignKey() {
+		// TODO Auto-generated method stub
+		return reference.getForeignKey();
+	}
+
 }

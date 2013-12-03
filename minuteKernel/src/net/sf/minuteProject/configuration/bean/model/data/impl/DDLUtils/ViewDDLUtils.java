@@ -146,7 +146,7 @@ public class ViewDDLUtils extends TableDDLUtils implements View{
 //    			ref.setLocalColumnName(reference.getForeignColumnName());
 //    			ref.setLocalTable(reference.getForeignTable());
 //    			ref.setLocalTableName(reference.getForeignTableName());
-    			Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference());
+    			Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference(),foreignKey);
 
 //    			ref.setForeignColumn(reference.getForeignColumn());
 //    			ref.setForeignColumnName(reference.getForeignColumnName());

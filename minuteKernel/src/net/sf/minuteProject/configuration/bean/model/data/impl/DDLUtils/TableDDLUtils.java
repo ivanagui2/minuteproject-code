@@ -1,15 +1,9 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.Template;
-import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -20,6 +14,8 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Florian Adler
@@ -349,8 +345,9 @@ public class TableDDLUtils extends TableAbstract {
     		for (int i = 0; i < table.getForeignKeys().length; i++) {
     			error = false;
     			org.apache.ddlutils.model.ForeignKey foreignKeyddlutils = table.getForeignKeys()[i];
+    			ForeignKey foreignKey = getForeignKeys()[i];//TODO make a lookup instead of choosing same index
     			org.apache.ddlutils.model.Reference referenceddlutils = foreignKeyddlutils.getFirstReference();
-				Reference reference = new ReferenceDDLUtils (referenceddlutils);
+				Reference reference = new ReferenceDDLUtils (referenceddlutils, foreignKey);
 
 				Table foreignTable = TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName());
 				Column foreignCol = new ColumnDDLUtils(referenceddlutils.getForeignColumn(),foreignTable);
@@ -408,7 +405,7 @@ public class TableDDLUtils extends TableAbstract {
 
 	public void setForeignKey(ForeignKey foreignKey) {
 		getForeignKeyList().add(foreignKey);
-		Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference());
+		Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference(), foreignKey);
 		if (!isPresent(getParentList(), ref))
 			getParentList().add(ref);
 		children = null;

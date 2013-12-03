@@ -12,6 +12,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ForeignKeyDDLUtils;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ReferenceDDLUtils;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 
@@ -146,9 +147,6 @@ public class ReferenceUtils {
 	}
 	
 	public static net.sf.minuteProject.configuration.bean.model.data.Reference getReference(Field field, Database database) {
-		org.apache.ddlutils.model.Reference referenceDDLUtils = new org.apache.ddlutils.model.Reference();
-//		referenceDDLUtils.setForeignColumn(foreignColu)
-		net.sf.minuteProject.configuration.bean.model.data.Reference reference = new ReferenceDDLUtils(referenceDDLUtils);
 		String tableName = field.getEntity().getName();
 		String columnName = field.getName();
 		String foreignTableName = field.getLinkToTargetEntity();
@@ -159,6 +157,13 @@ public class ReferenceUtils {
 		Table table= TableUtils.getTable(database, tableName);
 		if (table==null) 
 			table = TableUtils.getView(database, tableName);
+		
+		org.apache.ddlutils.model.Reference referenceDDLUtils = new org.apache.ddlutils.model.Reference();
+		org.apache.ddlutils.model.ForeignKey foreignKeyDDLUtils = new org.apache.ddlutils.model.ForeignKey();
+		ForeignKey foreignKey = new ForeignKeyDDLUtils(foreignKeyDDLUtils, table);
+//		referenceDDLUtils.setForeignColumn(foreignColu)
+		net.sf.minuteProject.configuration.bean.model.data.Reference reference = new ReferenceDDLUtils(referenceDDLUtils, foreignKey);
+
 			
 		Column column = ColumnUtils.getColumn(table, columnName);
 		
@@ -278,5 +283,9 @@ public class ReferenceUtils {
 			}
 		}
 		return false;
+	}
+	public static boolean belongsToMultipleForeignKey(
+			net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		return reference.getForeignKey().getReferenceCount()>1;
 	}
 }
