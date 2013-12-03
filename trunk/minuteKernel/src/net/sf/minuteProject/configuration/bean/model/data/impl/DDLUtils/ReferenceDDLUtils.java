@@ -22,6 +22,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ReferenceUtils;
@@ -34,6 +35,7 @@ import net.sf.minuteProject.utils.ReferenceUtils;
 public class ReferenceDDLUtils extends AbstractConfiguration implements Reference
 {
 	private org.apache.ddlutils.model.Reference reference;
+	private ForeignKey foreignKey;
 	
 	private Column foreignColumn;
 	private String foreignColumnName;
@@ -49,9 +51,10 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
     /**
      * Creates a new, empty reference.
      */
-    public ReferenceDDLUtils(org.apache.ddlutils.model.Reference reference)
+    public ReferenceDDLUtils(org.apache.ddlutils.model.Reference reference, ForeignKey foreignKey)
     {
     	this.reference = reference;
+    	this.foreignKey = foreignKey;
     }
 
     /**
@@ -319,9 +322,14 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	public void setAggregateRelationship() {
 		relationshipOwnership = Owner.AGGREGATE;
 	}
+	
+	@Override
+	public ForeignKey getForeignKey() {
+		return foreignKey;
+	}
 
-	public static Reference clone (Reference reference) {
-		Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference());
+	public static Reference clone (Reference reference, ForeignKey foreignKey) {
+		Reference ref = new ReferenceDDLUtils (new org.apache.ddlutils.model.Reference(), foreignKey);
 		ref.setForeignColumn(reference.getForeignColumn());
 		ref.getForeignColumn().setAlias(reference.getForeignColumn().getAlias());
 		ref.setForeignColumnName(reference.getForeignColumnName());

@@ -1,9 +1,6 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
-import java.io.Serializable;
-
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
-import net.sf.minuteProject.utils.ColumnUtils;
 
 /**
  * Inspired from DDLUtils Reference
@@ -127,6 +124,8 @@ public interface Reference extends GeneratorBean
 	public void setAggregateRelationship();
 	
 	public boolean isAggregateRelationship();
+	
+	public ForeignKey getForeignKey();
 	
 }
 

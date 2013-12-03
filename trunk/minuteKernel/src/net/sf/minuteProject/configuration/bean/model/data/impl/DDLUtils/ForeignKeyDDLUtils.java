@@ -132,7 +132,7 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
      */
     public Reference getReference(int idx)
     {
-        return new ReferenceDDLUtils (foreignKey.getReference(idx));
+        return new ReferenceDDLUtils (foreignKey.getReference(idx), this);
     }
 
     /**
@@ -145,7 +145,7 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
     	if (references == null) {
     		references = new ArrayList<Reference>();
     		for (int i = 0; i < foreignKey.getReferenceCount(); i++) {
-    			Reference reference = new ReferenceDDLUtils (foreignKey.getReference(i));
+    			Reference reference = new ReferenceDDLUtils (foreignKey.getReference(i), this);
     			//reference.setLocalColumn(reference.getLocalColumn());
     			references.add(reference);
     		}
@@ -162,7 +162,7 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
     {
     	Reference ref = getFirstReferenceFormReferencesList();//new ReferenceDDLUtils (foreignKey.getFirstReference());
     	if (ref==null) {// case autoprovisioning in enrichment of views
-    		return new ReferenceDDLUtils (foreignKey.getFirstReference());//getFirstReferenceFormReferencesList();
+    		return new ReferenceDDLUtils (foreignKey.getFirstReference(), this);//getFirstReferenceFormReferencesList();
     	}
     	return ref;
     		//        return new ReferenceDDLUtils (foreignKey.getFirstReference());
