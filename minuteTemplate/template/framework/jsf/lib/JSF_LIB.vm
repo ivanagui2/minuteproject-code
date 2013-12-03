@@ -313,11 +313,12 @@
                          <p:commandButton value="Affect"
                              id="cmdAdd${childrenListClass}"
                              update="$updateFromPopUp"
-                             actionListener="#{${thisEntityControllerJSFVariable}.affectAndDesactivateRender${childrenListClass}}"
+                             action="#{${thisEntityControllerJSFVariable}.affectAndDesactivateRender${childrenListClass}}"
                              title="Affect"
                              onclick="add${childrenListClass}.hide()"
                              process="@this">
-                             <f:setPropertyActionListener value="#{item}" target="#{${thisEntityControllerJSFVariable}.${childrenListVariable}ToAdd}" />
+							 <f:actionListener binding="#{${thisEntityControllerJSFVariable}.set${childrenListClass}ToAdd(item)}"/>
+##<f:setPropertyActionListener value="#{item}" target="#{${thisEntityControllerJSFVariable}.${childrenListVariable}ToAdd}" />
                          </p:commandButton >
                      </p:column>
                  </p:dataTable>
@@ -459,9 +460,10 @@
             					id="detailButton${childrenListClass}" 
 ##            					update=":containerBasicDialog${childrenListClass}" 
             					title="Delete"
-								actionListener="#{${thisEntityControllerJSFVariable}.disaffectAndDesactivateRender${childrenListClass}}"
+								update="$updateFromPopUp"
+								action="#{${thisEntityControllerJSFVariable}.disaffectAndDesactivateRender${childrenListClass}}"
             					process="@this">
-								<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
+								<f:actionListener binding="#{${thisEntityControllerJSFVariable}.set${childrenListClass}ToAdd(item)}"/>
                             </p:commandButton>
 							</p:column>
 						</p:dataTable>

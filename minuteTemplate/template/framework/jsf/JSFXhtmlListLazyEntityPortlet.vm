@@ -86,6 +86,7 @@
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
 #set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($targetTable, $template, $templateEntityListRowJSF))	
 #set ($domainObjectClass = $commonUtils.getTemplateClassName($targetTable, $model, $templateJPA2DomainObject))
+#set($updateFromPopUp=":form2:childrenTab:child-${childrenListVariable}Panel,:form${domainClassName}:growl")
 #putPrimefacesM2MChildrenSelectRemoveCommand()
 #end
 			</p:tabView>
