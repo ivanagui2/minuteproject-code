@@ -94,6 +94,7 @@ public class ${className} implements java.io.Serializable{
 #if($isSpringBackend)
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
     ${EJBDaoImplClass} $EJBDaoImplVariable;
+	
 	private LazyDataModel<$tableClassName> lazyModel;
 
 	@ManagedProperty("#{${lookupBeanVar}}")
@@ -318,7 +319,6 @@ public class ${className} implements java.io.Serializable{
 #if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
         // not fully supported! cannot transform row in composite pk
 #set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
-
 		selected$tableClassName = ${EJBDaoImplVariable}.load(selected${tableClassName}.get${primaryKeyVariable}_());
 
 #else
@@ -564,15 +564,15 @@ public class ${className} implements java.io.Serializable{
 	}	
 	
 	public void affectAndDesactivateRender${childrenListClass}() {
-	    desactivateRenderAdd${childrenListClass}();
-		//TODO add to m2m list and persist
-		System.out.println("affectAndDesactivateRender");
+##	    desactivateRenderAdd${childrenListClass}();
+		${EJBDaoImplVariable}.add${childrenListClass}(selected$tableClassName, ${targetTableVariableName});
+		populate$childrenListVariable ();
 	}
 	
 	public void disaffectAndDesactivateRender${childrenListClass}() {
-	    desactivateRenderAdd${childrenListClass}();
-		//TODO add to m2m list and persist
-		System.out.println("disaffectAndDesactivateRender");
+##	    desactivateRenderAdd${childrenListClass}();
+		${EJBDaoImplVariable}.remove${childrenListClass}(selected$tableClassName, ${targetTableVariableName});
+		populate$childrenListVariable ();
 	}
 	
 	public void activateRenderAdd${childrenListClass}() {

@@ -10,9 +10,8 @@
 #set($tableVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($tableVariableName))
 package $packageName;
 
-$!updatedAreaImport
-
 import java.util.List;
+import java.util.Arrays;
 import java.util.ArrayList;
 
 import net.sf.minuteProject.model.data.criteria.QueryData;
@@ -33,6 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+#exposeJPA2Import()
+
+$!updatedAreaImport
 
 /**
  *
@@ -76,6 +78,16 @@ public class $className implements $SpringServiceInterfaceClass {
     public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
         return ${BslaDaoInterfaceVariable}.load$tableClassName($primaryKeyVariable);
     }
+
+	public $tableClassName findById ($tableClassName c) {
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+        // not fully supported! cannot transform row in composite pk
+#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
+        return ${BslaDaoInterfaceVariable}.load$tableClassName(c.get${primaryKeyVariable}_());
+#else
+		return ${BslaDaoInterfaceVariable}.load$tableClassName(c.get${primaryKeyJavaNameClass}());
+#end
+	}
 
     public $tableClassName load ($primaryKeyFullType $primaryKeyVariable) {
         $tableClassName entity = findById($primaryKeyVariable);
@@ -184,7 +196,29 @@ public class $className implements $SpringServiceInterfaceClass {
         return ${BslaDaoExtInterfaceVariable}.getList(sortMask, QuerySortOrder.$order);
     }
 
-##end
+#foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
+#exposeM2MSpecific()
+	public void add${childrenListClass}($tableClassName c, $targetTableClassName ... element) {
+#if ($hasOnlyOnePrimaryKey)
+		$tableClassName cc = findById (c);
+        cc.get${childrenListClass}().addAll(Arrays.asList(element));
+        save(cc);
+#end
+	}
+	
+	public void remove${childrenListClass}($tableClassName c, $targetTableClassName ... element) {
+#if ($hasOnlyOnePrimaryKey)
+		$tableClassName cc = findById (c);
+		for ($targetTableClassName e : element) {
+            cc.get${childrenListClass}().remove(e);
+        }
+##        cc.get${childrenListClass}().remove(element);
+        save(cc);
+#end
+	}
+	
+#end
+
 $!updatedAreaImplementation
 
 }
