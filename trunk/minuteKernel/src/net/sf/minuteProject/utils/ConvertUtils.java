@@ -199,6 +199,11 @@ public class ConvertUtils {
 		return "null";
 	}
 	
+	public static String getJavaTypeMaskFormated (Column column, String value, boolean useTemporal) {
+		String type = getJavaTypeFromDBFullType(column);
+		if (JAVA_SHORT_TYPE.equals(type)) return "Short.valueOf(\""+value+"\")";					
+		return getJavaTypeMask(column, value, useTemporal);
+	}
 	public static String getJavaTypeMask (Column column, String value, boolean useTemporal) {
 		String type = getJavaTypeFromDBFullType(column);
 		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean(\""+value+"\")";					

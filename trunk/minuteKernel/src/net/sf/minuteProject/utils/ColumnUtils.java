@@ -30,16 +30,26 @@ public class ColumnUtils {
 	public static String getDefaultValue (Column column) {
 		return getDefaultValue(column, false);
 	}
+	public static String getFormatedDefaultValue (Column column) {
+		return getFormatedDefaultValue(column, false);
+	}
+	public static String getFormatedDefaultValue (Column column, boolean useTemporal) {
+//		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
+		return getFormatedMask(column, column.getDefaultValue(), useTemporal);
+	}
 	public static String getDefaultValue (Column column, boolean useTemporal) {
 //		return (ColumnUtils.isNumeric(column))?column.getDefaultValue():"\""+column.getDefaultValue()+"\"";
 		return getMask(column, column.getDefaultValue(), useTemporal);
 	}
-	
+
 	public static String getMask (Column column, String value) {
 		return getMask(column, value, false);
 	}
 	public static String getMask (Column column, String value, boolean useTemporal) {
 		return ConvertUtils.getJavaTypeMask(column, value, useTemporal);
+	}
+	public static String getFormatedMask (Column column, String value, boolean useTemporal) {
+		return ConvertUtils.getJavaTypeMaskFormated(column, value, useTemporal);
 	}
 	public static String getMaskWithExpression (Column column, String expression, boolean useTemporal) {
 		return ConvertUtils.getJavaTypeMaskExpression(column, expression, useTemporal);
