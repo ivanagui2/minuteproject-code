@@ -225,7 +225,7 @@
 		<!-- CACHING CONFIGURATION end -->
 		
 		<!-- SPRING CONFIGURATION -->
-		
+		<!-- suppress xml config replaced by repository and persistencecontext annotations
 		<template name="BslaSpringConfigDaoJPA" templateFileName="BslaSpringConfigDaoJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-JPA-" file-suffix="" 
@@ -233,8 +233,9 @@
 			>
 			<property name="ignore-many-to-many" value="true"/>
 		</template>		
-
+        -->
 		<!-- spring config extended -->
+		<!-- suppress xml config replaced by repository and persistencecontext annotations
 		<template name="BslaSpringConfigDaoExtJPA" templateFileName="BslaSpringConfigDaoExtJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="dao-ext-JPA-" file-suffix="" 
@@ -247,6 +248,8 @@
 			file-extension="xml" file-prefix="spring-config-JPA-" file-suffix="-dao" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>
+		 -->
+		
 		<template name="BslaSpringConfigMainBackend" templateFileName="BslaSpringConfigMainJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
