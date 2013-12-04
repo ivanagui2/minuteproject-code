@@ -177,9 +177,9 @@ public class ${className} implements java.io.Serializable{
 ##    	populate$childrenListVariable ();
 		refresh$childrenListClass=true;
     }
-	private ${targetTableClassName} ${targetTableVariableName};
-    public void set${childrenListClass}ToAdd (${targetTableClassName} ${targetTableVariableName}) {
-		this.$targetTableVariableName = $targetTableVariableName;
+	private ${targetTableClassName} ${childrenListVariable}_;
+    public void set${childrenListClass}ToAdd (${targetTableClassName} element) {
+		this.${childrenListVariable}_ = element;
 	}
     public List<${targetTableClassName}> get${childrenListClass} () {
 		if (${childrenListVariable}==null || refresh$childrenListClass) {
@@ -565,13 +565,13 @@ public class ${className} implements java.io.Serializable{
 	
 	public void affectAndDesactivateRender${childrenListClass}() {
 ##	    desactivateRenderAdd${childrenListClass}();
-		${EJBDaoImplVariable}.add${childrenListClass}(selected$tableClassName, ${targetTableVariableName});
+		${EJBDaoImplVariable}.add${childrenListClass}(selected$tableClassName, ${childrenListVariable}_);
 		populate$childrenListVariable ();
 	}
 	
 	public void disaffectAndDesactivateRender${childrenListClass}() {
 ##	    desactivateRenderAdd${childrenListClass}();
-		${EJBDaoImplVariable}.remove${childrenListClass}(selected$tableClassName, ${targetTableVariableName});
+		${EJBDaoImplVariable}.remove${childrenListClass}(selected$tableClassName, ${childrenListVariable}_);
 		populate$childrenListVariable ();
 	}
 	

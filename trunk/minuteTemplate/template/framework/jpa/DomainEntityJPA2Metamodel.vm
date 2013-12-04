@@ -37,16 +37,18 @@ public class $className {
 
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#exposeEnrichedPk($localColumn)
+#* #exposeEnrichedPk($localColumn)
 #if (!$isEnrichedPk)
 #set($colVar = ${localColumnVariable})
 #else
 #set($colVar = ${linkedTableVariable})
 #end
+*#
+#set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
     public static volatile SingularAttribute<${domainClassName}, $linkedTableClass> $colVar;
 #set($column = $reference.localColumn)
 #putColumnParamNaming()
-    public static volatile SingularAttribute<${domainClassName}, $columnType> ${columnVar}_;
+    public static volatile SingularAttribute<${domainClassName}, $columnType> ${colVar}_;
 #end
 
 #foreach ($reference in $table.children)

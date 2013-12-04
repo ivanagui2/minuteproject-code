@@ -198,7 +198,7 @@ $!updatedAreaEnd
     @XmlAttribute $!xmlElementValue
 #end
     @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
-    private $columnType ${columnVar}_;
+    private $columnType ${colVar}_;
 
 #end	
 #foreach ($reference in $table.children)
@@ -631,22 +631,24 @@ $!updatedAreaEnd
 #exposeRelationship($table, $reference)
 #set($localColumnVariable = $commonUtils.getColumnAliasVariable($table, $reference))
 #set($localColumnClass = $commonUtils.getColumnAliasClass($table, $reference))
-    public $linkedTableClass get$localColumnClass () {
+#set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
+#set($colClass = $commonUtils.getColumnAliasClassName($table, $reference))
+    public $linkedTableClass get$colClass () {
     	return ${localColumnVariable};
     }
 	
-    public void set${localColumnClass} ($linkedTableClass ${localColumnVariable}) {
+    public void set${colClass} ($linkedTableClass ${localColumnVariable}) {
     	this.${localColumnVariable} = ${localColumnVariable};
     }
 
 #set($column = $reference.localColumn)
 #putColumnParamNaming()
-    public $columnType get${columnClass}_() {
-        return ${columnVar}_;
+    public $columnType get${colClass}_() {
+        return ${colVar}_;
     }
 	
-    public void set${columnClass}_ ($columnType $columnVar) {
-        this.${columnVar}_ =  $columnVar;
+    public void set${colClass}_ ($columnType $colVar) {
+        this.${colVar}_ =  $colVar;
     }
 	
 #end
