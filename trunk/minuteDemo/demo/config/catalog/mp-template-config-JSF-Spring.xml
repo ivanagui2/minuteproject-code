@@ -85,6 +85,11 @@
 			file-extension="java" file-prefix="JsfSemanticReferenceUtils" file-suffix="" 
 			model-specific="true" has-updatable-nature="true" add-model-name="false">
 		</template>
+		<template name="JSFManagedBeanUtils" templateFileName="JSFManagedBeanUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfManagedBeanUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
         <template name="JSF.Spring.Lookup.Service" templateFileName="JSF.Spring.Lookup.Service.vm" 
             technicalPackage="bean"
             file-extension="java" file-prefix="" file-suffix="LookupDefaultingService"
@@ -115,6 +120,22 @@
 	</template-target>
  -->
  		
+	<template-target 
+    	name="JSF xhtml set"
+		libdir="lib/JSF_LIB.vm"
+		outputdir="src/main/webapp/resources"
+		package-root=""
+		belongToPackage="true">
+		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="convertClobToString" value="true"/>
+			 
+		<template name="JSFXhtmlEntitySemanticReference" templateFileName="JSFXhtmlEntitySemanticReference.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="SemanticReference" 
+			entity-specific="true" add-business-package-dir-name="false"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+	</template-target> 	
+		
 	<template-target 
     	name="JSF xhtml set"
 		libdir="lib/JSF_LIB.vm"
