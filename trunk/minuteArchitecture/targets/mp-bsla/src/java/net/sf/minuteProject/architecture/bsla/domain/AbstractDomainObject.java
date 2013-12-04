@@ -46,6 +46,7 @@ public class AbstractDomainObject implements DomainObject {
 	public final static String        stringMask__       = new String();
 	public final static Long          longMask__         = Long.valueOf(-1);
 	public final static Integer       integerMask__      = Integer.valueOf(-1);
+	public final static Short         shortMask__        = Short.valueOf("-1");
 	public final static BigInteger    bigIntegerMask__   = BigInteger.valueOf(-1);
 	public final static BigDecimal    bigDecimalMask__   = BigDecimal.valueOf(-1);
 	public final static Date          dateMask__         = new Date(new java.util.Date().getTime());
