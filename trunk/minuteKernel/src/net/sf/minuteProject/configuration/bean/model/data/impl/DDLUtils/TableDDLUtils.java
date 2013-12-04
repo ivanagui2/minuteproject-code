@@ -152,7 +152,9 @@ public class TableDDLUtils extends TableAbstract {
 	}
 
 	public List<ForeignKey> getForeignKeyList() {
-    	if (foreignKeys == null) {
+    	if (foreignKeys == null 
+    		||	table.getForeignKeyCount()!=foreignKeys.size()) // dynamically reset the counter
+    		{
     		foreignKeys = new ArrayList<ForeignKey>();
     		for (int i = 0; i < table.getForeignKeyCount(); i++) {
     			ForeignKey foreignKey = new ForeignKeyDDLUtils (table.getForeignKey(i), this);
