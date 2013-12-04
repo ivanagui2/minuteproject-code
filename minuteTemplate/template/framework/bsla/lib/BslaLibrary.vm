@@ -50,7 +50,7 @@
 #set ($isColumnUnique = $tableUtils.isUnique($table, $column))
 #set ($hasDefaultValue = $columnUtils.hasDefaultValue($column))
 #if($hasDefaultValue)
-#set ($defaultValue = $columnUtils.getDefaultValue($column))
+#set ($defaultValue = $columnUtils.getFormatedDefaultValue($column))
 #end
 #set ($isMandatory = $column.isRequired())
 #set ($isPrimaryKey = $column.isPrimaryKey())
