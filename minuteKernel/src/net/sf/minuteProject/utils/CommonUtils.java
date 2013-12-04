@@ -698,7 +698,7 @@ public class CommonUtils {
 	public static String getColumnAliasVariable (Table table, Reference reference) {
 		if (ReferenceUtils.belongsToMultipleForeignKey(reference)) {
 			return FormatUtils.getJavaNameVariable(getAliasColumnName(reference.getForeignKey()));
-		}
+		} else
 		return FormatUtils.getJavaNameVariable(getAliasColumnName(reference));
 	}
 	public static String getColumnAliasClassName (Table table, Reference reference) {
