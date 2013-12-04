@@ -696,12 +696,15 @@ public class CommonUtils {
 		return FormatUtils.getJavaNameVariable(getColumnName(table, reference));
 	}
 	public static String getColumnAliasVariable (Table table, Reference reference) {
-		if (ReferenceUtils.belongsToMultipleForeignKey(reference)) {
+		if (ReferenceUtils.belongsToMultipleForeignKey(reference)) 
 			return FormatUtils.getJavaNameVariable(getAliasColumnName(reference.getForeignKey()));
-		} else
-		return FormatUtils.getJavaNameVariable(getAliasColumnName(reference));
+		else
+			return FormatUtils.getJavaNameVariable(getAliasColumnName(reference));
 	}
 	public static String getColumnAliasClassName (Table table, Reference reference) {
+		if (ReferenceUtils.belongsToMultipleForeignKey(reference)) 
+			return FormatUtils.getJavaName(getAliasColumnName(reference.getForeignKey()));
+		else		
 		return FormatUtils.getJavaName(getAliasColumnName(reference));
 	}
 	
@@ -714,10 +717,10 @@ public class CommonUtils {
 	}
 
 	private static String getAliasColumnName(Reference[] references) {
-		return FormatUtils.getJavaName(getColumnName(references));
+		return FormatUtils.getJavaName(getColumnNames(references));
 	}
 	
-	private static String getColumnName(Reference[] references) {
+	private static String getColumnNames(Reference[] references) {
 		// TODO Auto-generated method stub
 		StringBuffer sb = new StringBuffer();
 		for (Reference reference : references) {
