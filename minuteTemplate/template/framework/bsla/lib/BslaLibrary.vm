@@ -263,7 +263,7 @@
 #end
 
 #macro (putDefaultMaskColumnValue)
-#putColumnParams()
+#putColumnParamNaming()
 #set ($defaultMask = $bslaLibraryUtils.getJavaDefaultMask($column))
 #end
 

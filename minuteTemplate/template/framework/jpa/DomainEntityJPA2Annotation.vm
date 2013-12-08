@@ -540,7 +540,7 @@ $!updatedAreaSnippet
     public void set${className} (${className} ${variableName}) {
     	new ${className}(
 #foreach ($column in ${table.columns})
-#putColumnParams()
+#putColumnParamNaming()
        ${variableName}.get_${columnVar}()#if ($velocityCount!=$table.columnCount),
 #end
 #end 		

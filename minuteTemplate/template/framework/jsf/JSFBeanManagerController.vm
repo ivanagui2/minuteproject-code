@@ -59,7 +59,6 @@ import $modelSemanticReferenceUtilsJSFImport;
 
 #elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
