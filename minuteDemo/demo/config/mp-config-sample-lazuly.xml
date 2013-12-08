@@ -1,7 +1,7 @@
 <!DOCTYPE root>
 <generator-config>
 	<configuration>
-		<model name="conference" version="1.0" package-root="net.sf.mp.demo">
+		<model name="lazuly" version="1.0" package-root="net.sf.mp.demo">
 			<data-model>
 				<driver name="mysql" version="5.1.16" groupId="mysql" artifactId="mysql-connector-java"></driver>
 				<dataSource>
