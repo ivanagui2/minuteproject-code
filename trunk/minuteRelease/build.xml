@@ -543,7 +543,7 @@
 		<antcall target="generation-build-petshop"/>
 		<antcall target="generation-build-porphyry"/>
 		<antcall target="generation-build-sakila"/>
-		
+		<antcall target="generation-build-lazuly"/>
 		
 		<!--
 			<antcall target="generation-build-lazuly"/>
