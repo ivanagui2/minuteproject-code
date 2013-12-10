@@ -1,3 +1,5 @@
+use buslogic_intro;
+
 INSERT INTO `customer` VALUES 
 	('Gloria\'s Garden','0.0000','910.0000','Posies','G','',0),
 	('Hibernating Bears','100.0000','100000.0000','Bears','S','\0',2),

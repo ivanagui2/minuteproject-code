@@ -1,3 +1,5 @@
+use buslogic_intro;
+
 set FOREIGN_KEY_CHECKS = 0;
 
 delete from `buslogic_intro.customer`;
