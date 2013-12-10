@@ -546,6 +546,7 @@
 		<antcall target="generation-build-porphyry"/>
 		<antcall target="generation-build-sakila"/>
 		<antcall target="generation-build-buslogic_intro"/>
+		<antcall target="generation-build-liferay"/>
 		
 		
 		<!--
