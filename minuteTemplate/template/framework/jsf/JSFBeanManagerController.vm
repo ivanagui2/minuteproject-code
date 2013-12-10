@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.primefaces.event.ToggleEvent;
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.event.SelectEvent;
@@ -186,18 +188,11 @@ public class ${className} implements java.io.Serializable{
 		}
         return ${childrenListVariable};
     }
-#*
-	private void populate$childrenListVariable () {
-		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
-		    refresh$childrenListClass = false;
-    		$targetTableClassName mask = new $targetTableClassName();
-    		//linkTableVariableName $linkTableVariableName
-			//mask.get${childrenListClass}().add(selected${tableClassName});
-    		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
-		}
-	}
-	*#
 
+	private List<${targetTableClassName}> getAll$childrenListVariable () {
+	    return ${beanSpringModelServiceVariable}.getList(${targetTableClassName}.fullMask());
+	}
+	
 	private void populate$childrenListVariable () {
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
 		    refresh$childrenListClass = false;
@@ -210,11 +205,21 @@ public class ${className} implements java.io.Serializable{
 #else
 	        mask.set${primaryKeyJavaNameClass}(selected${tableClassName}.get${primaryKeyJavaNameClass}());
 #end
-##			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
     		mask = ${beanSpringModelServiceVariable}.getManyToManyList(mask, "$childrenListVariable");
     		$childrenListVariable = new ArrayList(mask.get$childrenListClass());
 		}
 	}
+
+##if is master data with 
+    private DualListModel<$targetTableClassName> ${childrenListVariable}DualListModel;
+
+    public DualListModel<$targetTableClassName> get${childrenListClass}DualListModel(){
+        if (${childrenListVariable}DualListModel==null || refresh$childrenListClass) {
+		    populate$childrenListVariable();
+            ${childrenListVariable}DualListModel = new DualListModel<$targetTableClassName>(getAll$childrenListClass(), $childrenListVariable);
+        }
+        return ${childrenListVariable}DualListModel;
+    }
 	
 #end
 #end

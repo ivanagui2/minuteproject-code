@@ -268,7 +268,6 @@
 #set($refCnt=$refCnt+1)
                 </ui:include>
                 </h:panelGrid>
-    ##			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$update">
     			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
     				<!-- todo add reset DD lookup -->
@@ -428,6 +427,14 @@
 #macro(putPrimefacesM2MChildrenSelectRemoveCommand)
                    <p:tab id="child-$childrenListVariable" title="#{i18n.$targetTableClassName}" > 
                 	 <p:outputPanel id="child-${childrenListVariable}Panel" >
+						
+#if ($tableUtils.isMasterdata($linkedTable))
+                         <p:pickList id="pickList$childrenListClass" value="#{${entityControllerJSFVariable}.${childrenListVariable}DualListModel}" var="var" effect="bounce"
+                                     itemValue="#{var}" itemLabel="#{var.display}" converter="#{${parentConverterJSFVariable}}"
+                                     showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >
+                         </p:pickList>	
+#end
                 		<p:toolbar id="add-$childrenListVariable">  
                 			<p:toolbarGroup align="left"> 
                 				<p:commandButton 
