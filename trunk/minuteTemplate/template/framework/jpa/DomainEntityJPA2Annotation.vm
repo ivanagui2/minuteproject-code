@@ -100,7 +100,7 @@ public class ${className} implements Serializable {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
 #if (!$isMany2Many)
-#if (!$isPkUserProvided)
+#if (!$isPkUserProvided && !$isView)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
@@ -108,7 +108,7 @@ public class ${className} implements Serializable {
 #end
     @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end) 
 #if (!$isMany2Many)
-#if (!$isPkUserProvided)
+#if (!$isPkUserProvided && !$isView)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($sequenceName = $databaseUtils.provideSequence($table))
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${table.name}SEQ") 
