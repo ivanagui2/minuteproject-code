@@ -18,6 +18,9 @@
 --
 -- Table structure for table `customer`
 --
+drop database if exists buslogic_intro;
+create database buslogic_intro character set utf8;
+use buslogic_intro;
 
 DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
