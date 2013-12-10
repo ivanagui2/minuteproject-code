@@ -545,6 +545,7 @@
 		<antcall target="generation-build-petshop"/>
 		<antcall target="generation-build-porphyry"/>
 		<antcall target="generation-build-sakila"/>
+		<antcall target="generation-build-buslogic_intro"/>
 		
 		
 		<!--
@@ -601,6 +602,32 @@
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/lazuly" project="REST" artifact="lazulyRestSpringMVCApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/lazuly" project="vaadin" artifact="lazulyVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/lazuly" project="JSF-primefaces" artifact="lazulyApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-buslogic_intro" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/busintro" project="REST" artifact="busintroRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/busintro" project="REST-JEE" artifact="busintroRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/busintro" project="REST" artifact="busintroRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/busintro" project="vaadin" artifact="busintroVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/busintro" project="JSF-primefaces" artifact="busintroApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-liferay" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/liferay" project="REST" artifact="liferayRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/liferay" project="REST" artifact="liferayRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/liferay" project="REST-JEE" artifact="liferayRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/liferay" project="REST" artifact="liferayRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/liferay" project="vaadin" artifact="liferayVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/liferay" project="JSF-primefaces" artifact="liferayApp" />
 
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
