@@ -44,22 +44,8 @@
                 </enrichment>
             </business-model>
         </model>
-        <targets>
-            <target refname="JPA2"
-               fileName="mp-template-config-JPA2.xml"
-               outputdir-root="../../dev/liferay/output/JPA2"
-               templatedir-root="../../minuteTemplate/template/framework/jpa">
-               <property name="add-querydsl" value="2.1.2"></property>
-               <property name="add-jpa2-implementation" value="hibernate"></property>
-            </target>                        
-            <target refname="SQL misc"
-               fileName="mp-template-config-sqlutils.xml"
-               outputdir-root="../../dev/liferay/output/SQL"
-               templatedir-root="../../minuteTemplate/template/utils/db">
-            </target>                        
-            <target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
-                templatedir-root="../../minuteTemplate/template/framework/bsla">
-            </target>
-        </targets>
+		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava">
+
+		</targets>
     </configuration>
 </generator-config>
