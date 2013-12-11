@@ -398,10 +398,13 @@
 									value="Save associations"
 									title="Add $targetTable.name elements"  
 									icon="ui-icon-document" 
+									action="#{${entityControllerJSFVariable}.add${childrenListClass}()}"
 ##									oncomplete="add${childrenListClass}.show();" 
 ##									update=":containerBasicAdd${childrenListClass}"
 	                             >
-									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
+								    <f:facet name="sourceCaption">Available</f:facet>
+									<f:facet name="targetCaption">Affected</f:facet>
+##									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
 ##									<f:actionListener binding="#{${entityLinkControllerJSFVariable}.resetSelected${linkedTableClass}()}"/>
                                 </p:commandButton>
 #end								

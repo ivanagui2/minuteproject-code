@@ -224,6 +224,12 @@ public class ${className} implements java.io.Serializable{
         return ${childrenListVariable}DualListModel_;
     }
 	
+	public void add${childrenListClass}() {
+	    for ($targetTableClassName item : ${childrenListVariable}DualListModel_.getTarget()) {
+		   ${EJBDaoImplVariable}.add${childrenListClass}(selected$tableClassName, item);
+		}
+		populate$childrenListVariable ();		
+	}
 #end
 #end
 
