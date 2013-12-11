@@ -189,8 +189,8 @@ public class ${className} implements java.io.Serializable{
         return ${childrenListVariable};
     }
 
-	private List<${targetTableClassName}> getAll$childrenListVariable () {
-	    return ${beanSpringModelServiceVariable}.getList(${targetTableClassName}.fullMask());
+	private List<${targetTableClassName}> getAll$childrenListClass () {
+	    return ${beanSpringModelServiceVariable}.getList(new ${targetTableClassName}());
 	}
 	
 	private void populate$childrenListVariable () {
@@ -211,14 +211,17 @@ public class ${className} implements java.io.Serializable{
 	}
 
 ##if is master data with 
-    private DualListModel<$targetTableClassName> ${childrenListVariable}DualListModel;
+    private DualListModel<$targetTableClassName> ${childrenListVariable}DualListModel_;
 
     public DualListModel<$targetTableClassName> get${childrenListClass}DualListModel(){
-        if (${childrenListVariable}DualListModel==null || refresh$childrenListClass) {
-		    populate$childrenListVariable();
-            ${childrenListVariable}DualListModel = new DualListModel<$targetTableClassName>(getAll$childrenListClass(), $childrenListVariable);
-        }
-        return ${childrenListVariable}DualListModel;
+##        if (${childrenListVariable}DualListModel_==null || refresh$childrenListClass) {
+		populate$childrenListVariable();
+		List<$targetTableClassName> affected = ($childrenListVariable==null)?new ArrayList<$targetTableClassName>():$childrenListVariable; 
+        List<$targetTableClassName> available = getAll$childrenListClass();
+		available.removeAll(affected);
+		${childrenListVariable}DualListModel_ = new DualListModel<$targetTableClassName>(available, affected);
+##        }
+        return ${childrenListVariable}DualListModel_;
     }
 	
 #end
