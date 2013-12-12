@@ -17,8 +17,10 @@ public class ForeignKeyUtils {
 	public static void setForeignKey (Table table, Field field) {
 		//field.getEntity().getEnrichment().getBusinessModel().getModel().getDataModel().getDatabase();
 		ForeignKey foreignKey = getForeignKey(field, table.getDatabase());
-		if (foreignKey!=null) 
-			table.setForeignKey (foreignKey);		
+		if (foreignKey!=null) {
+			table.setForeignKey (foreignKey);	
+			table.convertColumnToRelation(field.getName());
+		}
 	}
 	
 	public static ForeignKey getForeignKey (Field field, Database database) {
@@ -26,8 +28,8 @@ public class ForeignKeyUtils {
 		if (linkToTargetEntity!=null && field.getLinkToTargetField()!=null) {
 			Reference reference = ReferenceUtils.getReference(field, database);
 			if (reference!=null) {
-				org.apache.ddlutils.model.ForeignKey foreignKeyMp = new org.apache.ddlutils.model.ForeignKey();
-				foreignKeyMp.setName(field.getName());
+				org.apache.ddlutils.model.ForeignKey foreignKeyMp = getForeignKey_(field,database);
+
 				ForeignKey foreignKey = new ForeignKeyDDLUtils (foreignKeyMp, TableUtils.getEntity(database, linkToTargetEntity));
 				foreignKey.setForeignTableName(linkToTargetEntity);
 				foreignKey.setReference (reference);
@@ -39,6 +41,17 @@ public class ForeignKeyUtils {
 			logger.info("no correct fk found for "+field.getEntity().getName()+" - "+field.getName()+" - pointing towards "+linkToTargetEntity+" - "+field.getLinkToTargetField());
 		}
 		return null;
+	}
+	
+	public static org.apache.ddlutils.model.ForeignKey getForeignKey_(String field, Database database) {
+		org.apache.ddlutils.model.ForeignKey foreignKeyMp = new org.apache.ddlutils.model.ForeignKey();
+		foreignKeyMp.setName(field);
+		return foreignKeyMp;
+	}
+	public static org.apache.ddlutils.model.ForeignKey getForeignKey_(Field field, Database database) {
+		org.apache.ddlutils.model.ForeignKey foreignKeyMp = getForeignKey_(field.getName(),database);
+		//TODO complete with other field
+		return foreignKeyMp;
 	}
 
 

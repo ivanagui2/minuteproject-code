@@ -67,7 +67,7 @@ public class ForeignKeyConvention extends ModelConvention {
 			if (model.getBusinessPackage() != null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
 					applyEntitySimilarity(table);
-				}
+				}				
 			}
 		}
 		if (AUTODETECT_FOREIGN_KEY_BASED_ON_TARGET_PRIMARY_KEY_NAME.equals(type)) {
@@ -83,7 +83,10 @@ public class ForeignKeyConvention extends ModelConvention {
 	private void applyEntitySimilarity(Table table) {
 		for (Field field : getForeignKeyFieldsNotInSelfReferencedPrimaryKey(table)){
 			ForeignKeyUtils.setForeignKey(table, field);
+			//remove attribute
+			
 		}
+		
 	}
 	private void applyFieldSimilarity(Table table, Map<String, Table> map) {
 		//foreach column get name
