@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.ForeignKeyUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 import org.apache.log4j.Logger;
@@ -410,6 +413,8 @@ public class TableDDLUtils extends TableAbstract {
 		Reference ref = ReferenceDDLUtils.clone(foreignKey.getFirstReference(), foreignKey);
 		if (!isPresent(getParentList(), ref))
 			getParentList().add(ref);
+		//add also in parent
+		table.addForeignKey(ForeignKeyUtils.getForeignKey_(foreignKey.getName(), database));
 		children = null;
 		columns = null;
 		resetNoPrimaryKeyNoForeignKeyColumns();
@@ -535,6 +540,20 @@ public class TableDDLUtils extends TableAbstract {
 //	public void setConstraints(List<Constraint> constraints) {
 //		this.constraints = constraints;
 //	}
+
+	@Override
+	public void convertColumnToRelation(String name) {
+		List<Column> list = new ArrayList<Column>(Arrays.asList(noPrimaryKeyNoForeignKeyColumns));
+		
+		for (Iterator<Column> iterator = list.iterator(); iterator.hasNext();) {
+			Column column = (Column) iterator.next();
+			if (StringUtils.equalsIgnoreCase(column.getName(), name)) {
+				iterator.remove();
+				break;
+			}
+		}
+		noPrimaryKeyNoForeignKeyColumns =	list.toArray(new Column[list.size()]);
+	}
 
 
 

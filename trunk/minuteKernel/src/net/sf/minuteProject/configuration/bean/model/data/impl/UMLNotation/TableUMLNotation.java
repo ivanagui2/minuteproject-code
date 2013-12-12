@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -11,6 +12,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.TableAbstract;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.StringUtils;
 
 public class TableUMLNotation extends TableAbstract {
 	
@@ -93,6 +95,21 @@ public class TableUMLNotation extends TableAbstract {
 	public void setForeignKey(ForeignKey foreignKey) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void convertColumnToRelation(String name) {
+		if (noPrimaryKeyNoForeignKeyColumnsName!=null) {
+			for (Iterator iterator = noPrimaryKeyNoForeignKeyColumnsName.iterator(); iterator.hasNext();) {
+				Column column = (Column) iterator.next();
+				if (StringUtils.equalsIgnoreCase(column.getName(), name))
+					iterator.remove();
+				
+			}
+		}
+//		//reset
+//		noPrimaryKeyNoForeignKeyColumnsName = null;
+//		super.getTable().resetAssociation();
 	}
 	
 }

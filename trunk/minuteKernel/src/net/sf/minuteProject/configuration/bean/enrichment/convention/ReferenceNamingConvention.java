@@ -20,6 +20,7 @@ import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 public class ReferenceNamingConvention extends ModelConvention {
 
 	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY="apply-referenced-alias-when-no-ambiguity";
+	public final String APPLY_REFERENCED_CHILD_ALIAS_WHEN_NO_AMBIGUITY="apply-referenced-child-alias-when-no-ambiguity";
 	//TODO
 	public final String APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY_AND_NOT_PRESENT="apply-referenced-alias-when-no-ambiguity-and-not-present";
 	public final String APPLY_MANY_TO_MANY_ALIASING = "apply-many-to-many-aliasing";
@@ -32,6 +33,13 @@ public class ReferenceNamingConvention extends ModelConvention {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
 					apply (table);
+				}
+			}
+		}
+		else if (APPLY_REFERENCED_CHILD_ALIAS_WHEN_NO_AMBIGUITY.equals(type)) {
+			if (model.getBusinessPackage()!=null) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
+					applyForChildren (table);
 				}
 			}
 		}
@@ -90,19 +98,20 @@ public class ReferenceNamingConvention extends ModelConvention {
 	}
 
 	private void apply(Table table) {
-//		List<Reference> fks = getApplicableReferenceNotMany2Many(table);
-//		for (Reference reference : fks) {
-//			reference.setAlias(getFinalName(table));
-//		}
 		applyNotMany2ManyReference(table);
 		applyMany2ManyReference(table);
+	}
+	
+	private void applyForChildren(Table table) {
+		applyNotMany2ManyReference(table);
+
 	}
 
 	private void applyMany2ManyReference (Table table) {
 		List<Reference> list = getReferenceChildrenAndMany2Many(table);
 		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
 			if (!reference.getForeignTable().isManyToMany()) {
-				if (isNoAmbiguityReference(reference, list))
+				if (isNoAmbiguityReference(reference, list)) //TODO compare with all reference m2m+children
 					reference.setAlias(getNameForUnambiguiousCaseAndMany2Many(table, reference));
 				else {
 //					System.out.println(">>>>>>>>>> a "+reference.getAlias());
@@ -120,7 +129,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 		List<Reference> list = getReferenceChildrenAndMany2Many(table);
 		for (Reference reference : table.getChildren()) {
 			if (!reference.getForeignTable().isManyToMany()) {
-				if (isNoAmbiguityReference(reference, list))
+				if (isNoAmbiguityReference(reference, list))//TODO compare with all reference m2m+children
 					reference.setAlias(getNameForUnambiguiousCaseAndNotMany2Many(reference.getForeignTable()));
 				else 
 					reference.setAlias(getNameForAmbiguiousCaseAndNotMany2Many(table, reference));

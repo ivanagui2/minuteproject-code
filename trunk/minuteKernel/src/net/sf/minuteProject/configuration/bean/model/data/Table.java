@@ -305,5 +305,9 @@ public interface Table extends GeneratorBean{
 	public void addOrdering(Ordering ordering);
 	
 	public void addColumn (Column column);
+
+
+
+	public void convertColumnToRelation(String name);
 	
 }
