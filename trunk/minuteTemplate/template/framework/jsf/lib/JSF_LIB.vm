@@ -282,6 +282,7 @@
 #end
 
 #macro(putPrimefacesM2MChildrenSelectDeleteDialog)
+#if (!$isMasterData)
      <!-- dialog to add and manage ${childrenListClass} -->
 	 <p:outputPanel id="containerBasicAdd${childrenListClass}" >
          <p:dialog id="basicAdd${childrenListClass}" 
@@ -324,6 +325,7 @@
              </h:form>
          </p:dialog>
      </p:outputPanel>
+#end
 #end
 
 #macro(putPrimefacesChildrenAddEditCommand)
