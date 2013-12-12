@@ -31,8 +31,8 @@
                         <!-- manipulate the structure and entities BEFORE manipulating the entities -->
                         <foreign-key-convention type="autodetect-foreign-key-based-on-similarity-and-map"
                             column-ending="id" column-starting="" />
-                        <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID" />
-                        <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true" />       
+                        <!-- <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID" />-->
+                        <reference-naming-convention type="apply-referenced-child-alias-when-no-ambiguity" is-to-plurialize="true" />       
                     </conventions>
                     <entity name="user_" alias="user"></entity>
                     <entity name="role_" alias="role"></entity>
@@ -44,7 +44,7 @@
                 </enrichment>
             </business-model>
         </model>
-		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava">
+		<targets catalog-entry="JPA2">
 
 		</targets>
     </configuration>
