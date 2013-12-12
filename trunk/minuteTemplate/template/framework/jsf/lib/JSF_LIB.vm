@@ -381,7 +381,6 @@
                 			<p:toolbarGroup align="left"> 
 #if (!$isMasterData)
                 				<p:commandButton 
-##									actionListener="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}}"
                                     immediate="true" 
 									value="Associate"
 									title="Add $targetTable.name"  
@@ -389,23 +388,14 @@
 									oncomplete="add${childrenListClass}.show();" 
 									update=":containerBasicAdd${childrenListClass}">
 									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
-##									<f:actionListener binding="#{${entityLinkControllerJSFVariable}.resetSelected${linkedTableClass}()}"/>
                                 </p:commandButton>								
 #else
                 				<p:commandButton 
-##									actionListener="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}}"
                                     immediate="true" 
 									value="Save associations"
 									title="Add $targetTable.name elements"  
 									icon="ui-icon-document" 
-									action="#{${entityControllerJSFVariable}.add${childrenListClass}()}"
-##									oncomplete="add${childrenListClass}.show();" 
-##									update=":containerBasicAdd${childrenListClass}"
-	                             >
-								    <f:facet name="sourceCaption">Available</f:facet>
-									<f:facet name="targetCaption">Affected</f:facet>
-##									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
-##									<f:actionListener binding="#{${entityLinkControllerJSFVariable}.resetSelected${linkedTableClass}()}"/>
+									action="#{${entityControllerJSFVariable}.add${childrenListClass}()}">
                                 </p:commandButton>
 #end								
 							</p:toolbarGroup>
@@ -413,11 +403,15 @@
 #if ($isMasterData)
 #set ($parentConverterJSFClass = $commonUtils.getTemplateClassName($targetTable, $model, $templateEntityConverterJSF))
 #set ($parentConverterJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($parentConverterJSFClass))
-                         <p:pickList id="pickList$childrenListClass" value="#{${entityControllerJSFVariable}.${childrenListVariable}DualListModel}" var="var" effect="bounce"
+                         <p:pickList id="pickList$childrenListClass" value="#{${entityControllerJSFVariable}.${childrenListVariable}DualListModel}" var="var"
                                      itemValue="#{var}" itemLabel="#{var.display}" converter="#{${parentConverterJSFVariable}}"
                                      showSourceControls="true" showTargetControls="true" showCheckbox="true"
                                      showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >
-                         </p:pickList>	
+							<f:facet name="sourceCaption">Available</f:facet>
+							<f:facet name="targetCaption">Connected</f:facet>
+							<p:ajax event="transfer" listener="#{${entityControllerJSFVariable}.on${childrenListClass}Transfer}" />
+
+						 </p:pickList>	
 #else
                         <p:dataTable var="item" 
 							    value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" paginator="true" rows="10"  
@@ -434,7 +428,6 @@
 							<p:column>
                             <p:commandButton value="Delete association" 
             					id="detailButton${childrenListClass}" 
-##            					update=":containerBasicDialog${childrenListClass}" 
             					title="Delete"
 								update="$updateFromPopUp"
 								action="#{${thisEntityControllerJSFVariable}.disaffectAndDesactivateRender${childrenListClass}}"

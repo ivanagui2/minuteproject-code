@@ -211,21 +211,29 @@ public class ${className} implements java.io.Serializable{
 	}
 
 ##if is master data with 
-    private DualListModel<$targetTableClassName> ${childrenListVariable}DualListModel_;
+    private DualListModel<$targetTableClassName> ${childrenListVariable}DualListModel;
 
+	public void set${childrenListClass}DualListModel(DualListModel<$targetTableClassName> list){
+		this.${childrenListVariable}DualListModel = list;
+	}
+			
     public DualListModel<$targetTableClassName> get${childrenListClass}DualListModel(){
 ##        if (${childrenListVariable}DualListModel_==null || refresh$childrenListClass) {
 		populate$childrenListVariable();
 		List<$targetTableClassName> affected = ($childrenListVariable==null)?new ArrayList<$targetTableClassName>():$childrenListVariable; 
         List<$targetTableClassName> available = getAll$childrenListClass();
 		available.removeAll(affected);
-		${childrenListVariable}DualListModel_ = new DualListModel<$targetTableClassName>(available, affected);
+		${childrenListVariable}DualListModel = new DualListModel<$targetTableClassName>(available, affected);
 ##        }
-        return ${childrenListVariable}DualListModel_;
+        return ${childrenListVariable}DualListModel;
     }
 	
+	public void on${childrenListClass}Transfer(TransferEvent event){
+		//do nothing
+	}
+	
 	public void add${childrenListClass}() {
-	    for ($targetTableClassName item : ${childrenListVariable}DualListModel_.getTarget()) {
+	    for ($targetTableClassName item : ${childrenListVariable}DualListModel.getTarget()) {
 		   ${EJBDaoImplVariable}.add${childrenListClass}(selected$tableClassName, item);
 		}
 		populate$childrenListVariable ();		
