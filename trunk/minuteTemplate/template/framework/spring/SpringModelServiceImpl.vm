@@ -104,7 +104,7 @@ public class $thisClassName implements $beanSpringModelServiceClass {
 *#
 #end
 #if ($tableUtils.hasManyToManyRelationship($table))
-
+#asUML($table)
     public $tableClassName getManyToManyList ($tableClassName $tableVariableName, String child) {
 #putOrmForeignAndPrimaryKeyColumn()
        $tableClassName e = ${BslaDaoInterfaceVariable}.load${tableClassName}(${tableVariableName}.get$primaryKeyJavaNameClass());
