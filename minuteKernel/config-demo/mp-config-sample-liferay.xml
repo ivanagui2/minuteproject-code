@@ -44,7 +44,7 @@
                 </enrichment>
             </business-model>
         </model>
-		<targets catalog-entry="JPA2">
+		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE">
 
 		</targets>
     </configuration>
