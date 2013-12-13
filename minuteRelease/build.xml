@@ -540,21 +540,21 @@
 
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
 	<target name="generation-build-webapps" depends="release-application" >
+		<antcall target="generation-build-buslogic_intro"/>
 		<antcall target="generation-build-liferay"/>
 		<antcall target="generation-build-lazuly"/>
 		
 		<antcall target="generation-build-petshop"/>
 		<antcall target="generation-build-porphyry"/>
 		<antcall target="generation-build-sakila"/>
-		<antcall target="generation-build-buslogic_intro"/>
+		
 		
 		
 		
 		<!--
-			<antcall target="generation-build-lazuly"/>
 			<antcall target="generation-build-northwind"/>
-			<antcall target="generation-build-tranxy"/>
-		-->
+		 -->
+		
 	</target>
 	
 	<target name="generation-build-petshop" >
