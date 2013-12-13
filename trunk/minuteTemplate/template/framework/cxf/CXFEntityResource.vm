@@ -128,7 +128,12 @@ $!updatedAreaEnd
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public $tableClassName save(JAXBElement<$tableClassName> jaxb$tableClassName) {
         $tableClassName $tableVariableName = jaxb${tableClassName}.getValue();
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
+		if (${tableVariableName}.get${primaryKeyVariable}_()!=null)
+#else
         if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
+#end
             return ${EJBDaoImplVariable}.update($tableVariableName).flat();
         return create($tableVariableName);
     }
