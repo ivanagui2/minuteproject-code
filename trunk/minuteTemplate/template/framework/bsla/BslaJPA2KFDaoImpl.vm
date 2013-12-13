@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 
-import org.springframework.stereotype.Repository;
 
 import net.sf.minuteProject.architecture.query.QueryWhatInit;
 import net.sf.minuteProject.architecture.query.impl.QueryCountInit;
@@ -79,7 +78,7 @@ import $importDaoImplExtendedJPAName;
  * deleting and searching $className objects</p>
  *
  */
-@Repository(value="$daoInterfaceExtendedVariableNameUML")
+@org.springframework.stereotype.Repository(value="$daoInterfaceExtendedVariableNameUML")
 public class $className extends $daoJPAImplClassName implements $daoInterfaceExtendedNameUML{##, GenericService<$tableClassName> {
 
     private Logger log = Logger.getLogger(this.getClass());
