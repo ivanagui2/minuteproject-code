@@ -233,7 +233,11 @@ public class ${className} implements java.io.Serializable{
 	}
 	
 	public void add${childrenListClass}() {
+		//TODO to improve in next release (transactional+algo)
 	    for ($targetTableClassName item : ${childrenListVariable}DualListModel.getTarget()) {
+		   ${EJBDaoImplVariable}.remove${childrenListClass}(selected$tableClassName, item);
+		}
+		for ($targetTableClassName item : ${childrenListVariable}DualListModel.getTarget()) {
 		   ${EJBDaoImplVariable}.add${childrenListClass}(selected$tableClassName, item);
 		}
 		populate$childrenListVariable ();		
