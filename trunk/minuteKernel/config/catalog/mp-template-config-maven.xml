@@ -13,6 +13,20 @@
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
 		</template>				
+	
+	</template-target>		
+	<template-target 
+	    templatedir = "template" 
+		tool="velocity"
+		outputdir=""
+		package-root="src/site"
+		belongToPackage="true">
+			
+		<template name="MavenSiteXml" templateFileName="MavenSiteXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="site" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>				
 	</template-target>		
 	
 </target>	

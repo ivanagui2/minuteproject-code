@@ -32,7 +32,8 @@ public class ReferenceNamingConvention extends ModelConvention {
 		if (APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
-					apply (table);
+//					apply (table); TODO fix bug in liferay to enable m2m and child relationships
+					applyForChildren (table);
 				}
 			}
 		}
