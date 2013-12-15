@@ -32,7 +32,7 @@
                         <foreign-key-convention type="autodetect-foreign-key-based-on-similarity-and-map"
                             column-ending="id" column-starting="" />
                         <!-- <column-naming-convention type="apply-strip-column-name-suffix" pattern-to-strip="ID" />-->
-                        <reference-naming-convention type="apply-referenced-child-alias-when-no-ambiguity" is-to-plurialize="true" />       
+                        <reference-naming-convention type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true" />       
                     </conventions>
                     <entity name="user_" alias="user"></entity>
                     <entity name="role_" alias="role"></entity>
@@ -44,7 +44,7 @@
                 </enrichment>
             </business-model>
         </model>
-		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE">
+		<targets catalog-entry="Primefaces-Spring,Vaadin,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE">
 
 		</targets>
     </configuration>

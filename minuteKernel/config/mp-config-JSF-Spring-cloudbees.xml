@@ -65,6 +65,13 @@
 							<sql-path path="NAME" />
 						</semantic-reference> -->
 					</entity>
+					<entity name="TAG" content-type="reference-data">
+						<field name="TAG" ordering="asc">
+							<semantic-reference>
+								<sql-path path="NAME" />
+							</semantic-reference>
+						</field>
+					</entity>
 				</enrichment>
 			</business-model>
 			<statement-model>
