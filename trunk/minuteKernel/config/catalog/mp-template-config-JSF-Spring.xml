@@ -239,7 +239,6 @@
 		package-root=""
 		belongToPackage="true">
 		
-		
 		<template name="JSFWebXml" templateFileName="JSFWebXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="web" 
 			application-specific="true" add-model-name="false" 
