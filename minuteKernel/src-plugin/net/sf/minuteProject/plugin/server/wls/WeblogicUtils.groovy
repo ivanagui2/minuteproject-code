@@ -11,7 +11,7 @@ class WeblogicUtils {
 	public String getContextRoot(Template template, Model model) {
 		String context = template.getPropertyValue("context-root")
 		if (StringUtils.isEmpty(context)) {
-			context = model.getName()
+			context = model.getName()+"App"
 		}
 		context
 	}

@@ -2,7 +2,7 @@
 xmlns="http://minuteproject.sf.net/xsd/mp-template-config" 
 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
 xs:schemaLocation="./mp-template-config.xsd">	
-	<architecture-target name="ABL" description="Server artifacts">
+	<architecture-target name="Server" description="Server artifacts">
 	</architecture-target>	
 
     <plugin name="weblogicUtils" className="net.sf.minuteProject.plugin.server.wls.WeblogicUtils"></plugin>
