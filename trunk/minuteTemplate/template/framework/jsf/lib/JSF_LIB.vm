@@ -537,3 +537,9 @@
 #end
 #end
 #end
+
+#macro (exposeJSFReleaseSpecific)
+##exposeJSFBuildSpecific()
+#set($applicationName=$template.getPropertyValue("application-name","${model.name}App"))
+#set($hasCasAuthentication=$template.getPropertyValue("has-cas-authentication",false))
+#end
