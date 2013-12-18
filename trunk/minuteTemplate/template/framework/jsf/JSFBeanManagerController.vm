@@ -234,7 +234,7 @@ public class ${className} implements java.io.Serializable{
 	
 	public void add${childrenListClass}() {
 		//TODO to improve in next release (transactional+algo)
-	    for ($targetTableClassName item : ${childrenListVariable}DualListModel.getTarget()) {
+	    for ($targetTableClassName item : ${childrenListVariable}DualListModel.getSource()) {
 		   ${EJBDaoImplVariable}.remove${childrenListClass}(selected$tableClassName, item);
 		}
 		for ($targetTableClassName item : ${childrenListVariable}DualListModel.getTarget()) {
