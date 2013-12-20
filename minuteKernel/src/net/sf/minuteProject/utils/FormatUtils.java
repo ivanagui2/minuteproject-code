@@ -363,7 +363,7 @@ public class FormatUtils {
 		return renderTime(new Date());
 	}
 
-	private static String renderTime(Date date) {
+	public static String renderTime(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd G 'at' HH:mm:ss z");
 		return sdf.format(date);
 	}
