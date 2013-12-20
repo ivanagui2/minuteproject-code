@@ -9,7 +9,7 @@
 
 <div id="menuheader">
   	<span id="menutitle">$applicationLabel menu 
-      <a href="/$applicationOX/xava/homeMenu.jsp" ><img src="/$applicationOX/xava/images/home.gif"></a>
+      <a href="/<%=request.getContextPath()%>/xava/homeMenu.jsp" ><img src="/<%=request.getContextPath()%>/xava/images/home.gif"></a>
     </span>
   	<span id="menuPowerByMP">
 #getTemplatePropertyValue("add-spring-security")
@@ -17,7 +17,8 @@
   	  <span id="logout"><a href="../j_spring_security_logout">Logoff</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
 #end
       <a href="http://minuteproject.wikispaces.com" >powered by minuteProject</a>
-    </span>		
+       version $minuteprojectUtils.version - $minuteprojectUtils.buildDate<br/>
+	</span>		
 </div>
 
 

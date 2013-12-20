@@ -1,3 +1,5 @@
+<% Servlets.setCharacterEncoding(request, response); %> <%-- Must be the very first, in order character encoding takes effect --%>
+
 <%@ include file="imports.jsp"%>
 
 <%@page import="java.io.File"%>
@@ -11,10 +13,9 @@
 <%@page import="org.openxava.web.dwr.Module"%>
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
-<%@page import="org.openxava.web.servlets.Servlets"%>
-<%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.apache.commons.logging.LogFactory" %>
 <%@page import="org.apache.commons.logging.Log" %>
+
 
 <%!private static Log log = LogFactory.getLog("module.jsp");
 
@@ -43,13 +44,14 @@
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <%
-	Servlets.setCharacterEncoding(request, response);
 	Locales.setCurrent(request);	
 	request.getSession().setAttribute("xava.user",
 			request.getRemoteUser());
 	Users.setCurrent(request); 
 	String app = request.getParameter("application");
-	String module = context.getCurrentModule(request);
+	String module = context.getCurrentModule(request); 
+	String contextPath = (String) request.getAttribute("xava.contextPath");
+	if (contextPath == null) contextPath = request.getContextPath();
 
 	org.openxava.controller.ModuleManager managerHome = (org.openxava.controller.ModuleManager) context
 			.get(request, "manager",
@@ -62,24 +64,27 @@
 	manager.setApplicationName(request.getParameter("application"));
 
 	manager.setModuleName(module); // In order to show the correct description in head
-
+	
+	boolean restoreLastMessage = false;
 	if (manager.isFormUpload()) {
 		new Module().requestMultipart(request, response, app, module);
 	}
 	else {
-		Module.restoreLastMessages(request, app, module); 
+		restoreLastMessage = true;
 	}	
+
 	boolean isPortlet = (session.getAttribute(Ids.decorate(app, request
 			.getParameter("module"), "xava.portlet.uploadActionURL")) != null);
 
 	Module.setPortlet(isPortlet);
+	boolean htmlHead = isPortlet?false:!Is.equalAsStringIgnoreCase(request.getParameter("htmlHead"), "false");
 	String version = org.openxava.controller.ModuleManager.getVersion();
 	String realPath = request.getSession().getServletContext()
 			.getRealPath("/");			
 %>
 <jsp:include page="execute.jsp"/>
 <%
-	if (!isPortlet) {
+	if (htmlHead) {	
 %>
  
 <!DOCTYPE html>
@@ -94,7 +99,7 @@
  			if (jsFiles != null) {
  				for (int i = 0; i < jsFiles.length; i++) {
  	%>
-	<script src="<%=request.getContextPath()%>/xava/style/<%=jsFiles[i]%>?ox=<%=version%>" type="text/javascript"></script>
+	<script src="<%=contextPath%>/xava/style/<%=jsFiles[i]%>?ox=<%=version%>" type="text/javascript"></script>
 	<%
 				}
 			}
@@ -102,37 +107,48 @@
 
 <%
 	}
+
+	if (style.getCssFile() != null) {
 %>
-	<%
-		for (java.util.Iterator it = style.getAdditionalCssFiles()
-				.iterator(); it.hasNext();) {
-			String cssFile = (String) it.next();
-	%> 
-	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%><%=cssFile%>?ox=<%=version%>"/>
-	<%
-		}
-	%> 
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/xava/style/mp.css" />		
-	<link href="<%=request.getContextPath()%>/xava/style/<%=style.getCssFile()%>?ox=<%=version%>" rel="stylesheet" type="text/css">
-	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/util.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Module.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/View.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/openxava.js?ox=<%=version%>'></script>
+	<link href="<%=contextPath%>/xava/style/<%=style.getCssFile()%>?ox=<%=version%>" rel="stylesheet" type="text/css">
+<%
+	}
+
+	for (java.util.Iterator it = style.getAdditionalCssFiles()
+			.iterator(); it.hasNext();) {
+		String cssFile = (String) it.next();
+%> 
+	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%><%=cssFile%>?ox=<%=version%>"/>
+<%
+	}
+%> 
+## modification to module.jsp
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/xava/style/mp.css" />	
+## modification to module.jsp
+	<script type='text/javascript' src='<%=contextPath%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/dwr/util.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Module.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Tab.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/View.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script> 
+	<script type='text/javascript'>
+		openxava.lastApplication='<%=app%>'; 		
+		openxava.lastModule='<%=module%>'; 	
+		openxava.language='<%=request.getLocale().getLanguage()%>';
+	</script>	
 	<%
 		if (style.isNeededToIncludeCalendar()) {
 	%>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/editors/calendar/calendar.js?ox=<%=version%>"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/editors/calendar/lang/calendar-<%=Locales.getCurrent().getLanguage()%>.js?ox=<%=version%>"></script>	
+	<script type="text/javascript" src="<%=contextPath%>/xava/editors/calendar/calendar.js?ox=<%=version%>"></script>
+	<script type="text/javascript" src="<%=contextPath%>/xava/editors/calendar/lang/calendar-<%=Locales.getCurrent().getLanguage()%>.js?ox=<%=version%>"></script>	
 	<%
 			}
 		%>	
-	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/calendar.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/xava/js/calendar.js?ox=<%=version%>'></script>
 	<%
 		if (new File(realPath + "/xava/js/custom-editors.js").exists()) {
 	%>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/custom-editors.js?ox=<%=version%>'></script>
+	<script type='text/javascript' src='<%=contextPath%>/xava/js/custom-editors.js?ox=<%=version%>'></script>
 	<%
 		log.warn(XavaResources.getString("custom_editors_deprecated"));
 		}
@@ -142,17 +158,19 @@
 			portalJQuery = jQuery;
 		}       
 	</script>				
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery.js?ox=<%=version%>"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery-ui.js?ox=<%=version%>"></script>	
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/js/jquery.bgiframe.min.js?ox=<%=version%>"></script>
+	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.js?ox=<%=version%>"></script>
+	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery-ui.js?ox=<%=version%>"></script>	
+	<script type="text/javascript" src="<%=contextPath%>/xava/js/jquery.bgiframe.js?ox=<%=version%>"></script>
 	<%
 		File jsEditorsFolder = new File(realPath + "/xava/editors/js");		
 		String[] jsEditors = jsEditorsFolder.list();
 		Arrays.sort(jsEditors);
 		for (int i = 0; i < jsEditors.length; i++) {
+			if (jsEditors[i].endsWith(".js")) {
 	%>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/xava/editors/js/<%=jsEditors[i]%>?ox=<%=version%>"></script>
+	<script type="text/javascript" src="<%=contextPath%>/xava/editors/js/<%=jsEditors[i]%>?ox=<%=version%>"></script>
 	<%
+			}
 		}
 	%>	
 	<script type="text/javascript">
@@ -162,26 +180,36 @@
 		}   
 	</script>
 <%
-	if (!isPortlet) {
+	if (htmlHead) { 	
 %>
 </head> 
 <body bgcolor="#ffffff">
+## modification to module.jsp
 	<%-- layer for menu--%>
 	<div id="menu">
 		<%@ include file="../mp/menu.jsp"%>
 	</div>
 	<div id="content">
+## modification to module.jsp
 <%=style.getNoPortalModuleStartDecoration(managerHome
 						.getModuleDescription())%>
 <%
 	}
 %> 
 <% 
-boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions(); 
+boolean coreViaAJAX = !manager.getPreviousModules().isEmpty() || manager.getDialogLevel() > 0 || manager.hasInitForwardActions();
+if (!coreViaAJAX && restoreLastMessage) {
+	Module.restoreLastMessages(request, app, module);
+}	
 
 if (manager.isResetFormPostNeeded()) {	
 %>		
-	<form id="xava_reset_form"></form>
+	<form id="xava_reset_form">
+		<% if (!"true".equals(request.getParameter("friendlyURL"))) { // To support old URL style (with xava/moduls.jsp?application=...) %>
+		<input name="application" type="hidden" value="<%=request.getParameter("application")%>"/>
+		<input name="module" type="hidden" value="<%=request.getParameter("module")%>"/>
+		<% } %>
+	</form>
 <% } else  { %>	
 	<input id="xava_last_module_change" type="hidden" value=""/>
 	<input id="<xava:id name='loading'/>" type="hidden" value="<%=coreViaAJAX%>"/>
@@ -194,7 +222,7 @@ if (manager.isResetFormPostNeeded()) {
 	   <tr class='<%=style.getProcessing()%>'>
 	       <td align='center' valign='middle' style='line-height:1.4;padding:25px 80px;border:2px solid #000'>
 	           <%=XavaResources.getString(request, "processing")%><br/>
-	           <img src='<%=request.getContextPath()%>/xava/images/processing.gif' name='xava_processingImage'/>
+	           <img src='<%=contextPath%>/xava/images/processing.gif' name='xava_processingImage'/>
 	       </td>
 	   </tr>
 	</table>
@@ -214,7 +242,7 @@ if (manager.isResetFormPostNeeded()) {
 <% } %>			
 	<div id="xava_console" >
 	</div>
-	<% String loadingImage=!style.getLoadingImage().startsWith("/")?request.getContextPath() + "/" + style.getLoadingImage():style.getLoadingImage();%>
+	<% String loadingImage=!style.getLoadingImage().startsWith("/")?contextPath + "/" + style.getLoadingImage():style.getLoadingImage();%>
 	<div id="xava_loading">				
 		<img src="<%=loadingImage%>" style="vertical-align: middle"/>
 		&nbsp;<xava:message key="loading"/>...		 
@@ -226,13 +254,15 @@ if (manager.isResetFormPostNeeded()) {
 	</div>	
 	<% } %>	
 <%
-	if (!isPortlet) {
+	if (htmlHead) { 	
 %>
 <%=style.getNoPortalModuleEndDecoration()%>
+## modification to module.jsp
 	</div>
 	<div id="content">
 		<%@ include file="../mp/footer.jsp"%>
 	</div>
+## modification to module.jsp
 </body>
 </html>
 <%
@@ -246,7 +276,7 @@ if (manager.isResetFormPostNeeded()) {
 	<script type="text/javascript">
 	$("#xava_reset_form").submit();
 	</script>		
-<% } else  { 
+<% } else  { 		
 		String browser = request.getHeader("user-agent"); 
 %>
 
@@ -262,7 +292,8 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';
 		openxava.currentRowClass = '<%=style.getCurrentRow()%>';
-		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>';
+		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>';	
+		openxava.collectionWidthRatio = <%=style.getCollectionWidthRatio()%>;
 		openxava.closeDialogOnEscape = <%=browser != null && browser.indexOf("Firefox") >= 0 ? "false":"true"%>;		  
 		openxava.calendarAlign = '<%=browser != null && browser.indexOf("MSIE 6") >= 0 ? "tr"
 					: "Br"%>';
@@ -274,6 +305,8 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>");
 		<%if (coreViaAJAX) {%>
 		openxava.ajaxRequest("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);	
+		<%} else {%>
+		openxava.setFocus("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); 
 		<%}%>
 		openxava.<%=initiated%> = true;
 	}	
@@ -282,4 +315,6 @@ window.onload = <%=onLoadFunction%>;
 setTimeout('<%=onLoadFunction%>()', 1000);
 document.additionalParameters="<%=getAdditionalParameters(request)%>";
 </script>
-<% } %>
+<% }
+manager.commit();
+%>
