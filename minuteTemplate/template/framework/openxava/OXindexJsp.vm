@@ -10,7 +10,7 @@
   <body>
     <h1>Welcome to $applicationLabel</h1>
 
-<a href="/<%=request.getContextPath()%>/xava/homeMenu.jsp">login</a>
+<a href="<%=request.getContextPath()%>/xava/homeMenu.jsp">Enter</a>
 
   </body>
 </html>
