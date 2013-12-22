@@ -665,6 +665,7 @@
 	</target>
 		
 	<target name="cloudbees-samples" depends="release-application" >
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-petshop-cloudbees.xml" />
 		<macro_build_and_deploy maven.basedir="petshop/cloudbees/Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
 		<macro_build_and_deploy maven.basedir="petshop/cloudbees/Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
 		<!--<macro_build_and_deploy maven.basedir="petshop/cloudbees/OpenXava/petshop" project="Openxava" artifact="tranxyVaadinApp" />
