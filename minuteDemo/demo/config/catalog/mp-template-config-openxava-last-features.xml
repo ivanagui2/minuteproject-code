@@ -171,7 +171,16 @@
 	  		entity-specific="false" package-specific="false" model-specific="false"
 	  		application-specific="true">
 		</template>			  
-  									
+  							
+  		<!-- default -->
+  		    		
+		<template 
+			name="OXindexJsp" templateFileName="OXindexJsp.vm" package-root=""
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="index" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+									
   </template-target> 
 		<!--  Menu home.jsp belongs to architecture -->
 		
@@ -500,9 +509,7 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="servlets" 
 			entity-specific="false" package-specific="false" model-specific="true"
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnTargetPresence">
 			>
-			<property name="target-presence" value="add-spring-security"></property>
 		</template>	
 
 	</template-target>		

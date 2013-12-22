@@ -5,7 +5,7 @@
 	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
-
+<!-- 
 	<template-target 
     	name="cloudbees"
 		outputdir="src/main/webapp"
@@ -15,6 +15,21 @@
 		<template name="CloudbeesContext" templateFileName="CloudbeesContext.xml.vm" 
 			file-extension="xml" technicalPackage="META-INF" file-suffix="context" 
 			application-specific="true" add-model-name="false" has-updatable-nature="true">
+		</template>
+
+	</template-target>
+ -->
+ 	
+	<template-target 
+    	name="cloudbees"
+		outputdir=""
+		package-root=""
+		belongToPackage="true">
+
+		<template name="CloudbeesScript" templateFileName="CloudbeesScript.vm" 
+			file-extension="cmd" technicalPackage="" file-suffix="cloudbees" 
+			application-specific="true" add-model-name="false" has-updatable-nature="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence">
 		</template>
 
 	</template-target>
