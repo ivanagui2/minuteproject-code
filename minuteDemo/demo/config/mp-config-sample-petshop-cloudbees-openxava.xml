@@ -62,6 +62,11 @@
 				</enrichment>
 			</business-model>
 			<statement-model>
+			    <enrichment>
+			    	<convention>
+			    		<sdd-dummy-primarykey-convention ></sdd-dummy-primarykey-convention>
+			    	</convention>
+			    </enrichment>
 				<queries>
 					<query name="get address abstract" id="dashAddress" type="dashboard"
 						category="pie-chart">
