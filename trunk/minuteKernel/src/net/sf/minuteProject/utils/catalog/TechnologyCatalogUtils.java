@@ -20,7 +20,7 @@ public class TechnologyCatalogUtils extends CatalogUtils{
 	
 	public static Technology getPublishedTechnology(String name, String catalogDir) throws MinuteProjectException {
 		for (Technology technology : getPublishedTechnologies (catalogDir)) {
-			if (technology.getName().equals(name))
+			if (technology.getName().equalsIgnoreCase(name))
 				return technology;
 		}		
 		throw new MinuteProjectException("Bad target\nSpecified target "+name+"\nAvailable targets"+getAvailableTargetsDisplay(catalogDir));

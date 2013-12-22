@@ -28,7 +28,8 @@
 
 		<template name="CloudbeesScript" templateFileName="CloudbeesScript.vm" 
 			file-extension="cmd" technicalPackage="" file-suffix="cloudbees" 
-			application-specific="true" add-model-name="false" has-updatable-nature="true">
+			application-specific="true" add-model-name="false" has-updatable-nature="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence">
 		</template>
 
 	</template-target>
