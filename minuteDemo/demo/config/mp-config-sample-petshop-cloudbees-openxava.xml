@@ -98,8 +98,9 @@
 				</queries>
 			</statement-model>
 		</model>
-		<targets catalog-entry="Openxava" outputdir-root="../../output/cloudbees/petshop">
+		<targets catalog-entry="OpenXava" >
 			<property name="environment" value="remote"></property>
+			<property name="cloud-platform" value="cloudbees"></property>
 		</targets>
 	</configuration>
 </generator-config>

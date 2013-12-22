@@ -100,6 +100,7 @@
 		</model>
 		<targets catalog-entry="Primefaces-Spring,Vaadin">
 			<property name="environment" value="remote"></property>
+			<property name="cloud-platform" value="cloudbees"></property>
 		</targets>
 	</configuration>
 </generator-config>
