@@ -37,16 +37,6 @@
 							pattern-to-strip="SYS,FIN" />
 						<reference-naming-convention
 							type="apply-referenced-alias-when-no-ambiguity" is-to-plurialize="true"></reference-naming-convention>
-						<semantic-reference-convention
-							content-type="reference-data" field-pattern="name,number,amount"
-							field-pattern-type="endsWith"
-							force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present="true"
-							max-number-of-fields="4" />
-						<semantic-reference-convention
-							package-type="pet" field-pattern="name,number,amount"
-							field-pattern-type="endsWith"
-							force-default-semantic-reference-based-on-id-and-first-attribute-if-not-present="true"
-							max-number-of-fields="4" />
 					</conventions>
 					<package name="product">
 						<entity-group entities="PRODUCT"></entity-group>
