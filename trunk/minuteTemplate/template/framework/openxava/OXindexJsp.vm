@@ -1,1 +1,21 @@
-#putOXTiles("Welcome to $applicationLabel", "<h1>Welcome to $applicationLabel</h1><a href='<%=request.getContextPath()%>/xava/homeMenu.jsp'>Enter</a>")
+#exposeVariableModelSpecific() 
+#set ($applicationOX=$configuration.name)
+#set ($applicationLabel=$formatUtils.getJavaName($applicationOX))
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<title>${title}</title>
+	<link href="<%=request.getContextPath()%>/xava/style/<%=style.getCssFile()%>" rel="stylesheet" type="text/css"> 
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/xava/style/mp.css" />	
+</head>
+<body bgcolor="#ffffff">
+	<%-- layer for menu--%>
+	<div id="menu">
+		<%@ include file="mp/menu.jsp"%>
+	</div>
+	$content
+	<div id="content">
+		<%@ include file="mp/footer.jsp"%>
+	</div>
+</body>
+</html>
