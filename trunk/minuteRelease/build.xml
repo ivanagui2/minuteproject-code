@@ -658,6 +658,20 @@
 	</target>
 
 	<!-- ===================================================================== -->
+	<!-- cloud sample delivery -->
+	<!-- ===================================================================== -->
+
+	<target name="cloud-samples" depends="cloudbees-samples" >
+	</target>
+		
+	<target name="cloudbees-samples" depends="release-application" >
+		<macro_build_and_deploy maven.basedir="petshop/cloudbees/Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
+		<macro_build_and_deploy maven.basedir="petshop/cloudbees/Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
+		<!--<macro_build_and_deploy maven.basedir="petshop/cloudbees/OpenXava/petshop" project="Openxava" artifact="tranxyVaadinApp" />
+	-->
+	</target>
+
+	<!-- ===================================================================== -->
 	<!-- release -->
 	<!-- ===================================================================== -->
 
