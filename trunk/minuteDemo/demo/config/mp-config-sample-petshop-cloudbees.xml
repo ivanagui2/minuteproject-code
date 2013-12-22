@@ -98,7 +98,7 @@
 				</queries>
 			</statement-model>
 		</model>
-		<targets catalog-entry="Primefaces-Spring" outputdir-root="../../output/cloudbees/petshop">
+		<targets catalog-entry="Primefaces-Spring,Vaadin">
 			<property name="environment" value="remote"></property>
 		</targets>
 	</configuration>
