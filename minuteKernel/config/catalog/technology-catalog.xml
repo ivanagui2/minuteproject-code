@@ -158,7 +158,7 @@ the properties are declared at the technology level and apply to all templates (
 
 		<technology name="Primefaces-Spring" 
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF-Spring.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
@@ -177,7 +177,7 @@ the properties are declared at the technology level and apply to all templates (
 		
 		<technology name="Primefaces-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,MavenMaster"
+			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
@@ -215,7 +215,7 @@ the properties are declared at the technology level and apply to all templates (
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB" status="released" comment=""
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB,Cloudbees" status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
 				<framework name="OpenXava" version="4.6.1"></framework>
@@ -476,16 +476,24 @@ the properties are declared at the technology level and apply to all templates (
 			</frameworks>
 		</technology>
 		
-		<!-- server -->
-		
+		<!-- server -->	
 		
 		<technology name="Primefaces-server" 
-			model-type="rdbms" template-config-file-name="mp-template-config-server.xml"
+			template-config-file-name="mp-template-config-server.xml"
 			default-outputdir="JSF-primefaces" 
 			template-dir="@templateRoot@/server"
 			is-generable="false">
 		</technology>	
+	
+		<!-- cloud -->	
 		
+		<technology name="Cloudbees" 
+			template-config-file-name="mp-template-config-cloudbees.xml"
+			default-outputdir="" 
+			template-dir="@templateRoot@/cloud/cloudbees"
+			is-generable="false">
+		</technology>	
+			
 		<!-- libraries -->
 
 
