@@ -3,7 +3,8 @@
 #exposeJdbc()
 #exposeJPA2Specifics()
 <Context>
-    <!-- to use only if you do not configure a DS from command line (recommanded way)
+    <!-- 
+    	to use only if you do not configure a DS from command line (recommanded way)
      --> 
     <Resource
             name="$datasourceName"
