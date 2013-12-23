@@ -64,7 +64,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets catalog-entry="Primefaces-JEE" templatedir-root="../../minuteTemplate/template">
+		<targets catalog-entry="Primefaces-JEE" >
 <!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 

@@ -399,7 +399,6 @@ public class EnrichmentUtils {
 		if (property!=null) {
 			String value = template.getPropertyValue("property-presence-value");
 			if (value!=null)
-				
 				return (value.equals(property.getValue()));
 		}
 		return false;
@@ -432,6 +431,9 @@ public class EnrichmentUtils {
 		return false;		
 	}
 	
+	public static boolean isToGenerateBasedOnNotMany2ManyAndOnPresenceValue(Template template, GeneratorBean bean) {
+		return isToGenerateBasedOnNotMany2Many (template, bean) && isToGenerateBasedOnPropertyPresenceValue(template, bean);
+	}
 	public static boolean isToGenerateBasedOnNotMany2Many(Template template, GeneratorBean bean) {
 		if (bean instanceof Table) {
 			Table table = (Table) bean;
