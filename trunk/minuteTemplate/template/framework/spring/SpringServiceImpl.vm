@@ -16,11 +16,17 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 import net.sf.minuteProject.model.data.criteria.QueryData;
+
+#if ($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+#else
+import javax.ejb.Stateless;	
+import javax.ejb.EJB;	
+#end
 
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
@@ -50,13 +56,19 @@ $!updatedAreaImport
 @Service ("$SpringServiceInterfaceVariable")
 @Transactional
 public class $className implements $SpringServiceInterfaceClass {
-
+#if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoInterfaceVariable")	
+#else
+	@EJB// (name="$BslaDaoInterfaceVariable")	
+#end
 	$BslaDaoInterfaceClass $BslaDaoInterfaceVariable;
-
+#if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoExtInterfaceVariable")	
+#else
+	@EJB// (name="$BslaDaoExtInterfaceVariable")	
+#end
 	$BslaDaoExtInterfaceClass $BslaDaoExtInterfaceVariable;
 	
     /**

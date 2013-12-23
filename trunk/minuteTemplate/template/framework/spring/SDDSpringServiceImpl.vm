@@ -9,11 +9,16 @@ $!updatedAreaImport
 import java.util.ArrayList;
 import java.util.List;
 
+#if ($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+#else
+import javax.ejb.Stateless;	
+import javax.ejb.EJB;	
+#end
 
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
@@ -30,11 +35,19 @@ import $sddServiceInterfaceImport;
  * <p>Description: SDD Spring service implementation </p>
  *
  */
+#if ($isSpringBackend)
 @Service ("$sddServiceInterfaceVariable")
 @Transactional
+#else
+@Stateless (name="$sddServiceInterfaceVariable")	
+#end
 public class ${className} implements $sddServiceInterfaceClass{
+#if ($isSpringBackend)
     @Autowired
-    @Qualifier("$sddDaoInterfaceVariable") 
+    @Qualifier("$sddDaoInterfaceVariable")
+#else
+	@EJB (name="$sddServiceInterfaceVariable")
+#end
     $sddDaoInterfaceClass $sddDaoInterfaceVariable;
     
 #exposeQueryUpdatedAreas("SDD_EXECUTE_GET")

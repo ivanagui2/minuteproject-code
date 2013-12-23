@@ -1,4 +1,5 @@
 #exposeMaven()
+#exposeBackendTechnology()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -22,6 +23,14 @@
 		<scope>test</scope>
 	</dependency>
 
+#if($isEJBBackend)	
+    <dependency>
+       <groupId>javax</groupId>
+       <artifactId>javaee-api</artifactId>
+       <version>6.0</version>
+       <scope>provided</scope>
+    </dependency>
+#elseif($isSpringBackend)	  	  
 	<!-- spring -->
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -65,7 +74,7 @@
 		<version>${spring.version}</version>
 		<scope>compile</scope>
 	</dependency>
-	
+#end	
 	<!-- spring end -->
 	
 #foreach($dependency in $dependencies)

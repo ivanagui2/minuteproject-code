@@ -16,9 +16,13 @@ import java.sql.Timestamp;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 
+#if ($isSpringBackend)
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
+#else
+
+#end
 
 import org.apache.commons.lang.StringUtils;
 
@@ -48,7 +52,12 @@ import javax.persistence.PersistenceContext;
  *
  */
 
+
+#if ($isSpringBackend)
 @org.springframework.stereotype.Repository(value="$daoInterfaceVariableNameUML")
+#else
+@javax.ejb.Stateless(name="$daoInterfaceVariableNameUML")
+#end
 ##public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
 public class $className implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
 
@@ -97,7 +106,9 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
      * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
      * @param $tableClassName $tableVariableName
     */ 
+#if ($isSpringBackend)
     @Transactional
+#end
     public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
         Query jpaQuery = getEntityManager().createQuery(getUpdateNotNullOnly${tableClassName}QueryChunk(${tableVariableName}));
 #foreach ($column in ${table.columns})
@@ -116,7 +127,9 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
                 
 #parse("./snippet/orm/dao/domainObjectManipulationJPA2.vm") 
 	
-	@Transactional
+#if ($isSpringBackend)
+    @Transactional
+#end
     public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
