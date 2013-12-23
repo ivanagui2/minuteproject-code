@@ -137,25 +137,25 @@
         </dependency>
 #end	
 #if($addDomainSpecificMethod)
-    <dependency>
-      <groupId>org.mod4j.org.apache.commons</groupId>
-      <artifactId>lang</artifactId>
-      <version>2.1.0</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>        
-
-	<dependency>
-	  <groupId>commons-beanutils</groupId>
-	  <artifactId>commons-beanutils</artifactId>
-	  <version>1.8.3</version>
-	</dependency>
-	
-    <dependency>
-      <groupId>net.sf.minuteproject</groupId>
-      <artifactId>mp-bsla-jpa</artifactId>
-      <version>0.8.6</version>
-    </dependency>	
+        <dependency>
+          <groupId>org.mod4j.org.apache.commons</groupId>
+          <artifactId>lang</artifactId>
+          <version>2.1.0</version>
+          <type>jar</type>
+          <scope>compile</scope>
+        </dependency>        
+    
+    	<dependency>
+    	  <groupId>commons-beanutils</groupId>
+    	  <artifactId>commons-beanutils</artifactId>
+    	  <version>1.8.3</version>
+    	</dependency>
+    	
+        <dependency>
+          <groupId>net.sf.minuteproject</groupId>
+          <artifactId>mp-bsla-jpa</artifactId>
+          <version>0.8.6</version>
+        </dependency>	
 #end	
     </dependencies>
 #if($isQuerydslPowered)	
