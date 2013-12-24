@@ -62,11 +62,11 @@
 				</enrichment>
 			</business-model>
 			<statement-model>
-			    <enrichment>
-			    	<convention>
-			    		<sdd-dummy-primarykey-convention ></sdd-dummy-primarykey-convention>
-			    	</convention>
-			    </enrichment>
+				<enrichment>
+					<conventions>
+						<sdd-dummy-primarykey-convention add="true" />
+					</conventions>
+				</enrichment>
 				<queries>
 					<query name="get address abstract" id="dashAddress" type="dashboard"
 						category="pie-chart">
@@ -106,6 +106,7 @@
 		<targets catalog-entry="OpenXava" >
 			<property name="environment" value="remote"></property>
 			<property name="cloud-platform" value="cloudbees"></property>
+			<property name="embed-driver" value="true"></property>
 		</targets>
 	</configuration>
 </generator-config>
