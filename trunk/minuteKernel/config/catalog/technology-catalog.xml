@@ -49,6 +49,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-cache-implementation" value="ehcache"></property>
             <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
 		
@@ -67,6 +68,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-cache-implementation" value="ehcache"></property>
             <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-backend-implementation" value="ejb"></property>
 		</technology>
 		
 		<technology name="REST-JEE" target-name="REST-JEE"
@@ -82,7 +84,8 @@ the properties are declared at the technology level and apply to all templates (
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
-      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
+      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>
+      			<property name="add-backend-implementation" value="ejb"></property>		   			   
 
 		</technology>
 		
@@ -102,6 +105,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
 		
@@ -122,6 +126,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
 			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
 		<technology name="REST-CXF-JEE" 
@@ -140,7 +145,8 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		
+			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>
+			<property name="add-backend-implementation" value="spring"></property>		
 		</technology>
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
@@ -151,6 +157,7 @@ the properties are declared at the technology level and apply to all templates (
 			description="Generates:\WebService CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\maven integration">
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="ejb"></property>
 		</technology>
 
 		<technology name="JOOQ" model-type="rdbms"
@@ -312,6 +319,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="web-xml-version" value="3.0"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
 		<technology name="Vaadin_portlet" model-type="rdbms"
