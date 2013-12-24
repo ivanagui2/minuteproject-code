@@ -40,13 +40,35 @@ the properties are declared at the technology level and apply to all templates (
 			status="release" description="Generates comprehensive set of Extended CRUD DAO"
 			depends-on-targets="JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" 
 			is-generable="true">
-			
+			<frameworks>
+				<framework name="Spring" version="3.+"></framework>
+			</frameworks>			
 			<!--  depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" -->
             <property name="add-querydsl" value="2.1.2"></property>
              <property name="add-automated-business-logic" value="2.2.0"></property>
             <property name="add-jpa2-implementation" value="hibernate"></property>
             <property name="add-cache-implementation" value="ehcache"></property>
             <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-backend-implementation" value="spring"></property>
+		</technology>
+		
+		
+		<technology name="BELA-JPA2" model-type="rdbms"
+			template-config-file-name="mp-template-config-JPA2-bela.xml"
+			default-outputdir="bela" template-dir="@templateRoot@/framework/bsla"
+			status="release" description="Generates comprehensive set of Extended CRUD DAO"
+			depends-on-targets="JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" 
+			is-generable="true">
+			<frameworks>
+				<framework name="EJB" version="3"></framework>
+			</frameworks>			
+			<!--  depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" -->
+            <property name="add-querydsl" value="2.1.2"></property>
+             <property name="add-automated-business-logic" value="2.2.0"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-cache-implementation" value="ehcache"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+            <property name="add-backend-implementation" value="ejb"></property>
 		</technology>
 		
 		<technology name="REST-JEE" target-name="REST-JEE"
@@ -62,7 +84,8 @@ the properties are declared at the technology level and apply to all templates (
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
-      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
+      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>
+      			<property name="add-backend-implementation" value="ejb"></property>		   			   
 
 		</technology>
 		
@@ -82,6 +105,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
 		
@@ -102,6 +126,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
 			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
 		<technology name="REST-CXF-JEE" 
@@ -120,7 +145,8 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		
+			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>
+			<property name="add-backend-implementation" value="spring"></property>		
 		</technology>
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
@@ -131,6 +157,7 @@ the properties are declared at the technology level and apply to all templates (
 			description="Generates:\WebService CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\maven integration">
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="ejb"></property>
 		</technology>
 
 		<technology name="JOOQ" model-type="rdbms"
@@ -173,11 +200,12 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="use-temporal" value="true"></property>
 			<property name="add-jsf-implementation" value="primefaces"></property>
 			<property name="web-xml-version" value="3.0"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
 		<technology name="Primefaces-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
-			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,JPA2,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
+			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BELA-JPA2,SDD-BEANS,JPA2,EJBService,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
@@ -185,6 +213,13 @@ the properties are declared at the technology level and apply to all templates (
 				<framework name="primefaces" version="4.0"></framework>
 				<framework name="JSF" version="2"></framework>
 			</frameworks>
+            <property name="add-querydsl" value="2.1.2"></property>
+            <property name="add-jpa2-implementation" value="hibernate"></property>
+            <property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+			<property name="add-jsf-implementation" value="primefaces"></property>
+			<property name="web-xml-version" value="3.0"></property>
+			<property name="add-backend-implementation" value="ejb"></property>
 		</technology>
 	
 		
@@ -284,6 +319,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="web-xml-version" value="3.0"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
 		<technology name="Vaadin_portlet" model-type="rdbms"
@@ -433,7 +469,16 @@ the properties are declared at the technology level and apply to all templates (
 			status="release"
 			description="Spring service">
 		</technology>
+
+		<technology name="EJBService" model-type="rdbms"
+			template-config-file-name="mp-template-config-SpringService.xml"
+			default-outputdir="bela" depends-on-targets="BSLA_LIB"
+			template-dir="@templateRoot@/framework/spring"
+			status="release"
+			description="EJB service">
+		</technology>
 		
+		<!-- PHP tracks -->
 		<technology name="Doctrine" model-type="rdbms"
 			template-config-file-name="mp-template-config-doctrine.xml"
 			default-outputdir="doctrine" depends-on-targets="PHP_LIB"
