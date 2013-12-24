@@ -20,9 +20,11 @@ if (request.getAttribute("style") == null) {
 <body bgcolor="#ffffff">
 	<%-- layer for menu--%>
 	<div id="menu">
-		<%@ include file="mp/menu.jsp"%>
+	    <div class='portlet' style='margin: 4px'>
+		<jsp:include page="mp/header.jsp"/>
+		</div>
 	</div>
-	$content
+	Welcome to $model.name OpenXava application. <a href="<%=request.getContextPath()%>/xava/homeMenu.jsp">Enter</a>
 	<div id="content">
 		<%@ include file="mp/footer.jsp"%>
 	</div>

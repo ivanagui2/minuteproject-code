@@ -1,4 +1,5 @@
 #exposeOXSpecific()
+#putOXTemplateDefinition()
 @echo off
 set currentdir=%cd%
 
@@ -14,7 +15,7 @@ call ant -f CreateNewProject.xml -Dproject=$applicationOX
 
 copy %MP_HOME%\target\mp-openxava\*.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib
 #if($embedJdbcDriver)
-copy %MP_HOME%\application\lib\extra\*.jar %MP_HOME%\workspace\$applicationOX\web\WEB-INF\lib	
+copy %MP_HOME%\application\lib\extra\*.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib	
 #end
 ##copy generated artifacts into $applicationOX workspace
 cd %currentdir%
