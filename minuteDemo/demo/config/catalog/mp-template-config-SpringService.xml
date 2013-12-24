@@ -32,7 +32,10 @@
 		<template name="Spring.Service.ApplicationContext.Config" templateFileName="Spring.Service.ApplicationContext.Config.vm" 
 			file-extension="xml" technicalPackage="factory.spring" file-suffix="-service-application-context" 
 			model-specific="true" add-model-name="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence"
 			has-updatable-nature="true">
+			<property name="property-presence-value" value="add-backend-implementation"></property>
+			<property name="property-presence-value" value="spring"></property>
 		</template>		
 			
 	</template-target>
