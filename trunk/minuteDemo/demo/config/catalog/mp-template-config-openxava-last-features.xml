@@ -152,6 +152,12 @@
 			file-extension="jsp" file-prefix="" file-suffix="footer" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>	
+    	<template package-root="mp"
+			name="HeaderOX" templateFileName="HeaderOX.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="header" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
 
 	    <template package-root="WEB-INF"
 	  		name="OpenXavaSecurityWebXml" templateFileName="OpenXavaSecurityWebXml.vm" 

@@ -26,7 +26,7 @@
 		package-root=""
 		belongToPackage="true">
 
-		<template name="CloudbeesScript" templateFileName="CloudbeesScript.vm" 
+		<template name="CloudbeesScript" templateFileName="CloudbeesScript.cmd.vm" 
 			file-extension="cmd" technicalPackage="" file-suffix="cloudbees" 
 			application-specific="true" add-model-name="false" has-updatable-nature="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence">
