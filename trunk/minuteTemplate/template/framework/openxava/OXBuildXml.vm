@@ -1,6 +1,6 @@
 #exposeOXSpecific()
 <?xml version="1.0"?>
-<project name="$applicationOX" basedir="." default="compile">
+<project name="$applicationOX" basedir="." default="war">
 	<property name="project" value="$applicationOX" />
 	<!-- Build and deploy the application in war format -->	
 	<target name="prepare">
@@ -9,5 +9,8 @@
 	</target>	
 	<target name="compile" depends="prepare">
 		<ant antfile="../OpenXava/build.xml" target="compile"/>
+	</target>
+	<target name="war" depends="compile">
+		<ant antfile="../OpenXava/build.xml" target="createWar"/>
 	</target>										
 </project>

@@ -1,2 +1,4 @@
+#set ($cloudbees.app.name = $cloudbeesUtils.getAppName($template))
+#set ($releaseFileName = $cloudbeesUtils.getReleaseFileName($template))
 @rem bees app:bind -db ${cloudbees.db.name} -a ${cloudbees.app.name} -as ${cloudbees.binding.alias} 
-bees app:deploy -a ${cloudbees.account}/${cloudbees.app.name} -t tomcat7 -Rjava_version=1.7 ${releaseFileName}
+bees app:deploy -a ${cloudbees.app.name} -t tomcat7 -Rjava_version=1.7 ${releaseFileName}
