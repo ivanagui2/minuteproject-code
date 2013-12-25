@@ -16,6 +16,8 @@ call ant -f CreateNewProject.xml -Dproject=$applicationOX
 copy %MP_HOME%\target\mp-openxava\*.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib
 #if($embedJdbcDriver)
 copy %MP_HOME%\application\lib\extra\*.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib	
+copy %OX_HOME%\tomcat\lib\jta.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib	
+copy %OX_HOME%\tomcat\lib\ejb.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib	
 #end
 ##copy generated artifacts into $applicationOX workspace
 cd %currentdir%
