@@ -9,7 +9,7 @@
 
 <div id="menuheader">
   	<span id="menutitle">$applicationLabel menu 
-      <a href="/<%=request.getContextPath()%>/xava/homeMenu.jsp" ><img src="/<%=request.getContextPath()%>/xava/images/home.gif"></a>
+      <a href="<%=request.getContextPath()%>/xava/homeMenu.jsp" ><img src="<%=request.getContextPath()%>/xava/images/home.gif"></a>
     </span>
   	<span id="menuPowerByMP">
 #getTemplatePropertyValue("add-spring-security")
