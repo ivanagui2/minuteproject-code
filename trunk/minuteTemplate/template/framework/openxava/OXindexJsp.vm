@@ -24,7 +24,9 @@ if (request.getAttribute("style") == null) {
 		<jsp:include page="mp/header.jsp"/>
 		</div>
 	</div>
+	<div class='portlet' style='margin: 4px'>
 	Welcome to $model.name OpenXava application. <a href="<%=request.getContextPath()%>/xava/homeMenu.jsp">Enter</a>
+	</div>
 	<div id="content">
 		<%@ include file="mp/footer.jsp"%>
 	</div>
