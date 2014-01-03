@@ -368,6 +368,15 @@ public class FormatUtils {
 		return sdf.format(date);
 	}
 	
+	public static String displayCurrentTime() {
+		return displayTime(new Date());
+	}
+	
+	public static String displayTime(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(date);
+	}
+	
 	public static String windowizePath (String path) {
 		return StringUtils.replace(path, "/", "\\");
 	}
