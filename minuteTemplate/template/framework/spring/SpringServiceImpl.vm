@@ -54,8 +54,13 @@ $!updatedAreaImport
  * </p>
  *
  */
+
+#if ($isSpringBackend)
 @Service ("$SpringServiceInterfaceVariable")
 @Transactional
+#else
+@javax.ejb.Stateless(name="$SpringServiceInterfaceVariable")
+#end
 public class $className implements $SpringServiceInterfaceClass {
 #if ($isSpringBackend)
     @Autowired
@@ -225,7 +230,10 @@ public class $className implements $SpringServiceInterfaceClass {
 		$tableClassName cc = findById (c);
         for (Iterator<$targetTableClassName> iterator = cc.get${childrenListClass}().iterator(); iterator.hasNext();) {
             $targetTableClassName e = iterator.next();
-            iterator.remove();
+			for ($targetTableClassName ele : element) {
+                if (e.equals(ele))
+                    iterator.remove();
+            }
         }
         save(cc);
 #end

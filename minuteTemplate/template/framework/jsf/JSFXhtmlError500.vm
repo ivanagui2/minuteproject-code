@@ -6,17 +6,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="$modelDecoratorJSFImport">
     	<ui:define name="title">
-    		<ui:insert name="title">Welcome to petshop jsf primefaces web app</ui:insert>
+    		<ui:insert name="title">Error Page</ui:insert>
     	</ui:define>
     	<ui:define name="heading">
     		<h:outputText value="Menu" />
     	</ui:define>
 		<ui:define name="body">
-			Welcome to petshop jsf primefaces web app
+			<p>Unfortunately, there was an error processing you request</p>
+			<p>The error message is: #{requestScope['javax.servlet.error.message']}</p>
     	</ui:define>
     </ui:composition>
 </html>	

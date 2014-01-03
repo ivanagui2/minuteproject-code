@@ -30,7 +30,7 @@
     <p:layoutUnit position="south" size="100" header="Disclaimer" resizable="true" closable="true" collapsible="true"><br/>  
         <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a> version $minuteprojectUtils.version - $minuteprojectUtils.buildDate<br/>  
         <h:outputText value="Follow " /><a href="https://twitter.com/minuteproject">@minuteproject</a><br/> 
-        <h:outputText value="Model $model.name - $model.version - " />Application build time : $formatUtils.renderCurrentTime()
+        <h:outputText value="Model $model.name - $model.version - " />Application build time : $formatUtils.displayCurrentTime()
     </p:layoutUnit>  
   </p:layout>
 </h:body>
