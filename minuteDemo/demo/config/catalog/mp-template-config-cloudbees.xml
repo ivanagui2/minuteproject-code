@@ -1,10 +1,7 @@
 <target name="JSF - bsla">		
 	<architecture-target name="JSF primefaces" description="JSF primefaces architecture">
 	</architecture-target>	
-    <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
-	<plugin name="javaUtils" className="net.sf.minuteProject.utils.java.JavaUtils"></plugin>	
-	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
-	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
+    <plugin name="cloudbeesUtils" className="net.sf.minuteProject.plugin.cloud.CloudbeesUtils"></plugin>
 <!-- 
 	<template-target 
     	name="cloudbees"
