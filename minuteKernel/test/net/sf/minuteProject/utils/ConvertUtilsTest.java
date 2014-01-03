@@ -90,4 +90,18 @@ public class ConvertUtilsTest {
 		Assert.assertTrue("s = "+s,s.equals("Integer.valueOf(rowKey)"));
 	}
 	
+	@Test
+	public void testGetJavaTypeMaskShort() {
+		when(column.getType()).thenReturn("SMALLINT");
+		when(column.getTypeAlias()).thenReturn("SMALLINT");
+		String s = ConvertUtils.getJavaTypeMask(column, "rowKey", true);
+		Assert.assertTrue("s = "+s,s.equals("Short.valueOf(rowKey)"));
+
+		s = ConvertUtils.getJavaTypeMask(column, "1", true);
+		Assert.assertTrue("s = "+s,s.equals("Short.valueOf(1)"));
+		
+		s = ConvertUtils.getJavaTypeMaskFormated(column, "1", true);
+		Assert.assertTrue("s = "+s,s.equals("Short.valueOf(\"1\")"));
+	}
+	
 }
