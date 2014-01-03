@@ -186,6 +186,20 @@
 			file-extension="jsp" file-prefix="" file-suffix="index" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>	
+  		    		
+		<template 
+			name="OX500ErrorJsp" templateFileName="OX500ErrorJsp.vm" package-root=""
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="500error" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+		
+		<template 
+			name="OX404ErrorJsp" templateFileName="OX404ErrorJsp.vm" package-root=""
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="404search" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
 									
   </template-target> 
 		<!--  Menu home.jsp belongs to architecture -->
