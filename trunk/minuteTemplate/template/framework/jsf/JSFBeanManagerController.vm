@@ -3,13 +3,14 @@
 #exposeJSFModelSpecific()
 #if($isSpringBackend)
 #exposeSpringDomainObjectSpecific()
+#elseif($isEJBBackend)
+#exposeEJBDomainObjectSpecific()
+#end
 #exposeSpringServiceDomainObject()
 #set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
 #set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
 #exposeSpringModelSpecific()
-#elseif($isEJBBackend)
-#exposeEJBDomainObjectSpecific()
-#end
+
 package $packageName;
 
 $!updatedAreaImport
@@ -39,13 +40,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-#if($isSpringBackend)
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
 import net.sf.minuteProject.model.data.criteria.QueryData;
@@ -59,6 +53,12 @@ import $SpringServiceInterfaceImport;
 import $modelJSFUtilsImport;
 import $modelSemanticReferenceUtilsJSFImport;
 
+#if($isSpringBackend)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 #elseif($isEJBBackend)
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
@@ -83,7 +83,7 @@ import $importDomainObjectUML;
 #elseif($isEJBBackend)
 @Named(value = "$entityControllerJSFVariable")
 @Default
-@RequestScoped
+@ViewScoped
 #end
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 #exposeEmbeddedId($table)
@@ -105,8 +105,19 @@ public class ${className} implements java.io.Serializable{
     ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
 	
 #elseif($isEJBBackend)
-	@Inject 
-    private $EJBDaoImplClass $EJBDaoImplVariable;
+##	@Inject 
+##    private $EJBDaoImplClass $EJBDaoImplVariable;
+	
+	@Inject ## ("#{${EJBDaoImplVariable}}")
+    ${EJBDaoImplClass} $EJBDaoImplVariable;
+	
+	private LazyDataModel<$tableClassName> lazyModel;
+
+	@Inject ## @ManagedProperty("#{${lookupBeanVar}}")
+    ${lookupBeanClass} ${lookupBeanVar};
+
+	@Inject ## @ManagedProperty("#{${beanSpringModelServiceVariable}}")
+    ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
 #end
 	
 	@PostConstruct
@@ -124,7 +135,7 @@ public class ${className} implements java.io.Serializable{
 ##	private ${linkedTableClass} associated${childrenListClass};
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
 #if($isSpringBackend)
-#if (!$hasFirstRelationship)
+##if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
 #set($Relationship="$childrenListVariable")
 #end
@@ -160,13 +171,13 @@ public class ${className} implements java.io.Serializable{
 		}
 	}
 	
-#end
+##end
 #end
 #end
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-#if($isSpringBackend)
+##if($isSpringBackend)
 #if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
 #set($Relationship="$childrenListVariable")
@@ -243,7 +254,7 @@ public class ${className} implements java.io.Serializable{
 		populate$childrenListVariable ();		
 	}
 #end
-#end
+##end #remove ifspring
 
 #if($hasFirstRelationship)
 	private void populateFirst () {
@@ -271,7 +282,7 @@ public class ${className} implements java.io.Serializable{
 	
 #end
 
-#if($isSpringBackend)
+##if($isSpringBackend)
     public LazyDataModel<$tableClassName> getLazyModel() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<$tableClassName>() {
@@ -458,7 +469,7 @@ public class ${className} implements java.io.Serializable{
 	}
 
 #end
-#end
+##end remove ifspring
 
 #if ($hasSemanticReference)
 ##	public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
@@ -501,7 +512,7 @@ public class ${className} implements java.io.Serializable{
     public String displayInput () {
 		return "success";
 	}	
-#if($isSpringBackend)
+##if($isSpringBackend)
     public void onRowSelect(SelectEvent event) {
         selected$tableClassName = ($tableClassName) event.getObject();
 #if($hasFirstRelationship)
@@ -533,7 +544,7 @@ public class ${className} implements java.io.Serializable{
 #end
 #end
     }
-#end
+##end remove ifspring
 
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
@@ -621,10 +632,10 @@ public class ${className} implements java.io.Serializable{
 #end
 
 #putGetterSetter ($EJBDaoImplClass $EJBDaoImplVariable)
-#if($isSpringBackend)
+##if($isSpringBackend)
 #putGetterSetter ($lookupBeanClass $lookupBeanVar)
 #putGetterSetter (${beanSpringModelServiceClass} ${beanSpringModelServiceVariable})
-#end
+##end
 
 $!updatedAreaImplementation
 }

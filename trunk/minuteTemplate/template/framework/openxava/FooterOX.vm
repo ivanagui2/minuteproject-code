@@ -7,7 +7,7 @@
 &nbsp;&nbsp;<b>Disclaimer:</b>
 This site is an example site to demonstrate the use of <a href=http://minuteproject.sourceforge.net>MinuteProject</a> for the project $applicationLabel <br/>
 Follow <a href="https://twitter.com/minuteproject">@minuteproject</a><br/> 
-Model $model.name - $model.version - Application build time : $formatUtils.renderCurrentTime()<br/>
+Model $model.name - $model.version - Application build time : $formatUtils.displayCurrentTime()<br/>
 
 </div>
 

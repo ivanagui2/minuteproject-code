@@ -39,6 +39,11 @@
             <version>${spring.version}</version>
         </dependency>
 #elseif($isEJBBackend)
+	    <dependency>
+            <groupId>${rootPackage}.${model.name}</groupId>
+            <artifactId>${model.name}Bela</artifactId>
+            <version>${version}-SNAPSHOT</version>
+        </dependency>	
         <dependency>
             <groupId>${rootPackage}.${model.name}</groupId>
             <artifactId>${DbApiName}</artifactId>
