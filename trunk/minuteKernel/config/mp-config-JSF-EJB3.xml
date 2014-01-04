@@ -22,8 +22,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			    -->	
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-<!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
-					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
+ 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> 
+<!--					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
+					-->
 					<username>sa</username>
 					<password></password>	
 				</dataSource>	
@@ -65,6 +66,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			</business-model>
 		</model>	
 		<targets catalog-entry="Primefaces-JEE" >
+			<property name="environment" value="remote"></property>
+			<property name="cloud-platform" value="cloudbees"></property>
+			<property name="cloud-name" value="petshopapp"></property>
+			<property name="target-server" value="glassfish"></property>
 <!-- 			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
