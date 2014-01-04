@@ -103,6 +103,8 @@
 		</model>
 		<targets catalog-entry="Primefaces-Spring" outputdir-root="../../output/cloudbees/petshop">
 			<property name="environment" value="remote"></property>
+			<property name="cloud-platform" value="cloudbees"></property>
+			<property name="cloud-name" value="petshopapp"></property>
 		</targets>
 	</configuration>
 </generator-config>
