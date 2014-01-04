@@ -1,4 +1,5 @@
 #exposeVariableModelSpecific()
+#putJPA2TemplateDefinition()
 #exposeJdbc()
 #exposeJPA2Specifics()
 <?xml version="1.0"?>
@@ -35,7 +36,6 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    <!--$isJtaTransactionServer-->
 #if($isJtaTransactionServer)
         <jta-data-source>$datasourceName</jta-data-source>
 #else
