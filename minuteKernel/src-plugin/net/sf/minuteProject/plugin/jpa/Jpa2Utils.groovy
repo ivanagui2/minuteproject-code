@@ -41,7 +41,7 @@ class Jpa2Utils {
 		String s = template.getPropertyValue("target-server");
 		if (s==null)
 			return false;
-		"tomcat".equals(s)
+		!"tomcat".equals(s)
 	}
 	
 	public static boolean isEmbedded (Table table) {

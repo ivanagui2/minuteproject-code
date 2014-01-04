@@ -8,9 +8,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-<!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
-					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
-					<username>sa</username>
+ 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> 
+<!--					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
+-->					<username>sa</username>
 					<password></password>	
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema 
@@ -42,8 +42,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</enrichment>					
 			</business-model>
 		</model>	
-		<targets>
-			<target
+		<targets catalog-entry="Play">
+<!-- 			<target
 			   name="Play" 
 			   fileName="mp-template-config-play-last-features.xml" 
 			   outputdir-root="../../DEV/output/play"
@@ -60,7 +60,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target refname="JQUERY-LIB" 
 			   fileName="mp-template-config-jquery-features.xml" 
 			   templatedir-root="../../minuteTemplate/template/framework/jquery">
-			</target>			
+			</target>	 -->		
 		</targets>
 	</configuration>
 </generator-config>

@@ -108,8 +108,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             </statement-model>
 		</model>	
 		<targets catalog-entry="Primefaces-Spring" >
+			<property name="environment" value="remote"></property>
 		   	<property name="liferay-portlet" value="true"/>
-		   	<property name="server" value="weblogic"/>
+		   	<property name="target-server" value="weblogic"/>
 		</targets>
 	</configuration>
 </generator-config>
