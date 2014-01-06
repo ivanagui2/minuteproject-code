@@ -18,12 +18,14 @@
 #end
     </container-descriptor>
 #if($isPrimefaces)
-    <library-ref>
+#*
+<library-ref>
         <library-name>jsf</library-name>
         <specification-version>2.0</specification-version>
         <implementation-version>1.0.0.0_2-0-2</implementation-version>
         <exact-match>false</exact-match> 
     </library-ref>
+	*#
 #end
 </weblogic-web-app>
 	

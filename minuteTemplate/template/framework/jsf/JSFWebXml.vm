@@ -1,16 +1,16 @@
 #exposeJSFModelSpecific()
 #exposeWebXmlSpecific()
-#if ($webXmlVersion=="3.0")
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="3.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-#elseif ($webXmlVersion=="2.5")
+#putTargetServerDefinition()
+#if ($webXmlVersion=="2.5" || $isWeblogicTargetServer)
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	version="2.5"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-#else
-<web-app>
+#elseif ($webXmlVersion=="3.0")
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="3.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 #end
+
 		<display-name>$model.name</display-name>
 		<servlet>
 			<servlet-name>Faces Servlet</servlet-name>
@@ -54,8 +54,7 @@
             <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
             <param-value>true</param-value>
         </context-param>
-#if($isSpringBackend)
-    	<!-- if spring -->
+		
     	<context-param>
     		<param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
     		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
@@ -64,13 +63,17 @@
     		<param-name>com.sun.faces.expressionFactory</param-name>
     		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
     	</context-param>
-    	<context-param>
-    		<param-name>contextConfigLocation</param-name>
-    		<param-value>/WEB-INF/application-context.xml</param-value>
-    	</context-param>
+
     	<context-param>
     		<param-name>primefaces.THEME</param-name>
     		<param-value>cupertino</param-value>
+    	</context-param>
+		
+#if($isSpringBackend)
+    	<!-- if spring -->
+    	<context-param>
+    		<param-name>contextConfigLocation</param-name>
+    		<param-value>/WEB-INF/application-context.xml</param-value>
     	</context-param>
 		
 		<!-- listener -->

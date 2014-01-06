@@ -398,3 +398,10 @@ $!updatedAreaEnd
 #set ($isSpringBackend=$template.hasPropertyValue("add-backend-implementation","spring"))
 #set ($isEJBBackend=$template.hasPropertyValue("add-backend-implementation","ejb"))
 #end
+
+#macro (putTargetServerDefinition)
+#set($isWeblogicTargetServer=$template.hasPropertyValue("target-server","weblogic"))
+#set($isTomcatTargetServer=$template.hasPropertyValue("target-server","tomcat"))
+#set($isGlassfishTargetServer=$template.hasPropertyValue("target-server","glassfish"))
+#set($isJBossTargetServer=$template.hasPropertyValue("target-server","jboss"))
+#end
