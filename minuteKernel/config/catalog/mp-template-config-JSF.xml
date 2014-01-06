@@ -93,7 +93,24 @@
 		</template>
 
 	</template-target>
-		
+
+ 		
+	<template-target 
+    	name="JSF xhtml set"
+		libdir="lib/JSF_LIB.vm"
+		outputdir="src/main/webapp/resources"
+		package-root=""
+		belongToPackage="true">
+		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" /> 
+		<property name="convertClobToString" value="true"/>
+			 
+		<template name="JSFXhtmlEntitySemanticReference" templateFileName="JSFXhtmlEntitySemanticReference.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="SemanticReference" 
+			entity-specific="true" add-business-package-dir-name="false"
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+	</template-target> 	
+			
 	<template-target 
     	name="JSF xhtml set"
 		libdir="lib/JSF_LIB.vm"
@@ -109,18 +126,44 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
-		<!--  JSFXhtmlListLazyEntity is used instead of JSFXhtmlListEntity -->
-		<template name="JSFXhtmlListLazyEntity" templateFileName="JSFXhtmlListEntity.vm" 
-			file-extension="xhtml" technicalPackage="" file-suffix="List" 
+
+		<template name="JSFXhtmlListRowEntity" templateFileName="JSFXhtmlListRowEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListRow" 
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
+
+		<template name="JSFXhtmlEditEntity" templateFileName="JSFXhtmlEditEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="Edit" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+            <property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    
+		</template>
+		
+		<template name="JSFXhtmlListLazyEntity" templateFileName="JSFXhtmlListLazyEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListLazy" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>
+		<template name="JSFXhtmlEntityPortlet" templateFileName="JSFXhtmlListLazyEntity.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="Portlet" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+      		<property name="is-portlet" value="true"></property>
+		</template>		
+		
+		<template name="JSFXhtmlListLazyEntityPortlet" templateFileName="JSFXhtmlListLazyEntityPortlet.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="ListLazyPortlet" 
+			entity-specific="true" 
+      		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+		</template>	
+<!--		
 		<template name="JSFXhtmlListLazyEntityPortlet" templateFileName="JSFXhtmlListLazyEntityPortlet.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="PortletList" 
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
-<!-- 
+ 
 		<template name="JSFXhtmlListEntity" templateFileName="JSFXhtmlListEntity.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="List" 
 			entity-specific="true" 
@@ -180,6 +223,15 @@
 			file-extension="xml" technicalPackage="" file-suffix="faces-config" 
 			application-specific="true" add-model-name="false" >
 		</template>
+						
+    </template-target>
+
+	<template-target 
+    	name="JSF set"
+		libdir="lib/JSF_LIB.vm"
+		outputdir="src/main/webapp/META-INF"
+		package-root=""
+		belongToPackage="true">
 
 		<template name="JSFBeanXml" templateFileName="JSFBeanXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="beans" 

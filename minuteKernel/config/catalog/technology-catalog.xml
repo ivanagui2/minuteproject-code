@@ -203,8 +203,13 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
+		<!-- previously template-config-file-name="mp-template-config-JSF.xml" 
+		     now template-config-file-name="mp-template-config-JSF-Spring.xml"
+		     the tag property name="add-backend-implementation" value="ejb"
+		     is used to differentiate ejb from spring
+		      -->
 		<technology name="Primefaces-JEE"
-			model-type="rdbms" template-config-file-name="mp-template-config-JSF.xml"
+			model-type="rdbms" template-config-file-name="mp-template-config-JSF-Spring.xml"
 			default-outputdir="JSF-primefaces" depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BELA-JPA2,SDD-BEANS,JPA2,EJBService,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
