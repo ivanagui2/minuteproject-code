@@ -221,9 +221,7 @@ the properties are declared at the technology level and apply to all templates (
 			<property name="web-xml-version" value="3.0"></property>
 			<property name="add-backend-implementation" value="ejb"></property>
 		</technology>
-	
-		
-		
+
 		<technology name="FitNesse" model-type="rdbms"
 			template-config-file-name="mp-template-config-fitnesse.xml"
 			default-outputdir="fitnesse" template-dir="@templateRoot@/framework/fitnesse"
@@ -319,7 +317,6 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="web-xml-version" value="3.0"></property>
-			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
 		<technology name="Vaadin_portlet" model-type="rdbms"
