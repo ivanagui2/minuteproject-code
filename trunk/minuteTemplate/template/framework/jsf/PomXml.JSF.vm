@@ -2,6 +2,7 @@
 #exposeMaven()
 #exposeJSFConfig
 #exposePrimefacesConfig()
+#putTargetServerDefinition()
 #set($isLiferayPortlet=$template.getPropertyValue("liferay-portlet",false))
 #set($jsfImplementation=$jsfUtils.getJsfImplementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -103,13 +104,21 @@
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 			<version>2.2.4</version>
+#if ($isWeblogicTargetServer)
+			<scope>provided</scope>
+#else
 			<scope>runtime</scope>
+#end
 		</dependency>
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
 			<version>2.2.4</version>
+#if ($isWeblogicTargetServer)
+			<scope>provided</scope>
+#else
 			<scope>runtime</scope>
+#end
 		</dependency>	
 	  
 	</dependencies>
@@ -138,6 +147,9 @@ $!updatedAreaSnippet
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
+#if ($isWeblogicTargetServer)					
+					<packagingExcludes>WEB-INF/lib/stax*.jar,WEB-INF/lib/xml-api*.jar,WEB-INF/lib/jaxb*.jar,,WEB-INF/lib/servlet*.jar,WEB-INF/lib/javaee*.jar</packagingExcludes>
+#end					
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>

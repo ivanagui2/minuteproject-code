@@ -64,6 +64,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ejb.EJB;
 
 import $EJBDaoImplImport;
 
@@ -108,15 +109,16 @@ public class ${className} implements java.io.Serializable{
 ##	@Inject 
 ##    private $EJBDaoImplClass $EJBDaoImplVariable;
 	
-	@Inject ## ("#{${EJBDaoImplVariable}}")
+	##@Inject ## ("#{${EJBDaoImplVariable}}")
+	@EJB
     ${EJBDaoImplClass} $EJBDaoImplVariable;
 	
 	private LazyDataModel<$tableClassName> lazyModel;
 
-	@Inject ## @ManagedProperty("#{${lookupBeanVar}}")
+	@EJB ## @ManagedProperty("#{${lookupBeanVar}}")
     ${lookupBeanClass} ${lookupBeanVar};
 
-	@Inject ## @ManagedProperty("#{${beanSpringModelServiceVariable}}")
+	@EJB ## @ManagedProperty("#{${beanSpringModelServiceVariable}}")
     ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
 #end
 	

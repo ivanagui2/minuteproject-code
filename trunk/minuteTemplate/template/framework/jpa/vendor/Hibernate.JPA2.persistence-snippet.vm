@@ -1,4 +1,5 @@
 #putJPA2TemplateDefinition()
+#putTargetServerDefinition()
 #set ($datasource = $model.dataModel.basicDataSource)
 ##		<provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
@@ -34,6 +35,10 @@
                         value="com.autobizlogic.abl.session.LogicJTASessionContext" /> -->
 #end
 <!-- -->
+#end
+#if ($isWeblogicTargetServer)
+	        <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.WeblogicTransactionManagerLookup" />
+
 #end
 #addArea("properties")
         </properties> 
