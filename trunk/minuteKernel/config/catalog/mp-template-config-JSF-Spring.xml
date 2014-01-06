@@ -189,6 +189,15 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>		
 
+		<template name="JSFXhtmlError500" templateFileName="JSFXhtmlError500.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="500error" 
+			application-specific="true" add-model-name="false">
+		</template>
+		
+		<template name="JSFXhtmlError404" templateFileName="JSFXhtmlError404.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="404search" 
+			application-specific="true" add-model-name="false">
+		</template>
 
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 

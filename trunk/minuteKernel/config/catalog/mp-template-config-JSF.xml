@@ -43,7 +43,42 @@
 		</template>		
 				
 	</template-target>
-
+	
+  	<template-target 
+    	name="utils set"
+		outputdir="src/main/java"
+		belongToPackage="true">
+			 
+		<template name="JSFUtils" templateFileName="JSFUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
+		<template name="JSFSemanticReferenceUtils" templateFileName="JSFSemanticReferenceUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfSemanticReferenceUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
+		<template name="JSFManagedBeanUtils" templateFileName="JSFManagedBeanUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-extension="java" file-prefix="JsfManagedBeanUtils" file-suffix="" 
+			model-specific="true" has-updatable-nature="true" add-model-name="false">
+		</template>
+        <template name="JSF.Spring.Lookup.Service" templateFileName="JSF.Spring.Lookup.Service.vm" 
+            technicalPackage="bean"
+            file-extension="java" file-prefix="" file-suffix="LookupDefaultingService"
+            has-updatable-nature="true" 
+            scope-specific-value="model">
+        </template> 
+        <template name="JSF.Enum.Lookup.Service" templateFileName="JSF.Enum.Lookup.Service.vm" 
+            technicalPackage="bean"
+            file-extension="java" file-prefix="" file-suffix="LookupEnumService"
+            has-updatable-nature="true" 
+            scope-specific-value="model">
+            <property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    		
+            
+        </template> 
+	</template-target>
   	<template-target 
     	name="i18n set"
 		outputdir="src/main/resources"
@@ -92,6 +127,16 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template> -->
 
+		<template name="JSFXhtmlError404" templateFileName="JSFXhtmlError404.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="404search" 
+			application-specific="true" add-model-name="false">
+		</template>
+
+		<template name="JSFXhtmlError500" templateFileName="JSFXhtmlError500.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="500error" 
+			application-specific="true" add-model-name="false">
+		</template>
+		
         <template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
             file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
             application-specific="true" add-model-name="false">
