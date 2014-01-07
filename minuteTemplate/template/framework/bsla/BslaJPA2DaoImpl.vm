@@ -21,8 +21,9 @@ import javax.persistence.EntityManager;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
-#else
-
+#elseif($isEJBBackend)
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 #end
 
 import org.apache.commons.lang.StringUtils;
@@ -109,6 +110,8 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
     */ 
 #if ($isSpringBackend)
     @Transactional
+#elseif($isEJBBackend)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 #end
     public int updateNotNullOnly${tableClassName}($tableClassName $tableVariableName) {
         Query jpaQuery = getEntityManager().createQuery(getUpdateNotNullOnly${tableClassName}QueryChunk(${tableVariableName}));
@@ -130,6 +133,8 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
 	
 #if ($isSpringBackend)
     @Transactional
+#elseif($isEJBBackend)
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 #end
     public int updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria) {
         boolean isWhereSet = false;

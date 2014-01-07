@@ -24,9 +24,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-#else
+#elseif($isEJBBackend)
 import javax.ejb.Stateless;	
-import javax.ejb.EJB;	
+import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 #end
 
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
@@ -58,21 +60,22 @@ $!updatedAreaImport
 #if ($isSpringBackend)
 @Service ("$SpringServiceInterfaceVariable")
 @Transactional
-#else
+#elseif($isEJBBackend)
 @javax.ejb.Stateless(name="$SpringServiceInterfaceVariable")
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 #end
 public class $className implements $SpringServiceInterfaceClass {
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoInterfaceVariable")	
-#else
+#elseif($isEJBBackend)
 	@EJB// (name="$BslaDaoInterfaceVariable")	
 #end
 	$BslaDaoInterfaceClass $BslaDaoInterfaceVariable;
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoExtInterfaceVariable")	
-#else
+#elseif($isEJBBackend)
 	@EJB// (name="$BslaDaoExtInterfaceVariable")	
 #end
 	$BslaDaoExtInterfaceClass $BslaDaoExtInterfaceVariable;

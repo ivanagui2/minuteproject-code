@@ -479,14 +479,14 @@ $!updatedAreaSnippet
 		);
 	}
 
-    public ${className} mask(Map<String, String> filter) {
-        for (Entry<String, String> set : filter.entrySet()) {
+    public ${className} mask(Map<String, Object> filter) {
+        for (Entry<String, Object> set : filter.entrySet()) {
             mask(set.getKey(), set.getValue());
         }
         return this;
     }
     
-    public ${className} mask(String pattern, String value) {
+    public ${className} mask(String pattern, Object value) {
         if(pattern==null) return this;
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
@@ -495,7 +495,26 @@ $!updatedAreaSnippet
 #set($columnClass=$columnClass+"_")
 #end
         if ("${columnVar}".equals(pattern))
-           set$columnClass(value);
+           set$columnClass(value.toString());
+#else
+#if($column.isPrimaryKey())
+#set($columnClass=$columnUtils.getPrimaryKeyClassName($table,$column.name))
+#elseif($columnUtils.isForeignKey($column))
+#set($reference=$referenceUtils.getReference($column))
+#set($columnClass = $commonUtils.getColumnAliasClassName($table, $reference))
+#set($columnClass="${columnClass}_")
+#end
+#if($isEnum)
+		if ("${columnVar}".equals(pattern))
+           set$columnClass(value.toString());
+#else
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
+#set($key=$convertUtils.getJavaTypeCastExpression($column, "value", $useTemporal))
+		if ("${columnVar}".equals(pattern))
+           set$columnClass($key);
+#end
 #end
 #end
         return this;

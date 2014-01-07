@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 #else
 import javax.ejb.Stateless;	
 import javax.ejb.EJB;	
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 #end
 
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
@@ -58,6 +60,7 @@ import $beanSpringModelServiceImport;
 @Transactional
 #else
 @Stateless (name="$beanSpringModelServiceVariable")	
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 #end
 public class $thisClassName implements $beanSpringModelServiceClass {
 
