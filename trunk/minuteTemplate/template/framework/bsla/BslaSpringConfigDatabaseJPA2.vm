@@ -1,4 +1,5 @@
 #exposeVariableModelSpecific()
+#putTargetServerDefinition()
 #exposeConnectionSpecific()
 #set ($pathSpringProperties = $bslaLibraryUtils.getModelLevelTemplateFullClassPath($model, $template, "BslaSpringProperties") )
 #exposeJdbc()
@@ -25,11 +26,15 @@
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location"><value>classpath:${pathSpringProperties}.properties</value></property>
     </bean>     
-	
+#if ($isWeblogicTargetServer)
+    <bean id="${model.name}TransactionManager" class="org.springframework.transaction.jta.WebLogicJtaTransactionManager">
+        <property name="transactionManagerName" value="javax.transaction.TransactionManager"/>
+    </bean>	
+#else
     <bean id="${model.name}TransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="$JPAFactoryName"/>
     </bean>
-
+#end
     <!-- to get the entity manager -->
     <tx:annotation-driven transaction-manager="${model.name}TransactionManager"/>
     

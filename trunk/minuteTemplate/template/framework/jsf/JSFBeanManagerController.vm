@@ -82,8 +82,9 @@ import $importDomainObjectUML;
 @ManagedBean (name="${entityControllerJSFVariable}")
 @ViewScoped
 #elseif($isEJBBackend)
-@Named(value = "$entityControllerJSFVariable")
-@Default
+##@Named(value = "$entityControllerJSFVariable")
+@ManagedBean (name="${entityControllerJSFVariable}")
+##@Default
 @ViewScoped
 #end
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
@@ -136,7 +137,7 @@ public class ${className} implements java.io.Serializable{
 #if(!$linktableDB.isManyToMany())
 ##	private ${linkedTableClass} associated${childrenListClass};
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
-#if($isSpringBackend)
+##if($isSpringBackend)
 ##if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
 #set($Relationship="$childrenListVariable")
@@ -174,7 +175,7 @@ public class ${className} implements java.io.Serializable{
 	}
 	
 ##end
-#end
+##end remove isspringbackend
 #end
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))

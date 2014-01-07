@@ -1,3 +1,4 @@
+#exposeBackendTechnology()
 #exposeCompositeSpecific()
 #putImportCompositeSDDBean()
 #set($thisClassName=$className)
@@ -22,11 +23,18 @@ import javax.persistence.Query;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+#if ($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+#elseif($isEJBBackend)
+import javax.ejb.Stateless;	
+import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+#end
 
 import $sddInputCompositeBeanImport;
 import $sddOutputCompositeBeanImport;
@@ -50,15 +58,24 @@ import $sddCompositeDaoInterfaceImport;
  * <p>Description: Interface for ${thisClassName} service </p>
  *
  */
+#if ($isSpringBackend)
 @Repository ("$sddCompositeDaoInterfaceVariable")
 @Transactional(propagation = Propagation.REQUIRED) 
+#else
+@javax.ejb.Stateless(name="$sddCompositeDaoInterfaceVariable")
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+#end
 public class ${thisClassName} implements $sddCompositeDaoInterfaceClass {
 
 #foreach ($q in $composite.getInputComposite().getQueries())
 #set ($query = $q.query)
 #exposeSDDSpring()
+#if ($isSpringBackend)
 	@Autowired
 	@Qualifier("$sddDaoInterfaceVariable")
+#elseif($isEJBBackend)
+	@EJB// (name="$sddDaoInterfaceVariable")	
+#end
 	${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 #end
 
