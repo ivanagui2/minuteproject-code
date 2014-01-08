@@ -260,7 +260,7 @@ public class ReferenceUtils {
 	public static String getDefaultAlias(net.sf.minuteProject.configuration.bean.model.data.Reference ref) {
 		//TODO add for recursive m2m //+"_"+ref.getLocalColumn().getAlias();
 		//return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getForeignColumn().getAlias();//+"_"+ref.getLocalColumn().getAlias();
-		return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getLocalColumn().getName();//+"_"+ref.getLocalColumn().getAlias();
+		return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getForeignColumn().getName();//+"_"+ref.getLocalColumn().getAlias();
 	}
 
 	public static String getColumnAlias(Table table, Column column) {
