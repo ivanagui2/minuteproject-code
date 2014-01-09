@@ -138,7 +138,7 @@ public class ${className} implements java.io.Serializable{
 ##	private ${linkedTableClass} associated${childrenListClass};
 ##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
 ##if($isSpringBackend)
-##if (!$hasFirstRelationship)
+#if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
 #set($Relationship="$childrenListVariable")
 #end
@@ -174,7 +174,7 @@ public class ${className} implements java.io.Serializable{
 		}
 	}
 	
-##end
+#end
 ##end remove isspringbackend
 #end
 
@@ -301,7 +301,7 @@ public class ${className} implements java.io.Serializable{
                 	EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
 
             		$tableClassName ecMask = new $tableClassName();
-            		ecMask.mask(filters);
+            		ecMask.maskString(filters);
             		EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
             		QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
@@ -311,7 +311,39 @@ public class ${className} implements java.io.Serializable{
             		this.setRowCount(count);
                     return list;
 				}
-				
+#*				
+                public Map<String, Object> getMap(Map<String, String> filters) {
+					Map<String, Object> result = new HashMap<String, Object>();
+                    for (Entry<String, String> set : filters.entrySet()) {
+                        result.put(set.getKey(), getEntry(set.getKey(), set.getValue()));
+                    }
+                    return this;
+                }
+                
+                public ${className} getEntry(String pattern, String value) {
+                    if(pattern==null) return null;
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
+#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
+#set($columnClass=$columnClass+"_")
+#end
+                    if ("${columnVar}".equals(pattern))
+                       return value;
+#else
+#if($isEnum)
+            		if ("${columnVar}".equals(pattern))
+                       return value;
+#else
+#set($key=$convertUtils.getJavaTypeCastExpression($column, "value", $useTemporal))
+            		if ("${columnVar}".equals(pattern))
+                       return $key;
+#end
+#end
+#end
+                    return null;
+                }			
+*#				
 				@Override
 				public void setRowIndex(final int rowIndex)
 				{
@@ -359,7 +391,6 @@ public class ${className} implements java.io.Serializable{
         // not fully supported! cannot transform row in composite pk
 #set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
 		selected$tableClassName = ${EJBDaoImplVariable}.load(selected${tableClassName}.get${primaryKeyVariable}_());
-
 #else
     	selected$tableClassName = ${EJBDaoImplVariable}.load(selected${tableClassName}.get$primaryKeyJavaNameClass());
 #end
