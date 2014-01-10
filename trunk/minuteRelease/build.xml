@@ -560,7 +560,7 @@
 	</target>
 	
 	<target name="generation-build-technical" >
-		<macro_generate_and_build display="technical data patterns" config="mp-config-mp-technical.xml" maven.basedir="JPA2/technical/JPA2" />
+		<macro_generate_and_build display="technical data patterns" config="mp-config-mp-technical.xml" maven.basedir="JPA2/mptechnical/JPA2" />
 	</target>
 	
 	<target name="generation-build-petshop" >
@@ -602,7 +602,7 @@
 		
 	</target>
 	
-	<target name="generation-build-lazuly" depends="release-application" >
+	<target name="generation-build-lazuly" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-lazuly.xml" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/lazuly" project="REST" artifact="lazulyRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/lazuly" project="REST" artifact="lazulyRestCxfApp" />
@@ -615,7 +615,7 @@
 		
 	</target>
 	
-	<target name="generation-build-buslogic_intro" depends="release-application" >
+	<target name="generation-build-buslogic_intro">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/busintro" project="REST" artifact="busintroRestCxfApp" />
@@ -628,7 +628,7 @@
 		
 	</target>
 	
-	<target name="generation-build-liferay" depends="release-application" >
+	<target name="generation-build-liferay">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-liferay.xml" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/liferay" project="REST" artifact="liferayRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/liferay" project="REST" artifact="liferayRestCxfApp" />
@@ -641,7 +641,7 @@
 		
 	</target>
 	
-	<target name="generation-build-northwind" depends="release-application" >
+	<target name="generation-build-northwind">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-northwind.xml" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/northwind" project="REST" artifact="northwindRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/northwind" project="REST" artifact="northwindRestCxfApp" />
@@ -654,7 +654,7 @@
 		
 	</target>
 	
-	<target name="generation-build-tranxy" depends="release-application" >
+	<target name="generation-build-tranxy">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy.xml" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
