@@ -24,7 +24,7 @@
 			file-extension="java" file-prefix="" file-suffix="Controller" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="add-backend-implementation" value="spring"></property>
+			<!-- <property name="add-backend-implementation" value="spring"></property> -->
 		</template>
 								 
 		<template name="JSFBeanManagerConverter" templateFileName="JSFBeanManagerConverter.vm" 
@@ -32,7 +32,7 @@
 			file-extension="java" file-prefix="" file-suffix="Converter" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="add-backend-implementation" value="spring"></property>
+			<!-- <property name="add-backend-implementation" value="spring"></property> -->
 		</template>
 		
 		<!-- sdd -->
@@ -41,7 +41,7 @@
 			file-extension="java" file-prefix="" file-suffix="Controller" 
 			scope-specific-value="query" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<property name="add-backend-implementation" value="spring"></property>
+		<!-- 	<property name="add-backend-implementation" value="spring"></property> -->
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>
 <!-- 
@@ -189,6 +189,15 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>		
 
+		<template name="JSFXhtmlError500" templateFileName="JSFXhtmlError500.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="500error" 
+			application-specific="true" add-model-name="false">
+		</template>
+		
+		<template name="JSFXhtmlError404" templateFileName="JSFXhtmlError404.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="404search" 
+			application-specific="true" add-model-name="false">
+		</template>
 
 		<template name="JSFXhtmlDecorator" templateFileName="JSFXhtmlDecorator.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="_Decorator" 
@@ -243,14 +252,16 @@
 			file-extension="xml" technicalPackage="" file-suffix="web" 
 			application-specific="true" add-model-name="false" 
 			has-updatable-nature="true">
-			<property name="add-backend-implementation" value="spring"></property>
+		<!-- property given at higher level in technology-catalog 	
+		    <property name="add-backend-implementation" value="spring"></property> -->
 		</template>
 
 		<template name="JSFFaceConfigXml" templateFileName="JSFFaceConfigXml.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="faces-config" 
 			application-specific="true" add-model-name="false" 
 			has-updatable-nature="true">
-			<property name="add-backend-implementation" value="spring"></property>
+		<!-- 	add-backend-implementation
+		     <property name="add-backend-implementation" value="spring"></property> -->
 		</template>
 
 		<template name="JSFSpringConfig" templateFileName="JSFSpringConfig.vm" 
@@ -291,7 +302,7 @@
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false"
 			has-updatable-nature="true">
-			<property name="add-backend-implementation" value="spring"></property>
+<!-- 			<property name="add-backend-implementation" value="spring"></property> -->
 		</template>	
 					
 	</template-target>
