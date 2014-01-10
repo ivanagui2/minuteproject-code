@@ -7,6 +7,20 @@ content-oriented structure
 
 Release 0.8.6
 -------------
+Ox:
+--
+Build time + date OK
+Home to default index page OK 
+correct display jquery OK+/-
+
+PF:
+--
+Error page OK
+404 / 505 OK
+paginated association TODO
+when save click reset the associated elements + add TODO
+
+
 PHP
 - doctrine2
 
@@ -33,7 +47,20 @@ Improve test:
  with hsqldb started (url)
  generation, package + deploy (tomcat (tomcat_home))
  
+
+DB H2
+=======
  Test console
+
+
+New version of mp-bsla-jpa 0.8.5
+To adapt backend pom jpa
+
+--
+annotation
+jsr303
+content search
+
 
 Release 0.8.5
 -------------
