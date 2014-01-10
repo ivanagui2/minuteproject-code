@@ -277,9 +277,9 @@ public class ConvertUtils {
 		if (JAVA_BOOLEAN_TYPE.equals(type)) return "(Boolean)"+expression;
 		if (isBooleanType(dbType)) return "(Boolean)"+expression;
 		
-		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
-		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
-		return null; //not affected
+		if (JAVA_BLOB_TYPE.equals(type)) return "null";	
+		if (JAVA_CLOB_TYPE.equals(type)) return "null";
+		return "null"; //not affected
 	}
 	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
