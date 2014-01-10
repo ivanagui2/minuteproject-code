@@ -350,7 +350,7 @@
 		<attribute name="display" />
 		<attribute name="maven.basedir"  />
 		<sequential>
-			<delete dir="${demo.output.dir}/@{maven.basedir}"></delete>
+			<!--<delete dir="${demo.output.dir}/@{maven.basedir}"></delete>-->
 			<macro_generate display="@{display}" config="@{config}"/>
 			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="package" resultproperty="maven.build.result" />
 		</sequential>
@@ -560,7 +560,7 @@
 	</target>
 	
 	<target name="generation-build-technical" >
-		<macro_generate_and_build display="technical data patterns" config="mp-config-mp-technical.xml" maven.basedir="JPA2/petshop/JPA2"  />
+		<macro_generate_and_build display="technical data patterns" config="mp-config-mp-technical.xml" maven.basedir="JPA2/technical/JPA2" />
 	</target>
 	
 	<target name="generation-build-petshop" >
