@@ -260,6 +260,7 @@ public class ConvertUtils {
 	
 	public static String getJavaTypeCastExpression (Column column, String expression, boolean useTemporal) {
 		String type = getJavaTypeFromDBFullType(column);	
+		String dbType = column.getType();
 		if (JAVA_STRING_TYPE.equals(type)) return "(String)"+expression;	
 		if (JAVA_LONG_TYPE.equals(type)) return "(Long)"+expression;
 		if (JAVA_DOUBLE_TYPE.equals(type)) return "(Double)"+expression;	
@@ -274,9 +275,11 @@ public class ConvertUtils {
 				&& useTemporal)
 			return "(Date)"+expression;			
 		if (JAVA_BOOLEAN_TYPE.equals(type)) return "(Boolean)"+expression;
+		if (isBooleanType(dbType)) return "(Boolean)"+expression;
+		
 		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
 		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
-		return expression;
+		return null; //not affected
 	}
 	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
@@ -467,6 +470,7 @@ public class ConvertUtils {
 	
 	public static boolean isBooleanType (String dBType) {
 		return (FieldType.BOOLEAN.toString().equals(dBType)||
+				dBType.equals(DB_BYTE_TYPE)||
 				  FieldType.BIT.toString().equals(dBType))?true:false;
 	}
 }
