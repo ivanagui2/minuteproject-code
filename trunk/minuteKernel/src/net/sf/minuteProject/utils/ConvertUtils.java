@@ -235,6 +235,29 @@ public class ConvertUtils {
 		return "null";
 	}
 	
+	public static String getJavaTypeMaskExpressionFromStringInput (Column column, String expressionAsString, boolean useTemporal) {
+		String type = getJavaTypeFromDBFullType(column);	
+		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf("+expressionAsString+")";
+		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf("+expressionAsString+")";	
+		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf("+expressionAsString+")";	
+//		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
+		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf(Double.valueOf("+expressionAsString+"))";
+		if (JAVA_SQL_DATE_TYPE.equals(type) || 
+				JAVA_DATE_TYPE.equals(type)) return "new Date("+expressionAsString+")";
+		if ((JAVA_TIMESTAMP_TYPE.equals(type) || 
+				JAVA_TIME_TYPE.equals(type))
+				&& useTemporal)
+			return "new Date("+expressionAsString+")";
+		if (JAVA_TIMESTAMP_TYPE.equals(type) && !useTemporal)
+			return "Timestamp.valueOf("+expressionAsString+")";
+		if (JAVA_STRING_TYPE.equals(type)) return expressionAsString;				
+		if (JAVA_BOOLEAN_TYPE.equals(type)) return "new Boolean("+expressionAsString+")";
+		if (JAVA_SHORT_TYPE.equals(type)) return "Short.valueOf("+expressionAsString+")";
+		//if (JAVA_BLOB_TYPE.equals(type)) return "null";	
+		//if (JAVA_CLOB_TYPE.equals(type)) return "null";
+		return "null";
+	}
+	
 	public static String getJavaTypeCastExpression (Column column, String expression, boolean useTemporal) {
 		String type = getJavaTypeFromDBFullType(column);	
 		if (JAVA_STRING_TYPE.equals(type)) return "(String)"+expression;	
