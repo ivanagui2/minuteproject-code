@@ -16,11 +16,17 @@ public class EntityNamingConvention extends BeanNamingConvention<Table> {
 
 	public final String APPLY_STRIP_TABLE_NAME_SUFFIX="apply-strip-table-name-suffix";
 	public final String APPLY_STRIP_TABLE_NAME_PREFIX="apply-strip-table-name-prefix";
+	public final String APPLY_APPEND_TABLE_NAME_SUFFIX="apply-append-table-name-suffix";
+	public final String APPLY_APPEND_TABLE_NAME_PREFIX="apply-append-table-name-prefix";
 	
 	@Override
 	public void apply(BusinessModel model) {
 		super.apply(model);
-		if (APPLY_STRIP_TABLE_NAME_SUFFIX.equals(type) || APPLY_STRIP_TABLE_NAME_PREFIX.equals(type)) {
+		if (APPLY_STRIP_TABLE_NAME_SUFFIX.equals(type) || 
+			APPLY_STRIP_TABLE_NAME_PREFIX.equals(type) ||
+			APPLY_APPEND_TABLE_NAME_SUFFIX.equals(type) ||
+			APPLY_APPEND_TABLE_NAME_PREFIX.equals(type) 
+			) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
 					if (isConventionApplicable (table))
@@ -61,6 +67,26 @@ public class EntityNamingConvention extends BeanNamingConvention<Table> {
 			return applyStripSuffix (table, s);
 		if (APPLY_STRIP_TABLE_NAME_PREFIX.equals(type))
 			return applyStripPrefix (table, s);
+		if (APPLY_APPEND_TABLE_NAME_SUFFIX.equals(type))
+			return applyAppendSuffix (table, s);
+		if (APPLY_APPEND_TABLE_NAME_PREFIX.equals(type))
+			return applyAppendPrefix (table, s);
+		return true;
+	}
+	
+	private boolean applyAppendSuffix(Table table, String s) {
+		String alias = table.getAlias();
+		String newName = alias+s;
+		table.setAlias(newName);
+		performReferenceUpdate(table, name, newName);
+		return true;
+	}
+
+	private boolean applyAppendPrefix(Table table, String s) {
+		String alias = table.getAlias();
+		String newName = s+alias;
+		table.setAlias(newName);
+		performReferenceUpdate(table, name, newName);
 		return true;
 	}
 
