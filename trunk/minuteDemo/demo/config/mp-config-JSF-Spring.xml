@@ -98,7 +98,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                 </queries>
             </statement-model>
 		</model>
-		<targets catalog-entry="Primefaces-Spring">
+		<targets catalog-entry="Primefaces-Spring" >
 <!-- 
 			<target refname="JPA2" 
 			   name="JPA2" 
