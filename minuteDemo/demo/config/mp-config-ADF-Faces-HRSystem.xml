@@ -10,9 +10,6 @@
 		<model name="hrsystem" version="1.0" package-root="org.mp.demo">
 			<data-model>
 			    <driver name="oracle" version="10.0.2.0.0" groupId="com.oracle" artifactId="ojdbc14"></driver>
-			    <fileSource name="hrsystem" dir="c:/MinuteProject/data">
-			    </fileSource>
-
 			    <dataSource>	
 					<driverClassName>oracle.jdbc.OracleDriver</driverClassName>
 					<url>jdbc:oracle:thin:@localhost:1521:XE</url>
