@@ -250,7 +250,7 @@
 			</fileset>
 		</copy>
 		<copy todir="${template.cloud.dir}" overwrite="true">
-			<fileset dir="${template2.dev.relpath.soa}">
+			<fileset dir="${template2.dev.relpath.cloud}">
 				<include name="**/*.vm" />
 			</fileset>
 		</copy>
