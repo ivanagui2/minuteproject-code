@@ -4,6 +4,13 @@
 #exposeEnvironmentParams()
 #exposeJPA2Specifics()
 #addedAreas()
+#if($groovify)
+#set($annotationListTagBeginning="([")
+#set($annotationListTagEnding="])")
+#else
+#set($annotationListTagBeginning="({")
+#set($annotationListTagEnding="({")	
+#end
 package $packageName;
 
 $!updatedAreaImport
@@ -42,7 +49,7 @@ import javax.xml.bind.annotation.*;
 @Entity (name="${className}")
 @Table (name="${table.name}")
 #set($domainVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($domainVariableName))
-@NamedQueries({
+@NamedQueries $annotationListTagBeginning
 #set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
 	 @NamedQuery(name="${className}.findAll", query="$selectChunk")
 #foreach ($column in ${table.attributes})
@@ -53,7 +60,7 @@ import javax.xml.bind.annotation.*;
 #end
 #addArea ("custom-queries")
 #end
-})
+$annotationListTagEnding
 #if($addXmlBinding)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace="$packageName", name = "${className}")
@@ -584,7 +591,9 @@ $!updatedAreaSnippet
 	}
 
 #end
-###
+### end addDomainSpecificMethod
+### setter-getter-adder
+#if(!$groovify)
 #if ($isMany2Many)
     public ${className} get${className} () {
     	return this;
@@ -756,6 +765,8 @@ $!updatedAreaEnd
     }
 	
 #end
+#end 
+## getter-setter-adder
 #putJPA2TriggerSnippet()
 
 $!updatedAreaImplementation

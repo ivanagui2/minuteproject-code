@@ -23,6 +23,7 @@
 #macro (putJPA2TemplateDefinition)
 #set($templateJPA2EmbeddedId=$template.getPropertyValue("DomainEntityJPA2EmbeddedId","DomainEntityJPA2EmbeddedId"))
 #set($templateJPA2DomainObject=$template.getPropertyValue("DomainEntityUMLTemplate","DomainEntityJPA2Annotation"))
+#set($groovify=$template.getPropertyValue("groovify",false))
 #set($templateEnvironment=$template.getPropertyValue("environment","local"))
 #set($isEnvironmentLocal=($templateEnvironment=="local"))
 #set($addXmlBinding=$template.getPropertyValue("add-xmlbinding",false))
