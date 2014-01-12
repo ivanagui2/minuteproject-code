@@ -9,7 +9,7 @@
 #set($annotationListTagEnding="])")
 #else
 #set($annotationListTagBeginning="({")
-#set($annotationListTagEnding="({")	
+#set($annotationListTagEnding="})")	
 #end
 package $packageName;
 
