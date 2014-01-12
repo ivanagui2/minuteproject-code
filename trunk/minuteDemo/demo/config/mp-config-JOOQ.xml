@@ -9,8 +9,6 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jooq">
 			<data-model>
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
-			    <fileSource name="jooq" dir="c:/MinuteProject/data">
-			    </fileSource>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
 <!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
