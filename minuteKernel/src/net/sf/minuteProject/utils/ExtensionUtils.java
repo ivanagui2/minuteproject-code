@@ -10,4 +10,10 @@ public class ExtensionUtils {
 			return "groovy";
 		return null;
 	}
+	
+	public String getExtensionJavaOrGroovy (Template template, GeneratorBean bean) {
+		if (template.getPropertyValue("groovify", false))
+			return "groovy";		
+		return "java";
+	}
 }
