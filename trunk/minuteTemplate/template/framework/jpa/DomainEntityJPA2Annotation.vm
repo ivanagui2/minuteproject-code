@@ -4,13 +4,7 @@
 #exposeEnvironmentParams()
 #exposeJPA2Specifics()
 #addedAreas()
-#if($groovify)
-#set($annotationListTagBeginning="([")
-#set($annotationListTagEnding="])")
-#else
-#set($annotationListTagBeginning="({")
-#set($annotationListTagEnding="})")	
-#end
+#groovify()
 package $packageName;
 
 $!updatedAreaImport
