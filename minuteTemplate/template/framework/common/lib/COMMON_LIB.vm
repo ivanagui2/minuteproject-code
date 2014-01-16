@@ -405,3 +405,13 @@ $!updatedAreaEnd
 #set($isGlassfishTargetServer=$template.hasPropertyValue("target-server","glassfish"))
 #set($isJBossTargetServer=$template.hasPropertyValue("target-server","jboss"))
 #end
+
+#macro (groovify)
+#if($groovify)
+#set($annotationListTagBeginning="([")
+#set($annotationListTagEnding="])")
+#else
+#set($annotationListTagBeginning="({")
+#set($annotationListTagEnding="})")	
+#end
+#end
