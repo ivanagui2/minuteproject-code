@@ -415,3 +415,8 @@ $!updatedAreaEnd
 #set($annotationListTagEnding="})")	
 #end
 #end
+
+#macro (exposeSourcecode)
+#set($isGithub=$template.hasPropertyValue("sourcecode-host","github"))
+#set($sourcecodeUrl=$template.getPropertyValue("sourcecode-url","none"))
+#end
