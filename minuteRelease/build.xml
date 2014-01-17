@@ -525,6 +525,7 @@
 	<target name="generation-demo-test">
 
 		<!-- TODO add db start + modify config -->
+		<macro_generate_and_build display="JPA2-groovy" config="mp-config-JPA2-groovy.xml" maven.basedir="JPA2/petshopgroovy/JPA2"/>
 		
 		<macro_generate_and_build display="JPA2" config="mp-config-JPA2.xml" maven.basedir="JPA2/petshop/JPA2" />
 		<macro_generate_and_build display="JPA2-bsla" config="mp-config-JPA2-BSLA.xml" maven.basedir="BSLA-JPA2/petshop"/>
@@ -571,7 +572,6 @@
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/petshop" project="REST" artifact="petshopRestSpringMVCApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
-
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
 	</target>
