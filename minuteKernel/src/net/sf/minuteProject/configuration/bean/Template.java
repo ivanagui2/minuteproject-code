@@ -15,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.LicenceUtils;
+import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
 import org.apache.commons.lang.StringUtils;
@@ -846,6 +847,7 @@ public class Template extends TemplateTarget {
 	private String getTemplateSignatureTxt() {
 		StringBuffer sb = new StringBuffer(
 			" template reference : \n"+
+			" - Minuteproject version : "+MinuteProjectUtils.getVersion()+"\n\n"+
 			" - name      : "+getName()+"\n"+
 			" - file name : "+getTemplateFileName()+"\n");
 		sb.append((isTimestampMarkerEnabled)?" - time      : "+FormatUtils.renderCurrentTime()+"\n":"");
