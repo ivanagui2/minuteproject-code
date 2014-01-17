@@ -193,6 +193,7 @@
     	  </resource>
     	</resources> 		
         <plugins>
+#if($groovify)
             <plugin>
             	<groupId>org.codehaus.gmaven</groupId>
             	<artifactId>gmaven-plugin</artifactId>
@@ -219,6 +220,7 @@
                 	</dependency>        
             	</dependencies>
         	</plugin>
+#end
             <plugin>
                 <!-- Force UTF-8 & Java-Version 1.6 -->
                 <groupId>org.apache.maven.plugins</groupId>
