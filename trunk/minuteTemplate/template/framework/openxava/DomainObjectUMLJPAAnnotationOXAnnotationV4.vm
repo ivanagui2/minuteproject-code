@@ -143,7 +143,7 @@ public class ${className} {
 
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
-    private ${embeddedIdClass} $embeddedIdVariable;
+    $accessor ${embeddedIdClass} $embeddedIdVariable;
     
 #else
 #foreach($column in ${table.primaryKeyColumns})
@@ -172,7 +172,7 @@ public class ${className} {
 #end
 #end
 #end
-    private $columnType $columnVar; ##// pk not fk
+    $accessor $columnType $columnVar; ##// pk not fk
 
 #end
 #end
@@ -228,7 +228,7 @@ public class ${className} {
 	@ReadOnly
 #end
 #end
-    private $columnType $columnVar;
+    $accessor $columnType $columnVar;
 #end
 #updatedAreaEnd()
 
@@ -315,7 +315,7 @@ $!updatedAreaSnippet
 #else
 #set($colVar = ${linkedTableVariable})
 #end
-    private $linkedTableClass ${colVar};
+    $accessor $linkedTableClass ${colVar};
     
 #end
 #updatedAreaEnd()
@@ -352,7 +352,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #####end")
 ##end
 #end
-    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
+    $accessor Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
    
 #end
 #end
@@ -373,7 +373,7 @@ $!updatedAreaSnippet
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
+    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
 #updatedAreaEnd()

@@ -410,9 +410,11 @@ $!updatedAreaEnd
 #if($groovify)
 #set($annotationListTagBeginning="([")
 #set($annotationListTagEnding="])")
+#set($accessor="")
 #else
 #set($annotationListTagBeginning="({")
 #set($annotationListTagEnding="})")	
+#set($accessor="private")
 #end
 #end
 

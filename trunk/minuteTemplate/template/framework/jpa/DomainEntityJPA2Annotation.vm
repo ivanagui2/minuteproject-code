@@ -89,12 +89,12 @@ public class ${className} implements Serializable {
 	
 #if ($isEmbedded)
     @EmbeddedId
-    private ${embeddedIdClass} $embeddedIdVariable;
+    $accessor ${embeddedIdClass} $embeddedIdVariable;
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
 #if(!$isForeignKey)
     @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
-    private $columnType ${columnVar}_;
+    $accessor $columnType ${columnVar}_;
 #end
 #end
 #else
@@ -128,7 +128,7 @@ public class ${className} implements Serializable {
 #exposeXmlElementValue()
     @XmlElement $!xmlElementValue
 #end
-    private $columnType $columnVar;
+    $accessor $columnType $columnVar;
 
 #end
 #end
@@ -166,7 +166,7 @@ $updatedAreaSnippet
 #set($columnType="java.util.Date")
     @Temporal(TemporalType.${column.type})
 #end
-    private $columnType $columnVar; 
+    $accessor $columnType $columnVar; 
 #end
 $!updatedAreaEnd
 
@@ -190,7 +190,7 @@ $!updatedAreaEnd
     @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
-    private $linkedTableClass ${colVar};  
+    $accessor $linkedTableClass ${colVar};  
 
 #set($column = $reference.localColumn)
 #putColumnParamNaming()
@@ -199,7 +199,7 @@ $!updatedAreaEnd
     @XmlAttribute $!xmlElementValue
 #end
     @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
-    private $columnType ${colVar}_;
+    $accessor $columnType ${colVar}_;
 
 #end	
 #foreach ($reference in $table.children)
@@ -222,7 +222,7 @@ $!updatedAreaSnippet
     @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
-    private Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
+    $accessor Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
 
 #end
 #end
@@ -251,7 +251,7 @@ $!updatedAreaSnippet
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    private Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
+    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
 #updatedAreaEnd()
