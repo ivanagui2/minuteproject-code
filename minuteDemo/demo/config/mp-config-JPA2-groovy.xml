@@ -64,8 +64,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets catalog-entry="JPA2">
-			<property name="groovify" value="true"/>
+		<targets catalog-entry="JPA2-groovy">
 		</targets>
 	</configuration>
 </generator-config>

@@ -1,5 +1,5 @@
-<target name="JPA2">		
-	<architecture-target name="JPA2" description="JPA2 architecture">
+<target name="JPA2-groovy">		
+	<architecture-target name="JPA2" description="JPA2 architecture with groovy language">
 	</architecture-target>	
     <plugin name="hibernate3" className="net.sf.minuteProject.plugin.hibernate.Hibernate3"></plugin>
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>
@@ -10,22 +10,26 @@
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	<plugin name="jaxbUtils" className="net.sf.minuteProject.utils.binding.JaxbUtils"></plugin>	
 	<plugin name="extensionUtils" className="net.sf.minuteProject.utils.ExtensionUtils"></plugin>	
+	<plugin name="mavenUtils" className="net.sf.minuteProject.plugin.maven.MavenUtils"></plugin>	
 	
 	<template-target 
     	name="JPA set"
 		libdir="lib/JPA2_LIB.vm"
-		outputdir="src/main/java"
+		outputdir="src/main/groovy"
 		belongToPackage="true">
-		
+<!--
+    can use 
+			extension-name-builder-plugin="extensionUtils"
+			extension-name-builder-method="getExtensionJavaOrGroovy"
+	instead of
+			file-extension="groovy"	
+-->					
 		<template name="DomainEntityJPA2Annotation" templateFileName="DomainEntityJPA2Annotation.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-prefix="" file-suffix="" 
 			entity-specific="true" package-specific="false" 
-			model-specific="false" has-updatable-nature="true"
-			
-			extension-name-builder-plugin="extensionUtils"
-			extension-name-builder-method="getExtensionJavaOrGroovy"	
-			
+			model-specific="false" has-updatable-nature="true"			
+			file-extension="groovy"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property> 
@@ -36,10 +40,7 @@
 		<template name="DomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-prefix="" file-suffix="_" 
-			
-			extension-name-builder-plugin="extensionUtils"
-			extension-name-builder-method="getExtensionJavaOrGroovy"	
-			
+			file-extension="groovy"
 			entity-specific="true" package-specific="false" model-specific="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
@@ -50,9 +51,7 @@
 		<template name="DomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-prefix="" file-suffix="Id" 
-			extension-name-builder-plugin="extensionUtils"
-			extension-name-builder-method="getExtensionJavaOrGroovy"	
-			
+			file-extension="groovy"
 			entity-specific="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
@@ -62,10 +61,7 @@
 		<template name="EnumerationReferenceDataJPA2" templateFileName="EnumerationReferenceData.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain.enumeration"
 			file-prefix="" file-suffix="Enum"
-			 
-			extension-name-builder-plugin="extensionUtils"
-			extension-name-builder-method="getExtensionJavaOrGroovy"	
-			
+			file-extension="groovy"
 			field-specific="true"  has-updatable-nature="true"
 			file-name-builder-plugin="referenceDataUtils"
 			file-name-builder-method="getEnumName"
@@ -77,7 +73,7 @@
     </template-target>
 
 	<template-target 
-    	name="web-inf config"
+    	name="META-INF config"
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
 		outputdir="src/main/resources"
