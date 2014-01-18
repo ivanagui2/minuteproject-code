@@ -104,7 +104,7 @@
 			<property name="cloud-name" value="petshopapp"></property>
 			
 			<property name="sourcecode-host" value="github"/>
-			<property name="sourcecode-url" value="https://github.com/minuteproject/demo/tree/master/petshop/solution/primefaces-spring/output"/>
+			<property name="sourcecode-url" value="https://github.com/minuteproject/demo/tree/master/petshop/solution/primefaces-spring/output/petshop"/>
 			
 		</targets>
 	</configuration>

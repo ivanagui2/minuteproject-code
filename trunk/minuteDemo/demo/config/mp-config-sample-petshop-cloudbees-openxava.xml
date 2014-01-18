@@ -107,7 +107,7 @@
 			<property name="environment" value="remote"></property>
 			<property name="cloud-platform" value="cloudbees"></property>
 			<property name="embed-driver" value="true"></property>
-			<property name="cloud-name" value="petshopapp"></property>
+			<property name="cloud-name" value="petshopox"></property>
 		</targets>
 	</configuration>
 </generator-config>
