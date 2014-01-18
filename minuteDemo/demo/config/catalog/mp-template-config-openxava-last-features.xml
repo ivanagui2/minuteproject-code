@@ -19,8 +19,12 @@
 
 		<template name="OpenxavaDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
-			file-extension="java" file-prefix="" file-suffix="" 
+			file-prefix="" file-suffix="" 
 			entity-specific="true" has-updatable-nature="true"
+			
+			extension-name-builder-plugin="extensionUtils"
+			extension-name-builder-method="getExtensionJavaOrGroovy"	
+			
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="convertClobToString" value="true"/>
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>	
@@ -29,8 +33,12 @@
 		
 		<template name="OpenXavaDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
-			file-extension="java" file-prefix="" file-suffix="_" 
+			file-prefix="" file-suffix="_" 
 			entity-specific="true" has-updatable-nature="true"
+			
+			extension-name-builder-plugin="extensionUtils"
+			extension-name-builder-method="getExtensionJavaOrGroovy"	
+			
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
@@ -38,8 +46,12 @@
 		
 		<template name="OpenxavaDomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
-			file-extension="java" file-prefix="" file-suffix="Id" 
+			file-prefix="" file-suffix="Id" 
 			entity-specific="true"
+			
+			extension-name-builder-plugin="extensionUtils"
+			extension-name-builder-method="getExtensionJavaOrGroovy"	
+			
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnCompositePKNotMany2Many">
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
 		</template>
