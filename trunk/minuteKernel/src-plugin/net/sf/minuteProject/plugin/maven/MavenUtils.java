@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -41,7 +42,11 @@ public class MavenUtils {
 		return list;
 	}
 	
-
+    public static String getOutputDirForJavaOrGroovy (Template template, GeneratorBean bean) {
+		if (template.getPropertyValue("groovify", false))
+			return "src/main/groovy";		
+		return "src/main/java";
+    }
 
 	public static String getRootPackage(Template template, Model model) {
 		String packageRoot = model.getPackageRoot();

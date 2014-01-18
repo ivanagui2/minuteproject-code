@@ -1,8 +1,13 @@
 package net.sf.minuteProject.configuration.bean;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.io.FileUtils;
 
@@ -14,6 +19,7 @@ public class TemplateTarget extends AbstractConfiguration{
 	private List<String> templatedirRefs;
 	private String dir;
 	private String outputdir, outputdirRoot;
+	private String outputdirNameBuilderPlugin, outputdirNameBuilderMethod;
 	private String tool;
 	private String libdir;
 	private Target target;
@@ -21,6 +27,67 @@ public class TemplateTarget extends AbstractConfiguration{
 	protected String packageRoot;
 	private boolean belongToPackage;
 	private Boolean isGenerable;
+	
+	private static Logger logger = Logger.getLogger(Template.class);
+
+	public String getPluginName (GeneratorBean bean, String builderPlugin, String builderMethod) {
+		if (builderPlugin!=null && builderMethod!=null) {
+			// lookup builder in the plugin
+			Plugin plugin = getFileBuilderPlugin(builderPlugin);
+			if (plugin!=null) {
+				String result = getPluginBuildFileName (plugin, builderMethod, bean);
+				if (result != null)
+					return result;
+			}
+		}	
+		return null;
+	}
+	protected Plugin getFileBuilderPlugin (String fileNameBuilderPlugin) {
+		List<Plugin> plugins = this.getTarget().getPlugins();
+		for (Plugin plugin : plugins) {
+			if (plugin.getName().equals(fileNameBuilderPlugin))
+				return plugin;
+		}		
+		return null;
+	}
+	
+	protected String getPluginBuildFileName (Plugin plugin, String fileNameBuilderMethod, GeneratorBean bean) {
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		try {
+			Class clazz = cl.loadClass(plugin.getClassName());
+			Object pluginObject = clazz.newInstance();
+			Class arg [] = new Class [2];
+			arg [0] = Template.class;
+			arg [1] = GeneratorBean.class;
+			Object obj [] = new Object [2];
+			obj [0] = this;
+			obj [1] = bean;
+			Method method = clazz.getMethod(fileNameBuilderMethod, arg);
+			String result = (String) method.invoke(pluginObject, obj);
+			return result;
+		} catch (ClassNotFoundException e) {
+			logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
+		} catch (IllegalAccessException e) {
+			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " security exception "+e.getMessage());
+//			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " NoSuchMethodException exception "+e.getMessage());
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " IllegalArgumentException exception "+e.getMessage());
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " InvocationTargetException exception "+e.getMessage());
+		}
+		return null;
+	}
 	
 	public String getPropertyValue(String name) {
 		String s = super.getPropertyValue(name);
@@ -88,9 +155,13 @@ public class TemplateTarget extends AbstractConfiguration{
 		this.outputdirRoot = outputdirRoot;
 	}
 	
+	public String getPluginOutputdir () {
+		return getPluginName(null, outputdirNameBuilderPlugin, outputdirNameBuilderMethod);
+	}
+	
 	public String getOutputdir() {
 		String outputdirRoot = getOutputdirRoot();
-
+//		outputdir = getPluginOutputdir();
 		if (outputdir==null && outputdirRoot==null) {
 			String name;
 			if (getTarget()!=null &&
@@ -223,6 +294,22 @@ public class TemplateTarget extends AbstractConfiguration{
 
 	public void setIsGenerable(Boolean isGenerable) {
 		this.isGenerable = isGenerable;
+	}
+
+	public String getOutputdirNameBuilderPlugin() {
+		return outputdirNameBuilderPlugin;
+	}
+
+	public void setOutputdirNameBuilderPlugin(String outputdirNameBuilderPlugin) {
+		this.outputdirNameBuilderPlugin = outputdirNameBuilderPlugin;
+	}
+
+	public String getOutputdirNameBuilderMethod() {
+		return outputdirNameBuilderMethod;
+	}
+
+	public void setOutputdirNameBuilderMethod(String outputdirNameBuilderMethod) {
+		this.outputdirNameBuilderMethod = outputdirNameBuilderMethod;
 	}
 	
 }
