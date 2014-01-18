@@ -561,7 +561,7 @@
 	</target>
 	
 	<target name="generation-build-groovy" >
-		<macro_generate_and_build display="JPA2-groovy" config="mp-config-JPA2-groovy.xml" maven.basedir="JPA2/petshopgroovy/JPA2"/>
+		<macro_generate_and_build display="JPA2-groovy" config="mp-config-JPA2-groovy.xml" maven.basedir="JPA2-groovy/petshopgroovy/JPA2"/>
 	</target>
 	
 	<target name="generation-build-technical" >
