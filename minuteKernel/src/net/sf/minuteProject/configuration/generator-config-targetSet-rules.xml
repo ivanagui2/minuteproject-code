@@ -74,6 +74,8 @@
 				<alias attr-name="dir" prop-name="dir" />
 				<alias attr-name="libdir" prop-name="libdir" />
 				<alias attr-name="outputdir" prop-name="outputdir" />
+				<alias attr-name="outputdir-name-builder-plugin" prop-name="outputdirNameBuilderPlugin" />
+				<alias attr-name="outputdir-name-builder-method" prop-name="outputdirNameBuilderMethod" />
 				<alias attr-name="tool" prop-name="tool" />
 				<alias attr-name="name" prop-name="name" />
 				<alias attr-name="belongToPackage" prop-name="belongToPackage" />

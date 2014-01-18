@@ -274,14 +274,13 @@ public class Template extends TemplateTarget {
 		return getPluginName(bean, extensionNameBuilderPlugin, extensionNameBuilderMethod);
 	}
 	
-	
 	private String getPluginFileMain (GeneratorBean bean) {
 		return getPluginName(bean, fileNameBuilderPlugin, fileNameBuilderMethod);
 	}
 	
 	public String getPluginPackageMain (GeneratorBean bean) {
 		return getPluginName(bean, packageNameBuilderPlugin, packageNameBuilderMethod);
-	}	
+	}		
 	
 	public String getPluginName (GeneratorBean bean, String builderPlugin, String builderMethod) {
 		if (builderPlugin!=null && builderMethod!=null) {
@@ -294,9 +293,10 @@ public class Template extends TemplateTarget {
 			}
 		}	
 		return null;
-	}	
+	}
 	
-	private Plugin getFileBuilderPlugin (String fileNameBuilderPlugin) {
+	@Override
+	protected Plugin getFileBuilderPlugin (String fileNameBuilderPlugin) {
 		List<Plugin> plugins = this.getTemplateTarget().getTarget().getPlugins();
 		for (Plugin plugin : plugins) {
 			if (plugin.getName().equals(fileNameBuilderPlugin))
@@ -370,44 +370,6 @@ public class Template extends TemplateTarget {
 			logger.info("cannot access plugin "+plugin.getName()+" via method "+function+ " InvocationTargetException exception "+e.getMessage());
 		}
 		return false;
-	}
-
-	private String getPluginBuildFileName (Plugin plugin, String fileNameBuilderMethod, GeneratorBean bean) {
-		ClassLoader cl = ClassLoader.getSystemClassLoader();
-		try {
-			Class clazz = cl.loadClass(plugin.getClassName());
-			Object pluginObject = clazz.newInstance();
-			Class arg [] = new Class [2];
-			arg [0] = Template.class;
-			arg [1] = GeneratorBean.class;
-			Object obj [] = new Object [2];
-			obj [0] = this;
-			obj [1] = bean;
-			Method method = clazz.getMethod(fileNameBuilderMethod, arg);
-			String result = (String) method.invoke(pluginObject, obj);
-			return result;
-		} catch (ClassNotFoundException e) {
-			logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
-		} catch (IllegalAccessException e) {
-			logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " security exception "+e.getMessage());
-//			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " NoSuchMethodException exception "+e.getMessage());
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " IllegalArgumentException exception "+e.getMessage());
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			logger.info("cannot access plugin method "+plugin.getName()+" via method "+fileNameBuilderMethod+ " InvocationTargetException exception "+e.getMessage());
-		}
-		return null;
 	}
 	
 	public void setPackageRoot(String packageRoot) {
@@ -685,6 +647,8 @@ public class Template extends TemplateTarget {
 	}
 	
 	public String getOutputdir() {
+//		String mainOutputDir = getTemplateTarget().getPluginOutputdir();
+//		if (mainOutputDir==null) 
 		String mainOutputDir = super.getOutputdir();
 		return  (StringUtils.isEmpty(getOutputsubdir()))?mainOutputDir:mainOutputDir+"/"+getOutputsubdir();//add sub
 	}
