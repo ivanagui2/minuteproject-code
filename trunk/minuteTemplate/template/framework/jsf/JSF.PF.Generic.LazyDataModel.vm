@@ -1,0 +1,110 @@
+#putJPA2TemplateDefinition()
+#exposeJSFModelSpecific()
+package $packageName;
+
+$!updatedAreaImport
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
+import org.primefaces.model.DualListModel;
+import org.primefaces.model.LazyDataModel;
+
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
+import org.primefaces.model.SortOrder;
+import net.sf.minuteProject.model.service.GenericService;
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: JSF Primefaces generic lazymodel </p>
+ *
+ */
+public abstract class ${className} <T extends AbstractDomainObject, S extends GenericService> implements java.io.Serializable{
+	
+	private LazyDataModel<T> lazyModel;
+		
+	T create(Class<T> clazz) throws Exception
+    {
+        return clazz.newInstance();
+    }
+	
+	private Class<T> t;
+
+    public PetshopLazyDataModel(Class<T> t) {
+        this.t=t;
+    }
+	
+    public LazyDataModel<T> getLazyModel() {
+    	if (lazyModel == null) {
+    		lazyModel = new LazyDataModel<T>() {
+
+			     @Override
+			     public List<T> load(int first, int pageSize, String sortField,SortOrder sortOrder, Map<String,String> filters) {
+                	QuerySortOrder order = QuerySortOrder.ASC;
+                	if (sortOrder == SortOrder.DESCENDING) {
+            			order = QuerySortOrder.DESC;     
+            		}
+					T esMask = getSortMask(sortOrder);
+
+                	EntitySort<T> es = new EntitySort<T>(esMask, order);
+
+            		T ecMask = getFilterMask(filters);
+            		EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
+
+            		QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
+            		getService().find(data);
+            		List<T> list = data.getResult();
+            		int count = data.getTotalResultCount().intValue();
+            		this.setRowCount(count);
+                    return list;
+				}
+				
+
+				public void setRowIndex(final int rowIndex)
+				{
+		            if (rowIndex == -1 || getPageSize() == 0)
+		            {
+		               super.setRowIndex(-1);
+		            }
+		            else
+		            {
+		               super.setRowIndex(rowIndex % getPageSize());
+		            }
+				 }
+
+                @Override
+                public T getRowData(String rowKey) {
+					return serviceLoad(rowKey);
+                }
+
+                @Override
+                public Object getRowKey(T element) {
+					return getRowKeyImplementation (element);
+                }
+			};
+    	}
+    	return lazyModel;
+    }
+
+    protected abstract T getSortMask(SortOrder sortOrder);
+
+    protected abstract T getFilterMask(Map<String,String> filters);
+
+    protected abstract Object getRowKeyImplementation (T element);
+
+	protected abstract T serviceLoad (String rowKey);
+
+	protected abstract S getService();
+	
+}
