@@ -41,10 +41,10 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 	
 	private Class<T> t;
 
-    public PetshopLazyDataModel(Class<T> t) {
-        this.t=t;
-    }
-	
+##    public PetshopLazyDataModel(Class<T> t) {
+##        this.t=t;
+##    }
+##	
     public LazyDataModel<T> getLazyModel() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<T>() {
