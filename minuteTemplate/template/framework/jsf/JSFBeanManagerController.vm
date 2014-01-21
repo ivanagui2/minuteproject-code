@@ -52,6 +52,7 @@ import $beanSpringModelServiceImport;
 import $SpringServiceInterfaceImport;
 import $modelJSFUtilsImport;
 import $modelSemanticReferenceUtilsJSFImport;
+import $entityLazyDataModelImport;
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,7 @@ public class ${className} implements java.io.Serializable{
     ${EJBDaoImplClass} $EJBDaoImplVariable;
 	
 	private LazyDataModel<$tableClassName> lazyModel;
+	private $entityLazyDataModelClass entityLazyDataModel;
 
 	@ManagedProperty("#{${lookupBeanVar}}")
     ${lookupBeanClass} ${lookupBeanVar};
@@ -287,6 +289,14 @@ public class ${className} implements java.io.Serializable{
 
 ##if($isSpringBackend)
     public LazyDataModel<$tableClassName> getLazyModel() {
+        if (entityLazyDataModel==null) {
+            entityLazyDataModel=new ${entityLazyDataModelClass}($EJBDaoImplVariable);
+            lazyModel = entityLazyDataModel.getLazyModel();
+        }
+        return lazyModel;
+    }
+
+    public LazyDataModel<$tableClassName> getLazyModel2() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<$tableClassName>() {
 
