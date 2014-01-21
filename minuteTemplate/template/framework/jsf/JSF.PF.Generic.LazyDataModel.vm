@@ -39,12 +39,11 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
         return clazz.newInstance();
     }
 	
+    protected S service;
 	private Class<T> t;
 
-##    public PetshopLazyDataModel(Class<T> t) {
-##        this.t=t;
-##    }
-##	
+    public ${className}() {}
+
     public LazyDataModel<T> getLazyModel() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<T>() {
@@ -55,7 +54,7 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
                 	if (sortOrder == SortOrder.DESCENDING) {
             			order = QuerySortOrder.DESC;     
             		}
-					T esMask = getSortMask(sortOrder);
+					T esMask = getSortMask(sortField);
 
                 	EntitySort<T> es = new EntitySort<T>(esMask, order);
 
@@ -81,7 +80,7 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 		            {
 		               super.setRowIndex(rowIndex % getPageSize());
 		            }
-				 }
+				}
 
                 @Override
                 public T getRowData(String rowKey) {
@@ -97,7 +96,11 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     	return lazyModel;
     }
 
-    protected abstract T getSortMask(SortOrder sortOrder);
+	protected S getService() {
+       return service;
+    }
+	
+    protected abstract T getSortMask(String sortField);
 
     protected abstract T getFilterMask(Map<String,String> filters);
 
@@ -105,6 +108,4 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 
 	protected abstract T serviceLoad (String rowKey);
 
-	protected abstract S getService();
-	
 }

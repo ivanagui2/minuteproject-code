@@ -1,4 +1,15 @@
+#putJPA2TemplateDefinition()
 #exposeJSFEntitySpecific()
+#exposeJSFModelSpecific()
+#if($isSpringBackend)
+#exposeSpringDomainObjectSpecific()
+#elseif($isEJBBackend)
+#exposeEJBDomainObjectSpecific()
+#end
+#exposeSpringServiceDomainObject()
+#set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
+#set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
+#exposeSpringModelSpecific()
 package $packageName;
 
 import $importDomainObjectUML;
@@ -9,8 +20,14 @@ import java.util.Map;
 
 public class ${className} extends $genericLazyDataModel <$tableClassName, ${beanSpringModelServiceClass}> {
 
+	
+    public ${className} (${beanSpringModelServiceClass} service) {
+        this.service = service;
+    }
+	
+	
     @Override
-    protected $tableClassName getSortMask(SortOrder sortOrder) {
+    protected $tableClassName getSortMask(String sortField) {
 		$tableClassName esMask = new $tableClassName();
 		esMask.mask(sortField);
 		return esMask;
@@ -56,7 +73,6 @@ public class ${className} extends $genericLazyDataModel <$tableClassName, ${bean
         return ${EJBDaoImplVariable}.load($convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal));
 #end
 #end
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
