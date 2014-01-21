@@ -36,7 +36,9 @@
 		<template name="JSF.PF.Entity.LazyDataModel" templateFileName="JSF.PF.Entity.LazyDataModel.vm" 
 			subdir="" outputsubdir="" technicalPackage="datamodel"
 			file-extension="java" file-prefix="" file-suffix="LazyDataModel" 
-			entity-specific="true" has-updatable-nature="true">
+			entity-specific="true" has-updatable-nature="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			
 		</template>
 								 
 		<template name="JSFBeanManagerConverter" templateFileName="JSFBeanManagerConverter.vm" 
