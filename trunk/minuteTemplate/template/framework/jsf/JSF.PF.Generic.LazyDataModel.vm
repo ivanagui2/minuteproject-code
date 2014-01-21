@@ -68,7 +68,6 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
             		this.setRowCount(count);
                     return list;
 				}
-				
 
 				public void setRowIndex(final int rowIndex)
 				{

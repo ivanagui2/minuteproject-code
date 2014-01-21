@@ -13,18 +13,17 @@
 package $packageName;
 
 import $importDomainObjectUML;
-import $beanSpringModelServiceImport;
+import $SpringServiceInterfaceImport;
+import $genericLazyDataModelImport;
 import org.primefaces.model.SortOrder;
 
 import java.util.Map;
 
-public class ${className} extends $genericLazyDataModel <$tableClassName, ${beanSpringModelServiceClass}> {
-
+public class ${className} extends $genericLazyDataModelClass <$tableClassName, ${EJBDaoImplClass}> {
 	
-    public ${className} (${beanSpringModelServiceClass} service) {
+    public ${className} (${EJBDaoImplClass} service) {
         this.service = service;
     }
-	
 	
     @Override
     protected $tableClassName getSortMask(String sortField) {
@@ -67,16 +66,17 @@ public class ${className} extends $genericLazyDataModel <$tableClassName, ${bean
 	   if (rowKey == null || "null".equals(rowKey)) return new $tableClassName();
 ##set($rowKey=$convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal))
 #if($columnUtils.isString($primaryKeyFirstColumn))
-        return ${EJBDaoImplVariable}.load(rowKey);
+        return service.load(rowKey);
 #else
 ##        return ${EJBDaoImplVariable}.load(${primaryKeyType}.valueOf(rowKey));
-        return ${EJBDaoImplVariable}.load($convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal));
+        return service.load($convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal));
 #end
 #end
     }
-
+#*
     @Override
     protected ${beanSpringModelServiceClass} getService() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+*#
 }
