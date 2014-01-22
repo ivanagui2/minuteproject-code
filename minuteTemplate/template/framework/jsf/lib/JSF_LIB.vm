@@ -108,7 +108,7 @@
 #set ($entityConverterJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityConverterJSFClass))
 #set ($entityConverterJSFImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityConverterJSF))	
 #set ($entityLazyDataModelClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityLazyDataModel))
-#set ($entityLazyDataModelVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLazyDataModelClass))
+#set ($entityLazyDataModelVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLazyAccessModelClass))
 #set ($entityLazyDataModelImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateEntityLazyDataModel))	
 #set ($entityListLazyJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityListLazyJSF))
 #set ($entityEditJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($tableDB, $template, $templateEntityEditJSF))

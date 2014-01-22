@@ -25,12 +25,25 @@
 #if (!$column.isLob())
 #putColumnParams()
 #columnJavaNaming()	
-            <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}">  
+            <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}"
+#if($isEnum)
+                filterOptions="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}.getList()}"
+                filterMatchMode="exact"
+#end
+             >  
                 <f:facet name="header">  
                     <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
                 </f:facet>  
                 <h:outputText value="#{item.${columnVar}}" />  
             </p:column>
+#* 
+        <p:column id="manufacturerColumn" filterBy="manufacturer" 
+                headerText="Manufacturer" footerText="exact"
+                filterOptions="#{tableBean.manufacturerOptions}"
+                filterMatchMode="exact">
+            <h:outputText value="#{car.manufacturer}" />
+        </p:column>
+*#
 #end
 #end
 </html>
