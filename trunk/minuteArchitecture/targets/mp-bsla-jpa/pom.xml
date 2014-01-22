@@ -5,7 +5,7 @@
 	<artifactId>mp-bsla-jpa</artifactId>
 	<name>MinuteprojectBsla</name>
 	<packaging>jar</packaging>
-	<version>0.8.6</version>
+	<version>0.8.7</version>
 	<description>Minuteproject Basic spring layer architecture</description>
 	<url>http://minuteproject.wikispaces.net/BSLA</url>
 
@@ -113,6 +113,7 @@
 					</execution>
 				</executions>
 			</plugin> 
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
