@@ -295,7 +295,7 @@ public class ${className} implements java.io.Serializable{
         }
         return lazyModel;
     }
-
+#*
     public LazyDataModel<$tableClassName> getLazyModel2() {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<$tableClassName>() {
@@ -321,7 +321,7 @@ public class ${className} implements java.io.Serializable{
             		this.setRowCount(count);
                     return list;
 				}
-#*				
+-- to suprress				
                 public Map<String, Object> getMap(Map<String, String> filters) {
 					Map<String, Object> result = new HashMap<String, Object>();
                     for (Entry<String, String> set : filters.entrySet()) {
@@ -353,7 +353,7 @@ public class ${className} implements java.io.Serializable{
 #end
                     return null;
                 }			
-*#				
+--- to suppress		 		
 				@Override
 				public void setRowIndex(final int rowIndex)
 				{
@@ -393,7 +393,7 @@ public class ${className} implements java.io.Serializable{
     	}
     	return lazyModel;
     }
-
+ *# 
     public void reloadSelected() {
 ##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
 #if ($hasOnlyOnePrimaryKey)
@@ -408,24 +408,21 @@ public class ${className} implements java.io.Serializable{
         // not supported! has more than one pk	
 #end
     }
-
+#*  
     public $tableClassName serviceLoad(String rowKey) {
-##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
 #if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
         // not fully supported! cannot transform row in composite pk
         return new $tableClassName();
 #else
 	   if (rowKey == null || "null".equals(rowKey)) return new $tableClassName();
-##set($rowKey=$convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal))
 #if($columnUtils.isString($primaryKeyFirstColumn))
         return ${EJBDaoImplVariable}.load(rowKey);
 #else
-##        return ${EJBDaoImplVariable}.load(${primaryKeyType}.valueOf(rowKey));
         return ${EJBDaoImplVariable}.load($convertUtils.getJavaTypeMask($primaryKeyFirstColumn, "rowKey", $useTemporal));
 #end
 #end
     }
-
+*#
     public void recoverItemRowToggle(ToggleEvent toggleEvent) {
         selected$tableClassName = ($tableClassName) toggleEvent.getData();
     } 
