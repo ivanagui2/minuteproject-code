@@ -29,6 +29,7 @@ import javax.ejb.TransactionAttributeType;
 import org.apache.commons.lang.StringUtils;
 
 import static net.sf.minuteProject.model.utils.BuilderUtils.*;
+import net.sf.minuteProject.model.dao.jpa.GenericDaoJpaImpl;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
@@ -61,13 +62,13 @@ import javax.persistence.PersistenceContext;
 @javax.ejb.Stateless(name="$daoInterfaceVariableNameUML")
 #end
 ##public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
-public class $className implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
+public class $className extends GenericDaoJpaImpl<$tableClassName> implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
 
 	public $className () {}
-	
+#*	
     @PersistenceContext
     EntityManager entityManager;
-	
+*#	
     /**
      * Inserts a $tableClassName entity 
      * @param $tableClassName $tableVariableName
@@ -704,9 +705,19 @@ public class $className implements $daoInterfaceNameUML {##, GenericService<$tab
     }
 *# 
 ##parse("./snippet/orm/dao/queryBuilderUtils.vm")   
-   
+#*   
     protected EntityManager getEntityManager () {
         return entityManager;    
+    }
+*#	
+    @Override
+    protected String getQuerySelectFromEntity() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+
+    public List<Address> list(Address address, Address address2, QuerySortOrder querySortOrder) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 #if($isFieldRelationshipPersistence)
