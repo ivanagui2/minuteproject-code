@@ -92,6 +92,6 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
     protected abstract List<T> searchPrototype(String selectQuery, Integer maxResults) ;
     
-    protected abstract void assignBlankToNull (T t);
+    protected abstract T assignBlankToNull (T t);
     
 }
