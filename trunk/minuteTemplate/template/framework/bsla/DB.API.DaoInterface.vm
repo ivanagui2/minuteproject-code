@@ -13,8 +13,9 @@ import net.sf.minuteProject.model.dao.GenericDao;
 import net.sf.minuteProject.architecture.filter.data.Criteria;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 $!updatedAreaImport
-
 
 /**
  *
@@ -44,9 +45,9 @@ public interface $className extends GenericDao<$tableClassName>{
      * Remark: The primary keys cannot be update by this methods, nor are the attributes that must be set to null.
      * @param $tableClassName $tableVariableName
      */
-    public void updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
+    public Integer updateNotNullOnly$tableClassName($tableClassName $tableVariableName) ;
     
-    public void updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
+    public Integer updateNotNullOnlyPrototype${tableClassName}($tableClassName $tableVariableName, $tableClassName prototypeCriteria);
     
      /**
      * Saves a $tableClassName entity 
@@ -59,7 +60,8 @@ public interface $className extends GenericDao<$tableClassName>{
      * @param $tableClassName $tableVariableName
      */
     public void delete$tableClassName($tableClassName $tableVariableName) ;
-    
+  
+#*  
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName
@@ -75,6 +77,14 @@ public interface $className extends GenericDao<$tableClassName>{
      $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
 #end
     );   
+*#    
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName
+     * @param $primaryKeyFullType $primaryKeyVariable
+     * @return $tableClassName The $tableClassName entity
+     */
+     public $tableClassName load$tableClassName($primaryKeyFullType $primaryKeyVariable);   
         
     /**
      * Loads the $tableClassName entity which is related to an instance of
@@ -83,7 +93,7 @@ public interface $className extends GenericDao<$tableClassName>{
      * @return $tableClassName The $tableClassName entity
      */
     public $tableClassName loadFullFirstLevel$tableClassName($tableClassName $tableVariableName);    
-
+#*
     /**
      * Loads the $tableClassName entity which is related to an instance of
      * $tableClassName and its dependent one to many objects
@@ -98,7 +108,15 @@ public interface $className extends GenericDao<$tableClassName>{
 #putColumnParams()
      $columnType $columnVar#if ($velocityCount!=$primaryKeyCount),#end
 #end
-    );       
+    ); 
+ *#     
+    /**
+     * Loads the $tableClassName entity which is related to an instance of
+     * $tableClassName and its dependent one to many objects
+     * @param $primaryKeyFullType $primaryKeyVariable
+     * @return $tableClassName The $tableClassName entity
+     */
+    public $tableClassName loadFullFirstLevel$tableClassName($primaryKeyFullType $primaryKeyVariable);       
 #*      
     /**
      * Searches a list of $tableClassName entity 
@@ -240,6 +258,12 @@ public interface $className extends GenericDao<$tableClassName>{
 ##    */
 ##    //public List<$tableClassName> searchPrototype (List<$tableClassName> ${tableVariableName}Wheres);
 ##
+    public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) ;  
+	
+    public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) ;
+
+    public List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) ;
+
     /**
      * Searches a list of distinct $tableClassName entity based on a $tableClassName mask and a list of $tableClassName containing $tableClassName matching criteria
      * @param $tableClassName $tableVariableName

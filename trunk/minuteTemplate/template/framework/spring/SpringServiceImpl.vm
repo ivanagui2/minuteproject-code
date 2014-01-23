@@ -36,7 +36,7 @@ import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 import $importDomainObjectUML;
 import $SpringServiceInterfaceImport;
 import $BslaDaoInterfaceImport;
-import $BslaDaoExtInterfaceImport;
+##import $BslaDaoExtInterfaceImport;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,6 +72,7 @@ public class $className implements $SpringServiceInterfaceClass {
 	@EJB// (name="$BslaDaoInterfaceVariable")	
 #end
 	$BslaDaoInterfaceClass $BslaDaoInterfaceVariable;
+#*  
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoExtInterfaceVariable")	
@@ -79,7 +80,7 @@ public class $className implements $SpringServiceInterfaceClass {
 	@EJB// (name="$BslaDaoExtInterfaceVariable")	
 #end
 	$BslaDaoExtInterfaceClass $BslaDaoExtInterfaceVariable;
-	
+*#	
     /**
      * Inserts a $tableClassName entity $tCN 
      * @param $tableClassName $tableVariableName
@@ -193,7 +194,7 @@ public class $className implements $SpringServiceInterfaceClass {
     
 //	@Override
 	public void find(QueryData<$tableClassName> data) {
-		${BslaDaoExtInterfaceVariable}.find (data);
+		${BslaDaoInterfaceVariable}.find (data);
 	}
 	
 ##if($isMasterData || $isReferenceData)
@@ -215,7 +216,7 @@ public class $className implements $SpringServiceInterfaceClass {
 #end
         sortMask.set$columnClass($defaultStuffing);
 #end
-        return ${BslaDaoExtInterfaceVariable}.getList(sortMask, QuerySortOrder.$order);
+        return ${BslaDaoInterfaceVariable}.getList(sortMask, QuerySortOrder.$order);
     }
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))

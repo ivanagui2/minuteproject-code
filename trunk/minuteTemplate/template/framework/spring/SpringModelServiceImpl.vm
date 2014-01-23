@@ -39,7 +39,7 @@ import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 #if(!$isMany2Many)
 import $importDomainObjectUML;
 import $BslaDaoInterfaceImport;
-import $BslaDaoExtInterfaceImport;
+##import $BslaDaoExtInterfaceImport;
 #end
 #end
 
@@ -78,6 +78,7 @@ public class $thisClassName implements $beanSpringModelServiceClass {
 	@EJB// (name="$BslaDaoInterfaceVariable")	
 #end
 	$BslaDaoInterfaceClass $BslaDaoInterfaceVariable;
+#* 
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoExtInterfaceVariable")	
@@ -85,7 +86,7 @@ public class $thisClassName implements $beanSpringModelServiceClass {
 	@EJB// (name="$BslaDaoExtInterfaceVariable")	
 #end
 	$BslaDaoExtInterfaceClass $BslaDaoExtInterfaceVariable;
-	
+*#	
     public List<$tableClassName> getList ($tableClassName $tableVariableName) {
         $tableClassName sortMask = new $tableClassName();
 #set($ordering=$orderingUtils.getFirstOrdering($table))
@@ -99,7 +100,7 @@ public class $thisClassName implements $beanSpringModelServiceClass {
 #end
         sortMask.set$columnClass($defaultStuffing);
 #end
-        return ${BslaDaoExtInterfaceVariable}.list($tableVariableName, sortMask, QuerySortOrder.$order);
+        return ${BslaDaoInterfaceVariable}.list($tableVariableName, sortMask, QuerySortOrder.$order);
     }
 
 #*
