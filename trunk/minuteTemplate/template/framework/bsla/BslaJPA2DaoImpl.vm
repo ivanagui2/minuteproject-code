@@ -715,11 +715,6 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-
-    public List<Address> list(Address address, Address address2, QuerySortOrder querySortOrder) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
 #if($isFieldRelationshipPersistence)
     protected void convertTransientReferenceToNull ($tableClassName $tableVariableName) {
 #foreach ($reference in $table.parents)
