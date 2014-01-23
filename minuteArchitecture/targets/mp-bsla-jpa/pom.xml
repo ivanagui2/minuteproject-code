@@ -20,7 +20,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>3.2.2.RELEASE</version>
 		</dependency>
-		            
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -68,6 +68,7 @@
 		<plugins>
 
 			<plugin>
+
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<executions>
@@ -97,7 +98,8 @@
 				</executions>
 			</plugin>
 
-<!-- 	-->		<plugin>
+			<!-- 
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<executions>
@@ -107,13 +109,13 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
-                        <configuration>
-                            <keyname>23C28A7D</keyname>
-                        </configuration>
+						<configuration>
+							<keyname>23C28A7D</keyname>
+						</configuration>
 					</execution>
 				</executions>
-			</plugin> 
-			
+			</plugin>
+-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -132,6 +134,32 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>sonatype-release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<keyname>23C28A7D</keyname>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+	</profiles>
 	<developers>
 		<developer>
 			<id>florian</id>
