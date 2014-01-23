@@ -16,27 +16,37 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 	@Override
 	public void find (QueryData<T> data) {
 		EntityCriteria<T> filter = data.getEntityCriteria();
+		T entityWhat = data.getEntityWhat();
 		T criteriaMask = filter.getEntity();
-		int start = data.getStart();
-		int max = data.getMax();
+		Integer start = data.getStart();
+		Integer max = data.getMax();
 		EntitySort<T> entitySort = data.getEntitySort();
 		QuerySortOrder sortOrder = entitySort.getOrder();
-		T sortMask = entitySort.getEntity();
-		
-		List<T> results = find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max);
+		T sortMask = entitySort.getEntity();	
+
+		List<T> results = find(entityWhat, criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max);
 		data.setResult(results);
 		int size = results.size();
 		if (size<max) 
 			data.setTotalResultCount(Long.valueOf(size));
 		else
-			data.setTotalResultCount(count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
+			data.setTotalResultCount(count(entityWhat, criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
+
 	}
 	
-    protected String findQuery (T criteriaMask, T orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
-        String queryWhere = findWhere (criteriaMask, false, isAll(matchType), operandType, caseSensitivenessType);
-		String queryOrder = findOrder (orderMask, sortOrder);
-	    return getHQuery(what, queryWhere, queryOrder);
-    }
+	protected abstract Long count(T entityWhat, T criteriaMask, EntityMatchType matchType,
+			OperandType operandType, Boolean caseSensitivenessType) ;
+
+	protected abstract List<T> find(T entityWhat, T criteriaMask, T sortMask,
+		EntityMatchType matchType, OperandType operandType,
+		Boolean caseSensitivenessType, QuerySortOrder sortOrder, Integer start,
+		Integer max) ;
+//	
+//    protected String findQuery (T criteriaWhat, T criteriaMask, T orderMask, String what, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
+//        String queryWhere = findWhere (criteriaMask, false, isAll(matchType), operandType, caseSensitivenessType);
+//		String queryOrder = findOrder (orderMask, sortOrder);
+//	    return getHQuery(what, queryWhere, queryOrder);
+//    }
     
     protected String getWhereEqualAnyWhereQueryChunk (T t, boolean isAndSet) {
 		return getSearchEqualWhereQueryChunk (t, isAndSet, false);	
@@ -81,14 +91,6 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 			OperandType operandType, Boolean caseSensitivenessType) ;
 
 	protected abstract String findOrder(T orderMask, QuerySortOrder sortOrder);
-
-	protected abstract Long count(T criteriaMask, EntityMatchType matchType,
-			OperandType operandType, Boolean caseSensitivenessType) ;
-
-
-	protected abstract List<T> find(T criteriaMask, T sortMask, EntityMatchType matchType,
-			OperandType operandType, Boolean caseSensitivenessType,
-			QuerySortOrder sortOrder, int start, int max) ;
 
     protected abstract List<T> searchPrototype(String selectQuery, Integer maxResults) ;
     
