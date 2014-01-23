@@ -49,13 +49,9 @@
 			for (${linkedTableClass} childWhat : graphMaskWhat.get${childrenListClass}()) {
 #set($mask=$bslaLibraryUtils.getJavaDefaultMask($linkedColumn))
 				childWhat.set${linkedColumnClass}_(graphMaskWhat.$mask); // add to the what mask, usefull for reconciliation
-#if($beImplementation=="JPA")				
+#set ($dependentDaoExtentedImplementationJPAClassName = $commonUtils.getTemplateClassName($linktableDB, $model, $templateBslaDaoImplJPA))				
 				$dependentDaoExtentedImplementationJPAClassName $dependentDaoExtentedImplementationJPAVariableName = new $dependentDaoExtentedImplementationJPAClassName ();
 				List<${linkedTableClass}> children = ${dependentDaoExtentedImplementationJPAVariableName}.lookup${linkedTableClass}(childWhat, getFkCriteria(" $primaryKeyVariable ", ids), null, getEntityManager());
-#elseif($beImplementation=="hibernate")				
-				$dependentDaoExtentedImplementationHibernateClassName $dependentDaoExtentedImplementationHibernateVariableName = new $dependentDaoExtentedImplementationHibernateClassName ();
-				List<${linkedTableClass}> children = ${dependentDaoExtentedImplementationHibernateVariableName}.lookup${linkedTableClass}(childWhat, getFkCriteria(" $primaryKeyVariable ", ids), null, getSession());
-#end
 				reassemble${linkedTableClass} (children, parents);				
 				break;
 			}
