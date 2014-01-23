@@ -161,7 +161,7 @@
         <dependency>
           <groupId>net.sf.minuteproject</groupId>
           <artifactId>mp-bsla-jpa</artifactId>
-          <version>0.8.6</version>
+          <version>0.8.7</version>
         </dependency>	
 #end	
     </dependencies>
