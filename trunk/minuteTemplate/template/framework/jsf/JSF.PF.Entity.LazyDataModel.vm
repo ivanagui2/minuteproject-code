@@ -17,6 +17,7 @@ import $SpringServiceInterfaceImport;
 import $genericLazyDataModelImport;
 import org.primefaces.model.SortOrder;
 
+import java.util.Date;
 import java.util.Map;
 
 public class ${className} extends $genericLazyDataModelClass <$tableClassName, ${EJBDaoImplClass}> {

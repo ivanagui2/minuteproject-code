@@ -66,8 +66,7 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
-
-import $EJBDaoImplImport;
+##import $EJBDaoImplImport;
 
 #end
 import $importDomainObjectUML;
@@ -94,13 +93,14 @@ import $importDomainObjectUML;
 #set($primaryKeyJavaNameClass = $embeddedIdClass+"_")
 #end
 public class ${className} implements java.io.Serializable{
-
-#if($isSpringBackend)
-	@ManagedProperty("#{${EJBDaoImplVariable}}")
-    ${EJBDaoImplClass} $EJBDaoImplVariable;
 	
 	private LazyDataModel<$tableClassName> lazyModel;
 	private $entityLazyDataModelClass entityLazyDataModel;
+	
+#if($isSpringBackend)
+	@ManagedProperty("#{${EJBDaoImplVariable}}")
+    ${EJBDaoImplClass} $EJBDaoImplVariable;
+
 
 	@ManagedProperty("#{${lookupBeanVar}}")
     ${lookupBeanClass} ${lookupBeanVar};
@@ -115,8 +115,6 @@ public class ${className} implements java.io.Serializable{
 	##@Inject ## ("#{${EJBDaoImplVariable}}")
 	@EJB
     ${EJBDaoImplClass} $EJBDaoImplVariable;
-	
-	private LazyDataModel<$tableClassName> lazyModel;
 
 	@EJB ## @ManagedProperty("#{${lookupBeanVar}}")
     ${lookupBeanClass} ${lookupBeanVar};
