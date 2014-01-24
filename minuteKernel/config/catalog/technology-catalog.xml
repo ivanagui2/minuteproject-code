@@ -2,6 +2,10 @@
 	<!-- the main technology is loaded with all its dependencies (not in a transitive 
 		way) i.e. you have to specify all of them the properties are declared at 
 		the technology level and apply to all templates (not transitive) -->
+    <frameworks>
+    	<framework name="minuteproject" icon-url="sourceforge-url" />
+    	<framework name="JPA2" icon-url="sourceforge-url" />
+    </frameworks>
 	<technologies>
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
