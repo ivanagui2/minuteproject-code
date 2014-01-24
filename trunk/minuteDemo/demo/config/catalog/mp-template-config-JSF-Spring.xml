@@ -26,6 +26,20 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<!-- <property name="add-backend-implementation" value="spring"></property> -->
 		</template>
+							 
+		<template name="JSF.PF.Generic.LazyDataModel" templateFileName="JSF.PF.Generic.LazyDataModel.vm" 
+			subdir="" outputsubdir="" technicalPackage="datamodel"
+			file-extension="java" file-prefix="" file-suffix="LazyDataModel" 
+			model-specific="true" has-updatable-nature="true">
+		</template>
+							 
+		<template name="JSF.PF.Entity.LazyDataModel" templateFileName="JSF.PF.Entity.LazyDataModel.vm" 
+			subdir="" outputsubdir="" technicalPackage="datamodel"
+			file-extension="java" file-prefix="" file-suffix="LazyDataModel" 
+			entity-specific="true" has-updatable-nature="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			
+		</template>
 								 
 		<template name="JSFBeanManagerConverter" templateFileName="JSFBeanManagerConverter.vm" 
 			subdir="" outputsubdir="" technicalPackage="converter"
