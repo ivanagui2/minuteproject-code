@@ -70,7 +70,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<property name="cloud-platform" value="cloudbees"></property>
 			<property name="cloud-name" value="petshopapp"></property>
 			<property name="target-server" value="glassfish"></property>
-<!-- 			<target refname="JPA2" 
+<!-- 			
+			<target refname="JPA2" 
 			   name="JPA2" 
 			   fileName="mp-template-config-JPA2.xml" 
 			   outputdir-root="../../output/JSF/petshop/JPA2"
@@ -113,7 +114,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             <target refname="COMMON-LIB" 
                fileName="mp-template-config-COMMON-LIB.xml" 
                templatedir-root="../../minuteTemplate/template/framework/common">
-            </target>-->
+            </target>
+            -->
 		</targets> 
 	</configuration>
 </generator-config>
