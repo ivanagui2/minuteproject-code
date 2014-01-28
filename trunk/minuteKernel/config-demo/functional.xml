@@ -28,24 +28,9 @@
 				</primaryKeyPolicy>
 			</data-model>
 			<business-model>
-				<business-package default="sakila">
+				<business-package default="functional">
 					<condition type="package" startsWith="FILM" result="film"></condition>
-					<condition type="package" startsWith="LANGUAGE" result="film"></condition>
-					<condition type="package" startsWith="category" result="film"></condition>
-					<condition type="package" startsWith="ACTOR" result="film"></condition>
-					<condition type="package" startsWith="INVENTORY" result="film"></condition>
-					
-					<condition type="package" startsWith="STAFF" result="business"></condition>
-					<condition type="package" startsWith="STORE" result="business"></condition>
-					<condition type="package" startsWith="RENTAL" result="business"></condition>
-					<condition type="package" startsWith="PAYMENT" result="business"></condition>
-					
-					<condition type="package" startsWith="COUNTRY" result="customer"></condition>
-					<condition type="package" startsWith="CITY" result="customer"></condition>
-					<condition type="package" startsWith="ADDRESS" result="customer"></condition>
-					<condition type="package" startsWith="CUSTOMER" result="customer"></condition>
-					
-					
+
 				</business-package>
 				<enrichment>
 					<conventions>
@@ -107,8 +92,8 @@
 			<!-- S D D -->
 
 		</model>
-		<targets catalog-entry="BSLA-JPA2,BELA-JPA2" 
-		 		 outputdir-root="../minuteTest/model/functional"
+		<targets catalog-entry="BSLA-JPA2" 
+	 		 outputdir-root="../minuteTest/model/functional/BSLA-JPA2"
 		 		 append-catalog-entry-dir-to-outputdir-root="true">
 		</targets>
 	</configuration>
