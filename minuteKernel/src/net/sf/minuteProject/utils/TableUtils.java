@@ -37,7 +37,7 @@ public class TableUtils {
 	public static final String liveBusinessDataContentType = "live-business-data";
 	public static Logger log = Logger.getLogger(TableUtils.class);
 
-	public boolean isTable(Template template, GeneratorBean bean) {
+	public static boolean isTable(Template template, GeneratorBean bean) {
 		if (bean instanceof View)
 			return false;
 		if (bean instanceof Table)
