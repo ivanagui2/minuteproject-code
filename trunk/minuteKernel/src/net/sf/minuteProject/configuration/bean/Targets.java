@@ -17,6 +17,7 @@ public class Targets extends AbstractConfiguration {
 	
 	private static final String MP_HOME = "MP_HOME";
 	private String outputdirRoot, catalog, catalogEntry, templatedirRoot;
+	private Boolean appendCatalogEntryDirToOutputDirRoot;
 	public static final String deliveryPath = "../../template";
 	public static final String developmentPath = "../minuteTemplate/template";
 	public static final String MP_HOME_RELATIVE_PATH = "/template";
@@ -60,14 +61,14 @@ public class Targets extends AbstractConfiguration {
 		return outputdirRoot;
 //		return getOutputdirRootCache(getCatalogEntry());
 	}
-
+/*
 	public String getOutputdirRootCache(String subdir) {
 		if (hasCatalogEntry() && outputdirRoot==null) {
 			outputdirRoot = getOutputdirRoot(subdir);
 		}
 		return outputdirRoot;
 	}
-	
+*/	
 	public String getOutputdirRoot(String subdir) {
 		String output = FileUtils.exists(deliveryPath)?"../output/":"../../output/";
 		return output+subdir+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
@@ -125,6 +126,15 @@ public class Targets extends AbstractConfiguration {
 
 	public void setCatalogEntry(String catalogEntry) {
 		this.catalogEntry = catalogEntry;
+	}
+
+	public Boolean getAppendCatalogEntryDirToOutputDirRoot() {
+		return appendCatalogEntryDirToOutputDirRoot;
+	}
+
+	public void setAppendCatalogEntryDirToOutputDirRoot(
+			Boolean appendCatalogEntryDirToOutputDirRoot) {
+		this.appendCatalogEntryDirToOutputDirRoot = appendCatalogEntryDirToOutputDirRoot;
 	}
 
 	
