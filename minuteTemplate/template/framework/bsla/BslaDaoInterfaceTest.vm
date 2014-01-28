@@ -188,7 +188,8 @@ public class $className extends $testAdapterClassName {
         $dependentDomainClassName $localColumnVariable$nb = inject$dependentDomainClassName();	
         //$localColumnTypeOnly $primaryKeyJavaNameTypeOnly
 #if ($localColumnTypeOnly==$primaryKeyJavaNameTypeOnly)
-        ${domainVariableName}.set$localColumnClass(${localColumnVariable}${nb}.get$primaryKeyJavaNameClass());
+##        ${domainVariableName}.set$localColumnClass(${localColumnVariable}${nb}.get$primaryKeyJavaNameClass());
+        ${domainVariableName}.set$localColumnClass(${localColumnVariable}${nb});
 #else
         ${domainVariableName}.set$localColumnClass(convert${primaryKeyJavaNameTypeOnly}To${localColumnTypeOnly}(${localColumnVariable}${nb}.get$primaryKeyJavaNameClass()));
 #end
@@ -231,7 +232,7 @@ public class $className extends $testAdapterClassName {
         $dependentDomainClassName $dependentDomainVariableName$nb = inject$dependentDomainClassName();
         //$localColumnTypeOnly $primaryKeyTypeOnly    $primaryKeyJavaNameTypeOnly    	
 #if ($localColumnTypeOnly==$primaryKeyJavaNameTypeOnly)
-        ${masterDependentDomainVariableName}.set$localColumnClass(${dependentDomainVariableName}${nb}.get$primaryKeyJavaNameClass());
+        ${masterDependentDomainVariableName}.set$localColumnClass(${dependentDomainVariableName}${nb});
 #else
         ${masterDependentDomainVariableName}.set$localColumnClass(convert${primaryKeyJavaNameTypeOnly}To${localColumnTypeOnly}(${dependentDomainVariableName}${nb}.get$primaryKeyJavaNameClass()));
 #end
