@@ -4,6 +4,12 @@
 #exposeTestAdapter()
 #distinctEntityProperty()
 #exposeEntityDependencies()
+#set($isTestEnabled=$template.getPropertyValue("enable-test",false))
+#if($isTestEnabled)
+#set($test="@Test")
+#else
+#set($test="//@Test")
+#end
 package $packageName;
 
 #distinctBEImport()
@@ -20,7 +26,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
-import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -32,6 +44,13 @@ import $dependentImportDomainClassName;
 #end
 
 public class $className extends $testAdapterClassName {
+
+    // Test are commented because the sample set use will setting up datase with data
+    // might not correspond to the anything valuable
+    // resulting in a failure of your test
+
+    // work with minuteproject updatable code feature to exclude this artifact from consecutive
+    // generation erasure and adapt you test to your data scenario.
 
 	@Autowired @Qualifier("$daoInterfaceVariableName")
 	protected $daoInterfaceClassName $daoInterfaceVariableName;
@@ -50,13 +69,13 @@ public class $className extends $testAdapterClassName {
 	* Then perform load update, delete, loadfirstlevel
 	*/
     	
-	@Test
+	$test
 	public void testInsert$domainClassName () {
 	    $domainClassName ${domainVariableName} = insert$domainClassName ();
 	    assertNotNull(${domainVariableName});
 	}
 	
-	@Test	
+	$test	
     public void testLoad$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});
@@ -74,7 +93,7 @@ public class $className extends $testAdapterClassName {
 #end
 	}	
 		
-	@Test		
+	$test		
 	public void testDelete$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	${daoInterfaceVariableName}.delete$domainClassName(${domainVariableName});
@@ -82,7 +101,7 @@ public class $className extends $testAdapterClassName {
         assertNull (${domainVariableName}2);
     }
 	
-	@Test	
+	$test	
 	public void testUpdate$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
@@ -142,15 +161,26 @@ public class $className extends $testAdapterClassName {
 	}	
 */   
  
-	//@Test	
+	$test	
     public void testPagination () {
-    	// set something to paginate
-    	// TODO
-    	$domainClassName ${domainVariableName} = populateFirstNonPkField$domainClassName ();
-    	PaginationCriteria paginationCriteria = new PaginationCriteria();
-    	paginationCriteria.setNumberOfRowsReturned(10);
-    	List<$domainClassName> list = ${daoInterfaceVariableName}.loadPaginated$domainClassName(${domainVariableName}, paginationCriteria);
-    	assertNotNull (list);
+        //assuming that there is something in the DB
+        insert$domainClassName ();
+
+        Integer start = 0;
+        Integer max = 10;
+        $domainClassName sort = new $domainClassName();
+        EntitySort<$domainClassName> entitySort = new EntitySort<$domainClassName>(sort, QuerySortOrder.ASC);
+        $domainClassName criteria = new $domainClassName();
+        EntityCriteria<$domainClassName> entityCriteria = new EntityCriteria<$domainClassName>(criteria, EntityMatchType.ALL, OperandType.CONTAINS, true);
+
+        $domainClassName what = populateFirstNonPkField$domainClassName ();
+
+        //${domainClassName}.fullMask();
+
+        QueryData<$domainClassName> queryData = new QueryData<$domainClassName>(start, max, entitySort,entityCriteria, what);
+        ${daoInterfaceVariableName}.find(queryData);
+        assertTrue (queryData.getTotalResultCount()>0);
+
     }
  
     public $domainClassName insert$domainClassName () {
