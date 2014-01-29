@@ -27,6 +27,7 @@
 	* - file name : BslaDaoInterfaceTest.vm
 	* - time      : 2014/01/28 ap. J.-C. at 20:56:32 CET
 */
+//MP-MANAGED-STOP-GENERATING
 package net.sf.mp.demo.functional.dao.face.functional;
 
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
