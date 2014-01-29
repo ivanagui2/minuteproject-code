@@ -273,5 +273,10 @@
          <url>http://resources.automatedbusinesslogic.com/maven2</url>
        </repository>
 #end
+       <repository>
+         <id>sonatype-repo</id>
+         <name>Sonatype repository</name>
+         <url>https://oss.sonatype.org/content/repositories/releases</url>
+       </repository>
     </repositories>   
 </project>
