@@ -25,7 +25,7 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : TestDaoInterface
 	* - file name : BslaDaoInterfaceTest.vm
-	* - time      : 2014/01/29 ap. J.-C. at 22:09:15 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
 package net.sf.mp.demo.functional.dao.face.functional;
 
@@ -90,7 +90,6 @@ public class DepartmentDaoTest extends AdapterFunctionalTestDao {
        // assertion
      	assertTrue(department.getId().equals(department2.getId()));
      	assertTrue(department.getName().equals(department2.getName()));
-     	assertTrue(department.getCompanyId().equals(department2.getCompanyId()));
 	}	
 		
 	@Test		
@@ -111,7 +110,6 @@ public class DepartmentDaoTest extends AdapterFunctionalTestDao {
         // assertion
      	assertTrue(department.getId().equals(department3.getId()));
      	assertTrue(department.getName().equals(department3.getName()));
-     	assertTrue(department.getCompanyId().equals(department3.getCompanyId()));
 	}
 /* updateNotNull is not on both interface	
 	public void testUpdateNotNullDepartment () {
@@ -164,17 +162,21 @@ public class DepartmentDaoTest extends AdapterFunctionalTestDao {
     public Department populateDepartment () {
         Department department = new Department();
         department.setName (getString1(45));
-         Company companyId2 = injectCompany();	
-        //Integer Integer
-        department.setCompanyId(companyId2);
-
-        return department;
+         return department;
     }
 
     // dependency Company injection
     public Company injectCompany () {
-        Company company = populateCompany ();
-        companyDao.insertCompany (company);
+	    // if Company has already been injected, 
+		// use the same one to avoid recursivity injections
+		Company company;
+		if (hasAlreadyBeenInjected (Company.class)) {
+		   company = (Company)getInjected (Company.class);
+		} else {
+		   company = populateCompany ();
+           companyDao.insertCompany (company);
+		   setInjected (Company.class, company);
+		}
         return company;
     }
 

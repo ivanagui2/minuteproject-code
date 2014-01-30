@@ -25,7 +25,7 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : TestDaoInterface
 	* - file name : BslaDaoInterfaceTest.vm
-	* - time      : 2014/01/29 ap. J.-C. at 22:09:15 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
 package net.sf.mp.demo.functional.dao.face.functional;
 
@@ -53,10 +53,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import net.sf.mp.demo.functional.dao.face.AdapterFunctionalTestDao;
-import net.sf.mp.demo.functional.dao.face.functional.CityDao;
-import net.sf.mp.demo.functional.domain.functional.City;
 import net.sf.mp.demo.functional.dao.face.functional.CountryDao;
 import net.sf.mp.demo.functional.domain.functional.Country;
+import net.sf.mp.demo.functional.dao.face.functional.CityDao;
+import net.sf.mp.demo.functional.domain.functional.City;
 
 public class CountryDaoTest extends AdapterFunctionalTestDao {
 
@@ -92,7 +92,6 @@ public class CountryDaoTest extends AdapterFunctionalTestDao {
        // assertion
      	assertTrue(country.getId().equals(country2.getId()));
      	assertTrue(country.getName().equals(country2.getName()));
-     	assertTrue(country.getCapital().equals(country2.getCapital()));
 	}	
 		
 	@Test		
@@ -113,7 +112,6 @@ public class CountryDaoTest extends AdapterFunctionalTestDao {
         // assertion
      	assertTrue(country.getId().equals(country3.getId()));
      	assertTrue(country.getName().equals(country3.getName()));
-     	assertTrue(country.getCapital().equals(country3.getCapital()));
 	}
 /* updateNotNull is not on both interface	
 	public void testUpdateNotNullCountry () {
@@ -166,35 +164,47 @@ public class CountryDaoTest extends AdapterFunctionalTestDao {
     public Country populateCountry () {
         Country country = new Country();
         country.setName (getString1(45));
-         City capital1 = injectCity();	
-        //Integer Integer
-        country.setCapital(capital1);
+        return country;
+    }
 
+    // dependency Country injection
+    public Country injectCountry () {
+	    // if Country has already been injected, 
+		// use the same one to avoid recursivity injections
+		Country country;
+		if (hasAlreadyBeenInjected (Country.class)) {
+		   country = (Country)getInjected (Country.class);
+		} else {
+		   country = populateCountry ();
+           countryDao.insertCountry (country);
+		   setInjected (Country.class, country);
+		}
         return country;
     }
 
     // dependency City injection
     public City injectCity () {
-        City city = populateCity ();
-        cityDao.insertCity (city);
+	    // if City has already been injected, 
+		// use the same one to avoid recursivity injections
+		City city;
+		if (hasAlreadyBeenInjected (City.class)) {
+		   city = (City)getInjected (City.class);
+		} else {
+		   city = populateCity ();
+           cityDao.insertCity (city);
+		   setInjected (City.class, city);
+		}
         return city;
     }
 
     public City populateCity () {
         City city = new City();
         city.setName (getString1(45));
-         Country country1 = injectCountry();
+          Country country1 = injectCountry();
         //Integer Integer    Integer    	
         city.setCountryId(country1);
         return city;
     }   
-    // dependency Country injection
-    public Country injectCountry () {
-        Country country = populateCountry ();
-        countryDao.insertCountry (country);
-        return country;
-    }
-
      
     public Country populateFirstNonPkFieldCountry () {
        // works if the table does not contain only pk

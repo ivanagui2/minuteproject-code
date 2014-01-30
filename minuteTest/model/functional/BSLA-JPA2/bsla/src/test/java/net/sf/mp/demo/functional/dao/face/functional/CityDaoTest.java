@@ -25,7 +25,7 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : TestDaoInterface
 	* - file name : BslaDaoInterfaceTest.vm
-	* - time      : 2014/01/29 ap. J.-C. at 22:09:15 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
 package net.sf.mp.demo.functional.dao.face.functional;
 
@@ -166,7 +166,7 @@ public class CityDaoTest extends AdapterFunctionalTestDao {
     public City populateCity () {
         City city = new City();
         city.setName (getString1(45));
-         Country countryId1 = injectCountry();	
+          Country countryId1 = injectCountry();	
         //Integer Integer
         city.setCountryId(countryId1);
 
@@ -175,24 +175,37 @@ public class CityDaoTest extends AdapterFunctionalTestDao {
 
     // dependency City injection
     public City injectCity () {
-        City city = populateCity ();
-        cityDao.insertCity (city);
+	    // if City has already been injected, 
+		// use the same one to avoid recursivity injections
+		City city;
+		if (hasAlreadyBeenInjected (City.class)) {
+		   city = (City)getInjected (City.class);
+		} else {
+		   city = populateCity ();
+           cityDao.insertCity (city);
+		   setInjected (City.class, city);
+		}
         return city;
     }
 
     // dependency Country injection
     public Country injectCountry () {
-        Country country = populateCountry ();
-        countryDao.insertCountry (country);
+	    // if Country has already been injected, 
+		// use the same one to avoid recursivity injections
+		Country country;
+		if (hasAlreadyBeenInjected (Country.class)) {
+		   country = (Country)getInjected (Country.class);
+		} else {
+		   country = populateCountry ();
+           countryDao.insertCountry (country);
+		   setInjected (Country.class, country);
+		}
         return country;
     }
 
     public Country populateCountry () {
         Country country = new Country();
         country.setName (getString1(45));
-         City city1 = injectCity();
-        //Integer Integer    Integer    	
-        country.setCapital(city1);
         return country;
     }   
      

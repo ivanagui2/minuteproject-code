@@ -25,7 +25,7 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : TestDaoInterface
 	* - file name : BslaDaoInterfaceTest.vm
-	* - time      : 2014/01/29 ap. J.-C. at 22:09:15 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
 package net.sf.mp.demo.functional.dao.face.functional;
 
@@ -53,10 +53,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import net.sf.mp.demo.functional.dao.face.AdapterFunctionalTestDao;
-import net.sf.mp.demo.functional.dao.face.functional.DepartmentDao;
-import net.sf.mp.demo.functional.domain.functional.Department;
 import net.sf.mp.demo.functional.dao.face.functional.CompanyDao;
 import net.sf.mp.demo.functional.domain.functional.Company;
+import net.sf.mp.demo.functional.dao.face.functional.DepartmentDao;
+import net.sf.mp.demo.functional.domain.functional.Department;
 
 public class UserDaoTest extends AdapterFunctionalTestDao {
 
@@ -69,10 +69,10 @@ public class UserDaoTest extends AdapterFunctionalTestDao {
 
 	@Autowired @Qualifier("userDao")
 	protected UserDao userDao;
-	@Autowired @Qualifier("departmentDao")
-	protected DepartmentDao departmentDao;
 	@Autowired @Qualifier("companyDao")
 	protected CompanyDao companyDao;
+	@Autowired @Qualifier("departmentDao")
+	protected DepartmentDao departmentDao;
 	
 	/*
 	* Do the insert first.
@@ -173,32 +173,25 @@ public class UserDaoTest extends AdapterFunctionalTestDao {
         User user = new User();
         user.setName (getString1(45));
         user.setEmail (getString1(45));
-         Department departmentId1 = injectDepartment();	
+          Department departmentId1 = injectDepartment();	
         //Integer Integer
         user.setDepartmentId(departmentId1);
 
         return user;
     }
 
-    // dependency Department injection
-    public Department injectDepartment () {
-        Department department = populateDepartment ();
-        departmentDao.insertDepartment (department);
-        return department;
-    }
-
-    public Department populateDepartment () {
-        Department department = new Department();
-        department.setName (getString1(45));
-         Company company2 = injectCompany();
-        //Integer Integer    Integer    	
-        department.setCompanyId(company2);
-        return department;
-    }   
     // dependency Company injection
     public Company injectCompany () {
-        Company company = populateCompany ();
-        companyDao.insertCompany (company);
+	    // if Company has already been injected, 
+		// use the same one to avoid recursivity injections
+		Company company;
+		if (hasAlreadyBeenInjected (Company.class)) {
+		   company = (Company)getInjected (Company.class);
+		} else {
+		   company = populateCompany ();
+           companyDao.insertCompany (company);
+		   setInjected (Company.class, company);
+		}
         return company;
     }
 
@@ -206,6 +199,26 @@ public class UserDaoTest extends AdapterFunctionalTestDao {
         Company company = new Company();
         company.setName (getString1(45));
         return company;
+    }   
+    // dependency Department injection
+    public Department injectDepartment () {
+	    // if Department has already been injected, 
+		// use the same one to avoid recursivity injections
+		Department department;
+		if (hasAlreadyBeenInjected (Department.class)) {
+		   department = (Department)getInjected (Department.class);
+		} else {
+		   department = populateDepartment ();
+           departmentDao.insertDepartment (department);
+		   setInjected (Department.class, department);
+		}
+        return department;
+    }
+
+    public Department populateDepartment () {
+        Department department = new Department();
+        department.setName (getString1(45));
+         return department;
     }   
      
     public User populateFirstNonPkFieldUser () {
