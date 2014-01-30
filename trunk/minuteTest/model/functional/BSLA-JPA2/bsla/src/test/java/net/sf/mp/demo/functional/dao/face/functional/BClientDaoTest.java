@@ -25,7 +25,7 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : TestDaoInterface
 	* - file name : BslaDaoInterfaceTest.vm
-	* - time      : 2014/01/29 ap. J.-C. at 22:09:15 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
 package net.sf.mp.demo.functional.dao.face.functional;
 
@@ -53,12 +53,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import net.sf.mp.demo.functional.dao.face.AdapterFunctionalTestDao;
-import net.sf.mp.demo.functional.dao.face.functional.CityDao;
-import net.sf.mp.demo.functional.domain.functional.City;
-import net.sf.mp.demo.functional.dao.face.functional.CountryDao;
-import net.sf.mp.demo.functional.domain.functional.Country;
 import net.sf.mp.demo.functional.dao.face.functional.AddressDao;
 import net.sf.mp.demo.functional.domain.functional.Address;
+import net.sf.mp.demo.functional.dao.face.functional.CountryDao;
+import net.sf.mp.demo.functional.domain.functional.Country;
+import net.sf.mp.demo.functional.dao.face.functional.CityDao;
+import net.sf.mp.demo.functional.domain.functional.City;
 
 public class BClientDaoTest extends AdapterFunctionalTestDao {
 
@@ -71,12 +71,12 @@ public class BClientDaoTest extends AdapterFunctionalTestDao {
 
 	@Autowired @Qualifier("BClientDao")
 	protected BClientDao BClientDao;
-	@Autowired @Qualifier("cityDao")
-	protected CityDao cityDao;
-	@Autowired @Qualifier("countryDao")
-	protected CountryDao countryDao;
 	@Autowired @Qualifier("addressDao")
 	protected AddressDao addressDao;
+	@Autowired @Qualifier("countryDao")
+	protected CountryDao countryDao;
+	@Autowired @Qualifier("cityDao")
+	protected CityDao cityDao;
 	
 	/*
 	* Do the insert first.
@@ -189,47 +189,25 @@ public class BClientDaoTest extends AdapterFunctionalTestDao {
         bclient.setDescription (getString1(45));
         bclient.setAge (getInteger1());
         bclient.setTitle (getString1(45));
-         Address addressAddressId1 = injectAddress();	
+          Address addressAddressId1 = injectAddress();	
         //Integer Integer
         bclient.setAddressAddressId(addressAddressId1);
 
         return bclient;
     }
 
-    // dependency City injection
-    public City injectCity () {
-        City city = populateCity ();
-        cityDao.insertCity (city);
-        return city;
-    }
-
-    public City populateCity () {
-        City city = new City();
-        city.setName (getString1(45));
-         Country country1 = injectCountry();
-        //Integer Integer    Integer    	
-        city.setCountryId(country1);
-        return city;
-    }   
-    // dependency Country injection
-    public Country injectCountry () {
-        Country country = populateCountry ();
-        countryDao.insertCountry (country);
-        return country;
-    }
-
-    public Country populateCountry () {
-        Country country = new Country();
-        country.setName (getString1(45));
-         City city1 = injectCity();
-        //Integer Integer    Integer    	
-        country.setCapital(city1);
-        return country;
-    }   
     // dependency Address injection
     public Address injectAddress () {
-        Address address = populateAddress ();
-        addressDao.insertAddress (address);
+	    // if Address has already been injected, 
+		// use the same one to avoid recursivity injections
+		Address address;
+		if (hasAlreadyBeenInjected (Address.class)) {
+		   address = (Address)getInjected (Address.class);
+		} else {
+		   address = populateAddress ();
+           addressDao.insertAddress (address);
+		   setInjected (Address.class, address);
+		}
         return address;
     }
 
@@ -237,10 +215,53 @@ public class BClientDaoTest extends AdapterFunctionalTestDao {
         Address address = new Address();
         address.setStreet1 (getString1(45));
         address.setNumber (getInteger1());
-         City city1 = injectCity();
+          City city1 = injectCity();
         //Integer Integer    Integer    	
         address.setCityId(city1);
         return address;
+    }   
+    // dependency Country injection
+    public Country injectCountry () {
+	    // if Country has already been injected, 
+		// use the same one to avoid recursivity injections
+		Country country;
+		if (hasAlreadyBeenInjected (Country.class)) {
+		   country = (Country)getInjected (Country.class);
+		} else {
+		   country = populateCountry ();
+           countryDao.insertCountry (country);
+		   setInjected (Country.class, country);
+		}
+        return country;
+    }
+
+    public Country populateCountry () {
+        Country country = new Country();
+        country.setName (getString1(45));
+        return country;
+    }   
+    // dependency City injection
+    public City injectCity () {
+	    // if City has already been injected, 
+		// use the same one to avoid recursivity injections
+		City city;
+		if (hasAlreadyBeenInjected (City.class)) {
+		   city = (City)getInjected (City.class);
+		} else {
+		   city = populateCity ();
+           cityDao.insertCity (city);
+		   setInjected (City.class, city);
+		}
+        return city;
+    }
+
+    public City populateCity () {
+        City city = new City();
+        city.setName (getString1(45));
+          Country country1 = injectCountry();
+        //Integer Integer    Integer    	
+        city.setCountryId(country1);
+        return city;
     }   
      
     public BClient populateFirstNonPkFieldBClient () {

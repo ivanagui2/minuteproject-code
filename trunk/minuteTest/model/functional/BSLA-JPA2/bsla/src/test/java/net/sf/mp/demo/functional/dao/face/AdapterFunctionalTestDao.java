@@ -25,7 +25,7 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : BslaDaoTestAdapter
 	* - file name : BslaDaoTestAdapter.vm
-	* - time      : 2014/01/29 ap. J.-C. at 22:09:15 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
 package net.sf.mp.demo.functional.dao.face;
 
@@ -43,9 +43,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.runner.RunWith;
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
@@ -68,7 +70,25 @@ public class AdapterFunctionalTestDao extends AbstractTransactionalJUnit4SpringC
 	public void setDataSource(@Qualifier(value = "functionalDataSource") DataSource dataSource) {
 	   this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
 	}
-        
+    
+    private Map<Class, Object> map;
+    @Before
+    public void setUp () {
+        map = new HashMap();
+    }
+	
+    protected boolean hasAlreadyBeenInjected (Class clazz) {
+        return map.containsKey(clazz);
+    }
+
+    protected Object getInjected (Class clazz) {
+        return map.get(clazz);
+    }
+
+    protected void setInjected (Class clazz, Object object) {
+        map.put(clazz, object);
+    }
+	
     protected String getString1 (int length) {
         return StringUtils.substring ("This is a test string",0,length);
     }

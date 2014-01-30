@@ -25,17 +25,10 @@
 	* - Minuteproject version : 0.8.5
 	* - name      : TestDaoInterface
 	* - file name : BslaDaoInterfaceTest.vm
-	* - time      : 2014/01/28 ap. J.-C. at 20:56:32 CET
+	* - time      : 2014/01/30 AD at 11:53:12 CET
 */
-//MP-MANAGED-STOP-GENERATING
 package net.sf.mp.demo.functional.dao.face.functional;
 
-import net.sf.minuteProject.model.data.criteria.EntityCriteria;
-import net.sf.minuteProject.model.data.criteria.EntitySort;
-import net.sf.minuteProject.model.data.criteria.QueryData;
-import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
-import net.sf.minuteProject.model.data.criteria.constant.OperandType;
-import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 import net.sf.mp.demo.functional.domain.functional.Address;
 import net.sf.mp.demo.functional.dao.face.functional.AddressDao;
 
@@ -49,55 +42,38 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
-import net.sf.minuteProject.architecture.bsla.bean.criteria.PaginationCriteria;
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import net.sf.mp.demo.functional.dao.face.AdapterFunctionalTestDao;
-import net.sf.mp.demo.functional.dao.face.functional.CityDao;
-import net.sf.mp.demo.functional.domain.functional.City;
 import net.sf.mp.demo.functional.dao.face.functional.CountryDao;
 import net.sf.mp.demo.functional.domain.functional.Country;
+import net.sf.mp.demo.functional.dao.face.functional.CityDao;
+import net.sf.mp.demo.functional.domain.functional.City;
 
 public class AddressDaoTest extends AdapterFunctionalTestDao {
 
+    // Test are commented because the sample set use will setting up datase with data
+    // might not correspond to the anything valuable
+    // resulting in a failure of your test
+
+    // work with minuteproject updatable code feature to exclude this artifact from consecutive
+    // generation erasure and adapt you test to your data scenario.
+
 	@Autowired @Qualifier("addressDao")
 	protected AddressDao addressDao;
-	@Autowired @Qualifier("cityDao")
-	protected CityDao cityDao;
 	@Autowired @Qualifier("countryDao")
 	protected CountryDao countryDao;
-
-
-    @Test
-    public void testPagination () {
-
-        Integer start = 0;
-        Integer max = 10;
-        Address sort = new Address();
-        EntitySort<Address> entitySort = new EntitySort<Address>(sort, QuerySortOrder.ASC);
-        Address criteria = new Address();
-        EntityCriteria<Address> entityCriteria = new EntityCriteria<Address>(criteria, EntityMatchType.ALL, OperandType.CONTAINS, true);
-
-        Address what = new Address();
-
-        what.setStreet1("");
-        what.setAddressId(Integer.valueOf(1));
-        //Address.fullMask();
-
-        QueryData<Address> queryData = new QueryData<Address>(start, max, entitySort,entityCriteria, what);
-        addressDao.find(queryData);
-        assertTrue (queryData.getTotalResultCount()>0);
-
-        //
-        // select with full mask what
-        what = Address.fullMask();
-
-        queryData = new QueryData<Address>(start, max, entitySort,entityCriteria, what);
-        addressDao.find(queryData);
-        assertTrue (queryData.getTotalResultCount()>0);
-    }
-
+	@Autowired @Qualifier("cityDao")
+	protected CityDao cityDao;
+	
 	/*
 	* Do the insert first.
 	* To do the insert do on all mandatory fields;
@@ -111,7 +87,7 @@ public class AddressDaoTest extends AdapterFunctionalTestDao {
 	    assertNotNull(address);
 	}
 	
-	//@Test
+	@Test	
     public void testLoadAddress () {
     	Address address = insertAddress();
     	Address address2 = loadAddress(address);
@@ -122,7 +98,7 @@ public class AddressDaoTest extends AdapterFunctionalTestDao {
      	assertTrue(address.getCityId().equals(address2.getCityId()));
 	}	
 		
-	//@Test
+	@Test		
 	public void testDeleteAddress () {
     	Address address = insertAddress();
     	addressDao.deleteAddress(address);
@@ -130,7 +106,7 @@ public class AddressDaoTest extends AdapterFunctionalTestDao {
         assertNull (address2);
     }
 	
-	//@Test
+	@Test	
 	public void testUpdateAddress () {
     	Address address = insertAddress();
     	Address address2 = loadAddress(address);  	
@@ -160,7 +136,28 @@ public class AddressDaoTest extends AdapterFunctionalTestDao {
      	assertTrue(address3.getCityId().equals(address.getCityId()));
 	}	
 */   
+ 
+	@Test	
+    public void testPagination () {
+        //assuming that there is something in the DB
+        insertAddress ();
 
+        Integer start = 0;
+        Integer max = 10;
+        Address sort = new Address();
+        EntitySort<Address> entitySort = new EntitySort<Address>(sort, QuerySortOrder.ASC);
+        Address criteria = new Address();
+        EntityCriteria<Address> entityCriteria = new EntityCriteria<Address>(criteria, EntityMatchType.ALL, OperandType.CONTAINS, true);
+
+        Address what = populateFirstNonPkFieldAddress ();
+
+        //Address.fullMask();
+
+        QueryData<Address> queryData = new QueryData<Address>(start, max, entitySort,entityCriteria, what);
+        addressDao.find(queryData);
+        assertTrue (queryData.getTotalResultCount()>0);
+
+    }
  
     public Address insertAddress () {
         Address address = populateAddress ();   	
@@ -176,42 +173,55 @@ public class AddressDaoTest extends AdapterFunctionalTestDao {
         Address address = new Address();
         address.setStreet1 (getString1(45));
         address.setNumber (getInteger1());
-         City cityId1 = injectCity();	
+          City cityId1 = injectCity();	
         //Integer Integer
         address.setCityId(cityId1);
 
         return address;
     }
 
-    // dependency City injection
-    public City injectCity () {
-        City city = populateCity ();
-        cityDao.insertCity (city);
-        return city;
-    }
-
-    public City populateCity () {
-        City city = new City();
-        city.setName (getString1(45));
-         Country country1 = injectCountry();
-        //Integer Integer    Integer    	
-        city.setCountryId(country1);
-        return city;
-    }   
     // dependency Country injection
     public Country injectCountry () {
-        Country country = populateCountry ();
-        countryDao.insertCountry (country);
+	    // if Country has already been injected, 
+		// use the same one to avoid recursivity injections
+		Country country;
+		if (hasAlreadyBeenInjected (Country.class)) {
+		   country = (Country)getInjected (Country.class);
+		} else {
+		   country = populateCountry ();
+           countryDao.insertCountry (country);
+		   setInjected (Country.class, country);
+		}
         return country;
     }
 
     public Country populateCountry () {
         Country country = new Country();
         country.setName (getString1(45));
-         City city1 = injectCity();
-        //Integer Integer    Integer    	
-        country.setCapital(city1);
         return country;
+    }   
+    // dependency City injection
+    public City injectCity () {
+	    // if City has already been injected, 
+		// use the same one to avoid recursivity injections
+		City city;
+		if (hasAlreadyBeenInjected (City.class)) {
+		   city = (City)getInjected (City.class);
+		} else {
+		   city = populateCity ();
+           cityDao.insertCity (city);
+		   setInjected (City.class, city);
+		}
+        return city;
+    }
+
+    public City populateCity () {
+        City city = new City();
+        city.setName (getString1(45));
+          Country country1 = injectCountry();
+        //Integer Integer    Integer    	
+        city.setCountryId(country1);
+        return city;
     }   
      
     public Address populateFirstNonPkFieldAddress () {
