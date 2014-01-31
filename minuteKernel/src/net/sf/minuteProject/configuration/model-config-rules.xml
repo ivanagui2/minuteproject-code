@@ -1010,6 +1010,7 @@
             <alias attr-name="catalog-entry" prop-name="catalogEntry" />
             <alias attr-name="outputdir-root" prop-name="outputdirRoot" />
             <alias attr-name="templatedir-root" prop-name="templatedirRoot" />
+            <alias attr-name="append-catalog-entry-dir-to-outputdir-root" prop-name="appendCatalogEntryDirToOutputDirRoot" />
       </set-properties-rule>
 		<pattern value="property">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
