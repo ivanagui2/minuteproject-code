@@ -179,6 +179,7 @@ public class Target extends AbstractConfiguration{
 	}
 
 	public String getOutputdirRoot() {
+		//TODO cache
 		StringBuffer sb = new StringBuffer();
 		if (hasAppendOutputDir()) {
 			sb.append(getTargets().getOutputdirRoot());
@@ -197,6 +198,9 @@ public class Target extends AbstractConfiguration{
 	private boolean hasTargetsOutputdir() {
 		return (getTargets()!=null && !StringUtils.isEmpty(getTargets().getOutputdirRoot())) ;
 	}
+//	private boolean hasTargetsOutputdirDirAppend() {
+//		return (getTargets()!=null && getTargets().getAppendCatalogEntryDirToOutputDirRoot()) ;
+//	}
 
 	public void setOutputdirRoot(String outputdirRoot) {
 		this.outputdirRoot = outputdirRoot;

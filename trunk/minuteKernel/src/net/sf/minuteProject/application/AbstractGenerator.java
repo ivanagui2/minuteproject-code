@@ -242,15 +242,16 @@ public abstract class AbstractGenerator implements Generator {
 		try {
 			configuration = load(getConfigurationFile(), getConfigurationRulesFile());
 			//
-			String outputdirRoot = null;
-			Targets ts = configuration.getTargets();
-			if (ts!=null)
-				outputdirRoot = ts.getOutputdirRoot();
+//			String outputdirRoot = null;
+//			Targets ts = configuration.getTargets();
+//			if (ts!=null)
+//				outputdirRoot = ts.getOutputdirRoot();
 			//
 			if (configuration.hasTechnologyCatalogEntry()) {
 				for (String catalogEntry : ParserUtils.getList(configuration.getTargets().getCatalogEntry())) {
 					logger.info("load catalog-entry "+catalogEntry);
-					String outputDir = (outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry);
+//					String outputDir = (outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry);
+					String outputDir = getGeneratorOuputDir(configuration, catalogEntry);
 					Targets targets = TechnologyCatalogUtils.getTargets(
 						catalogEntry, 
 						CATALOG, 
@@ -264,6 +265,23 @@ public abstract class AbstractGenerator implements Generator {
 			throwException(e, "CANNOT LOAD CONFIGURATION FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
 		}
 		return configuration;		
+	}
+	
+	public String getGeneratorOuputDir (Configuration configuration, String catalogEntry) {
+		String outputdirRoot = null;
+		Targets ts = configuration.getTargets();
+		if (ts!=null)
+			outputdirRoot = ts.getOutputdirRoot();	
+		String catalogDir = ts.getOutputdirRoot(catalogEntry);
+		if (outputdirRoot!=null) {
+			if (ts.getAppendCatalogEntryDirToOutputDirRoot())
+				return outputdirRoot+"/"+catalogEntry;
+			else
+				return outputdirRoot;
+			}
+		else
+			return catalogDir;
+
 	}
 
 	private void appendTargets(Configuration configuration, Targets targets) {
