@@ -16,9 +16,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.runner.RunWith;
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
@@ -45,7 +47,25 @@ public class $className extends AbstractTransactionalJUnit4SpringContextTests {
 	public void setDataSource(@Qualifier(value = "$dataSourceName") DataSource dataSource) {
 	   this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
 	}
-        
+    
+    private Map<Class, Object> map;
+    @Before
+    public void setUp () {
+        map = new HashMap();
+    }
+	
+    protected boolean hasAlreadyBeenInjected (Class clazz) {
+        return map.containsKey(clazz);
+    }
+
+    protected Object getInjected (Class clazz) {
+        return map.get(clazz);
+    }
+
+    protected void setInjected (Class clazz, Object object) {
+        map.put(clazz, object);
+    }
+	
     protected String getString1 (int length) {
         return StringUtils.substring ("This is a test string",0,length);
     }

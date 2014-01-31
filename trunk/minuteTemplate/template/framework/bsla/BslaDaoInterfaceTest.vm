@@ -86,8 +86,10 @@ public class $className extends $testAdapterClassName {
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
 #else
 #set ($parentTable = $columnUtils.getForeignTable($column))
+#if($isMandatory)
 #if (${parentTable.name}!=${table.name})
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#end
 #end
 #end
 #end
@@ -124,8 +126,10 @@ public class $className extends $testAdapterClassName {
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
 #else
 #set ($parentTable = $columnUtils.getForeignTable($column))
+#if($isMandatory)
 #if (${parentTable.name}!=${table.name})
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+#end
 #end
 #end
 #end
@@ -209,6 +213,7 @@ public class $className extends $testAdapterClassName {
 #end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
+#if($localColumn.isRequired()) ## to break recursivity
 #if (${table}!=${linktableDB}) ##prevents recursivity
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
@@ -226,6 +231,7 @@ public class $className extends $testAdapterClassName {
 
 #end 
 #end
+#end
         return $domainVariableName;
     }
 
@@ -235,8 +241,16 @@ public class $className extends $testAdapterClassName {
 #set ($masterLinktableDB = $linktableDB)
     // dependency $dependentDomainClassName injection
     public $dependentDomainClassName inject$dependentDomainClassName () {
-        $dependentDomainClassName $dependentDomainVariableName = populate$dependentDomainClassName ();
-        ${dependentDaoInterfaceVariableName}.insert$dependentDomainClassName ($dependentDomainVariableName);
+	    // if $dependentDomainClassName has already been injected, 
+		// use the same one to avoid recursivity injections
+		$dependentDomainClassName $dependentDomainVariableName;
+		if (hasAlreadyBeenInjected (${dependentDomainClassName}.class)) {
+		   $dependentDomainVariableName = (${dependentDomainClassName})getInjected (${dependentDomainClassName}.class);
+		} else {
+		   $dependentDomainVariableName = populate$dependentDomainClassName ();
+           ${dependentDaoInterfaceVariableName}.insert$dependentDomainClassName ($dependentDomainVariableName);
+		   setInjected (${dependentDomainClassName}.class, $dependentDomainVariableName);
+		}
         return $dependentDomainVariableName;
     }
 
@@ -253,6 +267,7 @@ public class $className extends $testAdapterClassName {
 #end
 #foreach ($reference in $linktableDB.parents)
 #putReferenceParams2()
+#if($localColumn.isRequired()) ## to break recursivity
 #if (${masterLinktableDB}!=${linktableDB}) ##prevents recursivity
 #exposeLinkedEntityDependencies()
 #set ($primaryKeyJavaNameClass = $formatUtils.getJavaName($commonUtils.getPK($linktableDB)))
@@ -266,6 +281,7 @@ public class $className extends $testAdapterClassName {
 #else
         ${masterDependentDomainVariableName}.set$localColumnClass(convert${primaryKeyJavaNameTypeOnly}To${localColumnTypeOnly}(${dependentDomainVariableName}${nb}.get$primaryKeyJavaNameClass()));
 #end
+#end 
 #end 
 #end 
         return $masterDependentDomainVariableName;
