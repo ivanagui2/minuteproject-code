@@ -22,7 +22,7 @@ import org.hibernate.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
+##import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +39,7 @@ import $sddInputBeanImport;
  * <p>Description: SDD DAO Spring JPA implementation </p>
  *
  */
-@Repository ("$sddDaoInterfaceVariable")
+##@Repository ("$sddDaoInterfaceVariable")
 @Transactional(propagation = Propagation.REQUIRED) 
 public class ${className} implements $sddDaoInterfaceClass{
 
