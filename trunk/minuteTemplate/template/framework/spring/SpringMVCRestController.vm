@@ -44,7 +44,6 @@ import javax.xml.bind.JAXBElement;
 #end
 
 import $BslaDaoInterfaceImport;
-import $BslaDaoExtInterfaceImport;
 import $importDomainObjectUML;
 #if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
 #set($primaryKeyJavaNameClass = $primaryKeyJavaNameClass+"_")
@@ -63,10 +62,6 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 	@Autowired
 	@Qualifier("$BslaDaoInterfaceVariable")
 	${BslaDaoInterfaceClass} $BslaDaoInterfaceVariable;
-	
-	@Autowired
-	@Qualifier("$BslaDaoExtInterfaceVariable")
-	${BslaDaoExtInterfaceClass} $BslaDaoExtInterfaceVariable;
 
 #exposeEntityUpdatedAreas("FIND_ALL")
 $!updatedAreaBegin
@@ -99,7 +94,7 @@ $!updatedAreaSnippet
     public $tableClassName findById (@PathVariable ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
         $tableClassName _$tableVariableName = new $tableClassName ();
 		_${tableVariableName}.set${primaryKeyJavaNameClass}($primaryKeyVariable);
-		_$tableVariableName = ${BslaDaoExtInterfaceVariable}.getFirst$tableClassName(_$tableVariableName);
+		_$tableVariableName = ${BslaDaoInterfaceVariable}.getFirst$tableClassName(_$tableVariableName);
 		if (_$tableVariableName!=null) return _${tableVariableName}.flat();
 		return new $tableClassName ();
     }
