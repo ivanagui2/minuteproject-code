@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -33,8 +34,17 @@ import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
+#if($isEJBBackend)
+import org.apache.openejb.jee.EjbJar;
+import org.apache.openejb.jee.StatelessBean;
+import org.apache.openejb.junit.ApplicationComposer;
+import org.apache.openejb.junit.Module;
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.Context;
+#elseif($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+#end
 
 import $testAdapterImport;
 #foreach ($linktableDB in $distinctDependencies)
@@ -43,15 +53,26 @@ import $dependentImportDaoInterface;
 import $dependentImportDomainClassName;
 #end
 
+#if($isEJBBackend)	
+public class $className {
+#elseif($isSpringBackend)
 public class $className extends $testAdapterClassName {
-
+#end
     // Test are commented because the sample set use will setting up datase with data
     // might not correspond to the anything valuable
     // resulting in a failure of your test
 
     // work with minuteproject updatable code feature to exclude this artifact from consecutive
     // generation erasure and adapt you test to your data scenario.
-
+#if($isEJBBackend)	
+	protected static $daoInterfaceClassName $daoInterfaceVariableName;
+#foreach ($linktableDB in $distinctDependencies)
+#if ($linktableDB.name!=$table.name)
+#putDependencies()
+	protected static $dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName;
+#end    
+#end
+#elseif($isSpringBackend)
 	@Autowired @Qualifier("$daoInterfaceVariableName")
 	protected $daoInterfaceClassName $daoInterfaceVariableName;
 #foreach ($linktableDB in $distinctDependencies)
@@ -60,6 +81,28 @@ public class $className extends $testAdapterClassName {
 	@Autowired @Qualifier("$dependentDaoInterfaceVariableName")
 	protected $dependentDaoInterfaceClassName $dependentDaoInterfaceVariableName;
 #end    
+#end
+#end
+
+#if($isEJBBackend)
+    @BeforeClass
+    public static void init() throws Exception {
+        final Properties p = new Properties();
+/*        p.put("jdbc/dynamicDB", "new://Resource?type=DataSource");
+        p.put("jdbc/dynamicDB.JdbcDriver", "org.hsqldb.jdbcDriver");
+        p.put("jdbc/dynamicDB.JdbcUrl", "jdbc:hsqldb:mem:moviedb");
+        p.put("jdbc/dynamicDB.UserName", "sa");
+        p.put("jdbc/dynamicDB.Password", "");
+*/
+       final Context context = EJBContainer.createEJBContainer(p).getContext();
+       $daoInterfaceVariableName = (C$daoInterfaceClassName)context.lookup("java:comp/env/$daoInterfaceVariableName");
+#foreach ($linktableDB in $distinctDependencies)
+#if ($linktableDB.name!=$table.name)
+#putDependencies()
+	    $dependentDaoInterfaceVariableName = (C$dependentDaoInterfaceClassName)context.lookup("java:comp/env/$dependentDaoInterfaceVariableName");
+#end    
+#end
+    }
 #end
 	
 	/*

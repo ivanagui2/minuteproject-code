@@ -104,7 +104,7 @@ import $importDaoImplExtendedJPAName;
 
 
 #if ($isSpringBackend)
-##@org.springframework.stereotype.Repository(value="$daoInterfaceVariableNameUML")
+@org.springframework.stereotype.Repository(value="$daoInterfaceVariableNameUML")
 #else
 @javax.ejb.Stateless(name="$daoInterfaceVariableNameUML")
 #end
