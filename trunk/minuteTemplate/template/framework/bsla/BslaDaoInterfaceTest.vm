@@ -1,5 +1,5 @@
 #exposeVariableEntitySpecific()
-##putImportParams()
+#exposeBackendTechnology()
 #exposeConnectionSpecific()
 #exposeTestAdapter()
 #distinctEntityProperty()
