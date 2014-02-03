@@ -27,7 +27,6 @@ import javax.persistence.EntityManager;
 
 #if ($isSpringBackend)
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 #elseif($isEJBBackend)
 import javax.ejb.TransactionAttribute;
