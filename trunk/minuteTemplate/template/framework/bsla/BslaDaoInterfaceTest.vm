@@ -40,6 +40,7 @@ import org.apache.openejb.jee.StatelessBean;
 import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.junit.Module;
 import javax.ejb.embeddable.EJBContainer;
+import java.util.Properties;
 import javax.naming.Context;
 #elseif($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,7 @@ import $dependentImportDaoInterface;
 import $dependentImportDomainClassName;
 #end
 
-#if($isEJBBackend)	
-public class $className {
-#elseif($isSpringBackend)
 public class $className extends $testAdapterClassName {
-#end
     // Test are commented because the sample set use will setting up datase with data
     // might not correspond to the anything valuable
     // resulting in a failure of your test
@@ -95,11 +92,11 @@ public class $className extends $testAdapterClassName {
         p.put("jdbc/dynamicDB.Password", "");
 */
        final Context context = EJBContainer.createEJBContainer(p).getContext();
-       $daoInterfaceVariableName = (C$daoInterfaceClassName)context.lookup("java:comp/env/$daoInterfaceVariableName");
+       $daoInterfaceVariableName = ($daoInterfaceClassName)context.lookup("java:comp/env/$daoInterfaceVariableName");
 #foreach ($linktableDB in $distinctDependencies)
 #if ($linktableDB.name!=$table.name)
 #putDependencies()
-	    $dependentDaoInterfaceVariableName = (C$dependentDaoInterfaceClassName)context.lookup("java:comp/env/$dependentDaoInterfaceVariableName");
+	    $dependentDaoInterfaceVariableName = ($dependentDaoInterfaceClassName)context.lookup("java:comp/env/$dependentDaoInterfaceVariableName");
 #end    
 #end
     }

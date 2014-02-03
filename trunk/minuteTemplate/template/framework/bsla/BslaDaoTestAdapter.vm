@@ -1,5 +1,6 @@
 #exposeVariableModelSpecific()
 #exposeConnectionSpecific()
+#exposeBackendTechnology()
 package $packageName;
 
 import java.io.InputStream;
@@ -21,6 +22,7 @@ import java.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.runner.RunWith;
 import org.junit.Before;
+#if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
@@ -29,11 +31,15 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+#end
 #distinctEntityProperty()
 #templateDefinition()
-#set($templateSpringConfig=$template.getPropertyValue("context",$templateBslaSpringConfig))
-#set ($springConfig = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateSpringConfig))
 
+#if($isEJBBackend)	
+public class $className {
+#elseif($isSpringBackend)
+#set($templateSpringConfig=$template.getPropertyValue("context",$templateBslaSpringConfig))
+#set($springConfig = $commonUtils.getArtifactRelativePathDirAndFullName($model, $templateSpringConfig))
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
      "classpath:${springConfig}"
@@ -41,13 +47,16 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration(transactionManager = "$transactionManagerName") 
 @Transactional
 public class $className extends AbstractTransactionalJUnit4SpringContextTests { 
+#end
 
-	@Override
+#* 
+not need since 4.0.0 spring release
+    @Override
 	@Autowired
 	public void setDataSource(@Qualifier(value = "$dataSourceName") DataSource dataSource) {
 	   this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
 	}
-    
+*#    
     private Map<Class, Object> map;
     @Before
     public void setUp () {
