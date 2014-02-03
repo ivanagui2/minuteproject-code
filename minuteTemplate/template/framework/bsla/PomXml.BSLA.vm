@@ -29,6 +29,13 @@
 
 #if($isEJBBackend)	
     <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>openejb-core</artifactId>
+      <version>4.0.0-beta-1</version>
+      <scope>test</scope>
+    </dependency>
+	
+    <dependency>
        <groupId>javax</groupId>
        <artifactId>javaee-api</artifactId>
        <version>6.0</version>
@@ -47,12 +54,7 @@
     The <scope>test</scope> guarantees that none of your runtime
     code is dependent on any OpenEJB classes.
     -->
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>openejb-core</artifactId>
-      <version>4.0.0-beta-1</version>
-      <scope>test</scope>
-    </dependency>
+
 	
 #elseif($isSpringBackend)	  	  
 	<!-- spring -->
@@ -70,7 +72,7 @@
 		<scope>compile</scope>
 	</dependency>
 	
-	<!-- security -->
+#* 	<!-- security -->
 	<dependency>
 		<groupId>org.springframework.security</groupId>
 		<artifactId>spring-security-web</artifactId>
@@ -81,6 +83,7 @@
 		<artifactId>spring-security-config</artifactId>
 		<version>${spring-security.version}</version>
 	</dependency>
+*#
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-tx</artifactId>
@@ -171,8 +174,8 @@
       </repository>
    </repositories>
 	<properties>
-		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
-		<spring.version>3.0.6.BUILD-SNAPSHOT</spring.version>
+##		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
+		<spring.version>4.0.0.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
 		<junit.version>4.10</junit.version>
 	</properties>
