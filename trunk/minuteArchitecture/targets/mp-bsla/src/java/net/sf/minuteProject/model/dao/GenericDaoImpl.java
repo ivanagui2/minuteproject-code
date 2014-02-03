@@ -11,35 +11,32 @@ import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
 public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
-	@Override
 	public void find (QueryData<T> data) {
 		EntityCriteria<T> filter = data.getEntityCriteria();
+		T entityWhat = data.getEntityWhat();
 		T criteriaMask = filter.getEntity();
-		int start = data.getStart();
-		int max = data.getMax();
+		Integer start = data.getStart();
+		Integer max = data.getMax();
 		EntitySort<T> entitySort = data.getEntitySort();
 		QuerySortOrder sortOrder = entitySort.getOrder();
-		T sortMask = entitySort.getEntity();
-		
-		data.setResult(find(criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max));
-		Long totalResultCount = count(criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType());
-		data.setTotalResultCount(totalResultCount);
+		T sortMask = entitySort.getEntity();	
+
+		List<T> results = find(entityWhat, criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max);
+		data.setResult(results);
+		int size = results.size();
+		if (size<max) 
+			data.setTotalResultCount(Long.valueOf(size));
+		else
+			data.setTotalResultCount(count(entityWhat, criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
+
 	}
 	
-
-	protected abstract Long count(T criteriaMask, EntityMatchType matchType,
-			OperandType operandType, Boolean caseSensitivenessType) ;
-
-
-	protected abstract List<T> find(T criteriaMask, T sortMask, EntityMatchType matchType,
-			OperandType operandType, Boolean caseSensitivenessType,
-			QuerySortOrder sortOrder, int start, int max) ;
-
-
-	@Override
-	public void getList(T mask, T sortMask, QuerySortOrder order) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	protected abstract Long count(T entityWhat, T criteriaMask, EntityMatchType matchType,
+				OperandType operandType, Boolean caseSensitivenessType) ;
+	
+	protected abstract List<T> find(T entityWhat, T criteriaMask, T sortMask,
+			EntityMatchType matchType, OperandType operandType,
+			Boolean caseSensitivenessType, QuerySortOrder sortOrder, Integer start,
+			Integer max) ;
 }
+
