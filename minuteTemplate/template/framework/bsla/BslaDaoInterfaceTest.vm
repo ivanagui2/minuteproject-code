@@ -10,6 +10,14 @@
 #else
 #set($test="//@Test")
 #end
+#macro (getMaskFromInsertedEntity)
+		insert$domainClassName ();
+		$domainClassName mask = new $domainClassName();
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        mask.set$columnClass(${domainVariableName}.get$columnClass());
+#end
+#end
 package $packageName;
 
 #distinctBEImport()
@@ -204,6 +212,25 @@ public class $className extends $testAdapterClassName {
 #end
 	}	
 */   
+ 
+	$test	
+    public void testExist () {
+#getMaskFromInsertedEntity()
+        boolean result = ${daoInterfaceVariableName}.exists${domainClassName}(${domainVariableName});
+		assertTrue(result);
+// add second record
+// add mask with no match to check not exist
+	}
+ 
+	$test	
+    public void testExistWhereConditionsAre () {
+#getMaskFromInsertedEntity()
+        boolean result = ${daoInterfaceVariableName}.existsWhereConditionsAre${domainClassName}(${domainVariableName});
+		assertTrue(result);
+// add second record
+// add mask with no match to check not exist
+// add with parent
+	}
  
 	$test	
     public void testPagination () {
