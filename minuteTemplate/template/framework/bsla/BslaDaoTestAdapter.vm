@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.Clob;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -57,7 +59,15 @@ not need since 4.0.0 spring release
 	   this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
 	}
 *#    
+
+    private SecureRandom random = new SecureRandom();
+
+    public String getRandomString(int length) {
+        return new BigInteger(130, random).toString(length);
+    }
+
     private Map<Class, Object> map;
+
     @Before
     public void setUp () {
         map = new HashMap();
@@ -76,7 +86,8 @@ not need since 4.0.0 spring release
     }
 	
     protected String getString1 (int length) {
-        return StringUtils.substring ("This is a test string",0,length);
+##        return StringUtils.substring ("This is a test string",0,length);
+        return getRandomString(length);
     }
 
     protected Integer getInteger1 () {
