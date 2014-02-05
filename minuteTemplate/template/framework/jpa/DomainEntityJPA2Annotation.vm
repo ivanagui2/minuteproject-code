@@ -415,7 +415,10 @@ $!updatedAreaSnippet
     * hashCode implementation
     */
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(flat());
+		return new HashCodeBuilder(17,31).
+                append(display()).
+                toHashCode();
+##		return HashCodeBuilder.reflectionHashCode(flat());
 	}
 	
 	/**

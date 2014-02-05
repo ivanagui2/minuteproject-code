@@ -11,7 +11,7 @@
 #set($test="//@Test")
 #end
 #macro (getMaskFromInsertedEntity)
-		insert$domainClassName ();
+		$domainClassName ${domainVariableName} = insert$domainClassName ();
 		$domainClassName mask = new $domainClassName();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
@@ -124,6 +124,14 @@ public class $className extends $testAdapterClassName {
 	}
 	
 	$test	
+    public void testSearchPrototype$domainClassName () {
+#getMaskFromInsertedEntity()
+		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask);
+		assert (list.size()==1);
+		
+	}
+	
+	$test	
     public void testLoad$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});
@@ -218,6 +226,8 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
         boolean result = ${daoInterfaceVariableName}.exists${domainClassName}(${domainVariableName});
 		assertTrue(result);
+		result = ${daoInterfaceVariableName}.exists${domainClassName}(mask);
+		assertTrue(result);
 // add second record
 // add mask with no match to check not exist
 	}
@@ -225,13 +235,24 @@ public class $className extends $testAdapterClassName {
 	$test	
     public void testExistWhereConditionsAre () {
 #getMaskFromInsertedEntity()
-        boolean result = ${daoInterfaceVariableName}.existsWhereConditionsAre${domainClassName}(${domainVariableName});
+//        boolean result = ${daoInterfaceVariableName}.exists${domainClassName}WhereConditionsAre(${domainVariableName});
+//		assertTrue(result);
+		boolean result = ${daoInterfaceVariableName}.exists${domainClassName}WhereConditionsAre(mask);
 		assertTrue(result);
 // add second record
 // add mask with no match to check not exist
 // add with parent
 	}
  
+ 
+	$test	
+    public void testAffect () {
+#getMaskFromInsertedEntity()
+        ${domainClassName} affected = ${daoInterfaceVariableName}.affect${domainClassName}(${domainVariableName});
+		assertTrue(affected!=null);
+		//check pk
+	}
+	
 	$test	
     public void testPagination () {
         //assuming that there is something in the DB
