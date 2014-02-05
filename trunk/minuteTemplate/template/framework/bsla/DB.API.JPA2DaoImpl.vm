@@ -669,9 +669,15 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
     * return a jql search on a ${tableClassName} prototype with positive and negative beans
     */
     protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
+		StringBuffer query = new StringBuffer();    	
+		query.append(getSelectFrom());
+		query.append(get${tableClassName}PositiveNegativeCriteria(${tableVariableName}Positive, ${tableVariableName}Negative));
+		return query.toString();
+	}
+
+	protected String get${tableClassName}PositiveNegativeCriteria ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
         boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
-        query.append (" SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
@@ -1156,8 +1162,9 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 			$tableClassName ${tableVariableName}Result = new $tableClassName();
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-#if(!$isPrimaryKey)
 #putOrmForeignKeyColumn()
+##if(!$isPrimaryKey)
+##putOrmForeignKeyColumn()
 			if (${tableVariableName}.get$columnClass() != null) {
 #if ($column.isLob())
 #exposeLobProperties()
@@ -1170,7 +1177,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 				index++;
 			}
 #end
-#end
+##end
 			returnList.add(${tableVariableName}Result);
         }
 	    return returnList;
@@ -1392,6 +1399,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
        if (${tableVariableName}.get$columnClass() != null) {
           query.append (getQuerySelectComma (isWhereSet));
           isWhereSet = true; 
@@ -1399,7 +1407,8 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
        }
 #end
 #end
-       query.append(get${tableClassName}SearchEqualQuery (positive$tableClassName, negative$tableClassName));
+	   query.append(getFromEntity());
+       query.append(get${tableClassName}PositiveNegativeCriteria (positive$tableClassName, negative$tableClassName));
 	   return query.toString(); 
     }
 	
@@ -1530,7 +1539,11 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 
 	@Override
     protected String getSelectFrom() {
-        return "SELECT $tableVariableName FROM $tableClassName $tableVariableName ";
+        return "SELECT $tableVariableName "+getFromEntity();
+    }
+
+    protected String getFromEntity() {
+        return " FROM $tableClassName $tableVariableName ";
     }
 
     @Override

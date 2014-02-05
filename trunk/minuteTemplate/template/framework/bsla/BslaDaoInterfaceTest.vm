@@ -18,6 +18,36 @@
         mask.set$columnClass(${domainVariableName}.get$columnClass());
 #end
 #end
+#macro (getWhatMaskFirstColumns $nbOfColumns)
+#set($nbAffected=0)
+		$domainClassName what = new $domainClassName();
+#foreach ($column in $table.columns)
+#if ($nbAffected < $nbOfColumns) 
+#putColumnParams()
+#if($isForeignKey)
+#set($columnClass="${columnClass}_")
+#end
+        what.set$columnClass($convertUtils.getJavaDefaultMask($column));
+#set($nbAffected=$nbAffected+1)
+#end
+#end
+#end
+#macro (assertNotNullFirstFieldAndNullTheRest $nbOfColumns)
+#set($nbAffected=0)
+#foreach ($column in $table.columns)
+#putColumnParams()
+#if($isForeignKey)
+#set($columnClass="${columnClass}_")
+#end
+#if ($nbAffected < $nbOfColumns)
+        assertNotNull (result.get$columnClass());
+#set($nbAffected=$nbAffected+1)
+#else
+		assertNull (result.get$columnClass());
+#end
+#end
+#end
+
 package $packageName;
 
 #distinctBEImport()
@@ -190,7 +220,7 @@ public class $className extends $testAdapterClassName {
 #end
 #end
 	}
-/* updateNotNull is not on both interface	
+	
 	public void testUpdateNotNull$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	//$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
@@ -219,8 +249,18 @@ public class $className extends $testAdapterClassName {
 #end
 #end
 	}	
-*/   
- 
+   
+	$test	
+    public void testPartialLoad () {
+#getMaskFromInsertedEntity()
+#set($nbColumns = 2)
+#getWhatMaskFirstColumns($nbColumns)
+		List<${domainClassName}> list = ${daoInterfaceVariableName}.partialLoad${domainClassName}(what, mask, new ${domainClassName}());
+		assertTrue (list.size()==1);
+		${domainClassName} result = (${domainClassName})list.get(0);
+        // assert only the what mask field are set
+#assertNotNullFirstFieldAndNullTheRest($nbColumns)		
+	} 
 	$test	
     public void testExist () {
 #getMaskFromInsertedEntity()
@@ -232,6 +272,18 @@ public class $className extends $testAdapterClassName {
 // add mask with no match to check not exist
 	}
  
+    $test
+    public void testPartialLoadWithParent () {
+#getMaskFromInsertedEntity()
+#set($nbColumns = 2)
+#getWhatMaskFirstColumns($nbColumns)
+		List<${domainClassName}> list = ${daoInterfaceVariableName}.partialLoadWithParent${domainClassName}(what, mask, new ${domainClassName}());
+		assertTrue (list.size()==1);
+		${domainClassName} result = (${domainClassName})list.get(0);
+        // assert only the what mask field are set
+#assertNotNullFirstFieldAndNullTheRest($nbColumns)		
+	} 
+    
 	$test	
     public void testExistWhereConditionsAre () {
 #getMaskFromInsertedEntity()
