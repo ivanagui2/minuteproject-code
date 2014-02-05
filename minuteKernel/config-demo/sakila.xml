@@ -112,6 +112,7 @@
 			<!-- S D D -->
 
 		</model>
-		<targets catalog-entry="Primefaces-Spring,Vaadin" />
+		<targets catalog-entry="Primefaces-Spring,Vaadin" >
+		</targets>
 	</configuration>
 </generator-config>

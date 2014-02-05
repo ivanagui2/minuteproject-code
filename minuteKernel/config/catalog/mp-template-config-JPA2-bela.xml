@@ -21,11 +21,13 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="uml" value="true"></property>
 		</template>		
+
 		<template name="BslaDaoTestAdapter" templateFileName="BslaDaoTestAdapter.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="Adapter" file-suffix="TestDao" 
 			entity-specific="false" package-specific="false" model-specific="true">
-		</template>					
+		</template>
+							
 	</template-target>	
 	
 	<template-target 
