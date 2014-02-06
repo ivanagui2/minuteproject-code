@@ -91,7 +91,7 @@
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
 			default-outputdir="REST-JEE"
-			depends-on-targets="BSLA_LIB,JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB"
+			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
@@ -105,7 +105,8 @@
 			<property name="add-rest-implementation-jersey-version"
 				value="1.9-ea03"></property>
 			<property name="add-backend-implementation" value="ejb"></property>
-
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
 		</technology>
 
 		<technology name="REST-SpringMVC" model-type="rdbms"
