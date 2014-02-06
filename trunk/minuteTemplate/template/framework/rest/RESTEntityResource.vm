@@ -89,7 +89,11 @@ $!updatedAreaEnd
     @Path("{$primaryKeyVariable}")
     public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
         $tableClassName $tableVariableName = new $tableClassName ();
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+        ${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
+#else
         ${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+#end
         ${EJBDaoImplVariable}.delete($tableVariableName);
     }
 #end

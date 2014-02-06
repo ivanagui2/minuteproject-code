@@ -1,4 +1,5 @@
 #exposeEJBDomainObjectSpecific()
+#exposeVariableEntitySpecific()
 #exposeJPASpecifics()
 #exposeEJBProperties()
 #addedAreas()
@@ -48,7 +49,7 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 		return query.getResultList();
 	}
 	
-#if ($hasOnlyOnePrimaryKey)	
+#if ($hasOnlyOnePrimaryKey)
     public $tableClassName findById ($primaryKeyFullType $primaryKeyVariable) {
         return em.find (${tableClassName}.class, $primaryKeyVariable);
     }
@@ -66,7 +67,11 @@ public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterf
 
 	public void delete ($tableClassName $tableVariableName) {
 		if (${tableVariableName}.get${primaryKeyJavaNameClass}()!=null)
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+			em.remove (findById(${tableVariableName}.get${primaryKeyJavaNameClass}_()));
+#else
 			em.remove (findById(${tableVariableName}.get${primaryKeyJavaNameClass}()));
+#end
 	}
 
 #end
