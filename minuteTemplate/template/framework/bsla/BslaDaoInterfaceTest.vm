@@ -221,6 +221,7 @@ public class $className extends $testAdapterClassName {
 #end
 	}
 	
+	$test
 	public void testUpdateNotNull$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	//$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
@@ -261,16 +262,6 @@ public class $className extends $testAdapterClassName {
         // assert only the what mask field are set
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	} 
-	$test	
-    public void testExist () {
-#getMaskFromInsertedEntity()
-        boolean result = ${daoInterfaceVariableName}.exists${domainClassName}(${domainVariableName});
-		assertTrue(result);
-		result = ${daoInterfaceVariableName}.exists${domainClassName}(mask);
-		assertTrue(result);
-// add second record
-// add mask with no match to check not exist
-	}
  
     $test
     public void testPartialLoadWithParent () {
@@ -283,6 +274,17 @@ public class $className extends $testAdapterClassName {
         // assert only the what mask field are set
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	} 
+
+	$test	
+    public void testExist () {
+#getMaskFromInsertedEntity()
+        boolean result = ${daoInterfaceVariableName}.exists${domainClassName}(${domainVariableName});
+		assertTrue(result);
+		result = ${daoInterfaceVariableName}.exists${domainClassName}(mask);
+		assertTrue(result);
+// add second record
+// add mask with no match to check not exist
+	}
     
 	$test	
     public void testExistWhereConditionsAre () {
