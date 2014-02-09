@@ -158,7 +158,6 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask);
 		assert (list.size()==1);
-		
 	}
 	
 	$test	
@@ -189,6 +188,7 @@ public class $className extends $testAdapterClassName {
         assertNull (${domainVariableName}2);
     }
 	
+    // update test
 	$test	
 	public void testUpdate$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
@@ -252,6 +252,7 @@ public class $className extends $testAdapterClassName {
 #end
 	}	
    
+   // load test
 //	$test partialLoad${domainClassName} does not work with correctly with fk 
     public void testPartialLoad () {
 #getMaskFromInsertedEntity()
@@ -276,6 +277,7 @@ public class $className extends $testAdapterClassName {
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	} 
 
+    // Existence test
 	$test	
     public void testExist () {
 #getMaskFromInsertedEntity()
@@ -299,15 +301,34 @@ public class $className extends $testAdapterClassName {
 // add with parent
 	}
  
- 
+    // affect
 	$test	
     public void testAffect () {
 #getMaskFromInsertedEntity()
         ${domainClassName} affected = ${daoInterfaceVariableName}.affect${domainClassName}(${domainVariableName});
 		assertTrue(affected!=null);
 		//check pk
+	}	
+ 
+	$test	
+    public void testAssign () {
+#getMaskFromInsertedEntity()
+        ${domainClassName} affected = ${daoInterfaceVariableName}.assign${domainClassName}(${domainVariableName});
+		assertTrue(affected!=null);
+		//check pk
+		$domainClassName mask2 = new $domainClassName();
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        mask2.set$columnClass(${domainVariableName}.get$columnClass());
+#end
+		${domainClassName} affected2 = ${daoInterfaceVariableName}.assign${domainClassName}(mask2);
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+		assertTrue(affected.get$columnClass().equals(affected2.get$columnClass()));
+#end
 	}
-	
+
+	// pagination	
 	$test	
     public void testPagination () {
         //assuming that there is something in the DB
@@ -330,6 +351,53 @@ public class $className extends $testAdapterClassName {
 
     }
  
+    $test
+    public void testListWhatWhereOrder () {
+        //TODO improvements:
+		// add 3 records 
+		// search on matching pattern on 2
+		// sort on distinct order
+		// check order
+        // check only what part is filled
+#getMaskFromInsertedEntity()
+        List<$domainClassName> list = ${daoInterfaceVariableName}.list(mask, mask, QuerySortOrder.ASC);
+        assert (list.size()==1);
+    }
+ 
+    $test
+    public void testListWhereOrder () {
+        //TODO improvements:
+		// add 3 records 
+		// search on matching pattern on 2
+		// sort on distinct order
+		// check order
+        // check entire entity is filled
+#getMaskFromInsertedEntity()
+        List<$domainClassName> list = ${daoInterfaceVariableName}.getList(mask, QuerySortOrder.ASC);
+        long counter = count();
+		assert (list.size()==counter);
+    }
+
+    $test
+    public void testList () {
+        //TODO improvements:
+		// add 3 records 
+		// search on matching pattern on 2
+		// sort on distinct order
+		// check order
+#getMaskFromInsertedEntity()
+        List<$domainClassName> list = ${daoInterfaceVariableName}.getList();
+        long counter = count();
+		assert (list.size()==counter);
+    }
+
+	//
+    //utilities
+
+    public long count () { 	
+    	return ${daoInterfaceVariableName}.count(new ${domainClassName} ());
+	}
+
     public $domainClassName insert$domainClassName () {
         $domainClassName ${domainVariableName} = populate$domainClassName ();   	
     	${daoInterfaceVariableName}.insert${domainClassName}(${domainVariableName});
