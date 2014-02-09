@@ -349,13 +349,23 @@
 		<attribute name="config" />
 		<attribute name="display" />
 		<attribute name="maven.basedir"  />
+		<attribute name="maven.goal" default="package"  />
 		<sequential>
 			<!--<delete dir="${demo.output.dir}/@{maven.basedir}"></delete>-->
 			<macro_generate display="@{display}" config="@{config}"/>
-			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="package" resultproperty="maven.build.result" />
+			<macro_build maven.basedir="@{maven.basedir}" maven.goal="@{maven.goal}"/>
+			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="@{maven.goal}" resultproperty="maven.build.result" />
 		</sequential>
 	</macrodef>
-	
+
+	<macrodef name="macro_build">
+		<attribute name="maven.basedir"  />
+		<attribute name="maven.goal" default="package"  />
+		<sequential>
+			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="@{maven.goal}" resultproperty="maven.build.result" />
+		</sequential>
+	</macrodef>
+				
 	<macrodef name="macro_generate">
 		<attribute name="config" />
 		<attribute name="display" />
@@ -686,6 +696,19 @@
 		<!-- openxava -->
 		<macro_generate display="WEB-apps cloudbees openxava petshop" config="mp-config-sample-petshop-cloudbees-openxava.xml" />
 
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- functional delivery -->
+	<!-- ===================================================================== -->
+
+	<target name="functional-testing" depends="functional-test" >
+	</target>
+		
+	<target name="functional-test" depends="release-application" >
+		<macro_generate display="functional testing" config="functional.xml" />
+		<macro_build maven.basedir="BSLA-JPA2/petshop" maven.goal="clean package site" />
+		<macro_build maven.basedir="BELA-JPA2/petshop" maven.goal="clean package site" />
 	</target>
 
 	<!-- ===================================================================== -->
