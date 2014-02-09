@@ -392,7 +392,8 @@ public class $className extends $testAdapterClassName {
     }
 
 	//
-    //utilities
+    // utilities
+    // 
 
     public long count () { 	
     	return ${daoInterfaceVariableName}.count(new ${domainClassName} ());
