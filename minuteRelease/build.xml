@@ -707,8 +707,8 @@
 		
 	<target name="functional-test" depends="release-application" >
 		<macro_generate display="functional testing" config="functional.xml" />
-		<macro_build maven.basedir="BSLA-JPA2/petshop" maven.goal="clean package site" />
-		<macro_build maven.basedir="BELA-JPA2/petshop" maven.goal="clean package site" />
+		<macro_build maven.basedir="BSLA-JPA2/functional" maven.goal="clean package site" />
+		<macro_build maven.basedir="BELA-JPA2/functional" maven.goal="clean package site" />
 	</target>
 
 	<!-- ===================================================================== -->
