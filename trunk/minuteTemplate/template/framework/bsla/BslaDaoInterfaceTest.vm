@@ -254,6 +254,7 @@ public class $className extends $testAdapterClassName {
 	
 	$test
 	public void testUpdateNotNullOnlyPrototype$domainClassName () {
+		//TODO refactor with testUpdateNotNull
     	$domainClassName ${domainVariableName} = insert$domainClassName();
     	//$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
 		$domainClassName ${domainVariableName}2 = new $domainClassName();
@@ -406,8 +407,9 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
         List<$domainClassName> list = ${daoInterfaceVariableName}.getList(mask, QuerySortOrder.ASC);
         long counter = count();
-		assert (list.size()==counter);
+		assertTrue (list.size()==counter);
     }
+
 
     $test
     public void testList () {
@@ -419,9 +421,16 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
         List<$domainClassName> list = ${daoInterfaceVariableName}.getList();
         long counter = count();
-		assert (list.size()==counter);
+		assertTrue (list.size()==counter);
     }
 
+	// load graph
+	$test	
+    public void testLoadFullFirstLevel$domainClassName () {
+#getMaskFromInsertedEntity()
+		$domainClassName entity = ${daoInterfaceVariableName}.loadFullFirstLevel${domainClassName}(mask);
+		assertNotNull (entity);
+	}
 	//
     // utilities
     // 
