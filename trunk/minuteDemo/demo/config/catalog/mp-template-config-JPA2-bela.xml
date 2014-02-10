@@ -10,6 +10,29 @@
 	<plugin name="behaviorUtils" 	className="net.sf.minuteProject.plugin.behavior.BehaviorUtils"></plugin>
 
 	<template-target 
+		libdir="lib/BslaLibrary.vm,lib/Maven_LIB.vm"
+		tool="velocity"
+		outputdir="src/test/java"
+		belongToPackage="true">
+		<template name="TestDaoInterface" templateFileName="BslaDaoInterfaceTest.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="" file-suffix="DaoTest" 
+			entity-specific="true" package-specific="false" model-specific="false"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2ManyAndOnPropertyPresenceValue">
+			<property name="uml" value="true"></property>
+			<property name="property-presence" value="enable-test"></property>
+			<property name="property-presence-value" value="true"></property>			
+		</template>		
+
+		<template name="BslaDaoTestAdapter" templateFileName="BslaDaoTestAdapter.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.face"
+			file-extension="java" file-prefix="Adapter" file-suffix="TestDao" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>
+							
+	</template-target>	
+	
+	<template-target 
     	name="meta-inf config"
 		libdir="lib/BslaLibrary.vm"
 		tool="velocity"
