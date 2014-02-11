@@ -409,6 +409,33 @@ public class $className extends $testAdapterClassName {
         long counter = count();
 		assertTrue (list.size()==counter);
     }
+ 
+    $test
+    public void testDistinct () {
+        //TODO improvements:
+		// add 3 records 
+		// search on matching pattern on 2
+		// sort on distinct order
+        // check entire entity is filled
+#getMaskFromInsertedEntity()
+        List<$domainClassName> list = ${daoInterfaceVariableName}.getDistinct${domainClassName}(mask, mask, new ${domainClassName}());
+		assertTrue (list.size()==1);
+    }
+ 
+    $test
+    public void testGetFirst () {
+        //TODO improvements:
+		// add 3 records 
+		// search on matching pattern on 2
+		// sort on distinct order
+        // check entire entity is filled
+#getMaskFromInsertedEntity()
+        $domainClassName result = ${daoInterfaceVariableName}.getFirst${domainClassName}(mask);
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        assertTrue (mask.get$columnClass().equals(result.get$columnClass()));
+#end
+    }
 
 
     $test
@@ -431,6 +458,7 @@ public class $className extends $testAdapterClassName {
 		$domainClassName entity = ${daoInterfaceVariableName}.loadFullFirstLevel${domainClassName}(mask);
 		assertNotNull (entity);
 	}
+
 	//
     // utilities
     // 
