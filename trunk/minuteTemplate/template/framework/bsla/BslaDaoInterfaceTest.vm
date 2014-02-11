@@ -285,7 +285,7 @@ public class $className extends $testAdapterClassName {
 	}	
    
    // load test
-//	$test partialLoad${domainClassName} does not work with correctly with fk 
+	$test // partialLoad${domainClassName} does not work with correctly with fk 
     public void testPartialLoad () {
 #getMaskFromInsertedEntity()
 #set($nbColumns = 2)
