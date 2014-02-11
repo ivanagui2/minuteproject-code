@@ -774,13 +774,12 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
     /**
      * generic to move after in superclass
      */
-    public List<Object[]> getSQLQueryResult(String query) {
+    private List<Object[]> getSQLQueryResult(String query) {
 ##		   Query hquery = getSession().createSQLQuery(query);
 ##		   return hquery.list();   
 		   Query queryJ = getEntityManager().createNativeQuery(query);
 		   return queryJ.getResultList();
     }
-
 
     /**
      * Inserts a $tableClassName entity with cascade of its children

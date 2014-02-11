@@ -281,11 +281,8 @@ public interface $className extends GenericDao<$tableClassName>{
 	
 	public List<$tableClassName> loadGraphFromParentKey ($tableClassName graphMaskWhat, List<$tableClassName> parents); 
 	
-    /**
-     * generic to move after in superclass
-     */
-    public List<Object[]> getSQLQueryResult(String query);     
-
+##    public List<Object[]> getSQLQueryResult(String query);     
+##
 ##if($isMasterData || $isReferenceData)
     /**
      * return a list of $tableClassName entities 
