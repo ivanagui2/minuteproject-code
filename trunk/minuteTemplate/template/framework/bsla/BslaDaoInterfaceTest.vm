@@ -457,6 +457,8 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
 		$domainClassName entity = ${daoInterfaceVariableName}.loadFullFirstLevel${domainClassName}(mask);
 		assertNotNull (entity);
+		entity = ${daoInterfaceVariableName}.loadFullFirstLevel${domainClassName}(mask.get${primaryKeyJavaNameClass}());
+		assertNotNull (entity);
 	}
 
 	//
