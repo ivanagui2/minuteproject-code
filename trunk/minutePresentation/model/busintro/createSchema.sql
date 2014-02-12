@@ -220,7 +220,7 @@ CREATE TABLE `lineitem_usage` (
     ON UPDATE NO ACTION,
   CONSTRAINT `LineItemForUsage`
     FOREIGN KEY (`LineitemId` )
-    REFERENCES `buslogic_intro`.`Lineitem` (`LineitemId` )
+    REFERENCES `buslogic_intro`.`lineitem` (`LineitemId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
  ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
