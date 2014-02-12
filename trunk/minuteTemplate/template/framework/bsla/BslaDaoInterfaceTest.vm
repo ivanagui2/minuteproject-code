@@ -303,6 +303,18 @@ public class $className extends $testAdapterClassName {
         // assert only the what mask field are set
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	}
+   
+   // load test
+	$test 
+    public void testPartialLoadWithParentFirst () {
+#getMaskFromInsertedEntity()
+#set($nbColumns = 2)
+#getWhatMaskFirstColumns($nbColumns)
+		${domainClassName} result = ${daoInterfaceVariableName}.partialLoadWithParentFirst${domainClassName}(what, mask, new ${domainClassName}());
+		assertNotNull (result);
+        // assert only the what mask field are set
+#assertNotNullFirstFieldAndNullTheRest($nbColumns)		
+	}
  
    // load test
 	$test // partialLoad${domainClassName} does not work with correctly with fk 
