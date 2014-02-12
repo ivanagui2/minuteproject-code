@@ -295,6 +295,21 @@ public class $className extends $testAdapterClassName {
 		${domainClassName} result = (${domainClassName})list.get(0);
         // assert only the what mask field are set
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
+	}
+ 
+   // load test
+	$test // partialLoad${domainClassName} does not work with correctly with fk 
+    public void testPartialLoadWithParentUseCache () {
+#getMaskFromInsertedEntity()
+#set($nbColumns = 2)
+#getWhatMaskFirstColumns($nbColumns)
+		List<${domainClassName}> list = ${daoInterfaceVariableName}.partialLoadWithParent${domainClassName}UseCache(what, mask, new ${domainClassName}(), true);
+		assertTrue (list.size()==1);
+		list = ${daoInterfaceVariableName}.partialLoadWithParent${domainClassName}UseCache(what, mask, new ${domainClassName}(), true);
+		assertTrue (list.size()==1);
+		${domainClassName} result = (${domainClassName})list.get(0);
+        // assert only the what mask field are set
+#assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	} 
  
     $test
