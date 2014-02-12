@@ -158,6 +158,13 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask);
 		assert (list.size()==1);
+	}	
+	
+	$test	
+    public void testSearchPrototypeAny$domainClassName () {
+#getMaskFromInsertedEntity()
+		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototypeAny${domainClassName}(mask);
+		assert (list.size()==1);
 	}
 	
 	$test	
