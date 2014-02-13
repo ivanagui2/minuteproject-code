@@ -59,6 +59,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -154,16 +155,35 @@ public class $className extends $testAdapterClassName {
 	}
 	
 	$test	
-    public void testSearchPrototype$domainClassName () {
+    public void testSearchPrototype () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask);
 		assert (list.size()==1);
 	}	
-	
+
 	$test	
-    public void testSearchPrototypeAny$domainClassName () {
+    public void testSearchPrototypeAny () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototypeAny${domainClassName}(mask);
+		assert (list.size()==1);
+	}
+
+#*	
+	$test	
+    public void testSearchPrototypeList () {
+#getMaskFromInsertedEntity()
+		List<$domainClassName> masks = new ArrayList<$domainClassName> ();
+		masks.add(mask);
+		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(masks);
+		assert (list.size()==1);
+	}
+*#	
+	$test	
+    public void testSearchDistinct () {
+#getMaskFromInsertedEntity()
+		List<$domainClassName> masks = new ArrayList<$domainClassName> ();
+		masks.add(mask);
+		List<$domainClassName> list = ${daoInterfaceVariableName}.searchDistinctPrototype${domainClassName}(${domainClassName}.fullMask(), masks);
 		assert (list.size()==1);
 	}
 	
@@ -291,7 +311,7 @@ public class $className extends $testAdapterClassName {
 #end
 	}	
    
-   // load test
+    // load test
 	$test // partialLoad${domainClassName} does not work with correctly with fk 
     public void testPartialLoad () {
 #getMaskFromInsertedEntity()
@@ -304,7 +324,7 @@ public class $className extends $testAdapterClassName {
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	}
    
-   // load test
+    // load test
 	$test 
     public void testPartialLoadWithParentFirst () {
 #getMaskFromInsertedEntity()
@@ -316,7 +336,7 @@ public class $className extends $testAdapterClassName {
 #assertNotNullFirstFieldAndNullTheRest($nbColumns)		
 	}
  
-   // load test
+    // load test
 	$test // partialLoad${domainClassName} does not work with correctly with fk 
     public void testPartialLoadWithParentUseCache () {
 #getMaskFromInsertedEntity()
