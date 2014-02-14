@@ -471,12 +471,12 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
          
 	/**
      * Searches a list of $tableClassName entity 
-     * @param $tableClassName ${tableVariableName}Positive
-     * @param $tableClassName ${tableVariableName}Negative
+     * @param $tableClassName positiveMask
+     * @param $tableClassName negativeMask
      * @return List
      */
-    public List<$tableClassName> searchPrototype$tableClassName($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
-	    return getResultList(get${tableClassName}SearchEqualQuery (${tableVariableName}Positive, ${tableVariableName}Negative));  
+    public List<$tableClassName> searchPrototype$tableClassName($tableClassName positiveMask, $tableClassName negativeMask) {
+	    return getResultList(get${tableClassName}SearchEqualQuery (positiveMask, negativeMask));  
     }
 
     /**
@@ -668,29 +668,32 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
     /**
     * return a jql search on a ${tableClassName} prototype with positive and negative beans
     */
-    protected String get${tableClassName}SearchEqualQuery ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
+    protected String get${tableClassName}SearchEqualQuery ($tableClassName positiveMask, $tableClassName negativeMask) {
 		StringBuffer query = new StringBuffer();    	
 		query.append(getSelectFrom());
-		query.append(get${tableClassName}PositiveNegativeCriteria(${tableVariableName}Positive, ${tableVariableName}Negative));
+		query.append(get${tableClassName}PositiveNegativeCriteria(positiveMask, negativeMask));
 		return query.toString();
 	}
 
-	protected String get${tableClassName}PositiveNegativeCriteria ($tableClassName ${tableVariableName}Positive, $tableClassName ${tableVariableName}Negative) {
-        boolean isWhereSet = false;
+	protected String get${tableClassName}PositiveNegativeCriteria ($tableClassName positiveMask, $tableClassName negativeMask) {
+##        if (positiveMask==null) positiveMask=new $tableClassName();
+##        if (negativeMask==null) negativeMask=new $tableClassName();
+		boolean isWhereSet = false;
         StringBuffer query = new StringBuffer();
 #foreach ($column in ${table.columns})
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
 #putOrmForeignKeyColumn()
-        if (${tableVariableName}Positive!=null && ${tableVariableName}Positive.get$columnClass() != null) {
+        if (positiveMask!=null && positiveMask.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;
 #if ($sqlUtils.isQuotedColumn($column))
-           query.append(" ${tableVariableName}.${columnVar} = '"+ ${tableVariableName}Positive.get$columnClass()+"' ");
+           query.append(" ${tableVariableName}.${columnVar} = '"+ positiveMask.get$columnClass()+"' ");
 #else
-           query.append(" ${tableVariableName}.${columnVar} = "+ ${tableVariableName}Positive.get$columnClass() + " ");
+           query.append(" ${tableVariableName}.${columnVar} = "+ positiveMask.get$columnClass() + " ");
 #end
-        } else if (${tableVariableName}Negative.get$columnClass() != null) {
+        } 
+		if (negativeMask!=null && negativeMask.get$columnClass() != null) {
            query.append (getQueryWHERE_AND (isWhereSet));
            isWhereSet = true;   
            query.append(" ${tableVariableName}.${columnVar} is null ");
