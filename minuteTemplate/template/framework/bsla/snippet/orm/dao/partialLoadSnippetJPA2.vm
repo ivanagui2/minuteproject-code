@@ -134,7 +134,7 @@
         String what = "SELECT count(*) FROM $tableClassName ${tableVariableName} ";
 		return findQuery ($tableVariableName, null, what, matchType, operandType, caseSensitivenessType, null);
     }
-	
+#*	
     protected String getSelectCountPrototype ($tableClassName whereEqCriteria) {
         StringBuffer query = new StringBuffer();
         StringBuffer queryWhere = new StringBuffer();
@@ -142,4 +142,4 @@
         queryWhere.append (getWhereEqualWhereQueryChunk(whereEqCriteria, false));   
 	    return getHQuery(query.toString(), queryWhere.toString());
     }
-	
+*#	
