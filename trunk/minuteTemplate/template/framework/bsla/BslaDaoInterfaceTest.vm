@@ -255,6 +255,8 @@ public class $className extends $testAdapterClassName {
 #end
 #end
 #end
+		${daoInterfaceVariableName}.save${domainClassName}(${domainVariableName});
+		//TODO add test
 	}
 	
 	$test
