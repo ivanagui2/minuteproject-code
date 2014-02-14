@@ -1035,7 +1035,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 		 }		 
 		 return resultList;		
 	 }
-   
+#*   
 	public List partialLoadWithParentForBean(Object bean, $tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName) {
 		Map beanPath = new Hashtable();
 		Query hquery = getPartialLoadWithParentJPAQuery (${tableVariableName}What, positive$tableClassName, negative$tableClassName, beanPath, new QuerySelectInit(), null);
@@ -1065,7 +1065,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 		}
 		return resultList;		
     }
-
+*#
 	
 	// to set in super class
 	private String getFieldFromBeanPath(String beanPath) {
@@ -1431,7 +1431,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 #parse("./snippet/orm/dao/loadGraphSnippetJPA2.vm")
     
 #if ($hasUniqueKey) 
-   /**
+#*   /**
    * uk<->pk
    */
    public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName) {
@@ -1441,7 +1441,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
    public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
       return null;
    }
-
+*#
 #if ($hasOnlyOnePrimaryKey)
    public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName) {
       //TODO

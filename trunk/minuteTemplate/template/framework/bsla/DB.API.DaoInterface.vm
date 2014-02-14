@@ -224,21 +224,22 @@ public interface $className extends GenericDao<$tableClassName>{
     */
     public List<$tableClassName> getDistinct$tableClassName($tableClassName ${tableVariableName}What, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
 
-    //
+#*    //
     public List partialLoadWithParentForBean(Object bean, $tableClassName $tableVariableName, $tableClassName positive$tableClassName, $tableClassName negative$tableClassName);
-
+*#
     /**
     * search on prototype with cache
     */
     public List<$tableClassName> searchPrototypeWithCache$tableClassName ($tableClassName $tableVariableName);
       
 #if ($hasUniqueKey) 
-   /**
+#*   /**
    * uk<->pk
    */
    public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName);
 
    public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName);
+*#
 #if ($hasOnlyOnePrimaryKey)
 
    public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName);
