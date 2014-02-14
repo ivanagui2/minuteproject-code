@@ -430,6 +430,7 @@ public class $className extends $testAdapterClassName {
     public void testPagination () {
         //assuming that there is something in the DB
         insert$domainClassName ();
+        insert$domainClassName ();
 
         Integer start = 0;
         Integer max = 10;
@@ -447,6 +448,10 @@ public class $className extends $testAdapterClassName {
         assertTrue (queryData.getTotalResultCount()>0);
 
 		queryData = new QueryData<$domainClassName>(start, max, entitySort,entityCriteria, ${domainClassName}.fullMask());
+        ${daoInterfaceVariableName}.find(queryData);
+        assertTrue (queryData.getTotalResultCount()>0);
+
+		queryData = new QueryData<$domainClassName>(start, 1, entitySort,entityCriteria, ${domainClassName}.fullMask());
         ${daoInterfaceVariableName}.find(queryData);
         assertTrue (queryData.getTotalResultCount()>0);
 
