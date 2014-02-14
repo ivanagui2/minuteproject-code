@@ -261,6 +261,8 @@ public interface $className extends GenericDao<$tableClassName>{
 ##
     public List<$tableClassName> searchPrototype$tableClassName($tableClassName $tableVariableName) ;  
 	
+    public List<$tableClassName> searchPrototype$tableClassName($tableClassName positiveMask, $tableClassName negativeMask) ;  
+	
     public List<$tableClassName> searchPrototypeAny$tableClassName($tableClassName $tableVariableName) ;
 
     public List<$tableClassName> find ($tableClassName criteriaMask, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) ;
