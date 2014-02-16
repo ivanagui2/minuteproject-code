@@ -162,6 +162,13 @@ public class $className extends $testAdapterClassName {
 	}	
 	
 	$test	
+    public void testSearchPrototypeWithCache () {
+#getMaskFromInsertedEntity()
+		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototypeWithCache${domainClassName}(mask);
+		assert (list.size()==1);
+	}	
+	
+	$test	
     public void testSearchPrototypePositiveNegative () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask,null);
@@ -528,7 +535,22 @@ public class $className extends $testAdapterClassName {
         assertTrue (mask.get$columnClass().equals(result.get$columnClass()));
 #end
     }
-
+#* 
+    $test
+    public void testGetFirstWhereConditionsAre () {
+        //TODO improvements:
+		// add 3 records 
+		// search on matching pattern on 2
+		// sort on distinct order
+        // check entire entity is filled
+#getMaskFromInsertedEntity()
+        $domainClassName result = ${daoInterfaceVariableName}.getFirst${domainClassName}WhereConditionsAre(mask);
+#foreach ($column in $table.primaryKeyColumns) 
+#putColumnParams()
+        assertTrue (mask.get$columnClass().equals(result.get$columnClass()));
+#end
+    }
+*#
 
     $test
     public void testList () {
