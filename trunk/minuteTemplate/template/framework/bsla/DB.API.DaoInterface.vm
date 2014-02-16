@@ -231,15 +231,15 @@ public interface $className extends GenericDao<$tableClassName>{
     * search on prototype with cache
     */
     public List<$tableClassName> searchPrototypeWithCache$tableClassName ($tableClassName $tableVariableName);
-      
+#*      
 #if ($hasUniqueKey) 
-#*   /**
+   /**
    * uk<->pk
    */
    public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName);
 
    public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName);
-*#
+
 #if ($hasOnlyOnePrimaryKey)
 
    public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName);
@@ -247,7 +247,8 @@ public interface $className extends GenericDao<$tableClassName>{
    public $primaryKeyType load${tableClassName}PkFromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName);
 #end   
 #end
-    
+
+*#
 ##    /**
 ##    * search a list of $tableClassName whose field set in the mask ${tableVariableName}What are filled, and matching a list of where filter criteria prototypes 
 ##    * set in the list ${tableVariableName}Wheres
