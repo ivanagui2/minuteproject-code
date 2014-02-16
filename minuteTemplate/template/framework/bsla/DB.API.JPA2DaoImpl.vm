@@ -1429,9 +1429,9 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
 	}
 
 #parse("./snippet/orm/dao/loadGraphSnippetJPA2.vm")
-    
+#*    
 #if ($hasUniqueKey) 
-#*   /**
+   /**
    * uk<->pk
    */
    public $tableClassName load${tableClassName}FromUniqueKey ($tableClassName $tableVariableName) {
@@ -1441,7 +1441,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
    public $tableClassName load${tableClassName}FromUniqueKeyWithCacheOnResult ($tableClassName $tableVariableName) {
       return null;
    }
-*#
+
 #if ($hasOnlyOnePrimaryKey)
    public $primaryKeyType load${tableClassName}PkFromUniqueKey ($tableClassName $tableVariableName) {
       //TODO
@@ -1455,6 +1455,7 @@ public class $className extends GenericDaoJpaImpl<$tableClassName> implements $d
    
 #end   
 #end
+*#
     // generic part
 	public void find (QueryData<${tableClassName}> data) {
 		EntityCriteria<${tableClassName}> filter = data.getEntityCriteria();

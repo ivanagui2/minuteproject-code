@@ -456,6 +456,24 @@ public class $className extends $testAdapterClassName {
         assertTrue (queryData.getTotalResultCount()>0);
 
     }
+
+	$test	
+    public void testFindWithMask () {
+        //assuming that there is something in the DB
+        insert$domainClassName ();
+        insert$domainClassName ();
+
+        $domainClassName sort = new $domainClassName();
+        EntitySort<$domainClassName> entitySort = new EntitySort<$domainClassName>(sort, QuerySortOrder.ASC);
+        $domainClassName criteria = new $domainClassName();
+        EntityCriteria<$domainClassName> entityCriteria = new EntityCriteria<$domainClassName>(criteria, EntityMatchType.ALL, OperandType.CONTAINS, true);
+
+        $domainClassName what = populateFirstNonPkField$domainClassName ();
+
+        //${domainClassName}.fullMask();
+		List<$domainClassName> list = ${daoInterfaceVariableName}.find (what, EntityMatchType.ALL, OperandType.CONTAINS, true);
+        assertTrue (list.size()>0);
+    }
  
     $test
     public void testListWhatWhereOrder () {
