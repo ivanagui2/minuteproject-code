@@ -247,8 +247,8 @@ $!updatedAreaEnd
 	</repositories>
 	<properties>
 #if($isSpringBackend)
-		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
-		<spring.version>3.0.6.BUILD-SNAPSHOT</spring.version>
+##		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
+		<spring.version>4.0.0.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
 #elseif($isEJBBackend)
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
