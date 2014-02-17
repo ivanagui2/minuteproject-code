@@ -8,7 +8,10 @@
 
 	<application>
 #if($isSpringBackend)
-	    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+##	    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
 #end
 		<resource-bundle>
 			<base-name>$modelI18nJSFImport</base-name>
