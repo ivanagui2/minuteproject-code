@@ -182,12 +182,20 @@ public class ${className} {
         this.accordion = accordion;
     }
 
-	
 	private void activateTab (MenuTuple tuple) {
+        desactivateTab();
         UIComponent c = accordion.findComponent("menuTitle"+tuple.getEntry());
         Panel p = (Panel)c;
         p.setStyleClass(" ui-state-active ");
     }
+	
+	private void desactivateTab () {
+        for (MenuTuple tuple : map.values()) {
+            UIComponent c = accordion.findComponent("menuTitle"+tuple.getEntry());
+            Panel p = (Panel)c;
+            p.setStyleClass(" ui-state-disactive ");
+        }
+    }	
 	
 	private Panel getPanel (MenuTuple tuple) {
         Panel panel = new Panel();
