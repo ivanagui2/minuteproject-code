@@ -44,7 +44,7 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 
     public ${className}() {}
 
-    public LazyDataModel<T> getLazyModel() {
+    public LazyDataModel<T> getLazyModel(final T maskWhere) {
     	if (lazyModel == null) {
     		lazyModel = new LazyDataModel<T>() {
 
@@ -58,7 +58,8 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 
                 	EntitySort<T> es = new EntitySort<T>(esMask, order);
 
-            		T ecMask = getFilterMask(filters);
+            		T ecMask = getFilterMask(maskWhere, filters);
+
             		EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
             		QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
@@ -94,17 +95,22 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     	}
     	return lazyModel;
     }
+	
+    public LazyDataModel<T> getLazyModel() {
+        return getLazyModel(null);
+    }
 
-	protected S getService() {
+    protected S getService() {
        return service;
     }
 	
     protected abstract T getSortMask(String sortField);
 
-    protected abstract T getFilterMask(Map<String,String> filters);
+    protected abstract T getFilterMask(T maskWhere, Map<String,String> filters);
 
     protected abstract Object getRowKeyImplementation (T element);
 
 	protected abstract T serviceLoad (String rowKey);
+
 
 }
