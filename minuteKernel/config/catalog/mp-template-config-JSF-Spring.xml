@@ -116,8 +116,15 @@
             has-updatable-nature="true" 
             scope-specific-value="model">
             <property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    		
-            
-        </template> 
+		</template> 
+			 
+		<template name="JSF.PF.LazyDataModel.Service" templateFileName="JSF.PF.LazyDataModel.Service.vm" 
+			subdir="" outputsubdir="" technicalPackage="bean"
+			file-extension="java" file-prefix="" file-suffix="LazyDataModelService" 
+			model-specific="true" has-updatable-nature="true">
+		</template>
+						           
+        
 	</template-target>
 <!-- 
   	<template-target 
