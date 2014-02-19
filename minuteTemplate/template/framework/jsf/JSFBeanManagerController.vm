@@ -53,6 +53,7 @@ import $SpringServiceInterfaceImport;
 import $modelJSFUtilsImport;
 import $modelSemanticReferenceUtilsJSFImport;
 import $entityLazyDataModelImport;
+import $modelLazyDataModelServiceImport;
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,12 +102,14 @@ public class ${className} implements java.io.Serializable{
 	@ManagedProperty("#{${EJBDaoImplVariable}}")
     ${EJBDaoImplClass} $EJBDaoImplVariable;
 
-
 	@ManagedProperty("#{${lookupBeanVar}}")
     ${lookupBeanClass} ${lookupBeanVar};
 
 	@ManagedProperty("#{${beanSpringModelServiceVariable}}")
     ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
+
+	@ManagedProperty("#{${modelLazyDataModelServiceVariable}}")
+    ${modelLazyDataModelServiceClass} ${modelLazyDataModelServiceVariable};
 	
 #elseif($isEJBBackend)
 ##	@Inject 
@@ -121,6 +124,9 @@ public class ${className} implements java.io.Serializable{
 
 	@EJB ## @ManagedProperty("#{${beanSpringModelServiceVariable}}")
     ${beanSpringModelServiceClass} ${beanSpringModelServiceVariable};
+	
+	@EJB ## @ManagedProperty("#{${modelLazyDataModelServiceVariable}}")
+    ${modelLazyDataModelServiceClass} ${modelLazyDataModelServiceVariable};
 #end
 	
 	@PostConstruct
@@ -143,6 +149,7 @@ public class ${className} implements java.io.Serializable{
 #set($Relationship="$childrenListVariable")
 #end
 	private List<$linkedTableClass> $childrenListVariable;
+	private LazyDataModel<$linkedTableClass> ${childrenListVariable}Lazy;
 	private Boolean refresh$childrenListClass=true;
 	//used as property listener
 	public void setRefresh${childrenListClass}(Boolean b) {
@@ -171,6 +178,30 @@ public class ${className} implements java.io.Serializable{
 			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
 #end
     		$childrenListVariable = ${beanSpringModelServiceVariable}.getList(mask);
+		}
+	}
+	
+    public LazyDataModel<${linkedTableClass}> getLazy${childrenListClass} () {
+		if (${childrenListVariable}Lazy==null || refresh$childrenListClass) {
+			populateLazy$childrenListVariable ();
+		}
+        return ${childrenListVariable}Lazy;
+    }
+
+	private void populateLazy$childrenListVariable () {
+		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
+		    refresh$childrenListClass = false;
+    		$linkedTableClass mask = new $linkedTableClass();
+##set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKey, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
+##    		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+#if ($linkedColumn.type!=$primaryKeyFirstColumn.type)
+	        // cannot apply mask (type mismatch (link type = $linkedColumn.type and pk type = $primaryKeyFirstColumn.type))
+#set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKeyFirstColumn, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
+			// mask.set${linkedColumnClass}_($maskValue);
+#else
+			mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
+#end
+    		${childrenListVariable}Lazy = ${modelLazyDataModelServiceVariable}.getLazyDataModel(mask);
 		}
 	}
 	

@@ -195,8 +195,8 @@ public class ${className} {
             Panel p = (Panel)c;
             p.setStyleClass(" ui-state-disactive ");
         }
-    }	
-	
+    }
+
 	private Panel getPanel (MenuTuple tuple) {
         Panel panel = new Panel();
 		panel.setId("menuTitle"+tuple.getEntry());
