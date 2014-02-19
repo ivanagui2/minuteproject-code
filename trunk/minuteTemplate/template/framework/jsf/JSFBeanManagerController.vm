@@ -705,6 +705,7 @@ public class ${className} implements java.io.Serializable{
 ##if($isSpringBackend)
 #putGetterSetter ($lookupBeanClass $lookupBeanVar)
 #putGetterSetter (${beanSpringModelServiceClass} ${beanSpringModelServiceVariable})
+#putGetterSetter (${modelLazyDataModelServiceClass} ${modelLazyDataModelServiceVariable})
 ##end
 
 $!updatedAreaImplementation

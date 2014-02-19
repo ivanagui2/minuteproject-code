@@ -2,6 +2,7 @@
 #putJPA2TemplateDefinition()
 #exposeVariableModelSpecific()
 #exposeSpringModelSpecific()
+#exposeJSFModelSpecific()
 #addedAreas()
 #set($thisClassName="$className")
 #set($thisDomainVariableName=$classVariable)
@@ -65,7 +66,7 @@ import $beanSpringModelServiceImport;
 @Stateless (name="$modelLazyDataModelServiceVariable")	
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 #end
-public class $thisClassName implements Serializable{ ##$beanSpringModelServiceClass {
+public class $thisClassName { ##implements Serializable $beanSpringModelServiceClass {
 
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
@@ -85,7 +86,7 @@ public class $thisClassName implements Serializable{ ##$beanSpringModelServiceCl
 #end
 	private ${EJBDaoImplClass} ${EJBDaoImplVariable};
 	
-    public LazyDataModel <${domainClassName}> get${domainClassName}LazyDataModel(${domainClassName} $tableVariableName) {
+    public LazyDataModel <${domainClassName}> getLazyDataModel(${domainClassName} $tableVariableName) {
         $entityLazyDataModelClass lazyDataModel = new $entityLazyDataModelClass(${EJBDaoImplVariable});
         return lazyDataModel.getLazyModel($tableVariableName);
     }
