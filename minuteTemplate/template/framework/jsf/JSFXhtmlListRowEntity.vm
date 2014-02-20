@@ -34,7 +34,11 @@
                 <f:facet name="header">  
                     <h:outputText value="#{i18n.$tableVariableName$separator$columnVar}" />  
                 </f:facet>  
-                <h:outputText value="#{item.${columnVar}}" />  
+#if($columnUtils.isBoolean($column))
+                <p:selectBooleanCheckbox value="#{item.${columnVar}}" /> 
+#else
+                <h:outputText value="#{item.${columnVar}}" /> 
+#end
             </p:column>
 #* 
         <p:column id="manufacturerColumn" filterBy="manufacturer" 
