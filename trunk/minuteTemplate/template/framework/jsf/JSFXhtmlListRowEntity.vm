@@ -27,7 +27,7 @@
 #columnJavaNaming()	
             <p:column sortBy="#{item.${columnVar}}" filterBy="#{item.${columnVar}}"
 #if($isEnum)
-                filterOptions="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}.getList()}"
+                filterOptions="#{${lookupEnumVar}.get${domainClassName}${columnClass}SelectItemListSelect()}"
                 filterMatchMode="exact"
 #end
              >  
