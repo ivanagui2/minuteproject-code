@@ -24,7 +24,6 @@
 			file-extension="java" file-prefix="" file-suffix="Controller" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-			<!-- <property name="add-backend-implementation" value="spring"></property> -->
 		</template>
 							 
 		<template name="JSF.PF.Generic.LazyDataModel" templateFileName="JSF.PF.Generic.LazyDataModel.vm" 
@@ -32,7 +31,7 @@
 			file-extension="java" file-prefix="" file-suffix="LazyDataModel" 
 			model-specific="true" has-updatable-nature="true">
 		</template>
-							 
+		 
 		<template name="JSF.PF.Entity.LazyDataModel" templateFileName="JSF.PF.Entity.LazyDataModel.vm" 
 			subdir="" outputsubdir="" technicalPackage="datamodel"
 			file-extension="java" file-prefix="" file-suffix="LazyDataModel" 
@@ -55,7 +54,6 @@
 			file-extension="java" file-prefix="" file-suffix="Controller" 
 			scope-specific-value="query" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-		<!-- 	<property name="add-backend-implementation" value="spring"></property> -->
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>
 <!-- 
@@ -116,15 +114,14 @@
             has-updatable-nature="true" 
             scope-specific-value="model">
             <property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    		
-		</template> 
-			 
+        </template> 
+
 		<template name="JSF.PF.LazyDataModel.Service" templateFileName="JSF.PF.LazyDataModel.Service.vm" 
 			subdir="" outputsubdir="" technicalPackage="bean"
 			file-extension="java" file-prefix="" file-suffix="LazyDataModelService" 
 			model-specific="true" has-updatable-nature="true">
 		</template>
-						           
-        
+					      
 	</template-target>
 <!-- 
   	<template-target 
@@ -182,6 +179,8 @@
 			file-extension="xhtml" technicalPackage="" file-suffix="ListRow" 
 			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+            <property name="EnumerationReferenceData" value="EnumerationReferenceDataJPA2" ></property>    
+
 		</template>
 
 		<template name="JSFXhtmlEditEntity" templateFileName="JSFXhtmlEditEntity.vm" 
