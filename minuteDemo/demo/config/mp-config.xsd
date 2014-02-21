@@ -695,6 +695,7 @@
 		<xs:attribute name="templatedir-root" type="xs:string" />
 		<xs:attribute name="catalog" type="xs:string" />
 		<xs:attribute name="catalog-entry" type="xs:string" />
+		<xs:attribute name="append-catalog-entry-dir-to-outputdir-root" type="xs:boolean" />
 	</xs:complexType>
 	
 	<xs:complexType name="generation-action">
