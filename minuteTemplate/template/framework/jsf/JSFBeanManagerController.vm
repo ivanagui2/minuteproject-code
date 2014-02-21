@@ -599,7 +599,8 @@ public class ${className} implements java.io.Serializable{
 	    render${childrenListVariable} = false; // reset
 	    if ("child-$childrenListVariable".equals(tabId)) {
 		    render${childrenListVariable} = true;
-			populate$childrenListVariable ();
+##			populate$childrenListVariable ();
+			populateLazy$childrenListVariable ();
 		}
 #end
 

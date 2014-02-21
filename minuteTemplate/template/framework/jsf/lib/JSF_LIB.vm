@@ -357,8 +357,9 @@
 							</p:toolbarGroup>
                 		</p:toolbar>
                         <p:dataTable var="item" 
-							    value="#{${entityControllerJSFVariable}.get${childrenListClass}()}" 
-							    paginator="true" rows="10"  
+							    value="#{${entityControllerJSFVariable}.getLazy${childrenListClass}()}" 
+							    paginator="true" rows="10" 
+								lazy="true"
                                 onRowSelectUpdate="display" 
                                 dynamic="true"  resizableColumns="true"
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
