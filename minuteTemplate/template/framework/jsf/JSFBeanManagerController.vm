@@ -292,7 +292,7 @@ public class ${className} implements java.io.Serializable{
 
 #if($hasFirstRelationship)
 	private void populateFirst () {
-		populate$Relationship ();
+		populateLazy$Relationship ();
 	}
 #end
 
