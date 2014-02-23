@@ -698,6 +698,9 @@
 
 	</target>
 
+	<target name="clould-sample-primefaces">
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />		
+	</target>
 	<!-- ===================================================================== -->
 	<!-- functional delivery -->
 	<!-- ===================================================================== -->
