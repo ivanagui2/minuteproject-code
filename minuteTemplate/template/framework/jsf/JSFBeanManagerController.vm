@@ -146,6 +146,7 @@ public class ${className} implements java.io.Serializable{
 ##if($isSpringBackend)
 #if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
+#set($firstRelationshipOneToMany=true)
 #set($Relationship="$childrenListVariable")
 #end
 	private List<$linkedTableClass> $childrenListVariable;
@@ -214,6 +215,7 @@ public class ${className} implements java.io.Serializable{
 ##if($isSpringBackend)
 #if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
+#set($firstRelationshipManyToMany=true)
 #set($Relationship="$childrenListVariable")
 #end
 	private List<$targetTableClassName> $childrenListVariable;
@@ -292,7 +294,11 @@ public class ${className} implements java.io.Serializable{
 
 #if($hasFirstRelationship)
 	private void populateFirst () {
+#if($firstRelationshipOneToMany)
 		populateLazy$Relationship ();
+#elseif($firstRelationshipManyToMany)
+		populate$Relationship ();
+#end
 	}
 #end
 
