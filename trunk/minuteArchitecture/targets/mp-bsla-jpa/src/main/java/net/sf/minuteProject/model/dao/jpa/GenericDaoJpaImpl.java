@@ -6,13 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Repository;
-
 import net.sf.minuteProject.model.dao.GenericDaoImpl;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
-@Repository
 public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
 
     @PersistenceContext
@@ -87,6 +85,14 @@ public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
         String what = getQuerySelectFromEntity();
 		return findQuery (t, null, what, matchType, operandType, caseSensitivenessType, null);
     }
+
+
+	private String findQuery(T t, T orderMask, String what,
+			EntityMatchType matchType, OperandType operandType,
+			Boolean caseSensitivenessType, QuerySortOrder sortOrder) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	protected abstract String getQuerySelectFromEntity() ;
 }
