@@ -36,14 +36,32 @@
       <artifactId>javaee-api</artifactId>
       <version>6.0</version>
       <scope>provided</scope>
-    </dependency>	
+    </dependency>
+#*	 
     <dependency>
        <!-- the implementation of JAX-RS -->
        <groupId>com.sun.jersey</groupId>
        <artifactId>jersey-server</artifactId>
        <version>$jerseyVersion</version>
     </dependency>	
+*#
+      <dependency>
+          <groupId>org.glassfish.jersey.core</groupId>
+          <artifactId>jersey-server</artifactId>
+          <version>${jersey.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.glassfish.jersey.containers</groupId>
+          <artifactId>jersey-container-servlet-core</artifactId>
+          <version>${jersey.version}</version>
+      </dependency>
+
   </dependencies>
+
+  <properties>
+	  <jersey.version>$jerseyVersion</jersey.version>
+  </properties>
   <build>
     <plugins>
       <plugin>
