@@ -5,4 +5,5 @@
 #set($rootPackage=$mavenUtils.getRootPackage($template, $model))
 #set($DbApiName=$mavenUtils.getDbApiName($model))
 #set($resourcesDir="src/main/resources")
+#set($bslaJpaVersion="0.8.8")
 #end
