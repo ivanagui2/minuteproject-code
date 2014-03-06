@@ -3,6 +3,7 @@
 #putJPA2TemplateDefinition()
 #set($isQuerydslPowered=$template.hasProperty("add-querydsl"))
 #set($querydslVersion=$template.getPropertyValue("add-querydsl"))
+#set($bslaJpaVersion=$template.getPropertyValue("bsla-jpa-version"))
 ##set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>    
@@ -161,7 +162,7 @@
         <dependency>
           <groupId>net.sf.minuteproject</groupId>
           <artifactId>mp-bsla-jpa</artifactId>
-          <version>0.8.7</version>
+          <version>$bslaJpaVersion</version>
         </dependency>	
 #end	
     </dependencies>
