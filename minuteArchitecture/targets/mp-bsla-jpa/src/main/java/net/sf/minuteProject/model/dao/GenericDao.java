@@ -37,10 +37,15 @@ public interface GenericDao <T> {
      */
     public T update(T t) ;
 	/**
-	 * Find persistence data according to search criteria
+	 * Find persistence data using QueryData
 	 * @param queryData
 	 */
 	public void find (QueryData<T> queryData);
+	/**
+	 * Find persistence data using QueryData without counting the total matches
+	 * @param queryData
+	 */
+	public void findWithoutCount (QueryData<T> queryData);
 	
 	public List<T> list(T mask, T sortMask, QuerySortOrder order);
 	

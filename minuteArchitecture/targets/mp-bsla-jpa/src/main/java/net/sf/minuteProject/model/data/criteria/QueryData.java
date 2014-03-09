@@ -2,6 +2,11 @@ package net.sf.minuteProject.model.data.criteria;
 
 import java.util.List;
 
+/**
+ * @author florianadler
+ *
+ * @param <T>
+ */
 public class QueryData <T> {
 
 	private List<T> result;
@@ -25,6 +30,25 @@ public class QueryData <T> {
 		this.entityCriteria = entityCriteria;
 	}
 	
+	/**
+	 * It might be unnecessary to count, when making consecutive search
+	 * with the same filtering criterias
+	 * needsNewCount determines the necessity to search compare to another
+	 * QueryData.
+	 * The client use this method to choose between find or findWithoutCount methods
+	 * @param queryData
+	 * @return
+	 */
+	public Boolean needsNewCount(QueryData<T> queryData) {
+		// always return true
+		// except when the where or what criteria (sort criteria to append to what) have changed!
+		if (queryData==null)
+			return true;
+		if (   queryData.getEntityCriteria().getEntity().equals(this.getEntityCriteria().getEntity())
+			&& queryData.getEntityWhat().equals(this.entityWhat))
+			return false;
+		return true;
+	}
 	public List<T> getResult() {
 		return result;
 	}
