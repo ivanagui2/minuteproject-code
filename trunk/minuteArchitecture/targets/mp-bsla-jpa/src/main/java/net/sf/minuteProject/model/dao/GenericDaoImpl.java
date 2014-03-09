@@ -14,7 +14,7 @@ import static net.sf.minuteProject.model.utils.BuilderUtils.*;
 public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
 	@Override
-	public void find (QueryData<T> data) {
+	public void findWithoutCount (QueryData<T> data) {
 		EntityCriteria<T> filter = data.getEntityCriteria();
 		T entityWhat = data.getEntityWhat();
 		T criteriaMask = filter.getEntity();
@@ -26,12 +26,22 @@ public abstract class GenericDaoImpl <T> implements GenericDao<T> {
 
 		List<T> results = find(entityWhat, criteriaMask, sortMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType(), sortOrder, start, max);
 		data.setResult(results);
+	}
+	
+	@Override
+	public void find (QueryData<T> data) {
+		findWithoutCount(data);
+		T entityWhat = data.getEntityWhat();
+		EntityCriteria<T> filter = data.getEntityCriteria();
+		T criteriaMask = filter.getEntity();
+		Integer max = data.getMax();
+		List<T> results = data.getResult();
 		int size = results.size();
 		if (size<max) 
 			data.setTotalResultCount(Long.valueOf(size));
 		else
 			data.setTotalResultCount(count(entityWhat, criteriaMask, filter.getMatchType(), filter.getOperandType(), filter.getCaseSensitivenessType()));
-
+		
 	}
 	
 	protected abstract Long count(T entityWhat, T criteriaMask, EntityMatchType matchType,
