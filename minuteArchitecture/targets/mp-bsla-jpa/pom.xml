@@ -5,7 +5,7 @@
 	<artifactId>mp-bsla-jpa</artifactId>
 	<name>MinuteprojectBsla</name>
 	<packaging>jar</packaging>
-	<version>0.8.8</version>
+	<version>0.8.9</version>
 	<description>Minuteproject Basic spring layer architecture</description>
 	<url>http://minuteproject.wikispaces.net/BSLA</url>
 
@@ -67,36 +67,6 @@
 	<build>
 		<plugins>
 
-			<plugin>
-
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<!-- Restrict execution of source compilation to install or deploy. -->
-						<!-- The default is package. -->
-						<phase>install</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Package JavaDocs to JAR to upload to repo -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<!-- Restrict execution of source compilation to install -->
-						<phase>install</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -134,6 +104,38 @@
 								<configuration>
 									<keyname>23C28A7D</keyname>
 								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+					
+					<plugin>
+		
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<!-- Restrict execution of source compilation to install or deploy. -->
+								<!-- The default is package. -->
+								<phase>install</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Package JavaDocs to JAR to upload to repo -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<!-- Restrict execution of source compilation to install -->
+								<phase>install</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
