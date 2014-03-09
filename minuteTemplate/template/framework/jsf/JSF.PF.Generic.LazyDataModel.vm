@@ -42,10 +42,12 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     protected S service;
 	private Class<T> t;
 
+	private QueryData<T> previousQueryData;
     public ${className}() {}
 
     public LazyDataModel<T> getLazyModel(final T maskWhere) {
-    	if (lazyModel == null) {
+    	
+		if (lazyModel == null) {
     		lazyModel = new LazyDataModel<T>() {
 
 			     @Override
@@ -63,7 +65,14 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
             		EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
             		QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
-            		getService().find(data);
+            		
+				    if (data.needsNewCount(previousQueryData))
+						getService().find(data);
+					else 
+						getService().findWithoutCount(data);
+
+					previousQueryData=data;
+
             		List<T> list = data.getResult();
             		int count = data.getTotalResultCount().intValue();
             		this.setRowCount(count);
