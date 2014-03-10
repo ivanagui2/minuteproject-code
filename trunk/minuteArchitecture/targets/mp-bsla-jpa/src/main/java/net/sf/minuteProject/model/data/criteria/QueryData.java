@@ -42,12 +42,20 @@ public class QueryData <T> {
 	public Boolean needsNewCount(QueryData<T> queryData) {
 		// always return true
 		// except when the where or what criteria (sort criteria to append to what) have changed!
-		if (queryData==null)
+		if (queryData==null 
+			|| queryData.getEntityCriteria()==null
+			|| queryData.getEntityCriteria().getEntity()==null
+			|| this.getEntityCriteria()==null
+			|| queryData.getEntityWhat()==null)
 			return true;
 		if (   queryData.getEntityCriteria().getEntity().equals(this.getEntityCriteria().getEntity())
 			&& queryData.getEntityWhat().equals(this.entityWhat))
 			return false;
 		return true;
+	}
+	
+	private Boolean areEntityCriteriaSimilar(QueryData<T> queryData) {
+		return false;
 	}
 	public List<T> getResult() {
 		return result;
