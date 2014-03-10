@@ -11,4 +11,11 @@ public interface GenericService <T> {
 	 */
 	public void find (QueryData<T> queryData);
 	
+	/**
+	 * Find persistence data according to search criteria
+	 * without counting the number of results
+	 * @param queryData
+	 */
+	public void findWithoutCount (QueryData<T> queryData);
+	
 }

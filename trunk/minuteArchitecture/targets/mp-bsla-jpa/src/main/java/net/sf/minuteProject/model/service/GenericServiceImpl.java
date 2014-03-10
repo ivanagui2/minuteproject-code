@@ -11,5 +11,10 @@ public class GenericServiceImpl <T, D extends GenericDao<T>> implements GenericS
 	public void find(QueryData<T> queryData) {	
 		d.find(queryData);
 	}
+	
+	@Override
+	public void findWithoutCount(QueryData<T> queryData) {	
+		d.findWithoutCount(queryData);
+	}
 
 }
