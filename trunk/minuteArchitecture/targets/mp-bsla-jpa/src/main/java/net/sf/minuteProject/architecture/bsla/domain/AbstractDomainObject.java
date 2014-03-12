@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class AbstractDomainObject implements DomainObject {
+public abstract class AbstractDomainObject implements DomainObject {
     
 	/**
 	 * Default toString
@@ -32,6 +32,8 @@ public class AbstractDomainObject implements DomainObject {
 	 	return EqualsBuilder.reflectionEquals(thiz, object);
 	}
 	
+    public abstract boolean equalsMask(AbstractDomainObject ado) ;
+    
 	private Long count__;
 
 	public long getCount__() {

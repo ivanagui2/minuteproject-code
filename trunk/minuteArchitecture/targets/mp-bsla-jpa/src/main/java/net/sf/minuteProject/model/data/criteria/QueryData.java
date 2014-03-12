@@ -46,17 +46,19 @@ public class QueryData <T> {
 			|| queryData.getEntityCriteria()==null
 			|| queryData.getEntityCriteria().getEntity()==null
 			|| this.getEntityCriteria()==null
-			|| queryData.getEntityWhat()==null)
+			)
 			return true;
-		if (   queryData.getEntityCriteria().getEntity().equals(this.getEntityCriteria().getEntity())
-			&& queryData.getEntityWhat().equals(this.entityWhat))
-			return false;
-		return true;
+		return areEntityCriteriaSimilar(queryData);
 	}
 	
 	private Boolean areEntityCriteriaSimilar(QueryData<T> queryData) {
-		return false;
+		if (   queryData.getEntityCriteria().getEntity().equals(this.getEntityCriteria().getEntity())
+				&& ((queryData.getEntityWhat()==null && this.entityWhat==null)
+						|| queryData.getEntityWhat().equals(this.entityWhat)))
+				return false;
+			return true;
 	}
+	
 	public List<T> getResult() {
 		return result;
 	}
