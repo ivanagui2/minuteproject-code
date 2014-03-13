@@ -2,10 +2,11 @@ package net.sf.minuteProject.model.dao;
 
 import java.util.List;
 
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
-public interface GenericDao <T> {
+public interface GenericDao <T extends AbstractDomainObject> {
 
     /**
     * Saves a T entity 

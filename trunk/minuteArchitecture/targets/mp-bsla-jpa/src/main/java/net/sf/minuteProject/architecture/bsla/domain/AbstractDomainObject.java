@@ -32,7 +32,7 @@ public abstract class AbstractDomainObject implements DomainObject {
 	 	return EqualsBuilder.reflectionEquals(thiz, object);
 	}
 	
-    public abstract boolean equalsMask(AbstractDomainObject ado) ;
+    public abstract boolean equalsMask(Object object) ;
     
 	private Long count__;
 
