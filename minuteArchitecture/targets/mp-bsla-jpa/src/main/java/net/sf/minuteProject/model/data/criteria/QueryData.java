@@ -2,12 +2,14 @@ package net.sf.minuteProject.model.data.criteria;
 
 import java.util.List;
 
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
+
 /**
  * @author florianadler
  *
  * @param <T>
  */
-public class QueryData <T> {
+public class QueryData <T extends AbstractDomainObject> {
 
 	private List<T> result;
 	private Long totalResultCount;
@@ -46,17 +48,23 @@ public class QueryData <T> {
 			|| queryData.getEntityCriteria()==null
 			|| queryData.getEntityCriteria().getEntity()==null
 			|| this.getEntityCriteria()==null
+			|| this.getEntityWhat()==null
 			)
 			return true;
 		return areEntityCriteriaSimilar(queryData);
 	}
 	
 	private Boolean areEntityCriteriaSimilar(QueryData<T> queryData) {
+		return queryData.getEntityCriteria().getEntity().equalsMask(this.getEntityCriteria().getEntity())
+			&& queryData.getEntityWhat().equalsMask(this.entityWhat);
+/*		
 		if (   queryData.getEntityCriteria().getEntity().equals(this.getEntityCriteria().getEntity())
 				&& ((queryData.getEntityWhat()==null && this.entityWhat==null)
 						|| queryData.getEntityWhat().equals(this.entityWhat)))
-				return false;
-			return true;
+			return false;
+		return true;
+			*/
+		
 	}
 	
 	public List<T> getResult() {

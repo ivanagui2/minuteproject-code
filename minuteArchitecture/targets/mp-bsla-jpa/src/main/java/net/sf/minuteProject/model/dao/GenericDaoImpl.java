@@ -2,16 +2,16 @@ package net.sf.minuteProject.model.dao;
 
 import java.util.List;
 
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
-
 import static net.sf.minuteProject.model.utils.BuilderUtils.*;
 
-public abstract class GenericDaoImpl <T> implements GenericDao<T> {
+public abstract class GenericDaoImpl <T extends AbstractDomainObject> implements GenericDao<T> {
 
 	@Override
 	public void findWithoutCount (QueryData<T> data) {

@@ -1,8 +1,9 @@
 package net.sf.minuteProject.model.service;
 
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 
-public interface GenericService <T> {
+public interface GenericService <T extends AbstractDomainObject> {
 
 	
 	/**

@@ -1,9 +1,10 @@
 package net.sf.minuteProject.model.data.criteria;
 
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 
-public class EntityCriteria<T> {
+public class EntityCriteria<T extends AbstractDomainObject> {
 
 	private T entity;
 	private EntityMatchType matchType;

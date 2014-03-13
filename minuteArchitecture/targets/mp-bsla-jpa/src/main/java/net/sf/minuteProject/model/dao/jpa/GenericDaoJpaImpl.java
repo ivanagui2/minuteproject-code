@@ -6,12 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 import net.sf.minuteProject.model.dao.GenericDaoImpl;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
-public abstract class GenericDaoJpaImpl <T> extends GenericDaoImpl<T> {
+public abstract class GenericDaoJpaImpl <T extends AbstractDomainObject> extends GenericDaoImpl<T> {
 
     @PersistenceContext
     protected EntityManager entityManager;
