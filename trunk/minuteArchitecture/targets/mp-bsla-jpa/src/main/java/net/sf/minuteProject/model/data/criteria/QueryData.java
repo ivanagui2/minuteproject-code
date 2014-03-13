@@ -48,15 +48,16 @@ public class QueryData <T extends AbstractDomainObject> {
 			|| queryData.getEntityCriteria()==null
 			|| queryData.getEntityCriteria().getEntity()==null
 			|| this.getEntityCriteria()==null
-			|| this.getEntityWhat()==null
+//			|| (this.getEntityWhat()==null && this.entityWhat==null)
 			)
 			return true;
-		return areEntityCriteriaSimilar(queryData);
+		return !areEntityCriteriaSimilar(queryData);
 	}
 	
 	private Boolean areEntityCriteriaSimilar(QueryData<T> queryData) {
 		return queryData.getEntityCriteria().getEntity().equalsMask(this.getEntityCriteria().getEntity())
-			&& queryData.getEntityWhat().equalsMask(this.entityWhat);
+			&& ((queryData.getEntityWhat()==null && this.entityWhat==null) ||
+			queryData.getEntityWhat().equalsMask(this.entityWhat));
 /*		
 		if (   queryData.getEntityCriteria().getEntity().equals(this.getEntityCriteria().getEntity())
 				&& ((queryData.getEntityWhat()==null && this.entityWhat==null)
