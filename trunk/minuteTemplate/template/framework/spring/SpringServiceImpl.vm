@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.Arrays;
 import java.util.ArrayList;
 
+import net.sf.minuteProject.model.service.GenericServiceImpl;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 
 #if ($isSpringBackend)
@@ -64,7 +65,8 @@ $!updatedAreaImport
 @javax.ejb.Stateless(name="$SpringServiceInterfaceVariable")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 #end
-public class $className implements $SpringServiceInterfaceClass {
+##public class $className implements $SpringServiceInterfaceClass {
+public class $className extends GenericServiceImpl<$tableClassName, $BslaDaoInterfaceClass> implements $SpringServiceInterfaceClass {
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoInterfaceVariable")	
@@ -184,7 +186,7 @@ public class $className implements $SpringServiceInterfaceClass {
     }
 	
     private List<$tableClassName> convert(List<$tableClassName> list) {
-        List<$tableClassName> ret = new ArrayList<$tableClassName>();   
+        List<$tableClassName> ret = new ArrayList<$tableClassName>();  
          for ($tableClassName a : list) {
             $tableClassName b = a.clone();
             ret.add(b);
@@ -192,9 +194,14 @@ public class $className implements $SpringServiceInterfaceClass {
         return ret;
     }
     
-//	@Override
+	@Override
 	public void find(QueryData<$tableClassName> data) {
 		${BslaDaoInterfaceVariable}.find (data);
+	}
+	
+	@Override
+	public void findWithoutCount(QueryData<$tableClassName> data) {
+		${BslaDaoInterfaceVariable}.findWithoutCount (data);
 	}
 	
 ##if($isMasterData || $isReferenceData)
