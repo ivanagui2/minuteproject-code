@@ -20,20 +20,57 @@ public class QueryDataTest {
 	private int max = 10;
 	DummyDo a = new DummyDo();
 	DummyDo b = new DummyDo();
+	DummyDo a1 = new DummyDo();
+	DummyDo b1 = new DummyDo(),b2 = new DummyDo();
 	EntitySort<DummyDo> entitySort;
-	EntityCriteria<DummyDo> entityCriteria;
+	EntityCriteria<DummyDo> entityCriteriaEmpty;
+	EntityCriteria<DummyDo> entityCriteriaA1, entityCriteriaB1, entityCriteriaB2;
 	
 	@Before
 	public void init() {
 		entitySort = new EntitySort<DummyDo>(a, QuerySortOrder.ASC);
-		entityCriteria = new EntityCriteria<DummyDo>(a, EntityMatchType.ALL, OperandType.EQUALS, true);
+		entityCriteriaEmpty = new EntityCriteria<DummyDo>(a, EntityMatchType.ALL, OperandType.EQUALS, true);
+		a1.something="test";
+		entityCriteriaA1 = new EntityCriteria<DummyDo>(a1, EntityMatchType.ALL, OperandType.EQUALS, true);
+		b1.something="test";
+		entityCriteriaB1 = new EntityCriteria<DummyDo>(b1, EntityMatchType.ALL, OperandType.EQUALS, true);
+		b2.something="test2";
+		entityCriteriaB2 = new EntityCriteria<DummyDo>(b2, EntityMatchType.ALL, OperandType.EQUALS, true);
 	}
 	
 	@Test
 	public void testNeedsNewCount() {
-		queryData = new QueryData<DummyDo>(start, max, entitySort, entityCriteria, a);
-		previousQueryData = new QueryData<DummyDo>(20, 30, entitySort, entityCriteria, b);
+		queryData = new QueryData<DummyDo>(start, max, entitySort, entityCriteriaEmpty, a);
+		previousQueryData = new QueryData<DummyDo>(20, 30, entitySort, entityCriteriaEmpty, b);
 		assertFalse (queryData.needsNewCount(previousQueryData));
+	}
+		
+	@Test
+	public void testNeedsNewCountNullWhat() {
+		queryData = new QueryData<DummyDo>(start, max, entitySort, entityCriteriaEmpty);
+		previousQueryData = new QueryData<DummyDo>(20, 30, entitySort, entityCriteriaEmpty);
+		assertFalse (queryData.needsNewCount(previousQueryData));
+	}
+	
+	@Test
+	public void testNeedsNewCountWithCriteriaMismatchWithDummy() {
+		queryData = new QueryData<DummyDo>(start, max, entitySort, entityCriteriaEmpty);
+		previousQueryData = new QueryData<DummyDo>(20, 30, entitySort, entityCriteriaB1);
+		assertTrue (queryData.needsNewCount(previousQueryData));
+	}
+	
+	@Test
+	public void testNeedsNewCountWithCriteriaMatch() {
+		queryData = new QueryData<DummyDo>(start, max, entitySort, entityCriteriaA1);
+		previousQueryData = new QueryData<DummyDo>(20, 30, entitySort, entityCriteriaB1);
+		assertFalse (queryData.needsNewCount(previousQueryData));
+	}
+	
+	@Test
+	public void testNeedsNewCountWithCriteriaMismatch() {
+		queryData = new QueryData<DummyDo>(start, max, entitySort, entityCriteriaB1);
+		previousQueryData = new QueryData<DummyDo>(20, 30, entitySort, entityCriteriaB2);
+		assertTrue (queryData.needsNewCount(previousQueryData));
 	}
 	
 	private class DummyDo extends AbstractDomainObject{
@@ -53,7 +90,8 @@ public class QueryDataTest {
 			if (object == this) return true;
 			if (!(object instanceof DummyDo)) return false;
 			DummyDo dummyDo = (DummyDo) object;
-			if (dummyDo.something==null || !dummyDo.something.equals(something)) return false;
+			if (dummyDo.something!=null && something!=null && !dummyDo.something.equals(something)) return false;
+			if ((dummyDo.something!=null && something==null) || (dummyDo.something==null && something!=null)) return false;
 			return true;
 		}
 		
