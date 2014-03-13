@@ -65,16 +65,19 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
             		EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
             		QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
-            		
-				    if (data.needsNewCount(previousQueryData))
+
+				    if (data.needsNewCount(previousQueryData))  {
 						getService().find(data);
-					else 
+                    }
+					else {
 						getService().findWithoutCount(data);
+                        data.setTotalResultCount(previousQueryData.getTotalResultCount());
+                    }
 
 					previousQueryData=data;
 
             		List<T> list = data.getResult();
-            		int count = data.getTotalResultCount().intValue();
+                    int count = data.getTotalResultCount().intValue();
             		this.setRowCount(count);
                     return list;
 				}

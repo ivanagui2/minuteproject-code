@@ -421,14 +421,6 @@ $!updatedAreaSnippet
 ##		return HashCodeBuilder.reflectionHashCode(flat());
 	}
 	
-	/**
-    * equals implementation
-
-	public boolean equals(Object object) {
-		return super.toEquals(flat(), object);
-	}
-    */
-	
 #set($variableName = $formatUtils.getJavaNameVariableConvertReservedWord($variableName))
 	public boolean equals(Object object) {
 		if (object == null) return false;	
@@ -445,6 +437,23 @@ $!updatedAreaSnippet
 #end
 		return true;
 	}    
+
+	public boolean equalsMask(Object object) {
+		if (object == null) return false;	
+		if (object == this) return true;
+		if (!(object instanceof ${className})) return false;
+		${className} ${variableName} = (${className}) object;
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+// not supported yet for composite pk
+#else
+#foreach($column in ${table.columns})
+#putColumnParamNaming()
+		if (${columnVar}!=null && ${variableName}.${columnVar}!=null && !${variableName}.${columnVar}.equals(${columnVar})) return false;
+		if ((${variableName}.${columnVar}!=null && ${columnVar}==null) || (${variableName}.${columnVar}==null && ${columnVar}!=null)) return false;
+#end
+#end
+		return true;
+	}
 
 	public ${className} clone() {
         ${className} ${variableName} = flat();
