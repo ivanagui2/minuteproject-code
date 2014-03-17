@@ -102,8 +102,7 @@
 			<property name="add-jpa2-implementation" value="eclipselink"></property>
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-			<property name="add-rest-implementation-jersey-version"
-				value="1.18"></property>
+			<!-- <property name="add-rest-implementation-jersey-version" value="1.18"></property> -->
 			<property name="add-backend-implementation" value="ejb"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
@@ -163,8 +162,8 @@
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version"
-				value="1.18"></property>
+<!-- 			<property name="add-rest-implementation-jersey-version"
+				value="1.18"></property> -->
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
