@@ -29,12 +29,12 @@
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
 		</template>	
-		
+<!-- 		
 		<template name="JerseyWadlGenerator" templateFileName="JerseyWadlGenerator.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="WadlGenerator" 
 			model-specific="true">
 		</template>	
-						
+					 -->	
 	</template-target>
 
 	<template-target 
