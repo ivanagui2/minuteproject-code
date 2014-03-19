@@ -217,6 +217,7 @@ $!updatedAreaEnd
 			<url>http://download.java.net/maven/2</url>
 		</repository>
 #if($isSpringBackend)
+#*
         <repository>
             <id>spring-maven-snapshot</id>
             <name>Springframework Maven Snapshot Repository</name>
@@ -225,6 +226,7 @@ $!updatedAreaEnd
                <enabled>true</enabled>
             </snapshots>
         </repository>
+*#
 #elseif($isEJBBackend)
 		<repository>
 			<id>JBoss repository</id>
