@@ -175,7 +175,7 @@
       </plugin>
     </plugins>
   </reporting>
-
+#*
      <repositories>
       <repository>
          <id>spring-maven-snapshot</id>
@@ -186,6 +186,7 @@
          </snapshots>
       </repository>
    </repositories>
+*#
 	<properties>
 ##		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
 		<spring.version>4.0.0.RELEASE</spring.version>
