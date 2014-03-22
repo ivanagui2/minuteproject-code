@@ -62,7 +62,7 @@ the properties are declared at the technology level and apply to all templates (
                <property name="add-jpa2-implementation" value="eclipselink"></property>	
                <property name="add-xmlbinding" value="true"></property>	
                <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->   			   
-      			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		   			   
+      		<!-- <property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>	 -->		   			   
 
 		</technology>
 		
@@ -120,7 +120,7 @@ the properties are declared at the technology level and apply to all templates (
             <property name="add-xmlbinding" value="true"></property>	
             <property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-			<property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>		
+			<!--  <property name="add-rest-implementation-jersey-version" value="1.9-ea03"></property>	-->	
 		</technology>
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"

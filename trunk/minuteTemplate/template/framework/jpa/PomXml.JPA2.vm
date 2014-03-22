@@ -232,7 +232,7 @@
                     <!--<encoding>utf-8</encoding>-->
                 </configuration>
             </plugin>
-#if($isQuerydslPowered)	            
+#if($isQuerydslPowered && !$groovify)	            
             <!-- querydsl integration -->
             <plugin>
                   <groupId>com.mysema.maven</groupId>
