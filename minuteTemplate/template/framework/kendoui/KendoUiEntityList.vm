@@ -1,0 +1,144 @@
+
+<script id="iscIcons" type="text/x-kendo-template">
+ <span>
+ #if (dispatchedToCurrentGroup) {#
+   <span class="k-icon k-i-note" style="vertical-align:-5px; margin-left:-8px;" title="{$A_ALT302}"/>
+
+ #}#
+ </span>
+</script>
+<script type="text/javascript">
+$(function () {
+  var expandedRow;
+
+  function detailExpand(e) {
+   if (expandedRow != null &amp;&amp; expandedRow[0] != e.masterRow[0]) {
+     var grid = $('#${tableVariableName}').data('kendoGrid');
+     grid.collapseRow(expandedRow);
+
+     }
+     expandedRow = e.masterRow;
+  }
+
+  $("#${tableVariableName}List").kendoGrid({ 
+   dataSource: {
+    error: function (e) {
+     if (e.errors !== false) {
+        $("#${tableVariableName}ListFooter").text(e.errors);
+     }
+    },
+	transport: {
+     read: {
+      url: "data/entity/${tableVariableName}/list",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      cache: false
+     }
+    },
+    schema: {
+     data: "data",
+     total: "total",
+     errors: "error"
+    },
+    sort: {
+     field: "$kendoUiUtils.getSortFields()",
+     dir: "$kendoUiUtils.getSortFields()"
+    },
+    serverPaging: true,
+    serverSorting: true,
+    serverFiltering: true
+   },
+   columnMenu: {
+    messages: {
+     columns: "$kendoUiUtils.getMessageColumns($table)",
+     filter: "$kendoUiUtils.getMessageFilterColumns($table)",
+     sortAscending: "$kendoUiUtils.getMessageSortAscColumns($table)",
+     sortDescending: "$kendoUiUtils.getMessageSortDescColumns($table)"
+    }
+   },
+   detailTemplate: kendo.template($("#${tableVariableName}DetailTemplate").html()),
+   detailInit: ${tableVariableName}ListDetailInit,
+   detailExpand: ${tableVariableName}ListDetailExpand,
+   dataBound: iscListDataBound,
+   groupable: false,
+   sortable: true,
+   filterable: {
+    messages: {
+     info: "$kendoUiUtils.getFilterableMessageInfo($table)",
+     filter: "$kendoUiUtils.getFilterableMessageFilter($table)",
+     clear: "$kendoUiUtils.getFilterableMessageClear($table)",
+     isTrue: "$kendoUiUtils.getFilterableMessageIsTrue($table)",
+     isFalse: "$kendoUiUtils.getFilterableMessageIsFalse($table)",
+     and: "$kendoUiUtils.getFilterableMessageAnd($table)",
+     or: "$kendoUiUtils.getFilterableMessageOr($table)"
+    },
+    operators: {
+     string: {
+      eq: "$kendoUiUtils.getOperatorStringEqual($table)",
+      neq: "$kendoUiUtils.getOperatorStringNotEqual($table)",
+      startswith: "$kendoUiUtils.getOperatorStringStartsWith($table)",
+      contains: "$kendoUiUtils.getOperatorStringContains($table)",
+      endswith: "$kendoUiUtils.getOperatorStringEndsWith($table)"
+     },
+     number: {
+      eq: "$kendoUiUtils.getOperatorNumberEquals($table)",
+      neq: "$kendoUiUtils.getOperatorNumberNotEquals($table)",
+      gte: "",
+      gt: "",
+      lte: "",
+      lt: ""
+     },
+	 date: {
+      eq: "",
+      neq: "",
+      gte: "",
+      gt: "",
+      lte: "",
+      lt: ""
+     }
+    }
+   },
+   scrollable: {
+    virtual: true
+   },
+   pageable: {
+    refresh: true,
+     pageSizes: <xsl:value-of select="/doc/config/A_RSH_KENDO_PAGESIZES"/>,
+     pageSize: <xsl:value-of select="/doc/config/A_RSH_KENDO_PAGESIZE"/>,
+     buttonCount: 5,
+     messages: {
+      display: "<xsl:value-of select="/doc/display/A_PAGER_DISPLAY"/>",
+      empty: "<xsl:value-of select="/doc/display/A_PAGER_EMPTY"/>",
+      page: "<xsl:value-of select="/doc/display/A_PAGER_PAGE"/>",
+      of: "<xsl:value-of select="/doc/display/A_PAGER_OF"/>",
+      itemsPerPage: "<xsl:value-of select="/doc/display/A_PAGER_ITEMSPERPAGE"/>",
+      first: "<xsl:value-of select="/doc/display/A_PAGER_FIRST"/>",
+      previous: "<xsl:value-of select="/doc/display/A_PAGER_PREVIOUS"/>",
+      next: "<xsl:value-of select="/doc/display/A_PAGER_NEXT"/>",
+      last: "<xsl:value-of select="/doc/display/A_PAGER_LAST"/>",
+      refresh: "<xsl:value-of select="/doc/display/A_PAGER_REFRESH"/>"
+     }
+    },
+    columns: [
+#set($counter=0)
+#foreach ($column in $table.columns)
+     {
+      template: kendo.template($("#iscIcons").html()),
+      title: '',
+      width: 30,
+      headerAttributes: ""
+//format: "{0: dd/MM/yyyy}",
+//filterable: false
+     }#if($velocityCount<$counter),#end 
+#set($counter=$counter+1)
+#end
+     }]
+    });
+  });
+</script>
+<div class="k-content">
+ <div id="headerMsg" class="msgLine">
+ </div>
+  <div id="${tableVariableName}List"></div>
+  <div id="${tableVariableName}ListFooter"></div>
+</div>
