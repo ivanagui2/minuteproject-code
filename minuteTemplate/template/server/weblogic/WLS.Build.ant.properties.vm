@@ -15,5 +15,23 @@ wls.deploy.target=$wls-deploy-target
 wls.deploy.name=$template.getPropertyValue("wls-release-name","")
 releaseDir=$template.getPropertyValue("wls-release-dir","")
 wls.deploy.source=$template.getPropertyValue("wls-deploy-source","")
+
+domain.name=7001_Domain
+admin.url=t3://localhost:7001
+admin.userName=weblogic
+admin.password=weblogic
+
+datasource.name=DS_One
+datasource.database.name=demo
+datasource.target=AdminServer
+datasource.filename=DS_One.xml
+datasource.jndiname=DS_One_JNDI
+datasource.driver.class=com.pointbase.jdbc.jdbcUniversalDriver
+datasource.url=jdbc:pointbase:server://localhost:9092/demo
+datasource.username=PBPUBLIC
+datasource.password=PBPUBLIC
+
+datasource.test.query=SQL SELECT * FROM DUAL
+
 $!updatedAreaEnd
 #end
