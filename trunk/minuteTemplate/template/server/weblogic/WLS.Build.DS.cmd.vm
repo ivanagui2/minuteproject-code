@@ -1,0 +1,4 @@
+cd <BEA_HOME>/wlserver_10.3/server/bin
+call setWLSEnv.cmd
+./setWLSEnv.sh
+java weblogic.WLST createDataSource.py
