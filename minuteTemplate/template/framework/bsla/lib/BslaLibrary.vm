@@ -488,6 +488,8 @@
 #set ($jdbcUsername = "${jdbc}.username")
 #set ($jdbcPassword = "${jdbc}.password")
 #set ($jdbcJNDI = "${jdbc}.jndi")
+#set ($jdbcDS = "${applicationOX}DS")
+#set ($jdbcJNDIName = "jdbc/${jdbcDS}")
 #end
 
 

@@ -10,3 +10,14 @@
 
 #macro (exposeWLSTemplate)
 #end
+
+#macro (exposeWeblogicTemplate)
+#set ($templateDatasourceCreatePy = "WLS.DS.Create.py")
+#set ($templateDatasourceProperties = "WLS.DS.properties")
+#end
+
+#macro (exposeWeblogicObject)
+#exposeWeblogicTemplate()
+#set ($datasourceCreatePyClass = $commonUtils.getTemplateFileName($model, $template, $templateDatasourceCreatePy))
+#set ($datasourceCreatePropertiesClass = $commonUtils.getTemplateFileName($model, $template, $templateDatasourceProperties))
+#end
