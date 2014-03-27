@@ -1,6 +1,7 @@
 #macro (exposeWLSBuildSpecific)
 #exposeWLSTemplate()
 #set($WLS_HOME=$template.getPropertyValue("WLS_HOME","D:/SOFT/SERVER/ORACLE/WLS/SERVER"))
+#set($WLS_SERVER=$template.getPropertyValue("WLS_SERVER","D:/SOFT/SERVER/ORACLE/WLS/SERVER"))
 #set($server-hostname=$template.getPropertyValue("wls-hostname","localhost"))
 #set($server-port=$template.getPropertyValue("wls-port","7001"))
 #set($wls-username=$template.getPropertyValue("wls-username","weblogic"))
