@@ -91,7 +91,7 @@
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
 			default-outputdir="REST-JEE"
-			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB"
+			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,server-infrastructure-configuration"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
@@ -428,22 +428,6 @@
 			</frameworks>
 		</technology>
 
-		<!-- <technology name="Spring Hibernate Standard" model-type="rdbms" template-config-file-name="mp-template-config-hibernate.xml" 
-			template-dir="@templateRoot@/framework/bsla" default-outputdir="springHibernate" 
-			status="released" description="Generates Spring Hibernate backend and DAO 
-			layer."> <frameworks> <framework name="Spring" version="1.2.5+"></framework> 
-			<framework name="Hibernate" version="3.2+"></framework> </frameworks> </technology> 
-			<technology name="Spring iBatis Standard" model-type="rdbms" template-config-file-name="mp-template-config-ibatis.xml" 
-			default-outputdir="springIbatis" template-dir="@templateRoot@/framework/bsla" 
-			status="released" description="Generates Spring iBatis backend and DAO layer."> 
-			<frameworks> <framework name="Spring" version="1.2.5+"></framework> <framework 
-			name="iBatis" version=""></framework> </frameworks> </technology> <technology 
-			name="Spring JPA Standard" model-type="rdbms" template-config-file-name="mp-template-config-jpa.xml" 
-			default-outputdir="springJpa" template-dir="@templateRoot@/framework/bsla" 
-			status="released" description="Generates Spring JPA/Hibernate backend and 
-			DAO layer."> <frameworks> <framework name="Spring" version="1.2.5+"></framework> 
-			<framework name="Hibernate" version="3.2+"></framework> <framework name="JPA" 
-			version="1.0"></framework> </frameworks> </technology> -->
 		<!-- dependent tracks -->
 
 
@@ -507,6 +491,12 @@
 		<technology name="Primefaces-server"
 			template-config-file-name="mp-template-config-server.xml"
 			default-outputdir="JSF-primefaces" template-dir="@templateRoot@/server"
+			is-generable="false">
+		</technology>
+
+		<technology name="server-infrastructure-configuration"
+			template-config-file-name="mp-template-config-server-infrastructure-configuration.xml"
+			default-outputdir="" template-dir="@templateRoot@/server"
 			is-generable="false">
 		</technology>
 
