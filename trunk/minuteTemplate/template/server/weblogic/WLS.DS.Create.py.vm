@@ -6,7 +6,7 @@ configProps = Properties()
 configProps.load(propInputStream)
 
 domainName=configProps.get("domain.name")
-adminURL=configProps.get("admin.url")
+adminURL=configProps.get("wls.admin.url")
 adminUserName=configProps.get("wls.username")
 adminPassword=configProps.get("wls.password")
 
