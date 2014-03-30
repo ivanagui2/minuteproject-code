@@ -1,3 +1,5 @@
+#exposeBackendTechnology()
+//$isSpringBackend $isEJBBackend
 #exposeQuerySpecific()
 #exposeSDDSpring()
 #putImportQuerySDDBean()
@@ -39,8 +41,12 @@ import $sddInputBeanImport;
  * <p>Description: SDD DAO Spring JPA implementation </p>
  *
  */
+#if ($isSpringBackend)
 @Repository ("$sddDaoInterfaceVariable")
 @Transactional(propagation = Propagation.REQUIRED) 
+#else
+@javax.ejb.Stateless(name="$sddDaoInterfaceVariable")
+#end
 public class ${className} implements $sddDaoInterfaceClass{
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
