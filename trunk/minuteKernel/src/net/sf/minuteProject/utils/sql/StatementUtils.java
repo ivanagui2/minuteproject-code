@@ -51,6 +51,6 @@ public class StatementUtils {
 	}
 	
 	public static final boolean hasResult (Table table) {
-		return table.getColumnCount()>0;
+		return table!=null && table.getColumnCount()>0;
 	}
 }

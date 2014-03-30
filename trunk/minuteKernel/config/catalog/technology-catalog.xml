@@ -107,6 +107,7 @@
 			<property name="add-backend-implementation" value="ejb"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
+			<property name="add-ear-packaging" value="true"></property>
 		</technology>
 
 		<technology name="REST-SpringMVC" model-type="rdbms"
