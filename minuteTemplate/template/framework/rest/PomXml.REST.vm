@@ -1,5 +1,7 @@
+#exposeBackendTechnology()
 #exposeMaven()
 #exposeMavenJersey()
+#putTargetServerDefinition()
 ##set($jerseyVersion=$template.getPropertyValue("add-rest-implementation-jersey-version"))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -23,7 +25,11 @@
   <dependencies>
     <dependency>
         <groupId>${rootPackage}.${model.name}</groupId>
-        <artifactId>${DbApiName}</artifactId>
+#if($isEJBBackend)
+  		<artifactId>${model.name}Bela</artifactId>
+#else
+  		<artifactId>${model.name}Bsla</artifactId>
+#end        
         <version>${version}-SNAPSHOT</version>
     </dependency>	
     <dependency>
@@ -50,12 +56,18 @@
           <groupId>org.glassfish.jersey.core</groupId>
           <artifactId>jersey-server</artifactId>
           <version>${jersey.version}</version>
+#if($isGlassfishTargetServer)
+		  <scope>provided</scope>
+#end          
       </dependency>
 
       <dependency>
           <groupId>org.glassfish.jersey.containers</groupId>
           <artifactId>jersey-container-servlet-core</artifactId>
           <version>${jersey.version}</version>
+#if($isGlassfishTargetServer)
+		  <scope>provided</scope>
+#end           
       </dependency>
 
   </dependencies>

@@ -40,7 +40,7 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import $sddDaoInterfaceImport;
+import $sddRepositoryInterfaceImport;
 import $sddOutputBeanCollectionImport;
 import $sddInputBeanImport;
 ##import $EJBDaoImplImport;
@@ -59,7 +59,8 @@ import $sddInputBeanImport;
 public class ${className} {
 
     @Inject 
-    private ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+##    private ${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+    private ${sddRepositoryInterfaceClass} $sddRepositoryInterfaceVariable;
 
 #exposeQueryUpdatedAreas("SDD_EXECUTE_GET_XML")
 $!updatedAreaBegin
@@ -133,9 +134,9 @@ $!updatedAreaSnippet
 #putColumnParamNaming()
         ${sddInputBeanVariable}.set$columnClass ($columnVar);
 #end
-        return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
+        return ${sddRepositoryInterfaceVariable}.execute(${sddInputBeanVariable});
 #else
-        return ${sddDaoInterfaceVariable}.execute();
+        return ${sddRepositoryInterfaceVariable}.execute();
 #end
     }
 #end

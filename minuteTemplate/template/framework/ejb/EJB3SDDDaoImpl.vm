@@ -43,9 +43,9 @@ import $sddDaoInterfaceImport;
  *
  */
 @Stateless
-public class ${className} {
+public class ${className} implements $sddDaoInterfaceClass {
 
-    @Resource(mappedName="$datasource") 
+    @Resource(mappedName="jdbc/${model.name}DS") 
     DataSource datasource;
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))

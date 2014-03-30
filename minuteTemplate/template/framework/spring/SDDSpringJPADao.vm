@@ -1,3 +1,4 @@
+#exposeBackendTechnology()
 #exposeQuerySpecific()
 #exposeSDDSpring()
 #putImportQuerySDDBean()
@@ -39,9 +40,14 @@ import $sddInputBeanImport;
  * <p>Description: SDD DAO Spring JPA implementation </p>
  *
  */
+#if ($isSpringBackend)
 @Repository ("$sddDaoInterfaceVariable")
 @Transactional(propagation = Propagation.REQUIRED) 
-public class ${className} implements $sddDaoInterfaceClass{
+public class ${className} implements $sddDaoInterfaceClass {
+#else
+@javax.ejb.Stateless ##(name="$sddDaoInterfaceVariable")
+public class ${className} { ## CDI apparently does not work with implement $sddDaoInterfaceClass
+#end
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
 	public static final String QUERY_NATIVE = "$fullQuery";
