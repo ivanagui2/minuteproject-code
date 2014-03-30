@@ -50,7 +50,7 @@
         </template>
 
     </template-target>
-
+<!-- 
     <template-target 
         name="DAO Spring JPA set"
         libdir=""
@@ -68,7 +68,7 @@
         </template>
 
     </template-target>
-
+ -->
 	<template-target 
     	name="REST web.xml config"
 		libdir="lib/REST_LIB.vm"
