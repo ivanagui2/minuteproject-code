@@ -186,11 +186,12 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
-		<template name="PomXml.BSLA" templateFileName="PomXml.BSLA.vm" 
+		<template name="PomXml.BELA" templateFileName="PomXml.BSLA.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
-		</template>				
+		</template>		
+		<property name="ejb-maven-artifact-finalName-suffix" value="BelaEjb"></property>		
 	</template-target>		
 	
 </target>	
