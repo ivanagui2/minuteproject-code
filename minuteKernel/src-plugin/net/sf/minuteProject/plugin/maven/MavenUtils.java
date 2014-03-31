@@ -8,14 +8,31 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
-import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Template;
-import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.utils.CommonUtils;
 
 public class MavenUtils {
 
+	public static String getWebArtifactName (Template template, Model model) {
+		return getArtifactName(template, model, "web-maven-template", "web-maven-artifact-finalName-suffix");
+	}
+	
+	public static String getEjbArtifactName (Template template, Model model) {
+		return getArtifactName(template, model, "ejb-maven-template", "ejb-maven-artifact-finalName-suffix");
+	}
+	
+	public static String getArtifactName (Template template, Model model, String mavenTemplate, String mavenArtifactFinalName) {
+		//property from catalog
+		String markerTemplate = template.getPropertyValue(mavenTemplate);
+		if (markerTemplate!=null) {
+			Template marker = CommonUtils.getTemplate(model.getConfiguration(), markerTemplate);
+			return marker.getPropertyValue(mavenArtifactFinalName);
+		}
+		return null;
+	}
+	
 	public static List<MavenModule> getModules (Template template) {
 		// The current implementation imposes to masterpom template as the last generated artifact)
 		List<MavenModule> list = new ArrayList<MavenModule>();
