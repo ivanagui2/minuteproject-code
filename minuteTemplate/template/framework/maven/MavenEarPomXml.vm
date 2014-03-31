@@ -1,8 +1,11 @@
+#exposeMaven()
+#exposeBackendTechnology()
+#exposePom()
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>${rootPackage}.${model.name}</groupId>
-	<artifactId>${model.name}Ear</artifactId>
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
 	<packaging>ear</packaging>
 	<name>${maven.release.name}</name>
 
@@ -22,15 +25,15 @@
 	        <version>1.4</version>
 	        <modules>
 	          <webModule>
-	            <groupId>${rootPackage}.${model.name}</groupId>
+	            <groupId>${groupId}</groupId>
 	            <artifactId>${maven.release.web.name}</artifactId>
-				<bundleFileName>myWarNameInTheEar.war</bundleFileName>
+				<bundleFileName>${maven.bundleFileName.web}.war</bundleFileName>
 	            <contextRoot>/${maven.release.web.name}</contextRoot>
 	          </webModule>
 	          <ejbModule>
-	            <groupId>${rootPackage}.${model.name}</groupId>
+	            <groupId>${groupId}</groupId>
 	            <artifactId>${maven.release.ejb.name}</artifactId>
-				<bundleFileName>myEjbNameInTheEar.jar</bundleFileName>
+				<bundleFileName>${maven.bundleFileName.ejb}.jar</bundleFileName>
 	          </ejbModule>
 	        </modules>
 	        <displayName>Ear Name displayed in the App Server</displayName>
@@ -46,21 +49,21 @@
 	      </configuration>
 	    </plugin>
 	  </plugins>
-	  <finalName>${maven.release.name}</finalName>
+	  <finalName>${maven.finalName}</finalName>
 	</build>
 
 <!-- Define the versions of your ear components here -->
 	<dependencies>
 	  <dependency>
-	    <groupId>${rootPackage}.${model.name}</groupId>
+	    <groupId>${groupId}</groupId>
 	    <artifactId>${maven.release.web.name}</artifactId>
-	    <version>${version}-SNAPSHOT</version>
+	    <version>${versionId}</version>
 	    <type>war</type>
 	  </dependency>
 	  <dependency>
-	    <groupId>${rootPackage}.${model.name}</groupId>
+	    <groupId>${groupId}</groupId>
 	    <artifactId>${maven.release.ejb.name}</artifactId>
-	    <version>${version}-SNAPSHOT</version>
+	    <version>${versionId}</version>
 	    <type>jar</type>
 	  </dependency>
 	</dependencies>
