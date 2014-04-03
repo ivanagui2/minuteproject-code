@@ -7,7 +7,7 @@
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
 	<packaging>ear</packaging>
-	<name>${maven.release.name}</name>
+	<name>${mavenReleaseName}</name>
 
 	<build>
 	  <plugins>
@@ -26,14 +26,14 @@
 	        <modules>
 	          <webModule>
 	            <groupId>${groupId}</groupId>
-	            <artifactId>${maven.release.web.name}</artifactId>
-				<bundleFileName>${maven.bundleFileName.web}.war</bundleFileName>
-	            <contextRoot>/${maven.release.web.name}</contextRoot>
+	            <artifactId>${mavenReleaseWebName}</artifactId>
+				<bundleFileName>${mavenReleaseWebName}.war</bundleFileName>
+	            <contextRoot>/${mavenReleaseWebName}</contextRoot>
 	          </webModule>
 	          <ejbModule>
 	            <groupId>${groupId}</groupId>
-	            <artifactId>${maven.release.ejb.name}</artifactId>
-				<bundleFileName>${maven.bundleFileName.ejb}.jar</bundleFileName>
+	            <artifactId>${mavenReleaseEjbName}</artifactId>
+				<bundleFileName>${mavenReleaseEjbName}.jar</bundleFileName>
 	          </ejbModule>
 	        </modules>
 	        <displayName>Ear Name displayed in the App Server</displayName>
@@ -49,20 +49,20 @@
 	      </configuration>
 	    </plugin>
 	  </plugins>
-	  <finalName>${maven.finalName}</finalName>
+	  <finalName>${mavenFinalName}</finalName>
 	</build>
 
 <!-- Define the versions of your ear components here -->
 	<dependencies>
 	  <dependency>
 	    <groupId>${groupId}</groupId>
-	    <artifactId>${maven.release.web.name}</artifactId>
+	    <artifactId>${mavenReleaseWebName}</artifactId>
 	    <version>${versionId}</version>
 	    <type>war</type>
 	  </dependency>
 	  <dependency>
 	    <groupId>${groupId}</groupId>
-	    <artifactId>${maven.release.ejb.name}</artifactId>
+	    <artifactId>${mavenReleaseEjbName}</artifactId>
 	    <version>${versionId}</version>
 	    <type>jar</type>
 	  </dependency>
