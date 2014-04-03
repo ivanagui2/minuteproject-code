@@ -14,13 +14,22 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.CommonUtils;
 
 public class MavenUtils {
+	
+	public static String getFinalName (Template template, Model model) {
+		return model.getName()+"App";
+	}
+	
+	public static String getArtifactId (Template template, Model model) {
+		String finalNameSuffix = template.getPropertyValue("maven-artifact-finalName-suffix");
+		return  (finalNameSuffix!=null)? model.getName()+finalNameSuffix:model.getName()+"App";
+	}
 
 	public static String getWebArtifactName (Template template, Model model) {
-		return getArtifactName(template, model, "web-maven-template", "web-maven-artifact-finalName-suffix");
+		return getArtifactName(template, model, "web-maven-template", "maven-artifact-finalName-suffix");
 	}
 	
 	public static String getEjbArtifactName (Template template, Model model) {
-		return getArtifactName(template, model, "ejb-maven-template", "ejb-maven-artifact-finalName-suffix");
+		return getArtifactName(template, model, "ejb-maven-template", "maven-artifact-finalName-suffix");
 	}
 	
 	public static String getArtifactName (Template template, Model model, String mavenTemplate, String mavenArtifactFinalName) {
@@ -28,7 +37,7 @@ public class MavenUtils {
 		String markerTemplate = template.getPropertyValue(mavenTemplate);
 		if (markerTemplate!=null) {
 			Template marker = CommonUtils.getTemplate(model.getConfiguration(), markerTemplate);
-			return marker.getPropertyValue(mavenArtifactFinalName);
+			return model.getName()+marker.getPropertyValue(mavenArtifactFinalName);
 		}
 		return null;
 	}
