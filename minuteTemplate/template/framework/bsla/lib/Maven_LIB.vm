@@ -10,10 +10,11 @@
 
 #macro (exposePom)
 #set($groupId="${rootPackage}.${model.name}")
-#set($artifactId=$mavenUtils.getArtifactId($model))
+#set($artifactId=$mavenUtils.getArtifactId($template,$model))
 #set($versionId="${version}-SNAPSHOT")
 #set($mavenFinalName=$mavenUtils.getFinalName($template, $model))
 ## add web, ejb are in properties
-#set($maven.release.web.name=$mavenUtils.getWebArtifactName($template, $model))
-#set($maven.release.ejb.name=$mavenUtils.getEjbArtifactName($template, $model))
+#set($mavenReleaseName="${model.name}App")
+#set($mavenReleaseWebName=$mavenUtils.getWebArtifactName($template, $model))
+#set($mavenReleaseEjbName=$mavenUtils.getEjbArtifactName($template, $model))
 #end
