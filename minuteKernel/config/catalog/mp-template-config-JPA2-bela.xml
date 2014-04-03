@@ -190,8 +190,9 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="Bela"/>
 		</template>		
-		<property name="ejb-maven-artifact-finalName-suffix" value="BelaEjb"></property>		
+				
 	</template-target>		
 	
 </target>	

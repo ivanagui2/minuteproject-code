@@ -95,6 +95,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="Rest"></property>
 		</template>	
 					
 	</template-target>	  	

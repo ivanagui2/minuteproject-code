@@ -108,8 +108,8 @@
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="add-ear-packaging" value="true"></property>
-			<property name="web-maven-template" value="PomXml.BELA"></property>
-			<property name="ejb-maven-template" value="PomXml.REST"></property>
+			<property name="web-maven-template" value="PomXml.REST"></property>
+			<property name="ejb-maven-template" value="PomXml.BELA"></property>
 		</technology>
 
 		<technology name="REST-SpringMVC" model-type="rdbms"
