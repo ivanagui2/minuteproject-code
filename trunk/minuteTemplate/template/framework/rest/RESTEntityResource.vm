@@ -33,7 +33,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ejb.EJB;
 
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import $importDomainObjectUML;
 import $EJBDaoImplImport;
 
@@ -45,16 +48,16 @@ import $EJBDaoImplImport;
  *
  */
 @Path ("$restXmlServerUrl")
-@Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-@Consumes ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+@Produces ({MediaType.APPLICATION_JSON})
+@Consumes ({MediaType.APPLICATION_JSON})
 @RequestScoped 
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
  
-    @Inject 
+    @EJB ##@Inject ##@EJB if within war=> inject; within ejb jar => ejb
     private $EJBDaoImplClass $EJBDaoImplVariable;
 
     public List<$tableClassName> findAll ($tableClassName $tableVariableName) {
-        return ${EJBDaoImplVariable}.findAll($tableVariableName);
+        return ${EJBDaoImplVariable}.find($tableVariableName, EntityMatchType.ANY, OperandType.EQUALS, true);
     }
 
 #exposeEntityUpdatedAreas("FIND_ALL")
@@ -65,7 +68,7 @@ $!updatedAreaSnippet
     @GET
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})	
     public List<$tableClassName> findAll () {
-        return ${EJBDaoImplVariable}.findAll();
+        return ${EJBDaoImplVariable}.find(new ${tableClassName}(), EntityMatchType.ANY, OperandType.EQUALS, true);
     }
 #end
 $!updatedAreaEnd
@@ -80,7 +83,7 @@ $!updatedAreaSnippet
     @Path("{$primaryKeyVariable}")
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
     public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
-        return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
+        return ${EJBDaoImplVariable}.load${tableClassName}($primaryKeyVariable);
     }
 #end
 $!updatedAreaEnd
@@ -98,14 +101,16 @@ $!updatedAreaEnd
     }
 #end
 #if ($hasSemanticReference)
+#*
     public $tableClassName findBySemanticReference ($primaryKeyFullType $primaryKeyVariable) {
         return ${EJBDaoImplVariable}.findById($primaryKeyVariable);
     }
-	
+*#
 #end
 
     public $tableClassName create ($tableClassName $tableVariableName) {
-        return ${EJBDaoImplVariable}.create($tableVariableName);
+        ${EJBDaoImplVariable}.insert($tableVariableName);
+        return $tableVariableName;
     }
 
     @POST
