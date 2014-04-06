@@ -94,7 +94,7 @@
 		</model>
 		 
 		<targets catalog-entry="BSLA-JPA2,BELA-JPA2" 
-	 		outputdir-root="../minuteTest/model/functional"
+	 		outputdir-root="../minuteTest/model/functional2"
 		 	append-catalog-entry-dir-to-outputdir-root="true">
 		 	<property name="enable-test" value="true" />
 		</targets>

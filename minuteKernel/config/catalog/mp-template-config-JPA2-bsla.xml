@@ -148,7 +148,13 @@
 		<!-- ENTITY OBJECTs end -->		
 		
 		<!-- DAO -->
-		
+		<template name="DB.API.ModelGenericDaoJpaImpl" templateFileName="DB.API.ModelGenericDaoJpaImpl.vm" 
+			subdir="" outputsubdir="" technicalPackage="dao.impl"
+			file-extension="java" file-prefix="" file-suffix="GenericDaoJpaImpl" 
+			model-specific="true" 
+			has-updatable-nature="true">
+		</template>
+				
 		<template name="BslaDaoInterfaceUML" templateFileName="DB.API.DaoInterface.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="" file-suffix="Dao" 
