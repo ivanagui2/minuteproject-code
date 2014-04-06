@@ -25,10 +25,14 @@
 #macro (exposeEJBModelObject)
 #exposeEJBTemplate()
 #set ($EJBModelFacadeImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateModelEJBFacadeImpl))
+#set ($ModelGenericDaoJpaImplClass = $commonUtils.getTemplateClassName($model, $template, $templateModelGenericDaoJpaImpl))
+#set ($ModelGenericDaoJpaImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $template, $templateModelGenericDaoJpaImpl))
 #end
 
 #macro (exposeEJBTemplate)
-#set ($templateDomainObjectEJBDaoImpl = "EJB3DaoImpl")
+##set ($templateDomainObjectEJBDaoImpl = "EJB3DaoImpl")
+#set ($templateDomainObjectEJBDaoImpl = "BslaDaoInterfaceUML")
+#set ($templateModelGenericDaoJpaImpl = "DB.API.ModelGenericDaoJpaImpl")
 #set ($templateDomainObjectEJBDaoRemoteInterface = "EJB3DaoRemoteInterface")
 #set ($templateDomainObjectEJBFacadeImpl = "EJB3FacadeImpl")
 #set ($templateDomainObjectEJBFacadeRemoteInterface = "EJB3FacadeRemoteInterface")

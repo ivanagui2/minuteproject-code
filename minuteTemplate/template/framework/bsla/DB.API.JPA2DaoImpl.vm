@@ -1,5 +1,6 @@
 #exposeBackendTechnology()
 #putJPA2TemplateDefinition()
+#exposeEJBModelObject()
 #exposeVariableEntitySpecific()
 #exposeJPA2Specifics()
 #putImportParamsUML()
@@ -61,7 +62,6 @@ import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
-import net.sf.minuteProject.model.dao.jpa.GenericDaoJpaImpl;
 import static net.sf.minuteProject.model.utils.BuilderUtils.*;
 
 import net.sf.minuteProject.architecture.utils.BeanUtils;
@@ -75,6 +75,7 @@ import $importDomainObjectUML;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import $ModelGenericDaoJpaImplImport;
 
 #exposeJPA2EnumImport()
 
@@ -105,10 +106,11 @@ import $importDaoImplExtendedJPAName;
 #if ($isSpringBackend)
 @org.springframework.stereotype.Repository(value="$daoInterfaceVariableNameUML")
 #else
-@javax.ejb.Stateless(name="$daoInterfaceVariableNameUML")
+@javax.ejb.Stateless (name="$daoInterfaceClassNameUML", mappedName="ejb/$daoInterfaceClassNameUML")
 #end
+
 ##public class $className extends JpaDaoSupport implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
-public class $className extends GenericDaoJpaImpl<$tableClassName> implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
+public class $className extends ${ModelGenericDaoJpaImplClass}<$tableClassName> implements $daoInterfaceNameUML {##, GenericService<$tableClassName> {
 
 	public $className () {}
 #*	

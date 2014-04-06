@@ -4,13 +4,15 @@
 #putImportQuerySDDBean()
 #addedAreas()
 #exposeJPASpecifics()
+#exposeJPA2Specifics()
 package $packageName;
 
 $!updatedAreaImport
-
+//$jpa2Implementation
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +20,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+#if($jpa2ImplementationIsHibernate)
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
+#end
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -69,20 +75,32 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 
 #putSddJdbcLookup()
-
+#if($jpa2ImplementationIsEclipseLink)
+    public Connection getConnection() throws SQLException {
+        return entityManager.unwrap(Connection.class);
+    }
+#else
 //if JPA2 implementation is hibernate
-	@SuppressWarnings("deprecation")   
+#*	@SuppressWarnings("deprecation")   
    	public Connection getConnection() throws HibernateException {  
 		Session session = getSession();  
 		Connection connection = session.connection();  
 		return connection;  
    	} 
-	
+*#	
+    public Connection getConnection() throws SQLException, HibernateException {
+        Session session = getSession();
+        SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
+        ConnectionProvider cp = sfi.getConnectionProvider();
+        Connection connection = cp.getConnection();
+        return connection;
+    }
+    	
    	private Session getSession() {  
    		Session session = (Session) entityManager.getDelegate();  
    		return session;  
    	}
-	
+#end	
 $!updatedAreaImplementation
 
 }
