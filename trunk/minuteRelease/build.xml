@@ -221,11 +221,14 @@
 
 	<target name="copy-template-dependencies">
 		<filter token="templateRoot" value="${templateRoot}" />
+		<!--
 		<copy todir="${catalog.dir}" overwrite="true" filtering="true">
 			<fileset dir="${catalog.dev.relpath}">
 				<include name="**/*-catalog.xml" />
 			</fileset>
 		</copy>
+		-->
+		<mkdir dir="${catalog.dir}"/>
 		<copy todir="${catalog.dir}" overwrite="true" filtering="true">
 			<!--	 	<fileset dir="${demo.config.dev.relpath}">
 	 		<include name="mp-template-config*.*"/>
@@ -698,7 +701,7 @@
 
 	</target>
 
-	<target name="clould-sample-primefaces">
+	<target name="cloud-sample-primefaces">
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />		
 	</target>
 	<!-- ===================================================================== -->
