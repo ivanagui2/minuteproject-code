@@ -17,7 +17,7 @@
 				<framework name="JPA" version="2"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
-			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<!-- <property name="add-jpa2-implementation" value="hibernate"></property>-->
 			<property name="add-cache-implementation" value="ehcache"></property>
 		</technology>
 
@@ -82,7 +82,7 @@
 			<!-- depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" -->
 			<property name="add-querydsl" value="2.1.2"></property>
 			<property name="add-automated-business-logic" value="2.2.0"></property>
-			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<!--  <property name="add-jpa2-implementation" value="hibernate"></property>-->
 			<property name="add-cache-implementation" value="ehcache"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="add-backend-implementation" value="ejb"></property>

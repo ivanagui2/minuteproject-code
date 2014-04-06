@@ -14,6 +14,7 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence"
 			application-specific="true" add-model-name="false">
 			<property name="property-presence" value="add-ear-packaging"></property>
+			<property name="maven-artifact-finalName-suffix" value="Ear"></property>
 		</template>
 		
 	</template-target>	

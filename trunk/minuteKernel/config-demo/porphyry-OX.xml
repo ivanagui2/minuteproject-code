@@ -310,7 +310,14 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
                 </nested-statements>
             </statement-model>
 		</model>
+<!-- 
 		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Vaadin,Primefaces-Spring" />
+ -->
+		<targets catalog-entry="REST-JEE" >
+			<property name="target-server" value="glassfish"></property>
+			<property name="environment" value="remote"></property>
+			<property name="add-jpa2-implementation" value="eclipselink"></property>
+		</targets>
 
 	</configuration>
 </generator-config>
