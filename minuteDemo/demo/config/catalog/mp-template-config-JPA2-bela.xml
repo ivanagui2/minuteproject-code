@@ -89,14 +89,13 @@
 		<property name="convertClobToString" value="true" ></property>         
 		
 		<!-- DAO -->
-		
 		<template name="DB.API.ModelGenericDaoJpaImpl" templateFileName="DB.API.ModelGenericDaoJpaImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.impl"
 			file-extension="java" file-prefix="" file-suffix="GenericDaoJpaImpl" 
 			model-specific="true" 
 			has-updatable-nature="true">
 		</template>
-		
+				
 		<template name="BslaDaoInterfaceUML" templateFileName="DB.API.DaoInterface.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.face"
 			file-extension="java" file-prefix="" file-suffix="Dao" 
@@ -193,11 +192,13 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
-		<template name="PomXml.BSLA" templateFileName="PomXml.BSLA.vm" 
+		<template name="PomXml.BELA" templateFileName="PomXml.BSLA.vm" 
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
-		</template>				
+			<property name="maven-artifact-finalName-suffix" value="Bela"/>
+		</template>		
+				
 	</template-target>		
 	
 </target>	

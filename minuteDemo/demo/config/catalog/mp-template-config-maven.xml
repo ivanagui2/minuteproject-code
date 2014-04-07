@@ -6,32 +6,6 @@
 	    templatedir = "template" 
 		tool="velocity"
 		outputdir=""
-		package-root=""
-		belongToPackage="true">
-		<template name="MavenMasterPomXml" templateFileName="MavenMasterPomXml.vm" 
-			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
-			file-extension="xml" file-prefix="pom" file-suffix="" 
-			application-specific="true" add-model-name="false">
-		</template>					
-	</template-target>		
-	
-	<template-target 
-	    templatedir = "template" 
-		tool="velocity"
-		outputdir=""
-		package-root="src/site"
-		belongToPackage="true">		
-		<template name="MavenSiteXml" templateFileName="MavenSiteXml.vm" 
-			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
-			file-extension="xml" file-prefix="site" file-suffix="" 
-			application-specific="true" add-model-name="false">
-		</template>				
-	</template-target>		
-	
-	<template-target 
-	    templatedir = "template" 
-		tool="velocity"
-		outputdir=""
 		package-root="ear"
 		belongToPackage="true">
 		<template name="MavenEarPomXml" templateFileName="MavenEarPomXml.vm" 
@@ -40,8 +14,37 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresence"
 			application-specific="true" add-model-name="false">
 			<property name="property-presence" value="add-ear-packaging"></property>
+			<property name="maven-artifact-finalName-suffix" value="Ear"></property>
 		</template>
 		
+	</template-target>	
+	
+	<template-target 
+	    templatedir = "template" 
+		tool="velocity"
+		outputdir=""
+		package-root=""
+		belongToPackage="true">
+		<template name="MavenMasterPomXml" templateFileName="MavenMasterPomXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>				
+	
 	</template-target>		
+	<template-target 
+	    templatedir = "template" 
+		tool="velocity"
+		outputdir=""
+		package-root="src/site"
+		belongToPackage="true">
+			
+		<template name="MavenSiteXml" templateFileName="MavenSiteXml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="site" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>				
+	</template-target>		
+
 	
 </target>	

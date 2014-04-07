@@ -1,4 +1,4 @@
-<database-catalog>
+<environment-catalog>
   <databases>
 
 	 <database name="HSQLDB" 
@@ -105,5 +105,24 @@
 	 </database>  
 	 	 
   </databases>
+  
+  <servers>
+  	<server 
+  		name="glassfish"
+  		jta-server="true"
+  	/>  	
+  	<server 
+  		name="tomcat"
+  		jta-server="false"
+  	/>
+  	<server 
+  		name="weblogic"
+  		jta-server="true"
+  	/>
+  	<server 
+  		name="jboss"
+  		jta-server="true"
+  	/>
+  </servers>
 
-</database-catalog>
+</environment-catalog>

@@ -2,10 +2,10 @@
 	<!-- the main technology is loaded with all its dependencies (not in a transitive 
 		way) i.e. you have to specify all of them the properties are declared at 
 		the technology level and apply to all templates (not transitive) -->
-    <frameworks>
-    	<framework name="minuteproject" icon-url="sourceforge-url" />
-    	<framework name="JPA2" icon-url="sourceforge-url" />
-    </frameworks>
+    <technologies-info>
+	    <technology-info name="minuteproject" icon-url="" url="" description="powerful generator"/>
+	    <technology-info name="JPA2" icon-url="" url="" description="JEE persistence API"/>
+    </technologies-info>
 	<technologies>
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
@@ -17,7 +17,7 @@
 				<framework name="JPA" version="2"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
-			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<!-- <property name="add-jpa2-implementation" value="hibernate"></property>-->
 			<property name="add-cache-implementation" value="ehcache"></property>
 		</technology>
 
@@ -82,7 +82,7 @@
 			<!-- depends-on-targets="JPA2,ABL-JPA2,BSLA_LIB,CACHE_LIB,MavenMaster" -->
 			<property name="add-querydsl" value="2.1.2"></property>
 			<property name="add-automated-business-logic" value="2.2.0"></property>
-			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<!--  <property name="add-jpa2-implementation" value="hibernate"></property>-->
 			<property name="add-cache-implementation" value="ehcache"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="add-backend-implementation" value="ejb"></property>
@@ -91,7 +91,7 @@
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
 			default-outputdir="REST-JEE"
-			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB"
+			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,server-infrastructure-configuration"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
@@ -102,10 +102,14 @@
 			<property name="add-jpa2-implementation" value="eclipselink"></property>
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-			<!-- <property name="add-rest-implementation-jersey-version" value="1.18"></property> -->
+			<property name="add-rest-implementation-jersey-version"
+				value="2.4.1"></property>
 			<property name="add-backend-implementation" value="ejb"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
+			<property name="add-ear-packaging" value="true"></property>
+			<property name="web-maven-template" value="PomXml.REST"></property>
+			<property name="ejb-maven-template" value="PomXml.BELA"></property>
 		</technology>
 
 		<technology name="REST-SpringMVC" model-type="rdbms"
@@ -162,8 +166,8 @@
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
-<!-- 			<property name="add-rest-implementation-jersey-version"
-				value="1.18"></property> -->
+			<property name="add-rest-implementation-jersey-version"
+				value="2.4.1"></property>
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
@@ -427,22 +431,6 @@
 			</frameworks>
 		</technology>
 
-		<!-- <technology name="Spring Hibernate Standard" model-type="rdbms" template-config-file-name="mp-template-config-hibernate.xml" 
-			template-dir="@templateRoot@/framework/bsla" default-outputdir="springHibernate" 
-			status="released" description="Generates Spring Hibernate backend and DAO 
-			layer."> <frameworks> <framework name="Spring" version="1.2.5+"></framework> 
-			<framework name="Hibernate" version="3.2+"></framework> </frameworks> </technology> 
-			<technology name="Spring iBatis Standard" model-type="rdbms" template-config-file-name="mp-template-config-ibatis.xml" 
-			default-outputdir="springIbatis" template-dir="@templateRoot@/framework/bsla" 
-			status="released" description="Generates Spring iBatis backend and DAO layer."> 
-			<frameworks> <framework name="Spring" version="1.2.5+"></framework> <framework 
-			name="iBatis" version=""></framework> </frameworks> </technology> <technology 
-			name="Spring JPA Standard" model-type="rdbms" template-config-file-name="mp-template-config-jpa.xml" 
-			default-outputdir="springJpa" template-dir="@templateRoot@/framework/bsla" 
-			status="released" description="Generates Spring JPA/Hibernate backend and 
-			DAO layer."> <frameworks> <framework name="Spring" version="1.2.5+"></framework> 
-			<framework name="Hibernate" version="3.2+"></framework> <framework name="JPA" 
-			version="1.0"></framework> </frameworks> </technology> -->
 		<!-- dependent tracks -->
 
 
@@ -506,6 +494,12 @@
 		<technology name="Primefaces-server"
 			template-config-file-name="mp-template-config-server.xml"
 			default-outputdir="JSF-primefaces" template-dir="@templateRoot@/server"
+			is-generable="false">
+		</technology>
+
+		<technology name="server-infrastructure-configuration"
+			template-config-file-name="mp-template-config-server-infrastructure-configuration.xml"
+			default-outputdir="" template-dir="@templateRoot@/server"
 			is-generable="false">
 		</technology>
 
