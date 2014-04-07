@@ -14,14 +14,12 @@ import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
 public abstract class GenericDaoJpaImpl <T extends AbstractDomainObject> extends GenericDaoImpl<T> {
 
-    @PersistenceContext
-    protected EntityManager entityManager;
     /**
     * Saves a T entity 
     * @param T t
     */
    public void save (T t) {
-	   entityManager.persist(t);
+	   getEntityManager().persist(t);
    }
    
    /**
@@ -29,7 +27,7 @@ public abstract class GenericDaoJpaImpl <T extends AbstractDomainObject> extends
     * @param T t
     */
    public void delete (T t) {
-	   entityManager.remove(t);
+	   getEntityManager().remove(t);
    }
 
     /**
@@ -37,7 +35,7 @@ public abstract class GenericDaoJpaImpl <T extends AbstractDomainObject> extends
      * @param T t
      */
     public void insert (T t) {
-    	entityManager.persist(t);
+    	getEntityManager().persist(t);
     }
  
     /**
@@ -54,7 +52,7 @@ public abstract class GenericDaoJpaImpl <T extends AbstractDomainObject> extends
      * @param T t
      */
     public T update(T t) {
-    	entityManager.merge(t);
+    	getEntityManager().merge(t);
     	return t;
     }
 
@@ -65,13 +63,9 @@ public abstract class GenericDaoJpaImpl <T extends AbstractDomainObject> extends
         return hquery.getResultList();
      }
     
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+	public abstract EntityManager getEntityManager() ;
 
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+	public abstract void setEntityManager(EntityManager entityManager) ;
     
     public Long count(T t, EntityMatchType matchType, OperandType operandType, Boolean caseSensitivenessType) {
         Query query = getEntityManager().createQuery(countQuery(t, matchType, operandType, caseSensitivenessType));
