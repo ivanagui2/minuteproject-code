@@ -252,6 +252,11 @@
 				<include name="**/*.vm" />
 			</fileset>
 		</copy>
+		<copy todir="${template.server.dir}" overwrite="true">
+			<fileset dir="${template2.dev.relpath.server}">
+				<include name="**/*.vm" />
+			</fileset>
+		</copy>
 		<copy todir="${template.cloud.dir}" overwrite="true">
 			<fileset dir="${template2.dev.relpath.cloud}">
 				<include name="**/*.vm" />
