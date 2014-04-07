@@ -10,6 +10,7 @@ xs:schemaLocation="./mp-template-config.xsd">
 	<template-target 
     	name="WEBLOGIC"
 		libdir=""
+		templatedir="weblogic"
 		outputdir="src/main/webapp/WEB-INF">
 
 		<!-- ABL beans -->	

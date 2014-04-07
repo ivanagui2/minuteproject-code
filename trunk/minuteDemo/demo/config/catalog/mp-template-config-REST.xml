@@ -22,19 +22,19 @@
       		<property name="implement-interface" value="false"></property>
       		<property name="add-message-format" value="message-format"></property>
 		</template>		
-
+<!--
 		<template name="EJB3DaoImpl" templateFileName="EJB3DaoImpl.vm" 
 			file-extension="java" technicalPackage="dao.impl" file-suffix="DaoEJB" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
       		<property name="implement-interface" value="false"></property>
 		</template>	
-<!-- 		
+ 		
 		<template name="JerseyWadlGenerator" templateFileName="JerseyWadlGenerator.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="WadlGenerator" 
 			model-specific="true">
-		</template>	 -->
-						
+		</template>	
+ -->						
 	</template-target>
 
     <template-target 
@@ -95,6 +95,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="Rest"></property>
 		</template>	
 					
 	</template-target>	  	
