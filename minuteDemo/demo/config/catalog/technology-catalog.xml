@@ -91,7 +91,7 @@
 		<technology name="REST-JEE" target-name="REST-JEE"
 			model-type="rdbms" template-config-file-name="mp-template-config-REST.xml"
 			default-outputdir="REST-JEE"
-			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,server-infrastructure-configuration"
+			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMasterEar,MavenMaster,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,server-infrastructure-configuration"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\REST CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\with maven integration">
@@ -102,8 +102,7 @@
 			<property name="add-jpa2-implementation" value="eclipselink"></property>
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-			<property name="add-rest-implementation-jersey-version"
-				value="2.4.1"></property>
+			<property name="add-rest-implementation-jersey-version" value="2.4.1"></property>
 			<property name="add-backend-implementation" value="ejb"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="use-temporal" value="true"></property>
@@ -535,6 +534,11 @@
 
 		<technology name="MavenMaster" target-name="MavenMaster"
 			template-config-file-name="mp-template-config-maven.xml"
+			template-dir="@templateRoot@/framework/maven" is-generable="false">
+		</technology>
+
+		<technology name="MavenMasterEar" target-name="MavenMasterEar"
+			template-config-file-name="mp-template-config-maven-ear.xml"
 			template-dir="@templateRoot@/framework/maven" is-generable="false">
 		</technology>
 
