@@ -92,11 +92,18 @@
 			<!-- S D D -->
 
 		</model>
-		 
-		<targets catalog-entry="BSLA-JPA2,BELA-JPA2" 
+<!-- 		 
+		<targets catalog-entry="BSLA-JPA2,BELA-JPA2,REST-CXF-JEE" 
 	 		outputdir-root="../minuteTest/model/functional2"
 		 	append-catalog-entry-dir-to-outputdir-root="true">
 		 	<property name="enable-test" value="true" />
+		</targets>
+		
+	 -->
+	 	 
+		<targets catalog-entry="REST-CXF-JEE" 
+	 		outputdir-root="../minuteTest/model/functional2"
+		 	append-catalog-entry-dir-to-outputdir-root="true">
 		</targets>
 		
 	</configuration>

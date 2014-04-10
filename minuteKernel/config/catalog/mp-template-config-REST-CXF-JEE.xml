@@ -63,6 +63,7 @@
 			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="RestCxfJee"></property>
 		</template>	
 					
 	</template-target>	  	
