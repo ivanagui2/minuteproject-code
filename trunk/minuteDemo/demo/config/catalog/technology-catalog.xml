@@ -152,7 +152,7 @@
 		<technology name="REST-CXF-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-CXF-JEE.xml"
 			default-outputdir="REST"
-			depends-on-targets="JPA2,SDD-BEANS,REST_LIB,EJB3_LIB,SPRING-LIB,MavenMaster"
+			depends-on-targets="JPA2,SDD-BEANS,REST_LIB,EJB3_LIB,SPRING-LIB,server-infrastructure-configuration,MavenMasterEar,MavenMaster"
 			template-dir="@templateRoot@/framework/cxf" status="released"
 			description="Generates:\REST CXF CRUD app\JEE DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -172,7 +172,7 @@
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-WS-JEE-ejb.xml"
-			default-outputdir="EJB3" depends-on-targets="WS-JEE-war,SDD-BEANS,BSLA_LIB,JPA2,MavenMaster"
+			default-outputdir="EJB3" depends-on-targets="WS-JEE-war,SDD-BEANS,BSLA_LIB,JPA2,MavenMasterEar,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\WebService CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\maven integration">
