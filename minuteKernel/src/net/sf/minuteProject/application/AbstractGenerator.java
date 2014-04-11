@@ -306,7 +306,9 @@ public abstract class AbstractGenerator implements Generator {
 	 */
 	public void generate (Target target) throws MinuteProjectException {
 		if (target.isGenerable()) {
-	    	for (TemplateTarget templateTarget : target.getTemplateTargets()) {
+//	    	for (TemplateTarget templateTarget : target.getTemplateTargets()) { 
+//			set priority			
+	    	for (TemplateTarget templateTarget : target.getOrderedByPriorityTemplateTargets()) {
 	    		if (templateTarget.isGenerable()) {
 		    		logger.info(">template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
 		    		if (templateTarget!=null && templateTarget.getTemplates()!=null) {

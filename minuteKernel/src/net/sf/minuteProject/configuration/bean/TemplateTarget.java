@@ -11,7 +11,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.io.FileUtils;
 
-public class TemplateTarget extends AbstractConfiguration{
+public class TemplateTarget extends AbstractConfiguration implements Comparable<TemplateTarget>{
 	
 	public static final String MP_GENERATION_OUTPUT = "MP-GENERATION-OUTPUT";
 	private String rootdir, absoluteRootDir, canonicalDir;
@@ -27,7 +27,9 @@ public class TemplateTarget extends AbstractConfiguration{
 	protected String packageRoot;
 	private boolean belongToPackage;
 	private Boolean isGenerable;
+	private Integer priority;
 	
+
 	private static Logger logger = Logger.getLogger(Template.class);
 
 	public String getPluginName (GeneratorBean bean, String builderPlugin, String builderMethod) {
@@ -311,5 +313,17 @@ public class TemplateTarget extends AbstractConfiguration{
 	public void setOutputdirNameBuilderMethod(String outputdirNameBuilderMethod) {
 		this.outputdirNameBuilderMethod = outputdirNameBuilderMethod;
 	}
+	@Override
+	public int compareTo(TemplateTarget o) {
+		return - getPriority() + o.getPriority();
+	}
 	
+	public Integer getPriority() {
+		if (priority==null)
+			priority=0;
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
 }
