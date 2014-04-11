@@ -235,7 +235,7 @@ public class ModelGenerator extends AbstractGenerator {
 			configuration.getTarget().setIsGenerable(target.isGenerable());
 			targetFinal.complement(configuration.getTarget());
 			targetFinal.complementAdditional (target);
-			configuration.setTarget(new Target());
+			configuration.setTarget(new Target()); //TODO remove
 		}	
 		configuration.setTarget(targetFinal);
 		applyTargetConventionAndGenerate(configuration.getTarget());

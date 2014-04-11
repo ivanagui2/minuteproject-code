@@ -79,6 +79,7 @@
 				<alias attr-name="tool" prop-name="tool" />
 				<alias attr-name="name" prop-name="name" />
 				<alias attr-name="belongToPackage" prop-name="belongToPackage" />
+				<alias attr-name="priority" prop-name="priority" />
 			</set-properties-rule> 
 			<pattern value="property">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		

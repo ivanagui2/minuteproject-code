@@ -1,6 +1,8 @@
 package net.sf.minuteProject.configuration.bean;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -97,6 +99,11 @@ public class Target extends AbstractConfiguration{
 	public List<TemplateTarget> getTemplateTargets() {
 		if (templateTargets==null)
 			templateTargets = new ArrayList<TemplateTarget>();
+		return templateTargets;
+	}
+	
+	public List<TemplateTarget> getOrderedByPriorityTemplateTargets() {
+		Collections.sort(getTemplateTargets());
 		return templateTargets;
 	}
 	public void setTemplateTargets(List<TemplateTarget> templateTargets) {
