@@ -22,7 +22,7 @@
   <dependencies>
     <dependency>
         <groupId>${rootPackage}.${model.name}</groupId>
-        <artifactId>${DbApiName}</artifactId>
+        <artifactId>${model.name}Bela</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>	
     <dependency>

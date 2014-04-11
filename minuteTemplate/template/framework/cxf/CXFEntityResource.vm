@@ -1,6 +1,7 @@
 #exposeEJBDomainObjectSpecific()
 #exposeJPASpecifics()
 #exposeEJBProperties()
+DEPREACATED!!
 package $packageName;
 
 $!updatedAreaImport
