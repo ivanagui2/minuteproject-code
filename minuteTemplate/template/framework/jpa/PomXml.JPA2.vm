@@ -1,3 +1,4 @@
+#exposeBackendTechnology()
 #exposeMaven()
 #exposeJPA2Specifics()
 #putJPA2TemplateDefinition()
@@ -166,6 +167,18 @@
           <groupId>net.sf.minuteproject</groupId>
           <artifactId>mp-bsla-jpa</artifactId>
           <version>$bslaJpaVersion</version>
+#if($isEJBBackend)
+          <exclusions>
+              <exclusion>
+                  <groupId>org.springframework</groupId>
+                  <artifactId>spring-context</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.springframework</groupId>
+                  <artifactId>spring-orm</artifactId>
+              </exclusion>
+          </exclusions>
+#end
         </dependency>	
 #end	
     </dependencies>

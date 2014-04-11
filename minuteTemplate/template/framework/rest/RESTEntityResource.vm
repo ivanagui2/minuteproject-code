@@ -53,7 +53,7 @@ import $EJBDaoImplImport;
 @RequestScoped 
 public class ${className} #if($implementInterface)implements $EJBDaoRemoteInterfaceClass#end {
  
-##@Inject ##@EJB if within war=> inject; within ejb jar => ejb
+## earwar-shift ##@Inject ##@EJB if within war=> inject; within ejb jar => ejb
 	@EJB
     private $EJBDaoImplClass $EJBDaoImplVariable;
 

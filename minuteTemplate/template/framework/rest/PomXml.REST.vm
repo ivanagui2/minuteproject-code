@@ -78,7 +78,7 @@
   </properties>
   <build>
     <plugins>
-#if($isGlassfishTargetServer)    
+#if($isGlassfishTargetServer)    ##earwar-shift
 	  <plugin>
 	    <artifactId>maven-war-plugin</artifactId>
 ##	    <version>2.4</version>

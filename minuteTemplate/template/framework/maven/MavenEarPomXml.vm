@@ -8,7 +8,7 @@
 	<artifactId>${artifactId}</artifactId>
 	<version>${versionId}</version>
 	<packaging>ear</packaging>
-	<name>${mavenReleaseName}</name>
+	<name>${mavenReleaseName} Ear</name>
 
 	<build>
 	  <plugins>
