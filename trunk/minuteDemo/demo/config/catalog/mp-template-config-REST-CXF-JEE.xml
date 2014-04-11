@@ -15,7 +15,9 @@
 		<property name="convertClobToString" value="true"/>
 		<property name="use-temporal" value="true"></property>
 
-		<template name="CXFEntityResource" templateFileName="CXFEntityResource.vm" 
+		<!-- <template name="CXFEntityResource" templateFileName="CXFEntityResource.vm"-->
+		 
+		<template name="CXFEntityResource" templateFileName="RESTEntityResource.vm" 
 			file-extension="java" technicalPackage="rest" file-suffix="Resource" 
 			entity-specific="true" has-updatable-nature="true"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
