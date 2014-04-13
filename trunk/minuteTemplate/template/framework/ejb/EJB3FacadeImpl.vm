@@ -65,10 +65,10 @@ public class ${className} implements $EJBFacadeRemoteInterfaceClass {
 	public $tableClassName update ($tableClassName $tableVariableName) {
 		return dao.update (${tableVariableName});
 	}
-	
+#if ($hasOnlyOnePrimaryKey)
 	public void delete ($tableClassName $tableVariableName) {
 		dao.delete (${tableVariableName});
 	}
-	
+#end
 $!updatedAreaImplementation
 }
