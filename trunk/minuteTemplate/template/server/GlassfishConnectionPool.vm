@@ -6,4 +6,7 @@ asadmin create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.o
 $glassfishUtils.escape(":")
 asadmin create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype    javax.sql.ConnectionPoolDataSource --property "User=root:Password=mysql:URL=jdbc\:mysql\://localhost\:3306/porphyry" porphyryCP
 asadmin create-jdbc-resource --connectionpoolid porphyry jdbc/porphyryDS
-asadmin deploy GiA.war
+
+--
+asadmin undeploy xxxApp
+asadmin deploy ear\target\GiA.war
