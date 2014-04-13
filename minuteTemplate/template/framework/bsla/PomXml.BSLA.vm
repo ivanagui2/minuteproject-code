@@ -12,7 +12,11 @@
 #end
   <packaging>jar</packaging>
   <version>${version}-SNAPSHOT</version>
+#if($isEJBBackend)
+  <name>$DbApiName BELA specification and implementation</name>
+#else
   <name>$DbApiName BSLA specification and implementation</name>
+#end  
   <url>http://maven.apache.org</url>
   <dependencies>
 
