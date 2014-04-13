@@ -6,6 +6,14 @@
 #set($implementInterface=$template.getPropertyValue("implement-interface",false))
 #end
 
+
+#macro (exposePatchBeforeMovingToBela)
+#set ($templateDomainObjectEJBDaoImpl = "EJB3DaoImpl")
+#set ($EJBDaoImplClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectEJBDaoImpl))
+#set ($EJBDaoImplVariable = $commonUtils.getJavaNameVariableFirstLetter($EJBDaoImplClass))
+#set ($EJBDaoImplImport = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateDomainObjectEJBDaoImpl))
+#end
+
 #macro (exposeEJBDomainObject)
 #exposeEJBTemplate()
 #set ($EJBDaoImplClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateDomainObjectEJBDaoImpl))
