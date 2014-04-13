@@ -395,7 +395,7 @@
 		<attribute name="maven.basedir"  />
 		<attribute name="project" default="" />
 		<attribute name="artifact" />
-		<attribute name="model.name" />
+		<attribute name="model.name" default="" />
 		<sequential>
 			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="package" resultproperty="maven.build.result" />
 			<macro_deploy-on-tomcat basedir="./${demo.output.dir}/@{maven.basedir}/@{project}/target" artifact="@{artifact}.war"/>
