@@ -160,11 +160,11 @@
 			</frameworks>
 			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
 			<property name="add-querydsl" value="2.1.2"></property>
-			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<property name="add-jpa2-implementation" value="eclipselink"></property>  <!-- TODO pick up on behalf of target-server prefered jpa2 impl -->
 			<property name="add-domain-specific-method" value="true"></property>
-			<property name="add-xmlbinding" value="true"></property>
-			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
-			<property name="use-temporal" value="true"></property>
+ 			<property name="add-xmlbinding" value="true"></property>
+			<property name="add-xml-format" value="lowercase-hyphen"></property> 		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<property name="use-temporal" value="true"></property> 
 			<property name="add-rest-implementation-jersey-version"
 				value="2.4.1"></property>
 			<property name="add-backend-implementation" value="spring"></property>
