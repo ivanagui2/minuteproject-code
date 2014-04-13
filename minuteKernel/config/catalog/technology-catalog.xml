@@ -176,13 +176,21 @@
 
 		<technology name="WS-JEE" target-name="WS-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-WS-JEE-ejb.xml"
-			default-outputdir="EJB3" depends-on-targets="WS-JEE-war,SDD-BEANS,BSLA_LIB,JPA2,MavenMasterEar,MavenMaster"
+			default-outputdir="EJB3" depends-on-targets="WS-JEE-war,SDD-BEANS,BSLA_LIB,JPA2,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/ejb" template-dir="@templateRoot@/framework/rest"
 			status="released"
 			description="Generates:\WebService CRUD app\EJB3\CDI \JPA2 Domain entities with JAXB\maven integration">
 			<property name="add-xmlbinding" value="true"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="add-backend-implementation" value="ejb"></property>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-jpa2-implementation" value="eclipselink"></property>
+			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<!-- 
+			<property name="add-ear-packaging" value="true"></property>
+			<property name="web-maven-template" value="PomXml.REST"></property>
+			<property name="ejb-maven-template" value="PomXml.BELA"></property>		
+			 -->	
 		</technology>
 
 		<technology name="JOOQ" model-type="rdbms"
