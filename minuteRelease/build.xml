@@ -721,6 +721,18 @@
 		<macro_build maven.basedir="BSLA-JPA2/functional" maven.goal="clean package site" />
 		<macro_build maven.basedir="BELA-JPA2/functional" maven.goal="clean package site" />
 	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- REST test -->
+	<!-- ===================================================================== -->
+
+	<target name="rest-testing" depends="rest-test" />
+		
+	<target name="rest-test" depends="release-application" >
+		<macro_generate display="functional testing" config="functional-rest-spring.xml" />
+		<macro_build maven.basedir="BSLA-JPA2/functional" maven.goal="clean package site" />
+		<macro_build maven.basedir="BELA-JPA2/functional" maven.goal="clean package site" />
+	</target>
 
 	<!-- ===================================================================== -->
 	<!-- release -->
