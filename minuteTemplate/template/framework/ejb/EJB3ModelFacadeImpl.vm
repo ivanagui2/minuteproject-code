@@ -77,10 +77,11 @@ public class ${className} {
 	public $tableClassName update${tableClassName} ($tableClassName $tableVariableName) {
 		return ${EJBDaoImplVariable}.update (${tableVariableName});
 	}
-	
+#if ($hasOnlyOnePrimaryKey)
 	public void delete${tableClassName} ($tableClassName $tableVariableName) {
 		${EJBDaoImplVariable}.delete (${tableVariableName});
 	}
+#end
 #end
 #end
 		
