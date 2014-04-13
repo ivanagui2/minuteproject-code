@@ -26,6 +26,7 @@ import javax.inject.Inject;
 #foreach ($table in ${entities})
 #if (!$table.isManyToMany())
 #exposeEJBDomainObjectSpecific()
+#exposePatchBeforeMovingToBela()
 import $importDomainObjectUML;
 import $EJBDaoImplImport;
 import $EJBFacadeRemoteInterfaceImport;
@@ -49,6 +50,7 @@ public class ${className} {
 #foreach ($table in ${entities})
 #if (!$table.isManyToMany())
 #exposeEJBDomainObjectSpecific()
+#exposePatchBeforeMovingToBela()
 	@Inject
 	private $EJBDaoImplClass $EJBDaoImplVariable;
 #end
@@ -56,7 +58,8 @@ public class ${className} {
 
 #foreach ($table in ${entities})
 #if (!$table.isManyToMany())
-#exposeEJBDomainObjectSpecific()	
+#exposeEJBDomainObjectSpecific()
+#exposePatchBeforeMovingToBela()	
 	public List<$tableClassName> findAll$tableClassName ($tableClassName $tableVariableName) {
 		return ${EJBDaoImplVariable}.findAll($tableVariableName);
 	}

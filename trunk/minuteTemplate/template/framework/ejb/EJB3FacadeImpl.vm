@@ -1,4 +1,6 @@
 #exposeEJBDomainObjectSpecific()
+##patch before migrating to bela backend
+#exposePatchBeforeMovingToBela()
 #addedAreas()
 package $packageName;
 
