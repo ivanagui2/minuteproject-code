@@ -395,6 +395,7 @@
 		<attribute name="maven.basedir"  />
 		<attribute name="project" default="" />
 		<attribute name="artifact" />
+		<attribute name="model.name" />
 		<sequential>
 			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="package" resultproperty="maven.build.result" />
 			<macro_deploy-on-tomcat basedir="./${demo.output.dir}/@{maven.basedir}/@{project}/target" artifact="@{artifact}.war"/>
@@ -588,6 +589,7 @@
 	
 	<target name="generation-build-petshop" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-webapps.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/petshop" project="WS" artifact="petshopWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/petshop" project="REST" artifact="petshopRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/petshop" project="REST" artifact="petshopRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/petshop" project="REST-JEE" artifact="petshopRESTApp" />
@@ -600,6 +602,7 @@
 	
 	<target name="generation-build-porphyry" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-porphyry.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/porphyry" project="WS" artifact="porphyryWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/porphyry" project="REST" artifact="porphyryRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/porphyry" project="REST" artifact="porphyryRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/porphyry" project="REST-JEE" artifact="porphyryRESTApp" />
@@ -613,6 +616,7 @@
 	
 	<target name="generation-build-sakila" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-sakila.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/sakila" project="WS" artifact="sakilaWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/sakila" project="REST" artifact="sakilaRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/sakila" project="REST" artifact="sakilaRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/sakila" project="REST-JEE" artifact="sakilaRESTApp" />
@@ -626,6 +630,7 @@
 	
 	<target name="generation-build-lazuly" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-lazuly.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/lazuly" project="WS" artifact="lazulyWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/lazuly" project="REST" artifact="lazulyRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/lazuly" project="REST" artifact="lazulyRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/lazuly" project="REST-JEE" artifact="lazulyRESTApp" />
@@ -639,6 +644,7 @@
 	
 	<target name="generation-build-buslogic_intro">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/busintro" project="WS" artifact="busintroWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/busintro" project="REST" artifact="busintroRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/busintro" project="REST-JEE" artifact="busintroRESTApp" />
@@ -652,6 +658,7 @@
 	
 	<target name="generation-build-liferay">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-liferay.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/liferay" project="WS" artifact="liferayWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/liferay" project="REST" artifact="liferayRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/liferay" project="REST" artifact="liferayRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/liferay" project="REST-JEE" artifact="liferayRESTApp" />
@@ -665,6 +672,7 @@
 	
 	<target name="generation-build-northwind">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-northwind.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/northwind" project="WS" artifact="northwindWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/northwind" project="REST" artifact="northwindRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/northwind" project="REST" artifact="northwindRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/northwind" project="REST-JEE" artifact="northwindRESTApp" />
@@ -678,6 +686,7 @@
 	
 	<target name="generation-build-tranxy">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
