@@ -208,7 +208,8 @@
       <gmavenProviderSelection>2.0</gmavenProviderSelection>   
       <groovyVersion>2.0.0</groovyVersion>
 #end 
-      <hibernateVersion>4.3.4.Final</hibernateVersion>
+      <hibernateVersion>4.3.0.Beta3</hibernateVersion>
+## <hibernateVersion>4.3.4.Final</hibernateVersion>  error     
     </properties>
     <build>
         <!--<finalName>$DbApiName</finalName>-->
