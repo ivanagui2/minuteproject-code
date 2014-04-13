@@ -105,6 +105,6 @@
 				</enrichment>
 			</business-model>
 		</model>
-		<targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava" />
+		<targets catalog-entry="WS-JEE,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava" />
 	</configuration>
 </generator-config>
