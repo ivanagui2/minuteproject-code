@@ -430,10 +430,11 @@ public class EnrichmentUtils {
 		} 
 		return false;		
 	}
-	
+   
 	public static boolean isToGenerateBasedOnNotMany2ManyAndOnPropertyPresenceValue(Template template, GeneratorBean bean) {
 		return isToGenerateBasedOnNotMany2Many (template, bean) && isToGenerateBasedOnPropertyPresenceValue(template, bean);
 	}
+	
 	public static boolean isToGenerateBasedOnNotMany2Many(Template template, GeneratorBean bean) {
 		if (bean instanceof Table) {
 			Table table = (Table) bean;
