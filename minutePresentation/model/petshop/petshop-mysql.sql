@@ -1,7 +1,8 @@
-/*drop database if exists petshop; 
+/**/
+drop database if exists petshop; 
 create database petshop;
 use petshop;
-*/
+
 drop table if exists tag_item;
 drop table if exists tag;
 drop table if exists ziplocation;
