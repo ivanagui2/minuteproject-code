@@ -215,6 +215,18 @@ CREATE  TABLE IF NOT EXISTS `functional`.`GROUP_X_ROLE` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `functional`.`keys`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `functional`.`keys` ;
+
+CREATE  TABLE IF NOT EXISTS `functional`.`keys` (
+  `ID` INT NOT NULL AUTO_INCREMENT ,
+  `TEST` VARCHAR(45) NULL ,
+  PRIMARY KEY (`ID`) )
+ENGINE = InnoDB;
+
 USE `functional` ;
 
 
