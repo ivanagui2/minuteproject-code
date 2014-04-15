@@ -35,8 +35,10 @@ public interface ${className} {
 	public $tableClassName create ($tableClassName $tableVariableName);	
 
 	public $tableClassName update ($tableClassName $tableVariableName);
+#if ($hasOnlyOnePrimaryKey)
 	
 	public void delete ($tableClassName $tableVariableName);
 
+#end
 $!updatedAreaImplementation
 }
