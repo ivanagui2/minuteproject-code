@@ -541,6 +541,10 @@
 	</target>
 
 	<!-- for generation and packaging all MAVEN tracks -->
+	<!-- ===================================================================== -->
+	<!-- generation demo delivery petshop-->
+	<!-- ===================================================================== -->
+		
 	<target name="generation-demo-test">
 
 		<!-- TODO add db start + modify config -->
@@ -554,14 +558,16 @@
 		<macro_generate_and_build display="REST-JEE" config="mp-config-REST.xml" maven.basedir="REST-JEE/petshop"/>
 		<macro_generate_and_build display="REST-SpringMVC" config="mp-config-REST-SpringMVC.xml" maven.basedir="REST-SpringMVC/petshop"/>
 		<macro_generate_and_build display="Vaadin" config="mp-config-vaadin.xml" maven.basedir="Vaadin/petshop"/>
-		<macro_generate_and_build display="WS-JEE" config="mp-config-WS-JEE.xml" maven.basedir="WS-JEE/petshop"/>		
-		
+		<macro_generate_and_build display="WS-JEE" config="mp-config-WS-JEE.xml" maven.basedir="WS-JEE/petshop"/>
 		<macro_generate_and_build display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml" maven.basedir="MavenSpringHibernate/petshop"/>
 		<macro_generate_and_build display="JPA-BSLA" config="mp-config-bsla-jpa-last-features.xml" maven.basedir="MavenSpringJPA/petshop"/>
 
 	</target>
 	
 
+	<!-- ===================================================================== -->
+	<!-- generation demo webapp + rest + ws -->
+	<!-- ===================================================================== -->
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
 	<target name="generation-build-webapps" depends="release-application" >
 		<antcall target="generation-build-groovy"/>
@@ -573,10 +579,8 @@
 		<antcall target="generation-build-porphyry"/>
 		<antcall target="generation-build-sakila"/>
 		<!--
-			<antcall target="generation-build-northwind"/>
-			
+			<antcall target="generation-build-northwind"/>			
 		 -->
-		
 	</target>
 	
 	<target name="generation-build-groovy" >
@@ -586,6 +590,34 @@
 	<target name="generation-build-technical" >
 		<macro_generate_and_build display="technical data patterns" config="mp-config-mp-technical.xml" maven.basedir="JPA2/mptechnical/JPA2" />
 	</target>
+
+	<target name="generation-build-liferay">
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-liferay.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/liferay" project="WS" artifact="liferayWebServiceApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/liferay" project="REST" artifact="liferayRestCxfJeeApp" />-->
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/liferay" project="REST" artifact="liferayRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/liferay" project="REST-JEE" artifact="liferayRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/liferay" project="REST" artifact="liferayRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/liferay" project="vaadin" artifact="liferayVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/liferay" project="JSF-primefaces" artifact="liferayApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
+	<target name="generation-build-buslogic_intro">
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/busintro" project="WS" artifact="busintroWebServiceApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/busintro" project="REST" artifact="busintroRestCxfApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-JEE/busintro" project="REST-JEE" artifact="busintroRESTApp" />-->
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/busintro" project="REST" artifact="busintroRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/busintro" project="vaadin" artifact="busintroVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/busintro" project="JSF-primefaces" artifact="busintroApp" />
+
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>	
 	
 	<target name="generation-build-petshop" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-webapps.xml" />
@@ -642,34 +674,7 @@
 		
 	</target>
 	
-	<target name="generation-build-buslogic_intro">
-		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
-		<macro_build_and_deploy maven.basedir="WS-JEE/busintro" project="WS" artifact="busintroWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/busintro" project="REST" artifact="busintroRestCxfApp" />
-		<macro_build_and_deploy maven.basedir="REST-JEE/busintro" project="REST-JEE" artifact="busintroRESTApp" />
-		<macro_build_and_deploy maven.basedir="REST-SpringMVC/busintro" project="REST" artifact="busintroRestSpringMVCApp" />
-		<macro_build_and_deploy maven.basedir="Vaadin/busintro" project="vaadin" artifact="busintroVaadinApp" />
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/busintro" project="JSF-primefaces" artifact="busintroApp" />
 
-		<!-- primefaces-JEE and OX are deployed manually -->
-		
-	</target>
-	
-	<target name="generation-build-liferay">
-		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-liferay.xml" />
-		<macro_build_and_deploy maven.basedir="WS-JEE/liferay" project="WS" artifact="liferayWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/liferay" project="REST" artifact="liferayRestCxfJeeApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/liferay" project="REST" artifact="liferayRestCxfApp" />
-		<macro_build_and_deploy maven.basedir="REST-JEE/liferay" project="REST-JEE" artifact="liferayRESTApp" />
-		<macro_build_and_deploy maven.basedir="REST-SpringMVC/liferay" project="REST" artifact="liferayRestSpringMVCApp" />
-		<macro_build_and_deploy maven.basedir="Vaadin/liferay" project="vaadin" artifact="liferayVaadinApp" />
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/liferay" project="JSF-primefaces" artifact="liferayApp" />
-
-		<!-- primefaces-JEE and OX are deployed manually -->
-		
-	</target>
-	
 	<target name="generation-build-northwind">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-northwind.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/northwind" project="WS" artifact="northwindWebServiceApp" />
