@@ -507,6 +507,7 @@
 	<target name="generation-demo" depends="release-application">
 
         <macro_generate display="JPA2" config="mp-config-JPA2.xml" />
+        <macro_generate display="JPA2-groovy" config="mp-config-JPA2-groovy.xml" />
 		<macro_generate display="ADF" config="mp-config-ADF.xml" />
 		<macro_generate display="Hibernate" config="mp-config-hibernate.xml" />
 		<macro_generate display="FitNesse" config="mp-config-fitnesse.xml" />
@@ -622,7 +623,7 @@
 	<target name="generation-build-petshop" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-webapps.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/petshop" project="WS" artifact="petshopWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/petshop" project="REST" artifact="petshopRestCxfJeeApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/petshop" project="REST" artifact="petshopRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/petshop" project="REST" artifact="petshopRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/petshop" project="REST-JEE" artifact="petshopRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/petshop" project="REST" artifact="petshopRestSpringMVCApp" />
@@ -637,7 +638,7 @@
 		<macro_build_and_deploy maven.basedir="WS-JEE/porphyry" project="WS" artifact="porphyryWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/porphyry" project="REST" artifact="porphyryRestCxfJeeApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/porphyry" project="REST" artifact="porphyryRestCxfApp" />
-		<macro_build_and_deploy maven.basedir="REST-JEE/porphyry" project="REST-JEE" artifact="porphyryRESTApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-JEE/porphyry" project="REST-JEE" artifact="porphyryRESTApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/porphyry" project="REST" artifact="porphyryRestSpringMVCApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/porphyry" project="vaadin" artifact="porphyryVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/porphyry" project="JSF-primefaces" artifact="porphyryApp" />
@@ -649,7 +650,7 @@
 	<target name="generation-build-sakila" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-sakila.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/sakila" project="WS" artifact="sakilaWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/sakila" project="REST" artifact="sakilaRestCxfJeeApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/sakila" project="REST" artifact="sakilaRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/sakila" project="REST" artifact="sakilaRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/sakila" project="REST-JEE" artifact="sakilaRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/sakila" project="REST" artifact="sakilaRestSpringMVCApp" />
@@ -663,7 +664,7 @@
 	<target name="generation-build-lazuly" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-lazuly.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/lazuly" project="WS" artifact="lazulyWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/lazuly" project="REST" artifact="lazulyRestCxfJeeApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/lazuly" project="REST" artifact="lazulyRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/lazuly" project="REST" artifact="lazulyRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/lazuly" project="REST-JEE" artifact="lazulyRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/lazuly" project="REST" artifact="lazulyRestSpringMVCApp" />
