@@ -93,7 +93,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             </statement-model>
 		</model>
 		<!-- OpenXava is not part since sdd  sdd-dummy-primarykey-convention convention is needed -->
-		<targets catalog-entry="WS-JEE,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin">
+		<!-- <targets catalog-entry="WS-JEE,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin">
+		 -->
+		<targets catalog-entry="WS-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin">
 		</targets>
 	</configuration>
 </generator-config>

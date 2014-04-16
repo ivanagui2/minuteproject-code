@@ -112,7 +112,8 @@
 			<!-- S D D -->
 
 		</model>
-		<targets catalog-entry="WS-JEE,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava" >
+		<!--  <targets catalog-entry="WS-JEE,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava" >-->
+		<targets catalog-entry="WS-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Primefaces-JEE,Vaadin,OpenXava" >
 			<!-- <property name="groovify" value="true" /> -->
 		</targets>
 	</configuration>
