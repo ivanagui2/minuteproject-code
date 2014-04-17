@@ -188,7 +188,7 @@ public abstract class DbTableFixture extends TableFixture {
 		return executeQuery(jdbcQuery);
 	}
 
-	private Object[][] executeQuery(String jdbcQuery) throws SQLException {
+	protected Object[][] executeQuery(String jdbcQuery) throws SQLException {
 		Connection connection = DatabaseUtils.getConnection();
 		if (connection ==null)
 			System.out.println("connection is null");
