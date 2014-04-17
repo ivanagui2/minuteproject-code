@@ -52,7 +52,6 @@ public abstract class DbSddFixture extends DbTableFixture{
 		return table;
 	}
 	protected void check (int row, int column, String actual) {
-		System.out.println(">>>>>>>> row = "+row+ " - column = "+column);
 		if (actual!=null){
 			if (actual.equals(getText(row, column)))
 				right(row, column);
@@ -124,7 +123,6 @@ public abstract class DbSddFixture extends DbTableFixture{
 			System.out.println("row = "+row);
 			int lenrow = resultSet[row].length;
 			if (column < lenrow) {
-//				System.out.println("len = "+len+", row = "+row+", lenrow = "+lenrow+", column = "+column);
 				return resultSet [row] [column];
 			}
 		}
@@ -138,7 +136,6 @@ public abstract class DbSddFixture extends DbTableFixture{
 	protected int getNumberOfRealColumn() {
 		String previousColumnValue = null;
 		int size = 0;
-		System.out.println("getNumberOfColumn = "+getNumberOfColumn());
 		for (int i = 1; i <= getNumberOfColumn(); i++) {
 			String text = getText(SDD_OUTPUT_ROW_INDEX, i);
 			if (text.equals(previousColumnValue)) {
