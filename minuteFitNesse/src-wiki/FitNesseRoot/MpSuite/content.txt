@@ -14,4 +14,5 @@
 !path ${MP_KERNEL}/lib/extra/*
 !path ${MP_FITNESSE}/bin
 !path ${MP_FITNESSE}/classes
+!path ${MP_FITNESSE}/config
 !path ${MP_FITNESSE}/lib/*

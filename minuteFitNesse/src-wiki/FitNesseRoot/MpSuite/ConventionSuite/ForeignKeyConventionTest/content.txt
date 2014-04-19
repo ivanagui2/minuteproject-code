@@ -2,10 +2,10 @@
 
 !2 Load model
 Liferay model load
-!| net.sf.minuteProject.model.NavigateModelSequenceFixture|
-|load| mp-config-LIFERAY-JPA2.xml|
-|check | number of parents for entity| portletitem| 4 |
-|check | column name of table name is foreign key | emailAddress | user_ | false|
-|check | column name of table name is foreign key | contactId| user_ | true|
-|check | column name of table name is foreign key | companyId| user_ | true|
+!| net.sf.minuteProject.model.NavigateModelSequenceFixture              |
+|load |mp-config-LIFERAY-JPA2.xml                                       |
+|check|number of parents for entity            |portletitem |4          |
+|check|column name of table name is foreign key|emailAddress|User_|false|
+|check|column name of table name is foreign key|contactId   |User_|true |
+|check|column name of table name is foreign key|companyId   |User_|true |
 
