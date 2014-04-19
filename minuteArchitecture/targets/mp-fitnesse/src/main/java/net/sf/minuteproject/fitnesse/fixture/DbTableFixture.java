@@ -188,7 +188,7 @@ public abstract class DbTableFixture extends TableFixture {
 		return executeQuery(jdbcQuery);
 	}
 
-	protected Object[][] executeQuery(String jdbcQuery) throws SQLException {
+	protected static Object[][] executeQuery(String jdbcQuery) throws SQLException {
 		Connection connection = DatabaseUtils.getConnection();
 		if (connection ==null)
 			System.out.println("connection is null");
@@ -199,7 +199,7 @@ public abstract class DbTableFixture extends TableFixture {
 		return table;
 	}
 
-	protected Object[][] getResultSet(ResultSet rs) throws SQLException {
+	protected static Object[][] getResultSet(ResultSet rs) throws SQLException {
 		int len = rs.getMetaData().getColumnCount();
 		
 		List<Object[]> list = new ArrayList<Object[]>() ;
