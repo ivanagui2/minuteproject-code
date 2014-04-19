@@ -266,7 +266,7 @@ public class ForeignKeyDDLUtils extends AbstractConfiguration implements Foreign
 	}
 	
 	public Reference getFirstReferenceFormReferencesList() {
-		if (references==null)
+		if (references==null || references.size()==0)
 			return null;
 		return references.get(0);
 	}

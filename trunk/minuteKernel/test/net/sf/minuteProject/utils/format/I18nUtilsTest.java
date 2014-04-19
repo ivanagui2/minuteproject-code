@@ -12,8 +12,12 @@ public class I18nUtilsTest extends TestCase {
 	
 	private static final String ACTIVITY = "activity";
 	private static final String ACTIVITIES = "activities";
+	private static final String FINDER_FILTERS = "FINDER_FILTERS";
+	private static final String FINDER_FILTER_lowercase = "finder_filter";
+
 	private static final String Y = "y";
 	private static final String IES = "ies";	
+	
 	
 	
 	public void testPlurialize () {
@@ -35,5 +39,11 @@ public class I18nUtilsTest extends TestCase {
 	public void testGetI18nFromDBNameStripSufix () {
 		String s = I18nUtils.getI18nFromDBNameStripSufix(nameWithoutUnderscore, true);
 		assertTrue("result = "+s+" while input = "+nameWithoutUnderscore, testtest.equals(s));
+	}
+	
+	
+	public void testGetSingural () {
+		String s = I18nUtils.singularize(FINDER_FILTERS);
+		assertTrue("result = "+s+" while input = "+FINDER_FILTERS, FINDER_FILTER_lowercase.equals(s));
 	}
 }
