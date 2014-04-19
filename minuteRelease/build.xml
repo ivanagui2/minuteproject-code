@@ -693,7 +693,7 @@
 	<target name="generation-build-tranxy">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
@@ -702,6 +702,18 @@
 
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
+	</target>
+	
+	<target name="generation-build-joomla">
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-joomla.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/joomla" project="WS" artifact="joomlaWebServiceApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/joomla" project="REST" artifact="joomlaRestCxfJeeApp" />-->
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/joomla" project="REST" artifact="joomlaRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/joomla" project="REST-JEE" artifact="joomlaRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/joomla" project="REST" artifact="joomlaRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/joomla" project="vaadin" artifact="joomlaVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/joomla" project="JSF-primefaces" artifact="joomlaApp" />
+
 	</target>
 
 	<!-- ===================================================================== -->
