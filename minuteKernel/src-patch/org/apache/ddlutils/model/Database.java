@@ -330,7 +330,7 @@ public class Database implements Serializable, Cloneable
 
                 if (fk.getForeignTable() == null)
                 {
-                    Table targetTable = findTable(fk.getForeignTableName(), true);
+                    Table targetTable = findTable(fk.getForeignTableName(), false);
 
                     if (targetTable == null)
                     {

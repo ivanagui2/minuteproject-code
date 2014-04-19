@@ -61,6 +61,7 @@ public class I18nUtils {
 
 	public static String singularize (String input) {
 		if (input!=null) {
+			input = input.toLowerCase();
 			String lastChar = getLastChar (input, 1);
 			if (lastChar!=null) {				
 				if (lastChar.equals("s")) {
