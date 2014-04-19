@@ -31,7 +31,7 @@ public abstract class DbSddFixture extends DbTableFixture{
 		return "assignments";
 	}
 	
-	protected Object[][] getResultSet(ResultSet rs) throws SQLException {
+	protected static Object[][] getResultSet(ResultSet rs) throws SQLException {
 		int len = rs.getMetaData().getColumnCount();
 		
 		List<Object[]> list = new ArrayList<Object[]>() ;
