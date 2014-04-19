@@ -55,14 +55,6 @@ xsi:schemaLocation="http://minuteproject.sf.net/xsd/mp-config ../config/mp-confi
 				</enrichment>
 			</business-model>
 		</model>
-		<targets>
-			<target refname="JOOQ" name="JOOQ" fileName="mp-template-config-JOOQ.xml"
-				outputdir-root="../../dev/JOOQ/jooq-tech" templatedir-root="../../minuteTemplate/template/framework/jooq">
-				<property name="jooq-version" value="2.0.4"></property>
-			</target>
-			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
-				templatedir-root="../../minuteTemplate/template/framework/bsla">
-			</target>
-		</targets>
+		<targets catalog-entry="JOOQ"/>
 	</configuration>
 </generator-config>
