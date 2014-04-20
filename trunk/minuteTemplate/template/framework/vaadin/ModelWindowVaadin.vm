@@ -44,7 +44,7 @@ public class $className extends Window {
 /*
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
-#exposeVariableEntitySpecific()
+##exposeVariableEntitySpecific()
 #if(!$table.isManyToMany())
 #exposeVaadinDomainObject()
 #exposeVariableEntitySpecific()
@@ -61,8 +61,9 @@ public class $className extends Window {
 
 #foreach ($package in ${businessPackages})
 #foreach ($table in ${package.listOfTables})
+##exposeVariableEntitySpecific()
+#if(!$table.isManyToMany())
 #exposeVariableEntitySpecific()
-#if(!$table.isManyToMany())	
 		h.addComponent(addMenuNavigation ("${tableVariableName}"));
 #end
 #end
