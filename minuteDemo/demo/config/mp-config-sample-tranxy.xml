@@ -54,6 +54,6 @@ xs:noNamespaceSchemaLocation="../config/mp-config.xsd">
                 </enrichment>
             </business-model>
         </model>
-        <targets catalog-entry="WS-JEE,REST-CXF-Spring,REST-JEE,REST-SpringMVC,Vaadin,Primefaces-Spring,OpenXava"/>
+        <targets catalog-entry="WS-JEE,REST-CXF-Spring,REST-JEE,REST-SpringMVC,Primefaces-Spring,OpenXava"/>
     </configuration>
 </generator-config>
