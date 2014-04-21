@@ -21,6 +21,7 @@ public class ForeignKeyConvention extends ModelConvention {
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_TARGET_PRIMARY_KEY_NAME = "autodetect-foreign-key-based-on-target-primary-key-name";
 //	public static final String APPLY_DEFAULT_FK_BY_ENTITY_NAME_AND_SUFFIX = "apply-default-foreign-key-by-entity-name-and-suffix";
 	public static final String AUTODETECT_FOREIGN_KEY_BASED_ON_SIMILARITY_AND_MAP = "autodetect-foreign-key-based-on-similarity-and-map";
+	public static final String AUTODETECT_SELF_REFERENCE_FOREIGN_KEY_BASED_ON_COLUMN_NAME = "autodetect-self-reference-foreign-key-based-on-column-name";
 
 	public String defaultSuffix, columnEnding, columnStarting;
 	private String fieldPatternType;
@@ -78,6 +79,41 @@ public class ForeignKeyConvention extends ModelConvention {
 				}
 			}
 		}
+		if (AUTODETECT_SELF_REFERENCE_FOREIGN_KEY_BASED_ON_COLUMN_NAME.equals(type)) {
+			if (model.getBusinessPackage() != null) {
+				for (Table table : model.getBusinessPackage().getEntities()) {
+					applySelfReferenceForeignKey(table);
+				}		
+			}
+		}
+	}
+
+	private void applySelfReferenceForeignKey(Table table) {
+		for (Column column : table.getAttributes()) {
+			if (matchSelfReferenceCriteria(column)) {
+				ForeignKeyUtils.setForeignKey(table, getSelfReferenceField(column));
+			}
+		}
+	}
+
+	private boolean matchSelfReferenceCriteria(Column column) {
+		boolean match = true;
+		if (columnEnding!=null) 
+			match = net.sf.minuteProject.utils.StringUtils.endsWithIgnoreCase(column.getName(), columnEnding);
+		if (columnStarting!=null) 
+			match = net.sf.minuteProject.utils.StringUtils.startsWithIgnoreCase(column.getName(), columnStarting);
+		return match;
+	}
+
+	private Field getSelfReferenceField(Column column) {
+		Field field = new Field();
+		field.setName(column.getName());
+		Entity entity = new Entity();
+		entity.setName(column.getTable().getName());
+		field.setEntity(entity);
+		field.setLinkToTargetEntity(column.getTable().getName());
+		field.setLinkToTargetField(TableUtils.getPrimaryFirstColumn(column.getTable()).getName());
+		return field;
 	}
 
 	private void applyEntitySimilarity(Table table) {
