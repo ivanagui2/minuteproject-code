@@ -87,8 +87,11 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
     public Column getLocalColumn()
     {
     	// By default the reference is view as absolute
-    	if (localColumn==null)
-    		return new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
+    	if (localColumn==null) {
+    		if (reference!=null) //to validate in tranxy model
+    			return new ColumnDDLUtils (reference.getLocalColumn(), getLocalTable());
+    		return null;
+    	}
     	else
     		// but this behavior can be overwrite especially for children of entities
     		// a reference can be relative to the entity
