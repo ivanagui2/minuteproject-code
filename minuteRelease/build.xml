@@ -699,7 +699,7 @@
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
-		<!--<macro_build_and_deploy maven.basedir="Vaadin/tranxy" project="vaadin" artifact="tranxyVaadinApp" />-->
+		<macro_build_and_deploy maven.basedir="Vaadin/tranxy" project="vaadin" artifact="tranxyVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/tranxy" project="JSF-primefaces" artifact="tranxyApp" />
 
 		<!-- primefaces-JEE and OX are deployed manually -->
