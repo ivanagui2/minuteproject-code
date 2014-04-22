@@ -168,7 +168,7 @@ public class ModelUtils {
 			Column column2 = ColumnUtils.getColumn (table2, columnName);
 			//reference = new Reference(table2, ColumnUtils.getColumn(table2, ref.getLocalColumnName()), tablename, ref.getLocalColumnName());
 			reference = new Reference(table2, column2, tablename, columnName);
-			reference.setLocalColumn(ref.getLocalColumn());
+			reference.setLocalColumn (ref.getLocalColumn());
 			
 			//logger.info("table = "+tablename+", columnName = "+columnName);
 			addReference(list, reference);				
