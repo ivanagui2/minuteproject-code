@@ -88,6 +88,13 @@
 			<artifactId>primefaces</artifactId>
 			<version>$primefacesVersion</version>
 		</dependency>
+		
+        <dependency>
+        	<groupId>org.primefaces.extensions</groupId>
+        	<artifactId>primefaces-extensions</artifactId>
+        	<version>${primefaces.extension.version}</version>
+        </dependency>
+		
 #if($isLiferayPortlet)		
         <dependency>
         	<groupId>com.liferay.faces</groupId>
@@ -257,5 +264,6 @@ $!updatedAreaEnd
 #end
 		<junit.version>4.10</junit.version>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<primefaces.extension.version>1.2.1</primefaces.extension.version>
 	</properties>
 </project>
