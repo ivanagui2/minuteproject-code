@@ -1,5 +1,6 @@
 #exposeVariableEntitySpecific()
 #exposeEnvironmentParams()
+#putJPA2TemplateDefinition()
 package $packageName;
 
 import java.io.*;
@@ -23,15 +24,13 @@ import javax.persistence.*;
 public class ${className} implements Serializable {
 
 #foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
 
     @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end ,#if($column.isRequired())nullable=false#else nullable=true#end)
     private $columnType $columnVar;
 #end
 #foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
+#putColumnParamNaming()
 
 	public $columnType get$columnClass() {
         return $columnVar;
