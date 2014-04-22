@@ -180,6 +180,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	}
 	
 	private String formatAlias(String alias) {
+		alias= StringUtils.upperCase(alias.replace(" ", "_"));
 		alias= StringUtils.upperCase(alias.replace("-", "_"));
 		return StringUtils.upperCase(alias.replace(" ", "_"));
 	}

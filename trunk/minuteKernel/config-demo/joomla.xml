@@ -37,6 +37,14 @@
 					<conventions>
 						<!-- add semantic reference on username -->
 						<!-- add convention on views default pk -->
+						<table-default-primary-key-convention
+							type="apply-default-primary-key-otherwise-first-one"
+							default-primary-key-names="ID" />
+						<view-primary-key-convention
+							type="apply-default-primary-key-otherwise-first-one"
+							default-primary-key-names="ID">
+						</view-primary-key-convention>
+						
 
 						<entity-naming-convention type="apply-strip-table-name-prefix"
 							pattern-to-strip="#__" />
@@ -48,7 +56,7 @@
 							column-ending="_id" /> 
 						<foreign-key-convention type="autodetect-foreign-key-based-on-similarity-and-map" 
 							column-ending="id" /> 
-						<foreign-key-convention type="autodetect-self-reference-foreign-key-based" 
+						<foreign-key-convention type="autodetect-self-reference-foreign-key-based-on-column-name" 
 							column-ending="parent_id" /> 
 							
 						<column-naming-convention type="apply-strip-column-name-suffix"
@@ -69,7 +77,7 @@
 			/> <targets catalog-entry="REST-JEE" > <property name="target-server" value="weblogic"></property> 
 			<property name="WLS_SERVER" value="/Users/xxxx/SOFT/SERVER/WEBLOGIC/wls12120"></property> 
 			</targets> -->
-		<targets catalog-entry="REST-JEE">
+		<targets catalog-entry="JPA2,REST-JEE">
 			<property name="target-server" value="glassfish"></property>
 			<property name="environment" value="remote"></property>
 			<property name="add-jpa2-implementation" value="eclipselink"></property>

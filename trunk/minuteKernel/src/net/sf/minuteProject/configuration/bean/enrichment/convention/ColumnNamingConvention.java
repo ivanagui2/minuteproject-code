@@ -235,13 +235,16 @@ public class ColumnNamingConvention extends ModelConvention {
 		String name = column.getName().toLowerCase();
 		if (APPLY_STRIP_COLUMN_NAME_SUFFIX.equals(type)) {
 			if (name.endsWith(s) && !name.equals(s)) {
-				return StringUtils.removeEnd(name, s);
+				return StringUtils.removeEnd(StringUtils.removeEnd(name, s), "_");
 			}
 		}
-		if (APPLY_STRIP_COLUMN_NAME_PREFIX.equals(type))
-			if (name.endsWith(s) && !name.equals(s)) {
-				return StringUtils.removeEnd(name, s);
+		if (APPLY_STRIP_COLUMN_NAME_PREFIX.equals(type)) {
+			if (name.startsWith(s) && !name.equals(s)) {
+				return StringUtils.removeEnd(StringUtils.removeStart(name, s), "_");
 			}
+		}
+		//remove remaining underscore
+		
 		return column.getAlias();
 	}
 
@@ -254,11 +257,14 @@ public class ColumnNamingConvention extends ModelConvention {
 	}
 	
 	private void apply(Column column) {
-		for (String s : ParserUtils.getList(defaultValue)) {
+		String proposedName= getProposedName(column);
+		setNewColumnValue(column, name, proposedName);
+/*		for (String s : ParserUtils.getList(defaultValue)) {
 			if (apply (column, s)) return;
 		}
+		*/
 	}
-
+/*
 	private boolean apply(Column column, String s) {
 		if (APPLY_STRIP_COLUMN_NAME_SUFFIX.equals(type))
 			return applyStripSuffix (column, s);
@@ -288,6 +294,7 @@ public class ColumnNamingConvention extends ModelConvention {
 		}
 		return false;
 	}
+	*/
 
 	private void setNewColumnValue (Column column, String name, String newName) {
 		column.setAlias(newName);
