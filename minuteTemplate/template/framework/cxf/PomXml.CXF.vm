@@ -24,7 +24,11 @@
   <dependencies>
     <dependency>
         <groupId>${rootPackage}.${model.name}</groupId>
-        <artifactId>${model.name}Bela</artifactId>
+#if($isEJBBackend)
+  		<artifactId>${model.name}Bela</artifactId>
+#else
+  		<artifactId>${model.name}Bsla</artifactId>
+#end     
         <version>${version}-SNAPSHOT</version>
     </dependency>	
     <dependency>
