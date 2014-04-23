@@ -126,9 +126,18 @@ $!updatedAreaEnd
     @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	@ResponseBody
     public String delete (@PathVariable ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
-        $tableClassName $tableVariableName = new $tableClassName ();
+#*        $tableClassName $tableVariableName = new $tableClassName ();
         ${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
         ${BslaDaoInterfaceVariable}.delete$tableClassName($tableVariableName);
+*#
+        $tableClassName _$tableVariableName = new $tableClassName ();
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+        _${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
+#else
+        _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+#end
+        ${BslaDaoInterfaceVariable}.delete$tableClassName(_$tableVariableName);
+    }
 		return "OK";
     }
 	
