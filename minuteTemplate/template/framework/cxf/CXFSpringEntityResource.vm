@@ -99,7 +99,7 @@ $!updatedAreaEnd
     @DELETE
     @Path("{$primaryKeyVariable}")
     public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
-        _$tableClassName $tableVariableName = new $tableClassName ();
+        $tableClassName _$tableVariableName = new $tableClassName ();
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
         _${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
 #else
