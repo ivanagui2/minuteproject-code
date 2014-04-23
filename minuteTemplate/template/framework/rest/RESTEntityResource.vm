@@ -92,13 +92,13 @@ $!updatedAreaEnd
     @DELETE
     @Path("{$primaryKeyVariable}")
     public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
-        $tableClassName $tableVariableName = new $tableClassName ();
+        $tableClassName _$tableVariableName = new $tableClassName ();
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-        ${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
+        _${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
 #else
-        ${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+        _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
 #end
-        ${EJBDaoImplVariable}.delete($tableVariableName);
+        ${EJBDaoImplVariable}.delete(_$tableVariableName);
     }
 #end
 #if ($hasSemanticReference)
