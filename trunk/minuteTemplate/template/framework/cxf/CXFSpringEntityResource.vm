@@ -85,11 +85,13 @@ $!updatedAreaSnippet
     @Path("{$primaryKeyVariable}")
     @Produces ({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})		
     public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
-        $tableClassName _$tableVariableName = new $tableClassName ();
+#*        $tableClassName _$tableVariableName = new $tableClassName ();
 		_${tableVariableName}.set${primaryKeyJavaNameClass}($primaryKeyVariable);
 		_$tableVariableName = ${BslaDaoInterfaceVariable}.getFirst$tableClassName(_$tableVariableName);
 		if (_$tableVariableName!=null) return _${tableVariableName}.flat();
 		return new $tableClassName ();
+*#
+		return ${BslaDaoInterfaceVariable}.load${tableClassName}($primaryKeyVariable);
     }
 #end
 $!updatedAreaEnd
@@ -98,7 +100,11 @@ $!updatedAreaEnd
     @Path("{$primaryKeyVariable}")
     public void delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
         $tableClassName $tableVariableName = new $tableClassName ();
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+        ${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
+#else
         ${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+#end
         ${BslaDaoInterfaceVariable}.delete$tableClassName($tableVariableName);
     }
 #end
