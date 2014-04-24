@@ -102,7 +102,7 @@
 	 -->
 	 	 
 		<targets catalog-entry="REST-CXF-JEE" 
-	 		outputdir-root="../minuteTest/model/functional2"
+
 		 	append-catalog-entry-dir-to-outputdir-root="true">
 		</targets>
 		
