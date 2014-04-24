@@ -15,12 +15,14 @@ import net.sf.minuteProject.utils.CommonUtils;
 
 public class MavenUtils {
 	
+	public static final String artifactFinalName = "maven-artifact-finalName-suffix";
 	public static String getFinalName (Template template, Model model) {
 		return model.getName()+"App";
 	}
 	
 	public static String getArtifactId (Template template, Model model) {
-		String finalNameSuffix = template.getPropertyValue("maven-artifact-finalName-suffix");
+		
+		String finalNameSuffix = template.getPropertyValue(artifactFinalName);
 		return  (finalNameSuffix!=null)? model.getName()+finalNameSuffix:model.getName()+"App";
 	}
 
