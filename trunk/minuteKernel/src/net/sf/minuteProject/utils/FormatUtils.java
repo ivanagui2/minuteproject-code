@@ -420,4 +420,11 @@ public class FormatUtils {
 		return "\""+input+"\"";
 	}
 
+	public static String stripSpecialCharacterForJavaCompliance(String input) {
+		String result = null;
+		if (input!=null) {
+			result = StringUtils.replace(input, "#", "_");
+		}
+		return result;
+	}
 }

@@ -2,6 +2,7 @@ package net.sf.minuteProject.plugin.jsf;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.plugin.presentation.PresentationUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import static net.sf.minuteProject.plugin.presentation.PresentationUtils.*;
 
 public class PrimefacesUtils extends PresentationUtils{
@@ -16,5 +17,9 @@ public class PrimefacesUtils extends PresentationUtils{
 		if (isTextArea(column))
 			return MAX_ROWS_DISPLAY_SIZE_TEXTAREA;
 		return PresentationUtils.getDisplayRows(column);
+	}
+	
+	public static String getAccessUrl(String name) {
+		return FormatUtils.stripSpecialCharacterForJavaCompliance(name+"_ACCESS_URL");
 	}
 }
