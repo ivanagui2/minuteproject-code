@@ -148,8 +148,8 @@ public class ${className} {
 #end
         item${domainClassName}.setUrl("/${sddJSFLocation}");
         sdd.addElement(item${domainClassName}); 
-		
-		sddTab.getChildren().add(getPanel(getTuple (${table.name}_ACCESS_URL)));
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+		sddTab.getChildren().add(getPanel(getTuple (${accessUrl})));
       
 #end
         accordion.getChildren().add(sddTab) ;
