@@ -476,9 +476,9 @@
 #foreach ($table in ${groups})
 #exposeJSFEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        ${subMenuVar}.addElement(getItem("$tableLabel", ${table.name}_ACCESS_URL)); 
-##		${tabVar}.getChildren().add(getLink("$tableLabel", ${table.name}_ACCESS_URL));
-		${tabVar}.getChildren().add(getPanel(getTuple (${table.name}_ACCESS_URL)));
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
+		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
 		
 #end
 #end
@@ -493,7 +493,8 @@
 #foreach ($groups in $displayableEntityGroups)	
 #foreach ($table in ${groups})
 #exposeJSFEntitySpecific()
-     public static final String ${table.name}_ACCESS_URL = "/${entityListLazyJSFLocation}"; 		
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+     public static final String ${accessUrl} = "/${entityListLazyJSFLocation}"; 		
 #end
 #end
 #set($index=$index+1)
@@ -513,7 +514,8 @@
 #else
 #set($sddJSFLocation=$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateChartJSF))
 #end
-     public static final String ${table.name}_ACCESS_URL = "/${sddJSFLocation}"; 
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+     public static final String ${accessUrl} = "/${sddJSFLocation}"; 
 #end
 #end
 #end
@@ -523,7 +525,8 @@
 #foreach ($groups in $displayableEntityGroups)	
 #foreach ($table in ${groups})
 #exposeJSFEntitySpecific()
-        if (url.endsWith(${table.name}_ACCESS_URL))
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+        if (url.endsWith(${accessUrl}))
             accordion.setActiveIndex(${package.name}_INDEX);		
 #end
 #end
@@ -535,7 +538,8 @@
 #foreach ($table in ${groups})
 #exposeJSFEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        map.put (${table.name}_ACCESS_URL, new MenuTuple(${table.name}_ACCESS_URL, ${package.name}_INDEX, "${table.name}","$tableLabel")); 		
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+        map.put (${accessUrl}, new MenuTuple(${accessUrl}, ${package.name}_INDEX, "${table.name}","$tableLabel")); 		
 #end
 #end
 #end
@@ -545,7 +549,8 @@
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-        map.put (${table.name}_ACCESS_URL, new MenuTuple(${table.name}_ACCESS_URL, SDD_INDEX_, "${table.name}","$tableLabel"));
+#set($accessUrl=$primefacesUtils.getAccessUrl($table.name))
+        map.put (${accessUrl}, new MenuTuple(${accessUrl}, SDD_INDEX_, "${table.name}","$tableLabel"));
 #end
 #end
 #end
