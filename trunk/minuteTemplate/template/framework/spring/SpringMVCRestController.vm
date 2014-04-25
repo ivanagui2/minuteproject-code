@@ -132,11 +132,11 @@ $!updatedAreaEnd
         ${BslaDaoInterfaceVariable}.delete$tableClassName($tableVariableName);
 *#
         $tableClassName _$tableVariableName = new $tableClassName ();
-#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
-        _${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
-#else
+##if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+##        _${tableVariableName}.set${primaryKeyJavaNameClass}_($primaryKeyVariable);
+##else
         _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
-#end
+##end
         ${BslaDaoInterfaceVariable}.delete$tableClassName(_$tableVariableName);
 		return "OK";
     }
