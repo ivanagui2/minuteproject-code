@@ -122,6 +122,7 @@ $!updatedAreaEnd
         return save(_$tableVariableName);
     }
 
+#if ($hasOnlyOnePrimaryKey)
     @RequestMapping(value = "/{$primaryKeyVariable}", method = RequestMethod.DELETE)
     @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	@ResponseBody
@@ -139,7 +140,8 @@ $!updatedAreaEnd
         ${BslaDaoInterfaceVariable}.delete$tableClassName(_$tableVariableName);
 		return "OK";
     }
-	
+
+#end
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseBody
 	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
