@@ -13,6 +13,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.mapping.node.Variable;
+import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 public class EnrichmentUtils {
@@ -219,6 +220,7 @@ public class EnrichmentUtils {
 				if (!isEqual(origin, ref)) {
 //					if (origin.isMasterRelationship()) 
 //						ref.setAggregateRelationship();
+					ref.setAlias(ReferenceUtils.getDefaultAliasForManyToMany(many2many, ref));
 					return ref;
 				}
 			}
