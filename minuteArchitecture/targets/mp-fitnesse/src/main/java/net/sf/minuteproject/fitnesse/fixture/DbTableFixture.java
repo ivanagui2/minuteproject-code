@@ -180,14 +180,14 @@ public abstract class DbTableFixture extends TableFixture {
 	 Map<String, String>  columnOrderValue) throws SQLException {
 		// call factory
 		String query = QueryUtils.buildQuery(getTable(), columnIndex, columnExpressionValue, columnValue,  columnOrderValue);
-		return executeQuery(query);
+		return QueryUtils.executeQuery(query);
 	}
 	
 	protected Object[][] executeQuery(String jdbcQuery,	Map<Integer, Object> inputIndex) throws SQLException {
 		// call factory
-		return executeQuery(jdbcQuery);
+		return QueryUtils.executeQuery(jdbcQuery);
 	}
-
+/*
 	protected static Object[][] executeQuery(String jdbcQuery) throws SQLException {
 		Connection connection = DatabaseUtils.getConnection();
 		if (connection ==null)
@@ -219,6 +219,7 @@ public abstract class DbTableFixture extends TableFixture {
 		}
 		return table;
 	}
+	*/
 	/*
 	protected Object[][] getResultSet(ResultSet rs) throws SQLException {
 		int len = rs.getMetaData().getColumnCount();

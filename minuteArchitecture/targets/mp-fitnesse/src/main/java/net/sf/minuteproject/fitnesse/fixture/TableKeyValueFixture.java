@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.minuteproject.utils.query.QueryUtils;
+
 public class TableKeyValueFixture extends DbSddFixture{
 
 	@Override
@@ -25,7 +27,7 @@ public class TableKeyValueFixture extends DbSddFixture{
         // select key value column
         Map<String, String> map = new HashMap<String, String>();
         String query = "select "+ keyColumn + " , "+ valueColumn +" from "+tableName;
-        Object[][] table = executeQuery(query);
+        Object[][] table = QueryUtils.executeQuery(query);
         for (int i = 0; i < table.length; i++) {
             Object [] row = table[i];
             map.put(row[0].toString(), row[1].toString());

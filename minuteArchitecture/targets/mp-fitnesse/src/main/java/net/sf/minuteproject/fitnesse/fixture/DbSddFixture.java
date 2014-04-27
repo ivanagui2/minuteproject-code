@@ -164,6 +164,7 @@ public abstract class DbSddFixture extends DbTableFixture{
 			outputMap.put(entry.getValue(), text);
 		}
 	}
+	
 	public Map<Integer, String> getInputColumnIndex() {
 		if (columnIndex==null) {
 			columnIndex = new HashMap<Integer, String>();
@@ -171,6 +172,7 @@ public abstract class DbSddFixture extends DbTableFixture{
 		}
 		return columnIndex;
 	}
+	
 	private void initInputColumnIndex() {
 		int size = getNumberOfRealColumn();
 		for (int i = 1; i <= size; i++) {

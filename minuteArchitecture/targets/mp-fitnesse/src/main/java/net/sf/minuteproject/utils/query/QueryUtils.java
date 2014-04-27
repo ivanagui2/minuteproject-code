@@ -1,9 +1,16 @@
 package net.sf.minuteproject.utils.query;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
+import net.sf.minuteproject.utils.database.DatabaseUtils;
 
 public class QueryUtils {
 
@@ -277,4 +284,41 @@ public class QueryUtils {
 //			Map<Integer, Object> inputIndex) {
 //		return null;
 //	}
+
+	public static int getIntFromQueryQuery(String jdbcQuery) throws SQLException {
+		Object[][] array = executeQuery(jdbcQuery);
+		return Integer.valueOf(array[0][0].toString());
+	}
+	
+	public static Object[][] executeQuery(String jdbcQuery) throws SQLException {
+		Connection connection = DatabaseUtils.getConnection();
+		if (connection ==null)
+			System.out.println("connection is null");
+		Statement ps = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE ,ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = ps.executeQuery(jdbcQuery);
+		Object[][] table = getResultSet(rs);
+		connection.close();
+		return table;
+	}
+
+	public static Object[][] getResultSet(ResultSet rs) throws SQLException {
+		int len = rs.getMetaData().getColumnCount();
+		
+		List<Object[]> list = new ArrayList<Object[]>() ;
+		while (rs.next())  {
+			Object [] row = new Object[len];
+			for (int j = 0; j < len; j++) {
+				Object o = rs.getObject(j+1);
+				if (o==null)
+					o = new String (">null value returned<");
+				row[j]=o;
+			}
+			list.add(row);
+		}
+		Object [][] table =  new Object[list.size()][];
+		for (int i = 0; i< list.size(); i++) {
+			table[i]=list.get(i);
+		}
+		return table;
+	}
 }
