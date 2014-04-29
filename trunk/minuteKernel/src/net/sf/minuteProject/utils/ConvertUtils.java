@@ -458,6 +458,7 @@ public class ConvertUtils {
 	
 	public static boolean isDateType (String dBType) {
 		return (FieldType.DATE.toString().equals(dBType) ||
+				FieldType.DATETIME.toString().equals(dBType) ||
 				FieldType.TIMESTAMP.toString().equals(dBType) ||
 				FieldType.TIME.toString().equals(dBType))?true:false;
 	}	
