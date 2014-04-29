@@ -11,7 +11,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="$primefacesNamespace">
+#setJsfPrimefacesNamespace()
+>
  <h:form id="form${tableClassName}"> 
      <p:growl id="growl" showDetail="true"/>
      <h:panelGroup id="dataPanel">  
@@ -22,7 +23,7 @@
             lazy="true"
 			resizableColumns="true"
 			selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single"
-            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
             rowsPerPageTemplate="10,20,50"
 			emptyMessage="No ${tableClassName} found with given criteria"> 
             <p:ajax partialSubmit="true" event="rowSelect"
@@ -30,6 +31,7 @@
                     update=":form2:panel #if ($hasDisplayableChildren):form2:childrenTab#end"/> 
             <f:facet name="header">  
                 List of #{i18n.${tableVariableName}s}  
+#setJsfPrimefacesTableExport("${domainVariableName}Table")
             </f:facet>
             <ui:include src="/$entityListRowJSFLocation">
                <ui:param name="isSemanticReference" value="false" />
@@ -56,11 +58,10 @@
                 <h:outputText value="#{i18n.${tableVariableName}} details " />
             	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
             	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
-##            	<p:commandButton value="Delete" icon="ui-icon-trash" onclick="confirmation.show()"/>  
             	<p:commandButton value="Delete" icon="ui-icon-trash" >
-##            	<p:commandButton value="Delete" icon="ui-icon-trash" process="@this" actionListener="#{${entityControllerJSFVariable}.deleteListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end">
-                    <p:confirm header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
+                <p:confirm header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
                 </p:commandButton>
+#setJsfPrimefacesTableExport("${domainVariableName}Detail")
             </f:facet>
             <ui:include src="/$entityEditJSFLocation">
                <ui:param name="affectFormId" value=":form2" />

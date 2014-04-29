@@ -560,3 +560,26 @@
 #set($applicationName=$template.getPropertyValue("application-name","${model.name}App"))
 #set($hasCasAuthentication=$template.getPropertyValue("has-cas-authentication",false))
 #end
+
+#macro (setJsfPrimefacesNamespace)
+	xmlns:p="$primefacesNamespace"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+#end
+
+#macro (setJsfPrimefacesTableExport $target)
+       <p:commandLink id="pdf" ajax="false">
+         <p:graphicImage value="/resources/images/pdf.png"/>
+           <pe:exporter type="pdf" target="$target" fileName="$target" datasetPadding="5"/>
+        </p:commandLink>
+        <p:spacer width="30"/>
+        <p:commandLink id="xls" ajax="false">
+           <p:graphicImage value="/resources/images/excel.png"/>
+            <pe:exporter type="xlsx" target="$target" fileName="$target" datasetPadding="5"/>
+        </p:commandLink>
+#end
+
+#macro (setJsfPrimefacesTablePanelExport $target)
+    <p:panel header="Export data PDF and Excel ">
+#setJsfPrimefacesTableExport($target)
+    </p:panel>
+#end
