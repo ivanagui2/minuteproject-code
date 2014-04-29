@@ -6,7 +6,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="$primefacesNamespace">
+	xmlns:p="$primefacesNamespace"
+	xmlns:pe="http://primefaces.org/ui/extension" 
+	>
   <ui:composition template="$modelDecoratorJSFImport">
 	<ui:define name="title">#{i18n.createTitle} ${tableClassName}</ui:define>
 	<ui:define name="heading">#{i18n.createHeading}</ui:define>
