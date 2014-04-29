@@ -161,7 +161,6 @@ public class EnrichmentUtils {
 		Reference[] reference = table.getChildren();
 		for (int i = 0; i < reference.length; i++) {
 			Table child = reference[i].getForeignTable();
-//			if (hasTag(child, tag))
 			if (filterMany2Many) {
 				if (child.isManyToMany())
 					list.add(child);
@@ -184,7 +183,6 @@ public class EnrichmentUtils {
 
 	public static Reference getTargetReferenceEntityByMany2ManyForTag (Reference origin, String tag) {
 		Table m2m = origin.getForeignTable();
-//		System.out.println("m2m = "+m2m.getName());
 		return getTargetReferenceEntityByMany2ManyForTag(origin, m2m, tag);
 	}
 	
@@ -198,15 +196,8 @@ public class EnrichmentUtils {
 			Reference[] m2mReference = getLinkedReferenceByForeignKeyForTag(many2many, tag);
 			for (int i = 0; i < m2mReference.length; i++) {
 				Reference ref = m2mReference[i];
-//				System.out.println("origin = "+origin.getLocalColumnName()+"-"+origin.getLocalTableName()+"-"+origin.getForeignColumnName()+"-"+origin.getForeignTableName());
-//				System.out.println("ref = "+ref.getLocalColumnName()+"-"+ref.getLocalTableName()+"-"+ref.getForeignColumnName()+"-"+ref.getForeignTableName());
 				if (!isEqual(origin, ref))
 					return ref;
-//				if (!ref.getLocalColumnName().equals(origin.getForeignColumnName()) ||
-//					!ref.getLocalTableName().equals(origin.getForeignTableName()) ||
-//					!ref.getForeignColumnName().equals(origin.getLocalColumnName()) ||
-//					!ref.getForeignColumnName().equals(origin.getLocalColumnName()) )
-//				   return ref;
 			}
 		}
 		return null;
@@ -218,8 +209,6 @@ public class EnrichmentUtils {
 			for (int i = 0; i < m2mReference.length; i++) {
 				Reference ref = m2mReference[i];
 				if (!isEqual(origin, ref)) {
-//					if (origin.isMasterRelationship()) 
-//						ref.setAggregateRelationship();
 					ref.setAlias(ReferenceUtils.getDefaultAliasForManyToMany(many2many, ref));
 					return ref;
 				}
