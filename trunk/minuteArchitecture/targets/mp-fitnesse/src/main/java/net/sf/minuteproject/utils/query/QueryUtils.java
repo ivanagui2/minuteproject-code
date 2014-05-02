@@ -286,8 +286,15 @@ public class QueryUtils {
 //	}
 
 	public static int getIntFromQueryQuery(String jdbcQuery) throws SQLException {
-		Object[][] array = executeQuery(jdbcQuery);
-		return Integer.valueOf(array[0][0].toString());
+		return Integer.valueOf(executeQuery(jdbcQuery)[0][0].toString());
+	}
+	
+	public static String getStringFromQueryQuery(String jdbcQuery) throws SQLException {
+		return executeQuery(jdbcQuery)[0][0].toString();
+	}
+	
+	public static void getVoidFromQueryQuery(String jdbcQuery) throws SQLException {
+		executeQuery(jdbcQuery);
 	}
 	
 	public static Object[][] executeQuery(String jdbcQuery) throws SQLException {
