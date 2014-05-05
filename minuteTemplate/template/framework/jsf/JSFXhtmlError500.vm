@@ -15,6 +15,8 @@
     		<h:outputText value="Menu" />
     	</ui:define>
 		<ui:define name="body">
+##to improve exception are not reported!!
+## check http://stackoverflow.com/questions/460596/jsf-generic-exception-handling
 			<p>Unfortunately, there was an error processing you request</p>
 			<p>The error message is: #{requestScope['javax.servlet.error.message']}</p>
     	</ui:define>
