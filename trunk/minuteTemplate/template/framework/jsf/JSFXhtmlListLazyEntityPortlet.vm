@@ -30,15 +30,16 @@
                     listener="#{${entityControllerJSFVariable}.onRowSelect}"
                     update=":form2:panel #if ($hasDisplayableChildren):form2:childrenTab#end"/> 
             <f:facet name="header">  
-                List of #{i18n.${tableVariableName}s}  
-#setJsfPrimefacesTableExport("${domainVariableName}Table")
+#set ($tableVariableNames=$i18nUtils.plurialize($tableVariableName))
+                List of ${tableVariableNames}  
             </f:facet>
             <ui:include src="/$entityListRowJSFLocation">
                <ui:param name="isSemanticReference" value="false" />
              </ui:include>
         </p:dataTable>
     </h:panelGroup>
-   </h:form>        
+#setJsfPrimefacesTablePanelExport("${domainVariableName}Table")        
+   </h:form>
 #set($update=":form${domainClassName}:${domainVariableName}Table,:form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end,:form${domainClassName}:growl")
 
 	<p:confirmDialog id="confirmDialog" showEffect="fade" hideEffect="fade" global="true" >
