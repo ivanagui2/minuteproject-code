@@ -99,19 +99,19 @@
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
-            <version>4.2.1</version>
+            <version>${itext.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.10-FINAL</version>
+            <version>${poi.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.10-FINAL</version>
+            <version>${poi.version}</version>
         </dependency>
 <!-- pe with dependencies end -->		
 		
@@ -285,5 +285,7 @@ $!updatedAreaEnd
 		<junit.version>4.10</junit.version>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<primefaces.extension.version>1.2.1</primefaces.extension.version>
+		<poi.version>3.10-FINAL</poi.version>
+		<itext.version>4.2.1</itext.version>
 	</properties>
 </project>

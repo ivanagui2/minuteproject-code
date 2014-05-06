@@ -61,7 +61,7 @@
             	<p:commandButton value="Delete" icon="ui-icon-trash" >
                 <p:confirm header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
                 </p:commandButton>
-#setJsfPrimefacesTableExport("${domainVariableName}Detail")
+##setJsfPrimefacesTableExport("${domainVariableName}Detail")
             </f:facet>
             <ui:include src="/$entityEditJSFLocation">
                <ui:param name="affectFormId" value=":form2" />

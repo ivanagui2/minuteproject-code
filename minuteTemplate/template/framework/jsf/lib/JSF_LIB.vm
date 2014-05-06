@@ -567,15 +567,16 @@
 #end
 
 #macro (setJsfPrimefacesTableExport $target)
-       <p:commandLink id="pdf" ajax="false">
-         <p:graphicImage value="/resources/images/pdf.png"/>
+##       <p:commandLink id="pdf" ajax="false">
+	   <p:commandButton id="pdf${target}" ajax="false" value="pdf">
+##         <p:graphicImage value="/resources/images/pdf.png"/>
            <pe:exporter type="pdf" target="$target" fileName="$target" datasetPadding="5"/>
-        </p:commandLink>
-        <p:spacer width="30"/>
-        <p:commandLink id="xls" ajax="false">
-           <p:graphicImage value="/resources/images/excel.png"/>
+        </p:commandButton>
+##        <p:spacer width="30"/>
+        <p:commandButton id="xls${target}" ajax="false" value="xls">
+##           <p:graphicImage value="/resources/images/excel.png"/>
             <pe:exporter type="xlsx" target="$target" fileName="$target" datasetPadding="5"/>
-        </p:commandLink>
+        </p:commandButton>
 #end
 
 #macro (setJsfPrimefacesTablePanelExport $target)
