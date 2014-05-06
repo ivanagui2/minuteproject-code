@@ -580,7 +580,7 @@
 #end
 
 #macro (setJsfPrimefacesTablePanelExport $target)
-    <p:panel header="Export data PDF and Excel ">
+    <p:panel header="Export list in PDF and Excel ">
 #setJsfPrimefacesTableExport($target)
     </p:panel>
 #end
