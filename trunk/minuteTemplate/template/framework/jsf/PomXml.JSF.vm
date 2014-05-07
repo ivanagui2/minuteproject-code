@@ -86,9 +86,14 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>$primefacesVersion</version>
+			<version>${primefaces.version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>cupertino</artifactId>
+			<version>${primefaces.theme.version}</version>
+		</dependency>
 <!-- pe with dependencies -->		
         <dependency>
         	<groupId>org.primefaces.extensions</groupId>
@@ -100,6 +105,20 @@
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
             <version>${itext.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcmail-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bctsp-jdk14</artifactId>
+                </exclusion>
+            </exclusions>			
         </dependency>
 
         <dependency>
@@ -122,11 +141,7 @@
         	<version>3.0.0-ga1</version>
         </dependency>
 #end
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>cupertino</artifactId>
-			<version>1.0.10</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
@@ -284,7 +299,9 @@ $!updatedAreaEnd
 #end
 		<junit.version>4.10</junit.version>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-		<primefaces.extension.version>1.2.1</primefaces.extension.version>
+		<primefaces.version>$primefacesVersion</primefaces.version>
+		<primefaces.theme.version>1.0.10</primefaces.theme.version>
+		<primefaces.extension.version>2.0.0.RC</primefaces.extension.version>
 		<poi.version>3.10-FINAL</poi.version>
 		<itext.version>4.2.1</itext.version>
 	</properties>
