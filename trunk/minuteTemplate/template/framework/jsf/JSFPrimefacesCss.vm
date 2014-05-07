@@ -95,9 +95,11 @@ a:hover {
     border: none;
 }
 
+.ui-panelgrid .ui-panelgrid-cell {
+    border-style: none !important;
+}
 .mp-column-center {
     width: 30%;
     text-align: center;
-    margin-left: 50%; 
+    margin-left: 50%;
 }
-

@@ -34,9 +34,9 @@ public class ${className} extends $genericLazyDataModelClass <$tableClassName, $
     }
 
     @Override
-    protected $tableClassName getFilterMask($tableClassName maskWhere, Map<String, String> filters) {
+    protected $tableClassName getFilterMask($tableClassName maskWhere, Map<String, Object> filters) {
         $tableClassName ecMask = (maskWhere!=null)?maskWhere:new $tableClassName();
-        ecMask.maskString(filters);
+        ecMask.mask(filters);
 		return ecMask;
     }
 

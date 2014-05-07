@@ -51,7 +51,7 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     		lazyModel = new LazyDataModel<T>() {
 
 			     @Override
-			     public List<T> load(int first, int pageSize, String sortField,SortOrder sortOrder, Map<String,String> filters) {
+			     public List<T> load(int first, int pageSize, String sortField,SortOrder sortOrder, Map<String,Object> filters) {
                 	QuerySortOrder order = QuerySortOrder.ASC;
                 	if (sortOrder == SortOrder.DESCENDING) {
             			order = QuerySortOrder.DESC;     
@@ -118,7 +118,7 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 	
     protected abstract T getSortMask(String sortField);
 
-    protected abstract T getFilterMask(T maskWhere, Map<String,String> filters);
+    protected abstract T getFilterMask(T maskWhere, Map<String,Object> filters);
 
     protected abstract Object getRowKeyImplementation (T element);
 
