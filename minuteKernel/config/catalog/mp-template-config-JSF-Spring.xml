@@ -234,6 +234,11 @@
 			file-extension="xhtml" technicalPackage="" file-suffix="Menu" 
 			model-specific="true" add-model-dir-name="true" add-model-name="false">
 		</template>		
+
+		<template name="JSF.IdleMonitor.xhtml" templateFileName="JSF.IdleMonitor.xhtml.vm" 
+			file-extension="xhtml" technicalPackage="" file-suffix="IdleMonitor" 
+			model-specific="true" add-model-dir-name="true" add-model-name="false">
+		</template>
 		
 		<template name="JSFXhtmlPrimefacesBreadcrumbs" templateFileName="JSFXhtmlPrimefacesBreadcrumbs.vm" 
 			file-extension="xhtml" technicalPackage="" file-suffix="BreadCrumb" 
