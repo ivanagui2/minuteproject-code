@@ -196,7 +196,7 @@
 #end
 
 #macro(exposePrimefacesConfig)
-#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","5.0"))
+#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","4.0"))
 #set ($primefacesNamespace=$template.getPropertyValue("primefaces-namespace","http://primefaces.org/ui"))
 #end
 
