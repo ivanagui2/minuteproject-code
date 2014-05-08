@@ -6,6 +6,7 @@ $!updatedAreaImport
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -51,7 +52,9 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     		lazyModel = new LazyDataModel<T>() {
 
 			     @Override
-			     public List<T> load(int first, int pageSize, String sortField,SortOrder sortOrder, Map<String,Object> filters) {
+## primefaces 5.0
+##			     public List<T> load(int first, int pageSize, String sortField,SortOrder sortOrder, Map<String,Object> filters) {
+			     public List<T> load(int first, int pageSize, String sortField,SortOrder sortOrder, Map<String,String> filters) {
                 	QuerySortOrder order = QuerySortOrder.ASC;
                 	if (sortOrder == SortOrder.DESCENDING) {
             			order = QuerySortOrder.DESC;     
@@ -60,7 +63,13 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
 
                 	EntitySort<T> es = new EntitySort<T>(esMask, order);
 
-            		T ecMask = getFilterMask(maskWhere, filters);
+                    Map<String,Object> filterMap = new HashMap<String, Object>();
+                    for (Map.Entry<String, String> entry : filters.entrySet()) {
+                        filterMap.put(entry.getKey(), entry.getValue());
+                    }
+            		T ecMask = getFilterMask(maskWhere, filterMap);
+##  primefaces 5.0
+##          		T ecMask = getFilterMask(maskWhere, filters);
 
             		EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 

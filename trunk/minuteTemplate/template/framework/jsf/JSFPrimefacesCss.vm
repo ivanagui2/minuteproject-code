@@ -98,6 +98,7 @@ a:hover {
 .ui-panelgrid .ui-panelgrid-cell {
     border-style: none !important;
 }
+
 .mp-column-center {
     width: 30%;
     text-align: center;
