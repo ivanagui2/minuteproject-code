@@ -156,7 +156,7 @@
 			template-dir="@templateRoot@/framework/cxf" status="released"
 			description="Generates:\REST CXF CRUD app\JEE DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
-				<framework name="jee" version="6"></framework>
+				<framework name="spring" version="3.0.6"></framework>
 			</frameworks>
 			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
 			<property name="add-querydsl" value="2.1.2"></property>
@@ -165,8 +165,9 @@
  			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property> 		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property> 
-			<property name="add-rest-implementation-jersey-version"	value="2.4.1"></property>
-			<property name="add-backend-implementation" value="ejb"></property>
+			<property name="add-rest-implementation-jersey-version"
+				value="2.4.1"></property>
+			<property name="add-backend-implementation" value="spring"></property>
 			
 			<property name="add-ear-packaging" value="true"></property>
 			<property name="web-maven-template" value="PomXml.CXF"></property>
