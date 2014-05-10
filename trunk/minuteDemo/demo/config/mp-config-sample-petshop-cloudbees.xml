@@ -58,7 +58,7 @@
 					<entity name="TAG" content-type="reference-data">
 						<field name="TAG" ordering="asc"/>
 						<semantic-reference>
-							<sql-path path="NAME" />
+							<sql-path path="TAG" />
 						</semantic-reference>						
 					</entity>
 				</enrichment>
