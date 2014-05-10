@@ -27,3 +27,7 @@ closeTitle=Close
 cancelTitle=Cancel
 # errors
 PersistenceErrorOccured=Error persisting data
+# security
+logoff.soon.1=Time-out
+logoff.soon.2=You will be logoff
+move.cursor=Move your cursor
