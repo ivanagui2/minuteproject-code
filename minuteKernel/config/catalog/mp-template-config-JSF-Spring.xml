@@ -6,7 +6,16 @@
 	<plugin name="i18nUtils" className="net.sf.minuteProject.plugin.format.I18nUtils"></plugin>	
 	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
 	<plugin name="primefacesUtils" className="net.sf.minuteProject.plugin.jsf.PrimefacesUtils"></plugin>
+
+	<resource-target outputdir="src/main/webapp/icon">
+		<resource name="xsl-icon" resource-file-name="xsl.png" />
+		<resource name="pdf-icon" resource-file-name="pdf.png" />
+	</resource-target>
 	
+	<resource-target srcdir="css/bootstrap" outputdir="src/main/webapp/css">
+		<resource name="bootstrap.min.css" resource-file-name="bootstrap.min.css" />
+	</resource-target>
+		
 	<template-target 
     	name="JSF java set"
 		libdir="lib/JSF_LIB.vm,lib/EJB_LIB.vm"
