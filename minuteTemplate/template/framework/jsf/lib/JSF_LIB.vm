@@ -255,7 +255,7 @@
 #set($refCnt=$refCnt+1)
 					</ui:include>
             </h:panelGrid>			
-				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-check" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
+				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-disk" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
 					<f:setPropertyActionListener 
 						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" 
 						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
@@ -352,7 +352,8 @@
 ##									actionListener="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}}"
                                     immediate="true" 
 									title="Add $linktableDB.name"  
-									icon="ui-icon-document" 
+									icon="ui-icon-plusthick" 
+									value="Add"
 									oncomplete="add${childrenListClass}.show();" 
 									update=":containerBasicAdd${childrenListClass}">
 									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />

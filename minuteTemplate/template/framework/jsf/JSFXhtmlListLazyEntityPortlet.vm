@@ -57,7 +57,7 @@
 		<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" columnClasses="mp-column-center">
             <f:facet name="header" align="left">
                 <h:outputText value="#{i18n.${tableVariableName}} details " />
-            	<p:commandButton value="Save" icon="ui-icon-check"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
+            	<p:commandButton value="Save" icon="ui-icon-disk"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
             	<p:commandButton value="Clear" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
             	<p:commandButton value="Delete" icon="ui-icon-trash" >
                 <p:confirm header="Deletion process" severity="alert" icon="ui-icon-alert" message="Can you confirm your deletion?"/>
