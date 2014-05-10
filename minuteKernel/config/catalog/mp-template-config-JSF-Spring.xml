@@ -18,7 +18,12 @@
 			file-extension="java" technicalPackage="menu" file-suffix="Menu" 
 			model-specific="true" add-model-name="true" has-updatable-nature="true">
 		</template>
-							 
+		
+		<template name="JSFBeanManagerUser" templateFileName="JSF.PF.UserBean.vm" 
+			file-extension="java" technicalPackage="bean.user" file-suffix="UserManagedBean" 
+			model-specific="true" add-model-name="true" has-updatable-nature="true">
+		</template>
+		 
 		<template name="JSFBeanManagerController" templateFileName="JSFBeanManagerController.vm" 
 			subdir="" outputsubdir="" technicalPackage="controller"
 			file-extension="java" file-prefix="" file-suffix="Controller" 
