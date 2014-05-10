@@ -1,3 +1,4 @@
+#exposeJSFModelSpecific()
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- http://murygin.wordpress.com/2012/11/29/jsf-primefaces-session-timeout-handling/ -->
@@ -14,7 +15,7 @@
          onactive="timeoutDialog.hide()" />
  
       <p:dialog id="timeoutSession"
-         header="#{msg['session.expire']}"
+         header="#{i18n.sessionExpire}"
          widgetVar="timeoutDialog"
          showEffect="fade" hideEffect="fade"
          modal="true"
@@ -23,22 +24,22 @@
          closable="false"
          draggable="false"
          resizable="false"
-         appendToBody="true"
+         appendTo="@(body)"
          onHide="stopCount()"
          onShow="doTimer()">
          <br />
          <p>
             <span class="ui-icon ui-icon-alert" style="float: left; margin: 8px 8px 0;"/>
             <p:panel>
-               #{i18n['logoff.soon.1']}
+               #{i18n.logoffSoon1}
                <span id="dialog-countdown" style="font-weight: bold"></span>
-               #{i18n['logoff.soon.2']}
+               #{i18n.logoffSoon2}
             </p:panel>
          </p>
          <br />
-         <p style="font-weight: bold;">#{i18n['move.cursor']}</p>
+         <p style="font-weight: bold;">#{i18n.moveCursor}</p>
       </p:dialog>
-      <p:remoteCommand name="keepAlive" actionListener="#{activity.keepSessionAlive}" />
+      <p:remoteCommand name="keepAlive" actionListener="#{${modelBeanManagerUserJSFVariable}.keepSessionAlive}" />
    </h:form>
    <script type="text/javascript">
       var TIME = 120; // in seconds
