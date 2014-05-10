@@ -14,7 +14,6 @@ listHeading=List
 amountEntries=Amount entries
 execute=Execute
 manageSddTitle=SDD
-PersistenceErrorOccured=Persistence error occured
 manageSddChartTitle=Chart
 consult.title=Consult
 consult.select.header=Select
@@ -28,6 +27,7 @@ cancelTitle=Cancel
 # errors
 PersistenceErrorOccured=Error persisting data
 # security
-logoff.soon.1=Time-out
-logoff.soon.2=You will be logoff
-move.cursor=Move your cursor
+logoffSoon1=Time-out
+logoffSoon2=You will be logoff
+moveCursor=Move your cursor
+sessionExpire=Session expires
