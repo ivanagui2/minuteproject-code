@@ -403,7 +403,7 @@
                                     immediate="true" 
 									value="Associate"
 									title="Add $targetTable.name"  
-									icon="ui-icon-document" 
+									icon="ui-icon-transfer-e-w" 
 									oncomplete="add${childrenListClass}.show();" 
 									update=":containerBasicAdd${childrenListClass}">
 									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
