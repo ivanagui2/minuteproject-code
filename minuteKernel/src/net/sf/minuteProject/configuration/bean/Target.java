@@ -26,6 +26,7 @@ public class Target extends AbstractConfiguration{
 	private String canonicalFileName;	
 	private ArchitectureTarget architectureTarget;
 	private List <TemplateTarget> templateTargets;
+	private List <ResourceTarget> resourceTargets;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
 	private List <Target> dependency;
 	private List <Plugin> plugins;
@@ -291,6 +292,12 @@ public class Target extends AbstractConfiguration{
 
 	public void setIsFromCatalog(Boolean isFromCatalog) {
 		this.isFromCatalog = isFromCatalog;
+	}
+
+	public List<ResourceTarget> getResourceTargets() {
+		if (resourceTargets==null)
+			resourceTargets = new ArrayList<ResourceTarget>();
+		return resourceTargets;
 	}
 	
 }

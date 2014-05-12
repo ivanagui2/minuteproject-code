@@ -19,6 +19,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.ResourceTarget;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -294,14 +295,21 @@ public abstract class AbstractGenerator implements Generator {
 	    	for (TemplateTarget templateTarget : target.getOrderedByPriorityTemplateTargets()) {
 	    		if (templateTarget.isGenerable()) {
 		    		logger.info(">template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
-		    		if (templateTarget!=null && templateTarget.getTemplates()!=null) {
-			    		for (Template template : templateTarget.getTemplates()) {
+		    		if (templateTarget!=null ) {
+//		    			if (templateTarget.getTemplates()!=null) {
+				    		//generate template
+		    			for (Template template : templateTarget.getTemplates()) {
 			        		logger.info(">>template: "+template.getName()+" in "+template.getOutputdir());
 			        		this.generate(template);    		
 			        	} 
+//		    			}
+
 		    		}
 	    		}
-	    	} 
+	    	}
+	    	for (ResourceTarget resourceTarget : target.getResourceTargets()) {
+	    		//TODO copy resources	    		
+	    	}
 		}
 	}
 	
