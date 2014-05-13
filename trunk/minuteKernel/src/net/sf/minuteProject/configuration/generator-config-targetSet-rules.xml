@@ -63,6 +63,31 @@
 				<alias attr-name="className" prop-name="className" />
 			</set-properties-rule>
 		</pattern>			
+		<pattern value="resource-target">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.ResourceTarget"/>		
+			<set-next-rule methodname="addResourceTarget" paramtype="net.sf.minuteProject.configuration.bean.ResourceTarget"/>	
+			<set-properties-rule/>	
+			<set-properties-rule>
+				<alias attr-name="outputdir" prop-name="outputdir" />
+			</set-properties-rule> 
+			<pattern value="property">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>		
+				<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>	
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />
+					<alias attr-name="value" prop-name="value" />
+					<alias attr-name="tag" prop-name="tag" />
+				</set-properties-rule>
+			</pattern>	
+			<pattern value="resource">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.Resource"/>		
+				<set-next-rule methodname="addResource" paramtype="net.sf.minuteProject.configuration.bean.Resource"/>	
+				<set-properties-rule>
+					<alias attr-name="name" prop-name="name" />
+					<alias attr-name="resource-file-name" prop-name="resourceFileName" />
+				</set-properties-rule>
+			</pattern>
+		</pattern>
 		<pattern value="template-target">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.TemplateTarget"/>		
 			<set-next-rule methodname="addTemplateTarget" paramtype="net.sf.minuteProject.configuration.bean.TemplateTarget"/>	
