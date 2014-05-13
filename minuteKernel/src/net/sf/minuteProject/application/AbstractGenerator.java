@@ -19,6 +19,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Resource;
 import net.sf.minuteProject.configuration.bean.ResourceTarget;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
@@ -308,13 +309,20 @@ public abstract class AbstractGenerator implements Generator {
 	    		}
 	    	}
 	    	for (ResourceTarget resourceTarget : target.getResourceTargets()) {
-	    		//TODO copy resources	    		
+	    		//TODO copy resources
+	    		for (Resource resource : resourceTarget.getResources()) {
+	    			copy (resource);
+	    		}
 	    	}
 		}
 	}
 	
 
-    protected VelocityContext getVelocityContext(Template template) {
+    private void copy(Resource resource) {
+		resource.getResourceFileName();
+	}
+    
+	protected VelocityContext getVelocityContext(Template template) {
 //		Properties p = new Properties();
 		
 //		Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);

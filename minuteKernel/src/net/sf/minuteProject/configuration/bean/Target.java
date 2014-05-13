@@ -300,4 +300,10 @@ public class Target extends AbstractConfiguration{
 		return resourceTargets;
 	}
 	
+	
+	public void addResourceTarget (ResourceTarget resourceTarget) {
+		resourceTarget.setTarget(this);
+		getResourceTargets().add(resourceTarget);
+	}
+	
 }
