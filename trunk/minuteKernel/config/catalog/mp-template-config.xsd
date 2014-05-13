@@ -17,6 +17,9 @@
 			<xs:element name="template-target" type="template-target"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
+			<xs:element name="resource-target" type="resource-target"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
 	</xs:complexType>
@@ -79,6 +82,25 @@
 		<xs:attribute name="package-root" type="xs:string" />
 		<xs:attribute name="belongToPackage" type="xs:string" />
 		<xs:attribute name="templatedir" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="resource-target">
+		<xs:sequence>
+			<xs:element name="resource" type="resource" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="outputdir" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="resource">
+		<xs:sequence>
+			<xs:element name="property" type="property" minOccurs="0"
+				maxOccurs="unbounded">
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="resource-file-name" type="xs:string" />
 	</xs:complexType>
 
 </xs:schema>
