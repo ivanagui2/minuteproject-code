@@ -112,6 +112,10 @@ public class FileUtils {
 		return resolvePath(rootPath, filename);
 	}
 	
+	public static String getFilePath(String filename) {
+		return resolvePath(getRoot(), filename);
+	}
+	
 	public static String stripFileName(String filename) {
 		// return getAbsolutePathFromPath(filename);
 		filename = StringUtils.replace(filename, "\\", "/");

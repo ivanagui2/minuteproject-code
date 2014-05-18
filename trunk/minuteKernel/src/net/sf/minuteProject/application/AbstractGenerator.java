@@ -318,8 +318,23 @@ public abstract class AbstractGenerator implements Generator {
 	}
 	
 
-    private void copy(Resource resource) {
-		resource.getResourceFileName();
+    private void copy(Resource resource) throws MinuteProjectException {
+    	
+		String resourceFileName = resource.getResourceFileName();
+		String outputDir = resource.getResourceTarget().getOutputdir();
+		
+		String filePath = FileUtils.getFilePath(resourceFileName);
+		try {
+			File input = new File(filePath);
+			if (input.exists()) {
+				org.apache.commons.io.FileUtils.copyFile(input, new File(outputDir));
+				logger.info(">>resource: "+filePath+" copied to dir "+outputDir);
+			} else
+				logger.info(">>resource: "+filePath+" does not exist ");
+		} catch (IOException e) {
+
+			throw new MinuteProjectException("cannot copy file "+filePath +" to "+outputDir);
+		}
 	}
     
 	protected VelocityContext getVelocityContext(Template template) {

@@ -176,11 +176,6 @@ public class ModelGenerator extends AbstractGenerator {
 			targets = model.getConfiguration().getTargets();
 			loadAndGenerate(targets);
 		}
-		//generate for catalog entry
-//		if (hasCatalog()) {
-//			targets = model.getConfiguration().getTargets();
-//			loadAndGenerate(targets);
-//		}
 		if (hasPostGenerationAction(targets)) {
 			executePostGenerationAction(targets);
 		}

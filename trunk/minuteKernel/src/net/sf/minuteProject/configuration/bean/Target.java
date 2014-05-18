@@ -16,20 +16,20 @@ import net.sf.minuteProject.utils.parser.ParserUtils;
 
 /**
  * @author Florian Adler
- *
+ * 
  */
-public class Target extends AbstractConfiguration{
-	
+public class Target extends AbstractConfiguration {
+
 	private String dir;
 	private String fileName;
 	private String canonicalDir;
-	private String canonicalFileName;	
+	private String canonicalFileName;
 	private ArchitectureTarget architectureTarget;
-	private List <TemplateTarget> templateTargets;
-	private List <ResourceTarget> resourceTargets;
+	private List<TemplateTarget> templateTargets;
+	private List<ResourceTarget> resourceTargets;
 	private AbstractConfigurationRoot abstractConfigurationRoot;
-	private List <Target> dependency;
-	private List <Plugin> plugins;
+	private List<Target> dependency;
+	private List<Plugin> plugins;
 	private TargetParams targetParams;
 	private ImportTargets importTargets;
 	private String outputdirRoot;
@@ -37,163 +37,187 @@ public class Target extends AbstractConfiguration{
 	private Boolean isGenerable, isFromCatalog = false;
 	private List<String> templatedirRefs;
 	private Targets targets;
-	
-	public void complement (Target target) {
-		if (abstractConfigurationRoot==null)
-			abstractConfigurationRoot=target.getAbstractConfigurationRoot();	
+
+	public void complement(Target target) {
+		if (abstractConfigurationRoot == null)
+			abstractConfigurationRoot = target.getAbstractConfigurationRoot();
 		List<TemplateTarget> input = target.getTemplateTargets();
 		for (TemplateTarget templateTarget : input) {
 			templateTarget.setTarget(this);
 			templateTarget.setIsGenerable(target.isGenerable());
 			templateTarget.setRootdir(target.getTemplatedirRoot());
-			templateTarget.getTemplatedirRefs().addAll(target.getTemplatedirRefs());
-			
+			templateTarget.getTemplatedirRefs().addAll(
+					target.getTemplatedirRefs());
+
 			templateTarget.getProperties().addAll(target.getProperties());
-						
+
 			getTemplateTargets().add(templateTarget);
 
-			if (templateTarget.getTemplates()!=null) {
-				for (Template template : templateTarget.getTemplates()) {
-					template.setOutputdirRoot(target.getOutputdirRoot());
-					template.getProperties().addAll(target.getProperties());
-	//				template.setRootdir (target.getTemplatedirRoot());
-	//				template.setPackageRoot(templateTarget.getPackageRoot());
-				}
+			// if (templateTarget.getTemplates()!=null) {
+			for (Template template : templateTarget.getTemplates()) {
+				template.setOutputdirRoot(target.getOutputdirRoot());
+				template.getProperties().addAll(target.getProperties());
+				// template.setRootdir (target.getTemplatedirRoot());
+				// template.setPackageRoot(templateTarget.getPackageRoot());
 			}
+			// }
 		}
-//		getProperties().addAll(target.getProperties());
+		List<ResourceTarget> resourceTargets = target.getResourceTargets();
+		for (ResourceTarget resourceTarget : resourceTargets) {
+			// shift to master
+			resourceTarget.setTarget(this);
+			getResourceTargets().add(resourceTarget);
+		}
+		// getProperties().addAll(target.getProperties());
 		getPlugins().addAll(target.getPlugins());
 	}
-	
+
 	public AbstractConfigurationRoot getAbstractConfigurationRoot() {
 		return abstractConfigurationRoot;
 	}
+
 	public void setAbstractConfigurationRoot(
 			AbstractConfigurationRoot abstractConfigurationRoot) {
 		this.abstractConfigurationRoot = abstractConfigurationRoot;
 	}
+
 	public ArchitectureTarget getArchitectureTarget() {
 		return architectureTarget;
 	}
+
 	public void setArchitectureTarget(ArchitectureTarget architectureTarget) {
 		this.architectureTarget = architectureTarget;
 	}
 
 	public Template getTemplate(String name) {
 		List list = getTemplateTargets();
-		for (int i = 0; i<list.size();i++) {
-			TemplateTarget templateTarget = (TemplateTarget)list.get(i);
+		for (int i = 0; i < list.size(); i++) {
+			TemplateTarget templateTarget = (TemplateTarget) list.get(i);
 			Template template;
-			if ((template = templateTarget.getTemplate(name))!=null)
+			if ((template = templateTarget.getTemplate(name)) != null)
 				return template;
 		}
 		return null;
 	}
-	
-	public void addTemplateTarget (TemplateTarget templateTarget) {
-//		if (templateTargets==null)
-//			templateTargets = new ArrayList<TemplateTarget>();
+
+	public void addTemplateTarget(TemplateTarget templateTarget) {
+		// if (templateTargets==null)
+		// templateTargets = new ArrayList<TemplateTarget>();
 		templateTarget.setTarget(this);
 		getTemplateTargets().add(templateTarget);
 	}
-	
+
 	public List<TemplateTarget> getTemplateTargets() {
-		if (templateTargets==null)
+		if (templateTargets == null)
 			templateTargets = new ArrayList<TemplateTarget>();
 		return templateTargets;
 	}
-	
+
 	public List<TemplateTarget> getOrderedByPriorityTemplateTargets() {
 		Collections.sort(getTemplateTargets());
 		return templateTargets;
 	}
+
 	public void setTemplateTargets(List<TemplateTarget> templateTargets) {
 		this.templateTargets = templateTargets;
 	}
-	
-	public void addDependency (String dependencies) {
-		if (getDependency()==null)
+
+	public void addDependency(String dependencies) {
+		if (getDependency() == null)
 			setDependency(new ArrayList<Target>());
-		//Target target = getTarget
+		// Target target = getTarget
 	}
-	
+
 	public List<Target> getDependency() {
 		return dependency;
 	}
-	
+
 	private void setDependency(List<Target> dependency) {
 		this.dependency = dependency;
 	}
 
 	public List<String> getAbsoluteRootDirs(String rootDir) {
 		List<String> l = new ArrayList<String>();
-		for (String s:ParserUtils.getList(rootDir))
+		for (String s : ParserUtils.getList(rootDir))
 			l.add(FileUtils.getAbsoluteDir(s, s, getTemplatedirRoot()));
 		return l;
 	}
-	
+
 	public String getAbsoluteRootDir(String rootDir) {
 		return FileUtils.getAbsoluteDir(rootDir, rootDir, getTemplatedirRoot());
 	}
-	
+
 	public String getDir() {
 		return dir;
 	}
+
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
+
 	public String getFileName() {
-//		return FileUtils.stripRelativePath(fileName);
+		// return FileUtils.stripRelativePath(fileName);
 		return fileName;
 	}
+
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
-	public void addPlugin (Plugin plugin) {
+
+	public void addPlugin(Plugin plugin) {
 		getPlugins().add(plugin);
 	}
+
 	public List<Plugin> getPlugins() {
-		if (plugins==null)
+		if (plugins == null)
 			setPlugins(new ArrayList<Plugin>());
 		return plugins;
 	}
+
 	public void setPlugins(List<Plugin> plugins) {
 		this.plugins = plugins;
 	}
+
 	public String getCanonicalDir() {
 		return canonicalDir;
 	}
+
 	public void setCanonicalDir(String canonicalDir) {
 		this.canonicalDir = canonicalDir;
 	}
+
 	public String getCanonicalFileName() {
 		return canonicalFileName;
 	}
+
 	public void setCanonicalFileName(String canonicalFileName) {
 		this.canonicalFileName = canonicalFileName;
 	}
+
 	public ImportTargets getImportTargets() {
 		return importTargets;
 	}
+
 	public void setImportTargets(ImportTargets importTargets) {
 		this.importTargets = importTargets;
 	}
+
 	public TargetParams getTargetParams() {
 		return targetParams;
 	}
+
 	public void setTargetParams(TargetParams targetParams) {
 		this.targetParams = targetParams;
 	}
 
 	public String getOutputdirRoot() {
-		//TODO cache
+		// TODO cache
 		StringBuffer sb = new StringBuffer();
 		if (hasAppendOutputDir()) {
 			sb.append(getTargets().getOutputdirRoot());
 		}
-		if (outputdirRoot!=null) {
-			if (hasAppendOutputDir()) 
+		if (outputdirRoot != null) {
+			if (hasAppendOutputDir())
 				sb.append("/");
 			sb.append(outputdirRoot);
 		}
@@ -203,46 +227,56 @@ public class Target extends AbstractConfiguration{
 	private boolean hasAppendOutputDir() {
 		return hasTargetsOutputdir() && !isFromCatalog;
 	}
+
 	private boolean hasTargetsOutputdir() {
-		return (getTargets()!=null && !StringUtils.isEmpty(getTargets().getOutputdirRoot())) ;
+		return (getTargets() != null && !StringUtils.isEmpty(getTargets()
+				.getOutputdirRoot()));
 	}
-//	private boolean hasTargetsOutputdirDirAppend() {
-//		return (getTargets()!=null && getTargets().getAppendCatalogEntryDirToOutputDirRoot()) ;
-//	}
+
+	// private boolean hasTargetsOutputdirDirAppend() {
+	// return (getTargets()!=null &&
+	// getTargets().getAppendCatalogEntryDirToOutputDirRoot()) ;
+	// }
 
 	public void setOutputdirRoot(String outputdirRoot) {
 		this.outputdirRoot = outputdirRoot;
 	}
+
 	public String getTemplatedirRoot() {
 		return templatedirRoot;
 	}
+
 	public void setTemplatedirRoot(String templatedirRoot) {
 		this.templatedirRoot = templatedirRoot;
 	}
+
 	public String getTemplatedirRef() {
 		return templatedirRef;
 	}
+
 	public List<String> getTemplatedirRefs() {
-		if (templatedirRefs==null) {
+		if (templatedirRefs == null) {
 			templatedirRefs = new ArrayList<String>();
-			if (templatedirRef!=null)
+			if (templatedirRef != null)
 				templatedirRefs.add(templatedirRef);
 		}
 		return templatedirRefs;
 	}
 
 	public void addTemplatedirRef(String templatedirRef) {
-		if (templatedirRef!=null)
+		if (templatedirRef != null)
 			getTemplatedirRefs().add(templatedirRef);
 	}
+
 	public void setTemplatedirRef(String templatedirRef) {
 		this.templatedirRef = templatedirRef;
 	}
 
 	public boolean isGenerable() {
-		if (isGenerable==null) isGenerable = true;
+		if (isGenerable == null)
+			isGenerable = true;
 		return isGenerable;
-	}	
+	}
 
 	public void setIsGenerable(Boolean isGenerable) {
 		this.isGenerable = isGenerable;
@@ -254,23 +288,32 @@ public class Target extends AbstractConfiguration{
 
 	public String getPropertyValue(String name) {
 		String s = super.getPropertyValue(name);
-		if (s!=null) return s;
-		if (targets!=null) return targets.getPropertyValue(name);
+		if (s != null)
+			return s;
+		if (targets != null)
+			return targets.getPropertyValue(name);
 		return null;
 	}
+
 	public String getTargetPropertyValue(String name) {
 		String s = getPropertyValue(name);
-		if (s!=null) return s;
-		if (targets!=null) return targets.getPropertyValue(name);
-		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyValue(name);
+		if (s != null)
+			return s;
+		if (targets != null)
+			return targets.getPropertyValue(name);
+		if (abstractConfigurationRoot != null)
+			return abstractConfigurationRoot.getPropertyValue(name);
 		return null;
 	}
-	
+
 	public Property getTemplateTargetPropertyByName(String name) {
 		Property p = getPropertyByName(name);
-		if (p!=null) return p;
-		if (targets!=null) return targets.getPropertyByName(name);
-		if (abstractConfigurationRoot!=null) return abstractConfigurationRoot.getPropertyByName(name);
+		if (p != null)
+			return p;
+		if (targets != null)
+			return targets.getPropertyByName(name);
+		if (abstractConfigurationRoot != null)
+			return abstractConfigurationRoot.getPropertyByName(name);
 		return null;
 	}
 
@@ -295,15 +338,14 @@ public class Target extends AbstractConfiguration{
 	}
 
 	public List<ResourceTarget> getResourceTargets() {
-		if (resourceTargets==null)
+		if (resourceTargets == null)
 			resourceTargets = new ArrayList<ResourceTarget>();
 		return resourceTargets;
 	}
-	
-	
-	public void addResourceTarget (ResourceTarget resourceTarget) {
+
+	public void addResourceTarget(ResourceTarget resourceTarget) {
 		resourceTarget.setTarget(this);
 		getResourceTargets().add(resourceTarget);
 	}
-	
+
 }

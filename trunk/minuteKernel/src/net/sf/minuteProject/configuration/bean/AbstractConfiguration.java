@@ -24,6 +24,7 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	private GeneratorBean parent;
 	private String configurationFileInClassPath;
 	private boolean isAliasFormatted;
+	private boolean isAliasSet;
 	
 	public GeneratorBean getParent() {
 		return parent;
@@ -209,6 +210,14 @@ public abstract class AbstractConfiguration extends BeanCommon implements Genera
 	
 	public void setLabel(String label) {
 		this.label = label;
+	}
+	
+	public boolean isAliasSet() {
+		return isAliasSet;
+	}
+	
+	protected void setIsAliasSet (boolean isAliasSet) {
+		this.isAliasSet = isAliasSet;
 	}
 	
 }

@@ -45,7 +45,6 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	private Table  localTable;
 	private String localColumnName;
 	private String alias;
-//	private boolean isMasterRelationship, isAggregateRelationship;
 	private enum Owner {MASTER, AGGREGATE, NONE};
 	private Owner relationshipOwnership = Owner.NONE;
     /**
@@ -297,14 +296,12 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 
 	public String getAlias() {
 		if (alias==null || alias.equals(""))
-//			alias= foreignTable.getAlias()+"_"+foreignColumn.getAlias();
 		   alias= ReferenceUtils.getDefaultAlias(this);
 		return alias;
 	}
 	
-
-	
 	public void setAlias(String alias) {
+		setIsAliasSet(true);
 		this.alias = alias;
 	}
 
