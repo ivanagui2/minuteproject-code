@@ -38,6 +38,10 @@ xs:noNamespaceSchemaLocation="../config/mp-config.xsd">
                         <field name="language_id" linkReferenceAlias="translating_language" linkToTargetEntity="LANGUAGE"/>
                         <field name="user_id" linkReferenceAlias="translator" linkToTargetEntity="USER"/>
                     </entity>
+                    <entity name="request_key">
+                        <field name="language_id" linkReferenceAlias="language" linkToTargetEntity="LANGUAGE"/>
+                        <field name="translation_request_id" linkReferenceAlias="translation_request" linkToTargetEntity="translation_request"/>
+                    </entity>
                     <entity name="LANGUAGE_X_SPEAKER">
                         <field name="LANGUAGE_ID" linkToTargetEntity="LANGUAGE"
                             linkToTargetField="IDLANGUAGE" linkReferenceAlias="spoken_language" />
