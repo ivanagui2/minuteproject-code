@@ -11,7 +11,7 @@
 	<plugin name="jaxbUtils" className="net.sf.minuteProject.utils.binding.JaxbUtils"></plugin>	
 	<plugin name="extensionUtils" className="net.sf.minuteProject.utils.ExtensionUtils"></plugin>	
 	<plugin name="mavenUtils" className="net.sf.minuteProject.plugin.maven.MavenUtils"></plugin>	
-	
+
 	<template-target 
     	name="JPA set"
 		libdir="lib/JPA2_LIB.vm"
@@ -19,11 +19,11 @@
 		belongToPackage="true">
 <!--
     can use 
-			extension-name-builder-plugin="extensionUtils"
-			extension-name-builder-method="getExtensionJavaOrGroovy"
+		extension-name-builder-plugin="extensionUtils"
+		extension-name-builder-method="getExtensionJavaOrGroovy"
 	instead of
-			file-extension="java"	
--->					
+		file-extension="java"	
+-->
 		<template name="DomainEntityJPA2Annotation" templateFileName="DomainEntityJPA2Annotation.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-prefix="" file-suffix="" 
