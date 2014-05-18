@@ -209,7 +209,8 @@ public class EnrichmentUtils {
 			for (int i = 0; i < m2mReference.length; i++) {
 				Reference ref = m2mReference[i];
 				if (!isEqual(origin, ref)) {
-					ref.setAlias(ReferenceUtils.getDefaultAliasForManyToMany(many2many, ref));
+					if (!ref.isAliasSet())
+						ref.setAlias(ReferenceUtils.getDefaultAliasForManyToMany(many2many, ref));
 					return ref;
 				}
 			}

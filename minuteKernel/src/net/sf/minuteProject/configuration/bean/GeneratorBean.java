@@ -55,6 +55,8 @@ public interface GeneratorBean extends Cloneable, Serializable{
 	
 	public void setAlias(String alias);
 	
+	public boolean isAliasSet(); //to know if the alias was set or it use the default value
+	
     public void setComment (String comment);
     
     public String getComment();

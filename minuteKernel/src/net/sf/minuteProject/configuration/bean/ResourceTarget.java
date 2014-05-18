@@ -7,7 +7,7 @@ public class ResourceTarget extends AbstractConfiguration {
 	
 	private Target target;
 	List<Resource> resources;
-	private String outputDir;
+	private String outputdir;
 	
 	public List<Resource> getResources() {
 		if (resources==null)
@@ -20,12 +20,13 @@ public class ResourceTarget extends AbstractConfiguration {
 		getResources().add(resource);
 	}
 
-	public String getOutputDir() {
-		return outputDir;
+	public String getOutputdir() {
+		String outputdirRoot = getTarget().getOutputdirRoot();
+		return outputdirRoot+"/"+outputdir;
 	}
 
-	public void setOutputDir(String outputDir) {
-		this.outputDir = outputDir;
+	public void setOutputdir(String outputdir) {
+		this.outputdir = outputdir;
 	}
 
 	public void setResources(List<Resource> resources) {
