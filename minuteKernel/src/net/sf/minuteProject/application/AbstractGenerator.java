@@ -323,7 +323,8 @@ public abstract class AbstractGenerator implements Generator {
 		String resourceFileName = resource.getResourceFileName();
 		String outputDir = resource.getResourceTarget().getOutputdir();
 		
-		String filePath = FileUtils.getFilePath(resourceFileName);
+		String resourceRelativePath = "../../minuteResource/icon";
+		String filePath = FileUtils.getFilePath(resourceRelativePath+"/"+resourceFileName);
 		try {
 			File input = new File(filePath);
 			if (input.exists()) {
@@ -333,7 +334,7 @@ public abstract class AbstractGenerator implements Generator {
 				logger.info(">>resource: "+filePath+" does not exist ");
 		} catch (IOException e) {
 
-			throw new MinuteProjectException("cannot copy file "+filePath +" to "+outputDir);
+			throw new MinuteProjectException("cannot copy file "+filePath +" to "+outputDir+" - error :"+e.getMessage());
 		}
 	}
     
