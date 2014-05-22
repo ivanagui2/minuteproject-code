@@ -571,6 +571,8 @@
 	<!-- ===================================================================== -->
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
 	<target name="generation-build-webapps" depends="release-application" >
+		<antcall target="generation-build-porphyry"/>
+		<antcall target="generation-build-sakila"/>
 		<antcall target="generation-build-buslogic_intro"/>
 		<antcall target="generation-build-tranxy"/>
 		<antcall target="generation-build-joomla"/>
@@ -579,9 +581,6 @@
 		<antcall target="generation-build-liferay"/>
 		<antcall target="generation-build-lazuly"/>
 		<antcall target="generation-build-petshop"/>
-		<antcall target="generation-build-porphyry"/>
-		<antcall target="generation-build-sakila"/>
-
 		<!--
 			<antcall target="generation-build-northwind"/>			
 		 -->
@@ -639,7 +638,7 @@
 	<target name="generation-build-porphyry" >
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-porphyry.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/porphyry" project="WS" artifact="porphyryWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/porphyry" project="REST" artifact="porphyryRestCxfJeeApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/porphyry" project="REST" artifact="porphyryRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/porphyry" project="REST" artifact="porphyryRestCxfApp" />
 		<!--<macro_build_and_deploy maven.basedir="REST-JEE/porphyry" project="REST-JEE" artifact="porphyryRESTApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/porphyry" project="REST" artifact="porphyryRestSpringMVCApp" />
