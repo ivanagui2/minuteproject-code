@@ -612,9 +612,9 @@
 	<target name="generation-build-buslogic_intro">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-buslogic_intro.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/busintro" project="WS" artifact="busintroWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/busintro" project="REST" artifact="busintroRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/busintro" project="REST" artifact="busintroRestCxfApp" />
-		<!--<macro_build_and_deploy maven.basedir="REST-JEE/busintro" project="REST-JEE" artifact="busintroRESTApp" />-->
+		<macro_build_and_deploy maven.basedir="REST-JEE/busintro" project="REST-JEE" artifact="busintroRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/busintro" project="REST" artifact="busintroRestSpringMVCApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/busintro" project="vaadin" artifact="busintroVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/busintro" project="JSF-primefaces" artifact="busintroApp" />
