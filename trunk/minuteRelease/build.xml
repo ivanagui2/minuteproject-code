@@ -569,7 +569,7 @@
 	<!-- ===================================================================== -->
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
 	<target name="generation-build-webapps" depends="release-application" >
-		<parallel threadcount="2">
+		<parallel threadcount="3">
 			<antcall target="generation-build-porphyry"/>
 			<antcall target="generation-build-sakila"/>
 			<antcall target="generation-build-buslogic_intro"/>
@@ -747,7 +747,7 @@
 		
 	<target name="functional-test" depends="release-application" >
 		<macro_generate display="functional testing" config="functional.xml" />
-		<macro_build maven.basedir="BSLA-JPA2/functional" maven.goal="clean package" />
+		<macro_build maven.basedir="BSLA-JPA2/functional" maven.goal="clean package -o site" />
 		<macro_build maven.basedir="BELA-JPA2/functional" maven.goal="clean package -o site" />
 	</target>
 	
