@@ -379,7 +379,7 @@
 		<attribute name="display" />
 		<sequential>
 			<echo message="@{display}" />
-			<delete file="${hsqldb-sample}/petshop.lck">
+			<delete file="${hsqldb-sample}/petshop.lck" failonerror="false">
 			</delete>
 			<java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ModelViewGenerator">
 				<classpath>
