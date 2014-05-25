@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 public class Resource extends AbstractConfiguration{
 	public String resourceFileName;
 	private ResourceTarget resourceTarget;
+	private boolean isGenerable = false;
 
 	public String getResourceFileName() {
 		return resourceFileName;
@@ -20,4 +21,11 @@ public class Resource extends AbstractConfiguration{
 		return resourceTarget;
 	}
 
+	public void setGenerable(boolean b) {
+		this.isGenerable = b;	
+	}
+
+	public boolean isGenerable() {
+		return isGenerable;
+	}
 }
