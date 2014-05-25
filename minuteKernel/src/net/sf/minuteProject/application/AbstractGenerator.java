@@ -311,7 +311,8 @@ public abstract class AbstractGenerator implements Generator {
 	    	for (ResourceTarget resourceTarget : target.getResourceTargets()) {
 	    		//TODO copy resources
 	    		for (Resource resource : resourceTarget.getResources()) {
-	    			copy (resource);
+	    			if (resource.isGenerable())
+	    				copy (resource);
 	    		}
 	    	}
 		}
