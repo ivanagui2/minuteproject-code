@@ -26,6 +26,7 @@
 	<property name="archive.name" value="${application.name}-${application.version}.jar"/>
 	<property name="archive.src.name" value="${application.name}-${application.version}-src.zip"/>
 	<property name="classes.dir" value="${home.dir}/classes"/>
+	<property name="testclasses.dir" value="${home.dir}/testclasses"/>
 	<tstamp>
 		<format property='build.time' pattern='yyyy-MM-dd HH:mm:ss'/>
 	</tstamp>
@@ -57,6 +58,20 @@
 				<src path="${src.dir}"/>
 				<src path="${src-plugin.dir}"/>
 				<src path="${src-patch.dir}"/>
+				<include name="**/*.java"/>
+			</javac>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="macro_compile_test">
+		<attribute name="debug"/>
+		<attribute name="optimize"/>
+		<sequential>
+			<javac debug="@{debug}" deprecation="false" destdir="${testclasses.dir}" 
+            	optimize="@{optimize}" nowarn="false">
+				<classpath refid="compile.classpath"/>
+				<classpath path="${class.dir}"></classpath>
+				<src path="${test.dir}"/>
 				<include name="**/*.java"/>
 			</javac>
 		</sequential>
@@ -134,6 +149,28 @@
 	</macrodef>
 
 	<!-- ===================================================================== -->
+	<!-- TEST definitions -->
+	<!-- ===================================================================== -->
+
+    <target name="test" depends="compile-test" description="Run JUnit test">
+    	<mkdir dir="${reports.tests}" />
+       <junit fork="yes" haltonerror="false" haltonfailure="on" printsummary="true">
+          <formatter type="plain"/>
+          <formatter type="xml"/>
+          <batchtest fork="yes" todir="${reports.tests}">
+               <fileset dir="../test">
+                 <include name="**/*Test.java"/>
+               </fileset>
+          </batchtest>
+          <classpath>
+             <path refid="cisnet.libs"/>
+             <pathelement path="${classes.dir}"/>
+             <pathelement path="${testclasses.dir}"/>
+          </classpath>
+       </junit>
+    </target>
+
+	<!-- ===================================================================== -->
 	<!-- target definitions -->
 	<!-- ===================================================================== -->
 
@@ -176,8 +213,15 @@
 	<!-- target compile -->
 	<target name="compile" depends="prepare">
 		<title title="TASK compile" projectname="${project.name}" projectdir="${home.dir}"/>
-		<description>Compile the migration project</description>
+		<description>Compile ${project.name} project</description>
 		<macro_compile debug="true" optimize="false"/>
+	</target>
+	
+	<!-- target compile test -->
+	<target name="compile-test" depends="compile">
+		<title title="TASK compile test" projectname="${project.name}" projectdir="${home.dir}"/>
+		<description>Compile test of ${project.name} project</description>
+		<macro_compile_test debug="true" optimize="false"/>
 	</target>
 
 	<!-- target template -->
