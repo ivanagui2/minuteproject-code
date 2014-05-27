@@ -16,8 +16,10 @@
 	<property name="application.version" value="${project.version}"/>
 
 	<property name="lib.dir" value="${home.dir}/lib"/>
+	<property name="libc.dir" value="${home.dir}/libc"/>
 	<property name="libextra.dir" value="${lib.dir}/extra"/>
 	<property name="src.dir" value="${home.dir}/src"/>
+	<property name="config.dir" value="${home.dir}/config"/>
 	<property name="src-template.dir" value="${home.dir}/src-template"/>
 	<property name="src-patch.dir" value="${home.dir}/src-patch"/>
 	<property name="src-plugin.dir" value="${home.dir}/src-plugin"/>
@@ -27,6 +29,7 @@
 	<property name="archive.src.name" value="${application.name}-${application.version}-src.zip"/>
 	<property name="classes.dir" value="${home.dir}/classes"/>
 	<property name="testclasses.dir" value="${home.dir}/testclasses"/>
+	<property name="reports.tests" value="${home.dir}/reports"/>
 	<tstamp>
 		<format property='build.time' pattern='yyyy-MM-dd HH:mm:ss'/>
 	</tstamp>
@@ -44,6 +47,17 @@
 		<fileset dir="${deplib.dir}">
 			<include name="*.jar"/>
 		</fileset>
+	</path>
+	<path id="compile.test.classpath">
+		<fileset dir="${libc.dir}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	<path id="compiled.classes">
+		<pathelement location="${classes.dir}"/>
+	</path>
+	<path id="compiled.test.classes">
+		<pathelement location="${testclasses.dir}"/>
 	</path>
 	<!-- ===================================================================== -->
 	<!-- specific macros definition -->
@@ -67,10 +81,17 @@
 		<attribute name="debug"/>
 		<attribute name="optimize"/>
 		<sequential>
+			<mkdir dir="${testclasses.dir}"/>
 			<javac debug="@{debug}" deprecation="false" destdir="${testclasses.dir}" 
             	optimize="@{optimize}" nowarn="false">
-				<classpath refid="compile.classpath"/>
+				<!--<classpath refid="compile.classpath"/>
 				<classpath path="${class.dir}"></classpath>
+				-->
+		          <classpath>
+		             <path refid="compile.classpath"/>
+		             <path refid="compile.test.classpath"/>
+		             <pathelement path="${classes.dir}"/>
+		          </classpath>
 				<src path="${test.dir}"/>
 				<include name="**/*.java"/>
 			</javac>
@@ -115,8 +136,21 @@
 			<copy todir="@{todir}">
 				<fileset dir="@{filesetDir}">
 					<include name="**/*.java"/>
+					<include name="**/*.groovy"/>
 					<include name="**/*.xml"/>
 					<include name="**/*.properties"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="macro_copy_for_mvn">
+		<attribute name="todir"/>
+		<attribute name="fromdir"/>
+		<sequential>
+			<copy todir="@{todir}" overwrite="true">
+				<fileset dir="@{fromdir}">
+					<include name="**/*.*"/>
 				</fileset>
 			</copy>
 		</sequential>
@@ -154,17 +188,19 @@
 
     <target name="test" depends="compile-test" description="Run JUnit test">
     	<mkdir dir="${reports.tests}" />
-       <junit fork="yes" haltonerror="false" haltonfailure="on" printsummary="true">
+       <junit fork="yes" haltonerror="false" haltonfailure="false" printsummary="true">
           <formatter type="plain"/>
           <formatter type="xml"/>
           <batchtest fork="yes" todir="${reports.tests}">
-               <fileset dir="../test">
+               <fileset dir="test">
                  <include name="**/*Test.java"/>
                </fileset>
           </batchtest>
           <classpath>
-             <path refid="cisnet.libs"/>
+             <path refid="compile.classpath"/>
+             <path refid="compile.test.classpath"/>
              <pathelement path="${classes.dir}"/>
+             <pathelement path="${config.dir}"/>
              <pathelement path="${testclasses.dir}"/>
           </classpath>
        </junit>
@@ -202,6 +238,22 @@
 		<delete failonerror="false" dir="${reports.dir}"/>
 	</target>
 
+	<!-- target test 
+	<target name="test">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath refid="junit.class.path" />
+			<classpath>
+			    <pathelement location="${build.test.dir}"/>
+			  </classpath>
+			<formatter type="xml" />
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${test.dir}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	-->
 	<!-- target prepare -->
 	<target name="prepare">
 		<title title="TASK prepare" projectname="${project.name}" projectdir="${home.dir}"/>
@@ -261,5 +313,43 @@
 		<macro_archive compress="true" destdir="${dist.dir}" destfile="${archive.name}" classesdir="${classes.dir}"/>
 	</target>
 
+	<!-- SHIFT to maven -->
+	<!-- create the maven structure for
+		 - foundation
+		 - kernel
+		 - template
+	-->
+	<property name="ant.foundation.src" value="../minuteFoundation/src/main/java" />
+	<property name="mvn.foundation.src" value="../mvn/minuteFoundation/src/main/java" />
+
+	<target name="setup-mvn-foundation">
+		<macro_copy_for_mvn fromdir="../minuteFoundation/src/main/java" todir="../mvn/minuteFoundation/src/main/java" />
+	</target>
+	
+	
+	<property name="ant.kernel.src" value="../minuteKernel/src" />
+	<property name="ant.kernel.src.plugin" value="../minuteKernel/src-plugin" />
+	<property name="ant.kernel.src.patch" value="../minuteKernel/src-patch" />
+	<property name="ant.kernel.src.test" value="../minuteKernel/test" />
+	
+	<property name="mvn.kernel.src.java" value="../mvn/minuteKernel/src/main/java" />
+	<property name="mvn.kernel.src.test.java" value="../mvn/minuteKernel/src/test/java" />
+	
+	<target name="setup-mvn-kernel">
+		<macro_copy_for_mvn fromdir="${ant.kernel.src}" todir="${mvn.kernel.src.java}" />
+		<macro_copy_for_mvn fromdir="${ant.kernel.src.plugin}" todir="${mvn.kernel.src.java}" />
+		<macro_copy_for_mvn fromdir="${ant.kernel.src.patch}" todir="${mvn.kernel.src.java}" />
+		<macro_copy_for_mvn fromdir="${ant.kernel.src.test}" todir="${mvn.kernel.src.test.java}" />
+	</target>
+	
+	<target name="setup-mvn">
+		<antcall target="setup-mvn-foundation"></antcall>
+		<antcall target="setup-mvn-kernel"></antcall>
+	</target>
+    <!-- build from ant -->
+	
+	
+	<!-- copy artifacts -->
+	
 
 </project>
