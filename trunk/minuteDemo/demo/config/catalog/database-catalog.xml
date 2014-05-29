@@ -1,4 +1,4 @@
-<environment-catalog>
+<database-catalog>
   <databases>
 
 	 <database name="HSQLDB" 
@@ -125,4 +125,4 @@
   	/>
   </servers>
 
-</environment-catalog>
+</database-catalog>
