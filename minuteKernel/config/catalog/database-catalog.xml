@@ -1,4 +1,5 @@
-<environment-catalog>
+<database-catalog>
+<!-- todo rename into environment catalog -->
   <databases>
 
 	 <database name="HSQLDB" 
@@ -125,4 +126,4 @@
   	/>
   </servers>
 
-</environment-catalog>
+</database-catalog>
