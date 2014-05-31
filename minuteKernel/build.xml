@@ -52,6 +52,7 @@
 		<fileset dir="${libc.dir}">
 			<include name="*.jar"/>
 		</fileset>
+		<pathelement location="./config"/>
 	</path>
 	<path id="compiled.classes">
 		<pathelement location="${classes.dir}"/>
@@ -194,6 +195,7 @@
           <batchtest fork="yes" todir="${reports.tests}">
                <fileset dir="test">
                  <include name="**/*Test.java"/>
+                 <exclude name="**/TechnologyCatalogUtilsTest.java"/>
                </fileset>
           </batchtest>
           <classpath>
@@ -270,7 +272,7 @@
 	</target>
 	
 	<!-- target compile test -->
-	<target name="compile-test" depends="compile">
+	<target name="compile-test" depends="compileGroovy">
 		<title title="TASK compile test" projectname="${project.name}" projectdir="${home.dir}"/>
 		<description>Compile test of ${project.name} project</description>
 		<macro_compile_test debug="true" optimize="false"/>
@@ -307,7 +309,7 @@
 	</target>
 
 	<!-- target archive -->
-	<target name="archive" depends="clean,template,compileGroovy,resource, archive-code">
+	<target name="archive" depends="clean,template,test,resource, archive-code">
 		<title title="TASK archive" projectname="${project.name}" projectdir="${home.dir}"/>
 		<description>Create an archive containing all the classes of the migration project</description>
 		<macro_archive compress="true" destdir="${dist.dir}" destfile="${archive.name}" classesdir="${classes.dir}"/>
