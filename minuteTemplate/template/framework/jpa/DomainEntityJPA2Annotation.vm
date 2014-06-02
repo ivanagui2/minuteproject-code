@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.*;
  *
  */
 @Entity (name="${className}")
-@Table (name="${table.name}")
+@Table (name="\"${table.name}\"") ##to tackle reserved key words
 #set($domainVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($domainVariableName))
 @NamedQueries $annotationListTagBeginning
 #set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")

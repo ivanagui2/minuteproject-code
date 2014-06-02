@@ -47,7 +47,9 @@
 #end
 #end
 #end
-
+#macro (assertSize $size) 
+		assertTrue ("size expected: "+$size+", size found: "+list.size(), list.size()==$size);
+#end
 package $packageName;
 
 #distinctBEImport()
@@ -158,30 +160,30 @@ public class $className extends $testAdapterClassName {
     public void testSearchPrototype () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask);
-		assert (list.size()==1);
+#assertSize(1)
 	}	
 	
 	$test	
     public void testSearchPrototypeWithCache () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototypeWithCache${domainClassName}(mask);
-		assert (list.size()==1);
+#assertSize(1)
 	}	
 	
 	$test	
     public void testSearchPrototypePositiveNegative () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask,null);
-		assert (list.size()==1);
+#assertSize(1)
 		list = ${daoInterfaceVariableName}.searchPrototype${domainClassName}(mask, mask);
-		assert (list.size()==0);
+#assertSize(0)
 	}	
 
 	$test	
     public void testSearchPrototypeAny () {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchPrototypeAny${domainClassName}(mask);
-		assert (list.size()==1);
+#assertSize(1)
 	}
 
 #*	
@@ -200,7 +202,7 @@ public class $className extends $testAdapterClassName {
 		List<$domainClassName> masks = new ArrayList<$domainClassName> ();
 		masks.add(mask);
 		List<$domainClassName> list = ${daoInterfaceVariableName}.searchDistinctPrototype${domainClassName}(${domainClassName}.fullMask(), masks);
-		assert (list.size()==1);
+#assertSize(1)
 	}
 	
 	$test	
@@ -492,7 +494,7 @@ public class $className extends $testAdapterClassName {
         // check only what part is filled
 #getMaskFromInsertedEntity()
         List<$domainClassName> list = ${daoInterfaceVariableName}.list(mask, mask, QuerySortOrder.ASC);
-        assert (list.size()==1);
+#assertSize(1)
     }
  
     $test
@@ -518,7 +520,7 @@ public class $className extends $testAdapterClassName {
         // check entire entity is filled
 #getMaskFromInsertedEntity()
         List<$domainClassName> list = ${daoInterfaceVariableName}.getDistinct${domainClassName}(mask, mask, new ${domainClassName}());
-		assertTrue (list.size()==1);
+#assertSize(1)
     }
  
     $test

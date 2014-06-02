@@ -1281,12 +1281,12 @@ public class $className extends ${ModelGenericDaoJpaImplClass}<$tableClassName> 
 	   StringBuffer sb = new StringBuffer();
 	   boolean isBlankSet = false;
 	   aliasWhatHt.putAll(aliasWhereHt);
-	   Enumeration<String> keys = aliasWhatHt.keys();
-	   while (keys.hasMoreElements()) {
-		  String key = keys.nextElement();
+	   Enumeration<String> _keys = aliasWhatHt.keys();
+	   while (_keys.hasMoreElements()) {
+		  String _key = _keys.nextElement();
 		  sb.append (getQueryBLANK_COMMA (isBlankSet));
 		  isBlankSet = true;
-		  sb.append(getAliasKeyDomain(key)+" "+getAliasKeyAlias(key));
+		  sb.append(getAliasKeyDomain(_key)+" "+getAliasKeyAlias(_key));
 	   }
 	   return sb.toString();
 	}
@@ -1365,10 +1365,10 @@ public class $className extends ${ModelGenericDaoJpaImplClass}<$tableClassName> 
 	
 	protected static String getNextAlias (Hashtable aliasHt, $tableClassName $tableVariableName) {
 		int cptSameAlias = 0;
-		Enumeration<String> keys = aliasHt.keys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			if (key.startsWith("$tableVariableName"))
+		Enumeration<String> _keys = aliasHt.keys();
+		while (_keys.hasMoreElements()) {
+			String _key = _keys.nextElement();
+			if (_key.startsWith("$tableVariableName"))
 				cptSameAlias++;
 		}
 		if (cptSameAlias==0)
