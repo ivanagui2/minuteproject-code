@@ -33,7 +33,7 @@ import org.openxava.annotations.*;
  *
  */
 @Entity (name="${className}")
-@Table (name="${table.name}")
+@Table (name="\"${table.name}\"") ##to tackle reserved key words
 @Views${annotationListTagBeginning}
 #exposeEntityUpdatedAreas("view-base")
 $!updatedAreaBegin
