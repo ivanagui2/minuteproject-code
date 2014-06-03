@@ -201,7 +201,7 @@ public class $className extends $testAdapterClassName {
 #getMaskFromInsertedEntity()
 		List<$domainClassName> masks = new ArrayList<$domainClassName> ();
 		masks.add(mask);
-		List<$domainClassName> list = ${daoInterfaceVariableName}.searchDistinctPrototype${domainClassName}(${domainClassName}.fullMask(), masks);
+		List<$domainClassName> list = ${daoInterfaceVariableName}.searchDistinctPrototype${domainClassName}(${domainClassName}.fullMask().flat(), masks);
 #assertSize(1)
 	}
 	
