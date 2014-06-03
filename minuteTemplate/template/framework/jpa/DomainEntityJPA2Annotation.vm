@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.*;
  *
  */
 @Entity (name="${className}")
-@Table (name="\"${table.name}\"") ##to tackle reserved key words
+@Table (name="${table.name}")
 #set($domainVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($domainVariableName))
 @NamedQueries $annotationListTagBeginning
 #set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
@@ -277,6 +277,34 @@ $!updatedAreaSnippet
 #end
 #end	
 ) {
+	 this(
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if ($column.isLob())
+#exposeLobProperties()
+#elseif($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+#end
+       $columnVar#if ($velocityCount!=$table.columnCount),
+#end
+#end
+
+	 ,true);
+	}
+    
+	public ${className}(
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+#if ($column.isLob())
+#exposeLobProperties()
+#elseif($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+#end
+       $columnType $columnVar#if ($velocityCount!=$table.columnCount),
+#end
+#end
+	
+    , boolean setRelationship) {
        //primary keys
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
        this.$embeddedIdVariable = new ${embeddedIdClass}();  	
@@ -311,14 +339,14 @@ $!updatedAreaSnippet
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
 #set($colClass= $commonUtils.getColumnAliasClassName($table, $reference))
 ##set($colVar=$formatUtils.getJavaNameVariable($referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn})))
-       this.${colVar} = new $linkedTableClass();
+       if (setRelationship) this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
 #set($locColumn=$columnUtils.getColumn($table, $localColumn.name))
 #set($fieldVar=$formatUtils.getJavaNameVariable($locColumn.alias))
 #columnJavaNaming()
-       this.${colVar}.set$columnClass($fieldVar); 
+       if (setRelationship) this.${colVar}.set$columnClass($fieldVar); 
 #if(!$isPrimaryKey)
 	   set${colClass}_ (${fieldVar});
 #end
@@ -358,6 +386,7 @@ $!updatedAreaSnippet
 #end
 #end
 
+       , false
 	   );
 	}
 
