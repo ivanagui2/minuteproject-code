@@ -944,13 +944,14 @@ public class $className extends ${ModelGenericDaoJpaImplClass}<$tableClassName> 
 	private int countPartialField ($tableClassName $tableVariableName) {
 	   int cpt = 0;
 #foreach ($column in ${table.columns})
-#if($columnUtils.isColumnEmbeddedInEntity($column))
+##if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
+#putOrmForeignKeyColumn()
        if (${tableVariableName}.get$columnClass() != null) {
           cpt++;
        }
 #end
-#end
+##end
        return cpt;
 	}   
 

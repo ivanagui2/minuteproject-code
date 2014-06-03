@@ -47,6 +47,27 @@
 #end
 #end
 #end
+#macro (assertNotNullFirstIfStandardOrMandatoryRelationshipFieldAndNullTheRest $nbOfColumns)
+#set($nbAffected=0)
+#foreach ($column in $table.columns)
+#putColumnParams()
+#if($isForeignKey)
+#set($columnClass="${columnClass}_")
+#end
+#if ($nbAffected < $nbOfColumns)
+#if (!$isForeignKey)
+        assertNotNull (result.get$columnClass());
+#elseif ($isMandatory)
+        assertNotNull (result.get$columnClass());
+#else
+        assertNull (result.get$columnClass());
+#end
+#set($nbAffected=$nbAffected+1)
+#else
+		assertNull (result.get$columnClass());
+#end
+#end
+#end
 #macro (assertSize $size) 
 		assertTrue ("size expected: "+$size+", size found: "+list.size(), list.size()==$size);
 #end
@@ -341,7 +362,7 @@ public class $className extends $testAdapterClassName {
 		assertTrue (list.size()==1);
 		${domainClassName} result = (${domainClassName})list.get(0);
         // assert only the what mask field are set
-#assertNotNullFirstFieldAndNullTheRest($nbColumns)		
+#assertNotNullFirstIfStandardOrMandatoryRelationshipFieldAndNullTheRest($nbColumns)		
 	}
    
     // load test
@@ -456,11 +477,11 @@ public class $className extends $testAdapterClassName {
         ${daoInterfaceVariableName}.find(queryData);
         assertTrue (queryData.getTotalResultCount()>0);
 
-		queryData = new QueryData<$domainClassName>(start, max, entitySort,entityCriteria, ${domainClassName}.fullMask());
+		queryData = new QueryData<$domainClassName>(start, max, entitySort,entityCriteria, ${domainClassName}.fullMask().flat());
         ${daoInterfaceVariableName}.find(queryData);
         assertTrue (queryData.getTotalResultCount()>0);
 
-		queryData = new QueryData<$domainClassName>(start, 1, entitySort,entityCriteria, ${domainClassName}.fullMask());
+		queryData = new QueryData<$domainClassName>(start, 1, entitySort,entityCriteria, ${domainClassName}.fullMask().flat());
         ${daoInterfaceVariableName}.find(queryData);
         assertTrue (queryData.getTotalResultCount()>0);
 
