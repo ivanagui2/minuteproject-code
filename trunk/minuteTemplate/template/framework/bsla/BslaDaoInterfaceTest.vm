@@ -288,37 +288,29 @@ public class $className extends $testAdapterClassName {
 		${daoInterfaceVariableName}.save${domainClassName}(${domainVariableName});
 		//TODO add test
 	}
-	
+
+#if ($table.attributes.size>0)
 	$test
 	public void testUpdateNotNull$domainClassName () {
     	$domainClassName ${domainVariableName} = insert$domainClassName();
-    	//$domainClassName ${domainVariableName}2 = load$domainClassName(${domainVariableName});  	
 		$domainClassName ${domainVariableName}2 = new $domainClassName();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
         ${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
 #end
-#foreach ($column in $table.columns)
+#foreach ($column in $table.attributes)
 #putColumnParams()
-#if (!$column.isPrimaryKey() && !$isForeignKey)
-#if ($velocityCount%2==0)
         ${domainVariableName}2.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,2));
-#end
-#end
 #end	
 	    ${daoInterfaceVariableName}.updateNotNullOnly${domainClassName}(${domainVariableName}2);
     	$domainClassName ${domainVariableName}3 = load${domainClassName}(${domainVariableName});
         // assertion
-#foreach ($column in $table.columns) 
+#foreach ($column in $table.attributes) 
 #putColumnParams()
-#if (!$column.isPrimaryKey() && !$isForeignKey && $velocityCount%2==0)
-//      this assertion does not work since bulk update does not refresh first level cache
-//		assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
-#elseif(!$isForeignKey)
      	assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}.get$columnClass()));
 #end
-#end
 	}	
+#end
 	
 	$test
 	public void testUpdateNotNullOnlyPrototype$domainClassName () {
