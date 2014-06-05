@@ -1,17 +1,19 @@
     protected String getUpdateNotNullOnly${tableClassName}QueryChunkPrototype ($tableClassName $tableVariableName) {
-        boolean isWhereSet = false;
+        boolean isSetSet = false;
         StringBuffer query = new StringBuffer();
         query.append (" update $tableClassName $tableVariableName ");
 #foreach ($column in ${table.columns})
 #if (!$column.isPrimaryKey())
 #putColumnParamNaming()
         if (${tableVariableName}.get$columnClass() != null) {
-           query.append (getQueryCommaSet (isWhereSet));
-           isWhereSet = true; 
+           query.append (getQueryCommaSet (isSetSet));
+           isSetSet = true; 
            query.append(" ${tableVariableName}.${columnVar} = :${columnVar}");
         }
 #end    
 #end
+        if (isSetSet==false)
+			throw new IllegalArgumentException("$tableVariableName mask should contain updatable fields");
         return query.toString();
     }
     
@@ -28,6 +30,8 @@
         }
 #end
 #end
+        if (isWhereSet==false)
+			throw new IllegalArgumentException("$tableVariableName mask should contain primary key");
         return query.toString();
     }
     
