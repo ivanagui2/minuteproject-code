@@ -130,6 +130,14 @@ not need since 4.0.0 spring release
        return new Boolean (true);
     }
 
+    protected Short getShort () {
+       return new Short (100);
+    }
+
+    protected Short getShort2 () {
+       return new Short (100);
+    }
+
     protected Long getDecimal2() {
         return getLong2();
     }
