@@ -24,6 +24,10 @@ public class TestUtils {
 			return  "getLong"+number+"()";	
 		if (dBType.equals("DOUBLE"))
 			return  "getDouble"+number+"()";			
+		if (dBType.equals("SMALLINT"))
+			return  "getShort"+number+"()";			
+		if (dBType.equals("REAL"))
+			return  "getLong"+number+"()";			
 		if (dBType.equals("INT"))
 			return  "getInteger"+number+"()";		
 		if (dBType.equals("TIME"))
