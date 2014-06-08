@@ -309,7 +309,6 @@ public abstract class AbstractGenerator implements Generator {
 	    		}
 	    	}
 	    	for (ResourceTarget resourceTarget : target.getResourceTargets()) {
-	    		//TODO copy resources
 	    		for (Resource resource : resourceTarget.getResources()) {
 	    			if (resource.isGenerable())
 	    				copy (resource);
@@ -320,7 +319,9 @@ public abstract class AbstractGenerator implements Generator {
 	
 
     private void copy(Resource resource) throws MinuteProjectException {
-    	
+    	//TODO improve copy process
+    	// relative path
+    	// + resource type
 		String resourceFileName = resource.getResourceFileName();
 		String outputDir = resource.getResourceTarget().getOutputdir();
 		
