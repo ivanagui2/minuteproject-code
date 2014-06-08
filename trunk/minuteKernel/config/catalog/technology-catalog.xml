@@ -6,6 +6,8 @@
 	    <technology-info name="minuteproject" icon-url="" url="" description="powerful generator"/>
 	    <technology-info name="JPA2" icon-url="" url="" description="JEE persistence API"/>
     </technologies-info>
+    
+    
 	<technologies>
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
@@ -395,7 +397,17 @@
 			</frameworks>
 		</technology>
 
-		<!-- webservice model technologies not activated <technology name="WebService+Spring-Hibernate" 
+		<technology name="KendoUI" model-type="rdbms"
+			template-config-file-name="mp-template-config-kendoui.xml"
+			default-outputdir="REST-Client" template-dir="@templateRoot@/framework/kendo"
+			status="draft" description="Generates kendoui html, css, js and rest client">
+			<frameworks>
+				<framework name="Kendoui" version=""></framework>
+			</frameworks>
+		</technology>
+
+		<!-- webservice model technologies not activated 
+		<technology name="WebService+Spring-Hibernate" 
 			model-type="webservice" template-config-file-name="mp-template-config-WSDL-API.xml" 
 			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl" 
 			status="release" description="Generates mvn structure to import wsdl into 

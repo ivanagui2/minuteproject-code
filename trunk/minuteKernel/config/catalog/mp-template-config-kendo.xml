@@ -3,9 +3,10 @@
 	</architecture-target>	
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
    	<plugin name="kendoUiUtils" className="net.sf.minuteProject.plugin.kendoui.KendoUiUtils"/>
+   	
   	<template-target 
-    	name="Kendo client client"
-		outputdir=""
+    	name="Kendo client"
+		outputdir="src/webapp/WEB-INF/jsp"
 		libdir="lib/KENDOUI_LIB.vm">
 		
 		<template name="KendoUiEntitySearchGrid" templateFileName="KendoUiEntityList.vm" 
@@ -21,4 +22,5 @@
 		</template>	
 												
 	</template-target>				
+	
 </target>
