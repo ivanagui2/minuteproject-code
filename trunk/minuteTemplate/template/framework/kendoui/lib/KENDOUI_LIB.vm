@@ -1,2 +1,5 @@
-#macro(kendo)
+#macro(putKendoUIJSImport)
+<script src="http://cdn.kendostatic.com/<version>/js/jquery.min.js"></script>
+<script src="http://cdn.kendostatic.com/<version>/js/kendo.all.min.js"></script>
+<script src="http://cdn.kendostatic.com/<version>/js/cultures/kendo.culture.en-GB.min.js"></script>
 #end
