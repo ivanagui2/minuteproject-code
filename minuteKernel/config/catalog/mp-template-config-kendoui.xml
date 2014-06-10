@@ -6,7 +6,7 @@
    	
   	<template-target 
     	name="Kendo client"
-		outputdir="src/webapp/WEB-INF/jsp"
+		outputdir="src/webapp/WEB-INF/jsp">
 		libdir="lib/KENDOUI_LIB.vm">
 		
 		<template name="KendoUiEntitySearchGrid" templateFileName="KendoUiEntityList.vm" 

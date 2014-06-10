@@ -101,7 +101,7 @@
 		
 	 -->
 	 	 
-		<targets catalog-entry="REST-CXF-JEE" 
+		<targets catalog-entry="REST-CXF-JEE,KendoUI" 
 
 		 	append-catalog-entry-dir-to-outputdir-root="true">
 		</targets>
