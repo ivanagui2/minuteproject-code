@@ -3,7 +3,7 @@
 <script src="http://cdn.kendostatic.com/<version>/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/<version>/js/cultures/kendo.culture.en-GB.min.js"></script>
 
-<script id="iscIcons" type="text/x-kendo-template">
+<script id="grid-template" type="text/x-kendo-template">
  <span>
  # if (dispatchedToCurrentGroup) { #
    <span class="k-icon k-i-note" style="vertical-align:-5px; margin-left:-8px; " title="title"/>
@@ -107,27 +107,27 @@ $(function () {
    },
    pageable: {
     refresh: true,
-     pageSizes: <xsl:value-of select="/doc/config/A_RSH_KENDO_PAGESIZES"/>,
-     pageSize: <xsl:value-of select="/doc/config/A_RSH_KENDO_PAGESIZE"/>,
-     buttonCount: 5,
+     pageSizes: $kendoUiUtils.pageSizes,
+     pageSize: $kendoUiUtils.pageSize,
+     buttonCount: $kendoUiUtils.buttonCount,
      messages: {
-      display: "<xsl:value-of select="/doc/display/A_PAGER_DISPLAY"/>",
-      empty: "<xsl:value-of select="/doc/display/A_PAGER_EMPTY"/>",
-      page: "<xsl:value-of select="/doc/display/A_PAGER_PAGE"/>",
-      of: "<xsl:value-of select="/doc/display/A_PAGER_OF"/>",
-      itemsPerPage: "<xsl:value-of select="/doc/display/A_PAGER_ITEMSPERPAGE"/>",
-      first: "<xsl:value-of select="/doc/display/A_PAGER_FIRST"/>",
-      previous: "<xsl:value-of select="/doc/display/A_PAGER_PREVIOUS"/>",
-      next: "<xsl:value-of select="/doc/display/A_PAGER_NEXT"/>",
-      last: "<xsl:value-of select="/doc/display/A_PAGER_LAST"/>",
-      refresh: "<xsl:value-of select="/doc/display/A_PAGER_REFRESH"/>"
+      display: "$kendoUiUtils.getPageableMessageDisplay($table)",
+      empty: "$kendoUiUtils.getPageableEmptyMessageDisplay($table)",
+      page: "$kendoUiUtils.getPageablePage($table)",
+      of: "$kendoUiUtils.getPageableMessageOf()",
+      itemsPerPage: "$kendoUiUtils.getPageableMessageItemPerPage($table)",
+      first: "$kendoUiUtils.getPageableMessageFirst($table)",
+      previous: "$kendoUiUtils.getPageableMessagePrevious($table)",
+      next: "$kendoUiUtils.getPageableMessageNext($table)",
+      last: "$kendoUiUtils.getPageableMessageLast($table)",
+      refresh: "$kendoUiUtils.getPageableMessageRefresh($table)"
      }
     },
     columns: [
 #set($counter=0)
 #foreach ($column in $table.columns)
      {
-      template: kendo.template($("#iscIcons").html()),
+      template: kendo.template($("#grid-template").html()),
       title: '',
       width: 30,
       headerAttributes: ""
