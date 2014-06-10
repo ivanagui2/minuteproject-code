@@ -1,16 +1,14 @@
-
-<script src="http://cdn.kendostatic.com/<version>/js/jquery.min.js"></script>
-<script src="http://cdn.kendostatic.com/<version>/js/kendo.all.min.js"></script>
-<script src="http://cdn.kendostatic.com/<version>/js/cultures/kendo.culture.en-GB.min.js"></script>
-
-<script id="grid-template" type="text/x-kendo-template">
+#exposeVariableEntitySpecific()
+#putKendoUIJSImport()
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
+<script id="grid-template-$column.alias" type="text/x-kendo-template">
  <span>
- # if (dispatchedToCurrentGroup) { #
-   <span class="k-icon k-i-note" style="vertical-align:-5px; margin-left:-8px; " title="title"/>
-
- # } #
+   <span class="k-icon k-i-note" title="$columnVar"/>
  </span>
 </script>
+#end
+
 <script type="text/javascript">
 $(function () {
   var expandedRow;
@@ -44,14 +42,17 @@ $(function () {
      total: "total",
      errors: "error"
     },
+#*
     sort: {
      field: "$kendoUiUtils.getSortFields()",
      dir: "$kendoUiUtils.getSortFields()"
     },
+*# 
     serverPaging: true,
     serverSorting: true,
     serverFiltering: true
    },
+#*
    columnMenu: {
     messages: {
      columns: "$kendoUiUtils.getMessageColumns($table)",
@@ -60,12 +61,14 @@ $(function () {
      sortDescending: "$kendoUiUtils.getMessageSortDescColumns($table)"
     }
    },
-   detailTemplate: kendo.template($("#${tableVariableName}DetailTemplate").html()),
-   detailInit: ${tableVariableName}ListDetailInit,
-   detailExpand: ${tableVariableName}ListDetailExpand,
-   dataBound: iscListDataBound,
+*# 
+##   detailTemplate: kendo.template($("#${tableVariableName}DetailTemplate").html()),
+##   detailInit: ${tableVariableName}ListDetailInit,
+##   detailExpand: ${tableVariableName}ListDetailExpand,
+##  dataBound: ${tableVariableName}ListDataBound,
    groupable: false,
    sortable: true,
+#*
    filterable: {
     messages: {
      info: "$kendoUiUtils.getFilterableMessageInfo($table)",
@@ -100,11 +103,14 @@ $(function () {
       lte: "",
       lt: ""
      }
+
     }
    },
+*#
    scrollable: {
     virtual: true
    },
+#*
    pageable: {
     refresh: true,
      pageSizes: $kendoUiUtils.pageSizes,
@@ -123,20 +129,23 @@ $(function () {
       refresh: "$kendoUiUtils.getPageableMessageRefresh($table)"
      }
     },
+*#
     columns: [
-#set($counter=0)
 #foreach ($column in $table.columns)
+#putColumnParamNaming()
      {
-      template: kendo.template($("#grid-template").html()),
-      title: '',
-      width: 30,
-      headerAttributes: ""
-//format: "{0: dd/MM/yyyy}",
-//filterable: false
-     }#if($velocityCount<$counter),#end 
-#set($counter=$counter+1)
+      template: kendo.template($("#grid-template-$column.alias").html()),
+      title: '$column.alias',
+#if($isLengthPrecisionColumn)     width:$column.size,#end
+      headerAttributes: "$columnVar"
+///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
+///filterable: false
+     }
+#if ($velocityCount!=$table.columnCount)
+    ,#end 
+##set($counter=$counter+1)
 #end
-     }]
+     ]
     });
   });
 </script>

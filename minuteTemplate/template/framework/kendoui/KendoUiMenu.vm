@@ -1,0 +1,50 @@
+#exposeVariableModelSpecific()
+#putKendoUIJSImport()
+
+
+<script type="text/javascript">
+$(function () {
+
+  $("#${model.name}-Menu").kendoMenu({ 
+   dataSource: {
+    error: function (e) {
+##     if (e.errors !== false) {
+##        $("#${tableVariableName}ListFooter").text(e.errors);
+##     }
+    },
+	transport: {
+     read: {
+      url: "data/model/menu", //package.name (entity,+URL)
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      cache: false
+     }
+    },
+    schema: {
+     data: "data",
+     total: "total",
+     errors: "error"
+    },
+    columns: [
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
+     {
+      template: kendo.template($("#grid-template-$column.alias").html()),
+      title: '$column.alias',
+#if($isLengthPrecisionColumn)     width:$column.size,#end
+      headerAttributes: "$columnVar"
+///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
+///filterable: false
+     }
+#if ($velocityCount!=$table.columnCount)
+    ,#end 
+##set($counter=$counter+1)
+#end
+     ]
+    });
+  });
+</script>
+<div class="k-content">
+ <div id="${model.name}-Menu" >
+</div>
+</div>
