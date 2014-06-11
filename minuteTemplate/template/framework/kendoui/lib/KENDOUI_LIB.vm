@@ -3,3 +3,26 @@
 <script src="http://cdn.kendostatic.com/<version>/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/<version>/js/cultures/kendo.culture.en-GB.min.js"></script>
 #end
+#macro(putKendoUIMenuPackage)
+##https://github.com/insanio/kendoui.ex/tree/master/examples inspiration
+#set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
+#set($displayableEntityGroups = $presentationUtils.getDisplayableEntityGroups($package))
+#set($packageLabel=$i18nUtils.getPackageName($package))
+#set($subMenuVar = "submenu${package.name}")
+#set($tabVar = "tab${package.name}")
+#if(!$displayableEntities.isEmpty())
+<li>$packageLabel
+    <ul>
+#foreach ($groups in $displayableEntityGroups)	
+#foreach ($table in ${groups})
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
+        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
+		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
+        <li>$tableLabel</li>
+#end
+#end
+    </ul>
+</li>
+#end
+#end

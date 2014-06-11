@@ -1,7 +1,6 @@
 #exposeVariableModelSpecific()
 #putKendoUIJSImport()
 
-
 <script type="text/javascript">
 $(function () {
 
@@ -45,6 +44,12 @@ $(function () {
   });
 </script>
 <div class="k-content">
- <div id="${model.name}-Menu" >
+<div id="${model.name}-Menu">
+#foreach ($package in ${businessPackages})
+#putKendoUIMenuPackage()
+#end
+#foreach ($package in ${businessPackageViews})
+#putKendoUIMenuPackage()
+#end
 </div>
 </div>
