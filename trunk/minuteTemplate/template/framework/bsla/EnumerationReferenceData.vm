@@ -58,7 +58,7 @@ public enum $className {
        for ($className c : ${className}.values()) {
           if (c.toString().equals(value))
              return true;
-          }    	 
+          }
        return false;
     }     
 
