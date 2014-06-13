@@ -6,7 +6,7 @@
    	
   	<template-target 
     	name="Kendo client"
-		outputdir="src/webapp/WEB-INF/jsp">
+		outputdir="src/webapp/html"
 		libdir="lib/KENDOUI_LIB.vm">
 		
 		<template name="KendoUiEntitySearchGrid" templateFileName="KendoUiEntityList.vm" 
@@ -20,7 +20,15 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
 		</template>	
-												
+						
+
+		<template
+			name="KendoUiMenu" templateFileName="KendoUiMenu.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="html" file-prefix="" file-suffix="homeMenu" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+		
 	</template-target>				
 	
 </target>
