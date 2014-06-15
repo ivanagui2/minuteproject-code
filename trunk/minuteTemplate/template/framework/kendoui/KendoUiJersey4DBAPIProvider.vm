@@ -1,0 +1,122 @@
+package $packageName;
+
+import com.sun.jersey.api.core.HttpContext;
+import com.sun.jersey.api.model.Parameter;
+import com.sun.jersey.core.spi.component.ComponentContext;
+import com.sun.jersey.core.spi.component.ComponentScope;
+import com.sun.jersey.server.impl.inject.AbstractHttpContextInjectable;
+import com.sun.jersey.spi.inject.Injectable;
+import com.sun.jersey.spi.inject.InjectableProvider;
+ 
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.ext.Provider;
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+ 
+@Provider
+public class KendoQueryModelContextProvider implements InjectableProvider<Context, Parameter> {
+    public ComponentScope getScope() {
+        return ComponentScope.PerRequest;
+    }
+ 
+    public Injectable getInjectable(ComponentContext ic, Context context, Parameter parameter) {
+        if (QueryModel.class.isAssignableFrom(parameter.getParameterClass())) {
+            return new AbstractHttpContextInjectable<QueryModel>() {
+                @Override
+                public QueryModel getValue(HttpContext context) {
+                    MultivaluedMap<String, String> parameters = context.getUriInfo().getQueryParameters();
+                    QueryModel queryModel = new QueryModel();
+                    queryModel.setPage(extractInteger(parameters, "page"));
+                    queryModel.setPageSize(extractInteger(parameters, "pageSize"));
+                    queryModel.setSkip(extractInteger(parameters, "skip"));
+                    queryModel.setTake(extractInteger(parameters, "take"));
+ #*
+                    queryModel.setGroup(new ListExtractor<Group>().extractList(parameters, new Extractor<Group>() {
+                        public Group extract(MultivaluedMap<String, String> parameters, int index) {
+                            List<String> fields = parameters.get("group[" + index + "][field]");
+                            List<String> dirs = parameters.get("group[" + index + "][dir]");
+                            if (fields != null && fields.size() > 0 && dirs != null && dirs.size() > 0) {
+                                return new Group(fields.get(0), dirs.get(0));
+                            } else {
+                                return null;
+                            }
+                        }
+                    }));
+ *#
+                    queryModel.setSort(new ListExtractor<Sort>().extractList(parameters, new Extractor<Sort>() {
+                        public Sort extract(MultivaluedMap<String, String> parameters, int index) {
+                            List<String> fields = parameters.get("sort[" + index + "][field]");
+                            List<String> dirs = parameters.get("sort[" + index + "][dir]");
+                            if (fields != null && fields.size() > 0 && dirs != null && dirs.size() > 0) {
+                                return new Sort(fields.get(0), dirs.get(0));
+                            } else {
+                                return null;
+                            }
+                        }
+                    }));
+ #*
+                    queryModel.setAggregate(new ListExtractor<Aggregate>().extractList(parameters, new Extractor<Aggregate>() {
+                        public Aggregate extract(MultivaluedMap<String, String> parameters, int index) {
+                            List<String> fields = parameters.get("aggregate[" + index + "][field]");
+                            List<String> aggregates = parameters.get("aggregate[" + index + "][aggregate]");
+                            if (fields != null && fields.size() > 0 && aggregates != null && aggregates.size() > 0) {
+                                return new Aggregate(fields.get(0), aggregates.get(0));
+                            } else {
+                                return null;
+                            }
+                        }
+                    }));
+ *#
+                    queryModel.setFilters(new ListExtractor<Filter>().extractList(parameters, new Extractor<Filter>() {
+                        public Filter extract(MultivaluedMap<String, String> parameters, int index) {
+                            List<String> values = parameters.get("filter[filters][" + index + "][value]");
+                            List<String> fields = parameters.get("filter[filters][" + index + "][field]");
+                            List<String> operators = parameters.get("filter[filters][" + index + "][operator]");
+                            String logic = parameters.getFirst("filter[logic]");
+//                            List<String> aggregates = parameters.get("filter[" + index + "][aggregate]");
+                            if ( fields != null && fields.size() > 0 ) {
+                                return new Filter( fields, operators, values,logic);
+                            } else {
+                                return null;
+                            }
+                        }
+                    }));
+ 
+                    return queryModel;
+                }
+            };
+        } else {
+            return null;
+        }
+    }
+ 
+    protected interface Extractor<T> {
+        T extract(MultivaluedMap<String, String> parameters, int index);
+    }
+ 
+    protected Integer extractInteger(MultivaluedMap<String, String> parameters, String parameter) {
+        try {
+            return Integer.parseInt(parameters.get(parameter).get(0));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+ 
+    protected class ListExtractor<T> {
+            List<T> objects = new LinkedList<T>();
+            protected List<T> extractList(MultivaluedMap<String, String> parameters, Extractor<T> extractor) {
+            int i=0;
+            while (true) {
+                T object = extractor.extract(parameters, i);
+                if (object != null) {
+                    objects.add(object);
+                } else {
+                    return objects;
+                }
+                i++;
+            }
+        }
+    }
+}
