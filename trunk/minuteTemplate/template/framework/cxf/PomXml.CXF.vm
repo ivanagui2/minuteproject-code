@@ -10,7 +10,7 @@
   <artifactId>${model.name}RestCxfJee</artifactId>
   <packaging>war</packaging>
   <version>${version}-SNAPSHOT</version>
-  	<name>$DbApiName REST API</name>
+  <name>$DbApiName REST API</name>
 
   <repositories>
     <repository>

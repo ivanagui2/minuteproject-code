@@ -17,8 +17,8 @@
 #foreach ($table in ${groups})
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
-        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
-		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
+##        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
+##		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
         <li>$tableLabel</li>
 #end
 #end
