@@ -115,7 +115,7 @@
 
 		<technology name="REST-SpringMVC" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-SpringMVC.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,KendoUI,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -154,7 +154,7 @@
 		<technology name="REST-CXF-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-CXF-JEE.xml"
 			default-outputdir="REST"
-			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMasterEar,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,MavenMaster,server-infrastructure-configuration"
+			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,KendoUI,MavenMasterEar,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,MavenMaster,server-infrastructure-configuration"
 			template-dir="@templateRoot@/framework/cxf" status="released"
 			description="Generates:\REST CXF CRUD app\JEE DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
