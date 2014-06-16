@@ -6,28 +6,65 @@
    	
   	<template-target 
     	name="Kendo client"
-		outputdir="src/webapp/html"
+		outputdir="src/main/webapp"
 		libdir="lib/KENDOUI_LIB.vm">
 		
 		<template name="KendoUiEntitySearchGrid" templateFileName="KendoUiEntityList.vm" 
-			file-extension="jsp" technicalPackage="" add-model-dir-name="false" 
+			file-extension="html" technicalPackage="" add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			entity-specific="true" 
 			file-prefix="kendoUiEntityList"
-			package-root=""
+			package-root="html"
 			package-name-builder-plugin="restUtils"
 			package-name-builder-method="getRenderingPackageName"				
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
 		</template>	
-						
+
+	</template-target>				
+   	
+  	<template-target 
+    	name="Kendo client"
+		outputdir="src/main/webapp"
+		package-root=""
+		libdir="lib/KENDOUI_LIB.vm">
 
 		<template
 			name="KendoUiMenu" templateFileName="KendoUiMenu.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="false" add-model-dir-name="false"
+			add-package-name="false" 
 			file-extension="html" file-prefix="" file-suffix="homeMenu" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			model-specific="true">
 		</template>	
+		
+	</template-target>				
+   	
+  	<template-target 
+    	name="Kendo client"
+		outputdir="src/main/java"
+		libdir="lib/KENDOUI_LIB.vm">
+
+		<template
+			name="KendoUiJersey4DBAPIProvider" templateFileName="KendoUiJersey4DBAPIProvider.vm" 
+			subdir="" outputsubdir="" technicalPackage="kendoui" add-model-name="false" add-model-dir-name="false"
+			file-extension="java" file-prefix="" file-suffix="KendoUiJerseyProvider" 
+			model-specific="true">
+		</template>	
+		
+	</template-target>				
+   	
+  	<template-target 
+    	name="Kendo client Maven"
+		outputdir=""
+		package-root=""
+		libdir="lib/KENDOUI_LIB.vm">
+
+		<template name="PomXml.REST.KendoUiJersey" templateFileName="PomXml.REST.KendoUiJersey.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+		</template>
 		
 	</template-target>				
 	
