@@ -32,8 +32,8 @@ $(function () {
       title: '$column.alias',
 #if($isLengthPrecisionColumn)     width:$column.size,#end
       headerAttributes: "$columnVar"
-///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
-///filterable: false
+##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
+##///filterable: false
      }
 #if ($velocityCount!=$table.columnCount)
     ,#end 

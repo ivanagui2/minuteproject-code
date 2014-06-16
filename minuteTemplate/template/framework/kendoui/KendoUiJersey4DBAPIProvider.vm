@@ -1,3 +1,4 @@
+#exposeVariableModelSpecific()
 package $packageName;
 
 import com.sun.jersey.api.core.HttpContext;
@@ -16,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
  
 @Provider
-public class KendoQueryModelContextProvider implements InjectableProvider<Context, Parameter> {
+public class $className implements InjectableProvider<Context, Parameter> {
     public ComponentScope getScope() {
         return ComponentScope.PerRequest;
     }
