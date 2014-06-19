@@ -35,11 +35,17 @@ call startup.bat
 
 cd %OX_HOME%\workspace\\$applicationOX
 call ant -f mp4openxava-build.xml
+
+## override addons
+cd %currentdir%
+xcopy web\naviox %OX_HOME%\workspace\Addons\web\naviox /y /s
+cd %OX_HOME%\workspace\\$applicationOX
 call ant
 
 cd %OX_HOME%\workspace\\$applicationOX
 call ant generatePortlets
 
-call explorer http://localhost:8080/$applicationOX/xava/homeMenu.jsp
+##call explorer http://localhost:8080/$applicationOX/xava/homeMenu.jsp
+call explorer http://localhost:8080/$applicationOX
 
 cd %currentdir%

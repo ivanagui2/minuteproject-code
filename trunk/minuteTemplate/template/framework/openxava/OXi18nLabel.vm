@@ -49,3 +49,5 @@ ${targetTableVariableName}Via${linkTableName}By${localColumnName}s[description]=
 #end
 #end
 $!updatedAreaI18nEnd
+
+welcome_point1=${model.name} application is create with Openxava and Minuteproject technologies
