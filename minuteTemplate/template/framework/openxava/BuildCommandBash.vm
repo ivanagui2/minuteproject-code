@@ -30,11 +30,17 @@ cd $OX_HOME/tomcat/bin
 
 cd $OX_HOME/workspace/$applicationOX
 ant -f mp4openxava-build.xml
+
+## override addons
+cd $GENDIR
+cp -R web/naviox ${OX_HOME}/workspace/Addons/web/naviox
+cd $OX_HOME/workspace/$applicationOX
 ant
 
 cd $OX_HOME/workspace/$applicationOX
 ant generatePortlets
 
-firefox http://localhost:8080/$applicationOX/xava/homeMenu.jsp
+##firefox http://localhost:8080/$applicationOX/xava/homeMenu.jsp
+firefox http://localhost:8080/$applicationOX
 
 cd $GENDIR
