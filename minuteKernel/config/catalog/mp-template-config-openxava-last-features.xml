@@ -212,7 +212,15 @@
 			file-extension="jsp" file-prefix="" file-suffix="404search" 
 			entity-specific="false" package-specific="false" model-specific="true">
 		</template>	
-									
+		
+		<!-- naviox -->
+		<template package-root="naviox"
+			name="OXNavioxWelcome.jsp" templateFileName="OXNavioxWelcome.jsp.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			file-extension="jsp" file-prefix="" file-suffix="welcome" 
+			entity-specific="false" package-specific="false" model-specific="true">
+		</template>	
+											
   </template-target> 
 		<!--  Menu home.jsp belongs to architecture -->
 		
