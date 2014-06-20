@@ -14,10 +14,10 @@ public class QueryData <T extends AbstractDomainObject> {
 	private List<T> result;
 	private Long totalResultCount;
 	
-	private Integer start;
-	private Integer max;
-	private EntitySort<T> entitySort;
-	private EntityCriteria<T> entityCriteria;
+	private final Integer start;
+	private final Integer max;
+	private final EntitySort<T> entitySort;
+	private final EntityCriteria<T> entityCriteria;
 	private T entityWhat;
 	
 	public QueryData(Integer start, Integer max, EntitySort<T> entitySort, EntityCriteria<T> entityCriteria, T entityWhat) {	
@@ -92,28 +92,12 @@ public class QueryData <T extends AbstractDomainObject> {
 		return max;
 	}
 
-	public void setMax(int max) {
-		this.max = max;
-	}
-
 	public EntitySort<T> getEntitySort() {
 		return entitySort;
 	}
 
-	public void setEntitySort(EntitySort<T> entitySort) {
-		this.entitySort = entitySort;
-	}
-
 	public EntityCriteria<T> getEntityCriteria() {
 		return entityCriteria;
-	}
-
-	public void setEntityCriteria(EntityCriteria<T> entityCriteria) {
-		this.entityCriteria = entityCriteria;
-	}
-
-	public void setStart(int start) {
-		this.start = start;
 	}
 
 	public T getEntityWhat() {

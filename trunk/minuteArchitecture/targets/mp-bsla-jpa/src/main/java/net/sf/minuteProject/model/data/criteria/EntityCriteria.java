@@ -6,10 +6,10 @@ import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 
 public class EntityCriteria<T extends AbstractDomainObject> {
 
-	private T entity;
-	private EntityMatchType matchType;
-	private OperandType operandType;
-	private Boolean caseSensitivenessType;
+	private final T entity;
+	private final EntityMatchType matchType;
+	private final OperandType operandType;
+	private final Boolean caseSensitivenessType;
 	
 	public EntityCriteria(T entity, EntityMatchType matchType,
 			OperandType operandType, Boolean caseSensitivenessType) {
@@ -24,32 +24,16 @@ public class EntityCriteria<T extends AbstractDomainObject> {
 		return entity;
 	}
 
-	public void setEntity(T entity) {
-		this.entity = entity;
-	}
-
 	public EntityMatchType getMatchType() {
 		return matchType;
-	}
-
-	public void setMatchType(EntityMatchType matchType) {
-		this.matchType = matchType;
 	}
 
 	public OperandType getOperandType() {
 		return operandType;
 	}
 
-	public void setOperandType(OperandType operandType) {
-		this.operandType = operandType;
-	}
-
 	public Boolean getCaseSensitivenessType() {
 		return caseSensitivenessType;
-	}
-
-	public void setCaseSensitivenessType(Boolean caseSensitivenessType) {
-		this.caseSensitivenessType = caseSensitivenessType;
 	}
 	
 	@Override
