@@ -406,25 +406,77 @@
 			</frameworks>
 		</technology>
 
-		<!-- webservice model technologies not activated 
-		<technology name="WebService+Spring-Hibernate" 
-			model-type="webservice" template-config-file-name="mp-template-config-WSDL-API.xml" 
-			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl" 
+		<!--                                             -->	
+		<!-- webservice model technologies not activated -->	
+		<!--                                             -->	
+		<technology name="WEBSERVICE-PROJECT-BSLA" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Impl.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release" description="Generates mvn structure to implement wsdl api"
+			depends-on-targets="WS-API,WS-Impl,ServiceLayer,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster">
+			
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+			
+			<property name="add-backend-implementation" value="spring"></property>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+		</technology>
+		
+		<technology name="WEBSERVICE-PROJECT-BELA" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Impl.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release" description="Generates mvn structure to implement wsdl api"
+			depends-on-targets="WS-API,WS-Impl,ServiceLayer,BELA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster">
+			
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+			
+			<property name="add-backend-implementation" value="ejb"></property>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+		</technology>
+		
+<!-- 		
+		<technology name="WebService+Spring-Hibernate" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-API.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
 			status="release" description="Generates mvn structure to import wsdl into 
-			java" depends-on-targets="MVN_SPRING_HIBERNATE_LAST, WS-Impl, ServiceLayer" 
-			> <frameworks> <framework name="metro" version="2.1"></framework> </frameworks> 
-			</technology> <technology name="WS-API" model-type="webservice" template-config-file-name="mp-template-config-WSDL-API.xml" 
-			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl" 
+				java"
+			depends-on-targets="MVN_SPRING_HIBERNATE_LAST, WS-Impl, ServiceLayer">
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+		</technology> -->
+		<technology name="WS-API" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-API.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
 			status="release" description="Generates mvn structure to import wsdl into 
-			java"> <frameworks> <framework name="metro" version="2.1"></framework> </frameworks> 
-			</technology> <technology name="WS-Impl" model-type="webservice" template-config-file-name="mp-template-config-WSDL-Impl.xml" 
-			default-outputdir="wsdl-impl" template-dir="@templateRoot@/framework/soa/wsdl" 
-			status="release" description="Generates mvn structure to implement wsdl api" 
-			is-generable="false"> </technology> <technology name="ServiceLayer" model-type="webservice" 
-			template-config-file-name="mp-template-config-WSDL-Service.xml" default-outputdir="service" 
-			template-dir="@templateRoot@/framework/soa/wsdl" status="release" description="Generates 
-			mvn structure to implement to nest backend to wsdl api" is-generable="false"> 
-			</technology> -->
+				java">
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+		</technology>
+		
+		<technology name="WS-Impl" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Impl.xml"
+			default-outputdir="wsdl-impl" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release" description="Generates mvn structure to implement wsdl api"
+			is-generable="false">
+		</technology>
+		
+		<technology name="ServiceLayer" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Service.xml"
+			default-outputdir="service" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release"
+			description="Generates mvn structure to implement to nest backend to wsdl api"
+			is-generable="false">
+		</technology> 
 
 		<!-- legacy tracks -->
 
