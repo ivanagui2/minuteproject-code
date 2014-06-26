@@ -1,4 +1,6 @@
 #exposeMaven()
+#exposePom()
+#exposeBackendTechnology()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -20,8 +22,12 @@
 		</dependency>
 		<dependency>
 			<groupId>${rootPackage}.${model.name}</groupId>
-##			<artifactId>$DbApiName</artifactId>
+			<!-- $isSpringBackend $isEJBBackend -->
+#if($isEJBBackend)
+			<artifactId>${model.name}Bela</artifactId>
+#else
 			<artifactId>${model.name}Bsla</artifactId>
+#end 
 			<version>${version}-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

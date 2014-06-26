@@ -69,11 +69,13 @@
           </plugin>
 #end
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+##				<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.jvnet.jax-ws-commons</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>1.10</version>
+				<version>2.2</version>
 				<executions>
 					<execution>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>wsimport</goal>
 						</goals>
@@ -96,8 +98,24 @@
 					<xnocompile>true</xnocompile>
 					<xjcArgs>
 						<xjcArg>-verbose</xjcArg>
+						<xjcArg>-mark-generated</xjcArg>
+                        <xjcArg>-Xvalue-constructor</xjcArg>
+                        <xjcArg>-Xfluent-api</xjcArg>
 					</xjcArgs>
+##                    <extension>true</extension>
 				</configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-value-constructor</artifactId>
+                        <version>3.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-fluent-api</artifactId>
+                        <version>3.0</version>
+                    </dependency>
+                </dependencies>
 			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
