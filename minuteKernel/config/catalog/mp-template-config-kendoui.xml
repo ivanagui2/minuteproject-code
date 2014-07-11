@@ -53,7 +53,7 @@
 		</template>	
 		
 	</template-target>				
-   	
+  <!--  	
   	<template-target 
     	name="Kendo client"
 		outputdir="src/main/java"
@@ -67,7 +67,7 @@
 		</template>	
 		
 	</template-target>				
-   	
+   	 -->
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
