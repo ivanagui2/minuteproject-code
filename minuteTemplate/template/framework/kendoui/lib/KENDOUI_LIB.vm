@@ -1,7 +1,8 @@
 #macro(putKendoUIJSImport)
-<script src="http://cdn.kendostatic.com/<version>/js/jquery.min.js"></script>
-<script src="http://cdn.kendostatic.com/<version>/js/kendo.all.min.js"></script>
-<script src="http://cdn.kendostatic.com/<version>/js/cultures/kendo.culture.en-GB.min.js"></script>
+#set($kendoUiVersion="2014.1.416")
+<script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
+<script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
+<script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
 #end
 #macro(putKendoUIMenuPackage)
 ##https://github.com/insanio/kendoui.ex/tree/master/examples inspiration

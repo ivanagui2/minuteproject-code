@@ -4,127 +4,132 @@
 #exposeMavenJersey()
 #putTargetServerDefinition()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>${rootPackage}.${model.name}</groupId>
-  <artifactId>${model.name}KendoUi</artifactId>
-  <packaging>war</packaging>
-  <version>${version}-SNAPSHOT</version>
-  <name>$DbApiName KendoUI REST</name>
-
-  <dependencies>
-    <dependency>
-        <groupId>${rootPackage}.${model.name}</groupId>
-#if($isEJBBackend)
-  		<artifactId>${model.name}Bela</artifactId>
-#else
-  		<artifactId>${model.name}Bsla</artifactId>
-#end     
-        <version>${version}-SNAPSHOT</version>
-    </dependency>	
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
-    </dependency>	
-    <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        <version>${cxf.version}</version>
-    </dependency>
-#*     <!-- for wadl generation -->	
-    <dependency>
-       <groupId>com.sun.jersey</groupId>
-       <artifactId>jersey-server</artifactId>
-       <version>${jersey.version}</version>
-    </dependency>	
-*#
-      <dependency>
-          <groupId>org.glassfish.jersey.core</groupId>
-          <artifactId>jersey-server</artifactId>
-          <version>${jersey.version}</version>
-#if($isGlassfishTargetServer)
-		  <scope>provided</scope>
-#end            
-      </dependency>
-
-      <dependency>
-          <groupId>org.glassfish.jersey.containers</groupId>
-          <artifactId>jersey-container-servlet-core</artifactId>
-          <version>${jersey.version}</version>
-#if($isGlassfishTargetServer)
-		  <scope>provided</scope>
-#end            
-      </dependency>
-
-      <dependency>
-          <groupId>com.sun.jersey</groupId>
-          <artifactId>jersey-server</artifactId>
-          <version>${sun.jersey.version}</version>
-      </dependency>
-
-      <dependency>
-          <groupId>com.sun.jersey</groupId>
-          <artifactId>jersey-client</artifactId>
-          <version>${sun.jersey.version}</version>
-      </dependency>
-
-  </dependencies>
-  
-  <build>
-    <finalName>${model.name}KendoUiApp</finalName>    
-    <plugins>
-#if($isGlassfishTargetServer)    ##earwar-shift
-	  <plugin>
-	    <artifactId>maven-war-plugin</artifactId>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>${rootPackage}.${model.name}</groupId>
+    <artifactId>${model.name}KendoUi</artifactId>
+    <packaging>war</packaging>
+    <version>${version}-SNAPSHOT</version>
+    <name>$DbApiName KendoUI REST client</name>
+    <dependencies>
+        <dependency>
+            <groupId>${rootPackage}.${model.name}</groupId>
+            #if($isEJBBackend)
+                <artifactId>${model.name}Bela</artifactId>
+            #else
+                <artifactId>${model.name}Bsla</artifactId>
+            #end     
+            <version>${version}-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        #*     <!-- for wadl generation -->	
+        <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-server</artifactId>
+        <version>${jersey.version}</version>
+        </dependency>
+        *#
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+            <exclusions>
+              <exclusion>
+                  <artifactId>javax.ws.rs-api</artifactId>
+                  <groupId>javax.ws.rs</groupId>
+              </exclusion>
+            </exclusions>
+            #if($isGlassfishTargetServer)
+                <scope>provided</scope>
+            #end            
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>${jersey.version}</version>
+	        <exclusions>
+              <exclusion>
+                  <artifactId>javax.ws.rs-api</artifactId>
+                  <groupId>javax.ws.rs</groupId>
+              </exclusion>
+	        </exclusions>
+            #if($isGlassfishTargetServer)
+                <scope>provided</scope>
+            #end            
+        </dependency>
+        #* 
+        <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-server</artifactId>
+        <version>${sun.jersey.version}</version>
+        </dependency>
+        <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-client</artifactId>
+        <version>${sun.jersey.version}</version>
+        </dependency>
+        *#
+    </dependencies>
+    <build>
+        <finalName>${model.name}KendoUiApp</finalName>
+        <plugins>
+            #if($isGlassfishTargetServer)    ##earwar-shift
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
 ##	    <version>2.4</version>
-	    <configuration>
-	       <packagingExcludes>WEB-INF/lib/*Bela*.jar</packagingExcludes>
-	    </configuration>
-	  </plugin>
-#end      
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>1.6</source>
-                <target>1.6</target>
-            </configuration>
-         </plugin>         
-     </plugins>    
-  </build>  
-  
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <configuration>
-          <formats>
-            <format>html</format>
-            <format>xml</format>
-          </formats>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
-
-	<properties>
-		<junit.version>4.10</junit.version>
-		<cxf.version>${cxfVersion}</cxf.version>
-		<jersey.version>${jerseyVersion}</jersey.version>
-		<sun.jersey.version>${sunjerseyVersion}</sun.jersey.version>
-	</properties>
-	
+<configuration>
+    <packagingExcludes>WEB-INF/lib/*Bela*.jar</packagingExcludes>
+</configuration>
+            </plugin>
+            #end      
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+    <properties>
+        <junit.version>4.10</junit.version>
+        <cxf.version>${cxfVersion}</cxf.version>
+        <jersey.version>${jerseyVersion}</jersey.version>
+##		<sun.jersey.version>${sunjerseyVersion}</sun.jersey.version>
+    </properties>
 </project>
