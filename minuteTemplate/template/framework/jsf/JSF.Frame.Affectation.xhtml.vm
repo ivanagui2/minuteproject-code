@@ -19,7 +19,7 @@
    <composite:implementation>
     <p:outputPanel id="#{cc.attrs.containerId}" >
      <p:dialog id="#{cc.attrs.sucDialogId}" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
-    		header="Affectation process" severity="alert" widgetVar="#{cc.attrs.sucDialogId}" appendTo="@(body)">
+    		header="#{i18n.affectionProcess}" severity="alert" widgetVar="#{cc.attrs.sucDialogId}" appendTo="@(body)">
     	<h:form id="suc${childrenListClass}Form">
         <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
             id="table$childrenListClass" 
@@ -42,7 +42,7 @@
                <ui:param name="isSemanticReference" value="false" />
              </ui:include>
     		 <p:column>
-                <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="#{cc.attrs.sucDialogId}.hide()" process="@this">
+                <p:commandButton value="#{i18n.affect}" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="#{cc.attrs.sucDialogId}.hide()" process="@this">
     				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
     				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
                 </p:commandButton >

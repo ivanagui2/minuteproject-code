@@ -33,6 +33,9 @@ manage=Manage
 saveAssociation=Save associations
 add=Add
 elements=elements
+affectionProcess=Affectation process
+affect=Affect
+adminstration=Administration
 # errors
 PersistenceErrorOccured=Error persisting data
 # security
