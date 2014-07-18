@@ -255,7 +255,7 @@
 #set($refCnt=$refCnt+1)
 					</ui:include>
             </h:panelGrid>			
-				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="Add" icon="ui-icon-disk" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
+				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="#{i18n.add}" icon="ui-icon-disk" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
 					<f:setPropertyActionListener 
 						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" 
 						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
@@ -283,14 +283,14 @@
 #set($refCnt=$refCnt+1)
                 </ui:include>
                 </h:panelGrid>
-    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="Update" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="#{i18n.update}" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
     				<!-- todo add reset DD lookup -->
                 </p:commandButton>
-    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="Delete" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="#{i18n.delete}" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
                 </p:commandButton>
-				<p:commandButton value="Cancel" onclick="detailDialog${childrenListClass}.hide()"/>
+				<p:commandButton value="#{i18n.cancel}" onclick="detailDialog${childrenListClass}.hide()"/>
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
@@ -325,7 +325,7 @@
                          <ui:param name="isSemanticReference" value="false" />
                      </ui:include>
                      <p:column>
-                         <p:commandButton value="Affect"
+                         <p:commandButton value="#{i18n.affect}"
                              id="cmdAdd${childrenListClass}"
                              update="$updateFromPopUp"
                              action="#{${thisEntityControllerJSFVariable}.affectAndDesactivateRender${childrenListClass}}"
@@ -353,7 +353,7 @@
                                     immediate="true" 
 									title="Add $linktableDB.name"  
 									icon="ui-icon-plusthick" 
-									value="Add"
+									value="#{i18n.add}"
 									oncomplete="add${childrenListClass}.show();" 
 									update=":containerBasicAdd${childrenListClass}">
 									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
@@ -376,7 +376,7 @@
 								<ui:param name="isSemanticReference" value="true" />
 							</ui:include>
 							<p:column>
-                            <p:commandButton value="Manage" 
+                            <p:commandButton value="#{i18n.manage}" 
             					id="detailButton${childrenListClass}" 
             					update=":containerBasicDialog${childrenListClass}" 
             					title="Manage Details"
@@ -401,8 +401,8 @@
 #if (!$isMasterData)
                 				<p:commandButton 
                                     immediate="true" 
-									value="Associate"
-									title="Add $targetTable.name"  
+									value="#{i18n.associate}"
+									title="#{i18n.associate} $targetTable.name"  
 									icon="ui-icon-transfer-e-w" 
 									oncomplete="add${childrenListClass}.show();" 
 									update=":containerBasicAdd${childrenListClass}">
@@ -411,8 +411,8 @@
 #else
                 				<p:commandButton 
                                     immediate="true" 
-									value="Save associations"
-									title="Add $targetTable.name elements"  
+									value="#{i18n.saveAssociations}"
+									title="#{i18n.add} $targetTable.name #{i18n.elements}"  
 									icon="ui-icon-document" 
 									action="#{${entityControllerJSFVariable}.add${childrenListClass}()}">
                                 </p:commandButton>
