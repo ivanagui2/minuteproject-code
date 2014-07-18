@@ -24,6 +24,15 @@ selectOr=or
 editTitle=Edit
 closeTitle=Close
 cancelTitle=Cancel
+associate=Associate
+update=Update
+cancel=Cancel
+delete=Delete
+affect=Affect
+manage=Manage
+saveAssociation=Save associations
+add=Add
+elements=elements
 # errors
 PersistenceErrorOccured=Error persisting data
 # security
