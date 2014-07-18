@@ -27,7 +27,8 @@
     </p:layoutUnit>
 *#
 #if(!$isPortlet)
-    <p:layoutUnit header="Menu" position="west" resizable="true" size="216" collapsible="true">
+    <p:layoutUnit header="#{i18n.administration}" position="west" resizable="true" size="216" collapsible="true">
+        <ui:include src="/${model.name}/ConfigBoard.xhtml" />
         <ui:include src="/${model.name}/Menu.xhtml" />
     </p:layoutUnit>       
 #end
