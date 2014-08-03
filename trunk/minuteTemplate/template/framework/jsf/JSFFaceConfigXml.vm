@@ -9,6 +9,8 @@
 	<application>
  	   <locale-config>
  	        <default-locale>en</default-locale>
+ 			<supported-locale>fr</supported-locale>
+            <supported-locale>es</supported-locale>
  	   </locale-config>
 #if($isSpringBackend)
 ##	    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>

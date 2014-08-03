@@ -1,10 +1,17 @@
+#set ($language=$template.getPropertyValue("language","en"))
 #set ($updatedAreaI18nBegin=$updatedAreaUtils.getI18nBegin($template, $updatedAreas))
 #set ($updatedAreaI18nEnd=$updatedAreaUtils.getI18nEnd($template, $updatedAreas))
 $!updatedAreaI18nBegin
 #exposeVariableModelDetailSpecific()
 ##set($separator=$template.getPropertyValue("separator","."))
 #set($separator=$i18nUtils.getSeparator($template))
+#if ($language.equals("es"))
+#parse("I18nStaticProperties_es.vm")
+#elseif ($language.equals("fr"))
+#parse("I18nStaticProperties_fr.vm")
+#else
 #parse("I18nStaticProperties.vm")
+#end
 #foreach ($table in $entities)
 #exposeVariableEntitySpecific()
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))

@@ -131,6 +131,8 @@
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
 #set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelI18nJSF))
+#set ($modelBeanManagerLanguageJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelBeanManagerLanguageJSF))
+#set ($modelBeanManagerLanguageJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerLanguageJSFClass))
 #set ($modelBeanManagerMenuJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelBeanManagerMenuJSF))
 #set ($modelBeanManagerMenuJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerMenuJSFClass))
 #set ($modelBeanManagerMenuJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelBeanManagerMenuJSF))
@@ -182,6 +184,7 @@
 #set ($templateIndexXhtmlMenuJSF = "JSFPrimefacesIndexXhtml")
 #set ($templateCssDefaultJSF = "JSFCssDefault")
 #set ($templateModelBeanManagerMenuJSF = "JSFBeanManagerMenu")
+#set ($templateModelBeanManagerLanguageJSF = "JSFBeanManagerLanguage")
 #set ($templateModelBeanManagerUserJSF = "JSFBeanManagerUser")
 #set ($templateJSFFwkDateTsConverter = "JSFFwkDateTsConverter")
 #set ($templateModelJSFUtils = "JSFUtils")
@@ -319,7 +322,7 @@
                               emptyMessage="No ${domainObjectClass} found with given criteria">
     
                      <f:facet name="header">
-                         List of #{i18n.$linkedTableVariable} 
+                         #{i18n.listOf} #{i18n.$linkedTableVariable} 
                      </f:facet>
                      <ui:include src="/$entityListRowJSFLocation">
                          <ui:param name="isSemanticReference" value="false" />
@@ -370,7 +373,7 @@
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                 rowsPerPageTemplate="5,10,15"> 
 							<f:facet name="header">  
-                            List of #{i18n.$linkedTableVariable}  
+                            #{i18n.listOf} #{i18n.$linkedTableVariable}  
 							</f:facet>
 							<ui:include src="/$entityListRowJSFLocation">
 								<ui:param name="isSemanticReference" value="true" />
@@ -439,7 +442,7 @@
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                 rowsPerPageTemplate="5,10,15"> 
 							<f:facet name="header">  
-                            List of #{i18n.$linkedTableVariable}  
+                            #{i18n.listOf} #{i18n.$linkedTableVariable}  
 							</f:facet>
 							<ui:include src="/$entityListRowJSFLocation">
 								<ui:param name="isSemanticReference" value="true" />
@@ -585,7 +588,7 @@
 #end
 
 #macro (setJsfPrimefacesTablePanelExport $target)
-    <p:panel header="Export list in PDF and Excel ">
+    <p:panel header="#{i18n.ExportlistInPDFandExcel}">
 #setJsfPrimefacesTableExport($target)
     </p:panel>
 #end

@@ -1,10 +1,10 @@
+#*
 updateTitle=Update
 updateHeading=Update
 entityUpdated=Entity updated
 entityDeleted=Entity deleted
 save=Save
 saveTitle=Save
-delete=Delete
 deleteTitle=Delete
 listTitle=List
 listHeading=List
@@ -28,7 +28,10 @@ logoffSoon1=Time-out
 logoffSoon2=You will be logoff
 moveCursor=Move your cursor
 sessionExpire=Session expires
+*#
 ################
+administration=Administraci\u00F3n
+listOf=Lista de
 create=Crear
 createTitle=Crear
 createHeading=Creaci\u00F3n
@@ -70,7 +73,7 @@ cancel=Cancelar
 cancelTitle=Cancelar
 affectationProcess=Proceso de asociaci\u00F3n
 add=A\u00F1adir
-export=Exportar lista en PDF y Excel
+ExportlistInPDFandExcel=Exportar lista en PDF y Excel
 noRecordsFound=No se han encontrado resultados
 # errors
 PersistenceErrorOccured=Error persistiendo datos
@@ -79,3 +82,8 @@ logoffSoon1=Tiempo de espera
 logoffSoon2=Su sesi\u00F3n se cerrar\u00E1
 moveCursor=Mueva el cursor
 sessionExpire=Su sesi\u00F3n expira
+confirmDeletionQuestion=Can you confirm your deletion?
+deletionProcess=Deletion process
+###### devops
+AdminLanguageMgt=Idioma
+###### devops ends

@@ -8,16 +8,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
+<f:view locale="#{${modelBeanManagerLanguageJSFVariable}.localeCode}">
 <h:head>
     <title><ui:insert name="title">$model.name jsf web</ui:insert></title>
     <link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/style.css" />
 	<!-- add bootstrap online -->
 		<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 		<!-- Optional theme -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
 		<!-- Latest compiled and minified JavaScript -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+            src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </h:head>
 <h:body>
  	<ui:include src="/${model.name}/IdleMonitor.xhtml" />
@@ -28,7 +30,7 @@
 *#
 #if(!$isPortlet)
     <p:layoutUnit header="#{i18n.administration}" position="west" resizable="true" size="216" collapsible="true">
-        <ui:include src="/${model.name}/ConfigBoard.xhtml" />
+##        <ui:include src="/${model.name}/ConfigBoard.xhtml" />
         <ui:include src="/${model.name}/Menu.xhtml" />
     </p:layoutUnit>       
 #end
@@ -43,4 +45,5 @@
     </p:layoutUnit>  
   </p:layout>
 </h:body>
+</f:view>
 </html>
