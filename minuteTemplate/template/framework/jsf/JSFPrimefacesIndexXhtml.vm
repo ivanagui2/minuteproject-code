@@ -9,6 +9,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
+  <f:view locale="#{${modelBeanManagerLanguageJSFVariable}.localeCode}">
     <ui:composition template="$modelDecoratorJSFImport">
     	<ui:define name="title">
     		<ui:insert name="title">Welcome to $model.name jsf primefaces web app</ui:insert>
@@ -40,4 +41,5 @@
 #end
     	</ui:define>
     </ui:composition>
+  </f:view>
 </html>	

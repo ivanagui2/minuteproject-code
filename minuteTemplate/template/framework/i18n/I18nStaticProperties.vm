@@ -27,14 +27,12 @@ cancelTitle=Cancel
 associate=Associate
 update=Update
 cancel=Cancel
-delete=Delete
 affect=Affect
 manage=Manage
 saveAssociation=Save associations
 add=Add
 elements=elements
 affectionProcess=Affectation process
-affect=Affect
 adminstration=Administration
 # errors
 PersistenceErrorOccured=Error persisting data
@@ -43,3 +41,13 @@ logoffSoon1=Time-out
 logoffSoon2=You will be logoff
 moveCursor=Move your cursor
 sessionExpire=Session expires
+listOf=List of
+
+confirmDeletionQuestion=Can you confirm your deletion?
+deletionProcess=Deletion process
+administration=Admin
+ExportlistInPDFandExcel=Export list in PDF and Excel
+###### devops
+AdminLanguageMgt=Language
+###### devops ends
+

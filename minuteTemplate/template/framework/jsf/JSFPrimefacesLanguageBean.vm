@@ -5,6 +5,8 @@
 // inspired by http://www.mkyong.com/jsf2/jsf-2-internationalization-example/
 package $packageName;
 
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -13,9 +15,9 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.AjaxBehaviorEvent;
  
-@ManagedBean(name="language")
+@ManagedBean(name="$modelBeanManagerLanguageJSFVariable")
 @SessionScoped
 public class ${className} implements Serializable{
  
@@ -24,14 +26,15 @@ public class ${className} implements Serializable{
 	private String localeCode;
  
 	private static Map<String,Object> languages;
+
 	static{
 		languages = new LinkedHashMap<String,Object>();
 		languages.put("English", Locale.ENGLISH);
-		languages.put("Spanish", Locale.SPANISH);
+		languages.put("Spanish", new Locale ("es"));
 		languages.put("French", Locale.FRENCH);
 	}
  
-	public Map<String, Object> getlanguagesInMap() {
+	public Map<String, Object> getLanguagesInMap() {
 		return languages;
 	}
  
@@ -43,13 +46,16 @@ public class ${className} implements Serializable{
 		this.localeCode = localeCode;
 	}
  
-	public void countryLocaleCodeChanged(ValueChangeEvent e){
-		String newLocaleValue = e.getNewValue().toString();
+	public void localeCodeChanged(AjaxBehaviorEvent e){
+        SelectOneMenu selectOneMenu = (SelectOneMenu) e.getSource();
+        String newLocaleValue = (String) selectOneMenu.getValue();
         for (Map.Entry<String, Object> entry : languages.entrySet()) {
         	if(entry.getValue().toString().equals(newLocaleValue)){
-        		FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale)entry.getValue());
+                Locale thisLocale = (Locale)entry.getValue();
+        		FacesContext.getCurrentInstance().getViewRoot().setLocale(thisLocale);
+                setLocaleCode(newLocaleValue);
         	}
-         }
+        }
 	}
  
 }
