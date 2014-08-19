@@ -227,6 +227,44 @@ CREATE  TABLE IF NOT EXISTS `functional`.`keys` (
   PRIMARY KEY (`ID`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `functional`.`LANGUAGE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `functional`.`LANGUAGE` ;
+
+CREATE  TABLE IF NOT EXISTS `functional`.`LANGUAGE` (
+  `idLANGUAGE` INT NOT NULL ,
+  `CODE` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`idLANGUAGE`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `functional`.`COUNTRY_X_LANGUAGE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `functional`.`COUNTRY_X_LANGUAGE` ;
+
+CREATE  TABLE IF NOT EXISTS `functional`.`COUNTRY_X_LANGUAGE` (
+  `LANGUAGE_idLANGUAGE` INT NOT NULL ,
+  `COUNTRY_ID` INT NOT NULL ,
+  `CREATION_DATE` TIME NOT NULL ,
+  `ORDER` INT NOT NULL ,
+  INDEX `fk_COUNTRY_X_LANGUAGE_LANGUAGE1_idx` (`LANGUAGE_idLANGUAGE` ASC) ,
+  INDEX `fk_COUNTRY_X_LANGUAGE_COUNTRY1_idx` (`COUNTRY_ID` ASC) ,
+  PRIMARY KEY (`LANGUAGE_idLANGUAGE`, `COUNTRY_ID`) ,
+  CONSTRAINT `fk_COUNTRY_X_LANGUAGE_LANGUAGE1`
+    FOREIGN KEY (`LANGUAGE_idLANGUAGE` )
+    REFERENCES `functional`.`LANGUAGE` (`idLANGUAGE` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_COUNTRY_X_LANGUAGE_COUNTRY1`
+    FOREIGN KEY (`COUNTRY_ID` )
+    REFERENCES `functional`.`COUNTRY` (`ID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `functional` ;
 
 
