@@ -14,6 +14,7 @@ import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 public class Configuration extends AbstractConfigurationRoot{
 	
 	private String catalogDir;
+	private Application application;
 	private Model model;
 	private Presentation presentation;
 	private Conventions conventions;

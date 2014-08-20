@@ -10,6 +10,7 @@ public class Model extends AbstractConfiguration{
 	private String packageRoot;
 	private String version;
 	
+	private Application application;
 	private DataModel dataModel;
 	private BusinessModel businessModel;
 	private FunctionModel functionModel;
@@ -163,4 +164,13 @@ public class Model extends AbstractConfiguration{
 	public boolean hasStatements () {
 		return !getStatementModel().getQueries().getQueries().isEmpty();
 	}
+
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+	
 }
