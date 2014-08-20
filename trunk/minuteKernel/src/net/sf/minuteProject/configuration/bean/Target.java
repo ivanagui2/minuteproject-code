@@ -62,12 +62,34 @@ public class Target extends AbstractConfiguration {
 			}
 			// }
 		}
-		List<ResourceTarget> resourceTargets = target.getResourceTargets();
+		List<ResourceTarget> resources = target.getResourceTargets();
+		for (ResourceTarget resourceTarget : resources) {
+			resourceTarget.setTarget(this);
+			//resourceTarget.setGenerable(target.isGenerable());
+			resourceTarget.setRootdir(target.getTemplatedirRoot());
+			//resourceTarget.getTemplatedirRefs().addAll(
+			//		target.getTemplatedirRefs());
+			
+			resourceTarget.getProperties().addAll(target.getProperties());
+			
+			getResourceTargets().add(resourceTarget);
+			
+			// if (templateTarget.getTemplates()!=null) {
+			for (Resource resource : resourceTarget.getResources()) {
+				resource.setOutputdirRoot(target.getOutputdirRoot());
+				resource.getProperties().addAll(target.getProperties());
+				// template.setRootdir (target.getTemplatedirRoot());
+				// template.setPackageRoot(templateTarget.getPackageRoot());
+			}
+			// }
+		}
+		/*List<ResourceTarget> resourceTargets = target.getResourceTargets();
 		for (ResourceTarget resourceTarget : resourceTargets) {
 			// shift to master
 			resourceTarget.setTarget(this);
 			getResourceTargets().add(resourceTarget);
 		}
+		*/
 		// getProperties().addAll(target.getProperties());
 		getPlugins().addAll(target.getPlugins());
 	}

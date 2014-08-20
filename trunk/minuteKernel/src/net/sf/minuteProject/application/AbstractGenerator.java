@@ -323,20 +323,27 @@ public abstract class AbstractGenerator implements Generator {
     	// relative path
     	// + resource type
 		String resourceFileName = resource.getResourceFileName();
-		String outputDir = resource.getResourceTarget().getOutputdir();
+		String templateOutputDir = resource.getResourceTarget().getOutputdir();
+		final String outputDir = resource.getOutputdirRoot() + templateOutputDir;
+		String outputFile = outputDir + "/" + resourceFileName;
 		
-		String resourceRelativePath = "../../minuteResource/icon";
+		String resourceRelativePath = Targets.getResourcedirRoot();
 		String filePath = FileUtils.getFilePath(resourceRelativePath+"/"+resourceFileName);
 		try {
+			//org.apache.commons.io.FileUtils.copyDirectory(new File(dirPath), new File(outputDir));
+			
 			File input = new File(filePath);
 			if (input.exists()) {
-				org.apache.commons.io.FileUtils.copyFile(input, new File(outputDir));
-				logger.info(">>resource: "+filePath+" copied to dir "+outputDir);
+				org.apache.commons.io.FileUtils.forceMkdir(new File(outputDir));
+				org.apache.commons.io.FileUtils.copyFileToDirectory(input, new File(outputDir));
+				//org.apache.commons.io.FileUtils.copyFile(input, new File(outputFile));
+				logger.info(">>resource: "+filePath+" copied to dir "+outputFile);
 			} else
 				logger.info(">>resource: "+filePath+" does not exist ");
+			/**/
 		} catch (IOException e) {
 
-			throw new MinuteProjectException("cannot copy file "+filePath +" to "+outputDir+" - error :"+e.getMessage());
+			throw new MinuteProjectException("cannot copy file "+filePath +" to "+templateOutputDir+" - error :"+e.getMessage());
 		}
 	}
     

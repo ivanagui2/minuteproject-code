@@ -8,6 +8,7 @@ public class ResourceTarget extends AbstractConfiguration {
 	private Target target;
 	List<Resource> resources;
 	private String outputdir;
+	private String templatedirRoot;
 	
 	public List<Resource> getResources() {
 		if (resources==null)
@@ -40,5 +41,19 @@ public class ResourceTarget extends AbstractConfiguration {
 	public Target getTarget() {
 		return target;
 	}
+
+	public void setRootdir(String templatedirRoot) {
+		this.templatedirRoot = templatedirRoot;
+	}
+
+	public String getTemplatedirRoot() {
+		return templatedirRoot;
+	}
+
+	public void setTemplatedirRoot(String templatedirRoot) {
+		this.templatedirRoot = templatedirRoot;
+	}
+	
+	
 	
 }

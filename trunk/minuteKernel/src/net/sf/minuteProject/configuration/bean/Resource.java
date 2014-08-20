@@ -3,7 +3,8 @@ package net.sf.minuteProject.configuration.bean;
 public class Resource extends AbstractConfiguration{
 	public String resourceFileName;
 	private ResourceTarget resourceTarget;
-	private boolean isGenerable = false;
+	private String outputdirRoot;
+	private boolean isGenerable = true;
 
 	public String getResourceFileName() {
 		return resourceFileName;
@@ -26,6 +27,16 @@ public class Resource extends AbstractConfiguration{
 	}
 
 	public boolean isGenerable() {
-		return isGenerable;
+		return true;
 	}
+
+	public String getOutputdirRoot() {
+		return outputdirRoot;
+	}
+
+	public void setOutputdirRoot(String outputdirRoot) {
+		this.outputdirRoot = outputdirRoot;
+	}
+	
+	
 }
