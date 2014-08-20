@@ -677,6 +677,21 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:complexType name="application">
+		<xs:sequence>
+			<xs:element name="models" type="models"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="version" type="xs:string" />
+		<xs:attribute name="package-root" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="models">
+		<xs:sequence>
+			<xs:element name="model" type="model" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
 	<xs:complexType name="model">
 		<xs:sequence>
 			<xs:element name="data-model" type="data-model">
@@ -731,8 +746,9 @@
 		<xs:sequence>
 			<xs:element name="conventions" type="global-conventions"
 				minOccurs="0" />
-			<xs:element name="model" type="model" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="model" type="model" minOccurs="1">
+			</xs:element>
+			<xs:element name="application" type="application" minOccurs="1">
 			</xs:element>
 			<xs:element name="targets" type="targets" minOccurs="0"
 				maxOccurs="unbounded">
