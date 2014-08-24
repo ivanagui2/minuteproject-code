@@ -73,38 +73,6 @@ public class ModelGenerator extends AbstractGenerator {
 	public static final String GENERATOR_MODEL_RULES = "net/sf/minuteProject/configuration/model-config-rules.xml";
 	public static final String GENERATOR_MODEL_PROPERTY_RULES = "net/sf/minuteProject/configuration/model-property-config-rules.xml";
 
-	/*
-	 * context object 
-	 */
-	private CommonUtils commonUtils = new CommonUtils();
-	private ConvertUtils convertUtils = new ConvertUtils();
-	private ColumnUtils columnUtils = new ColumnUtils();
-	private ViewUtils viewUtils = new ViewUtils();
-	private FormatUtils formatUtils = new FormatUtils();
-	private BslaLibraryUtils bslaLibraryUtils = new BslaLibraryUtils();
-	private DatabaseUtils databaseUtils = new DatabaseUtils();
-	private ModelUtils modelUtils = new ModelUtils();
-	private URLUtils urlUtils = new URLUtils();
-	private TestUtils testUtils = new TestUtils();
-	private WebUtils webUtils = new WebUtils();
-	private SqlUtils sqlUtils = new SqlUtils();
-	private TableUtils tableUtils = new TableUtils();
-	private ReferenceUtils referenceUtils = new ReferenceUtils();
-	private EnumUtils enumUtils = new EnumUtils();
-	private I18nUtils i18nUtils = new I18nUtils();
-	private UpdatedAreaUtils updatedAreaUtils = new UpdatedAreaUtils();
-	private JavaUtils javaUtils = new JavaUtils();
-	private RoutineUtils routineUtils = new RoutineUtils();
-	private StatementUtils statementUtils = new StatementUtils();
-	private TriggerUtils triggerUtils = new TriggerUtils();
-	private QueryUtils queryUtils = new QueryUtils();
-	private SemanticReferenceUtils semanticReference = new SemanticReferenceUtils();
-	private VelocityUtils velocityUtils= new VelocityUtils();
-	private FileUtils fileUtils= new FileUtils();
-	private OrderingUtils orderingUtils = new OrderingUtils();
-	private EnrichmentUtils enrichmentUtils = new EnrichmentUtils();
-	private MinuteProjectUtils minuteprojectUtils = new MinuteProjectUtils();
-
 	private Model model;
 
 	private String modelConfig;
@@ -119,15 +87,29 @@ public class ModelGenerator extends AbstractGenerator {
 
 	/**
 	 * Constructs the generator with its configuration
-	 * 
+	 * used by command line
 	 * @param configurationFile
 	 */
 	public ModelGenerator(String configurationFile) {
 		super(configurationFile);
 	}
-
+	
+	/**
+	 * Constructor for integration with BasicIntegrationConfiguration
+	 * used by swing client
+	 * @param bic
+	 */
 	public ModelGenerator(BasicIntegrationConfiguration bic) {
 		super(bic);
+	}
+	
+	/**
+	 * Constructor for integration with BasicIntegrationConfiguration
+	 * used by swing client
+	 * @param bic
+	 */
+	public ModelGenerator(Model model) {
+		this.model = model;
 	}
 
 	@Override
@@ -166,11 +148,14 @@ public class ModelGenerator extends AbstractGenerator {
 
 
 	protected void generate (Configuration configuration) throws MinuteProjectException {
-		Model model = getEnrichedModel(configuration);
+		Model model = getEnrichedModel(configuration.getModel());
 		//generate for target
+		generate(model);
+	}
+	
+	protected void generate (Model model) throws MinuteProjectException {
 		if (hasTarget())
 			loadAndGenerate(model.getConfiguration().getTarget());
-		//generate for targets (set of target)
 		Targets targets = null;
 		if (hasTargets()) {
 			targets = model.getConfiguration().getTargets();
@@ -189,14 +174,14 @@ public class ModelGenerator extends AbstractGenerator {
 		return targets!=null && targets.getPostGenerationAction()!=null;
 	}
 
-	public Model getEnrichedModel (Configuration configuration) {
-		Model model = configuration.getModel();
+	public Model getEnrichedModel (Model model) {
 		setModel(model);
 		loadModel(model);
 		applyConventions(model);
 		applyLimitations(model);
 		return model;
 	}
+	
 	private void applyLimitations(Model model) {
 		model.getBusinessModel().applyLimitations();
 	}
@@ -379,15 +364,6 @@ public class ModelGenerator extends AbstractGenerator {
 		if (isToGenerate(table, template))
 		   writeTemplateResult(table, template);		
 	}
-	
-	private boolean isToGenerate (GeneratorBean bean, Template template) {
-		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
-			if (!template.isToGenerate(bean)) {
-				return false;
-			}
-		} 	
-		return true;
-	}
 
 	protected void generateArtifactsByService(Template template) throws MinuteProjectException {	
 		for (Scope scope : getModel().getBusinessModel().getService().getScopes()) {
@@ -513,7 +489,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void putStandardContextObject (VelocityContext context) {
 		super.putStandardContextObject(context);
-		context.put("convertUtils", getConvertUtils());
+/*		context.put("convertUtils", getConvertUtils());
 		context.put("commonUtils", getCommonUtils());
 		context.put("columnUtils", getColumnUtils());
 		context.put("viewUtils", getViewUtils());
@@ -542,84 +518,7 @@ public class ModelGenerator extends AbstractGenerator {
 		context.put("orderingUtils", orderingUtils);
 		context.put("enrichmentUtils", enrichmentUtils);
 		context.put("minuteprojectUtils", minuteprojectUtils);
-	}
-	
-	public BslaLibraryUtils getBslaLibraryUtils() {
-		if (bslaLibraryUtils==null)
-			bslaLibraryUtils = new BslaLibraryUtils();
-		return bslaLibraryUtils;
-	}
-
-	public ColumnUtils getColumnUtils() {
-		if (columnUtils==null)
-			columnUtils = new ColumnUtils();
-		return columnUtils;
-	}
-
-	public CommonUtils getCommonUtils() {
-		if (commonUtils==null)
-			commonUtils = new CommonUtils();
-		return commonUtils;
-	}
-
-	public ConvertUtils getConvertUtils() {
-		if (convertUtils == null)
-			convertUtils = new ConvertUtils();
-		return convertUtils;
-	}
-
-	public DatabaseUtils getDatabaseUtils() {
-		if (databaseUtils == null)
-			databaseUtils = new DatabaseUtils();
-		return databaseUtils;
-	}
-
-	public FormatUtils getFormatUtils() {
-		if (formatUtils == null)
-			formatUtils = new FormatUtils();
-		return formatUtils;
-	}
-
-	public ModelUtils getModelUtils() {
-		if (modelUtils == null)
-			modelUtils = new ModelUtils();
-		return modelUtils;
-	}
-
-	public SqlUtils getSqlUtils() {
-		if (sqlUtils == null)
-			sqlUtils = new SqlUtils();
-		return sqlUtils;
-	}
-
-	public TableUtils getTableUtils() {
-		if (tableUtils == null)
-			tableUtils = new TableUtils();
-		return tableUtils;
-	}
-
-	public TestUtils getTestUtils() {
-		if (testUtils == null)
-			testUtils = new TestUtils();
-		return testUtils;
-	}
-
-	public URLUtils getUrlUtils() {
-		if (urlUtils == null)
-			urlUtils = new URLUtils();
-		return urlUtils;
-	}
-
-	public ViewUtils getViewUtils() {
-		if (viewUtils == null)
-			viewUtils = new ViewUtils();
-		return viewUtils;
-	}
-
-	public WebUtils getWebUtils() {
-		if (webUtils == null)
-			webUtils = new WebUtils();
-		return webUtils;
+		*/
 	}
 
 	public Model getModel() {
