@@ -102,5 +102,14 @@ public class Configuration extends AbstractConfigurationRoot{
 	public boolean hasTechnologyCatalogEntry() {
 		return (hasTargets() && !StringUtils.isEmpty(getTargets().getCatalogEntry()));
 	}
+
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		application.setConfiguration(this);
+		this.application = application;
+	}
 	
 }

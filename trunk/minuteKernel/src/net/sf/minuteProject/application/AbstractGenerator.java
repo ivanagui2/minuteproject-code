@@ -31,18 +31,38 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.DatabaseUtils;
+import net.sf.minuteProject.utils.EnumUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.ModelUtils;
+import net.sf.minuteProject.utils.ReferenceUtils;
+import net.sf.minuteProject.utils.RoutineUtils;
+import net.sf.minuteProject.utils.SqlUtils;
+import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.TemplateUtils;
+import net.sf.minuteProject.utils.TestUtils;
+import net.sf.minuteProject.utils.TriggerUtils;
+import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
+import net.sf.minuteProject.utils.WebUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
+import net.sf.minuteProject.utils.criteria.OrderingUtils;
+import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
+import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
 import net.sf.minuteProject.utils.io.FileUtils;
+import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
+import net.sf.minuteProject.utils.java.JavaUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
+import net.sf.minuteProject.utils.sql.QueryUtils;
+import net.sf.minuteProject.utils.sql.StatementUtils;
+import net.sf.minuteProject.utils.velocity.VelocityUtils;
 
 import org.apache.commons.collections.ExtendedProperties;
 import org.apache.commons.digester.Digester;
@@ -94,6 +114,39 @@ public abstract class AbstractGenerator implements Generator {
 	private Boolean isTemplatePathToReset = true;
 	private BasicIntegrationConfiguration bic; 
 	
+	/*
+	 * context object 
+	 */
+	private CommonUtils commonUtils = new CommonUtils();
+	private ConvertUtils convertUtils = new ConvertUtils();
+	private ColumnUtils columnUtils = new ColumnUtils();
+	private ViewUtils viewUtils = new ViewUtils();
+	private FormatUtils formatUtils = new FormatUtils();
+	private BslaLibraryUtils bslaLibraryUtils = new BslaLibraryUtils();
+	private DatabaseUtils databaseUtils = new DatabaseUtils();
+	private ModelUtils modelUtils = new ModelUtils();
+	private URLUtils urlUtils = new URLUtils();
+	private TestUtils testUtils = new TestUtils();
+	private WebUtils webUtils = new WebUtils();
+	private SqlUtils sqlUtils = new SqlUtils();
+	private TableUtils tableUtils = new TableUtils();
+	private ReferenceUtils referenceUtils = new ReferenceUtils();
+	private EnumUtils enumUtils = new EnumUtils();
+	private I18nUtils i18nUtils = new I18nUtils();
+	private UpdatedAreaUtils updatedAreaUtils = new UpdatedAreaUtils();
+	private JavaUtils javaUtils = new JavaUtils();
+	private RoutineUtils routineUtils = new RoutineUtils();
+	private StatementUtils statementUtils = new StatementUtils();
+	private TriggerUtils triggerUtils = new TriggerUtils();
+	private QueryUtils queryUtils = new QueryUtils();
+	private SemanticReferenceUtils semanticReference = new SemanticReferenceUtils();
+	private VelocityUtils velocityUtils= new VelocityUtils();
+	private FileUtils fileUtils= new FileUtils();
+	private OrderingUtils orderingUtils = new OrderingUtils();
+	private EnrichmentUtils enrichmentUtils = new EnrichmentUtils();
+	private MinuteProjectUtils minuteprojectUtils = new MinuteProjectUtils();
+
+
 	/**
 	 * The default constructor get the value of the configuration to which the generator is associated
 	 * @param configurationFile
@@ -102,10 +155,13 @@ public abstract class AbstractGenerator implements Generator {
 		this.configurationFile = configurationFile;
 		resetTemplatePath();
 	}
+	
 	public AbstractGenerator(BasicIntegrationConfiguration bic) {
 		this.bic = bic;
 		resetTemplatePath();
 	}
+	
+	public AbstractGenerator(){}
 	/**
 	 * gets the configuration file that is to be loaded
 	 * @return String
@@ -267,6 +323,15 @@ public abstract class AbstractGenerator implements Generator {
 		else
 			return catalogDir;
 
+	}
+	
+	protected boolean isToGenerate (GeneratorBean bean, Template template) {
+		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+			if (!template.isToGenerate(bean)) {
+				return false;
+			}
+		} 	
+		return true;
 	}
 
 	private void appendTargets(Configuration configuration, Targets targets) {
@@ -586,6 +651,35 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("modelUtils", new ModelUtils());
 		context.put("templateUtils", new TemplateUtils());
 		context.put("propertyUtils", new PropertyUtils());
+		context.put("convertUtils", getConvertUtils());
+		context.put("commonUtils", getCommonUtils());
+		context.put("columnUtils", getColumnUtils());
+		context.put("viewUtils", getViewUtils());
+		context.put("formatUtils", getFormatUtils());
+		context.put("bslaLibraryUtils", getBslaLibraryUtils());
+		context.put("databaseUtils", getDatabaseUtils());
+		context.put("modelUtils", getModelUtils());
+		context.put("URLUtils", getUrlUtils());
+		context.put("TestUtils", getTestUtils());
+		context.put("WebUtils", getWebUtils());
+		context.put("sqlUtils", getSqlUtils());
+		context.put("tableUtils", getTableUtils());
+		context.put("testUtils", getTestUtils());	
+		context.put("referenceUtils", referenceUtils);
+		context.put("enumUtils", enumUtils);
+		context.put("i18nUtils", i18nUtils);
+		context.put("updatedAreaUtils", updatedAreaUtils);
+		context.put("javaUtils", javaUtils);
+		context.put("routineUtils", routineUtils);
+		context.put("statementUtils", statementUtils);
+		context.put("triggerUtils", triggerUtils);
+		context.put("queryUtils", queryUtils);
+		context.put("semanticReferenceUtils", semanticReference);
+		context.put("velocityUtils", velocityUtils);
+		context.put("fileUtils", fileUtils);
+		context.put("orderingUtils", orderingUtils);
+		context.put("enrichmentUtils", enrichmentUtils);
+		context.put("minuteprojectUtils", minuteprojectUtils);
 	}
 
     protected void exit (String message) {
@@ -611,5 +705,84 @@ public abstract class AbstractGenerator implements Generator {
     	isTemplateLibPathToReset = true;
     	isTemplatePathToReset = true;
     }
+
+	
+	public BslaLibraryUtils getBslaLibraryUtils() {
+		if (bslaLibraryUtils==null)
+			bslaLibraryUtils = new BslaLibraryUtils();
+		return bslaLibraryUtils;
+	}
+
+	public ColumnUtils getColumnUtils() {
+		if (columnUtils==null)
+			columnUtils = new ColumnUtils();
+		return columnUtils;
+	}
+
+	public CommonUtils getCommonUtils() {
+		if (commonUtils==null)
+			commonUtils = new CommonUtils();
+		return commonUtils;
+	}
+
+	public ConvertUtils getConvertUtils() {
+		if (convertUtils == null)
+			convertUtils = new ConvertUtils();
+		return convertUtils;
+	}
+
+	public DatabaseUtils getDatabaseUtils() {
+		if (databaseUtils == null)
+			databaseUtils = new DatabaseUtils();
+		return databaseUtils;
+	}
+
+	public FormatUtils getFormatUtils() {
+		if (formatUtils == null)
+			formatUtils = new FormatUtils();
+		return formatUtils;
+	}
+
+	public ModelUtils getModelUtils() {
+		if (modelUtils == null)
+			modelUtils = new ModelUtils();
+		return modelUtils;
+	}
+
+	public SqlUtils getSqlUtils() {
+		if (sqlUtils == null)
+			sqlUtils = new SqlUtils();
+		return sqlUtils;
+	}
+
+	public TableUtils getTableUtils() {
+		if (tableUtils == null)
+			tableUtils = new TableUtils();
+		return tableUtils;
+	}
+
+	public TestUtils getTestUtils() {
+		if (testUtils == null)
+			testUtils = new TestUtils();
+		return testUtils;
+	}
+
+	public URLUtils getUrlUtils() {
+		if (urlUtils == null)
+			urlUtils = new URLUtils();
+		return urlUtils;
+	}
+
+	public ViewUtils getViewUtils() {
+		if (viewUtils == null)
+			viewUtils = new ViewUtils();
+		return viewUtils;
+	}
+
+	public WebUtils getWebUtils() {
+		if (webUtils == null)
+			webUtils = new WebUtils();
+		return webUtils;
+	}
 
 }

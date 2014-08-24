@@ -37,6 +37,10 @@ public class ModelViewGenerator extends ModelGenerator {
 	public ModelViewGenerator(BasicIntegrationConfiguration bic) {
 		super(bic);
 	}
+	
+	public ModelViewGenerator(Model model) {
+		super(model);
+	}
 
 	public static void main(String args[]) {
 		String config;
