@@ -73,7 +73,9 @@ public class Targets extends AbstractConfiguration {
 */	
 	public String getOutputdirRoot(String subdir) {
 		String output = FileUtils.exists(deliveryPath)?getOutputdir("../output/"):getOutputdir("../../output/");
-		return output+subdir+"/"+((Configuration)getAbstractConfigurationRoot()).getModel().getName(); // default
+		final Configuration configuration = (Configuration)getAbstractConfigurationRoot();
+		String name = (configuration.isModel())?configuration.getModel().getName():configuration.getApplication().getName();
+		return output+subdir+"/"+name; // default
 	}
 	
 	public String getOutputdir(String defaultOuputdir) {

@@ -111,5 +111,9 @@ public class Configuration extends AbstractConfigurationRoot{
 		application.setConfiguration(this);
 		this.application = application;
 	}
+
+	public boolean isModel() {
+		return model!=null?true:false;
+	}
 	
 }
