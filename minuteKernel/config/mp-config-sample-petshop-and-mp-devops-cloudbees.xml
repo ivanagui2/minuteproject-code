@@ -9,7 +9,7 @@
 		</conventions>
 		<application name="petshopdevops">
 			<models>
-				<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
+				<model name="xxxdevops" version="1.0" package-root="net.sf.mp.demo">
 					<data-model>
 						<driver name="mysql" version="5.1.16" groupId="mysql"
 							artifactId="mysql-connector-java"></driver>
@@ -31,7 +31,7 @@
 					</business-model>
 				</model>
 				
-				<model name="petshop" version="1.0" package-root="net.sf.mp.demo">
+				<model name="xxxpetshop" version="1.0" package-root="net.sf.mp.demo">
 					<data-model>
 						<driver name="mysql" version="5.1.16" groupId="mysql"
 							artifactId="mysql-connector-java"></driver>
