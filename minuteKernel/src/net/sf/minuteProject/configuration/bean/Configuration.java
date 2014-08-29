@@ -68,7 +68,7 @@ public class Configuration extends AbstractConfigurationRoot{
 	
 	public String getName () {
 		if (super.getName()==null)
-			return model.getName();
+			super.setName(isModel()?model.getName():application.getName());
 		return super.getName();
 	}
 

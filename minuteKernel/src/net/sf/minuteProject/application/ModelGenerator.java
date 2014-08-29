@@ -15,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.StatementModel;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
@@ -150,16 +151,28 @@ public class ModelGenerator extends AbstractGenerator {
 	protected void generate (Configuration configuration) throws MinuteProjectException {
 		Model model = getEnrichedModel(configuration.getModel());
 		//generate for target
-		generate(model);
+		generate(model, false);
 	}
 	
-	protected void generate (Model model) throws MinuteProjectException {
-		if (hasTarget())
-			loadAndGenerate(model.getConfiguration().getTarget());
+	public void generate (Model model, boolean targetLoaded) throws MinuteProjectException {
 		Targets targets = null;
-		if (hasTargets()) {
-			targets = model.getConfiguration().getTargets();
-			loadAndGenerate(targets);
+		if (!targetLoaded) {
+			if (hasTarget()) {
+				//loadAndGenerate(model.getConfiguration().getTarget());
+				final Target target = model.getConfiguration().getTarget();
+				loadTarget(model.getConfiguration(), target);
+				applyTargetConventionAndGenerate(target);
+			}
+			if (hasTargets()) {
+				targets = model.getConfiguration().getTargets();
+				//loadAndGenerate(targets);
+				
+				Configuration configuration = loadTargets(targets);
+				applyTargetConventionAndGenerate(configuration.getTarget());
+			}
+			targetLoaded = true;
+		} else {
+			applyTargetConventionAndGenerate(model.getConfiguration().getTarget());
 		}
 		if (hasPostGenerationAction(targets)) {
 			executePostGenerationAction(targets);
@@ -208,6 +221,12 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	protected void loadAndGenerate (Targets targets) throws MinuteProjectException {
+		Configuration configuration = loadTargets(targets);
+		applyTargetConventionAndGenerate(configuration.getTarget());
+	}
+
+	private Configuration loadTargets(Targets targets)
+			throws MinuteProjectException {
 		Target targetFinal = new Target();
 		Configuration configuration = model.getConfiguration();
 		for (Target target : targets.getTargets()) {
@@ -218,9 +237,21 @@ public class ModelGenerator extends AbstractGenerator {
 			configuration.setTarget(new Target()); //TODO remove
 		}	
 		configuration.setTarget(targetFinal);
-		applyTargetConventionAndGenerate(configuration.getTarget());
+		setTemplatePackageRoot(configuration);
+		return configuration;
 	}
 	
+	private void setTemplatePackageRoot(Configuration configuration) {
+		//for (Target target : configuration.getTargets().getTargets()) {
+		
+			for (TemplateTarget templateTarget : configuration.getTarget().getTemplateTargets()) {
+				for (Template template : templateTarget.getTemplates()) {
+					template.setPackageRoot(model.getPackageRoot());
+				}
+			}
+		
+	}
+
 	private void applyTargetConventionAndGenerate (Target target) throws MinuteProjectException {
 		applyTargetConvention(target);
 		generate(target);

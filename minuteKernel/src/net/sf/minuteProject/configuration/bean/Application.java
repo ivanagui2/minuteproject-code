@@ -7,6 +7,7 @@ public class Application extends AbstractConfiguration{
 
 	private Configuration configuration;
 	private List<Model> models;
+	private String version, packageRoot;
 	
 	public List<Model> getModels() {
 		if (models == null) models = new ArrayList<Model>();
@@ -25,6 +26,21 @@ public class Application extends AbstractConfiguration{
 	public void setConfiguration(Configuration configuration) {
 		this.configuration = configuration;
 	}
-	
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getPackageRoot() {
+		return packageRoot;
+	}
+
+	public void setPackageRoot(String packageRoot) {
+		this.packageRoot = packageRoot;
+	}
 	
 }

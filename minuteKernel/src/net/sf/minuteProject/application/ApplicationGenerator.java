@@ -136,10 +136,13 @@ public class ApplicationGenerator extends AbstractGenerator {
 
 	protected void generate (Configuration configuration) throws MinuteProjectException {
 		final Application application = configuration.getApplication();
+		boolean targetLoaded = false;
 		for (Model model : application.getModels()) {
 			ModelViewGenerator mvg = new ModelViewGenerator(model);
 			mvg.getEnrichedModel(model);
-			mvg.generate();
+			model.setConfiguration(application.getConfiguration());
+			mvg.generate(model, targetLoaded);
+			targetLoaded = true;
 		}
 		//TODO add application centric artifacts
 		Targets targets = configuration.getTargets();
