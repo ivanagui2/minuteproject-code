@@ -373,14 +373,22 @@ public class Template extends TemplateTarget {
 	}
 	
 	public void setPackageRoot(String packageRoot) {
-		super.setPackageRoot(packageRoot);
+		if (isApplicationScope()) 
+			super.setPackageRoot("");
+		else 
+			super.setPackageRoot(packageRoot);
 	}
 	
 //	private Model getModel (Template template) {
 //		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
 //	}
 	
-    public String getGeneratorOutputFileNameForView (View view, Template template) {
+    private boolean isApplicationScope() {
+		// TODO Auto-generated method stub
+		return (applicationSpecific!=null && applicationSpecific.equals("true")) || (scopeSpecificValue!=null && scopeSpecificValue.equals("application"));
+	}
+
+	public String getGeneratorOutputFileNameForView (View view, Template template) {
     	StringBuffer sb = new StringBuffer(template.getOutputdir());
     	sb.append("//"+ModelUtils.getTechnicalPackage(view, template));
 		//String outputFileDir = FormatUtils.getDirFromPackage(sb.toString());
