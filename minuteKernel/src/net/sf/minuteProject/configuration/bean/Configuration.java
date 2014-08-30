@@ -15,7 +15,7 @@ public class Configuration extends AbstractConfigurationRoot{
 	
 	private String catalogDir;
 	private Application application;
-	private Model model;
+	private Model singleModel;
 	private Presentation presentation;
 	private Conventions conventions;
 	private List<Environment> environments;
@@ -54,12 +54,12 @@ public class Configuration extends AbstractConfigurationRoot{
 	}
 
 	public Model getModel() {
-		return model;
+		return singleModel;
 	}
 
 	public void setModel(Model model) {
 		model.setConfiguration(this);
-		this.model = model;
+		this.singleModel = model;
 	}
 	
 	public String getTechnicalPackage(Template template) {
@@ -68,7 +68,7 @@ public class Configuration extends AbstractConfigurationRoot{
 	
 	public String getName () {
 		if (super.getName()==null)
-			super.setName(isModel()?model.getName():application.getName());
+			super.setName(isSingleModel()?singleModel.getName():application.getName());
 		return super.getName();
 	}
 
@@ -112,8 +112,8 @@ public class Configuration extends AbstractConfigurationRoot{
 		this.application = application;
 	}
 
-	public boolean isModel() {
-		return model!=null?true:false;
+	public boolean isSingleModel() {
+		return singleModel!=null?true:false;
 	}
 	
 }
