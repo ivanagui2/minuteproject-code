@@ -294,7 +294,7 @@ public class ModelGenerator extends AbstractGenerator {
 			generateArtifactsByModel(template);
 		else if (template.getServiceSpecific().equals("true"))
 			generateArtifactsByService(template);
-		else if (template.getApplicationSpecific().equals("true") || SCOPE_DATAMODEL_APPLICATION.equals(scopeSpecificValue))
+		else if (template.isApplicationScope())
 			generateArtifactsByApplication(template);
 		else if (SCOPE_FOREIGNKEY_APPLICATION.equals(scopeSpecificValue))
 			generateArtifactsByForeignKey(template);
@@ -404,11 +404,10 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
-		if (isToGenerate(getModel(), template))
-//			writeTemplateResult(getModel().getConfiguration(), template);
+		if (isToGenerate(getModel(), template) && getModel().getConfiguration().isSingleModel()) {
 			template.setAddModelDirName("false");
-//			template.setAddModelName("false");
 			writeTemplateResult(getModel(), template);
+		}
 	}
 	
 	private void generateArtifactsByForeignKey(Template template) throws MinuteProjectException {
