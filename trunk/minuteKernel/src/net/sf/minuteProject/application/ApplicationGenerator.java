@@ -135,7 +135,7 @@ public class ApplicationGenerator extends AbstractGenerator {
 
 
 	protected void generate (Configuration configuration) throws MinuteProjectException {
-		final Application application = configuration.getApplication();
+		application = configuration.getApplication();
 		boolean targetLoaded = false;
 		for (Model model : application.getModels()) {
 			ModelViewGenerator mvg = new ModelViewGenerator(model);
@@ -145,6 +145,8 @@ public class ApplicationGenerator extends AbstractGenerator {
 			targetLoaded = true;
 		}
 		//TODO add application centric artifacts
+		applyTargetConventionAndGenerate(configuration.getTarget());
+		
 		Targets targets = configuration.getTargets();
 		if (hasPostGenerationAction(targets)) {
 			executePostGenerationAction(targets);
@@ -192,7 +194,7 @@ public class ApplicationGenerator extends AbstractGenerator {
 	}
 	
 	private void applyTargetConvention(Target target) {
-		application.getConfiguration().applyConventions();
+		//TODO
 	}
 
 
@@ -202,16 +204,13 @@ public class ApplicationGenerator extends AbstractGenerator {
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
 	public void generate(Template template) throws MinuteProjectException {
-		String scopeSpecificValue = template.getScopeSpecificValue();
-		if (template.getApplicationSpecific().equals("true") || SCOPE_DATAMODEL_APPLICATION.equals(scopeSpecificValue))
+		if (template.isApplicationScope())
 			generateArtifactsByApplication(template);
 	}
 
 	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
 		if (isToGenerate(application, template))
-//			writeTemplateResult(getModel().getConfiguration(), template);
 			template.setAddModelDirName("false");
-//			template.setAddModelName("false");
 			writeTemplateResult(application, template);
 	}
 	

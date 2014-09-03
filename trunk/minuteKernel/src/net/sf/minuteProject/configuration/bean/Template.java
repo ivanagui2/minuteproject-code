@@ -383,8 +383,7 @@ public class Template extends TemplateTarget {
 //		return ((Configuration)(template.getTemplateTarget().getTarget().getAbstractConfigurationRoot())).getModel();
 //	}
 	
-    private boolean isApplicationScope() {
-		// TODO Auto-generated method stub
+    public boolean isApplicationScope() {
 		return (applicationSpecific!=null && applicationSpecific.equals("true")) || (scopeSpecificValue!=null && scopeSpecificValue.equals("application"));
 	}
 
