@@ -1,14 +1,15 @@
+#generatorSpecific()
 #exposeMaven()
 #exposePom()
 #exposeBackendTechnology()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>${rootPackage}.${model.name}</groupId>
+  <groupId>${groupId}</groupId>
 #if($isEJBBackend)
   <artifactId>${artifactId}</artifactId>
 #else
-  <artifactId>${model.name}Bsla</artifactId>
+  <artifactId>${generatorBean.name}Bsla</artifactId><!--todo change -->
 #end
   <packaging>jar</packaging>
   <version>${version}-SNAPSHOT</version>
@@ -21,7 +22,7 @@
   <dependencies>
 
     <dependency>
-        <groupId>${rootPackage}.${model.name}</groupId>
+        <groupId>${groupId}</groupId>
         <artifactId>$DbApiName</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>

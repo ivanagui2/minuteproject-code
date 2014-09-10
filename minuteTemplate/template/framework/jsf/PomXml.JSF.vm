@@ -8,11 +8,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-  	<groupId>${rootPackage}.${model.name}</groupId>
-  	<artifactId>${model.name}JSF</artifactId>
+  	<groupId>${groupId}</groupId>
+  	<artifactId>$artifactId</artifactId>
   	<packaging>war</packaging>
   	<version>${version}-SNAPSHOT</version>
-  	<name>$DbApiName JSF front end</name>
+  	<name>$artifactId JSF front end</name>
     <url>http://maven.apache.org</url>	
 
 	<dependencies>
@@ -24,8 +24,8 @@
         </dependency>
 #if($isSpringBackend)
         <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
-            <artifactId>${model.name}Bsla</artifactId>
+            <groupId>${groupId}</groupId>
+            <artifactId>${generatorBean.name}Bsla</artifactId>
             <version>${version}-SNAPSHOT</version>
         </dependency>	
     	<!-- spring -->
@@ -41,12 +41,12 @@
         </dependency>
 #elseif($isEJBBackend)
 	    <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
-            <artifactId>${model.name}Bela</artifactId>
+            <groupId>${groupId}</groupId>
+            <artifactId>${generatorBean.name}Bela</artifactId>
             <version>${version}-SNAPSHOT</version>
         </dependency>	
         <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
+            <groupId>${groupId}</groupId>
             <artifactId>${DbApiName}</artifactId>
             <version>${version}-SNAPSHOT</version>
         </dependency>		

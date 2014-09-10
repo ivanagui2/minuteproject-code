@@ -1,3 +1,11 @@
+#macro(generatorSpecific)
+#if($configuration.isSingleModel())
+#set($generatorBean=$model)
+#else
+#set($generatorBean=$application)
+#end
+#end
+
 #macro(putReadmeText)
 $!commonUtils.getReadMeText($template)
 #end

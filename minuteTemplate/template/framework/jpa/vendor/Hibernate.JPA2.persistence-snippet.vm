@@ -41,7 +41,7 @@
 	        <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.WeblogicTransactionManagerLookup" />
 
 #end
-#addArea("properties")
+#addArea("properties-$model.name")
         </properties> 
 
 

@@ -38,6 +38,8 @@ entityCreated=Entité crée
 update=Rafraîchir
 add=Ajouter
 clear=Effacer
+yes=oui
+no=non
 
 confirmDeletionQuestion=Pouvez-vous confirmer la suppression?
 deletionProcess=Suppression
@@ -45,5 +47,6 @@ ExportlistInPDFandExcel=Exporter la liste en PDF et Excel
 
 ###### devops
 AdminLanguageMgt=Langue
+mp.devops.languageToCountryFlagAssociation=France
 ###### devops ends
 

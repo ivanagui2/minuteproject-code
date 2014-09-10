@@ -27,6 +27,7 @@ cancelTitle=Cancel
 associate=Associate
 update=Update
 cancel=Cancel
+clear=Clear
 affect=Affect
 manage=Manage
 saveAssociation=Save associations
@@ -42,6 +43,8 @@ logoffSoon2=You will be logoff
 moveCursor=Move your cursor
 sessionExpire=Session expires
 listOf=List of
+yes=yes
+no=no
 
 confirmDeletionQuestion=Can you confirm your deletion?
 deletionProcess=Deletion process
@@ -49,5 +52,6 @@ administration=Admin
 ExportlistInPDFandExcel=Export list in PDF and Excel
 ###### devops
 AdminLanguageMgt=Language
+mp.devops.languageToCountryFlagAssociation=England
 ###### devops ends
 

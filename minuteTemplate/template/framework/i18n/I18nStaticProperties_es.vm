@@ -84,6 +84,9 @@ moveCursor=Mueva el cursor
 sessionExpire=Su sesi\u00F3n expira
 confirmDeletionQuestion=Can you confirm your deletion?
 deletionProcess=Deletion process
+yes=si
+no=no
 ###### devops
 AdminLanguageMgt=Idioma
+mp.devops.languageToCountryFlagAssociation=Spain
 ###### devops ends

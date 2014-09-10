@@ -1,7 +1,4 @@
-#exposeVariableModelSpecific()
 #putJPA2TemplateDefinition()
-#exposeJdbc()
-#exposeJPA2Specifics()
 <?xml version="1.0"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -13,6 +10,10 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
+#foreach ($model in $application.models)
+#exposeVariableModelSpecific()
+#exposeJdbc()
+#exposeJPA2Specifics()
 #if($isEnvironmentLocal)
     <persistence-unit name="$persistenceUnitName" transaction-type="RESOURCE_LOCAL">
 #else
@@ -20,7 +21,6 @@ $!updatedAreaSnippet
     <persistence-unit name="$persistenceUnitName" transaction-type="JTA">
 #else
     <persistence-unit name="$persistenceUnitName">
-#end
 #end
 #end
 $!updatedAreaEnd
@@ -70,9 +70,10 @@ $!updatedAreaEnd
 #if($jpa2ImplementationIsEclipseLink)
 #parse("./vendor/Eclipselink.JPA2.persistence-snippet.vm")
 #end
-#addArea("persistence-unit")
+#addArea("persistence-unit-$model.name")
     </persistence-unit>
-
+#end
+#end
 #addArea("persistence")
 
 </persistence>

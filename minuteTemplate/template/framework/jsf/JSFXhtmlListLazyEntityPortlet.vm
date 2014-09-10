@@ -44,11 +44,11 @@
 
 	<p:confirmDialog id="confirmDialog" showEffect="fade" hideEffect="fade" global="true" >
 		<h:form id="deletion">
-			<p:commandButton id="confirm" value="Yes" immediate="true" 
+			<p:commandButton id="confirm" value="#{i18n.yes}" immediate="true" 
 				styleClass="ui-confirmdialog-yes" 
 				icon="ui-icon-check"
 				actionListener="#{${entityControllerJSFVariable}.deleteListener}" update="$update" />
-			<p:commandButton id="decline" value="No" type="button" 
+			<p:commandButton id="decline" value="#{i18n.no}" type="button" 
 				styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> 
 	   </h:form>
 	</p:confirmDialog>

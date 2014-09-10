@@ -1,20 +1,34 @@
 #macro (exposeMaven)
-#set($hasDriver=$mavenUtils.hasDriver($model))
-#set($driver=$mavenUtils.getDriver($model))
-#set($version=$mavenUtils.getVersion($model))
-#set($rootPackage=$mavenUtils.getRootPackage($template, $model))
-#set($DbApiName=$mavenUtils.getDbApiName($model))
+#generatorSpecific()
+#set($rootPackage=$mavenUtils.getRootPackage($template, $generatorBean))
+#set($groupId="${rootPackage}.${generatorBean.name}")
+#set($artifactId=$mavenUtils.getArtifactId($template, $generatorBean))
+#set($version=$mavenUtils.getVersion($generatorBean))
+#set($DbApiName=$mavenUtils.getDbApiName($generatorBean))
 #set($resourcesDir="src/main/resources")
 #set($bslaJpaVersion="0.8.10")
 #end
 
+#macro (exposeMavenModel)
+#set($hasDriver=$mavenUtils.hasDriver($model))
+#set($driver=$mavenUtils.getDriver($model))
+#set($version=$mavenUtils.getVersion($model))
+#end
+
+#macro (exposeMavenApplication)
+#set($rootPackage=$mavenUtils.getRootPackage($template, $application))
+#set($groupId="${rootPackage}.${application.name}")
+#set($artifactId=$mavenUtils.getDbApiName($application))
+#set($version=$mavenUtils.getVersion($application))
+#end
+
 #macro (exposePom)
-#set($groupId="${rootPackage}.${model.name}")
-#set($artifactId=$mavenUtils.getArtifactId($template,$model))
+#set($groupId="${rootPackage}.${generatorBean.name}")
+#set($artifactId=$mavenUtils.getArtifactId($template,$generatorBean))
 #set($versionId="${version}-SNAPSHOT")
-#set($mavenFinalName=$mavenUtils.getFinalName($template, $model))
+#set($mavenFinalName=$mavenUtils.getFinalName($template, $generatorBean))
 ## add web, ejb are in properties
 #set($mavenReleaseName="${model.name}App")
-#set($mavenReleaseWebName=$mavenUtils.getWebArtifactName($template, $model))
-#set($mavenReleaseEjbName=$mavenUtils.getEjbArtifactName($template, $model))
+#set($mavenReleaseWebName=$mavenUtils.getWebArtifactName($template, $generatorBean))
+#set($mavenReleaseEjbName=$mavenUtils.getEjbArtifactName($template, $generatorBean))
 #end
