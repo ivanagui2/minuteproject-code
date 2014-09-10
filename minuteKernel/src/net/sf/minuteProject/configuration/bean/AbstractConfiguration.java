@@ -8,7 +8,7 @@ import net.sf.minuteProject.utils.FormatUtils;
 
 import org.apache.commons.lang.StringUtils;
 
-public abstract class AbstractConfiguration extends BeanCommon implements GeneratorBean {
+public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
 	// Done by AOP
 	

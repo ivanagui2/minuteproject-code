@@ -124,6 +124,7 @@
 					<alias attr-name="add-model-dir-name" prop-name="addModelDirName" />
 					<alias attr-name="add-technical-dir-name" prop-name="addTechnicalDirName" />
 					<alias attr-name="add-business-package-dir-name" prop-name="addBusinessPackageDirName" />
+					<alias attr-name="add-application-package-dir-name" prop-name="addApplicationPackageDirName" />
 					<alias attr-name="add-entity-dir-name" prop-name="addEntityDirName" />
 					<alias attr-name="entity-dir-name-format" prop-name="entityDirNameFormat" />
 					<alias attr-name="entity-dir-name-prefix" prop-name="entityDirNamePrefix" />

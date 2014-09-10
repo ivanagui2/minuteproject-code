@@ -75,6 +75,16 @@ public class Configuration extends AbstractConfigurationRoot{
 	public String getGeneratedBeanName() {
 		return getName();
 	}
+	
+	public List<Model> models() {
+		List<Model> models = new ArrayList<Model>();
+		if (isSingleModel())
+			models.add(singleModel);
+		else {
+			models.addAll(application.getModels());
+		}
+		return models;
+	}
 
 	public String getCatalogDir() {
 		return catalogDir;
