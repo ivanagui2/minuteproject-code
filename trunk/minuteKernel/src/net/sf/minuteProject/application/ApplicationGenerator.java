@@ -260,6 +260,7 @@ public class ApplicationGenerator extends AbstractGenerator {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("application", application);
+		context.put("configuration", application.getConfiguration());
 	}
 	
 	protected void putStandardContextObject (VelocityContext context) {

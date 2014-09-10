@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.GeneratorQualifier;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.connection.Driver;
@@ -16,30 +18,29 @@ import net.sf.minuteProject.utils.CommonUtils;
 public class MavenUtils {
 	
 	public static final String artifactFinalName = "maven-artifact-finalName-suffix";
-	public static String getFinalName (Template template, Model model) {
+	public static String getFinalName (Template template, GeneratorQualifier model) {
 		return model.getName()+"App";
 	}
 	
-	public static String getArtifactId (Template template, Model model) {
-		
+	public static String getArtifactId (Template template, GeneratorQualifier model) {
 		String finalNameSuffix = template.getPropertyValue(artifactFinalName);
 		return  (finalNameSuffix!=null)? model.getName()+finalNameSuffix:model.getName()+"App";
 	}
 
-	public static String getWebArtifactName (Template template, Model model) {
+	public static String getWebArtifactName (Template template, GeneratorQualifier model) {
 		return getArtifactName(template, model, "web-maven-template", "maven-artifact-finalName-suffix");
 	}
 	
-	public static String getEjbArtifactName (Template template, Model model) {
+	public static String getEjbArtifactName (Template template, GeneratorQualifier model) {
 		return getArtifactName(template, model, "ejb-maven-template", "maven-artifact-finalName-suffix");
 	}
 	
-	public static String getArtifactName (Template template, Model model, String mavenTemplate, String mavenArtifactFinalName) {
+	public static String getArtifactName (Template template, GeneratorQualifier bean, String mavenTemplate, String mavenArtifactFinalName) {
 		//property from catalog
 		String markerTemplate = template.getPropertyValue(mavenTemplate);
 		if (markerTemplate!=null) {
-			Template marker = CommonUtils.getTemplate(model.getConfiguration(), markerTemplate);
-			return model.getName()+marker.getPropertyValue(mavenArtifactFinalName);
+			Template marker = CommonUtils.getTemplate(bean.getConfiguration(), markerTemplate);
+			return bean.getName()+marker.getPropertyValue(mavenArtifactFinalName);
 		}
 		return null;
 	}
@@ -76,8 +77,13 @@ public class MavenUtils {
 		return "src/main/java";
     }
 
-	public static String getRootPackage(Template template, Model model) {
-		String packageRoot = model.getPackageRoot();
+	public static String getRootPackage(Template template, GeneratorQualifier bean) {
+		return getRootPackage(template, bean.getPackageRoot());
+	}	
+
+	
+	public static String getRootPackage(Template template, String value) {
+		String packageRoot = value;
 		if (packageRoot==null)
 			return template.getTemplateTarget().getPackageRoot();
 		return packageRoot;
@@ -95,20 +101,25 @@ public class MavenUtils {
 		return model.getVersion();
 	}
 	
-	public static String getGroupId (Model model) {
-		return model.getName()+"BackEnd";
+	public static String getDbApiGroupId (GeneratorBean bean) {
+		return bean.getName()+"BackEnd";
 	}
 	
-	public static String getArtifactId (Model model) {
-		return getGroupId(model);
+	public static String getDbApiArtifactId (GeneratorBean bean) {
+		return getDbApiGroupId(bean);
 	}
 	
 	public static String getVersion (Model model) {
 		return getModelVersion(model);
 	}
 	
-	public static String getDbApiName (Model model) {
-		return getArtifactId(model);
+	public static String getVersion (Application application) {
+		final String version = application.getVersion();
+		return version==null?"1.0":version;
+	}
+	
+	public static String getDbApiName (GeneratorBean bean) {
+		return getDbApiArtifactId(bean);
 	}	
 	
 	public static MavenDependency getDependency(String stringFmtDep) {

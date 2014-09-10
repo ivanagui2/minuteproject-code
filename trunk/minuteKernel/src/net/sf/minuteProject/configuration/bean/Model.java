@@ -1,21 +1,17 @@
 package net.sf.minuteProject.configuration.bean;
 
-import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.StringUtils;
 
-public class Model extends AbstractConfiguration{
+public class Model extends GeneratorQualifier{
 	
 	private static final String DEFAUTMODEL_VALUE = "defautmodel";
-	private String packageRoot;
-	private String version;
 	
 	private Application application;
 	private DataModel dataModel;
 	private BusinessModel businessModel;
 	private FunctionModel functionModel;
 	private StatementModel statementModel;
-	private Configuration configuration;
 	private WebServiceModel webServiceModel;
 
 	public WebServiceModel getWebServiceModel() {
@@ -29,14 +25,6 @@ public class Model extends AbstractConfiguration{
 	public void setWebServiceModel(WebServiceModel webServiceModel) {
 		this.webServiceModel = webServiceModel;
 		this.webServiceModel.setModel(this);
-	}
-
-	public Configuration getConfiguration() {
-		return configuration;
-	}
-
-	public void setConfiguration(Configuration configuration) {
-		this.configuration = configuration;
 	}
 
 	public BusinessModel getBusinessModel() {
@@ -114,26 +102,6 @@ public class Model extends AbstractConfiguration{
 		return name;
 	}
 
-	public String getPackageRoot() {
-		return packageRoot;
-	}
-
-	public void setPackageRoot(String packageRoot) {
-		this.packageRoot = packageRoot;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}		
-	
-	public String getAlias() {
-		return FormatUtils.getJavaName(super.getAlias()).toLowerCase();
-	}
-
 	public boolean isUsingDefaultName() {
 		return DEFAUTMODEL_VALUE.equals(getName());
 	}
@@ -173,4 +141,19 @@ public class Model extends AbstractConfiguration{
 		this.application = application;
 	}
 	
+	public String getVersion() {
+		return (application==null)?version:application.getVersion();
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getPackageRoot() {
+		return (application==null)? packageRoot:application.getPackageRoot()+"."+packageRoot;
+	}
+
+	public void setPackageRoot(String packageRoot) {
+		this.packageRoot = packageRoot;
+	}
 }

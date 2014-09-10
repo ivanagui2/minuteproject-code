@@ -54,6 +54,7 @@ public class Template extends TemplateTarget {
 	private String addModelDirName;
 	private String addTechnicalDirName;
 	private String addBusinessPackageDirName;
+	private String addApplicationPackageDirName;
 	private String addEntityDirName;
 	private String entityDirNameFormat;
 	private String addScopeName;
@@ -79,7 +80,6 @@ public class Template extends TemplateTarget {
 	
 	private static Logger logger = Logger.getLogger(Template.class);
 	
-//	private enum Extension {java, xml, xsd, properties, sql};
 	private Extension extension;
 	
 	public Template () {}
@@ -373,8 +373,13 @@ public class Template extends TemplateTarget {
 	}
 	
 	public void setPackageRoot(String packageRoot) {
-		if (isApplicationScope()) 
+		super.setPackageRoot(packageRoot);
+	}
+	
+	public void setPackageRootOld(String packageRoot) {
+		if (isApplicationScope()) {
 			super.setPackageRoot("");
+		}
 		else 
 			super.setPackageRoot(packageRoot);
 	}
@@ -590,6 +595,14 @@ public class Template extends TemplateTarget {
 		this.addBusinessPackageDirName = addBusinessPackageDirName;
 	}
 
+	public String getAddApplicationPackageDirName() {
+		return addApplicationPackageDirName;
+	}
+
+	public void setAddApplicationPackageDirName(String addApplicationPackageDirName) {
+		this.addApplicationPackageDirName = addApplicationPackageDirName;
+	}
+
 	public String getFileNameFormat() {
 		return fileNameFormat;
 	}
@@ -641,12 +654,24 @@ public class Template extends TemplateTarget {
 	}
 	
 	public String getPackageRoot() {
-		if (packageRoot==null && getTemplateTarget().getTarget()!=null){
-			Configuration configuration = (Configuration) getTemplateTarget().getTarget().getAbstractConfigurationRoot();
-			setPackageRoot(configuration.getModel().getPackageRoot());
+		final Target target = getTemplateTarget().getTarget();
+		if (packageRoot==null && target!=null){
+			Configuration configuration = (Configuration) target.getAbstractConfigurationRoot();
+			if (isApplicationScope()) {
+				if (isAddApplicationPackageDirName())
+					setPackageRoot(configuration.getApplication().getPackageRoot());
+				else
+					setPackageRoot("");
+			}
+			else 
+				setPackageRoot(configuration.getModel().getPackageRoot());
 		} //else
 			//setPackageRoot("");
 		return packageRoot;
+	}
+
+	private boolean isAddApplicationPackageDirName() {
+		return addApplicationPackageDirName!=null && addApplicationPackageDirName.equals("true");
 	}
 	
 	public Target getTarget() {
@@ -826,4 +851,5 @@ public class Template extends TemplateTarget {
 		return sb.toString();
 	}
 		
+	
 }

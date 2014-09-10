@@ -515,6 +515,7 @@ public class ModelGenerator extends AbstractGenerator {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", model);
+		context.put("configuration", model.getConfiguration());
 	}
 	
 	protected void putStandardContextObject (VelocityContext context) {
