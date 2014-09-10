@@ -1,6 +1,6 @@
 #exposeBackendTechnology()
 #exposeMaven()
-#exposeJPA2Specifics()
+##exposeJPA2Specifics()
 #putJPA2TemplateDefinition()
 #putTargetServerDefinition()
 #set($isQuerydslPowered=$template.hasProperty("add-querydsl"))
@@ -9,14 +9,18 @@
 ##set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>    
-  	<groupId>${rootPackage}.${model.name}</groupId>
-  	<artifactId>$DbApiName</artifactId>
+  	<groupId>${groupId}</groupId>
+  	<artifactId>$artifactId</artifactId>
   	<packaging>jar</packaging>
   	<version>${version}-SNAPSHOT</version>
-  	<name>$DbApiName JPA2 specification and implementation</name>
+  	<name>$artifactId JPA2 specification and implementation</name>
 
     <dependencies>
+#foreach ($model in $configuration.models())
+#exposeMavenModel()
+#exposeJPA2Specifics()
 #addMavenDependencyJdbcDriver()
+#end
 #*
         <!-- JDBC driver --> 
 #if($hasDriver)		

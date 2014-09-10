@@ -1,4 +1,5 @@
-#set($contextRoot = $weblogicUtils.getContextRoot($template, $model))
+#generatorSpecific()
+#set($contextRoot = $weblogicUtils.getContextRoot($template, $generatorBean))
 #set($technotargetFE=$template.getPropertyValue("technology-target-frontend","primefaces"))
 #set($isPrimefaces=($technotargetFE=="primefaces"))
 <?xml version="1.0" encoding="UTF-8"?>

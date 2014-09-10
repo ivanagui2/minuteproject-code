@@ -39,6 +39,8 @@ public class ${className} implements Serializable{
 	}
  
 	public String getLocaleCode() {
+        if (localeCode==null)
+            localeCode = FacesContext.getCurrentInstance().getViewRoot().getLocale().toString();
 		return localeCode;
 	}
  

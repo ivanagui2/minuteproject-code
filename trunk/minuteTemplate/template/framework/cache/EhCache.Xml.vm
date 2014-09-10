@@ -1,5 +1,4 @@
-#exposeVariableModelSpecific()
-#exposeModelUpdatedAreas("ehcache-node")
+#exposeApplicationUpdatedAreas("ehcache-node")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
@@ -19,7 +18,7 @@ $!updatedAreaSnippet
 
     Subdirectories can be specified below the property e.g. java.io.tmpdir/one
     -->
-#exposeModelUpdatedAreas("ehcache-main-config")
+#exposeApplicationUpdatedAreas("ehcache-main-config")
 $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
@@ -55,6 +54,8 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 
+#foreach ($model in $configuration.models())
+#exposeVariableModelSpecific()
 #foreach ($table in ${entities})
 #exposeEntityCache()
 #if($hasCache)
@@ -78,6 +79,7 @@ $!updatedAreaSnippet
    />
 #end
 $!updatedAreaEnd
+#end
 #end
 #end
 

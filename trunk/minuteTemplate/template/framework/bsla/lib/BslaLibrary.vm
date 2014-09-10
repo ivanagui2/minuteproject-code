@@ -445,11 +445,19 @@
 #end
 
 #macro(exposeJPASpecifics)
+#exposeJPAModelSpecifics()
+#exposeJPACoreSpecifics()
+#end
+
+#macro(exposeJPACoreSpecifics)
+#set ($jpaImplementation = $jpaUtils.getJpa2Implementation($template))
+#end
+
+#macro(exposeJPAModelSpecifics)
 #set ($persistenceUnitName = $model.name)
 #set ($hasSchema = $model.dataModel.hasSchema())
 #set ($isSchemaNeeded = $modelUtils.isSchemaNeeded($model))
 #set ($schemaName = $model.dataModel.schema)
-#set ($jpaImplementation = $jpaUtils.getJpa2Implementation($template))
 #end
 
 #macro (exposeJstlScopeItems $instance $attribute)
@@ -775,6 +783,11 @@ import $importDaoInterfaceUML;
 
 #macro (exposeModelUpdatedAreas $area)
 #set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $model, $updatedAreas, $area))
+#updatedAreasCommon()
+#end
+
+#macro (exposeApplicationUpdatedAreas $area)
+#set ($updatedArea=$updatedAreaUtils.getUpdatableSnippet($template, $application, $updatedAreas, $area))
 #updatedAreasCommon()
 #end
 
