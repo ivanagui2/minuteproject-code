@@ -129,7 +129,7 @@
 
 			</models>
 		</application>
-		<targets catalog-entry="Primefaces-Spring,Vaadin">
+		<targets catalog-entry="Primefaces-Spring">
 			<property name="environment" value="remote"></property>
 			<property name="cloud-platform" value="cloudbees"></property>
 			<property name="cloud-name" value="petshopapp"></property>
