@@ -10,7 +10,7 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-#foreach ($model in $application.models)
+#foreach ($model in $configuration.models())
 #exposeVariableModelSpecific()
 #exposeJdbc()
 #exposeJPA2Specifics()

@@ -16,6 +16,7 @@
 	
 ##exposeVariableModelDetailSpecific()
 #foreach($table in $model.businessModel.businessPackage.getEntities())
+#if(!$table.isManyToMany())
    <!-- entity : $table.name -->
 #exposeVariableEntitySpecific()
   <module name="$tableClassName">
@@ -35,6 +36,7 @@
 #end
 #end
 	</module>	
+#end
 #end
 
     <!-- statement driven development SDD -->

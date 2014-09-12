@@ -1,3 +1,4 @@
+#exposeOXSpecific()
 #exposeVariableModelSpecific()
 #set ($applicationLabel=$formatUtils.getJavaName($applicationOX))
 <%@include file="../xava/imports.jsp"%>
