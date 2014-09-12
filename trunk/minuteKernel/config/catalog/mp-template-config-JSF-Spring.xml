@@ -364,6 +364,7 @@
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false"
 			has-updatable-nature="true">
+			<property name="maven-artifact-finalName-suffix" value="JSF" />
 <!-- 			<property name="add-backend-implementation" value="spring"></property> -->
 		</template>	
 					

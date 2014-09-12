@@ -35,7 +35,7 @@
 		belongToPackage="true">
 		<template name="Spring.Service.ApplicationContext.Config" templateFileName="Spring.Service.ApplicationContext.Config.vm" 
 			file-extension="xml" technicalPackage="factory.spring" file-suffix="-service-application-context" 
-			model-specific="true" add-model-name="true" 
+			application-specific="true" add-model-name="true" add-application-package-dir-name="true"
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresenceValue"
 			has-updatable-nature="true">
 			<property name="property-presence" value="add-backend-implementation"></property>
