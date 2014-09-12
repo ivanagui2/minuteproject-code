@@ -145,48 +145,46 @@
 		outputdir="web"
 		belongToPackage="true">			
 
-		<template package-root="xava"
+		<template
 			name="HomeMenu" templateFileName="HomeMenuOX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="xava" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="homeMenu" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
     		
-		<template package-root="mp"
+		<template
 			name="Menu" templateFileName="MenuOX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="mp" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="menu" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>			
-    	<template package-root="mp"
+    	<template
 			name="Footer" templateFileName="FooterOX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="mp" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="footer" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
-    	<template package-root="mp"
+    	<template
 			name="HeaderOX" templateFileName="HeaderOX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="mp" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="header" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
 
-	    <template package-root="WEB-INF"
+	    <template 
 	  		name="OpenXavaSecurityWebXml" templateFileName="OpenXavaSecurityWebXml.vm" 
-	  		subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+	  		subdir="" outputsubdir="WEB-INF" technicalPackage="" add-model-name="false"
 	  		file-extension="xml" file-prefix="web" file-suffix="" 
-	  		entity-specific="false" package-specific="false" model-specific="false"
 	  		application-specific="true">
 	  		<property name="securityAuthenticationType" value="basic" />
 	  		<property name="mpUserRole" value="mpUser" />
 	  		<property name="applicationRealm" value="Application" />
 		</template>	
 		  
-	    <template package-root="WEB-INF/tags/common"
+	    <template
 	  		name="SecurityTagLib" templateFileName="SecurityTagLib.vm" 
-	  		subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+	  		subdir="" outputsubdir="WEB-INF/tags/common" technicalPackage="" add-model-name="false"
 	  		file-extension="tag" file-prefix="isUserInRole" file-suffix="" 
-	  		entity-specific="false" package-specific="false" model-specific="false"
 	  		application-specific="true">
 		</template>			  
   							
@@ -196,29 +194,29 @@
 			name="OXindexJsp" templateFileName="OXindexJsp.vm" package-root=""
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="index" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
   		    		
 		<template 
 			name="OX500ErrorJsp" templateFileName="OX500ErrorJsp.vm" package-root=""
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="500error" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
 		
 		<template 
 			name="OX404ErrorJsp" templateFileName="OX404ErrorJsp.vm" package-root=""
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="404search" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
 		
 		<!-- naviox -->
-		<template package-root="naviox"
+		<template 
 			name="OXNavioxWelcome.jsp" templateFileName="OXNavioxWelcome.jsp.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="naviox" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="welcome" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
 											
   </template-target> 
@@ -240,7 +238,7 @@
 			name="TomcatJndiConnectionPoolSnippet" templateFileName="TomcatJndiConnectionPoolSnippet.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
 			file-extension="txt" file-prefix="" file-suffix="_jndi_for_tomcat_snippet" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>		
 		
 		<template package-root="tomcat.snippet"
@@ -248,7 +246,7 @@
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
 			add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="context" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 		</template>	
 
 		<template name="CheckConstraintSQL" templateFileName="CheckConstraintSQL.vm" 
@@ -272,17 +270,16 @@
   
 	<template-target 
     	name="web-inf config"
-	  	templatedir = "template-bsla1" 
 		libdir="lib/BslaLibrary.vm,lib/FrontEndLibrary.vm"
 		tool="velocity"
 		outputdir="persistence"
 		belongToPackage="true">			
 
-		<template package-root="META-INF"
+		<template 
 			name="PersistenceXmlOX" templateFileName="JPA.persistence.xml.OX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="META-INF" technicalPackage="" add-model-name="false" 
 			file-extension="xml" file-prefix="" file-suffix="persistence" 
-			 has-updatable-nature="true" model-specific="true">
+			 has-updatable-nature="true" application-specific="true">
 		</template>
 
 		<template name="EhCacheXml" templateFileName="EhCache.Xml.vm" 
@@ -309,7 +306,7 @@
 			name="ApplicationXml" templateFileName="ApplicationXmlOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="application" 
-		    model-specific="true"
+		    application-specific="true"
 		    has-updatable-nature="true">
 		</template>		
     
@@ -317,7 +314,7 @@
 			name="ControllersXmlOX" templateFileName="ControllersXmlOX.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="controllers" 
-			model-specific="true"
+			application-specific="true"
 			has-updatable-nature="true">
 		</template>			
  
@@ -325,7 +322,7 @@
 			subdir="" outputsubdir="" technicalPackage="" 
 			file-extension="xml" file-prefix="editors" file-suffix="" 
 			add-model-name="false" add-model-dir-name="false"
-			model-specific="true" 
+			application-specific="true" 
 			has-updatable-nature="true">
 		</template>	
 				
@@ -337,18 +334,18 @@
 		package-root=""
 		belongToPackage="true">	
 		
-		<template package-root="web.xava"
+		<template 
 			name="HomeOX" templateFileName="HomeOX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="web/xava" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="jsp" file-prefix="" file-suffix="home" 
-			model-specific="true">
+			application-specific="true">
 		</template>	
 		
-		<template package-root="web.xava.style"
+		<template 
 			name="CssMpOX" templateFileName="CssMpOX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="web/xava/style" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="css" file-prefix="" file-suffix="mp" 
-			model-specific="true">
+			application-specific="true">
 		</template>			
 			
 	</template-target>	
@@ -359,23 +356,23 @@
 		package-root=""
 		belongToPackage="true">	
 		
-		<template package-root="web.WEB-INF"
+		<template
 			name="liferay-display" templateFileName="LiferayDisplay.xml.OX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="web/WEB-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="liferay-display" 
-			model-specific="true">
+			application-specific="true">
 		</template>	
 		
-		<template package-root="web.WEB-INF"
+		<template
 			name="portlet" templateFileName="Portlet.xml.OX.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="web/WEB-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="portlet" 
-			model-specific="true">
+			application-specific="true">
 		</template>		
 
-		<template package-root="src" 
+		<template
 		    name="PortletProperties" templateFileName="Portlet.properties.OX.vm" 
-			subdir="" outputsubdir="" technicalPackage="portlets"
+			subdir="" outputsubdir="src" technicalPackage="portlets"
 			file-extension="properties" file-prefix="" file-suffix="" 
 			entity-specific="true" add-model-dir-name="false" add-business-package-dir-name="false"
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
