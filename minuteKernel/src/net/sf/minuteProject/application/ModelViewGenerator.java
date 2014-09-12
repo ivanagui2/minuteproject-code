@@ -99,11 +99,5 @@ public class ModelViewGenerator extends ModelGenerator {
 			writeTemplateResult(pack, template);
 		}
 	}
-	
-	protected void putCommonContextObject(VelocityContext context, Template template) {
-		putStandardContextObject(context);
-		putPluginContextObject(context, template);
-		context.put("model", getModel());
-	}
 
 }
