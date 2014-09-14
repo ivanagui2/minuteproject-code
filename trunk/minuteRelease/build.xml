@@ -444,6 +444,41 @@
 			<copy file="@{basedir}/@{artifact}" todir="${env.TOMCAT_HOME}/webapps" overwrite="true" />
 		</sequential>
 	</macrodef>
+	
+	<macrodef name="application_compliance_one_model">
+		<attribute name="input" />
+		<attribute name="transformer" />
+		<sequential>
+			<xslt 
+				in="@{input}.xml" 
+				out="out/@{input}-no-namespace.xml"
+			    style="xsl/remove-namespace.xls"/>
+			<xslt 
+				in="out/@{input}-no-namespace.xml" 
+				out="@{input}-application-compliance.xml"
+			    style="@{transformer}.xls"/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="application_compliance_one_model">
+		<attribute name="input" />
+		<sequential>
+			<application_compliance_one_model 
+				in="@{input}"
+				transformer="model-to-application-one-db"
+			/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="application_compliance_two_models">
+		<attribute name="input" />
+		<sequential>
+			<application_compliance_one_model 
+				in="@{input}"
+				transformer="model-to-application-two-dbs-devops"
+			/>
+		</sequential>
+	</macrodef>
 
 	<!-- ===================================================================== -->
 	<!-- classpath definitions -->
@@ -494,7 +529,8 @@
 	<target name="generation-build-sample" depends="release-application" >
 		<macro_generate_and_build display="Hibernate-BSLA" config="mp-config-bsla-hibernate-last-features.xml" maven.basedir="MavenSpringHibernate/petshop"/>
 		<macro_generate_and_build display="JPA-BSLA" config="mp-config-bsla-jpa-last-features.xml" maven.basedir="MavenSpringJPA/petshop"/>
-		<!--		<macro_generate_and_build display="iBatis-BSLA" config="mp-config-ibatis.xml" maven.basedir="MavenSpringIbatis/petshop"/>
+		<!--		
+		<macro_generate_and_build display="iBatis-BSLA" config="mp-config-ibatis.xml" maven.basedir="MavenSpringIbatis/petshop"/>
 		
 		<macro_generate_and_build display="JPA2" config="mp-config-JPA2.xml" maven.basedir="JPA2/petshop/JPA2" />
 		<echo>${maven.build.result}</echo>
