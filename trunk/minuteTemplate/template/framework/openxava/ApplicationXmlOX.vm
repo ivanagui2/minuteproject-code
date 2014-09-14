@@ -14,6 +14,8 @@
 		<controller name="Typical"/>
 	</default-module>
 	
+#foreach ($model in $configuration.models())
+#exposeVariableModelSpecific()
 ##exposeVariableModelDetailSpecific()
 #foreach($table in $model.businessModel.businessPackage.getEntities())
 #if(!$table.isManyToMany())
@@ -77,6 +79,8 @@
 	    <controller name="$openXavaUtils.getControllerName($table)"/>  
 	    <mode-controller name="DetailOnly"/>
 	</module>
+#end
+		
 #end
 		
 #addArea("custom-application-nodes")

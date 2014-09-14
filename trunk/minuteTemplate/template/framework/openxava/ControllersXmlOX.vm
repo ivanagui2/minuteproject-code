@@ -1,4 +1,4 @@
-#exposeVariableModelSpecific()
+#generatorSpecific()
 #exposeOXTemplate()
 #addedAreas()
 #set ($applicationOX=$configuration.name)
@@ -6,10 +6,19 @@
 ##<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
 <controllers> 
 
-	<controller name="MpTypical">
+#foreach ($model in $configuration.models())
+#exposeVariableModelSpecific()
+	<controller name="MpTypical${generatorBean.name}">
 	
 	  <extends controller="Typical" />
     
+      <extends controller="PersistenceUnit"/>
+
+      <action name="changeTo${generatorBean.name}" on-init="true"
+            class="org.openxava.actions.SetPersistenceUnitAction">
+           <set property="newPersistenceUnit" value="${generatorBean.name}"/>
+      </action>
+
       <action  name="new" 
 			class="net.sf.minuteproject.openxava.view.CreateAction"
 			image="images/new.gif"
@@ -23,7 +32,9 @@
           keystroke="F8" >
       </action>
       
-	</controller>		
+	</controller>
+
+#end	
 
 	<controller name="MpSearchAndPrint">
 		<extends controller="Print" />
