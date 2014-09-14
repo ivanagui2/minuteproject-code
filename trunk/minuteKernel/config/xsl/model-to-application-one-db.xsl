@@ -1,20 +1,30 @@
 <?xml version="1.0"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-	<xsl:template match="/" >
-	    <liste-items>
-	        <xsl:apply-templates/>
-	    </liste-items>
-	</xsl:template>
+<xsl:stylesheet version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:output method="xml" encoding="utf-8" indent="yes" />
 	
-	<xsl:template match="generator-config/configuration" >
-	    <item>
-	        <num>
-	            t
-	        </num>
-	    </item>
-	    <xsl:copy-of select="." />
+	<xsl:variable name="application-name" select="//model/@name" />
+	<xsl:variable name="application-version" select="//model/@version" />
+	<xsl:variable name="application-package-root" select="//model/@package-root" />
+	
+	<xsl:template match="@*|node()">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" />
+		</xsl:copy>
 	</xsl:template>
 
-	<!-- ADD NODE -->
+	<xsl:template match="model">
+		<application 
+			name="{$application-name}"
+			version="{$application-version}"
+			package-root="{$application-package-root}"
+			>
+			<models>
+				<xsl:copy>
+					<xsl:apply-templates select= "@name | node()" /><!-- just keep name -->
+				</xsl:copy>
+			</models>
+		</application>
+	</xsl:template>
+
 </xsl:stylesheet>

@@ -78,33 +78,6 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
- 		<targets catalog-entry="JPA2" >
-<!-- 		<targets outputdir-root="../../JPA2" catalog-entry="JPA2" templatedir-root="../../minuteTemplate/template">
- --><!-- 			<target refname="JPA2" 
-			   name="JPA2" 
-			   fileName="mp-template-config-JPA2.xml" 
-			   outputdir-root="../../dev/JPA2/petshop"
-			   templatedir-root="../../minuteTemplate/template/framework/jpa">
-               <property name="add-querydsl" value="2.1.2"></property>
-               <property name="add-jpa2-implementation" value="eclipselink"></property>			   			   
-			</target>	
-            <target refname="SDD-beans" 
-                outputdir-root="../../dev/JPA2/petshop"
-               fileName="mp-template-config-SDD-beans.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/bean">
-            </target>
-			<target refname="LIB" 
-			   fileName="mp-template-config-bsla-LIB-features.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/bsla">
-			</target>
-			<target refname="CACHE-LIB" 
-			   fileName="mp-template-config-CACHE-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/cache">
-			</target>			
-			<target refname="COMMON-LIB" 
-			   fileName="mp-template-config-COMMON-LIB.xml" 
-			   templatedir-root="../../minuteTemplate/template/framework/common">
-			</target> -->			
-		</targets>
+ 		<targets catalog-entry="JPA2" />
 	</configuration>
 </generator-config>

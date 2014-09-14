@@ -3,12 +3,6 @@
 
     <xsl:output indent="yes" method="xml" encoding="utf-8" omit-xml-declaration="yes"/>
 
-    <!-- Stylesheet to remove all namespaces from a document -->
-    <!-- NOTE: this will lead to attribute name clash, if an element contains
-        two attributes with same local name but different namespace prefix -->
-    <!-- Nodes that cannot have a namespace are copied as such -->
-
-    <!-- template to copy elements -->
     <xsl:template match="*">
         <xsl:element name="{local-name()}">
             <xsl:apply-templates select="@* | node()"/>
