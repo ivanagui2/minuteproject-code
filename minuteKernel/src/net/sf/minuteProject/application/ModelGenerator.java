@@ -246,7 +246,7 @@ public class ModelGenerator extends AbstractGenerator {
 		
 			for (TemplateTarget templateTarget : configuration.getTarget().getTemplateTargets()) {
 				for (Template template : templateTarget.getTemplates()) {
-					template.setPackageRoot(model.getPackageRoot());
+					//template.setPackageRoot(model.getPackageRoot());
 				}
 			}
 		

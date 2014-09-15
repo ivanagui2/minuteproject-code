@@ -653,7 +653,7 @@ public class Template extends TemplateTarget {
 		this.fieldSpecific = fieldSpecific;
 	}
 	
-	public String getPackageRoot() {
+	public String getPackageRootOld() {
 		final Target target = getTemplateTarget().getTarget();
 		if (packageRoot==null && target!=null){
 			Configuration configuration = (Configuration) target.getAbstractConfigurationRoot();
@@ -670,6 +670,16 @@ public class Template extends TemplateTarget {
 		return packageRoot;
 	}
 
+	
+	public String getPackageRoot() {
+		if (packageRoot==null && getTemplateTarget().getTarget()!=null){
+			Configuration configuration = (Configuration) getTemplateTarget().getTarget().getAbstractConfigurationRoot();
+			setPackageRoot(configuration.getModel().getPackageRoot());
+		} //else
+			//setPackageRoot("");
+		return packageRoot;
+	}
+	
 	private boolean isAddApplicationPackageDirName() {
 		return addApplicationPackageDirName!=null && addApplicationPackageDirName.equals("true");
 	}
