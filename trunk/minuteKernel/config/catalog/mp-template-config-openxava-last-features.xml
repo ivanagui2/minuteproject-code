@@ -465,7 +465,7 @@
 			subdir="" outputsubdir="" technicalPackage="xava.help"
 			file-extension="jsp" file-prefix="" file-suffix="_en" 
 			add-model-dir-name="false" add-business-package-dir-name="false"
-			entity-specific="true" package-specific="false" model-specific="false"
+			entity-specific="true" 
       		check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>
 
