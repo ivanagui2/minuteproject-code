@@ -372,11 +372,11 @@ public class Template extends TemplateTarget {
 		return false;
 	}
 	
-	public void setPackageRoot(String packageRoot) {
+	public void setPackageRootOld(String packageRoot) {
 		super.setPackageRoot(packageRoot);
 	}
 	
-	public void setPackageRootOld(String packageRoot) {
+	public void setPackageRoot(String packageRoot) {
 		if (isApplicationScope()) {
 			super.setPackageRoot("");
 		}
