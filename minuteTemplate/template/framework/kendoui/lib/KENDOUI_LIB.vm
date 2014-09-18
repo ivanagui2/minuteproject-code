@@ -3,6 +3,11 @@
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
+
+<link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
+<link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
+
 #end
 #macro(putKendoUIMenuPackage)
 ##https://github.com/insanio/kendoui.ex/tree/master/examples inspiration
@@ -28,3 +33,47 @@
 #end
 #end
 
+#macro(putKendoUIMenu)
+    $(document).ready(function() {
+        $("#${model.name}-Menu").kendoMenu();
+    });
+#end
+#macro(putKendoUIMenuREST)
+  $("#${model.name}-Menu").kendoMenu({ 
+   dataSource: {
+    error: function (e) {
+##     if (e.errors !== false) {
+##        $("#${tableVariableName}ListFooter").text(e.errors);
+##     }
+    },
+	transport: {
+     read: {
+      url: "data/model/menu", //package.name (entity,+URL)
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      cache: false
+     }
+    },
+    schema: {
+     data: "data",
+     total: "total",
+     errors: "error"
+    },
+    columns: [
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
+     {
+      template: kendo.template($("#grid-template-$column.alias").html()),
+      title: '$column.alias',
+#if($isLengthPrecisionColumn)     width:$column.size,#end
+      headerAttributes: "$columnVar"
+##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
+##///filterable: false
+     }
+#if ($velocityCount!=$table.columnCount)
+    ,#end 
+##set($counter=$counter+1)
+#end
+     ]
+    });
+#end
