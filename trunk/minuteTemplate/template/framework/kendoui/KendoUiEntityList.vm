@@ -1,5 +1,13 @@
 #exposeVariableEntitySpecific()
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+
 #putKendoUIJSImport()
+
+</head>
+<body>
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
 <script id="grid-template-$column.alias" type="text/x-kendo-template">
@@ -14,7 +22,7 @@ $(function () {
   var expandedRow;
 
   function detailExpand(e) {
-   if (expandedRow != null &amp;&amp; expandedRow[0] != e.masterRow[0]) {
+   if (expandedRow != null && expandedRow[0] != e.masterRow[0]) {
      var grid = $('#${tableVariableName}').data('kendoGrid');
      grid.collapseRow(expandedRow);
 
@@ -136,7 +144,9 @@ $(function () {
      {
       template: kendo.template($("#grid-template-$column.alias").html()),
       title: '$column.alias',
-#if($isLengthPrecisionColumn)     width:$column.size,#end
+##if($isLengthPrecisionColumn)     
+##		width:$column.size,
+##end
       headerAttributes: "$columnVar"
 ##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
 ##///filterable: false
@@ -155,3 +165,5 @@ $(function () {
   <div id="${tableVariableName}List"></div>
   <div id="${tableVariableName}ListFooter"></div>
 </div>
+</body>
+</html>
