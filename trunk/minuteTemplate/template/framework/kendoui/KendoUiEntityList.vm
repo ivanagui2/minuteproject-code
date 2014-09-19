@@ -18,6 +18,7 @@
 #end
 
 <script type="text/javascript">
+
 $(function () {
   var expandedRow;
 
@@ -39,7 +40,8 @@ $(function () {
     },
 	transport: {
      read: {
-      url: "data/entity/${tableVariableName}/list",
+      //url: "data/entity/${tableVariableName}/list",
+      url: "http://localhost:8080/test/data/entity/${tableVariableName}/list",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       cache: false
@@ -157,6 +159,7 @@ $(function () {
 #end
      ]
     });
+    
   });
 </script>
 <div class="k-content">

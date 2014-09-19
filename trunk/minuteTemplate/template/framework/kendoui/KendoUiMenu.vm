@@ -9,6 +9,10 @@
 </head>
 <body>
 <script type="text/javascript">
+function openEntityContent(entity) {
+    $("#entity-content").load("html/Addresses/kendoUiEntityListAddress.html");
+}
+
 $(function () {
 
 #putKendoUIMenu()
@@ -24,6 +28,8 @@ $(function () {
 #putKendoUIMenuPackage()
 #end
 </ul>
+</div>
+<div id="entity-content">
 </div>
 </body>
 </html>
