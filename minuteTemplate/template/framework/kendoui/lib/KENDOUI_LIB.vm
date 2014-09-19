@@ -25,7 +25,7 @@
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
 ##        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
 ##		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
-        <li>$tableLabel</li>
+        <li><a onclick="openEntityContent('$tableLabel');"> $tableLabel</a></li>
 #end
 #end
     </ul>
