@@ -13,8 +13,7 @@
 #exposeJPASpecifics()
 #putOXTemplateDefinition()
 #set ($hibernateDialect = $hibernate3.getDialect($database))
-    <!--<persistence-unit name="$persistenceUnitName">-->
-     <persistence-unit name="default">
+    <persistence-unit name="$persistenceUnitName">
     	<non-jta-data-source>java:comp/env/jdbc/${model.name}DS</non-jta-data-source>
         <properties>
             <property name="hibernate.dialect" value="$hibernateDialect"/>
@@ -39,9 +38,23 @@
 #addArea("properties")
         </properties>
 #addArea("persistence-unit")
-    </persistence-unit>       
+    </persistence-unit>    
+#set($defaultDS = "${model.name}DS") 
 #end
 
+    <persistence-unit name="default">
+    	<!-- datasource of the last model -->
+    	<non-jta-data-source>java:comp/env/jdbc/$defaultDS</non-jta-data-source>
+        <properties>
+            <property name="hibernate.dialect" value="$hibernateDialect"/>
+            <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
+            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache.xml" />
+            <property name="hibernate.cache.use_query_cache" value="true" />
+            <property name="hibernate.cache.use_second_level_cache" value="true" />
+            <property name="hibernate.generate_statistics" value="true" />
+        </properties>
+    </persistence-unit>
+    	
 #addArea("persistence")
 
 </persistence>
