@@ -19,6 +19,11 @@ $!commonUtils.getReadMeText($template)
 #set ($applicationName=$configuration.name)
 #end
 
+#macro (exposeVariableApplicationSpecific)
+#exposeVariableModelDetailSpecific()
+#set ($distinctTemplateTargetList = $commonUtils.getDistinctTemplateTargetList($model))
+#end
+
 #macro(exposeVariableFunctionSpecific)
 #exposeVariableEntitySpecific()
 #exposeFunction()

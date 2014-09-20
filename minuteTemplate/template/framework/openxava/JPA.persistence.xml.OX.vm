@@ -15,7 +15,7 @@
 #set ($hibernateDialect = $hibernate3.getDialect($database))
     <!--<persistence-unit name="$persistenceUnitName">-->
      <persistence-unit name="default">
-    	<non-jta-data-source>java:comp/env/jdbc/${generatorBean.name}DS</non-jta-data-source>
+    	<non-jta-data-source>java:comp/env/jdbc/${model.name}DS</non-jta-data-source>
         <properties>
             <property name="hibernate.dialect" value="$hibernateDialect"/>
             <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
