@@ -171,11 +171,6 @@
 #exposeVariableModelSpecific()
 #end
 
-#macro (exposeVariableApplicationSpecific)
-#exposeVariableModelDetailSpecific()
-#set ($distinctTemplateTargetList = $commonUtils.getDistinctTemplateTargetList($model))
-#end
-
 #macro(exposeConnectionSpecific)
 #set ($transactionManagerName = "${model.name}TransactionManager")
 #set ($dataSourceName = "${model.name}DataSource")
