@@ -8,15 +8,15 @@
 
 #foreach ($model in $configuration.models())
 #exposeVariableModelSpecific()
-	<controller name="MpTypical${generatorBean.name}">
+	<controller name="MpTypical${model.name}">
 	
 	  <extends controller="Typical" />
     
       <extends controller="PersistenceUnit"/>
 
-      <action name="changeTo${generatorBean.name}" on-init="true"
+      <action name="changeTo${model.name}" on-init="true"
             class="org.openxava.actions.SetPersistenceUnitAction">
-           <set property="newPersistenceUnit" value="${generatorBean.name}"/>
+           <set property="newPersistenceUnit" value="${model.name}"/>
       </action>
 
       <action  name="new" 
