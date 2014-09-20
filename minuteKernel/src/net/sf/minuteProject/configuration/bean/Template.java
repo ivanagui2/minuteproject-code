@@ -5,22 +5,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.enumeration.Extension;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.configuration.bean.view.Function;
 import net.sf.minuteProject.configuration.bean.view.View;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
-import net.sf.minuteProject.utils.LicenceUtils;
 import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.ModelUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.velocity.VelocityContext;
 
 public class Template extends TemplateTarget {
 
@@ -674,7 +670,7 @@ public class Template extends TemplateTarget {
 	public String getPackageRoot() {
 		if (packageRoot==null && getTemplateTarget().getTarget()!=null){
 			Configuration configuration = (Configuration) getTemplateTarget().getTarget().getAbstractConfigurationRoot();
-			setPackageRoot(configuration.getModel().getPackageRoot());
+			setPackageRoot(configuration.getPackageRoot());//.getModel().getPackageRoot());
 		} //else
 			//setPackageRoot("");
 		return packageRoot;
