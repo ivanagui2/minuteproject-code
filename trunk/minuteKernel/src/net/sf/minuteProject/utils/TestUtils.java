@@ -1,9 +1,6 @@
 package net.sf.minuteProject.utils;
 
-import net.sf.minuteProject.configuration.bean.Model;
-import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -14,7 +11,6 @@ public class TestUtils {
 	}
 	
 	public String getTestPopulateFieldMethod (String dBType, String length, int scale, int number) {
-		String retStr=null;
 		dBType = StringUtils.upperCase(dBType);
 		if (dBType.equals("BOOLEAN"))
 			return  "getBoolean"+number+"()";					

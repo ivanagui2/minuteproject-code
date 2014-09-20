@@ -125,5 +125,10 @@ public class Configuration extends AbstractConfigurationRoot{
 	public boolean isSingleModel() {
 		return singleModel!=null?true:false;
 	}
+
+	public String getPackageRoot() {
+		// TODO Auto-generated method stub
+		return isSingleModel()?singleModel.getPackageRoot():application.getPackageRoot();
+	}
 	
 }
