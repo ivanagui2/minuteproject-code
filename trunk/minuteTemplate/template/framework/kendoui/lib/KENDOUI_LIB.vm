@@ -25,7 +25,7 @@
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
 ##        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
 ##		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
-        <li><a onclick="openEntityContent('$tableLabel');"> $tableLabel</a></li>
+        <li><a onclick="openEntityContent('$table.name');"> $tableLabel</a></li>
 #end
 #end
     </ul>
@@ -77,3 +77,13 @@
      ]
     });
 #end
+
+#macro(exposeKendoUITemplate)
+#set($templateEntitySearchGridList="KendoUiEntitySearchGrid")
+#end
+
+#macro(exposeKendoUIEntitySpecific)
+#exposeKendoUITemplate()
+#set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateEntitySearchGridList))
+#end
+

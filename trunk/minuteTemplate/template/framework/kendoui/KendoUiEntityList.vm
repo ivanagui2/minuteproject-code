@@ -120,16 +120,16 @@ $(function () {
    scrollable: {
     virtual: true
    },
-#*
    pageable: {
-    refresh: true,
-     pageSizes: $kendoUiUtils.pageSizes,
-     pageSize: $kendoUiUtils.pageSize,
-     buttonCount: $kendoUiUtils.buttonCount,
+     refresh: true,
+     pageSizes: 10, ##$kendoUiUtils.pageSizes,
+     pageSize: 10, ##$kendoUiUtils.pageSize,
+     buttonCount: true,##$kendoUiUtils.buttonCount,
      messages: {
-      display: "$kendoUiUtils.getPageableMessageDisplay($table)",
-      empty: "$kendoUiUtils.getPageableEmptyMessageDisplay($table)",
-      page: "$kendoUiUtils.getPageablePage($table)",
+      display: "entity $table.alias" ,##"$kendoUiUtils.getPageableMessageDisplay($table)",
+      empty: "no $table.alias found" ##"$kendoUiUtils.getPageableEmptyMessageDisplay($table)",
+      #*
+	  page: "$kendoUiUtils.getPageablePage($table)",
       of: "$kendoUiUtils.getPageableMessageOf()",
       itemsPerPage: "$kendoUiUtils.getPageableMessageItemPerPage($table)",
       first: "$kendoUiUtils.getPageableMessageFirst($table)",
@@ -137,9 +137,9 @@ $(function () {
       next: "$kendoUiUtils.getPageableMessageNext($table)",
       last: "$kendoUiUtils.getPageableMessageLast($table)",
       refresh: "$kendoUiUtils.getPageableMessageRefresh($table)"
+*#
      }
     },
-*#
     columns: [
 #foreach ($column in $table.columns)
 #putColumnParamNaming()

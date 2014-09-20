@@ -10,7 +10,13 @@
 <body>
 <script type="text/javascript">
 function openEntityContent(entity) {
-    $("#entity-content").load("html/Addresses/kendoUiEntityListAddress.html");
+#foreach ($table in $entities)
+#exposeVariableEntitySpecific()
+#exposeKendoUIEntitySpecific()
+  if (entity == "${table.name}") {
+    $("#entity-content").load("$entityFullPath");
+  }
+#end
 }
 
 $(function () {
