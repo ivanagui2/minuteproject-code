@@ -92,12 +92,8 @@
 			<!-- S D D -->
 
 		</model>
- 		 
-		<targets catalog-entry="BSLA-JPA2,BELA-JPA2,REST-CXF-JEE" 
-	 		outputdir-root="../minuteTest/model/functional"
-		 	append-catalog-entry-dir-to-outputdir-root="true">
-		 	<property name="enable-test" value="true" />
-		</targets>
-
+	 	 
+		<targets catalog-entry="JPA2" outputdir-root="../../output/JPA2-model" />
+		
 	</configuration>
 </generator-config>
