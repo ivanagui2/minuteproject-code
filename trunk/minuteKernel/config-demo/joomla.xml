@@ -76,12 +76,17 @@
 			</targets> <targets catalog-entry="REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC,REST-JEE,Primefaces-Spring,Vaadin,Primefaces-Spring" 
 			/> <targets catalog-entry="REST-JEE" > <property name="target-server" value="weblogic"></property> 
 			<property name="WLS_SERVER" value="/Users/xxxx/SOFT/SERVER/WEBLOGIC/wls12120"></property> 
-			</targets> -->
+			</targets> 
 		<targets catalog-entry="Primefaces-Spring,JPA2,REST-JEE,REST-CXF-JEE,REST-CXF-Spring,REST-SpringMVC">
 			<property name="target-server" value="glassfish"></property>
 			<property name="environment" value="remote"></property>
 			<property name="add-jpa2-implementation" value="eclipselink"></property>
 		</targets>
-
+-->
+		<targets catalog-entry="BSLA-JPA2,BELA-JPA2" 
+		 	append-catalog-entry-dir-to-outputdir-root="true">
+		 	<property name="enable-test" value="true" />
+		</targets>
+		
 	</configuration>
 </generator-config>

@@ -44,6 +44,13 @@
 							<condition type="package" startsWith="MP_DEVOPS_RIGHT" result="right"></condition>
 						</business-package>
 					</business-model>
+					<enrichment>
+						<conventions>
+							<view-primary-key-convention
+								type="apply-default-primary-key-otherwise-first-one"
+								default-primary-key-names="IDENTIFIER,ID" />
+						</conventions>
+					</enrichment>
 				</model>
 			</models>
 		</application>

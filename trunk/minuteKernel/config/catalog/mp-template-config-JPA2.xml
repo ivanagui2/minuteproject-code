@@ -79,9 +79,9 @@
 		outputdir="src/main/resources"
 		belongToPackage="true">
 
-		<template package-root="META-INF"
+		<template 
 			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="META-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
 			application-specific="true">
 <!-- 			<property name="environment" value="remote"/> -->
@@ -106,9 +106,9 @@
 		outputdir="src/test/resources"
 		belongToPackage="true">			
 
-		<template package-root="META-INF"
+		<template
 			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="META-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
 			application-specific="true">
 			<property name="environment" value="local"/>

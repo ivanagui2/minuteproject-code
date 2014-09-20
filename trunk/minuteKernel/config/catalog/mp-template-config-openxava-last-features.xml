@@ -234,32 +234,30 @@
 		belongToPackage="true">			
 
 		<!--  Menu config tomcat jndi templates -->
-		<template package-root="tomcat.snippet"
+		<template
 			name="TomcatJndiConnectionPoolSnippet" templateFileName="TomcatJndiConnectionPoolSnippet.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" add-model-dir-name="false"
+			subdir="" outputsubdir="tomcat/snippet" technicalPackage="" add-model-name="true" add-model-dir-name="false"
 			file-extension="txt" file-prefix="" file-suffix="_jndi_for_tomcat_snippet" 
 			application-specific="true">
 		</template>		
 		
-		<template package-root="tomcat.snippet"
+		<template 
 			name="TomcatContextXml" templateFileName="TomcatContextXml.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" 
+			subdir="" outputsubdir="tomcat/snippet" technicalPackage="" add-model-name="false" 
 			add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="context" 
 			application-specific="true">
 		</template>	
 
 		<template name="CheckConstraintSQL" templateFileName="CheckConstraintSQL.vm" 
-		    package-root="sql"
-			subdir="" outputsubdir="" technicalPackage="check"
+			subdir="" outputsubdir="sql" technicalPackage="check"
 			file-extension="sql" file-prefix="" file-suffix="-check-constraints" 
 			add-model-name="true" add-model-dir-name="false"
 			model-specific="true" >
 		</template>
 	
 		<template name="SequenceSQL" templateFileName="SequenceSQL.vm" 
-		    package-root="sql"
-			subdir="" outputsubdir="" technicalPackage="sequence"
+			subdir="" outputsubdir="sql" technicalPackage="sequence"
 			file-extension="sql" file-prefix="" file-suffix="" 
 			add-model-name="true" add-model-dir-name="false"
 			model-specific="true" >
