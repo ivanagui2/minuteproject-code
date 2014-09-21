@@ -445,8 +445,9 @@
 		</sequential>
 	</macrodef>
 	
-	<macrodef name="application_compliance_one_model">
+	<macrodef name="application_compliance_transformer">
 		<attribute name="input" />
+		<attribute name="output" />
 		<attribute name="transformer" />
 		<sequential>
 			<xslt 
@@ -455,16 +456,18 @@
 			    style="xsl/remove-namespace.xls"/>
 			<xslt 
 				in="out/@{input}-no-namespace.xml" 
-				out="@{input}-application-compliance.xml"
+				out="@{output}.xml"
 			    style="@{transformer}.xls"/>
 		</sequential>
 	</macrodef>
 	
 	<macrodef name="application_compliance_one_model">
 		<attribute name="input" />
+		<attribute name="output" />
 		<sequential>
-			<application_compliance_one_model 
+			<application_compliance_transformer 
 				in="@{input}"
+				output="@{output}"
 				transformer="model-to-application-one-db"
 			/>
 		</sequential>
@@ -472,9 +475,11 @@
 	
 	<macrodef name="application_compliance_two_models">
 		<attribute name="input" />
+		<attribute name="output" />
 		<sequential>
-			<application_compliance_one_model 
+			<application_compliance_transformer 
 				in="@{input}"
+				output="@{output}"
 				transformer="model-to-application-two-dbs-devops"
 			/>
 		</sequential>
@@ -754,6 +759,32 @@
 
 	</target>
 
+	<!-- ===================================================================== -->
+	<!-- multimodel compatibility -->
+	<!-- ===================================================================== -->
+	
+	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
+	<target name="generation-single-model-application-compatibility" depends="release-application" >
+		<parallel threadcount="3">
+			<antcall target="generation-build-tranxy-model-compatibility"/>
+		</parallel>
+	</target>
+				
+	<target name="generation-build-tranxy-model-compatibility">
+		<application_compliance_one_model input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
+		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
+		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />-->
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/tranxy" project="vaadin" artifact="tranxyVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/tranxy" project="JSF-primefaces" artifact="tranxyApp" />
+	
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+	
 	<!-- ===================================================================== -->
 	<!-- cloud sample delivery -->
 	<!-- ===================================================================== -->
