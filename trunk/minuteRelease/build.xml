@@ -390,6 +390,22 @@
 		</sequential>
 	</macrodef>
 	
+	<macrodef name="macro_generate_application">
+		<attribute name="config" />
+		<attribute name="display" />
+		<sequential>
+			<echo message="@{display}" />
+			<delete file="${hsqldb-sample}/petshop.lck" failonerror="false">
+			</delete>
+			<java fork="true" dir="${demo.dir}/config" classname="net.sf.minuteProject.application.ApplicationGenerator">
+				<classpath>
+					<path refid="mp.library.path" />
+				</classpath>
+				<arg line="@{config}" />
+			</java>
+		</sequential>
+	</macrodef>
+	
 	<macrodef name="macro_build_and_deploy">
 		
 		<attribute name="maven.basedir"  />
@@ -448,26 +464,28 @@
 	<macrodef name="application_compliance_transformer">
 		<attribute name="input" />
 		<attribute name="output" />
+		<attribute name="dir" default="" />
 		<attribute name="transformer" />
 		<sequential>
 			<xslt 
-				in="@{input}.xml" 
-				out="out/@{input}-no-namespace.xml"
+				in="@{dir}/@{input}.xml" 
+				out="@{dir}/out/@{input}-no-namespace.xml"
 			    style="xsl/remove-namespace.xls"/>
 			<xslt 
-				in="out/@{input}-no-namespace.xml" 
-				out="@{output}.xml"
-			    style="@{transformer}.xls"/>
+				in="@{dir}/out/@{input}-no-namespace.xml" 
+				out="@{dir}/@{output}.xml"
+			    style="xsl/@{transformer}.xls"/>
 		</sequential>
 	</macrodef>
 	
 	<macrodef name="application_compliance_one_model">
 		<attribute name="input" />
 		<attribute name="output" />
+		<attribute name="dir" default="" />
 		<sequential>
 			<application_compliance_transformer 
-				input="@{input}"
-				output="@{output}"
+				input="@{dir}/@{input}"
+				output="@{dir}/@{output}"
 				transformer="model-to-application-one-db"
 			/>
 		</sequential>
@@ -476,10 +494,11 @@
 	<macrodef name="application_compliance_two_models">
 		<attribute name="input" />
 		<attribute name="output" />
+		<attribute name="dir" default="" />
 		<sequential>
 			<application_compliance_transformer 
-				in="@{input}"
-				output="@{output}"
+				in="@{dir}/@{input}"
+				output="@{dir}/@{output}"
 				transformer="model-to-application-two-dbs-devops"
 			/>
 		</sequential>
@@ -771,8 +790,8 @@
 	</target>
 				
 	<target name="generation-build-tranxy-model-compatibility">
-		<application_compliance_one_model input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
-		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
+		<application_compliance_one_model dir="${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
+		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
 		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
 		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
