@@ -79,11 +79,11 @@
 		outputdir="src/main/resources"
 		belongToPackage="true">
 
-		<template package-root="META-INF"
+		<template 
 			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="META-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 <!-- 			<property name="environment" value="remote"/> -->
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>
@@ -106,11 +106,11 @@
 		outputdir="src/test/resources"
 		belongToPackage="true">			
 
-		<template package-root="META-INF"
+		<template
 			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
-			subdir="" outputsubdir="" technicalPackage="" add-model-name="false" add-model-dir-name="false"
+			subdir="" outputsubdir="META-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
-			entity-specific="false" package-specific="false" model-specific="true">
+			application-specific="true">
 			<property name="environment" value="local"/>
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>
@@ -141,6 +141,7 @@
 			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="BackEnd" />
 		</template>	
 					
 	</template-target>	  	

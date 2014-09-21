@@ -1,4 +1,5 @@
 <target name="JSF">		
+    <!-- not used any more spring version instead JSF-spring -->
 	<architecture-target name="JSF primefaces" description="JSF primefaces architecture">
 	</architecture-target>	
     <plugin name="enrichmentUtils" className="net.sf.minuteProject.utils.enrichment.EnrichmentUtils"></plugin>

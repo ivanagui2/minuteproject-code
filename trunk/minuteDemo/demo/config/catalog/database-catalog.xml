@@ -1,4 +1,5 @@
 <database-catalog>
+<!-- todo rename into environment catalog -->
   <databases>
 
 	 <database name="HSQLDB" 

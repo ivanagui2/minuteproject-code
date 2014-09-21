@@ -8,7 +8,7 @@
 	<plugin name="primefacesUtils" className="net.sf.minuteProject.plugin.jsf.PrimefacesUtils"></plugin>
 
 	<resource-target outputdir="src/main/webapp/icon">
-		<resource name="xsl-icon" resource-file-name="xsl.png" />
+		<resource name="xsl-icon" resource-file-name="excel.png" />
 		<resource name="pdf-icon" resource-file-name="pdf.png" />
 	</resource-target>
 	
@@ -25,6 +25,11 @@
 
 		<template name="JSFBeanManagerMenu" templateFileName="JSFPrimefacesMenuBean.vm" 
 			file-extension="java" technicalPackage="menu" file-suffix="Menu" 
+			model-specific="true" add-model-name="true" has-updatable-nature="true">
+		</template>
+		
+		<template name="JSFBeanManagerLanguage" templateFileName="JSFPrimefacesLanguageBean.vm" 
+			file-extension="java" technicalPackage="bean.language" file-suffix="LanguageManagedBean" 
 			model-specific="true" add-model-name="true" has-updatable-nature="true">
 		</template>
 		
@@ -91,6 +96,24 @@
 			model-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="separator" value="_"/>
+		</template>
+			 
+		<template name="JSFI18nProperties_es" templateFileName="I18nProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="i18n"
+			file-extension="properties" file-prefix="" file-suffix="_es" 
+			model-specific="true" has-updatable-nature="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="separator" value="_"/>
+     		<property name="language" value="es"/>
+		</template>
+			 
+		<template name="JSFI18nProperties_fr" templateFileName="I18nProperties.vm" 
+			subdir="" outputsubdir="" technicalPackage="i18n"
+			file-extension="properties" file-prefix="" file-suffix="_fr" 
+			model-specific="true" has-updatable-nature="true"
+     		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
+     		<property name="separator" value="_"/>
+     		<property name="language" value="fr"/>
 		</template>
 
 	</template-target>
@@ -341,6 +364,7 @@
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false"
 			has-updatable-nature="true">
+			<property name="maven-artifact-finalName-suffix" value="JSF" />
 <!-- 			<property name="add-backend-implementation" value="spring"></property> -->
 		</template>	
 					
