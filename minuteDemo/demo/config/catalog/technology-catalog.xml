@@ -6,6 +6,8 @@
 	    <technology-info name="minuteproject" icon-url="" url="" description="powerful generator"/>
 	    <technology-info name="JPA2" icon-url="" url="" description="JEE persistence API"/>
     </technologies-info>
+    
+    
 	<technologies>
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
@@ -113,11 +115,11 @@
 
 		<technology name="REST-SpringMVC" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-SpringMVC.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,KendoUI,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
-				<framework name="spring" version="3.0.6"></framework>
+				<framework name="spring" version="4"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
 			<property name="add-jpa2-implementation" value="hibernate"></property>
@@ -132,11 +134,11 @@
 
 		<technology name="REST-CXF-Spring" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-CXF-Spring.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,KendoUI,MavenMaster"
 			template-dir="@templateRoot@/framework/cxf" status="released"
 			description="Generates:\REST CXF CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
-				<framework name="spring" version="3.0.6"></framework>
+				<framework name="spring" version="4"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
 			<property name="add-jpa2-implementation" value="hibernate"></property>
@@ -152,11 +154,11 @@
 		<technology name="REST-CXF-JEE" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-CXF-JEE.xml"
 			default-outputdir="REST"
-			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,MavenMasterEar,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,MavenMaster,server-infrastructure-configuration"
+			depends-on-targets="BSLA_LIB,JPA2,BELA-JPA2,EJB3_LIB,KendoUI,MavenMasterEar,COMMON_LIB,SDD-BEANS,CACHE_LIB,SPRING_LIB,REST_LIB,MavenMaster,server-infrastructure-configuration"
 			template-dir="@templateRoot@/framework/cxf" status="released"
 			description="Generates:\REST CXF CRUD app\JEE DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
-				<framework name="spring" version="3.0.6"></framework>
+				<framework name="jee" version="6"></framework>
 			</frameworks>
 			<property name="add-rest-implementation-cxf-version" value="2.2.3"></property>
 			<property name="add-querydsl" value="2.1.2"></property>
@@ -165,9 +167,8 @@
  			<property name="add-xmlbinding" value="true"></property>
 			<property name="add-xml-format" value="lowercase-hyphen"></property> 		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property> 
-			<property name="add-rest-implementation-jersey-version"
-				value="2.4.1"></property>
-			<property name="add-backend-implementation" value="spring"></property>
+			<property name="add-rest-implementation-jersey-version"	value="2.4.1"></property>
+			<property name="add-backend-implementation" value="ejb"></property>
 			
 			<property name="add-ear-packaging" value="true"></property>
 			<property name="web-maven-template" value="PomXml.CXF"></property>
@@ -224,7 +225,7 @@
 			<frameworks>
 				<framework name="primefaces" version="4.0"></framework>
 				<framework name="JSF" version="2"></framework>
-				<framework name="spring" version="3+"></framework>
+				<framework name="spring" version="4"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
 			<property name="add-jpa2-implementation" value="hibernate"></property>
@@ -396,24 +397,86 @@
 			</frameworks>
 		</technology>
 
-		<!-- webservice model technologies not activated <technology name="WebService+Spring-Hibernate" 
-			model-type="webservice" template-config-file-name="mp-template-config-WSDL-API.xml" 
-			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl" 
+		<technology name="KendoUI" model-type="rdbms"
+			template-config-file-name="mp-template-config-kendoui.xml"
+			default-outputdir="REST-Client" template-dir="@templateRoot@/framework/kendoui"
+			status="draft" description="Generates kendoui html, css, js and rest client">
+			<frameworks>
+				<framework name="Kendoui" version=""></framework>
+			</frameworks>
+		</technology>
+
+		<!--                                             -->	
+		<!-- webservice model technologies not activated -->	
+		<!--                                             -->	
+		<technology name="WEBSERVICE-PROJECT-BSLA" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Impl.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release" description="Generates mvn structure to implement wsdl api"
+			depends-on-targets="WS-API,WS-Impl,ServiceLayer,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster">
+			
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+			
+			<property name="add-backend-implementation" value="spring"></property>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+		</technology>
+		
+		<technology name="WEBSERVICE-PROJECT-BELA" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Impl.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release" description="Generates mvn structure to implement wsdl api"
+			depends-on-targets="WS-API,WS-Impl,ServiceLayer,BELA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,MavenMaster">
+			
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+			
+			<property name="add-backend-implementation" value="ejb"></property>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
+		</technology>
+		
+<!-- 		
+		<technology name="WebService+Spring-Hibernate" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-API.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
 			status="release" description="Generates mvn structure to import wsdl into 
-			java" depends-on-targets="MVN_SPRING_HIBERNATE_LAST, WS-Impl, ServiceLayer" 
-			> <frameworks> <framework name="metro" version="2.1"></framework> </frameworks> 
-			</technology> <technology name="WS-API" model-type="webservice" template-config-file-name="mp-template-config-WSDL-API.xml" 
-			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl" 
+				java"
+			depends-on-targets="MVN_SPRING_HIBERNATE_LAST, WS-Impl, ServiceLayer">
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+		</technology> -->
+		<technology name="WS-API" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-API.xml"
+			default-outputdir="wsdl-api" template-dir="@templateRoot@/framework/soa/wsdl"
 			status="release" description="Generates mvn structure to import wsdl into 
-			java"> <frameworks> <framework name="metro" version="2.1"></framework> </frameworks> 
-			</technology> <technology name="WS-Impl" model-type="webservice" template-config-file-name="mp-template-config-WSDL-Impl.xml" 
-			default-outputdir="wsdl-impl" template-dir="@templateRoot@/framework/soa/wsdl" 
-			status="release" description="Generates mvn structure to implement wsdl api" 
-			is-generable="false"> </technology> <technology name="ServiceLayer" model-type="webservice" 
-			template-config-file-name="mp-template-config-WSDL-Service.xml" default-outputdir="service" 
-			template-dir="@templateRoot@/framework/soa/wsdl" status="release" description="Generates 
-			mvn structure to implement to nest backend to wsdl api" is-generable="false"> 
-			</technology> -->
+				java">
+			<frameworks>
+				<framework name="metro" version="2.1"></framework>
+			</frameworks>
+		</technology>
+		
+		<technology name="WS-Impl" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Impl.xml"
+			default-outputdir="wsdl-impl" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release" description="Generates mvn structure to implement wsdl api"
+			is-generable="false">
+		</technology>
+		
+		<technology name="ServiceLayer" model-type="webservice"
+			template-config-file-name="mp-template-config-WSDL-Service.xml"
+			default-outputdir="service" template-dir="@templateRoot@/framework/soa/wsdl"
+			status="release"
+			description="Generates mvn structure to implement to nest backend to wsdl api"
+			is-generable="false">
+		</technology> 
 
 		<!-- legacy tracks -->
 
