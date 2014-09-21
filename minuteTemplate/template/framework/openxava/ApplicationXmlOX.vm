@@ -19,7 +19,7 @@
 ##exposeVariableModelDetailSpecific()
 #foreach($table in $model.businessModel.businessPackage.getEntities())
 #if(!$table.isManyToMany())
-   <!-- entity : $table.name -->
+   <!-- entity : $table.name of ${model.name}-->
 #exposeVariableEntitySpecific()
   <module name="$tableClassName">
 	  <model name="$tableClassName"/>  
