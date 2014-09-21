@@ -466,7 +466,7 @@
 		<attribute name="output" />
 		<sequential>
 			<application_compliance_transformer 
-				in="@{input}"
+				input="@{input}"
 				output="@{output}"
 				transformer="model-to-application-one-db"
 			/>
