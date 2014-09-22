@@ -34,6 +34,17 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
 		</template>	
+		<template name="KendoUiEntityCreate" templateFileName="KendoUiEntityCreate.vm" 
+			file-extension="html" technicalPackage="" add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			entity-specific="true" 
+			file-prefix="KendoUiEntityCreate"
+			package-root="html"
+			package-name-builder-plugin="restUtils"
+			package-name-builder-method="getRenderingPackageName"				
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
+			<property name="REST_EXCHANGE_FORMAT" value="json"/>
+		</template>	
 
 	</template-target>				
    	
@@ -67,7 +78,7 @@
 		</template>	
 		
 	</template-target>				
-   	 -->
+   	 
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
@@ -81,5 +92,5 @@
 		</template>
 		
 	</template-target>				
-	
+	-->
 </target>
