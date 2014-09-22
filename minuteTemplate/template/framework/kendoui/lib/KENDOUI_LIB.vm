@@ -7,8 +7,8 @@
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
-
 #end
+
 #macro(putKendoUIMenuPackage)
 ##https://github.com/insanio/kendoui.ex/tree/master/examples inspiration
 #set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))
@@ -32,6 +32,66 @@
 </li>
 #end
 #end
+
+#macro (putKendoColumnSnippet $tableVariableName $internat)
+#set($labelFor=$columnVar)
+<li>
+	<label for="$labelFor" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
+##	<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
+## enum
+#if($isEnum)
+	<select name="$labelFor" id="$labelFor" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
+#if(!$column.isRequired())
+        <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
+#end
+		<option>todo</option>
+     </select>
+     <span class="k-invalid-msg" data-for="$labelFor"></span>
+##		<f:selectItems value="#{${lookupEnumVar}.${domainVariableName}${columnClass}Array}" itemValue="#{item}" var="item" itemLabel="#{item.name()}" />
+##    </p:selectOneMenu>	
+#else
+## time
+#if($columnUtils.isTimeColumn($column))
+#*
+    <p:calendar value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
+       id="lbl${columnClass}-#{idValue}" ##converter="dateTsConverter"
+       converterMessage="Invalid Date" required="$column.isRequired()"
+       pattern="dd/MM/yyyy">
+    </p:calendar>
+*#
+##	<p:message for="lbl${columnClass}-#{idValue}" />
+#else
+## boolean
+#if($columnUtils.isBoolean($column))
+##	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
+#else
+## textarea
+#if($presentationUtils.isTextArea($column))
+##	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" width="$column.sizeAsInt" 
+##        counterTemplate="{0} characters remaining." autoResize="false"
+#elseif($presentationUtils.isRichText($column))
+##	<p:editor
+	<input type="text" id="$labelFor" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" /> 
+## simple input
+#else
+	<input type="text" id="$labelFor" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" />
+##	<p:inputText 
+##		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
+#end
+##	<input type="text" id="$labelFor" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" />
+##		label="${columnClass}" id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()"/>
+#end
+## file upload entry to do
+#end
+#end
+#####	<p:message for="lbl${columnClass}-#{idValue}" />
+</li>
+#end
+
+#macro (putJSFColumnSnippet2)
+#putJSFColumnSnippet("selected${tableClassName}" ${tableVariableName})
+#end
+
 
 #macro(putKendoUIMenu)
     $(document).ready(function() {
