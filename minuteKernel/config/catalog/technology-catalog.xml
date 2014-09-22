@@ -399,7 +399,7 @@
 
 		<technology name="KendoUI" model-type="rdbms"
 			template-config-file-name="mp-template-config-kendoui.xml"
-			default-outputdir="REST-Client" template-dir="@templateRoot@/framework/kendoui"
+			default-outputdir="REST" template-dir="@templateRoot@/framework/kendoui"
 			status="draft" description="Generates kendoui html, css, js and rest client">
 			<frameworks>
 				<framework name="Kendoui" version=""></framework>
