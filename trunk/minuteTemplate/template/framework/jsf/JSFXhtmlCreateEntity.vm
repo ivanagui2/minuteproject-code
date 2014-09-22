@@ -24,7 +24,6 @@
 #columnJavaNaming()
 #if (!$isMany2Many && $isPkUserProvided)
 #putJSFColumnSnippet($tableVariableName $tableVariableName)
-##$columnVar =  $column.alias
 #end
 #end
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
