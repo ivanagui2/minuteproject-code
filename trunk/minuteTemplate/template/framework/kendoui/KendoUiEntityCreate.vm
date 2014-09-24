@@ -18,14 +18,14 @@
 #putColumnParams()
 #columnJavaNaming()
 #if (!$isMany2Many && $isPkUserProvided)
-#putKendoColumnSnippet($tableVariableName $tableVariableName)
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
 #columnJavaNaming()
-#putKendoColumnSnippet($tableVariableName $tableVariableName)
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
@@ -33,8 +33,21 @@
 #set ($column=$localColumn)
 #putColumnParams()
 #columnJavaNaming()
-#putKendoColumnSnippet($tableVariableName $tableVariableName)
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
+
+<!-- kendo js scripts -->
+<script>
+$(document).ready(function() {
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($column in $columnGroup)
+#putColumnParams()
+#columnJavaNaming()
+#putKendoJsColumnSnippet($tableVariableName $tableVariableName)
+#end
+#end
+});
+</script>
 #*
                 <li>
                     <label for="fullname" class="required">Your Name</label>
