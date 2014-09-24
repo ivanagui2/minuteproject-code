@@ -10,6 +10,7 @@ import java.util.Map;
 
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
+import net.sf.minuteproject.utils.ParserUtils;
 import net.sf.minuteproject.utils.database.DatabaseUtils;
 
 public class QueryUtils {
@@ -260,6 +261,10 @@ public class QueryUtils {
 				} else if ("endsWith".equals(expression)) {
 					sb.append(" like ");
 					sb.append("'%"+value+"'");
+				} else if ("in".equals(expression)) {
+					sb.append(" in (");
+					sb.append(ParserUtils.getQuotedElementListAsString(value));
+					sb.append(")");
 				} else {
 					sb.append(expression);
 					sb.append("'"+value+"'");
