@@ -16,9 +16,9 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 
+import net.sf.minuteproject.fitnesse.fixture.enumeration.SelectOption;
 import net.sf.minuteproject.utils.database.DatabaseUtils;
 import net.sf.minuteproject.utils.query.QueryUtils;
-
 import fitnesse.fixtures.TableFixture;
 
 public abstract class DbTableFixture extends TableFixture {
@@ -39,7 +39,10 @@ public abstract class DbTableFixture extends TableFixture {
 	public static int ROW_COUNT_COLUMN_INDEX = 2;
 	
 	public static String ROW_VALUE_INDENTIFIER = "row#";
+	public static int GENERAL_ROW_COLUMN_OPTION_INDEX = 1;
+	
 	protected int maxReturnRow;
+	protected SelectOption selectOption;
 	
 	protected Map<Integer, String> columnIndex = null;
 	protected Map<String, String>  columnValue = null;
@@ -68,6 +71,11 @@ public abstract class DbTableFixture extends TableFixture {
 		check (OUPUT_GENERAL_ROW_INDEX, ROW_COUNT_COLUMN_INDEX, actual);
 	}
 
+	
+	protected SelectOption getSelectOption() {
+		return SelectOption.fromValue(getText(GENERAL_ROW_INDEX, GENERAL_ROW_COLUMN_OPTION_INDEX));
+	}
+	
 	protected void checkResultSet () {
 		int rowToCheck = getRowToCheck(ROW_VALUE_INDEX);
 		for (int i = 1; i <= rowToCheck; i++) {
@@ -179,7 +187,7 @@ public abstract class DbTableFixture extends TableFixture {
 	 Map<String, String>  columnValue,
 	 Map<String, String>  columnOrderValue) throws SQLException {
 		// call factory
-		String query = QueryUtils.buildQuery(getTable(), columnIndex, columnExpressionValue, columnValue,  columnOrderValue);
+		String query = QueryUtils.buildQuery(getTable(), getSelectOption(), columnIndex, columnExpressionValue, columnValue,  columnOrderValue);
 		return QueryUtils.executeQuery(query);
 	}
 	

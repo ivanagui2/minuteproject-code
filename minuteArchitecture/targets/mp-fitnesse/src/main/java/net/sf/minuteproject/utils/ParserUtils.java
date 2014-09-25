@@ -16,33 +16,37 @@ public class ParserUtils {
 		list.addAll(set);
 		return list;
 	}
-	
+
 	public static List<String> getListLowerCase(String s) {
-		if (s!=null)
+		if (s != null)
 			return getList(s.toLowerCase());
 		return new ArrayList<String>();
 	}
-	
+
 	public static List<String> getList(String s) {
 		List<String> l = new ArrayList<String>();
-		if (s!=null) {
+		if (s != null) {
 			s = StringUtils.replace(s, " ", "");
 			return Arrays.asList(StringUtils.split(s, ","));
 		}
 		return l;
 	}
 
-	public static boolean isInList(String name,
-			String list) {
-		if (list==null || list.isEmpty()) 
+	public static boolean isInList(String name, String list) {
+		if (list == null || list.isEmpty())
 			return false;
 		return getList(list).contains(name);
 	}
-	
-	public static String getQuotedElementListAsString (String s) {
+
+	public static String getQuotedElementListAsString(String s) {
 		StringBuffer sb = new StringBuffer();
-		for (String st : getList(s)) {
-			sb.append("'"+st+"'");
+		List<String> list = getList(s);
+		int size = list.size();
+		for (int i = 0; i < size; i++) {
+			sb.append("'"+list.get(i)+"'");
+			if (i<size-1) {
+				sb.append(",");
+			}
 		}
 		return sb.toString();
 	}
