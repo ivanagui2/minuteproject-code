@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import net.sf.minuteproject.fitnesse.fixture.enumeration.SelectOption;
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
 import net.sf.minuteproject.utils.ParserUtils;
@@ -15,6 +18,7 @@ import net.sf.minuteproject.utils.database.DatabaseUtils;
 
 public class QueryUtils {
 
+	private static final Logger _logger = Logger.getLogger(QueryUtils.class);
 	public static String buildInsertStatement (
 			String table,
 			Map<Integer, Column> columns,
@@ -104,25 +108,41 @@ public class QueryUtils {
 	
 	public static String buildQuery(
 			 String table,
+			 SelectOption selectOption,
 			 Map<Integer, String> columnIndex,
 			 Map<String, String>  columnExpressionValue,
 			 Map<String, String>  columnValue,
 			 Map<String, String>  columnOrderValue) {
-		
 		StringBuffer sb = new StringBuffer();
-		sb.append(getWhatQuery(columnIndex));
+		sb.append(getWhatQuery(columnIndex, selectOption));
 		sb.append(getQueryFrom(table));
 		sb.append(getWhereQuery(columnIndex, columnExpressionValue, columnValue));
 		sb.append(getQueryOrder(columnIndex, columnOrderValue));
+		_logger.debug(" query = "+ sb.toString());
 		System.out.println(" query = "+ sb.toString());
 		return sb.toString();
 	}
 	
+	public static String buildQuery(
+			String table,
+			Map<Integer, String> columnIndex,
+			Map<String, String>  columnExpressionValue,
+			Map<String, String>  columnValue,
+			Map<String, String>  columnOrderValue) {
+		return buildQuery(table, null, columnIndex, columnExpressionValue, columnValue, columnOrderValue);
+	}
 
-	private static String getWhatQuery (Map<Integer, String> columnIndex) {
+	private static String getWhatQuery (Map<Integer, String> columnIndex, SelectOption selectOption) {
 		StringBuffer sb = new StringBuffer("SELECT ");
+		sb.append(appendSelectOption(selectOption));
 		sb.append(getColumnQuery(columnIndex));
 		return sb.toString();
+	}
+	
+	private static String appendSelectOption (SelectOption selectOption) {
+		if (selectOption!=null)
+			return " "+selectOption.value()+" ";
+		return "";
 	}
 	
 	private static String getColumnQuery (Map<Integer, String> columnIndex) {

@@ -16,6 +16,13 @@ public class StatementFixture extends DoFixture {
 	}
 	/**
 	 * usage:
+	 * |check|run statement returns | xx |2|
+	 */
+	public String runStatementReturns(String statement) throws SQLException {
+		return runStatementQuery(statement);
+	}
+	/**
+	 * usage:
 	 * |run statement | xx |
 	 */
 	public void runStatement(String statement) throws SQLException {
