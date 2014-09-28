@@ -281,6 +281,16 @@
 	<target name="release-sample" depends="copy-sample-dependencies">
 	</target>
 
+	<target name="copy-resource-dependencies">
+		<copy todir="${resources.dir}" overwrite="true">
+			<fileset dir="${resources.dev.relpath}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="release-resource" depends="copy-resource-dependencies">
+	</target>
+
 	<target name="copy-demo-dependencies">
 		<copy todir="${demo.dir}" overwrite="true">
 			<fileset dir="${demo.dev.relpath}/demo">
@@ -339,6 +349,8 @@
 		<antcall target="release-architecture-fitnesse">
 		</antcall>
 		<antcall target="release-sample">
+		</antcall>
+		<antcall target="release-resource">
 		</antcall>
 		<antcall target="release-demo">
 		</antcall>
