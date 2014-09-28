@@ -464,17 +464,17 @@
 	<macrodef name="application_compliance_transformer">
 		<attribute name="input" />
 		<attribute name="output" />
-		<attribute name="dir" default="" />
+		<attribute name="styledir" default="" />
 		<attribute name="transformer" />
 		<sequential>
+			<xslt
+				in="${basedir}/@{input}.xml" 
+				out="${basedir}/out/@{input}-no-namespace.xml"
+			    style="@{styledir}/remove-namespace.xsl"/>
 			<xslt 
-				in="@{dir}/@{input}.xml" 
-				out="@{dir}/out/@{input}-no-namespace.xml"
-			    style="xsl/remove-namespace.xls"/>
-			<xslt 
-				in="@{dir}/out/@{input}-no-namespace.xml" 
-				out="@{dir}/@{output}.xml"
-			    style="xsl/@{transformer}.xls"/>
+				in="${basedir}/out/@{input}-no-namespace.xml" 
+				out="${basedir}/@{output}.xml"
+			    style="@{styledir}/@{transformer}.xsl"/>
 		</sequential>
 	</macrodef>
 	
@@ -486,6 +486,7 @@
 			<application_compliance_transformer 
 				input="@{dir}/@{input}"
 				output="@{dir}/@{output}"
+				styledir="${basedir}/@{dir}/xsl"
 				transformer="model-to-application-one-db"
 			/>
 		</sequential>
@@ -790,10 +791,11 @@
 	</target>
 				
 	<target name="generation-build-tranxy-model-compatibility">
-		<application_compliance_one_model dir="${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
+		<application_compliance_one_model dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
+
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
+
 		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
-		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/tranxy" project="REST" artifact="tranxyRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
 		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
