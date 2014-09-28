@@ -8,13 +8,13 @@
 	<version>0.8.11</version>
 
 	<dependencies>
-
+<!-- 
 		<dependency>
 			<groupId>net.sf.minuteproject</groupId>
 			<artifactId>mp-foundation</artifactId>
 			<version>0.9</version>
 		</dependency>
-
+ -->
 		<dependency>
 			<groupId>org.fitnesse</groupId>
 			<artifactId>fitlibrary</artifactId>
@@ -76,12 +76,12 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>com.springsource.org.mockito</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 	<properties>
