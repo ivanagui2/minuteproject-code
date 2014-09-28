@@ -7,11 +7,13 @@
 		outputdir=""
 		package-root=""
 		belongToPackage="true">
+		
 		<template name="PomXml.WSDL-Service" templateFileName="PomXml.WSDL-Service.vm" 
 			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
 		</template>
+		
 	</template-target>	
 	
 	<template-target 
