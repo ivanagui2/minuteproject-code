@@ -9,7 +9,7 @@
             <version></version>
     </parent>-->
     <groupId>${groupId}</groupId>
-    <artifactId>${$artifactId}</artifactId>
+    <artifactId>${artifactId}</artifactId>
     <version>${version}-SNAPSHOT</version>
     <name>$DbApiName Vaadin Web Application</name>  
     <packaging>war</packaging>
