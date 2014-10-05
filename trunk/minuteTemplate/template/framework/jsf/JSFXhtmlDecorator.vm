@@ -1,6 +1,7 @@
+#exposeMaven()
 #exposeJSFModelSpecific()
 #exposePrimefacesConfig()
-#set($title="$model.name jsf web")
+#set($title="$generatorBean.name jsf web")
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -10,7 +11,7 @@
 	xmlns:p="$primefacesNamespace">
 <f:view locale="#{${modelBeanManagerLanguageJSFVariable}.localeCode}">
 <h:head>
-    <title><ui:insert name="title">$model.name jsf web</ui:insert></title>
+    <title><ui:insert name="title">$generatorBean.name jsf web</ui:insert></title>
     <link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/style.css" />
 	<!-- add bootstrap online -->
 		<!-- Latest compiled and minified CSS -->
@@ -22,7 +23,7 @@
             src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </h:head>
 <h:body>
- 	<ui:include src="/${model.name}/IdleMonitor.xhtml" />
+ 	<ui:include src="/${generatorBean.name}/IdleMonitor.xhtml" />
     <p:layout fullPage="true" id="layout">  
 #*    <p:layoutUnit position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">  
         <h:outputText value="Powered by minuteproject" />  
@@ -30,18 +31,18 @@
 *#
 #if(!$isPortlet)
     <p:layoutUnit header="#{i18n.administration}" position="west" resizable="true" size="216" collapsible="true">
-##        <ui:include src="/${model.name}/ConfigBoard.xhtml" />
-        <ui:include src="/${model.name}/Menu.xhtml" />
+##        <ui:include src="/${generatorBean.name}/ConfigBoard.xhtml" />
+        <ui:include src="/${generatorBean.name}/Menu.xhtml" />
     </p:layoutUnit>       
 #end
     <p:layoutUnit position="center">
-##        <ui:include src="/${model.name}/BreadCrumb.xhtml" />
-        <ui:insert name="body">Welcome $model.name Primeface webapp. <a href="http://minuteproject.sf.net">Powered by minuteproject</a>.</ui:insert>
+##        <ui:include src="/${generatorBean.name}/BreadCrumb.xhtml" />
+        <ui:insert name="body">Welcome $generatorBean.name Primeface webapp. <a href="http://minuteproject.sf.net">Powered by minuteproject</a>.</ui:insert>
     </p:layoutUnit>
     <p:layoutUnit position="south" size="120" header="Disclaimer" resizable="true" closable="true" collapsible="true"><br/>  
         <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a> version $minuteprojectUtils.version - $minuteprojectUtils.buildDate<br/>  
         <h:outputText value="Follow " /><a href="https://twitter.com/minuteproject">@minuteproject</a><br/> 
-        <h:outputText value="Model $model.name - $model.version - " />Application build time : $formatUtils.displayCurrentTime()
+        <h:outputText value="Model $generatorBean.name - $version - " />Application build time : $formatUtils.displayCurrentTime()
     </p:layoutUnit>  
   </p:layout>
 </h:body>
