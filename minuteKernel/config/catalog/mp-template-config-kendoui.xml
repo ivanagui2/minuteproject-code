@@ -78,7 +78,7 @@
 		</template>	
 		
 	</template-target>				
-   	 
+   	 -->
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
@@ -89,8 +89,9 @@
 			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="KendoUiJersey" />
 		</template>
 		
 	</template-target>				
-	-->
+	
 </target>

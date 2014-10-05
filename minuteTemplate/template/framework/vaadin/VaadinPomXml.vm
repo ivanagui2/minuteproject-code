@@ -8,15 +8,15 @@
             <artifactId></artifactId>
             <version></version>
     </parent>-->
-    <groupId>${rootPackage}.${model.name}</groupId>
-    <artifactId>${model.name}VaadinWeb</artifactId>
+    <groupId>${groupId}</groupId>
+    <artifactId>${$artifactId}</artifactId>
     <version>${version}-SNAPSHOT</version>
     <name>$DbApiName Vaadin Web Application</name>  
     <packaging>war</packaging>
     <dependencies>
         <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
-            <artifactId>${model.name}Bsla</artifactId>
+            <groupId>${groupId}</groupId>
+            <artifactId>${generatorBean.name}Bsla</artifactId>
             <version>${version}-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -67,7 +67,7 @@
         <vaadin.version>7.0.0</vaadin.version>
 	</properties>
   <build>
-    <finalName>${model.name}VaadinApp</finalName>
+    <finalName>${generatorBean.name}VaadinApp</finalName>
     <resources>
         <resource>
          <directory>src/main/resources</directory>

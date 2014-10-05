@@ -443,6 +443,7 @@
 			add-model-dir-name="false" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true">
+			<property name="maven-artifact-finalName-suffix" value="OxApp"/>
 		</template>			
 						
 	</template-target>	

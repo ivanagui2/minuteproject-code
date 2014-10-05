@@ -1,3 +1,4 @@
+#generatorSpecific()
 #exposeBackendTechnology()
 #exposeMaven()
 #exposeMavenCXF()
@@ -6,18 +7,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>${rootPackage}.${model.name}</groupId>
-    <artifactId>${model.name}KendoUi</artifactId>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
     <packaging>war</packaging>
     <version>${version}-SNAPSHOT</version>
-    <name>$DbApiName KendoUI REST client</name>
+    <name>$generatorBean.name KendoUI REST client</name>
     <dependencies>
         <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
+            <groupId>${groupId}</groupId>
             #if($isEJBBackend)
-                <artifactId>${model.name}Bela</artifactId>
+                <artifactId>${generatorBean.name}Bela</artifactId>
             #else
-                <artifactId>${model.name}Bsla</artifactId>
+                <artifactId>${generatorBean.name}Bsla</artifactId>
             #end     
             <version>${version}-SNAPSHOT</version>
         </dependency>
@@ -87,7 +88,7 @@
         *#
     </dependencies>
     <build>
-        <finalName>${model.name}KendoUiApp</finalName>
+        <finalName>${generatorBean.name}KendoUiApp</finalName>
         <plugins>
             #if($isGlassfishTargetServer)    ##earwar-shift
             <plugin>
