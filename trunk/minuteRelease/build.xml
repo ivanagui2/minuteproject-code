@@ -510,7 +510,7 @@
 		<attribute name="dir" default="" />
 		<sequential>
 			<application_compliance_transformer 
-				in="@{dir}/@{input}"
+				input="@{dir}/@{input}"
 				output="@{dir}/@{output}"
 				styledir="${basedir}/@{dir}/xsl"
 				transformer="model-to-application-two-dbs-devops"
@@ -831,9 +831,9 @@
 	</target>
 				
 	<target name="generation-build-tranxy-devops-model-compatibility">
-		<application_compliance_two_models dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
+		<application_compliance_two_models dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
 
-		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
+		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-2-model.xml" />
 
 		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
