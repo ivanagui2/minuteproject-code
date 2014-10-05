@@ -796,7 +796,7 @@
 	<!-- ===================================================================== -->
 	
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
-	<target name="generation-single-model-application-compatibility" depends="release-application" >
+	<target name="m" depends="release-application" >
 		<parallel threadcount="3">
 			<antcall target="generation-build-tranxy-model-compatibility"/>
 		</parallel>
