@@ -1,6 +1,4 @@
-#exposeVaadinApps()
-#exposeVaadinConfig()
-#exposeVaadinModel()
+#generatorSpecific()
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE web-app
@@ -8,7 +6,7 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
 	<display-name>Vaadin</display-name>
-	<description> Vaadin examples </description>
+	<description> Vaadin $configuration.name </description>
 
 	<!--
 		Turn off productionMode (off by default). Setting productionMode=true
@@ -43,6 +41,10 @@
     	<param-value>/$applicationContextXml</param-value>
 	</context-param>
 -->
+#foreach ($model in $configuration.models())
+#exposeVaadinApps()
+#exposeVaadinConfig()
+#exposeVaadinModel()
 #foreach ($table in $model.businessModel.businessPackage.entities)
 #if ($vaadinPlugin.isVaadinApplication($table))
 #exposeVariableEntitySpecific()
@@ -96,6 +98,7 @@
 		<servlet-name>$domainObjectApplicationClass</servlet-name>
 		<url-pattern>/$domainObjectApplicationClass/*</url-pattern>
 	</servlet-mapping>	
+#end
 #end
 #end
 	<servlet-mapping>
