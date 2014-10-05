@@ -1,6 +1,4 @@
-#exposeVariableModelSpecific()
-#exposeJPA2Specifics()
-#exposeSpringModelSpecific()
+#generatorSpecific()
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -14,6 +12,16 @@
 		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
+
+#foreach ($model in $configuration.models())
+#exposeVariableModelSpecific()
+#exposeJPA2Specifics()
+#exposeSpringModelSpecific()	
     <tx:annotation-driven transaction-manager="${model.name}TransactionManager"/>
  
 	<context:component-scan base-package="${controllerPackageName}">
@@ -28,28 +36,27 @@
     </context:component-scan>
 #end
 
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<ref bean="marshallingConverter" />
+				<ref bean="marshallingConverter${model.name}" />
 				<ref bean="jsonConverter" />
 			</list>
 		</property>
 	</bean>
 
 	<!-- Client -->
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+	<bean id="restTemplate${model.name}" class="org.springframework.web.client.RestTemplate">
 		<property name="messageConverters">
 			<list>
-				<ref bean="marshallingConverter" />
+				<ref bean="marshallingConverter${model.name}" />
 				<ref bean="jsonConverter" />
 			</list>
 		</property>
 	</bean>
 
-	<bean id="marshallingConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	<bean id="marshallingConverter${model.name}" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
     	<constructor-arg ref="jaxbMarshaller" />
     	<property name="supportedMediaTypes" value="application/xml"/>
 	</bean>
@@ -77,8 +84,6 @@
 		</property>
 	</bean>
 
-	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-		<property name="supportedMediaTypes" value="application/json" />
-	</bean>
+#end
 
 </beans>
