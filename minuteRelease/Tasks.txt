@@ -27,6 +27,12 @@ if parent = masterdata add DDL in list
 master list: display entity semref + parent semref
 ---
 
+
+Release 0.8.9
+--------------
+Validation correct generation: not ${model.name} in artifacts
+no CLASS_NOT_FOUND or any type thrown by common utils
+
 Release 0.8.8
 --------------
 

@@ -512,6 +512,7 @@
 			<application_compliance_transformer 
 				in="@{dir}/@{input}"
 				output="@{dir}/@{output}"
+				styledir="${basedir}/@{dir}/xsl"
 				transformer="model-to-application-two-dbs-devops"
 			/>
 		</sequential>
@@ -792,7 +793,7 @@
 	</target>
 
 	<!-- ===================================================================== -->
-	<!-- multimodel compatibility -->
+	<!-- multimodel compatibility: one model -->
 	<!-- ===================================================================== -->
 	
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
@@ -804,6 +805,33 @@
 				
 	<target name="generation-build-tranxy-model-compatibility">
 		<application_compliance_one_model dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
+
+		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
+
+		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/tranxy" project="vaadin" artifact="tranxyVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/tranxy" project="JSF-primefaces" artifact="tranxyApp" />
+	
+		<!-- primefaces-JEE and OX are deployed manually -->
+		
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- multimodel compatibility: two models -->
+	<!-- ===================================================================== -->
+	
+	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
+	<target name="generation-multiple-model-application-compatibility" depends="release-application" >
+		<parallel threadcount="3">
+			<antcall target="generation-build-tranxy-devops-model-compatibility"/>
+		</parallel>
+	</target>
+				
+	<target name="generation-build-tranxy-devops-model-compatibility">
+		<application_compliance_two_models dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-1-model"/>
 
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-1-model.xml" />
 
