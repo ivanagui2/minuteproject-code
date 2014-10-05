@@ -12,9 +12,9 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
-<!-- 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> -->
-					<url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
-					<username>sa</username>
+ 					<url>jdbc:hsqldb:hsql://127.0.0.1:9001/petshop</url> 
+					<!-- <url>jdbc:hsqldb:file:../minuteSample/petstore-database/hsql/petshop</url>
+					 --><username>sa</username>
 					<password></password>	
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema 
@@ -68,7 +68,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  </queries>
             </statement-model>
 		</model>	
-		<targets outputdir-root="../../output/REST-SpringMVC-petshop" catalog-entry="REST-SpringMVC" >
+		<targets catalog-entry="REST-SpringMVC" >
 		</targets>
 	</configuration>
 </generator-config>

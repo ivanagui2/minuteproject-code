@@ -3,16 +3,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>${rootPackage}.${model.name}</groupId>
-  <artifactId>${model.name}RestCxfBsla</artifactId>
+  <groupId>${groupId}</groupId>
+  <artifactId>${$artifactId}</artifactId>
   <packaging>war</packaging>
   <version>${version}-SNAPSHOT</version>
-  <name>$DbApiName BSLA CXF specification and implementation</name>
+  <name>$artifactId BSLA CXF specification and implementation</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 
     <dependency>
-        <groupId>${rootPackage}.${model.name}</groupId>
+        <groupId>${groupId}</groupId>
         <artifactId>${model.name}Bsla</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>	
@@ -59,7 +59,7 @@
   </dependencies>
   
   <build>
-    <finalName>${model.name}RestCxfApp</finalName>
+    <finalName>${generatorBean.name}RestCxfApp</finalName>
     <resources>
       <!-- overwrite generated artifacts for packaging: for example by providing another jndi name ... -->
 	  <resource>

@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>${rootPackage}.${model.name}</groupId>
-  <artifactId>${model.name}RestBsla</artifactId>
+  <groupId>${groupId}</groupId>
+  <artifactId>$artifactId</artifactId>
   <packaging>war</packaging>
   <version>${version}-SNAPSHOT</version>
-  <name>$DbApiName REST BSLA specification and implementation</name>
+  <name>$artifactId REST BSLA specification and implementation</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 
     <dependency>
-        <groupId>${rootPackage}.${model.name}</groupId>
-        <artifactId>${model.name}Bsla</artifactId>
+        <groupId>${groupId}</groupId>
+        <artifactId>${generatorBean.name}Bsla</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>	
 
@@ -61,7 +61,7 @@
   </dependencies>
   
   <build>
-    <finalName>${model.name}RestSpringMVCApp</finalName>
+    <finalName>${generatorBean.name}RestSpringMVCApp</finalName>
     <resources>
       <!-- overwrite generated artifacts for packaging: for example by providing another jndi name ... -->
 	  <resource>
@@ -107,18 +107,7 @@
       </plugin>
     </plugins>
   </reporting>
-#*
-     <repositories>
-      <repository>
-         <id>spring-maven-snapshot</id>
-         <name>Springframework Maven Snapshot Repository</name>
-         <url>http://maven.springframework.org/snapshot</url>
-         <snapshots>
-            <enabled>true</enabled>
-         </snapshots>
-      </repository>
-   </repositories>
-*#   
+ 
 	<properties>
 		<spring.version>4.0.0.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>

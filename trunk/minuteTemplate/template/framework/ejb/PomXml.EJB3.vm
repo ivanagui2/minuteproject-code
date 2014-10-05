@@ -2,16 +2,16 @@
 #exposeMaven()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>    
-  	<groupId>${rootPackage}.${model.name}</groupId>
-  	<artifactId>${model.name}EJB</artifactId>
+  	<groupId>${groupId}</groupId>
+  	<artifactId>$artifactId</artifactId>
   	<packaging>ejb</packaging>
   	<version>${version}-SNAPSHOT</version>
-  	<name>$DbApiName EJB3 Web service Facade, EJB DAO specification and implementation</name>
+  	<name>$artifactId EJB3 Web service Facade, EJB DAO specification and implementation</name>
     <url>http://maven.apache.org</url>
 	
     <dependencies>
         <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
+            <groupId>${groupId}</groupId>
             <artifactId>${DbApiName}</artifactId>
             <version>${version}-SNAPSHOT</version>
         </dependency>	
@@ -55,7 +55,7 @@
                 </configuration>
             </plugin>         
         </plugins>
-		<finalName>${model.name}EJB</finalName>
+		<finalName>${generatorBean.name}EJB</finalName>
     </build>
 
 	<repositories>

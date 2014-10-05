@@ -14,9 +14,9 @@
   <packaging>jar</packaging>
   <version>${version}-SNAPSHOT</version>
 #if($isEJBBackend)
-  <name>$DbApiName BELA specification and implementation</name>
+  <name>$generatorBean.name BELA specification and implementation</name>
 #else
-  <name>$DbApiName BSLA specification and implementation</name>
+  <name>$generatorBean.name BSLA specification and implementation</name>
 #end  
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -181,18 +181,7 @@
       </plugin>
     </plugins>
   </reporting>
-#*
-     <repositories>
-      <repository>
-         <id>spring-maven-snapshot</id>
-         <name>Springframework Maven Snapshot Repository</name>
-         <url>http://maven.springframework.org/snapshot</url>
-         <snapshots>
-            <enabled>true</enabled>
-         </snapshots>
-      </repository>
-   </repositories>
-*#
+
 	<properties>
 ##		<spring-security.version>3.1.0.CI-SNAPSHOT</spring-security.version>
 		<spring.version>4.0.0.RELEASE</spring.version>

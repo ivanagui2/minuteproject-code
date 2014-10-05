@@ -92,6 +92,7 @@
 			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="RestCxfBsla" />
 		</template>	
 					
 	</template-target>	  	
