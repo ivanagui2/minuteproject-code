@@ -835,12 +835,12 @@
 
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-2-model.xml" />
 
-		<macro_build_and_deploy maven.basedir="WS-JEE/tranxy" project="WS" artifact="tranxyWebServiceApp" />
-		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/tranxy" project="REST" artifact="tranxyRestCxfApp" />
-		<macro_build_and_deploy maven.basedir="REST-JEE/tranxy" project="REST-JEE" artifact="tranxyRESTApp" />
-		<macro_build_and_deploy maven.basedir="REST-SpringMVC/tranxy" project="REST" artifact="tranxyRestSpringMVCApp" />
-		<macro_build_and_deploy maven.basedir="Vaadin/tranxy" project="vaadin" artifact="tranxyVaadinApp" />
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/tranxy" project="JSF-primefaces" artifact="tranxyApp" />
+		<macro_build_and_deploy maven.basedir="WS-JEE/appli" project="WS" artifact="tranxyWebServiceApp" />
+		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/appli" project="REST" artifact="tranxyRestCxfApp" />
+		<macro_build_and_deploy maven.basedir="REST-JEE/appli" project="REST-JEE" artifact="tranxyRESTApp" />
+		<macro_build_and_deploy maven.basedir="REST-SpringMVC/appli" project="REST" artifact="tranxyRestSpringMVCApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/appli" project="vaadin" artifact="tranxyVaadinApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/appli" project="JSF-primefaces" artifact="tranxyApp" />
 	
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
