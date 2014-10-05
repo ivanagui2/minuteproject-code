@@ -249,7 +249,7 @@ $!updatedAreaEnd
 		        </configuration>
 		    </plugin>				
 		</plugins>
-		<finalName>${model.name}App</finalName>
+		<finalName>${generatorBean.name}App</finalName>
 	</build>
 
 	<repositories>

@@ -11,8 +11,8 @@
 	
     <dependencies>
         <dependency>
-            <groupId>${rootPackage}.${model.name}</groupId>
-            <artifactId>${model.name}EJB</artifactId>
+            <groupId>${groupId}</groupId>
+            <artifactId>${generatorBean.name}EJB</artifactId>
             <version>${version}-SNAPSHOT</version>
 			<type>ejb</type>
         </dependency>	
@@ -31,7 +31,7 @@
                 </configuration>
             </plugin>         
         </plugins>
-		<finalName>${model.name}WebServiceApp</finalName>
+		<finalName>${generatorBean.name}WebServiceApp</finalName>
     </build>
 
 	<repositories>

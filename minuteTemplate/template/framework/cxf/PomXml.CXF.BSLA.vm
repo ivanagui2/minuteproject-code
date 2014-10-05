@@ -13,7 +13,7 @@
 
     <dependency>
         <groupId>${groupId}</groupId>
-        <artifactId>${model.name}Bsla</artifactId>
+        <artifactId>${generatorBean.name}Bsla</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>	
 
