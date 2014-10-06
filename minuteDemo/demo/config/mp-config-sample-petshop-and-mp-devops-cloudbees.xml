@@ -15,7 +15,7 @@
 							artifactId="mysql-connector-java"></driver>
 						<dataSource>
 							<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
-							<url>jdbc:mysql://localhost:3306/mp-devops</url>
+							<url>jdbc:mysql://localhost:3306/mp_devops</url>
 							<username>root</username>
 							<password>mysql</password>
 						</dataSource>
