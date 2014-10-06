@@ -46,6 +46,9 @@
 					</business-model>
 					<enrichment>
 						<conventions>
+							<table-default-primary-key-convention
+								type="apply-default-primary-key-otherwise-first-one"
+								default-primary-key-names="ID"/>
 							<view-primary-key-convention
 								type="apply-default-primary-key-otherwise-first-one"
 								default-primary-key-names="IDENTIFIER,ID" />
