@@ -69,8 +69,8 @@ import net.sf.minuteProject.model.service.GenericService;
 public abstract class ${className} <T, S extends GenericService> implements java.io.Serializable{
 
 	protected abstract S getService();
+	protected abstract T getInstance();
 
-	
 	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
                                     @PathParam("sortField") String sortField,
                                     @PathParam("first") int first,
@@ -82,11 +82,11 @@ public abstract class ${className} <T, S extends GenericService> implements java
             order = QuerySortOrder.DESC;
         }
         */
-        T esMask = new T();
+        T esMask = getInstance();
         esMask.mask(sortField);
         EntitySort<T> es = new EntitySort<T>(esMask, order);
 
-        Address ecMask = new Address();
+        T ecMask = getInstance();
         //ecMask.mask(filters);
         EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 

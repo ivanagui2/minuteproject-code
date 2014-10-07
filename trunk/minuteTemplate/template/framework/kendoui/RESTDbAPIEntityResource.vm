@@ -96,11 +96,11 @@ public class $className {
             order = QuerySortOrder.DESC;
         }
         */
-        Address esMask = new Address();
+        $tableClassName esMask = new $tableClassName();
         esMask.mask(sortField);
         EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
 
-        Address ecMask = new Address();
+        $tableClassName ecMask = new $tableClassName();
         //ecMask.mask(filters);
         EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
