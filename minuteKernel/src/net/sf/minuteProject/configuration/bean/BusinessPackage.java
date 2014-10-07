@@ -161,7 +161,7 @@ public class BusinessPackage extends BusinessPackageAdapter {
 	}
 
 	public List<Table> getTables() {
-		if (tables == null) {
+		if (tables == null || tables.size()==0) {//TODO to improve for immutability --to solve a bug with multiple models
 			tables = new ArrayList<Table>();
 			for (Package pack : getPackages()) {
 				for (Table table : pack.getListOfTables()) {
