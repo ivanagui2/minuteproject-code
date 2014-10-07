@@ -64,7 +64,7 @@
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
             <version>${jersey.version}</version>
-	        <exclusions>L
+	        <exclusions>
               <exclusion>
                   <artifactId>javax.ws.rs-api</artifactId>
                   <groupId>javax.ws.rs</groupId>
