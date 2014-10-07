@@ -1,5 +1,5 @@
 #putJPA2TemplateDefinition()
-#exposeModelSpecific()
+#exposeVariableModelSpecific()
 #if($isSpringBackend)
 #exposeSpringDomainObjectSpecific()
 #elseif($isEJBBackend)
@@ -55,8 +55,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
 
-import $EJBDaoImplImport;
-
 #end
 import $importDomainObjectUML;
 import net.sf.minuteProject.model.service.GenericService;
@@ -72,18 +70,6 @@ public abstract class ${className} <T, S extends GenericService> implements java
 
 	protected abstract S getService();
 
-    public List<T> findAll () {
-		return getService().findAll(t);
-	}
-
-	public void delete (T t) {
-		getService().delete (t);
-	}
-	
-	public String delete () {
-		getService().delete (selectedT);
-        return "success";
-	}
 	
 	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
                                     @PathParam("sortField") String sortField,
@@ -96,7 +82,7 @@ public abstract class ${className} <T, S extends GenericService> implements java
             order = QuerySortOrder.DESC;
         }
         */
-        Address esMask = new Address();
+        T esMask = new T();
         esMask.mask(sortField);
         EntitySort<T> es = new EntitySort<T>(esMask, order);
 
