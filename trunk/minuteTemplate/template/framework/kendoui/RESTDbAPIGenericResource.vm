@@ -1,0 +1,100 @@
+#putJPA2TemplateDefinition()
+#exposeModelSpecific()
+#if($isSpringBackend)
+#exposeSpringDomainObjectSpecific()
+#elseif($isEJBBackend)
+#exposeEJBDomainObjectSpecific()
+#end
+#exposeSpringServiceDomainObject()
+#set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
+#set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
+#exposeSpringModelSpecific()
+
+package $packageName;
+
+$!updatedAreaImport
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
+#if($isSpringBackend)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+#elseif($isEJBBackend)
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ejb.EJB;
+
+import $EJBDaoImplImport;
+
+#end
+import $importDomainObjectUML;
+import net.sf.minuteProject.model.service.GenericService;
+#exposeJPA2Import()
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: Generic controller ${className} </p>
+ *
+ */
+public abstract class ${className} <T, S extends GenericService> implements java.io.Serializable{
+
+	protected abstract S getService();
+
+    public List<T> findAll () {
+		return getService().findAll(t);
+	}
+
+	public void delete (T t) {
+		getService().delete (t);
+	}
+	
+	public String delete () {
+		getService().delete (selectedT);
+        return "success";
+	}
+	
+	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
+                                    @PathParam("sortField") String sortField,
+                                    @PathParam("first") int first,
+                                    @PathParam("pageSize") int pageSize
+                    ) throws Exception {
+        QuerySortOrder order = QuerySortOrder.ASC;
+        /*
+        if (sortOrder == SortOrder.DESCENDING) {
+            order = QuerySortOrder.DESC;
+        }
+        */
+        Address esMask = new Address();
+        esMask.mask(sortField);
+        EntitySort<T> es = new EntitySort<T>(esMask, order);
+
+        Address ecMask = new Address();
+        //ecMask.mask(filters);
+        EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
+
+        QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
+        getService().find(data);
+        List<T> list = data.getResult();
+        int count = data.getTotalResultCount().intValue();
+        return data;
+    }
+
+$!updatedAreaImplementation
+}

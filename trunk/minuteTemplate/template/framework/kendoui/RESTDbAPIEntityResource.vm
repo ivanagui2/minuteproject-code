@@ -1,0 +1,105 @@
+#exposeBackendTechnology()
+#putJPA2TemplateDefinition()
+#if($isSpringBackend)
+#exposeSpringDomainObjectSpecific()
+#elseif($isEJBBackend)
+#exposeEJBDomainObjectSpecific()
+#end
+#exposeSpringServiceDomainObject()
+#set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
+#set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
+#exposeSpringModelSpecific()
+
+package $packageName;
+
+$!updatedAreaImport
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import net.sf.minuteProject.model.data.criteria.EntityCriteria;
+import net.sf.minuteProject.model.data.criteria.EntitySort;
+import net.sf.minuteProject.model.data.criteria.QueryData;
+import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
+import net.sf.minuteProject.model.data.criteria.constant.OperandType;
+import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
+import $lookupBeanImport;
+import $beanSpringModelServiceImport;
+import $SpringServiceInterfaceImport;
+import $modelJSFUtilsImport;
+import $modelSemanticReferenceUtilsJSFImport;
+
+#if($isSpringBackend)
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+#elseif($isEJBBackend)
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ejb.EJB;
+
+import $EJBDaoImplImport;
+
+#end
+import $importDomainObjectUML;
+import net.sf.minuteProject.model.service.GenericService;
+#exposeJPA2Import()
+/**
+ *
+ * <p>Title: ${className}</p>
+ *
+ * <p>Description: REST entity controller ${className} </p>
+ *
+ */
+@Path("/data/entity")
+@Produces(MediaType.APPLICATION_JSON)
+public class $className {
+
+#if ($isSpringBackend)
+    @Autowired
+    @Qualifier("$BslaDaoInterfaceVariable")	
+#elseif($isEJBBackend)
+	@EJB// (name="$BslaDaoInterfaceVariable")	
+#end
+	${BslaDaoInterfaceClass} $BslaDaoInterfaceVariable;
+
+
+    @GET
+    @Path("/find")
+    @Produces(MediaType.APPLICATION_JSON)
+    public QueryData<$tableClassName> find(@PathParam("sortOrder") String sortOrder,
+                                    @PathParam("sortField") String sortField,
+                                    @PathParam("first") int first,
+                                    @PathParam("pageSize") int pageSize
+                    ) throws Exception {
+        QuerySortOrder order = QuerySortOrder.ASC;
+        /*
+        if (sortOrder == SortOrder.DESCENDING) {
+            order = QuerySortOrder.DESC;
+        }
+        */
+        Address esMask = new Address();
+        esMask.mask(sortField);
+        EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
+
+        Address ecMask = new Address();
+        //ecMask.mask(filters);
+        EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
+
+        QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
+        addressDao.find(data);
+        List<$tableClassName> list = data.getResult();
+        int count = data.getTotalResultCount().intValue();
+        return data;
+    }
+
+$!updatedAreaImplementation
+}
