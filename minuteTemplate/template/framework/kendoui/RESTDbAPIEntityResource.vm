@@ -42,11 +42,7 @@ import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
 
-import $lookupBeanImport;
-import $beanSpringModelServiceImport;
-import $SpringServiceInterfaceImport;
-import $modelJSFUtilsImport;
-import $modelSemanticReferenceUtilsJSFImport;
+import $BslaDaoInterfaceImport;
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +81,6 @@ public class $className {
 	@EJB// (name="$BslaDaoInterfaceVariable")	
 #end
 	${BslaDaoInterfaceClass} $BslaDaoInterfaceVariable;
-
 
     @GET
     @Path("/find")
