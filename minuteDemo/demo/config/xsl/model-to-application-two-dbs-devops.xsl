@@ -24,10 +24,10 @@
 					<xsl:apply-templates select="@name | node()" />
 				</xsl:copy>
 				<!-- set devops -->
-				<model name="devops" >
+				<model name="devops">
 					<data-model>
 						<driver name="mysql" version="5.1.16" groupId="mysql"
-							artifactId="mysql-connector-java"></driver>
+							artifactId="mysql-connector-java" />
 						<dataSource>
 							<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
 							<url>jdbc:mysql://localhost:3306/mp_devops</url>
@@ -35,25 +35,25 @@
 							<password>mysql</password>
 						</dataSource>
 						<primaryKeyPolicy oneGlobal="false">
-							<primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
+							<primaryKeyPolicyPattern name="autoincrementPattern" />
 						</primaryKeyPolicy>
 					</data-model>
 					<business-model>
 						<business-package default="devops">
-							<condition type="package" startsWith="MP_DEVOPS_I18N" result="i18n"></condition>
-							<condition type="package" startsWith="MP_DEVOPS_RIGHT" result="right"></condition>
+							<condition type="package" startsWith="MP_I18N" result="i18n" />
+							<condition type="package" startsWith="MP_RIGHT" result="right" />
 						</business-package>
+						<enrichment>
+							<conventions>
+								<table-default-primary-key-convention
+									type="apply-default-primary-key-otherwise-first-one"
+									default-primary-key-names="ID" />
+								<view-primary-key-convention
+									type="apply-default-primary-key-otherwise-first-one"
+									default-primary-key-names="IDENTIFIER,ID" />
+							</conventions>
+						</enrichment>
 					</business-model>
-					<enrichment>
-						<conventions>
-							<table-default-primary-key-convention
-								type="apply-default-primary-key-otherwise-first-one"
-								default-primary-key-names="ID"/>
-							<view-primary-key-convention
-								type="apply-default-primary-key-otherwise-first-one"
-								default-primary-key-names="IDENTIFIER,ID" />
-						</conventions>
-					</enrichment>
 				</model>
 			</models>
 		</application>
