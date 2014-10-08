@@ -20,7 +20,7 @@ public class Targets extends AbstractConfiguration {
 	private Boolean appendCatalogEntryDirToOutputDirRoot=false;
 	public static final String deliveryPath = "../../template";
 	public static final String developmentPath = "../minuteTemplate/template";
-	public static final String deliveryResourcePath = "../../resource/icon";
+	public static final String deliveryResourcePath = "../../resources/icon";
 	public static final String developmentResourcePath = "../minuteResource/icon";
 	public static final String MP_HOME_RELATIVE_PATH = "/template";
 	private AbstractConfigurationRoot abstractConfigurationRoot;
