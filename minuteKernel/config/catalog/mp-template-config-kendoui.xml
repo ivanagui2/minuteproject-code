@@ -79,6 +79,28 @@
 		
 	</template-target>				
    	 -->
+   	 
+   	<template-target 
+    	name="Kendo client"
+		outputdir="src/main/java"
+		libdir="lib/KENDOUI_LIB.vm">
+
+		<template
+			name="RESTDbAPIGenericResource" templateFileName="RESTDbAPIGenericResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest" add-model-name="false" 
+			file-extension="java" file-prefix="" file-suffix="GenericResource" 
+			model-specific="true">
+		</template>	
+
+		<template
+			name="RESTDbAPIEntityResource" templateFileName="RESTDbAPIEntityResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest" 
+			file-extension="java" file-prefix="" file-suffix="GenericResource" 
+			entity-specific="true" >
+		</template>	
+		
+	</template-target>
+	
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
