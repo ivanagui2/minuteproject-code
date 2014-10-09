@@ -834,7 +834,7 @@
 		<application_compliance_two_models dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
 
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-2-model.xml" />
-
+		<!--
 		<macro_build_and_deploy maven.basedir="WS-JEE/appli" project="WS" artifact="appliWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/appli" project="REST" artifact="appliRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/appli" project="REST-JEE" artifact="appliRESTApp" />
@@ -842,7 +842,7 @@
 		<macro_build_and_deploy maven.basedir="Vaadin/appli" project="vaadin" artifact="appliVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/appli" project="JSF-primefaces" artifact="appliApp" />
 	
-		<!-- primefaces-JEE and OX are deployed manually -->
+		 primefaces-JEE and OX are deployed manually -->
 		
 	</target>
 	
