@@ -31,7 +31,7 @@
                     update=":form2:panel #if ($hasDisplayableChildren):form2:childrenTab#end"/> 
             <f:facet name="header">  
 #set ($tableVariableNames=$i18nUtils.plurialize($tableVariableName))
-                List of ${tableVariableNames}  
+                #{i18n.listOf} ${tableVariableNames}  
             </f:facet>
             <ui:include src="/$entityListRowJSFLocation">
                <ui:param name="isSemanticReference" value="false" />

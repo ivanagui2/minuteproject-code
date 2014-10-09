@@ -35,8 +35,8 @@
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
 #set($tableLabelVar=$commonUtils.getJavaNameVariableFirstLetter($tableLabel))
 #set($tableVariableNames=$i18nUtils.plurialize($tableLabelVar))
-    ##            List of #{i18n.${tableLabelVar}s}  
-                List of ${tableVariableNames}  
+    ##            #{i18n.listOf} #{i18n.${tableLabelVar}s}  
+                #{i18n.listOf} ${tableVariableNames}  
             </f:facet>
             <ui:include src="/$entityListRowJSFLocation">
                <ui:param name="isSemanticReference" value="false" />

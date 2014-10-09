@@ -28,6 +28,7 @@ logoffSoon1=Expiration
 logoffSoon2=Votre session va expirer
 moveCursor=Bouger votre curseur
 sessionExpire=La session a expirée
+saveAssociations=Sauvegarder l'association
 ################
 administration=Administration
 listOf=Liste
