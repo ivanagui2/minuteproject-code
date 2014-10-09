@@ -106,7 +106,7 @@
 			<property name="cloud-platform" value="cloudbees"></property>
 			<property name="cloud-name" value="petshopapp"></property>
 			
-			<property name="target-server" value="glassfish"></property>
+			<!-- <property name="target-server" value="glassfish"></property> -->
 		</targets>
 	</configuration>
 </generator-config>
