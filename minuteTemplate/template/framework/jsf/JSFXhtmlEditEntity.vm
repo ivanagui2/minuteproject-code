@@ -69,8 +69,7 @@
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
 #set($tableLabelVar=$commonUtils.getJavaNameVariableFirstLetter($tableLabel))
 #set($tableVariableNames=$i18nUtils.plurialize($tableLabelVar))
-##            List of #{i18n.${tableLabelVar}s}  
-            List of ${tableVariableNames}  
+            #{i18n.listOf} ${tableVariableNames}  
         </f:facet>
         <ui:include src="/$entityListRowJSFLocation">
            <ui:param name="isSemanticReference" value="false" />
@@ -78,9 +77,6 @@
 		 <p:column>
             <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="suc${childrenListClass}Dialog.hide()" process="@this">
 				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
-##<!-- value="#{item.${localColumnVariable}_}"  -->
-##				<f:setPropertyActionListener value="#{item.${localColumnVariable}_}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
-##TODO remove the unnecessary one
 				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
             </p:commandButton >
 		  </p:column>
