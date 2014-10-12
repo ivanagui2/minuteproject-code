@@ -515,41 +515,14 @@ public class ModelGenerator extends AbstractGenerator {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", model);
-		context.put("configuration", model.getConfiguration());
+		Configuration configuration = model.getConfiguration();
+		context.put("configuration", configuration);
+		context.put("application", configuration.isSingleModel()?model:configuration.getApplication());
+		
 	}
 	
 	protected void putStandardContextObject (VelocityContext context) {
 		super.putStandardContextObject(context);
-/*		context.put("convertUtils", getConvertUtils());
-		context.put("commonUtils", getCommonUtils());
-		context.put("columnUtils", getColumnUtils());
-		context.put("viewUtils", getViewUtils());
-		context.put("formatUtils", getFormatUtils());
-		context.put("bslaLibraryUtils", getBslaLibraryUtils());
-		context.put("databaseUtils", getDatabaseUtils());
-		context.put("modelUtils", getModelUtils());
-		context.put("URLUtils", getUrlUtils());
-		context.put("TestUtils", getTestUtils());
-		context.put("WebUtils", getWebUtils());
-		context.put("sqlUtils", getSqlUtils());
-		context.put("tableUtils", getTableUtils());
-		context.put("testUtils", getTestUtils());	
-		context.put("referenceUtils", referenceUtils);
-		context.put("enumUtils", enumUtils);
-		context.put("i18nUtils", i18nUtils);
-		context.put("updatedAreaUtils", updatedAreaUtils);
-		context.put("javaUtils", javaUtils);
-		context.put("routineUtils", routineUtils);
-		context.put("statementUtils", statementUtils);
-		context.put("triggerUtils", triggerUtils);
-		context.put("queryUtils", queryUtils);
-		context.put("semanticReferenceUtils", semanticReference);
-		context.put("velocityUtils", velocityUtils);
-		context.put("fileUtils", fileUtils);
-		context.put("orderingUtils", orderingUtils);
-		context.put("enrichmentUtils", enrichmentUtils);
-		context.put("minuteprojectUtils", minuteprojectUtils);
-		*/
 	}
 
 	public Model getModel() {

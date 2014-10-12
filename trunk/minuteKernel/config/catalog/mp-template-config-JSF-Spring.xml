@@ -93,7 +93,7 @@
 		<template name="JSFI18nProperties" templateFileName="I18nProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="i18n"
 			file-extension="properties" file-prefix="" file-suffix="" 
-			model-specific="true" has-updatable-nature="true"
+			application-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="separator" value="_"/>
 		</template>
@@ -101,7 +101,7 @@
 		<template name="JSFI18nProperties_en" templateFileName="I18nProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="i18n"
 			file-extension="properties" file-prefix="" file-suffix="_en" 
-			model-specific="true" has-updatable-nature="true"
+			application-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="separator" value="_"/>
 		</template>
@@ -110,7 +110,7 @@
 		<template name="JSFI18nProperties_es" templateFileName="I18nProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="i18n"
 			file-extension="properties" file-prefix="" file-suffix="_es" 
-			model-specific="true" has-updatable-nature="true"
+			application-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="separator" value="_"/>
      		<property name="language" value="es"/>
@@ -119,7 +119,7 @@
 		<template name="JSFI18nProperties_fr" templateFileName="I18nProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="i18n"
 			file-extension="properties" file-prefix="" file-suffix="_fr" 
-			model-specific="true" has-updatable-nature="true"
+			application-specific="true" has-updatable-nature="true"
      		file-name-format="FORMAT_LOWER_CASE_FIRST_LETTER">
      		<property name="separator" value="_"/>
      		<property name="language" value="fr"/>
