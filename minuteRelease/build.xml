@@ -881,7 +881,6 @@
 	<!-- ===================================================================== -->
 
 	<target name="cloud-samples" depends="release-application" >
-		
 		<antcall target="cloudbees-petshop-porphyry"/>
 		<antcall target="cloudbees-samples"/>
 	</target>
