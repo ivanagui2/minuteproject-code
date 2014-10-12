@@ -860,7 +860,7 @@
 	</target>
 				
 	<target name="generation-build-tranxy-devops-model-compatibility">
-		<ant_devops dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
+		<application_compliance_two_models_devops dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
 
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-2-model.xml" />
 		
@@ -886,7 +886,7 @@
 		<antcall target="cloudbees-samples"/>
 	</target>
 		
-	<target name="cloudbees-samples" depends="release-application" >
+	<target name="cloudbees-samples" >
 		<macro_generate display="petshop PF cloudbees" config="mp-config-sample-petshop-cloudbees.xml" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
