@@ -40,11 +40,11 @@
 	
 	<error-page>
         <error-code>404</error-code>
-        <location>/404search.xhtml</location>
+        <location>/404search.jsp</location>
 	</error-page>
 	
 	<error-page>
         <error-code>500</error-code>
-        <location>/500error.xhtml</location>
+        <location>/500error.jsp</location>
 	</error-page>
 	
