@@ -525,8 +525,8 @@
 		<attribute name="dir" default="" />
 		<sequential>
 			<application_compliance_two_models 
-				input="@{dir}/@{input}"
-				output="@{dir}/@{output}"
+				input="@{input}"
+				output="@{output}"
 				dir="@{dir}"
 				transformer="model-to-application-two-dbs-devops"
 			/>
@@ -539,8 +539,8 @@
 		<attribute name="dir" default="" />
 		<sequential>
 			<application_compliance_two_models 
-				input="@{dir}/@{input}"
-				output="@{dir}/@{output}"
+				input="@{input}"
+				output="@{output}"
 				dir="@{dir}"
 				transformer="model-to-application-two-dbs-porphyry"
 			/>
@@ -860,7 +860,7 @@
 	</target>
 				
 	<target name="generation-build-tranxy-devops-model-compatibility">
-		<application_compliance_two_models_devops dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
+		<ant_devops dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
 
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-2-model.xml" />
 		
@@ -897,7 +897,7 @@
 	</target>	
 	
 	<target name="cloudbees-petshop-porphyry">
-		<application_compliance_two_models_porphyry dir="./${demo.dir}/config" input="mp-config-sample-petshop-cloudbees.xml" output="mp-config-sample-petshop-porphyry-cloudbees.xml"/>
+		<antcall target="prepare-petshop-porphyry"/>
 
 		<macro_generate_application display="WEB-apps OX, Vaadin, PFs" config="mp-config-sample-petshop-porphyry-cloudbees.xml" />
 		
@@ -908,6 +908,11 @@
 		<macro_generate display="WEB-apps cloudbees openxava petshop" config="mp-config-sample-petshop-cloudbees-openxava.xml" />
 		
 	</target>
+		
+	<target name="prepare-petshop-porphyry">
+		<application_compliance_two_models_porphyry dir="./${demo.dir}/config" input="mp-config-sample-petshop-cloudbees" output="mp-config-sample-petshop-porphyry-cloudbees"/>
+	</target>
+		
 	<!-- ===================================================================== -->
 	<!-- functional delivery -->
 	<!-- ===================================================================== -->
