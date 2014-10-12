@@ -508,12 +508,41 @@
 		<attribute name="input" />
 		<attribute name="output" />
 		<attribute name="dir" default="" />
+		<attribute name="transformer" />
 		<sequential>
 			<application_compliance_transformer 
 				input="@{dir}/@{input}"
 				output="@{dir}/@{output}"
 				styledir="${basedir}/@{dir}/xsl"
+				transformer="@{transformer}"
+			/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="application_compliance_two_models_devops">
+		<attribute name="input" />
+		<attribute name="output" />
+		<attribute name="dir" default="" />
+		<sequential>
+			<application_compliance_two_models 
+				input="@{dir}/@{input}"
+				output="@{dir}/@{output}"
+				styledir="${basedir}/@{dir}/xsl"
 				transformer="model-to-application-two-dbs-devops"
+			/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="application_compliance_two_models_porphyry">
+		<attribute name="input" />
+		<attribute name="output" />
+		<attribute name="dir" default="" />
+		<sequential>
+			<application_compliance_two_models 
+				input="@{dir}/@{input}"
+				output="@{dir}/@{output}"
+				styledir="${basedir}/@{dir}/xsl"
+				transformer="model-to-application-two-dbs-porphyry"
 			/>
 		</sequential>
 	</macrodef>
@@ -831,10 +860,10 @@
 	</target>
 				
 	<target name="generation-build-tranxy-devops-model-compatibility">
-		<application_compliance_two_models dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
+		<application_compliance_two_models_devops dir="./${demo.dir}/config" input="mp-config-sample-tranxy" output="mp-config-sample-tranxy-application-2-model"/>
 
 		<macro_generate_application display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-tranxy-application-2-model.xml" />
-		<!--
+		
 		<macro_build_and_deploy maven.basedir="WS-JEE/appli" project="WS" artifact="appliWebServiceApp" />
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/appli" project="REST" artifact="appliRestCxfApp" />
 		<macro_build_and_deploy maven.basedir="REST-JEE/appli" project="REST-JEE" artifact="appliRESTApp" />
@@ -842,15 +871,19 @@
 		<macro_build_and_deploy maven.basedir="Vaadin/appli" project="vaadin" artifact="appliVaadinApp" />
 		<macro_build_and_deploy maven.basedir="Primefaces-Spring/appli" project="JSF-primefaces" artifact="appliApp" />
 	
-		 primefaces-JEE and OX are deployed manually -->
+		<!--primefaces-JEE and OX are deployed manually -->
 		
 	</target>
+
 	
 	<!-- ===================================================================== -->
 	<!-- cloud sample delivery -->
 	<!-- ===================================================================== -->
 
-	<target name="cloud-samples" depends="cloudbees-samples" >
+	<target name="cloud-samples" depends="release-application" >
+		<antcall target="cloudbees-samples"/>
+		<antcall target="cloudbees-petshop-porphyry"/>
+		
 	</target>
 		
 	<target name="cloudbees-samples" depends="release-application" >
@@ -861,10 +894,19 @@
 		<!-- openxava -->
 		<macro_generate display="WEB-apps cloudbees openxava petshop" config="mp-config-sample-petshop-cloudbees-openxava.xml" />
 
-	</target>
+	</target>	
+	
+	<target name="cloudbees-petshop-porphyry">
+		<application_compliance_two_models_porphyry dir="./${demo.dir}/config" input="mp-config-sample-petshop-cloudbees.xml" output="mp-config-sample-petshop-porphyry-cloudbees.xml"/>
 
-	<target name="cloud-sample-primefaces">
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />		
+		<macro_generate_application display="WEB-apps OX, Vaadin, PFs" config="mp-config-sample-petshop-porphyry-cloudbees.xml" />
+		
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
+
+		<!-- openxava -->
+		<macro_generate display="WEB-apps cloudbees openxava petshop" config="mp-config-sample-petshop-cloudbees-openxava.xml" />
+		
 	</target>
 	<!-- ===================================================================== -->
 	<!-- functional delivery -->
