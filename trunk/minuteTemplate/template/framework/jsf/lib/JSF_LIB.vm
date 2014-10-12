@@ -87,7 +87,7 @@
 
 #macro(exposeSeparator)
 #exposeJSFTemplate()
-#set($separator=$i18nUtils.getSeparator($template, $templateModelI18nJSF))
+#set($separator=$i18nUtils.getSeparator($template, $templateApplicationI18nJSF))
 #end
 
 #macro (exposeJSFEntitySpecific)
@@ -128,9 +128,9 @@
 #set ($modelLazyDataModelServiceClass = $commonUtils.getTemplateClassName($model, $template, $templateModelLazyDataModelService))
 #set ($modelLazyDataModelServiceVariable = $commonUtils.getJavaNameVariableFirstLetter($modelLazyDataModelServiceClass))
 #set ($modelLazyDataModelServiceImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelLazyDataModelService))
-#set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelI18nJSF))
+#set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateApplicationI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
-#set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelI18nJSF))
+#set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateApplicationI18nJSF))
 #set ($modelBeanManagerLanguageJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelBeanManagerLanguageJSF))
 #set ($modelBeanManagerLanguageJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelBeanManagerLanguageJSFClass))
 #set ($modelBeanManagerMenuJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelBeanManagerMenuJSF))
@@ -145,7 +145,6 @@
 #set ($modelSemanticReferenceUtilsJSFClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJSFSemanticReferenceUtils))
 #set ($modelSemanticReferenceUtilsJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelSemanticReferenceUtilsJSFClass))
 #set ($modelMenuJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateModelXhtmlMenuJSF))
-#set ($modelIndexJSFImport = $commonUtils.getArtifactRootPathDirAndFullName($model, $template, $templateIndexXhtmlMenuJSF))
 #set ($modelCssDefaultJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateCssDefaultJSF))
 #set ($controllerBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityControllerJSF))
 #set ($converterBeanPackageName=$commonUtils.getPackageName($model, $template, $templateEntityConverterJSF))
@@ -158,6 +157,16 @@
 #set ($lookupEnumVar=$commonUtils.getJavaNameVariableFirstLetter($lookupEnumClass))
 #set ($lookupPackageName=$commonUtils.getPackageName($model, $template, $templateLookupBean))
 #set($isPortlet=$template.getPropertyValue("is-portlet",false))
+#end
+
+#macro (exposeJSFApplicationSpecific)
+#exposeVariableApplicationSpecific()
+#exposeJSFConfig()
+#exposeJSFTemplate()
+#set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($application, $template, $templateApplicationI18nJSF))
+#set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
+#set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($application, $template, $templateApplicationI18nJSF))
+#set ($modelIndexJSFImport = $commonUtils.getArtifactRootPathDirAndFullName($application, $template, $templateIndexXhtmlMenuJSF))
 #end
 
 #macro (exposeJSFAppFwkSpecific)
@@ -177,7 +186,7 @@
 #set ($templateSDDJSF = "JSFXhtmlSDDInput")
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateEntityConverterJSF = "JSFBeanManagerConverter")
-#set ($templateModelI18nJSF = "JSFI18nProperties")
+#set ($templateApplicationI18nJSF = "JSFI18nProperties")
 #set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")
 #set ($templateModelXhtmlPortletDecoratorJSF = "JSFXhtmlPortletDecorator")
 #set ($templateModelXhtmlMenuJSF = "JSFXhtmlMenu")
