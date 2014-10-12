@@ -527,7 +527,7 @@
 			<application_compliance_two_models 
 				input="@{dir}/@{input}"
 				output="@{dir}/@{output}"
-				styledir="${basedir}/@{dir}/xsl"
+				dir="@{dir}"
 				transformer="model-to-application-two-dbs-devops"
 			/>
 		</sequential>
@@ -541,7 +541,7 @@
 			<application_compliance_two_models 
 				input="@{dir}/@{input}"
 				output="@{dir}/@{output}"
-				styledir="${basedir}/@{dir}/xsl"
+				dir="@{dir}"
 				transformer="model-to-application-two-dbs-porphyry"
 			/>
 		</sequential>
@@ -881,9 +881,9 @@
 	<!-- ===================================================================== -->
 
 	<target name="cloud-samples" depends="release-application" >
-		<antcall target="cloudbees-samples"/>
-		<antcall target="cloudbees-petshop-porphyry"/>
 		
+		<antcall target="cloudbees-petshop-porphyry"/>
+		<antcall target="cloudbees-samples"/>
 	</target>
 		
 	<target name="cloudbees-samples" depends="release-application" >
