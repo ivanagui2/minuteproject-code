@@ -892,17 +892,15 @@
 		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
 
 		<!-- openxava -->
-		<macro_generate display="WEB-apps cloudbees openxava petshop" config="mp-config-sample-petshop-cloudbees-openxava.xml" />
-
 	</target>	
 	
 	<target name="cloudbees-petshop-porphyry">
 		<antcall target="prepare-petshop-porphyry"/>
 
 		<macro_generate_application display="WEB-apps OX, Vaadin, PFs" config="mp-config-sample-petshop-porphyry-cloudbees.xml" />
-		
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/petshop" project="JSF-primefaces" artifact="petshopApp" />
-		<macro_build_and_deploy maven.basedir="Vaadin/petshop" project="vaadin" artifact="petshopVaadinApp" />
+
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/appli" project="JSF-primefaces" artifact="appliApp" />
+		<macro_build_and_deploy maven.basedir="Vaadin/appli" project="vaadin" artifact="appliVaadinApp" />
 
 		<!-- openxava -->
 		<macro_generate display="WEB-apps cloudbees openxava petshop" config="mp-config-sample-petshop-cloudbees-openxava.xml" />
