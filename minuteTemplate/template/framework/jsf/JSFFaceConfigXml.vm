@@ -1,4 +1,4 @@
-#exposeJSFModelSpecific()
+#exposeJSFApplicationSpecific()
 #exposeJSFAppFwkSpecific()
 <?xml version="1.0" encoding="utf-8"?>
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
