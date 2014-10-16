@@ -41,7 +41,7 @@
 
 	<filter>
 	    <filter-name>applicationFilter</filter-name>
-	    <filter-class>net.sf.minuteproject.openxava.web.filter</filter-class>
+	    <filter-class>net.sf.minuteproject.openxava.web.filter.ApplicationFilter</filter-class>
 	    <init-param>
 	    	<param-name>application</param-name>
 	    	<param-value>${generatorBean.name}</param-value>
