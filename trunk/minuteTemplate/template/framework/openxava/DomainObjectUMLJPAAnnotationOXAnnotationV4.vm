@@ -172,6 +172,7 @@ public class ${className} {
 #end
 #end
 #end
+#putJPA2Temporal()
     $accessor $columnType $columnVar; ##// pk not fk
 
 #end
@@ -217,10 +218,7 @@ public class ${className} {
 #elseif ($presentationUtils.isRichText($column)) //for backward compatibility (temporary)
     @Stereotype ("HTML_TEXT")
 #end
-#if($useTemporal && $isTimeColumn)
-#set($columnType="java.util.Date")
-    @Temporal(TemporalType.${column.type})
-#end
+#putJPA2Temporal()
 #if($columnUtils.hasTrigger($column))
     @ReadOnly(forViews="base,Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}")
 #else

@@ -70,7 +70,7 @@ import net.sf.minuteProject.model.service.GenericService;
  * <p>Description: REST entity controller ${className} </p>
  *
  */
-@Path("/data/entity")
+@Path("/data/entity/${tableClassName}")
 @Produces(MediaType.APPLICATION_JSON)
 public class $className {
 
@@ -105,7 +105,7 @@ public class $className {
         EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
         QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
-        addressDao.find(data);
+        ${BslaDaoInterfaceVariable}.find(data);
         List<$tableClassName> list = data.getResult();
         int count = data.getTotalResultCount().intValue();
         return data;

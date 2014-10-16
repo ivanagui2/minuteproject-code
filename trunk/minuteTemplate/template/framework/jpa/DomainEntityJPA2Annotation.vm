@@ -124,6 +124,7 @@ public class ${className} implements Serializable {
 #end
 #end
 #end
+#putJPA2Temporal()
 #if($addXmlBinding)
 #exposeXmlElementValue()
     @XmlElement $!xmlElementValue
@@ -162,10 +163,7 @@ $updatedAreaSnippet
 #exposeXmlElementValue()
     @XmlElement $!xmlElementValue
 #end
-#if($useTemporal && $isTimeColumn)
-#set($columnType="java.util.Date")
-    @Temporal(TemporalType.${column.type})
-#end
+#putJPA2Temporal()
     $accessor $columnType $columnVar; 
 #end
 $!updatedAreaEnd

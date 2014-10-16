@@ -161,3 +161,10 @@ $!updatedAreaSnippet
 $!updatedAreaEnd
 #end
 #end
+
+#macro(putJPA2Temporal)
+#if($useTemporal && $isTimeColumn)
+#set($columnType="java.util.Date")
+    @Temporal(TemporalType.${column.type})
+#end
+#end

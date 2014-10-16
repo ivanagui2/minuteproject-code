@@ -1,5 +1,5 @@
+#exposeBackendTechnology()
 #putJPA2TemplateDefinition()
-#exposeVariableModelSpecific()
 #if($isSpringBackend)
 #exposeSpringDomainObjectSpecific()
 #elseif($isEJBBackend)
@@ -20,27 +20,18 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
 import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
+import $lookupBeanImport;
+import $beanSpringModelServiceImport;
+import $SpringServiceInterfaceImport;
+import $modelJSFUtilsImport;
+import $modelSemanticReferenceUtilsJSFImport;
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,23 +46,36 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
 
+import $EJBDaoImplImport;
+
 #end
+import $importDomainObjectUML;
 import net.sf.minuteProject.model.service.GenericService;
-import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 #exposeJPA2Import()
 /**
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: Generic controller ${className} </p>
+ * <p>Description: REST entity controller ${className} </p>
  *
  */
-public abstract class ${className} <T extends AbstractDomainObject, S extends GenericService> implements java.io.Serializable{
+@Path("/data/entity")
+@Produces(MediaType.APPLICATION_JSON)
+public class $className {
 
-	protected abstract S getService();
-	protected abstract T getInstance();
+#if ($isSpringBackend)
+    @Autowired
+    @Qualifier("$BslaDaoInterfaceVariable")	
+#elseif($isEJBBackend)
+	@EJB// (name="$BslaDaoInterfaceVariable")	
+#end
+	${BslaDaoInterfaceClass} $BslaDaoInterfaceVariable;
 
-	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
+
+    @GET
+    @Path("/find")
+    @Produces(MediaType.APPLICATION_JSON)
+    public QueryData<$tableClassName> find(@PathParam("sortOrder") String sortOrder,
                                     @PathParam("sortField") String sortField,
                                     @PathParam("first") int first,
                                     @PathParam("pageSize") int pageSize
@@ -82,17 +86,17 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
             order = QuerySortOrder.DESC;
         }
         */
-        T esMask = getInstance();
-        //esMask.mask(sortField);
-        EntitySort<T> es = new EntitySort<T>(esMask, order);
+        Address esMask = new Address();
+        esMask.mask(sortField);
+        EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
 
-        T ecMask = getInstance();
+        Address ecMask = new Address();
         //ecMask.mask(filters);
-        EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
+        EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
-        QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
-        getService().find(data);
-        List<T> list = data.getResult();
+        QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
+        addressDao.find(data);
+        List<$tableClassName> list = data.getResult();
         int count = data.getTotalResultCount().intValue();
         return data;
     }
