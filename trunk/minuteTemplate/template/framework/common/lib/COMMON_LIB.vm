@@ -21,7 +21,6 @@ $!commonUtils.getReadMeText($template)
 
 #macro (exposeVariableApplicationSpecific)
 #exposeVariableModelDetailSpecific()
-#set ($distinctTemplateTargetList = $commonUtils.getDistinctTemplateTargetList($model))
 #end
 
 #macro(exposeVariableFunctionSpecific)
