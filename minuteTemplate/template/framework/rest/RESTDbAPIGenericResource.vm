@@ -1,5 +1,6 @@
 #putJPA2TemplateDefinition()
-#exposeVariableModelSpecific()
+#exposeJSFEntitySpecific()
+#exposeJSFModelSpecific()
 #if($isSpringBackend)
 #exposeSpringDomainObjectSpecific()
 #elseif($isEJBBackend)
@@ -20,20 +21,24 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import org.primefaces.event.ToggleEvent;
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TabChangeEvent;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
@@ -41,6 +46,12 @@ import net.sf.minuteProject.model.data.criteria.QueryData;
 import net.sf.minuteProject.model.data.criteria.constant.EntityMatchType;
 import net.sf.minuteProject.model.data.criteria.constant.OperandType;
 import net.sf.minuteProject.model.data.criteria.constant.QuerySortOrder;
+
+import $lookupBeanImport;
+import $beanSpringModelServiceImport;
+import $SpringServiceInterfaceImport;
+import $modelJSFUtilsImport;
+import $modelSemanticReferenceUtilsJSFImport;
 
 #if($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,22 +66,56 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
 
+import $EJBDaoImplImport;
+
 #end
+import $importDomainObjectUML;
 import net.sf.minuteProject.model.service.GenericService;
-import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 #exposeJPA2Import()
 /**
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: Generic controller ${className} </p>
+ * <p>Description: JSF controller ${className} </p>
  *
  */
-public abstract class ${className} <T extends AbstractDomainObject, S extends GenericService> implements java.io.Serializable{
+#if($isSpringBackend)
+@ManagedBean (name="${entityControllerJSFVariable}")
+@ViewScoped
+#elseif($isEJBBackend)
+##@Named(value = "$entityControllerJSFVariable")
+@ManagedBean (name="${entityControllerJSFVariable}")
+##@Default
+@ViewScoped
+#end
+#if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+#exposeEmbeddedId($table)
+#set($deletionNotYetImplemented=true)
+#set($primaryKeyJavaNameClass = $embeddedIdClass+"_")
+#end
+public abstract class ${className} <T, S extends GenericService> implements java.io.Serializable{
 
 	protected abstract S getService();
-	protected abstract T getInstance();
 
+    public List<T> findAll () {
+		return getService().findAll(t);
+	}
+
+#if ($hasOnlyOnePrimaryKey)
+	public T findById ($primaryKeyFullType $primaryKeyVariable) {
+		return getService().findById($primaryKeyVariable);
+	}
+#end
+
+	public void delete (T t) {
+		getService().delete (t);
+	}
+	
+	public String delete () {
+		getService().delete (selectedT);
+        return "success";
+	}
+	
 	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
                                     @PathParam("sortField") String sortField,
                                     @PathParam("first") int first,
@@ -82,11 +127,11 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
             order = QuerySortOrder.DESC;
         }
         */
-        T esMask = getInstance();
-        //esMask.mask(sortField);
+        Address esMask = new Address();
+        esMask.mask(sortField);
         EntitySort<T> es = new EntitySort<T>(esMask, order);
 
-        T ecMask = getInstance();
+        Address ecMask = new Address();
         //ecMask.mask(filters);
         EntityCriteria<T> ec = new EntityCriteria<T>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
 
