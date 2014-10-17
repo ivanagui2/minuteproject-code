@@ -295,7 +295,7 @@
     				oncomplete="PF('detailDialog${childrenListClass}').hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
                 </p:commandButton>
-				<p:commandButton value="#{i18n.cancel}" onclick="detailDialog${childrenListClass}.hide()"/>
+				<p:commandButton value="#{i18n.cancel}" onclick="PF('detailDialog${childrenListClass}').hide()"/>
 			</h:form>
 		</p:dialog>
 	</p:outputLabel>
@@ -335,7 +335,7 @@
                              update="$updateFromPopUp"
                              action="#{${thisEntityControllerJSFVariable}.affectAndDesactivateRender${childrenListClass}}"
                              title="Affect"
-                             onclick="add${childrenListClass}.hide()"
+                             onclick="PF('add${childrenListClass}').hide()"
                              process="@this">
 							 <f:actionListener binding="#{${thisEntityControllerJSFVariable}.set${childrenListClass}ToAdd(item)}"/>
 ##<f:setPropertyActionListener value="#{item}" target="#{${thisEntityControllerJSFVariable}.${childrenListVariable}ToAdd}" />
