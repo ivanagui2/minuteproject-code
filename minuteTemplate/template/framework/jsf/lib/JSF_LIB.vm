@@ -58,28 +58,18 @@
 
 #macro (putJSFParentAffectationSnippet $cpt)
 	
-#*     <c:if test="#{fieldToHide != '${columnVar}'}">
-        <p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) * #end</p:outputLabel>
-        <p:row>
-            <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
-##TODO change childrenListClass is normally for children unique but not unique for parent lookup
-#set ($childrenListClass = $childrenListClass+$cpt)
-            <h:outputText value="&#160;&#160;" /><p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
-        </p:row>
-        <p:message for="lbl${columnClass}-#{idValue}" />
-    </c:if>
-*#	
     <c:if test="#{fieldToHide != '${columnVar}'}">
 #set ($childrenListClass = $childrenListClass+$cpt)
 		<p:row>
 			<p:outputLabel>#{i18n.$tableVariableName$separator$columnVar}#if($column.isRequired()) * #end</p:outputLabel>
-			<h:outputText value="&#160;&#160;" /><p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" oncomplete="suc${childrenListClass}Dialog.show()" update="container${childrenListClass}" />
+			<h:outputText value="&#160;&#160;" />
+				<p:commandButton immediate="true" actionListener="#{${entityControllerJSFVariable}.activateRender${localColumnClass}}" title="Search" icon="ui-icon-search" 
+					oncomplete="PF('suc${childrenListClass}Dialog').show()" update="container${childrenListClass}" />
 		</p:row>
 		<p:row>
             <p:panel id="lbl${columnClass}-#{idValue}" header="#{i18n.$tableVariableName$separator$columnVar} #{jsfSemanticReferenceUtils.getStrippedSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}, 30)} ..." toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="parent${columnVar}" collapsed="#{jsfSemanticReferenceUtils.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}) eq ''}" >
 				<${model.name}:${linkedTableClass}SemanticReference entity="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}"/>
 			</p:panel>
-##            <p:inputText id="lbl${columnClass}-#{idValue}" value="#{${modelSemanticReferenceUtilsJSFVariable}.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar})}" required="$column.isRequired()" disabled="true" />
         </p:row>
         <p:message for="lbl${columnClass}-#{idValue}" />
     </c:if>	
@@ -212,7 +202,7 @@
 #end
 
 #macro(exposePrimefacesConfig)
-#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","4.0"))
+#set ($primefacesVersion=$template.getPropertyValue("primefaces-version","5.1"))
 #set ($primefacesNamespace=$template.getPropertyValue("primefaces-namespace","http://primefaces.org/ui"))
 #end
 
@@ -267,7 +257,8 @@
 #set($refCnt=$refCnt+1)
 					</ui:include>
             </h:panelGrid>			
-				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="#{i18n.add}" icon="ui-icon-disk" oncomplete="add${childrenListClass}.hide()" update="$updateFromPopUp">
+				<p:commandButton action="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdAdd${childrenListClass}" value="#{i18n.add}" icon="ui-icon-disk" 
+					oncomplete="PF('add${childrenListClass}').hide()" update="$updateFromPopUp">
 					<f:setPropertyActionListener 
 						target="#{${entityControllerJSFVariable}.selected${domainObjectClass}.${linkedColumnVariable}}" 
 						value="#{${thisEntityControllerJSFVariable}.selected${domainClassName}}"/>
@@ -295,11 +286,13 @@
 #set($refCnt=$refCnt+1)
                 </ui:include>
                 </h:panelGrid>
-    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="#{i18n.update}" icon="ui-icon-check" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" id="cmdUpdate${childrenListClass}" value="#{i18n.update}" icon="ui-icon-check" 
+    				oncomplete="PF('detailDialog${childrenListClass}').hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
     				<!-- todo add reset DD lookup -->
                 </p:commandButton>
-    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="#{i18n.delete}" icon="ui-icon-trash" process="@this" oncomplete="detailDialog${childrenListClass}.hide()" update="$updateFromPopUp">
+    			<p:commandButton actionListener="#{${entityControllerJSFVariable}.deleteListener}" id="cmdDelete${childrenListClass}" value="#{i18n.delete}" icon="ui-icon-trash" process="@this" 
+    				oncomplete="PF('detailDialog${childrenListClass}').hide()" update="$updateFromPopUp">
     				<f:setPropertyActionListener target="#{${thisEntityControllerJSFVariable}.refresh${childrenListClass}}" value="true"/>
                 </p:commandButton>
 				<p:commandButton value="#{i18n.cancel}" onclick="detailDialog${childrenListClass}.hide()"/>
@@ -366,7 +359,7 @@
 									title="Add $linktableDB.name"  
 									icon="ui-icon-plusthick" 
 									value="#{i18n.add}"
-									oncomplete="add${childrenListClass}.show();" 
+									oncomplete="PF('add${childrenListClass}').show();" 
 									update=":containerBasicAdd${childrenListClass}">
 									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
 									<f:actionListener binding="#{${entityLinkControllerJSFVariable}.resetSelected${linkedTableClass}()}"/>
@@ -393,7 +386,7 @@
             					update=":containerBasicDialog${childrenListClass}" 
             					title="Manage Details"
             					action="#{${entityLinkControllerJSFVariable}.reloadSelected}"
-            					oncomplete="detailDialog${childrenListClass}.show()" 
+            					oncomplete="PF('detailDialog${childrenListClass}').show()" 
             					process="@this">
                                 <f:actionListener binding="#{${thisEntityControllerJSFVariable}.activateRenderDialog${childrenListClass}()}" />
                                 <f:actionListener binding="#{${entityLinkControllerJSFVariable}.setSelected${linkedTableClass}(item)}"/>
@@ -416,7 +409,7 @@
 									value="#{i18n.associate}"
 									title="#{i18n.associate} $targetTable.name"  
 									icon="ui-icon-transfer-e-w" 
-									oncomplete="add${childrenListClass}.show();" 
+									oncomplete="PF('add${childrenListClass}').show();" 
 									update=":containerBasicAdd${childrenListClass}">
 									<f:actionListener binding="#{${entityControllerJSFVariable}.activateRenderAdd${childrenListClass}()}" />
                                 </p:commandButton>								
