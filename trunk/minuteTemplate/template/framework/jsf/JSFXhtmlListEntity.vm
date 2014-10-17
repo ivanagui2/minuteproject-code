@@ -20,7 +20,8 @@
   
     <p:dataTable var="${domainVariableName}" value="#{${entityControllerJSFVariable}.findAll()}" paginator="true" rows="10"  
                 selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single" rowKey="#{${domainVariableName}}"
-                onRowSelectUpdate="display" onRowSelectComplete="${domainVariableName}Dialog.show()" 
+                onRowSelectUpdate="display" 
+                onRowSelectComplete="PF('${domainVariableName}Dialog').show()" 
                 dynamic="true"  resizableColumns="true"
                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                 rowsPerPageTemplate="5,10,15"> 
@@ -56,7 +57,8 @@
 #end
 		<f:facet name="footer"> 
 			<p:commandButton id="viewButton" value="View" icon="ui-icon-search"  
-                    update=":form${tableClassName}:display" oncomplete="${domainVariableName}Dialog.show()"/>  	
+                    update=":form${tableClassName}:display" 
+                    oncomplete="PF('${domainVariableName}Dialog').show()"/>  	
 ##			<p:commandButton title="New #{i18n.$tableVariableName}" value="New #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.displayInput}" />
             <h:button value="New #{i18n.$tableVariableName}" outcome="/${entityCreateJSFLocation}" class="Automatic reply: ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
             <p:commandButton title="Delete #{i18n.$tableVariableName}" value="Delete #{i18n.$tableVariableName}" action="#{${entityControllerJSFVariable}.delete}" />
