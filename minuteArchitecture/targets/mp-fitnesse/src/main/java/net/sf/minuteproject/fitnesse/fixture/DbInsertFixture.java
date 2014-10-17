@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import net.sf.minuteproject.fitnesse.fixture.query.QueryOption;
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.utils.database.DatabaseUtils;
 import net.sf.minuteproject.utils.query.QueryUtils;
@@ -17,7 +18,7 @@ public abstract class DbInsertFixture extends ColumnFixture{
 
 	Logger log = Logger.getLogger(this.getClass());
 	public String insert() {
-		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue(), false);
+		String query = QueryUtils.buildInsertStatement(getTable(), getColumns(), getColumnValue(), new QueryOption());
 		log.debug("insert query = "+query);
 		return insert(query);
 	}

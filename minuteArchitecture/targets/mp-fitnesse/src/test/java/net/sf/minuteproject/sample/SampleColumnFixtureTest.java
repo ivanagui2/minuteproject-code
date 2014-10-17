@@ -35,6 +35,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import net.sf.minuteproject.fitnesse.fixture.DbInsertUpdateDeleteFixture;
+import net.sf.minuteproject.fitnesse.fixture.query.QueryOption;
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
 import net.sf.minuteproject.utils.query.QueryUtils;
@@ -129,7 +130,7 @@ public class SampleColumnFixtureTest extends DbInsertUpdateDeleteFixture{
 		ID = "3";
 		ACTIVE = "0";
 		WHERE_ID = "3";
-		String query = QueryUtils.buildUpdateStatement(getTable(), getColumnIndex(), getColumnValue(), getColumnWhereIndex(), getColumnWhereValue());
+		String query = QueryUtils.buildUpdateStatement(getTable(), getColumns(), getColumnIndex(), getColumnValue(), getColumnWhereIndex(), getColumnWhereValue(), new QueryOption());
 		Assert.assertTrue (query, query.equals(UPDATE_T_SAMPLE_SET_ID_3_ACTIVE_0_WHERE_ID_3));
 	}
 }

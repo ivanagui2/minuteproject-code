@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import net.sf.minuteproject.fitnesse.fixture.enumeration.SelectOption;
+import net.sf.minuteproject.fitnesse.fixture.query.QueryOption;
 import net.sf.minuteproject.model.db.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
 import net.sf.minuteproject.utils.ParserUtils;
@@ -23,32 +24,36 @@ public class QueryUtils {
 			String table,
 			Map<Integer, Column> columns,
 			Map<String, String>  columnValue,
-			boolean timeAsFunction) {
+			QueryOption queryOption) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getInsert(table, columns, columnValue));
-		sb.append(getInsertValue(columns, columnValue, timeAsFunction));
+		sb.append(getInsertValue(columns, columnValue, queryOption));
 		return sb.toString();
 	}
 	
 	public static String buildUpdateStatement (
 			String table,
+			Map<Integer, Column> columns,
 			Map<Integer, String> columnIndex,
 			Map<String, String>  columnValue,
 			Map<Integer, String> columnWhereIndex,
-			Map<String, String>  columnWhereValue) {
+			Map<String, String>  columnWhereValue,
+			QueryOption queryOption) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(getUpdate(table, columnIndex, columnValue));
-		sb.append(getWhereQuery(columnWhereIndex, columnWhereValue));		
+		sb.append(getUpdate(table, columns, columnIndex, columnValue, queryOption));
+		sb.append(getWhereQueryCRUD(columns, columnWhereIndex, columnWhereValue, queryOption));		
 		return sb.toString();
 	}
 	
 	public static String buildDeleteStatement (
 			String table,
+			Map<Integer, Column> columns,
 			Map<Integer, String> columnWhereIndex,
-			Map<String, String>  columnWhereValue) {
+			Map<String, String>  columnWhereValue,
+			QueryOption queryOption) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getDelete(table));
-		sb.append(getWhereQuery(columnWhereIndex, columnWhereValue));		
+		sb.append(getWhereQueryCRUD(columns, columnWhereIndex, columnWhereValue, queryOption));		
 		return sb.toString();
 	}
 	
@@ -56,10 +61,10 @@ public class QueryUtils {
 		return "DELETE FROM "+table+" ";	
 	}
 	
-	private static String getUpdate(String table, Map<Integer, String>  columnIndex, Map<String, String>  columnValue) {
+	private static String getUpdate(String table, Map<Integer, Column> columns, Map<Integer, String>  columnIndex, Map<String, String>  columnValue, QueryOption queryOption) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("UPDATE "+table+" ");
-		sb.append(getUpdateSetQuery(columnIndex, columnValue));
+		sb.append(getUpdateSetQuery(columns, columnIndex, columnValue, queryOption));
 		sb.append(" ");
 		return sb.toString();		
 	}	
@@ -72,10 +77,10 @@ public class QueryUtils {
 		return sb.toString();		
 	}
 	
-	private static String getInsertValue(Map<Integer, Column>  columns, Map<String, String>  columnValue, boolean timeAsFunction) {
+	private static String getInsertValue(Map<Integer, Column>  columns, Map<String, String>  columnValue, QueryOption queryOption) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" VALUES (");
-		sb.append(getInsertValues(columns, columnValue, timeAsFunction));
+		sb.append(getInsertValues(columns, columnValue, queryOption));
 		sb.append(") ");
 		return sb.toString();		
 	}
@@ -83,10 +88,11 @@ public class QueryUtils {
 	private static String getInsertValues (			 
 			 Map<Integer, Column> columns,
 			 Map<String, String>  columnValue,
-			 boolean timeAsFunction) {
+			 QueryOption queryOption) {
 		int size = columns.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isBeginning = true;
+		boolean  timeAsFunction = queryOption.isTimeAsFunction();
 		for (int i = 0; i < size; i++) {
 			Column column = columns.get(Integer.valueOf(i));
 			String columnName = column.getName(); //columns.get(Integer.valueOf(i));
@@ -96,14 +102,19 @@ public class QueryUtils {
 					isBeginning=false;
 				}else
 					sb.append(",");
-				if (isQuoted(column, timeAsFunction)){
-					sb.append("'"+value+"'");
-				} else {
-					sb.append(value);
-				}
+				formatColumnValue(sb, timeAsFunction, column, value);
 			}
 		}
 		return sb.toString();		
+	}
+
+	private static void formatColumnValue(StringBuffer sb,
+			boolean timeAsFunction, Column column, String value) {
+		if (isQuoted(column, timeAsFunction)){
+			sb.append("'"+value+"'");
+		} else {
+			sb.append(value);
+		}
 	}
 	
 	public static String buildQuery(
@@ -116,7 +127,7 @@ public class QueryUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getWhatQuery(columnIndex, selectOption));
 		sb.append(getQueryFrom(table));
-		sb.append(getWhereQuery(columnIndex, columnExpressionValue, columnValue));
+		sb.append(getWhereQuery(columnIndex, columnExpressionValue, columnValue, new QueryOption()));
 		sb.append(getQueryOrder(columnIndex, columnOrderValue));
 		_logger.debug(" query = "+ sb.toString());
 		System.out.println(" query = "+ sb.toString());
@@ -157,11 +168,17 @@ public class QueryUtils {
 		return sb.toString();
 	}
 	
-	private static String getUpdateSetQuery (Map<Integer, String> columnIndex, Map<String, String>  columnValue) {
+	private static String getUpdateSetQuery (
+			Map<Integer, Column> columns,
+			Map<Integer, String> columnIndex, 
+			Map<String, String>  columnValue, 
+			QueryOption queryOption) {
 		int size = columnIndex.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isBeginning = true;
+		boolean  timeAsFunction = queryOption.isTimeAsFunction();
 		for (int i = 0; i <size; i++) {
+			Column column = columns.get(Integer.valueOf(i));
 			String columnName = columnIndex.get(Integer.valueOf(i));
 			String value = columnValue.get(columnName);
 			if (value!=null && !value.equals("")) {
@@ -171,19 +188,26 @@ public class QueryUtils {
 				}else
 					sb.append(", "+columnName+" = ");
 //				sb.append(" SET "+columnName+" = ");
-				if (isQuoted(value)){
-					sb.append("'"+value+"'");
-				}
+				formatColumnValue(sb, timeAsFunction, column, value);
+//				if (isQuoted(value)){
+//					sb.append("'"+value+"'");
+//				}
 			}
 		}
 		return sb.toString();
 	}
 	
-	private static String getWhereQuery (Map<Integer, String> columnWhereIndex, Map<String, String>  columnWhereValue) {
+	private static String getWhereQueryCRUD (
+			Map<Integer, Column> columns,
+			Map<Integer, String> columnWhereIndex, 
+			Map<String, String>  columnWhereValue,
+			QueryOption queryOption) {
 		int size = columnWhereIndex.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isBeginning = true;
+		boolean  timeAsFunction = queryOption.isTimeAsFunction();
 		for (int i = 0; i <size; i++) {
+			Column column = columns.get(Integer.valueOf(i));
 			String columnName = columnWhereIndex.get(Integer.valueOf(i));
 			String value = columnWhereValue.get(columnName);
 			if (value!=null && !value.equals("")) {				
@@ -194,9 +218,10 @@ public class QueryUtils {
 				}else
 					sb.append(" AND ");
 				sb.append(columnName+" = ");
-				if (isQuoted(value)){
-					sb.append("'"+value+"'");
-				}
+				formatColumnValue(sb, timeAsFunction, column, value);
+//				if (isQuoted(value)){
+//					sb.append("'"+value+"'");
+//				}
 			}
 		}
 		return sb.toString();
@@ -256,7 +281,8 @@ public class QueryUtils {
 	private static String getWhereQuery (			 
 			 Map<Integer, String> columnIndex,
 			 Map<String, String>  columnExpressionValue,
-			 Map<String, String>  columnValue) {
+			 Map<String, String>  columnValue,
+			 QueryOption queryOption) {
 		int size = columnIndex.size();
 		StringBuffer sb = new StringBuffer("");
 		boolean isWhereSet = false;
