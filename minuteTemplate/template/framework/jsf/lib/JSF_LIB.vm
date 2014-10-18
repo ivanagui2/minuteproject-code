@@ -156,6 +156,7 @@
 #set ($modelI18nJSFClass = $commonUtils.getTemplateClassName($application, $template, $templateApplicationI18nJSF))
 #set ($modelI18nJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($modelI18nJSFClass))
 #set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($application, $template, $templateApplicationI18nJSF))
+#set ($modelI18nBundleJSFImport = $commonUtils.getModelLevelTemplateFullPath($application, $template, $templateApplicationI18nBundleJSF))
 #set ($modelIndexJSFImport = $commonUtils.getArtifactRootPathDirAndFullName($application, $template, $templateIndexXhtmlMenuJSF))
 #end
 
@@ -177,6 +178,7 @@
 #set ($templateEntityControllerJSF = "JSFBeanManagerController")
 #set ($templateEntityConverterJSF = "JSFBeanManagerConverter")
 #set ($templateApplicationI18nJSF = "JSFI18nProperties")
+#set ($templateApplicationI18nBundleJSF = "JSFI18nBundle")
 #set ($templateModelXhtmlDecoratorJSF = "JSFXhtmlDecorator")
 #set ($templateModelXhtmlPortletDecoratorJSF = "JSFXhtmlPortletDecorator")
 #set ($templateModelXhtmlMenuJSF = "JSFXhtmlMenu")
