@@ -23,16 +23,16 @@
     <p:growl id="growl" showDetail="true" />
 #if($isPieChart)
 #set($method="createPieModel")
-    <p:pieChart id="chart" value="#{${entityControllerJSFVariable}.createPieModel()}" legendPosition="w"
+    <p:chart type="pie" id="chart" value="#{${entityControllerJSFVariable}.createPieModel()}" legendPosition="w"
             title="Interactive Pie Chart" style="width:400px;height:300px">
         <p:ajax event="itemSelect" listener="#{${entityControllerJSFVariable}.itemSelect}" update="growl" />
-    </p:pieChart>
+    </p:chart>
 #elseif ($isBarChart)
 #set($method="createCategoryModel")
-    <p:barChart id="chart" value="#{${entityControllerJSFVariable}.createCategoryModel()}" legendPosition="ne"
+    <p:chart type="bar" id="chart" value="#{${entityControllerJSFVariable}.createCategoryModel()}" legendPosition="ne"
             title="Interactive Bar Chart" style="height:300px">
         <p:ajax event="itemSelect" listener="#{${entityControllerJSFVariable}.itemSelect}" update="growl" />
-    </p:barChart>
+    </p:chart>
 #end
 
 ##TODO idem jsfxhtmlSDDinput.vm
