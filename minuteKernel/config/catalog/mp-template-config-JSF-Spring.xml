@@ -87,17 +87,6 @@
 
   	<template-target 
     	name="i18n set"
-		outputdir="src/main/java"
-		belongToPackage="true">
-		<template name="JSFI18nBundle" templateFileName="JSFI18nBundle.vm" 
-			subdir="" outputsubdir="" technicalPackage="i18n"
-			file-extension="java" file-prefix="" file-suffix="" 
-			application-specific="true" has-updatable-nature="true">
-		</template>
-	</template-target>
-
-  	<template-target 
-    	name="i18n set"
 		outputdir="src/main/resources"
 		belongToPackage="true">
 			 
@@ -144,6 +133,12 @@
 		outputdir="src/main/java"
 		belongToPackage="true">
 			 
+		<template name="JSFI18nBundle" templateFileName="JSFI18nBundle.vm" 
+			subdir="" outputsubdir="" technicalPackage="i18n"
+			file-extension="java" file-prefix="" file-suffix="I18n" 
+			model-specific="true" has-updatable-nature="true">
+		</template>
+		
 		<template name="JSFUtils" templateFileName="JSFUtils.vm" 
 			subdir="" outputsubdir="" technicalPackage="utils"
 			file-extension="java" file-prefix="JsfUtils" file-suffix="" 
