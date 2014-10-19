@@ -26,7 +26,7 @@ import javax.faces.bean.ManagedProperty;
 #exposeChartSpecific()
 #if ($isChartLayout)
 import org.primefaces.event.ItemSelectEvent;
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.PieChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartSeries;
@@ -61,15 +61,15 @@ public class ${className} {
 
 #if ($isChartLayout)
 #if($isBarChart)
-    private CartesianChartModel categoryModel;  
+    private BarChartModel categoryModel;  
 
-    public CartesianChartModel getCategoryModel() {  
+    public BarChartModel getCategoryModel() {  
         return categoryModel;  
     }  
 
-    public CartesianChartModel createCategoryModel() {  
+    public BarChartModel createCategoryModel() {  
         execute();
-        categoryModel = new CartesianChartModel();  
+        categoryModel = new BarChartModel();  
 #foreach($column in $dimensions)
 #putColumnParamNaming()
 #set($dimVar = "${columnVar}$velocityCount")

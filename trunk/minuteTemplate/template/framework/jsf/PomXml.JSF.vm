@@ -301,7 +301,7 @@ $!updatedAreaEnd
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<primefaces.version>$primefacesVersion</primefaces.version>
 		<primefaces.theme.version>1.0.10</primefaces.theme.version>
-		<primefaces.extension.version>2.0.0.RC</primefaces.extension.version>
+		<primefaces.extension.version>2.1.0</primefaces.extension.version>
 		<poi.version>3.10-FINAL</poi.version>
 		<itext.version>4.2.1</itext.version>
 	</properties>

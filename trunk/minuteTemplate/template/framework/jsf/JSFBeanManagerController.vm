@@ -14,6 +14,7 @@
 package $packageName;
 
 $!updatedAreaImport
+import java.util.Locale;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +96,7 @@ import $importDomainObjectUML;
 #end
 public class ${className} implements java.io.Serializable{
 	
+	private Locale locale; //TODO put in super class
 	private LazyDataModel<$tableClassName> lazyModel;
 	private $entityLazyDataModelClass entityLazyDataModel;
 	
@@ -132,6 +134,7 @@ public class ${className} implements java.io.Serializable{
 	@PostConstruct
 	void initialiseSession() {
 	    FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	    locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 	}
 	
 	private $tableClassName $tableVariableName = new $tableClassName();
@@ -141,9 +144,6 @@ public class ${className} implements java.io.Serializable{
 #foreach ($reference in $presentationUtils.getDisplayableChildren($table))
 #putReferenceParams2()
 #if(!$linktableDB.isManyToMany())
-##	private ${linkedTableClass} associated${childrenListClass};
-##putGetterSetterAlt (${linkedTableClass} "Associated${childrenListClass}" "associated${childrenListClass}")
-##if($isSpringBackend)
 #if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
 #set($firstRelationshipOneToMany=true)
@@ -154,7 +154,6 @@ public class ${className} implements java.io.Serializable{
 	private Boolean refresh$childrenListClass=true;
 	//used as property listener
 	public void setRefresh${childrenListClass}(Boolean b) {
-##    	populate$childrenListVariable ();
 		refresh$childrenListClass=true;
     }
 	
@@ -169,8 +168,6 @@ public class ${className} implements java.io.Serializable{
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
 		    refresh$childrenListClass = false;
     		$linkedTableClass mask = new $linkedTableClass();
-##set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKey, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
-##    		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
 #if ($linkedColumn.type!=$primaryKeyFirstColumn.type)
 	        // cannot apply mask (type mismatch (link type = $linkedColumn.type and pk type = $primaryKeyFirstColumn.type))
 #set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKeyFirstColumn, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
@@ -193,8 +190,6 @@ public class ${className} implements java.io.Serializable{
 		if (selected${tableClassName}.get$primaryKeyJavaNameClass()!=null) {
 		    refresh$childrenListClass = false;
     		$linkedTableClass mask = new $linkedTableClass();
-##set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKey, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
-##    		mask.set${linkedColumnClass}_(selected${tableClassName}.get$primaryKeyJavaNameClass());
 #if ($linkedColumn.type!=$primaryKeyFirstColumn.type)
 	        // cannot apply mask (type mismatch (link type = $linkedColumn.type and pk type = $primaryKeyFirstColumn.type))
 #set($maskValue=$convertUtils.getJavaTypeCastExpression($primaryKeyFirstColumn, "selected${tableClassName}.get$primaryKeyJavaNameClass()", true))
@@ -207,12 +202,10 @@ public class ${className} implements java.io.Serializable{
 	}
 	
 #end
-##end remove isspringbackend
 #end
 
 #foreach ($linkReference in $enrichmentUtils.getLinkedTargetReferenceByMany2Many($table))
 #exposeM2MSpecific()
-##if($isSpringBackend)
 #if (!$hasFirstRelationship)
 #set($hasFirstRelationship=true)
 #set($firstRelationshipManyToMany=true)
@@ -222,7 +215,6 @@ public class ${className} implements java.io.Serializable{
 	private Boolean refresh$childrenListClass=true;
 	//used as property listener
 	public void setRefresh${childrenListClass}(Boolean b) {
-##    	populate$childrenListVariable ();
 		refresh$childrenListClass=true;
     }
 	private ${targetTableClassName} ${childrenListVariable}_;
@@ -330,105 +322,7 @@ public class ${className} implements java.io.Serializable{
         }
         return lazyModel;
     }
-#*
-    public LazyDataModel<$tableClassName> getLazyModel2() {
-    	if (lazyModel == null) {
-    		lazyModel = new LazyDataModel<$tableClassName>() {
-
-			     @Override
-			     public List<$tableClassName> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {
-                	QuerySortOrder order = QuerySortOrder.ASC;
-                	if (sortOrder == SortOrder.DESCENDING) {
-            			order = QuerySortOrder.DESC;     
-            		}
-					$tableClassName esMask = new $tableClassName();
-					esMask.mask(sortField);
-                	EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
-
-            		$tableClassName ecMask = new $tableClassName();
-            		ecMask.maskString(filters);
-            		EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
-
-            		QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
-            		${EJBDaoImplVariable}.find(data);
-            		List<$tableClassName> list = data.getResult();
-            		int count = data.getTotalResultCount().intValue();
-            		this.setRowCount(count);
-                    return list;
-				}
--- to suprress				
-                public Map<String, Object> getMap(Map<String, String> filters) {
-					Map<String, Object> result = new HashMap<String, Object>();
-                    for (Entry<String, String> set : filters.entrySet()) {
-                        result.put(set.getKey(), getEntry(set.getKey(), set.getValue()));
-                    }
-                    return this;
-                }
-                
-                public ${className} getEntry(String pattern, String value) {
-                    if(pattern==null) return null;
-#foreach ($column in ${table.columns})
-#putColumnParamNaming()
-#if ($columnUtils.isString($column) && !$isEnum && !$isForeignKey)
-#if ($isEmbedded && $tableUtils.isPartOfEmbeddedAnNotForeignKey($column))
-#set($columnClass=$columnClass+"_")
-#end
-                    if ("${columnVar}".equals(pattern))
-                       return value;
-#else
-#if($isEnum)
-            		if ("${columnVar}".equals(pattern))
-                       return value;
-#else
-#set($key=$convertUtils.getJavaTypeCastExpression($column, "value", $useTemporal))
-            		if ("${columnVar}".equals(pattern))
-                       return $key;
-#end
-#end
-#end
-                    return null;
-                }			
---- to suppress		 		
-				@Override
-				public void setRowIndex(final int rowIndex)
-				{
-		            if (rowIndex == -1 || getPageSize() == 0)
-		            {
-		               super.setRowIndex(-1);
-		            }
-		            else
-		            {
-		               super.setRowIndex(rowIndex % getPageSize());
-		            }
-				 }
-
-                @Override
-				//Strange why is the getRowData input a string and not an object
-                public $tableClassName getRowData(String rowKey) {
-					return serviceLoad(rowKey);
-                }
-
-                @Override
-                public Object getRowKey($tableClassName element) {
-#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
-#set($primaryKeyVariable = $formatUtils.firstUpperCase($primaryKeyVariable))
-                    // not fully supported! cannot transform row in composite pk
-				    return element.get${primaryKeyVariable}_();
-#else
-#if(!$columnUtils.isString($primaryKeyFirstColumn))
-                    if (element.get$primaryKeyJavaNameClass()==null)
-                        return null;
-                    return element.get$primaryKeyJavaNameClass().toString();
-#else
-                    return element.get$primaryKeyJavaNameClass();
-#end
-#end
-                }
-			};
-    	}
-    	return lazyModel;
-    }
- *# 
+ 
     public void reloadSelected() {
 ##if($columnUtils.isForeignKey($primaryKeyFirstColumn) || $columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
 #if ($hasOnlyOnePrimaryKey)
@@ -471,17 +365,17 @@ public class ${className} implements java.io.Serializable{
 #if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 	    	if (selected${tableClassName}.get$primaryKeyJavaNameClass() == null) {
 	    		${EJBDaoImplVariable}.create(selected${tableClassName});
-	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityCreated"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
+	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}",locale).getString("entityCreated"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 	    	} else {
 	    		${EJBDaoImplVariable}.update(selected${tableClassName});
-	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityUpdated"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
+	            ${modelJSFUtilsClass}.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}",locale).getString("entityUpdated"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 	    	}
 #end
 	    	selected${tableClassName} = new ${tableClassName}();
     	} catch (Exception e) {
 			System.out.println(">>>>> selected${tableClassName} = "+selected${tableClassName});
 			e.printStackTrace();
-			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
+			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}",locale).getString("PersistenceErrorOccured"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
         }
     }
 
@@ -502,7 +396,7 @@ public class ${className} implements java.io.Serializable{
             if (selected${tableClassName}.get$primaryKeyJavaNameClass() != null) {
 #if(!$deletionNotYetImplemented)
                 ${EJBDaoImplVariable}.delete(selected${tableClassName});
-                JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("entityDeleted"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
+                JsfUtils.addSuccessMessage(ResourceBundle.getBundle("${modelI18nJSFImport}",locale).getString("entityDeleted"), ${modelSemanticReferenceUtilsJSFClass}.getSemanticReference(selected${tableClassName}));
 #else
                 JsfUtils.addSuccessMessage("deletion not implemented for composite pk, please contribute");
 #end
@@ -514,7 +408,7 @@ public class ${className} implements java.io.Serializable{
 	       	selected${tableClassName} = new ${tableClassName}();
         } catch (Exception e) {
 			e.printStackTrace();
-			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}").getString("PersistenceErrorOccured"));
+			${modelJSFUtilsClass}.addErrorMessage(ResourceBundle.getBundle("${modelI18nJSFImport}",locale).getString("PersistenceErrorOccured"));
         }
     }
 	
