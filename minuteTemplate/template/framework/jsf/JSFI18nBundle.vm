@@ -1,4 +1,5 @@
-#exposeJSFApplicationSpecific()
+##exposeJSFApplicationSpecific()
+#exposeJSFModelSpecific()
 package ${packageName};
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class ${className} extends ResourceBundle {
     protected static final String BUNDLE_EXTENSION = "properties";
     protected static final Control UTF8_CONTROL = new UTF8Control();
 
-    public Text() {
+    public ${className}() {
         setParent(ResourceBundle.getBundle(BUNDLE_NAME, 
             FacesContext.getCurrentInstance().getViewRoot().getLocale(), UTF8_CONTROL));
     }

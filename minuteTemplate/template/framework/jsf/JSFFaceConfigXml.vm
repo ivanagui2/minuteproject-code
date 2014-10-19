@@ -19,18 +19,19 @@
         </el-resolver>
 #end
 		<resource-bundle>
-			<base-name>$modelI18nJSFImport</base-name>
+			<base-name>$modelI18nBundleJSFImport</base-name>
 			<var>i18n</var>
 		</resource-bundle>
 ##		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>		
 	</application>
 
+#*
     <managed-bean>
         <managed-bean-name>$modelBeanManagerMenuJSFVariable</managed-bean-name>
         <managed-bean-class>$modelBeanManagerMenuJSFImport</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-	
+*#	
 #foreach ($table in $model.businessModel.businessPackage.entities)	
 #if (!$table.isManyToMany())
 #exposeJSFEntitySpecific()	
