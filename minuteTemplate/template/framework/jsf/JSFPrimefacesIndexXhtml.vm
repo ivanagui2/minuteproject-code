@@ -1,4 +1,4 @@
-#exposeJSFModelSpecific()
+#exposeJSFApplicationSpecific()
 #exposePrimefacesConfig()
 #exposeSourcecode()
 #set($title="$model.name jsf web")
