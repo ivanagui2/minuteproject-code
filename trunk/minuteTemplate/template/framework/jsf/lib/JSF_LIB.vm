@@ -158,6 +158,7 @@
 #set ($modelI18nJSFImport = $commonUtils.getModelLevelTemplateFullPath($application, $template, $templateApplicationI18nJSF))
 #set ($modelI18nBundleJSFImport = $commonUtils.getModelLevelTemplateFullPath($application, $template, $templateApplicationI18nBundleJSF))
 #set ($modelIndexJSFImport = $commonUtils.getArtifactRootPathDirAndFullName($application, $template, $templateIndexXhtmlMenuJSF))
+#set ($modelDecoratorJSFImport = $commonUtils.getArtifactRelativePathDirAndFullName($application, $template, $templateModelXhtmlDecoratorJSF))
 #end
 
 #macro (exposeJSFAppFwkSpecific)
