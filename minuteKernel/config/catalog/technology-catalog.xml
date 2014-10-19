@@ -397,7 +397,7 @@
 			</frameworks>
 		</technology>
 
-		<technology name="KendoUI" model-type="rdbms"
+		<technology name="KendoUI" model-type="rdbms" is-generable="false"
 			template-config-file-name="mp-template-config-kendoui.xml"
 			default-outputdir="REST-kendoui" template-dir="@templateRoot@/framework/kendoui"
 			status="draft" description="Generates kendoui html, css, js and rest client">
