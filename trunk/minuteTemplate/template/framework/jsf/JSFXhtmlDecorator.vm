@@ -41,7 +41,7 @@
     </p:layoutUnit>
     <p:layoutUnit position="south" size="120" header="Disclaimer" resizable="true" closable="true" collapsible="true"><br/>  
         <h:outputText value="This is a sample website " /><a href="http://minuteproject.sf.net">Powered by minuteproject</a> version $minuteprojectUtils.version - $minuteprojectUtils.buildDate<br/>  
-        <h:outputText value="Follow " /><a href="https://twitter.com/minuteproject">@minuteproject</a><br/> 
+		<a href="https://twitter.com/minuteproject" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @minuteproject</a>
         <h:outputText value="Model $generatorBean.name - $version - " />Application build time : $formatUtils.displayCurrentTime()
     </p:layoutUnit>  
   </p:layout>
