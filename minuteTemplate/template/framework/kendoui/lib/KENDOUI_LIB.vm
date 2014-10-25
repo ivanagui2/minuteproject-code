@@ -64,6 +64,7 @@
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
+	<input type="checkbox" /> 
 ##	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
 #else
 ## textarea

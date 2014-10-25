@@ -30,8 +30,8 @@ MetaApplication metaApplication = MetaApplications.getMetaApplication(applicatio
 	<td>${generatorBean.name} application brought to you by <a href="http://minuteproject.sf.net">Minuteproject</a> for <a href="http://openxava.org">Openxava</a> generation</td>
 </tr>
 <tr>
-	<td><img src="../naviox/images/point2.png" class="feature-image"/></td>
-	<td>Follow <a href="https://twitter.com/minuteproject">@minuteproject</a><br/> </td>	
+	<td><img src="../naviox/images/point2.png" class="feature-image"/></td>	
+	<td><a href="https://twitter.com/minuteproject" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @minuteproject</a> </td>	
 </tr>
 
 </table>
