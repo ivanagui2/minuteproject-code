@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -70,7 +71,7 @@ import net.sf.minuteProject.model.service.GenericService;
  * <p>Description: REST entity controller ${className} </p>
  *
  */
-@Path("/data/entity/${tableClassName}")
+@Path("/entity/${tableClassName}")
 @Produces(MediaType.APPLICATION_JSON)
 public class $className {
 
@@ -85,10 +86,10 @@ public class $className {
     @GET
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
-    public QueryData<$tableClassName> find(@PathParam("sortOrder") String sortOrder,
-                                    @PathParam("sortField") String sortField,
-                                    @PathParam("first") int first,
-                                    @PathParam("pageSize") int pageSize
+    public QueryData<$tableClassName> find(@QueryParam("sortOrder") String sortOrder,
+                                    @QueryParam("sortField") String sortField,
+                                    @QueryParam("first") int first,
+                                    @QueryParam("pageSize") int pageSize
                     ) throws Exception {
         QuerySortOrder order = QuerySortOrder.ASC;
         /*
@@ -107,6 +108,11 @@ public class $className {
         QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
         ${BslaDaoInterfaceVariable}.find(data);
         List<$tableClassName> list = data.getResult();
+        List<$tableClassName> listDetached = new ArrayList<$tableClassName>();
+        for ($tableClassName element : list) {
+        	listDetached.add(element.clone());
+        }
+        data.setResult(listDetached);
         int count = data.getTotalResultCount().intValue();
         return data;
     }
