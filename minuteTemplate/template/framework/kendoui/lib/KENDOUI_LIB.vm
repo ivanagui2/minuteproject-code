@@ -69,8 +69,7 @@
 #else
 ## textarea
 #if($presentationUtils.isTextArea($column))
-##	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" width="$column.sizeAsInt" 
-##        counterTemplate="{0} characters remaining." autoResize="false"
+	<textarea type="text" id="$fieldId" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: 200px;" ></textarea> 
 #elseif($presentationUtils.isRichText($column))
 ##	<p:editor
 	<input type="text" id="$fieldId" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" /> 
@@ -101,7 +100,6 @@ $("#${fieldId}").kendoNumericTextBox();
 #if($columnUtils.isTimeColumn($column))
 $("#${fieldId}").kendoDatePicker();
 #else
-
 #if($columnUtils.isBoolean($column))
 #else
 #if($presentationUtils.isTextArea($column))

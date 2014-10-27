@@ -101,9 +101,6 @@ public abstract class ${className} <T, S extends GenericService> implements java
 	void initialiseSession() {
 	    FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	}
-	
-##	private T t = new T();
-##	private T selectedT = new T();
 
     public List<T> findAll () {
 		return getService().findAll(t);
