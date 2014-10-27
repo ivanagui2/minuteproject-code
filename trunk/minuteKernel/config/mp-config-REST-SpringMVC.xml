@@ -69,6 +69,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
             </statement-model>
 		</model>	
 		<targets catalog-entry="REST-SpringMVC" >
+			<property name="target-server" value="tomcat"/>
 		</targets>
 	</configuration>
 </generator-config>
