@@ -96,7 +96,8 @@
 			name="RESTDbAPIEntityResource" templateFileName="RESTDbAPIEntityResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest" 
 			file-extension="java" file-prefix="" file-suffix="GenericResource" 
-			entity-specific="true" >
+			entity-specific="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 		
 	</template-target>

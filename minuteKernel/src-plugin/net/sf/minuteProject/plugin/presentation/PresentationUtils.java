@@ -242,4 +242,16 @@ public class PresentationUtils {
 		}
 		return columns;
 	}
+	
+	public static int getTextAreaDisplayColumns(Column column) {
+		if (isTextArea(column))
+			return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA);
+		return PresentationUtils.getDisplayColumns(column);
+	}
+
+	public static int getTextAreaDisplayRows(Column column) {
+		if (isTextArea(column))
+			return MAX_ROWS_DISPLAY_SIZE_TEXTAREA;
+		return PresentationUtils.getDisplayRows(column);
+	}
 }
