@@ -15,6 +15,12 @@
 			file-extension="xml" technicalPackage="" file-suffix="web" 
 			application-specific="true" add-model-name="false" >
 		</template>
+			 
+		<template name="JerseySpringApplicationContextXml" templateFileName="SpringApplicationContextXml-template.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" >
+			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
+		</template>
 
     </template-target>
       	
