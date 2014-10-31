@@ -92,11 +92,10 @@ public class $className {
                                     @QueryParam("pageSize") int pageSize
                     ) throws Exception {
         QuerySortOrder order = QuerySortOrder.ASC;
-        /*
-        if (sortOrder == SortOrder.DESCENDING) {
+        if (QuerySortOrder.DESC.toString().equals(sortOrder)) {
             order = QuerySortOrder.DESC;
         }
-        */
+
         $tableClassName esMask = new $tableClassName();
         esMask.mask(sortField);
         EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);

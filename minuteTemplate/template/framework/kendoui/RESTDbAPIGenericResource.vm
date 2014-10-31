@@ -35,6 +35,7 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import net.sf.minuteProject.model.dao.GenericDao;
 import net.sf.minuteProject.model.data.criteria.EntityCriteria;
 import net.sf.minuteProject.model.data.criteria.EntitySort;
 import net.sf.minuteProject.model.data.criteria.QueryData;
@@ -66,22 +67,24 @@ import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
  * <p>Description: Generic controller ${className} </p>
  *
  */
-public abstract class ${className} <T extends AbstractDomainObject, S extends GenericService> implements java.io.Serializable{
+public abstract class ${className} <T extends AbstractDomainObject, S extends GenericDao<T>> implements java.io.Serializable{
 
 	protected abstract S getService();
 	protected abstract T getInstance();
+	protected abstract T getElement(T t);
 
+    @GET
+    @Path("/find")
+    @Produces(MediaType.APPLICATION_JSON)
 	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
-                                    @PathParam("sortField") String sortField,
-                                    @PathParam("first") int first,
-                                    @PathParam("pageSize") int pageSize
-                    ) throws Exception {
+                             @PathParam("sortField") String sortField,
+                             @PathParam("first") int first,
+                             @PathParam("pageSize") int pageSize) throws Exception {
         QuerySortOrder order = QuerySortOrder.ASC;
-        /*
-        if (sortOrder == SortOrder.DESCENDING) {
+        if (QuerySortOrder.DESC.toString().equals(sortOrder)) {
             order = QuerySortOrder.DESC;
         }
-        */
+
         T esMask = getInstance();
         //esMask.mask(sortField);
         EntitySort<T> es = new EntitySort<T>(esMask, order);
@@ -93,6 +96,11 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
         QueryData<T> data = new QueryData<T>(first, pageSize, es, ec);
         getService().find(data);
         List<T> list = data.getResult();
+        List<T> listDetached = new ArrayList<T>();
+        for (T element : list) {
+            listDetached.add(getElement(element));
+        }
+        data.setResult(listDetached);
         int count = data.getTotalResultCount().intValue();
         return data;
     }
