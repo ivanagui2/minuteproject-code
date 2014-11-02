@@ -1,3 +1,4 @@
+#exposeRestDbApiDomainObject()
 #exposeBackendTechnology()
 #putJPA2TemplateDefinition()
 #if($isSpringBackend)
@@ -62,27 +63,44 @@ import $EJBDaoImplImport;
 
 #end
 import $importDomainObjectUML;
+import $RESTDbAPIGenericResourceImport;
 import net.sf.minuteProject.model.service.GenericService;
 #exposeJPA2Import()
 /**
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: REST entity controller ${className} </p>
+ * <p>Description: REST entity resource ${className} </p>
  *
  */
 @Path("/entity/${tableClassName}")
 @Produces(MediaType.APPLICATION_JSON)
-public class $className {
+public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName, $BslaDaoInterfaceClass> {
 
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$BslaDaoInterfaceVariable")	
 #elseif($isEJBBackend)
-	@EJB// (name="$BslaDaoInterfaceVariable")	
+	@EJB ## (name="$BslaDaoInterfaceVariable")	
 #end
 	${BslaDaoInterfaceClass} $BslaDaoInterfaceVariable;
 
+    @Override
+    protected $BslaDaoInterfaceClass getService() {
+        return $BslaDaoInterfaceVariable;  
+    }
+
+    @Override
+    protected $tableClassName getInstance() {
+        return new $tableClassName();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    protected $tableClassName getElement($tableClassName element) {
+        return element.clone();
+    }
+
+#*
     @GET
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
@@ -115,6 +133,7 @@ public class $className {
         int count = data.getTotalResultCount().intValue();
         return data;
     }
+*#
 
 $!updatedAreaImplementation
 }
