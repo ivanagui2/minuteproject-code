@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -76,10 +77,10 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     @GET
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
-	public QueryData<T> find(@PathParam("sortOrder") String sortOrder,
-                             @PathParam("sortField") String sortField,
-                             @PathParam("first") int first,
-                             @PathParam("pageSize") int pageSize) throws Exception {
+	public QueryData<T> find(@QueryParam("sortOrder") String sortOrder,
+                             @QueryParam("sortField") String sortField,
+                             @QueryParam("first") int first,
+                             @QueryParam("pageSize") int pageSize) throws Exception {
         QuerySortOrder order = QuerySortOrder.ASC;
         if (QuerySortOrder.DESC.toString().equals(sortOrder)) {
             order = QuerySortOrder.DESC;

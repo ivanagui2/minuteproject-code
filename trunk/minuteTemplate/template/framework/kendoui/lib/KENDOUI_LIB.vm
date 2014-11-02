@@ -176,3 +176,13 @@ $("#${fieldId}").kendoDatePicker();
 #set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateEntitySearchGridList))
 #end
 
+#macro (exposeRestDbApiDomainObject)
+#exposeDbApiRestTemplate()
+#set ($RESTDbAPIGenericResourceClass = $commonUtils.getTemplateClassName($model, $template, $templateRESTDbApiGenericResource))
+#set ($RESTDbAPIGenericResourceImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateRESTDbApiGenericResource))
+#end
+
+#macro (exposeDbApiRestTemplate)
+#set($templateRESTDbApiGenericResource="RESTDbAPIGenericResource")
+#end
+
