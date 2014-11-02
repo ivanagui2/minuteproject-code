@@ -20,10 +20,6 @@ public abstract class AbstractDomainObject implements DomainObject {
 	 	return  ToStringBuilder.reflectionToString(object);
 	} 
 	
-//	public int hashCode () {
-//		return this.hashCode();
-//	}
-	
 	public int toHashCode(Object object) {
 	 	return HashCodeBuilder.reflectionHashCode(object);
 	}
@@ -34,15 +30,7 @@ public abstract class AbstractDomainObject implements DomainObject {
 	
     public abstract boolean equalsMask(Object object) ;
     
-	private Long count__;
-
-	public long getCount__() {
-		return (count__==null)?1:count__;
-	}
-
-	public void setCount__(long count) {
-		this.count__ = count;
-	}
+    public abstract AbstractDomainObject clone() ;
 	
 	public final static Timestamp     timestampMask__    = new java.sql.Timestamp(new java.util.Date().getTime());
 	public final static String        stringMask__       = new String();

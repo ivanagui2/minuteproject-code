@@ -11,8 +11,11 @@ public class EntityCriteria<T extends AbstractDomainObject> {
 	private final OperandType operandType;
 	private final Boolean caseSensitivenessType;
 	
-	public EntityCriteria(T entity, EntityMatchType matchType,
-			OperandType operandType, Boolean caseSensitivenessType) {
+	public EntityCriteria(
+			T entity, 
+			EntityMatchType matchType,
+			OperandType operandType, 
+			Boolean caseSensitivenessType) {
 		super();
 		this.entity = entity;
 		this.matchType = matchType;
