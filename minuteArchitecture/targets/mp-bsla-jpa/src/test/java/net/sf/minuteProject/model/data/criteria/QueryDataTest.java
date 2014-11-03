@@ -94,6 +94,12 @@ public class QueryDataTest {
 			if ((dummyDo.something!=null && something==null) || (dummyDo.something==null && something!=null)) return false;
 			return true;
 		}
+
+		@Override
+		public AbstractDomainObject clone() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 }
