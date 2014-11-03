@@ -40,17 +40,19 @@ $(function () {
     },
 	transport: {
      read: {
-      //url: "data/entity/${tableVariableName}/list",
-      url: "http://localhost:8080/test/data/entity/${tableVariableName}/list",
+##      url: "../../data/entity/${tableClassName}/find", //todo inject url
+      url: "data/entity/${tableClassName}/find",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       cache: false
      }
     },
     schema: {
-     data: "data",
-     total: "total",
-     errors: "error"
+     data: "result",
+     total: function(data) {
+         return data.totalResultCount;
+     }
+##     errors: "error"
     },
 #*
     sort: {
@@ -144,12 +146,12 @@ $(function () {
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
      {
-      template: kendo.template($("#grid-template-$column.alias").html()),
+##      template: kendo.template($("#grid-template-$column.alias").html()),
       title: '$column.alias',
 ##if($isLengthPrecisionColumn)     
 ##		width:$column.size,
 ##end
-      headerAttributes: "$columnVar"
+      field: "$columnVar"
 ##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
 ##///filterable: false
      }
