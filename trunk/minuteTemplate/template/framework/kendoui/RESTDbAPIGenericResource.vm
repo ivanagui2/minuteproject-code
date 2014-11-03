@@ -13,6 +13,9 @@
 package $packageName;
 
 $!updatedAreaImport
+
+import com.wordnik.swagger.annotations.*;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +80,7 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     @GET
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value="Find entity with pagination")
 	public QueryData<T> find(@QueryParam("sortOrder") String sortOrder,
                              @QueryParam("sortField") String sortField,
                              @QueryParam("first") int first,
