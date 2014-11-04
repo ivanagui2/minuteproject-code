@@ -30,6 +30,8 @@ public abstract class AbstractDomainObject implements DomainObject {
 	
     public abstract boolean equalsMask(Object object) ;
     
+    public abstract void mask(String field) ;
+    
     public abstract AbstractDomainObject clone() ;
 	
 	public final static Timestamp     timestampMask__    = new java.sql.Timestamp(new java.util.Date().getTime());
