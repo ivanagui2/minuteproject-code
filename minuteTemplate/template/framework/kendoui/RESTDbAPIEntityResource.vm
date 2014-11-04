@@ -100,7 +100,8 @@ public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName,
 
     @Override
     protected $tableClassName getElement($tableClassName element) {
-        return element.clone();
+        return element.flat(); 
+##   // clone() might trigger lazy instantiations.
     }
 
 #*
