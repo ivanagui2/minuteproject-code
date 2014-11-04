@@ -30,7 +30,7 @@ public abstract class AbstractDomainObject implements DomainObject {
 	
     public abstract boolean equalsMask(Object object) ;
     
-    public abstract void mask(String field) ;
+    public abstract AbstractDomainObject mask(String field) ;
     
     public abstract AbstractDomainObject clone() ;
 	
