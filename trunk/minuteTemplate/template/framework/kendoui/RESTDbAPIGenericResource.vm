@@ -81,17 +81,23 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value="Find entity with pagination")
-	public QueryData<T> find(@QueryParam("sortOrder") String sortOrder,
-                             @QueryParam("sortField") String sortField,
+	public QueryData<T> find(@QueryParam("sort[0][dir]") String sortOrder,
+                             @QueryParam("sort[0][field]") String sortField,
+                             @QueryParam("take") int take, //kendoui specific
+                             @QueryParam("skip") int skip, //kendoui specific
                              @QueryParam("first") int first,
                              @QueryParam("pageSize") int pageSize) throws Exception {
+        //kendoui specific
+        if (take!=0 && skip!=0) {
+            first = skip;
+        }
         QuerySortOrder order = QuerySortOrder.ASC;
         if (QuerySortOrder.DESC.toString().equals(sortOrder)) {
             order = QuerySortOrder.DESC;
         }
 
         T esMask = getInstance();
-        //esMask.mask(sortField);
+        esMask.mask(sortField);
         EntitySort<T> es = new EntitySort<T>(esMask, order);
 
         T ecMask = getInstance();

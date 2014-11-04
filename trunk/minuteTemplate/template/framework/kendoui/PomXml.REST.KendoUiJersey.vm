@@ -15,11 +15,11 @@
     <dependencies>
         <dependency>
             <groupId>${groupId}</groupId>
-#if($isEJBBackend)
+            #if($isEJBBackend)
                 <artifactId>${generatorBean.name}Bela</artifactId>
-#else
+            #else
                 <artifactId>${generatorBean.name}Bsla</artifactId>
-#end     
+            #end     
             <version>${version}-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -34,44 +34,44 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-#*
+        #*
         <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>${cxf.version}</version>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        <version>${cxf.version}</version>
         </dependency>
-*#
+        *#
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>${jersey.version}</version>
-#if(!$isTomcatTargetServer)
-	        <exclusions>
-              <exclusion>
-                  <artifactId>javax.ws.rs-api</artifactId>
-                  <groupId>javax.ws.rs</groupId>
-              </exclusion>
-	        </exclusions>
-#end
-#if($isGlassfishTargetServer)
-                <scope>provided</scope>
-#end            
+        <groupId>org.glassfish.jersey.core</groupId>
+        <artifactId>jersey-server</artifactId>
+        <version>${jersey.version}</version>
+        #if(!$isTomcatTargetServer)
+        <exclusions>
+        <exclusion>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <groupId>javax.ws.rs</groupId>
+        </exclusion>
+        </exclusions>
+        #end
+        #if($isGlassfishTargetServer)
+        <scope>provided</scope>
+        #end            
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>${jersey.version}</version>
-#if(!$isTomcatTargetServer)
-	        <exclusions>
-              <exclusion>
-                  <artifactId>javax.ws.rs-api</artifactId>
-                  <groupId>javax.ws.rs</groupId>
-              </exclusion>
-	        </exclusions>
-#end
-#if($isGlassfishTargetServer)
-                <scope>provided</scope>
-#end            
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-servlet-core</artifactId>
+        <version>${jersey.version}</version>
+        #if(!$isTomcatTargetServer)
+        <exclusions>
+        <exclusion>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <groupId>javax.ws.rs</groupId>
+        </exclusion>
+        </exclusions>
+        #end
+        #if($isGlassfishTargetServer)
+        <scope>provided</scope>
+        #end            
         </dependency>
         <!-- swagger -->
         <dependency>
@@ -89,33 +89,32 @@
                 </exclusion>
             </exclusions>
         </dependency>
-#if($isSpringBackend)
-        <dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring3</artifactId>
-            <version>2.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-#end        
+        #if($isSpringBackend)
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-spring3</artifactId>
+                <version>2.6</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        #end        
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-
     </dependencies>
     <build>
         <finalName>${generatorBean.name}KendoUiApp</finalName>
