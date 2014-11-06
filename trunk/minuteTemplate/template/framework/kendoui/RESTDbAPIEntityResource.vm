@@ -103,41 +103,55 @@ public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName,
         return element.flat(); 
 ##   // clone() might trigger lazy instantiations.
     }
-
-#*
-    @GET
-    @Path("/find")
-    @Produces(MediaType.APPLICATION_JSON)
-    public QueryData<$tableClassName> find(@QueryParam("sortOrder") String sortOrder,
-                                    @QueryParam("sortField") String sortField,
-                                    @QueryParam("first") int first,
-                                    @QueryParam("pageSize") int pageSize
-                    ) throws Exception {
-        QuerySortOrder order = QuerySortOrder.ASC;
-        if (QuerySortOrder.DESC.toString().equals(sortOrder)) {
-            order = QuerySortOrder.DESC;
-        }
-
-        $tableClassName esMask = new $tableClassName();
-        esMask.mask(sortField);
-        EntitySort<$tableClassName> es = new EntitySort<$tableClassName>(esMask, order);
-
-        $tableClassName ecMask = new $tableClassName();
-        //ecMask.mask(filters);
-        EntityCriteria<$tableClassName> ec = new EntityCriteria<$tableClassName>(ecMask, EntityMatchType.ALL, OperandType.CONTAINS, false);
-
-        QueryData<$tableClassName> data = new QueryData<$tableClassName>(first, pageSize, es, ec);
-        ${BslaDaoInterfaceVariable}.find(data);
-        List<$tableClassName> list = data.getResult();
-        List<$tableClassName> listDetached = new ArrayList<$tableClassName>();
-        for ($tableClassName element : list) {
-        	listDetached.add(element.clone());
-        }
-        data.setResult(listDetached);
-        int count = data.getTotalResultCount().intValue();
-        return data;
+    
+#if ($hasOnlyOnePrimaryKey)
+#exposeEntityUpdatedAreas("FIND_BY_ID")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+	@GET
+	@Path(value = "/{$primaryKeyVariable}")
+    public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
+        $tableClassName _$tableVariableName = new $tableClassName ();
+		_${tableVariableName}.set${primaryKeyJavaNameClass}($primaryKeyVariable);
+		_$tableVariableName = ${BslaDaoInterfaceVariable}.getFirst$tableClassName(_$tableVariableName);
+		if (_$tableVariableName!=null) return _${tableVariableName}.flat();
+		return new $tableClassName ();
     }
-*#
+#end
+$!updatedAreaEnd
+#end
+
+#if ($hasOnlyOnePrimaryKey)
+	@DELETE
+    @Path(value = "/{$primaryKeyVariable}")
+    public String delete (@PathVariable ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
+        $tableClassName _$tableVariableName = new $tableClassName ();
+        _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
+        getService().delete(_$tableVariableName);
+		return "OK";
+    }
+
+#end
+
+	@POST
+	public $tableClassName save (
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+        @QueryParam("$columnVar") $columnType $columnVar #if ($velocityCount!=$table.columnCount),
+#end
+#end
+        ) throws IOException {
+        $tableClassName _$tableVariableName = new $tableClassName (
+#foreach ($column in ${table.columns})
+#putColumnParamNaming()
+           $columnVar#if ($velocityCount!=$table.columnCount),
+#end
+#end	   
+);
+        return getService().save(_$tableVariableName);
+    }
 
 $!updatedAreaImplementation
 }

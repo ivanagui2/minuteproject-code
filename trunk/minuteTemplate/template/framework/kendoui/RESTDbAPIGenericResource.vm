@@ -116,5 +116,6 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
         return data;
     }
 
+
 $!updatedAreaImplementation
 }
