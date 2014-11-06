@@ -125,7 +125,7 @@ $(function () {
    pageable: {
      refresh: true,
      pageSizes: 10, ##$kendoUiUtils.pageSizes,
-     pageSize: 10, ##$kendoUiUtils.pageSize,
+     pageSize: $kendoUiUtils.pageSize(),
      buttonCount: true,##$kendoUiUtils.buttonCount,
      messages: {
       display: "entity $table.alias" ,##"$kendoUiUtils.getPageableMessageDisplay($table)",
@@ -148,9 +148,9 @@ $(function () {
      {
 ##      template: kendo.template($("#grid-template-$column.alias").html()),
       title: '$column.alias',
-##if($isLengthPrecisionColumn)     
-##		width:$column.size,
-##end
+#if($isLengthPrecisionColumn)     
+      width:$column.size,
+#end
       field: "$columnVar"
 ##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
 ##///filterable: false
