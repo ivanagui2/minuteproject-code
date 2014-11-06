@@ -62,7 +62,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                          <query-what><value></value></query-what>
                          <query-where><value></value></query-where>
                          <query-params>
-                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="1"></query-param>
+                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="-1"></query-param>
                          </query-params>
                      </query>
                  </queries>
