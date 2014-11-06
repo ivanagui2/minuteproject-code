@@ -1,3 +1,4 @@
+#exposeBackendTechnology()
 #exposeQuerySpecific()
 #exposeSDDSpring()
 #exposeRESTSDDURLServer()
@@ -7,6 +8,9 @@
 package $packageName;
 
 $!updatedAreaImport
+
+import com.wordnik.swagger.annotations.*;
+
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -37,6 +41,7 @@ import $EJBDaoImplImport;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -64,9 +69,9 @@ import $sddDaoInterfaceImport;
  * <p>Description: class for ${className} service </p>
  *
  */
-@Path("/sdd/${tableClassName}")
+@Path("/sdd/${sddInputBeanClass}")
 @Produces(MediaType.APPLICATION_JSON)
-@Api(value="/sdd/${tableClassName}", description = "operation about ${tableClassName}")
+@Api(value="/sdd/${sddInputBeanClass}", description = "operation about ${sddInputBeanClass}")
 public class ${className} {
 
 #if ($isSpringBackend)
@@ -86,7 +91,7 @@ $!updatedAreaSnippet
     public $sddOutputBeanCollectionClass execute (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        @RequestParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
+        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
     ) {
