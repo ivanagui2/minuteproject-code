@@ -106,6 +106,13 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
 		
+		<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Resource" 
+			scope-specific-value="query" has-updatable-nature="true">
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>
+		
 	</template-target>
 	
   	<template-target 
