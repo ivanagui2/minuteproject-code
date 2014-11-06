@@ -149,7 +149,7 @@ $(function () {
 ##      template: kendo.template($("#grid-template-$column.alias").html()),
       title: '$column.alias',
 #if($isLengthPrecisionColumn)     
-      width:$column.size,
+##      width:$column.size,
 #end
       field: "$columnVar"
 ##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount

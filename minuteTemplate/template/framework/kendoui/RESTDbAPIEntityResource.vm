@@ -126,7 +126,7 @@ $!updatedAreaEnd
 #if ($hasOnlyOnePrimaryKey)
 	@DELETE
     @Path(value = "/{$primaryKeyVariable}")
-    public String delete (@PathVariable ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
+    public String delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
         $tableClassName _$tableVariableName = new $tableClassName ();
         _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
         getService().delete(_$tableVariableName);
@@ -142,7 +142,7 @@ $!updatedAreaEnd
         @QueryParam("$columnVar") $columnType $columnVar #if ($velocityCount!=$table.columnCount),
 #end
 #end
-        ) throws IOException {
+        ) {
         $tableClassName _$tableVariableName = new $tableClassName (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
@@ -150,7 +150,8 @@ $!updatedAreaEnd
 #end
 #end	   
 );
-        return getService().save(_$tableVariableName);
+        getService().save(_$tableVariableName);
+        return _${tableVariableName}.flat();
     }
 
 $!updatedAreaImplementation
