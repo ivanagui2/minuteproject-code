@@ -1,9 +1,9 @@
-#exposeJSFModelSpecific()
 #exposeSeparator()
-#exposePrimefacesConfig()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
 #exposeQuerySpecific()
+#set($table=$inputBean)
+#asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
 #set ($tableVariableName = $commonUtils.getJavaNameVariableFirstLetter($inputClass))
 #set($tableDB = $inputBean)
@@ -20,17 +20,18 @@
 </head>
 <body>
     
-   <div id="example">
+   <div id="${tableVariableName}">
    <div class="demo-section k-header">
-   		<form id="form-${tableVariableName}">
+   		<form id="form-${tableVariableName}" action="/data/sdd/${tableVariableName}" >
         <h3>${tableVariableName}</h3>
             <ul>
-            
+#*            
 #foreach($column in $inputBean.columns)
 #putColumnParams()
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
+*#
 <!-- -->
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -53,19 +54,35 @@
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
-
+            </ul>
+        </form>
+            <!-- button action -->
+        <p>
+            <button id="action" class="k-primary">Execute</button>
+        </p>
+        </div>
+      </div>
 <!-- kendo js scripts -->
 <script>
 $(document).ready(function() {
-#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
-#foreach ($column in $columnGroup)
+#foreach($column in $inputBean.columns)
 #putColumnParams()
 #columnJavaNaming()
 #putKendoJsColumnSnippet($tableVariableName $tableVariableName)
 #end
-#end
+    $("#action").kendoButton();
+	$("#action").click(function(e) {     
+##          if (validator.validate()) {
+                var formContent = $("#form-${tableVariableName}").serialize();
+                var url = $("#form-${tableVariableName}").attr('action');
+                $.get(url, formContent).done(function(data) {
+                      $(document.body).append("<div class='savedRecordMessage'>success</div>");
+                });
+##           }
+     });
 });
 </script>
+
 </body>
 </html>
 
