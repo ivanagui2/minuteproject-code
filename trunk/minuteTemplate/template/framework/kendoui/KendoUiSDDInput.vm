@@ -62,6 +62,18 @@
         </p>
         </div>
       </div>
+
+      <div>
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+      	<p:column sortBy="#{${sddOutputBeanVariable}.${columnVar}}" filterBy="#{${sddOutputBeanVariable}.${columnVar}}">  
+           <f:facet name="header">  
+              <h:outputText value="#{i18n.$sddOutputBeanVariable$separator$columnVar}" />  
+           </f:facet>  
+           <h:outputText value="#{${sddOutputBeanVariable}.${columnVar}}" />  
+        </p:column>  
+#end
+	</div>
 <!-- kendo js scripts -->
 <script>
 $(document).ready(function() {
@@ -73,11 +85,11 @@ $(document).ready(function() {
     $("#action").kendoButton();
 	$("#action").click(function(e) {     
 ##          if (validator.validate()) {
-                var formContent = $("#form-${tableVariableName}").serialize();
-                var url = $("#form-${tableVariableName}").attr('action');
-                $.get(url, formContent).done(function(data) {
-                      $(document.body).append("<div class='savedRecordMessage'>success</div>");
-                });
+        var formContent = $("#form-${tableVariableName}").serialize();
+        var url = $("#form-${tableVariableName}").attr('action');
+        $.get(url, formContent).done(function(data) {
+           $(document.body).append("<div class='savedRecordMessage'>success</div>");
+        });
 ##           }
      });
 });
