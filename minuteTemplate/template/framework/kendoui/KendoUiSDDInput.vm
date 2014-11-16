@@ -22,7 +22,7 @@
     
    <div id="${tableVariableName}">
    <div class="demo-section k-header">
-   		<form id="form-${tableVariableName}" action="/data/sdd/${tableVariableName}" >
+   		<form id="form-${tableVariableName}" >
         <h3>${tableVariableName}</h3>
             <ul>
 #*            
@@ -81,60 +81,62 @@ $(document).ready(function() {
 ##          if (validator.validate()) {
         var formContent = $("#form-${tableVariableName}").serialize();
         var url = $("#form-${tableVariableName}").attr('action');
-        $.get(url, formContent).done(function(data) {
-           $(document.body).append("<div class='savedRecordMessage'>success</div>");
-        });
+        //$.get(url, formContent).done(function(data) {
+        //   $(document.body).append("<div class='savedRecordMessage'>success</div>");
+        //});
 ##           }
-##     });
+     });
      
      
-        number = kendo.toString(this.get("number"));
-        text = kendo.toString(this.get("text"));
+     //number = kendo.toString(this.get("number"));
+     //text = kendo.toString(this.get("text"));
         
-        apDatasourceUrl = apDatasourceUrl+"?dg="+dg+"&amp;year="+year+"&amp;number="+number+"&amp;startDate="+startDate+"&amp;endDate="+endDate+"&amp;text="+text;
-        //alert("Search will start with REST DS params : "+apDatasourceUrl);
+     //dataSourceUrl = dataSourceUrl+"?dg="+dg+"&amp;year="+year+"&amp;number="+number+"&amp;startDate="+startDate+"&amp;endDate="+endDate+"&amp;text="+text;
+     //alert("Search will start with REST DS params : "+dataSourceUrl);
 
 		// Check that the grid is not already bind to the datasource otherwise
 		// there will be problem of data sync
 		// if datasource and grid are already instanciated then just rewrite the URL and re-read the datasource then refresh the grid
-		if (apDataSource==null) {
-			apDataSource = new kendo.data.DataSource({
-				error: function (e) {
-			        if (e.errors !== false) {
-			            alert("Error opening Agenda Planning datasource: " + e.errors);
-			            $('#apList').data("kendoGrid").cancelChanges();
-			            $('#apList').data("kendoGrid").clearSelection();
-			        }
-			    },
-				transport: {
-  					read: {
-      					url: apDatasourceUrl,
-      					dataType: "json",
-      					contentType: "application/json; charset=utf-8",
-      					cache: false
-  					}
-         		},
-				schema: { 
-					data: "data",
-					total: "total",
-					errors: "error",
-				    parse: function (d) {
-				        return d;
-				    }	
-     			},
-     			requestStart: function () {
+	var dataSourceUrl = "/data/sdd/${tableClassName}In";
+	var dataSource;
+	if (dataSource==null) {
+		dataSource = new kendo.data.DataSource({
+			error: function (e) {
+		        if (e.errors !== false) {
+		            alert("Error opening datasource: " + e.errors);
+		            //$('#ssd-output-grid').data("kendoGrid").cancelChanges();
+		            //$('#ssd-output-grid').data("kendoGrid").clearSelection();
+		        }
+		    },
+			transport: {
+  				read: {
+    				url: dataSourceUrl,
+      				dataType: "json",
+      				contentType: "application/json; charset=utf-8",
+      				cache: false
+  				}
+        	},
+			schema: { 
+				data: "data",
+				total: "total",
+				errors: "error",
+			    parse: function (d) {
+			        return d;
+			    }	
+     		},
+     		requestStart: function () {
 			        kendo.ui.progress($("#loading"), true);
 			    },
 			    requestEnd  : function () {
 			        kendo.ui.progress($("#loading"), false);
 			    },
-			    pageSize: 10,
-			  	sort: { field: "reference", dir: "desc" }
+			    pageSize: 10
+##			  	sort: { field: "reference", dir: "desc" }
 			});
 
 	       $("#sdd-output-grid").kendoGrid({
-				dataSource: apDataSource,			
-				dataBound: apListDataBound,
+				dataSource: dataSource,			
+				//dataBound: ssd-output-gridDataBound,
 				groupable: false,
 				sortable: true,
 				filterable: true,
@@ -150,95 +152,25 @@ $(document).ready(function() {
 				}, columns: [
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
-      	<p:column sortBy="#{${sddOutputBeanVariable}.${columnVar}}" filterBy="#{${sddOutputBeanVariable}.${columnVar}}">  
-           <f:facet name="header">  
-              <h:outputText value="#{i18n.$sddOutputBeanVariable$separator$columnVar}" />  
-           </f:facet>  
-           <h:outputText value="#{${sddOutputBeanVariable}.${columnVar}}" />  
-        </p:column> 
 				{
-	                field: "dg",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridDg']"/>"
+	                field: "$columnVar",
+	                title: "$columnVar",
+					hidden : false
 	            }
 #if ($velocityCount!=$outputBean.columns.size())
                 ,#end 
 #end
-				{
-	                field: "dg",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridDg']"/>"
-	            }, {
-	                field: "reference",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridRef']"/>",
-	                width: 150
-	            }, {
-	                field: "shortTitle",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridTitle']"/>",
-	                width: 100
-	            }, {
-	                field: "typeInitiative",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridIniType']"/>",
-	                filterable: false,
-	                width: 100
-	            }, {
-	                field: "adoptionProcedure",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridProc']"/>",
-	                template: kendo.template($("#apProcTypeTpl").html()),
-	                filterable: false
-	            }, {
-	                field: "contact",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridContact']"/>"
-	            }, {
-	                field: "status",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridStatus']"/>"
-	            }, {
-	                field: "adoptionDate",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridAdoptionDate']"/>",
-	                filterable: false
-	            },
-	            {
-	                field: "coLeadDgs",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridCoLeadDgs']"/>",
-	                filterable: false,
-	                template: kendo.template($("#apCoLeadDgsTpl").html()),
-	                hidden: true
-	            },
-	             {
-	                field: "commissionWorkProgram",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridCommissionWorkProgram']"/>",
-	                filterable: false,
-	                template: kendo.template($("#apCwpTpl").html()),
-	                hidden: true
-	            }, {
-	                field: "impactAssesmentDoc",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridImpactAssesmentDoc']"/>",
-	                filterable: false,
-	                template: kendo.template($("#apIaTpl").html()),
-	                hidden: true
-	            }, {
-	                field: "domain",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridDomain']"/>",
-	                hidden: true
-	            }, {
-	                field: "domainName",
-	                title: "<xsl:value-of select="$dictionary//label[@ref='apSearchGridDomain']"/>",
-	                hidden: true
-	            }, {
-	                field: "domainId",
-	                hidden: true
-	            }
 	            ]
 	       });
 	    } else {
-			$("#apList").data("kendoGrid").dataSource.options.transport.read.url = apDatasourceUrl;
-	    	$("#apList").data("kendoGrid").dataSource.read();
-	    	$("#apList").data("kendoGrid").refresh();
+			$("#ssd-output-grid").data("kendoGrid").dataSource.options.transport.read.url = dataSourceUrl;
+	    	$("#ssd-output-grid").data("kendoGrid").dataSource.read();
+	    	$("#ssd-output-grid").data("kendoGrid").refresh();
 	    	//reset pagination
-	    	$("#apList").data("kendoGrid").dataSource.page(1);
+	    	$("#ssd-output-grid").data("kendoGrid").dataSource.page(1);
 	    }
-    }
-});
 
-kendo.bind($("#searchAgendaPlanningForm"), viewModel);
+	kendo.bind($("#form-${tableVariableName}"), viewModel);
 
 });
 </script>

@@ -182,8 +182,15 @@ $("#${fieldId}").kendoDatePicker();
 #set ($RESTDbAPIGenericResourceImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateRESTDbApiGenericResource))
 #end
 
+#macro (exposeDbApiRestQuerySpecific)
+#exposeQuerySpecific()
+#exposeDbApiRestTemplate()
+#set($queryInputSDDRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateRESTDbApiSDDResource))
+#end
+
 #macro (exposeDbApiRestTemplate)
 #set($templateRESTDbApiGenericResource="RESTDbAPIGenericResource")
+#set($templateRESTDbApiSDDResource="RESTDbAPISDDResource")
 #end
 
 #macro(exposeKendoUITemplate)
