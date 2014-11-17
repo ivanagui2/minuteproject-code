@@ -55,11 +55,12 @@
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
             </ul>
-        </form>
+
             <!-- button action -->
-        <p>
-            <button id="action" class="k-primary">Execute</button>
-        </p>
+        	<p>
+				<button id="action" class="k-button" data-bind="click: searchSdd">Execute</button>
+        	</p>
+        </form>
         </div>
       </div>
 
@@ -91,15 +92,22 @@ $(document).ready(function() {
      //number = kendo.toString(this.get("number"));
      //text = kendo.toString(this.get("text"));
         
-     //dataSourceUrl = dataSourceUrl+"?dg="+dg+"&amp;year="+year+"&amp;number="+number+"&amp;startDate="+startDate+"&amp;endDate="+endDate+"&amp;text="+text;
-     //alert("Search will start with REST DS params : "+dataSourceUrl);
+    var viewModel = kendo.observable({
+
+        searchSdd: function() {
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+        	var $columnVar = this.get("$columnVar");
+#end
+#end
+			var identifierAddress= this.get("identifierAddress");
 
 		// Check that the grid is not already bind to the datasource otherwise
 		// there will be problem of data sync
 		// if datasource and grid are already instanciated then just rewrite the URL and re-read the datasource then refresh the grid
-	var dataSourceUrl = "/data/sdd/${tableClassName}In";
-	var dataSource;
-	if (dataSource==null) {
+		var dataSourceUrl = "/data/sdd/${tableClassName}In";
+		var dataSource;
+		if (dataSource==null) {
 		dataSource = new kendo.data.DataSource({
 			error: function (e) {
 		        if (e.errors !== false) {
@@ -169,6 +177,9 @@ $(document).ready(function() {
 	    	//reset pagination
 	    	$("#ssd-output-grid").data("kendoGrid").dataSource.page(1);
 	    }
+	  }
+
+    });
 
 	kendo.bind($("#form-${tableVariableName}"), viewModel);
 
