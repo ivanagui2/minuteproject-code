@@ -95,17 +95,22 @@ $(document).ready(function() {
     var viewModel = kendo.observable({
 
         searchSdd: function() {
+        	var query = "";
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
         	var $columnVar = this.get("$columnVar");
+#if($velocityCount==1)
+			query = "?";
+#else
+			query = "&";
 #end
+        	query = query + "$columnVar="+$columnVar;
 #end
-			var identifierAddress= this.get("identifierAddress");
 
 		// Check that the grid is not already bind to the datasource otherwise
 		// there will be problem of data sync
 		// if datasource and grid are already instanciated then just rewrite the URL and re-read the datasource then refresh the grid
-		var dataSourceUrl = "/data/sdd/${tableClassName}In";
+		var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
 		var dataSource;
 		if (dataSource==null) {
 		dataSource = new kendo.data.DataSource({
@@ -125,7 +130,7 @@ $(document).ready(function() {
   				}
         	},
 			schema: { 
-				data: "data",
+				data: "${className}In",
 				total: "total",
 				errors: "error",
 			    parse: function (d) {
@@ -156,7 +161,7 @@ $(document).ready(function() {
 					var rowId = this.select().data("uid");
 					var item = this.dataSource.getByUid(rowId);
 					kendo.ui.progress($("#sdd-output"), true);
-					selectAP(item);
+##					selectAP(item);
 				}, columns: [
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()

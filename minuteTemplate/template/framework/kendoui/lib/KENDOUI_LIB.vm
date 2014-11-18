@@ -41,7 +41,7 @@
 ##	<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
 ## enum
 #if($isEnum)
-	<select name="$labelFor" id="$fieldId" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
+	<select name="$labelFor" id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
         <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
@@ -64,18 +64,18 @@
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
-	<input type="checkbox" /> 
+	<input type="checkbox" data-bind="value: ${columnVar}" /> 
 ##	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
 #else
 ## textarea
 #if($presentationUtils.isTextArea($column))
-	<textarea type="text" id="$fieldId" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: 200px;" ></textarea> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: 200px;" ></textarea> 
 #elseif($presentationUtils.isRichText($column))
 ##	<p:editor
-	<input type="text" id="$fieldId" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" /> 
+	<input type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" /> 
 ## simple input
 #else
-	<input type="text" id="$fieldId" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" />
+	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" />
 ##	<p:inputText 
 ##		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
 #end
