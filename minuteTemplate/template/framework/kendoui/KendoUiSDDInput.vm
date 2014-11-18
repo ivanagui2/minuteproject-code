@@ -63,12 +63,8 @@
         </form>
         </div>
       </div>
+      <div id="ssd-output-grid" />
 
-      <div id="ssd-output" >
-      	<div id="ssd-output-grid" >
-
-		</div>
-	</div>
 <!-- kendo js scripts -->
 <script>
 $(document).ready(function() {
@@ -88,10 +84,6 @@ $(document).ready(function() {
 ##           }
      });
      
-     
-     //number = kendo.toString(this.get("number"));
-     //text = kendo.toString(this.get("text"));
-        
     var viewModel = kendo.observable({
 
         searchSdd: function() {
