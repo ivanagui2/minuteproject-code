@@ -17,6 +17,15 @@ function openEntityContent(entity) {
     $("#entity-content").load("$entityFullPath");
   }
 #end
+#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#exposeVariableEntitySpecific()
+#exposeKendoUISddSpecific()
+  if (entity == "${table.name}") {
+    $("#entity-content").load("$entityFullPath");
+  }
+#end
 }
 
 $(function () {
@@ -33,6 +42,17 @@ $(function () {
 #foreach ($package in ${businessPackageViews})
 #putKendoUIMenuPackage()
 #end
+<li>sdd
+#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
+    <ul>
+        <li><a onclick="openEntityContent('$table.name');"> $tableLabel</a></li>
+    </ul>
+#end
+</li>
 </ul>
 </div>
 <div id="entity-content">

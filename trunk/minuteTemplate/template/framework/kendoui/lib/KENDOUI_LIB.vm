@@ -23,8 +23,6 @@
 #foreach ($table in ${groups})
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
-##        ${subMenuVar}.addElement(getItem("$tableLabel", ${accessUrl})); 
-##		${tabVar}.getChildren().add(getPanel(getTuple (${accessUrl})));
         <li><a onclick="openEntityContent('$table.name');"> $tableLabel</a></li>
 #end
 #end
@@ -176,6 +174,11 @@ $("#${fieldId}").kendoDatePicker();
 #set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateEntitySearchGridList))
 #end
 
+#macro(exposeKendoUISddSpecific)
+#exposeKendoUITemplate()
+#set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateKendoSddInput))
+#end
+
 #macro (exposeRestDbApiDomainObject)
 #exposeDbApiRestTemplate()
 #set ($RESTDbAPIGenericResourceClass = $commonUtils.getTemplateClassName($model, $template, $templateRESTDbApiGenericResource))
@@ -195,5 +198,6 @@ $("#${fieldId}").kendoDatePicker();
 
 #macro(exposeKendoUITemplate)
 #set($templateEntitySearchGridList="KendoUiEntitySearchGrid")
+#set($templateKendoSddInput="KendoUiSDDInput")
 #set($templateKendoUiMenu="KendoUiMenu")
 #end
