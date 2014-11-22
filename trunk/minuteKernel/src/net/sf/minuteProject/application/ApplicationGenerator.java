@@ -173,7 +173,7 @@ public class ApplicationGenerator extends AbstractGenerator {
 		loadTarget(application.getConfiguration(), target);
 		applyTargetConventionAndGenerate(application.getConfiguration().getTarget());		
 	}
-
+/*
 	protected void loadAndGenerate (Targets targets) throws MinuteProjectException {
 		Target targetFinal = new Target();
 		Configuration configuration = application.getConfiguration();
@@ -187,7 +187,7 @@ public class ApplicationGenerator extends AbstractGenerator {
 		configuration.setTarget(targetFinal);
 		applyTargetConventionAndGenerate(configuration.getTarget());
 	}
-	
+*/	
 	private void applyTargetConventionAndGenerate (Target target) throws MinuteProjectException {
 		applyTargetConvention(target);
 		generate(target);

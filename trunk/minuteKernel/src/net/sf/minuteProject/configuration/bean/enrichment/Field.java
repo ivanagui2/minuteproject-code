@@ -7,6 +7,9 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteproject.model.db.type.FieldType;
 
 public class Field extends AbstractConfiguration {
 
@@ -23,7 +26,12 @@ public class Field extends AbstractConfiguration {
 	private Boolean isSearchable,isEditable;
 
 	public String getSizeOrDefault() {
-		return (getLength()==null)?"255":getLength();
+		if (length!=null)
+			return length;
+		if (FieldType.VARCHAR.equals(type))
+			return "255";
+		else
+			return "0";
 	}
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))

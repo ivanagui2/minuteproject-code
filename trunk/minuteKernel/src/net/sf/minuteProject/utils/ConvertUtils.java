@@ -64,6 +64,7 @@ public class ConvertUtils {
 	
 	public static final String UML_STRING_TYPE 						=   "string";	
 	public static final String UML_INTEGER_TYPE 					=   "integer";	
+	public static final String UML_INTEGER_ABSTRACT_TYPE 			=   "int";	
 	public static final String UML_LONG_TYPE 						=   "decimal";	
 	public static final String UML_DOUBLE_TYPE 						=   "double";	
 	public static final String UML_BIGDECIMAL_TYPE 					=   "bigdecimal";	
@@ -77,6 +78,7 @@ public class ConvertUtils {
 		type = StringUtils.lowerCase(type);
 		if (UML_STRING_TYPE.equals(type)) return DB_STRING_TYPE;
 		if (UML_INTEGER_TYPE.equals(type)) return DB_INTEGER_TYPE;
+		if (UML_INTEGER_ABSTRACT_TYPE.equals(type)) return DB_INTEGER_TYPE;
 		if (UML_LONG_TYPE.equals(type)) return DB_DECIMAL_TYPE;
 		if (UML_DOUBLE_TYPE.equals(type)) return DB_DOUBLE_TYPE;
 		return DB_STRING_TYPE;
