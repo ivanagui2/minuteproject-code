@@ -360,12 +360,12 @@ public abstract class AbstractGenerator implements Generator {
 //			set priority			
 	    	for (TemplateTarget templateTarget : target.getOrderedByPriorityTemplateTargets()) {
 	    		if (templateTarget.isGenerable()) {
-		    		logger.info(">template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
+		    		logger.info("> template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
 		    		if (templateTarget!=null ) {
 //		    			if (templateTarget.getTemplates()!=null) {
 				    		//generate template
 		    			for (Template template : templateTarget.getTemplates()) {
-			        		logger.info(">>template: "+template.getName()+" in "+template.getOutputdir());
+			        		logger.info(">> template: "+template.getName()+" in "+template.getOutputdir());
 			        		this.generate(template);    		
 			        	} 
 //		    			}
