@@ -1,6 +1,7 @@
 #exposeSeparator()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
+#putImportQuerySDDBean()
 #exposeQuerySpecific()
 #set($table=$inputBean)
 #asUML($table)
@@ -18,12 +19,13 @@
 #putKendoUIJSImport()
 
 </head>
+
 <body>
     
-   <div id="${tableVariableName}">
+<div id="${tableVariableName}">
    <div class="demo-section k-header">
-   		<form id="form-${tableVariableName}" >
-        <h3>${tableVariableName}</h3>
+   		<div id="form-${tableVariableName}" >
+        	<h3>${tableVariableName}</h3>
             <ul>
 #*            
 #foreach($column in $inputBean.columns)
@@ -57,135 +59,79 @@
             </ul>
 
             <!-- button action -->
-        	<p>
-				<button id="action" class="k-button" data-bind="click: searchSdd">Execute</button>
-        	</p>
-        </form>
+            <p>
+                <button id="action" class="k-button" data-bind="click: searchSdd">Execute</button>
+            </p>
         </div>
-      </div>
-      <div id="ssd-output-grid" />
+    </div>
+</div>
+
+<div id="ssd-output-grid"/>
 
 <!-- kendo js scripts -->
 <script>
-$(document).ready(function() {
-#foreach($column in $inputBean.columns)
-#putColumnParams()
-#columnJavaNaming()
-#putKendoJsColumnSnippet($tableVariableName $tableVariableName)
-#end
-    $("#action").kendoButton();
-	$("#action").click(function(e) {     
-##          if (validator.validate()) {
-        var formContent = $("#form-${tableVariableName}").serialize();
-        var url = $("#form-${tableVariableName}").attr('action');
-        //$.get(url, formContent).done(function(data) {
-        //   $(document.body).append("<div class='savedRecordMessage'>success</div>");
-        //});
-##           }
-     });
-     
-    var viewModel = kendo.observable({
+    $(document).ready(function () {
 
-        searchSdd: function() {
-        	var query = "";
+        var viewModel = kendo.observable({
+
+            searchSdd: function () {
+        		var query = "";
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
-        	var $columnVar = this.get("$columnVar");
+        		var $columnVar = this.get("$columnVar");
 #if($velocityCount==1)
-			query = "?";
+				query = "?";
 #else
-			query = "&";
+				query = "&";
 #end
-        	query = query + "$columnVar="+$columnVar;
+        		query = query + "$columnVar="+$columnVar;
 #end
+				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
 
-		// Check that the grid is not already bind to the datasource otherwise
-		// there will be problem of data sync
-		// if datasource and grid are already instanciated then just rewrite the URL and re-read the datasource then refresh the grid
-		var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
-		var dataSource;
-		if (dataSource==null) {
-		dataSource = new kendo.data.DataSource({
-			error: function (e) {
-		        if (e.errors !== false) {
-		            alert("Error opening datasource: " + e.errors);
-		            //$('#ssd-output-grid').data("kendoGrid").cancelChanges();
-		            //$('#ssd-output-grid').data("kendoGrid").clearSelection();
-		        }
-		    },
-			transport: {
-  				read: {
-    				url: dataSourceUrl,
-      				dataType: "json",
-      				contentType: "application/json; charset=utf-8",
-      				cache: false
-  				}
-        	},
-			schema: { 
-				data: "${className}In",
-				total: "total",
-				errors: "error",
-			    parse: function (d) {
-			        return d;
-			    }	
-     		},
-     		requestStart: function () {
-			        kendo.ui.progress($("#loading"), true);
-			    },
-			    requestEnd  : function () {
-			        kendo.ui.progress($("#loading"), false);
-			    },
-			    pageSize: 10
-##			  	sort: { field: "reference", dir: "desc" }
-			});
-
-	       $("#sdd-output-grid").kendoGrid({
-				dataSource: dataSource,			
-				//dataBound: ssd-output-gridDataBound,
-				groupable: false,
-				sortable: true,
-				filterable: true,
-				scrollable: false,
-				resizable: true,
-				pageable: true,
-				selectable: "row",
-				change: function () {
-					var rowId = this.select().data("uid");
-					var item = this.dataSource.getByUid(rowId);
-					kendo.ui.progress($("#sdd-output"), true);
-##					selectAP(item);
-				}, columns: [
+                 $("#ssd-output-grid").kendoGrid({
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: dataSourceUrl,
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                cache: false
+                            }
+                        }
+                        ,
+                        schema: {
+                            data: "$sddOutputBeanClass"
+                        }
+                    },
+					columns: [
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
-				{
-	                field: "$columnVar",
-	                title: "$columnVar",
-					hidden : false
-	            }
+					{
+	                	field: "$columnVar",
+	                	title: "$columnVar",
+						hidden : false
+	            	}
 #if ($velocityCount!=$outputBean.columns.size())
-                ,#end 
+                	,#end 
 #end
-	            ]
-	       });
-	    } else {
-			$("#ssd-output-grid").data("kendoGrid").dataSource.options.transport.read.url = dataSourceUrl;
-	    	$("#ssd-output-grid").data("kendoGrid").dataSource.read();
-	    	$("#ssd-output-grid").data("kendoGrid").refresh();
-	    	//reset pagination
-	    	$("#ssd-output-grid").data("kendoGrid").dataSource.page(1);
-	    }
-	  }
+	            	],
+                    height: 500,
+                    scrollable: true,
+                    selectable: true
+
+                });
+
+            }
+
+        });
+
+        kendo.bind($("#form-${tableVariableName}"), viewModel);
 
     });
-
-	kendo.bind($("#form-${tableVariableName}"), viewModel);
-
-});
 </script>
 
 </body>
 </html>
-
 
 #* 
  things to do
