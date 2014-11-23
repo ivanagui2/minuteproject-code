@@ -68,9 +68,22 @@
 
 <div id="ssd-output-grid"/>
 
+<div id="details" />
+
 <!-- kendo js scripts -->
 <script>
     $(document).ready(function () {
+
+## inspired by http://demos.telerik.com/kendo-ui/grid/custom-command
+       wnd = $("#details").kendoWindow({
+           title: "$className Details",
+           modal: true,
+           visible: false,
+           resizable: false,
+           width: 300
+           }).data("kendoWindow");
+
+        detailsTemplate = kendo.template($("#template-detail").html());
 
         var viewModel = kendo.observable({
 
@@ -88,7 +101,7 @@
 #end
 				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
 
-                 $("#ssd-output-grid").kendoGrid({
+                $("#ssd-output-grid").kendoGrid({
                     dataSource: {
                         transport: {
                             read: {
@@ -111,7 +124,12 @@
 	                	title: "$columnVar",
 						hidden : false
 	            	}
-#if ($velocityCount!=$outputBean.columns.size())
+#if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
+                	,#end 
+#end
+#foreach ($action in $query.actions)
+					{ command: { text: "$action.name", click: showDetails }, title: " ", width: "180px" }
+#if ($velocityCount!=$query.actions.size())
                 	,#end 
 #end
 	            	],
@@ -128,6 +146,24 @@
         kendo.bind($("#form-${tableVariableName}"), viewModel);
 
     });
+
+    function showDetails(e) {
+       e.preventDefault();
+
+       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+       wnd.content(detailsTemplate(dataItem));
+       wnd.center().open();
+   }
+
+</script>
+
+<script type="text/x-kendo-template" id="template-detail">
+   <div id="details-container">
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+       <h2>$columnVar : #= $columnVar # </h2>
+#end
+   </div>
 </script>
 
 </body>
