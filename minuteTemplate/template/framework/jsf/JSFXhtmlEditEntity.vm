@@ -52,8 +52,8 @@
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
 #set ($childrenListClass = $childrenListClass+$velocityCount)
 <p:outputPanel id="container${childrenListClass}" >
- <p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
-		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendTo="@(body)">
+ <p:dialog id="suc${childrenListClass}Dialog" message="#{i18n.affectionProcessMessage}" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
+		header="#{i18n.affectionProcessHeader}" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendTo="@(body)">
 	<h:form id="suc${childrenListClass}Form">
     <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
         id="table$childrenListClass" 
@@ -63,7 +63,7 @@
 		selection="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" selectionMode="single"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
         rowsPerPageTemplate="10,20,50"
-		emptyMessage="No $linkedTableClass found with given criteria"> 
+		emptyMessage="#{i18n.dataTable.emptyMessage.part1} $linkedTableClass #{i18n.dataTable.emptyMessage.part2}"> 
 
         <f:facet name="header">  
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
@@ -75,7 +75,7 @@
            <ui:param name="isSemanticReference" value="false" />
          </ui:include>
 		 <p:column>
-            <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="PF('suc${childrenListClass}Dialog').hide()" process="@this">
+            <p:commandButton value="#{i18n.affect}" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="#{i18n.affectTitle}" onclick="PF('suc${childrenListClass}Dialog').hide()" process="@this">
 				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
 				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
             </p:commandButton >

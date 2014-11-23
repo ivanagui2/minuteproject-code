@@ -18,7 +18,7 @@
    </composite:interface>
    <composite:implementation>
     <p:outputPanel id="#{cc.attrs.containerId}" >
-     <p:dialog id="#{cc.attrs.sucDialogId}" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
+     <p:dialog id="#{cc.attrs.sucDialogId}" message="#{i18n.affectionProcessMessage}" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
     		header="#{i18n.affectionProcess}" severity="alert" widgetVar="#{cc.attrs.sucDialogId}" appendTo="@(body)">
     	<h:form id="suc${childrenListClass}Form">
         <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
@@ -29,7 +29,7 @@
     		selection="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" selectionMode="single"
             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
             rowsPerPageTemplate="10,20,50"
-    		emptyMessage="No $linkedTableClass found with given criteria"> 
+    		emptyMessage="#{i18n.dataTable.emptyMessage.part1} $linkedTableClass #{i18n.dataTable.emptyMessage.part2}"> 
     
             <f:facet name="header">  
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($linktableDB))
@@ -42,7 +42,7 @@
                <ui:param name="isSemanticReference" value="false" />
              </ui:include>
     		 <p:column>
-                <p:commandButton value="#{i18n.affect}" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="PF('#{cc.attrs.sucDialogId}').hide()" process="@this">
+                <p:commandButton value="#{i18n.affect}" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="#{i18n.affectTitle}" onclick="PF('#{cc.attrs.sucDialogId}').hide()" process="@this">
     				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
     				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
                 </p:commandButton >

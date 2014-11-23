@@ -9,7 +9,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="$modelDecoratorJSFImport">
     	<ui:define name="title">
-    		<ui:insert name="title">Error Page</ui:insert>
+    		<ui:insert name="title">#{i18n.errorPage.title}</ui:insert>
     	</ui:define>
     	<ui:define name="heading">
     		<h:outputText value="Menu" />
@@ -17,8 +17,8 @@
 		<ui:define name="body">
 ##to improve exception are not reported!!
 ## check http://stackoverflow.com/questions/460596/jsf-generic-exception-handling
-			<p>Unfortunately, there was an error processing you request</p>
-			<p>The error message is: #{requestScope['javax.servlet.error.message']}</p>
+			<p>#{i18n.errorPage.body.part1}</p>
+			<p>#{i18n.errorPage.body.part2} #{requestScope['javax.servlet.error.message']}</p>
     	</ui:define>
     </ui:composition>
 </html>	
