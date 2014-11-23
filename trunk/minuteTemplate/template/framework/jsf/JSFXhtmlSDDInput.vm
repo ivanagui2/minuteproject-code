@@ -16,7 +16,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="$primefacesNamespace">
 <ui:composition template="$modelDecoratorJSFImport">
-	<ui:define name="title">#{i18n.manageSddTitle} for #{i18n.$tableVariableName}</ui:define>
+	<ui:define name="title">#{i18n.manageSddTitle} #{i18n.for} #{i18n.$tableVariableName}</ui:define>
 	<ui:define name="heading">#{i18n.$tableVariableName}</ui:define>
 	<ui:define name="body">
 		<h:form>
@@ -75,8 +75,8 @@
 #set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
 #set ($childrenListClass = $childrenListClass+$velocityCount)
 <p:outputPanel id="container${childrenListClass}" >
- <p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
-		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
+ <p:dialog id="suc${childrenListClass}Dialog" message="#{i18n.affectionProcessMessage}" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
+		header="#{i18n.affectionProcessHeader}" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
 	<h:form id="suc${childrenListClass}Form">
     <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
         id="table$childrenListClass" 
@@ -86,7 +86,7 @@
 		selection="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" selectionMode="single"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
         rowsPerPageTemplate="10,20,50"
-		emptyMessage="No $linkedTableClass found with given criteria"> 
+		emptyMessage="#{i18n.dataTable.emptyMessage.part1} $linkedTableClass #{i18n.dataTable.emptyMessage.part2}"> 
 
         <f:facet name="header">  
             List of #{i18n.${childrenListVariable}}  
@@ -95,7 +95,7 @@
            <ui:param name="isSemanticReference" value="false" />
          </ui:include>
 		 <p:column>
-            <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="PF('suc${childrenListClass}Dialog').hide()" process="@this">
+            <p:commandButton value="#{i18n.affect}" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="#{i18n.affectTitle}" onclick="PF('suc${childrenListClass}Dialog').hide()" process="@this">
 				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
                 <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
             </p:commandButton >
@@ -112,7 +112,7 @@
                     action="#{${entityControllerJSFVariable}.execute}" />
                 </h:panelGrid>
             </p:panel>
-            <p:panel id="display" header="Information" style="margin-top:10px;">
+            <p:panel id="display" header="#{i18n.information}" style="margin-top:10px;">
             <p:dataTable var="${sddOutputBeanVariable}" value="#{${entityControllerJSFVariable}.getOutputList()}" paginator="true" rows="10"  
                         selection="#{${entityControllerJSFVariable}.selected${sddOutputBeanClass}}" 
                         selectionMode="single" rowKey="#{${sddOutputBeanVariable}}"

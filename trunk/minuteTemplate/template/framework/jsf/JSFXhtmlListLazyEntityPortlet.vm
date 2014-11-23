@@ -25,7 +25,7 @@
 			selection="#{${entityControllerJSFVariable}.selected${tableClassName}}" selectionMode="single"
             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
             rowsPerPageTemplate="10,20,50"
-			emptyMessage="No ${tableClassName} found with given criteria"> 
+			emptyMessage="#{i18n.dataTable.emptyMessage.part1} ${tableClassName} #{i18n.dataTable.emptyMessage.part2}"> 
             <p:ajax partialSubmit="true" event="rowSelect"
                     listener="#{${entityControllerJSFVariable}.onRowSelect}"
                     update=":form2:panel #if ($hasDisplayableChildren):form2:childrenTab#end"/> 
@@ -56,7 +56,7 @@
   	<h:form id="form2">
 		<p:panelGrid columns="3" id="panel" cellpadding="5" styleClass="ui-widget-content-borderless" columnClasses="mp-column-center">
             <f:facet name="header" align="left">
-                <h:outputText value="#{i18n.${tableVariableName}} details " />
+                <h:outputText value="#{i18n.${tableVariableName}} #{i18n.details} " />
             	<p:commandButton value="#{i18n.save}" icon="ui-icon-disk"  actionListener="#{${entityControllerJSFVariable}.createOrUpdateListener}" update="$update" />  
             	<p:commandButton value="#{i18n.clear}" immediate="true" icon="ui-icon-cancel" process="@this" actionListener="#{${entityControllerJSFVariable}.clearListener}" update=":form2:panel#if($hasDisplayableChildren),:form2:childrenTab#end" style="margin:5px;"/>
             	<p:commandButton value="#{i18n.delete}" icon="ui-icon-trash" >

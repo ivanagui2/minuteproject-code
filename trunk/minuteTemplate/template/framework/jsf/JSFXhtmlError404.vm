@@ -9,13 +9,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="$modelDecoratorJSFImport">
     	<ui:define name="title">
-    		<ui:insert name="title">Page not found</ui:insert>
+    		<ui:insert name="title">#{i18n.pageNotFound.title}</ui:insert>
     	</ui:define>
     	<ui:define name="heading">
     		<h:outputText value="Menu" />
     	</ui:define>
 		<ui:define name="body">
-			<p>Unfortunately, the page you requested, #{requestScope['javax.servlet.forward.request_uri']} does not exist</p>
+			<p>#{i18n.pageNotFound.body.part1} #{requestScope['javax.servlet.forward.request_uri']} #{i18n.pageNotFound.body.part2}</p>
     	</ui:define>
     </ui:composition>
 </html>	
