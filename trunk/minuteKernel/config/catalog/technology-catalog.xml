@@ -131,6 +131,28 @@
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
+<!-- TODO 
+ split DBApiRest part only
+ from kendoui/emberjs/extjs/angular client
+ -->
+		<technology name="REST-DbApi-Kendoui" model-type="rdbms"
+			template-config-file-name="mp-template-config-REST-SpringMVC.xml"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,KendoUI,MavenMaster"
+			template-dir="@templateRoot@/framework/spring" status="released"
+			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
+			<frameworks>
+				<framework name="spring" version="4"></framework>
+			</frameworks>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="add-cache-implementation" value="ehcache"></property>
+			<property name="add-xmlbinding" value="true"></property>
+			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="spring"></property>
+		</technology>
+
 
 		<technology name="REST-CXF-Spring" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-CXF-Spring.xml"

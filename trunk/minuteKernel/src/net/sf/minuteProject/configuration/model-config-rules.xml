@@ -216,6 +216,42 @@
 							</pattern>	
 		                </pattern>
 		            </pattern>
+					<pattern value="actions/action">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />	
+							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
+							<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
+						</set-properties-rule>
+						<bean-property-setter-rule pattern="value"/>
+	                    <bean-property-setter-rule pattern="comment"/>
+	                    <pattern value="field">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="value" prop-name="value" />
+						    </set-properties-rule>
+						 </pattern>
+	                    <pattern value="action-condition">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-next-rule methodname="setActionCondition" paramtype="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="description" prop-name="description" />
+						    </set-properties-rule>
+		                    <pattern value="field">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-properties-rule>
+							    	<alias attr-name="name" prop-name="name" />
+							    	<alias attr-name="value" prop-name="value" />
+							    </set-properties-rule>
+							 </pattern>
+						 </pattern>
+		            </pattern>				
+
 		        </pattern>
 	        </pattern>     
 	    	<pattern value="nested-statements">
@@ -1176,6 +1212,42 @@
 						</pattern>	
 	                </pattern>
 	            </pattern>
+					<pattern value="actions/action">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />	
+							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
+							<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
+						</set-properties-rule>
+						<bean-property-setter-rule pattern="value"/>
+	                    <bean-property-setter-rule pattern="comment"/>
+	                    <pattern value="field">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="value" prop-name="value" />
+						    </set-properties-rule>
+						 </pattern>
+	                    <pattern value="action-condition">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-next-rule methodname="setActionCondition" paramtype="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="description" prop-name="description" />
+						    </set-properties-rule>
+		                    <pattern value="field">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-properties-rule>
+							    	<alias attr-name="name" prop-name="name" />
+							    	<alias attr-name="value" prop-name="value" />
+							    </set-properties-rule>
+							 </pattern>
+						 </pattern>
+		            </pattern>				
+	        
 	        </pattern>
         </pattern>     
     	<pattern value="nested-statements">
