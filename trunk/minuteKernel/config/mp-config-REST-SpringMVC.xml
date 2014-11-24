@@ -69,6 +69,13 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                          </actions>
                      </query>
                  </queries>
+                 <inputs>
+                 	<input>
+                         <query-params>
+                             <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="999"></query-param>
+                         </query-params>	
+                 	</input>
+                 </inputs>
             </statement-model>
 		</model>	
 		<targets catalog-entry="REST-SpringMVC" >
