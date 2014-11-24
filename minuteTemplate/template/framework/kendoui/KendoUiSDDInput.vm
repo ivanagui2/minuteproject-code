@@ -11,6 +11,7 @@
 #set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
 #set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #exposeVariableEntitySpecific()
+#addedAreas()
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,6 +123,14 @@
 					{
 	                	field: "$columnVar",
 	                	title: "$columnVar",
+#updatedColumnAttributeAreas()
+$!updatedAreaBegin
+#if($isUpdated)
+$updatedAreaSnippet
+#else
+//						width : toset,
+#end
+$!updatedAreaEnd
 						hidden : false
 	            	}
 #if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
@@ -147,6 +156,20 @@
 
     });
 
+#foreach ($action in $query.actions)
+	function $action.name (e) {
+		e.preventDefault();
+#exposeEntityUpdatedAreas("${action.name}-action")
+$!updatedAreaBegin
+#if($isUpdated)
+$updatedAreaSnippet
+#else
+//		todo
+#end
+$!updatedAreaEnd
+	}
+
+#end
     function showDetails(e) {
        e.preventDefault();
 
