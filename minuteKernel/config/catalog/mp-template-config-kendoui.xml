@@ -58,7 +58,7 @@
             file-extension="html" technicalPackage="sdd" file-suffix="Input"
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
-			package-root="html"
+			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
 <!-- 
         <template name="JSFXhtmlChart" templateFileName="JSFXhtmlChart.vm"
@@ -83,21 +83,6 @@
 		</template>	
 		
 	</template-target>				
-  <!--  	
-  	<template-target 
-    	name="Kendo client"
-		outputdir="src/main/java"
-		libdir="lib/KENDOUI_LIB.vm">
-
-		<template
-			name="KendoUiJersey4DBAPIProvider" templateFileName="KendoUiJersey4DBAPIProvider.vm" 
-			subdir="" outputsubdir="" technicalPackage="kendoui" add-model-name="false" add-model-dir-name="false"
-			file-extension="java" file-prefix="" file-suffix="KendoUiJerseyProvider" 
-			model-specific="true">
-		</template>	
-		
-	</template-target>				
-   	 -->
    	 
    	<template-target 
     	name="Kendo client"
