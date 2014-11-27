@@ -11,6 +11,8 @@ public class Hibernate3 {
 	
 	public static String getDialect (Database database) {
 		String type = database.getType();
+		if (type==null)
+			return "database type not detected";
 		if (type.equals("ORACLE")) 
 			return "org.hibernate.dialect.Oracle10gDialect";
 		else if (type.equals("HSQLDB"))

@@ -55,7 +55,15 @@ public class DatabaseDDLUtils implements Database
 
 	public DatabaseDDLUtils(DataModel dataModel) {
 		this.dataModel = dataModel;
-		loadDatabase(dataModel);
+		
+		if (dataModel.getModel().getConfiguration().isBusinessModelGenerationDisable()) {
+			database = new org.apache.ddlutils.model.Database();
+			//database.setType();
+			//TODO set type
+		} else {
+			loadDatabase(dataModel);
+		}
+		
 		if (dataModel.getModel().hasFunctionModel()){
 			loadFunction(dataModel);
 		}

@@ -138,6 +138,7 @@
 				<xs:restriction base="xs:string">
 					<xs:enumeration value="enable-updatable-code-feature" />
 					<xs:enumeration value="disable-timestamp-comment-marker" />
+					<xs:enumeration value="disable-business-model-generation" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>

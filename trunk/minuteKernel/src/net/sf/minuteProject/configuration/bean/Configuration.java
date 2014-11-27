@@ -130,5 +130,11 @@ public class Configuration extends AbstractConfigurationRoot{
 		// TODO Auto-generated method stub
 		return isSingleModel()?singleModel.getPackageRoot():application.getPackageRoot();
 	}
+
+	public boolean isBusinessModelGenerationDisable() {
+		if (conventions!=null && conventions.isBusinessModelGenerationDisable())
+			return true;
+		return false;
+	}
 	
 }

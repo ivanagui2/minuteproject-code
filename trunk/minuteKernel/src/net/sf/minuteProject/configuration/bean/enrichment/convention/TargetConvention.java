@@ -11,6 +11,7 @@ public class TargetConvention extends KernelConvention{
 	
 	public static final String ENABLE_UPDATABLE_CODE = "enable-updatable-code-feature";
 	public static final String DISABLE_TIMESTAMP_COMMENT_MARKER = "disable-timestamp-comment-marker";
+	public static final String DISABLE_BUSINESS_MODEL_GENERATION = "disable-business-model-generation";
 	public static final String ENABLE_RESOURCE_COPY = "enable-resource-copy";
 
 	@Override
