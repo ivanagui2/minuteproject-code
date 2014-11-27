@@ -68,7 +68,10 @@ public class PresentationUtils {
 	}
 	
 	public static Boolean isTextArea (Column column) {
-		return (column.getSizeAsInt()>100 && !ColumnUtils.isClob(column))? true:false;
+		if (ColumnUtils.isString(column))
+			return (column.getSizeAsInt()>100 && !ColumnUtils.isClob(column))? true:false;
+		else
+			return false;
 	}
 	
 	public static Boolean isRichText (Column column) {

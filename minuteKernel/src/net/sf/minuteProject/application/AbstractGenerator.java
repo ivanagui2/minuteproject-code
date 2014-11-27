@@ -11,11 +11,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
@@ -657,7 +654,6 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("viewUtils", getViewUtils());
 		context.put("formatUtils", getFormatUtils());
 		context.put("bslaLibraryUtils", getBslaLibraryUtils());
-		context.put("databaseUtils", getDatabaseUtils());
 		context.put("modelUtils", getModelUtils());
 		context.put("URLUtils", getUrlUtils());
 		context.put("TestUtils", getTestUtils());

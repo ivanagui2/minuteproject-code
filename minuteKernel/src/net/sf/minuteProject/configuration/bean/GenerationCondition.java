@@ -1,9 +1,5 @@
 package net.sf.minuteProject.configuration.bean;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public class GenerationCondition extends GenerationConditionAdapter {
 	
 	private boolean excludeTables=false, excludeViews=false;
@@ -23,6 +19,5 @@ public class GenerationCondition extends GenerationConditionAdapter {
 	public void setExcludeViews(boolean excludeViews) {
 		this.excludeViews = excludeViews;
 	}
-
 
 }

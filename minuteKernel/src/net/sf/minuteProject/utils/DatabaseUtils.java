@@ -11,6 +11,8 @@ public class DatabaseUtils {
 	
 	public static String providePrimaryKeyLookUpString (Table table) {
 		Database database = table.getDatabase();
+		if (database.getType()==null)
+			return "database type not set";
 		if (database.getType().equals("DB2")){
 			return "SELECT NEXTVAL FOR "+provideSequence(table)+" AS ID FROM SYSIBM.SYSDUMMY1";
 		} else if (database.getType().equals("ORACLE")){

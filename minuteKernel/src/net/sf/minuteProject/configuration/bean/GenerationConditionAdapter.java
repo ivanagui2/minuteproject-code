@@ -40,17 +40,17 @@ public class GenerationConditionAdapter extends AbstractConfiguration {
 	
 	public boolean includeOtherwiseExpressInExcludeExpression(GeneratorBean bean) {
 		for (Condition condition : getConditions()){
-			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE)) {
-				if (condition.isConditionTrue(bean))
+			if (condition.getType().equals(FILTER_FILE_TYPE_EXCLUDE)
+				&& condition.isConditionTrue(bean))
 					return false;
-			}
 		}
 		return true;
 	}
 	
 	public boolean excludeOtherwiseExpressInIncludeExpression(GeneratorBean bean) {
 		for (Condition condition : getConditions()){
-			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) && condition.isConditionTrue(bean))
+			if (condition.getType().equals(FILTER_FILE_TYPE_INCLUDE) 
+				&& condition.isConditionTrue(bean))
 				return true;
 		}
 		return false;

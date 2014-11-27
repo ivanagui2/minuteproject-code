@@ -55,6 +55,14 @@ public class Conventions extends AbstractConfiguration{
 		Transformer transformer = new PredicateTransformer(new InstanceofPredicate(SddConvention.class));
 		return CollectionUtils.transformedCollection(getConventions(), transformer);
 	}
+
+	public boolean isBusinessModelGenerationDisable() {
+		for (KernelConvention c :getKernelConventions() ) {
+			if (TargetConvention.DISABLE_BUSINESS_MODEL_GENERATION.equals(c.getType()))
+				return true;
+		}
+		return false;
+	}
 	
 //	public void addConvention (ViewPrimaryKeyConvention convention) {
 //		getConventions().add(convention);

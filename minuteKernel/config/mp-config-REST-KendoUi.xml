@@ -5,6 +5,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
     <configuration>
 		<conventions>
 			<target-convention type="enable-updatable-code-feature" />
+			<target-convention type="disable-business-model-generation" />
 			<target-convention type="disable-package" />
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
@@ -25,7 +26,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				</primaryKeyPolicy> 
 			</data-model>
 			<business-model>
-				<generation-condition>
+				<generation-condition default-type="exclude" exclude-views="false">
 					<condition type="exclude" startsWith="DUAL"></condition>
 					<condition type="exclude" startsWith="ID_GEN"></condition>
 				</generation-condition>		
