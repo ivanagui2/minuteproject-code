@@ -9,6 +9,16 @@ public class ResourceTarget extends AbstractConfiguration {
 	List<Resource> resources;
 	private String outputdir;
 	private String templatedirRoot;
+	private boolean isGenerable;
+	
+
+	public void setIsGenerable(boolean b) {
+		this.isGenerable = b;	
+	}
+
+	public boolean isGenerable() {
+		return isGenerable;
+	}
 	
 	public List<Resource> getResources() {
 		if (resources==null)

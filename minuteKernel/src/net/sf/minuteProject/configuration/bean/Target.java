@@ -61,6 +61,7 @@ public class Target extends AbstractConfiguration {
 		List<ResourceTarget> resources = target.getResourceTargets();
 		for (ResourceTarget resourceTarget : resources) {
 			resourceTarget.setTarget(this);
+			resourceTarget.setIsGenerable(target.isGenerable());
 			resourceTarget.setRootdir(target.getTemplatedirRoot());
 			resourceTarget.getProperties().addAll(target.getProperties());
 			

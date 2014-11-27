@@ -156,4 +156,8 @@ public class Model extends GeneratorQualifier{
 	public void setPackageRoot(String packageRoot) {
 		this.packageRoot = packageRoot;
 	}
+	
+	public Configuration getConfiguration() {
+		return configuration!=null?configuration:application.getConfiguration();
+	}
 }

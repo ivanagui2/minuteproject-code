@@ -56,7 +56,7 @@ public class DatabaseDDLUtils implements Database
 	public DatabaseDDLUtils(DataModel dataModel) {
 		this.dataModel = dataModel;
 		
-		if (dataModel.getModel().getConfiguration().isBusinessModelGenerationDisable()) {
+		if (isBusinessModelGenerationDisable(dataModel)) {
 			database = new org.apache.ddlutils.model.Database();
 			//database.setType();
 			//TODO set type
@@ -69,6 +69,10 @@ public class DatabaseDDLUtils implements Database
 		}
 	}
 	
+	private boolean isBusinessModelGenerationDisable(DataModel dataModel2) {
+		return dataModel.getModel().getConfiguration().isBusinessModelGenerationDisable();
+	}
+
 	private void loadFunction (DataModel dataModel) {
 		functions = FunctionUtils.getFunctions(dataModel, this);
 	}
