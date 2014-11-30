@@ -45,7 +45,10 @@ public class DataModel {
 		this.datasource = datasource;
 	}
 	
-	public void loadDatabase () {
+	/**
+	 * real load of the database structure
+	 */
+	public void loadDatabase () { 
 		database = DataModelFactory.getInstance().getDatabase(this);
 	}	
 
