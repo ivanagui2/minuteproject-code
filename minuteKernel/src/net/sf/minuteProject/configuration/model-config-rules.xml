@@ -273,6 +273,9 @@
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
 			<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
 			<bean-property-setter-rule pattern="schema"/>	
+            <set-properties-rule>
+                <alias attr-name="database-type" prop-name="databaseType" />
+            </set-properties-rule>  	
 			<pattern value="fileSource">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.FileSource"/>	
 				<set-next-rule methodname="setFileSource" paramtype="net.sf.minuteProject.configuration.bean.FileSource"/>			
@@ -1268,7 +1271,10 @@
 	<pattern value="data-model">
 		<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
 		<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
-		<bean-property-setter-rule pattern="schema"/>	
+		<bean-property-setter-rule pattern="schema"/>
+		<set-properties-rule>
+        	<alias attr-name="database-type" prop-name="databaseType" />
+        </set-properties-rule>  	
 		<pattern value="fileSource">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.FileSource"/>	
 			<set-next-rule methodname="setFileSource" paramtype="net.sf.minuteProject.configuration.bean.FileSource"/>			
