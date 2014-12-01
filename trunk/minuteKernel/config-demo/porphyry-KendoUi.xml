@@ -252,7 +252,6 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
 									<property name="TREATED" />
 								</property>
                              </query-param>
-                             
                          </query-params>
                      </query>
 
@@ -312,9 +311,7 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
 		</model>
 
 		<targets catalog-entry="REST-KendoUi" >
-			<property name="target-server" value="glassfish"></property>
-			<property name="environment" value="remote"></property>
-			<property name="add-jpa2-implementation" value="eclipselink"></property>
+			<property name="target-server" value="tomcat"></property>
 		</targets>
 
 
