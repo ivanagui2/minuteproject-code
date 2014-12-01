@@ -43,15 +43,15 @@ $(function () {
 #putKendoUIMenuPackage()
 #end
 <li>sdd
+    <ul>
 #foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
-    <ul>
         <li><a onclick="openEntityContent('$table.name');"> $tableLabel</a></li>
-    </ul>
 #end
+    </ul>
 </li>
 </ul>
 </div>

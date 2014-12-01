@@ -37,13 +37,18 @@
 <li>
 	<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
 ##	<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
-## enum
-#if($isEnum)
+<!-- is enum : ${column.isEnum} $isEnum -->
+#foreach ($property in $column.properties)
+<!-- $property.tag -->
+#end
+#if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
         <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
-		<option>todo</option>
+#foreach ($property in $columnUtils.getCheckConstraintValues($column))
+		<option>$property.name</option>
+#end
      </select>
      <span class="k-invalid-msg" data-for="$labelFor"></span>
 ##		<f:selectItems value="#{${lookupEnumVar}.${domainVariableName}${columnClass}Array}" itemValue="#{item}" var="item" itemLabel="#{item.name()}" />
