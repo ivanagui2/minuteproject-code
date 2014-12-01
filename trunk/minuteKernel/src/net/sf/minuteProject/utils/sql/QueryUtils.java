@@ -90,7 +90,6 @@ public class QueryUtils {
 		return StringUtils.replace(getQueryQuestionMark(query), "\n", " ");
 	}
 	
-	
 	public static String getQueryQuestionMark(Query query) {
 		return query.getQueryBody().getValue();
 	}
