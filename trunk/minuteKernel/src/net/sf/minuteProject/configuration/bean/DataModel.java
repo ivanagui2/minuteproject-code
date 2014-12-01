@@ -25,6 +25,7 @@ public class DataModel {
 	private Driver driver;
 	private FileSource fileSource;
 	private String schema;
+	private String databaseType;
 	private PrimaryKeyPolicy primaryKeyPolicy;
 	
 	private BasicDataSource basicDataSource;
@@ -72,11 +73,15 @@ public class DataModel {
 		this.fileSource = filesource;
 	}
 
+	public String getDatabaseType() {
+		return databaseType;
+	}
+
+	public void setDatabaseType(String databaseType) {
+		this.databaseType = databaseType;
+	}
+
 	public String getSchema() {
-//		if (schema==null) {
-//			BasicDataSource bds = (org.apache.commons.dbcp.BasicDataSource)getDatasource();
-//			setSchema(bds.getUsername());
-//		}
 		return schema;
 	}
 
