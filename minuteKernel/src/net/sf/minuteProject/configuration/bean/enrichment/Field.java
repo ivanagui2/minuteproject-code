@@ -33,6 +33,13 @@ public class Field extends AbstractConfiguration {
 		else
 			return "0";
 	}
+	
+	public boolean isEnum () {
+		if (hasProperty("checkconstraint")) {
+			return true;
+		}
+		return false;
+	}
 	public boolean isBidirectional () {
 		if (bidirectional!=null && bidirectional.equals("true"))
 			return true;

@@ -164,6 +164,7 @@ public class Query extends AbstractConfiguration {
 		entity.setPackage(getPackage());
 //		entity.getTechnicalPackage(template)
 		entity.setDatabase(database);
+		complementColumn(entity, dir);
 		return entity;
 	}
 
@@ -216,6 +217,19 @@ public class Query extends AbstractConfiguration {
 				table.addColumn(getColumnTransient(queryParam));
 			}
 		}
+	}
+
+	private void complementColumn(Table table, Direction direction) {
+		List<QueryParam> list = getColumns(direction);
+		for (QueryParam queryParam : list) {
+			for (Column column : table.getColumns()) {
+				if (column.getName().equals(queryParam.getName())) {
+					column.setProperties(queryParam.getProperties());
+					column.setStereotype(queryParam.getStereotype());
+				}
+			}
+		}
+		
 	}
 
 	private List<QueryParam> getColumns(Direction direction) {
