@@ -14,6 +14,7 @@ public class QueryParam extends Field {
 	private String sample;
 	private int size, scale;
 	private String converter;
+	private String likeMode;
 //	private String defaultValue, converter;
 	private QueryParamOptionalSections queryParamOptionalSections;
 	private QueryParamLink queryParamLink;
@@ -108,6 +109,11 @@ public class QueryParam extends Field {
 	public void setQueryParams(QueryParams queryParams) {
 		this.queryParams = queryParams;
 	}
-
+	public String getLikeMode() {
+		return likeMode;
+	}
+	public void setLikeMode(String likeMode) {
+		this.likeMode = likeMode;
+	}
 	
 }
