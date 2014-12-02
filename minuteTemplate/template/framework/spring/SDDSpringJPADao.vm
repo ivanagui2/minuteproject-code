@@ -80,14 +80,7 @@ $!updatedAreaEnd
         return entityManager.unwrap(Connection.class);
     }
 #else
-//if JPA2 implementation is hibernate
-#*	@SuppressWarnings("deprecation")   
-   	public Connection getConnection() throws HibernateException {  
-		Session session = getSession();  
-		Connection connection = session.connection();  
-		return connection;  
-   	} 
-*#	
+	
     public Connection getConnection() throws SQLException, HibernateException {
         Session session = getSession();
         SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
