@@ -220,11 +220,32 @@
                              	<stereotype stereotype="EMAIL" />
                              </query-param>
                              <query-param name="role" is-mandatory="true" type="string" sample="'c'">
-                                <query-param-link entity-name="sec_role" field-name="role"/>
+                                <query-param-link entity-name="sec_role" field-name="role"/>  
+                                <!-- <query-param-link sdd-query-name="security_role_list" field-name="role" field-key="id"/>
+                                -->
                              </query-param>
                          </query-params>
                      </query>
                      				
+			         <query name="security_role_list" id="security_role_list" >
+                         <query-body>
+                         <value>
+<![CDATA[SELECT id, role from sec_role order by role desc]]>
+                            </value>
+                         </query-body>
+                     </query>
+			         <query name="security_role_list_like" id="security_role_list" >
+                         <query-body>
+                         <value>
+<![CDATA[SELECT id, role from sec_role where role like ? order by role desc]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="role" type="string" sample="'a'" >
+                             <property name="like-mode" value="startsWith"></property>
+                             </query-param>
+                         </query-params>
+                     </query>
 			         <query name="role_request_per_day" id="role_request_per_day" >
                          <query-body>
                          <value>
@@ -312,6 +333,8 @@ GROUP BY DAY(creation_date) order by DAY(creation_date)]]>
 
 		<targets catalog-entry="REST-KendoUi" >
 			<property name="target-server" value="tomcat"></property>
+			<property name="auto-complete-sdd-on-like-min-char" value="3"></property>
+			<property name="auto-complete-sdd-on-like-max-record-display" value="10"></property>
 		</targets>
 
 

@@ -9,7 +9,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 			<target-convention type="disable-package" />
 		</conventions>	
 		<model name="petshop" version="1.0" package-root="net.sf.mp.demo.jpa2">
-			<data-model>
+			<data-model database-type="HSQLDB">
 			    <driver name="hsqldb" version="1.8.0.7" groupId="hsqldb" artifactId="hsqldb"></driver>
 			    <dataSource>	
 					<driverClassName>org.hsqldb.jdbcDriver</driverClassName>
@@ -63,6 +63,22 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                          <query-where><value></value></query-where>
                          <query-params>
                              <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="-1"></query-param>
+                         </query-params>
+                     </query>
+			         <query name="address by zip" id="address_by_zip" >
+                         <query-body>
+                         <value>
+<![CDATA[select * from address where zip = ?]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="zip" is-mandatory="true" type="string" sample="'a'" is-id="true">
+								<property tag="checkconstraint">
+									<property name="CA" />
+									<property name="TX" />
+								</property>
+                             </query-param>
+                             
                          </query-params>
                      </query>
                  </queries>
