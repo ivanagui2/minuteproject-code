@@ -660,8 +660,10 @@
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
 	<xs:complexType name="query-param-link">
-		<xs:attribute name="entity-name" type="xs:string" use="required" />
+		<xs:attribute name="entity-name" type="xs:string" />
 		<xs:attribute name="field-name" type="xs:string" use="required" />
+		<xs:attribute name="field-key" type="xs:string" />
+		<xs:attribute name="sdd-query-name" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="business-model">
@@ -775,6 +777,7 @@
 				maxOccurs="unbounded">
 			</xs:element>
 		</xs:sequence>
+		<xs:attribute name="database-type" type="xs:string" />
 	</xs:complexType>
 
 </xs:schema>
