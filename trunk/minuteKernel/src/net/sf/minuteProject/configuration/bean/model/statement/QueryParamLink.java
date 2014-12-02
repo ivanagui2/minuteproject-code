@@ -5,7 +5,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Field;
 
 public class QueryParamLink extends AbstractConfiguration{
 	
-	private String entityName, fieldName;
+	private String entityName, queryName, fieldName, fieldKey;
 	private QueryParam queryParam;
 
 	public String getEntityName() {
@@ -31,6 +31,22 @@ public class QueryParamLink extends AbstractConfiguration{
 
 	public void setQueryParam(QueryParam queryParam) {
 		this.queryParam = queryParam;
+	}
+
+	public String getQueryName() {
+		return queryName;
+	}
+
+	public void setQueryName(String queryName) {
+		this.queryName = queryName;
+	}
+
+	public String getFieldKey() {
+		return fieldKey;
+	}
+
+	public void setFieldKey(String fieldKey) {
+		this.fieldKey = fieldKey;
 	}
 
 }

@@ -195,7 +195,9 @@
 								<set-next-rule methodname="setQueryParamLink" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>	
 								<set-properties-rule>
 									<alias attr-name="entity-name" prop-name="entityName" />
+									<alias attr-name="sdd-query-name" prop-name="queryName" />
 									<alias attr-name="field-name" prop-name="fieldName" />
+									<alias attr-name="field-key" prop-name="fieldKey" />
 								</set-properties-rule>
 							</pattern>
 							<pattern value="property">
@@ -1194,7 +1196,9 @@
 							<set-next-rule methodname="setQueryParamLink" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>	
 							<set-properties-rule>
 								<alias attr-name="entity-name" prop-name="entityName" />
+								<alias attr-name="sdd-query-name" prop-name="queryName" />
 								<alias attr-name="field-name" prop-name="fieldName" />
+								<alias attr-name="field-key" prop-name="fieldKey" />
 							</set-properties-rule>
 						</pattern>
 						<pattern value="property">
