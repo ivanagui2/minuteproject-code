@@ -44,10 +44,10 @@
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
-        <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
+##        <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
 #foreach ($property in $columnUtils.getCheckConstraintValues($column))
-		<option>$property.name</option>
+		<option value="$property.name">$property.name</option>
 #end
      </select>
      <span class="k-invalid-msg" data-for="$labelFor"></span>
