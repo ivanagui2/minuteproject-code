@@ -363,10 +363,10 @@ public class CommonUtils {
 		return getFunctionPackage(model, function);
 	}
 	public static String getSDDPackageName(Query query){
-		return getSDDPackage(query.getQueries().getName(), Queries.DEFAULT_PACKAGE_NAME);
+		return getSDDPackage(query.getPackageName(), Queries.DEFAULT_PACKAGE_NAME);
 	}
 	public static String getSDDPackageName(Composite composite){
-		return getSDDPackage(composite.getComposites().getName(), Composites.DEFAULT_PACKAGE_NAME);
+		return getSDDPackage(composite.getPackageName(), Composites.DEFAULT_PACKAGE_NAME);
 	}
 	
 	private static String getSDDPackage(String name, String defaultValue) {

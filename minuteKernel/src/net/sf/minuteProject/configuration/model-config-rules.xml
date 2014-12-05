@@ -146,11 +146,8 @@
 		            <bean-property-setter-rule pattern="name"/>
 	                <set-properties-rule>
 	                    <alias attr-name="name" prop-name="name" />
-	                </set-properties-rule>  
-	<!-- 	            <bean-property-setter-rule pattern="query-body" propertyname="queryBody"/>         
-		            <bean-property-setter-rule pattern="queryWhat" propertyname="query-what"/>         
-		            <bean-property-setter-rule pattern="query-where" propertyname="queryWhere"/>         
-	 -->
+	                 	<alias attr-name="packageName" prop-name="package-name" />
+	            	</set-properties-rule>
 			        <pattern value="query-body">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
 		                <set-next-rule methodname="setQueryBody" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>          
@@ -1147,11 +1144,8 @@
 	            <bean-property-setter-rule pattern="name"/>
                 <set-properties-rule>
                     <alias attr-name="name" prop-name="name" />
-                </set-properties-rule>  
-<!-- 	            <bean-property-setter-rule pattern="query-body" propertyname="queryBody"/>         
-	            <bean-property-setter-rule pattern="queryWhat" propertyname="query-what"/>         
-	            <bean-property-setter-rule pattern="query-where" propertyname="queryWhere"/>         
- -->
+                 	<alias attr-name="packageName" prop-name="package-name" />
+            	</set-properties-rule>
 		        <pattern value="query-body">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
 	                <set-next-rule methodname="setQueryBody" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>          

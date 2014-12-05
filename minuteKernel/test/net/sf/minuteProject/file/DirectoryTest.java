@@ -2,6 +2,7 @@ package net.sf.minuteProject.file;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -28,6 +29,7 @@ public class DirectoryTest {
 	Target target;
 	TemplateTarget templateTarget;
 	Template template;
+	Model model;
 	
 	@Before
 	public void init(){
@@ -35,6 +37,7 @@ public class DirectoryTest {
 		target = mock(Target.class);
 		templateTarget = mock(TemplateTarget.class);
 		template = mock (Template.class);
+		model = mock (Model.class);
 		
 
 		targets.addTarget(target);

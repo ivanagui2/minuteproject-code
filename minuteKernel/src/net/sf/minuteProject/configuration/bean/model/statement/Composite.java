@@ -17,6 +17,7 @@ public class Composite extends AbstractConfiguration{
 	private List<Table> entities;
 	private String executionType;
 	private Package pack;
+	private String packageName;
 	
 	private List<CompositeQueryElement> queries;
 	
@@ -123,6 +124,13 @@ public class Composite extends AbstractConfiguration{
 	public boolean isDirection (Direction direction) {
 		return (this.direction==direction);
 	}
-	
+
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
 	
 }
