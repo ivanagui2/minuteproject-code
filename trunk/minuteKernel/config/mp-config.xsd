@@ -624,6 +624,7 @@
 			<xs:element name="query-params" type="query-params" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="package-name" type="xs:string" />
 		<xs:attribute name="id" type="xs:string" />
 		<xs:attribute name="category" type="xs:string" />
 		<xs:attribute name="type" type="query-type" />

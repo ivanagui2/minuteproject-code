@@ -78,7 +78,7 @@ public class QueryParam extends Field {
 	}
 
 	public Field getLinkField() {
-		if (queryParamLink!=null) {
+		if (queryParamLink!=null && queryParamLink.getEntityName()!=null) {
 			setLinkToTargetEntity(queryParamLink.getEntityName());
 			Column column = ColumnUtils.getColumn(TableUtils.getTable(getQueryParams().getQuery().getQueries().getStatementModel().getModel().getDataModel().getDatabase(), queryParamLink.getEntityName()), queryParamLink.getFieldName());
 			if (column!=null) {

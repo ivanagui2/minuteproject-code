@@ -34,6 +34,7 @@ public class Query extends AbstractConfiguration {
 	private String type, category;
 	private Table tableIn, tableOut;
 	private List<Action> actions;
+	private String packageName;
 	
 	public QueryParams getInputParams () {
 		return QueryUtils.getInputParams(this);
@@ -301,5 +302,12 @@ public class Query extends AbstractConfiguration {
 		getActions().add(action);
 	}
 
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
 	
 }

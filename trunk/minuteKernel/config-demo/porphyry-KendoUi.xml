@@ -208,7 +208,7 @@
 			<!-- S D D -->
 			<statement-model>
 				<queries>
-			         <query name="ask_for_role" id="ask_for_role" >
+			         <query name="ask_for_role" id="ask_for_role" package-name="secu">
                          <query-body>
                          <value>
 <![CDATA[call ask_for_role (?,?,?)]]>
@@ -220,9 +220,11 @@
                              	<stereotype stereotype="EMAIL" />
                              </query-param>
                              <query-param name="role" is-mandatory="true" type="string" sample="'c'">
-                                <query-param-link entity-name="sec_role" field-name="role"/>  
-                                <!-- <query-param-link sdd-query-name="security_role_list" field-name="role" field-key="id"/>
-                                -->
+                                <!-- 
+                                <query-param-entity-link entity-name="sec_role" field-name="role"/>  
+                                 -->
+                                <query-param-link sdd-query-name="security_role_list" field-name="role" field-key="id"/>
+                                
                              </query-param>
                          </query-params>
                      </query>
