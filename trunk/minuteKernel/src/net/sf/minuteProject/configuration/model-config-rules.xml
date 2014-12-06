@@ -146,7 +146,7 @@
 		            <bean-property-setter-rule pattern="name"/>
 	                <set-properties-rule>
 	                    <alias attr-name="name" prop-name="name" />
-	                 	<alias attr-name="packageName" prop-name="package-name" />
+	                 	<alias attr-name="package-name" prop-name="packageName" />
 	            	</set-properties-rule>
 			        <pattern value="query-body">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
@@ -1144,7 +1144,7 @@
 	            <bean-property-setter-rule pattern="name"/>
                 <set-properties-rule>
                     <alias attr-name="name" prop-name="name" />
-                 	<alias attr-name="packageName" prop-name="package-name" />
+                 	<alias attr-name="package-name" prop-name="packageName" />
             	</set-properties-rule>
 		        <pattern value="query-body">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    

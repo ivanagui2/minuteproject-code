@@ -17,7 +17,7 @@ import net.sf.minuteProject.utils.ModelUtils;
 public class SDDPackage extends BusinessPackageAdapter {
 
 	private StatementModel statementModel;
-	private List<Package> functions;
+	private List<Package> queries;
 	
 	public SDDPackage(StatementModel statementModel) {
 		this.statementModel = statementModel;
@@ -70,13 +70,13 @@ public class SDDPackage extends BusinessPackageAdapter {
 		}
 		Enumeration<Package> enumeration = ht.elements();
 		while (enumeration.hasMoreElements()) {
-			getFunctionPackages().add(enumeration.nextElement());
+			getQueryPackages().add(enumeration.nextElement());
 		}
 	}
 
-	public List<Package> getFunctionPackages() {
-		if (functions==null) functions = new ArrayList<Package>();
-		return functions;
+	public List<Package> getQueryPackages() {
+		if (queries==null) queries = new ArrayList<Package>();
+		return queries;
 	}
 
 
