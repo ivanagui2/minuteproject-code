@@ -42,9 +42,12 @@ $(function () {
 #foreach ($package in ${businessPackageViews})
 #putKendoUIMenuPackage()
 #end
-<li>sdd
+
+<!-- sdd package -->
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+<li>$package.name
     <ul>
-#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
+#foreach ($query in $package.getQueries()) 
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
@@ -53,6 +56,7 @@ $(function () {
 #end
     </ul>
 </li>
+#end
 </ul>
 </div>
 <div id="entity-content">
