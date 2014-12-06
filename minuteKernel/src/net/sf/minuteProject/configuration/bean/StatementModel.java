@@ -1,6 +1,5 @@
 package net.sf.minuteProject.configuration.bean;
 
-import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.StatementModelEnrichment;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -57,7 +56,7 @@ public class StatementModel {
 	}
 	
 	public void complementStatement() {
-		complementStatementPackage();
+ 		complementStatementPackage();
 //		complementStatementInputField();
 	}
 	

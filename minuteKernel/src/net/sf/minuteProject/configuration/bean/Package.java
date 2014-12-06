@@ -67,14 +67,17 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 			listOfTables = new ArrayList<Table>();
 		table.setPackage(this);
 		listOfTables.add(table);
-	}
-	
+	}	
 	
 	public void addStatement(Query query) {
+		query.setPackage(this);
+		getQueries().add(query);
+	}
+	
+	public List<Query> getQueries() {
 		if (listOfQueries==null)
 			listOfQueries = new ArrayList<Query>();
-		query.setPackage(this);
-		listOfQueries.add(query);
+		return listOfQueries;
 	}
 
 	public void addComposite(Composite composite) {
