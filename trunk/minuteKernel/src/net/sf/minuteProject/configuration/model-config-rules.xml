@@ -178,6 +178,7 @@
 		                       <alias attr-name="is-mandatory" prop-name="isMandatory" />
 		                       <alias attr-name="is-id" prop-name="isId" />
 		                       <alias attr-name="default" prop-name="defaultValue" />
+		                       <alias attr-name="size" prop-name="size" />
 		                   </set-properties-rule>
 		                   <pattern value="stereotype">
 								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -1176,6 +1177,7 @@
 	                       <alias attr-name="is-mandatory" prop-name="isMandatory" />
 	                       <alias attr-name="is-id" prop-name="isId" />
 	                       <alias attr-name="default" prop-name="defaultValue" />
+	                       <alias attr-name="size" prop-name="size" />
 	                   </set-properties-rule>
 	                   <pattern value="stereotype">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		

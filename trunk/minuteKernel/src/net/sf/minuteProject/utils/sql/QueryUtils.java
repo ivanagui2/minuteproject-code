@@ -125,6 +125,7 @@ public class QueryUtils {
 		String sample = queryParam.getSample();
 		if (StringUtils.isEmpty(type))
 			return sample;
+		type = type.toUpperCase();
 		if (type.equals(FieldType.CHAR))
 			return "'"+sample+"'";
 		if (type.equals(FieldType.DATE))

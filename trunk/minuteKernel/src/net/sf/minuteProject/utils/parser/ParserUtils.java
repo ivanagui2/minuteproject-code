@@ -29,11 +29,6 @@ public class ParserUtils {
 		if (s!=null) {
 			s = StringUtils.replace(s, " ", "");
 			return Arrays.asList(StringUtils.split(s, ","));
-//			StringTokenizer st = new StringTokenizer(s,",");
-//			while (st.hasMoreElements()) {
-//				String element = (String) st.nextElement();
-//				l.add(element);
-//			}
 		}
 		return l;
 	}

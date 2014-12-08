@@ -201,20 +201,20 @@ public class Query extends AbstractConfiguration {
 	public void setPackage(Package pack) {
 		this.pack = pack;
 	}
-/*
-	public String getTechnicalPackage2(Template template) {
+
+	public String getTechnicalPackage(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
 			return "ERROR_PACKAGE_IS_NULL";
 			
 		//return CommonUtils.getSDDPackageName(this);
-		return p.getTechnicalPackage(template);
+		return p.getTechnicalPackage(template)+"."+CommonUtils.getSDDPackageName(this);
 	}
-*/	
-	public String getTechnicalPackage(Template template) {
+/*	
+	public String getTechnicalPackage3(Template template) {
 		return CommonUtils.getSDDPackageName(this);
 	}
-
+*/
 	private void addColumns(org.apache.ddlutils.model.Table table,
 			Direction direction) {
 		List<QueryParam> list = getColumns(direction);
