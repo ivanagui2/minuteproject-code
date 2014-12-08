@@ -24,6 +24,7 @@ function openEntityContent(entity) {
 #exposeKendoUISddSpecific()
   if (entity == "${table.name}") {
     $("#entity-content").load("$entityFullPath");
+//sddInputBeanImport $sddInputBeanImport
   }
 #end
 }

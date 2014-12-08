@@ -35,7 +35,7 @@
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 *#
-<!-- -->
+<!-- pk -->
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
@@ -43,6 +43,7 @@
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
+<!-- column group -->
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
@@ -50,6 +51,7 @@
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
+<!-- reference -->
 #foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
 #putReferenceParams2()
 #set ($column=$localColumn)
@@ -74,6 +76,22 @@
 <!-- kendo js scripts -->
 <script>
     $(document).ready(function () {
+
+	  //fields
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+#putKendoJsColumnSnippet($tableVariableName $tableVariableName)
+#end
+#end
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($column in $columnGroup)
+#putColumnParams()
+#columnJavaNaming()
+#putKendoJsColumnSnippet($tableVariableName $tableVariableName)
+#end
+#end
 
 ## inspired by http://demos.telerik.com/kendo-ui/grid/custom-command
        wnd = $("#details").kendoWindow({
