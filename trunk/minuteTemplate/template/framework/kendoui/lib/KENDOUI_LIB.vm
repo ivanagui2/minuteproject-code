@@ -39,19 +39,18 @@
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
-##        <f:selectItem noSelectionOption="true" itemLabel="Please Select"/>
 #end
 #foreach ($property in $columnUtils.getCheckConstraintValues($column))
 		<option value="$property.name">$property.name</option>
 #end
      </select>
      <span class="k-invalid-msg" data-for="$labelFor"></span>
-##		<f:selectItems value="#{${lookupEnumVar}.${domainVariableName}${columnClass}Array}" itemValue="#{item}" var="item" itemLabel="#{item.name()}" />
-##    </p:selectOneMenu>	
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
-##TODO
+	<div class="display-picker">
+		<input id="$fieldId" />
+	</div>
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
@@ -111,7 +110,6 @@
 #macro (putJSFColumnSnippet2)
 #putJSFColumnSnippet("selected${tableClassName}" ${tableVariableName})
 #end
-
 
 #macro(putKendoUIMenu)
     $(document).ready(function() {

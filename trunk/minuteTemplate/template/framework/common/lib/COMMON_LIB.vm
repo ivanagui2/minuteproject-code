@@ -373,7 +373,11 @@ $!updatedAreaEnd
 #end
                pstmt.set$columnType($velocityCount, var); 
 #else
+#if($columnUtils.isTimeColumn($column))
+               pstmt.set$columnType($velocityCount, new java.sql.Date(${sddInputBeanVariable}.get$columnClass().getTime())); 
+#else
                pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
+#end
 #end
             }
 #end
