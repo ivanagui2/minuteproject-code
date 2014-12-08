@@ -36,11 +36,6 @@
 #set($fieldId="field-$columnVar")
 <li>
 	<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
-##	<p:outputLabel>#{i18n.$internat$separator$columnVar}#if($column.isRequired()) *#end</p:outputLabel>
-<!-- is enum : ${column.isEnum} $isEnum -->
-#foreach ($property in $column.properties)
-<!-- $property.tag -->
-#end
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
@@ -56,14 +51,7 @@
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
-#*
-    <p:calendar value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}"
-       id="lbl${columnClass}-#{idValue}" ##converter="dateTsConverter"
-       converterMessage="Invalid Date" required="$column.isRequired()"
-       pattern="dd/MM/yyyy">
-    </p:calendar>
-*#
-##	<p:message for="lbl${columnClass}-#{idValue}" />
+##TODO
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
@@ -95,13 +83,13 @@
 #macro (putKendoJsColumnSnippet $tableVariableName $internat)
 #set($labelFor=$columnVar)
 #set($fieldId="field-$columnVar")
-#if($isEnum)
-$("#${fieldId}").kendoNumericTextBox();
+#if($columnUtils.hasCheckConstraint($column))
+	$("#${fieldId}").kendoDropDownList();
 #if(!$column.isRequired())
 #end
 #else
 #if($columnUtils.isTimeColumn($column))
-$("#${fieldId}").kendoDatePicker();
+	$("#${fieldId}").kendoDatePicker();
 #else
 #if($columnUtils.isBoolean($column))
 #else
@@ -181,7 +169,8 @@ $("#${fieldId}").kendoDatePicker();
 
 #macro(exposeKendoUISddSpecific)
 #exposeKendoUITemplate()
-#set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($table, $template, $templateKendoSddInput))
+#set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateKendoSddInput))
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($table, $template, $templateKendoSddInput))
 #end
 
 #macro (exposeRestDbApiDomainObject)

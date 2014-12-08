@@ -30,7 +30,9 @@
 #set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDServiceInterface))
 #set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
+##correct but need modification : TODO 
 #set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDDaoInterface))
+##set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateSDDDaoInterface))
 #set ($sddRepositoryInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDRepositoryInterface))
 #set ($sddRepositoryInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddRepositoryInterfaceClass))
 #set ($sddRepositoryInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDRepositoryInterface))
