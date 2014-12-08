@@ -17,6 +17,7 @@ import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
@@ -200,12 +201,18 @@ public class Query extends AbstractConfiguration {
 	public void setPackage(Package pack) {
 		this.pack = pack;
 	}
-
-	public String getTechnicalPackage(Template template) {
+/*
+	public String getTechnicalPackage2(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
 			return "ERROR_PACKAGE_IS_NULL";
+			
+		//return CommonUtils.getSDDPackageName(this);
 		return p.getTechnicalPackage(template);
+	}
+*/	
+	public String getTechnicalPackage(Template template) {
+		return CommonUtils.getSDDPackageName(this);
 	}
 
 	private void addColumns(org.apache.ddlutils.model.Table table,
@@ -309,5 +316,5 @@ public class Query extends AbstractConfiguration {
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
 	}
-	
+
 }
