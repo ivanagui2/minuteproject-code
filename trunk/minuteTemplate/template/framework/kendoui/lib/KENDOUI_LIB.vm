@@ -48,13 +48,11 @@
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
-	<div class="display-picker">
-		<input id="$fieldId" />
-	</div>
+		<input id="$fieldId" data-bind="value: ${columnVar}" />
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
-	<input type="checkbox" data-bind="value: ${columnVar}" /> 
+	<input type="checkbox" data-bind="value: ${columnVar}" required="$column.isRequired()" /> 
 ##	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
 #else
 ## textarea
