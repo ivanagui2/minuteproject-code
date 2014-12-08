@@ -658,6 +658,7 @@
 		<xs:attribute name="default" type="xs:string" />
 		<xs:attribute name="converter" type="xs:string" />
 		<xs:attribute name="is-mandatory" type="xs:boolean" default="true"/>
+		<xs:attribute name="size" type="xs:int" />
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
 	<xs:complexType name="query-param-link">

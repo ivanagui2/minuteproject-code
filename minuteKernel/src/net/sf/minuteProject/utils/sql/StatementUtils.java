@@ -30,6 +30,7 @@ public class StatementUtils {
 	
 	private static final String getJdbcType(String type) {
 		if (type!=null) {
+			type = type.toUpperCase();
 			if (type.equals(FieldType.INTEGER.toString()))
 				return "Int";
 			if (type.equals(FieldType.DECIMAL.toString()))
@@ -38,6 +39,8 @@ public class StatementUtils {
 				return "BigDecimal";
 			if (type.equals(FieldType.CHAR.toString()))
 				return "String";
+			if (type.equals(FieldType.DATE.toString()))
+				return "Date";
 		}
 		return "String";
 	}
