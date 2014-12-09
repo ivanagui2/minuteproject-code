@@ -109,6 +109,27 @@
 			file-extension="java" file-prefix="" file-suffix="Resource" 
 			scope-specific-value="query" has-updatable-nature="true">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>		
+		
+		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.param"
+			file-extension="java" file-prefix="" file-suffix="DateParam" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+			<property name="format" value="date" />
+		</template>
+		
+		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.param"
+			file-extension="java" file-prefix="" file-suffix="TimeParam" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+			<property name="format" value="time" />
+		</template>
+		
+		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.param"
+			file-extension="java" file-prefix="" file-suffix="TimestampParam" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+			<property name="format" value="timestamp" />
 		</template>
 		
 	</template-target>
