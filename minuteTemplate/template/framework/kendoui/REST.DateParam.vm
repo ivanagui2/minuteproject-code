@@ -12,12 +12,19 @@ public class $className {
 
     private final Date date;
 
-    public DateParam(String dateStr) throws WebApplicationException {
+    public $className (String dateStr) throws WebApplicationException {
         if (dateStr==null) {
             this.date = null;
             return;
         }
-        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+#if ($template.hasPropertyValue("format","date"))
+#set($format="yyyy-MM-dd")
+#elseif ($template.hasPropertyValue("format","time"))
+#set($format="yyyy-MM-dd mm:ss")
+#elseif ($template.hasPropertyValue("format","timestamp"))
+#set($format="yyyy-MM-dd mm:ss")
+#end
+        final DateFormat dateFormat = new SimpleDateFormat("$format");
         try {
             this.date = dateFormat.parse(dateStr);
         } catch (ParseException e) {
