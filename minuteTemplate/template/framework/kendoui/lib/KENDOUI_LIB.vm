@@ -179,11 +179,13 @@
 #exposeQuerySpecific()
 #exposeDbApiRestTemplate()
 #set($queryInputSDDRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateRESTDbApiSDDResource))
+#set($dateParamImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateRESTDateParam))
 #end
 
 #macro (exposeDbApiRestTemplate)
 #set($templateRESTDbApiGenericResource="RESTDbAPIGenericResource")
 #set($templateRESTDbApiSDDResource="RESTDbAPISDDResource")
+#set($templateRESTDateParam="REST.DateParam")
 #end
 
 #macro(exposeKendoUITemplate)

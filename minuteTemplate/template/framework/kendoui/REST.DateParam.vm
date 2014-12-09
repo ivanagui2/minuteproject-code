@@ -1,3 +1,4 @@
+#exposeVariableModelSpecific()
 package $packageName;
 
 import java.text.DateFormat;
@@ -8,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 public class $className {
+
     private final Date date;
 
     public DateParam(String dateStr) throws WebApplicationException {
@@ -28,4 +30,5 @@ public class $className {
     public Date getDate() {
         return date;
     }
+    
 }

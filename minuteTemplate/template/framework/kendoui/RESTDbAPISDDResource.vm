@@ -1,5 +1,5 @@
 #exposeBackendTechnology()
-#exposeQuerySpecific()
+#exposeDbApiRestQuerySpecific()
 #exposeSDDSpring()
 #exposeRESTSDDURLServer()
 #putImportQuerySDDBean()
@@ -91,6 +91,9 @@ $!updatedAreaSnippet
     public $sddOutputBeanCollectionClass execute (
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
+#if($columnUtils.isTime($column))
+#set($columnType=$dateParamImport)
+#end
         @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
@@ -99,6 +102,9 @@ $!updatedAreaSnippet
 		$sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
+#if($columnUtils.isTime($column))
+#set($columnVar="$columnVar"+".getDate()")
+#end
 		${sddInputBeanVariable}.set$columnClass ($columnVar);
 #end
         return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});

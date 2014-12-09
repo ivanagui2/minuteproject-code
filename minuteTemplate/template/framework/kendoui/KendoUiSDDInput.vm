@@ -116,7 +116,14 @@
 #else
 				query = "&";
 #end
-        		query = query + "$columnVar="+$columnVar;
+#if($columnUtils.isTime($column))
+                ${columnVar}Date = new Date(${columnVar});
+				${columnVar}DateSt = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
+#set($columnValue="${columnVar}DateSt")
+#else
+#set($columnValue=$columnVar)
+#end
+        		query = query + "$columnVar="+$columnValue;
 #end
 				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
 
