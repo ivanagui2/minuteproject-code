@@ -242,7 +242,7 @@ public class Query extends AbstractConfiguration {
 
 	private List<QueryParam> getColumns(Direction direction) {
 		if (Direction.IN.equals(direction))
-			return getInputParams().getQueryParams();
+			return getInputParams().getFlatQueryParams();
 		if (getOutputParams()!=null)
 			return getOutputParams().getQueryParams();
 		return new ArrayList<QueryParam>();

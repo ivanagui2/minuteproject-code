@@ -9,7 +9,9 @@ import net.sf.minuteProject.utils.TableUtils;
 public class QueryParam extends Field {
 
 	private QueryParams queryParams;
-	private boolean isMandatory=true;
+	private boolean isMandatory =true;
+	private boolean isImplicit  =false;
+	private boolean isContext   =false;
 //	private String type, sample;
 	private String sample;
 	private int size, scale;
@@ -114,6 +116,18 @@ public class QueryParam extends Field {
 	}
 	public void setLikeMode(String likeMode) {
 		this.likeMode = likeMode;
+	}
+	public boolean isImplicit() {
+		return isImplicit;
+	}
+	public void setIsImplicit(boolean isImplicit) {
+		this.isImplicit = isImplicit;
+	}
+	public boolean isContext() {
+		return isContext;
+	}
+	public void setIsContext(boolean isContext) {
+		this.isContext = isContext;
 	}
 	
 }
