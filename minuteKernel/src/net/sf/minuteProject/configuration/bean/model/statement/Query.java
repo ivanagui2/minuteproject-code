@@ -237,7 +237,6 @@ public class Query extends AbstractConfiguration {
 				}
 			}
 		}
-		
 	}
 
 	private List<QueryParam> getColumns(Direction direction) {
