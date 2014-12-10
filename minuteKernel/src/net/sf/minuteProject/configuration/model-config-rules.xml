@@ -179,6 +179,10 @@
 		                       <alias attr-name="is-id" prop-name="isId" />
 		                       <alias attr-name="default" prop-name="defaultValue" />
 		                       <alias attr-name="size" prop-name="size" />
+		                       <!-- <alias attr-name="id" prop-name="id" />-->
+		                       <alias attr-name="refid" prop-name="refid" />
+		                       <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
+		                   	   <alias attr-name="is-context"  prop-name="isContext" /><!-- global context bound -->
 		                   </set-properties-rule>
 		                   <pattern value="stereotype">
 								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -1178,6 +1182,10 @@
 	                       <alias attr-name="is-id" prop-name="isId" />
 	                       <alias attr-name="default" prop-name="defaultValue" />
 	                       <alias attr-name="size" prop-name="size" />
+	                       <!-- <alias attr-name="id" prop-name="id" /> -->
+		                   <alias attr-name="refid" prop-name="refid" />
+		                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
+		                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 	                   </set-properties-rule>
 	                   <pattern value="stereotype">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		

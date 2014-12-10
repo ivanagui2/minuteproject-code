@@ -113,7 +113,7 @@ public class QueryUtils {
 	private static List<String> getSamples(Query query) {
 		List<String> list = new ArrayList<String>();
 		if (query.getQueryParams() != null) {
-			for (QueryParam qp : query.getQueryParams().getQueryParams()) {
+			for (QueryParam qp : query.getQueryParams().getFlatQueryParams()) {
 				list.add(getParamSample(qp));
 			}
 		}
