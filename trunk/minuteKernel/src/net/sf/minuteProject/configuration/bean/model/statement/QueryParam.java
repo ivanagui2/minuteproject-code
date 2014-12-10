@@ -14,6 +14,7 @@ public class QueryParam extends Field {
 	private boolean isContext   =false;
 //	private String type, sample;
 	private String sample;
+	private String refname;
 	private int size, scale;
 	private String converter;
 	private String likeMode;
@@ -128,6 +129,15 @@ public class QueryParam extends Field {
 	}
 	public void setIsContext(boolean isContext) {
 		this.isContext = isContext;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getRefname() {
+		return refname;
+	}
+	public void setRefname(String refname) {
+		this.refname = refname;
 	}
 	
 }

@@ -37,9 +37,9 @@ public class QueryParams extends AbstractConfiguration {
 		if (uniqueQueryParams == null) {
 			uniqueQueryParams = new ArrayList<QueryParam>();
 			for (QueryParam queryParam : getQueryParams()) {
-				if (StringUtils.isEmpty(refid)) {
+				if (StringUtils.isEmpty(queryParam.getRefid()) || StringUtils.isEmpty(queryParam.getRefname())) {
 					uniqueQueryParams.add(queryParam);
-				}
+				} 
 			}
 		}
 		return uniqueQueryParams;
@@ -51,7 +51,13 @@ public class QueryParams extends AbstractConfiguration {
 			for (QueryParam queryParam : getQueryParams()) {
 				String refidParam = queryParam.getRefid();
 				if (!StringUtils.isEmpty(refidParam)) {
-					QueryParam instance = getReferenceQueryParam(refidParam);
+					QueryParam instance = getReferenceIdQueryParam(refidParam);
+					if (instance!=null) {
+						copy (instance, queryParam);
+						flatQueryParams.add(queryParam);
+					}
+				} else if (!StringUtils.isEmpty(queryParam.getRefname())) {
+					QueryParam instance = getReferenceNameQueryParam(queryParam.getRefname());
 					if (instance!=null) {
 						copy (instance, queryParam);
 						flatQueryParams.add(queryParam);
@@ -85,7 +91,7 @@ public class QueryParams extends AbstractConfiguration {
 		return queryParams;
 	}
 
-	private QueryParam getReferenceQueryParam(String refid) {
+	private QueryParam getReferenceIdQueryParam(String refid) {
 		if (query != null) {
 			//search first in its own query for query-param id
 			for (QueryParam q : getQueryParams()) {
@@ -94,17 +100,24 @@ public class QueryParams extends AbstractConfiguration {
 				}
 			}
 			//TODO search in all queries for id
-//			Queries queries = query.getQueries();
-//			if (queries != null)
-//				for (Query q : queries.getQueries()) {
-//					if (refid.equals(q.getId())) {
-//						return q.getQueryParams().getQueryParams();//copy(q);
-//					}
-//				}
 		}
 		return null;
 	}
-	private List<QueryParam> getReferenceQueryParams(String refid) {
+	
+	private QueryParam getReferenceNameQueryParam(String refName) {
+		if (query != null) {
+			//search first in its own query for query-param id
+			for (QueryParam q : getQueryParams()) {
+				if (q.getName()!=null && q.getName().equals(refName)) {
+					return q;
+				}
+			}
+			//TODO search in all queries for id
+		}
+		return null;
+	}
+	
+	private List<QueryParam> getReferenceQueryParams(String refname) {
 		if (query != null) {
 			Queries queries = query.getQueries();
 			if (queries != null)
