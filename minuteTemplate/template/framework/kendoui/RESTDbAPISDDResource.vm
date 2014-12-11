@@ -90,6 +90,7 @@ $!updatedAreaSnippet
     @GET
     public $sddOutputBeanCollectionClass execute (
 #foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
@@ -97,15 +98,18 @@ $!updatedAreaSnippet
         @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
 #end
 #end
+#end
     ) {
 #if($isNotVoidInput)
 		$sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
 #foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnVar="$columnVar"+".getDate()")
 #end
 		${sddInputBeanVariable}.set$columnClass ($columnVar);
+#end
 #end
         return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
 #else

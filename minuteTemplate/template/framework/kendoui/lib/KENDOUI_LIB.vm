@@ -82,26 +82,16 @@
 #set($fieldId="field-$columnVar")
 #if($columnUtils.hasCheckConstraint($column))
 	$("#${fieldId}").kendoDropDownList();
-#if(!$column.isRequired())
-#end
-#else
-#if($columnUtils.isTimeColumn($column))
+#elseif($columnUtils.isTimeColumn($column))
 	$("#${fieldId}").kendoDatePicker();
-#else
-#if($columnUtils.isBoolean($column))
-#else
-#if($presentationUtils.isTextArea($column))
+#elseif($columnUtils.isBoolean($column))
+#elseif($presentationUtils.isTextArea($column))
 ##	<p:inputTextarea rows="$primefacesUtils.getDisplayRows($column)" cols="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" width="$column.sizeAsInt" 
 ##        counterTemplate="{0} characters remaining." autoResize="false"
 #elseif($presentationUtils.isRichText($column))
 
 #else
 
-#end
-
-#end
-
-#end
 #end
 #end
 
