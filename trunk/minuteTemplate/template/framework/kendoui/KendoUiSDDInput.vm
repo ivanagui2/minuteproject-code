@@ -78,15 +78,8 @@
     $(document).ready(function () {
 
 	  //fields
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-#putKendoJsColumnSnippet($tableVariableName $tableVariableName)
-#end
-#end
-#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
-#foreach ($column in $columnGroup)
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
 #putColumnParams()
 #columnJavaNaming()
 #putKendoJsColumnSnippet($tableVariableName $tableVariableName)
@@ -108,10 +101,13 @@
 
             searchSdd: function () {
         		var query = "";
+#set($cpt=0)
 #foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#set($cpt=$cpt+1)
 #putColumnParamNaming()
         		var $columnVar = this.get("$columnVar");
-#if($velocityCount==1)
+#if($cpt==1)
 				query = "?";
 #else
 				query = "&";
@@ -124,6 +120,7 @@
 #set($columnValue=$columnVar)
 #end
         		query = query + "$columnVar="+$columnValue;
+#end
 #end
 				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
 
