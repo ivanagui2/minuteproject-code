@@ -200,19 +200,31 @@ public interface BaseColumn extends GeneratorBean{
     
     public void setTypeAlias(String typeAlias);
     
-    public Boolean isHidden();
+    public boolean isHidden();
     
     public void setHidden(Boolean isHidden);
     
 	public void setSearchable(Boolean isSearchable);
 	
-	public Boolean isSearchable();
+	public boolean isSearchable();
 	 
 	public void setEditable(Boolean isSearchable);
 	
-	public Boolean isEditable();
+	public boolean isEditable();
 	
 	public void setTransient(Boolean isTransient);
 	 
-	public Boolean isTransient();
+	public boolean isTransient();
+	
+	public void setContext(boolean isContext);
+	
+	public boolean isContext();
+	
+	public void setImplicit(boolean isImplicit);
+	
+	public boolean isImplicit();
+	
+	public void setHasBeenDuplicated(boolean hasBeenDuplicated);
+	
+	public boolean hasBeenDuplicated(); // duplication by choice
 }

@@ -78,6 +78,7 @@ public class QueryParams extends AbstractConfiguration {
 		queryParam.setSize(instance.getSize());
 		queryParam.setScale(instance.getScale());
 		queryParam.setStereotype(instance.getStereotype());
+		queryParam.setHasBeenDuplicated(true);
 	}
 
 	public List<QueryParam> getQueryParams() {

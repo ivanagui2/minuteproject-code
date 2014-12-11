@@ -12,6 +12,7 @@ public class QueryParam extends Field {
 	private boolean isMandatory =true;
 	private boolean isImplicit  =false;
 	private boolean isContext   =false;
+	private boolean hasBeenDuplicated   =false;
 //	private String type, sample;
 	private String sample;
 	private String refname;
@@ -139,5 +140,11 @@ public class QueryParam extends Field {
 	public void setRefname(String refname) {
 		this.refname = refname;
 	}
-	
+	public boolean hasBeenDuplicated() {
+		return hasBeenDuplicated;
+	}
+
+	public void setHasBeenDuplicated(boolean hasBeenDuplicated) {
+		this.hasBeenDuplicated = hasBeenDuplicated;
+	}
 }
