@@ -8,7 +8,8 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 public abstract class ColumnBaseAbstract extends AbstractConfiguration implements BaseColumn{
 
 	private String typeAlias;
-	private Boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
+	private boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
+	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false;
 	
 	@Override
 	public String getTypeAlias() {
@@ -22,7 +23,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	}
 	
 	@Override
-	public Boolean isHidden() {
+	public boolean isHidden() {
 		return isHidden;
 	}
 	@Override
@@ -42,7 +43,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 //		
 //	}
 	@Override
-	public Boolean isEditable() {
+	public boolean isEditable() {
 		return isEditable;
 	}
 	@Override
@@ -51,7 +52,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 			this.isEditable = isEditable;
 	}
 	@Override
-	public Boolean isSearchable() {
+	public boolean isSearchable() {
 		return isSearchable;
 	}
 	@Override
@@ -60,7 +61,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 			this.isSearchable = isSearchable;
 	}
 	@Override
-	public Boolean isTransient() {
+	public boolean isTransient() {
 		return isTransient;
 	}
 	@Override
@@ -68,11 +69,29 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 		if (isTransient!=null)
 			this.isTransient = isTransient;
 	}
-//
-//    public String getType()
-//    {
-//        return getTypeAlias();
-//    }
-//    
-//	protected abstract String getRealType();
+
+	public boolean isContext() {
+		return isContext;
+	}
+
+	public void setContext(boolean isContext) {
+		this.isContext = isContext;
+	}
+
+	public boolean isImplicit() {
+		return isImplicit;
+	}
+
+	public void setImplicit(boolean isImplicit) {
+		this.isImplicit = isImplicit;
+	}
+
+	public boolean hasBeenDuplicated() {
+		return hasBeenDuplicated;
+	}
+
+	public void setHasBeenDuplicated(boolean hasBeenDuplicated) {
+		this.hasBeenDuplicated = hasBeenDuplicated;
+	}
+
 }

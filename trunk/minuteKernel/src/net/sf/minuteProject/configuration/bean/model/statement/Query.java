@@ -136,6 +136,7 @@ public class Query extends AbstractConfiguration {
 			Column column = ColumnUtils.getColumn(table, queryParam.getName());
 			if (column!=null) {
 				column.setStereotype(queryParam.getStereotype());
+				column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
 //				if (queryParam.isId()) {
 //					table.setPrimaryKeys(new Column[] {column});
 //				}
