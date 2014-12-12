@@ -60,11 +60,14 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
-<!-- 
-        <template name="JSFXhtmlChart" templateFileName="JSFXhtmlChart.vm"
-			file-extension="xhtml" technicalPackage="sdd" file-suffix="Chart"
+ 
+        <template name="KendoUiSDDChart" templateFileName="KendoUiSDDChart.vm"
+			file-extension="html" technicalPackage="sdd" file-suffix="Chart"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
 			scope-specific-value="query" />
- -->
+
 	</template-target>				
    	
   	<template-target 
