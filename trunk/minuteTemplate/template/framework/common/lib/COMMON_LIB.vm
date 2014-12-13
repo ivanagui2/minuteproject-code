@@ -62,6 +62,7 @@ $!commonUtils.getReadMeText($template)
 #set ($outputBeanColumnDimension1 = $queryUtils.getOutputBeanDimension($query,0))
 #set ($outputBeanColumnValue = $queryUtils.getOutputBeanValue($query))
 #set ($outputBeanDimension1 = $formatUtils.getJavaName($outputBeanColumnDimension1.alias))
+#set ($outputBeanDimension1Var = $commonUtils.getJavaNameVariableFirstLetter($outputBeanDimension1))
 #set ($outputBeanDimensionValue = $formatUtils.getJavaName($outputBeanColumnValue.alias))
 #set ($dimensions = $queryUtils.getOutputBeanDimension($query))
 #end
