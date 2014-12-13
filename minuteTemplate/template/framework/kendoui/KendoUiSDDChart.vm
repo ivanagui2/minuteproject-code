@@ -1,15 +1,13 @@
 #exposeSeparator()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
-#putImportQuerySDDBean()
 #exposeQuerySpecific()
+#exposeChartSpecific()
 #set($table=$inputBean)
 #asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
 #set ($tableVariableName = $commonUtils.getJavaNameVariableFirstLetter($inputClass))
 #set($tableDB = $inputBean)
-#set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
-#set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #exposeVariableEntitySpecific()
 #addedAreas()
 <!DOCTYPE html>
@@ -143,39 +141,42 @@
 					title : {
 						text: "to fill"
 					},
-                legend: {
-                    position: "top"
-                },
-                seriesDefaults: {
-                    type: "column"
-                },
-                series:
-                [{
-                    field: "status",
-                    name: "status"
-                }],
-                categoryAxis: {
-                    field: "nb",
-                    labels: {
-                        rotation: -90
-                    },
-                    majorGridLines: {
-                        visible: false
-                    }
-                },
-                valueAxis: {
-                    labels: {
-                        format: "N0"
-                    },
-                    majorUnit: 10000,
-                    line: {
-                        visible: false
-                    }
-                },
-                tooltip: {
-                    visible: true,
-                    format: "N0"
-                },
+                	legend: {
+                    	position: "top"
+                	},
+                	seriesDefaults: {
+                    	type: "column"
+                	},
+                	series:
+                	[
+#foreach($column in $dimensions)
+#putColumnParamNaming()
+#set($dimVar = "${columnVar}$velocityCount")
+						{
+                    		field: "${columnVar}",
+                    		name: "${columnVar}"
+						}#if ($velocityCount < $dimensions.size()) , #end
+
+#end
+                	],
+                	categoryAxis: {
+                    	field: "$outputBeanDimension1Var", 
+                    	majorGridLines: {
+                        	visible: false
+                    	}
+                	},
+                	valueAxis: {
+                    	labels: {
+                        	format: "N0"
+                    	},
+                    	line: {
+                        	visible: false
+                    	}
+                	},
+                	tooltip: {
+                    	visible: true,
+                    	format: "N0"
+                	},
 					columns: [
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
