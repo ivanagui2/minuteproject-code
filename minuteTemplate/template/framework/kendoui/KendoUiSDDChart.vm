@@ -202,6 +202,9 @@ $!updatedAreaEnd
                 	,#end 
 #end
 	            	],
+                    seriesClick: function(e) {
+						showDetails (e);
+                    },
                     height: 500,
                     scrollable: true,
                     selectable: true
@@ -233,7 +236,7 @@ $!updatedAreaEnd
     function showDetails(e) {
        e.preventDefault();
 
-       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+       var dataItem = e.dataItem;
        wnd.content(detailsTemplate(dataItem));
        wnd.center().open();
    }
