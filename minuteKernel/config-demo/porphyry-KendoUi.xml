@@ -208,6 +208,45 @@
 			<!-- S D D -->
 			<statement-model>
 				<queries>
+					<!-- dashboard queries -->
+					
+					<query name="nb release per status" id="dashAddress" type="dashboard" package-name="dashboard"
+						category="pie-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select status, count(*) as nb, count(*) * 100.0 / (select count(*) from bus_release) as percent from bus_release group by status order by count(*) desc]]>
+                            </value>
+						</query-body>
+						<query-what>
+							<query-what-column name="nb" >
+								<actions>
+									<action name="release query info" query-id="statusQuery">
+										<action-params>
+											<action-param name="status" value="status"/>
+										</action-params>
+									</action>
+									<action name="release table info" entity-name="bus_release"/>
+								</actions>
+							</query-what-column>
+						</query-what>
+					</query>
+					
+					<query id="statusQuery" type="dashboard" package-name="dashboard">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from bus_release where status = ?]]>
+                            </value>
+						</query-body>
+						<query-params>
+							<query-param name="status" sample="'test'"></query-param>
+						</query-params>
+						<actions>
+							<action name="details"></action>
+						</actions>
+					</query>
+
+					<!-- dashboard queries - end -->
+
 			         <query name="ask_for_role" id="ask_for_role" package-name="secu">
                          <query-body>
                          <value>
@@ -229,7 +268,31 @@
                          </query-params>
                      </query>
                      				
-			         <query name="security_role_list" id="security_role_list" >
+			         <query name="release By Multiple Date" id="releaseByDate" package-name="timeline" >
+                         <query-body>
+                         <value>
+<![CDATA[SELECT * from bus_release where creation_date > ? and creation_date > ? order by creation_date desc]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="creationDate" type="date" sample="'2012-11-18'" />
+                             <query-param refname="creationDate"/>
+                         </query-params>
+                     </query>
+                     
+			         <query name="release By Date" id="releaseByDate" package-name="timeline" >
+                         <query-body>
+                         <value>
+<![CDATA[SELECT * from bus_release where creation_date > ? order by creation_date desc]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="creationDate" type="date" sample="'2012-11-18'" >
+                             </query-param>
+                         </query-params>
+                     </query>
+                     				
+			         <query name="security_role_list" id="security_role_list" package-name="secu" >
                          <query-body>
                          <value>
 <![CDATA[SELECT id, role from sec_role order by role desc]]>
