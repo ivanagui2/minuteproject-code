@@ -217,6 +217,7 @@
 <![CDATA[select status, count(*) as nb, count(*) * 100.0 / (select count(*) from bus_release) as percent from bus_release group by status order by count(*) desc]]>
                             </value>
 						</query-body>
+						<!-- 
 						<query-what>
 							<query-what-column name="nb" >
 								<actions>
@@ -229,6 +230,15 @@
 								</actions>
 							</query-what-column>
 						</query-what>
+						 -->
+						<actions>
+							<action attached-to-column-name="nb" name="release query info" query-id="statusQuery">
+								<action-params>
+									<action-param name="status" value="status"/>
+								</action-params>
+							</action>
+							<action attached-to-column-name="nb" name="release table info" entity-name="bus_release"/>
+						</actions>
 					</query>
 					
 					<query id="statusQuery" type="dashboard" package-name="dashboard">
