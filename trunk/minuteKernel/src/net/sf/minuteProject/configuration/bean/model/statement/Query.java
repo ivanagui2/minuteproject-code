@@ -23,11 +23,11 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query extends AbstractConfiguration {
-	
+
 	private Queries queries;
 	private QueryBody queryBody;
 	private QueryWhat queryWhat;
-	private QueryWhere queryWhere;
+	private List<QueryWhere> queryWheres;
 	private QueryParams queryParams;
 	private QueryParams outputParams;
 	private boolean isSet = false;
@@ -36,110 +36,121 @@ public class Query extends AbstractConfiguration {
 	private Table tableIn, tableOut;
 	private List<Action> actions;
 	private String packageName;
-	
-	public QueryParams getInputParams () {
+
+	public QueryParams getInputParams() {
 		return QueryUtils.getInputParams(this);
 	}
-	
-	public QueryParams getOutputParams (){
-		if (outputParams==null && !isSet) {
+
+	public QueryParams getOutputParams() {
+		if (outputParams == null && !isSet) {
 			try {
 				outputParams = QueryUtils.getOutputParams(this);
 			} catch (MinuteProjectException e) {
-				isSet=true;
-				//TODO log error
+				isSet = true;
+				// TODO log error
 			}
 			isSet = true;
 		}
 		return outputParams;
 	}
-	
+
 	public Queries getQueries() {
 		return queries;
 	}
+
 	public void setQueries(Queries queries) {
 		this.queries = queries;
 	}
+
 	public QueryBody getQueryBody() {
 		return queryBody;
 	}
+
 	public void setQueryBody(QueryBody queryBody) {
 		this.queryBody = queryBody;
 	}
+
 	public void setQueryBody(String s) {
 		queryBody = new QueryBody();
 		queryBody.setValue(s);
 	}
+
 	public QueryWhat getQueryWhat() {
 		return queryWhat;
 	}
+
 	public void setQueryWhat(QueryWhat queryWhat) {
 		this.queryWhat = queryWhat;
 	}
+
 	public void setQueryWhat(String s) {
 		queryWhat = new QueryWhat();
 		queryWhat.setValue(s);
 	}
-	public QueryWhere getQueryWhere() {
-		return queryWhere;
+
+	public List<QueryWhere> getQueryWheres() {
+		if (queryWheres==null) {
+			queryWheres = new ArrayList<QueryWhere>();
+		}
+		return queryWheres;
 	}
-	public void setQueryWhere(QueryWhere queryWhere) {
-		this.queryWhere = queryWhere;
+
+	public void addQueryWhere(QueryWhere queryWhere) {
+		getQueryWheres().add(queryWhere);
 	}
-	public void setQueryWhere(String s) {
-		queryWhere = new QueryWhere();
-		queryWhere.setValue(s);
-	}
+
 	public QueryParams getQueryParams() {
-		if (queryParams==null) queryParams=new QueryParams();
+		if (queryParams == null)
+			queryParams = new QueryParams();
 		return queryParams;
 	}
-	
+
 	public void setQueryParams(QueryParams queryParams) {
 		this.queryParams = queryParams;
 		this.queryParams.setQuery(this);
 	}
-	
-	public Table getInputBean () {
-		if (tableIn==null)
+
+	public Table getInputBean() {
+		if (tableIn == null)
 			tableIn = getEntityFromDirection(Direction.IN);
 		return tableIn;
 	}
-	
-	public Table getOutputBean () {
-		if (tableOut==null)
+
+	public Table getOutputBean() {
+		if (tableOut == null)
 			tableOut = getEntityFromDirection(Direction.OUT);
 		return tableOut;
 	}
+
 	// remove duplication
 	public Table getEntityFromDirection(Direction dir) {
 		Table entity = getEntityRoot(dir);
 		if (dir.equals(Direction.IN))
-			complementFields(entity,queryParams);
+			complementFields(entity, queryParams);
 		return entity;
 	}
-	
+
 	// remove duplication
 	public Table getEntity(Direction dir) {
-//		Table entity = getEntityRoot(dir);
-//		if (dir.equals(Direction.IN))
-//			complementFields(entity,queryParams);
-//		return entity;$
+		// Table entity = getEntityRoot(dir);
+		// if (dir.equals(Direction.IN))
+		// complementFields(entity,queryParams);
+		// return entity;$
 		if (Direction.IN.equals(dir))
 			return getInputBean();
 		return getOutputBean();
 	}
-	
+
 	private void complementFields(Table table, QueryParams queryParams) {
 		List<QueryParam> list = getColumns(Direction.IN);
 		for (QueryParam queryParam : list) {
 			Column column = ColumnUtils.getColumn(table, queryParam.getName());
-			if (column!=null) {
+			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
 				column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
-//				if (queryParam.isId()) {
-//					table.setPrimaryKeys(new Column[] {column});
-//				}
+				// if (queryParam.isId()) {
+				// table.setPrimaryKeys(new Column[] {column});
+				// }
 
 			}
 		}
@@ -155,17 +166,18 @@ public class Query extends AbstractConfiguration {
 
 	public Table getEntityRoot(Direction dir) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
-		Database database = getQueries().getStatementModel().getModel().getDataModel().getDatabase();
+		Database database = getQueries().getStatementModel().getModel()
+				.getDataModel().getDatabase();
 		setTableName(table, dir);
-//		table.setName(getName());
-//		table.setCatalog(catalog);
+		// table.setName(getName());
+		// table.setCatalog(catalog);
 		table.setType(Table.TABLE);
 		addColumns(table, dir);
-		
+
 		Table entity = new TableDDLUtils(table);
-		initFieldAndRelationship(dir, database, table);	
+		initFieldAndRelationship(dir, database, table);
 		entity.setPackage(getPackage());
-//		entity.getTechnicalPackage(template)
+		// entity.getTechnicalPackage(template)
 		entity.setDatabase(database);
 		complementColumn(entity, dir);
 		return entity;
@@ -176,7 +188,8 @@ public class Query extends AbstractConfiguration {
 		if (dir.equals(Direction.IN)) {
 			List<QueryParam> list = getColumns(Direction.IN);
 			for (QueryParam queryParam : list) {
-				Entity.assignForeignKey (database, table, queryParam.getLinkField());
+				Entity.assignForeignKey(database, table,
+						queryParam.getLinkField());
 			}
 		}
 	}
@@ -189,7 +202,6 @@ public class Query extends AbstractConfiguration {
 		else
 			table.setName(formatTableName(getName()));
 	}
-	
 
 	private String formatTableName(String name) {
 		return FormatUtils.getUppercaseUnderscore(name);
@@ -207,15 +219,16 @@ public class Query extends AbstractConfiguration {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
 			return "ERROR_PACKAGE_IS_NULL";
-			
-		//return CommonUtils.getSDDPackageName(this);
-		return p.getTechnicalPackage(template)+"."+CommonUtils.getSDDPackageName(this);
+
+		// return CommonUtils.getSDDPackageName(this);
+		return p.getTechnicalPackage(template) + "."
+				+ CommonUtils.getSDDPackageName(this);
 	}
-/*	
-	public String getTechnicalPackage3(Template template) {
-		return CommonUtils.getSDDPackageName(this);
-	}
-*/
+
+	/*
+	 * public String getTechnicalPackage3(Template template) { return
+	 * CommonUtils.getSDDPackageName(this); }
+	 */
 	private void addColumns(org.apache.ddlutils.model.Table table,
 			Direction direction) {
 		List<QueryParam> list = getColumns(direction);
@@ -243,12 +256,13 @@ public class Query extends AbstractConfiguration {
 	private List<QueryParam> getColumns(Direction direction) {
 		if (Direction.IN.equals(direction))
 			return getInputParams().getFlatQueryParams();
-		if (getOutputParams()!=null)
+		if (getOutputParams() != null)
 			return getOutputParams().getQueryParams();
 		return new ArrayList<QueryParam>();
 	}
-	
-	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam, String name) {
+
+	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam,
+			String name) {
 		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
 		column.setName(name);
 		String type = queryParam.getType();
@@ -256,12 +270,13 @@ public class Query extends AbstractConfiguration {
 		column.setSize(queryParam.getSizeOrDefault());
 		column.setScale(queryParam.getScale());
 		column.setDefaultValue(queryParam.getDefaultValue());
-		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type) && queryParam.getScale()>0) {
+		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type)
+				&& queryParam.getScale() > 0) {
 			column.setType(ConvertUtils.DB_DOUBLE_TYPE);
 		}
-//		column.setPrecisionRadix(queryParam.getPrecisionRadix());
+		// column.setPrecisionRadix(queryParam.getPrecisionRadix());
 		// column.setTypeCode(fc.getTypeCode());
-		column.setPrimaryKey(queryParam.isId()); //cannot be set here
+		column.setPrimaryKey(queryParam.isId()); // cannot be set here
 		column.setRequired(queryParam.isMandatory());
 		return column;
 	}
@@ -269,13 +284,16 @@ public class Query extends AbstractConfiguration {
 	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam) {
 		return getColumn(queryParam, queryParam.getName());
 	}
-	
-	private org.apache.ddlutils.model.Column getColumnTransient(QueryParam queryParam) {
-		return getColumn(queryParam, ColumnUtils.getTransientName(getTransientRoot(queryParam)));
+
+	private org.apache.ddlutils.model.Column getColumnTransient(
+			QueryParam queryParam) {
+		return getColumn(queryParam,
+				ColumnUtils.getTransientName(getTransientRoot(queryParam)));
 	}
-	
+
 	private String getTransientRoot(QueryParam queryParam) {
-		if (queryParam.getQueryParamLink()!=null && queryParam.getQueryParamLink().getFieldName()!=null)
+		if (queryParam.getQueryParamLink() != null
+				&& queryParam.getQueryParamLink().getFieldName() != null)
 			return queryParam.getQueryParamLink().getFieldName();
 		return queryParam.getName();
 	}
@@ -299,13 +317,14 @@ public class Query extends AbstractConfiguration {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-		
+
 	public List<Action> getActions() {
-		if (actions==null) actions = new ArrayList<Action>();
+		if (actions == null)
+			actions = new ArrayList<Action>();
 		return actions;
 	}
-	
-	public void addAction (Action action) {
+
+	public void addAction(Action action) {
 		getActions().add(action);
 	}
 
