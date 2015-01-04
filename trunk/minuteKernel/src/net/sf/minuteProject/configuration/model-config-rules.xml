@@ -160,12 +160,67 @@
 		                <set-properties-rule/>
 		                <bean-property-setter-rule pattern="value"/>
 		            </pattern>         
-			        <pattern value="query-where">
-		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryWhere"/>    
-		                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryWhere"/>          
+		        <pattern value="query-filters/query-filter">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>    
+	                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
+	                <set-properties-rule/>
+	                <bean-property-setter-rule pattern="value"/>
+			        <pattern value="query-params">
+		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>    
+		                <set-next-rule methodname="setQueryParams" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>          
 		                <set-properties-rule/>
-		                <bean-property-setter-rule pattern="value"/>
-		            </pattern>         
+		                <pattern value="query-param">
+		                    <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>    
+		                    <set-next-rule methodname="addQueryParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>          
+		                    <set-properties-rule>
+		                       <alias attr-name="is-mandatory" prop-name="isMandatory" />
+		                       <alias attr-name="is-id" prop-name="isId" />
+		                       <alias attr-name="default" prop-name="defaultValue" />
+		                       <alias attr-name="size" prop-name="size" />
+		                       <alias attr-name="id" prop-name="id" />
+			                   <alias attr-name="refid" prop-name="refid" />
+			                   <alias attr-name="refname" prop-name="refname" />
+			                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
+			                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
+		                   </set-properties-rule>
+		                   <pattern value="stereotype">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
+								<set-next-rule methodname="setStereotype" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>	
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="stereotype" prop-name="stereotype" />
+								</set-properties-rule>
+							</pattern>
+		                   <pattern value="query-param-link">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>		
+								<set-next-rule methodname="setQueryParamLink" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>	
+								<set-properties-rule>
+									<alias attr-name="entity-name" prop-name="entityName" />
+									<alias attr-name="sdd-query-name" prop-name="queryName" />
+									<alias attr-name="field-name" prop-name="fieldName" />
+									<alias attr-name="field-key" prop-name="fieldKey" />
+								</set-properties-rule>
+							</pattern>
+							<pattern value="property">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>
+								<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="value" prop-name="value" />
+								</set-properties-rule>
+								<pattern value="property">
+									<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>
+									<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>
+									<set-properties-rule>
+										<alias attr-name="name" prop-name="name" />
+										<alias attr-name="value" prop-name="value" />
+									</set-properties-rule>
+								</pattern>	
+							</pattern>	
+		                </pattern>
+		            </pattern>
+	            </pattern>         
+        
 		             
 			        <pattern value="query-params">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>    
@@ -1163,11 +1218,65 @@
 	                <set-properties-rule/>
 	                <bean-property-setter-rule pattern="value"/>
 	            </pattern>         
-		        <pattern value="query-where">
-	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryWhere"/>    
-	                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryWhere"/>          
+		        <pattern value="query-filters/query-filter">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>    
+	                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
 	                <set-properties-rule/>
 	                <bean-property-setter-rule pattern="value"/>
+		        <pattern value="query-params">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>    
+	                <set-next-rule methodname="setQueryParams" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>          
+	                <set-properties-rule/>
+	                <pattern value="query-param">
+	                    <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>    
+	                    <set-next-rule methodname="addQueryParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam"/>          
+	                    <set-properties-rule>
+	                       <alias attr-name="is-mandatory" prop-name="isMandatory" />
+	                       <alias attr-name="is-id" prop-name="isId" />
+	                       <alias attr-name="default" prop-name="defaultValue" />
+	                       <alias attr-name="size" prop-name="size" />
+	                       <alias attr-name="id" prop-name="id" />
+		                   <alias attr-name="refid" prop-name="refid" />
+		                   <alias attr-name="refname" prop-name="refname" />
+		                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
+		                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
+	                   </set-properties-rule>
+	                   <pattern value="stereotype">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
+							<set-next-rule methodname="setStereotype" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>	
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="stereotype" prop-name="stereotype" />
+							</set-properties-rule>
+						</pattern>
+	                   <pattern value="query-param-link">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>		
+							<set-next-rule methodname="setQueryParamLink" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink"/>	
+							<set-properties-rule>
+								<alias attr-name="entity-name" prop-name="entityName" />
+								<alias attr-name="sdd-query-name" prop-name="queryName" />
+								<alias attr-name="field-name" prop-name="fieldName" />
+								<alias attr-name="field-key" prop-name="fieldKey" />
+							</set-properties-rule>
+						</pattern>
+						<pattern value="property">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>
+							<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="value" prop-name="value" />
+							</set-properties-rule>
+							<pattern value="property">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.system.Property"/>
+								<set-next-rule methodname="addProperty" paramtype="net.sf.minuteProject.configuration.bean.system.Property"/>
+								<set-properties-rule>
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="value" prop-name="value" />
+								</set-properties-rule>
+							</pattern>	
+						</pattern>	
+	                </pattern>
+	            </pattern>
 	            </pattern>         
 	             
 		        <pattern value="query-params">

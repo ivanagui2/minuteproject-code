@@ -21,6 +21,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ConnectionUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
@@ -56,8 +57,8 @@ public class QueryUtils {
 			ResultSet rs = prest.executeQuery();
 			return getQueryParams(rs.getMetaData());
 		} catch (SQLException e) {
-			//TODO log error 
 			logger.error("error executing query : "+query);
+			logger.error("error sql : "+e.getMessage());
 			return new QueryParams();
 		}
 	}
@@ -91,9 +92,29 @@ public class QueryUtils {
 	}
 	
 	public static String getQueryQuestionMark(Query query) {
-		return query.getQueryBody().getValue();
+		String queryRaw = query.getQueryBody().getValue();
+		//1 get query body
+		//sb.append(queryRaw);
+		//for each query where reference
+		
+		for (QueryFilter filter : query.getQueryFilters()) {
+			//  get query where string with question mark
+			//  append (where or and) to query
+			final String name = "$"+filter.getName();
+			final String replacement = queryAndWhere(filter)+filter.getValue();
+			if (!StringUtils.isEmpty(name) && queryRaw.contains(name)) {
+				queryRaw = StringUtils.replace(queryRaw, name, replacement);
+			} else {
+				queryRaw = queryRaw + replacement;
+			}
+		}
+		return queryRaw;
 	}
 	
+	private static String queryAndWhere(QueryFilter queryWhere) {
+		return " "+queryWhere.getConnectionWord()+" ";
+	}
+
 	public static String getFullQuerySample(Query query) {
 		String querySt = getQueryQuestionMark(query);
 		List<String> samples = getSamples (query);
@@ -113,11 +134,21 @@ public class QueryUtils {
 	private static List<String> getSamples(Query query) {
 		List<String> list = new ArrayList<String>();
 		if (query.getQueryParams() != null) {
-			for (QueryParam qp : query.getQueryParams().getFlatQueryParams()) {
-				list.add(getParamSample(qp));
+			addFilters(list, query.getQueryParams());
+		}
+		//TODO append query where
+		for (QueryFilter filter : query.getQueryFilters()) {
+			if (filter.getQueryParams() != null) {
+				addFilters(list, filter.getQueryParams());
 			}
 		}
 		return list;
+	}
+
+	private static void addFilters(List<String> list, QueryParams params) {
+		for (QueryParam qp : params.getFlatQueryParams()) {
+			list.add(getParamSample(qp));
+		}
 	}
 
 	private static String getParamSample(QueryParam queryParam) {
@@ -138,14 +169,6 @@ public class QueryUtils {
 	}
 
 	public static List<Column> getInputCompositeFull(Composite composite) {
-//		#foreach ($q in $composite.getInputComposite().getQueries())
-//		#set ($query = $q.query)
-//		#exposeQuerySpecific()
-//		#foreach ($column in $inputBean.columns)
-//		#putColumnParamNaming()
-//			@QueryParam $columnType $columnVar
-//		#end
-//		#end
 		List<Column> list = new ArrayList<Column>();
 		for (CompositeQueryElement q : composite.getInputComposite().getQueries()) {
 			Query query = q.getQuery();
