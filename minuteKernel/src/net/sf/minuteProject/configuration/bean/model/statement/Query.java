@@ -27,7 +27,7 @@ public class Query extends AbstractConfiguration {
 	private Queries queries;
 	private QueryBody queryBody;
 	private QueryWhat queryWhat;
-	private List<QueryWhere> queryWheres;
+	private List<QueryFilter> queryFilters;
 	private QueryParams queryParams;
 	private QueryParams outputParams;
 	private boolean isSet = false;
@@ -88,15 +88,15 @@ public class Query extends AbstractConfiguration {
 		queryWhat.setValue(s);
 	}
 
-	public List<QueryWhere> getQueryWheres() {
-		if (queryWheres==null) {
-			queryWheres = new ArrayList<QueryWhere>();
+	public List<QueryFilter> getQueryFilters() {
+		if (queryFilters==null) {
+			queryFilters = new ArrayList<QueryFilter>();
 		}
-		return queryWheres;
+		return queryFilters;
 	}
 
-	public void addQueryWhere(QueryWhere queryWhere) {
-		getQueryWheres().add(queryWhere);
+	public void addQueryFilter(QueryFilter queryWhere) {
+		getQueryFilters().add(queryWhere);
 	}
 
 	public QueryParams getQueryParams() {
@@ -132,10 +132,6 @@ public class Query extends AbstractConfiguration {
 
 	// remove duplication
 	public Table getEntity(Direction dir) {
-		// Table entity = getEntityRoot(dir);
-		// if (dir.equals(Direction.IN))
-		// complementFields(entity,queryParams);
-		// return entity;$
 		if (Direction.IN.equals(dir))
 			return getInputBean();
 		return getOutputBean();

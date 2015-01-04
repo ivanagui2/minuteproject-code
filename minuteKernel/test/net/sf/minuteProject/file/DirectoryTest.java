@@ -1,22 +1,12 @@
 package net.sf.minuteProject.file;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Target;
 import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.Database;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ColumnDDLUtils;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.DatabaseDDLUtils;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteproject.model.db.type.FieldType;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

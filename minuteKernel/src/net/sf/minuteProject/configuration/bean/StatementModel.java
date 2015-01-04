@@ -59,7 +59,7 @@ public class StatementModel {
  		complementStatementPackage();
 //		complementStatementInputField();
 	}
-	
+/*	
 	private void complementStatementInputField() {
 		// TODO Auto-generated method stub
 		for (Query query : getQueries().getQueries()) {
@@ -68,6 +68,7 @@ public class StatementModel {
 			}
 		}
 	}
+	*/
 	private void complementStatementPackage() {
 		Database database = model.getDataModel().getDatabase();
 		getSddPackage().setPackages(model, database);
