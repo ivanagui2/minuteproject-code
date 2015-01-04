@@ -162,7 +162,7 @@
 		            </pattern>         
 		        <pattern value="query-filters/query-filter">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>    
-	                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
+	                <set-next-rule methodname="addQueryFilter" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
 	                <set-properties-rule/>
 	                <bean-property-setter-rule pattern="value"/>
 			        <pattern value="query-params">
@@ -1220,7 +1220,7 @@
 	            </pattern>         
 		        <pattern value="query-filters/query-filter">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>    
-	                <set-next-rule methodname="setQueryWhere" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
+	                <set-next-rule methodname="addQueryFilter" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
 	                <set-properties-rule/>
 	                <bean-property-setter-rule pattern="value"/>
 		        <pattern value="query-params">

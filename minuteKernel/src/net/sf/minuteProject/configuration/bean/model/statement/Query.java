@@ -262,6 +262,7 @@ public class Query extends AbstractConfiguration {
 		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
 		column.setName(name);
 		String type = queryParam.getType();
+		if (type==null) type = "string";
 		column.setType(convertType(type));
 		column.setSize(queryParam.getSizeOrDefault());
 		column.setScale(queryParam.getScale());
