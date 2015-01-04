@@ -32,7 +32,7 @@ public class QueryUtilsTest {
 	public static final String query1Filter1Full = "E = 'e'";
 	
 	//public static final String query1JdbcFilter1 = query1Jdbc + " "+query1Filter1;
-	public static final String query1FullFilter1 = query1Full + " and "+query1Filter1Full;
+	public static final String query1FullFilter1 = query1Full + " AND "+query1Filter1Full;
 	
 	//
 	public static final String query1Filter2 = "(F = ? or G = ?)";
@@ -43,16 +43,21 @@ public class QueryUtilsTest {
 	public static final String query1Filter2Full = "(F = 'f' or G = 'g')";
 	
 	public static final String query1JdbcFilter2 = query1Jdbc + " "+query1Filter2;
-	public static final String query1FullFilter2 = query1Full + " and "+query1Filter2Full;
+	public static final String query1FullFilter2 = query1Full + " AND "+query1Filter2Full;
 	
 	//
 	public static final String query2Jdbc = "SELECT A, B from T where C = 'c' $filter1 order by A desc";
-	public static final String query2Full = "SELECT A, B from T where C = 'c'  and H = 'h' order by A desc";
+	public static final String query2Full = "SELECT A, B from T where C = 'c'  AND H = 'h' order by A desc";
 	
 	public static final String query2FilterName1 = "filter1";
 	public static final String query2FilterValue1 = "H = ?";
 	public static final String query2Filter1Param1Type = "string";
 	public static final String query2Filter1Param1Sample = "'h'";
+	
+	public static final String query3Jdbc = "SELECT A, B from T";
+	public static final String query3Full_1Filter = "SELECT A, B from T WHERE (F = 'f' or G = 'g')";
+	public static final String query3Full_2Filter = "SELECT A, B from T WHERE (F = 'f' or G = 'g') AND H = 'h'";
+	
 	
 	Query query1;
 	
@@ -100,17 +105,23 @@ public class QueryUtilsTest {
 
 	private Query getQueryWithFilter(String jdbc, String name, String filter,
 			String filterparamtype, String filterparamsample) {
+		Query query = getQuery(jdbc);
+		query.addQueryFilter(getQueryFilter(name, filter, filterparamtype, filterparamsample, QueryFilter.AndWhere.AND));
+		return query;
+	}
+
+	private Query getQuery(String jdbc) {
 		Query query=new Query();
 		query.setQueryBody(getQueryBody(jdbc));
-		query.addQueryFilter(getQueryFilter(name, filter, filterparamtype, filterparamsample));
 		return query;
 	}
 
 	private QueryFilter getQueryFilter(String name, String filter,String filterparamtype,
-			String filterparamsample) {
+			String filterparamsample, QueryFilter.AndWhere andWhere) {
 		QueryFilter queryFilter = new QueryFilter();
 		queryFilter.setName(name);
 		queryFilter.setValue(filter);
+		queryFilter.setConnectWord(andWhere);
 		queryFilter.setQueryParams(getQueryParams(getQueryParam(filterparamtype,filterparamsample)));
 		return queryFilter;
 	}
@@ -157,8 +168,27 @@ public class QueryUtilsTest {
 	
 	@Test
 	public void query2WithExplicitWhereFilter() {
-		//TODO with where-and word pickup
-		//assertTrue(s, query2Full.equals(s));
+		//given
+		Query query = getQuery(query3Jdbc);
+		query.addQueryFilter(getQueryFilter("", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample, QueryFilter.AndWhere.WHERE));
+		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+query3Full_1Filter, query3Full_1Filter.equals(s));
+	}
+	
+	@Test
+	public void query2WithExplicitWhereFilterAnd2Filters() {
+		//given
+		Query query = getQuery(query3Jdbc);
+		query.addQueryFilter(getQueryFilter("", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample, QueryFilter.AndWhere.WHERE));
+		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
+		query.addQueryFilter(getQueryFilter("", query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample, QueryFilter.AndWhere.WHERE));
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+query3Full_2Filter, query3Full_2Filter.equals(s));
 	}
 
 	

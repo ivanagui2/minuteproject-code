@@ -97,22 +97,26 @@ public class QueryUtils {
 		//sb.append(queryRaw);
 		//for each query where reference
 		
+		// as a simplification it is considered that there is just one 'where' possible where the filter
+		// are set: so when the first filter with connection word 'where' set the other are 'and'
+		boolean isWhereDone = false;
 		for (QueryFilter filter : query.getQueryFilters()) {
 			//  get query where string with question mark
 			//  append (where or and) to query
 			final String name = "$"+filter.getName();
-			final String replacement = queryAndWhere(filter)+filter.getValue();
+			final String replacement = queryAndWhere(filter, isWhereDone)+filter.getValue();
 			if (!StringUtils.isEmpty(name) && queryRaw.contains(name)) {
 				queryRaw = StringUtils.replace(queryRaw, name, replacement);
 			} else {
 				queryRaw = queryRaw + replacement;
 			}
+			isWhereDone = true;
 		}
 		return queryRaw;
 	}
 	
-	private static String queryAndWhere(QueryFilter queryWhere) {
-		return " "+queryWhere.getConnectionWord()+" ";
+	private static String queryAndWhere(QueryFilter queryWhere, boolean isWhereDone) {
+		return " "+((isWhereDone)?QueryFilter.AndWhere.AND.toString():queryWhere.getConnectWord().toString())+" ";
 	}
 
 	public static String getFullQuerySample(Query query) {
