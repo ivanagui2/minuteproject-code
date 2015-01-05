@@ -58,6 +58,9 @@ public class ${className} { ## CDI apparently does not work with implement $sddD
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
 	public static final String QUERY_NATIVE = "$fullQuery";
+#foreach ($filter in $query.queryFilters)
+	public static final String CHUNK_$filter.name = "$filter.value";
+#end
 
 	@PersistenceContext(unitName = "$persistenceUnitName")  
     EntityManager entityManager;  

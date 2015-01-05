@@ -313,11 +313,11 @@ $!updatedAreaSnippet
 		Connection conn = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(QUERY_NATIVE);
+			pstmt = conn.prepareStatement(getStatement(#if($isNotVoidInput) $sddInputBeanVariable#end));
 #foreach($column in $inputBean.columns)
+//TODO use setFilter to add the filter group $column.isFilter() << filter
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
-##if (!$column.isTransient()) 
 #injectSDDParameter()
 #end
 #else
@@ -348,6 +348,23 @@ $!updatedAreaSnippet
 	      }
 	    }
 		return list;
+	}
+
+	public String getStatement(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(QUERY_NATIVE);
+#foreach ($filter in $query.queryFilters)
+		if (
+##TODO Case none
+#foreach ($param in $filter.queryParams.queryParams)
+#set($paramName=$formatUtils.getJavaName(${param.name}))
+			#if ($velocityCount>1) && #end ${sddInputBeanVariable}.get${paramName}() != null
+#end
+			) {
+			sb.append(CHUNK_$filter.name);
+		}
+#end
+		return sb.toString();
 	}
 #end
 $!updatedAreaEnd
