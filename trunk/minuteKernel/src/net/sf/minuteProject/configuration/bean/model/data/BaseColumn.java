@@ -224,6 +224,10 @@ public interface BaseColumn extends GeneratorBean{
 	
 	public boolean isImplicit();
 	
+	public void setFilter(boolean isFilter);
+	
+	public boolean isFilter();
+	
 	public void setHasBeenDuplicated(boolean hasBeenDuplicated);
 	
 	public boolean hasBeenDuplicated(); // duplication by choice

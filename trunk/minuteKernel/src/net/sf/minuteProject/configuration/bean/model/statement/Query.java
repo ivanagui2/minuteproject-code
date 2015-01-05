@@ -144,6 +144,7 @@ public class Query extends AbstractConfiguration {
 			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
 				column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
+				column.setFilter(queryParam.isFilter());
 				// if (queryParam.isId()) {
 				// table.setPrimaryKeys(new Column[] {column});
 				// }
@@ -250,8 +251,14 @@ public class Query extends AbstractConfiguration {
 	}
 
 	private List<QueryParam> getColumns(Direction direction) {
-		if (Direction.IN.equals(direction))
-			return getInputParams().getFlatQueryParams();
+		if (Direction.IN.equals(direction)) {
+			List<QueryParam> list = new ArrayList<QueryParam>();
+			list.addAll(getInputParams().getFlatQueryParams());
+			for (QueryFilter filter : getQueryFilters()) {
+				list.addAll(filter.getQueryParams().getFlatQueryParams());
+			}
+			return list;
+		}
 		if (getOutputParams() != null)
 			return getOutputParams().getQueryParams();
 		return new ArrayList<QueryParam>();

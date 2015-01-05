@@ -9,7 +9,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 
 	private String typeAlias;
 	private boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
-	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false;
+	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isFilter=false;
 	
 	@Override
 	public String getTypeAlias() {
@@ -93,5 +93,12 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	public void setHasBeenDuplicated(boolean hasBeenDuplicated) {
 		this.hasBeenDuplicated = hasBeenDuplicated;
 	}
-
+	
+	public void setFilter(boolean isFilter) {
+		this.isFilter = isFilter;
+	}
+	
+	public boolean isFilter() {
+		return isFilter;
+	}
 }

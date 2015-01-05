@@ -620,7 +620,7 @@
 		<xs:sequence>
 			<xs:element name="query-body" type="value-body" />
 			<xs:element name="query-what" type="value-body" />
-			<xs:element name="query-where" type="value-body" />
+			<xs:element name="query-filters" type="query-filters" />
 			<xs:element name="query-params" type="query-params" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
@@ -636,6 +636,21 @@
 				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:complexType name="query-filters">
+		<xs:sequence>
+			<xs:element name="query-filter" type="query-filter"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="query-filter">
+		<xs:sequence>
+			<xs:element name="query-params" type="query-params" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	
 	<xs:complexType name="value-body">
 		<xs:sequence>
 			<xs:element name="name" type="xs:string" minOccurs="0" />
@@ -653,6 +668,7 @@
 			</xs:element> 
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="refname" type="xs:string" />
 		<xs:attribute name="type" type="xs:string" use="required" />
 		<xs:attribute name="sample" type="xs:string" use="required" />
 		<xs:attribute name="default" type="xs:string" />

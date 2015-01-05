@@ -21,6 +21,7 @@ public class QueryParams extends AbstractConfiguration {
 	//uniqueQueryParamsNotContextual is enriched with context + implicit param to get uniqueQueryParam
 	//uniqueQueryParam is the input to the system
 	//uniqueQueryParam is enriched with duplicate to get the queryParams
+	private boolean isFilter=false;
 	
 	private Query query;
 
@@ -151,7 +152,7 @@ public class QueryParams extends AbstractConfiguration {
 	}
 
 	public void addQueryParam(QueryParam queryParam) {
-		queryParam.addQueryParams(this);
+		queryParam.setQueryParams(this);
 		getQueryParams().add(queryParam);
 	}
 
@@ -161,6 +162,14 @@ public class QueryParams extends AbstractConfiguration {
 
 	public Query getQuery() {
 		return query;
+	}
+	
+	public void setFilter(boolean isFilter) {
+		this.isFilter = isFilter;
+	}
+	
+	public boolean isFilter() {
+		return isFilter;
 	}
 	
 }
