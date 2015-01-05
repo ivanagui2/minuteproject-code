@@ -22,6 +22,7 @@ public class QueryParam extends Field {
 //	private String defaultValue, converter;
 	private QueryParamOptionalSections queryParamOptionalSections;
 	private QueryParamLink queryParamLink;
+	private boolean isFilter=false;
 //	private Stereotype stereotype;
 	
 	
@@ -103,10 +104,7 @@ public class QueryParam extends Field {
 	public boolean isLink() {
 		return (queryParamLink!=null)?true:false;
 	}
-	public void addQueryParams(QueryParams queryParams) {
-		this.queryParams = queryParams;
-		
-	}
+
 	public QueryParams getQueryParams() {
 		return queryParams;
 	}
@@ -143,8 +141,10 @@ public class QueryParam extends Field {
 	public boolean hasBeenDuplicated() {
 		return hasBeenDuplicated;
 	}
-
 	public void setHasBeenDuplicated(boolean hasBeenDuplicated) {
 		this.hasBeenDuplicated = hasBeenDuplicated;
+	}
+	public boolean isFilter() {
+		return queryParams.isFilter();
 	}
 }

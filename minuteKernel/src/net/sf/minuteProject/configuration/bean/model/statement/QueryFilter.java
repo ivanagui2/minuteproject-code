@@ -14,6 +14,7 @@ public class QueryFilter extends QueryAdapter {
 
 	public void setQueryParams(QueryParams queryParams) {
 		this.queryParams = queryParams;
+		this.queryParams.setFilter(true);
 	}
 
 	public AndWhere getConnectWord() {
