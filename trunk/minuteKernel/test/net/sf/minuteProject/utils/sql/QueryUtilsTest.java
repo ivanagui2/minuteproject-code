@@ -58,6 +58,10 @@ public class QueryUtilsTest {
 	public static final String query3Full_1Filter = "SELECT A, B from T WHERE (F = 'f' or G = 'g')";
 	public static final String query3Full_2Filter = "SELECT A, B from T WHERE (F = 'f' or G = 'g') AND H = 'h'";
 	
+	public static final String query4Jdbc = "SELECT A, B from T WHERE (F = ? or G = ?)";
+	public static final String query4Full_FilterWithDuplicate = "SELECT A, B from T WHERE (F = 'ff' or G = 'ff')";
+	public static final String query4ParamType = "string";
+	public static final String query4ParamSample = "'ff'";
 	
 	Query query1;
 	
@@ -84,8 +88,15 @@ public class QueryUtilsTest {
 
 	private QueryParam getQueryParam(String type, String sample) {
 		QueryParam queryParam = new QueryParam();
+		queryParam.setId(sample);
 		queryParam.setType(type);
 		queryParam.setSample(sample);
+		return queryParam;
+	}
+	
+	private QueryParam getQueryParamByRefId(String refid) {
+		QueryParam queryParam = new QueryParam();
+		queryParam.setRefid(refid);
 		return queryParam;
 	}
 	
@@ -128,30 +139,27 @@ public class QueryUtilsTest {
 	//
 	@Test
 	public void simpleFullQuery() {
-		QueryUtils queryUtils = new QueryUtils();
-		String s = queryUtils.getFullQuerySample(query1);
+		String s = QueryUtils.getFullQuerySample(query1);
 		assertTrue(s +" but expect :"+query1Full, query1Full.equals(s));
 	}
 	
 	@Test
 	public void queryWithImplicitFilter() {
 		//when query 2
-		QueryUtils queryUtils = new QueryUtils();
 		Query query2 = getQueryWithFilter(query1Jdbc, "", query1Filter1, query1Filter1Param1Type, query1Filter1Param1Sample);
 		query2.getQueryParams().addQueryParam(getQueryParam1());
 		query2.getQueryParams().addQueryParam(getQueryParam2());
-		String s = queryUtils.getFullQuerySample(query2);
+		String s = QueryUtils.getFullQuerySample(query2);
 		assertTrue(s+" but expect :"+query1FullFilter1, query1FullFilter1.equals(s));
 	}
 	
 	@Test
 	public void queryWithImplicitFilter2() {
-		QueryUtils queryUtils = new QueryUtils();
 		Query query = getQueryWithFilter(query1Jdbc, "", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample);
 		query.getQueryParams().addQueryParam(getQueryParam1());
 		query.getQueryParams().addQueryParam(getQueryParam2());
 		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
-		String s = queryUtils.getFullQuerySample(query);
+		String s = QueryUtils.getFullQuerySample(query);
 		assertTrue(s+" but expect :"+query1FullFilter2, query1FullFilter2.equals(s));
 	}
 
@@ -159,9 +167,8 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitFilter() {
 		//StringUtils.replace(query2Jdbc, query2FilterName1, query2FilterValue1);
-		QueryUtils queryUtils = new QueryUtils();
 		Query query4 = getQueryWithFilter(query2Jdbc, query2FilterName1, query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample);
-		String s = queryUtils.getFullQuerySample(query4);
+		String s = QueryUtils.getFullQuerySample(query4);
 		assertTrue(s +" but expect :"+query2Full, query2Full.equals(s));
 	}
 	
@@ -189,6 +196,20 @@ public class QueryUtilsTest {
 		String s = QueryUtils.getFullQuerySample(query);
 		//then
 		assertTrue(s +" but expect :"+query3Full_2Filter, query3Full_2Filter.equals(s));
+	}
+	
+	@Test
+	public void queryWithDuplicateParams() {
+		//given
+		Query query = getQuery(query4Jdbc);
+		QueryParams queryParams = new QueryParams();
+		query.setQueryParams(queryParams);
+		query.getQueryParams().addQueryParam(getQueryParam(query4ParamType, query4ParamSample));
+		query.getQueryParams().addQueryParam(getQueryParamByRefId(query4ParamSample));
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+query4Full_FilterWithDuplicate, query4Full_FilterWithDuplicate.equals(s));
 	}
 
 	
