@@ -236,6 +236,7 @@
 		                       <alias attr-name="size" prop-name="size" />
 		                       <alias attr-name="refname" prop-name="refname" />
 		                       <alias attr-name="refid" prop-name="refid" />
+		                       <alias attr-name="id" prop-name="id" />
 		                       <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 		                   	   <alias attr-name="is-context"  prop-name="isContext" /><!-- global context bound -->
 		                   </set-properties-rule>
