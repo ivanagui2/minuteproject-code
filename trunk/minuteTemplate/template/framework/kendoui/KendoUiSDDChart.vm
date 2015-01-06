@@ -99,6 +99,7 @@
         var viewModel = kendo.observable({
 
             searchSdd: function () {
+                isQuestionMarkDone = false;
         		var query = "";
 #set($cpt=0)
 #foreach($column in $inputBean.columns)
@@ -106,11 +107,6 @@
 #set($cpt=$cpt+1)
 #putColumnParamNaming()
         		var $columnVar = this.get("$columnVar");
-#if($cpt==1)
-				query = "?";
-#else
-				query = "&";
-#end
 #if($columnUtils.isTime($column))
                 ${columnVar}Date = new Date(${columnVar});
 				${columnVar}DateSt = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
@@ -118,7 +114,15 @@
 #else
 #set($columnValue=$columnVar)
 #end
-        		query = query + "$columnVar="+$columnValue;
+##        		query = query + "$columnVar="+$columnValue;
+                if ($columnVar!=undefined && !$columnVar=='') {
+                    if (!isQuestionMarkDone) {
+                        isQuestionMarkDone = true;
+                        query = "?"+"$columnVar="+$columnVar;
+                    } else {
+                        query = query+"&"+"$columnVar="+$columnVar;
+                    }
+                }
 #end
 #end
 				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;

@@ -325,7 +325,7 @@ $!updatedAreaSnippet
 #injectSDDParameter()
 #else
 			if (isFilter${column.filterName}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)) {
-				#injectSDDParameter()
+#injectSDDParameter()
 			}
 #end	
 #end
@@ -356,9 +356,20 @@ $!updatedAreaSnippet
 		return list;
 	}
 
+#foreach ($filter in $query.queryFilters)
+	public boolean isFilter${filter.name}Active(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+#foreach ($param in $filter.queryParams.queryParams)
+#set($paramName=$formatUtils.getJavaName(${param.name}))
+		if (${sddInputBeanVariable}.get${paramName}() == null) return false;
+#end
+		return true;	
+	}
+#end
+
 	public String getStatement(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(QUERY_NATIVE);
+		String query = QUERY_NATIVE;
+		boolean isWhereDone = false;
+		
 #foreach ($filter in $query.queryFilters)
 		if (
 ##TODO Case none
@@ -367,12 +378,19 @@ $!updatedAreaSnippet
 			#if ($velocityCount>1) && #end ${sddInputBeanVariable}.get${paramName}() != null
 #end
 			) {
-			//TODO and-where close
-			sb.append (" AND ");
-			sb.append(CHUNK_$filter.name);
+			String connectionWord = " AND ";
+#if ($filter.isWhere())
+			if (!isWhereDone) {
+				connectionWord = " WHERE ";
+			}
+#end
+			query = StringUtils.replace (query, "$"+"$filter.name", connectionWord + CHUNK_$filter.name ); 
+			isWhereDone = true;
+		} else {
+			query = StringUtils.replace (query, "$"+"$filter.name","");
 		}
 #end
-		return sb.toString();
+		return query;
 	}
 #end
 $!updatedAreaEnd
