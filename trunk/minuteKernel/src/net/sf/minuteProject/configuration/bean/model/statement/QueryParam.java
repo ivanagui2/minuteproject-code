@@ -147,4 +147,7 @@ public class QueryParam extends Field {
 	public boolean isFilter() {
 		return queryParams.isFilter();
 	}
+	public String getFilterName() {
+		return null;
+	}
 }

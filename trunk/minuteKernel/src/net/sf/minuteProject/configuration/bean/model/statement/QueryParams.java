@@ -3,10 +3,9 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
-
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+
+import org.apache.commons.lang.StringUtils;
 
 public class QueryParams extends AbstractConfiguration {
 
@@ -22,6 +21,7 @@ public class QueryParams extends AbstractConfiguration {
 	//uniqueQueryParam is the input to the system
 	//uniqueQueryParam is enriched with duplicate to get the queryParams
 	private boolean isFilter=false;
+	private String filterName; 
 	
 	private Query query;
 
@@ -164,12 +164,16 @@ public class QueryParams extends AbstractConfiguration {
 		return query;
 	}
 	
-	public void setFilter(boolean isFilter) {
-		this.isFilter = isFilter;
-	}
-	
 	public boolean isFilter() {
 		return isFilter;
+	}
+
+	public String getFilterName() {
+		return filterName;
+	}
+
+	public void setFilterName(String filterName) {
+		this.filterName = filterName;
 	}
 	
 }

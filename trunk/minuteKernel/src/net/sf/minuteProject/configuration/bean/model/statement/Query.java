@@ -144,7 +144,7 @@ public class Query extends AbstractConfiguration {
 			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
 				column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
-				column.setFilter(queryParam.isFilter());
+				column.setFilterName(queryParam.getQueryParams().getFilterName());
 				// if (queryParam.isId()) {
 				// table.setPrimaryKeys(new Column[] {column});
 				// }

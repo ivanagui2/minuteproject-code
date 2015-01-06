@@ -91,8 +91,12 @@ public class QueryUtils {
 		return StringUtils.replace(getQueryQuestionMark(query), "\n", " ");
 	}
 	
+	public static String getQueryBodyQuestionMark(Query query) {
+		return StringUtils.replace(query.getQueryBody().getValue(), "\n", " ");
+	}
+	
 	public static String getQueryQuestionMark(Query query) {
-		String queryRaw = query.getQueryBody().getValue();
+			String queryRaw = query.getQueryBody().getValue();
 		//1 get query body
 		//sb.append(queryRaw);
 		//for each query where reference
