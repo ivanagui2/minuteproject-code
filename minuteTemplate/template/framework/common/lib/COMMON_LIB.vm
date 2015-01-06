@@ -315,13 +315,19 @@ $!updatedAreaSnippet
 			conn = getConnection();
 			pstmt = conn.prepareStatement(getStatement(#if($isNotVoidInput) $sddInputBeanVariable#end));
 #foreach($column in $inputBean.columns)
-//TODO use setFilter to add the filter group $column.isFilter() << filter
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
 #injectSDDParameter()
 #end
 #else
-#injectSDDParameter()	
+##TODO use setFilter to add the filter group $column.isFilter() <filter
+#if (!$column.isFilter())
+#injectSDDParameter()
+#else
+			if (isFilter${column.filterName}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)) {
+				#injectSDDParameter()
+			}
+#end	
 #end
 #end
 			rs = pstmt.executeQuery();
@@ -361,6 +367,8 @@ $!updatedAreaSnippet
 			#if ($velocityCount>1) && #end ${sddInputBeanVariable}.get${paramName}() != null
 #end
 			) {
+			//TODO and-where close
+			sb.append (" AND ");
 			sb.append(CHUNK_$filter.name);
 		}
 #end

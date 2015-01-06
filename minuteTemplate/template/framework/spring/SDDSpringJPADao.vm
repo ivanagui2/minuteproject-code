@@ -56,8 +56,8 @@ public class ${className} implements $sddDaoInterfaceClass {
 public class ${className} { ## CDI apparently does not work with implement $sddDaoInterfaceClass
 #end
 
-#set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
-	public static final String QUERY_NATIVE = "$fullQuery";
+#set ($coreQuery = $queryUtils.getQueryBodyQuestionMark($query))
+	public static final String QUERY_NATIVE = "$coreQuery";
 #foreach ($filter in $query.queryFilters)
 	public static final String CHUNK_$filter.name = "$filter.value";
 #end
