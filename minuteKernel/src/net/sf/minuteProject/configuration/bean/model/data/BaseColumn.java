@@ -224,7 +224,9 @@ public interface BaseColumn extends GeneratorBean{
 	
 	public boolean isImplicit();
 	
-	public void setFilter(boolean isFilter);
+	public void setFilterName(String filterName);
+	
+	public String getFilterName ();
 	
 	public boolean isFilter();
 	
