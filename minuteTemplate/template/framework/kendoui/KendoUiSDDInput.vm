@@ -97,15 +97,15 @@
 
         detailsTemplate = kendo.template($("#template-detail").html());
 #foreach ($column in $table.columns)
-#putColumnParamNaming()
 #if ($columnUtils.hasCheckConstraint($column))
-#set($checkConstraints= $columnUtils.getCheckConstraintValues($column).size())
+#putColumnParamNaming()
+#set($checkConstraints= $columnUtils.getCheckConstraintValues($column))
 #set($size= $checkConstraints.size())
 		var ${columnVar}List = [
 #foreach ($property in $checkConstraints)
 			{
-				name="$property.name",
-				value="$property.value"
+				name : "$property.name",
+				value : "$property.name"
 			}
 #if ($velocityCount!=$size)
             ,#end 
@@ -114,7 +114,12 @@
 #end
 #end
         var viewModel = kendo.observable({
+#foreach ($column in $table.columns)
+#if ($columnUtils.hasCheckConstraint($column))
+#putColumnParamNaming()
 			${columnVar}List : ${columnVar}List,
+#end
+#end
             searchSdd: function () {
                 isQuestionMarkDone = false;
         		var query = "";
