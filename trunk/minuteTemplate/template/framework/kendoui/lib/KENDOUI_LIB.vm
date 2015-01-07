@@ -38,17 +38,17 @@
 	<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" 
-	data-bind="source: ${columnVar}List, value: ${columnVar}" 
+		data-bind="source: ${columnVar}List, value: ${columnVar}" 
 ## 	data-select="selectTODO"
-	data-text-field="name"
-	data-value-field="value"
-	data-option-label="Select"
-	#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
+		data-text-field="value"
+		data-value-field="${columnVar}"
+		data-option-label="Select"
+		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
 #end
-#foreach ($property in $columnUtils.getCheckConstraintValues($column))
-		<option value="$property.name">$property.name</option>
-#end
+##foreach ($property in $columnUtils.getCheckConstraintValues($column))
+##		<option value="$property.name">$property.name</option>
+##end
      </select>
      <span class="k-invalid-msg" data-for="$labelFor"></span>
 #else
