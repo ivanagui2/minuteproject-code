@@ -96,9 +96,25 @@
            }).data("kendoWindow");
 
         detailsTemplate = kendo.template($("#template-detail").html());
-
+#foreach ($column in $table.columns)
+#putColumnParamNaming()
+#if ($columnUtils.hasCheckConstraint($column))
+#set($checkConstraints= $columnUtils.getCheckConstraintValues($column).size())
+#set($size= $checkConstraints.size())
+		var ${columnVar}List = [
+#foreach ($property in $checkConstraints)
+			{
+				name="$property.name",
+				value="$property.value"
+			}
+#if ($velocityCount!=$size)
+            ,#end 
+#end
+		]
+#end
+#end
         var viewModel = kendo.observable({
-
+			${columnVar}List : ${columnVar}List,
             searchSdd: function () {
                 isQuestionMarkDone = false;
         		var query = "";
