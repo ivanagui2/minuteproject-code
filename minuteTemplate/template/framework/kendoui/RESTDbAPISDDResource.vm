@@ -106,9 +106,11 @@ $!updatedAreaSnippet
 #if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
-#set($columnVar="$columnVar"+".getDate()")
-#end
+		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
+			${sddInputBeanVariable}.set$columnClass (${columnVar}.getDate());
+#else
 		${sddInputBeanVariable}.set$columnClass ($columnVar);
+#end
 #end
 #end
         return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});

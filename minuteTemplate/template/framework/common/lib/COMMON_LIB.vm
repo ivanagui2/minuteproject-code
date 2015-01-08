@@ -314,6 +314,7 @@ $!updatedAreaSnippet
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(getStatement(#if($isNotVoidInput) $sddInputBeanVariable#end));
+			int index = 1;
 #foreach($column in $inputBean.columns)
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
@@ -400,7 +401,7 @@ $!updatedAreaEnd
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
             if (${sddInputBeanVariable}.get$columnClass()==null) {
-               pstmt.setNull($velocityCount, java.sql.Types.${column.type});
+               pstmt.setNull(index, java.sql.Types.${column.type});
             } else {
 #if(${column.hasProperty("like-mode")})
 #set($likeMode = ${column.getPropertyValue("like-mode")})
@@ -415,15 +416,16 @@ $!updatedAreaEnd
                // endsWith or contains
                $columnType var = ${sddInputBeanVariable}.get$columnClass();
 #end
-               pstmt.set$columnType($velocityCount, var); 
+               pstmt.set$columnType(index, var); 
 #else
 #if($columnUtils.isTimeColumn($column))
-               pstmt.set$columnType($velocityCount, new java.sql.Date(${sddInputBeanVariable}.get$columnClass().getTime())); 
+               pstmt.set$columnType(index, new java.sql.Date(${sddInputBeanVariable}.get$columnClass().getTime())); 
 #else
-               pstmt.set$columnType($velocityCount, ${sddInputBeanVariable}.get$columnClass()); 
+               pstmt.set$columnType(index, ${sddInputBeanVariable}.get$columnClass()); 
 #end
 #end
             }
+            index ++;
 #end
 	
 
