@@ -118,9 +118,9 @@
                 if ($columnVar!=undefined && !$columnVar=='') {
                     if (!isQuestionMarkDone) {
                         isQuestionMarkDone = true;
-                        query = "?"+"$columnVar="+$columnVar;
+                        query = "?"+"$columnVar="+$columnValue;
                     } else {
-                        query = query+"&"+"$columnVar="+$columnVar;
+                        query = query+"&"+"$columnVar="+$columnValue;
                     }
                 }
 #end
