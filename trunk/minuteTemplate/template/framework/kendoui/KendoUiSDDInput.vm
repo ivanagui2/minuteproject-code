@@ -24,7 +24,7 @@
 <body>
     
 <div id="${tableVariableName}">
-   <div class="demo-section k-header">
+   <div>
    		<div id="form-${tableVariableName}" >
         	<h3>${tableVariableName}</h3>
             <ul>
@@ -163,6 +163,14 @@
                         schema: {
                             data: "$sddOutputBeanClass"
                         }
+                    },
+                    resizable: true,
+                    sortable: {
+                        mode: "single",
+                        allowUnsort: false
+                    },
+                    pageable: {
+                        buttonCount: 5
                     },
 					columns: [
 #foreach($column in $outputBean.columns)
