@@ -5,10 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
-import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 public class Field extends AbstractConfiguration {
@@ -18,7 +15,10 @@ public class Field extends AbstractConfiguration {
 	private String bidirectional;
 	private Stereotype stereotype;
 	private String type, length, typeAlias;
-	private boolean isMandatory=false, isId=false,   isHidden=false;
+	private boolean isMandatory=false, 
+			isId=false,
+			isKey=false,
+			isHidden=false;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
 	private String ordering;
@@ -130,6 +130,14 @@ public class Field extends AbstractConfiguration {
 	public void setId(boolean isId) {
 		this.isId = isId;
 	}
+	
+	public boolean isKey() {
+		return isKey;
+	}
+	
+	public void setKey(boolean isKey) {
+		this.isKey = isKey;
+	}
 
 	public void setIsId(boolean isId) {
 		this.isId = isId;
@@ -216,7 +224,6 @@ public class Field extends AbstractConfiguration {
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
 	}
-
 
 	public String toString() {
 		return "field [name="+name+"]";

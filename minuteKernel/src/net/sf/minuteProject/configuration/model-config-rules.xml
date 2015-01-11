@@ -154,19 +154,18 @@
 		                <set-properties-rule/>
 		                <bean-property-setter-rule pattern="value"/>
 		            </pattern>         
-	 		        <pattern value="query-what">
-		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryWhat"/>    
-		                <set-next-rule methodname="setQueryWhat" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryWhat"/>          
-		                <set-properties-rule/>
-		                <bean-property-setter-rule pattern="value"/>
-		                <pattern value="query-fields/query-field">
-		                	<set-properties-rule/>
-		                	<set-properties-rule>
-			                    <alias attr-name="name" prop-name="name" />
-			                 	<alias attr-name="is-hidden" prop-name="isHidden" />
-			            	</set-properties-rule>
-		                </pattern>
-		            </pattern>         
+
+	                <pattern value="query-fields/query-field">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+						<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+						<set-properties-rule>
+					    	<alias attr-name="name" prop-name="name" />
+					    	<alias attr-name="hidden" prop-name="hidden" />
+					    	<alias attr-name="is-key" prop-name="key" />
+					    	<alias attr-name="value" prop-name="value" />
+					    </set-properties-rule>
+					 </pattern>
+      
 		        <pattern value="query-filters/query-filter">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>    
 	                <set-next-rule methodname="addQueryFilter" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
@@ -1222,12 +1221,16 @@
 	                <set-properties-rule/>
 	                <bean-property-setter-rule pattern="value"/>
 	            </pattern>         
- 		        <pattern value="query-what">
-	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryWhat"/>    
-	                <set-next-rule methodname="setQueryWhat" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryWhat"/>          
-	                <set-properties-rule/>
-	                <bean-property-setter-rule pattern="value"/>
-	            </pattern>         
+                <pattern value="query-fields/query-field">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+					<set-properties-rule>
+				    	<alias attr-name="name" prop-name="name" />
+				    	<alias attr-name="hidden" prop-name="hidden" />
+				    	<alias attr-name="is-key" prop-name="key" />
+				    	<alias attr-name="value" prop-name="value" />
+				    </set-properties-rule>
+				 </pattern>        
 		        <pattern value="query-filters/query-filter">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>    
 	                <set-next-rule methodname="addQueryFilter" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter"/>          
