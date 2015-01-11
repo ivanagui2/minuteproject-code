@@ -254,6 +254,37 @@
 							<action name="details"></action>
 						</actions>
 					</query>
+					
+					<query name="queryWhere" id="statusQuery" type="dashboard" package-name="dashboard">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from bus_release where status = ? $where1]]>
+                            </value>
+						</query-body>
+						<query-params>
+							<query-param name="status" sample="'test'">
+								<property tag="checkconstraint">
+									<property name="DONE" />
+									<property name="ACTIVE" />
+									<property name="REJECTED" />
+								</property>
+							</query-param>
+						</query-params>
+						<query-filters>
+							<query-filter name="where1">
+							<value>
+<![CDATA[status = ? ]]>
+                            </value>
+							<query-params>
+								<query-param name="status2" sample="'test'"></query-param>
+							</query-params>
+						</query-filter>
+
+						</query-filters>
+						<actions>
+							<action name="details"></action>
+						</actions>
+					</query>
 
 					<!-- dashboard queries - end -->
 
@@ -292,14 +323,48 @@
                      
 			         <query name="release By Date" id="releaseByDate" package-name="timeline" >
                          <query-body>
-                         <value>
+                         	<value>
 <![CDATA[SELECT * from bus_release where creation_date > ? order by creation_date desc]]>
                             </value>
                          </query-body>
+                       	<query-fields>
+                       		<query-field name="id" is-hidden="true" />
+                       	</query-fields>
                          <query-params>
                              <query-param name="creationDate" type="date" sample="'2012-11-18'" >
                              </query-param>
                          </query-params>
+                         <actions>
+                         	<action name="details" default-implementation="details" query-id="releaseDetails"></action>
+                         </actions>
+                     </query>
+                     
+			         <query name="release Detail" id="releaseDetails" package-name="detail" >
+                         <query-body>
+                         	<value>
+<![CDATA[
+SELECT r.name release_name, r.notes, a.name application, e.name environment, u.identifier, u.email 
+from bus_release r, admin_application a, admin_environment e, sec_user u
+where
+r.application_id = a.id and r.environment_id = e.id and r.releaser_id = u.id
+$whereId
+]]>
+                            </value>
+                         </query-body>
+                         <query-filters>
+                         	<query-filter name="whereId" >
+                         		<value><![CDATA[r.id = ?]]></value>
+                         		<query-params>
+                         			<query-param name="id" sample="1" type="int"></query-param>
+                         		</query-params>
+                         	</query-filter>
+                         </query-filters>
+                       	<query-fields>
+                       		<query-field name="id" hidden="true" is-key="true" value="xxx" />
+                       	</query-fields>
+                         <actions>
+                         	<action name="details" default-implementation="details" query-id="releaseDetails"></action>
+                         </actions>
                      </query>
                      				
 			         <query name="security_role_list" id="security_role_list" package-name="secu" >

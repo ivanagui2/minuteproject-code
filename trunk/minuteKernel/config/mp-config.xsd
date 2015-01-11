@@ -619,7 +619,7 @@
 	<xs:complexType name="query">
 		<xs:sequence>
 			<xs:element name="query-body" type="value-body" />
-			<xs:element name="query-what" type="value-body" />
+			<xs:element name="query-fields" type="query-fields" />
 			<xs:element name="query-filters" type="query-filters" />
 			<xs:element name="query-params" type="query-params" />
 		</xs:sequence>
@@ -633,6 +633,13 @@
 	<xs:complexType name="query-params">
 		<xs:sequence>
 			<xs:element name="query-param" type="query-param"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="query-fields">
+		<xs:sequence>
+			<xs:element name="query-field" type="field"
 				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>

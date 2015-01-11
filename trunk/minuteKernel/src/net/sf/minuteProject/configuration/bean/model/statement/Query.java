@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
+import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -26,7 +27,7 @@ public class Query extends AbstractConfiguration {
 
 	private Queries queries;
 	private QueryBody queryBody;
-	private QueryWhat queryWhat;
+	private List<Field> queryFields;
 	private List<QueryFilter> queryFilters;
 	private QueryParams queryParams;
 	private QueryParams outputParams;
@@ -75,19 +76,6 @@ public class Query extends AbstractConfiguration {
 		queryBody.setValue(s);
 	}
 
-	public QueryWhat getQueryWhat() {
-		return queryWhat;
-	}
-
-	public void setQueryWhat(QueryWhat queryWhat) {
-		this.queryWhat = queryWhat;
-	}
-
-	public void setQueryWhat(String s) {
-		queryWhat = new QueryWhat();
-		queryWhat.setValue(s);
-	}
-
 	public List<QueryFilter> getQueryFilters() {
 		if (queryFilters==null) {
 			queryFilters = new ArrayList<QueryFilter>();
@@ -97,6 +85,17 @@ public class Query extends AbstractConfiguration {
 
 	public void addQueryFilter(QueryFilter queryWhere) {
 		getQueryFilters().add(queryWhere);
+	}
+	
+	public List<Field> getQueryFields() {
+		if (queryFields==null) {
+			queryFields = new ArrayList<Field>();
+		}
+		return queryFields;
+	}
+	
+	public void addField(Field field) {
+		getQueryFields().add(field);
 	}
 
 	public QueryParams getQueryParams() {
