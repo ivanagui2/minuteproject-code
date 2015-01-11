@@ -43,7 +43,6 @@
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
-<!-- column group -->
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
@@ -176,6 +175,7 @@
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 					{
+						//TODO hide
 	                	field: "$columnVar",
 	                	title: "$columnVar",
 #updatedColumnAttributeAreas()
@@ -207,6 +207,9 @@ $!updatedAreaEnd
 
         });
 
+#foreach ($field in $query.queryFields)
+// is hidden $field.name $field.isHidden() $field.isKey() $field.value
+#end
         kendo.bind($("#form-${tableVariableName}"), viewModel);
 
     });
@@ -220,6 +223,17 @@ $!updatedAreaBegin
 $updatedAreaSnippet
 #else
 //		todo
+#foreach ($column in $outputBean.columns)
+//$column.isHidden()
+#if ($column.isHidden())
+#putColumnParamNaming()
+		var $columnVar = this.get("$columnVar");
+#end
+#end
+//		todo get url from query
+//			append parameters
+//		if (target == single node 	=> popup)
+//		if (target == list 			=> add list)
 #end
 $!updatedAreaEnd
 	}
@@ -246,114 +260,3 @@ $!updatedAreaEnd
 
 </body>
 </html>
-
-#* 
- things to do
-
-#set($table=$inputBean)
-#asUML($table)
-#exposeVariableEntitySpecific()
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-#putJSFColumnSnippet2()
-##$columnVar =  $column.alias
-#end
-#end
-#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
-#foreach ($column in $columnGroup)
-#putColumnParams()
-#columnJavaNaming()
-#putJSFColumnSnippet2()
-#end
-#end
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-#set ($column=$localColumn)
-#putColumnParams()
-#columnJavaNaming()
-#if($tableUtils.isAdminContentType($linktableDB))
-#putJSFParentDropDownListSnippet()
-#else
-##TODO change childrenListClass is normally for children unique but not unique for parent lookup
-#putJSFParentAffectationSnippet($velocityCount)
-#end
-#end
-#foreach ($reference in $table.parents)
-#putReferenceParams2()
-#if(!$tableUtils.isAdminContentType($linktableDB))
-#set ($entityListRowJSFLocation = $commonUtils.getArtifactRelativePathDirAndFullName($linktableDB, $template, $templateEntityListRowJSF))
-#set ($entityLinkControllerJSFClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateEntityControllerJSF))
-#set ($entityLinkControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityLinkControllerJSFClass))
-#set ($childrenListClass = $childrenListClass+$velocityCount)
-<p:outputPanel id="container${childrenListClass}" >
- <p:dialog id="suc${childrenListClass}Dialog" message="Can you select one item?" rendered="#{${entityControllerJSFVariable}.isRender${localColumnClass}()}"
-		header="Affectation process" severity="alert" widgetVar="suc${childrenListClass}Dialog" appendToBody="true">
-	<h:form id="suc${childrenListClass}Form">
-    <p:dataTable value="#{${entityLinkControllerJSFVariable}.lazyModel}" 
-        id="table$childrenListClass" 
-        var="item" 
-        paginator="true" rows="10" 
-        lazy="true"
-		selection="#{${entityLinkControllerJSFVariable}.selected${linkedTableClass}}" selectionMode="single"
-        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-        rowsPerPageTemplate="10,20,50"
-		emptyMessage="No $linkedTableClass found with given criteria"> 
-
-        <f:facet name="header">  
-            List of #{i18n.${childrenListVariable}}  
-        </f:facet>
-        <ui:include src="/$entityListRowJSFLocation">
-           <ui:param name="isSemanticReference" value="false" />
-         </ui:include>
-		 <p:column>
-            <p:commandButton value="Affect" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="Affect" onclick="PF('suc${childrenListClass}Dialog').hide()" process="@this">
-				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
-                <f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
-            </p:commandButton >
-		  </p:column>
-    </p:dataTable>
-   </h:form>
- </p:dialog>
-</p:outputPanel>
-#end
-#end
-*#
-
-#* 
-
-                <p:commandButton title="#{i18n.execute}" value="#{i18n.execute}" update="sddInputPanel,display"
-                    action="#{${entityControllerJSFVariable}.execute}" />
-                </h:panelGrid>
-            </p:panel>
-            <p:panel id="display" header="Information" style="margin-top:10px;">
-            <p:dataTable var="${sddOutputBeanVariable}" value="#{${entityControllerJSFVariable}.getOutputList()}" paginator="true" rows="10"  
-                        selection="#{${entityControllerJSFVariable}.selected${sddOutputBeanClass}}" 
-                        selectionMode="single" rowKey="#{${sddOutputBeanVariable}}"
-                        onRowSelectUpdate="display" 
-                        dynamic="true"  resizableColumns="true"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                        rowsPerPageTemplate="5,10,15"> 
-                <f:facet name="header">  
-                    #{i18n.listOf} #{i18n.$sddOutputBeanVariable}  
-                </f:facet>  
-                <p:column style="width:16px">  
-                    <p:rowToggler/>  
-                </p:column>
-#foreach($column in $outputBean.columns)
-#putColumnParamNaming()
-                <p:column sortBy="#{${sddOutputBeanVariable}.${columnVar}}" filterBy="#{${sddOutputBeanVariable}.${columnVar}}">  
-                    <f:facet name="header">  
-                        <h:outputText value="#{i18n.$sddOutputBeanVariable$separator$columnVar}" />  
-                    </f:facet>  
-                    <h:outputText value="#{${sddOutputBeanVariable}.${columnVar}}" />  
-                </p:column>  
-#end
-                </p:dataTable>  
-            </p:panel>
-		</h:form>
-	</ui:define>
-</ui:composition>
-</html>
-*#
