@@ -407,9 +407,9 @@ $!updatedAreaEnd
 #set($likeMode = ${column.getPropertyValue("like-mode")})
 #if($likeMode =="startsWith")
                $columnType var = ${sddInputBeanVariable}.get$columnClass() + "%";
-#elseif ($likeMode =="endsWith"))
+#elseif ($likeMode =="endsWith")
                $columnType var = "%" + ${sddInputBeanVariable}.get$columnClass();
-#elseif ($likeMode =="contains"))
+#elseif ($likeMode =="contains")
                $columnType var = "%" + ${sddInputBeanVariable}.get$columnClass() + "%";
 #else
 			   //TODO update your minuteproject config to set property like-mode to startsWith
