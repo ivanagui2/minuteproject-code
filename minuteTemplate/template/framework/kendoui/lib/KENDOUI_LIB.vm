@@ -7,6 +7,8 @@
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
+<link href="/$kendoUiMainCssPath" rel="stylesheet" />
+
 #end
 
 #macro(putKendoUIMenuPackage)
@@ -34,8 +36,11 @@
 #macro (putKendoHtmlColumnSnippet $tableVariableName $internat)
 #set($labelFor=$columnVar)
 #set($fieldId="field-$columnVar")
-<li>
-	<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
+<div class="row">
+	<div class="cell" style="vertical-align: bottom;">
+		<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
+	</div>
+	<div class="cell" style="vertical-align: bottom;">
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" 
 		data-bind="source: ${columnVar}List, value: ${columnVar}" 
@@ -80,7 +85,8 @@
 #end
 #end
 #####	<p:message for="lbl${columnClass}-#{idValue}" />
-</li>
+	</div>
+</div>
 #end
 
 #macro (putKendoJsColumnSnippet $tableVariableName $internat)
@@ -153,6 +159,7 @@
 #macro(exposeKendoUIModelSpecific)
 #exposeKendoUITemplate()
 #set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
+#set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainCss))
 #end
 #macro(exposeKendoUIEntitySpecific)
 #exposeKendoUITemplate()
@@ -188,4 +195,5 @@
 #set($templateEntitySearchGridList="KendoUiEntitySearchGrid")
 #set($templateKendoSddInput="KendoUiSDDInput")
 #set($templateKendoUiMenu="KendoUiMenu")
+#set($templateKendoUiMainCss="KendoUiMainCss")
 #end
