@@ -248,26 +248,28 @@ $!updatedAreaEnd
 		e.preventDefault();
 		var rowId = $("#ssd-output-grid").data("kendoGrid").select().data("uid");
 		var item = $("#ssd-output-grid").data("kendoGrid").dataSource.getByUid(rowId);
-		kendo.ui.progress($("#ssd-output-grid"), true);
+##		kendo.ui.progress($("#ssd-output-grid"), true);
 #exposeEntityUpdatedAreas("${action.name}-action")
 $!updatedAreaBegin
 #if($isUpdated)
 $updatedAreaSnippet
 #else
-#foreach ($column in $outputBean.columns)
-//$column.isHidden()
-#if ($column.isPrimaryKey())
-#putColumnParamNaming()
-		var $columnVar = item.get("$columnVar");
-#end
-#end
 //		todo get url from query
 #set($targetUrl = $actionUtils.getTargetUrl($action, $model))
+		var targetUrl = "$targetUrl";
+#foreach ($field in $query.queryFields)
+#if ($field.isKey())
+#set($fieldName=$field.name)
+		var $fieldName = item.get("$fieldName");
+		targetUrl = targetUrl +#if($velocityCount>1)"&"#else"?"#end +"$fieldName="+$fieldName;  
+#end
+#end
+
 //			append parameters
 //		if (target == single node 	=> popup)
 //		if (target == list 			=> add list)
 #end
-		openPopup ("popup changeme",$targetUrl, 1000, 600);
+		openPopup ("popup changeme",targetUrl, 1000, 600);
 $!updatedAreaEnd
 	}
 
