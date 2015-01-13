@@ -69,6 +69,15 @@ public class StatementModel {
 		}
 	}
 	*/
+
+	public Query getQueryById(String id) {
+		for (Query query : getQueries().getQueries()) {
+			if (query.getId().equals(id))
+				return query;
+		}
+		return null;
+	}
+	
 	private void complementStatementPackage() {
 		Database database = model.getDataModel().getDatabase();
 		getSddPackage().setPackages(model, database);
