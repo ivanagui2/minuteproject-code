@@ -48,6 +48,7 @@ import net.sf.minuteProject.utils.TriggerUtils;
 import net.sf.minuteProject.utils.URLUtils;
 import net.sf.minuteProject.utils.ViewUtils;
 import net.sf.minuteProject.utils.WebUtils;
+import net.sf.minuteProject.utils.action.ActionUtils;
 import net.sf.minuteProject.utils.catalog.TechnologyCatalogUtils;
 import net.sf.minuteProject.utils.criteria.OrderingUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
@@ -142,7 +143,7 @@ public abstract class AbstractGenerator implements Generator {
 	private OrderingUtils orderingUtils = new OrderingUtils();
 	private EnrichmentUtils enrichmentUtils = new EnrichmentUtils();
 	private MinuteProjectUtils minuteprojectUtils = new MinuteProjectUtils();
-
+	private ActionUtils actionUtils = new ActionUtils();
 
 	/**
 	 * The default constructor get the value of the configuration to which the generator is associated
@@ -678,6 +679,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("orderingUtils", orderingUtils);
 		context.put("enrichmentUtils", enrichmentUtils);
 		context.put("minuteprojectUtils", minuteprojectUtils);
+		context.put("actionUtils", actionUtils);
 	}
 
     protected void exit (String message) {

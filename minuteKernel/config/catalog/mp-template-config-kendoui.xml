@@ -23,6 +23,19 @@
 		</template>
 
     </template-target>
+ 
+	<template-target 
+    	name="REST kendoui client css"
+		outputdir="src/main/webapp"
+		package-root=""
+		belongToPackage="true">
+			 
+		<template name="KendoUiMainCss" templateFileName="KendoUiMainCss.vm" 
+			file-extension="css" technicalPackage="css" file-suffix="" 
+			application-specific="true" add-model-name="true" >
+		</template>
+
+    </template-target>
       	
   	<template-target 
     	name="Kendo client"
