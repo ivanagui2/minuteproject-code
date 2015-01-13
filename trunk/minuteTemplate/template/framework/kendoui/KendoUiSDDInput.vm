@@ -3,6 +3,7 @@
 #putImportSDDInputBean()
 #putImportQuerySDDBean()
 #exposeQuerySpecific()
+#exposeKendoUIModelSpecific()
 #set($table=$inputBean)
 #asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
@@ -27,7 +28,7 @@
    <div>
    		<div id="form-${tableVariableName}" >
         	<h3>${tableVariableName}</h3>
-            <ul>
+<div style="display: table; width: 100%; margin-top: 10px;">
 #*            
 #foreach($column in $inputBean.columns)
 #putColumnParams()
@@ -58,7 +59,7 @@
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
-            </ul>
+</div>
 
             <!-- button action -->
             <p>
@@ -69,6 +70,7 @@
 </div>
 
 <div id="ssd-output-grid"/>
+<div id="ssd-output-grid-popup"/>
 
 <div id="details" />
 
@@ -86,7 +88,7 @@
 #end
 
 ## inspired by http://demos.telerik.com/kendo-ui/grid/custom-command
-       wnd = $("#details").kendoWindow({
+        wnd = $("#details").kendoWindow({
            title: "$className Details",
            modal: true,
            visible: false,
@@ -94,6 +96,12 @@
            width: 300
            }).data("kendoWindow");
 
+        $("#ssd-output-grid-popup").kendoWindow({
+            modal: true,
+            resizable: true,
+ 			iframe: true
+        }).data("kendoWindow");
+            	
         detailsTemplate = kendo.template($("#template-detail").html());
 #foreach ($column in $table.columns)
 #if ($columnUtils.hasCheckConstraint($column))
@@ -135,7 +143,6 @@
 #else
 #set($columnValue=$columnVar)
 #end
-##        		query = query + "$columnVar="+$columnValue;
                 if ($columnVar!=undefined && !$columnVar=='') {
                     if (!isQuestionMarkDone) {
                         isQuestionMarkDone = true;
@@ -163,12 +170,12 @@
                             data: "$sddOutputBeanClass"
                         }
                     },
-                    change: function () {
-						var rowId = this.select().data("uid");
-						var item = this.dataSource.getByUid(rowId);
-						kendo.ui.progress($("#ssd-output-grid"), true);
+##                    change: function () {
+##						var rowId = this.select().data("uid");
+##						var item = this.dataSource.getByUid(rowId);
+##						kendo.ui.progress($("#ssd-output-grid"), true);
 ##						select4Info(item);
-					},
+##					},
                     resizable: true,
                     sortable: {
                         mode: "single",
@@ -198,7 +205,7 @@ $!updatedAreaEnd
                 	,#end 
 #end
 #foreach ($action in $query.actions)
-					{ command: { text: "$action.name", click: showDetails }, title: " ", width: "180px" }
+					{ command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " ", width: "180px" }
 #if ($velocityCount!=$query.actions.size())
                 	,#end 
 #end
@@ -220,30 +227,47 @@ $!updatedAreaEnd
 
     });
 
+	function openPopup(title, url, width, height) { 
+		$("#ssd-output-grid-popup").html("");
+		var popup = $("#ssd-output-grid-popup").data("kendoWindow");
+		popup.wrapper.css({width: width, height: height});
+		popup.title(true);
+		popup.title(title);
+		popup.refresh(url);
+
+		// Patch for title of popup inside popups
+		if (popup.wrapper.css("padding-bottom") == "0px") {
+			popup.wrapper.css("padding-bottom", "10px");
+		}
+
+		popup.center().open();
+	}
+			
 #foreach ($action in $query.actions)
-	function $action.name (e) {
+	function $actionUtils.getActionMethod($action) (e) {
 		e.preventDefault();
-		var rowId = $("#ssd-output-grid").select().data("uid");
-		var item = $("#ssd-output-grid").dataSource.getByUid(rowId);
+		var rowId = $("#ssd-output-grid").data("kendoGrid").select().data("uid");
+		var item = $("#ssd-output-grid").data("kendoGrid").dataSource.getByUid(rowId);
 		kendo.ui.progress($("#ssd-output-grid"), true);
 #exposeEntityUpdatedAreas("${action.name}-action")
 $!updatedAreaBegin
 #if($isUpdated)
 $updatedAreaSnippet
 #else
-//		todo
 #foreach ($column in $outputBean.columns)
 //$column.isHidden()
-#if ($column.isHidden())
+#if ($column.isPrimaryKey())
 #putColumnParamNaming()
-		var $columnVar = this.get("$columnVar");
+		var $columnVar = item.get("$columnVar");
 #end
 #end
 //		todo get url from query
+#set($targetUrl = $actionUtils.getTargetUrl($action, $model))
 //			append parameters
 //		if (target == single node 	=> popup)
 //		if (target == list 			=> add list)
 #end
+		openPopup ("popup changeme",$targetUrl, 1000, 600);
 $!updatedAreaEnd
 	}
 
