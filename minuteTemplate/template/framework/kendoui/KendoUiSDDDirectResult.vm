@@ -1,0 +1,163 @@
+#exposeSeparator()
+#putImportQuerySDDBean()
+#putImportSDDInputBean()
+#putImportQuerySDDBean()
+#exposeQuerySpecific()
+#exposeKendoUIModelSpecific()
+#set($table=$inputBean)
+#asUML($table)
+#set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
+#set ($tableVariableName = $commonUtils.getJavaNameVariableFirstLetter($inputClass))
+#set($tableDB = $inputBean)
+#set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
+#set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
+#exposeVariableEntitySpecific()
+#addedAreas()
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+
+#putKendoUIJSImport()
+
+</head>
+
+<body>
+    
+<div id="ssd-output-grid"/>
+
+<!-- kendo js scripts -->
+<script>
+    $(document).ready(function () {
+
+                isQuestionMarkDone = false;
+        		var query = "";
+#set($cpt=0)
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#set($cpt=$cpt+1)
+#putColumnParamNaming()
+        		var $columnVar = QueryString.$columnVar;
+#if($columnUtils.isTime($column))
+                ${columnVar}Date = new Date(${columnVar});
+				${columnVar}DateSt = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
+#set($columnValue="${columnVar}DateSt")
+#else
+#set($columnValue=$columnVar)
+#end
+                if ($columnVar!=undefined && !$columnVar=='') {
+                    if (!isQuestionMarkDone) {
+                        isQuestionMarkDone = true;
+                        query = "?"+"$columnVar="+$columnValue;
+                    } else {
+                        query = query+"&"+"$columnVar="+$columnValue;
+                    }
+                }
+#end
+#end
+				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
+
+                $("#ssd-output-grid").kendoGrid({
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: dataSourceUrl,
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                cache: false
+                            }
+                        }
+                        ,
+                        schema: {
+                            data: "$sddOutputBeanClass"
+                        }
+                    },
+##                    change: function () {
+##						var rowId = this.select().data("uid");
+##						var item = this.dataSource.getByUid(rowId);
+##						kendo.ui.progress($("#ssd-output-grid"), true);
+##						select4Info(item);
+##					},
+                    resizable: true,
+                    sortable: {
+                        mode: "single",
+                        allowUnsort: false
+                    },
+                    pageable: {
+                        buttonCount: 5
+                    },
+					columns: [
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+					{
+						//TODO hide
+	                	field: "$columnVar",
+	                	title: "$columnVar",
+#updatedColumnAttributeAreas()
+$!updatedAreaBegin
+#if($isUpdated)
+$updatedAreaSnippet
+#else
+//						width : toset,
+#end
+$!updatedAreaEnd
+						hidden : false
+	            	}
+#if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
+                	,#end 
+#end
+#foreach ($action in $query.actions)
+					{ command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " ", width: "180px" }
+#if ($velocityCount!=$query.actions.size())
+                	,#end 
+#end
+	            	],
+                    height: 500,
+                    scrollable: true,
+                    selectable: true
+
+                });
+	});
+
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = pair[1];
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]], pair[1] ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(pair[1]);
+    }
+  } 
+    return query_string;
+} ();
+
+	function openPopup(title, url, width, height) { 
+		popup.wrapper.css({width: width, height: height});
+		popup.title(true);
+		popup.title(title);
+		popup.refresh(url);
+
+		// Patch for title of popup inside popups
+		if (popup.wrapper.css("padding-bottom") == "0px") {
+			popup.wrapper.css("padding-bottom", "10px");
+		}
+
+		popup.center().open();
+	}
+
+#exposeKendoUISDDActions()
+
+</script>
+</body>
+</html>
