@@ -98,6 +98,7 @@
 
         $("#ssd-output-grid-popup").kendoWindow({
             modal: true,
+            visible: false,
             resizable: true,
  			iframe: true
         }).data("kendoWindow");
