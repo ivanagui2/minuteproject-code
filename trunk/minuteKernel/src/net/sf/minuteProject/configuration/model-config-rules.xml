@@ -797,6 +797,7 @@
 							<alias attr-name="name" prop-name="name" />	
 							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
 							<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
+							<alias attr-name="query-id" prop-name="queryId" />
 						</set-properties-rule>
 						<bean-property-setter-rule pattern="value"/>
 	                    <bean-property-setter-rule pattern="comment"/>
@@ -1354,7 +1355,8 @@
 						<set-properties-rule>
 							<alias attr-name="name" prop-name="name" />	
 							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
-							<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
+							<alias attr-name="default-implementation" prop-name="defaultImplementation" />
+							<alias attr-name="query-id" prop-name="queryId" />
 						</set-properties-rule>
 						<bean-property-setter-rule pattern="value"/>
 	                    <bean-property-setter-rule pattern="comment"/>

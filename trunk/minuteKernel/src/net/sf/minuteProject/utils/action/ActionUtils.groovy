@@ -23,6 +23,8 @@ class ActionUtils {
 	String getTargetUrl (Action action, Model model) {
 		String queryId = action.getQueryId()
 		Query query = model.getStatementModel().getQueryById(queryId)
-		FormatUtils.getEachWordFirstLetterUpper(action.name, " ")
+		if (query!=null)
+			return "/data/sdd/"+FormatUtils.getJavaName(query.getName())+"In"
+		return "/data/sdd/"+queryId+"In"
 	}
 }
