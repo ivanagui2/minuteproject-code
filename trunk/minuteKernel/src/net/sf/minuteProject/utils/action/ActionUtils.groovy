@@ -24,7 +24,7 @@ class ActionUtils {
 		String queryId = action.getQueryId()
 		Query query = model.getStatementModel().getQueryById(queryId)
 		if (query!=null)
-			return "/data/sdd/"+FormatUtils.getJavaName(query.getName())+"In"
+			return "/html/sdd/"+FormatUtils.getJavaName(query.getName())+"In"
 		return "/data/sdd/"+queryId+"In"
 	}
 }
