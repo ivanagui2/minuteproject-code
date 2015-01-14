@@ -170,7 +170,7 @@ $updatedAreaSnippet
 #else
 //		todo get url from query
 #set($queryId = $action.getQueryId())
-#set($targetQuery = $model.getStatementModel().getQueryById(queryId))
+#set($targetQuery = $model.getStatementModel().getQueryById($queryId))
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
 		var targetUrl = "$targetUrl";
 #set($cpt=0)
@@ -181,6 +181,13 @@ $updatedAreaSnippet
 		targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$fieldName="+$fieldName;  
 #set($cpt=$cpt+1)
 #end
+#end
+#foreach ($actionEntry in $action.actionFieldMapEntries)
+#set($fieldName=$actionEntry.outputField)
+#set($to=${actionEntry.toActionField})
+		var $to = item.get("$fieldName");
+		targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$to="+$to;  
+#set($cpt=$cpt+1)
 #end
 //			append parameters
 //		if (target == single node 	=> popup)
