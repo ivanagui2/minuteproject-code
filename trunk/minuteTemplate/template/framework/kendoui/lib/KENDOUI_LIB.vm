@@ -3,6 +3,7 @@
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
+<script src="/$kendoUiMainJsPath"></script>
 
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
@@ -267,6 +268,7 @@ $!updatedAreaEnd
 #exposeKendoUITemplate()
 #set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
 #set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainCss))
+#set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainJs))
 #end
 #macro(exposeKendoUIEntitySpecific)
 #exposeKendoUITemplate()
@@ -303,5 +305,6 @@ $!updatedAreaEnd
 #set($templateKendoSddInput="KendoUiSDDInput")
 #set($templateKendoUiMenu="KendoUiMenu")
 #set($templateKendoUiMainCss="KendoUiMainCss")
+#set($templateKendoUiMainJs="KendoUiMainJs")
 #set($templateKendoUiSddDirectResult="KendoUiSDDDirectResult")
 #end

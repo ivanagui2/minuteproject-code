@@ -168,20 +168,6 @@
         kendo.bind($("#form-${tableVariableName}"), viewModel);
 
     });
-
-	function openPopup(title, url, width, height) { 
-		popup.wrapper.css({width: width, height: height});
-		popup.title(true);
-		popup.title(title);
-		popup.refresh(url);
-
-		// Patch for title of popup inside popups
-		if (popup.wrapper.css("padding-bottom") == "0px") {
-			popup.wrapper.css("padding-bottom", "10px");
-		}
-
-		popup.center().open();
-	}
 			
 #exposeKendoUISDDActions()
 
