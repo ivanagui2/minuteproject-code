@@ -339,4 +339,8 @@ public class Query extends AbstractConfiguration {
 		this.packageName = packageName;
 	}
 
+	@Override
+	public String toString() {
+		return "query [name='"+name+"', id='"+id+"']";
+	}
 }

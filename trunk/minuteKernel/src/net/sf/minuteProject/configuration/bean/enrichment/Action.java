@@ -17,6 +17,7 @@ public class Action extends Rule<Table> {
 
 	private String defaultImplementation;
 	private List<Field> fields;
+	private List<ActionFieldMapEntry> actionFieldMapEntries;
 	private ActionCondition actionCondition;
 	private String queryId;
 	
@@ -34,11 +35,20 @@ public class Action extends Rule<Table> {
 		this.defaultImplementation = defaultImplementation;
 	}
 
+	public List<ActionFieldMapEntry> getActionFieldMapEntries() {
+		if (actionFieldMapEntries == null) actionFieldMapEntries = new ArrayList<ActionFieldMapEntry>();
+		return actionFieldMapEntries;
+	}
+	
+	public void addActionFieldMapEntry(ActionFieldMapEntry actionFieldMapEntry) {
+		getActionFieldMapEntries().add(actionFieldMapEntry);
+	}
+	
 	public List<Field> getFields() {
 		if (fields == null) fields = new ArrayList<Field>();
 		return fields;
 	}
-
+	
 	public void setFields(List<Field> fields) {
 		this.fields = fields;
 	}
@@ -46,7 +56,6 @@ public class Action extends Rule<Table> {
 	public void addField(Field field) {
 		getFields().add(field);
 	}
-	
 	
 	public ActionCondition getActionCondition() {
 		return actionCondition;
