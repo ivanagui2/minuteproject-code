@@ -195,7 +195,7 @@ $updatedAreaSnippet
 //		if (target == single node 	=> popup)
 //		if (target == list 			=> add list)
 #end
-		openPopup ("popup changeme",targetUrl, 1000, 600);
+		openPopup ($action.name,targetUrl, 1000, 600);
 $!updatedAreaEnd
 	}
 
@@ -268,12 +268,20 @@ $!updatedAreaEnd
 
 #macro(exposeKendoUIDetailAction)
 <script type="text/x-kendo-template" id="template-detail">
-   <div id="details-container">
+
+<div style="display: table; width: 100%; margin-top: 10px;">
+
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
-       <h2>$columnVar : #= $columnVar # </h2>
+<div class="row">
+	<div class="cell" style="vertical-align: bottom;">
+		<label>$columnVar</label><!-- i18n -->
+	</div>
+	<div class="cell" style="vertical-align: bottom;">#= $columnVar #</div>
+</div>
 #end
-   </div>
+</div>
+
 </script>
 #end
 
@@ -282,7 +290,7 @@ $!updatedAreaEnd
            title: "$className Details",
            modal: true,
            visible: false,
-           resizable: false,
+           resizable: true,
            width: 300
            }).data("kendoWindow");
 		detailsTemplate = kendo.template($("#template-detail").html());
