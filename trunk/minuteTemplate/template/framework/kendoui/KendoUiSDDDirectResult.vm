@@ -25,10 +25,13 @@
 <body>
     
 <div id="ssd-output-grid"/>
+<div id="details"/>
 
 <!-- kendo js scripts -->
 <script>
     $(document).ready(function () {
+
+#exposeKendoUIDetailWindowTemplate()
 
                 isQuestionMarkDone = false;
         		var query = "";
@@ -107,9 +110,8 @@ $!updatedAreaEnd
                 	,#end 
 #end
 #foreach ($action in $query.actions)
-					{ command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " ", width: "180px" }
-#if ($velocityCount!=$query.actions.size())
-                	,#end 
+						{ command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " ", width: "180px" }
+#if ($velocityCount!=$query.actions.size()),#end 
 #end
 	            	],
                     height: 500,
@@ -122,5 +124,6 @@ $!updatedAreaEnd
 #exposeKendoUISDDActions()
 
 </script>
+#exposeKendoUIDetailAction()
 </body>
 </html>

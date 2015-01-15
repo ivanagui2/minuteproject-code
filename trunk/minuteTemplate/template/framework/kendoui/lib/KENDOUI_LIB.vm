@@ -159,6 +159,7 @@
 
 #macro(exposeKendoUISDDActions)
 #foreach ($action in $query.actions)
+#if(!$actionUtils.isReservedAction($action))
 	function $actionUtils.getActionMethod($action) (e) {
 		e.preventDefault();
 		var rowId = $("#ssd-output-grid").data("kendoGrid").select().data("uid");
@@ -198,6 +199,7 @@ $updatedAreaSnippet
 $!updatedAreaEnd
 	}
 
+#end
 #end
 #end
 
@@ -262,6 +264,28 @@ $!updatedAreaEnd
                     selectable: true
 
                 });
+#end
+
+#macro(exposeKendoUIDetailAction)
+<script type="text/x-kendo-template" id="template-detail">
+   <div id="details-container">
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+       <h2>$columnVar : #= $columnVar # </h2>
+#end
+   </div>
+</script>
+#end
+
+#macro(exposeKendoUIDetailWindowTemplate)
+		wnd = $("#details").kendoWindow({
+           title: "$className Details",
+           modal: true,
+           visible: false,
+           resizable: false,
+           width: 300
+           }).data("kendoWindow");
+		detailsTemplate = kendo.template($("#template-detail").html());
 #end
 
 #macro(exposeKendoUIModelSpecific)

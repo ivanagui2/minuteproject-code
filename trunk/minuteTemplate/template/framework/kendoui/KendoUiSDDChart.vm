@@ -86,13 +86,13 @@
 #end
 
 ## inspired by http://demos.telerik.com/kendo-ui/grid/custom-command
-       wnd = $("#details").kendoWindow({
+        wnd = $("#details").kendoWindow({
            title: "$className Details",
            modal: true,
            visible: false,
            resizable: false,
            width: 300
-           }).data("kendoWindow");
+        }).data("kendoWindow");
 
         detailsTemplate = kendo.template($("#template-detail").html());
 

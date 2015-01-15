@@ -88,14 +88,8 @@
 #end
 
 ## inspired by http://demos.telerik.com/kendo-ui/grid/custom-command
-        wnd = $("#details").kendoWindow({
-           title: "$className Details",
-           modal: true,
-           visible: false,
-           resizable: false,
-           width: 300
-           }).data("kendoWindow");
-
+#exposeKendoUIDetailWindowTemplate()
+		
         popup = $("#ssd-output-grid-popup").kendoWindow({
             modal: true,
             visible: false,
@@ -103,7 +97,7 @@
  			iframe: true
         }).data("kendoWindow");
             	
-        detailsTemplate = kendo.template($("#template-detail").html());
+        
 #foreach ($column in $table.columns)
 #if ($columnUtils.hasCheckConstraint($column))
 #putColumnParamNaming()
@@ -171,24 +165,10 @@
 			
 #exposeKendoUISDDActions()
 
-    function showDetails(e) {
-       e.preventDefault();
-
-       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-       wnd.content(detailsTemplate(dataItem));
-       wnd.center().open();
-   }
-
 </script>
 
-<script type="text/x-kendo-template" id="template-detail">
-   <div id="details-container">
-#foreach($column in $outputBean.columns)
-#putColumnParamNaming()
-       <h2>$columnVar : #= $columnVar # </h2>
-#end
-   </div>
-</script>
+#exposeKendoUIDetailAction()
+
 
 </body>
 </html>
