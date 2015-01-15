@@ -1,18 +1,17 @@
-function openPopup(title, url, width, height) {
-    popup.wrapper.css({width: width, height: height});
-    popup.title(true);
-    popup.title(title);
-    popup.refresh(url);
-
-
-    // Patch for title of popup inside popups
-    if (popup.wrapper.css("padding-bottom") == "0px") {
-        popup.wrapper.css("padding-bottom", "10px");
-    }
-
-    popup.center().open();
-}
-
+	function openPopup(title, url, width, height) {
+	    popup.wrapper.css({width: width, height: height});
+	    popup.title(true);
+	    popup.title(title);
+	    popup.refresh(url);
+	
+	
+	    // Patch for title of popup inside popups
+	    if (popup.wrapper.css("padding-bottom") == "0px") {
+	        popup.wrapper.css("padding-bottom", "10px");
+	    }
+	
+	    popup.center().open();
+	}
 
 	var QueryString = function () {
 	  // This function is anonymous, is executed immediately and 
@@ -36,3 +35,11 @@ function openPopup(title, url, width, height) {
 	  } 
 	    return query_string;
 	} ();
+
+	function showDetails(e) {
+       e.preventDefault();
+
+       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+       wnd.content(detailsTemplate(dataItem));
+       wnd.center().open();
+   }
