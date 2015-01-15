@@ -9,6 +9,13 @@ import net.sf.minuteProject.utils.FormatUtils;
 
 class ActionUtils {
 
+	public final String SHOW_DETAILS = "showDetails";
+	
+	boolean isReservedAction(Action action) {
+		if (SHOW_DETAILS.equals(action.defaultImplementation))
+			return true;
+		return false;
+	}
 	String getActionLabel (Action action) {
 		if (!StringUtils.isEmpty(action.name)) 
 			action.name
@@ -17,6 +24,8 @@ class ActionUtils {
 	}
 	
 	String getActionMethod (Action action) {
+		if (SHOW_DETAILS.equals(action.defaultImplementation))
+			return SHOW_DETAILS;
 		FormatUtils.getEachWordFirstLetterUpper(action.name, " ")
 	}
 	
