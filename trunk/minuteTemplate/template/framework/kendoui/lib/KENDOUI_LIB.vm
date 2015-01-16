@@ -64,18 +64,18 @@
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
-	<input type="checkbox" data-bind="value: ${columnVar}" required="$column.isRequired()" /> 
+	<input type="checkbox" data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end /> 
 ##	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
 #else
 ## textarea
 #if($presentationUtils.isTextArea($column))
-	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: 200px;" ></textarea> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: 200px;" ></textarea> 
 #elseif($presentationUtils.isRichText($column))
 ##	<p:editor
-	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" /> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: 200px;" /> 
 ## simple input
 #else
-	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" />
+	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: 200px;" />
 ##	<p:inputText 
 ##		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
 #end
