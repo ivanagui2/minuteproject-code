@@ -491,6 +491,28 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
+		<xs:sequence>
+	       <xs:element name="action-field-map" type="action-field-map"></xs:element>
+	    </xs:sequence>
+		<xs:attribute name="name"></xs:attribute>
+	     <xs:attribute name="default-implementation" type="xs:string" default="showDetails"></xs:attribute>
+	     <xs:attribute name="query-id" type="xs:string"></xs:attribute>
+		
+	</xs:complexType>
+	
+	<xs:complexType name="action-field-map">
+		<xs:sequence>
+			<xs:element name="action-field-map-entry" type="action-field-map-entry"/>
+		</xs:sequence>
+		<xs:attribute name="name"/>
+	</xs:complexType>
+	
+	<xs:complexType name="action-field-map-entry">
+		<xs:sequence>
+			<xs:element name="output-field" type="xs:string"/>
+			<xs:element name="to-action-field" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="name"/>
 	</xs:complexType>
 	
 	<xs:complexType name="action-condition">
@@ -520,14 +542,14 @@
     <xs:complexType name="file-storage">
         <xs:sequence>
             <xs:element name="type" type="file-type" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="field-name" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="file-dir" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="document-type-field" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="document-type-value" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="document-name-field" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="document-name-value" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="document-icon-field" type="string" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="document-icon-value" type="string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="field-name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="file-dir" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document-type-field" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document-type-value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document-name-field" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document-name-value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document-icon-field" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document-icon-value" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 	
@@ -622,6 +644,7 @@
 			<xs:element name="query-fields" type="query-fields" />
 			<xs:element name="query-filters" type="query-filters" />
 			<xs:element name="query-params" type="query-params" />
+			<xs:element name="actions" type="actions" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
 		<xs:attribute name="package-name" type="xs:string" />
