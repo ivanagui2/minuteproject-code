@@ -13,14 +13,11 @@ public class QueryParam extends Field {
 	private boolean isImplicit  =false;
 	private boolean isContext   =false;
 	private boolean hasBeenDuplicated   =false;
-//	private String type, sample;
 	private String sample;
 	private String refname;
 	private int size, scale;
 	private String converter;
 	private String likeMode;
-//	private String defaultValue, converter;
-	private QueryParamOptionalSections queryParamOptionalSections;
 	private QueryParamLink queryParamLink;
 	private boolean isFilter=false;
 //	private Stereotype stereotype;
@@ -56,24 +53,12 @@ public class QueryParam extends Field {
 	public void setScale(int scale) {
 		this.scale = scale;
 	}
-//	public String getDefaultValue() {
-//		return defaultValue;
-//	}
-//	public void setDefaultValue(String defaultValue) {
-//		this.defaultValue = defaultValue;
-//	}
 	public String getConverter() {
 		return converter;
 	}
 	public void setConverter(String converter) {
 		this.converter = converter;
 	}
-//	public Stereotype getStereotype() {
-//		return stereotype;
-//	}
-//	public void setStereotype(Stereotype stereotype) {
-//		this.stereotype = stereotype;
-//	}
 	public QueryParamLink getQueryParamLink() {
 		return queryParamLink;
 	}

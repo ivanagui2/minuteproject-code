@@ -282,7 +282,7 @@
 
 						</query-filters>
 						<actions>
-							<action name="details"></action>
+							<action name="details" default-implementation="showDetails"></action>
 						</actions>
 					</query>
 
@@ -335,8 +335,21 @@
                              </query-param>
                          </query-params>
                          <actions>
-                         	<action name="details" default-implementation="details" query-id="releaseDetails"></action>
+                         	<action name="details" 
+                         		default-implementation="details" 
+                         		query-id="releaseDetails"/>
+                         	<action name="details2" 
+                         		default-implementation="details2" 
+                         		query-id="releaseDetails">
+                         		<action-field-map>
+                         			<action-field-map-entry output-field="id" to-action-field="id" />
+                         		</action-field-map>
+                         	</action>
                          </actions>
+                         <query-fields>
+                       		<query-field name="id" hidden="true" is-key="true" value="xxx" />
+                       	 </query-fields>
+                       	 
                      </query>
                      
 			         <query name="release Detail" id="releaseDetails" package-name="detail" >
@@ -359,11 +372,9 @@ $whereId
                          		</query-params>
                          	</query-filter>
                          </query-filters>
-                       	<query-fields>
-                       		<query-field name="id" hidden="true" is-key="true" value="xxx" />
-                       	</query-fields>
+
                          <actions>
-                         	<action name="details" default-implementation="details" query-id="releaseDetails"></action>
+                         	<action name="details" default-implementation="showDetails"></action>
                          </actions>
                      </query>
                      				
@@ -374,7 +385,7 @@ $whereId
                             </value>
                          </query-body>
                      </query>
-			         <query name="security_role_list_like" id="security_role_list" >
+			         <query name="security_role_list_like" id="security_role_list_like" >
                          <query-body>
                          <value>
 <![CDATA[SELECT id, role from sec_role where role like ? order by role desc]]>
