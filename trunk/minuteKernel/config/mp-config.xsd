@@ -650,6 +650,7 @@
 		<xs:attribute name="package-name" type="xs:string" />
 		<xs:attribute name="id" type="xs:string" />
 		<xs:attribute name="category" type="xs:string" />
+		<xs:attribute name="cache" type="xs:boolean" />
 		<xs:attribute name="type" type="query-type" />
 	</xs:complexType>
 	
