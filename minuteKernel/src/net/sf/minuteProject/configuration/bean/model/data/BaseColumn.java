@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.model.data;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink;
 
 public interface BaseColumn extends GeneratorBean{
 	 
@@ -233,4 +234,8 @@ public interface BaseColumn extends GeneratorBean{
 	public void setHasBeenDuplicated(boolean hasBeenDuplicated);
 	
 	public boolean hasBeenDuplicated(); // duplication by choice
+	
+	public QueryParamLink getQueryParamLink ();
+	
+	public void setQueryParamLink (QueryParamLink queryParamLink);
 }

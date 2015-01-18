@@ -78,6 +78,16 @@ public class StatementModel {
 		return null;
 	}
 	
+	public Query getQueryByName(String name) {
+		if (name!=null) {
+			for (Query query : getQueries().getQueries()) {
+				if (query.getName().toUpperCase().equals(name.toUpperCase()))
+					return query;
+			}
+		}
+		return null;
+	}
+	
 	private void complementStatementPackage() {
 		Database database = model.getDataModel().getDatabase();
 		getSddPackage().setPackages(model, database);

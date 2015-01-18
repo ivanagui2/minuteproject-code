@@ -147,6 +147,7 @@ public class Query extends AbstractConfiguration {
 				// if (queryParam.isId()) {
 				// table.setPrimaryKeys(new Column[] {column});
 				// }
+				column.setQueryParamLink(queryParam.getQueryParamLink());
 
 			}
 		}
@@ -215,16 +216,10 @@ public class Query extends AbstractConfiguration {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
 			return "ERROR_PACKAGE_IS_NULL";
-
-		// return CommonUtils.getSDDPackageName(this);
 		return p.getTechnicalPackage(template) + "."
 				+ CommonUtils.getSDDPackageName(this);
 	}
 
-	/*
-	 * public String getTechnicalPackage3(Template template) { return
-	 * CommonUtils.getSDDPackageName(this); }
-	 */
 	private void addColumns(org.apache.ddlutils.model.Table table,
 			Direction direction) {
 		List<QueryParam> list = getColumns(direction);
@@ -232,7 +227,8 @@ public class Query extends AbstractConfiguration {
 			if (!queryParam.isLink()) {
 				table.addColumn(getColumn(queryParam));
 			} else {
-				table.addColumn(getColumnTransient(queryParam));
+				///table.addColumn(getColumnTransient(queryParam));
+				table.addColumn(getColumn(queryParam));
 			}
 		}
 	}

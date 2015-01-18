@@ -4,6 +4,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.BaseColumn;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink;
 
 public abstract class ColumnBaseAbstract extends AbstractConfiguration implements BaseColumn{
 
@@ -11,6 +12,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	private boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
 	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false;
 	private String filterName;
+	private QueryParamLink queryParamLink;
 	
 	@Override
 	public String getTypeAlias() {
@@ -105,5 +107,13 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 
 	public boolean isFilter() {
 		return filterName!=null;
+	}
+	
+	public QueryParamLink getQueryParamLink () {
+		return queryParamLink;
+	}
+	
+	public void setQueryParamLink (QueryParamLink queryParamLink) {
+		this.queryParamLink = queryParamLink;
 	}
 }

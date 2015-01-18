@@ -68,7 +68,7 @@ public class ColumnUtils {
 			int maxColumn = table.getColumns().length;
 			for (int i = 0; i < maxColumn; i++) {
 				Column column = table.getColumns()[i];
-				if (column.getName().toUpperCase().equals(columnName))
+				if (column.getName().toUpperCase().equals(columnName.toUpperCase()))
 					return column;
 			}
 		}
@@ -481,5 +481,10 @@ public class ColumnUtils {
 		}
 		return null;
 	}
-
+	
+	public static boolean isLink(Column column) {
+		if (column==null)
+			return false;
+		return (column.getQueryParamLink()!=null)?true:false; 
+	}
 }

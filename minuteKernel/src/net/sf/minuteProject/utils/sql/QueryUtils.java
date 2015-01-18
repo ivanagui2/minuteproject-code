@@ -24,6 +24,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ConnectionUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
@@ -238,5 +239,24 @@ public class QueryUtils {
 		if (query.getOutputBean().getColumns().length==0)
 			return null;
 		return query.getOutputBean().getColumn(query.getOutputBean().getColumnCount()-1);
+	}
+	
+	public static String getColumnVariable(Query query, int i) {
+		Table table = query.getOutputBean();
+		if (table.getColumns().length>i){
+			return FormatUtils.getJavaNameVariable(table.getColumn(i).getName());
+		}
+		if (table.getColumns().length>0){
+			return FormatUtils.getJavaNameVariable(table.getColumn(i-1).getName());
+		}
+		return "no column index "+i+"of query input bean!";
+	}
+	
+	public static String getColumnTextVariable(Query query) {
+		return getColumnVariable(query, 1);
+	}
+	
+	public static String getColumnValueVariable(Query query) {
+		return getColumnVariable(query, 0);
 	}
 }
