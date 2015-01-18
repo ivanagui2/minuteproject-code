@@ -32,6 +32,7 @@ public class Query extends AbstractConfiguration {
 	private QueryParams queryParams;
 	private QueryParams outputParams;
 	private boolean isSet = false;
+	private boolean cache = false;
 	private Package pack;
 	private String type, category;
 	private Table tableIn, tableOut;
@@ -333,6 +334,14 @@ public class Query extends AbstractConfiguration {
 
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
+	}
+
+	public boolean isCache() {
+		return cache;
+	}
+
+	public void setCache(boolean cache) {
+		this.cache = cache;
 	}
 
 	@Override
