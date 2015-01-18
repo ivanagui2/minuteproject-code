@@ -4,7 +4,7 @@
         <conventions>
             <target-convention type="enable-updatable-code-feature" />
         </conventions>
-		<model name="porphyry" version="1.0" package-root="net.sf.mp.demo">
+		<model name="winy" version="1.0" package-root="com">
 			<description>
 				<CDATA>
 					This model illustrates:
@@ -18,7 +18,7 @@
 					artifactId="mysql-connector-java"></driver>
 				<dataSource>
 					<driverClassName>org.gjt.mm.mysql.Driver</driverClassName>
-					<url>jdbc:mysql://localhost:3306/porphyry</url>
+					<url>jdbc:mysql://localhost:3306/winy</url>
 					<username>root</username>
 					<password>mysql</password>
 				</dataSource>
@@ -116,31 +116,6 @@
 							</property>
 						</field>
 					</entity>
-<!-- 					<entity name="ADMIN_ACCESS">
-						todo trigger name
-						todo trigger creation date
-						<field name="ENVIRONMENT_ID">
-							<constraint
-								belongs-to="(APPLICATION_ID)[ADMIN_APPLI_ENV(ADMIN_ENVIRONMENT)]"></constraint>
-						</field>
-					</entity>
-					<entity name="BUS_RELEASE">
-						todo trigger name
-						todo trigger creation date
-						<field name="APPLICATION_ID">
-							<constraint
-								belongs-to="(RELEASER_ID)[SEC_PROJECT_RIGHT(ADMIN_ENVIRONMENT){ADMIN_ROLE='RELEASER'}]"></constraint>
-						</field>
-					</entity> -->
-
-					<!-- views stat <entity name="stat_nb_release_per_app" alias="number 
-						of releases per application"> <virtual-primary-key isRealPrimaryKey="true"> 
-						<property name="virtualPrimaryKey" value="ID" /> </virtual-primary-key> </entity> 
-						<entity name="stat_release_detail" alias="release detail"> <virtual-primary-key 
-						isRealPrimaryKey="true"> <property name="virtualPrimaryKey" value="id" /> 
-						</virtual-primary-key> <field name="stat_mb_per_ctry_conf_ID" linkToTargetEntity="stat_mb_per_ctry_conf" 
-						linkToTargetField="id"></field> </entity> -->
-
 					<!-- batch with SDD -->
 
 					<!-- transient objects -->
