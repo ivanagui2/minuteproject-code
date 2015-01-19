@@ -52,11 +52,21 @@
 		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
 #if(!$column.isRequired())
 #end
-##foreach ($property in $columnUtils.getCheckConstraintValues($column))
-##		<option value="$property.name">$property.name</option>
-##end
      </select>
-     <span class="k-invalid-msg" data-for="$labelFor"></span>
+##     <span class="k-invalid-msg" data-for="$labelFor"></span>
+#elseif($columnUtils.isLink($column))
+#set($targetQuery = $model.getStatementModel().getQueryById($column.queryParamLink.queryName))
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery))
+	<select name="$labelFor" id="$fieldId" 
+		data-bind="source: ${columnVar}DDL, value: ${columnVar}Selected"
+		data-text-field="$columnText"
+		data-value-field="${columnValue}"
+		data-option-label="Select"
+		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
+#if(!$column.isRequired())
+#end
+     </select>
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
