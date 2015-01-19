@@ -116,7 +116,7 @@
 ##set($domainVar=$commonUtils.getJavaNameVariableFirstLetter($domainClass)) 
 #end
 
-#macro (putSpringJSFModelLookup)
+#macro (putSpringModelLookup $techno)
 #foreach($table in $entities)
 #exposeVariableEntitySpecific()
 #exposeSpringServiceBindingSpecific()
@@ -137,6 +137,7 @@
 #else
 #set($setToString=".toString()")
 #end
+#if($techno == "JSF")
     public List<SelectItem> get${domainClassName}List() {
         List<SelectItem> list = new ArrayList<SelectItem>();
         for ($domainClassImport element : get${domainClassName}s()) {
@@ -144,7 +145,10 @@
         }
         return list;
     }
-	
+#end
+#if($techno == "REST")
+	@Path("/${domainClassName}")
+#end
     public List<$domainClassImport> get${domainClassName}s() {
         return ${beanSpringServiceVariable}.getList();
     }
