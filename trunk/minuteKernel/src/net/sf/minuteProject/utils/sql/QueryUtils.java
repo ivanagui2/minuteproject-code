@@ -23,6 +23,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.exception.MinuteProjectException;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConnectionUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
@@ -251,7 +252,14 @@ public class QueryUtils {
 		}
 		return "no column index "+i+"of query input bean!";
 	}
+	public static String getColumnVariable(Query query, String name) {
+		Table table = query.getOutputBean();
+		return FormatUtils.getJavaNameVariable(ColumnUtils.getColumn(table, name).getName());
+	}
 	
+	public static String getColumnTextVariable(Query query, String columnName) {
+		return getColumnVariable(query, 1);
+	}
 	public static String getColumnTextVariable(Query query) {
 		return getColumnVariable(query, 1);
 	}
