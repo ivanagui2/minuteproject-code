@@ -79,7 +79,7 @@
 
 <!-- kendo js scripts -->
 <script>
-    $(document).ready(function () {
+    $(function () {
 
 	  // menu
 #putKendoUIMenu()

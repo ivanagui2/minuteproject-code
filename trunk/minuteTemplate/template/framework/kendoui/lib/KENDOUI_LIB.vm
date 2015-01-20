@@ -26,7 +26,8 @@
 #foreach ($table in ${groups})
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
-        <li><a onclick="openEntityContent('$table.name');"> $tableLabel</a></li>
+#exposeKendoUIEntitySpecific()
+        <li><a href="/$entityFullPath"> $tableLabel</a></li>
 #end
 #end
     </ul>
@@ -53,7 +54,7 @@
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
-#exposeVariableEntitySpecific()
+##exposeVariableEntitySpecific()
 #exposeKendoUISddSpecific()
         <li><a href="/$entityFullPath"> $tableLabel</a></li>
 #end
@@ -159,7 +160,7 @@
             dataType: 'html',
             async : false
         });
-        $("#cisnet-Menu").kendoMenu();
+        $("#${model.name}-Menu").kendoMenu();
 #end
 
 #macro(putKendoUIMenuREST)

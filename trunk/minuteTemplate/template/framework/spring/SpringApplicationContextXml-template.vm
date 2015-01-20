@@ -2,6 +2,8 @@
 ## set path to lookup
 #set ($templateToScan=$template.getPropertyValue("template-to-scan",""))
 #set ($scanPackage=$commonUtils.getPackageName($model, $template, $templateToScan))
+#set ($templateToScan2=$template.getPropertyValue("template-to-scan-2",""))
+#set ($scanPackage2=$commonUtils.getPackageName($model, $template, $templateToScan2))
 #exposeVariableModelSpecific()
 #exposeSpringModelSpecific()
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -23,6 +25,6 @@
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
  
-	<context:component-scan base-package="$scanPackage" /> 
+	<context:component-scan base-package="$scanPackage,$scanPackage2" /> 
   
 </beans>
