@@ -1,6 +1,5 @@
 	function openPopup(title, url, width, height) {
 	    popup.wrapper.css({width: width, height: height});
-	    popup.title(true);
 	    popup.title(title);
 	    popup.refresh(url);
 	

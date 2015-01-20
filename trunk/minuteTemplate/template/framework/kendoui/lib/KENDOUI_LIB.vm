@@ -34,6 +34,36 @@
 #end
 #end
 
+#macro(putKendoUIMenuStructure)
+<div class="k-content">
+<ul id="${model.name}-Menu">
+#foreach ($package in ${businessPackages})
+#putKendoUIMenuPackage()
+#end
+#foreach ($package in ${businessPackageViews})
+#putKendoUIMenuPackage()
+#end
+
+<!-- sdd package -->
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+<li>$package.name
+    <ul>
+#foreach ($query in $package.getQueries()) 
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
+#exposeVariableEntitySpecific()
+#exposeKendoUISddSpecific()
+        <li><a href="/$entityFullPath"> $tableLabel</a></li>
+#end
+    </ul>
+</li>
+#end
+</ul>
+</div>
+#end
+
 #macro (putKendoHtmlColumnSnippet $tableVariableName $internat)
 #set($labelFor=$columnVar)
 #set($fieldId="field-$columnVar")
@@ -123,10 +153,15 @@
 #end
 
 #macro(putKendoUIMenu)
-    $(document).ready(function() {
-        $("#${model.name}-Menu").kendoMenu();
-    });
+        $.ajax({
+            url: "/$kendoUiMenuStructurePath",
+            success: function (data) { $('#menu').append(data); },
+            dataType: 'html',
+            async : false
+        });
+        $("#cisnet-Menu").kendoMenu();
 #end
+
 #macro(putKendoUIMenuREST)
   $("#${model.name}-Menu").kendoMenu({ 
    dataSource: {
@@ -184,7 +219,7 @@ $updatedAreaSnippet
 #set($queryId = $action.getQueryId())
 #set($targetQuery = $model.getStatementModel().getQueryById($queryId))
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
-		var targetUrl = "$targetUrl";
+		var targetUrl = "/$targetUrl";
 #set($cpt=0)
 #foreach ($field in $query.queryFields)
 #if ($field.isKey())
@@ -205,7 +240,7 @@ $updatedAreaSnippet
 //		if (target == single node 	=> popup)
 //		if (target == list 			=> add list)
 #end
-		openPopup ($action.name,targetUrl, 1000, 600);
+		openPopup ("$action.name",targetUrl, 1000, 600);
 $!updatedAreaEnd
 	}
 
@@ -301,7 +336,7 @@ $!updatedAreaEnd
            modal: true,
            visible: false,
            resizable: true,
-           width: 300
+           width: 600
            }).data("kendoWindow");
 		detailsTemplate = kendo.template($("#template-detail").html());
 #end
@@ -309,6 +344,7 @@ $!updatedAreaEnd
 #macro(exposeKendoUIModelSpecific)
 #exposeKendoUITemplate()
 #set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
+#set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenuStructure))
 #set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainCss))
 #set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainJs))
 #end
@@ -346,6 +382,7 @@ $!updatedAreaEnd
 #set($templateEntitySearchGridList="KendoUiEntitySearchGrid")
 #set($templateKendoSddInput="KendoUiSDDInput")
 #set($templateKendoUiMenu="KendoUiMenu")
+#set($templateKendoUiMenuStructure="KendoUiMenuStructure")
 #set($templateKendoUiMainCss="KendoUiMainCss")
 #set($templateKendoUiMainJs="KendoUiMainJs")
 #set($templateKendoUiSddDirectResult="KendoUiSDDDirectResult")

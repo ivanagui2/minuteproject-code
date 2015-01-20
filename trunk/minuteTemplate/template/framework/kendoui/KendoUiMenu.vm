@@ -1,4 +1,6 @@
+#generatorSpecific()
 #exposeVariableModelSpecific()
+#exposeKendoUIModelSpecific()
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,58 +11,14 @@
 </head>
 <body>
 <script type="text/javascript">
-function openEntityContent(entity) {
-#foreach ($table in $entities)
-#exposeVariableEntitySpecific()
-#exposeKendoUIEntitySpecific()
-  if (entity == "${table.name}") {
-    $("#entity-content").load("$entityFullPath");
-  }
-#end
-#foreach ($query in $model.getStatementModel().getQueries().getQueries()) 
-#exposeQuerySpecific()
-#set($table=$query.inputBean)
-#exposeVariableEntitySpecific()
-#exposeKendoUISddSpecific()
-  if (entity == "${table.name}") {
-    $("#entity-content").load("$entityFullPath");
-//sddInputBeanImport $sddInputBeanImport
-  }
-#end
-}
-
 $(function () {
 
+    $(document).ready(function() {
 #putKendoUIMenu()
+    });
 
-  });
+});
 </script>
-<div class="k-content">
-<ul id="${model.name}-Menu">
-#foreach ($package in ${businessPackages})
-#putKendoUIMenuPackage()
-#end
-#foreach ($package in ${businessPackageViews})
-#putKendoUIMenuPackage()
-#end
-
-<!-- sdd package -->
-#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
-<li>$package.name
-    <ul>
-#foreach ($query in $package.getQueries()) 
-#exposeQuerySpecific()
-#set($table=$query.inputBean)
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-#set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
-        <li><a onclick="openEntityContent('$table.name');"> $tableLabel</a></li>
-#end
-    </ul>
-</li>
-#end
-</ul>
-</div>
-<div id="entity-content">
-</div>
+<div id="menu"/>
 </body>
 </html>

@@ -3,6 +3,7 @@
 #putImportSDDInputBean()
 #exposeQuerySpecific()
 #exposeChartSpecific()
+#exposeKendoUIModelSpecific()
 #set($table=$inputBean)
 #asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))

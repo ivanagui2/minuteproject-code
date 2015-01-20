@@ -1,3 +1,4 @@
+#generatorSpecific()
 #exposeSeparator()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
@@ -24,6 +25,8 @@
 
 <body>
     
+<div id="menu"></div>
+
 <div id="${tableVariableName}">
    <div>
    		<div id="form-${tableVariableName}" >
@@ -78,6 +81,9 @@
 <script>
     $(document).ready(function () {
 
+	  // menu
+#putKendoUIMenu()
+
 	  //fields
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
@@ -114,10 +120,11 @@
 		]
 #end
 #if($columnUtils.isLink($column))
+#set($fieldId="field-$columnVar")
 #set($targetQuery = $model.getStatementModel().getQueryById($column.queryParamLink.queryName))
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
 #set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
-        $("#field-role").kendoDropDownList();
+        $("#${fieldId}").kendoDropDownList();
 		var result${sddTargetOutputBeanClass};
 		$.ajax({
             type: 'GET',
@@ -156,7 +163,15 @@
 #if (!$column.hasBeenDuplicated())
 #set($cpt=$cpt+1)
 #putColumnParamNaming()
+#if($columnUtils.isLink($column))
+#set($targetQuery = $model.getStatementModel().getQueryById($column.queryParamLink.queryName))
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery))
+        		var ${columnVar}Selected = this.get("${columnVar}Selected");
+        		var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
+#else
         		var $columnVar = this.get("$columnVar");
+#end
 #if($columnUtils.isTime($column))
                 ${columnVar}Date = new Date(${columnVar});
 				${columnVar}DateSt = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
@@ -186,7 +201,7 @@
 // is hidden $field.name $field.isHidden() $field.isKey() $field.value
 #end
         kendo.bind($("#form-${tableVariableName}"), viewModel);
-
+        
     });
 			
 #exposeKendoUISDDActions()
