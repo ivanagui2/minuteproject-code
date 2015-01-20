@@ -238,6 +238,9 @@ $!updatedAreaEnd
 	}
 
 #end
+
+#exposeKendoUISDDActions()
+
     function showDetails(e) {
        e.preventDefault();
 
