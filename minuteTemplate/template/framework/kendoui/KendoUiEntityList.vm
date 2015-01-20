@@ -1,4 +1,6 @@
+#generatorSpecific()
 #exposeVariableEntitySpecific()
+#exposeKendoUIModelSpecific()
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,9 @@
 
 </head>
 <body>
+
+<div id="menu"></div>
+
 #foreach ($column in $table.columns)
 #putColumnParamNaming()
 <script id="grid-template-$column.alias" type="text/x-kendo-template">
@@ -20,6 +25,10 @@
 <script type="text/javascript">
 
 $(function () {
+
+	  // menu
+#putKendoUIMenu()
+
   var expandedRow;
 
   function detailExpand(e) {
@@ -41,7 +50,7 @@ $(function () {
 	transport: {
      read: {
 ##      url: "../../data/entity/${tableClassName}/find", //todo inject url
-      url: "data/entity/${tableClassName}/find",
+      url: "/data/entity/${tableClassName}/find",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       cache: false
