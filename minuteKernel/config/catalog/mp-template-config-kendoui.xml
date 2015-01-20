@@ -107,7 +107,16 @@
 			add-model-name="false" add-model-dir-name="false"
 			add-package-name="false" 
 			file-extension="html" file-prefix="" file-suffix="homeMenu" 
-			model-specific="true">
+			application-specific="true">
+		</template>	
+
+		<template
+			name="KendoUiMenuStructure" templateFileName="KendoUiMenuStructure.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="false" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="html" file-prefix="" file-suffix="menuStructure" 
+			application-specific="true">
 		</template>	
 		
 	</template-target>				
