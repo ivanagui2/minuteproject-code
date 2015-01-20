@@ -20,6 +20,7 @@
 			file-extension="xml" technicalPackage="" file-suffix="application-context" 
 			application-specific="true" add-model-name="false" >
 			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
+			<property name="template-to-scan-2" value="SpringServiceImpl"></property>
 		</template>
 
     </template-target>
