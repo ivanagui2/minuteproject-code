@@ -86,13 +86,23 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
- 
-        <template name="KendoUiSDDChart" templateFileName="KendoUiSDDChart.vm"
+            
+        <template name="KendoUiSDDDirectResult.js" templateFileName="KendoUiSDDDirectResult.js.vm" 
+            file-extension="html" technicalPackage="sdd" file-suffix="DirectResultJs"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+            scope-specific-value="query"/>
+ <!--  
+        <template name="KendoUiSDDChart" templateFileName="KendoUiSDDInput.vm"
 			file-extension="html" technicalPackage="sdd" file-suffix="Chart"
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
-			scope-specific-value="query" />
+			scope-specific-value="query" >
+			<property name="isChart" value="true"></property>
+		</template>
+-->
 
 	</template-target>				
    	
