@@ -65,6 +65,46 @@
 </div>
 #end
 
+#macro(putKendoUIHtmlInputSnippet)
+<div id="${tableVariableName}">
+   <div>
+   		<div id="form-${tableVariableName}" >
+        	<h3>${tableVariableName}</h3>
+<div style="display: table; width: 100%; margin-top: 10px;">
+#*            
+#foreach($column in $inputBean.columns)
+#putColumnParams()
+#columnJavaNaming()
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
+#end
+*#
+<!-- pk -->
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParams()
+#columnJavaNaming()
+#if (!$isMany2Many && $isPkUserProvided)
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
+#end
+#end
+#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
+#foreach ($column in $columnGroup)
+#putColumnParams()
+#columnJavaNaming()
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
+#end
+#end
+<!-- reference -->
+#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
+#putReferenceParams2()
+#set ($column=$localColumn)
+#putColumnParams()
+#columnJavaNaming()
+#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
+#end
+</div>
+#end
+
+
 #macro (putKendoHtmlColumnSnippet $tableVariableName $internat)
 #set($labelFor=$columnVar)
 #set($fieldId="field-$columnVar")
@@ -208,8 +248,15 @@
 #if(!$actionUtils.isReservedAction($action))
 	function $actionUtils.getActionMethod($action) (e) {
 		e.preventDefault();
+#if(!$isChart)
 		var rowId = $("#ssd-output-grid").data("kendoGrid").select().data("uid");
 		var item = $("#ssd-output-grid").data("kendoGrid").dataSource.getByUid(rowId);
+#else
+		var item = e.dataItem;
+		var $outputBeanDimension1Var = item.$outputBeanDimension1Var;
+		var series = e.series;
+		var serieField = series.field;
+#end
 ##		kendo.ui.progress($("#ssd-output-grid"), true);
 #exposeEntityUpdatedAreas("${action.name}-action")
 $!updatedAreaBegin
@@ -219,8 +266,12 @@ $updatedAreaSnippet
 //		todo get url from query
 #set($queryId = $action.getQueryId())
 #set($targetQuery = $model.getStatementModel().getQueryById($queryId))
+#if(!$isChart)
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
-		var targetUrl = "/$targetUrl";
+#else
+#set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResultJs))
+#end
+		var targetUrl = "/$targetUrl"; //url
 #set($cpt=0)
 #foreach ($field in $query.queryFields)
 #if ($field.isKey())
@@ -241,7 +292,12 @@ $updatedAreaSnippet
 //		if (target == single node 	=> popup)
 //		if (target == list 			=> add list)
 #end
+#if(!$isChart)
 		openPopup ("$action.name",targetUrl, 1000, 600);
+#else
+##		targetUrl = targetUrl + "?$outputBeanDimension1Var="$outputBeanDimension1Var;
+		$("#ssd-output-chart-grid").load(targetUrl);
+#end
 $!updatedAreaEnd
 	}
 
@@ -250,7 +306,11 @@ $!updatedAreaEnd
 #end
 
 #macro(exposeKendoUISDDDGrid)
+#if (!$isChart)
                 $("#ssd-output-grid").kendoGrid({
+#else
+                $("#ssd-output-chart").kendoChart({
+#end
                     dataSource: {
                         transport: {
                             read: {
@@ -271,6 +331,7 @@ $!updatedAreaEnd
 ##						kendo.ui.progress($("#ssd-output-grid"), true);
 ##						select4Info(item);
 ##					},
+#if (!$isChart)
                     resizable: true,
                     sortable: {
                         mode: "single",
@@ -279,6 +340,54 @@ $!updatedAreaEnd
                     pageable: {
                         buttonCount: 5
                     },
+#else
+					title : {
+						text: "to fill"
+					},
+                	legend: {
+                    	position: "top"
+                	},
+                	seriesDefaults: {
+                    	type: "column"
+                	},
+                	series:
+                	[
+#foreach($column in $dimensions)
+#putColumnParamNaming()
+#set($dimVar = "${columnVar}$velocityCount")
+						{
+                    		field: "${columnVar}",
+                    		name: "${columnVar}"
+						}#if ($velocityCount < $dimensions.size()) , #end
+
+#end
+                	],
+                	categoryAxis: {
+                    	field: "$outputBeanDimension1Var", 
+                    	majorGridLines: {
+                        	visible: false
+                    	}
+                	},
+                	valueAxis: {
+                    	labels: {
+                        	format: "N0"
+                    	},
+                    	line: {
+                        	visible: false
+                    	}
+                	},
+                	tooltip: {
+                    	visible: true,
+                    	format: "N0"
+                	},
+                    seriesClick: function(e) {
+#foreach ($action in $query.actions)
+#if($velocityCount==1)
+						$actionUtils.getActionMethod($action) (e);
+#end
+#end
+                    },
+#end
 					columns: [
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
@@ -387,4 +496,5 @@ $!updatedAreaEnd
 #set($templateKendoUiMainCss="KendoUiMainCss")
 #set($templateKendoUiMainJs="KendoUiMainJs")
 #set($templateKendoUiSddDirectResult="KendoUiSDDDirectResult")
+#set($templateKendoUiSddDirectResultJs="KendoUiSDDDirectResult.js")
 #end

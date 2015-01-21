@@ -3,7 +3,6 @@
 #putImportSDDInputBean()
 #exposeQuerySpecific()
 #exposeChartSpecific()
-#exposeKendoUIModelSpecific()
 #set($table=$inputBean)
 #asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
@@ -238,9 +237,6 @@ $!updatedAreaEnd
 	}
 
 #end
-
-#exposeKendoUISDDActions()
-
     function showDetails(e) {
        e.preventDefault();
 

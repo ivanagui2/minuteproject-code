@@ -2,7 +2,6 @@
 #exposeSeparator()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
-#putImportQuerySDDBean()
 #exposeQuerySpecific()
 #exposeKendoUIModelSpecific()
 #set($table=$inputBean)
@@ -10,9 +9,11 @@
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
 #set ($tableVariableName = $commonUtils.getJavaNameVariableFirstLetter($inputClass))
 #set($tableDB = $inputBean)
-#set ($entityControllerJSFClass = $commonUtils.getTemplateClassName($tableDB, $model, $templateEntityControllerJSF))
-#set ($entityControllerJSFVariable = $commonUtils.getJavaNameVariableFirstLetter($entityControllerJSFClass))
 #exposeVariableEntitySpecific()
+#set($isChart = $queryUtils.isChart($query))
+#if($isChart)
+#exposeChartSpecific()
+#end
 #addedAreas()
 <!DOCTYPE html>
 <html>
@@ -27,42 +28,7 @@
     
 <div id="menu"></div>
 
-<div id="${tableVariableName}">
-   <div>
-   		<div id="form-${tableVariableName}" >
-        	<h3>${tableVariableName}</h3>
-<div style="display: table; width: 100%; margin-top: 10px;">
-#*            
-#foreach($column in $inputBean.columns)
-#putColumnParams()
-#columnJavaNaming()
-#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
-#end
-*#
-<!-- pk -->
-#foreach($column in ${table.primaryKeyColumns})
-#putColumnParams()
-#columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
-#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
-#end
-#end
-#foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
-#foreach ($column in $columnGroup)
-#putColumnParams()
-#columnJavaNaming()
-#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
-#end
-#end
-<!-- reference -->
-#foreach ($reference in $tableUtils.getParentOrderByReferenceData($table))
-#putReferenceParams2()
-#set ($column=$localColumn)
-#putColumnParams()
-#columnJavaNaming()
-#putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
-#end
-</div>
+#putKendoUIHtmlInputSnippet()
 
             <!-- button action -->
             <p>
@@ -72,14 +38,20 @@
     </div>
 </div>
 
-<div id="ssd-output-grid"/>
-<div id="ssd-output-grid-popup"/>
+
+#if ($isChart)
+<div id="ssd-output-chart"></div>
+<div id="ssd-output-chart-grid"></div>
+#end
+<div id="ssd-output-grid"></div>
+
+<div id="ssd-output-grid-popup"></div>
 
 <div id="details" />
 
 <!-- kendo js scripts -->
 <script>
-    $(function () {
+    $(document).ready(function () {
 
 	  // menu
 #putKendoUIMenu()
@@ -205,6 +177,15 @@
     });
 			
 #exposeKendoUISDDActions()
+#if($isChart)
+    function onChartClick(e) {
+       e.preventDefault();
+
+       var dataItem = e.dataItem;
+       wnd.content(detailsTemplate(dataItem));
+       wnd.center().open();
+   }
+#end
 
 </script>
 
