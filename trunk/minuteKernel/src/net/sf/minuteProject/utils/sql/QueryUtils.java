@@ -218,6 +218,12 @@ public class QueryUtils {
 		return "bar-chart".equals(query.getCategory());
 	}
 	
+	public static boolean isChart(Query query) {
+		return isChartLayout(query) || isPieChart(query) || isBarChart(query);
+	}
+	
+	
+	
 	public static Column getOutputBeanDimension(Query query, int i) {
 		if (query.getOutputBean().getColumnCount()>=i+1)
 			return query.getOutputBean().getColumn(i);
