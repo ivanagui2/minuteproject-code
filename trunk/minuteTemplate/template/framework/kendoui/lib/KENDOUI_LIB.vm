@@ -4,12 +4,10 @@
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
 <script src="/$kendoUiMainJsPath"></script>
-
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
 <link href="/$kendoUiMainCssPath" rel="stylesheet" />
-
 #end
 
 #macro(putKendoUIMenuPackage)
@@ -166,7 +164,6 @@
 ## file upload entry to do
 #end
 #end
-#####	<p:message for="lbl${columnClass}-#{idValue}" />
 	</div>
 </div>
 #end
@@ -296,6 +293,7 @@ $updatedAreaSnippet
 		openPopup ("$action.name",targetUrl, 1000, 600);
 #else
 ##		targetUrl = targetUrl + "?$outputBeanDimension1Var="$outputBeanDimension1Var;
+		$("#${model.name}-store").value(targetUrl);
 		$("#ssd-output-chart-grid").load(targetUrl);
 #end
 $!updatedAreaEnd
