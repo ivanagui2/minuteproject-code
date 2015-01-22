@@ -30,7 +30,7 @@
 #if (!$column.hasBeenDuplicated())
 #set($cpt=$cpt+1)
 #putColumnParamNaming()
-        		var $columnVar = QueryString.$columnVar;
+        		var $columnVar = QueryStoreString.$columnVar;
 #if($columnUtils.isTime($column))
                 ${columnVar}Date = new Date(${columnVar});
 				${columnVar}DateSt = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
