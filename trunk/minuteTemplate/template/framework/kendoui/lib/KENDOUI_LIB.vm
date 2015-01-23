@@ -274,7 +274,9 @@ $updatedAreaSnippet
 #if ($field.isKey())
 #set($fieldName=$field.name)
 		var $fieldName = item.get("$fieldName"); //$cpt
-		targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$fieldName="+$fieldName;  
+		if ($fieldName != undefined) {
+			targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$fieldName="+$fieldName;
+		} 
 #set($cpt=$cpt+1)
 #end
 #end
@@ -282,7 +284,9 @@ $updatedAreaSnippet
 #set($fieldName=$actionEntry.outputField)
 #set($to=${actionEntry.toActionField})
 		var $to = item.get("$fieldName");
-		targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$to="+$to;  
+		if ($to != undefined) {
+			targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$to="+$to;
+		}
 #set($cpt=$cpt+1)
 #end
 //			append parameters
@@ -293,7 +297,7 @@ $updatedAreaSnippet
 		openPopup ("$action.name",targetUrl, 1000, 600);
 #else
 ##		targetUrl = targetUrl + "?$outputBeanDimension1Var="$outputBeanDimension1Var;
-		$("#${model.name}-store").value(targetUrl);
+		$("#${model.name}-store").val(targetUrl);
 		$("#ssd-output-chart-grid").load(targetUrl);
 #end
 $!updatedAreaEnd
