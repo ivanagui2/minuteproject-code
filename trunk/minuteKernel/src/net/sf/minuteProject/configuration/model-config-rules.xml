@@ -1389,6 +1389,7 @@
 							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="to-action-field" prop-name="toActionField" />
 						    </set-properties-rule>
 						 </pattern>
