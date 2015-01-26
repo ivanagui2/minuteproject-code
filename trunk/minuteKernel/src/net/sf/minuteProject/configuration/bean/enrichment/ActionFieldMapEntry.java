@@ -6,7 +6,9 @@ public class ActionFieldMapEntry {
 
 	private String outputField;
 	private String filterField;
+	private String columnField;
 	private String toActionField;
+	private String convertCase;
 
 	public String getOutputField() {
 		return outputField;
@@ -36,7 +38,32 @@ public class ActionFieldMapEntry {
 		return !StringUtils.isEmpty(outputField);
 	}
 	
+	public String getConvertCase() {
+		return convertCase;
+	}
+
+	public void setConvertCase(String convertCase) {
+		this.convertCase = convertCase;
+	}
+
 	public boolean isFilterFieldMapping () {
 		return !isOutputFieldMapping () && !StringUtils.isEmpty(filterField);
 	}
+	
+	public boolean isColumnFieldMapping () {
+		return !isFilterFieldMapping () && !StringUtils.isEmpty(columnField);
+	}
+	
+	public boolean isUpperCaseConvert () {
+		return "uppercase".equals(convertCase);
+	}
+
+	public String getColumnField() {
+		return columnField;
+	}
+
+	public void setColumnField(String columnField) {
+		this.columnField = columnField;
+	}
+	
 }

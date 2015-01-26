@@ -511,7 +511,9 @@
 		<xs:sequence>
 			<xs:element name="output-field" type="xs:string"/>
 			<xs:element name="filter-field" type="xs:string"/>
+			<xs:element name="column-field" type="xs:string"/>
 			<xs:element name="to-action-field" type="xs:string"/>
+			<xs:element name="convert-case" type="convert-case"/>
 		</xs:sequence>
 		<xs:attribute name="name"/>
 	</xs:complexType>
@@ -522,7 +524,14 @@
 		</xs:sequence>
 		<xs:attribute name="name"/>
 	</xs:complexType>
-	<!--  -->
+
+	<xs:simpleType name="convert-case">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="uppercase" />
+             <xs:enumeration value="lowercase" />
+             <xs:enumeration value="camelcase" />
+         </xs:restriction>
+   	</xs:simpleType>
 
 	<xs:simpleType name="CRUD-implementation">
          <xs:restriction base="xs:string">
