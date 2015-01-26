@@ -1390,7 +1390,9 @@
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
+						    	<alias attr-name="column-field" prop-name="columnField" />
 						    	<alias attr-name="to-action-field" prop-name="toActionField" />
+						    	<alias attr-name="convert-case" prop-name="convertCase" />
 						    </set-properties-rule>
 						 </pattern>
 		            </pattern>				
@@ -1904,7 +1906,10 @@
 						<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
 						<set-properties-rule>
 					    	<alias attr-name="output-field" prop-name="outputField" />
+					    	<alias attr-name="filter-field" prop-name="filterField" />
+					    	<alias attr-name="column-field" prop-name="columnField" />
 					    	<alias attr-name="to-action-field" prop-name="toActionField" />
+					    	<alias attr-name="convert-case" prop-name="convertCase" />
 					    </set-properties-rule>
 					 </pattern>
 	            </pattern>				
