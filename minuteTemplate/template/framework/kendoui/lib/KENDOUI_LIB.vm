@@ -268,26 +268,51 @@ $updatedAreaSnippet
 #else
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResultJs))
 #end
-		var targetUrl = "/$targetUrl"; //url
+		var targetUrl = "/$targetUrl";
+		isQuestionMarkDone = false;
 #set($cpt=0)
 #foreach ($field in $query.queryFields)
 #if ($field.isKey())
 #set($fieldName=$field.name)
-		var $fieldName = item.get("$fieldName"); //$cpt
+		var $fieldName = item.get("$fieldName");
 		if ($fieldName != undefined) {
-			targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$fieldName="+$fieldName;
+			if (!isQuestionMarkDone) {
+				targetUrl = targetUrl +"?" +"$fieldName="+$fieldName;
+				isQuestionMarkDone = true;
+			} else {
+				targetUrl = targetUrl +"&" +"$fieldName="+$fieldName;
+			}
 		} 
 #set($cpt=$cpt+1)
 #end
 #end
 #foreach ($actionEntry in $action.actionFieldMapEntries)
+#if ($actionEntry.isOutputFieldMapping())
 #set($fieldName=$actionEntry.outputField)
 #set($to=${actionEntry.toActionField})
 		var $to = item.get("$fieldName");
 		if ($to != undefined) {
-			targetUrl = targetUrl +#if($cpt==0)"?"#else"&"#end +"$to="+$to;
+			if (!isQuestionMarkDone) {
+				targetUrl = targetUrl +"?" +"$to="+$to;
+				isQuestionMarkDone = true;
+			} else {
+				targetUrl = targetUrl +"&" +"$to="+$to;
+			}
 		}
 #set($cpt=$cpt+1)
+#elseif ($actionEntry.isFilterFieldMapping())
+#set($fieldName=$actionEntry.filterField)
+#set($to=${actionEntry.toActionField})
+		var $to = $("#form-${tableVariableName} :input[name='$fieldName']").val();
+		if ($to != undefined) {
+			if (!isQuestionMarkDone) {
+				targetUrl = targetUrl +"?" +"$to="+$to;
+				isQuestionMarkDone = true;
+			} else {
+				targetUrl = targetUrl +"&" +"$to="+$to;
+			}
+		}
+#end
 #end
 //			append parameters
 //		if (target == single node 	=> popup)
