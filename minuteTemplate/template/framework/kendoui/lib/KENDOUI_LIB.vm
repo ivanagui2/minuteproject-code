@@ -312,6 +312,20 @@ $updatedAreaSnippet
 				targetUrl = targetUrl +"&" +"$to="+$to;
 			}
 		}
+#elseif ($actionEntry.isColumnFieldMapping())
+#set($fieldName=$actionEntry.filterField)
+#set($to=${actionEntry.toActionField})
+#if ($actionEntry.isUpperCaseConvert())
+		serieField = serieField.toUpperCase();
+#end
+		if (serieField != undefined) {
+			if (!isQuestionMarkDone) {
+				targetUrl = targetUrl +"?" +"$to="+serieField;
+				isQuestionMarkDone = true;
+			} else {
+				targetUrl = targetUrl +"&" +"$to="+serieField;
+			}
+		}
 #end
 #end
 //			append parameters
