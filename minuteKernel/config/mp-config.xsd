@@ -510,6 +510,7 @@
 	<xs:complexType name="action-field-map-entry">
 		<xs:sequence>
 			<xs:element name="output-field" type="xs:string"/>
+			<xs:element name="filter-field" type="xs:string"/>
 			<xs:element name="to-action-field" type="xs:string"/>
 		</xs:sequence>
 		<xs:attribute name="name"/>
