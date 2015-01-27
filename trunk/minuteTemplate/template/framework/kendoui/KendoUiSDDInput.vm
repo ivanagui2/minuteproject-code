@@ -47,11 +47,11 @@
 
 <div id="ssd-output-grid-popup"></div>
 
-<div id="details" />
-<div id="${model.name}-store" ></div>
+<div id="details" ></div>
+<div id="${model.name}-store" hidden="true" ></div>
 
 <!-- kendo js scripts -->
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
 
 	  // menu
