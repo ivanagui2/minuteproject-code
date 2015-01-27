@@ -19,6 +19,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
@@ -117,6 +118,12 @@ public class QueryUtils {
 				queryRaw = queryRaw + replacement;
 			}
 			isWhereDone = true;
+		}
+		for (QueryChunk chunk : query.getQueryChunks()) {
+			//  get query where string with question mark
+			//  append (where or and) to query
+			final String name = "$"+chunk.getName();
+			
 		}
 		return queryRaw;
 	}

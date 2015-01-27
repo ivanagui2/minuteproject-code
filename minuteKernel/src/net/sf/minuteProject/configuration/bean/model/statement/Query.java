@@ -37,6 +37,7 @@ public class Query extends AbstractConfiguration {
 	private String type, category;
 	private Table tableIn, tableOut;
 	private List<Action> actions;
+	private List<QueryChunk> queryChunks;
 	private String packageName;
 
 	public QueryParams getInputParams() {
@@ -77,6 +78,17 @@ public class Query extends AbstractConfiguration {
 		queryBody.setValue(s);
 	}
 
+	public List<QueryChunk> getQueryChunks() {
+		if (queryChunks==null) {
+			queryChunks = new ArrayList<QueryChunk>();
+		}
+		return queryChunks;
+	}
+	
+	public void addQueryChunk(QueryChunk queryChunk) {
+		getQueryChunks().add(queryChunk);
+	}
+	
 	public List<QueryFilter> getQueryFilters() {
 		if (queryFilters==null) {
 			queryFilters = new ArrayList<QueryFilter>();
