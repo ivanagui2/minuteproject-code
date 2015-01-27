@@ -12,9 +12,11 @@
 		<resource name="pdf-icon" resource-file-name="pdf.png" />
 	</resource-target>
 	
+	<!-- 
 	<resource-target srcdir="css/bootstrap" outputdir="src/main/webapp/css">
 		<resource name="bootstrap.min.css" resource-file-name="bootstrap.min.css" />
 	</resource-target>
+	 -->
 		
 	<template-target 
     	name="JSF java set"
