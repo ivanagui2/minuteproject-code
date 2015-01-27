@@ -312,25 +312,27 @@ $updatedAreaSnippet
 				targetUrl = targetUrl +"&" +"$to="+$to;
 			}
 		}
-#elseif ($actionEntry.isColumnFieldMapping())
-#set($fieldName=$actionEntry.filterField)
-#set($to=${actionEntry.toActionField})
-#if ($actionEntry.isUpperCaseConvert())
-		serieField = serieField.toUpperCase();
 #end
+#end
+#foreach ($actionEntry in $action.actionColumnMapEntries)
 		if (serieField != undefined) {
-			if (!isQuestionMarkDone) {
-				targetUrl = targetUrl +"?" +"$to="+serieField;
-				isQuestionMarkDone = true;
-			} else {
-				targetUrl = targetUrl +"&" +"$to="+serieField;
+#if ($actionEntry.isUpperCaseConvert())
+			serieField = serieField.toUpperCase();
+#end
+			if ("${actionEntry.columnField}".toUpperCase() == serieField) {
+#foreach ($ae in $actionEntry.actionFieldMapEntries)
+#set($static=$ae.staticValue)
+#set($to=${ae.toActionField})
+				if (!isQuestionMarkDone) {
+					targetUrl = targetUrl +"?" +"$to=$static";
+					isQuestionMarkDone = true;
+				} else {
+					targetUrl = targetUrl +"&" +"$to=$static";
+				}
+#end
 			}
 		}
 #end
-#end
-//			append parameters
-//		if (target == single node 	=> popup)
-//		if (target == list 			=> add list)
 #end
 #if(!$isChart)
 		openPopup ("$action.name",targetUrl, 1000, 600);
