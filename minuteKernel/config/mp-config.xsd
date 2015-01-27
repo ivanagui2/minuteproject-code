@@ -503,6 +503,14 @@
 	<xs:complexType name="action-field-map">
 		<xs:sequence>
 			<xs:element name="action-field-map-entry" type="action-field-map-entry"/>
+			<xs:element name="action-column-map-entry" type="action-column-map-entry"/>
+		</xs:sequence>
+		<xs:attribute name="name"/>
+	</xs:complexType>
+	
+	<xs:complexType name="action-column-map-entry">
+		<xs:sequence>
+			<xs:element name="action-field-map-entry" type="action-field-map-entry" minOccurs="0" maxOccurs="unbounded">
 		</xs:sequence>
 		<xs:attribute name="name"/>
 	</xs:complexType>
@@ -511,7 +519,7 @@
 		<xs:sequence>
 			<xs:element name="output-field" type="xs:string"/>
 			<xs:element name="filter-field" type="xs:string"/>
-			<xs:element name="column-field" type="xs:string"/>
+			<xs:element name="static-value" type="xs:string"/>
 			<xs:element name="to-action-field" type="xs:string"/>
 			<xs:element name="convert-case" type="convert-case"/>
 		</xs:sequence>

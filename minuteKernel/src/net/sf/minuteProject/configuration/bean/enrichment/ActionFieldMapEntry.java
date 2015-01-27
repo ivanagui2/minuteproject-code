@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 public class ActionFieldMapEntry {
 
 	private String outputField;
+	private String staticValue;
 	private String filterField;
 	private String columnField;
 	private String toActionField;
@@ -64,6 +65,14 @@ public class ActionFieldMapEntry {
 
 	public void setColumnField(String columnField) {
 		this.columnField = columnField;
+	}
+
+	public String getStaticValue() {
+		return staticValue;
+	}
+
+	public void setStaticValue(String staticValue) {
+		this.staticValue = staticValue;
 	}
 	
 }
