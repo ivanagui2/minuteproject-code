@@ -14,7 +14,7 @@
 #exposeVariableEntitySpecific()
 #addedAreas()
 
-<script>
+<script type="text/javascript">
     popup = $("#ssd-output-grid-popup").kendoWindow({
 	  modal: true,
 	  visible: false,
