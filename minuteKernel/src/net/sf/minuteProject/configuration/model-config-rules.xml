@@ -232,14 +232,15 @@
 			        <pattern value="query-chunks/query-chunk">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunk"/>    
 		                <set-next-rule methodname="addQueryChunk" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunk"/>          
-		                <bean-property-setter-rule pattern="name"/>
+                   		<set-properties-rule>
+	                       <alias attr-name="name" prop-name="name" />
+	                       <alias attr-name="description" prop-name="description" />
+	                   </set-properties-rule>
 				        <pattern value="query-chunk-value">
 			                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>    
-			                <set-next-rule methodname="addQueryChunkValue" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>          
-		                    <set-properties-rule>
-		                       <alias attr-name="name" prop-name="name" />
-		                       <alias attr-name="description" prop-name="description" />
-		                   </set-properties-rule>
+			                <set-next-rule methodname="addQueryChunkValue" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>
+			                <set-properties-rule/>
+		                   <bean-property-setter-rule pattern="value"/>
 			            </pattern>
 		            </pattern>
         
@@ -1311,14 +1312,15 @@
 		        <pattern value="query-chunks/query-chunk">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunk"/>    
 	                <set-next-rule methodname="addQueryChunk" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunk"/>          
-	                <bean-property-setter-rule pattern="name"/>
+                    <set-properties-rule>
+                       <alias attr-name="name" prop-name="name" />
+                       <alias attr-name="description" prop-name="description" />
+                   </set-properties-rule>
 			        <pattern value="query-chunk-value">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>    
-		                <set-next-rule methodname="addQueryChunkValue" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>          
-	                    <set-properties-rule>
-	                       <alias attr-name="name" prop-name="name" />
-	                       <alias attr-name="description" prop-name="description" />
-	                   </set-properties-rule>
+		                <set-next-rule methodname="addQueryChunkValue" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>
+	                   <set-properties-rule/>
+	                   <bean-property-setter-rule pattern="value"/>
 		            </pattern>
 	            </pattern>	             
 		        <pattern value="query-params">

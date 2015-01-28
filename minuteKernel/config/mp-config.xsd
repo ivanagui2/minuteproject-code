@@ -659,6 +659,7 @@
 	<xs:complexType name="query">
 		<xs:sequence>
 			<xs:element name="query-body" type="value-body" />
+			<xs:element name="query-chunks" type="query-chunks" />
 			<xs:element name="query-fields" type="query-fields" />
 			<xs:element name="query-filters" type="query-filters" />
 			<xs:element name="query-params" type="query-params" />
@@ -705,6 +706,23 @@
 			<xs:element name="name" type="xs:string" minOccurs="0" />
 			<xs:element name="value" type="xs:string" />
 		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="query-chunks">
+		<xs:sequence>
+			<xs:element name="query-chunk" type="query-chunk"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="query-chunk">
+		<xs:sequence>
+			<xs:element name="query-chunk-value" type="query-chunk-value"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="query-chunk-value">
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="description" type="xs:string" use="required" />
 	</xs:complexType>
 	<xs:complexType name="query-param">
 		<xs:sequence>
