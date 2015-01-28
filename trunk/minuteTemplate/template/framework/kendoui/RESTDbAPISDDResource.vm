@@ -4,7 +4,9 @@
 #exposeRESTSDDURLServer()
 #putImportQuerySDDBean()
 #addedAreas()
-#set ($size = $inputBean.columns.size())
+#set ($sizeColumn = $inputBean.columns.size())
+#set ($sizeChunk = $query.getQueryChunks().size())
+#set ($size = $sizeColumn + $sizeChunk)
 package $packageName;
 
 $!updatedAreaImport
@@ -89,15 +91,23 @@ $!updatedAreaSnippet
 #else
     @GET
     public $sddOutputBeanCollectionClass execute (
+#set ($count = 1)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-        @QueryParam ("$columnVar") $columnType $columnVar #if($velocityCount!=$size),
+        @QueryParam ("$columnVar") $columnType $columnVar #if($count!=$size),
+#end
+#set ($count = $count + 1)
 #end
 #end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($columnVar=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        @QueryParam ("$columnVar") String $queryChunk.name #if($count!=$size), //$size //$count
+#end
+#set ($count = $count + 1)
 #end
     ) {
 #if($isNotVoidInput)
