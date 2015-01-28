@@ -61,7 +61,13 @@ public class ${className} { ## CDI apparently does not work with implement $sddD
 #set ($coreQuery = $queryUtils.getQueryBodyQuestionMark($query))
 	public static final String QUERY_NATIVE = "$coreQuery";
 #foreach ($filter in $query.queryFilters)
+##set($filterChunk=$javaUtils.getJavaVariableNaming($filter.name))
 	public static final String CHUNK_$filter.name = "$filter.value";
+#end
+#foreach($queryChunk in $query.queryChunks)
+#foreach($queryChunkValue in $queryChunk.queryChunkValues)
+	public static final String CHUNK_${queryChunk.name}_${queryChunkValue.name} = "$queryChunkValue.value";
+#end
 #end
 
 	@PersistenceContext(unitName = "$persistenceUnitName")  
