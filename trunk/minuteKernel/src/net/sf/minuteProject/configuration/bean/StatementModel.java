@@ -57,18 +57,7 @@ public class StatementModel {
 	
 	public void complementStatement() {
  		complementStatementPackage();
-//		complementStatementInputField();
 	}
-/*	
-	private void complementStatementInputField() {
-		// TODO Auto-generated method stub
-		for (Query query : getQueries().getQueries()) {
-			for (Column column : query.getInputBean().getColumns()) {
-				
-			}
-		}
-	}
-	*/
 
 	public Query getQueryById(String id) {
 		for (Query query : getQueries().getQueries()) {
