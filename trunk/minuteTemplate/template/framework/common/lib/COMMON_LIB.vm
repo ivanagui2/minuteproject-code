@@ -302,7 +302,15 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-	public List<$sddOutputBeanClass> executeJDBC(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+	public List<$sddOutputBeanClass> executeJDBC(
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        ,String $chunkName 
+#end
+		) {
 #if($isNotVoidInput)
 		if ($sddInputBeanVariable==null)
 			$sddInputBeanVariable = new $sddInputBeanClass();
@@ -313,9 +321,19 @@ $!updatedAreaSnippet
 		Connection conn = null;
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement(getStatement(#if($isNotVoidInput) $sddInputBeanVariable#end));
+			pstmt = conn.prepareStatement(
+						getStatement(
+#if($isNotVoidInput) 
+							$sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        					, $chunkName 
+#end
+						));
 			int index = 1;
 #foreach($column in $inputBean.columns)
+//$column.name column.hasBeenDuplicated()= $column.hasBeenDuplicated() $column.id
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
 #injectSDDParameter()
@@ -367,10 +385,21 @@ $!updatedAreaSnippet
 	}
 #end
 
-	public String getStatement(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+	public String getStatement(
+#if($isNotVoidInput)
+			$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        	,String $chunkName 
+#end
+		) {
 		String query = QUERY_NATIVE;
 		boolean isWhereDone = false;
-		
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
+		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkName}));  
+#end
 #foreach ($filter in $query.queryFilters)
 		if (
 ##TODO Case none
@@ -393,6 +422,17 @@ $!updatedAreaSnippet
 #end
 		return query;
 	}
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
+	String get${chunkNameString}(String ${chunkName}) {
+#foreach($queryChunkValue in $queryChunk.queryChunkValues)
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+		if ("${chunkValueName}".equals(${chunkName}))
+			return CHUNK_${chunkName}_${chunkValueName};
+#end
+		return "";
+	}  
 #end
 $!updatedAreaEnd
 #end

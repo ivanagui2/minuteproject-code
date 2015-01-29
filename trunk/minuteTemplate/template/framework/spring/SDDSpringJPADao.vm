@@ -5,6 +5,7 @@
 #addedAreas()
 #exposeJPASpecifics()
 #exposeJPA2Specifics()
+#set ($sizeChunk = $query.getQueryChunks().size())
 package $packageName;
 
 $!updatedAreaImport
@@ -64,9 +65,12 @@ public class ${className} { ## CDI apparently does not work with implement $sddD
 ##set($filterChunk=$javaUtils.getJavaVariableNaming($filter.name))
 	public static final String CHUNK_$filter.name = "$filter.value";
 #end
-#foreach($queryChunk in $query.queryChunks)
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+	public static final String CHUNK_${chunkName} = "$queryChunk.name";
 #foreach($queryChunkValue in $queryChunk.queryChunkValues)
-	public static final String CHUNK_${queryChunk.name}_${queryChunkValue.name} = "$queryChunkValue.value";
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+	public static final String CHUNK_${chunkName}_${chunkValueName} = "$queryChunkValue.value";
 #end
 #end
 
@@ -77,9 +81,25 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
+    public $sddOutputBeanCollectionClass execute (
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        ,String $chunkName 
+#end
+		) {
 		$sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable = new $sddOutputBeanCollectionClass();
-		List<$sddOutputBeanClass> list = executeJDBC (#if($isNotVoidInput)$sddInputBeanVariable#end);
+		List<$sddOutputBeanClass> list = executeJDBC (
+#if($isNotVoidInput)
+			$sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        	, $chunkName 
+#end
+			);
 		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (list);
         return ${sddOutputBeanCollectionVariable};
     }

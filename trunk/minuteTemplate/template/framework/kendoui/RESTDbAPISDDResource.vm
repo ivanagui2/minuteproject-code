@@ -104,8 +104,8 @@ $!updatedAreaSnippet
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
-#set($columnVar=$javaUtils.getJavaVariableNaming($queryChunk.name))
-        @QueryParam ("$columnVar") String $queryChunk.name #if($count!=$size), //$size //$count
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        @QueryParam ("$chunkName") String $chunkName #if($count!=$size),
 #end
 #set ($count = $count + 1)
 #end
