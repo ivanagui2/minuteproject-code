@@ -7,8 +7,17 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 
 public class QueryChunk extends AbstractConfiguration{
 	
+	private String sampleValue;
 	private List<QueryChunkValue> queryChunkValues;
 	
+	public String getSampleValue() {
+		return sampleValue;
+	}
+
+	public void setSampleValue(String sampleValue) {
+		this.sampleValue = sampleValue;
+	}
+
 	public List<QueryChunkValue> getQueryChunkValues() {
 		if (queryChunkValues == null)
 			queryChunkValues = new ArrayList<QueryChunkValue>();

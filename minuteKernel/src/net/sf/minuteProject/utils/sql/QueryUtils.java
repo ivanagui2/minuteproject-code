@@ -123,11 +123,19 @@ public class QueryUtils {
 			//  get query where string with question mark
 			//  append (where or and) to query
 			final String name = "$"+chunk.getName();
+			final String replacement = getChunkReplacement (chunk);
+			if (!StringUtils.isEmpty(name) && queryRaw.contains(name)) {
+				queryRaw = StringUtils.replace(queryRaw, name, replacement);
+			}
 			
 		}
 		return queryRaw;
 	}
 	
+	private static String getChunkReplacement(QueryChunk chunk) {
+		return chunk.getSampleValue();
+	}
+
 	private static String queryAndWhere(QueryFilter queryWhere, boolean isWhereDone) {
 		return " "+((isWhereDone)?QueryFilter.AndWhere.AND.toString():queryWhere.getConnectWord().toString())+" ";
 	}

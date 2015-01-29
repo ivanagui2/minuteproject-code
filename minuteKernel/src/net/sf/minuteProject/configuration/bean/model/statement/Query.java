@@ -152,6 +152,7 @@ public class Query extends AbstractConfiguration {
 	private void complementFields(Table table, QueryParams queryParams) {
 		List<QueryParam> list = getColumns(Direction.IN);
 		for (QueryParam queryParam : list) {
+			//cannot search on column name in case of duplicated columns
 			Column column = ColumnUtils.getColumn(table, queryParam.getName());
 			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
@@ -174,7 +175,7 @@ public class Query extends AbstractConfiguration {
 		}
 	}
 
-	public Table getEntityRoot(Direction dir) {
+	private Table getEntityRoot(Direction dir) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
 		Database database = getQueries().getStatementModel().getModel()
 				.getDataModel().getDatabase();
@@ -248,6 +249,7 @@ public class Query extends AbstractConfiguration {
 
 	private void complementColumn(Table table, Direction direction) {
 		List<QueryParam> list = getColumns(direction);
+		//TODO correct double loop error with duplicated columns
 		for (QueryParam queryParam : list) {
 			for (Column column : table.getColumns()) {
 				if (column.getName().equals(queryParam.getName())) {

@@ -234,6 +234,7 @@
 		                <set-next-rule methodname="addQueryChunk" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunk"/>          
                    		<set-properties-rule>
 	                       <alias attr-name="name" prop-name="name" />
+	                       <alias attr-name="sample-value" prop-name="sampleValue" />
 	                       <alias attr-name="description" prop-name="description" />
 	                   </set-properties-rule>
 				        <pattern value="query-chunk-value">
@@ -1314,6 +1315,7 @@
 	                <set-next-rule methodname="addQueryChunk" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunk"/>          
                     <set-properties-rule>
                        <alias attr-name="name" prop-name="name" />
+                       <alias attr-name="sample-value" prop-name="sampleValue" />
                        <alias attr-name="description" prop-name="description" />
                    </set-properties-rule>
 			        <pattern value="query-chunk-value">
