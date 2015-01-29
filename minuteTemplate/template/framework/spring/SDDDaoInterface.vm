@@ -25,7 +25,15 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) ;
+    public $sddOutputBeanCollectionClass execute (
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        ,String $chunkName 
+#end
+		) ;
 #end
 $!updatedAreaEnd
 
