@@ -75,7 +75,19 @@
             resizable: true,
  			iframe: true
         }).data("kendoWindow");
-            	
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+		var ${chunkName}List = [
+#foreach($queryChunkValue in $queryChunk.queryChunkValues)
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+			#if ($velocityCount>1),#end {
+				name : "${chunkValueName}",
+				value : "${chunkValueName}"
+			}
+#end
+		];
+		$("#field-${chunkName}").kendoDropDownList();
+#end           	
 #foreach ($column in $table.columns)
 #if ($columnUtils.hasCheckConstraint($column))
 #putColumnParamNaming()
@@ -90,7 +102,7 @@
 #if ($velocityCount!=$size)
             ,#end 
 #end
-		]
+		];
 #end
 #if($columnUtils.isLink($column))
 #set($fieldId="field-$columnVar")
@@ -115,6 +127,11 @@
 #end
 
         var viewModel = kendo.observable({
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+			${chunkName}List : ${chunkName}List,
+			${chunkName}Selected : null,
+#end
 #foreach ($column in $table.columns)
 #if ($columnUtils.hasCheckConstraint($column))
 #putColumnParamNaming()
@@ -130,7 +147,18 @@
             searchSdd: function () {
                 isQuestionMarkDone = false;
         		var query = "";
-
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+				var ${chunkName}Selected = this.get("${chunkName}");
+                if (${chunkName}Selected!=undefined && !${chunkName}Selected=='') {
+                    if (!isQuestionMarkDone) {
+                        isQuestionMarkDone = true;
+                        query = "?"+"$chunkName="+${chunkName}Selected;
+                    } else {
+                        query = query+"&"+"$chunkName="+${chunkName}Selected;
+                    }
+                }
+#end
 #set($cpt=0)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())

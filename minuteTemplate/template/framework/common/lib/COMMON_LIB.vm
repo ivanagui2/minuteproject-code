@@ -142,10 +142,12 @@ $!commonUtils.getReadMeText($template)
     public String toString() {
         StringBuffer sb = new StringBuffer();
 #foreach($column in ${table.columns})
+#if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
         sb.append("$columnClass: "+get$columnClass());
 #if($velocityCount<${table.columnCount})
         sb.append(", ");
+#end
 #end
 #end
         return sb.toString();
@@ -333,7 +335,6 @@ $!updatedAreaSnippet
 						));
 			int index = 1;
 #foreach($column in $inputBean.columns)
-//$column.name column.hasBeenDuplicated()= $column.hasBeenDuplicated() $column.id
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
 #injectSDDParameter()
@@ -473,17 +474,18 @@ $!updatedAreaEnd
 	  StringBuffer sb = new StringBuffer();
 #set($count=0)
 #foreach($column in $presentationUtils.getPotentialDisplayableColumns($table))
+#if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if(!$isForeignKey)
 #if($columnUtils.isPartOfCompositePrimaryKey($column))
 #set($columnClass = "${columnClass}_")
 #end
 #set($count=$count+1)
-##//$velocityCount $count
       if (${element}.get$columnClass()!=null)
          sb.append (${element}.get$columnClass()#if($count<$velocityCount) +" - "); 
 #else +" " ); 
 #end 
+#end
 #end
 #end
       return sb.toString();
