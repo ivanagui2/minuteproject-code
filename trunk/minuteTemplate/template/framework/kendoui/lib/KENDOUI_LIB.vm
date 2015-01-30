@@ -99,9 +99,29 @@
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
+#foreach($queryChunk in $query.getQueryChunks())
+#putKendoHtmlChunkSnippet()
+#end
 </div>
 #end
 
+#macro (putKendoHtmlChunkSnippet)
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        	<!-- $chunkName -->
+<div class="row">
+	<div class="cell" style="vertical-align: bottom;">
+		<label for="field-$chunkName">$chunkName</label><!-- i18n -->
+	</div>
+	<div class="cell" style="vertical-align: bottom;">
+	<select name="$chunkName" id="field-$chunkName" 
+		data-bind="source: ${chunkName}List, value: ${chunkName}" 
+		data-text-field="value"
+		data-value-field="$chunkName"
+		style="width: 200px;">
+     </select>
+     </div>
+</div>
+#end
 
 #macro (putKendoHtmlColumnSnippet $tableVariableName $internat)
 #set($labelFor=$columnVar)

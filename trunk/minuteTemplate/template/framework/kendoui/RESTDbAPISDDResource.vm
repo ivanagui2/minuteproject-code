@@ -91,23 +91,18 @@ $!updatedAreaSnippet
 #else
     @GET
     public $sddOutputBeanCollectionClass execute (
-#set ($count = 1)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-        @QueryParam ("$columnVar") $columnType $columnVar #if($count!=$size),
-#end
-#set ($count = $count + 1)
+        #if($velocityCount>1),#end @QueryParam ("$columnVar") $columnType $columnVar
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-        @QueryParam ("$chunkName") String $chunkName #if($count!=$size),
-#end
-#set ($count = $count + 1)
+        #if($velocityCount>1 || $sizeColumn!=0),#end @QueryParam ("$chunkName") String $chunkName 
 #end
     ) {
 #if($isNotVoidInput)
@@ -123,9 +118,20 @@ $!updatedAreaSnippet
 #end
 #end
 #end
-        return ${sddDaoInterfaceVariable}.execute(${sddInputBeanVariable});
+        return ${sddDaoInterfaceVariable}.execute(
+        	${sddInputBeanVariable}
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+       		,$chunkName 
+#end
+        );
 #else
-        return ${sddDaoInterfaceVariable}.execute();
+        return ${sddDaoInterfaceVariable}.execute(
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+       		#if($velocityCount>1),#end $chunkName 
+#end
+        );
 #end
     }
 #end

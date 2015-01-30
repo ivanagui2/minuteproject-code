@@ -56,8 +56,24 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-    public $sddOutputBeanCollectionClass execute (#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
-        return ${sddDaoInterfaceVariable}.execute (#if($isNotVoidInput)$sddInputBeanVariable#end);
+    public $sddOutputBeanCollectionClass execute (
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        ,String $chunkName 
+#end
+    	) {
+        return ${sddDaoInterfaceVariable}.execute (
+#if($isNotVoidInput)
+			$sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+        	, $chunkName 
+#end
+        );
     }
 #end
 $!updatedAreaEnd

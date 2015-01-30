@@ -39,7 +39,6 @@ public class ${className} {
     }
 	
 #foreach($column in ${table.columns})
-//$column.name column.hasBeenDuplicated()= $column.hasBeenDuplicated()
 #if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($hasDefaultValue)

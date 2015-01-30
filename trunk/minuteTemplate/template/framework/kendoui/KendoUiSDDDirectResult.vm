@@ -75,12 +75,6 @@
                             data: "$sddOutputBeanClass"
                         }
                     },
-##                    change: function () {
-##						var rowId = this.select().data("uid");
-##						var item = this.dataSource.getByUid(rowId);
-##						kendo.ui.progress($("#ssd-output-grid"), true);
-##						select4Info(item);
-##					},
                     resizable: true,
                     sortable: {
                         mode: "single",
