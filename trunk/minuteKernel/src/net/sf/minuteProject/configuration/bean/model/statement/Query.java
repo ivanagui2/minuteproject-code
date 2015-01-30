@@ -1,9 +1,8 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Package;
@@ -23,8 +22,11 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
+import org.apache.commons.lang.StringUtils;
+
 public class Query extends AbstractConfiguration {
 
+	public static final String DUPLICATED_TAG ="<DUPLICATED>";
 	private Queries queries;
 	private QueryBody queryBody;
 	private List<Field> queryFields;
@@ -156,7 +158,7 @@ public class Query extends AbstractConfiguration {
 			Column column = ColumnUtils.getColumn(table, queryParam.getName());
 			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
-				column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
+				//column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
 				column.setFilterName(queryParam.getQueryParams().getFilterName());
 				// if (queryParam.isId()) {
 				// table.setPrimaryKeys(new Column[] {column});
@@ -171,6 +173,10 @@ public class Query extends AbstractConfiguration {
 				column.setEditable(false);
 				column.setRequired(false);
 				column.setTransient(true);
+			}
+			if (column.getName().contains(DUPLICATED_TAG)) {
+				column.setHasBeenDuplicated(true);
+				column.setName(column.getName().replace(DUPLICATED_TAG, ""));
 			}
 		}
 	}
@@ -239,10 +245,10 @@ public class Query extends AbstractConfiguration {
 		List<QueryParam> list = getColumns(direction);
 		for (QueryParam queryParam : list) {
 			if (!queryParam.isLink()) {
-				table.addColumn(getColumn(queryParam));
+				table.addColumn(getColumn(table, queryParam));
 			} else {
 				///table.addColumn(getColumnTransient(queryParam));
-				table.addColumn(getColumn(queryParam));
+				table.addColumn(getColumn(table, queryParam));
 			}
 		}
 	}
@@ -274,10 +280,30 @@ public class Query extends AbstractConfiguration {
 		return new ArrayList<QueryParam>();
 	}
 
-	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam,
-			String name) {
+//	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam,
+//			String name) {
+//		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
+//		column.setName(name);
+//		String type = queryParam.getType();
+//		if (type==null) type = "string";
+//		column.setType(convertType(type));
+//		column.setSize(queryParam.getSizeOrDefault());
+//		column.setScale(queryParam.getScale());
+//		column.setDefaultValue(queryParam.getDefaultValue());
+//		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type)
+//				&& queryParam.getScale() > 0) {
+//			column.setType(ConvertUtils.DB_DOUBLE_TYPE);
+//		}
+//		// column.setPrecisionRadix(queryParam.getPrecisionRadix());
+//		// column.setTypeCode(fc.getTypeCode());
+//		column.setPrimaryKey(queryParam.isId()); // cannot be set here
+//		column.setRequired(queryParam.isMandatory());
+//		return column;
+//	}
+
+	private org.apache.ddlutils.model.Column getColumn(org.apache.ddlutils.model.Table table, QueryParam queryParam) {
 		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
-		column.setName(name);
+		column.setName(getColumnName(table, queryParam));
 		String type = queryParam.getType();
 		if (type==null) type = "string";
 		column.setType(convertType(type));
@@ -294,23 +320,27 @@ public class Query extends AbstractConfiguration {
 		column.setRequired(queryParam.isMandatory());
 		return column;
 	}
-
-	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam) {
-		return getColumn(queryParam, queryParam.getName());
+	
+	private String getColumnName(org.apache.ddlutils.model.Table table, QueryParam queryParam) {
+		if (!queryParam.hasBeenDuplicated())
+			return queryParam.getName();
+		else {
+			return queryParam.getName()+DUPLICATED_TAG;
+		}
 	}
 
-	private org.apache.ddlutils.model.Column getColumnTransient(
-			QueryParam queryParam) {
-		return getColumn(queryParam,
-				ColumnUtils.getTransientName(getTransientRoot(queryParam)));
-	}
+//	private org.apache.ddlutils.model.Column getColumnTransient(
+//			QueryParam queryParam) {
+//		return getColumn(queryParam,
+//				ColumnUtils.getTransientName(getTransientRoot(queryParam)));
+//	}
 
-	private String getTransientRoot(QueryParam queryParam) {
-		if (queryParam.getQueryParamLink() != null
-				&& queryParam.getQueryParamLink().getFieldName() != null)
-			return queryParam.getQueryParamLink().getFieldName();
-		return queryParam.getName();
-	}
+//	private String getTransientRoot(QueryParam queryParam) {
+//		if (queryParam.getQueryParamLink() != null
+//				&& queryParam.getQueryParamLink().getFieldName() != null)
+//			return queryParam.getQueryParamLink().getFieldName();
+//		return queryParam.getName();
+//	}
 
 	private String convertType(String type) {
 		return ConvertUtils.getDDLUtilsTypeFromDBType(type);
