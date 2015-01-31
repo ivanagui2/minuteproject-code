@@ -124,10 +124,10 @@
 		<template
 			name="KendoUiMenuStructure" templateFileName="KendoUiMenuStructure.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
-			add-model-name="false" add-model-dir-name="false"
+			add-model-name="true" add-model-dir-name="false"
 			add-package-name="false" 
 			file-extension="html" file-prefix="" file-suffix="menuStructure" 
-			application-specific="true">
+			model-specific="true">
 		</template>	
 		
 	</template-target>				
