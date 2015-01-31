@@ -4,7 +4,7 @@
 #exposeRESTModelSpecific()
 #exposeWebXmlSpecific()
 #putTargetServerDefinition()
-#exposeKendoUIModelSpecific()
+#exposeKendoUIGeneratorBeanSpecific()
 #if ($webXmlVersion=="2.5" || $isWeblogicTargetServer)
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	version="2.5"

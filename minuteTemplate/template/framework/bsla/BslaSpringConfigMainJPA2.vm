@@ -19,6 +19,7 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
+#exposeJPAModelSpecifics()
     <!-- hibernate config to put in an appart config file-->
     <bean id="$JPAFactoryName" autowire="byName"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -27,6 +28,7 @@ $!updatedAreaSnippet
 			<property name="dataSource" ref="..."/>
 			<property name="persistenceUnitName" value="..."/>
 		-->
+		<property name="persistenceUnitName" value="$persistenceUnitName"/>
         <property name="persistenceXmlLocation" value="$persistenceXmlLocation" />
     </bean>
 #end

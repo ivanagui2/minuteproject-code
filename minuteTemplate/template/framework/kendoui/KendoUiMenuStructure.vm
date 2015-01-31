@@ -1,2 +1,4 @@
+##foreach ($model in $configuration.models())
 #exposeVariableModelSpecific()
 #putKendoUIMenuStructure()
+##end

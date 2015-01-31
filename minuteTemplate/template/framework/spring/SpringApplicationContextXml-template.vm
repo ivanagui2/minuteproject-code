@@ -1,11 +1,3 @@
-## template
-## set path to lookup
-#set ($templateToScan=$template.getPropertyValue("template-to-scan",""))
-#set ($scanPackage=$commonUtils.getPackageName($model, $template, $templateToScan))
-#set ($templateToScan2=$template.getPropertyValue("template-to-scan-2",""))
-#set ($scanPackage2=$commonUtils.getPackageName($model, $template, $templateToScan2))
-#exposeVariableModelSpecific()
-#exposeSpringModelSpecific()
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
@@ -22,9 +14,16 @@
     default-autowire="byName">
 
     <context:annotation-config />
+#foreach ($model in $configuration.models())
+#set ($templateToScan=$template.getPropertyValue("template-to-scan",""))
+#set ($scanPackage=$commonUtils.getPackageName($model, $template, $templateToScan))
+#set ($templateToScan2=$template.getPropertyValue("template-to-scan-2",""))
+#set ($scanPackage2=$commonUtils.getPackageName($model, $template, $templateToScan2))
+#exposeVariableModelSpecific()
+#exposeSpringModelSpecific()
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
  
 	<context:component-scan base-package="$scanPackage,$scanPackage2" /> 
-  
+#end
 </beans>
