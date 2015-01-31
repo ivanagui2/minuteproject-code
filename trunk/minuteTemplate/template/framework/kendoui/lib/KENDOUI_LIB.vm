@@ -388,12 +388,6 @@ $!updatedAreaEnd
                             data: "$sddOutputBeanClass"
                         }
                     },
-##                    change: function () {
-##						var rowId = this.select().data("uid");
-##						var item = this.dataSource.getByUid(rowId);
-##						kendo.ui.progress($("#ssd-output-grid"), true);
-##						select4Info(item);
-##					},
 #if (!$isChart)
                     resizable: true,
                     sortable: {
@@ -405,7 +399,7 @@ $!updatedAreaEnd
                     },
 #else
 					title : {
-						text: "to fill"
+						text: "chart : $sddOutputBeanClass"
 					},
                 	legend: {
                     	position: "top"
@@ -516,10 +510,15 @@ $!updatedAreaEnd
 
 #macro(exposeKendoUIModelSpecific)
 #exposeKendoUITemplate()
-#set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
-#set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenuStructure))
+#set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($model, $templateKendoUiMenuStructure))
 #set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainCss))
 #set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainJs))
+#end
+#macro(exposeKendoUIGeneratorBeanSpecific)
+#exposeKendoUITemplate()
+#set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
+#set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainCss))
+#set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainJs))
 #end
 #macro(exposeKendoUIEntitySpecific)
 #exposeKendoUITemplate()
