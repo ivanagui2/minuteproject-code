@@ -3,7 +3,7 @@
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
 #exposeQuerySpecific()
-#exposeKendoUIModelSpecific()
+#exposeKendoUIGeneratorBeanSpecific()
 #set($table=$inputBean)
 #asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
