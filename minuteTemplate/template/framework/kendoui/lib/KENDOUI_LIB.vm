@@ -1,4 +1,5 @@
 #macro(putKendoUIJSImport)
+<!-- generatorBean =$generatorBean -->
 #set($kendoUiVersion="2014.1.416")
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
@@ -516,7 +517,7 @@ $!updatedAreaEnd
 #end
 #macro(exposeKendoUIGeneratorBeanSpecific)
 #exposeKendoUITemplate()
-#set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
+#set($kendoUiMenuPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMenu))
 #set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainCss))
 #set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainJs))
 #end

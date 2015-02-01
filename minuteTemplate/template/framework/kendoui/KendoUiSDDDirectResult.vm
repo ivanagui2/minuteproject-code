@@ -1,9 +1,10 @@
+#generatorSpecific()
 #exposeSeparator()
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
 #putImportQuerySDDBean()
 #exposeQuerySpecific()
-#exposeKendoUIModelSpecific()
+#exposeKendoUIGeneratorBeanSpecific()
 #set($table=$inputBean)
 #asUML($table)
 #set ($inputClass = $commonUtils.getTemplateClassName($inputBean, $model, $templateSDDInputBean))
@@ -16,6 +17,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+#if($configuration.isSingleModel())
+#set($generatorBean=$model)
+#else
+#set($generatorBean=$configuration.application)
+#end
 <title></title>
 
 #putKendoUIJSImport()
