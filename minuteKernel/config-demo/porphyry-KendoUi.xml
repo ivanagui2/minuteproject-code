@@ -208,6 +208,28 @@
 			<!-- S D D -->
 			<statement-model>
 				<queries>
+					<!-- generic queries -->
+					
+					<query name="generic right" id="genericRight" package-name="generic">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select id, release_name from $view_right where identifier = ?]]>
+                            </value>
+						</query-body>
+						<query-params>
+							<query-param name="identifier" sample="'test'"/>
+						</query-params>
+						<query-chunks>
+							<query-chunk name="view_right">
+								<query-chunk-value name="can release" description="can release">
+									<![CDATA[VIEW_CAN_RELEASE]]>
+								</query-chunk-value>
+								<query-chunk-value name="can archive" description="can archive">
+									<![CDATA[VIEW_CAN_ARCHIVE]]>
+								</query-chunk-value>
+							</query-chunk>
+						</query-chunks>
+					</query>
 					<!-- dashboard queries -->
 					
 					<query name="nb release per status" id="dashAddress" type="dashboard" package-name="dashboard"
@@ -217,31 +239,19 @@
 <![CDATA[select status, count(*) as nb, count(*) * 100.0 / (select count(*) from bus_release) as percent from bus_release group by status order by count(*) desc]]>
                             </value>
 						</query-body>
-						<!-- 
-						<query-what>
-							<query-what-column name="nb" >
-								<actions>
-									<action name="release query info" query-id="statusQuery">
-										<action-params>
-											<action-param name="status" value="status"/>
-										</action-params>
-									</action>
-									<action name="release table info" entity-name="bus_release"/>
-								</actions>
-							</query-what-column>
-						</query-what>
-						 -->
 						<actions>
 							<action attached-to-column-name="nb" name="release query info" query-id="statusQuery">
-								<action-params>
-									<action-param name="status" value="status"/>
-								</action-params>
+								<action-field-map>
+									<action-field-map-entry output-field="status" to-action-field="status"></action-field-map-entry>
+								</action-field-map>
 							</action>
-							<action attached-to-column-name="nb" name="release table info" entity-name="bus_release"/>
+							<!-- 
+								<action attached-to-column-name="nb" name="release table info" entity-name="bus_release"/>
+							 -->
 						</actions>
 					</query>
 					
-					<query id="statusQuery" type="dashboard" package-name="dashboard">
+					<query name="statusQuery" id="statusQuery" type="dashboard" package-name="dashboard">
 						<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[select * from bus_release where status = ?]]>
@@ -251,7 +261,7 @@
 							<query-param name="status" sample="'test'"></query-param>
 						</query-params>
 						<actions>
-							<action name="details"></action>
+							<action name="details" default-implementation="showDetails" />
 						</actions>
 					</query>
 					
@@ -308,15 +318,17 @@
                              </query-param>
                          </query-params>
                      </query>
-                     				
+                     
+                     <!-- sample with multiple refname -->				
 			         <query name="release By Multiple Date" id="releaseByDate" package-name="timeline" >
                          <query-body>
                          <value>
-<![CDATA[SELECT * from bus_release where creation_date > ? and creation_date > ? order by creation_date desc]]>
+<![CDATA[SELECT * from bus_release where creation_date > ? and creation_date > ? and creation_date > ? order by creation_date desc]]>
                             </value>
                          </query-body>
                          <query-params>
                              <query-param name="creationDate" type="date" sample="'2012-11-18'" />
+                             <query-param refname="creationDate"/>
                              <query-param refname="creationDate"/>
                          </query-params>
                      </query>
@@ -393,7 +405,7 @@ $whereId
                          </query-body>
                          <query-params>
                              <query-param name="role" type="string" sample="'a'" >
-                             <property name="like-mode" value="startsWith"></property>
+                             	<property name="like-mode" value="startsWith"></property>
                              </query-param>
                          </query-params>
                      </query>
