@@ -211,6 +211,8 @@
 #end
 
 #macro(putKendoUIMenu)
+#foreach ($model in $configuration.models())
+#exposeKendoUIModelSpecific()
         $.ajax({
             url: "/$kendoUiMenuStructurePath",
             success: function (data) { $('#menu').append(data); },
@@ -218,6 +220,7 @@
             async : false
         });
         $("#${model.name}-Menu").kendoMenu();
+#end
 #end
 
 #macro(putKendoUIMenuREST)
@@ -280,14 +283,12 @@ $!updatedAreaBegin
 #if($isUpdated)
 $updatedAreaSnippet
 #else
-//		todo get url from query
 #set($queryId = $action.getQueryId())
 #if($configuration.isSingleModel())
 #set($targetQuery = $model.getStatementModel().getQueryById($queryId))
 #else
 #set($targetQuery = $queryUtils.getQueryById($configuration.application, $queryId))
 #end
-// $targetQuery - $queryId
 #if(!$isChart)
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
 #else

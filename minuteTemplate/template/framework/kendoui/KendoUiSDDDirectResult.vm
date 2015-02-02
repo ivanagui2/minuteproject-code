@@ -107,7 +107,7 @@ $!updatedAreaEnd
 #end
 #foreach ($action in $query.actions)
 						{ command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " ", width: "180px" }
-#if ($velocityCount!=$query.actions.size()),#end 
+#if ($velocityCount!=$query.actions.size()),#end
 #end
 	            	],
                     height: 500,
