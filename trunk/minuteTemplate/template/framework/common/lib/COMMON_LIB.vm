@@ -2,7 +2,7 @@
 #if($configuration.isSingleModel())
 #set($generatorBean=$model)
 #else
-#set($generatorBean=$application)
+#set($generatorBean=$configuration.application)
 #end
 #end
 

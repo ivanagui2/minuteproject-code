@@ -1,5 +1,4 @@
 #macro(putKendoUIJSImport)
-<!-- generatorBean =$generatorBean -->
 #set($kendoUiVersion="2014.1.416")
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
@@ -283,7 +282,12 @@ $updatedAreaSnippet
 #else
 //		todo get url from query
 #set($queryId = $action.getQueryId())
+#if($configuration.isSingleModel())
 #set($targetQuery = $model.getStatementModel().getQueryById($queryId))
+#else
+#set($targetQuery = $queryUtils.getQueryById($configuration.application, $queryId))
+#end
+// $targetQuery - $queryId
 #if(!$isChart)
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
 #else
@@ -509,18 +513,28 @@ $!updatedAreaEnd
 		detailsTemplate = kendo.template($("#template-detail").html());
 #end
 
+#macro(exposeKendoUIApplicationSpecific)
+#exposeKendoUITemplate()
+#set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($configuration.application, $templateKendoUiMenuStructure))
+#set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($configuration.application, $template, $templateKendoUiMainCss))
+#set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($configuration.application, $template, $templateKendoUiMainJs))
+#end
+
 #macro(exposeKendoUIModelSpecific)
 #exposeKendoUITemplate()
 #set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($model, $templateKendoUiMenuStructure))
 #set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainCss))
 #set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($model, $template, $templateKendoUiMainJs))
 #end
+
 #macro(exposeKendoUIGeneratorBeanSpecific)
 #exposeKendoUITemplate()
-#set($kendoUiMenuPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMenu))
+#set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenuStructure))
+#set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
 #set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainCss))
 #set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainJs))
 #end
+
 #macro(exposeKendoUIEntitySpecific)
 #exposeKendoUITemplate()
 #set ($entityFullPath =$commonUtils.getArtifactRelativePathDirAndFullName($table, $templateEntitySearchGridList))

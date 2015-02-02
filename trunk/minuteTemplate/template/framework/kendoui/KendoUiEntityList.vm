@@ -1,6 +1,7 @@
 #generatorSpecific()
 #exposeVariableEntitySpecific()
 #exposeKendoUIModelSpecific()
+#exposeKendoUIApplicationSpecific()
 <!DOCTYPE html>
 <html>
 <head>
