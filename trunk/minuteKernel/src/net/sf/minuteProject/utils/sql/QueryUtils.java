@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.minuteProject.application.ModelGenerator;
+import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -287,5 +289,18 @@ public class QueryUtils {
 	
 	public static String getColumnValueVariable(Query query) {
 		return getColumnVariable(query, 0);
+	}
+	
+	public static Query getQueryById(Model model, String queryId) {
+		return model.getStatementModel().getQueryById(queryId);
+	}
+	
+	public static Query getQueryById(Application application, String queryId) {
+		for (Model model : application.getModels()) {
+			Query query = model.getStatementModel().getQueryById(queryId);
+			if (query!=null)
+				return query;
+		}
+		return null;
 	}
 }
