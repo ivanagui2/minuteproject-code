@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
@@ -535,6 +536,11 @@ public class CommonUtils {
 	public static String getArtifactFullClasspath(Model model, String templateName) {
 		return getLevelTemplateFullPath(model, getTemplate(model.getConfiguration(), templateName), templateName);
 	}	
+	
+	public static String getTemplateArtifactName (Application bean, String templateName) {
+		Template template = getTemplate(bean.getConfiguration(), templateName);
+		return getFileName(template, bean);
+	}
 	
 	public static String getTemplateArtifactName (Model model, String templateName) {
 		Template template = getTemplate(model.getConfiguration(), templateName);
