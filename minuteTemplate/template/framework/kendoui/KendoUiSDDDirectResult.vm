@@ -17,12 +17,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-#if($configuration.isSingleModel())
-#set($generatorBean=$model)
-#else
-#set($generatorBean=$configuration.application)
-#end
-<title></title>
+
+<title>$generatorBean.name</title>
 
 #putKendoUIJSImport()
 
