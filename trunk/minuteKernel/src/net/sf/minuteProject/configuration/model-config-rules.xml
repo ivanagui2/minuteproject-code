@@ -305,6 +305,7 @@
 						<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 						<set-properties-rule>
 							<alias attr-name="name" prop-name="name" />	
+							<alias attr-name="query-id" prop-name="queryId" />
 							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
 							<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
 						</set-properties-rule>
@@ -334,8 +335,21 @@
 							    </set-properties-rule>
 							 </pattern>
 						 </pattern>
+						 
+						 <pattern value="action-field-map/action-field-map-entry">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
+							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
+							<set-properties-rule>
+						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="filter-field" prop-name="filterField" />
+						    	<alias attr-name="static-value" prop-name="staticValue" />
+						    	<alias attr-name="to-action-field" prop-name="toActionField" />
+						    	<alias attr-name="convert-case" prop-name="convertCase" />
+						    </set-properties-rule>
+						 </pattern>
+					 
 		            </pattern>				
-
+					 
 		        </pattern>
 	        </pattern>     
 	    	<pattern value="nested-statements">
@@ -1425,25 +1439,6 @@
 						    	<alias attr-name="convert-case" prop-name="convertCase" />
 						    </set-properties-rule>
 						 </pattern>
-						 <pattern value="action-field-map/action-column-map-entry">
-							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionColumnMapEntry"/>
-							<set-next-rule methodname="addActionColumnMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionColumnMapEntry"/>
-							<set-properties-rule>
-						    	<alias attr-name="column-field" prop-name="columnField" />
-						    	<alias attr-name="convert-case" prop-name="convertCase" />
-						    </set-properties-rule>
-						    	<pattern value="action-field-map-entry">
-								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
-								<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
-								<set-properties-rule>
-							    	<alias attr-name="output-field" prop-name="outputField" />
-							    	<alias attr-name="filter-field" prop-name="filterField" />
-							    	<alias attr-name="static-value" prop-name="staticValue" />
-							    	<alias attr-name="to-action-field" prop-name="toActionField" />
-							    	<alias attr-name="convert-case" prop-name="convertCase" />
-							    </set-properties-rule>
-							 </pattern>
-						 </pattern>
 		            </pattern>				
 	        
 	        </pattern>
@@ -1920,7 +1915,8 @@
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 					<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 					<set-properties-rule>
-						<alias attr-name="name" prop-name="name" />	
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="query-id" prop-name="queryId" />	
 						<alias attr-name="is-to-implement" prop-name="isToImplement" />	
 						<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
 					</set-properties-rule>
@@ -1960,25 +1956,6 @@
 					    	<alias attr-name="to-action-field" prop-name="toActionField" />
 					    	<alias attr-name="convert-case" prop-name="convertCase" />
 					    </set-properties-rule>
-					 </pattern>
-					 <pattern value="action-field-map/action-column-map-entry">
-						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionColumnMapEntry"/>
-						<set-next-rule methodname="addActionColumnMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionColumnMapEntry"/>
-						<set-properties-rule>
-					    	<alias attr-name="column-field" prop-name="columnField" />
-					    	<alias attr-name="convert-case" prop-name="convertCase" />
-					    </set-properties-rule>
-					    	<pattern value="action-field-map-entry">
-							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
-							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
-							<set-properties-rule>
-						    	<alias attr-name="output-field" prop-name="outputField" />
-						    	<alias attr-name="filter-field" prop-name="filterField" />
-						    	<alias attr-name="static-value" prop-name="staticValue" />
-						    	<alias attr-name="to-action-field" prop-name="toActionField" />
-						    	<alias attr-name="convert-case" prop-name="convertCase" />
-						    </set-properties-rule>
-						 </pattern>
 					 </pattern>
 	            </pattern>				
 				<pattern value="field-group">
