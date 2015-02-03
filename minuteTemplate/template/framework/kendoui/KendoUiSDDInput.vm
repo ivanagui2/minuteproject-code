@@ -145,55 +145,7 @@
 #end
 #end
             searchSdd: function () {
-                isQuestionMarkDone = false;
-        		var query = "";
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-				var ${chunkName}Selected = this.get("${chunkName}");
-                if (${chunkName}Selected!=undefined && !${chunkName}Selected=='') {
-                    if (!isQuestionMarkDone) {
-                        isQuestionMarkDone = true;
-                        query = "?"+"$chunkName="+${chunkName}Selected;
-                    } else {
-                        query = query+"&"+"$chunkName="+${chunkName}Selected;
-                    }
-                }
-#end
-#set($cpt=0)
-#foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
-#set($cpt=$cpt+1)
-#putColumnParamNaming()
-#if($columnUtils.isLink($column))
-#set($targetQuery = $model.getStatementModel().getQueryById($column.queryParamLink.queryName))
-#set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
-#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery))
-        		var ${columnVar}Selected = this.get("${columnVar}Selected");
-        		var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
-#else
-        		var $columnVar = this.get("$columnVar");
-#end
-#if($columnUtils.isTime($column))
-                ${columnVar}Date = new Date(${columnVar});
-				${columnVar}DateSt = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
-#set($columnValue="${columnVar}DateSt")
-#else
-#set($columnValue=$columnVar)
-#end
-                if ($columnVar!=undefined && !$columnVar=='') {
-                    if (!isQuestionMarkDone) {
-                        isQuestionMarkDone = true;
-                        query = "?"+"$columnVar="+$columnValue;
-                    } else {
-                        query = query+"&"+"$columnVar="+$columnValue;
-                    }
-                }
-#end
-#end
-				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
-
-#exposeKendoUISDDDGrid()
-
+				searchSdd();
             }
 
         });
@@ -204,7 +156,9 @@
         kendo.bind($("#form-${tableVariableName}"), viewModel);
         
     });
-			
+
+#exposeSearchSDD()
+
 #exposeKendoUISDDActions()
 #if($isChart)
     function onChartClick(e) {
