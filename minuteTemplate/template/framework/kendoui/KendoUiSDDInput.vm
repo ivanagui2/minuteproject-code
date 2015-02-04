@@ -145,7 +145,7 @@
 #end
 #end
             searchSdd: function () {
-				searchSdd();
+#exposeSearchSDD()
             }
 
         });
@@ -157,7 +157,7 @@
         
     });
 
-#exposeSearchSDD()
+#exposeSearchSDDFunction()
 
 #exposeKendoUISDDActions()
 #if($isChart)

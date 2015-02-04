@@ -513,8 +513,12 @@ $!updatedAreaEnd
 		detailsTemplate = kendo.template($("#template-detail").html());
 #end
 
-#macro(exposeSearchSDD)
+#macro(exposeSearchSDDFunction)
 	function searchSdd() {
+#exposeSearchSDD()
+	}
+#end
+#macro(exposeSearchSDD)
         isQuestionMarkDone = false;
         var query = "";
 #foreach($queryChunk in $query.getQueryChunks())
@@ -562,7 +566,6 @@ $!updatedAreaEnd
 #end
 		var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
 #exposeKendoUISDDDGrid()
-	}
 
 #end
 
