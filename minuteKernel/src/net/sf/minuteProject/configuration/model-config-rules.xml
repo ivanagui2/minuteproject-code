@@ -341,8 +341,62 @@
 							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="input-field" prop-name="inputField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="static-value" prop-name="staticValue" />
+						    	<alias attr-name="computed-value" prop-name="computedValue" />
+						    	<alias attr-name="to-action-field" prop-name="toActionField" />
+						    	<alias attr-name="convert-case" prop-name="convertCase" />
+						    </set-properties-rule>
+						 </pattern>
+					 
+		            </pattern>	
+		            <!-- duplicate from actions/action-in -->			
+					<pattern value="actions/action-in">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-next-rule methodname="addInputAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />	
+							<alias attr-name="query-id" prop-name="queryId" />
+							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
+							<alias attr-name="default-implementation" prop-name="defaultImplementation" />	
+						</set-properties-rule>
+						<bean-property-setter-rule pattern="value"/>
+	                    <bean-property-setter-rule pattern="comment"/>
+	                    <pattern value="field">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="value" prop-name="value" />
+						    </set-properties-rule>
+						 </pattern>
+	                    <pattern value="action-condition">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-next-rule methodname="setActionCondition" paramtype="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="description" prop-name="description" />
+						    </set-properties-rule>
+		                    <pattern value="field">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-properties-rule>
+							    	<alias attr-name="name" prop-name="name" />
+							    	<alias attr-name="value" prop-name="value" />
+							    </set-properties-rule>
+							 </pattern>
+						 </pattern>
+						 
+						 <pattern value="action-field-map/action-field-map-entry">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
+							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
+							<set-properties-rule>
+						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="input-field" prop-name="inputField" />
+						    	<alias attr-name="filter-field" prop-name="filterField" />
+						    	<alias attr-name="static-value" prop-name="staticValue" />
+						    	<alias attr-name="computed-value" prop-name="computedValue" />
 						    	<alias attr-name="to-action-field" prop-name="toActionField" />
 						    	<alias attr-name="convert-case" prop-name="convertCase" />
 						    </set-properties-rule>
@@ -820,6 +874,7 @@
 	                    <bean-property-setter-rule pattern="value"/>
 	                    <bean-property-setter-rule pattern="comment"/>
 					</pattern>
+					<!-- duplicate actions/action -->
 					<pattern value="actions/action">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
 						<set-next-rule methodname="addAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
@@ -855,7 +910,8 @@
 							    </set-properties-rule>
 							 </pattern>
 						 </pattern>
-		            </pattern>				
+		            </pattern>	
+		            			
 					<pattern value="field-group">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup"/>		
 						<set-next-rule methodname="addFieldGroup" paramtype="net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup"/>		
@@ -1433,8 +1489,60 @@
 							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="input-field" prop-name="inputField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="static-value" prop-name="staticValue" />
+						    	<alias attr-name="computed-value" prop-name="computedValue" />
+						    	<alias attr-name="to-action-field" prop-name="toActionField" />
+						    	<alias attr-name="convert-case" prop-name="convertCase" />
+						    </set-properties-rule>
+						 </pattern>
+		            </pattern>			
+		            <!-- duplicate above for actionIn -->	
+					<pattern value="actions/action-in">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-next-rule methodname="addInAction" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />	
+							<alias attr-name="is-to-implement" prop-name="isToImplement" />	
+							<alias attr-name="default-implementation" prop-name="defaultImplementation" />
+							<alias attr-name="query-id" prop-name="queryId" />
+						</set-properties-rule>
+						<bean-property-setter-rule pattern="value"/>
+	                    <bean-property-setter-rule pattern="comment"/>
+	                    <pattern value="field">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="value" prop-name="value" />
+						    </set-properties-rule>
+						 </pattern>
+	                    <pattern value="action-condition">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-next-rule methodname="setActionCondition" paramtype="net.sf.minuteProject.configuration.bean.enrichment.rule.ActionCondition"/>
+							<set-properties-rule>
+						    	<alias attr-name="name" prop-name="name" />
+						    	<alias attr-name="description" prop-name="description" />
+						    </set-properties-rule>
+		                    <pattern value="field">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
+								<set-properties-rule>
+							    	<alias attr-name="name" prop-name="name" />
+							    	<alias attr-name="value" prop-name="value" />
+							    </set-properties-rule>
+							 </pattern>
+						 </pattern>
+						 <pattern value="action-field-map/action-field-map-entry">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
+							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
+							<set-properties-rule>
+						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="input-field" prop-name="inputField" />
+						    	<alias attr-name="filter-field" prop-name="filterField" />
+						    	<alias attr-name="static-value" prop-name="staticValue" />
+						    	<alias attr-name="computed-value" prop-name="computedValue" />
 						    	<alias attr-name="to-action-field" prop-name="toActionField" />
 						    	<alias attr-name="convert-case" prop-name="convertCase" />
 						    </set-properties-rule>

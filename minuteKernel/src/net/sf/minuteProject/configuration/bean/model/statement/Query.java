@@ -39,6 +39,7 @@ public class Query extends AbstractConfiguration {
 	private String type, category;
 	private Table tableIn, tableOut;
 	private List<Action> actions;
+	private List<Action> inputActions;
 	private List<QueryChunk> queryChunks;
 	private String packageName;
 
@@ -370,6 +371,16 @@ public class Query extends AbstractConfiguration {
 
 	public void addAction(Action action) {
 		getActions().add(action);
+	}
+	
+	public List<Action> getInputActions() {
+		if (inputActions == null)
+			inputActions = new ArrayList<Action>();
+		return inputActions;
+	}
+	
+	public void addInputAction(Action action) {
+		getInputActions().add(action);
 	}
 
 	public String getPackageName() {

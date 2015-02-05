@@ -5,11 +5,29 @@ import org.apache.commons.lang.StringUtils;
 public class ActionFieldMapEntry {
 
 	private String outputField;
+	private String inputField;
 	private String staticValue;
 	private String filterField;
 	private String columnField;
 	private String toActionField;
 	private String convertCase;
+	private String computedCase;
+
+	public String getInputField() {
+		return inputField;
+	}
+
+	public void setInputField(String inputField) {
+		this.inputField = inputField;
+	}
+
+	public String getComputedCase() {
+		return computedCase;
+	}
+
+	public void setComputedCase(String computedCase) {
+		this.computedCase = computedCase;
+	}
 
 	public String getOutputField() {
 		return outputField;

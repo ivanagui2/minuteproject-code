@@ -518,8 +518,10 @@
 	<xs:complexType name="action-field-map-entry">
 		<xs:sequence>
 			<xs:element name="output-field" type="xs:string"/>
+			<xs:element name="input-field" type="xs:string"/>
 			<xs:element name="filter-field" type="xs:string"/>
 			<xs:element name="static-value" type="xs:string"/>
+			<xs:element name="computed-value" type="xs:string"/>
 			<xs:element name="to-action-field" type="xs:string"/>
 			<xs:element name="convert-case" type="convert-case"/>
 		</xs:sequence>
@@ -581,7 +583,12 @@
 	
     <xs:complexType name="actions">
         <xs:sequence>
+        	<!-- output action after execution -->
             <xs:element name="action" type="action"
+                minOccurs="0" maxOccurs="unbounded">
+            </xs:element>
+            <!-- input action before execution -->
+            <xs:element name="action-in" type="action"
                 minOccurs="0" maxOccurs="unbounded">
             </xs:element>
         </xs:sequence>
