@@ -131,6 +131,12 @@
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
 			${chunkName}List : ${chunkName}List,
 			${chunkName}Selected : null,
+#foreach($queryChunkValue in $queryChunk.queryChunkValues)
+#if ($velocityCount==1)
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+			${chunkName} : "$chunkValueName", //default value
+#end
+#end
 #end
 #foreach ($column in $table.columns)
 #if ($columnUtils.hasCheckConstraint($column))
