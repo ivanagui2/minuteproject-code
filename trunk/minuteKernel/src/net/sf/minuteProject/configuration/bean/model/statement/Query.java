@@ -36,12 +36,13 @@ public class Query extends AbstractConfiguration {
 	private boolean isSet = false;
 	private boolean cache = false;
 	private Package pack;
-	private String type, category;
+	private String type, category, executeLabel;
 	private Table tableIn, tableOut;
 	private List<Action> actions;
 	private List<Action> inputActions;
 	private List<QueryChunk> queryChunks;
 	private String packageName;
+	private boolean isWrite = false;
 
 	public QueryParams getInputParams() {
 		return QueryUtils.getInputParams(this);
@@ -397,6 +398,22 @@ public class Query extends AbstractConfiguration {
 
 	public void setCache(boolean cache) {
 		this.cache = cache;
+	}
+
+	public boolean isWrite() {
+		return isWrite;
+	}
+
+	public void setWrite(boolean isWrite) {
+		this.isWrite = isWrite;
+	}
+
+	public String getExecuteLabel() {
+		return executeLabel;
+	}
+
+	public void setExecuteLabel(String executeLabel) {
+		this.executeLabel = executeLabel;
 	}
 
 	@Override

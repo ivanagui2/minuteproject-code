@@ -6,16 +6,20 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.presentation.node.Block;
 import net.sf.minuteProject.loader.presentation.node.Window;
 import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
 
@@ -29,11 +33,23 @@ public class PresentationUtils {
 	public static final int MAX_COLUMNS_DISPLAY_SIZE = 40;
 	public static final int MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA = 60;
 	public static final int MAX_ROWS_DISPLAY_SIZE_TEXTAREA = 5;
+	public static final int CHAR_IN_PIXEL = 10;
+	public static final int MIN_PIXEL = 200;
 
+	public static String getQueryExecuteLabel(Query query) {
+		String ex = StringUtils.isEmpty(query.getExecuteLabel())?"Execute":query.getExecuteLabel();
+		return FormatUtils.performDisplayReadableName(ex);
+	}
+	
 	public static int getDisplayColumns(Column column) {
 		return Math.min(column.getSizeAsInt(),MAX_COLUMNS_DISPLAY_SIZE);
 	}
 
+	public static int getDisplayRowsInPixel (Column column) {
+		if (column.getSizeAsInt()==0)
+			return MIN_PIXEL;
+		return getDisplayColumns(column)*CHAR_IN_PIXEL;
+	}
 	public static int getDisplayRows(Column column) {
 		int sizeAsInt = column.getSizeAsInt();
 		int i = sizeAsInt%MAX_COLUMNS_DISPLAY_SIZE;

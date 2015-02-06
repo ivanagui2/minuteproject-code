@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -22,7 +24,9 @@ public class QueryParam extends Field {
 	private boolean isFilter=false;
 //	private Stereotype stereotype;
 	
-	
+	public String getSizeOrDefault() {
+		return String.valueOf(getSize());
+	}
 	public boolean isMandatory() {
 		return isMandatory;
 	}

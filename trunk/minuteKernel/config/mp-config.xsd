@@ -678,6 +678,8 @@
 		<xs:attribute name="category" type="xs:string" />
 		<xs:attribute name="cache" type="xs:boolean" />
 		<xs:attribute name="type" type="query-type" />
+		<xs:attribute name="is-write" type="xs:boolean" default="false" />
+		<xs:attribute name="execute-label" type="xs:string" default="execute" />
 	</xs:complexType>
 	
 	<xs:complexType name="query-params">

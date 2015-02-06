@@ -223,6 +223,7 @@ public class Entity extends AbstractConfiguration {
 			net.sf.minuteProject.configuration.bean.model.data.Column column = ColumnUtils.getColumn(table, field.getName());
 			if (column!=null) {
 				column.setHidden(field.isHidden());
+				column.setSize(field.getSizeOrDefault());
 				column.setPrimaryKey(field.isKey());
 				column.setEditable(getEditable (field));
 				column.setSearchable(getSearchable (field));
