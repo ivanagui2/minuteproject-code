@@ -219,7 +219,7 @@ public class Query extends AbstractConfiguration {
 		if (dir.equals(Direction.IN) && !StringUtils.isEmpty(queryparamName))
 			table.setName(formatTableName(queryparamName));
 		else
-			table.setName(formatTableName(getName()));
+			table.setName(formatTableName(getGeneratedBeanName()));
 	}
 
 	private String formatTableName(String name) {
