@@ -24,7 +24,8 @@
 <div id="${tableVariableName}">
    <div class="demo-section k-header">
    		<div id="form-${tableVariableName}" >
-        	<h3>${tableVariableName}</h3>
+#set($tableAlias=$formatUtils.performDisplayReadableName($table.alias))
+        	<h3>${tableAlias}</h3>
 <div style="display: table; width: 100%; margin-top: 10px;">
 #*            
 #foreach($column in $inputBean.columns)
