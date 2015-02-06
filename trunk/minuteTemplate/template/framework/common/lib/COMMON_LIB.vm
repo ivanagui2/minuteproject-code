@@ -350,7 +350,11 @@ $!updatedAreaSnippet
 #end	
 #end
 #end
+#if ($query.isWrite())
+			pstmt.executeUpdate();
+#else
 			rs = pstmt.executeQuery();
+#end
 #if ($statementUtils.hasResult($outputBean))
 			while (rs.next()) {
 				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();

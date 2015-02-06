@@ -67,7 +67,8 @@
 <div id="${tableVariableName}">
    <div>
    		<div id="form-${tableVariableName}" >
-        	<h3>${tableVariableName}</h3>
+#set($tableAlias=$formatUtils.performDisplayReadableFirstUpperOnlyName($table.alias))
+        	<h3>${tableAlias}</h3>
 <div style="display: table; width: 100%; margin-top: 10px;">
 #*            
 #foreach($column in $inputBean.columns)
@@ -110,14 +111,14 @@
         	<!-- $chunkName -->
 <div class="row">
 	<div class="cell" style="vertical-align: bottom;">
-		<label for="field-$chunkName">$chunkName</label><!-- i18n -->
+		<label for="field-$chunkName">$queryChunk.name</label><!-- i18n -->
 	</div>
 	<div class="cell" style="vertical-align: bottom;">
 	<select name="$chunkName" id="field-$chunkName" 
 		data-bind="source: ${chunkName}List, value: ${chunkName}" 
 		data-text-field="value"
 		data-value-field="$chunkName"
-		style="width: 200px;">
+		style="width: 400px;">
      </select>
      </div>
 </div>
@@ -126,9 +127,11 @@
 #macro (putKendoHtmlColumnSnippet $tableVariableName $internat)
 #set($labelFor=$columnVar)
 #set($fieldId="field-$columnVar")
+#set($columnAlias=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+#set($width = $presentationUtils.getDisplayRowsInPixel($column))
 <div class="row">
 	<div class="cell" style="vertical-align: bottom;">
-		<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnVar</label><!-- i18n -->
+		<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnAlias</label><!-- i18n -->
 	</div>
 	<div class="cell" style="vertical-align: bottom;">
 #if($columnUtils.hasCheckConstraint($column))
@@ -138,7 +141,7 @@
 		data-text-field="value"
 		data-value-field="${columnVar}"
 		data-option-label="Select"
-		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
+		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: ${width}px;">
 #if(!$column.isRequired())
 #end
      </select>
@@ -152,7 +155,7 @@
 		data-text-field="$columnText"
 		data-value-field="${columnValue}"
 		data-option-label="Select"
-		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: 200px;">
+		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
 #if(!$column.isRequired())
 #end
      </select>
@@ -168,17 +171,17 @@
 #else
 ## textarea
 #if($presentationUtils.isTextArea($column))
-	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: 200px;" ></textarea> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: ${width}px;" ></textarea> 
 #elseif($presentationUtils.isRichText($column))
 ##	<p:editor
-	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: 200px;" /> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" /> 
 ## simple input
 #else
-	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: 200px;" />
+	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" />
 ##	<p:inputText 
 ##		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
 #end
-##	<input type="text" id="$labelFor" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: 200px;" />
+##	<input type="text" id="$labelFor" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: ${width}px;" />
 ##		label="${columnClass}" id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()"/>
 #end
 ## file upload entry to do
@@ -249,7 +252,8 @@
 #putColumnParamNaming()
      {
       template: kendo.template($("#grid-template-$column.alias").html()),
-      title: '$column.alias',
+#set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+      title: '$title', //$column.name
 #if($isLengthPrecisionColumn)     width:$column.size,#end
       headerAttributes: "$columnVar"
 ##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
@@ -457,7 +461,8 @@ $!updatedAreaEnd
 			  {
 			  //TODO hide
 	           field: "$columnVar",
-	           title: "$columnVar",
+#set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+	           title: '$title', //$column.name
 #updatedColumnAttributeAreas()
 $!updatedAreaBegin
 #if($isUpdated)
@@ -472,7 +477,7 @@ $!updatedAreaEnd
               ,#end 
 #end
 #foreach ($action in $query.actions)
-			   { command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " ", width: "180px" }
+			   { command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " "}##, width: "180px" }
 #if ($velocityCount!=$query.actions.size())
                 ,#end 
 #end

@@ -32,7 +32,7 @@
 
             <!-- button action -->
             <p>
-                <button id="action" class="k-button" data-bind="click: searchSdd">Execute</button>
+                <button id="action" class="k-button" data-bind="click: searchSdd">${presentationUtils.getQueryExecuteLabel($query)}</button>
             </p>
         </div>
     </div>
