@@ -77,12 +77,36 @@ public class FormatUtils {
 		return StringUtils.replace(packageSt, "/", ".");
 	}
 
-	private static String performGetJavaName(String name) {
+	public static String performDisplayReadableName(String name) {
+		String s = getStripIntoSpace(name);	
+		return firstUpperCase(s);
+	}
+	
+	public static String performDisplayReadableFirstUpperOnlyName(String name) {
+		String s = getStripIntoSpace(name);
+		s = s.toLowerCase();
+		return firstUpperCase(s);
+	}
+
+	private static String getStripIntoSpace(String name) {
 		if (StringUtils.isEmpty(name))
-			return "JAVA_NAME_RETURNS_NULL";
+			return "NAME_RETURNS_NULL";
+		String s = StringUtils.replace(name, "-", "_");
+		s = StringUtils.replace(name, "_", " ");
+		return s;
+	}
+	
+	private static String performGetJavaName(String name) {
+		String underscoreName = getInUnderscore(name);
+		return getJavaNameViaCharStrip(underscoreName, "_");
+	}
+
+	private static String getInUnderscore(String name) {
+		if (StringUtils.isEmpty(name))
+			return "NAME_RETURNS_NULL";
 		String underscoreName = StringUtils.replace(name, "-", "_");
 		underscoreName = StringUtils.replace(name, " ", "_");
-		return getJavaNameViaCharStrip(underscoreName, "_");
+		return underscoreName;
 	}
 
 	private static String getJavaNameViaCharStrip(String name,
