@@ -219,7 +219,8 @@ public class Query extends AbstractConfiguration {
 		if (dir.equals(Direction.IN) && !StringUtils.isEmpty(queryparamName))
 			table.setName(formatTableName(queryparamName));
 		else
-			table.setName(formatTableName(getGeneratedBeanName()));
+//			table.setName(formatTableName(getGeneratedBeanName()));
+			table.setName(formatTableName(getName()));
 	}
 
 	private String formatTableName(String name) {
@@ -416,11 +417,11 @@ public class Query extends AbstractConfiguration {
 		this.executeLabel = executeLabel;
 	}
 	
-	@Override
-	public String getGeneratedBeanName() {
-		return StringUtils.replace (getName(), " ", "_");
-	}
-	
+//	@Override
+//	public String getGeneratedBeanName() {
+//		return StringUtils.replace (getName(), " ", "_");
+//	}
+//	
 	@Override
 	public String toString() {
 		return "query [name='"+name+"', id='"+id+"']";
