@@ -415,7 +415,12 @@ public class Query extends AbstractConfiguration {
 	public void setExecuteLabel(String executeLabel) {
 		this.executeLabel = executeLabel;
 	}
-
+	
+	@Override
+	public String getGeneratedBeanName() {
+		return StringUtils.replace (getName(), " ", "_");
+	}
+	
 	@Override
 	public String toString() {
 		return "query [name='"+name+"', id='"+id+"']";
