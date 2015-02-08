@@ -90,8 +90,9 @@
 #putColumnParamNaming()
 					{
 						//TODO hide
+#set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+	                	title: "$fieldLabel",
 	                	field: "$columnVar",
-	                	title: "$columnVar",
 #updatedColumnAttributeAreas()
 $!updatedAreaBegin
 #if($isUpdated)

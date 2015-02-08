@@ -57,6 +57,11 @@
 	  // menu
 #putKendoUIMenu()
 
+#if ($inputBean.columns.size()==0)
+		searchSdd(); //perform directly the query
+## TODO also when have some default mandatory query-param
+#end
+
 	  //fields
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
