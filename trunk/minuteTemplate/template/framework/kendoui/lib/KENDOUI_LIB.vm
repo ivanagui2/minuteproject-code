@@ -379,11 +379,17 @@ $!updatedAreaEnd
 #end
 
 #macro(exposeKendoUISDDDGrid)
+#set($tableAlias=$formatUtils.performDisplayReadableFirstUpperOnlyName($table.alias))
 #if (!$isChart)
        $("#ssd-output-grid").kendoGrid({
 #else
        $("#ssd-output-chart").kendoChart({
 #end
+      toolbar: ["excel"],
+         excel: {
+            fileName: "${tableAlias}.xlsx",
+            filterable: true
+       },
        dataSource: {
           transport: {
              read: {
@@ -409,7 +415,7 @@ $!updatedAreaEnd
            },
 #else
 		  title : {
-			  text: "chart : $sddOutputBeanClass"
+			  text: "$tableAlias"
 		  },
           legend: {
               position: "top"
@@ -462,7 +468,7 @@ $!updatedAreaEnd
 			  //TODO hide
 	           field: "$columnVar",
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
-	           title: '$title', //$column.name
+	           title: '$title',
 #updatedColumnAttributeAreas()
 $!updatedAreaBegin
 #if($isUpdated)
