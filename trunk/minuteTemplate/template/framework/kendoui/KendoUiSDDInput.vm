@@ -47,7 +47,11 @@
 
 <div id="ssd-output-grid-popup"></div>
 
+#if ($query.isWrite())
+<div id="sdd-info" ></div>
+#else
 <div id="details" ></div>
+#end
 <div id="${model.name}-store" hidden="true" ></div>
 
 <!-- kendo js scripts -->
@@ -156,7 +160,11 @@
 #end
 #end
             searchSdd: function () {
+#if ($query.isWrite())
+#exposePerformWriteSDD()
+#else
 #exposeSearchSDD()
+#end
             }
 
         });

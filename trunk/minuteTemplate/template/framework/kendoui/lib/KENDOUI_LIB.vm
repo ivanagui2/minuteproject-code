@@ -248,7 +248,7 @@
      errors: "error"
     },
     columns: [
-#foreach ($column in $table.columns)
+#foreach ($column in $presentationUtils.getOutputColumns($query))
 #putColumnParamNaming()
      {
       template: kendo.template($("#grid-template-$column.alias").html()),
@@ -462,7 +462,7 @@ $!updatedAreaEnd
            },
 #end
 		   columns: [
-#foreach($column in $outputBean.columns)
+#foreach($column in $presentationUtils.getOutputColumns($query))
 #putColumnParamNaming()
 			  {
 			  //TODO hide
@@ -529,7 +529,26 @@ $!updatedAreaEnd
 #exposeSearchSDD()
 	}
 #end
+
+
+#macro (exposePerformWriteSDD)
+#exposeQuerySDD()
+        $("#sdd-info").html("");
+        $.ajax({
+            url: dataSourceUrl,
+            success: function (data) { },
+            dataType: 'html',
+            async : false
+        });
+        $("#sdd-info").html("Action performed");
+#end
+
 #macro(exposeSearchSDD)
+#exposeQuerySDD()
+#exposeKendoUISDDDGrid()
+#end
+
+#macro(exposeQuerySDD)
         isQuestionMarkDone = false;
         var query = "";
 #foreach($queryChunk in $query.getQueryChunks())
@@ -576,9 +595,10 @@ $!updatedAreaEnd
 #end
 #end
 		var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
-#exposeKendoUISDDDGrid()
-
 #end
+
+
+
 
 #macro(exposeKendoUIApplicationSpecific)
 #exposeKendoUITemplate()
