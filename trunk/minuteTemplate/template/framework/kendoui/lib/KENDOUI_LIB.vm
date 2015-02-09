@@ -248,10 +248,15 @@
      errors: "error"
     },
     columns: [
-#foreach ($column in $presentationUtils.getOutputColumns($query))
+#foreach ($column in $table.columns)
 #putColumnParamNaming()
      {
       template: kendo.template($("#grid-template-$column.alias").html()),
+#if ($presentationUtils.isHidden($column, $query)
+		hidden : true,
+#else
+		hidden : false,
+#end
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
       title: '$title', //$column.name
 #if($isLengthPrecisionColumn)     width:$column.size,#end
@@ -462,10 +467,14 @@ $!updatedAreaEnd
            },
 #end
 		   columns: [
-#foreach($column in $presentationUtils.getOutputColumns($query))
+#foreach($column in $table.columns)
 #putColumnParamNaming()
 			  {
-			  //TODO hide
+#if ($presentationUtils.isHidden($column, $query)
+				hidden : true,
+#else
+				hidden : false,
+#end
 	           field: "$columnVar",
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 	           title: '$title',
