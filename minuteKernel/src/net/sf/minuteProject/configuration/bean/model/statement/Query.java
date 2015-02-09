@@ -29,6 +29,7 @@ public class Query extends AbstractConfiguration {
 	public static final String DUPLICATED_TAG ="<DUPLICATED>";
 	private Queries queries;
 	private QueryBody queryBody;
+	private QueryDisplay queryDisplay;
 	private List<Field> queryFields;
 	private List<QueryFilter> queryFilters;
 	private QueryParams queryParams;
@@ -415,9 +416,17 @@ public class Query extends AbstractConfiguration {
 
 	public void setExecuteLabel(String executeLabel) {
 		this.executeLabel = executeLabel;
-	}
+	}	
 	
-//	@Override
+	public QueryDisplay getQueryDisplay() {
+		return queryDisplay;
+	}
+
+	public void setQueryDisplay(QueryDisplay queryDisplay) {
+		this.queryDisplay = queryDisplay;
+	}
+
+	//	@Override
 //	public String getGeneratedBeanName() {
 //		return StringUtils.replace (getName(), " ", "_");
 //	}

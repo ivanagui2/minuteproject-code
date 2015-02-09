@@ -156,6 +156,15 @@
 		                <set-properties-rule/>
 		                <bean-property-setter-rule pattern="value"/>
 		            </pattern>         
+			        <pattern value="query-display">
+		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryDisplay"/>    
+		                <set-next-rule methodname="setQueryDisplay" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryDisplay"/>
+						<set-properties-rule>
+					    	<alias attr-name="result-row-display" prop-name="resultRowDisplay" />
+					    	<alias attr-name="result-detail-display" prop-name="resultDetailDisplay" />
+					    	<alias attr-name="input-display" prop-name="inputDisplay" />
+					    </set-properties-rule>
+		            </pattern>         
 
 	                <pattern value="query-fields/query-field">
 						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
@@ -1362,7 +1371,16 @@
 	                <set-next-rule methodname="setQueryBody" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>          
 	                <set-properties-rule/>
 	                <bean-property-setter-rule pattern="value"/>
-	            </pattern>         
+	            </pattern>
+	            <pattern value="query-display">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryDisplay"/>    
+	                <set-next-rule methodname="setQueryDisplay" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryDisplay"/>
+					<set-properties-rule>
+				    	<alias attr-name="result-row-display" prop-name="resultRowDisplay" />
+				    	<alias attr-name="result-detail-display" prop-name="resultDetailDisplay" />
+				    	<alias attr-name="input-display" prop-name="inputDisplay" />
+				    </set-properties-rule>
+	            </pattern> 
                 <pattern value="query-fields/query-field">
 					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Field"/>
 					<set-next-rule methodname="addField" paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field"/>

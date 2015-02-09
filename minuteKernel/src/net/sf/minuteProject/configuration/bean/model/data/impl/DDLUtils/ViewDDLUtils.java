@@ -15,11 +15,11 @@ import net.sf.minuteProject.utils.ForeignKeyUtils;
 public class ViewDDLUtils extends TableDDLUtils implements View{
 
 	private Logger log = Logger.getLogger(this.getClass());
-	private ArrayList<Column> realPrimaryKeys;
-	private ArrayList<Column> virtualPrimaryKeys;
-	private ArrayList<Column> noVirtualPrimaryKeyColumns;
-	private ArrayList<Reference> parents;
-	private ArrayList<Component> components;
+	private List<Column> realPrimaryKeys;
+	private List<Column> virtualPrimaryKeys;
+	private List<Column> noVirtualPrimaryKeyColumns;
+	private List<Reference> parents;
+	private List<Component> components;
 	
 	
 	public ViewDDLUtils (org.apache.ddlutils.model.Table table) {
