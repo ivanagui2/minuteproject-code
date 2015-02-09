@@ -319,7 +319,9 @@ $!updatedAreaSnippet
 #end
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 		PreparedStatement pstmt = null;
+#if (!$query.isWrite())
 		ResultSet rs = null;
+#end
 		Connection conn = null;
 		try {
 			conn = getConnection();
@@ -370,7 +372,9 @@ $!updatedAreaSnippet
 		      e.printStackTrace();
 	    } finally {
 	      try {
+#if (!$query.isWrite())
 	        rs.close();
+#end
 	        pstmt.close();
 	        conn.close();
 	      } catch (Exception e) {

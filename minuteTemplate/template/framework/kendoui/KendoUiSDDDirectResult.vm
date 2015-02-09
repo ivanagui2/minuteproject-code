@@ -86,7 +86,7 @@
                         buttonCount: 5
                     },
 					columns: [
-#foreach($column in $outputBean.columns)
+#foreach($column in $presentationUtils.getOutputColumns($query))
 #putColumnParamNaming()
 					{
 						//TODO hide
