@@ -86,10 +86,14 @@
                         buttonCount: 5
                     },
 					columns: [
-#foreach($column in $presentationUtils.getOutputColumns($query))
+#foreach($column in $table.columns)
 #putColumnParamNaming()
 					{
-						//TODO hide
+#if ($presentationUtils.isHidden($column, $query)
+						hidden : true,
+#else
+						hidden : false,
+#end
 #set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 	                	title: "$fieldLabel",
 	                	field: "$columnVar",
