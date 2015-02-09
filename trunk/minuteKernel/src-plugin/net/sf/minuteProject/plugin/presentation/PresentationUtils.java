@@ -3,6 +3,7 @@ package net.sf.minuteProject.plugin.presentation;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +37,15 @@ public class PresentationUtils {
 	public static final int CHAR_IN_PIXEL = 10;
 	public static final int MIN_PIXEL = 200;
 
+	
+	public static List<Column> getOutputColumns(Query query) {
+		Table table = query.getOutputBean();
+		if (query.getQueryDisplay()!=null && query.getQueryDisplay().getResultRowDisplay()!=null) {
+			return TableUtils.getColumnsByNameList(table, query.getQueryDisplay().getResultRowDisplay());
+		} else {
+			return Arrays.asList(table.getColumns());
+		}
+	}
 	public static String getQueryExecuteLabel(Query query) {
 		String ex = StringUtils.isEmpty(query.getExecuteLabel())?"Execute":query.getExecuteLabel();
 		return FormatUtils.performDisplayReadableName(ex);

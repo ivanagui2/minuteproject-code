@@ -236,7 +236,7 @@ public class QueryUtils {
 	}
 	
 	public static boolean isChart(Query query) {
-		return isChartLayout(query) || isPieChart(query) || isBarChart(query);
+		return isPieChart(query) || isBarChart(query);
 	}
 	
 	

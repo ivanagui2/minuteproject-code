@@ -24,6 +24,7 @@ import net.sf.minuteProject.configuration.bean.model.data.View;
 import net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation.TableUMLNotation;
 import net.sf.minuteProject.plugin.presentation.PresentationUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -680,6 +681,15 @@ public class TableUtils {
 
 	public static boolean hasManyToManyRelationship(Table table) {
 		return EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table).length > 0;
+	}
+
+	public static List<Column> getColumnsByNameList(Table table, String resultRowDisplay) {
+		List<Column> columns = new ArrayList<Column>();
+		List<String> colnames = ParserUtils.getList(resultRowDisplay);
+		for (String columnName : colnames) {
+			columns.add(ColumnUtils.getColumn(table, columnName));
+		}
+		return columns;
 	}
 
 }
