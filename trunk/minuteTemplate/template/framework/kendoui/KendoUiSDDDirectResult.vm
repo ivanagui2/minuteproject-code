@@ -86,14 +86,9 @@
                         buttonCount: 5
                     },
 					columns: [
-#foreach($column in $table.columns)
+#foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 					{
-#if ($presentationUtils.isHidden($column, $query)
-						hidden : true,
-#else
-						hidden : false,
-#end
 #set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 	                	title: "$fieldLabel",
 	                	field: "$columnVar",
@@ -104,8 +99,12 @@ $updatedAreaSnippet
 #else
 //						width : toset,
 #end
-$!updatedAreaEnd
+#if ($presentationUtils.isHidden($column, $query))
+						hidden : true
+#else
 						hidden : false
+#end
+$!updatedAreaEnd
 	            	}
 #if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
                 	,#end 

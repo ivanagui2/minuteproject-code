@@ -196,7 +196,6 @@ $updatedAreaSnippet
 //						width : toset,
 #end
 $!updatedAreaEnd
-						hidden : false
 	            	}
 #if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
                 	,#end 
