@@ -98,8 +98,8 @@
 		$("#field-${chunkName}").kendoDropDownList();
 #end           	
 #foreach ($column in $table.columns)
-#if ($columnUtils.hasCheckConstraint($column))
 #putColumnParamNaming()
+#if ($columnUtils.hasCheckConstraint($column))
 #set($checkConstraints= $columnUtils.getCheckConstraintValues($column))
 #set($size= $checkConstraints.size())
 		var ${columnVar}List = [
