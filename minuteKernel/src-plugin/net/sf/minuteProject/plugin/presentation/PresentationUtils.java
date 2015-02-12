@@ -22,6 +22,7 @@ import net.sf.minuteProject.loader.presentation.node.Window;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
 
 /**
@@ -37,6 +38,16 @@ public class PresentationUtils {
 	public static final int CHAR_IN_PIXEL = 10;
 	public static final int MIN_PIXEL = 200;
 
+	
+	public static boolean isHidden(Column column, Query query) {
+		if (column.isHidden())
+			return true;
+		if (query.getQueryDisplay()!=null && query.getQueryDisplay().getResultRowDisplay()!=null) {
+			return !ParserUtils.isInListLowerCase(column.getName(), query.getQueryDisplay().getResultRowDisplay());
+		} else {
+			return false;
+		}
+	}
 	
 	public static List<Column> getOutputColumns(Query query) {
 		Table table = query.getOutputBean();

@@ -39,4 +39,11 @@ public class ParserUtils {
 			return false;
 		return getList(list).contains(name);
 	}
+	
+	public static boolean isInListLowerCase(String name,
+			String list) {
+		if (list==null || list.isEmpty() || name == null) 
+			return false;
+		return getListLowerCase(list).contains(name.toLowerCase());
+	}
 }
