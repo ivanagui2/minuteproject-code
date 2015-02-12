@@ -108,19 +108,22 @@
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 					{
-						//TODO hide
+//						width : toset,
 #set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 	                	title: "$fieldLabel",
 	                	field: "$columnVar",
+#if ($presentationUtils.isHidden($column, $query))
+						hidden : true
+#else
+						hidden : false
+#end
 #updatedColumnAttributeAreas()
 $!updatedAreaBegin
 #if($isUpdated)
 $updatedAreaSnippet
 #else
-//						width : toset,
 #end
 $!updatedAreaEnd
-						hidden : false
 	            	}
 #if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
                 	,#end 

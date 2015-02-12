@@ -248,21 +248,19 @@
      errors: "error"
     },
     columns: [
-#foreach ($column in $table.columns)
+#foreach ($column in $outputBean.columns)
 #putColumnParamNaming()
      {
-      template: kendo.template($("#grid-template-$column.alias").html()),
-#if ($presentationUtils.isHidden($column, $query)
-		hidden : true,
-#else
-		hidden : false,
-#end
+         template: kendo.template($("#grid-template-$column.alias").html()),
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
-      title: '$title', //$column.name
-#if($isLengthPrecisionColumn)     width:$column.size,#end
-      headerAttributes: "$columnVar"
-##///format: "{0: dd/MM/yyyy}",  $counter  $velocityCount
-##///filterable: false
+         title: '$title', //$column.name
+#if($isLengthPrecisionColumn)        width:$column.size,#end
+         headerAttributes: "$columnVar",
+#if ($presentationUtils.isHidden($column, $query))
+		 hidden : true
+#else
+		 hidden : false
+#end
      }
 #if ($velocityCount!=$table.columnCount)
     ,#end 
@@ -467,14 +465,9 @@ $!updatedAreaEnd
            },
 #end
 		   columns: [
-#foreach($column in $table.columns)
+#foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 			  {
-#if ($presentationUtils.isHidden($column, $query)
-				hidden : true,
-#else
-				hidden : false,
-#end
 	           field: "$columnVar",
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 	           title: '$title',
@@ -485,8 +478,12 @@ $updatedAreaSnippet
 #else
 //				width : toset,
 #end
-$!updatedAreaEnd
+#if ($presentationUtils.isHidden($column, $query))
+				hidden : true
+#else
 				hidden : false
+#end
+$!updatedAreaEnd
 	         }
 #if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
               ,#end 
@@ -512,9 +509,10 @@ $!updatedAreaEnd
 #putColumnParamNaming()
 <div class="row">
 	<div class="cell" style="vertical-align: bottom;">
-		<label>$columnVar</label><!-- i18n -->
+#set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+		<label>$title</label><!-- i18n -->
 	</div>
-	<div class="cell" style="vertical-align: bottom;">#= $columnVar #</div>
+	<div class="cell" style="vertical-align: bottom;">#= ($columnVar == null) ? ' ' :$columnVar #</div>
 </div>
 #end
 </div>
