@@ -214,16 +214,19 @@
 #end
 
 #macro(putKendoUIMenu)
+        var _option_menu = QueryString._option_menu;
+        if (_option_menu==undefined || _option_menu=='true') {
 #foreach ($model in $configuration.models())
 #exposeKendoUIModelSpecific()
-        $.ajax({
-            url: "/$kendoUiMenuStructurePath",
-            success: function (data) { $('#menu').append(data); },
-            dataType: 'html',
-            async : false
-        });
-        $("#${model.name}-Menu").kendoMenu();
+        	$.ajax({
+            	url: "/$kendoUiMenuStructurePath",
+            	success: function (data) { $('#menu').append(data); },
+            	dataType: 'html',
+            	async : false
+        	});
+        	$("#${model.name}-Menu").kendoMenu();
 #end
+		}
 #end
 
 #macro(putKendoUIMenuREST)
@@ -489,7 +492,7 @@ $!updatedAreaEnd
               ,#end 
 #end
 #foreach ($action in $query.actions)
-			   { command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " "}##, width: "180px" }
+			   { command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " "}
 #if ($velocityCount!=$query.actions.size())
                 ,#end 
 #end

@@ -79,7 +79,7 @@ html {
     color: white;
 }
 
-.menuLinkManageFT {
+.menuLinkManageEntity {
     display: block;
     padding: 2px 10px 2px 10px;
     height: 40px;
@@ -88,7 +88,7 @@ html {
     text-align: center;
 }
 
-.menuLinkManageFT:hover {
+.menuLinkManageEntity:hover {
     color: white;
 }
 
@@ -104,7 +104,7 @@ html {
     width: 95%;
 }
 
-.buttonNewISC {
+.buttonNewEntity {
     display: block;
     margin: 0 auto;
     font-weight: bold;
@@ -120,7 +120,7 @@ html {
     outline: none;
 }
 
-.buttonNewISC:hover {
+.buttonNewEntity:hover {
     cursor: pointer;
     background-color: #7bd2f6;
 }
