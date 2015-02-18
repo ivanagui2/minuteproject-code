@@ -1,15 +1,10 @@
 package net.sf.minuteProject.plugin.presentation;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.minuteProject.configuration.bean.BusinessPackage;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -24,6 +19,8 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author adlerfl
@@ -57,6 +54,17 @@ public class PresentationUtils {
 			return Arrays.asList(table.getColumns());
 		}
 	}
+	
+	public static boolean isHidden (Column column, Query query) {
+		if (column.isHidden())
+			return true;
+		if (query.getQueryDisplay()!=null && query.getQueryDisplay().getResultRowDisplay()!=null) {
+			return !ParserUtils.isInList(column.getName(), query.getQueryDisplay().getResultRowDisplay());
+		} else {
+			return false;
+		}
+	}
+	
 	public static String getQueryExecuteLabel(Query query) {
 		String ex = StringUtils.isEmpty(query.getExecuteLabel())?"Execute":query.getExecuteLabel();
 		return FormatUtils.performDisplayReadableName(ex);

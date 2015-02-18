@@ -59,8 +59,6 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
                  <queries>
                      <query name="get address street">
                          <query-body><value><![CDATA[select * from address where addressid > ?]]></value></query-body>
-                         <query-what><value></value></query-what>
-                         <query-where><value></value></query-where>
                          <query-params>
                              <query-param name="identifier_Address" is-mandatory="false" type="INT" sample="-1"></query-param>
                          </query-params>
@@ -78,7 +76,38 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 									<property name="TX" />
 								</property>
                              </query-param>
-                             
+                         </query-params>
+                     </query>
+                     
+                     <!-- query in enumeration -->
+			         <query name="address by zip in" id="address_by_multiple_zip" >
+                         <query-body>
+                         <value>
+<![CDATA[select * from address where zip in (?...)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="zip" is-mandatory="true" type="string" sample="'a'" is-id="true" >
+								<property tag="checkconstraint">
+									<property name="CA" />
+									<property name="TX" />
+									<property name="NY" />
+								</property>
+                             </query-param>
+                         </query-params>
+                     </query>
+                     
+                     <!-- query in with link (usually a cached search distinct) -->
+			         <query name="address by zip in" id="address_by_multiple_zip" >
+                         <query-body>
+                         <value>
+<![CDATA[select * from address where zip in (?...)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                             <query-param name="zip" is-mandatory="true" type="string" sample="'a'" is-id="true" >
+								<query-param-link sdd-query-name="security_role_list" field-name="role" field-key="id"/>
+                             </query-param>
                          </query-params>
                      </query>
                  </queries>
