@@ -37,6 +37,8 @@ import org.apache.log4j.Logger;
 public class QueryUtils {
 
 	private static final String QUESTION_MARK = "?";
+	private static final String ELLIPSIS = "...";
+	private static final String QUESTION_IN_MARK = QUESTION_MARK+ELLIPSIS;
 	private static Logger logger = Logger.getLogger(QueryUtils.class);
 
 	public static QueryParams getOutputParams(Query query) throws MinuteProjectException {
@@ -155,7 +157,17 @@ public class QueryUtils {
 	}
 
 	private static String replaceFirstArgWith(String text, String value) {
-		return StringUtils.replace(text, QUESTION_MARK, value, 1);
+		return isIn(text)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
+	}
+
+	private static boolean isIn(String text) {
+		int i = text.indexOf(QUESTION_MARK);
+		if (i==-1)
+			return false;
+		int j = text.indexOf(QUESTION_IN_MARK);
+		if (j==-1)
+			return false;
+		return i==j;
 	}
 
 	private static List<String> getSamples(Query query) {
