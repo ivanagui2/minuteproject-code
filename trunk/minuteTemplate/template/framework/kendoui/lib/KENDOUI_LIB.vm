@@ -118,10 +118,10 @@
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
         	<!-- $chunkName -->
 <div class="row">
-	<div class="cell" style="vertical-align: bottom;">
+	<div class="cell">
 		<label for="field-$chunkName">$queryChunk.name</label><!-- i18n -->
 	</div>
-	<div class="cell" style="vertical-align: bottom;">
+	<div class="cell">
 	<select name="$chunkName" id="field-$chunkName" 
 		data-bind="source: ${chunkName}List, value: ${chunkName}" 
 		data-text-field="value"
@@ -138,10 +138,10 @@
 #set($columnAlias=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 #set($width = $presentationUtils.getDisplayRowsInPixel($column))
 <div class="row">
-	<div class="cell" style="vertical-align: bottom;">
+	<div class="cell">
 		<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnAlias</label><!-- i18n -->
 	</div>
-	<div class="cell" style="vertical-align: bottom;">
+	<div class="cell">
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" 
 		data-bind="source: ${columnVar}List, value: ${columnVar}" 
@@ -526,11 +526,11 @@ $!updatedAreaEnd
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 <div class="row">
-	<div class="cell" style="vertical-align: bottom;">
+	<div class="cell-label">
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 		<label>$title</label><!-- i18n -->
 	</div>
-	<div class="cell" style="vertical-align: bottom;">#= ($columnVar == null) ? ' ' :$columnVar #</div>
+	<div class="cell">#= ($columnVar == null) ? ' ' :$columnVar #</div>
 </div>
 #end
 </div>

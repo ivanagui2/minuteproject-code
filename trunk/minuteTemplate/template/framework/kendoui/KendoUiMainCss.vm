@@ -23,13 +23,26 @@ html {
 .row {
     display: table-row;
     text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .cell {
     display: table-cell;
+    vertical-align: bottom;
     height: 15px;
     padding-top: 5px;
     text-align: left;
+}
+
+.cell-label {
+    display: table-cell;
+
+    vertical-align: bottom;
+    height: 15px;
+    padding-top: 5px;
+    text-align: left;
+    font-weight: bold;
 }
 
 .rowMenuLinkFirst {
