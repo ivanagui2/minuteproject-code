@@ -29,6 +29,7 @@ import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConnectionUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
@@ -301,6 +302,16 @@ public class QueryUtils {
 	
 	public static String getColumnValueVariable(Query query) {
 		return getColumnVariable(query, 0);
+	}
+	
+	public static String getContentType(Query query) {
+		return query.getContentType();
+	}
+	
+	public static boolean isAdminContentType(Query query) {
+		return query.getContentType()!=null 
+				&& (TableUtils.masterDataContentType.equals(query.getContentType())
+					|| TableUtils.referenceDataContentType.equals(query.getContentType()));
 	}
 	
 	public static Query getQueryById(Model model, String queryId) {

@@ -44,6 +44,7 @@ public class Query extends AbstractConfiguration {
 	private List<QueryChunk> queryChunks;
 	private String packageName;
 	private boolean isWrite = false;
+	private String contentType;
 
 	public QueryParams getInputParams() {
 		return QueryUtils.getInputParams(this);
@@ -426,13 +427,17 @@ public class Query extends AbstractConfiguration {
 		this.queryDisplay = queryDisplay;
 	}
 
-	//	@Override
-//	public String getGeneratedBeanName() {
-//		return StringUtils.replace (getName(), " ", "_");
-//	}
-//	
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	
 	@Override
 	public String toString() {
 		return "query [name='"+name+"', id='"+id+"']";
 	}
+
 }

@@ -147,6 +147,7 @@
 	                <set-properties-rule>
 	                    <alias attr-name="name" prop-name="name" />
 	                 	<alias attr-name="package-name" prop-name="packageName" />
+	                 	<alias attr-name="content-type" prop-name="contentType" />
 	                 	<alias attr-name="is-write" prop-name="write" />
 	                 	<alias attr-name="execute-label" prop-name="executeLabel" />
 	            	</set-properties-rule>
@@ -1363,6 +1364,7 @@
                 <set-properties-rule>
                     <alias attr-name="name" prop-name="name" />
                  	<alias attr-name="package-name" prop-name="packageName" />
+                 	<alias attr-name="content-type" prop-name="contentType" />
                  	<alias attr-name="is-write" prop-name="write" />
                  	<alias attr-name="execute-label" prop-name="executeLabel" />
             	</set-properties-rule>
