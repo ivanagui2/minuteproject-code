@@ -4,7 +4,11 @@
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
    	<plugin name="kendoUiUtils" className="net.sf.minuteProject.plugin.kendoui.KendoUiUtils"/>
  
- 
+	<resource-target outputdir="src/main/webapp/icon">
+		<resource name="plus-h" resource-file-name="plus_h.png" />
+		<resource name="plus-n" resource-file-name="plus_n.png" />
+	</resource-target>
+	
 	<template-target 
     	name="REST kendoui client web.xml config"
 		outputdir="src/main/webapp/WEB-INF"
