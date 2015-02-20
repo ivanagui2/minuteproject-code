@@ -169,9 +169,10 @@
 		data-option-label="Select"
 		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
 #else
-	<div class="textbox-icon" style="width:  ${width}px;">
-		<input id="$fieldId" data-bind="value: ${columnVar}" />
-		<a class="icon-plus" onclick="openSearchFor${columnVar}()" />
+#set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
+	<div style="width:  ${width}px; display: inline-flex;" >
+		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
+		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:25px;"></a>
 	</div>
 #end
 #if(!$column.isRequired())
