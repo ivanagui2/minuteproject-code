@@ -193,3 +193,90 @@ html {
 .adminMenuLink:hover {
     color: white;
 }
+
+.button-icon-plus {
+	background: url("/icon/plus_h.png") no-repeat 5px 50%;
+}
+
+/* Button with icons*/
+.button-icon-16px {
+	display: inline-block;
+	border: 1px solid #94C0D2;
+	padding: 5px 15px;
+	text-decoration: none;
+	color: #003f59;
+	font-size: 13px;
+	cursor: pointer;
+	outline: none;
+}
+.button-icon-16px span {
+	padding-left:15px;
+}
+.button-icon-16px:hover:not([disabled]):not(.k-state-disabled) {
+	background-color: #7bd2f6;
+	border: 1px solid #7bd2f6;
+}
+
+
+/* Icons */
+.icon-16px {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	outline: none;
+	overflow: hidden;
+}
+.icon-16px:hover {
+	background-position: 0 0;
+}
+
+.textbox-icon {
+    display: block;
+    border: 1px solid #B7B7B7;
+    margin: 0px;
+    margin-top: 2px;
+    padding: 0px;
+    width: 100%;
+    overflow: hidden;
+    height: 30px;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.textbox-icon>input, .textbox-icon>div, .textbox-icon>textarea {
+    display: inline-block;
+    font: inherit;
+    color: inherit;
+    border: 0px;
+    padding: 6px 2px 4px 4px;
+    margin: 0;
+    width: 90%;
+    height: 100%;
+    line-height: 15px;
+    overflow-y: auto;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.textbox-icon>a {
+    float: right;
+    width: 16px;
+    height: 100%;
+    padding: 0;
+    margin: 0px 3px 0px 2px;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+}
+.textbox-icon>a:hover {
+    background-position: 0 50% !important;
+}
+.textbox-icon>input[readonly="readonly"], .textbox-icon>textarea[readonly="readonly"] {
+    width: 100% !important;
+}
+.textbox-icon>input[readonly="readonly"]+a, .textbox-icon>textarea[readonly="readonly"]+a {
+    display: none;
+}
