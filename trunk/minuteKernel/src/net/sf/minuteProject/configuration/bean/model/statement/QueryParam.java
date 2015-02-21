@@ -11,7 +11,7 @@ import net.sf.minuteProject.utils.TableUtils;
 public class QueryParam extends Field {
 
 	private QueryParams queryParams;
-	private boolean isMandatory =true;
+//	private boolean isMandatory =true; TODO set in constructor
 	private boolean isImplicit  =false;
 	private boolean isContext   =false;
 	private boolean hasBeenDuplicated   =false;
@@ -27,12 +27,12 @@ public class QueryParam extends Field {
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
 	}
-	public boolean isMandatory() {
-		return isMandatory;
-	}
-	public void setIsMandatory(boolean isMandatory) {
-		this.isMandatory = isMandatory;
-	}
+//	public boolean isMandatory() {
+//		return isMandatory;
+//	}
+//	public void setIsMandatory(boolean isMandatory) {
+//		this.isMandatory = isMandatory;
+//	}
 //	public String getType() {
 //		return type;
 //	}

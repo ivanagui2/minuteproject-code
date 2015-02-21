@@ -59,12 +59,12 @@ public class StatementModel {
  		complementStatementPackage();
 	}
 
-	public Query getQueryById(String id) {
+	public Query getQueryByIdOrName(String id) {
 		for (Query query : getQueries().getQueries()) {
 			if (query.getId().equals(id))
 				return query;
 		}
-		return null;
+		return getQueryByName(id); // search by name
 	}
 	
 	public Query getQueryByName(String name) {

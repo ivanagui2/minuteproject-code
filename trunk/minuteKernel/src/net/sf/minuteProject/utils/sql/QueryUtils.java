@@ -294,13 +294,19 @@ public class QueryUtils {
 	}
 	
 	public static String getColumnTextVariable(Query query, String columnName) {
+		if (query==null)
+			return "QUERY is null!";
 		return getColumnVariable(query, 1);
 	}
 	public static String getColumnTextVariable(Query query) {
+		if (query==null)
+			return "QUERY is null!";
 		return getColumnVariable(query, 1);
 	}
 	
 	public static String getColumnValueVariable(Query query) {
+		if (query==null)
+			return "QUERY is null!";
 		return getColumnVariable(query, 0);
 	}
 	
@@ -314,13 +320,13 @@ public class QueryUtils {
 					|| TableUtils.referenceDataContentType.equals(query.getContentType()));
 	}
 	
-	public static Query getQueryById(Model model, String queryId) {
-		return model.getStatementModel().getQueryById(queryId);
+	public static Query getQueryByIdOrName(Model model, String queryId) {
+		return model.getStatementModel().getQueryByIdOrName(queryId);
 	}
 	
-	public static Query getQueryById(Application application, String queryId) {
+	public static Query getQueryByIdOrName(Application application, String queryId) {
 		for (Model model : application.getModels()) {
-			Query query = model.getStatementModel().getQueryById(queryId);
+			Query query = model.getStatementModel().getQueryByIdOrName(queryId);
 			if (query!=null)
 				return query;
 		}
