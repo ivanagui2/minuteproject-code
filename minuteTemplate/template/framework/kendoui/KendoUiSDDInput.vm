@@ -115,7 +115,7 @@
 #end
 #if($columnUtils.isLink($column))
 #set($fieldId="field-$columnVar")
-#set($targetQuery = $model.getStatementModel().getQueryById($column.queryParamLink.queryName))
+#set($targetQuery = $model.getStatementModel().getQueryByIdOrName($column.queryParamLink.queryName))
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
 #set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))

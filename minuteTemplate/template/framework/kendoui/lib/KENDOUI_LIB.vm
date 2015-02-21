@@ -1,8 +1,8 @@
 #macro (exposeQueryTarget)
 #if($configuration.isSingleModel())
-#set($targetQuery = $model.getStatementModel().getQueryById($queryId))
+#set($targetQuery = $model.getStatementModel().getQueryByIdOrName($queryId))
 #else
-#set($targetQuery = $queryUtils.getQueryById($configuration.application, $queryId))
+#set($targetQuery = $queryUtils.getQueryByIdOrName($configuration.application, $queryId))
 #end
 #end
 
@@ -149,7 +149,7 @@
 		data-text-field="value"
 		data-value-field="${columnVar}"
 		data-option-label="Select"
-		#if($column.isRequired())required#end data-required-msg="Select $columnVar" style="width: ${width}px;">
+		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
 #if(!$column.isRequired())
 #end
      </select>
@@ -186,17 +186,16 @@
 ## boolean
 #if($columnUtils.isBoolean($column))
 	<input type="checkbox" data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end /> 
-##	<p:selectBooleanCheckbox id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" />
 #else
 ## textarea
 #if($presentationUtils.isTextArea($column))
-	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: ${width}px;" ></textarea> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="$columnAlias" #if($column.isRequired())required="true"#end rows="$presentationUtils.getDisplayRows($column)" cols="$presentationUtils.getDisplayColumns($column)" validationMessage="Enter {0}" style="width: ${width}px;" ></textarea> 
 #elseif($presentationUtils.isRichText($column))
 ##	<p:editor
-	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" /> 
+	<textarea type="text" id="$fieldId" data-bind="value: ${columnVar}"name="$labelFor" class="k-textbox" placeholder="$columnAlias" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" /> 
 ## simple input
 #else
-	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="${columnVar}" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" />
+	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="$columnAlias" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" />
 ##	<p:inputText 
 ##		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
 #end
