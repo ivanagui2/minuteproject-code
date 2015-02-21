@@ -31,7 +31,7 @@ class ActionUtils {
 	
 	String getTargetUrl (Action action, Model model) {
 		String queryId = action.getQueryId()
-		Query query = model.getStatementModel().getQueryById(queryId)
+		Query query = model.getStatementModel().getQueryByIdOrName(queryId)
 		if (query!=null)
 			return "/html/sdd/"+FormatUtils.getJavaName(query.getName())+"In"
 		return "/data/sdd/"+queryId+"In"
