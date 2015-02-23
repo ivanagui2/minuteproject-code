@@ -290,7 +290,11 @@ public class QueryUtils {
 	}
 	public static String getColumnVariable(Query query, String name) {
 		Table table = query.getOutputBean();
-		return FormatUtils.getJavaNameVariable(ColumnUtils.getColumn(table, name).getName());
+		Column column = ColumnUtils.getColumn(table, name);
+		if (column!=null) {
+			return FormatUtils.getJavaNameVariable(column.getName());
+		}
+		return "Column "+name+" not found for query "+query.getName();
 	}
 	
 	public static String getColumnTextVariable(Query query, String columnName) {
