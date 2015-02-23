@@ -173,6 +173,7 @@
 #set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
 	<div style="width:  ${width}px; display: inline-flex;" >
 		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
+		<input hidden="true" id="${fieldId}Selected" data-bind="value: ${columnVar}Selected" />
 		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:25px;"></a>
 	</div>
 #end
@@ -446,7 +447,7 @@ $!updatedAreaEnd
 				   var affect_field_key_to  = QueryString._option_affect_field_key_to;
 
 				   parent.$("#"+affect_field_name_to).val(affect_field_name);
-				   parent.$("#"+affect_field_key_to).val(affect_field_key);
+				   parent.$("#"+affect_field_key_to+"Selected").val(affect_field_key);
 				   parent.popup.close();
 			   }
 		   },
@@ -582,7 +583,7 @@ $!updatedAreaEnd
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
 #set($fieldName = $queryUtils.getColumnVariable($targetQuery, $column.queryParamLink.fieldName))
 #set($fieldKey = $queryUtils.getColumnVariable($targetQuery, $column.queryParamLink.fieldKey))
-#set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#set ($isMasterData = $queryUtils.isAdminContentType($targetQuery))
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddInput))
 #if(!$isMasterData)
 	function openSearchFor${columnVar}() {
