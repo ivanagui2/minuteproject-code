@@ -168,6 +168,7 @@
 		data-value-field="${columnValue}"
 		data-option-label="Select"
 		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
+     </select>
 #else
 #set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
 	<div style="width:  ${width}px; display: inline-flex;" >
@@ -175,9 +176,6 @@
 		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:25px;"></a>
 	</div>
 #end
-#if(!$column.isRequired())
-#end
-     </select>
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
@@ -434,6 +432,24 @@ $!updatedAreaEnd
            pageable: {
                 buttonCount: 5
            },
+		   change: function () {
+			   var _option_affect = QueryString._option_affect;
+			   if (_option_affect != undefined) {
+				   var rowId = this.select().data("uid");
+				   var item = this.dataSource.getByUid(rowId);
+				   var affect_field_name_ = QueryString._option_affect_field_name;
+				   var affect_field_name  = item.get(affect_field_name_);
+				   var affect_field_key_  = QueryString._option_affect_field_key;
+				   var affect_field_key  = item.get(affect_field_key_);
+				   
+				   var affect_field_name_to = QueryString._option_affect_field_name_to;
+				   var affect_field_key_to  = QueryString._option_affect_field_key_to;
+
+				   parent.$("#"+affect_field_name_to).val(affect_field_name);
+				   parent.$("#"+affect_field_key_to).val(affect_field_key);
+				   parent.popup.close();
+			   }
+		   },
 #else
 		  title : {
 			  text: "$tableAlias"
@@ -562,12 +578,15 @@ $!updatedAreaEnd
 #putColumnParamNaming()
 #set($queryId =$column.queryParamLink.queryName)
 #exposeQueryTarget()
+#set($fieldId="field-$columnVar")
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
+#set($fieldName = $queryUtils.getColumnVariable($targetQuery, $column.queryParamLink.fieldName))
+#set($fieldKey = $queryUtils.getColumnVariable($targetQuery, $column.queryParamLink.fieldKey))
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddInput))
 #if(!$isMasterData)
 	function openSearchFor${columnVar}() {
-		var targetUrl = "/${targetUrl}?_option_menu=false";
+		var targetUrl = "/${targetUrl}?_option_menu=false&_option_affect=true&_option_affect_field_name=${fieldName}&_option_affect_field_key=${fieldKey}&_option_affect_field_name_to=${columnVar}&_option_affect_field_key_to=${fieldId}";
 		openPopup ("search $columnText",targetUrl, 1000, 600);
 	}
 #end
