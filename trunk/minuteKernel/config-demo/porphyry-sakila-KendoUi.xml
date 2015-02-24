@@ -108,14 +108,14 @@ $wherefirstname $wherelastname
 						<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[
-select customer_id, first_name, last_name, email, a.address, ci.city, a.postal_code, co.country, a2.address as store_address 
+select customer_id, concat_ws (' ',first_name, last_name) full_name, email, a.address, ci.city, a.postal_code, co.country, a2.address as store_address 
  from customer cu, address a, city ci, country co, store st, address a2
  where cu.address_id = a.address_id and a.city_id = ci.city_id and ci.country_id = co.country_id and cu.store_id = st.store_id and st.address_id = a2.address_id
 $wherefirstname $wherelastname $wherecountry
 ]]>
                             </value>
 						</query-body>
-						<query-display result-row-display="first_name, last_name, email, address, postal_code, city, store_address, country">
+						<query-display result-row-display="full_name, email, address, postal_code, city, store_address, country">
 						</query-display>
 						<query-filters>
 							<query-filter name="wherefirstname" and-where-connection="and">
@@ -225,12 +225,33 @@ $wherecustomer
 		                        </value>
 								<query-params>
 									<query-param name="customer" type="int" size="20" sample="1">
-										<query-param-link sdd-query-name="customer-and-store-by-country-details" field-name="customer_id" field-key="customer_id"/>
+										<query-param-link sdd-query-name="customer-and-store-by-country-details" field-name="full_name" field-key="customer_id"/>
 									</query-param>
 								</query-params>
 							</query-filter>
 						</query-filters>
 					</query>
+					
+					<!-- dashboard queries -->
+					
+					<query name="sales_by_store" id="sales_by_store" package-name="dashboard">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from sales_by_store order by store asc]]>
+                            </value>
+						</query-body>
+					</query>
+					
+					<query name="sales_by_film_category" id="sales_by_film_category" package-name="dashboard"
+						category="pie-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from sales_by_film_category order by category asc]]>
+                            </value>
+						</query-body>
+					</query>
+					
+					
 				</queries>
 			</statement-model>
 			</model>
