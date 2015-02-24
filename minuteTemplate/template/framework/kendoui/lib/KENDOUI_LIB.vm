@@ -610,7 +610,9 @@ $!updatedAreaEnd
 
 #macro(exposeSearchSDD)
 #exposeQuerySDD()
+		$("#action").disable();
 #exposeKendoUISDDDGrid()
+		$("#action").enable();
 #end
 
 #macro(exposeQuerySDD)
