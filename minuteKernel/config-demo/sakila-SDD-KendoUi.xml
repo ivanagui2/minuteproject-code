@@ -177,7 +177,7 @@ $wherefirstname $wherelastname $wherecountry
 							</query-filter>
 							<query-filter name="wherecategory" and-where-connection="where">
 								<value>
-		<![CDATA[category = ? ]]>
+<![CDATA[category = ? ]]>
 		                        </value>
 								<query-params>
 									<query-param name="category" type="string" size="20" sample="'xxx'">
