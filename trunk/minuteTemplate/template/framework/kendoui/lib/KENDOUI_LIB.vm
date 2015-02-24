@@ -171,9 +171,11 @@
      </select>
 #else
 #set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
+#set($width = $width+50)
 	<div style="width:  ${width}px; display: inline-flex;" >
+##TODO if field_key != field-name => readonly
 		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
-		<input hidden="true" id="${columnVar}Selected" data-bind="value: ${columnVar}Selected" />
+		<input hidden="true" id="${fieldId}Selected" data-bind="value: ${columnVar}Selected" />
 		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:25px;"></a>
 	</div>
 #end
@@ -645,8 +647,11 @@ $!updatedAreaEnd
         var ${columnVar}Selected = this.get("${columnVar}Selected");
         var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
 #else
-##var ${columnVar} = this.get("$columnVar");
+#if($column.queryParamLink.fieldKey == $column.queryParamLink.field)
 #set($fieldId="field-$columnVar")
+#else
+#set($fieldId="field-${columnVar}Selected")
+#end
         var ${columnVar} = $("#$fieldId").val();
 #end
 #else
