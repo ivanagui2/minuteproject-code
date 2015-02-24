@@ -173,7 +173,7 @@
 #set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
 	<div style="width:  ${width}px; display: inline-flex;" >
 		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
-		<input hidden="true" id="${fieldId}Selected" data-bind="value: ${columnVar}Selected" />
+		<input hidden="true" id="${columnVar}Selected" data-bind="value: ${columnVar}Selected" />
 		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:25px;"></a>
 	</div>
 #end
@@ -446,8 +446,8 @@ $!updatedAreaEnd
 				   var affect_field_name_to = QueryString._option_affect_field_name_to;
 				   var affect_field_key_to  = QueryString._option_affect_field_key_to;
 
-				   parent.$("#"+affect_field_name_to).val(affect_field_name);
-				   parent.$("#"+affect_field_key_to+"Selected").val(affect_field_key);
+				   parent.$("#field-"+affect_field_name_to).val(affect_field_name);
+				   parent.$("#field-"+affect_field_key_to+"Selected").val(affect_field_key);
 				   parent.popup.close();
 			   }
 		   },
@@ -587,7 +587,7 @@ $!updatedAreaEnd
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddInput))
 #if(!$isMasterData)
 	function openSearchFor${columnVar}() {
-		var targetUrl = "/${targetUrl}?_option_menu=false&_option_affect=true&_option_affect_field_name=${fieldName}&_option_affect_field_key=${fieldKey}&_option_affect_field_name_to=${columnVar}&_option_affect_field_key_to=${fieldId}";
+		var targetUrl = "/${targetUrl}?_option_menu=false&_option_affect=true&_option_affect_field_name=${fieldName}&_option_affect_field_key=${fieldKey}&_option_affect_field_name_to=${columnVar}&_option_affect_field_key_to=${columnVar}";
 		openPopup ("search $columnText",targetUrl, 1000, 600);
 	}
 #end
@@ -610,9 +610,9 @@ $!updatedAreaEnd
 
 #macro(exposeSearchSDD)
 #exposeQuerySDD()
-		$("#action").disable();
+//		$("#action").disable();
 #exposeKendoUISDDDGrid()
-		$("#action").enable();
+//		$("#action").enable();
 #end
 
 #macro(exposeQuerySDD)
@@ -638,10 +638,17 @@ $!updatedAreaEnd
 #if($columnUtils.isLink($column))
 #set($queryId =$column.queryParamLink.queryName)
 #exposeQueryTarget()
+#set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#if($isMasterData)
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
 #set($columnValue = $queryUtils.getColumnValueVariable($targetQuery))
         var ${columnVar}Selected = this.get("${columnVar}Selected");
         var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
+#else
+##var ${columnVar} = this.get("$columnVar");
+#set($fieldId="field-$columnVar")
+        var ${columnVar} = $("#$fieldId").val();
+#end
 #else
         var $columnVar = this.get("$columnVar");
 #end
