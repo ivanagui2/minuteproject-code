@@ -33,7 +33,7 @@ public class PresentationUtils {
 	public static final int MAX_COLUMNS_DISPLAY_SIZE_TEXTAREA = 60;
 	public static final int MAX_ROWS_DISPLAY_SIZE_TEXTAREA = 5;
 	public static final int CHAR_IN_PIXEL = 10;
-	public static final int MIN_PIXEL = 500;
+	public static final int MIN_PIXEL = 200;
 
 	public static List<Column> getOutputColumns(Query query) {
 		Table table = query.getOutputBean();
@@ -65,7 +65,7 @@ public class PresentationUtils {
 
 	public static int getDisplayRowsInPixel (Column column) {
 		
-		if (column.getSizeAsInt()==0 || column.getType().equals("INTEGER"))
+		if (column.getSizeAsInt()==0)// || column.getType().equals("INTEGER"))
 			return MIN_PIXEL;
 		return getDisplayColumns(column)*CHAR_IN_PIXEL;
 	}
