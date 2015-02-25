@@ -134,6 +134,11 @@
         });
 //$targetQuery
 //        var ${sddTargetOutputBeanClass}DDL = result${sddTargetOutputBeanClass}.${sddTargetOutputBeanClass}Out;
+#else
+#if($column.queryParamLink.fieldKey != $column.queryParamLink.field)
+#set($fieldId="field-$columnVar")
+		$("#$fieldId").attr('readonly', 'readonly');
+#end
 #end
 #end
 #end
