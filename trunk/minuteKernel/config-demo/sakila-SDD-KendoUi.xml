@@ -104,14 +104,14 @@ $wherefirstname $wherelastname
 						<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[
-select customer_id, first_name, last_name, email, a.address, ci.city, a.postal_code, co.country, a2.address as store_address 
+select customer_id, concat_ws (' ',first_name, last_name) full_name, email, a.address, ci.city, a.postal_code, co.country, a2.address as store_address 
  from customer cu, address a, city ci, country co, store st, address a2
  where cu.address_id = a.address_id and a.city_id = ci.city_id and ci.country_id = co.country_id and cu.store_id = st.store_id and st.address_id = a2.address_id
 $wherefirstname $wherelastname $wherecountry
 ]]>
                             </value>
 						</query-body>
-						<query-display result-row-display="first_name, last_name, email, address, postal_code, city, store_address, country">
+						<query-display result-row-display="full_name, email, address, postal_code, city, store_address, country">
 						</query-display>
 						<query-filters>
 							<query-filter name="wherefirstname" and-where-connection="and">
@@ -177,7 +177,7 @@ $wherefirstname $wherelastname $wherecountry
 							</query-filter>
 							<query-filter name="wherecategory" and-where-connection="where">
 								<value>
-<![CDATA[category = ? ]]>
+		<![CDATA[category = ? ]]>
 		                        </value>
 								<query-params>
 									<query-param name="category" type="string" size="20" sample="'xxx'">
@@ -203,6 +203,98 @@ $wherefirstname $wherelastname $wherecountry
 							<action name="details" default-implementation="showDetails"></action>
 						</actions>
 					</query>
+					
+					<!-- rental -->
+					<query name="rental" id="rental-by-customers" package-name="rental">
+						<query-body> 
+							<value>
+<![CDATA[
+select count(*) number from rental
+$wherecustomer
+]]>
+                            </value>
+						</query-body>
+						<query-filters>
+							<query-filter name="wherecustomer" and-where-connection="where">
+								<value>
+		<![CDATA[customer_id = ? ]]>
+		                        </value>
+								<query-params>
+									<query-param name="customer" type="int" size="20" sample="1">
+										<query-param-link sdd-query-name="customer-and-store-by-country-details" field-name="full_name" field-key="customer_id"/>
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
+					</query>
+					
+					<!-- dashboard queries -->
+					
+					<query name="sales_by_store" id="sales_by_store" package-name="dashboard">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from sales_by_store order by store asc]]>
+                            </value>
+						</query-body>
+					</query>
+					
+					<query name="sales_by_film_category" id="sales_by_film_category" package-name="dashboard"
+						category="pie-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from sales_by_film_category order by category asc]]>
+                            </value>
+						</query-body>
+						<actions>
+							<action name="sales info" query-id="sales_by_film_and_film_category">
+								<action-field-map>
+									<action-field-map-entry output-field="category" to-action-field="category"></action-field-map-entry>
+								</action-field-map>
+							</action>
+						</actions>
+					</query>
+					
+					<query name="sales_by_film_and_film_category" id="sales_by_film_category" package-name="dashboard">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[
+SELECT 
+f.title as film_name, f.film_id, SUM(p.amount) AS total_sales
+FROM payment AS p
+INNER JOIN rental AS r ON p.rental_id = r.rental_id
+INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id
+INNER JOIN film AS f ON i.film_id = f.film_id
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id
+INNER JOIN category AS c ON fc.category_id = c.category_id
+$wherecategory
+GROUP BY f.title
+ORDER BY total_sales DESC
+]]>
+                            </value>
+						</query-body>
+						<query-display result-row-display="film_name, total_sales"></query-display>
+						<query-filters>
+							<query-filter name="wherecategory" and-where-connection="where">
+								<value>
+		<![CDATA[c.name = ? ]]>
+		                        </value>
+								<query-params>
+									<query-param name="category" type="string" size="20" sample="'xxx'">
+										<query-param-link sdd-query-name="distinct-categories" field-name="name" field-key="name"/>
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
+						<actions>
+							<action name="actors" query-id="actor-film">
+	                       		<action-field-map>
+	                       			<!-- java convention like field name not sql -->
+	                       			<action-field-map-entry output-field="filmId" to-action-field="filmId" />
+	                       		</action-field-map>
+                       		</action>
+						</actions>
+					</query>
+
 				</queries>
 			</statement-model>
 		</model>
