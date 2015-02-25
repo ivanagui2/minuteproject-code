@@ -249,9 +249,56 @@ $wherecustomer
 <![CDATA[select * from sales_by_film_category order by category asc]]>
                             </value>
 						</query-body>
+						<actions>
+							<action name="sales info" query-id="sales_by_film_and_film_category">
+								<action-field-map>
+									<action-field-map-entry output-field="category" to-action-field="category"></action-field-map-entry>
+								</action-field-map>
+							</action>
+						</actions>
 					</query>
 					
-					
+					<query name="sales_by_film_and_film_category" id="sales_by_film_category" package-name="dashboard">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[
+SELECT 
+f.title as film_name, f.film_id, SUM(p.amount) AS total_sales
+FROM payment AS p
+INNER JOIN rental AS r ON p.rental_id = r.rental_id
+INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id
+INNER JOIN film AS f ON i.film_id = f.film_id
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id
+INNER JOIN category AS c ON fc.category_id = c.category_id
+$wherecategory
+GROUP BY f.title
+ORDER BY total_sales DESC
+]]>
+                            </value>
+						</query-body>
+						<query-display result-row-display="film_name, total_sales"></query-display>
+						<query-filters>
+							<query-filter name="wherecategory" and-where-connection="where">
+								<value>
+		<![CDATA[c.name = ? ]]>
+		                        </value>
+								<query-params>
+									<query-param name="category" type="string" size="20" sample="'xxx'">
+										<query-param-link sdd-query-name="distinct-categories" field-name="name" field-key="name"/>
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
+						<actions>
+							<action name="actors" query-id="actor-film">
+	                       		<action-field-map>
+	                       			<!-- java convention like field name not sql -->
+	                       			<action-field-map-entry output-field="filmId" to-action-field="filmId" />
+	                       		</action-field-map>
+                       		</action>
+						</actions>
+					</query>
+
 				</queries>
 			</statement-model>
 			</model>
