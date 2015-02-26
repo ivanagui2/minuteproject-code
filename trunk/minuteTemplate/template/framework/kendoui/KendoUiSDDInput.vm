@@ -135,7 +135,7 @@
 //$targetQuery
 //        var ${sddTargetOutputBeanClass}DDL = result${sddTargetOutputBeanClass}.${sddTargetOutputBeanClass}Out;
 #else
-#if($column.queryParamLink.fieldKey != $column.queryParamLink.field)
+#if($column.queryParamLink.fieldKey != $column.queryParamLink.fieldName)
 #set($fieldId="field-$columnVar")
 		$("#$fieldId").attr('readonly', 'readonly');
 #end

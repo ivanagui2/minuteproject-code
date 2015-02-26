@@ -8,6 +8,8 @@
 
 #macro(putKendoUIJSImport)
 #set($kendoUiVersion="2014.1.416")
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
@@ -156,9 +158,11 @@
 ##     <span class="k-invalid-msg" data-for="$labelFor"></span>
 #elseif($columnUtils.isLink($column))
 #set($queryId =$column.queryParamLink.queryName)
+#set($fieldKey =$column.queryParamLink.fieldKey)
+#set($fieldName =$column.queryParamLink.fieldName)
 #exposeQueryTarget()
-#set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
-#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery))
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldName))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
 ##set($targetQueryContentType = $queryUtils.getContentType($targetQuery))
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #if($isMasterData)
@@ -638,16 +642,17 @@ $!updatedAreaEnd
 #set($cpt=$cpt+1)
 #putColumnParamNaming()
 #if($columnUtils.isLink($column))
+#set($fieldKey =$column.queryParamLink.fieldKey)
 #set($queryId =$column.queryParamLink.queryName)
 #exposeQueryTarget()
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #if($isMasterData)
-#set($columnText = $queryUtils.getColumnTextVariable($targetQuery))
-#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery))
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldKey))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
         var ${columnVar}Selected = this.get("${columnVar}Selected");
         var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
 #else
-#if($column.queryParamLink.fieldKey == $column.queryParamLink.field)
+#if($column.queryParamLink.fieldKey == $column.queryParamLink.fieldName)
 #set($fieldId="field-$columnVar")
 #else
 #set($fieldId="field-${columnVar}Selected")
