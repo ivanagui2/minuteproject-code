@@ -4,7 +4,11 @@
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
    	<plugin name="kendoUiUtils" className="net.sf.minuteProject.plugin.kendoui.KendoUiUtils"/>
  
- 
+	<resource-target outputdir="src/main/webapp/icon">
+		<resource name="plus-h" resource-file-name="plus_h.png" />
+		<resource name="plus-n" resource-file-name="plus_n.png" />
+	</resource-target>
+	
 	<template-target 
     	name="REST kendoui client web.xml config"
 		outputdir="src/main/webapp/WEB-INF"
@@ -14,6 +18,31 @@
 		<template name="WebXmlRESTKendoUiClient" templateFileName="WebXmlRESTKendoUiClient.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="web" 
 			application-specific="true" add-model-name="false" >
+		</template>
+			 
+		<template name="JerseySpringApplicationContextXml" templateFileName="SpringApplicationContextXml-template.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" >
+			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
+			<property name="template-to-scan-2" value="SpringServiceImpl"></property>
+		</template>
+
+    </template-target>
+ 
+	<template-target 
+    	name="REST kendoui client css, js"
+		outputdir="src/main/webapp"
+		package-root=""
+		belongToPackage="true">
+			 
+		<template name="KendoUiMainCss" templateFileName="KendoUiMainCss.vm" 
+			file-extension="css" technicalPackage="css" file-suffix="" 
+			application-specific="true" add-model-name="true" >
+		</template>
+			 
+		<template name="KendoUiMainJs" templateFileName="KendoUiMainJs.vm" 
+			file-extension="js" technicalPackage="js" file-suffix="" 
+			application-specific="true" add-model-name="true" >
 		</template>
 
     </template-target>
@@ -34,6 +63,7 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
 		</template>	
+		
 		<template name="KendoUiEntityCreate" templateFileName="KendoUiEntityCreate.vm" 
 			file-extension="html" technicalPackage="" add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
@@ -45,6 +75,38 @@
 			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
 		</template>	
+		
+		<!-- SDD -->
+        <template name="KendoUiSDDInput" templateFileName="KendoUiSDDInput.vm" 
+            file-extension="html" technicalPackage="sdd" file-suffix="Input"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+            scope-specific-value="query"/>
+            
+        <template name="KendoUiSDDDirectResult" templateFileName="KendoUiSDDDirectResult.vm" 
+            file-extension="html" technicalPackage="sdd" file-suffix="DirectResult"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+            scope-specific-value="query"/>
+            
+        <template name="KendoUiSDDDirectResult.js" templateFileName="KendoUiSDDDirectResult.js.vm" 
+            file-extension="html" technicalPackage="sdd" file-suffix="DirectResultJs"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+            scope-specific-value="query"/>
+ <!--  
+        <template name="KendoUiSDDChart" templateFileName="KendoUiSDDInput.vm"
+			file-extension="html" technicalPackage="sdd" file-suffix="Chart"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+			scope-specific-value="query" >
+			<property name="isChart" value="true"></property>
+		</template>
+-->
 
 	</template-target>				
    	
@@ -60,31 +122,32 @@
 			add-model-name="false" add-model-dir-name="false"
 			add-package-name="false" 
 			file-extension="html" file-prefix="" file-suffix="homeMenu" 
-			model-specific="true">
+			application-specific="true">
 		</template>	
-		
-	</template-target>				
-  <!--  	
-  	<template-target 
-    	name="Kendo client"
-		outputdir="src/main/java"
-		libdir="lib/KENDOUI_LIB.vm">
 
 		<template
-			name="KendoUiJersey4DBAPIProvider" templateFileName="KendoUiJersey4DBAPIProvider.vm" 
-			subdir="" outputsubdir="" technicalPackage="kendoui" add-model-name="false" add-model-dir-name="false"
-			file-extension="java" file-prefix="" file-suffix="KendoUiJerseyProvider" 
+			name="KendoUiMenuStructure" templateFileName="KendoUiMenuStructure.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="true" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="html" file-prefix="" file-suffix="menuStructure" 
 			model-specific="true">
 		</template>	
 		
 	</template-target>				
-   	 -->
    	 
    	<template-target 
     	name="Kendo client"
 		outputdir="src/main/java"
 		libdir="lib/KENDOUI_LIB.vm">
 
+        <template name="RESTDbAPILookupResource" templateFileName="RESTDbAPILookupResource.vm" 
+            technicalPackage="rest"
+            file-extension="java" file-prefix="" file-suffix="LookupDefaultingResource"
+            has-updatable-nature="true" 
+            scope-specific-value="model">
+        </template> 
+        
 		<template
 			name="RESTDbAPIGenericResource" templateFileName="RESTDbAPIGenericResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest" add-model-name="false" 
@@ -96,8 +159,37 @@
 			name="RESTDbAPIEntityResource" templateFileName="RESTDbAPIEntityResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest" 
 			file-extension="java" file-prefix="" file-suffix="GenericResource" 
-			entity-specific="true" >
+			entity-specific="true" 
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
 		</template>	
+		
+		<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Resource" 
+			scope-specific-value="query" has-updatable-nature="true">
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>		
+		
+		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.param"
+			file-extension="java" file-prefix="" file-suffix="DateParam" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+			<property name="format" value="date" />
+		</template>
+		
+		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.param"
+			file-extension="java" file-prefix="" file-suffix="TimeParam" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+			<property name="format" value="time" />
+		</template>
+		
+		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.param"
+			file-extension="java" file-prefix="" file-suffix="TimestampParam" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+			<property name="format" value="timestamp" />
+		</template>
 		
 	</template-target>
 	
