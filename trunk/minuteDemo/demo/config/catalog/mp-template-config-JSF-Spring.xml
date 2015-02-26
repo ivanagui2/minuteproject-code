@@ -17,7 +17,7 @@
 		<resource name="bootstrap.min.css" resource-file-name="bootstrap.min.css" />
 	</resource-target>
 	 -->
-		
+	 	
 	<template-target 
     	name="JSF java set"
 		libdir="lib/JSF_LIB.vm,lib/EJB_LIB.vm"
