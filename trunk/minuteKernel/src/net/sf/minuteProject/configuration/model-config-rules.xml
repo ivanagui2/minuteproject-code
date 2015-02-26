@@ -164,6 +164,9 @@
 					    	<alias attr-name="result-row-display" prop-name="resultRowDisplay" />
 					    	<alias attr-name="result-detail-display" prop-name="resultDetailDisplay" />
 					    	<alias attr-name="input-display" prop-name="inputDisplay" />
+					    	<alias attr-name="result-row-link-root-url" prop-name="resultRowLinkRootUrl" />
+					    	<alias attr-name="result-row-link-field" prop-name="resultRowLinkField" />
+					    	<alias attr-name="result-row-link-root-url-appended-field" prop-name="resultRowLinkRootUrlAppendedField" />
 					    </set-properties-rule>
 		            </pattern>         
 
@@ -1381,6 +1384,9 @@
 				    	<alias attr-name="result-row-display" prop-name="resultRowDisplay" />
 				    	<alias attr-name="result-detail-display" prop-name="resultDetailDisplay" />
 				    	<alias attr-name="input-display" prop-name="inputDisplay" />
+				    	<alias attr-name="result-row-link-root-url" prop-name="resultRowLinkRootUrl" />
+				    	<alias attr-name="result-row-link-field" prop-name="resultRowLinkField" />
+				    	<alias attr-name="result-row-link-root-url-appended-field" prop-name="resultRowLinkRootUrlAppendedField" />
 				    </set-properties-rule>
 	            </pattern> 
                 <pattern value="query-fields/query-field">
