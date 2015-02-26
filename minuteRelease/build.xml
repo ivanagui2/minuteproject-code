@@ -365,6 +365,19 @@
 	<!-- ===================================================================== -->
 	<!-- macro definitions -->
 	<!-- ===================================================================== -->
+	<macrodef name="macro_generate_and_build_application">
+		<attribute name="config" />
+		<attribute name="display" />
+		<attribute name="maven.basedir"  />
+		<attribute name="maven.goal" default="package"  />
+		<sequential>
+			<!--<delete dir="${demo.output.dir}/@{maven.basedir}"></delete>-->
+			<macro_generate_application display="@{display}" config="@{config}"/>
+			<macro_build maven.basedir="@{maven.basedir}" maven.goal="@{maven.goal}"/>
+			<maven basedir="${demo.output.dir}/@{maven.basedir}" options="" goal="@{maven.goal}" resultproperty="maven.build.result" />
+		</sequential>
+	</macrodef>
+
 	<macrodef name="macro_generate_and_build">
 		<attribute name="config" />
 		<attribute name="display" />
@@ -673,7 +686,7 @@
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
 	<target name="generation-build-SDD" depends="release-application" >
 		<parallel threadcount="2">
-			<macro_generate_and_build display="SDD-kendoui-sakila-porphyry" config="porphyry-sakila-KendoUi.xml" maven.basedir="REST-KendoUi/sakiporphy" />
+			<macro_generate_and_build_application display="SDD-kendoui-sakila-porphyry" config="porphyry-sakila-KendoUi.xml" maven.basedir="REST-KendoUi/sakiporphy" />
 			<macro_generate_and_build display="sakila-SDD-KendoUi" config="sakila-SDD-KendoUi.xml" maven.basedir="REST-KendoUi/sakila" />
 		</parallel>
 		<!--
