@@ -668,6 +668,20 @@
 	
 
 	<!-- ===================================================================== -->
+	<!-- generation demo SDD -->
+	<!-- ===================================================================== -->
+	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
+	<target name="generation-build-SDD" depends="release-application" >
+		<parallel threadcount="2">
+			<macro_generate_and_build display="SDD-kendoui-sakila-porphyry" config="porphyry-sakila-KendoUi.xml" maven.basedir="REST-KendoUi/sakiporphy" />
+			<macro_generate_and_build display="sakila-SDD-KendoUi" config="sakila-SDD-KendoUi.xml" maven.basedir="REST-KendoUi/sakila" />
+		</parallel>
+		<!--
+			<antcall target="generation-build-northwind"/>			
+		 -->
+	</target>
+
+	<!-- ===================================================================== -->
 	<!-- generation demo webapp + rest + ws -->
 	<!-- ===================================================================== -->
 	<!-- for generation + build + deploy of webapps depends on MAVEN and TOMCAT environment vars -->
