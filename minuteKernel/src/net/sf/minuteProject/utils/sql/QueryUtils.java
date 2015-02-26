@@ -288,6 +288,8 @@ public class QueryUtils {
 		}
 		return "no column index "+i+"of query input bean!";
 	}
+	
+
 	public static String getColumnVariable(Query query, String name) {
 		Table table = query.getOutputBean();
 		Column column = ColumnUtils.getColumn(table, name);
@@ -300,7 +302,7 @@ public class QueryUtils {
 	public static String getColumnTextVariable(Query query, String columnName) {
 		if (query==null)
 			return "QUERY is null!";
-		return getColumnVariable(query, 1);
+		return getColumnVariable(query, columnName);
 	}
 	public static String getColumnTextVariable(Query query) {
 		if (query==null)
@@ -308,6 +310,11 @@ public class QueryUtils {
 		return getColumnVariable(query, 1);
 	}
 	
+	public static String getColumnValueVariable(Query query, String columnName) {
+		if (query==null)
+			return "QUERY is null!";
+		return getColumnVariable(query, columnName);
+	}
 	public static String getColumnValueVariable(Query query) {
 		if (query==null)
 			return "QUERY is null!";
