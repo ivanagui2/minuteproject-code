@@ -48,9 +48,29 @@ public class PresentationUtils {
 		if (column.isHidden())
 			return true;
 		if (query.getQueryDisplay()!=null && query.getQueryDisplay().getResultRowDisplay()!=null) {
-			return !ParserUtils.isInList(column.getName(), query.getQueryDisplay().getResultRowDisplay());
+			return !ParserUtils.isInListLowerCase(column.getName(), query.getQueryDisplay().getResultRowDisplay());
 		} else {
 			return false;
+		}
+	}
+	
+	public static boolean isLinkUrl (Column column, Query query) {
+		return (getLinkUrlKendoUiTemplate(column, query)==null)? false: true;
+	}
+	
+	public static String getLinkUrlKendoUiTemplate (Column column, Query query) {
+		if (query!=null && column!=null && query.getQueryDisplay()!=null 
+				&& query.getQueryDisplay().getResultRowLinkField() != null
+				&& query.getQueryDisplay().getResultRowLinkRootUrl()!=null) {
+			String resultRowLinkRootUrl = query.getQueryDisplay().getResultRowLinkRootUrl();
+			String resultRowLinkField = query.getQueryDisplay().getResultRowLinkField(); 
+			String resultRowLinkRootUrlAppendedField = query.getQueryDisplay().getResultRowLinkRootUrlAppendedField(); 
+			if (column.getName().toLowerCase().equals(resultRowLinkField.toLowerCase())) {
+				return resultRowLinkRootUrl+"#= "+FormatUtils.getJavaNameVariable(resultRowLinkRootUrlAppendedField)+" #";
+			}
+			return null;
+		} else {
+			return null;
 		}
 	}
 	
