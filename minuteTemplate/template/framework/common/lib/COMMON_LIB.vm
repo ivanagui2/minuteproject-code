@@ -405,10 +405,20 @@ $!updatedAreaSnippet
 		) {
 		String query = QUERY_NATIVE;
 		boolean isWhereDone = false;
+ 
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
-		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkName}));  
+		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkNameString}));  
 #end
+#*  
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#foreach($queryChunkValue in $queryChunk.queryChunkValues)
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkValueName}));  
+#end
+#end
+*#
 #foreach ($filter in $query.queryFilters)
 		if (
 ##TODO Case none
@@ -433,8 +443,8 @@ $!updatedAreaSnippet
 	}
 #end
 #foreach($queryChunk in $query.getQueryChunks())
-#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
-	String get${chunkNameString}(String ${chunkName}) {
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+	String get${chunkName}(String ${chunkName}) {
 #foreach($queryChunkValue in $queryChunk.queryChunkValues)
 #set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
 		if ("${chunkValueName}".equals(${chunkName}))
