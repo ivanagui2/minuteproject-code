@@ -31,7 +31,11 @@ $!updatedAreaSnippet
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        String $chunkName 
+#else
         ,String $chunkName 
+#end
 #end
 		) ;
 #end
