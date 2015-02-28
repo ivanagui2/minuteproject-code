@@ -61,7 +61,7 @@
 	  // menu
 #putKendoUIMenu()
 
-#if ($inputBean.columns.size()==0)
+#if ($inputBean.columns.size()==0 && $query.getQueryChunks().size()==0)
 		searchSdd(); //perform directly the query
 ## TODO also when have some default mandatory query-param
 #end

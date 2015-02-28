@@ -62,7 +62,11 @@ $!updatedAreaSnippet
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        String $chunkName 
+#else
         ,String $chunkName 
+#end
 #end
     	) {
         return ${sddDaoInterfaceVariable}.execute (
@@ -71,7 +75,11 @@ $!updatedAreaSnippet
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-        	, $chunkName 
+#if(!$isNotVoidInput && $velocityCount==1) 
+        	$chunkName 
+#else
+        	,$chunkName  
+#end
 #end
         );
     }

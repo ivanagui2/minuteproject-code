@@ -87,7 +87,11 @@ $!updatedAreaSnippet
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        String $chunkName 
+#else
         ,String $chunkName 
+#end 
 #end
 		) {
 		$sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable = new $sddOutputBeanCollectionClass();
@@ -97,7 +101,11 @@ $!updatedAreaSnippet
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        	$chunkName 
+#else
         	, $chunkName 
+#end
 #end
 			);
 		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (list);
