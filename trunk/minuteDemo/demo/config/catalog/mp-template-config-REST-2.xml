@@ -16,13 +16,14 @@
 		outputdir="src/main/java"
 		libdir="lib/REST_LIB.vm">
 
+<!--  add also RESTDbAPILookupResource dependencies
         <template name="RESTDbAPILookupResource" templateFileName="RESTDbAPILookupResource.vm" 
             technicalPackage="rest"
             file-extension="java" file-prefix="" file-suffix="LookupDefaultingResource"
             has-updatable-nature="true" 
             scope-specific-value="model">
         </template> 
-        
+-->        
 		<template
 			name="RESTDbAPIGenericResource" templateFileName="RESTDbAPIGenericResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest" add-model-name="false" 
