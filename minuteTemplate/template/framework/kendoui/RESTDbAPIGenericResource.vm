@@ -1,14 +1,5 @@
 #putJPA2TemplateDefinition()
 #exposeVariableModelSpecific()
-#if($isSpringBackend)
-#exposeSpringDomainObjectSpecific()
-#elseif($isEJBBackend)
-#exposeEJBDomainObjectSpecific()
-#end
-#exposeSpringServiceDomainObject()
-#set ($EJBDaoImplClass = $SpringServiceInterfaceClass)
-#set ($EJBDaoImplVariable = $SpringServiceInterfaceVariable)
-#exposeSpringModelSpecific()
 
 package $packageName;
 
