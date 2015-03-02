@@ -238,4 +238,8 @@ public interface BaseColumn extends GeneratorBean{
 	public QueryParamLink getQueryParamLink ();
 	
 	public void setQueryParamLink (QueryParamLink queryParamLink);
+	
+	public boolean isArray ();
+	
+	public void setIsArray(boolean isArray);
 }

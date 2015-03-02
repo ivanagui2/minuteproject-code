@@ -21,7 +21,7 @@ public class QueryParam extends Field {
 	private String converter;
 	private String likeMode;
 	private QueryParamLink queryParamLink;
-	private boolean isFilter=false;
+	private boolean isFilter=false, isArray=false;
 //	private Stereotype stereotype;
 	
 	public String getSizeOrDefault() {
@@ -138,5 +138,13 @@ public class QueryParam extends Field {
 	}
 	public String getFilterName() {
 		return null;
+	}
+	
+	public boolean isArray () {
+		return isArray;
+	}
+	
+	public void setIsArray(boolean isArray) {
+		this.isArray = isArray;
 	}
 }
