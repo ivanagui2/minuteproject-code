@@ -63,6 +63,11 @@ public class QueryUtilsTest {
 	public static final String query4ParamType = "string";
 	public static final String query4ParamSample = "'ff'";
 	
+	public static final String queryInJdbc = "SELECT A, B from T WHERE F in (?...)";
+	public static final String queryInFull = "SELECT A, B from T WHERE F in ('ff','ee')";
+	public static final String queryInParamType = "string";
+	public static final String queryInParamSample = "'ff','ee'";
+	
 	Query query1;
 	
 	@Before
@@ -210,6 +215,19 @@ public class QueryUtilsTest {
 		String s = QueryUtils.getFullQuerySample(query);
 		//then
 		assertTrue(s +" but expect :"+query4Full_FilterWithDuplicate, query4Full_FilterWithDuplicate.equals(s));
+	}
+	
+	@Test
+	public void queryInParams() {
+		//given
+		Query query = getQuery(queryInJdbc);
+		QueryParams queryParams = new QueryParams();
+		query.setQueryParams(queryParams);
+		query.getQueryParams().addQueryParam(getQueryParam(queryInParamType, queryInParamSample));
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+queryInFull, queryInFull.equals(s));
 	}
 
 	
