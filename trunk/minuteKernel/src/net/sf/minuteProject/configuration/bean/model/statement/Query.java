@@ -261,11 +261,14 @@ public class Query extends AbstractConfiguration {
 	private void complementColumn(Table table, Direction direction) {
 		List<QueryParam> list = getColumns(direction);
 		//TODO correct double loop error with duplicated columns
+		//copy info to duplicate
 		for (QueryParam queryParam : list) {
 			for (Column column : table.getColumns()) {
 				if (column.getName().equals(queryParam.getName())) {
 					column.setProperties(queryParam.getProperties());
 					column.setStereotype(queryParam.getStereotype());
+					column.setQueryParamLink(queryParam.getQueryParamLink());
+					column.setIsArray(queryParam.isArray());
 				}
 			}
 		}
@@ -284,27 +287,6 @@ public class Query extends AbstractConfiguration {
 			return getOutputParams().getQueryParams();
 		return new ArrayList<QueryParam>();
 	}
-
-//	private org.apache.ddlutils.model.Column getColumn(QueryParam queryParam,
-//			String name) {
-//		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
-//		column.setName(name);
-//		String type = queryParam.getType();
-//		if (type==null) type = "string";
-//		column.setType(convertType(type));
-//		column.setSize(queryParam.getSizeOrDefault());
-//		column.setScale(queryParam.getScale());
-//		column.setDefaultValue(queryParam.getDefaultValue());
-//		if (ConvertUtils.DB_DECIMAL_TYPE.equals(type)
-//				&& queryParam.getScale() > 0) {
-//			column.setType(ConvertUtils.DB_DOUBLE_TYPE);
-//		}
-//		// column.setPrecisionRadix(queryParam.getPrecisionRadix());
-//		// column.setTypeCode(fc.getTypeCode());
-//		column.setPrimaryKey(queryParam.isId()); // cannot be set here
-//		column.setRequired(queryParam.isMandatory());
-//		return column;
-//	}
 
 	private org.apache.ddlutils.model.Column getColumn(org.apache.ddlutils.model.Table table, QueryParam queryParam) {
 		org.apache.ddlutils.model.Column column = new org.apache.ddlutils.model.Column();
