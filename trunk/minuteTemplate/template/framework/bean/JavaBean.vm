@@ -27,8 +27,12 @@ public class ${className} {
 #end
 #foreach($column in ${table.columns})
 #if (!$column.hasBeenDuplicated())
+#if (!$column.isArray())
 #putColumnParamNaming()
     private $columnType $columnVar;
+#else
+    private List<$columnType> $columnVar;
+#end
 #end
 #end
 
@@ -40,6 +44,7 @@ public class ${className} {
 	
 #foreach($column in ${table.columns})
 #if (!$column.hasBeenDuplicated())
+#if (!$column.isArray())
 #putColumnParamNaming()
 #if($hasDefaultValue)
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
@@ -54,7 +59,17 @@ public class ${className} {
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
+#else
+    public List<${columnType}> get${columnClass} () {
+        if (${columnVar}==null)
+            ${columnVar} = new ArrayList<$columnType>();
+        return ${columnVar};
+    }
 
+    public void add${columnClass} (${columnType} element) {
+        get${columnClass} ().add(element);
+    }
+#end
 #end
 #end
 
