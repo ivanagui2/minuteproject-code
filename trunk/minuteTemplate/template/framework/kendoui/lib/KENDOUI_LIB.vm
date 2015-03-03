@@ -369,25 +369,54 @@ $updatedAreaSnippet
 		}
 #end
 #end
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParams()
+#columnJavaNaming()
+        var $columnVar = $("#field-$columnVar").val();
+#if($columnUtils.isTime($column))
+        ${columnVar}Date = new Date(${columnVar});
+		${columnVar} = kendo.toString(${columnVar}Date, "yyyy-MM-dd");
+#end
+#end
+#end
+		var hasSerieExtraParam = false;
 #foreach ($actionEntry in $action.actionColumnMapEntries)
 		if (serieField != undefined) {
 #if ($actionEntry.isUpperCaseConvert())
 			serieField = serieField.toUpperCase();
 #end
 			if ("${actionEntry.columnField}".toUpperCase() == serieField) {
+			   hasSerieExtraParam = true;
 #foreach ($ae in $actionEntry.actionFieldMapEntries)
-#set($static=$ae.staticValue)
 #set($to=${ae.toActionField})
+#if ($ae.origin=="static-value")
+#set($toValue=$ae.staticValue)
 				if (!isQuestionMarkDone) {
-					targetUrl = targetUrl +"?" +"$to=$static";
+					targetUrl = targetUrl +"?" +"$to=$toValue";
 					isQuestionMarkDone = true;
 				} else {
-					targetUrl = targetUrl +"&" +"$to=$static";
+					targetUrl = targetUrl +"&" +"$to=$toValue";
 				}
+#elseif ($ae.origin=="input-field")
+#set($toValue=$ae.inputField)
+				if (!isQuestionMarkDone) {
+					targetUrl = targetUrl +"?" +"$to="+$columnVar;
+					isQuestionMarkDone = true;
+				} else {
+					targetUrl = targetUrl +"&" +"$to="+$columnVar;
+				}
+#else
+#set($toValue=$ae.outputField)
+//TODO mapping
+#end
+
 #end
 			}
 		}
 #end
+		if (!hasSerieExtraParam) 
+			return;
 #end
 #if(!$isChart)
 #set($actionName=$formatUtils.performDisplayReadableFirstUpperOnlyName($action.name))

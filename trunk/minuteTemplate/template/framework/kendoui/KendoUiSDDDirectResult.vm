@@ -99,6 +99,9 @@ $updatedAreaSnippet
 #else
 //						width : toset,
 #end
+#if ($presentationUtils.isLinkUrl($column, $query))
+				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)">#=${columnVar}#</a>',
+#end
 #if ($presentationUtils.isHidden($column, $query))
 						hidden : true
 #else
