@@ -93,4 +93,13 @@ public class ActionFieldMapEntry {
 		this.staticValue = staticValue;
 	}
 	
+	public String getOrigin() {
+		if (!StringUtils.isEmpty(staticValue)) {
+			return "static-value";
+		}
+		if (!StringUtils.isEmpty(inputField)) {
+			return "input-field";
+		}
+		return "output-field";
+	}
 }
