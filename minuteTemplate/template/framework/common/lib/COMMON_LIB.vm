@@ -472,7 +472,14 @@ $!updatedAreaEnd
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
             if (${sddInputBeanVariable}.get$columnClass()==null) {
+#if (!$column.isArray())
                pstmt.setNull(index, java.sql.Types.${column.type});
+#else
+			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			      pstmt.setNull(index, java.sql.Types.${column.type});
+			      index ++;
+			   }
+#end
             } else {
 #if(${column.hasProperty("like-mode")})
 #set($likeMode = ${column.getPropertyValue("like-mode")})
@@ -492,7 +499,14 @@ $!updatedAreaEnd
 #if($columnUtils.isTimeColumn($column))
                pstmt.set$columnType(index, new java.sql.Date(${sddInputBeanVariable}.get$columnClass().getTime())); 
 #else
+#if (!$column.isArray())
                pstmt.set$columnType(index, ${sddInputBeanVariable}.get$columnClass()); 
+#else
+			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			      pstmt.set$columnType(index, element);
+			      index ++;
+			   }
+#end
 #end
 #end
             }
