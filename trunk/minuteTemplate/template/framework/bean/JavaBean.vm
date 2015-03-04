@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.StringUtils;
+
 $!updatedAreaImport
 /**
  *
@@ -68,6 +70,12 @@ public class ${className} {
 
     public void add${columnClass} (${columnType} element) {
         get${columnClass} ().add(element);
+    }
+    
+    public void set$columnClass (String $columnVar) {
+    	for (${columnType} element : StringUtils.split($columnVar, ",")) {
+        	add${columnClass} (element);
+        }
     }
 #end
 #end

@@ -218,7 +218,11 @@
 #set($labelFor=$columnVar)
 #set($fieldId="field-$columnVar")
 #if($columnUtils.hasCheckConstraint($column))
+#if (!$column.isArray())
 	$("#${fieldId}").kendoDropDownList();
+#else	
+	$("#${fieldId}").kendoMultiSelect();
+#end
 #elseif($columnUtils.isTimeColumn($column))
 	$("#${fieldId}").kendoDatePicker();
 #elseif($columnUtils.isBoolean($column))
@@ -692,7 +696,11 @@ $!updatedAreaEnd
         var ${columnVar} = $("#$fieldId").val();
 #end
 #else
+#if (!$column.isArray())
         var $columnVar = this.get("$columnVar");
+#else
+        var $columnVar = $("#field-$columnVar").data("kendoMultiSelect").value();
+#end
 #end
 #if($columnUtils.isTime($column))
         ${columnVar}Date = new Date(${columnVar});
