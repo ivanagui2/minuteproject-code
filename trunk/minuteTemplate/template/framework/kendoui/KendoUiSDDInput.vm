@@ -120,7 +120,11 @@
 #set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #if($isMasterData)
+#if($column.isArray())
+        $("#${fieldId}").kendoMultiSelect();
+#else
         $("#${fieldId}").kendoDropDownList();
+#end
 		var result${sddTargetOutputBeanClass};
 		$.ajax({
             type: 'GET',

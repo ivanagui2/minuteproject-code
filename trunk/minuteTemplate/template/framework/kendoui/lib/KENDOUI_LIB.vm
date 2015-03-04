@@ -498,6 +498,13 @@ $!updatedAreaEnd
               position: "top"
           },
           seriesDefaults: {
+#if($isPieChart)
+               labels: {
+               		visible: true,
+##               		template: "#= category #: \n #= value#%"
+               		background: "transparent"
+               },
+#end
                type: "column"
           },
           series:
@@ -506,6 +513,11 @@ $!updatedAreaEnd
 #putColumnParamNaming()
 #set($dimVar = "${columnVar}$velocityCount")
 				{
+#if($isPieChart)
+					type : "pie",
+#elseif ($isBarChart)
+					type : "bar",
+#end
                     field: "${columnVar}",
                     name: "${columnVar}"
 				}#if ($velocityCount < $dimensions.size()) , #end
@@ -685,21 +697,25 @@ $!updatedAreaEnd
 #if($isMasterData)
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldKey))
 #set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
-        var ${columnVar}Selected = this.get("${columnVar}Selected");
-        var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
+#if($column.isArray())
+		var ${columnVar} = $("#field-$columnVar").data("kendoMultiSelect").value();
+#else
+		var ${columnVar}Selected = this.get("${columnVar}Selected");
+		var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
+#end
 #else
 #if($column.queryParamLink.fieldKey == $column.queryParamLink.fieldName)
 #set($fieldId="field-$columnVar")
 #else
 #set($fieldId="field-${columnVar}Selected")
 #end
-        var ${columnVar} = $("#$fieldId").val();
+		var ${columnVar} = $("#$fieldId").val();
 #end
 #else
 #if (!$column.isArray())
-        var $columnVar = this.get("$columnVar");
+		var $columnVar = this.get("$columnVar");
 #else
-        var $columnVar = $("#field-$columnVar").data("kendoMultiSelect").value();
+		var $columnVar = $("#field-$columnVar").data("kendoMultiSelect").value();
 #end
 #end
 #if($columnUtils.isTime($column))
