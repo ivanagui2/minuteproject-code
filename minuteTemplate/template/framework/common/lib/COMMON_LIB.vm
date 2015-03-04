@@ -416,8 +416,19 @@ $!updatedAreaSnippet
 #end
 		) {
 		String query = QUERY_NATIVE;
-		boolean isWhereDone = false;
- 
+		boolean isWhereDone = false;//
+#foreach($column in $inputBean.columns)
+#if($column.isArray())
+#putColumnParamNaming()
+	   StringBuffer inSb$columnVar = new StringBuffer();
+	   for (int i = 0; i < ${sddInputBeanVariable}.get$columnClass().size(); i++) {
+	   	  inSb${columnVar}.append("?");
+	   	  if (i+1!=${sddInputBeanVariable}.get$columnClass().size())
+	   	  	inSb${columnVar}.append(",");
+	   }
+	   query = StringUtils.replace (query, "?...", inSb${columnVar}.toString());
+#end
+#end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
 		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkNameString}));  
@@ -429,6 +440,14 @@ $!updatedAreaSnippet
 #set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
 		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkValueName}));  
 #end
+#end
+#if (!$column.isArray())
+               pstmt.set$columnType(index, ${sddInputBeanVariable}.get$columnClass()); 
+#else
+			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			      pstmt.set$columnType(index, element);
+			      index ++;
+			   }
 #end
 *#
 #foreach ($filter in $query.queryFilters)
