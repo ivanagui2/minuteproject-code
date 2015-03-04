@@ -288,11 +288,31 @@ $wherecustomer
 						category="pie-chart">
 						<query-body> <!-- dimensions column first -->
 							<value>
-<![CDATA[select * from sales_by_film_category where category in (?...) ]]>
+<![CDATA[select category, total_sales from sales_by_film_category where category in (?...) order by category]]>
                             </value>
 						</query-body>
 						<query-params>
-							<query-param name="categories" type="string" is-in-clause="true" sample="'hx','tx'"></query-param>
+							<query-param name="categories" type="string" is-in-clause="true" sample="'hx','tx'">
+								<property tag="checkconstraint">
+									<property name="Action" />
+									<property name="Children" />
+									<property name="Drama" />
+								</property>
+							</query-param>
+						</query-params>
+					</query>
+					
+					<query name="sales_by_film_among_category_list" id="sales_by_film_among_category_list" package-name="dashboard"
+						category="pie-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select category, total_sales from sales_by_film_category where category in (?...) order by category]]>
+                            </value>
+						</query-body>
+						<query-params>
+							<query-param name="categories" type="string" is-in-clause="true" sample="'hx','tx'">
+								<query-param-link sdd-query-name="distinct-categories" field-name="name" field-key="name"/>
+							</query-param>
 						</query-params>
 					</query>
 					
