@@ -201,6 +201,8 @@ public class QueryUtils {
 			return "'"+sample+"'";
 		if (type.equals(FieldType.DATE))
 			return "'"+sample+"'";
+		if (type.equals(FieldType.TIMESTAMP))
+			return "'"+sample+"'";
 		return sample;
 	}
 
@@ -240,6 +242,10 @@ public class QueryUtils {
 		return "dashboard".equals(query.getType());
 	}
 	
+	public static boolean isColumnChart(Query query) {
+		return "column-chart".equals(query.getCategory());
+	}	
+	
 	public static boolean isPieChart(Query query) {
 		return "pie-chart".equals(query.getCategory());
 	}
@@ -249,10 +255,8 @@ public class QueryUtils {
 	}
 	
 	public static boolean isChart(Query query) {
-		return isPieChart(query) || isBarChart(query);
+		return isPieChart(query) || isBarChart(query) || isColumnChart(query);
 	}
-	
-	
 	
 	public static Column getOutputBeanDimension(Query query, int i) {
 		if (query.getOutputBean().getColumnCount()>=i+1)
