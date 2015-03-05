@@ -79,8 +79,11 @@
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 					{
-//						width : toset,
+//						width : toset, $column.type
 #set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+#if($columnUtils.isTime($column))
+						template: '#= kendo.toString(kendo.parseDate(operationDate),"dd/MM/yyyy") #' ,
+#end
 	                	title: "$fieldLabel",
 	                	field: "$columnVar",
 #if ($presentationUtils.isLinkUrl($column, $query))
