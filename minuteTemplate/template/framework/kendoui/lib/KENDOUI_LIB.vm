@@ -505,7 +505,7 @@ $!updatedAreaEnd
                		background: "transparent"
                },
 #end
-               type: "column"
+##               type: "column"
           },
           series:
                [
@@ -517,9 +517,12 @@ $!updatedAreaEnd
 					type : "pie",
 #elseif ($isBarChart)
 					type : "bar",
+#elseif ($isColumnChart)
+					type : "column",
 #end
                     field: "${columnVar}",
-                    name: "${columnVar}"
+#set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
+                    name: "$fieldLabel"
 				}#if ($velocityCount < $dimensions.size()) , #end
 
 #end
@@ -562,7 +565,10 @@ $!updatedAreaBegin
 #if($isUpdated)
 $updatedAreaSnippet
 #else
-//				width : toset,
+//				width : toset, $column.type
+#end
+#if($columnUtils.isTime($column))
+				template: '#= kendo.toString(kendo.parseDate(operationDate),"dd/MM/yyyy") #' ,
 #end
 #if ($presentationUtils.isLinkUrl($column, $query))
 				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)">#=${columnVar}#</a>',
