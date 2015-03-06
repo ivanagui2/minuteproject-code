@@ -329,12 +329,14 @@ $updatedAreaSnippet
 #end
 		var targetUrl = "/$targetUrl";
 		isQuestionMarkDone = false;
+		var hasSerieExtraParam = false;
 #set($cpt=0)
 #foreach ($field in $query.queryFields)
 #if ($field.isKey())
 #set($fieldName=$field.name)
 		var $fieldName = item.get("$fieldName");
 		if ($fieldName != undefined) {
+			hasSerieExtraParam = true;
 			if (!isQuestionMarkDone) {
 				targetUrl = targetUrl +"?" +"$fieldName="+$fieldName;
 				isQuestionMarkDone = true;
@@ -351,6 +353,7 @@ $updatedAreaSnippet
 #set($to=${actionEntry.toActionField})
 		var $to = item.get("$fieldName");
 		if ($to != undefined) {
+			hasSerieExtraParam = true;
 			if (!isQuestionMarkDone) {
 				targetUrl = targetUrl +"?" +"$to="+$to;
 				isQuestionMarkDone = true;
@@ -364,6 +367,7 @@ $updatedAreaSnippet
 #set($to=${actionEntry.toActionField})
 		var $to = $("#form-${tableVariableName} :input[name='$fieldName']").val();
 		if ($to != undefined) {
+			hasSerieExtraParam = true;
 			if (!isQuestionMarkDone) {
 				targetUrl = targetUrl +"?" +"$to="+$to;
 				isQuestionMarkDone = true;
@@ -384,7 +388,6 @@ $updatedAreaSnippet
 #end
 #end
 #end
-		var hasSerieExtraParam = false;
 #foreach ($actionEntry in $action.actionColumnMapEntries)
 		if (serieField != undefined) {
 #if ($actionEntry.isUpperCaseConvert())
