@@ -1,5 +1,4 @@
-#putJPA2TemplateDefinition()
-#exposeVariableModelSpecific()
+#exposeBackendTechnology()
 
 package $packageName;
 
@@ -50,8 +49,8 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ejb.EJB;
-
 #end
+
 import net.sf.minuteProject.model.service.GenericService;
 import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
 
