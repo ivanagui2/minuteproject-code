@@ -54,7 +54,7 @@ import javax.ejb.EJB;
 #end
 import net.sf.minuteProject.model.service.GenericService;
 import net.sf.minuteProject.architecture.bsla.domain.AbstractDomainObject;
-#exposeJPA2Import()
+
 /**
  *
  * <p>Title: ${className}</p>
