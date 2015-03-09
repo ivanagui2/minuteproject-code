@@ -67,3 +67,9 @@
        wnd.content(detailsTemplate(dataItem));
        wnd.center().open();
    }
+   
+	function getContextPath() {
+		return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+	}
+	
+	var contextPath = getContextPath();
