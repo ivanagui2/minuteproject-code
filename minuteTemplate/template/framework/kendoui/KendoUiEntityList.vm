@@ -7,7 +7,7 @@
 <head>
 <title></title>
 
-#putKendoUIJSImport()
+#putKendoUIJSImport("../../../")
 
 </head>
 <body>
@@ -51,7 +51,7 @@ $(function () {
 	transport: {
      read: {
 ##      url: "../../data/entity/${tableClassName}/find", //todo inject url
-      url: "/data/entity/${tableClassName}/find",
+      url: contextPath+"/data/entity/${tableClassName}/find",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
       cache: false

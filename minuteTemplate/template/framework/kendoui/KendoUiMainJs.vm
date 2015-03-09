@@ -74,3 +74,7 @@
 	
 	var contextPath = getContextPath();
 	
+	function getMenuLink(link) {
+		return contextPath+link;
+	}
+	

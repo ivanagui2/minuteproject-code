@@ -15,7 +15,7 @@
 <head>
 <title></title>
 
-#putKendoUIJSImport()
+#putKendoUIJSImport("../../../")
 
 </head>
 
@@ -126,7 +126,7 @@
                 }
 #end
 #end
-				var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
+				var dataSourceUrl = contextPath+"/data/sdd/${tableClassName}In"+query;
 
                 $("#ssd-output-chart").kendoChart({
                     dataSource: {
