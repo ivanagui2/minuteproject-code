@@ -6,18 +6,18 @@
 #end
 #end
 
-#macro(putKendoUIJSImport)
+#macro(putKendoUIJSImport $pathToRoot)
 #set($kendoUiVersion="2014.1.416")
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
-<script src="/$kendoUiMainJsPath"></script>
+<script src="${pathToRoot}$kendoUiMainJsPath"></script>
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
-<link href="/$kendoUiMainCssPath" rel="stylesheet" />
+<link href="${pathToRoot}$kendoUiMainCssPath" rel="stylesheet" />
 #end
 
 #macro(putKendoUIMenuPackage)
@@ -64,7 +64,7 @@
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
 ##exposeVariableEntitySpecific()
 #exposeKendoUISddSpecific()
-        <li><a href="/$entityFullPath"> $tableLabel</a></li>
+        <li><a onclick="javascript:location.href=getMenuLink('/$entityFullPath');return false;" href="/$entityFullPath"> $tableLabel</a></li>
 #end
     </ul>
 </li>
@@ -246,7 +246,7 @@
 #foreach ($model in $configuration.models())
 #exposeKendoUIModelSpecific()
         	$.ajax({
-            	url: "/$kendoUiMenuStructurePath",
+            	url: contextPath+"/$kendoUiMenuStructurePath",
             	success: function (data) { $('#menu').append(data); },
             	dataType: 'html',
             	async : false
@@ -327,7 +327,7 @@ $updatedAreaSnippet
 #else
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResultJs))
 #end
-		var targetUrl = "/$targetUrl";
+		var targetUrl = contextPath+"/$targetUrl";
 		isQuestionMarkDone = false;
 		var hasSerieExtraParam = false;
 #set($cpt=0)
@@ -650,7 +650,7 @@ $!updatedAreaEnd
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddInput))
 #if(!$isMasterData)
 	function openSearchFor${columnVar}() {
-		var targetUrl = "/${targetUrl}?_option_menu=false&_option_affect=true&_option_affect_field_name=${fieldName}&_option_affect_field_key=${fieldKey}&_option_affect_field_name_to=${columnVar}&_option_affect_field_key_to=${columnVar}";
+		var targetUrl = contextPath+"/${targetUrl}?_option_menu=false&_option_affect=true&_option_affect_field_name=${fieldName}&_option_affect_field_key=${fieldKey}&_option_affect_field_name_to=${columnVar}&_option_affect_field_key_to=${columnVar}";
 		openPopup ("search $columnText",targetUrl, 1000, 600);
 	}
 #end
@@ -744,7 +744,7 @@ $!updatedAreaEnd
         }
 #end
 #end
-		var dataSourceUrl = "/data/sdd/${tableClassName}In"+query;
+		var dataSourceUrl = contextPath+"/data/sdd/${tableClassName}In"+query;
 #end
 
 
@@ -768,8 +768,8 @@ $!updatedAreaEnd
 #exposeKendoUITemplate()
 #set($kendoUiMenuStructurePath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenuStructure))
 #set($kendoUiMenuPath=$commonUtils.getTemplateArtifactName($generatorBean, $templateKendoUiMenu))
-#set($kendoUiMainCssPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainCss))
-#set($kendoUiMainJsPath=$commonUtils.getArtifactRelativePathDirAndFullName($generatorBean, $template, $templateKendoUiMainJs))
+#set($kendoUiMainCssPath=$commonUtils.getArtifactRootPathDirAndFullName($generatorBean, $template, $templateKendoUiMainCss))
+#set($kendoUiMainJsPath=$commonUtils.getArtifactRootPathDirAndFullName($generatorBean, $template, $templateKendoUiMainJs))
 #end
 
 #macro(exposeKendoUIEntitySpecific)

@@ -20,7 +20,7 @@
 <head>
 <title></title>
 
-#putKendoUIJSImport()
+#putKendoUIJSImport("../../../")
 
 </head>
 
@@ -129,7 +129,7 @@
 		$.ajax({
             type: 'GET',
 			async: false,
-            url: "/data/sdd/${sddTargetOutputBeanClass}In",
+            url: contextPath+"/data/sdd/${sddTargetOutputBeanClass}In",
             dataType: "json",
             success: function(data){
                 result${sddTargetOutputBeanClass}= data;
