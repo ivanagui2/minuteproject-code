@@ -195,7 +195,7 @@ html {
 }
 
 .button-icon-plus {
-	background: url("/icon/plus_h.png") no-repeat 5px 50%;
+	background: url("../icon/plus_h.png") no-repeat 5px 50%;
 }
 
 /* Button with icons*/
