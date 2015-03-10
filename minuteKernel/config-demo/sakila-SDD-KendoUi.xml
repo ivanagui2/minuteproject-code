@@ -355,12 +355,6 @@ ORDER BY total_sales DESC
 
 				</queries>
 			</statement-model>
-<<<<<<< .mine
-
-=======
-
-			
->>>>>>> .r3001
 		</model>
 		<targets catalog-entry="REST-KendoUi" >
 			<property name="target-server" value="tomcat"></property>
