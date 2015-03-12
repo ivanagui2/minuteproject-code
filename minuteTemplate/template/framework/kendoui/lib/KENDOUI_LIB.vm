@@ -180,7 +180,8 @@
 ##TODO if field_key != field-name => readonly
 		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
 		<input hidden="true" id="${fieldId}Selected" data-bind="value: ${columnVar}Selected" />
-		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:25px;"></a>
+		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:45px;"></a>
+		<a class="k-textbox" onclick="clearSearchFor${columnVar}()" title="Userlogin clear" >Clear</a>
 	</div>
 #end
 #else
@@ -652,6 +653,10 @@ $!updatedAreaEnd
 	function openSearchFor${columnVar}() {
 		var targetUrl = contextPath+"/${targetUrl}?_option_menu=false&_option_affect=true&_option_affect_field_name=${fieldName}&_option_affect_field_key=${fieldKey}&_option_affect_field_name_to=${columnVar}&_option_affect_field_key_to=${columnVar}";
 		openPopup ("search $columnText",targetUrl, 1000, 600);
+	}
+	function clearSearchFor${columnVar}() {
+		$("#${fieldId}").val("");
+		$("#${fieldId}Selected").val("");
 	}
 #end
 #end
