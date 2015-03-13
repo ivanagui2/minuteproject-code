@@ -117,6 +117,7 @@ $!updatedAreaEnd
                 });
 
 #exposeKendoUISDDActions()
+#exposeKendoUIShowDetailsAction()
 
 </script>
 ##exposeKendoUIDetailAction()
