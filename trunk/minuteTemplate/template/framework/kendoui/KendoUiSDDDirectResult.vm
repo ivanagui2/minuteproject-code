@@ -100,7 +100,7 @@ $updatedAreaSnippet
 //						width : toset, $column.type
 #end
 #if($columnUtils.isTime($column))
-				template: '#= kendo.toString(kendo.parseDate(operationDate),"dd/MM/yyyy") #' ,
+				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy") #' ,
 #end
 #if ($presentationUtils.isLinkUrl($column, $query))
 				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)">#=${columnVar}#</a>',
