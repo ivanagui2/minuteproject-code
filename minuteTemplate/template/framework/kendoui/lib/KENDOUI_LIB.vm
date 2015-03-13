@@ -17,6 +17,7 @@
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
+<link href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" rel="stylesheet" />
 <link href="${pathToRoot}$kendoUiMainCssPath" rel="stylesheet" />
 #end
 
@@ -180,8 +181,8 @@
 ##TODO if field_key != field-name => readonly
 		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
 		<input hidden="true" id="${fieldId}Selected" data-bind="value: ${columnVar}Selected" />
-		<a class="button-icon-plus" onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="width:45px;"></a>
-		<a class="k-textbox" onclick="clearSearchFor${columnVar}()" title="Userlogin clear" >Clear</a>
+		<a class="ui-icon ui-icon-circle-plus"   onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="margin-left: 10px; margin-top: 10px;"></a>
+		<a class="ui-icon ui-icon-circle-minus"  onclick="clearSearchFor${columnVar}()" title="Userlogin clear" style="margin-left: 10px; margin-top: 10px;" ></a>
 	</div>
 #end
 #else
@@ -250,7 +251,8 @@
             	url: contextPath+"/$kendoUiMenuStructurePath",
             	success: function (data) { $('#menu').append(data); },
             	dataType: 'html',
-            	async : false
+            	async : false,
+            	cache : true
         	});
         	$("#${model.name}-Menu").kendoMenu();
 #end
@@ -572,7 +574,7 @@ $updatedAreaSnippet
 //				width : toset, $column.type
 #end
 #if($columnUtils.isTime($column))
-				template: '#= kendo.toString(kendo.parseDate(operationDate),"dd/MM/yyyy") #' ,
+				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy") #' ,
 #end
 #if ($presentationUtils.isLinkUrl($column, $query))
 				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)">#=${columnVar}#</a>',
