@@ -197,6 +197,7 @@
 #exposeSDDSubUcSearch()
 
 #exposeKendoUISDDActions()
+#exposeKendoUIShowDetailsAction()
 #if($isChart)
     function onChartClick(e) {
        e.preventDefault();

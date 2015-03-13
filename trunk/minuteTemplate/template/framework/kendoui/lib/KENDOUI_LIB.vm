@@ -303,6 +303,15 @@
     });
 #end
 
+#macro(exposeKendoUIShowDetailsAction)     
+	function showDetails(e) {
+		e.preventDefault();
+		var dataItem = e.dataItem;
+		wnd.content(detailsTemplate(dataItem));
+		wnd.center().open();
+	}
+#end
+
 #macro(exposeKendoUISDDActions)
 #foreach ($action in $query.actions)
 #if(!$actionUtils.isReservedAction($action))
@@ -599,6 +608,9 @@ $!updatedAreaEnd
             scrollable: true,
             selectable: true
       });
+ 
+#exposeKendoUIShowDetailsAction()
+	
 #end
 
 #macro(exposeKendoUIDetailAction)
