@@ -67,6 +67,9 @@ import $EJBDaoImplImport;
 import $importDomainObjectUML;
 import $RESTDbAPIGenericResourceImport;
 import net.sf.minuteProject.model.service.GenericService;
+#if($columnUtils.isPartOfCompositePrimaryKey($primaryKeyFirstColumn))
+#set($primaryKeyJavaNameClass = $primaryKeyJavaNameClass+"_")
+#end
 #exposeJPA2Import()
 /**
  *
