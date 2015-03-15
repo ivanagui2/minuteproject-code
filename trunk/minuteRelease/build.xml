@@ -771,9 +771,9 @@
 		<!--<macro_build_and_deploy maven.basedir="REST-CXF-JEE/porphyry" project="REST" artifact="porphyryRestCxfJeeApp" />-->
 		<macro_build_and_deploy maven.basedir="REST-CXF-Spring/porphyry" project="REST" artifact="porphyryRestCxfApp" />
 		<!--<macro_build_and_deploy maven.basedir="REST-JEE/porphyry" project="REST-JEE" artifact="porphyryRESTApp" />-->
-		<!--<macro_build_and_deploy maven.basedir="REST-SpringMVC/porphyry" project="REST" artifact="porphyryRestSpringMVCApp" />-->
+		<!--<macro_build_and_deploy maven.basedir="REST-SpringMVC/porphyry" project="REST" artifact="porphyryRestSpringMVCApp" />
 		<macro_build_and_deploy maven.basedir="Vaadin/porphyry" project="vaadin" artifact="porphyryVaadinApp" />
-		<macro_build_and_deploy maven.basedir="Primefaces-Spring/porphyry" project="JSF-primefaces" artifact="porphyryApp" />
+		<macro_build_and_deploy maven.basedir="Primefaces-Spring/porphyry" project="JSF-primefaces" artifact="porphyryApp" />-->
 
 		<!-- primefaces-JEE and OX are deployed manually -->
 		
