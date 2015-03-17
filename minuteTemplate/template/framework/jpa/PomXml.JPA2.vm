@@ -143,6 +143,12 @@
             <groupId>com.autobizlogic.abl</groupId>
             <artifactId>autobizlogic</artifactId>
             <version>$autobizlogicVersion</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hibernate-jpa-2.0-api</artifactId>
+                    <groupId>org.hibernate.javax.persistence</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 #end
 #if($isQuerydslPowered)	

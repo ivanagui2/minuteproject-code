@@ -518,7 +518,7 @@ $!updatedAreaEnd
                		visible: true,
 ##               		template: "#= category #: \n #= value#%"
                		background: "transparent"
-               },
+               }
 #end
 ##               type: "column"
           },
