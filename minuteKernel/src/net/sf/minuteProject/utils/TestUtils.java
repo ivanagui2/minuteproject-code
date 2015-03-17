@@ -36,8 +36,8 @@ public class TestUtils {
 		}		
 //		if (dBType.equals("DECIMAL"))
 //			return  "getBigDecimal"+number+"()";
-		if (dBType.equals("SMALLINT"))
-			return  "getString"+number+"("+length+")";	
+//		if (dBType.equals("SMALLINT"))
+//			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("VARCHAR"))
 			return  "getString"+number+"("+length+")";	
 		if (dBType.equals("LONGVARCHAR"))
@@ -52,6 +52,8 @@ public class TestUtils {
 			return  "getInteger"+number+"()";	
 		if (dBType.equals("NUMERIC"))
 			return  "getInteger"+number+"()";		
+		if (dBType.equals("SMALLINT") || dBType.equals("TINYINT"))
+			return  "getShort"+number+"(\""+length+"\")";		
 		if (dBType.equals("DATE"))
 			return  "getDate()";
 		if (dBType.equals("TIMESTAMP"))
@@ -66,8 +68,8 @@ public class TestUtils {
 			return  "getString"+number+"("+length+")";
 		if (dBType.equals("BIT"))
 			return  "getBoolean"+number+"()";		//TINYINT
-		if (dBType.equals("TINYINT"))
-			return  "getString"+number+"("+length+")";		
+//		if (dBType.equals("TINYINT"))
+//			return  "getString"+number+"("+length+")";		
 		if (dBType.equals("OTHER") || "LONGVARBINARY".equals(dBType))
 			return  "getString"+number+"("+length+")";
 		return ""+dBType+" - not converted";//retStr;			
