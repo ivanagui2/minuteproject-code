@@ -66,6 +66,10 @@ not need since 4.0.0 spring release
         return new BigInteger(130, random).toString(length);
     }
 
+    public Short getRandomShort(String s) {
+        return Short.valueOf(s);
+    }
+    
     private Map<Class, Object> map;
 
     @Before
@@ -90,6 +94,18 @@ not need since 4.0.0 spring release
         return getRandomString(length);
     }
 
+    protected Short getShort (String setString) {
+        return getRandomShort(setString);
+    }
+    
+    protected Short getShort1 (String setString) {
+        return getShort(setString);
+    }
+    
+    protected Short getShort2 (String setString) {
+        return getShort(setString);
+    }
+    
     protected Integer getInteger1 () {
         return new Integer (100);
     }
