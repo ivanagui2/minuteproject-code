@@ -67,8 +67,8 @@
 					oncomplete="PF('suc${childrenListClass}Dialog').show()" update="container${childrenListClass}" />
 		</p:row>
 		<p:row>
-            <p:panel id="lbl${columnClass}-#{idValue}" header="#{i18n.$tableVariableName$separator$columnVar} #{jsfSemanticReferenceUtils.getStrippedSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_, 30)} ..." toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="parent${columnVar}_" collapsed="#{jsfSemanticReferenceUtils.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_) eq ''}" >
-				<${model.name}:${linkedTableClass}SemanticReference entity="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}_}"/>
+            <p:panel id="lbl${columnClass}-#{idValue}" header="#{i18n.$tableVariableName$separator$columnVar} #{jsfSemanticReferenceUtils.getStrippedSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}, 30)} ..." toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="parent${columnVar}" collapsed="#{jsfSemanticReferenceUtils.getSemanticReference${linkedTableClass}(${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}) eq ''}" >
+				<${model.name}:${linkedTableClass}SemanticReference entity="#{${entityControllerJSFVariable}.selected${tableClassName}.${columnVar}}"/>
 			</p:panel>
         </p:row>
         <p:message for="lbl${columnClass}-#{idValue}" />

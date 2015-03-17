@@ -77,7 +77,7 @@
 		 <p:column>
             <p:commandButton value="#{i18n.affect}" id="affectButton${linkedColumnClass}" update="#{affectFormId}:lbl${localColumnClass}-#{idValue}" actionListener="#{${entityControllerJSFVariable}.desactivateRender${localColumnClass}}" title="#{i18n.affectTitle}" onclick="PF('suc${childrenListClass}Dialog').hide()" process="@this">
 				<f:setPropertyActionListener value="#{item.${linkedColumnVariable}}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
-				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}_}" />
+				<f:setPropertyActionListener value="#{item}" target="#{${entityControllerJSFVariable}.selected${tableClassName}.${localColumnVariable}}" />
             </p:commandButton >
 		  </p:column>
     </p:dataTable>
