@@ -334,8 +334,8 @@ public class $className extends ${ModelGenericDaoJpaImplClass}<$tableClassName> 
         StringBuffer query = new StringBuffer();
         query.append ("SELECT $tableVariableName FROM $tableClassName $tableVariableName ");
 #foreach ($reference in $table.children)
-#if(!$linktableDB.isManyToMany())
 #putReferenceParams2()
+#if(!$linktableDB.isManyToMany())
         query.append (" LEFT JOIN ${tableVariableName}.${childrenListVariable} ");
 #end    
 #end    
