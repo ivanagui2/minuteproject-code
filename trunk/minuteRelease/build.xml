@@ -621,7 +621,8 @@
 	<!-- for generation and packaging all tracks -->
 	
 	<target name="generation-demo" depends="release-application">
-		<parallel threadcount="3">
+		<parallel threadcount="1">
+	        <macro_generate display="SAKILA-SDD" config="sakila-SDD-KendoUi.xml" />
 	        <macro_generate display="JPA2" config="mp-config-JPA2.xml" />
 	        <macro_generate display="JPA2-groovy" config="mp-config-JPA2-groovy.xml" />
 			<macro_generate display="ADF" config="mp-config-ADF.xml" />
