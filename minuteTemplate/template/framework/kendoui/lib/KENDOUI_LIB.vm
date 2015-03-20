@@ -312,6 +312,15 @@
 	}
 #end
 
+#macro(exposeKendoUIShowDetailsFromListAction)     
+	function showDetails(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		wnd.content(detailsTemplate(dataItem));
+		wnd.center().open();
+	}
+#end
+
 #macro(exposeKendoUISDDActions)
 #foreach ($action in $query.actions)
 #if(!$actionUtils.isReservedAction($action))
