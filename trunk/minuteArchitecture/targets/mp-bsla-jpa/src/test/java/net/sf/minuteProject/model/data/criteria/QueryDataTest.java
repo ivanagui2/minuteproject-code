@@ -100,6 +100,12 @@ public class QueryDataTest {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public AbstractDomainObject mask(String field) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 }
