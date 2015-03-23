@@ -172,6 +172,9 @@ public class ${className} {
 #end
 #end
 #end
+#if ($column.isVersion())
+	@Version
+#end
 #putJPA2Temporal()
     $accessor $columnType $columnVar; ##// pk not fk
 

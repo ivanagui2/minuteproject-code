@@ -163,6 +163,9 @@ $updatedAreaSnippet
 #exposeXmlElementValue()
     @XmlElement $!xmlElementValue
 #end
+#if ($column.isVersion())
+	@Version
+#end
 #putJPA2Temporal()
     $accessor $columnType $columnVar; 
 #end
