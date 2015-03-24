@@ -46,7 +46,7 @@ public class QueryParams extends AbstractConfiguration {
 		return uniqueQueryParams;
 	}
 	
-	public List<QueryParam> getFlatQueryParams() {
+	public List<QueryParam> getFlatQueryParams(boolean isMandatory) {
 		if (flatQueryParams == null) {
 			flatQueryParams = new ArrayList<QueryParam>();
 			for (QueryParam queryParam : getQueryParams()) {
@@ -54,16 +54,17 @@ public class QueryParams extends AbstractConfiguration {
 				if (!StringUtils.isEmpty(refidParam)) {
 					QueryParam instance = getReferenceIdQueryParam(refidParam);
 					if (instance!=null) {
-						copy (instance, queryParam);
+						copy (instance, queryParam, isMandatory);
 						flatQueryParams.add(queryParam);
 					}
 				} else if (!StringUtils.isEmpty(queryParam.getRefname())) {
 					QueryParam instance = getReferenceNameQueryParam(queryParam.getRefname());
 					if (instance!=null) {
-						copy (instance, queryParam);
+						copy (instance, queryParam, isMandatory);
 						flatQueryParams.add(queryParam);
 					}
 				} else {
+					queryParam.setMandatory(isMandatory);
 					flatQueryParams.add(queryParam);
 				}
 			}
@@ -71,7 +72,7 @@ public class QueryParams extends AbstractConfiguration {
 		return flatQueryParams;
 	}
 	
-	private void copy(QueryParam instance, QueryParam queryParam) {
+	private void copy(QueryParam instance, QueryParam queryParam,boolean isMandatory) {
 		queryParam.setName(instance.getName());
 		queryParam.setType(instance.getType());
 		queryParam.setProperties(instance.getProperties());
@@ -80,7 +81,7 @@ public class QueryParams extends AbstractConfiguration {
 		queryParam.setScale(instance.getScale());
 		queryParam.setStereotype(instance.getStereotype());
 		queryParam.setHasBeenDuplicated(true);
-		queryParam.setMandatory(instance.isMandatory());
+		queryParam.setMandatory(isMandatory);
 	}
 
 	public List<QueryParam> getQueryParams() {
