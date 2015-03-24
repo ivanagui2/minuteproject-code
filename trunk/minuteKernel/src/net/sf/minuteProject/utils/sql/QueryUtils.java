@@ -186,7 +186,7 @@ public class QueryUtils {
 	}
 
 	private static void addFilters(List<String> list, QueryParams params) {
-		for (QueryParam qp : params.getFlatQueryParams()) {
+		for (QueryParam qp : params.getFlatQueryParams(false)) {
 			list.add(getParamSample(qp));
 		}
 	}

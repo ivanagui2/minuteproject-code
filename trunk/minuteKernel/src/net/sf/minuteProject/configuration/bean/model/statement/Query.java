@@ -114,6 +114,7 @@ public class Query extends AbstractConfiguration {
 	}
 	
 	public void addField(Field field) {
+		field.setIsMandatory(true); // input field (not filter) are mandatory
 		getQueryFields().add(field);
 	}
 
@@ -156,7 +157,7 @@ public class Query extends AbstractConfiguration {
 	}
 
 	private void complementFields(Table table, QueryParams queryParams) {
-		List<QueryParam> list = getColumns(Direction.IN);
+		List<QueryParam> list = getQueryParams(Direction.IN);
 		for (QueryParam queryParam : list) {
 			//cannot search on column name in case of duplicated columns
 			Column column = ColumnUtils.getColumn(table, queryParam.getName());
@@ -207,7 +208,7 @@ public class Query extends AbstractConfiguration {
 	private void initFieldAndRelationship(Direction dir, Database database,
 			org.apache.ddlutils.model.Table table) {
 		if (dir.equals(Direction.IN)) {
-			List<QueryParam> list = getColumns(Direction.IN);
+			List<QueryParam> list = getQueryParams(Direction.IN);
 			for (QueryParam queryParam : list) {
 				Entity.assignForeignKey(database, table,
 						queryParam.getLinkField());
@@ -247,7 +248,7 @@ public class Query extends AbstractConfiguration {
 
 	private void addColumns(org.apache.ddlutils.model.Table table,
 			Direction direction) {
-		List<QueryParam> list = getColumns(direction);
+		List<QueryParam> list = getQueryParams(direction);
 		for (QueryParam queryParam : list) {
 			if (!queryParam.isLink()) {
 				table.addColumn(getColumn(table, queryParam));
@@ -259,7 +260,7 @@ public class Query extends AbstractConfiguration {
 	}
 
 	private void complementColumn(Table table, Direction direction) {
-		List<QueryParam> list = getColumns(direction);
+		List<QueryParam> list = getQueryParams(direction);
 		//TODO correct double loop error with duplicated columns
 		//copy info to duplicate
 		for (QueryParam queryParam : list) {
@@ -274,12 +275,12 @@ public class Query extends AbstractConfiguration {
 		}
 	}
 
-	private List<QueryParam> getColumns(Direction direction) {
+	private List<QueryParam> getQueryParams(Direction direction) {
 		if (Direction.IN.equals(direction)) {
 			List<QueryParam> list = new ArrayList<QueryParam>();
-			list.addAll(getInputParams().getFlatQueryParams());
+			list.addAll(getInputParams().getFlatQueryParams(true));
 			for (QueryFilter filter : getQueryFilters()) {
-				list.addAll(filter.getQueryParams().getFlatQueryParams());
+				list.addAll(filter.getQueryParams().getFlatQueryParams(false));
 			}
 			return list;
 		}
