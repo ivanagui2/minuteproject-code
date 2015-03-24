@@ -57,7 +57,7 @@
 <!-- kendo js scripts -->
 <script type="text/javascript">
     $(document).ready(function () {
-
+		var validator = $("#form-${tableVariableName}").kendoValidator().data("kendoValidator");
 	  // menu
 #putKendoUIMenu()
 
@@ -123,7 +123,14 @@
 #if($column.isArray())
         $("#${fieldId}").kendoMultiSelect();
 #else
-        $("#${fieldId}").kendoDropDownList();
+		$("#${fieldId}").kendoDropDownList();
+#*         $("#${fieldId}").kendoDropDownList({
+        	dataBound: function(e) {
+        		resizeKendoDropDownList;
+        	}
+        });
+*#
+        
 #end
 		var result${sddTargetOutputBeanClass};
 		$.ajax({
@@ -136,8 +143,6 @@
 				${sddTargetOutputBeanClass}DDL=data.${sddTargetOutputBeanClass}Out;
             }
         });
-//$targetQuery
-//        var ${sddTargetOutputBeanClass}DDL = result${sddTargetOutputBeanClass}.${sddTargetOutputBeanClass}Out;
 #else
 #if($column.queryParamLink.fieldKey != $column.queryParamLink.fieldName)
 #set($fieldId="field-$columnVar")
@@ -175,7 +180,13 @@
 #end
 #end
 #end
-            searchSdd: function () {
+            searchSdd: function (event) {
+
+				event.preventDefault();
+				if (!validator.validate()) {
+					return;
+				}
+				
 #if ($query.isWrite())
 #exposePerformWriteSDD()
 #else
@@ -197,7 +208,9 @@
 #exposeSDDSubUcSearch()
 
 #exposeKendoUISDDActions()
-#exposeKendoUIShowDetailsAction()
+
+#exposeKendoUIShowDetailsFromListAction()
+
 #if($isChart)
     function onChartClick(e) {
        e.preventDefault();

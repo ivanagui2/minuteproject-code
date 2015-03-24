@@ -60,13 +60,6 @@
         }
         return query_string;
     };
-
-	function showDetails(e) {
-       e.preventDefault();
-       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-       wnd.content(detailsTemplate(dataItem));
-       wnd.center().open();
-   }
    
 	function getContextPath() {
 		return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
@@ -76,5 +69,15 @@
 	
 	function getMenuLink(link) {
 		return contextPath+link;
+	}
+	
+	function resizeKendoDropDownList(e) {
+		var dropDown = $(e.sender.element),
+					dataWidth = dropDown.data("kendoDropDownList").list.width(),
+					listWidth = dataWidth - 10,
+					containerWidth = listWidth + 10;
+		dropDown.data("kendoDropDownList").list.width(listWidth);
+		dropDown.data("kendoDropDownList").list.css("white-space", "nowrap");
+		dropDown.closest(".k-widget").width(containerWidth);
 	}
 	
