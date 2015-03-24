@@ -141,14 +141,13 @@
 #set($columnAlias=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 #set($width = $presentationUtils.getDisplayRowsInPixel($column))
 <div class="row">
-	<div class="cell">
+	<div class="cell" style="width: 300px;">
 		<label for="$fieldId" #if($column.isRequired())class="required"#end>$columnAlias</label><!-- i18n -->
 	</div>
 	<div class="cell">
 #if($columnUtils.hasCheckConstraint($column))
 	<select name="$labelFor" id="$fieldId" 
 		data-bind="source: ${columnVar}List, value: ${columnVar}" 
-## 	data-select="selectTODO"
 		data-text-field="value"
 		data-value-field="${columnVar}"
 		data-option-label="Select"
@@ -324,6 +323,7 @@
 #macro(exposeKendoUISDDActions)
 #foreach ($action in $query.actions)
 #if(!$actionUtils.isReservedAction($action))
+	// action $actionUtils.getActionMethod($action)
 	function $actionUtils.getActionMethod($action) (e) {
 		e.preventDefault();
 #if(!$isChart)
@@ -618,7 +618,7 @@ $!updatedAreaEnd
             selectable: true
       });
  
-#exposeKendoUIShowDetailsAction()
+##exposeKendoUIShowDetailsFromListAction()
 	
 #end
 
