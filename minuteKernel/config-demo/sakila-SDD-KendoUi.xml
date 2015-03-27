@@ -204,6 +204,32 @@ $wherefirstname $wherelastname $wherecountry
 						</actions>
 					</query>
 					
+					<!-- enumeration -->
+					<query name="customer_by_status" id="customer_by_status" package-name="customer">
+						<query-body> 
+							<value>
+<![CDATA[
+select * from customer $wherestatus
+]]>
+                            </value>
+						</query-body>
+						<query-filters>
+							<query-filter name="wherestatus" and-where-connection="where">
+								<value>
+		<![CDATA[active = ? ]]>
+		                        </value>
+								<query-params>
+									<query-param name="target" is-mandatory="false" type="boolean" sample="'xxx'">
+										<property tag="checkconstraint">
+											<property name="ACTIVE" />
+											<property name="DISABLED" />
+										</property>
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
+					</query>
+						
 					<!-- rental -->
 					<query name="rental" id="rental-by-customers" package-name="rental">
 						<query-body> 
