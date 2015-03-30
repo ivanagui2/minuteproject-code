@@ -240,17 +240,12 @@ select * from customer $wherestatus
 						
 					<query name="film_by_rating" id="film_by_rating" package-name="film">
 						<query-body> 
-							<value>
-<![CDATA[
-select f.title, f.description, l.name, f.rating, f.rental_rate, f.last_update from film f, language l $whererating
-]]>
-                            </value>
+							<value><![CDATA[select f.title, f.description, l.name, f.rating, f.rental_rate, f.last_update from film f, language l $whererating]]>
+					        </value>
 						</query-body>
 						<query-filters>
 							<query-filter name="whererating" and-where-connection="where">
-								<value>
-		<![CDATA[ rating = ? ]]>
-		                        </value>
+											<value><![CDATA[ rating = ? ]]></value>
 								<query-params>
 									<query-param name="rating" type="string" sample="'xxx'">
 										<property tag="checkconstraint">
@@ -265,7 +260,57 @@ select f.title, f.description, l.name, f.rating, f.rental_rate, f.last_update fr
 							</query-filter>
 						</query-filters>
 					</query>
-						
+					
+					<!-- date -->
+					<query name="film_by_date" id="film_by_date" package-name="film">
+						<query-body> 
+							<value><![CDATA[
+							select f.title, f.description, l.name, f.rating, f.release_year, f.rental_rate, f.last_update 
+							from film f, language l 
+							$wheredatestart $wheredateend
+							]]>
+					        </value>
+						</query-body>
+						<query-filters>
+							<query-filter name="wheredatestart" and-where-connection="where">
+											<value><![CDATA[ f.release_year >= ? ]]></value>
+								<query-params>
+									<query-param name="year_start" type="date" sample="'01/01/2009'"/>
+								</query-params>
+							</query-filter>
+							<query-filter name="wheredateend" and-where-connection="where">
+											<value><![CDATA[ f.release_year <= ? ]]></value>
+								<query-params>
+									<query-param name="year_end" type="date" sample="'01/01/2009'"/>
+								</query-params>
+							</query-filter>
+						</query-filters>
+					</query>
+					
+					<!-- date -->
+					<query name="film_by_country_area" id="film_by_country_area" package-name="film">
+						<query-body> 
+							<value><![CDATA[
+							select f.title, f.description, l.name, f.rating, f.release_year, f.rental_rate, f.last_update 
+							from film f, language l 
+							where in ($country_zone)
+							]]>
+					        </value>
+						</query-body>
+						<query-filters>
+							<query-chunks>
+								<query-chunk name="country_zone" sample-value="country_zone">
+									<query-chunk-value name="europe" value="europe">
+										<value>
+										<![CDATA[ ]]>
+										</value>
+									</query-chunk-value>
+									<query-chunk-value name="america" value="america"/>
+								</query-chunk>
+							</query-chunks>
+						</query-filters>
+					</query>
+					
 					<!-- rental -->
 					<query name="rental" id="rental-by-customers" package-name="rental">
 						<query-body> 
