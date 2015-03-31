@@ -61,6 +61,7 @@ public class ConvertUtils {
 	public static final String DB_VARBINARY  						=	"VARBINARY";
 	public static final String DB_BIGDECIMAL_TYPE  					=	"BIGDECIMAL";
 	public static final String DB_BIT_TYPE  					    =	"BIT";
+	public static final String DB_BOOLEAN_TYPE  				   =	"BOOLEAN";
 	
 	public static final String UML_STRING_TYPE 						=   "string";	
 	public static final String UML_INTEGER_TYPE 					=   "integer";	
@@ -71,7 +72,7 @@ public class ConvertUtils {
 	public static final String UML_BYTE_TYPE 						=   "byte";	
 	public static final String UML_BOOLEAN_TYPE 					=   "boolean";	
 	public static final String UML_DATE_TYPE 						=   "date";	
-	public static final String UML_TIMESTAMP_TYPE 						=   "timestamp";	
+	public static final String UML_TIMESTAMP_TYPE 					=   "timestamp";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	
@@ -84,6 +85,7 @@ public class ConvertUtils {
 		if (UML_LONG_TYPE.equals(type)) return DB_DECIMAL_TYPE;
 		if (UML_DOUBLE_TYPE.equals(type)) return DB_DOUBLE_TYPE;
 		if (UML_DATE_TYPE.equals(type)) return DB_DATE_TYPE;
+		if (UML_BOOLEAN_TYPE.equals(type)) return DB_BOOLEAN_TYPE;
 		if (UML_TIMESTAMP_TYPE.equals(type)) return DB_TIMESTAMP_TYPE;
 		return DB_STRING_TYPE;
 	}

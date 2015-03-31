@@ -41,6 +41,8 @@ public class StatementUtils {
 				return "String";
 			if (type.equals(FieldType.DATE.toString()))
 				return "Date";
+			if (type.equals(FieldType.BOOLEAN.toString()))
+				return "Boolean";
 		}
 		return "String";
 	}
