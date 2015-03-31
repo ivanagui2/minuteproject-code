@@ -288,28 +288,41 @@ select * from customer $wherestatus
 					</query>
 					
 					<!-- date -->
-					<query name="film_by_country_area" id="film_by_country_area" package-name="film">
-						<query-body> 
-							<value><![CDATA[
-							select f.title, f.description, l.name, f.rating, f.release_year, f.rental_rate, f.last_update 
-							from film f, language l 
-							where in ($country_zone)
+<query name="film_by_customer_area" id="film_by_customer_area" package-name="customer">
+	<query-body> 
+		<value><![CDATA[
+select customer_id, concat_ws (' ',first_name, last_name) full_name, email, a.address, ci.city, a.postal_code, co.country, a2.address as store_address 
+ from customer cu, address a, city ci, country co, store st, address a2
+ where cu.address_id = a.address_id and a.city_id = ci.city_id and ci.country_id = co.country_id and cu.store_id = st.store_id and st.address_id = a2.address_id 
+and $country_zone
 							]]>
-					        </value>
-						</query-body>
-						<query-filters>
-							<query-chunks>
-								<query-chunk name="country_zone" sample-value="country_zone">
-									<query-chunk-value name="europe" value="europe">
-										<value>
-										<![CDATA[ ]]>
-										</value>
-									</query-chunk-value>
-									<query-chunk-value name="america" value="america"/>
-								</query-chunk>
-							</query-chunks>
-						</query-filters>
-					</query>
+        </value>
+	</query-body>
+	<query-chunks>
+		<query-chunk name="country_zone" sample-value="co.country_id in (select country_id from country where country in ('France', 'United Kingdom', 'Italy', 'Belgium', 'Germany'))">
+			<query-chunk-value name="europe" >
+				<value>
+				<![CDATA[ co.country_id in (select country_id from country where country in ('France', 'United Kingdom', 'Italy', 'Belgium', 'Germany')) ]]>
+				</value>
+			</query-chunk-value>
+			<query-chunk-value name="north_america" >
+				<value>
+				<![CDATA[ co.country_id in (select country_id from country where country in ('Canada', 'Mexico', 'United States')) ]]>
+				</value>
+			</query-chunk-value>
+			<query-chunk-value name="south_america" >
+				<value>
+				<![CDATA[ co.country_id in (select country_id from country where country in ('Argentina', 'Brazil', 'Columbia')) ]]>
+				</value>
+			</query-chunk-value>
+			<query-chunk-value name="africa" >
+				<value>
+				<![CDATA[ co.country_id in (select country_id from country where country in ('Algeria', 'Morrocco', 'Tunisia', 'Cameroun', 'South Africa')) ]]>
+				</value>
+			</query-chunk-value>
+		</query-chunk>
+	</query-chunks>
+</query>
 					
 					<!-- rental -->
 					<query name="rental" id="rental-by-customers" package-name="rental">
@@ -361,31 +374,31 @@ $wherecustomer
 						</actions>
 					</query>
 					
-					<query name="sales_by_film_category_filter" id="sales_by_film_category" package-name="dashboard"
-						category="column-chart">
-						<query-body> <!-- dimensions column first -->
+<query name="sales_by_film_category_filter" id="sales_by_film_category" package-name="dashboard"
+	category="column-chart">
+	<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[select * from sales_by_film_category order by $orderby $sort]]>
-                            </value>
-						</query-body>
-						<query-chunks>
-							<query-chunk name="orderby" sample-value="category">
-								<query-chunk-value name="category" value="category"/>
-								<query-chunk-value name="total_sales" value="total_sales"/>
-							</query-chunk>
-							<query-chunk name="sort" sample-value="asc">
-								<query-chunk-value name="ascending" value="asc"/>
-								<query-chunk-value name="descending" value="desc"/>
-							</query-chunk>
-						</query-chunks>
-						<actions>
-							<action name="sales info" query-id="sales_by_film_and_film_category">
-								<action-field-map>
-									<action-field-map-entry output-field="category" to-action-field="category"></action-field-map-entry>
-								</action-field-map>
-							</action>
-						</actions>
-					</query>
+                       </value>
+	</query-body>
+	<query-chunks>
+		<query-chunk name="orderby" sample-value="category">
+			<query-chunk-value name="category" value="category"/>
+			<query-chunk-value name="total_sales" value="total_sales"/>
+		</query-chunk>
+		<query-chunk name="sort" sample-value="asc">
+			<query-chunk-value name="ascending" value="asc"/>
+			<query-chunk-value name="descending" value="desc"/>
+		</query-chunk>
+	</query-chunks>
+	<actions>
+		<action name="sales info" query-id="sales_by_film_and_film_category">
+			<action-field-map>
+				<action-field-map-entry output-field="category" to-action-field="category"></action-field-map-entry>
+			</action-field-map>
+		</action>
+	</actions>
+</query>
 					
 					<query name="sales_by_film_among_category" id="sales_by_film_among_category" package-name="dashboard"
 						category="pie-chart">
