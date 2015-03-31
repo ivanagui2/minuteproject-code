@@ -314,6 +314,7 @@
 				<include name="catalog/*.*" />
 				<include name="mp-template-config*" />
 				<include name="model-generation*" />
+				<include name="application-generation*" />
 				<include name="*.xsd" />
 				<include name="lcp*" />
 				<include name="mp-config-sample*" />
