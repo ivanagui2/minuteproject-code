@@ -263,7 +263,7 @@
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="4.0"></framework>
+				<framework name="primefaces" version="5.1"></framework>
 				<framework name="JSF" version="2"></framework>
 				<framework name="spring" version="4"></framework>
 			</frameworks>
@@ -288,7 +288,7 @@
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="4.0"></framework>
+				<framework name="primefaces" version="5.1"></framework>
 				<framework name="JSF" version="2"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
@@ -328,7 +328,7 @@
 			status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
-				<framework name="OpenXava" version="4.6.1"></framework>
+				<framework name="OpenXava" version="5.2.1"></framework>
 			</frameworks>
 			<property name="use-temporal" value="true"></property>
 		</technology>
