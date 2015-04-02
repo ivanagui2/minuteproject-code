@@ -6,6 +6,7 @@ public class QueryDisplay extends AbstractConfiguration{
 
 	public String resultRowDisplay, resultDetailDisplay, inputDisplay;
 	public String resultRowLinkRootUrl, resultRowLinkField, resultRowLinkRootUrlAppendedField;
+	public int resultDetailDisplayColumns=1;
 
 	public String getResultRowDisplay() {
 		return resultRowDisplay;
@@ -54,6 +55,14 @@ public class QueryDisplay extends AbstractConfiguration{
 	public void setResultRowLinkRootUrlAppendedField(
 			String resultRowLinkRootUrlAppendedField) {
 		this.resultRowLinkRootUrlAppendedField = resultRowLinkRootUrlAppendedField;
+	}
+
+	public int getResultDetailDisplayColumns() {
+		return resultDetailDisplayColumns;
+	}
+
+	public void setResultDetailDisplayColumns(int resultDetailDisplayColumns) {
+		this.resultDetailDisplayColumns = resultDetailDisplayColumns;
 	}
 	
 }

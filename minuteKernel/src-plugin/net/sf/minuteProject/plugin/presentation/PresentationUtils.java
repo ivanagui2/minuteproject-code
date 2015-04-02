@@ -44,6 +44,25 @@ public class PresentationUtils {
 		}
 	}
 	
+	public static List<List<Column>> getDetailDisplay(Query query) {
+		Table table = query.getOutputBean();
+		int nbOfColumn = 1;
+		if (query.getQueryDisplay()!=null) {
+			nbOfColumn = query.getQueryDisplay().getResultDetailDisplayColumns();
+		} 
+		List<List<Column>> list = new ArrayList<List<Column>>();
+		for (int j = 0; j < table.getColumns().length; j++) {
+			List<Column> l = new ArrayList<Column>();
+			for (int i = 0; i < nbOfColumn; i++) {
+				if (j+i<=table.getColumns().length)
+					l.add(table.getColumns()[j+i]);
+			}
+			j=j+nbOfColumn;
+			list.add(l);
+		}
+		return list;
+	}
+	
 	public static boolean isHidden (Column column, Query query) {
 		if (column.isHidden())
 			return true;
