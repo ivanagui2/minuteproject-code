@@ -580,6 +580,7 @@ $!updatedAreaEnd
 #end
            },
 #end
+		   groupable: true,
 		   columns: [
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
@@ -630,14 +631,16 @@ $!updatedAreaEnd
 
 <div style="display: table; width: 100%; margin-top: 10px;">
 
-#foreach($column in $outputBean.columns)
-#putColumnParamNaming()
+#foreach($list in $presentationUtils.getDetailDisplay($query))
 <div class="row">
+#foreach($column in $list)
+#putColumnParamNaming()
 	<div class="cell-label">
 #set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
 		<label>$title</label><!-- i18n -->
 	</div>
 	<div class="cell">#= ($columnVar == null) ? ' ' :$columnVar #</div>
+#end
 </div>
 #end
 </div>
