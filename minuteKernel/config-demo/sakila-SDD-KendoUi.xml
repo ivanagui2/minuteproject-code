@@ -359,7 +359,7 @@ $wherecustomer
 					</query>
 					
 					<query name="sales_by_film_category" id="sales_by_film_category" package-name="dashboard"
-						category="bar-chart">
+						category="column-chart">
 						<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[select * from sales_by_film_category order by category asc]]>
