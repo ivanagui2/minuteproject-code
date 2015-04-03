@@ -479,7 +479,8 @@ $!updatedAreaSnippet
 	String get${chunkName}(String ${chunkName}) {
 #foreach($queryChunkValue in $queryChunk.queryChunkValues)
 #set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
-		if ("${chunkValueName}".equals(${chunkName}))
+#set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
+		if ("${chunkValueName}".equals(${chunkName}) || "${chunkValue}".equals(${chunkName}))
 			return CHUNK_${chunkName}_${chunkValueName};
 #end
 		return "";
