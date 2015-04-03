@@ -89,9 +89,10 @@
 		var ${chunkName}List = [
 #foreach($queryChunkValue in $queryChunk.queryChunkValues)
 #set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+#set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
 			#if ($velocityCount>1),#end {
-				name : "${chunkValueName}",
-				value : "${chunkValueName}"
+				name   : "${chunkValueName}",
+				value  : "$chunkValue"
 			}
 #end
 		];
