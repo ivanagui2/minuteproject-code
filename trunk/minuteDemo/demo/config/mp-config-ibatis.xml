@@ -1,6 +1,5 @@
 <!DOCTYPE root>
 <generator-config>
-    <property file="generator-config-pdmurf-hibernate.properties"/>
 	<configuration>
 		<model name="petshop" package-root="sf.net.mp.demo">
 			<data-model>
@@ -28,10 +27,6 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<target refname="BackendOnBsla" name="default"  
-			fileName="catalog/mp-template-config-ibatis.xml" 
-			outputdir-root="../output/StandardSpringIbatis/src-generated"
-			templatedir-root="../../template/framework/bsla">
-		</target> 	
+		<targets catalog-entry="ibatis" />	
 	</configuration>
 </generator-config>
