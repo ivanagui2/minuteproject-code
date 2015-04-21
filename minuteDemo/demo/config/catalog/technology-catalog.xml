@@ -545,6 +545,12 @@
 			</frameworks>
 		</technology>
 
+		<technology name="iBatis" model-type="rdbms"
+			template-config-file-name="mp-template-config-ibatis.xml"
+			default-outputdir="ibatis" depends-on-targets=""
+			template-dir="@templateRoot@/framework/bsla" status=""
+			description="ibatis sqlmap + spring integration">
+		</technology>
 		<!-- dependent tracks -->
 
 
