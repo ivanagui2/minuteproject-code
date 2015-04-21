@@ -577,6 +577,13 @@
 			description="Propel schema, build, runtime">
 		</technology>
 
+		<technology name="iBatis" model-type="rdbms"
+			template-config-file-name="mp-template-config-ibatis.xml"
+			default-outputdir="ibatis" depends-on-targets=""
+			template-dir="@templateRoot@/framework/bsla" status=""
+			description="ibatis sqlmap + spring integration">
+		</technology>
+
 
 		<technology name="WS-JEE-war" target-name="WS-JEE-war"
 			model-type="rdbms" template-config-file-name="mp-template-config-WS-JEE-war.xml"
