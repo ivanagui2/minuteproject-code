@@ -265,7 +265,6 @@ select * from film $whererating
 		                        </value>
 								<query-params>
 									<query-param name="rating" type="boolean" sample="'zzz'">
-									<query-param name="status" is-mandatory="false" type="boolean" sample="'xxx'">
 										<property tag="checkconstraint">
 											<property name="G" value="G"/>
 											<property name="PG" value="PG"/>
