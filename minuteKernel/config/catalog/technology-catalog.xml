@@ -7,7 +7,6 @@
 	    <technology-info name="JPA2" icon-url="" url="" description="JEE persistence API"/>
     </technologies-info>
     
-    
 	<technologies>
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
@@ -628,6 +627,11 @@
 
 		<technology name="Cloudbees" template-config-file-name="mp-template-config-cloudbees.xml"
 			default-outputdir="" template-dir="@templateRoot@/cloud/cloudbees"
+			is-generable="false">
+		</technology>
+
+		<technology name="CloudFoundry" template-config-file-name="mp-template-config-cloudfoundry.xml"
+			default-outputdir="" template-dir="@templateRoot@/cloud/cloudfoundry"
 			is-generable="false">
 		</technology>
 
