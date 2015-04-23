@@ -7,7 +7,7 @@
 #end
 
 #macro(putKendoUIJSImport $pathToRoot)
-#set($kendoUiVersion="2014.3.1119")##2014.1.416 2014.3.1119
+#set($kendoUiVersion="2015.1.318")##2014.1.416 2014.3.1119 
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
