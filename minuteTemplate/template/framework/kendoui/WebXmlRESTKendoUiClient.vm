@@ -53,6 +53,22 @@
 		</init-param>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
+	
+#if($hasAtmosphereServlet)
+	<servlet>
+		<description>AtmosphereServlet</description>
+		<servlet-name>AtmosphereServlet</servlet-name>
+		<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+		<!-- If you want to use Servlet 3.0 -->
+		<async-supported>true</async-supported>
+		<!-- List of init-param -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AtmosphereServlet</servlet-name>
+		<!-- Any mapping -->
+		<url-pattern>/atmosphere/*</url-pattern>
+	</servlet-mapping>
+#end
 #*
 	<filter>
 		<filter-name>ApiOriginFilter</filter-name>
