@@ -37,8 +37,9 @@ public abstract class PrimaryKeyConvention<T extends Table> extends FieldConvent
 	public void applyDefaultPkConvention(BusinessModel model) {
 		if (model.getBusinessPackage()!=null) {
 			for (T t : getEntity(model)) {
-				if (t.getPrimaryKeyColumns().length==0)
+				if (t.getPrimaryKeyColumns().length==0) {
 					applyDefaultPkConvention (t);
+				}
 			}
 		}
 	}

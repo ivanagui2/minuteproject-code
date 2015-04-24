@@ -1,6 +1,5 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
-
 public class QueryFilter extends QueryAdapter {
 
 	private QueryParams queryParams;
