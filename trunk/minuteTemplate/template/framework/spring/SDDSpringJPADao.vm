@@ -52,7 +52,8 @@ import $sddInputBeanImport;
  */
 #if ($isSpringBackend)
 @Repository ("$sddDaoInterfaceVariable")
-@Transactional(propagation = Propagation.REQUIRED) 
+//temporary for cloudfoundry-mysql error: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Communications link failure during commit(). Transaction resolution unknown.
+//@Transactional(propagation = Propagation.REQUIRED)
 public class ${className} implements $sddDaoInterfaceClass {
 #else
 @javax.ejb.Stateless ##(name="$sddDaoInterfaceVariable")
