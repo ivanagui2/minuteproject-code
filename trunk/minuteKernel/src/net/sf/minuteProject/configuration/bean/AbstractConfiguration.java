@@ -122,12 +122,7 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 		getProperties().addAll(props);
 		
 	}
-//	public String toString() {
-//		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE); 
-//	 	return  ToStringBuilder.reflectionToString(this);
-//	}
-	
-//	public abstract String getTechnicalPackage(Template template);
+
 	public String getTechnicalPackage(Template template)
 	{
 		return template.getTechnicalPackage();

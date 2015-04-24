@@ -154,7 +154,7 @@
 		
 		<technology name="REST-Kendoui" model-type="rdbms"
 			template-config-file-name="mp-template-config-kendoui.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -630,8 +630,8 @@
 			is-generable="false">
 		</technology>
 
-		<technology name="CloudFoundry" template-config-file-name="mp-template-config-cloudfoundry.xml"
-			default-outputdir="" template-dir="@templateRoot@/cloud/cloudfoundry"
+		<technology name="CloudFoundry-REST" template-config-file-name="mp-template-config-cloudfoundry.xml"
+			default-outputdir="REST" template-dir="@templateRoot@/cloud/cloudfoundry"
 			is-generable="false">
 		</technology>
 

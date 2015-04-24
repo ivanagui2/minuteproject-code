@@ -1,6 +1,5 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;

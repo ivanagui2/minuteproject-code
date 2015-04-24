@@ -21,12 +21,6 @@ public class TemplateUtils {
 		   return value.equals(property.getValue());
 		return false;
 	}
-	
-//	public static boolean isUpdatable (Template template, GeneratorBean bean) {
-//		if (!template.isUpdatable()) return false;
-//		File file = new File(template.getGeneratorOutputFileNameForConfigurationBean(bean, template));
-//		return file.exists();
-//	}
 
 	public static Map<String,String> getUpdatedAreas (Template template, GeneratorBean bean) {
 		if (!template.isUpdatable()) return null;
