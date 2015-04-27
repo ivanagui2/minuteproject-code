@@ -1,6 +1,4 @@
-<target name="JSF - bsla">		
-	<architecture-target name="JSF primefaces" description="JSF primefaces architecture">
-	</architecture-target>	
+<target name="Cloudfoundry">		
     <plugin name="cloudUtils" className="net.sf.minuteProject.plugin.cloud.CloudUtils"></plugin>
  
 	<template-target 
@@ -12,9 +10,10 @@
 		<template name="CloudFoundryManifest" templateFileName="CloudFoundryManifest.yml.vm" 
 			file-extension="yml" technicalPackage="" file-suffix="manifest" 
 			application-specific="true" add-model-name="false" has-updatable-nature="true"
-			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresenceValue" >
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresenceValue">
 			<property name="property-presence" value="cloud-platform" ></property>			
-			<property name="property-presence-value" value="cloudfoundry" ></property>
+			<property name="property-presence-value" value="cloudfoundry" ></property>	
+			
 		</template>
 
 		<template name="CloudFoundryScript" templateFileName="CloudFoundryScript.cmd.vm" 
@@ -23,7 +22,10 @@
 			check-template-to-generate="true" 
 			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresenceValue" >
 			<property name="property-presence" value="cloud-platform" ></property>			
-			<property name="property-presence-value" value="cloudfoundry" ></property>		</template>
+			<property name="property-presence-value" value="cloudfoundry" ></property>		
+			
+		</template>
+		
 	</template-target>
 	
 	<template-target 
@@ -34,7 +36,11 @@
 
 		<template name="CloudFoundryContext" templateFileName="CloudFoundryContext.xml.vm" 
 			file-extension="xml" technicalPackage="META-INF" file-suffix="context" 
-			application-specific="true" add-model-name="false" has-updatable-nature="true">
+			application-specific="true" add-model-name="false" has-updatable-nature="true"
+			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnPropertyPresenceValue">
+			<property name="property-presence" value="cloud-platform" ></property>			
+			<property name="property-presence-value" value="cloudfoundry" ></property>	
+			
 		</template>
 
 	</template-target>
