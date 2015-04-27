@@ -124,7 +124,19 @@
 #if($column.isArray())
         $("#${fieldId}").kendoMultiSelect();
 #else
-		$("#${fieldId}").kendoDropDownList();
+#exposeQueryTarget()
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldName))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
+		$("#${fieldId}").kendoDropDownList(
+			{
+				optionLabel: {
+					$columnText :  "Choose"
+#if($columnText!=$columnValue)
+					,$columnValue : ""
+#end
+				}
+			}
+		);
 #*         $("#${fieldId}").kendoDropDownList({
         	dataBound: function(e) {
         		resizeKendoDropDownList;
