@@ -1,0 +1,25 @@
+#generatorSpecific()
+#exposeKendoUIGeneratorBeanSpecific()
+#exposeKendoUIVersion()
+{
+  "name": "$generatorBean.name",
+  "version": "1.0.0",
+##  "main": "path/to/main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "angular-aria": "~1.3.5",
+    "angular": "~1.3.5",
+    "kendo-ui-core": "telerik/kendo-ui-core#~${kendoUiVersion}",
+    "jquery": "~2.1.1",
+    "Stuk/jszip": "~2.1.1",
+    "normalize.css": "~3.0.2"
+  }
+#*
+  ,"devDependencies": {
+    "<test-framework-name>": "<version>"
+  }
+*#
+}
