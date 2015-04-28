@@ -1,6 +1,5 @@
 <!DOCTYPE root>
 <generator-config>
-    <property file="generator-config-pdmurf-hibernate.properties"/>
 	<configuration>
 		<model name="petshop" package-root="sf.net.mp.demo">
 			<data-model>
