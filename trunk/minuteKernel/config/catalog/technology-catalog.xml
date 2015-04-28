@@ -257,7 +257,7 @@
 		<technology name="Primefaces-Spring" model-type="rdbms"
 			template-config-file-name="mp-template-config-JSF-Spring.xml"
 			default-outputdir="JSF-primefaces"
-			depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
+			depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,Cloudbees,CloudFoundry,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
@@ -323,7 +323,7 @@
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB,Cloudbees"
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB,Cloudbees,CloudFoundry"
 			status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
@@ -627,6 +627,11 @@
 
 		<technology name="Cloudbees" template-config-file-name="mp-template-config-cloudbees.xml"
 			default-outputdir="" template-dir="@templateRoot@/cloud/cloudbees"
+			is-generable="false">
+		</technology>
+
+		<technology name="CloudFoundry-REST" template-config-file-name="mp-template-config-cloudfoundry.xml"
+			default-outputdir="REST" template-dir="@templateRoot@/cloud/cloudfoundry"
 			is-generable="false">
 		</technology>
 

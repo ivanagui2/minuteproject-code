@@ -118,6 +118,15 @@
 		</template>	
 
 		<template
+			name="KendoUiBower.json" templateFileName="KendoUiBower.json.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="false" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="json" file-prefix="" file-suffix="bower" 
+			application-specific="true">
+		</template>	
+
+		<template
 			name="KendoUiMenuStructure" templateFileName="KendoUiMenuStructure.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			add-model-name="true" add-model-dir-name="false"
