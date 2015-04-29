@@ -229,7 +229,14 @@
 		}
 	);
 #else	
-	$("#${fieldId}").kendoMultiSelect();
+	$("#${fieldId}").kendoMultiSelect(
+		{
+			optionLabel: {
+				name:  "Choose",
+				value: ""
+			}
+		}
+	);
 #end
 #elseif($columnUtils.isTimeColumn($column))
 	$("#${fieldId}").kendoDatePicker();
@@ -527,6 +534,8 @@ $!updatedAreaEnd
 		  title : {
 			  text: "$tableAlias"
 		  },
+		  chartArea: { margin: 0, padding: 0, height: (screen.height * 0.50), width: (screen.width * 0.35) },
+		  plotArea: { margin: 0, padding: 0, height: (screen.height * 0.50), width: (screen.width * 0.35) },
           legend: {
               position: "top"
           },
