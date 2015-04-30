@@ -1,8 +1,8 @@
 ---
 applications:
-  - name: $cloudName
+  - name: $cloudfoundryUtils.getApplicationName($template)
     buildpack: java_buildpack
 ##    path: target/xxx-1.0.0.BUILD-SNAPSHOT.jar
-    path: ${war.path}
+    path: $cloudfoundryUtils.getWarPath($template)
     services:
-      - ${cloud.db.name}
+      - $cloudfoundryUtils.getDatabaseName($template)
