@@ -128,7 +128,8 @@
 	<select name="$chunkName" id="field-$chunkName" 
 		data-bind="source: ${chunkName}List, value: ${chunkName}" 
 		data-text-field="value"
-		data-value-field="$chunkName"
+		data-value-field="name"
+##		data-value-field="$chunkName"
 		style="width: 200px;">
      </select>
      </div>
@@ -150,6 +151,7 @@
 		data-bind="source: ${columnVar}List, value: ${columnVar}" 
 		data-text-field="value"
 		data-value-field="${columnVar}"
+##		data-value-field="name"
 ##		data-option-label="Select"
 		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
 #if(!$column.isRequired())
@@ -758,7 +760,10 @@ $!updatedAreaEnd
 #if($column.isArray())
 		var ${columnVar} = $("#field-$columnVar").data("kendoMultiSelect").value();
 #else
-		var ${columnVar}Selected = this.get("${columnVar}Selected");
+## unfortunately does not work fine for first select
+##		var ${columnVar}Selected = this.get("${columnVar}Selected");
+		var dropdownlist$columnVar = $("#field-$columnVar").data("kendoDropDownList");
+		var ${columnVar}Selected = dropdownlist${columnVar}.dataItem();
 		var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
 #end
 #else
