@@ -27,6 +27,6 @@
 				</business-package>							
 			</business-model>
 		</model>
-		<targets catalog-entry="ibatis" />	
+		<targets catalog-entry="ibatis" />
 	</configuration>
 </generator-config>

@@ -36,11 +36,13 @@
 		belongToPackage="true">
 			 
 		<template name="KendoUiMainCss" templateFileName="KendoUiMainCss.vm" 
+			has-updatable-nature="true"
 			file-extension="css" technicalPackage="css" file-suffix="" 
 			application-specific="true" add-model-name="true" >
 		</template>
 			 
 		<template name="KendoUiMainJs" templateFileName="KendoUiMainJs.vm" 
+			has-updatable-nature="true"
 			file-extension="js" technicalPackage="js" file-suffix="" 
 			application-specific="true" add-model-name="true" >
 		</template>
@@ -97,16 +99,6 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
- <!--  
-        <template name="KendoUiSDDChart" templateFileName="KendoUiSDDInput.vm"
-			file-extension="html" technicalPackage="sdd" file-suffix="Chart"
-            add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
-			package-root="html" has-updatable-nature="true"
-			scope-specific-value="query" >
-			<property name="isChart" value="true"></property>
-		</template>
--->
 
 	</template-target>				
    	
@@ -126,6 +118,15 @@
 		</template>	
 
 		<template
+			name="KendoUiBower.json" templateFileName="KendoUiBower.json.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="false" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="json" file-prefix="" file-suffix="bower" 
+			application-specific="true">
+		</template>	
+
+		<template
 			name="KendoUiMenuStructure" templateFileName="KendoUiMenuStructure.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			add-model-name="true" add-model-dir-name="false"
@@ -135,20 +136,11 @@
 		</template>	
 		
 	</template-target>				
-   	 
+   	<!--  
    	<template-target 
     	name="Kendo client"
 		outputdir="src/main/java"
 		libdir="lib/KENDOUI_LIB.vm">
-
-		<!--  add also RESTDbAPILookupResource dependencies
-        <template name="RESTDbAPILookupResource" templateFileName="RESTDbAPILookupResource.vm" 
-            technicalPackage="rest"
-            file-extension="java" file-prefix="" file-suffix="LookupDefaultingResource"
-            has-updatable-nature="true" 
-            scope-specific-value="model">
-        </template> 
-         -->
         
 		<template
 			name="RESTDbAPIGenericResource" templateFileName="RESTDbAPIGenericResource.vm" 
@@ -167,9 +159,22 @@
 		
 		<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest"
-			file-extension="java" file-prefix="" file-suffix="Resource" 
+			file-extension="java" file-prefix="" file-suffix="Resource"
+			add-package-name="false" add-business-package-dir-name="false" 
 			scope-specific-value="query" has-updatable-nature="true">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>		
+		
+		<template name="REST.Cache.Annotation" templateFileName="REST.Cache.Annotation.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Cacheable" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
+		
+		<template name="REST.Cache.ControlDecorator" templateFileName="REST.Cache.ControlDecorator.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="ControlDecorator" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 		</template>		
 		
 		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
@@ -194,7 +199,8 @@
 		</template>
 		
 	</template-target>
-	
+	 -->
+	 <!-- 
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
@@ -209,5 +215,5 @@
 		</template>
 		
 	</template-target>				
-	
+	 -->
 </target>
