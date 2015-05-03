@@ -910,12 +910,12 @@
 	<!-- ===================================================================== -->
 
 	<target name="custom" depends="release-application" >
-		<antcall target="custom-REST"/>
+		<antcall target="REST-Custom"/>
 	</target>
 		
-	<target name="custom-REST" >
+	<target name="REST-Custom" >
 		<macro_generate display="sakila REST custom" config="custom-REST.xml" />
-		<macro_build_and_deploy maven.basedir="custom-REST/sakila" project="Business-Impl" artifact="sakilaApp" />
+		<macro_build_and_deploy maven.basedir="REST-Custom/sakila" project="Business-Impl" artifact="sakilaApp" />
 	</target>
 	
 	<!-- ===================================================================== -->
