@@ -113,6 +113,8 @@
 
 		</model>
 		<targets catalog-entry="Primefaces-Spring,Vaadin" >
+			<property name="cloud-platform" value="cloudfoundry"></property>
+			<property name="environment" value="remote"></property>
 		</targets>
 	</configuration>
 </generator-config>
