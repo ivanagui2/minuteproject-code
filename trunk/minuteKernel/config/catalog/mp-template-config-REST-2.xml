@@ -96,6 +96,13 @@
 			 -->
 		</template>
 		
+		<template name="PomXml.REST-2" templateFileName="PomXml.REST-2.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+			
+		</template>
+		
 	</template-target>				
 	
 </target>

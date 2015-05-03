@@ -1,0 +1,74 @@
+<target name="REST-custom">		
+	<architecture-target name="custom" description="custom implementation on top of rest">
+	</architecture-target>	
+   	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
+   	<plugin name="kendoUiUtils" className="net.sf.minuteProject.plugin.kendoui.KendoUiUtils"/>
+
+	<template-target 
+    	name="REST custom xml config"
+		outputdir="src/main/webapp/WEB-INF"
+		package-root=""
+		belongToPackage="true">
+			 
+		<template name="WebXmlRESTCustom" templateFileName="WebXmlRESTKendoUiClient.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="web" 
+			application-specific="true" add-model-name="false" >
+		</template>
+			 
+		<template name="CustomApplicationContextXml" templateFileName="SpringApplicationContextXml-template.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="application-context" 
+			application-specific="true" add-model-name="false" >
+			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
+			<property name="template-to-scan-2" value="SpringServiceImpl"></property>
+		</template>
+
+    </template-target>
+
+  	<template-target 
+    	name="Kendo client"
+		outputdir="src/main/webapp"
+		package-root=""
+		libdir="lib/KENDOUI_LIB.vm">
+
+		<template
+			name="README" templateFileName="README.REST.custom.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="false" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="html" file-prefix="" file-suffix="homeMenu" 
+			application-specific="true">
+			<property name="readme" value="put your java implementations here"></property>
+		</template>	
+		
+	</template-target>				
+   	
+   	<template-target 
+    	name="Kendo client"
+		outputdir="src/main/java"
+		libdir="lib/KENDOUI_LIB.vm">
+        
+		<template
+			name="README-REST-java" templateFileName="README-REST-java.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest" add-model-name="false" 
+			file-extension="java" file-prefix="" file-suffix="GenericResource" 
+			model-specific="true">
+			<property name="readme" value="put your java implementations here"></property>
+		</template>	
+	</template-target>
+
+  	<template-target 
+    	name="Kendo client Maven"
+		outputdir=""
+		package-root=""
+		libdir="lib/KENDOUI_LIB.vm">
+		<!-- TODO change  -->
+		<template name="PomXml.REST.KendoUiJersey" templateFileName="PomXml.REST.KendoUiJersey.vm" 
+			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
+			file-extension="xml" file-prefix="pom" file-suffix="" 
+			application-specific="true" add-model-name="false">
+			<property name="maven-artifact-finalName-suffix" value="KendoUiJersey" />
+		</template>
+		
+	</template-target>				
+	
+</target>

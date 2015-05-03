@@ -200,7 +200,7 @@
 		
 	</template-target>
 	 -->
-	 
+	 <!-- 
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
@@ -215,5 +215,5 @@
 		</template>
 		
 	</template-target>				
-	
+	 -->
 </target>

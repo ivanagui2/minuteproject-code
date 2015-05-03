@@ -18,8 +18,9 @@ import net.sf.minuteProject.utils.CommonUtils;
 public class MavenUtils {
 	
 	public static final String artifactFinalName = "maven-artifact-finalName-suffix";
+	
 	public static String getFinalName (Template template, GeneratorQualifier model) {
-		return model.getName()+"App";
+		return getArtifactId(template,model);
 	}
 	
 	public static String getArtifactId (Template template, GeneratorQualifier model) {
