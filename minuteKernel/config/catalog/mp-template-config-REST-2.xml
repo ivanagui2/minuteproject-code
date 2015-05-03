@@ -41,9 +41,22 @@
 		
 		<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest"
-			file-extension="java" file-prefix="" file-suffix="Resource" 
+			file-extension="java" file-prefix="" file-suffix="Resource"
+			add-package-name="false" add-business-package-dir-name="false" 
 			scope-specific-value="query" has-updatable-nature="true">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>		
+		
+		<template name="REST.Cache.Annotation" templateFileName="REST.Cache.Annotation.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Cacheable" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
+		
+		<template name="REST.Cache.ControlDecorator" templateFileName="REST.Cache.ControlDecorator.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="ControlDecorator" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 		</template>		
 		
 		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
@@ -67,8 +80,7 @@
 			<property name="format" value="timestamp" />
 		</template>
 		
-	</template-target>
-	
+	</template-target>	
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""

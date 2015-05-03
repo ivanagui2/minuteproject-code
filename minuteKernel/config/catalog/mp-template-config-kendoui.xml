@@ -136,20 +136,11 @@
 		</template>	
 		
 	</template-target>				
-   	 
+   	<!--  
    	<template-target 
     	name="Kendo client"
 		outputdir="src/main/java"
 		libdir="lib/KENDOUI_LIB.vm">
-
-		<!--  add also RESTDbAPILookupResource dependencies
-        <template name="RESTDbAPILookupResource" templateFileName="RESTDbAPILookupResource.vm" 
-            technicalPackage="rest"
-            file-extension="java" file-prefix="" file-suffix="LookupDefaultingResource"
-            has-updatable-nature="true" 
-            scope-specific-value="model">
-        </template> 
-         -->
         
 		<template
 			name="RESTDbAPIGenericResource" templateFileName="RESTDbAPIGenericResource.vm" 
@@ -168,7 +159,8 @@
 		
 		<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest"
-			file-extension="java" file-prefix="" file-suffix="Resource" 
+			file-extension="java" file-prefix="" file-suffix="Resource"
+			add-package-name="false" add-business-package-dir-name="false" 
 			scope-specific-value="query" has-updatable-nature="true">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>		
@@ -207,7 +199,8 @@
 		</template>
 		
 	</template-target>
-	
+	 -->
+	 
   	<template-target 
     	name="Kendo client Maven"
 		outputdir=""
