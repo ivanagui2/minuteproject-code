@@ -29,6 +29,7 @@ import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.plugin.format.I18nUtils;
+import net.sf.minuteProject.plugin.readme.ReadmeUtils;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
@@ -680,6 +681,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("enrichmentUtils", enrichmentUtils);
 		context.put("minuteprojectUtils", minuteprojectUtils);
 		context.put("actionUtils", actionUtils);
+		context.put("readmeUtils", new ReadmeUtils());
 	}
 
     protected void exit (String message) {
