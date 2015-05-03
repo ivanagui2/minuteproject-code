@@ -98,32 +98,7 @@
 				</enrichment>
 			</business-model>
 		</model>
-		<targets 
-		  outputdir-root="D:/SRC/JAVA/OPENXAVA/openxava-4.5/openxava-4.5/workspace/busintro"
-		  templatedir-root="../../minuteTemplate">
-            <target refname="OpenXava" 
-               fileName="mp-template-config-openxava-last-features.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/openxava">
-              <property name="add-automated-business-logic" value="2.1.4"></property> 
-              <!-- <property name="groovify" value="true"></property> -->
-            </target> 
-             <target refname="ABL" 
-                fileName="mp-template-config-ABL-OPENXAVA.xml" 
-                templatedir-root="../../minuteTemplate/template/framework/abl">
-            </target> 
-            <target refname="JPA2-LIB" 
-               fileName="mp-template-config-JPA2-LIB.xml" 
-               templatedir-root="../../minuteTemplate/template/framework/jpa">
-            </target>
-			<target refname="LIB" fileName="mp-template-config-bsla-LIB-features.xml"
-				templatedir-root="../../minuteTemplate/template/framework/bsla">
-			</target>
-			<target refname="CACHE-LIB" fileName="mp-template-config-CACHE-LIB.xml"
-				templatedir-root="../../minuteTemplate/template/framework/cache">
-			</target>
-			<target refname="COMMON-LIB" fileName="mp-template-config-COMMON-LIB.xml"
-				templatedir-root="../../minuteTemplate/template/framework/common">
-			</target>
+		<targets catalog-entry="OpenXava" >
 		</targets>
 	</configuration>
 </generator-config>
