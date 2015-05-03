@@ -906,13 +906,19 @@
 
 	
 	<!-- ===================================================================== -->
-	<!-- cloud sample delivery -->
+	<!-- CI: cloud sample delivery -->
 	<!-- ===================================================================== -->
 
 	<target name="cloud-samples" depends="release-application" >
+		<antcall target="cloudfoundry-sakila-sdd"/>
 		<antcall target="cloudbees-petshop-porphyry"/>
 		<antcall target="cloudbees-samples"/>
 	</target>
+		
+	<target name="cloudfoundry-sakila-sdd" >
+		<macro_generate display="sakila kendoui" config="sakila-SDD-KendoUi.xml" />
+		<macro_build_and_deploy maven.basedir="REST-KendoUi/sakila" project="REST" artifact="sakilaApp" />
+	</target>	
 		
 	<target name="cloudbees-samples" >
 		<macro_generate display="petshop PF cloudbees" config="mp-config-sample-petshop-cloudbees.xml" />
