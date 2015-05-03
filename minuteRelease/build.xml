@@ -906,6 +906,19 @@
 
 	
 	<!-- ===================================================================== -->
+	<!-- CI: custom delivery -->
+	<!-- ===================================================================== -->
+
+	<target name="custom" depends="release-application" >
+		<antcall target="custom-REST"/>
+	</target>
+		
+	<target name="custom-REST" >
+		<macro_generate display="sakila REST custom" config="custom-REST.xml" />
+		<macro_build_and_deploy maven.basedir="custom-REST/sakila" project="Business-Impl" artifact="sakilaApp" />
+	</target>
+	
+	<!-- ===================================================================== -->
 	<!-- CI: cloud sample delivery -->
 	<!-- ===================================================================== -->
 
@@ -918,7 +931,7 @@
 	<target name="cloudfoundry-sakila-sdd" >
 		<macro_generate display="sakila kendoui" config="sakila-SDD-KendoUi.xml" />
 		<macro_build_and_deploy maven.basedir="REST-KendoUi/sakila" project="REST" artifact="sakilaKendoUiApp" />
-	</target>	
+	</target>
 		
 	<target name="cloudbees-samples" >
 		<macro_generate display="petshop PF cloudbees" config="mp-config-sample-petshop-cloudbees.xml" />
