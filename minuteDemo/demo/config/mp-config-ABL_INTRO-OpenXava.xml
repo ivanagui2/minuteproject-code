@@ -99,28 +99,6 @@
 			</business-model>
 		</model>
 		<targets catalog-entry="OpenXava" >
-            <!-- <target refname="OpenXava" 
-               fileName="catalog/mp-template-config-openxava-last-features.xml" 
-               templatedir-root="../../template/framework/openxava">
-              <property name="add-automated-business-logic" value="2.1.4"></property> 
-            </target> --> 
-             <target refname="ABL" 
-                fileName="catalog/mp-template-config-ABL-OPENXAVA.xml" 
-                templatedir-root="../../template/framework/abl">
-            </target> 
-            <!-- <target refname="JPA2-LIB" 
-               fileName="catalog/mp-template-config-JPA2-LIB.xml" 
-               templatedir-root="../../template/framework/jpa">
-            </target>
-			<target refname="LIB" fileName="catalog/mp-template-config-bsla-LIB-features.xml"
-				templatedir-root="../../template/framework/bsla">
-			</target>
-			<target refname="CACHE-LIB" fileName="catalog/mp-template-config-CACHE-LIB.xml"
-				templatedir-root="../../template/framework/cache">
-			</target>
-			<target refname="COMMON-LIB" fileName="catalog/mp-template-config-COMMON-LIB.xml"
-				templatedir-root="../../template/framework/common">
-			</target>-->
 		</targets>
 	</configuration>
 </generator-config>

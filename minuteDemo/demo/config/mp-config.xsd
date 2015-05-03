@@ -722,6 +722,7 @@
 	<xs:complexType name="query-display">
 		<xs:attribute name="result-row-display" type="xs:string"/>
 		<xs:attribute name="result-detail-display" type="xs:string"/>
+		<xs:attribute name="result-detail-display-columns" type="xs:integer"/>
 		<xs:attribute name="input-display" type="xs:string"/>
 		<xs:attribute name="result-row-link-root-url" type="xs:string"/>
 		<xs:attribute name="result-row-link-field" type="xs:string"/>

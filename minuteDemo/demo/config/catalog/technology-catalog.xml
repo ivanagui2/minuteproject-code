@@ -7,7 +7,6 @@
 	    <technology-info name="JPA2" icon-url="" url="" description="JEE persistence API"/>
     </technologies-info>
     
-    
 	<technologies>
 
 		<technology name="JPA2" target-name="JPA2" model-type="rdbms"
@@ -131,14 +130,10 @@
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
-<!-- TODO 
- split DBApiRest part only
- from kendoui/emberjs/extjs/angular client
- -->
 		<technology name="REST" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-2.xml"
 			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,MavenMaster"
-			template-dir="@templateRoot@/framework/spring" status="released"
+			template-dir="@templateRoot@/framework/rest" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
 				<framework name="spring" version="4"></framework>
@@ -147,15 +142,17 @@
 			<property name="add-jpa2-implementation" value="hibernate"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="add-cache-implementation" value="ehcache"></property>
-			<property name="add-xmlbinding" value="true"></property>
-			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
 			<property name="use-temporal" value="true"></property>
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 		
+		<!-- TODO 
+			 split DBApiRest part only
+			 from kendoui/emberjs/extjs/angular client
+			 -->
 		<technology name="REST-Kendoui" model-type="rdbms"
 			template-config-file-name="mp-template-config-kendoui.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -165,10 +162,12 @@
 			<property name="add-jpa2-implementation" value="hibernate"></property>
 			<property name="add-domain-specific-method" value="true"></property>
 			<property name="add-cache-implementation" value="ehcache"></property>
-			<property name="add-xmlbinding" value="true"></property>
-			<property name="add-xml-format" value="lowercase-hyphen"></property>		<!-- java-variable, uppercase-underscore, lowercase-hyphen, java-class -->
+			<!-- <property name="add-xmlbinding" value="true"></property>
+			<property name="add-xml-format" value="lowercase-hyphen"></property>
+			 -->
 			<property name="use-temporal" value="true"></property>
 			<property name="add-backend-implementation" value="spring"></property>
+			<property name="maven-artifact-finalName-suffix" value="KendoUiApp" />
 		</technology>
 
 
@@ -258,12 +257,12 @@
 		<technology name="Primefaces-Spring" model-type="rdbms"
 			template-config-file-name="mp-template-config-JSF-Spring.xml"
 			default-outputdir="JSF-primefaces"
-			depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,Cloudbees,MavenMaster"
+			depends-on-targets="Primefaces-server,Primefaces_portlet,BSLA_LIB,BSLA-JPA2,SDD-BEANS,JPA2,SpringService,i18n_LIB,EJB3_LIB,Cloudbees,CloudFoundry-Primefaces,MavenMaster"
 			templatedir-ref="@templateRoot@/framework/i18n,@templateRoot@/framework/ejb"
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\Spring \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="4.0"></framework>
+				<framework name="primefaces" version="5.1"></framework>
 				<framework name="JSF" version="2"></framework>
 				<framework name="spring" version="4"></framework>
 			</frameworks>
@@ -288,7 +287,7 @@
 			template-dir="@templateRoot@/framework/jsf" status="released"
 			description="Generates:\JSF2 CRUD app\EJB3 \JPA2 Domain entities\with maven integration">
 			<frameworks>
-				<framework name="primefaces" version="4.0"></framework>
+				<framework name="primefaces" version="5.1"></framework>
 				<framework name="JSF" version="2"></framework>
 			</frameworks>
 			<property name="add-querydsl" value="2.1.2"></property>
@@ -324,11 +323,11 @@
 		<technology name="OpenXava" model-type="rdbms"
 			template-config-file-name="mp-template-config-openxava-last-features.xml"
 			template-dir="@templateRoot@/framework/openxava"
-			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB,Cloudbees"
+			depends-on-targets="BSLA_LIB,JPA2_LIB,CACHE_LIB,COMMON_LIB,LIFERAY_LIB,Cloudbees,CloudFoundry"
 			status="released" comment=""
 			description="Generates JPA and OX specific annotations as well as a web site to navigate and manipulate your datamodel.">
 			<frameworks>
-				<framework name="OpenXava" version="4.6.1"></framework>
+				<framework name="OpenXava" version="5.2.1"></framework>
 			</frameworks>
 			<property name="use-temporal" value="true"></property>
 		</technology>
@@ -545,12 +544,6 @@
 			</frameworks>
 		</technology>
 
-		<technology name="iBatis" model-type="rdbms"
-			template-config-file-name="mp-template-config-ibatis.xml"
-			default-outputdir="ibatis" depends-on-targets=""
-			template-dir="@templateRoot@/framework/bsla" status=""
-			description="ibatis sqlmap + spring integration">
-		</technology>
 		<!-- dependent tracks -->
 
 
@@ -581,6 +574,13 @@
 			default-outputdir="propel" depends-on-targets="PHP_LIB"
 			template-dir="@templateRoot@/framework/propelorm" status="experimental"
 			description="Propel schema, build, runtime">
+		</technology>
+
+		<technology name="iBatis" model-type="rdbms"
+			template-config-file-name="mp-template-config-ibatis.xml"
+			default-outputdir="ibatis" depends-on-targets=""
+			template-dir="@templateRoot@/framework/bsla" status=""
+			description="ibatis sqlmap + spring integration">
 		</technology>
 
 
@@ -627,6 +627,16 @@
 
 		<technology name="Cloudbees" template-config-file-name="mp-template-config-cloudbees.xml"
 			default-outputdir="" template-dir="@templateRoot@/cloud/cloudbees"
+			is-generable="false">
+		</technology>
+
+		<technology name="CloudFoundry-REST" template-config-file-name="mp-template-config-cloudfoundry.xml"
+			default-outputdir="REST" template-dir="@templateRoot@/cloud/cloudfoundry"
+			is-generable="false">
+		</technology>
+
+		<technology name="CloudFoundry-Primefaces" template-config-file-name="mp-template-config-cloudfoundry.xml"
+			default-outputdir="JSF-primefaces" template-dir="@templateRoot@/cloud/cloudfoundry"
 			is-generable="false">
 		</technology>
 
@@ -698,6 +708,26 @@
 			template-dir="@templateRoot@/framework/php" is-generable="false">
 		</technology>
 
+
+		<!-- TODO move to custom catalog -->
+		<technology name="REST-Custom" model-type="rdbms"
+			template-config-file-name="mp-template-config-kendoui.xml"
+			default-outputdir="Business-Impl" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
+			template-dir="@templateRoot@/framework/spring" status="released"
+			description="Generates:\REST CRUD\REST SDD \Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
+			<frameworks>
+				<framework name="spring" version="4"></framework>
+			</frameworks>
+			<property name="add-querydsl" value="2.1.2"></property>
+			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<property name="add-domain-specific-method" value="true"></property>
+			<property name="add-cache-implementation" value="ehcache"></property>
+			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="spring"></property>
+			<property name="maven-artifact-finalName-suffix" value="App" />
+		</technology>
+
+		
 	</technologies>
 
 </technology-catalog>
