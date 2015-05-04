@@ -4,22 +4,25 @@
 #exposeMavenCXF()
 #exposeMavenJersey()
 #putTargetServerDefinition()
+#set($restPomFinalName=$template.getPropertyValue("rest-pom-maven-artifact-finalName-suffix", "App"))
+#set($restPomPackaging=$template.getPropertyValue("rest-pom-maven-packaging", "jar"))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
-    <packaging>war</packaging>
+##    <artifactId>${artifactId}</artifactId>
+    <artifactId>${generatorBean.name}${restPomFinalName}</artifactId>
+    <packaging>${restPomPackaging}</packaging>
     <version>${version}-SNAPSHOT</version>
-    <name>$generatorBean.name KendoUI REST client</name>
+    <name>$generatorBean.name REST service</name>
     <dependencies>
         <dependency>
             <groupId>${groupId}</groupId>
-            #if($isEJBBackend)
+#if($isEJBBackend)
                 <artifactId>${generatorBean.name}Bela</artifactId>
-            #else
+#else
                 <artifactId>${generatorBean.name}Bsla</artifactId>
-            #end     
+#end     
             <version>${version}-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -34,13 +37,6 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-        #*
-        <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        <version>${cxf.version}</version>
-        </dependency>
-        *#
         <dependency>
 	        <groupId>org.glassfish.jersey.core</groupId>
 	        <artifactId>jersey-server</artifactId>
@@ -145,9 +141,9 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>${generatorBean.name}KendoUiApp</finalName>
+        <finalName>${generatorBean.name}${restPomFinalName}</finalName>
         <plugins>
-            #if($isGlassfishTargetServer)    ##earwar-shift
+#if($isGlassfishTargetServer)    ##earwar-shift
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
 ##	    <version>2.4</version>
@@ -155,7 +151,7 @@
 				    <packagingExcludes>WEB-INF/lib/*Bela*.jar</packagingExcludes>
 				</configuration>
             </plugin>
-            #end      
+#end      
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
