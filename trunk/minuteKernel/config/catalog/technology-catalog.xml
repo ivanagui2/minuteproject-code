@@ -168,6 +168,9 @@
 			<property name="use-temporal" value="true"></property>
 			<property name="add-backend-implementation" value="spring"></property>
 			<property name="maven-artifact-finalName-suffix" value="KendoUiApp" />
+			
+			<property name="rest-pom-maven-artifact-finalName-suffix" value="KendoUiApp" />
+			<property name="rest-pom-maven-packaging" value="war" />
 		</technology>
 
 
@@ -712,7 +715,7 @@
 		<!-- TODO move to custom catalog -->
 		<technology name="REST-Custom" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-custom.xml"
-			default-outputdir="Business-Impl" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
+			default-outputdir="Business-Impl" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST CRUD\REST SDD \Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -724,7 +727,10 @@
 			<property name="add-cache-implementation" value="ehcache"></property>
 			<property name="use-temporal" value="true"></property>
 			<property name="add-backend-implementation" value="spring"></property>
-			<property name="maven-artifact-finalName-suffix" value="App" />
+			<property name="maven-artifact-finalName-suffix" value="Web" />
+			
+			<property name="rest-pom-maven-artifact-finalName-suffix" value="Rest" />
+			<property name="rest-pom-maven-packaging" value="jar" />
 		</technology>
 
 		

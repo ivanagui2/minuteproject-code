@@ -19,6 +19,10 @@ public class MavenUtils {
 	
 	public static final String artifactFinalName = "maven-artifact-finalName-suffix";
 	
+	public static String getPackaging(Template template) {
+		return template.getPropertyValue("maven-packaging", "jar");
+	}
+	
 	public static String getFinalName (Template template, GeneratorQualifier model) {
 		return getArtifactId(template,model);
 	}
@@ -26,6 +30,10 @@ public class MavenUtils {
 	public static String getArtifactId (Template template, GeneratorQualifier model) {
 		String finalNameSuffix = template.getPropertyValue(artifactFinalName);
 		return  (finalNameSuffix!=null)? model.getName()+finalNameSuffix:model.getName()+"App";
+	}
+	
+	public static String getJarArtifactName (Template template, GeneratorQualifier model) {
+		return getArtifactName(template, model, "jar-maven-template", "maven-artifact-finalName-suffix");
 	}
 
 	public static String getWebArtifactName (Template template, GeneratorQualifier model) {

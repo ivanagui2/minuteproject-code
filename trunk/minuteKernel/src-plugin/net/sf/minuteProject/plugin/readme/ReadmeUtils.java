@@ -6,7 +6,7 @@ public class ReadmeUtils {
 
 	public String getReadme(Template template) {
 		String propertyValue = template.getPropertyValue("readme");
-		return (propertyValue!=null) ? propertyValue.replaceAll("\\", "\\n"): "please add a readme property!";
+		return (propertyValue!=null) ? propertyValue.replaceAll("\\\\", "\\n"): "please add a readme property!";
 	}
 	
 }
