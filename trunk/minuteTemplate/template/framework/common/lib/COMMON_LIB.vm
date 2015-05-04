@@ -7,7 +7,7 @@
 #end
 
 #macro(putReadmeText)
-$!commonUtils.getReadMeText($template)
+$readmeUtils.getReadme($template)
 #end
 
 #macro (asUML $table)
