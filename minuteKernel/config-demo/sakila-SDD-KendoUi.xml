@@ -489,6 +489,8 @@ ORDER BY total_sales DESC
 				</queries>
 			</statement-model>
 		</model>
+		<!-- <targets catalog-entry="REST-KendoUi,REST-Custom" > 
+		-->
 		<targets catalog-entry="REST-KendoUi" >
 			<property name="target-server" value="tomcat"></property>
 			
