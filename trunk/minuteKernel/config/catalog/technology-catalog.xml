@@ -729,8 +729,8 @@
 			<property name="add-backend-implementation" value="spring"></property>
 			<property name="maven-artifact-finalName-suffix" value="Web" />
 			
-			<property name="rest-pom-maven-artifact-finalName-suffix" value="Rest" />
-			<property name="rest-pom-maven-packaging" value="jar" />
+			<property name="dependent-maven-artifact-finalName-suffix" value="Rest" />
+			<property name="dependent-maven-packaging" value="jar" />
 		</technology>
 
 		

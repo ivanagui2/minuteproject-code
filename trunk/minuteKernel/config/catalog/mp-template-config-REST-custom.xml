@@ -68,7 +68,7 @@
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
 			<property name="jar-maven-template" value="PomXml.REST-2" />
-			<property name="maven-artifact-finalName-suffix" value="App" />
+			<property name="maven-artifact-finalName-suffix" value="Web" />
 			<property name="maven-packaging" value="war" />
 		</template>
 		
