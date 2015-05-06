@@ -25,48 +25,51 @@
     </template-target>
 
   	<template-target 
-    	name="Kendo client"
+    	name="default webapp instructions"
 		outputdir="src/main/webapp"
-		package-root=""
-		libdir="lib/KENDOUI_LIB.vm">
+		package-root="">
 
 		<template
-			name="README" templateFileName="README.REST.custom.vm" 
+			name="README.REST.custom" templateFileName="README.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			add-model-name="false" add-model-dir-name="false"
 			add-package-name="false" 
-			file-extension="html" file-prefix="" file-suffix="homeMenu" 
+			file-extension="txt" file-prefix="" file-suffix="README" 
 			application-specific="true">
-			<property name="readme" value="put your java implementations here"></property>
+			<property name="readme" value="put your webapp (html,css,js) implementations here"></property>
 		</template>	
 		
 	</template-target>				
    	
    	<template-target 
-    	name="Kendo client"
-		outputdir="src/main/java"
-		libdir="lib/KENDOUI_LIB.vm">
-        
+    	name="default webapp java dev"
+		outputdir="src/main/java">
+
 		<template
-			name="README-REST-java" templateFileName="README-REST-java.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest" add-model-name="false" 
-			file-extension="java" file-prefix="" file-suffix="GenericResource" 
-			model-specific="true">
+			name="README.REST.custom" templateFileName="README.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="false" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="txt" file-prefix="" file-suffix="README" 
+			application-specific="true">
 			<property name="readme" value="put your java implementations here"></property>
 		</template>	
+		       
 	</template-target>
 
   	<template-target 
-    	name="Kendo client Maven"
+    	name="Maven pom"
 		outputdir=""
 		package-root=""
-		libdir="lib/KENDOUI_LIB.vm">
+		libdir="">
 		<!-- TODO change  -->
-		<template name="PomXml.REST.KendoUiJersey" templateFileName="PomXml.REST.KendoUiJersey.vm" 
+		<template name="PomXml.custom" templateFileName="MavenDefaultPomXml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
 			file-extension="xml" file-prefix="pom" file-suffix="" 
 			application-specific="true" add-model-name="false">
-			<property name="maven-artifact-finalName-suffix" value="KendoUiJersey" />
+			<property name="jar-maven-template" value="PomXml.REST-2" />
+			<property name="maven-artifact-finalName-suffix" value="Web" />
+			<property name="maven-packaging" value="war" />
 		</template>
 		
 	</template-target>				
