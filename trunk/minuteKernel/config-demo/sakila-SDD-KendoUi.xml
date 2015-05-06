@@ -489,19 +489,16 @@ ORDER BY total_sales DESC
 				</queries>
 			</statement-model>
 		</model>
-		<!-- <targets catalog-entry="REST-KendoUi,REST-Custom" > 
-		-->
 		<targets catalog-entry="REST-KendoUi" >
 			<property name="target-server" value="tomcat"></property>
 			<!-- 
 			<property name="environment" value="remote"></property>
 			 -->
-			<property name="cloud-platform" value="cloudfoundry"></property>
 			<property name="cloud-name" value="sakila-app"></property>
 			
 			<property name="cloud-platform" value="cloudfoundry"></property>
 			<property name="cloud-application-name" value="mp-sakila-kendoui"></property>
-			<property name="cloud-database-name" value="sakila-db"></property>
+			<property name="cloud-databases-name" value="sakila-db"></property>
 
 			<property name="auto-complete-sdd-on-like-min-char" value="3"></property>
 			<property name="auto-complete-sdd-on-like-max-record-display" value="10"></property>

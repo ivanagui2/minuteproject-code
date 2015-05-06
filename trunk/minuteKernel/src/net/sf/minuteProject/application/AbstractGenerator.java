@@ -338,6 +338,7 @@ public abstract class AbstractGenerator implements Generator {
 		for (Target target: targets.getTargets()) {
 			target.addProperties(props); //TODO make override in template not only append at target level
 			configuration.getTargets().addTarget(target);
+			target.addProperty(new Property("catalog-entry", configuration.getTargets().getCatalogEntry()));
 		}
 	}
 	
