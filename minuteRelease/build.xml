@@ -915,7 +915,7 @@
 		
 	<target name="REST-Custom" >
 		<macro_generate display="sakila REST custom" config="custom-REST.xml" />
-		<macro_build_and_deploy maven.basedir="REST-Custom/sakila" project="Business-Impl" artifact="sakilaApp" />
+		<macro_build_and_deploy maven.basedir="REST-Custom/sakila" project="Business-Impl" artifact="sakilaWeb" />
 	</target>
 	
 	<!-- ===================================================================== -->
