@@ -24,4 +24,7 @@ $!updatedAreaSnippet
 #end
 $!updatedAreaEnd
 	</modules>
+
+#addArea("custom-maven-nodes")
+
 </project>
