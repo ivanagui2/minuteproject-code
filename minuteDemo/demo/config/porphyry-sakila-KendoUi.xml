@@ -243,7 +243,7 @@ $wherecustomer
 					</query>
 					
 					<query name="sales_by_film_category" id="sales_by_film_category" package-name="dashboard"
-						category="pie-chart">
+						category="bar-chart">
 						<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[select * from sales_by_film_category order by category asc]]>
@@ -256,6 +256,64 @@ $wherecustomer
 								</action-field-map>
 							</action>
 						</actions>
+					</query>
+					
+					<query name="sales_by_film_category_filter" id="sales_by_film_category" package-name="dashboard"
+						category="bar-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select * from sales_by_film_category order by $orderby $sort]]>
+                            </value>
+						</query-body>
+						<query-chunks>
+							<query-chunk name="orderby" sample-value="category">
+								<query-chunk-value name="category" value="category"/>
+								<query-chunk-value name="total_sales" value="total_sales"/>
+							</query-chunk>
+							<query-chunk name="sort" sample-value="asc">
+								<query-chunk-value name="ascending" value="asc"/>
+								<query-chunk-value name="descending" value="desc"/>
+							</query-chunk>
+						</query-chunks>
+						<actions>
+							<action name="sales info" query-id="sales_by_film_and_film_category">
+								<action-field-map>
+									<action-field-map-entry output-field="category" to-action-field="category"></action-field-map-entry>
+								</action-field-map>
+							</action>
+						</actions>
+					</query>
+					
+					<query name="sales_by_film_among_category" id="sales_by_film_among_category" package-name="dashboard"
+						category="pie-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select category, total_sales from sales_by_film_category where category in (?...) order by category]]>
+                            </value>
+						</query-body>
+						<query-params>
+							<query-param name="categories" type="string" is-in-clause="true" sample="'hx','tx'">
+								<property tag="checkconstraint">
+									<property name="Action" />
+									<property name="Children" />
+									<property name="Drama" />
+								</property>
+							</query-param>
+						</query-params>
+					</query>
+					
+					<query name="sales_by_film_among_category_list" id="sales_by_film_among_category_list" package-name="dashboard"
+						category="pie-chart">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[select category, total_sales from sales_by_film_category where category in (?...) order by category]]>
+                            </value>
+						</query-body>
+						<query-params>
+							<query-param name="categories" type="string" is-in-clause="true" sample="'hx','tx'">
+								<query-param-link sdd-query-name="distinct-categories" field-name="name" field-key="name"/>
+							</query-param>
+						</query-params>
 					</query>
 					
 					<query name="sales_by_film_and_film_category" id="sales_by_film_category" package-name="dashboard">
