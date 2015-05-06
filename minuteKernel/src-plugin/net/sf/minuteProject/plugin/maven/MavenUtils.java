@@ -35,6 +35,10 @@ public class MavenUtils {
 	public static String getJarArtifactName (Template template, GeneratorQualifier model) {
 		return getArtifactName(template, model, "jar-maven-template", "maven-artifact-finalName-suffix");
 	}
+	
+	public static String getDependentJarArtifactName (Template template, GeneratorQualifier model) {
+		return getArtifactName(template, model, "jar-maven-template", "dependent-maven-artifact-finalName-suffix");
+	}
 
 	public static String getWebArtifactName (Template template, GeneratorQualifier model) {
 		return getArtifactName(template, model, "web-maven-template", "maven-artifact-finalName-suffix");
