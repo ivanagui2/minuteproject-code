@@ -6,7 +6,7 @@
 #set($version=$mavenUtils.getVersion($generatorBean))
 #set($DbApiName=$mavenUtils.getDbApiName($generatorBean))
 #set($packaging=$mavenUtils.getPackaging($template))
-#set($mavenDependentArtifact=$mavenUtils.getJarArtifactName($template, $generatorBean))
+##set($mavenDependentArtifact=$mavenUtils.getJarArtifactName($template, $generatorBean))
 #set($resourcesDir="src/main/resources")
 #set($bslaJpaVersion="0.8.11")
 #end
