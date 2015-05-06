@@ -82,6 +82,7 @@
 		<template name="SDDServiceInterface" templateFileName="SDDDaoInterface.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.face"
 			file-extension="java" file-prefix="" file-suffix="Service" 
+			add-package-name="false" add-business-package-dir-name="false"
 			scope-specific-value="query"
 			has-updatable-nature="true">
 		</template>	
@@ -90,6 +91,7 @@
 		<template name="SDDSpringServiceImpl" templateFileName="SDDSpringServiceImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.impl"
 			file-extension="java" file-prefix="" file-suffix="ServiceImpl" 
+			add-package-name="false" add-business-package-dir-name="false"
 			scope-specific-value="query"
 			has-updatable-nature="true">
 		</template>		
