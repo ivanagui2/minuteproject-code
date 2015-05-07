@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 public class VersionConvention extends ModelConvention {
 
 	public static final String defaultVersionColumnName = "version";
+	public String pattern;
 	
 	@Override
 	public void apply(BusinessModel model) {
@@ -36,13 +37,25 @@ public class VersionConvention extends ModelConvention {
 	}
 
 	public String getDefaultValue() {
+		if (pattern==null || pattern.isEmpty())
+			pattern = defaultVersionColumnName;
+		/* can specify a default value
 		if (defaultValue==null || defaultValue.isEmpty())
-			defaultValue = defaultVersionColumnName;
-		return defaultValue;
+			pattern = defaultValue;
+		 */
+		return pattern;
 	}
 	
 	private List<String> getVersionColumnName () {
-		return ParserUtils.getList(defaultValue);
+		return ParserUtils.getList(pattern);
+	}
+
+	public String getPattern() {
+		return pattern;
+	}
+
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
 	}
 
 }
