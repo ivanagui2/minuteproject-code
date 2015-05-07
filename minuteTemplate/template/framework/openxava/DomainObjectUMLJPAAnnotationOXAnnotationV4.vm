@@ -172,9 +172,6 @@ public class ${className} {
 #end
 #end
 #end
-#if ($column.isVersion())
-	@Version
-#end
 #putJPA2Temporal()
     $accessor $columnType $columnVar; ##// pk not fk
 
@@ -228,6 +225,9 @@ public class ${className} {
 #if(!$column.isEditable())
 	@ReadOnly
 #end
+#end
+#if ($column.isVersion())
+	@Version
 #end
     $accessor $columnType $columnVar;
 #end
