@@ -80,9 +80,9 @@
 	 <!--  -->
 	 <database name="POSTGRES" 
         hibernate-dialect="org.hibernate.dialect.PostgreSQLDialect" 
-        use-schema="true" 
+        use-schema="false" 
         driverclassname="org.postgresql.Driver"
-        default-url-structure="jdbc:postgresql://${server-name}:${port-number}:${database-name}" >
+        default-url-structure="jdbc:postgresql://${server-name}:${port-number}:${database-name}?searchpath=${schema}" >
         <maven-artifact
            mvn-artifact-id="postgresql" 
            mvn-group-id="postgresql"
@@ -90,7 +90,6 @@
         </maven-artifact>
         <primary-key-policy type="autoincrement"/>
 	 </database>
-
 	 
 	 <database name="MSSQL" 
         hibernate-dialect="org.hibernate.dialect.SQLServer2008Dialect" 
