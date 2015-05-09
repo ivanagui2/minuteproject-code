@@ -1,8 +1,10 @@
+#generatorSpecific()
+# $generatorBean.name
 ---
 applications:
-  - name: $cloudfoundryUtils.getApplicationName($template)
+  - name: $cloudUtils.getApplicationName($template)
     buildpack: java_buildpack
 ##    path: target/xxx-1.0.0.BUILD-SNAPSHOT.jar
-    path: $cloudfoundryUtils.getWarPath($template)
+    path: $cloudUtils.getReleaseFileName($template, $generatorBean) 
     services:
-      - $cloudfoundryUtils.getDatabaseName($template)
+      - $cloudUtils.getDatabaseName($template)
