@@ -1,13 +1,9 @@
-<target name="KendoUI">		
-	<architecture-target name="kendoUI" description="KendoUI architecture">
+<target name="TWBS">		
+	<architecture-target name="TWBS" description="TWBS architecture">
 	</architecture-target>	
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
    	<plugin name="kendoUiUtils" className="net.sf.minuteProject.plugin.kendoui.KendoUiUtils"/>
- 
-	<resource-target outputdir="src/main/webapp/icon">
-		<resource name="plus-h" resource-file-name="plus_h.png" />
-		<resource name="plus-n" resource-file-name="plus_n.png" />
-	</resource-target>
+
 	
 	<template-target 
     	name="REST kendoui client web.xml config"
@@ -100,20 +96,20 @@
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
 
-	</template-target>
+	</template-target>				
    	
   	<template-target 
-    	name="Kendo client"
+    	name="TWBS client"
 		outputdir="src/main/webapp"
 		package-root=""
-		libdir="lib/KENDOUI_LIB.vm">
+		libdir="lib/TWBS_LIB.vm">
 
 		<template
-			name="KendoUiMenu" templateFileName="KendoUiMenu.vm" 
+			name="Twbs.SbAdmin.index" templateFileName="Twbs.SbAdmin.index.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
 			add-model-name="false" add-model-dir-name="false"
 			add-package-name="false" 
-			file-extension="html" file-prefix="" file-suffix="homeMenu" 
+			file-extension="html" file-prefix="" file-suffix="index2" 
 			application-specific="true">
 		</template>	
 
