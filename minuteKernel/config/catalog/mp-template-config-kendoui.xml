@@ -26,6 +26,11 @@
 			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
 			<property name="template-to-scan-2" value="SpringServiceImpl"></property>
 		</template>
+			 
+		<template name="REST.WLS.weblogic.xml" templateFileName="REST.WLS.weblogic.xml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="weblogic" 
+			application-specific="true" add-model-name="false" >
+		</template>
 
     </template-target>
  
