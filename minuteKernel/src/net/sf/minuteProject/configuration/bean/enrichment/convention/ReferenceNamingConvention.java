@@ -10,10 +10,12 @@ import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichmen
 import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.plugin.format.I18nUtils;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
 
@@ -32,7 +34,7 @@ public class ReferenceNamingConvention extends ModelConvention {
 		if (APPLY_REFERENCED_ALIAS_WHEN_NO_AMBIGUITY.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
-//					apply (table); TODO fix bug in liferay to enable m2m and child relationships
+					//apply (table); //TODO fix bug in liferay to enable m2m and child relationships
 					applyForChildren (table);
 				}
 			}
@@ -47,31 +49,46 @@ public class ReferenceNamingConvention extends ModelConvention {
 		else if (APPLY_MANY_TO_MANY_ALIASING.equals(type)) {
 			if (model.getBusinessPackage()!=null) {
 				for (Table table : model.getBusinessPackage().getEntities()) {
-					if (table.isManyToMany())
+					/*if (table.isManyToMany()) {
 						applyM2MAlias (table);
+					} else {
+						applyMany2ManyReference(table);
+					}*/
+					applyMany2ManyReference(table);
 				}
 			}
 		}
 	}
 
-	private void applyM2MAlias(Table table) {
+	private void applyM2MAlias(Table m2m) {
 		// get table other end 
-		for (Reference parent : table.getParents()) {
-			String retrievedAlias = retrieveAlias(table, parent);
+		for (Reference parent : m2m.getParents()) {
+			String retrievedAlias = retrieveAlias(m2m, parent);
 			if (retrievedAlias!=null)
 				parent.setAlias(retrievedAlias);
+				//( ReferenceUtils.getReverseReference(parent)).setAlias(retrievedAlias);
 		}
 		// check that reference is enriched
 	}
 
-	private String retrieveAlias(Table table, Reference parent) {
-		String retrievedAlias = getRetrievedAlias (table, parent);
+	private String retrieveAlias(Table m2m, Reference parent) {
+		String retrievedAlias = getRetrievedAlias (m2m, parent);
 		if (retrievedAlias!=null)
 			if (isToPlurialize)
 				retrievedAlias = I18nUtils.plurialize(retrievedAlias);
 		return retrievedAlias;
 	}
 
+	private String getRetrievedAlias2 (Table m2m, Reference parent) {
+		// take parent => get parent table and column
+		Table table = parent.getLocalTable();
+		Column column = parent.getLocalColumn();
+		return parent.getLocalColumnName();
+		// on parent column check if no ambiguity
+		// if not add parent
+
+	}
+	
 	private String getRetrievedAlias (Table table, Reference parent) {
 		Field field = getRetrievedField(table, parent);
 		if (field!=null)
@@ -112,8 +129,11 @@ public class ReferenceNamingConvention extends ModelConvention {
 		List<Reference> list = getReferenceChildrenAndMany2Many(table);
 		for (Reference reference : EnrichmentUtils.getLinkedTargetReferenceByMany2Many(table)) {
 			if (!reference.getForeignTable().isManyToMany()) {
-				if (isNoAmbiguityReference(reference, list)) //TODO compare with all reference m2m+children
+				if (isNoAmbiguityReference(reference, list)) {
+					//TODO compare with all reference m2m+children
 					reference.setAlias(getNameForUnambiguiousCaseAndMany2Many(table, reference));
+					reference.getAlias();
+				}
 				else {
 //					System.out.println(">>>>>>>>>> a "+reference.getAlias());
 //					if (StringUtils.isEmpty(reference.getAlias()) 

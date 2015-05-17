@@ -114,9 +114,9 @@ public class EnrichmentUtils {
 		List<Reference> list = new ArrayList<Reference>();
 		Reference[] reference = table.getParents();
 		for (int i = 0; i < reference.length; i++) {
-			Table linkedTable = reference[i].getForeignTable();
+//			Table linkedTable = reference[i].getForeignTable();
 //			if (hasTag(linkedTable, tag))
-				list.add(reference[i]);
+			list.add(reference[i]);
 		}
 		return (Reference[]) list.toArray(new Reference[list.size()]);
 	}
@@ -209,8 +209,16 @@ public class EnrichmentUtils {
 			for (int i = 0; i < m2mReference.length; i++) {
 				Reference ref = m2mReference[i];
 				if (!isEqual(origin, ref)) {
-					if (!ref.isAliasSet())
-						ref.setAlias(ReferenceUtils.getDefaultAliasForManyToMany(many2many, ref));
+					/*
+					String alias = ReferenceUtils.getDefaultAliasForManyToMany(many2many, ref);
+					if (ref.getAlias().equals(alias)) {
+					//if (!ref.isAliasSet()) {
+						ref.setAlias(alias);
+					}
+					
+					if (ReferenceUtils.equalsProvidedAlias(ref, alias))
+						ref.setAlias(alias);
+						*/
 					return ref;
 				}
 			}
