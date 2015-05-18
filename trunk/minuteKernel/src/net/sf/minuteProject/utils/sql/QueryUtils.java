@@ -347,4 +347,11 @@ public class QueryUtils {
 		}
 		return null;
 	}
+	
+	public static String getDescription (Query query) {
+		String description = query.getDescription();
+		if (description!=null)
+			return description;
+		return "perform "+query.getName();
+	}
 }
