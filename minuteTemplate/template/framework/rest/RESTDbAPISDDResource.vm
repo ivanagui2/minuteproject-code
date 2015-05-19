@@ -20,18 +20,18 @@ import javax.servlet.http.*;
 import java.util.List;
 import java.util.ArrayList;
 #if($isSpringBackend)
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.beans.factory.annotation.Qualifier;
-    import org.springframework.stereotype.Service;
-    import org.springframework.transaction.annotation.Propagation;
-    import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 #elseif($isEJBBackend)
-    import javax.enterprise.context.RequestScoped;
-    import javax.enterprise.inject.Default;
-    import javax.inject.Inject;
-    import javax.inject.Named;
-    import javax.ejb.EJB;
-    import $EJBDaoImplImport;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ejb.EJB;
+import $EJBDaoImplImport;
 #end
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -51,7 +51,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 import $sddOutputBeanCollectionImport;
 #if($isNotVoidInput)
-    import $sddInputBeanImport;
+import $sddInputBeanImport;
 #end
 import $sddDaoInterfaceImport;
 /**
