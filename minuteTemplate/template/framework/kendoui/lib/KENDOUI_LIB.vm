@@ -503,7 +503,8 @@ $!updatedAreaEnd
            ,
            schema: {
               data: "$sddOutputBeanClass"
-           }
+           },
+           pageSize : $kendoUiUtils.pageSize()
         },
 #if (!$isChart)
            resizable: true,

@@ -75,7 +75,8 @@
                         ,
                         schema: {
                             data: "$sddOutputBeanClass"
-                        }
+                        },
+                        pageSize : $kendoUiUtils.pageSize()
                     },
                     resizable: true,
                     sortable: {
