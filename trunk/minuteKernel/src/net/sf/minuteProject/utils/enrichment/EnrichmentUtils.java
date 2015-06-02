@@ -394,6 +394,14 @@ public class EnrichmentUtils {
 		return isToGenerateBasedOnPropertyNamePresence(template, bean, "property-presence");
 	}
 	
+	public static boolean isToGenerateBasedOnNotPropertyPresence(Template template, GeneratorBean bean) {
+		return isToGenerateBasedOnNotPropertyNamePresence(template, bean, "property-presence");
+	}
+	
+	public static boolean isToGenerateBasedOnNotPropertyPresenceValue(Template template, GeneratorBean bean) {
+		return !isToGenerateBasedOnPropertyPresenceValue(template, bean);
+	}
+	
 	public static boolean isToGenerateBasedOnPropertyPresenceValue(Template template, GeneratorBean bean) {
 		Property property = retrievePropertyPresence(template, bean, "property-presence");
 		if (property!=null) {
@@ -410,6 +418,10 @@ public class EnrichmentUtils {
 	
 	public static boolean isToGenerateBasedOnPropertyNamePresence(Template template, GeneratorBean bean, String name) {
 		return (template.getPropertyValue(template.getPropertyValue(name))!=null)?true:false;
+	}
+	
+	public static boolean isToGenerateBasedOnNotPropertyNamePresence(Template template, GeneratorBean bean, String name) {
+		return !isToGenerateBasedOnPropertyNamePresence(template, bean, name);
 	}
 	
 	public static boolean isToGenerateBasedOnTagAndNotMany2Many(Template template, GeneratorBean bean) {
