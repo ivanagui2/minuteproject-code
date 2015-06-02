@@ -343,7 +343,8 @@ public class ModelGenerator extends AbstractGenerator {
 	private void generateArtifactsByQuery(Template template) throws MinuteProjectException {
 		if (getModel().getStatementModel()!=null && getModel().getStatementModel().getQueries()!=null) {
 			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
-				writeTemplateResult(query, template);
+				if (isToGenerate(query, template))
+					writeTemplateResult(query, template);
 			}
 		}
 	}
@@ -458,8 +459,9 @@ public class ModelGenerator extends AbstractGenerator {
 				Table table = query.getEntity(direction);
 				table = getDecoratedTable(table);
 				// create even if no column table.getColumns().length>0
+				if (isToGenerate(table, template)) {
 					writeTemplateResult(table, template);
-				//}
+				}
 			}
 		}
 	}
