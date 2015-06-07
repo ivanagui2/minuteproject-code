@@ -17,4 +17,5 @@ public class JpaUtils {
 		if (s==null) return JPA2_IMPLEMENTATION_HIBERNATE;
 		return s.toLowerCase();
 	}
+
 }

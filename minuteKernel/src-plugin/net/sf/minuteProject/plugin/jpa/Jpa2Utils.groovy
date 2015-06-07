@@ -47,4 +47,9 @@ class Jpa2Utils {
 	public static boolean isEmbedded (Table table) {
 		TableUtils.isCompositePrimaryKeyNotMany2Many(table);
 	}
+	
+	
+	public static String getNamedQueryVariable (Table table) {
+		return (!table.getAlias().equalsIgnoreCase("a")) ? "a" :"b";
+	}
 }
