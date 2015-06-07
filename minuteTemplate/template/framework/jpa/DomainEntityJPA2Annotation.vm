@@ -42,15 +42,15 @@ import javax.xml.bind.annotation.*;
  */
 @Entity (name="${className}")
 @Table (name="\"${table.name}\"")
-#set($domainVariableName = $formatUtils.getJavaNameVariableConvertReservedWord($domainVariableName))
+#set($nqVar = $jpa2Utils.getNamedQueryVariable($table))
 @NamedQueries $annotationListTagBeginning
-#set($selectChunk="SELECT $domainVariableName FROM ${className} $domainVariableName")
+#set($selectChunk="SELECT $nqVar FROM ${className} $nqVar")
 	 @NamedQuery(name="${className}.findAll", query="$selectChunk")
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
-	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE ${domainVariableName}.$columnVar = :$columnVar")
+	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE ${nqVar}.$columnVar = :$columnVar")
 #if($convertUtils.isStringType($column.type))
-	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${domainVariableName}.$columnVar like :$columnVar")
+	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${nqVar}.$columnVar like :$columnVar")
 #end
 #addArea ("custom-queries")
 #end
@@ -252,7 +252,9 @@ $!updatedAreaSnippet
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
+    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> (); 
+// $linkReference
+// $linkReference.alias
 
 #end
 #updatedAreaEnd()
