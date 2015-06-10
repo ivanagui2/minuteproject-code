@@ -188,6 +188,31 @@ $wherefirstname $wherelastname $wherecountry
 	</query-filters>
 </query>
 					
+					<!-- structured result -->
+					<query name="actor film" id="actor-film" package-name="technical">
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[
+
+select ai.film_info, f.film_id film_id, f.title, a.first_name, a.last_name, a.actor_id from actor_info ai, film_actor fa, film f, actor a
+where ai.actor_id = fa.actor_id 
+and fa.film_id = f.film_id
+and fa.actor_id = a.actor_id
+
+]]>
+                            </value>
+						</query-body>
+						<query-pivots >
+							<query-pivot name = "film" pivot-column = "film_info, title, film_id" key="film_id"></query-pivot>	
+							<query-pivot name = "actor" pivot-column = "first_name, last_name, actor_id" key="actor_id"></query-pivot>	
+						</query-pivots>
+						<query-params>
+							<query-param name = "film_id" type="int" sample="1"/>
+						</query-params>
+						<query-display result-row-display="first_name, last_name"/>
+					</query>
+					
+					
 					<!-- actor -->
 					<query name="actor film" id="actor-film" package-name="technical">
 						<query-body> <!-- dimensions column first -->
