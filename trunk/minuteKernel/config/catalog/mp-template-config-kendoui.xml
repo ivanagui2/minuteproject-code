@@ -17,6 +17,7 @@
 			 
 		<template name="WebXmlRESTKendoUiClient" templateFileName="WebXmlRESTKendoUiClient.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="web" 
+			has-updatable-nature="true"
 			application-specific="true" add-model-name="false" >
 		</template>
 			 
