@@ -189,7 +189,10 @@ $wherefirstname $wherelastname $wherecountry
 </query>
 					
 					<!-- structured result -->
-					<query name="actor film" id="actor-film" package-name="technical">
+					<query name="pivot actor film" id="pivot-actor-film" package-name="technical">
+					<!-- create pivot classes film and actor 
+						once processed reassemble g
+					-->
 						<query-body> <!-- dimensions column first -->
 							<value>
 <![CDATA[
@@ -203,12 +206,9 @@ and fa.actor_id = a.actor_id
                             </value>
 						</query-body>
 						<query-pivots >
-							<query-pivot name = "film" pivot-column = "film_info, title, film_id" key="film_id"></query-pivot>	
+							<query-pivot name = "film"  pivot-column = "film_info, title, film_id" key="film_id"></query-pivot>	
 							<query-pivot name = "actor" pivot-column = "first_name, last_name, actor_id" key="actor_id"></query-pivot>	
 						</query-pivots>
-						<query-params>
-							<query-param name = "film_id" type="int" sample="1"/>
-						</query-params>
 						<query-display result-row-display="first_name, last_name"/>
 					</query>
 					
