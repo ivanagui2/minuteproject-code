@@ -15,7 +15,7 @@ public abstract class BeanNamingConvention <T extends GeneratorBean> extends Mod
 	private static final long serialVersionUID = -3918614254625282929L;
 	
 	public final static String APPLY_FIELD_ALIAS_BASED_ON_CAMEL_CASE 	="apply-field-alias-based-on-camelcase";
-	public final static String APPLY_SINGULAR_ALIAS 							="apply-singular";
+	public final static String APPLY_SINGULAR_ALIAS 					="apply-singular";
 
 	@Override
 	public void apply(BusinessModel model) {

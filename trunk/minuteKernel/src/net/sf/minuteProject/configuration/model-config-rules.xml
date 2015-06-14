@@ -260,6 +260,15 @@
 			                <set-properties-rule/>
 		                   <bean-property-setter-rule pattern="value"/>
 			            </pattern>
+		            </pattern>     
+			        <pattern value="query-pivots/query-pivot">
+		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryPivot"/>    
+		                <set-next-rule methodname="addQueryPivot" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryPivot"/>          
+                   		<set-properties-rule>
+	                       <alias attr-name="name" 			prop-name="name" />
+	                       <alias attr-name="key-column" 	prop-name="key" />
+	                       <alias attr-name="columns" 		prop-name="columns" />
+	                   </set-properties-rule>
 		            </pattern>
         
 		             
@@ -1480,6 +1489,15 @@
 	                   <set-properties-rule/>
 	                   <bean-property-setter-rule pattern="value"/>
 		            </pattern>
+	            </pattern>
+		        <pattern value="query-pivots/query-pivot">
+	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryPivot"/>    
+	                <set-next-rule methodname="addQueryPivot" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryPivot"/>          
+                  		<set-properties-rule>
+                       <alias attr-name="name" 			prop-name="name" />
+                       <alias attr-name="key-column" 	prop-name="key" />
+                       <alias attr-name="columns" 		prop-name="columns" />
+                   </set-properties-rule>
 	            </pattern>	             
 		        <pattern value="query-params">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams"/>    
