@@ -671,6 +671,7 @@
 			<xs:element name="query-fields" type="query-fields" />
 			<xs:element name="query-filters" type="query-filters" />
 			<xs:element name="query-params" type="query-params" />
+			<xs:element name="query-pivots" type="query-pivots" />
 			<xs:element name="actions" type="actions" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" />
@@ -687,6 +688,13 @@
 	<xs:complexType name="query-params">
 		<xs:sequence>
 			<xs:element name="query-param" type="query-param"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="query-pivots">
+		<xs:sequence>
+			<xs:element name="query-pivot" type="query-pivot"
 				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
@@ -740,6 +748,11 @@
 			<xs:element name="query-chunk-value" type="query-chunk-value"/>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="query-pivot">
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="pivot-column" type="xs:string" use="required" />
+		<xs:attribute name="columns" type="xs:string" use="required" />
 	</xs:complexType>
 	<xs:complexType name="query-chunk-value">
 		<xs:attribute name="name" type="xs:string" use="required" />

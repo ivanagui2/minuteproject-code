@@ -42,6 +42,7 @@ public class Query extends AbstractConfiguration {
 	private List<Action> actions;
 	private List<Action> inputActions;
 	private List<QueryChunk> queryChunks;
+	private List<QueryPivot> pivots;
 	private String packageName;
 	private boolean isWrite = false;
 	private String contentType;
@@ -84,6 +85,17 @@ public class Query extends AbstractConfiguration {
 		queryBody.setValue(s);
 	}
 
+	public List<QueryPivot> getPivots() {
+		if (pivots==null) {
+			pivots = new ArrayList<QueryPivot>();
+		}
+		return pivots;
+	}
+	
+	public void addQueryPivot(QueryPivot queryPivot) {
+		getPivots().add(queryPivot);
+	}
+	
 	public List<QueryChunk> getQueryChunks() {
 		if (queryChunks==null) {
 			queryChunks = new ArrayList<QueryChunk>();
