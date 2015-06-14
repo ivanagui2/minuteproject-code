@@ -127,6 +127,10 @@ $!updatedAreaBegin
 #end
     }
 #end
+
+#foreach ($pivot in $query.pivots)
+// $pivot
+#end
 $!updatedAreaEnd
 $!updatedAreaImplementation
 }
