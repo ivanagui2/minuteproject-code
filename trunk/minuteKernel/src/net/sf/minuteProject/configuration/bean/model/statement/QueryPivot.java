@@ -11,16 +11,17 @@ import net.sf.minuteProject.utils.ColumnUtils;
 public class QueryPivot extends AbstractConfiguration{
 	
 	private Query query;
-	private String key;
+	private String pivot;
 	private String columns;
 	private List<Column> columnList;
 	private List<QueryPivot> siblings;
 	
-	public String getKey() {
-		return key;
+
+	public String getPivot() {
+		return pivot;
 	}
-	public void setKey(String key) {
-		this.key = key;
+	public void setPivot(String pivot) {
+		this.pivot = pivot;
 	}
 	public String getColumns() {
 		return columns;

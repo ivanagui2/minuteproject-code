@@ -751,7 +751,7 @@
 	</xs:complexType>
 	<xs:complexType name="query-pivot">
 		<xs:attribute name="name" type="xs:string" use="required" />
-		<xs:attribute name="pivot-column" type="xs:string" use="required" />
+		<xs:attribute name="pivot" type="xs:string" use="required" />
 		<xs:attribute name="columns" type="xs:string" use="required" />
 	</xs:complexType>
 	<xs:complexType name="query-chunk-value">
