@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wordnik.swagger.annotations.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.*;
 import java.sql.*;
@@ -51,6 +53,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 import $sddOutputBeanCollectionImport;
+import $sddOutputBeanImport;
 #if($isNotVoidInput)
 import $sddInputBeanImport;
 #end
@@ -138,26 +141,40 @@ $!updatedAreaBegin
 #end
 #foreach ($sibling in $pivot.getSiblings())	
 		@JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)	
-		List<${sibling.name}>  ${sibling.name};
+		List<${sibling.name}> ${sibling.name};
+		public void add${sibling.name}(${sibling.name} e) {
+			get${sibling.name}().add(e);
+		}
+		public List<${sibling.name}> get${sibling.name}() {
+			if (${sibling.name}==null)
+				${sibling.name} = new ArrayList<${sibling.name}>();
+			return ${sibling.name};
+		}
 #end
 	}
 	
-	public List<$pivotClass> get{$pivotClass}s ($sddOutputBeanCollectionClass input) {
+	public List<$pivotClass> get${pivotClass}s ($sddOutputBeanCollectionClass input) {
         List<$pivotClass> ret = new ArrayList<$pivotClass>();
         Map<String, $pivotClass> map = new HashMap<String, $pivotClass>();
         //todo pivotActorFilmOuts might be null
-        for ($sddOutputBeanCollectionClass pivot : input) {
-            $pivotClass f = map.get(pivot.getFilmId());
-            if (f==null) {
-                f = new Film();
-                f.id = pivot.getFilmId();
-                f.name = pivot.getTitle();
-                map.put(pivot.getFilmId(), f);
+        for ($sddOutputBeanClass pivot : input.get${sddOutputBeanClass}s()) {
+            $pivotClass p = map.get(pivot.get${pivot.pivot}());
+            if (p==null) {
+                p = new $pivotClass();
+#foreach ($column in $pivot.getColumnList())
+#putColumnParamNaming()
+                p.${columnVar} = pivot.get${columnClass}();
+#end
+                map.put(pivot.getFilmId(), p);
             }
-            Actor a = new Actor();
-            a.setFirstname(pivot.getFirstName());
-            a.setLastname(pivot.getLastName());
-            f.addActor(a);
+#foreach ($sibling in $pivot.getSiblings())	
+            ${sibling.name} s = new ${sibling.name}();
+#foreach ($column in $sibling.getColumnList())
+#putColumnParamNaming()
+            s.${columnVar} = pivot.get${columnClass}();
+#end
+            p.add${sibling.name}(s);
+#end
         }
         for ($pivotClass e : map.values()) {
             ret.add(e);
