@@ -9,6 +9,7 @@
 #set ($size = $sizeColumn + $sizeChunk)
 package $packageName;
 $!updatedAreaImport
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wordnik.swagger.annotations.*;
 import java.util.Date;
 import java.util.List;
@@ -129,7 +130,41 @@ $!updatedAreaBegin
 #end
 
 #foreach ($pivot in $query.pivots)
-// $pivot
+#set($pivotClass = $pivot.name)
+	private class $pivotClass {
+#foreach ($column in $pivot.getColumnList())
+#putColumnParamNaming()
+		$columnType $columnVar;
+#end
+#foreach ($sibling in $pivot.getSiblings())	
+		@JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)	
+		List<${sibling.name}>  ${sibling.name};
+#end
+	}
+	
+	public List<$pivotClass> get{$pivotClass}s ($sddOutputBeanCollectionClass input) {
+        List<$pivotClass> ret = new ArrayList<$pivotClass>();
+        Map<String, $pivotClass> map = new HashMap<String, $pivotClass>();
+        //todo pivotActorFilmOuts might be null
+        for ($sddOutputBeanCollectionClass pivot : input) {
+            $pivotClass f = map.get(pivot.getFilmId());
+            if (f==null) {
+                f = new Film();
+                f.id = pivot.getFilmId();
+                f.name = pivot.getTitle();
+                map.put(pivot.getFilmId(), f);
+            }
+            Actor a = new Actor();
+            a.setFirstname(pivot.getFirstName());
+            a.setLastname(pivot.getLastName());
+            f.addActor(a);
+        }
+        for ($pivotClass e : map.values()) {
+            ret.add(e);
+        }
+        return ret;
+    }
+	
 #end
 $!updatedAreaEnd
 $!updatedAreaImplementation
