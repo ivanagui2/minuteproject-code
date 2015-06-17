@@ -93,6 +93,7 @@ public class Query extends AbstractConfiguration {
 	}
 	
 	public void addQueryPivot(QueryPivot queryPivot) {
+		queryPivot.setQuery(this);
 		getPivots().add(queryPivot);
 	}
 	
