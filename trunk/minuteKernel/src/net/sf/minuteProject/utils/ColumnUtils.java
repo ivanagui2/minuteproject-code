@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.system.Property;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class ColumnUtils {
 	
@@ -486,5 +487,15 @@ public class ColumnUtils {
 		if (column==null)
 			return false;
 		return (column.getQueryParamLink()!=null)?true:false; 
+	}
+
+	public static List<Column> getColumns(Table table, String columns) {
+		List<Column> cols = new ArrayList<Column>();
+		for (String columnName : ParserUtils.getList(columns)) {
+			Column column = getColumn(table, columnName);
+			if (column!=null) 
+				cols.add(column);
+		}
+		return cols;
 	}
 }
