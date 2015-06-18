@@ -20,6 +20,9 @@ public class QueryPivot extends AbstractConfiguration{
 	public String getPivot() {
 		return pivot;
 	}
+	public Column getPivotColumn () {
+		return ColumnUtils.getColumn(query.getOutputBean(), pivot);
+	}
 	public void setPivot(String pivot) {
 		this.pivot = pivot;
 	}
