@@ -163,6 +163,7 @@ properties=""
 #macro (putOXTemplateDefinition)
 #set($addSpringSecurity=$template.getPropertyValue("add-spring-security",false))
 #set($hasABLNature=$template.hasPropertyValue("add-automated-business-logic",false))
+#set($disableHibernateEhcache=$template.hasPropertyValue("openxava-disable-hibernate-ehcache",false))
 #set($embedJdbcDriver=$template.hasPropertyValue("embed-driver",false))
 #set($autobizlogicVersion=$template.getPropertyValue("add-automated-business-logic","2.1.4"))
 #end

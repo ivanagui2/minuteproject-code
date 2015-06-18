@@ -134,6 +134,21 @@ $!updatedAreaBegin
 
 #foreach ($pivot in $query.pivots)
 #set($pivotClass = $pivot.name)
+    @GET
+    @Path ("/get${pivotClass}s")
+    @ApiOperation(value = "get${pivotClass}s", notes = "get${pivotClass}s", response = ${pivotClass}.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "ok")
+    })
+    public List<$pivotClass> get${pivotClass}s (
+    ) {
+        PivotActorFilmOutList list = pivotActorFilmDaoFace.execute();
+        return get${pivotClass}s(list);
+    }
+#end
+
+#foreach ($pivot in $query.pivots)
+#set($pivotClass = $pivot.name)
 	private class $pivotClass {
 #foreach ($column in $pivot.getColumnList())
 #putColumnParamNaming()
@@ -158,7 +173,9 @@ $!updatedAreaBegin
         Map<String, $pivotClass> map = new HashMap<String, $pivotClass>();
         //todo pivotActorFilmOuts might be null
         for ($sddOutputBeanClass pivot : input.get${sddOutputBeanClass}s()) {
-            $pivotClass p = map.get(pivot.get${pivot.pivot}());
+#set($pivotColumnClass = $commonUtils.getColumnClassName($pivot.getPivotColumn()))
+            $pivotClass p = map.get(pivot.get$pivotColumnClass());
+
             if (p==null) {
                 p = new $pivotClass();
 #foreach ($column in $pivot.getColumnList())
