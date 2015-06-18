@@ -133,37 +133,44 @@ $!updatedAreaBegin
 #end
 
 #foreach ($pivot in $query.pivots)
-#set($pivotClass = $pivot.name)
+#set($pivotClass = $formatUtils.firstUpperCase($pivot.name))
+#set($pivotClasses = $i18nUtils.plurialize($pivotClass))
     @GET
     @Path ("/get${pivotClass}s")
     @ApiOperation(value = "get${pivotClass}s", notes = "get${pivotClass}s", response = ${pivotClass}.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "ok")
     })
-    public List<$pivotClass> get${pivotClass}s (
+    public List<$pivotClass> get${pivotClasses} (
     ) {
         PivotActorFilmOutList list = pivotActorFilmDaoFace.execute();
-        return get${pivotClass}s(list);
+        return get${pivotClasses}(list);
     }
 #end
 
 #foreach ($pivot in $query.pivots)
-#set($pivotClass = $pivot.name)
+#set($pivotClass = $formatUtils.firstUpperCase($pivot.name))
 	private class $pivotClass {
 #foreach ($column in $pivot.getColumnList())
 #putColumnParamNaming()
 		$columnType $columnVar;
+    	public $columnType get$columnClass() {
+        	return $columnVar;
+    	}
 #end
 #foreach ($sibling in $pivot.getSiblings())	
+#set($siblingClass = $formatUtils.firstUpperCase($sibling.name))
+#set($siblingName = $i18nUtils.plurialize($sibling.name))
+#set($siblingClasses = $i18nUtils.plurialize($siblingClass))
 		@JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)	
-		List<${sibling.name}> ${sibling.name};
-		public void add${sibling.name}(${sibling.name} e) {
-			get${sibling.name}().add(e);
+		List<${siblingClass}> $siblingName;
+		public void add${siblingClass}(${siblingClass} e) {
+			get${siblingClasses}().add(e);
 		}
-		public List<${sibling.name}> get${sibling.name}() {
-			if (${sibling.name}==null)
-				${sibling.name} = new ArrayList<${sibling.name}>();
-			return ${sibling.name};
+		public List<${siblingClass}> get${siblingClasses}() {
+			if (${siblingName}==null)
+				${siblingName} = new ArrayList<${siblingClass}>();
+			return ${siblingName};
 		}
 #end
 	}
@@ -182,15 +189,17 @@ $!updatedAreaBegin
 #putColumnParamNaming()
                 p.${columnVar} = pivot.get${columnClass}();
 #end
-                map.put(pivot.getFilmId(), p);
+                map.put(pivot.get$pivotColumnClass(), p);
             }
 #foreach ($sibling in $pivot.getSiblings())	
-            ${sibling.name} s = new ${sibling.name}();
+#set($siblingClass = $formatUtils.firstUpperCase($sibling.name))
+##set($siblingName = $i18nUtils.plurializeUppercase($sibling.name))
+            ${siblingClass} s = new ${siblingClass}();
 #foreach ($column in $sibling.getColumnList())
 #putColumnParamNaming()
             s.${columnVar} = pivot.get${columnClass}();
 #end
-            p.add${sibling.name}(s);
+            p.add${siblingClass}(s);
 #end
         }
         for ($pivotClass e : map.values()) {
