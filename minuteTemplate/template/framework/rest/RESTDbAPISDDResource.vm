@@ -7,6 +7,44 @@
 #set ($sizeColumn = $inputBean.columns.size())
 #set ($sizeChunk = $query.getQueryChunks().size())
 #set ($size = $sizeColumn + $sizeChunk)
+#macro(resourceSignature)
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParamNaming()
+#if($columnUtils.isTime($column))
+#set($columnType=$dateParamImport)
+#end
+#if($velocityCount>1),#end            @ApiParam(value = "$columnVar", required = ${column.isRequired()}) @QueryParam ("$columnVar") $columnType $columnVar
+#end
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if($velocityCount>1 || $sizeColumn!=0),#end            @ApiParam(value = "$chunkName") @QueryParam ("$chunkName") String $chunkName 
+#end
+#end
+#macro (daoParameters)
+        	${sddInputBeanVariable}
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+            ,$chunkName 
+#end
+#end
+#macro (resourceParameters)
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParamNaming()
+#if($columnUtils.isTime($column))
+#set($columnType=$dateParamImport)
+#end
+#if($velocityCount>1),#end $columnVar
+#end
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if($velocityCount>1 || $sizeColumn!=0),#end $chunkName 
+#end
+#end
+
 package $packageName;
 $!updatedAreaImport
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -87,19 +125,7 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputBeanCollectionClass execute (
-#foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
-#putColumnParamNaming()
-#if($columnUtils.isTime($column))
-#set($columnType=$dateParamImport)
-#end
-#if($velocityCount>1),#end            @ApiParam(value = "$columnVar", required = ${column.isRequired()}) @QueryParam ("$columnVar") $columnType $columnVar
-#end
-#end
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($velocityCount>1 || $sizeColumn!=0),#end            @ApiParam(value = "$chunkName") @QueryParam ("$chunkName") String $chunkName 
-#end
+#resourceSignature()
     ) {
 #if($isNotVoidInput)
         $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
@@ -115,11 +141,7 @@ $!updatedAreaBegin
 #end
 #end
         return ${sddDaoInterfaceVariable}.execute(
-        	${sddInputBeanVariable}
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-            ,$chunkName 
-#end
+#daoParameters()
         );
 #else
         return ${sddDaoInterfaceVariable}.execute(
@@ -136,20 +158,24 @@ $!updatedAreaBegin
 #set($pivotClass = $formatUtils.firstUpperCase($pivot.name))
 #set($pivotClasses = $i18nUtils.plurialize($pivotClass))
     @GET
-    @Path ("/get${pivotClass}s")
-    @ApiOperation(value = "get${pivotClass}s", notes = "get${pivotClass}s", response = ${pivotClass}.class)
+    @Path ("/get${pivotClasses}")
+    @ApiOperation(value = "get${pivotClasses}", notes = "get${pivotClasses}", response = ${pivotClass}.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "ok")
     })
     public List<$pivotClass> get${pivotClasses} (
+#resourceSignature()
     ) {
-        PivotActorFilmOutList list = pivotActorFilmDaoFace.execute();
+        $sddOutputBeanCollectionClass list = execute(
+#resourceParameters()
+			);
         return get${pivotClasses}(list);
     }
 #end
 
 #foreach ($pivot in $query.pivots)
 #set($pivotClass = $formatUtils.firstUpperCase($pivot.name))
+#set($pivotClasses = $i18nUtils.plurialize($pivotClass))
 	private class $pivotClass {
 #foreach ($column in $pivot.getColumnList())
 #putColumnParamNaming()
@@ -175,7 +201,7 @@ $!updatedAreaBegin
 #end
 	}
 	
-	public List<$pivotClass> get${pivotClass}s ($sddOutputBeanCollectionClass input) {
+	public List<$pivotClass> get${pivotClasses} ($sddOutputBeanCollectionClass input) {
         List<$pivotClass> ret = new ArrayList<$pivotClass>();
         Map<String, $pivotClass> map = new HashMap<String, $pivotClass>();
         //todo pivotActorFilmOuts might be null
