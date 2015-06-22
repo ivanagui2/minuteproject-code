@@ -66,11 +66,11 @@ public class TriggerUtils {
 			return "new java.util.Date()";
 		}
 		if (ConvertUtils.JAVA_SQL_DATE_TYPE.equals(javaFullType))
-			return "new java.sql.Date((new java.util.Date().getTime()))";
+			return "new java.sql.Date(new java.util.Date().getTime())";
 		if (ConvertUtils.JAVA_SQL_TIMESTAMP_TYPE.equals(javaFullType))
-			return "new java.sql.Timestamp((new java.util.Date().getTime()))";
+			return "new java.sql.Timestamp(new java.util.Date().getTime())";
 		if (ConvertUtils.JAVA_SQL_TIME_TYPE.equals(javaFullType))
-			return "new java.sql.Time(new java.util.Date().getTime()))";
+			return "new java.sql.Time(new java.util.Date().getTime())";
 		return getTriggerAlias(trigger);
 	}
 	
