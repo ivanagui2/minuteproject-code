@@ -52,6 +52,17 @@ import javax.xml.bind.annotation.*;
 #if($convertUtils.isStringType($column.type))
 	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${nqVar}.$columnVar like :$columnVar")
 #end
+#if ($isEmbedded)
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+#if(!$isForeignKey)
+#set($columnCap = $formatUtils.upperCase(${columnClass}))
+#set($nqVar = $jpa2Utils.getNamedQueryVariable($table))
+#set($selectChunk="SELECT $nqVar FROM ${className} $nqVar")
+	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${nqVar}.$columnVar like :$columnVar")
+#end
+#end
+#end
 #addArea ("custom-queries")
 #end
 $annotationListTagEnding
@@ -85,7 +96,16 @@ public class ${className} implements Serializable {
 #if($convertUtils.isStringType($column.type))
     public static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
 #end
-#end	
+#end
+#if ($isEmbedded)
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+#if(!$isForeignKey)
+#set($columnCap = $formatUtils.upperCase(${columnClass}))
+    public static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
+#end
+#end
+#end
 	
 #if ($isEmbedded)
     @EmbeddedId

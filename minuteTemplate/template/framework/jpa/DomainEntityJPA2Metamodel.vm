@@ -28,22 +28,23 @@ public class $className {
 #putColumnParams()
 #columnJavaNaming()
 #if($isEnum)
-##set($columnType=$enumClassName)
 #set ($enumColumn = $columnUtils.getColumn($table, $column.name))
 #set ($columnType = $enumUtils.getEnumType($template, $enumColumn))
 #end
     public static volatile SingularAttribute<${domainClassName}, $columnType> $columnVar;
 #end
-
+#if ($isEmbedded)
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+#if(!$isForeignKey)
+#set ($enumColumn = $columnUtils.getColumn($table, $column.name))
+#set ($columnType = $enumUtils.getEnumType($template, $enumColumn))
+    public static volatile SingularAttribute<${domainClassName}, $columnType> ${columnVar}_;
+#end
+#end
+#end
 #foreach ($reference in $table.parents)
 #putReferenceParams2()
-#* #exposeEnrichedPk($localColumn)
-#if (!$isEnrichedPk)
-#set($colVar = ${localColumnVariable})
-#else
-#set($colVar = ${linkedTableVariable})
-#end
-*#
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
     public static volatile SingularAttribute<${domainClassName}, $linkedTableClass> $colVar;
 #set($column = $reference.localColumn)
