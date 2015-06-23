@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.*;
 #set($columnCap = $formatUtils.upperCase(${columnClass}))
 #set($nqVar = $jpa2Utils.getNamedQueryVariable($table))
 #set($selectChunk="SELECT $nqVar FROM ${className} $nqVar")
-	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${nqVar}.$columnVar like :$columnVar")
+	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${nqVar}.${columnVar}_ like :$columnVar")
 #end
 #end
 #end

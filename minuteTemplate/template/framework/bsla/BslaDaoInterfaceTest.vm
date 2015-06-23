@@ -4,6 +4,7 @@
 #exposeTestAdapter()
 #distinctEntityProperty()
 #exposeEntityDependencies()
+#putJPA2TemplateDefinition()
 #set($isTestEnabled=$template.getPropertyValue("enable-test",false))
 #if($isTestEnabled)
 #set($test="@Test")
@@ -15,7 +16,11 @@
 		$domainClassName mask = new $domainClassName();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
+#if (!$isEmbedded)
         mask.set$columnClass(${domainVariableName}.get$columnClass());
+#else
+        mask.set${columnClass}_(${domainVariableName}.get${columnClass}_());
+#end
 #end
 #end
 #macro (getWhatMaskFirstColumns $nbOfColumns)
@@ -24,7 +29,7 @@
 #foreach ($column in $table.columns)
 #if ($nbAffected < $nbOfColumns) 
 #putColumnParams()
-#if($isForeignKey)
+#if($isForeignKey || ($isEmbedded && $isPrimaryKey))
 #set($columnClass="${columnClass}_")
 #end
         what.set$columnClass($convertUtils.getJavaDefaultMask($column));
@@ -36,7 +41,7 @@
 #set($nbAffected=0)
 #foreach ($column in $table.columns)
 #putColumnParams()
-#if($isForeignKey)
+#if($isForeignKey || ($isEmbedded && $isPrimaryKey))
 #set($columnClass="${columnClass}_")
 #end
 #if ($nbAffected < $nbOfColumns)
@@ -51,7 +56,7 @@
 #set($nbAffected=0)
 #foreach ($column in $table.columns)
 #putColumnParams()
-#if($isForeignKey)
+#if($isForeignKey || ($isEmbedded && $isPrimaryKey))
 #set($columnClass="${columnClass}_")
 #end
 #if ($nbAffected < $nbOfColumns)
@@ -73,6 +78,7 @@
 #end
 package $packageName;
 
+#exposeJPA2CompositeKeyImport()
 #distinctBEImport()
 import $importDomainObject;
 import $importDaoInterface;
@@ -234,7 +240,12 @@ public class $className extends $testAdapterClassName {
 #foreach ($column in $table.columns) 
 #putColumnParams()
 #if (!$isForeignKey)
+##     	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#if ($isPrimaryKey && $isEmbedded)
+     	assertTrue(${domainVariableName}.get${columnClass}_().equals(${domainVariableName}2.get${columnClass}_()));
+#else
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
+#end
 #else
 #set ($parentTable = $columnUtils.getForeignTable($column))
 #if($isMandatory)
@@ -275,7 +286,12 @@ public class $className extends $testAdapterClassName {
 #foreach ($column in $table.columns) 
 #putColumnParams()
 #if (!$isForeignKey)
+##     	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+#if ($isPrimaryKey && $isEmbedded)
+     	assertTrue(${domainVariableName}.get${columnClass}_().equals(${domainVariableName}3.get${columnClass}_()));
+#else
      	assertTrue(${domainVariableName}.get$columnClass().equals(${domainVariableName}3.get$columnClass()));
+#end
 #else
 #set ($parentTable = $columnUtils.getForeignTable($column))
 #if($isMandatory)
@@ -296,7 +312,11 @@ public class $className extends $testAdapterClassName {
 		$domainClassName ${domainVariableName}2 = new $domainClassName();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
-        ${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
+#if (!$isEmbedded)
+		${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
+#else
+		${domainVariableName}2.set${columnClass}_(${domainVariableName}.get${columnClass}_());
+#end
 #end
 #foreach ($column in $table.attributes)
 #putColumnParams()
@@ -320,7 +340,12 @@ public class $className extends $testAdapterClassName {
 		$domainClassName ${domainVariableName}2 = new $domainClassName();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
-        ${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
+##        ${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
+#if (!$isEmbedded)
+		${domainVariableName}2.set$columnClass(${domainVariableName}.get$columnClass());
+#else
+		${domainVariableName}2.set${columnClass}_(${domainVariableName}.get${columnClass}_());
+#end
 #end
 #foreach ($column in $table.columns)
 #putColumnParams()
@@ -339,7 +364,12 @@ public class $className extends $testAdapterClassName {
 //      this assertion does not work since bulk update does not refresh first level cache
 //		assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}2.get$columnClass()));
 #elseif(!$isForeignKey)
-     	assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}.get$columnClass()));
+##     	assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}.get$columnClass()));
+#if ($isPrimaryKey && $isEmbedded)
+     	assertTrue(${domainVariableName}3.get${columnClass}_().equals(${domainVariableName}.get${columnClass}_()));
+#else
+		assertTrue(${domainVariableName}3.get$columnClass().equals(${domainVariableName}.get$columnClass()));
+#end
 #end
 #end
 	}	
@@ -438,12 +468,21 @@ public class $className extends $testAdapterClassName {
 		$domainClassName mask2 = new $domainClassName();
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
-        mask2.set$columnClass(${domainVariableName}.get$columnClass());
+#if (!$isEmbedded)
+		mask2.set$columnClass(${domainVariableName}.get$columnClass());
+#else
+     	mask2.set${columnClass}_(${domainVariableName}.get${columnClass}_());
+#end
+##        mask2.set$columnClass(${domainVariableName}.get$columnClass());
 #end
 		${domainClassName} affected2 = ${daoInterfaceVariableName}.assign${domainClassName}(mask2);
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
+#if (!$isEmbedded)
 		assertTrue(affected.get$columnClass().equals(affected2.get$columnClass()));
+#else
+     	assertTrue(affected.get${columnClass}_().equals(affected2.get${columnClass}_()));
+#end
 #end
 	}
 
@@ -547,7 +586,11 @@ public class $className extends $testAdapterClassName {
         $domainClassName result = ${daoInterfaceVariableName}.getFirst${domainClassName}(mask);
 #foreach ($column in $table.primaryKeyColumns) 
 #putColumnParams()
-        assertTrue (mask.get$columnClass().equals(result.get$columnClass()));
+#if (!$isEmbedded)
+		assertTrue (mask.get$columnClass().equals(result.get$columnClass()));
+#else
+		assertTrue (mask.get${columnClass}_().equals(result.get${columnClass}_()));
+#end
 #end
     }
 #* 
@@ -580,6 +623,7 @@ public class $className extends $testAdapterClassName {
 		assertTrue (list.size()==counter);
     }
 
+#if (!$isEmbedded)
 	// load graph
 	$test	
     public void testLoadFullFirstLevel$domainClassName () {
@@ -589,7 +633,7 @@ public class $className extends $testAdapterClassName {
 		entity = ${daoInterfaceVariableName}.loadFullFirstLevel${domainClassName}(mask.get${primaryKeyJavaNameClass}());
 		assertNotNull (entity);
 	}
-
+#end
 	//
     // utilities
     // 
@@ -607,19 +651,36 @@ public class $className extends $testAdapterClassName {
     public $domainClassName load$domainClassName ($domainClassName ${domainVariableName}) {
 #if($isMany2Many)
     	return ${daoInterfaceVariableName}.load${domainClassName}(${domainVariableName});
-#else     
+#else
+#if($isForeignKey || ($isEmbedded && $isPrimaryKey))    
+    	return ${daoInterfaceVariableName}.load${domainClassName}(${domainVariableName}.get${primaryKeyJavaNameClass}_());
+#else
     	return ${daoInterfaceVariableName}.load${domainClassName}(${domainVariableName}.get$primaryKeyJavaNameClass());
+#end
 #end    
 	}	
+
 
     public $domainClassName populate$domainClassName () {
         $domainClassName $domainVariableName = new $domainClassName();
 #foreach ($column in ${table.columns})
 #putColumnParams()
+#if($isForeignKey || ($isEmbedded && $isPrimaryKey))
+#set($columnClass="${columnClass}_")
+#end
 #if (!$column.isPrimaryKey() && !$isForeignKey)
+#if($isTimeColumn)
+        ${domainVariableName}.set$columnClass ($testUtils.getDate($column, $useTemporal));
+#else
         ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
+#end
 #elseif ($column.isPrimaryKey() && $isPkUserProvided)
+#if($useTemporal && $isTimeColumn)
+        ${domainVariableName}.set$columnClass ($testUtils.getDate($column, $useTemporal));
+#else
         ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
+#end
+##        ${domainVariableName}.set$columnClass ($testUtils.getTestPopulateFieldMethod($column,1));
 #end
 #end
 #foreach ($reference in $table.parents)
