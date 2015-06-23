@@ -75,12 +75,10 @@ public class TestUtils {
 		return ""+dBType+" - not converted";//retStr;			
 	}
 	
-//	public String getTestLookUpMethod (String dBType, String length, int number) {
-//		return getTestPopulateFieldMethod(dBType, length, number);
-//	}
-//	
-//	public String getTestLookUpMethod (String dBType, int number) {
-//		return getTestPopulateFieldMethod(dBType, "10", number);
-//	}
+	public String getDate (Column column, boolean useTemporal) {
+		if (column.getType().equals("TIMESTAMP") && useTemporal==false)
+			return  "getTimestamp()";
+		return  "getDate()";
+	}
 
 }

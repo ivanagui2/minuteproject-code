@@ -67,6 +67,7 @@
 			<property name="add-jpa2-implementation" value="hibernate"></property>
 			<property name="add-cache-implementation" value="ehcache"></property>
 			<property name="add-domain-specific-method" value="true"></property>
+			<property name="use-temporal" value="true"></property>
 			<property name="add-backend-implementation" value="spring"></property>
 		</technology>
 
