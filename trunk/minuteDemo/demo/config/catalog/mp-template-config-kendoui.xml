@@ -17,6 +17,7 @@
 			 
 		<template name="WebXmlRESTKendoUiClient" templateFileName="WebXmlRESTKendoUiClient.vm" 
 			file-extension="xml" technicalPackage="" file-suffix="web" 
+			has-updatable-nature="true"
 			application-specific="true" add-model-name="false" >
 		</template>
 			 
@@ -25,6 +26,11 @@
 			application-specific="true" add-model-name="false" >
 			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
 			<property name="template-to-scan-2" value="SpringServiceImpl"></property>
+		</template>
+			 
+		<template name="REST.WLS.weblogic.xml" templateFileName="REST.WLS.weblogic.xml.vm" 
+			file-extension="xml" technicalPackage="" file-suffix="weblogic" 
+			application-specific="true" add-model-name="false" >
 		</template>
 
     </template-target>
@@ -100,7 +106,7 @@
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
 
-	</template-target>				
+	</template-target>
    	
   	<template-target 
     	name="Kendo client"
@@ -136,84 +142,5 @@
 		</template>	
 		
 	</template-target>				
-   	<!--  
-   	<template-target 
-    	name="Kendo client"
-		outputdir="src/main/java"
-		libdir="lib/KENDOUI_LIB.vm">
-        
-		<template
-			name="RESTDbAPIGenericResource" templateFileName="RESTDbAPIGenericResource.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest" add-model-name="false" 
-			file-extension="java" file-prefix="" file-suffix="GenericResource" 
-			model-specific="true">
-		</template>	
 
-		<template
-			name="RESTDbAPIEntityResource" templateFileName="RESTDbAPIEntityResource.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest" 
-			file-extension="java" file-prefix="" file-suffix="GenericResource" 
-			entity-specific="true" 
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-		</template>	
-		
-		<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest"
-			file-extension="java" file-prefix="" file-suffix="Resource"
-			add-package-name="false" add-business-package-dir-name="false" 
-			scope-specific-value="query" has-updatable-nature="true">
-			<property name="JavaBeanTemplate" value="SDDOutputBean" />
-		</template>		
-		
-		<template name="REST.Cache.Annotation" templateFileName="REST.Cache.Annotation.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest"
-			file-extension="java" file-prefix="" file-suffix="Cacheable" 
-			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
-		</template>		
-		
-		<template name="REST.Cache.ControlDecorator" templateFileName="REST.Cache.ControlDecorator.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest"
-			file-extension="java" file-prefix="" file-suffix="ControlDecorator" 
-			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
-		</template>		
-		
-		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest.param"
-			file-extension="java" file-prefix="" file-suffix="DateParam" 
-			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
-			<property name="format" value="date" />
-		</template>
-		
-		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest.param"
-			file-extension="java" file-prefix="" file-suffix="TimeParam" 
-			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
-			<property name="format" value="time" />
-		</template>
-		
-		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
-			subdir="" outputsubdir="" technicalPackage="rest.param"
-			file-extension="java" file-prefix="" file-suffix="TimestampParam" 
-			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
-			<property name="format" value="timestamp" />
-		</template>
-		
-	</template-target>
-	 -->
-	 <!-- 
-  	<template-target 
-    	name="Kendo client Maven"
-		outputdir=""
-		package-root=""
-		libdir="lib/KENDOUI_LIB.vm">
-
-		<template name="PomXml.REST.KendoUiJersey" templateFileName="PomXml.REST.KendoUiJersey.vm" 
-			subdir="" outputsubdir="" technicalPackage="" has-updatable-nature="true"
-			file-extension="xml" file-prefix="pom" file-suffix="" 
-			application-specific="true" add-model-name="false">
-			<property name="maven-artifact-finalName-suffix" value="KendoUiJersey" />
-		</template>
-		
-	</template-target>				
-	 -->
 </target>

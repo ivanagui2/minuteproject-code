@@ -60,21 +60,34 @@
         <template name="SDDInputBean" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
             subdir="" outputsubdir="" technicalPackage="sdd.in"
             file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
-            scope-specific-value="sdd-input-bean" >
+            scope-specific-value="sdd-input-bean" 
+            check-template-to-generate="true" 
+			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotPropertyPresenceValue" >
+			<property name="property-presence" value="openxava-disable-sdd" ></property>
+			<property name="property-presence-value" value="true" ></property>
         </template> 
         	
 		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
 			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
-			scope-specific-value="sdd-output-bean" >
-		</template>	
+			scope-specific-value="sdd-output-bean" 
+			check-template-to-generate="true" 
+			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotPropertyPresenceValue" >
+			<property name="property-presence" value="openxava-disable-sdd" ></property>
+			<property name="property-presence-value" value="true" ></property>
+        </template> 
 
 		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
 			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
-			scope-specific-value="sdd-output-bean" >
+			scope-specific-value="sdd-output-bean" 		            
+			check-template-to-generate="true" 
+			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotPropertyPresenceValue" >
+			
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
-		</template>	
+			<property name="property-presence" value="openxava-disable-sdd" ></property>
+			<property name="property-presence-value" value="true" ></property>
+        </template> 
 		
 		<template name="TransferDomainObjectUML" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
 			subdir="" outputsubdir="" technicalPackage="dto"
@@ -501,8 +514,12 @@
 			subdir="" outputsubdir="" technicalPackage="sdd.action" 
 			file-extension="java" file-prefix="" file-suffix="Action" 
 			has-updatable-nature="true"
-			scope-specific-value="query">
-			<property name="isAction" value="false"></property>
+			scope-specific-value="query"
+			check-template-to-generate="true" 
+			is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotPropertyPresenceValue" >
+			<property name="property-presence" value="openxava-disable-sdd" ></property>
+			<property name="property-presence-value" value="true" ></property>
+
 		</template>	
 		
 <!-- 		<template
