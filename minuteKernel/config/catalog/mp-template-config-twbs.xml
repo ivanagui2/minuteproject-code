@@ -76,7 +76,7 @@
 			<property name="REST_EXCHANGE_FORMAT" value="json"/>
 		</template>	
 		
-		<!-- SDD -->
+		<!-- SDD 
         <template name="KendoUiSDDInput" templateFileName="KendoUiSDDInput.vm" 
             file-extension="html" technicalPackage="sdd" file-suffix="Input"
             add-model-dir-name="false" 
@@ -97,6 +97,22 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"/>
+            
+        <template name="SDDDirectResult.js" templateFileName="KendoUiSDDDirectResult.js.vm" 
+            file-extension="html" technicalPackage="sdd" file-suffix="DirectResultJs"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+            scope-specific-value="query"/>
+            
+         -->
+            
+        <template name="JQuerySDDTreeHtml" templateFileName="JQuerySDDTreeHtml.vm" 
+            file-extension="html" technicalPackage="sdd.tree" file-suffix="Tree"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="html" has-updatable-nature="true"
+            scope-specific-value="pivot-query"/>
 
 	</template-target>				
    	

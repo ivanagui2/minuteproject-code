@@ -80,9 +80,23 @@
 				</enrichment>
 			</business-model>
 			<!-- S D D -->
+			<statement-model>
+				<queries>
+					<query name="productList" id="product_list" package-name="product">
+						<query-body>
+							<value>
+								select p.name product, p.detail detail, p.price_info price, w.name winery, r.name region 
+								from product p, winery w, region r
+								where p.winery_id = w.id and w.region_id = r.id
+								 order by region desc, winery desc, product desc
+							</value>
+						</query-body>
+					</query>
+				</queries>
+			</statement-model>
 		</model>
 
-		<targets catalog-entry="REST-Custom" >
+		<targets catalog-entry="REST-Custom" outputdir-root="E:\DEV\WINY\repo\trunk\main\REST-Custom-generated">
 			<property name="target-server" value="tomcat"></property>
 			<property name="auto-complete-sdd-on-like-min-char" value="3"></property>
 			<property name="auto-complete-sdd-on-like-max-record-display" value="10"></property>
