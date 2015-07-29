@@ -112,7 +112,7 @@
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
-            scope-specific-value="pivot-query"/>
+            scope-specific-value="query-pivot"/>
 
 	</template-target>				
    	

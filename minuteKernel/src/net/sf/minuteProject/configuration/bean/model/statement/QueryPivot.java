@@ -35,6 +35,16 @@ public class QueryPivot extends AbstractConfiguration{
 	public void setQuery(Query query) {
 		this.query = query;
 	}
+	
+	public Query getQuery() {
+		return query;
+	}
+	public void setColumnList(List<Column> columnList) {
+		this.columnList = columnList;
+	}
+	public void setSiblings(List<QueryPivot> siblings) {
+		this.siblings = siblings;
+	}
 	public List<Column> getColumnList() {
 		if (columnList==null) {
 			columnList = ColumnUtils.getColumns(query.getOutputBean(), columns);

@@ -27,6 +27,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryPivot;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
@@ -319,6 +320,8 @@ public class ModelGenerator extends AbstractGenerator {
 				generateArtifactsByAction(template);
 			else if (QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsByQuery(template);
+			else if (PIVOT_QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsByQueryPivot(template);
 			else if (SDD_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsBySddCompositeBean(template, Direction.IN);
 			else if (SDD_INPUT_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
@@ -345,6 +348,17 @@ public class ModelGenerator extends AbstractGenerator {
 			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
 				if (isToGenerate(query, template))
 					writeTemplateResult(query, template);
+			}
+		}
+	}
+	
+	private void generateArtifactsByQueryPivot(Template template) throws MinuteProjectException {
+		if (getModel().getStatementModel()!=null && getModel().getStatementModel().getQueries()!=null) {
+			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
+				for (QueryPivot pivot : query.getPivots()) {
+					if (isToGenerate(pivot, template))
+						writeTemplateResult(pivot, template);
+				}
 			}
 		}
 	}
