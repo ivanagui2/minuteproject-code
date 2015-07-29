@@ -1,3 +1,5 @@
+#exposeQueryPivotSpecific()
+#set($tree-node = "${query.name}-tree")
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,14 +41,11 @@
 </style>
 	        
     <link rel="stylesheet" href="dist/themes/default/style.min.css" />
-    <script type="text/javascript" src="dist/jquery/1.11.2/jquery.js"></script>
-    <script type="text/javascript" src="dist/jstree/3.1.0/jstree.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
 
-
-	
    <script type="text/javascript">
-	  
-	
 	
     $(document).ready(function(){
 	
@@ -56,12 +55,12 @@
 	
 	// render 'All keywords'
     // load from file "./data/tree.json"
-	$('#${query.name}-tree').jstree({
+	$('#$tree-node').jstree({
 		'core': {
 			   'data': {
 				"url": "./data/treeSpeciality.json",
 				"dataType": "json" // needed only if you do not supply JSON headers
-                }       
+                }
          },
          'plugins': [ "themes", "types", "checkbox", "sort", "ui" ],
          'checkbox': {
@@ -122,7 +121,7 @@
 		var found;
 		var newObject=null;
         // Get checked nodes as JSON
-        var selectedElms = $('#${query.name}-tree').jstree("get_checked", true);
+        var selectedElms = $('#$tree-node').jstree("get_checked", true);
         //alert(JSON.stringify(selectedElms));
         $.each(selectedElms, function() {
 		    found=false;
@@ -185,7 +184,7 @@
    <section>
      <header> <h1>List of ${query.name}</h1></header>
      
-	 <div id="${query.name}-tree" class="demo">
+	 <div id="$tree-node" class="demo">
 	   <!-- Tree goes here -->
      </div>  
   

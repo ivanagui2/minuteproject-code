@@ -55,6 +55,11 @@ $readmeUtils.getReadme($template)
 #set ($isNotVoidInput = !$inputBean.getColumns().isEmpty())
 #end
 
+#macro(exposeQueryPivotSpecific)
+#set ($query = $querypivot.query)
+#exposeQuerySpecific()
+#end
+
 #macro(exposeChartSpecific)
 #set ($isChartLayout = $queryUtils.isChartLayout($query))
 #set ($isPieChart = $queryUtils.isPieChart($query))
