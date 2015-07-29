@@ -78,10 +78,10 @@ import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
 
 /**
  * @author Florian Adler
- *
+ * 
  */
 public abstract class AbstractGenerator implements Generator {
-	
+
 	private static final String CATALOG = "catalog";
 	protected static final String SCOPE_DATAMODEL_FUNCTION = "function";
 	protected static final String SCOPE_DATAMODEL_ENTITY = "entity";
@@ -94,27 +94,28 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SCOPE_DATAMODEL_FUNCTION_OUTPUT = "function-output-entity";
 	protected static final String SCOPE_TARGET_TEMPLATE = "target";
 	protected static final String SCOPE_TRANSFER_ENTITY_TEMPLATE = "transfer-entity";
-	protected static final String SCOPE_ACTION_TEMPLATE="action";
-	protected static final String QUERY_ACTION_TEMPLATE="query";
-	protected static final String SCOPE_WSDL="wsdl";
-	protected static final String SCOPE_WSDL_ENTITY="wsdl-entity";
-	protected static final String SCOPE_WSDL_SERVICE="wsdl-service";
-	protected static final String SDD_INPUT_BEAN_TEMPLATE="sdd-input-bean";
-	protected static final String SDD_COMPOSITE_TEMPLATE ="composite";
-	protected static final String SDD_INPUT_COMPOSITE_TEMPLATE ="sdd-input-composite-bean";
-	protected static final String SDD_OUTPUT_COMPOSITE_TEMPLATE ="sdd-output-composite-bean";
-	protected static final String SDD_OUTPUT_BEAN_TEMPLATE="sdd-output-bean";
-	
+	protected static final String SCOPE_ACTION_TEMPLATE = "action";
+	protected static final String QUERY_ACTION_TEMPLATE = "query";
+	protected static final String PIVOT_QUERY_ACTION_TEMPLATE = "query-pivot";
+	protected static final String SCOPE_WSDL = "wsdl";
+	protected static final String SCOPE_WSDL_ENTITY = "wsdl-entity";
+	protected static final String SCOPE_WSDL_SERVICE = "wsdl-service";
+	protected static final String SDD_INPUT_BEAN_TEMPLATE = "sdd-input-bean";
+	protected static final String SDD_COMPOSITE_TEMPLATE = "composite";
+	protected static final String SDD_INPUT_COMPOSITE_TEMPLATE = "sdd-input-composite-bean";
+	protected static final String SDD_OUTPUT_COMPOSITE_TEMPLATE = "sdd-output-composite-bean";
+	protected static final String SDD_OUTPUT_BEAN_TEMPLATE = "sdd-output-bean";
+
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;
 	private String templatePath;
 	private String templateLibPath;
 	private Boolean isTemplateLibPathToReset = true;
 	private Boolean isTemplatePathToReset = true;
-	private BasicIntegrationConfiguration bic; 
-	
+	private BasicIntegrationConfiguration bic;
+
 	/*
-	 * context object 
+	 * context object
 	 */
 	private CommonUtils commonUtils = new CommonUtils();
 	private ConvertUtils convertUtils = new ConvertUtils();
@@ -139,85 +140,112 @@ public abstract class AbstractGenerator implements Generator {
 	private TriggerUtils triggerUtils = new TriggerUtils();
 	private QueryUtils queryUtils = new QueryUtils();
 	private SemanticReferenceUtils semanticReference = new SemanticReferenceUtils();
-	private VelocityUtils velocityUtils= new VelocityUtils();
-	private FileUtils fileUtils= new FileUtils();
+	private VelocityUtils velocityUtils = new VelocityUtils();
+	private FileUtils fileUtils = new FileUtils();
 	private OrderingUtils orderingUtils = new OrderingUtils();
 	private EnrichmentUtils enrichmentUtils = new EnrichmentUtils();
 	private MinuteProjectUtils minuteprojectUtils = new MinuteProjectUtils();
 	private ActionUtils actionUtils = new ActionUtils();
 
 	/**
-	 * The default constructor get the value of the configuration to which the generator is associated
+	 * The default constructor get the value of the configuration to which the
+	 * generator is associated
+	 * 
 	 * @param configurationFile
 	 */
-	public AbstractGenerator (String configurationFile) {
+	public AbstractGenerator(String configurationFile) {
 		this.configurationFile = configurationFile;
 		resetTemplatePath();
 	}
-	
+
 	public AbstractGenerator(BasicIntegrationConfiguration bic) {
 		this.bic = bic;
 		resetTemplatePath();
 	}
-	
-	public AbstractGenerator(){}
+
+	public AbstractGenerator() {
+	}
+
 	/**
 	 * gets the configuration file that is to be loaded
+	 * 
 	 * @return String
 	 */
 	public String getConfigurationFile() {
 		return this.configurationFile;
 	}
-		
+
 	/**
 	 * gets the configuration rule file that is to be loaded
+	 * 
 	 * @return
 	 */
 	public abstract String getConfigurationRulesFile();
-	
+
 	/**
 	 * gets the configuration rule file that is to be loaded
+	 * 
 	 * @return
 	 */
 	public abstract String getPropertyConfigurationRulesFile();
-	
+
 	/**
-	 * gets the configuration root element 
+	 * gets the configuration root element
+	 * 
 	 * @return AbstractConfiguration
 	 */
 	public abstract Configuration getConfigurationRoot();
-	
-//	protected abstract void generate(Configuration configuration) throws Exception;
-	/* (non-Javadoc)
-	 * @see net.sf.minuteProject.application.Generator#load(java.lang.String, java.lang.String)
+
+	// protected abstract void generate(Configuration configuration) throws
+	// Exception;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.minuteProject.application.Generator#load(java.lang.String,
+	 * java.lang.String)
 	 */
-	public final Configuration load (String configuration, String rules) throws Exception{
+	public final Configuration load(String configuration, String rules)
+			throws Exception {
 		Configuration abstractConfiguration = getConfigurationRoot();
 		abstractConfiguration.setConfigurationFileInClassPath(configuration);
 		InputStream configurationInputStream = getConfigurationInputStream(configuration);
-		loadConfiguration(abstractConfiguration, configurationInputStream, rules);
-        return abstractConfiguration;		
+		loadConfiguration(abstractConfiguration, configurationInputStream,
+				rules);
+		return abstractConfiguration;
 	}
-	
-	private InputStream getConfigurationInputStream (String configurationFileName) {
-		return getClass().getClassLoader().getSystemResourceAsStream(configurationFileName);
+
+	private InputStream getConfigurationInputStream(String configurationFileName) {
+		return getClass().getClassLoader().getSystemResourceAsStream(
+				configurationFileName);
 	}
+
 	/**
-	 * Starting from the target it loads another target into abstractconfigurationRooet
+	 * Starting from the target it loads another target into
+	 * abstractconfigurationRooet
 	 */
-	public void loadTarget (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws MinuteProjectException {
+	public void loadTarget(AbstractConfigurationRoot abstractConfigurationRoot,
+			Target target) throws MinuteProjectException {
 		try {
-			loadConfiguration(abstractConfigurationRoot, getTargetConfigurationInputStream(abstractConfigurationRoot, target), GENERATOR_TARGET_RULES);
+			loadConfiguration(
+					abstractConfigurationRoot,
+					getTargetConfigurationInputStream(
+							abstractConfigurationRoot, target),
+					GENERATOR_TARGET_RULES);
 		} catch (Exception e) {
-			throwException(e, "CANNOT LOAD TARGET FILE "+resolveFileAbsolutePath(abstractConfigurationRoot, target)+" - CHECK IT IS IN THE CLASSPATH AND WELL FORMATTED");
+			throwException(
+					e,
+					"CANNOT LOAD TARGET FILE "
+							+ resolveFileAbsolutePath(
+									abstractConfigurationRoot, target)
+							+ " - CHECK IT IS IN THE CLASSPATH AND WELL FORMATTED");
 		}
 		complementWithTargetInfo(abstractConfigurationRoot, target);
 	}
 
-	
-	public void complementWithTargetInfo (AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
+	public void complementWithTargetInfo(
+			AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
 		Target target2 = abstractConfigurationRoot.getTarget();
-//ERROR		target2.setTargets(target.getTargets());
+		// ERROR target2.setTargets(target.getTargets());
 		target2.setDir(target.getDir());
 		target2.setCanonicalDir(target.getCanonicalDir());
 		target2.setOutputdirRoot(target.getOutputdirRoot());
@@ -225,240 +253,280 @@ public abstract class AbstractGenerator implements Generator {
 		target2.getProperties().addAll(target.getProperties());
 		target.setAbstractConfigurationRoot(abstractConfigurationRoot);
 	}
-	
-	protected InputStream getTargetConfigurationInputStream (AbstractConfigurationRoot abstractConfigurationRoot, Target target) throws FileNotFoundException {
-		String filePath = resolveFileAbsolutePath(abstractConfigurationRoot, target);
+
+	protected InputStream getTargetConfigurationInputStream(
+			AbstractConfigurationRoot abstractConfigurationRoot, Target target)
+			throws FileNotFoundException {
+		String filePath = resolveFileAbsolutePath(abstractConfigurationRoot,
+				target);
 		String dirPath = FileUtils.stripFileName(filePath);
 		target.setCanonicalDir(dirPath);
-		return new FileInputStream (new File (filePath));
+		return new FileInputStream(new File(filePath));
 	}
 
-	private String resolveFileAbsolutePath(AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
+	private String resolveFileAbsolutePath(
+			AbstractConfigurationRoot abstractConfigurationRoot, Target target) {
 		String dir = target.getDir();
-		if (dir!=null) { // absolute path provided
-			return dir+"/"+target.getFileName();
-		}
-		else {//relative path
-			String result = FileUtils.getFileFullPath(abstractConfigurationRoot.getConfigurationFileInClassPath(), dir, target.getFileName());
+		if (dir != null) { // absolute path provided
+			return dir + "/" + target.getFileName();
+		} else {// relative path
+			String result = FileUtils
+					.getFileFullPath(abstractConfigurationRoot
+							.getConfigurationFileInClassPath(), dir, target
+							.getFileName());
 			return result;
 		}
 	}
 
-	protected void loadConfiguration (Object object, InputStream input, String rules) throws Exception {
-        URL rulesURL = getClass().getClassLoader().getResource(rules);
-        Digester digester = DigesterLoader.createDigester(rulesURL);
-        digester.push(object);
-        digester.parse(input);
+	protected void loadConfiguration(Object object, InputStream input,
+			String rules) throws Exception {
+		URL rulesURL = getClass().getClassLoader().getResource(rules);
+		Digester digester = DigesterLoader.createDigester(rulesURL);
+		digester.push(object);
+		digester.parse(input);
 	}
-
 
 	public void generate() throws MinuteProjectException {
-		//load configuration
-		//load targets and target
+		// load configuration
+		// load targets and target
 		Configuration configuration = (Configuration) load();
-		generate(configuration);		
+		generate(configuration);
 	}
-	
-    void generate (Configuration configuration) throws MinuteProjectException {
-    	throw new MinuteProjectException("generate method shall be implemented");
-    }
-	
-	
+
+	void generate(Configuration configuration) throws MinuteProjectException {
+		throw new MinuteProjectException("generate method shall be implemented");
+	}
+
 	/**
 	 * load the configuration root element
+	 * 
 	 * @return AbstractConfiguration
-	 * @throws Exception 
+	 * @throws Exception
 	 * @throws Exception
 	 */
 	public final Configuration load() throws MinuteProjectException {
-		if (getConfigurationFile()!=null)
+		if (getConfigurationFile() != null)
 			return loadFromConfigurationFile();
 		return loadFromBIC();
 	}
-	
-	
-	public final Configuration loadFromConfigurationFile() throws MinuteProjectException {
+
+	public final Configuration loadFromConfigurationFile()
+			throws MinuteProjectException {
 		Configuration configuration = null;
 		try {
-			configuration = load(getConfigurationFile(), getConfigurationRulesFile());
+			configuration = load(getConfigurationFile(),
+					getConfigurationRulesFile());
 			//
-//			String outputdirRoot = null;
-//			Targets ts = configuration.getTargets();
-//			if (ts!=null)
-//				outputdirRoot = ts.getOutputdirRoot();
+			// String outputdirRoot = null;
+			// Targets ts = configuration.getTargets();
+			// if (ts!=null)
+			// outputdirRoot = ts.getOutputdirRoot();
 			//
 			if (configuration.hasTechnologyCatalogEntry()) {
-				for (String catalogEntry : ParserUtils.getList(configuration.getTargets().getCatalogEntry())) {
-					logger.info("load catalog-entry "+catalogEntry);
-//					String outputDir = (outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry);
-					String outputDir = getGeneratorOuputDir(configuration, catalogEntry);
+				for (String catalogEntry : ParserUtils.getList(configuration
+						.getTargets().getCatalogEntry())) {
+					logger.info("load catalog-entry " + catalogEntry);
+					// String outputDir =
+					// (outputdirRoot!=null)?outputdirRoot:configuration.getTargets().getOutputdirRoot(catalogEntry);
+					String outputDir = getGeneratorOuputDir(configuration,
+							catalogEntry);
 					Targets targets = TechnologyCatalogUtils.getTargets(
-						catalogEntry, 
-						CATALOG, 
-						outputDir, 
-						configuration.getTargets().getTemplatedirRoot());
-					appendTargets (configuration, targets);
+							catalogEntry, CATALOG, outputDir, configuration
+									.getTargets().getTemplatedirRoot());
+					appendTargets(configuration, targets);
 				}
 			}
-				
+
 		} catch (Exception e) {
-			throwException(e, "CANNOT LOAD CONFIGURATION FILE "+getConfigurationFile()+" - CHECK IT IS IN THE CLASSPATH");
+			throwException(e, "CANNOT LOAD CONFIGURATION FILE "
+					+ getConfigurationFile()
+					+ " - CHECK IT IS IN THE CLASSPATH");
 		}
-		return configuration;		
+		return configuration;
 	}
-	
-	public String getGeneratorOuputDir (Configuration configuration, String catalogEntry) {
+
+	public String getGeneratorOuputDir(Configuration configuration,
+			String catalogEntry) {
 		String outputdirRoot = null;
 		Targets ts = configuration.getTargets();
-		if (ts!=null)
-			outputdirRoot = ts.getOutputdirRoot();	
+		if (ts != null)
+			outputdirRoot = ts.getOutputdirRoot();
 		String catalogDir = ts.getOutputdirRoot(catalogEntry);
-		if (outputdirRoot!=null) {
+		if (outputdirRoot != null) {
 			if (ts.getAppendCatalogEntryDirToOutputDirRoot())
-				return outputdirRoot+"/"+catalogEntry;
+				return outputdirRoot + "/" + catalogEntry;
 			else
 				return outputdirRoot;
-			}
-		else
+		} else
 			return catalogDir;
 
 	}
-	
-	protected boolean isToGenerate (GeneratorBean bean, Template template) {
-		if (template.getCheckTemplateToGenerate()!=null && template.getCheckTemplateToGenerate().equals("true")) {
+
+	protected boolean isToGenerate(GeneratorBean bean, Template template) {
+		if (template.getCheckTemplateToGenerate() != null
+				&& template.getCheckTemplateToGenerate().equals("true")) {
 			if (!template.isToGenerate(bean)) {
 				return false;
 			}
-		} 	
+		}
 		return true;
 	}
 
 	private void appendTargets(Configuration configuration, Targets targets) {
 		List<Property> props = configuration.getTargets().getProperties();
-		for (Target target: targets.getTargets()) {
-			target.addProperties(props); //TODO make override in template not only append at target level
+		for (Target target : targets.getTargets()) {
+			target.addProperties(props); // TODO make override in template not
+											// only append at target level
 			configuration.getTargets().addTarget(target);
-			target.addProperty(new Property("catalog-entry", configuration.getTargets().getCatalogEntry()));
+			target.addProperty(new Property("catalog-entry", configuration
+					.getTargets().getCatalogEntry()));
 		}
 	}
-	
+
 	public final Configuration loadFromBIC() throws MinuteProjectException {
 		Configuration abstractConfiguration = null;
-		if (bic!=null)
+		if (bic != null)
 			abstractConfiguration = bic.getConfiguration();
 		else
 			throwException("NO CONFIGURATION PROVIDED");
-		return abstractConfiguration;	
+		return abstractConfiguration;
 	}
-	
-	/* (non-Javadoc)
-	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.AbstractConfiguration, net.sf.minuteProject.configuration.bean.Target)
-	 */
-	public void generate (Target target) throws MinuteProjectException {
-		if (target.isGenerable()) {
-//	    	for (TemplateTarget templateTarget : target.getTemplateTargets()) { 
-//			set priority			
-	    	for (TemplateTarget templateTarget : target.getOrderedByPriorityTemplateTargets()) {
-	    		if (templateTarget.isGenerable()) {
-		    		logger.info("> template target set: "+templateTarget.getName()+" in "+templateTarget.getOutputdir());
-		    		if (templateTarget!=null ) {
-//		    			if (templateTarget.getTemplates()!=null) {
-				    		//generate template
-		    			for (Template template : templateTarget.getTemplates()) {
-			        		logger.info(">> template: "+template.getName()+" in "+template.getOutputdir());
-			        		this.generate(template);    		
-			        	} 
-//		    			}
 
-		    		}
-	    		}
-	    	}
-	    	for (ResourceTarget resourceTarget : target.getResourceTargets()) {
-	    		if (resourceTarget.isGenerable()) {
-		    		for (Resource resource : resourceTarget.getResources()) {
-		    			if (resource.isGenerable())
-		    				copy (resource);
-		    		}
-	    		}
-	    	}
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject
+	 * .configuration.bean.AbstractConfiguration,
+	 * net.sf.minuteProject.configuration.bean.Target)
+	 */
+	public void generate(Target target) throws MinuteProjectException {
+		if (target.isGenerable()) {
+			// for (TemplateTarget templateTarget : target.getTemplateTargets())
+			// {
+			// set priority
+			for (TemplateTarget templateTarget : target
+					.getOrderedByPriorityTemplateTargets()) {
+				if (templateTarget.isGenerable()) {
+					logger.info("> template target set: "
+							+ templateTarget.getName() + " in "
+							+ templateTarget.getOutputdir());
+					if (templateTarget != null) {
+						// if (templateTarget.getTemplates()!=null) {
+						// generate template
+						for (Template template : templateTarget.getTemplates()) {
+							logger.info(">> template: " + template.getName()
+									+ " in " + template.getOutputdir());
+							this.generate(template);
+						}
+						// }
+
+					}
+				}
+			}
+			for (ResourceTarget resourceTarget : target.getResourceTargets()) {
+				if (resourceTarget.isGenerable()) {
+					for (Resource resource : resourceTarget.getResources()) {
+						if (resource.isGenerable())
+							copy(resource);
+					}
+				}
+			}
 		}
 	}
-	
 
-    private void copy(Resource resource) throws MinuteProjectException {
-    	//TODO improve copy process
-    	// relative path
-    	// + resource type
+	private void copy(Resource resource) throws MinuteProjectException {
+		// TODO improve copy process
+		// relative path
+		// + resource type
 		String resourceFileName = resource.getResourceFileName();
 		String templateOutputDir = resource.getResourceTarget().getOutputdir();
-		final String outputDir = resource.getOutputdirRoot() + templateOutputDir;
+		final String outputDir = resource.getOutputdirRoot()
+				+ templateOutputDir;
 		String outputFile = outputDir + "/" + resourceFileName;
-		
+
 		String resourceRelativePath = Targets.getResourcedirRoot();
-		String filePath = FileUtils.getFilePath(resourceRelativePath+"/"+resourceFileName);
+		String filePath = FileUtils.getFilePath(resourceRelativePath + "/"
+				+ resourceFileName);
 		try {
-			//org.apache.commons.io.FileUtils.copyDirectory(new File(dirPath), new File(outputDir));
-			
+			// org.apache.commons.io.FileUtils.copyDirectory(new File(dirPath),
+			// new File(outputDir));
+
 			File input = new File(filePath);
 			if (input.exists()) {
 				org.apache.commons.io.FileUtils.forceMkdir(new File(outputDir));
-				org.apache.commons.io.FileUtils.copyFileToDirectory(input, new File(outputDir));
-				//org.apache.commons.io.FileUtils.copyFile(input, new File(outputFile));
-				logger.info(">>resource: "+filePath+" copied to dir "+outputFile);
+				org.apache.commons.io.FileUtils.copyFileToDirectory(input,
+						new File(outputDir));
+				// org.apache.commons.io.FileUtils.copyFile(input, new
+				// File(outputFile));
+				logger.info(">>resource: " + filePath + " copied to dir "
+						+ outputFile);
 			} else
-				logger.info(">>resource: "+filePath+" does not exist ");
+				logger.info(">>resource: " + filePath + " does not exist ");
 			/**/
 		} catch (IOException e) {
 
-			throw new MinuteProjectException("cannot copy file "+filePath +" to "+templateOutputDir+" - error :"+e.getMessage());
+			throw new MinuteProjectException("cannot copy file " + filePath
+					+ " to " + templateOutputDir + " - error :"
+					+ e.getMessage());
 		}
 	}
-    
+
 	protected VelocityContext getVelocityContext(Template template) {
-//		Properties p = new Properties();
-		
-//		Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);
-//		Velocity.clearProperty(Velocity.VM_LIBRARY);
-//		p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
-//		p.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+		// Properties p = new Properties();
+
+		// Velocity.clearProperty(Velocity.FILE_RESOURCE_LOADER_PATH);
+		// Velocity.clearProperty(Velocity.VM_LIBRARY);
+		// p.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
+		// p.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
 
 		VelocityContext context = new VelocityContext();
 		try {
 			Velocity.setExtendedProperties(getExtendedProperties(template));
-//			Velocity.addProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
-//			Velocity.addProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
-//			Velocity.init(p);
+			// Velocity.addProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
+			// Velocity.addProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
+			// Velocity.init(p);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return context;
-    }  
-    
+	}
+
 	private ExtendedProperties getExtendedProperties(Template template) {
 		ExtendedProperties extendedProperties = new ExtendedProperties();
-		extendedProperties.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,getTemplatePath(template));
-		extendedProperties.setProperty(Velocity.VM_LIBRARY,getTemplateRelativeLibPath(template));
-//		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "string");
-//		extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
+		extendedProperties.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH,
+				getTemplatePath(template));
+		extendedProperties.setProperty(Velocity.VM_LIBRARY,
+				getTemplateRelativeLibPath(template));
+		// extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER,
+		// "string");
+		// extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
 		return extendedProperties;
 	}
-	
+
 	private ExtendedProperties getClasspathLoaderProperties(Template template) {
 		ExtendedProperties extendedProperties = new ExtendedProperties();
-		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-		extendedProperties.setProperty("classpath.resource.loader.class",ClasspathResourceLoader.class.getName());
+		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER,
+				"classpath");
+		extendedProperties.setProperty("classpath.resource.loader.class",
+				ClasspathResourceLoader.class.getName());
 		return extendedProperties;
 	}
-	
-	private ExtendedProperties getStringLoaderEmbeddedProperties(Template template) {
+
+	private ExtendedProperties getStringLoaderEmbeddedProperties(
+			Template template) {
 		ExtendedProperties extendedProperties = new ExtendedProperties();
-		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "string");
-		extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
+		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER,
+				"string");
+		extendedProperties.setProperty("classpath.resource.loader.class",
+				StringResourceLoader.class.getName());
 		return extendedProperties;
 	}
-	
-	protected void putPluginContextObject (VelocityContext context, Template template) {
-		List <Plugin> plugins = template.getTemplateTarget().getTarget().getPlugins();
+
+	protected void putPluginContextObject(VelocityContext context,
+			Template template) {
+		List<Plugin> plugins = template.getTemplateTarget().getTarget()
+				.getPlugins();
 		for (Plugin plugin : plugins) {
 			ClassLoader cl = ClassLoader.getSystemClassLoader();
 			try {
@@ -466,164 +534,182 @@ public abstract class AbstractGenerator implements Generator {
 				Object velocityObject = clazz.newInstance();
 				context.put(plugin.getName(), velocityObject);
 			} catch (ClassNotFoundException e) {
-				logger.info("cannot find plugin "+plugin.getName()+" via class "+plugin.getClassName());
+				logger.info("cannot find plugin " + plugin.getName()
+						+ " via class " + plugin.getClassName());
 				e.printStackTrace();
 			} catch (InstantiationException e) {
-				logger.info("cannot instantiate plugin "+plugin.getName()+" via class "+plugin.getClassName());
+				logger.info("cannot instantiate plugin " + plugin.getName()
+						+ " via class " + plugin.getClassName());
 			} catch (IllegalAccessException e) {
-				logger.info("cannot access plugin "+plugin.getName()+" via class "+plugin.getClassName());
+				logger.info("cannot access plugin " + plugin.getName()
+						+ " via class " + plugin.getClassName());
 			}
 		}
 	}
-	
-    protected String getTemplatePath (Template template) {
-    	if ((templatePath==null || templatePath.equals("")) && isTemplatePathToReset) {
-    		isTemplatePathToReset = false;
-    		Configuration c = (Configuration)template.getTemplateTarget().getTarget().getAbstractConfigurationRoot();
-    		Hashtable<String, String> ht = new Hashtable<String, String>();
-        	TemplateTarget templateTarget = template.getTemplateTarget();
-        	Target target = templateTarget.getTarget();
-    		
-    		for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
-    			String absoluteRootDir = templateTarget2.getAbsoluteRootDir();
-    			if (absoluteRootDir!=null) {
-    				ht.put(absoluteRootDir, absoluteRootDir);
-    			}
-    			String templateFullDir = templateTarget2.getTemplateFullDir();
-    			if (templateFullDir!=null) {
-    				ht.put(templateFullDir, templateFullDir);
-    			}
-    		}
+
+	protected String getTemplatePath(Template template) {
+		if ((templatePath == null || templatePath.equals(""))
+				&& isTemplatePathToReset) {
+			isTemplatePathToReset = false;
+			Configuration c = (Configuration) template.getTemplateTarget()
+					.getTarget().getAbstractConfigurationRoot();
+			Hashtable<String, String> ht = new Hashtable<String, String>();
+			TemplateTarget templateTarget = template.getTemplateTarget();
+			Target target = templateTarget.getTarget();
+
+			for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
+				String absoluteRootDir = templateTarget2.getAbsoluteRootDir();
+				if (absoluteRootDir != null) {
+					ht.put(absoluteRootDir, absoluteRootDir);
+				}
+				String templateFullDir = templateTarget2.getTemplateFullDir();
+				if (templateFullDir != null) {
+					ht.put(templateFullDir, templateFullDir);
+				}
+			}
 			for (String templateAssociated : target.getTemplatedirRefs()) {
-				for (String absoluteRootDir :target.getAbsoluteRootDirs(templateAssociated))
+				for (String absoluteRootDir : target
+						.getAbsoluteRootDirs(templateAssociated))
 					ht.put(absoluteRootDir, absoluteRootDir);
 			}
-    		templatePath = getVelocityPath(ht,null);//getVelocityPath(ht, c.getCatalogDir());
-    	}
-    	return templatePath;
-    }
-    
-    private String getTemplateRelativeLibPath (Template template) {
-    	if (templateLibPath==null && isTemplateLibPathToReset) {
-    		isTemplateLibPathToReset = false;
-    		Configuration c = (Configuration)template.getTemplateTarget().getTarget().getAbstractConfigurationRoot();
-    		Hashtable<String, String> ht = new Hashtable<String, String>();
-        	TemplateTarget templateTarget = template.getTemplateTarget();
-        	Target target = templateTarget.getTarget();
-//    		StringBuffer sb = new StringBuffer();
-    		for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
-    			String libdir = templateTarget2.getLibdir();
-    			if (libdir!=null && !libdir.equals("")) {
-    				ht.put(libdir, libdir);
-//	    			sb.append(templateTarget2.getLibdir());
-//	    			sb.append(","); //TODO change for last element
-    			}
-    		}
-    		
-    		templateLibPath = getVelocityPath(ht, null);
-    	}
-    	return templateLibPath;    	
-    }
-    
-    private String getVelocityPath (Hashtable<String, String> ht, String prefix) {
-    	StringBuffer sb = new StringBuffer();
+			templatePath = getVelocityPath(ht, null);// getVelocityPath(ht,
+														// c.getCatalogDir());
+		}
+		return templatePath;
+	}
+
+	private String getTemplateRelativeLibPath(Template template) {
+		if (templateLibPath == null && isTemplateLibPathToReset) {
+			isTemplateLibPathToReset = false;
+			Configuration c = (Configuration) template.getTemplateTarget()
+					.getTarget().getAbstractConfigurationRoot();
+			Hashtable<String, String> ht = new Hashtable<String, String>();
+			TemplateTarget templateTarget = template.getTemplateTarget();
+			Target target = templateTarget.getTarget();
+			// StringBuffer sb = new StringBuffer();
+			for (TemplateTarget templateTarget2 : target.getTemplateTargets()) {
+				String libdir = templateTarget2.getLibdir();
+				if (libdir != null && !libdir.equals("")) {
+					ht.put(libdir, libdir);
+					// sb.append(templateTarget2.getLibdir());
+					// sb.append(","); //TODO change for last element
+				}
+			}
+
+			templateLibPath = getVelocityPath(ht, null);
+		}
+		return templateLibPath;
+	}
+
+	private String getVelocityPath(Hashtable<String, String> ht, String prefix) {
+		StringBuffer sb = new StringBuffer();
 		Enumeration<String> e = ht.elements();
 		while (e.hasMoreElements()) {
-			if (prefix!=null)
-				sb.append(prefix+"/");
+			if (prefix != null)
+				sb.append(prefix + "/");
 			sb.append(e.nextElement());
 			if (e.hasMoreElements())
 				sb.append(",");
 		}
 		return sb.toString();
-    }
-    
-	protected void produce(VelocityContext context, Template template, String outputFilename) throws Exception{
-       org.apache.velocity.Template velocityTemplate = getVelocityTemplate(template, outputFilename);
-       writeFile(context, velocityTemplate, outputFilename, template);
-       writeFilePostProcessing (template, outputFilename);
-       template.increaseNumberOfGeneratedArtifacts ();
-    }
-	
-	private void writeFilePostProcessing(Template template, String outputFilename) {
+	}
+
+	protected void produce(VelocityContext context, Template template,
+			String outputFilename) throws Exception {
+		org.apache.velocity.Template velocityTemplate = getVelocityTemplate(
+				template, outputFilename);
+		writeFile(context, velocityTemplate, outputFilename, template);
+		writeFilePostProcessing(template, outputFilename);
+		template.increaseNumberOfGeneratedArtifacts();
+	}
+
+	private void writeFilePostProcessing(Template template,
+			String outputFilename) {
 		String chmod = template.getChmod();
-		if (chmod!=null && !chmod.equals("")) {
+		if (chmod != null && !chmod.equals("")) {
 			File file = new File(outputFilename);
 			try {
-				Runtime.getRuntime().exec("chmod "+chmod+" "+file.getCanonicalPath());
+				Runtime.getRuntime().exec(
+						"chmod " + chmod + " " + file.getCanonicalPath());
 			} catch (IOException e) {
-				//do nothing example on windows chmod does not exist
+				// do nothing example on windows chmod does not exist
 			}
 		}
 	}
-	
-	private org.apache.velocity.Template getVelocityTemplate (Template template, String outputFilename) throws Exception {
-	   org.apache.velocity.Template velocityTemplate =  null;
-//		Properties p = new Properties();
-//		extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER, "string");
-//		extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
-//
-//		p.setProperty("resource.loader", "string");
-//		p.setProperty("resource.loader.class", "org.apache.velocity.runtime.resource.loader.StringResourceLoader");
-//		Velocity.init(p);
-	   try {
-	   		velocityTemplate = Velocity.getTemplate(template.getTemplateFileName());
-	   }
-       catch( ResourceNotFoundException rnfe )
-       {
-           System.out.println("Error : cannot find template " + template.getTemplateFileName() );
-       }
-       catch( ParseErrorException pee )
-       {
-           System.out.println("Error : Syntax error in template " + template.getTemplateFileName() + ":" + pee );
-       }
-       return velocityTemplate;
+
+	private org.apache.velocity.Template getVelocityTemplate(Template template,
+			String outputFilename) throws Exception {
+		org.apache.velocity.Template velocityTemplate = null;
+		// Properties p = new Properties();
+		// extendedProperties.setProperty(RuntimeConstants.RESOURCE_LOADER,
+		// "string");
+		// extendedProperties.setProperty("classpath.resource.loader.class",StringResourceLoader.class.getName());
+		//
+		// p.setProperty("resource.loader", "string");
+		// p.setProperty("resource.loader.class",
+		// "org.apache.velocity.runtime.resource.loader.StringResourceLoader");
+		// Velocity.init(p);
+		try {
+			velocityTemplate = Velocity.getTemplate(template
+					.getTemplateFileName());
+		} catch (ResourceNotFoundException rnfe) {
+			System.out.println("Error : cannot find template "
+					+ template.getTemplateFileName());
+		} catch (ParseErrorException pee) {
+			System.out.println("Error : Syntax error in template "
+					+ template.getTemplateFileName() + ":" + pee);
+		}
+		return velocityTemplate;
 	}
-	
-	private void writeFile (VelocityContext context, org.apache.velocity.Template velocityTemplate, String outputFilename, Template template) throws Exception {
+
+	private void writeFile(VelocityContext context,
+			org.apache.velocity.Template velocityTemplate,
+			String outputFilename, Template template) throws Exception {
 		FileOutputStream fos = new FileOutputStream(outputFilename);
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
 
 		String licence = template.getLicence();
-		if (template.isLicenceAtBeginning() && licence!=null)
+		if (template.isLicenceAtBeginning() && licence != null)
 			writer.append(licence);
-		if ( velocityTemplate != null)
+		if (velocityTemplate != null)
 			velocityTemplate.merge(context, writer);
-		if (!template.isLicenceAtBeginning() && licence!=null)
+		if (!template.isLicenceAtBeginning() && licence != null)
 			writer.append(licence);
 		writer.flush();
-		writer.close();  
+		writer.close();
 	}
-	
 
-   protected String getAbstractBeanName (GeneratorBean bean) {
+	protected String getAbstractBeanName(GeneratorBean bean) {
 		String beanName = StringUtils.lowerCase(bean.getClass().getName());
 		beanName = StringUtils.substring(beanName,
 				beanName.lastIndexOf(".") + 1);
 		// TODO change
-		if (beanName.equals("tableddlutils") || beanName.equals("tableumlnotation"))
+		if (beanName.equals("tableddlutils")
+				|| beanName.equals("tableumlnotation"))
 			return "table";
 		if (beanName.equals("columnddlutils"))
-			return "column";		
+			return "column";
 		if (beanName.equals("viewddlutils"))
-			return "view";	
+			return "view";
 		if (beanName.equals("componentddlutils"))
-			return "component";			
+			return "component";
 		if (beanName.equals("functionddlutils"))
-			return "function";	
+			return "function";
 		if (beanName.equals("foreignkeyddlutils"))
-			return "foreignkey";			
+			return "foreignkey";
 		if (beanName.equals("wsdlmodelmetro"))
-			return "wsdlmodel";			
+			return "wsdlmodel";
 		return beanName;
-   }
-	
-    protected Table getDecoratedTable (Table table) {
-    	return DataModelFactory.getTable(table);
-    }
-    
-	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException{
-		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+	}
+
+	protected Table getDecoratedTable(Table table) {
+		return DataModelFactory.getTable(table);
+	}
+
+	protected void writeTemplateResult(GeneratorBean bean, Template template)
+			throws MinuteProjectException {
+		String outputFilename = template
+				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
 		VelocityContext context = getVelocityContext(template);
 		String beanName = getAbstractBeanName(bean);
 		context.put(beanName, bean);
@@ -633,16 +719,18 @@ public abstract class AbstractGenerator implements Generator {
 			produce(context, template, outputFilename);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
+			logger.error("ERROR on template " + template.getName()
+					+ " - on bean " + bean.getName());
 			throwException(e, e.getMessage());
 		}
 	}
-	
-	protected void putCommonContextObject(VelocityContext context, Template template) {
+
+	protected void putCommonContextObject(VelocityContext context,
+			Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 	}
-	
+
 	protected void putStandardContextObject(VelocityContext context) {
 		context.put("convertUtils", new ConvertUtils());
 		context.put("commonUtils", new CommonUtils());
@@ -665,7 +753,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("WebUtils", getWebUtils());
 		context.put("sqlUtils", getSqlUtils());
 		context.put("tableUtils", getTableUtils());
-		context.put("testUtils", getTestUtils());	
+		context.put("testUtils", getTestUtils());
 		context.put("referenceUtils", referenceUtils);
 		context.put("enumUtils", enumUtils);
 		context.put("i18nUtils", i18nUtils);
@@ -685,45 +773,45 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("readmeUtils", new ReadmeUtils());
 	}
 
-    protected void exit (String message) {
-//		logger.error(message);
+	protected void exit(String message) {
+		// logger.error(message);
 		System.exit(-1);
-    }
-    
-    protected void throwException (Exception e, String error) throws MinuteProjectException {
+	}
+
+	protected void throwException(Exception e, String error)
+			throws MinuteProjectException {
 		logger.error(error);
 		e.printStackTrace();
 		MinuteProjectException mpe = new MinuteProjectException();
 		mpe.setError(error);
-		if (e!=null)
+		if (e != null)
 			mpe.setMessage(e.getMessage());
 		throw mpe;
-    }
-    
-    protected void throwException (String error) throws MinuteProjectException {
-    	throwException(null, error);
-    }
-    
-    public void resetTemplatePath() {
-    	isTemplateLibPathToReset = true;
-    	isTemplatePathToReset = true;
-    }
+	}
 
-	
+	protected void throwException(String error) throws MinuteProjectException {
+		throwException(null, error);
+	}
+
+	public void resetTemplatePath() {
+		isTemplateLibPathToReset = true;
+		isTemplatePathToReset = true;
+	}
+
 	public BslaLibraryUtils getBslaLibraryUtils() {
-		if (bslaLibraryUtils==null)
+		if (bslaLibraryUtils == null)
 			bslaLibraryUtils = new BslaLibraryUtils();
 		return bslaLibraryUtils;
 	}
 
 	public ColumnUtils getColumnUtils() {
-		if (columnUtils==null)
+		if (columnUtils == null)
 			columnUtils = new ColumnUtils();
 		return columnUtils;
 	}
 
 	public CommonUtils getCommonUtils() {
-		if (commonUtils==null)
+		if (commonUtils == null)
 			commonUtils = new CommonUtils();
 		return commonUtils;
 	}

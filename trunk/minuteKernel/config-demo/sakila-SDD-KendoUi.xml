@@ -514,7 +514,7 @@ ORDER BY total_sales DESC
 				</queries>
 			</statement-model>
 		</model>
-		<targets catalog-entry="REST-KendoUi" >
+		<targets catalog-entry="REST-KendoUi, REST-TWBS" >
 			<property name="target-server" value="tomcat"></property>
 			<!-- 
 			<property name="environment" value="remote"></property>
