@@ -1,5 +1,6 @@
 package net.sf.minuteProject.configuration.bean;
 
+import net.sf.minuteProject.configuration.bean.model.cmis.CmisModel;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.StringUtils;
 
@@ -9,6 +10,7 @@ public class Model extends GeneratorQualifier{
 	
 	private Application application;
 	private DataModel dataModel;
+	private CmisModel cmisModel;
 	private BusinessModel businessModel;
 	private FunctionModel functionModel;
 	private StatementModel statementModel;
@@ -46,6 +48,10 @@ public class Model extends GeneratorQualifier{
 		return false;
 	}
 
+	public CmisModel getCmisModel() {
+		return cmisModel;
+	}
+	
 	public DataModel getDataModel() {
 		return dataModel;
 	}
