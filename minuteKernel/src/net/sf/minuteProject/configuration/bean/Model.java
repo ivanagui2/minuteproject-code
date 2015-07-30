@@ -52,6 +52,12 @@ public class Model extends GeneratorQualifier{
 		return cmisModel;
 	}
 	
+	public boolean hasCmisModel() {
+		if (cmisModel!=null)
+			return true;
+		return false;
+	}
+	
 	public DataModel getDataModel() {
 		return dataModel;
 	}
