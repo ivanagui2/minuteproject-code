@@ -66,8 +66,10 @@ public class ModelViewGenerator extends ModelGenerator {
 
 	protected void loadModel(Model model) {
 		super.loadModel(model);
-		model.getBusinessModel().complementDataModelWithViews();
-		model.getBusinessModel().complementService();
+		if (model.hasDataModel()) { //TODO proper refactoring for cmis - nosql
+			model.getBusinessModel().complementDataModelWithViews();
+			model.getBusinessModel().complementService();
+		}
 	}
 
 	public Model getModel() {

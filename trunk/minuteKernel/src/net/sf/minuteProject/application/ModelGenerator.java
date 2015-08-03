@@ -263,7 +263,7 @@ public class ModelGenerator extends AbstractGenerator {
 		model.getConfiguration().applyConventions();
 	}
 
-	protected void loadModel(Model model) {
+	protected void loadRdbmsModel(Model model) {
 		//load model
 		model.getDataModel().loadDatabase();
 		
@@ -279,6 +279,15 @@ public class ModelGenerator extends AbstractGenerator {
 		if (model.hasStatementModel()) {
 			StatementModel statementModel = model.getStatementModel();
 			statementModel.complementStatement();
+		}
+	}
+	
+	protected void loadModel(Model model) {
+		//load model
+		if (model.hasCmisModel()) {
+			
+		} else if (model.hasDataModel()){
+			loadRdbmsModel(model); 
 		}
 	}
 

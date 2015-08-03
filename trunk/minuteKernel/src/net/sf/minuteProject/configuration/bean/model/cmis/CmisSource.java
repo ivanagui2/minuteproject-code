@@ -9,6 +9,8 @@ public class CmisSource {
 //	<password></password>	
 //	<folder>adlerfl</folder>
 	
+	private CmisModel cmisModel;
+	
 	private String repositoryUrl, repositoryId, repositoryBinding, username, password, folder;
 
 	public String getRepositoryUrl() {
@@ -57,6 +59,14 @@ public class CmisSource {
 
 	public void setFolder(String folder) {
 		this.folder = folder;
+	}
+
+	public CmisModel getCmisModel() {
+		return cmisModel;
+	}
+
+	public void setCmisModel(CmisModel cmisModel) {
+		this.cmisModel = cmisModel;
 	}
 	
 	
