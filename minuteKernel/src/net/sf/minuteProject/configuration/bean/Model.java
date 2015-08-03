@@ -52,8 +52,19 @@ public class Model extends GeneratorQualifier{
 		return cmisModel;
 	}
 	
+	public void setCmisModel(CmisModel cmisModel) {
+		cmisModel.setModel(this);
+		this.cmisModel = cmisModel;
+	}
+	
 	public boolean hasCmisModel() {
 		if (cmisModel!=null)
+			return true;
+		return false;
+	}
+	
+	public boolean hasDataModel() {
+		if (dataModel!=null)
 			return true;
 		return false;
 	}

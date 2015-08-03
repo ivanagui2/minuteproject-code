@@ -499,6 +499,25 @@
 	              </pattern>
 	         </pattern>
 	    </pattern>
+	   	<pattern value="cmis-model">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.cmis.CmisModel"/>		
+			<set-next-rule methodname="setCmisModel" paramtype="net.sf.minuteProject.configuration.bean.model.cmis.CmisModel"/>		
+	           <set-properties-rule>
+	               <alias attr-name="cmis-type" prop-name="cmisType" />
+	           </set-properties-rule>  							
+			<pattern value="cmis-source">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>	
+				<set-next-rule methodname="setCmisSource" paramtype="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>			
+				<set-properties-rule>
+					<alias attr-name="username" prop-name="username" />
+					<alias attr-name="password" prop-name="password" />
+					<alias attr-name="repository-url" prop-name="repositoryUrl" />
+					<alias attr-name="repository-id" prop-name="repositoryId" />
+					<alias attr-name="repository-binding" prop-name="repositoryBinding" />
+					<alias attr-name="repository-folder" prop-name="folder" />
+				</set-properties-rule>					
+			</pattern>			
+	    </pattern>
 		<pattern value="data-model">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
 			<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
@@ -1722,6 +1741,25 @@
                 </set-properties-rule>  
               </pattern>
          </pattern>
+    </pattern>
+   	<pattern value="cmis-model">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.cmis.CmisModel"/>		
+		<set-next-rule methodname="setCmisModel" paramtype="net.sf.minuteProject.configuration.bean.model.cmis.CmisModel"/>		
+           <set-properties-rule>
+               <alias attr-name="cmis-type" prop-name="cmisType" />
+           </set-properties-rule>  							
+		<pattern value="cmis-source">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>	
+			<set-next-rule methodname="setCmisSource" paramtype="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>			
+			<set-properties-rule>
+				<alias attr-name="username" prop-name="username" />
+				<alias attr-name="password" prop-name="password" />
+				<alias attr-name="repository-url" prop-name="repositoryUrl" />
+				<alias attr-name="repository-id" prop-name="repositoryId" />
+				<alias attr-name="repository-binding" prop-name="repositoryBinding" />
+				<alias attr-name="repository-folder" prop-name="folder" />
+			</set-properties-rule>					
+		</pattern>			
     </pattern>
 	<pattern value="data-model">
 		<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
