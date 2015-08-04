@@ -24,7 +24,7 @@ import net.sf.minuteProject.utils.sql.QueryUtils;
 
 import org.apache.commons.lang.StringUtils;
 
-public class Query extends AbstractConfiguration {
+public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public static final String DUPLICATED_TAG ="<DUPLICATED>";
 	private Queries queries;
@@ -176,11 +176,7 @@ public class Query extends AbstractConfiguration {
 			Column column = ColumnUtils.getColumn(table, queryParam.getName());
 			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
-				//column.setHasBeenDuplicated(queryParam.hasBeenDuplicated());
 				column.setFilterName(queryParam.getQueryParams().getFilterName());
-				// if (queryParam.isId()) {
-				// table.setPrimaryKeys(new Column[] {column});
-				// }
 				column.setQueryParamLink(queryParam.getQueryParamLink());
 
 			}
@@ -204,15 +200,12 @@ public class Query extends AbstractConfiguration {
 		Database database = getQueries().getStatementModel().getModel()
 				.getDataModel().getDatabase();
 		setTableName(table, dir);
-		// table.setName(getName());
-		// table.setCatalog(catalog);
 		table.setType(Table.TABLE);
 		addColumns(table, dir);
 
 		Table entity = new TableDDLUtils(table);
 		initFieldAndRelationship(dir, database, table);
 		entity.setPackage(getPackage());
-		// entity.getTechnicalPackage(template)
 		entity.setDatabase(database);
 		complementColumn(entity, dir);
 		return entity;
@@ -235,7 +228,6 @@ public class Query extends AbstractConfiguration {
 		if (dir.equals(Direction.IN) && !StringUtils.isEmpty(queryparamName))
 			table.setName(formatTableName(queryparamName));
 		else
-//			table.setName(formatTableName(getGeneratedBeanName()));
 			table.setName(formatTableName(getName()));
 	}
 
@@ -315,8 +307,6 @@ public class Query extends AbstractConfiguration {
 				&& queryParam.getScale() > 0) {
 			column.setType(ConvertUtils.DB_DOUBLE_TYPE);
 		}
-		// column.setPrecisionRadix(queryParam.getPrecisionRadix());
-		// column.setTypeCode(fc.getTypeCode());
 		column.setPrimaryKey(queryParam.isId()); // cannot be set here
 		column.setRequired(queryParam.isMandatory());
 		return column;
@@ -329,19 +319,6 @@ public class Query extends AbstractConfiguration {
 			return queryParam.getName()+DUPLICATED_TAG;
 		}
 	}
-
-//	private org.apache.ddlutils.model.Column getColumnTransient(
-//			QueryParam queryParam) {
-//		return getColumn(queryParam,
-//				ColumnUtils.getTransientName(getTransientRoot(queryParam)));
-//	}
-
-//	private String getTransientRoot(QueryParam queryParam) {
-//		if (queryParam.getQueryParamLink() != null
-//				&& queryParam.getQueryParamLink().getFieldName() != null)
-//			return queryParam.getQueryParamLink().getFieldName();
-//		return queryParam.getName();
-//	}
 
 	private String convertType(String type) {
 		return ConvertUtils.getDDLUtilsTypeFromDBType(type);

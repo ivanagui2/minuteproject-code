@@ -10,6 +10,9 @@ public class Hibernate3 {
 	}
 	
 	public static String getDialect (Database database) {
+		if (database==null) {
+			return "database type must be set";
+		}
 		String type = database.getType();
 		if (type==null) {
 			type = database.getDataModel().getDatabaseType();

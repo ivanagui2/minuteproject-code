@@ -28,6 +28,10 @@ public class Template extends TemplateTarget {
 	public static final String FORMAT_LOWER_CASE_FIRST_LETTER = "FORMAT_LOWER_CASE_FIRST_LETTER";
 	public static final String BLANK = "";
 		
+	public enum ModelType {
+		ANY, RDBMS, MONGODB, CMIS;
+	}
+	
 	private String templateFileName;
 	private String subdir;
 	private String outputsubdir; 
@@ -64,6 +68,8 @@ public class Template extends TemplateTarget {
 	private String entityDirNameSuffix;
 	private String entityDirNamePrefix;
 	private String appendEndPackageDir;
+	private String    modelTypeString;
+	private ModelType modelType;
 	private String isToGenerate;
 	private boolean isUpdatable = false;
 	private boolean hasUpdatableNature = false;
@@ -699,6 +705,26 @@ public class Template extends TemplateTarget {
 		this.chmod = chmod;
 	}
 
+	public ModelType getModelType() {
+		if (StringUtils.isEmpty(modelTypeString)) {
+			modelType = ModelType.ANY;
+		}
+		if (modelType==null) {
+			String mtUpper = modelTypeString.toUpperCase();
+			for (ModelType mt : ModelType.values()) {
+				if (mtUpper.equals(mt.name())) {
+					modelType = mt;
+					break;
+				}
+			}
+		}
+		return modelType;
+	}
+
+	public void setModelType(String modelTypeString) {
+		this.modelTypeString = modelTypeString;
+	}
+
 	public String getPackageNameBuilderPlugin() {
 		return packageNameBuilderPlugin;
 	}
@@ -855,6 +881,16 @@ public class Template extends TemplateTarget {
 		sb.append((isTimestampMarkerEnabled)?" - time      : "+FormatUtils.renderCurrentTime()+"\n":"");
 		sb.append("");
 		return sb.toString();
+	}
+
+	public boolean isToGenerateBasedOnModelType(GeneratorBean bean) {
+		if (getModelType().equals(ModelType.ANY))
+			return true;
+//		if (bean instanceof Application) {
+//			Application app = (Application)bean;
+//			app.getM
+//		}
+		return false;
 	}
 		
 	

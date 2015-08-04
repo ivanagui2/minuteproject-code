@@ -62,11 +62,21 @@
 		<xs:attribute name="file-name-builder-plugin" type="xs:string" />
 		<xs:attribute name="file-name-builder-method" type="xs:string" />
 		<xs:attribute name="application-specific" type="xs:string" />
+		<xs:attribute name="model-type" type="model-type" />
 		<xs:attribute name="package-root" type="xs:string" />
 		<xs:attribute name="add-technical-dir-name" type="xs:boolean" />
 		<xs:attribute name="add-business-package-dir-name=" type="xs:boolean" />
 	</xs:complexType>
 
+     <xs:simpleType name="model-type">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="any" />
+             <xs:enumeration value="rdbms" />
+             <xs:enumeration value="cmis" />
+             <xs:enumeration value="mongodb" />
+         </xs:restriction>
+     </xs:simpleType>
+     
 	<xs:complexType name="template-target">
 		<xs:sequence>
 			<xs:element name="template" type="template" minOccurs="0"

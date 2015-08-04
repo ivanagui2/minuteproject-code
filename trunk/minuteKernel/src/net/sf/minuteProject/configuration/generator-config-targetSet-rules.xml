@@ -163,6 +163,7 @@
 					<alias attr-name="is-to-generate" prop-name="isToGenerateMethod" />
 					<alias attr-name="chmod" prop-name="chmod" />
 					<alias attr-name="description" prop-name="description" />
+					<alias attr-name="model-type" prop-name="modelType" />
 					<!--<alias attr-name="is-updatable" prop-name="isUpdatable" />-->
 					<alias attr-name="has-updatable-nature" prop-name="hasUpdatableNature" />
 					<alias attr-name="convert-package-to-dir" prop-name="convertPackageToDir" />

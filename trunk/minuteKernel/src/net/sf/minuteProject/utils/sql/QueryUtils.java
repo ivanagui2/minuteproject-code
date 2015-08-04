@@ -22,6 +22,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryEle
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
@@ -103,7 +104,7 @@ public class QueryUtils {
 		return StringUtils.replace(query.getQueryBody().getValue(), "\n", " ");
 	}
 	
-	public static String getQueryQuestionMark(Query query) {
+	public static String getQueryQuestionMark(Query<QueryModel> query) {
 			String queryRaw = query.getQueryBody().getValue();
 		//1 get query body
 		//sb.append(queryRaw);
@@ -171,7 +172,7 @@ public class QueryUtils {
 		return i==j;
 	}
 
-	private static List<String> getSamples(Query query) {
+	private static List<String> getSamples(Query<QueryModel> query) {
 		List<String> list = new ArrayList<String>();
 		if (query.getQueryParams() != null) {
 			addFilters(list, query.getQueryParams());

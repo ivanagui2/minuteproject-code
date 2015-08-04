@@ -27,6 +27,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryPivot;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.exception.MinuteProjectException;
@@ -363,7 +364,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	private void generateArtifactsByQueryPivot(Template template) throws MinuteProjectException {
 		if (getModel().getStatementModel()!=null && getModel().getStatementModel().getQueries()!=null) {
-			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
+			for (Query<QueryModel> query : getModel().getStatementModel().getQueries().getQueries()) {
 				for (QueryPivot pivot : query.getPivots()) {
 					if (isToGenerate(pivot, template))
 						writeTemplateResult(pivot, template);
