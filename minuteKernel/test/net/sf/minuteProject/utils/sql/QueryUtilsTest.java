@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryBody;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
 import junit.framework.TestCase;
@@ -160,7 +161,7 @@ public class QueryUtilsTest {
 	
 	@Test
 	public void queryWithImplicitFilter2() {
-		Query query = getQueryWithFilter(query1Jdbc, "", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample);
+		Query<QueryModel> query = getQueryWithFilter(query1Jdbc, "", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample);
 		query.getQueryParams().addQueryParam(getQueryParam1());
 		query.getQueryParams().addQueryParam(getQueryParam2());
 		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
@@ -172,7 +173,7 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitFilter() {
 		//StringUtils.replace(query2Jdbc, query2FilterName1, query2FilterValue1);
-		Query query4 = getQueryWithFilter(query2Jdbc, query2FilterName1, query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample);
+		Query<QueryModel> query4 = getQueryWithFilter(query2Jdbc, query2FilterName1, query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample);
 		String s = QueryUtils.getFullQuerySample(query4);
 		assertTrue(s +" but expect :"+query2Full, query2Full.equals(s));
 	}
@@ -181,7 +182,7 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitWhereFilter() {
 		//given
-		Query query = getQuery(query3Jdbc);
+		Query<QueryModel> query = getQuery(query3Jdbc);
 		query.addQueryFilter(getQueryFilter("", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample, QueryFilter.AndWhere.WHERE));
 		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
 		// when
@@ -193,7 +194,7 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitWhereFilterAnd2Filters() {
 		//given
-		Query query = getQuery(query3Jdbc);
+		Query<QueryModel> query = getQuery(query3Jdbc);
 		query.addQueryFilter(getQueryFilter("", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample, QueryFilter.AndWhere.WHERE));
 		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
 		query.addQueryFilter(getQueryFilter("", query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample, QueryFilter.AndWhere.WHERE));
