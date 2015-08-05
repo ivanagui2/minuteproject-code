@@ -23,6 +23,7 @@ import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Function;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.configuration.bean.model.statement.CmisQueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
@@ -283,10 +284,20 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 	
+	protected void loadCmisModel(Model model) {
+		//load model
+		if (model.hasStatementModel()) {
+			StatementModel statementModel = model.getStatementModel();
+			for (Query query : statementModel.getQueries().getQueries()) {
+				query.setQueryModel(new CmisQueryModel());
+			}
+		}
+	}
+	
 	protected void loadModel(Model model) {
 		//load model
 		if (model.hasCmisModel()) {
-			
+			loadCmisModel(model);
 		} else if (model.hasDataModel()){
 			loadRdbmsModel(model); 
 		}
@@ -532,7 +543,7 @@ public class ModelGenerator extends AbstractGenerator {
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
-			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
+			logger.error("ERROR on template "+template.getName()+" - "+template.getTemplateFileName()+" - on bean "+bean.getName());
 			ex.printStackTrace();
 			throwException(ex, "ERROR : "+ex.getMessage());		
 //			logger.error("ERROR : "+ex.getMessage());

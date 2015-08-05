@@ -63,6 +63,10 @@ public class Model extends GeneratorQualifier{
 		return false;
 	}
 	
+	public boolean hasRdbmsModel() {
+		return hasDataModel();
+	}
+	
 	public boolean hasDataModel() {
 		if (dataModel!=null)
 			return true;

@@ -27,6 +27,8 @@ import org.apache.commons.lang.StringUtils;
 public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public static final String DUPLICATED_TAG ="<DUPLICATED>";
+	private T t;
+	
 	private Queries queries;
 	private QueryBody queryBody;
 	private QueryDisplay queryDisplay;
@@ -47,6 +49,15 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private boolean isWrite = false;
 	private String contentType;
 
+	public void setQueryModel (T t) {
+		this.t = t;
+	}
+	public QueryModel getQueryModel () {
+		if (t==null) {
+			return new SqlQueryModel();
+		}
+		return t;
+	}
 	public QueryParams getInputParams() {
 		return QueryUtils.getInputParams(this);
 	}
@@ -54,7 +65,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public QueryParams getOutputParams() {
 		if (outputParams == null && !isSet) {
 			try {
-				outputParams = QueryUtils.getOutputParams(this);
+				outputParams = getQueryModel().getOutputParams(this);//QueryUtils.getOutputParams(this);
 			} catch (MinuteProjectException e) {
 				isSet = true;
 				// TODO log error
@@ -197,30 +208,36 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	private Table getEntityRoot(Direction dir) {
 		org.apache.ddlutils.model.Table table = new org.apache.ddlutils.model.Table();
-		Database database = getQueries().getStatementModel().getModel()
-				.getDataModel().getDatabase();
+		
 		setTableName(table, dir);
 		table.setType(Table.TABLE);
 		addColumns(table, dir);
 
 		Table entity = new TableDDLUtils(table);
-		initFieldAndRelationship(dir, database, table);
+		getQueryModel().setEntityModelSpecific(this, dir, table, entity);
 		entity.setPackage(getPackage());
-		entity.setDatabase(database);
+		
 		complementColumn(entity, dir);
 		return entity;
 	}
+	
+//	private void setEntityModelSpecific(Queries queries, Direction dir,
+//			org.apache.ddlutils.model.Table table, Table entity) {
+//		Database database = queries.getStatementModel().getModel().getDataModel().getDatabase();
+//		initFieldAndRelationship(dir, database, table);
+//		entity.setDatabase(database);
+//	}
 
-	private void initFieldAndRelationship(Direction dir, Database database,
-			org.apache.ddlutils.model.Table table) {
-		if (dir.equals(Direction.IN)) {
-			List<QueryParam> list = getQueryParams(Direction.IN);
-			for (QueryParam queryParam : list) {
-				Entity.assignForeignKey(database, table,
-						queryParam.getLinkField());
-			}
-		}
-	}
+//	private void initFieldAndRelationship(Direction dir, Database database,
+//			org.apache.ddlutils.model.Table table) {
+//		if (dir.equals(Direction.IN)) {
+//			List<QueryParam> list = getQueryParams(Direction.IN);
+//			for (QueryParam queryParam : list) {
+//				Entity.assignForeignKey(database, table,
+//						queryParam.getLinkField());
+//			}
+//		}
+//	}
 
 	private void setTableName(org.apache.ddlutils.model.Table table,
 			Direction dir) {
@@ -280,7 +297,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		}
 	}
 
-	private List<QueryParam> getQueryParams(Direction direction) {
+	public List<QueryParam> getQueryParams(Direction direction) {
 		if (Direction.IN.equals(direction)) {
 			List<QueryParam> list = new ArrayList<QueryParam>();
 			list.addAll(getInputParams().getFlatQueryParams(true));
