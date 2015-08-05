@@ -3,8 +3,11 @@
 #exposeSDDSpring()
 #putImportQuerySDDBean()
 #addedAreas()
+#set ($isRdbmsModel=$model.hasRdbmsModel())
+#if ($isRdbmsModel)
 #exposeJPASpecifics()
 #exposeJPA2Specifics()
+#end
 #set ($sizeChunk = $query.getQueryChunks().size())
 package $packageName;
 
