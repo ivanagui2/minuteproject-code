@@ -584,6 +584,10 @@ $!updatedAreaEnd
 #end
 #end
 
+#macro(exposeModelType)
+#set ($isRdbmsModel=$model.hasRdbmsModel())
+#end
+
 #macro(exposeBackendTechnology)
 #set ($isSpringBackend=$template.hasPropertyValue("add-backend-implementation","spring"))
 #set ($isEJBBackend=$template.hasPropertyValue("add-backend-implementation","ejb"))
