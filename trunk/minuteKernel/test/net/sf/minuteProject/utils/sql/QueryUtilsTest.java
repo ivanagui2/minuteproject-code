@@ -15,6 +15,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
+import net.sf.minuteProject.configuration.bean.model.statement.SqlQueryModel;
 import junit.framework.TestCase;
 
 public class QueryUtilsTest {
@@ -74,6 +75,7 @@ public class QueryUtilsTest {
 	@Before
 	public void setUp() {
 		query1=new Query();
+		query1.setQueryModel(new SqlQueryModel());
 		query1.setQueryBody(getQueryBody(query1Jdbc));
 		query1.setQueryParams(getQueryParams(getQueryParam1(), getQueryParam2()));
 	}
@@ -129,6 +131,7 @@ public class QueryUtilsTest {
 
 	private Query getQuery(String jdbc) {
 		Query query=new Query();
+		query.setQueryModel(new SqlQueryModel());
 		query.setQueryBody(getQueryBody(jdbc));
 		return query;
 	}
