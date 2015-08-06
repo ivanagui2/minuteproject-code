@@ -369,6 +369,8 @@ public abstract class AbstractGenerator implements Generator {
 			if (!template.isToGenerate(bean)) {
 				return false;
 			}
+		} else {
+			return false;
 		}
 		return true;
 	}
