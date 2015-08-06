@@ -68,8 +68,8 @@ public class Template extends TemplateTarget {
 	private String entityDirNameSuffix;
 	private String entityDirNamePrefix;
 	private String appendEndPackageDir;
-	private String    modelTypeString;
-	private ModelType modelType;
+	private String    modelType;
+	private ModelType modelTypeEnum;
 	private String isToGenerate;
 	private boolean isUpdatable = false;
 	private boolean hasUpdatableNature = false;
@@ -705,24 +705,24 @@ public class Template extends TemplateTarget {
 		this.chmod = chmod;
 	}
 
-	public ModelType getModelType() {
-		if (StringUtils.isEmpty(modelTypeString)) {
-			modelType = ModelType.ANY;
+	public ModelType getModelTypeEnum() {
+		if (StringUtils.isEmpty(modelType)) {
+			modelTypeEnum = ModelType.ANY;
 		}
-		if (modelType==null) {
-			String mtUpper = modelTypeString.toUpperCase();
+		if (modelTypeEnum==null) {
+			String mtUpper = modelType.toUpperCase();
 			for (ModelType mt : ModelType.values()) {
 				if (mtUpper.equals(mt.name())) {
-					modelType = mt;
+					modelTypeEnum = mt;
 					break;
 				}
 			}
 		}
-		return modelType;
+		return modelTypeEnum;
 	}
 
-	public void setModelType(String modelTypeString) {
-		this.modelTypeString = modelTypeString;
+	public void setModelType(String modelType) {
+		this.modelType = modelType;
 	}
 
 	public String getPackageNameBuilderPlugin() {
@@ -884,12 +884,23 @@ public class Template extends TemplateTarget {
 	}
 
 	public boolean isToGenerateBasedOnModelType(GeneratorBean bean) {
-		if (getModelType().equals(ModelType.ANY))
+		if (getModelTypeEnum().equals(ModelType.ANY))
 			return true;
-//		if (bean instanceof Application) {
-//			Application app = (Application)bean;
-//			app.getM
-//		}
+		if (bean instanceof Model) {
+			Model model = (Model)bean;
+			if (ModelType.RDBMS.equals(getModelTypeEnum())) {
+				if (model.hasDataModel()) {
+					return true;
+				}
+				return false;
+			}
+			if (ModelType.CMIS.equals(getModelTypeEnum())) {
+				if (model.hasCmisModel()) {
+					return true;
+				}
+				return false;
+			}
+		}
 		return false;
 	}
 		

@@ -390,7 +390,7 @@ public class ModelGenerator extends AbstractGenerator {
 	
 	protected void generateArtifactsByModel(Template template) throws MinuteProjectException {
 		if (isToGenerate(getModel(), template))
-			if (isToGenerate(getModel(), template))
+//			if (isToGenerate(getModel(), template))
 				writeTemplateResult(getModel(), template);
 	}
 
@@ -468,8 +468,10 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 	
 	protected void generateArtifactsByFunction(Template template) throws MinuteProjectException {	
-		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
-			writeTemplateResult(function, template);
+		if (getModel().hasDataModel()) {
+			for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
+				writeTemplateResult(function, template);
+			}
 		}
 	}
 	
