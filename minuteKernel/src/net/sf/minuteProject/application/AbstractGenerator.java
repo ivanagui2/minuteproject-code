@@ -363,11 +363,14 @@ public abstract class AbstractGenerator implements Generator {
 	}
 
 	protected boolean isToGenerate(GeneratorBean bean, Template template) {
-		if (template.isToGenerateBasedOnModelType(bean)
-				&& template.getCheckTemplateToGenerate() != null
+		if (template.isToGenerateBasedOnModelType(bean)){
+			if (template.getCheckTemplateToGenerate() != null
 				&& template.getCheckTemplateToGenerate().equals("true")) {
-			if (!template.isToGenerate(bean)) {
-				return false;
+				if (!template.isToGenerate(bean)) {
+					return false;
+				}
+			} else {
+				return true;
 			}
 		} else {
 			return false;

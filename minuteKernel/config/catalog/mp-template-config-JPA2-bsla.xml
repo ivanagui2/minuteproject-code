@@ -292,18 +292,20 @@
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
 			entity-specific="false" package-specific="false" model-specific="true"
-			has-updatable-nature="true">
+			has-updatable-nature="true" model-type="rdbms">
 			<property name="use-persistence-standard-location" value="true"/>
 		</template>
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			entity-specific="false" package-specific="false" model-specific="true"
+			model-type="rdbms">
 		</template>
 		<template name="BslaSpringProperties" templateFileName="BslaSpringProperties.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="properties" file-prefix="spring-config-" file-suffix="" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			entity-specific="false" package-specific="false" model-specific="true"
+			model-type="rdbms">
 			<property name="hibernateDialect" value="true"></property>
 		</template>	
 
@@ -320,11 +322,12 @@
 		<template name="SequenceSQL" templateFileName="SequenceSQL.vm" 
 			subdir="" outputsubdir="" technicalPackage="sql"
 			file-extension="sql" file-prefix="" file-suffix="Sequence" 
-			model-specific="true">
+			model-specific="true" model-type="rdbms">
 		</template>		
 		<template name="DBSchemaDeleteOrder" templateFileName="DBSchemaDeleteOrder.vm" 
 			subdir="" outputsubdir="" technicalPackage="sql"
 			file-extension="sql" file-prefix="" file-suffix="DeleteOrder" 
+			model-type="rdbms"
 			model-specific="true">
 		</template>				
 		<template name="InsertEnumerationSQL" templateFileName="InsertEnumerationSQL.vm" 
