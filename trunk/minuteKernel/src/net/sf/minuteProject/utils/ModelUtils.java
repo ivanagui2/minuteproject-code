@@ -189,6 +189,9 @@ public class ModelUtils {
 	
 	public static List getChildren (Database database, Table table) {
 		List list = new ArrayList();
+		if (database == null) {
+			return list;
+		}
 		String columnRef;
 		net.sf.minuteProject.configuration.bean.model.data.Reference ref;
 		Reference reference;
