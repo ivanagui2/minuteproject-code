@@ -3,7 +3,7 @@
 #exposeSDDSpring()
 #putImportQuerySDDBean()
 #addedAreas()
-#set ($isRdbmsModel=$model.hasRdbmsModel())
+#exposeModelType()
 #if ($isRdbmsModel)
 #exposeJPASpecifics()
 #exposeJPA2Specifics()
