@@ -101,7 +101,7 @@ public class Composite extends AbstractConfiguration{
 	public String getTechnicalPackage(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
-			return "ERROR_PACKAGE_IS_NULL";
+			return "ERROR_COMPOSITE_PACKAGE_IS_NULL";
 		return p.getTechnicalPackage(template);
 	}
 	

@@ -17,13 +17,24 @@ public class Application extends GeneratorQualifier{
 	}
 	
 	public List<Model> getRdmsModels() {
-		if (rdbmsModels == null) rdbmsModels = new ArrayList<Model>();
-		for (Model model : getModels()) {
-			if (model.hasDataModel()) {
-				rdbmsModels.add(model);
+		if (rdbmsModels == null) {
+			rdbmsModels = new ArrayList<Model>();
+			for (Model model : getModels()) {
+				if (model.hasDataModel()) {
+					rdbmsModels.add(model);
+				}
 			}
 		}
 		return rdbmsModels;
+	}
+	
+	public boolean hasCmisModel() {
+		for (Model model : getModels()) {
+			if (model.hasCmisModel()) {
+				return true;
+			}
+		}
+		return true;
 	}
 	
 	public void addModel (Model model) {

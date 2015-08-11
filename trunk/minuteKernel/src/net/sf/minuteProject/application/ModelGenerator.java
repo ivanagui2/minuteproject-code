@@ -291,6 +291,7 @@ public class ModelGenerator extends AbstractGenerator {
 			for (Query query : statementModel.getQueries().getQueries()) {
 				query.setQueryModel(new CmisQueryModel());
 			}
+			statementModel.complementStatement();
 		}
 	}
 	

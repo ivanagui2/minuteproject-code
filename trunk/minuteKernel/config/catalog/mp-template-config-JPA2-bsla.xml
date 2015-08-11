@@ -69,7 +69,13 @@
 
         <template name="SDDSpringJPADao" templateFileName="SDDSpringJPADao.vm" 
             file-extension="java" technicalPackage="dao.sdd.impl" file-suffix="Repository" 
-            add-package-name="false" add-business-package-dir-name="false" 
+            add-package-name="false" add-business-package-dir-name="false" model-type="rdbms"
+            scope-specific-value="query" has-updatable-nature="true" >
+        </template>
+
+        <template name="SDDSpringCmisDao" templateFileName="SDDSpringCmisDao.vm" 
+            file-extension="java" technicalPackage="dao.sdd.impl" file-suffix="CmisRepository" 
+            add-package-name="false" add-business-package-dir-name="false" model-type="cmis"
             scope-specific-value="query" has-updatable-nature="true" >
         </template>
 
@@ -156,7 +162,7 @@
 		<template name="DB.API.ModelGenericDaoJpaImpl" templateFileName="DB.API.ModelGenericDaoJpaImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.impl"
 			file-extension="java" file-prefix="" file-suffix="GenericDaoJpaImpl" 
-			model-specific="true" 
+			model-specific="true" model-type="rdbms"
 			has-updatable-nature="true">
 		</template>
 				

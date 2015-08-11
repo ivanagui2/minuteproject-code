@@ -36,7 +36,7 @@ public class SDDPackage extends BusinessPackageAdapter {
 		this.statementModel = statementModel;
 	}
 	
-	void setPackages(Model model, Database database) {
+	void setPackages(Model model) {
 		Hashtable<String, Package> ht = new Hashtable<String, Package>();
 		for (Query query:statementModel.getQueries().getQueries()) {
 //			if (ModelUtils.isToGenerate(statementModel, query)) {

@@ -87,6 +87,16 @@ public class Configuration extends AbstractConfigurationRoot{
 //		return models;
 	}
 	
+	public List<Model> getAllModels() {
+		List<Model> models = new ArrayList<Model>();
+		if (isSingleModel())
+			models.add(singleModel);
+		else {
+			models.addAll(application.getModels());
+		}
+		return models;
+	}
+	
 	public List<Model> getRdbmsModels() {
 		List<Model> models = new ArrayList<Model>();
 		if (isSingleModel())
