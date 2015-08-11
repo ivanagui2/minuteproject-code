@@ -1,13 +1,24 @@
 #macro(generatorSpecific)
 #if($configuration.isSingleModel())
 #set($generatorBean=$model)
+#set($hasCmisModel=$model.hasCmisModel())
 #else
 #set($generatorBean=$configuration.application)
+#set($hasCmisModel=$application.hasCmisModel())
 #end
 #end
 
 #macro(putReadmeText)
 $readmeUtils.getReadme($template)
+#end
+
+#macro(exposeCmisSpecifics)
+#set($cmisModel  = $model.cmisModel)
+#set($cmisSource = $cmisModel.cmisSource)
+#set($repositoryId = $cmisSource.repositoryId)
+#set($repositoryBinding = $cmisSource.repositoryBinding)
+#set($username = $cmisSource.username)
+#set($repositoryUrl = $cmisSource.repositoryUrl)
 #end
 
 #macro (asUML $table)
@@ -398,6 +409,106 @@ $!updatedAreaSnippet
 		return list;
 	}
 
+#putSddQueryLookupMisc()
+$!updatedAreaEnd
+#end
+
+#macro (putSddCmisLookup)
+#exposeQueryUpdatedAreas("SDD_EXECUTE_CMIS")
+$!updatedAreaBegin
+#if($isUpdated)
+$!updatedAreaSnippet
+#else
+	public List<$sddOutputBeanClass> executeCMISQuery(
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        String $chunkName 
+#else
+        ,String $chunkName 
+#end
+#end
+		) {
+#if($isNotVoidInput)
+		if ($sddInputBeanVariable==null)
+			$sddInputBeanVariable = new $sddInputBeanClass();
+#end
+		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+#if (!$query.isWrite())
+##		ResultSet rs = null;
+#end
+		Session session = getSession();
+		QueryStatement qs = session.createQueryStatement (
+					getStatement(
+#if($isNotVoidInput) 
+						$sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        				$chunkName 
+#else
+        				, $chunkName 
+#end
+#end
+					));
+		int index = 1;
+#foreach($column in $inputBean.columns)
+#if($isTransientDefinition)
+#if (!$column.isTransient() && $column.isPrimaryKey()) 
+#injectSDDCmisParameter()
+#end
+#else
+##TODO use setFilter to add the filter group $column.isFilter() <filter
+#if (!$column.isFilter())
+#injectSDDCmisParameter()
+#else
+		if (isFilter${column.filterName}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)) {
+#injectSDDCmisParameter()
+		}
+#end	
+#end
+#end
+#if ($query.isWrite())
+##			pstmt.executeUpdate();
+#else
+		String statement = qs.toQueryString();
+	    ItemIterable<QueryResult> results = getSession().query(statement, false);
+#end
+#if ($statementUtils.hasResult($outputBean))
+        for (QueryResult result : results) {
+        	$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
+            for (PropertyData prop : result.getProperties()) {
+                //System.out.println("> "+prop.getQueryName()+", "+prop.getFirstValue());
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+				if (prop.getQueryName().endsWith("$columnClass")) {
+					${sddOutputBeanVariable}.set$columnClass(($columnType)prop.getFirstValue()); 
+				}
+#end
+			
+            }
+            list.add(${sddOutputBeanVariable});
+        }
+
+#end
+#if (!$query.isWrite())
+##	        rs.close();
+#end
+
+		return list;
+	}
+
+#putSddQueryLookupMisc()
+$!updatedAreaEnd
+#end
+#end
+
+#macro (putSddQueryLookupMisc)
 #foreach ($filter in $query.queryFilters)
 	public boolean isFilter${filter.name}Active(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
 #foreach ($param in $filter.queryParams.queryParams)
@@ -491,7 +602,6 @@ $!updatedAreaSnippet
 		return "";
 	}  
 #end
-$!updatedAreaEnd
 #end
 
 #macro(injectSDDParameter)
@@ -530,6 +640,53 @@ $!updatedAreaEnd
 #else
 			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
 			      pstmt.set$columnType(index, element);
+			      index ++;
+			   }
+#end
+#end
+#end
+            }
+            index ++;
+#end
+
+#macro(injectSDDCmisParameter)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+            if (${sddInputBeanVariable}.get$columnClass()==null) {
+#if (!$column.isArray())
+##               pstmt.setNull(index, java.sql.Types.${column.type});
+#else
+#* 			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			      pstmt.setNull(index, java.sql.Types.${column.type});
+			      index ++;
+			   }
+			    
+*# 
+#end
+            } else {
+#if(${column.hasProperty("like-mode")})
+#set($likeMode = ${column.getPropertyValue("like-mode")})
+#if($likeMode =="startsWith")
+               $columnType var = ${sddInputBeanVariable}.get$columnClass() + "%";
+#elseif ($likeMode =="endsWith")
+               $columnType var = "%" + ${sddInputBeanVariable}.get$columnClass();
+#elseif ($likeMode =="contains")
+               $columnType var = "%" + ${sddInputBeanVariable}.get$columnClass() + "%";
+#else
+			   //TODO update your minuteproject config to set property like-mode to startsWith
+               // endsWith or contains
+               $columnType var = ${sddInputBeanVariable}.get$columnClass();
+#end
+               qs.set$columnType(index, var); 
+#else
+#if($columnUtils.isTimeColumn($column))
+               qs.set$columnType(index, new java.sql.Date(${sddInputBeanVariable}.get$columnClass().getTime())); 
+#else
+#if (!$column.isArray())
+               qs.set$columnType(index, ${sddInputBeanVariable}.get$columnClass()); 
+#else
+			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			      qs.set$columnType(index, element);
 			      index ++;
 			   }
 #end

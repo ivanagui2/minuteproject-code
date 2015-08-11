@@ -30,7 +30,7 @@
 #set ($primaryKeyJavaNameClass = $commonUtils.getColumnClassName($primaryKeyFirstColumn))
 #set ($hasPrimaryKey = $commonUtils.hasPrimaryKey($table))
 #set ($isPkUserProvided = $commonUtils.isPkUserProvided($table))
-#set ($bundle = $bslaLibraryUtils.getBundle($table))
+##set ($bundle = $bslaLibraryUtils.getBundle($table))
 #set ($primaryKeyCount = $commonUtils.getPrimaryKeyCount($table))
 #set ($isMany2Many = $tableUtils.isMany2Many($table))
 #set ($hasUniqueKey = $tableUtils.hasUniqueKey($table))
@@ -414,11 +414,14 @@
 #end
 
 #macro (exposeEnvironmentParams)
+#exposeModelType()
+#if ($isRdbmsModel)
 #set ($PKLookUpString = $databaseUtils.providePrimaryKeyLookUpString($table))
 #set ($PKSequence = $databaseUtils.provideSequence($table))
 #set ($isPrimaryKeyPolicySequence = $databaseUtils.isPrimaryKeyPolicySequence($table))
 #set ($isPrimaryKeyPolicyIdentity = $databaseUtils.isPrimaryKeyPolicyIdentity($table))
 #set ($isPrimaryKeyPolicyIncrement = $databaseUtils.isPrimaryKeyPolicyIncrement($table))
+#end
 #end
 
 #macro (exposeArchitectureParams)
