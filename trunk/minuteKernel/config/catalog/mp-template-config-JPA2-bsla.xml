@@ -301,6 +301,14 @@
 			has-updatable-nature="true" model-type="rdbms">
 			<property name="use-persistence-standard-location" value="true"/>
 		</template>
+		
+		<template name="BslaSpringConfigMainBackendCmis" templateFileName="BslaSpringConfigMainCmis.vm" 
+			subdir="" outputsubdir="" technicalPackage="factory.spring"
+			file-extension="xml" file-prefix="spring-config-" file-suffix="-BE-main" 
+			entity-specific="false" package-specific="false" model-specific="true"
+			has-updatable-nature="true" model-type="cmis">
+			<property name="use-persistence-standard-location" value="true"/>
+		</template>
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA2.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
