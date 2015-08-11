@@ -35,6 +35,10 @@ import $sddDaoInterfaceImport;
 #if($isNotVoidInput)
 import $sddInputBeanImport;
 #end
+
+#if ($isSpringBackend)
+import org.springframework.stereotype.Service;
+#end
 /**
  *
  * <p>Title: ${className}</p>
@@ -43,7 +47,7 @@ import $sddInputBeanImport;
  *
  */
 #if ($isSpringBackend)
-##@Repository ("$sddDaoInterfaceVariable")
+@Service ("$sddDaoInterfaceVariable")
 public class ${className} implements $sddDaoInterfaceClass {
 #else
 @javax.ejb.Stateless ##(name="$sddDaoInterfaceVariable")

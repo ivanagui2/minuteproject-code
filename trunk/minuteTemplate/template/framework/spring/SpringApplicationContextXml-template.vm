@@ -14,7 +14,7 @@
     default-autowire="byName">
 
     <context:annotation-config />
-#foreach ($model in $configuration.models())
+#foreach ($model in $configuration.allModels)
 #set ($templateToScan=$template.getPropertyValue("template-to-scan",""))
 #set ($scanPackage=$commonUtils.getPackageName($model, $template, $templateToScan))
 #set ($templateToScan2=$template.getPropertyValue("template-to-scan-2",""))
