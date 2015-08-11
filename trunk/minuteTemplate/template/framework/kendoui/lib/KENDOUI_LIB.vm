@@ -260,7 +260,7 @@
 #macro(putKendoUIMenu)
         var _option_menu = QueryString._option_menu;
         if (_option_menu==undefined || _option_menu=='true') {
-#foreach ($model in $configuration.models())
+#foreach ($model in $configuration.allModels)
 #exposeKendoUIModelSpecific()
         	$.ajax({
             	url: contextPath+"/$kendoUiMenuStructurePath",
