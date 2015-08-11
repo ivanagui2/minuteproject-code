@@ -18,6 +18,7 @@ public class CmisModel {
 	}
 	public void setCmisSource(CmisSource cmisSource) {
 		this.cmisSource = cmisSource;
+		this.cmisSource.setCmisModel(this);
 	}
 	
 }

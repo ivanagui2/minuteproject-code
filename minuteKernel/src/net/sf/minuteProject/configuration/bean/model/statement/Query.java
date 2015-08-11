@@ -54,7 +54,11 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 	public QueryModel getQueryModel () {
 		if (t==null) {
-			return new SqlQueryModel();
+			if (getQueries().getStatementModel().getModel().hasDataModel())
+				return new SqlQueryModel();
+			else if (getQueries().getStatementModel().getModel().hasCmisModel()) {
+				return new CmisQueryModel();
+			}
 		}
 		return t;
 	}
@@ -263,7 +267,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public String getTechnicalPackage(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null)
-			return "ERROR_PACKAGE_IS_NULL";
+			return "ERROR_QUERY_PACKAGE_IS_NULL";
 		return p.getTechnicalPackage(template) + "."
 				+ CommonUtils.getSDDPackageName(this);
 	}

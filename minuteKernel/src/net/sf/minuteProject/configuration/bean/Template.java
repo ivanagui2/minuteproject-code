@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.enumeration.Extension;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.configuration.bean.view.Function;
@@ -883,23 +884,31 @@ public class Template extends TemplateTarget {
 		return sb.toString();
 	}
 
+	public boolean isToGenerateBasedOnModelType(Model model, ModelType modelTypeEnum) {
+		if (ModelType.RDBMS.equals(modelTypeEnum)) {
+			if (model.hasDataModel()) {
+				return true;
+			}
+			return false;
+		} else if (ModelType.CMIS.equals(modelTypeEnum)) {
+			if (model.hasCmisModel()) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
 	public boolean isToGenerateBasedOnModelType(GeneratorBean bean) {
-		if (getModelTypeEnum().equals(ModelType.ANY))
+		ModelType modelTypeEnumLog = getModelTypeEnum();
+		if (modelTypeEnumLog.equals(ModelType.ANY))
 			return true;
 		if (bean instanceof Model) {
 			Model model = (Model)bean;
-			if (ModelType.RDBMS.equals(getModelTypeEnum())) {
-				if (model.hasDataModel()) {
-					return true;
-				}
-				return false;
-			}
-			if (ModelType.CMIS.equals(getModelTypeEnum())) {
-				if (model.hasCmisModel()) {
-					return true;
-				}
-				return false;
-			}
+			return isToGenerateBasedOnModelType(model, modelTypeEnumLog);
+		}
+		if (bean instanceof Query) {
+			Query query = (Query)bean;
+			return isToGenerateBasedOnModelType(query.getQueries().getStatementModel().getModel(), modelTypeEnumLog);
 		}
 		return false;
 	}

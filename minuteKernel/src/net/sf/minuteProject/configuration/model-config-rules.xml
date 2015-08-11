@@ -508,14 +508,13 @@
 			<pattern value="cmis-source">
 				<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>	
 				<set-next-rule methodname="setCmisSource" paramtype="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>			
-				<set-properties-rule>
-					<alias attr-name="username" prop-name="username" />
-					<alias attr-name="password" prop-name="password" />
-					<alias attr-name="repository-url" prop-name="repositoryUrl" />
-					<alias attr-name="repository-id" prop-name="repositoryId" />
-					<alias attr-name="repository-binding" prop-name="repositoryBinding" />
-					<alias attr-name="repository-folder" prop-name="folder" />
-				</set-properties-rule>					
+				<set-properties-rule/>		
+				<bean-property-setter-rule pattern="repository-url" propertyname="repositoryUrl"/>			
+				<bean-property-setter-rule pattern="repository-id" propertyname="repositoryId"/>			
+				<bean-property-setter-rule pattern="repository-binding" propertyname="repositoryBinding"/>			
+				<bean-property-setter-rule pattern="repository-folder" propertyname="repositoryFolder"/>			
+				<bean-property-setter-rule pattern="username"/>		
+				<bean-property-setter-rule pattern="password"/>				
 			</pattern>			
 	    </pattern>
 		<pattern value="data-model">
@@ -1751,14 +1750,13 @@
 		<pattern value="cmis-source">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>	
 			<set-next-rule methodname="setCmisSource" paramtype="net.sf.minuteProject.configuration.bean.model.cmis.CmisSource"/>			
-			<set-properties-rule>
-				<alias attr-name="username" prop-name="username" />
-				<alias attr-name="password" prop-name="password" />
-				<alias attr-name="repository-url" prop-name="repositoryUrl" />
-				<alias attr-name="repository-id" prop-name="repositoryId" />
-				<alias attr-name="repository-binding" prop-name="repositoryBinding" />
-				<alias attr-name="repository-folder" prop-name="folder" />
-			</set-properties-rule>					
+			<set-properties-rule/>		
+			<bean-property-setter-rule pattern="repository-url" propertyname="repositoryUrl"/>			
+			<bean-property-setter-rule pattern="repository-id" propertyname="repositoryId"/>			
+			<bean-property-setter-rule pattern="repository-binding" propertyname="repositoryBinding"/>			
+			<bean-property-setter-rule pattern="repository-folder" propertyname="repositoryFolder"/>			
+			<bean-property-setter-rule pattern="username"/>		
+			<bean-property-setter-rule pattern="password"/>				
 		</pattern>			
     </pattern>
 	<pattern value="data-model">

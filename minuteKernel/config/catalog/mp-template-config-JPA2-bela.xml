@@ -65,13 +65,13 @@
 
         <template name="SDDSpringJPADao" templateFileName="SDDSpringJPADao.vm" 
             file-extension="java" technicalPackage="dao.sdd.impl" file-suffix="Repository" 
-            add-package-name="false" add-business-package-dir-name="false" 
+            add-package-name="false" add-business-package-dir-name="false" model-type="rdbms"
             scope-specific-value="query" has-updatable-nature="true" >
         </template>
 
         <template name="SDDCompositeDaoInterface" templateFileName="SDDCompositeDaoInterface.vm" 
             file-extension="java" technicalPackage="dao.composite.face" file-suffix="DaoFace" 
-            add-package-name="false" add-business-package-dir-name="false" 
+            add-package-name="false" add-business-package-dir-name="false"  
             scope-specific-value="composite" has-updatable-nature="true" >
         </template>
 
@@ -96,7 +96,7 @@
 		<template name="DB.API.ModelGenericDaoJpaImpl" templateFileName="DB.API.ModelGenericDaoJpaImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="dao.impl"
 			file-extension="java" file-prefix="" file-suffix="GenericDaoJpaImpl" 
-			model-specific="true" 
+			model-specific="true" model-type="rdbms"
 			has-updatable-nature="true">
 		</template>
 				
