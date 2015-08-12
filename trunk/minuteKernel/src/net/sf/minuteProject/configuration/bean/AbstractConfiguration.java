@@ -209,7 +209,7 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 		return isAliasSet;
 	}
 	
-	protected void setIsAliasSet (boolean isAliasSet) {
+	public void setIsAliasSet (boolean isAliasSet) {
 		this.isAliasSet = isAliasSet;
 	}
 	
