@@ -22,7 +22,7 @@
         <init-param>
           <param-name>jersey.config.server.provider.packages</param-name>
           <param-value>
-#foreach ($model in $configuration.models())          
+#foreach ($model in $configuration.allModels)          
 #exposeRESTModelSpecific()
           $modelResourceJerseyImport;
 #end        

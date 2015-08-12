@@ -485,9 +485,16 @@ $!updatedAreaSnippet
                 //System.out.println("> "+prop.getQueryName()+", "+prop.getFirstValue());
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
-#set($columnType = $statementUtils.getJdbcType($column))
-				if (prop.getQueryName().endsWith("$columnClass")) {
-					${sddOutputBeanVariable}.set$columnClass(($columnType)prop.getFirstValue()); 
+#set($columnType = $statementUtils.getCmisType($column))
+##				if (prop.getQueryName().equals("$column.name")) {
+				if (prop.getQueryName().toLowerCase().endsWith("$columnClass".toLowerCase())) {
+#if ($columnType.equals("java.math.BigInteger"))
+					${sddOutputBeanVariable}.set$columnClass((($columnType)prop.getFirstValue()).longValue());
+#elseif ($columnType.equals("java.util.GregorianCalendar"))
+					${sddOutputBeanVariable}.set$columnClass((($columnType)prop.getFirstValue()).getTime());
+#else
+					${sddOutputBeanVariable}.set$columnClass(($columnType)prop.getFirstValue());
+#end
 				}
 #end
 			
