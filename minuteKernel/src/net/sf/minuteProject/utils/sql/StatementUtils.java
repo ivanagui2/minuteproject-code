@@ -47,6 +47,24 @@ public class StatementUtils {
 		return "String";
 	}
 	
+	
+	public static final String getCmisType(Column column) {
+		return getCmisType(column.getType());
+	}
+	
+	private static final String getCmisType(String type) {
+		if (type!=null) {
+			if (type.equals(FieldType.BIGINT.toString()))
+				return "java.math.BigInteger";
+			if (type.equals(FieldType.DATE.toString()))
+				return "java.util.GregorianCalendar";
+			if (type.equals(FieldType.BOOLEAN.toString()))
+				return "java.lang.Boolean";
+			else return getJdbcType(type);
+		}
+		return "String";
+	}
+	
 	public static final String getJdbcGetter(QueryParam queryParam) {
 		return "get"+getJdbcType(queryParam);
 	}

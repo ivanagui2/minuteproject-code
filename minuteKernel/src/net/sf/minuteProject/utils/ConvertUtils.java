@@ -45,6 +45,7 @@ public class ConvertUtils {
 	public static final String DB_INT_TYPE 							=   "INT";	
 	public static final String DB_DECIMAL_TYPE 						=   "DECIMAL";
 	public static final String DB_DOUBLE_TYPE 						=   "DOUBLE";
+	public static final String DB_BIGINT_TYPE	 					=   "BIGINT";
 	public static final String DB_TIMESTAMP_TYPE 					=   "TIMESTAMP";
 	public static final String DB_TIME_TYPE 						=   "TIME";
 	public static final String DB_TIMESTAMPZ_TYPE 					=   "TIMESTAMPZ";
@@ -69,6 +70,7 @@ public class ConvertUtils {
 	public static final String UML_LONG_TYPE 						=   "decimal";	
 	public static final String UML_DOUBLE_TYPE 						=   "double";	
 	public static final String UML_BIGDECIMAL_TYPE 					=   "bigdecimal";	
+	public static final String UML_BIGINTEGER_TYPE 					=   "biginteger";	
 	public static final String UML_BYTE_TYPE 						=   "byte";	
 	public static final String UML_BOOLEAN_TYPE 					=   "boolean";	
 	public static final String UML_DATE_TYPE 						=   "date";	
@@ -87,6 +89,8 @@ public class ConvertUtils {
 		if (UML_DATE_TYPE.equals(type)) return DB_DATE_TYPE;
 		if (UML_BOOLEAN_TYPE.equals(type)) return DB_BOOLEAN_TYPE;
 		if (UML_TIMESTAMP_TYPE.equals(type)) return DB_TIMESTAMP_TYPE;
+		if (UML_BIGDECIMAL_TYPE.equals(type)) return DB_DOUBLE_TYPE;
+		if (UML_BIGINTEGER_TYPE.equals(type)) return DB_BIGINT_TYPE;
 		return DB_STRING_TYPE;
 	}
 	
@@ -105,6 +109,9 @@ public class ConvertUtils {
 		if (DB_BIT_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		if (DB_DATE_TYPE.equals(type)) return UML_DATE_TYPE;
 		if (DB_TIMESTAMP_TYPE.equals(type)) return UML_DATE_TYPE;
+		if (DB_DOUBLE_TYPE.equals(type)) return UML_BIGDECIMAL_TYPE;
+		if (DB_BIGINT_TYPE.equals(type)) return UML_BIGINTEGER_TYPE;
+		//if (DB_BOOLEAN_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		return UML_STRING_TYPE;
 	}
 	

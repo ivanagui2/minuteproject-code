@@ -330,6 +330,10 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		}
 		column.setPrimaryKey(queryParam.isId()); // cannot be set here
 		column.setRequired(queryParam.isMandatory());
+		
+		if (queryParam.isAliasSet()) {
+			column.setJavaName(queryParam.getAlias());// todo add column alias
+		}
 		return column;
 	}
 	
