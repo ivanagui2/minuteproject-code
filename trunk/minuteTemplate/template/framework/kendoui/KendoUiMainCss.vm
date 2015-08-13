@@ -280,3 +280,15 @@ html {
 .textbox-icon>input[readonly="readonly"]+a, .textbox-icon>textarea[readonly="readonly"]+a {
     display: none;
 }
+.k-grid td {
+    border-color: transparent;
+}
+
+.k-grid tbody>tr {
+    cursor: pointer;
+}
+
+.k-grid tbody>tr:hover {
+    background-color: #0066A5;
+    color: white;
+}
