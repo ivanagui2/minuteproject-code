@@ -18,6 +18,7 @@
 	<property name="lib.dir" value="${home.dir}/lib"/>
 	<property name="libc.dir" value="${home.dir}/libc"/>
 	<property name="libextra.dir" value="${lib.dir}/extra"/>
+	<property name="libcmis.dir" value="${lib.dir}/cmis"/>
 	<property name="src.dir" value="${home.dir}/src"/>
 	<property name="config.dir" value="${home.dir}/config"/>
 	<property name="src-template.dir" value="${home.dir}/src-template"/>
@@ -42,6 +43,9 @@
 			<include name="*.jar"/>
 		</fileset>
 		<fileset dir="${libextra.dir}">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${libcmis.dir}">
 			<include name="*.jar"/>
 		</fileset>
 		<fileset dir="${deplib.dir}">
