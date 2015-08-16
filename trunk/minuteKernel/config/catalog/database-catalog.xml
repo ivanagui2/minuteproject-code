@@ -90,7 +90,6 @@
         </maven-artifact>
         <primary-key-policy type="autoincrement"/>
 	 </database>
-
 	 
 	 <database name="MSSQL" 
         hibernate-dialect="org.hibernate.dialect.SQLServer2008Dialect" 
