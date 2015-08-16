@@ -42,6 +42,7 @@
 #end
 
     <!-- statement driven development SDD -->
+#if ($enableHibernateEhcache)
 #foreach ($query in $model.getStatementModel().getQueries().getQueries())
 #putImportQuerySDDBean()
 #set($table=$query.inputBean)
@@ -51,6 +52,7 @@
 	    <controller name="$openXavaUtils.getControllerName($table)"/>
 	    <mode-controller name="DetailOnly"/>
 	</module>
+#end
 #end
 
 	<!-- transfer entities -->
