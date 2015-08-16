@@ -134,7 +134,7 @@ properties=""
 #end
 )
 ${annotationListTagEnding}
-#if($hasCache)
+#if($hasCache && $enableHibernateEhcache)
 @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
 #end
 $!updatedAreaClassAnnotation
