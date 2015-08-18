@@ -1,3 +1,4 @@
+#generatorSpecific()
 #exposeVariableEntitySpecific()
 #addedAreas()
 package $packageName;
@@ -31,6 +32,9 @@ public class ${className} {
 #if (!$column.hasBeenDuplicated())
 #if (!$column.isArray())
 #putColumnParamNaming()
+#if ($columnType=='Date' && $model.hasCmisModel())
+	@com.fasterxml.jackson.databind.annotation.JsonSerialize (using=JsonDateSerializer.class)
+#end
     private $columnType $columnVar;
 #else
     private List<$columnType> $columnVar;
