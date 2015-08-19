@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
-
+#if ($model.hasCmisModel())
+#set ($applicationJsonDateSerializerImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, "REST.jackson.serializer.date"))
+#set ($applicationJsonDateSerializerClass  = $commonUtils.getTemplateClassName($model, $template, "REST.jackson.serializer.date"))
+import $applicationJsonDateSerializerImport;
+#end
 $!updatedAreaImport
 /**
  *
@@ -33,7 +37,7 @@ public class ${className} {
 #if (!$column.isArray())
 #putColumnParamNaming()
 #if ($columnType=='Date' && $model.hasCmisModel())
-	@com.fasterxml.jackson.databind.annotation.JsonSerialize (using=JsonDateSerializer.class)
+	@com.fasterxml.jackson.databind.annotation.JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #end
     private $columnType $columnVar;
 #else

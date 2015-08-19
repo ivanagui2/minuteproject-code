@@ -292,3 +292,8 @@ html {
     background-color: #0066A5;
     color: white;
 }
+
+.k-grid tbody>tr>td>a:hover {
+    color: white;
+}
+
