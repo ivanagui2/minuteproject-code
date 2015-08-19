@@ -82,6 +82,7 @@ public class PresentationUtils {
 				&& query.getQueryDisplay().getResultRowLinkField() != null
 				&& query.getQueryDisplay().getResultRowLinkRootUrl()!=null) {
 			String resultRowLinkRootUrl = query.getQueryDisplay().getResultRowLinkRootUrl();
+			resultRowLinkRootUrl = StringUtils.replace(resultRowLinkRootUrl, "#", "\\\\#");
 			String resultRowLinkField = query.getQueryDisplay().getResultRowLinkField(); 
 			String resultRowLinkRootUrlAppendedField = query.getQueryDisplay().getResultRowLinkRootUrlAppendedField(); 
 			if (column.getName().toLowerCase().equals(resultRowLinkField.toLowerCase())) {
