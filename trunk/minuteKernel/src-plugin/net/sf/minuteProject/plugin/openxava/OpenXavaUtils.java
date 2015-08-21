@@ -274,6 +274,8 @@ public class OpenXavaUtils {
 			return "WEBURL";
 		if (s.equals("currency"))
 			return "MONEY";
+		if (s.equals("datetime"))
+			return "DATETIME";
 		if (s.equals("text-area"))
 			return "TEXT_AREA";
 		if (s.equals("text-html"))
