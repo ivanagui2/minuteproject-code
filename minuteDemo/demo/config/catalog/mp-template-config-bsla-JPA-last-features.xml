@@ -44,7 +44,8 @@ xs:schemaLocation="mp-template-config.xsd">
 		<template name="BslaSpringDatabase" templateFileName="BslaSpringConfigDatabaseJPA.vm" 
 			subdir="" outputsubdir="" technicalPackage="factory.spring"
 			file-extension="xml" file-prefix="spring-config-" file-suffix="-database" 
-			entity-specific="false" package-specific="false" model-specific="true">
+			entity-specific="false" package-specific="false" model-specific="true"
+			model-type="rdbms">
 			<property tag="environment" value="local"/>
 		</template>			
 		

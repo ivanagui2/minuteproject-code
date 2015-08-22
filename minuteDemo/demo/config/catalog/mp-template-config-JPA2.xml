@@ -83,7 +83,9 @@
 			name="Persistence.xml.JPA2" templateFileName="Persistence.xml.JPA2.vm" 
 			subdir="" outputsubdir="META-INF" technicalPackage="" add-model-name="false" add-model-dir-name="false"
 			file-extension="xml" file-prefix="" file-suffix="persistence" has-updatable-nature="true"
-			application-specific="true">
+			application-specific="true"
+			model-type="rdbms"
+			>
 <!-- 			<property name="environment" value="remote"/> -->
 			<property name="DomainEntityUMLTemplate" value="DomainEntityJPA2Annotation" ></property>
 		</template>
