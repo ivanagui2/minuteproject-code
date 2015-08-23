@@ -35,6 +35,8 @@ public class StatementUtils {
 				return "Int";
 			if (type.equals(FieldType.DECIMAL.toString()))
 				return "Long";
+			if (type.equals(FieldType.BIGINT.toString()))
+				return "Long";
 			if (type.equals(FieldType.DOUBLE.toString()))
 				return "BigDecimal";
 			if (type.equals(FieldType.CHAR.toString()))
