@@ -517,6 +517,23 @@
 				<bean-property-setter-rule pattern="password"/>				
 			</pattern>			
 	    </pattern>
+	   	<pattern value="mongodb-model">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.nosql.MongoDbModel"/>		
+			<set-next-rule methodname="setMongoDbModel" paramtype="net.sf.minuteProject.configuration.bean.model.nosql.MongoDbModel"/>		
+	           <set-properties-rule>
+	               <alias attr-name="mongodb-type" prop-name="mongodbType" />
+	           </set-properties-rule>  							
+			<pattern value="mongodb-source">
+				<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.nosql.MongodbSource"/>	
+				<set-next-rule methodname="setMongodbSource" paramtype="net.sf.minuteProject.configuration.bean.model.nosql.MongodbSource"/>			
+				<set-properties-rule/>		
+				<bean-property-setter-rule pattern="host" propertyname="host"/>			
+				<bean-property-setter-rule pattern="port" propertyname="port"/>			
+				<bean-property-setter-rule pattern="db" propertyname="db"/>						
+				<bean-property-setter-rule pattern="username"/>		
+				<bean-property-setter-rule pattern="password"/>				
+			</pattern>			
+	    </pattern>
 		<pattern value="data-model">
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.DataModel"/>		
 			<set-next-rule methodname="setDataModel" paramtype="net.sf.minuteProject.configuration.bean.DataModel"/>		
@@ -1755,6 +1772,23 @@
 			<bean-property-setter-rule pattern="repository-id" propertyname="repositoryId"/>			
 			<bean-property-setter-rule pattern="repository-binding" propertyname="repositoryBinding"/>			
 			<bean-property-setter-rule pattern="repository-folder" propertyname="repositoryFolder"/>			
+			<bean-property-setter-rule pattern="username"/>		
+			<bean-property-setter-rule pattern="password"/>				
+		</pattern>			
+    </pattern>
+   	<pattern value="mongodb-model">
+		<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.nosql.MongoDbModel"/>		
+		<set-next-rule methodname="setMongoDbModel" paramtype="net.sf.minuteProject.configuration.bean.model.nosql.MongoDbModel"/>		
+           <set-properties-rule>
+               <alias attr-name="mongodb-type" prop-name="mongodbType" />
+           </set-properties-rule>  							
+		<pattern value="mongodb-source">
+			<object-create-rule classname="net.sf.minuteProject.configuration.bean.model.nosql.MongodbSource"/>	
+			<set-next-rule methodname="setMongodbSource" paramtype="net.sf.minuteProject.configuration.bean.model.nosql.MongodbSource"/>			
+			<set-properties-rule/>		
+			<bean-property-setter-rule pattern="host" propertyname="host"/>			
+			<bean-property-setter-rule pattern="port" propertyname="port"/>			
+			<bean-property-setter-rule pattern="db" propertyname="db"/>						
 			<bean-property-setter-rule pattern="username"/>		
 			<bean-property-setter-rule pattern="password"/>				
 		</pattern>			
