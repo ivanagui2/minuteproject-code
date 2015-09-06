@@ -44,6 +44,7 @@ public class ConvertUtils {
 	public static final String DB_INTEGER_TYPE 						=   "INTEGER";	
 	public static final String DB_INT_TYPE 							=   "INT";	
 	public static final String DB_DECIMAL_TYPE 						=   "DECIMAL";
+	public static final String DB_LONG_TYPE 						=   "LONG";
 	public static final String DB_DOUBLE_TYPE 						=   "DOUBLE";
 	public static final String DB_BIGINT_TYPE	 					=   "BIGINT";
 	public static final String DB_TIMESTAMP_TYPE 					=   "TIMESTAMP";
@@ -109,7 +110,7 @@ public class ConvertUtils {
 		if (DB_BIT_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		if (DB_DATE_TYPE.equals(type)) return UML_DATE_TYPE;
 		if (DB_TIMESTAMP_TYPE.equals(type)) return UML_DATE_TYPE;
-		if (DB_DOUBLE_TYPE.equals(type)) return UML_BIGDECIMAL_TYPE;
+		if (DB_LONG_TYPE.equals(type)) return UML_LONG_TYPE;
 		if (DB_BIGINT_TYPE.equals(type)) return UML_BIGINTEGER_TYPE;
 		//if (DB_BOOLEAN_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		return UML_STRING_TYPE;

@@ -27,7 +27,6 @@ public class StatementUtils {
 		return getJdbcType(column.getType());
 	}
 	
-	
 	private static final String getJdbcType(String type) {
 		if (type!=null) {
 			type = type.toUpperCase();
@@ -53,7 +52,7 @@ public class StatementUtils {
 		return "String";
 	}
 	
-	
+/*	
 	public static final String getCmisType(Column column) {
 		return getCmisType(column.getType());
 	}
@@ -70,7 +69,7 @@ public class StatementUtils {
 		}
 		return "String";
 	}
-	
+*/	
 	public static final String getJdbcGetter(QueryParam queryParam) {
 		return "get"+getJdbcType(queryParam);
 	}
