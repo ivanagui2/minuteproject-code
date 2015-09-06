@@ -22,23 +22,10 @@ public class QueryParam extends Field {
 	private String likeMode;
 	private QueryParamLink queryParamLink;
 	private boolean isFilter=false, isArray=false;
-//	private Stereotype stereotype;
 	
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
 	}
-//	public boolean isMandatory() {
-//		return isMandatory;
-//	}
-//	public void setIsMandatory(boolean isMandatory) {
-//		this.isMandatory = isMandatory;
-//	}
-//	public String getType() {
-//		return type;
-//	}
-//	public void setType(String type) {
-//		this.type = type;
-//	}
 	public int getSize() {
 		return size;
 	}

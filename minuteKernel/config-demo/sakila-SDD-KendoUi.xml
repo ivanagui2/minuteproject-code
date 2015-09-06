@@ -206,7 +206,7 @@ and fa.actor_id = a.actor_id
                             </value>
 						</query-body>
 						<query-pivots >
-							<query-pivot name = "film"  columns = "film_info, title, film_id" pivot="film_id"></query-pivot>	
+							<query-pivot name = "film"  columns = "film_info, title, film_id" 		pivot="film_id"></query-pivot>	
 							<query-pivot name = "actor" columns = "first_name, last_name, actor_id" pivot="actor_id"></query-pivot>	
 						</query-pivots>
 						<query-display result-row-display="first_name, last_name"/>
