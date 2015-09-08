@@ -7,19 +7,19 @@
 #set ($sizeColumn = $inputBean.columns.size())
 #set ($sizeChunk = $query.getQueryChunks().size())
 #set ($size = $sizeColumn + $sizeChunk)
-#macro(resourceSignature)
+#macro(resourceSignature $param)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-#if($velocityCount>1),#end            @ApiParam(value = "$columnVar", required = ${column.isRequired()}) @QueryParam ("$columnVar") $columnType $columnVar
+#if($velocityCount>1),#end            @ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") $columnType $columnVar
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($velocityCount>1 || $sizeColumn!=0),#end            @ApiParam(value = "$chunkName") @QueryParam ("$chunkName") String $chunkName 
+#if($velocityCount>1 || $sizeColumn!=0),#end            @ApiParam(value = "$chunkName") @${param} ("$chunkName") String $chunkName 
 #end
 #end
 #macro (daoParameters)
@@ -125,7 +125,47 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputBeanCollectionClass execute (
-#resourceSignature()
+#resourceSignature("@QueryParam")
+    ) {
+#if($isNotVoidInput)
+        $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParamNaming()
+#if($columnUtils.isTime($column))
+		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
+			${sddInputBeanVariable}.set$columnClass (${columnVar}.getDate());
+#else
+		${sddInputBeanVariable}.set$columnClass ($columnVar);
+#end
+#end
+#end
+        return ${sddDaoInterfaceVariable}.execute(
+#daoParameters()
+        );
+#else
+        return ${sddDaoInterfaceVariable}.execute(
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+            #if($velocityCount>1),#end $chunkName 
+#end
+        );
+#end
+    }
+#end
+
+#exposeQueryUpdatedAreas("SDD_EXECUTE_POST")
+$!updatedAreaBegin
+#if($isUpdated)
+    $!updatedAreaSnippet
+#else
+    @POST
+    @ApiOperation(value = "$query.name", notes = "$queryUtils.getDescription($query)", response = ${sddOutputBeanCollectionClass}.class)
+    @ApiResponses(value = {
+    	@ApiResponse(code = 200, message = "ok")
+    })
+    public $sddOutputBeanCollectionClass post (
+#resourceSignature("@PostParam")
     ) {
 #if($isNotVoidInput)
         $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
@@ -164,7 +204,7 @@ $!updatedAreaBegin
         @ApiResponse(code = 200, message = "ok")
     })
     public List<$pivotClass> get${pivotClasses} (
-#resourceSignature()
+#resourceSignature("@QueryParam")
     ) {
         $sddOutputBeanCollectionClass list = execute(
 #resourceParameters()
