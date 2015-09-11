@@ -143,7 +143,8 @@ public class ${className} {
 
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
     @EmbeddedId
-    $accessor ${embeddedIdClass} $embeddedIdVariable;
+##    $accessor ${embeddedIdClass} $embeddedIdVariable;
+    public ${embeddedIdClass} $embeddedIdVariable; ##public for jpa2 mapping of fk referencing a field within embeddedId class
     
 #else
 #foreach($column in ${table.primaryKeyColumns})
@@ -337,6 +338,14 @@ $!updatedAreaSnippet
 #set ($foreignColumnVar = $formatUtils.getJavaNameVariable($columnDB.name))
 #else
 #set ($foreignColumnVar = $domainVariableName)
+#end
+##if linked part of composite pk => add variable of the embedded
+#if($jpa2Utils.isEmbedded($linktableDB)) 
+#if($columnUtils.isPartOfCompositePrimaryKey($reference.foreignColumn))
+#set ($targetEmbeddedIdClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateJPA2EmbeddedId))
+#set ($targetEmbeddedIdVariable = $commonUtils.getJavaNameVariableFirstLetter($targetEmbeddedIdClass))
+#set($linkedColumnVariable = "${targetEmbeddedIdVariable}__.${linkedColumnVariable}")
+#end
 #end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
 #set($listProperties=$openXavaUtils.getListProperties($reference))

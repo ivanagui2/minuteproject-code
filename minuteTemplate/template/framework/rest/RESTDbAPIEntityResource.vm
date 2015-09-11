@@ -142,7 +142,7 @@ $!updatedAreaEnd
 	public $tableClassName save (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
-        @QueryParam("$columnVar") $columnType $columnVar #if ($velocityCount!=$table.columnCount),
+        @FormParam("$columnVar") $columnType $columnVar #if ($velocityCount!=$table.columnCount),
 #end
 #end
         ) {

@@ -109,7 +109,8 @@ public class ${className} implements Serializable {
 	
 #if ($isEmbedded)
     @EmbeddedId
-    $accessor ${embeddedIdClass} $embeddedIdVariable;
+##    $accessor ${embeddedIdClass} $embeddedIdVariable;
+    public ${embeddedIdClass} $embeddedIdVariable; ##public for jpa2 mapping of fk referencing a field within embeddedId class
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
 #if(!$isForeignKey)
