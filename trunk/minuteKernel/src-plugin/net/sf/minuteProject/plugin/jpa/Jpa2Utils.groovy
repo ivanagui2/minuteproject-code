@@ -1,6 +1,7 @@
 package net.sf.minuteProject.plugin.jpa
 
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.utils.TableUtils;
@@ -48,7 +49,14 @@ class Jpa2Utils {
 		TableUtils.isCompositePrimaryKeyNotMany2Many(table);
 	}
 	
-	
+	public static boolean pointToEmbeddedPkColumn (Table table, Column targetColumn) {
+		if (table==null)
+			return false;
+		if (targetColumn==null)
+			return false;
+		isEmbedded (table) && TableUtils.isColumnPk(targetColumn, Table);
+	}
+
 	public static String getNamedQueryVariable (Table table) {
 		return (!table.getAlias().equalsIgnoreCase("a")) ? "a" :"b";
 	}
