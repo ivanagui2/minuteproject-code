@@ -125,7 +125,7 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputBeanCollectionClass execute (
-#resourceSignature("@QueryParam")
+#resourceSignature("QueryParam")
     ) {
 #if($isNotVoidInput)
         $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
@@ -204,7 +204,7 @@ $!updatedAreaBegin
         @ApiResponse(code = 200, message = "ok")
     })
     public List<$pivotClass> get${pivotClasses} (
-#resourceSignature("@QueryParam")
+#resourceSignature("QueryParam")
     ) {
         $sddOutputBeanCollectionClass list = execute(
 #resourceParameters()
