@@ -165,7 +165,7 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputBeanCollectionClass post (
-#resourceSignature("@PostParam")
+#resourceSignature("PostParam")
     ) {
 #if($isNotVoidInput)
         $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
