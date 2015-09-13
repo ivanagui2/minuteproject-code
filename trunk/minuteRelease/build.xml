@@ -712,6 +712,7 @@
 			<antcall target="generation-build-liferay"/>
 			<antcall target="generation-build-lazuly"/>
 			<antcall target="generation-build-petshop"/>
+			<antcall target="generation-build-openmrs"/>
 		</parallel>
 		<!--
 			<antcall target="generation-build-northwind"/>			
@@ -809,6 +810,11 @@
 		
 	</target>
 	
+
+	<target name="generation-build-openmrs">
+		<macro_generate display="Openmrs REST-custom, OX" config="mp-config-openmrs.xml" />
+		<macro_build_and_deploy maven.basedir="REST-Custom/openmrs" project="REST-Custom" artifact="northwindRestCxfJeeApp" />
+	</target>
 
 	<target name="generation-build-northwind">
 		<macro_generate display="WEB-apps (RESTs, WS-JEE, OX, Vaadin, PFs)" config="mp-config-sample-northwind.xml" />
