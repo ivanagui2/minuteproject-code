@@ -72,7 +72,11 @@ $!updatedAreaSnippet
 	),
     @View(name="${domainVariableName}${defaultViewExt}", 
 	   members=
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
           "#foreach ($column in ${table.primaryKeyColumns}) #putColumnParams()$columnVar ;#end" 	
+#else
+          ""
+#end
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
