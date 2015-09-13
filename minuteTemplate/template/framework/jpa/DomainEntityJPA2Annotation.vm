@@ -243,6 +243,13 @@ $!updatedAreaSnippet
 #if($addXmlBinding)
     @XmlElement (name="$i18nUtils.singularize($childrenListVariable)")
 #end
+#if($jpa2Utils.isEmbedded($linktableDB)) 
+#if($columnUtils.isPartOfCompositePrimaryKey($reference.foreignColumn))
+#set ($targetEmbeddedIdClass = $commonUtils.getTemplateClassName($linktableDB, $model, $templateJPA2EmbeddedId))
+#set ($targetEmbeddedIdVariable = $commonUtils.getJavaNameVariableFirstLetter($targetEmbeddedIdClass))
+#set($linkedColumnVariable = "${targetEmbeddedIdVariable}__.${linkedColumnVariable}")
+#end
+#end
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
     $accessor Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
 
