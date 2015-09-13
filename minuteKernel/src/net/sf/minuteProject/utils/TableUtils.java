@@ -403,9 +403,12 @@ public class TableUtils {
 		List<List<Column>> tableFg = table.getFieldGroupsList();
 		List<List<Column>> fgs = new ArrayList<List<Column>>();
 		for (Column column : columns) {
-			List<Column> fg = extractFieldGroup(column, tableFg);
-			if (fg != null && !fgs.contains(fg)) {
-				fgs.add(fg);
+			//for OX strip embedded column part of PK
+			if (!ColumnUtils.isColumnEmbeddedInPrimaryKey(column)) {
+				List<Column> fg = extractFieldGroup(column, tableFg);
+				if (fg != null && !fgs.contains(fg)) {
+					fgs.add(fg);
+				}
 			}
 		}
 		return fgs;

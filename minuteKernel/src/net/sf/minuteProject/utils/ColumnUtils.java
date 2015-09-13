@@ -452,6 +452,10 @@ public class ColumnUtils {
 		boolean primaryKey = column.isPrimaryKey();
 		return (!primaryKey || (primaryKey && !TableUtils.isCompositePrimaryKeyNotMany2Many(column.getTable())));
 	}
+	
+	public static boolean isColumnEmbeddedInPrimaryKey (Column column) {
+		return (column.isPrimaryKey() && TableUtils.isCompositePrimaryKeyNotMany2Many(column.getTable()));
+	}
 
 	public static String getTransientName(String name) {
 		return name+_TRANSIENT;
