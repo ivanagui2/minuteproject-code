@@ -44,7 +44,9 @@
 			<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.TargetConvention"/>		
 			<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.TargetConvention"/>		
 			<set-properties-rule>
-				<alias attr-name="type" prop-name="type" />	
+				<alias attr-name="type" prop-name="type" />
+				<alias attr-name="for-scope" prop-name="forScope" />	
+				<alias attr-name="for-template-names" prop-name="forTemplateNames" />		
 			</set-properties-rule>	
 	    </pattern>
 	</pattern>	

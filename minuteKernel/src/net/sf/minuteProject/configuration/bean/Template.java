@@ -76,6 +76,7 @@ public class Template extends TemplateTarget {
 	private boolean hasUpdatableNature = false;
 	private boolean convertPackageToDir = true;
 	private boolean isTimestampMarkerEnabled = true;
+	private boolean isActive = true;
 	
 	private String chmod;
 	private int numberOfGeneratedArtifacts;
@@ -788,6 +789,15 @@ public class Template extends TemplateTarget {
 
 	public void setTimestampMarkerEnabled(boolean isTimestampMarkerEnabled) {
 		this.isTimestampMarkerEnabled = isTimestampMarkerEnabled;
+	}
+
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void disable() {
+		this.isActive = false;
 	}
 
 	public String getBeginningCommentSnippet() {

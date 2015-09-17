@@ -92,12 +92,31 @@
 			<!-- S D D -->
 
 		</model>
- 		 
-		<targets catalog-entry="BSLA-JPA2,BELA-JPA2,REST-CXF-JEE" 
+ <!--			 
+		<targets catalog-entry="BSLA-JPA2,BELA-JPA2,REST-CXF-JEE,REST-CXF-Spring" 
 	 		outputdir-root="../minuteTest/model/functional"
 		 	append-catalog-entry-dir-to-outputdir-root="true">
 		 	<property name="enable-test" value="true" />
 		</targets>
+<<<<<<< .mine
+		
+=======
+>>>>>>> .r2699
 
+<<<<<<< .mine
+	 	 
+		<targets catalog-entry="REST-CXF-JEE" 
+			outputdir-root="../minuteTest/model/functional"
+		 	append-catalog-entry-dir-to-outputdir-root="true">
+		 	<property name="target-server" value="weblogic"/>
+		</targets>
+	 	  -->
+		<targets catalog-entry="REST-CXF-Spring" 
+		 	append-catalog-entry-dir-to-outputdir-root="true">
+		 	<property name="target-server" value="weblogic"/>
+		</targets>
+		
+=======
+>>>>>>> .r2699
 	</configuration>
 </generator-config>
