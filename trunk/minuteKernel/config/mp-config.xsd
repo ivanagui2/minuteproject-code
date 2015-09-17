@@ -139,9 +139,12 @@
 					<xs:enumeration value="enable-updatable-code-feature" />
 					<xs:enumeration value="disable-timestamp-comment-marker" />
 					<xs:enumeration value="disable-business-model-generation" />
+					<xs:enumeration value="disable-template-generation" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
+		<xs:attribute name="for-scope" type="xs:string"/>
+		<xs:attribute name="for-template-names" type="xs:string"/>
 	</xs:complexType>
 
 	<xs:simpleType name="content-type">

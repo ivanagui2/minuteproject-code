@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.FunctionModel;
@@ -25,44 +24,15 @@ import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.model.statement.CmisQueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.Composite;
-import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
-import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryPivot;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
-import net.sf.minuteProject.plugin.format.I18nUtils;
-import net.sf.minuteProject.utils.BslaLibraryUtils;
-import net.sf.minuteProject.utils.ColumnUtils;
-import net.sf.minuteProject.utils.CommonUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteProject.utils.DatabaseUtils;
-import net.sf.minuteProject.utils.EnumUtils;
-import net.sf.minuteProject.utils.FormatUtils;
-import net.sf.minuteProject.utils.MinuteProjectUtils;
-import net.sf.minuteProject.utils.ModelUtils;
-import net.sf.minuteProject.utils.ReferenceUtils;
-import net.sf.minuteProject.utils.RoutineUtils;
 import net.sf.minuteProject.utils.ServiceUtils;
-import net.sf.minuteProject.utils.SqlUtils;
-import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.TemplateUtils;
-import net.sf.minuteProject.utils.TestUtils;
-import net.sf.minuteProject.utils.TriggerUtils;
-import net.sf.minuteProject.utils.URLUtils;
-import net.sf.minuteProject.utils.ViewUtils;
-import net.sf.minuteProject.utils.WebUtils;
-import net.sf.minuteProject.utils.criteria.OrderingUtils;
-import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
-import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
-import net.sf.minuteProject.utils.io.FileUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
-import net.sf.minuteProject.utils.java.JavaUtils;
-import net.sf.minuteProject.utils.sql.QueryUtils;
-import net.sf.minuteProject.utils.sql.StatementUtils;
-import net.sf.minuteProject.utils.velocity.VelocityUtils;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
@@ -90,26 +60,28 @@ public class ModelGenerator extends AbstractGenerator {
 	}
 
 	/**
-	 * Constructs the generator with its configuration
-	 * used by command line
+	 * Constructs the generator with its configuration used by command line
+	 * 
 	 * @param configurationFile
 	 */
 	public ModelGenerator(String configurationFile) {
 		super(configurationFile);
 	}
-	
+
 	/**
-	 * Constructor for integration with BasicIntegrationConfiguration
-	 * used by swing client
+	 * Constructor for integration with BasicIntegrationConfiguration used by
+	 * swing client
+	 * 
 	 * @param bic
 	 */
 	public ModelGenerator(BasicIntegrationConfiguration bic) {
 		super(bic);
 	}
-	
+
 	/**
-	 * Constructor for integration with BasicIntegrationConfiguration
-	 * used by swing client
+	 * Constructor for integration with BasicIntegrationConfiguration used by
+	 * swing client
+	 * 
 	 * @param bic
 	 */
 	public ModelGenerator(Model model) {
@@ -130,7 +102,7 @@ public class ModelGenerator extends AbstractGenerator {
 	public String getPropertyConfigurationRulesFile() {
 		return GENERATOR_MODEL_PROPERTY_RULES;
 	}
-	
+
 	public static void main(String args[]) {
 		String config;
 		if (args.length < 1) {
@@ -138,92 +110,95 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 		config = args[0];
 		Date startDate = new Date();
-	    logger.info("start time = "+startDate);
+		logger.info("start time = " + startDate);
 		ModelGenerator generator = new ModelGenerator(config);
 		try {
 			generator.generate();
 		} catch (MinuteProjectException e) {
-			generator.exit ("");
+			generator.exit("");
 		}
 		Date endDate = new Date();
-		logger.info("end time = "+endDate);
-		logger.info("time taken : "+(endDate.getTime()-startDate.getTime())/1000+ "s.");
+		logger.info("end time = " + endDate);
+		logger.info("time taken : " + (endDate.getTime() - startDate.getTime())
+				/ 1000 + "s.");
 	}
 
-
-	protected void generate (Configuration configuration) throws MinuteProjectException {
+	protected void generate(Configuration configuration)
+			throws MinuteProjectException {
 		Model model = getEnrichedModel(configuration.getModel());
-		//generate for target
+		// generate for target
 		generate(model, false);
 	}
-	
-	public void generate (Model model, boolean targetLoaded) throws MinuteProjectException {
+
+	public void generate(Model model, boolean targetLoaded)
+			throws MinuteProjectException {
 		Targets targets = null;
 		if (!targetLoaded) {
 			if (hasTarget()) {
-				//loadAndGenerate(model.getConfiguration().getTarget());
+				// loadAndGenerate(model.getConfiguration().getTarget());
 				final Target target = model.getConfiguration().getTarget();
 				loadTarget(model.getConfiguration(), target);
 				applyTargetConventionAndGenerate(target);
 			}
 			if (hasTargets()) {
 				targets = model.getConfiguration().getTargets();
-				//loadAndGenerate(targets);
-				
+				// loadAndGenerate(targets);
+
 				Configuration configuration = loadTargets(targets);
 				applyTargetConventionAndGenerate(configuration.getTarget());
 			}
 			targetLoaded = true;
 		} else {
-			applyTargetConventionAndGenerate(model.getConfiguration().getTarget());
+			applyTargetConventionAndGenerate(model.getConfiguration()
+					.getTarget());
 		}
 		if (hasPostGenerationAction(targets)) {
 			executePostGenerationAction(targets);
 		}
 	}
-	
+
 	private void executePostGenerationAction(Targets targets) {
 		targets.getPostGenerationAction().run();
 	}
 
 	private boolean hasPostGenerationAction(Targets targets) {
-		return targets!=null && targets.getPostGenerationAction()!=null;
+		return targets != null && targets.getPostGenerationAction() != null;
 	}
 
-	public Model getEnrichedModel (Model model) {
+	public Model getEnrichedModel(Model model) {
 		setModel(model);
 		loadModel(model);
 		applyConventions(model);
 		applyLimitations(model);
 		return model;
 	}
-	
+
 	private void applyLimitations(Model model) {
 		model.getBusinessModel().applyLimitations();
 	}
 
-	protected void applyConventions (Model model) {
+	protected void applyConventions(Model model) {
 		if (model.hasBusinessModel())
 			model.getBusinessModel().applyConventions();
 		if (model.hasStatementModel())
 			model.getStatementModel().applyConventions();
 	}
-	
-	protected boolean hasTarget () {
+
+	protected boolean hasTarget() {
 		return model.getConfiguration().hasTarget();
 	}
-	
-	protected boolean hasTargets () {
+
+	protected boolean hasTargets() {
 		return model.getConfiguration().hasTargets();
 	}
 
-	
-	protected void loadAndGenerate (Target target) throws MinuteProjectException {
+	protected void loadAndGenerate(Target target) throws MinuteProjectException {
 		loadTarget(model.getConfiguration(), target);
-		applyTargetConventionAndGenerate(model.getConfiguration().getTarget());		
+		applyTargetConventionAndGenerate(model.getConfiguration().getTarget());
 	}
 
-	protected void loadAndGenerate (Targets targets) throws MinuteProjectException {
+	protected void loadAndGenerate(Targets targets)
+			throws MinuteProjectException {
 		Configuration configuration = loadTargets(targets);
 		applyTargetConventionAndGenerate(configuration.getTarget());
 	}
@@ -233,43 +208,45 @@ public class ModelGenerator extends AbstractGenerator {
 		Target targetFinal = new Target();
 		Configuration configuration = model.getConfiguration();
 		for (Target target : targets.getTargets()) {
-			//use configuration.target as temp storage of processed target
+			// use configuration.target as temp storage of processed target
 			loadTarget(configuration, target);
 			configuration.getTarget().setIsGenerable(target.isGenerable());
 			targetFinal.complement(configuration.getTarget());
-			targetFinal.complementAdditional (target);
-			configuration.setTarget(new Target()); //reset target storage
-		}	
+			targetFinal.complementAdditional(target);
+			configuration.setTarget(new Target()); // reset target storage
+		}
 		configuration.setTarget(targetFinal);
 		setTemplatePackageRoot(configuration);
 		return configuration;
 	}
-	
+
 	private void setTemplatePackageRoot(Configuration configuration) {
-		//for (Target target : configuration.getTargets().getTargets()) {
-		
-			for (TemplateTarget templateTarget : configuration.getTarget().getTemplateTargets()) {
-				for (Template template : templateTarget.getTemplates()) {
-					//template.setPackageRoot(model.getPackageRoot());
-				}
+		// for (Target target : configuration.getTargets().getTargets()) {
+
+		for (TemplateTarget templateTarget : configuration.getTarget()
+				.getTemplateTargets()) {
+			for (Template template : templateTarget.getTemplates()) {
+				// template.setPackageRoot(model.getPackageRoot());
 			}
-		
+		}
+
 	}
 
-	private void applyTargetConventionAndGenerate (Target target) throws MinuteProjectException {
+	private void applyTargetConventionAndGenerate(Target target)
+			throws MinuteProjectException {
 		applyTargetConvention(target);
 		generate(target);
 	}
-	
+
 	private void applyTargetConvention(Target target) {
 		model.getConfiguration().applyConventions();
 	}
 
 	protected void loadRdbmsModel(Model model) {
-		//load model
+		// load model
 		model.getDataModel().loadDatabase();
-		
-		//complement model
+
+		// complement model
 		BusinessModel businessModel = model.getBusinessModel();
 		businessModel.secureEntityType();
 		businessModel.complementDataModelWithTables();
@@ -307,17 +284,26 @@ public class ModelGenerator extends AbstractGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
+	 * @see
+	 * net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject
+	 * .configuration.bean.Template)
 	 */
 	public void generate(Template template) throws MinuteProjectException {
+		if (!template.isActive()) {
+			logger.info(">>> template is inactive ");
+			return;}
 		String scopeSpecificValue = template.getScopeSpecificValue();
-		if (template.getFieldSpecific().equals("true") || SCOPE_DATAMODEL_FIELD.equals(scopeSpecificValue))
+		if (template.getFieldSpecific().equals("true")
+				|| SCOPE_DATAMODEL_FIELD.equals(scopeSpecificValue))
 			generateArtifactsByField(template);
-		else if (template.getEntitySpecific().equals("true") || SCOPE_DATAMODEL_ENTITY.equals(scopeSpecificValue))
+		else if (template.getEntitySpecific().equals("true")
+				|| SCOPE_DATAMODEL_ENTITY.equals(scopeSpecificValue))
 			generateArtifactsByEntity(template);
-		else if (template.getPackageSpecific().equals("true") || SCOPE_DATAMODEL_PACKAGE.equals(scopeSpecificValue))
+		else if (template.getPackageSpecific().equals("true")
+				|| SCOPE_DATAMODEL_PACKAGE.equals(scopeSpecificValue))
 			generateArtifactsByPackage(template);
-		else if (template.getModelSpecific().equals("true") || SCOPE_DATAMODEL_MODEL.equals(scopeSpecificValue))
+		else if (template.getModelSpecific().equals("true")
+				|| SCOPE_DATAMODEL_MODEL.equals(scopeSpecificValue))
 			generateArtifactsByModel(template);
 		else if (template.getServiceSpecific().equals("true"))
 			generateArtifactsByService(template);
@@ -331,11 +317,11 @@ public class ModelGenerator extends AbstractGenerator {
 			if (SCOPE_DATAMODEL_FUNCTION_INPUT.equals(scopeSpecificValue))
 				generateArtifactsByFunction(template, Direction.IN);
 			else if (SCOPE_DATAMODEL_FUNCTION_OUTPUT.equals(scopeSpecificValue))
-				generateArtifactsByFunction(template, Direction.OUT);		
+				generateArtifactsByFunction(template, Direction.OUT);
 			else if (SCOPE_DATAMODEL_FUNCTION.equals(scopeSpecificValue))
 				generateArtifactsByFunction(template);
 			else if (SCOPE_TARGET_TEMPLATE.equals(scopeSpecificValue))
-				generateArtifactsByTargetTemplate(template);	
+				generateArtifactsByTargetTemplate(template);
 			else if (SCOPE_TRANSFER_ENTITY_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsByTransferEntity(template);
 			else if (SCOPE_ACTION_TEMPLATE.equals(scopeSpecificValue))
@@ -357,17 +343,22 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
-	private void generateArtifactsByAction(Template template) throws MinuteProjectException {
-		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
+	private void generateArtifactsByAction(Template template)
+			throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage()
+				.getTransferEntities()) {
 			for (Action action : table.getActions()) {
 				writeTemplateResult(action, template);
 			}
 		}
 	}
-	
-	private void generateArtifactsByQuery(Template template) throws MinuteProjectException {
-		if (getModel().getStatementModel()!=null && getModel().getStatementModel().getQueries()!=null) {
-			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
+
+	private void generateArtifactsByQuery(Template template)
+			throws MinuteProjectException {
+		if (getModel().getStatementModel() != null
+				&& getModel().getStatementModel().getQueries() != null) {
+			for (Query query : getModel().getStatementModel().getQueries()
+					.getQueries()) {
 				if (isToGenerate(query, template))
 					writeTemplateResult(query, template);
 			}
@@ -385,89 +376,110 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
-	protected void generateArtifactsByTargetTemplate(Template template) throws MinuteProjectException {
+	protected void generateArtifactsByTargetTemplate(Template template)
+			throws MinuteProjectException {
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
-	
-	protected void generateArtifactsByModel(Template template) throws MinuteProjectException {
+
+	protected void generateArtifactsByModel(Template template)
+			throws MinuteProjectException {
 		if (isToGenerate(getModel(), template))
 //			if (isToGenerate(getModel(), template))
 				writeTemplateResult(getModel(), template);
 	}
 
-	protected void generateArtifactsByPackage(Template template) throws MinuteProjectException {
-		List<Package> packages = getModel().getBusinessModel().getBusinessPackage().getPackages();
+	protected void generateArtifactsByPackage(Template template)
+			throws MinuteProjectException {
+		List<Package> packages = getModel().getBusinessModel()
+				.getBusinessPackage().getPackages();
 		for (Package pack : packages) {
 			writeTemplateResult(pack, template);
 		}
 	}
 
-	protected void generateArtifactsByField(Template template) throws MinuteProjectException {	
-		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
+	protected void generateArtifactsByField(Template template)
+			throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage()
+				.getTables()) {
 			generateArtifactsByField(template, table);
 		}
-		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
-			generateArtifactsByField (template, table);
-		}		
+		for (Table table : getModel().getBusinessModel().getBusinessPackage()
+				.getTransferEntities()) {
+			generateArtifactsByField(template, table);
+		}
 	}
 
-	protected void generateArtifactsByField(Template template, Table table) throws MinuteProjectException{
+	protected void generateArtifactsByField(Template template, Table table)
+			throws MinuteProjectException {
 		table = getDecoratedTable(table);
 		for (Column column : table.getColumns()) {
-    		if (isToGenerate(column, template))
-			   writeTemplateResult(column, template);
+			if (isToGenerate(column, template))
+				writeTemplateResult(column, template);
 		}
 	}
 
-	protected void generateArtifactsByTransferEntity(Template template) throws MinuteProjectException {	
-		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTransferEntities()) {
-			generateArtifactsByEntity (table, template);
+	protected void generateArtifactsByTransferEntity(Template template)
+			throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage()
+				.getTransferEntities()) {
+			generateArtifactsByEntity(table, template);
 		}
 	}
-	
-	protected void generateArtifactsByEntity(Template template) throws MinuteProjectException {	
-		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
-			generateArtifactsByEntity (table, template);
+
+	protected void generateArtifactsByEntity(Template template)
+			throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage()
+				.getTables()) {
+			generateArtifactsByEntity(table, template);
 		}
 	}
-	
-	protected void generateArtifactsByEntity(Table table, Template template) throws MinuteProjectException {	
+
+	protected void generateArtifactsByEntity(Table table, Template template)
+			throws MinuteProjectException {
 		table = getDecoratedTable(table);
 		if (isToGenerate(table, template))
-		   writeTemplateResult(table, template);		
+			writeTemplateResult(table, template);
 	}
 
-	protected void generateArtifactsByService(Template template) throws MinuteProjectException {	
-		for (Scope scope : getModel().getBusinessModel().getService().getScopes()) {
+	protected void generateArtifactsByService(Template template)
+			throws MinuteProjectException {
+		for (Scope scope : getModel().getBusinessModel().getService()
+				.getScopes()) {
 			if (ServiceUtils.isToGenerate(template, scope))
 				writeTemplateResult(scope, template);
-		}		
+		}
 	}
 
-	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
-		if (isToGenerate(getModel(), template) && getModel().getConfiguration().isSingleModel()) {
+	private void generateArtifactsByApplication(Template template)
+			throws MinuteProjectException {
+		if (isToGenerate(getModel(), template)
+				&& getModel().getConfiguration().isSingleModel()) {
 			template.setAddModelDirName("false");
 			writeTemplateResult(getModel(), template);
 		}
 	}
-	
-	private void generateArtifactsByForeignKey(Template template) throws MinuteProjectException {
-		for (Table table : getModel().getBusinessModel().getBusinessPackage().getTables()) {
-			for (ForeignKey foreignKey :table.getForeignKeys()) {
-				generateArtifactsByForeignKey (foreignKey, template);
+
+	private void generateArtifactsByForeignKey(Template template)
+			throws MinuteProjectException {
+		for (Table table : getModel().getBusinessModel().getBusinessPackage()
+				.getTables()) {
+			for (ForeignKey foreignKey : table.getForeignKeys()) {
+				generateArtifactsByForeignKey(foreignKey, template);
 			}
 		}
 	}
 
-	protected void generateArtifactsByForeignKey(ForeignKey foreignKey, Template template) throws MinuteProjectException {	
-//		if (isToGenerate(foreignKey, template))
-		   writeTemplateResult(foreignKey, template);		
+	protected void generateArtifactsByForeignKey(ForeignKey foreignKey,
+			Template template) throws MinuteProjectException {
+		// if (isToGenerate(foreignKey, template))
+		writeTemplateResult(foreignKey, template);
 	}
-	
-	protected void generateArtifactsByComponent(Template template) throws MinuteProjectException {	
+
+	protected void generateArtifactsByComponent(Template template)
+			throws MinuteProjectException {
 		writeTemplateResult(getModel().getConfiguration(), template);
 	}
-	
+
 	protected void generateArtifactsByFunction(Template template) throws MinuteProjectException {	
 		if (getModel().hasDataModel()) {
 			for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
@@ -475,24 +487,28 @@ public class ModelGenerator extends AbstractGenerator {
 			}
 		}
 	}
-	
-	protected void generateArtifactsByFunction(Template template, Direction direction) throws MinuteProjectException {	
-		for (Function function : getModel().getDataModel().getDatabase().getFunctions()) {
+
+	protected void generateArtifactsByFunction(Template template,
+			Direction direction) throws MinuteProjectException {
+		for (Function function : getModel().getDataModel().getDatabase()
+				.getFunctions()) {
 			List<Direction> functionDirections = function.getDirections();
-//			for (Direction dir : direction) { // dir has to be put in the correct order IN or OUT before NONE, INOUT
-				for (Direction fdir : functionDirections) {
-					if (direction.equals(fdir)) {
-						writeTemplateResult(function.getEntity(direction), template);
-						//break;
-					}
+			// for (Direction dir : direction) { // dir has to be put in the
+			// correct order IN or OUT before NONE, INOUT
+			for (Direction fdir : functionDirections) {
+				if (direction.equals(fdir)) {
+					writeTemplateResult(function.getEntity(direction), template);
+					// break;
 				}
-//			}
+			}
+			// }
 		}
 	}
-		
-	protected void generateArtifactsBySddBean(Template template, Direction direction) throws MinuteProjectException {	
+
+	protected void generateArtifactsBySddBean(Template template,
+			Direction direction) throws MinuteProjectException {
 		StatementModel statementModel = getModel().getStatementModel();
-		if (statementModel!=null) {
+		if (statementModel != null) {
 			for (Query query : statementModel.getQueries().getQueries()) {
 				Table table = query.getEntity(direction);
 				table = getDecoratedTable(table);
@@ -503,27 +519,33 @@ public class ModelGenerator extends AbstractGenerator {
 			}
 		}
 	}
-	
-	protected void generateArtifactsBySddCompositeBean(Template template, Direction direction) throws MinuteProjectException {	
+
+	protected void generateArtifactsBySddCompositeBean(Template template,
+			Direction direction) throws MinuteProjectException {
 		StatementModel statementModel = getModel().getStatementModel();
-		if (statementModel!=null) {
-			for (Composite composite : statementModel.getComposites().getComposites()) {
+		if (statementModel != null) {
+			for (Composite composite : statementModel.getComposites()
+					.getComposites()) {
 				writeTemplateResult(composite.getComposite(direction), template);
 			}
 		}
 	}
-	
-	protected void writeTemplateResult(GeneratorBean bean, Template template) throws MinuteProjectException {
+
+	protected void writeTemplateResult(GeneratorBean bean, Template template)
+			throws MinuteProjectException {
 		// enable cache
 		bean.enableCache();
-		//velocity bean manipulation
-		String outputFilename = template.getGeneratorOutputFileNameForConfigurationBean(bean, template);
-		//context
+		// velocity bean manipulation
+		String outputFilename = template
+				.getGeneratorOutputFileNameForConfigurationBean(bean, template);
+		// context
 		VelocityContext context = getVelocityContext(template);
-		Map<String,String> updatedAreas = TemplateUtils.getUpdatedAreas(template, bean);
-		if (updatedAreas!=null) {
-			if (updatedAreas.containsKey(UpdatedAreaUtils.MP_MANAGED_STOP_GENERATING))
-				return; //stop generating directive
+		Map<String, String> updatedAreas = TemplateUtils.getUpdatedAreas(
+				template, bean);
+		if (updatedAreas != null) {
+			if (updatedAreas
+					.containsKey(UpdatedAreaUtils.MP_MANAGED_STOP_GENERATING))
+				return; // stop generating directive
 			context.put("updatedAreas", updatedAreas);
 		}
 		String beanName = getAbstractBeanName(bean);
@@ -532,68 +554,66 @@ public class ModelGenerator extends AbstractGenerator {
 			Component component = (Component) bean;
 			Table table = component.getTable();
 			context.put("table", table);
-		}		
+		}
 		if (bean instanceof Function) {
 			context.put("function", bean);
-			context.put("table", ((Function)bean).getEntity(Direction.ANY)); //to give access to model
-//			context.put("table", bean);
-		}		
+			context.put("table", ((Function) bean).getEntity(Direction.ANY)); // to
+																				// give
+																				// access
+																				// to
+																				// model
+			// context.put("table", bean);
+		}
 		if (beanName.equals("view"))
-			context.put("table", bean);		
+			context.put("table", bean);
 		context.put("template", template);
 		putCommonContextObject(context, template);
-        //
+		//
 		try {
 			produce(context, template, outputFilename);
 		} catch (Exception ex) {
 			logger.error("ERROR on template "+template.getName()+" - "+template.getTemplateFileName()+" - on bean "+bean.getName());
 			ex.printStackTrace();
-			throwException(ex, "ERROR : "+ex.getMessage());		
-//			logger.error("ERROR : "+ex.getMessage());
-//			throw ex;
+			throwException(ex, "ERROR : " + ex.getMessage());
+			// logger.error("ERROR : "+ex.getMessage());
+			// throw ex;
 		}
 	}
 
-
-	protected void putCommonContextObject(VelocityContext context, Template template) {
+	protected void putCommonContextObject(VelocityContext context,
+			Template template) {
 		putStandardContextObject(context);
 		putPluginContextObject(context, template);
 		context.put("model", model);
 		context.put("configuration", model.getConfiguration());
 	}
-	
-	protected void putStandardContextObject (VelocityContext context) {
+
+	protected void putStandardContextObject(VelocityContext context) {
 		super.putStandardContextObject(context);
-/*		context.put("convertUtils", getConvertUtils());
-		context.put("commonUtils", getCommonUtils());
-		context.put("columnUtils", getColumnUtils());
-		context.put("viewUtils", getViewUtils());
-		context.put("formatUtils", getFormatUtils());
-		context.put("bslaLibraryUtils", getBslaLibraryUtils());
-		context.put("databaseUtils", getDatabaseUtils());
-		context.put("modelUtils", getModelUtils());
-		context.put("URLUtils", getUrlUtils());
-		context.put("TestUtils", getTestUtils());
-		context.put("WebUtils", getWebUtils());
-		context.put("sqlUtils", getSqlUtils());
-		context.put("tableUtils", getTableUtils());
-		context.put("testUtils", getTestUtils());	
-		context.put("referenceUtils", referenceUtils);
-		context.put("enumUtils", enumUtils);
-		context.put("i18nUtils", i18nUtils);
-		context.put("updatedAreaUtils", updatedAreaUtils);
-		context.put("javaUtils", javaUtils);
-		context.put("routineUtils", routineUtils);
-		context.put("statementUtils", statementUtils);
-		context.put("triggerUtils", triggerUtils);
-		context.put("queryUtils", queryUtils);
-		context.put("semanticReferenceUtils", semanticReference);
-		context.put("velocityUtils", velocityUtils);
-		context.put("fileUtils", fileUtils);
-		context.put("orderingUtils", orderingUtils);
-		context.put("enrichmentUtils", enrichmentUtils);
-		context.put("minuteprojectUtils", minuteprojectUtils);
-		*/
+		/*
+		 * context.put("convertUtils", getConvertUtils());
+		 * context.put("commonUtils", getCommonUtils());
+		 * context.put("columnUtils", getColumnUtils());
+		 * context.put("viewUtils", getViewUtils()); context.put("formatUtils",
+		 * getFormatUtils()); context.put("bslaLibraryUtils",
+		 * getBslaLibraryUtils()); context.put("databaseUtils",
+		 * getDatabaseUtils()); context.put("modelUtils", getModelUtils());
+		 * context.put("URLUtils", getUrlUtils()); context.put("TestUtils",
+		 * getTestUtils()); context.put("WebUtils", getWebUtils());
+		 * context.put("sqlUtils", getSqlUtils()); context.put("tableUtils",
+		 * getTableUtils()); context.put("testUtils", getTestUtils());
+		 * context.put("referenceUtils", referenceUtils);
+		 * context.put("enumUtils", enumUtils); context.put("i18nUtils",
+		 * i18nUtils); context.put("updatedAreaUtils", updatedAreaUtils);
+		 * context.put("javaUtils", javaUtils); context.put("routineUtils",
+		 * routineUtils); context.put("statementUtils", statementUtils);
+		 * context.put("triggerUtils", triggerUtils); context.put("queryUtils",
+		 * queryUtils); context.put("semanticReferenceUtils",
+		 * semanticReference); context.put("velocityUtils", velocityUtils);
+		 * context.put("fileUtils", fileUtils); context.put("orderingUtils",
+		 * orderingUtils); context.put("enrichmentUtils", enrichmentUtils);
+		 * context.put("minuteprojectUtils", minuteprojectUtils);
+		 */
 	}
 
 	public Model getModel() {
@@ -604,5 +624,4 @@ public class ModelGenerator extends AbstractGenerator {
 		this.model = model;
 	}
 
-	
 }
