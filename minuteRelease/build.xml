@@ -719,6 +719,10 @@
 		 -->
 	</target>
 	
+	<target name="openmrs" depends="release-application" >
+		<antcall target="generation-build-openmrs"/>
+	</target>
+	
 	<target name="generation-build-groovy" >
 		<macro_generate_and_build display="JPA2-groovy" config="mp-config-JPA2-groovy.xml" maven.basedir="JPA2-groovy/petshopgroovy/JPA2"/>
 	</target>
