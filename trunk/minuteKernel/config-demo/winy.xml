@@ -153,6 +153,28 @@
                          </query-params>
                           
                      </query>
+                     
+                     <query name="country_list" id="country_list" package-name="country">
+                         <query-body>
+                         <value>
+<![CDATA[select id, name, description from country]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
+                         </query-params>
+                     </query>
+                     
+                     <query name="region_list" id="region_list" package-name="region">
+                         <query-body>
+                         <value>
+<![CDATA[select id, name, description from region r where r.country_id = ?]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="country_id" is-mandatory="true" type="int" sample="-1"></query-param>
+                         </query-params>
+                     </query>
                   </queries>
               </statement-model>
 		</model>
