@@ -257,20 +257,6 @@ public class ReferenceUtils {
 		return (reference.getAlias().equals(getDefaultAlias(reference)));
 	}
 
-	public static String getDefaultAlias(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
-		//if (!reference.getForeignTable().isManyToMany()) {
-		if (reference.getLocalTable()!=null && reference.getLocalTable().isManyToMany()) {
-			return getDefaultAliasForManyToMany(reference);
-		} else 
-			return getDefaultAliasForNotManyToMany (reference);
-	}
-	
-	public static String getDefaultAliasForNotManyToMany(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
-		//TODO add for recursive m2m //+"_"+ref.getLocalColumn().getAlias();
-		//return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getForeignColumn().getAlias();//+"_"+ref.getLocalColumn().getAlias();
-		return reference.getForeignTable().getAlias()+"_"+reference.getLocalTable().getAlias()+"_VIA_"+reference.getForeignColumn().getName();//+"_"+ref.getLocalColumn().getAlias();
-	}
-
 	public static String getColumnAlias(Table table, Column column) {
 		Column column2 = ColumnUtils.getColumn(table, column.getName());
 		if (column2!=null)
@@ -296,7 +282,21 @@ public class ReferenceUtils {
 			net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
 		return reference.getForeignKey().getReferenceCount()>1;
 	}
+
+	public static String getDefaultAlias(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		//if (!reference.getForeignTable().isManyToMany()) {
+		if (!reference.getForeignTable().isManyToMany()) {
+			return getDefaultAliasForNotManyToMany (reference);
+		} else 
+			return getDefaultAliasForManyToMany(reference);
+	}
 	
+	public static String getDefaultAliasForNotManyToMany(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+		//TODO add for recursive m2m //+"_"+ref.getLocalColumn().getAlias();
+		//return ref.getForeignTable().getAlias()+"_"+ref.getLocalTable().getAlias()+"_VIA_"+ref.getForeignColumn().getAlias();//+"_"+ref.getLocalColumn().getAlias();
+		return reference.getForeignTable().getAlias()+"_"+reference.getLocalTable().getAlias()+"_VIA_"+reference.getForeignColumn().getName();//+"_"+ref.getLocalColumn().getAlias();
+	}
+
 	public static String getDefaultAliasForManyToMany(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
 		return reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getLocalColumnName();
 	}	
