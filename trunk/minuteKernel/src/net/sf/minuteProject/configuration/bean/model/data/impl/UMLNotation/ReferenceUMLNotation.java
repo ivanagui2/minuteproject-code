@@ -15,10 +15,10 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 	
 	public ReferenceUMLNotation(Reference reference) {
 		super(reference);
-		foreignTable = new TableUMLNotation (reference.getForeignTable());
+		foreignTable =  new TableUMLNotation  (reference.getForeignTable());
 		foreignColumn = new ColumnUMLNotation (reference.getForeignColumn(), foreignTable);
-		localTable = new TableUMLNotation (reference.getLocalTable());
-		localColumn = new ColumnUMLNotation (reference.getLocalColumn(), localTable);
+		localTable =    new TableUMLNotation  (reference.getLocalTable());
+		localColumn =   new ColumnUMLNotation (reference.getLocalColumn(), localTable);
 		setAlias(reference.getAlias());
 //		setMasterRelationship(reference.isMasterRelationship());
 	}

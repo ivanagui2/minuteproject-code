@@ -258,10 +258,11 @@ public class ReferenceUtils {
 	}
 
 	public static String getDefaultAlias(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
-		if (!reference.getForeignTable().isManyToMany()) {
-			return getDefaultAliasForNotManyToMany(reference);
+		//if (!reference.getForeignTable().isManyToMany()) {
+		if (reference.getLocalTable()!=null && reference.getLocalTable().isManyToMany()) {
+			return getDefaultAliasForManyToMany(reference);
 		} else 
-			return getDefaultAliasForManyToMany (reference.getLocalTable(), reference);
+			return getDefaultAliasForNotManyToMany (reference);
 	}
 	
 	public static String getDefaultAliasForNotManyToMany(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
@@ -296,7 +297,7 @@ public class ReferenceUtils {
 		return reference.getForeignKey().getReferenceCount()>1;
 	}
 	
-	public static String getDefaultAliasForManyToMany(Table table, net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
+	public static String getDefaultAliasForManyToMany(net.sf.minuteProject.configuration.bean.model.data.Reference reference) {
 		return reference.getForeignTable().getAlias()+"_VIA_"+reference.getLocalTable().getAlias()+"_BY_"+reference.getLocalColumnName();
 	}	
 }
