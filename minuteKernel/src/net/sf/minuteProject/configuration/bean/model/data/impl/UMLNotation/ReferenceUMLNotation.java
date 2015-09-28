@@ -12,6 +12,7 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 	ColumnUMLNotation foreignColumn;
 	TableUMLNotation localTable;
 	ColumnUMLNotation localColumn;
+	private boolean isForManyToMany=false;
 	
 	public ReferenceUMLNotation(Reference reference) {
 		super(reference);
@@ -62,6 +63,14 @@ public class ReferenceUMLNotation extends ReferenceAbstract {
 		
 	}
 
+	@Override
+	public void setIsForManyToMany() {
+		isForManyToMany = true;
+	}
 
+	@Override
+	public boolean isForManyToMany() {
+		return isForManyToMany;
+	}
 	
 }

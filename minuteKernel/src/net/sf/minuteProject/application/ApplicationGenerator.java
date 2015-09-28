@@ -204,6 +204,10 @@ public class ApplicationGenerator extends AbstractGenerator {
 	 * @see net.sf.minuteProject.application.Generator#generate(net.sf.minuteProject.configuration.bean.Template)
 	 */
 	public void generate(Template template) throws MinuteProjectException {
+		if (!template.isActive()) {
+			logger.info(">>> template is inactive ");
+			return;
+		}
 		if (template.isApplicationScope())
 			generateArtifactsByApplication(template);
 	}

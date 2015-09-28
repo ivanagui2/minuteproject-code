@@ -291,7 +291,8 @@ public class ModelGenerator extends AbstractGenerator {
 	public void generate(Template template) throws MinuteProjectException {
 		if (!template.isActive()) {
 			logger.info(">>> template is inactive ");
-			return;}
+			return;
+		}
 		String scopeSpecificValue = template.getScopeSpecificValue();
 		if (template.getFieldSpecific().equals("true")
 				|| SCOPE_DATAMODEL_FIELD.equals(scopeSpecificValue))

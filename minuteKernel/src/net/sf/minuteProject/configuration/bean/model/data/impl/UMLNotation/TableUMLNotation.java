@@ -59,6 +59,7 @@ public class TableUMLNotation extends TableAbstract {
 				ReferenceUMLNotation reference = new ReferenceUMLNotation (super.getParents()[i]);
 //DO NOT USE REFERENCE yet pb with m2m w/ foreign key convention
 //				Reference reference = ReferenceUtils.getReference(super.getParents()[i].getLocalColumn());
+				//reference.setI
 				parents.add(reference);
 			}
 		}

@@ -127,6 +127,10 @@ public interface Reference extends GeneratorBean
 	
 	public ForeignKey getForeignKey();
 	
+	public void setIsForManyToMany();
+	
+	public boolean isForManyToMany();
+	
 }
 
 

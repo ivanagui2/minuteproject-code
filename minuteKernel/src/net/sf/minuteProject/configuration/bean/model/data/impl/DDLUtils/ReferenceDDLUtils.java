@@ -47,6 +47,8 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 	private String alias;
 	private enum Owner {MASTER, AGGREGATE, NONE};
 	private Owner relationshipOwnership = Owner.NONE;
+	private boolean isForManyToMany=false;
+	
     /**
      * Creates a new, empty reference.
      */
@@ -341,5 +343,15 @@ public class ReferenceDDLUtils extends AbstractConfiguration implements Referenc
 		ref.setLocalTable(reference.getLocalTable());
 		ref.setLocalTableName(reference.getLocalTableName()); 		
 		return ref;
+	}
+
+	@Override
+	public void setIsForManyToMany() {
+		isForManyToMany = true;
+	}
+
+	@Override
+	public boolean isForManyToMany() {
+		return isForManyToMany;
 	}
 }

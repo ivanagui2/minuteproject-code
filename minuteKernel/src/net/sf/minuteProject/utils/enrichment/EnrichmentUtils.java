@@ -219,6 +219,11 @@ public class EnrichmentUtils {
 					if (ReferenceUtils.equalsProvidedAlias(ref, alias))
 						ref.setAlias(alias);
 						*/
+					
+					if (ref.getAlias().equals(ReferenceUtils.getDefaultAliasForNotManyToMany(ref))) {
+						ref.setAlias(ReferenceUtils.getDefaultAliasForManyToMany(ref));
+					}
+
 					return ref;
 				}
 			}

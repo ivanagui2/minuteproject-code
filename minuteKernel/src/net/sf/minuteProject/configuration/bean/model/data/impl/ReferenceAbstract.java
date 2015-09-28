@@ -163,4 +163,8 @@ public abstract class ReferenceAbstract extends AbstractConfiguration implements
 		return reference.getForeignKey();
 	}
 
+	public void setAlias(String alias) {
+		setIsAliasSet(true);
+		this.alias = alias;
+	}
 }
