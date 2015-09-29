@@ -280,9 +280,7 @@ $!updatedAreaSnippet
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> (); 
-// $linkReference
-// $linkReference.alias
+    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
 
 #end
 #updatedAreaEnd()
