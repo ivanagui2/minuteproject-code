@@ -6,18 +6,15 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.chemistry.opencmis.client.api.QueryResult;
+import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.model.cmis.CmisModel;
+import net.sf.minuteProject.configuration.bean.model.cmis.CmisSource;
+
 import org.apache.chemistry.opencmis.client.api.Session;
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.SessionFactory;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.commons.dbcp.BasicDataSource;
-
-import net.sf.minuteProject.configuration.bean.DataModel;
-import net.sf.minuteProject.configuration.bean.model.cmis.CmisModel;
-import net.sf.minuteProject.configuration.bean.model.cmis.CmisSource;
 
 public class ConnectionUtils {
 
