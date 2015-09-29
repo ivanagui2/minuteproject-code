@@ -134,6 +134,14 @@ public class QueryParams extends AbstractConfiguration {
 		return null;
 	}
 
+	public boolean hasOutputParam() {
+		for (QueryParam queryParam : queryParams) {
+			if (queryParam.isOutputParam()) {
+				return true;
+			}
+		}
+		return false;
+	}
 //	private List<QueryParam> copy(Query q) {
 //		List<QueryParam> r = new ArrayList<QueryParam>();
 //		for (QueryParam qp : q.getQueryParams().getQueryParams()) {

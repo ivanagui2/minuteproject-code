@@ -137,7 +137,7 @@ public class QueryParam extends Field {
 	public boolean isOutputParam() {
 		return isOutputParam;
 	}
-	public void setOutputParam(boolean isOutputParam) {
+	public void setIsOutputParam(boolean isOutputParam) {
 		this.isOutputParam = isOutputParam;
 	}
 	
