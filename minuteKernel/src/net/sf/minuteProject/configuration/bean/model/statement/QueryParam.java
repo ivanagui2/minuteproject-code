@@ -21,7 +21,7 @@ public class QueryParam extends Field {
 	private String converter;
 	private String likeMode;
 	private QueryParamLink queryParamLink;
-	private boolean isFilter=false, isArray=false;
+	private boolean isFilter=false, isArray=false, isOutputParam = false;
 	
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
@@ -134,4 +134,12 @@ public class QueryParam extends Field {
 	public void setIsArray(boolean isArray) {
 		this.isArray = isArray;
 	}
+	public boolean isOutputParam() {
+		return isOutputParam;
+	}
+	public void setOutputParam(boolean isOutputParam) {
+		this.isOutputParam = isOutputParam;
+	}
+	
+	
 }

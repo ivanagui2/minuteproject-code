@@ -209,6 +209,7 @@
 				                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 				                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 				                   <alias attr-name="is-in-clause" prop-name="isArray" />
+				                   <alias attr-name="is-output-param" prop-name="isOutputParam" />
 			                   </set-properties-rule>
 			                   <pattern value="stereotype">
 									<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -292,6 +293,7 @@
 		                       <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 		                   	   <alias attr-name="is-context"  prop-name="isContext" /><!-- global context bound -->
 		                   	   <alias attr-name="is-in-clause" prop-name="isArray" />
+		                   	   <alias attr-name="is-output-param" prop-name="isOutputParam" />
 		                   </set-properties-rule>
 		                   <pattern value="stereotype">
 								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -1474,6 +1476,7 @@
 		                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 		                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 		                   <alias attr-name="is-in-clause" prop-name="isArray" />
+		                   <alias attr-name="is-output-param" prop-name="isOutputParam" />
 	                   </set-properties-rule>
 	                   <pattern value="stereotype">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -1554,6 +1557,7 @@
 		                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 		                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 		                   <alias attr-name="is-in-clause" prop-name="isArray" />
+		                   <alias attr-name="is-output-param" prop-name="isOutputParam" />
 	                   </set-properties-rule>
 	                   <pattern value="stereotype">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
