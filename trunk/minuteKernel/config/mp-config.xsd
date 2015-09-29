@@ -783,6 +783,7 @@
 		<xs:attribute name="refid" type="xs:int" />
 		<xs:attribute name="is-implicit" type="xs:boolean" /><!-- relative context bound -->
 		<xs:attribute name="is-context" type="xs:boolean" /><!-- global context bound -->
+		<xs:attribute name="is-output-param" type="xs:boolean" default="false"/>
 
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
