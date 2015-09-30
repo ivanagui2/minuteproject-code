@@ -48,12 +48,14 @@ public class QueryUtils {
 				.getDataModel();
 		Connection connection = ConnectionUtils.getConnection(dataModel);
 		if (connection != null) {
-			String q = getFullQuerySample(query);
-			try {
-				return getOutputParams(connection, q, dataModel.getDatabase());
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new MinuteProjectException("Query Not working "+query,"QUERY_NOT_WORKING");
+			if (!query.getQueryParams().hasOutputParam()) {
+				String q = getFullQuerySample(query);
+				try {
+					return getOutputParams(connection, q, dataModel.getDatabase());
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new MinuteProjectException("Query Not working "+query,"QUERY_NOT_WORKING");
+				}
 			}
 		}
 		return null;
