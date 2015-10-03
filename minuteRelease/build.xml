@@ -712,7 +712,7 @@
 			<antcall target="generation-build-liferay"/>
 			<antcall target="generation-build-lazuly"/>
 			<antcall target="generation-build-petshop"/>
-			<antcall target="generation-build-openmrs"/>
+			<!--<antcall target="generation-build-openmrs"/>-->
 		</parallel>
 		<!--
 			<antcall target="generation-build-northwind"/>			
