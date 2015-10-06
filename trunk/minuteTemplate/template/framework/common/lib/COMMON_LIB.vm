@@ -339,14 +339,22 @@ $!updatedAreaSnippet
 			$sddInputBeanVariable = new $sddInputBeanClass();
 #end
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+#if($query.queryParams.hasOutputParam())
+		CallableStatement pstmt = null;
+#else
 		PreparedStatement pstmt = null;
+#end
 #if (!$query.isWrite())
 		ResultSet rs = null;
 #end
 		Connection conn = null;
 		try {
 			conn = getConnection();
+#if($query.queryParams.hasOutputParam())
+			pstmt = conn.prepareCall(
+#else
 			pstmt = conn.prepareStatement(
+#end
 						getStatement(
 #if($isNotVoidInput) 
 							$sddInputBeanVariable
@@ -378,7 +386,11 @@ $!updatedAreaSnippet
 #end
 #end
 #if ($query.isWrite())
+#if($query.queryParams.hasOutputParam())
 			pstmt.executeUpdate();
+#else
+			pstmt.execute();
+#end	
 #else
 			rs = pstmt.executeQuery();
 #end
