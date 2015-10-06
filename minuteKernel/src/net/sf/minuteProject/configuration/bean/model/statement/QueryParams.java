@@ -50,22 +50,24 @@ public class QueryParams extends AbstractConfiguration {
 		if (flatQueryParams == null) {
 			flatQueryParams = new ArrayList<QueryParam>();
 			for (QueryParam queryParam : getQueryParams()) {
-				String refidParam = queryParam.getRefid();
-				if (!StringUtils.isEmpty(refidParam)) {
-					QueryParam instance = getReferenceIdQueryParam(refidParam);
-					if (instance!=null) {
-						copy (instance, queryParam, isMandatory);
+				if (!queryParam.isOutputParam()) {
+					String refidParam = queryParam.getRefid();
+					if (!StringUtils.isEmpty(refidParam)) {
+						QueryParam instance = getReferenceIdQueryParam(refidParam);
+						if (instance!=null) {
+							copy (instance, queryParam, isMandatory);
+							flatQueryParams.add(queryParam);
+						}
+					} else if (!StringUtils.isEmpty(queryParam.getRefname())) {
+						QueryParam instance = getReferenceNameQueryParam(queryParam.getRefname());
+						if (instance!=null) {
+							copy (instance, queryParam, isMandatory);
+							flatQueryParams.add(queryParam);
+						}
+					} else {
+						queryParam.setMandatory(isMandatory);
 						flatQueryParams.add(queryParam);
 					}
-				} else if (!StringUtils.isEmpty(queryParam.getRefname())) {
-					QueryParam instance = getReferenceNameQueryParam(queryParam.getRefname());
-					if (instance!=null) {
-						copy (instance, queryParam, isMandatory);
-						flatQueryParams.add(queryParam);
-					}
-				} else {
-					queryParam.setMandatory(isMandatory);
-					flatQueryParams.add(queryParam);
 				}
 			}
 		}
