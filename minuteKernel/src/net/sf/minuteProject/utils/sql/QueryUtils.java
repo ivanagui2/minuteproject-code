@@ -1,5 +1,6 @@
 package net.sf.minuteProject.utils.sql;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +30,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConnectionUtils;
+import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
@@ -56,6 +58,15 @@ public class QueryUtils {
 					e.printStackTrace();
 					throw new MinuteProjectException("Query Not working "+query,"QUERY_NOT_WORKING");
 				}
+			} else {
+				String q = getFullQuerySample(query);
+				try {
+					return getOutputParamsFromCallableStatement(connection, query.getQueryParams(), q, dataModel.getDatabase());
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new MinuteProjectException("Query Not working "+query,"QUERY_NOT_WORKING");
+				}
+				//CallableStatement callableStatement = getCallableStablementFromQuerySample(query);
 			}
 		}
 		return null;
@@ -72,6 +83,32 @@ public class QueryUtils {
 			logger.error("error sql : "+e.getMessage());
 			return new QueryParams();
 		}
+	}
+	
+	private static QueryParams getOutputParamsFromCallableStatement(Connection connection, QueryParams queryParams, String query,
+			Database database) throws SQLException {
+		CallableStatement callableStatement = connection.prepareCall(query);
+		int i = 1;
+		for (QueryParam queryParam : queryParams.getQueryParams()) {
+			if (queryParam.isOutputParam()) {				
+				callableStatement.registerOutParameter(i, ConvertUtils.getTypeTypeFromUMLType(queryParam.getType()));
+				i++;
+			}
+		}
+//		try {
+			//callableStatement.execute();
+			QueryParams queryParams2 = new QueryParams();
+			for (QueryParam queryParam : queryParams.getQueryParams()) {
+				if (queryParam.isOutputParam()) {			
+					queryParams2.addQueryParam(queryParam);
+				}
+			}
+			return queryParams2;
+//		} catch (SQLException e) {
+//			logger.error("error executing query : "+query);
+//			logger.error("error sql : "+e.getMessage());
+//			return new QueryParams();
+//		}
 	}
 
 	private static QueryParams getQueryParams(ResultSetMetaData metaData) throws SQLException {
@@ -190,7 +227,11 @@ public class QueryUtils {
 
 	private static void addFilters(List<String> list, QueryParams params) {
 		for (QueryParam qp : params.getFlatQueryParams(false)) {
-			list.add(getParamSample(qp));
+			if (!qp.isOutputParam()) {
+				list.add(getParamSample(qp));
+			} else {
+				list.add("?");
+			}
 		}
 	}
 

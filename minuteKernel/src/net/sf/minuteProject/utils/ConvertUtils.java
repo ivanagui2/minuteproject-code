@@ -1,11 +1,11 @@
 package net.sf.minuteProject.utils;
 
-import net.sf.minuteProject.configuration.bean.model.data.BaseColumn;
+import java.sql.Types;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ddlutils.Platform;
 import org.apache.log4j.Logger;
 
 public class ConvertUtils {
@@ -93,6 +93,23 @@ public class ConvertUtils {
 		if (UML_BIGDECIMAL_TYPE.equals(type)) return DB_DOUBLE_TYPE;
 		if (UML_BIGINTEGER_TYPE.equals(type)) return DB_BIGINT_TYPE;
 		return DB_STRING_TYPE;
+	}
+	
+	
+	public static int getTypeTypeFromUMLType (String type) {
+		if (type==null) return Types.VARCHAR;
+		type = StringUtils.lowerCase(type);
+		if (UML_STRING_TYPE.equals(type)) return Types.VARCHAR;
+		if (UML_INTEGER_TYPE.equals(type)) return Types.INTEGER;
+		if (UML_INTEGER_ABSTRACT_TYPE.equals(type)) return Types.INTEGER;
+		if (UML_LONG_TYPE.equals(type)) return Types.FLOAT;
+		if (UML_DOUBLE_TYPE.equals(type)) return Types.DOUBLE;
+		if (UML_DATE_TYPE.equals(type)) return Types.DATE;
+		if (UML_BOOLEAN_TYPE.equals(type)) return Types.BOOLEAN;
+		if (UML_TIMESTAMP_TYPE.equals(type)) return Types.TIMESTAMP;
+		if (UML_BIGDECIMAL_TYPE.equals(type)) return Types.DOUBLE;
+		if (UML_BIGINTEGER_TYPE.equals(type)) return Types.BIGINT;
+		return Types.VARCHAR;
 	}
 	
 	public static String getUMLTypeFromDBFullType (String type) {
