@@ -385,15 +385,36 @@ $!updatedAreaSnippet
 #end	
 #end
 #end
+## correct only if the output are at the end
+#if($query.queryParams.hasOutputParam())
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+			pstmt.registerOutParameter($queryUtils.getQueryPositionFromOutputbeanPosition($query, $velocityCount), java.sql.Types.${column.type});
+#end
+#end
 #if ($query.isWrite())
 #if($query.queryParams.hasOutputParam())
-			pstmt.executeUpdate();
-#else
 			pstmt.execute();
+#else
+			pstmt.executeUpdate();
 #end	
 #else
+#if($query.queryParams.hasOutputParam())
+			pstmt.execute();
+#else
 			rs = pstmt.executeQuery();
+#end		
 #end
+#if($query.queryParams.hasOutputParam())
+			$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+			${sddOutputBeanVariable}.set$columnClass(pstmt.get${columnType}($queryUtils.getQueryPositionFromOutputbeanPosition($query, $velocityCount)));
+#end
+			list.add(${sddOutputBeanVariable});
+#else
 #if ($statementUtils.hasResult($outputBean))
 			while (rs.next()) {
 				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
@@ -404,6 +425,7 @@ $!updatedAreaSnippet
 #end
 				list.add(${sddOutputBeanVariable});
 	        }
+#end
 #end
 		} catch (Exception e) {
 		      e.printStackTrace();
