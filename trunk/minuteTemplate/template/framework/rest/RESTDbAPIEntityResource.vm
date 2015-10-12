@@ -143,6 +143,7 @@ $!updatedAreaEnd
 #end
 
 	@POST
+	@Transactional
 	public $tableClassName save (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
