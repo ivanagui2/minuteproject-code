@@ -52,6 +52,7 @@ import $BslaDaoInterfaceImport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 #elseif($isEJBBackend)
@@ -81,6 +82,9 @@ import net.sf.minuteProject.model.service.GenericService;
 @Path("/entity/${tableClassName}")
 @Produces(MediaType.APPLICATION_JSON)
 @Api(value="/entity/${tableClassName}", description = "operation about ${tableClassName}")
+#if($isSpringBackend)
+@Component
+#end
 public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName, $BslaDaoInterfaceClass> {
 
 #if ($isSpringBackend)
@@ -153,7 +157,14 @@ $!updatedAreaEnd
 #end
 #end	   
 );
-        getService().save(_$tableVariableName);
+#if (!$tableUtils.isCompositePrimaryKeyNotMany2Many($table))
+    	if ($primaryKeyVariable == null) {
+    		getService().insert(_$tableVariableName);
+    	} else {
+    		getService().update(_$tableVariableName);
+    	}
+#end
+##        getService().save(_$tableVariableName);
         return _${tableVariableName}.flat();
     }
 
