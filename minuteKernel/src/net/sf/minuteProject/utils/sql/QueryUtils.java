@@ -398,4 +398,18 @@ public class QueryUtils {
 			return description;
 		return "perform "+query.getName();
 	}
+	
+	public static int getQueryPositionFromOutputbeanPosition (Query query, int startPosition) {
+		int i = 1;
+		int nbOfOutputParams = 0;
+		for (QueryParam queryParam : query.getQueryParams().getQueryParams()) {
+			if (queryParam.isOutputParam()) {
+				nbOfOutputParams ++; 
+				if (nbOfOutputParams==startPosition)
+					return i;
+			}
+			i++;
+		}
+		return i;
+	}
 }
