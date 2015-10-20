@@ -119,6 +119,10 @@ $!updatedAreaSnippet
 #else
 	@GET
 	@Path(value = "/{$primaryKeyVariable}")
+    @ApiOperation(value = "find by id", notes = "find by id", response = ${tableClassName}.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "ok")
+    })
     public $tableClassName findById (@PathParam ("$primaryKeyVariable") $primaryKeyFullType $primaryKeyVariable) {
         $tableClassName _$tableVariableName = new $tableClassName ();
 		_${tableVariableName}.set${primaryKeyJavaNameClass}($primaryKeyVariable);
@@ -133,6 +137,10 @@ $!updatedAreaEnd
 #if ($hasOnlyOnePrimaryKey)
 	@DELETE
     @Path(value = "/{$primaryKeyVariable}")
+    @ApiOperation(value = "delete id", notes = "delete id", response = String.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "ok")
+    })
     public String delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
         $tableClassName _$tableVariableName = new $tableClassName ();
         _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
@@ -143,7 +151,14 @@ $!updatedAreaEnd
 #end
 
 	@POST
+<<<<<<< .mine
+    @ApiOperation(value = "save entity", notes = "delete id", response = ${tableClassName}.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "ok")
+    })
+=======
 	@Transactional
+>>>>>>> .r3205
 	public $tableClassName save (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
