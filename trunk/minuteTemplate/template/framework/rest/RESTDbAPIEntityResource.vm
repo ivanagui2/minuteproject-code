@@ -151,14 +151,11 @@ $!updatedAreaEnd
 #end
 
 	@POST
-<<<<<<< .mine
     @ApiOperation(value = "save entity", notes = "delete id", response = ${tableClassName}.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "ok")
     })
-=======
 	@Transactional
->>>>>>> .r3205
 	public $tableClassName save (
 #foreach ($column in ${table.columns})
 #putColumnParamNaming()
