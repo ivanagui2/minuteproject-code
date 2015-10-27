@@ -71,8 +71,8 @@ public abstract class ${className} <T extends AbstractDomainObject, S extends Ge
     @Path("/find")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value="Find entity with pagination")
-	public QueryData<T> find(@QueryParam("sort[0][dir]") String sortOrder,
-                             @QueryParam("sort[0][field]") String sortField,
+	public QueryData<T> find(@QueryParam("sortOrder") String sortOrder, ##sort[0][dir]
+                             @QueryParam("sortField") String sortField, ##sort[0][field]
                              @QueryParam("take") int take, //kendoui specific
                              @QueryParam("skip") int skip, //kendoui specific
                              @QueryParam("first") int first,
