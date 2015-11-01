@@ -3,6 +3,7 @@
 	<configuration>
         <conventions>
             <target-convention type="enable-updatable-code-feature" />
+            <target-convention type="disable-timestamp-comment-marker" />
         </conventions>
 		<model name="winy" version="1.0" package-root="com">
 			<description>
@@ -80,13 +81,29 @@
 			</business-model>
 			<statement-model>
 				<queries>
+					<query name="winery_profile" id="winery_profile" package-name="profile">
+						<query-body>
+							<value>
+select w.id domain_id, w.name domain, pp.name formula, pp.price price, pp.period period, r.name region 
+from user u, user_winery_profile uwp, winery w, pay_plan pp, region r
+where uwp.user_id = u.id and
+uwp.winery_id = w.id and
+uwp.pay_plan_id = pp.id and
+w.region_id = r.id and
+u.email = ?
+							</value>
+						</query-body>
+						<query-params>
+                        	<query-param name="email" is-mandatory="true" type="string" sample="'mail'"></query-param>
+                        </query-params>
+					</query>
 					<query name="productList" id="product_list" package-name="product">
 						<query-body>
 							<value>
-								select p.name product, p.detail detail, p.price_info price, w.name winery, r.name region 
-								from product p, winery w, region r
-								where p.winery_id = w.id and w.region_id = r.id
-								 order by region desc, winery desc, product desc
+select p.name product, p.detail detail, pi.price price, pi.year year, w.name winery, r.name region 
+from product p, winery w, region r, product_item pi
+where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
+ order by region desc, winery desc, product desc
 							</value>
 						</query-body>
 					</query>
@@ -94,22 +111,7 @@
                          <query-body>
                          <value>
 <![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
-<!-- 
-  _name CHAR(35), 
-  _description CHAR(255), 
-  _geo CHAR(45), 
-  _latitude LONG,
-  _longitude LONG,
-  _contact_email CHAR(255), 
-  _region_id INT,
-  _contact_name CHAR(255),
-  _contact_street1 CHAR(255),
-  _contact_street2 CHAR(255),
-  _contact_post_code CHAR(255),
-  _contact_city CHAR(255),
-  _contact_phone CHAR(255),
-  INOUT ID INT
-   -->
+
                             </value>
                          </query-body>
                          <query-params>
