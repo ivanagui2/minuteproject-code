@@ -97,6 +97,26 @@ u.email = ?
                         	<query-param name="email" is-mandatory="true" type="string" sample="'mail'"></query-param>
                         </query-params>
 					</query>
+					<query name="winery_admin" id="winery_admin" package-name="winery">
+						<query-body>
+							<value>
+select * from v_winery_admin where domain_id = ?
+							</value>
+						</query-body>
+						<query-params>
+                        	<query-param name="id" is-mandatory="true" type="int" sample="1"></query-param>
+                        </query-params>
+					</query>
+					<query name="winery_public" id="winery_public" package-name="winery">
+						<query-body>
+							<value>
+select * from v_winery_public where domain_id = ?
+							</value>
+						</query-body>
+						<query-params>
+                        	<query-param name="id" is-mandatory="true" type="int" sample="1"></query-param>
+                        </query-params>
+					</query>
 					<query name="productList" id="product_list" package-name="product">
 						<query-body>
 							<value>
@@ -107,11 +127,10 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
 							</value>
 						</query-body>
 					</query>
-					<query name="call_new_domain" id="call_new_domain" package-name="domain">
+					<query name="call_new_domain" id="call_new_domain" package-name="domain" is-write="true">
                          <query-body>
                          <value>
-<![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
-
+<![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
                             </value>
                          </query-body>
                          <query-params>
@@ -128,11 +147,17 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                          	<query-param name="contact_post_code" is-mandatory="true" type="int" sample="1200" ></query-param>
                          	<query-param name="contact_city" is-mandatory="true" type="string" sample="'a'" ></query-param>
                          	<query-param name="contact_phone" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<!-- add 2 params 
+                         		> login email
+                         		> plan chosen
+                         	-->
+                         	<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1" ></query-param>
+                         	<query-param name="login_email" is-mandatory="true" type="string" sample="'test'" ></query-param>
                          	<query-param name="id" is-mandatory="true" type="int" sample="10"  is-id="true" is-output-param="true"></query-param>
                          </query-params>
                           
                      </query>
-					<query name="call_make_domain" id="call_make_domain" package-name="domain">
+					<query name="call_make_domain" id="call_make_domain" package-name="domain"  is-write="true">
                          <query-body>
                          <value>
 <![CDATA[call make_domain (?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
