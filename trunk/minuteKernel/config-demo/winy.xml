@@ -181,10 +181,50 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                           
                      </query>
                      
+					<query name="call_new_product" id="call_new_product" package-name="product">
+                         <query-body>
+                         <value>
+<!--   _name CHAR(35), 
+  _detail CHAR(255), 
+  _price_info CHAR(45), 
+  _winery_id INT,
+  _year INT,
+  INOUT ID INT
+   -->
+<![CDATA[call new_product (?,?,?,?,?,?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
+                         	<query-param name="detail" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="priceInfo" is-mandatory="true" type="long" sample="1.5" ></query-param>
+                         	<query-param name="wineryId" is-mandatory="true" type="int" sample="-1" ></query-param>
+                         	<query-param name="year" is-mandatory="true" type="int" sample="1999" ></query-param>
+                         	<query-param name="id" is-mandatory="true" type="int" sample="10"  is-id="true" is-output-param="true"></query-param>
+                         </query-params>
+                          
+                     </query>
+                     <!-- 
+					<query name="call_make_product" id="call_make_product" package-name="product">
+                         <query-body>
+                         <value>
+<![CDATA[call make_product (?,?,?,?,?,?,?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
+                         	<query-param name="detail" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="priceInfo" is-mandatory="true" type="long" sample="1.5" ></query-param>
+                         	<query-param name="wineryId" is-mandatory="true" type="int" sample="-1" ></query-param>
+                         	<query-param name="year" is-mandatory="true" type="int" sample="1999" ></query-param>
+                         </query-params>
+                          
+                     </query>
+                      -->
                      <query name="country_list" id="country_list" package-name="country">
                          <query-body>
                          <value>
-<![CDATA[select id, name, description from country]]>
+<![CDATA[select id, name, description from country order by name desc]]>
                             </value>
                          </query-body>
                          <query-params>
@@ -195,15 +235,71 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                      <query name="region_list" id="region_list" package-name="region">
                          <query-body>
                          <value>
-<![CDATA[select id, name, description from region r where r.country_id = ?]]>
+<![CDATA[select id, name, description from region r where r.country_id = ? order by name desc]]>
                             </value>
                          </query-body>
                          <query-params>
                          	<query-param name="country_id" is-mandatory="true" type="int" sample="-1"></query-param>
                          </query-params>
                      </query>
+                     
+                     <!-- master data -->
+                     <!-- grades -->
+                     <query name="grade_list" id="region_list" package-name="region">
+                         <query-body>
+                         	<value>
+<![CDATA[select id, name from cepage order by name desc]]>
+                            </value>
+                         </query-body>
+                     </query>
+                     
+                     <!-- badge queries -->
+                     <query name="winery_product_badge" id="winery_product_badge" package-name="badge">
+                         <query-body>
+                         <value>
+<![CDATA[
+select count(*) nb_of_products, w.grades grades, w.name winery, w.description description 
+from product p, winery w
+where p.winery_id = w.id 
+and w.id = ?
+group by w.name, w.grades
+ order by winery desc
+]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1"></query-param>
+                         </query-params>
+                     </query>
+                     <query name="product_product_item_badge" id="product_product_item_badge" package-name="badge">
+                         <query-body>
+                         <value>
+<![CDATA[
+select count(*) nb_of_items , p.name, p.detail
+from product p, product_item pi
+where pi.product_id = p.id 
+and p.id = ?
+group by p.name
+ order by p.name desc
+ 
+  select count(pi.id) nb_of_items , count(a.id) nb_of_awards , p.name, p.image_url, p.is_bio, p.grades
+from product p left outer join product_item pi on
+ pi.product_id = p.id 
+ left outer join award a on a.product_id = a.id
+ where p.active = true
+ $whereproductid
+group by p.id
+ order by p.name desc
+]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="product_id" is-mandatory="true" type="int" sample="-1"></query-param>
+                         </query-params>
+                     </query>
                   </queries>
               </statement-model>
+
 		</model>
 
 		<targets catalog-entry="REST-Custom, Openxava"
