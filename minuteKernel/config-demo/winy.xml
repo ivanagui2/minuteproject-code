@@ -117,20 +117,52 @@ select * from v_winery_public where domain_id = ?
                         	<query-param name="id" is-mandatory="true" type="int" sample="1"></query-param>
                         </query-params>
 					</query>
-					<query name="productList" id="product_list" package-name="product">
+					<query name="productAndItemList" id="product_list" package-name="product">
 						<query-body>
 							<value>
 select p.name product, p.detail detail, pi.price price, pi.year year, w.name winery, r.name region 
 from product p, winery w, region r, product_item pi
-where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
+where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id $wheredomainid
  order by region desc, winery desc, product desc
 							</value>
 						</query-body>
+						<query-filters>
+                            <query-filter name="wheredomainid" and-where-connection="and">
+                                <value>
+        <![CDATA[ p.id = ? ]]>
+                                </value>
+                                <query-params>
+                                    <query-param name="wineryId" type="int" sample="1">
+                                    </query-param>
+                                </query-params>
+                            </query-filter>
+                        </query-filters>
+					</query>
+					<query name="productList" id="product_list" package-name="product">
+						<query-body>
+							<value>
+select p.name product, p.detail detail, p.is_bio is_bio, p.grades grades 
+from product p
+ $wheredomainid
+ order by p.name desc
+							</value>
+						</query-body>
+						<query-filters>
+                            <query-filter name="wheredomainid" and-where-connection="where">
+                                <value>
+        <![CDATA[ p.winery_id = ? ]]>
+                                </value>
+                                <query-params>
+                                    <query-param name="wineryId" type="int" sample="1">
+                                    </query-param>
+                                </query-params>
+                            </query-filter>
+                        </query-filters>
 					</query>
 					<query name="call_new_domain" id="call_new_domain" package-name="domain" is-write="true">
                          <query-body>
                          <value>
-<![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
+<![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
                             </value>
                          </query-body>
                          <query-params>
@@ -139,6 +171,7 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                          	<query-param name="geo" is-mandatory="true" type="string" sample="'a'" ></query-param>
                          	<query-param name="latitude" is-mandatory="true" type="long" sample="1" ></query-param>
                          	<query-param name="longitude" is-mandatory="true" type="long" sample="1" ></query-param>
+                         	<query-param name="grades" is-mandatory="true" type="string" sample="'1'" ></query-param>
                          	<query-param name="email" is-mandatory="true" type="string" sample="'a'" ></query-param>
                          	<query-param name="region_id" is-mandatory="true" type="int" sample="-1" ></query-param>
                          	<query-param name="contact_name" is-mandatory="true" type="string" sample="'a'" ></query-param>
@@ -154,6 +187,37 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                          	<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1" ></query-param>
                          	<query-param name="login_email" is-mandatory="true" type="string" sample="'test'" ></query-param>
                          	<query-param name="id" is-mandatory="true" type="int" sample="10"  is-id="true" is-output-param="true"></query-param>
+                         </query-params>
+                          
+                     </query>
+					<query name="call_update_domain" id="call_update_domain" package-name="domain" is-write="true">
+                         <query-body>
+                         <value>
+<![CDATA[call update_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
+                         	<query-param name="description" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="geo" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="latitude" is-mandatory="true" type="long" sample="1" ></query-param>
+                         	<query-param name="longitude" is-mandatory="true" type="long" sample="1" ></query-param>
+                         	<query-param name="grades" is-mandatory="true" type="string" sample="'1'" ></query-param>
+                         	<query-param name="contact_email" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="region_id" is-mandatory="true" type="int" sample="-1" ></query-param>
+                         	<query-param name="contact_name" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_street1" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_street2" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_post_code" is-mandatory="true" type="int" sample="1200" ></query-param>
+                         	<query-param name="contact_city" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_phone" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<!-- add 2 params 
+                         		> login email
+                         		> plan chosen
+                         	-->
+                         	<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1" ></query-param>
+                         	<query-param name="login_email" is-mandatory="true" type="string" sample="'test'" ></query-param>
+                         	<query-param name="domain_id" is-mandatory="true" type="int" sample="10"  is-id="true" ></query-param>
                          </query-params>
                           
                      </query>
@@ -184,13 +248,6 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
 					<query name="call_new_product" id="call_new_product" package-name="product">
                          <query-body>
                          <value>
-<!--   _name CHAR(35), 
-  _detail CHAR(255), 
-  _price_info CHAR(45), 
-  _winery_id INT,
-  _year INT,
-  INOUT ID INT
-   -->
 <![CDATA[call new_product (?,?,?,?,?,?)]]>
                             </value>
                          </query-body>
@@ -202,34 +259,23 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                          	<query-param name="year" is-mandatory="true" type="int" sample="1999" ></query-param>
                          	<query-param name="id" is-mandatory="true" type="int" sample="10"  is-id="true" is-output-param="true"></query-param>
                          </query-params>
-                          
                      </query>
-                     <!-- 
-					<query name="call_make_product" id="call_make_product" package-name="product">
+
+                     <query name="cepage_tokenfield" id="cepage_tokenfield" package-name="cepage">
+                     <!-- TODO add implicity country, language as filter param -->
                          <query-body>
                          <value>
-<![CDATA[call make_product (?,?,?,?,?,?,?)]]>
+<!-- <![CDATA[select id as value, name as label from cepage order by name desc]]> -->
+<![CDATA[select name as value, name as label from cepage order by name desc]]>
                             </value>
                          </query-body>
-                         <query-params>
-                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
-                         	<query-param name="detail" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="priceInfo" is-mandatory="true" type="long" sample="1.5" ></query-param>
-                         	<query-param name="wineryId" is-mandatory="true" type="int" sample="-1" ></query-param>
-                         	<query-param name="year" is-mandatory="true" type="int" sample="1999" ></query-param>
-                         </query-params>
-                          
                      </query>
-                      -->
                      <query name="country_list" id="country_list" package-name="country">
                          <query-body>
                          <value>
 <![CDATA[select id, name, description from country order by name desc]]>
                             </value>
                          </query-body>
-                         <query-params>
-                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
-                         </query-params>
                      </query>
                      
                      <query name="region_list" id="region_list" package-name="region">
@@ -242,17 +288,26 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id
                          	<query-param name="country_id" is-mandatory="true" type="int" sample="-1"></query-param>
                          </query-params>
                      </query>
-                     
                      <!-- master data -->
                      <!-- grades -->
                      <query name="grade_list" id="region_list" package-name="region">
                          <query-body>
                          	<value>
-<![CDATA[select id, name from cepage order by name desc]]>
+<![CDATA[select id, name, url_description from cepage $wherecountryid order by display_order desc, name desc]]>
                             </value>
                          </query-body>
+						 <query-filters>
+                            <query-filter name="wherecountryid" and-where-connection="where">
+                                <value>
+        <![CDATA[ country_id = ? ]]>
+                                </value>
+                                <query-params>
+                                    <query-param name="country_id" type="int" sample="1"/>
+                                </query-params>
+                            </query-filter>
+                         </query-filters>
                      </query>
-                     
+              
                      <!-- badge queries -->
                      <query name="winery_product_badge" id="winery_product_badge" package-name="badge">
                          <query-body>
@@ -271,35 +326,69 @@ group by w.name, w.grades
                          	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1"></query-param>
                          </query-params>
                      </query>
-                     <query name="product_product_item_badge" id="product_product_item_badge" package-name="badge">
+
+                     <query name="winery_product_item_badge" id="winery_product_item_badge" package-name="badge">
                          <query-body>
                          <value>
 <![CDATA[
-select count(*) nb_of_items , p.name, p.detail
-from product p, product_item pi
-where pi.product_id = p.id 
-and p.id = ?
-group by p.name
- order by p.name desc
- 
-  select count(pi.id) nb_of_items , count(a.id) nb_of_awards , p.name, p.image_url, p.is_bio, p.grades
+select p.id product_id, count(pi.id) nb_of_items , count(a.id) nb_of_awards , p.name product, p.detail detail, p.image_url, p.is_bio, p.grades, p.color
 from product p left outer join product_item pi on
  pi.product_id = p.id 
- left outer join award a on a.product_id = a.id
+ left outer join award a on a.product_id = p.id
  where p.active = true
- $whereproductid
+$wherewineryid
 group by p.id
- order by p.name desc
+ order by p.name asc
 ]]>
                             </value>
                          </query-body>
+						 <query-filters>
+                            <query-filter name="wherewineryid" and-where-connection="and">
+                                <value>
+        <![CDATA[ p.winery_id = ? ]]>
+                                </value>
+                                <query-params>
+                                    <query-param name="winery_id" type="int" sample="1"/>
+                                </query-params>
+                            </query-filter>
+                         </query-filters>
+                     </query>
+                     
+                     <query name="get_wineries_in_region" id="get_wineries_in_region" package-name="region">
+                         <query-body>
+	                         <value>
+                         <!-- http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql 
+                         https://developers.google.com/maps/articles/phpsqlsearch_v3
+
+<![CDATA[ orig lat 48, lng = 7
+SELECT id, ( 3959 * acos( cos( radians(48) ) * cos( radians( latitude ) ) * cos( radians( longitude )
+ - radians(7) ) + sin( radians(48) ) * sin( radians( latitude ) ) ) ) AS distance, latitude, longitude 
+ FROM winery HAVING distance < 25 ORDER BY distance LIMIT 0 , 20
+ ]]>
+ -->
+ <![CDATA[
+SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude )
+ - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance, latitude, longitude 
+ FROM winery HAVING distance < ? ORDER BY distance LIMIT 0 , ?
+ ]]>
+                            </value>
+                         </query-body>
                          <query-params>
-                         	<query-param name="product_id" is-mandatory="true" type="int" sample="-1"></query-param>
+                             <query-param id="latitudeId" name="latitude" is-mandatory="true" type="long" sample="48" ></query-param>
+                             <query-param name="longitude" is-mandatory="true" type="long" sample="7" ></query-param>
+                             <query-param name="latitude2" refname="latitude"></query-param>                          
+                             <query-param name="range" is-mandatory="true" type="int" sample="2" ></query-param>
+                             <query-param name="nb_of_result" is-mandatory="true" type="int" sample="2" ></query-param>
                          </query-params>
+                         <query-chunks>
+							<query-chunk name="distanceunit" sample-value="3959">
+								<query-chunk-value name="km" value="6371"/>
+								<query-chunk-value name="miles" value="3959"/>
+							</query-chunk>
+						</query-chunks>
                      </query>
                   </queries>
               </statement-model>
-
 		</model>
 
 		<targets catalog-entry="REST-Custom, Openxava"
