@@ -368,17 +368,20 @@ $!updatedAreaSnippet
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
 #set($colClass= $commonUtils.getColumnAliasClassName($table, $reference))
 ##set($colVar=$formatUtils.getJavaNameVariable($referenceUtils.getColumnAlias(${reference.foreignTable}, ${reference.foreignColumn})))
-       if (setRelationship) this.${colVar} = new $linkedTableClass();
+##       if (setRelationship) this.${colVar} = new $linkedTableClass();
 #if($localColumnType==$linkedColumnType)   
 ## setter is the one of the linked table
 #set($columnClass=$referenceUtils.getColumnClassNameForLinkTable($database, $linkedColumn))
 #set($locColumn=$columnUtils.getColumn($table, $localColumn.name))
 #set($fieldVar=$formatUtils.getJavaNameVariable($locColumn.alias))
 #columnJavaNaming()
-       if (setRelationship) this.${colVar}.set$columnClass($fieldVar); 
+       if (setRelationship && $fieldVar!=null) {
+          this.${colVar} = new $linkedTableClass();
+          this.${colVar}.set$columnClass($fieldVar);
 #if(!$isPrimaryKey)
-	   set${colClass}_ (${fieldVar});
-#end
+	      set${colClass}_ (${fieldVar});
+#end 
+       }
 #else
        // the datamodel type of foreignkey and primary are not equals, please adapt
 #end
