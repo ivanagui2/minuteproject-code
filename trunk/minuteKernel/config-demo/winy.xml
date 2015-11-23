@@ -117,22 +117,33 @@ select * from v_winery_public where domain_id = ?
                         	<query-param name="id" is-mandatory="true" type="int" sample="1"></query-param>
                         </query-params>
 					</query>
+					
+					<!-- TODO create productItemList -->
 					<query name="productAndItemList" id="product_list" package-name="product">
 						<query-body>
 							<value>
-select p.name product, p.detail detail, pi.price price, pi.year year, w.name winery, r.name region 
+select p.name product, p.detail detail, pi.id product_item_id, pi.price price, pi.year year, w.name winery, r.name region 
 from product p, winery w, region r, product_item pi
-where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id $wheredomainid
+where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id $wheredomainid $whereproductid
  order by region desc, winery desc, product desc
 							</value>
 						</query-body>
 						<query-filters>
                             <query-filter name="wheredomainid" and-where-connection="and">
                                 <value>
-        <![CDATA[ p.id = ? ]]>
+        <![CDATA[ w.id = ? ]]>
                                 </value>
                                 <query-params>
                                     <query-param name="wineryId" type="int" sample="1">
+                                    </query-param>
+                                </query-params>
+                            </query-filter>
+                            <query-filter name="whereproductid" and-where-connection="and">
+                                <value>
+        <![CDATA[ p.id = ? ]]>
+                                </value>
+                                <query-params>
+                                    <query-param name="productId" type="int" sample="1">
                                     </query-param>
                                 </query-params>
                             </query-filter>
