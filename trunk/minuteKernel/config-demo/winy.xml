@@ -152,7 +152,7 @@ where p.winery_id = w.id and w.region_id = r.id and pi.product_id = p.id $whered
 					<query name="productList" id="product_list" package-name="product">
 						<query-body>
 							<value>
-select p.name product, p.detail detail, p.is_bio is_bio, p.grades grades 
+select p.name product, p.detail detail, p.is_bio is_bio, p.is_aoc is_aoc, p.grades grades 
 from product p
  $wheredomainid
  order by p.name desc
@@ -342,7 +342,7 @@ group by w.name, w.grades
                          <query-body>
                          <value>
 <![CDATA[
-select p.id product_id, count(pi.id) nb_of_items , count(a.id) nb_of_awards , p.name product, p.detail detail, p.image_url, p.is_bio, p.grades, p.color
+select p.id product_id, count(pi.id) nb_of_items , count(a.id) nb_of_awards , p.name product, p.detail detail, p.image_url, p.is_bio, p.is_aoc is_aoc, p.grades, p.color
 from product p left outer join product_item pi on
  pi.product_id = p.id 
  left outer join award a on a.product_id = p.id
