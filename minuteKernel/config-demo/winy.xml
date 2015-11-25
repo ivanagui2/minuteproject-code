@@ -39,6 +39,7 @@
 				</business-package>
 				<enrichment>
 					<conventions>
+					
 						<column-naming-convention type="apply-strip-column-name-suffix"
 							pattern-to-strip="_ID" />
 						<reference-naming-convention
@@ -76,6 +77,15 @@
 						<view-primary-key-convention 
 						            type="apply-default-primary-key-otherwise-first-one" 
 						            default-primary-key-names="IDENTIFIER,ID" /> 
+					
+						<!-- content type -->
+						<entity-content-type-convention type="apply-content-type-to-entity-belonging-to-package" 
+							pattern="reference" content-type="reference-data"/>
+
+						<semantic-reference-convention content-type="reference-data"
+						    field-pattern="value,code" field-pattern-type="endsWith" 
+						    max-number-of-fields="5" />
+						    
 					</conventions>
 				</enrichment>
 			</business-model>
@@ -398,13 +408,26 @@ SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) 
 							</query-chunk>
 						</query-chunks>
                      </query>
+                     
+                     <!-- queries for DDL -->
+                     <!-- 
+                     	country -> region -> appelation
+                     	color -> cepage
+                     	or
+                     	revert
+                     	
+                     	each master data > semantic ref > order by + where parent is (for filter) 
+                     
+                     -->
                   </queries>
               </statement-model>
 		</model>
 
 		<targets catalog-entry="REST-Custom, Openxava"
 			append-catalog-entry-dir-to-outputdir-root="true"  
-			outputdir-root="../../product/winy" />
+			outputdir-root="../../product/winy" >
+			<property name="openxava-disable-sdd" value="true" />
+		</targets>
 
 
 
