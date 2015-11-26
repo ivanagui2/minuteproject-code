@@ -419,7 +419,26 @@ SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) 
                      	each master data > semantic ref > order by + where parent is (for filter) 
                      
                      -->
-                  </queries>
+                     <!-- pictures -->
+
+
+                     <query name="winery_picture_list" id="winery_picture_list" package-name="winery">
+                         <query-body>
+                         <value>
+<![CDATA[
+ select id picture_id, image_name, description, display_order 
+ from winery_pictures 
+ where winery_id = ?
+ order by display_order
+]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1"></query-param>
+                         </query-params>
+                     </query>
+ 
+                   </queries>
               </statement-model>
 		</model>
 
