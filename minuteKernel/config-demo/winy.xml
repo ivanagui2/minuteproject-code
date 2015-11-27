@@ -5,6 +5,11 @@
             <target-convention type="enable-updatable-code-feature" />
             <target-convention type="disable-timestamp-comment-marker" />
         </conventions>
+        <context>
+        	<context-session-profile class="SessionProfile" name="sessionProfile">
+        		
+        	</context-session-profile>
+        </context>
 		<model name="winy" version="1.0" package-root="com">
 			<description>
 				<CDATA>
@@ -435,6 +440,23 @@ SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) 
                          </query-body>
                          <query-params>
                          	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1"></query-param>
+                         </query-params>
+                     </query>
+
+<!-- profile -->
+                     <query name="profile_winery_picture_list" id="winery_picture_list" package-name="winery">
+                         <query-body>
+                         <value>
+<![CDATA[
+ select id picture_id, image_name, description, display_order 
+ from winery_pictures 
+ where winery_id = ?
+ order by display_order
+]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1" from-profile-session-property="winery_id"></query-param>
                          </query-params>
                      </query>
  
