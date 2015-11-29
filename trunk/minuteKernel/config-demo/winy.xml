@@ -383,14 +383,8 @@ group by p.id
                      <query name="get_wineries_in_region" id="get_wineries_in_region" package-name="region">
                          <query-body>
 	                         <value>
-                         <!-- http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql 
+                         <!--http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql 
                          https://developers.google.com/maps/articles/phpsqlsearch_v3
-
-<![CDATA[ orig lat 48, lng = 7
-SELECT id, ( 3959 * acos( cos( radians(48) ) * cos( radians( latitude ) ) * cos( radians( longitude )
- - radians(7) ) + sin( radians(48) ) * sin( radians( latitude ) ) ) ) AS distance, latitude, longitude 
- FROM winery HAVING distance < 25 ORDER BY distance LIMIT 0 , 20
- ]]>
  -->
  <![CDATA[
 SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude )
@@ -442,7 +436,6 @@ SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) 
                          	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1"></query-param>
                          </query-params>
                      </query>
-
 <!-- profile -->
                      <query name="profile_winery_picture_list" id="winery_picture_list" package-name="winery">
                          <query-body>
@@ -459,6 +452,17 @@ SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) 
                          	<query-param name="winery_id" is-mandatory="true" type="int" sample="-1" from-profile-session-property="winery_id"></query-param>
                          </query-params>
                      </query>
+<!-- end query -->
+
+<!-- SDD for public -->
+<!-- 
+search type wine/region/country
+ex: cabernet 
+
+// try content search on tags / grades / region / country / (domain)
+=>list of wines + domains
+
+ -->
  
                    </queries>
               </statement-model>
