@@ -43,6 +43,39 @@
 					<condition type="package" startsWith="VIEW_STAT" result="stats"></condition>
 				</business-package>
 				<enrichment>
+					<entity name="COUNTRY" content-type="reference-data">
+						<!-- <field name="DESCRIPTION" ordering="asc" label="my description"
+							is-searchable="true"></field>
+							 -->
+						<field name="NAME" ordering="asc"></field>
+						<semantic-reference>
+							<sql-path path="NAME" />
+						</semantic-reference>
+					</entity>
+					<entity name="REGION" content-type="reference-data">
+						<field name="NAME" ordering="asc"></field>
+						<semantic-reference>
+							<sql-path path="NAME" />
+						</semantic-reference>
+					</entity>
+					<entity name="CEPAGE" content-type="reference-data">
+						<field name="NAME" ordering="asc"></field>
+						<semantic-reference>
+							<sql-path path="NAME" />
+						</semantic-reference>
+					</entity>
+					<entity name="COLOR" content-type="reference-data">
+						<field name="NAME" ordering="asc"></field>
+						<semantic-reference>
+							<sql-path path="NAME" />
+						</semantic-reference>
+					</entity>
+					<entity name="APPELATION" content-type="reference-data">
+						<field name="NAME" ordering="asc"></field>
+						<semantic-reference>
+							<sql-path path="NAME" />
+						</semantic-reference>
+					</entity>
 					<conventions>
 					
 						<column-naming-convention type="apply-strip-column-name-suffix"
@@ -92,6 +125,7 @@
 						    max-number-of-fields="5" />
 						    
 					</conventions>
+
 				</enrichment>
 			</business-model>
 			<statement-model>
