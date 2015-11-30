@@ -137,17 +137,17 @@ $!updatedAreaEnd
 #if ($hasOnlyOnePrimaryKey)
 	@DELETE
     @Path(value = "/{$primaryKeyVariable}")
-    @ApiOperation(value = "delete id", notes = "delete id", response = String.class)
+    @ApiOperation(value = "delete id", notes = "delete id", response = ${tableClassName}.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "ok")
     })
 	@Transactional
-    public String delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
+    public $tableClassName delete (@PathParam ("$primaryKeyVariable") $primaryKeyType $primaryKeyVariable) {
         $tableClassName _$tableVariableName = new $tableClassName ();
         _${tableVariableName}.set$primaryKeyJavaNameClass($primaryKeyVariable);
 		_${tableVariableName} = getService().load${tableClassName}($primaryKeyVariable);
         getService().delete(_$tableVariableName);
-		return "OK";
+		return _${tableVariableName}.flat();
     }
 
 #end
