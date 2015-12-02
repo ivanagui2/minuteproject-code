@@ -6,9 +6,11 @@
             <target-convention type="disable-timestamp-comment-marker" />
         </conventions>
         <context>
-        	<context-session-profile class="SessionProfile" name="sessionProfile">
-        		
-        	</context-session-profile>
+        	<profile class="SessionProfile" name="sessionProfile">
+        		<profile-filters>
+        			<profile-filter name="filterByProfileEmail" value="email"></profile-filter>
+        		</profile-filters>
+        	</profile>
         </context>
 		<model name="winy" version="1.0" package-root="com">
 			<description>
@@ -48,33 +50,23 @@
 							is-searchable="true"></field>
 							 -->
 						<field name="NAME" ordering="asc"></field>
-						<semantic-reference>
-							<sql-path path="NAME" />
-						</semantic-reference>
+
 					</entity>
 					<entity name="REGION" content-type="reference-data">
 						<field name="NAME" ordering="asc"></field>
-						<semantic-reference>
-							<sql-path path="NAME" />
-						</semantic-reference>
 					</entity>
 					<entity name="CEPAGE" content-type="reference-data">
 						<field name="NAME" ordering="asc"></field>
-						<semantic-reference>
-							<sql-path path="NAME" />
-						</semantic-reference>
 					</entity>
 					<entity name="COLOR" content-type="reference-data">
 						<field name="NAME" ordering="asc"></field>
-						<semantic-reference>
-							<sql-path path="NAME" />
-						</semantic-reference>
 					</entity>
 					<entity name="APPELATION" content-type="reference-data">
 						<field name="NAME" ordering="asc"></field>
-						<semantic-reference>
+<!-- 						<semantic-reference>
 							<sql-path path="NAME" />
 						</semantic-reference>
+						 -->
 					</entity>
 					<conventions>
 					
@@ -121,7 +113,7 @@
 							pattern="reference" content-type="reference-data"/>
 
 						<semantic-reference-convention content-type="reference-data"
-						    field-pattern="value,code" field-pattern-type="endsWith" 
+						    field-pattern="name" field-pattern-type="endsWith" 
 						    max-number-of-fields="5" />
 						    
 					</conventions>
@@ -222,38 +214,7 @@ from product p
 					<query name="call_new_domain" id="call_new_domain" package-name="domain" is-write="true">
                          <query-body>
                          <value>
-<![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
-                            </value>
-                         </query-body>
-                         <query-params>
-                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
-                         	<query-param name="description" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="geo" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="latitude" is-mandatory="true" type="long" sample="1" ></query-param>
-                         	<query-param name="longitude" is-mandatory="true" type="long" sample="1" ></query-param>
-                         	<query-param name="grades" is-mandatory="true" type="string" sample="'1'" ></query-param>
-                         	<query-param name="email" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="region_id" is-mandatory="true" type="int" sample="-1" ></query-param>
-                         	<query-param name="contact_name" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="contact_street1" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="contact_street2" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="contact_post_code" is-mandatory="true" type="int" sample="1200" ></query-param>
-                         	<query-param name="contact_city" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<query-param name="contact_phone" is-mandatory="true" type="string" sample="'a'" ></query-param>
-                         	<!-- add 2 params 
-                         		> login email
-                         		> plan chosen
-                         	-->
-                         	<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1" ></query-param>
-                         	<query-param name="login_email" is-mandatory="true" type="string" sample="'test'" ></query-param>
-                         	<query-param name="id" is-mandatory="true" type="int" sample="10"  is-id="true" is-output-param="true"></query-param>
-                         </query-params>
-                          
-                     </query>
-					<query name="call_update_domain" id="call_update_domain" package-name="domain" is-write="true">
-                         <query-body>
-                         <value>
-<![CDATA[call update_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
+<![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
                             </value>
                          </query-body>
                          <query-params>
@@ -277,6 +238,39 @@ from product p
                          	-->
                          	<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1" ></query-param>
                          	<query-param name="login_email" is-mandatory="true" type="string" sample="'test'" ></query-param>
+                         	<query-param name="tags" is-mandatory="true" type="string" sample="'test'" ></query-param>
+                         	<query-param name="id" is-mandatory="true" type="int" sample="10"  is-id="true" is-output-param="true"></query-param>
+                         </query-params>
+                          
+                     </query>
+					<query name="call_update_domain" id="call_update_domain" package-name="domain" is-write="true">
+                         <query-body>
+                         <value>
+<![CDATA[call update_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
+                            </value>
+                         </query-body>
+                         <query-params>
+                         	<query-param name="name" is-mandatory="true" type="string" sample="'a'"></query-param>
+                         	<query-param name="description" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="geo" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="latitude" is-mandatory="true" type="long" sample="1" ></query-param>
+                         	<query-param name="longitude" is-mandatory="true" type="long" sample="1" ></query-param>
+                         	<query-param name="grades" is-mandatory="true" type="string" sample="'1'" ></query-param>
+                         	<query-param name="contact_email" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="region_id" is-mandatory="true" type="int" sample="-1" ></query-param>
+                         	<query-param name="contact_name" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_street1" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_street2" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_post_code" is-mandatory="true" type="int" sample="1200" ></query-param>
+                         	<query-param name="contact_city" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<query-param name="contact_phone" is-mandatory="true" type="string" sample="'a'" ></query-param>
+                         	<!-- add 2 params 
+                         		> login email
+                         		> plan chosen
+                         	-->
+                         	<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1" ></query-param>
+                         	<query-param name="login_email" is-mandatory="true" type="string" sample="'test'" ></query-param>
+                         	<query-param name="tags" is-mandatory="true" type="string" sample="'test'" ></query-param>
                          	<query-param name="domain_id" is-mandatory="true" type="int" sample="10"  is-id="true" ></query-param>
                          </query-params>
                           
@@ -341,9 +335,10 @@ from product p
                          <query-body>
                          <value>
 <![CDATA[  
-select c.id, c.name, c.description 
+  select c.id, c.name, c.description 
  from country c, region r
  where r.country_id = c.id
+ group by c.id, c.name, c.description
  order by name desc
  ]]>
                             </value>
