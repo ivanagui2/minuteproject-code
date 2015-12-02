@@ -337,6 +337,18 @@ from product p
                             </value>
                          </query-body>
                      </query>
+                     <query name="country_list_having_region" id="country_list" package-name="country">
+                         <query-body>
+                         <value>
+<![CDATA[  
+select c.id, c.name, c.description 
+ from country c, region r
+ where r.country_id = c.id
+ order by name desc
+ ]]>
+                            </value>
+                         </query-body>
+                     </query>
                      
                      <query name="region_list" id="region_list" package-name="region">
                          <query-body>
