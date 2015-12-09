@@ -243,7 +243,8 @@ $!updatedAreaBegin
 	
 	public List<$pivotClass> get${pivotClasses} ($sddOutputBeanCollectionClass input) {
         List<$pivotClass> ret = new ArrayList<$pivotClass>();
-        Map<String, $pivotClass> map = new HashMap<String, $pivotClass>();
+#set($pivotColumnClassType = $commonUtils.getJavaType($pivot.getPivotColumn()))
+        Map<$pivotColumnClassType, $pivotClass> map = new HashMap<$pivotColumnClassType, $pivotClass>();
         //todo pivotActorFilmOuts might be null
         for ($sddOutputBeanClass pivot : input.get${sddOutputBeanClass}s()) {
 #set($pivotColumnClass = $commonUtils.getColumnClassName($pivot.getPivotColumn()))

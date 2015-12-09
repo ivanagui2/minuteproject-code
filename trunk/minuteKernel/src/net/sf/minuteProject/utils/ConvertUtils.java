@@ -107,6 +107,7 @@ public class ConvertUtils {
 		if (UML_DATE_TYPE.equals(type)) return Types.DATE;
 		if (UML_BOOLEAN_TYPE.equals(type)) return Types.BOOLEAN;
 		if (UML_TIMESTAMP_TYPE.equals(type)) return Types.TIMESTAMP;
+		//TODO numeric
 		if (UML_BIGDECIMAL_TYPE.equals(type)) return Types.DOUBLE;
 		if (UML_BIGINTEGER_TYPE.equals(type)) return Types.BIGINT;
 		return Types.VARCHAR;
@@ -362,8 +363,8 @@ public class ConvertUtils {
 				return "Boolean";
 			return  JAVA_LONG_TYPE;
 		}
-		if (dBType.equals("NUMERIC"))
-			return  "Integer";		
+		//if (dBType.equals("NUMERIC")) NUMERIC should behave as DECIMAL
+		//	return  "Integer";		
 		if (dBType.equals("BLOB"))
 			return  "String";	
 		if (dBType.equals("BINARY"))
@@ -463,7 +464,7 @@ public class ConvertUtils {
 	public static String getJavaTypeFromDBType (String dBType, int scale, String databaseType) {
 		String retStr=getJavaTypeFromDBType (dBType);	
 		if (dBType==null) return retStr;
-		if (dBType.equals("DECIMAL")) {
+		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC")) {
 			if (scale==0)
 				return "Long";
 			else
@@ -501,6 +502,7 @@ public class ConvertUtils {
 	public static boolean isNumberType (String dBType) {
 		return (FieldType.BIGINT.toString().equals(dBType) ||
 				FieldType.DECIMAL.toString().equals(dBType) ||
+				FieldType.NUMERIC.toString().equals(dBType) ||
 				FieldType.INTEGER.toString().equals(dBType))?true:false;
 	}
 	
