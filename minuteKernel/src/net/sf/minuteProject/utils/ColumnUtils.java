@@ -134,6 +134,7 @@ public class ColumnUtils {
 				column.getType().equals("BIGINT") || 
 				column.getType().equals("INTEGER") ||
 				column.getType().equals("NUMBER") ||
+				column.getType().equals("NUMERIC") ||
 				column.getType().equals("DECIMAL") ||
 				column.getType().equals("SHORT") ||
 				column.getType().equals("SMALLINT") ||

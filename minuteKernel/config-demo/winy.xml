@@ -41,29 +41,25 @@
 					<condition type="package" startsWith="SEC" result="security"></condition>
 					<condition type="package" startsWith="ADMIN" result="admin"></condition>
 					<condition type="package" startsWith="RELEASE" result="release"></condition>
-					<condition type="package" startsWith="BUS" result="business"></condition>
+					<condition type="exclude" startsWith="v_apply_ppc" result="business" ></condition>
+					<condition type="exclude" startsWith="v_all_possible_ppc" result="business" ></condition>
 					<condition type="package" startsWith="VIEW_STAT" result="stats"></condition>
 				</business-package>
 				<enrichment>
 					<entity name="COUNTRY" content-type="reference-data">
-						<!-- <field name="DESCRIPTION" ordering="asc" label="my description"
-							is-searchable="true"></field>
-							 -->
-						<field name="NAME" ordering="asc"></field>
+
 
 					</entity>
 					<entity name="REGION" content-type="reference-data">
-						<field name="NAME" ordering="asc"></field>
+
 					</entity>
 					<entity name="CEPAGE" content-type="reference-data">
-						<field name="NAME" ordering="asc"></field>
 					</entity>
 					<entity name="COLOR" content-type="reference-data">
-						<field name="NAME" ordering="asc"></field>
 					</entity>
 					<entity name="APPELATION" content-type="reference-data">
-						<field name="NAME" ordering="asc"></field>
-<!-- 						<semantic-reference>
+<!--						<field name="NAME" ordering="asc"></field>
+ 						<semantic-reference>
 							<sql-path path="NAME" />
 						</semantic-reference>
 						 -->
