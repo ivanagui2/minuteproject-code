@@ -505,6 +505,34 @@ ex: cabernet
 
  -->
  
+ 					<!-- pay plan matrix -->
+ 
+					<query name="pivot pay plan condition" id="pivot-pay-plan-condition" package-name="pay_plan">
+					<!-- create pivot classes film and actor 
+						once processed reassemble g
+					-->
+						<query-body> <!-- dimensions column first -->
+							<value>
+<![CDATA[
+select pay_plan_name, pay_plan_id, cond, pay_plan_condition_id, order_number, match_  from
+(
+select xxx.pay_plan_name, xxx.pay_plan_id pay_plan_id, xxx.cond, xxx.pay_plan_condition_id pay_plan_condition_id, ppxc.order_number order_number,  (case when ppxc.pay_plan_condition_id is not null then 1 else 0 end) match_
+from (
+  select pp.id pay_plan_id, pp.name pay_plan_name, ppc.id pay_plan_condition_id, ppc.condition cond from PAY_PLAN pp, PAY_PLAN_CONDITION ppc
+) xxx 
+left outer join PAY_PLAN_X_CONDITION ppxc on xxx.pay_plan_condition_id = ppxc.pay_plan_condition_id and xxx.pay_plan_id = ppxc.pay_plan_id
+) yyy
+order by  yyy.pay_plan_id , yyy.pay_plan_condition_id, yyy.order_number, yyy.match_ desc
+]]>
+                            </value>
+						</query-body>
+						<query-pivots >
+							<query-pivot name = "pay_plan"  columns = "pay_plan_name, pay_plan_id" pivot="pay_plan_id"></query-pivot>	
+							<query-pivot name = "condition" columns = "cond, pay_plan_condition_id, match_" pivot="pay_plan_condition_id"></query-pivot>	
+						</query-pivots>
+						<!-- <query-display result-row-display="first_name, last_name"/> -->
+					</query>
+ 
                    </queries>
               </statement-model>
 		</model>
