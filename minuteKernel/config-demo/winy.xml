@@ -36,19 +36,19 @@
 				</primaryKeyPolicy>
 			</data-model>
 			<business-model>
+				<generation-condition>
+					<condition type="exclude" startsWith="v_apply_ppc"/>
+					<condition type="exclude" startsWith="v_all_possible_ppc"/>
+				</generation-condition>	
 				<business-package default="project">
 					<condition type="package" startsWith="STAT" result="statistics"></condition>
 					<condition type="package" startsWith="SEC" result="security"></condition>
 					<condition type="package" startsWith="ADMIN" result="admin"></condition>
 					<condition type="package" startsWith="RELEASE" result="release"></condition>
-					<condition type="exclude" startsWith="v_apply_ppc" result="business" ></condition>
-					<condition type="exclude" startsWith="v_all_possible_ppc" result="business" ></condition>
 					<condition type="package" startsWith="VIEW_STAT" result="stats"></condition>
 				</business-package>
 				<enrichment>
 					<entity name="COUNTRY" content-type="reference-data">
-
-
 					</entity>
 					<entity name="REGION" content-type="reference-data">
 
@@ -538,11 +538,14 @@ order by  yyy.pay_plan_id , yyy.pay_plan_condition_id, yyy.order_number, yyy.mat
 <![CDATA[
 select cond , 
       sum(case when pay_plan_id = 1 then match_ end) free_offer,
+      sum(case when pay_plan_id = 1 then quantity end) free_offer_quantity,
       sum(case when pay_plan_id = 2 then match_ end) intermediate_offer,
-      sum(case when pay_plan_id = 3 then match_ end) pro_offer
+      sum(case when pay_plan_id = 2 then quantity end) intermediate_offer_quantity,
+      sum(case when pay_plan_id = 3 then match_ end) pro_offer,
+      sum(case when pay_plan_id = 3 then quantity end) pro_offer_quantity
 from v_apply_ppc
 group by cond
-order by order_number desc
+order by order_number asc
 ]]>
                             </value>
 						</query-body>
