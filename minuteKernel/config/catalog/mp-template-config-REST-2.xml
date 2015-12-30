@@ -45,6 +45,14 @@
 			add-package-name="false" add-business-package-dir-name="false" 
 			scope-specific-value="query" has-updatable-nature="true">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>				
+		
+		<template name="RESTDbAPISDDCompositeResource" templateFileName="RESTDbAPISDDCompositeResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Resource"
+			add-package-name="false" add-business-package-dir-name="false" 
+			scope-specific-value="composite" has-updatable-nature="true">
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>		
 		
 		<template name="REST.Cache.Annotation" templateFileName="REST.Cache.Annotation.vm" 
