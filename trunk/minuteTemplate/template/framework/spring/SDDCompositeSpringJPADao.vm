@@ -90,7 +90,12 @@ $!updatedAreaSnippet
 #set ($query = $q.query)
 #putImportQuerySDDBean()
 #exposeSDDSpring()
+#set($hasQueryInputParam = ${query.getInputBean().getColumnCount()}>0)
+#if($hasQueryInputParam)
 		${sddOutputBeanCollectionClass} ${sddOutputBeanCollectionVariable} = ${sddDaoInterfaceVariable}.execute (${sddInputCompositeBeanVariable}.get${sddInputBeanClass}());
+#else
+		${sddOutputBeanCollectionClass} ${sddOutputBeanCollectionVariable} = ${sddDaoInterfaceVariable}.execute ();
+#end
 		${sddOutputCompositeBeanVariable}.set${sddOutputBeanCollectionClass} (${sddOutputBeanCollectionVariable});
 #end
 		return $sddOutputCompositeBeanVariable;
