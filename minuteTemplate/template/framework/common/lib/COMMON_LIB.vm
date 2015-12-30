@@ -239,6 +239,7 @@ $readmeUtils.getReadme($template)
 #set ($templateSDDInputCompositeBean  = "SDDInputCompositeBean")
 #set ($templateSDDOutputCompositeBean = "SDDOutputCompositeBean")
 #set ($templateSDDOutputBeanCollection = "SDDOutputBeanCollection")
+##set ($templateSDDCompositeRepository = "SDDOutputBeanCollection")
 #end
 
 #macro (putImportSDDInputBean)

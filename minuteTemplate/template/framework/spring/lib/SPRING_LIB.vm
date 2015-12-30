@@ -67,7 +67,9 @@
 #set ($templateSDDRepositoryInterface = "SDDSpringJPADao")
 #set ($templateSDDServiceInterface = "SDDServiceInterface")
 #set ($templateSDDCompositeDaoInterface = "SDDCompositeDaoInterface")
-#set ($templateSDDSpringJPADaoClass = "SDDSpringJPADao")
+#set ($templateSDDCompositeRepository = "SDDCompositeSpringJPADao")
+#set ($templateSDDSpringJPADaoClass = $templateSDDRepositoryInterface)
+#set ($templateSDDCompositeRestClass = "RESTDbAPISDDCompositeResource")
 #end
 
 #macro (exposeSpringModelSpecific)

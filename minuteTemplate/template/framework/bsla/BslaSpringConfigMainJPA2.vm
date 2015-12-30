@@ -3,6 +3,7 @@
 #exposeSpringJPAArchitectureParams()
 #exposeJPASpecifics()
 #exposeSpringTemplate()
+#exposeSDDSpringTemplate()
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -43,8 +44,11 @@ $!updatedAreaEnd
     <context:component-scan base-package="${daoExtPackageName}"/>
 #end	
 #if ($model.statementModel.hasQueries())
-#set($templateSDDSpringJPADao = "SDDSpringJPADao")
-#set($sddDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDSpringJPADao))
+#set($sddDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDRepositoryInterface))
+    <context:component-scan base-package="${sddDaoPackageName}"/>
+#end
+#if ($model.statementModel.hasComposites())
+#set($sddDaoPackageName=$commonUtils.getPackageName($model, $template, $templateSDDCompositeRepository))
     <context:component-scan base-package="${sddDaoPackageName}"/>
 #end
     <!-- Database -->
