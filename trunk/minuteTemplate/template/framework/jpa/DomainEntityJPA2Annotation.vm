@@ -445,15 +445,21 @@ $!updatedAreaSnippet
 
 	public ToStringBuilder getToStringBuilder(Object object) {
 	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+            .append("$columnVar", $columnVar)
+#end
 #foreach ($column in ${table.columns})
+#if(!$column.isPrimaryKey())
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
 #if($columnUtils.isForeignKey($column))
 #set($columnVar="${columnVar}_")
 #end
             .append("$columnVar", $columnVar)
-#end	 	
-#end	 	
+#end
+#end
+#end
 	 	;
 	} 
 		
@@ -507,10 +513,17 @@ $!updatedAreaSnippet
 #if ($tableUtils.isCompositePrimaryKeyNotMany2Many($table))
 // not supported yet for composite pk
 #else
-#foreach($column in ${table.columns})
+#foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
 		if (${columnVar}!=null && ${variableName}.${columnVar}!=null && !${variableName}.${columnVar}.equals(${columnVar})) return false;
 		if ((${variableName}.${columnVar}!=null && ${columnVar}==null) || (${variableName}.${columnVar}==null && ${columnVar}!=null)) return false;
+#end
+#foreach($column in ${table.columns})
+#if(!$column.isPrimaryKey())
+#putColumnParamNaming()
+		if (${columnVar}!=null && ${variableName}.${columnVar}!=null && !${variableName}.${columnVar}.equals(${columnVar})) return false;
+		if ((${variableName}.${columnVar}!=null && ${columnVar}==null) || (${variableName}.${columnVar}==null && ${columnVar}!=null)) return false;
+#end
 #end
 #end
 		return true;
@@ -534,10 +547,16 @@ $!updatedAreaSnippet
 	
 	public void copy (${className} ${variableName}) {
 		if (${variableName}!=null) {
+#foreach($column in ${table.primaryKeyColumns})
+#putColumnParamNaming()
+			set$columnClass (${variableName}.get$columnClass());
+#end
 #foreach ($column in ${table.columns})
+#if(!$column.isPrimaryKey())
 #if($columnUtils.isColumnEmbeddedInEntity($column))
 #putColumnParamNaming()
 			set$columnClass (${variableName}.get$columnClass());
+#end
 #end
 #end
 		}
