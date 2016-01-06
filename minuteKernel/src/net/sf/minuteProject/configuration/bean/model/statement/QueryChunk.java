@@ -3,7 +3,10 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class QueryChunk extends AbstractConfiguration{
 	
@@ -42,5 +45,13 @@ public class QueryChunk extends AbstractConfiguration{
 
 	public boolean hasDefault() {
 		return defaultValue != null;
+	}
+	//http://stackoverflow.com/questions/63150/whats-the-best-way-to-build-a-string-of-delimited-items-in-java
+	public String getDistinctValues () {
+		List<String> values = new ArrayList<String>();
+		for (QueryChunkValue chunkValue : getQueryChunkValues()) {
+			values.add(chunkValue.getName());
+		}
+		return StringUtils.join(values, ',');
 	}
 }
