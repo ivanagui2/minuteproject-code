@@ -9,6 +9,7 @@ public class QueryChunk extends AbstractConfiguration{
 	
 	private String sampleValue;
 	private List<QueryChunkValue> queryChunkValues;
+	private QueryChunkValue defaultValue;
 	
 	public String getSampleValue() {
 		return sampleValue;
@@ -25,7 +26,21 @@ public class QueryChunk extends AbstractConfiguration{
 	}
 
 	public void addQueryChunkValue(QueryChunkValue queryChunkValue) {
+		queryChunkValue.setQueryChunk(this);
+		if (queryChunkValue.isDefault())
+			defaultValue = queryChunkValue;
 		getQueryChunkValues().add(queryChunkValue);
 	}
 
+	public QueryChunkValue getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(QueryChunkValue defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+
+	public boolean hasDefault() {
+		return defaultValue != null;
+	}
 }

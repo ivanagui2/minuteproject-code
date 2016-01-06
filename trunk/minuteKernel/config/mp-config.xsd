@@ -759,6 +759,8 @@
 	</xs:complexType>
 	<xs:complexType name="query-chunk-value">
 		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="value" type="xs:string" use="required" />
+		<xs:attribute name="is-default" type="xs:boolean" default="false" />
 		<xs:attribute name="description" type="xs:string" use="required" />
 	</xs:complexType>
 	<xs:complexType name="query-param">
