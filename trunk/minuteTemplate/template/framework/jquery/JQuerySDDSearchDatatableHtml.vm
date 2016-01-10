@@ -11,26 +11,38 @@
      <title>$table.alias</title>
      <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
      <script type="application/javascript">
-     $(function() {   
-         $('#search${className}').click(function() {
-             jQuery.ajax({
-                 type: "GET",
-                 dataType: "$restExchangeFormat",
-				 url : "$restServerUrl/"+$('#${primaryKeyVariable}').val(),
-                 success: function(data) {
-#if ($restExchangeFormat == "xml")
-#jQuerySearchXmlList($table) 
-#else
-#jQuerySearchJsonList($table) 
-#end              
-                 },
-                 error:function (xhr, ajaxOptions, thrownError){
-                    alert("Error status :"+xhr.status +
-                          "Error exception :"+thrownError);
-                 }                 
-             })
-         })
- 
+     $(function() { 
+        var ${name}DataSet;
+
+#JQueryAjaxSDDGet()
+
+        $('#table${name}').DataTable( {
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": false,
+            "bSort": true,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "iDisplayLength" : 10,
+            "bPaginate": true,
+            "sPaginationType": "full_numbers",
+            "data": ${name}DataSet,
+            "columns": [
+<c:forEach var="myMap" items="${column}">
+                    { "title": "<c:out value="${myMap}"/>"  ,
+                     "data" : "<c:out value="${myMap}"/>"
+                    },
+</c:forEach>
+            ]
+        } );
+<c:if test="${isEditable == true}">
+        $('#table${name}').dataTable().makeEditable(); 
+
+##TODO on click ex: status -> refresh 
+#*          $('#search${className}').click(function() {
+#JQueryAjaxSDDGet()
+         });
+*# 
      })
      </script>
    </head>
@@ -51,3 +63,24 @@
      </p>
    </body>
  </html>
+
+<%--  //http://www.datatables.net/examples/ajax/simple.html --%>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        ${title}
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="table${name}">
+                </table>
+            </div>
+        </div>
+    <!-- /.panel-body -->
+</div>
+<script type="application/javascript" >
+    $(function() {
+
+</c:if>
+    } );
+</script>
