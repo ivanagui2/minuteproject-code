@@ -1,3 +1,23 @@
+## Macro for jquery
+#macro (JQueryAjaxSDDGet)
+			var result${sddTargetOutputBeanClass};
+			$.ajax({
+            	type: 'GET',
+				async: false,
+            	url: contextPath+"/data/sdd/${sddTargetOutputBeanClass}In",
+            	dataType: "json",
+            	success: function(data){
+                	result${sddTargetOutputBeanClass}= data;
+					${sddTargetOutputBeanClass}DDL=data.${sddTargetOutputBeanClass}Out;
+            	},
+                 error:function (xhr, ajaxOptions, thrownError){
+                    alert("Error status :"+xhr.status +
+                          "Error exception :"+thrownError);
+                 } 
+        	});
+#end
+
+## OLD track macro to remove 
 #macro (jQueryXmlList $table)
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
@@ -64,3 +84,7 @@
 #set ($restServerUrl = $restJsonServerUrl)
 #end
 #end
+
+
+
+

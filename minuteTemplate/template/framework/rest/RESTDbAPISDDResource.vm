@@ -19,7 +19,7 @@
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($velocityCount>1 || $sizeColumn!=0),#end            @ApiParam(value = "$chunkName", required=true, allowableValues = "km, miles"#if($queryChunk.getDistinctValues()), defaultValue = "${queryChunk.getDefaultValue().getName()}"#end) @${param} ("$chunkName") String $chunkName 
+#if($velocityCount>1 || $sizeColumn!=0),#end            @ApiParam(value = "$chunkName", required=true, allowableValues = "$queryChunk.getDistinctValues()" #if($queryChunk.hasDefault()), defaultValue = "${queryChunk.getDefaultValue().getName()}"#end) @${param} ("$chunkName") String $chunkName 
 #end
 #end
 #macro (daoParameters)

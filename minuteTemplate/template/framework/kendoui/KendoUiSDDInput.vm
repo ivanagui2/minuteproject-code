@@ -136,14 +136,7 @@
 #end
 				}
 			}
-		);
-#*         $("#${fieldId}").kendoDropDownList({
-        	dataBound: function(e) {
-        		resizeKendoDropDownList;
-        	}
-        });
-*#
-        
+		);       
 #end
 		var result${sddTargetOutputBeanClass};
 		$.ajax({
