@@ -127,6 +127,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		if (queryFilters==null) {
 			queryFilters = new ArrayList<QueryFilter>();
 		}
+		//this.getQueryFilters().get(0).getQueryParams().
 		return queryFilters;
 	}
 
