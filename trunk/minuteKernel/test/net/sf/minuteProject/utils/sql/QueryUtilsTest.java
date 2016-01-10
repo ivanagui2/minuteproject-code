@@ -12,10 +12,8 @@ import static org.junit.Assert.*;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryBody;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
-import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
-import net.sf.minuteProject.configuration.bean.model.statement.SqlQueryModel;
 import junit.framework.TestCase;
 
 public class QueryUtilsTest {
@@ -69,13 +67,32 @@ public class QueryUtilsTest {
 	public static final String queryInFull = "SELECT A, B from T WHERE F in ('ff','ee')";
 	public static final String queryInParamType = "string";
 	public static final String queryInParamSample = "'ff','ee'";
+
+	
+	public static final String queryRegexJdbc = "SELECT A, B from T WHERE F regex ?...";
+	public static final String queryRegexFull = "SELECT A, B from T WHERE F regex \",('2012'|'2015'),\"";
+	public static final String queryRegexParamType = "string";
+	public static final String queryRegexParamSample = "\",('2012'|'2015'),\"";
+	public static final String queryRegexStart = "\",(";
+	public static final String queryRegexEnd = "),\"";
+	public static final String queryRegexParamWrapper = "'";
+	public static final String queryRegexParamSeparator = "|";
+	
+	public static final String queryMultiParamJdbc = "SELECT A, B from T WHERE F in (?...) and C = ? and E = ?";
+	public static final String queryMultiParam2Jdbc = "SELECT A, B from T WHERE F in (?1...) and C = ?2 and E = ?3";
+	public static final String queryMultiParamFull = "SELECT A, B from T WHERE F in (2012,2015) and C = 'xx' and E = 'yy'";
+	public static final String queryParam1Type = "string";
+	public static final String queryParam1Sample = "2012,2015";	
+	public static final String queryParam2Type = "string";
+	public static final String queryParam2Sample = "'xx'";	
+	public static final String queryParam3Type = "string";
+	public static final String queryParam3Sample = "'yy'";	
 	
 	Query query1;
 	
 	@Before
 	public void setUp() {
 		query1=new Query();
-		query1.setQueryModel(new SqlQueryModel());
 		query1.setQueryBody(getQueryBody(query1Jdbc));
 		query1.setQueryParams(getQueryParams(getQueryParam1(), getQueryParam2()));
 	}
@@ -95,10 +112,15 @@ public class QueryUtilsTest {
 	}
 
 	private QueryParam getQueryParam(String type, String sample) {
+		return getQueryParam(type, sample, null);
+	}
+	
+	private QueryParam getQueryParam(String type, String sample, Integer index) {
 		QueryParam queryParam = new QueryParam();
 		queryParam.setId(sample);
 		queryParam.setType(type);
 		queryParam.setSample(sample);
+		queryParam.setIndex(index);
 		return queryParam;
 	}
 	
@@ -131,7 +153,6 @@ public class QueryUtilsTest {
 
 	private Query getQuery(String jdbc) {
 		Query query=new Query();
-		query.setQueryModel(new SqlQueryModel());
 		query.setQueryBody(getQueryBody(jdbc));
 		return query;
 	}
@@ -164,10 +185,11 @@ public class QueryUtilsTest {
 	
 	@Test
 	public void queryWithImplicitFilter2() {
-		Query<QueryModel> query = getQueryWithFilter(query1Jdbc, "", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample);
+		Query query = getQueryWithFilter(query1Jdbc, "", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample);
 		query.getQueryParams().addQueryParam(getQueryParam1());
 		query.getQueryParams().addQueryParam(getQueryParam2());
-		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
+		//query.getQueryFilters().get(0).g
+		((QueryFilter)query.getQueryFilters().get(0)).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
 		String s = QueryUtils.getFullQuerySample(query);
 		assertTrue(s+" but expect :"+query1FullFilter2, query1FullFilter2.equals(s));
 	}
@@ -176,7 +198,7 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitFilter() {
 		//StringUtils.replace(query2Jdbc, query2FilterName1, query2FilterValue1);
-		Query<QueryModel> query4 = getQueryWithFilter(query2Jdbc, query2FilterName1, query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample);
+		Query query4 = getQueryWithFilter(query2Jdbc, query2FilterName1, query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample);
 		String s = QueryUtils.getFullQuerySample(query4);
 		assertTrue(s +" but expect :"+query2Full, query2Full.equals(s));
 	}
@@ -185,9 +207,9 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitWhereFilter() {
 		//given
-		Query<QueryModel> query = getQuery(query3Jdbc);
+		Query query = getQuery(query3Jdbc);
 		query.addQueryFilter(getQueryFilter("", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample, QueryFilter.AndWhere.WHERE));
-		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
+		((QueryFilter)query.getQueryFilters().get(0)).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
 		// when
 		String s = QueryUtils.getFullQuerySample(query);
 		//then
@@ -197,9 +219,9 @@ public class QueryUtilsTest {
 	@Test
 	public void query2WithExplicitWhereFilterAnd2Filters() {
 		//given
-		Query<QueryModel> query = getQuery(query3Jdbc);
+		Query query = getQuery(query3Jdbc);
 		query.addQueryFilter(getQueryFilter("", query1Filter2, query1Filter2Param1Type, query1Filter2Param1Sample, QueryFilter.AndWhere.WHERE));
-		query.getQueryFilters().get(0).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
+		((QueryFilter)query.getQueryFilters().get(0)).getQueryParams().addQueryParam(getQueryParam(query1Filter2Param2Type, query1Filter2Param2Sample));
 		query.addQueryFilter(getQueryFilter("", query2FilterValue1, query2Filter1Param1Type, query2Filter1Param1Sample, QueryFilter.AndWhere.WHERE));
 		// when
 		String s = QueryUtils.getFullQuerySample(query);
@@ -220,6 +242,25 @@ public class QueryUtilsTest {
 		//then
 		assertTrue(s +" but expect :"+query4Full_FilterWithDuplicate, query4Full_FilterWithDuplicate.equals(s));
 	}
+//<<<<<<< .mine
+	
+	@Test
+	public void queryRegexParam() {
+		//given
+		Query query = getQuery(queryRegexJdbc);
+		QueryParams queryParams = new QueryParams();
+		query.setQueryParams(queryParams);
+		QueryParam queryParam = getQueryParam(queryRegexParamType, queryRegexParamSample);
+		queryParam.setRegexEnd(queryRegexEnd);
+		queryParam.setRegexStart(queryRegexStart);
+		queryParam.setRegexParamSeparator(queryRegexParamSeparator);
+		queryParam.setRegexParamWrapper(queryRegexParamWrapper);
+		query.getQueryParams().addQueryParam(queryParam);
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+queryRegexFull, queryRegexFull.equals(s));
+	}
 	
 	@Test
 	public void queryInParams() {
@@ -234,5 +275,31 @@ public class QueryUtilsTest {
 		assertTrue(s +" but expect :"+queryInFull, queryInFull.equals(s));
 	}
 
+	
+	@Test
+	public void queryWithMultiParams() {
+		//given
+		Query query = getQuery(queryMultiParamJdbc);
+		query.getQueryParams().addQueryParam(getQueryParam(queryParam1Type, queryParam1Sample));
+		query.getQueryParams().addQueryParam(getQueryParam(queryParam2Type, queryParam2Sample));
+		query.getQueryParams().addQueryParam(getQueryParam(queryParam3Type, queryParam3Sample));
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+queryMultiParamFull, queryMultiParamFull.equals(s));
+	}
+	
+	@Test
+	public void queryWithMultiParams2() {
+		//given
+		Query query = getQuery(queryMultiParam2Jdbc);
+		query.getQueryParams().addQueryParam(getQueryParam(queryParam1Type, queryParam1Sample, 1));
+		query.getQueryParams().addQueryParam(getQueryParam(queryParam2Type, queryParam2Sample, 2));
+		query.getQueryParams().addQueryParam(getQueryParam(queryParam3Type, queryParam3Sample, 3));
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+queryMultiParamFull, queryMultiParamFull.equals(s));
+	}
 	
 }
