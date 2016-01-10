@@ -22,6 +22,8 @@ public class QueryParam extends Field {
 	private String likeMode;
 	private QueryParamLink queryParamLink;
 	private boolean isFilter=false, isArray=false, isOutputParam = false;
+	private String regexStart, regexEnd, regexParamWrapper, regexParamSeparator;
+	private int index;
 	
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
@@ -140,6 +142,35 @@ public class QueryParam extends Field {
 	public void setIsOutputParam(boolean isOutputParam) {
 		this.isOutputParam = isOutputParam;
 	}
-	
+	public String getRegexStart() {
+		return regexStart;
+	}
+	public void setRegexStart(String regexStart) {
+		this.regexStart = regexStart;
+	}
+	public String getRegexEnd() {
+		return regexEnd;
+	}
+	public void setRegexEnd(String regexEnd) {
+		this.regexEnd = regexEnd;
+	}
+	public String getRegexParamWrapper() {
+		return regexParamWrapper;
+	}
+	public void setRegexParamWrapper(String regexParamWrapper) {
+		this.regexParamWrapper = regexParamWrapper;
+	}
+	public String getRegexParamSeparator() {
+		return regexParamSeparator;
+	}
+	public void setRegexParamSeparator(String regexParamSeparator) {
+		this.regexParamSeparator = regexParamSeparator;
+	}
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
 	
 }
