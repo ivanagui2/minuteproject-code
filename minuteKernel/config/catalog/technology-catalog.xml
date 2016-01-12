@@ -740,7 +740,7 @@
 		<!-- TODO move to custom catalog -->
 		<technology name="REST-Custom" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-custom.xml"
-			default-outputdir="Business-Impl" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,MavenMaster"
+			default-outputdir="Business-Impl" depends-on-targets="JQueryClient,JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST CRUD\REST SDD \Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -758,6 +758,14 @@
 			<property name="rest-pom-maven-packaging" value="jar" />
 			<property name="dependent-maven-artifact-finalName-suffix" value="Rest" />
 			<property name="dependent-maven-packaging" value="jar" />
+		</technology>
+		
+		
+		<technology name="JQueryClient" model-type="rdbms"
+			template-config-file-name="mp-template-config-REST-client.xml"
+			default-outputdir="REST" depends-on-targets=""
+			template-dir="@templateRoot@/framework/jquery" status="released"
+			description="Generates:\REST-jquery client">
 		</technology>
 
 		
