@@ -1,7 +1,10 @@
+#generatorSpecific()
+#exposeSeparator()
+#putImportQuerySDDBean()
+#putImportSDDInputBean()
 #exposeQuerySpecific()
 #exposeSDDSpring()
 #exposeRESTSDDURLServer()
-#putImportQuerySDDBean()
 #addedAreas()
 #set ($cpt = 0)
 <!DOCTYPE html PUBLIC "-//W3C//  DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -9,14 +12,14 @@
    <head>
      <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
      <title>$table.alias</title>
-     <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+     <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+     <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" type="text/javascript"></script>
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" />
      <script type="application/javascript">
      $(function() { 
-        var ${name}DataSet;
-
 #JQueryAjaxSDDGet()
 
-        $('#table${name}').DataTable( {
+        $('#table${className}').DataTable( {
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -26,17 +29,17 @@
             "iDisplayLength" : 10,
             "bPaginate": true,
             "sPaginationType": "full_numbers",
-            "data": ${name}DataSet,
+            "data": ${sddTargetInputBeanClass},
             "columns": [
-<c:forEach var="myMap" items="${column}">
-                    { "title": "<c:out value="${myMap}"/>"  ,
-                     "data" : "<c:out value="${myMap}"/>"
+#foreach($column in $outputBean.columns)
+                    { "title": "${column.name}"  ,
+                      "data" : "${column.name}"
                     },
-</c:forEach>
+#end
             ]
         } );
-<c:if test="${isEditable == true}">
-        $('#table${name}').dataTable().makeEditable(); 
+##<c:if test="${isEditable == true}">
+##        $('#table${name}').dataTable().makeEditable(); 
 
 ##TODO on click ex: status -> refresh 
 #*          $('#search${className}').click(function() {
@@ -48,7 +51,6 @@
    </head>
    <body>
      <p>
-       <div id='search${className}'>
 		<form id="searchform" method="post"> 
 #foreach($column in $inputBean.columns)
 #putColumnParamNaming()
@@ -58,21 +60,20 @@
 
 		</form> 
 
-         <ol></ol>
        </div>
      </p>
    </body>
  </html>
 
-<%--  //http://www.datatables.net/examples/ajax/simple.html --%>
+<!--  //http://www.datatables.net/examples/ajax/simple.html -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        ${title}
+        ${sddTargetInputBeanClass}
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="table${name}">
+            <table class="table table-hover" id="table${sddTargetInputBeanClass}">
                 </table>
             </div>
         </div>
@@ -81,6 +82,5 @@
 <script type="application/javascript" >
     $(function() {
 
-</c:if>
     } );
 </script>
