@@ -6,7 +6,7 @@
 	    	type: 'GET',
 			async: false,
 	    	url: contextPath+"/data/sdd/${sddTargetInputBeanClass}In",
-	    	dataType: "json",
+	    	dataType: "jsonp",
 	    	success: function(data){
 	        	result${sddTargetInputBeanClass}= data;
 ##				${sddTargetInputBeanClass}DDL=data.${sddTargetInputBeanClass}Out;
