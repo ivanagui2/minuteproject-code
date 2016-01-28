@@ -114,22 +114,28 @@
 			package-name-builder-method="getRenderingModelPackageName"	>
 			<property name="package-appender" value="Select"/>
 		</template>
-		
+
+  </template-target>
+  	<template-target 
+	   name="fitnesse CRUD Wiki templates" 
+	   outputdir="src-wiki/FitNesseRoot/SddWiki"
+	   package-root="TestFitnesse"
+       belongToPackage="true">		
 		<!-- set a directory for the entity -->
 		<!-- SDD -->
 		<template name="FitnesseWikiSDDSnippetContent" templateFileName="FitnesseWikiSDDSnippetContent.vm" 
 			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			scope-specific-value="query" package-specific="false" model-specific="false"
-      		add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" add-business-package-dir-name="false"
+      		add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" 
+      		add-business-package-dir-name="false"
       		entity-dir-name-format="FORMAT_UPPER_CASE_FIRST_LETTER_ONLY_JAVA_CLASS"
       		entity-dir-name-prefix="Test"
       		package-name-builder-plugin="fitnesseUtils"
 			package-name-builder-method="getRenderingSDDPackageName"	>
 			<property name="package-appender" value="Statement"/>
 		</template>
-  </template-target>		
-
+  </template-target>
 	<template-target 
 	   name="fitnesse DB setup Wiki templates" 
 	   libdir="lib/BslaLibrary.vm"
@@ -158,6 +164,7 @@
 		<template name="Fitnesse.SDD.Fixture" templateFileName="Fitnesse.SDD.Fixture.vm" 
 			subdir="" outputsubdir="" technicalPackage="query"
 			file-extension="java" file-prefix="" file-suffix="SDDFixture" 
+			add-package-name="false" add-business-package-dir-name="false" 
 			scope-specific-value="query" has-updatable-nature="true" >
 		</template>
 		
@@ -167,7 +174,16 @@
 			file-extension="java" file-prefix="" file-suffix="TableFixture" 
 			entity-specific="true" package-specific="false" model-specific="false">
 		</template>		
-
+		<!--  remove after copy code to remove duplication of business package 4 sdd
+				<template name="RESTDbAPISDDResource" templateFileName="RESTDbAPISDDResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Resource"
+			add-package-name="false" add-business-package-dir-name="false" 
+			scope-specific-value="query" has-updatable-nature="true">
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+			
+		</template>	
+-->
 		<template name="FitnesseEntityCRUDColumnFixture" templateFileName="FitnesseEntityCRUDColumnFixture.vm" 
 			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture.crud"
 			file-extension="java" file-prefix="" file-suffix="ColumnFixture" 
