@@ -24,9 +24,11 @@ public class ${className} extends DbSddFixture{
 	public static final String QUERY_NATIVE = "$fullQuery";
 #set ($nbInputColumn = 0)
 #foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
 	public $columnType $formatUtils.getUppercaseUnderscore($column.name); //$columnVar; // 
 #set ($nbInputColumn = $velocityCount)
+#end
 #end
 
 #set ($nbColumn = 0)
@@ -67,7 +69,11 @@ public class ${className} extends DbSddFixture{
 #if ($columnUtils.isString($column))
         $column_name = map.get("$column_name");
 #else
+#if (!$column.hasBeenDuplicated())
         String ${column_name}_string = map.get("$column_name");
+#else
+        ${column_name}_string = map.get("$column_name");
+#end
 #if ($columnUtils.isInteger($column))
         $column_name = (!StringUtils.isEmpty(${column_name}_string))?Integer.valueOf(${column_name}_string):null;
 #elseif($columnUtils.isLong($column))
