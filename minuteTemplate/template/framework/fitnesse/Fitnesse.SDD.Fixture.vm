@@ -21,7 +21,8 @@ import fitnesse.fixtures.TableFixture;
 public class ${className} extends DbSddFixture{
 
 #set ($fullQuery = $queryUtils.getFullQueryQuestionMark($query))
-	public static final String QUERY_NATIVE = "$fullQuery";
+#set ($coreQuery = $queryUtils.getQueryBodyQuestionMark($query))
+	public static final String QUERY_NATIVE = "$coreQuery";
 #set ($nbInputColumn = 0)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
