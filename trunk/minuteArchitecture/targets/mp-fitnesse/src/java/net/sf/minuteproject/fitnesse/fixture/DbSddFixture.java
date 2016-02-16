@@ -28,7 +28,7 @@ public abstract class DbSddFixture extends DbTableFixture{
 	
 	@Override
 	protected String getTable() {
-		return "assignments";
+		return "to fill";
 	}
 	
 	protected Object[][] getResultSet(ResultSet rs) throws SQLException {

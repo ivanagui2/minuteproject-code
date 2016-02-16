@@ -25,11 +25,7 @@ public abstract class DbSddFixture extends DbTableFixture{
 		check (SDD_OUPUT_GENERAL_ROW_INDEX, ROW_COUNT_COLUMN_INDEX, actual);
 	}
 
-	
-	@Override
-	protected String getTable() {
-		return "assignments";
-	}
+	protected abstract String getTable() ;
 	
 	protected static Object[][] getResultSet(ResultSet rs) throws SQLException {
 		int len = rs.getMetaData().getColumnCount();
