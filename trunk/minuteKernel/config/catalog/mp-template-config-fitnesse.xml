@@ -114,17 +114,16 @@
 			package-name-builder-method="getRenderingModelPackageName"	>
 			<property name="package-appender" value="Select"/>
 		</template>
-
-  </template-target>
+  	</template-target>  	
   	<template-target 
 	   name="fitnesse CRUD Wiki templates" 
 	   outputdir="src-wiki/FitNesseRoot/SddWiki"
-	   package-root="TestFitnesse"
+	   package-root=""
        belongToPackage="true">		
 		<!-- set a directory for the entity -->
 		<!-- SDD -->
 		<template name="FitnesseWikiSDDSnippetContent" templateFileName="FitnesseWikiSDDSnippetContent.vm" 
-			subdir="" outputsubdir="" technicalPackage="fitnesse.fixture"
+			subdir="" outputsubdir="" technicalPackage=""
 			file-extension="txt" file-prefix="" file-suffix="content" 
 			scope-specific-value="query" package-specific="false" model-specific="false"
       		add-entity-dir-name="true" add-scope-name="false"  add-technical-dir-name="false" 
@@ -135,7 +134,16 @@
 			package-name-builder-method="getRenderingSDDPackageName"	>
 			<property name="package-appender" value="Statement"/>
 		</template>
-  </template-target>
+		<template name="FitnesseWikiSDDSiteSnippetContent" templateFileName="FitnesseWikiSDDSiteSnippetContent.vm" 
+			subdir="" outputsubdir="" technicalPackage=""
+			file-extension="txt" file-prefix="" file-suffix="content" 
+			entity-specific="false" package-specific="false" model-specific="true"
+      		add-entity-dir-name="false" add-scope-name="false" 
+      		add-technical-dir-name="false" add-business-package-dir-name="false" add-model-dir-name="false"	>
+			<property name="package-appender" value="Statement"/>
+		</template>
+  	</template-target>
+  	
 	<template-target 
 	   name="fitnesse DB setup Wiki templates" 
 	   libdir="lib/BslaLibrary.vm"
