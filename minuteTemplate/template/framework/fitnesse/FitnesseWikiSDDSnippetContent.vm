@@ -22,7 +22,7 @@ Expression contains for each columns the search filter operand. ('=','>','<','>=
 
 !|${querySDDFixtureImport}|
 |General Info Input|statement|$query.name|
-|Fields |#foreach ($column in $inputBean.columns) #putColumnParams() $column.name | #end 
+|Fields |#foreach ($column in $inputBean.columns) #if (!$column.hasBeenDuplicated())#putColumnParams() $formatUtils.getUppercaseUnderscore($column.name) | #end #end 
 
 |Value |#foreach ($column in $inputBean.columns) | #end 
 
