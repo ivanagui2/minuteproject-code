@@ -6,22 +6,7 @@ import java.util.Map;
 
 import net.sf.minuteproject.utils.query.QueryUtils;
 
-public class TableKeyValueFixture extends DbSddFixture{
-
-	@Override
-	protected int getInputNumberOfColumn() {
-		return 0;
-	}
-
-	@Override
-	protected int getNumberOfColumn() {
-		return 2;
-	}
-
-	@Override
-	protected void doStaticTable(int arg0) {
-		// TODO Auto-generated method stub
-	}
+public abstract class TableKeyValueFixture extends DbSddFixture{
 
     public static Map<String, String> getKeyValueStringMap(String tableName, String keyColumn, String valueColumn) throws SQLException{
         // select key value column
