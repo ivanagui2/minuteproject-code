@@ -97,20 +97,21 @@
 ##	      <version>3.5.1-Final</version>
 	      <version>${hibernateVersion}</version>
 	    </dependency>
-
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>${hibernateValidatorVersion}</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
 		<dependency>
 		    <groupId>javax.validation</groupId>
 		    <artifactId>validation-api</artifactId>
 		    <version>1.0.0.GA</version>
 		    <scope>compile</scope>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		    <version>4.0.2.GA</version>
-		    <scope>runtime</scope>
-		</dependency>
+
  
 #end
 #if ($groovify)
@@ -207,6 +208,8 @@
         </dependency>	
 #end	
     </dependencies>
+    
+    <!-- properties -->
 	<properties>
 #if($isQuerydslPowered)	
       <querydsl.version>$querydslVersion</querydsl.version>
@@ -219,8 +222,11 @@
 #if ($isWeblogicTargetServer)
       <hibernateVersion>4.2.8.Final</hibernateVersion>
 #else
-      <hibernateVersion>4.3.0.Beta3</hibernateVersion>
+      <hibernateVersion>4.3.11.Final</hibernateVersion>
+      <hibernateValidatorVersion>4.3.2.Final</hibernateValidatorVersion>
+## missing get Connection connection = cp.getConnection(); for SDD      <hibernateVersion>5.1.0.Final</hibernateVersion>
 #end
+
 ## <hibernateVersion>4.3.4.Final</hibernateVersion>  error     
     </properties>
     <build>
