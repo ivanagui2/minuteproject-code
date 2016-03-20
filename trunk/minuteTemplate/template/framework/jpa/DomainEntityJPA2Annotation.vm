@@ -447,6 +447,9 @@ $!updatedAreaSnippet
 	 	return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
+#if($columnUtils.isColumnEmbeddedInEntity($column))
+#set($columnVar="${columnVar}_")
+#end
             .append("$columnVar", $columnVar)
 #end
 #foreach ($column in ${table.columns})
@@ -549,6 +552,9 @@ $!updatedAreaSnippet
 		if (${variableName}!=null) {
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParamNaming()
+#if($columnUtils.isColumnEmbeddedInEntity($column))
+#set($columnClass="${columnClass}_")
+#end
 			set$columnClass (${variableName}.get$columnClass());
 #end
 #foreach ($column in ${table.columns})
