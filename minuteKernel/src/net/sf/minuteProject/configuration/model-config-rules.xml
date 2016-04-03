@@ -215,6 +215,7 @@
 				                   <alias attr-name="regex-end" prop-name="regexEnd" />
 				                   <alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
 				                   <alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
+				                   <alias attr-name="index" prop-name="index" />
 				                   
 			                   </set-properties-rule>
 			                   <pattern value="stereotype">
@@ -302,6 +303,11 @@
 		                   	   <alias attr-name="is-context"  prop-name="isContext" /><!-- global context bound -->
 		                   	   <alias attr-name="is-in-clause" prop-name="isArray" />
 		                   	   <alias attr-name="is-output-param" prop-name="isOutputParam" />
+		                   	   <alias attr-name="regex-start" prop-name="regexStart" />
+			                   <alias attr-name="regex-end" prop-name="regexEnd" />
+			                   <alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
+			                   <alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
+			                   <alias attr-name="index" prop-name="index" />
 		                   </set-properties-rule>
 		                   <pattern value="stereotype">
 								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -1486,6 +1492,11 @@
 		                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 		                   <alias attr-name="is-in-clause" prop-name="isArray" />
 		                   <alias attr-name="is-output-param" prop-name="isOutputParam" />
+		                   <alias attr-name="regex-start" prop-name="regexStart" />
+		                   <alias attr-name="regex-end" prop-name="regexEnd" />
+		                   <alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
+		                   <alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
+		                   <alias attr-name="index" prop-name="index" />
 	                   </set-properties-rule>
 	                   <pattern value="stereotype">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		
@@ -1569,6 +1580,11 @@
 		                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 		                   <alias attr-name="is-in-clause" prop-name="isArray" />
 		                   <alias attr-name="is-output-param" prop-name="isOutputParam" />
+		                   <alias attr-name="regex-start" prop-name="regexStart" />
+		                   <alias attr-name="regex-end" prop-name="regexEnd" />
+		                   <alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
+		                   <alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
+		                   <alias attr-name="index" prop-name="index" />
 	                   </set-properties-rule>
 	                   <pattern value="stereotype">
 							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		

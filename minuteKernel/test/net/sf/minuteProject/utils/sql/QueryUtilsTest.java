@@ -69,8 +69,8 @@ public class QueryUtilsTest {
 	public static final String queryInParamSample = "'ff','ee'";
 
 	
-	public static final String queryRegexJdbc = "SELECT A, B from T WHERE F regex ?...";
-	public static final String queryRegexFull = "SELECT A, B from T WHERE F regex \",('2012'|'2015'),\"";
+	public static final String queryRegexJdbc = "SELECT A, B from T WHERE F regexp ?...";
+	public static final String queryRegexFull = "SELECT A, B from T WHERE F regexp \",('2012'|'2015'),\"";
 	public static final String queryRegexParamType = "string";
 	public static final String queryRegexParamSample = "\",('2012'|'2015'),\"";
 	public static final String queryRegexStart = "\",(";
@@ -86,7 +86,10 @@ public class QueryUtilsTest {
 	public static final String queryParam2Type = "string";
 	public static final String queryParam2Sample = "'xx'";	
 	public static final String queryParam3Type = "string";
-	public static final String queryParam3Sample = "'yy'";	
+	public static final String queryParam3Sample = "'yy'";
+	
+	public static final String querySampleStoreProcOutputParamJdbc = "call key_config_persist(?, ?)";
+	public static final String querySampleStoreProcOutputParamFull = "call key_config_persist(?, 'EVENT')";
 	
 	Query query1;
 	
@@ -242,7 +245,6 @@ public class QueryUtilsTest {
 		//then
 		assertTrue(s +" but expect :"+query4Full_FilterWithDuplicate, query4Full_FilterWithDuplicate.equals(s));
 	}
-//<<<<<<< .mine
 	
 	@Test
 	public void queryRegexParam() {
@@ -288,7 +290,23 @@ public class QueryUtilsTest {
 		//then
 		assertTrue(s +" but expect :"+queryMultiParamFull, queryMultiParamFull.equals(s));
 	}
+
+	@Test
+	public void querySampleStoreProcOutputParam() {
+		//given
+		Query query = getQuery(querySampleStoreProcOutputParamJdbc);
+		QueryParam qp = getQueryParam("int", "1", 1);
+		qp.setIsOutputParam(true);
+		query.getQueryParams().addQueryParam(qp);
+		query.getQueryParams().addQueryParam(getQueryParam("string", "'EVENT'", 2));
+
+		// when
+		String s = QueryUtils.getFullQuerySample(query);
+		//then
+		assertTrue(s +" but expect :"+querySampleStoreProcOutputParamFull, querySampleStoreProcOutputParamFull.equals(s));
+	}
 	
+	/*
 	@Test
 	public void queryWithMultiParams2() {
 		//given
@@ -301,5 +319,6 @@ public class QueryUtilsTest {
 		//then
 		assertTrue(s +" but expect :"+queryMultiParamFull, queryMultiParamFull.equals(s));
 	}
-	
+	*/
 }
+	

@@ -23,7 +23,7 @@ public class QueryParam extends Field {
 	private QueryParamLink queryParamLink;
 	private boolean isFilter=false, isArray=false, isOutputParam = false;
 	private String regexStart, regexEnd, regexParamWrapper, regexParamSeparator;
-	private int index;
+	private Integer index;
 	
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
@@ -169,7 +169,7 @@ public class QueryParam extends Field {
 	public int getIndex() {
 		return index;
 	}
-	public void setIndex(int index) {
+	public void setIndex(Integer index) {
 		this.index = index;
 	}
 	
