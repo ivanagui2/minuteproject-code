@@ -68,6 +68,9 @@ public class QueryParams extends AbstractConfiguration {
 						queryParam.setMandatory(isMandatory);
 						flatQueryParams.add(queryParam);
 					}
+				} else {
+					QueryParam instance = queryParam;//TODO check how to flatten output param
+					flatQueryParams.add(instance);
 				}
 			}
 		}

@@ -10,6 +10,7 @@ import static net.sf.minuteProject.utils.io.UpdatedAreaUtils.MP_MANAGED_UPDATABL
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.implicitstructure.node.Line;
 import net.sf.minuteProject.loader.implicitstructure.node.Lines;
@@ -28,10 +30,23 @@ import net.sf.minuteProject.loader.implicitstructure.node.Lines;
 import org.apache.commons.lang.StringUtils;
 
 public class FileUtils {
+	
+	public static List<String> getDirectories (Template template) {
+		List<String> list = new ArrayList<String>();
+		String s =template.getOutputdir();
+		File dir = new File(s);
+		FileFilter fileFilter = new FileFilter() {
+		    public boolean accept(File file) {
+		        return file.isDirectory();
+		    }
+		};
 
-	private enum ModificationType {
-		ADDED, UPDATED
-	};
+		for (File child : dir.listFiles(fileFilter)) {
+			list.add(child.getName());
+		}
+		return list;
+	}
+	
 
 	public static boolean exists (String filePath) {
 		File file = new File(filePath);

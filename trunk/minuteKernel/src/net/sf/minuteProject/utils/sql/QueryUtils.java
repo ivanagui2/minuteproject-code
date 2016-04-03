@@ -89,6 +89,7 @@ public class QueryUtils {
 			Database database) throws SQLException {
 		CallableStatement callableStatement = connection.prepareCall(query);
 		int i = 1;
+		//TODO should not be last only
 		for (QueryParam queryParam : queryParams.getQueryParams()) {
 			if (queryParam.isOutputParam()) {				
 				callableStatement.registerOutParameter(i, ConvertUtils.getTypeTypeFromUMLType(queryParam.getType()));
@@ -187,20 +188,45 @@ public class QueryUtils {
 
 	public static String getFullQuerySample(Query query) {
 		String querySt = getQueryQuestionMark(query);
-		List<String> samples = getSamples (query);
+		//List<String> samples = getSamples (query);
+		List<QueryParam> samples = getQueryParamAndFilters (query);
 		int samplesSize = samples.size();
 		int queryArgSize = StringUtils.countMatches(querySt, QUESTION_MARK);
 		assert (samplesSize==queryArgSize);
+		//TODO loop on queryParams, convert ? into unique ?1?
+		int index = 1;
+		for (QueryParam qp : samples) {
+			if (qp.isOutputParam()) {
+				index++;
+			} else {
+				querySt = replaceArgIndexWith(querySt, index, qp.getSample());
+			}
+			
+		}
+		/*
 		for (int i = 0; i < samplesSize; i++) {
 			querySt = replaceFirstArgWith(querySt, samples.get(i));
-		}
+		}*/
 		return querySt;
 	}
 
+	private static String replaceArgIndexWith(String text, int index, String value) {
+		//TODO get ? at index position to replace
+		int charOrdinalIndex = StringUtils.ordinalIndexOf(text, QUESTION_MARK, index);
+		boolean isIn = isInAtIndex(text, charOrdinalIndex);
+		text = text.substring(0,charOrdinalIndex)+value+text.substring(isIn?charOrdinalIndex+4:charOrdinalIndex+1);
+		return text;
+		//return isInAtIndex(text, index)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
+	}
+	
 	private static String replaceFirstArgWith(String text, String value) {
 		return isIn(text)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
 	}
 
+	private static boolean isInAtIndex(String text, int index) {
+		return (text.substring(index).startsWith(QUESTION_IN_MARK)) ? true:false;
+	}
+	
 	private static boolean isIn(String text) {
 		int i = text.indexOf(QUESTION_MARK);
 		if (i==-1)
@@ -231,6 +257,28 @@ public class QueryUtils {
 				list.add(getParamSample(qp));
 			} else {
 				list.add("?");
+			}
+		}
+	}
+	private static List<QueryParam> getQueryParamAndFilters(Query<QueryModel> query) {
+		List<QueryParam> list = new ArrayList<QueryParam>();
+		if (query.getQueryParams() != null) {
+			addQueryParamFilters(list, query.getQueryParams());
+		}
+		//TODO append query where
+		for (QueryFilter filter : query.getQueryFilters()) {
+			if (filter.getQueryParams() != null) {
+				addQueryParamFilters(list, filter.getQueryParams());
+			}
+		}
+		return list;
+	}
+	
+	private static void addQueryParamFilters(List<QueryParam> list, QueryParams params) {
+		for (QueryParam qp : params.getFlatQueryParams(false)) {
+			list.add(qp);
+			if (qp.isOutputParam()) {
+				qp.setSample("?");
 			}
 		}
 	}
