@@ -9,12 +9,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public abstract class DbSddFixture extends DbTableFixture{
+public abstract class DbSddFixture extends DbTableFixture {
 	public static int SDD_INPUT_ROW_VALUE = FIELD_ROW_INDEX + 1;
 	public static int SDD_OUPUT_GENERAL_ROW_INDEX = SDD_INPUT_ROW_VALUE + 1;
 	public static int SDD_OUTPUT_ROW_INDEX = SDD_OUPUT_GENERAL_ROW_INDEX + 1;
-	public static int SDD_OUTPUT_ROW_VALUE = SDD_OUTPUT_ROW_INDEX + 1; 
-	
+	public static int SDD_OUTPUT_ROW_VALUE = SDD_OUTPUT_ROW_INDEX + 1;
+	public abstract int getIndex (String columnName);
+
 	protected void checkResultSet () {
 		int rowToCheck = getRowToCheck(SDD_OUTPUT_ROW_VALUE);
 		for (int i = 1; i <= rowToCheck; i++) {
@@ -30,64 +31,16 @@ public abstract class DbSddFixture extends DbTableFixture{
 	protected String getTable() {
 		return "to fill";
 	}
-	
-	protected Object[][] getResultSet(ResultSet rs) throws SQLException {
-		int len = rs.getMetaData().getColumnCount();
-		
-		List<Object[]> list = new ArrayList<Object[]>() ;
-		while (rs.next())  {
-			Object [] row = new Object[len];
-			for (int j = 0; j < len; j++) {
-				Object o = rs.getObject(j+1);
-				if (o==null)
-					o = new String (">null value returned<");
-				row[j]=o;
-			}
-			list.add(row);
-		}
-		Object [][] table =  new Object[list.size()][];
-		for (int i = 0; i< list.size(); i++) {
-			table[i]=list.get(i);
-		}
-		return table;
-	}
-	protected void check (int row, int column, String actual) {
-		if (actual!=null){
-			if (actual.equals(getText(row, column)))
-				right(row, column);
-			else
-				wrong(row, column, actual);
-		} else {
-			if (getText(row, column).equals(NOT_PRESENT))
-				right(row, column);
-			else
-				wrong (row, column, NOT_PRESENT);
-		}
-	}
 
-	
-	protected int getRowToCheck(int row) {
-		int rowToCheck = 0;
-		int i = row;
-		String previousText = new String();
-		while (i<100) {
-			String text = getText(i, 0);
-			if (text.startsWith(ROW_VALUE_INDENTIFIER) && !previousText.equals(text))
-				rowToCheck++;
-			else {
-				break;
-			}
-			previousText = text;
-			i++;
-		}
-		return rowToCheck;
-	}
-	
 	protected void checkResultSetRow (int row) {
-		int length = getColumnIndex().size();
+		//int length = getColumnIndex().size();
+		int length = getNumberOfColumn();
 		for (int i = 1; i <= length; i++) {
-			check (row, i, getResultSetCell(row, i));
-		}		
+			// get column name on row -1 and get index
+			int index = getIndex(getText(SDD_OUTPUT_ROW_INDEX, i));
+			//check (row, i, getResultSetCell(row, i));
+			check (row, i, getResultSetCell(row, index));
+		}
 	}
 	
 	protected String getResultSetCell (int row, int column) {
@@ -120,7 +73,6 @@ public abstract class DbSddFixture extends DbTableFixture{
 		row = row-SDD_OUPUT_GENERAL_ROW_INDEX-2;
 		column = column - 1;
 		if (row < len) {
-			System.out.println("row = "+row);
 			int lenrow = resultSet[row].length;
 			if (column < lenrow) {
 				return resultSet [row] [column];
