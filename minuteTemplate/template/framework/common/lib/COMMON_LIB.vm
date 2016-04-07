@@ -371,6 +371,9 @@ $!updatedAreaSnippet
 						));
 			int index = 1;
 #foreach($column in $inputBean.columns)
+#if ($column.isOutputParam())
+			pstmt.registerOutParameter(index, java.sql.Types.${column.type});
+#else
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
 #injectSDDParameter()
@@ -386,7 +389,9 @@ $!updatedAreaSnippet
 #end	
 #end
 #end
+#end
 ## correct only if the output are at the end
+#*
 #if($query.queryParams.hasOutputParam())
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
@@ -394,6 +399,7 @@ $!updatedAreaSnippet
 			pstmt.registerOutParameter($queryUtils.getQueryPositionFromOutputbeanPosition($query, $velocityCount), java.sql.Types.${column.type});
 #end
 #end
+*#
 #if ($query.isWrite())
 #if($query.queryParams.hasOutputParam())
 			pstmt.execute();
@@ -433,10 +439,10 @@ $!updatedAreaSnippet
 	    } finally {
 	      try {
 #if (!$query.isWrite())
-	        rs.close();
+	        if (rs!=null) rs.close();
 #end
-	        pstmt.close();
-	        conn.close();
+	        if (pstmt!=null) pstmt.close();
+	        if (conn!=null) conn.close();
 	      } catch (Exception e) {
 	        e.printStackTrace();
 	      }
@@ -648,7 +654,7 @@ $!updatedAreaEnd
 #set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
 		return CHUNK_${chunkName}_${chunkValueName};
 #else
-		return "";
+		return ${chunkName};
 #end
 	}  
 #end
