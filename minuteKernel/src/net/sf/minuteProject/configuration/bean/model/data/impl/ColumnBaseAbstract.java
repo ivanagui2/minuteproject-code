@@ -10,7 +10,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 
 	private String typeAlias;
 	private boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
-	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isArray = false;
+	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isArray = false, isOutputParam=false;
 	private String filterName;
 	private QueryParamLink queryParamLink;
 	
@@ -116,6 +116,15 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	public void setQueryParamLink (QueryParamLink queryParamLink) {
 		this.queryParamLink = queryParamLink;
 	}
+	
+	public void setIsOutputParam (boolean isOutputParam) {
+		this.isOutputParam = isOutputParam;
+	}
+	
+	public boolean isOutputParam() {
+		return isOutputParam;
+	}
+	
 	
 	public boolean isArray () {
 		return isArray;
