@@ -194,7 +194,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 				column.setStereotype(queryParam.getStereotype());
 				column.setFilterName(queryParam.getQueryParams().getFilterName());
 				column.setQueryParamLink(queryParam.getQueryParamLink());
-
+				column.setIsOutputParam(queryParam.isOutputParam());
 			}
 		}
 		for (Column column : table.getColumns()) {
