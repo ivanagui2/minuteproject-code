@@ -373,6 +373,7 @@ $!updatedAreaSnippet
 #foreach($column in $inputBean.columns)
 #if ($column.isOutputParam())
 			pstmt.registerOutParameter(index, java.sql.Types.${column.type});
+			index++;
 #else
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
@@ -594,27 +595,15 @@ $!updatedAreaEnd
 	   query = StringUtils.replace (query, "?...", inSb${columnVar}.toString());
 #end
 #end
+#*
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
 		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkNameString}));  
 #end
-#*  
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#foreach($queryChunkValue in $queryChunk.queryChunkValues)
-#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
-		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkValueName}));  
-#end
-#end
-#if (!$column.isArray())
-               pstmt.set$columnType(index, ${sddInputBeanVariable}.get$columnClass()); 
-#else
-			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
-			      pstmt.set$columnType(index, element);
-			      index ++;
-			   }
-#end
 *#
+#injectGetStatementChunk()
+#injectGetStatementFilter()
+#*
 #foreach ($filter in $query.queryFilters)
 		if (
 ##TODO Case none
@@ -635,6 +624,7 @@ $!updatedAreaEnd
 			query = StringUtils.replace (query, "$"+"$filter.name","");
 		}
 #end
+*#
 		return query;
 	}
 #end
@@ -657,6 +647,36 @@ $!updatedAreaEnd
 		return ${chunkName};
 #end
 	}  
+#end
+#end
+
+#macro(injectGetStatementChunk)
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
+		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkNameString}));  
+#end
+#end
+
+#macro(injectGetStatementFilter)
+#foreach ($filter in $query.queryFilters)
+		if (
+##TODO Case none
+#foreach ($param in $filter.queryParams.queryParams)
+#set($paramName=$formatUtils.getJavaName(${param.name}))
+			#if ($velocityCount>1) && #end ${sddInputBeanVariable}.get${paramName}() != null
+#end
+			) {
+			String connectionWord = " AND ";
+#if ($filter.isWhere())
+			if (!isWhereDone) {
+				connectionWord = " WHERE ";
+			}
+#end
+			query = StringUtils.replace (query, "$"+"$filter.name", connectionWord + CHUNK_$filter.name ); 
+			isWhereDone = true;
+		} else {
+			query = StringUtils.replace (query, "$"+"$filter.name","");
+		}
 #end
 #end
 
