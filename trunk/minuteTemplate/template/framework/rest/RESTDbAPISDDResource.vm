@@ -245,7 +245,6 @@ $!updatedAreaBegin
         List<$pivotClass> ret = new ArrayList<$pivotClass>();
 #set($pivotColumnClassType = $commonUtils.getJavaType($pivot.getPivotColumn()))
         Map<$pivotColumnClassType, $pivotClass> map = new HashMap<$pivotColumnClassType, $pivotClass>();
-        //todo pivotActorFilmOuts might be null
         for ($sddOutputBeanClass pivot : input.get${sddOutputBeanClass}s()) {
 #set($pivotColumnClass = $commonUtils.getColumnClassName($pivot.getPivotColumn()))
             $pivotClass p = map.get(pivot.get$pivotColumnClass());
@@ -259,14 +258,19 @@ $!updatedAreaBegin
                 map.put(pivot.get$pivotColumnClass(), p);
             }
 #foreach ($sibling in $pivot.getSiblings())	
+#if ($velocityCount==1)
+#set($pivotVar="p")
+#else
+#set($pivotVar=$siblingVar)
+#end
 #set($siblingClass = $formatUtils.firstUpperCase($sibling.name))
-##set($siblingName = $i18nUtils.plurializeUppercase($sibling.name))
-            ${siblingClass} s = new ${siblingClass}();
+#set($siblingVar = $javaUtils.getJavaVariableNaming($sibling.name))
+            ${siblingClass} $siblingVar = new ${siblingClass}();
 #foreach ($column in $sibling.getColumnList())
 #putColumnParamNaming()
-            s.${columnVar} = pivot.get${columnClass}();
+            ${siblingVar}.${columnVar} = pivot.get${columnClass}();
 #end
-            p.add${siblingClass}(s);
+            ${pivotVar}.add${siblingClass}(${siblingVar});
 #end
         }
         for ($pivotClass e : map.values()) {
