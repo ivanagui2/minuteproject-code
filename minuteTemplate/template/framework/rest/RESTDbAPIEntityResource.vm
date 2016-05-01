@@ -83,7 +83,7 @@ import net.sf.minuteProject.model.service.GenericService;
 @Produces(MediaType.APPLICATION_JSON)
 @Api(value="/entity/${tableClassName}", description = "operation about ${tableClassName}")
 #if($isSpringBackend)
-@Component
+##@Component it triggers a MalformedParameterizedTypeException w/ spring ???
 #end
 public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName, $BslaDaoInterfaceClass> {
 

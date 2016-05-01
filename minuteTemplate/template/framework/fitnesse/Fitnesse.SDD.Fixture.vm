@@ -94,13 +94,14 @@ public class ${className} extends DbSddFixture{
 	private Object[][] executeQueryAndGetResult() throws SQLException {
 #end
 		Connection connection = DatabaseUtils.getConnection();
-		String query = getStatement (QUERY_NATIVE);
+		Map<String, String> map = getColumnValue();
+		String query = getStatement (QUERY_NATIVE, map);
 #if($query.isWrite())
 		CallableStatement pstmt = connection.prepareCall(query);
 #else
 		PreparedStatement pstmt = connection.prepareStatement(query);
 #end
-		Map<String, String> map = getColumnValue();
+
 #foreach($column in $inputBean.columns)
 ##TODO for output column pstmt.registerOutParameter(1, Types.INTEGER);
 #if($column.isOutputParam())
@@ -143,7 +144,7 @@ public class ${className} extends DbSddFixture{
 	}
 
 ##TODO replace by common_lib.vm public String getStatement(
-	private String getStatement (String query) {
+	private String getStatement (String query, Map<String, String> map) {
 		boolean isWhereDone = false;
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
@@ -154,7 +155,7 @@ public class ${className} extends DbSddFixture{
 ##TODO Case none
 #foreach ($param in $filter.queryParams.queryParams)
 #set($paramName=$formatUtils.getJavaName(${param.name}))
-			#if ($velocityCount>1) && #end map.get("$column_name") != null
+			#if ($velocityCount>1) && #end map.get("$column_name") != null && !StringUtils.isEmpty(map.get("$column_name"))
 #end
 			) {
 			String connectionWord = " AND ";
