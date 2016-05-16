@@ -65,6 +65,11 @@
 			        <artifactId>javax.ws.rs-api</artifactId>
 			        <groupId>javax.ws.rs</groupId>
 		        </exclusion>
+##TODO dependent of hibernatejersey-media-multip
+                <exclusion>
+			        <artifactId>validation-api</artifactId>
+			        <groupId>javax.validation</groupId>
+		        </exclusion>
 	        </exclusions>
 #end
 #if($isGlassfishTargetServer)
@@ -118,6 +123,11 @@
                 <exclusion>
                     <groupId>org.glassfish.jersey.media</groupId>
                     <artifactId>jersey-media-multipart</artifactId>
+                </exclusion>
+##ship with hibernate
+                <exclusion>
+                    <groupId>org.javassist</groupId>
+                    <artifactId>javassist</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

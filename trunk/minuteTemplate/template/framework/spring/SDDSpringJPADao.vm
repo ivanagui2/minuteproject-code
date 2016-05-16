@@ -33,6 +33,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.hibernate.jdbc.Work;
 #end
 #if ($isSpringBackend)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,9 @@ import $sddInputBeanImport;
  */
 #if ($isSpringBackend)
 @Repository ("$sddDaoInterfaceVariable")
-//temporary for cloudfoundry-mysql error: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Communications link failure during commit(). Transaction resolution unknown.
-//@Transactional(propagation = Propagation.REQUIRED)
+##@Transactional
+##temporary for cloudfoundry-mysql error: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Communications link failure during commit(). Transaction resolution unknown.
+@Transactional(propagation = Propagation.REQUIRED)
 public class ${className} implements $sddDaoInterfaceClass {
 #else
 @javax.ejb.Stateless ##(name="$sddDaoInterfaceVariable")
@@ -99,6 +101,22 @@ $!updatedAreaSnippet
 #end
 		) {
 		$sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable = new $sddOutputBeanCollectionClass();
+		${sddOutputBeanCollectionClass}Work work = new ${sddOutputBeanCollectionClass}Work (
+#if($isNotVoidInput)
+			$sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        	$chunkName 
+#else
+        	, $chunkName 
+#end
+#end
+			);
+       Session session = getSession();
+       session.doWork(work);
+#*
 		List<$sddOutputBeanClass> list = executeJDBC (
 #if($isNotVoidInput)
 			$sddInputBeanVariable
@@ -112,7 +130,8 @@ $!updatedAreaSnippet
 #end
 #end
 			);
-		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (list);
+*#
+		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (work.getResult());
         return ${sddOutputBeanCollectionVariable};
     }
 #end
@@ -125,6 +144,62 @@ $!updatedAreaEnd
     }
 #else
 	
+   private class ${sddOutputBeanCollectionClass}Work implements Work {
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable;
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        String $chunkName;
+#else
+        String $chunkName; 
+#end
+#end
+      ${sddOutputBeanCollectionClass}Work(
+#if($isNotVoidInput)
+		$sddInputBeanClass $sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        String $chunkName 
+#else
+        ,String $chunkName 
+#end
+#end
+			){
+#if($isNotVoidInput)
+		this.$sddInputBeanVariable = $sddInputBeanVariable;
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+        this.$chunkName = $chunkName; 
+#else
+        this.$chunkName = $chunkName;
+#end
+#end
+	  }
+	  List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+      @Override
+      public void execute(Connection conn) throws SQLException {
+#if($query.queryParams.hasOutputParam())
+		CallableStatement pstmt = null;
+#else
+		PreparedStatement pstmt = null;
+#end
+#if (!$query.isWrite())
+		ResultSet rs = null;
+#end
+#putSddExecuteStatement()
+       }
+
+       List<$sddOutputBeanClass> getResult() {
+          return list;
+       }
+    }
+
     public Connection getConnection() throws SQLException, HibernateException {
         Session session = getSession();
         SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
