@@ -83,9 +83,9 @@ import net.sf.minuteProject.model.service.GenericService;
 @Produces(MediaType.APPLICATION_JSON)
 @Api(value="/entity/${tableClassName}", description = "operation about ${tableClassName}")
 #if($isSpringBackend)
-##@Component it triggers a MalformedParameterizedTypeException w/ spring ???
+@Component ## it triggers a MalformedParameterizedTypeException w/ spring ??? when used with generics
 #end
-public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName, $BslaDaoInterfaceClass> {
+public class $className {##extends $RESTDbAPIGenericResourceClass <$tableClassName, $BslaDaoInterfaceClass> {
 
 #if ($isSpringBackend)
     @Autowired
@@ -95,17 +95,17 @@ public class $className extends $RESTDbAPIGenericResourceClass <$tableClassName,
 #end
 	${BslaDaoInterfaceClass} $BslaDaoInterfaceVariable;
 
-    @Override
+##    @Override
     protected $BslaDaoInterfaceClass getService() {
         return $BslaDaoInterfaceVariable;  
     }
 
-    @Override
+##    @Override
     protected $tableClassName getInstance() {
         return new $tableClassName();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
+##    @Override
     protected $tableClassName getElement($tableClassName element) {
         return element.flat(); 
 ##   // clone() might trigger lazy instantiations.

@@ -351,6 +351,28 @@ $!updatedAreaSnippet
 		Connection conn = null;
 		try {
 			conn = getConnection();
+#putSddExecuteStatement()
+		} catch (Exception e) {
+		      e.printStackTrace();
+	    } finally {
+	      try {
+#if (!$query.isWrite())
+	        if (rs!=null) rs.close();
+#end
+	        if (pstmt!=null) pstmt.close();
+	        if (conn!=null) conn.close();
+	      } catch (Exception e) {
+	        e.printStackTrace();
+	      }
+	    }
+		return list;
+	}
+
+#putSddQueryLookupMisc()
+$!updatedAreaEnd
+#end
+
+#macro (putSddExecuteStatement) 
 #if($query.queryParams.hasOutputParam())
 			pstmt = conn.prepareCall(
 #else
@@ -435,24 +457,7 @@ $!updatedAreaSnippet
 	        }
 #end
 #end
-		} catch (Exception e) {
-		      e.printStackTrace();
-	    } finally {
-	      try {
-#if (!$query.isWrite())
-	        if (rs!=null) rs.close();
-#end
-	        if (pstmt!=null) pstmt.close();
-	        if (conn!=null) conn.close();
-	      } catch (Exception e) {
-	        e.printStackTrace();
-	      }
-	    }
-		return list;
-	}
 
-#putSddQueryLookupMisc()
-$!updatedAreaEnd
 #end
 
 #macro (putSddCmisLookup)

@@ -148,14 +148,14 @@ public class ${className} extends DbSddFixture{
 		boolean isWhereDone = false;
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
-		query = StringUtils.replace (query, "$"+"$chunkNameString", ${chunkNameString});  
+		query = StringUtils.replace (query, "$"+"$chunkNameString", (map.get("${chunkNameString}") != null)?map.get("${chunkNameString}"):"");  
 #end
 #foreach ($filter in $query.queryFilters)
 		if (
 ##TODO Case none
 #foreach ($param in $filter.queryParams.queryParams)
-#set($paramName=$formatUtils.getJavaName(${param.name}))
-			#if ($velocityCount>1) && #end map.get("$column_name") != null && !StringUtils.isEmpty(map.get("$column_name"))
+#set($paramName=$formatUtils.getUppercaseUnderscore(${param.name}))
+			#if ($velocityCount>1) && #end map.get("$paramName") != null && !StringUtils.isEmpty(map.get("$paramName"))
 #end
 			) {
 			String connectionWord = " AND ";
