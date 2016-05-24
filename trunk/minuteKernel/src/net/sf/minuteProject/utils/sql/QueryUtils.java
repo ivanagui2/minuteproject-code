@@ -50,7 +50,7 @@ public class QueryUtils {
 				.getDataModel();
 		Connection connection = ConnectionUtils.getConnection(dataModel);
 		if (connection != null) {
-			if (!query.getQueryParams().hasOutputParam()) {
+			if (!query.getQueryParams().hasOutputParam() && !query.isWrite()) {
 				String q = getFullQuerySample(query);
 				try {
 					return getOutputParams(connection, q, dataModel.getDatabase());
