@@ -36,4 +36,9 @@ class ActionUtils {
 			return "/html/sdd/"+FormatUtils.getJavaName(query.getName())+"In"
 		return "/data/sdd/"+queryId+"In"
 	}
+	
+	Query getQuery(Action action, Model model) {
+		String queryId = action.getQueryId()
+		model.getStatementModel().getQueryByIdOrName(queryId)
+	}
 }
