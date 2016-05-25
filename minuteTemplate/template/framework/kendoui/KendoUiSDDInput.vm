@@ -47,7 +47,7 @@
 
 <div id="ssd-output-grid-popup"></div>
 
-<div id="basicPopup" class="popup">Loading...</div>
+<div id="basicPopup" class="popup"></div>
 
 <script id="basicPopupTpl" type="text/x-kendo-template">
 	<div id="basicPopupWrapper" style="margin: 0 auto; margin-top: -10px; text-align: center; padding: 0;">
