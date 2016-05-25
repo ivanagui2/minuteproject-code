@@ -81,3 +81,56 @@
 		dropDown.closest(".k-widget").width(containerWidth);
 	}
 	
+	
+	function openBasicPopup(text, width, height) {
+		width	= (typeof width		!== "undefined" ? width		: 500);
+		height 	= (typeof height 	!== "undefined" ? height	: "auto");
+		var popup = newBasicPopup(text, width, height);
+		// Patch for title of popup inside popups - to fix ie
+		if (popup.wrapper.css("padding-bottom") == "0px") {
+			popup.wrapper.css("padding-bottom", "10px");
+		}
+
+		if (popup.element.css("padding-bottom") == "0px") {
+			popup.element.css("padding-bottom", "10px");
+		}
+		popup.center().open();
+		return popup;
+	}
+
+	function newBasicPopup(text, width, height) {
+		$("#basicPopup").html("");
+		var popup = $("#basicPopup").data("kendoWindow");
+		if (typeof width != "undefined" && typeof height != "undefined") {
+			popup.wrapper.css({width: width, height: height});
+		} else {
+			popup.wrapper.css({width: 450, height: 170});
+		}
+		popup.title(false);
+		popup.content(kendo.template($("#basicPopupTpl").html()));
+		$("#basicPopupText").html(text);
+		return popup;
+	}
+
+	function initPopup(e, iframe, cssClass) {
+    	$(document).ready(function() {
+			var body = $("html, body");
+			var previousOverflow = body.css("overflow");
+			var previousMargin = body.css("margin-right");
+			cssClass = (typeof cssClass !== "undefined" ? cssClass : "popup");
+			e.kendoWindow({
+           		modal: true,
+           		resizable: true,
+           		iframe: iframe,
+			  		open: function(e) {
+			  			body.css("overflow", 		"hidden");
+			  			body.css("margin-right",	"8px");
+			  		},
+					close: function(e) {
+						body.css("overflow",		previousOverflow);
+						body.css("margin-right", 	previousMargin);
+					}
+        	}).parent().addClass(cssClass);
+    	});
+    	return e;
+    }
