@@ -165,8 +165,8 @@
 #exposeQueryTarget()
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldName))
 #set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
-##set($targetQueryContentType = $queryUtils.getContentType($targetQuery))
-#set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#set($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
 #if($isMasterData)
 	<select name="$labelFor" id="$fieldId" 
 		data-bind="source: ${columnVar}DDL, value: ${columnVar}Selected"
@@ -175,6 +175,8 @@
 ##		data-option-label="Select"
 		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
      </select>
+#elseif ($isAutocompletion)
+	 <input data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end placeholder="$columnAlias" /> 
 #else
 #set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
 #set($width = $width+50)

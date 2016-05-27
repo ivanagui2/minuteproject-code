@@ -64,6 +64,29 @@
 #end
 <div id="${model.name}-store" hidden="true" ></div>
 
+#foreach($column in $inputBean.columns)
+#putColumnParams()
+#columnJavaNaming()
+#if($columnUtils.isLink($column))
+#set($queryId =$column.queryParamLink.queryName)
+#set($fieldKey =$column.queryParamLink.fieldKey)
+#set($fieldName =$column.queryParamLink.fieldName)
+#exposeQueryTarget()
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldName))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
+#set($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
+#if ($isAutocompletion)
+<!-- autocomplete 2 -->
+<script id="${columnVar}WithFunctionListTpl" type="text/x-kendo-template">
+	<div display="table-row">
+		#: data.userFirstname # #: data.userLastname #
+	</div>
+</script>
+#end
+#end
+#end
+
 <!-- kendo js scripts -->
 <script type="text/javascript">
     $(document).ready(function () {
@@ -77,6 +100,74 @@
 #end
 
 	  //fields
+#foreach($column in $inputBean.columns)
+#putColumnParams()
+#columnJavaNaming()
+#if($columnUtils.isLink($column))
+#set($queryId =$column.queryParamLink.queryName)
+#set($fieldKey =$column.queryParamLink.fieldKey)
+#set($fieldName =$column.queryParamLink.fieldName)
+#exposeQueryTarget()
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldName))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
+#set($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
+#if ($isAutocompletion)
+<!-- autocomplete 2 -->
+		var myUrl = contextPath+"/data/sdd/ComrefUserLookupIn";
+		var ds = new kendo.data.DataSource ({
+			transport: {
+				read: {
+					url: myUrl,
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					cache: false
+				},
+				parameterMap: function() {
+					return { user: $("#authorizedBy").data("kendoAutoComplete").value() };
+				}
+			},
+			serverFiltering: true,
+			schema: {
+				data: "ComrefUserLookupOut"
+			},
+			pageSize : 30
+		});
+
+		$("#authorizedBy").kendoAutoComplete({
+			dataSource: ds,
+			filter: "contains",
+			delay: 700,
+			dataTextField: "userLastname", // kendo.template($("#contactWithFunctionListTpl").html()), // "userLastname",
+			minLength: 3,
+			template: kendo.template($("#contactWithFunctionListTpl").html()),
+			select: function(e) {
+				//setContactPoint(this, e);
+				//validContactSelected = true;
+			},
+			open: function(e) {
+				//validContactSelected = false;
+			},
+			close: function(e) {
+				/*				if (!validContactSelected) {
+				 setContactPoint(this, false);
+				 }
+				 validContactSelected = false;*/
+			},
+			change: function(e) {
+				/*				if (!validContactSelected) {
+				 setContactPoint(this, false);
+				 }*/
+			}
+		}).focus(function() {
+			$(this).next("span").addClass("k-loading");
+		}).blur(function() {
+			$(this).next("span").removeClass("k-loading");
+		});
+#end
+#end
+#end
+
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
 #putColumnParams()
