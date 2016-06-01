@@ -6,6 +6,7 @@ public class QueryDisplay extends AbstractConfiguration{
 
 	public String resultRowDisplay, resultDetailDisplay, inputDisplay;
 	public String resultRowLinkRootUrl, resultRowLinkField, resultRowLinkRootUrlAppendedField;
+	public boolean resultRowLinkNewWindow=true;
 	public int resultDetailDisplayColumns=1;
 
 	public String getResultRowDisplay() {
@@ -63,6 +64,14 @@ public class QueryDisplay extends AbstractConfiguration{
 
 	public void setResultDetailDisplayColumns(int resultDetailDisplayColumns) {
 		this.resultDetailDisplayColumns = resultDetailDisplayColumns;
+	}
+
+	public boolean isResultRowLinkNewWindow() {
+		return resultRowLinkNewWindow;
+	}
+
+	public void setResultRowLinkNewWindow(boolean resultRowLinkNewWindow) {
+		this.resultRowLinkNewWindow = resultRowLinkNewWindow;
 	}
 	
 }

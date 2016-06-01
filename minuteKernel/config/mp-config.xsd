@@ -736,6 +736,7 @@
 		<xs:attribute name="result-detail-display-columns" type="xs:integer"/>
 		<xs:attribute name="input-display" type="xs:string"/>
 		<xs:attribute name="result-row-link-root-url" type="xs:string"/>
+		<xs:attribute name="result-row-link-click-new-window" type="xs:boolean"/>
 		<xs:attribute name="result-row-link-field" type="xs:string"/>
 		<xs:attribute name="result-row-link-root-url-appended-field" type="xs:string"/>
 	</xs:complexType>
@@ -798,6 +799,8 @@
 		<xs:attribute name="field-name" type="xs:string" use="required" />
 		<xs:attribute name="field-key" type="xs:string" />
 		<xs:attribute name="sdd-query-name" type="xs:string" />
+		<xs:attribute name="display-mode" type="xs:string" />
+		<xs:attribute name="semantic-reference-fields" type="xs:string" />
 	</xs:complexType>
 
 	<xs:complexType name="business-model">
