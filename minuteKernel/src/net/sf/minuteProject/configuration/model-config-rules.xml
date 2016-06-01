@@ -234,6 +234,8 @@
 										<alias attr-name="sdd-query-name" prop-name="queryName" />
 										<alias attr-name="field-name" prop-name="fieldName" />
 										<alias attr-name="field-key" prop-name="fieldKey" />
+										<alias attr-name="display-mode" prop-name="displayMode" />
+										<alias attr-name="semantic-reference-fields" prop-name="semanticReferenceFields" />
 									</set-properties-rule>
 								</pattern>
 								<pattern value="property">

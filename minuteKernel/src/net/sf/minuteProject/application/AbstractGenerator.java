@@ -59,6 +59,7 @@ import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 import net.sf.minuteProject.utils.java.JavaUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
+import net.sf.minuteProject.utils.sql.QueryParamLinkUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 import net.sf.minuteProject.utils.sql.StatementUtils;
 import net.sf.minuteProject.utils.velocity.VelocityUtils;
@@ -769,6 +770,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("statementUtils", statementUtils);
 		context.put("triggerUtils", triggerUtils);
 		context.put("queryUtils", queryUtils);
+		context.put("queryParamLinkUtils", new QueryParamLinkUtils());
 		context.put("semanticReferenceUtils", semanticReference);
 		context.put("velocityUtils", velocityUtils);
 		context.put("fileUtils", fileUtils);
