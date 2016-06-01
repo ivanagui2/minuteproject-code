@@ -80,7 +80,10 @@
 <!-- autocomplete 2 -->
 <script id="${columnVar}WithFunctionListTpl" type="text/x-kendo-template">
 	<div display="table-row">
-		#: data.userFirstname # #: data.userLastname #
+#foreach($column in $queryParamLinkUtils.getSemanticReferenceColumns($column.queryParamLink, $targetQuery))
+#set ($columnSemRefVar = $commonUtils.getColumnVariableName($column))
+		#: data.$columnSemRefVar #
+#end
 	</div>
 </script>
 #end
@@ -113,51 +116,48 @@
 #set($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
 #if ($isAutocompletion)
-<!-- autocomplete 2 -->
-		var myUrl = contextPath+"/data/sdd/ComrefUserLookupIn";
+#set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
+<!-- autocomplete 3 -->
 		var ds = new kendo.data.DataSource ({
 			transport: {
 				read: {
-					url: myUrl,
+					url: contextPath+"/data/sdd/${sddTargetOutputBeanClass}In",
 					dataType: "json",
 					contentType: "application/json; charset=utf-8",
 					cache: false
 				},
 				parameterMap: function() {
-					return { user: $("#authorizedBy").data("kendoAutoComplete").value() };
+					return { 
+#foreach($inputBeanCols in $targetQuery.getInputBean().getColumns())
+#set ($inputBeanColVar = $commonUtils.getColumnVariableName($inputBeanCols))
+					#if($velocityCount!=1)// not supported yet, #end ${inputBeanColVar}: $("#field-${columnVar}").data("kendoAutoComplete").value() 
+#end					
+					};
 				}
 			},
 			serverFiltering: true,
 			schema: {
-				data: "ComrefUserLookupOut"
+				data: "${sddTargetOutputBeanClass}Out"
 			},
 			pageSize : 30
 		});
 
-		$("#authorizedBy").kendoAutoComplete({
+		$("#field-${columnVar}").kendoAutoComplete({
 			dataSource: ds,
 			filter: "contains",
 			delay: 700,
-			dataTextField: "userLastname", // kendo.template($("#contactWithFunctionListTpl").html()), // "userLastname",
+			dataTextField: "userLastname", // kendo.template($("${columnVar}WithFunctionListTpl").html()), 
 			minLength: 3,
-			template: kendo.template($("#contactWithFunctionListTpl").html()),
+			template: kendo.template($("#${columnVar}WithFunctionListTpl").html()),
 			select: function(e) {
-				//setContactPoint(this, e);
-				//validContactSelected = true;
+				var item = this.dataItem(e.item.index());
+				$("#field-${columnVar}Selected").val(item.${columnValue});
 			},
 			open: function(e) {
-				//validContactSelected = false;
 			},
 			close: function(e) {
-				/*				if (!validContactSelected) {
-				 setContactPoint(this, false);
-				 }
-				 validContactSelected = false;*/
 			},
 			change: function(e) {
-				/*				if (!validContactSelected) {
-				 setContactPoint(this, false);
-				 }*/
 			}
 		}).focus(function() {
 			$(this).next("span").addClass("k-loading");
@@ -252,8 +252,11 @@
         });
 #else
 #if($column.queryParamLink.fieldKey != $column.queryParamLink.fieldName)
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
+#if(!$isAutocompletion)
 #set($fieldId="field-$columnVar")
 		$("#$fieldId").attr('readonly', 'readonly');
+#end
 #end
 #end
 #end

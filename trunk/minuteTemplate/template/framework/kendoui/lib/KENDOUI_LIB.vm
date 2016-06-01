@@ -176,7 +176,8 @@
 		#if($column.isRequired())required#end data-required-msg="Select $columnAlias" style="width: ${width}px;">
      </select>
 #elseif ($isAutocompletion)
-	 <input data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end placeholder="$columnAlias" /> 
+	 <input id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end placeholder="$columnAlias" class="k-textbox" type="text"/>
+	 <input hidden="true" id="${fieldId}Selected" /> 
 #else
 #set($titleSearch=$formatUtils.performDisplayReadableFirstUpperOnlyName($columnText))
 #set($width = $width+50)
@@ -185,13 +186,13 @@
 		<input type="text" id="$fieldId" data-bind="value: ${columnVar}" class="k-textbox" />
 		<input hidden="true" id="${fieldId}Selected" data-bind="value: ${columnVar}Selected" />
 		<a class="ui-icon ui-icon-circle-plus"   onclick="openSearchFor${columnVar}()" title="$titleSearch lookup" style="margin-left: 10px; margin-top: 10px;"></a>
-		<a class="ui-icon ui-icon-circle-minus"  onclick="clearSearchFor${columnVar}()" title="Userlogin clear" style="margin-left: 10px; margin-top: 10px;" ></a>
+		<a class="ui-icon ui-icon-circle-minus"  onclick="clearSearchFor${columnVar}()" title="clear" style="margin-left: 10px; margin-top: 10px;" ></a>
 	</div>
 #end
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
-		<input id="$fieldId" data-bind="value: ${columnVar}" />
+	<input id="$fieldId" data-bind="value: ${columnVar}" />
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
