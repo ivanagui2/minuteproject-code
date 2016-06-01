@@ -104,7 +104,7 @@ $updatedAreaSnippet
 				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy") #' ,
 #end
 #if ($presentationUtils.isLinkUrl($column, $query))
-				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)">#=${columnVar}#</a>',
+				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)" #if ($query.queryDisplay.resultRowLinkNewWindow) target="_blank" #end>#=${columnVar}#</a>',
 #end
 #if ($presentationUtils.isHidden($column, $query))
 						hidden : true
