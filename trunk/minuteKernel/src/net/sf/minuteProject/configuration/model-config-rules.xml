@@ -169,6 +169,7 @@
 					    	<alias attr-name="result-detail-display-columns" prop-name="resultDetailDisplayColumns" />
 					    	<alias attr-name="input-display" prop-name="inputDisplay" />
 					    	<alias attr-name="result-row-link-root-url" prop-name="resultRowLinkRootUrl" />
+					    	<alias attr-name="result-row-link-click-new-window" prop-name="resultRowLinkNewWindow" />
 					    	<alias attr-name="result-row-link-field" prop-name="resultRowLinkField" />
 					    	<alias attr-name="result-row-link-root-url-appended-field" prop-name="resultRowLinkRootUrlAppendedField" />
 					    </set-properties-rule>
@@ -1454,6 +1455,7 @@
 				    	<alias attr-name="result-detail-display-columns" prop-name="resultDetailDisplayColumns" />
 				    	<alias attr-name="input-display" prop-name="inputDisplay" />
 				    	<alias attr-name="result-row-link-root-url" prop-name="resultRowLinkRootUrl" />
+				    	<alias attr-name="result-row-link-click-new-window" prop-name="resultRowLinkNewWindow" />
 				    	<alias attr-name="result-row-link-field" prop-name="resultRowLinkField" />
 				    	<alias attr-name="result-row-link-root-url-appended-field" prop-name="resultRowLinkRootUrlAppendedField" />
 				    </set-properties-rule>
