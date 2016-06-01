@@ -5,7 +5,8 @@ import net.sf.minuteProject.configuration.bean.enrichment.Field;
 
 public class QueryParamLink extends AbstractConfiguration{
 	
-	private String entityName, queryName, fieldName, fieldKey;
+	private String entityName, queryName, fieldName, fieldKey, displayMode;
+	private String semanticReferenceFields;
 	private QueryParam queryParam;
 
 	public String getEntityName() {
@@ -23,7 +24,6 @@ public class QueryParamLink extends AbstractConfiguration{
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
 	}
-	
 	
 	public QueryParam getQueryParam() {
 		return queryParam;
@@ -47,6 +47,22 @@ public class QueryParamLink extends AbstractConfiguration{
 
 	public void setFieldKey(String fieldKey) {
 		this.fieldKey = fieldKey;
+	}
+
+	public String getDisplayMode() {
+		return displayMode;
+	}
+
+	public void setDisplayMode(String displayMode) {
+		this.displayMode = displayMode;
+	}
+
+	public String getSemanticReferenceFields() {
+		return semanticReferenceFields;
+	}
+
+	public void setSemanticReferenceFields(String semanticReferenceFields) {
+		this.semanticReferenceFields = semanticReferenceFields;
 	}
 
 }
