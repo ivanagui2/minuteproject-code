@@ -33,6 +33,7 @@
             <!-- button action -->
             <p>
                 <button id="action" class="k-button" data-bind="click: searchSdd">${presentationUtils.getQueryExecuteLabel($query)}</button>
+                <button id="clear"  class="k-button" data-bind="click: clearInput">Clear</button>
             </p>
         </div>
     </div>
@@ -290,6 +291,7 @@
 #end
 #end
 #end
+			clearInput:clearInput,
             searchSdd: function (event) {
 
 				event.preventDefault();
@@ -312,6 +314,8 @@
         kendo.bind($("#form-${tableVariableName}"), viewModel);
         
     });
+
+#exposeClearInput()
 
 #exposeSearchSDDFunction()
 

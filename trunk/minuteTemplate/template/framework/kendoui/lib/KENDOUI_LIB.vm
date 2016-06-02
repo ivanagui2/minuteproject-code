@@ -800,6 +800,52 @@ $!updatedAreaEnd
         $("#sdd-info").html("Action performed");
 #end
 
+#macro(exposeClearInput)
+	function clearInput() {
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+		$("#field-${chunkName}").val("");
+		$("${chunkName}Selected").val("");
+		this.set("${columnVar}","");
+#end
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParamNaming()
+#if($columnUtils.isLink($column))
+#set($fieldKey =$column.queryParamLink.fieldKey)
+#set($queryId =$column.queryParamLink.queryName)
+#exposeQueryTarget()
+#set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
+#if($isMasterData)
+#set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldKey))
+#set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
+#if($column.isArray())
+##TODO		var ${columnVar} = $("#field-$columnVar").data("kendoMultiSelect").value();
+#else
+		$("${columnVar}Selected").val("");
+		$("#field-$columnVar").val("");
+#end
+#else
+#if($column.queryParamLink.fieldKey == $column.queryParamLink.fieldName)
+		$("#field-$columnVar").val("");
+#else
+		$("#field-$columnVar").val("");
+		$("#field-${columnVar}Selected").val("");
+#end
+#end
+#else
+#if (!$column.isArray())
+		$("#field-$columnVar").val("");
+		this.set("${columnVar}","");
+#else
+##TODO		var $columnVar = $("#field-$columnVar").data("kendoMultiSelect").value();
+#end
+#end
+#end
+#end
+	}
+#end
+
 #macro(exposeSearchSDD)
 #exposeQuerySDD()
 //		$("#action").disable();
