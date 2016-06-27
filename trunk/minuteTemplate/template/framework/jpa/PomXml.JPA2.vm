@@ -220,14 +220,17 @@
       <groovyVersion>2.0.0</groovyVersion>
 #end 
 #if ($isWeblogicTargetServer)
-      <hibernateVersion>4.2.8.Final</hibernateVersion>
+##      <hibernateVersion>5.1.0.Final</hibernateVersion>
+      <hibernateVersion>4.3.11.Final</hibernateVersion>
 #else
+## https://github.com/aol/micro-server/issues/65 
+## config validator / hibernate / jboss logging
+##      <hibernateVersion>5.1.0.Final</hibernateVersion>
+##      <hibernateValidatorVersion>5.1.0.Final</hibernateValidatorVersion>
       <hibernateVersion>4.3.11.Final</hibernateVersion>
       <hibernateValidatorVersion>4.3.2.Final</hibernateValidatorVersion>
-## missing get Connection connection = cp.getConnection(); for SDD      <hibernateVersion>5.1.0.Final</hibernateVersion>
 #end
-
-## <hibernateVersion>4.3.4.Final</hibernateVersion>  error     
+ 
     </properties>
     <build>
         <!--<finalName>$DbApiName</finalName>-->
