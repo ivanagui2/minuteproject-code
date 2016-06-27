@@ -116,28 +116,14 @@ $!updatedAreaSnippet
 			);
        Session session = getSession();
        session.doWork(work);
-#*
-		List<$sddOutputBeanClass> list = executeJDBC (
-#if($isNotVoidInput)
-			$sddInputBeanVariable
-#end
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if(!$isNotVoidInput && $velocityCount==1) 
-        	$chunkName 
-#else
-        	, $chunkName 
-#end
-#end
-			);
-*#
 		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (work.getResult());
         return ${sddOutputBeanCollectionVariable};
     }
 #end
 $!updatedAreaEnd
 
-#putSddJdbcLookup()
+##putSddJdbcLookup()
+#putSddQueryLookupMisc()
 #if($jpa2ImplementationIsEclipseLink)
     public Connection getConnection() throws SQLException {
         return entityManager.unwrap(Connection.class);
@@ -199,7 +185,7 @@ $!updatedAreaEnd
           return list;
        }
     }
-
+#*
     public Connection getConnection() throws SQLException, HibernateException {
         Session session = getSession();
         SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
@@ -207,7 +193,7 @@ $!updatedAreaEnd
         Connection connection = cp.getConnection();
         return connection;
     }
-    	
+ *#   	
    	private Session getSession() {  
    		Session session = (Session) entityManager.getDelegate();  
    		return session;  

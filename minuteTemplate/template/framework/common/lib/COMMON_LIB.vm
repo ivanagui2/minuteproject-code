@@ -573,6 +573,27 @@ $!updatedAreaEnd
 	}
 #end
 
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+	String get${chunkName}(String ${chunkName}) {
+#foreach($queryChunkValue in $queryChunk.queryChunkValues)
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+#set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
+		if ("${chunkValueName}".equals(${chunkName}) || "${chunkValue}".equals(${chunkName}))
+			return CHUNK_${chunkName}_${chunkValueName};
+#end
+##default value
+#if($queryChunk.hasDefault())
+#set($queryChunkValue=$queryChunk.defaultValue)
+#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
+#set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
+		return CHUNK_${chunkName}_${chunkValueName};
+#else
+		return ${chunkName};
+#end
+	}  
+#end
+
 	public String getStatement(
 #if($isNotVoidInput)
 			$sddInputBeanClass $sddInputBeanVariable
@@ -600,58 +621,10 @@ $!updatedAreaEnd
 	   query = StringUtils.replace (query, "?...", inSb${columnVar}.toString());
 #end
 #end
-#*
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkNameString=$javaUtils.getJavaVariableNaming($queryChunk.name))
-		query = StringUtils.replace (query, "$"+"$chunkNameString", get${chunkNameString}(${chunkNameString}));  
-#end
-*#
 #injectGetStatementChunk()
 #injectGetStatementFilter()
-#*
-#foreach ($filter in $query.queryFilters)
-		if (
-##TODO Case none
-#foreach ($param in $filter.queryParams.queryParams)
-#set($paramName=$formatUtils.getJavaName(${param.name}))
-			#if ($velocityCount>1) && #end ${sddInputBeanVariable}.get${paramName}() != null
-#end
-			) {
-			String connectionWord = " AND ";
-#if ($filter.isWhere())
-			if (!isWhereDone) {
-				connectionWord = " WHERE ";
-			}
-#end
-			query = StringUtils.replace (query, "$"+"$filter.name", connectionWord + CHUNK_$filter.name ); 
-			isWhereDone = true;
-		} else {
-			query = StringUtils.replace (query, "$"+"$filter.name","");
-		}
-#end
-*#
 		return query;
 	}
-#end
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-	String get${chunkName}(String ${chunkName}) {
-#foreach($queryChunkValue in $queryChunk.queryChunkValues)
-#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
-#set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
-		if ("${chunkValueName}".equals(${chunkName}) || "${chunkValue}".equals(${chunkName}))
-			return CHUNK_${chunkName}_${chunkValueName};
-#end
-##default value
-#if($queryChunk.hasDefault())
-#set($queryChunkValue=$queryChunk.defaultValue)
-#set($chunkValueName=$javaUtils.getJavaVariableNaming($queryChunkValue.name))
-#set($chunkValue=$formatUtils.performDisplayReadableFirstUpperOnlyName($queryChunkValue.name))
-		return CHUNK_${chunkName}_${chunkValueName};
-#else
-		return ${chunkName};
-#end
-	}  
 #end
 #end
 
