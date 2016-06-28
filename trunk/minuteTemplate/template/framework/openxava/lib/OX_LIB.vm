@@ -40,9 +40,9 @@
 #macro (writeViewChildrenMember)
         members=
           "" 	
-#if(!$tableUtils.isReferenceDataContentType($table))        
 #foreach ($reference in $table.children)
 #putReferenceParams2()
+#if(!(!$tableUtils.isReferenceDataContentType($linktableDB) && $tableUtils.isReferenceDataContentType($table)))        
 #if(!$linktableDB.isManyToMany())
 	    + "${childrenListVariable} { ${childrenListVariable} };" 
 #end
