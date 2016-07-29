@@ -205,6 +205,11 @@ public class ColumnUtils {
 		return ReferenceUtils.getReference(column);
 	}
 	
+	public static boolean isDecimalPrecisionColumn(Column column) {
+		if (column==null) return false;
+		return column.getScale()>0;
+	}
+	
 	public static boolean isLengthPrecisionColumn(Column column) {
 		return isString(column);
 	}
