@@ -196,9 +196,9 @@ public class ${className} {
 	@Transient
 #else
 #if ($isView)
-    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
+    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($isDecimalPrecisionColumn)scale=$column.scale,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #else
-    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
+    @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($isDecimalPrecisionColumn)scale=$column.scale,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
 #end
 #end
 #if ($isMandatory)

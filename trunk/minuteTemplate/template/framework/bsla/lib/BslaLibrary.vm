@@ -56,6 +56,7 @@
 #set ($isPrimaryKey = $column.isPrimaryKey())
 #set ($resource = "${table.name}.$columnVar")
 #set ($isLengthPrecisionColumn = $columnUtils.isLengthPrecisionColumn($column))
+#set ($isDecimalPrecisionColumn= $columnUtils.isDecimalPrecisionColumn($column))
 #set ($columLengthPrecisionSize = $column.getSizeAsInt())
 #set ($columnVarAsInput = $commonUtils.getJavaNameVariableConvertReservedWord($column))
 #set ($isEnum = $enumUtils.isEnumType($template, $column))
