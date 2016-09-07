@@ -227,6 +227,10 @@ public interface BaseColumn extends GeneratorBean{
 	
 	public void setFilterName(String filterName);
 	
+	public void setSessionParamName(String sessionParamName);
+
+	public String getSessionParamName();
+	
 	public String getFilterName ();
 	
 	public boolean isFilter();

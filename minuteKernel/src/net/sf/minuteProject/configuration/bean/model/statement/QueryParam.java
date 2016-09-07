@@ -16,6 +16,7 @@ public class QueryParam extends Field {
 	private boolean isContext   =false;
 	private boolean hasBeenDuplicated   =false;
 	private String sample;
+	private String sessionParamName;
 	private String refname;
 	private int size, scale;
 	private String converter;
@@ -171,6 +172,12 @@ public class QueryParam extends Field {
 	}
 	public void setIndex(Integer index) {
 		this.index = index;
+	}
+	public String getSessionParamName() {
+		return sessionParamName;
+	}
+	public void setSessionParamName(String sessionParamName) {
+		this.sessionParamName = sessionParamName;
 	}
 	
 }

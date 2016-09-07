@@ -33,8 +33,7 @@ public class TableUtils {
 
 	public static final String pseudoStaticDataContentType = "pseudo-static-data";
 	public static final String referenceDataContentType = "reference-data";
-	public static final String masterDataContentType = "master-data"; // immutable
-																		// data
+	public static final String masterDataContentType = "master-data"; // immutable data
 	public static final String liveBusinessDataContentType = "live-business-data";
 	public static Logger log = Logger.getLogger(TableUtils.class);
 
@@ -695,4 +694,10 @@ public class TableUtils {
 		return columns;
 	}
 
+	public static boolean hasSessionParam(Table table) {
+		for (Column column : table.getColumns()) {
+			if (!StringUtils.isEmpty(column.getSessionParamName())) return true;
+		}
+		return false;
+	}
 }
