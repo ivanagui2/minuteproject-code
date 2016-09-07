@@ -193,6 +193,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 			if (column != null) {
 				column.setStereotype(queryParam.getStereotype());
 				column.setFilterName(queryParam.getQueryParams().getFilterName());
+				column.setSessionParamName(queryParam.getSessionParamName());
 				column.setQueryParamLink(queryParam.getQueryParamLink());
 				column.setIsOutputParam(queryParam.isOutputParam());
 			}

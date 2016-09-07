@@ -208,6 +208,7 @@
 			                       <alias attr-name="id" prop-name="id" />
 				                   <alias attr-name="refid" prop-name="refid" />
 				                   <alias attr-name="refname" prop-name="refname" />
+				                   <alias attr-name="session-param-name" prop-name="sessionParamName" />
 				                   <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 				                   <alias attr-name="is-context" prop-name="isContext" /><!-- global context bound -->
 				                   <alias attr-name="is-in-clause" prop-name="isArray" />
@@ -302,6 +303,7 @@
 		                       <alias attr-name="refname" prop-name="refname" />
 		                       <alias attr-name="refid" prop-name="refid" />
 		                       <alias attr-name="id" prop-name="id" />
+		                       <alias attr-name="session-param-name" prop-name="sessionParamName" />
 		                       <alias attr-name="is-implicit" prop-name="isImplicit" /><!-- relative context bound -->
 		                   	   <alias attr-name="is-context"  prop-name="isContext" /><!-- global context bound -->
 		                   	   <alias attr-name="is-in-clause" prop-name="isArray" />

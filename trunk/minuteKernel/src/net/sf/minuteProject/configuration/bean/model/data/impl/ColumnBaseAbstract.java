@@ -1,5 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.BaseColumn;
@@ -11,7 +13,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	private String typeAlias;
 	private boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
 	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isArray = false, isOutputParam=false;
-	private String filterName;
+	private String filterName, sessionParamName;
 	private QueryParamLink queryParamLink;
 	
 	@Override
@@ -82,7 +84,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	}
 
 	public boolean isImplicit() {
-		return isImplicit;
+		return isImplicit || !StringUtils.isEmpty(sessionParamName);
 	}
 
 	public void setImplicit(boolean isImplicit) {
@@ -133,4 +135,13 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	public void setIsArray(boolean isArray) {
 		this.isArray = isArray;
 	}
+
+	public String getSessionParamName() {
+		return sessionParamName;
+	}
+
+	public void setSessionParamName(String sessionParamName) {
+		this.sessionParamName = sessionParamName;
+	}
+
 }
