@@ -9,7 +9,7 @@
 #set ($size = $sizeColumn + $sizeChunk)
 #macro(resourceSignature $param)
 #foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
+#if (!$column.hasBeenDuplicated() && !$column.isImplicit())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
@@ -31,7 +31,7 @@
 #end
 #macro (resourceParameters)
 #foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
+#if (!$column.hasBeenDuplicated() && !$column.isImplicit())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
@@ -107,6 +107,12 @@ import $sddDaoInterfaceImport;
 @Produces(MediaType.APPLICATION_JSON)
 @Api(value="/sdd/${sddInputBeanClass}", description = "operation about ${sddInputBeanClass}")
 public class ${className} {
+#if ($tableUtils.hasSessionParam($table))
+
+	@Context
+	private HttpServletRequest request;
+	
+#end
 #if ($isSpringBackend)
     @Autowired
     @Qualifier("$sddDaoInterfaceVariable")	
@@ -130,7 +136,7 @@ $!updatedAreaBegin
 #if($isNotVoidInput)
         $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
 #foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
+#if (!$column.hasBeenDuplicated() && !$column.isImplicit())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
@@ -138,6 +144,9 @@ $!updatedAreaBegin
 #else
 		${sddInputBeanVariable}.set$columnClass ($columnVar);
 #end
+#end
+#if ($column.isImplicit())
+		${sddInputBeanVariable}.set$columnClass ((${columnType})request.getSession().getAttribute("${column.sessionParamName}"));
 #end
 #end
         return ${sddDaoInterfaceVariable}.execute(
