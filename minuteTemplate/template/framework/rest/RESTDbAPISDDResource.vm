@@ -107,7 +107,7 @@ import $sddDaoInterfaceImport;
 @Produces(MediaType.APPLICATION_JSON)
 @Api(value="/sdd/${sddInputBeanClass}", description = "operation about ${sddInputBeanClass}")
 public class ${className} {
-#if ($tableUtils.hasSessionParam($table))
+#if ($tableUtils.hasSessionParam($inputBean))
 
 	@Context
 	private HttpServletRequest request;

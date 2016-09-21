@@ -114,8 +114,8 @@ $!updatedAreaSnippet
 #end
 #end
 			);
-       Session session = getSession();
-       session.doWork(work);
+        Session session = getSession();
+        session.doWork(work);
 		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (work.getResult());
         return ${sddOutputBeanCollectionVariable};
     }
