@@ -1,9 +1,6 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
-import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.TableUtils;
