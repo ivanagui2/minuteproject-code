@@ -320,7 +320,7 @@ public class ConvertUtils {
 	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
 		String retStr=getJavaTypeFromDBFullType (dBType, size, databaseType);		
-		if (dBType.equals("DECIMAL")) {
+		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC") ) {
 			if (scale==0)
 				return JAVA_LONG_TYPE;
 			else
