@@ -153,6 +153,8 @@
 	                 	<alias attr-name="content-type" prop-name="contentType" />
 	                 	<alias attr-name="is-write" prop-name="write" />
 	                 	<alias attr-name="execute-label" prop-name="executeLabel" />
+	                 	<alias attr-name="result-cardinality" prop-name="resultCardinality" />
+	                 	
 	            	</set-properties-rule>
 			        <pattern value="query-body">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
@@ -1441,6 +1443,7 @@
                  	<alias attr-name="content-type" prop-name="contentType" />
                  	<alias attr-name="is-write" prop-name="write" />
                  	<alias attr-name="execute-label" prop-name="executeLabel" />
+                 	<alias attr-name="result-cardinality" prop-name="resultCardinality" />
             	</set-properties-rule>
 		        <pattern value="query-body">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    

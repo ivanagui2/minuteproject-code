@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 
 public class Composite extends AbstractConfiguration{
 
+	//TODO change Composite to embrace composite pattern
 	private Composites composites;
 	private Composite inputComposite, outputComposite;
 	private Direction direction;

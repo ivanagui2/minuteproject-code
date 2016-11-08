@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -48,6 +49,8 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private String packageName;
 	private boolean isWrite = false;
 	private String contentType;
+	
+	private Cardinality resultCardinality;
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -433,6 +436,22 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	
+	public Cardinality getResultCardinality() {
+		return resultCardinality;
+	}
+	
+	public void setCardinality(String cardinality) {
+		this.resultCardinality = Cardinality.valueOf(cardinality.toUpperCase());
+	}
+
+	public boolean isOneResult() {
+		return resultCardinality!=null && resultCardinality == Cardinality.ONE;
+	}
+	
+	public boolean isManyResults() {
+		return !isOneResult();
 	}
 	
 	@Override
