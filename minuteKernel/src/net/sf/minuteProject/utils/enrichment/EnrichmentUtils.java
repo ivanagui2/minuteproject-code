@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.loader.mapping.node.Variable;
 import net.sf.minuteProject.utils.ReferenceUtils;
@@ -355,17 +356,14 @@ public class EnrichmentUtils {
 	}
 
 	public static boolean isToGenerateBasedOnTag(Template template, GeneratorBean bean) {
-//		List<Property> beanProp = bean.getProperties();
-//		List<Property> templateProp = template.getProperties();
-//		for (Property property : templateProp) {
-//			if (property.getName().equals(generateForTag) || property.getTag().equals(generateForTag)) {
-//				for (Property property2 : beanProp) {
-//					if (property2.getName().equals(property.getValue()))
-//						return true;
-//				}
-//			}
-//		}
 		return (getPropertyGenerateBasedOnTag(template, bean)==null)?false:true;
+	}
+	
+	public static boolean isToGenerateBasedOnMultiplicityOfResult(Template template, GeneratorBean bean) {
+		if (bean instanceof Query) {
+			return ((Query)bean).isManyResults(); //instance of table
+		}
+		return true;//change to false
 	}
 
 	public static String getGenerateBasedOnTagAlias(Template template,

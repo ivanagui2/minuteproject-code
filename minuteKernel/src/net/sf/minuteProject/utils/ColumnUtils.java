@@ -225,6 +225,7 @@ public class ColumnUtils {
 				column.getType().equals("VARCHAR2") ||
 				column.getType().equals("VARGRAPHIC") ||
 				column.getType().equals("VARGRAPHIC2") ||
+				column.getType().equalsIgnoreCase("LONGVARCHAR") ||
 				column.getType().equals("CLOB")
 		)
 			return true;
