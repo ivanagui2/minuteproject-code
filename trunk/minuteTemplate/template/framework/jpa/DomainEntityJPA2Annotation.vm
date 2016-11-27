@@ -622,7 +622,7 @@ $!updatedAreaSnippet
 #set($columnClass=$columnClass+"_")
 #end
         if ("${columnVar}".equals(pattern)) {
-           set$columnClass(value.toString());
+		   set$columnClass(value.toString());
 		   return this;
 		}
 #else
@@ -635,7 +635,7 @@ $!updatedAreaSnippet
 #end
 #if($isEnum)
 		if ("${columnVar}".equals(pattern)) {
-           set$columnClass(value.toString());
+		   set$columnClass(value.toString());
 		   return this;
 		}
 #else
@@ -644,7 +644,7 @@ $!updatedAreaSnippet
 #end
 #set($key=$convertUtils.getJavaTypeCastExpression($column, "value", $useTemporal))
 		if ("${columnVar}".equals(pattern)) {
-           set$columnClass($key);
+		   set$columnClass($key);
 		   return this;
 		}
 #end
