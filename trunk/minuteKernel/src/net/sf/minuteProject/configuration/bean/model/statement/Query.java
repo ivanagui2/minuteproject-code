@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.enumeration.Cache;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -49,8 +50,9 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private String packageName;
 	private boolean isWrite = false;
 	private String contentType;
+	private Cache caching = Cache.READ_ONLY;
 	
-	private Cardinality resultCardinality;
+	private Cardinality resultCardinality = Cardinality.MANY;
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -176,8 +178,12 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	// remove duplication
 	public Table getEntityFromDirection(Direction dir) {
 		Table entity = getEntityRoot(dir);
-		if (dir.equals(Direction.IN))
+		if (dir.equals(Direction.IN)) {
 			complementFields(entity, queryParams);
+		}
+		if (dir.equals(Direction.OUT)) {
+			complementOutputFields(entity);
+		}
 		return entity;
 	}
 
@@ -188,6 +194,11 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		return getOutputBean();
 	}
 
+	private void complementOutputFields(Table entity) {
+		entity.setResultCardinality(resultCardinality);
+		
+	}
+	
 	private void complementFields(Table table, QueryParams queryParams) {
 		List<QueryParam> list = getQueryParams(Direction.IN);
 		for (QueryParam queryParam : list) {
@@ -442,18 +453,16 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		return resultCardinality;
 	}
 	
-	public void setCardinality(String cardinality) {
+	public void setCard(String cardinality) {
 		this.resultCardinality = Cardinality.valueOf(cardinality.toUpperCase());
 	}
 
-	public boolean isOneResult() {
-		return resultCardinality!=null && resultCardinality == Cardinality.ONE;
+	public Cache getCaching() {
+		return caching;
 	}
-	
-	public boolean isManyResults() {
-		return !isOneResult();
+	public void setCaching(Cache caching) {
+		this.caching = caching;
 	}
-	
 	@Override
 	public String toString() {
 		return "query [name='"+name+"', id='"+id+"']";

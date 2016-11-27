@@ -16,6 +16,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -45,6 +46,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<Constraint> constraints;
 	private Boolean hasVersion;
 	private List<Ordering> orderings;
+	private Cardinality resultCardinality;
 	
 	public TableAbstract () {
 	}
@@ -65,6 +67,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setDatabase(table.getDatabase());
 		this.setConstraints(table.getConstraints());
 		this.setOrderings(table.getOrderings());
+		this.setResultCardinality(table.getResultCardinality());
 	}
 
 	public String getName () {
@@ -485,4 +488,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	public void addColumn (Column column) {
 		this.table.addColumn(column);
 	}
+
+	public Cardinality getResultCardinality() {
+		return resultCardinality;
+	}
+
+	public void setResultCardinality(Cardinality resultCardinality) {
+		this.resultCardinality = resultCardinality;
+	}
+	
+	
 }
