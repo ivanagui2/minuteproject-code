@@ -66,7 +66,7 @@ $!updatedAreaBegin
 $!updatedAreaSnippet
 #else
    <cache
-    name="$importDomainObjectUML"
+    	name="$importDomainObjectUML"
 #if($useMaxEntriesLocalHeap)
         maxEntriesLocalHeap="5000"
 #else
@@ -79,6 +79,26 @@ $!updatedAreaSnippet
    />
 #end
 $!updatedAreaEnd
+#end
+#end
+#end
+
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+#foreach ($query in $package.getQueries()) 
+#if($query.isCache())
+#set($cacheName=$formatUtils.getJavaNameVariable(${query.name})+"Cache")
+   <cache
+    	name="$cacheName"
+#if($useMaxEntriesLocalHeap)
+        maxEntriesLocalHeap="5000"
+#else
+        maxElementsInMemory="5000"
+#end
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="false"
+   />
 #end
 #end
 #end
