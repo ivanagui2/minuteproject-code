@@ -9,6 +9,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.query.Ordering;
 
@@ -306,7 +307,9 @@ public interface Table extends GeneratorBean{
 	
 	public void addColumn (Column column);
 
-
+	public void setResultCardinality(Cardinality cardinality);
+	
+	public Cardinality getResultCardinality();
 
 	public void convertColumnToRelation(String name);
 	

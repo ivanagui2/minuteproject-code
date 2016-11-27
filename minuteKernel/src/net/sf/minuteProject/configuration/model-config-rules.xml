@@ -152,8 +152,10 @@
 	                 	<alias attr-name="package-name" prop-name="packageName" />
 	                 	<alias attr-name="content-type" prop-name="contentType" />
 	                 	<alias attr-name="is-write" prop-name="write" />
+	                 	<alias attr-name="is-cache" prop-name="cache" />
 	                 	<alias attr-name="execute-label" prop-name="executeLabel" />
 	                 	<alias attr-name="result-cardinality" prop-name="resultCardinality" />
+	                 	<alias attr-name="result-cardinality" prop-name="card" />
 	                 	
 	            	</set-properties-rule>
 			        <pattern value="query-body">
@@ -1442,8 +1444,11 @@
                  	<alias attr-name="package-name" prop-name="packageName" />
                  	<alias attr-name="content-type" prop-name="contentType" />
                  	<alias attr-name="is-write" prop-name="write" />
+                 	<alias attr-name="is-cache" prop-name="cache" />
                  	<alias attr-name="execute-label" prop-name="executeLabel" />
+                 	<!-- strangely the mapping with prop-name="*cardinality" -->
                  	<alias attr-name="result-cardinality" prop-name="resultCardinality" />
+                 	<alias attr-name="result-cardinality" prop-name="card" />
             	</set-properties-rule>
 		        <pattern value="query-body">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
