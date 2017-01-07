@@ -5,7 +5,7 @@ GENDIR=$(cd `dirname $0`;pwd)
 
 ## stop tomcat in appart process
 cd $OX_HOME/tomcat/bin
-./shutdown.bat
+./shutdown.sh
 
 ## remove OX project
 cd $OX_HOME/workspace
