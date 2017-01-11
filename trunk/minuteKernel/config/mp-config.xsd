@@ -513,7 +513,7 @@
 	
 	<xs:complexType name="action-column-map-entry">
 		<xs:sequence>
-			<xs:element name="action-field-map-entry" type="action-field-map-entry" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="action-field-map-entry" type="action-field-map-entry" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 		<xs:attribute name="name"/>
 	</xs:complexType>
@@ -749,11 +749,24 @@
 				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="query-chunk-params">
+		<xs:sequence>
+			<xs:element name="query-chunk-param" type="query-chunk-param" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="query-chunk">
 		<xs:sequence>
 			<xs:element name="query-chunk-value" type="query-chunk-value"/>
+			<xs:element name="query-chunk-params" type="query-chunk-params"/>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="query-chunk-param">
+		<xs:attribute name="id" type="xs:string" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="type" type="xs:string" use="required" />
+		<xs:attribute name="size" type="xs:int" />
+		<xs:attribute name="sample" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="query-pivot">
 		<xs:attribute name="name" type="xs:string" use="required" />
@@ -790,6 +803,7 @@
 		<xs:attribute name="size" type="xs:int" />
 		<xs:attribute name="id" type="xs:int" />
 		<xs:attribute name="refid" type="xs:int" />
+		<xs:attribute name="session-param-name" type="xs:string" /><!-- session param name for implicit parameters -->
 		<xs:attribute name="is-implicit" type="xs:boolean" /><!-- relative context bound -->
 		<xs:attribute name="is-context" type="xs:boolean" /><!-- global context bound -->
 		<xs:attribute name="is-output-param" type="xs:boolean" default="false"/>

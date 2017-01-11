@@ -51,7 +51,6 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private boolean isWrite = false;
 	private String contentType;
 	private Cache caching = Cache.READ_ONLY;
-	
 	private Cardinality resultCardinality = Cardinality.MANY;
 
 	public void setQueryModel (T t) {
@@ -322,7 +321,10 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 			List<QueryParam> list = new ArrayList<QueryParam>();
 			list.addAll(getInputParams().getFlatQueryParams(true));
 			for (QueryFilter filter : getQueryFilters()) {
-				list.addAll(filter.getQueryParams().getFlatQueryParams(false));
+				QueryParams queryParams2 = filter.getQueryParams();
+				if (queryParams2!=null) {
+					list.addAll(queryParams2.getFlatQueryParams(false));
+				}
 			}
 			return list;
 		}
@@ -448,6 +450,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+
 	
 	public Cardinality getResultCardinality() {
 		return resultCardinality;
@@ -463,6 +466,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public void setCaching(Cache caching) {
 		this.caching = caching;
 	}
+
 	@Override
 	public String toString() {
 		return "query [name='"+name+"', id='"+id+"']";

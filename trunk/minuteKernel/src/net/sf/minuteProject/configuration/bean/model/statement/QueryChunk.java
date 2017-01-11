@@ -12,6 +12,7 @@ public class QueryChunk extends AbstractConfiguration{
 	
 	private String sampleValue;
 	private List<QueryChunkValue> queryChunkValues;
+	private List<QueryChunkParam> queryChunkParams;
 	private QueryChunkValue defaultValue;
 	
 	public String getSampleValue() {
@@ -33,6 +34,17 @@ public class QueryChunk extends AbstractConfiguration{
 		if (queryChunkValue.isDefault())
 			defaultValue = queryChunkValue;
 		getQueryChunkValues().add(queryChunkValue);
+	}
+	
+	public List<QueryChunkParam> getQueryChunkParams() {
+		if (queryChunkParams == null)
+			queryChunkParams = new ArrayList<QueryChunkParam>();
+		return queryChunkParams;
+	}
+	
+	public void addQueryChunkValue(QueryChunkParam queryChunkParam) {
+		queryChunkParam.setQueryChunk(this);
+		getQueryChunkParams().add(queryChunkParam);
 	}
 
 	public QueryChunkValue getDefaultValue() {

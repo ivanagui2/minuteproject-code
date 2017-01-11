@@ -25,7 +25,7 @@
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
 			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
 			scope-specific-value="sdd-output-bean" 
-			check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnMultiplicityOfResult" >
+			 >
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
 		
