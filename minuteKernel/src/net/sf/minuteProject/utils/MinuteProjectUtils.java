@@ -7,7 +7,6 @@ public class MinuteProjectUtils {
 	}
 	
 	public static String getBuildDate () {
-		return "2016-01-28 14:38:31";
-
+		return "2016-08-01 11:33:50";
 	}	
 }
