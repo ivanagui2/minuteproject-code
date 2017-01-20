@@ -262,7 +262,7 @@ $!updatedAreaSnippet
 #else
     @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName", #if($localColumn.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true,#else unique=false,#end insertable=false, updatable=false)
 #end
-#end  
+#end
     @ReferenceView ("reference") 
 #set($semanticReference = $linktableDB.semanticReference)
 #if ($openXavaUtils.hasDescriptionList($linktableDB)) 

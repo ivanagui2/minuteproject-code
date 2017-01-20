@@ -82,8 +82,10 @@
 					{
 //						width : toset, $column.type
 #set($fieldLabel=$formatUtils.performDisplayReadableFirstUpperOnlyName($column.alias))
-#if($columnUtils.isTime($column))
-						template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy") #' ,
+#if($columnUtils.isTimeStampColumn($column))
+				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy HH:mm:ss") #' ,
+#elseif($columnUtils.isTime($column))
+				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy") #' ,
 #end
 	                	title: "$fieldLabel",
 	                	field: "$columnVar",

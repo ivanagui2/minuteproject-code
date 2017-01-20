@@ -1,6 +1,7 @@
 #generatorSpecific()
 #exposeVariableEntitySpecific()
 #addedAreas()
+#set ($useTemporal = true)
 package $packageName;
 
 import java.util.Date;
@@ -8,11 +9,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
-#if ($model.hasCmisModel())
+##if ($model.hasCmisModel())
 #set ($applicationJsonDateSerializerImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, "REST.jackson.serializer.date"))
 #set ($applicationJsonDateSerializerClass  = $commonUtils.getTemplateClassName($model, $template, "REST.jackson.serializer.date"))
 import $applicationJsonDateSerializerImport;
-#end
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+##end
 $!updatedAreaImport
 /**
  *
@@ -36,8 +38,10 @@ public class ${className} {
 #if (!$column.hasBeenDuplicated())
 #if (!$column.isArray())
 #putColumnParamNaming()
-#if ($columnType=='Date' && $model.hasCmisModel())
-	@com.fasterxml.jackson.databind.annotation.JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
+#if($columnUtils.isTimeStampColumn($column))
+	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
+#elseif ($columnUtils.isTimeColumn($column))
+## DO nothing	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #end
     private $columnType $columnVar;
 #else
