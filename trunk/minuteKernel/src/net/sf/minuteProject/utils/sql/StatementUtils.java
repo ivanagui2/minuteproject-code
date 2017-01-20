@@ -43,9 +43,11 @@ public class StatementUtils {
 			if (type.equals(FieldType.DATE.toString()))
 				return "Date";
 			if (type.equals(FieldType.DATETIME.toString()))
-				return "Date";
+				return "Time";
+			if (type.equals(FieldType.TIME.toString()))
+				return "Time";
 			if (type.equals(FieldType.TIMESTAMP.toString()))
-				return "Date";
+				return "Timestamp";
 			if (type.equals(FieldType.BOOLEAN.toString()))
 				return "Boolean";
 		}

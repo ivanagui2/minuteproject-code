@@ -271,7 +271,19 @@
 	                       <alias attr-name="name" prop-name="name" />
 	                       <alias attr-name="sample-value" prop-name="sampleValue" />
 	                       <alias attr-name="description" prop-name="description" />
-	                   </set-properties-rule>
+	                   	</set-properties-rule>
+				        <pattern value="query-chunk-params/query-query-param">
+			                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkQueryParam"/>    
+			                <set-next-rule methodname="addQueryChunkParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkQueryParam"/>
+		                    <set-properties-rule>
+		                       <alias attr-name="default" prop-name="defaultValue" />
+		                       <alias attr-name="size" prop-name="size" />
+		                       <alias attr-name="id" prop-name="id" />
+		                       <alias attr-name="name" prop-name="name" />
+			                   <alias attr-name="type" prop-name="type" />
+		                   </set-properties-rule>
+		                   <bean-property-setter-rule pattern="value"/>
+			            </pattern>
 				        <pattern value="query-chunk-value">
 			                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>    
 			                <set-next-rule methodname="addQueryChunkValue" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>
@@ -279,6 +291,7 @@
 		                   		<alias attr-name="is-default" prop-name="isDefault" />
 		                   </set-properties-rule>
 		                   <bean-property-setter-rule pattern="value"/>
+		                   <bean-property-setter-rule pattern="params"/>
 			            </pattern>
 		            </pattern>     
 			        <pattern value="query-pivots/query-pivot">
@@ -1558,6 +1571,18 @@
                        <alias attr-name="sample-value" prop-name="sampleValue" />
                        <alias attr-name="description" prop-name="description" />
                    </set-properties-rule>
+			        <pattern value="query-chunk-params/query-query-param">
+		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkParam"/>    
+		                <set-next-rule methodname="addQueryChunkParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkParam"/>
+	                    <set-properties-rule>
+	                       <alias attr-name="default" prop-name="defaultValue" />
+	                       <alias attr-name="size" prop-name="size" />
+	                       <alias attr-name="id" prop-name="id" />
+	                       <alias attr-name="name" prop-name="name" />
+		                   <alias attr-name="type" prop-name="type" />
+	                   </set-properties-rule>
+	                   <bean-property-setter-rule pattern="value"/>
+		            </pattern>
 			        <pattern value="query-chunk-value">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>    
 		                <set-next-rule methodname="addQueryChunkValue" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkValue"/>
@@ -1565,6 +1590,7 @@
 	                   		<alias attr-name="is-default" prop-name="isDefault" />
 	                   </set-properties-rule>
 	                   <bean-property-setter-rule pattern="value"/>
+	                   <bean-property-setter-rule pattern="params"/>
 		            </pattern>
 	            </pattern>
 		        <pattern value="query-pivots/query-pivot">
