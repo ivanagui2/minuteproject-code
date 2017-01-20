@@ -76,6 +76,7 @@ public class ConvertUtils {
 	public static final String UML_BOOLEAN_TYPE 					=   "boolean";	
 	public static final String UML_DATE_TYPE 						=   "date";	
 	public static final String UML_TIMESTAMP_TYPE 					=   "timestamp";	
+	public static final String UML_TIME_TYPE 						=   "time";	
 	
 	private static Logger logger = Logger.getLogger(ConvertUtils.class);
 	
@@ -90,6 +91,7 @@ public class ConvertUtils {
 		if (UML_DATE_TYPE.equals(type)) return DB_DATE_TYPE;
 		if (UML_BOOLEAN_TYPE.equals(type)) return DB_BOOLEAN_TYPE;
 		if (UML_TIMESTAMP_TYPE.equals(type)) return DB_TIMESTAMP_TYPE;
+		if (UML_TIME_TYPE.equals(type)) return DB_TIME_TYPE;
 		if (UML_BIGDECIMAL_TYPE.equals(type)) return DB_DOUBLE_TYPE;
 		if (UML_BIGINTEGER_TYPE.equals(type)) return DB_BIGINT_TYPE;
 		return DB_STRING_TYPE;
@@ -127,7 +129,8 @@ public class ConvertUtils {
 		if (DB_DOUBLE_TYPE.equals(type)) return UML_DOUBLE_TYPE;
 		if (DB_BIT_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		if (DB_DATE_TYPE.equals(type)) return UML_DATE_TYPE;
-		if (DB_TIMESTAMP_TYPE.equals(type)) return UML_DATE_TYPE;
+		if (DB_TIMESTAMP_TYPE.equals(type)) return UML_TIMESTAMP_TYPE;
+		if (DB_TIME_TYPE.equals(type)) return UML_TIME_TYPE;
 		if (DB_LONG_TYPE.equals(type)) return UML_LONG_TYPE;
 		if (DB_BIGINT_TYPE.equals(type)) return UML_BIGINTEGER_TYPE;
 		//if (DB_BOOLEAN_TYPE.equals(type)) return UML_BOOLEAN_TYPE;

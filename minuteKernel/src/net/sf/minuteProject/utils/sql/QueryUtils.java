@@ -129,10 +129,22 @@ public class QueryUtils {
 
 	private static QueryParam getQueryParam(ResultSetMetaData metaData, int i) throws SQLException {
 		QueryParam qp = new QueryParam();
-		qp.setName(metaData.getColumnName(i));
+		String columnName = metaData.getColumnName(i);
+		qp.setName(columnName);
 		qp.setSize(metaData.getColumnDisplaySize(i));
-		qp.setScale(metaData.getScale(i));
-		qp.setType(metaData.getColumnTypeName(i));
+		int scale = metaData.getScale(i);
+		qp.setScale(scale);
+		String columnTypeName = metaData.getColumnTypeName(i);
+//		if (columnTypeName.equals("DATE")) {
+//			if (scale>0) {
+//				qp.setType("TIMESTAMP");
+//			} else {
+//				qp.setType(columnTypeName);
+//			}
+//		} else {
+//			qp.setType(columnTypeName);
+//		}
+		qp.setType(columnTypeName);
 		return qp;
 	}
 
