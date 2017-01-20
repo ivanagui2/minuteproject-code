@@ -580,8 +580,8 @@ $!updatedAreaEnd
            ,
            schema: {
               data: "$sddOutputBeanClass"
-           },
-           pageSize : $kendoUiUtils.pageSize()
+           }
+           // ,pageSize : $kendoUiUtils.pageSize() seems not to work
         },
 #if (!$isChart)
            resizable: true,
@@ -690,7 +690,9 @@ $updatedAreaSnippet
 #else
 //				width : toset, $column.type
 #end
-#if($columnUtils.isTime($column))
+#if($columnUtils.isTimeStampColumn($column))
+				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy HH:mm:ss") #' ,
+#elseif($columnUtils.isTime($column))
 				template: '#= kendo.toString(kendo.parseDate(${columnVar}),"dd/MM/yyyy") #' ,
 #end
 #if ($presentationUtils.isLinkUrl($column, $query))
@@ -912,7 +914,7 @@ $!updatedAreaEnd
 #else
 #set($columnValue=$columnVar)
 #end
-       if ($columnVar!=undefined && !$columnVar=='') {
+       if ($columnVar!=undefined && !$columnVar=='' && !$columnVar=='Choose') {
            if (!isQuestionMarkDone) {
                 isQuestionMarkDone = true;
                 query = "?"+"$columnVar="+$columnValue;
@@ -972,12 +974,14 @@ $!updatedAreaEnd
 #exposeDbApiRestTemplate()
 #set($queryInputSDDRelativePath = $commonUtils.getArtifactRelativePathDirAndFullName($query, $template, $templateRESTDbApiSDDResource))
 #set($dateParamImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateRESTDateParam))
+#set($timestampParamImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateRESTTimestampParam))
 #end
 
 #macro (exposeDbApiRestTemplate)
 #set($templateRESTDbApiGenericResource="RESTDbAPIGenericResource")
 #set($templateRESTDbApiSDDResource="RESTDbAPISDDResource")
 #set($templateRESTDateParam="REST.DateParam")
+#set($templateRESTTimestampParam="REST.TimestampParam")
 #end
 
 #macro(exposeKendoUITemplate)
