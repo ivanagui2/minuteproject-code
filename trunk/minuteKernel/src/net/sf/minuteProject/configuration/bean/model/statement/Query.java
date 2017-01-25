@@ -440,6 +440,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 
 	public void setQueryDisplay(QueryDisplay queryDisplay) {
+		queryDisplay.setQuery(this);
 		this.queryDisplay = queryDisplay;
 	}
 
