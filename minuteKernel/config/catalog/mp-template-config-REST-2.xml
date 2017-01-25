@@ -74,20 +74,31 @@
 			<property name="format" value="date" />
 		</template>
 		
-		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+		<template name="REST.TimeParam" templateFileName="REST.DateParam.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest.param"
 			file-extension="java" file-prefix="" file-suffix="TimeParam" 
 			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 			<property name="format" value="time" />
 		</template>
 		
-		<template name="REST.DateParam" templateFileName="REST.DateParam.vm" 
+		<template name="REST.TimestampParam" templateFileName="REST.DateParam.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest.param"
 			file-extension="java" file-prefix="" file-suffix="TimestampParam" 
 			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 			<property name="format" value="timestamp" />
 		</template>
-		
+
+<!-- 
+		<template name="REST.jackson.serializer.date" templateFileName="REST.jackson.serializer.date.vm" 
+			subdir="" outputsubdir="" technicalPackage="utils"
+			file-prefix="" file-suffix="JacksonDateSerializer" 
+			add-model-dir-name="false"
+			model-specific="true" 
+			has-updatable-nature="true"			
+			add-model-name="false"
+			file-extension="java">
+		</template>
+ -->		
 	</template-target>	
   	<template-target 
     	name="Kendo client Maven"

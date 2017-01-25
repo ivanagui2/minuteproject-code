@@ -741,6 +741,15 @@
 		<xs:attribute name="result-row-link-click-new-window" type="xs:boolean"/>
 		<xs:attribute name="result-row-link-field" type="xs:string"/>
 		<xs:attribute name="result-row-link-root-url-appended-field" type="xs:string"/>
+		<xs:element name="query-display-new-column" type="query-display-new-column" minOccurs="0" maxOccurs="unbounded" />
+	</xs:complexType>
+	
+	<xs:complexType name="query-display-new-column">
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="class-from-column" type="xs:string"/>
+		<xs:attribute name="style-color-from-column" type="xs:string"/>
 	</xs:complexType>
 	
 	<xs:complexType name="query-chunks">
