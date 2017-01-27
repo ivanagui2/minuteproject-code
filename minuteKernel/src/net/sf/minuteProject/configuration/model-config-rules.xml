@@ -112,6 +112,24 @@
 								<alias attr-name="tag" prop-name="tag" />
 							</set-properties-rule>
 						</pattern>	
+		            </pattern>
+	            
+					<pattern value="presentation-access-convention">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddPresentationAccessConvention"/>		
+						<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddPresentationAccessConvention"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="no-menu-entry-for-packages" prop-name="noMenuEntryForPackages" />
+						</set-properties-rule>	
+		            </pattern>	
+					<pattern value="statement-access-convention">
+						<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddStatementAccessConvention"/>		
+						<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddStatementAccessConvention"/>		
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="secure-packages" prop-name="securePackages" />
+							<alias attr-name="secure-user-role" prop-name="roles" />
+						</set-properties-rule>	
 		            </pattern>	
 		        </pattern>
 		    </pattern>
@@ -156,7 +174,7 @@
 	                 	<alias attr-name="execute-label" prop-name="executeLabel" />
 	                 	<alias attr-name="result-cardinality" prop-name="resultCardinality" />
 	                 	<alias attr-name="result-cardinality" prop-name="card" />
-	                 	
+                 		<alias attr-name="secure-user-role" prop-name="secureUserRole" />
 	            	</set-properties-rule>
 			        <pattern value="query-body">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
@@ -1416,6 +1434,24 @@
 						</set-properties-rule>
 					</pattern>	
 	            </pattern>	
+	            
+	            
+				<pattern value="presentation-access-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddPresentationAccessConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddPresentationAccessConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="no-menu-entry-for-packages" prop-name="noMenuEntryForPackages" />
+					</set-properties-rule>	
+	            </pattern>	
+				<pattern value="statement-access-convention">
+					<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddStatementAccessConvention"/>		
+					<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddStatementAccessConvention"/>		
+					<set-properties-rule>
+						<alias attr-name="name" prop-name="name" />
+						<alias attr-name="secure-packages" prop-name="securePackages" />
+					</set-properties-rule>	
+	            </pattern>	
 	        </pattern>
 	    </pattern>
 
@@ -1460,6 +1496,7 @@
                  	<!-- strangely the mapping with prop-name="*cardinality" -->
                  	<alias attr-name="result-cardinality" prop-name="resultCardinality" />
                  	<alias attr-name="result-cardinality" prop-name="card" />
+                 	<alias attr-name="secure-user-role" prop-name="secureUserRole" />
             	</set-properties-rule>
 		        <pattern value="query-body">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
