@@ -10,6 +10,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
 import net.sf.minuteProject.configuration.bean.enumeration.Cache;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
@@ -52,6 +53,8 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private String contentType;
 	private Cache caching = Cache.READ_ONLY;
 	private Cardinality resultCardinality = Cardinality.MANY;
+	private String secureUserRole;
+	private SecurityColor securityColor=new SecurityColor();
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -472,5 +475,19 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public String toString() {
 		return "query [name='"+name+"', id='"+id+"']";
 	}
+	
+	public String getSecureUserRole() {
+		return secureUserRole;
+	}
+	public void setSecureUserRole(String secureUserRole) {
+		this.secureUserRole = secureUserRole;
+	}
+	public SecurityColor getSecurityColor() {
+		return securityColor;
+	}
+	public void setSecurityColor(SecurityColor securityColor) {
+		this.securityColor = securityColor;
+	}
 
+	
 }

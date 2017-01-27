@@ -150,6 +150,7 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	}
 
 	public SecurityColor getSecurityColor() {
+		if (securityColor==null) securityColor = new SecurityColor();
 		return securityColor;
 	}
 

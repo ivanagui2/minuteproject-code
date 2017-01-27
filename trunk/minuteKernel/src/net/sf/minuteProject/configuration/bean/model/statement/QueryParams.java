@@ -140,9 +140,11 @@ public class QueryParams extends AbstractConfiguration {
 	}
 
 	public boolean hasOutputParam() {
-		for (QueryParam queryParam : queryParams) {
-			if (queryParam.isOutputParam()) {
-				return true;
+		if (queryParams!=null) {
+			for (QueryParam queryParam : queryParams) {
+				if (queryParam.isOutputParam()) {
+					return true;
+				}
 			}
 		}
 		return false;
