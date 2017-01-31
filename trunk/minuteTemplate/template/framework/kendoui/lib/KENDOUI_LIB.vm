@@ -1,5 +1,5 @@
 #macro (exposeKendoUIVersion)
-#set($kendoUiVersion="2016.2.504")## "2015.1.318")##2014.1.416   2015.1.318 2014.3.1119
+#set($kendoUiVersion="2017.1.118")## 2016.2.504 "2015.1.318")##2014.1.416   2015.1.318 2014.3.1119
 ##set($kendoUiVersion="2014.3.1119")##2014.1.416   2015.1.318 
 #end
 
@@ -25,6 +25,7 @@
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
 <link href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" rel="stylesheet" />
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pathToRoot}$kendoUiMainCssPath" rel="stylesheet" />
 #end
 
@@ -63,7 +64,12 @@
 
 <!-- sdd package -->
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+## hasMenuAccess : $package.securityColor.hasMenuAccess -->
+## hasMenuAccess : $package.securityColor.roles -->
+<!-- $package.securityColor.roles -->
+#if ($package.securityColor.hasMenuAccess)
 <li>$package.name
+
     <ul>
 #foreach ($query in $package.getQueries()) 
 #exposeQuerySpecific()
@@ -76,6 +82,7 @@
 #end
     </ul>
 </li>
+#end
 #end
 </ul>
 </div>
@@ -344,7 +351,6 @@
 #foreach ($action in $query.actions)
 #set($targetQuery = $actionUtils.getQuery($action, $model))
 #if(!$actionUtils.isReservedAction($action))
-	// action $actionUtils.getActionMethod($action)
 	function $actionUtils.getActionMethod($action) (e) {
 		e.preventDefault();
 #if ($targetQuery.isWrite())
@@ -360,24 +366,22 @@
 		var $to = item.get("$fieldName");
 #end
 #end
-##		$("#basicPopup").kendoWindow();
 		$("#basicPopup").kendoWindow({
           	 modal: true
            }).data("kendoWindow");
-		var popup = openBasicPopup
-			("confirm $action.name", 960);
-				$("#basicPopupYes").click(function() {
-					popup.close();
-					do$actionUtils.getActionMethod($action)(
+		var popup = openBasicPopup("confirm $action.name", 960);
+		$("#basicPopupYes").click(function() {
+			popup.close();
+			do$actionUtils.getActionMethod($action)(
 #foreach ($actionEntry in $action.actionFieldMapEntries)
 #if ($actionEntry.isOutputFieldMapping())
 #set($fieldName=$actionEntry.outputField)
 #set($to=${actionEntry.toActionField})
-						#if ($velocityCount!=1),#end $to 
+				#if ($velocityCount!=1),#end $to 
 #end
 #end
-					);
-			});
+			);
+		});
 #else
 #if(!$isChart)
 		var grid = $("#ssd-output-grid").data("kendoGrid");
@@ -566,7 +570,7 @@ $!updatedAreaEnd
 #end
       toolbar: ["excel"],
          excel: {
-            fileName: "${tableAlias}.xlsx",
+            fileName: "${tableAlias}-"+getReportTime()+".xlsx",
             filterable: true
        },
        dataSource: {
@@ -708,6 +712,12 @@ $!updatedAreaEnd
 	         }
 #if ($query.actions.size()>0 || $velocityCount!=$outputBean.columns.size())
               ,#end 
+#end
+#foreach($newColumn in $query.queryDisplay.queryDisplayNewColumns)
+			  ,{
+	           	title: "$newColumn.name",
+	           	template: '<span class="#= $newColumn.classFromColumn#" style="color : #=$newColumn.styleColorFromColumn#" ></span>' ,
+	           }
 #end
 #foreach ($action in $query.actions)
 			   { command: { text: "$actionUtils.getActionLabel($action)", click: $actionUtils.getActionMethod($action) }, title: " "}
@@ -915,7 +925,7 @@ $!updatedAreaEnd
 #else
 #set($columnValue=$columnVar)
 #end
-       if ($columnVar!=undefined && !$columnVar=='' && !$columnVar=='Choose') {
+       if ($columnVar!=undefined && !$columnVar=='' && $columnVar!='Choose') {
            if (!isQuestionMarkDone) {
                 isQuestionMarkDone = true;
                 query = "?"+"$columnVar="+$columnValue;
@@ -995,4 +1005,17 @@ $!updatedAreaEnd
 #set($templateKendoUiSddInput="KendoUiSDDInput")
 #set($templateKendoUiSddDirectResult="KendoUiSDDDirectResult")
 #set($templateKendoUiSddDirectResultJs="KendoUiSDDDirectResult.js")
+#end
+
+#macro(exposeKendoUIPopupTpl $id $fields)
+<script id="$id" type="text/x-kendo-template">
+	<div id="basicPopupWrapper-$id" style="margin: 0 auto; margin-top: -10px; text-align: center; padding: 0;">
+		<div id="basicPopupText-$id" style="overflow: auto; margin-bottom: 30px;"/>
+#foreach($field in $fields)
+<!-- $field.outputField  -- $field $field.requestedField  $field.toActionField -->
+#end
+		<input type="button" id="basicPopupCancel-$id" class="buttonCancel" style="min-width: 80px;" value="cancel" onclick="$('\#basicPopup').data('kendoWindow').close();"/>
+		<input type="button" id="basicPopupYes-$id" class="button" style="min-width: 80px; margin-left: 20px;" value="yes"/>
+	</div>
+</script>
 #end
