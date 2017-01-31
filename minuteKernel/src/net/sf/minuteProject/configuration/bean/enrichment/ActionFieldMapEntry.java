@@ -59,6 +59,10 @@ public class ActionFieldMapEntry {
 		return !StringUtils.isEmpty(outputField);
 	}
 	
+	public boolean isRequestedFieldMapping () {
+		return !StringUtils.isEmpty(requestedField);
+	}
+	
 	public String getConvertCase() {
 		return convertCase;
 	}

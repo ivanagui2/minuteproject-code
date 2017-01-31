@@ -94,9 +94,8 @@ public class Action extends Rule<Table> {
 	}
 	
 	public List<ActionFieldMapEntry> getPopupFields() {
-		return getActionFieldMapEntries();
-//		List<ActionFieldMapEntry> list = actionFieldMapEntries.stream().filter(a -> !StringUtils.isEmpty(a.getRequestedField())).collect(Collectors.toList());
-//		//Predicate<Client> hasSameNameAsOneUser = c -> getFields().stream().anyMatch(u -> u.getName().equals(c.getName()));
-//		list.stream().filter(f -> getFields().contains(f.getToActionField())).map(u -> );
+		return getActionFieldMapEntries().stream()
+				.filter(a -> StringUtils.isNotEmpty(a.getRequestedField()) || StringUtils.isNotEmpty(a.getInputField()))
+				.collect(Collectors.toList());
 	}
 }
