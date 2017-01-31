@@ -5,6 +5,8 @@ import org.apache.commons.lang.StringUtils;
 public class ActionFieldMapEntry {
 
 	private String outputField;
+	private String requestedField;
+	private String implicitField;
 	private String inputField;
 	private String staticValue;
 	private String filterField;
@@ -93,6 +95,23 @@ public class ActionFieldMapEntry {
 		this.staticValue = staticValue;
 	}
 	
+
+	public String getRequestedField() {
+		return requestedField;
+	}
+
+	public void setRequestedField(String requestedField) {
+		this.requestedField = requestedField;
+	}
+
+	public String getImplicitField() {
+		return implicitField;
+	}
+
+	public void setImplicitField(String implicitField) {
+		this.implicitField = implicitField;
+	}
+
 	public String getOrigin() {
 		if (!StringUtils.isEmpty(staticValue)) {
 			return "static-value";
@@ -102,4 +121,14 @@ public class ActionFieldMapEntry {
 		}
 		return "output-field";
 	}
+
+	@Override
+	public String toString() {
+		return "ActionFieldMapEntry [outputField=" + outputField + ", requestedField=" + requestedField
+				+ ", implicitField=" + implicitField + ", inputField=" + inputField + ", staticValue=" + staticValue
+				+ ", filterField=" + filterField + ", columnField=" + columnField + ", toActionField=" + toActionField
+				+ ", convertCase=" + convertCase + ", computedCase=" + computedCase + "]";
+	}
+	
+	
 }

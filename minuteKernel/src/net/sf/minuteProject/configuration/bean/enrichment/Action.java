@@ -2,6 +2,8 @@ package net.sf.minuteProject.configuration.bean.enrichment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -89,5 +91,12 @@ public class Action extends Rule<Table> {
 
 	public void setQueryId(String queryId) {
 		this.queryId = queryId;
+	}
+	
+	public List<ActionFieldMapEntry> getPopupFields() {
+		return getActionFieldMapEntries();
+//		List<ActionFieldMapEntry> list = actionFieldMapEntries.stream().filter(a -> !StringUtils.isEmpty(a.getRequestedField())).collect(Collectors.toList());
+//		//Predicate<Client> hasSameNameAsOneUser = c -> getFields().stream().anyMatch(u -> u.getName().equals(c.getName()));
+//		list.stream().filter(f -> getFields().contains(f.getToActionField())).map(u -> );
 	}
 }

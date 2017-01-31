@@ -424,6 +424,8 @@
 							<set-next-rule methodname="addActionFieldMapEntry" paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry"/>
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
+						    	<alias attr-name="requested-field" prop-name="requestedField" />
+						    	<alias attr-name="implicit-field" prop-name="implicitField" />
 						    	<alias attr-name="input-field" prop-name="inputField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="static-value" prop-name="staticValue" />
@@ -450,6 +452,8 @@
 								<set-properties-rule>
 							    	<alias attr-name="output-field" prop-name="outputField" />
 							    	<alias attr-name="input-field" prop-name="inputField" />
+							    	<alias attr-name="requested-field" prop-name="requestedField" />
+							    	<alias attr-name="implicit-field" prop-name="implicitField" />
 							    	<alias attr-name="filter-field" prop-name="filterField" />
 							    	<alias attr-name="static-value" prop-name="staticValue" />
 							    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -503,6 +507,8 @@
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
 						    	<alias attr-name="input-field" prop-name="inputField" />
+						    	<alias attr-name="requested-field" prop-name="requestedField" />
+						    	<alias attr-name="implicit-field" prop-name="implicitField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="static-value" prop-name="staticValue" />
 						    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -528,6 +534,8 @@
 								<set-properties-rule>
 							    	<alias attr-name="output-field" prop-name="outputField" />
 							    	<alias attr-name="input-field" prop-name="inputField" />
+							    	<alias attr-name="implicit-field" prop-name="implicitField" />
+							    	<alias attr-name="requested-field" prop-name="requestedField" />
 							    	<alias attr-name="filter-field" prop-name="filterField" />
 							    	<alias attr-name="static-value" prop-name="staticValue" />
 							    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -1738,6 +1746,8 @@
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
 						    	<alias attr-name="input-field" prop-name="inputField" />
+						    	<alias attr-name="implicit-field" prop-name="implicitField" />
+						    	<alias attr-name="requested-field" prop-name="requestedField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="static-value" prop-name="staticValue" />
 						    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -1763,6 +1773,8 @@
 								<set-properties-rule>
 							    	<alias attr-name="output-field" prop-name="outputField" />
 							    	<alias attr-name="input-field" prop-name="inputField" />
+							    	<alias attr-name="implicit-field" prop-name="implicitField" />
+							    	<alias attr-name="requested-field" prop-name="requestedField" />
 							    	<alias attr-name="filter-field" prop-name="filterField" />
 							    	<alias attr-name="static-value" prop-name="staticValue" />
 							    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -1814,6 +1826,8 @@
 							<set-properties-rule>
 						    	<alias attr-name="output-field" prop-name="outputField" />
 						    	<alias attr-name="input-field" prop-name="inputField" />
+						    	<alias attr-name="implicit-field" prop-name="implicitField" />
+						    	<alias attr-name="requested-field" prop-name="requestedField" />
 						    	<alias attr-name="filter-field" prop-name="filterField" />
 						    	<alias attr-name="static-value" prop-name="staticValue" />
 						    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -1839,6 +1853,8 @@
 								<set-properties-rule>
 							    	<alias attr-name="output-field" prop-name="outputField" />
 							    	<alias attr-name="input-field" prop-name="inputField" />
+							    	<alias attr-name="implicit-field" prop-name="implicitField" />
+							    	<alias attr-name="requested-field" prop-name="requestedField" />
 							    	<alias attr-name="filter-field" prop-name="filterField" />
 							    	<alias attr-name="static-value" prop-name="staticValue" />
 							    	<alias attr-name="computed-value" prop-name="computedValue" />
@@ -2395,6 +2411,8 @@
 						<set-properties-rule>
 					    	<alias attr-name="output-field" prop-name="outputField" />
 					    	<alias attr-name="filter-field" prop-name="filterField" />
+					    	<alias attr-name="implicit-field" prop-name="implicitField" />
+					    	<alias attr-name="requested-field" prop-name="requestedField" />
 					    	<alias attr-name="static-value" prop-name="staticValue" />
 					    	<alias attr-name="to-action-field" prop-name="toActionField" />
 					    	<alias attr-name="convert-case" prop-name="convertCase" />
