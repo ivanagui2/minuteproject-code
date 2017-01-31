@@ -354,10 +354,12 @@
 	function $actionUtils.getActionMethod($action) (e) {
 		e.preventDefault();
 #if ($targetQuery.isWrite())
-		var grid = $("#ssd-output-grid").data("kendoGrid");
+#*		var grid = $("#ssd-output-grid").data("kendoGrid");
 		grid.select( $(e.currentTarget).closest("tr"));
 		var rowId = grid.select().data("uid");
 		var item = grid.dataSource.getByUid(rowId);
+*#
+		var item = getItem(e, "ssd-output-grid");
 ##TODO for each para	
 #foreach ($actionEntry in $action.actionFieldMapEntries)
 #if ($actionEntry.isOutputFieldMapping())
@@ -369,8 +371,14 @@
 		$("#basicPopup").kendoWindow({
           	 modal: true
            }).data("kendoWindow");
+#if($action.getPopupFields().size()==0)  
 		var popup = openBasicPopup("confirm $action.name", 960);
 		$("#basicPopupYes").click(function() {
+#else
+		var popup = openNewPopup("basicPopupTpl-$formatUtils.getInUnderscore($action.name)","Confirm $action.name", 960);
+		$("#basicPopupYes-$formatUtils.getInUnderscore($action.name)").click(function() {
+#end
+
 			popup.close();
 			do$actionUtils.getActionMethod($action)(
 #foreach ($actionEntry in $action.actionFieldMapEntries)
@@ -384,10 +392,12 @@
 		});
 #else
 #if(!$isChart)
-		var grid = $("#ssd-output-grid").data("kendoGrid");
+#*		var grid = $("#ssd-output-grid").data("kendoGrid");
 		grid.select( $(e.currentTarget).closest("tr"));
 		var rowId = grid.select().data("uid");
 		var item = grid.dataSource.getByUid(rowId);
+*#
+		var item = getItem(e, "ssd-output-grid");
 #else
 		var item = e.dataItem;
 		var $outputBeanDimension1Var = item.$outputBeanDimension1Var;
@@ -534,7 +544,12 @@ $!updatedAreaEnd
 #if ($actionEntry.isOutputFieldMapping())
 #set($fieldName=$actionEntry.outputField)
 #set($to=${actionEntry.toActionField})
-		query = #if ($velocityCount!=0)"?"#else #&" #end+"${to}="+${to}; 
+		query += #if ($velocityCount==1)"?"#else "&" #end+"${to}="+${to}; 
+#end
+#if ($actionEntry.isRequestedFieldMapping())
+#set($fieldName=$actionEntry.requestedField)
+#set($to=${actionEntry.toActionField})
+		query += #if ($velocityCount==1)"?"#else "&" #end+"${to}="+$("#${actionEntry.requestedField}-popup").val(); 
 #end
 #end
 #set($targetQueryClassName = $commonUtils.getJavaClassName($targetQuery))
@@ -1008,14 +1023,36 @@ $!updatedAreaEnd
 #end
 
 #macro(exposeKendoUIPopupTpl $id $fields)
-<script id="$id" type="text/x-kendo-template">
+#if($fields.size()>0)
+<script id="basicPopupTpl-$id" type="text/x-kendo-template">
 	<div id="basicPopupWrapper-$id" style="margin: 0 auto; margin-top: -10px; text-align: center; padding: 0;">
 		<div id="basicPopupText-$id" style="overflow: auto; margin-bottom: 30px;"/>
 #foreach($field in $fields)
-<!-- $field.outputField  -- $field $field.requestedField  $field.toActionField -->
+<!-- $field.requestedField  $field.toActionField -->
+#end
+#foreach($field in $fields)
+<div class="row">
+##putColumnParamNaming()
+	<div class="cell-label">
+#set($title=$formatUtils.performDisplayReadableFirstUpperOnlyName($field.requestedField))
+		<label>$title</label>
+	</div>
+	<div class="cell"><input id="${field.requestedField}-popup" name="${field.requestedField}" required="true" placeholder="$title" class="k-textbox" type="text"/></div>
+</div>
 #end
 		<input type="button" id="basicPopupCancel-$id" class="buttonCancel" style="min-width: 80px;" value="cancel" onclick="$('\#basicPopup').data('kendoWindow').close();"/>
 		<input type="button" id="basicPopupYes-$id" class="button" style="min-width: 80px; margin-left: 20px;" value="yes"/>
+	</div>
+</script>
+#end
+#end
+
+#macro(exposeKendoUIPopupYesNoTpl)
+<script id="basicPopupTpl" type="text/x-kendo-template">
+	<div id="basicPopupWrapper" style="margin: 0 auto; margin-top: -10px; text-align: center; padding: 0;">
+		<div id="basicPopupText" style="overflow: auto; margin-bottom: 30px;"/>
+		<input type="button" id="basicPopupCancel" class="buttonCancel" style="min-width: 80px;" value="cancel" onclick="$('\#basicPopup').data('kendoWindow').close();"/>
+		<input type="button" id="basicPopupYes" class="button" style="min-width: 80px; margin-left: 20px;" value="yes"/>
 	</div>
 </script>
 #end
