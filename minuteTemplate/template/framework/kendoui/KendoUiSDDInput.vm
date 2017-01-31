@@ -50,13 +50,12 @@
 
 <div id="basicPopup" class="popup"></div>
 
-<script id="basicPopupTpl" type="text/x-kendo-template">
-	<div id="basicPopupWrapper" style="margin: 0 auto; margin-top: -10px; text-align: center; padding: 0;">
-		<div id="basicPopupText" style="overflow: auto; margin-bottom: 30px;"/>
-		<input type="button" id="basicPopupCancel" class="buttonCancel" style="min-width: 80px;" value="cancel" onclick="$('\#basicPopup').data('kendoWindow').close();"/>
-		<input type="button" id="basicPopupYes" class="button" style="min-width: 80px; margin-left: 20px;" value="yes"/>
-	</div>
-</script>
+#exposeKendoUIPopupTpl("basicPopupTpl")
+
+#foreach ($action in $query.actions)
+##exposeKendoUISDDActions
+#exposeKendoUIPopupTpl("basicPopupTpl-$formatUtils.getInUnderscore($action.name)", $action.getPopupFields())
+#end
 		
 #if ($query.isWrite())
 <div id="sdd-info" ></div>
