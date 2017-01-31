@@ -1,7 +1,10 @@
 package net.sf.minuteProject.configuration.bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -9,6 +12,8 @@ import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
 import net.sf.minuteProject.configuration.bean.environment.Environment;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 
 public class Configuration extends AbstractConfigurationRoot{
@@ -158,4 +163,25 @@ public class Configuration extends AbstractConfigurationRoot{
 		return false;
 	}
 	
+	public List<String> distinctRoles() {
+//		getAllModels().stream().forEach(m -> {
+//			m.getStatementModel().getQueries().getQueries().stream().map(q -> q.getSecureUserRole().);
+//		});
+//		
+		Map<String, String> map = new HashMap<>();
+		for(Model model : getAllModels()) {
+			for (Query<QueryModel> q : model.getStatementModel().getQueries().getQueries()) {
+				String roles = q.getSecurityColor().getRoles();
+				if (!StringUtils.isEmpty(roles)) {
+					map.put(roles, roles);
+				}
+			}
+		}
+		return new ArrayList(map.keySet());
+		
+//		getAllModels().
+//		for (Model model : getAllModels()) {
+//			model
+//		}
+	}
 }

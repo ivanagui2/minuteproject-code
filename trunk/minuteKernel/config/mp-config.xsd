@@ -521,6 +521,8 @@
 	<xs:complexType name="action-field-map-entry">
 		<xs:sequence>
 			<xs:element name="output-field" type="xs:string"/>
+			<xs:element name="requested-field" type="xs:string"/><!-- fields requested via interface -->
+			<xs:element name="implicit-field" type="xs:string"/><!-- fields implicit via session -->
 			<xs:element name="input-field" type="xs:string"/>
 			<xs:element name="filter-field" type="xs:string"/>
 			<xs:element name="static-value" type="xs:string"/>

@@ -96,12 +96,12 @@ public class FormatUtils {
 		return s;
 	}
 	
-	private static String performGetJavaName(String name) {
+	public static String performGetJavaName(String name) {
 		String underscoreName = getInUnderscore(name);
 		return getJavaNameViaCharStrip(underscoreName, "_");
 	}
 
-	private static String getInUnderscore(String name) {
+	public static String getInUnderscore(String name) {
 		if (StringUtils.isEmpty(name))
 			return "NAME_RETURNS_NULL";
 		String underscoreName = StringUtils.replace(name, "-", "_");
