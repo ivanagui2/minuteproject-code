@@ -81,6 +81,38 @@
 		dropDown.closest(".k-widget").width(containerWidth);
 	}
 	
+
+	function openNewPopup(templateId, text, width, height) {
+		width	= (typeof width		!== "undefined" ? width		: 500);
+		height 	= (typeof height 	!== "undefined" ? height	: "auto");
+		var popup = newPopup(templateId, text, width, height);
+		// Patch for title of popup inside popups - to fix ie
+		if (popup.wrapper.css("padding-bottom") == "0px") {
+			popup.wrapper.css("padding-bottom", "10px");
+		}
+
+		if (popup.element.css("padding-bottom") == "0px") {
+			popup.element.css("padding-bottom", "10px");
+		}
+		popup.center().open();
+		return popup;
+	}
+
+
+	function newPopup(templateId, text, width, height) {
+		$("#basicPopup").html("");
+		var popup = $("#basicPopup").data("kendoWindow");
+		if (typeof width != "undefined" && typeof height != "undefined") {
+			popup.wrapper.css({width: width, height: height});
+		} else {
+			popup.wrapper.css({width: 450, height: 170});
+		}
+		popup.title(false);
+		popup.content(kendo.template($("#"+templateId).html()));
+		$("#basicPopupText").html(text);
+		return popup;
+	}
+	
 	
 	function openBasicPopup(text, width, height) {
 		width	= (typeof width		!== "undefined" ? width		: 500);
@@ -160,4 +192,13 @@
 		var d = new Date();
 		var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
 		return datestring;
+	}
+	
+	
+	//kendoui
+	function getItem(e, gridId) {
+		var grid = $("#"+gridId).data("kendoGrid");
+		grid.select( $(e.currentTarget).closest("tr"));
+		var rowId = grid.select().data("uid");
+		return grid.dataSource.getByUid(rowId);
 	}

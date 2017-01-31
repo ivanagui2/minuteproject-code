@@ -50,11 +50,11 @@
 
 <div id="basicPopup" class="popup"></div>
 
-#exposeKendoUIPopupTpl("basicPopupTpl")
+#exposeKendoUIPopupYesNoTpl()
 
 #foreach ($action in $query.actions)
 ##exposeKendoUISDDActions
-#exposeKendoUIPopupTpl("basicPopupTpl-$formatUtils.getInUnderscore($action.name)", $action.getPopupFields())
+#exposeKendoUIPopupTpl("$formatUtils.getInUnderscore($action.name)", $action.getPopupFields())
 #end
 		
 #if ($query.isWrite())
