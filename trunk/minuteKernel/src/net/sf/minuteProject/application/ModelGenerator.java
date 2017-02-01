@@ -506,14 +506,15 @@ public class ModelGenerator extends AbstractGenerator {
 		}
 	}
 
-	protected void generateArtifactsBySddBean(Template template,
-			Direction direction) throws MinuteProjectException {
+	protected void generateArtifactsBySddBean(Template template, Direction direction) throws MinuteProjectException {
 		StatementModel statementModel = getModel().getStatementModel();
 		if (statementModel != null) {
 			for (Query query : statementModel.getQueries().getQueries()) {
 				Table table = query.getEntity(direction);
+				if (table.getDatabase()==null) {//possible when queryParamLink used before declared
+					table.setDatabase(statementModel.getModel().getDataModel().getDatabase());
+				}
 				table = getDecoratedTable(table);
-				// create even if no column table.getColumns().length>0
 				if (isToGenerate(table, template)) {
 					writeTemplateResult(table, template);
 				}

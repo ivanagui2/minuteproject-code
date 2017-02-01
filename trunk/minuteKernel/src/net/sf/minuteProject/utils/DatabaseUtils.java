@@ -11,19 +11,22 @@ public class DatabaseUtils {
 	
 	public static String providePrimaryKeyLookUpString (Table table) {
 		Database database = table.getDatabase();
-		if (database.getType()==null)
-			return "database type not set";
-		if (database.getType().equals("DB2")){
-			return "SELECT NEXTVAL FOR "+provideSequence(table)+" AS ID FROM SYSIBM.SYSDUMMY1";
-		} else if (database.getType().equals("ORACLE")){
-			return "SELECT "+provideSequence(table)+".NEXTVAL AS ID FROM DUAL";
-		} else if (database.getType().equals("MYSQL")){
-			return "SELECT LAST_INSERT_ID() AS value";
-		}
-		else if (database.getType().equals("HSQLDB")){
-			return "SELECT NEXT VALUE FOR "+provideSequence(table)+" AS ID FROM DUAL";
-		} else
-		return "ERROR_ON_LOOK_UP for PK";
+		if (database!=null) {
+			if (database.getType()==null)
+				return "database type not set";
+			if (database.getType().equals("DB2")){
+				return "SELECT NEXTVAL FOR "+provideSequence(table)+" AS ID FROM SYSIBM.SYSDUMMY1";
+			} else if (database.getType().equals("ORACLE")){
+				return "SELECT "+provideSequence(table)+".NEXTVAL AS ID FROM DUAL";
+			} else if (database.getType().equals("MYSQL")){
+				return "SELECT LAST_INSERT_ID() AS value";
+			}
+			else if (database.getType().equals("HSQLDB")){
+				return "SELECT NEXT VALUE FOR "+provideSequence(table)+" AS ID FROM DUAL";
+			} 
+		}else
+			return "ERROR_ON_LOOK_UP for PK";
+		return "DATABASE of table name :"+table.getName()+ " is null";
 	}
 	
 	public String provideSequence (Model model) {
@@ -42,6 +45,9 @@ public class DatabaseUtils {
 	}
 	
 	public static String provideSequence (Table table) {
+		if (table.getDatabase()==null) {
+			return "NO database for table in provideSequence";
+		}
 		PrimaryKeyPolicy primaryKeyPolicy = table.getDatabase().getDataModel().getPrimaryKeyPolicy();
 		if (primaryKeyPolicy==null) {
 			return "NO LOOK UP for PK";
