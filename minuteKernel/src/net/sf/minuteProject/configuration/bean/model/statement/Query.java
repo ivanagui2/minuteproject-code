@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
@@ -284,8 +286,19 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public String getTechnicalPackage(Template template) {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
-		if (p == null)
+		if (p == null) {
+			// TODO null when queryParamLink reference a query that is not yet declared...
+//			Configuration configuration = getQueries().getStatementModel().getModel().getConfiguration();
+////			configuration.getAllModels().stream().foreach(m -> {
+////				m
+////			})
+//			for (Model m : configuration.getAllModels()) {
+//				for (Package pack : m.getStatementModel().getSddPackage().getQueryPackages()) {
+//					
+//				}
+//			}
 			return "ERROR_QUERY_PACKAGE_IS_NULL";
+		}
 		return p.getTechnicalPackage(template) + "."
 				+ CommonUtils.getSDDPackageName(this);
 	}
