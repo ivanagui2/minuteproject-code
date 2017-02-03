@@ -53,8 +53,6 @@
 #end
 
 #macro(putKendoUIMenuStructure)
-<div class="k-content">
-<ul id="${model.name}-Menu">
 #foreach ($package in ${businessPackages})
 #putKendoUIMenuPackage()
 #end
@@ -66,9 +64,8 @@
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
 ## hasMenuAccess : $package.securityColor.hasMenuAccess -->
 ## hasMenuAccess : $package.securityColor.roles -->
-<!-- $package.securityColor.roles -->
 #if ($package.securityColor.hasMenuAccess)
-<li>$package.name
+<li>$i18nUtils.getI18nFromDBObject(${package.name})
 
     <ul>
 #foreach ($query in $package.getQueries()) 
@@ -84,8 +81,6 @@
 </li>
 #end
 #end
-</ul>
-</div>
 #end
 
 #macro(putKendoUIHtmlInputSnippet)
@@ -271,6 +266,7 @@
 #macro(putKendoUIMenu)
         var _option_menu = QueryString._option_menu;
         if (_option_menu==undefined || _option_menu=='true') {
+#*TODO FOR 0.9.10 check if works with single model
 #foreach ($model in $configuration.allModels)
 #exposeKendoUIModelSpecific()
         	$.ajax({
@@ -282,6 +278,17 @@
         	});
         	$("#${model.name}-Menu").kendoMenu();
 #end
+*#
+
+#exposeKendoUIGeneratorBeanSpecific()
+        	$.ajax({
+            	url: contextPath+"/$kendoUiMenuStructurePath",
+            	success: function (data) { $('#menu').append(data); },
+            	dataType: 'html',
+            	async : false,
+            	cache : true
+        	});
+        	$("#${generatorBean.name}-Menu").kendoMenu();
 		}
 #end
 
