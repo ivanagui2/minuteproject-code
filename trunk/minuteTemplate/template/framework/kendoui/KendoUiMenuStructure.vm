@@ -1,4 +1,6 @@
-##foreach ($model in $configuration.models())
+<div class="k-content">
+<ul id="${model.name}-Menu">
 #exposeVariableModelSpecific()
 #putKendoUIMenuStructure()
-##end
+</ul>
+</div>
