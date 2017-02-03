@@ -288,19 +288,19 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		net.sf.minuteProject.configuration.bean.Package p = getPackage();
 		if (p == null) {
 			// TODO null when queryParamLink reference a query that is not yet declared...
-//			Configuration configuration = getQueries().getStatementModel().getModel().getConfiguration();
-////			configuration.getAllModels().stream().foreach(m -> {
-////				m
-////			})
-//			for (Model m : configuration.getAllModels()) {
-//				for (Package pack : m.getStatementModel().getSddPackage().getQueryPackages()) {
-//					
-//				}
-//			}
+			Configuration configuration = getQueries().getStatementModel().getModel().getConfiguration();
+			for (Model m : configuration.getAllModels()) {
+				for (Package pack : m.getStatementModel().getSddPackage().getQueryPackages()) {
+					if (pack.getName().equalsIgnoreCase(getPackageName()))
+						{
+						return pack.getTechnicalPackage(template) + "."
+								+ CommonUtils.getSDDPackageName(this);
+					}
+				}
+			}
 			return "ERROR_QUERY_PACKAGE_IS_NULL";
 		}
-		return p.getTechnicalPackage(template) + "."
-				+ CommonUtils.getSDDPackageName(this);
+		return p.getTechnicalPackage(template) + "." + CommonUtils.getSDDPackageName(this);
 	}
 
 	private void addColumns(org.apache.ddlutils.model.Table table,
