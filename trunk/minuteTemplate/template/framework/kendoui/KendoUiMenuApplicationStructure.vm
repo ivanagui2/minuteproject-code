@@ -1,0 +1,12 @@
+<div class="k-content">
+<ul id="${application.name}-Menu">
+#foreach ($model in $configuration.models())
+#exposeVariableModelSpecific()
+<li>$i18nUtils.getI18nFromDBObject(${model.name})
+<ul>
+#putKendoUIMenuStructure()
+</ul>
+</li>
+#end
+</ul>
+</div>
