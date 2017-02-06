@@ -46,7 +46,36 @@
 #if($velocityCount>1 || $sizeColumn!=0),#end $chunkName 
 #end
 #end
-
+#macro (executeSddImplementation)
+#if($isNotVoidInput)
+        $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+#if (!$column.hasBeenDuplicated())
+#if (!$column.isImplicit())
+#if($columnUtils.isTime($column))
+		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
+			${sddInputBeanVariable}.set$columnClass (${columnVar}.getDate());
+#else
+		${sddInputBeanVariable}.set$columnClass ($columnVar);
+#end
+#elseif ($column.isImplicit())
+		${sddInputBeanVariable}.set$columnClass ((${columnType})request.getSession().getAttribute("${column.sessionParamName}"));
+#end
+#end
+#end
+        return ${sddDaoInterfaceVariable}.execute(
+#daoParameters()
+        );
+#else
+        return ${sddDaoInterfaceVariable}.execute(
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+            #if($velocityCount>1),#end $chunkName 
+#end
+        );
+#end
+#end
 
 
 package $packageName;
@@ -123,7 +152,7 @@ public class ${className} {
 #elseif($isEJBBackend)
     @EJB ## (name="$BslaDaoInterfaceVariable")	
 #end
-${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+	${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 #exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -137,33 +166,7 @@ $!updatedAreaBegin
     public $sddOutputBeanCollectionClass execute (
 #resourceSignature("QueryParam")
     ) {
-#if($isNotVoidInput)
-        $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
-#foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated() && !$column.isImplicit())
-#putColumnParamNaming()
-#if($columnUtils.isTime($column))
-		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
-			${sddInputBeanVariable}.set$columnClass (${columnVar}.getDate());
-#else
-		${sddInputBeanVariable}.set$columnClass ($columnVar);
-#end
-#end
-#if ($column.isImplicit())
-		${sddInputBeanVariable}.set$columnClass ((${columnType})request.getSession().getAttribute("${column.sessionParamName}"));
-#end
-#end
-        return ${sddDaoInterfaceVariable}.execute(
-#daoParameters()
-        );
-#else
-        return ${sddDaoInterfaceVariable}.execute(
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-            #if($velocityCount>1),#end $chunkName 
-#end
-        );
-#end
+#executeSddImplementation()
     }
 #end
 
@@ -180,30 +183,7 @@ $!updatedAreaBegin
     public $sddOutputBeanCollectionClass post (
 #resourceSignature("FormParam")
     ) {
-#if($isNotVoidInput)
-        $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
-#foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
-#putColumnParamNaming()
-#if($columnUtils.isTime($column))
-		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
-			${sddInputBeanVariable}.set$columnClass (${columnVar}.getDate());
-#else
-		${sddInputBeanVariable}.set$columnClass ($columnVar);
-#end
-#end
-#end
-        return ${sddDaoInterfaceVariable}.execute(
-#daoParameters()
-        );
-#else
-        return ${sddDaoInterfaceVariable}.execute(
-#foreach($queryChunk in $query.getQueryChunks())
-#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-            #if($velocityCount>1),#end $chunkName 
-#end
-        );
-#end
+#executeSddImplementation()
     }
 #end
 

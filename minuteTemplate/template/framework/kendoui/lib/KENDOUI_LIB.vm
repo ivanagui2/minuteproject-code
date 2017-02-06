@@ -101,8 +101,10 @@
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
+#if (!$column.isImplicit())
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
+#end
 #end
 #end
 <!-- reference -->
@@ -110,8 +112,10 @@
 #putReferenceParams2()
 #set ($column=$localColumn)
 #putColumnParams()
+#if (!$column.isImplicit())
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
+#end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #putKendoHtmlChunkSnippet()
