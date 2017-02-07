@@ -46,4 +46,11 @@ public class ParserUtils {
 			return false;
 		return getListLowerCase(list).contains(name.toLowerCase());
 	}
+	
+	public static String getProperty(String input) {
+		int i = StringUtils.indexOf(input, "${");
+		int j = StringUtils.indexOf(input, "}");
+		return StringUtils.substring(input, i+2, j);
+	}
+
 }
