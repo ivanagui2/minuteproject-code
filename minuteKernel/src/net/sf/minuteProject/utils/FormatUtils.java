@@ -105,7 +105,7 @@ public class FormatUtils {
 		if (StringUtils.isEmpty(name))
 			return "NAME_RETURNS_NULL";
 		String underscoreName = StringUtils.replace(name, "-", "_");
-		underscoreName = StringUtils.replace(name, " ", "_");
+		underscoreName = StringUtils.replace(underscoreName, " ", "_");
 		return underscoreName;
 	}
 

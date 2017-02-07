@@ -55,6 +55,12 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 		return false;
 	}
 	
+	public boolean hasPropertyByName (String name) {
+		if (getPropertyByName(name)!=null)
+			return true;
+		return false;
+	}
+	
 	public Property getPropertyByName (String name) {
 		return getPropertyByCriteria(PropertyCriteria.NAME, name);
 	}

@@ -1,9 +1,8 @@
 package net.sf.minuteProject.utils;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 public class FormatUtilsTest {
 
@@ -46,6 +45,11 @@ public class FormatUtilsTest {
 		assertTrue ("S".equals(s));
 		s = FormatUtils.firstUpperCaseOnly("PRODUCTID");
 		assertTrue ("Productid".equals(s));
+	}	
+	@Test
+	public void testGetInUnderscore () {
+		String s = FormatUtils.getInUnderscore("abc-def-ghi");
+		assertTrue (s, "abc_def_ghi".equals(s));
 	}	
 	@Test
 	public void testGetShortNameFromVerbose() {
