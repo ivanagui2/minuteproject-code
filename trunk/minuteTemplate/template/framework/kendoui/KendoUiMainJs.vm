@@ -194,11 +194,25 @@
 		return datestring;
 	}
 	
-	
 	//kendoui
 	function getItem(e, gridId) {
 		var grid = $("#"+gridId).data("kendoGrid");
 		grid.select( $(e.currentTarget).closest("tr"));
 		var rowId = grid.select().data("uid");
 		return grid.dataSource.getByUid(rowId);
+	}
+
+#foreach ($environment in $configuration.environments)
+#if ($environment.hasPropertyByName("global-url"))
+#set($globalUrls = $environment.getPropertyByName("global-url"))
+	${environment.name} = {};
+#foreach ($property in $globalUrls.getProperties())
+	${environment.name}.$formatUtils.getInUnderscore($property.name)="$property.value";
+#end
+#end
+#end
+
+	function resolveUrl(key, param) {
+		var win = window.open(key+param, '_blank');
+		win.focus();
 	}
