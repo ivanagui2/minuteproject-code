@@ -18,6 +18,7 @@
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/kendo.all.min.js"></script>
 <script src="http://cdn.kendostatic.com/${kendoUiVersion}/js/cultures/kendo.culture.en-GB.min.js"></script>
+<script src="${pathToRoot}bower_components/growl/javascripts/jquery.growl.js"></script>
 <script src="${pathToRoot}$kendoUiMainJsPath"></script>
 <script src="${pathToRoot}js/jszip.min.js"></script>
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.common.min.css" rel="stylesheet" />
@@ -27,6 +28,7 @@
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pathToRoot}$kendoUiMainCssPath" rel="stylesheet" />
+<link href="${pathToRoot}bower_components/growl/stylesheets/jquery.growl.css" rel="stylesheet" />
 #end
 
 #macro(putKendoUIMenuPackage)
@@ -838,11 +840,17 @@ $!updatedAreaEnd
         $("#sdd-info").html("");
         $.ajax({
             url: dataSourceUrl,
-            success: function (data) { },
+            success: function (data) {
+            	$("#sdd-info").html("Action performed");
+            	$.growl.notice({message: "Action performed!" });
+            },
+            error: function (data) { 
+                $.growl.error({message: "Action not performed! "+data.responseText });
+            },
             dataType: 'html',
             async : false
         });
-        $("#sdd-info").html("Action performed");
+        
 #end
 
 #macro(exposeClearInput)
