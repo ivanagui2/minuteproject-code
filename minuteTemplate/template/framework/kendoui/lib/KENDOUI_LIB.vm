@@ -845,6 +845,7 @@ $!updatedAreaEnd
             	$.growl.notice({message: "Action performed!" });
             },
             error: function (data) { 
+            	$("#sdd-info").html(Action not performed! "+data.responseText);
                 $.growl.error({message: "Action not performed! "+data.responseText });
             },
             dataType: 'html',
