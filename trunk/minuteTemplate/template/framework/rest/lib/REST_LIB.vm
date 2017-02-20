@@ -33,7 +33,7 @@
 #end
 
 #macro (exposeMavenJersey)
-#set($jerseyVersion=$template.getPropertyValue("add-rest-implementation-jersey-version","2.22.1"))
+#set($jerseyVersion=$template.getPropertyValue("add-rest-implementation-jersey-version","2.25"))
 #set($sunjerseyVersion=$template.getPropertyValue("add-rest-implementation-sun-jersey-version","1.18.1"))
 #set($atmosphereVersion=$template.getPropertyValue("add-rest-implementation-atmosphere-version","2.3.0-RC6"))
 #end
