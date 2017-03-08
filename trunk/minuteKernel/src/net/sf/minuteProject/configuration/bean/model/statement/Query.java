@@ -32,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
 public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public static final String DUPLICATED_TAG ="<DUPLICATED>";
+	public enum QueryScope {BACKEND, ALL_STACKS};
 	private T t;
 	
 	private Queries queries;
@@ -57,6 +58,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private Cardinality resultCardinality = Cardinality.MANY;
 	private String secureUserRole;
 	private SecurityColor securityColor=new SecurityColor();
+	private QueryScope queryScope = QueryScope.ALL_STACKS;
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -502,5 +504,15 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		this.securityColor = securityColor;
 	}
 
+	public void setScope (String scope) {
+		for (QueryScope qs : QueryScope.values()) {
+			if (qs.name().equalsIgnoreCase(scope)) {
+				queryScope = qs;
+			}
+		}
+	}
+	public QueryScope getQueryScope() {
+		return queryScope;
+	}
 	
 }

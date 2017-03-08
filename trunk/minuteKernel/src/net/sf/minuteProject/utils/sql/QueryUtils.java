@@ -14,7 +14,9 @@ import java.util.Map;
 import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.DataModel;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -471,5 +473,13 @@ public class QueryUtils {
 			i++;
 		}
 		return i;
+	}
+	
+	public static boolean isToGenerateBasedRestStackRequired(Template template, GeneratorBean bean) {
+		if (bean instanceof Query) {
+			Query query = (Query) bean;
+			return query.getQueryScope() == Query.QueryScope.ALL_STACKS;
+		}
+		return false;
 	}
 }

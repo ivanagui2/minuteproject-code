@@ -173,6 +173,13 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:simpleType name="query-scope">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="backend" />
+			<xs:enumeration value="all_stacks" />
+		</xs:restriction>
+	</xs:simpleType>
+
 	<xs:simpleType name="column-naming-convention-type">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="apply-strip-column-name-suffix" />
@@ -689,6 +696,7 @@
 		<xs:attribute name="execute-label" type="xs:string" default="execute" />
 		<xs:attribute name="result-cardinality" type="xs:string" default="many" />
 		<xs:attribute name="secure-user-role" type="xs:string" default="many" />
+		<xs:attribute name="scope" type="query-scope" />
 		
 		<xs:attribute name="content-type" type="content-type" />
 	</xs:complexType>
