@@ -14,6 +14,7 @@ public class QueryParam extends Field {
 	private boolean hasBeenDuplicated   =false;
 	private String sample;
 	private String sessionParamName;
+	private String defaultValueWhenNull;
 	private String refname;
 	private int size, scale;
 	private String converter;
@@ -175,6 +176,12 @@ public class QueryParam extends Field {
 	}
 	public void setSessionParamName(String sessionParamName) {
 		this.sessionParamName = sessionParamName;
+	}
+	public String getDefaultValueWhenNull() {
+		return defaultValueWhenNull;
+	}
+	public void setDefaultValueWhenNull(String defaultValueWhenNull) {
+		this.defaultValueWhenNull = defaultValueWhenNull;
 	}
 	
 }
