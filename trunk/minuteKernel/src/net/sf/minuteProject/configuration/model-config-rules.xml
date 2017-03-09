@@ -252,6 +252,7 @@
 				                   <alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
 				                   <alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
 				                   <alias attr-name="index" prop-name="index" />
+				                   <alias attr-name="default-value-when-null" prop-name="defaultValueWhenNull" />
 				                   
 			                   </set-properties-rule>
 			                   <pattern value="stereotype">
@@ -347,6 +348,7 @@
 			                   <alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
 			                   <alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
 			                   <alias attr-name="index" prop-name="index" />
+			                   <alias attr-name="default-value-when-null" prop-name="defaultValueWhenNull" />
 		                   </set-properties-rule>
 		                   <pattern value="stereotype">
 								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.Stereotype"/>		

@@ -215,6 +215,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 				column.setFilterName(queryParam.getQueryParams().getFilterName());
 				column.setSessionParamName(queryParam.getSessionParamName());
 				column.setQueryParamLink(queryParam.getQueryParamLink());
+				column.setDefaultValue(queryParam.getDefaultValueWhenNull());
 				column.setIsOutputParam(queryParam.isOutputParam());
 			}
 		}
