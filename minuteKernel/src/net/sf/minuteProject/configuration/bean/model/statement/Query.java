@@ -59,6 +59,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private String secureUserRole;
 	private SecurityColor securityColor=new SecurityColor();
 	private QueryScope queryScope = QueryScope.ALL_STACKS;
+	private boolean isScalar = false;
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -514,6 +515,12 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 	public QueryScope getQueryScope() {
 		return queryScope;
+	}
+	public boolean isScalar() {
+		return isScalar;
+	}
+	public void setScalar(boolean isScalar) {
+		this.isScalar = isScalar;
 	}
 	
 }

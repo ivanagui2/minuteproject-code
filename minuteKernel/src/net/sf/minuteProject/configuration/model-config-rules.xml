@@ -176,6 +176,7 @@
 	                 	<alias attr-name="result-cardinality" prop-name="card" />
                  		<alias attr-name="secure-user-role" prop-name="secureUserRole" />
                  		<alias attr-name="scope" prop-name="scope" />
+                 		<alias attr-name="is-scalar" prop-name="scalar" />
 	            	</set-properties-rule>
 			        <pattern value="query-body">
 		                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    
@@ -1509,6 +1510,7 @@
                  	<alias attr-name="result-cardinality" prop-name="card" />
                  	<alias attr-name="secure-user-role" prop-name="secureUserRole" />
                  	<alias attr-name="scope" prop-name="scope" />
+                 	<alias attr-name="is-scalar" prop-name="scalar" />
             	</set-properties-rule>
 		        <pattern value="query-body">
 	                <object-create-rule classname="net.sf.minuteProject.configuration.bean.model.statement.QueryBody"/>    

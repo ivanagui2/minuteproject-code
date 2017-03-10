@@ -17,6 +17,7 @@ import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -479,6 +480,23 @@ public class QueryUtils {
 		if (bean instanceof Query) {
 			Query query = (Query) bean;
 			return query.getQueryScope() == Query.QueryScope.ALL_STACKS;
+		}
+		return false;
+	}
+	
+	public static boolean isToGenerateBasedOnCardinalityMany(Template template, GeneratorBean bean) {
+		if (bean instanceof Query) {
+			Query query = (Query) bean;
+			if (query.isScalar()) return false;
+			return query.getResultCardinality() == Cardinality.MANY;
+		}
+		return false;
+	}
+	
+	public static boolean isToGenerateBasedOnScalar(Template template, GeneratorBean bean) {
+		if (bean instanceof Query) {
+			Query query = (Query) bean;
+			return query.isScalar();
 		}
 		return false;
 	}

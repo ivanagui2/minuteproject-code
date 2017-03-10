@@ -1,6 +1,16 @@
 <xs:schema id="generator-config" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns="http://minuteproject.sf.net/xsd/mp-config" targetNamespace="http://minuteproject.sf.net/xsd/mp-config">
 
+<!-- 
+0.9.10 :
+	query-param
+		default-value-when-null
+	query
+		scope (all_stack or backend (ie no rest) usefull for business queries
+		scalar (type first column, value first row)
+		result-cardinality
+
+ -->
 	<xs:element name="generator-config" type="generator-config">
 		<xs:annotation>
 			<xs:documentation source="version">1.0</xs:documentation>
@@ -697,6 +707,7 @@
 		<xs:attribute name="result-cardinality" type="xs:string" default="many" />
 		<xs:attribute name="secure-user-role" type="xs:string" default="many" />
 		<xs:attribute name="scope" type="query-scope" />
+		<xs:attribute name="is-scalar" type="xs:boolean"/>
 		
 		<xs:attribute name="content-type" type="content-type" />
 	</xs:complexType>
@@ -752,7 +763,7 @@
 		<xs:attribute name="result-row-link-click-new-window" type="xs:boolean"/>
 		<xs:attribute name="result-row-link-field" type="xs:string"/>
 		<xs:attribute name="result-row-link-root-url-appended-field" type="xs:string"/>
-		<xs:element name="query-display-new-column" type="query-display-new-column" minOccurs="0" maxOccurs="unbounded" />
+		<xs:element   name="query-display-new-column" type="query-display-new-column" minOccurs="0" maxOccurs="unbounded" />
 	</xs:complexType>
 	
 	<xs:complexType name="query-display-new-column">
@@ -827,6 +838,8 @@
 		<xs:attribute name="is-implicit" type="xs:boolean" /><!-- relative context bound -->
 		<xs:attribute name="is-context" type="xs:boolean" /><!-- global context bound -->
 		<xs:attribute name="is-output-param" type="xs:boolean" default="false"/>
+		<xs:attribute name="default-value-when-null" type="xs:string"/>
+		
 
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->
 	</xs:complexType>
