@@ -10,6 +10,7 @@
 	<architecture-target name="REST" description="REST architecture">
 	</architecture-target>	
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
+   	<plugin name="queryUtils" className="net.sf.minuteProject.utils.sql.QueryUtils"/>
 
    	<template-target 
     	name="Kendo client"

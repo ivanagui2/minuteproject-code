@@ -1,7 +1,8 @@
 <target name="SDD beans">		
 	<architecture-target name="SDD beans" description="Statement Driven Development beans">
 	</architecture-target>	
-
+	<plugin name="queryUtils" className="net.sf.minuteProject.utils.sql.QueryUtils"></plugin>	
+	
 	<template-target 
     	name="SDD beans set"
 		libdir=""
@@ -18,14 +19,15 @@
 		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
 			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
-			scope-specific-value="sdd-output-bean" >
+			scope-specific-value="sdd-output-bean" 
+			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnScalar">
 		</template>	
 
 		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
 			subdir="" outputsubdir="" technicalPackage="sdd.out"
 			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
 			scope-specific-value="sdd-output-bean" 
-			 >
+			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnCardinalityMany">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>	
 		
