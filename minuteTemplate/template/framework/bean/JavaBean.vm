@@ -41,7 +41,6 @@ public class ${className} {
 #if($columnUtils.isTimeStampColumn($column))
 	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #elseif ($columnUtils.isTimeColumn($column))
-## DO nothing	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #end
     private $columnType $columnVar;
 #else

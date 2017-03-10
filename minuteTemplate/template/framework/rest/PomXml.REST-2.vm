@@ -224,6 +224,6 @@
         <cxf.version>${cxfVersion}</cxf.version>
         <jersey.version>${jerseyVersion}</jersey.version>
         <atmosphere.version>${atmosphereVersion}</atmosphere.version>
-        <jackson.version>2.8.6</jackson.version>
+        <jackson.version>${jacksonVersion}</jackson.version>
     </properties>
 </project>
