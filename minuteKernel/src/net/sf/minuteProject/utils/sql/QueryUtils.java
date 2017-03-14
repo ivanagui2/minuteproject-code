@@ -485,18 +485,18 @@ public class QueryUtils {
 	}
 	
 	public static boolean isToGenerateBasedOnCardinalityMany(Template template, GeneratorBean bean) {
-		if (bean instanceof Query) {
-			Query query = (Query) bean;
-			if (query.isScalar()) return false;
-			return query.getResultCardinality() == Cardinality.MANY;
+		if (bean instanceof Table) {
+			Table table = (Table) bean;
+			if (table.isScalar()) return false;
+			return table.getResultCardinality() == Cardinality.MANY;
 		}
 		return false;
 	}
 	
-	public static boolean isToGenerateBasedOnScalar(Template template, GeneratorBean bean) {
-		if (bean instanceof Query) {
-			Query query = (Query) bean;
-			return query.isScalar();
+	public static boolean isToGenerateBasedOnNotScalar(Template template, GeneratorBean bean) {
+		if (bean instanceof Table) {
+			Table query = (Table) bean;
+			return !query.isScalar();
 		}
 		return false;
 	}
