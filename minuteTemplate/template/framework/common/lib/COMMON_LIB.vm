@@ -447,6 +447,11 @@ $!updatedAreaEnd
 #else
 #if ($statementUtils.hasResult($outputBean))
 			while (rs.next()) {
+#if ($query.isScalar())
+#set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
+#set ($firstClass = $commonUtils.getJavaType($firstColumn))
+				return ($firstClass) rs.get${columnType}(1);
+#else
 				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
@@ -454,6 +459,7 @@ $!updatedAreaEnd
 				${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}($velocityCount));
 #end
 				list.add(${sddOutputBeanVariable});
+#end
 	        }
 #end
 #end

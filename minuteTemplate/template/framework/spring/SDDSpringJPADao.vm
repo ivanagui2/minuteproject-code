@@ -92,6 +92,10 @@ $!updatedAreaSnippet
 #set($cacheName=$formatUtils.getJavaNameVariable(${query.name})+"Cache")
 	@Cacheable (cacheNames="${cacheName}") 
 #end
+#if ($query.isScalar())
+#set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
+#set ($sddOutputBeanCollectionClass = $commonUtils.getJavaType($firstColumn))
+#end
     public $sddOutputBeanCollectionClass execute (
 #if($isNotVoidInput)
 		$sddInputBeanClass $sddInputBeanVariable
@@ -121,8 +125,12 @@ $!updatedAreaSnippet
 			);
         Session session = getSession();
         session.doWork(work);
+#if ($query.isScalar())
+		return work.getResult();
+#else
 		${sddOutputBeanCollectionVariable}.set$sddOutputBeanClasses (work.getResult());
         return ${sddOutputBeanCollectionVariable};
+#end
     }
 #end
 $!updatedAreaEnd
