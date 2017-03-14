@@ -25,6 +25,10 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
+#if ($query.isScalar())
+#set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
+#set ($sddOutputBeanCollectionClass = $commonUtils.getJavaType($firstColumn))
+#end
     public $sddOutputBeanCollectionClass execute (
 #if($isNotVoidInput)
 		$sddInputBeanClass $sddInputBeanVariable
