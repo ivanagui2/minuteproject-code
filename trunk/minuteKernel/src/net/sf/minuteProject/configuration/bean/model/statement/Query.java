@@ -203,7 +203,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	private void complementOutputFields(Table entity) {
 		entity.setResultCardinality(resultCardinality);
-		
+		entity.setScalar(entity.isScalar());
 	}
 	
 	private void complementFields(Table table, QueryParams queryParams) {

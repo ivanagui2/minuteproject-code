@@ -509,4 +509,11 @@ public class ColumnUtils {
 		}
 		return cols;
 	}
+	
+	public static Column getFirstColumn (Table table) {
+		if (table.getColumnCount()>0) {
+			return table.getColumn(0);
+		}
+		return null;
+	}
 }

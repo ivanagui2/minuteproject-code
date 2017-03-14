@@ -47,6 +47,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private Boolean hasVersion;
 	private List<Ordering> orderings;
 	private Cardinality resultCardinality;
+	private boolean isScalar;
 	
 	public TableAbstract () {
 	}
@@ -68,6 +69,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setConstraints(table.getConstraints());
 		this.setOrderings(table.getOrderings());
 		this.setResultCardinality(table.getResultCardinality());
+		this.setScalar(table.isScalar());
 	}
 
 	public String getName () {
@@ -495,6 +497,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 
 	public void setResultCardinality(Cardinality resultCardinality) {
 		this.resultCardinality = resultCardinality;
+	}
+
+	public boolean isScalar() {
+		return isScalar;
+	}
+
+	public void setScalar(boolean isScalar) {
+		this.isScalar = isScalar;
 	}
 	
 	

@@ -310,6 +310,10 @@ public interface Table extends GeneratorBean{
 	public void setResultCardinality(Cardinality cardinality);
 	
 	public Cardinality getResultCardinality();
+	
+	public boolean isScalar();
+	
+	public void setScalar (boolean isScalar);
 
 	public void convertColumnToRelation(String name);
 	
