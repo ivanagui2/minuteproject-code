@@ -130,6 +130,8 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
+
+import javax.annotation.security.RolesAllowed;
 import $sddOutputBeanCollectionImport;
 import $sddOutputBeanImport;
 #if($isNotVoidInput)
@@ -146,6 +148,9 @@ import $sddDaoInterfaceImport;
 @Path("/sdd/${sddInputBeanClass}")
 @Produces(MediaType.APPLICATION_JSON)
 @Api(value="/sdd/${sddInputBeanClass}", description = "operation about ${sddInputBeanClass}")
+#if ($tableUtils.hasSecurityColorRole($inputBean))
+@RolesAllowed("$tableUtils.securityColorRoles($inputBean)")
+#end
 public class ${className} {
 #if ($tableUtils.hasSessionParam($inputBean))
 
