@@ -700,4 +700,17 @@ public class TableUtils {
 		}
 		return false;
 	}
+	
+	public static boolean hasSecurityColorRole(Table table) {
+		return securityColorRole(table) != "";
+	}
+	
+	public static String securityColorRole(Table table) {
+		if (table.getEntitySecuredAccess()!=null && table.getEntitySecuredAccess().hasRoles()) {
+			return table.getEntitySecuredAccess().getRoles();
+		} else if (table.getPackage()!=null && table.getPackage().getSecurityColor()!=null && table.getPackage().getSecurityColor().hasRoles()){
+			return table.getPackage().getSecurityColor().getRoles();
+		}
+		return "";
+	}
 }
