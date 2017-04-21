@@ -17,7 +17,7 @@ import net.sf.minuteProject.utils.ModelUtils;
 public class SDDPackage extends BusinessPackageAdapter {
 
 	private StatementModel statementModel;
-	private List<Package> queries;
+	private List<Package> packages;
 	
 	public SDDPackage(StatementModel statementModel) {
 		this.statementModel = statementModel;
@@ -75,8 +75,8 @@ public class SDDPackage extends BusinessPackageAdapter {
 	}
 
 	public List<Package> getQueryPackages() {
-		if (queries==null) queries = new ArrayList<Package>();
-		return queries;
+		if (packages==null) packages = new ArrayList<Package>();
+		return packages;
 	}
 
 
