@@ -23,6 +23,7 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	private String configurationFileInClassPath;
 	private boolean isAliasFormatted;
 	private boolean isAliasSet;
+	private String displayName;
 	
 	public GeneratorBean getParent() {
 		return parent;
@@ -217,6 +218,12 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	
 	public void setIsAliasSet (boolean isAliasSet) {
 		this.isAliasSet = isAliasSet;
+	}
+	public String getDisplayName() {
+		return displayName!=null?displayName:name;
+	}
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	
 }
