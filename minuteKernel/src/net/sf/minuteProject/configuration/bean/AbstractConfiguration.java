@@ -24,6 +24,7 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	private boolean isAliasFormatted;
 	private boolean isAliasSet;
 	private String displayName;
+	private int displayOrder;
 	
 	public GeneratorBean getParent() {
 		return parent;
@@ -220,10 +221,20 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 		this.isAliasSet = isAliasSet;
 	}
 	public String getDisplayName() {
-		return displayName!=null?displayName:name;
+		return displayName!=null?displayName:getLabel();
 	}
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
+	public boolean hasInjectedDisplayName() {
+		return !getDisplayName().equals(getName());
+	}
+	public int getDisplayOrder() {
+		return displayOrder;
+	}
+	public void setDisplayOrder(int displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+	
 	
 }
