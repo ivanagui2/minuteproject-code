@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.sf.minuteProject.configuration.bean.enrichment.group.Group;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
@@ -78,6 +79,10 @@ public class SDDPackage extends BusinessPackageAdapter {
 		if (packages==null) packages = new ArrayList<Package>();
 		return packages;
 	}
-
+	
+	public List<Package> getOrderedPackages() {
+		return getQueryPackages().stream().sorted((u1, u2) -> (u1.getDisplayOrder() - u2.getDisplayOrder())).collect(Collectors.toList());
+	}
+	
 
 }
