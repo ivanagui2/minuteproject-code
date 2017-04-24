@@ -2,7 +2,7 @@
 <ul id="${application.name}-Menu">
 #foreach ($model in $configuration.models())
 #exposeVariableModelSpecific()
-<li>$i18nUtils.getI18nFromDBObject(${model.name})
+<li>$i18nUtils.getI18nFromDBObject(${model.displayName})
 <ul>
 #putKendoUIMenuStructure()
 </ul>

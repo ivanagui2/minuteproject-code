@@ -53,10 +53,10 @@
 			<param-name>swagger.api.basepath</param-name>
 			<param-value>/data</param-value>
 		</init-param>
-		<init-param>
-			<param-name>swagger.filter</param-name>
-			<param-value>com.wordnik.swagger.sample.util.ApiAuthorizationFilterImpl</param-value>
-		</init-param>
+##		<init-param>
+##			<param-name>swagger.filter</param-name>
+##			<param-value>com.wordnik.swagger.sample.util.ApiAuthorizationFilterImpl</param-value>
+##		</init-param>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	

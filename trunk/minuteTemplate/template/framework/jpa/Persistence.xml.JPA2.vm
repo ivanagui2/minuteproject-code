@@ -28,7 +28,8 @@ $!updatedAreaEnd
         <!--<provider>oracle.toplink.essentials.PersistenceProvider</provider>-->
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 #else
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+##        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 #end
 #if(!$isEnvironmentLocal)
 #exposeModelUpdatedAreas("DATASOURCE")

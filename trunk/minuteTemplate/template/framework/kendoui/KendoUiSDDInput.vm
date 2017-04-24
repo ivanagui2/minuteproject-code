@@ -281,12 +281,14 @@
 			${columnVar}Selected : null,
 #end
 #if($columnUtils.isLink($column))
+#set($queryId =$column.queryParamLink.queryName)
 #exposeQueryTarget()
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #if($isMasterData)
 #putColumnParamNaming()
+#set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
 #set($queryTargetDDL = "${columnVar}DDL")
-			$queryTargetDDL : ${sddTargetOutputBeanClass}DDL,
+			$queryTargetDDL : ${sddTargetOutputBeanClass}DDL, 
 #end
 #end
 #end
