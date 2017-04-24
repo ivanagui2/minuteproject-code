@@ -39,7 +39,7 @@
 #set($subMenuVar = "submenu${package.name}")
 #set($tabVar = "tab${package.name}")
 #if(!$displayableEntities.isEmpty())
-<li>$packageLabel
+<li> $packageLabel
     <ul>
 #foreach ($groups in $displayableEntityGroups)	
 #foreach ($table in ${groups})
@@ -63,12 +63,11 @@
 #end
 
 <!-- sdd package -->
-#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+#foreach ($package in $model.getStatementModel().getSddPackage().getOrderedPackages())
 ## hasMenuAccess : $package.securityColor.hasMenuAccess -->
 ## hasMenuAccess : $package.securityColor.roles -->
 #if ($package.securityColor.hasMenuAccess)
-<li>$i18nUtils.getI18nFromDBObject(${package.name})
-
+<li>$i18nUtils.getI18nFromDBObject(${package.displayName})
     <ul>
 #foreach ($query in $package.getQueries()) 
 #exposeQuerySpecific()
