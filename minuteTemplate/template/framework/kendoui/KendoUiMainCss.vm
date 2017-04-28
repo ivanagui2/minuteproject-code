@@ -2,6 +2,7 @@
     margin: 0px;
 }
 
+/**/
 html {
     min-height: 100%;
     background-color: #E5F0F6;
@@ -9,6 +10,7 @@ html {
     margin: 0;
     padding: 0;
 }
+
 
 .customMenu {
     display: table;
@@ -20,7 +22,15 @@ html {
     background-color: #E5F0F6;
 }
 
+/**/
 .row {
+    display: table-row;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.row-default {
     display: table-row;
     text-align: center;
     padding-left: 10px;
