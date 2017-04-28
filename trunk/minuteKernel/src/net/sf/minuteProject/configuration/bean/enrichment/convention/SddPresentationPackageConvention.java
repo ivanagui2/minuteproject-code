@@ -1,7 +1,5 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
