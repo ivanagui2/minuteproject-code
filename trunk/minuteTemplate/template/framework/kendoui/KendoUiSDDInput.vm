@@ -135,7 +135,9 @@
 					};
 				}
 			},
+#if($targetQuery.getInputBean().getColumns().size()==1)
 			serverFiltering: true,
+#end
 			schema: {
 				data: "${sddTargetOutputBeanClass}Out"
 			},
@@ -145,9 +147,9 @@
 		$("#field-${columnVar}").kendoAutoComplete({
 			dataSource: ds,
 			filter: "contains",
-			delay: 700,
-			dataTextField: "userLastname", // kendo.template($("${columnVar}WithFunctionListTpl").html()), 
-			minLength: 3,
+			delay: 200,
+			dataTextField: "$columnText", // kendo.template($("${columnVar}WithFunctionListTpl").html()), 
+			minLength: 1,
 			template: kendo.template($("#${columnVar}WithFunctionListTpl").html()),
 			select: function(e) {
 				var item = this.dataItem(e.item.index());
@@ -221,7 +223,8 @@
 #set($targetUrl = $commonUtils.getArtifactRelativePathDirAndFullName($targetQuery, $template, $templateKendoUiSddDirectResult))
 #set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
-#if($isMasterData)
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
+#if($isMasterData && !$isAutocompletion)
 #if($column.isArray())
         $("#${fieldId}").kendoMultiSelect();
 #else
@@ -284,7 +287,8 @@
 #set($queryId =$column.queryParamLink.queryName)
 #exposeQueryTarget()
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
-#if($isMasterData)
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
+#if($isMasterData && !$isAutocompletion)
 #putColumnParamNaming()
 #set ($sddTargetOutputBeanClass = $formatUtils.getJavaName(${targetQuery.getInputBean().getName()}))
 #set($queryTargetDDL = "${columnVar}DDL")

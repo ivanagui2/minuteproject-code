@@ -175,7 +175,7 @@
 #set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
 #set($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
-#if($isMasterData)
+#if($isMasterData && !$isAutocompletion)
 	<select name="$labelFor" id="$fieldId" 
 		data-bind="source: ${columnVar}DDL, value: ${columnVar}Selected"
 		data-text-field="$columnText"
