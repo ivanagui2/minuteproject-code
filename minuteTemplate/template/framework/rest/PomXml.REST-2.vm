@@ -4,14 +4,14 @@
 #exposeMavenCXF()
 #exposeMavenJersey()
 #putTargetServerDefinition()
-#set($restPomFinalName=$template.getPropertyValue("rest-pom-maven-artifact-finalName-suffix", "App"))
+#exposeWebXmlSpecific()
 #set($restPomPackaging=$template.getPropertyValue("rest-pom-maven-packaging", "jar"))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
 ##    <artifactId>${artifactId}</artifactId>
-    <artifactId>${generatorBean.name}${restPomFinalName}</artifactId>
+    <artifactId>$finalName</artifactId>
     <packaging>${restPomPackaging}</packaging>
     <version>${version}-SNAPSHOT</version>
     <name>$generatorBean.name REST service</name>
@@ -112,9 +112,9 @@
 		
         <!-- swagger -->
         <dependency>
-            <groupId>com.wordnik</groupId>
-            <artifactId>swagger-jersey2-jaxrs_2.10</artifactId>
-            <version>1.3.10</version>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jersey2-jaxrs</artifactId>
+            <version>1.5.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.glassfish.jersey.containers</groupId>
@@ -177,9 +177,24 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+#if($corsFilter)
+		<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
+		<dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>cors-filter</artifactId>
+			<version>2.5</version>
+		</dependency>
+#end
+#if($template.hasProperty("mvn-dep-groupId"))
+		<dependency>
+			<groupId>$template.getPropertyValue("mvn-dep-groupId")</groupId>
+			<artifactId>$template.getPropertyValue("mvn-dep-artifactId")</artifactId>
+			<version>$template.getPropertyValue("mvn-dep-version")</version>
+		</dependency>
+#end
     </dependencies>
     <build>
-        <finalName>${generatorBean.name}${restPomFinalName}</finalName>
+        <finalName>$finalName</finalName>
         <plugins>
 #if($isGlassfishTargetServer)    ##earwar-shift
             <plugin>

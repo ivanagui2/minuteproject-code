@@ -4,7 +4,7 @@
 #set($thisDomainVariableName=$classVariable)
 package $packageName;
 
-import com.wordnik.swagger.annotations.*;
+import io.swagger.annotations.*;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

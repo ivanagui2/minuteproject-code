@@ -930,6 +930,7 @@ $!updatedAreaEnd
 #set($fieldKey =$column.queryParamLink.fieldKey)
 #set($queryId =$column.queryParamLink.queryName)
 #exposeQueryTarget()
+#set($isAutocompletion = $queryParamLinkUtils.isAutocompletion($column.queryParamLink))
 #set ($isMasterData= $queryUtils.isAdminContentType($targetQuery))
 #if($isMasterData)
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldKey))
@@ -939,9 +940,14 @@ $!updatedAreaEnd
 #else
 ## unfortunately does not work fine for first select
 ##		var ${columnVar}Selected = this.get("${columnVar}Selected");
+#if($isMasterData && !$isAutocompletion)
 		var dropdownlist$columnVar = $("#field-$columnVar").data("kendoDropDownList");
 		var ${columnVar}Selected = dropdownlist${columnVar}.dataItem();
 		var ${columnVar} = (${columnVar}Selected==undefined)? undefined: ${columnVar}Selected.$columnText;
+#elseif ($isAutocompletion)
+##		var dropdownlist$columnVar = $("#field-$columnVar").val();
+		var ${columnVar} = $("#field-$columnVar").val();
+#end
 #end
 #else
 #if($column.queryParamLink.fieldKey == $column.queryParamLink.fieldName)
