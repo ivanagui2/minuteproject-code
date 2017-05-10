@@ -28,7 +28,7 @@
 #exposeRESTModelSpecific()
           $modelResourceJerseyImport;
 #end        
-          com.wordnik.swagger.jersey.listing</param-value>
+          io.swagger.jersey.listing</param-value>
         </init-param>
 		<init-param>
 			<param-name>jersey.config.server.provider.classnames</param-name>
@@ -36,15 +36,15 @@
 		</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+#set($servletApiName="$generatorBean.name Jersey Web Application")
     <servlet-mapping>
-        <servlet-name>$generatorBean.name Jersey Web Application</servlet-name>
+        <servlet-name>$servletApiName</servlet-name>
         <url-pattern>/data/*</url-pattern>
     </servlet-mapping>
 
 	<servlet>
 		<servlet-name>DefaultJaxrsConfig</servlet-name>
-		<servlet-class>com.wordnik.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+		<servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
 		<init-param>
 			<param-name>api.version</param-name>
 			<param-value>1.0.0</param-value>
@@ -53,10 +53,6 @@
 			<param-name>swagger.api.basepath</param-name>
 			<param-value>/data</param-value>
 		</init-param>
-##		<init-param>
-##			<param-name>swagger.filter</param-name>
-##			<param-value>com.wordnik.swagger.sample.util.ApiAuthorizationFilterImpl</param-value>
-##		</init-param>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	
@@ -78,11 +74,11 @@
 #*
 	<filter>
 		<filter-name>ApiOriginFilter</filter-name>
-		<filter-class>com.wordnik.swagger.sample.util.ApiOriginFilter</filter-class>
+		<filter-class>io.swagger.sample.util.ApiOriginFilter</filter-class>
 	</filter>
 	<servlet>
 		<servlet-name>Bootstrap</servlet-name>
-		<servlet-class>com.wordnik.swagger.sample.Bootstrap</servlet-class>
+		<servlet-class>io.swagger.sample.Bootstrap</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<filter-mapping>
@@ -90,6 +86,53 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 *#
+#if($corsFilter)
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowGenericHttpRequests</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowSubdomains</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedMethods</param-name>
+			<param-value>GET, POST</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedHeaders</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.exposedHeaders</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportsCredentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.maxAge</param-name>
+			<param-value>3600</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.tagRequests</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<servlet-name>$servletApiName</servlet-name>
+	</filter-mapping>
+#end
 #set($filterName=$template.getPropertyValue("filter-name",""))
 #set($filterClass=$template.getPropertyValue("filter-class",""))
 #set($filterUrlPattern=$template.getPropertyValue("filter-url-pattern",""))
@@ -122,7 +165,7 @@
 #if ($securityAuthenticationType!="none")
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>${package.name}</web-resource-name>
+			<web-resource-name>${application.name}</web-resource-name>
 			<url-pattern>/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
@@ -134,8 +177,6 @@
  <!-- $securityAuthenticationType -->
 #foreach ($model in $configuration.models())
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
-## hasMenuAccess : $package.securityColor.hasMenuAccess -->
-## hasMenuAccess : $package.securityColor.roles -->
 #if ($package.securityColor.hasRoles())
 	<security-constraint>
 		<web-resource-collection>
@@ -146,7 +187,16 @@
 		</web-resource-collection>
        <auth-constraint>
            <role-name>$package.securityColor.roles</role-name>
+#if($isCas)
+			<role-name>$mpUserRole</role-name>
+#end 
        </auth-constraint>
+#if($isCas)     
+		<user-data-constraint>
+			<description>Encryption is not required for this area application.</description>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+#end
    </security-constraint>
 #end
 #end

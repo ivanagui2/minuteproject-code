@@ -4,7 +4,7 @@ package $packageName;
 
 $!updatedAreaImport
 
-import com.wordnik.swagger.annotations.*;
+import io.swagger.annotations.*;
 
 import java.util.Date;
 import java.util.List;
