@@ -251,9 +251,10 @@ $readmeUtils.getReadme($template)
 
 #macro(exposeWebXmlSpecific)
 #set($webXmlVersion=$template.getPropertyValue("web-xml-version","3.0"))
-#set($corsFilter=$template.hasPropertyValue("filter-cors",true))
+#set($corsFilter=$template.hasPropertyValue("filter-cors",false))
 #set($restPomFinalName=$template.getPropertyValue("rest-pom-maven-artifact-finalName-suffix", "App"))
 #set($finalName="${generatorBean.name}${restPomFinalName}")
+#set($swagger=$template.hasPropertyValue("swagger",false))
 #end
 
 #macro(putColumnDefaultValue)

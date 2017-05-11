@@ -178,12 +178,18 @@
             <version>${jackson.version}</version>
         </dependency>
 #if($corsFilter)
-		<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
+		<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter 
 		<dependency>
 			<groupId>com.thetransactioncompany</groupId>
 			<artifactId>cors-filter</artifactId>
 			<version>2.5</version>
 		</dependency>
+		-->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>8.0.5</version>
+        </dependency>
 #end
 #if($template.hasProperty("mvn-dep-groupId"))
 		<dependency>
