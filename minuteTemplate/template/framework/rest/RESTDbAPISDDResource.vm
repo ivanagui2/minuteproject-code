@@ -7,6 +7,7 @@
 #set ($sizeColumn = $inputBean.columns.size())
 #set ($sizeChunk = $query.getQueryChunks().size())
 #set ($size = $sizeColumn + $sizeChunk)
+#set ($inputBeanAtLeastOneVisibleColumn=$queryUtils.hasInputBeanAtLeastOneVisibleColumn($inputBean))
 #macro(resourceSignature $param $showType)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated() && !$column.isImplicit())
@@ -19,14 +20,14 @@
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($velocityCount>1 || $sizeColumn!=0)           ,#end #if($param != "")@ApiParam(value = "$chunkName", required=true, allowableValues = "$queryChunk.getDistinctValues()" #if($queryChunk.hasDefault()), defaultValue = "${queryChunk.getDefaultValue().getName()}"#end) @${param} ("$chunkName") #end #if($showType)String #end$chunkName 
+#if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1)        ,#end #if($param != "")@ApiParam(value = "$chunkName", required=true, allowableValues = "$queryChunk.getDistinctValues()" #if($queryChunk.hasDefault()), defaultValue = "${queryChunk.getDefaultValue().getName()}"#end) @${param} ("$chunkName") #end #if($showType)String #end$chunkName 
 #end
 #end
 #macro (daoParameters)
         	${sddInputBeanVariable}
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-            ,$chunkName 
+#if($sizeColumn>0 || $velocityCount>1)           ,#else           #end$chunkName 
 #end
 #end
 #macro (resourceParameters)
@@ -35,15 +36,15 @@
 #putColumnParamNaming()
 #if($columnUtils.isTimeStampColumn($column))
 #set($columnType=$timestampParamImport)
-#else($columnUtils.isTime($column))
+#elseif($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-#if($velocityCount>1),#end $columnVar
+#if($velocityCount>1),#end $columnVar 
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($velocityCount>1 || $sizeColumn!=0),#end $chunkName 
+#if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $chunkName 
 #end
 #end
 #macro (executeSddImplementation)
@@ -78,12 +79,11 @@
         return ${sddDaoInterfaceVariable}.execute(
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-            #if($velocityCount>1),#end $chunkName 
+            #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $chunkName 
 #end
         );
 #end
 #end
-
 
 package $packageName;
 $!updatedAreaImport
@@ -219,7 +219,7 @@ $!updatedAreaBegin
         @ApiResponse(code = 200, message = "ok")
     })
     public List<$pivotClass> get${pivotClasses} (
-#resourceSignature("QueryParam")
+#resourceSignature("QueryParam", true)
     ) {
         $sddOutputBeanCollectionClass list = execute(
 #resourceParameters()

@@ -143,10 +143,10 @@
 			},
 			pageSize : 30
 		});
-
+#set($autocompletefilter = $queryParamLinkUtils.getAutoCompleteFilter($column.queryParamLink))
 		$("#field-${columnVar}").kendoAutoComplete({
 			dataSource: ds,
-			filter: "contains",
+			filter: "${autocompletefilter}",
 			delay: 200,
 			dataTextField: "$columnText", // kendo.template($("${columnVar}WithFunctionListTpl").html()), 
 			minLength: 1,
