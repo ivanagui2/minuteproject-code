@@ -24,4 +24,12 @@ public class QueryParamLinkUtils {
 		}
 		return columns;
 	}
+	
+	public static String getAutocompleteFilter(QueryParamLink queryParamLink) {
+		if (isAutocompletion(queryParamLink)) {
+			String filter = queryParamLink.getAutoCompleteFilter();
+			return (filter!=null) ? filter : "startswith";
+		}
+		return "startswith";
+	}
 }

@@ -5,7 +5,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.Field;
 
 public class QueryParamLink extends AbstractConfiguration{
 	
-	private String entityName, queryName, fieldName, fieldKey, displayMode;
+	private String entityName, queryName, fieldName, fieldKey, displayMode, autoCompleteFilter, autoCompleteMinChar, autoCompleteDelay;
 	private String semanticReferenceFields;
 	private QueryParam queryParam;
 
@@ -65,4 +65,28 @@ public class QueryParamLink extends AbstractConfiguration{
 		this.semanticReferenceFields = semanticReferenceFields;
 	}
 
+	public String getAutoCompleteFilter() {
+		return autoCompleteFilter;
+	}
+
+	public void setAutoCompleteFilter(String autoCompleteFilter) {
+		this.autoCompleteFilter = autoCompleteFilter;
+	}
+
+	public String getAutoCompleteMinChar() {
+		return autoCompleteMinChar;
+	}
+
+	public void setAutoCompleteMinChar(String autoCompleteMinChar) {
+		this.autoCompleteMinChar = autoCompleteMinChar;
+	}
+
+	public String getAutoCompleteDelay() {
+		return autoCompleteDelay;
+	}
+
+	public void setAutoCompleteDelay(String autoCompleteDelay) {
+		this.autoCompleteDelay = autoCompleteDelay;
+	}
+ 
 }
