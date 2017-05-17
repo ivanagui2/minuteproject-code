@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -499,5 +500,9 @@ public class QueryUtils {
 			return !query.isScalar();
 		}
 		return false;
+	}
+	
+	public static boolean hasInputBeanAtLeastOneVisibleColumn(Table table) {
+		return Arrays.stream(table.getColumns()).filter(c -> !c.isImplicit()).findFirst().isPresent();
 	}
 }

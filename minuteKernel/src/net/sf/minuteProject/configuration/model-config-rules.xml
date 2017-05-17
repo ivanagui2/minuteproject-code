@@ -348,8 +348,10 @@
 												<alias attr-name="field-name" prop-name="fieldName" />
 												<alias attr-name="field-key" prop-name="fieldKey" />
 												<alias attr-name="display-mode" prop-name="displayMode" />
-												<alias attr-name="semantic-reference-fields"
-													prop-name="semanticReferenceFields" />
+												<alias attr-name="auto-complete-filter" prop-name="autoCompleteFilter" />
+												<alias attr-name="auto-complete-min-char" prop-name="autoCompleteMinChar" />
+												<alias attr-name="auto-complete-delay" prop-name="autoCompleteDelay" />
+												<alias attr-name="semantic-reference-fields" prop-name="semanticReferenceFields" />
 											</set-properties-rule>
 										</pattern>
 										<pattern value="property">
@@ -2090,6 +2092,9 @@
 										<alias attr-name="field-name" prop-name="fieldName" />
 										<alias attr-name="field-key" prop-name="fieldKey" />
 										<alias attr-name="display-mode" prop-name="displayMode" />
+										<alias attr-name="auto-complete-filter" prop-name="autoCompleteFilter" />
+										<alias attr-name="auto-complete-min-char" prop-name="autoCompleteMinChar" />
+										<alias attr-name="auto-complete-delay" prop-name="autoCompleteDelay" />
 										<alias attr-name="semantic-reference-fields" prop-name="semanticReferenceFields" />
 									</set-properties-rule>
 								</pattern>
