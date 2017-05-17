@@ -544,16 +544,8 @@
 #end
 
 #macro (exposeWebSecurityProperties)
-#getTemplatePropertyValue("securityAuthenticationType")
-#set ($securityAuthenticationType = $value)
-#if ($securityAuthenticationType == "")
-#set ($securityAuthenticationType = "none")
-#end
-#getTemplatePropertyValue("mpUserRole")
-#set ($mpUserRole = $value)
-#if ($mpUserRole == "")
-#set ($mpUserRole = "mpuser")
-#end
+#set($securityAuthenticationType = $template.getPropertyValue("securityAuthenticationType","none"))
+#set($mpUserRole = $template.getPropertyValue("mpUserRole","mpuser"))
 #getTemplatePropertyValue("applicationRealm")
 #set ($applicationRealm = $value)
 #if ($applicationRealm == "")

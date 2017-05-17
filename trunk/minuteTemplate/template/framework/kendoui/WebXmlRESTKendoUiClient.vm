@@ -62,6 +62,7 @@
 		<filter-name>jersey</filter-name>
 		<filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
 		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
           	<param-value>
 #foreach ($model in $configuration.allModels)          
 #exposeRESTModelSpecific()
@@ -71,13 +72,16 @@
           </param-value>
 		</init-param>
 	</filter>
-#end
+	
 
 	<filter-mapping>
 		<filter-name>jersey</filter-name>
 		<url-pattern>/data</url-pattern>
 	</filter-mapping>
 	<!-- add swagger -->
+#end
+
+	
 #if($hasAtmosphereServlet)
 	<servlet>
 		<description>AtmosphereServlet</description>
@@ -221,10 +225,10 @@
 #end
 
   <!-- Define a Security Constraint on this Application -->
-#if ($securityAuthenticationType!="none")
-	<security-constraint>
+#if ($securityAuthenticationType!="none" && $securityAuthenticationType!="")
+	<security-constraint> <!-- $securityAuthenticationType -->
 		<web-resource-collection>
-			<web-resource-name>${application.name}</web-resource-name>
+			<web-resource-name>${generatorBean.name}</web-resource-name>
 			<url-pattern>/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
