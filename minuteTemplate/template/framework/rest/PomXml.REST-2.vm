@@ -189,6 +189,9 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
             <version>8.0.5</version>
+#if($isTomcatTargetServer)
+			<scope>provided</scope>
+#end
         </dependency>
 #end
 #if($template.hasProperty("mvn-dep-groupId"))

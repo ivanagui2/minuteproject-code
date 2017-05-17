@@ -1,5 +1,6 @@
+#generatorSpecific()
 <div class="k-content">
-<ul id="${application.name}-Menu">
+<ul id="${generatorBean.name}-Menu">
 #foreach ($model in $configuration.models())
 #exposeVariableModelSpecific()
 <li>$i18nUtils.getI18nFromDBObject(${model.displayName})
