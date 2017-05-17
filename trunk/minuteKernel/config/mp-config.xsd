@@ -849,6 +849,9 @@
 		<xs:attribute name="field-key" type="xs:string" />
 		<xs:attribute name="sdd-query-name" type="xs:string" />
 		<xs:attribute name="display-mode" type="xs:string" />
+		<xs:attribute name="auto-complete-filter" type="xs:string" />
+		<xs:attribute name="auto-complete-min-char" type="xs:string" />
+		<xs:attribute name="auto-complete-delay" type="xs:string" />
 		<xs:attribute name="semantic-reference-fields" type="xs:string" />
 	</xs:complexType>
 
