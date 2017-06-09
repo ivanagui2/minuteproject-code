@@ -40,6 +40,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private QueryDisplay queryDisplay;
 	private List<Field> queryFields;
 	private List<QueryFilter> queryFilters;
+	private List<QueryScheduler> querySchedulers;
 	private QueryParams queryParams;
 	private QueryParams outputParams;
 	private boolean isSet = false;
@@ -145,6 +146,18 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public void addQueryFilter(QueryFilter queryWhere) {
 		getQueryFilters().add(queryWhere);
+	}
+	
+	public List<QueryScheduler> getQuerySchedulers() {
+		if (querySchedulers==null) {
+			querySchedulers = new ArrayList<QueryScheduler>();
+		}
+		//this.getQueryFilters().get(0).getQueryParams().
+		return querySchedulers;
+	}
+	
+	public void addQueryScheduler(QueryScheduler queryScheduler) {
+		getQuerySchedulers().add(queryScheduler);
 	}
 	
 	public List<Field> getQueryFields() {

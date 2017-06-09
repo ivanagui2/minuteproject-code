@@ -283,7 +283,37 @@
 									<alias attr-name="value" prop-name="value" />
 								</set-properties-rule>
 							</pattern>
-
+							<pattern value="query-schedulers/query-scheduler">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
+								<set-next-rule methodname="addQueryFilter"
+									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
+								<set-properties-rule>
+									<alias attr-name="report-channel" prop-name="reportChannel" />
+									<alias attr-name="report-from" prop-name="reportFrom" />
+									<alias attr-name="report-to" prop-name="reportTo" />
+									<alias attr-name="report-to" prop-name="reportTo" />
+								</set-properties-rule>
+								<bean-property-setter-rule pattern="name" />
+								<bean-property-setter-rule pattern="cron" />
+								<pattern value="query-params">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams" />
+									<set-next-rule methodname="setQueryParams"
+										paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParams" />
+									<set-properties-rule />
+									<pattern value="query-param">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParam" />
+										<set-next-rule methodname="addQueryParam"
+											paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam" />
+										<set-properties-rule>
+											<alias attr-name="name" prop-name="name" />
+											<alias attr-name="value" prop-name="value" />
+										</set-properties-rule>
+									</pattern>
+								</pattern>
+							</pattern>		
 							<pattern value="query-filters/query-filter">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
@@ -1919,6 +1949,38 @@
 								<alias attr-name="value" prop-name="value" />
 							</set-properties-rule>
 						</pattern>
+						
+						<pattern value="query-schedulers/query-scheduler">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
+							<set-next-rule methodname="addQueryFilter"
+								paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
+							<set-properties-rule>
+								<alias attr-name="report-channel" prop-name="reportChannel" />
+								<alias attr-name="report-from" prop-name="reportFrom" />
+								<alias attr-name="report-to" prop-name="reportTo" />
+							</set-properties-rule>
+							<bean-property-setter-rule pattern="name" />
+							<bean-property-setter-rule pattern="cron" />
+							<pattern value="query-params">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParams" />
+								<set-next-rule methodname="setQueryParams"
+									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParams" />
+								<set-properties-rule />
+								<pattern value="query-param">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.model.statement.QueryParam" />
+									<set-next-rule methodname="addQueryParam"
+										paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryParam" />
+									<set-properties-rule>
+										<alias attr-name="name" prop-name="name" />
+										<alias attr-name="value" prop-name="value" />
+									</set-properties-rule>
+								</pattern>
+							</pattern>
+						</pattern>
+
 						<pattern value="query-filters/query-filter">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
