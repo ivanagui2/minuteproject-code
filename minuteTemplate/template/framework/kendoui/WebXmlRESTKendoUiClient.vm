@@ -7,7 +7,7 @@
 #exposeWebXmlSpecific()
 #putTargetServerDefinition()
 #exposeKendoUIGeneratorBeanSpecific()
-#if ($webXmlVersion=="2.5" || $isWeblogicTargetServer)
+#if ($webXmlVersion=="2.5")
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	version="2.5"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
@@ -87,6 +87,16 @@
 		<description>AtmosphereServlet</description>
 		<servlet-name>AtmosphereServlet</servlet-name>
 		<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+		<!--
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>my.atmosphere.jersey.conf.packages</param-value>
+		</init-param>
+		<init-param>
+			<param-name>org.atmosphere.websocket.messageContentType</param-name>
+			<param-value>application/json</param-value>
+		</init-param>
+		-->
 		<!-- If you want to use Servlet 3.0 -->
 		<async-supported>true</async-supported>
 		<!-- List of init-param -->
@@ -112,8 +122,9 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 *#
-#if($corsFilter)
-#*<!--
+#if($hasCorsFilter)
+#if($corsFilter=="thetransactioncompany")
+	<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
 	<filter>
 		<filter-name>CORS</filter-name>
 		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
@@ -159,8 +170,8 @@
 		<filter-name>CORS</filter-name>
 		<servlet-name>$servletApiName</servlet-name>
 	</filter-mapping>
--->
-*#
+#end
+#if($corsFilter=="apache")	
 	<!-- add CORS -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
@@ -195,6 +206,7 @@
 		<servlet-name>$servletApiName</servlet-name>
 	</filter-mapping>
 	<!-- end CORS -->
+#end
 #end
 #set($filterName=$template.getPropertyValue("filter-name",""))
 #set($filterClass=$template.getPropertyValue("filter-class",""))

@@ -228,9 +228,9 @@
 ##      <hibernateVersion>5.1.0.Final</hibernateVersion>
 ##      <hibernateValidatorVersion>5.1.0.Final</hibernateValidatorVersion>
       <hibernateVersion>4.3.11.Final</hibernateVersion>
-      <hibernateValidatorVersion>4.3.2.Final</hibernateValidatorVersion>
 #end
- 
+      <hibernateValidatorVersion>4.3.2.Final</hibernateValidatorVersion>
+      
     </properties>
     <build>
         <!--<finalName>$DbApiName</finalName>-->
