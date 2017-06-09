@@ -98,8 +98,7 @@ public class Template extends TemplateTarget {
 	public String getPropertyValue(String name) {
 		String s = super.getPropertyValue(name);
 		return (s!=null)?s:templateTarget.getTemplateTargetPropertyValue(name);
-	}
-	
+	}	
 	
 	public Property getPropertyByName(String name) {
 		Property p = super.getPropertyByName(name);
@@ -115,6 +114,7 @@ public class Template extends TemplateTarget {
 		String s = getPropertyValue(name);
 		return (s!=null)?Boolean.valueOf(s):defaultValue;
 	}
+	
 	public Boolean hasPropertyValue(String name, boolean defaultValue) {
 		String s = getPropertyValue(name);
 		return (s!=null)?true:defaultValue;

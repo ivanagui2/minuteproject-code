@@ -692,6 +692,7 @@
 			<xs:element name="query-chunks" type="query-chunks" />
 			<xs:element name="query-fields" type="query-fields" />
 			<xs:element name="query-filters" type="query-filters" />
+			<xs:element name="query-schedulers" type="query-schedulers" />
 			<xs:element name="query-params" type="query-params" />
 			<xs:element name="query-pivots" type="query-pivots" />
 			<xs:element name="actions" type="actions" />
@@ -714,8 +715,7 @@
 	
 	<xs:complexType name="query-params">
 		<xs:sequence>
-			<xs:element name="query-param" type="query-param"
-				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="query-param" type="query-param" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 	
@@ -746,6 +746,23 @@
 		</xs:sequence>
 	</xs:complexType>
 	
+	<xs:complexType name="query-schedulers">
+		<xs:sequence>
+			<xs:element name="query-scheduler" type="query-scheduler"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="query-scheduler">
+		<xs:sequence>
+			<xs:element name="query-params" type="query-params" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="cron" type="xs:string" />
+		<xs:attribute name="report-channel" type="xs:string" />
+		<xs:attribute name="report-from" type="xs:string" />
+		<xs:attribute name="report-to" type="xs:string" />
+	</xs:complexType>	
 	
 	<xs:complexType name="value-body">
 		<xs:sequence>

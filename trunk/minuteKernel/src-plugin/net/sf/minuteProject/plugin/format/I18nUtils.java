@@ -159,7 +159,7 @@ public class I18nUtils {
 	}
 	
 	public static String getPackageName(Package pack) {
-		return FormatUtils.getJavaName(pack.getAlias());
+		return FormatUtils.getJavaName(pack.hasInjectedDisplayName()?pack.getDisplayName():pack.getAlias());
 	}
 	
 }
