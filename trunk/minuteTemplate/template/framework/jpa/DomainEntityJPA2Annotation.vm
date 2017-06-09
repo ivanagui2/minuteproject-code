@@ -67,7 +67,7 @@ import javax.xml.bind.annotation.*;
 #end
 $annotationListTagEnding
 #if($addXmlBinding)
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @XmlType(namespace="$packageName", name = "${className}")
 @XmlRootElement(namespace="$packageName")
 #end
@@ -212,13 +212,16 @@ $!updatedAreaEnd
     @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
+#if($addXmlBinding)
+    @XmlElement (name="${colVar}Ref")
+#end
     $accessor $linkedTableClass ${colVar};  
 
 #set($column = $reference.localColumn)
 #putColumnParamNaming()
 #if($addXmlBinding)
 #exposeXmlElementValue()
-    @XmlAttribute $!xmlElementValue
+    @XmlElement $!xmlElementValue
 #end
     @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
     $accessor $columnType ${colVar}_;
@@ -622,7 +625,7 @@ $!updatedAreaSnippet
 #set($columnClass=$columnClass+"_")
 #end
         if ("${columnVar}".equals(pattern)) {
-		   set$columnClass(value.toString());
+           set$columnClass(value.toString());
 		   return this;
 		}
 #else
@@ -635,7 +638,7 @@ $!updatedAreaSnippet
 #end
 #if($isEnum)
 		if ("${columnVar}".equals(pattern)) {
-		   set$columnClass(value.toString());
+           set$columnClass(value.toString());
 		   return this;
 		}
 #else
@@ -644,7 +647,7 @@ $!updatedAreaSnippet
 #end
 #set($key=$convertUtils.getJavaTypeCastExpression($column, "value", $useTemporal))
 		if ("${columnVar}".equals(pattern)) {
-		   set$columnClass($key);
+           set$columnClass($key);
 		   return this;
 		}
 #end
@@ -725,7 +728,7 @@ $!updatedAreaSnippet
     }
 	
     public void set${columnClass}_ ($columnType $columnVar) {
-        this.${columnVar}_ =  ${columnVar}_;
+        this.${columnVar}_ =  ${columnVar};
     }
     
 #end

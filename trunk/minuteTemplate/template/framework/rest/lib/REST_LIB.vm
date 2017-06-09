@@ -36,5 +36,5 @@
 #set($jerseyVersion=$template.getPropertyValue("add-rest-implementation-jersey-version","2.25"))
 #set($jacksonVersion=$template.getPropertyValue("add-rest-implementation-jackson-version","2.8.6"))
 #set($sunjerseyVersion=$template.getPropertyValue("add-rest-implementation-sun-jersey-version","1.18.1"))
-#set($atmosphereVersion=$template.getPropertyValue("add-rest-implementation-atmosphere-version","2.3.0-RC6"))
+#set($atmosphereVersion=$template.getPropertyValue("add-rest-implementation-atmosphere-version","2.4.12"))
 #end
