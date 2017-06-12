@@ -1,0 +1,227 @@
+#generatorSpecific()
+#exposeBackendTechnology()
+#putJPA2TemplateDefinition()
+#exposeVariableModelSpecific()
+#exposeSpringModelSpecific()
+#exposeSDDSpring()
+#addedAreas()
+#set($thisClassName="$className")
+package $packageName;
+
+$!updatedAreaImport
+
+import java.util.List;
+import java.util.ArrayList;
+
+
+import eu.europa.ec.decide.cisnet.sdd.out.cabinet.CabinetCnsMailOutList;
+import eu.europa.ec.decide.cisnet.service.face.cabinet.CabinetCnsMailService;
+import jxl.Workbook;
+import jxl.write.*;
+import jxl.write.Number;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
+
+#foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
+#set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($queryScheduler.query, $template, $templateSDDServiceInterface))
+import $sddServiceInterfaceImport;
+#set ($query = $queryScheduler.query)
+#putImportQuerySDDBean()
+import $sddInputBeanImport;
+import $sddOutputBeanImport;
+import $sddOutputBeanCollectionImport;
+#end  
+/**
+ *
+ * <p>Title: $thisClassName</p>
+ *
+ * <p>Description: Scheduler of model $model.name
+ * </p>
+ *
+ */
+ 
+// * "0 0 * * * *" = the top of every hour of every day.
+// * "*/10 * * * * *" = every ten seconds.
+//             * "0 0 8-10 * * *" = 8, 9 and 10 o'clock of every day.
+//             * "0 0/30 8-10 * * *" = 8:00, 8:30, 9:00, 9:30 and 10 o'clock every day.
+//             * "0 0 9-17 * * MON-FRI" = on the hour nine-to-five weekdays
+//     * "0 0 0 25 12 ?" = every Christmas Day at midnight
+ 
+@Component 
+##@Transactional
+public class $thisClassName {
+
+#foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
+#set ($query = $queryScheduler.query)
+#putImportQuerySDDBean()
+#set ($sddServiceInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDServiceInterface))
+#set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
+#set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDCompositeDaoInterface))
+#set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
+    @Autowired
+    $sddServiceInterfaceClass $sddServiceInterfaceVariable;
+
+    @Scheduled(cron="$queryScheduler.cron")
+    public void ${queryScheduler.name}() {
+    	String reportFileName = "${queryScheduler.name}.xls";
+    //TODO execute service
+#foreach($queryParam in $queryScheduler.queryParams.queryParams)
+//$queryParam.name $queryParam.value
+#end    
+    //$queryScheduler
+        $sddOutputBeanCollectionClass list = 
+#foreach($queryParam in $queryScheduler.queryParams.queryParams)
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+			callImplementation(
+#resourceSignature("", false)
+			);
+#end
+#end
+        );
+        writeReport(reportFileName);
+        String from = "$queryScheduler.reportFrom";
+        String to = "$queryScheduler.reportTo";
+        String host = "localhost";
+
+        //Get the session object
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", host);
+        Session session = Session.getDefaultInstance(properties);
+
+        //compose the message
+        try{
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
+ //           message.setSubject("screening unit report number :"+list.getCabinetCnsMailOuts().size());
+            message.setText("Here is the daily report "+list.getCabinetCnsMailOuts());
+
+            // attachment
+            BodyPart messageBodyPart = new MimeBodyPart();
+
+            // Now set the actual message
+            messageBodyPart.setText("Daily report");
+
+            // Create a multipar message
+            Multipart multipart = new MimeMultipart();
+
+            // Set text message part
+            multipart.addBodyPart(messageBodyPart);
+
+            // Part two is attachment
+            messageBodyPart = new MimeBodyPart();
+            String filename = getReportPath(reportFileName);
+            DataSource source = new FileDataSource(filename);
+            messageBodyPart.setDataHandler(new DataHandler(source));
+            messageBodyPart.setFileName(reportFileName);
+            multipart.addBodyPart(messageBodyPart);
+
+            // Send the complete message parts
+            message.setContent(multipart);
+
+            // Send message
+            Transport.send(message);
+
+        }catch (MessagingException mex) {mex.printStackTrace();}
+    }
+    // TODO perform SDD for data integrity
+        // TODO sdd param > Timestamp - 5' (5'= time of cron)
+        // TODO if error
+        // TODO report via mail + dashboard via ws
+
+	public $sddOutputBeanCollectionClass callImplementation (
+#resourceSignature("", true)
+	) {
+#executeSddImplementation()	
+	}
+	
+    private void writeReport (String name) {
+
+        //1. Create an Excel file
+        WritableWorkbook myFirstWbook = null;
+        try {
+
+            File file = new File(getReportPath(name));
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            myFirstWbook = Workbook.createWorkbook(file);
+
+            // create an Excel sheet
+            WritableSheet excelSheet = myFirstWbook.createSheet("Sheet 1", 0);
+
+            // add something into the Excel sheet
+            Label label = new Label(0, 0, "Test Count");
+            excelSheet.addCell(label);
+
+            Number number = new jxl.write.Number(0, 1, 1) {
+            };
+            excelSheet.addCell(number);
+
+            label = new Label(1, 0, "Result");
+            excelSheet.addCell(label);
+
+            label = new Label(1, 1, "Passed");
+            excelSheet.addCell(label);
+
+            number = new Number(0, 2, 2);
+            excelSheet.addCell(number);
+
+            label = new Label(1, 2, "Passed 2");
+            excelSheet.addCell(label);
+
+            myFirstWbook.write();
+
+
+        } catch (IOException |  WriteException e) {
+            e.printStackTrace();
+        } finally {
+
+            if (myFirstWbook != null) {
+                try {
+                    myFirstWbook.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+
+    }
+	
+#end
+
+
+$!updatedAreaImplementation
+
+#*
+    @Autowired
+    private ServletContext servletContext;
+    private String getReportPathServlet (String name) {
+        return servletContext.getRealPath("/")+"/"+name;
+    }
+*#
+    private String getReportPath (String name) {
+        return System.getProperty("java.io.tmpdir")+"/"+name;
+    }
+}
