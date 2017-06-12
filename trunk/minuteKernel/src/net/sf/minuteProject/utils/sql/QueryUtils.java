@@ -494,15 +494,21 @@ public class QueryUtils {
 		return false;
 	}
 	
-	public static boolean isToGenerateBasedOnNotScalar(Template template, GeneratorBean bean) {
+	public static boolean isToGenerateBasedOnScalar(Template template, GeneratorBean bean) {
 		if (bean instanceof Table) {
 			Table query = (Table) bean;
-			return !query.isScalar();
+			return query.isScalar();
 		}
 		return false;
 	}
 	
+	public static boolean isToGenerateBasedOnNotScalar(Template template, GeneratorBean bean) {
+		return !isToGenerateBasedOnScalar(template, bean);
+	}
+
+	
 	public static boolean hasInputBeanAtLeastOneVisibleColumn(Table table) {
 		return Arrays.stream(table.getColumns()).filter(c -> !c.isImplicit()).findFirst().isPresent();
 	}
+
 }
