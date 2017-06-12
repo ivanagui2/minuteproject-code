@@ -286,7 +286,7 @@
 							<pattern value="query-schedulers/query-scheduler">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
-								<set-next-rule methodname="addQueryFilter"
+								<set-next-rule methodname="addQueryScheduler"
 									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
 								<set-properties-rule>
 									<alias attr-name="report-channel" prop-name="reportChannel" />
@@ -1953,7 +1953,7 @@
 						<pattern value="query-schedulers/query-scheduler">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
-							<set-next-rule methodname="addQueryFilter"
+							<set-next-rule methodname="addQueryScheduler"
 								paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler" />
 							<set-properties-rule>
 								<alias attr-name="report-channel" prop-name="reportChannel" />

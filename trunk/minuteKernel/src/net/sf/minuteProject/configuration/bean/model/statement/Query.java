@@ -157,6 +157,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 	
 	public void addQueryScheduler(QueryScheduler queryScheduler) {
+		queryScheduler.setQuery(this);
 		getQuerySchedulers().add(queryScheduler);
 	}
 	

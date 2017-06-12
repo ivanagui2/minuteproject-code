@@ -59,6 +59,7 @@ import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 import net.sf.minuteProject.utils.java.JavaUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
+import net.sf.minuteProject.utils.scheduler.SchedulerUtils;
 import net.sf.minuteProject.utils.sql.QueryParamLinkUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 import net.sf.minuteProject.utils.sql.StatementUtils;
@@ -779,6 +780,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("minuteprojectUtils", minuteprojectUtils);
 		context.put("actionUtils", actionUtils);
 		context.put("readmeUtils", new ReadmeUtils());
+		context.put("schedulerUtils", new SchedulerUtils());
 	}
 
 	protected void exit(String message) {

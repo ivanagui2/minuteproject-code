@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 public class QueryScheduler extends QueryAdapter {
 
 	private QueryParams queryParams;
+	private Query query;
 	private String reportChannel, reportFrom, reportTo, cron;
 
 	public QueryParams getQueryParams() {
@@ -47,6 +48,14 @@ public class QueryScheduler extends QueryAdapter {
 
 	public void setCron(String cron) {
 		this.cron = cron;
+	}
+
+	public Query getQuery() {
+		return query;
+	}
+
+	public void setQuery(Query query) {
+		this.query = query;
 	}
 	
 	
