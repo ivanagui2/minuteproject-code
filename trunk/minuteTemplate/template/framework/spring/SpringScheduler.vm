@@ -94,8 +94,8 @@ public class $thisClassName {
 			);
 #end
 #end
-        );
-        writeReport(reportFileName);
+ 
+        writeReport${queryScheduler.name} (reportFileName);
         String from = "$queryScheduler.reportFrom";
         String to = "$queryScheduler.reportTo";
         String host = "localhost";
@@ -110,14 +110,13 @@ public class $thisClassName {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
- //           message.setSubject("screening unit report number :"+list.getCabinetCnsMailOuts().size());
-            message.setText("Here is the daily report "+list.getCabinetCnsMailOuts());
+            message.setText("Here is the daily report "+list.get${sddOutputBeanCollectionClass}s().size());
 
             // attachment
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Now set the actual message
-            messageBodyPart.setText("Daily report");
+            messageBodyPart.setText("$queryScheduler.name");
 
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
@@ -141,10 +140,6 @@ public class $thisClassName {
 
         }catch (MessagingException mex) {mex.printStackTrace();}
     }
-    // TODO perform SDD for data integrity
-        // TODO sdd param > Timestamp - 5' (5'= time of cron)
-        // TODO if error
-        // TODO report via mail + dashboard via ws
 
 	public $sddOutputBeanCollectionClass callImplementation (
 #resourceSignature("", true)
@@ -152,7 +147,7 @@ public class $thisClassName {
 #executeSddImplementation()	
 	}
 	
-    private void writeReport (String name) {
+    private void writeReport$queryScheduler.name (String name) {
 
         //1. Create an Excel file
         WritableWorkbook myFirstWbook = null;
@@ -203,14 +198,10 @@ public class $thisClassName {
                     e.printStackTrace();
                 }
             }
-
-
         }
-
     }
 	
 #end
-
 
 $!updatedAreaImplementation
 

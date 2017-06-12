@@ -5,8 +5,9 @@
 package $packageName;
 
 $!updatedAreaImport
-
+#if (!$query.isScalar())
 import $sddOutputBeanCollectionImport;
+#end
 #if($isNotVoidInput)
 import $sddInputBeanImport;
 #end

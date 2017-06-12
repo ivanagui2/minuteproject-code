@@ -43,7 +43,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 #end
+#if (!$query.isScalar())
 import $sddOutputBeanCollectionImport;
+#end
 import $sddOutputBeanImport;
 import $sddDaoInterfaceImport;
 #if($isNotVoidInput)
@@ -109,7 +111,9 @@ $!updatedAreaSnippet
 #end 
 #end
 		) {
+#if (!$query.isScalar())
 		$sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable = new $sddOutputBeanCollectionClass();
+#end
 		${sddOutputBeanCollectionClass}Work work = new ${sddOutputBeanCollectionClass}Work (
 #if($isNotVoidInput)
 			$sddInputBeanVariable
@@ -180,7 +184,13 @@ $!updatedAreaEnd
 #end
 #end
 	  }
+#if ($query.isScalar())
+#set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
+#set ($sddOutputBeanCollectionClass = $commonUtils.getJavaType($firstColumn))
+	  $sddOutputBeanCollectionClass x;
+#else
 	  List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+#end
       @Override
       public void execute(Connection conn) throws SQLException {
 #if($query.queryParams.hasOutputParam())
@@ -194,9 +204,17 @@ $!updatedAreaEnd
 #putSddExecuteStatement()
        }
 
+#if ($query.isScalar())
+#set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
+#set ($sddOutputBeanCollectionClass = $commonUtils.getJavaType($firstColumn))
+       $sddOutputBeanCollectionClass getResult() {
+          return x;
+       }
+#else
        List<$sddOutputBeanClass> getResult() {
           return list;
        }
+#end
     }
 #*
     public Connection getConnection() throws SQLException, HibernateException {
