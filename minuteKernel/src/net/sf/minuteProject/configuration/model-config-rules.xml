@@ -292,7 +292,7 @@
 									<alias attr-name="report-channel" prop-name="reportChannel" />
 									<alias attr-name="report-from" prop-name="reportFrom" />
 									<alias attr-name="report-to" prop-name="reportTo" />
-									<alias attr-name="report-to" prop-name="reportTo" />
+									<alias attr-name="report-record-threshold" prop-name="reportRecordThreshold" />
 								</set-properties-rule>
 								<bean-property-setter-rule pattern="name" />
 								<bean-property-setter-rule pattern="cron" />

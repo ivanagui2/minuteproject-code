@@ -133,7 +133,7 @@ public class ConvertUtils {
 		if (DB_TIME_TYPE.equals(type)) return UML_TIME_TYPE;
 		if (DB_LONG_TYPE.equals(type)) return UML_LONG_TYPE;
 		if (DB_BIGINT_TYPE.equals(type)) return UML_BIGINTEGER_TYPE;
-		//if (DB_BOOLEAN_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
+		if (DB_BOOLEAN_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
 		return UML_STRING_TYPE;
 	}
 	

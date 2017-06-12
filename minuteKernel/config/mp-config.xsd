@@ -63,6 +63,13 @@
              <xs:enumeration value="desc" />
          </xs:restriction>
      </xs:simpleType>
+
+     <xs:simpleType name="caching-type">
+         <xs:restriction base="xs:string">
+             <xs:enumeration value="read-only" />
+             <xs:enumeration value="read-write" />
+         </xs:restriction>
+     </xs:simpleType>
     	
 <!-- 	<xs:complexType name="pattern-assertion-type">
 		<xs:attribute name="endsWith" type="xs:string" />
@@ -704,11 +711,16 @@
 		<xs:attribute name="cache" type="xs:boolean" />
 		<xs:attribute name="type" type="query-type" />
 		<xs:attribute name="is-write" type="xs:boolean" default="false" />
+		<xs:attribute name="is-cache" type="xs:boolean" default="false" />
 		<xs:attribute name="execute-label" type="xs:string" default="execute" />
 		<xs:attribute name="result-cardinality" type="xs:string" default="many" />
 		<xs:attribute name="secure-user-role" type="xs:string" default="many" />
 		<xs:attribute name="scope" type="query-scope" />
 		<xs:attribute name="is-scalar" type="xs:boolean"/>
+		
+		<!-- to use instead of result-cardinality -->
+		<xs:attribute name="card" type="xs:string" default="many" />
+		<xs:attribute name="caching" type="caching-type" default="read-only" />
 		
 		<xs:attribute name="content-type" type="content-type" />
 	</xs:complexType>
@@ -762,6 +774,7 @@
 		<xs:attribute name="report-channel" type="xs:string" />
 		<xs:attribute name="report-from" type="xs:string" />
 		<xs:attribute name="report-to" type="xs:string" />
+		<xs:attribute name="report-record-threshold" type="xs:integer" />
 	</xs:complexType>	
 	
 	<xs:complexType name="value-body">
