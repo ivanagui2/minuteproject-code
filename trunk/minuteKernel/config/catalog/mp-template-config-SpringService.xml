@@ -68,16 +68,6 @@
 			has-updatable-nature="true">
 		</template>
 
-
-        <!-- sdd 
-        <template name="JSFSDDController" templateFileName="JSFSDDController.vm" 
-            subdir="" outputsubdir="" technicalPackage="controller"
-            file-extension="java" file-prefix="" file-suffix="Controller" 
-            scope-specific-value="query" has-updatable-nature="true"
-            check-template-to-generate="true" is-template-to-generate-method="enrichmentUtils.isToGenerateBasedOnNotMany2Many">
-            <property name="add-backend-implementation" value="spring"></property>
-        </template>
-        -->
         <!-- Take care the service and the DAO are the same so just one physical template -->
 		<template name="SDDServiceInterface" templateFileName="SDDDaoInterface.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.face"
@@ -104,12 +94,21 @@
 			has-updatable-nature="true">
 		</template>	
 			 
-
 		<template name="SpringModelServiceImpl" templateFileName="SpringModelServiceImpl.vm" 
 			subdir="" outputsubdir="" technicalPackage="service.impl"
 			file-extension="java" file-prefix="" file-suffix="ModelServiceImpl" 
 			model-specific="true" 
 			has-updatable-nature="true">
 		</template>
+		
+		<template name="SpringScheduler" templateFileName="SpringScheduler.vm" 
+			subdir="" outputsubdir="" technicalPackage="scheduler"
+			file-extension="java" file-prefix="" file-suffix="Scheduler" 
+			model-specific="true" 
+			check-template-to-generate="true" is-template-to-generate-method="schedulerUtils.isToGenerateBasedOnSchedulerEntry"
+			has-updatable-nature="true">
+		</template>
+		<!-- check-template-to-generate="true" is-template-to-generate-method="schedulerUtils.isToGenerateBasedOnSchedulerEntry" -->
+		
 	</template-target>
 </target>

@@ -628,6 +628,16 @@
 			<property name="add-xml-format" value="lowercase-hyphen"></property>
 		</technology>
 
+<!-- 
+
+
+		<technology name="Spring-Component" model-type="rdbms"
+			template-config-file-name="mp-template-config-Scheduler.xml"
+			default-outputdir="bsla" template-dir="@templateRoot@/framework/spring"
+			status="released" description="Generates spring component"
+			is-generable="false">
+		</technology>
+			 -->
 		<technology name="ABL-JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-ABL.xml"
 			default-outputdir="JPA2" template-dir="@templateRoot@/framework/abl"
