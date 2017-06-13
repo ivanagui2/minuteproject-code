@@ -16,9 +16,12 @@ import java.util.ArrayList;
 
 import eu.europa.ec.decide.cisnet.sdd.out.cabinet.CabinetCnsMailOutList;
 import eu.europa.ec.decide.cisnet.service.face.cabinet.CabinetCnsMailService;
+import jxl.Cell;
+import jxl.CellView;
 import jxl.Workbook;
+import jxl.format.CellFormat;
 import jxl.write.*;
-import jxl.write.Number;
+import jxl.write.Number;	
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -40,7 +43,8 @@ import java.util.Properties;
 
 #foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
 #set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($queryScheduler.query, $template, $templateSDDServiceInterface))
-import $sddServiceInterfaceImport;
+#set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($queryScheduler.query, $template, $templateSDDDaoInterface))
+import $sddDaoInterfaceImport;
 #set ($query = $queryScheduler.query)
 #putImportQuerySDDBean()
 import $sddInputBeanImport;
@@ -56,46 +60,53 @@ import $sddOutputBeanCollectionImport;
  *
  */
  
-// * "0 0 * * * *" = the top of every hour of every day.
-// * "*/10 * * * * *" = every ten seconds.
+//             * "0 0 * * * *" = the top of every hour of every day.
+//             * "*/10 * * * * *" = every ten seconds.
 //             * "0 0 8-10 * * *" = 8, 9 and 10 o'clock of every day.
 //             * "0 0/30 8-10 * * *" = 8:00, 8:30, 9:00, 9:30 and 10 o'clock every day.
 //             * "0 0 9-17 * * MON-FRI" = on the hour nine-to-five weekdays
-//     * "0 0 0 25 12 ?" = every Christmas Day at midnight
+//             * "0 0 0 25 12 ?" = every Christmas Day at midnight
  
 @Component 
 ##@Transactional
 public class $thisClassName {
 
 #foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
+#set ($schedulerAlias = $queryScheduler.name)
 #set ($query = $queryScheduler.query)
 #putImportQuerySDDBean()
+#exposeQuerySpecific()
+#set ($sizeColumn = $inputBean.columns.size())
+#set ($inputBeanAtLeastOneVisibleColumn=$queryUtils.hasInputBeanAtLeastOneVisibleColumn($inputBean))
 #set ($sddServiceInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDServiceInterface))
 #set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
-#set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDCompositeDaoInterface))
+#set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
     @Autowired
-    $sddServiceInterfaceClass $sddServiceInterfaceVariable;
+    $sddDaoInterfaceClass $sddDaoInterfaceVariable;
 
     @Scheduled(cron="$queryScheduler.cron")
-    public void ${queryScheduler.name}() {
-    	String reportFileName = "${queryScheduler.name}.xls";
-    //TODO execute service
-#foreach($queryParam in $queryScheduler.queryParams.queryParams)
-//$queryParam.name $queryParam.value
-#end    
-    //$queryScheduler
+    public void ${schedulerAlias}() {
+    	String reportFileName = "${queryScheduler.name}.xls"; 
+
         $sddOutputBeanCollectionClass list = 
-#foreach($queryParam in $queryScheduler.queryParams.queryParams)
+            callImplementation$schedulerAlias (
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated() && !$column.isImplicit())
+#putColumnParamNaming()
+#if($columnUtils.isTime($column))
+#set($columnType=$dateParamImport)
+#end
+#if($velocityCount>1)              ,#end           $schedulerUtils.getParamValue($queryScheduler, $column.name)
+#end
+#end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-			callImplementation(
-#resourceSignature("", false)
-			);
+#if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1)        ,#end $schedulerUtils.getChunkValue($queryScheduler, $chunkName)
 #end
-#end
- 
-        writeReport${queryScheduler.name} (reportFileName);
+		);
+
+        writeReport${schedulerAlias} (reportFileName, list);
         String from = "$queryScheduler.reportFrom";
         String to = "$queryScheduler.reportTo";
         String host = "localhost";
@@ -110,7 +121,8 @@ public class $thisClassName {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-            message.setText("Here is the daily report "+list.get${sddOutputBeanCollectionClass}s().size());
+            message.setSubject("${queryScheduler.name} report "+list.get${sddOutputBeanClass}s().size());
+            message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
 
             // attachment
             BodyPart messageBodyPart = new MimeBodyPart();
@@ -140,14 +152,15 @@ public class $thisClassName {
 
         }catch (MessagingException mex) {mex.printStackTrace();}
     }
-
-	public $sddOutputBeanCollectionClass callImplementation (
+    
+//
+	public $sddOutputBeanCollectionClass callImplementation$schedulerAlias (
 #resourceSignature("", true)
 	) {
 #executeSddImplementation()	
 	}
 	
-    private void writeReport$queryScheduler.name (String name) {
+    private void writeReport$schedulerAlias (String name, $sddOutputBeanCollectionClass list) {
 
         //1. Create an Excel file
         WritableWorkbook myFirstWbook = null;
@@ -160,12 +173,25 @@ public class $thisClassName {
             myFirstWbook = Workbook.createWorkbook(file);
 
             // create an Excel sheet
-            WritableSheet excelSheet = myFirstWbook.createSheet("Sheet 1", 0);
+            WritableSheet excelSheet = myFirstWbook.createSheet("Report date", 0);
 
             // add something into the Excel sheet
-            Label label = new Label(0, 0, "Test Count");
-            excelSheet.addCell(label);
-
+#foreach ($column in $query.getOutputBean().getColumns())
+            excelSheet.addCell(new Label($velocityCount, 0, "$column.name", getHeaderFont()));
+#end
+			int cpt = 1;
+			for ($sddOutputBeanClass c : list.get${sddOutputBeanClass}s()) {
+#foreach ($column in $query.getOutputBean().getColumns())
+#putColumnParamNaming()
+#if($columnUtils.isTimeStampColumn($column))
+            	excelSheet.addCell(new Label($velocityCount, cpt, c.get$columnClass().toString()));
+#else
+            	excelSheet.addCell(new Label($velocityCount, cpt, c.get$columnClass()));
+#end
+#end
+				cpt++;
+			}
+#*
             Number number = new jxl.write.Number(0, 1, 1) {
             };
             excelSheet.addCell(number);
@@ -181,7 +207,8 @@ public class $thisClassName {
 
             label = new Label(1, 2, "Passed 2");
             excelSheet.addCell(label);
-
+*#
+			sheetAutoFitColumns(myFirstWbook.getSheet(0));
             myFirstWbook.write();
 
 
@@ -214,5 +241,44 @@ $!updatedAreaImplementation
 *#
     private String getReportPath (String name) {
         return System.getProperty("java.io.tmpdir")+"/"+name;
+    }
+    
+    private WritableCellFormat getHeaderFont () throws WriteException {
+        WritableFont cellFont = new WritableFont(WritableFont.COURIER, 16);
+        cellFont.setBoldStyle(WritableFont.BOLD);
+        return new WritableCellFormat(cellFont);
+    }
+    
+
+    private void sheetAutoFitColumns(WritableSheet sheet) {
+        for (int i = 0; i < sheet.getColumns(); i++) {
+            Cell[] cells = sheet.getColumn(i);
+            int longestStrLen = -1;
+
+            if (cells.length == 0)
+                continue;
+
+        /* Find the widest cell in the column. */
+            for (int j = 0; j < cells.length; j++) {
+                if ( cells[j].getContents().length() > longestStrLen ) {
+                    String str = cells[j].getContents();
+                    if (str == null || str.isEmpty())
+                        continue;
+                    longestStrLen = str.trim().length();
+                }
+            }
+
+        /* If not found, skip the column. */
+            if (longestStrLen == -1)
+                continue;
+
+        /* If wider than the max width, crop width */
+            if (longestStrLen > 255)
+                longestStrLen = 255;
+
+            CellView cv = sheet.getColumnView(i);
+            cv.setSize(longestStrLen * 256 + 100); /* Every character is 256 units wide, so scale it. */
+            sheet.setColumnView(i, cv);
+        }
     }
 }

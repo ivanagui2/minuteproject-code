@@ -24,12 +24,19 @@
 #set ($scanPackage=$commonUtils.getPackageName($model, $template, $templateToScan))
 #set ($templateToScan2=$template.getPropertyValue("template-to-scan-2",""))
 #set ($scanPackage2=$commonUtils.getPackageName($model, $template, $templateToScan2))
+#if ($schedulerUtils.hasSchedulerEntry($model))
+#set ($templateToScanScheduler=$template.getPropertyValue("template-to-scan-scheduler","SpringScheduler"))
+#set ($scanPackageScheduler=$commonUtils.getPackageName($model, $template, $templateToScanScheduler))
+<!-- $templateToScanScheduler $scanPackageScheduler -->
+#else
+#set ($scanPackageScheduler="")
+#end
 #exposeVariableModelSpecific()
 #exposeSpringModelSpecific()
 
     <import resource="classpath:${pathSpringBackendConfig}"/>    
  
-	<context:component-scan base-package="$scanPackage,$scanPackage2" /> 
+	<context:component-scan base-package="$scanPackage,$scanPackage2,$scanPackageScheduler" />
 #end
 
 ##TODO add scheduling component
