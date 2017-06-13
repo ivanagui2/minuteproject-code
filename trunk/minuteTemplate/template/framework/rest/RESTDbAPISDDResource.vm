@@ -47,6 +47,7 @@
 #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $chunkName 
 #end
 #end
+#set ($useTemporal = true)
 #macro (executeSddImplementation)
 #if($isNotVoidInput)
         $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
