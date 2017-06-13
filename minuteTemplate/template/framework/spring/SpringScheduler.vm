@@ -97,19 +97,24 @@ public class $thisClassName {
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-#if($velocityCount>1)              ,#end           $schedulerUtils.getParamValue($queryScheduler, $column.name)
+              #if($velocityCount>1),#end $schedulerUtils.getParamValue($queryScheduler, $column.name)
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1)        ,#end $schedulerUtils.getChunkValue($queryScheduler, $chunkName)
+              #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $schedulerUtils.getChunkValue($queryScheduler, $chunkName)
 #end
 		);
 #if($queryScheduler.hasThresholdNbRecordMin())
 		if (list.size()>$queryScheduler.thresholdNbRecordMin)
 			performReportAndMailSend${schedulerAlias} (list);
 		}
+#else
+		performReportAndMailSend${schedulerAlias} (reportFileName, list);
 #end
+	}
+
+	private void performReportAndMailSend${schedulerAlias} (String reportFileName, $sddOutputBeanCollectionClass list) {
         writeReport${schedulerAlias} (reportFileName, list);
         String from = "$queryScheduler.reportFrom";
         String to = "$queryScheduler.reportTo";
@@ -154,7 +159,9 @@ public class $thisClassName {
             // Send message
             Transport.send(message);
 
-        }catch (MessagingException mex) {mex.printStackTrace();}
+        } catch (MessagingException mex) {
+        	mex.printStackTrace();
+        }
     }
     
 //

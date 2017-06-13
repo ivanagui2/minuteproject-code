@@ -5,6 +5,8 @@
 #exposeJPA2Specifics()
 #addedAreas()
 #groovify()
+#set ($isInstanceReturned = $template.getPropertyValue("setter-return-instance",false))
+#set ($addNamedQueries = $template.getPropertyValue("add-named-queries",true))
 package $packageName;
 
 $!updatedAreaImport
@@ -43,14 +45,16 @@ import javax.xml.bind.annotation.*;
 @Entity (name="${className}")
 @Table (name="\"${table.name}\"")
 #set($nqVar = $jpa2Utils.getNamedQueryVariable($table))
+#if ($addNamedQueries)
 @NamedQueries $annotationListTagBeginning
 #set($selectChunk="SELECT $nqVar FROM ${className} $nqVar")
-	 @NamedQuery(name="${className}.findAll", query="$selectChunk")
+	 @NamedQuery(name=${className}.FIND_ALL, query="$selectChunk")
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
-	,@NamedQuery(name="${className}.findBy$columnClass", query="$selectChunk WHERE ${nqVar}.$columnVar = :$columnVar")
+#set($columnCap = $formatUtils.upperCase(${columnClass}))
+	,@NamedQuery(name=${className}.FIND_BY_$columnCap, query="$selectChunk WHERE ${nqVar}.$columnVar = :$columnVar")
 #if($convertUtils.isStringType($column.type))
-	,@NamedQuery(name="${className}.findBy${columnClass}Containing", query="$selectChunk WHERE ${nqVar}.$columnVar like :$columnVar")
+	,@NamedQuery(name=${className}.FIND_BY_${columnCap}_CONTAINING, query="$selectChunk WHERE ${nqVar}.$columnVar like :$columnVar")
 #end
 #if ($isEmbedded)
 #foreach($column in ${table.primaryKeyColumns})
@@ -63,7 +67,7 @@ import javax.xml.bind.annotation.*;
 #end
 #end
 #end
-#addArea ("custom-queries")
+##addArea ("custom-queries")
 #end
 $annotationListTagEnding
 #if($addXmlBinding)
@@ -79,6 +83,7 @@ $annotationListTagEnding
 //eclipseLink configuration missing? Please contribute by providing the snippet
 #end
 #end
+#end
 #addArea("custom-annotations")
 #if($addDomainSpecificMethod)
 public class ${className} extends AbstractDomainObject {
@@ -87,7 +92,7 @@ public class ${className} implements Serializable {
 #end
     private static final long serialVersionUID = 1L;
 #putColumnDefaultValue()
-
+#if ($addNamedQueries)
     public static final String FIND_ALL = "${className}.findAll";
 #foreach ($column in ${table.attributes})
 #putColumnParamNaming()
@@ -103,6 +108,7 @@ public class ${className} implements Serializable {
 #if(!$isForeignKey)
 #set($columnCap = $formatUtils.upperCase(${columnClass}))
     public static final String FIND_BY_${columnCap}_CONTAINING ="${className}.findBy${columnClass}Containing";
+#end
 #end
 #end
 #end
@@ -749,9 +755,7 @@ $!updatedAreaSnippet
 #foreach ($column in ${table.attributes})
 #updatedColumnGetterSetterAreas()
 $!updatedAreaBegin
-#if($isUpdated)
-$updatedAreaSnippet
-#else
+#if($isUpdated)$updatedAreaSnippet#else
 #putColumnParamNaming()
 #if ($column.isLob())
 #exposeLobProperties()
@@ -768,19 +772,22 @@ $updatedAreaSnippet
     public $columnType get$columnClass() {
         return $columnVar;
     }
-	
+#if ($isInstanceReturned)	
+    public ${className} set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+        return this;
+    }
+#else
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
-	
+#end	
 #if($isEnum)
     public void set$columnClass ($originType $columnVar) {
         this.$columnVar =  ${columnType}.fromValue($columnVar);
     } 
 #end
-#end
-$!updatedAreaEnd
-
+#end$!updatedAreaEnd
 #end
 
 #foreach ($reference in $table.parents)
