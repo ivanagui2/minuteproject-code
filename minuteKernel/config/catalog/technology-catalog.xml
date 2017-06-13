@@ -768,6 +768,8 @@
 			<property name="rest-pom-maven-packaging" value="jar" />
 			<property name="dependent-maven-artifact-finalName-suffix" value="Rest" />
 			<property name="dependent-maven-packaging" value="jar" />
+			<property name="setter-return-instance" value="true"></property>
+			<property name="add-named-queries" value="false"></property>
 		</technology>
 		
 		

@@ -95,6 +95,7 @@ public class SchedulerUtils {
 		.findFirst()
 		;
 		if (qpOpt.isPresent()) {
+			//todo if column.type boolean or integer or long (do not add quote)
 			return "\""+qpOpt.get().getValue()+"\"";
 		} else {
 			return "null";
