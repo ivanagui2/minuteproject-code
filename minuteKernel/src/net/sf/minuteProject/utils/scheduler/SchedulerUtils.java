@@ -1,13 +1,16 @@
 package net.sf.minuteProject.utils.scheduler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
 
 public class SchedulerUtils {
@@ -55,5 +58,47 @@ public class SchedulerUtils {
 			});
 			;
 		return list;
+	}
+	
+	public static String getParamValue (QueryScheduler queryScheduler, String columnName) {
+		if (Arrays.asList(queryScheduler.getQuery().getInputBean().getColumns())
+			.stream()
+			.filter(u -> u.getName().equalsIgnoreCase(columnName))
+			.findFirst()
+			.isPresent()
+			) {
+			return getSchedulerParamValue(queryScheduler, columnName);
+		}
+		//QueryUtils.getColumnTextVariable(query, columnName)
+		return "";
+	}
+	
+	public static String getChunkValue (QueryScheduler queryScheduler, String columnName) {
+		List<QueryChunk> queryChunks = queryScheduler.getQuery().getQueryChunks();
+		if (queryChunks
+				.stream()
+				.filter(u -> u.getName().equalsIgnoreCase(columnName))
+				.findFirst()
+				.isPresent()
+				) {
+			return getSchedulerParamValue(queryScheduler, columnName);
+		}
+		//QueryUtils.getColumnTextVariable(query, columnName)
+		return "\"config-error-"+columnName+" not found\"";
+	}
+
+	private static String getSchedulerParamValue(QueryScheduler queryScheduler, String columnName) {
+	
+		Optional<QueryParam> qpOpt = queryScheduler.getQueryParams().getQueryParams()
+		.stream()
+		.filter(u -> u.getName().equalsIgnoreCase(columnName))
+		.findFirst()
+		;
+		if (qpOpt.isPresent()) {
+			return "\""+qpOpt.get().getValue()+"\"";
+		} else {
+			return "null";
+		}
+			
 	}
 }
