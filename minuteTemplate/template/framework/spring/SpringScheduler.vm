@@ -105,7 +105,11 @@ public class $thisClassName {
 #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1)        ,#end $schedulerUtils.getChunkValue($queryScheduler, $chunkName)
 #end
 		);
-
+#if($queryScheduler.hasThresholdNbRecordMin())
+		if (list.size()>$queryScheduler.thresholdNbRecordMin)
+			performReportAndMailSend${schedulerAlias} (list);
+		}
+#end
         writeReport${schedulerAlias} (reportFileName, list);
         String from = "$queryScheduler.reportFrom";
         String to = "$queryScheduler.reportTo";
@@ -191,23 +195,7 @@ public class $thisClassName {
 #end
 				cpt++;
 			}
-#*
-            Number number = new jxl.write.Number(0, 1, 1) {
-            };
-            excelSheet.addCell(number);
 
-            label = new Label(1, 0, "Result");
-            excelSheet.addCell(label);
-
-            label = new Label(1, 1, "Passed");
-            excelSheet.addCell(label);
-
-            number = new Number(0, 2, 2);
-            excelSheet.addCell(number);
-
-            label = new Label(1, 2, "Passed 2");
-            excelSheet.addCell(label);
-*#
 			sheetAutoFitColumns(myFirstWbook.getSheet(0));
             myFirstWbook.write();
 

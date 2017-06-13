@@ -455,7 +455,8 @@ $!updatedAreaEnd
 #if ($query.isScalar())
 #set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
 #set ($firstClass = $commonUtils.getJavaType($firstColumn))
-				return ($firstClass) rs.get${columnType}(1);
+				x = ($firstClass) rs.getInt(1);
+				break;
 #else
 				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
 #foreach($column in $outputBean.columns)
