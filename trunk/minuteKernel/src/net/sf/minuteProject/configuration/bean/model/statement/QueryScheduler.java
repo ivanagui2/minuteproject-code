@@ -4,7 +4,7 @@ public class QueryScheduler extends QueryAdapter {
 
 	private QueryParams queryParams;
 	private Query query;
-	private String reportChannel, reportFrom, reportTo, cron;
+	private String reportChannel, reportFrom, reportTo, reportCc, reportBcc, cron;
 	private int reportRecordThreshold;
 
 	public QueryParams getQueryParams() {
@@ -65,6 +65,22 @@ public class QueryScheduler extends QueryAdapter {
 
 	public void setReportRecordThreshold(int reportRecordThreshold) {
 		this.reportRecordThreshold = reportRecordThreshold;
+	}
+
+	public String getReportCc() {
+		return reportCc;
+	}
+
+	public void setReportCc(String reportCc) {
+		this.reportCc = reportCc;
+	}
+
+	public String getReportBcc() {
+		return reportBcc;
+	}
+
+	public void setReportBcc(String reportBcc) {
+		this.reportBcc = reportBcc;
 	}
 	
 }
