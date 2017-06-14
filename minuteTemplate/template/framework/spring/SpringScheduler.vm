@@ -12,7 +12,8 @@ $!updatedAreaImport
 
 import java.util.List;
 import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import eu.europa.ec.decide.cisnet.sdd.out.cabinet.CabinetCnsMailOutList;
 import eu.europa.ec.decide.cisnet.service.face.cabinet.CabinetCnsMailService;
@@ -41,16 +42,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-#foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
-#set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($queryScheduler.query, $template, $templateSDDServiceInterface))
-#set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($queryScheduler.query, $template, $templateSDDDaoInterface))
+#foreach($query in $schedulerUtils.getQueryWithSchedulers($model))
+#set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDServiceInterface))
+#set ($sddDaoInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($query, $template, $templateSDDDaoInterface))
 import $sddDaoInterfaceImport;
-#set ($query = $queryScheduler.query)
 #putImportQuerySDDBean()
 import $sddInputBeanImport;
 import $sddOutputBeanImport;
 import $sddOutputBeanCollectionImport;
-#end  
+#end
 /**
  *
  * <p>Title: $thisClassName</p>
@@ -71,6 +71,18 @@ import $sddOutputBeanCollectionImport;
 ##@Transactional
 public class $thisClassName {
 
+#foreach($query in $schedulerUtils.getQueryWithSchedulers($model))
+#putImportQuerySDDBean()
+#exposeQuerySpecific()
+#set ($inputBeanAtLeastOneVisibleColumn=$queryUtils.hasInputBeanAtLeastOneVisibleColumn($inputBean))
+#set ($sddServiceInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDServiceInterface))
+#set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
+#set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
+#set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
+    @Autowired
+    $sddDaoInterfaceClass $sddDaoInterfaceVariable;
+    
+#end
 #foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
 #set ($schedulerAlias = $queryScheduler.name)
 #set ($query = $queryScheduler.query)
@@ -82,9 +94,6 @@ public class $thisClassName {
 #set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
 #set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
-    @Autowired
-    $sddDaoInterfaceClass $sddDaoInterfaceVariable;
-
     @Scheduled(cron="$queryScheduler.cron")
     public void ${schedulerAlias}() {
     	String reportFileName = "${queryScheduler.name}.xls"; 
@@ -105,9 +114,9 @@ public class $thisClassName {
               #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $schedulerUtils.getChunkValue($queryScheduler, $chunkName)
 #end
 		);
-#if($queryScheduler.hasThresholdNbRecordMin())
-		if (list.size()>$queryScheduler.thresholdNbRecordMin)
-			performReportAndMailSend${schedulerAlias} (list);
+#if($queryScheduler.hasThresholdMinRecord())
+		if (list.get${sddOutputBeanClass}s().size()>$queryScheduler.reportThresholdMinRecord) {
+			performReportAndMailSend${schedulerAlias} (reportFileName, list);
 		}
 #else
 		performReportAndMailSend${schedulerAlias} (reportFileName, list);
@@ -150,7 +159,7 @@ public class $thisClassName {
             String filename = getReportPath(reportFileName);
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(reportFileName);
+            messageBodyPart.setFileName(reportFileName+"-"+getTimeAppender());
             multipart.addBodyPart(messageBodyPart);
 
             // Send the complete message parts
@@ -164,7 +173,6 @@ public class $thisClassName {
         }
     }
     
-//
 	public $sddOutputBeanCollectionClass callImplementation$schedulerAlias (
 #resourceSignature("", true)
 	) {
@@ -184,20 +192,22 @@ public class $thisClassName {
             myFirstWbook = Workbook.createWorkbook(file);
 
             // create an Excel sheet
-            WritableSheet excelSheet = myFirstWbook.createSheet("Report date", 0);
+            WritableSheet excelSheet = myFirstWbook.createSheet("$queryScheduler.name", 0);
 
             // add something into the Excel sheet
 #foreach ($column in $query.getOutputBean().getColumns())
-            excelSheet.addCell(new Label($velocityCount, 0, "$column.name", getHeaderFont()));
+#set ($xCpt = $velocityCount - 1)
+            excelSheet.addCell(new Label($xCpt, 0, "$column.name", getHeaderFont()));
 #end
 			int cpt = 1;
 			for ($sddOutputBeanClass c : list.get${sddOutputBeanClass}s()) {
 #foreach ($column in $query.getOutputBean().getColumns())
+#set ($xCpt = $velocityCount - 1)
 #putColumnParamNaming()
 #if($columnUtils.isTimeStampColumn($column))
-            	excelSheet.addCell(new Label($velocityCount, cpt, c.get$columnClass().toString()));
+            	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass().toString()));
 #else
-            	excelSheet.addCell(new Label($velocityCount, cpt, c.get$columnClass()));
+            	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass()));
 #end
 #end
 				cpt++;
@@ -239,11 +249,16 @@ $!updatedAreaImplementation
     }
     
     private WritableCellFormat getHeaderFont () throws WriteException {
-        WritableFont cellFont = new WritableFont(WritableFont.COURIER, 16);
+        WritableFont cellFont = new WritableFont(WritableFont.COURIER, 12);
         cellFont.setBoldStyle(WritableFont.BOLD);
         return new WritableCellFormat(cellFont);
     }
     
+    private String getTimeAppender() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//-HH-mm
+        return date.format(formatter);
+    }
 
     private void sheetAutoFitColumns(WritableSheet sheet) {
         for (int i = 0; i < sheet.getColumns(); i++) {

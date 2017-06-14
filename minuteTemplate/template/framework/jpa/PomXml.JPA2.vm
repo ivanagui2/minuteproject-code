@@ -29,8 +29,7 @@
             <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
-        
-	    
+     
 	    <!-- Logging -->
         <!-- remove the real commons-logging from classpath -->
         <!-- declare as provided or exclude from spring jars -->
