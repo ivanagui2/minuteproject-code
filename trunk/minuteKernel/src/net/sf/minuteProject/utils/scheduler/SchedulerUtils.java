@@ -9,7 +9,9 @@ import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
 
@@ -24,6 +26,18 @@ public class SchedulerUtils {
 			.findFirst()
 			.isPresent()
 			;
+	}
+	
+	public static List<Query> getQueryWithSchedulers(Model model) {
+		List<Query> list = new ArrayList<>();
+		model.getStatementModel()
+				.getQueries()
+				.getQueries()
+				.stream()
+				.filter(u -> u.getQuerySchedulers().size()>0)
+				.forEach(u -> list.add(u))
+				;
+		return list;
 	}
 	
 	public static boolean hasSchedulerEntry(Application application) {

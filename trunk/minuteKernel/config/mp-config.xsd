@@ -774,7 +774,9 @@
 		<xs:attribute name="report-channel" type="xs:string" />
 		<xs:attribute name="report-from" type="xs:string" />
 		<xs:attribute name="report-to" type="xs:string" />
-		<xs:attribute name="report-record-threshold" type="xs:integer" />
+		<xs:attribute name="report-cc" type="xs:string" />
+		<xs:attribute name="report-bcc" type="xs:string" />
+		<xs:attribute name="report-threshold-min-record" type="xs:integer" />
 	</xs:complexType>	
 	
 	<xs:complexType name="value-body">
