@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import eu.europa.ec.decide.cisnet.sdd.out.cabinet.CabinetCnsMailOutList;
-import eu.europa.ec.decide.cisnet.service.face.cabinet.CabinetCnsMailService;
 import jxl.Cell;
 import jxl.CellView;
 import jxl.Workbook;
@@ -71,6 +69,8 @@ import $sddOutputBeanCollectionImport;
 ##@Transactional
 public class $thisClassName {
 
+	private final String reportFileExt = ".xls";
+	
 #foreach($query in $schedulerUtils.getQueryWithSchedulers($model))
 #putImportQuerySDDBean()
 #exposeQuerySpecific()
@@ -84,6 +84,11 @@ public class $thisClassName {
     
 #end
 #foreach($queryScheduler in $schedulerUtils.getSchedulerEntries($model))
+#if ($queryScheduler.hasProcessor())
+    @Autowired
+    $queryScheduler.processorName $formatUtils.getJavaNameVariable($queryScheduler.processorName);
+    	
+#end
 #set ($schedulerAlias = $queryScheduler.name)
 #set ($query = $queryScheduler.query)
 #putImportQuerySDDBean()
@@ -96,7 +101,7 @@ public class $thisClassName {
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
     @Scheduled(cron="$queryScheduler.cron")
     public void ${schedulerAlias}() {
-    	String reportFileName = "${queryScheduler.name}.xls"; 
+    	String reportFileName = "${queryScheduler.name}"; 
 
         $sddOutputBeanCollectionClass list = 
             callImplementation$schedulerAlias (
@@ -114,12 +119,17 @@ public class $thisClassName {
               #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $schedulerUtils.getChunkValue($queryScheduler, $chunkName)
 #end
 		);
+#if ($queryScheduler.hasProcessor())
+#set ($processorCall = "$formatUtils.getJavaNameVariable($queryScheduler.processorName).process (reportFileName, list)")
+#else
+#set ($processorCall = "performReportAndMailSend${schedulerAlias} (reportFileName, list)")
+#end
 #if($queryScheduler.hasThresholdMinRecord())
 		if (list.get${sddOutputBeanClass}s().size()>$queryScheduler.reportThresholdMinRecord) {
-			performReportAndMailSend${schedulerAlias} (reportFileName, list);
+			$processorCall;
 		}
 #else
-		performReportAndMailSend${schedulerAlias} (reportFileName, list);
+		$processorCall;
 #end
 	}
 
@@ -156,10 +166,10 @@ public class $thisClassName {
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
-            String filename = getReportPath(reportFileName);
+            String filename = getReportPath(reportFileName+reportFileExt);
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(reportFileName+"-"+getTimeAppender());
+            messageBodyPart.setFileName(reportFileName+"-"+getTimeAppender()+reportFileExt);
             multipart.addBodyPart(messageBodyPart);
 
             // Send the complete message parts
@@ -185,7 +195,7 @@ public class $thisClassName {
         WritableWorkbook myFirstWbook = null;
         try {
 
-            File file = new File(getReportPath(name));
+            File file = new File(getReportPath(name+reportFileExt));
             if (!file.exists()) {
                 file.createNewFile();
             }
