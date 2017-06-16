@@ -76,6 +76,14 @@
         	<scope>provided</scope>
 #end            
         </dependency>
+#if($isTomcatTargetServer && $hasScheduler)        
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4</version>
+		</dependency>
+#end
         <dependency>
 	        <groupId>org.glassfish.jersey.containers</groupId>
 	        <artifactId>jersey-container-servlet-core</artifactId>
