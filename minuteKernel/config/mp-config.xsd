@@ -773,6 +773,8 @@
 		<xs:attribute name="cron" type="xs:string" />
 		<xs:attribute name="report-channel" type="xs:string" />
 		<xs:attribute name="report-from" type="xs:string" />
+		<xs:attribute name="processor-class" type="xs:string" />
+		<xs:attribute name="processor-name" type="xs:string" />
 		<xs:attribute name="report-to" type="xs:string" />
 		<xs:attribute name="report-cc" type="xs:string" />
 		<xs:attribute name="report-bcc" type="xs:string" />
