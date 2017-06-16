@@ -291,6 +291,8 @@
 								<set-properties-rule>
 									<alias attr-name="report-channel" prop-name="reportChannel" />
 									<alias attr-name="report-from" prop-name="reportFrom" />
+									<alias attr-name="processor-class" prop-name="processorClass" />
+									<alias attr-name="processor-name" prop-name="processorName" />
 									<alias attr-name="report-to" prop-name="reportTo" />
 									<alias attr-name="report-cc" prop-name="reportCc" />
 									<alias attr-name="report-bcc" prop-name="reportBcc" />

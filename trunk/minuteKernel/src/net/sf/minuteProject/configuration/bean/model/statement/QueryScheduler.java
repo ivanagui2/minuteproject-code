@@ -5,6 +5,7 @@ public class QueryScheduler extends QueryAdapter {
 	private QueryParams queryParams;
 	private Query query;
 	private String reportChannel, reportFrom, reportTo, reportCc, reportBcc, cron;
+	private String processorClass, processorName;
 	private int reportThresholdMinRecord;
 
 	public QueryParams getQueryParams() {
@@ -85,6 +86,22 @@ public class QueryScheduler extends QueryAdapter {
 	
 	public boolean hasThresholdMinRecord() {
 		return reportThresholdMinRecord != 0;
+	}
+
+	public String getProcessorClass() {
+		return processorClass;
+	}
+
+	public void setProcessorClass(String processorClass) {
+		this.processorClass = processorClass;
+	}
+
+	public String getProcessorName() {
+		return processorName;
+	}
+
+	public void setProcessorName(String processorName) {
+		this.processorName = processorName;
 	}
 	
 }
