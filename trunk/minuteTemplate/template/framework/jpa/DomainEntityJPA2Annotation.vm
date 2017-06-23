@@ -745,11 +745,16 @@ $!updatedAreaSnippet
     public $columnType get$columnClass() {
         return $columnVar;
     }
-	
+#if ($isInstanceReturned)	
+    public ${className} set$columnClass ($columnType $columnVar) {
+        this.$columnVar =  $columnVar;
+        return this;
+    }
+#else
     public void set$columnClass ($columnType $columnVar) {
         this.$columnVar =  $columnVar;
     }
-    
+#end
 #end
 #end
 #foreach ($column in ${table.attributes})
