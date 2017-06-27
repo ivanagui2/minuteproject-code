@@ -829,15 +829,18 @@ $!fieldAnnotationSnippet
 #end
 
 #macro (updatedAreaBegin)
-#if(!$commonUtils.isEmpty($updatedAreaBegin))$updatedAreaBegin#end
+#if(!$commonUtils.isEmpty($updatedAreaBegin))$updatedAreaBegin
+#end
 #end
 
 #macro (updatedAreaEnd)
-#if(!$commonUtils.isEmpty($updatedAreaEnd))$updatedAreaEnd#end
+#if(!$commonUtils.isEmpty($updatedAreaEnd))$updatedAreaEnd
+#end
 #end
 
 #macro (updatedAreaContent)
-#if(!$commonUtils.isEmpty($updatedAreaSnippet))$updatedAreaSnippet#end
+#if(!$commonUtils.isEmpty($updatedAreaSnippet))$updatedAreaSnippet
+#end
 #end
 
 #macro(addArea $area) 
