@@ -5,13 +5,18 @@
 	<template-target 
     	name="SDD html client"
 		libdir="./lib/jQuery_LIB.vm"
-		outputdir="src/main/webapp"
+		outputdir="src/main/webapp/snippet"
 		package-root="">
 
 		<!-- SDD beans -->	
 		<template name="JQuerySDDSearchDatatableHtml" templateFileName="JQuerySDDSearchDatatableHtml.vm" 
 			subdir="" outputsubdir="" technicalPackage="" 
-			file-extension="html" file-prefix="" file-suffix="Input" has-updatable-nature="true"
+			file-extension="html" file-prefix="" file-suffix="DatatableSnippet" has-updatable-nature="true"
+			scope-specific-value="query" >
+		</template>	
+		<template name="JQuerySDDSearchHandlebarsTableHtml" templateFileName="JQuerySDDSearchHandlebarsTableHtml.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			file-extension="html" file-prefix="" file-suffix="HandlebarsTableSnippet" has-updatable-nature="true"
 			scope-specific-value="query" >
 		</template>	
 

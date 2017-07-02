@@ -143,6 +143,15 @@
 			model-specific="true">
 		</template>	
 		
+		<template
+			name="KendoUiMenuApplicationStructure" templateFileName="KendoUiMenuApplicationStructure.vm" 
+			subdir="" outputsubdir="" technicalPackage="" 
+			add-model-name="true" add-model-dir-name="false"
+			add-package-name="false" 
+			file-extension="html" file-prefix="" file-suffix="menuStructure" 
+			application-specific="true">
+		</template>	
+		
 	</template-target>				
 
 </target>
