@@ -23,6 +23,7 @@
 			application-specific="true" add-model-name="false" >
 			<property name="template-to-scan" value="RESTDbAPIEntityResource"></property>
 			<property name="template-to-scan-2" value="SpringServiceImpl"></property>
+			<property name="template-to-scan-scheduler" value="SpringScheduler"></property>
 		</template>
 
     </template-target>
