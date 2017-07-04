@@ -383,20 +383,22 @@ $!updatedAreaEnd
 #else
 			pstmt = conn.prepareStatement(
 #end
-						getStatement(
+				getStatement(
 #if($isNotVoidInput) 
-							$sddInputBeanVariable
+					$sddInputBeanVariable
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
 #if(!$isNotVoidInput && $velocityCount==1) 
-        					$chunkName 
+					$chunkName 
 #else
-        					, $chunkName 
+					, $chunkName 
 #end
 #end
-						));
+				));
+#if ($inputBean.columns.length>0)				
 			int index = 1;
+#end
 #foreach($column in $inputBean.columns)
 #if ($column.isOutputParam())
 			pstmt.registerOutParameter(index, java.sql.Types.${column.type});
