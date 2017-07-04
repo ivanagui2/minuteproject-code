@@ -183,25 +183,29 @@ $!updatedAreaEnd
         this.$chunkName = $chunkName;
 #end
 #end
-	  }
+		}
 #if ($query.isScalar())
 #set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
 #set ($sddOutputBeanCollectionClass = $commonUtils.getJavaType($firstColumn))
 	  $sddOutputBeanCollectionClass x;
 #else
-	  List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 #end
-      @Override
-      public void execute(Connection conn) throws SQLException {
+		@Override
+		public void execute(Connection conn) throws SQLException {
 #if($query.queryParams.hasOutputParam())
-		CallableStatement pstmt = null;
+			CallableStatement pstmt = null;
 #else
-		PreparedStatement pstmt = null;
+			PreparedStatement pstmt = null;
 #end
 #if (!$query.isWrite())
-		ResultSet rs = null;
+			ResultSet rs = null;
 #end
 #putSddExecuteStatement()
+#if (!$query.isWrite())
+			rs.close();
+#end
+			pstmt.close();
        }
 
 #if ($query.isScalar())
