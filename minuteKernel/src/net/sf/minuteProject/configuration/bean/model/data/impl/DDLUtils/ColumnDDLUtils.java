@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnBaseAbstract;
@@ -21,6 +22,10 @@ import net.sf.minuteProject.utils.property.PropertyUtils;
  * 
  * @author Florian Adler
  */
+/**
+ * @author adlerfl
+ *
+ */
 public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 {
 	
@@ -32,6 +37,7 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 	private Integer minLength;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
+	private Scope scope = Scope.ALL_STACKS;
 
 	protected ColumnDDLUtils() {}
 	
@@ -485,4 +491,14 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 		this.derivations = derivations;
 	}
 
+	@Override
+	public Scope getScope() {
+		// TODO Auto-generated method stub
+		return scope;
+	}
+
+	public void setScope(Scope scope) {
+		this.scope = scope;
+	}
+	
 }

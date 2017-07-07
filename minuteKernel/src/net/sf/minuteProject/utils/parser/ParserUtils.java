@@ -28,9 +28,13 @@ public class ParserUtils {
 		List<String> l = new ArrayList<String>();
 		if (s!=null) {
 			s = StringUtils.replace(s, " ", "");
-			return Arrays.asList(StringUtils.split(s, ","));
+			return getListFromCommaSeparated(s);
 		}
 		return l;
+	}
+	
+	public static List<String> getListFromCommaSeparated(String s) {
+		return Arrays.asList(StringUtils.split(s, ","));
 	}
 
 	public static boolean isInList(String name,

@@ -20,20 +20,30 @@ public class StatementUtils {
 	}
 	
 	private static final String getJdbcType(QueryParam queryParam) {
-		return getJdbcType(queryParam.getType());
+		return getJdbcType(queryParam.getType(), queryParam.getScale());
 	}
 	
 	public static final String getJdbcType(Column column) {
-		return getJdbcType(column.getType());
+		return getJdbcType(column.getType(), column.getScale());
 	}
 	
-	private static final String getJdbcType(String type) {
+	private static final String getJdbcType(String type, int scale) {
 		if (type!=null) {
 			type = type.toUpperCase();
+			if (type.equals(ConvertUtils.DB_DECIMAL_TYPE) || type.equals(ConvertUtils.DB_NUMERIC_TYPE) || type.equals(ConvertUtils.DB_NUMBER_TYPE)) {
+				if (scale==0)
+					return "Long";
+				else
+					return  "BigDecimal";
+			}
+			// remove redundant
 			if (type.equals(FieldType.INTEGER.toString()))
 				return "Int";
 			if (type.equals(FieldType.DECIMAL.toString()))
 				return "Long";
+			if (type.equals(FieldType.NUMBER.toString()))
+				return "Long";
+			// todo remove redundant
 			if (type.equals(FieldType.BIGINT.toString()))
 				return "Long";
 			if (type.equals(FieldType.DOUBLE.toString()))

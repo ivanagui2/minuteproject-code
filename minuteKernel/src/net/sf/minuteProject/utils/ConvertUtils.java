@@ -52,6 +52,7 @@ public class ConvertUtils {
 	public static final String DB_TIMESTAMPZ_TYPE 					=   "TIMESTAMPZ";
 	public static final String DB_DATE_TYPE 						=   "DATE";
 	public static final String DB_NUMERIC_TYPE 						=   "NUMERIC";	
+	public static final String DB_NUMBER_TYPE 						=   "NUMBER";	
 	public static final String DB_SMALLINT_TYPE 					=   "SMALLINT";	
 	public static final String DB_TINYINT_TYPE 						=   "TINYINT";
 	public static final String DB_BYTE_TYPE 						=   "BYTE";
@@ -134,6 +135,7 @@ public class ConvertUtils {
 		if (DB_LONG_TYPE.equals(type)) return UML_LONG_TYPE;
 		if (DB_BIGINT_TYPE.equals(type)) return UML_BIGINTEGER_TYPE;
 		if (DB_BOOLEAN_TYPE.equals(type)) return UML_BOOLEAN_TYPE;
+		if (DB_NUMBER_TYPE.equals(type)) return UML_LONG_TYPE;
 		return UML_STRING_TYPE;
 	}
 	
@@ -175,6 +177,8 @@ public class ConvertUtils {
 		if (dBType.equals("INTEGER"))
 			return  JAVA_INTEGER_TYPE;	
 		if (dBType.equals("NUMERIC"))
+			return  JAVA_INTEGER_TYPE;		
+		if (dBType.equals(DB_NUMBER_TYPE))
 			return  JAVA_INTEGER_TYPE;		
 		if (dBType.equals("NUMBER")  
 			|| dBType.equals("REAL") 
@@ -323,7 +327,7 @@ public class ConvertUtils {
 	
 	public static String getJavaTypeFromDBFullType (String dBType, int size, int scale, String databaseType) {
 		String retStr=getJavaTypeFromDBFullType (dBType, size, databaseType);		
-		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC") ) {
+		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC") || dBType.equals(DB_NUMBER_TYPE)) {
 			if (scale==0)
 				return JAVA_LONG_TYPE;
 			else
@@ -455,7 +459,7 @@ public class ConvertUtils {
 	public static String getJavaTypeFromDBTypeOnly (String dBType, int scale) {
 		String retStr=getJavaTypeFromDBType (dBType);	
 		if (dBType==null) return retStr;
-		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC") ) {
+		if (dBType.equals("DECIMAL") || dBType.equals("NUMERIC") || dBType.equals("NUMBER")) {
 			if (scale==0)
 				return "Long";
 			else
@@ -506,6 +510,7 @@ public class ConvertUtils {
 		return (FieldType.BIGINT.toString().equals(dBType) ||
 				FieldType.DECIMAL.toString().equals(dBType) ||
 				FieldType.NUMERIC.toString().equals(dBType) ||
+				FieldType.NUMBER.toString().equals(dBType) ||
 				FieldType.INTEGER.toString().equals(dBType))?true:false;
 	}
 	

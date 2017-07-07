@@ -17,6 +17,7 @@ public class SqlQueryModel extends QueryModel {
 		Database database = query.getQueries().getStatementModel().getModel().getDataModel().getDatabase();
 		initFieldAndRelationship(query, dir, database, table);
 		entity.setDatabase(database);
+		entity.setScope(query.getQueryScope());
 	}
 	
 

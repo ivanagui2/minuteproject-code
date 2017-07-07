@@ -522,9 +522,8 @@
 	       <xs:element name="action-field-map" type="action-field-map"></xs:element>
 	    </xs:sequence>
 		<xs:attribute name="name"></xs:attribute>
-	     <xs:attribute name="default-implementation" type="xs:string" default="showDetails"></xs:attribute>
-	     <xs:attribute name="query-id" type="xs:string"></xs:attribute>
-		
+	    <xs:attribute name="default-implementation" type="xs:string" default="showDetails"></xs:attribute>
+	    <xs:attribute name="query-id" type="xs:string"></xs:attribute>
 	</xs:complexType>
 	
 	<xs:complexType name="action-field-map">
@@ -779,6 +778,7 @@
 		<xs:attribute name="report-cc" type="xs:string" />
 		<xs:attribute name="report-bcc" type="xs:string" />
 		<xs:attribute name="report-threshold-min-record" type="xs:integer" />
+		<xs:element name="actions" type="actions" />
 	</xs:complexType>	
 	
 	<xs:complexType name="value-body">
@@ -873,6 +873,7 @@
 		<xs:attribute name="is-context" type="xs:boolean" /><!-- global context bound -->
 		<xs:attribute name="is-output-param" type="xs:boolean" default="false"/>
 		<xs:attribute name="default-value-when-null" type="xs:string"/>
+		<xs:attribute name="scope" type="scope" />
 		
 
 		<!-- <xs:attribute name="direction" type="xs:string" /> -->

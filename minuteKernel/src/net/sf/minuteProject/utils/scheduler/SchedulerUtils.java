@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
+import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class SchedulerUtils {
 
@@ -60,7 +63,7 @@ public class SchedulerUtils {
 		return false;
 	}
 	
-	public static List<QueryScheduler> getSchedulerEntries(Model model) {
+	public static List<QueryScheduler> getSchedulerEntries2(Model model) {
 		List<QueryScheduler> list = new ArrayList<>();
 		model.getStatementModel()
 			.getQueries()
@@ -72,6 +75,30 @@ public class SchedulerUtils {
 			});
 			;
 		return list;
+	}
+	
+	public static List<QueryScheduler> getSchedulerEntries(Model model) {
+		//List<QueryScheduler> list = new ArrayList<>();
+		return (List<QueryScheduler>) model.getStatementModel()
+			.getQueries()
+			.getQueries()
+			.stream()
+			.flatMap(c -> c.getQuerySchedulers().stream())
+			.collect(Collectors.toList())
+			;
+	}
+	
+	public static List<String> getSchedulerDistinctActionQueryIds (Model model) {
+		List<Action> actions = new ArrayList<>();
+		List<QueryScheduler> qs = getSchedulerEntries(model);
+		qs.stream()
+			.forEach(u -> actions.addAll(u.getActions()));
+		return actions.stream()
+				.map (a -> a.getQueryId())
+				.collect(Collectors.toList())
+				.stream()
+				.distinct()
+				.collect(Collectors.toList());
 	}
 	
 	public static String getParamValue (QueryScheduler queryScheduler, String columnName) {
@@ -103,6 +130,8 @@ public class SchedulerUtils {
 
 	private static String getSchedulerParamValue(QueryScheduler queryScheduler, String columnName) {
 	
+		if (queryScheduler.getQueryParams()==null)
+			return "null";
 		Optional<QueryParam> qpOpt = queryScheduler.getQueryParams().getQueryParams()
 		.stream()
 		.filter(u -> u.getName().equalsIgnoreCase(columnName))
@@ -115,5 +144,13 @@ public class SchedulerUtils {
 			return "null";
 		}
 			
+	}
+	
+	public static List<String> getCrons(QueryScheduler queryScheduler) {
+		return ParserUtils.getListFromCommaSeparated(queryScheduler.getCron());
+	}
+	
+	public static List<String> getReportTos(QueryScheduler queryScheduler) {
+		return ParserUtils.getList(queryScheduler.getReportTo());
 	}
 }

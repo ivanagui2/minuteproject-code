@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.TableUtils;
@@ -23,6 +24,7 @@ public class QueryParam extends Field {
 	private boolean isFilter=false, isArray=false, isOutputParam = false;
 	private String regexStart, regexEnd, regexParamWrapper, regexParamSeparator;
 	private Integer index;
+	private Scope scope = Scope.ALL_STACKS;
 	
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
@@ -182,6 +184,16 @@ public class QueryParam extends Field {
 	}
 	public void setDefaultValueWhenNull(String defaultValueWhenNull) {
 		this.defaultValueWhenNull = defaultValueWhenNull;
+	}
+	public Scope getScope() {
+		return scope;
+	}
+	public void setScope (String scope) {
+		setScopeEnum(Scope.fromValue(scope));
+	}
+	
+	public void setScopeEnum(Scope scope) {
+		this.scope = scope;
 	}
 	
 }

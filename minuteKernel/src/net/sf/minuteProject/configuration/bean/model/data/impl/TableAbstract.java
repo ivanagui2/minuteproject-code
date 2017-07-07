@@ -18,6 +18,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -48,6 +49,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private List<Ordering> orderings;
 	private Cardinality resultCardinality;
 	private boolean isScalar;
+	private Scope scope;
 	
 	public TableAbstract () {
 	}
@@ -70,6 +72,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setOrderings(table.getOrderings());
 		this.setResultCardinality(table.getResultCardinality());
 		this.setScalar(table.isScalar());
+		this.setScope(table.getScope());
 	}
 
 	public String getName () {
@@ -507,5 +510,12 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.isScalar = isScalar;
 	}
 	
-	
+	public Scope getScope() {
+		return scope;
+	}
+	@Override
+	public void setScope(Scope scope) {
+		this.scope = scope;		
+	}
+
 }

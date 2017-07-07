@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.query.Ordering;
 
 
@@ -316,5 +317,10 @@ public interface Table extends GeneratorBean{
 	public void setScalar (boolean isScalar);
 
 	public void convertColumnToRelation(String name);
+	
+	public Scope getScope();
+	
+	public void setScope (Scope scope);
+	
 	
 }

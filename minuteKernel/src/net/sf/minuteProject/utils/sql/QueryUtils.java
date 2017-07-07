@@ -19,6 +19,7 @@ import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -100,20 +101,14 @@ public class QueryUtils {
 				i++;
 			}
 		}
-//		try {
-			//callableStatement.execute();
-			QueryParams queryParams2 = new QueryParams();
-			for (QueryParam queryParam : queryParams.getQueryParams()) {
-				if (queryParam.isOutputParam()) {			
-					queryParams2.addQueryParam(queryParam);
-				}
+
+		QueryParams queryParams2 = new QueryParams();
+		for (QueryParam queryParam : queryParams.getQueryParams()) {
+			if (queryParam.isOutputParam()) {			
+				queryParams2.addQueryParam(queryParam);
 			}
-			return queryParams2;
-//		} catch (SQLException e) {
-//			logger.error("error executing query : "+query);
-//			logger.error("error sql : "+e.getMessage());
-//			return new QueryParams();
-//		}
+		}
+		return queryParams2;
 	}
 
 	private static QueryParams getQueryParams(ResultSetMetaData metaData) throws SQLException {
@@ -234,10 +229,10 @@ public class QueryUtils {
 		return text;
 		//return isInAtIndex(text, index)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
 	}
-	
-	private static String replaceFirstArgWith(String text, String value) {
-		return isIn(text)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
-	}
+//	
+//	private static String replaceFirstArgWith(String text, String value) {
+//		return isIn(text)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
+//	}
 
 	private static boolean isInAtIndex(String text, int index) {
 		return (text.substring(index).startsWith(QUESTION_IN_MARK)) ? true:false;
@@ -252,20 +247,20 @@ public class QueryUtils {
 			return false;
 		return i==j;
 	}
-
-	private static List<String> getSamples(Query<QueryModel> query) {
-		List<String> list = new ArrayList<String>();
-		if (query.getQueryParams() != null) {
-			addFilters(list, query.getQueryParams());
-		}
-		//TODO append query where
-		for (QueryFilter filter : query.getQueryFilters()) {
-			if (filter.getQueryParams() != null) {
-				addFilters(list, filter.getQueryParams());
-			}
-		}
-		return list;
-	}
+//
+//	private static List<String> getSamples(Query<QueryModel> query) {
+//		List<String> list = new ArrayList<String>();
+//		if (query.getQueryParams() != null) {
+//			addFilters(list, query.getQueryParams());
+//		}
+//		//TODO append query where
+//		for (QueryFilter filter : query.getQueryFilters()) {
+//			if (filter.getQueryParams() != null) {
+//				addFilters(list, filter.getQueryParams());
+//			}
+//		}
+//		return list;
+//	}
 
 	private static void addFilters(List<String> list, QueryParams params) {
 		for (QueryParam qp : params.getFlatQueryParams(false)) {
@@ -480,7 +475,7 @@ public class QueryUtils {
 	public static boolean isToGenerateBasedRestStackRequired(Template template, GeneratorBean bean) {
 		if (bean instanceof Query) {
 			Query query = (Query) bean;
-			return query.getQueryScope() == Query.QueryScope.ALL_STACKS;
+			return query.getQueryScope() == Scope.ALL_STACKS;
 		}
 		return false;
 	}

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -533,13 +534,7 @@ public class TableDDLUtils extends TableAbstract {
 		getColumnList().add(column);
 		resetNoPrimaryKeyNoForeignKeyColumns();
 	}
-//	public List<Constraint> getConstraints() {
-//		return constraints;
-//	}
-//
-//	public void setConstraints(List<Constraint> constraints) {
-//		this.constraints = constraints;
-//	}
+
 
 	@Override
 	public void convertColumnToRelation(String name) {
@@ -555,15 +550,4 @@ public class TableDDLUtils extends TableAbstract {
 		noPrimaryKeyNoForeignKeyColumns =	list.toArray(new Column[list.size()]);
 	}
 
-
-
-//   public boolean isManyToMany() {
-////   	table.getColumnCount();
-//    	return (getColumnCount() == 2) 
-//    	        && (getParents().length == 2);
-//    }
-
-//	public String getAlias () {
-//		return super.getAlias();
-//	}
 }
