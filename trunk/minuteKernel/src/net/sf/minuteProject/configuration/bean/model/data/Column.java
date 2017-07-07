@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 
 /**
  * Represents a column in the database model.
@@ -56,6 +57,9 @@ public interface Column extends BaseColumn
 	public void setDerivations(List<Derivation> derivations);
 	
 	public List<Derivation> getDerivations();
-	 
+	
+	public Scope getScope();
+	
+	public void setScope(Scope scope);
 }
 

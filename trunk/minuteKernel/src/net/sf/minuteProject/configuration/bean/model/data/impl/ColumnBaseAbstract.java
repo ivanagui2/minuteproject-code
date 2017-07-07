@@ -37,17 +37,7 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 		if (isHidden!=null)
 		this.isHidden = isHidden;
 	}
-//	@Override
-//	public boolean isHidden() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public void setHidden(boolean isHidden) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+
 	@Override
 	public boolean isEditable() {
 		return isEditable;

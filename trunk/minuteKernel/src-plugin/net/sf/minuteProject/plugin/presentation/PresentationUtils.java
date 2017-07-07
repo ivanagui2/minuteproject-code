@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
@@ -261,7 +262,7 @@ public class PresentationUtils {
 	}
 
 	private static boolean isDisplayable(Table table) {
-		if (!table.isManyToMany() && !table.isLinkEntity())
+		if (!table.isManyToMany() && !table.isLinkEntity() && table.getScope()!=Scope.BACKEND)
 			return true;
 		return false;
 	}

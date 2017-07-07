@@ -1,8 +1,9 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
@@ -10,13 +11,12 @@ import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
-import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
 import net.sf.minuteProject.configuration.bean.enumeration.Cache;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
@@ -27,12 +27,9 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
-import org.apache.commons.lang.StringUtils;
-
 public class Query<T extends QueryModel> extends AbstractConfiguration {
 
 	public static final String DUPLICATED_TAG ="<DUPLICATED>";
-	public enum QueryScope {BACKEND, ALL_STACKS};
 	private T t;
 	
 	private Queries queries;
@@ -59,7 +56,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private Cardinality resultCardinality = Cardinality.MANY;
 	private String secureUserRole;
 	private SecurityColor securityColor=new SecurityColor();
-	private QueryScope queryScope = QueryScope.ALL_STACKS;
+	private Scope queryScope = Scope.ALL_STACKS;
 	private boolean isScalar = false;
 
 	public void setQueryModel (T t) {
@@ -321,8 +318,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		return p.getTechnicalPackage(template) + "." + CommonUtils.getSDDPackageName(this);
 	}
 
-	private void addColumns(org.apache.ddlutils.model.Table table,
-			Direction direction) {
+	private void addColumns(org.apache.ddlutils.model.Table table, Direction direction) {
 		List<QueryParam> list = getQueryParams(direction);
 		for (QueryParam queryParam : list) {
 			if (!queryParam.isLink()) {
@@ -345,6 +341,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 					column.setStereotype(queryParam.getStereotype());
 					column.setQueryParamLink(queryParam.getQueryParamLink());
 					column.setIsArray(queryParam.isArray());
+					column.setScope(queryParam.getScope());
 				}
 			}
 		}
@@ -521,13 +518,13 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 
 	public void setScope (String scope) {
-		for (QueryScope qs : QueryScope.values()) {
+		for (Scope qs : Scope.values()) {
 			if (qs.name().equalsIgnoreCase(scope)) {
 				queryScope = qs;
 			}
 		}
 	}
-	public QueryScope getQueryScope() {
+	public Scope getQueryScope() {
 		return queryScope;
 	}
 	public boolean isScalar() {

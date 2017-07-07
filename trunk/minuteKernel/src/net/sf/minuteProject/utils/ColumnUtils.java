@@ -234,18 +234,6 @@ public class ColumnUtils {
 	
 	public static boolean isStringColumn (Column column) {
 		return isString(column);
-//		if (column==null || column.getType()==null) return false;
-//		if (
-//				column.getType().equals("CHAR") || 
-//				column.getType().equals("CHAR2") ||
-//				column.getType().equals("VARCHAR") ||
-//				column.getType().equals("VARCHAR2") ||
-//				column.getType().equals("VARGRAPHIC") ||
-//				column.getType().equals("VARGRAPHIC2") ||
-//				column.getType().equals("CLOB")
-//				)
-//			return true;
-//		return false;
 	}
 	
 	public static String getMethodInputParameters (Column columns[]) {
@@ -320,7 +308,7 @@ public class ColumnUtils {
 		String type = column.getType();
 		return type.equals("DOUBLE");
 	}
-	
+
 	public static boolean isTimeColumn (Column column) {
 		if (column!=null && column.getType()!=null) {
 			if (column.getType().equals("DATE") || 

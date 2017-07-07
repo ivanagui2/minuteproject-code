@@ -7,6 +7,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
+import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -22,6 +23,7 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 	private Integer minLength;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
+	private Scope scope = Scope.ALL_STACKS;
 	
 	public ColumnAbstract(Column column, Table table) {
 		this.column = column;
@@ -473,5 +475,11 @@ public abstract class ColumnAbstract extends ColumnBaseAbstract implements Colum
 		this.derivations = derivations;
 	}
 
-	
+	public Scope getScope() {
+		return scope;
+	}
+
+	public void setScope(Scope scope) {
+		this.scope = scope;
+	}
 }

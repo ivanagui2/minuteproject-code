@@ -317,6 +317,37 @@
 										</set-properties-rule>
 									</pattern>
 								</pattern>
+								<pattern value="actions/action">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.enrichment.Action" />
+									<set-next-rule methodname="addAction"
+										paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action" />
+									<set-properties-rule>
+										<alias attr-name="name" prop-name="name" />
+										<alias attr-name="query-id" prop-name="queryId" />
+										<alias attr-name="is-to-implement" prop-name="isToImplement" />
+										<alias attr-name="default-implementation" prop-name="defaultImplementation" />
+									</set-properties-rule>
+									<bean-property-setter-rule pattern="value" />
+									<bean-property-setter-rule pattern="comment" />
+									<pattern value="action-field-map/action-field-map-entry">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry" />
+										<set-next-rule methodname="addActionFieldMapEntry"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry" />
+										<set-properties-rule>
+											<alias attr-name="output-field" prop-name="outputField" />
+											<alias attr-name="input-field" prop-name="inputField" />
+											<alias attr-name="requested-field" prop-name="requestedField" />
+											<alias attr-name="implicit-field" prop-name="implicitField" />
+											<alias attr-name="filter-field" prop-name="filterField" />
+											<alias attr-name="static-value" prop-name="staticValue" />
+											<alias attr-name="computed-value" prop-name="computedValue" />
+											<alias attr-name="to-action-field" prop-name="toActionField" />
+											<alias attr-name="convert-case" prop-name="convertCase" />
+										</set-properties-rule>
+									</pattern>
+								</pattern>
 							</pattern>		
 							<pattern value="query-filters/query-filter">
 								<object-create-rule
@@ -359,6 +390,7 @@
 											<alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
 											<alias attr-name="index" prop-name="index" />
 											<alias attr-name="default-value-when-null" prop-name="defaultValueWhenNull" />
+											<alias attr-name="scope" prop-name="scope" />
 
 										</set-properties-rule>
 										<pattern value="stereotype">
@@ -478,6 +510,7 @@
 										<alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
 										<alias attr-name="index" prop-name="index" />
 										<alias attr-name="default-value-when-null" prop-name="defaultValueWhenNull" />
+										<alias attr-name="scope" prop-name="scope" />
 									</set-properties-rule>
 									<pattern value="stereotype">
 										<object-create-rule
@@ -1987,7 +2020,39 @@
 								</pattern>
 							</pattern>
 						</pattern>
+						<pattern value="actions/action">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.enrichment.Action" />
+							<set-next-rule methodname="addAction"
+								paramtype="net.sf.minuteProject.configuration.bean.enrichment.Action" />
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="query-id" prop-name="queryId" />
+								<alias attr-name="is-to-implement" prop-name="isToImplement" />
+								<alias attr-name="default-implementation" prop-name="defaultImplementation" />
+							</set-properties-rule>
+							<bean-property-setter-rule pattern="value" />
+							<bean-property-setter-rule pattern="comment" />
 
+							<pattern value="action-field-map/action-field-map-entry">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry" />
+								<set-next-rule methodname="addActionFieldMapEntry"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.ActionFieldMapEntry" />
+								<set-properties-rule>
+									<alias attr-name="output-field" prop-name="outputField" />
+									<alias attr-name="input-field" prop-name="inputField" />
+									<alias attr-name="requested-field" prop-name="requestedField" />
+									<alias attr-name="implicit-field" prop-name="implicitField" />
+									<alias attr-name="filter-field" prop-name="filterField" />
+									<alias attr-name="static-value" prop-name="staticValue" />
+									<alias attr-name="computed-value" prop-name="computedValue" />
+									<alias attr-name="to-action-field" prop-name="toActionField" />
+									<alias attr-name="convert-case" prop-name="convertCase" />
+								</set-properties-rule>
+							</pattern>
+							
+						</pattern>
 						<pattern value="query-filters/query-filter">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
@@ -2028,6 +2093,7 @@
 										<alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
 										<alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
 										<alias attr-name="index" prop-name="index" />
+										<alias attr-name="scope" prop-name="scope" />
 									</set-properties-rule>
 									<pattern value="stereotype">
 										<object-create-rule
@@ -2139,6 +2205,7 @@
 									<alias attr-name="regex-param-wrapper" prop-name="regexParamWrapper" />
 									<alias attr-name="regex-param-separator" prop-name="regexParamSeparator" />
 									<alias attr-name="index" prop-name="index" />
+									<alias attr-name="scope" prop-name="scope" />
 								</set-properties-rule>
 								<pattern value="stereotype">
 									<object-create-rule

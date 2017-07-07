@@ -1,5 +1,10 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.minuteProject.configuration.bean.enrichment.Action;
+
 public class QueryScheduler extends QueryAdapter {
 
 	private QueryParams queryParams;
@@ -7,6 +12,7 @@ public class QueryScheduler extends QueryAdapter {
 	private String reportChannel, reportFrom, reportTo, reportCc, reportBcc, cron;
 	private String processorClass, processorName;
 	private int reportThresholdMinRecord;
+	private List<Action> actions;
 
 	public QueryParams getQueryParams() {
 		return queryParams;
@@ -104,4 +110,13 @@ public class QueryScheduler extends QueryAdapter {
 		this.processorName = processorName;
 	}
 	
+	public List<Action> getActions() {
+		if (actions == null)
+			actions = new ArrayList<Action>();
+		return actions;
+	}
+
+	public void addAction(Action action) {
+		getActions().add(action);
+	}
 }
