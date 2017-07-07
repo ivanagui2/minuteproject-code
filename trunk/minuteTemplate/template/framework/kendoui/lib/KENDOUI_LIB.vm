@@ -3,14 +3,6 @@
 ##set($kendoUiVersion="2014.3.1119")##2014.1.416   2015.1.318 
 #end
 
-#macro (exposeQueryTarget)
-#if($configuration.isSingleModel())
-#set($targetQuery = $model.getStatementModel().getQueryByIdOrName($queryId))
-#else
-#set($targetQuery = $queryUtils.getQueryByIdOrName($configuration.application, $queryId))
-#end
-#end
-
 #macro(putKendoUIJSImport $pathToRoot)
 #exposeKendoUIVersion()
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -46,7 +38,9 @@
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
 #exposeKendoUIEntitySpecific()
+#if($table.scope != 'BACKEND')
         <li><a href="/$entityFullPath"> $tableLabel</a></li>
+#end
 #end
 #end
     </ul>
@@ -64,8 +58,6 @@
 
 <!-- sdd package -->
 #foreach ($package in $model.getStatementModel().getSddPackage().getOrderedPackages())
-## hasMenuAccess : $package.securityColor.hasMenuAccess -->
-## hasMenuAccess : $package.securityColor.roles -->
 #if ($package.securityColor.hasMenuAccess)
 <li>$i18nUtils.getI18nFromDBObject(${package.displayName})
     <ul>
@@ -76,7 +68,9 @@
 #set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
 ##exposeVariableEntitySpecific()
 #exposeKendoUISddSpecific()
+#if($table.scope != 'BACKEND')
         <li><a onclick="javascript:location.href=getMenuLink('/$entityFullPath');return false;" href="/$entityFullPath"> $tableLabel</a></li>
+#end
 #end
     </ul>
 </li>
@@ -95,14 +89,14 @@
 #foreach($column in ${table.primaryKeyColumns})
 #putColumnParams()
 #columnJavaNaming()
-#if (!$isMany2Many && $isPkUserProvided)
+#if (!$isMany2Many && $isPkUserProvided && $column.scope!='BACKEND')
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
 #end
 #foreach ($columnGroup in $tableUtils.extractFieldGroup(${table.attributes}, $table))
 #foreach ($column in $columnGroup)
 #putColumnParams()
-#if (!$column.isImplicit())
+#if (!$column.isImplicit() && $column.scope!='BACKEND')
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
@@ -113,7 +107,7 @@
 #putReferenceParams2()
 #set ($column=$localColumn)
 #putColumnParams()
-#if (!$column.isImplicit())
+#if (!$column.isImplicit() && $column.scope!='BACKEND')
 #columnJavaNaming()
 #putKendoHtmlColumnSnippet($tableVariableName $tableVariableName)
 #end
@@ -215,8 +209,6 @@
 ## simple input
 #else
 	<input type="text" id="$fieldId" data-bind="value: ${columnVar}" name="$labelFor" class="k-textbox" placeholder="$columnAlias" #if($column.isRequired())required="true"#end validationMessage="Enter {0}" style="width: ${width}px;" />
-##	<p:inputText 
-##		size="$primefacesUtils.getDisplayColumns($column)" maxlength="$column.sizeAsInt" 
 #end
 ##	<input type="text" id="$labelFor" name="$labelFor" class="k-textbox" placeholder="${columnVar}" required="$column.isRequired()" validationMessage="Enter {0}" style="width: ${width}px;" />
 ##		label="${columnClass}" id="lbl${columnClass}-#{idValue}" value="#{${entityControllerJSFVariable}.${tableVariableName}.${columnVar}}" required="$column.isRequired()"/>

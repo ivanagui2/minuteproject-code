@@ -220,15 +220,7 @@ $!updatedAreaEnd
        }
 #end
     }
-#*
-    public Connection getConnection() throws SQLException, HibernateException {
-        Session session = getSession();
-        SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
-        ConnectionProvider cp = sfi.getConnectionProvider();
-        Connection connection = cp.getConnection();
-        return connection;
-    }
- *#   	
+  	
    	private Session getSession() {  
    		Session session = (Session) entityManager.getDelegate();  
    		return session;  

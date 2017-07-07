@@ -203,6 +203,7 @@
 			<scope>provided</scope>
 #end
 #end
+
         </dependency>
 #end
 #if($template.hasProperty("mvn-dep-groupId"))

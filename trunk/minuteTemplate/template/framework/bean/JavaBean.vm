@@ -42,7 +42,7 @@ public class ${className} {
 	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #elseif ($columnUtils.isTimeColumn($column))
 #end
-    private $columnType $columnVar;
+    private $columnType $columnVar; //$column.type
 #else
     private List<$columnType> $columnVar;
 #end

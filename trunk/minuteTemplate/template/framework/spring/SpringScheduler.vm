@@ -13,6 +13,7 @@ $!updatedAreaImport
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import jxl.Cell;
@@ -22,8 +23,6 @@ import jxl.format.CellFormat;
 import jxl.write.*;
 import jxl.write.Number;	
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +48,15 @@ import $sddInputBeanImport;
 import $sddOutputBeanImport;
 import $sddOutputBeanCollectionImport;
 #end
+#foreach($queryId in $schedulerUtils.getSchedulerDistinctActionQueryIds($model))
+#exposeQueryTarget()
+#set ($sddServiceInterfaceImport = $commonUtils.getEntityLevelTemplateFullPath($targetQuery, $template, $templateSDDServiceInterface))
+import $sddServiceInterfaceImport;
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $targetQuery.getOutputBean(), $template, $templateSDDInputBean))
+import $sddInputBeanImport;
+#end
+
+
 /**
  *
  * <p>Title: $thisClassName</p>
@@ -70,7 +78,15 @@ import $sddOutputBeanCollectionImport;
 public class $thisClassName {
 
 	private final String reportFileExt = ".xls";
-	
+
+#foreach($queryId in $schedulerUtils.getSchedulerDistinctActionQueryIds($model))
+#exposeQueryTarget()
+#set ($sddServiceInterfaceClass = $commonUtils.getTemplateClassName($targetQuery, $template, $templateSDDServiceInterface))
+#set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
+	@Autowired 
+	$sddServiceInterfaceClass $sddServiceInterfaceVariable;
+
+#end
 #foreach($query in $schedulerUtils.getQueryWithSchedulers($model))
 #putImportQuerySDDBean()
 #exposeQuerySpecific()
@@ -87,8 +103,8 @@ public class $thisClassName {
 #if ($queryScheduler.hasProcessor())
     @Autowired
     $queryScheduler.processorName $formatUtils.getJavaNameVariable($queryScheduler.processorName);
-    	
-#end
+
+#end	
 #set ($schedulerAlias = $queryScheduler.name)
 #set ($query = $queryScheduler.query)
 #putImportQuerySDDBean()
@@ -99,7 +115,16 @@ public class $thisClassName {
 #set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
 #set ($sddDaoInterfaceClass = $commonUtils.getTemplateClassName($query, $template, $templateSDDDaoInterface))
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
-    @Scheduled(cron="$queryScheduler.cron")
+    
+	public $sddOutputBeanCollectionClass callImplementation$schedulerAlias (
+#resourceSignature("", true)
+	) {
+#executeSddImplementation()	
+	}
+	
+#foreach($cron in $schedulerUtils.getCrons($queryScheduler))
+    @Scheduled(cron="$cron")
+#end
     public void ${schedulerAlias}() {
     	String reportFileName = "${queryScheduler.name}"; 
 
@@ -111,7 +136,7 @@ public class $thisClassName {
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-              #if($velocityCount>1),#end $schedulerUtils.getParamValue($queryScheduler, $column.name)
+            	#if($velocityCount>1),#end $schedulerUtils.getParamValue($queryScheduler, $column.name)
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
@@ -122,6 +147,25 @@ public class $thisClassName {
 #if ($queryScheduler.hasProcessor())
 #set ($processorCall = "$formatUtils.getJavaNameVariable($queryScheduler.processorName).process (reportFileName, list)")
 #else
+#foreach($action in $queryScheduler.actions)
+        for ($sddOutputBeanClass item : list.get${sddOutputBeanClass}s()) {
+#set ($queryId = $action.queryId)
+#exposeQueryTarget()
+#set ($sddInputBeanClass = $commonUtils.getTemplateClassName($targetQuery.getOutputBean(), $model, $templateSDDInputBean))
+#set ($sddInputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($model, $targetQuery.getOutputBean(), $template, $templateSDDInputBean))
+#set ($sddServiceInterfaceClass = $commonUtils.getTemplateClassName($targetQuery, $template, $templateSDDServiceInterface))
+#set ($sddServiceInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddServiceInterfaceClass))
+        	$sddInputBeanClass input =	new $sddInputBeanClass();
+#foreach ($actionEntry in $action.actionFieldMapEntries)
+#set($fieldClass=$formatUtils.getJavaName($actionEntry.outputField))
+#set($toClass=$formatUtils.getJavaName($actionEntry.toActionField))
+#set($to=${actionEntry.toActionField})
+        	input.set${toClass}(item.get$fieldClass());
+#end
+        	${sddServiceInterfaceVariable}.execute(input);
+        }
+#end
 #set ($processorCall = "performReportAndMailSend${schedulerAlias} (reportFileName, list)")
 #end
 #if($queryScheduler.hasThresholdMinRecord())
@@ -136,7 +180,9 @@ public class $thisClassName {
 	private void performReportAndMailSend${schedulerAlias} (String reportFileName, $sddOutputBeanCollectionClass list) {
         writeReport${schedulerAlias} (reportFileName, list);
         String from = "$queryScheduler.reportFrom";
-        String to = "$queryScheduler.reportTo";
+#foreach($to in $schedulerUtils.getReportTos($queryScheduler))
+        String to$velocityCount = "$to";
+#end
         String host = "localhost";
 
         //Get the session object
@@ -148,7 +194,9 @@ public class $thisClassName {
         try{
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
+#foreach($to in $schedulerUtils.getReportTos($queryScheduler))
+        	message.addRecipient(Message.RecipientType.TO,new InternetAddress(to$velocityCount));
+#end
             message.setSubject("${queryScheduler.name} report "+list.get${sddOutputBeanClass}s().size());
             message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
 
@@ -169,7 +217,7 @@ public class $thisClassName {
             String filename = getReportPath(reportFileName+reportFileExt);
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(reportFileName+"-"+getTimeAppender()+reportFileExt);
+            messageBodyPart.setFileName(reportFileName+"-"+getDateTimeAppender()+reportFileExt);
             multipart.addBodyPart(messageBodyPart);
 
             // Send the complete message parts
@@ -182,12 +230,6 @@ public class $thisClassName {
         	mex.printStackTrace();
         }
     }
-    
-	public $sddOutputBeanCollectionClass callImplementation$schedulerAlias (
-#resourceSignature("", true)
-	) {
-#executeSddImplementation()	
-	}
 	
     private void writeReport$schedulerAlias (String name, $sddOutputBeanCollectionClass list) {
 
@@ -216,7 +258,9 @@ public class $thisClassName {
 #putColumnParamNaming()
 #if($columnUtils.isTimeStampColumn($column))
             	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass().toString()));
-#else
+#elseif(!$columnUtils.isString($column))
+            	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass()+""));
+#else 
             	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass()));
 #end
 #end
@@ -267,6 +311,12 @@ $!updatedAreaImplementation
     private String getTimeAppender() {
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//-HH-mm
+        return date.format(formatter);
+    }
+    
+    private String getDateTimeAppender() {
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");//-HH-mm
         return date.format(formatter);
     }
 

@@ -395,10 +395,8 @@ $!updatedAreaEnd
 					, $chunkName 
 #end
 #end
-				));
-#if ($inputBean.columns.length>0)				
+				));		
 			int index = 1;
-#end
 #foreach($column in $inputBean.columns)
 #if ($column.isOutputParam())
 			pstmt.registerOutParameter(index, java.sql.Types.${column.type});
@@ -841,4 +839,12 @@ $!updatedAreaEnd
 #macro (exposeSourcecode)
 #set($isGithub=$template.hasPropertyValue("sourcecode-host","github"))
 #set($sourcecodeUrl=$template.getPropertyValue("sourcecode-url","none"))
+#end
+
+#macro (exposeQueryTarget)
+#if($configuration.isSingleModel())
+#set($targetQuery = $model.getStatementModel().getQueryByIdOrName($queryId))
+#else
+#set($targetQuery = $queryUtils.getQueryByIdOrName($configuration.application, $queryId))
+#end
 #end
