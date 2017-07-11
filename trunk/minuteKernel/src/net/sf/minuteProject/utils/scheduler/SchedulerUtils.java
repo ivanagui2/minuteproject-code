@@ -11,12 +11,15 @@ import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
+import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
+import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
+import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class SchedulerUtils {
 
@@ -132,6 +135,7 @@ public class SchedulerUtils {
 	
 		if (queryScheduler.getQueryParams()==null)
 			return "null";
+		
 		Optional<QueryParam> qpOpt = queryScheduler.getQueryParams().getQueryParams()
 		.stream()
 		.filter(u -> u.getName().equalsIgnoreCase(columnName))
@@ -139,7 +143,15 @@ public class SchedulerUtils {
 		;
 		if (qpOpt.isPresent()) {
 			//todo if column.type boolean or integer or long (do not add quote)
-			return "\""+qpOpt.get().getValue()+"\"";
+			Column column = QueryUtils.getColumn(queryScheduler.getQuery(), columnName);
+			String value = qpOpt.get().getValue();
+			if (ColumnUtils.isString(column)) {
+				return "\""+value+"\"";
+			}
+			if (ColumnUtils.isNumeric(column)) {
+				return value;
+			}
+			return "\""+value+"\"";
 		} else {
 			return "null";
 		}
