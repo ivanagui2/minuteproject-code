@@ -398,12 +398,16 @@ public class QueryUtils {
 	
 
 	public static String getColumnVariable(Query query, String name) {
-		Table table = query.getOutputBean();
-		Column column = ColumnUtils.getColumn(table, name);
+		Column column = getColumn(query, name);
 		if (column!=null) {
 			return FormatUtils.getJavaNameVariable(column.getName());
 		}
 		return "Column "+name+" not found for query "+query.getName();
+	}
+	
+	public static Column getColumn(Query query, String name) {
+		Table table = query.getOutputBean();
+		return ColumnUtils.getColumn(table, name);
 	}
 	
 	public static String getColumnTextVariable(Query query, String columnName) {
