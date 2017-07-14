@@ -24,6 +24,8 @@ public enum FieldType {
 	LONGVARCHAR,
 	LONGVARBINARY,
 	NUMERIC,
+	NUMBER,
+	VARBINARY,
 	OTHER;
 	
 }
