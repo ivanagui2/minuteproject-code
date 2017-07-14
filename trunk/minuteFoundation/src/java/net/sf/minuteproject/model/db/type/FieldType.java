@@ -27,5 +27,4 @@ public enum FieldType {
 	NUMBER,
 	VARBINARY,
 	OTHER;
-	
 }
