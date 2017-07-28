@@ -29,7 +29,14 @@
             <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
-     
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+			<scope>provided</scope>
+		</dependency>
+		
 	    <!-- Logging -->
         <!-- remove the real commons-logging from classpath -->
         <!-- declare as provided or exclude from spring jars -->

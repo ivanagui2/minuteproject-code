@@ -7,6 +7,7 @@ package $packageName;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import lombok.Data;
 
 import org.apache.commons.lang.StringUtils;
 ##if ($model.hasCmisModel())
@@ -23,6 +24,7 @@ $!updatedAreaImport
  * <p>Description: Java Bean containing a collection of ${domainClassName} </p>
  *
  */
+ @Data
 public class ${className} {
 
 #foreach($column in ${table.columns})
@@ -42,13 +44,21 @@ public class ${className} {
 	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #elseif ($columnUtils.isTimeColumn($column))
 #end
-    private $columnType $columnVar; //$column.type
+    private $columnType $columnVar; 
 #else
     private List<$columnType> $columnVar;
+    
+    public void set$columnClass (String $columnVar) {
+    	for (${columnType} element : StringUtils.split($columnVar, ",")) {
+        	get${columnClass}().add (element);
+        }
+    }
+    
 #end
 #end
 #end
 
+#* replace with lombok
     /**
     * Default constructor
     */
@@ -93,6 +103,6 @@ public class ${className} {
 #end
 
 #toString()
-
+*#
 $!updatedAreaImplementation
 }
