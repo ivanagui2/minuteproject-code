@@ -3,6 +3,8 @@
 #addedAreas()
 package $packageName;
 
+import lombok.Data;
+
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()
@@ -23,6 +25,7 @@ $!updatedAreaImport
  * <p>Description: Java Bean#if($composite.isDirection($in)) Input#else Output#end composite</p>
  *
  */
+@Data
 public class ${thisClass} {
 
 #if($composite.isDirection($in))
@@ -37,6 +40,7 @@ public class ${thisClass} {
 #end
 #end	
 
+#* replace with lombok
     /**
     * Default constructor
     */
@@ -54,6 +58,6 @@ public class ${thisClass} {
 #putGetterSetter($sddOutputBeanCollectionClass, $sddOutputBeanCollectionVariable)
 #end
 #end
-
+*#
 $!updatedAreaImplementation
 }
