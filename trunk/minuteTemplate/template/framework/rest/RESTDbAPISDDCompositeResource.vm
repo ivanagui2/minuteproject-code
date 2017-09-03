@@ -85,27 +85,11 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputCompositeBeanClass execute (
-		
 #*
-
+TODO pass param from query-params
 #resourceSignature("QueryParam")
 *#
     ) {
-#*
-#if($isNotVoidInput)
-        $sddInputBeanClass $sddInputBeanVariable = new $sddInputBeanClass ();
-#foreach($column in $inputBean.columns)
-#if (!$column.hasBeenDuplicated())
-#putColumnParamNaming()
-#if($columnUtils.isTime($column))
-		if (${columnVar}!=null && ${columnVar}.getDate()!=null)
-			${sddInputBeanVariable}.set$columnClass (${columnVar}.getDate());
-#else
-		${sddInputBeanVariable}.set$columnClass ($columnVar);
-#end
-#end
-#end
-*#
         return ${sddCompositeDaoInterfaceVariable}.execute(
 			new $sddInputCompositeBeanClass()
 #*
