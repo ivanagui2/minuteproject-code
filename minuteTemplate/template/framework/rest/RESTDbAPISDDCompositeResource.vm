@@ -89,6 +89,16 @@ $!updatedAreaBegin
 TODO pass param from query-params
 #resourceSignature("QueryParam")
 *#
+#foreach($column in ${composite.distinctInputColumn})
+## TODO remove duplicates
+#if (!$column.hasBeenDuplicated() && !$column.isImplicit())
+#putColumnParamNaming()
+#if($columnUtils.isTime($column))
+#set($columnType=$dateParamImport)
+#end
+#if($velocityCount>1)           ,#end #if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @QueryParam ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
+#end
+#end
     ) {
         return ${sddCompositeDaoInterfaceVariable}.execute(
 			new $sddInputCompositeBeanClass()
