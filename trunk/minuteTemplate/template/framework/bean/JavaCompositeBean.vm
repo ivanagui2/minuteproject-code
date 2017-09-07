@@ -4,6 +4,7 @@
 package $packageName;
 
 import lombok.Data;
+import java.util.List;
 
 #if($composite.isDirection($in))
 #foreach($table in ${composite.entities})
@@ -29,6 +30,10 @@ $!updatedAreaImport
 public class ${thisClass} {
 
 #if($composite.isDirection($in))
+#foreach($column in ${composite.distinctInputColumn})
+#putColumnParamNaming()
+    private $columnType $columnVar;
+#end
 #foreach($table in ${composite.entities})
 #putImportCompositeInputSDDBean()
     private $sddInputBeanClass $sddInputBeanVariable;
@@ -36,28 +41,17 @@ public class ${thisClass} {
 #else
 #foreach($table in ${composite.entities})
 #putImportCompositeOutputSDDBean()
-    private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
+##TODO if has cardinality => no holder
+#if ($tableUtils.isCardinalityOne($table))
+	private $sddOutputBeanClass $sddOutputBeanVariable;
+#elseif($tableUtils.isCardinalityMany($table))
+	private List<$sddOutputBeanClass> ${sddOutputBeanVariable}s;##TODO plurialize
+#else
+	private $sddOutputBeanCollectionClass $sddOutputBeanCollectionVariable;
+    //private $sddOutputBeanClass $sddOutputBeanVariable;
+#end
 #end
 #end	
 
-#* replace with lombok
-    /**
-    * Default constructor
-    */
-    public ${thisClass}() {
-    }
-	
-#if($composite.isDirection($in))
-#foreach($table in ${composite.entities})
-#putImportCompositeInputSDDBean()
-#putGetterSetter($sddInputBeanClass, $sddInputBeanVariable)
-#end
-#else
-#foreach($table in ${composite.entities})
-#putImportCompositeOutputSDDBean()
-#putGetterSetter($sddOutputBeanCollectionClass, $sddOutputBeanCollectionVariable)
-#end
-#end
-*#
 $!updatedAreaImplementation
 }
