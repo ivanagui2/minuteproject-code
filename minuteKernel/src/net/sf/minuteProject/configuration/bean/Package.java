@@ -125,13 +125,10 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 	
 	public String getTechnicalPackage(Template template) {
 		StringBuffer sb = new StringBuffer();
-//		if (template.getAddModelDirName()!=null && template.getAddModelDirName().equals("false"))
 		if (template.getAddTechnicalDirName()!=null && template.getAddTechnicalDirName().equals("false")) {
-//			return getName();
 			sb.append(template.getPackageRoot());
 		}
 		else
-//		StringBuffer sb = new StringBuffer(getBusinessPackage().getBusinessModel().getModel().getTechnicalPackage(template));
 			sb.append(getTechPackage(template));
 		if (template.getAddBusinessPackageDirName()!=null && template.getAddBusinessPackageDirName().equals("false")) {}
 		else {
