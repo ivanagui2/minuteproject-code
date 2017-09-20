@@ -673,11 +673,12 @@ $!updatedAreaEnd
 #macro(injectSDDParameter)
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
+#set($columnJavaType = $convertUtils.getJavaTypeClassFromDBType($column))
             if (${sddInputBeanVariable}.get$columnClass()==null) {
 #if (!$column.isArray())
                pstmt.setNull(index, java.sql.Types.${column.type});
 #else
-			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			   for (${columnJavaType} element : ${sddInputBeanVariable}.get$columnClass()) {
 			      pstmt.setNull(index, java.sql.Types.${column.type});
 			      index ++;
 			   }
@@ -704,7 +705,7 @@ $!updatedAreaEnd
 #if (!$column.isArray())
                pstmt.set$columnType(index, ${sddInputBeanVariable}.get$columnClass()); 
 #else
-			   for (${columnType} element : ${sddInputBeanVariable}.get$columnClass()) {
+			   for (${columnJavaType} element : ${sddInputBeanVariable}.get$columnClass()) {
 			      pstmt.set$columnType(index, element);
 			      index ++;
 			   }
