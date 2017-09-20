@@ -15,8 +15,7 @@ public class StatementUtils {
 	}
 	
 	public static final String getJavaVariableName(QueryParam queryParam) {
-		String name = queryParam.getName();
-		return FormatUtils.getJavaNameVariable(name);
+		return FormatUtils.getJavaNameVariable(queryParam.getName());
 	}
 	
 	private static final String getJdbcType(QueryParam queryParam) {
