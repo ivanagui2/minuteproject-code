@@ -1,11 +1,17 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
-import net.sf.minuteProject.configuration.bean.BusinessModel;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.utils.parser.ParserUtils;
-import static net.sf.minuteProject.utils.TableUtils.*;
+import static net.sf.minuteProject.utils.TableUtils.liveBusinessDataContentType;
+import static net.sf.minuteProject.utils.TableUtils.masterDataContentType;
+import static net.sf.minuteProject.utils.TableUtils.pseudoStaticDataContentType;
+import static net.sf.minuteProject.utils.TableUtils.referenceDataContentType;
 
-public class EntityContentTypeConvention extends ModelConvention {
+import java.util.stream.Collectors;
+
+import net.sf.minuteProject.configuration.bean.StatementModel;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
+import net.sf.minuteProject.utils.parser.ParserUtils;
+
+public class SddContentTypeConvention extends SddConvention {
 
 	public static final String APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH = "apply-content-type-to-entity-starting-with";
 	public static final String APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH   = "apply-content-type-to-entity-ending-with";
@@ -15,35 +21,36 @@ public class EntityContentTypeConvention extends ModelConvention {
 	private String pattern, contentType;
 	
 	@Override
-	public void apply(BusinessModel model) {
+	public void apply(StatementModel model) {
 		if (isValid()) {
-			if (model.getBusinessPackage()!=null) {
-				for (Table table : model.getBusinessPackage().getEntities()) {
-					apply (table);
-				}
-			}
+			model.getSddPackage().getQueryPackages()
+			.stream()
+			.flatMap(t -> t.getListOfQueries().stream())
+			.collect(Collectors.toList())
+			.stream()
+			.forEach (t -> apply(t));
 		}
 	}
 
-	private void apply(Table table) {
-		if (isMatch (table))
-			table.setContentType(getContentType());
+	private void apply(Query<?> query) {
+		if (isMatch (query))
+			query.setContentType(getContentType());
 	}
 
-	private boolean isMatch(Table table) {
+	private boolean isMatch(Query<?> query) {
 		if (APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH.equals(type))
-			return isBeginningMatch(table);
+			return isBeginningMatch(query);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH.equals(type))
-			return isEndingMatch(table);
+			return isEndingMatch(query);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_BELONGING_TO_PACKAGE.equals(type))
-			return isBelongsToPackage(table);
+			return isBelongsToPackage(query);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_NOT_BELONGING_TO_PACKAGE.equals(type))
-			return doesNotBelongToPackage(table);
+			return doesNotBelongToPackage(query);
 		return false;
 	}
 
-	private boolean isBeginningMatch(Table table) {
-		String tableNameLc = table.getName().toLowerCase();
+	private boolean isBeginningMatch(Query<?> query) {
+		String tableNameLc = query.getName().toLowerCase();
 		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (tableNameLc.startsWith(s))
 				return true;
@@ -51,8 +58,8 @@ public class EntityContentTypeConvention extends ModelConvention {
 		return false;
 	}
 	
-	private boolean isEndingMatch(Table table) {
-		String tableNameLc = table.getName().toLowerCase();
+	private boolean isEndingMatch(Query<?> query) {
+		String tableNameLc = query.getName().toLowerCase();
 		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (tableNameLc.endsWith(s))
 				return true;
@@ -60,8 +67,8 @@ public class EntityContentTypeConvention extends ModelConvention {
 		return false;
 	}
 	
-	private boolean isBelongsToPackage(Table table) {
-		String packageNameLowerCase = table.getPackage().getName().toLowerCase();
+	private boolean isBelongsToPackage(Query<?> query) {
+		String packageNameLowerCase = query.getPackage().getName().toLowerCase();
 		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (packageNameLowerCase.endsWith(s))
 				return true;
@@ -69,14 +76,16 @@ public class EntityContentTypeConvention extends ModelConvention {
 		return false;
 	}
 	
-	private boolean doesNotBelongToPackage(Table table) {
-		return isBelongsToPackage(table);
+	private boolean doesNotBelongToPackage(Query<?> query) {
+		return !isBelongsToPackage(query);
 	}
 
 	private boolean isValid () {
 		if ((APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH.equals(type) 
 			|| APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH.equals(type) 
-			|| APPLY_CONTENT_TYPE_TO_ENTITY_BELONGING_TO_PACKAGE.equals(type)) 
+			|| APPLY_CONTENT_TYPE_TO_ENTITY_BELONGING_TO_PACKAGE.equals(type)
+			|| APPLY_CONTENT_TYPE_TO_ENTITY_NOT_BELONGING_TO_PACKAGE.equals(type)
+			) 
 			&& getPattern()!=null 
 			&& (   pseudoStaticDataContentType.equals(getContentType())
 			    || masterDataContentType.equals(getContentType())

@@ -17,7 +17,10 @@ public class CacheUtils {
 	}
 	
 	private boolean hasCacheDefault (Table table) {
-		if (TableUtils.isReferenceDataContentType(table) || TableUtils.isPseudoStaticDataContentType(table))
+		if (	TableUtils.isReferenceDataContentType(table) 
+			|| 	TableUtils.isPseudoStaticDataContentType(table)
+			|| 	TableUtils.isMasterDataContentType(table)
+			)
 			return true;
 		return false;
 	}
