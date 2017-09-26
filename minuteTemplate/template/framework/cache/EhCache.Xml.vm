@@ -58,6 +58,7 @@ $!updatedAreaEnd
 #exposeVariableModelSpecific()
 #foreach ($table in ${entities})
 #exposeEntityCache()
+// --> $table.name type $table.contentType
 #if($hasCache)
 #exposeJPA2DomainObject($table)
 #exposeModelUpdatedAreas("cache-entity-${table.name}")
