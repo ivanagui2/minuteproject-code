@@ -140,7 +140,15 @@
 									</set-properties-rule>
 								</pattern>
 							</pattern>
-
+							<pattern value="sdd-content-type-convention">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddContentTypeConvention"/>		
+								<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddContentTypeConvention"/>		
+								<set-properties-rule>
+									<alias attr-name="type" prop-name="type" />	
+									<alias attr-name="pattern" prop-name="pattern" />
+									<alias attr-name="content-type" prop-name="contentType" />
+								</set-properties-rule>	
+				            </pattern>
 							<pattern value="presentation-access-convention">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddPresentationAccessConvention" />
@@ -1843,7 +1851,15 @@
 								</set-properties-rule>
 							</pattern>
 						</pattern>
-
+						<pattern value="sdd-content-type-convention">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddContentTypeConvention"/>		
+							<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddContentTypeConvention"/>		
+							<set-properties-rule>
+								<alias attr-name="type" prop-name="type" />	
+								<alias attr-name="pattern" prop-name="pattern" />
+								<alias attr-name="content-type" prop-name="contentType" />
+							</set-properties-rule>	
+			            </pattern>
 
 						<pattern value="presentation-access-convention">
 							<object-create-rule
