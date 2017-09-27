@@ -249,7 +249,7 @@ public class $thisClassName {
 #set ($xCpt = $velocityCount - 1)
 #putColumnParamNaming()
 #if($columnUtils.isTimeStampColumn($column))
-            	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass().toString()));
+            	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass()!=null?c.get$columnClass().toString():""));
 #elseif(!$columnUtils.isString($column))
             	excelSheet.addCell(new Label($xCpt, cpt, c.get$columnClass()+""));
 #else 

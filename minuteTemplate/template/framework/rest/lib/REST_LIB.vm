@@ -27,8 +27,15 @@
 #set ($modelResourceJerseyImport = $commonUtils.getRootAndTechnicalPackageName($model, $templateEntityResourceJersey))	
 #end
 
+#macro (exposeRESTModelCache)
+#exposeRESTTemplate()
+#set ($modelRestCacheableImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelCacheable))	
+#set ($modelRestCacheableClass = $commonUtils.getTemplateClassName($model, $template, $templateModelCacheable))
+#end
+
 #macro (exposeRESTTemplate)
 #set ($templateModelWadlGeneratorJersey = "JerseyWadlGenerator")
+#set ($templateModelCacheable = "REST.Cache.Annotation")
 #set ($templateEntityResourceJersey = "EJB3ResourceREST")
 #end
 
