@@ -2,7 +2,8 @@
 #exposeDbApiRestQuerySpecific()
 #exposeSDDSpring()
 #exposeRESTSDDURLServer()
-#putImportQuerySDDBean()
+#putImportQuerySDDBean() 
+#exposeRESTModelCache()
 #addedAreas()
 #set ($sizeColumn = $inputBean.columns.size())
 #set ($sizeChunk = $query.getQueryChunks().size())
@@ -139,6 +140,9 @@ import $sddOutputBeanImport;
 import $sddInputBeanImport;
 #end
 import $sddDaoInterfaceImport;
+#if($query.isCache())
+import $modelRestCacheableImport;
+#end
 /**
 *
 * <p>Title: ${className}</p>
@@ -161,7 +165,7 @@ public class ${className} {
 #end
 #if ($isSpringBackend)
     @Autowired
-    @Qualifier("$sddDaoInterfaceVariable")	
+    @Qualifier("$sddDaoInterfaceVariable")
 #elseif($isEJBBackend)
     @EJB ## (name="$BslaDaoInterfaceVariable")	
 #end
@@ -176,6 +180,9 @@ $!updatedAreaBegin
     @ApiResponses(value = {
     	@ApiResponse(code = 200, message = "ok")
     })
+#if($query.isCache() && $query.contentType == 'reference-data')
+    @${modelRestCacheableClass}(cc = "max-age=10000")
+#end
     public $sddOutputBeanCollectionClass execute (
 #resourceSignature("QueryParam", true)
     ) {
