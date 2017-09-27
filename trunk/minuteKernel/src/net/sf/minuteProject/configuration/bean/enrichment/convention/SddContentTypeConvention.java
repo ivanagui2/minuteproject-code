@@ -32,12 +32,15 @@ public class SddContentTypeConvention extends SddConvention {
 		}
 	}
 
-	private void apply(Query<?> query) {
-		if (isMatch (query))
+	protected void apply(Query<?> query) {
+		if (isMatch (query)) {
 			query.setContentType(getContentType());
+			//TODO add in cache-convention
+			//query.setCache(true);
+		}
 	}
 
-	private boolean isMatch(Query<?> query) {
+	protected boolean isMatch(Query<?> query) {
 		if (APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH.equals(type))
 			return isBeginningMatch(query);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH.equals(type))
@@ -49,7 +52,7 @@ public class SddContentTypeConvention extends SddConvention {
 		return false;
 	}
 
-	private boolean isBeginningMatch(Query<?> query) {
+	protected boolean isBeginningMatch(Query<?> query) {
 		String tableNameLc = query.getName().toLowerCase();
 		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (tableNameLc.startsWith(s))
@@ -58,7 +61,7 @@ public class SddContentTypeConvention extends SddConvention {
 		return false;
 	}
 	
-	private boolean isEndingMatch(Query<?> query) {
+	protected boolean isEndingMatch(Query<?> query) {
 		String tableNameLc = query.getName().toLowerCase();
 		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (tableNameLc.endsWith(s))
@@ -67,7 +70,7 @@ public class SddContentTypeConvention extends SddConvention {
 		return false;
 	}
 	
-	private boolean isBelongsToPackage(Query<?> query) {
+	protected boolean isBelongsToPackage(Query<?> query) {
 		String packageNameLowerCase = query.getPackage().getName().toLowerCase();
 		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
 			if (packageNameLowerCase.endsWith(s))
@@ -76,11 +79,11 @@ public class SddContentTypeConvention extends SddConvention {
 		return false;
 	}
 	
-	private boolean doesNotBelongToPackage(Query<?> query) {
+	protected boolean doesNotBelongToPackage(Query<?> query) {
 		return !isBelongsToPackage(query);
 	}
 
-	private boolean isValid () {
+	protected boolean isValid () {
 		if ((APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH.equals(type) 
 			|| APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH.equals(type) 
 			|| APPLY_CONTENT_TYPE_TO_ENTITY_BELONGING_TO_PACKAGE.equals(type)
@@ -96,6 +99,7 @@ public class SddContentTypeConvention extends SddConvention {
 			return true;
 		return false;
 	}
+	
 	public String getPattern() {
 		return pattern;
 	}
