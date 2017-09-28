@@ -928,7 +928,7 @@ $!updatedAreaEnd
 #set($columnText = $queryUtils.getColumnTextVariable($targetQuery, $fieldKey))
 #set($columnValue = $queryUtils.getColumnValueVariable($targetQuery, $fieldKey))
 #if($column.isArray())
-		var ${columnVar} = $("#field-$columnVar").data("kendoMultiSelect").value();
+		var ${columnVar} = ($("#field-$columnVar").data("kendoMultiSelect"))?$("#field-$columnVar").data("kendoMultiSelect").value():this.get("$columnVar");
 #else
 ## unfortunately does not work fine for first select
 ##		var ${columnVar}Selected = this.get("${columnVar}Selected");
@@ -953,7 +953,7 @@ $!updatedAreaEnd
 #if (!$column.isArray())
 		var $columnVar = this.get("$columnVar");
 #else
-		var $columnVar = $("#field-$columnVar").data("kendoMultiSelect").value();
+		var $columnVar = ($("#field-$columnVar").data("kendoMultiSelect"))?$("#field-$columnVar").data("kendoMultiSelect").value():this.get("$columnVar");
 #end
 #end
 #if($columnUtils.isTime($column))
@@ -975,9 +975,6 @@ $!updatedAreaEnd
 #end
 		var dataSourceUrl = contextPath+"/data/sdd/${tableClassName}In"+query;
 #end
-
-
-
 
 #macro(exposeKendoUIApplicationSpecific)
 #exposeKendoUITemplate()

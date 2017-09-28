@@ -2,6 +2,7 @@
 package $packageName;
 
 import org.hibernate.HibernateException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -23,6 +24,7 @@ public class $className implements ExceptionMapper<Throwable> {
         errorMessage.setMessage(ex.getMessage());
         StringWriter errorStackTrace = new StringWriter();
         ex.printStackTrace(new PrintWriter(errorStackTrace));
+        ex.printStackTrace();
 
         return Response.status(errorMessage.getStatus())
                 .entity(errorMessage)
@@ -41,6 +43,8 @@ public class $className implements ExceptionMapper<Throwable> {
             } else if (ex instanceof HibernateException) {
                 HibernateException he = (HibernateException)ex;
                 errorMessage.setCause(he.getMessage()+" - hibernate ex; "+he.getCause().getMessage());
+            } else {
+                errorMessage.setMessage(ExceptionUtils.getMessage(ex));
             }
         }
     }
