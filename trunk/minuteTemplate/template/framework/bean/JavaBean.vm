@@ -54,10 +54,18 @@ public class ${className} {
         }
     }
     *#
+    public List<${columnType}> get${columnClass} () {
+        if (${columnVar}==null)
+            ${columnVar} = new ArrayList<$columnType>();
+        return ${columnVar};
+    }
+    
     public void set$columnClass (String $columnVar) {
-    	for (String element : StringUtils.split($columnVar, ",")) {
+    	if ($columnVar!=null) {
+    		for (String element : StringUtils.split($columnVar, ",")) {
 #set($key=$convertUtils.getJavaTypeMaskExpressionFromStringInput($column, "element", true))
-        	get${columnClass}().add ($key);
+        		get${columnClass}().add ($key);
+        	}
         }
     }
 #end

@@ -579,7 +579,12 @@ $!updatedAreaEnd
 	public boolean isFilter${filter.name}Active(#if($isNotVoidInput)$sddInputBeanClass $sddInputBeanVariable#end) {
 #foreach ($param in $filter.queryParams.queryParams)
 #set($paramName=$formatUtils.getJavaName(${param.name}))
+##array
+#set($col = $queryUtils.getInputBeanColumn($query, $param.name))
 		if (${sddInputBeanVariable}.get${paramName}() == null) return false;
+#if($col.isArray())
+		if (${sddInputBeanVariable}.get${paramName}().size()==0) return false;
+#end
 #end
 		return true;	
 	}
@@ -620,9 +625,9 @@ $!updatedAreaEnd
 #end
 		) {
 		String query = QUERY_NATIVE;
-		boolean isWhereDone = false;//
+		boolean isWhereDone = false;
 #foreach($column in $inputBean.columns)
-#if($column.isArray())
+#if($column.isArray() && !$column.isFilter())
 #putColumnParamNaming()
 	   StringBuffer inSb$columnVar = new StringBuffer();
 	   for (int i = 0; i < ${sddInputBeanVariable}.get$columnClass().size(); i++) {
@@ -637,6 +642,7 @@ $!updatedAreaEnd
 #injectGetStatementFilter()
 		return query;
 	}
+#injectGetStatementMethodForArrayFilter()
 #end
 #end
 
@@ -653,7 +659,7 @@ $!updatedAreaEnd
 ##TODO Case none
 #foreach ($param in $filter.queryParams.queryParams)
 #set($paramName=$formatUtils.getJavaName(${param.name}))
-			#if ($velocityCount>1) && #end ${sddInputBeanVariable}.get${paramName}() != null
+			#if ($velocityCount>1) && #end isFilter${filter.name}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)##${sddInputBeanVariable}.get${paramName}() != null
 #end
 			) {
 			String connectionWord = " AND ";
@@ -662,11 +668,33 @@ $!updatedAreaEnd
 				connectionWord = " WHERE ";
 			}
 #end
-			query = StringUtils.replace (query, "$"+"$filter.name", connectionWord + CHUNK_$filter.name ); 
+			query = StringUtils.replace (query, "$"+"$filter.name", connectionWord + getChunk${filter.name}(${sddInputBeanVariable}, CHUNK_${filter.name}) ); //replaceOnce
 			isWhereDone = true;
 		} else {
-			query = StringUtils.replace (query, "$"+"$filter.name","");
+			query = StringUtils.replace (query, "$"+"$filter.name","");//replaceOnce
 		}
+#end
+#end
+
+#macro(injectGetStatementMethodForArrayFilter)
+#foreach ($filter in $query.queryFilters)
+#set($column = $queryUtils.getInputBeanColumn($query, $filter.queryParams.queryParams[0].name))
+## ###ATTENTION filter with ?... only works with one param
+
+	private String getChunk${filter.name} (${sddInputBeanClass} ${sddInputBeanVariable}, String chunk) {
+#if (!$column.isArray())
+		return chunk;
+#else
+#putColumnParamNaming()
+	   StringBuffer inSb$columnVar = new StringBuffer();
+	   for (int i = 0; i < ${sddInputBeanVariable}.get$columnClass().size(); i++) {
+	   	  inSb${columnVar}.append("?");
+	   	  if (i+1!=${sddInputBeanVariable}.get$columnClass().size())
+	   	  	inSb${columnVar}.append(",");
+	   }
+	   return StringUtils.replace (chunk, "?...", inSb${columnVar}.toString());//replaceOnce
+#end
+	}
 #end
 #end
 
