@@ -410,6 +410,11 @@ public class QueryUtils {
 		return ColumnUtils.getColumn(table, name);
 	}
 	
+	public static Column getInputBeanColumn(Query query, String name) {
+		Table table = query.getInputBean();
+		return ColumnUtils.getColumn(table, name);
+	}
+	
 	public static String getColumnTextVariable(Query query, String columnName) {
 		if (query==null)
 			return "QUERY is null!";
