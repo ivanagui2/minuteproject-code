@@ -3,7 +3,7 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 public class QueryChunkParam {
 	
 	private String name, id, type;
-	private int size;
+	private int size, scale;
 	private QueryChunk queryChunk;
 
 	public void setQueryChunk(QueryChunk queryChunk) {
@@ -44,6 +44,14 @@ public class QueryChunkParam {
 
 	public QueryChunk getQueryChunk() {
 		return queryChunk;
+	}
+
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
 	}
 
 
