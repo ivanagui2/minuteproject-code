@@ -42,7 +42,7 @@ public class QueryChunk extends AbstractConfiguration{
 		return queryChunkParams;
 	}
 	
-	public void addQueryChunkValue(QueryChunkParam queryChunkParam) {
+	public void addQueryChunkParam(QueryChunkParam queryChunkParam) {
 		queryChunkParam.setQueryChunk(this);
 		getQueryChunkParams().add(queryChunkParam);
 	}

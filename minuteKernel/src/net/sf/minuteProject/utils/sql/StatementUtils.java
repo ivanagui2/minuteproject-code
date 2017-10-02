@@ -2,6 +2,7 @@ package net.sf.minuteProject.utils.sql;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryChunkParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
@@ -18,8 +19,16 @@ public class StatementUtils {
 		return FormatUtils.getJavaNameVariable(queryParam.getName());
 	}
 	
-	private static final String getJdbcType(QueryParam queryParam) {
+	public static final String getJdbcType(QueryParam queryParam) {
 		return getJdbcType(queryParam.getType(), queryParam.getScale());
+	}
+	
+	public static final String getJdbcType(QueryChunkParam queryParam) {
+		return getJdbcType(queryParam.getType(), queryParam.getScale());
+	}
+	
+	public static final String getJdbcSqlType(QueryChunkParam queryParam) {
+		return ConvertUtils.getDDLUtilsTypeFromDBType(queryParam.getType());
 	}
 	
 	public static final String getJdbcType(Column column) {
