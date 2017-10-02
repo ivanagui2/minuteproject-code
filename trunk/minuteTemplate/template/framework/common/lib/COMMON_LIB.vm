@@ -418,6 +418,13 @@ $!updatedAreaEnd
 #end
 #end
 #end
+## TODO replace ? by ?param: key
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#foreach($queryParam in $queryChunk.getQueryChunkParams())
+#injectChunkParameter("${chunkName}_${queryParam.name}", $queryParam)
+#end
+#end
 ## correct only if the output are at the end
 #*
 #if($query.queryParams.hasOutputParam())
@@ -511,6 +518,9 @@ $!updatedAreaSnippet
         				$chunkName 
 #else
         				, $chunkName 
+#end
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+					, ${chunkName}_${queryParams.name}
 #end
 #end
 					));
@@ -696,6 +706,18 @@ $!updatedAreaEnd
 #end
 	}
 #end
+#end
+
+#macro(injectChunkParameter $variableName $queryParam)
+#set($columnType = $statementUtils.getJdbcSqlType($queryParam))
+#set($jdbcType = $statementUtils.getJdbcType($queryParam))
+#set($columnJavaType = $convertUtils.getJavaType($queryParam))
+            if ($variableName==null) {
+            	pstmt.setNull(index, java.sql.Types.${columnType});
+            } else {
+           		pstmt.set$jdbcType(index, $variableName);
+            }
+            index ++;
 #end
 
 #macro(injectSDDParameter)

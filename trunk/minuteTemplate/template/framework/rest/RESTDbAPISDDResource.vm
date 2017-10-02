@@ -16,12 +16,15 @@
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-#if($velocityCount>1)           ,#end #if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
+#if($velocityCount>1)        ,#end        #if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
-#if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1)        ,#end #if($param != "")@ApiParam(value = "$chunkName", required=true, allowableValues = "$queryChunk.getDistinctValues()" #if($queryChunk.hasDefault()), defaultValue = "${queryChunk.getDefaultValue().getName()}"#end) @${param} ("$chunkName") #end #if($showType)String #end$chunkName 
+#if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1)        ,#end        #if($param != "")@ApiParam(value = "$chunkName", required=true, allowableValues = "$queryChunk.getDistinctValues()" #if($queryChunk.hasDefault()), defaultValue = "${queryChunk.getDefaultValue().getName()}"#end) @${param} ("$chunkName") #end #if($showType)String #end$chunkName 
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+        ,#if($param != "")@ApiParam(value = "${chunkName}_${queryParams.name}", required=true) @${param} ("${chunkName}_${queryParams.name}") #end #if($showType)String #end${chunkName}_${queryParams.name}
+#end
 #end
 #end
 #macro (daoParameters)
@@ -29,6 +32,9 @@
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
 #if($sizeColumn>0 || $velocityCount>1)           ,#else           #end$chunkName 
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+           ,${chunkName}_${queryParams.name}
+#end
 #end
 #end
 #macro (resourceParameters)
@@ -82,6 +88,9 @@
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
             #if($inputBeanAtLeastOneVisibleColumn || $velocityCount>1),#end $chunkName 
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+           ,${chunkName}_${queryParams.name}
+#end
 #end
         );
 #end

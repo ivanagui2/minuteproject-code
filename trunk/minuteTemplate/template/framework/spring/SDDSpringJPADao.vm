@@ -108,7 +108,11 @@ $!updatedAreaSnippet
         String $chunkName 
 #else
         ,String $chunkName 
-#end 
+#end
+#foreach($queryParam in $queryChunk.getQueryChunkParams())
+#set($columnType = $statementUtils.getJdbcType($queryParam))
+       ,$columnType ${chunkName}_${queryParam.name}
+#end
 #end
 		) {
 #if (!$query.isScalar())
@@ -124,6 +128,9 @@ $!updatedAreaSnippet
         	$chunkName 
 #else
         	, $chunkName 
+#end
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+        	, ${chunkName}_${queryParams.name}
 #end
 #end
 			);
@@ -158,29 +165,39 @@ $!updatedAreaEnd
 #else
         String $chunkName; 
 #end
+#foreach($queryParam in $queryChunk.getQueryChunkParams())
+#set($columnType = $statementUtils.getJdbcType($queryParam))
+        $columnType ${chunkName}_${queryParam.name};
+#end   	
 #end
-      ${sddOutputBeanCollectionClass}Work(
+        ${sddOutputBeanCollectionClass}Work(
 #if($isNotVoidInput)
-		$sddInputBeanClass $sddInputBeanVariable
+			$sddInputBeanClass $sddInputBeanVariable
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
 #if(!$isNotVoidInput && $velocityCount==1) 
-        String $chunkName 
+        	String $chunkName 
 #else
-        ,String $chunkName 
+        	,String $chunkName 
+#end
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+        	,String ${chunkName}_${queryParams.name}
 #end
 #end
 			){
 #if($isNotVoidInput)
-		this.$sddInputBeanVariable = $sddInputBeanVariable;
+				this.$sddInputBeanVariable = $sddInputBeanVariable;
 #end
 #foreach($queryChunk in $query.getQueryChunks())
 #set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
 #if(!$isNotVoidInput && $velocityCount==1) 
-        this.$chunkName = $chunkName; 
+        		this.$chunkName = $chunkName; 
 #else
-        this.$chunkName = $chunkName;
+        		this.$chunkName = $chunkName;
+#end
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+        		this.${chunkName}_${queryParams.name} = ${chunkName}_${queryParams.name};
 #end
 #end
 		}

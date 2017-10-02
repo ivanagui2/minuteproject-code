@@ -39,10 +39,14 @@ $!updatedAreaSnippet
 #if(!$isNotVoidInput && $velocityCount==1) 
         String $chunkName 
 #else
-        ,String $chunkName 
+        ,String $chunkName
+#end
+#foreach($queryParam in $queryChunk.getQueryChunkParams())
+#set($columnType = $statementUtils.getJdbcType($queryParam))
+       ,$columnType ${chunkName}_${queryParam.name}
 #end
 #end
-		) ;
+    );
 #end
 $!updatedAreaEnd
 

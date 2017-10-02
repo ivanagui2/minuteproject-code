@@ -71,6 +71,9 @@ $!updatedAreaSnippet
 #else
         ,String $chunkName 
 #end
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+        ,String ${chunkName}_${queryParams.name}
+#end
 #end
     	) {
         return ${sddDaoInterfaceVariable}.execute (
@@ -83,6 +86,9 @@ $!updatedAreaSnippet
         	$chunkName 
 #else
         	,$chunkName  
+#end
+#foreach($queryParams in $queryChunk.getQueryChunkParams())
+        	,${chunkName}_${queryParams.name}
 #end
 #end
         );
