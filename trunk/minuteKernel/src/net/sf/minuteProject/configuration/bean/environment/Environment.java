@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.Configuration;
 public class Environment extends AbstractConfiguration{
 
 	private Configuration configuration;
+	private Environments environments;
 	
 	public enum environment {local, loc, test, tst, development, dev, acceptance, acc, production, prod}
 	
@@ -24,6 +25,10 @@ public class Environment extends AbstractConfiguration{
 
 	public boolean isOfType(String environmentName) {
 		return (name!=null && name.equals(environmentName));
+	}
+
+	public void setEnvironments(Environments environments) {
+		this.environments = environments;
 	}
 	
 }
