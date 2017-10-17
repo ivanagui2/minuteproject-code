@@ -7,14 +7,15 @@
 		<set-properties-rule>
 			<alias attr-name="name" prop-name="name" />
 		</set-properties-rule>
-		<pattern value="environments/environment">
+		<pattern value="environments">
 			<object-create-rule
-				classname="net.sf.minuteProject.configuration.bean.environment.Environment" />
-			<set-next-rule methodname="addEnvironment"
-				paramtype="net.sf.minuteProject.configuration.bean.environment.Environment" />
+				classname="net.sf.minuteProject.configuration.bean.environment.Environments" />
+			<set-next-rule methodname="setEnvironments"
+				paramtype="net.sf.minuteProject.configuration.bean.environment.Environments" />
 			<set-properties-rule>
-				<alias attr-name="name" prop-name="name" />
-				<alias attr-name="alias" prop-name="alias" />
+				<alias attr-name="environment-key" prop-name="key" />
+				<alias attr-name="environment-store" prop-name="store" />
+				<alias attr-name="environment-store-entity" prop-name="storeEntity" />
 			</set-properties-rule>
 			<pattern value="property">
 				<object-create-rule
@@ -26,19 +27,41 @@
 					<alias attr-name="value" prop-name="value" />
 					<alias attr-name="tag" prop-name="tag" />
 				</set-properties-rule>
-				<pattern value="property">
+				<pattern value="environment">
 					<object-create-rule
-						classname="net.sf.minuteProject.configuration.bean.system.Property" />
-					<set-next-rule methodname="addProperty"
-						paramtype="net.sf.minuteProject.configuration.bean.system.Property" />
+						classname="net.sf.minuteProject.configuration.bean.environment.Environment" />
+					<set-next-rule methodname="addEnvironment"
+						paramtype="net.sf.minuteProject.configuration.bean.environment.Environment" />
 					<set-properties-rule>
 						<alias attr-name="name" prop-name="name" />
-						<alias attr-name="value" prop-name="value" />
-						<alias attr-name="tag" prop-name="tag" />
+						<alias attr-name="alias" prop-name="alias" />
 					</set-properties-rule>
+					<pattern value="property">
+						<object-create-rule
+							classname="net.sf.minuteProject.configuration.bean.system.Property" />
+						<set-next-rule methodname="addProperty"
+							paramtype="net.sf.minuteProject.configuration.bean.system.Property" />
+						<set-properties-rule>
+							<alias attr-name="name" prop-name="name" />
+							<alias attr-name="value" prop-name="value" />
+							<alias attr-name="tag" prop-name="tag" />
+						</set-properties-rule>
+						<pattern value="property">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.system.Property" />
+							<set-next-rule methodname="addProperty"
+								paramtype="net.sf.minuteProject.configuration.bean.system.Property" />
+							<set-properties-rule>
+								<alias attr-name="name" prop-name="name" />
+								<alias attr-name="value" prop-name="value" />
+								<alias attr-name="tag" prop-name="tag" />
+							</set-properties-rule>
+						</pattern>
+					</pattern>
 				</pattern>
 			</pattern>
 		</pattern>
+
 		<pattern value="conventions">
 			<object-create-rule
 				classname="net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions" />

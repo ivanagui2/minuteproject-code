@@ -504,4 +504,8 @@ public class ColumnUtils {
 		}
 		return null;
 	}
+	
+	public static int getPrecision(Column column) {
+		return column.getPrecisionRadix()-column.getScale();
+	}
 }

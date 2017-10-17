@@ -12,6 +12,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.Conventions;
 import net.sf.minuteProject.configuration.bean.enrichment.convention.KernelConvention;
 import net.sf.minuteProject.configuration.bean.environment.Environment;
+import net.sf.minuteProject.configuration.bean.environment.Environments;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
@@ -23,32 +24,44 @@ public class Configuration extends AbstractConfigurationRoot{
 	private Model singleModel;
 	private Presentation presentation;
 	private Conventions conventions;
-	private List<Environment> environments;
+	private Environments environments;
 	
-	public Environment getEnvironmentByName (String environmentName) {
-		if (environmentName==null) return null;
-		for (Environment env : getEnvironments()) {
-			if (env.isOfType(environmentName))
-				return env;
-		}
-		return null;
+	public void setEnvironments (Environments environments) {
+		environments.setConfiguration(this);
+		this.environments = environments;
 	}
 	
-	public void addEnvironment (Environment environment) {
-		environment.setConfiguration(this);
-		getEnvironments().add(environment);
-	}
 	
-	public List<Environment> getEnvironments() {
-		if (environments == null)
-			initEnvironments();
+//	
+//	public Environment getEnvironmentByName (String environmentName) {
+//		if (environmentName==null) return null;
+//		for (Environment env : getEnvironments()) {
+//			if (env.isOfType(environmentName))
+//				return env;
+//		}
+//		return null;
+//	}
+//	
+//	public void addEnvironment (Environment environment) {
+//		environment.setConfiguration(this);
+//		getEnvironments().add(environment);
+//	}
+//	
+//	public List<Environment> getEnvironments() {
+//		if (environments == null)
+//			initEnvironments();
+//		return environments;
+//	}
+//
+//	private void initEnvironments() {
+//		environments = new ArrayList<Environment>();
+//	}
+	
+	public Environments getEnvironments() {
 		return environments;
 	}
 
-	private void initEnvironments() {
-		environments = new ArrayList<Environment>();
-	}
-	
+
 	public Presentation getPresentation() {
 		return presentation;
 	}
@@ -164,10 +177,6 @@ public class Configuration extends AbstractConfigurationRoot{
 	}
 	
 	public List<String> distinctRoles() {
-//		getAllModels().stream().forEach(m -> {
-//			m.getStatementModel().getQueries().getQueries().stream().map(q -> q.getSecureUserRole().);
-//		});
-//		
 		Map<String, String> map = new HashMap<>();
 		for(Model model : getAllModels()) {
 			for (Query<QueryModel> q : model.getStatementModel().getQueries().getQueries()) {
@@ -178,10 +187,12 @@ public class Configuration extends AbstractConfigurationRoot{
 			}
 		}
 		return new ArrayList(map.keySet());
-		
-//		getAllModels().
-//		for (Model model : getAllModels()) {
-//			model
-//		}
+	}
+	
+	public boolean hasPropertyPlaceholder() {
+		return environments!=null 
+				&& environments.getStore()!=null 
+				&& environments.getStore().equals("property-file")
+				;
 	}
 }
