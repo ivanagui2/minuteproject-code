@@ -18,6 +18,11 @@
 
     <context:annotation-config />
 
+#if ($configuration.hasPropertyPlaceholder())
+#set($propertyPlaceholder = $configuration.environments.getPropertyPlaceholder())
+    <context:property-placeholder location="classpath*:${propertyPlaceholder}"/>
+
+#end
     <task:annotation-driven/>
 #foreach ($model in $configuration.allModels)
 #set ($templateToScan=$template.getPropertyValue("template-to-scan",""))

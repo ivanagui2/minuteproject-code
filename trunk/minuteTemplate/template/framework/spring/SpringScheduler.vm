@@ -161,7 +161,7 @@ public class $thisClassName {
 #set ($processorCall = "performReportAndMailSend${schedulerAlias} (reportFileName, list)")
 #end
 #if($queryScheduler.hasThresholdMinRecord())
-		if (list.get${sddOutputBeanClass}s().size()>$queryScheduler.reportThresholdMinRecord) {
+		if (list.get${sddOutputBeanClass}s().size()>=$queryScheduler.reportThresholdMinRecord) {
 			$processorCall;
 		}
 #else
