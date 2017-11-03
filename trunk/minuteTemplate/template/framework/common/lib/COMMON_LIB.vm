@@ -254,7 +254,11 @@ $readmeUtils.getReadme($template)
 #set($hasCorsFilter=$template.hasProperty("filter-cors"))
 #set($corsFilter=$template.getPropertyValue("filter-cors"))
 #set($restPomFinalName=$template.getPropertyValue("rest-pom-maven-artifact-finalName-suffix", "App"))
+#if($template.hasProperty("final-name"))
+#set($finalName=$template.getPropertyValue("final-name"))
+#else
 #set($finalName="${generatorBean.name}${restPomFinalName}")
+#end
 #set($swagger=$template.hasPropertyValue("swagger",false))
 #end
 
