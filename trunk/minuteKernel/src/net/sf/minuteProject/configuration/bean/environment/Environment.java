@@ -30,5 +30,9 @@ public class Environment extends AbstractConfiguration{
 	public void setEnvironments(Environments environments) {
 		this.environments = environments;
 	}
+
+	public Environments getEnvironments() {
+		return environments;
+	}
 	
 }

@@ -3,10 +3,10 @@ package net.sf.minuteProject.configuration.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
-
-import org.apache.commons.lang.StringUtils;
 
 public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 	// TODO IDEALLY set the abstractConfiguration properties after every creation in the digester
@@ -56,6 +56,20 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 			return true;
 		return false;
 	}
+//	
+//	public boolean hasPropertyValue (String name, String value) {
+//		String propertyValue = getPropertyValue(name);
+//		if (propertyValue!=null)
+//			return propertyValue.equals(value);
+//		return false;
+//	}
+//	
+	
+	public Boolean hasPropertyValue(String name, String value) {
+		String s = getPropertyValue(name);
+		return (s!=null)?(s.equals(value)):false;
+	}
+	
 	
 	public boolean hasPropertyByName (String name) {
 		if (getPropertyByName(name)!=null)

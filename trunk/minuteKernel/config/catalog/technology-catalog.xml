@@ -22,6 +22,13 @@
 			<property name="add-cache-implementation" value="ehcache"></property>
 		</technology>
 
+		<technology name="environment" target-name="JPA2" model-type="rdbms"
+			template-config-file-name="mp-template-config-ENVIRONMENT.xml"
+			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE_LIB,SDD-BEANS"
+			template-dir="@templateRoot@/framework/environment" status="released"
+			description="Generates:\environment properties">
+		</technology>
+		
 		<technology name="JPA2-groovy" target-name="JPA2-groovy"
 			model-type="rdbms" template-config-file-name="mp-template-config-JPA2-groovy.xml"
 			default-outputdir="JPA2" depends-on-targets="BSLA_LIB,CACHE_LIB,SDD-BEANS"
@@ -134,7 +141,7 @@
 
 		<technology name="REST" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-2.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,environment,SDD-BEANS,BSLA-JPA2,SpringService,MavenMaster"
 			template-dir="@templateRoot@/framework/rest" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -154,7 +161,7 @@
 			 -->
 		<technology name="REST-Kendoui" model-type="rdbms"
 			template-config-file-name="mp-template-config-kendoui.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
+			default-outputdir="REST" depends-on-targets="JPA2,environment,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>

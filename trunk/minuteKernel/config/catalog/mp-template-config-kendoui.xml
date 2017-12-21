@@ -3,11 +3,32 @@
 	</architecture-target>	
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
    	<plugin name="kendoUiUtils" className="net.sf.minuteProject.plugin.kendoui.KendoUiUtils"/>
+    <plugin name="environmentUtils" className="net.sf.minuteProject.plugin.environment.EnvironmentUtils"></plugin>
  
 	<resource-target outputdir="src/main/webapp/icon">
 		<resource name="plus-h" resource-file-name="plus_h.png" />
 		<resource name="plus-n" resource-file-name="plus_n.png" />
 	</resource-target>
+	
+	<template-target 
+    	name="ENVIRONMENT set"
+		libdir=""
+		outputdir="src/main/webapp"
+		belongToPackage="true">
+
+		<template name="environment.js" templateFileName="environment.js.vm" 
+			subdir="" outputsubdir="" technicalPackage="js"
+			file-prefix="environment" file-suffix="" 
+			add-model-dir-name="false"
+			scope-specific-value="environment"
+			has-updatable-nature="true"
+			file-name-builder-plugin="environmentUtils"
+			file-name-builder-method="getEnvironmentName"	
+			add-model-name="false"
+			file-extension="js">
+		</template>
+
+	</template-target>
 	
 	<template-target 
     	name="REST kendoui client web.xml config"

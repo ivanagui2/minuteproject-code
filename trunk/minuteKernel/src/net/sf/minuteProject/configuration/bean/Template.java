@@ -5,6 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.enumeration.Extension;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.system.Plugin;
@@ -15,9 +18,6 @@ import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.MinuteProjectUtils;
 import net.sf.minuteProject.utils.ModelUtils;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 public class Template extends TemplateTarget {
 
@@ -119,11 +119,7 @@ public class Template extends TemplateTarget {
 		String s = getPropertyValue(name);
 		return (s!=null)?true:defaultValue;
 	}
-	
-	public Boolean hasPropertyValue(String name, String value) {
-		String s = getPropertyValue(name);
-		return (s!=null)?(s.equals(value)):false;
-	}
+
 	
 	public boolean hasProperty(String name) {
 		String s = getPropertyValue(name);
@@ -400,6 +396,10 @@ public class Template extends TemplateTarget {
     public boolean isApplicationScope() {
 		return (applicationSpecific!=null && applicationSpecific.equals("true")) || (scopeSpecificValue!=null && scopeSpecificValue.equals("application"));
 	}
+    
+    public boolean isEnvironmentScope() {
+    	return scopeSpecificValue!=null && scopeSpecificValue.equals("environment");
+    }
 
 	public String getGeneratorOutputFileNameForView (View view, Template template) {
     	StringBuffer sb = new StringBuffer(template.getOutputdir());

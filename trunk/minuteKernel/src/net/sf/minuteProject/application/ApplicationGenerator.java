@@ -1,68 +1,28 @@
 package net.sf.minuteProject.application;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.Application;
-import net.sf.minuteProject.configuration.bean.BusinessModel;
-import net.sf.minuteProject.configuration.bean.Configuration;
-import net.sf.minuteProject.configuration.bean.FunctionModel;
-import net.sf.minuteProject.configuration.bean.GeneratorBean;
-import net.sf.minuteProject.configuration.bean.Model;
-import net.sf.minuteProject.configuration.bean.Package;
-import net.sf.minuteProject.configuration.bean.StatementModel;
-import net.sf.minuteProject.configuration.bean.Target;
-import net.sf.minuteProject.configuration.bean.Targets;
-import net.sf.minuteProject.configuration.bean.Template;
-import net.sf.minuteProject.configuration.bean.enrichment.Action;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.Component;
-import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
-import net.sf.minuteProject.configuration.bean.model.data.Function;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
-import net.sf.minuteProject.configuration.bean.model.statement.Composite;
-import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
-import net.sf.minuteProject.configuration.bean.model.statement.Queries;
-import net.sf.minuteProject.configuration.bean.model.statement.Query;
-import net.sf.minuteProject.configuration.bean.service.Scope;
-import net.sf.minuteProject.exception.MinuteProjectException;
-import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
-import net.sf.minuteProject.plugin.format.I18nUtils;
-import net.sf.minuteProject.utils.BslaLibraryUtils;
-import net.sf.minuteProject.utils.ColumnUtils;
-import net.sf.minuteProject.utils.CommonUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteProject.utils.DatabaseUtils;
-import net.sf.minuteProject.utils.EnumUtils;
-import net.sf.minuteProject.utils.FormatUtils;
-import net.sf.minuteProject.utils.MinuteProjectUtils;
-import net.sf.minuteProject.utils.ModelUtils;
-import net.sf.minuteProject.utils.ReferenceUtils;
-import net.sf.minuteProject.utils.RoutineUtils;
-import net.sf.minuteProject.utils.ServiceUtils;
-import net.sf.minuteProject.utils.SqlUtils;
-import net.sf.minuteProject.utils.TableUtils;
-import net.sf.minuteProject.utils.TemplateUtils;
-import net.sf.minuteProject.utils.TestUtils;
-import net.sf.minuteProject.utils.TriggerUtils;
-import net.sf.minuteProject.utils.URLUtils;
-import net.sf.minuteProject.utils.ViewUtils;
-import net.sf.minuteProject.utils.WebUtils;
-import net.sf.minuteProject.utils.criteria.OrderingUtils;
-import net.sf.minuteProject.utils.enrichment.EnrichmentUtils;
-import net.sf.minuteProject.utils.enrichment.SemanticReferenceUtils;
-import net.sf.minuteProject.utils.io.FileUtils;
-import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
-import net.sf.minuteProject.utils.java.JavaUtils;
-import net.sf.minuteProject.utils.sql.QueryUtils;
-import net.sf.minuteProject.utils.sql.StatementUtils;
-import net.sf.minuteProject.utils.velocity.VelocityUtils;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
+
+import net.sf.minuteProject.configuration.bean.Application;
+import net.sf.minuteProject.configuration.bean.Configuration;
+import net.sf.minuteProject.configuration.bean.GeneratorBean;
+import net.sf.minuteProject.configuration.bean.Model;
+import net.sf.minuteProject.configuration.bean.Target;
+import net.sf.minuteProject.configuration.bean.Targets;
+import net.sf.minuteProject.configuration.bean.Template;
+import net.sf.minuteProject.configuration.bean.environment.Environment;
+import net.sf.minuteProject.configuration.bean.environment.Environments;
+import net.sf.minuteProject.configuration.bean.model.data.Component;
+import net.sf.minuteProject.configuration.bean.model.data.Function;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.constant.Direction;
+import net.sf.minuteProject.exception.MinuteProjectException;
+import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.utils.TemplateUtils;
+import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
 
 /**
  * @author Florian Adler
@@ -210,6 +170,9 @@ public class ApplicationGenerator extends AbstractGenerator {
 		}
 		if (template.isApplicationScope())
 			generateArtifactsByApplication(template);
+		else if (template.isEnvironmentScope()) {
+			generateEnvironment(template);
+		}
 	}
 
 	private void generateArtifactsByApplication(Template template) throws MinuteProjectException {	
@@ -254,8 +217,6 @@ public class ApplicationGenerator extends AbstractGenerator {
 			logger.error("ERROR on template "+template.getName()+" - on bean "+bean.getName());
 			ex.printStackTrace();
 			throwException(ex, "ERROR : "+ex.getMessage());		
-//			logger.error("ERROR : "+ex.getMessage());
-//			throw ex;
 		}
 	}
 
@@ -270,5 +231,11 @@ public class ApplicationGenerator extends AbstractGenerator {
 	protected void putStandardContextObject (VelocityContext context) {
 		super.putStandardContextObject(context);
 	}
-
+	
+	protected void generateEnvironment(Template template) throws MinuteProjectException {
+		Environments environments = application.getConfiguration().getEnvironments();
+		for (Environment environment : environments.getEnvironments()) {
+			writeTemplateResult(environment, template);
+		}
+	}
 }

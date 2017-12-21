@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.apache.velocity.VelocityContext;
+
 import net.sf.minuteProject.configuration.bean.BusinessModel;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.FunctionModel;
@@ -16,6 +19,8 @@ import net.sf.minuteProject.configuration.bean.Targets;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.TemplateTarget;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
+import net.sf.minuteProject.configuration.bean.environment.Environment;
+import net.sf.minuteProject.configuration.bean.environment.Environments;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Component;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -33,9 +38,6 @@ import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
 import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.TemplateUtils;
 import net.sf.minuteProject.utils.io.UpdatedAreaUtils;
-
-import org.apache.log4j.Logger;
-import org.apache.velocity.VelocityContext;
 
 /**
  * @author Florian Adler
@@ -341,6 +343,8 @@ public class ModelGenerator extends AbstractGenerator {
 				generateArtifactsBySddBean(template, Direction.IN);
 			else if (SDD_OUTPUT_BEAN_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsBySddBean(template, Direction.OUT);
+			else if (SCOPE_ENVIRONMENT.equals(scopeSpecificValue))
+				generateEnvironment(template);
 		}
 	}
 
@@ -380,6 +384,16 @@ public class ModelGenerator extends AbstractGenerator {
 	protected void generateArtifactsByTargetTemplate(Template template)
 			throws MinuteProjectException {
 		writeTemplateResult(getModel().getConfiguration(), template);
+	}
+	
+	protected void generateEnvironment(Template template)
+			throws MinuteProjectException {
+		Environments environments = getModel().getConfiguration().getEnvironments();
+		if (environments!=null) {
+			for (Environment environment : environments.getEnvironments()) {
+				writeTemplateResult(environment, template);
+			}
+		}
 	}
 
 	protected void generateArtifactsByModel(Template template)
@@ -592,30 +606,6 @@ public class ModelGenerator extends AbstractGenerator {
 
 	protected void putStandardContextObject(VelocityContext context) {
 		super.putStandardContextObject(context);
-		/*
-		 * context.put("convertUtils", getConvertUtils());
-		 * context.put("commonUtils", getCommonUtils());
-		 * context.put("columnUtils", getColumnUtils());
-		 * context.put("viewUtils", getViewUtils()); context.put("formatUtils",
-		 * getFormatUtils()); context.put("bslaLibraryUtils",
-		 * getBslaLibraryUtils()); context.put("databaseUtils",
-		 * getDatabaseUtils()); context.put("modelUtils", getModelUtils());
-		 * context.put("URLUtils", getUrlUtils()); context.put("TestUtils",
-		 * getTestUtils()); context.put("WebUtils", getWebUtils());
-		 * context.put("sqlUtils", getSqlUtils()); context.put("tableUtils",
-		 * getTableUtils()); context.put("testUtils", getTestUtils());
-		 * context.put("referenceUtils", referenceUtils);
-		 * context.put("enumUtils", enumUtils); context.put("i18nUtils",
-		 * i18nUtils); context.put("updatedAreaUtils", updatedAreaUtils);
-		 * context.put("javaUtils", javaUtils); context.put("routineUtils",
-		 * routineUtils); context.put("statementUtils", statementUtils);
-		 * context.put("triggerUtils", triggerUtils); context.put("queryUtils",
-		 * queryUtils); context.put("semanticReferenceUtils",
-		 * semanticReference); context.put("velocityUtils", velocityUtils);
-		 * context.put("fileUtils", fileUtils); context.put("orderingUtils",
-		 * orderingUtils); context.put("enrichmentUtils", enrichmentUtils);
-		 * context.put("minuteprojectUtils", minuteprojectUtils);
-		 */
 	}
 
 	public Model getModel() {

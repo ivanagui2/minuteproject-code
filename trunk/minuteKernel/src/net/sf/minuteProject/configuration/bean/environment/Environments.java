@@ -3,14 +3,13 @@ package net.sf.minuteProject.configuration.bean.environment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Configuration;
 
 public class Environments extends AbstractConfiguration{
 
 	private String key, store, storeEntity;
+	private String configQueryId, configQueryResultKey, configQueryResultValue;
 	private List<Environment> environments;
 	private Configuration configuration;
 
@@ -60,9 +59,36 @@ public class Environments extends AbstractConfiguration{
 		this.configuration = configuration;
 	}
 
-	public String getPropertyPlaceholder() {	
-		return StringUtils.isNotEmpty(storeEntity)?storeEntity : 
-			configuration.getApplication()!=null?"environment"+configuration.getApplication().getName()+".properties":
-			"environment.properties";
+	public String getPropertyPlaceholder() {
+		return "environment-${envTarget}.properties";
+//		return StringUtils.isNotEmpty(storeEntity)?storeEntity : 
+//			configuration.getApplication()!=null?"environment"+configuration.getApplication().getName()+".properties":
+//			"environment.properties";
 	}
+
+	public String getConfigQueryId() {
+		return configQueryId;
+	}
+
+	public void setConfigQueryId(String configQueryId) {
+		this.configQueryId = configQueryId;
+	}
+
+	public String getConfigQueryResultKey() {
+		return configQueryResultKey;
+	}
+
+	public void setConfigQueryResultKey(String configQueryResultKey) {
+		this.configQueryResultKey = configQueryResultKey;
+	}
+
+	public String getConfigQueryResultValue() {
+		return configQueryResultValue;
+	}
+
+	public void setConfigQueryResultValue(String configQueryResultValue) {
+		this.configQueryResultValue = configQueryResultValue;
+	}
+	
+	
 }
