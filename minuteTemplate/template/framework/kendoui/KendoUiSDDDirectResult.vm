@@ -50,7 +50,7 @@
 #else
 #set($columnValue=$columnVar)
 #end
-                if ($columnVar!=undefined && !$columnVar=='') {
+                if ($columnVar!=undefined && !$columnVar=='' && $columnVar!='Choose') {
                     if (!isQuestionMarkDone) {
                         isQuestionMarkDone = true;
                         query = "?"+"$columnVar="+$columnValue;

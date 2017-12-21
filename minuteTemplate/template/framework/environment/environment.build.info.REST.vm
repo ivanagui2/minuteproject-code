@@ -1,0 +1,66 @@
+##TODO_ENV
+package ${package};
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.winy.bean.ApplicationInfoBean;
+
+import java.io.IOException;
+import java.util.Properties;
+
+@Path("/applicationinfo")
+@Produces(MediaType.APPLICATION_JSON)
+@Data
+public class ApplicationInfoResource extends WinyResource{
+
+	@Context
+	HttpServletRequest req;
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+    public ApplicationInfo getApplicationInfo() throws IOException{
+        return getApplicationInfo();
+    }
+    
+    @Path("/properties")
+    @GET
+	@Produces(MediaType.APPLICATION_JSON)
+    public ApplicationInfo getApplicationInfo() throws IOException{
+    	//TODO add all properties for the env that are not backend scoped
+        return getApplicationInfo();
+    }
+    
+    @Data
+    class ApplicationInfo {
+    	private String environment;
+    	private String buildNumber;
+    	private String buildTime;
+    	private String buildId;
+    	private String applicationVersion;
+    	private String cmsVersion;
+    }
+
+    public ApplicationInfo getApplicationInfo() {
+        ApplicationInfo applicationInfo = new ApplicationInfo();
+        try {
+            Properties props = new Properties();
+            props.load(getClass().getResourceAsStream("/application.properties"));
+            applicationInfo.environment = "PROTO";
+            applicationInfo.buildNumber = props.getProperty("build.number");
+            applicationInfo.buildTime = props.getProperty("build.time");
+            applicationInfo.buildId = props.getProperty("build.id");
+            applicationInfo.applicationVersion = props.getProperty("application.version");
+            applicationInfo.cmsRevision = props.getProperty("cms.version");
+        } catch (IOException ioe) {
+            logger.error("cannot load application.properties");
+        }
+        return applicationInfo;
+    }
+
+}
