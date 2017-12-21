@@ -13,6 +13,19 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.apache.commons.collections.ExtendedProperties;
+import org.apache.commons.digester.Digester;
+import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfigurationRoot;
 import net.sf.minuteProject.configuration.bean.Configuration;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
@@ -28,6 +41,7 @@ import net.sf.minuteProject.configuration.bean.system.Plugin;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.integration.bean.BasicIntegrationConfiguration;
+import net.sf.minuteProject.plugin.environment.EnvironmentUtils;
 import net.sf.minuteProject.plugin.format.I18nUtils;
 import net.sf.minuteProject.plugin.readme.ReadmeUtils;
 import net.sf.minuteProject.utils.BslaLibraryUtils;
@@ -65,19 +79,6 @@ import net.sf.minuteProject.utils.sql.QueryUtils;
 import net.sf.minuteProject.utils.sql.StatementUtils;
 import net.sf.minuteProject.utils.velocity.VelocityUtils;
 
-import org.apache.commons.collections.ExtendedProperties;
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.xmlrules.DigesterLoader;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
-
 /**
  * @author Florian Adler
  * 
@@ -107,6 +108,7 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SDD_INPUT_COMPOSITE_TEMPLATE = "sdd-input-composite-bean";
 	protected static final String SDD_OUTPUT_COMPOSITE_TEMPLATE = "sdd-output-composite-bean";
 	protected static final String SDD_OUTPUT_BEAN_TEMPLATE = "sdd-output-bean";
+	protected static final String SCOPE_ENVIRONMENT = "environment";
 
 	private static Logger logger = Logger.getLogger(AbstractGenerator.class);
 	private String configurationFile;
@@ -781,6 +783,7 @@ public abstract class AbstractGenerator implements Generator {
 		context.put("actionUtils", actionUtils);
 		context.put("readmeUtils", new ReadmeUtils());
 		context.put("schedulerUtils", new SchedulerUtils());
+		context.put("environmentUtils", new EnvironmentUtils());
 	}
 
 	protected void exit(String message) {
