@@ -190,7 +190,7 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
 #if($query.isCache() && $query.contentType == 'reference-data')
-    @${modelRestCacheableClass}(cc = "public, maxAge=3600")
+    @${modelRestCacheableClass}(cc = "public, max-age=3600")
 #end
     public $sddOutputBeanCollectionClass execute (
 #resourceSignature("QueryParam", true)
