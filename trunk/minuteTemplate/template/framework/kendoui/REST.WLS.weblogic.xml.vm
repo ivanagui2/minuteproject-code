@@ -15,10 +15,10 @@ http://xmlns.oracle.com/weblogic/weblogic-web-app/1.2/weblogic-web-app.xsd">
         <wls:prefer-application-packages>
             <!-- jersey-bundle-*.jar -->
             <wls:package-name>com.sun.jersey.*</wls:package-name>
-            <package-name>org.glassfish.jersey.*</package-name>
-            <package-name>org.glassfish.hk2.*</package-name>
-            <package-name>org.jvnet.hk2.*</package-name>
-            <package-name>jersey.repackaged.org.objectweb.asm.*</package-name>
+            <wls:package-name>org.glassfish.jersey.*</wls:package-name>
+            <wls:package-name>org.glassfish.hk2.*</wls:package-name>
+            <wls:package-name>org.jvnet.hk2.*</wls:package-name>
+            <wls:package-name>jersey.repackaged.org.objectweb.asm.*</wls:package-name>
             <wls:package-name>com.sun.research.ws.wadl.*</wls:package-name>
             <wls:package-name>com.sun.ws.rs.ext.*</wls:package-name>
 
@@ -35,10 +35,10 @@ http://xmlns.oracle.com/weblogic/weblogic-web-app/1.2/weblogic-web-app.xsd">
         </wls:prefer-application-packages>
     </wls:container-descriptor>
 #if($isCas)
-    <security-role-assignment>
+    <wls:security-role-assignment>
         <role-name>$mpUserRole</role-name>
         <principal-name>$mpUserRole</principal-name>
-    </security-role-assignment>
+    </wls:security-role-assignment>
 
     <container-descriptor>
         <filter-dispatched-requests-enabled>true</filter-dispatched-requests-enabled>

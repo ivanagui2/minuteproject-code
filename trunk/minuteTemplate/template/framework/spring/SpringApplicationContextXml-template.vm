@@ -23,6 +23,13 @@
     <context:property-placeholder location="classpath*:${propertyPlaceholder}"/>
 
 #end
+
+#* TODO_ENV
+	<bean id="propertyConfigurer" class="$dbPropertyConfigurer">
+		<constructor-arg index="0" value= "java:comp/env/jdbc/DatasourceTODO"  />
+		<constructor-arg index="1" value="SELECT PARAM_KEY, PARAM_VALUE FROM CONF_PARAM"  />
+	</bean>
+*#	
     <task:annotation-driven/>
 #foreach ($model in $configuration.allModels)
 #set ($templateToScan=$template.getPropertyValue("template-to-scan",""))
