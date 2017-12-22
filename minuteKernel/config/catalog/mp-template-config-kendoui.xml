@@ -112,6 +112,7 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
             scope-specific-value="query"
+            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
             />
             
         <template name="KendoUiSDDDirectResult" templateFileName="KendoUiSDDDirectResult.vm" 
@@ -119,14 +120,18 @@
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
-            scope-specific-value="query"/>
+            scope-specific-value="query"
+            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
+            />
             
         <template name="KendoUiSDDDirectResult.js" templateFileName="KendoUiSDDDirectResult.js.vm" 
             file-extension="html" technicalPackage="sdd" file-suffix="DirectResultJs"
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="html" has-updatable-nature="true"
-            scope-specific-value="query"/>
+            scope-specific-value="query"
+            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
+            />
 
 	</template-target>
    	
