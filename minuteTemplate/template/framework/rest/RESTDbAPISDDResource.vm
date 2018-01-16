@@ -185,13 +185,13 @@ $!updatedAreaBegin
     $!updatedAreaSnippet
 #else
     @GET
+#if($query.isCache() && $query.contentType == 'reference-data')
+    @${modelRestCacheableClass}(cc = "public, max-age=3600")
+#end
     @ApiOperation(value = "$query.name", notes = "$queryUtils.getDescription($query)", response = ${sddOutputBeanCollectionClass}.class)
     @ApiResponses(value = {
     	@ApiResponse(code = 200, message = "ok")
     })
-#if($query.isCache() && $query.contentType == 'reference-data')
-    @${modelRestCacheableClass}(cc = "public, max-age=3600")
-#end
     public $sddOutputBeanCollectionClass execute (
 #resourceSignature("QueryParam", true)
     ) {
