@@ -58,6 +58,8 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private SecurityColor securityColor=new SecurityColor();
 	private Scope queryScope = Scope.ALL_STACKS;
 	private boolean isScalar = false;
+	private boolean pagination = false;
+	private int paginationSize = 0;
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -532,6 +534,18 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 	public void setScalar(boolean isScalar) {
 		this.isScalar = isScalar;
+	}
+	public boolean isPagination() {
+		return pagination;
+	}
+	public void setPagination(boolean pagination) {
+		this.pagination = pagination;
+	}
+	public int getPaginationSize() {
+		return paginationSize;
+	}
+	public void setPaginationSize(int paginationSize) {
+		this.paginationSize = paginationSize;
 	}
 	
 }

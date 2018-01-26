@@ -64,6 +64,18 @@
 			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 		</template>		
 		
+		<template name="REST.Compress.Annotation" templateFileName="REST.Compress.Annotation.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="Compress" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
+		
+		<template name="REST.GZIPWriterInterceptor" templateFileName="REST.GZIPWriterInterceptor.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="GZIPWriterInterceptor" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
+		
 		<template name="REST.Exception-handling" templateFileName="REST.Exception-handling.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest"
 			file-extension="java" file-prefix="" file-suffix="GenericExceptionMapper" 

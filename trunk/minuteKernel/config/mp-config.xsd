@@ -722,6 +722,10 @@
 		<xs:attribute name="caching" type="caching-type" default="read-only" />
 		
 		<xs:attribute name="content-type" type="content-type" />
+		
+		<!-- 0.9.10 -->
+		<xs:attribute name="pagination" type="xs:boolean"/>
+		<xs:attribute name="pagination-size" type="xs:int"/>
 	</xs:complexType>
 	
 	<xs:complexType name="query-params">
