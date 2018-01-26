@@ -4,6 +4,7 @@
 #exposeRESTSDDURLServer()
 #putImportQuerySDDBean() 
 #exposeRESTModelCache()
+#exposeRESTModelCompress()
 #addedAreas()
 #set ($sizeColumn = $inputBean.columns.size())
 #set ($sizeChunk = $query.getQueryChunks().size())
@@ -152,6 +153,7 @@ import $sddDaoInterfaceImport;
 #if($query.isCache())
 import $modelRestCacheableImport;
 #end
+import $modelRestCompressImport;
 /**
 *
 * <p>Title: ${className}</p>
@@ -188,6 +190,7 @@ $!updatedAreaBegin
 #if($query.isCache() && $query.contentType == 'reference-data')
     @${modelRestCacheableClass}(cc = "public, max-age=3600")
 #end
+	@${modelRestCompressClass}
     @ApiOperation(value = "$query.name", notes = "$queryUtils.getDescription($query)", response = ${sddOutputBeanCollectionClass}.class)
     @ApiResponses(value = {
     	@ApiResponse(code = 200, message = "ok")
@@ -207,6 +210,10 @@ $!updatedAreaBegin
     $!updatedAreaSnippet
 #else
     @POST
+#if($query.isCache() && $query.contentType == 'reference-data')
+    @${modelRestCacheableClass}(cc = "public, max-age=3600")
+#end
+	@${modelRestCompressClass}
     @ApiOperation(value = "$query.name", notes = "$queryUtils.getDescription($query)", response = ${sddOutputBeanCollectionClass}.class)
     @ApiResponses(value = {
     	@ApiResponse(code = 200, message = "ok")

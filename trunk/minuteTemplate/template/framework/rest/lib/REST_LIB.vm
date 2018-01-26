@@ -33,9 +33,16 @@
 #set ($modelRestCacheableClass = $commonUtils.getTemplateClassName($model, $template, $templateModelCacheable))
 #end
 
+#macro (exposeRESTModelCompress)
+#exposeRESTTemplate()
+#set ($modelRestCompressImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelCompress))	
+#set ($modelRestCompressClass = $commonUtils.getTemplateClassName($model, $template, $templateModelCompress))
+#end
+
 #macro (exposeRESTTemplate)
 #set ($templateModelWadlGeneratorJersey = "JerseyWadlGenerator")
 #set ($templateModelCacheable = "REST.Cache.Annotation")
+#set ($templateModelCompress = "REST.Compress.Annotation")
 #set ($templateEntityResourceJersey = "EJB3ResourceREST")
 #end
 
