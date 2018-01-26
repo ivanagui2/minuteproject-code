@@ -270,6 +270,8 @@
 								<alias attr-name="secure-user-role" prop-name="secureUserRole" />
 								<alias attr-name="scope" prop-name="scope" />
 								<alias attr-name="is-scalar" prop-name="scalar" />
+								<alias attr-name="pagination" prop-name="pagination" />
+								<alias attr-name="pagination-size" prop-name="paginationSize" />
 							</set-properties-rule>
 							<pattern value="query-body">
 								<object-create-rule
@@ -2001,6 +2003,8 @@
 							<alias attr-name="secure-user-role" prop-name="secureUserRole" />
 							<alias attr-name="scope" prop-name="scope" />
 							<alias attr-name="is-scalar" prop-name="scalar" />
+							<alias attr-name="pagination" prop-name="pagination" />
+							<alias attr-name="pagination-size" prop-name="paginationSize" />
 						</set-properties-rule>
 						<pattern value="query-body">
 							<object-create-rule
