@@ -1,6 +1,6 @@
 #exposeVariableModelSpecific()
 package $packageName;
-//http://alex.nederlof.com/blog/2013/07/28/caching-using-annotations-with-jersey/
+##http://alex.nederlof.com/blog/2013/07/28/caching-using-annotations-with-jersey/
 import java.lang.annotation.*;
 import javax.ws.rs.NameBinding;
 
