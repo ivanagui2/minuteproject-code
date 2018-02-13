@@ -51,7 +51,7 @@ public class MavenUtils {
 	public static String getArtifactName (Template template, GeneratorQualifier bean, String mavenTemplate, String mavenArtifactFinalName) {
 		//property from catalog
 		String markerTemplate = template.getPropertyValue(mavenTemplate);
-		if (markerTemplate!=null) {
+		if (markerTemplate!=null && bean.getConfiguration()!=null) {
 			Template marker = CommonUtils.getTemplate(bean.getConfiguration(), markerTemplate);
 			return bean.getName()+marker.getPropertyValue(mavenArtifactFinalName);
 		}
