@@ -511,6 +511,9 @@
 	</xs:complexType>
 	
 	<xs:complexType name="action">
+		<xs:sequence>
+	       <xs:element name="action-field-map" type="action-field-map"></xs:element>
+	    </xs:sequence>
 		<xs:complexContent>
 			<xs:extension base="rule">
 				<xs:sequence>
@@ -518,9 +521,7 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
-		<xs:sequence>
-	       <xs:element name="action-field-map" type="action-field-map"></xs:element>
-	    </xs:sequence>
+
 		<xs:attribute name="name"></xs:attribute>
 	    <xs:attribute name="default-implementation" type="xs:string" default="showDetails"></xs:attribute>
 	    <xs:attribute name="query-id" type="xs:string"></xs:attribute>
@@ -769,6 +770,7 @@
 	</xs:complexType>
 	
 	<xs:complexType name="query-scheduler">
+		<xs:element name="actions" type="actions" />
 		<xs:sequence>
 			<xs:element name="query-params" type="query-params" />
 		</xs:sequence>
@@ -782,7 +784,7 @@
 		<xs:attribute name="report-cc" type="xs:string" />
 		<xs:attribute name="report-bcc" type="xs:string" />
 		<xs:attribute name="report-threshold-min-record" type="xs:integer" />
-		<xs:element name="actions" type="actions" />
+
 	</xs:complexType>	
 	
 	<xs:complexType name="value-body">
@@ -793,6 +795,7 @@
 	</xs:complexType>
 	
 	<xs:complexType name="query-display">
+		<xs:element   name="query-display-new-column" type="query-display-new-column" minOccurs="0" maxOccurs="unbounded" />
 		<xs:attribute name="result-row-display" type="xs:string"/>
 		<xs:attribute name="result-detail-display" type="xs:string"/>
 		<xs:attribute name="result-detail-display-columns" type="xs:integer"/>
@@ -801,7 +804,6 @@
 		<xs:attribute name="result-row-link-click-new-window" type="xs:boolean"/>
 		<xs:attribute name="result-row-link-field" type="xs:string"/>
 		<xs:attribute name="result-row-link-root-url-appended-field" type="xs:string"/>
-		<xs:element   name="query-display-new-column" type="query-display-new-column" minOccurs="0" maxOccurs="unbounded" />
 	</xs:complexType>
 	
 	<xs:complexType name="query-display-new-column">
