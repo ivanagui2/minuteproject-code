@@ -168,3 +168,9 @@ $!updatedAreaEnd
     @Temporal(TemporalType.${column.type})
 #end
 #end
+
+#macro(putValidationConstraints)
+#if($column.isRequired())
+	@NotNull
+#end
+#end

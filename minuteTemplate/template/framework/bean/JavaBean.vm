@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.ArrayList;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang.StringUtils;
 ##if ($model.hasCmisModel())
 #set ($applicationJsonDateSerializerImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, "REST.jackson.serializer.date"))
@@ -44,16 +46,11 @@ public class ${className} {
 	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #elseif ($columnUtils.isTimeColumn($column))
 #end
+#putValidationConstraints()
     private $columnType $columnVar; 
 #else
     private List<$columnType> $columnVar;
-#*    
-    public void set$columnClass (String $columnVar) {
-    	for (${columnType} element : StringUtils.split($columnVar, ",")) {
-        	get${columnClass}().add (element);
-        }
-    }
-    *#
+
     public List<${columnType}> get${columnClass} () {
         if (${columnVar}==null)
             ${columnVar} = new ArrayList<$columnType>();
@@ -71,53 +68,5 @@ public class ${className} {
 #end
 #end
 #end
-
-#* replace with lombok
-    /**
-    * Default constructor
-    */
-    public ${className}() {
-    }
-	
-#foreach($column in ${table.columns})
-#if (!$column.hasBeenDuplicated())
-#putColumnParamNaming()
-#if (!$column.isArray())
-#if($hasDefaultValue)
-#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
-    public $columnType get$columnClass() {
-        return ($columnVar!=null)?$columnVar:$defaultConstant;
-    }
-#else
-    public $columnType get$columnClass() {
-        return $columnVar;
-    }
-#end
-    public void set$columnClass ($columnType $columnVar) {
-        this.$columnVar =  $columnVar;
-    }
-#else
-    public List<${columnType}> get${columnClass} () {
-        if (${columnVar}==null)
-            ${columnVar} = new ArrayList<$columnType>();
-        return ${columnVar};
-    }
-
-    public void add${columnClass} (${columnType} element) {
-        get${columnClass} ().add(element);
-    }
-    
-    public void set$columnClass (String $columnVar) {
-    	for (String element : StringUtils.split($columnVar, ",")) {
-#set($key=$convertUtils.getJavaTypeMaskExpressionFromStringInput($column, "element", true))
-        	add${columnClass} ($key);
-        }
-    }
-#end
-#end
-#end
-
-#toString()
-*#
 $!updatedAreaImplementation
 }
