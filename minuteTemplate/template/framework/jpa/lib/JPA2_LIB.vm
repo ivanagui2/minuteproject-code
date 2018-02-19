@@ -170,7 +170,7 @@ $!updatedAreaEnd
 #end
 
 #macro(putValidationConstraints)
-#if($column.isRequired())
+#if($column.isRequired() && !$columnUtils.hasPropertyTagStartsWith($column, 'trigger-'))
 	@NotNull
 #end
 #end
