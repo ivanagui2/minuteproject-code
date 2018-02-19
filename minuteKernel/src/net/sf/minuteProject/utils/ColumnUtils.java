@@ -466,7 +466,7 @@ public class ColumnUtils {
 			if (c.getName().equals(column.getName()+_TRANSIENT))
 				return c;
 		}
-		return null;//"NOT ASSOCIATED TRANSIENT COLUMN";
+		return null;
 	}
 	
 	public static String getTransientColumnNameRoot(Column column) {
@@ -480,6 +480,12 @@ public class ColumnUtils {
 			}
 		}
 		return null;
+	}
+	 
+	public static boolean hasPropertyTagStartsWith (Column column, String value) {
+		return column.getProperties().stream()
+				.anyMatch(u -> u.tag!=null && u.tag.startsWith(value))
+				;
 	}
 	
 	public static boolean isLink(Column column) {

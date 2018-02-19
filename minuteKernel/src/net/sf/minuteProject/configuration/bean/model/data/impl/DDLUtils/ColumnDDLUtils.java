@@ -3,7 +3,6 @@ package net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
@@ -15,7 +14,6 @@ import net.sf.minuteProject.configuration.bean.model.data.impl.ColumnBaseAbstrac
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TriggerUtils;
-import net.sf.minuteProject.utils.property.PropertyUtils;
 
 /**
  * Represents a column in the database model.
@@ -493,7 +491,6 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 
 	@Override
 	public Scope getScope() {
-		// TODO Auto-generated method stub
 		return scope;
 	}
 

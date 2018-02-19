@@ -56,20 +56,15 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 			return true;
 		return false;
 	}
-//	
-//	public boolean hasPropertyValue (String name, String value) {
-//		String propertyValue = getPropertyValue(name);
-//		if (propertyValue!=null)
-//			return propertyValue.equals(value);
-//		return false;
-//	}
-//	
-	
+
 	public Boolean hasPropertyValue(String name, String value) {
 		String s = getPropertyValue(name);
 		return (s!=null)?(s.equals(value)):false;
 	}
 	
+	public Boolean hasPropertyStartWithValue(String name, String value) {
+		return getPropertyStartWithValue(name)!=null;
+	}
 	
 	public boolean hasPropertyByName (String name) {
 		if (getPropertyByName(name)!=null)
@@ -121,6 +116,16 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 			if (property.getName()==null)
 				return null;
 			if (property.getName().equals(name))
+				return property.getValue();
+		}
+		return null;
+	}
+	public String getPropertyStartWithValue (String name) {
+		if (name==null) return null;
+		for (Property property : getProperties()) {
+			if (property.getName()==null)
+				return null;
+			if (property.getName().startsWith(name))
 				return property.getValue();
 		}
 		return null;
