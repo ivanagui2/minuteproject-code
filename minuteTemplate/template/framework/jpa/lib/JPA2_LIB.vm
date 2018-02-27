@@ -36,6 +36,7 @@
 #set($isCacheEnabled=$template.hasPropertyValue("add-cache-implementation",false))
 #set($isEhCacheEnabled=$template.hasPropertyValue("add-cache-implementation","ehcache"))
 #set($isJtaTransactionServer=$jpa2Utils.isJtaTransactionServer($template))
+#set($javaValidation=$template.hasPropertyValue("java-validation",false))
 #end
 
 #macro (exposeJPA2DomainObject $tableDB)
@@ -170,7 +171,9 @@ $!updatedAreaEnd
 #end
 
 #macro(putValidationConstraints)
+#if($javaValidation)
 #if($column.isRequired() && !$columnUtils.hasPropertyTagStartsWith($column, 'trigger-'))
 	@NotNull
+#end
 #end
 #end
