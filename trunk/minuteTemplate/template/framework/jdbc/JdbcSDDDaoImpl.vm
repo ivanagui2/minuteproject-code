@@ -100,7 +100,8 @@ $!updatedAreaSnippet
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
-				${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}($velocityCount)); 
+##				${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}($velocityCount));
+				${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}("${column.name}")); 
 #end
 				list.add(${sddOutputBeanVariable});
 	        }
