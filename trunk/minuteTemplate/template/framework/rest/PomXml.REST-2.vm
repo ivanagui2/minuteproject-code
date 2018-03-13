@@ -201,6 +201,8 @@
             <version>8.0.5</version>
 #if($isTomcatTargetServer)
 			<scope>provided</scope>
+#else
+			<!-- TUTO: POTENTIAL-ISSUE if target server is tomcat then embedded tomcat jar can collide with runtime tomcat server jar -->
 #end
 #end
 
