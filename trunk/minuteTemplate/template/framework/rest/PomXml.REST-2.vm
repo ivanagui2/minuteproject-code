@@ -81,8 +81,10 @@
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>mail</artifactId>
-		    <version>1.4</version>
+		    <version>1.5.0-b01</version>
 		</dependency>
+#else
+			<!-- TUTO: POTENTIAL-ISSUE if target server is tomcat then no embedded mail jar can prevent deployment -->
 #end
         <dependency>
 	        <groupId>org.glassfish.jersey.containers</groupId>
