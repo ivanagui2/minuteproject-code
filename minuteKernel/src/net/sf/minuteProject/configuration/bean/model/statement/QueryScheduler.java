@@ -3,15 +3,19 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 
 public class QueryScheduler extends QueryAdapter {
 
 	private QueryParams queryParams;
 	private Query query;
-	private String reportChannel, reportFrom, reportTo, reportCc, reportBcc, cron;
+	private String reportChannel, reportFrom, reportTo, reportCc, reportBcc, reportScalarColumn, cron;
 	private String processorClass, processorName;
 	private int reportThresholdMinRecord;
+	private String reportImportance;
+	private boolean reportAddOrigin;
 	private List<Action> actions;
 
 	public QueryParams getQueryParams() {
@@ -119,4 +123,38 @@ public class QueryScheduler extends QueryAdapter {
 	public void addAction(Action action) {
 		getActions().add(action);
 	}
+
+	public String getReportImportance() {
+		return reportImportance;
+	}
+
+	public void setReportImportance(String reportImportance) {
+		this.reportImportance = reportImportance;
+	}
+	
+	
+	public String getReportScalarColumn() {
+		return reportScalarColumn;
+	}
+
+	public void setReportScalarColumn(String reportScalarColumn) {
+		this.reportScalarColumn = reportScalarColumn;
+	}
+
+	public boolean isReportAddOrigin() {
+		return reportAddOrigin;
+	}
+
+	public void setReportAddOrigin(boolean reportAddOrigin) {
+		this.reportAddOrigin = reportAddOrigin;
+	}
+
+	public boolean isAlert() {
+		return StringUtils.isNotEmpty(reportImportance) && reportImportance.equalsIgnoreCase("alert");
+	}
+	
+	public boolean isScalarColumnReport() {
+		return StringUtils.isNotEmpty(reportScalarColumn);
+	}
+	
 }

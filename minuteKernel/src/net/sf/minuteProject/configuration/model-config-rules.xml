@@ -340,6 +340,9 @@
 									<alias attr-name="report-cc" prop-name="reportCc" />
 									<alias attr-name="report-bcc" prop-name="reportBcc" />
 									<alias attr-name="report-threshold-min-record" prop-name="reportThresholdMinRecord" />
+									<alias attr-name="report-importance" prop-name="reportImportance" />
+									<alias attr-name="report-scalar-column" prop-name="reportScalarColumn" />
+									<alias attr-name="report-add-origin" prop-name="reportAddOrigin" />
 								</set-properties-rule>
 								<bean-property-setter-rule pattern="name" />
 								<bean-property-setter-rule pattern="cron" />
@@ -2071,6 +2074,9 @@
 								<alias attr-name="report-cc" prop-name="reportCc" />
 								<alias attr-name="report-bcc" prop-name="reportBcc" />
 								<alias attr-name="report-threshold-min-record" prop-name="reportThresholdMinRecord" />
+								<alias attr-name="report-importance" prop-name="reportImportance" />
+								<alias attr-name="report-scalar-column" prop-name="reportScalarColumn" />
+								<alias attr-name="report-add-origin" prop-name="reportAddOrigin" />
 							</set-properties-rule>
 							<bean-property-setter-rule pattern="name" />
 							<bean-property-setter-rule pattern="cron" />
