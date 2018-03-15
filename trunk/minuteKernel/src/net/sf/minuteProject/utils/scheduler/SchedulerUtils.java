@@ -14,7 +14,6 @@ import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
-import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -143,7 +142,7 @@ public class SchedulerUtils {
 		;
 		if (qpOpt.isPresent()) {
 			//todo if column.type boolean or integer or long (do not add quote)
-			Column column = QueryUtils.getColumn(queryScheduler.getQuery(), columnName);
+			Column column = QueryUtils.getInputBeanColumn(queryScheduler.getQuery(), columnName);
 			String value = qpOpt.get().getValue();
 			if (ColumnUtils.isString(column)) {
 				return "\""+value+"\"";

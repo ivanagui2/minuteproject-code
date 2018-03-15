@@ -779,6 +779,23 @@
 			<property name="add-named-queries" value="false"></property>
 		</technology>
 		
+		<technology name="spring-data" model-type="rdbms"
+			template-config-file-name="mp-template-config-spring-data.xml"
+			default-outputdir="Business-Impl" depends-on-targets="JPA2,SDD-BEANS,BSLA-JPA2,SpringService,REST,MavenMaster"
+			template-dir="@templateRoot@/framework/spring" status="released"
+			description="Generates:\spring-data integration">
+			<frameworks>
+				<framework name="spring" version="5"></framework>
+			</frameworks>
+			<property name="add-querydsl" value="4.1.4"></property>
+			<property name="add-jpa2-implementation" value="hibernate"></property>
+			<property name="add-domain-specific-method" value="false"></property>
+			<property name="add-cache-implementation" value="ehcache"></property>
+			<property name="use-temporal" value="true"></property>
+			<property name="add-backend-implementation" value="spring"></property>
+			<property name="setter-return-instance" value="true"></property>
+			<property name="add-named-queries" value="false"></property>
+		</technology>
 		
 		<technology name="JQueryClient" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-client.xml"
