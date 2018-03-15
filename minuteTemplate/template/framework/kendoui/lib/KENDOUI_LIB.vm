@@ -17,7 +17,8 @@
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.rtl.min.css" rel="stylesheet" />
 <link href="http://cdn.kendostatic.com/${kendoUiVersion}/styles/kendo.blueopal.min.css" rel="stylesheet" />
 <link href="http://code.jquery.com/ui/1.9.1/themes/cupertino/jquery-ui.css" rel="stylesheet" />
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+##<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pathToRoot}$kendoUiMainCssPath" rel="stylesheet" />
 <link href="${pathToRoot}bower_components/growl/stylesheets/jquery.growl.css" rel="stylesheet" />

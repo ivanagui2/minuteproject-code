@@ -21,7 +21,8 @@ import jxl.CellView;
 import jxl.Workbook;
 import jxl.format.CellFormat;
 import jxl.write.*;
-import jxl.write.Number;	
+import jxl.write.Number;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -189,15 +190,34 @@ public class $thisClassName {
 #foreach($to in $schedulerUtils.getReportTos($queryScheduler))
         	message.addRecipient(Message.RecipientType.TO,new InternetAddress(to$velocityCount));
 #end
-            message.setSubject("${queryScheduler.name} report ("+list.get${sddOutputBeanClass}s().size()+")");
-            message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
+			List<${sddOutputBeanClass}> values = list.get${sddOutputBeanClass}s();
+			String reportValue = "";
+#if ($queryScheduler.isScalarColumnReport())
+#set($scalarColumn = $columnUtils.getColumn($queryScheduler.query.outputBean, $queryScheduler.reportScalarColumn))
+#set($scalarColumnJavaName = $formatUtils.getJavaName($scalarColumn.alias))
+			if (!values.isEmpty()) {
+				//$queryScheduler.reportScalarColumn 
+				reportValue = list.get${sddOutputBeanClass}s().get(0).get${scalarColumnJavaName}()+"";
+			}
+#else
+			reportValue = list.get${sddOutputBeanClass}s().size()+"";
+#end
+			String subject = (StringUtils.isNotEmpty(reportValue))?"${queryScheduler.name} report ("+reportValue+")":"${queryScheduler.name} report";
+            message.setSubject(subject);
 
+            
+            message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
+#if ($queryScheduler.isAlert())
+            message.setHeader("X-Priority", "1");
+#end
             // attachment
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Now set the actual message
-            messageBodyPart.setText("$queryScheduler.name");
-
+            messageBodyPart.setText(subject+"\n");
+#if ($queryScheduler.isReportAddOrigin())
+			messageBodyPart.setText("Origin: "+getReportPathServlet()+"\n");
+#end
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
 
@@ -283,13 +303,12 @@ public class $thisClassName {
 
 $!updatedAreaImplementation
 
-#*
     @Autowired
     private ServletContext servletContext;
-    private String getReportPathServlet (String name) {
-        return servletContext.getRealPath("/")+"/"+name;
+    private String getReportPathServlet () {
+        return servletContext.getRealPath("/");
     }
-*#
+
     private String getReportPath (String name) {
         return System.getProperty("java.io.tmpdir")+"/"+name;
     }
