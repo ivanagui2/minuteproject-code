@@ -204,9 +204,8 @@ public class $thisClassName {
 #end
 			String subject = (StringUtils.isNotEmpty(reportValue))?"${queryScheduler.name} report ("+reportValue+")":"${queryScheduler.name} report";
             message.setSubject(subject);
-
             
-            message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
+##message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
 #if ($queryScheduler.isAlert())
             message.setHeader("X-Priority", "1");
 #end
@@ -214,10 +213,12 @@ public class $thisClassName {
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Now set the actual message
-            messageBodyPart.setText(subject+"\n");
+            String bodyPart = subject+"\n";
+            
 #if ($queryScheduler.isReportAddOrigin())
-			messageBodyPart.setText("Origin: "+getReportPathServlet()+"\n");
+			bodyPart =+ "Origin: "+getReportPathServlet()+"\n";
 #end
+			messageBodyPart.setText(bodyPart);
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
 
