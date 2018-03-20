@@ -36,7 +36,8 @@
 			<version>1.16.16</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+#*		
 	    <!-- Logging -->
         <!-- remove the real commons-logging from classpath -->
         <!-- declare as provided or exclude from spring jars -->
@@ -46,7 +47,7 @@
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
-        
+*#       
         <!-- add slf4j interfaces to classpath -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -54,39 +55,53 @@
             <version>${slf4jVersion}</version>
             <scope>compile</scope>
         </dependency>
-        
+ 
+#*       
         <!-- add commons logging to slf4j bridge to classpath --> 
         <!-- acts as jcl but routes commons-logging calls to slf4j -->
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4jVersion}</version>
             <scope>runtime</scope>
         </dependency>
-        
+*#        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <version>${slf4jVersion}</version>
         </dependency>
-        
+#*        
         <!-- add log4j binding to classpath -->
-        <!-- routes slf4j calls to log4j -->
+        <!-- routes slf4j calls to log4j
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4jVersion}</version>
             <scope>runtime</scope>
         </dependency>
-        
+         -->
         <!-- add log4j to classpath -->
-        <!-- does the logging -->
+        <!-- does the logging 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-        	     
+        	     -->
+*#
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${slf4jVersion}</version>
+        </dependency>
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.2.3</version>
+		    <scope>test</scope>
+		</dependency>
         <!-- rest jackson -->
         
         <dependency>
