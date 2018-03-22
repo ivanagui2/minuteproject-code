@@ -6,6 +6,20 @@
 #exposeSDDSpring()
 #addedAreas()
 #set($thisClassName="$className")
+#set ($mailProperties=$template.getPropertyByName("mail-server"))
+#if ($mailProperties)
+#set ($smtpHost=$mailProperties.getPropertyValue("mail.smtps.host"))
+#set ($smtpAuth=$mailProperties.getPropertyValue("mail.smtps.auth"))
+#set ($smtpSocketFactoryClass=$mailProperties.getPropertyValue("javax.net.ssl.SSLSocketFactory"))
+#set ($smtpStartTlsEnable=$mailProperties.getPropertyValue("mail.smtp.starttls.enable"))
+#set ($smtpHost=$mailProperties.getPropertyValue("mail.smtps.host"))
+#set ($smtpSslTrust=$mailProperties.getPropertyValue("mail.smtp.ssl.trust"))
+#set ($smtpConnectUsername=$mailProperties.getPropertyValue("username"))
+#set ($smtpConnectPassword=$mailProperties.getPropertyValue("password"))
+#set ($smtpConnectUrl=$mailProperties.getPropertyValue("url"))
+#else
+#set ($smtpHost="localhost")
+#end
 package $packageName;
 
 $!updatedAreaImport
@@ -16,6 +30,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.sun.mail.smtp.SMTPTransport;
 import jxl.Cell;
 import jxl.CellView;
 import jxl.Workbook;
@@ -176,11 +191,19 @@ public class $thisClassName {
 #foreach($to in $schedulerUtils.getReportTos($queryScheduler))
         String to$velocityCount = "$to";
 #end
-        String host = "localhost";
+        String host = "${smtpHost}";
+##        String host = "smtp.mailgun.org";
 
         //Get the session object
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
+#if ($mailProperties)        
+        //custom mail server
+        properties.put("mail.smtps.auth", "$smtpAuth");
+        properties.put("mail.smtp.socketFactory.class", "$smtpSocketFactoryClass");
+        properties.put("mail.smtp.starttls.enable","$smtpStartTlsEnable");
+        properties.put("mail.smtp.ssl.trust", "$smtpHost");
+#end        
         Session session = Session.getDefaultInstance(properties);
 
         //compose the message
@@ -236,8 +259,15 @@ public class $thisClassName {
             // Send the complete message parts
             message.setContent(multipart);
 
+#if ($mailProperties)
+            SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
+            t.connect("$smtpConnectUrl", "$smtpConnectUsername", "$smtpConnectPassword");
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+#else
             // Send message
             Transport.send(message);
+#end
 
         } catch (MessagingException mex) {
         	mex.printStackTrace();
