@@ -33,7 +33,9 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+#if(!$hasMasterPom)
 			<version>1.16.16</version>
+#end
 			<scope>provided</scope>
 		</dependency>
 
@@ -52,7 +54,9 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4jVersion}</version>
+ #if(!$hasMasterPom)
+			<version>${lombok.version}</version>
+#end
             <scope>compile</scope>
         </dependency>
  
@@ -66,12 +70,7 @@
             <version>${slf4jVersion}</version>
             <scope>runtime</scope>
         </dependency>
-*#        
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${slf4jVersion}</version>
-        </dependency>
+*#
 #*        
         <!-- add log4j binding to classpath -->
         <!-- routes slf4j calls to log4j

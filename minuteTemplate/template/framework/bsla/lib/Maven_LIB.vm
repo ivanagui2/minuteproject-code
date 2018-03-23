@@ -9,6 +9,7 @@
 ##set($mavenDependentArtifact=$mavenUtils.getJarArtifactName($template, $generatorBean))
 #set($resourcesDir="src/main/resources")
 #set($bslaJpaVersion="0.8.11")
+#set($hasMasterPom=$mavenUtils.hasMasterPom($template, $generatorBean))
 #end
 
 #macro (exposeMavenModel)
