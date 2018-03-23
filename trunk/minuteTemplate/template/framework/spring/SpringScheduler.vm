@@ -239,7 +239,7 @@ public class $thisClassName {
             String bodyPart = subject+"\n";
             
 #if ($queryScheduler.isReportAddOrigin())
-			bodyPart =+ "Origin: "+getReportPathServlet()+"\n";
+			bodyPart += "Origin: "+getReportPathServlet()+"\n";
 #end
 			messageBodyPart.setText(bodyPart);
             // Create a multipar message
