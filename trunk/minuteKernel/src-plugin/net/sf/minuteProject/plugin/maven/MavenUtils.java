@@ -17,6 +17,12 @@ import net.sf.minuteProject.utils.CommonUtils;
 
 public class MavenUtils {
 	
+//	public class MavenDependency {
+//		public String name, groupId, artifactId, version, scope;
+//		public boolean isTest () {
+//			return StringUtils.isNotBlank(scope) && scope.equalsIgnoreCase("test");
+//		}
+//	}
 	public static final String artifactFinalName = "maven-artifact-finalName-suffix";
 	
 	public static String getPackaging(Template template) {
@@ -56,6 +62,14 @@ public class MavenUtils {
 			return bean.getName()+marker.getPropertyValue(mavenArtifactFinalName);
 		}
 		return null;
+	}
+	
+	public static boolean hasMasterPom(Template template, GeneratorQualifier bean) {
+		if (bean.getConfiguration()!=null) {
+			Template marker = CommonUtils.getTemplate(bean.getConfiguration(), "MavenMasterPomXml");
+			return marker!=null;
+		}
+		return false;
 	}
 	
 	public static List<MavenModule> getModules (Template template) {
@@ -133,26 +147,30 @@ public class MavenUtils {
 	
 	public static String getDbApiName (GeneratorBean bean) {
 		return getDbApiArtifactId(bean);
-	}	
-	
-	public static MavenDependency getDependency(String stringFmtDep) {
-		return new MavenDependency();
 	}
 	
 	public static List<MavenDependency> getDependencies (Template template) {
-		List<Property> depencies = template.getPropertyListByTag("dependency");
-		return getDepency(depencies);
+		 Property propertyByName = template.getPropertyByName("maven-dependencies");
+		 if (propertyByName!=null) {
+			List<Property> dependencies = propertyByName.getProperties();
+			return getDependency(dependencies);
+		 }
+		 return new ArrayList<>();
 	}
 
-	public static List<MavenDependency> getDepency(List<Property> depencies) {
+	public static List<MavenDependency> getDependency(List<Property> dependencies) {
 		List<MavenDependency> mList = new ArrayList<MavenDependency>();
-		for (Property property : depencies) {
-			mList.add(getDepency(property));
+		for (Property property : dependencies) {
+			mList.add(getDependency(property));
 		}
 		return mList;
 	}
 	
-	public static MavenDependency getDepency(Property dependency) {
+	public static MavenDependency getDependency(Property dependency) {
 		return getDependency(dependency.getValue());
+	}
+	
+	public static MavenDependency getDependency(String stringFmtDep) {
+		return new MavenDependency(stringFmtDep);
 	}
 }
