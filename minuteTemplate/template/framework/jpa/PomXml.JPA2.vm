@@ -8,13 +8,24 @@
 #set($bslaJpaVersion=$template.getPropertyValue("bsla-jpa-version"))
 ##set($jpa2Implementation=$jpaUtils.getJpa2Implementation($template))
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>    
-  	<groupId>${groupId}</groupId>
-  	<artifactId>$artifactId</artifactId>
-  	<packaging>jar</packaging>
-  	<version>${version}-SNAPSHOT</version>
-  	<name>$artifactId JPA2 specification and implementation</name>
+    <modelVersion>4.0.0</modelVersion>  
+#if($hasMasterPom)
+#set($masterPomArtifactId = $mavenUtils.getMasterPomArtifactId($template, $generatorBean))
+    <parent>
+        <artifactId>${masterPomArtifactId}</artifactId>
+        <groupId>${groupId}</groupId>
+        <version>${version}-SNAPSHOT</version>
+    </parent>
 
+#end
+#if(!$hasMasterPom)
+  	<groupId>${groupId}</groupId>
+  	<version>${version}-SNAPSHOT</version>
+#end
+  	<artifactId>$artifactId</artifactId>
+  	<name>$artifactId JPA2 specification and implementation</name>
+  	<packaging>jar</packaging>
+  	
     <dependencies>
 #foreach ($model in $configuration.models())
 #exposeMavenModel()
@@ -54,9 +65,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
- #if(!$hasMasterPom)
-			<version>${lombok.version}</version>
-#end
+			<version>${slf4jVersion}</version>
             <scope>compile</scope>
         </dependency>
  

@@ -195,11 +195,18 @@
 	    <artifactId>jxl</artifactId>
 	    <version>2.6.12</version>
 	</dependency>
+	
 	<dependency>
        <groupId>javax</groupId>
        <artifactId>javaee-api</artifactId>
        <version>6.0</version>
        <scope>provided</scope>
+    </dependency>
+	
+	<dependency>
+       <groupId>javax.mail</groupId>
+       <artifactId>mail</artifactId>
+       <version>1.5.0-b01</version>
     </dependency>
 	
 #end
