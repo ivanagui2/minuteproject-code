@@ -47,3 +47,63 @@
 					</configuration>
 				</plugin>
 #end
+
+#macro (exposeJacocoPluginDep)
+	            <plugin>
+            		<groupId>org.jacoco</groupId>
+		            <artifactId>jacoco-maven-plugin</artifactId>
+		            <configuration>
+		                <!-- The destination file for the code coverage report has to be set
+		                                to the same value in the parent pom and in each module pom. Then JaCoCo will
+		                                add up information in the same report, so that, it will give the cross-module
+		                                code coverage. -->
+		                <destFile>${project.basedir}/../target/jacoco-it.exec</destFile>
+		            </configuration>
+		        </plugin>
+#end
+
+#macro (exposeSassPluginDep)
+		        <plugin>
+		        	<groupId>nl.geodienstencentrum.maven</groupId>
+		        	<artifactId>sass-maven-plugin</artifactId>
+		        	<version>3.5.2</version>
+		        </plugin>
+#end
+
+#macro (exposeSassPlugin)
+			<plugin>
+				<groupId>nl.geodienstencentrum.maven</groupId>
+				<artifactId>sass-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sassProcessSource</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>update-stylesheets</goal>
+                        </goals>
+                        <configuration>
+                            <buildDirectory>${project.build.directory}</buildDirectory>
+                            <sassSourceDirectory>${basedir}/src/main/sass</sassSourceDirectory>
+                            <sassOptions>
+                            	<cache>false</cache>
+								<always_update>true</always_update>
+                            </sassOptions>
+                             <resources>
+						       <resource>
+						         <source>
+						             <directory>${basedir}/src/main/sass</directory>
+						             <includes>
+						                 <include>**/*.scss</include>
+						             </includes>
+						         </source>
+						         <relativeOutputDirectory>..</relativeOutputDirectory>
+						         <destination>${project.build.directory}/${project.build.finalName}/css
+						             </destination>
+						       </resource>
+						     </resources>
+     
+                        </configuration>
+                    </execution>
+                </executions>
+			</plugin>
+#end
