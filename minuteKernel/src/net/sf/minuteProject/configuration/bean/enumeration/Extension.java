@@ -1,8 +1,8 @@
 package net.sf.minuteProject.configuration.bean.enumeration;
 
-import net.sf.minuteProject.utils.LicenceUtils;
-
 import org.apache.commons.lang.StringUtils;
+
+import net.sf.minuteProject.utils.LicenceUtils;
 
 public enum Extension implements FileComment {
 
@@ -205,7 +205,48 @@ public enum Extension implements FileComment {
 		public boolean licenceAtBeginning() {
 			return true;
 		}
-	};
+	}
+	,css {
+		public String lineCommentBeginning() {
+			return "//";
+		}
+		public String lineCommentEnding() {
+			return "";
+		}
+		public String textCommentBeginning() {
+			return "/**";
+		}
+		public String textCommentMiddle() {
+			return "*";
+		}
+		public String textCommentEnding() {
+			return "*/";
+		}
+		public boolean licenceAtBeginning() {
+			return true;
+		}
+	}
+	,scss {
+		public String lineCommentBeginning() {
+			return "//";
+		}
+		public String lineCommentEnding() {
+			return "";
+		}
+		public String textCommentBeginning() {
+			return "/**";
+		}
+		public String textCommentMiddle() {
+			return "*";
+		}
+		public String textCommentEnding() {
+			return "*/";
+		}
+		public boolean licenceAtBeginning() {
+			return true;
+		}
+	}
+	;
 
 	private static final String CRLF = "\n";
 	private String licence;
