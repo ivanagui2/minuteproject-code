@@ -1,6 +1,8 @@
 #exposeVariableModelSpecific()
 package $packageName;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -14,6 +16,7 @@ import java.io.StringWriter;
 import java.sql.SQLException;
 
 @Provider
+@Slf4j
 public class $className implements ExceptionMapper<Throwable> { 
 
     @Override
@@ -24,7 +27,8 @@ public class $className implements ExceptionMapper<Throwable> {
         errorMessage.setMessage(ex.getMessage());
         StringWriter errorStackTrace = new StringWriter();
         ex.printStackTrace(new PrintWriter(errorStackTrace));
-        ex.printStackTrace();
+        //ex.printStackTrace();
+        log.error(errorMessage.toString());
 
         return Response.status(errorMessage.getStatus())
                 .entity(errorMessage)
@@ -49,40 +53,9 @@ public class $className implements ExceptionMapper<Throwable> {
         }
     }
 
+	@Data
     private class ErrorMessage {
         String code, message, cause;
         Response.StatusType status;
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public Response.StatusType getStatus() {
-            return status;
-        }
-
-        public void setStatus(Response.StatusType status) {
-            this.status = status;
-        }
-
-        public String getCause() {
-            return cause;
-        }
-
-        public void setCause(String cause) {
-            this.cause = cause;
-        }
     }
 }

@@ -45,6 +45,8 @@ $!updatedAreaEnd
 		<pluginManagement>
 			<plugins>
 #exposeCompilerPlugin()
+#exposeJacocoPluginDep()
+#exposeSassPluginDep()
 			</plugins>
 		</pluginManagement>
 	</build>
