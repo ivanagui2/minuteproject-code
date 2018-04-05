@@ -72,6 +72,14 @@ public class MavenUtils {
 		return false;
 	}
 	
+	public static String getMasterPomArtifactId(Template template, GeneratorQualifier bean) {
+		if (bean.getConfiguration()!=null) {
+			Template tmplt = CommonUtils.getTemplate(bean.getConfiguration(), "MavenMasterPomXml");
+			return getArtifactId(tmplt, bean);
+		}
+		return "artifact-id-not-set";
+	}
+	
 	public static List<MavenModule> getModules (Template template) {
 		// The current implementation imposes to masterpom template as the last generated artifact)
 		List<MavenModule> list = new ArrayList<MavenModule>();

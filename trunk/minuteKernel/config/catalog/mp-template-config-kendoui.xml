@@ -76,6 +76,26 @@
 
     </template-target>
       	
+	<template-target 
+    	name="REST kendoui client sass"
+		outputdir="src/main/sass"
+		package-root=""
+		belongToPackage="true">
+			 
+		<template name="KendoUiMainScss" templateFileName="KendoUiMainScss.vm" 
+			has-updatable-nature="true"
+			file-extension="scss" file-suffix="" 
+			application-specific="true" add-model-name="true" >
+		</template>
+			 
+		<template name="KendoUiAbstractsColorsScss" templateFileName="KendoUiAbstractsColorsScss.vm" 
+			has-updatable-nature="true"
+			file-extension="scss" technicalPackage="abstracts" file-prefix="_colors" 
+			application-specific="true" add-model-name="false" >
+		</template>
+
+    </template-target>
+    
   	<template-target 
     	name="Kendo client"
 		outputdir="src/main/webapp"
