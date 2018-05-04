@@ -56,6 +56,14 @@
 			add-package-name="false" add-business-package-dir-name="false" 
 			scope-specific-value="composite" has-updatable-nature="true">
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>
+		
+		<!-- for SSE to decide if global or by query -->
+	
+		<template name="REST.SSE.event" templateFileName="REST.SSE.event.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest.sse"
+			file-extension="java" file-prefix="Sse" file-suffix="Resource" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 		</template>		
 		
 		<template name="REST.Cache.Annotation" templateFileName="REST.Cache.Annotation.vm" 
