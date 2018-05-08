@@ -35,6 +35,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private Queries queries;
 	private QueryBody queryBody;
 	private QueryDisplay queryDisplay;
+	private QueryPagination queryPagination;
 	private List<Field> queryFields;
 	private List<QueryFilter> queryFilters;
 	private List<QueryScheduler> querySchedulers;
@@ -546,6 +547,12 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 	public void setPaginationSize(int paginationSize) {
 		this.paginationSize = paginationSize;
+	}
+	public QueryPagination getQueryPagination() {
+		return queryPagination;
+	}
+	public void setQueryPagination(QueryPagination queryPagination) {
+		this.queryPagination = queryPagination;
 	}
 	
 }
