@@ -313,7 +313,18 @@
 									</set-properties-rule>
 								</pattern>
 							</pattern>
-
+							
+							<pattern value="query-pagination">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.model.statement.QueryPagination" />
+								<set-next-rule methodname="addQueryDisplayNewColumn"
+									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryPagination" />
+								<set-properties-rule>
+									<alias attr-name="offset" prop-name="offset" />
+									<alias attr-name="max-result" prop-name="maxResult" />
+								</set-properties-rule>
+							</pattern>
+							
 							<pattern value="query-fields/query-field">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.enrichment.Field" />

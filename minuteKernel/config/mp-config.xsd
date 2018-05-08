@@ -697,6 +697,7 @@
 			<xs:element name="query-body" type="value-body" />
 			<xs:element name="query-display" type="query-display" />
 			<xs:element name="query-chunks" type="query-chunks" />
+			<xs:element name="query-pagination" type="query-pagination" />
 			<xs:element name="query-fields" type="query-fields" />
 			<xs:element name="query-filters" type="query-filters" />
 			<xs:element name="query-schedulers" type="query-schedulers" />
@@ -820,6 +821,13 @@
 				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:complexType name="query-pagination">
+		<xs:attribute name="max-result" type="xs:int"/>
+		<xs:attribute name="offset" type="xs:int"/>
+	</xs:complexType>
+	
+	
 	<xs:complexType name="query-chunk-params">
 		<xs:sequence>
 			<xs:element name="query-chunk-param" type="query-chunk-param" minOccurs="0" maxOccurs="unbounded" />

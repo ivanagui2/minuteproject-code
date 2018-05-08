@@ -1,20 +1,19 @@
 package net.sf.minuteProject.utils.sql;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.junit.Assert.*;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryBody;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryPagination;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
-import junit.framework.TestCase;
 
 public class QueryUtilsTest {
 
@@ -95,7 +94,7 @@ public class QueryUtilsTest {
 	
 	@Before
 	public void setUp() {
-		query1=new Query();
+		Query query1=new Query();
 		query1.setQueryBody(getQueryBody(query1Jdbc));
 		query1.setQueryParams(getQueryParams(getQueryParam1(), getQueryParam2()));
 	}
@@ -304,6 +303,19 @@ public class QueryUtilsTest {
 		String s = QueryUtils.getFullQuerySample(query);
 		//then
 		assertTrue(s +" but expect :"+querySampleStoreProcOutputParamFull, querySampleStoreProcOutputParamFull.equals(s));
+	}
+	
+	@Test
+	public void paginatedQueries () {
+		Query query = getQuery(query1Jdbc);
+		QueryPagination qp = new QueryPagination();
+		qp.setMaxResult(10);
+		query.setQueryPagination(qp);
+		
+		//TODO qp adds maxResult and offset as (mandatory) queryParams
+		//TODO decorates the query regarding the DB (todo oracle, mysql, postgresql)
+		// assert 
+		
 	}
 	
 	/*
