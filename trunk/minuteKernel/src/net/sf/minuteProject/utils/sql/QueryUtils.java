@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.minuteProject.application.ModelGenerator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.DataModel;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
@@ -25,13 +27,12 @@ import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.CompositeQueryElement;
-import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryChunk;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
-import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConnectionUtils;
@@ -39,9 +40,6 @@ import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteproject.model.db.type.FieldType;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 public class QueryUtils {
 
@@ -156,7 +154,16 @@ public class QueryUtils {
 	}
 	
 	public static String getQueryQuestionMark(Query<QueryModel> query) {
-			String queryRaw = query.getQueryBody().getValue();
+		String queryRaw = query.getQueryBody().getValue();
+		//Decorate with pagination if needed
+		if (query.hasPagination()) {
+			//decorate string
+			String pagination_prefix = PaginationUtils.getPaginationPrefix(query.getQueryPagination());
+			String pagination_suffix = PaginationUtils.getPaginationSuffix(query.getQueryPagination());
+			queryRaw = pagination_prefix + queryRaw + pagination_suffix;
+			//add filters
+			//PaginationUtils.addQueryParams(query.getQueryPagination(), query.getQueryParams());
+		}
 		//1 get query body
 		//sb.append(queryRaw);
 		//for each query where reference
@@ -200,6 +207,7 @@ public class QueryUtils {
 	public static String getFullQuerySample(Query query) {
 		String querySt = getQueryQuestionMark(query);
 		//List<String> samples = getSamples (query);
+
 		List<QueryParam> samples = getQueryParamAndFilters (query);
 		int samplesSize = samples.size();
 		int queryArgSize = StringUtils.countMatches(querySt, QUESTION_MARK);
@@ -214,6 +222,7 @@ public class QueryUtils {
 			}
 			
 		}
+
 		/*
 		for (int i = 0; i < samplesSize; i++) {
 			querySt = replaceFirstArgWith(querySt, samples.get(i));

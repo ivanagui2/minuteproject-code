@@ -7,5 +7,7 @@ public class QueryPagination {
 	
 	private int maxResult, offset;
 	private Query query;
+	private String maxResultParam = "limit";
+	private String offsetParam = "offset";
 	
 }

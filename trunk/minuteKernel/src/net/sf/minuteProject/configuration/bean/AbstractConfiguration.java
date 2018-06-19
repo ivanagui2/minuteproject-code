@@ -152,7 +152,7 @@ public class AbstractConfiguration extends BeanCommon implements GeneratorBean {
 
 	public String getTechnicalPackage(Template template)
 	{
-		return template.getTechnicalPackage();
+		return template.getTechnicalPackage()!=null?template.getTechnicalPackage():"";
 	}
 	
 	public String getDescription() {
