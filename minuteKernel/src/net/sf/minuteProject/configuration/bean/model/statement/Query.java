@@ -548,11 +548,17 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public void setPaginationSize(int paginationSize) {
 		this.paginationSize = paginationSize;
 	}
+
 	public QueryPagination getQueryPagination() {
 		return queryPagination;
 	}
 	public void setQueryPagination(QueryPagination queryPagination) {
+		queryPagination.setQuery(this);
 		this.queryPagination = queryPagination;
+	}
+
+	public boolean hasPagination() {
+		return queryPagination!=null;
 	}
 	
 }
