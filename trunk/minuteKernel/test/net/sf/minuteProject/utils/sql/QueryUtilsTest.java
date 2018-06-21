@@ -90,11 +90,17 @@ public class QueryUtilsTest {
 	public static final String querySampleStoreProcOutputParamJdbc = "call key_config_persist(?, ?)";
 	public static final String querySampleStoreProcOutputParamFull = "call key_config_persist(?, 'EVENT')";
 	
+	public static final String query1JdbcPaginationMysqlLimit = "SELECT A, B from T where C = ? and D = ? limit ?";
+	public static final String query1JdbcPaginationMysqlLimitOffset = "SELECT A, B from T where C = ? and D = ? limit ? offset ?";
+	
+	public static final String query1JdbcPaginationMysqlLimitFull = "SELECT A, B from T where C = 'c' and D = 'd' limit 10";
+	public static final String query1JdbcPaginationMysqlLimitOffsetFull = "SELECT A, B from T where C = 'c' and D = 'd' limit 10 offset 5";
+	
 	Query query1;
 	
 	@Before
 	public void setUp() {
-		Query query1=new Query();
+		query1=new Query();
 		query1.setQueryBody(getQueryBody(query1Jdbc));
 		query1.setQueryParams(getQueryParams(getQueryParam1(), getQueryParam2()));
 	}
@@ -306,7 +312,7 @@ public class QueryUtilsTest {
 	}
 	
 	@Test
-	public void paginatedQueries () {
+	public void paginatedMysqlQueries () {
 		Query query = getQuery(query1Jdbc);
 		QueryPagination qp = new QueryPagination();
 		qp.setMaxResult(10);
@@ -315,10 +321,29 @@ public class QueryUtilsTest {
 		//TODO qp adds maxResult and offset as (mandatory) queryParams
 		//TODO decorates the query regarding the DB (todo oracle, mysql, postgresql)
 		// assert 
+		String s = QueryUtils.getFullQuerySample(query);
 		
+		assertTrue(s +" but expect :"+query1JdbcPaginationMysqlLimit, query1JdbcPaginationMysqlLimit.equals(s));
+
 	}
 	
-	/*
+	@Test
+	public void paginatedOffsetMysqlQueries () {
+		Query query = getQuery(query1Jdbc);
+		QueryPagination qp = new QueryPagination();
+		qp.setMaxResult(10);
+		qp.setOffset(1);
+		query.setQueryPagination(qp);
+		
+		//TODO qp adds maxResult and offset as (mandatory) queryParams
+		//TODO decorates the query regarding the DB (todo oracle, mysql, postgresql)
+		// assert 
+		String s = QueryUtils.getFullQuerySample(query);
+		
+		assertTrue(s +" but expect :"+query1JdbcPaginationMysqlLimitOffset, query1JdbcPaginationMysqlLimitOffset.equals(s));
+		
+	}
+		/*
 	@Test
 	public void queryWithMultiParams2() {
 		//given
