@@ -25,6 +25,7 @@ import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.CommonUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.sql.PaginationUtils;
 import net.sf.minuteProject.utils.sql.QueryUtils;
 
 public class Query<T extends QueryModel> extends AbstractConfiguration {
@@ -60,6 +61,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private Scope queryScope = Scope.ALL_STACKS;
 	private boolean isScalar = false;
 	private boolean pagination = false;
+	private boolean paginationAsFilter = false;
 	private int paginationSize = 0;
 
 	public void setQueryModel (T t) {
@@ -140,12 +142,24 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		if (queryFilters==null) {
 			queryFilters = new ArrayList<QueryFilter>();
 		}
-		//this.getQueryFilters().get(0).getQueryParams().
+		if (!paginationAsFilter && hasPagination()) {
+			QueryFilter maxResultQueryFilter = PaginationUtils.getMaxResultQueryFilter(queryPagination);
+			if (maxResultQueryFilter!=null){
+				queryFilters.add(maxResultQueryFilter);
+			}
+			QueryFilter offsetQueryFilter = PaginationUtils.getOffsetQueryFilter(queryPagination);
+			if (offsetQueryFilter!=null){
+				queryFilters.add(offsetQueryFilter);
+			}
+			paginationAsFilter = true;
+		}
 		return queryFilters;
 	}
 
-	public void addQueryFilter(QueryFilter queryWhere) {
-		getQueryFilters().add(queryWhere);
+	public void addQueryFilter(QueryFilter queryFilter) {
+		if (queryFilter!=null) {
+			getQueryFilters().add(queryFilter);
+		}
 	}
 	
 	public List<QueryScheduler> getQuerySchedulers() {
@@ -200,6 +214,17 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public Table getEntityFromDirection(Direction dir) {
 		Table entity = getEntityRoot(dir);
 		if (dir.equals(Direction.IN)) {
+			//add pagination
+//			if (hasPagination()) {
+//				QueryFilter offsetQueryFilter = PaginationUtils.getOffsetQueryFilter(queryPagination);
+//				if (offsetQueryFilter!=null) {
+//					complementFields(entity, offsetQueryFilter.getQueryParams());
+//				}
+//				QueryFilter maxResultQueryFilter = PaginationUtils.getMaxResultQueryFilter(queryPagination);
+//				if (maxResultQueryFilter!=null) {
+//					complementFields(entity, maxResultQueryFilter.getQueryParams());
+//				}
+//			}
 			complementFields(entity, queryParams);
 		}
 		if (dir.equals(Direction.OUT)) {
@@ -331,6 +356,21 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 				table.addColumn(getColumn(table, queryParam));
 			}
 		}
+		/*
+		if (direction==Direction.IN) {
+			if (hasPagination()) {
+				QueryParam maxResultQueryParam = PaginationUtils.getMaxResultQueryParam(queryPagination);
+				if (maxResultQueryParam!=null) {
+					table.addColumn(getColumn(table, maxResultQueryParam));
+				}
+				QueryParam offsetQueryParam = PaginationUtils.getOffsetQueryParam(queryPagination);
+				if (offsetQueryParam!=null) {
+					list.add(offsetQueryParam);
+					table.addColumn(getColumn(table, offsetQueryParam));
+				}
+			}
+		}
+		*/
 	}
 
 	private void complementColumn(Table table, Direction direction) {
@@ -360,6 +400,27 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 					list.addAll(queryParams2.getFlatQueryParams(false));
 				}
 			}
+//			if (direction==Direction.IN) {
+//				if (hasPagination()) {
+//					QueryFilter offsetQueryFilter = PaginationUtils.getOffsetQueryFilter(queryPagination);
+//					QueryFilter maxResultQueryFilter = PaginationUtils.getMaxResultQueryFilter(queryPagination);
+//					if (offsetQueryFilter!=null) {
+//						list.addAll(offsetQueryFilter.getQueryParams().getFlatQueryParams(false));
+//					}
+//					if (maxResultQueryFilter!=null) {
+//						list.addAll(maxResultQueryFilter.getQueryParams().getFlatQueryParams(false));
+//					}
+////					QueryParam maxResultQueryParam = PaginationUtils.getMaxResultQueryParam(queryPagination);
+////					if (maxResultQueryParam!=null) {
+////						table.addColumn(getColumn(table, maxResultQueryParam));
+////					}
+////					QueryParam offsetQueryParam = PaginationUtils.getOffsetQueryParam(queryPagination);
+////					if (offsetQueryParam!=null) {
+////						list.add(offsetQueryParam);
+////						table.addColumn(getColumn(table, offsetQueryParam));
+////					}
+//				}
+//			}
 			return list;
 		}
 		if (getOutputParams() != null)

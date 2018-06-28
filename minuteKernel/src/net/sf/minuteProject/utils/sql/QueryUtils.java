@@ -145,25 +145,34 @@ public class QueryUtils {
 		return qp;
 	}
 
-	public static String getFullQueryQuestionMark(Query query) {
+	public static String getFullQueryQuestionMark(Query<QueryModel> query) {
 		return StringUtils.replace(getQueryQuestionMark(query), "\n", " ");
 	}
 	
-	public static String getQueryBodyQuestionMark(Query query) {
-		return StringUtils.replace(query.getQueryBody().getValue(), "\n", " ");
+	public static String getQueryBodyQuestionMark(Query<QueryModel> query) {
+		return StringUtils.replace(getQueryBodyQuestionMarkDefaultAndPagination(query), "\n", " ");
 	}
 	
-	public static String getQueryQuestionMark(Query<QueryModel> query) {
+	private static String getQueryBodyQuestionMarkDefaultAndPagination(Query<QueryModel> query) {
 		String queryRaw = query.getQueryBody().getValue();
 		//Decorate with pagination if needed
 		if (query.hasPagination()) {
 			//decorate string
-			String pagination_prefix = PaginationUtils.getPaginationPrefix(query.getQueryPagination());
-			String pagination_suffix = PaginationUtils.getPaginationSuffix(query.getQueryPagination());
+			String pagination_prefix = PaginationUtils.getPaginationFilterPrefix(query.getQueryPagination());
+			String pagination_suffix = PaginationUtils.getPaginationFilterSuffix(query.getQueryPagination());
 			queryRaw = pagination_prefix + queryRaw + pagination_suffix;
-			//add filters
-			//PaginationUtils.addQueryParams(query.getQueryPagination(), query.getQueryParams());
 		}
+		return queryRaw;
+	}
+	
+	public static String getQueryQuestionMark(Query<QueryModel> query) {
+		String queryRaw = getQueryBodyQuestionMarkDefaultAndPagination(query);
+		//Decorate with pagination if needed
+//		if (query.hasPagination()) {
+//			//add filters
+//			PaginationUtils.addQueryParams(query);
+//			query.getQueryParams().resetFlatQueryParams();
+//		}
 		//1 get query body
 		//sb.append(queryRaw);
 		//for each query where reference
@@ -201,6 +210,7 @@ public class QueryUtils {
 	}
 
 	private static String queryAndWhere(QueryFilter queryWhere, boolean isWhereDone) {
+		if (queryWhere.getConnectWord()==QueryFilter.AndWhere.NONE) return "";
 		return " "+((isWhereDone)?QueryFilter.AndWhere.AND.toString():queryWhere.getConnectWord().toString())+" ";
 	}
 
@@ -222,11 +232,6 @@ public class QueryUtils {
 			}
 			
 		}
-
-		/*
-		for (int i = 0; i < samplesSize; i++) {
-			querySt = replaceFirstArgWith(querySt, samples.get(i));
-		}*/
 		return querySt;
 	}
 
@@ -271,15 +276,15 @@ public class QueryUtils {
 //		return list;
 //	}
 
-	private static void addFilters(List<String> list, QueryParams params) {
-		for (QueryParam qp : params.getFlatQueryParams(false)) {
-			if (!qp.isOutputParam()) {
-				list.add(getParamSample(qp));
-			} else {
-				list.add("?");
-			}
-		}
-	}
+//	private static void addFilters(List<String> list, QueryParams params) {
+//		for (QueryParam qp : params.getFlatQueryParams(false)) {
+//			if (!qp.isOutputParam()) {
+//				list.add(getParamSample(qp));
+//			} else {
+//				list.add("?");
+//			}
+//		}
+//	}
 	private static List<QueryParam> getQueryParamAndFilters(Query<QueryModel> query) {
 		List<QueryParam> list = new ArrayList<QueryParam>();
 		if (query.getQueryParams() != null) {
