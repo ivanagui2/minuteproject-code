@@ -3,9 +3,9 @@ package net.sf.minuteProject.configuration.bean.model.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-
 import org.apache.commons.lang.StringUtils;
+
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 
 public class QueryParams extends AbstractConfiguration {
 
@@ -44,6 +44,10 @@ public class QueryParams extends AbstractConfiguration {
 			}
 		}
 		return uniqueQueryParams;
+	}
+	
+	public void resetFlatQueryParams() {
+		flatQueryParams=null;
 	}
 	
 	public List<QueryParam> getFlatQueryParams(boolean isMandatory) {

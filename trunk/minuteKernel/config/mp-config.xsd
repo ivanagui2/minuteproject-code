@@ -823,8 +823,12 @@
 	</xs:complexType>
 	
 	<xs:complexType name="query-pagination">
+		<xs:attribute name="max-result-default" type="xs:int"/>
 		<xs:attribute name="max-result" type="xs:int"/>
+		<xs:attribute name="max-result-param" type="xs:string"/>
+		
 		<xs:attribute name="offset" type="xs:int"/>
+		<xs:attribute name="offset-param" type="xs:string"/>
 	</xs:complexType>
 	
 	

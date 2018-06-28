@@ -317,11 +317,14 @@
 							<pattern value="query-pagination">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.model.statement.QueryPagination" />
-								<set-next-rule methodname="addQueryDisplayNewColumn"
+								<set-next-rule methodname="setQueryPagination"
 									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryPagination" />
 								<set-properties-rule>
 									<alias attr-name="offset" prop-name="offset" />
+									<alias attr-name="offset-param" prop-name="offsetParam" />
 									<alias attr-name="max-result" prop-name="maxResult" />
+									<alias attr-name="max-result-default" prop-name="maxResultDefault" />
+									<alias attr-name="max-result-param" prop-name="maxResultParam" />
 								</set-properties-rule>
 							</pattern>
 							
@@ -2059,6 +2062,19 @@
 									<alias attr-name="style-color-from-column" prop-name="styleColorFromColumn" />
 								</set-properties-rule>
 							</pattern>
+						</pattern>
+						<pattern value="query-pagination">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.model.statement.QueryPagination" />
+							<set-next-rule methodname="setQueryPagination"
+								paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryPagination" />
+							<set-properties-rule>
+								<alias attr-name="offset" prop-name="offset" />
+								<alias attr-name="offset-param" prop-name="offsetParam" />
+								<alias attr-name="max-result" prop-name="maxResult" />
+								<alias attr-name="max-result-default" prop-name="maxResultDefault" />
+								<alias attr-name="max-result-param" prop-name="maxResultParam" />
+							</set-properties-rule>
 						</pattern>
 						<pattern value="query-fields/query-field">
 							<object-create-rule
