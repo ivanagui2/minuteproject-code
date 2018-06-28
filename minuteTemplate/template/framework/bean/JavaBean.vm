@@ -47,7 +47,13 @@ public class ${className} {
 #elseif ($columnUtils.isTimeColumn($column))
 #end
 #putValidationConstraints()
-    private $columnType $columnVar; 
+    private $columnType $columnVar;
+#if($hasDefaultValue)
+#set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
+    public $columnType get${columnClass}(){
+    	return $columnVar!=null?$columnVar:$defaultConstant;
+    }
+#end
 #else
     private List<$columnType> $columnVar;
 
