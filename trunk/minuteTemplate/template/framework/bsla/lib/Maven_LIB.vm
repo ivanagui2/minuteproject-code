@@ -63,14 +63,19 @@
 #end
 
 #macro (exposeSassPluginDep)
+#set($disableSassMavenPlugin=$template.getPropertyValue("disable-sass-maven-plugin",false))
+#if(!$disableSassMavenPlugin)
 		        <plugin>
 		        	<groupId>nl.geodienstencentrum.maven</groupId>
 		        	<artifactId>sass-maven-plugin</artifactId>
 		        	<version>3.5.2</version>
 		        </plugin>
 #end
+#end
 
 #macro (exposeSassPlugin)
+#set($disableSassMavenPlugin=$template.getPropertyValue("disable-sass-maven-plugin",false))
+#if(!$disableSassMavenPlugin)
 			<plugin>
 				<groupId>nl.geodienstencentrum.maven</groupId>
 				<artifactId>sass-maven-plugin</artifactId>
@@ -106,4 +111,5 @@
                     </execution>
                 </executions>
 			</plugin>
+#end
 #end

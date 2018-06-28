@@ -682,8 +682,13 @@ $!updatedAreaEnd
 				connectionWord = " WHERE ";
 			}
 #end
+#if ($filter.isNone())
+			connectionWord = "";
+#end
 			query = StringUtils.replace (query, "$"+"$filter.name", connectionWord + getChunk${filter.name}(${sddInputBeanVariable}, CHUNK_${filter.name}) ); //replaceOnce
+#if (!$filter.isNone())
 			isWhereDone = true;
+#end
 		} else {
 			query = StringUtils.replace (query, "$"+"$filter.name","");//replaceOnce
 		}
