@@ -1,15 +1,6 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
-import static net.sf.minuteProject.utils.TableUtils.liveBusinessDataContentType;
-import static net.sf.minuteProject.utils.TableUtils.masterDataContentType;
-import static net.sf.minuteProject.utils.TableUtils.pseudoStaticDataContentType;
-import static net.sf.minuteProject.utils.TableUtils.referenceDataContentType;
-
-import java.util.stream.Collectors;
-
-import net.sf.minuteProject.configuration.bean.StatementModel;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
-import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class SddCacheConvention extends SddContentTypeConvention {
 
@@ -27,13 +18,13 @@ public class SddCacheConvention extends SddContentTypeConvention {
 
 	protected boolean isMatch(Query<?> query) {
 		if (APPLY_CACHE_TO_ENTITY_STARTING_WITH.equals(type))
-			return isBeginningMatch(query);
+			return isBeginningMatch(query, pattern);
 		else if (APPLY_CACHE_TO_ENTITY_ENDING_WITH.equals(type))
-			return isEndingMatch(query);
+			return isEndingMatch(query, pattern);
 		else if (APPLY_CACHE_TO_ENTITY_BELONGING_TO_PACKAGE.equals(type))
-			return isBelongsToPackage(query);
+			return isBelongsToPackage(query, pattern);
 		else if (APPLY_CACHE_TO_ENTITY_NOT_BELONGING_TO_PACKAGE.equals(type))
-			return doesNotBelongToPackage(query);
+			return doesNotBelongToPackage(query, pattern);
 		else if (APPLY_CACHE_TO_CONTENT_TYPE.equals(type))
 			return isOfContentType(query);
 		return false;

@@ -46,4 +46,14 @@ class SddDummyPrimaryKeyConvention extends SddConvention{
 		column.setName("DUMMY_PK_ID")
 		return column
 	}
+	@Override
+	protected boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	protected void apply(Query<?> query) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -5,11 +5,7 @@ import static net.sf.minuteProject.utils.TableUtils.masterDataContentType;
 import static net.sf.minuteProject.utils.TableUtils.pseudoStaticDataContentType;
 import static net.sf.minuteProject.utils.TableUtils.referenceDataContentType;
 
-import java.util.stream.Collectors;
-
-import net.sf.minuteProject.configuration.bean.StatementModel;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
-import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class SddContentTypeConvention extends SddConvention {
 
@@ -18,19 +14,19 @@ public class SddContentTypeConvention extends SddConvention {
 	public static final String APPLY_CONTENT_TYPE_TO_ENTITY_BELONGING_TO_PACKAGE  = "apply-content-type-to-entity-belonging-to-package";
 	public static final String APPLY_CONTENT_TYPE_TO_ENTITY_NOT_BELONGING_TO_PACKAGE  = "apply-content-type-to-entity-not-belonging-to-package";
 	
-	private String pattern, contentType;
-	
-	@Override
-	public void apply(StatementModel model) {
-		if (isValid()) {
-			model.getSddPackage().getQueryPackages()
-			.stream()
-			.flatMap(t -> t.getListOfQueries().stream())
-			.collect(Collectors.toList())
-			.stream()
-			.forEach (t -> apply(t));
-		}
-	}
+	protected String pattern, contentType;
+//	
+//	@Override
+//	public void apply(StatementModel model) {
+//		if (isValid()) {
+//			model.getSddPackage().getQueryPackages()
+//			.stream()
+//			.flatMap(t -> t.getListOfQueries().stream())
+//			.collect(Collectors.toList())
+//			.stream()
+//			.forEach (t -> apply(t));
+//		}
+//	}
 
 	protected void apply(Query<?> query) {
 		if (isMatch (query)) {
@@ -42,46 +38,17 @@ public class SddContentTypeConvention extends SddConvention {
 
 	protected boolean isMatch(Query<?> query) {
 		if (APPLY_CONTENT_TYPE_TO_ENTITY_STARTING_WITH.equals(type))
-			return isBeginningMatch(query);
+			return isBeginningMatch(query, pattern);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH.equals(type))
-			return isEndingMatch(query);
+			return isEndingMatch(query, pattern);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_BELONGING_TO_PACKAGE.equals(type))
-			return isBelongsToPackage(query);
+			return isBelongsToPackage(query, pattern);
 		else if (APPLY_CONTENT_TYPE_TO_ENTITY_NOT_BELONGING_TO_PACKAGE.equals(type))
-			return doesNotBelongToPackage(query);
+			return doesNotBelongToPackage(query, pattern);
 		return false;
 	}
 
-	protected boolean isBeginningMatch(Query<?> query) {
-		String tableNameLc = query.getName().toLowerCase();
-		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
-			if (tableNameLc.startsWith(s))
-				return true;
-		}
-		return false;
-	}
-	
-	protected boolean isEndingMatch(Query<?> query) {
-		String tableNameLc = query.getName().toLowerCase();
-		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
-			if (tableNameLc.endsWith(s))
-				return true;
-		}
-		return false;
-	}
-	
-	protected boolean isBelongsToPackage(Query<?> query) {
-		String packageNameLowerCase = query.getPackage().getName().toLowerCase();
-		for (String s : ParserUtils.getList(pattern.toLowerCase())) {
-			if (packageNameLowerCase.endsWith(s))
-				return true;
-		}
-		return false;
-	}
-	
-	protected boolean doesNotBelongToPackage(Query<?> query) {
-		return !isBelongsToPackage(query);
-	}
+
 
 	protected boolean isValid () {
 		if ((APPLY_CONTENT_TYPE_TO_ENTITY_ENDING_WITH.equals(type) 
