@@ -90,11 +90,10 @@ public class QueryUtilsTest {
 	public static final String querySampleStoreProcOutputParamJdbc = "call key_config_persist(?, ?)";
 	public static final String querySampleStoreProcOutputParamFull = "call key_config_persist(?, 'EVENT')";
 	
-	public static final String query1JdbcPaginationMysqlLimit = "SELECT A, B from T where C = ? and D = ? limit ?";
-	public static final String query1JdbcPaginationMysqlLimitOffset = "SELECT A, B from T where C = ? and D = ? limit ? offset ?";
+	public static final String query1JdbcPaginationMysqlLimit = "SELECT A, B from T where C = ? and D = ?";
 	
-	public static final String query1JdbcPaginationMysqlLimitFull = "SELECT A, B from T where C = 'c' and D = 'd' limit 10";
-	public static final String query1JdbcPaginationMysqlLimitOffsetFull = "SELECT A, B from T where C = 'c' and D = 'd' limit 10 offset 5";
+	public static final String query1JdbcPaginationMysqlLimitFull = "SELECT A, B from T where C = 'c' and D = 'd' limit 1 offset 1";
+	public static final String query1JdbcPaginationMysqlLimitOffsetFull = "SELECT A, B from T where C = 'c' and D = 'd' limit 1 offset 1";
 	
 	Query query1;
 	
@@ -313,9 +312,12 @@ public class QueryUtilsTest {
 	
 	@Test
 	public void paginatedMysqlQueries () {
-		Query query = getQuery(query1Jdbc);
+		Query query = getQuery(query1JdbcPaginationMysqlLimit);
+		
+		query.getQueryParams().addQueryParam(getQueryParam("string", "'c'", 1));
+		query.getQueryParams().addQueryParam(getQueryParam("string", "'d'", 2));
 		QueryPagination qp = new QueryPagination();
-		qp.setMaxResult(10);
+		//qp.setMaxResult(10);
 		query.setQueryPagination(qp);
 		
 		//TODO qp adds maxResult and offset as (mandatory) queryParams
@@ -323,16 +325,19 @@ public class QueryUtilsTest {
 		// assert 
 		String s = QueryUtils.getFullQuerySample(query);
 		
-		assertTrue(s +" but expect :"+query1JdbcPaginationMysqlLimit, query1JdbcPaginationMysqlLimit.equals(s));
+		assertTrue(s +" but expect :"+query1JdbcPaginationMysqlLimitFull, query1JdbcPaginationMysqlLimitFull.equals(s));
 
 	}
 	
+	
 	@Test
 	public void paginatedOffsetMysqlQueries () {
-		Query query = getQuery(query1Jdbc);
+		Query query = getQuery(query1JdbcPaginationMysqlLimit);
+		query.getQueryParams().addQueryParam(getQueryParam("string", "'c'", 1));
+		query.getQueryParams().addQueryParam(getQueryParam("string", "'d'", 2));
 		QueryPagination qp = new QueryPagination();
-		qp.setMaxResult(10);
-		qp.setOffset(1);
+//		qp.setMaxResult(10);
+//		qp.setOffset(5);
 		query.setQueryPagination(qp);
 		
 		//TODO qp adds maxResult and offset as (mandatory) queryParams
@@ -340,7 +345,7 @@ public class QueryUtilsTest {
 		// assert 
 		String s = QueryUtils.getFullQuerySample(query);
 		
-		assertTrue(s +" but expect :"+query1JdbcPaginationMysqlLimitOffset, query1JdbcPaginationMysqlLimitOffset.equals(s));
+		assertTrue(s +" but expect :"+query1JdbcPaginationMysqlLimitOffsetFull, query1JdbcPaginationMysqlLimitOffsetFull.equals(s));
 		
 	}
 		/*
