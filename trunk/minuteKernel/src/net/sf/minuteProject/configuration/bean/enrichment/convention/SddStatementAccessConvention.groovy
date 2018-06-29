@@ -38,6 +38,16 @@ class SddStatementAccessConvention extends SddConvention{
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
+	@Override
+	protected boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	protected void apply(Query<?> query) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }

@@ -1,12 +1,8 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
 import net.sf.minuteProject.configuration.bean.StatementModel;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.ColumnDDLUtils;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
-import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
 class SddPresentationAccessConvention extends SddConvention{
@@ -33,6 +29,16 @@ class SddPresentationAccessConvention extends SddConvention{
 	}
 	public void setNoMenuEntryForPackages(String noMenuEntryForPackages) {
 		this.noMenuEntryForPackages = noMenuEntryForPackages;
+	}
+	@Override
+	protected boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	protected void apply(Query<?> query) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

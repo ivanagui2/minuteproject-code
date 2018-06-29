@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.Package;
 import net.sf.minuteProject.configuration.bean.StatementModel;
+import net.sf.minuteProject.configuration.bean.model.statement.Query;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
 public class SddPresentationPackageConvention extends SddConvention{
@@ -55,6 +56,16 @@ public class SddPresentationPackageConvention extends SddConvention{
 	}
 	public void setPackageOrderName(String packageOrderName) {
 		this.packageOrderName = packageOrderName;
+	}
+	@Override
+	protected boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	protected void apply(Query<?> query) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
