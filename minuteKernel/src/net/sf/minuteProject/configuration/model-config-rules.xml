@@ -192,6 +192,15 @@
 									<alias attr-name="pattern" prop-name="pattern" />
 								</set-properties-rule>	
 				            </pattern>
+							<pattern value="sdd-scope-convention">
+								<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddScopeConvention"/>		
+								<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddScopeConvention"/>		
+								<set-properties-rule>
+									<alias attr-name="scope" prop-name="scope" />	
+									<alias attr-name="type" prop-name="type" />
+									<alias attr-name="pattern" prop-name="pattern" />
+								</set-properties-rule>	
+				            </pattern>
 							<pattern value="presentation-access-convention">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddPresentationAccessConvention" />
@@ -1949,6 +1958,15 @@
 							<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddCacheConvention"/>		
 							<set-properties-rule>
 								<alias attr-name="type" prop-name="type" />	
+								<alias attr-name="pattern" prop-name="pattern" />
+							</set-properties-rule>	
+			            </pattern>
+						<pattern value="sdd-scope-convention">
+							<object-create-rule classname="net.sf.minuteProject.configuration.bean.enrichment.convention.SddScopeConvention"/>		
+							<set-next-rule methodname="addConvention" paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.SddScopeConvention"/>		
+							<set-properties-rule>
+								<alias attr-name="scope" prop-name="scope" />	
+								<alias attr-name="type" prop-name="type" />
 								<alias attr-name="pattern" prop-name="pattern" />
 							</set-properties-rule>	
 			            </pattern>
