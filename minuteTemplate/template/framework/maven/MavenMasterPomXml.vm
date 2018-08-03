@@ -26,7 +26,9 @@ $!updatedAreaEnd
 	</modules>
 
 	<properties>
-		<lombok.version>1.16.16</lombok.version>
+		<lombok.version>${lombokVersion}</lombok.version>
+		<powermock.version>${powerMockitoVersion}</powermock.version>
+		<junit.version>${junitVersion}</junit.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -37,6 +39,28 @@ $!updatedAreaEnd
 				<version>${lombok.version}</version>
 				<scope>provided</scope>
 			</dependency>
+			
+	        <dependency>
+	            <groupId>junit</groupId>
+	            <artifactId>junit</artifactId>
+	            <version>${junit.version}</version>
+	            <scope>test</scope>
+	        </dependency>
+        
+	        <dependency>
+	            <groupId>org.powermock</groupId>
+	            <artifactId>powermock-module-junit4</artifactId>
+	            <version>${powermock.version}</version>
+	            <scope>test</scope>
+	        </dependency>
+        
+	        <dependency>
+	            <groupId>org.powermock</groupId>
+	            <artifactId>powermock-api-mockito</artifactId>
+	            <version>${powermock.version}</version>
+	            <scope>test</scope>
+	        </dependency>
+        
 		</dependencies>
 	</dependencyManagement>
 	

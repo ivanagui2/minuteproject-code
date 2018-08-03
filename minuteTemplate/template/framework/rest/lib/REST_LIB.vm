@@ -53,3 +53,11 @@
 #set($sunjerseyVersion=$template.getPropertyValue("add-rest-implementation-sun-jersey-version","1.18.1"))
 #set($atmosphereVersion=$template.getPropertyValue("add-rest-implementation-atmosphere-version","2.4.12"))
 #end
+
+#macro (exposeMavenCommonDependencies)
+#set($junitVersion=$template.getPropertyValue("add-junit-version","4.12"))
+#set($powerMockitoVersion=$template.getPropertyValue("add-powermockito-version","2.25"))
+#set($jacksonVersion=$template.getPropertyValue("add-rest-implementation-jackson-version","2.8.6"))
+#set($sunjerseyVersion=$template.getPropertyValue("add-rest-implementation-sun-jersey-version","1.18.1"))
+#set($atmosphereVersion=$template.getPropertyValue("add-rest-implementation-atmosphere-version","2.4.12"))
+#end

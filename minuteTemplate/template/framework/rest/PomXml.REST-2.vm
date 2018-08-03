@@ -3,6 +3,7 @@
 #exposeMaven()
 #exposeMavenCXF()
 #exposeMavenJersey()
+#exposeMavenCommonDependencies()
 #putTargetServerDefinition()
 #exposeWebXmlSpecific()
 #set($restPomPackaging=$template.getPropertyValue("rest-pom-maven-packaging", "jar"))
@@ -56,9 +57,30 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+#if(!$hasMasterPom)
             <version>${junit.version}</version>
+#end
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+#if(!$hasMasterPom)
+            <version>${powermock.version}</version>
+#end
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+#if(!$hasMasterPom)
+            <version>${powermock.version}</version>
+#end
+            <scope>test</scope>
+        </dependency>
+        
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -304,14 +326,15 @@
         </plugins>
     </reporting>
     <properties>
-        <junit.version>4.10</junit.version>
+        <junit.version>${junitVersion}</junit.version>
         <cxf.version>${cxfVersion}</cxf.version>
         <jersey.version>${jerseyVersion}</jersey.version>
 		<guava.version>${guavaVersion}</guava.version>
         <atmosphere.version>${atmosphereVersion}</atmosphere.version>
         <jackson.version>${jacksonVersion}</jackson.version>
 #if(!$hasMasterPom)
-		<lombok.version>1.16.16</lombok.version>
+		<lombok.version>${lombokVersion}</lombok.version>
+		<powermock.version>${powerMockitoVersion}</powermock.version>
 #end
     </properties>
 </project>
