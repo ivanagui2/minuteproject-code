@@ -6,6 +6,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
  * @author Florian Adler
  *
  */
+@Deprecated
 public class Query extends AbstractConfiguration{
 	
 	private String value;

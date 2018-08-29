@@ -8,7 +8,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteproject.model.db.type.FieldType;
 
-public class Field extends AbstractConfiguration {
+public class Field extends AbstractConfiguration implements CoreElement {
 
 	private Entity entity;
 	private String linkToTargetEntity, linkToTargetField, linkReferenceAlias;

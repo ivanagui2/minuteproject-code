@@ -1,34 +1,26 @@
 package net.sf.minuteProject.configuration.bean.enrichment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
-import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
-import net.sf.minuteProject.configuration.bean.enrichment.rule.Rule;
-import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
-import net.sf.minuteProject.configuration.bean.enumeration.Order;
-import net.sf.minuteProject.configuration.bean.model.data.Database;
-import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.DatabaseDDLUtils;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
-import net.sf.minuteProject.configuration.bean.query.Ordering;
-import net.sf.minuteProject.utils.ColumnUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteProject.utils.DatabaseUtils;
-import net.sf.minuteProject.utils.ReferenceUtils;
-import net.sf.minuteProject.utils.StringUtils;
-import net.sf.minuteProject.utils.TableUtils;
-
-import org.apache.ddlutils.alteration.ColumnOrderChange;
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.ForeignKey;
 import org.apache.ddlutils.model.Reference;
 
-public class Entity extends AbstractConfiguration {
+import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
+import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.model.data.Database;
+import net.sf.minuteProject.configuration.bean.model.data.Table;
+import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
+import net.sf.minuteProject.configuration.bean.query.Ordering;
+import net.sf.minuteProject.utils.ColumnUtils;
+import net.sf.minuteProject.utils.ConvertUtils;
+import net.sf.minuteProject.utils.StringUtils;
+import net.sf.minuteProject.utils.TableUtils;
+
+public class Entity extends AbstractConfiguration implements CoreElement {
 	
 	private String structure;
 	private VirtualPrimaryKey virtualPrimaryKey;
