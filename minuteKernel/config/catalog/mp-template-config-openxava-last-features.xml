@@ -427,6 +427,14 @@
 		</template>
 				
 		<template package-root=""
+			name="BuildCommandBashCI" templateFileName="BuildCommandBashCI.vm" 
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
+			add-model-dir-name="false"
+			file-extension="sh" file-prefix="build-" file-suffix="-CI" 
+			application-specific="true">
+		</template>
+				
+		<template package-root=""
 			name="ResetCommandWindows" templateFileName="ResetCommandWindows.vm" 
 			subdir="" outputsubdir="" technicalPackage="" add-model-name="true" 
 			add-model-dir-name="false"
