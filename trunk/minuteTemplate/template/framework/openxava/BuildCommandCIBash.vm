@@ -2,7 +2,14 @@
 #putOXTemplateDefinition()
 #!/bin/sh
 
-GENDIR=$(cd `dirname $0`;pwd)
+# copy me into a jenkins script shell invoker
+# of course the properties MP_HOME and OX_HOME must be set
+
+
+# GENDIR=$(cd `dirname $0`;pwd)
+# set GENDIR to your jenkins minuteproject's openxava job artifacts are
+# ex : GENDIR="/var/lib/jenkins/jobs/my openxava job/workspace/OPENXAVA"
+GENDIR=<toset>
 
 ##create OX project
 cd $OX_HOME/workspace/OpenXavaTemplate
@@ -24,10 +31,6 @@ cp other/tomcat/snippet/context.xml $OX_HOME/tomcat/conf
 ##add jdbc driver dep in tomcat\lib
 cp $MP_HOME/application/lib/extra/*.jar $OX_HOME/tomcat/lib
 
-## start tomcat in appart process
-cd $OX_HOME/tomcat/bin
-./startup.sh
-
 cd $OX_HOME/workspace/$applicationOX
 ant -f mp4openxava-build.xml
 
@@ -39,8 +42,5 @@ ant
 
 cd $OX_HOME/workspace/$applicationOX
 ant generatePortlets
-
-##firefox http://localhost:8080/$applicationOX/xava/homeMenu.jsp
-firefox http://localhost:8080/$applicationOX
 
 cd "$GENDIR"
