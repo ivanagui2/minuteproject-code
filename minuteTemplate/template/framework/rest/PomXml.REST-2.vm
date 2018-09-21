@@ -241,6 +241,23 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+        <!-- jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <!-- jjwt end -->
 #if($hasCorsFilter)
 #if($corsFilter=="thetransactioncompany")
 		<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
@@ -296,6 +313,7 @@
             </plugin>
 #end
 #exposeCompilerPlugin()
+#exposeApplicationPropertiesPlugin()
 #exposeSassPlugin()
 	      <plugin>
 	        <groupId>org.apache.maven.plugins</groupId>
@@ -306,6 +324,16 @@
               </configuration>
 	      </plugin>
         </plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<filters>
+			<filter>${basedir}/target/application.properties</filter>
+		</filters>
     </build>
     <reporting>
         <plugins>
@@ -326,15 +354,14 @@
         </plugins>
     </reporting>
     <properties>
-        <junit.version>${junitVersion}</junit.version>
+
         <cxf.version>${cxfVersion}</cxf.version>
         <jersey.version>${jerseyVersion}</jersey.version>
 		<guava.version>${guavaVersion}</guava.version>
         <atmosphere.version>${atmosphereVersion}</atmosphere.version>
         <jackson.version>${jacksonVersion}</jackson.version>
 #if(!$hasMasterPom)
-		<lombok.version>${lombokVersion}</lombok.version>
-		<powermock.version>${powerMockitoVersion}</powermock.version>
+#putRESTDependencyVersions()
 #end
     </properties>
 </project>

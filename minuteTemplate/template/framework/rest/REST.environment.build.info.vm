@@ -1,5 +1,6 @@
-##TODO_ENV
-package ${package};
+#exposeVariableModelSpecific()
+#exposeRESTModelCache()
+package $packageName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -9,31 +10,27 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.winy.bean.ApplicationInfoBean;
-
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.Properties;
 
-@Path("/applicationinfo")
+import $modelRestCacheableImport;
+
+@Path("${model.name}/applicationinfo")
 @Produces(MediaType.APPLICATION_JSON)
 @Data
-public class ApplicationInfoResource extends WinyResource{
+@Slf4j
+public class ApplicationInfoResource {
 
 	@Context
 	HttpServletRequest req;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@${modelRestCacheableClass}(cc = "public, max-age=36000")
     public ApplicationInfo getApplicationInfo() throws IOException{
-        return getApplicationInfo();
-    }
-    
-    @Path("/properties")
-    @GET
-	@Produces(MediaType.APPLICATION_JSON)
-    public ApplicationInfo getApplicationInfo() throws IOException{
-    	//TODO add all properties for the env that are not backend scoped
-        return getApplicationInfo();
+        return getApplicationInfoDetails();
     }
     
     @Data
@@ -43,22 +40,33 @@ public class ApplicationInfoResource extends WinyResource{
     	private String buildTime;
     	private String buildId;
     	private String applicationVersion;
-    	private String cmsVersion;
+    	private String vcsRevision;
     }
 
-    public ApplicationInfo getApplicationInfo() {
+    public ApplicationInfo getApplicationInfoDetails() {
         ApplicationInfo applicationInfo = new ApplicationInfo();
         try {
             Properties props = new Properties();
             props.load(getClass().getResourceAsStream("/application.properties"));
-            applicationInfo.environment = "PROTO";
+            
             applicationInfo.buildNumber = props.getProperty("build.number");
             applicationInfo.buildTime = props.getProperty("build.time");
             applicationInfo.buildId = props.getProperty("build.id");
             applicationInfo.applicationVersion = props.getProperty("application.version");
-            applicationInfo.cmsRevision = props.getProperty("cms.version");
+            applicationInfo.vcsRevision = props.getProperty("vcs.version");
+            
+            //TODO environment is found from the file referenced by system properties passed as a runtime parameter
+            //via system prop -Denv="PROTO" or -Denvironment="PROTO" System.getProperty("environment")
+			String environment = System.getProperty("environment");
+            if (environment == null) {
+				environment = System.getProperty("env");
+			}
+            if (environment == null) {
+				environment = "TBD";
+			} 
+            applicationInfo.environment = environment;
         } catch (IOException ioe) {
-            logger.error("cannot load application.properties");
+            log.error("cannot load application.properties");
         }
         return applicationInfo;
     }
