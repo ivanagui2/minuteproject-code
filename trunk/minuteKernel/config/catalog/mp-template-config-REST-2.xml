@@ -116,7 +116,33 @@
 			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
 			<property name="format" value="timestamp" />
 		</template>
+		
+		<!-- jwt -->
+				
+		<template name="REST.JWTTokenNeeded.Annotation" templateFileName="REST.JWTTokenNeeded.Annotation.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="JWTTokenNeeded" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
+				
+		<template name="REST.JWTTokenNeededFilter" templateFileName="REST.JWTTokenNeededFilter.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="JWTTokenNeededFilter" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
+				
+		<template name="REST.JWTTokenResource" templateFileName="REST.JWTTokenResource.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="JWTTokenResource" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
 
+		
+		<template name="REST.environment.build.info" templateFileName="REST.environment.build.info.vm" 
+			technicalPackage="rest"
+			file-extension="java" file-suffix="ApplicationInfoResource" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>
 <!-- 
 		<template name="REST.jackson.serializer.date" templateFileName="REST.jackson.serializer.date.vm" 
 			subdir="" outputsubdir="" technicalPackage="utils"
