@@ -1,5 +1,6 @@
 #generatorSpecific()
 #exposeMaven()
+#exposeMavenCommonDependencies()
 #exposeVariableModelSpecific()
 ##<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -26,9 +27,7 @@ $!updatedAreaEnd
 	</modules>
 
 	<properties>
-		<lombok.version>${lombokVersion}</lombok.version>
-		<powermock.version>${powerMockitoVersion}</powermock.version>
-		<junit.version>${junitVersion}</junit.version>
+#putRESTDependencyVersions()
 	</properties>
 	
 	<dependencyManagement>

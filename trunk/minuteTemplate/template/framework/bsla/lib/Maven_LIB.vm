@@ -48,6 +48,33 @@
 				</plugin>
 #end
 
+
+#macro (exposeApplicationPropertiesPlugin)
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<executions>
+						<execution>
+							<phase>generate-resources</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<tasks>
+									<!-- Safety -->
+									<mkdir dir="${project.build.directory}"/>
+					
+									<tstamp>
+										<format property="last.updated" pattern="yyyy-MM-dd hh:mm:ss"/>
+									</tstamp>
+									<echo file="${basedir}/target/application.properties" message="build.time=${last.updated}"/>
+								</tasks>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+#end
+
 #macro (exposeJacocoPluginDep)
 	            <plugin>
             		<groupId>org.jacoco</groupId>
