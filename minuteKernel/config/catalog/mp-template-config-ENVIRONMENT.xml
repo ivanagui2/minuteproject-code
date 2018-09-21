@@ -20,6 +20,15 @@
 			file-extension="properties">
 		</template>
 
+		<template name="application.properties" templateFileName="application.properties.vm" 
+			file-prefix="application" 
+			add-model-dir-name="false"
+			scope-specific-value="application"
+			has-updatable-nature="true"
+			add-model-name="false"
+			file-extension="properties">
+		</template>
+		
 	</template-target>
   	         		
 </target>

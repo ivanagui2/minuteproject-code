@@ -13,6 +13,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.Validation;
 import net.sf.minuteProject.configuration.bean.enumeration.Cache;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
@@ -51,6 +52,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private List<Action> inputActions;
 	private List<QueryChunk> queryChunks;
 	private List<QueryPivot> pivots;
+	private List<Validation<Query>> validations;
 	private String packageName;
 	private boolean isWrite = false;
 	private String contentType;
