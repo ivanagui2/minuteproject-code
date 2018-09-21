@@ -62,6 +62,9 @@ public class ApplicationInfoResource {
 				environment = System.getProperty("env");
 			}
             if (environment == null) {
+				environment = System.getProperty("spring.profiles.active");
+			} 
+            if (environment == null) {
 				environment = "TBD";
 			} 
             applicationInfo.environment = environment;
