@@ -4,21 +4,34 @@
 #exposeBackendTechnology()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>${groupId}</groupId>
+    <modelVersion>4.0.0</modelVersion>
+#if($hasMasterPom)
+#set($masterPomArtifactId = $mavenUtils.getMasterPomArtifactId($template, $generatorBean))
+    <parent>
+        <artifactId>${masterPomArtifactId}</artifactId>
+        <groupId>${groupId}</groupId>
+        <version>${version}-SNAPSHOT</version>
+    </parent>
+
+#end
+#if(!$hasMasterPom)
+  	<groupId>${groupId}</groupId>
+  	<version>${version}-SNAPSHOT</version>
+#end
+##  <groupId>${groupId}</groupId>
 #if($isEJBBackend)
   <artifactId>${artifactId}</artifactId>
 #else
   <artifactId>${generatorBean.name}Bsla</artifactId><!--todo change -->
 #end
   <packaging>jar</packaging>
-  <version>${version}-SNAPSHOT</version>
+##  <version>${version}-SNAPSHOT</version>
 #if($isEJBBackend)
   <name>$generatorBean.name BELA specification and implementation</name>
 #else
   <name>$generatorBean.name BSLA specification and implementation</name>
-#end  
-  <url>http://maven.apache.org</url>
+#end
+
   <dependencies>
 
     <dependency>
@@ -26,6 +39,7 @@
         <artifactId>$DbApiName</artifactId>
         <version>${version}-SNAPSHOT</version>
     </dependency>
+    
 	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
