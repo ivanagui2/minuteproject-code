@@ -1,10 +1,11 @@
 package net.sf.minuteProject.utils.property;
 
+import java.util.Optional;
+
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.code.RestrictedCodeUtils;
-import static net.sf.minuteProject.configuration.bean.enrichment.Trigger.*;
 
 public class PropertyUtils {
 
@@ -58,6 +59,32 @@ public class PropertyUtils {
 	
 	public static boolean isPropertyTagContain(Property property, String name) {
 		return isPropertyTagCondition(property, name, CONTAIN);
+	}
+
+	public static String convertValueIfSystemOrEnvironmentVariable(String input) {
+		Optional<String> variable = getVariable(input);
+		if (variable.isPresent()) {
+			return resolveSystemOrEnvironmentVariable(variable.get());
+		}
+		return input;
+	}
+
+	private static String resolveSystemOrEnvironmentVariable(String input) {
+		String var = System.getProperty(input);
+		if (var!=null)
+			return var;
+		var = System.getenv(input);
+		if (var!=null)
+			return var;		
+		return input;
+	}
+
+	private static Optional<String> getVariable(String input) {
+		// TODO Auto-generated method stub
+		if (StringUtils.startsWith(input, "${") && StringUtils.endsWith(input, "}")) {
+			return Optional.of(StringUtils.substringBetween(input, "${", "}"));
+		}
+		return Optional.empty();
 	}
 
 
