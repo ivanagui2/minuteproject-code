@@ -1,21 +1,16 @@
 package net.sf.minuteProject.configuration.bean;
 
-import java.io.File;
-
 import javax.sql.DataSource;
+
+//import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.connection.Driver;
 import net.sf.minuteProject.configuration.bean.model.data.DataModelFactory;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.strategy.datamodel.PrimaryKeyPolicy;
-
-import org.apache.ddlutils.Platform;
-import org.apache.ddlutils.PlatformFactory;
-import org.apache.ddlutils.io.DatabaseIO;
-
-//import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.lang.StringUtils;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 public class DataModel {
 	
@@ -27,10 +22,17 @@ public class DataModel {
 	private String schema;
 	private String databaseType;
 	private PrimaryKeyPolicy primaryKeyPolicy;
+	private boolean isSystemOrEnvironmentConverted = false;
 	
 	private BasicDataSource basicDataSource;
 	
 	public BasicDataSource getBasicDataSource() {
+		if (!isSystemOrEnvironmentConverted) {
+			isSystemOrEnvironmentConverted=true;
+			basicDataSource.setUrl(PropertyUtils.convertValueIfSystemOrEnvironmentVariable(basicDataSource.getUrl()));
+			basicDataSource.setUsername(PropertyUtils.convertValueIfSystemOrEnvironmentVariable(basicDataSource.getUsername()));
+			basicDataSource.setPassword(PropertyUtils.convertValueIfSystemOrEnvironmentVariable(basicDataSource.getPassword()));
+		}
 		return basicDataSource;
 	}
 

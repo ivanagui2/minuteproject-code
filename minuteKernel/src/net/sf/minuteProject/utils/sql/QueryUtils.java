@@ -54,9 +54,9 @@ public class QueryUtils {
 		Connection connection = ConnectionUtils.getConnection(dataModel);
 		if (connection != null) {
 			if (!query.getQueryParams().hasOutputParam() && !query.isWrite()) {
-				String q = getFullQuerySample(query);
+				
 				try {
-					return getOutputParams(connection, q, dataModel.getDatabase());
+					return getOutputParams(connection, query, dataModel.getDatabase());
 				} catch (SQLException e) {
 					e.printStackTrace();
 					throw new MinuteProjectException("Query Not working "+query,"QUERY_NOT_WORKING");
@@ -75,15 +75,16 @@ public class QueryUtils {
 		return null;
 	}
 
-	private static QueryParams getOutputParams(Connection connection, String query,
+	private static QueryParams getOutputParams(Connection connection, Query query,
 			Database database) throws SQLException {
-		PreparedStatement prest = connection.prepareStatement(query);
+		String q = getFullQuerySample(query);
+		PreparedStatement prest = connection.prepareStatement(q);
 		try {
 			ResultSet rs = prest.executeQuery();
 			return getQueryParams(rs.getMetaData());
 		} catch (SQLException e) {
-			logger.error("error executing query : "+query);
-			logger.error("error sql : "+e.getMessage());
+			logger.error("error executing query : '"+query.getName()+"'\nSQL:\n"+q);
+			logger.error("error sql for query : '"+query.getName()+"'\nError:\n"+e.getMessage());
 			return new QueryParams();
 		}
 	}
