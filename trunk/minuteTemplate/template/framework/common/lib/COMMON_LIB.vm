@@ -483,6 +483,93 @@ $!updatedAreaEnd
 
 #end
 
+
+##macro injectPrepareStatementParams
+#macro (injectPrepareStatementParams)
+	private void injectPrepareStatementParams(PreparedStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+		int index = 1;
+#foreach($column in $inputBean.columns)
+#if ($column.isOutputParam())
+		pstmt.registerOutParameter(index, java.sql.Types.${column.type});
+		index++;
+#else
+#if($isTransientDefinition)
+#if (!$column.isTransient() && $column.isPrimaryKey()) 
+#injectSDDParameter()
+#end
+#else
+##TODO use setFilter to add the filter group $column.isFilter() <filter
+#if (!$column.isFilter())
+#injectSDDParameter()
+#else
+		if (isFilter${column.filterName}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)) {
+#injectSDDParameter()
+		}
+#end	
+#end
+#end
+#end
+## TODO replace ? by ?param: key
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#foreach($queryParam in $queryChunk.getQueryChunkParams())
+#injectChunkParameter("${chunkName}_${queryParam.name}", $queryParam)
+#end
+#end
+	}
+#end
+##end macro injectPrepareStatementParams
+
+##macro putSddExecuteStatementClosable
+#macro (putSddExecuteStatementClosable) 
+				injectPrepareStatementParams(pstmt, $sddInputBeanVariable);
+
+#if ($query.isWrite())
+#if($query.queryParams.hasOutputParam())
+			pstmt.execute();
+#else
+			pstmt.executeUpdate();
+#end	
+#else
+#if($query.queryParams.hasOutputParam())
+			pstmt.execute();
+#else
+				try (ResultSet rs = pstmt.executeQuery();) {
+#end		
+#end
+#if($query.queryParams.hasOutputParam())
+			$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+			${sddOutputBeanVariable}.set$columnClass(pstmt.get${columnType}($queryUtils.getQueryPositionFromOutputbeanPosition($query, $velocityCount)));
+#end
+			list.add(${sddOutputBeanVariable});
+#else
+#if ($statementUtils.hasResult($outputBean))
+					while (rs.next()) {
+#if ($query.isScalar())
+#set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
+#set ($firstClass = $commonUtils.getJavaType($firstColumn))
+						x = ($firstClass) rs.getInt(1);
+						break;
+#else
+						$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
+#foreach($column in $outputBean.columns)
+#putColumnParamNaming()
+#set($columnType = $statementUtils.getJdbcType($column))
+						${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}("${column.name}"));//${column.name} to use instead of $velocityCount
+#end
+						list.add(${sddOutputBeanVariable});
+#end
+	        		}//from while (rs.next())
+	        	}//from try (autoclosable)
+#end
+#end
+#end
+##end macro putSddExecuteStatementClosable
+
+
 #macro (putSddCmisLookup)
 #exposeQueryUpdatedAreas("SDD_EXECUTE_CMIS")
 $!updatedAreaBegin

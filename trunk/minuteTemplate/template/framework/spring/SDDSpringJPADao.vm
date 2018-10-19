@@ -208,6 +208,7 @@ $!updatedAreaEnd
 #else
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 #end
+
 		@Override
 		public void execute(Connection conn) throws SQLException {
 #if($query.queryParams.hasOutputParam())
@@ -224,6 +225,40 @@ $!updatedAreaEnd
 #end
 			pstmt.close();
        }
+
+## autoclosable : + find way to pass value
+#if($isNotVoidInput) 
+#injectPrepareStatementParams()
+#end
+		
+		public void executeAutoClosable(Connection conn) throws SQLException {
+			try (
+#if($query.queryParams.hasOutputParam())
+				PreparedStatement pstmt = conn.prepareCall(
+#else
+				PreparedStatement pstmt = conn.prepareStatement(
+#end
+					getStatement(
+#if($isNotVoidInput) 
+						$sddInputBeanVariable
+#end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+#if(!$isNotVoidInput && $velocityCount==1) 
+						$chunkName 
+#else
+						, $chunkName 
+#end
+#end
+						)
+					);
+				) {		
+#if($isNotVoidInput) 
+#putSddExecuteStatementClosable()
+#end
+			}
+       }
+## end autoclosable : + find way to pass value
 
 #if ($query.isScalar())
 #set ($firstColumn = $columnUtils.getFirstColumn($inputBean))
