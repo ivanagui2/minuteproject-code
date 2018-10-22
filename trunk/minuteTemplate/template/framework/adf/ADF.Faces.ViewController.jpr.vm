@@ -452,22 +452,22 @@
             </hash>
             <hash>
                <list n="classPath">
-##                  <url path="${physicalDirPathADFMavenJPA2Project}target/${model.name}BackEnd-${version}-SNAPSHOT.jar" jar-entry=""/>
-                  <url path="../model-maven/jpa2/target/${model.name}BackEnd-${version}-SNAPSHOT.jar" jar-entry=""/>
+##                  <url path="${physicalDirPathADFMavenJPA2Project}target/${model.name}BackEnd-${version}.jar" jar-entry=""/>
+                  <url path="../model-maven/jpa2/target/${model.name}BackEnd-${version}.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>
-               <value n="id" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>
+               <value n="description" v="${modelUpperCase}BackEnd-${version}.jar"/>
+               <value n="id" v="${modelUpperCase}BackEnd-${version}.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
                <list n="classPath">
-##                  <url path="${physicalDirPathADFMavenBslaProject}target/${model.name}Bsla-${version}-SNAPSHOT.jar" jar-entry=""/>
-                  <url path="../model-maven/bsla/target/${model.name}Bsla-${version}-SNAPSHOT.jar" jar-entry=""/>
+##                  <url path="${physicalDirPathADFMavenBslaProject}target/${model.name}Bsla-${version}.jar" jar-entry=""/>
+                  <url path="../model-maven/bsla/target/${model.name}Bsla-${version}.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="${modelUpperCase}Bsla-${version}-SNAPSHOT.jar"/>
-               <value n="id" v="${modelUpperCase}Bsla-${version}-SNAPSHOT.jar"/>
+               <value n="description" v="${modelUpperCase}Bsla-${version}.jar"/>
+               <value n="id" v="${modelUpperCase}Bsla-${version}.jar"/>
                <value n="locked" v="true"/>
             </hash>
 #end
@@ -481,11 +481,11 @@
 #end
 #if($isBindingSpring)
          <hash>
-            <value n="id" v="${modelUpperCase}BackEnd-${version}-SNAPSHOT.jar"/>
+            <value n="id" v="${modelUpperCase}BackEnd-${version}.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="${modelUpperCase}Bsla-${version}-SNAPSHOT.jar"/>
+            <value n="id" v="${modelUpperCase}Bsla-${version}.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>

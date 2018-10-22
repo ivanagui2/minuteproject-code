@@ -6,7 +6,7 @@
   	<groupId>${rootPackage}.${model.name}</groupId>
   	<artifactId>$DbApiName</artifactId>
   	<packaging>jar</packaging>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
   	<name>$DbApiName JOOQ implementation</name>
     
     <dependencies>

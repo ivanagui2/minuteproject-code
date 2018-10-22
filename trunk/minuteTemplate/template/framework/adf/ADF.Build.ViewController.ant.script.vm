@@ -11,8 +11,8 @@
   <property file="../build.properties"/>
 #if($isBindingSpring)
   <path id="library.${model.name}.backend">
-    <pathelement location="../model-maven/jpa2/target/${model.name}BackEnd-${version}-SNAPSHOT.jar"/>
-    <pathelement location="../model-maven/bsla/target/${model.name}Bsla-${version}-SNAPSHOT.jar"/>
+    <pathelement location="../model-maven/jpa2/target/${model.name}BackEnd-${version}.jar"/>
+    <pathelement location="../model-maven/bsla/target/${model.name}Bsla-${version}.jar"/>
 
 #foreach($dependency in $buildUtils.getDependencies($template))
     <pathelement location="../${dependency.path}/${dependency.filename}"/>

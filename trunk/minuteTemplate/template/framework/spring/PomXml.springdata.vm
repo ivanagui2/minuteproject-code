@@ -6,7 +6,7 @@
 
     <groupId>${rootPackage}.${model.name}</groupId>
     <artifactId>${model.name}SpringData</artifactId>
-    <version>${version}-SNAPSHOT</version>
+    <version>${version}</version>
     <packaging>jar</packaging>
 
     <name>$DbApiName Spring Data JPA generated API</name>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>${rootPackage}.${model.name}</groupId>
             <artifactId>$DbApiName</artifactId>
-            <version>${version}-SNAPSHOT</version>
+            <version>${version}</version>
         </dependency>
     
         

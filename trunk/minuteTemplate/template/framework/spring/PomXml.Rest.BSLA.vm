@@ -5,7 +5,7 @@
   <groupId>${groupId}</groupId>
   <artifactId>$artifactId</artifactId>
   <packaging>war</packaging>
-  <version>${version}-SNAPSHOT</version>
+  <version>${version}</version>
   <name>$artifactId REST BSLA specification and implementation</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -13,7 +13,7 @@
     <dependency>
         <groupId>${groupId}</groupId>
         <artifactId>${generatorBean.name}Bsla</artifactId>
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </dependency>	
 
 	<dependency>

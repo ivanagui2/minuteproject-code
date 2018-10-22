@@ -11,7 +11,7 @@
   	<groupId>${groupId}</groupId>
   	<artifactId>${artifactId}</artifactId>
   	<packaging>war</packaging>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
   	<name>$generatorBean.name REST API</name>
   <url>http://maven.apache.org</url>
 
@@ -32,7 +32,7 @@
 #else
   		<artifactId>${generatorBean.name}Bsla</artifactId>
 #end        
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </dependency>	
     <dependency>
       <groupId>junit</groupId>

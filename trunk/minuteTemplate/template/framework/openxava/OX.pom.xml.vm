@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
-    <version>${version}-SNAPSHOT</version>
+    <version>${version}</version>
     <name>${artifactId}</name>
 	<description>${generatorBean.name} Openxava Application</description>
     <packaging>war</packaging>

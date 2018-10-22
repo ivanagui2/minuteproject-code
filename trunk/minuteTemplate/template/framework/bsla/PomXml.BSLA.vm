@@ -10,13 +10,13 @@
     <parent>
         <artifactId>${masterPomArtifactId}</artifactId>
         <groupId>${groupId}</groupId>
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </parent>
 
 #end
 #if(!$hasMasterPom)
   	<groupId>${groupId}</groupId>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
 #end
 ##  <groupId>${groupId}</groupId>
 #if($isEJBBackend)
@@ -25,7 +25,6 @@
   <artifactId>${generatorBean.name}Bsla</artifactId><!--todo change -->
 #end
   <packaging>jar</packaging>
-##  <version>${version}-SNAPSHOT</version>
 #if($isEJBBackend)
   <name>$generatorBean.name BELA specification and implementation</name>
 #else
@@ -37,7 +36,7 @@
     <dependency>
         <groupId>${groupId}</groupId>
         <artifactId>$DbApiName</artifactId>
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </dependency>
     
 	<dependency>

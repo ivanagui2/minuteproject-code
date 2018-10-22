@@ -10,14 +10,14 @@
     </parent>-->
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
-    <version>${version}-SNAPSHOT</version>
+    <version>${version}</version>
     <name>$DbApiName Vaadin Web Application</name>  
     <packaging>war</packaging>
     <dependencies>
         <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${generatorBean.name}Bsla</artifactId>
-            <version>${version}-SNAPSHOT</version>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>

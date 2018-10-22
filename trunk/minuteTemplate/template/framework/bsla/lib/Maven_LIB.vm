@@ -28,7 +28,7 @@
 #macro (exposePom)
 #set($groupId="${rootPackage}.${generatorBean.name}")
 #set($artifactId=$mavenUtils.getArtifactId($template,$generatorBean))
-#set($versionId="${version}-SNAPSHOT")
+#set($versionId="${version}")
 #set($mavenFinalName=$mavenUtils.getFinalName($template, $generatorBean))
 ## add web, ejb are in properties
 #set($mavenReleaseName="${model.name}App")
