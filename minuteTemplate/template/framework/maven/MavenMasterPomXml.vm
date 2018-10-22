@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>	
     <groupId>${groupId}</groupId>
     <artifactId>$artifactId</artifactId>
-    <version>${version}-SNAPSHOT</version>
+    <version>${version}</version>
     <name>$artifactId App</name>
     <packaging>pom</packaging>	
 	<description>${generatorBean.name} Application</description>

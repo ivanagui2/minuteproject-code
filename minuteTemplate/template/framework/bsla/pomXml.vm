@@ -5,7 +5,7 @@
   <groupId>${rootPackage}.${model.name}</groupId>
   <artifactId>$DbApiName</artifactId>
   <packaging>jar</packaging>
-  <version>${version}-SNAPSHOT</version>
+  <version>${version}</version>
   <name>$DbApiName specification and implementation</name>
   <url>http://maven.apache.org</url>
   <dependencies>

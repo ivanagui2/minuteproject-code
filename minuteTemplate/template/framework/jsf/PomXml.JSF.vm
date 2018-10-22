@@ -11,7 +11,7 @@
   	<groupId>${groupId}</groupId>
   	<artifactId>$artifactId</artifactId>
   	<packaging>war</packaging>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
   	<name>$artifactId JSF front end</name>
     <url>http://maven.apache.org</url>	
 
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${generatorBean.name}Bsla</artifactId>
-            <version>${version}-SNAPSHOT</version>
+            <version>${version}</version>
         </dependency>	
     	<!-- spring -->
         <dependency>
@@ -43,12 +43,12 @@
 	    <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${generatorBean.name}Bela</artifactId>
-            <version>${version}-SNAPSHOT</version>
+            <version>${version}</version>
         </dependency>	
         <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${DbApiName}</artifactId>
-            <version>${version}-SNAPSHOT</version>
+            <version>${version}</version>
         </dependency>		
       <!-- CDI (JSR-299) -->
         <dependency>

@@ -9,7 +9,7 @@
   <groupId>${rootPackage}.${model.name}</groupId>
   <artifactId>${model.name}RestCxfJee</artifactId>
   <packaging>war</packaging>
-  <version>${version}-SNAPSHOT</version>
+  <version>${version}</version>
   <name>$DbApiName REST API</name>
 
   <repositories>
@@ -29,7 +29,7 @@
 #else
   		<artifactId>${model.name}Bsla</artifactId>
 #end     
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </dependency>	
     <dependency>
       <groupId>junit</groupId>

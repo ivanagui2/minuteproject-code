@@ -14,13 +14,13 @@
     <parent>
         <artifactId>${masterPomArtifactId}</artifactId>
         <groupId>${groupId}</groupId>
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </parent>
 
 #end
 #if(!$hasMasterPom)
   	<groupId>${groupId}</groupId>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
 #end
   	<artifactId>$artifactId</artifactId>
   	<name>$artifactId JPA2 specification and implementation</name>

@@ -16,13 +16,13 @@
     <parent>
         <artifactId>${masterPomArtifactId}</artifactId>
         <groupId>${groupId}</groupId>
-        <version>${version}-SNAPSHOT</version>
+        <version>${version}</version>
     </parent>
 
 #end
 #if(!$hasMasterPom)
   	<groupId>${groupId}</groupId>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
 #end
     <artifactId>$finalName</artifactId>
     <packaging>${restPomPackaging}</packaging>
@@ -36,7 +36,7 @@
 #else
                 <artifactId>${generatorBean.name}Bsla</artifactId>
 #end     
-            <version>${version}-SNAPSHOT</version>
+            <version>${version}</version>
             <exclusions>
             	<exclusion>
             		<artifactId>servlet-api</artifactId>

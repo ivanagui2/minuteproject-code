@@ -6,7 +6,7 @@
   	<artifactId>${model.name}WebServiceImpl</artifactId>
 	<name>${model.name}WebServiceImpl</name>
   	<packaging>war</packaging>
-  	<version>${version}-SNAPSHOT</version>
+  	<version>${version}</version>
   	<description>$DbApiName Web service implementation</description>
     <url>http://maven.apache.org</url>
 	
@@ -15,13 +15,13 @@
 		<dependency>
 			<groupId>${rootPackage}.${model.name}</groupId>
 			<artifactId>${model.name}WebServiceApi</artifactId>
-			<version>${version}-SNAPSHOT</version>
+			<version>${version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>${rootPackage}.${model.name}</groupId>
 			<artifactId>${model.name}Service</artifactId>
-			<version>${version}-SNAPSHOT</version>
+			<version>${version}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

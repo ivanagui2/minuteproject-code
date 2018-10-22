@@ -208,9 +208,9 @@ $!updatedAreaEnd
 #else
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 #end
-
+#*
 		@Override
-		public void execute(Connection conn) throws SQLException {
+		public void executeOld(Connection conn) throws SQLException {
 #if($query.queryParams.hasOutputParam())
 			CallableStatement pstmt = null;
 #else
@@ -225,13 +225,13 @@ $!updatedAreaEnd
 #end
 			pstmt.close();
        }
-
+*#
 ## autoclosable : + find way to pass value
 #if($isNotVoidInput) 
 #injectPrepareStatementParams()
 #end
-		
-		public void executeAutoClosable(Connection conn) throws SQLException {
+		@Override
+		public void execute(Connection conn) throws SQLException {
 			try (
 #if($query.queryParams.hasOutputParam())
 				PreparedStatement pstmt = conn.prepareCall(
