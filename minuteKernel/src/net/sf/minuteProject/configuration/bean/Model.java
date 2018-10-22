@@ -3,6 +3,7 @@ package net.sf.minuteProject.configuration.bean;
 import net.sf.minuteProject.configuration.bean.model.cmis.CmisModel;
 import net.sf.minuteProject.utils.ModelUtils;
 import net.sf.minuteProject.utils.StringUtils;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 public class Model extends GeneratorQualifier{
 	
@@ -173,7 +174,7 @@ public class Model extends GeneratorQualifier{
 	}
 
 	public void setVersion(String version) {
-		this.version = version;
+		this.version = PropertyUtils.convertValueIfSystemOrEnvironmentVariable(version);
 	}
 
 	public String getPackageRoot() {

@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean;
 
 import net.sf.minuteProject.utils.FormatUtils;
+import net.sf.minuteProject.utils.property.PropertyUtils;
 
 public class GeneratorQualifier extends AbstractConfiguration {
 
@@ -24,7 +25,7 @@ public class GeneratorQualifier extends AbstractConfiguration {
 	}
 
 	public void setVersion(String version) {
-		this.version = version;
+		this.version = PropertyUtils.convertValueIfSystemOrEnvironmentVariable(version);
 	}
 
 	public String getPackageRoot() {
