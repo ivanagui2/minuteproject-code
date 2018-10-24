@@ -1,7 +1,6 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.util.List;
-import java.util.Map;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
@@ -9,8 +8,8 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
-import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.query.Ordering;
 
@@ -321,6 +320,9 @@ public interface Table extends GeneratorBean{
 	public Scope getScope();
 	
 	public void setScope (Scope scope);
+
+	public void setValidations(List<EntityValidation> entityValidations);
 	
+	public List<EntityValidation> getValidations();
 	
 }

@@ -22,6 +22,7 @@ public class ColumnUMLNotation extends ColumnAbstract{
 		setSearchable(column.isSearchable());
 		setEditable(column.isEditable());
 		setTransient(column.isTransient());
+		setValidations(column.getValidations());
 	}
 
 }

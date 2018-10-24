@@ -1,12 +1,13 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
-import net.sf.minuteProject.configuration.bean.enumeration.Order;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
 import net.sf.minuteProject.configuration.bean.model.data.BaseColumn;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink;
 
 public abstract class ColumnBaseAbstract extends AbstractConfiguration implements BaseColumn{
@@ -16,6 +17,8 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isArray = false, isOutputParam=false;
 	private String filterName, sessionParamName;
 	private QueryParamLink queryParamLink;
+
+	private List<FieldValidation> fieldValidations = new ArrayList<>();
 	
 	@Override
 	public String getTypeAlias() {
@@ -134,5 +137,12 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	public void setSessionParamName(String sessionParamName) {
 		this.sessionParamName = sessionParamName;
 	}
-
+	
+	public void setValidations(List<FieldValidation> fieldValidations) {
+		this.fieldValidations = fieldValidations;
+	}
+	
+	public List<FieldValidation> getValidations() {
+		return fieldValidations;
+	}
 }

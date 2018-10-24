@@ -13,7 +13,7 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.security.SecurityColor;
-import net.sf.minuteProject.configuration.bean.enrichment.validation.Validation;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Cache;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
@@ -52,7 +52,6 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private List<Action> inputActions;
 	private List<QueryChunk> queryChunks;
 	private List<QueryPivot> pivots;
-	private List<Validation<Query>> validations;
 	private String packageName;
 	private boolean isWrite = false;
 	private String contentType;
@@ -65,6 +64,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	private boolean pagination = false;
 	private boolean paginationAsFilter = false;
 	private int paginationSize = 0;
+	private List<EntityValidation> entityValidations = new ArrayList<>();
 
 	public void setQueryModel (T t) {
 		this.t = t;
@@ -227,6 +227,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 //					complementFields(entity, maxResultQueryFilter.getQueryParams());
 //				}
 //			}
+			complementValidation(entity);
 			complementFields(entity, queryParams);
 		}
 		if (dir.equals(Direction.OUT)) {
@@ -235,6 +236,10 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		return entity;
 	}
 
+	private void complementValidation(Table entity) {
+		entity.setValidations(getEntityValidations());
+	}
+	
 	// remove duplication
 	public Table getEntity(Direction dir) {
 		if (Direction.IN.equals(dir))
@@ -387,6 +392,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 					column.setQueryParamLink(queryParam.getQueryParamLink());
 					column.setIsArray(queryParam.isArray());
 					column.setScope(queryParam.getScope());
+					column.setValidations(queryParam.getFieldValidations());
 				}
 			}
 		}
@@ -623,5 +629,19 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	public boolean hasPagination() {
 		return queryPagination!=null;
 	}
+
+	//validation
 	
+	
+
+	public void addEntityValidation(EntityValidation queryValidation) {
+		getEntityValidations().add(queryValidation);
+	}
+	public List<EntityValidation> getEntityValidations() {
+		return entityValidations;
+	}
+	public void setEntityValidations(List<EntityValidation> entityValidations) {
+		this.entityValidations = entityValidations;
+	}
+
 }
