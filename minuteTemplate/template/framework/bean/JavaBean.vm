@@ -23,11 +23,13 @@ $!updatedAreaImport
  *
  * <p>Title: ${className}</p>
  *
- * <p>Description: Java Bean containing a collection of ${domainClassName} </p>
+ * <p>Description: ${domainClassName} Java Bean </p>
  *
  */
 @Data
 public class ${className} {
+
+#putEntityValidation()
 
 #foreach($column in ${table.columns})
 #if (!$column.hasBeenDuplicated())
@@ -47,6 +49,7 @@ public class ${className} {
 #elseif ($columnUtils.isTimeColumn($column))
 #end
 #putValidationConstraints()
+#putFieldValidation()
     private $columnType $columnVar;
 #if($hasDefaultValue)
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")

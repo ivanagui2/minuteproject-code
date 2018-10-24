@@ -177,3 +177,19 @@ $!updatedAreaEnd
 #end
 #end
 #end
+
+#macro(putEntityValidation)
+##if($javaValidation)
+#foreach($validation in ${table.validations})
+//validation : $validation
+#end
+##end
+#end
+
+#macro(putFieldValidation)
+##if($javaValidation)
+#foreach($validation in ${column.validations})
+//field validation : $validation
+#end
+##end
+#end
