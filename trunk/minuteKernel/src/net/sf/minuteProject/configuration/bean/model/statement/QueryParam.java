@@ -1,6 +1,10 @@
 package net.sf.minuteProject.configuration.bean.model.statement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.ColumnUtils;
@@ -24,6 +28,7 @@ public class QueryParam extends Field {
 	private boolean isFilter=false, isArray=false, isOutputParam = false;
 	private String regexStart, regexEnd, regexParamWrapper, regexParamSeparator;
 	private Integer index;
+	private List<FieldValidation> fieldValidations = new ArrayList<>();
 	private Scope scope = Scope.ALL_STACKS;
 	
 	public String getSizeOrDefault() {
@@ -194,6 +199,17 @@ public class QueryParam extends Field {
 	
 	public void setScopeEnum(Scope scope) {
 		this.scope = scope;
+	}
+	
+
+	public List<FieldValidation> getFieldValidations() {
+		return fieldValidations;
+	}
+	public void setFieldValidations(List<FieldValidation> fieldValidations) {
+		this.fieldValidations = fieldValidations;
+	}
+	public void addFieldValidation(FieldValidation queryParamValidation) {
+		getFieldValidations().add(queryParamValidation);
 	}
 	
 }

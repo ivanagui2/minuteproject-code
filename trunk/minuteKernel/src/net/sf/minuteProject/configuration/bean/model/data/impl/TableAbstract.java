@@ -1,13 +1,7 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.apache.commons.collections.iterators.EntrySetMapIterator;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Template;
@@ -16,15 +10,15 @@ import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Cardinality;
-import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
+import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.configuration.bean.model.data.Index;
 import net.sf.minuteProject.configuration.bean.query.Ordering;
 import net.sf.minuteProject.utils.ColumnUtils;
 
@@ -50,6 +44,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	private Cardinality resultCardinality;
 	private boolean isScalar;
 	private Scope scope;
+	private List<EntityValidation> entityValidations = new ArrayList<>();;
 	
 	public TableAbstract () {
 	}
@@ -73,6 +68,7 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 		this.setResultCardinality(table.getResultCardinality());
 		this.setScalar(table.isScalar());
 		this.setScope(table.getScope());
+		this.setValidations(table.getValidations());
 	}
 
 	public String getName () {
@@ -516,6 +512,14 @@ public abstract class TableAbstract extends AbstractConfiguration implements Tab
 	@Override
 	public void setScope(Scope scope) {
 		this.scope = scope;		
+	}
+	
+	public void setValidations(List<EntityValidation> entityValidations) {
+		this.entityValidations = entityValidations;
+	}
+
+	public List<EntityValidation> getValidations() {
+		return entityValidations;
 	}
 
 }

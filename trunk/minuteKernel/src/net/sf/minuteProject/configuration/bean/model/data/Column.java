@@ -1,11 +1,10 @@
 package net.sf.minuteProject.configuration.bean.model.data;
 
-import java.io.Serializable;
 import java.util.List;
 
-import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
 
 /**
@@ -61,5 +60,10 @@ public interface Column extends BaseColumn
 	public Scope getScope();
 	
 	public void setScope(Scope scope);
+	
+	public void setValidations(List<FieldValidation> fieldValidations);
+	
+	public List<FieldValidation> getValidations();
+	
 }
 

@@ -1,10 +1,9 @@
 package net.sf.minuteProject.configuration.bean.enrichment.validation;
 
 import lombok.Data;
-import net.sf.minuteProject.configuration.bean.enrichment.Field;
 
 @Data
-public class RangeValidation<T> extends ValidationBean implements Validation<Field> {
+public class RangeValidation<T> extends ValidationBean implements FieldValidation {
 	
 	private Range<T> range;
 
