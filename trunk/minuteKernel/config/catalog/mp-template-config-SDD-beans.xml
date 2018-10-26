@@ -2,6 +2,7 @@
 	<architecture-target name="SDD beans" description="Statement Driven Development beans">
 	</architecture-target>	
 	<plugin name="queryUtils" className="net.sf.minuteProject.utils.sql.QueryUtils"></plugin>	
+	<plugin name="validationUtils" className="net.sf.minuteProject.utils.validation.ValidationUtils"></plugin>	
 	
 	<template-target 
     	name="SDD beans set"
