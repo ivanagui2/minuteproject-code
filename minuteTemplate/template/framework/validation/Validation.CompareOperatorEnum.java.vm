@@ -1,0 +1,10 @@
+#generatorSpecific()
+package $packageName;
+
+public enum CompareOperatorEnum {
+    EQUALS,
+    GREATER_THAN,
+    GREATER_OR_EQUAL_THAN,
+    SMALLER_THAN,
+    SMALLER_OR_EQUAL_THAN;
+}

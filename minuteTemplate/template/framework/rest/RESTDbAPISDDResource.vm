@@ -181,6 +181,8 @@ public class ${className} {
     @EJB ## (name="$BslaDaoInterfaceVariable")	
 #end
 	${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
+	
+#if (!$query.isWrite())
 #exposeQueryUpdatedAreas("SDD_EXECUTE_GET")
 $!updatedAreaBegin
 #if($isUpdated)
@@ -203,16 +205,15 @@ $!updatedAreaBegin
 		);
     }
 #end
+#end
 
+#if ($query.isWrite())
 #exposeQueryUpdatedAreas("SDD_EXECUTE_POST")
 $!updatedAreaBegin
 #if($isUpdated)
     $!updatedAreaSnippet
 #else
     @POST
-#if($query.isCache() && $query.contentType == 'reference-data')
-    @${modelRestCacheableClass}(cc = "public, max-age=3600")
-#end
 	@${modelRestCompressClass}
     @ApiOperation(value = "$query.name", notes = "$queryUtils.getDescription($query)", response = ${sddOutputBeanCollectionClass}.class)
     @ApiResponses(value = {
@@ -225,6 +226,16 @@ $!updatedAreaBegin
 #resourceSignature("", false)
 		);
     }
+    
+    @POST
+    @Path("/withValidation")//TODO remove just for migration testing
+    public ${sddOutputBeanCollectionClass} postWithValidation (
+		@javax.constraints.Valid $sddInputBeanClass $sddInputBeanVariable
+    ) {
+        return ${sddDaoInterfaceVariable}.execute($sddInputBeanVariable);##TODO check with chunks...
+    }
+    
+#end
 #end
 
 	public $sddOutputBeanCollectionClass callImplementation (
