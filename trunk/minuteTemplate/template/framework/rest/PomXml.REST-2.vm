@@ -232,6 +232,11 @@
             <version>${jersey.version}</version>
         </dependency>
         <dependency>
+    		<groupId>org.glassfish.jersey.ext</groupId>
+    		<artifactId>jersey-bean-validation</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>

@@ -187,9 +187,10 @@ $!updatedAreaEnd
 #end
 
 #macro(putFieldValidation)
-##if($javaValidation)
-#foreach($validation in ${column.validations})
-//field validation : $validation
+#foreach($validationList in ${column.validations})
+#foreach($validation in $validationUtils.getJavaValidationAnnotations($validationList))
+	$validation
+#end
 #end
 ##end
 #end
