@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityValidationTwoFieldDependency;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationAmongValue;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar;
@@ -42,9 +43,20 @@ public class ValidationUtils {
 		if (validation instanceof FieldValidationAmongValue) {
 			fillList(list, (FieldValidationAmongValue)validation, javaReference);
 		}
+		if (validation instanceof EntityValidationTwoFieldDependency) {
+			fillList(list, (EntityValidationTwoFieldDependency)validation, javaReference);
+		}
 		return list;
 	}
 
+	private static void fillList(List<String> list, EntityValidationTwoFieldDependency validation, JavaReference javaReference) {
+		if (validation.getFirstFieldName()!=null && validation.getSecondFieldName()!=null && validation.getOperand()!=null) {
+			if (javaReference.isImport()) {
+				list.add("@FieldCompare (first=\""+validation.getFirstFieldName()+"\", second=\""+validation.getSecondFieldName()+"\", operator=CompareOperatorEnum."+validation.getOperand()+")");
+			}
+		}
+	}
+	
 	private static void fillList(List<String> list, FieldValidationAmongValue validation, JavaReference javaReference) {
 		FieldValidationPattern pattern = new FieldValidationPattern();
 		pattern.setRegex(validation.getValues().replace(",", "|"));
