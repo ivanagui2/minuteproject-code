@@ -2,6 +2,7 @@ package net.sf.minuteProject.utils.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -11,6 +12,8 @@ import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValida
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.Validation;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.ValidationPattern;
+import net.sf.minuteProject.utils.FormatUtils;
 
 public class ValidationUtils {
 
@@ -22,11 +25,11 @@ public class ValidationUtils {
 	}
 	
 	public static List<String> getJavaImportValidationAnnotations(Validation validation) {
-		return getJavaValidation(validation, JavaReference.IMPORT);
+		return getJavaValidation(validation, JavaReference.IMPORT).stream().distinct().collect(Collectors.toList());
 	}
 	
 	public static List<String> getJavaValidationAnnotations(Validation validation) {
-		return getJavaValidation(validation, JavaReference.DECLARE);
+		return getJavaValidation(validation, JavaReference.DECLARE).stream().distinct().collect(Collectors.toList());
 	}
 	
 	public static List<String> getJavaValidation(Validation validation, JavaReference javaReference) {
@@ -46,12 +49,27 @@ public class ValidationUtils {
 		if (validation instanceof EntityValidationTwoFieldDependency) {
 			fillList(list, (EntityValidationTwoFieldDependency)validation, javaReference);
 		}
+		if (validation instanceof ValidationPattern) {
+			fillList(list, (ValidationPattern)validation, javaReference);
+		}
 		return list;
+	}
+
+	private static void fillList(List<String> list, ValidationPattern validation, JavaReference javaReference) {
+		String type = validation.getType();
+		if (type!=null) {
+			String format = format(type);
+			list.add((javaReference.isImport())?"javax.validation.constraints."+format:"@"+format);
+		}
+	}
+	
+	private static String format(String type) {
+		return FormatUtils.firstUpperCase(type.toLowerCase());
 	}
 
 	private static void fillList(List<String> list, EntityValidationTwoFieldDependency validation, JavaReference javaReference) {
 		if (validation.getFirstFieldName()!=null && validation.getSecondFieldName()!=null && validation.getOperand()!=null) {
-			if (javaReference.isImport()) {
+			if (!javaReference.isImport()) {
 				list.add("@FieldCompare (first=\""+validation.getFirstFieldName()+"\", second=\""+validation.getSecondFieldName()+"\", operator=CompareOperatorEnum."+validation.getOperand()+")");
 			}
 		}
@@ -79,7 +97,7 @@ public class ValidationUtils {
 			return;
 		}
 		if (javaReference.isImport()) {				
-			if (validation.getMax()>0 || validation.getMin()>0){
+			if (validation.getMax()!=null || validation.getMin()!=null){
 				list.add("javax.validation.constraints.Size");
 			}
 		} else {
