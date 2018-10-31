@@ -193,4 +193,14 @@ $!updatedAreaEnd
 #end
 #end
 ##end
+#end
+#macro(putEntityValidationImport)
+#foreach($column in ${table.columns})
+#foreach($validationList in ${column.validations})
+#foreach($validation in $validationUtils.getJavaImportValidationAnnotations($validationList))
+import $validation;
 #end
+#end
+#end
+#end
+
