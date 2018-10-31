@@ -230,7 +230,7 @@ $!updatedAreaBegin
     @POST
     @Path("/withValidation")//TODO remove just for migration testing
     public ${sddOutputBeanCollectionClass} postWithValidation (
-		@javax.constraints.Valid $sddInputBeanClass $sddInputBeanVariable
+		@javax.validation.Valid $sddInputBeanClass $sddInputBeanVariable
     ) {
         return ${sddDaoInterfaceVariable}.execute($sddInputBeanVariable);##TODO check with chunks...
     }
