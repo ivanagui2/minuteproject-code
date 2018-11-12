@@ -208,6 +208,7 @@ public abstract class AbstractGenerator implements Generator {
 	 * @see net.sf.minuteProject.application.Generator#load(java.lang.String,
 	 * java.lang.String)
 	 */
+	@Override
 	public final Configuration load(String configuration, String rules)
 			throws Exception {
 		Configuration abstractConfiguration = getConfigurationRoot();
@@ -227,6 +228,7 @@ public abstract class AbstractGenerator implements Generator {
 	 * Starting from the target it loads another target into
 	 * abstractconfigurationRooet
 	 */
+	@Override
 	public void loadTarget(AbstractConfigurationRoot abstractConfigurationRoot,
 			Target target) throws MinuteProjectException {
 		try {
@@ -293,7 +295,7 @@ public abstract class AbstractGenerator implements Generator {
 	public void generate() throws MinuteProjectException {
 		// load configuration
 		// load targets and target
-		Configuration configuration = (Configuration) load();
+		Configuration configuration = load();
 		generate(configuration);
 	}
 
@@ -410,6 +412,7 @@ public abstract class AbstractGenerator implements Generator {
 	 * .configuration.bean.AbstractConfiguration,
 	 * net.sf.minuteProject.configuration.bean.Target)
 	 */
+	@Override
 	public void generate(Target target) throws MinuteProjectException {
 		if (target.isGenerable()) {
 			// for (TemplateTarget templateTarget : target.getTemplateTargets())

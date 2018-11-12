@@ -5,6 +5,7 @@ public class QueryFilter extends QueryAdapter {
 	private QueryParams queryParams;
 	public enum AndWhere { AND, WHERE, NONE };
 	private AndWhere connectWord = AndWhere.AND;
+	private boolean omitFromSddLookupQuery = false; //omit-from-sdd-lookup-query;
 
 	public QueryParams getQueryParams() {
 		return queryParams;
@@ -43,6 +44,14 @@ public class QueryFilter extends QueryAdapter {
 
 	public void setConnectWord(AndWhere andWhere) {
 		this.connectWord = andWhere;
+	}
+
+	public boolean isOmitFromSddLookupQuery() {
+		return omitFromSddLookupQuery;
+	}
+
+	public void setOmitFromSddLookupQuery(boolean omitFromSddLookupQuery) {
+		this.omitFromSddLookupQuery = omitFromSddLookupQuery;
 	}
 
 	
