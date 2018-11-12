@@ -435,6 +435,7 @@
 									paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
 								<set-properties-rule>
 									<alias attr-name="and-where-connection" prop-name="connectionWord" />
+									<alias attr-name="omit-from-sdd-lookup-query" prop-name="omitFromSddLookupQuery" />
 								</set-properties-rule>
 								<bean-property-setter-rule pattern="value" />
 								<pattern value="query-params">
@@ -2232,6 +2233,7 @@
 								paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryFilter" />
 							<set-properties-rule>
 								<alias attr-name="and-where-connection" prop-name="connectionWord" />
+								<alias attr-name="omit-from-sdd-lookup-query" prop-name="omitFromSddLookupQuery" />
 							</set-properties-rule>
 							<bean-property-setter-rule pattern="value" />
 							<pattern value="query-params">

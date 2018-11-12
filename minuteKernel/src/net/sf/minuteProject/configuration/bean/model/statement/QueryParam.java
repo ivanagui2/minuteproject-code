@@ -30,7 +30,9 @@ public class QueryParam extends Field {
 	private Integer index;
 	private List<FieldValidation> fieldValidations = new ArrayList<>();
 	private Scope scope = Scope.ALL_STACKS;
+	private boolean omitFromSddLookupQuery = false;
 	
+	@Override
 	public String getSizeOrDefault() {
 		return String.valueOf(getSize());
 	}
@@ -113,12 +115,15 @@ public class QueryParam extends Field {
 	public void setIsContext(boolean isContext) {
 		this.isContext = isContext;
 	}
+	@Override
 	public void setId(String id) {
 		this.id = id;
 	}
+	@Override
 	public String getRefname() {
 		return refname;
 	}
+	@Override
 	public void setRefname(String refname) {
 		this.refname = refname;
 	}
@@ -211,5 +216,13 @@ public class QueryParam extends Field {
 	public void addFieldValidation(FieldValidation queryParamValidation) {
 		getFieldValidations().add(queryParamValidation);
 	}
-	
+
+	public boolean isOmitFromSddLookupQuery() {
+		return omitFromSddLookupQuery;
+	}
+
+	public void setOmitFromSddLookupQuery(boolean omitFromSddLookupQuery) {
+		this.omitFromSddLookupQuery = omitFromSddLookupQuery;
+	}
+
 }

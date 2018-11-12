@@ -185,7 +185,8 @@ public class QueryUtils {
 			//  get query where string with question mark
 			//  append (where or and) to query
 			final String name = "$"+filter.getName();
-			final String replacement = queryAndWhere(filter, isWhereDone)+filter.getValue();
+			final String value = filter.getValue();
+			final String replacement = filter.isOmitFromSddLookupQuery()?"":queryAndWhere(filter, isWhereDone)+value;
 			if (!StringUtils.isEmpty(name) && queryRaw.contains(name)) {
 				queryRaw = StringUtils.replace(queryRaw, name, replacement);
 			} else {
@@ -229,7 +230,9 @@ public class QueryUtils {
 			if (qp.isOutputParam()) {
 				index++;
 			} else {
-				querySt = replaceArgIndexWith(querySt, index, qp.getSample());
+				if (!qp.isOmitFromSddLookupQuery()) {
+					querySt = replaceArgIndexWith(querySt, index, qp.getSample());
+				}
 			}
 			
 		}
@@ -294,15 +297,26 @@ public class QueryUtils {
 		//TODO append query where
 		for (QueryFilter filter : query.getQueryFilters()) {
 			if (filter.getQueryParams() != null) {
-				addQueryParamFilters(list, filter.getQueryParams());
+				addQueryParamFilters(list, filter.getQueryParams(), filter);
 			}
 		}
 		return list;
 	}
 	
+	
 	private static void addQueryParamFilters(List<QueryParam> list, QueryParams params) {
 		for (QueryParam qp : params.getFlatQueryParams(false)) {
 			list.add(qp);
+			if (qp.isOutputParam()) {
+				qp.setSample("?");
+			}
+		}
+	}
+	
+	private static void addQueryParamFilters(List<QueryParam> list, QueryParams params, QueryFilter filter) {
+		for (QueryParam qp : params.getFlatQueryParams(false)) {
+			list.add(qp);
+			qp.setOmitFromSddLookupQuery(filter.isOmitFromSddLookupQuery());
 			if (qp.isOutputParam()) {
 				qp.setSample("?");
 			}

@@ -25,7 +25,8 @@ public class CheckConstraintConvention extends ModelConvention {
 	}
 
 	private boolean isValid () {
-		return fieldContentType!=null && fieldPattern!=null && fieldPatternType!=null;
+		//return fieldContentType!=null && fieldPattern!=null && fieldPatternType!=null;
+		return fieldPattern!=null && fieldPatternType!=null;
 	}
 	
 	public void apply(Table table) {
