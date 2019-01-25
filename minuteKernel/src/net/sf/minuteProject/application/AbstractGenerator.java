@@ -421,6 +421,7 @@ public abstract class AbstractGenerator implements Generator {
 			for (TemplateTarget templateTarget : target
 					.getOrderedByPriorityTemplateTargets()) {
 				if (templateTarget.isGenerable()) {
+					logger.info("> output dir "+target.getOutputdirRoot());
 					logger.info("> template target set: "
 							+ templateTarget.getName() + " in "
 							+ templateTarget.getOutputdir());
