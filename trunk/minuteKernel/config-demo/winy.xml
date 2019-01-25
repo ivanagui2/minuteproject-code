@@ -1,7 +1,8 @@
+
 <!DOCTYPE root>
 <generator-config xmlns="http://minuteproject.sf.net/xsd/mp-config"
-xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-xs:noNamespaceSchemaLocation="mp-config.xsd">
+	xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+	xs:noNamespaceSchemaLocation="mp-config.xsd">
 	<configuration>
 		<conventions>
 			<!-- <target-convention type="enable-updatable-code-feature" /> -->
@@ -12,7 +13,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 				<context-parameter name="userId" type="int"></context-parameter>
 			</context-parameters>
 		</context>
-		<model name="winy" version="1.0" package-root="com">
+		<model name="winy" version="0.8.5" package-root="com">
 			<description>
 				<CDATA>
 					This model illustrates:
@@ -44,6 +45,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<condition type="exclude" startsWith="v_private" />
 					<condition type="exclude" startsWith="v_security" />
 					<condition type="exclude" startsWith="post_" />
+					<condition type="exclude" startsWith="v_winery_public_detail" />
 				</generation-condition>
 				<business-package default="project">
 					<condition type="package" startsWith="STAT" result="statistics"></condition>
@@ -137,8 +139,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 						</field>
 					</entity>
 					<entity name="JOB_EMAIL">
-						<!-- <field name="CREATION_DATE"> <stereotype stereotype="datetime"
-							/> </field> <field name="PROCESS_DATE"> <stereotype stereotype="datetime"
+						<!-- <field name="CREATION_DATE"> <stereotype stereotype="datetime" 
+							/> </field> <field name="PROCESS_DATE"> <stereotype stereotype="datetime" 
 							/> </field> -->
 						<field name="CONTENT">
 							<stereotype stereotype="text-html" />
@@ -155,6 +157,12 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 					<entity name="REF_SWEETNESS" content-type="reference-data" />
 					<entity name="REF_BUBBLENESS" content-type="reference-data" />
 					<conventions>
+						<check-constraint-convention
+							field-pattern="DURATION_UNIT" field-pattern-type="endsWith">
+							<property name="YEAR" />
+							<property name="MONTH" />
+							<property name="WEEK" />
+						</check-constraint-convention>
 						<entity-validation-convention type="max-greater-than-min-in-entity" />
 
 						<entity-content-type-convention
@@ -171,9 +179,12 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 						<reference-naming-convention type="apply-many-to-many-aliasing"
 							is-to-plurialize="true" />
 
-						<ordering-convention field-pattern="DISPLAY_ORDER" field-pattern-type="endsWith" ordering="asc" />
-						<ordering-convention field-pattern="SEQUENCE_ORDER" field-pattern-type="endsWith" ordering="asc" />
-						<ordering-convention field-pattern="RANKING" field-pattern-type="endsWith" ordering="asc" />
+						<ordering-convention field-pattern="DISPLAY_ORDER"
+							field-pattern-type="endsWith" ordering="asc" />
+						<ordering-convention field-pattern="SEQUENCE_ORDER"
+							field-pattern-type="endsWith" ordering="asc" />
+						<ordering-convention field-pattern="RANKING"
+							field-pattern-type="endsWith" ordering="asc" />
 
 						<!-- stereotype email, URL -->
 						<stereotype-convention field-pattern="email"
@@ -201,9 +212,10 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 							pattern-to-strip="ADMIN_,SEC_,BUS_" />
 
 						<!-- trigger -->
-						<property-convention scope="field" pattern="WEB_PATH" tag="trigger-custom" type="start-with" />
-						<property-convention scope="field" pattern="CREATION_DATE" tag="trigger-insert-with-current-date" type="start-with" />
-
+						<property-convention scope="field" pattern="WEB_PATH"
+							tag="trigger-custom" type="start-with" />
+						<property-convention scope="field" pattern="CREATION_DATE"
+							tag="trigger-insert-with-current-date" type="start-with" />
 						<view-primary-key-convention
 							type="apply-default-primary-key-otherwise-first-one"
 							default-primary-key-names="IDENTIFIER,ID" />
@@ -226,21 +238,33 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 						package-name="profile">
 						<query-body>
 							<value>
-								select w.id domain_id, w.name domain, ppp.pay_plan_name
-								formula,
-								ppp.pay_plan_price price,
-								ppp.register_date
-								register_date, ppp.activation_date activation_date,
-								ppp.end_activation_date end_activation_date, r.name region
+								select w.id domain_id,
+									w.name domain,
+									w.active is_active,
+									w.has_accepted_terms has_agreed_with_terms_and_conditions,
+									w.creation_date winery_creation_date,
+									ppp.pay_plan_name
+									formula,
+									ppp.pay_plan_price price,
+									ppp.register_date
+									register_date, ppp.activation_date
+									activation_date,
+									ppp.end_activation_date end_activation_date,
+									r.name region,
+									awa.label_details
 								from
-								user u, user_winery_profile uwp, winery w, profile_pay_plan
-								ppp,
-								region r
-								where uwp.user_id = u.id and
-								uwp.winery_id = w.id and
-								uwp.profile_pay_plan_id = ppp.id and
-								w.region_id = r.id and
-								u.email = ?
+									user u, user_winery_profile uwp, 
+									winery w LEFT OUTER JOIN 
+										v_assembly_winery_abstract awa on awa.winery_id = w.id,
+									profile_pay_plan ppp,
+									region r
+								where 
+									uwp.user_id = u.id and
+									uwp.winery_id = w.id and
+									uwp.profile_pay_plan_id = ppp.id and
+									w.region_id = r.id and
+									u.email = ?
+								order by w.creation_date desc
 							</value>
 						</query-body>
 						<query-params>
@@ -255,7 +279,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 							</value>
 						</query-body>
 						<query-params>
-							<query-param name="id" is-mandatory="true" type="int" is-in-clause="true" sample="1"></query-param>
+							<query-param name="id" is-mandatory="true" type="int"
+								is-in-clause="true" sample="1"></query-param>
 						</query-params>
 					</query>
 					<query name="winery_public" id="winery_public" package-name="winery">
@@ -269,7 +294,8 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 								and-where-connection="where">
 								<value><![CDATA[ domain_id in (?...) ]]></value>
 								<query-params>
-									<query-param name="domain_ids" type="string" sample="'XXX'" is-in-clause="true">
+									<query-param name="domain_ids" type="string"
+										sample="'XXX'" is-in-clause="true">
 									</query-param>
 								</query-params>
 							</query-filter>
@@ -278,17 +304,15 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 								and-where-connection="where">
 								<value><![CDATA[ web_path in (?...) ]]></value>
 								<query-params>
-									<query-param name="webpaths" type="string" sample="'XXX'" is-in-clause="true">
+									<query-param name="webpaths" type="string" sample="'XXX'"
+										is-in-clause="true">
 									</query-param>
 								</query-params>
 							</query-filter>
 
 						</query-filters>
-						<!--
-						<query-params>
-							<query-param name="id" is-mandatory="true" type="int" is-in-clause="true" sample="1"></query-param>
-						</query-params>
-						 -->
+						<!-- <query-params> <query-param name="id" is-mandatory="true" type="int" 
+							is-in-clause="true" sample="1"></query-param> </query-params> -->
 					</query>
 					<query name="get_content" id="get_content" package-name="content">
 						<query-body>
@@ -307,6 +331,92 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 							</query-filter>
 						</query-filters>
 					</query>
+					
+					<!-- product assembly -->
+					<query name="product_assembly" id="product_assembly" package-name="product">
+						<query-body>
+							<value>
+select 
+pxc.id id, 
+pxc.CEPAGE_ID CEPAGE_ID, 
+pxc.PRODUCT_ID PRODUCT_ID, 
+pxc.percent,
+c.name CEPAGE_NAME
+from product_x_cepage pxc, cepage c, product p
+where pxc.CEPAGE_ID = c.id and pxc.PRODUCT_ID = p.id
+$whereproductid
+							</value>
+						</query-body>
+						<query-filters>
+							<query-filter name="whereproductid" and-where-connection="and">
+								<value>
+        							<![CDATA[ p.id = ? ]]>
+								</value>
+								<query-params>
+									<query-param name="product_Id" type="int" sample="1">
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
+					</query>
+					<!-- Label -->
+
+
+					<query name="label_list" id="label_list"
+						package-name="label" content-type="reference-data">
+						<query-body>
+							<value>
+select l.id, name, web_path, code, is_mention, score 
+from ref_label l
+left outer join 
+(
+select id, 
+case when region_id is not null then 2 
+when country_id is not null then 1
+else 0 end score
+from ref_label
+where 1=1
+$whereregionid
+) xxx on l.id = xxx.id
+where 1=1 
+$wherecountryid
+$iswinerylabel
+$isproductlabel
+order by score desc
+							</value>
+						</query-body>
+						<query-filters>
+							<query-filter name="whereregionid" and-where-connection="and">
+								<value><![CDATA[ region_id = ? ]]></value>
+								<query-params>
+									<query-param name="region_id" type="int" sample="1">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="wherecountryid" and-where-connection="and">
+								<value><![CDATA[ country_id = ? ]]></value>
+								<query-params>
+									<query-param name="country_id" type="int" sample="1">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="iswinerylabel" and-where-connection="and">
+								<value><![CDATA[ is_winery_label = ? ]]></value>
+								<query-params>
+									<query-param name="is_winery_label" type="boolean" sample="true">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="isproductlabel" and-where-connection="and">
+								<value><![CDATA[ is_product_label = ? ]]></value>
+								<query-params>
+									<query-param name="is_product_label" type="boolean" sample="true">
+									</query-param>
+								</query-params>
+							</query-filter>
+
+						</query-filters>
+					</query>
 
 					<!-- TODO create productItemList -->
 					<query name="productAndItemList" id="product_list"
@@ -315,7 +425,7 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 							<value>
 								select p.name product, p.detail detail, pi.id
 								product_item_id,
-								pi.price_min price_min, pi.price_max price_max,
+								pi.price_min price_min, pi.price_max price_max, pi.price_valid_until,
 								pi.year year, w.name winery, r.name region
 								from product p, winery
 								w, region r, product_item pi
@@ -374,37 +484,37 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 							</query-filter>
 						</query-filters>
 					</query>
-					<!-- <query name="call_new_domain" id="call_new_domain" package-name="domain"
-						is-write="true"> <query-body> <value> <![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]>
-						</value> </query-body> <query-params> <query-param name="name" is-mandatory="true"
-						type="string" sample="'a'"></query-param> <query-param name="description"
-						is-mandatory="true" type="string" sample="'a'"></query-param> <query-param
-						name="geo" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="latitude" is-mandatory="true" type="long" sample="1"></query-param>
-						<query-param name="longitude" is-mandatory="true" type="long" sample="1"></query-param>
-						<query-param name="grades" is-mandatory="true" type="string" sample="'1'"></query-param>
-						<query-param name="contact_email" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="region_id" is-mandatory="true" type="int" sample="-1"></query-param>
-						<query-param name="contact_name" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="contact_street1" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="contact_street2" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="contact_post_code" is-mandatory="true" type="int" sample="1200"></query-param>
-						<query-param name="contact_city" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="contact_phone" is-mandatory="true" type="string" sample="'a'"></query-param>
-						<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1"></query-param>
-						<query-param name="login_email" is-mandatory="true" type="string" sample="'test'"></query-param>
-						<query-param name="tags" is-mandatory="true" type="string" sample="'test'"></query-param>
-						<query-param name="id" is-mandatory="true" type="int" sample="10" is-id="true"
-						is-output-param="true"></query-param> </query-params> </query> <query name="call_new_product"
-						id="call_new_product" package-name="product" is-write="true"> <query-body>
-						<value> <![CDATA[call new_product (?,?,?,?,?,?)]]> </value> </query-body>
-						<query-params> <query-param name="name" is-mandatory="true" type="string"
-						sample="'a'"></query-param> <query-param name="detail" is-mandatory="true"
-						type="string" sample="'a'"></query-param> <query-param name="priceInfo" is-mandatory="true"
-						type="long" sample="1.5"></query-param> <query-param name="wineryId" is-mandatory="true"
-						type="int" sample="-1"></query-param> <query-param name="year" is-mandatory="true"
-						type="int" sample="1999"></query-param> <query-param name="id" is-mandatory="true"
-						type="int" sample="10" is-id="true" is-output-param="true"></query-param>
+					<!-- <query name="call_new_domain" id="call_new_domain" package-name="domain" 
+						is-write="true"> <query-body> <value> <![CDATA[call new_domain (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)]]> 
+						</value> </query-body> <query-params> <query-param name="name" is-mandatory="true" 
+						type="string" sample="'a'"></query-param> <query-param name="description" 
+						is-mandatory="true" type="string" sample="'a'"></query-param> <query-param 
+						name="geo" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="latitude" is-mandatory="true" type="long" sample="1"></query-param> 
+						<query-param name="longitude" is-mandatory="true" type="long" sample="1"></query-param> 
+						<query-param name="grades" is-mandatory="true" type="string" sample="'1'"></query-param> 
+						<query-param name="contact_email" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="region_id" is-mandatory="true" type="int" sample="-1"></query-param> 
+						<query-param name="contact_name" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="contact_street1" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="contact_street2" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="contact_post_code" is-mandatory="true" type="int" sample="1200"></query-param> 
+						<query-param name="contact_city" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="contact_phone" is-mandatory="true" type="string" sample="'a'"></query-param> 
+						<query-param name="pay_plan_id" is-mandatory="true" type="int" sample="1"></query-param> 
+						<query-param name="login_email" is-mandatory="true" type="string" sample="'test'"></query-param> 
+						<query-param name="tags" is-mandatory="true" type="string" sample="'test'"></query-param> 
+						<query-param name="id" is-mandatory="true" type="int" sample="10" is-id="true" 
+						is-output-param="true"></query-param> </query-params> </query> <query name="call_new_product" 
+						id="call_new_product" package-name="product" is-write="true"> <query-body> 
+						<value> <![CDATA[call new_product (?,?,?,?,?,?)]]> </value> </query-body> 
+						<query-params> <query-param name="name" is-mandatory="true" type="string" 
+						sample="'a'"></query-param> <query-param name="detail" is-mandatory="true" 
+						type="string" sample="'a'"></query-param> <query-param name="priceInfo" is-mandatory="true" 
+						type="long" sample="1.5"></query-param> <query-param name="wineryId" is-mandatory="true" 
+						type="int" sample="-1"></query-param> <query-param name="year" is-mandatory="true" 
+						type="int" sample="1999"></query-param> <query-param name="id" is-mandatory="true" 
+						type="int" sample="10" is-id="true" is-output-param="true"></query-param> 
 						</query-params> </query> -->
 					<!-- cepage -->
 					<query name="cepage_tokenfield" id="cepage_tokenfield"
@@ -422,16 +532,16 @@ xs:noNamespaceSchemaLocation="mp-config.xsd">
 						<query-body>
 							<value>
 <![CDATA[
-select www.id id, www.name name,
+select www.id id, www.name name, 
 (case when sum(www.score_region)>0 then www.region when sum(www.score_country)>0 then www.country else 'Other' end) origin,
 sum(www.score_region) score_region, sum(www.score_country) score_country
  from
 (
-select c.id, c.name,
+select c.id, c.name, 
  (case when ? = r.id then 1 else 0 end) score_region, r.name region,
-(case when yyy.country_id = co.id then 1 else 0 end) score_country, co.name country
+(case when yyy.country_id = co.id then 1 else 0 end) score_country, co.name country 
 from cepage c, region r, cepage_x_region cxr, country co
-,
+, 
 (
  select co.id country_id from region r, country co where r.country_id = co.id and r.id = ?
 ) yyy
@@ -483,7 +593,7 @@ where
 ) yyy
 ) zzz, cepage c
 where zzz.cepage_id = c.id
-group by cepage_id
+group by cepage_id 
 order by score_winery desc, score_region desc
 	]]>
 							</value>
@@ -505,15 +615,15 @@ SELECT distinct xxx.id
  , xxx.name
  , sum(xxx.cnt) score
 
-from
+from 
 (
-  select c.id, c.name, 1 cnt
+  select c.id, c.name, 1 cnt 
 	from
 	cepage c, product_x_cepage pxc, product p, winery w
     where pxc.cepage_id = c.id and pxc.product_id = p.id
 	and p.winery_id = w.id
 	and
-	($distanceunit * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?))
+	($distanceunit * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) 
 	+ sin(radians(?)) * sin(radians(latitude)))) < ?
 ) xxx
 group by xxx.name
@@ -550,8 +660,8 @@ order by score desc
 						package-name="country">
 						<query-body>
 							<value>
-<![CDATA[
-  select c.id, c.name, c.description
+<![CDATA[  
+  select c.id, c.name, c.description 
  from country c, region r
  where r.country_id = c.id
  group by c.id, c.name, c.description
@@ -572,13 +682,26 @@ order by score desc
 								type="int" sample="-1"></query-param>
 						</query-params>
 					</query>
+
+					<query name="lieu_dit_list" id="lieu_dit_list" package-name="place">
+						<query-body>
+							<value>
+<![CDATA[select id, name, longitude, latitude, google_zoom, web_path from lieu_dit ld 
+where ld.region_id = ? order by name asc]]>
+							</value>
+						</query-body>
+						<query-params>
+							<query-param name="region_id" is-mandatory="true"
+								type="int" sample="-1"></query-param>
+						</query-params>
+					</query>
 					<!-- master data -->
-					<!-- grades TODO REMOVE <query name="grade_list" id="grade_list" package-name="region">
-						<query-body> <value> <![CDATA[select id, name, url_description from cepage
-						$wherecountryid order by display_order desc, name asc]]> </value> </query-body>
-						<query-filters> <query-filter name="wherecountryid" and-where-connection="where">
-						<value> <![CDATA[ country_id = ? ]]> </value> <query-params> <query-param
-						name="country_id" type="int" sample="1" /> </query-params> </query-filter>
+					<!-- grades TODO REMOVE <query name="grade_list" id="grade_list" package-name="region"> 
+						<query-body> <value> <![CDATA[select id, name, url_description from cepage 
+						$wherecountryid order by display_order desc, name asc]]> </value> </query-body> 
+						<query-filters> <query-filter name="wherecountryid" and-where-connection="where"> 
+						<value> <![CDATA[ country_id = ? ]]> </value> <query-params> <query-param 
+						name="country_id" type="int" sample="1" /> </query-params> </query-filter> 
 						</query-filters> </query> -->
 					<!-- badge queries -->
 					<query name="winery_product_badge" id="winery_product_badge"
@@ -586,9 +709,9 @@ order by score desc
 						<query-body>
 							<value>
 <![CDATA[
-select count(*) nb_of_products, w.grades grades, w.name winery, w.description description
+select count(*) nb_of_products, w.grades grades, w.name winery, w.description description 
 from product p, winery w
-where p.winery_id = w.id
+where p.winery_id = w.id 
 and w.id = ?
 group by w.name, w.grades
  order by winery desc
@@ -627,11 +750,11 @@ select * from v_product_abstract $wherewineryid order by product asc
 						package-name="region">
 						<query-body>
 							<value>
-								<!--http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql
+								<!--http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql 
 									https://developers.google.com/maps/articles/phpsqlsearch_v3 -->
  <![CDATA[
 SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude )
- - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance, latitude, longitude
+ - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance, latitude, longitude 
  FROM winery HAVING distance < ? ORDER BY distance LIMIT 0 , ?
  ]]>
 							</value>
@@ -656,36 +779,36 @@ SELECT id, ( $distanceunit * acos( cos( radians(?) ) * cos( radians( latitude ) 
 					</query>
 					<!-- filter for search: cepage -->
 					<!-- remove use cepage_inside_circle instead -->
-					<!-- <query name="product_token_filter_Inside_Circle" id="product_token_filter_Inside_Circle"
-						package-name="region"> <query-body> <value> <![CDATA[ select distinct value
-						from ( SELECT trim(SUBSTRING_INDEX(SUBSTRING_INDEX(t.value, ',', n.n), ',',
-						-1)) value FROM ( select GROUP_CONCAT(DISTINCT p.grades) value from product
-						p, winery w where p.winery_id = w.id and ( $distanceunit * acos( cos( radians(?)
-						) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) )
-						+ sin( radians(?) ) * sin( radians( latitude )))) < ? ) t CROSS JOIN ( SELECT
-						a.N + b.N * 10 + 1 n FROM (SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT
-						2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT
-						6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) a ,(SELECT 0
-						AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT
-						4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT
-						8 UNION ALL SELECT 9) b ORDER BY n ) n WHERE n.n <= 1 + (LENGTH(t.value)
-						- LENGTH(REPLACE(t.value, ',', ''))) ) xxx ORDER BY value ]]> </value> </query-body>
-						<query-params> <query-param id="latitudeId" name="latitude" is-mandatory="true"
-						type="double" sample="48"></query-param> <query-param name="longitude" is-mandatory="true"
-						type="double" sample="7"></query-param> <query-param name="latitude2" refname="latitude"></query-param>
-						<query-param name="range" is-mandatory="true" type="int" sample="2"></query-param>
-						</query-params> <query-chunks> <query-chunk name="search" sample-value="p.grades">
-						<query-chunk-value name="grades" value="p.grades" /> <query-chunk-value name="tags"
-						value="p.tags" /> </query-chunk> <query-chunk name="distanceunit" sample-value="3959">
-						<query-chunk-value name="km" value="6371" is-default="true"/> <query-chunk-value
+					<!-- <query name="product_token_filter_Inside_Circle" id="product_token_filter_Inside_Circle" 
+						package-name="region"> <query-body> <value> <![CDATA[ select distinct value 
+						from ( SELECT trim(SUBSTRING_INDEX(SUBSTRING_INDEX(t.value, ',', n.n), ',', 
+						-1)) value FROM ( select GROUP_CONCAT(DISTINCT p.grades) value from product 
+						p, winery w where p.winery_id = w.id and ( $distanceunit * acos( cos( radians(?) 
+						) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) 
+						+ sin( radians(?) ) * sin( radians( latitude )))) < ? ) t CROSS JOIN ( SELECT 
+						a.N + b.N * 10 + 1 n FROM (SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 
+						2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 
+						6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) a ,(SELECT 0 
+						AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 
+						4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 
+						8 UNION ALL SELECT 9) b ORDER BY n ) n WHERE n.n <= 1 + (LENGTH(t.value) 
+						- LENGTH(REPLACE(t.value, ',', ''))) ) xxx ORDER BY value ]]> </value> </query-body> 
+						<query-params> <query-param id="latitudeId" name="latitude" is-mandatory="true" 
+						type="double" sample="48"></query-param> <query-param name="longitude" is-mandatory="true" 
+						type="double" sample="7"></query-param> <query-param name="latitude2" refname="latitude"></query-param> 
+						<query-param name="range" is-mandatory="true" type="int" sample="2"></query-param> 
+						</query-params> <query-chunks> <query-chunk name="search" sample-value="p.grades"> 
+						<query-chunk-value name="grades" value="p.grades" /> <query-chunk-value name="tags" 
+						value="p.tags" /> </query-chunk> <query-chunk name="distanceunit" sample-value="3959"> 
+						<query-chunk-value name="km" value="6371" is-default="true"/> <query-chunk-value 
 						name="miles" value="3959" /> </query-chunk> </query-chunks> </query> -->
 					<query name="search" id="search" package-name="region">
 						<query-body>
 							<value>
-								<!--http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql
+								<!--http://stackoverflow.com/questions/4687312/querying-within-longitude-and-latitude-in-mysql 
 									https://developers.google.com/maps/articles/phpsqlsearch_v3 -->
  <![CDATA[
- SELECT
+ SELECT 
     w.id,
     w.name,
     w.since,
@@ -715,7 +838,7 @@ FROM
     winery w,
     user_winery_profile uwp,
     profile_pay_plan ppp,
-    (select
+    (select 
         winery_id winery_id,
             sum(nb_of_items) nb_of_items,
             sum(nb_of_awards) nb_of_awards,
@@ -750,14 +873,14 @@ LIMIT 0 , 10
 							<query-param name="latitude2" refname="latitude"></query-param>
 							<query-param name="range" is-mandatory="true" type="int"
 								sample="2"></query-param>
-							<!-- <query-param name="nb_of_result" is-mandatory="true" type="int"
+							<!-- <query-param name="nb_of_result" is-mandatory="true" type="int" 
 								sample="2" index="1"></query-param> -->
 						</query-params>
 						<!-- $filterYear $filterTag $filterGrade $filterColor $filterAppelation -->
 						<query-filters>
-							<!-- <query-filter name="filterGrade" and-where-connection="and">
-								<value><![CDATA[ xxx.grades regexp ?... ]]></value> <query-params> <query-param
-								name="grade" type="string" sample="',(grades),'" regex-start="',(" regex-end="),'"
+							<!-- <query-filter name="filterGrade" and-where-connection="and"> 
+								<value><![CDATA[ xxx.grades regexp ?... ]]></value> <query-params> <query-param 
+								name="grade" type="string" sample="',(grades),'" regex-start="',(" regex-end="),'" 
 								regex-param-separartor="|" regex-param-wrapper="" /> </query-params> </query-filter> -->
 							<!-- -->
 							<query-filter name="filterCepage"
@@ -797,8 +920,8 @@ LIMIT 0 , 10
 										sample="'muscat'" />
 								</query-params>
 							</query-filter>
-							<!-- <query-filter name="nb_of_result"> <value><![CDATA[ ? ]]></value>
-								<query-params> <query-param name="max_result" type="int" sample="10" default="10"/>
+							<!-- <query-filter name="nb_of_result"> <value><![CDATA[ ? ]]></value> 
+								<query-params> <query-param name="max_result" type="int" sample="10" default="10"/> 
 								</query-params> </query-filter> -->
 						</query-filters>
 						<query-chunks>
@@ -877,7 +1000,7 @@ call freetext_search_winery (?, ?, ?, ?)
 						</query-params>
 					</query>
 					<!-- queries for DDL -->
-					<!-- country -> region -> appelation color -> cepage or revert each
+					<!-- country -> region -> appelation color -> cepage or revert each 
 						master data > semantic ref > order by + where parent is (for filter) -->
 					<!-- pictures -->
 
@@ -888,7 +1011,7 @@ call freetext_search_winery (?, ?, ?, ?)
 <![CDATA[
  select r.name, r.id, r.longitude_center, r.latitude_center, r.i18n_language_code, 'region' entity from cepage_x_region cr, region r where cr.region_id = r.id and  cr.cepage_id = ?
 union
-select w.name, w.id, w.longitude, w.latitude, r.i18n_language_code, 'winery' entity
+select w.name, w.id, w.longitude, w.latitude, r.i18n_language_code, 'winery' entity 
 from winery_x_cepage wc, region r, winery w where wc.winery_id = r.id and w.region_id = r.id and wc.cepage_id = ?
 ]]>
 							</value>
@@ -904,8 +1027,8 @@ from winery_x_cepage wc, region r, winery w where wc.winery_id = r.id and w.regi
 						<query-body>
 							<value>
 <![CDATA[
- select p.id picture_id, image_name, description, display_order, wxp.type
- from picture p, winery_x_picture wxp
+ select p.id picture_id, image_name, description, display_order, wxp.type 
+ from picture p, winery_x_picture wxp  
  where wxp.picture_id = p.id and wxp.winery_id = ?
  $type
  order by display_order
@@ -933,16 +1056,16 @@ from winery_x_cepage wc, region r, winery w where wc.winery_id = r.id and w.regi
 						package-name="winery">
 						<query-body>
 							<value>
-<![CDATA[
-SELECT  w.id, w.name domain, c.name contact, c.city, r.name region, co.name country,
-GROUP_CONCAT( distinct ce.name order by ce.name asc) cepages,
+<![CDATA[	
+SELECT  w.id, w.name domain, c.name contact, c.city, r.name region, co.name country, 
+GROUP_CONCAT( distinct ce.name order by ce.name asc) cepages, 
 min(wxp.display_order) picture_display_order, p.id picture_id, p.image_name as image_name,
-score
-FROM winery w left outer join winery_x_cepage wxc on wxc.winery_id = w.id
+score 
+FROM winery w left outer join winery_x_cepage wxc on wxc.winery_id = w.id 
 left outer join winery_x_picture wxp on wxp.winery_id = w.id left outer join picture p on wxp.picture_id = p.id,
  contact c, cepage ce, region r, country co ,
 (
-select id, (wscore + cscore + cescore + rscore) as score
+select id, (wscore + cscore + cescore + rscore) as score 
 from
 (
 SELECT  w.id id
@@ -951,10 +1074,10 @@ SELECT  w.id id
 ,MATCH (ce.name) AGAINST (? IN BOOLEAN MODE) as cescore
 ,MATCH (r.name) AGAINST (? IN BOOLEAN MODE) as rscore
 ,MATCH (co.name) AGAINST (? IN BOOLEAN MODE) as coscore
-FROM winery w left outer join winery_x_cepage wxc on wxc.winery_id = w.id
-, contact c, cepage ce, region r, country co
+FROM winery w left outer join winery_x_cepage wxc on wxc.winery_id = w.id 
+, contact c, cepage ce, region r, country co 
     WHERE w.contact_id = c.id and wxc.cepage_id = ce.id and w.region_id = r.id and r.country_id = co.id
-and
+and 
 (MATCH (c.name, c.city)
     AGAINST (? IN BOOLEAN MODE)
 or
@@ -977,7 +1100,7 @@ limit 40
 ) xxx
 ) yyy
     WHERE w.contact_id = c.id and wxc.cepage_id = ce.id and w.region_id = r.id and r.country_id = co.id
- and w.id = yyy.id
+ and w.id = yyy.id 
 group by w.id
 order by yyy.score desc
 limit 20
@@ -996,9 +1119,9 @@ limit 20
 							<query-param name="match7" refname="match"></query-param>
 							<query-param name="match8" refname="match"></query-param>
 							<query-param name="match81" refname="match"></query-param>
-							<!-- TODO SDD with mix param and filter param in whatever order not
-								filter param at the end <query-param name="event_id" is-mandatory="true"
-								type="int" sample="-1"></query-param> TODO remove hardcode param limit <query-param
+							<!-- TODO SDD with mix param and filter param in whatever order not 
+								filter param at the end <query-param name="event_id" is-mandatory="true" 
+								type="int" sample="-1"></query-param> TODO remove hardcode param limit <query-param 
 								name="limit" is-mandatory="true" type="int" sample="20"></query-param> -->
 						</query-params>
 						<query-filters>
@@ -1021,8 +1144,8 @@ limit 20
 							</query-filter>
 							<query-filter name="whereinrewardedforeventId"
 								and-where-connection="and">
-								<value><![CDATA[
-w.id in (select p.winery_id from reward r, product_item pi, product p where r.product_item_id = pi.id and pi.product_id = p.id and r.event_id = ?)
+								<value><![CDATA[ 
+w.id in (select p.winery_id from reward r, product_item pi, product p where r.product_item_id = pi.id and pi.product_id = p.id and r.event_id = ?) 
 									]]></value>
 								<query-params>
 									<query-param name="in_rewarded_for_event_id" type="int"
@@ -1032,8 +1155,8 @@ w.id in (select p.winery_id from reward r, product_item pi, product p where r.pr
 							</query-filter>
 							<query-filter name="wherenotinrewardedforeventId"
 								and-where-connection="and">
-								<value><![CDATA[
-w.id not in (select p.winery_id from reward r, product_item pi, product p where r.product_item_id = pi.id and pi.product_id = p.id and r.event_id = ?)
+								<value><![CDATA[ 
+w.id not in (select p.winery_id from reward r, product_item pi, product p where r.product_item_id = pi.id and pi.product_id = p.id and r.event_id = ?) 
 									]]></value>
 								<query-params>
 									<query-param name="not_in_rewarded_for_event_id"
@@ -1045,17 +1168,17 @@ w.id not in (select p.winery_id from reward r, product_item pi, product p where 
 					</query>
 					<!-- todo remove profile_winery_picture_list and winery_pictures -->
 					<!-- profile -->
-					<!-- replaced by winery_picture_list <query name="profile_winery_picture_list"
-						id="winery_picture_list" package-name="winery"> <query-body> <value> <![CDATA[
-						select id picture_id, image_name, description, display_order from winery_pictures
-						where winery_id = ? order by display_order ]]> </value> </query-body> <query-params>
-						<query-param name="winery_id" is-mandatory="true" type="int" sample="-1"
-						from-profile-session-property="winery_id"></query-param> </query-params>
+					<!-- replaced by winery_picture_list <query name="profile_winery_picture_list" 
+						id="winery_picture_list" package-name="winery"> <query-body> <value> <![CDATA[ 
+						select id picture_id, image_name, description, display_order from winery_pictures 
+						where winery_id = ? order by display_order ]]> </value> </query-body> <query-params> 
+						<query-param name="winery_id" is-mandatory="true" type="int" sample="-1" 
+						from-profile-session-property="winery_id"></query-param> </query-params> 
 						</query> -->
 					<!-- end query -->
 
 					<!-- SDD for public -->
-					<!-- search type wine/region/country ex: cabernet // try content search
+					<!-- search type wine/region/country ex: cabernet // try content search 
 						on tags / grades / region / country / (domain) =>list of wines + domains -->
 
 					<!-- pay plan display -->
@@ -1065,18 +1188,18 @@ w.id not in (select p.winery_id from reward r, product_item pi, product p where 
 						<query-body>
 							<value>
 <![CDATA[
-select ppp.pay_plan_name,
-ppp.pay_plan_description,
-ppp.pay_plan_price price,
-ppp.register_date register_date,
-ppp.activation_date,
-ppp.end_activation_date,
+select ppp.pay_plan_name, 
+ppp.pay_plan_description, 
+ppp.pay_plan_price price, 
+ppp.register_date register_date, 
+ppp.activation_date, 
+ppp.end_activation_date, 
 concat('payplan.',pppc.name) pay_plan_condition_i18n_entry,
-pppc.name, pppc.condition_description,
-pppc.display_number,
-pppc.quantity
+pppc.name, pppc.condition_description, 
+pppc.display_number, 
+pppc.quantity  
 from profile_pay_plan ppp, profile_pay_plan_condition pppc, user_winery_profile uwp
-where
+where 
 uwp.PROFILE_PAY_PLAN_ID = ppp.ID
 and pppc.PROFILE_PAY_PLAN_ID = ppp.ID
 and uwp.winery_id = ?
@@ -1096,7 +1219,7 @@ order by pppc.DISPLAY_NUMBER
 							<query-param name="winery_id" is-mandatory="true"
 								type="int" sample="-1" from-profile-session-property="winery_id"></query-param>
 						</query-params>
-						<!-- TODO business security foreach winery_id, domain_id : filter can
+						<!-- TODO business security foreach winery_id, domain_id : filter can 
 							access this functionality -->
 					</query>
 
@@ -1105,7 +1228,7 @@ order by pppc.DISPLAY_NUMBER
 						<query-body>
 							<value>
 <![CDATA[
-select pp.price price, pp.name pay_plan_name, pp.description pay_plan_description, pp.id pay_plan_id, pp.period,
+select pp.price price, pp.name pay_plan_name, pp.description pay_plan_description, pp.id pay_plan_id, pp.period, 
 ppxc.quantity quantity, ppc.name condition_name, concat('payplan.',ppc.name) pay_plan_condition_i18n_entry, ppc.condition_description condition_description, ppc.id pay_plan_condition_id
 from pay_plan pp, pay_plan_x_condition ppxc, pay_plan_condition ppc
 where
@@ -1121,7 +1244,8 @@ order by pp.display_order, ppc.display_number
 								and-where-connection="and">
 								<value><![CDATA[ pp.name = ? ]]></value>
 								<query-params>
-									<query-param name="pay_plan_name" type="string" sample="'xx'">
+									<query-param name="pay_plan_name" type="string"
+										sample="'xx'">
 									</query-param>
 								</query-params>
 							</query-filter>
@@ -1139,7 +1263,7 @@ order by pp.display_order, ppc.display_number
 
 					<query name="pay plan condition matrix" id="pay-plan-condition-matrix"
 						package-name="pay_plan" cache="true">
-						<!-- create pivot classes film and actor once processed reassemble
+						<!-- create pivot classes film and actor once processed reassemble 
 							g -->
 						<query-body> <!-- dimensions column first -->
 							<value>
@@ -1162,7 +1286,7 @@ order by order_number asc
 
 					<query name="pay plan price" id="pay-plan-price"
 						package-name="pay_plan">
-						<!-- create pivot classes film and actor once processed reassemble
+						<!-- create pivot classes film and actor once processed reassemble 
 							g -->
 						<query-body> <!-- dimensions column first -->
 							<value>
@@ -1171,9 +1295,9 @@ select sum(free_offer_price) free_offer_price
 	  ,sum(intermediate_offer_price) intermediate_offer_price
       ,sum(pro_offer_price) pro_offer_price
 from (
-select (case when id = 1 then price end) free_offer_price
-	  ,(case when id = 2 then price end) intermediate_offer_price
-	  ,(case when id = 3 then price end) pro_offer_price
+select (case when id = 1 then price end) free_offer_price 
+	  ,(case when id = 2 then price end) intermediate_offer_price 
+	  ,(case when id = 3 then price end) pro_offer_price 
 from pay_plan
 ) xxx
 ]]>
@@ -1189,7 +1313,7 @@ from pay_plan
 						<query-body>
 							<value>
 <![CDATA[
-	 select eo.id eo_Id, name eo_Name
+	 select eo.id eo_Id, name eo_Name 
 from event_organiser eo,
 user_event_organiser_profile ueop
 where ueop.event_organiser_id = eo.id
@@ -1207,7 +1331,7 @@ and ueop.user_id = ?
 						<query-body>
 							<value>
 <![CDATA[
-select
+select 
     e.id ev_id,
     e.name ev_name,
     e.from_date ev_from,
@@ -1234,7 +1358,7 @@ select
 from
     event e,
 (
-select
+select 
     e.id,
     count(ep.id) nb_of_partners
 from
@@ -1244,67 +1368,67 @@ from
 group by e.id
 ) xxx,
 (
-select
+select 
     e.id id,
     count(r.id) nb_of_rewards
 from
     event e
         left outer join
     reward r ON r.event_id = e.id
-group by e.id
+group by e.id 
 ) yyy,
 (
-select
+select 
     e.id id,
     count(p.id) nb_of_prizes
 from
     event e
         left outer join
     prize p ON p.event_id = e.id
-group by e.id
+group by e.id 
 ) zzz,
 (
-select
+select 
     e.id id,
     count(ewp.id) nb_of_participants
 from
     event e
         left outer join
     EVENT_WINERY_PARTICIPATION ewp ON ewp.event_id = e.id
-group by e.id
+group by e.id 
 ) qqq,
 (
-select
+select 
     e.id id,
     count(ed.id) nb_of_distinctions
 from
     event e
         left outer join
     EVENT_DISTINCTION ed ON ed.event_id = e.id
-group by e.id
+group by e.id 
 ) aaa,
 (
-select
+select 
     e.id id,
     count(epl.id) nb_of_partnership_levels
 from
     event e
         left outer join
     EVENT_PARTNERSHIP_LEVEL epl ON epl.event_id = e.id
-group by e.id
+group by e.id 
 ) bbb,
 (
-select
+select 
     e.id id,
     count(epl.id) nb_of_participation_levels
 from
     event e
         left outer join
     EVENT_PARTICIPATION_LEVEL epl ON epl.event_id = e.id
-group by e.id
+group by e.id 
 ) ccc,
 contact v
-where xxx.id = e.id and yyy.id = e.id and zzz.id = e.id and qqq.id = e.id and aaa.id = e.id and bbb.id = e.id and ccc.id = e.id
+where xxx.id = e.id and yyy.id = e.id and zzz.id = e.id and qqq.id = e.id and aaa.id = e.id and bbb.id = e.id and ccc.id = e.id 
 and e.venue_id = v.id
 and e.event_organiser_id = ?
 order by from_date desc
@@ -1324,35 +1448,35 @@ order by from_date desc
 <![CDATA[
 select eo.id eo_id,
 eo.name eo_name,
-eo.logo_image_path eo_logo,
-eo.website eo_website,
+eo.logo_image_path eo_logo, 
+eo.website eo_website, 
 eo.description eo_description,
  c.id eo_contact_id,
- c.name eo_contact_name,
- c.street1 eo_contact_street1,
+ c.name eo_contact_name, 
+ c.street1 eo_contact_street1, 
  c.street2 eo_contact_street2,
- c.post_code eo_contact_post_code,
- c.city eo_contact_city,
- c.mail eo_contact_mail,
+ c.post_code eo_contact_post_code, 
+ c.city eo_contact_city, 
+ c.mail eo_contact_mail, 
  c.telephone eo_contact_phone,
  co.id country_id,
  co.name country_name,
  bc.id billing_contact_id,
- bc.name billing_contact_name,
- bc.street1 billing_contact_street1,
+ bc.name billing_contact_name, 
+ bc.street1 billing_contact_street1, 
  bc.street2 billing_contact_street2,
- bc.post_code billing_contact_post_code,
- bc.city billing_contact_city,
- bc.mail billing_contact_mail,
+ bc.post_code billing_contact_post_code, 
+ bc.city billing_contact_city, 
+ bc.mail billing_contact_mail, 
  bc.telephone billing_contact_phone,
  bco.id billing_country_id,
  bco.name billing_country_name,
  bc.under_vat_regime,
  bc.vat_number
 from event_organiser eo, contact c, country co, contact bc, country bco
-where eo.contact_id = c.id
+where eo.contact_id = c.id 
  and c.country_id = co.id
- and eo.billing_contact_id = bc.id
+ and eo.billing_contact_id = bc.id 
  and bc.country_id = bco.id
  and eo.id = ?
 	]]>
@@ -1370,9 +1494,9 @@ where eo.contact_id = c.id
 							<value>
 <![CDATA[
 select zzz.event_organiser_id, zzz.event_organiser_name, zzz.event_id, zzz.event_name, zzz.winery_id, zzz.winery_name, zzz.longitude, zzz.latitude, xxx.score from (
-        select eo.id event_organiser_id, eo.name event_organiser_name, e.id event_id, e.name event_name, w.id winery_id, w.name winery_name, longitude, latitude
+        select eo.id event_organiser_id, eo.name event_organiser_name, e.id event_id, e.name event_name, w.id winery_id, w.name winery_name, longitude, latitude 
         from event_winery_participation ewp, event e, event_organiser eo,  winery w
-        where ewp.event_id = e.id and ewp.winery_id = w.id and e.event_organiser_id = eo.id
+        where ewp.event_id = e.id and ewp.winery_id = w.id and e.event_organiser_id = eo.id 
         group by eo.id, e.id, w.id
 
 ) zzz left outer join
@@ -1427,7 +1551,7 @@ $whereEventId $whereEventOrganiserId $whereWineryId
 						<query-body>
 							<value>
 <![CDATA[
-select ep.id ep_Id, name ep_Name, logo ep_logo, partnership_level ep_partnership_level
+select ep.id ep_Id, name ep_Name, logo ep_logo, partnership_level ep_partnership_level 
 from event_partner ep
 where ep.event_id = ?
 order by partnership_level desc
@@ -1444,9 +1568,9 @@ order by partnership_level desc
 						<query-body>
 							<value>
 <![CDATA[
-select
-ewp.id ewp_Id,
-participation_level ewp_participation_level,
+select 
+ewp.id ewp_Id, 
+participation_level ewp_participation_level, 
 booth ewp_booth, registration_date ewp_registration_date, w.name domain, e.name event
 from event_winery_participation ewp, winery w, event e
 where ewp.event_id = e.id and ewp.winery_id = w.id
@@ -1480,7 +1604,7 @@ order by ewp_participation_level desc
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, description, display_order
+select id, name, description, display_order 
 from event_distinction
 where event_id = ?
 order by display_order asc
@@ -1497,7 +1621,7 @@ order by display_order asc
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, description, display_order
+select id, name, description, display_order 
 from event_participation_level
 where event_id = ?
 order by display_order asc
@@ -1514,7 +1638,7 @@ order by display_order asc
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, description, display_order
+select id, name, description, display_order 
 from event_partnership_level
 where event_id = ?
 order by display_order asc
@@ -1535,7 +1659,7 @@ order by display_order asc
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, case when (is_raw) then replace(replace(value_raw, '<js>', '<script type=\"application/javascript\">'), '</js>','</script>') else value_editor end value, business_name, template_type, is_active, creation_date, last_update
+select id, name, case when (is_raw) then replace(replace(value_raw, '<js>', '<script type=\"application/javascript\">'), '</js>','</script>') else value_editor end value, business_name, template_type, is_active, creation_date, last_update 
 from template_template
 where name = ?
 	]]>
@@ -1550,7 +1674,7 @@ where name = ?
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, business_name, template_type, is_active, creation_date, last_update
+select id, name, business_name, template_type, is_active, creation_date, last_update 
 from template_template
 where template_data_sample_id = ? and user_id = ?
 order by name desc
@@ -1569,7 +1693,7 @@ order by name desc
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, sampler_type, is_active, creation_date, last_update
+select id, name, sampler_type, is_active, creation_date, last_update 
 from template_data_sample
 order by name desc
 	]]>
@@ -1584,7 +1708,7 @@ order by name desc
 						<query-body>
 							<value>
 <![CDATA[
-select id, name, description, display_order
+select id, name, description, display_order 
 from $entity_name
 where $parent_id = ?
 order by display_order asc
@@ -1605,7 +1729,7 @@ order by display_order asc
 					<query name="key_config_persist" id="key_config_persist"
 						package-name="generic" is-write="true">
 						<query-body>
-							<!-- sample call key_config_persist(@Id, 'EVENT_DISTINCTION', 'blabla34',
+							<!-- sample call key_config_persist(@Id, 'EVENT_DISTINCTION', 'blabla34', 
 								1, 'blabla2', 'event_id',-1) -->
 							<value>
 <![CDATA[call key_config_persist (?,?,?,?,?,?,?)]]>
@@ -1628,8 +1752,8 @@ order by display_order asc
 							<query-param name="parent_id" is-mandatory="true"
 								type="int" sample="1"></query-param>
 						</query-params>
-						<!-- <query-chunks> <query-chunk name="entityname" sample-value="event_partnership_level">
-							</query-chunk> <query-chunk name="parentid" sample-value="event_id"> </query-chunk>
+						<!-- <query-chunks> <query-chunk name="entityname" sample-value="event_partnership_level"> 
+							</query-chunk> <query-chunk name="parentid" sample-value="event_id"> </query-chunk> 
 							</query-chunks> -->
 					</query>
 					<!-- GENERIC key config end -->
@@ -1708,7 +1832,7 @@ order by $order asc
 	]]>
 							</value>
 						</query-body>
-						<!-- <query-params> <query-param id="id" name="id" is-mandatory="true"
+						<!-- <query-params> <query-param id="id" name="id" is-mandatory="true" 
 							type="int" sample="48"></query-param> </query-params> -->
 						<query-chunks>
 							<query-chunk name="key" sample-value="name"> <!-- it is just to have string instead of int as output -->
@@ -1738,7 +1862,7 @@ order by $order asc
 									value="where i18n_language_code = ?" params="language_code" />
 							</query-chunk>
 							<query-chunk name="entity_name" sample-value="ref_appelation_classification">
-								<!-- TODO Add by security all the table <query-chunk-value name="appelation_classification"
+								<!-- TODO Add by security all the table <query-chunk-value name="appelation_classification" 
 									value="ref_appelation_classification" /> -->
 							</query-chunk>
 							<query-chunk name="order" sample-value="name">
@@ -1751,7 +1875,7 @@ order by $order asc
 <![CDATA[
 select $key as key_, $value as value
 from $entity_name
-$wherecountry $wherelanguage
+$wherecountry $wherelanguage $whereappelationclassification
 order by $order asc
 	]]>
 							</value>
@@ -1765,10 +1889,14 @@ order by $order asc
 									</query-param>
 								</query-params>
 							</query-filter>
-							<!-- TODO remove from execution <query-filter name="whereappelationclassification"
-								and-where-connection="where"> <value><![CDATA[ ref_appelation_classification
-								= ? ]]></value> <query-params> <query-param name="appelation_classification_id"
-								type="int" sample="-1"> </query-param> </query-params> </query-filter> -->
+							<!-- TODO remove from execution  -->
+							<query-filter name="whereappelationclassification" and-where-connection="where" omit-from-sdd-lookup-query="true"> 
+								<value><![CDATA[ ref_appelation_classification_id = ? ]]> </value> 
+								<query-params> 
+									<query-param name="appelation_classification_id" type="int" sample="-1"> 
+									</query-param> 
+								</query-params> 
+							</query-filter>
 							<query-filter name="wherelanguage"
 								and-where-connection="where">
 								<value><![CDATA[ i18n_language_code = ? ]]></value>
@@ -1793,7 +1921,7 @@ order by $order asc
 
 					<!-- TODO DDL with default selection -->
 					<!-- #205 generic exist query -->
-					<!-- <query name="exists" id="exists" package-name="generic" card="one"
+					<!-- <query name="exists" id="exists" package-name="generic" card="one" 
 						is-write="false"> -->
 					<query name="exists" id="exists" package-name="generic"
 						is-write="false">
@@ -1827,12 +1955,12 @@ select 1 present from $table_name where $column_name = ?
 						<query-body>
 							<value>
 <![CDATA[
-select t1.id id_level1, t1.entry entry_level1, v1.value value_level1, t2.id id_level2, t2.entry entry_level2, v2.value value_level2 from ms_translation_entry t1
-left outer join ms_translation_entry t2 on t2.parent_id = t1.id
-left join
+select t1.id id_level1, t1.entry entry_level1, v1.value value_level1, t2.id id_level2, t2.entry entry_level2, v2.value value_level2 from ms_translation_entry t1 
+left outer join ms_translation_entry t2 on t2.parent_id = t1.id 
+left join 
  ( select i18n_translation_entry_id, value from ms_translation_value where i18n_language_code = ?
  ) v1 on v1.i18n_translation_entry_id = t1.id
-left join
+left join 
  ( select i18n_translation_entry_id, value from ms_translation_value where i18n_language_code = ?
  ) v2 on v2.i18n_translation_entry_id = t2.id
 where t1.parent_id is null
@@ -1856,7 +1984,7 @@ where t1.parent_id is null
 						<query-body>
 							<value>
 <![CDATA[
-select code, name as language, locale, flag_icon from i18n_language
+select code, name as language, locale, flag_icon from i18n_language 
 $whereistranslated $whereistotranslate
 order by display_order
 ]]>
@@ -1888,7 +2016,7 @@ order by display_order
 						<query-body>
 							<value>
 <![CDATA[
-select
+select 
 i18n_language_code as code
 , nb_translated
 , nb_total
@@ -1897,11 +2025,11 @@ i18n_language_code as code
 , idiom
 , flag_icon
 , locale
-, case when percent_completion < 25 then 'progress-bar-danger'
-when percent_completion >= 25 and percent_completion < 50 then 'progress-bar-warning'
-when percent_completion >= 50 and percent_completion < 75 then 'progress-bar-info'
+, case when percent_completion < 25 then 'progress-bar-danger' 
+when percent_completion >= 25 and percent_completion < 50 then 'progress-bar-warning' 
+when percent_completion >= 50 and percent_completion < 75 then 'progress-bar-info' 
 when percent_completion >= 75 and percent_completion < 100 then ''
-when percent_completion = 100 then 'progress-bar-success' end
+when percent_completion = 100 then 'progress-bar-success' end 
 as progress_bar_class
 from
 (
@@ -1914,7 +2042,7 @@ group by v.i18n_language_code
 ) xxx
 ,
 (
-select count(*) nb_total from ms_translation_entry e
+select count(*) nb_total from ms_translation_entry e 
 where e.parent_id is not null
 ) yyy
 ) zzz
@@ -1930,7 +2058,7 @@ order by percent_completion desc, l.display_order
 						<query-body>
 							<value>
 <![CDATA[
-select
+select 
 i18n_language_code as code
 , ifnull(nb_translated, 0) nb_translated
 , nb_total
@@ -1938,21 +2066,21 @@ i18n_language_code as code
 , name as language
 , flag_icon
 , locale
-, case
-when percent_completion is null then 'progress-bar-danger'
-when percent_completion < 25 then 'progress-bar-danger'
-when percent_completion >= 25 and percent_completion < 50 then 'progress-bar-warning'
-when percent_completion >= 50 and percent_completion < 75 then 'progress-bar-info'
+, case 
+when percent_completion is null then 'progress-bar-danger' 
+when percent_completion < 25 then 'progress-bar-danger' 
+when percent_completion >= 25 and percent_completion < 50 then 'progress-bar-warning' 
+when percent_completion >= 50 and percent_completion < 75 then 'progress-bar-info' 
 when percent_completion >= 75 and percent_completion < 100 then ''
-when percent_completion = 100 then 'progress-bar-success' end
+when percent_completion = 100 then 'progress-bar-success' end 
 as progress_bar_class
 from
 (
 select i18n_language_code, nb_translated, nb_total, round((nb_translated / nb_total)*100,2) as percent_completion, language_display_order
 from
 (
-select l.code i18n_language_code, uuu.nb_translated nb_translated, l.display_order language_display_order from i18n_language l
-left outer join
+select l.code i18n_language_code, uuu.nb_translated nb_translated, l.display_order language_display_order from i18n_language l 
+left outer join 
 (
 select v.i18n_language_code code, count(*) nb_translated from ms_translation_entry e left outer join ms_translation_value v on e.id = v.i18n_translation_entry_id
 where e.parent_id is not null
@@ -1963,7 +2091,7 @@ where ms_trans_is_to_translate = true
 ) xxx
 ,
 (
-select count(*) nb_total from ms_translation_entry e
+select count(*) nb_total from ms_translation_entry e 
 where e.parent_id is not null
 ) yyy
 ) zzz
@@ -2006,7 +2134,7 @@ group by e.id
 							<value>
 <![CDATA[
 select 1 is_present
-from
+from 
 user u, user_winery_profile uwp, winery w, profile_pay_plan ppp
 where uwp.user_id = u.id and
 uwp.winery_id = w.id and
@@ -2030,17 +2158,17 @@ w.id = ?
 						package-name="security" scope="backend"><!-- no REST /upto service level -->
 						<query-body>
 							<value>
-								<!-- select 1 is_present from user u, user_winery_profile uwp, winery
-									w, product p, profile_pay_plan ppp where uwp.user_id = u.id and p.winery_id
-									= w.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id = ppp.id and
-									w.active = true and uwp.active = true and u.active = true and u.id = ? and
+								<!-- select 1 is_present from user u, user_winery_profile uwp, winery 
+									w, product p, profile_pay_plan ppp where uwp.user_id = u.id and p.winery_id 
+									= w.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id = ppp.id and 
+									w.active = true and uwp.active = true and u.active = true and u.id = ? and 
 									p.id = ? -->
 <![CDATA[
 select 1 is_present
-from
+from 
 v_security_match_user_winery v, product p where
 v.user_id = ? and p.winery_id = v.winery_id and
-p.id = ?
+p.id = ? 
 ]]>
 							</value>
 						</query-body>
@@ -2055,14 +2183,14 @@ p.id = ?
 						package-name="security" scope="backend"><!-- no REST /upto service level -->
 						<query-body>
 							<value>
-								<!-- select 1 is_present from user u, user_winery_profile uwp, winery
-									w, product p, product_item pi, profile_pay_plan ppp where uwp.user_id = u.id
-									and p.winery_id = w.id and pi.product_id = p.id and uwp.winery_id = w.id
-									and uwp.profile_pay_plan_id = ppp.id and w.active = true and uwp.active =
+								<!-- select 1 is_present from user u, user_winery_profile uwp, winery 
+									w, product p, product_item pi, profile_pay_plan ppp where uwp.user_id = u.id 
+									and p.winery_id = w.id and pi.product_id = p.id and uwp.winery_id = w.id 
+									and uwp.profile_pay_plan_id = ppp.id and w.active = true and uwp.active = 
 									true and u.active = true and u.id = ? and pi.id = ? -->
 <![CDATA[
 select 1 is_present
-from
+from 
 user u, user_winery_profile uwp, winery w, product p, product_item pi, profile_pay_plan ppp
 where uwp.user_id = u.id and
 p.winery_id = w.id and
@@ -2073,7 +2201,7 @@ w.active = true  and
 uwp.active = true and
 u.active = true and
 u.id = ? and
-pi.id = ?
+pi.id = ? 
 ]]>
 							</value>
 						</query-body>
@@ -2091,16 +2219,16 @@ pi.id = ?
 							<value>
 <![CDATA[
 select 1 is_present
-from
+from 
 v_security_match_user_winery where
 user_id = ? and
 winery_id = ? and
-condition_name = ?
+condition_name = ? 
 ]]>
-								<!-- select 1 is_present from user u, user_winery_profile uwp, winery
-									w, profile_pay_plan ppp, profile_pay_plan_condition pppc where uwp.user_id
-									= u.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id = ppp.id and
-									pppc.profile_pay_plan_id = ppp.id and w.active = true and uwp.active = true
+								<!-- select 1 is_present from user u, user_winery_profile uwp, winery 
+									w, profile_pay_plan ppp, profile_pay_plan_condition pppc where uwp.user_id 
+									= u.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id = ppp.id and 
+									pppc.profile_pay_plan_id = ppp.id and w.active = true and uwp.active = true 
 									and u.active = true and u.id = ? and w.id = ? and pppc.name = ? -->
 							</value>
 						</query-body>
@@ -2120,13 +2248,13 @@ condition_name = ?
 							<value>
 <![CDATA[
 select 1 is_present
-from
+from 
 v_security_match_user_winery
-where
+where 
 user_id = ? and
 condition_name = 'add_wine_domain_picture' and
 condition_quantity > (select count(*) from winery_x_picture where winery_id = ? ) and
-winery_id = ?
+winery_id = ?  
 ]]>
 							</value>
 						</query-body>
@@ -2143,15 +2271,15 @@ winery_id = ?
 						package-name="security" scope="backend"><!-- no REST /upto service level -->
 						<query-body>
 							<value>
-								<!-- select 1 is_present from user u, user_winery_profile uwp, winery
-									w, profile_pay_plan ppp, profile_pay_plan_condition pppc where uwp.user_id
-									= u.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id = ppp.id and
-									pppc.profile_pay_plan_id = ppp.id and w.active = true and uwp.active = true
-									and u.active = true and u.id = ? and pppc.name = 'add_wine_product' and pppc.quantity
+								<!-- select 1 is_present from user u, user_winery_profile uwp, winery 
+									w, profile_pay_plan ppp, profile_pay_plan_condition pppc where uwp.user_id 
+									= u.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id = ppp.id and 
+									pppc.profile_pay_plan_id = ppp.id and w.active = true and uwp.active = true 
+									and u.active = true and u.id = ? and pppc.name = 'add_wine_product' and pppc.quantity 
 									> (select count(*) from product where winery_id = ? ) and w.id = ? -->
 <![CDATA[
 select 1 is_present
-from
+from 
 v_security_match_user_winery
 where user_id = ? and
 condition_name = 'add_products' and
@@ -2173,23 +2301,23 @@ winery_id = ?
 						package-name="security" scope="backend"><!-- no REST /upto service level -->
 						<query-body>
 							<value>
-								<!-- select 1 is_present from user u, user_winery_profile uwp, winery
-									w, product p, profile_pay_plan ppp, profile_pay_plan_condition pppc where
-									uwp.user_id = u.id and p.winery_id = w.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id
-									= ppp.id and pppc.profile_pay_plan_id = ppp.id and w.active = true and uwp.active
-									= true and u.active = true and u.id = ? and pppc.name = 'add_wine_product_item'
-									and pppc.quantity > (select count(*) from product_item pi where pi.product_id
+								<!-- select 1 is_present from user u, user_winery_profile uwp, winery 
+									w, product p, profile_pay_plan ppp, profile_pay_plan_condition pppc where 
+									uwp.user_id = u.id and p.winery_id = w.id and uwp.winery_id = w.id and uwp.profile_pay_plan_id 
+									= ppp.id and pppc.profile_pay_plan_id = ppp.id and w.active = true and uwp.active 
+									= true and u.active = true and u.id = ? and pppc.name = 'add_wine_product_item' 
+									and pppc.quantity > (select count(*) from product_item pi where pi.product_id 
 									= ? ) and p.id = ? -->
 <![CDATA[
 select 1 is_present
-from
+from 
 v_security_match_user_winery v, product p
-where
-p.winery_id = v.winery_id
+where 
+p.winery_id = v.winery_id 
 and user_id = ? and
 condition_name = 'add_wine_product_item' and
 condition_quantity > (select count(*) from product_item pi where pi.product_id = ? ) and
-p.id = ?
+p.id = ? 
 ]]>
 							</value>
 						</query-body>
@@ -2219,7 +2347,7 @@ where user_id = ?
 					</query>
 
 					<query name="match_granter_role_to_grant" id="match_granter_role_to_grant"
-						package-name="security" scope="backend" is-scalar="true"><!-- no REST /upto
+						package-name="security" scope="backend" is-scalar="true"><!-- no REST /upto 
 							service level -->
 						<query-body>
 							<value>
@@ -2265,32 +2393,17 @@ $scope
 							</query-chunk>
 						</query-chunks>
 					</query>
-<!--
-					<query name="guest_house_timetable" id="guest_house_timetable"
-						package-name="guest_house">
-						<query-body>
-							<value>
-<![CDATA[
-select vts.id, ptt.week_day, ptt.day_meridium, time_start_hour, time_start_minute, time_end_hour, time_end_minute
-from  PRIVATE_TEMPLATE_TIMETABLE ptt left outer join visit_timetable_schedule vts
-on vts.week_day = ptt.week_day and vts.day_meridium = ptt.day_meridium,
-visit_timetable vt, winery w
-where
-vts.visit_timetable_id = vt.id
-and vt.winery_id = ?
-order by ptt.id
-]]>
-							</value>
-						</query-body>
-						<query-params>
-							<query-param name="winery_id" session-param-name="wineryId"
-								is-implicit="true" is-mandatory="true" type="int" sample="-1"></query-param>
-						</query-params>
-					</query>
- -->
+					<!-- <query name="guest_house_timetable" id="guest_house_timetable" 
+						package-name="guest_house"> <query-body> <value> <![CDATA[ select vts.id, 
+						ptt.week_day, ptt.day_meridium, time_start_hour, time_start_minute, time_end_hour, 
+						time_end_minute from PRIVATE_TEMPLATE_TIMETABLE ptt left outer join visit_timetable_schedule 
+						vts on vts.week_day = ptt.week_day and vts.day_meridium = ptt.day_meridium, 
+						visit_timetable vt, winery w where vts.visit_timetable_id = vt.id and vt.winery_id 
+						= ? order by ptt.id ]]> </value> </query-body> <query-params> <query-param 
+						name="winery_id" session-param-name="wineryId" is-implicit="true" is-mandatory="true" 
+						type="int" sample="-1"></query-param> </query-params> </query> -->
 					<!-- monitoring / reporting -->
-					<query name="user_activity" id="user_activity"
-						package-name="monitoring">
+					<query name="user_activity" id="user_activity" package-name="monitoring">
 						<query-body>
 							<value>
 <![CDATA[
@@ -2317,97 +2430,165 @@ $from $user
 								</query-params>
 							</query-filter>
 						</query-filters>
-						<!--
-						<query-schedulers>
-							<query-scheduler
-								name="user_activity"
-								cron="0 0 8 * * *"
-								report-channel="mailgun"
-								report-from="admin@winerylabs.com"
-								report-to="florian.adler.mailbox@gmail.com"
-								report-record-threshold="1">
-								<query-params>
-									<query-param name="from" value="1">
-									</query-param>
-								</query-params>
-							</query-scheduler>
-						</query-schedulers>
- -->
+						<!-- <query-schedulers> <query-scheduler name="user_activity" cron="0 
+							0 8 * * *" report-channel="mailgun" report-from="admin@winerylabs.com" report-to="florian.adler.mailbox@gmail.com" 
+							report-record-threshold="1"> <query-params> <query-param name="from" value="1"> 
+							</query-param> </query-params> </query-scheduler> </query-schedulers> -->
 					</query>
 
 					<!-- monitoring / reporting -->
 					<!-- TODO remove pending_invitation_request -->
-					<query name="admin_user_account" id="admin_user_account" package-name="admin">
+					<query name="admin_user_account" id="admin_user_account"
+						package-name="admin">
 						<query-body>
 							<value>
 <![CDATA[
 	select u.id user_id, ua.id account_id, ua.registration_type, u.first_name, u.last_name, u.gender,
-		 u.active user_active, u.email, ua.invitation_request_timestamp,
+		 u.active user_active, u.email, ua.invitation_request_timestamp, 
 		 u.creation_date, ua.validation_date, ua.status,
 		 ua.invitation_request_reason reason, ua.number_of_retry, ua.is_locked, ua.failed_login_time, ua.lock_count
-	from
+	from 
 		user u, user_account ua
-	where
+	where 
 		ua.user_id = u.id $registrationType $status
 order by ua.invitation_request_timestamp desc
 ]]>
 							</value>
 						</query-body>
 						<query-filters>
-							<query-filter name="registrationType" and-where-connection="and">
+							<query-filter name="registrationType"
+								and-where-connection="and">
 								<value><![CDATA[ ua.registration_type = ? ]]></value>
 								<query-params>
-									<query-param name="registration_type" type="string" sample="'INVITATION_REQUEST'">
+									<query-param name="registration_type" type="string"
+										sample="'INVITATION_REQUEST'">
 									</query-param>
 								</query-params>
 							</query-filter>
 							<query-filter name="status" and-where-connection="and">
 								<value><![CDATA[ ua.status = ? ]]></value>
 								<query-params>
-									<query-param name="status" type="string" sample="'INVITATION_REQUEST'">
+									<query-param name="status" type="string"
+										sample="'INVITATION_REQUEST'">
 									</query-param>
 								</query-params>
 							</query-filter>
 						</query-filters>
-						<!--
-						<query-schedulers>
-							<query-scheduler
-								name="user_activity"
-								cron="0 0 8 * * *"
-								report-channel="mailgun"
-								report-from="admin@winerylabs.com"
-								report-to="florian.adler.mailbox@gmail.com"
-								report-record-threshold="1">
-								<query-params>
-									<query-param name="from" value="1">
-									</query-param>
-								</query-params>
-							</query-scheduler>
-						</query-schedulers>
- -->
+						<!-- <query-schedulers> <query-scheduler name="user_activity" cron="0 
+							0 8 * * *" report-channel="mailgun" report-from="admin@winerylabs.com" report-to="florian.adler.mailbox@gmail.com" 
+							report-record-threshold="1"> <query-params> <query-param name="from" value="1"> 
+							</query-param> </query-params> </query-scheduler> </query-schedulers> -->
 					</query>
 					<!-- monitoring / reporting -->
 					<query name="image_entity_value" id="image_entity_value"
-						package-name="picture">
+						package-name="image">
 						<query-body>
 							<value>
 <![CDATA[
-select * from picture_entity_value iev
+select * from picture_entity_value iev where 1=1 
+$where_entity $where_id_entity $where_web_path_entity $whereid
+]]>
+								<!-- $whereentity $whereentityid $whereentitywebpath bug => select 
+									* from picture_entity_value iev where 1=1 AND entity = 'region' AND entity 
+									= 99id AND entity = 'xxx'webpath AND entity_id = ? AND entity_web_path = 
+									? MP error for generation replace all $whereentity but $whereentityid starts 
+									with $whereentity -->
+							</value>
+						</query-body>
+						<query-filters>
+							<query-filter name="whereid" and-where-connection="and">
+								<value><![CDATA[ id = ? ]]></value>
+								<query-params>
+									<query-param name="id" type="int" sample="1">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_entity"
+								and-where-connection="and">
+								<value><![CDATA[ entity = ? ]]></value>
+								<query-params>
+									<query-param name="entity" type="string" sample="'region'">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_id_entity"
+								and-where-connection="and">
+								<value><![CDATA[ entity_id = ? ]]></value>
+								<query-params>
+									<query-param name="entity_id" type="int" sample="99">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_web_path_entity"
+								and-where-connection="and">
+								<value><![CDATA[ entity_web_path = ? ]]></value>
+								<query-params>
+									<query-param name="entity_web_path" type="string"
+										sample="'xxx'">
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
+					</query>
+					<query name="desc_entity_value" id="desc_entity_value"
+						package-name="description">
+						<query-body>
+							<value>
+<![CDATA[
+select dev.*, ln.flag_icon from description_entity_value dev, i18n_language ln where dev.i18n_language_code = ln.code 
+$where_entity $where_id_entity $where_web_path_entity $where_language_code $whereid
 ]]>
 							</value>
 						</query-body>
+						<query-filters>
+							<query-filter name="whereid" and-where-connection="and">
+								<value><![CDATA[ id = ? ]]></value>
+								<query-params>
+									<query-param name="id" type="int" sample="1">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_entity"
+								and-where-connection="and">
+								<value><![CDATA[ entity = ? ]]></value>
+								<query-params>
+									<query-param name="entity" type="string" sample="'region'">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_id_entity"
+								and-where-connection="and">
+								<value><![CDATA[ entity_id = ? ]]></value>
+								<query-params>
+									<query-param name="entity_id" type="int" sample="99">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_web_path_entity"
+								and-where-connection="and">
+								<value><![CDATA[ entity_web_path = ? ]]></value>
+								<query-params>
+									<query-param name="entity_web_path" type="string"
+										sample="'xxx'">
+									</query-param>
+								</query-params>
+							</query-filter>
+							<query-filter name="where_language_code"
+								and-where-connection="and">
+								<value><![CDATA[ I18N_LANGUAGE_CODE = ? ]]></value>
+								<query-params>
+									<query-param name="language_code" type="string"
+										sample="'xxx'">
+									</query-param>
+								</query-params>
+							</query-filter>
+						</query-filters>
 					</query>
 					<!-- developer -->
-					<query name="system_info" id="system_info"
-						package-name="developer">
-						<query-body>
-							<value>
-<![CDATA[
-select * from conf_Param where param_key in ('SERVER_ROOT_URL','SITE_PUBLIC_API','SITE_PUBLIC_API_SAMPLE_CLIENT')
-]]>
-							</value>
-						</query-body>
-					</query>
+					<!-- <query name="system_info" id="system_info" package-name="developer"> 
+						<query-body> <value> <![CDATA[ select * from conf_Param where param_key in 
+						('SERVER_ROOT_URL','SITE_PUBLIC_API','SITE_PUBLIC_API_SAMPLE_CLIENT') ]]> 
+						</value> </query-body> </query> -->
 
 				</queries>
 				<composites>
@@ -2419,7 +2600,8 @@ select * from conf_Param where param_key in ('SERVER_ROOT_URL','SITE_PUBLIC_API'
 						</queries>
 						<!-- TODO composite params -->
 						<composite-params>
-							<query-param name="pay_plan_name" is-mandatory="true" type="string" sample="'xx'" is-id="true"></query-param>
+							<query-param name="pay_plan_name" is-mandatory="true"
+								type="string" sample="'xx'" is-id="true"></query-param>
 						</composite-params>
 					</composite>
 					<composite name="invoice_winery" id="invoice_winery"
@@ -2433,17 +2615,11 @@ select * from conf_Param where param_key in ('SERVER_ROOT_URL','SITE_PUBLIC_API'
 								type="int" sample="-1" is-id="true"></query-param>
 						</composite-params>
 					</composite>
-					<composite name="winery_overview_card" id="winery_overview_card"
-						package-name="winery">
-						<queries>
-							<query refid="winery_public"></query>
-							<query refid="winery_product_item_badge"></query>
-						</queries>
-						<composite-params>
-							<query-param name="winery_id" is-mandatory="true"
-								type="int" sample="-1" is-id="true"></query-param>
-						</composite-params>
-					</composite>
+					<!-- <composite name="winery_overview_card" id="winery_overview_card" 
+						package-name="winery"> <queries> <query refid="winery_public"></query> <query 
+						refid="winery_product_item_badge"></query> </queries> <composite-params> 
+						<query-param name="winery_id" is-mandatory="true" type="int" sample="-1" 
+						is-id="true"></query-param> </composite-params> </composite> -->
 				</composites>
 			</statement-model>
 		</model>
@@ -2451,6 +2627,7 @@ select * from conf_Param where param_key in ('SERVER_ROOT_URL','SITE_PUBLIC_API'
 		<targets catalog-entry="REST-Custom, Openxava, Fitnesse"
 			append-catalog-entry-dir-to-outputdir-root="true" outputdir-root="../../product/winy">
 			<property name="openxava-disable-sdd" value="true" />
+			<property name="openxava-enable-hibernate-ehcache" value="true" />
 			<property name="environment" value="remote" />
 			<property name="show-sql" value="false" />
 			<property name="swagger" value="true" />

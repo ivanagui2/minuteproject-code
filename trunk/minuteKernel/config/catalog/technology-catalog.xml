@@ -166,6 +166,17 @@
 			 split DBApiRest part only
 			 from kendoui/emberjs/extjs/angular client
 			 -->
+			 
+		<technology name="Ember" model-type="rdbms"
+			template-config-file-name="mp-template-config-ember.xml"
+			default-outputdir="Ember" depends-on-targets=""
+			template-dir="@templateRoot@/framework/ember" status="released"
+			description="Generates:\Ember full stack">
+			<frameworks>
+				<framework name="ember" version="3+"></framework>
+			</frameworks>
+		</technology>
+					 
 		<technology name="REST-Kendoui" model-type="rdbms"
 			template-config-file-name="mp-template-config-kendoui.xml"
 			default-outputdir="REST" depends-on-targets="JPA2,environment-REST,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"

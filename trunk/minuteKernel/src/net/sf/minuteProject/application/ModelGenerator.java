@@ -140,11 +140,14 @@ public class ModelGenerator extends AbstractGenerator {
 				// loadAndGenerate(model.getConfiguration().getTarget());
 				final Target target = model.getConfiguration().getTarget();
 				loadTarget(model.getConfiguration(), target);
+				
 				applyTargetConventionAndGenerate(target);
 			}
 			if (hasTargets()) {
 				targets = model.getConfiguration().getTargets();
 				// loadAndGenerate(targets);
+				//TODO LOG outputdirRoot (resolved)
+				targets.getOutputdirRoot();
 
 				Configuration configuration = loadTargets(targets);
 				applyTargetConventionAndGenerate(configuration.getTarget());
@@ -236,6 +239,8 @@ public class ModelGenerator extends AbstractGenerator {
 
 	private void applyTargetConventionAndGenerate(Target target)
 			throws MinuteProjectException {
+		//TODO LOG outputdirRoot (resolved)
+		logger.info (">> absolute directory for target "+target.getName() + ": "+target.getAbsoluteRootDir(target.getOutputdirRoot()));
 		applyTargetConvention(target);
 		generate(target);
 	}
