@@ -208,33 +208,15 @@ $!updatedAreaEnd
 #else
 		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
 #end
-#*
-		@Override
-		public void executeOld(Connection conn) throws SQLException {
-#if($query.queryParams.hasOutputParam())
-			CallableStatement pstmt = null;
-#else
-			PreparedStatement pstmt = null;
-#end
-#if (!$query.isWrite())
-			ResultSet rs = null;
-#end
-#putSddExecuteStatement()
-#if (!$query.isWrite())
-			rs.close();
-#end
-			pstmt.close();
-       }
-*#
-## autoclosable : + find way to pass value
 #if($isNotVoidInput) 
 #injectPrepareStatementParams()
 #end
+
 		@Override
 		public void execute(Connection conn) throws SQLException {
 			try (
-#if($query.queryParams.hasOutputParam())
-				PreparedStatement pstmt = conn.prepareCall(
+#if($query.isWrite())
+				CallableStatement pstmt = conn.prepareCall(
 #else
 				PreparedStatement pstmt = conn.prepareStatement(
 #end
@@ -253,9 +235,9 @@ $!updatedAreaEnd
 						)
 					);
 				) {		
-#if($isNotVoidInput) 
+##if($isNotVoidInput) 
 #putSddExecuteStatementClosable()
-#end
+##end
 			}
        }
 ## end autoclosable : + find way to pass value

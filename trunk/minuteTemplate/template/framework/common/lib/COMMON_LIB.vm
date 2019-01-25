@@ -484,9 +484,12 @@ $!updatedAreaEnd
 #end
 
 
-##macro injectPrepareStatementParams
 #macro (injectPrepareStatementParams)
+#if($query.isWrite())
+	private void injectPrepareStatementParams(CallableStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+#else
 	private void injectPrepareStatementParams(PreparedStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+#end
 		int index = 1;
 #foreach($column in $inputBean.columns)
 #if ($column.isOutputParam())
@@ -522,8 +525,9 @@ $!updatedAreaEnd
 
 ##macro putSddExecuteStatementClosable
 #macro (putSddExecuteStatementClosable) 
+#if($isNotVoidInput) 
 				injectPrepareStatementParams(pstmt, $sddInputBeanVariable);
-
+#end
 #if ($query.isWrite())
 #if($query.queryParams.hasOutputParam())
 			pstmt.execute();

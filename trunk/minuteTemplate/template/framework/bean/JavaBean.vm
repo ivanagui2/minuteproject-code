@@ -29,7 +29,6 @@ $!updatedAreaImport
  */
 @Data
 public class ${className} {
-
 #putEntityValidation()
 
 #foreach($column in ${table.columns})
