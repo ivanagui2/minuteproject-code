@@ -7,13 +7,12 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.format.FormatCache;
 import net.sf.minuteProject.utils.format.FormatCacheEntry;
 import net.sf.minuteProject.utils.java.JavaUtils;
-
-import org.apache.commons.lang.StringUtils;
 
 public class FormatUtils {
 
@@ -214,7 +213,7 @@ public class FormatUtils {
 	}
 
 	public static String firstLowerCase(String st) {
-		if (st == null)
+		if (StringUtils.isEmpty(st))
 			return "INPUT_STRING_IS_NULL";
 		return st.substring(0, 1).toLowerCase() + st.substring(1, st.length());
 	}
