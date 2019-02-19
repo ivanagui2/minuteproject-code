@@ -190,7 +190,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
-			<param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+			<param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.exposed.headers</param-name>
@@ -198,7 +198,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.support.credentials</param-name>
-			<param-value>false</param-value>
+			<param-value>true</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.preflight.maxage</param-name>

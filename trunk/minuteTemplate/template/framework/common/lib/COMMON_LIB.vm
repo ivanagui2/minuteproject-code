@@ -145,7 +145,7 @@ $readmeUtils.getReadme($template)
 #end
     public List<${class}> get${listClasses} () {
         if (${listVariable}==null)
-            ${listVariable} = new ArrayList<$class>();
+            ${listVariable} = new ArrayList<>();
         return ${listVariable};
     }
 
@@ -348,7 +348,7 @@ $!updatedAreaSnippet
 		if ($sddInputBeanVariable==null)
 			$sddInputBeanVariable = new $sddInputBeanClass();
 #end
-		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+		List<$sddOutputBeanClass> list = new ArrayList<>();
 #if($query.queryParams.hasOutputParam())
 		CallableStatement pstmt = null;
 #else
@@ -597,7 +597,7 @@ $!updatedAreaSnippet
 		if ($sddInputBeanVariable==null)
 			$sddInputBeanVariable = new $sddInputBeanClass();
 #end
-		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+		List<$sddOutputBeanClass> list = new ArrayList<>();
 #if (!$query.isWrite())
 ##		ResultSet rs = null;
 #end

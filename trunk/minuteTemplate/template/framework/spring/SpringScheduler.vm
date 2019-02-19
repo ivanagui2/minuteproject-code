@@ -125,7 +125,7 @@ public class $thisClassName {
 #set ($sddDaoInterfaceVariable = $commonUtils.getJavaNameVariableFirstLetter($sddDaoInterfaceClass))
     
 	public $sddOutputBeanCollectionClass callImplementation$schedulerAlias (
-#resourceSignature("", true)
+#resourceSignature("", true, false)
 	) {
 #executeSddImplementation()	
 	}
@@ -352,13 +352,13 @@ $!updatedAreaImplementation
     
     private String getTimeAppender() {
         LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");//-HH-mm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return date.format(formatter);
     }
     
     private String getDateTimeAppender() {
         LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");//-HH-mm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         return date.format(formatter);
     }
 
