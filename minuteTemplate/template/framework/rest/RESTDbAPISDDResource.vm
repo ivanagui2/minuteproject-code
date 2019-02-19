@@ -10,14 +10,14 @@
 #set ($sizeChunk = $query.getQueryChunks().size())
 #set ($size = $sizeColumn + $sizeChunk)
 #set ($inputBeanAtLeastOneVisibleColumn=$queryUtils.hasInputBeanAtLeastOneVisibleColumn($inputBean))
-#macro(resourceSignature $param $showType)
+#macro(resourceSignature $param $showType $addValidation)
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated() && !$column.isImplicit())
 #putColumnParamNaming()
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
-#if($velocityCount>1)        ,#end        #if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
+#if($velocityCount>1)        ,#end        #if($addValidation)@javax.validation.Valid#end#if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
 #end
 #end
 #foreach($queryChunk in $query.getQueryChunks())
@@ -178,7 +178,7 @@ public class ${className} {
     @Autowired
     @Qualifier("$sddDaoInterfaceVariable")
 #elseif($isEJBBackend)
-    @EJB ## (name="$BslaDaoInterfaceVariable")	
+    @EJB	
 #end
 	${sddDaoInterfaceClass} $sddDaoInterfaceVariable;
 	
@@ -198,10 +198,10 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputBeanCollectionClass execute (
-#resourceSignature("QueryParam", true)
+#resourceSignature("QueryParam", true, false)
     ) {
 		return callImplementation(
-#resourceSignature("", false)
+#resourceSignature("", false, false)
 		);
     }
 #end
@@ -220,26 +220,32 @@ $!updatedAreaBegin
     	@ApiResponse(code = 200, message = "ok")
     })
     public $sddOutputBeanCollectionClass post (
-#resourceSignature("FormParam", true)
+#resourceSignature("FormParam", true, false)
     ) {
 		return callImplementation(
-#resourceSignature("", false)
+#resourceSignature("", false, false)
 		);
     }
     
     @POST
     @Path("/withValidation")//TODO remove just for migration testing
     public ${sddOutputBeanCollectionClass} postWithValidation (
-		@javax.validation.Valid $sddInputBeanClass $sddInputBeanVariable
+#if($isTomcatTargetServer)
+#resourceSignature("FormParam", true, true)##validation javax activated, on weblogic 12.c conflict with rest
+#else
+#resourceSignature("FormParam", true, false)
+#end
     ) {
-        return ${sddDaoInterfaceVariable}.execute($sddInputBeanVariable);##TODO check with chunks...
+		return callImplementation(
+#resourceSignature("", false, false)
+		);
     }
     
 #end
 #end
 
 	public $sddOutputBeanCollectionClass callImplementation (
-#resourceSignature("", true)
+#resourceSignature("", true, false)
 	) {
 #executeSddImplementation()	
 	}
@@ -254,7 +260,7 @@ $!updatedAreaBegin
         @ApiResponse(code = 200, message = "ok")
     })
     public List<$pivotClass> get${pivotClasses} (
-#resourceSignature("QueryParam", true)
+#resourceSignature("QueryParam", true, false)
     ) {
         $sddOutputBeanCollectionClass list = execute(
 #resourceParameters()

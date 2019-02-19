@@ -13,6 +13,11 @@ http://xmlns.oracle.com/weblogic/weblogic-web-app/1.2/weblogic-web-app.xsd">
 
     <wls:container-descriptor>
         <wls:prefer-application-packages>
+            <!-- javax.validation -->
+            <wls:package-name>org.springframework.*</wls:package-name>
+            <wls:package-name>org.hibernate.*</wls:package-name>
+            <wls:package-name>javax.validation.*</wls:package-name>
+            <wls:package-name>javax.validation.spi.*</wls:package-name>
             <!-- jersey-bundle-*.jar -->
             <wls:package-name>com.sun.jersey.*</wls:package-name>
             <wls:package-name>org.glassfish.jersey.*</wls:package-name>

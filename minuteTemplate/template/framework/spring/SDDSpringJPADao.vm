@@ -206,7 +206,7 @@ $!updatedAreaEnd
 #set ($sddOutputBeanCollectionClass = $commonUtils.getJavaType($firstColumn))
 	  $sddOutputBeanCollectionClass x;
 #else
-		List<$sddOutputBeanClass> list = new ArrayList<$sddOutputBeanClass>();
+		List<$sddOutputBeanClass> list = new ArrayList<>();
 #end
 #if($isNotVoidInput) 
 #injectPrepareStatementParams()

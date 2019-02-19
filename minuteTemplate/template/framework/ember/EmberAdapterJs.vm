@@ -1,11 +1,32 @@
+#generatorSpecific()
+#exposeSeparator()
+#putImportQuerySDDBean()
+#putImportSDDInputBean()
+#exposeQuerySpecific()
+#exposeRESTSDDURLServer()
+#set($table=$query.inputBean)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+/* ${tableName} */
 import DS from 'ember-data';
 import {fetchData} from '../utils/common-utils';
 import BaseAdapter from './base';
+import appendQuery from 'npm:append-query';
 
 export default BaseAdapter.extend({
 
+/*
+    ${tableName} : function(
+#foreach($column in $inputBean.columns)
+#putColumnParamNaming()
+           $columnVar #if($velocityCount!=$size),
+#end
+#end
+    ) {
+        return fetchData(baseUrl+'${restJsonServerUrl}');
+    },
+*/
 #**
-    findByWineryWebPathAndProductWebPath : function(wineryWebPath, productWebPath) {
+    ${tableName} : function(wineryWebPath, productWebPath) {
         return fetchData(baseUrl+'/data/sdd/ProductanditemlistIn?wineryWebPath='+wineryWebPath+'&productWebPath='+productWebPath);
     },
     
@@ -16,3 +37,23 @@ export default BaseAdapter.extend({
     
     
 });
+
+function filter(entityId, entityWebPath, displayOrder, filters) {
+    if (filters) {
+        return appendQuery("",{
+            "entityId":entityId, 
+            "webPath":entityWebPath, 
+            "displayOrder":displayOrder, 
+            "cepageWebPath":filters.grape,
+            "countryWebPath":filter.countryWebPath,
+        }, { removeNull: true });
+    } else {
+        return appendQuery("",{
+            "entityId":entityId, 
+            "webPath":entityWebPath, 
+            "displayOrder":displayOrder
+        }, { removeNull: true });
+    
+    }
+
+}
