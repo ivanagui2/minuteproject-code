@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
@@ -449,5 +450,9 @@ public class FormatUtils {
 			result = StringUtils.replace(input, "#", "_");
 		}
 		return result;
+	}
+	
+	public static String escapeHtml (String input) {
+		return StringEscapeUtils.escapeHtml(input);
 	}
 }

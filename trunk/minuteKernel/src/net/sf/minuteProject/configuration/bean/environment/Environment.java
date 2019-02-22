@@ -7,6 +7,7 @@ public class Environment extends AbstractConfiguration{
 
 	private Configuration configuration;
 	private Environments environments;
+	private boolean isDefault;
 	
 	public enum environment {local, loc, test, tst, development, dev, acceptance, acc, production, prod}
 	
@@ -34,5 +35,15 @@ public class Environment extends AbstractConfiguration{
 	public Environments getEnvironments() {
 		return environments;
 	}
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+	
+	
 	
 }
