@@ -91,6 +91,9 @@ public class QueryParams extends AbstractConfiguration {
 		queryParam.setStereotype(instance.getStereotype());
 		queryParam.setHasBeenDuplicated(true);
 		queryParam.setMandatory(isMandatory);
+		if (instance.getQueryParamLink()!=null) {
+			queryParam.setQueryParamLink(instance.getQueryParamLink());
+		}
 	}
 
 	public List<QueryParam> getQueryParams() {
@@ -153,20 +156,6 @@ public class QueryParams extends AbstractConfiguration {
 		}
 		return false;
 	}
-//	private List<QueryParam> copy(Query q) {
-//		List<QueryParam> r = new ArrayList<QueryParam>();
-//		for (QueryParam qp : q.getQueryParams().getQueryParams()) {
-//			QueryParam param = new QueryParam();
-//			param.setName(qp.getName());
-////			column.setName(queryParam.getName());
-//			String type = qp.getType();
-//			param.setType(type);
-//			param.setSize(qp.getSize());
-//			param.setScale(qp.getScale());
-//			r.add(param);
-//		}
-//		return r;
-//	}
 
 	public void setQueryParams(List<QueryParam> queryParams) {
 		this.queryParams = queryParams;

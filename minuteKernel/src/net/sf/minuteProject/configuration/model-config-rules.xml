@@ -38,6 +38,7 @@
 				<set-properties-rule>
 					<alias attr-name="name" prop-name="name" />
 					<alias attr-name="alias" prop-name="alias" />
+					<alias attr-name="default" prop-name="default" />
 				</set-properties-rule>
 				<pattern value="property">
 					<object-create-rule

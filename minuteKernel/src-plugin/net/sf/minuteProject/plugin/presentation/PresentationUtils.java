@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enumeration.Scope;
@@ -20,8 +22,6 @@ import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 import net.sf.minuteProject.utils.property.PropertyUtils;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author adlerfl
@@ -84,7 +84,7 @@ public class PresentationUtils {
 			resultRowLinkRootUrl = StringUtils.replace(resultRowLinkRootUrl, "#", "\\\\#"); // for
 																							// kendoui
 																							// escaping
-			return resultRowLinkRootUrl + getKendoUiUrlParam(column, query);
+			return "javascript:getEnvUrl(`"+ resultRowLinkRootUrl +"`," + getKendoUiUrlParam(column, query) + ");";
 		} else {
 			return null;
 		}
@@ -99,6 +99,7 @@ public class PresentationUtils {
 		return "";
 	}
 
+	@Deprecated
 	public static String getRootUrl(Column column, Query query) {
 		if (isValidUrl(column, query)) {
 			String resultRowLinkRootUrl = query.getQueryDisplay().getResultRowLinkRootUrl();
@@ -107,6 +108,22 @@ public class PresentationUtils {
 				String name = ParserUtils.getProperty(resultRowLinkRootUrl);
 				String url = ParserUtils.getProperty(StringUtils.substring(resultRowLinkRootUrl, j + 1));
 				return name + "." + FormatUtils.getInUnderscore(url);
+			} else {
+				return resultRowLinkRootUrl;
+			}
+		}
+		return "";
+	}
+	
+	//TODO for multiple params ${}
+	public static String getEnvParam(Column column, Query query) {
+		if (isValidUrl(column, query)) {
+			String resultRowLinkRootUrl = query.getQueryDisplay().getResultRowLinkRootUrl();
+			if (isJsLinkUrlKendoUiURL(resultRowLinkRootUrl)) {
+				int j = StringUtils.indexOf(resultRowLinkRootUrl, "}");
+				String name = ParserUtils.getProperty(resultRowLinkRootUrl);
+				//String url = ParserUtils.getProperty(StringUtils.substring(resultRowLinkRootUrl, j + 1));
+				return name;// + "." + FormatUtils.getInUnderscore(url);
 			} else {
 				return resultRowLinkRootUrl;
 			}
