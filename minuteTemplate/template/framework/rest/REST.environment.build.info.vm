@@ -64,9 +64,15 @@ public class ApplicationInfoResource {
             if (environment == null) {
 				environment = System.getProperty("spring.profiles.active");
 			} 
-            if (environment == null) {
+			if (environment == null) {
+				environment = props.getProperty("environment");
+				if (environment.equals("${environment}")) {##it has not been replaced by maven filter
+					environment = null;
+				}
+			}
+			if (environment == null) {
 				environment = "TBD";
-			} 
+			}
             applicationInfo.environment = environment;
         } catch (IOException ioe) {
             log.error("cannot load application.properties");

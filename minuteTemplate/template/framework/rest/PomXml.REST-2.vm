@@ -349,10 +349,11 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-
+#*
 		<filters>
 			<filter>${basedir}/target/application.properties</filter>
 		</filters>
+*#
     </build>
     <reporting>
         <plugins>
@@ -372,13 +373,34 @@
             </plugin>
         </plugins>
     </reporting>
+    
+    <profiles>
+#foreach ($environment in $configuration.environments.environments)
+        <profile>
+            <id>${environment.name}</id>
+#if($environment.isDefault())
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+#end
+            <properties>
+                <environment>${environment.name}</environment>
+#foreach ($property in $environment.getProperties())
+				<$property.name>$formatUtils.escapeHtml($property.value)</$property.name>
+#end
+            </properties>
+        </profile>
+#end
+    </profiles>
+    
     <properties>
-
         <cxf.version>${cxfVersion}</cxf.version>
         <jersey.version>${jerseyVersion}</jersey.version>
 		<guava.version>${guavaVersion}</guava.version>
         <atmosphere.version>${atmosphereVersion}</atmosphere.version>
         <jackson.version>${jacksonVersion}</jackson.version>
+        <build.time>${maven.build.timestamp}</build.time>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 #if(!$hasMasterPom)
 #putRESTDependencyVersions()
 #end
