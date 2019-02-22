@@ -722,11 +722,13 @@ $updatedAreaSnippet
 #end
 #if ($presentationUtils.isLinkUrl($column, $query))
 #if (!$presentationUtils.isJsLinkUrlKendoUiURL($column, $query))
-				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)" #if ($query.queryDisplay.resultRowLinkNewWindow) target="_blank" #end>#=${columnVar}#</a>',
+##				template: '<a href="$presentationUtils.getLinkUrlKendoUiTemplate($column, $query)" #if ($query.queryDisplay.resultRowLinkNewWindow) target="_blank" #end>#=${columnVar}#</a>',
+				template: '<a href="\\\\#" onClick="javascript:concatUrlWithParam(\'$key\', \'$param\'); return false;" #if ($query.queryDisplay.resultRowLinkNewWindow) target="_blank" #end>#=${columnVar}#</a>',
 #else
-#set($key = $presentationUtils.getRootUrl($column, $query))
+##set($key = $presentationUtils.getRootUrl($column, $query))
+#set($envParam = $presentationUtils.getEnvParam($column, $query))
 #set($param = $presentationUtils.getKendoUiUrlParam($column, $query))
-				template: '<a href="\\\\#" onClick="javascript:resolveUrl($key, \'$param\'); return false;" #if ($query.queryDisplay.resultRowLinkNewWindow) target="_blank" #end>#=${columnVar}#</a>',
+				template: '<a href="\\\\#" onClick="javascript:resolveUrl(\'$envParam\', \'$param\'); return false;" #if ($query.queryDisplay.resultRowLinkNewWindow) target="_blank" #end>#=${columnVar}#</a>',
 #end
 #end
 #if ($presentationUtils.isHidden($column, $query))
