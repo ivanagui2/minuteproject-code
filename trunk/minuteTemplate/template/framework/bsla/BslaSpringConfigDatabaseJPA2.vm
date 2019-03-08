@@ -24,7 +24,14 @@
 
     <bean id="placeHolderConfig"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location"><value>classpath:${pathSpringProperties}.properties</value></property>
+##        <property name="location"><value>classpath:${pathSpringProperties}.properties</value></property>
+        <property name="locations">
+            <list>
+                <value>classpath:${pathSpringProperties}.properties</value>
+                <value>classpath*:env.properties</value>
+                <value>classpath*:env-${spring.profiles.active}.properties</value>
+            </list>
+        </property>
     </bean>     
 #if ($isWeblogicTargetServer)
     <bean id="${model.name}TransactionManager" class="org.springframework.transaction.jta.WebLogicJtaTransactionManager">

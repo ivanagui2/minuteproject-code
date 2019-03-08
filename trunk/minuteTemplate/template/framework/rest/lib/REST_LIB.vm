@@ -31,7 +31,8 @@
 #exposeRESTTemplate()
 #set ($modelRestCacheableImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelCacheable))	
 #set ($modelRestCacheableClass = $commonUtils.getTemplateClassName($model, $template, $templateModelCacheable))
-#end
+#end
+
 
 #macro (exposeRESTModelCompress)
 #exposeRESTTemplate()
@@ -69,3 +70,24 @@
 		<jjwt.version>${jjwtVersion}</jjwt.version>
 #end
 
+#macro (putEnvironmentProperties)
+    public static String getEnvironment(Properties props) {
+		String environment = System.getProperty("environment");
+		if (environment == null) {
+			environment = System.getProperty("env");
+		}
+		if (environment == null) {
+			environment = System.getProperty("spring.profiles.active");
+		}
+		if (environment == null) {
+			environment = props.getProperty("environment");
+			if (environment.equals("${environment}")) {					
+				environment = null;
+			}
+		}
+		if (environment == null) {
+			environment = "TBD";
+		}
+		return environment;
+	}
+#end
