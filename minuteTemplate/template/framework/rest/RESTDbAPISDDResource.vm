@@ -17,6 +17,9 @@
 #if($columnUtils.isTime($column))
 #set($columnType=$dateParamImport)
 #end
+#if($columnUtils.isBoolean($column))
+#set($columnType="java.lang.Boolean")
+#end
 #if($velocityCount>1)        ,#end        #if($addValidation)@javax.validation.Valid#end#if($param != "")@ApiParam(value = "$columnVar", required = ${column.isRequired()}) @${param} ("$columnVar") #end #if($showType)#if(!$column.isArray())$columnType#else String#end #end$columnVar
 #end
 #end

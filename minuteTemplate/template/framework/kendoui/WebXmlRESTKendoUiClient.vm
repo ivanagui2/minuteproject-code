@@ -158,7 +158,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.supportsCredentials</param-name>
-			<param-value>true</param-value>
+			<param-value>false</param-value><!-- since cors.allowOrigin * -->
 		</init-param>
 		<init-param>
 			<param-name>cors.maxAge</param-name>

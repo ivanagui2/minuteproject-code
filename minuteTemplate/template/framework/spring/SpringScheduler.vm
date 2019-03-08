@@ -141,9 +141,6 @@ public class $thisClassName {
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated() && !$column.isImplicit())
 #putColumnParamNaming()
-#if($columnUtils.isTime($column))
-#set($columnType=$dateParamImport)
-#end
             	#if($velocityCount>1),#end $schedulerUtils.getParamValue($queryScheduler, $column.name)
 #end
 #end
@@ -223,12 +220,27 @@ public class $thisClassName {
 				reportValue = list.get${sddOutputBeanClass}s().get(0).get${scalarColumnJavaName}()+"";
 			}
 #else
-			reportValue = list.get${sddOutputBeanClass}s().size()+"";
+			reportValue = values.size()+"";
 #end
-			String subject = (StringUtils.isNotEmpty(reportValue))?"${queryScheduler.name} report ("+reportValue+")":"${queryScheduler.name} report";
+#set($querySchedulerSentence = $formatUtils.getSentence(${queryScheduler.name}))
+#if($queryScheduler.hasOrigin())
+//origin
+#end
+#if($queryScheduler.hasEnvironment())
+            Properties props = new Properties();
+            props.load(getClass().getResourceAsStream("/application.properties"));
+            String environment = getEnvironment(props);
+#end
+##if($queryScheduler.hasNumberOfRecords()) already done if not scalar
+##			reportValue = list.get${sddOutputBeanClass}s().size()+"";
+##end
+			String subject = (StringUtils.isNotEmpty(reportValue))?"${querySchedulerSentence} report ("+reportValue+")":"${querySchedulerSentence} report";
+#if($queryScheduler.hasEnvironment())
+            message.setSubject("["+environment+"] " +subject);
+#else
             message.setSubject(subject);
+#end
             
-##message.setText("Here is the report "+list.get${sddOutputBeanClass}s().size());
 #if ($queryScheduler.isAlert())
             message.setHeader("X-Priority", "1");
 #end
@@ -269,8 +281,8 @@ public class $thisClassName {
             Transport.send(message);
 #end
 
-        } catch (MessagingException mex) {
-        	mex.printStackTrace();
+        } catch (MessagingException #if($queryScheduler.hasEnvironment())| IOException #end ex) {
+        	ex.printStackTrace();
         }
     }
 	
@@ -393,4 +405,6 @@ $!updatedAreaImplementation
             sheet.setColumnView(i, cv);
         }
     }
+    
+#putEnvironmentProperties()
 }

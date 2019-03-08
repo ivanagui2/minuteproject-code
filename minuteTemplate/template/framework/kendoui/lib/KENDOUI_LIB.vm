@@ -195,11 +195,11 @@
 #else
 ## time
 #if($columnUtils.isTimeColumn($column))
-	<input id="$fieldId" data-bind="value: ${columnVar}" />
+		<input id="$fieldId" data-bind="value: ${columnVar}" />
 #else
 ## boolean
 #if($columnUtils.isBoolean($column))
-	<input type="checkbox" data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end /> 
+		<input type="checkbox" id="$fieldId" data-bind="value: ${columnVar}" #if($column.isRequired())required="true"#end #if($column.defaultValue)checked #end/>
 #else
 ## textarea
 #if($presentationUtils.isTextArea($column))
@@ -950,11 +950,19 @@ $!updatedAreaEnd
 #else
 #set($fieldId="field-${columnVar}Selected")
 #end
-		var ${columnVar} = $("#$fieldId").val();
+#if($columnUtils.isBoolean($column))
+		var $columnVar = $("#field-$columnVar").is(':checked');
+#else
+		var ${columnVar} = $("#field-$columnVar").val();
+#end
 #end
 #else
 #if (!$column.isArray())
-		var $columnVar = this.get("$columnVar");
+#if($columnUtils.isBoolean($column))
+		var $columnVar = $("#field-$columnVar").is(':checked');
+#else
+		var $columnVar = this.get("#field-$columnVar");
+#end
 #else
 		var $columnVar = ($("#field-$columnVar").data("kendoMultiSelect"))?$("#field-$columnVar").data("kendoMultiSelect").value():this.get("$columnVar");
 #end
@@ -966,14 +974,23 @@ $!updatedAreaEnd
 #else
 #set($columnValue=$columnVar)
 #end
-       if ($columnVar!=undefined && !$columnVar=='' && $columnVar!='Choose') {
-           if (!isQuestionMarkDone) {
-                isQuestionMarkDone = true;
-                query = "?"+"$columnVar="+$columnValue;
-            } else {
-                query = query+"&"+"$columnVar="+$columnValue;
-            }
-        }
+#if($columnUtils.isBoolean($column))
+		if (!isQuestionMarkDone) {
+			isQuestionMarkDone = true;
+			query = "?"+"$columnVar="+$columnValue;
+		} else {
+		    query = query+"&"+"$columnVar="+$columnValue;
+		}
+#else
+		if ($columnVar!=undefined && !$columnVar=='' && $columnVar!='Choose') {
+			if (!isQuestionMarkDone) {
+				isQuestionMarkDone = true;
+				query = "?"+"$columnVar="+$columnValue;
+			} else {
+			    query = query+"&"+"$columnVar="+$columnValue;
+			}
+		}
+#end
 #end
 #end
 		var dataSourceUrl = contextPath+"/data/sdd/${tableClassName}In"+query;
