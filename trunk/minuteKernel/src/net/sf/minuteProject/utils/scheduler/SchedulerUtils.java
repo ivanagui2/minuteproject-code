@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.GeneratorBean;
 import net.sf.minuteProject.configuration.bean.Model;
@@ -149,6 +151,14 @@ public class SchedulerUtils {
 			}
 			if (ColumnUtils.isNumeric(column)) {
 				return value;
+			}
+			if (ColumnUtils.isBoolean(column)) {
+				value = StringUtils.replace(value, "'", "").toLowerCase();
+				if (StringUtils.isEmpty(value)) 
+					return "null";
+				if ("1".equals(value) || "true".equals(value) ||  "y".equals(value))
+					return "true";
+				return "false";
 			}
 			return "\""+value+"\"";
 		} else {

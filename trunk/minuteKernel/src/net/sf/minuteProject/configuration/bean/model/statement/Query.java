@@ -264,6 +264,7 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 				column.setQueryParamLink(queryParam.getQueryParamLink());
 				column.setDefaultValue(queryParam.getDefaultValueWhenNull());
 				column.setIsOutputParam(queryParam.isOutputParam());
+				column.setDefaultValue(queryParam.getDefaultValue());
 			}
 		}
 		for (Column column : table.getColumns()) {
