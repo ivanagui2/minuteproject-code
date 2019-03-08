@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 
+@Getter @Setter
 public class QueryScheduler extends QueryAdapter {
 
 	private QueryParams queryParams;
@@ -16,6 +19,8 @@ public class QueryScheduler extends QueryAdapter {
 	private int reportThresholdMinRecord;
 	private String reportImportance;
 	private boolean reportAddOrigin;
+	private boolean reportAddEnvironment;
+	private boolean reportAddNumberOfRecords;
 	private List<Action> actions;
 
 	public QueryParams getQueryParams() {
@@ -157,4 +162,15 @@ public class QueryScheduler extends QueryAdapter {
 		return StringUtils.isNotEmpty(reportScalarColumn);
 	}
 	
+	public boolean hasOrigin() {
+		return isReportAddOrigin();
+	}
+	
+	public boolean hasEnvironment() {
+		return isReportAddEnvironment();
+	}
+	
+	public boolean hasNumberOfRecords() {
+		return isReportAddNumberOfRecords();
+	}
 }

@@ -436,9 +436,10 @@ public class ColumnUtils {
 	}
 
 	public static Boolean isBoolean(Column column) {
-		if (column.getType().equals("BOOLEAN") ||
-			column.getType().equals("BIT") ||
-			(column.getType().equals("CHAR") && column.getSizeAsInt()<=1))
+		String type = column.getType().toUpperCase();
+		if (type.equals("BOOLEAN") ||
+				type.equals("BIT") ||
+			(type.equals("CHAR") && column.getSizeAsInt()<=1))
 			return true;
 		return false;
 	}

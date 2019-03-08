@@ -377,6 +377,8 @@
 									<alias attr-name="report-importance" prop-name="reportImportance" />
 									<alias attr-name="report-scalar-column" prop-name="reportScalarColumn" />
 									<alias attr-name="report-add-origin" prop-name="reportAddOrigin" />
+									<alias attr-name="report-add-environment" prop-name="reportAddEnvironment" />
+									<alias attr-name="report-add-number-of-records" prop-name="reportAddNumberOfRecords" />
 								</set-properties-rule>
 								<bean-property-setter-rule pattern="name" />
 								<bean-property-setter-rule pattern="cron" />
@@ -454,6 +456,7 @@
 											<alias attr-name="is-mandatory" prop-name="isMandatory" />
 											<alias attr-name="is-id" prop-name="isId" />
 											<alias attr-name="default" prop-name="defaultValue" />
+											<alias attr-name="default-value" prop-name="defaultValue" />
 											<alias attr-name="size" prop-name="size" />
 											<alias attr-name="id" prop-name="id" />
 											<alias attr-name="refid" prop-name="refid" />
@@ -540,6 +543,7 @@
 					                <set-next-rule methodname="addQueryChunkParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkParam"/>
 				                    <set-properties-rule>
 				                       <alias attr-name="default" prop-name="defaultValue" />
+				                       <alias attr-name="default-value" prop-name="defaultValue" />
 				                       <alias attr-name="size" prop-name="size" />
 				                       <alias attr-name="id" prop-name="id" />
 				                       <alias attr-name="name" prop-name="name" />
@@ -586,6 +590,7 @@
 										<alias attr-name="is-mandatory" prop-name="isMandatory" />
 										<alias attr-name="is-id" prop-name="isId" />
 										<alias attr-name="default" prop-name="defaultValue" />
+										<alias attr-name="default-value" prop-name="defaultValue" />
 										<alias attr-name="size" prop-name="size" />
 										<alias attr-name="refname" prop-name="refname" />
 										<alias attr-name="refid" prop-name="refid" />
@@ -2172,6 +2177,8 @@
 								<alias attr-name="report-importance" prop-name="reportImportance" />
 								<alias attr-name="report-scalar-column" prop-name="reportScalarColumn" />
 								<alias attr-name="report-add-origin" prop-name="reportAddOrigin" />
+								<alias attr-name="report-add-environment" prop-name="reportAddEnvironment" />
+								<alias attr-name="report-add-number-of-records" prop-name="reportAddNumberOfRecords" />
 							</set-properties-rule>
 							<bean-property-setter-rule pattern="name" />
 							<bean-property-setter-rule pattern="cron" />
@@ -2252,6 +2259,7 @@
 										<alias attr-name="is-mandatory" prop-name="isMandatory" />
 										<alias attr-name="is-id" prop-name="isId" />
 										<alias attr-name="default" prop-name="defaultValue" />
+										<alias attr-name="default-value" prop-name="defaultValue" />
 										<alias attr-name="size" prop-name="size" />
 										<alias attr-name="id" prop-name="id" />
 										<alias attr-name="refid" prop-name="refid" />
@@ -2332,6 +2340,7 @@
 				                <set-next-rule methodname="addQueryChunkParam" paramtype="net.sf.minuteProject.configuration.bean.model.statement.QueryChunkParam"/>
 			                    <set-properties-rule>
 			                       <alias attr-name="default" prop-name="defaultValue" />
+			                       <alias attr-name="default-value" prop-name="defaultValue" />
 			                       <alias attr-name="size" prop-name="size" />
 			                       <alias attr-name="id" prop-name="id" />
 			                       <alias attr-name="name" prop-name="name" />
@@ -2376,6 +2385,7 @@
 									<alias attr-name="is-mandatory" prop-name="isMandatory" />
 									<alias attr-name="is-id" prop-name="isId" />
 									<alias attr-name="default" prop-name="defaultValue" />
+									<alias attr-name="default-value" prop-name="defaultValue" />
 									<alias attr-name="size" prop-name="size" />
 									<alias attr-name="id" prop-name="id" />
 									<alias attr-name="refid" prop-name="refid" />

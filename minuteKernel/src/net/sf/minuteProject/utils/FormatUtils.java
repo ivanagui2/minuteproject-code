@@ -455,4 +455,11 @@ public class FormatUtils {
 	public static String escapeHtml (String input) {
 		return StringEscapeUtils.escapeHtml(input);
 	}
+	
+	public static String getSentence(String input) {
+		input = input.toLowerCase();
+		input = StringUtils.replace(input, "_", " ");
+		input = StringUtils.replace(input, "-", " ");
+		return firstUpperCaseOnly(input);
+	}
 }
