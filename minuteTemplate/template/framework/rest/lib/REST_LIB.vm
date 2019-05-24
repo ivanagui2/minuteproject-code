@@ -31,8 +31,7 @@
 #exposeRESTTemplate()
 #set ($modelRestCacheableImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelCacheable))	
 #set ($modelRestCacheableClass = $commonUtils.getTemplateClassName($model, $template, $templateModelCacheable))
-#end
-
+#end
 
 #macro (exposeRESTModelCompress)
 #exposeRESTTemplate()
@@ -40,11 +39,18 @@
 #set ($modelRestCompressClass = $commonUtils.getTemplateClassName($model, $template, $templateModelCompress))
 #end
 
+#macro (exposeRESTModelJWTUtils)
+#exposeRESTTemplate()
+#set ($modelRestJWTUtilsImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateModelJWtUtils))	
+#set ($modelRestJWTUtilsClass = $commonUtils.getTemplateClassName($model, $template, $templateModelJWtUtils))
+#end
+
 #macro (exposeRESTTemplate)
 #set ($templateModelWadlGeneratorJersey = "JerseyWadlGenerator")
 #set ($templateModelCacheable = "REST.Cache.Annotation")
 #set ($templateModelCompress = "REST.Compress.Annotation")
 #set ($templateModelJWtTokenNeeded = "REST.JWTTokenNeeded.Annotation")##TODO set at application level
+#set ($templateModelJWtUtils = "REST.JWTUtils")##TODO set at application level
 #set ($templateEntityResourceJersey = "EJB3ResourceREST")
 #end
 
@@ -90,4 +96,5 @@
 		}
 		return environment;
 	}
-#end
+#end
+
