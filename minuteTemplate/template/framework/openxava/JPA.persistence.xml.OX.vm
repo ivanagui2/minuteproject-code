@@ -19,10 +19,12 @@
             <property name="hibernate.dialect" value="$hibernateDialect"/>
 #if($enableHibernateEhcache)
 ## hib 4            <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
+<!-- disabled in OX6 since hibernate-ehcache dependencies not embedded
             <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
             <property name="net.sf.ehcache.configurationResourceName" value="/ehcache.xml" />
             <property name="hibernate.cache.use_query_cache" value="true" />
             <property name="hibernate.cache.use_second_level_cache" value="true" />
+--> 
 #end
             <property name="hibernate.generate_statistics" value="true" />
 #if($isSchemaNeeded)
@@ -51,12 +53,12 @@
         <properties>
             <property name="hibernate.dialect" value="$hibernateDialect"/>
 #if($enableHibernateEhcache)
-## hib 4            <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider" />
-            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
-                        
+<!-- disabled in OX6 since hibernate-ehcache dependencies not embedded
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />                        
             <property name="net.sf.ehcache.configurationResourceName" value="/ehcache.xml" />
             <property name="hibernate.cache.use_query_cache" value="true" />
             <property name="hibernate.cache.use_second_level_cache" value="true" />
+-->
 #end
             <property name="hibernate.generate_statistics" value="true" />
         </properties>

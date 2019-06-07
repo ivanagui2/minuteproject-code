@@ -1,9 +1,12 @@
+#* 
+use BslaLibrary.vm columnJavaNaming instead of 
 #macro (columnJavaNaming)
 #if ($javaUtils.isReservedWord($columnVar))
 #set($columnVar="${columnVar}_Name")
 #set($columnClass="${columnClass}_Name")
 #end
 #end
+*#
 
 #macro (putColumnInfo)
 #set ($editorComboListFullPath=$commonUtils.getArtifactRelativePathDirAndFullName($column, $template, "OXComboListJSP"))
