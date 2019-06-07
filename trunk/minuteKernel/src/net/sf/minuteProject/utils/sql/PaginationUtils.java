@@ -110,7 +110,7 @@ public class PaginationUtils {
 			String sample = "1";
 			queryParam.setValue(sample);
 			queryParam.setSample(sample);
-			queryParam.setDefaultValue(sample);
+			queryParam.setDefaultValue(queryPagination.getOffsetDefault()!=null?queryPagination.getOffsetDefault()+"":null);
 			//queryParams.getQueryParams().add(qf);
 			//query.getInputParams().addQueryParam(queryParam);
 			return queryParam;
@@ -144,7 +144,7 @@ public class PaginationUtils {
 			String sample = "1";
 			queryParam.setValue(sample);
 			queryParam.setSample(sample);
-			queryParam.setDefaultValue(sample);
+			queryParam.setDefaultValue(queryPagination.getMaxResultDefault()!=null?queryPagination.getMaxResultDefault()+"":null);
 			//queryParams.getQueryParams().add(qf);
 			//queryParams.getQuery().getInputBean().addColumn(column); ?? or queryParams.getQuery().getInputParams().addQueryParam(qf);
 			//query.getInputParams().addQueryParam(qf);
