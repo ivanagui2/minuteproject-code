@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryPagination;
 public class SddPaginationConvention extends SddConvention {
 
 	private String pattern, offsetParam, maxResultParam;
+	private boolean addParamDefault;
 	
 	public static final String APPLY_PAGINATION_ONLY_TO_QUERY_ENDING_WITH = "apply-pagination-only-to-query-ending-with";
 

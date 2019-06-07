@@ -99,6 +99,7 @@ public abstract class AbstractGenerator implements Generator {
 	protected static final String SCOPE_TRANSFER_ENTITY_TEMPLATE = "transfer-entity";
 	protected static final String SCOPE_ACTION_TEMPLATE = "action";
 	protected static final String QUERY_ACTION_TEMPLATE = "query";
+	protected static final String QUERY_PACKAGE_ACTION_TEMPLATE = "query-package";
 	protected static final String PIVOT_QUERY_ACTION_TEMPLATE = "query-pivot";
 	protected static final String SCOPE_WSDL = "wsdl";
 	protected static final String SCOPE_WSDL_ENTITY = "wsdl-entity";

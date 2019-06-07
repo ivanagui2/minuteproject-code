@@ -183,6 +183,7 @@
 									<alias attr-name="pattern" prop-name="pattern" />
 									<alias attr-name="max-result-param" prop-name="maxResultParam" />
 									<alias attr-name="offset-param" prop-name="offsetParam" />
+									<alias attr-name="add-param-default" prop-name="addParamDefault" />
 								</set-properties-rule>	
 				            </pattern>
 							<pattern value="sdd-cache-convention">
@@ -1972,6 +1973,7 @@
 								<alias attr-name="pattern" prop-name="pattern" />
 								<alias attr-name="max-result-param" prop-name="maxResultParam" />
 								<alias attr-name="offset-param" prop-name="offsetParam" />
+								<alias attr-name="add-param-default" prop-name="addParamDefault" />
 							</set-properties-rule>	
 			            </pattern>
 						<pattern value="sdd-cache-convention">

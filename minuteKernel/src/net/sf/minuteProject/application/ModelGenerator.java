@@ -336,6 +336,8 @@ public class ModelGenerator extends AbstractGenerator {
 				generateArtifactsByAction(template);
 			else if (QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsByQuery(template);
+			else if (QUERY_PACKAGE_ACTION_TEMPLATE.equals(scopeSpecificValue))
+				generateArtifactsByQueryPackage(template);
 			else if (PIVOT_QUERY_ACTION_TEMPLATE.equals(scopeSpecificValue))
 				generateArtifactsByQueryPivot(template);
 			else if (SDD_COMPOSITE_TEMPLATE.equals(scopeSpecificValue))
@@ -367,10 +369,20 @@ public class ModelGenerator extends AbstractGenerator {
 			throws MinuteProjectException {
 		if (getModel().getStatementModel() != null
 				&& getModel().getStatementModel().getQueries() != null) {
-			for (Query query : getModel().getStatementModel().getQueries()
-					.getQueries()) {
+			for (Query query : getModel().getStatementModel().getQueries().getQueries()) {
 				if (isToGenerate(query, template))
 					writeTemplateResult(query, template);
+			}
+		}
+	}
+	
+	private void generateArtifactsByQueryPackage(Template template)
+			throws MinuteProjectException {
+		if (getModel().getStatementModel() != null
+				&& getModel().getStatementModel().getSddPackage() != null) {
+			for (Package pack : getModel().getStatementModel().getSddPackage().getQueryPackages()) {
+				if (isToGenerate(pack, template))
+					writeTemplateResult(pack, template);
 			}
 		}
 	}
