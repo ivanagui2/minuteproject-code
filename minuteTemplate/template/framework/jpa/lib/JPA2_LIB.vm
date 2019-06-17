@@ -46,6 +46,17 @@
 #set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
 #end
 
+#macro (exposeEntityValidation $tableDB)
+#set ($templateFieldCompareValidation = "Validation.FieldCompare.java")
+#set ($templateFieldCompareValidatorValidation = "Validation.FieldCompareValidator.java")
+#set ($templateFieldComparatorEnumValidation = "Validation.CompareOperatorEnum.java")
+#set ($fieldCompareClass = $commonUtils.getTemplateClassName($model, $template, $templateFieldCompareValidation))
+#set ($fieldCompareVariable = $commonUtils.getJavaNameVariableFirstLetter($fieldCompareClass))
+#set ($importFieldCompare = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateFieldCompareValidation))
+#set ($importFieldCompareValidator = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateFieldCompareValidatorValidation))
+#set ($importFieldComparatorEnum = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateFieldComparatorEnumValidation))
+#end
+
 #macro (exposeJPA2DomainObjectImport $tableDB)
 #putJPA2TemplateDefinition()
 #set ($importDomainObjectUML = $commonUtils.getEntityLevelTemplateFullPath($model, $tableDB, $template, $templateJPA2DomainObject))
@@ -179,11 +190,18 @@ $!updatedAreaEnd
 #end
 
 #macro(putEntityValidation)
-##if($javaValidation)
-#foreach($validation in ${table.validations})
-//validation : $validation
+#set($validationComparisons = $validationUtils.getJavaFieldComparisonAnnotations(${table.validations}))
+#foreach($validation in $validationComparisons)
 #end
-##end
+#if ($validationComparisons.size()>0)
+@FieldCompare.List({
+#foreach($v in $validationComparisons)
+#foreach($validation in $validationUtils.getJavaValidationAnnotations($v))
+	$validation
+#end
+#end
+})
+#end
 #end
 
 #macro(putFieldValidation)
@@ -192,7 +210,6 @@ $!updatedAreaEnd
 	$validation
 #end
 #end
-##end
 #end
 #macro(putEntityValidationImport)
 #foreach($column in ${table.columns})
@@ -201,6 +218,11 @@ $!updatedAreaEnd
 import $validation;
 #end
 #end
+#end
+#set($validationComparisons = $validationUtils.getJavaFieldComparisonAnnotations(${table.validations}))
+#if ($validationComparisons.size()>0)
+import $importFieldCompare;
+import $importFieldComparatorEnum;
 #end
 #end
 

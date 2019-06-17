@@ -1,4 +1,5 @@
 #generatorSpecific()
+#exposeVariableModelSpecific()
 package $packageName;
 
 public enum CompareOperatorEnum {

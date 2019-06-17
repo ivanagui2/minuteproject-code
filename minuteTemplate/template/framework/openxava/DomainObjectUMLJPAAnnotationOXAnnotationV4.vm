@@ -5,6 +5,7 @@
 #exposeOXDomainSpecific()
 #putImportParamsUML()
 #exposeEntityCache()
+#exposeEntityValidation()
 #addedAreas()
 #set($defaultViewExt="DEFAULT_VIEW")
 #set($attributecount=$attributes.length)
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import javax.persistence.*;
 import org.openxava.annotations.*;
 
+#putEntityValidationImport()
 #exposeJPA2Import()
 #exposeJPA2CompositeKeyImport()
 #exposeJPA2EnumImport()
@@ -33,7 +35,9 @@ import org.openxava.annotations.*;
  *
  */
 @Entity (name="${className}")
+#putEntityValidation()
 @Table (name="\"${table.name}\"") ##to tackle reserved key words
+
 @Views${annotationListTagBeginning}
 #exposeEntityUpdatedAreas("view-base")
 $!updatedAreaBegin
@@ -201,8 +205,11 @@ public class ${className} {
     @Column(name="$column.name",  #if($isLengthPrecisionColumn)length=$column.size,#end #if($isDecimalPrecisionColumn)scale=$column.scale,#end #if($column.isRequired())nullable=false#else nullable=true#end, #if($isColumnUnique)unique=true#else unique=false#end)
 #end
 #end
+#putFieldValidation()
 #if ($isMandatory)
+#if(!$columnUtils.hasTrigger($column))
     @Required
+#end
 #end
 #foreach ($property in $column.getPropertiesArray())
 #if($property.tag=="checkconstraint")
@@ -211,7 +218,7 @@ public class ${className} {
 #end
 #if ($column.isLob())
     @Lob
-//    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
+##    @Editor (forViews="Create,Update,DEFAULT,${domainVariableName}${defaultViewExt}", value="${className}${columnClass}LobEditor")
 #exposeLobProperties()
 ##if ($convertClobToString=="true")
 ##set($columnType="String")
