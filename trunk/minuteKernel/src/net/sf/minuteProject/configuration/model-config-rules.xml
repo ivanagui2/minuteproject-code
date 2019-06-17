@@ -1472,6 +1472,20 @@
 								<alias attr-name="description" prop-name="description" />
 								<alias attr-name="master-relationship-field" prop-name="masterRelationshipField" />
 							</set-properties-rule>
+							<pattern value="validations">
+								<pattern value="validation-two-field-comparison">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.enrichment.validation.EntityTwoFieldComparison" />
+									<set-next-rule methodname="addValidation"
+										paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.EntityTwoFieldComparison" />
+										<set-properties-rule/>
+									<set-properties-rule>
+										<alias attr-name="first-field-name" prop-name="firstFieldName" />
+										<alias attr-name="second-field-name" prop-name="secondFieldName" />
+										<alias attr-name="operand" prop-name="operand" />
+									</set-properties-rule>
+								</pattern>
+							</pattern>
 							<pattern value="constraints/constraint">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint" />
@@ -1648,6 +1662,40 @@
 									<alias attr-name="default-value" prop-name="defaultValue" />
 									<alias attr-name="description" prop-name="description" />
 								</set-properties-rule>
+								<pattern value="validations">
+								<!-- validation-among-values TODO -->
+									<pattern value="validation-range-char">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+										<set-next-rule methodname="addFieldValidation"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+											<set-properties-rule/>
+									</pattern>
+									<pattern value="validation-range">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+										<set-next-rule methodname="addFieldValidation"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+											<set-properties-rule/>
+									</pattern>
+									<pattern value="validation-pattern">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern" />
+										<set-next-rule methodname="addFieldValidation"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern" />
+											<set-properties-rule/>
+									</pattern>
+									<pattern value="validation-exist-unique">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationExistUnique" />
+										<set-next-rule methodname="addFieldValidation"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationExistUnique" />
+											<set-properties-rule>
+												<alias attr-name="query-id" prop-name="queryId" />
+												<alias attr-name="query-params" prop-name="queryParams" />
+											</set-properties-rule>
+									</pattern>
+								</pattern>
 								<pattern value="derivations/derivation">
 									<object-create-rule
 										classname="net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation" />
@@ -2417,11 +2465,26 @@
 									</set-properties-rule>
 								</pattern>
 								<pattern value="validations">
+								<!-- validation-among-values TODO -->
 									<pattern value="validation-range-char">
 										<object-create-rule
 											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
 										<set-next-rule methodname="addFieldValidation"
 											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+											<set-properties-rule/>
+									</pattern>
+									<pattern value="validation-range">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+										<set-next-rule methodname="addFieldValidation"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+											<set-properties-rule/>
+									</pattern>
+									<pattern value="validation-range">
+										<object-create-rule
+											classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+										<set-next-rule methodname="addFieldValidation"
+											paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
 											<set-properties-rule/>
 									</pattern>
 									<pattern value="validation-pattern">
@@ -3095,6 +3158,63 @@
 								<alias attr-name="number-of-first-fields" prop-name="numberOfFirstFields" />
 							</set-properties-rule>
 						</pattern>
+						<pattern value="entity-validation-convention">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityValidationConvention" />
+							<set-next-rule methodname="addConvention"
+								paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityValidationConvention" />
+							<set-properties-rule>
+								<alias attr-name="first-field-pattern" prop-name="firstFieldPattern" />
+								<alias attr-name="second-field-pattern" prop-name="secondFieldPattern" />
+								<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+								<alias attr-name="type" prop-name="type" />
+							</set-properties-rule>
+						</pattern>	
+						<pattern value="field-validation-convention">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.FieldValidationConvention" />
+							<set-next-rule methodname="addConvention"
+								paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.Convention" />
+							<set-properties-rule>
+								<alias attr-name="field-type" prop-name="fieldType" />
+								<alias attr-name="field-pattern" prop-name="fieldPattern" />
+								<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+								<alias attr-name="type" prop-name="type" />
+							</set-properties-rule>
+
+								<!-- validation-among-values TODO -->
+							<pattern value="validation-range-char">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+								<set-next-rule methodname="addFieldValidation"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+									<set-properties-rule/>
+							</pattern>
+							<pattern value="validation-range">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+								<set-next-rule methodname="addFieldValidation"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+									<set-properties-rule/>
+							</pattern>
+							<pattern value="validation-pattern">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern" />
+								<set-next-rule methodname="addFieldValidation"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern" />
+									<set-properties-rule/>
+							</pattern>
+							<pattern value="validation-exist-unique">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationExistUnique" />
+								<set-next-rule methodname="addFieldValidation"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationExistUnique" />
+									<set-properties-rule>
+										<alias attr-name="query-id" prop-name="queryId" />
+										<alias attr-name="query-params" prop-name="queryParams" />
+									</set-properties-rule>
+							</pattern>
+						</pattern>
 						<pattern value="view-primary-key-convention">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.ViewPrimaryKeyConvention" />
@@ -3278,6 +3398,20 @@
 							<alias attr-name="description" prop-name="description" />
 							<alias attr-name="master-relationship-field" prop-name="masterRelationshipField" />
 						</set-properties-rule>
+						<pattern value="validations">
+							<pattern value="validation-two-field-comparison">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.validation.EntityTwoFieldComparison" />
+								<set-next-rule methodname="addValidation"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.EntityTwoFieldComparison" />
+									<set-properties-rule/>
+								<set-properties-rule>
+									<alias attr-name="first-field-name" prop-name="firstFieldName" />
+									<alias attr-name="second-field-name" prop-name="secondFieldName" />
+									<alias attr-name="operand" prop-name="operand" />
+								</set-properties-rule>
+							</pattern>
+						</pattern>
 						<pattern value="constraints/constraint">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint" />
@@ -3467,6 +3601,40 @@
 								<alias attr-name="default-value" prop-name="defaultValue" />
 								<alias attr-name="description" prop-name="description" />
 							</set-properties-rule>
+							<pattern value="validations">
+							<!-- validation-among-values TODO -->
+								<pattern value="validation-range-char">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+									<set-next-rule methodname="addFieldValidation"
+										paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeChar" />
+										<set-properties-rule/>
+								</pattern>
+								<pattern value="validation-range">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+									<set-next-rule methodname="addFieldValidation"
+										paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue" />
+										<set-properties-rule/>
+								</pattern>
+								<pattern value="validation-pattern">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern" />
+									<set-next-rule methodname="addFieldValidation"
+										paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern" />
+										<set-properties-rule/>
+								</pattern>
+								<pattern value="validation-exist-unique">
+									<object-create-rule
+										classname="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationExistUnique" />
+									<set-next-rule methodname="addFieldValidation"
+										paramtype="net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationExistUnique" />
+										<set-properties-rule>
+											<alias attr-name="query-id" prop-name="queryId" />
+											<alias attr-name="query-params" prop-name="queryParams" />
+										</set-properties-rule>
+								</pattern>
+							</pattern>
 							<pattern value="derivations/derivation">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation" />

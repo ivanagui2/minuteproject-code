@@ -29,6 +29,13 @@
 			description="Generates:\environment properties">
 		</technology>
 
+		<technology name="javax.validation" target-name="javax.validation" model-type="rdbms"
+			template-config-file-name="mp-template-config-validation.xml"
+			default-outputdir="JPA2"
+			template-dir="@templateRoot@/framework/validation" status="released"
+			description="Generates:\javax validation annotations">
+		</technology>
+
 		<technology name="environment-REST" target-name="JPA2" model-type="rdbms"
 			template-config-file-name="mp-template-config-ENVIRONMENT.xml"
 			default-outputdir="REST" depends-on-targets="BSLA_LIB,CACHE_LIB,SDD-BEANS"

@@ -11,6 +11,7 @@ import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Constraint;
 import net.sf.minuteProject.configuration.bean.enrichment.security.EntitySecuredAccess;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityValidation;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
@@ -34,6 +35,7 @@ public class Entity extends AbstractConfiguration implements CoreElement {
 	private String type, masterRelationshipField;
 	private List<FieldGroup> fieldGroups;
 	private List<Constraint> constraints;
+	private List<EntityValidation> entityValidations = new ArrayList<>();
 	private String mainEntity;
 	
 	public String getMainEntity() {
@@ -197,6 +199,7 @@ public class Entity extends AbstractConfiguration implements CoreElement {
 		table.setActions (this.getActions());
 		table.setConstraints(this.getConstraints());
 		table.setFieldGroups(this.getFieldGroups());
+		table.setValidations(this.getValidations());
 		//
 		setFieldSpecifics(table, database);
 		table.setSearchable(isSearchable);
@@ -470,5 +473,14 @@ public class Entity extends AbstractConfiguration implements CoreElement {
 		}
 		return list;
 	}
-	
+
+	public List<EntityValidation> getValidations() {
+		return entityValidations;
+	}
+	public void setValidations(List<EntityValidation> entityValidations) {
+		this.entityValidations = entityValidations;
+	}
+	public void addValidation(EntityValidation entityValidations) {
+		getValidations().add(entityValidations);
+	}
 }

@@ -206,7 +206,6 @@ public class QueryParam extends Field {
 		this.scope = scope;
 	}
 	
-
 	public List<FieldValidation> getFieldValidations() {
 		return fieldValidations;
 	}

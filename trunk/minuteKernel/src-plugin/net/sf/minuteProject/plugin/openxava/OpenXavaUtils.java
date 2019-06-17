@@ -1,16 +1,13 @@
 package net.sf.minuteProject.plugin.openxava;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 import net.sf.minuteProject.configuration.bean.Package;
-import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Action;
 import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
-import net.sf.minuteProject.configuration.bean.enrichment.path.SqlPath;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.Reference;
@@ -69,7 +66,7 @@ public class OpenXavaUtils {
 			}
 		}
 		for (Column column : table.getAttributes()) {
-			if (column.isSearchable() && !column.isLob() && !column.isTransient())
+			if (column.isSearchable() && !column.isLob() && !column.isTransient() && !(column.getTriggers().size()>0))
 				list.add(JavaUtils.getJavaVariableNaming(FormatUtils.getJavaNameVariable(column.getAlias())));
 		}
 		return list;
@@ -127,7 +124,11 @@ public class OpenXavaUtils {
 
 	public static boolean hasDescriptionList (Table table) {
 		if (TableUtils.hasSemanticReference(table) && 
-			(TableUtils.isReferenceDataContentType(table) || TableUtils.isPseudoStaticDataContentType(table)))
+			(TableUtils.isReferenceDataContentType(table) 
+			|| TableUtils.isMasterDataContentType(table)
+//			|| TableUtils.isPseudoStaticDataContentType(table)
+			)
+			)
 			return true;
 		return false;
 	}
@@ -185,7 +186,7 @@ public class OpenXavaUtils {
 	public static List<String> getListProperties (Reference reference) {
 		boolean hasSemRef = false;
 		List<String> list = new ArrayList<String>();
-		Table linkTable = reference.getForeignTable();
+		Table linkTable  = reference.getForeignTable();
 		Table childTable = reference.getLocalTable();
 		List<String> relativeChildSR = getParentChildRelativeSemanticReference(reference, linkTable);
 		if (SemanticReferenceUtils.hasSemanticReference(childTable)) {
@@ -288,7 +289,7 @@ public class OpenXavaUtils {
 			return "PASSWORD";
 		if ("picture".equals(s) || "image".equals(s))
 			return "IMAGE";
-		return null;
+		return stereotype.toUpperCase();
 	}
 
 	
