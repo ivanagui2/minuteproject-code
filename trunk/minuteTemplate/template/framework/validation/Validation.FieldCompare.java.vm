@@ -1,4 +1,5 @@
 #generatorSpecific()
+#exposeVariableModelSpecific()
 package $packageName;
 
 import javax.validation.Constraint;
