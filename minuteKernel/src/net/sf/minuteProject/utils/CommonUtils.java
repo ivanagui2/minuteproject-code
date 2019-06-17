@@ -3,6 +3,10 @@ package net.sf.minuteProject.utils;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.tools.ant.util.FileUtils;
+
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.Application;
 import net.sf.minuteProject.configuration.bean.Configuration;
@@ -22,10 +26,6 @@ import net.sf.minuteProject.configuration.bean.model.statement.Composite;
 import net.sf.minuteProject.configuration.bean.model.statement.Composites;
 import net.sf.minuteProject.configuration.bean.model.statement.Queries;
 import net.sf.minuteProject.configuration.bean.model.statement.Query;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.tools.ant.util.FileUtils;
 
 
 public class CommonUtils {
@@ -143,40 +143,22 @@ public class CommonUtils {
 	public static String getClassName (GeneratorBean bean, Template template) {
 		if (bean==null || template==null)
 			return "CLASS_NAME_NOT_AVAILABLE";
-		//return template.getOutputFileMain(getTableClassName(bean));
 		return template.getOutputFileMain(bean);
 	}
 	
 	public static String getJavaVariableNameForGetterAndSetterFromJavaName (String s) {
 		return FormatUtils.getJavaVariableNameForGetterAndSetterFromJavaName(s);
 	}
-//	public static String getClassName (Table table, Template template) {
-//		String className = template.getOutputFileMain(getTableClassName(table));
-//		return className;
-//	}
-//	
+
 	public static String getClassName2 (Table table, Template template) {
 		String className = template.getOutputFileMain(table);
 		return className;
 	}
-//	
-//	public static String getClassName (Package pack, Template template) {
-//		return template.getOutputFileMain(getPackageClassName(pack));
-//	}
-//	///
-//	
-//	public static String getClassName (Model model, Template template) {
-//		return template.getOutputFileMain(FormatUtils.getJavaName(model.getName()));
-//	}	
-//	
+
 	public static String getVariableName(Table table, Template template) {
 		return FormatUtils.getJavaNameVariable(getClassName(table, template));
 	}
 
-//	public static String getJavaType (String type) {
-//		return ConvertUtils.getJavaTypeFromDBType(type);
-//	}
-	
 	public static String getJavaTypeOnly (Column column) {
 		if (column == null) {
 			logger.error("ERROR column is null");

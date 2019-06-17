@@ -462,4 +462,10 @@ public class FormatUtils {
 		input = StringUtils.replace(input, "-", " ");
 		return firstUpperCaseOnly(input);
 	}
+	
+	public static String escapePath(String path)
+	{
+		if (path==null) return "";
+	    return path.replace("\\", "\\\\");
+	}
 }

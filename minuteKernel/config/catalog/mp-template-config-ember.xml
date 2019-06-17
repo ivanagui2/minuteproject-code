@@ -107,7 +107,7 @@
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
-            scope-specific-value="query"
+            scope-specific-value="query-package"
             check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
             />
 	</template-target> 	

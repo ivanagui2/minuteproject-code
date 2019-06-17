@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityTwoFieldComparison;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.EntityValidationTwoFieldDependency;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationAmongValue;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationPattern;
@@ -13,6 +14,7 @@ import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValida
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidationRangeValue;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.Validation;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.ValidationPattern;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.ValidationPattern.ValidationType;
 import net.sf.minuteProject.utils.FormatUtils;
 
 public class ValidationUtils {
@@ -27,6 +29,17 @@ public class ValidationUtils {
 	public static List<String> getJavaImportValidationAnnotations(Validation validation) {
 		return getJavaValidation(validation, JavaReference.IMPORT).stream().distinct().collect(Collectors.toList());
 	}
+
+	public static List<Validation> getJavaFieldComparisonAnnotations(List<Validation> validations) {
+		if (validations==null) return new ArrayList<>();
+		return validations.stream()
+			.filter(u -> 
+				{
+					return u instanceof EntityTwoFieldComparison;
+				}
+			).collect(Collectors.toList());
+		
+	}
 	
 	public static List<String> getJavaValidationAnnotations(Validation validation) {
 		return getJavaValidation(validation, JavaReference.DECLARE).stream().distinct().collect(Collectors.toList());
@@ -36,21 +49,32 @@ public class ValidationUtils {
 		List<String> list = new ArrayList<>();
 		if (validation instanceof FieldValidationPattern) {
 			fillList(list, (FieldValidationPattern)validation, javaReference);
-		}
-		if (validation instanceof FieldValidationRangeChar) {
+		} 
+		else if (validation instanceof FieldValidationRangeChar) {
 			fillList(list, (FieldValidationRangeChar)validation, javaReference);
-		}
-		if (validation instanceof FieldValidationRangeValue) {
+		} 
+		else if (validation instanceof FieldValidationRangeValue) {
 			fillList(list, (FieldValidationRangeValue)validation, javaReference);
 		}
-		if (validation instanceof FieldValidationAmongValue) {
+		else if (validation instanceof FieldValidationAmongValue) {
 			fillList(list, (FieldValidationAmongValue)validation, javaReference);
 		}
-		if (validation instanceof EntityValidationTwoFieldDependency) {
+		else if (validation instanceof EntityValidationTwoFieldDependency) {
 			fillList(list, (EntityValidationTwoFieldDependency)validation, javaReference);
 		}
-		if (validation instanceof ValidationPattern) {
+		else if (validation instanceof EntityTwoFieldComparison) {
+			fillList(list, (EntityTwoFieldComparison)validation, javaReference);
+		}
+		else if (validation instanceof ValidationPattern) {
 			fillList(list, (ValidationPattern)validation, javaReference);
+		}
+		return list;
+	}
+	
+	public static List<String> getJavaCompareValidation(Validation validation, JavaReference javaReference) {
+		List<String> list = new ArrayList<>();
+		if (validation instanceof EntityValidationTwoFieldDependency) {
+			fillList(list, (EntityValidationTwoFieldDependency)validation, javaReference);
 		}
 		return list;
 	}
@@ -68,6 +92,14 @@ public class ValidationUtils {
 	}
 
 	private static void fillList(List<String> list, EntityValidationTwoFieldDependency validation, JavaReference javaReference) {
+		if (validation.getFirstFieldName()!=null && validation.getSecondFieldName()!=null && validation.getOperand()!=null) {
+			if (!javaReference.isImport()) {
+				list.add("@FieldCompare (first=\""+validation.getFirstFieldName()+"\", second=\""+validation.getSecondFieldName()+"\", operator=CompareOperatorEnum."+validation.getOperand()+")");
+			}
+		}
+	}
+	
+	private static void fillList(List<String> list, EntityTwoFieldComparison validation, JavaReference javaReference) {
 		if (validation.getFirstFieldName()!=null && validation.getSecondFieldName()!=null && validation.getOperand()!=null) {
 			if (!javaReference.isImport()) {
 				list.add("@FieldCompare (first=\""+validation.getFirstFieldName()+"\", second=\""+validation.getSecondFieldName()+"\", operator=CompareOperatorEnum."+validation.getOperand()+")");
@@ -113,14 +145,20 @@ public class ValidationUtils {
 
 	private static void fillList(List<String> list, FieldValidationPattern validation, JavaReference javaReference) {
 		if (StringUtils.isNotEmpty(validation.getRegex())){//TODO and regex correct
-			String s = (javaReference.isImport())?"javax.validation.constraints.Pattern":"@Pattern (regexp=\""+validation.getRegex()+"\", flags=Pattern.Flag.CASE_INSENSITIVE)";
+			String s = (javaReference.isImport())?"javax.validation.constraints.Pattern":"@Pattern (regexp=\""+FormatUtils.escapePath(validation.getRegex())+"\", flags=Pattern.Flag.CASE_INSENSITIVE)";
 			list.add(s);
 		}
-		if (validation.getValidationType()!=null){
-			switch (validation.getValidationType()) {
-				case EMAIL:
-					list.add ((javaReference.isImport())?"javax.validation.constraints.Email":"@Email");
-					break;
+		ValidationType validationType = validation.getValidationType();
+		if (validationType!=null){
+			if (StringUtils.isNotEmpty(validationType.getRegex())) {
+				String s = (javaReference.isImport())?"javax.validation.constraints.Pattern":"@Pattern (regexp=\""+FormatUtils.escapePath(validationType.getRegex())+"\", flags=Pattern.Flag.CASE_INSENSITIVE)";
+				list.add(s);				
+			} else {
+				switch (validationType) {
+					case EMAIL:
+						list.add ((javaReference.isImport())?"javax.validation.constraints.Email":"@Email");
+						break;
+				}
 			}
 		}
 	}

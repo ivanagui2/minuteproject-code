@@ -12,7 +12,6 @@ import net.sf.minuteProject.configuration.bean.Template;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enumeration.CRUDEnum;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
-import net.sf.minuteProject.configuration.bean.model.data.impl.UMLNotation.ColumnUMLNotation;
 import net.sf.minuteProject.configuration.bean.system.Property;
 
 public class TriggerUtils {
@@ -100,7 +99,6 @@ public class TriggerUtils {
 	private static String getValue(Property property) {
 		if (org.apache.commons.lang.StringUtils.contains(property.getTag(), Trigger.CURRENT_TIME)
 			|| org.apache.commons.lang.StringUtils.contains(property.getTag(), Trigger.CURRENT_DATE))
-
 			return Trigger.CURRENT_TIME;
 		return null;
 	}

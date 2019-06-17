@@ -10,7 +10,7 @@
 	<plugin name="openXavaUtils" className="net.sf.minuteProject.plugin.openxava.OpenXavaUtils"></plugin>
 	<plugin name="presentationUtils" className="net.sf.minuteProject.plugin.presentation.PresentationUtils"></plugin>
 	<plugin name="extensionUtils" className="net.sf.minuteProject.utils.ExtensionUtils"></plugin>
-	
+	<plugin name="validationUtils" className="net.sf.minuteProject.utils.validation.ValidationUtils"></plugin>	
 	<template-target 
     	name="JPA set"
 		libdir="lib/OX_LIB.vm"
@@ -56,6 +56,26 @@
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
 		</template>
 
+		<!-- validations -->
+		<!-- annotation comparison -->	
+		<template name="Validation.FieldCompare.java" templateFileName="Validation.FieldCompare.java.vm" 
+			subdir="" outputsubdir="" technicalPackage="validation"
+			file-extension="java" file-prefix="" file-suffix="FieldCompare" has-updatable-nature="false" 
+			add-model-name="false" model-specific="true" >
+		</template>
+		
+		<template name="Validation.FieldCompareValidator.java" templateFileName="Validation.FieldCompareValidator.java.vm" 
+			subdir="" outputsubdir="" technicalPackage="validation"
+			file-extension="java" file-prefix="" file-suffix="FieldCompareValidator" has-updatable-nature="false"
+			add-model-name="false" model-specific="true" >
+		</template>
+		
+		<template name="Validation.CompareOperatorEnum.java" templateFileName="Validation.CompareOperatorEnum.java.vm" 
+			subdir="" outputsubdir="" technicalPackage="validation"
+			file-extension="java" file-prefix="" file-suffix="CompareOperatorEnum" has-updatable-nature="false"
+			add-model-name="false" model-specific="true" >
+		</template>	
+		
         <!-- SDD beans -->  
         <template name="SDDInputBean" templateFileName="DomainObjectUMLJPAAnnotationOXAnnotationV4.vm" 
             subdir="" outputsubdir="" technicalPackage="sdd.in"

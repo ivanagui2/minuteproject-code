@@ -11,6 +11,7 @@
 	</architecture-target>	
    	<plugin name="restUtils" className="net.sf.minuteProject.plugin.rest.RestUtils"/>
    	<plugin name="queryUtils" className="net.sf.minuteProject.utils.sql.QueryUtils"/>
+   	<plugin name="securityUtils" className="net.sf.minuteProject.utils.security.SecurityUtils"/>
 
    	<template-target 
     	name="Kendo client"
@@ -118,6 +119,12 @@
 		</template>
 		
 		<!-- jwt -->
+				
+		<template name="REST.JWTUtils" templateFileName="REST.JWTUtils.vm" 
+			subdir="" outputsubdir="" technicalPackage="rest"
+			file-extension="java" file-prefix="" file-suffix="JWTUtils" 
+			scope-specific-value="model" has-updatable-nature="true" add-model-name="false">
+		</template>		
 				
 		<template name="REST.JWTTokenNeeded.Annotation" templateFileName="REST.JWTTokenNeeded.Annotation.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest"

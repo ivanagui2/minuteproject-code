@@ -8,6 +8,7 @@ import net.sf.minuteProject.configuration.bean.model.data.Column;
 
 public class Trigger extends AbstractConfiguration  {
 
+	//trigger-insert-with-current-date
 	public static final String UPDATE = "UPDATE";
 	public static final String INSERT = "INSERT";
 	public static final String CURRENT_TIME = "current-time";

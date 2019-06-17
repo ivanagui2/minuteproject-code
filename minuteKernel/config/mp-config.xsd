@@ -234,9 +234,32 @@
 			<xs:enumeration value="photo" />
 			<xs:enumeration value="currency" />
 			<xs:enumeration value="telephone" />
+			<xs:enumeration value="datetime" />
 		</xs:restriction>
 	</xs:simpleType>
 
+<!-- 
+//   MONEY, DINERO
+//   PHOTO, IMAGEN, FOTO, IMAGE
+//   MEMO, TEXT_AREA, TEXTO_GRANDE
+//   LABEL, ETIQUETA
+//   BOLD_LABEL, ETIQUETA_NEGRITA
+//   TIME, HORA
+//   DATETIME, FECHAHORA
+//   IMAGES_GALLERY, GALERIA_IMAGENES (setup instructions)
+//   ZEROS_FILLED, RELLENADO_CON_CEROS
+//   HTML_TEXT, TEXTO_HTML (text with editable format)
+//   IMAGE_LABEL, ETIQUETA_IMAGEN (image depending on property content)
+//   EMAIL
+//   TELEPHONE, TELEFONO
+//   WEBURL
+//   IP
+//   ISBN
+//   CREDIT_CARD, TARJETA_CREDITO
+//   EMAIL_LIST, LISTA_EMAIL
+//   DOCUMENT_LIBRARY, LIBRERIA_DOCUMENTOS (new in v4m6, it only works inside Liferay)
+//   PASSWORD, CONTRASENA (new in v4.1)
+ -->
 	<xs:simpleType name="scope-type">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="entity" />
@@ -450,6 +473,7 @@
 		</xs:sequence>
 	</xs:complexType>
 	
+	<!-- TODO Remove replaced by validations -->
 	<xs:complexType name="validation">
 		<xs:sequence>
 			<xs:element name="validation" minOccurs="0" maxOccurs="1">
@@ -461,10 +485,46 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:complexType name="field-validations">
+		<xs:sequence>
+			<xs:element name="validation-range" type="validation-range" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="validation-range-char" type="validation-range-char" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="validation-pattern" type="validation-pattern" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="validation-among-values" type="validation-among-values" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="validation-exist-unique" type="validation-exist-unique" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="validation-range">
+		<xs:attribute name="min" type="xs:int" />
+		<xs:attribute name="max" type="xs:int" />
+	</xs:complexType>
+	
+	<xs:complexType name="validation-range-char">
+		<xs:attribute name="min" type="xs:int" />
+		<xs:attribute name="max" type="xs:int" />
+	</xs:complexType>
+	
+	<xs:complexType name="validation-pattern">
+		<xs:attribute name="min" type="xs:int" />
+		<xs:attribute name="max" type="xs:int" />
+		<xs:attribute name="regex" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="validation-among-values">
+		<xs:attribute name="values" type="xs:string" />
+		<xs:attribute name="error" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="validation-exist-unique">
+		<xs:attribute name="query-id" type="xs:string" />
+		<xs:attribute name="error" type="xs:string" />
+	</xs:complexType>
 
 	<xs:complexType name="field">
 		<xs:sequence>
-			<xs:element name="validation" minOccurs="0" maxOccurs="unbounded" type="validation"/>
+			<xs:element name="validations" minOccurs="0" maxOccurs="unbounded" type="field-validations"/>
 			<xs:element name="stereotype">
 				<xs:complexType>
 					<xs:attribute name="stereotype" type="stereotype-type" />
@@ -785,6 +845,11 @@
 		<xs:attribute name="report-cc" type="xs:string" />
 		<xs:attribute name="report-bcc" type="xs:string" />
 		<xs:attribute name="report-threshold-min-record" type="xs:integer" />
+		<xs:attribute name="report-importance" type="xs:string" />
+		<xs:attribute name="report-scalar-column" type="xs:string" />
+		<xs:attribute name="report-add-origin" type="xs:boolean" />
+		<xs:attribute name="report-add-environment" type="xs:boolean" />
+		<xs:attribute name="report-add-number-of-records" type="xs:boolean" />
 
 	</xs:complexType>	
 	

@@ -1,41 +1,29 @@
 package net.sf.minuteProject.configuration.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import net.sf.minuteProject.application.ModelGenerator;
 import net.sf.minuteProject.configuration.bean.enrichment.BusinessModelEnrichment;
-import net.sf.minuteProject.configuration.bean.enrichment.Enrichment;
 import net.sf.minuteProject.configuration.bean.enrichment.Entity;
 import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.Package;
 import net.sf.minuteProject.configuration.bean.enrichment.VirtualPrimaryKey;
 import net.sf.minuteProject.configuration.bean.enrichment.XmlEnrichment;
-import net.sf.minuteProject.configuration.bean.enrichment.convention.Convention;
-import net.sf.minuteProject.configuration.bean.enrichment.convention.ModelConvention;
 import net.sf.minuteProject.configuration.bean.limitation.Limitation;
 import net.sf.minuteProject.configuration.bean.limitation.LimitationExcludeEntityWithoutPk;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
-import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.configuration.bean.model.data.View;
-import net.sf.minuteProject.configuration.bean.model.data.impl.DDLUtils.TableDDLUtils;
 import net.sf.minuteProject.configuration.bean.presentation.Presentation;
 import net.sf.minuteProject.configuration.bean.service.Scope;
 import net.sf.minuteProject.configuration.bean.service.Service;
 import net.sf.minuteProject.configuration.bean.system.Property;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ComponentUtils;
-import net.sf.minuteProject.utils.ConvertUtils;
-import net.sf.minuteProject.utils.DatabaseUtils;
 import net.sf.minuteProject.utils.ForeignKeyUtils;
-import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
-import net.sf.minuteProject.utils.ServiceUtils;
 import net.sf.minuteProject.utils.TableUtils;
 
 
@@ -317,6 +305,7 @@ public class BusinessModel {
 		table.setDescription(entity.getDescription());
 		table.setComment(entity.getComment());
 		table.setConstraints(entity.getConstraints());
+		table.setValidations(entity.getValidations());
 		table.setActions (entity.getActions());
 		table.setProposedOrdering (entity.getOrdering());
 	}
@@ -332,6 +321,7 @@ public class BusinessModel {
 		column.setLabel(field.getLabel());
 		column.setDerivations(field.getDerivations());
 		column.setTypeAlias(field.getTypeAlias());
+		column.setValidations(field.getFieldValidations());
 //		column.setTriggers(field.getTriggers());
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteproject.model.db.type.FieldType;
 
@@ -24,6 +25,7 @@ public class Field extends AbstractConfiguration implements CoreElement {
 	private String ordering;
 	private String value, defaultValue;
 	private Boolean isSearchable,isEditable;
+	private List<FieldValidation> fieldValidations = new ArrayList<>();
 
 	public String getSizeOrDefault() {
 		if (length!=null)
@@ -225,6 +227,16 @@ public class Field extends AbstractConfiguration implements CoreElement {
 		this.defaultValue = defaultValue;
 	}
 
+	public List<FieldValidation> getFieldValidations() {
+		return fieldValidations;
+	}
+	public void setFieldValidations(List<FieldValidation> fieldValidations) {
+		this.fieldValidations = fieldValidations;
+	}
+	public void addFieldValidation(FieldValidation fieldValidation) {
+		getFieldValidations().add(fieldValidation);
+	}
+	
 	public String toString() {
 		return "field [name="+name+"]";
 	}
