@@ -31,12 +31,13 @@ public class FieldCompareValidator implements ConstraintValidator<FieldCompare, 
 
             Double first = Double.valueOf(firstObj.toString());
             Double second = Double.valueOf(secondObj.toString());
+##TODO from ComparisonOperand enum
             switch (operatorFieldName) {
                 case EQUALS: return first.equals(second);
                 case GREATER_THAN:return first > second;
                 case GREATER_OR_EQUAL_THAN:return first >= second;
-                case SMALLER_THAN:return first < second;
-                case SMALLER_OR_EQUAL_THAN:return first <= second;
+                case LESS_THAN:return first < second;
+                case LESS_OR_EQUAL_THAN:return first <= second;
             }
         }
         catch (final Exception ignore)

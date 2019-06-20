@@ -17,6 +17,7 @@ cp $OX_HOME/tomcat/lib/ejb.jar $OX_HOME/workspace/$applicationOX/web/WEB-INF/lib
 ##copy generated artifacts into $applicationOX workspace
 cd "$GENDIR"
 cp -R * ${OX_HOME}/workspace/$applicationOX 
+cp -R JPA2/src/main/java/* ${OX_HOME}/workspace/$applicationOX 
 
 ##overwrite tomcat context.xml
 cp other/tomcat/snippet/context.xml $OX_HOME/tomcat/conf
