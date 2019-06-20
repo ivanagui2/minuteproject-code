@@ -3,12 +3,10 @@ package net.sf.minuteProject.configuration.bean.enrichment.convention
 import org.apache.log4j.Logger;
 
 import net.sf.minuteProject.configuration.bean.BusinessModel;
-import net.sf.minuteProject.configuration.bean.enrichment.SemanticReference;
 import net.sf.minuteProject.configuration.bean.enrichment.Stereotype;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
-import net.sf.minuteProject.utils.StringUtils;
-import net.sf.minuteProject.utils.parser.ParserUtils;
+import net.sf.minuteProject.utils.ColumnUtils
 
 class StereotypeConvention extends FieldConvention{
 
@@ -32,7 +30,14 @@ class StereotypeConvention extends FieldConvention{
 		for (Column column : table.getColumns()) {
 			if (match(column)) {
 				logger.debug("applying stereotype "+stereotype+" to column "+column.getName())
-				column.setStereotype(new Stereotype(stereotype: stereotype))
+				def stereotypeToLowerCase = stereotype.toLowerCase()
+				if (stereotypeToLowerCase.equals("money") || stereotypeToLowerCase.equals("currency") ) {
+					if (ColumnUtils.isNumeric(column)) {
+						column.setStereotype(new Stereotype(stereotype: stereotype))
+					}
+				} else {
+					column.setStereotype(new Stereotype(stereotype: stereotype))
+				}
 			}
 		}
 	}
