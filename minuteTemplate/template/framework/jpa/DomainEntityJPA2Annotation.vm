@@ -123,7 +123,7 @@ public class ${className} implements Serializable {
 #putColumnParamNaming()
 #if(!$isForeignKey)
 #putValidationConstraints()
-    @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
+    @Column(name="\"$column.name\"" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
     $accessor $columnType ${columnVar}_;
 #end
 #end
@@ -137,7 +137,7 @@ public class ${className} implements Serializable {
     @SequenceGenerator(name = "${table.name}SEQ", sequenceName ="$sequenceName", allocationSize=1 )
 #end
 #end
-    @Id @Column(name="$column.name" #if($isLengthPrecisionColumn),length=$column.size#end) 
+    @Id @Column(name="\"$column.name\"" #if($isLengthPrecisionColumn),length=$column.size#end) 
 #if (!$isMany2Many)
 #if (!$isPkUserProvided && !$isView)
 #if ($databaseUtils.isPrimaryKeyPolicySequence($table))
@@ -176,13 +176,13 @@ $updatedAreaSnippet
 #set ($columnType = $enumUtils.getEnumType($template, $enumColumn))
 ##set($columnType=$enumClassName)
     @Enumerated #if($convertUtils.isStringType($column.type))(EnumType.STRING)
-    @Column(name="$column.name") 
+    @Column(name="\"$column.name\"") 
 #end    
 #else
 #if ($isView)
-    @Column(name="$column.name"  #if($isLengthPrecisionColumn), length=$column.size#end #if($isDecimalPrecisionColumn),precision=$columnUtils.getPrecision($column), scale=$column.scale#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
+    @Column(name="\"$column.name\""  #if($isLengthPrecisionColumn), length=$column.size#end #if($isDecimalPrecisionColumn),precision=$columnUtils.getPrecision($column), scale=$column.scale#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end , insertable=false, updatable=false)
 #else
-    @Column(name="$column.name"  #if($isLengthPrecisionColumn), length=$column.size#end #if($isDecimalPrecisionColumn),precision=$columnUtils.getPrecision($column), scale=$column.scale#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end)
+    @Column(name="\"$column.name\""  #if($isLengthPrecisionColumn), length=$column.size#end #if($isDecimalPrecisionColumn),precision=$columnUtils.getPrecision($column), scale=$column.scale#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end)
 #end
 #if ($column.isLob())
     @Lob @Basic(fetch=FetchType.LAZY) 
@@ -219,7 +219,7 @@ $!updatedAreaEnd
 #end
 #set($fetchType=$jpa2Utils.getFetchType($template, $reference))
     @ManyToOne (fetch=FetchType.$fetchType #if ($isMandatory && !$table.isLinkEntity()), optional=false#end)
-    @JoinColumn(name="$localColumnName", referencedColumnName = "$reference.foreignColumnName" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
+    @JoinColumn(name="$localColumnName", referencedColumnName = "\"$reference.foreignColumnName\"" #if($localColumn.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true #else, unique=false#end $insertableUpdatableRelationship) 
 #exposeRelationship($table, $reference)
 #set($colVar = $commonUtils.getColumnAliasVariable($table, $reference))
 #if($addXmlBinding)
@@ -233,7 +233,7 @@ $!updatedAreaEnd
 #exposeXmlElementValue()
     @XmlElement $!xmlElementValue
 #end
-    @Column(name="$column.name" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
+    @Column(name="\"$column.name\"" #if($isLengthPrecisionColumn), length=$column.size#end #if($column.isRequired()), nullable=false#else, nullable=true#end #if($isColumnUnique), unique=true#else, unique=false#end$insertableUpdatableField)
     $accessor $columnType ${colVar}_;
 
 #end	
