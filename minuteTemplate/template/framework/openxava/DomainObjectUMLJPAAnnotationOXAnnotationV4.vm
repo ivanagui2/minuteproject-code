@@ -361,7 +361,7 @@ $!updatedAreaSnippet
     @OneToMany (targetEntity=$targetEntityClass, fetch=FetchType.LAZY, mappedBy="$linkedColumnVariable"#if (!$reference.column.isRequired() || $reference.table.isLinkEntity()), cascade=CascadeType.REMOVE#end)//, cascade=CascadeType.ALL)
 #set($listProperties=$openXavaUtils.getListProperties($reference))
 #if(!$listProperties.isEmpty())
-    @ListProperties(""+
+    @ListProperties(
 ##if(!$hasSemanticReference)##todo check hassemanticreference for the parent!!
        "#foreach ($chunk in $listProperties)   
 $chunk #if ($velocityCount!=$listProperties.size()),#else #end
@@ -373,7 +373,7 @@ $chunk #if ($velocityCount!=$listProperties.size()),#else #end
 #####end")
 ##end
 #end
-    $accessor Set <$linkedTableClass> $childrenListVariable = new HashSet<$linkedTableClass>(); 
+    $accessor Set <$linkedTableClass> $childrenListVariable = new HashSet<>(); 
    
 #end
 #end
@@ -394,7 +394,14 @@ $!updatedAreaSnippet
         joinColumns=@JoinColumn(name="$targetColumn.name"), 
         inverseJoinColumns=@JoinColumn(name="$linkReference.localColumnName") 
     )
-    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <$targetTableName> ();
+#set($listProperties=$openXavaUtils.getListProperties($linkReference))
+#if(!$listProperties.isEmpty())
+    @ListProperties(
+       "#foreach ($chunk in $listProperties)   
+$chunk #if ($velocityCount!=$listProperties.size()),#else #end
+#end ")
+#end
+    $accessor Set <$targetTableName> $childrenListVariable = new HashSet <> ();
 
 #end
 #updatedAreaEnd()
@@ -506,7 +513,7 @@ $!updatedAreaEnd
 #if(!$linktableDB.isManyToMany())
     public Set<$linkedTableClass> get${childrenListClass}() {
         if (${childrenListVariable} == null){
-            ${childrenListVariable} = new HashSet<$linkedTableClass>();
+            ${childrenListVariable} = new HashSet<>();
         }
         return ${childrenListVariable};
     }
@@ -525,7 +532,7 @@ $!updatedAreaEnd
 #exposeM2MSpecific()
     public Set<$targetTableName> get${childrenListClass}() {
         if (${childrenListVariable} == null){
-            ${childrenListVariable} = new HashSet<$targetTableName>();
+            ${childrenListVariable} = new HashSet<>();
         }
         return ${childrenListVariable};
     }
