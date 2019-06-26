@@ -33,7 +33,7 @@
 				</dataSource>
 				<!-- for Oracle and DB2 please set the schema <schema> </schema> -->
 				<primaryKeyPolicy oneGlobal="true">
-					<primaryKeyPolicyPattern name="autoincrementPattern"></primaryKeyPolicyPattern>
+					<primaryKeyPolicyPattern name="identityPattern"></primaryKeyPolicyPattern>
 				</primaryKeyPolicy>
 			</data-model>
 			<business-model>
@@ -81,6 +81,63 @@
 							</property>
 						</field>
 					</entity>
+					<entity name="PRODUCT" content-type="pseudo-static-data">
+					</entity>
+					<entity name="EVENT" content-type="pseudo-static-data">
+					</entity>
+					<entity name="EVENT_OPENING_HOUR" content-type="pseudo-static-data">
+						<field name="FROM">
+							<stereotype stereotype="DATETIME"/>
+						</field>
+						<field name="TO">
+							<stereotype stereotype="DATETIME"/>
+						</field>
+						<!-- trigger error in OX -->
+						<field-group name="FROM_TO" fields="FROM,TO"></field-group>
+						<validations>
+							<validation-two-field-comparison first-field-name="TO" second-field-name="FROM" operand="GREATER_THAN" />
+						</validations>
+						 
+					</entity>
+					<entity name="WINERY" content-type="pseudo-static-data">
+						<field name ="DESCRIPTION" is-searchable="false"></field>
+					</entity>
+					<entity name="PRODUCT_ITEM_PRICE" content-type="pseudo-static-data">
+						<semantic-reference name="SHOW_PRODUCT">
+							<sql-path path="QUANTITY" />
+							<sql-path path="PRICE" />
+							<sql-path path="VALID_FROM" />
+							<sql-path path="VALID_UNTIL" />
+ 							<sql-path path="PRODUCT_ID" />
+ 							<sql-path path="PRODUCT_ID.NAME" />
+							<!--<sql-path path="PRODUCT_ID.WINERY_ID.NAME" /> 
+							-->
+							<!-- sql-path => use for ListDescription -->
+						</semantic-reference>
+						<field name="VALID_FROM">
+							<stereotype stereotype="DATETIME"/>
+						</field>
+						<field name="VALID_UNTIL">
+							<stereotype stereotype="DATETIME"/>
+						</field>
+						<!-- trigger error in OX -->
+						<field-group name="VALID_FROM_UNTIL" fields="VALID_FROM,VALID_UNTIL"></field-group>
+						<validations>
+							<validation-two-field-comparison first-field-name="VALID_UNTIL" second-field-name="VALID_FROM" operand="GREATER_THAN" />
+						</validations>
+					</entity>
+<!-- 					<entity name="PRODUCT_ITEM" content-type="pseudo-static-data">
+						<semantic-reference name="SHOW_PRODUCT">
+							<sql-path path="PRODUCT_ID.NAME" />
+						</semantic-reference>
+
+						 <field name="YEAR">
+							 <validations>
+							 	<validation-range min="1900" max="2050"/>
+							 </validations>
+						 </field>
+
+					</entity> -->
 					<entity name="USER_ACCOUNT">
 						<field name="REGISTRATION_TYPE">
 							<property tag="checkconstraint">
@@ -154,6 +211,16 @@
 							</property>
 						</field>
 					</entity>
+					<entity name="PO_CUSTOMER">
+						<field name="STATUS">
+							<property tag="checkconstraint">
+								<property name="STORED" />
+								<property name="CONFIRMED" />
+								<property name="PROCESSED" />
+								<property name="FAILED" />
+							</property>
+						</field>
+					</entity>
 					<entity name="REF_SWEETNESS" content-type="reference-data" />
 					<entity name="REF_BUBBLENESS" content-type="reference-data" />
 					<conventions>
@@ -163,7 +230,12 @@
 							<property name="MONTH" />
 							<property name="WEEK" />
 						</check-constraint-convention>
-						<entity-validation-convention type="max-greater-than-min-in-entity" />
+						<check-constraint-convention
+							field-pattern="GENDER" field-pattern-type="endsWith">
+							<property name="MALE" />
+							<property name="FEMALE" />
+							<property name="NONE" />
+						</check-constraint-convention>
 
 						<entity-content-type-convention
 							type="apply-content-type-to-entity-starting-with" pattern="I18N_"
@@ -187,14 +259,14 @@
 							field-pattern-type="endsWith" ordering="asc" />
 
 						<!-- stereotype email, URL -->
-						<stereotype-convention field-pattern="email"
-							field-pattern-type="contains" stereotype="email" />
 						<stereotype-convention field-pattern="mail"
-							field-pattern-type="endsWith" stereotype="mail" />
-						<stereotype-convention field-pattern="timestamp"
-							field-pattern-type="contains" stereotype="datetime" />
-						<stereotype-convention field-pattern="_datetime"
-							field-pattern-type="contains" stereotype="datetime" />
+							field-pattern-type="endsWith" stereotype="email" />
+						<stereotype-convention field-pattern="price" field-pattern-type="endsWith" stereotype="money"/>
+						<stereotype-convention field-pattern="price" field-pattern-type="startsWith" stereotype="money" />
+						<stereotype-convention field-pattern="timestamp" field-pattern-type="contains" stereotype="datetime" />
+						<stereotype-convention field-pattern="_datetime" field-pattern-type="contains" stereotype="datetime" />
+						<stereotype-convention field-pattern="CREATION_DATE" field-pattern-type="equals" stereotype="datetime" />
+						<stereotype-convention field-pattern="LAST_MODIFICATION" field-pattern-type="equals" stereotype="datetime" />
 						<stereotype-convention field-pattern="url"
 							field-pattern-type="contains" stereotype="url" />
 						<stereotype-convention field-pattern="password"
@@ -214,8 +286,8 @@
 						<!-- trigger -->
 						<property-convention scope="field" pattern="WEB_PATH"
 							tag="trigger-custom" type="start-with" />
-						<property-convention scope="field" pattern="CREATION_DATE"
-							tag="trigger-insert-with-current-date" type="start-with" />
+						<property-convention scope="field" pattern="CREATION_DATE" tag="trigger-insert-with-current-date" type="start-with" />
+						<property-convention scope="field" pattern="LAST_MODIFICATION" tag="trigger-update-with-current-date" type="equals" />
 						<view-primary-key-convention
 							type="apply-default-primary-key-otherwise-first-one"
 							default-primary-key-names="IDENTIFIER,ID" />
@@ -228,7 +300,31 @@
 						<semantic-reference-convention
 							content-type="reference-data" field-pattern="NAME"
 							field-pattern-type="endsWith" max-number-of-fields="5" />
-
+							
+						<semantic-reference-convention
+							content-type="pseudo-static-data" field-pattern="NAME"
+						    field-pattern-type="endsWith" max-number-of-fields="5" /> 
+						    
+						<field-validation-convention field-pattern="YEAR" field-pattern-type="endsWith" field-type="integer">
+							<validation-range min="1900" max="2050"/>
+						</field-validation-convention>
+<!-- does not work with @Pattern on BigDecimal 
+	TODO create @Longitude and @Latitude annotations 						    
+						<field-validation-convention field-pattern="LONGITUDE" field-pattern-type="endsWith" field-type="NUMBER">
+							<validation-pattern type="LONGITUDE"/>
+							<validation-pattern-custom name="Longitude" class="com.winy.validation.Longitude" />
+						</field-validation-convention>
+						    
+						<field-validation-convention field-pattern="LATITUDE" field-pattern-type="endsWith" field-type="NUMBER">
+							<validation-pattern type="LATITUDE"/>
+							<validation-pattern-custom name="Latitude" class="com.winy.validation.Latitude" />
+						</field-validation-convention>
+						 -->
+						<entity-validation-convention type="first-field-less-than-second-field" 
+							first-field-pattern="_MIN"
+							second-field-pattern="_MAX"
+							field-pattern-type="endsWith"
+						/>
 					</conventions>
 				</enrichment>
 			</business-model>
@@ -2624,7 +2720,8 @@ $where_entity $where_id_entity $where_web_path_entity $where_language_code $wher
 			</statement-model>
 		</model>
 
-		<targets catalog-entry="REST-Custom, Openxava, Fitnesse"
+<!-- "REST-Custom, Openxava, Fitnesse" -->
+		<targets catalog-entry="Openxava"
 			append-catalog-entry-dir-to-outputdir-root="true" outputdir-root="../../product/winy">
 			<property name="openxava-disable-sdd" value="true" />
 			<property name="openxava-enable-hibernate-ehcache" value="true" />

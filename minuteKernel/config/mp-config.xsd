@@ -331,6 +331,32 @@
 		<xs:attribute name="stereotype" type="stereotype-type" />
 		<xs:attribute name="override" type="xs:boolean" />
 	</xs:complexType>
+
+	<xs:complexType name="field-attribute-convention">
+		<xs:attribute name="field-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="stereotype" type="stereotype-type" />
+		<xs:attribute name="override" type="xs:boolean" />
+		<xs:sequence>
+			<xs:element name="field" type="field" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="field-validation-convention">
+		<xs:attribute name="field-type" type="xs:string" />
+		<xs:attribute name="field-pattern" type="xs:string" />
+		<xs:attribute name="field-pattern-type" type="pattern-assertion-type" />
+		<xs:attribute name="stereotype" type="stereotype-type" />
+		<xs:attribute name="override" type="xs:boolean" />
+		<xs:sequence>
+			<xs:element name="validation-range" type="validation-range" minOccurs="0" maxOccurs="1" />
+			<xs:element name="validation-range-char" type="validation-range-char" minOccurs="0" maxOccurs="1" />
+			<xs:element name="validation-pattern" type="validation-pattern" minOccurs="0" maxOccurs="1" />
+			<xs:element name="validation-among-values" type="validation-among-values" minOccurs="0" maxOccurs="1" />
+			<xs:element name="validation-exist-unique" type="validation-exist-unique" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
 	
 	<xs:complexType name="ordering-convention">
 		<xs:attribute name="field-type" type="xs:string" />
@@ -427,6 +453,12 @@
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 			<xs:element name="stereotype-convention" type="stereotype-convention"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="field-attribute-convention" type="field-attribute-convention"
+				minOccurs="0" maxOccurs="unbounded">
+			</xs:element>
+			<xs:element name="field-validation-convention" type="field-validation-convention"
 				minOccurs="0" maxOccurs="unbounded">
 			</xs:element>
 		</xs:sequence>

@@ -3170,6 +3170,43 @@
 								<alias attr-name="type" prop-name="type" />
 							</set-properties-rule>
 						</pattern>	
+						<pattern value="field-attribute-convention">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.FieldAttributeConvention" />
+							<set-next-rule methodname="addConvention"
+								paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.FieldAttributeConvention" />
+							<set-properties-rule>
+								<alias attr-name="field-type" prop-name="fieldType" />
+								<alias attr-name="field-pattern" prop-name="fieldPattern" />
+								<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+								<alias attr-name="type" prop-name="type" />
+							</set-properties-rule>
+							<pattern value="field">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.Field" />
+								<set-next-rule methodname="addField"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.Field" />
+								<set-properties-rule>
+									<alias attr-name="is-id" prop-name="isId" />
+									<alias attr-name="alias" prop-name="alias" />
+									<alias attr-name="label" prop-name="label" />
+									<alias attr-name="type-alias" prop-name="typeAlias" />
+									<alias attr-name="name" prop-name="name" />
+									<alias attr-name="ordering" prop-name="ordering" />
+									<alias attr-name="type" prop-name="type" />
+									<alias attr-name="length" prop-name="length" />
+									<alias attr-name="is-mandatory" prop-name="mandatory" />
+									<alias attr-name="is-searchable" prop-name="searchable" />
+									<alias attr-name="is-editable" prop-name="editable" />
+									<alias attr-name="stereotype" prop-name="stereotype" />
+									<alias attr-name="hidden" prop-name="hidden" />
+									<alias attr-name="comment" prop-name="comment" />
+									<alias attr-name="value" prop-name="value" />
+									<alias attr-name="default-value" prop-name="defaultValue" />
+									<alias attr-name="description" prop-name="description" />
+								</set-properties-rule>
+							</pattern>
+						</pattern>
 						<pattern value="field-validation-convention">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.FieldValidationConvention" />
