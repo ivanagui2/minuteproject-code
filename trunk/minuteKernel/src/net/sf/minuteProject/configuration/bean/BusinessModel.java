@@ -310,19 +310,25 @@ public class BusinessModel {
 		table.setProposedOrdering (entity.getOrdering());
 	}
 	
-	private void convertFieldInfoToColumn (Field field, Column column) {
+	public static void convertFieldInfoToColumn (Field field, Column column) {
 		column.setProperties(field.getProperties());
 		column.setStereotype(field.getStereotype());
 		column.setDescription(field.getDescription());
 		column.setComment(field.getComment());
-		column.setSearchable(field.isSearchable());
-		column.setEditable(field.isSearchable());
+		convertFieldAttributeToColumn(field, column);
 		column.setAlias(field.getAlias());
 		column.setLabel(field.getLabel());
 		column.setDerivations(field.getDerivations());
 		column.setTypeAlias(field.getTypeAlias());
 		column.setValidations(field.getFieldValidations());
 //		column.setTriggers(field.getTriggers());
+	}
+	
+	
+	public static void convertFieldAttributeToColumn (Field field, Column column) {
+		column.setSearchable(field.isSearchable());
+		column.setEditable(field.isEditable());
+		column.setHidden(field.isHidden());
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {

@@ -91,10 +91,12 @@ public class OpenXavaUtils {
 					for (String chunk : sr.getSemanticReferenceBeanPath()) {
 						Column column = ColumnUtils.getColumn(foreignTable, chunk);
 						//only one level
-						if (!ColumnUtils.isForeignKey(column)) {
-							String c = FormatUtils.getJavaNameVariable(reference.getLocalColumn().getAlias());
-							if (addChunk) c = c+"."+convertChunkToAlias(chunk, parent);
-							list.add(c);
+						if (column!=null) {
+							if (!ColumnUtils.isForeignKey(column)) {
+								String c = FormatUtils.getJavaNameVariable(reference.getLocalColumn().getAlias());
+								if (addChunk) c = c+"."+convertChunkToAlias(chunk, parent);
+								list.add(c);
+							}
 						}
 						//break; // only the first is added
 					}
@@ -143,21 +145,23 @@ public class OpenXavaUtils {
 		if (sr!=null) {
 			for (String chunk : sr.getSemanticReferenceBeanPath()) {
 				Column column = ColumnUtils.getColumn(table, chunk);
-				String colPar = FormatUtils.getJavaNameVariable(column.getAlias());
-				if (ColumnUtils.isForeignKey(column)) {
-					Reference reference = ReferenceUtils.getReference(table, column.getName());
-					Table parent = reference.getForeignTable();
-					SemanticReference srParent = parent.getSemanticReference();
-					
-					for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
-						Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
-						if (!ColumnUtils.isForeignKey(columnParent)) {
-							String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
-							list.add(colPar+"."+parCol);
+				if (column!=null) {
+					String colPar = FormatUtils.getJavaNameVariable(column.getAlias());
+					if (ColumnUtils.isForeignKey(column)) {
+						Reference reference = ReferenceUtils.getReference(table, column.getName());
+						Table parent = reference.getForeignTable();
+						SemanticReference srParent = parent.getSemanticReference();
+						
+						for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
+							Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
+							if (!ColumnUtils.isForeignKey(columnParent)) {
+								String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
+								list.add(colPar+"."+parCol);
+							}
 						}
-					}
-				} else
-					list.add(colPar);
+					} else
+						list.add(colPar);
+				}
 			}
 		}
 		return list;
