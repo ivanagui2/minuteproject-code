@@ -1,7 +1,13 @@
 package net.sf.minuteProject.configuration.bean.enrichment.path;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SqlPath extends AbstractConfiguration{
 
 	private String path, root;

@@ -114,10 +114,10 @@ public class ValidationUtils {
 	}
 
 	private static void fillList(List<String> list, FieldValidationRangeValue validation, JavaReference javaReference) {
-		if (validation.getMax()>0){
+		if (validation.getMax()!=null){
 			list.add((javaReference.isImport())?"javax.validation.constraints.Max":"@Max ("+validation.getMax()+")");
 		}
-		if (validation.getMin()>0){
+		if (validation.getMin()!=null){
 			list.add((javaReference.isImport())?"javax.validation.constraints.Min":"@Min ("+validation.getMin()+")");
 		}
 	}
