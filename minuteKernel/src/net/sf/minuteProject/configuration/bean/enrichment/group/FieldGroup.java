@@ -3,10 +3,11 @@ package net.sf.minuteProject.configuration.bean.enrichment.group;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
-import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
+@Getter
 public class FieldGroup extends AbstractConfiguration {
 
 	private List<String> fieldList;
@@ -23,10 +24,6 @@ public class FieldGroup extends AbstractConfiguration {
 			fieldList.addAll(ParserUtils.getList(fields));
 		}	
 		return fieldList;
-	}
-
-	private void setFieldsList(List<String> fieldList) {
-		this.fieldList = fieldList;
 	}
 	
 	public void setFields(String fields) {

@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.minuteProject.configuration.bean.enumeration.Scope;
+import org.apache.log4j.Logger;
+
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Database;
 import net.sf.minuteProject.configuration.bean.model.data.ForeignKey;
@@ -18,8 +19,6 @@ import net.sf.minuteProject.utils.ForeignKeyUtils;
 import net.sf.minuteProject.utils.ReferenceUtils;
 import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.TableUtils;
-
-import org.apache.log4j.Logger;
 
 /**
  * @author Florian Adler
@@ -262,12 +261,14 @@ public class TableDDLUtils extends TableAbstract {
     	if (primaryKeys == null) {
     		primaryKeys = new ArrayList<Column>();
     		org.apache.ddlutils.model.Column [] primaryKeyColumns = table.getPrimaryKeyColumns();
-    		for (int i = 0; i < primaryKeyColumns.length; i++) {
-    			/// ATTENTION IT IS NOT A REFERENCE BUT A COPY
-    			//Column primaryKey = new ColumnDDLUtils (primaryKeyColumns[i], this);
-    			String columnName = primaryKeyColumns[i].getName();
-    			Column primaryKey = ColumnUtils.getColumn(this, columnName);
-    			primaryKeys.add(primaryKey);
+    		if (primaryKeyColumns!=null) {
+	    		for (int i = 0; i < primaryKeyColumns.length; i++) {
+	    			/// ATTENTION IT IS NOT A REFERENCE BUT A COPY
+	    			//Column primaryKey = new ColumnDDLUtils (primaryKeyColumns[i], this);
+	    			String columnName = primaryKeyColumns[i].getName();
+	    			Column primaryKey = ColumnUtils.getColumn(this, columnName);
+	    			primaryKeys.add(primaryKey);
+	    		}
     		}
     	}
     	return (Column[])primaryKeys.toArray(new Column[primaryKeys.size()]);			
@@ -348,34 +349,36 @@ public class TableDDLUtils extends TableAbstract {
     	if (parents == null) {
     		parents = new ArrayList<Reference>();
     		boolean error = false;
-    		for (int i = 0; i < table.getForeignKeys().length; i++) {
-    			error = false;
-    			org.apache.ddlutils.model.ForeignKey foreignKeyddlutils = table.getForeignKeys()[i];
-    			ForeignKey foreignKey = getForeignKeys()[i];//TODO make a lookup instead of choosing same index
-    			org.apache.ddlutils.model.Reference referenceddlutils = foreignKeyddlutils.getFirstReference();
-				Reference reference = new ReferenceDDLUtils (referenceddlutils, foreignKey);
-
-				Table foreignTable = TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName());
-				Column foreignCol = new ColumnDDLUtils(referenceddlutils.getForeignColumn(),foreignTable);
-				foreignCol.setAlias(ReferenceUtils.getColumnAlias(foreignTable, foreignCol));
-				reference.setForeignColumn(foreignCol);
-				reference.setForeignColumnName(referenceddlutils.getForeignColumnName());
-				reference.setForeignTable(foreignTable);
-				reference.setForeignTableName(foreignKeyddlutils.getForeignTableName());
-				Column localCol = new ColumnDDLUtils(referenceddlutils.getLocalColumn(), this);
-				reference.setLocalColumn(localCol);
-				Table localTable = new TableDDLUtils(table);
-				reference.setLocalTable(localTable);
-				localCol.setAlias(ReferenceUtils.getColumnAlias(localTable, localCol));
-				if (reference.getForeignColumnName()==null) {
-					System.out.println ("error in ref : no column on "+table.getName()+" - "+reference.getLocalColumnName());
-					error = true;
+    		if (table.getForeignKeys()!=null) {
+	    		for (int i = 0; i < table.getForeignKeys().length; i++) {
+	    			error = false;
+	    			org.apache.ddlutils.model.ForeignKey foreignKeyddlutils = table.getForeignKeys()[i];
+	    			ForeignKey foreignKey = getForeignKeys()[i];//TODO make a lookup instead of choosing same index
+	    			org.apache.ddlutils.model.Reference referenceddlutils = foreignKeyddlutils.getFirstReference();
+					Reference reference = new ReferenceDDLUtils (referenceddlutils, foreignKey);
+	
+					Table foreignTable = TableUtils.getTable(database,foreignKeyddlutils.getForeignTableName());
+					Column foreignCol = new ColumnDDLUtils(referenceddlutils.getForeignColumn(),foreignTable);
+					foreignCol.setAlias(ReferenceUtils.getColumnAlias(foreignTable, foreignCol));
+					reference.setForeignColumn(foreignCol);
+					reference.setForeignColumnName(referenceddlutils.getForeignColumnName());
+					reference.setForeignTable(foreignTable);
+					reference.setForeignTableName(foreignKeyddlutils.getForeignTableName());
+					Column localCol = new ColumnDDLUtils(referenceddlutils.getLocalColumn(), this);
+					reference.setLocalColumn(localCol);
+					Table localTable = new TableDDLUtils(table);
+					reference.setLocalTable(localTable);
+					localCol.setAlias(ReferenceUtils.getColumnAlias(localTable, localCol));
+					if (reference.getForeignColumnName()==null) {
+						System.out.println ("error in ref : no column on "+table.getName()+" - "+reference.getLocalColumnName());
+						error = true;
+					}
+						
+					if (!error)
+						//parents.add(reference);
+						addReference(parents, reference);
 				}
-					
-				if (!error)
-					//parents.add(reference);
-					addReference(parents, reference);
-			}
+    		}
     	}
     	return parents;	
     }

@@ -3170,6 +3170,19 @@
 								<alias attr-name="type" prop-name="type" />
 							</set-properties-rule>
 						</pattern>	
+						<pattern value="entity-display-convention">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityDisplayConvention" />
+							<set-next-rule methodname="addConvention"
+								paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.EntityDisplayConvention" />
+							<set-properties-rule>
+								<alias attr-name="first-field-pattern" prop-name="firstFieldPattern" />
+								<alias attr-name="second-field-pattern" prop-name="secondFieldPattern" />
+								<alias attr-name="third-field-pattern" prop-name="thirdFieldPattern" />
+								<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+								<alias attr-name="type" prop-name="type" />
+							</set-properties-rule>
+						</pattern>	
 						<pattern value="field-attribute-convention">
 							<object-create-rule
 								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.FieldAttributeConvention" />

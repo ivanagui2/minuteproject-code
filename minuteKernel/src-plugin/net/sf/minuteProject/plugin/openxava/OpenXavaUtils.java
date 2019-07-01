@@ -2,6 +2,7 @@ package net.sf.minuteProject.plugin.openxava;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -138,12 +139,17 @@ public class OpenXavaUtils {
 	public static String getPackageName(Package pack) {
 		return I18nUtils.getPackageName(pack);
 	}
+	public enum ListPropertyDirection { REFERENCE, TAB }
 	
-	public static List<String> getListProperties (Table table) {
+	public static List<String> getListProperties (Table table, ListPropertyDirection direction) {
 		List<String> list = new ArrayList<String>();
 		SemanticReference sr = table.getSemanticReference();
 		if (sr!=null) {
 			for (String chunk : sr.getSemanticReferenceBeanPath()) {
+				//if is composite ex: A_ID.B_ID.C_ID.D_ID ...
+				// check A_ID is composite, the B_ID
+				// construct the path
+				//
 				Column column = ColumnUtils.getColumn(table, chunk);
 				if (column!=null) {
 					String colPar = FormatUtils.getJavaNameVariable(column.getAlias());
@@ -151,40 +157,36 @@ public class OpenXavaUtils {
 						Reference reference = ReferenceUtils.getReference(table, column.getName());
 						Table parent = reference.getForeignTable();
 						SemanticReference srParent = parent.getSemanticReference();
-						
-						for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
-							Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
-							if (!ColumnUtils.isForeignKey(columnParent)) {
-								String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
-								list.add(colPar+"."+parCol);
+						if (srParent!=null) {
+							for (String chunkParent : srParent.getSemanticReferenceBeanPath()) {
+								Column columnParent = ColumnUtils.getColumn(parent, chunkParent); 
+								if (columnParent!=null) {
+									if (!ColumnUtils.isForeignKey(columnParent)) {
+										String parCol = FormatUtils.getJavaNameVariable(columnParent.getAlias());
+										if (ListPropertyDirection.TAB == direction) {
+											list.add(colPar+"."+parCol);
+										} else {
+											list.add(colPar);
+										}
+									}
+								}
 							}
 						}
-					} else
+					} else {
 						list.add(colPar);
+					}
 				}
 			}
 		}
-		return list;
-//		return getSemanticRefProperties(table);
-		
-//		boolean hasSemRef = false;
-//		List<String> list = new ArrayList<String>();
-//		List<String> sqlPaths = semanticReference.getSemanticReferenceSqlPath();
-//		
-//		
-//		Table linkTable = reference.getForeignTable();
-//		Table childTable = reference.getLocalTable();
-//		List<String> relativeChildSR = getParentChildRelativeSemanticReference(reference, linkTable);
-//		if (SemanticReferenceUtils.hasSemanticReference(childTable)) {
-//			list.addAll(getSemanticRefProperties(childTable));
-//			hasSemRef = true;
-//		}
-//		if (!relativeChildSR.isEmpty()) {
-//			if (!hasSemRef)
-//				list.addAll(getTabDefaultProperties(linkTable));//todo change by reference instead of default
-//			list.addAll(relativeChildSR);
-//		}
-//		return list;
+		return list.stream().distinct().collect(Collectors.toList());
+	}
+	
+	public static List<String> getListProperties (Table table) {
+		return getListProperties(table, ListPropertyDirection.TAB);
+	}
+	
+	public static List<String> getReference (Table table) {
+		return getListProperties(table, ListPropertyDirection.REFERENCE);
 	}
 	
 	public static List<String> getListProperties (Reference reference) {

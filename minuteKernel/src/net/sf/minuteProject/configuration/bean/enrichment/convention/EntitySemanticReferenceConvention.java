@@ -31,7 +31,8 @@ public class EntitySemanticReferenceConvention extends ModelConvention {
 		for (Column column : table.getColumns()) {
 			for (String pattern : getPatterns()) {
 				if (column.getName().equals(pattern)) {
-					table.setSemanticReference(getSemanticReference(column));
+					// complement with semantic reference
+					table.setSemanticReference(getSemanticReference(table, column));
 					return;
 				}
 			}
@@ -39,9 +40,14 @@ public class EntitySemanticReferenceConvention extends ModelConvention {
 		
 	}
 
-	private SemanticReference getSemanticReference(Column column) {
-		SemanticReference semanticReference = new SemanticReference();
-		semanticReference.addSqlPath(getSqlPath(column));
+	private SemanticReference getSemanticReference(Table table, Column column) {
+		
+		SemanticReference semanticReference = table.getSemanticReference();
+		boolean isAlreadyPresent = semanticReference.getSqlPaths().stream()
+			.anyMatch(u -> u.getName().toLowerCase().equals(column.getName().toLowerCase()));
+		if (!isAlreadyPresent) {
+			semanticReference.addSqlPath(getSqlPath(column));
+		}
 		return semanticReference;
 	}
 

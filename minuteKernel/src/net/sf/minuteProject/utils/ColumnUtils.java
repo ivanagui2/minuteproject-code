@@ -183,6 +183,9 @@ public class ColumnUtils {
 	}
 	
 	public static boolean isForeignKey (Column column) {
+		if (column==null) {
+			return false;
+		}
 		Table table = column.getTable();
 		return isForeignKey(column, table);
 	}
