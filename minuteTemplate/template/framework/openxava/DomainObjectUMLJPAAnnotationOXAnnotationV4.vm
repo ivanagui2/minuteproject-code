@@ -212,8 +212,7 @@ public class ${className} {
 #if(!$columnUtils.isNumeric($column))
     @Required
 #else
-	//trick to allow zero use @NotNull instead of @Required
-	@NotNull (message="$i18nUtils.getI18nFromDBObject($column) must not be empty")
+	@NotNull (message="$i18nUtils.getI18nFromDBObject($column) must not be empty") //trick to allow zero use @NotNull instead of @Required
 #end
 #end
 #end
