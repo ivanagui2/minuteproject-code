@@ -39,7 +39,6 @@ import net.sf.minuteProject.utils.ConnectionUtils;
 import net.sf.minuteProject.utils.ConvertUtils;
 import net.sf.minuteProject.utils.FormatUtils;
 import net.sf.minuteProject.utils.TableUtils;
-import net.sf.minuteproject.model.db.type.FieldType;
 
 public class QueryUtils {
 
@@ -265,30 +264,7 @@ public class QueryUtils {
 			return false;
 		return i==j;
 	}
-//
-//	private static List<String> getSamples(Query<QueryModel> query) {
-//		List<String> list = new ArrayList<String>();
-//		if (query.getQueryParams() != null) {
-//			addFilters(list, query.getQueryParams());
-//		}
-//		//TODO append query where
-//		for (QueryFilter filter : query.getQueryFilters()) {
-//			if (filter.getQueryParams() != null) {
-//				addFilters(list, filter.getQueryParams());
-//			}
-//		}
-//		return list;
-//	}
 
-//	private static void addFilters(List<String> list, QueryParams params) {
-//		for (QueryParam qp : params.getFlatQueryParams(false)) {
-//			if (!qp.isOutputParam()) {
-//				list.add(getParamSample(qp));
-//			} else {
-//				list.add("?");
-//			}
-//		}
-//	}
 	private static List<QueryParam> getQueryParamAndFilters(Query<QueryModel> query) {
 		List<QueryParam> list = new ArrayList<QueryParam>();
 		if (query.getQueryParams() != null) {
@@ -322,7 +298,7 @@ public class QueryUtils {
 			}
 		}
 	}
-
+/*
 	private static String getParamSample(QueryParam queryParam) {
 		String type = queryParam.getType();
 		String sample = queryParam.getSample();
@@ -337,6 +313,7 @@ public class QueryUtils {
 			return "'"+sample+"'";
 		return sample;
 	}
+	*/
 
 	public static QueryParams getInputParams(Query query) {
 		return query.getQueryParams();
