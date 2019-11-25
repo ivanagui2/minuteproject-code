@@ -1,6 +1,7 @@
 #generatorSpecific()
 #exposeMaven()
 #exposePom()
+#exposeMavenJavaEeApi()
 #exposeBackendTechnology()
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -57,18 +58,10 @@
     <dependency>
        <groupId>javax</groupId>
        <artifactId>javaee-api</artifactId>
-       <version>6.0</version>
+       <version>${javaeeApiVersion}</version>
        <scope>provided</scope>
     </dependency>
 	
-	<!--
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>6.0-3-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-	-->
     <!--
     The <scope>test</scope> guarantees that none of your runtime
     code is dependent on any OpenEJB classes.
@@ -212,7 +205,7 @@
 	<dependency>
        <groupId>javax</groupId>
        <artifactId>javaee-api</artifactId>
-       <version>6.0</version>
+       <version>$javaeeApiVersion</version>
        <scope>provided</scope>
     </dependency>
 	

@@ -10,21 +10,8 @@
 #set ($tableVariableName = $commonUtils.getJavaNameVariableFirstLetter($inputClass))
 #set($tableDB = $inputBean)
 #exposeVariableEntitySpecific()
-#set($isChart = $queryUtils.isChart($query))
-#if($isChart)
-#exposeChartSpecific()
-#end
 #addedAreas()
-<!DOCTYPE html>
-<html>
-<head>
-<title></title>
 
-#putKendoUIJSImport("../../../")
-
-</head>
-
-<body>
     
 <div id="menu"></div>
 
@@ -344,6 +331,3 @@
 
 #exposeKendoUIDetailAction()
 
-
-</body>
-</html>
