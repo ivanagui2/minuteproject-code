@@ -111,6 +111,14 @@
 							<sql-path path="PAY_PLAN_CONDITION_ID" />
 						</semantic-reference>
 					</entity>
+					<entity name="conf_param">
+						<field name="sensitivity">
+							<property tag="checkconstraint">
+								<property name="PUBLIC" />
+								<property name="PRIVATE" />
+							</property>
+						</field>
+					</entity>
 					<entity name="visit_timetable_schedule">
 						<field name="WEEK_DAY">
 							<property tag="checkconstraint">
@@ -127,9 +135,28 @@
 							<property tag="checkconstraint">
 								<property name="AM" />
 								<property name="PM" />
+								<property name="ALL_DAY" />
 							</property>
 						</field>
 						<field-group name="VALID_FROM_UNTIL" fields="WEEK_DAY,DAY_MERIDIUM"></field-group>
+					</entity>
+					<entity name="VISIT_TIMETABLE_SCHEDULE" content-type="pseudo-static-data">
+						<semantic-reference name="VISIT_TIMETABLE_SCHEDULE_SM">
+							<sql-path path="WEEK_DAY" />
+							<sql-path path="DAY_MERIDIUM" />
+							<sql-path path="TIME_START_HOUR" />
+							<sql-path path="TIME_START_MINUTE" />
+ 							<sql-path path="TIME_END_HOUR" />
+ 							<sql-path path="TIME_END_MINUTE" />
+ 							<sql-path path="VISIT_TIMETABLE_ID" />
+							<sql-path path="VISIT_TIMETABLE_ID.WINERY_ID" /> 
+						</semantic-reference>
+					</entity>
+					<entity name="VISIT_TIMETABLE" content-type="pseudo-static-data">
+						<semantic-reference name="VISIT_TIMETABLE_SM">
+							<sql-path path="DESCRIPTION" />
+							<sql-path path="WINERY_ID" /> 
+						</semantic-reference>
 					</entity>
 					<entity name="PRODUCT_ITEM_PRICE" content-type="pseudo-static-data">
 						<semantic-reference name="SHOW_PRODUCT">
@@ -308,6 +335,7 @@
 						<stereotype-convention field-pattern="LAST_MODIFICATION" field-pattern-type="equals" stereotype="datetime" />
 						<stereotype-convention field-pattern="url" field-pattern-type="endsWith" stereotype="url" />
 						<stereotype-convention field-pattern="web_site" field-pattern-type="endsWith" stereotype="url" />
+						<stereotype-convention field-pattern="website" field-pattern-type="endsWith" stereotype="url" />
 						<stereotype-convention field-pattern="password"
 							field-pattern-type="contains" stereotype="password" />
 						<stereotype-convention field-pattern="notes"
@@ -343,9 +371,19 @@
 							content-type="pseudo-static-data" field-pattern="NAME"
 						    field-pattern-type="endsWith" max-number-of-fields="5" /> 
 						    
-						<field-validation-convention field-pattern="YEAR" field-pattern-type="endsWith" field-type="integer">
+						<!-- TODO only apply one similar convention last prevails -->
+												    
+						<field-validation-convention field-pattern="_YEAR" field-pattern-type="endsWith" field-type="integer">
 							<validation-range min="1900" max="2050"/>
 						</field-validation-convention>
+						
+						<field-validation-convention field-pattern="NB_OF_YEAR" field-pattern-type="endsWith" field-type="integer">
+							<validation-range min="0" max="100"/>
+						</field-validation-convention>
+						<field-validation-convention field-pattern="NB_OF_YEARS" field-pattern-type="endsWith" field-type="integer">
+							<validation-range min="0" max="100"/>
+						</field-validation-convention>
+
 						<field-validation-convention field-pattern="_HOUR" field-pattern-type="endsWith" field-type="integer">
 							<validation-range min="0" max="23"/>
 						</field-validation-convention>

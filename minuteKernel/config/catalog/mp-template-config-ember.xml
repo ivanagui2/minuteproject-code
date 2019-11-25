@@ -13,7 +13,7 @@
 			 
 		<template name="EmberScss" templateFileName="EmberScss.vm" 
 			has-updatable-nature="true"
-			file-extension="scss" file-suffix="" 
+			file-extension="scss" file-suffix="" file-prefix="_"
 			application-specific="true" add-model-name="true" >
 		</template>
 			 <!-- 
@@ -57,15 +57,74 @@
 		-->
 		
 		<!-- SDD -->
-        <template name="EmberSDDInput" templateFileName="EmberSDDInput.vm" 
-            file-extension="html" technicalPackage="sdd" file-suffix="Input"
+        <template name="EmberModelInput" templateFileName="EmberModelJs.vm" 
+            file-extension="ts" technicalPackage="sdd" file-suffix="In"
             add-model-dir-name="false" 
 			add-package-name="false" add-business-package-dir-name="false"
-			package-root="html" has-updatable-nature="true"
+			package-root="model" has-updatable-nature="true"
+            scope-specific-value="sdd-input-bean"
+         
+            >
+            <property name="direction" value="in"/>
+            </template>
+        <template name="EmberModelOutput" templateFileName="EmberModelJs.vm" 
+            file-extension="ts" technicalPackage="sdd" file-suffix="Out"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="model" has-updatable-nature="true"
+            scope-specific-value="sdd-output-bean"
+           
+            >
+                        <property name="direction" value="out"/>
+            </template>
+            
+        <template name="EmberSDDInput" templateFileName="EmberSDDInput.vm" 
+            file-extension="hbs" technicalPackage="sdd" file-suffix="In"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root="template.component" has-updatable-nature="true"
             scope-specific-value="query"
-            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
             />
+
 <!--             
+
+
+		<template name="SDDInputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.in"
+			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
+			scope-specific-value="sdd-input-bean" >
+			<property name="direction" value="in"/>
+		</template>	
+
+		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" 
+			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnNotScalar">
+			<property name="direction" value="out"/>
+		</template>	
+
+		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 
+			subdir="" outputsubdir="" technicalPackage="sdd.out"
+			file-extension="java" file-prefix="" file-suffix="OutList" has-updatable-nature="true"
+			scope-specific-value="sdd-output-bean" 
+			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnCardinalityMany">
+			<property name="JavaBeanTemplate" value="SDDOutputBean" />
+		</template>	
+		
+		<template name="SDDInputCompositeBean" templateFileName="JavaCompositeBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="composite.in"
+			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
+			scope-specific-value="sdd-input-composite-bean" >
+		</template>
+			
+		<template name="SDDOutputCompositeBean" templateFileName="JavaCompositeBean.vm" 
+			subdir="" outputsubdir="" technicalPackage="composite.out"
+			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
+			scope-specific-value="sdd-output-composite-bean" >
+		</template>	
+
+
         <template name="KendoUiSDDDirectResult" templateFileName="KendoUiSDDDirectResult.vm" 
             file-extension="html" technicalPackage="sdd" file-suffix="DirectResult"
             add-model-dir-name="false" 
@@ -91,21 +150,18 @@
 		outputdir="src/main/ui/"
 		package-root=""
 		libdir="lib/Ember_LIB.vm">
-			<template
-				name="EmberBaseAdapterJs" templateFileName="EmberBaseAdapterJs.vm" 
-				subdir="" outputsubdir="" technicalPackage="adapters" 
-				add-model-name="false" add-model-dir-name="false"
-				add-package-name="false" 
-				file-extension="js" file-prefix="BaseAdapter" file-suffix="" 
-				application-specific="true">
-
+		
+		<template name="EmberBaseAdapterJs" templateFileName="EmberBaseAdapterJs.vm"
+			subdir="" outputsubdir="" technicalPackage="adapters" add-model-name="false"
+			add-model-dir-name="false" add-package-name="false" file-extension="js"
+			file-prefix="BaseAdapter" file-suffix="" application-specific="true">
 		</template>	
 
 		<template 
 			name="EmberAdapterJs" templateFileName="EmberAdapterJs.vm" 
             file-extension="js" technicalPackage="adapters" file-suffix=""
             add-model-dir-name="false" 
-			add-package-name="false" add-business-package-dir-name="false"
+			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query-package"
             check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
@@ -123,9 +179,9 @@
 			subdir="" outputsubdir="" technicalPackage="" 
 			add-model-name="false" add-model-dir-name="false"
 			add-package-name="false" 
-			file-extension="html" file-prefix="" file-suffix="homeMenu" 
+			file-extension="hbs" file-prefix="" file-suffix="homeMenu" 
 			scope-specific-value="query">
-		</template>	
+		</template>
 
 <!-- 
 		<template

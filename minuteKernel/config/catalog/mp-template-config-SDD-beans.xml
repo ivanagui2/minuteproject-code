@@ -15,6 +15,7 @@
 			subdir="" outputsubdir="" technicalPackage="sdd.in"
 			file-extension="java" file-prefix="" file-suffix="In" has-updatable-nature="true"
 			scope-specific-value="sdd-input-bean" >
+			<property name="direction" value="in"/>
 		</template>	
 
 		<template name="SDDOutputBean" templateFileName="JavaBean.vm" 
@@ -22,6 +23,7 @@
 			file-extension="java" file-prefix="" file-suffix="Out" has-updatable-nature="true"
 			scope-specific-value="sdd-output-bean" 
 			check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedOnNotScalar">
+			<property name="direction" value="out"/>
 		</template>	
 
 		<template name="SDDOutputBeanCollection" templateFileName="JavaBeanCollection.vm" 

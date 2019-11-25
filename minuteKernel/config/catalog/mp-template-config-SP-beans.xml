@@ -13,12 +13,14 @@
 			subdir="" outputsubdir="" technicalPackage="function.in"
 			file-extension="java" file-prefix="" file-suffix="In" 
 			scope-specific-value="function-input-entity" >
+			<property name="direction" value="in"/>
 		</template>
 
 		<template name="StoredProcedureOutputBean" templateFileName="JavaBean.vm" 
 			subdir="" outputsubdir="" technicalPackage="function.out"
 			file-extension="java" file-prefix="" file-suffix="Out" 
 			scope-specific-value="function-output-entity" >
+			<property name="direction" value="out"/>
 		</template>	
 		
 		<!-- dao interface -->
