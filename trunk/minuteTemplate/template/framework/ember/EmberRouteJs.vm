@@ -1,22 +1,4 @@
-import DS from 'ember-data';
-import {fetchData} from '../utils/common-utils';
-import BaseAdapter from './base';
+import BaseRoute from '$pathToEmberBaseRoute';//'../../base'
 
-import config from '../config/environment';
-const { host, namespace } = config.DS;
-const baseUrl = host+"/"+namespace;
-
-export default BaseAdapter.extend({
-
-#**
-    findByWineryWebPathAndProductWebPath : function(wineryWebPath, productWebPath) {
-        return fetchData(baseUrl+'/data/sdd/ProductanditemlistIn?wineryWebPath='+wineryWebPath+'&productWebPath='+productWebPath);
-    },
-    
-    findByProductItemId: function (productItemId) {
-        return fetchData(baseUrl + '/data/sdd/ProductanditemlistIn?productItemId=' + productItemId);
-    },
-*#
-    
-    
+export default BaseRoute.extend({
 });

@@ -538,7 +538,7 @@ $!updatedAreaEnd
 #if($query.queryParams.hasOutputParam())
 			pstmt.execute();
 #else
-				try (ResultSet rs = pstmt.executeQuery();) {
+				try (ResultSet rs = pstmt.executeQuery()) {
 #end		
 #end
 #if($query.queryParams.hasOutputParam())
@@ -567,9 +567,9 @@ $!updatedAreaEnd
 						list.add(${sddOutputBeanVariable});
 #end
 	        		}//from while (rs.next())
+#end
+#end
 	        	}//from try (autoclosable)
-#end
-#end
 #end
 ##end macro putSddExecuteStatementClosable
 

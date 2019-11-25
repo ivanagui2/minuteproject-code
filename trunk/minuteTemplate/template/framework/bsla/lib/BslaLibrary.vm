@@ -846,3 +846,7 @@ $!fieldAnnotationSnippet
 #macro(addArea $area) 
 $!updatedAreaUtils.getAddedAreaSnippet($template, $updatedAreas, $area)
 #end
+
+#macro (exposeMavenJavaEeApi)
+#set($javaeeApiVersion=$template.getPropertyValue("add-javaee-api-version","7.0"))
+#end

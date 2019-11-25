@@ -28,11 +28,11 @@ public class $className {
 
     public static final Key key = Keys.hmacShaKeyFor(keyBytes);
 
-    public static String issueToken(String login, UriInfo uriInfo) throws NoSuchAlgorithmException {
+    public static String issueToken(String login, UriInfo uriInfo) {
         return issueToken(login, uriInfo.getAbsolutePath().toString());
     }
 
-    public static String issueToken(String login, String uriAbsolutePath) throws NoSuchAlgorithmException {
+    public static String issueToken(String login, String uriAbsolutePath) {
         String jwtToken = Jwts.builder()
                 .setSubject(login)
                 .setIssuer(uriAbsolutePath)
@@ -52,18 +52,6 @@ public class $className {
     }
 
     public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
-
-/*
-        //The JWT signature algorithm we will be using to sign the token
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
-
-        long nowMillis = System.currentTimeMillis();
-        Date now = new Date(nowMillis);
-
-        //We will sign our JWT with our ApiKey secret
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-*/
 
         //Let's set the JWT Claims
         long nowMillis = System.currentTimeMillis();

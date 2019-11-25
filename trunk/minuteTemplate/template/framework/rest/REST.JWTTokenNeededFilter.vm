@@ -1,12 +1,10 @@
 #exposeVariableModelSpecific()
 package $packageName;
 
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.annotation.Priority;
-import javax.crypto.KeyGenerator;
-import javax.inject.Inject;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -14,7 +12,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
-import java.security.Key;
 
 // inspired by https://antoniogoncalves.org/2016/10/03/securing-jax-rs-endpoints-with-jwt/
 @Provider
@@ -39,13 +36,16 @@ public class $className implements ContainerRequestFilter {
         try {
 
             // Validate the token
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-            Key key = keyGenerator.generateKey();
-            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-            log.info(">>> valid token : " + token);
+##            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+##             Key key = keyGenerator.generateKey();
+##            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+            JWTUtils.validateToken(token);
+##            //TODO get user out of token
 
         } catch (Exception e) {
-            log.error(">> invalid token : " + token);
+            //log.error(">> invalid token : " + token);
+            log.error(">> invalid token exception : " + e);
+            //log.error(">> invalid token exception stack : " + ExceptionUtils.getStackTrace(e));
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         }
     }

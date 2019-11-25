@@ -7,6 +7,10 @@ package $packageName;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+
+#if ($template.hasPropertyValue("direction","in"))
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+#end
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -28,6 +32,9 @@ $!updatedAreaImport
  *
  */
 @Data
+#if ($template.hasPropertyValue("direction","in"))
+@JsonIgnoreProperties(ignoreUnknown = true)
+#end
 public class ${className} {
 #putEntityValidation()
 
