@@ -1,22 +1,21 @@
-import DS from 'ember-data';
-import {fetchData} from '../utils/common-utils';
-import BaseAdapter from './base';
+import EmberRouter from '@ember/routing/router';
+import config from './config/environment';
 
-import config from '../config/environment';
-const { host, namespace } = config.DS;
-const baseUrl = host+"/"+namespace;
 
-export default BaseAdapter.extend({
+const Router = Ember.Router.extend({
+  location: config.locationType,
+  rootURL: config.rootURL,
+  headData: Ember.inject.service(),
 
-#**
-    findByWineryWebPathAndProductWebPath : function(wineryWebPath, productWebPath) {
-        return fetchData(baseUrl+'/data/sdd/ProductanditemlistIn?wineryWebPath='+wineryWebPath+'&productWebPath='+productWebPath);
-    },
-    
-    findByProductItemId: function (productItemId) {
-        return fetchData(baseUrl + '/data/sdd/ProductanditemlistIn?productItemId=' + productItemId);
-    },
-*#
-    
+  setTitle(title) {
+    this.get('headData').set('title', title);
+  }
     
 });
+
+Router.map(function() {
+
+  this.route('search');
+});
+
+export default Router;

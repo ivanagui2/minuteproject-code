@@ -961,10 +961,10 @@ $!updatedAreaEnd
 #if($columnUtils.isBoolean($column))
 		var $columnVar = $("#field-$columnVar").is(':checked');
 #else
-		var $columnVar = this.get("#field-$columnVar");
+		var $columnVar = $("#field-$columnVar").val();
 #end
 #else
-		var $columnVar = ($("#field-$columnVar").data("kendoMultiSelect"))?$("#field-$columnVar").data("kendoMultiSelect").value():this.get("$columnVar");
+		var $columnVar = ($("#field-$columnVar").data("kendoMultiSelect"))?$("#field-$columnVar").data("kendoMultiSelect").value():$("$columnVar").val();
 #end
 #end
 #if($columnUtils.isTime($column))

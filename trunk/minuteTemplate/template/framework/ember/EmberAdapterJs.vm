@@ -1,59 +1,55 @@
-#generatorSpecific()
-#exposeSeparator()
-#putImportQuerySDDBean()
-#putImportSDDInputBean()
-#exposeQuerySpecific()
-#exposeRESTSDDURLServer()
-#set($table=$query.inputBean)
-#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
-/* ${tableName} */
+#exposeVariableModelSpecific()
 import DS from 'ember-data';
 import {fetchData} from '../utils/common-utils';
-import BaseAdapter from './base';
+import BaseAdapter from './BaseAdapter';
 import appendQuery from 'npm:append-query';
 
 export default BaseAdapter.extend({
 
-/*
-    ${tableName} : function(
-#foreach($column in $inputBean.columns)
-#putColumnParamNaming()
-           $columnVar #if($velocityCount!=$size),
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+//$package.name
+#foreach ($query in $package.getQueries())
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#exposeVariableEntitySpecific()
+##exposeRESTSDDURLServer()
+#putImportSDDInputBean()
+
+/* connector to $domainClassName info */
+    ${tableVariableName} : function(params) {
+        return fetchData(baseUrl+'/data/sdd/${sddInputBeanClass}'+filter${domainClassName}(params));
+    },
 #end
-#end
-    ) {
-        return fetchData(baseUrl+'${restJsonServerUrl}');
-    },
-*/
-#**
-    ${tableName} : function(wineryWebPath, productWebPath) {
-        return fetchData(baseUrl+'/data/sdd/ProductanditemlistIn?wineryWebPath='+wineryWebPath+'&productWebPath='+productWebPath);
-    },
-    
-    findByProductItemId: function (productItemId) {
-        return fetchData(baseUrl + '/data/sdd/ProductanditemlistIn?productItemId=' + productItemId);
-    },
-*#
-    
+#end 
     
 });
 
-function filter(entityId, entityWebPath, displayOrder, filters) {
-    if (filters) {
-        return appendQuery("",{
-            "entityId":entityId, 
-            "webPath":entityWebPath, 
-            "displayOrder":displayOrder, 
-            "cepageWebPath":filters.grape,
-            "countryWebPath":filter.countryWebPath,
-        }, { removeNull: true });
-    } else {
-        return appendQuery("",{
-            "entityId":entityId, 
-            "webPath":entityWebPath, 
-            "displayOrder":displayOrder
-        }, { removeNull: true });
-    
-    }
 
-}
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+//$package.name
+#foreach ($query in $package.getQueries())
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
+#set($accessUrl=$kendoUIUtils.getAccessUrl($table.name))
+#exposeVariableEntitySpecific()
+
+/* filter for $domainClassName entity */
+function filter${domainClassName} (filter) {
+	if (filter) {
+		return appendQuery("",{
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParamNaming()
+				"$columnVar":filter.$columnVar #if($velocityCount!=$size),
+#end
+#end
+#end
+				}, 
+				{ removeNull: true }
+			);
+	}
+	return "";
+}			
+#end
+#end 
