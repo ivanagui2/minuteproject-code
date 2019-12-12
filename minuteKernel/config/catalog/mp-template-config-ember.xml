@@ -63,7 +63,6 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="model" has-updatable-nature="true"
             scope-specific-value="sdd-input-bean"
-         
             >
             <property name="direction" value="in"/>
             </template>
@@ -73,9 +72,8 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root="model" has-updatable-nature="true"
             scope-specific-value="sdd-output-bean"
-           
             >
-                        <property name="direction" value="out"/>
+                <property name="direction" value="out"/>
             </template>
             
         <template name="EmberSDDInput" templateFileName="EmberSDDInput.vm" 
@@ -157,14 +155,14 @@
 			file-prefix="BaseAdapter" file-suffix="" application-specific="true">
 		</template>	
 
+<!-- scope-specific-value="query-package" -->
 		<template 
 			name="EmberAdapterJs" templateFileName="EmberAdapterJs.vm" 
             file-extension="js" technicalPackage="adapters" file-suffix=""
             add-model-dir-name="false" 
 			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
-            scope-specific-value="query-package"
-            check-template-to-generate="true" is-template-to-generate-method="queryUtils.isToGenerateBasedRestStackRequired"
+            model-specific="true"
             />
 	</template-target> 	
   	

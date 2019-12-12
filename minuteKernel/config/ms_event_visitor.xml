@@ -6,7 +6,7 @@
 			<target-convention type="disable-timestamp-comment-marker" />
 		</conventions>
 		<!-- ec : event_customer micro-service -->
-		<model name="ec" version="1.0" package-root="org.minuteproject.ms">
+		<model name="ev" version="1.0" package-root="org.minuteproject.ms">
 			<description>
 				<CDATA>
 					This model illustrates:
@@ -147,6 +147,7 @@ select
  xx.event_web_path,
  case when type = 'INVITATION' then nb else 0 end as nb_inviations, 
  case when type = 'PRESALE' then nb else 0 end as nb_presales,
+ case when type = 'SALE' then nb else 0 end as nb_sales,
  nb_of_presales_entry, 
  nb_of_invitations, 
  max_nb_of_tickets,
@@ -189,7 +190,7 @@ $whereeventid $whereeventwebpath
 			</statement-model>
 		</model>
 <!-- REST-Custom, Openxava, Fitnesse,  -->
-		<targets catalog-entry="REST-Custom, Openxava, Ember"
+		<targets catalog-entry="REST-Kendoui, Openxava, Ember"
 			append-catalog-entry-dir-to-outputdir-root="true" outputdir-root="../../product/event_visitor">
 			<property name="openxava-disable-sdd" value="true" />
 			<property name="environment" value="remote"/>
