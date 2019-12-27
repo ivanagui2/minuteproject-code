@@ -53,8 +53,9 @@
 		<template name="RESTDbAPISDDCompositeResource" templateFileName="RESTDbAPISDDCompositeResource.vm" 
 			subdir="" outputsubdir="" technicalPackage="rest"
 			file-extension="java" file-prefix="" file-suffix="Resource"
-			add-package-name="false" add-business-package-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="true" 
 			scope-specific-value="composite" has-updatable-nature="true">
+			<!--  RESTDbAPISDDCompositeResource is copycat of  RESTDbAPISDDResource but has to change add-business-package-dir-name to true-->
 			<property name="JavaBeanTemplate" value="SDDOutputBean" />
 		</template>		
 		
