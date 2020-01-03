@@ -519,6 +519,8 @@
 		<xs:sequence>
 			<xs:element name="output-field" type="xs:string"/>
 			<xs:element name="input-field" type="xs:string"/>
+			<xs:element name="requested-field" type="xs:string"/>
+			<xs:element name="implicit-field" type="xs:string"/>
 			<xs:element name="filter-field" type="xs:string"/>
 			<xs:element name="static-value" type="xs:string"/>
 			<xs:element name="computed-value" type="xs:string"/>
