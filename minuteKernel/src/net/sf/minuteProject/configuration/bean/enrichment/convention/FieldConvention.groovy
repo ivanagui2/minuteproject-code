@@ -11,8 +11,9 @@ public abstract class FieldConvention extends ModelConvention{
 	List<String> fieldPatternList
 	
 	protected boolean match(Column column) {
-		if (!column.isRequired()) //for the moment only apply on not nullable column
+		/*if (!column.isRequired()) //for the moment only apply on not nullable column
 			return false;
+			*/
 		boolean matchFieldType = false
 		boolean matchFieldPattern = false
 		if (hasFieldType()) {

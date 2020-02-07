@@ -54,25 +54,7 @@ public abstract class EntityMultiFieldConvention extends ModelConvention {
 		}
 
 	}
-	
-	/*
-	private static List<List<String>> getGroup (List<String> input, String fieldPatternType, String ...fieldPattern) {
-		input.stream()
-		//all compatible data
-			.filter(u -> {
-				return Arrays.stream(fieldPattern).anyMatch(k -> {
-					return StringUtils.checkExpression(u, fieldPatternType, k);
-				});
-			})
-			.collect(Collectors.groupingBy(StringUtils.stripFromExpression(Function.identity(), fieldPatternType, fieldPattern)))
-			;
-		//.map(u -> StringUtils.stripFromExpression(u, fieldPatternType))
-			
-			
-					
-		return null;
-	}
-	*/
+
 
 	public abstract void apply2FieldConvention(Table table, Column firstColumn, Column secondColumn);
 	
