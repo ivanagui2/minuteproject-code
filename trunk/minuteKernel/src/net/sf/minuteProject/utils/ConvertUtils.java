@@ -1,6 +1,9 @@
 package net.sf.minuteProject.utils;
 
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Calendar;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteproject.model.db.type.FieldType;
@@ -259,7 +262,14 @@ public class ConvertUtils {
 		String type = getJavaTypeFromDBFullType(column);	
 		if (JAVA_LONG_TYPE.equals(type)) return "Long.valueOf("+expression+")";
 		if (JAVA_DOUBLE_TYPE.equals(type)) return "Double.valueOf("+expression+")";	
-		if (JAVA_INTEGER_TYPE.equals(type)) return "Integer.valueOf("+expression+")";	
+		if (JAVA_INTEGER_TYPE.equals(type)) {
+			if (StringUtils.isNumeric(expression)) {
+				return "Integer.valueOf("+expression+")";
+			} else if ("CURRENT_YEAR".equalsIgnoreCase(expression)) {
+				return "Integer.valueOf(java.time.LocalDate.now().getYear())";
+			}
+				
+		}
 //		if (JAVA_TIMESTAMP_TYPE.equals(type)) return "null"; //not supported yet	
 		if (JAVA_BIGDECIMAL_TYPE.equals(type)) return "java.math.BigDecimal.valueOf("+expression+")";
 		if (JAVA_SQL_DATE_TYPE.equals(type) || 

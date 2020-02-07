@@ -355,13 +355,19 @@ public class OpenXavaUtils {
 					sb.append("(value = org.openxava.calculators.FalseCalculator.class)");
 					return sb.toString();
 				} 
-			} else if (ColumnUtils.isInteger(column) && StringUtils.isNumeric(defValue)) {
-				sb.append("(\r\n" + 
-						"        value=org.openxava.calculators.IntegerCalculator.class,\r\n" + 
-						"        properties={ @org.openxava.annotations.PropertyValue(name=\"value\", value=\""+defValue+"\") }\r\n" + 
-						"    )");
-				return sb.toString();
-			}
+			} else if (ColumnUtils.isInteger(column) ) {
+				if (StringUtils.isNumeric(defValue)) {
+					sb.append("(\r\n" + 
+							"        value=org.openxava.calculators.IntegerCalculator.class,\r\n" + 
+							"        properties={ @org.openxava.annotations.PropertyValue(name=\"value\", value=\""+defValue+"\") }\r\n" + 
+							"    )");
+					return sb.toString();
+				} else if ("CURRENT_YEAR".equalsIgnoreCase(defValue)) {
+					sb.append("(value = org.openxava.calculators.CurrentYearCalculator.class)");
+					return sb.toString();
+				}
+				
+			} 
 			
 		}
 		return null;
