@@ -328,4 +328,42 @@ public class OpenXavaUtils {
 			return column.isEditable();
 		return true;
 	}
+	
+	public static boolean hasDefaultValueCalculator(Column column) {
+		return StringUtils.isNotBlank(getDefaultValueCalculator(column));
+	}
+	
+	public static String getDefaultValueCalculator(Column column) {
+		String defValue = column.getDefaultValue();
+		if (defValue!=null && StringUtils.isNotBlank(defValue)) {
+			StringBuffer sb = new StringBuffer("@org.openxava.annotations.DefaultValueCalculator");
+			if (ColumnUtils.isTimeStampColumn(column) && "CURRENT_DATE".equalsIgnoreCase(defValue)) {
+				sb.append("(value = org.openxava.calculators.CurrentDateCalculator.class)");
+				return sb.toString();
+			}
+			else if (ColumnUtils.isString(column)) {
+				sb.append("(\r\n" + 
+						"        value=org.openxava.calculators.StringCalculator.class,\r\n" + 
+						"        properties={ @org.openxava.annotations.PropertyValue(name=\"string\", value=\""+defValue+"\") }\r\n" + 
+						"    )");
+				return sb.toString();
+			} else if (ColumnUtils.isBoolean(column)) {
+				if ("true".equalsIgnoreCase(defValue)) {
+					sb.append("(value = org.openxava.calculators.TrueCalculator.class)");
+					return sb.toString();
+				} else if ("false".equalsIgnoreCase(defValue)) {
+					sb.append("(value = org.openxava.calculators.FalseCalculator.class)");
+					return sb.toString();
+				} 
+			} else if (ColumnUtils.isInteger(column) && StringUtils.isNumeric(defValue)) {
+				sb.append("(\r\n" + 
+						"        value=org.openxava.calculators.IntegerCalculator.class,\r\n" + 
+						"        properties={ @org.openxava.annotations.PropertyValue(name=\"value\", value=\""+defValue+"\") }\r\n" + 
+						"    )");
+				return sb.toString();
+			}
+			
+		}
+		return null;
+	}
 }
