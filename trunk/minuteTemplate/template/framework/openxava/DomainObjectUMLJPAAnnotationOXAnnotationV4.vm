@@ -246,6 +246,9 @@ public class ${className} {
 #if ($column.isVersion())
 	@Version
 #end
+#if ($openXavaUtils.hasDefaultValueCalculator($column))
+	$openXavaUtils.getDefaultValueCalculator($column)
+#end
     $accessor $columnType $columnVar;
 #end
 #updatedAreaEnd()

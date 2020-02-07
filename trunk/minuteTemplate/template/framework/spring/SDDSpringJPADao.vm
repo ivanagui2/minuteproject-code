@@ -234,11 +234,8 @@ $!updatedAreaEnd
 #end
 						)
 					);
-				) {		
-##if($isNotVoidInput) 
+				) {
 #putSddExecuteStatementClosable()
-##end
-			}
        }
 ## end autoclosable : + find way to pass value
 
