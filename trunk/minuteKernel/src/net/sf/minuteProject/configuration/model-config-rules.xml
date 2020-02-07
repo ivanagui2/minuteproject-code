@@ -1186,6 +1186,19 @@
 									</set-properties-rule>
 								</pattern>
 							</pattern>
+							<pattern value="default-value-convention">
+								<object-create-rule
+									classname="net.sf.minuteProject.configuration.bean.enrichment.convention.DefaultValueConvention" />
+								<set-next-rule methodname="addConvention"
+									paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.DefaultValueConvention" />
+								<set-properties-rule>
+									<alias attr-name="type" prop-name="type" />
+									<alias attr-name="field-pattern" prop-name="fieldPattern" />
+									<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+									<alias attr-name="field-type" prop-name="fieldType" />
+									<alias attr-name="default-value" prop-name="defaultValue" />
+								</set-properties-rule>
+							</pattern>
 							<pattern value="global-convention">
 								<object-create-rule
 									classname="net.sf.minuteProject.configuration.bean.enrichment.convention.GlobalConvention" />
@@ -3055,6 +3068,19 @@
 									<alias attr-name="tag" prop-name="tag" />
 								</set-properties-rule>
 							</pattern>
+						</pattern>
+						<pattern value="default-value-convention">
+							<object-create-rule
+								classname="net.sf.minuteProject.configuration.bean.enrichment.convention.DefaultValueConvention" />
+							<set-next-rule methodname="addConvention"
+								paramtype="net.sf.minuteProject.configuration.bean.enrichment.convention.DefaultValueConvention" />
+							<set-properties-rule>
+								<alias attr-name="type" prop-name="type" />
+								<alias attr-name="field-pattern" prop-name="fieldPattern" />
+								<alias attr-name="field-pattern-type" prop-name="fieldPatternType" />
+								<alias attr-name="field-type" prop-name="fieldType" />
+								<alias attr-name="default-value" prop-name="defaultValue" />
+							</set-properties-rule>
 						</pattern>
 						<pattern value="global-convention">
 							<object-create-rule

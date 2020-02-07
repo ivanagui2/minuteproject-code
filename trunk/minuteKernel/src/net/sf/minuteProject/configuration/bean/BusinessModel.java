@@ -329,6 +329,7 @@ public class BusinessModel {
 		column.setSearchable(field.isSearchable());
 		column.setEditable(field.isEditable());
 		column.setHidden(field.isHidden());
+		column.setDefaultValue(field.getDefaultValue());
 	}
 	
 	private void complementDataModelWithViewEnrichment (View view, Entity entity) {

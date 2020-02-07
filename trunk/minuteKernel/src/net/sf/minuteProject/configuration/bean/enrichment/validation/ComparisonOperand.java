@@ -8,6 +8,8 @@ import lombok.Getter;
 @Getter
 public enum ComparisonOperand {
     EQUALS ("EQUALS", "first-field-equals-second-field")
+    ,ENDS_WITH ("ENDS_WITH", "ends-with")
+    ,STARTS_WITH ("STARTS_WITH", "starts-with")
     ,GREATER_THAN ("GREATER_THAN", "first-field-greater-than-second-field")
     ,GREATER_OR_EQUAL_THAN ("GREATER_OR_EQUAL_THAN", "first-field-greater-or-equals-than-second-field")
     ,LESS_THAN ("LESS_THAN", "first-field-less-than-second-field")

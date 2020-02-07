@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import net.sf.minuteProject.configuration.bean.enrichment.group.FieldGroup;
+import net.sf.minuteProject.configuration.bean.enrichment.validation.ComparisonOperand;
 import net.sf.minuteProject.configuration.bean.model.data.Column;
 import net.sf.minuteProject.configuration.bean.model.data.Table;
 import net.sf.minuteProject.utils.StringUtils;
@@ -33,6 +34,13 @@ public class EntityDisplayConvention extends EntityMultiFieldConvention {
 			.filter(u -> fg.getFieldList().contains(u))
 			.findFirst()
 			.isPresent();
+	}
+	protected boolean isValid() {
+		return firstFieldPattern!=null 
+				&& secondFieldPattern!=null 
+				&& fieldPatternType!=null 
+				&& ComparisonOperand.FIELD_GROUP.getConventionValue().equals(type)
+				;
 	}
 
 }
