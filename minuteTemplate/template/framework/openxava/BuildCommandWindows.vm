@@ -10,7 +10,8 @@ IF %MP_HOME% == "" (
 set /p MP_HOME= What Minuteproject home directory?
 )
 ##create OX project
-cd %OX_HOME%\workspace\OpenXavaTemplate
+##cd %OX_HOME%\workspace\OpenXavaTemplate
+cd %OX_HOME%\workspace\OpenXava
 call ant -f CreateNewProject.xml -Dproject=$applicationOX
 
 copy %MP_HOME%\target\mp-openxava\*.jar %OX_HOME%\workspace\\$applicationOX\web\WEB-INF\lib

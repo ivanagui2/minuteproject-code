@@ -486,15 +486,15 @@ $!updatedAreaEnd
 
 #macro (injectPrepareStatementParams)
 #if($query.isWrite())
-	private void injectPrepareStatementParams(CallableStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+		private void injectPrepareStatementParams(CallableStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
 #else
-	private void injectPrepareStatementParams(PreparedStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+		private void injectPrepareStatementParams(PreparedStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
 #end
-		int index = 1;
+			int index = 1;
 #foreach($column in $inputBean.columns)
 #if ($column.isOutputParam())
-		pstmt.registerOutParameter(index, java.sql.Types.${column.type});
-		index++;
+			pstmt.registerOutParameter(index, java.sql.Types.${column.type});
+			index++;
 #else
 #if($isTransientDefinition)
 #if (!$column.isTransient() && $column.isPrimaryKey()) 
@@ -505,9 +505,9 @@ $!updatedAreaEnd
 #if (!$column.isFilter())
 #injectSDDParameter()
 #else
-		if (isFilter${column.filterName}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)) {
+			if (isFilter${column.filterName}Active(#if($isNotVoidInput) $sddInputBeanVariable#end)) {
 #injectSDDParameter()
-		}
+			}
 #end	
 #end
 #end
@@ -519,36 +519,36 @@ $!updatedAreaEnd
 #injectChunkParameter("${chunkName}_${queryParam.name}", $queryParam)
 #end
 #end
-	}
+		}
 #end
 ##end macro injectPrepareStatementParams
 
 ##macro putSddExecuteStatementClosable
 #macro (putSddExecuteStatementClosable) 
 #if($isNotVoidInput) 
-				injectPrepareStatementParams(pstmt, $sddInputBeanVariable);
+					injectPrepareStatementParams(pstmt, $sddInputBeanVariable);
 #end
 #if ($query.isWrite())
 #if($query.queryParams.hasOutputParam())
-			pstmt.execute();
+					pstmt.execute();
 #else
-			pstmt.executeUpdate();
+					pstmt.executeUpdate();
 #end	
 #else
 #if($query.queryParams.hasOutputParam())
-			pstmt.execute();
+					pstmt.execute();
 #else
-				try (ResultSet rs = pstmt.executeQuery()) {
+					try (ResultSet rs = pstmt.executeQuery()) {
 #end		
 #end
 #if($query.queryParams.hasOutputParam())
-			$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
+				$sddOutputBeanClass $sddOutputBeanVariable = new $sddOutputBeanClass();
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
-			${sddOutputBeanVariable}.set$columnClass(pstmt.get${columnType}($queryUtils.getQueryPositionFromOutputbeanPosition($query, $velocityCount)));
+				${sddOutputBeanVariable}.set$columnClass(pstmt.get${columnType}($queryUtils.getQueryPositionFromOutputbeanPosition($query, $velocityCount)));
 #end
-			list.add(${sddOutputBeanVariable});
+				list.add(${sddOutputBeanVariable});
 #else
 #if ($statementUtils.hasResult($outputBean))
 					while (rs.next()) {
@@ -570,6 +570,9 @@ $!updatedAreaEnd
 #end
 #end
 	        	}//from try (autoclosable)
+#if(!$query.isWrite()) 
+			}
+#end
 #end
 ##end macro putSddExecuteStatementClosable
 
