@@ -126,7 +126,7 @@ public class QueryUtils {
 
 	private static QueryParam getQueryParam(ResultSetMetaData metaData, int i) throws SQLException {
 		QueryParam qp = new QueryParam();
-		String columnName = metaData.getColumnName(i);
+		String columnName = metaData.getColumnLabel(i);// jdbc driver 4 https://bugs.mysql.com/bug.php?id=88949 metaData.getColumnName(i);
 		qp.setName(columnName);
 		qp.setSize(metaData.getColumnDisplaySize(i));
 		int scale = metaData.getScale(i);

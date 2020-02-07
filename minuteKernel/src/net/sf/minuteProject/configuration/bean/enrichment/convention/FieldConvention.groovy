@@ -1,6 +1,7 @@
 package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
 import net.sf.minuteProject.configuration.bean.model.data.Column;
+import net.sf.minuteProject.utils.ColumnUtils
 import net.sf.minuteProject.utils.StringUtils;
 import net.sf.minuteProject.utils.parser.ParserUtils;
 
@@ -15,7 +16,11 @@ public abstract class FieldConvention extends ModelConvention{
 		boolean matchFieldType = false
 		boolean matchFieldPattern = false
 		if (hasFieldType()) {
-			matchFieldType = column.getType().toLowerCase().equals(fieldType.toLowerCase())
+			if (ColumnUtils.isBoolean(column)) {
+				matchFieldType = "boolean".equalsIgnoreCase(fieldType) || "bit".equalsIgnoreCase(fieldType)
+			} else {
+				matchFieldType = column.getType().equalsIgnoreCase(fieldType)
+			}
 		} else
 			matchFieldType=true
 		if (hasFieldPatternType() && hasFieldPattern()) {

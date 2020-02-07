@@ -2,6 +2,7 @@ package net.sf.minuteProject.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.function.Function;
 
 import org.apache.commons.beanutils.MethodUtils;
 
@@ -50,11 +51,11 @@ public class StringUtils {
 	public static boolean checkExpression(String valueToTest, String expression, String pattern) {
 		if (expression==null || valueToTest==null || pattern==null)
 			return false;
-		if (Condition.STARTS_WITH.equals(expression)  || Condition.STARTS__WITH.equals(expression))
+		if (Condition.STARTS_WITH.equals(expression)  || Condition.STARTS__WITH.equals(expression) || Condition.STARTS___WITH.equals(expression))
 			return startsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.EQUALS.equals(expression))
 			return equalsIgnoreCase(valueToTest, pattern);
-		if (Condition.ENDS_WITH.equals(expression) || Condition.ENDS__WITH.equals(expression))
+		if (Condition.ENDS_WITH.equals(expression) || Condition.ENDS__WITH.equals(expression) || Condition.ENDS___WITH.equals(expression))
 			return endsWithIgnoreCase(valueToTest, pattern);
 		if (Condition.CONTAINS.equals(expression))
 			return containsIgnoreCase(valueToTest, pattern);
@@ -96,4 +97,13 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+/*
+	public static Function stripFromExpression(Function<String, String> identity, String expression, String ...fieldPattern) {
+		if (Condition.STARTS_WITH.equals(expression)  || Condition.STARTS__WITH.equals(expression) || Condition.STARTS___WITH.equals(expression)) {
+			return org.apache.commons.lang.StringUtils.removeStart(identity.toString(), remove)
+		}
+
+		return null;
+	}
+	*/
 }

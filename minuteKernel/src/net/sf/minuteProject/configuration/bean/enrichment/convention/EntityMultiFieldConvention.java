@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.enrichment.convention;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
@@ -45,6 +46,7 @@ public abstract class EntityMultiFieldConvention extends ModelConvention {
 				return (firstOk && !secondOk) || (secondOk && !firstOk);
 			})
 			.collect(Collectors.toList());
+		//TODO can have multiple sets group by beginning or ending
 		if (collect.size()==2) {
 			Column firstColumn = collect.get(0);
 			Column secondColumn = collect.get(1);
@@ -52,6 +54,25 @@ public abstract class EntityMultiFieldConvention extends ModelConvention {
 		}
 
 	}
+	
+	/*
+	private static List<List<String>> getGroup (List<String> input, String fieldPatternType, String ...fieldPattern) {
+		input.stream()
+		//all compatible data
+			.filter(u -> {
+				return Arrays.stream(fieldPattern).anyMatch(k -> {
+					return StringUtils.checkExpression(u, fieldPatternType, k);
+				});
+			})
+			.collect(Collectors.groupingBy(StringUtils.stripFromExpression(Function.identity(), fieldPatternType, fieldPattern)))
+			;
+		//.map(u -> StringUtils.stripFromExpression(u, fieldPatternType))
+			
+			
+					
+		return null;
+	}
+	*/
 
 	public abstract void apply2FieldConvention(Table table, Column firstColumn, Column secondColumn);
 	

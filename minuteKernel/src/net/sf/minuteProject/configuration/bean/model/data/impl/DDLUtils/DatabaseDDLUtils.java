@@ -80,6 +80,7 @@ public class DatabaseDDLUtils implements Database
 	public Database loadDatabase(DataModel dataModel) {
 	    Platform platform = PlatformFactory.createNewPlatformInstance(dataModel.getBasicDataSource());
 	    platform.getModelReader().setDefaultSchemaPattern(dataModel.getSchema());
+	    platform.getModelReader().setDefaultCatalogPattern(dataModel.getSchema());
 	    platform.setDelimitedIdentifierModeOn(true);
 	    setType(platform);
 	    database = platform.readModelFromDatabase("TEST"); 

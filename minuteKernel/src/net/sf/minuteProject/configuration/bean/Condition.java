@@ -7,9 +7,11 @@ public class Condition extends AbstractConfiguration {
 	public static final String REGEX = "regex";
 	public static final String ENDS_WITH = "endsWith";
 	public static final String ENDS__WITH = "end-with";
+	public static final String ENDS___WITH = "ends-with";
 	public static final String CONTAINS = "contains";
 	public static final String STARTS_WITH = "startsWith";
 	public static final String STARTS__WITH = "start-with";
+	public static final String STARTS___WITH = "starts-with";
 	public static final String EQUALS = "equals";
 	public static final String INCLUDE = "include";
 	public static final String PACKAGE = "package";
