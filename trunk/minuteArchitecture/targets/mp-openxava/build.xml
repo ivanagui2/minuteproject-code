@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="archive" basedir="." name="minute-architecture">
     <description>This build file will build the target architecture</description>
+	<condition property="isWindows">
+	    <os family="windows" />
+	</condition>
+
+	<condition property="isUnix">
+	    <os family="unix" />
+	</condition>
+
+	<target name="all" depends="mvn_windows, mvn_unix"/>
+
+	<target name="mvn_windows" if="isWindows">
+	    <exec dir="." executable="cmd">
+	        <arg line="/c mvn clean install" />
+	    </exec>
+	</target>
+
+	<target name="mvn_unix" if="isUnix">
+	    <exec dir="." executable="sh">
+	        <arg line="-c 'mvn clean install'" />
+	    </exec>
+	</target>
+	
     <!-- ===================================================================== -->
     <!-- import files -->
     <!-- ===================================================================== -->
@@ -146,13 +168,26 @@
     </target>	
 
     <!-- target archive -->
-    <target name="archive" depends="clean,compile,resource">
+    <target name="archive" depends="all"><!--depends="clean,compile,resource"-->
         <title title="TASK archive" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Create an archive containing all the classes of the ${project.name}</description>
         <macro_archive compress="true" destdir="${dist.dir}" destfile="${archive.name}" classesdir="${classes.dir}"/>
     </target>	
 
     <!-- target distribute -->
+    <target name="distribute" depends="archive, archive-code">
+        <copy todir="${distribute.dir}" >
+            <!--<fileset dir="${dist.dir}">
+                <include name="${archive.name}"/>
+            	<include name="${archive.src.name}"/>
+            </fileset>
+            -->
+            <fileset dir="./target">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>    
+    </target>	
+	<!-- 
     <target name="distribute" depends="archive, archive-code">
         <title title="TASK distribute" projectname="${project.name}" projectdir="${home.dir}"/>
         <description>Create an archive containing all the classes of the ${project.name}</description>
@@ -163,7 +198,7 @@
             </fileset>
         </copy>    
     </target>	
-		
+		-->
     <!-- target copy code -->
     <target name="archive-code">
         <title title="TASK copy code" projectname="${project.name}" projectdir="${home.dir}"/>
