@@ -314,8 +314,9 @@ public class ColumnUtils {
 
 	public static boolean isTimeColumn (Column column) {
 		if (column!=null && column.getType()!=null) {
-			if (column.getType().equals("DATE") || 
-				column.getType().equals("TIME") || 
+			if (column.getType().equalsIgnoreCase("DATE") || 
+				column.getType().equalsIgnoreCase("TIME") || 
+				column.getType().equalsIgnoreCase("DATETIME") || 
 				isTimeStampColumn(column))
 				return true;		
 		}
