@@ -37,6 +37,13 @@ public class FieldValidationConvention extends FieldConvention {
 		}
 	}
 	
+	protected boolean match(Column column) {
+		if (!column.isRequired()) //for the moment only apply on not nullable column
+			return false;
+		else 
+			return super.match(column);
+	}
+	
 	protected boolean isValid() {
 		return super.isValid() && getFieldValidations().size()>0;
 	}

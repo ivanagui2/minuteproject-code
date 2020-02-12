@@ -52,6 +52,7 @@ public class ConvertUtils {
 	public static final String DB_BIGINT_TYPE	 					=   "BIGINT";
 	public static final String DB_TIMESTAMP_TYPE 					=   "TIMESTAMP";
 	public static final String DB_TIME_TYPE 						=   "TIME";
+	public static final String DB_DATETIME_TYPE 					=   "DATETIME";
 	public static final String DB_TIMESTAMPZ_TYPE 					=   "TIMESTAMPZ";
 	public static final String DB_DATE_TYPE 						=   "DATE";
 	public static final String DB_NUMERIC_TYPE 						=   "NUMERIC";	
@@ -408,6 +409,8 @@ public class ConvertUtils {
 			return  "Integer";		
 		if (dBType.equals(DB_TIME_TYPE))
 			return  JAVA_TIME_TYPE;
+		if (dBType.equalsIgnoreCase(DB_DATETIME_TYPE))
+			return  JAVA_DATE_TYPE;
 		if (dBType.equals("DECIMAL"))
 			return  "java.math.BigDecimal";
 		if (dBType.equals("SMALLINT"))
