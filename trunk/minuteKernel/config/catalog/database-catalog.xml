@@ -18,12 +18,12 @@
 	 <database name="MYSQL" 
         hibernate-dialect="org.hibernate.dialect.MySQLDialect" 
         use-schema="true" 
-        driverclassname="org.gjt.mm.mysql.Driver" 
+        driverclassname="com.mysql.cj.jdbc.Driver" 
         default-url-structure="jdbc:mysql://${server-name}:${port-number}/${database-name}" >
         <maven-artifact
            mvn-artifact-id="mysql-connector-java" 
            mvn-group-id="mysql"
-           mvn-version="5.0.5" >
+           mvn-version="8.0.19" >
         </maven-artifact>	
         <primary-key-policy type="autoincrement"/>            
 	 </database>

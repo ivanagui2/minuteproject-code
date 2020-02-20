@@ -162,10 +162,57 @@
             add-model-dir-name="false" 
 			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
+            application-specific="true"
+            />
+            
+        <!-- router -->
+		<template 
+			name="EmberRouterJs" templateFileName="EmberRouterJs.vm" 
+            file-extension="js" technicalPackage="" file-suffix=""
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
             model-specific="true"
             />
+            
+		<template 
+			name="EmberRoutersIndexJs" templateFileName="EmberRoutersIndexJs.vm" 
+            file-extension="js" technicalPackage="routes" file-prefix="index"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
+            scope-specific-value="query"
+            />
+            
+		<template 
+			name="EmberRouterIndexHbs" templateFileName="EmberRouterIndexHbs.vm" 
+            file-extension="hbs" technicalPackage="templates" file-prefix="index"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
+            scope-specific-value="query"
+            />
+            
+		<template 
+			name="EmberRoutersEntityJs" templateFileName="EmberRoutersEntityJs.vm" 
+            file-extension="js" technicalPackage="routes" file-prefix="entity"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
+            scope-specific-value="query"
+            />
+            
+		<template 
+			name="EmberRouterEntityHbs" templateFileName="EmberRouterEntityHbs.vm" 
+            file-extension="hbs" technicalPackage="templates" file-prefix="entity"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
+            scope-specific-value="query"
+            />            
 	</template-target> 	
-  	
+  
+	
   	<template-target 
     	name="Ember client"
 		outputdir="src/main/ui"
@@ -178,7 +225,7 @@
 			add-model-name="false" add-model-dir-name="false"
 			add-package-name="false" 
 			file-extension="hbs" file-prefix="" file-suffix="homeMenu" 
-			scope-specific-value="query">
+			scope-specific-value="application">
 		</template>
 
 <!-- 
