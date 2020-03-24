@@ -1,5 +1,3 @@
-##exposeVariableModelSpecific()
-#exposeQuerySpecific()
 import Ember from 'ember';
 
 import BaseRoute from '../base';
@@ -12,6 +10,6 @@ export default BaseRoute.extend({
 	titleToken: ['field.${query.name}'],
 	${model.name}Service : Ember.inject.service("${model.name}"),
 	model(params) {
-        return this.get('${model.name}Service').${classVariableName}(params);
+        return this.get('${model.name}Service').${function.name}(params);
     },
 });

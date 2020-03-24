@@ -1,0 +1,23 @@
+#exposeVariableModelSpecific()
+import DS from 'ember-data';
+import Adapter from '../adapters/${classVariable}';
+import Service from '@ember/service';
+
+export default Service.extend({
+
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+//$package.name
+#foreach ($query in $package.getQueries())
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#exposeVariableEntitySpecific()
+#putImportSDDInputBean()
+
+    ${tableVariableName} (params) {
+        var adapter = Adapter.create(); 
+        return adapter.${tableVariableName}(params);
+    },
+#end
+#end 
+    
+});
