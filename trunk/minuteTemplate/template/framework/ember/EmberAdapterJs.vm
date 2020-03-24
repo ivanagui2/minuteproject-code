@@ -2,7 +2,11 @@
 import DS from 'ember-data';
 import {fetchData} from '../utils/common-utils';
 import BaseAdapter from './BaseAdapter';
-import appendQuery from 'npm:append-query';
+import appendQuery from 'npm:append-query';##TODO change dependent of ember version > octane => import appendQuery from 'append-query'
+
+import config from '../config/environment';
+const { host, namespace } = config.DS${className};
+const baseUrl = host+"/"+namespace;
 
 export default BaseAdapter.extend({
 
@@ -12,7 +16,6 @@ export default BaseAdapter.extend({
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #exposeVariableEntitySpecific()
-##exposeRESTSDDURLServer()
 #putImportSDDInputBean()
 
 /* connector to $domainClassName info */
