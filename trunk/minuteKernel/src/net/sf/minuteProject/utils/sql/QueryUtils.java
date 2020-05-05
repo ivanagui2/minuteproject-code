@@ -33,6 +33,7 @@ import net.sf.minuteProject.configuration.bean.model.statement.QueryFilter;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryModel;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParam;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParams;
+import net.sf.minuteProject.configuration.bean.model.statement.QueryScheduler;
 import net.sf.minuteProject.exception.MinuteProjectException;
 import net.sf.minuteProject.utils.ColumnUtils;
 import net.sf.minuteProject.utils.ConnectionUtils;
@@ -47,6 +48,9 @@ public class QueryUtils {
 	private static final String QUESTION_IN_MARK = QUESTION_MARK+ELLIPSIS;
 	private static Logger logger = Logger.getLogger(QueryUtils.class);
 
+	public static boolean isBackend(Query query) {
+		return Scope.BACKEND==query.getQueryScope();
+	}
 	public static QueryParams getOutputParams(Query query) throws MinuteProjectException {
 		DataModel dataModel = query.getQueries().getStatementModel().getModel()
 				.getDataModel();
@@ -485,6 +489,16 @@ public class QueryUtils {
 			i++;
 		}
 		return i;
+	}
+	
+	public static boolean isToGenerateBasedVelocityRequired(Template template, GeneratorBean bean) {
+		if (bean instanceof Query) {
+			Query query = (Query) bean;
+			List<QueryScheduler> list = query.getQuerySchedulers();
+			return list.stream()
+				.anyMatch(u -> u.getReportTemplateType().equals("velocity"));
+		}
+		return false;
 	}
 	
 	public static boolean isToGenerateBasedRestStackRequired(Template template, GeneratorBean bean) {

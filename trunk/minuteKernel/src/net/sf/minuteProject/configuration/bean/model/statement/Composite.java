@@ -106,7 +106,7 @@ public class Composite extends AbstractConfiguration {
 		this.entities = entities;
 	}
 
-	public List<Column> getdistinctInputColumn() {
+	public List<Column> getDistinctInputColumn() {
 		//https://stackoverflow.com/questions/23699371/java-8-distinct-by-property
 /*		
 		String [] arr = {"ABQ","ALB","CHI","CUN","PHX","PUJ","BWI"};

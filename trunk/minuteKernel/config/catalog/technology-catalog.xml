@@ -155,8 +155,10 @@
 
 		<technology name="REST" model-type="rdbms"
 			template-config-file-name="mp-template-config-REST-2.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,environment-REST,SDD-BEANS,BSLA-JPA2,SpringService,MavenMaster"
-			template-dir="@templateRoot@/framework/rest" status="released"
+			default-outputdir="REST" 
+			depends-on-targets="JPA2,LOG,Velocity,environment-REST,SDD-BEANS,BSLA-JPA2,SpringService,MavenMaster"
+			template-dir="@templateRoot@/framework/rest" 
+			status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
 				<framework name="spring" version="4"></framework>
@@ -186,7 +188,8 @@
 					 
 		<technology name="REST-Kendoui" model-type="rdbms"
 			template-config-file-name="mp-template-config-kendoui.xml"
-			default-outputdir="REST" depends-on-targets="JPA2,environment-REST,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
+			default-outputdir="REST" 
+			depends-on-targets="JPA2,LOG,Velocity,environment-REST,SDD-BEANS,BSLA-JPA2,SpringService,REST,CloudFoundry-REST,MavenMaster"
 			template-dir="@templateRoot@/framework/spring" status="released"
 			description="Generates:\REST Spring MVC CRUD app\Spring\BSLA-DAO \JPA2 Domain entities with JAXB\with maven integration">
 			<frameworks>
@@ -660,6 +663,19 @@
 			<property name="add-xml-format" value="lowercase-hyphen"></property>
 		</technology>
 
+		<technology name="LOG" model-type="rdbms"
+			template-config-file-name="mp-template-config-LOG.xml"
+			default-outputdir="" template-dir="@templateRoot@/framework/log"
+			status="released" description="Generates log framework artifacts"
+			is-generable="false">
+		</technology>
+		
+		<technology name="Velocity" model-type="rdbms"
+			template-config-file-name="mp-template-config-Velocity.xml"
+			default-outputdir="" template-dir="@templateRoot@/framework/velocity"
+			status="released" description="Generates velocity artifacts and samples"
+			is-generable="false">
+		</technology>
 <!-- 
 
 
