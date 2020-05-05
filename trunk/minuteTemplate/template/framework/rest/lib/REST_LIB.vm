@@ -75,6 +75,8 @@
 		<lombok.version>${lombokVersion}</lombok.version>
 		<powermock.version>${powerMockitoVersion}</powermock.version>
 		<jjwt.version>${jjwtVersion}</jjwt.version>
+		<slf4j.version>2.0.0-alpha1</slf4j.version>
+		<logbackclassic.version>1.3.0-alpha5</logbackclassic.version>
 #end
 
 #macro (putEnvironmentProperties)

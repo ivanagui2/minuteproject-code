@@ -212,6 +212,21 @@ $readmeUtils.getReadme($template)
 #set ($sddOutputBeanCollectionImport = $commonUtils.getEntityLevelTemplateFullPath($model, $table, $template, $templateSDDOutputBeanCollection))
 #end
 
+#macro (putImportCompositeRESTSDDBean)
+#templateCommonDefinition()
+#set ($sddInputRestClass = $commonUtils.getTemplateClassName($composite, $template, $templateSDDInputBean))
+#set ($sddInputRestVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#end
+
+#*
+#macro (putImportCompositeRESTSDDBean)
+#templateCommonDefinition()
+#set ($sddInputBeanClass = $commonUtils.getTemplateClassName($composite, $template, $templateSDDRestResource))
+#set ($sddInputBeanVariable = $commonUtils.getJavaNameVariableFirstLetter($sddInputBeanClass))
+#set ($sddInputBeanImport = $commonUtils.getEntityLevelTemplateFullPath($composite, $template, $templateSDDInputBean))
+#end
+*#
+
 #macro (putImportCompositeInputSDDBean)
 #templateCommonDefinition()
 #set ($sddInputBeanClass = $commonUtils.getTemplateClassName($table, $template, $templateSDDInputBean))
@@ -239,6 +254,7 @@ $readmeUtils.getReadme($template)
 #set ($templateSDDInputCompositeBean  = "SDDInputCompositeBean")
 #set ($templateSDDOutputCompositeBean = "SDDOutputCompositeBean")
 #set ($templateSDDOutputBeanCollection = "SDDOutputBeanCollection")
+#set ($templateSDDRestResource = "RESTDbAPISDDCompositeResource")
 ##set ($templateSDDCompositeRepository = "SDDOutputBeanCollection")
 #end
 
@@ -260,6 +276,7 @@ $readmeUtils.getReadme($template)
 #set($finalName="${generatorBean.name}${restPomFinalName}")
 #end
 #set($swagger=$template.hasPropertyValue("swagger",false))
+#set($isVelocityEnabled=$template.hasPropertyValue("velocity-enabled",true))
 #end
 
 #macro(putColumnDefaultValue)

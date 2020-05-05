@@ -49,7 +49,50 @@
     <import resource="classpath:${pathSpringBackendConfig}"/>    
  
 	<context:component-scan base-package="$scanPackage,$scanPackage2,$scanPackageScheduler" />
-#end
 
+#end
+#if ($isVelocityEnabled)
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+#*             
+            <!--
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                velocimacro.library=xxx.vm
+            </value>
+            -->
+            <!--
+            <value>
+                resource.loader=ds
+                ds.resource.loader.public.name=DataSource
+                ds.resource.loader.class=org.apache.velocity.runtime.resource.loader.DataSourceResourceLoader
+                ds.resource.loader.resource.datasource=java:comp/env/jdbc/xxxDS
+                ds.resource.loader.resource.table=v_velocity_template
+                ds.resource.loader.resource.keycolumn=template_name
+                ds.resource.loader.resource.templatecolumn=TEMPLATE_DEFINITION
+                ds.resource.loader.resource.timestampcolumn=TEMPLATE_TIMESTAMP
+                ds.resource.loader.cache=false
+                ds.resource.loader.modificationCheckInterval=60
+                velocimacro.library=xxx.vm, yyy.vm
+                velocimacro.library.autoreload=true
+            </value>
+-->
+*#
+
+        </property>
+    </bean>
+
+
+    <bean id="velocityMerger" class="com.winy.rendering.VelocityMerger">
+        <property name="engine" ref="velocityEngine"/>
+        <property name="toolBoxConfigLocation" value="/WEB-INF/velocity-tools.xml"/>
+    </bean>
+#end
 ##TODO add scheduling component
 </beans>

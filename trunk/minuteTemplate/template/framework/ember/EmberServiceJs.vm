@@ -1,12 +1,12 @@
 #exposeVariableModelSpecific()
-import DS from 'ember-data';
 import Adapter from '../adapters/${classVariable}';
 import Service from '@ember/service';
+import { hash } from 'rsvp';
 
 export default Service.extend({
 
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
-//$package.name
+	//$package.name
 #foreach ($query in $package.getQueries())
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
@@ -19,5 +19,49 @@ export default Service.extend({
     },
 #end
 #end 
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+#foreach ($composite in $package.getComposites())
+#exposeCompositeSpecific()
+#putImportCompositeRESTSDDBean()
+#*
+//outputs
+#foreach($table in ${composite.entities})
+#putImportCompositeOutputSDDBean()
+-> ${sddOutputBeanClass}
+#end
+*#
+	/* service to composite $className info */
+    ${classVariableName} (params) {
+    	var adapter = Adapter.create();
+    	return adapter.${classVariableName}(params);
+    },
     
+	/* service to composite $className info */
+    ${classVariableName}2 (params) {
+    	var adapter = Adapter.create();
+#foreach($table in ${composite.outputComposite.entities})
+#exposeVariableEntitySpecific()
+#putImportCompositeOutputSDDBean()
+		var ${domainVariableName}Promise = adapter.${domainVariableName}(params)
+		.then(d => {
+			return d.${sddOutputBeanClass};
+		});
+#end
+		var promises = {
+#foreach($table in ${composite.outputComposite.entities})
+#exposeVariableEntitySpecific()
+#putImportCompositeOutputSDDBean()
+			${domainVariableName} : ${domainVariableName}Promise,
+#end			
+		};
+    	return hash(promises);
+#* .then(d => {
+    		return d;
+    	});
+*#
+    },    
+
+#end
+#end
+
 });
