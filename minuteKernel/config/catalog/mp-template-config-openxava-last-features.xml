@@ -31,6 +31,7 @@
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
 		</template>
 		
+		<!-- not used 
 		<template name="OpenXavaDomainEntityJPA2Metamodel" templateFileName="DomainEntityJPA2Metamodel.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-prefix="" file-suffix="_" 
@@ -43,7 +44,8 @@
       		<property name="DomainEntityUMLTemplate" value="OpenxavaDomainObjectUML" ></property>
       		<property name="DomainEntityJPA2EmbeddedId" value="OpenxavaDomainEntityJPA2EmbeddedId" ></property>
 		</template>	
-		
+		 -->
+		 
 		<template name="OpenxavaDomainEntityJPA2EmbeddedId" templateFileName="DomainEntityJPA2EmbeddedId.vm" 
 			subdir="" outputsubdir="" technicalPackage="domain"
 			file-prefix="" file-suffix="Id" 

@@ -79,12 +79,16 @@ public class Package extends PackageAdapter <Group, GeneratorBean>{
 			listOfQueries = new ArrayList<Query>();
 		return listOfQueries;
 	}
-
-	public void addComposite(Composite composite) {
+	
+	public List<Composite> getComposites() {
 		if (listOfComposites==null)
 			listOfComposites = new ArrayList<Composite>();
+		return listOfComposites;
+	}
+
+	public void addComposite(Composite composite) {
 		composite.setPackage(this);
-		listOfComposites.add(composite);
+		getComposites().add(composite);
 	}
 	
 	public SDDPackage getSddPackage() {

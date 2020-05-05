@@ -380,6 +380,9 @@
 									<alias attr-name="report-add-origin" prop-name="reportAddOrigin" />
 									<alias attr-name="report-add-environment" prop-name="reportAddEnvironment" />
 									<alias attr-name="report-add-number-of-records" prop-name="reportAddNumberOfRecords" />
+									<alias attr-name="report-template-type" prop-name="reportTemplateType" />
+									<alias attr-name="report-template-name" prop-name="reportTemplateName" />
+									<alias attr-name="report-template-header-name" prop-name="reportTemplateHeaderName" />
 								</set-properties-rule>
 								<bean-property-setter-rule pattern="name" />
 								<bean-property-setter-rule pattern="cron" />
@@ -2242,6 +2245,9 @@
 								<alias attr-name="report-add-origin" prop-name="reportAddOrigin" />
 								<alias attr-name="report-add-environment" prop-name="reportAddEnvironment" />
 								<alias attr-name="report-add-number-of-records" prop-name="reportAddNumberOfRecords" />
+								<alias attr-name="report-template-type" prop-name="reportTemplateType" />
+								<alias attr-name="report-template-name" prop-name="reportTemplateName" />
+								<alias attr-name="report-template-header-name" prop-name="reportTemplateHeaderName" />
 							</set-properties-rule>
 							<bean-property-setter-rule pattern="name" />
 							<bean-property-setter-rule pattern="cron" />

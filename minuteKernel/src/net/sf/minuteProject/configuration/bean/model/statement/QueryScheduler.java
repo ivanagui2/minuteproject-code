@@ -21,6 +21,9 @@ public class QueryScheduler extends QueryAdapter {
 	private boolean reportAddOrigin;
 	private boolean reportAddEnvironment;
 	private boolean reportAddNumberOfRecords;
+	private String reportTemplateType;
+	private String reportTemplateHeaderName;
+	private String reportTemplateName;
 	private List<Action> actions;
 
 	public QueryParams getQueryParams() {
