@@ -13,24 +13,69 @@ export default BaseAdapter.extend({
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
 //$package.name
 #foreach ($query in $package.getQueries())
+#if (!$queryUtils.isBackend($query))
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #exposeVariableEntitySpecific()
 #putImportSDDInputBean()
 
-/* connector to $domainClassName info */
+	/* connector to $domainClassName info */
     ${tableVariableName} : function(params) {
         return fetchData(baseUrl+'/data/sdd/${sddInputBeanClass}'+filter${domainClassName}(params));
     },
 #end
-#end 
-    
+#end
+#end
+
+
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+#foreach ($composite in $package.getComposites())
+#exposeCompositeSpecific()
+#putImportCompositeRESTSDDBean()
+#*
+//outputs
+#foreach($table in ${composite.entities})
+#putImportCompositeOutputSDDBean()
+-> ${sddOutputBeanClass}
+#end
+*#
+	/* connector to composite $className info */
+    ${classVariableName} : function(params) {
+        return fetchData(baseUrl+'/data/sdd/${sddInputRestClass}'+filter${className}(params));
+    },
+
+#end
+#end
+
 });
 
 
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+#foreach ($composite in $package.getComposites())
+#exposeCompositeSpecific()
+/* filter for composite $className entity */
+function filter${className} (filter) {
+	if (filter) {
+		return appendQuery("",{
+#foreach($column in ${composite.distinctInputColumn})
+#putColumnParamNaming()
+				"$columnVar":filter.$columnVar #if($velocityCount!=$size),
+#end
+#end
+				}, 
+				{ removeNull: true }
+			);
+	}
+	return "";
+}			
+
+#end
+#end
+
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
 //$package.name
 #foreach ($query in $package.getQueries())
+#if (!$queryUtils.isBackend($query))
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #set($tableLabel=$i18nUtils.getI18nFromDBObject($table))
@@ -55,4 +100,6 @@ function filter${domainClassName} (filter) {
 	return "";
 }			
 #end
-#end 
+#end
+#end
+

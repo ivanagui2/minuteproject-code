@@ -63,6 +63,16 @@
             <scope>test</scope>
         </dependency>
         
+    	<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
@@ -277,6 +287,21 @@
             <version>${jjwt.version}</version>
         </dependency>
         <!-- jjwt end -->
+        
+#if($isVelocityEnabled)
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>2.0</version>
+		</dependency>
+		
+#end
 #if($hasCorsFilter)
 #if($corsFilter=="thetransactioncompany")
 		<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
