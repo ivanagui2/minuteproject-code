@@ -1,15 +1,36 @@
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#exposeVariableEntitySpecific()
+#putImportQuerySDDBean()
+#putImportSDDInputBean()
 import Ember from 'ember';
 
-import BaseRoute from '../base';
+import BaseController from '../base';
 
-import _ from 'lodash';
-##import {toDisplay,setDisplayCount, convertComposition} from '../../utils/business-utils';
+##import _ from 'lodash';//xxxxx
 
 import config from '../../config/environment';
-export default BaseRoute.extend({
-	titleToken: ['field.${query.name}'],
+export default BaseController.extend({
 	${model.name}Service : Ember.inject.service("${model.name}"),
+#if($inputBean.columns.size() > 0)
+	queryParams: [
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParams()
+#columnJavaNaming()
+        	'${columnVar}',  
+#end
+#end
+		],
+#foreach($column in $inputBean.columns)
+#if (!$column.hasBeenDuplicated())
+#putColumnParams()
+#columnJavaNaming()
+	${columnVar}:null,
+#end
+#end
+#end
 	model(params) {
-        return this.get('${model.name}Service').${function.name}(params);
+        return this.get('${model.name}Service').${classVariableName}(params);
     },
 });

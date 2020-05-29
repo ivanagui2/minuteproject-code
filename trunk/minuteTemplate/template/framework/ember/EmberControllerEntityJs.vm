@@ -1,16 +1,18 @@
-##import BaseRoute from '$pathToEmberBaseRoute';//'../../base'
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#exposeVariableEntitySpecific()
+#putImportQuerySDDBean()
+#putImportSDDInputBean()
 import Ember from 'ember';
 
-import BaseRoute from '../base';
+import BaseController from '../base';
 
 import _ from 'lodash';
-##import {toDisplay,setDisplayCount, convertComposition} from '../../utils/business-utils';
 
 import config from '../../config/environment';
-export default BaseRoute.extend({
-	titleToken: ['field.${query.name}'],
+export default BaseController.extend({
 	${model.name}Service : Ember.inject.service("${model.name}"),
 	model(params) {
-        return this.get('${model.name}Service').${function.name}(params);
+        return this.get('${model.name}Service').${classVariableName}(params);
     },
 });
