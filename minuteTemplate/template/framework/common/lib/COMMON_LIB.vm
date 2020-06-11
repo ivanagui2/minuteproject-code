@@ -579,7 +579,25 @@ $!updatedAreaEnd
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
-						${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}("${column.name}"));//${column.name} to use instead of $velocityCount
+						${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}("${column.name}"));
+#if ($column.getSeparatorCharacters())
+						${sddOutputBeanVariable}.set${columnClass}_(
+							Arrays.asList(rs.get${columnType}("${column.name}").split(",")).stream()
+								.map(u -> {
+									String[] uA = u.split("|");
+									${sddOutputBeanClass}.${columnClass} c = ${sddOutputBeanVariable}.new ${columnClass}();
+									if (uA.length==$column.structuredArray.size()) {
+#foreach($field in $column.structuredArray)
+#set($fieldType = $convertUtils.getJavaTypeFromDBType($convertUtils.getDBFullTypeFromUMLType($field.type)))
+#set($fieldClass = $commonUtils.getJavaClassName($field.name))
+										c.set$fieldClass(uA[$foreach.index]);
+#end
+									}
+									return c;
+								})
+								.collect(Collectors.toList())
+						);
+#end
 #end
 						list.add(${sddOutputBeanVariable});
 #end

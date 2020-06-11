@@ -54,9 +54,23 @@ public class ${className} {
 #if($columnUtils.isTimeStampColumn($column))
 	@JsonSerialize (using=${applicationJsonDateSerializerClass}.class)
 #elseif ($columnUtils.isTimeColumn($column))
+#else
 #end
 #putValidationConstraints()
 #putFieldValidation()
+#if ($column.getSeparatorCharacters())
+##// array $column.isHidden() $column.isStructuredArray()	:$column.getSeparatorCharacters(), $column.arrayColumns, $column.arrayColumnsType
+	@Data
+	public class $columnClass {
+#foreach($field in $column.structuredArray)
+#set($fieldType = $convertUtils.getJavaTypeFromDBType($convertUtils.getDBFullTypeFromUMLType($field.type)))
+#set($fieldVariable = $javaUtils.getJavaVariableNaming($commonUtils.getJavaVariableName($field.name)))
+		$fieldType $fieldVariable;
+#end
+	}
+##TODO check dimensions if list or single element
+    private List<$columnClass> ${columnVar}_;
+#end
     private $columnType $columnVar;
 #if($hasDefaultValue)
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")

@@ -27,7 +27,6 @@ export default BaseAdapter.extend({
 #end
 #end
 
-
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
 #foreach ($composite in $package.getComposites())
 #exposeCompositeSpecific()
