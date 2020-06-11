@@ -248,12 +248,7 @@ public class QueryUtils {
 		boolean isIn = isInAtIndex(text, charOrdinalIndex);
 		text = text.substring(0,charOrdinalIndex)+value+text.substring(isIn?charOrdinalIndex+4:charOrdinalIndex+1);
 		return text;
-		//return isInAtIndex(text, index)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
 	}
-//	
-//	private static String replaceFirstArgWith(String text, String value) {
-//		return isIn(text)?StringUtils.replace(text, QUESTION_IN_MARK, value, 4):StringUtils.replace(text, QUESTION_MARK, value, 1);
-//	}
 
 	private static boolean isInAtIndex(String text, int index) {
 		return (text.substring(index).startsWith(QUESTION_IN_MARK)) ? true:false;
@@ -302,22 +297,6 @@ public class QueryUtils {
 			}
 		}
 	}
-/*
-	private static String getParamSample(QueryParam queryParam) {
-		String type = queryParam.getType();
-		String sample = queryParam.getSample();
-		if (StringUtils.isEmpty(type))
-			return sample;
-		type = type.toUpperCase();
-		if (type.equals(FieldType.CHAR))
-			return "'"+sample+"'";
-		if (type.equals(FieldType.DATE))
-			return "'"+sample+"'";
-		if (type.equals(FieldType.TIMESTAMP))
-			return "'"+sample+"'";
-		return sample;
-	}
-	*/
 
 	public static QueryParams getInputParams(Query query) {
 		return query.getQueryParams();

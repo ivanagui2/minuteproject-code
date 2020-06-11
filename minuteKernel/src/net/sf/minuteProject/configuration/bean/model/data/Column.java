@@ -2,6 +2,7 @@ package net.sf.minuteProject.configuration.bean.model.data;
 
 import java.util.List;
 
+import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.Trigger;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
@@ -65,5 +66,24 @@ public interface Column extends BaseColumn
 	
 	public List<FieldValidation> getValidations();
 	
+	public List<Field> getStructuredArray();
+	
+	/* remove start */
+	public void setIsStructuredArray(boolean isArray);
+	
+	public boolean isStructuredArray();
+
+	public void setSeparatorCharacters(String chars);
+	
+	public void setArrayColumns(String columns);
+	
+	public void setArrayColumnsType(String columnsType);
+
+	public String getSeparatorCharacters();
+	
+	public String getArrayColumns();
+	
+	public String getArrayColumnsType();
+	/* remove end */
 }
 

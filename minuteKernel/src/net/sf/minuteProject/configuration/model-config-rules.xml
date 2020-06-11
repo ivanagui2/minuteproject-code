@@ -359,6 +359,10 @@
 									<alias attr-name="hidden" prop-name="hidden" />
 									<alias attr-name="is-key" prop-name="key" />
 									<alias attr-name="value" prop-name="value" />
+							    	<alias attr-name="is-structured-array" prop-name="isStructuredArray" />
+									<alias attr-name="separator-characters" prop-name="separatorCharacters" />
+									<alias attr-name="array-columns" prop-name="arrayColumns" />
+									<alias attr-name="array-columns-type" prop-name="arrayColumnsType" />
 								</set-properties-rule>
 							</pattern>
 							<pattern value="query-schedulers/query-scheduler">
@@ -2225,6 +2229,10 @@
 								<alias attr-name="hidden" prop-name="hidden" />
 								<alias attr-name="is-key" prop-name="key" />
 								<alias attr-name="value" prop-name="value" />
+						    	<alias attr-name="is-structured-array" prop-name="isStructuredArray" />
+								<alias attr-name="separator-characters" prop-name="separatorCharacters" />
+								<alias attr-name="array-columns" prop-name="arrayColumns" />
+								<alias attr-name="array-columns-type" prop-name="arrayColumnsType" />
 							</set-properties-rule>
 						</pattern>
 						

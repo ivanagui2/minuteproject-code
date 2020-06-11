@@ -364,21 +364,6 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 				table.addColumn(getColumn(table, queryParam));
 			}
 		}
-		/*
-		if (direction==Direction.IN) {
-			if (hasPagination()) {
-				QueryParam maxResultQueryParam = PaginationUtils.getMaxResultQueryParam(queryPagination);
-				if (maxResultQueryParam!=null) {
-					table.addColumn(getColumn(table, maxResultQueryParam));
-				}
-				QueryParam offsetQueryParam = PaginationUtils.getOffsetQueryParam(queryPagination);
-				if (offsetQueryParam!=null) {
-					list.add(offsetQueryParam);
-					table.addColumn(getColumn(table, offsetQueryParam));
-				}
-			}
-		}
-		*/
 	}
 
 	private void complementColumn(Table table, Direction direction) {
@@ -387,16 +372,31 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 		//copy info to duplicate
 		for (QueryParam queryParam : list) {
 			for (Column column : table.getColumns()) {
-				if (column.getName().equals(queryParam.getName())) {
+				if (column.getName().equalsIgnoreCase(queryParam.getName())) {
 					column.setProperties(queryParam.getProperties());
 					column.setStereotype(queryParam.getStereotype());
 					column.setQueryParamLink(queryParam.getQueryParamLink());
 					column.setIsArray(queryParam.isArray());
 					column.setScope(queryParam.getScope());
-					column.setValidations(queryParam.getFieldValidations());
+					column.setValidations(queryParam.getFieldValidations());		
 				}
 			}
 		}
+		//only for direction OUT
+		if (direction == Direction.OUT) {
+			for (Field field : getQueryFields()) {
+				for (Column column : table.getColumns()) {
+					if (column.getName().equalsIgnoreCase(field.getName())) {			
+						column.setIsStructuredArray(field.isStructuredArray());
+						column.setSeparatorCharacters(field.getSeparatorCharacters());
+						column.setArrayColumns(field.getArrayColumns());
+						column.setArrayColumnsType(field.getArrayColumnsType());
+						column.setHidden(field.isHidden());
+					}
+				}
+			}
+		}
+
 	}
 
 	public List<QueryParam> getQueryParams(Direction direction) {
@@ -409,27 +409,6 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 					list.addAll(queryParams2.getFlatQueryParams(false));
 				}
 			}
-//			if (direction==Direction.IN) {
-//				if (hasPagination()) {
-//					QueryFilter offsetQueryFilter = PaginationUtils.getOffsetQueryFilter(queryPagination);
-//					QueryFilter maxResultQueryFilter = PaginationUtils.getMaxResultQueryFilter(queryPagination);
-//					if (offsetQueryFilter!=null) {
-//						list.addAll(offsetQueryFilter.getQueryParams().getFlatQueryParams(false));
-//					}
-//					if (maxResultQueryFilter!=null) {
-//						list.addAll(maxResultQueryFilter.getQueryParams().getFlatQueryParams(false));
-//					}
-////					QueryParam maxResultQueryParam = PaginationUtils.getMaxResultQueryParam(queryPagination);
-////					if (maxResultQueryParam!=null) {
-////						table.addColumn(getColumn(table, maxResultQueryParam));
-////					}
-////					QueryParam offsetQueryParam = PaginationUtils.getOffsetQueryParam(queryPagination);
-////					if (offsetQueryParam!=null) {
-////						list.add(offsetQueryParam);
-////						table.addColumn(getColumn(table, offsetQueryParam));
-////					}
-//				}
-//			}
 			return list;
 		}
 		if (getOutputParams() != null)

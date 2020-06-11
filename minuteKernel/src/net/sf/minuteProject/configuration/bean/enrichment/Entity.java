@@ -222,7 +222,12 @@ public class Entity extends AbstractConfiguration implements CoreElement {
 				column.setPrimaryKey(field.isKey());
 				column.setEditable(getEditable (field));
 				column.setSearchable(getSearchable (field));
-				column.setStereotype(field.getStereotype());//todo
+				column.setStereotype(field.getStereotype());
+				column.setIsStructuredArray(field.isStructuredArray());
+				column.setSeparatorCharacters(field.getSeparatorCharacters());
+				column.setArrayColumns(field.getArrayColumns());
+				column.setArrayColumnsType(field.getArrayColumnsType());
+				//todo
 				// reference not set at this time
 //				net.sf.minuteProject.configuration.bean.model.data.Reference reference = ReferenceUtils.getReference(table, columnName)Reference(column, database);
 //				if (reference!=null) {

@@ -3,12 +3,16 @@ package net.sf.minuteProject.configuration.bean.enrichment;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
 import net.sf.minuteProject.configuration.bean.enrichment.rule.Derivation;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
 import net.sf.minuteProject.configuration.bean.enumeration.Order;
 import net.sf.minuteproject.model.db.type.FieldType;
 
+@Getter
+@Setter
 public class Field extends AbstractConfiguration implements CoreElement {
 
 	private Entity entity;
@@ -19,12 +23,16 @@ public class Field extends AbstractConfiguration implements CoreElement {
 	private boolean isMandatory=false, 
 			isId=false,
 			isKey=false,
-			isHidden=false;
+			isHidden=false,
+			isArray=false,
+			isStructuredArray=false
+			;
 	private List<Trigger> triggers;
 	private List<Derivation> derivations;
 	private String ordering;
 	private String value, defaultValue;
 	private Boolean isSearchable,isEditable;
+	private String separatorCharacters, arrayColumns, arrayColumnsType;
 	private List<FieldValidation> fieldValidations = new ArrayList<>();
 
 	public String getSizeOrDefault() {
@@ -178,6 +186,10 @@ public class Field extends AbstractConfiguration implements CoreElement {
 		return linkReferenceAlias;
 	}
 
+	public void setSeparatorCharacters(String separatorCharacters) {
+		this.separatorCharacters = separatorCharacters;
+	}
+	
 	public void setLinkReferenceAlias(String linkReferenceAlias) {
 		this.linkReferenceAlias = linkReferenceAlias;
 	}

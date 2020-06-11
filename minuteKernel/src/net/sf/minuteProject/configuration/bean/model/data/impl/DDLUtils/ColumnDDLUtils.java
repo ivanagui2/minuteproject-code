@@ -439,9 +439,11 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 	public Stereotype getStereotype() {
 		return stereotype;
 	}
+	
 	public void setStereotype(Stereotype stereotype) {
 		this.stereotype = stereotype;
 	}
+	
 	public String getGeneratedBeanName() {
 		return FormatUtils.getJavaName(table.getName()+"_"+getName());
 	}
@@ -453,16 +455,17 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 
 	public void setVersion(boolean isVersion) {
 		this.isVersion = isVersion;
-	}	
-   public int minLength() {
-   	if (minLength==null)
-   		minLength = 0;
-   	return minLength;
-   }
+	}
+	
+	public int minLength() {
+		if (minLength==null)
+			minLength = 0;
+		return minLength;
+	}
    
-   public void setMinLength(int minLength) {
-   	this.minLength = minLength;
-   }
+	public void setMinLength(int minLength) {
+		this.minLength = minLength;
+	}
 
 	public List<Trigger> getTriggers() {
 		if (triggers==null) {
@@ -497,5 +500,6 @@ public class ColumnDDLUtils extends ColumnBaseAbstract implements Column
 	public void setScope(Scope scope) {
 		this.scope = scope;
 	}
+
 	
 }
