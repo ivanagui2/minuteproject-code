@@ -35,7 +35,6 @@ public class SqlQueryModel extends QueryModel {
 
 	@Override
 	public QueryParams getOutputParams(Query query) throws MinuteProjectException {
-		// TODO Auto-generated method stub
 		return QueryUtils.getOutputParams(query);
 	}
 }

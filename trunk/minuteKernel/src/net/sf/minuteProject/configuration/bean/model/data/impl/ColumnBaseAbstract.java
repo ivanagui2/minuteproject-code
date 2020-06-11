@@ -1,21 +1,28 @@
 package net.sf.minuteProject.configuration.bean.model.data.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.sf.minuteProject.configuration.bean.AbstractConfiguration;
+import net.sf.minuteProject.configuration.bean.enrichment.Field;
 import net.sf.minuteProject.configuration.bean.enrichment.validation.FieldValidation;
 import net.sf.minuteProject.configuration.bean.model.data.BaseColumn;
 import net.sf.minuteProject.configuration.bean.model.statement.QueryParamLink;
-
+@Getter
+@Setter
 public abstract class ColumnBaseAbstract extends AbstractConfiguration implements BaseColumn{
 
 	private String typeAlias;
 	private boolean isHidden=false, isTransient=false, isSearchable=true, isEditable=true;
-	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isArray = false, isOutputParam=false;
-	private String filterName, sessionParamName;
+	private boolean isContext=false, isImplicit=false, hasBeenDuplicated=false, isArray = false, isStructuredArray=false, isOutputParam=false;
+	private String filterName, sessionParamName, separatorCharacters, arrayColumns, arrayColumnsType;
 	private QueryParamLink queryParamLink;
 
 	private List<FieldValidation> fieldValidations = new ArrayList<>();
@@ -144,5 +151,40 @@ public abstract class ColumnBaseAbstract extends AbstractConfiguration implement
 	
 	public List<FieldValidation> getValidations() {
 		return fieldValidations;
+	}
+	
+	public List<Field> getStructuredArray() {
+		return Arrays.asList(getArrayColumns().split(",")).stream()
+			.map(u -> {
+				Field f = new Field();
+				f.setName(u);
+				f.setType("string");
+				return f;
+			})
+			.collect(Collectors.toList());
+	}
+	
+	public boolean isStructuredArray () {
+		return isStructuredArray;
+	}
+	
+	public void setIsStructuredArray(boolean isStructuredArray) {
+		this.isStructuredArray = isStructuredArray;
+	}
+	
+	public void setSeparatorCharacters(String separatorCharacters) {
+		this.separatorCharacters = separatorCharacters;
+	}
+	
+	public String getSeparatorCharacters() {
+		return this.separatorCharacters;
+	}
+
+	public void setArrayColumns(String arrayColumns) {
+		this.arrayColumns = arrayColumns;	
+	}
+
+	public void setArrayColumnsType(String arrayColumnsType) {
+		this.arrayColumnsType = arrayColumnsType;
 	}
 }

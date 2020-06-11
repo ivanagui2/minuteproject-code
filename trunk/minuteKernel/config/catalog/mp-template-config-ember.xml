@@ -162,7 +162,7 @@
             add-model-dir-name="false" 
 			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
-            application-specific="true"
+            model-specific="true"
             />
             
 		<template 
@@ -171,7 +171,7 @@
             add-model-dir-name="false" 
 			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
-            application-specific="true"
+            model-specific="true"
             />
             
         <!-- router -->
