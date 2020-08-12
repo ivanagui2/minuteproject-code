@@ -611,9 +611,6 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 
 	//validation
-	
-	
-
 	public void addEntityValidation(EntityValidation queryValidation) {
 		getEntityValidations().add(queryValidation);
 	}
@@ -622,6 +619,10 @@ public class Query<T extends QueryModel> extends AbstractConfiguration {
 	}
 	public void setEntityValidations(List<EntityValidation> entityValidations) {
 		this.entityValidations = entityValidations;
+	}
+	
+	public boolean hasQueryChunkWithParams() {
+		return getQueryChunks().stream().anyMatch(u -> u.getQueryChunkParams().size()>0);
 	}
 
 }
