@@ -64,6 +64,7 @@ $readmeUtils.getReadme($template)
 #set ($inputBean = $query.inputBean)
 #set ($outputBean = $query.outputBean)
 #set ($isNotVoidInput = !$inputBean.getColumns().isEmpty())
+#set ($hasQueryChunkWithParams = $query.hasQueryChunkWithParams())
 #end
 
 #macro(exposeQueryPivotSpecific)
@@ -503,9 +504,9 @@ $!updatedAreaEnd
 
 #macro (injectPrepareStatementParams)
 #if($query.isWrite())
-		private void injectPrepareStatementParams(CallableStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+		private void injectPrepareStatementParams(CallableStatement pstmt#if($isNotVoidInput), $sddInputBeanClass $sddInputBeanVariable#end) throws SQLException {
 #else
-		private void injectPrepareStatementParams(PreparedStatement pstmt, $sddInputBeanClass $sddInputBeanVariable) throws SQLException {
+		private void injectPrepareStatementParams(PreparedStatement pstmt#if($isNotVoidInput), $sddInputBeanClass $sddInputBeanVariable#end) throws SQLException {
 #end
 			int index = 1;
 #foreach($column in $inputBean.columns)
@@ -542,8 +543,8 @@ $!updatedAreaEnd
 
 ##macro putSddExecuteStatementClosable
 #macro (putSddExecuteStatementClosable) 
-#if($isNotVoidInput) 
-					injectPrepareStatementParams(pstmt, $sddInputBeanVariable);
+#if($isNotVoidInput || $hasQueryChunkWithParams) 
+					injectPrepareStatementParams(pstmt#if($isNotVoidInput), $sddInputBeanVariable#end);
 #end
 #if ($query.isWrite())
 #if($query.queryParams.hasOutputParam())
@@ -579,12 +580,13 @@ $!updatedAreaEnd
 #foreach($column in $outputBean.columns)
 #putColumnParamNaming()
 #set($columnType = $statementUtils.getJdbcType($column))
+#if (!$column.getSeparatorCharacters())
 						${sddOutputBeanVariable}.set$columnClass(rs.get${columnType}("${column.name}"));
-#if ($column.getSeparatorCharacters())
-						${sddOutputBeanVariable}.set${columnClass}_(
-							Arrays.asList(rs.get${columnType}("${column.name}").split(",")).stream()
+#else
+						${sddOutputBeanVariable}.set${columnClass}(
+							Arrays.asList(rs.get${columnType}("${column.name}").split("\\,")).stream()
 								.map(u -> {
-									String[] uA = u.split("|");
+									String[] uA = u.split("\\|");
 									${sddOutputBeanClass}.${columnClass} c = ${sddOutputBeanVariable}.new ${columnClass}();
 									if (uA.length==$column.structuredArray.size()) {
 #foreach($field in $column.structuredArray)
