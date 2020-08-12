@@ -69,9 +69,10 @@ public class ${className} {
 #end
 	}
 ##TODO check dimensions if list or single element
-    private List<$columnClass> ${columnVar}_;
-#end
+    private List<$columnClass> ${columnVar};
+#else
     private $columnType $columnVar;
+#end
 #if($hasDefaultValue)
 #set($defaultConstant = "__DEFAULT_$formatUtils.getUppercaseUnderscore($column.alias)")
     public $columnType get${columnClass}(){

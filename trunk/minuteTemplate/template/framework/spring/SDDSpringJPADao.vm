@@ -211,7 +211,7 @@ $!updatedAreaEnd
 #else
 		List<$sddOutputBeanClass> list = new ArrayList<>();
 #end
-#if($isNotVoidInput) 
+#if($isNotVoidInput || $hasQueryChunkWithParams) 
 #injectPrepareStatementParams()
 #end
 
