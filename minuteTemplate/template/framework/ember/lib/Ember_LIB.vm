@@ -1,3 +1,38 @@
+#macro (exposeEmberSpecific)
+#set($isOctane=$template.getPropertyValue("ember-octane","true"))
+#end
+
+#macro (exposeEmberQuerySpecific)
+#exposeEmberSpecific()
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#exposeVariableEntitySpecific()
+#putImportQuerySDDBean()
+#putImportSDDInputBean()
+#exposeEmberSpecific()
+#exposeEmberTemplate()
+#set ($modelEmberServiceClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberService))
+#end
+
+
+#macro (exposeEmberModelSpecific)
+#exposeVariableModelSpecific()
+#exposeEmberSpecific()
+#exposeEmberTemplate()
+#set ($modelEmberBaseAdapterClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberBaseAdapter))
+#set ($modelEmberBaseAdapterVariable = $commonUtils.getJavaNameVariableFirstLetter($modelEmberBaseAdapterClass))
+#set ($modelEmberBaseAdapterImport = $commonUtils.getModelLevelTemplateFullPath($model, $template, $templateEmberBaseAdapter))
+#end
+
+#macro (exposeEmberTemplate)
+#set ($templateEmberBaseAdapter = "EmberBaseAdapterJs")
+#set ($templateEmberAdapter = "EmberAdapterJs")
+#set ($templateEmberService = "EmberServiceJs")
+#set ($templateEmberRouter = "EmberRouterJs")
+#set ($templateEmberRouteIndex = "EmberRouteIndexJs")
+#set ($templateEmberControllerIndex = "EmberControllerIndexJs")
+#end
+
 #macro(putEmberMenuPackage)
 ##https://github.com/insanio/Ember.ex/tree/master/examples inspiration
 #set($displayableEntities = $presentationUtils.getDisplayableEntityFromPackage($package))

@@ -1,28 +1,53 @@
-#exposeVariableModelSpecific()
+#exposeEmberModelSpecific()
+#if($isOctane)
+##import {fetchData} from '../utils/common-utils';
+##import BaseAdapter from './${modelEmberBaseAdapterClass}';
+##import appendQuery from 'append-query';##TODO change dependent of ember version > octane => import appendQuery from 'append-query'
+##
+##export default class ${className} extends BaseAdapter {
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
+import {fetchData} from '../utils/common-utils';
+import appendQuery from 'append-query';
+
+/*
+import config from '../../config/environment';
+const { host, namespace } = config.scoreDS;
+const baseUrl = host+"/"+namespace;
+*/
+
+export default class ${className} extends JSONAPIAdapter {
+
+#else
 import DS from 'ember-data';
 import {fetchData} from '../utils/common-utils';
 import BaseAdapter from './BaseAdapter';
 import appendQuery from 'npm:append-query';##TODO change dependent of ember version > octane => import appendQuery from 'append-query'
 
-import config from '../config/environment';
+import config from '../../config/environment';
 const { host, namespace } = config.DS${className};
 const baseUrl = host+"/"+namespace;
 
 export default BaseAdapter.extend({
 
+#end
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
-//$package.name
+    //package $package.name
 #foreach ($query in $package.getQueries())
 #if (!$queryUtils.isBackend($query))
 #exposeQuerySpecific()
 #set($table=$query.inputBean)
 #exposeVariableEntitySpecific()
 #putImportSDDInputBean()
-
-	/* connector to $domainClassName info */
+    /* connector to $domainClassName info */
+#if($isOctane)
+    ${tableVariableName} (params) {
+        return fetchData(baseUrl+'/data/sdd/${sddInputBeanClass}'+filter${domainClassName}(params));
+    }
+#else
     ${tableVariableName} : function(params) {
         return fetchData(baseUrl+'/data/sdd/${sddInputBeanClass}'+filter${domainClassName}(params));
     },
+#end
 #end
 #end
 #end
@@ -46,7 +71,11 @@ export default BaseAdapter.extend({
 #end
 #end
 
+#if($isOctane)
+}
+#else
 });
+#end
 
 
 #foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
@@ -88,9 +117,12 @@ function filter${domainClassName} (filter) {
 #foreach($column in $inputBean.columns)
 #if (!$column.hasBeenDuplicated())
 #putColumnParamNaming()
-				"$columnVar":filter.$columnVar #if($velocityCount!=$size),
+				"$columnVar":filter.$columnVar,
 #end
 #end
+#foreach($queryChunk in $query.getQueryChunks())
+#set($chunkName=$javaUtils.getJavaVariableNaming($queryChunk.name))
+				"$chunkName":filter.$chunkName,	//Allowed values $queryChunk.getDistinctValues()
 #end
 				}, 
 				{ removeNull: true }

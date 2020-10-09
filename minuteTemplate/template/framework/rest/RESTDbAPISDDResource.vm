@@ -272,6 +272,7 @@ $!updatedAreaBegin
     }
 #end
 
+#* TODO 
 #foreach ($pivot in $query.pivots)
 #set($pivotClass = $formatUtils.getJavaName($pivot.name))
 #set($pivotClasses = $i18nUtils.plurialize($pivotClass))
@@ -290,11 +291,12 @@ $!updatedAreaBegin
         return get${pivotClasses}(list);
     }
 #end
+*#
 
 #foreach ($pivot in $query.pivots)
 #set($pivotClass = $formatUtils.firstUpperCase($pivot.name))
 #set($pivotClasses = $i18nUtils.plurialize($pivotClass))
-	@org.lombok.Data
+	@lombok.Data
 	private class $pivotClass {
 #foreach ($column in $pivot.getColumnList())
 #putColumnParamNaming()
