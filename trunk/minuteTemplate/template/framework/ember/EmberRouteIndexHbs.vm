@@ -3,7 +3,7 @@
 #putImportQuerySDDBean()
 #putImportSDDInputBean()
 #exposeQuerySpecific()
-{{#layout/container/index-layout-container}}
+{{!--#layout/container/index-layout-container--}}
     <div class="row">
         <div class="col-md-12">
 #foreach($column in $inputBean.columns)
@@ -36,8 +36,7 @@
     </div>
  
     <div class="container">
-        <h2>Results</h2>
-        <p>$sddOutputBeanVariable results:</p>            
+        <h2>Results <span class="badge badge-dark" >{{model.${sddOutputBeanClass}.length}}</span></h2>         
         <table class="table table-condensed">
             <thead>
                 <tr>
@@ -51,7 +50,7 @@
             	</tr>
             </thead>
             <tbody>
-{{#each model.$sddOutputBeanVariable as |item index| }} 
+{{#each model.$sddOutputBeanClass as |item index| }} 
             	<tr>
 #foreach($column in $outputBean.columns)
 #if (!$column.hasBeenDuplicated())
@@ -65,4 +64,4 @@
             </tbody>
 		</table>
     </div>
-{{/layout/container/index-layout-container}}
+{{!--/layout/container/index-layout-container--}}

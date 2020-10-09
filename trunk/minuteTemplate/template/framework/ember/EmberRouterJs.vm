@@ -1,21 +1,30 @@
+#exposeEmberModelSpecific()
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
-
-const Router = Ember.Router.extend({
-  location: config.locationType,
-  rootURL: config.rootURL,
-  headData: Ember.inject.service(),
+export default class Router extends EmberRouter {
+  	location = config.locationType;
+	rootURL = config.rootURL;
+	/*
+	  headData: Ember.inject.service(),
 
   setTitle(title) {
     this.get('headData').set('title', title);
   }
-    
-});
+  */
+}
 
 Router.map(function() {
-
-  this.route('search');
+#foreach ($package in $model.getStatementModel().getSddPackage().getQueryPackages())
+	this.route('${package.name}', function() {
+#foreach ($query in $package.getQueries())
+#exposeQuerySpecific()
+#set($table=$query.inputBean)
+#set($queryClassName=$formatUtils.getJavaName($table.name))  
+		this.route('index${queryClassName}');
+		this.route('entity${queryClassName}');
+#end
+	});
+#end
 });
 
-export default Router;

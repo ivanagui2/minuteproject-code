@@ -1,0 +1,4 @@
+npm i ember-bootstrap
+ember install ember-bootstrap
+npm install append-query
+npm i lodash
