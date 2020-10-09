@@ -286,6 +286,26 @@ public enum Extension implements FileComment {
 			return true;
 		}
 	}
+	,hbs {
+		public String lineCommentBeginning() {
+			return "{{!--";
+		}
+		public String lineCommentEnding() {
+			return "--}}";
+		}
+		public String textCommentBeginning() {
+			return "{{!--";
+		}
+		public String textCommentMiddle() {
+			return "";
+		}
+		public String textCommentEnding() {
+			return "--}}";
+		}
+		public boolean licenceAtBeginning() {
+			return true;
+		}
+	}
 	;
 
 	private static final String CRLF = "\n";
