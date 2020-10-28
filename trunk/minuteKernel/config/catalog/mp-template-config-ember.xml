@@ -65,7 +65,8 @@
             scope-specific-value="sdd-input-bean"
             >
             <property name="direction" value="in"/>
-            </template>
+           </template>
+            
         <template name="EmberModelOutput" templateFileName="EmberModelJs.vm" 
             file-extension="ts" technicalPackage="sdd" file-suffix="Out"
             add-model-dir-name="false" 
@@ -142,15 +143,63 @@
             /> -->
 
 	</template-target>
-   	
+  
+     <template-target 
+	   	name="Ember client"
+		outputdir="src/main/ui/components"
+		package-root=""
+		libdir="lib/Ember_LIB.vm">
+		
+		<!-- UI -->
+		<template name="EmberUiNavBar.hbs" templateFileName="EmberUiNavBar.hbs.vm"
+			subdir="" 
+			outputsubdir="layout" 
+			technicalPackage="" 
+			add-model-name="false"
+			add-model-dir-name="false"
+			add-package-name="true" file-extension="hbs"
+			file-prefix="nav-bar" file-suffix="" 
+			application-specific="true">
+		</template>	
+	
+		<template 
+			name="EmberComponentIndexHbs" templateFileName="EmberComponentIndexHbs.vm" 
+            file-extension="hbs" technicalPackage="page" file-prefix="index"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
+            scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
+            />
+		<template 
+			name="EmberComponentIndexJs" templateFileName="EmberComponentIndexJs.vm" 
+            file-extension="js" technicalPackage="page" file-prefix="index"
+            add-model-dir-name="false" 
+			add-package-name="false" add-business-package-dir-name="false"
+			package-root=""
+            scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
+            />
+            
+	</template-target>
+		
    	<template-target 
 	   	name="Ember client"
 		outputdir="src/main/ui/"
 		package-root=""
 		libdir="lib/Ember_LIB.vm">
+	
+		<template name="EmberRouterJs" templateFileName="EmberRouterJs.vm"
+			subdir="" outputsubdir="" technicalPackage="" add-model-name="false"
+			add-model-dir-name="false" add-package-name="false" 
+			file-extension="js"
+			file-prefix="router" file-suffix="" application-specific="true">
+		</template>
 		
 		<template name="EmberBaseAdapterJs" templateFileName="EmberBaseAdapterJs.vm"
-			subdir="" outputsubdir="" technicalPackage="adapters" add-model-name="false"
+			subdir="" outputsubdir="" technicalPackage="adapters" add-model-name="true"
 			add-model-dir-name="false" add-package-name="false" file-extension="js"
 			file-prefix="BaseAdapter" file-suffix="" application-specific="true">
 		</template>	
@@ -163,6 +212,8 @@
 			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
             model-specific="true"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
             
 		<template 
@@ -172,9 +223,11 @@
 			add-package-name="true" add-business-package-dir-name="false"
 			package-root=""
             model-specific="true"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
             
-        <!-- router -->
+        <!-- router to check already done
 		<template 
 			name="EmberRouterJs" templateFileName="EmberRouterJs.vm" 
             file-extension="js" technicalPackage="" file-suffix=""
@@ -183,7 +236,7 @@
 			package-root=""
             model-specific="true"
             />
-            
+            -->
         <!-- main routes index -->
 		<template 
 			name="EmberRouteIndexJs" templateFileName="EmberRouteIndexJs.vm" 
@@ -192,6 +245,8 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
 
 		<template 
@@ -201,6 +256,8 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
                         
 		<template 
@@ -210,6 +267,8 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
             
         <!-- main routes entity -->
@@ -220,6 +279,8 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
             
 		<template 
@@ -229,6 +290,8 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
             
 		<template 
@@ -238,12 +301,17 @@
 			add-package-name="false" add-business-package-dir-name="false"
 			package-root=""
             scope-specific-value="query"
+            file-name-builder-plugin="emberUtils"
+			file-name-builder-method="getEmberFileName"
             />
-            
+         
+                       
         <!-- utils -->
 		<template 
 			name="EmberCommonUtilsJs" templateFileName="EmberCommonUtilsJs.vm" 
             file-extension="js" technicalPackage="utils" file-prefix="common-utils"
+            add-application-name = "false"
+            add-model-name = "false"
             scope-specific-value="application"
             />             
 	</template-target> 	
