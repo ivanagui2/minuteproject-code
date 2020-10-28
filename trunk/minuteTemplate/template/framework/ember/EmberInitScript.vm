@@ -2,6 +2,7 @@ ember new ${applicationName}
 # copy generated code
 # check backend REST URLs are up
 
+ember install ember-cli-sass
 
 #**
 Open config/environment.js

@@ -12,6 +12,14 @@
 #exposeEmberSpecific()
 #exposeEmberTemplate()
 #set ($modelEmberServiceClass = $commonUtils.getTemplateClassName($model, $template, $templateEmberService))
+#set ($importEmberQueryComponentIndexFullPath = $commonUtils.getLevelTemplateFullPath($query, $template, $templateEmberComponentIndexHbs))
+#set ($importEmberQueryComponentRouteFullPath = $commonUtils.getLevelTemplateFullPath($query, $template, $templateEmberRouteIndexJs))
+#set ($importEmberQueryIndexPath = $emberUtils.getComponentPath($importEmberQueryComponentIndexFullPath))
+#set ($importEmberQueryComponentIndexClassPath = $emberUtils.getComponentClassPath($importEmberQueryComponentIndexFullPath))
+#set ($importEmberQueryIndexRouterFullPath = $emberUtils.getComponentRouterPath($importEmberQueryComponentRouteFullPath))
+#set ($importEmberQueryIndexRouterPath = $emberUtils.strip($importEmberQueryIndexRouterFullPath,'routes.'))
+#set ($importEmberQueryControllerIndexFullPath = $commonUtils.getLevelTemplateFullPath($query, $template, $templateEmberControllerIndexJs))
+#set ($importEmberQueryControllerIndexClassPath = $emberUtils.getComponentClassPath($importEmberQueryControllerIndexFullPath))
 #end
 
 
@@ -29,8 +37,9 @@
 #set ($templateEmberAdapter = "EmberAdapterJs")
 #set ($templateEmberService = "EmberServiceJs")
 #set ($templateEmberRouter = "EmberRouterJs")
-#set ($templateEmberRouteIndex = "EmberRouteIndexJs")
-#set ($templateEmberControllerIndex = "EmberControllerIndexJs")
+#set ($templateEmberRouteIndexJs = "EmberRouteIndexJs")
+#set ($templateEmberComponentIndexHbs = "EmberComponentIndexHbs")
+#set ($templateEmberControllerIndexJs = "EmberControllerIndexJs")
 #end
 
 #macro(putEmberMenuPackage)
