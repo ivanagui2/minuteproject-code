@@ -93,7 +93,7 @@ $!updatedAreaBegin
 #if($isUpdated)
 $!updatedAreaSnippet
 #else
-#if($query.isCache())
+#if($query.isCache() && !$query.isWrite())
 #set($cacheName=$formatUtils.getJavaNameVariable(${query.name})+"Cache")
 	@Cacheable (cacheNames="${cacheName}") 
 #end
