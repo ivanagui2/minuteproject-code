@@ -12,5 +12,7 @@ ember install ember-bootstrap
 ember install @fortawesome/ember-fontawesome
 npm i --save-dev @fortawesome/free-solid-svg-icons
 
+ember install ember-power-select
+
 ## how to use fa icon directlty ?
 ## npm install --save @fortawesome/fontawesome-free
