@@ -11,17 +11,18 @@
 		package-root=""
 		belongToPackage="true">
 			 
+		<template name="EmberAppScss" templateFileName="EmberAppScss.vm" 
+			has-updatable-nature="true"
+			file-extension="scss" 
+			file-prefix="app"
+			application-specific="true" >
+		</template>
+		
 		<template name="EmberScss" templateFileName="EmberScss.vm" 
 			has-updatable-nature="true"
 			file-extension="scss" file-suffix="" file-prefix="_"
 			application-specific="true" add-model-name="true" >
 		</template>
-			 <!-- 
-		<template name="KendoUiAbstractsColorsScss" templateFileName="KendoUiAbstractsColorsScss.vm" 
-			has-updatable-nature="true"
-			file-extension="scss" technicalPackage="abstracts" file-prefix="_colors" 
-			application-specific="true" add-model-name="false" >
-		</template> -->
 
     </template-target>
     

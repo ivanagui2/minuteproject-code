@@ -95,14 +95,20 @@ public class QueryUtils {
 	private static QueryParams getOutputParamsFromCallableStatement(Connection connection, QueryParams queryParams, String query,
 			Database database) throws SQLException {
 		CallableStatement callableStatement = connection.prepareCall(query);
-		int i = 1;
+		//callableStatement.execute(createSP);
+		
 		//TODO should not be last only
+		//instead of using sample query
+		//TODO callableStatement.executeUpdate();
+		/*
+		 * int i = 1;
 		for (QueryParam queryParam : queryParams.getQueryParams()) {
 			if (queryParam.isOutputParam()) {				
 				callableStatement.registerOutParameter(i, ConvertUtils.getTypeTypeFromUMLType(queryParam.getType()));
 				i++;
 			}
 		}
+		*/
 
 		QueryParams queryParams2 = new QueryParams();
 		for (QueryParam queryParam : queryParams.getQueryParams()) {
